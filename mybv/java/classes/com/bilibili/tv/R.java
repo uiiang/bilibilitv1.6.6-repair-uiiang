@@ -2625,14 +2625,15 @@ public final class R {
         public static final int recycler_view_item_video_other_title = 0x7f0a0081;
         public static final int recycler_view_item_video_place_holder = 0x7f0a0082;
         public static final int recycler_view_item_video_tag = 0x7f0a0083;
-        public static final int select_dialog_item_material = 0x7f0a0084;
-        public static final int select_dialog_multichoice_material = 0x7f0a0085;
-        public static final int select_dialog_singlechoice_material = 0x7f0a0086;
-        public static final int support_simple_spinner_dropdown_item = 0x7f0a0087;
-        public static final int tooltip = 0x7f0a0088;
+        public static final int recycler_view_item_video_to_view = 0x7f0a0084;
+        public static final int select_dialog_item_material = 0x7f0a0085;
+        public static final int select_dialog_multichoice_material = 0x7f0a0086;
+        public static final int select_dialog_singlechoice_material = 0x7f0a0087;
+        public static final int support_simple_spinner_dropdown_item = 0x7f0a0088;
+        public static final int tooltip = 0x7f0a0089;
 
-        public static final int fragment_experiment = 0x7f0a0089;
-        public static final int fragment_personalization = 0x7f0a008a;
+        public static final int fragment_experiment = 0x7f0a008a;
+        public static final int fragment_personalization = 0x7f0a008b;
     }
 
     public static final class mipmap {

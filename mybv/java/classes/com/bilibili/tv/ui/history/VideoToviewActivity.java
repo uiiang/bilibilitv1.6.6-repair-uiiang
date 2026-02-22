@@ -505,7 +505,8 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements Vie
 
             public final f a(ViewGroup viewGroup) {
                 bbi.b(viewGroup, "parent");
-                View inflate = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_view_item_video_info, viewGroup, false);
+                View inflate = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.recycler_view_item_video_info, viewGroup, false);
                 bbi.a((Object) inflate, "view");
                 return new f(inflate);
             }
