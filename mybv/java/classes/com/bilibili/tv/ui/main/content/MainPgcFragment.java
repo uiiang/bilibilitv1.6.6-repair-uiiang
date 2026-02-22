@@ -110,17 +110,13 @@ public final class MainPgcFragment extends adu implements aez, wf {
         recyclerView.setTag("bangumi");
         final FragmentActivity activity = getActivity();
         final int i = f;
-        final int i2 = 0;
+        final int i2 = 1;
         final boolean z = false;
         this.a = new BorderGridLayoutManager(activity, i, i2, z) { // from class: com.bilibili.tv.ui.main.content.MainPgcFragment$onViewCreated$1
             @Override // android.support.v7.widget.RecyclerView.h
             public View d(View view, int i3) {
                 int d2 = d(view);
-                if (i3 != 33) {
-                    if (i3 == 130 && d2 >= 3) {
-                        return view;
-                    }
-                } else if (d2 == 0 || d2 > 3) {
+                if (i3 == 33 && d2 < 4) {
                     FragmentActivity activity2 = MainPgcFragment.this.getActivity();
                     if (activity2 == null) {
                         throw new TypeCastException("null cannot be cast to non-null type com.bilibili.tv.ui.main.MainActivity");
@@ -149,10 +145,7 @@ public final class MainPgcFragment extends adu implements aez, wf {
     public static final class f extends GridLayoutManager.c {
         @Override // android.support.v7.widget.GridLayoutManager.c
         public int a(int i) {
-            if (i < MainPgcFragment.f) {
-                return 1;
-            }
-            return MainPgcFragment.f;
+            return 1;
         }
     }
 
@@ -166,42 +159,20 @@ public final class MainPgcFragment extends adu implements aez, wf {
 
         @Override // android.support.v7.widget.RecyclerView.g
         public void a(Rect rect, View view, RecyclerView recyclerView, RecyclerView.s sVar) {
-            int i;
-            int i2;
-            int i3;
             bbi.b(rect, "outRect");
             bbi.b(view, "view");
             bbi.b(recyclerView, "parent");
-            switch (recyclerView.f(view)) {
-                case 0:
-                    i = (this.a * 3) / 2;
-                    i2 = 0;
-                    i3 = 0;
-                    break;
-                case 1:
-                    int i4 = this.a;
-                    i3 = (this.a / 3) * 2;
-                    i = i4;
-                    i2 = 0;
-                    break;
-                case 2:
-                    int i5 = this.a;
-                    i = (this.a / 3) * 2;
-                    i3 = i5;
-                    i2 = 0;
-                    break;
-                case 3:
-                    i3 = (this.a * 3) / 2;
-                    i2 = 0;
-                    i = 0;
-                    break;
-                default:
-                    i2 = this.a * 2;
-                    i3 = 0;
-                    i = 0;
-                    break;
-            }
-            rect.set(i2, i3, 0, i);
+            int f = recyclerView.f(view);
+            int top = f < MainPgcFragment.f ? 0 : this.a;
+            int bottom = this.a;
+            int mod = f % MainPgcFragment.f;
+            int spacing = this.a;
+            int halfSpacing = spacing / 2;
+            
+            int left = halfSpacing - (mod * spacing) / MainPgcFragment.f;
+            int right = ((mod + 1) * spacing) / MainPgcFragment.f - halfSpacing;
+            
+            rect.set(left, top, right, bottom);
         }
     }
 
@@ -327,6 +298,13 @@ public final class MainPgcFragment extends adu implements aez, wf {
                 c.setColorFilter(adl.d(mainPagerInfo2.getColorId()), PorterDuff.Mode.SRC_ATOP);
                 advVar.a.setBackgroundDrawable(c);
                 advVar.a.setTag(R.id.position, Integer.valueOf(i));
+                
+                ViewGroup.LayoutParams layoutParams = advVar.a.getLayoutParams();
+                if (layoutParams != null) {
+                    layoutParams.height = adl.b(R.dimen.px_130);
+                    advVar.a.setLayoutParams(layoutParams);
+                }
+                
                 return;
             }
             if (advVar instanceof e) {
@@ -393,6 +371,13 @@ public final class MainPgcFragment extends adu implements aez, wf {
             this.o = (ImageView) a(view, R.id.img);
             this.p = (DrawLinearLayout) view;
             this.p.setUpDrawable(R.drawable.shadow_item_main);
+            
+            ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+            if (layoutParams != null) {
+                layoutParams.height = adl.b(R.dimen.px_130);
+                view.setLayoutParams(layoutParams);
+            }
+            
             view.setOnClickListener(this);
             view.setOnFocusChangeListener(this);
         }
