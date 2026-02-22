@@ -162,7 +162,8 @@ public final class MainBangumiFragment extends adu implements aez, wf {
             bbi.b(view, "view");
             bbi.b(recyclerView, "parent");
             int f = recyclerView.f(view);
-            int top = f >= MainBangumiFragment.f ? this.a : 0;
+            int top = f < MainBangumiFragment.f ? 0 : this.a;
+            int bottom = this.a;
             int mod = f % MainBangumiFragment.f;
             int spacing = this.a;
             int halfSpacing = spacing / 2;
@@ -170,7 +171,7 @@ public final class MainBangumiFragment extends adu implements aez, wf {
             int left = halfSpacing - (mod * spacing) / MainBangumiFragment.f;
             int right = ((mod + 1) * spacing) / MainBangumiFragment.f - halfSpacing;
             
-            rect.set(left, top, right, 0);
+            rect.set(left, top, right, bottom);
         }
     }
 
@@ -302,7 +303,7 @@ public final class MainBangumiFragment extends adu implements aez, wf {
                 
                 ViewGroup.LayoutParams layoutParams = advVar.a.getLayoutParams();
                 if (layoutParams != null) {
-                    layoutParams.height = adl.b(R.dimen.px_200);
+                    layoutParams.height = adl.b(R.dimen.px_130);
                     advVar.a.setLayoutParams(layoutParams);
                 }
                 
@@ -375,7 +376,7 @@ public final class MainBangumiFragment extends adu implements aez, wf {
             
             ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
             if (layoutParams != null) {
-                layoutParams.height = adl.b(R.dimen.px_200);
+                layoutParams.height = adl.b(R.dimen.px_130);
                 view.setLayoutParams(layoutParams);
             }
             
