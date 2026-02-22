@@ -38,8 +38,8 @@ import com.bilibili.tv.widget.side.SideRightGridLayoutManger;
 public final class MainMyFragment extends adu implements aez, wf {
     public static final a Companion = new a(null);
     private static final String d = "MainMyFragment";
-    private static final int e = 5;
-    private GridLayoutManager a;
+    private static final int e = 4;
+    private BorderGridLayoutManager a;
     private b b;
     private boolean c;
 
@@ -112,16 +112,17 @@ public final class MainMyFragment extends adu implements aez, wf {
     public void a(RecyclerView recyclerView, Bundle bundle) {
         bbi.b(recyclerView, "recyclerView");
         super.a(recyclerView, bundle);
-        int b2 = adl.b(R.dimen.px_24);
-        int b3 = adl.b(R.dimen.px_48);
-        recyclerView.setPadding(b2, b3, b2, b3);
-        this.a = new BorderGridLayoutManager(getActivity(), 1, 0, false) { // from class: com.bilibili.tv.ui.main.content.MainMyFragment$onViewCreated$1
+        int b2 = adl.b(R.dimen.px_13);
+        int b3 = adl.b(R.dimen.px_50);
+        recyclerView.setPadding(b3, b3, b3, b3);
+        final int i = e;
+        final int i2 = 1;
+        final boolean z = false;
+        this.a = new BorderGridLayoutManager(getActivity(), i, i2, z) { // from class: com.bilibili.tv.ui.main.content.MainMyFragment$onViewCreated$1
             @Override // android.support.v7.widget.RecyclerView.h
             public View d(View view, int direction) {
-                if (direction != View.FOCUS_LEFT) {
-                    if (direction != View.FOCUS_UP) {
-                        return (direction == View.FOCUS_RIGHT || direction == View.FOCUS_DOWN) ? view : super.d(view, direction);
-                    }
+                int d2 = d(view);
+                if (direction == 33 && d2 < 4) {
                     FragmentActivity activity = MainMyFragment.this.getActivity();
                     if (activity == null) {
                         throw new TypeCastException("null cannot be cast to non-null type com.bilibili.tv.ui.main.MainActivity");
@@ -131,7 +132,7 @@ public final class MainMyFragment extends adu implements aez, wf {
                     mainActivity.b(false);
                     return mainActivity.j();
                 }
-                return view;
+                return super.d(view, direction);
             }
         };
         this.b = new b();
@@ -145,18 +146,28 @@ public final class MainMyFragment extends adu implements aez, wf {
     /* compiled from: BL */
     /* loaded from: classes.dex */
     public static final class ItemDecoration extends RecyclerView.g {
-        final /* synthetic */ int space;
+        final /* synthetic */ int a;
 
-        ItemDecoration(int space) {
-            this.space = space;
+        ItemDecoration(int i) {
+            this.a = i;
         }
 
         @Override // android.support.v7.widget.RecyclerView.g
-        public void a(Rect outRect, View view, RecyclerView parent, RecyclerView.s state) {
-            bbi.b(outRect, "outRect");
+        public void a(Rect rect, View view, RecyclerView recyclerView, RecyclerView.s sVar) {
+            bbi.b(rect, "outRect");
             bbi.b(view, "view");
-            bbi.b(parent, "parent");
-            outRect.set(this.space, 0, 0, 0);
+            bbi.b(recyclerView, "parent");
+            int f = recyclerView.f(view);
+            int top = f < MainMyFragment.e ? 0 : this.a;
+            int bottom = this.a;
+            int mod = f % MainMyFragment.e;
+            int spacing = this.a;
+            int halfSpacing = spacing / 2;
+            
+            int left = halfSpacing - (mod * spacing) / MainMyFragment.e;
+            int right = ((mod + 1) * spacing) / MainMyFragment.e - halfSpacing;
+            
+            rect.set(left, top, right, bottom);
         }
     }
 
