@@ -37,7 +37,7 @@ import kotlin.TypeCastException;
 public final class afa extends adu implements aez, wf {
     public static final a Companion = new a(null);
     private static final String d = "MainAreaFragment";
-    private static final int e = 2;
+    private static final int e = 5;
     private GridLayoutManager a;
     private c b;
     private int c;
@@ -81,7 +81,7 @@ public final class afa extends adu implements aez, wf {
         recyclerView.setPadding(b4, b4, b4, b4);
         final FragmentActivity activity = getActivity();
         final int i = e;
-        final int i2 = 0;
+        final int i2 = 1;
         final boolean z = false;
         this.a = new FixGridLayoutManager(activity, i, i2, z) { // from class: com.bilibili.tv.ui.main.content.MainAreaFragment$onViewCreated$1
             @Override // android.support.v7.widget.RecyclerView.h
@@ -91,7 +91,7 @@ public final class afa extends adu implements aez, wf {
                 }
                 int d2 = d(view);
                 if (i3 == 33) {
-                    if (d2 % 2 == 0) {
+                    if (d2 < 5) {
                         FragmentActivity activity2 = afa.this.getActivity();
                         if (activity2 == null) {
                             throw new TypeCastException("null cannot be cast to non-null type com.bilibili.tv.ui.main.MainActivity");
@@ -101,8 +101,6 @@ public final class afa extends adu implements aez, wf {
                         mainActivity.b(false);
                         return mainActivity.j();
                     }
-                } else if (i3 == 130 && d2 % 2 != 0) {
-                    return view;
                 }
                 return super.d(view, i3);
             }
@@ -126,21 +124,19 @@ public final class afa extends adu implements aez, wf {
 
         @Override // android.support.v7.widget.RecyclerView.g
         public void a(Rect rect, View view, RecyclerView recyclerView, RecyclerView.s sVar) {
-            int i;
-            int i2;
             bbi.b(rect, "outRect");
             bbi.b(view, "view");
             bbi.b(recyclerView, "parent");
             int f = recyclerView.f(view);
-            int i3 = f >= afa.e ? this.a : 0;
-            if (f % afa.e == 0) {
-                i2 = this.b / 2;
-                i = 0;
-            } else {
-                i = this.b / 2;
-                i2 = 0;
-            }
-            rect.set(i3, i, 0, i2);
+            int top = f >= afa.e ? this.a : 0;
+            int mod = f % afa.e;
+            int spacing = this.b;
+            int halfSpacing = spacing / 2;
+            
+            int left = halfSpacing - (mod * spacing) / afa.e;
+            int right = ((mod + 1) * spacing) / afa.e - halfSpacing;
+            
+            rect.set(left, top, right, 0);
         }
     }
 
