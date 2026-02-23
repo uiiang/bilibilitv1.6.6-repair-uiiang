@@ -97,6 +97,11 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                 if (view == null) {
                     bbi.a();
                 }
+                
+                if (MainRecommendFragment.this.isLoadingMore || !MainRecommendFragment.this.hasMoreData) {
+                    return view;
+                }
+                
                 int d2 = d(view);
                 int row = d2 / 4;
                 
