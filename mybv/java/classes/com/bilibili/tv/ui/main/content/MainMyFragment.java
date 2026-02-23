@@ -317,7 +317,7 @@ public final class MainMyFragment extends adu implements aez, wf {
                 cVar.F().setText("");
                 advVar.a.setTag(R.id.position, Integer.valueOf(i));
                 advVar.a.setOnClickListener(this);
-                if (i == 0 && this.d != null) {
+                if (MyMap[i] == 0 && this.d != null) {
                     AccountInfo accountInfo = this.d;
                     if (accountInfo == null) {
                         bbi.a();
