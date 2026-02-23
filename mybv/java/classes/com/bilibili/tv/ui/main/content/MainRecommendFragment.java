@@ -97,6 +97,11 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                 if (view == null) {
                     bbi.a();
                 }
+                
+                if (MainRecommendFragment.this.isLoadingMore || !MainRecommendFragment.this.hasMoreData) {
+                    return view;
+                }
+                
                 int d2 = d(view);
                 int row = d2 / 4;
                 
@@ -503,6 +508,15 @@ public final class MainRecommendFragment extends adu implements aez, wf {
             
             this.ugcList = allList;
             this.ogvList = ogvList;
+            
+            MainRecommendFragment fragment = this.c.get();
+            if (fragment != null) {
+                fragment.c = 0;
+                RecyclerView recyclerView = fragment.d();
+                if (recyclerView != null) {
+                    recyclerView.a(0);
+                }
+            }
             
             d();
             return true;
