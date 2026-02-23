@@ -1,8 +1,9 @@
 自用备份
 
-- fork bilibilitv1.6.6-repair
+- fork于bilibilitv1.6.6-repair 感谢大佬的付出 [https://github.com/qidian55/bilibilitv1.6.6-repair]
 - 根据自己使用习惯做了一些修改
 - 现在B站视频的标题废话太多文字越来越长，导致视频卡片和视频详情页的标题被截断，统一修改为可以显示3行文字
+- 修改我的页面中登录按钮排序位置
 
 还在继续完善中
 - [ ] 首页个性推荐改为垂直滚动并支持翻页
