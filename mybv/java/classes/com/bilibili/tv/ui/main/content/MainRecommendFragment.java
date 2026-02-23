@@ -50,6 +50,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
 
     public static MainRecommendFragment _this;
     public static int fresh_idx=0;
+    public static boolean isPersonalRecommend = false;
 
     @Override // bl.wf
     public String a() {
@@ -123,7 +124,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
         recyclerView.a(new ItemDecoration(b2));
         recyclerView.setFocusable(false);
         recyclerView.setAdapter(this.a);
-        ((kh) vo.a(kh.class)).a().a(new d());
+        getRecommendVideos();
 
         recyclerView.setRecycledViewPool(new MyRecycledViewPool());
         recyclerView.a(new g());
@@ -162,13 +163,17 @@ public final class MainRecommendFragment extends adu implements aez, wf {
     }
 
     public void getRecommendVideos(){
-        String access_key = mg.a(MainApplication.a()).e();
-        this.hasMoreData = true;
-        ((MyBiliApiService) vo.a(MyBiliApiService.class)).recommendVideos(20,access_key,(access_key==null||access_key.isEmpty())?this.fresh_idx++:0).a(new RecommendsResponse(false));
+        if (isPersonalRecommend) {
+            String access_key = mg.a(MainApplication.a()).e();
+            this.hasMoreData = true;
+            ((MyBiliApiService) vo.a(MyBiliApiService.class)).recommendVideos(20,access_key,(access_key==null||access_key.isEmpty())?this.fresh_idx++:0).a(new RecommendsResponse(false));
+        } else {
+            ((kh) vo.a(kh.class)).a().a(new d());
+        }
     }
     
     public void loadMoreData(){
-        if (this.isLoadingMore || !this.hasMoreData) {
+        if (!isPersonalRecommend || this.isLoadingMore || !this.hasMoreData) {
             return;
         }
         this.isLoadingMore = true;

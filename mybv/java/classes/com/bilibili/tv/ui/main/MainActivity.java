@@ -524,6 +524,7 @@ public final class MainActivity extends BaseActivity {
         public d(ViewPager viewPager, Context context) {
             this.c = new WeakReference<>(viewPager);
             this.isPersonalRecommend = abd.get_home_default(context) == 1;
+            MainRecommendFragment.isPersonalRecommend = this.isPersonalRecommend;
             this.b.put(0, new MainTitle(f, R.drawable.selector_main_search));
             if (acc.d()) {
                 this.b.put(1, new MainTitle(e, this.isPersonalRecommend ? R.string.personal_recommend : R.string.hot_recommend));
@@ -592,6 +593,7 @@ public final class MainActivity extends BaseActivity {
                         SearchActivity.Companion.a(a, 0);
                     } else if (this.b == 1){
                         d.this.isPersonalRecommend = !d.this.isPersonalRecommend;
+                        MainRecommendFragment.isPersonalRecommend = d.this.isPersonalRecommend;
                         if (d.this.isPersonalRecommend) {
                             d.this.b.get(1).setResId(R.string.personal_recommend);
                             ((TextView)view.findViewById(R.id.title)).setText(R.string.personal_recommend);
