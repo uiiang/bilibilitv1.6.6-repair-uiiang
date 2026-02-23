@@ -88,41 +88,26 @@ public final class MainRecommendFragment extends adu implements aez, wf {
         int b2 = adl.b(R.dimen.px_12);
         int b3 = adl.b(R.dimen.px_50);
         recyclerView.setPadding(b3, b3, b3, b3);
-        this.b = new BorderGridLayoutManager(getActivity(), 2, 0, false) { // from class: com.bilibili.tv.ui.main.content.MainRecommendFragment$onViewCreated$1
+        this.b = new BorderGridLayoutManager(getActivity(), 4, 1, false) { // from class: com.bilibili.tv.ui.main.content.MainRecommendFragment$onViewCreated$1
             @Override // android.support.v7.widget.RecyclerView.h
             public View d(View view, int i) {
                 if (view == null) {
                     bbi.a();
                 }
                 int d2 = d(view);
-                int floor = d2 - (((int) Math.floor(d2 / 5)) + 1);
-                if (i != 17) {
-                    if (i != 33) {
-                        if (i == 130 && (d2 == 0 || d2 == 5 || d2 == 10 || d2 == 15 || floor % 2 != 0)) {
-                            return view;
-                        }
-                    } else if (d2 == 0 || d2 == 5 || d2 == 10 || d2 == 15) {
-                        FragmentActivity activity2 = MainRecommendFragment.this.getActivity();
-                        if (activity2 == null) {
-                            throw new TypeCastException("null cannot be cast to non-null type com.bilibili.tv.ui.main.MainActivity");
-                        }
-                        MainActivity mainActivity = (MainActivity) activity2;
-                        mainActivity.a(false);
-                        mainActivity.b(false);
-                        return mainActivity.j();
-                    } else if (floor % 2 == 0) {
-                        FragmentActivity activity3 = MainRecommendFragment.this.getActivity();
-                        if (activity3 == null) {
-                            throw new TypeCastException("null cannot be cast to non-null type com.bilibili.tv.ui.main.MainActivity");
-                        }
-                        MainActivity mainActivity2 = (MainActivity) activity3;
-                        mainActivity2.a(false);
-                        mainActivity2.b(false);
-                        return mainActivity2.j();
+                int row = d2 / 4;
+                
+                if (i == 33 && row == 0) {
+                    FragmentActivity activity2 = MainRecommendFragment.this.getActivity();
+                    if (activity2 == null) {
+                        throw new TypeCastException("null cannot be cast to non-null type com.bilibili.tv.ui.main.MainActivity");
                     }
-                } else if (d2 == 0) {
-                    return view;
+                    MainActivity mainActivity = (MainActivity) activity2;
+                    mainActivity.a(false);
+                    mainActivity.b(false);
+                    return mainActivity.j();
                 }
+                
                 return super.d(view, i);
             }
         };
@@ -151,7 +136,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
 
     public void getRecommendVideos(){
         String access_key = mg.a(MainApplication.a()).e();
-        ((MyBiliApiService) vo.a(MyBiliApiService.class)).recommendVideos(8,access_key,(access_key==null||access_key.isEmpty())?this.fresh_idx++:0).a(new RecommendsResponse());
+        ((MyBiliApiService) vo.a(MyBiliApiService.class)).recommendVideos(20,access_key,(access_key==null||access_key.isEmpty())?this.fresh_idx++:0).a(new RecommendsResponse());
     }
 
     /* compiled from: BL */
@@ -162,7 +147,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
 
         @Override // android.support.v7.widget.GridLayoutManager.c
         public int a(int i) {
-            return i % 5 == 0 ? 2 : 1;
+            return 1;
         }
     }
 
@@ -175,29 +160,19 @@ public final class MainRecommendFragment extends adu implements aez, wf {
             this.space = space;
         }
 
-        /* JADX WARN: Removed duplicated region for block: B:17:0x003f  */
         @Override // android.support.v7.widget.RecyclerView.g
-        /*
-            Code decompiled incorrectly, please refer to instructions dump.
-        */
         public void a(Rect outRect, View view, RecyclerView parent, RecyclerView.s state) {
-            int i;
-            int i2;
             bbi.b(outRect, "outRect");
             bbi.b(view, "view");
             bbi.b(parent, "parent");
-            int f = parent.f(view);
-            int floor = f - (((int) Math.floor(f / 5)) + 1);
-            if (f%5==0) {
-                if(((MainRecommendFragment.c)null).ogvList.size()==5 && ((MainRecommendFragment.c)null).ogvList.get(f/5)==null)outRect.set(0, 0, 0, 0);
-                else outRect.set(f > 0 ? this.space * 2 : 0, 0, this.space, 0);
-            } else if (floor % 2 == 0) {
-                if(((MainRecommendFragment.c)null).ugcList.size()==20 && ((MainRecommendFragment.c)null).ugcList.get(floor)==null)outRect.set(0, 0, 0, 0);
-                else outRect.set(f > 0 ? this.space * 2 : 0, 0, this.space, this.space);
-            } else {
-                if(((MainRecommendFragment.c)null).ugcList.size()==20 && ((MainRecommendFragment.c)null).ugcList.get(floor)==null)outRect.set(0, 0, 0, 0);
-                else outRect.set(f > 0 ? this.space * 2 : 0, this.space, this.space, 0);
-            }
+            int position = parent.f(view);
+            int column = position % 4;
+            int row = position / 4;
+            
+            outRect.left = this.space;
+            outRect.right = this.space;
+            outRect.top = this.space;
+            outRect.bottom = this.space;
         }
     }
 
@@ -249,7 +224,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
             }
             View view;
             view=this.b.c(this.c);
-            if(!view.isFocusable()){
+            if(view != null && !view.isFocusable()){
                 this.c=1;
                 view=this.b.c(this.c);
             }
@@ -380,7 +355,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
 
         @Override // android.support.v7.widget.RecyclerView.a
         public int a() {
-            return 25;
+            return 24;
         }
 
         public c(MainRecommendFragment MainRecommendFragmentVar) {
@@ -405,94 +380,73 @@ public final class MainRecommendFragment extends adu implements aez, wf {
         @Override // android.support.v7.widget.RecyclerView.a
         public void a(adv advVar, int i) {
             bbi.b(advVar, "viewHolder");
-            if (advVar instanceof a) {
+            if (advVar instanceof e) {
                 advVar.a.setTag(R.id.position, Integer.valueOf(i));
-                if (this.ogvList.size() < 5) {
-                    ((a) advVar).B().setVisibility(View.INVISIBLE);
+                if (this.ugcList.size() < i + 1) {
+                    ((e) advVar).B().setVisibility(View.INVISIBLE);
                     return;
                 }
-                int i2 = i / 5;
-                a aVar = (a) advVar;
-                aVar.B().setVisibility(0);
-                MainRecommendEx.Content content = this.ogvList.get(i2);
+                e eVar = (e) advVar;
+                eVar.B().setVisibility(0);
+                MainRecommendEx.Content content = this.ugcList.get(i);
                 if (content == null) {
                     advVar.a.setFocusable(false);
                     advVar.a.setVisibility(View.GONE);
                     advVar.a.getLayoutParams().width=0;
                     return;
                 }
+                advVar.a.setFocusable(true);
+                advVar.a.setVisibility(View.VISIBLE);
                 if (!TextUtils.isEmpty(content.getTitle())) {
-                    aVar.z().setText(content.getTitle());
+                    eVar.z().setText(content.getTitle());
                 }
                 if (!TextUtils.isEmpty(content.getCover())) {
-                    nv a2 = nv.a();
-                    MainApplication a3 = MainApplication.a();
-                    bbi.a((Object) a3, "MainApplication.getInstance()");
-                    a2.a(ach.a(a3.getApplicationContext(), content.getCover()), aVar.A());
-                }
-                if (!TextUtils.isEmpty(content.getUri())) {
-                    View view = advVar.a;
-                    bbi.a((Object) view, "viewHolder.itemView");
-                    view.setTag(content.getUri());
-                }
-                advVar.a.setTag(R.id.report_position, Integer.valueOf(i2 + 1));
-            } else if (advVar instanceof e) {
-                advVar.a.setTag(R.id.position, Integer.valueOf(i));
-                if (this.ugcList.size() < 20) {
-                    ((e) advVar).B().setVisibility(View.INVISIBLE);
-                    return;
-                }
-                e eVar = (e) advVar;
-                eVar.B().setVisibility(0);
-                MainRecommendEx.Content content2 = this.ugcList.get(i - ((i / 5) + 1));
-                if (content2 == null) {
-                    advVar.a.setFocusable(false);
-                    advVar.a.setVisibility(View.GONE);
-                    advVar.a.getLayoutParams().width=0;
-                    return;
-                }
-                if (!TextUtils.isEmpty(content2.getTitle())) {
-                    eVar.z().setText(content2.getTitle());
-                }
-                if (!TextUtils.isEmpty(content2.getCover())) {
                     nv a4 = nv.a();
                     MainApplication a5 = MainApplication.a();
                     bbi.a((Object) a5, "MainApplication.getInstance()");
-                    a4.a(ach.a(a5.getApplicationContext(), content2.getCover(), this.e, this.f), eVar.A());
+                    a4.a(ach.a(a5.getApplicationContext(), content.getCover(), this.e, this.f), eVar.A());
                 }
-                if (!TextUtils.isEmpty(content2.getUri())) {
+                if (!TextUtils.isEmpty(content.getUri())) {
                     View view2 = advVar.a;
                     bbi.a((Object) view2, "viewHolder.itemView");
-                    view2.setTag(content2.getUri());
+                    view2.setTag(content.getUri());
                 }
-                advVar.a.setTag(R.id.report_position, Integer.valueOf((i - (((int) Math.floor(i / 6)) + 1)) + 1));
+                advVar.a.setTag(R.id.report_position, Integer.valueOf(i + 1));
             }
         }
 
         @Override // android.support.v7.widget.RecyclerView.a
         public int a(int i) {
-            return i % 5 == 0 ? 1 : 2;
+            return 2;
         }
 
         public final boolean a(List<MainRecommendEx.Content> ogvList, List<MainRecommendEx.Content> ugcList) {
-            boolean z;
             bbi.b(ogvList, "ogvList");
             bbi.b(ugcList, "ugcList");
-            if (ogvList.size() >= 5) {
-                this.ogvList = ogvList;
-                z = true;
-            } else {
-                z = false;
+            
+            ArrayList<MainRecommendEx.Content> allList = new ArrayList<>();
+            
+            for (MainRecommendEx.Content content : ogvList) {
+                if (content != null) {
+                    allList.add(content);
+                }
             }
-            if (ugcList.size() >= 20) {
-                this.ugcList = ugcList;
-            } else {
-                z = false;
+            
+            for (MainRecommendEx.Content content : ugcList) {
+                if (content != null) {
+                    allList.add(content);
+                }
             }
-            if (z) {
-                d();
+            
+            while (allList.size() < 24) {
+                allList.add(null);
             }
-            return z;
+            
+            this.ugcList = allList;
+            this.ogvList = ogvList;
+            
+            d();
+            return true;
         }
 
         /* compiled from: BL */
