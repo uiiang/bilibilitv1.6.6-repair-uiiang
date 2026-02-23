@@ -45,6 +45,8 @@ public final class MainRecommendFragment extends adu implements aez, wf {
     private c a;
     private BorderGridLayoutManager b;
     private int c;
+    private boolean isLoadingMore = false;
+    private boolean hasMoreData = true;
 
     public static MainRecommendFragment _this;
     public static int fresh_idx=0;
@@ -124,6 +126,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
         ((kh) vo.a(kh.class)).a().a(new d());
 
         recyclerView.setRecycledViewPool(new MyRecycledViewPool());
+        recyclerView.a(new g());
     }
 
     static final class MyRecycledViewPool extends RecyclerView.n {
@@ -133,10 +136,44 @@ public final class MainRecommendFragment extends adu implements aez, wf {
         @Override
         public RecyclerView.v a(int i) {return null;}
     }
+    
+    public final class g extends RecyclerView.m {
+        @Override
+        public void a(RecyclerView recyclerView, int i) {
+            super.a(recyclerView, i);
+            if (MainRecommendFragment.this.isLoadingMore || !MainRecommendFragment.this.hasMoreData || MainRecommendFragment.this.a == null) {
+                return;
+            }
+            BorderGridLayoutManager borderGridLayoutManager = MainRecommendFragment.this.b;
+            if (borderGridLayoutManager == null) {
+                return;
+            }
+            int p = borderGridLayoutManager.p();
+            if (borderGridLayoutManager.x() > 0) {
+                int i2 = p + 20;
+                if (i2 >= borderGridLayoutManager.H() - 1) {
+                    int H = borderGridLayoutManager.H();
+                    if (H > borderGridLayoutManager.x()) {
+                        MainRecommendFragment.this.loadMoreData();
+                    }
+                }
+            }
+        }
+    }
 
     public void getRecommendVideos(){
         String access_key = mg.a(MainApplication.a()).e();
-        ((MyBiliApiService) vo.a(MyBiliApiService.class)).recommendVideos(20,access_key,(access_key==null||access_key.isEmpty())?this.fresh_idx++:0).a(new RecommendsResponse());
+        this.hasMoreData = true;
+        ((MyBiliApiService) vo.a(MyBiliApiService.class)).recommendVideos(20,access_key,(access_key==null||access_key.isEmpty())?this.fresh_idx++:0).a(new RecommendsResponse(false));
+    }
+    
+    public void loadMoreData(){
+        if (this.isLoadingMore || !this.hasMoreData) {
+            return;
+        }
+        this.isLoadingMore = true;
+        String access_key = mg.a(MainApplication.a()).e();
+        ((MyBiliApiService) vo.a(MyBiliApiService.class)).recommendVideos(20,access_key,(access_key==null||access_key.isEmpty())?this.fresh_idx++:0).a(new RecommendsResponse(true));
     }
 
     /* compiled from: BL */
@@ -307,18 +344,32 @@ public final class MainRecommendFragment extends adu implements aez, wf {
 
 
     final class RecommendsResponse extends vn<JSONObject> {
+        private boolean isAppendMode;
+
         public RecommendsResponse() {
+            this.isAppendMode = false;
+        }
+
+        public RecommendsResponse(boolean isAppendMode) {
+            this.isAppendMode = isAppendMode;
         }
 
         @Override // bl.vn
         public void a(JSONObject data) {
             if (MainRecommendFragment.this.a == null || data == null || data.getJSONArray("item") == null) {
+                MainRecommendFragment.this.isLoadingMore = false;
                 return;
             }
             JSONArray items = data.getJSONArray("item");
+            
+            if (items.size() < 20) {
+                MainRecommendFragment.this.hasMoreData = false;
+            }
+            
             MainRecommendEx.Content[] contents = {null,null,null,null,null};
             ArrayList arrayList = new ArrayList<MainRecommendEx.Content>(Arrays.asList(contents));
             ArrayList arrayList2 = new ArrayList<MainRecommendEx.Content>(20);
+            
             for (int i=0;i<items.size();i++) {
                 JSONObject item = items.getJSONObject(i);
                 MainRecommendEx.Content content = new MainRecommendEx.Content();
@@ -330,14 +381,21 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                 content.setUri("bilibili_yst://video/"+item.getLongValue("id"));
                 arrayList2.add(content);
             }
-            for(int i=items.size();i<20;i++)arrayList2.add(null);
-            MainRecommendFragment.this.a.a(arrayList, arrayList2);
+            
+            if (this.isAppendMode) {
+                MainRecommendFragment.this.a.appendData(arrayList, arrayList2);
+            } else {
+                MainRecommendFragment.this.a.a(arrayList, arrayList2);
+            }
+            
+            MainRecommendFragment.this.isLoadingMore = false;
         }
 
         @Override // bl.vn
         public void onError(Throwable th) {
             bbi.b(th, "t");
             BLog.e("VideoRecommend", th.getMessage());
+            MainRecommendFragment.this.isLoadingMore = false;
         }
     }
 
@@ -355,7 +413,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
 
         @Override // android.support.v7.widget.RecyclerView.a
         public int a() {
-            return 24;
+            return ugcList != null ? ugcList.size() : 0;
         }
 
         public c(MainRecommendFragment MainRecommendFragmentVar) {
@@ -438,15 +496,30 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                 }
             }
             
-            while (allList.size() < 24) {
-                allList.add(null);
-            }
-            
             this.ugcList = allList;
             this.ogvList = ogvList;
             
             d();
             return true;
+        }
+        
+        public final void appendData(List<MainRecommendEx.Content> ogvList, List<MainRecommendEx.Content> ugcList) {
+            bbi.b(ogvList, "ogvList");
+            bbi.b(ugcList, "ugcList");
+            
+            ArrayList<MainRecommendEx.Content> newItems = new ArrayList<>();
+            
+            for (MainRecommendEx.Content content : ugcList) {
+                if (content != null) {
+                    newItems.add(content);
+                }
+            }
+            
+            int oldSize = this.ugcList.size();
+            this.ugcList.addAll(newItems);
+            this.ogvList = ogvList;
+            
+            d(oldSize);
         }
 
         /* compiled from: BL */
