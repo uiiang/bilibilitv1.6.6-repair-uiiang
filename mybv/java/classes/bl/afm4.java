@@ -18,6 +18,8 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
     public static final a Companion = new a(null);
     private DrawFrameLayout progressbar_button;
     private DrawFrameLayout fastquit_button;
+    private DrawFrameLayout hotRecommendButton;
+    private DrawFrameLayout personalRecommendButton;
 
     public static String[] tab_names = {"登录","动态","待看","关注","收藏","历史"};
     private DrawFrameLayout[] tab_buttons = {null,null,null,null,null,null};
@@ -64,6 +66,25 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
             this.tab_buttons[i].setOnClickListener(this);
             ((ShadowTextView)this.tab_buttons[i].getChildAt(0)).setText(afm4.tab_names[MainMyFragment.MyMap[i]]);
         }
+
+        this.hotRecommendButton = (DrawFrameLayout)inflate.findViewById(R.id.hot_recommend_button);
+        this.personalRecommendButton = (DrawFrameLayout)inflate.findViewById(R.id.personal_recommend_button);
+        this.hotRecommendButton.setUpDrawable(R.drawable.shadow_white_rect);
+        this.personalRecommendButton.setUpDrawable(R.drawable.shadow_white_rect);
+        this.hotRecommendButton.setOnFocusChangeListener(this);
+        this.personalRecommendButton.setOnFocusChangeListener(this);
+        this.hotRecommendButton.setOnClickListener(this);
+        this.personalRecommendButton.setOnClickListener(this);
+
+        int homeDefault = abd.get_home_default(getActivity());
+        if (homeDefault == 0) {
+            this.hotRecommendButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+            this.personalRecommendButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+        } else {
+            this.hotRecommendButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+            this.personalRecommendButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+        }
+
         return inflate;
     }
 
@@ -102,6 +123,16 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
                 for(int j=0;j<6;j++)((ShadowTextView)this.tab_buttons[j].getChildAt(0)).setText((j==i?"≪ ":"")+afm4.tab_names[MainMyFragment.MyMap[j]]);
             }
         }
+
+        if (view == this.hotRecommendButton) {
+            abd.set_home_default(getActivity(), 0);
+            this.hotRecommendButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+            this.personalRecommendButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+        } else if (view == this.personalRecommendButton) {
+            abd.set_home_default(getActivity(), 1);
+            this.hotRecommendButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+            this.personalRecommendButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+        }
     }
 
     @Override // android.view.View.OnFocusChangeListener
@@ -117,21 +148,30 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
     }
 
     public final boolean b() {
-        for(int i=1;i<6;i++){
-            if(this.tab_buttons[i] != null && this.tab_buttons[i].hasFocus())return true;
+        if (this.progressbar_button == null) {
+            return false;
         }
-        return false;
+        return !this.progressbar_button.hasFocus();
     }
 
     public final boolean a() {
-        if (this.progressbar_button == null || this.progressbar_button.hasFocus() || this.fastquit_button == null || this.fastquit_button.hasFocus()) {
+        if (this.progressbar_button == null) {
             return false;
         }
-        for(int i=0;i<6;i++){
-            if(this.tab_buttons[i] == null || this.tab_buttons[i].hasFocus())return false;
+        if (!this.progressbar_button.hasFocus() && !this.fastquit_button.hasFocus() && !this.hotRecommendButton.hasFocus() && !this.personalRecommendButton.hasFocus()) {
+            boolean allTabsNoFocus = true;
+            for(int i=0;i<6;i++){
+                if(this.tab_buttons[i] != null && this.tab_buttons[i].hasFocus()){
+                    allTabsNoFocus = false;
+                    break;
+                }
+            }
+            if (allTabsNoFocus) {
+                this.progressbar_button.requestFocus();
+                return true;
+            }
         }
-        this.progressbar_button.requestFocus();
-        return true;
+        return false;
     }
 
     /* compiled from: BL */

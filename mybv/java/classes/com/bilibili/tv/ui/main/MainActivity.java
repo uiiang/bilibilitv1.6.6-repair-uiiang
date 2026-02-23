@@ -142,7 +142,7 @@ public final class MainActivity extends BaseActivity {
         View findViewById = findViewById(R.id.time);
         bbi.a((Object) findViewById, "findViewById(R.id.time)");
         TextView textView = (TextView) findViewById;
-        this.d = new d(this.f);
+        this.d = new d(this.f, this);
         RecyclerView recyclerView = this.c;
         if (recyclerView != null) {
             recyclerView.setAdapter(this.d);
@@ -514,17 +514,19 @@ public final class MainActivity extends BaseActivity {
         private final SparseArray<MainTitle> b = new SparseArray<>(4);
         private final WeakReference<ViewPager> c;
         private boolean d;
+        private boolean isPersonalRecommend;
 
         @Override // bl.adz
         public int e() {
             return 1;
         }
 
-        public d(ViewPager viewPager) {
+        public d(ViewPager viewPager, Context context) {
             this.c = new WeakReference<>(viewPager);
+            this.isPersonalRecommend = abd.get_home_default(context) == 1;
             this.b.put(0, new MainTitle(f, R.drawable.selector_main_search));
             if (acc.d()) {
-                this.b.put(1, new MainTitle(e, R.string.hot_recommend));
+                this.b.put(1, new MainTitle(e, this.isPersonalRecommend ? R.string.personal_recommend : R.string.hot_recommend));
                 this.b.put(2, new MainTitle(e, R.string.area));
                 this.b.put(3, new MainTitle(e, R.string.bangumi));
                 this.b.put(4, new MainTitle(e, R.string.pgc));
@@ -532,7 +534,7 @@ public final class MainActivity extends BaseActivity {
                 this.b.put(6, new MainTitle(f, R.drawable.selector_main_setting));
                 return;
             }
-            this.b.put(1, new MainTitle(e, R.string.hot_recommend));
+            this.b.put(1, new MainTitle(e, this.isPersonalRecommend ? R.string.personal_recommend : R.string.hot_recommend));
             this.b.put(2, new MainTitle(e, R.string.area));
             this.b.put(3, new MainTitle(e, R.string.my));
             this.b.put(4, new MainTitle(f, R.drawable.selector_main_setting));
@@ -589,8 +591,14 @@ public final class MainActivity extends BaseActivity {
                     if (this.b == 0) {
                         SearchActivity.Companion.a(a, 0);
                     } else if (this.b == 1){
-                        d.this.b.get(1).setResId(R.string.personal_recommend);
-                        ((TextView)view.findViewById(R.id.title)).setText(R.string.personal_recommend);
+                        d.this.isPersonalRecommend = !d.this.isPersonalRecommend;
+                        if (d.this.isPersonalRecommend) {
+                            d.this.b.get(1).setResId(R.string.personal_recommend);
+                            ((TextView)view.findViewById(R.id.title)).setText(R.string.personal_recommend);
+                        } else {
+                            d.this.b.get(1).setResId(R.string.hot_recommend);
+                            ((TextView)view.findViewById(R.id.title)).setText(R.string.hot_recommend);
+                        }
                         MainRecommendFragment._this.getRecommendVideos();
                     } else if (this.b == 2) {
                         d.this.a++;

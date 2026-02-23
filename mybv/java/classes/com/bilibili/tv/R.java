@@ -2480,6 +2480,8 @@ public final class R {
         public static final int view_radiobutton1 = 0x7f080188;
         public static final int view_radiobutton2 = 0x7f080189;
         public static final int view_radiogroup = 0x7f08018a;
+        public static final int hot_recommend_button = 0x7f08018b;
+        public static final int personal_recommend_button = 0x7f08018c;
     }
 
     public static final class integer {

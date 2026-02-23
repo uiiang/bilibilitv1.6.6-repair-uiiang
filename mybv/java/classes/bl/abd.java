@@ -265,4 +265,18 @@ public class abd {
         }
         return config;
     }
+
+    private static int homeDefaultType = -1;
+
+    public static void set_home_default(Context context, int type) {
+        a(context).a().edit().putInt("home_default_type", type).apply();
+        homeDefaultType = type;
+    }
+
+    public static int get_home_default(Context context) {
+        if (homeDefaultType == -1) {
+            homeDefaultType = a(context).a().getInt("home_default_type", 0);
+        }
+        return homeDefaultType;
+    }
 }
