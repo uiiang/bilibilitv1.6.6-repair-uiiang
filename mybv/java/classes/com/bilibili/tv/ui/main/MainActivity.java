@@ -487,6 +487,20 @@ public final class MainActivity extends BaseActivity {
         bbi.b(event, "event");
         View currentFocus = getCurrentFocus();
         if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == 8) {
+            if (currentFocus != null) {
+                Object tag = currentFocus.getTag(R.id.main_title_position);
+                if (tag instanceof Integer) {
+                    p();
+                    return true;
+                }
+            }
+            View tabView = j();
+            if (tabView != null) {
+                a(false);
+                b(false);
+                tabView.requestFocus();
+                return true;
+            }
             p();
             return true;
         }
