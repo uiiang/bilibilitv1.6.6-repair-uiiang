@@ -52,7 +52,7 @@
     .locals 2
 
     .prologue
-    .line 382
+    .line 360
     new-instance v0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$d$a;
 
     const/4 v1, 0x0
@@ -78,23 +78,23 @@
     .end annotation
 
     .prologue
-    .line 390
+    .line 368
     invoke-direct {p0, p1}, Lbl/adv;-><init>(Landroid/view/View;)V
 
-    .line 391
+    .line 369
     const-string v0, "itemView"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 392
+    .line 370
     const-string v0, "mMainBangumiFragmentWeakReference"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 393
+    .line 371
     iput-object p2, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$d;->q:Ljava/lang/ref/WeakReference;
 
-    .line 394
+    .line 372
     const v0, 0x7f0800c3
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -105,7 +105,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$d;->n:Landroid/widget/TextView;
 
-    .line 395
+    .line 373
     const v0, 0x7f0800a1
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -118,25 +118,46 @@
 
     move-object v0, p1
 
-    .line 396
+    .line 374
     check-cast v0, Lcom/bilibili/tv/widget/DrawLinearLayout;
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$d;->p:Lcom/bilibili/tv/widget/DrawLinearLayout;
 
-    .line 397
+    .line 375
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$d;->p:Lcom/bilibili/tv/widget/DrawLinearLayout;
 
     const v1, 0x7f0700e6
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawLinearLayout;->setUpDrawable(I)V
 
-    .line 398
+    .line 377
+    invoke-virtual {p1}, Landroid/view/View;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
+
+    move-result-object v0
+
+    .line 378
+    if-eqz v0, :cond_44
+
+    .line 379
+    const v1, 0x7f060091
+
+    invoke-static {v1}, Lbl/adl;->b(I)I
+
+    move-result v1
+
+    iput v1, v0, Landroid/view/ViewGroup$LayoutParams;->height:I
+
+    .line 380
+    invoke-virtual {p1, v0}, Landroid/view/View;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
+
+    .line 383
+    :cond_44
     invoke-virtual {p1, p0}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 399
+    .line 384
     invoke-virtual {p1, p0}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 400
+    .line 385
     return-void
 .end method
 
@@ -146,7 +167,7 @@
     .locals 1
 
     .prologue
-    .line 409
+    .line 394
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$d;->o:Landroid/widget/ImageView;
 
     return-object v0
@@ -158,44 +179,44 @@
     .prologue
     const/4 v5, 0x0
 
-    .line 432
+    .line 418
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 433
+    .line 419
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    .line 434
+    .line 420
     const-string v1, "v.context"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 435
+    .line 421
     invoke-static {v0}, Lbl/adl;->a(Landroid/content/Context;)Landroid/app/Activity;
 
     move-result-object v1
 
-    .line 436
+    .line 422
     const v0, 0x7f0800d8
 
     invoke-virtual {p1, v0}, Landroid/view/View;->getTag(I)Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 437
+    .line 423
     if-eqz v1, :cond_1e
 
     if-nez v0, :cond_1f
 
-    .line 468
+    .line 454
     :cond_1e
     :goto_1e
     return-void
 
-    .line 440
+    .line 426
     :cond_1f
     check-cast v0, Ljava/lang/Integer;
 
@@ -203,12 +224,12 @@
 
     move-result v0
 
-    .line 441
+    .line 427
     new-instance v2, Ljava/util/HashMap;
 
     invoke-direct {v2}, Ljava/util/HashMap;-><init>()V
 
-    .line 442
+    .line 428
     const-string v3, "location"
 
     invoke-static {v0}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
@@ -217,19 +238,19 @@
 
     invoke-virtual {v2, v3, v4}, Ljava/util/HashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 443
+    .line 429
     sget-object v3, Lbl/abl;->a:Lbl/abl;
 
     const-string v4, "ott-platform.animation.animation.0.click"
 
     invoke-virtual {v3, v4, v2}, Lbl/abl;->a(Ljava/lang/String;Ljava/util/Map;)V
 
-    .line 444
+    .line 430
     packed-switch v0, :pswitch_data_94
 
     goto :goto_1e
 
-    .line 446
+    .line 432
     :pswitch_3e
     sget-object v0, Lcom/bilibili/tv/ui/area/AreaActivity;->Companion:Lcom/bilibili/tv/ui/area/AreaActivity$a;
 
@@ -237,7 +258,7 @@
 
     invoke-virtual {v0, v1, v2}, Lcom/bilibili/tv/ui/area/AreaActivity$a;->a(Landroid/content/Context;I)V
 
-    .line 447
+    .line 433
     const-string v0, "tv_home_bangumi_all_click"
 
     new-array v1, v5, [Ljava/lang/String;
@@ -246,7 +267,7 @@
 
     goto :goto_1e
 
-    .line 450
+    .line 436
     :pswitch_4d
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
@@ -256,24 +277,24 @@
 
     move-result-object v0
 
-    .line 451
+    .line 437
     const-string v2, "BiliAccount.get(MainApplication.getInstance())"
 
     invoke-static {v0, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 452
+    .line 438
     invoke-virtual {v0}, Lbl/mg;->a()Z
 
     move-result v0
 
     if-eqz v0, :cond_6d
 
-    .line 453
+    .line 439
     sget-object v0, Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity;->Companion:Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity$a;
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity$a;->a(Landroid/content/Context;)V
 
-    .line 457
+    .line 443
     :goto_65
     const-string v0, "tv_home_bangumi_my_click"
 
@@ -283,7 +304,7 @@
 
     goto :goto_1e
 
-    .line 455
+    .line 441
     :cond_6d
     sget-object v0, Lcom/bilibili/tv/ui/account/LoginActivity;->Companion:Lcom/bilibili/tv/ui/account/LoginActivity$a;
 
@@ -297,13 +318,13 @@
 
     goto :goto_65
 
-    .line 460
+    .line 446
     :pswitch_79
     sget-object v0, Lcom/bilibili/tv/ui/bangumi/time/BangumiTimelineActivity;->Companion:Lcom/bilibili/tv/ui/bangumi/time/BangumiTimelineActivity$a;
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/bangumi/time/BangumiTimelineActivity$a;->a(Landroid/content/Context;)V
 
-    .line 461
+    .line 447
     const-string v0, "tv_home_bangumi_timeline_click"
 
     new-array v1, v5, [Ljava/lang/String;
@@ -312,13 +333,13 @@
 
     goto :goto_1e
 
-    .line 464
+    .line 450
     :pswitch_86
     sget-object v0, Lcom/bilibili/tv/ui/bangumi/tag/BangumiTagActivity;->Companion:Lcom/bilibili/tv/ui/bangumi/tag/BangumiTagActivity$d;
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/bangumi/tag/BangumiTagActivity$d;->a(Landroid/content/Context;)V
 
-    .line 465
+    .line 451
     const-string v0, "tv_home_bangumi_index_click"
 
     new-array v1, v5, [Ljava/lang/String;
@@ -327,7 +348,7 @@
 
     goto :goto_1e
 
-    .line 444
+    .line 430
     nop
 
     :pswitch_data_94
@@ -343,12 +364,12 @@
     .locals 2
 
     .prologue
-    .line 472
+    .line 458
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 473
+    .line 459
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$d;->q:Ljava/lang/ref/WeakReference;
 
     invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
@@ -357,24 +378,24 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;
 
-    .line 474
+    .line 460
     const v1, 0x7f0800d8
 
     invoke-virtual {p1, v1}, Landroid/view/View;->getTag(I)Ljava/lang/Object;
 
     move-result-object v1
 
-    .line 475
+    .line 461
     if-eqz v0, :cond_18
 
     if-nez v1, :cond_19
 
-    .line 481
+    .line 467
     :cond_18
     :goto_18
     return-void
 
-    .line 478
+    .line 464
     :cond_19
     check-cast v1, Ljava/lang/Integer;
 
@@ -385,10 +406,10 @@
     # setter for: Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->d:I
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->access$102(Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;I)I
 
-    .line 479
+    .line 465
     invoke-static {p1, p2}, Lbl/adj;->a(Landroid/view/View;Z)V
 
-    .line 480
+    .line 466
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$d;->p:Lcom/bilibili/tv/widget/DrawLinearLayout;
 
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawLinearLayout;->setUpEnabled(Z)V
@@ -400,7 +421,7 @@
     .locals 1
 
     .prologue
-    .line 404
+    .line 389
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$d;->n:Landroid/widget/TextView;
 
     return-object v0

@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 650
+    .line 696
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 651
+    .line 697
     return-void
 .end method
 
@@ -30,10 +30,10 @@
     .locals 0
 
     .prologue
-    .line 654
+    .line 700
     invoke-direct {p0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$e$a;-><init>()V
 
-    .line 655
+    .line 701
     return-void
 .end method
 
@@ -54,17 +54,17 @@
     .end annotation
 
     .prologue
-    .line 658
+    .line 704
     const-string v0, "parent"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 659
+    .line 705
     const-string v0, "weakReference"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 660
+    .line 706
     invoke-virtual {p1}, Landroid/view/ViewGroup;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -81,12 +81,12 @@
 
     move-result-object v0
 
-    .line 661
+    .line 707
     const-string v1, "view"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 662
+    .line 708
     new-instance v1, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$e;
 
     invoke-direct {v1, v0, p2}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$e;-><init>(Landroid/view/View;Ljava/lang/ref/WeakReference;)V

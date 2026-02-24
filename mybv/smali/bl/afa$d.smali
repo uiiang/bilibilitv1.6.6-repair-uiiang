@@ -25,88 +25,89 @@
     .locals 0
 
     .prologue
-    .line 122
+    .line 120
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$g;-><init>()V
 
-    .line 123
+    .line 121
     iput p1, p0, Lbl/afa$d;->a:I
 
-    .line 124
+    .line 122
     iput p2, p0, Lbl/afa$d;->b:I
 
-    .line 125
+    .line 123
     return-void
 .end method
 
 
 # virtual methods
 .method public a(Landroid/graphics/Rect;Landroid/view/View;Landroid/support/v7/widget/RecyclerView;Landroid/support/v7/widget/RecyclerView$s;)V
-    .locals 4
+    .locals 6
 
     .prologue
     const/4 v1, 0x0
 
-    .line 131
+    .line 127
     const-string v0, "outRect"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 132
+    .line 128
     const-string v0, "view"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 133
+    .line 129
     const-string v0, "parent"
 
     invoke-static {p3, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 134
+    .line 130
     invoke-virtual {p3, p2}, Landroid/support/v7/widget/RecyclerView;->f(Landroid/view/View;)I
 
     move-result v2
 
-    .line 135
-    const/4 v0, 0x2
+    .line 131
+    const/4 v0, 0x5
 
-    if-lt v2, v0, :cond_26
+    if-lt v2, v0, :cond_2f
 
     iget v0, p0, Lbl/afa$d;->a:I
 
-    .line 136
+    .line 132
     :goto_19
-    rem-int/lit8 v2, v2, 0x2
+    rem-int/lit8 v2, v2, 0x5
 
-    if-nez v2, :cond_28
+    .line 133
+    iget v3, p0, Lbl/afa$d;->b:I
+
+    .line 134
+    div-int/lit8 v4, v3, 0x2
+
+    .line 136
+    mul-int v5, v2, v3
+
+    div-int/lit8 v5, v5, 0x5
+
+    sub-int v5, v4, v5
 
     .line 137
-    iget v2, p0, Lbl/afa$d;->b:I
+    add-int/lit8 v2, v2, 0x1
 
-    div-int/lit8 v2, v2, 0x2
+    mul-int/2addr v2, v3
 
-    move v3, v1
+    div-int/lit8 v2, v2, 0x5
 
-    .line 143
-    :goto_22
-    invoke-virtual {p1, v0, v3, v1, v2}, Landroid/graphics/Rect;->set(IIII)V
+    sub-int/2addr v2, v4
 
-    .line 144
-    return-void
-
-    :cond_26
-    move v0, v1
-
-    .line 135
-    goto :goto_19
+    .line 139
+    invoke-virtual {p1, v5, v0, v2, v1}, Landroid/graphics/Rect;->set(IIII)V
 
     .line 140
-    :cond_28
-    iget v2, p0, Lbl/afa$d;->b:I
+    return-void
 
-    div-int/lit8 v3, v2, 0x2
+    :cond_2f
+    move v0, v1
 
-    move v2, v1
-
-    .line 141
-    goto :goto_22
+    .line 131
+    goto :goto_19
 .end method

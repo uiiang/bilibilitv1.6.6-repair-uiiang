@@ -24,6 +24,10 @@
 # instance fields
 .field private fastquit_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
+.field private hotRecommendButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+.field private personalRecommendButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
 .field private progressbar_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
 .field private tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
@@ -43,14 +47,14 @@
 
     sput-object v0, Lbl/afm4;->Companion:Lbl/afm4$a;
 
-    .line 22
+    .line 24
     const/4 v0, 0x6
 
     new-array v0, v0, [Ljava/lang/String;
 
     const/4 v1, 0x0
 
-    const-string v2, ""
+    const-string v2, "\u767b\u5f55"
 
     aput-object v2, v0, v1
 
@@ -98,7 +102,7 @@
     .line 17
     invoke-direct {p0}, Lbl/adw;-><init>()V
 
-    .line 23
+    .line 25
     const/4 v0, 0x6
 
     new-array v0, v0, [Lcom/bilibili/tv/widget/DrawFrameLayout;
@@ -142,51 +146,64 @@
 
     const/4 v0, 0x0
 
-    .line 126
+    .line 158
     iget-object v2, p0, Lbl/afm4;->progressbar_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    if-eqz v2, :cond_1a
+    if-nez v2, :cond_7
 
-    iget-object v2, p0, Lbl/afm4;->progressbar_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    invoke-virtual {v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->hasFocus()Z
-
-    move-result v2
-
-    if-nez v2, :cond_1a
-
-    iget-object v2, p0, Lbl/afm4;->fastquit_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    if-eqz v2, :cond_1a
-
-    iget-object v2, p0, Lbl/afm4;->fastquit_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    invoke-virtual {v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->hasFocus()Z
-
-    move-result v2
-
-    if-eqz v2, :cond_1b
-
-    .line 133
-    :cond_1a
-    :goto_1a
+    .line 174
+    :cond_6
+    :goto_6
     return v0
 
-    :cond_1b
-    move v2, v1
+    .line 161
+    :cond_7
+    iget-object v2, p0, Lbl/afm4;->progressbar_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 129
-    :goto_1c
+    invoke-virtual {v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->hasFocus()Z
+
+    move-result v2
+
+    if-nez v2, :cond_6
+
+    iget-object v2, p0, Lbl/afm4;->fastquit_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->hasFocus()Z
+
+    move-result v2
+
+    if-nez v2, :cond_6
+
+    iget-object v2, p0, Lbl/afm4;->hotRecommendButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->hasFocus()Z
+
+    move-result v2
+
+    if-nez v2, :cond_6
+
+    iget-object v2, p0, Lbl/afm4;->personalRecommendButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->hasFocus()Z
+
+    move-result v2
+
+    if-nez v2, :cond_6
+
+    move v2, v0
+
+    .line 163
+    :goto_28
     const/4 v3, 0x6
 
-    if-ge v2, v3, :cond_32
+    if-ge v2, v3, :cond_48
 
-    .line 130
+    .line 164
     iget-object v3, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     aget-object v3, v3, v2
 
-    if-eqz v3, :cond_1a
+    if-eqz v3, :cond_45
 
     iget-object v3, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
 
@@ -196,78 +213,71 @@
 
     move-result v3
 
-    if-nez v3, :cond_1a
+    if-eqz v3, :cond_45
 
-    .line 129
-    add-int/lit8 v2, v2, 0x1
+    move v2, v0
 
-    goto :goto_1c
+    .line 169
+    :goto_3c
+    if-eqz v2, :cond_6
 
-    .line 132
-    :cond_32
+    .line 170
     iget-object v0, p0, Lbl/afm4;->progressbar_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->requestFocus()Z
 
     move v0, v1
 
-    .line 133
-    goto :goto_1a
+    .line 171
+    goto :goto_6
+
+    .line 163
+    :cond_45
+    add-int/lit8 v2, v2, 0x1
+
+    goto :goto_28
+
+    :cond_48
+    move v2, v1
+
+    goto :goto_3c
 .end method
 
 .method public final b()Z
     .locals 2
 
     .prologue
-    .line 119
-    const/4 v0, 0x2
+    const/4 v0, 0x0
 
-    :goto_1
-    const/4 v1, 0x6
+    .line 151
+    iget-object v1, p0, Lbl/afm4;->progressbar_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    if-ge v0, v1, :cond_19
+    if-nez v1, :cond_6
 
-    .line 120
-    iget-object v1, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
+    .line 154
+    :cond_5
+    :goto_5
+    return v0
 
-    aget-object v1, v1, v0
-
-    if-eqz v1, :cond_16
-
-    iget-object v1, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    aget-object v1, v1, v0
+    :cond_6
+    iget-object v1, p0, Lbl/afm4;->progressbar_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->hasFocus()Z
 
     move-result v1
 
-    if-eqz v1, :cond_16
+    if-nez v1, :cond_5
 
     const/4 v0, 0x1
 
-    .line 122
-    :goto_15
-    return v0
-
-    .line 119
-    :cond_16
-    add-int/lit8 v0, v0, 0x1
-
-    goto :goto_1
-
-    .line 122
-    :cond_19
-    const/4 v0, 0x0
-
-    goto :goto_15
+    goto :goto_5
 .end method
 
 .method public c()Z
     .locals 1
 
     .prologue
-    .line 27
+    .line 29
     const/4 v0, 0x1
 
     return v0
@@ -277,37 +287,37 @@
     .locals 0
 
     .prologue
-    .line 32
+    .line 34
     return-void
 .end method
 
 .method public final onClick(Landroid/view/View;)V
-    .locals 9
+    .locals 11
 
     .prologue
-    const v6, 0x7f0700f0
-
-    const v5, 0x7f0700ef
-
-    const/4 v8, 0x6
+    const/4 v10, 0x6
 
     const/4 v1, 0x1
 
+    const v9, 0x7f0700f0
+
+    const v8, 0x7f0700ef
+
     const/4 v2, 0x0
 
-    .line 71
+    .line 93
     iget-object v0, p0, Lbl/afm4;->progressbar_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-ne p1, v0, :cond_3c
 
-    .line 72
+    .line 94
     sget-boolean v0, Lmybl/BiliFilter;->progressbar_on:Z
 
     if-eqz v0, :cond_8d
 
     move-object v0, p1
 
-    .line 73
+    .line 95
     check-cast v0, Landroid/view/ViewGroup;
 
     invoke-virtual {v0, v2}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
@@ -320,10 +330,10 @@
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/ShadowTextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 74
-    invoke-virtual {p1, v5}, Landroid/view/View;->setBackgroundResource(I)V
+    .line 96
+    invoke-virtual {p1, v8}, Landroid/view/View;->setBackgroundResource(I)V
 
-    .line 80
+    .line 102
     :goto_22
     sget-boolean v0, Lmybl/BiliFilter;->progressbar_on:Z
 
@@ -334,7 +344,7 @@
     :goto_27
     sput-boolean v0, Lmybl/BiliFilter;->progressbar_on:Z
 
-    .line 81
+    .line 103
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v0
@@ -353,20 +363,20 @@
 
     invoke-static {v0, v3, v4}, Lbl/abd;->set_personal_config(Landroid/content/Context;Ljava/lang/String;Ljava/lang/Object;)V
 
-    .line 83
+    .line 105
     :cond_3c
     iget-object v0, p0, Lbl/afm4;->fastquit_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-ne p1, v0, :cond_6f
 
-    .line 84
+    .line 106
     sget-boolean v0, Lmybl/BiliFilter;->fastquit_on:Z
 
     if-eqz v0, :cond_a1
 
     move-object v0, p1
 
-    .line 85
+    .line 107
     check-cast v0, Landroid/view/ViewGroup;
 
     invoke-virtual {v0, v2}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
@@ -379,10 +389,10 @@
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/ShadowTextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 86
-    invoke-virtual {p1, v5}, Landroid/view/View;->setBackgroundResource(I)V
+    .line 108
+    invoke-virtual {p1, v8}, Landroid/view/View;->setBackgroundResource(I)V
 
-    .line 92
+    .line 114
     :goto_55
     sget-boolean v0, Lmybl/BiliFilter;->fastquit_on:Z
 
@@ -393,7 +403,7 @@
     :goto_5a
     sput-boolean v0, Lmybl/BiliFilter;->fastquit_on:Z
 
-    .line 93
+    .line 115
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v0
@@ -413,29 +423,29 @@
     invoke-static {v0, v3, v4}, Lbl/abd;->set_personal_config(Landroid/content/Context;Ljava/lang/String;Ljava/lang/Object;)V
 
     :cond_6f
-    move v5, v1
+    move v5, v2
 
-    .line 95
+    .line 117
     :goto_70
-    if-ge v5, v8, :cond_101
+    if-ge v5, v10, :cond_101
 
-    .line 96
+    .line 118
     iget-object v0, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     aget-object v0, v0, v5
 
     if-ne v0, p1, :cond_fc
 
-    .line 97
+    .line 119
     sget-object v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->MyMap:[I
 
     aget v3, v0, v5
 
-    .line 98
+    .line 120
     add-int/lit8 v0, v5, -0x1
 
     :goto_7e
-    if-lt v0, v1, :cond_b5
+    if-ltz v0, :cond_b5
 
     sget-object v4, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->MyMap:[I
 
@@ -454,7 +464,7 @@
     :cond_8d
     move-object v0, p1
 
-    .line 77
+    .line 99
     check-cast v0, Landroid/view/ViewGroup;
 
     invoke-virtual {v0, v2}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
@@ -467,21 +477,21 @@
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/ShadowTextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 78
-    invoke-virtual {p1, v6}, Landroid/view/View;->setBackgroundResource(I)V
+    .line 100
+    invoke-virtual {p1, v9}, Landroid/view/View;->setBackgroundResource(I)V
 
     goto :goto_22
 
     :cond_9f
     move v0, v2
 
-    .line 80
+    .line 102
     goto :goto_27
 
     :cond_a1
     move-object v0, p1
 
-    .line 89
+    .line 111
     check-cast v0, Landroid/view/ViewGroup;
 
     invoke-virtual {v0, v2}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
@@ -494,24 +504,24 @@
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/ShadowTextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 90
-    invoke-virtual {p1, v6}, Landroid/view/View;->setBackgroundResource(I)V
+    .line 112
+    invoke-virtual {p1, v9}, Landroid/view/View;->setBackgroundResource(I)V
 
     goto :goto_55
 
     :cond_b3
     move v0, v2
 
-    .line 92
+    .line 114
     goto :goto_5a
 
-    .line 99
+    .line 121
     :cond_b5
     sget-object v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->MyMap:[I
 
-    aput v3, v0, v1
+    aput v3, v0, v2
 
-    .line 100
+    .line 122
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v0
@@ -526,11 +536,11 @@
 
     invoke-static {v0, v3, v4}, Lbl/abd;->set_personal_config(Landroid/content/Context;Ljava/lang/String;Ljava/lang/Object;)V
 
-    move v4, v1
+    move v4, v2
 
-    .line 101
+    .line 123
     :goto_c9
-    if-ge v4, v8, :cond_fc
+    if-ge v4, v10, :cond_fc
 
     iget-object v0, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
 
@@ -584,7 +594,7 @@
 
     goto :goto_de
 
-    .line 95
+    .line 117
     :cond_fc
     add-int/lit8 v0, v5, 0x1
 
@@ -592,39 +602,88 @@
 
     goto/16 :goto_70
 
-    .line 104
+    .line 127
     :cond_101
+    iget-object v0, p0, Lbl/afm4;->hotRecommendButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    if-ne p1, v0, :cond_117
+
+    .line 128
+    invoke-virtual {p0}, Lbl/afm4;->getActivity()Landroid/support/v4/app/FragmentActivity;
+
+    move-result-object v0
+
+    invoke-static {v0, v2}, Lbl/abd;->set_home_default(Landroid/content/Context;I)V
+
+    .line 129
+    iget-object v0, p0, Lbl/afm4;->hotRecommendButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, v9}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
+
+    .line 130
+    iget-object v0, p0, Lbl/afm4;->personalRecommendButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, v8}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
+
+    .line 136
+    :cond_116
+    :goto_116
     return-void
+
+    .line 131
+    :cond_117
+    iget-object v0, p0, Lbl/afm4;->personalRecommendButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    if-ne p1, v0, :cond_116
+
+    .line 132
+    invoke-virtual {p0}, Lbl/afm4;->getActivity()Landroid/support/v4/app/FragmentActivity;
+
+    move-result-object v0
+
+    invoke-static {v0, v1}, Lbl/abd;->set_home_default(Landroid/content/Context;I)V
+
+    .line 133
+    iget-object v0, p0, Lbl/afm4;->hotRecommendButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, v8}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
+
+    .line 134
+    iget-object v0, p0, Lbl/afm4;->personalRecommendButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, v9}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
+
+    goto :goto_116
 .end method
 
 .method public onCreateView(Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View;
-    .locals 8
+    .locals 9
 
     .prologue
-    const v7, 0x7f0700f0
+    const v8, 0x7f0700ef
 
-    const/4 v1, 0x1
+    const v7, 0x7f0700f0
 
     const v6, 0x7f0700e8
 
-    const/4 v5, 0x0
+    const/4 v2, 0x0
 
-    .line 36
+    .line 38
     const-string v0, "inflater"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 37
+    .line 39
     const v0, 0x7f0a008a
 
-    invoke-virtual {p1, v0, p2, v5}, Landroid/view/LayoutInflater;->inflate(ILandroid/view/ViewGroup;Z)Landroid/view/View;
+    invoke-virtual {p1, v0, p2, v2}, Landroid/view/LayoutInflater;->inflate(ILandroid/view/ViewGroup;Z)Landroid/view/View;
 
-    move-result-object v2
+    move-result-object v3
 
-    .line 38
+    .line 40
     const v0, 0x7f08017a
 
-    invoke-virtual {v2, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+    invoke-virtual {v3, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
@@ -632,10 +691,10 @@
 
     iput-object v0, p0, Lbl/afm4;->progressbar_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 39
+    .line 41
     const v0, 0x7f08017b
 
-    invoke-virtual {v2, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+    invoke-virtual {v3, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
@@ -643,245 +702,350 @@
 
     iput-object v0, p0, Lbl/afm4;->fastquit_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 40
-    iget-object v3, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
+    .line 42
+    iget-object v1, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     const v0, 0x7f08017e
 
-    invoke-virtual {v2, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+    invoke-virtual {v3, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
     check-cast v0, Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    aput-object v0, v3, v1
+    aput-object v0, v1, v2
 
-    .line 41
-    iget-object v3, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
+    .line 43
+    iget-object v1, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    const/4 v4, 0x2
+    const/4 v4, 0x1
 
     const v0, 0x7f08017f
 
-    invoke-virtual {v2, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+    invoke-virtual {v3, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
     check-cast v0, Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    aput-object v0, v3, v4
+    aput-object v0, v1, v4
 
-    .line 42
-    iget-object v3, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
+    .line 44
+    iget-object v1, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    const/4 v4, 0x3
+    const/4 v4, 0x2
 
     const v0, 0x7f080180
 
-    invoke-virtual {v2, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+    invoke-virtual {v3, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
     check-cast v0, Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    aput-object v0, v3, v4
+    aput-object v0, v1, v4
 
-    .line 43
-    iget-object v3, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
+    .line 45
+    iget-object v1, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    const/4 v4, 0x4
+    const/4 v4, 0x3
 
     const v0, 0x7f080181
 
-    invoke-virtual {v2, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+    invoke-virtual {v3, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
     check-cast v0, Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    aput-object v0, v3, v4
+    aput-object v0, v1, v4
 
-    .line 44
-    iget-object v3, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
+    .line 46
+    iget-object v1, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    const/4 v4, 0x5
+    const/4 v4, 0x4
 
     const v0, 0x7f080182
 
-    invoke-virtual {v2, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+    invoke-virtual {v3, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
     check-cast v0, Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    aput-object v0, v3, v4
-
-    .line 46
-    iget-object v0, p0, Lbl/afm4;->progressbar_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    invoke-virtual {v0, v6}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
+    aput-object v0, v1, v4
 
     .line 47
+    iget-object v1, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    const/4 v4, 0x5
+
+    const v0, 0x7f080183
+
+    invoke-virtual {v3, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    aput-object v0, v1, v4
+
+    .line 49
+    iget-object v0, p0, Lbl/afm4;->progressbar_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, v6}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
+
+    .line 50
     iget-object v0, p0, Lbl/afm4;->progressbar_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 48
+    .line 51
     iget-object v0, p0, Lbl/afm4;->fastquit_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v6}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
 
-    .line 49
+    .line 52
     iget-object v0, p0, Lbl/afm4;->fastquit_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 50
+    .line 53
     sget-boolean v0, Lmybl/BiliFilter;->progressbar_on:Z
 
-    if-eqz v0, :cond_99
-
-    .line 51
-    iget-object v0, p0, Lbl/afm4;->progressbar_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    invoke-virtual {v0, v5}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
-
-    move-result-object v0
-
-    check-cast v0, Lcom/bilibili/tv/widget/ShadowTextView;
-
-    const-string v3, "\u5f00"
-
-    invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/ShadowTextView;->setText(Ljava/lang/CharSequence;)V
-
-    .line 52
-    iget-object v0, p0, Lbl/afm4;->progressbar_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    invoke-virtual {v0, v7}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
+    if-eqz v0, :cond_a9
 
     .line 54
-    :cond_99
-    sget-boolean v0, Lmybl/BiliFilter;->fastquit_on:Z
+    iget-object v0, p0, Lbl/afm4;->progressbar_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    if-eqz v0, :cond_af
-
-    .line 55
-    iget-object v0, p0, Lbl/afm4;->fastquit_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    invoke-virtual {v0, v5}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
+    invoke-virtual {v0, v2}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
 
     move-result-object v0
 
     check-cast v0, Lcom/bilibili/tv/widget/ShadowTextView;
 
-    const-string v3, "\u5f00"
+    const-string v1, "\u5f00"
 
-    invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/ShadowTextView;->setText(Ljava/lang/CharSequence;)V
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/ShadowTextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 56
-    iget-object v0, p0, Lbl/afm4;->fastquit_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
+    .line 55
+    iget-object v0, p0, Lbl/afm4;->progressbar_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v7}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 58
-    :cond_af
-    iget-object v0, p0, Lbl/afm4;->progressbar_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
+    .line 57
+    :cond_a9
+    sget-boolean v0, Lmybl/BiliFilter;->fastquit_on:Z
 
-    invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+    if-eqz v0, :cond_bf
+
+    .line 58
+    iget-object v0, p0, Lbl/afm4;->fastquit_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, v2}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/bilibili/tv/widget/ShadowTextView;
+
+    const-string v1, "\u5f00"
+
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/ShadowTextView;->setText(Ljava/lang/CharSequence;)V
 
     .line 59
     iget-object v0, p0, Lbl/afm4;->fastquit_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
-
-    .line 60
-    :goto_b9
-    const/4 v0, 0x6
-
-    if-ge v1, v0, :cond_ea
+    invoke-virtual {v0, v7}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
     .line 61
-    iget-object v0, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    aget-object v0, v0, v1
-
-    invoke-virtual {v0, v6}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
-
-    .line 62
-    iget-object v0, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    aget-object v0, v0, v1
-
-    invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
-
-    .line 63
-    iget-object v0, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    aget-object v0, v0, v1
+    :cond_bf
+    iget-object v0, p0, Lbl/afm4;->progressbar_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+
+    .line 62
+    iget-object v0, p0, Lbl/afm4;->fastquit_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+
+    move v1, v2
+
+    .line 63
+    :goto_ca
+    const/4 v0, 0x6
+
+    if-ge v1, v0, :cond_fb
 
     .line 64
     iget-object v0, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     aget-object v0, v0, v1
 
-    invoke-virtual {v0, v5}, Lcom/bilibili/tv/widget/DrawFrameLayout;->getChildAt(I)Landroid/view/View;
+    invoke-virtual {v0, v6}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
+
+    .line 65
+    iget-object v0, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    aget-object v0, v0, v1
+
+    invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
+
+    .line 66
+    iget-object v0, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    aget-object v0, v0, v1
+
+    invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+
+    .line 67
+    iget-object v0, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    aget-object v0, v0, v1
+
+    invoke-virtual {v0, v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->getChildAt(I)Landroid/view/View;
 
     move-result-object v0
 
     check-cast v0, Lcom/bilibili/tv/widget/ShadowTextView;
 
-    sget-object v3, Lbl/afm4;->tab_names:[Ljava/lang/String;
+    sget-object v4, Lbl/afm4;->tab_names:[Ljava/lang/String;
 
-    sget-object v4, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->MyMap:[I
+    sget-object v5, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->MyMap:[I
 
-    aget v4, v4, v1
+    aget v5, v5, v1
 
-    aget-object v3, v3, v4
+    aget-object v4, v4, v5
 
-    invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/ShadowTextView;->setText(Ljava/lang/CharSequence;)V
+    invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/ShadowTextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 60
+    .line 63
     add-int/lit8 v0, v1, 0x1
 
     move v1, v0
 
-    goto :goto_b9
+    goto :goto_ca
 
-    .line 66
-    :cond_ea
-    return-object v2
+    .line 70
+    :cond_fb
+    const v0, 0x7f08018b
+
+    invoke-virtual {v3, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    iput-object v0, p0, Lbl/afm4;->hotRecommendButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    .line 71
+    const v0, 0x7f08018c
+
+    invoke-virtual {v3, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    iput-object v0, p0, Lbl/afm4;->personalRecommendButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    .line 72
+    iget-object v0, p0, Lbl/afm4;->hotRecommendButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, v6}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
+
+    .line 73
+    iget-object v0, p0, Lbl/afm4;->personalRecommendButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, v6}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
+
+    .line 74
+    iget-object v0, p0, Lbl/afm4;->hotRecommendButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
+
+    .line 75
+    iget-object v0, p0, Lbl/afm4;->personalRecommendButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
+
+    .line 76
+    iget-object v0, p0, Lbl/afm4;->hotRecommendButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+
+    .line 77
+    iget-object v0, p0, Lbl/afm4;->personalRecommendButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+
+    .line 79
+    invoke-virtual {p0}, Lbl/afm4;->getActivity()Landroid/support/v4/app/FragmentActivity;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lbl/abd;->get_home_default(Landroid/content/Context;)I
+
+    move-result v0
+
+    .line 80
+    if-nez v0, :cond_144
+
+    .line 81
+    iget-object v0, p0, Lbl/afm4;->hotRecommendButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, v7}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
+
+    .line 82
+    iget-object v0, p0, Lbl/afm4;->personalRecommendButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, v8}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
+
+    .line 88
+    :goto_143
+    return-object v3
+
+    .line 84
+    :cond_144
+    iget-object v0, p0, Lbl/afm4;->hotRecommendButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, v8}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
+
+    .line 85
+    iget-object v0, p0, Lbl/afm4;->personalRecommendButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, v7}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
+
+    goto :goto_143
 .end method
 
 .method public final onFocusChange(Landroid/view/View;Z)V
     .locals 6
 
     .prologue
-    const/4 v1, 0x1
+    const/4 v3, 0x0
 
-    const/4 v5, 0x0
-
-    .line 108
+    .line 140
     if-eqz p2, :cond_4c
 
     move-object v0, p1
 
-    .line 109
+    .line 141
     check-cast v0, Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpEnabled(Z)V
 
     :goto_a
-    move v2, v1
+    move v2, v3
 
-    .line 113
+    .line 145
     :goto_b
     const/4 v0, 0x6
 
     if-ge v2, v0, :cond_56
 
-    .line 114
+    .line 146
     iget-object v0, p0, Lbl/afm4;->tab_buttons:[Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     aget-object v0, v0, v2
@@ -892,7 +1056,7 @@
 
     aget-object v0, v0, v2
 
-    invoke-virtual {v0, v5}, Lcom/bilibili/tv/widget/DrawFrameLayout;->getChildAt(I)Landroid/view/View;
+    invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->getChildAt(I)Landroid/view/View;
 
     move-result-object v0
 
@@ -902,34 +1066,34 @@
 
     aget-object v0, v0, v2
 
-    invoke-virtual {v0, v5}, Lcom/bilibili/tv/widget/DrawFrameLayout;->getChildAt(I)Landroid/view/View;
+    invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->getChildAt(I)Landroid/view/View;
 
     move-result-object v0
 
     check-cast v0, Lcom/bilibili/tv/widget/ShadowTextView;
 
-    new-instance v3, Ljava/lang/StringBuilder;
+    new-instance v4, Ljava/lang/StringBuilder;
 
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
 
     if-eqz p2, :cond_53
 
     const-string v1, "\u226a "
 
     :goto_31
-    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v4, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
-    sget-object v3, Lbl/afm4;->tab_names:[Ljava/lang/String;
+    sget-object v4, Lbl/afm4;->tab_names:[Ljava/lang/String;
 
-    sget-object v4, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->MyMap:[I
+    sget-object v5, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->MyMap:[I
 
-    aget v4, v4, v2
+    aget v5, v5, v2
 
-    aget-object v3, v3, v4
+    aget-object v4, v4, v5
 
-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
@@ -939,7 +1103,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/ShadowTextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 113
+    .line 145
     :cond_48
     add-int/lit8 v0, v2, 0x1
 
@@ -950,20 +1114,20 @@
     :cond_4c
     move-object v0, p1
 
-    .line 111
+    .line 143
     check-cast v0, Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    invoke-virtual {v0, v5}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpEnabled(Z)V
+    invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpEnabled(Z)V
 
     goto :goto_a
 
-    .line 114
+    .line 146
     :cond_53
     const-string v1, ""
 
     goto :goto_31
 
-    .line 116
+    .line 148
     :cond_56
     return-void
 .end method

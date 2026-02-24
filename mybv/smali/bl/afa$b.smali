@@ -37,7 +37,7 @@
     .locals 2
 
     .prologue
-    .line 331
+    .line 327
     new-instance v0, Lbl/afa$b$a;
 
     const/4 v1, 0x0
@@ -53,15 +53,15 @@
     .locals 2
 
     .prologue
-    .line 338
+    .line 334
     invoke-direct {p0, p1}, Lbl/adv;-><init>(Landroid/view/View;)V
 
-    .line 339
+    .line 335
     const-string v0, "itemView"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 340
+    .line 336
     const v0, 0x7f0800c3
 
     invoke-virtual {p0, p1, v0}, Lbl/afa$b;->a(Landroid/view/View;I)Landroid/view/View;
@@ -72,7 +72,7 @@
 
     iput-object v0, p0, Lbl/afa$b;->n:Landroid/widget/TextView;
 
-    .line 341
+    .line 337
     const v0, 0x7f0800a1
 
     invoke-virtual {p0, p1, v0}, Lbl/afa$b;->a(Landroid/view/View;I)Landroid/view/View;
@@ -83,19 +83,19 @@
 
     iput-object v0, p0, Lbl/afa$b;->o:Landroid/widget/ImageView;
 
-    .line 342
+    .line 338
     check-cast p1, Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     iput-object p1, p0, Lbl/afa$b;->p:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
-    .line 343
+    .line 339
     iget-object v0, p0, Lbl/afa$b;->p:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     const v1, 0x7f0700e6
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawRelativeLayout;->setUpDrawable(I)V
 
-    .line 344
+    .line 340
     return-void
 .end method
 
@@ -105,7 +105,7 @@
     .locals 1
 
     .prologue
-    .line 353
+    .line 349
     iget-object v0, p0, Lbl/afa$b;->o:Landroid/widget/ImageView;
 
     return-object v0
@@ -115,7 +115,7 @@
     .locals 1
 
     .prologue
-    .line 348
+    .line 344
     iget-object v0, p0, Lbl/afa$b;->n:Landroid/widget/TextView;
 
     return-object v0

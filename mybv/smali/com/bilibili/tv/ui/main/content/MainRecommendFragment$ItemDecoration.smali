@@ -23,223 +23,68 @@
     .locals 0
 
     .prologue
-    .line 174
+    .line 206
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$g;-><init>()V
 
-    .line 175
+    .line 207
     iput p1, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$ItemDecoration;->space:I
 
-    .line 176
+    .line 208
     return-void
 .end method
 
 
 # virtual methods
 .method public a(Landroid/graphics/Rect;Landroid/view/View;Landroid/support/v7/widget/RecyclerView;Landroid/support/v7/widget/RecyclerView$s;)V
-    .locals 7
+    .locals 2
 
     .prologue
-    const/16 v6, 0x14
-
-    const/4 v1, 0x0
-
-    const/4 v2, 0x0
-
-    .line 186
+    .line 212
     const-string v0, "outRect"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 187
+    .line 213
     const-string v0, "view"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 188
+    .line 214
     const-string v0, "parent"
 
     invoke-static {p3, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 189
+    .line 215
     invoke-virtual {p3, p2}, Landroid/support/v7/widget/RecyclerView;->f(Landroid/view/View;)I
 
-    move-result v3
-
-    .line 190
-    div-int/lit8 v0, v3, 0x5
-
-    int-to-double v4, v0
-
-    invoke-static {v4, v5}, Ljava/lang/Math;->floor(D)D
-
-    move-result-wide v4
-
-    double-to-int v0, v4
-
-    add-int/lit8 v0, v0, 0x1
-
-    sub-int v4, v3, v0
-
-    .line 191
-    rem-int/lit8 v0, v3, 0x5
-
-    if-nez v0, :cond_51
-
-    move-object v0, v1
-
-    .line 192
-    check-cast v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;
-
-    sget-object v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;->ogvList:Ljava/util/List;
-
-    invoke-interface {v0}, Ljava/util/List;->size()I
-
     move-result v0
 
-    const/4 v4, 0x5
+    .line 216
+    rem-int/lit8 v1, v0, 0x4
 
-    if-ne v0, v4, :cond_43
+    .line 217
+    div-int/lit8 v0, v0, 0x4
 
-    check-cast v1, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;
+    .line 219
+    iget v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$ItemDecoration;->space:I
 
-    sget-object v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;->ogvList:Ljava/util/List;
+    iput v0, p1, Landroid/graphics/Rect;->left:I
 
-    div-int/lit8 v1, v3, 0x5
+    .line 220
+    iget v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$ItemDecoration;->space:I
 
-    invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
+    iput v0, p1, Landroid/graphics/Rect;->right:I
 
-    move-result-object v0
+    .line 221
+    iget v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$ItemDecoration;->space:I
 
-    if-nez v0, :cond_43
+    iput v0, p1, Landroid/graphics/Rect;->top:I
 
-    invoke-virtual {p1, v2, v2, v2, v2}, Landroid/graphics/Rect;->set(IIII)V
+    .line 222
+    iget v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$ItemDecoration;->space:I
 
-    .line 201
-    :goto_42
+    iput v0, p1, Landroid/graphics/Rect;->bottom:I
+
+    .line 223
     return-void
-
-    .line 193
-    :cond_43
-    if-lez v3, :cond_4f
-
-    iget v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$ItemDecoration;->space:I
-
-    mul-int/lit8 v0, v0, 0x2
-
-    :goto_49
-    iget v1, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$ItemDecoration;->space:I
-
-    invoke-virtual {p1, v0, v2, v1, v2}, Landroid/graphics/Rect;->set(IIII)V
-
-    goto :goto_42
-
-    :cond_4f
-    move v0, v2
-
-    goto :goto_49
-
-    .line 194
-    :cond_51
-    rem-int/lit8 v0, v4, 0x2
-
-    if-nez v0, :cond_7e
-
-    move-object v0, v1
-
-    .line 195
-    check-cast v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;
-
-    sget-object v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;->ugcList:Ljava/util/List;
-
-    invoke-interface {v0}, Ljava/util/List;->size()I
-
-    move-result v0
-
-    if-ne v0, v6, :cond_6e
-
-    check-cast v1, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;
-
-    sget-object v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;->ugcList:Ljava/util/List;
-
-    invoke-interface {v0, v4}, Ljava/util/List;->get(I)Ljava/lang/Object;
-
-    move-result-object v0
-
-    if-nez v0, :cond_6e
-
-    invoke-virtual {p1, v2, v2, v2, v2}, Landroid/graphics/Rect;->set(IIII)V
-
-    goto :goto_42
-
-    .line 196
-    :cond_6e
-    if-lez v3, :cond_7c
-
-    iget v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$ItemDecoration;->space:I
-
-    mul-int/lit8 v0, v0, 0x2
-
-    :goto_74
-    iget v1, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$ItemDecoration;->space:I
-
-    iget v3, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$ItemDecoration;->space:I
-
-    invoke-virtual {p1, v0, v2, v1, v3}, Landroid/graphics/Rect;->set(IIII)V
-
-    goto :goto_42
-
-    :cond_7c
-    move v0, v2
-
-    goto :goto_74
-
-    :cond_7e
-    move-object v0, v1
-
-    .line 198
-    check-cast v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;
-
-    sget-object v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;->ugcList:Ljava/util/List;
-
-    invoke-interface {v0}, Ljava/util/List;->size()I
-
-    move-result v0
-
-    if-ne v0, v6, :cond_97
-
-    check-cast v1, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;
-
-    sget-object v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;->ugcList:Ljava/util/List;
-
-    invoke-interface {v0, v4}, Ljava/util/List;->get(I)Ljava/lang/Object;
-
-    move-result-object v0
-
-    if-nez v0, :cond_97
-
-    invoke-virtual {p1, v2, v2, v2, v2}, Landroid/graphics/Rect;->set(IIII)V
-
-    goto :goto_42
-
-    .line 199
-    :cond_97
-    if-lez v3, :cond_a5
-
-    iget v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$ItemDecoration;->space:I
-
-    mul-int/lit8 v0, v0, 0x2
-
-    :goto_9d
-    iget v1, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$ItemDecoration;->space:I
-
-    iget v3, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$ItemDecoration;->space:I
-
-    invoke-virtual {p1, v0, v1, v3, v2}, Landroid/graphics/Rect;->set(IIII)V
-
-    goto :goto_42
-
-    :cond_a5
-    move v0, v2
-
-    goto :goto_9d
 .end method

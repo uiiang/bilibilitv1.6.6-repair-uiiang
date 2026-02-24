@@ -23,7 +23,7 @@
     .locals 0
 
     .prologue
-    .line 118
+    .line 121
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$1;->this$0:Lcom/bilibili/tv/ui/main/content/MainMyFragment;
 
     invoke-direct {p0, p2, p3, p4, p5}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;-><init>(Landroid/content/Context;IIZ)V
@@ -34,55 +34,36 @@
 
 # virtual methods
 .method public d(Landroid/view/View;I)Landroid/view/View;
-    .locals 2
+    .locals 3
 
     .prologue
-    const/4 v1, 0x0
+    const/4 v2, 0x0
 
-    .line 121
-    const/16 v0, 0x11
+    .line 124
+    invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$1;->d(Landroid/view/View;)I
 
-    if-eq p2, v0, :cond_11
-
-    .line 122
-    const/16 v0, 0x21
-
-    if-eq p2, v0, :cond_17
-
-    .line 123
-    const/16 v0, 0x42
-
-    if-eq p2, v0, :cond_11
-
-    const/16 v0, 0x82
-
-    if-ne p2, v0, :cond_12
-
-    .line 134
-    :cond_11
-    :goto_11
-    return-object p1
-
-    .line 123
-    :cond_12
-    invoke-super {p0, p1, p2}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->d(Landroid/view/View;I)Landroid/view/View;
-
-    move-result-object p1
-
-    goto :goto_11
+    move-result v0
 
     .line 125
-    :cond_17
+    const/16 v1, 0x21
+
+    if-ne p2, v1, :cond_29
+
+    const/4 v1, 0x4
+
+    if-ge v0, v1, :cond_29
+
+    .line 126
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$1;->this$0:Lcom/bilibili/tv/ui/main/content/MainMyFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 126
-    if-nez v0, :cond_27
-
     .line 127
+    if-nez v0, :cond_1c
+
+    .line 128
     new-instance v0, Lkotlin/TypeCastException;
 
     const-string v1, "null cannot be cast to non-null type com.bilibili.tv.ui.main.MainActivity"
@@ -91,20 +72,29 @@
 
     throw v0
 
-    .line 129
-    :cond_27
+    .line 130
+    :cond_1c
     check-cast v0, Lcom/bilibili/tv/ui/main/MainActivity;
 
-    .line 130
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/main/MainActivity;->a(Z)V
-
     .line 131
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/main/MainActivity;->b(Z)V
+    invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/main/MainActivity;->a(Z)V
 
     .line 132
+    invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/main/MainActivity;->b(Z)V
+
+    .line 133
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/MainActivity;->j()Landroid/view/View;
 
-    move-result-object p1
+    move-result-object v0
 
-    goto :goto_11
+    .line 135
+    :goto_28
+    return-object v0
+
+    :cond_29
+    invoke-super {p0, p1, p2}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->d(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object v0
+
+    goto :goto_28
 .end method

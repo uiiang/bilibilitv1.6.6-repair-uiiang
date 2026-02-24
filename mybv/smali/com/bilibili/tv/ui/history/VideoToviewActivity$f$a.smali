@@ -61,16 +61,17 @@
 
     const/4 v2, 0x0
 
+    .line 509
     invoke-virtual {v0, v1, p1, v2}, Landroid/view/LayoutInflater;->inflate(ILandroid/view/ViewGroup;Z)Landroid/view/View;
 
     move-result-object v0
 
-    .line 509
+    .line 510
     const-string v1, "view"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 510
+    .line 511
     new-instance v1, Lcom/bilibili/tv/ui/history/VideoToviewActivity$f;
 
     invoke-direct {v1, v0}, Lcom/bilibili/tv/ui/history/VideoToviewActivity$f;-><init>(Landroid/view/View;)V

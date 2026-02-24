@@ -27,6 +27,9 @@ case "$1" in
         rm -r mybv/build
         rm -r mybv/dist
         sed -i "/renameManifestPackage/c\ \ renameManifestPackage: $packageid" mybv/apktool.yml
+        sed -i "s/com\.bilibili\.tv\.provider\./$packageid.provider./g" mybv/AndroidManifest.xml
+        sed -i "s/com\.bilibili\.tv\.fileprovider/$packageid.fileprovider/g" mybv/AndroidManifest.xml
+        sed -i "s/com\.bilibili\.tv\.fileProvider/$packageid.fileProvider/g" mybv/AndroidManifest.xml
         cd mybv/java;./build.sh;cd ../..
         apktool b --use-aapt2 mybv
         signapk platform.x509.pem platform.pk8 ./mybv/dist/mybv.apk mybv.apk

@@ -527,7 +527,7 @@
     iput-object v0, p0, Lbl/afo;->d:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     .line 49
-    const v0, 0x7f080183
+    const v0, 0x7f080184
 
     invoke-virtual {p0, v1, v0}, Lbl/afo;->a(Landroid/view/View;I)Landroid/view/View;
 

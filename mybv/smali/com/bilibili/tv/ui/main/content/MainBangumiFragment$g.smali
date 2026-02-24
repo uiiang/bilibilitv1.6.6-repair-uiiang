@@ -23,132 +23,87 @@
     .locals 0
 
     .prologue
-    .line 162
+    .line 155
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$g;-><init>()V
 
-    .line 163
+    .line 156
     iput p1, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$g;->a:I
 
-    .line 164
+    .line 157
     return-void
 .end method
 
 
 # virtual methods
 .method public a(Landroid/graphics/Rect;Landroid/view/View;Landroid/support/v7/widget/RecyclerView;Landroid/support/v7/widget/RecyclerView$s;)V
-    .locals 4
+    .locals 6
 
     .prologue
-    const/4 v1, 0x0
-
-    .line 171
+    .line 161
     const-string v0, "outRect"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 172
+    .line 162
     const-string v0, "view"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 173
+    .line 163
     const-string v0, "parent"
 
     invoke-static {p3, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 174
+    .line 164
     invoke-virtual {p3, p2}, Landroid/support/v7/widget/RecyclerView;->f(Landroid/view/View;)I
 
-    move-result v0
+    move-result v1
 
-    packed-switch v0, :pswitch_data_48
+    .line 165
+    const/4 v0, 0x4
 
-    .line 198
-    iget v0, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$g;->a:I
+    if-ge v1, v0, :cond_2f
 
-    mul-int/lit8 v2, v0, 0x2
+    const/4 v0, 0x0
 
-    move v0, v1
-
-    move v3, v1
-
-    .line 203
-    :goto_1d
-    invoke-virtual {p1, v2, v0, v1, v3}, Landroid/graphics/Rect;->set(IIII)V
-
-    .line 204
-    return-void
-
-    .line 176
-    :pswitch_21
-    iget v0, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$g;->a:I
-
-    mul-int/lit8 v0, v0, 0x3
-
-    div-int/lit8 v3, v0, 0x2
-
-    move v0, v1
-
-    move v2, v1
-
-    .line 179
-    goto :goto_1d
-
-    .line 181
-    :pswitch_2a
-    iget v3, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$g;->a:I
-
-    .line 182
-    iget v0, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$g;->a:I
-
-    div-int/lit8 v0, v0, 0x3
-
-    mul-int/lit8 v0, v0, 0x2
-
-    move v2, v1
-
-    .line 185
-    goto :goto_1d
-
-    .line 187
-    :pswitch_34
-    iget v0, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$g;->a:I
-
-    .line 188
+    .line 166
+    :goto_17
     iget v2, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$g;->a:I
 
-    div-int/lit8 v2, v2, 0x3
+    .line 167
+    rem-int/lit8 v1, v1, 0x4
 
-    mul-int/lit8 v3, v2, 0x2
+    .line 168
+    iget v3, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$g;->a:I
 
-    move v2, v1
+    .line 169
+    div-int/lit8 v4, v3, 0x2
 
-    .line 191
-    goto :goto_1d
+    .line 171
+    mul-int v5, v1, v3
 
-    .line 193
-    :pswitch_3e
-    iget v0, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$g;->a:I
+    div-int/lit8 v5, v5, 0x4
 
-    mul-int/lit8 v0, v0, 0x3
+    sub-int v5, v4, v5
 
-    div-int/lit8 v0, v0, 0x2
+    .line 172
+    add-int/lit8 v1, v1, 0x1
 
-    move v2, v1
+    mul-int/2addr v1, v3
 
-    move v3, v1
+    div-int/lit8 v1, v1, 0x4
 
-    .line 196
-    goto :goto_1d
+    sub-int/2addr v1, v4
 
     .line 174
-    nop
+    invoke-virtual {p1, v5, v0, v1, v2}, Landroid/graphics/Rect;->set(IIII)V
 
-    :pswitch_data_48
-    .packed-switch 0x0
-        :pswitch_21
-        :pswitch_2a
-        :pswitch_34
-        :pswitch_3e
-    .end packed-switch
+    .line 175
+    return-void
+
+    .line 165
+    :cond_2f
+    iget v0, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$g;->a:I
+
+    goto :goto_17
 .end method
