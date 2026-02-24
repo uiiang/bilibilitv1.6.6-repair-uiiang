@@ -344,6 +344,9 @@ public class FavoriteSideActivity extends BaseSideActivity {
                                 return;
                             }
                             vVar.a.setSelected(false);
+                            // 焦点移出时恢复为单行显示
+                            TextView textView = holder.n;
+                            textView.setMaxLines(1);
                             return;
                         }
                         if (activity == null || activity.isFinishing()) {
@@ -360,6 +363,9 @@ public class FavoriteSideActivity extends BaseSideActivity {
                         if (vVar.a instanceof SideLeftSelectLinearLayout) {
                             ((SideLeftSelectLinearLayout) vVar.a).a();
                         }
+                        // 焦点移入时展开为多行显示
+                        TextView textView = holder.n;
+                        textView.setMaxLines(3);
                         activity.b(4);
                     }
                 });
