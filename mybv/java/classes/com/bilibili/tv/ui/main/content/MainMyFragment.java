@@ -20,6 +20,7 @@ import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.ui.account.LoginActivity;
 import com.bilibili.tv.ui.attention.AttentionDynamicActivity;
+import com.bilibili.tv.ui.attention.AttentionDynamicSideActivity;
 import com.bilibili.tv.ui.favorite.FavoriteSideActivity;
 import com.bilibili.tv.ui.history.VideoHistoryActivity;
 import com.bilibili.tv.ui.main.MainActivity;
@@ -429,8 +430,8 @@ public final class MainMyFragment extends adu implements aez, wf {
                             this.f = intValue;
                             return;
                         }
-                        AttentionDynamicActivity.uperMode = false;
-                        AttentionDynamicActivity.Companion.a(a2);
+                        // 跳转到新的动态页面（左右分栏）
+                        AttentionDynamicSideActivity.a(a2);
                         ok.a("tv_my_mybangumi_click", "action", "1");
                         return;
                     case 2:
@@ -447,8 +448,8 @@ public final class MainMyFragment extends adu implements aez, wf {
                             this.f = intValue;
                             return;
                         }
-                        AttentionDynamicActivity.uperMode = true;
-                        AttentionDynamicActivity.Companion.a(a2);
+                        // 跳转到新的动态页面（左右分栏）
+                        AttentionDynamicSideActivity.a(a2);
                         ok.a("tv_my_attention_click", "action", "1");
                         return;
                     case 4:

@@ -2609,6 +2609,7 @@
 
     <public type="layout" name="fragment_experiment" id="0x7f0a0089" />
     <public type="layout" name="fragment_personalization" id="0x7f0a008a" />
+    <public type="layout" name="activity_attention_dynamic_side" id="0x7f0a008b" />
 
     <public type="mipmap" name="ic_launcher" id="0x7f0b0000" />
     <public type="string" name="dialog_btn_i_know" id="0x7f0c008a" />

@@ -53,6 +53,7 @@
         <activity android:name="com.bilibili.tv.ui.area.AreaActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.video.tag.VideoTagSearchActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.attention.AttentionDynamicActivity" android:screenOrientation="landscape"/>
+        <activity android:name="com.bilibili.tv.ui.attention.AttentionDynamicSideActivity" android:screenOrientation="landscape"/>
         <activity android:launchMode="singleTop" android:name="com.bilibili.tv.ui.upgrade.UpgradeActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.live.LiveActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.live.player.LivePlayerActivity" android:screenOrientation="landscape"/>
