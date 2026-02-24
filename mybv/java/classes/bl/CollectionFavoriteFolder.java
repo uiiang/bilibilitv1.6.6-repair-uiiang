@@ -30,9 +30,7 @@ public class CollectionFavoriteFolder implements FavoriteFolder {
     
     @Override
     public long getId() {
-        if (folder.containsKey("fid") && folder.getLong("fid") != 0) {
-            return folder.getLong("fid");
-        }
+        // 返回 season_id（id 字段），用于 getFavoriteUserSeason API
         return folder.getLong("id");
     }
     
@@ -43,5 +41,15 @@ public class CollectionFavoriteFolder implements FavoriteFolder {
     
     public JSONObject getFolder() {
         return folder;
+    }
+    
+    public long getFid() {
+        // 返回 fid，用于 getFavoriteSearchedVideoList API
+        return folder.getLong("fid");
+    }
+    
+    public long getMid() {
+        // 返回 mid，用于 getFavoriteSearchedVideoList API
+        return folder.getLong("mid");
     }
 }

@@ -275,10 +275,23 @@ public class FavoriteSideActivity extends BaseSideActivity {
         
         selectedFolder = folder;
         
-        FavoriteVideoFragment fragment = FavoriteVideoFragment.newInstance(
-            folder.getId(),
-            folder.getType()
-        );
+        FavoriteVideoFragment fragment;
+        if (folder instanceof CollectionFavoriteFolder) {
+            // 对于合集类型，传递 fid 和 mid 参数
+            CollectionFavoriteFolder collectionFolder = (CollectionFavoriteFolder) folder;
+            fragment = FavoriteVideoFragment.newInstance(
+                folder.getId(),
+                folder.getType(),
+                collectionFolder.getFid(),
+                collectionFolder.getMid()
+            );
+        } else {
+            // 对于其他类型，使用默认构造函数
+            fragment = FavoriteVideoFragment.newInstance(
+                folder.getId(),
+                folder.getType()
+            );
+        }
         
         getSupportFragmentManager()
             .beginTransaction()
