@@ -24,6 +24,7 @@ import bl.ach;
 import bl.vo;
 import bl.vn;
 import bl.ok;
+import bl.xg;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.favorite.BiliFavVideoDetailList;
@@ -247,22 +248,29 @@ public final class FavoriteVideoFragment extends ady {
                     j();
                     h = false;
                     if (result != null) {
-                        JSONArray items = result.getJSONArray("items");
-                        if (items != null && !items.isEmpty()) {
+                        JSONArray medias = result.getJSONArray("medias");
+                        if (medias != null && !medias.isEmpty()) {
                             List<BiliVideoDetail> videos = new ArrayList<>();
-                            for (int i = 0; i < items.size(); i++) {
-                                JSONObject item = items.getJSONObject(i);
+                            for (int i = 0; i < medias.size(); i++) {
+                                JSONObject item = medias.getJSONObject(i);
                                 BiliVideoDetail video = new BiliVideoDetail();
-                                video.mAvid = item.getLong("avid");
-                                video.mCover = item.getString("pic");
+                                video.mAvid = item.getLong("id");
+                                video.mCover = item.getString("cover");
                                 video.mTitle = item.getString("title");
-                                video.mTypeName = item.getString("typename");
+                                video.mTypeName = "番剧";
                                 videos.add(video);
                             }
                             if (f == 1) {
                                 c.a(videos);
                             } else {
                                 c.b(videos);
+                            }
+                            // 检查是否还有更多数据
+                            if (result.getJSONObject("info") != null) {
+                                int totalCount = result.getJSONObject("info").getIntValue("media_count");
+                                if (c.a() >= totalCount) {
+                                    g = false;
+                                }
                             }
                             return;
                         }
@@ -294,11 +302,53 @@ public final class FavoriteVideoFragment extends ady {
     }
     
     private void loadCourseVideos() {
-        j();
-        h = false;
-        g = false;
-        l();
-        this.a(R.string.nothing_show);
+        Log.d("FavoriteVideoFragment", "Course videos: season_id=" + folderId);
+        ((MyBiliApiService) vo.a(MyBiliApiService.class))
+            .getPugvSeason(folderId)
+            .a(new vn<JSONObject>() {
+                @Override
+                public void a(JSONObject result) {
+                    Log.d("FavoriteVideoFragment", "Course videos result: " + (result != null ? result.toJSONString() : "null"));
+                    if (c == null) {
+                        return;
+                    }
+                    j();
+                    h = false;
+                    if (result != null) {
+                        JSONArray eps = result.getJSONArray("episodes");
+                        Log.d("FavoriteVideoFragment", "Episodes: " + (eps != null ? eps.toJSONString() : "null"));
+                        if (eps != null && !eps.isEmpty()) {
+                            Log.d("FavoriteVideoFragment", "Episodes size: " + eps.size());
+                            // 直接使用 JSONArray，不转换为 List<BiliVideoDetail>
+                            if (f == 1) {
+                                c.a(eps, result);
+                            } else {
+                                c.b(eps);
+                            }
+                            g = false;
+                            return;
+                        }
+                    }
+                    g = false;
+                    l();
+                    FavoriteVideoFragment.this.a(R.string.nothing_show);
+                }
+                
+                @Override
+                public boolean isCancel() {
+                    return getActivity() == null || c == null;
+                }
+                
+                @Override
+                public void onError(Throwable th) {
+                    adl.a.a(th, getActivity());
+                    if (c == null) {
+                        return;
+                    }
+                    h = false;
+                    k();
+                }
+            });
     }
 
     /* compiled from: BL */
@@ -379,6 +429,9 @@ public final class FavoriteVideoFragment extends ady {
     /* compiled from: BL */
     static final class c extends RecyclerView.a<adv> implements View.OnClickListener {
         private List<BiliVideoDetail> a = new ArrayList();
+        private JSONArray b = new JSONArray();
+        private JSONObject cheeseInfo = null;
+        private boolean isCourseMode = false;
 
         @Override // android.support.v7.widget.RecyclerView.a
         /* renamed from: c, reason: merged with bridge method [inline-methods] */
@@ -391,19 +444,35 @@ public final class FavoriteVideoFragment extends ady {
         public void a(adv advVar, int i) {
             bbi.b(advVar, "viewHolder");
             if (advVar instanceof d) {
-                BiliVideoDetail biliVideoDetail = this.a.get(i);
-                if (biliVideoDetail.mCover != null) {
-                    nv.a().a(ach.c(MainApplication.a(), biliVideoDetail.mCover), ((d) advVar).z());
+                if (isCourseMode) {
+                    // 课程模式：使用 JSONArray
+                    JSONObject item = this.b.getJSONObject(i);
+                    if (item.containsKey("cover")) {
+                        nv.a().a(ach.c(MainApplication.a(), item.getString("cover")), ((d) advVar).z());
+                    }
+                    if (item.containsKey("title")) {
+                        ((d) advVar).A().setText(item.getString("title"));
+                    }
+                    ((d) advVar).B().setText(adl.e(R.string.type_name) + "课程");
+                    View view = advVar.a;
+                    bbi.a((Object) view, "viewHolder.itemView");
+                    view.setTag(item);
+                } else {
+                    // 正常模式：使用 List<BiliVideoDetail>
+                    BiliVideoDetail biliVideoDetail = this.a.get(i);
+                    if (biliVideoDetail.mCover != null) {
+                        nv.a().a(ach.c(MainApplication.a(), biliVideoDetail.mCover), ((d) advVar).z());
+                    }
+                    if (biliVideoDetail.mTitle != null) {
+                        ((d) advVar).A().setText(biliVideoDetail.mTitle);
+                    }
+                    if (biliVideoDetail.mTypeName != null) {
+                        ((d) advVar).B().setText(adl.e(R.string.type_name) + biliVideoDetail.mTypeName);
+                    }
+                    View view = advVar.a;
+                    bbi.a((Object) view, "viewHolder.itemView");
+                    view.setTag(biliVideoDetail);
                 }
-                if (biliVideoDetail.mTitle != null) {
-                    ((d) advVar).A().setText(biliVideoDetail.mTitle);
-                }
-                if (biliVideoDetail.mTypeName != null) {
-                    ((d) advVar).B().setText(adl.e(R.string.type_name) + biliVideoDetail.mTypeName);
-                }
-                View view = advVar.a;
-                bbi.a((Object) view, "viewHolder.itemView");
-                view.setTag(biliVideoDetail);
                 advVar.a.setTag(R.id.position, Integer.valueOf(i));
                 advVar.a.setOnClickListener(this);
             }
@@ -411,19 +480,37 @@ public final class FavoriteVideoFragment extends ady {
 
         @Override // android.support.v7.widget.RecyclerView.a
         public int a() {
-            return this.a.size();
+            return isCourseMode ? this.b.size() : this.a.size();
         }
 
         public final void a(List<BiliVideoDetail> list) {
             bbi.b(list, "list");
+            isCourseMode = false;
             this.a.addAll(list);
             d();
         }
 
         public final void b(List<BiliVideoDetail> list) {
             bbi.b(list, "list");
+            isCourseMode = false;
             int size = this.a.size();
             this.a.addAll(list);
+            d(size);
+        }
+
+        public final void a(JSONArray list, JSONObject cheeseInfo) {
+            bbi.b(list, "list");
+            isCourseMode = true;
+            this.cheeseInfo = cheeseInfo;
+            this.b.addAll(list);
+            d();
+        }
+
+        public final void b(JSONArray list) {
+            bbi.b(list, "list");
+            isCourseMode = true;
+            int size = this.b.size();
+            this.b.addAll(list);
             d(size);
         }
 
@@ -437,6 +524,11 @@ public final class FavoriteVideoFragment extends ady {
                 Object tag = view.getTag();
                 if (tag instanceof BiliVideoDetail) {
                     activityA.startActivity(VideoDetailActivity.Companion.a((Context) activityA, ((BiliVideoDetail) tag).mAvid));
+                } else if (tag instanceof JSONObject) {
+                    // 课程模式：使用 xg.playCheese2 播放
+                    JSONObject item = (JSONObject) tag;
+                    xg.playCheese2(context, this.cheeseInfo, item);
+                    ok.a("tv_myfavourite_fold_video_click", new String[0]);
                 }
                 if (view.getTag(R.id.position) != null) {
                     ok.a("tv_myfavourite_video_click", "row", String.valueOf(((int) Math.floor(((Integer) view.getTag(R.id.position)).intValue() / FavoriteVideoFragment.j)) + 1));
