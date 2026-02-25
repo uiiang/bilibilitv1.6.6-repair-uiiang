@@ -76,18 +76,39 @@ public final class AttentionDynamicFragment extends ady {
         fragment.mode = mode;
         return fragment;
     }
+    
+    public static AttentionDynamicFragment newInstance(long mid, String mode, String uperName) {
+        AttentionDynamicFragment fragment = new AttentionDynamicFragment();
+        fragment.mid = mid;
+        fragment.mode = mode;
+        fragment.uperName = uperName;
+        return fragment;
+    }
+
+    private RecyclerView recyclerView;
 
     @Override // bl.ady
     public void a(RecyclerView recyclerView, Bundle bundle) {
         bbi.b(recyclerView, "recyclerView");
         super.a(recyclerView, bundle);
+        this.recyclerView = recyclerView;
+        android.util.Log.d("AttentionDynamicFragment", "a() called, mid: " + mid + ", mode: " + mode + ", uperName: " + uperName);
         SideRightGridLayoutManger sideRightGridLayoutManger = new SideRightGridLayoutManger(getActivity(), j);
         FragmentActivity activity = getActivity();
         if (activity == null) {
             throw new TypeCastException("null cannot be cast to non-null type com.bilibili.tv.ui.attention.AttentionDynamicSideActivity");
         }
         sideRightGridLayoutManger.a(new e((AttentionDynamicSideActivity) activity));
+        // 确保RecyclerView的布局参数正确
+        ViewGroup.LayoutParams params = recyclerView.getLayoutParams();
+        if (params != null) {
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+            recyclerView.setLayoutParams(params);
+        }
         recyclerView.setHasFixedSize(true);
+        recyclerView.setFocusable(true);
+        recyclerView.setFocusableInTouchMode(true);
         recyclerView.setLayoutManager(sideRightGridLayoutManger);
         int iB = adl.b(R.dimen.px_4);
         int iB2 = adl.b(R.dimen.px_20);
@@ -97,8 +118,22 @@ public final class AttentionDynamicFragment extends ady {
         recyclerView.a(new g(sideRightGridLayoutManger));
         this.c = new c(uperName);
         recyclerView.setAdapter(this.c);
+        android.util.Log.d("AttentionDynamicFragment", "Adapter set, recyclerView: " + recyclerView);
+        i();
+        android.util.Log.d("AttentionDynamicFragment", "i() called");
         this.d = new b();
         b();
+        android.util.Log.d("AttentionDynamicFragment", "b() called");
+        // 数据加载完成后，尝试让RecyclerView获得焦点
+        recyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                if (AttentionDynamicFragment.this.recyclerView != null && AttentionDynamicFragment.this.c != null && AttentionDynamicFragment.this.c.a() > 0) {
+                    AttentionDynamicFragment.this.recyclerView.requestFocus();
+                    android.util.Log.d("AttentionDynamicFragment", "RecyclerView requested focus");
+                }
+            }
+        });
     }
 
     /* compiled from: BL */
@@ -177,13 +212,7 @@ public final class AttentionDynamicFragment extends ady {
     @Override // bl.adw
     public boolean c() {
         if (isVisible() && this.c != null) {
-            c cVar = this.c;
-            if (cVar == null) {
-                bbi.a();
-            }
-            if (cVar.a() > 0) {
-                return true;
-            }
+            return this.c.a() > 0;
         }
         return false;
     }
@@ -241,6 +270,7 @@ public final class AttentionDynamicFragment extends ady {
     }
     
     private void loadAllDynamic() {
+        android.util.Log.d("AttentionDynamicFragment", "loadAllDynamic() called, offset: " + offset);
         Activity activity = getActivity();
         if (activity != null) {
             MyBiliApiService api = (MyBiliApiService) vo.a(MyBiliApiService.class);
@@ -249,6 +279,7 @@ public final class AttentionDynamicFragment extends ady {
                 api.getFeedVideos(account.e(), offset).a(new vn<JSONObject>() {
                     @Override
                     public void a(JSONObject response) {
+                        android.util.Log.d("AttentionDynamicFragment", "loadAllDynamic response: " + (response != null ? response.toJSONString() : "null"));
                         if (c == null) {
                             return;
                         }
@@ -260,6 +291,7 @@ public final class AttentionDynamicFragment extends ady {
                                 list.add(response.getJSONArray("items").getJSONObject(i).getJSONObject("modules"));
                             }
                             list = BiliFilter.filterUpperFeedJSONItem(list, "动态");
+                            android.util.Log.d("AttentionDynamicFragment", "loadAllDynamic filtered list size: " + list.size());
                             if (f == 1) {
                                 c.a(list);
                             } else {
@@ -267,6 +299,19 @@ public final class AttentionDynamicFragment extends ady {
                             }
                             g = response.getBoolean("has_more");
                             offset = response.getString("offset");
+                            // 强制RecyclerView重新布局
+                            if (AttentionDynamicFragment.this.recyclerView != null) {
+                                AttentionDynamicFragment.this.recyclerView.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (AttentionDynamicFragment.this.recyclerView != null) {
+                                            AttentionDynamicFragment.this.recyclerView.requestLayout();
+                                            AttentionDynamicFragment.this.recyclerView.invalidate();
+                                            android.util.Log.d("AttentionDynamicFragment", "RecyclerView forced layout, size: " + AttentionDynamicFragment.this.recyclerView.getWidth() + "x" + AttentionDynamicFragment.this.recyclerView.getHeight());
+                                        }
+                                    }
+                                });
+                            }
                             return;
                         }
                         g = false;
@@ -283,6 +328,7 @@ public final class AttentionDynamicFragment extends ady {
                     
                     @Override
                     public void onError(Throwable th) {
+                        android.util.Log.e("AttentionDynamicFragment", "loadAllDynamic error: " + th.getMessage());
                         adl.a.a(th, getActivity());
                         if (c == null) {
                             return;
@@ -298,6 +344,7 @@ public final class AttentionDynamicFragment extends ady {
     }
     
     private void loadUperVideos() {
+        android.util.Log.d("AttentionDynamicFragment", "loadUperVideos() called, mid: " + mid + ", f: " + f + ", uperName: " + uperName);
         Activity activity = getActivity();
         if (activity != null) {
             BiliSpaceApiService api = (BiliSpaceApiService) vo.a(BiliSpaceApiService.class);
@@ -306,6 +353,7 @@ public final class AttentionDynamicFragment extends ady {
                 api.loadArchiveVideos(account.e(), mid, f, 20).a(new vn<BiliSpaceVideoList>() {
                     @Override
                     public void a(BiliSpaceVideoList biliSpaceVideoList) {
+                        android.util.Log.d("AttentionDynamicFragment", "loadUperVideos response, videos size: " + (biliSpaceVideoList != null && biliSpaceVideoList.videos != null ? biliSpaceVideoList.videos.size() : 0));
                         if (c == null) {
                             return;
                         }
@@ -313,12 +361,26 @@ public final class AttentionDynamicFragment extends ady {
                         h = false;
                         if (biliSpaceVideoList != null && biliSpaceVideoList.videos != null && biliSpaceVideoList.videos.size() > 0) {
                             List<BiliSpaceVideo> list = BiliFilter.filterBiliSpaceVideo(biliSpaceVideoList.videos, "个人投稿");
+                            android.util.Log.d("AttentionDynamicFragment", "loadUperVideos filtered list size: " + list.size());
                             if (f == 1) {
                                 c.a(list);
                             } else {
                                 c.b(list);
                             }
                             g = list.size() == 20;
+                            // 强制RecyclerView重新布局
+                            if (AttentionDynamicFragment.this.recyclerView != null) {
+                                AttentionDynamicFragment.this.recyclerView.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (AttentionDynamicFragment.this.recyclerView != null) {
+                                            AttentionDynamicFragment.this.recyclerView.requestLayout();
+                                            AttentionDynamicFragment.this.recyclerView.invalidate();
+                                            android.util.Log.d("AttentionDynamicFragment", "RecyclerView forced layout, size: " + AttentionDynamicFragment.this.recyclerView.getWidth() + "x" + AttentionDynamicFragment.this.recyclerView.getHeight());
+                                        }
+                                    }
+                                });
+                            }
                             return;
                         }
                         g = false;
@@ -335,6 +397,7 @@ public final class AttentionDynamicFragment extends ady {
                     
                     @Override
                     public void onError(Throwable th) {
+                        android.util.Log.e("AttentionDynamicFragment", "loadUperVideos error: " + th.getMessage());
                         adl.a.a(th, getActivity());
                         if (c == null) {
                             return;

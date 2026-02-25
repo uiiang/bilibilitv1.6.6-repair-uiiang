@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.bilibili.tv.widget.DrawRelativeLayout android:id="@id/draw" 
-  android:paddingLeft="@dimen/px_20"
-  android:paddingTop="@dimen/px_20" android:paddingRight="@dimen/px_20"
-  android:paddingBottom="@dimen/px_20" android:focusable="true" 
+<com.bilibili.tv.widget.DrawRelativeLayout
+  android:id="@id/draw"
+  android:padding="@dimen/px_20"
+  android:focusable="true"
   android:focusableInTouchMode="true"
-  android:layout_width="@dimen/px_768" android:layout_height="wrap_content"
+  android:layout_width="@dimen/px_768" 
+  android:layout_height="wrap_content"
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
   <FrameLayout android:id="@id/img_layout" android:focusable="false"
@@ -21,12 +22,12 @@
       android:gravity="center" android:id="@id/tag_text" android:focusable="false"
       android:layout_width="@dimen/px_60" android:layout_height="@dimen/px_60" />
   </FrameLayout>
-  <LinearLayout android:id="@+id/bottom_info" android:layout_width="wrap_content" 
+  <LinearLayout android:id="@+id/bottom_info" android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_toRightOf="@id/img_layout" android:layout_marginLeft="@dimen/px_20"
     android:orientation="vertical" android:layout_alignBottom="@id/img_layout">
     <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_32"
-      android:textColor="@color/white_50" android:gravity="center_vertical" 
+      android:textColor="@color/white_50" android:gravity="center_vertical"
       android:id="@id/up"
       android:focusable="false" android:duplicateParentState="true"
       android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -41,7 +42,8 @@
         android:maxLines="1"
         android:drawablePadding="@dimen/px_8" />
       <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_32"
-        android:textColor="@color/white_50" android:gravity="center_vertical" android:id="@id/danmaku"
+        android:textColor="@color/white_50" android:gravity="center_vertical"
+        android:id="@id/danmaku"
         android:focusable="false" android:duplicateParentState="true"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/px_30" android:maxLines="1"

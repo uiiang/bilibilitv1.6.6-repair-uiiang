@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import bl.adl;
 import bl.adw;
@@ -277,8 +278,22 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
     }
     
     private void showVideoList(UperItem item) {
+        android.util.Log.d("AttentionDynamicSideActivity", "showVideoList() called, item: " + item.getName() + ", mid: " + item.getMid() + ", isAllDynamic: " + item.isAllDynamic());
         if (selectedItem == item) {
+            android.util.Log.d("AttentionDynamicSideActivity", "Selected item is same as current, returning");
             return;
+        }
+        
+        // 确保右侧容器的布局参数正确
+        FrameLayout fragmentContainer = (FrameLayout) findViewById(R.id.fragment_container);
+        if (fragmentContainer != null) {
+            ViewGroup.LayoutParams params = fragmentContainer.getLayoutParams();
+            if (params != null) {
+                params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                fragmentContainer.setLayoutParams(params);
+                android.util.Log.d("AttentionDynamicSideActivity", "Fragment container layout params updated: " + params.width + "x" + params.height);
+            }
         }
         
         selectedItem = item;
@@ -286,16 +301,19 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
         AttentionDynamicFragment fragment;
         if (item.isAllDynamic()) {
             // 全部动态
-            fragment = AttentionDynamicFragment.newInstance(-1, "all");
+            fragment = AttentionDynamicFragment.newInstance(-1, "all", "");
+            android.util.Log.d("AttentionDynamicSideActivity", "Creating all dynamic fragment");
         } else {
             // 单个UP主
-            fragment = AttentionDynamicFragment.newInstance(item.getMid(), "uper");
+            fragment = AttentionDynamicFragment.newInstance(item.getMid(), "uper", item.getName());
+            android.util.Log.d("AttentionDynamicSideActivity", "Creating uper fragment for mid: " + item.getMid() + ", name: " + item.getName());
         }
         
         getSupportFragmentManager()
             .beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .commit();
+        android.util.Log.d("AttentionDynamicSideActivity", "Fragment transaction committed");
     }
 
     /* compiled from: BL */
