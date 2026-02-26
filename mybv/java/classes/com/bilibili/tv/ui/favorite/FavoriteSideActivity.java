@@ -197,34 +197,44 @@ public class FavoriteSideActivity extends BaseSideActivity {
     private void loadCollectionFolders() {
         mg account = mg.a(this);
         if (account != null) {
-            ((MyBiliApiService) vo.a(MyBiliApiService.class))
-                .getCollectedFolders(1, 50, Long.valueOf(account.d()), "SESSDATA=" + account.getSESSDATA())
-                .a(new vn<JSONObject>() {
-                    @Override
-                    public void a(JSONObject result) {
-                        collectionFolders.clear();
-                        if (result != null && result.getJSONArray("list") != null) {
-                            JSONArray list = result.getJSONArray("list");
-                            for (int i = 0; i < list.size(); i++) {
-                                collectionFolders.add(new CollectionFavoriteFolder(list.getJSONObject(i)));
+            try {
+                String sessdata = account.getSESSDATA();
+                if (TextUtils.isEmpty(sessdata)) {
+                    collectionLoaded = true;
+                    checkAllLoaded();
+                    return;
+                }
+                ((MyBiliApiService) vo.a(MyBiliApiService.class))
+                    .getCollectedFolders(1, 50, Long.valueOf(account.d()), "SESSDATA=" + sessdata)
+                    .a(new vn<JSONObject>() {
+                        @Override
+                        public void a(JSONObject result) {
+                            collectionFolders.clear();
+                            if (result != null && result.getJSONArray("list") != null) {
+                                JSONArray list = result.getJSONArray("list");
+                                for (int i = 0; i < list.size(); i++) {
+                                    collectionFolders.add(new CollectionFavoriteFolder(list.getJSONObject(i)));
+                                }
                             }
+                            collectionLoaded = true;
+                            checkAllLoaded();
                         }
-                        collectionLoaded = true;
-                        checkAllLoaded();
-                    }
-                    
-                    @Override
-                    public boolean isCancel() {
-                        return isFinishing();
-                    }
-                    
-                    @Override
-                    public void onError(Throwable t) {
-                        adl.a.a(t, FavoriteSideActivity.this);
-                        collectionLoaded = true;
-                        checkAllLoaded();
-                    }
-                });
+                        
+                        @Override
+                        public boolean isCancel() {
+                            return isFinishing();
+                        }
+                        
+                        @Override
+                        public void onError(Throwable t) {
+                            collectionLoaded = true;
+                            checkAllLoaded();
+                        }
+                    });
+            } catch (Exception e) {
+                collectionLoaded = true;
+                checkAllLoaded();
+            }
         } else {
             collectionLoaded = true;
             checkAllLoaded();
@@ -234,34 +244,44 @@ public class FavoriteSideActivity extends BaseSideActivity {
     private void loadCourseFolders() {
         mg account = mg.a(this);
         if (account != null) {
-            ((MyBiliApiService) vo.a(MyBiliApiService.class))
-                .getFavoritePugv(1, 50, Long.valueOf(account.d()), "SESSDATA=" + account.getSESSDATA())
-                .a(new vn<JSONObject>() {
-                    @Override
-                    public void a(JSONObject result) {
-                        courseFolders.clear();
-                        if (result != null && result.getJSONArray("items") != null) {
-                            JSONArray list = result.getJSONArray("items");
-                            for (int i = 0; i < list.size(); i++) {
-                                courseFolders.add(new CourseFavoriteFolder(list.getJSONObject(i)));
+            try {
+                String sessdata = account.getSESSDATA();
+                if (TextUtils.isEmpty(sessdata)) {
+                    courseLoaded = true;
+                    checkAllLoaded();
+                    return;
+                }
+                ((MyBiliApiService) vo.a(MyBiliApiService.class))
+                    .getFavoritePugv(1, 50, Long.valueOf(account.d()), "SESSDATA=" + sessdata)
+                    .a(new vn<JSONObject>() {
+                        @Override
+                        public void a(JSONObject result) {
+                            courseFolders.clear();
+                            if (result != null && result.getJSONArray("items") != null) {
+                                JSONArray list = result.getJSONArray("items");
+                                for (int i = 0; i < list.size(); i++) {
+                                    courseFolders.add(new CourseFavoriteFolder(list.getJSONObject(i)));
+                                }
                             }
+                            courseLoaded = true;
+                            checkAllLoaded();
                         }
-                        courseLoaded = true;
-                        checkAllLoaded();
-                    }
-                    
-                    @Override
-                    public boolean isCancel() {
-                        return isFinishing();
-                    }
-                    
-                    @Override
-                    public void onError(Throwable t) {
-                        adl.a.a(t, FavoriteSideActivity.this);
-                        courseLoaded = true;
-                        checkAllLoaded();
-                    }
-                });
+                        
+                        @Override
+                        public boolean isCancel() {
+                            return isFinishing();
+                        }
+                        
+                        @Override
+                        public void onError(Throwable t) {
+                            courseLoaded = true;
+                            checkAllLoaded();
+                        }
+                    });
+            } catch (Exception e) {
+                courseLoaded = true;
+                checkAllLoaded();
+            }
         } else {
             courseLoaded = true;
             checkAllLoaded();

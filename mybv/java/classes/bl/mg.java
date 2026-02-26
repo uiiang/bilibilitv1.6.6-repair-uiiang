@@ -117,16 +117,29 @@ public class mg {
         return this.d.e();
     }
 
-    public String e() {//getAccessKey
+    public String e() {// getAccessKey
         return this.d.d();
     }
 
     public String getSESSDATA() {
-        java.util.List<ml.a> cookies = this.d.b().a;
-        for(int i=0;i<cookies.size();i++){
-            if(cookies.get(i).a.equals("SESSDATA"))return cookies.get(i).b;
+        try {
+            if (this.d == null) {
+                return "";
+            }
+            ml cookiesData = this.d.b();
+            if (cookiesData == null || cookiesData.a == null) {
+                return "";
+            }
+            java.util.List<ml.a> cookies = cookiesData.a;
+            for (int i = 0; i < cookies.size(); i++) {
+                if (cookies.get(i).a.equals("SESSDATA"))
+                    return cookies.get(i).b;
+            }
+            return "";
+        } catch (NullPointerException e) {
+            // 捕获所有可能的空指针异常，确保方法不会崩溃
+            return "";
         }
-        return "";
     }
 
     public long f() {
@@ -179,7 +192,8 @@ public class mg {
         }
     }
 
-    public String a(String str, String str2, String str3, String str4, HashMap<String, String> hashMap) throws AccountException {
+    public String a(String str, String str2, String str3, String str4, HashMap<String, String> hashMap)
+            throws AccountException {
         try {
             vd a = this.d.a(str, str2, str3, str4, new vg(hashMap));
             if (a == null) {
