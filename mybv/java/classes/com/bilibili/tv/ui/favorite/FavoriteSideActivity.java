@@ -351,6 +351,8 @@ public class FavoriteSideActivity extends BaseSideActivity {
                 if (folder.getTitle() != null) {
                     holder.n.setText(folder.getTitle());
                 }
+                // 初始设置为1行，超出部分截断
+                holder.n.setMaxLines(1);
                 
                 vVar.a.setTag(R.id.position, Integer.valueOf(i));
                 vVar.a.setTag(folder);

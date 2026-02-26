@@ -336,6 +336,8 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
                 if (item.getName() != null) {
                     holder.n.setText(item.getName());
                 }
+                // 初始设置为1行，超出部分截断
+                holder.n.setMaxLines(1);
                 
                 // 设置头像
                 // agf类只有n字段用于显示文字，没有头像字段
