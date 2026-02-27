@@ -297,4 +297,8 @@
     <item type="id" name="hot_recommend_button" />
     <item type="id" name="personal_recommend_button" />
     <item type="id" name="video_controller" />
+    <item type="id" name="video_history_container" />
+    <item type="id" name="video_history_title" />
+    <item type="id" name="video_history_progress" />
+    <item type="id" name="video_history_play_btn" />
 </resources>
