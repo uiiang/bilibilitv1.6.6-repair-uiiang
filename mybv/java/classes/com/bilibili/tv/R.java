@@ -2482,6 +2482,8 @@ public final class R {
         public static final int view_radiogroup = 0x7f08018a;
         public static final int hot_recommend_button = 0x7f08018b;
         public static final int personal_recommend_button = 0x7f08018c;
+        //video_controller
+        public static final int video_controller = 0x7f08018d;
     }
 
     public static final class integer {

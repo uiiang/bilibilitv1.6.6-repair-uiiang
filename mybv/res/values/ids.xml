@@ -296,4 +296,5 @@
     <item type="id" name="white_line" />
     <item type="id" name="hot_recommend_button" />
     <item type="id" name="personal_recommend_button" />
+    <item type="id" name="video_controller" />
 </resources>

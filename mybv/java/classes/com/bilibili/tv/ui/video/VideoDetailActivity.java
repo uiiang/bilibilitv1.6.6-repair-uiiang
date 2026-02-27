@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import bl.abi;
 import bl.ach;
@@ -112,6 +113,11 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
     private g x;
     private boolean y;
     private boolean z;
+    // 焦点位置记忆变量
+    private int epLayoutFocusPosition = 0;
+    private int episodesVideoFocusPosition = 0;
+    private int relateVideoFocusPosition = 0;
+    private int tagViewFocusPosition = 0;
     public static final a Companion = new a(null);
     private static final int E = 6;
     private static final int F = E * 2;
@@ -227,19 +233,17 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
         FixLinearLayoutManager fixLinearLayoutManager = new FixLinearLayoutManager(this, 0, false) { // from class: com.bilibili.tv.ui.video.VideoDetailActivity$initView$linearLayoutManager$1
             @Override // android.support.v7.widget.RecyclerView.h
             public View d(View view, int direction) {
-                RecyclerView recyclerView;
                 if (view != null) {
                     int d2 = d(view);
                     if (direction != View.FOCUS_LEFT) {
                         if (direction != View.FOCUS_UP) {
                             if (direction != View.FOCUS_RIGHT) {
-                                if (direction == View.FOCUS_DOWN && (recyclerView = VideoDetailActivity.this.o) != null) {
-                                    RecyclerView.h layoutManager = recyclerView.getLayoutManager();
-                                    if (layoutManager == null) {
-                                        throw new TypeCastException("null cannot be cast to non-null type android.support.v7.widget.GridLayoutManager");
+                                if (direction == View.FOCUS_DOWN) {
+                                    DrawLinearLayout likeButton = (DrawLinearLayout) VideoDetailActivity.this.d(R.id.video_detail_like);
+                                    if (likeButton != null) {
+                                        return likeButton;
                                     }
-                                    GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
-                                    return gridLayoutManager.c(gridLayoutManager.o());
+                                    return view;
                                 }
                             } else if (d2 == H() - 1) {
                                 return view;
@@ -256,6 +260,18 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
         RecyclerView recyclerView = this.n;
         if (recyclerView != null) {
             recyclerView.setLayoutManager(fixLinearLayoutManager);
+            // 添加焦点监听器
+            recyclerView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        View focusView = restoreFocusPosition(VideoDetailActivity.this.n, tagViewFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                        }
+                    }
+                }
+            });
         }
         this.x = new g();
         RecyclerView recyclerView2 = this.n;
@@ -270,18 +286,65 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             this.o.setLayoutManager(new FixGridLayoutManager(this, E, 1, false));
             this.o.a(new j(dimension));
             this.o.setAdapter(this.w);
+            // 添加焦点监听器
+            this.o.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        View focusView = restoreFocusPosition(VideoDetailActivity.this.o, epLayoutFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                        }
+                    }
+                }
+            });
         }
         this.r = (RecyclerView) d(R.id.video_detail_relate_video);
         this.v = new e();
         if (this.r != null) {
-            this.r.setLayoutManager(new FixLinearLayoutManager(this, 0, false));
+            this.r.setLayoutManager(new FixLinearLayoutManager(this, 0, false) {
+                @Override
+                public View d(View view, int direction) {
+                    if (view != null && direction == View.FOCUS_DOWN) {
+                        RecyclerView tagRecyclerView = VideoDetailActivity.this.n;
+                        if (tagRecyclerView != null && tagRecyclerView.getChildCount() > 0) {
+                            return tagRecyclerView.getChildAt(0);
+                        }
+                    }
+                    return super.d(view, direction);
+                }
+            });
             this.r.setAdapter(this.v);
+            // 添加焦点监听器
+            this.r.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        View focusView = restoreFocusPosition(VideoDetailActivity.this.r, relateVideoFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                        }
+                    }
+                }
+            });
         }
         this.episodes_video = (RecyclerView) d(R.id.video_detail_episodes_video);
         this.episodes_video_adapter = new EpisodesVideoAdapter();
         if(this.episodes_video != null){
             this.episodes_video.setLayoutManager(new FixLinearLayoutManager(this, 0, false));
             this.episodes_video.setAdapter(this.episodes_video_adapter);
+            // 添加焦点监听器
+            this.episodes_video.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        View focusView = restoreFocusPosition(VideoDetailActivity.this.episodes_video, episodesVideoFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                        }
+                    }
+                }
+            });
         }
     }
 
@@ -419,7 +482,6 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
 
     @Override // com.bilibili.tv.ui.base.BaseActivity, android.support.v7.app.AppCompatActivity, android.app.Activity, android.view.Window.Callback
     public boolean dispatchKeyEvent(KeyEvent keyEvent) {
-        RecyclerView recyclerView;
         if (this.w == null || this.v == null) {
             return super.dispatchKeyEvent(keyEvent);
         }
@@ -430,44 +492,266 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             if (currentFocus == null) {
                 return super.dispatchKeyEvent(keyEvent);
             }
+            // 保存当前焦点位置
+            saveCurrentFocusPosition(currentFocus);
             if (valueOf2 != null && valueOf2.intValue() == KeyEvent.KEYCODE_DPAD_UP) {
-                if (currentFocus.getId() == R.id.tag_view) {
-                    DrawLinearLayout drawLinearLayout = (DrawLinearLayout) d(R.id.video_detail_like);
-                    if (drawLinearLayout != null) {
-                        drawLinearLayout.requestFocus();
+                // 从video_controller向上导航
+                if (currentFocus.getId() == R.id.video_detail_like || currentFocus.getId() == R.id.video_detail_coin || currentFocus.getId() == R.id.video_detail_favorite) {
+                    // 尝试导航到标签列表
+                    if (this.n != null && this.n.getChildCount() > 0) {
+                        View focusView = restoreFocusPosition(this.n, tagViewFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                            return true;
+                        }
+                    }
+                    // 尝试导航到相关视频列表
+                    if (this.r != null && this.r.getChildCount() > 0) {
+                        View focusView = restoreFocusPosition(this.r, relateVideoFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                            return true;
+                        }
+                    }
+                    // 尝试导航到合集列表
+                    if (this.episodes_video != null && this.episodes_video.getChildCount() > 0) {
+                        View focusView = restoreFocusPosition(this.episodes_video, episodesVideoFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                            return true;
+                        }
+                    }
+                    // 尝试导航到分集列表
+                    if (this.o != null && this.o.getChildCount() > 0) {
+                        View focusView = restoreFocusPosition(this.o, epLayoutFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                            return true;
+                        }
+                    }
+                }
+                // 从标签列表向上导航
+                else if (currentFocus.getId() == R.id.tag_view || (currentFocus.getParent() instanceof View && ((View)currentFocus.getParent()).getId() == R.id.flow_tag_view)) {
+                    // 尝试导航到相关视频列表
+                    if (this.r != null && this.r.getChildCount() > 0) {
+                        View focusView = restoreFocusPosition(this.r, relateVideoFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                            return true;
+                        }
+                    }
+                    // 尝试导航到合集列表
+                    if (this.episodes_video != null && this.episodes_video.getChildCount() > 0) {
+                        View focusView = restoreFocusPosition(this.episodes_video, episodesVideoFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                            return true;
+                        }
+                    }
+                    // 尝试导航到分集列表
+                    if (this.o != null && this.o.getChildCount() > 0) {
+                        View focusView = restoreFocusPosition(this.o, epLayoutFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                            return true;
+                        }
+                    }
+                }
+                // 从相关视频列表向上导航
+                else if (currentFocus.getParent() instanceof RecyclerView && ((RecyclerView)currentFocus.getParent()).getId() == R.id.video_detail_relate_video) {
+                    // 尝试导航到合集列表
+                    if (this.episodes_video != null && this.episodes_video.getChildCount() > 0) {
+                        View focusView = restoreFocusPosition(this.episodes_video, episodesVideoFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                            return true;
+                        }
+                    }
+                    // 尝试导航到分集列表
+                    if (this.o != null && this.o.getChildCount() > 0) {
+                        View focusView = restoreFocusPosition(this.o, epLayoutFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                            return true;
+                        }
+                    }
+                }
+                // 从合集列表向上导航
+                else if (currentFocus.getParent() instanceof RecyclerView && ((RecyclerView)currentFocus.getParent()).getId() == R.id.video_detail_episodes_video) {
+                    // 尝试导航到分集列表
+                    if (this.o != null && this.o.getChildCount() > 0) {
+                        View focusView = restoreFocusPosition(this.o, epLayoutFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                            return true;
+                        }
+                    }
+                }
+            } else if (valueOf2 != null && valueOf2.intValue() == KeyEvent.KEYCODE_DPAD_DOWN) {
+                // 从分集列表向下导航
+                if (currentFocus.getParent() instanceof RecyclerView && ((RecyclerView)currentFocus.getParent()).getId() == R.id.video_detail_ep_layout) {
+                    // 尝试导航到合集列表
+                    if (this.episodes_video != null && this.episodes_video.getChildCount() > 0) {
+                        View focusView = restoreFocusPosition(this.episodes_video, episodesVideoFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                            return true;
+                        }
+                    }
+                    // 尝试导航到相关视频列表
+                    if (this.r != null && this.r.getChildCount() > 0) {
+                        View focusView = restoreFocusPosition(this.r, relateVideoFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                            return true;
+                        }
+                    }
+                    // 尝试导航到标签列表
+                    if (this.n != null && this.n.getChildCount() > 0) {
+                        View focusView = restoreFocusPosition(this.n, tagViewFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                            return true;
+                        }
+                    }
+                }
+                // 从合集列表向下导航
+                else if (currentFocus.getParent() instanceof RecyclerView && ((RecyclerView)currentFocus.getParent()).getId() == R.id.video_detail_episodes_video) {
+                    // 尝试导航到相关视频列表
+                    if (this.r != null && this.r.getChildCount() > 0) {
+                        View focusView = restoreFocusPosition(this.r, relateVideoFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                            return true;
+                        }
+                    }
+                    // 尝试导航到标签列表
+                    if (this.n != null && this.n.getChildCount() > 0) {
+                        View focusView = restoreFocusPosition(this.n, tagViewFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                            return true;
+                        }
+                    }
+                }
+                // 从相关视频列表向下导航
+                else if (currentFocus.getParent() instanceof RecyclerView && ((RecyclerView)currentFocus.getParent()).getId() == R.id.video_detail_relate_video) {
+                    // 尝试导航到标签列表
+                    if (this.n != null && this.n.getChildCount() > 0) {
+                        View focusView = restoreFocusPosition(this.n, tagViewFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                            return true;
+                        }
+                    }
+                }
+                // 从标签列表向下导航
+                else if (currentFocus.getId() == R.id.tag_view || (currentFocus.getParent() instanceof View && ((View)currentFocus.getParent()).getId() == R.id.flow_tag_view)) {
+                    DrawLinearLayout likeButton = (DrawLinearLayout) d(R.id.video_detail_like);
+                    if (likeButton != null) {
+                        likeButton.requestFocus();
+                        // 滚动ScrollView到底部，显示video_controller的底部边距
+                        ScrollView scrollView = (ScrollView) d(R.id.scrollView);
+                        if (scrollView != null) {
+                            scrollView.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    int maxScroll = scrollView.getChildAt(0).getHeight() - scrollView.getHeight();
+                                    scrollView.smoothScrollTo(0, maxScroll);
+                                }
+                            });
+                        }
                     }
                     return true;
                 }
-            } else if (valueOf2 != null && valueOf2.intValue() == KeyEvent.KEYCODE_DPAD_DOWN && ((currentFocus.getId() == R.id.video_detail_like || currentFocus.getId() == R.id.video_detail_coin || currentFocus.getId() == R.id.video_detail_favorite || currentFocus.getId() == R.id.video_detail_more_btn) && (recyclerView = this.n) != null)) {
-                if (recyclerView.getChildCount() > 0) {
-                    RecyclerView.h layoutManager = recyclerView.getLayoutManager();
-                    if (layoutManager == null) {
-                        throw new TypeCastException("null cannot be cast to non-null type android.support.v7.widget.LinearLayoutManager");
-                    }
-                    View c2 = recyclerView.getLayoutManager().c(((LinearLayoutManager) layoutManager).o());
-                    if (c2 != null) {
-                        c2.requestFocus();
-                    }
-                } else {
-                    RecyclerView.h layoutManager2 = recyclerView.getLayoutManager();
-                    if (layoutManager2 == null) {
-                        throw new TypeCastException("null cannot be cast to non-null type android.support.v7.widget.LinearLayoutManager");
-                    }
-                    View c3 = recyclerView.getLayoutManager().c(((LinearLayoutManager) layoutManager2).o());
-                    if (c3 != null) {
-                        c3.requestFocus();
-                    }
+                // 阻止从video_controller向下导航
+                else if (currentFocus.getId() == R.id.video_detail_like || currentFocus.getId() == R.id.video_detail_coin || currentFocus.getId() == R.id.video_detail_favorite) {
+                    return true;
                 }
-                return true;
-            } else if (valueOf2 != null && valueOf2.intValue() == KeyEvent.KEYCODE_DPAD_RIGHT && (recyclerView = this.n) != null && recyclerView.getChildCount()>0 && currentFocus==recyclerView.getChildAt(recyclerView.getChildCount()-1)) {
-                DrawTextView drawTextView = (DrawTextView) d(R.id.video_detail_more_btn);
-                if (drawTextView != null) {
-                    drawTextView.requestFocus();
-                }
-                return true;
             }
         }
         return super.dispatchKeyEvent(keyEvent);
+    }
+    
+    // 保存当前焦点位置
+    private void saveCurrentFocusPosition(View currentFocus) {
+        if (currentFocus == null) return;
+        
+        // 检查是否在标签列表内
+        if (currentFocus.getId() == R.id.tag_view || (currentFocus.getParent() instanceof View && ((View)currentFocus.getParent()).getId() == R.id.flow_tag_view)) {
+            if (this.n != null) {
+                for (int i = 0; i < this.n.getChildCount(); i++) {
+                    if (this.n.getChildAt(i) == currentFocus) {
+                        tagViewFocusPosition = i;
+                        break;
+                    }
+                }
+            }
+        } 
+        // 检查是否在相关视频列表内
+        else if (currentFocus.getParent() instanceof RecyclerView && ((RecyclerView)currentFocus.getParent()).getId() == R.id.video_detail_relate_video) {
+            RecyclerView recyclerView = (RecyclerView) currentFocus.getParent();
+            for (int i = 0; i < recyclerView.getChildCount(); i++) {
+                if (recyclerView.getChildAt(i) == currentFocus) {
+                    relateVideoFocusPosition = i;
+                    break;
+                }
+            }
+        } 
+        // 检查是否在分集列表内
+        else if (currentFocus.getParent() instanceof RecyclerView && ((RecyclerView)currentFocus.getParent()).getId() == R.id.video_detail_ep_layout) {
+            RecyclerView recyclerView = (RecyclerView) currentFocus.getParent();
+            for (int i = 0; i < recyclerView.getChildCount(); i++) {
+                if (recyclerView.getChildAt(i) == currentFocus) {
+                    epLayoutFocusPosition = i;
+                    break;
+                }
+            }
+        } else if (currentFocus.getId() == R.id.video_detail_ep_layout) {
+            // 直接检查是否是分集列表本身
+            if (this.o != null) {
+                for (int i = 0; i < this.o.getChildCount(); i++) {
+                    if (this.o.getChildAt(i) == currentFocus) {
+                        epLayoutFocusPosition = i;
+                        break;
+                    }
+                }
+            }
+        } 
+        // 检查是否在合集列表内
+        else if (currentFocus.getParent() instanceof RecyclerView && ((RecyclerView)currentFocus.getParent()).getId() == R.id.video_detail_episodes_video) {
+            RecyclerView recyclerView = (RecyclerView) currentFocus.getParent();
+            for (int i = 0; i < recyclerView.getChildCount(); i++) {
+                if (recyclerView.getChildAt(i) == currentFocus) {
+                    episodesVideoFocusPosition = i;
+                    break;
+                }
+            }
+        }
+    }
+    
+    // 恢复焦点位置
+    private View restoreFocusPosition(RecyclerView recyclerView, int savedPosition) {
+        if (recyclerView == null) {
+            return null;
+        }
+        
+        int childCount = recyclerView.getChildCount();
+        if (childCount == 0) {
+            return null;
+        }
+        
+        // 确保保存的位置有效
+        int position = Math.min(savedPosition, childCount - 1);
+        
+        // 尝试获取指定位置的视图
+        View focusView = recyclerView.getChildAt(position);
+        if (focusView != null) {
+            return focusView;
+        }
+        
+        // 如果找不到指定位置的视图，返回第一个可见的子视图
+        return recyclerView.getChildAt(0);
     }
 
     private final void n() {
