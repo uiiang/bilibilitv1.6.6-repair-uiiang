@@ -2465,7 +2465,7 @@
     <public type="id" name="video_history_title" id="0x7f08018f" />
     <public type="id" name="video_history_progress" id="0x7f080190" />
     <public type="id" name="video_history_play_btn" id="0x7f080191" />
-
+    <public type="id" name="video_history_play_btn_layout" id="0x7f080192" />
 
 
     <public type="integer" name="config_danmaku_fly_duration" id="0x7f090003" />

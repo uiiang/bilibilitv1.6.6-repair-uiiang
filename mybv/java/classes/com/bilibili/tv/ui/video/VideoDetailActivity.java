@@ -108,6 +108,7 @@ public final class VideoDetailActivity extends BaseActivity
     private FrameLayout q;
     private RecyclerView r;
     private LinearLayout historyContainer;
+    private DrawLinearLayout historyPlayBtnLayout;
     private DrawTextView historyPlayBtn;
     private TextView historyTitle;
     private TextView historyProgress;
@@ -362,6 +363,11 @@ public final class VideoDetailActivity extends BaseActivity
             });
         }
         this.historyContainer = (LinearLayout) d(R.id.video_history_container);
+        this.historyPlayBtnLayout = (DrawLinearLayout) d(R.id.video_history_play_btn_layout);
+        if (this.historyPlayBtnLayout != null) {
+            this.historyPlayBtnLayout.setOnFocusChangeListener(new d());
+            this.historyPlayBtnLayout.setUpDrawable(R.drawable.shadow_red_rect);
+        }
         this.historyPlayBtn = (DrawTextView) d(R.id.video_history_play_btn);
         this.historyTitle = (TextView) d(R.id.video_history_title);
         this.historyProgress = (TextView) d(R.id.video_history_progress);
@@ -524,16 +530,16 @@ public final class VideoDetailActivity extends BaseActivity
             if (valueOf2 != null && valueOf2.intValue() == KeyEvent.KEYCODE_DPAD_UP) {
                 if (currentFocus.getId() == R.id.video_detail_like || currentFocus.getId() == R.id.video_detail_coin
                         || currentFocus.getId() == R.id.video_detail_favorite) {
-                    if (historyContainer != null && historyContainer.getVisibility() == View.VISIBLE) {
-                        historyPlayBtn.requestFocus();
+                    if (historyPlayBtnLayout != null && historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
+                        historyPlayBtnLayout.requestFocus();
                         return true;
                     }
                 }
-                if (currentFocus.getId() == R.id.video_history_play_btn) {
+                if (currentFocus.getId() == R.id.video_history_play_btn_layout) {
                     return super.dispatchKeyEvent(keyEvent);
                 }
             } else if (valueOf2 != null && valueOf2.intValue() == KeyEvent.KEYCODE_DPAD_DOWN) {
-                if (currentFocus.getId() == R.id.video_history_play_btn) {
+                if (currentFocus.getId() == R.id.video_history_play_btn_layout) {
                     return super.dispatchKeyEvent(keyEvent);
                 }
             }
@@ -708,7 +714,6 @@ public final class VideoDetailActivity extends BaseActivity
             historyPlayBtn.setText("开始播放");
             historyTitle.setVisibility(View.GONE);
             historyProgress.setVisibility(View.GONE);
-            historyContainer.setVisibility(View.GONE);
         } else {
             int episodeCount = 0;
             if (biliVideoDetail.episodes != null) {
@@ -723,7 +728,7 @@ public final class VideoDetailActivity extends BaseActivity
             if (title == null || title.isEmpty()) {
                 historyTitle.setVisibility(View.GONE);
                 historyProgress.setVisibility(View.GONE);
-                historyContainer.setVisibility(View.VISIBLE);
+                historyContainer.setVisibility(View.GONE);
             } else {
                 if (episodeCount <= 1) {
                     historyTitle.setVisibility(View.GONE);
@@ -733,22 +738,25 @@ public final class VideoDetailActivity extends BaseActivity
                 historyTitle.setText(title);
                 historyProgress.setText(formatProgressTime(progress));
                 historyProgress.setVisibility(View.VISIBLE);
+                historyContainer.setVisibility(View.VISIBLE);
             }
             historyPlayBtn.setText("继续播放");
         }
         final BiliVideoDetail finalBiliVideoDetail = biliVideoDetail;
-        historyPlayBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (finalBiliVideoDetail != null && finalBiliVideoDetail.mHistory != null) {
-                    long historyCid = finalBiliVideoDetail.mHistory.mCid;
-                    int historyProgressVal = finalBiliVideoDetail.mHistory.mProgress;
-                    playVideo(finalBiliVideoDetail, historyCid, historyProgressVal);
-                } else {
-                    playVideo(finalBiliVideoDetail, 0, 0);
+        if (historyPlayBtnLayout != null) {
+            historyPlayBtnLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (finalBiliVideoDetail != null && finalBiliVideoDetail.mHistory != null) {
+                        long historyCid = finalBiliVideoDetail.mHistory.mCid;
+                        int historyProgressVal = finalBiliVideoDetail.mHistory.mProgress;
+                        playVideo(finalBiliVideoDetail, historyCid, historyProgressVal);
+                    } else {
+                        playVideo(finalBiliVideoDetail, 0, 0);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     private final void playVideo(BiliVideoDetail biliVideoDetail, long cid, int progress) {
