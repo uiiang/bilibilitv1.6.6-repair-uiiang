@@ -46,7 +46,7 @@
                         android:focusable="false" android:clipChildren="false"
                         android:clipToPadding="false"
                         android:layout_width="fill_parent" android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/px_30">
+                        android:layout_marginBottom="@dimen/px_15">
                         <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_32"
                             android:textColor="@color/white_50" android:focusable="false"
                             android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -109,7 +109,6 @@
                                 android:background="@drawable/background_white_rect"
                                 android:paddingLeft="@dimen/px_18" android:paddingTop="@dimen/px_8"
                                 android:paddingRight="@dimen/px_18"
-                                android:paddingBottom="@dimen/px_8"
                                 android:focusable="true"
                                 android:nextFocusLeft="@id/video_detail_up_text"
                                 android:nextFocusRight="@id/video_detail_up_text"
@@ -124,6 +123,7 @@
                 <!-- 第三部分：播放进度显示区域 -->
                 <LinearLayout android:focusable="false"
                     android:gravity="center_vertical"
+                    android:paddingBottom="@dimen/px_10"
                     android:clipChildren="false" android:clipToPadding="false"
                     android:layout_width="fill_parent" android:layout_height="wrap_content">
                     <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
@@ -192,7 +192,8 @@
                     android:layout_height="wrap_content" />
                 <android.support.v7.widget.RecyclerView android:id="@id/video_detail_ep_layout"
                     android:paddingLeft="@dimen/px_50" android:paddingTop="@dimen/px_24"
-                    android:paddingRight="@dimen/px_70" android:focusable="false"
+                    android:paddingRight="@dimen/px_70" android:focusable="true"
+                    android:nextFocusUp="@id/video_detail_coin"
                     android:visibility="gone" android:clipChildren="false"
                     android:clipToPadding="false" android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />
@@ -205,7 +206,9 @@
                 <android.support.v7.widget.RecyclerView android:id="@id/video_detail_episodes_video"
                     android:paddingLeft="@dimen/px_50" android:paddingTop="@dimen/px_24"
                     android:paddingRight="@dimen/px_70" android:paddingBottom="@dimen/px_24"
-                    android:focusable="false" android:visibility="gone" android:clipChildren="false"
+                    android:focusable="true"
+                    android:nextFocusUp="@id/video_detail_coin"
+                    android:visibility="gone" android:clipChildren="false"
                     android:clipToPadding="false" android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />
                 <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_36"
@@ -217,7 +220,9 @@
                 <android.support.v7.widget.RecyclerView android:id="@id/video_detail_relate_video"
                     android:paddingLeft="@dimen/px_50" android:paddingTop="@dimen/px_24"
                     android:paddingRight="@dimen/px_70" android:paddingBottom="@dimen/px_24"
-                    android:focusable="false" android:visibility="gone" android:clipChildren="false"
+                    android:focusable="true"
+                    android:nextFocusUp="@id/video_detail_coin"
+                    android:visibility="gone" android:clipChildren="false"
                     android:clipToPadding="false" android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />
                 <LinearLayout android:gravity="center_vertical"
@@ -231,6 +236,8 @@
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
                         android:text="@string/video_detail_tag" />
                     <android.support.v7.widget.RecyclerView android:id="@id/flow_tag_view"
+                        android:focusable="true"
+                        android:nextFocusUp="@id/video_detail_coin"
                         android:layout_width="fill_parent" android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/px_10" />
                 </LinearLayout>
@@ -252,7 +259,7 @@
                             android:nextFocusLeft="@id/video_detail_like"
                             android:nextFocusRight="@id/video_detail_coin"
                             android:nextFocusUp="@id/flow_tag_view"
-                            android:nextFocusDown="@id/video_detail_coin"
+                            android:nextFocusDown="@id/video_detail_like"
                             android:clipToPadding="false"
                             android:layout_width="wrap_content" android:minWidth="@dimen/px_120"
                             android:layout_height="@dimen/px_160">

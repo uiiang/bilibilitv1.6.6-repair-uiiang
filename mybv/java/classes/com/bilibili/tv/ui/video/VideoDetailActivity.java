@@ -16,6 +16,7 @@ import android.text.format.DateUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewParent;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -531,6 +532,16 @@ public final class VideoDetailActivity extends BaseActivity
                 if (currentFocus.getId() == R.id.video_detail_like || currentFocus.getId() == R.id.video_detail_coin
                         || currentFocus.getId() == R.id.video_detail_favorite) {
                     if (historyPlayBtnLayout != null && historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
+                        if (this.n != null && this.n.getVisibility() == View.VISIBLE && this.n.getChildCount() > 0) {
+                            int savedPosition = Math.min(tagViewFocusPosition, this.n.getChildCount() - 1);
+                            savedPosition = Math.max(0, savedPosition);
+                            View tagView = this.n.getChildAt(savedPosition);
+                            if (tagView != null) {
+                                Log.d("FocusDebug", "handleUpFromButton: jump to tagView position=" + savedPosition);
+                                tagView.requestFocus();
+                                return true;
+                            }
+                        }
                         historyPlayBtnLayout.requestFocus();
                         return true;
                     }
@@ -540,11 +551,146 @@ public final class VideoDetailActivity extends BaseActivity
                 }
             } else if (valueOf2 != null && valueOf2.intValue() == KeyEvent.KEYCODE_DPAD_DOWN) {
                 if (currentFocus.getId() == R.id.video_history_play_btn_layout) {
+                    if (this.o != null && this.o.getVisibility() == View.VISIBLE && this.o.getChildCount() > 0) {
+                        int savedPosition = Math.min(epLayoutFocusPosition, this.o.getChildCount() - 1);
+                        savedPosition = Math.max(0, savedPosition);
+                        View epView = this.o.getChildAt(savedPosition);
+                        if (epView != null) {
+                            Log.d("FocusDebug", "handleDownFromPlayBtn: jump to ep_layout position=" + savedPosition);
+                            epView.requestFocus();
+                            return true;
+                        }
+                    } else if (this.episodes_video != null && this.episodes_video.getVisibility() == View.VISIBLE && this.episodes_video.getChildCount() > 0) {
+                        int savedPosition = Math.min(episodesVideoFocusPosition, this.episodes_video.getChildCount() - 1);
+                        savedPosition = Math.max(0, savedPosition);
+                        View epVideoView = this.episodes_video.getChildAt(savedPosition);
+                        if (epVideoView != null) {
+                            Log.d("FocusDebug", "handleDownFromPlayBtn: jump to episodes_video position=" + savedPosition);
+                            epVideoView.requestFocus();
+                            return true;
+                        }
+                    }
                     return super.dispatchKeyEvent(keyEvent);
+                }
+            }
+            
+            if (valueOf2 != null && (valueOf2.intValue() == KeyEvent.KEYCODE_DPAD_UP || valueOf2.intValue() == KeyEvent.KEYCODE_DPAD_DOWN)) {
+                boolean handled = handleListFocusNavigation(currentFocus, valueOf2.intValue());
+                if (handled) {
+                    return true;
                 }
             }
         }
         return super.dispatchKeyEvent(keyEvent);
+    }
+    
+    private boolean handleListFocusNavigation(View currentFocus, int direction) {
+        int currentListType = getCurrentListType(currentFocus);
+        if (currentListType < 0) {
+            return false;
+        }
+        
+        RecyclerView targetRecyclerView = null;
+        int savedPosition = 0;
+        
+        if (direction == KeyEvent.KEYCODE_DPAD_DOWN) {
+            if (currentListType == LIST_TYPE_EP_LAYOUT) {
+                if (this.episodes_video != null && this.episodes_video.getVisibility() == View.VISIBLE) {
+                    targetRecyclerView = this.episodes_video;
+                    savedPosition = episodesVideoFocusPosition;
+                } else if (this.r != null && this.r.getVisibility() == View.VISIBLE) {
+                    targetRecyclerView = this.r;
+                    savedPosition = relateVideoFocusPosition;
+                } else if (this.n != null && this.n.getVisibility() == View.VISIBLE) {
+                    targetRecyclerView = this.n;
+                    savedPosition = tagViewFocusPosition;
+                }
+            } else if (currentListType == LIST_TYPE_EPISODES_VIDEO) {
+                if (this.r != null && this.r.getVisibility() == View.VISIBLE) {
+                    targetRecyclerView = this.r;
+                    savedPosition = relateVideoFocusPosition;
+                } else if (this.n != null && this.n.getVisibility() == View.VISIBLE) {
+                    targetRecyclerView = this.n;
+                    savedPosition = tagViewFocusPosition;
+                }
+            } else if (currentListType == LIST_TYPE_RELATE_VIDEO) {
+                if (this.n != null && this.n.getVisibility() == View.VISIBLE) {
+                    targetRecyclerView = this.n;
+                    savedPosition = tagViewFocusPosition;
+                }
+            }
+        } else if (direction == KeyEvent.KEYCODE_DPAD_UP) {
+            if (currentListType == LIST_TYPE_RELATE_VIDEO) {
+                if (this.episodes_video != null && this.episodes_video.getVisibility() == View.VISIBLE) {
+                    targetRecyclerView = this.episodes_video;
+                    savedPosition = episodesVideoFocusPosition;
+                } else if (this.o != null && this.o.getVisibility() == View.VISIBLE) {
+                    targetRecyclerView = this.o;
+                    savedPosition = epLayoutFocusPosition;
+                }
+            } else if (currentListType == LIST_TYPE_TAG) {
+                if (this.r != null && this.r.getVisibility() == View.VISIBLE) {
+                    targetRecyclerView = this.r;
+                    savedPosition = relateVideoFocusPosition;
+                } else if (this.episodes_video != null && this.episodes_video.getVisibility() == View.VISIBLE) {
+                    targetRecyclerView = this.episodes_video;
+                    savedPosition = episodesVideoFocusPosition;
+                } else if (this.o != null && this.o.getVisibility() == View.VISIBLE) {
+                    targetRecyclerView = this.o;
+                    savedPosition = epLayoutFocusPosition;
+                }
+            }
+        }
+        
+        if (targetRecyclerView != null && targetRecyclerView.getVisibility() == View.VISIBLE) {
+            int childCount = targetRecyclerView.getChildCount();
+            if (childCount > 0) {
+                int position = Math.min(savedPosition, childCount - 1);
+                position = Math.max(0, position);
+                View targetView = targetRecyclerView.getChildAt(position);
+                if (targetView != null) {
+                    Log.d("FocusDebug", "handleListFocusNavigation: direction=" + (direction == KeyEvent.KEYCODE_DPAD_DOWN ? "DOWN" : "UP") 
+                            + ", currentListType=" + currentListType + ", targetPosition=" + position + ", savedPosition=" + savedPosition);
+                    targetView.requestFocus();
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    private static final int LIST_TYPE_EP_LAYOUT = 1;
+    private static final int LIST_TYPE_EPISODES_VIDEO = 2;
+    private static final int LIST_TYPE_RELATE_VIDEO = 3;
+    private static final int LIST_TYPE_TAG = 4;
+    
+    private int getCurrentListType(View currentFocus) {
+        if (currentFocus == null) {
+            return -1;
+        }
+        
+        View view = currentFocus;
+        while (view != null) {
+            int id = view.getId();
+            if (id == R.id.video_detail_ep_layout) {
+                return LIST_TYPE_EP_LAYOUT;
+            } else if (id == R.id.video_detail_episodes_video) {
+                return LIST_TYPE_EPISODES_VIDEO;
+            } else if (id == R.id.video_detail_relate_video) {
+                return LIST_TYPE_RELATE_VIDEO;
+            } else if (id == R.id.flow_tag_view) {
+                return LIST_TYPE_TAG;
+            }
+            ViewParent parent = view.getParent();
+            if (parent instanceof View) {
+                view = (View) parent;
+            } else {
+                break;
+            }
+        }
+        
+        return -1;
     }
 
     // 保存当前焦点位置
@@ -558,6 +704,7 @@ public final class VideoDetailActivity extends BaseActivity
             if (this.n != null) {
                 for (int i = 0; i < this.n.getChildCount(); i++) {
                     if (this.n.getChildAt(i) == currentFocus) {
+                        Log.d("FocusDebug", "saveCurrentFocusPosition: tagViewFocusPosition=" + i + " (childCount=" + this.n.getChildCount() + ")");
                         tagViewFocusPosition = i;
                         break;
                     }
@@ -570,6 +717,7 @@ public final class VideoDetailActivity extends BaseActivity
             RecyclerView recyclerView = (RecyclerView) currentFocus.getParent();
             for (int i = 0; i < recyclerView.getChildCount(); i++) {
                 if (recyclerView.getChildAt(i) == currentFocus) {
+                    Log.d("FocusDebug", "saveCurrentFocusPosition: relateVideoFocusPosition=" + i + " (childCount=" + recyclerView.getChildCount() + ")");
                     relateVideoFocusPosition = i;
                     break;
                 }
@@ -581,6 +729,7 @@ public final class VideoDetailActivity extends BaseActivity
             RecyclerView recyclerView = (RecyclerView) currentFocus.getParent();
             for (int i = 0; i < recyclerView.getChildCount(); i++) {
                 if (recyclerView.getChildAt(i) == currentFocus) {
+                    Log.d("FocusDebug", "saveCurrentFocusPosition: epLayoutFocusPosition=" + i + " (childCount=" + recyclerView.getChildCount() + ")");
                     epLayoutFocusPosition = i;
                     break;
                 }
@@ -590,6 +739,7 @@ public final class VideoDetailActivity extends BaseActivity
             if (this.o != null) {
                 for (int i = 0; i < this.o.getChildCount(); i++) {
                     if (this.o.getChildAt(i) == currentFocus) {
+                        Log.d("FocusDebug", "saveCurrentFocusPosition: epLayoutFocusPosition=" + i + " (childCount=" + this.o.getChildCount() + ")");
                         epLayoutFocusPosition = i;
                         break;
                     }
@@ -602,6 +752,7 @@ public final class VideoDetailActivity extends BaseActivity
             RecyclerView recyclerView = (RecyclerView) currentFocus.getParent();
             for (int i = 0; i < recyclerView.getChildCount(); i++) {
                 if (recyclerView.getChildAt(i) == currentFocus) {
+                    Log.d("FocusDebug", "saveCurrentFocusPosition: episodesVideoFocusPosition=" + i + " (childCount=" + recyclerView.getChildCount() + ")");
                     episodesVideoFocusPosition = i;
                     break;
                 }
@@ -612,10 +763,12 @@ public final class VideoDetailActivity extends BaseActivity
     // 恢复焦点位置
     private View restoreFocusPosition(RecyclerView recyclerView, int savedPosition) {
         if (recyclerView == null) {
+            Log.d("FocusDebug", "restoreFocusPosition: recyclerView is null, savedPosition=" + savedPosition);
             return null;
         }
 
         int childCount = recyclerView.getChildCount();
+        Log.d("FocusDebug", "restoreFocusPosition: savedPosition=" + savedPosition + ", childCount=" + childCount);
         if (childCount == 0) {
             return null;
         }
@@ -626,10 +779,12 @@ public final class VideoDetailActivity extends BaseActivity
         // 尝试获取指定位置的视图
         View focusView = recyclerView.getChildAt(position);
         if (focusView != null) {
+            Log.d("FocusDebug", "restoreFocusPosition: found view at position=" + position);
             return focusView;
         }
 
         // 如果找不到指定位置的视图，返回第一个可见的子视图
+        Log.d("FocusDebug", "restoreFocusPosition: fallback to first child");
         return recyclerView.getChildAt(0);
     }
 
@@ -714,6 +869,7 @@ public final class VideoDetailActivity extends BaseActivity
             historyPlayBtn.setText("开始播放");
             historyTitle.setVisibility(View.GONE);
             historyProgress.setVisibility(View.GONE);
+            historyContainer.setVisibility(View.GONE);
         } else {
             int episodeCount = 0;
             if (biliVideoDetail.episodes != null) {
@@ -1772,6 +1928,14 @@ public final class VideoDetailActivity extends BaseActivity
             c(biliVideoDetail);
             VideoDetailActivity.this.a((Activity) VideoDetailActivity.this, biliVideoDetail);
             updateHistoryDisplay(biliVideoDetail);
+            
+            // 设置焦点到播放按钮
+            if (VideoDetailActivity.this.historyPlayBtnLayout != null && 
+                VideoDetailActivity.this.historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
+                VideoDetailActivity.this.historyPlayBtnLayout.requestFocus();
+                Log.d("FocusDebug", "Auto focus to play button");
+            }
+            
             abi.a.a("tv_detail_view2_resp", abi.a.a(String.valueOf(VideoDetailActivity.this.s),
                     String.valueOf(mg.a(VideoDetailActivity.this).d()), "success", "0"));
         }
@@ -1880,6 +2044,18 @@ public final class VideoDetailActivity extends BaseActivity
 
         private final void d(BiliVideoDetail biliVideoDetail) {
             if (biliVideoDetail.mPageList == null || biliVideoDetail.mPageList.isEmpty()) {
+                TextView textView = VideoDetailActivity.this.hh;
+                if (textView != null) {
+                    textView.setVisibility(8);
+                }
+                RecyclerView recyclerView = VideoDetailActivity.this.o;
+                if (recyclerView != null) {
+                    recyclerView.setVisibility(8);
+                    return;
+                }
+                return;
+            }
+            if (biliVideoDetail.mPageList.size() <= 1) {
                 TextView textView = VideoDetailActivity.this.hh;
                 if (textView != null) {
                     textView.setVisibility(8);
