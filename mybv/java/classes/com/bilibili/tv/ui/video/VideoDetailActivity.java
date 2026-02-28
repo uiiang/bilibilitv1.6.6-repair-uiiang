@@ -2033,6 +2033,55 @@ public final class VideoDetailActivity extends BaseActivity
                     list.add(t);
                 }
                 VideoDetailActivity.this.episodes_video_adapter.setData(list);
+                
+                // 自动滚动到当前视频位置
+                if (!list.isEmpty()) {
+                    int currentPosition = -1;
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i).mAvid == VideoDetailActivity.this.s) {
+                            currentPosition = i;
+                            break;
+                        }
+                    }
+                    Log.d("VideoDetailActivity", "自动滚动调试 - 当前视频aid: " + VideoDetailActivity.this.s + 
+                            ", 合集列表大小: " + list.size() + ", 找到的位置: " + currentPosition);
+                    if (currentPosition >= 0) {
+                        final RecyclerView recyclerView2 = VideoDetailActivity.this.episodes_video;
+                        if (recyclerView2 != null) {
+                            // 延迟滚动，确保RecyclerView已经完成布局
+                            final int finalCurrentPosition = currentPosition;
+                            recyclerView2.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Log.d("VideoDetailActivity", "开始滚动 - 目标位置: " + finalCurrentPosition + 
+                                            ", 子视图数量: " + recyclerView2.getChildCount());
+                                    // 最简单的滚动实现：直接使用scrollBy
+                                    if (recyclerView2.getChildCount() > 0) {
+                                        View firstChild = recyclerView2.getChildAt(0);
+                                        if (firstChild != null) {
+                                            int childWidth = firstChild.getWidth();
+                                            int targetOffset = finalCurrentPosition * childWidth;
+                                            Log.d("VideoDetailActivity", "滚动参数 - 子视图宽度: " + childWidth + 
+                                                    ", 目标偏移量: " + targetOffset);
+                                            
+                                            // 直接滚动到目标位置
+                                            recyclerView2.scrollBy(targetOffset, 0);
+                                            Log.d("VideoDetailActivity", "滚动完成");
+                                        } else {
+                                            Log.d("VideoDetailActivity", "第一个子视图为null");
+                                        }
+                                    } else {
+                                        Log.d("VideoDetailActivity", "没有子视图可滚动");
+                                    }
+                                }
+                            });
+                        } else {
+                            Log.d("VideoDetailActivity", "RecyclerView为null");
+                        }
+                    } else {
+                        Log.d("VideoDetailActivity", "未找到匹配的视频位置");
+                    }
+                }
             }
             TextView textView2 = VideoDetailActivity.this.episodes_title;
             if (textView2 != null) {

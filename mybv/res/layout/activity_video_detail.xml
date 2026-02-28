@@ -127,7 +127,8 @@
                     android:clipChildren="false" android:clipToPadding="false"
                     android:layout_width="fill_parent" android:layout_height="wrap_content">
                     <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
-                        android:orientation="horizontal" android:id="@+id/video_history_play_btn_layout"
+                        android:orientation="horizontal"
+                        android:id="@+id/video_history_play_btn_layout"
                         android:background="@drawable/background_white_rect"
                         android:focusable="true" android:focusableInTouchMode="true"
                         android:nextFocusLeft="@id/video_history_play_btn_layout"
@@ -194,6 +195,8 @@
                     android:paddingLeft="@dimen/px_50" android:paddingTop="@dimen/px_24"
                     android:paddingRight="@dimen/px_70" android:focusable="true"
                     android:nextFocusUp="@id/video_detail_coin"
+                    android:nextFocusLeft="@id/video_detail_ep_layout"
+                    android:nextFocusRight="@id/video_detail_ep_layout"
                     android:visibility="gone" android:clipChildren="false"
                     android:clipToPadding="false" android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />
@@ -208,6 +211,8 @@
                     android:paddingRight="@dimen/px_70" android:paddingBottom="@dimen/px_24"
                     android:focusable="true"
                     android:nextFocusUp="@id/video_detail_coin"
+                    android:nextFocusLeft="@id/video_detail_episodes_video"
+                    android:nextFocusRight="@id/video_detail_episodes_video"
                     android:visibility="gone" android:clipChildren="false"
                     android:clipToPadding="false" android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />
@@ -222,6 +227,8 @@
                     android:paddingRight="@dimen/px_70" android:paddingBottom="@dimen/px_24"
                     android:focusable="true"
                     android:nextFocusUp="@id/video_detail_coin"
+                    android:nextFocusLeft="@id/video_detail_relate_video"
+                    android:nextFocusRight="@id/video_detail_relate_video"
                     android:visibility="gone" android:clipChildren="false"
                     android:clipToPadding="false" android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />
