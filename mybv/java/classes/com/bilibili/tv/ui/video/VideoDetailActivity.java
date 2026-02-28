@@ -128,6 +128,8 @@ public final class VideoDetailActivity extends BaseActivity
     private int episodesVideoFocusPosition = 0;
     private int relateVideoFocusPosition = 0;
     private int tagViewFocusPosition = 0;
+    // 阻止分集列表在初始化时被适配器/绑定逻辑自动抢焦
+    private boolean blockEpisodeAutoFocus = true;
     public static final a Companion = new a(null);
     private static final int E = 6;
     private static final int F = E * 2;
@@ -314,6 +316,10 @@ public final class VideoDetailActivity extends BaseActivity
                     }
                 }
             });
+            // 在初始加载/绑定阶段阻止 RecyclerView 子项被自动聚焦
+            if (this.blockEpisodeAutoFocus) {
+                this.o.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
+            }
         }
         this.r = (RecyclerView) d(R.id.video_detail_relate_video);
         this.v = new e();
@@ -537,7 +543,7 @@ public final class VideoDetailActivity extends BaseActivity
                             savedPosition = Math.max(0, savedPosition);
                             View tagView = this.n.getChildAt(savedPosition);
                             if (tagView != null) {
-                                Log.d("FocusDebug", "handleUpFromButton: jump to tagView position=" + savedPosition);
+                            
                                 tagView.requestFocus();
                                 return true;
                             }
@@ -556,7 +562,12 @@ public final class VideoDetailActivity extends BaseActivity
                         savedPosition = Math.max(0, savedPosition);
                         View epView = this.o.getChildAt(savedPosition);
                         if (epView != null) {
-                            Log.d("FocusDebug", "handleDownFromPlayBtn: jump to ep_layout position=" + savedPosition);
+                            // 允许用户操作时从播放按钮向下切换焦点
+                            VideoDetailActivity.this.blockEpisodeAutoFocus = false;
+                            if (VideoDetailActivity.this.o != null) {
+                                VideoDetailActivity.this.o.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
+                            }
+                            
                             epView.requestFocus();
                             return true;
                         }
@@ -565,8 +576,13 @@ public final class VideoDetailActivity extends BaseActivity
                         savedPosition = Math.max(0, savedPosition);
                         View epVideoView = this.episodes_video.getChildAt(savedPosition);
                         if (epVideoView != null) {
-                            Log.d("FocusDebug", "handleDownFromPlayBtn: jump to episodes_video position=" + savedPosition);
-                            epVideoView.requestFocus();
+                            // 允许用户操作时从播放按钮向下切换焦点
+                            VideoDetailActivity.this.blockEpisodeAutoFocus = false;
+                            if (VideoDetailActivity.this.episodes_video != null) {
+                                VideoDetailActivity.this.episodes_video.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
+                            }
+                                
+                                epVideoView.requestFocus();
                             return true;
                         }
                     }
@@ -649,8 +665,7 @@ public final class VideoDetailActivity extends BaseActivity
                 position = Math.max(0, position);
                 View targetView = targetRecyclerView.getChildAt(position);
                 if (targetView != null) {
-                    Log.d("FocusDebug", "handleListFocusNavigation: direction=" + (direction == KeyEvent.KEYCODE_DPAD_DOWN ? "DOWN" : "UP") 
-                            + ", currentListType=" + currentListType + ", targetPosition=" + position + ", savedPosition=" + savedPosition);
+                    
                     targetView.requestFocus();
                     return true;
                 }
@@ -701,10 +716,9 @@ public final class VideoDetailActivity extends BaseActivity
         // 检查是否在标签列表内
         if (currentFocus.getId() == R.id.tag_view || (currentFocus.getParent() instanceof View
                 && ((View) currentFocus.getParent()).getId() == R.id.flow_tag_view)) {
-            if (this.n != null) {
+                        if (this.n != null) {
                 for (int i = 0; i < this.n.getChildCount(); i++) {
                     if (this.n.getChildAt(i) == currentFocus) {
-                        Log.d("FocusDebug", "saveCurrentFocusPosition: tagViewFocusPosition=" + i + " (childCount=" + this.n.getChildCount() + ")");
                         tagViewFocusPosition = i;
                         break;
                     }
@@ -715,9 +729,8 @@ public final class VideoDetailActivity extends BaseActivity
         else if (currentFocus.getParent() instanceof RecyclerView
                 && ((RecyclerView) currentFocus.getParent()).getId() == R.id.video_detail_relate_video) {
             RecyclerView recyclerView = (RecyclerView) currentFocus.getParent();
-            for (int i = 0; i < recyclerView.getChildCount(); i++) {
+                    for (int i = 0; i < recyclerView.getChildCount(); i++) {
                 if (recyclerView.getChildAt(i) == currentFocus) {
-                    Log.d("FocusDebug", "saveCurrentFocusPosition: relateVideoFocusPosition=" + i + " (childCount=" + recyclerView.getChildCount() + ")");
                     relateVideoFocusPosition = i;
                     break;
                 }
@@ -727,9 +740,8 @@ public final class VideoDetailActivity extends BaseActivity
         else if (currentFocus.getParent() instanceof RecyclerView
                 && ((RecyclerView) currentFocus.getParent()).getId() == R.id.video_detail_ep_layout) {
             RecyclerView recyclerView = (RecyclerView) currentFocus.getParent();
-            for (int i = 0; i < recyclerView.getChildCount(); i++) {
+                    for (int i = 0; i < recyclerView.getChildCount(); i++) {
                 if (recyclerView.getChildAt(i) == currentFocus) {
-                    Log.d("FocusDebug", "saveCurrentFocusPosition: epLayoutFocusPosition=" + i + " (childCount=" + recyclerView.getChildCount() + ")");
                     epLayoutFocusPosition = i;
                     break;
                 }
@@ -739,7 +751,6 @@ public final class VideoDetailActivity extends BaseActivity
             if (this.o != null) {
                 for (int i = 0; i < this.o.getChildCount(); i++) {
                     if (this.o.getChildAt(i) == currentFocus) {
-                        Log.d("FocusDebug", "saveCurrentFocusPosition: epLayoutFocusPosition=" + i + " (childCount=" + this.o.getChildCount() + ")");
                         epLayoutFocusPosition = i;
                         break;
                     }
@@ -750,9 +761,8 @@ public final class VideoDetailActivity extends BaseActivity
         else if (currentFocus.getParent() instanceof RecyclerView
                 && ((RecyclerView) currentFocus.getParent()).getId() == R.id.video_detail_episodes_video) {
             RecyclerView recyclerView = (RecyclerView) currentFocus.getParent();
-            for (int i = 0; i < recyclerView.getChildCount(); i++) {
+                for (int i = 0; i < recyclerView.getChildCount(); i++) {
                 if (recyclerView.getChildAt(i) == currentFocus) {
-                    Log.d("FocusDebug", "saveCurrentFocusPosition: episodesVideoFocusPosition=" + i + " (childCount=" + recyclerView.getChildCount() + ")");
                     episodesVideoFocusPosition = i;
                     break;
                 }
@@ -763,12 +773,11 @@ public final class VideoDetailActivity extends BaseActivity
     // 恢复焦点位置
     private View restoreFocusPosition(RecyclerView recyclerView, int savedPosition) {
         if (recyclerView == null) {
-            Log.d("FocusDebug", "restoreFocusPosition: recyclerView is null, savedPosition=" + savedPosition);
             return null;
         }
 
         int childCount = recyclerView.getChildCount();
-        Log.d("FocusDebug", "restoreFocusPosition: savedPosition=" + savedPosition + ", childCount=" + childCount);
+        
         if (childCount == 0) {
             return null;
         }
@@ -779,12 +788,10 @@ public final class VideoDetailActivity extends BaseActivity
         // 尝试获取指定位置的视图
         View focusView = recyclerView.getChildAt(position);
         if (focusView != null) {
-            Log.d("FocusDebug", "restoreFocusPosition: found view at position=" + position);
             return focusView;
         }
 
         // 如果找不到指定位置的视图，返回第一个可见的子视图
-        Log.d("FocusDebug", "restoreFocusPosition: fallback to first child");
         return recyclerView.getChildAt(0);
     }
 
@@ -1713,7 +1720,32 @@ public final class VideoDetailActivity extends BaseActivity
                 this.a.setOnClickListener(this);
                 View view = this.a;
                 bbi.a((Object) view, "itemView");
-                view.setOnFocusChangeListener(new d());
+                // 合并焦点监听器：先执行原有的 d() 行为（绘制焦点样式），再执行诊断与阻断逻辑
+                final View.OnFocusChangeListener baseListener = new d();
+                view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View vv, boolean hasFocus) {
+                        // 保留原始焦点处理（例如绘制焦点边框）
+                        baseListener.onFocusChange(vv, hasFocus);
+                        // 额外诊断与阻断逻辑
+                        if (hasFocus) {
+                            
+                            
+                            // 如果仍处于阻止自动聚焦阶段，重定向焦点回播放按钮并记录
+                            Activity _a = adl.a(vv.getContext());
+                            if (_a instanceof VideoDetailActivity) {
+                                VideoDetailActivity _activity = (VideoDetailActivity) _a;
+                                if (_activity.blockEpisodeAutoFocus) {
+                                    
+                                    if (_activity.historyPlayBtnLayout != null &&
+                                            _activity.historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
+                                        _activity.historyPlayBtnLayout.requestFocus();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
             }
         }
 
@@ -1933,7 +1965,7 @@ public final class VideoDetailActivity extends BaseActivity
             if (VideoDetailActivity.this.historyPlayBtnLayout != null && 
                 VideoDetailActivity.this.historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
                 VideoDetailActivity.this.historyPlayBtnLayout.requestFocus();
-                Log.d("FocusDebug", "Auto focus to play button");
+                
             }
             
             abi.a.a("tv_detail_view2_resp", abi.a.a(String.valueOf(VideoDetailActivity.this.s),
