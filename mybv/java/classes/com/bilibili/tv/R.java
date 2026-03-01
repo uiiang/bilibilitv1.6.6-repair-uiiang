@@ -2490,6 +2490,9 @@ public final class R {
         public static final int video_history_progress = 0x7f080190;
         public static final int video_history_play_btn = 0x7f080191;
         public static final int video_history_play_btn_layout = 0x7f080192;
+        public static final int video_history_play_img = 0x7f080193;
+        public static final int video_re_play_btn = 0x7f080194;
+        public static final int video_re_play_btn_layout = 0x7f080195;
     }
 
     public static final class integer {
