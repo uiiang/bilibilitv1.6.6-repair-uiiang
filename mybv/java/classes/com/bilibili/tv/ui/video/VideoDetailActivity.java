@@ -693,7 +693,16 @@ public final class VideoDetailActivity extends BaseActivity
                 }
             }
         } else if (direction == KeyEvent.KEYCODE_DPAD_UP) {
-            if (currentListType == LIST_TYPE_RELATE_VIDEO) {
+            // 检查是否在最上面的列表，需要导航到播放按钮
+            if (currentListType == LIST_TYPE_EP_LAYOUT || currentListType == LIST_TYPE_EPISODES_VIDEO) {
+                if (historyPlayBtnLayout != null && historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
+                    historyPlayBtnLayout.requestFocus();
+                    return true;
+                } else if (rePlayBtnLayout != null && rePlayBtnLayout.getVisibility() == View.VISIBLE) {
+                    rePlayBtnLayout.requestFocus();
+                    return true;
+                }
+            } else if (currentListType == LIST_TYPE_RELATE_VIDEO) {
                 if (this.episodes_video != null && this.episodes_video.getVisibility() == View.VISIBLE) {
                     targetRecyclerView = this.episodes_video;
                     savedPosition = episodesVideoFocusPosition;
@@ -1499,9 +1508,13 @@ public final class VideoDetailActivity extends BaseActivity
                     int size = this.b != null ? this.b.size() : 0;
                     if (i == 0) {
                         itemView.setNextFocusLeftId(itemView.getId());
+                    } else {
+                        itemView.setNextFocusLeftId(View.NO_ID);
                     }
                     if (i == size - 1) {
                         itemView.setNextFocusRightId(itemView.getId());
+                    } else {
+                        itemView.setNextFocusRightId(View.NO_ID);
                     }
                 }
             }
@@ -1550,9 +1563,13 @@ public final class VideoDetailActivity extends BaseActivity
                     int size = this.data != null ? this.data.size() : 0;
                     if (position == 0) {
                         itemView.setNextFocusLeftId(itemView.getId());
+                    } else {
+                        itemView.setNextFocusLeftId(View.NO_ID);
                     }
                     if (position == size - 1) {
                         itemView.setNextFocusRightId(itemView.getId());
+                    } else {
+                        itemView.setNextFocusRightId(View.NO_ID);
                     }
                 }
             }
