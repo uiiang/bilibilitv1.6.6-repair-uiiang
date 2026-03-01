@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewParent;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ImageView;
@@ -108,6 +109,7 @@ public final class VideoDetailActivity extends BaseActivity
     private LoadingImageView p;
     private FrameLayout q;
     private RecyclerView r;
+    private ScrollView scrollView;
     private LinearLayout historyContainer;
     private DrawLinearLayout historyPlayBtnLayout;
     private DrawLinearLayout rePlayBtnLayout;
@@ -386,6 +388,49 @@ public final class VideoDetailActivity extends BaseActivity
         this.rePlayBtn = (DrawTextView) d(R.id.video_re_play_btn);
         this.historyTitle = (TextView) d(R.id.video_history_title);
         this.historyProgress = (TextView) d(R.id.video_history_progress);
+        this.scrollView = (ScrollView) d(R.id.scrollView);
+        setupGlobalFocusChangeListener();
+    }
+
+    private void setupGlobalFocusChangeListener() {
+        View rootView = findViewById(android.R.id.content);
+        if (rootView != null) {
+            rootView.getViewTreeObserver().addOnGlobalFocusChangeListener(new ViewTreeObserver.OnGlobalFocusChangeListener() {
+                @Override
+                public void onGlobalFocusChanged(View oldFocus, View newFocus) {
+                    if (newFocus != null && scrollView != null) {
+                        scrollToViewIfNeeded(newFocus);
+                    }
+                }
+            });
+        }
+    }
+
+    private void scrollToViewIfNeeded(View view) {
+        if (scrollView == null || view == null) {
+            return;
+        }
+        Rect scrollBounds = new Rect();
+        scrollView.getHitRect(scrollBounds);
+        Rect viewBounds = new Rect();
+        view.getHitRect(viewBounds);
+        int[] scrollLocation = new int[2];
+        scrollView.getLocationOnScreen(scrollLocation);
+        int[] viewLocation = new int[2];
+        view.getLocationOnScreen(viewLocation);
+        float density = getResources().getDisplayMetrics().density;
+        int margin = (int) (50 * density);
+        int viewTop = viewLocation[1] - scrollLocation[1];
+        int viewBottom = viewTop + view.getHeight();
+        int scrollViewTop = 0;
+        int scrollViewBottom = scrollView.getHeight();
+        if (viewTop < margin) {
+            int scrollY = scrollView.getScrollY();
+            scrollView.smoothScrollTo(0, scrollY + viewTop - margin);
+        } else if (viewBottom > scrollViewBottom - margin) {
+            int scrollY = scrollView.getScrollY();
+            scrollView.smoothScrollTo(0, scrollY + viewBottom - scrollViewBottom + margin);
+        }
     }
 
     /* compiled from: BL */
@@ -1449,6 +1494,16 @@ public final class VideoDetailActivity extends BaseActivity
             if (fVar != null) {
                 List<? extends BiliVideoDetail> list = this.b;
                 fVar.b(list != null ? list.get(i) : null);
+                View itemView = fVar.a;
+                if (itemView != null) {
+                    int size = this.b != null ? this.b.size() : 0;
+                    if (i == 0) {
+                        itemView.setNextFocusLeftId(itemView.getId());
+                    }
+                    if (i == size - 1) {
+                        itemView.setNextFocusRightId(itemView.getId());
+                    }
+                }
             }
         }
 
@@ -1490,6 +1545,16 @@ public final class VideoDetailActivity extends BaseActivity
             if (fVar != null) {
                 List<BiliVideoDetail> list = this.data;
                 fVar.b(list != null ? list.get(position) : null);
+                View itemView = fVar.a;
+                if (itemView != null) {
+                    int size = this.data != null ? this.data.size() : 0;
+                    if (position == 0) {
+                        itemView.setNextFocusLeftId(itemView.getId());
+                    }
+                    if (position == size - 1) {
+                        itemView.setNextFocusRightId(itemView.getId());
+                    }
+                }
             }
         }
 
@@ -1670,7 +1735,15 @@ public final class VideoDetailActivity extends BaseActivity
             bbi.a((Object) context, "v.context");
             Activity a2 = adl.a(context);
             if ((tag instanceof BiliVideoDetail) && a2 != null) {
-                a2.startActivity(VideoDetailActivity.Companion.a(a2, ((BiliVideoDetail) tag).mAvid));
+                BiliVideoDetail clickedVideo = (BiliVideoDetail) tag;
+                if (a2 instanceof VideoDetailActivity) {
+                    VideoDetailActivity currentActivity = (VideoDetailActivity) a2;
+                    BiliVideoDetail currentVideo = currentActivity.u;
+                    if (currentVideo != null && currentVideo.mAvid == clickedVideo.mAvid) {
+                        return;
+                    }
+                }
+                a2.startActivity(VideoDetailActivity.Companion.a(a2, clickedVideo.mAvid));
             }
             ok.a("tv_video_view_click_relate", new String[0]);
         }
