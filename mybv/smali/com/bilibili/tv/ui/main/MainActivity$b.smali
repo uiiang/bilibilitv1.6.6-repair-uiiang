@@ -44,18 +44,18 @@
     .end annotation
 
     .prologue
-    .line 828
+    .line 852
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 829
+    .line 853
     const-string v0, "activity"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 830
+    .line 854
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/MainActivity$b;->a:Ljava/lang/ref/WeakReference;
 
-    .line 831
+    .line 855
     return-void
 .end method
 
@@ -65,15 +65,15 @@
     .locals 2
 
     .prologue
-    .line 835
+    .line 859
     if-nez p1, :cond_3
 
-    .line 855
+    .line 879
     :cond_2
     :goto_2
     return-void
 
-    .line 838
+    .line 862
     :cond_3
     sget-object v0, Lcom/bilibili/tv/ui/main/MainActivity$2;->$SwitchMap$com$bilibili$lib$account$subscribe$Topic:[I
 
@@ -87,7 +87,7 @@
 
     goto :goto_2
 
-    .line 843
+    .line 867
     :pswitch_f
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$b;->a:Ljava/lang/ref/WeakReference;
 
@@ -97,15 +97,15 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/main/MainActivity;
 
-    .line 844
+    .line 868
     if-eqz v0, :cond_2
 
-    .line 845
+    .line 869
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/MainActivity;->l()V
 
     goto :goto_2
 
-    .line 850
+    .line 874
     :pswitch_1d
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$b;->a:Ljava/lang/ref/WeakReference;
 
@@ -115,15 +115,15 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/main/MainActivity;
 
-    .line 851
+    .line 875
     if-eqz v0, :cond_2
 
-    .line 852
+    .line 876
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/MainActivity;->m()V
 
     goto :goto_2
 
-    .line 838
+    .line 862
     nop
 
     :pswitch_data_2c

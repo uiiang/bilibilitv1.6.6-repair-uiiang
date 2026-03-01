@@ -32,12 +32,12 @@
     .locals 0
 
     .prologue
-    .line 249
+    .line 220
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$a;->this$0:Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;
 
     invoke-direct {p0}, Lbl/vm;-><init>()V
 
-    .line 250
+    .line 221
     return-void
 .end method
 
@@ -47,7 +47,7 @@
     .locals 1
 
     .prologue
-    .line 265
+    .line 236
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$a;->this$0:Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -81,12 +81,12 @@
     .locals 2
 
     .prologue
-    .line 270
+    .line 241
     const-string v0, "t"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 271
+    .line 242
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$a;->this$0:Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;
@@ -97,7 +97,7 @@
 
     invoke-virtual {v0, p1, v1}, Lbl/adl;->a(Ljava/lang/Throwable;Landroid/app/Activity;)V
 
-    .line 272
+    .line 243
     return-void
 .end method
 
@@ -105,12 +105,12 @@
     .locals 2
 
     .prologue
-    .line 256
+    .line 227
     if-eqz p1, :cond_d
 
     iget-object v0, p1, Lcom/bilibili/bangumi/api/BangumiMainEx;->dataList:Ljava/util/List;
 
-    .line 257
+    .line 228
     :goto_4
     if-eqz v0, :cond_c
 
@@ -120,18 +120,18 @@
 
     if-eqz v1, :cond_f
 
-    .line 261
+    .line 232
     :cond_c
     :goto_c
     return-void
 
-    .line 256
+    .line 227
     :cond_d
     const/4 v0, 0x0
 
     goto :goto_4
 
-    .line 260
+    .line 231
     :cond_f
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$a;->this$0:Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;
 
@@ -149,7 +149,7 @@
     .locals 0
 
     .prologue
-    .line 247
+    .line 218
     check-cast p1, Lcom/bilibili/bangumi/api/BangumiMainEx;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$a;->onSuccess(Lcom/bilibili/bangumi/api/BangumiMainEx;)V

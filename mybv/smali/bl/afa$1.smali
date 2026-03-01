@@ -54,12 +54,12 @@
     .line 93
     const/16 v1, 0x21
 
-    if-ne p2, v1, :cond_2f
+    if-ne p2, v1, :cond_2e
 
     .line 94
-    rem-int/lit8 v0, v0, 0x2
+    const/4 v1, 0x5
 
-    if-nez v0, :cond_37
+    if-ge v0, v1, :cond_2e
 
     .line 95
     iget-object v0, p0, Lbl/afa$1;->this$0:Lbl/afa;
@@ -69,7 +69,7 @@
     move-result-object v0
 
     .line 96
-    if-nez v0, :cond_22
+    if-nez v0, :cond_21
 
     .line 97
     new-instance v0, Lkotlin/TypeCastException;
@@ -81,7 +81,7 @@
     throw v0
 
     .line 99
-    :cond_22
+    :cond_21
     check-cast v0, Lcom/bilibili/tv/ui/main/MainActivity;
 
     .line 100
@@ -93,28 +93,16 @@
     .line 102
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/MainActivity;->j()Landroid/view/View;
 
-    move-result-object p1
+    move-result-object v0
 
-    .line 107
+    .line 105
+    :goto_2d
+    return-object v0
+
     :cond_2e
-    :goto_2e
-    return-object p1
-
-    .line 104
-    :cond_2f
-    const/16 v1, 0x82
-
-    if-ne p2, v1, :cond_37
-
-    rem-int/lit8 v0, v0, 0x2
-
-    if-nez v0, :cond_2e
-
-    .line 107
-    :cond_37
     invoke-super {p0, p1, p2}, Lcom/bilibili/tv/widget/FixGridLayoutManager;->d(Landroid/view/View;I)Landroid/view/View;
 
-    move-result-object p1
+    move-result-object v0
 
-    goto :goto_2e
+    goto :goto_2d
 .end method

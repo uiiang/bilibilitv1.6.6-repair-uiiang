@@ -102,7 +102,7 @@
     .locals 7
 
     .prologue
-    const/4 v4, 0x0
+    const/4 v5, 0x0
 
     .line 103
     const-string v0, "recyclerView"
@@ -115,7 +115,7 @@
     .line 105
     const-string v0, "tv_home_bangumi_pageview"
 
-    new-array v1, v4, [Ljava/lang/String;
+    new-array v1, v5, [Ljava/lang/String;
 
     invoke-static {v0, v1}, Lbl/ok;->a(Ljava/lang/String;[Ljava/lang/String;)V
 
@@ -151,27 +151,27 @@
 
     const/4 v3, 0x4
 
-    move-object v1, p0
+    const/4 v4, 0x1
 
-    move v5, v4
+    move-object v1, p0
 
     invoke-direct/range {v0 .. v5}, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$1;-><init>(Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;Landroid/content/Context;IIZ)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->a:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
-    .line 135
+    .line 131
     new-instance v0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$b;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$b;-><init>(Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->b:Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$b;
 
-    .line 136
+    .line 132
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->a:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->setLayoutManager(Landroid/support/v7/widget/RecyclerView$h;)V
 
-    .line 137
+    .line 133
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->a:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     new-instance v1, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$f;
@@ -180,41 +180,41 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->a(Landroid/support/v7/widget/GridLayoutManager$c;)V
 
-    .line 138
+    .line 134
     new-instance v0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$g;
 
     invoke-direct {v0, v6}, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$g;-><init>(I)V
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$g;)V
 
-    .line 139
-    invoke-virtual {p1, v4}, Landroid/support/v7/widget/RecyclerView;->setFocusable(Z)V
+    .line 135
+    invoke-virtual {p1, v5}, Landroid/support/v7/widget/RecyclerView;->setFocusable(Z)V
 
-    .line 140
+    .line 136
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->b:Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$b;
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->setAdapter(Landroid/support/v7/widget/RecyclerView$a;)V
 
-    .line 141
+    .line 137
     new-instance v0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$a;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$a;-><init>(Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->c:Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$a;
 
-    .line 142
+    .line 138
     const-class v0, Lbl/kh;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 143
+    .line 139
     const-string v1, "ServiceGenerator.createS\u2026chApiService::class.java)"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 144
+    .line 140
     check-cast v0, Lbl/kh;
 
     invoke-interface {v0}, Lbl/kh;->b()Lbl/vp;
@@ -225,7 +225,7 @@
 
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 145
+    .line 141
     return-void
 .end method
 
@@ -257,17 +257,17 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 236
+    .line 207
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->b:Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$b;
 
     if-nez v1, :cond_6
 
-    .line 243
+    .line 214
     :cond_5
     :goto_5
     return-object v0
 
-    .line 239
+    .line 210
     :cond_6
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->b:Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$b;
 
@@ -277,14 +277,14 @@
 
     if-eqz v1, :cond_5
 
-    .line 242
+    .line 213
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->a:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->o()I
 
     move-result v0
 
-    .line 243
+    .line 214
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->a:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->c(I)Landroid/view/View;
@@ -298,17 +298,17 @@
     .locals 1
 
     .prologue
-    .line 209
+    .line 180
     invoke-super {p0}, Lbl/adu;->onDestroyView()V
 
-    .line 210
+    .line 181
     const/4 v0, 0x0
 
     check-cast v0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$b;
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->b:Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$b;
 
-    .line 211
+    .line 182
     return-void
 .end method
 
@@ -316,10 +316,10 @@
     .locals 2
 
     .prologue
-    .line 582
+    .line 569
     invoke-super {p0, p1}, Lbl/adu;->onHiddenChanged(Z)V
 
-    .line 583
+    .line 570
     invoke-static {}, Lbl/wh;->a()Lbl/wh;
 
     move-result-object v1
@@ -331,10 +331,10 @@
     :goto_a
     invoke-virtual {v1, p0, v0}, Lbl/wh;->a(Landroid/support/v4/app/Fragment;Z)V
 
-    .line 584
+    .line 571
     return-void
 
-    .line 583
+    .line 570
     :cond_e
     const/4 v0, 0x0
 
@@ -345,21 +345,21 @@
     .locals 3
 
     .prologue
-    .line 215
+    .line 186
     invoke-super {p0, p1}, Lbl/adu;->setUserVisibleHint(Z)V
 
-    .line 216
+    .line 187
     if-eqz p1, :cond_1b
 
-    .line 217
+    .line 188
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 218
+    .line 189
     if-nez v0, :cond_13
 
-    .line 219
+    .line 190
     new-instance v0, Lkotlin/TypeCastException;
 
     const-string v1, "null cannot be cast to non-null type com.bilibili.tv.ui.main.MainActivity"
@@ -368,23 +368,23 @@
 
     throw v0
 
-    .line 221
+    .line 192
     :cond_13
     check-cast v0, Lcom/bilibili/tv/ui/main/MainActivity;
 
-    .line 222
+    .line 193
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->d()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v1
 
     if-nez v1, :cond_1c
 
-    .line 232
+    .line 203
     :cond_1b
     :goto_1b
     return-void
 
-    .line 225
+    .line 196
     :cond_1c
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->d()Landroid/support/v7/widget/RecyclerView;
 
@@ -394,7 +394,7 @@
 
     invoke-virtual {v1, v2}, Landroid/support/v7/widget/RecyclerView;->a(I)V
 
-    .line 226
+    .line 197
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->d()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v1
@@ -409,7 +409,7 @@
 
     move-result-object v1
 
-    .line 227
+    .line 198
     if-eqz v1, :cond_1b
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/MainActivity;->h()Z
@@ -418,7 +418,7 @@
 
     if-eqz v0, :cond_1b
 
-    .line 230
+    .line 201
     invoke-virtual {v1}, Landroid/view/View;->requestFocus()Z
 
     goto :goto_1b

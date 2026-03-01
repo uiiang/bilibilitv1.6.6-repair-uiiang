@@ -53,6 +53,7 @@
         <activity android:name="com.bilibili.tv.ui.area.AreaActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.video.tag.VideoTagSearchActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.attention.AttentionDynamicActivity" android:screenOrientation="landscape"/>
+        <activity android:name="com.bilibili.tv.ui.attention.AttentionDynamicSideActivity" android:screenOrientation="landscape"/>
         <activity android:launchMode="singleTop" android:name="com.bilibili.tv.ui.upgrade.UpgradeActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.live.LiveActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.live.player.LivePlayerActivity" android:screenOrientation="landscape"/>
@@ -60,6 +61,7 @@
         <activity android:name="com.bilibili.tv.ui.bangumi.tag.BangumiTagActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.bangumi.follow.NewFollowBangumiActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.vip.VipActivity" android:screenOrientation="landscape"/>
+        <activity android:name="com.bilibili.tv.ui.favorite.FavoriteSideActivity" android:screenOrientation="landscape"/>
         <provider android:authorities="com.bilibili.tv.provider.TvSearchSuggestionProvider" android:exported="false" android:name="com.bilibili.tv.provider.TvSearchSuggestionProvider"/>
         <provider android:authorities="com.bilibili.tv.provider.resolver" android:exported="false" android:multiprocess="false" android:name="com.bilibili.lib.media.resolver.resolve.MediaResolveProvider"/>
         <service android:label="@string/app_name" android:name="com.bilibili.tv.service.paper.LiveWallpaperService" android:permission="android.permission.BIND_WALLPAPER">

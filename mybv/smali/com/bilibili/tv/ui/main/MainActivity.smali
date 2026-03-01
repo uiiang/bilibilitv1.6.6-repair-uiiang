@@ -126,25 +126,25 @@
     .locals 4
 
     .prologue
-    .line 742
+    .line 766
     sget-boolean v0, Lmybl/BiliFilter;->fastquit_on:Z
 
     if-eqz v0, :cond_8
 
-    .line 743
+    .line 767
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/MainActivity;->onBackPressed()V
 
-    .line 749
+    .line 773
     :goto_7
     return-void
 
-    .line 746
+    .line 770
     :cond_8
     new-instance v0, Lbl/agb$a;
 
     invoke-direct {v0, p0}, Lbl/agb$a;-><init>(Landroid/app/Activity;)V
 
-    .line 747
+    .line 771
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Lbl/agb$a;->a(I)Lbl/agb$a;
@@ -185,7 +185,7 @@
 
     invoke-virtual {v1, v2, v3}, Lbl/agb$a;->a(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
 
-    .line 748
+    .line 772
     invoke-virtual {v0}, Lbl/agb$a;->a()Lbl/agb;
 
     move-result-object v0
@@ -249,7 +249,7 @@
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/MainActivity;->f:Lcom/bilibili/tv/widget/FixedViewPager;
 
-    invoke-direct {v0, v1}, Lcom/bilibili/tv/ui/main/MainActivity$d;-><init>(Landroid/support/v4/view/ViewPager;)V
+    invoke-direct {v0, v1, p0}, Lcom/bilibili/tv/ui/main/MainActivity$d;-><init>(Landroid/support/v4/view/ViewPager;Landroid/content/Context;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity;->d:Lcom/bilibili/tv/ui/main/MainActivity$d;
 
@@ -702,17 +702,17 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 779
+    .line 803
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity;->e:Lbl/aey;
 
-    .line 780
+    .line 804
     if-eqz v0, :cond_16
 
     invoke-virtual {v0}, Lbl/aey;->a()Landroid/support/v4/app/Fragment;
 
     move-result-object v0
 
-    .line 781
+    .line 805
     :goto_9
     instance-of v2, v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;
 
@@ -720,24 +720,24 @@
 
     move-object v0, v1
 
-    .line 784
+    .line 808
     :cond_e
     check-cast v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;
 
-    .line 785
+    .line 809
     if-eqz v0, :cond_15
 
-    .line 786
+    .line 810
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->e()V
 
-    .line 788
+    .line 812
     :cond_15
     return-void
 
     :cond_16
     move-object v0, v1
 
-    .line 780
+    .line 804
     goto :goto_9
 .end method
 
@@ -745,12 +745,12 @@
     .locals 1
 
     .prologue
-    .line 791
+    .line 815
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     invoke-virtual {v0, p0}, Lbl/adl;->a(Landroid/app/Activity;)V
 
-    .line 792
+    .line 816
     return-void
 .end method
 
@@ -994,9 +994,13 @@
 .end method
 
 .method public onKeyDown(ILandroid/view/KeyEvent;)Z
-    .locals 4
+    .locals 5
 
     .prologue
+    const v3, 0x7f0800bd
+
+    const/4 v4, 0x0
+
     const/4 v0, 0x1
 
     .line 487
@@ -1012,57 +1016,92 @@
     .line 489
     const/4 v2, 0x4
 
-    if-eq p1, v2, :cond_11
+    if-eq p1, v2, :cond_15
 
     const/16 v2, 0x8
 
-    if-ne p1, v2, :cond_15
+    if-ne p1, v2, :cond_37
 
     .line 490
-    :cond_11
-    invoke-direct {p0}, Lcom/bilibili/tv/ui/main/MainActivity;->p()V
-
-    .line 504
-    :cond_14
-    :goto_14
-    return v0
-
-    .line 493
     :cond_15
-    packed-switch p1, :pswitch_data_4a
+    if-eqz v1, :cond_23
 
-    .line 504
-    :cond_18
-    invoke-super {p0, p1, p2}, Lcom/bilibili/tv/ui/base/BaseActivity;->onKeyDown(ILandroid/view/KeyEvent;)Z
-
-    move-result v0
-
-    goto :goto_14
-
-    .line 495
-    :pswitch_1d
-    iget-object v2, p0, Lcom/bilibili/tv/ui/main/MainActivity;->d:Lcom/bilibili/tv/ui/main/MainActivity$d;
-
-    .line 496
-    if-eqz v2, :cond_18
-
-    if-eqz v1, :cond_18
-
-    .line 497
-    const v3, 0x7f0800bd
-
+    .line 491
     invoke-virtual {v1, v3}, Landroid/view/View;->getTag(I)Ljava/lang/Object;
 
     move-result-object v1
 
+    .line 492
+    instance-of v1, v1, Ljava/lang/Integer;
+
+    if-eqz v1, :cond_23
+
+    .line 493
+    invoke-direct {p0}, Lcom/bilibili/tv/ui/main/MainActivity;->p()V
+
+    .line 518
+    :cond_22
+    :goto_22
+    return v0
+
+    .line 497
+    :cond_23
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/MainActivity;->j()Landroid/view/View;
+
+    move-result-object v1
+
     .line 498
+    if-eqz v1, :cond_33
+
+    .line 499
+    invoke-virtual {p0, v4}, Lcom/bilibili/tv/ui/main/MainActivity;->a(Z)V
+
+    .line 500
+    invoke-virtual {p0, v4}, Lcom/bilibili/tv/ui/main/MainActivity;->b(Z)V
+
+    .line 501
+    invoke-virtual {v1}, Landroid/view/View;->requestFocus()Z
+
+    goto :goto_22
+
+    .line 504
+    :cond_33
+    invoke-direct {p0}, Lcom/bilibili/tv/ui/main/MainActivity;->p()V
+
+    goto :goto_22
+
+    .line 507
+    :cond_37
+    packed-switch p1, :pswitch_data_68
+
+    .line 518
+    :cond_3a
+    invoke-super {p0, p1, p2}, Lcom/bilibili/tv/ui/base/BaseActivity;->onKeyDown(ILandroid/view/KeyEvent;)Z
+
+    move-result v0
+
+    goto :goto_22
+
+    .line 509
+    :pswitch_3f
+    iget-object v2, p0, Lcom/bilibili/tv/ui/main/MainActivity;->d:Lcom/bilibili/tv/ui/main/MainActivity$d;
+
+    .line 510
+    if-eqz v2, :cond_3a
+
+    if-eqz v1, :cond_3a
+
+    .line 511
+    invoke-virtual {v1, v3}, Landroid/view/View;->getTag(I)Ljava/lang/Object;
+
+    move-result-object v1
+
+    .line 512
     instance-of v3, v1, Ljava/lang/Integer;
 
-    if-eqz v3, :cond_18
+    if-eqz v3, :cond_3a
 
-    const/4 v3, 0x0
-
-    invoke-static {v3}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+    invoke-static {v4}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
     move-result-object v3
 
@@ -1070,7 +1109,7 @@
 
     move-result v3
 
-    if-nez v3, :cond_14
+    if-nez v3, :cond_22
 
     invoke-virtual {v2}, Lcom/bilibili/tv/ui/main/MainActivity$d;->a()I
 
@@ -1086,13 +1125,13 @@
 
     move-result v1
 
-    if-eqz v1, :cond_18
+    if-eqz v1, :cond_3a
 
-    goto :goto_14
+    goto :goto_22
 
-    .line 493
-    :pswitch_data_4a
+    .line 507
+    :pswitch_data_68
     .packed-switch 0x14
-        :pswitch_1d
+        :pswitch_3f
     .end packed-switch
 .end method

@@ -66,22 +66,22 @@
 
     const/4 v2, 0x0
 
-    .line 213
+    .line 209
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$a;-><init>()V
 
-    .line 214
+    .line 210
     const-string v0, "mainAreaFragment"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 215
+    .line 211
     new-instance v0, Ljava/lang/ref/WeakReference;
 
     invoke-direct {v0, p1}, Ljava/lang/ref/WeakReference;-><init>(Ljava/lang/Object;)V
 
     iput-object v0, p0, Lbl/afa$c;->a:Ljava/lang/ref/WeakReference;
 
-    .line 216
+    .line 212
     const/16 v0, 0x18
 
     new-array v0, v0, [I
@@ -90,7 +90,7 @@
 
     iput-object v0, p0, Lbl/afa$c;->b:[I
 
-    .line 217
+    .line 213
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     invoke-virtual {v0}, Lbl/adl;->e()Z
@@ -99,7 +99,7 @@
 
     iput-boolean v0, p0, Lbl/afa$c;->c:Z
 
-    .line 218
+    .line 214
     new-instance v0, Ljava/util/ArrayList;
 
     const/16 v1, 0x10
@@ -108,7 +108,7 @@
 
     iput-object v0, p0, Lbl/afa$c;->d:Ljava/util/ArrayList;
 
-    .line 219
+    .line 215
     invoke-virtual {p1}, Lbl/afa;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
@@ -117,10 +117,10 @@
 
     move-result-object v1
 
-    .line 220
+    .line 216
     if-eqz v1, :cond_b0
 
-    .line 221
+    .line 217
     invoke-virtual {v1}, Lcom/bilibili/tv/api/category/CategoryMeta;->getChildren()Ljava/util/List;
 
     move-result-object v0
@@ -129,7 +129,7 @@
 
     move-result-object v3
 
-    .line 222
+    .line 218
     :cond_3f
     :goto_3f
     invoke-interface {v3}, Ljava/util/Iterator;->hasNext()Z
@@ -138,7 +138,7 @@
 
     if-eqz v0, :cond_59
 
-    .line 223
+    .line 219
     sget-object v4, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     invoke-interface {v3}, Ljava/util/Iterator;->next()Ljava/lang/Object;
@@ -155,12 +155,12 @@
 
     if-nez v0, :cond_3f
 
-    .line 224
+    .line 220
     invoke-interface {v3}, Ljava/util/Iterator;->remove()V
 
     goto :goto_3f
 
-    .line 228
+    .line 224
     :cond_59
     invoke-virtual {v1}, Lcom/bilibili/tv/api/category/CategoryMeta;->getChildren()Ljava/util/List;
 
@@ -185,30 +185,30 @@
 
     check-cast v0, Lcom/bilibili/tv/api/category/CategoryMeta;
 
-    .line 229
+    .line 225
     iget-object v4, p0, Lbl/afa$c;->d:Ljava/util/ArrayList;
 
     invoke-virtual {v4, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 230
+    .line 226
     iget v0, v0, Lcom/bilibili/tv/api/category/CategoryMeta;->mTid:I
 
     if-ne v0, v5, :cond_b1
 
-    .line 231
+    .line 227
     const/4 v0, 0x1
 
     :goto_78
     move v1, v0
 
-    .line 233
+    .line 229
     goto :goto_62
 
-    .line 234
+    .line 230
     :cond_7a
     if-nez v1, :cond_8d
 
-    .line 235
+    .line 231
     iget-object v0, p0, Lbl/afa$c;->d:Ljava/util/ArrayList;
 
     new-instance v1, Lcom/bilibili/tv/api/category/CategoryMeta;
@@ -223,7 +223,7 @@
 
     invoke-virtual {v0, v2, v1}, Ljava/util/ArrayList;->add(ILjava/lang/Object;)V
 
-    .line 237
+    .line 233
     :cond_8d
     iget-object v0, p0, Lbl/afa$c;->d:Ljava/util/ArrayList;
 
@@ -241,7 +241,7 @@
 
     invoke-virtual {v0, v2, v1}, Ljava/util/ArrayList;->add(ILjava/lang/Object;)V
 
-    .line 238
+    .line 234
     iget-object v0, p0, Lbl/afa$c;->d:Ljava/util/ArrayList;
 
     new-instance v1, Lcom/bilibili/tv/api/category/CategoryMeta;
@@ -254,7 +254,7 @@
 
     invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 240
+    .line 236
     :cond_b0
     return-void
 
@@ -263,7 +263,7 @@
 
     goto :goto_78
 
-    .line 216
+    .line 212
     nop
 
     :array_b4
@@ -301,10 +301,10 @@
     .locals 1
 
     .prologue
-    .line 277
+    .line 273
     iget-object v0, p0, Lbl/afa$c;->d:Ljava/util/ArrayList;
 
-    .line 278
+    .line 274
     if-eqz v0, :cond_11
 
     invoke-virtual {v0}, Ljava/util/ArrayList;->size()I
@@ -332,7 +332,7 @@
     .locals 1
 
     .prologue
-    .line 207
+    .line 203
     invoke-virtual {p0, p1, p2}, Lbl/afa$c;->a(Landroid/view/ViewGroup;I)Lbl/adv;
 
     move-result-object v0
@@ -344,12 +344,12 @@
     .locals 1
 
     .prologue
-    .line 246
+    .line 242
     const-string v0, "parent"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 247
+    .line 243
     const/4 v0, 0x0
 
     check-cast v0, Lbl/afa$b;
@@ -367,7 +367,7 @@
     .locals 0
 
     .prologue
-    .line 207
+    .line 203
     check-cast p1, Lbl/adv;
 
     invoke-virtual {p0, p1, p2}, Lbl/afa$c;->a(Lbl/adv;I)V
@@ -379,17 +379,17 @@
     .locals 4
 
     .prologue
-    .line 253
+    .line 249
     const-string v0, "viewHolder"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 254
+    .line 250
     instance-of v0, p1, Lbl/afa$b;
 
     if-eqz v0, :cond_77
 
-    .line 255
+    .line 251
     iget-object v0, p0, Lbl/afa$c;->d:Ljava/util/ArrayList;
 
     invoke-virtual {v0, p2}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
@@ -398,23 +398,23 @@
 
     check-cast v0, Lcom/bilibili/tv/api/category/CategoryMeta;
 
-    .line 256
+    .line 252
     const-string v1, "mCategoryMetas[position]"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 258
+    .line 254
     iget-object v1, p1, Lbl/adv;->a:Landroid/view/View;
 
-    .line 259
+    .line 255
     const-string v2, "viewHolder.itemView"
 
     invoke-static {v1, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 260
+    .line 256
     invoke-virtual {v1, v0}, Landroid/view/View;->setTag(Ljava/lang/Object;)V
 
-    .line 261
+    .line 257
     iget-object v1, p1, Lbl/adv;->a:Landroid/view/View;
 
     const v2, 0x7f0800ac
@@ -427,10 +427,10 @@
 
     move-object v1, p1
 
-    .line 262
+    .line 258
     check-cast v1, Lbl/afa$b;
 
-    .line 263
+    .line 259
     invoke-virtual {v1}, Lbl/afa$b;->z()Landroid/widget/TextView;
 
     move-result-object v2
@@ -439,7 +439,7 @@
 
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 264
+    .line 260
     invoke-virtual {v1}, Lbl/afa$b;->A()Landroid/widget/ImageView;
 
     move-result-object v1
@@ -460,7 +460,7 @@
 
     invoke-virtual {v1, v0}, Landroid/widget/ImageView;->setBackgroundDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 265
+    .line 261
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     const v1, 0x7f070054
@@ -469,7 +469,7 @@
 
     move-result-object v0
 
-    .line 266
+    .line 262
     iget-object v1, p0, Lbl/afa$c;->b:[I
 
     aget v1, v1, p2
@@ -482,28 +482,28 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
 
-    .line 267
+    .line 263
     iget-object v1, p1, Lbl/adv;->a:Landroid/view/View;
 
     invoke-virtual {v1, v0}, Landroid/view/View;->setBackgroundDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 268
+    .line 264
     iget-object v0, p1, Lbl/adv;->a:Landroid/view/View;
 
     invoke-virtual {v0, p0}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 269
+    .line 265
     iget-object v0, p1, Lbl/adv;->a:Landroid/view/View;
 
-    .line 270
+    .line 266
     const-string v1, "viewHolder.itemView"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 271
+    .line 267
     invoke-virtual {v0, p0}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 273
+    .line 269
     :cond_77
     return-void
 .end method
@@ -512,53 +512,53 @@
     .locals 5
 
     .prologue
-    .line 283
+    .line 279
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 284
+    .line 280
     invoke-virtual {p1}, Landroid/view/View;->getTag()Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 285
+    .line 281
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v1
 
-    .line 286
+    .line 282
     const-string v2, "v.context"
 
     invoke-static {v1, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 287
+    .line 283
     invoke-static {v1}, Lbl/adl;->a(Landroid/content/Context;)Landroid/app/Activity;
 
     move-result-object v1
 
-    .line 288
+    .line 284
     if-eqz v1, :cond_1c
 
     instance-of v2, v0, Lcom/bilibili/tv/api/category/CategoryMeta;
 
     if-nez v2, :cond_1d
 
-    .line 305
+    .line 301
     :cond_1c
     :goto_1c
     return-void
 
-    .line 291
+    .line 287
     :cond_1d
     new-instance v2, Ljava/util/HashMap;
 
     invoke-direct {v2}, Ljava/util/HashMap;-><init>()V
 
-    .line 292
+    .line 288
     check-cast v0, Lcom/bilibili/tv/api/category/CategoryMeta;
 
-    .line 293
+    .line 289
     const-string v3, "page"
 
     iget v4, v0, Lcom/bilibili/tv/api/category/CategoryMeta;->mTid:I
@@ -569,51 +569,51 @@
 
     invoke-virtual {v2, v3, v4}, Ljava/util/HashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 294
+    .line 290
     sget-object v3, Lbl/abl;->a:Lbl/abl;
 
     const-string v4, "ott-platform.area.whole.0.click"
 
     invoke-virtual {v3, v4, v2}, Lbl/abl;->a(Ljava/lang/String;Ljava/util/Map;)V
 
-    .line 295
+    .line 291
     iget v0, v0, Lcom/bilibili/tv/api/category/CategoryMeta;->mTid:I
 
-    .line 296
+    .line 292
     const v2, 0x10001
 
     if-ne v0, v2, :cond_41
 
-    .line 297
+    .line 293
     invoke-static {v1}, Lcom/bilibili/tv/ui/live/LiveActivity;->a(Landroid/content/Context;)V
 
     goto :goto_1c
 
-    .line 298
+    .line 294
     :cond_41
     const v2, 0x10066
 
     if-ne v0, v2, :cond_4c
 
-    .line 299
+    .line 295
     sget-object v0, Lcom/bilibili/tv/ui/ranking/RankingActivity;->Companion:Lcom/bilibili/tv/ui/ranking/RankingActivity$a;
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/ranking/RankingActivity$a;->a(Landroid/content/Context;)V
 
     goto :goto_1c
 
-    .line 300
+    .line 296
     :cond_4c
     const v2, 0x10067
 
     if-ne v0, v2, :cond_55
 
-    .line 301
+    .line 297
     invoke-static {v1}, Lcom/bilibili/tv/ui/ranking/ElseActivity;->a(Landroid/content/Context;)V
 
     goto :goto_1c
 
-    .line 303
+    .line 299
     :cond_55
     sget-object v2, Lcom/bilibili/tv/ui/area/AreaActivity;->Companion:Lcom/bilibili/tv/ui/area/AreaActivity$a;
 
@@ -626,12 +626,12 @@
     .locals 2
 
     .prologue
-    .line 311
+    .line 307
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 312
+    .line 308
     iget-object v0, p0, Lbl/afa$c;->a:Ljava/lang/ref/WeakReference;
 
     invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
@@ -640,28 +640,28 @@
 
     check-cast v0, Lbl/afa;
 
-    .line 313
+    .line 309
     if-eqz v0, :cond_30
 
-    .line 314
+    .line 310
     const-string v1, "mMainAreaFragmentWeakReference.get() ?: return"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 315
+    .line 311
     const v1, 0x7f0800ac
 
     invoke-virtual {p1, v1}, Landroid/view/View;->getTag(I)Ljava/lang/Object;
 
     move-result-object v1
 
-    .line 316
+    .line 312
     if-eqz v1, :cond_30
 
-    .line 317
+    .line 313
     if-eqz v1, :cond_31
 
-    .line 318
+    .line 314
     check-cast v1, Ljava/lang/Integer;
 
     invoke-virtual {v1}, Ljava/lang/Integer;->intValue()I
@@ -671,19 +671,19 @@
     # setter for: Lbl/afa;->c:I
     invoke-static {v0, v1}, Lbl/afa;->access$002(Lbl/afa;I)I
 
-    .line 319
+    .line 315
     invoke-static {p1, p2}, Lbl/adj;->a(Landroid/view/View;Z)V
 
-    .line 320
+    .line 316
     check-cast p1, Lbl/afz;
 
     invoke-interface {p1, p2}, Lbl/afz;->setUpEnabled(Z)V
 
-    .line 326
+    .line 322
     :cond_30
     return-void
 
-    .line 323
+    .line 319
     :cond_31
     new-instance v0, Lkotlin/TypeCastException;
 

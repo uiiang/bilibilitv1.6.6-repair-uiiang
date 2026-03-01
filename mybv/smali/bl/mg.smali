@@ -357,7 +357,7 @@
     .end annotation
 
     .prologue
-    .line 184
+    .line 198
     :try_start_0
     iget-object v0, p0, Lbl/mg;->d:Lbl/ve;
 
@@ -377,13 +377,13 @@
 
     move-result-object v0
 
-    .line 185
+    .line 199
     if-nez v0, :cond_13
 
-    .line 186
+    .line 200
     const/4 v0, 0x0
 
-    .line 188
+    .line 202
     :goto_12
     return-object v0
 
@@ -394,11 +394,11 @@
 
     goto :goto_12
 
-    .line 189
+    .line 203
     :catch_16
     move-exception v0
 
-    .line 190
+    .line 204
     new-instance v1, Lcom/bilibili/lib/account/AccountException;
 
     iget v2, v0, Lcom/bilibili/lib/passport/BiliPassportException;->code:I
@@ -430,7 +430,7 @@
     .end annotation
 
     .prologue
-    .line 172
+    .line 185
     :try_start_0
     iget-object v0, p0, Lbl/mg;->d:Lbl/ve;
 
@@ -442,13 +442,13 @@
 
     move-result-object v0
 
-    .line 173
+    .line 186
     if-nez v0, :cond_f
 
-    .line 174
+    .line 187
     const/4 v0, 0x0
 
-    .line 176
+    .line 189
     :goto_e
     return-object v0
 
@@ -459,11 +459,11 @@
 
     goto :goto_e
 
-    .line 177
+    .line 190
     :catch_12
     move-exception v0
 
-    .line 178
+    .line 191
     new-instance v1, Lcom/bilibili/lib/account/AccountException;
 
     iget v2, v0, Lcom/bilibili/lib/passport/BiliPassportException;->code:I
@@ -477,12 +477,12 @@
     .locals 1
 
     .prologue
-    .line 155
+    .line 168
     iget-object v0, p0, Lbl/mg;->d:Lbl/ve;
 
     invoke-virtual {v0, p1, p2}, Lbl/ve;->a(Lbl/mn;[Lcom/bilibili/lib/account/subscribe/Topic;)V
 
-    .line 156
+    .line 169
     return-void
 .end method
 
@@ -542,7 +542,7 @@
     .end annotation
 
     .prologue
-    .line 164
+    .line 177
     :try_start_0
     iget-object v0, p0, Lbl/mg;->d:Lbl/ve;
 
@@ -554,11 +554,11 @@
 
     return-object v0
 
-    .line 165
+    .line 178
     :catch_7
     move-exception v0
 
-    .line 166
+    .line 179
     new-instance v1, Lcom/bilibili/lib/account/AccountException;
 
     iget v2, v0, Lcom/bilibili/lib/passport/BiliPassportException;->code:I
@@ -609,12 +609,12 @@
     .locals 1
 
     .prologue
-    .line 159
+    .line 172
     iget-object v0, p0, Lbl/mg;->d:Lbl/ve;
 
     invoke-virtual {v0, p1, p2}, Lbl/ve;->b(Lbl/mn;[Lcom/bilibili/lib/account/subscribe/Topic;)V
 
-    .line 160
+    .line 173
     return-void
 .end method
 
@@ -728,20 +728,20 @@
     .locals 2
 
     .prologue
-    .line 133
+    .line 146
     iget-object v0, p0, Lbl/mg;->d:Lbl/ve;
 
     invoke-virtual {v0}, Lbl/ve;->a()Lbl/vd;
 
     move-result-object v0
 
-    .line 134
+    .line 147
     if-nez v0, :cond_b
 
-    .line 135
+    .line 148
     const-wide/16 v0, 0x0
 
-    .line 137
+    .line 150
     :goto_a
     return-wide v0
 
@@ -755,14 +755,14 @@
     .locals 1
 
     .prologue
-    .line 141
+    .line 154
     iget-object v0, p0, Lbl/mg;->d:Lbl/ve;
 
     invoke-virtual {v0}, Lbl/ve;->a()Lbl/vd;
 
     move-result-object v0
 
-    .line 142
+    .line 155
     if-eqz v0, :cond_10
 
     invoke-virtual {v0}, Lbl/vd;->a()Z
@@ -786,28 +786,57 @@
     .locals 4
 
     .prologue
-    .line 125
+    .line 126
+    :try_start_0
+    iget-object v0, p0, Lbl/mg;->d:Lbl/ve;
+
+    if-nez v0, :cond_7
+
+    .line 127
+    const-string v0, ""
+
+    .line 141
+    :goto_6
+    return-object v0
+
+    .line 129
+    :cond_7
     iget-object v0, p0, Lbl/mg;->d:Lbl/ve;
 
     invoke-virtual {v0}, Lbl/ve;->b()Lbl/ml;
 
     move-result-object v0
 
+    .line 130
+    if-eqz v0, :cond_13
+
+    iget-object v1, v0, Lbl/ml;->a:Ljava/util/List;
+
+    if-nez v1, :cond_16
+
+    .line 131
+    :cond_13
+    const-string v0, ""
+
+    goto :goto_6
+
+    .line 133
+    :cond_16
     iget-object v2, v0, Lbl/ml;->a:Ljava/util/List;
 
-    .line 126
+    .line 134
     const/4 v0, 0x0
 
     move v1, v0
 
-    :goto_a
+    :goto_1a
     invoke-interface {v2}, Ljava/util/List;->size()I
 
     move-result v0
 
-    if-ge v1, v0, :cond_2d
+    if-ge v1, v0, :cond_3d
 
-    .line 127
+    .line 135
     invoke-interface {v2, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v0
@@ -822,8 +851,9 @@
 
     move-result v0
 
-    if-eqz v0, :cond_29
+    if-eqz v0, :cond_39
 
+    .line 136
     invoke-interface {v2, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v0
@@ -832,23 +862,32 @@
 
     iget-object v0, v0, Lbl/ml$a;->b:Ljava/lang/String;
 
-    .line 129
-    :goto_28
-    return-object v0
+    goto :goto_6
 
-    .line 126
-    :cond_29
+    .line 134
+    :cond_39
     add-int/lit8 v0, v1, 0x1
 
     move v1, v0
 
-    goto :goto_a
+    goto :goto_1a
 
-    .line 129
-    :cond_2d
+    .line 138
+    :cond_3d
+    const-string v0, ""
+    :try_end_3f
+    .catch Ljava/lang/NullPointerException; {:try_start_0 .. :try_end_3f} :catch_40
+
+    goto :goto_6
+
+    .line 139
+    :catch_40
+    move-exception v0
+
+    .line 141
     const-string v0, ""
 
-    goto :goto_28
+    goto :goto_6
 .end method
 
 .method public h()Lbl/ml;
@@ -857,7 +896,7 @@
     .end annotation
 
     .prologue
-    .line 147
+    .line 160
     iget-object v0, p0, Lbl/mg;->d:Lbl/ve;
 
     invoke-virtual {v0}, Lbl/ve;->b()Lbl/ml;
@@ -871,11 +910,11 @@
     .locals 1
 
     .prologue
-    .line 151
+    .line 164
     iget-object v0, p0, Lbl/mg;->d:Lbl/ve;
 
     invoke-virtual {v0}, Lbl/ve;->c()V
 
-    .line 152
+    .line 165
     return-void
 .end method

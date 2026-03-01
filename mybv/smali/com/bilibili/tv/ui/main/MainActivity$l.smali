@@ -26,12 +26,12 @@
     .locals 0
 
     .prologue
-    .line 754
+    .line 778
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/MainActivity$l;->this$0:Lcom/bilibili/tv/ui/main/MainActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 755
+    .line 779
     return-void
 .end method
 
@@ -41,14 +41,14 @@
     .locals 1
 
     .prologue
-    .line 759
+    .line 783
     invoke-virtual {p1}, Lbl/agb;->dismiss()V
 
-    .line 760
+    .line 784
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$l;->this$0:Lcom/bilibili/tv/ui/main/MainActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/MainActivity;->onBackPressed()V
 
-    .line 761
+    .line 785
     return-void
 .end method

@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 160
+    .line 192
     invoke-direct {p0}, Landroid/support/v7/widget/GridLayoutManager$c;-><init>()V
 
-    .line 161
+    .line 193
     return-void
 .end method
 
@@ -32,18 +32,8 @@
     .locals 1
 
     .prologue
-    .line 165
-    rem-int/lit8 v0, p1, 0x5
-
-    if-nez v0, :cond_6
-
-    const/4 v0, 0x2
-
-    :goto_5
-    return v0
-
-    :cond_6
+    .line 197
     const/4 v0, 0x1
 
-    goto :goto_5
+    return v0
 .end method

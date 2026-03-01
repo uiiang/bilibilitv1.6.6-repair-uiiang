@@ -2460,6 +2460,16 @@
     <public type="id" name="view_radiogroup" id="0x7f08018a" />
     <public type="id" name="hot_recommend_button" id="0x7f08018b" />
     <public type="id" name="personal_recommend_button" id="0x7f08018c" />
+    <public type="id" name="video_controller" id="0x7f08018d" />
+    <public type="id" name="video_history_container" id="0x7f08018e" />
+    <public type="id" name="video_history_title" id="0x7f08018f" />
+    <public type="id" name="video_history_progress" id="0x7f080190" />
+    <public type="id" name="video_history_play_btn" id="0x7f080191" />
+    <public type="id" name="video_history_play_btn_layout" id="0x7f080192" />
+    <public type="id" name="video_history_play_img" id="0x7f080193" />
+
+    <public type="id" name="video_re_play_btn" id="0x7f080194" />
+    <public type="id" name="video_re_play_btn_layout" id="0x7f080195" />
 
     <public type="integer" name="config_danmaku_fly_duration" id="0x7f090003" />
     <public type="integer" name="config_danmaku_max_danmaku_on_screen" id="0x7f090005" />
@@ -2609,6 +2619,7 @@
 
     <public type="layout" name="fragment_experiment" id="0x7f0a0089" />
     <public type="layout" name="fragment_personalization" id="0x7f0a008a" />
+    <public type="layout" name="activity_attention_dynamic_side" id="0x7f0a008b" />
 
     <public type="mipmap" name="ic_launcher" id="0x7f0b0000" />
     <public type="string" name="dialog_btn_i_know" id="0x7f0c008a" />

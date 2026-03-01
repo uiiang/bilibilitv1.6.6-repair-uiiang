@@ -1189,7 +1189,7 @@
     iput-object v0, p0, Lbl/afm3;->splash_button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     .line 63
-    const v0, 0x7f080185
+    const v0, 0x7f080186
 
     invoke-virtual {v1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -1253,7 +1253,7 @@
     iput-object v0, p0, Lbl/afm3;->skip_checkbox2:Landroid/widget/CheckBox;
 
     .line 69
-    const v0, 0x7f080186
+    const v0, 0x7f080187
 
     invoke-virtual {v1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -1264,7 +1264,7 @@
     iput-object v0, p0, Lbl/afm3;->view_radiobutton0:Landroid/widget/RadioButton;
 
     .line 70
-    const v0, 0x7f080187
+    const v0, 0x7f080188
 
     invoke-virtual {v1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -1275,7 +1275,7 @@
     iput-object v0, p0, Lbl/afm3;->view_radiobutton1:Landroid/widget/RadioButton;
 
     .line 71
-    const v0, 0x7f080188
+    const v0, 0x7f080189
 
     invoke-virtual {v1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -1286,7 +1286,7 @@
     iput-object v0, p0, Lbl/afm3;->view_radiobutton2:Landroid/widget/RadioButton;
 
     .line 72
-    const v0, 0x7f080189
+    const v0, 0x7f08018a
 
     invoke-virtual {v1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 

@@ -16,9 +16,13 @@ import android.text.format.DateUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewParent;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import bl.abi;
 import bl.ach;
@@ -40,6 +44,7 @@ import bl.vn;
 import bl.vo;
 import bl.wf;
 import bl.wg;
+import bl.xg;
 import com.bilibili.api.BiliApiException;
 import com.bilibili.lib.account.model.AccountInfo;
 import com.bilibili.tv.MainApplication;
@@ -76,10 +81,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import android.content.DialogInterface;
 import com.bilibili.tv.api.favorite.BiliFavoriteBox;
+import android.util.Log;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
-public final class VideoDetailActivity extends BaseActivity implements View.OnClickListener, View.OnLongClickListener, wf {
+public final class VideoDetailActivity extends BaseActivity
+        implements View.OnClickListener, View.OnLongClickListener, wf {
     private static final String C = "VideoDetailActivity";
     private static final String D = "bundle_ac_id";
     private i A;
@@ -102,16 +109,31 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
     private LoadingImageView p;
     private FrameLayout q;
     private RecyclerView r;
+    private ScrollView scrollView;
+    private LinearLayout historyContainer;
+    private DrawLinearLayout historyPlayBtnLayout;
+    private DrawLinearLayout rePlayBtnLayout;
+    private DrawTextView historyPlayBtn;
+    private DrawTextView rePlayBtn;
+    private TextView historyTitle;
+    private TextView historyProgress;
     private long s;
     private List<BiliVideoDetail.Page> t;
 
-    /* renamed from: u  reason: collision with root package name */
+    /* renamed from: u reason: collision with root package name */
     private BiliVideoDetail u;
     private e v;
     private add w;
     private g x;
     private boolean y;
     private boolean z;
+    // 焦点位置记忆变量
+    private int epLayoutFocusPosition = 0;
+    private int episodesVideoFocusPosition = 0;
+    private int relateVideoFocusPosition = 0;
+    private int tagViewFocusPosition = 0;
+    // 阻止分集列表在初始化时被适配器/绑定逻辑自动抢焦
+    private boolean blockEpisodeAutoFocus = true;
     public static final a Companion = new a(null);
     private static final int E = 6;
     private static final int F = E * 2;
@@ -155,7 +177,9 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
         ok.a("tv_video_view_open", new String[0]);
     }
 
-    @Override // com.bilibili.tv.ui.base.BaseActivity, android.support.v7.app.AppCompatActivity, android.support.v4.app.FragmentActivity, android.app.Activity
+    @Override // com.bilibili.tv.ui.base.BaseActivity,
+              // android.support.v7.app.AppCompatActivity,
+              // android.support.v4.app.FragmentActivity, android.app.Activity
     public void onDestroy() {
         this.o = null;
         this.z = true;
@@ -184,7 +208,7 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             drawLinearLayout.setUpDrawable(R.drawable.shadow_red_rect);
             drawLinearLayout.setOnClickListener(this);
             drawLinearLayout.setOnLongClickListener(this);
-            drawLinearLayout.findViewById(R.id.video_detail_favorite_text).setVisibility(8);
+            drawLinearLayout.findViewById(R.id.video_detail_favorite_text).setVisibility(0);
         }
 
         drawLinearLayout = (DrawLinearLayout) d(R.id.video_detail_like);
@@ -193,7 +217,7 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             drawLinearLayout.setUpDrawable(R.drawable.shadow_red_rect);
             drawLinearLayout.setOnClickListener(this);
             drawLinearLayout.setOnLongClickListener(this);
-            drawLinearLayout.findViewById(R.id.video_detail_like_text).setVisibility(8);
+            drawLinearLayout.findViewById(R.id.video_detail_like_text).setVisibility(0);
         }
         drawLinearLayout = (DrawLinearLayout) d(R.id.video_detail_coin);
         if (drawLinearLayout != null) {
@@ -201,13 +225,15 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             drawLinearLayout.setUpDrawable(R.drawable.shadow_red_rect);
             drawLinearLayout.setOnClickListener(this);
             drawLinearLayout.setOnLongClickListener(this);
-            drawLinearLayout.findViewById(R.id.video_detail_coin_text).setVisibility(8);
+            drawLinearLayout.findViewById(R.id.video_detail_coin_text).setVisibility(0);
         }
 
-        DrawTextView drawTextView = (DrawTextView) d(R.id.video_detail_more_btn);
-        drawTextView.setUpDrawable(R.drawable.shadow_red_rect);
-        drawTextView.setOnFocusChangeListener(dVar);
-        drawTextView.setOnClickListener(this);
+        DrawTextView drawTextView = (DrawTextView) findViewById(R.id.video_detail_more_btn);
+        if (drawTextView != null) {
+            drawTextView.setUpDrawable(R.drawable.shadow_red_rect);
+            drawTextView.setOnFocusChangeListener(dVar);
+            drawTextView.setOnClickListener(this);
+        }
         DrawTextView drawTextView2 = this.d;
         if (drawTextView2 != null) {
             drawTextView2.setUpDrawable(R.drawable.shadow_red_rect);
@@ -224,22 +250,22 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             }
         }
         this.n = (RecyclerView) d(R.id.flow_tag_view);
-        FixLinearLayoutManager fixLinearLayoutManager = new FixLinearLayoutManager(this, 0, false) { // from class: com.bilibili.tv.ui.video.VideoDetailActivity$initView$linearLayoutManager$1
+        FixLinearLayoutManager fixLinearLayoutManager = new FixLinearLayoutManager(this, 0, false) { // from class:
+                                                                                                     // com.bilibili.tv.ui.video.VideoDetailActivity$initView$linearLayoutManager$1
             @Override // android.support.v7.widget.RecyclerView.h
             public View d(View view, int direction) {
-                RecyclerView recyclerView;
                 if (view != null) {
                     int d2 = d(view);
                     if (direction != View.FOCUS_LEFT) {
                         if (direction != View.FOCUS_UP) {
                             if (direction != View.FOCUS_RIGHT) {
-                                if (direction == View.FOCUS_DOWN && (recyclerView = VideoDetailActivity.this.o) != null) {
-                                    RecyclerView.h layoutManager = recyclerView.getLayoutManager();
-                                    if (layoutManager == null) {
-                                        throw new TypeCastException("null cannot be cast to non-null type android.support.v7.widget.GridLayoutManager");
+                                if (direction == View.FOCUS_DOWN) {
+                                    DrawLinearLayout likeButton = (DrawLinearLayout) VideoDetailActivity.this
+                                            .d(R.id.video_detail_like);
+                                    if (likeButton != null) {
+                                        return likeButton;
                                     }
-                                    GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
-                                    return gridLayoutManager.c(gridLayoutManager.o());
+                                    return view;
                                 }
                             } else if (d2 == H() - 1) {
                                 return view;
@@ -256,6 +282,18 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
         RecyclerView recyclerView = this.n;
         if (recyclerView != null) {
             recyclerView.setLayoutManager(fixLinearLayoutManager);
+            // 添加焦点监听器
+            recyclerView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        View focusView = restoreFocusPosition(VideoDetailActivity.this.n, tagViewFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                        }
+                    }
+                }
+            });
         }
         this.x = new g();
         RecyclerView recyclerView2 = this.n;
@@ -270,18 +308,128 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             this.o.setLayoutManager(new FixGridLayoutManager(this, E, 1, false));
             this.o.a(new j(dimension));
             this.o.setAdapter(this.w);
+            // 添加焦点监听器
+            this.o.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        View focusView = restoreFocusPosition(VideoDetailActivity.this.o, epLayoutFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                        }
+                    }
+                }
+            });
+            // 在初始加载/绑定阶段阻止 RecyclerView 子项被自动聚焦
+            if (this.blockEpisodeAutoFocus) {
+                this.o.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
+            }
         }
         this.r = (RecyclerView) d(R.id.video_detail_relate_video);
         this.v = new e();
         if (this.r != null) {
-            this.r.setLayoutManager(new FixLinearLayoutManager(this, 0, false));
+            this.r.setLayoutManager(new FixLinearLayoutManager(this, 0, false) {
+                @Override
+                public View d(View view, int direction) {
+                    if (view != null && direction == View.FOCUS_DOWN) {
+                        RecyclerView tagRecyclerView = VideoDetailActivity.this.n;
+                        if (tagRecyclerView != null && tagRecyclerView.getChildCount() > 0) {
+                            return tagRecyclerView.getChildAt(0);
+                        }
+                    }
+                    return super.d(view, direction);
+                }
+            });
             this.r.setAdapter(this.v);
+            // 添加焦点监听器
+            this.r.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        View focusView = restoreFocusPosition(VideoDetailActivity.this.r, relateVideoFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                        }
+                    }
+                }
+            });
         }
         this.episodes_video = (RecyclerView) d(R.id.video_detail_episodes_video);
         this.episodes_video_adapter = new EpisodesVideoAdapter();
-        if(this.episodes_video != null){
+        if (this.episodes_video != null) {
             this.episodes_video.setLayoutManager(new FixLinearLayoutManager(this, 0, false));
             this.episodes_video.setAdapter(this.episodes_video_adapter);
+            // 添加焦点监听器
+            this.episodes_video.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        View focusView = restoreFocusPosition(VideoDetailActivity.this.episodes_video,
+                                episodesVideoFocusPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                        }
+                    }
+                }
+            });
+        }
+        this.historyContainer = (LinearLayout) d(R.id.video_history_container);
+        this.historyPlayBtnLayout = (DrawLinearLayout) d(R.id.video_history_play_btn_layout);
+        if (this.historyPlayBtnLayout != null) {
+            this.historyPlayBtnLayout.setOnFocusChangeListener(new d());
+            this.historyPlayBtnLayout.setUpDrawable(R.drawable.shadow_red_rect);
+        }
+        this.rePlayBtnLayout = (DrawLinearLayout) d(R.id.video_re_play_btn_layout);
+        if (this.rePlayBtnLayout != null) {
+            this.rePlayBtnLayout.setOnFocusChangeListener(new d());
+            this.rePlayBtnLayout.setUpDrawable(R.drawable.shadow_red_rect);
+        }
+        this.historyPlayBtn = (DrawTextView) d(R.id.video_history_play_btn);
+        this.rePlayBtn = (DrawTextView) d(R.id.video_re_play_btn);
+        this.historyTitle = (TextView) d(R.id.video_history_title);
+        this.historyProgress = (TextView) d(R.id.video_history_progress);
+        this.scrollView = (ScrollView) d(R.id.scrollView);
+        setupGlobalFocusChangeListener();
+    }
+
+    private void setupGlobalFocusChangeListener() {
+        View rootView = findViewById(android.R.id.content);
+        if (rootView != null) {
+            rootView.getViewTreeObserver().addOnGlobalFocusChangeListener(new ViewTreeObserver.OnGlobalFocusChangeListener() {
+                @Override
+                public void onGlobalFocusChanged(View oldFocus, View newFocus) {
+                    if (newFocus != null && scrollView != null) {
+                        scrollToViewIfNeeded(newFocus);
+                    }
+                }
+            });
+        }
+    }
+
+    private void scrollToViewIfNeeded(View view) {
+        if (scrollView == null || view == null) {
+            return;
+        }
+        Rect scrollBounds = new Rect();
+        scrollView.getHitRect(scrollBounds);
+        Rect viewBounds = new Rect();
+        view.getHitRect(viewBounds);
+        int[] scrollLocation = new int[2];
+        scrollView.getLocationOnScreen(scrollLocation);
+        int[] viewLocation = new int[2];
+        view.getLocationOnScreen(viewLocation);
+        float density = getResources().getDisplayMetrics().density;
+        int margin = (int) (50 * density);
+        int viewTop = viewLocation[1] - scrollLocation[1];
+        int viewBottom = viewTop + view.getHeight();
+        int scrollViewTop = 0;
+        int scrollViewBottom = scrollView.getHeight();
+        if (viewTop < margin) {
+            int scrollY = scrollView.getScrollY();
+            scrollView.smoothScrollTo(0, scrollY + viewTop - margin);
+        } else if (viewBottom > scrollViewBottom - margin) {
+            int scrollY = scrollView.getScrollY();
+            scrollView.smoothScrollTo(0, scrollY + viewBottom - scrollViewBottom + margin);
         }
     }
 
@@ -309,7 +457,8 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
 
     /* JADX INFO: Access modifiers changed from: private */
     public final DrawTextView l() {
-        View inflate = LayoutInflater.from(this).inflate(R.layout.layout_video_detail_episode_item, (ViewGroup) this.o, false);
+        View inflate = LayoutInflater.from(this).inflate(R.layout.layout_video_detail_episode_item, (ViewGroup) this.o,
+                false);
         if (inflate == null) {
             throw new TypeCastException("null cannot be cast to non-null type com.bilibili.tv.widget.DrawTextView");
         }
@@ -342,7 +491,6 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
         }
     }
 
-
     @Override // android.view.View.OnLongClickListener
     public final boolean onLongClick(View view) {
         BiliVideoDetail biliVideoDetail = VideoDetailActivity.this.u;
@@ -355,10 +503,14 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             return true;
         }
         int id = view.getId();
-        if (id == R.id.video_detail_like) VideoDetailActivity.this.tripleVideo();
-        else if (id == R.id.video_detail_coin) VideoDetailActivity.this.coinVideo(2,1);
+        if (id == R.id.video_detail_like)
+            VideoDetailActivity.this.tripleVideo();
+        else if (id == R.id.video_detail_coin)
+            VideoDetailActivity.this.coinVideo(2, 1);
         else if (id == R.id.video_detail_favorite) {
-            ((BiliFavoriteVideoApiService) vo.a(BiliFavoriteVideoApiService.class)).getStatedBoxList(biliAccount.e(), Long.valueOf(biliAccount.d()), 0L).a(new BiliFavoriteBoxResponse());
+            ((BiliFavoriteVideoApiService) vo.a(BiliFavoriteVideoApiService.class))
+                    .getStatedBoxList(biliAccount.e(), Long.valueOf(biliAccount.d()), 0L)
+                    .a(new BiliFavoriteBoxResponse());
         }
         return true;
     }
@@ -369,23 +521,26 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
         public void a(List<BiliFavoriteBox> list) {
             List<String> fids = new ArrayList<String>();
             List<String> names = new ArrayList<String>();
-            for(int i=0;i<list.size();i++){
+            for (int i = 0; i < list.size(); i++) {
                 fids.add(String.valueOf(list.get(i).getMId()));
                 names.add(list.get(i).getMName());
             }
             AlertDialog dialog = new AlertDialog.Builder(VideoDetailActivity.this)
-                .setItems(names.toArray(new String[0]), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (VideoDetailActivity.this.u != null && VideoDetailActivity.this.u.isFavoriteVideo())VideoDetailActivity.this.q(fids.get(which));
-                        else VideoDetailActivity.this.p(fids.get(which));
-                    }
-                }).create();
+                    .setItems(names.toArray(new String[0]), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (VideoDetailActivity.this.u != null && VideoDetailActivity.this.u.isFavoriteVideo())
+                                VideoDetailActivity.this.q(fids.get(which));
+                            else
+                                VideoDetailActivity.this.p(fids.get(which));
+                        }
+                    }).create();
             dialog.show();
         }
 
         @Override // bl.vm
-        public void onError(Throwable th){}
+        public void onError(Throwable th) {
+        }
     }
 
     private final void m() {
@@ -417,9 +572,10 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
         n();
     }
 
-    @Override // com.bilibili.tv.ui.base.BaseActivity, android.support.v7.app.AppCompatActivity, android.app.Activity, android.view.Window.Callback
+    @Override // com.bilibili.tv.ui.base.BaseActivity,
+              // android.support.v7.app.AppCompatActivity, android.app.Activity,
+              // android.view.Window.Callback
     public boolean dispatchKeyEvent(KeyEvent keyEvent) {
-        RecyclerView recyclerView;
         if (this.w == null || this.v == null) {
             return super.dispatchKeyEvent(keyEvent);
         }
@@ -430,44 +586,270 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             if (currentFocus == null) {
                 return super.dispatchKeyEvent(keyEvent);
             }
+            saveCurrentFocusPosition(currentFocus);
             if (valueOf2 != null && valueOf2.intValue() == KeyEvent.KEYCODE_DPAD_UP) {
-                if (currentFocus.getId() == R.id.tag_view) {
-                    DrawLinearLayout drawLinearLayout = (DrawLinearLayout) d(R.id.video_detail_like);
-                    if (drawLinearLayout != null) {
-                        drawLinearLayout.requestFocus();
+                if (currentFocus.getId() == R.id.video_detail_like || currentFocus.getId() == R.id.video_detail_coin
+                        || currentFocus.getId() == R.id.video_detail_favorite) {
+                    if (historyPlayBtnLayout != null && historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
+                        if (this.n != null && this.n.getVisibility() == View.VISIBLE && this.n.getChildCount() > 0) {
+                            int savedPosition = Math.min(tagViewFocusPosition, this.n.getChildCount() - 1);
+                            savedPosition = Math.max(0, savedPosition);
+                            View tagView = this.n.getChildAt(savedPosition);
+                            if (tagView != null) {
+
+                                tagView.requestFocus();
+                                return true;
+                            }
+                        }
+                        historyPlayBtnLayout.requestFocus();
+                        return true;
                     }
+                }
+                if (currentFocus.getId() == R.id.video_history_play_btn_layout || currentFocus.getId() == R.id.video_re_play_btn_layout) {
+                    return super.dispatchKeyEvent(keyEvent);
+                }
+            } else if (valueOf2 != null && valueOf2.intValue() == KeyEvent.KEYCODE_DPAD_DOWN) {
+                if (currentFocus.getId() == R.id.video_history_play_btn_layout || currentFocus.getId() == R.id.video_re_play_btn_layout) {
+                    if (this.o != null && this.o.getVisibility() == View.VISIBLE && this.o.getChildCount() > 0) {
+                        int savedPosition = Math.min(epLayoutFocusPosition, this.o.getChildCount() - 1);
+                        savedPosition = Math.max(0, savedPosition);
+                        View epView = this.o.getChildAt(savedPosition);
+                        if (epView != null) {
+                            // 允许用户操作时从播放按钮向下切换焦点
+                            VideoDetailActivity.this.blockEpisodeAutoFocus = false;
+                            if (VideoDetailActivity.this.o != null) {
+                                VideoDetailActivity.this.o.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
+                            }
+
+                            epView.requestFocus();
+                            return true;
+                        }
+                    } else if (this.episodes_video != null && this.episodes_video.getVisibility() == View.VISIBLE
+                            && this.episodes_video.getChildCount() > 0) {
+                        int savedPosition = Math.min(episodesVideoFocusPosition,
+                                this.episodes_video.getChildCount() - 1);
+                        savedPosition = Math.max(0, savedPosition);
+                        View epVideoView = this.episodes_video.getChildAt(savedPosition);
+                        if (epVideoView != null) {
+                            // 允许用户操作时从播放按钮向下切换焦点
+                            VideoDetailActivity.this.blockEpisodeAutoFocus = false;
+                            if (VideoDetailActivity.this.episodes_video != null) {
+                                VideoDetailActivity.this.episodes_video
+                                        .setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
+                            }
+
+                            epVideoView.requestFocus();
+                            return true;
+                        }
+                    }
+                    return super.dispatchKeyEvent(keyEvent);
+                }
+            }
+
+            if (valueOf2 != null && (valueOf2.intValue() == KeyEvent.KEYCODE_DPAD_UP
+                    || valueOf2.intValue() == KeyEvent.KEYCODE_DPAD_DOWN)) {
+                boolean handled = handleListFocusNavigation(currentFocus, valueOf2.intValue());
+                if (handled) {
                     return true;
                 }
-            } else if (valueOf2 != null && valueOf2.intValue() == KeyEvent.KEYCODE_DPAD_DOWN && ((currentFocus.getId() == R.id.video_detail_like || currentFocus.getId() == R.id.video_detail_coin || currentFocus.getId() == R.id.video_detail_favorite || currentFocus.getId() == R.id.video_detail_more_btn) && (recyclerView = this.n) != null)) {
-                if (recyclerView.getChildCount() > 0) {
-                    RecyclerView.h layoutManager = recyclerView.getLayoutManager();
-                    if (layoutManager == null) {
-                        throw new TypeCastException("null cannot be cast to non-null type android.support.v7.widget.LinearLayoutManager");
-                    }
-                    View c2 = recyclerView.getLayoutManager().c(((LinearLayoutManager) layoutManager).o());
-                    if (c2 != null) {
-                        c2.requestFocus();
-                    }
-                } else {
-                    RecyclerView.h layoutManager2 = recyclerView.getLayoutManager();
-                    if (layoutManager2 == null) {
-                        throw new TypeCastException("null cannot be cast to non-null type android.support.v7.widget.LinearLayoutManager");
-                    }
-                    View c3 = recyclerView.getLayoutManager().c(((LinearLayoutManager) layoutManager2).o());
-                    if (c3 != null) {
-                        c3.requestFocus();
-                    }
-                }
-                return true;
-            } else if (valueOf2 != null && valueOf2.intValue() == KeyEvent.KEYCODE_DPAD_RIGHT && (recyclerView = this.n) != null && recyclerView.getChildCount()>0 && currentFocus==recyclerView.getChildAt(recyclerView.getChildCount()-1)) {
-                DrawTextView drawTextView = (DrawTextView) d(R.id.video_detail_more_btn);
-                if (drawTextView != null) {
-                    drawTextView.requestFocus();
-                }
-                return true;
             }
         }
         return super.dispatchKeyEvent(keyEvent);
+    }
+
+    private boolean handleListFocusNavigation(View currentFocus, int direction) {
+        int currentListType = getCurrentListType(currentFocus);
+        if (currentListType < 0) {
+            return false;
+        }
+
+        RecyclerView targetRecyclerView = null;
+        int savedPosition = 0;
+
+        if (direction == KeyEvent.KEYCODE_DPAD_DOWN) {
+            if (currentListType == LIST_TYPE_EP_LAYOUT) {
+                if (this.episodes_video != null && this.episodes_video.getVisibility() == View.VISIBLE) {
+                    targetRecyclerView = this.episodes_video;
+                    savedPosition = episodesVideoFocusPosition;
+                } else if (this.r != null && this.r.getVisibility() == View.VISIBLE) {
+                    targetRecyclerView = this.r;
+                    savedPosition = relateVideoFocusPosition;
+                } else if (this.n != null && this.n.getVisibility() == View.VISIBLE) {
+                    targetRecyclerView = this.n;
+                    savedPosition = tagViewFocusPosition;
+                }
+            } else if (currentListType == LIST_TYPE_EPISODES_VIDEO) {
+                if (this.r != null && this.r.getVisibility() == View.VISIBLE) {
+                    targetRecyclerView = this.r;
+                    savedPosition = relateVideoFocusPosition;
+                } else if (this.n != null && this.n.getVisibility() == View.VISIBLE) {
+                    targetRecyclerView = this.n;
+                    savedPosition = tagViewFocusPosition;
+                }
+            } else if (currentListType == LIST_TYPE_RELATE_VIDEO) {
+                if (this.n != null && this.n.getVisibility() == View.VISIBLE) {
+                    targetRecyclerView = this.n;
+                    savedPosition = tagViewFocusPosition;
+                }
+            }
+        } else if (direction == KeyEvent.KEYCODE_DPAD_UP) {
+            if (currentListType == LIST_TYPE_RELATE_VIDEO) {
+                if (this.episodes_video != null && this.episodes_video.getVisibility() == View.VISIBLE) {
+                    targetRecyclerView = this.episodes_video;
+                    savedPosition = episodesVideoFocusPosition;
+                } else if (this.o != null && this.o.getVisibility() == View.VISIBLE) {
+                    targetRecyclerView = this.o;
+                    savedPosition = epLayoutFocusPosition;
+                }
+            } else if (currentListType == LIST_TYPE_TAG) {
+                if (this.r != null && this.r.getVisibility() == View.VISIBLE) {
+                    targetRecyclerView = this.r;
+                    savedPosition = relateVideoFocusPosition;
+                } else if (this.episodes_video != null && this.episodes_video.getVisibility() == View.VISIBLE) {
+                    targetRecyclerView = this.episodes_video;
+                    savedPosition = episodesVideoFocusPosition;
+                } else if (this.o != null && this.o.getVisibility() == View.VISIBLE) {
+                    targetRecyclerView = this.o;
+                    savedPosition = epLayoutFocusPosition;
+                }
+            }
+        }
+
+        if (targetRecyclerView != null && targetRecyclerView.getVisibility() == View.VISIBLE) {
+            int childCount = targetRecyclerView.getChildCount();
+            if (childCount > 0) {
+                int position = Math.min(savedPosition, childCount - 1);
+                position = Math.max(0, position);
+                View targetView = targetRecyclerView.getChildAt(position);
+                if (targetView != null) {
+
+                    targetView.requestFocus();
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private static final int LIST_TYPE_EP_LAYOUT = 1;
+    private static final int LIST_TYPE_EPISODES_VIDEO = 2;
+    private static final int LIST_TYPE_RELATE_VIDEO = 3;
+    private static final int LIST_TYPE_TAG = 4;
+
+    private int getCurrentListType(View currentFocus) {
+        if (currentFocus == null) {
+            return -1;
+        }
+
+        View view = currentFocus;
+        while (view != null) {
+            int id = view.getId();
+            if (id == R.id.video_detail_ep_layout) {
+                return LIST_TYPE_EP_LAYOUT;
+            } else if (id == R.id.video_detail_episodes_video) {
+                return LIST_TYPE_EPISODES_VIDEO;
+            } else if (id == R.id.video_detail_relate_video) {
+                return LIST_TYPE_RELATE_VIDEO;
+            } else if (id == R.id.flow_tag_view) {
+                return LIST_TYPE_TAG;
+            }
+            ViewParent parent = view.getParent();
+            if (parent instanceof View) {
+                view = (View) parent;
+            } else {
+                break;
+            }
+        }
+
+        return -1;
+    }
+
+    // 保存当前焦点位置
+    private void saveCurrentFocusPosition(View currentFocus) {
+        if (currentFocus == null)
+            return;
+
+        // 检查是否在标签列表内
+        if (currentFocus.getId() == R.id.tag_view || (currentFocus.getParent() instanceof View
+                && ((View) currentFocus.getParent()).getId() == R.id.flow_tag_view)) {
+            if (this.n != null) {
+                for (int i = 0; i < this.n.getChildCount(); i++) {
+                    if (this.n.getChildAt(i) == currentFocus) {
+                        tagViewFocusPosition = i;
+                        break;
+                    }
+                }
+            }
+        }
+        // 检查是否在相关视频列表内
+        else if (currentFocus.getParent() instanceof RecyclerView
+                && ((RecyclerView) currentFocus.getParent()).getId() == R.id.video_detail_relate_video) {
+            RecyclerView recyclerView = (RecyclerView) currentFocus.getParent();
+            for (int i = 0; i < recyclerView.getChildCount(); i++) {
+                if (recyclerView.getChildAt(i) == currentFocus) {
+                    relateVideoFocusPosition = i;
+                    break;
+                }
+            }
+        }
+        // 检查是否在分集列表内
+        else if (currentFocus.getParent() instanceof RecyclerView
+                && ((RecyclerView) currentFocus.getParent()).getId() == R.id.video_detail_ep_layout) {
+            RecyclerView recyclerView = (RecyclerView) currentFocus.getParent();
+            for (int i = 0; i < recyclerView.getChildCount(); i++) {
+                if (recyclerView.getChildAt(i) == currentFocus) {
+                    epLayoutFocusPosition = i;
+                    break;
+                }
+            }
+        } else if (currentFocus.getId() == R.id.video_detail_ep_layout) {
+            // 直接检查是否是分集列表本身
+            if (this.o != null) {
+                for (int i = 0; i < this.o.getChildCount(); i++) {
+                    if (this.o.getChildAt(i) == currentFocus) {
+                        epLayoutFocusPosition = i;
+                        break;
+                    }
+                }
+            }
+        }
+        // 检查是否在合集列表内
+        else if (currentFocus.getParent() instanceof RecyclerView
+                && ((RecyclerView) currentFocus.getParent()).getId() == R.id.video_detail_episodes_video) {
+            RecyclerView recyclerView = (RecyclerView) currentFocus.getParent();
+            for (int i = 0; i < recyclerView.getChildCount(); i++) {
+                if (recyclerView.getChildAt(i) == currentFocus) {
+                    episodesVideoFocusPosition = i;
+                    break;
+                }
+            }
+        }
+    }
+
+    // 恢复焦点位置
+    private View restoreFocusPosition(RecyclerView recyclerView, int savedPosition) {
+        if (recyclerView == null) {
+            return null;
+        }
+
+        int childCount = recyclerView.getChildCount();
+
+        if (childCount == 0) {
+            return null;
+        }
+
+        // 确保保存的位置有效
+        int position = Math.min(savedPosition, childCount - 1);
+
+        // 尝试获取指定位置的视图
+        View focusView = recyclerView.getChildAt(position);
+        if (focusView != null) {
+            return focusView;
+        }
+
+        // 如果找不到指定位置的视图，返回第一个可见的子视图
+        return recyclerView.getChildAt(0);
     }
 
     private final void n() {
@@ -478,10 +860,12 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
         if (loadingImageView != null) {
             loadingImageView.a();
         }
-        VideoApiService.VideoParamsMapV2 build = new VideoApiService.VideoParamsMapV2.Builder(this.s).setAutoPlay("0").build();
+        VideoApiService.VideoParamsMapV2 build = new VideoApiService.VideoParamsMapV2.Builder(this.s).setAutoPlay("0")
+                .build();
         mg a2 = mg.a(this);
         bbi.a((Object) a2, "BiliAccount.get(this)");
-        ((VideoApiService) vo.a(VideoApiService.class)).getVideoDetails(build, a2.e()).a(new VideoApiParser()).a(this.A);
+        ((VideoApiService) vo.a(VideoApiService.class)).getVideoDetails(build, a2.e()).a(new VideoApiParser())
+                .a(this.A);
     }
 
     private final void n2() {
@@ -493,6 +877,142 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             loadingImageView.a();
         }
         ((MyBiliApiService) vo.a(MyBiliApiService.class)).getVideoDetail(this.s).a(new VideoApiParser2()).a(this.A);
+    }
+
+    private final String formatProgressTime(int progress) {
+        if (progress < 60) {
+            return String.format("00:%02d", progress);
+        } else if (progress < 3600) {
+            int minutes = progress / 60;
+            int seconds = progress % 60;
+            return String.format("%02d:%02d", minutes, seconds);
+        } else {
+            int hours = progress / 3600;
+            int minutes = (progress % 3600) / 60;
+            int seconds = progress % 60;
+            return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        }
+    }
+
+    private final String findTitleByCid(long cid, BiliVideoDetail biliVideoDetail) {
+        if (biliVideoDetail == null) {
+            return null;
+        }
+        if (biliVideoDetail.episodes != null) {
+            for (int i = 0; i < biliVideoDetail.episodes.size(); i++) {
+                JSONObject episode = biliVideoDetail.episodes.getJSONObject(i);
+                if (episode.containsKey("page")) {
+                    JSONObject page = episode.getJSONObject("page");
+                    if (page.containsKey("cid") && page.getLongValue("cid") == cid) {
+                        return episode.getString("title");
+                    }
+                }
+            }
+        }
+        if (biliVideoDetail.mPageList != null) {
+            for (BiliVideoDetail.Page page : biliVideoDetail.mPageList) {
+                if (page.mCid == cid) {
+                    return page.mTitle;
+                }
+            }
+        }
+        return null;
+    }
+
+    private final void updateHistoryDisplay(BiliVideoDetail biliVideoDetail) {
+        if (historyContainer == null || historyTitle == null || historyProgress == null || historyPlayBtn == null) {
+            return;
+        }
+        if (biliVideoDetail == null) {
+            historyContainer.setVisibility(View.GONE);
+            return;
+        } else {
+            historyContainer.setVisibility(View.VISIBLE);
+        }
+        if (biliVideoDetail.mHistory == null) {
+            historyPlayBtn.setText("开始播放");
+            historyTitle.setVisibility(View.GONE);
+            historyProgress.setVisibility(View.GONE);
+            historyContainer.setVisibility(View.GONE);
+        } else {
+            int episodeCount = 0;
+            if (biliVideoDetail.episodes != null) {
+                episodeCount += biliVideoDetail.episodes.size();
+            }
+            if (biliVideoDetail.mPageList != null) {
+                episodeCount += biliVideoDetail.mPageList.size();
+            }
+            long cid = biliVideoDetail.mHistory.mCid;
+            int progress = biliVideoDetail.mHistory.mProgress;
+            String title = findTitleByCid(cid, biliVideoDetail);
+            if (title == null || title.isEmpty()) {
+                historyTitle.setVisibility(View.GONE);
+                historyProgress.setVisibility(View.GONE);
+                historyContainer.setVisibility(View.GONE);
+            } else {
+                if (episodeCount <= 1) {
+                    historyTitle.setVisibility(View.GONE);
+                } else {
+                    historyTitle.setVisibility(View.VISIBLE);
+                }
+                historyTitle.setText(title);
+                historyProgress.setText(formatProgressTime(progress));
+                historyProgress.setVisibility(View.VISIBLE);
+                historyContainer.setVisibility(View.VISIBLE);
+            }
+            historyPlayBtn.setText("继续播放");
+            rePlayBtn.setText("重新播放");
+        }
+        final BiliVideoDetail finalBiliVideoDetail = biliVideoDetail;
+        if (historyPlayBtnLayout != null) {
+            historyPlayBtnLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (finalBiliVideoDetail != null && finalBiliVideoDetail.mHistory != null) {
+                        long historyCid = finalBiliVideoDetail.mHistory.mCid;
+                        int historyProgressVal = finalBiliVideoDetail.mHistory.mProgress;
+                        playVideo(finalBiliVideoDetail, historyCid, historyProgressVal);
+                    } else {
+                        playVideo(finalBiliVideoDetail, 0, 0);
+                    }
+                }
+            });
+        }
+        if (rePlayBtnLayout != null) {
+            rePlayBtnLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (finalBiliVideoDetail != null && finalBiliVideoDetail.mHistory != null) {
+                        long historyCid = finalBiliVideoDetail.mHistory.mCid;
+                        int historyProgressVal = finalBiliVideoDetail.mHistory.mProgress;
+                        playVideo(finalBiliVideoDetail, historyCid, 0);
+                    } else {
+                        playVideo(finalBiliVideoDetail, 0, 0);
+                    }
+                }
+            });
+        }
+    }
+
+    private final void playVideo(BiliVideoDetail biliVideoDetail, long cid, int progress) {
+        if (biliVideoDetail == null) {
+            return;
+        }
+        BiliVideoDetail.Page targetPage = null;
+        if (cid > 0 && biliVideoDetail.mPageList != null) {
+            for (BiliVideoDetail.Page page : biliVideoDetail.mPageList) {
+                if (page.mCid == cid) {
+                    targetPage = page;
+                    break;
+                }
+            }
+        }
+        if (targetPage == null && biliVideoDetail.mPageList != null && !biliVideoDetail.mPageList.isEmpty()) {
+            targetPage = biliVideoDetail.mPageList.get(0);
+        }
+        if (targetPage != null) {
+            xg.a(this, biliVideoDetail, targetPage, new Bundle());
+        }
     }
 
     private final void a(Context context, String str) {
@@ -513,7 +1033,8 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
 
     private final boolean a(BiliVideoDetail biliVideoDetail) {
         if (TextUtils.isEmpty(biliVideoDetail.mFirstFrame)) {
-            if ((biliVideoDetail != null ? biliVideoDetail.mBangumiInfo : null) != null && biliVideoDetail.mBangumiInfo.isJump == 1) {
+            if ((biliVideoDetail != null ? biliVideoDetail.mBangumiInfo : null) != null
+                    && biliVideoDetail.mBangumiInfo.isJump == 1) {
                 return true;
             }
         }
@@ -556,7 +1077,7 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
                 LoginActivity.Companion.a(this, H);
                 return;
             }
-            coinVideo(1,0);
+            coinVideo(1, 0);
             return;
         } else if (id == R.id.video_detail_favorite) {
             mg a2 = mg.a(this);
@@ -588,13 +1109,15 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
                 bbi.a((Object) str, "it.mDescription");
                 String str2 = biliVideoDetail3.mCover;
                 bbi.a((Object) str2, "it.mCover");
-                startActivity(VideoDetailInfoActivity.Companion.a(this, i2, str, str2, "http://www.bilibili.com/video/av" + biliVideoDetail3.mAvid));
+                startActivity(VideoDetailInfoActivity.Companion.a(this, i2, str, str2,
+                        "http://www.bilibili.com/video/av" + biliVideoDetail3.mAvid));
                 ok.a("tv_video_view_click_infomore", new String[0]);
             }
         }
     }
 
-    @Override // android.support.v7.app.AppCompatActivity, android.app.Activity, android.view.KeyEvent.Callback
+    @Override // android.support.v7.app.AppCompatActivity, android.app.Activity,
+              // android.view.KeyEvent.Callback
     public boolean onKeyDown(int i2, KeyEvent keyEvent) {
         bbi.b(keyEvent, "event");
         if ((i2 == 23 || i2 == 66) && this.y) {
@@ -617,27 +1140,31 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
         if (biliVideoDetail != null) {
             ImageView imageView = (ImageView) d(R.id.video_detail_like_img);
             if (imageView != null) {
-                imageView.setBackgroundResource(biliVideoDetail.isLikeVideo()?R.drawable.ic_like_hightlight:R.drawable.ic_like);
+                imageView.setBackgroundResource(
+                        biliVideoDetail.isLikeVideo() ? R.drawable.ic_like_hightlight : R.drawable.ic_like);
             }
             TextView textView = (TextView) d(R.id.video_detail_like_text);
             if (textView != null) {
-                textView.setText(biliVideoDetail.isLikeVideo()?"已点赞":"点赞");
+                textView.setText(biliVideoDetail.isLikeVideo() ? "已点赞" : "点赞");
             }
             imageView = (ImageView) d(R.id.video_detail_coin_img);
             if (imageView != null) {
-                imageView.setBackgroundResource(biliVideoDetail.isCoinVideo()?R.drawable.ic_coin_hightlight:R.drawable.ic_coin);
+                imageView.setBackgroundResource(
+                        biliVideoDetail.isCoinVideo() ? R.drawable.ic_coin_hightlight : R.drawable.ic_coin);
             }
             textView = (TextView) d(R.id.video_detail_coin_text);
             if (textView != null) {
-                textView.setText(biliVideoDetail.isCoinVideo()?"已投币":"投币");
+                textView.setText(biliVideoDetail.isCoinVideo() ? "已投币" : "投币");
             }
             imageView = this.k;
             if (imageView != null) {
-                imageView.setBackgroundResource(biliVideoDetail.isFavoriteVideo()?R.drawable.ic_favorite_hightlight:R.drawable.ic_favorite);
+                imageView.setBackgroundResource(
+                        biliVideoDetail.isFavoriteVideo() ? R.drawable.ic_favorite_hightlight : R.drawable.ic_favorite);
             }
             textView = this.l;
             if (textView != null) {
-                textView.setText(biliVideoDetail.isFavoriteVideo() ? R.string.video_favorited : R.string.video_favorite);
+                textView.setText(
+                        biliVideoDetail.isFavoriteVideo() ? R.string.video_favorited : R.string.video_favorite);
             }
         }
     }
@@ -647,7 +1174,8 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             return;
         }
         this.B = true;
-        BiliFavoriteVideoApiService biliFavoriteVideoApiService = (BiliFavoriteVideoApiService) vo.a(BiliFavoriteVideoApiService.class);
+        BiliFavoriteVideoApiService biliFavoriteVideoApiService = (BiliFavoriteVideoApiService) vo
+                .a(BiliFavoriteVideoApiService.class);
         mg a2 = mg.a(this);
         bbi.a((Object) a2, "BiliAccount.get(this)");
         biliFavoriteVideoApiService.addVideoToList(a2.e(), fid, this.s, "0").a(new l());
@@ -693,7 +1221,8 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
         this.B = true;
         mg a2 = mg.a(this);
         bbi.a((Object) a2, "BiliAccount.get(this)");
-        ((BiliFavoriteVideoApiService) vo.a(BiliFavoriteVideoApiService.class)).deleteVideoFromList(a2.e(), fid, this.s).a(new m());
+        ((BiliFavoriteVideoApiService) vo.a(BiliFavoriteVideoApiService.class)).deleteVideoFromList(a2.e(), fid, this.s)
+                .a(new m());
     }
 
     /* compiled from: BL */
@@ -729,7 +1258,6 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
         }
     }
 
-
     private final void likeVideo(int z) {
         if (this.B) {
             return;
@@ -741,7 +1269,8 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
     }
 
     public final class LikeResponse extends vn<JSONObject> {
-        LikeResponse() {}
+        LikeResponse() {
+        }
 
         @Override // bl.vn
         public void a(JSONObject response) {
@@ -751,10 +1280,9 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
                 biliVideoDetail.setLikeStatus(!biliVideoDetail.isLikeVideo());
             }
             VideoDetailActivity.this.o();
-            if(response.getString("toast")!=null && !response.getString("toast").equals("")) {
+            if (response.getString("toast") != null && !response.getString("toast").equals("")) {
                 lr.b(VideoDetailActivity.this.getApplicationContext(), response.getString("toast"));
-            }
-            else if (biliVideoDetail != null && biliVideoDetail.isLikeVideo()) {
+            } else if (biliVideoDetail != null && biliVideoDetail.isLikeVideo()) {
                 lr.b(VideoDetailActivity.this.getApplicationContext(), "点赞成功啦");
             }
         }
@@ -766,7 +1294,8 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             VideoDetailActivity.this.B = false;
             BiliVideoDetail biliVideoDetail = VideoDetailActivity.this.u;
             if (biliVideoDetail != null) {
-                lr.b(VideoDetailActivity.this.getApplicationContext(), biliVideoDetail.isLikeVideo()?"取消点赞失败":"点赞失败惹←_←");
+                lr.b(VideoDetailActivity.this.getApplicationContext(),
+                        biliVideoDetail.isLikeVideo() ? "取消点赞失败" : "点赞失败惹←_←");
             }
         }
 
@@ -783,11 +1312,13 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
         this.B = true;
         mg a2 = mg.a(this);
         bbi.a((Object) a2, "BiliAccount.get(this)");
-        ((MyBiliApiService) vo.a(MyBiliApiService.class)).coinVideo(a2.e(), this.s, multiply, select_like).a(new CoinResponse());
+        ((MyBiliApiService) vo.a(MyBiliApiService.class)).coinVideo(a2.e(), this.s, multiply, select_like)
+                .a(new CoinResponse());
     }
 
     public final class CoinResponse extends vn<JSONObject> {
-        CoinResponse() {}
+        CoinResponse() {
+        }
 
         @Override // bl.vn
         public void a(JSONObject response) {
@@ -796,15 +1327,15 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             if (biliVideoDetail != null) {
                 biliVideoDetail.setCoinStatus(true);
                 biliVideoDetail.increaseCoins(1);
-                if(response.getBoolean("like")){
+                if (response.getBoolean("like")) {
                     biliVideoDetail.setLikeStatus(true);
                     biliVideoDetail.increaseCoins(1);
                 }
             }
             VideoDetailActivity.this.o();
-            if(response.getBoolean("like")){
+            if (response.getBoolean("like")) {
                 lr.b(VideoDetailActivity.this.getApplicationContext(), "投币成功，感谢您的支持");
-            }else{
+            } else {
                 lr.b(VideoDetailActivity.this.getApplicationContext(), "投币成功啦");
             }
         }
@@ -834,7 +1365,8 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
     }
 
     public final class TripleResponse extends vn<JSONObject> {
-        TripleResponse() {}
+        TripleResponse() {
+        }
 
         @Override // bl.vn
         public void a(JSONObject response) {
@@ -879,21 +1411,10 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             if (view == null) {
                 return;
             }
-            if(view.getId()==R.id.video_detail_like && view.findViewById(R.id.video_detail_like_text)!=null){
-                if(z)view.findViewById(R.id.video_detail_like_text).setVisibility(0);
-                else view.findViewById(R.id.video_detail_like_text).setVisibility(8);
-            }
-            if(view.getId()==R.id.video_detail_coin && view.findViewById(R.id.video_detail_coin_text)!=null){
-                if(z)view.findViewById(R.id.video_detail_coin_text).setVisibility(0);
-                else view.findViewById(R.id.video_detail_coin_text).setVisibility(8);
-            }
-            if(view.getId()==R.id.video_detail_favorite && view.findViewById(R.id.video_detail_favorite_text)!=null){
-                if(z)view.findViewById(R.id.video_detail_favorite_text).setVisibility(0);
-                else view.findViewById(R.id.video_detail_favorite_text).setVisibility(8);
-            }
             if (view instanceof afz) {
                 ((afz) view).setUpEnabled(z);
-            } else if (view.getId() != R.id.tag_view || (drawTextView = (DrawTextView) view.findViewById(R.id.text)) == null) {
+            } else if (view.getId() != R.id.tag_view
+                    || (drawTextView = (DrawTextView) view.findViewById(R.id.text)) == null) {
             } else {
                 drawTextView.setUpEnabled(z);
             }
@@ -910,7 +1431,10 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             return 0;
         }
 
-        /* JADX DEBUG: Multi-variable search result rejected for r2v0, resolved type: java.util.List<? extends com.bilibili.tv.api.video.BiliVideoDetail$Page> */
+        /*
+         * JADX DEBUG: Multi-variable search result rejected for r2v0, resolved type:
+         * java.util.List<? extends com.bilibili.tv.api.video.BiliVideoDetail$Page>
+         */
         /* JADX WARN: Multi-variable type inference failed */
         public b(List<BiliVideoDetail.Page> list) {
             this.b = list;
@@ -970,6 +1494,16 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             if (fVar != null) {
                 List<? extends BiliVideoDetail> list = this.b;
                 fVar.b(list != null ? list.get(i) : null);
+                View itemView = fVar.a;
+                if (itemView != null) {
+                    int size = this.b != null ? this.b.size() : 0;
+                    if (i == 0) {
+                        itemView.setNextFocusLeftId(itemView.getId());
+                    }
+                    if (i == size - 1) {
+                        itemView.setNextFocusRightId(itemView.getId());
+                    }
+                }
             }
         }
 
@@ -992,7 +1526,8 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
     final class EpisodesVideoAdapter extends RecyclerView.a<RecyclerView.v> {
         private List<BiliVideoDetail> data = new ArrayList();
 
-        public EpisodesVideoAdapter() {}
+        public EpisodesVideoAdapter() {
+        }
 
         @Override // android.support.v7.widget.RecyclerView.a
         public RecyclerView.v a(ViewGroup parent, int position) {
@@ -1010,6 +1545,16 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             if (fVar != null) {
                 List<BiliVideoDetail> list = this.data;
                 fVar.b(list != null ? list.get(position) : null);
+                View itemView = fVar.a;
+                if (itemView != null) {
+                    int size = this.data != null ? this.data.size() : 0;
+                    if (position == 0) {
+                        itemView.setNextFocusLeftId(itemView.getId());
+                    }
+                    if (position == size - 1) {
+                        itemView.setNextFocusRightId(itemView.getId());
+                    }
+                }
             }
         }
 
@@ -1096,7 +1641,10 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
         private TextView r;
         private DrawRelativeLayout s;
 
-        /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
+        /*
+         * JADX WARN: 'super' call moved to the top of the method (can break code
+         * semantics)
+         */
         public f(View view) {
             super(view);
             bbi.b(view, "itemView");
@@ -1123,7 +1671,10 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             this.s.setUpDrawable(R.drawable.shadow_white_rect);
         }
 
-        /* JADX DEBUG: Possible override for method android.support.v7.widget.RecyclerView.v.z()V */
+        /*
+         * JADX DEBUG: Possible override for method
+         * android.support.v7.widget.RecyclerView.v.z()V
+         */
         public final DrawRelativeLayout z() {
             return this.s;
         }
@@ -1184,7 +1735,15 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             bbi.a((Object) context, "v.context");
             Activity a2 = adl.a(context);
             if ((tag instanceof BiliVideoDetail) && a2 != null) {
-                a2.startActivity(VideoDetailActivity.Companion.a(a2, ((BiliVideoDetail) tag).mAvid));
+                BiliVideoDetail clickedVideo = (BiliVideoDetail) tag;
+                if (a2 instanceof VideoDetailActivity) {
+                    VideoDetailActivity currentActivity = (VideoDetailActivity) a2;
+                    BiliVideoDetail currentVideo = currentActivity.u;
+                    if (currentVideo != null && currentVideo.mAvid == clickedVideo.mAvid) {
+                        return;
+                    }
+                }
+                a2.startActivity(VideoDetailActivity.Companion.a(a2, clickedVideo.mAvid));
             }
             ok.a("tv_video_view_click_relate", new String[0]);
         }
@@ -1201,7 +1760,8 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
 
             public final f a(ViewGroup viewGroup) {
                 bbi.b(viewGroup, "parent");
-                View inflate = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_view_item_video_info, viewGroup, false);
+                View inflate = LayoutInflater.from(viewGroup.getContext())
+                        .inflate(R.layout.recycler_view_item_video_info, viewGroup, false);
                 bbi.a((Object) inflate, "view");
                 return new f(inflate);
             }
@@ -1214,7 +1774,10 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
         public static final a Companion = new a(null);
         private final DrawTextView n;
 
-        /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
+        /*
+         * JADX WARN: 'super' call moved to the top of the method (can break code
+         * semantics)
+         */
         public c(View view) {
             super(view);
             bbi.b(view, "itemView");
@@ -1231,7 +1794,8 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             bbi.b(view, "v");
             Object tag = view.getTag();
             if (tag == null) {
-                throw new TypeCastException("null cannot be cast to non-null type com.bilibili.tv.api.video.BiliVideoDetail.Page");
+                throw new TypeCastException(
+                        "null cannot be cast to non-null type com.bilibili.tv.api.video.BiliVideoDetail.Page");
             }
             BiliVideoDetail.Page page = (BiliVideoDetail.Page) tag;
             Context context = view.getContext();
@@ -1256,7 +1820,31 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
                 this.a.setOnClickListener(this);
                 View view = this.a;
                 bbi.a((Object) view, "itemView");
-                view.setOnFocusChangeListener(new d());
+                // 合并焦点监听器：先执行原有的 d() 行为（绘制焦点样式），再执行诊断与阻断逻辑
+                final View.OnFocusChangeListener baseListener = new d();
+                view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View vv, boolean hasFocus) {
+                        // 保留原始焦点处理（例如绘制焦点边框）
+                        baseListener.onFocusChange(vv, hasFocus);
+                        // 额外诊断与阻断逻辑
+                        if (hasFocus) {
+
+                            // 如果仍处于阻止自动聚焦阶段，重定向焦点回播放按钮并记录
+                            Activity _a = adl.a(vv.getContext());
+                            if (_a instanceof VideoDetailActivity) {
+                                VideoDetailActivity _activity = (VideoDetailActivity) _a;
+                                if (_activity.blockEpisodeAutoFocus) {
+
+                                    if (_activity.historyPlayBtnLayout != null &&
+                                            _activity.historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
+                                        _activity.historyPlayBtnLayout.requestFocus();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
             }
         }
 
@@ -1272,7 +1860,8 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
 
             public final c a(ViewGroup viewGroup) {
                 bbi.b(viewGroup, "parent");
-                View inflate = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_video_detail_episode_item, viewGroup, false);
+                View inflate = LayoutInflater.from(viewGroup.getContext())
+                        .inflate(R.layout.layout_video_detail_episode_item, viewGroup, false);
                 bbi.a((Object) inflate, "view");
                 return new c(inflate);
             }
@@ -1285,7 +1874,10 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
         public static final a Companion = new a(null);
         private final DrawTextView n;
 
-        /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
+        /*
+         * JADX WARN: 'super' call moved to the top of the method (can break code
+         * semantics)
+         */
         public h(View view) {
             super(view);
             bbi.b(view, "itemView");
@@ -1295,7 +1887,10 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             view.setOnClickListener(this);
         }
 
-        /* JADX DEBUG: Possible override for method android.support.v7.widget.RecyclerView.v.z()V */
+        /*
+         * JADX DEBUG: Possible override for method
+         * android.support.v7.widget.RecyclerView.v.z()V
+         */
         public final DrawTextView z() {
             return this.n;
         }
@@ -1335,7 +1930,8 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
 
             public final h a(ViewGroup viewGroup) {
                 bbi.b(viewGroup, "parent");
-                View inflate = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_view_item_video_tag, viewGroup, false);
+                View inflate = LayoutInflater.from(viewGroup.getContext())
+                        .inflate(R.layout.recycler_view_item_video_tag, viewGroup, false);
                 bbi.a((Object) inflate, "view");
                 return new h(inflate);
             }
@@ -1389,16 +1985,20 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
                             }
                         }
                     }
-                } else if ((biliApiException.mCode == -404||biliApiException.mCode == 404) && (loadingImageView = VideoDetailActivity.this.p) != null) {
-                    if(biliApiException.mCode == -404)VideoDetailActivity.this.n2();
-                    else loadingImageView.a(R.string.video_not_exist);
+                } else if ((biliApiException.mCode == -404 || biliApiException.mCode == 404)
+                        && (loadingImageView = VideoDetailActivity.this.p) != null) {
+                    if (biliApiException.mCode == -404)
+                        VideoDetailActivity.this.n2();
+                    else
+                        loadingImageView.a(R.string.video_not_exist);
                 }
                 str = "parse_error";
                 i = biliApiException.mCode;
             } else if (th instanceof HttpException) {
                 i = ((HttpException) th).code();
             }
-            abi.a.a("tv_detail_view2_resp", abi.a.a(String.valueOf(VideoDetailActivity.this.s), String.valueOf(mg.a(VideoDetailActivity.this).d()), str, String.valueOf(i)));
+            abi.a.a("tv_detail_view2_resp", abi.a.a(String.valueOf(VideoDetailActivity.this.s),
+                    String.valueOf(mg.a(VideoDetailActivity.this).d()), str, String.valueOf(i)));
         }
 
         /* JADX DEBUG: Method merged with bridge method */
@@ -1414,7 +2014,8 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
                 if (loadingImageView2 != null) {
                     loadingImageView2.a(R.string.nothing_show);
                 }
-                abi.a.a("tv_detail_view2_resp", abi.a.a(String.valueOf(VideoDetailActivity.this.s), String.valueOf(mg.a(VideoDetailActivity.this).d()), "parse_error", "0"));
+                abi.a.a("tv_detail_view2_resp", abi.a.a(String.valueOf(VideoDetailActivity.this.s),
+                        String.valueOf(mg.a(VideoDetailActivity.this).d()), "parse_error", "0"));
                 return;
             }
             View view = VideoDetailActivity.this.m;
@@ -1426,6 +2027,12 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
                 loadingImageView3.b();
             }
             VideoDetailActivity.this.u = biliVideoDetail;
+            String jsonStr = JSON.toJSONString(biliVideoDetail);
+            int maxLen = 2000;
+            for (int i = 0; i < jsonStr.length(); i += maxLen) {
+                Log.d("VideoDetail", "详情数据(" + i + "-" + Math.min(i + maxLen, jsonStr.length()) + "): "
+                        + jsonStr.substring(i, Math.min(i + maxLen, jsonStr.length())));
+            }
             VideoDetailActivity.this.a(ach.c(VideoDetailActivity.this.getApplicationContext(), biliVideoDetail.mCover));
             VideoDetailActivity.this.o();
             TextView textView = VideoDetailActivity.this.cc;
@@ -1448,29 +2055,42 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             a((List<? extends BiliVideoDetail.Tag>) biliVideoDetail.mTags);
             d(biliVideoDetail);
             showEpisodes(biliVideoDetail);
-            //if(biliVideoDetail.episodes == null)
+            // if(biliVideoDetail.episodes == null)
             c(biliVideoDetail);
             VideoDetailActivity.this.a((Activity) VideoDetailActivity.this, biliVideoDetail);
-            abi.a.a("tv_detail_view2_resp", abi.a.a(String.valueOf(VideoDetailActivity.this.s), String.valueOf(mg.a(VideoDetailActivity.this).d()), "success", "0"));
+            updateHistoryDisplay(biliVideoDetail);
+
+            // 设置焦点到播放按钮
+            if (VideoDetailActivity.this.historyPlayBtnLayout != null &&
+                    VideoDetailActivity.this.historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
+                VideoDetailActivity.this.historyPlayBtnLayout.requestFocus();
+
+            }
+
+            abi.a.a("tv_detail_view2_resp", abi.a.a(String.valueOf(VideoDetailActivity.this.s),
+                    String.valueOf(mg.a(VideoDetailActivity.this).d()), "success", "0"));
         }
 
         private final void b(BiliVideoDetail biliVideoDetail) {
             TextView textView = (TextView) VideoDetailActivity.this.d(R.id.video_detail_duration);
-            if(textView != null){
-                if(biliVideoDetail.mDuration>=3600){
-                    textView.setText(String.format("%d:%02d:%02d",biliVideoDetail.mDuration/3600,(biliVideoDetail.mDuration%3600)/60,biliVideoDetail.mDuration%60));
-                }else{
-                    textView.setText(String.format("%02d:%02d",biliVideoDetail.mDuration/60,biliVideoDetail.mDuration%60));
+            if (textView != null) {
+                if (biliVideoDetail.mDuration >= 3600) {
+                    textView.setText(String.format("%d:%02d:%02d", biliVideoDetail.mDuration / 3600,
+                            (biliVideoDetail.mDuration % 3600) / 60, biliVideoDetail.mDuration % 60));
+                } else {
+                    textView.setText(
+                            String.format("%02d:%02d", biliVideoDetail.mDuration / 60, biliVideoDetail.mDuration % 60));
                 }
             }
             TextView textView2 = VideoDetailActivity.this.g;
             if (textView2 != null) {
                 if (biliVideoDetail.mCreatedTimestamp == 0) {
                     textView2.setVisibility(8);
-                }
-                else{
+                } else {
                     textView2.setVisibility(0);
-                    textView2.setText(DateUtils.getRelativeTimeSpanString(biliVideoDetail.mCreatedTimestamp * ((long) IjkMediaCodecInfo.RANK_MAX), System.currentTimeMillis(), 1000L));
+                    textView2.setText(DateUtils.getRelativeTimeSpanString(
+                            biliVideoDetail.mCreatedTimestamp * ((long) IjkMediaCodecInfo.RANK_MAX),
+                            System.currentTimeMillis(), 1000L));
                 }
             }
         }
@@ -1504,16 +2124,98 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             }
             if (VideoDetailActivity.this.episodes_video_adapter != null) {
                 List<BiliVideoDetail> list = new ArrayList<BiliVideoDetail>();
-                for(int i=0;i<biliVideoDetail.episodes.size();i++){
-                    BiliVideoDetail t = JSON.parseObject(biliVideoDetail.episodes.getJSONObject(i).getJSONObject("arc").toString(), BiliVideoDetail.class);
+                for (int i = 0; i < biliVideoDetail.episodes.size(); i++) {
+                    BiliVideoDetail t = JSON.parseObject(
+                            biliVideoDetail.episodes.getJSONObject(i).getJSONObject("arc").toString(),
+                            BiliVideoDetail.class);
                     t.mOwner = biliVideoDetail.mOwner;
                     list.add(t);
                 }
                 VideoDetailActivity.this.episodes_video_adapter.setData(list);
+
+                // 自动滚动到当前视频位置
+                if (!list.isEmpty()) {
+                    int currentPosition = -1;
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i).mAvid == VideoDetailActivity.this.s) {
+                            currentPosition = i;
+                            break;
+                        }
+                    }
+                    Log.d("VideoDetailActivity", "自动滚动调试 - 当前视频aid: " + VideoDetailActivity.this.s +
+                            ", 合集列表大小: " + list.size() + ", 找到的位置: " + currentPosition);
+                    if (currentPosition >= 0) {
+                        final RecyclerView recyclerView2 = VideoDetailActivity.this.episodes_video;
+                        if (recyclerView2 != null) {
+                            // 延迟滚动，确保RecyclerView已经完成布局
+                            final int finalCurrentPosition = currentPosition;
+                            recyclerView2.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Log.d("VideoDetailActivity", "开始滚动 - 目标位置: " + finalCurrentPosition +
+                                            ", 子视图数量: " + recyclerView2.getChildCount());
+                                    // 最简单的滚动实现：直接使用scrollBy
+                                    if (recyclerView2.getChildCount() > 0) {
+                                        View firstChild = recyclerView2.getChildAt(0);
+                                        if (firstChild != null) {
+                                            int childWidth = firstChild.getWidth();
+                                            int targetOffset = finalCurrentPosition * childWidth;
+                                            Log.d("VideoDetailActivity", "滚动参数 - 子视图宽度: " + childWidth +
+                                                    ", 目标偏移量: " + targetOffset);
+
+                                            // 直接滚动到目标位置
+                                            recyclerView2.scrollBy(targetOffset, 0);
+                                            Log.d("VideoDetailActivity", "滚动完成");
+                                            // 记录焦点相对于可见子视图的索引，供后续聚焦恢复使用
+                                            try {
+                                                int childCount = recyclerView2.getChildCount();
+                                                int foundIndex = -1;
+                                                for (int ci = 0; ci < childCount; ci++) {
+                                                    View cv = recyclerView2.getChildAt(ci);
+                                                    if (cv == null)
+                                                        continue;
+                                                    Object tag = cv.getTag();
+                                                    if (tag instanceof BiliVideoDetail) {
+                                                        BiliVideoDetail bd = (BiliVideoDetail) tag;
+                                                        if (bd.mAvid == VideoDetailActivity.this.s) {
+                                                            foundIndex = ci;
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                                int childIndex;
+                                                if (foundIndex >= 0) {
+                                                    childIndex = foundIndex;
+                                                } else {
+                                                    childIndex = Math.max(0, Math.min(finalCurrentPosition,
+                                                            recyclerView2.getChildCount() - 1));
+                                                }
+                                                VideoDetailActivity.this.episodesVideoFocusPosition = childIndex;
+                                                Log.d("VideoDetailActivity", "记录焦点子索引(by tag search): " + childIndex
+                                                        + " (visibleChildren=" + recyclerView2.getChildCount() + ")");
+                                            } catch (Exception ex) {
+                                                Log.d("VideoDetailActivity", "记录焦点位置失败: " + ex.getMessage());
+                                            }
+                                        } else {
+                                            Log.d("VideoDetailActivity", "第一个子视图为null");
+                                        }
+                                    } else {
+                                        Log.d("VideoDetailActivity", "没有子视图可滚动");
+                                    }
+                                }
+                            });
+                        } else {
+                            Log.d("VideoDetailActivity", "RecyclerView为null");
+                        }
+                    } else {
+                        Log.d("VideoDetailActivity", "未找到匹配的视频位置");
+                    }
+                }
             }
             TextView textView2 = VideoDetailActivity.this.episodes_title;
             if (textView2 != null) {
-                if(biliVideoDetail.season_title!=null)textView2.setText(biliVideoDetail.season_title);
+                if (biliVideoDetail.season_title != null)
+                    textView2.setText(biliVideoDetail.season_title);
                 textView2.setVisibility(0);
             }
             RecyclerView recyclerView2 = VideoDetailActivity.this.episodes_video;
@@ -1563,6 +2265,18 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
                 }
                 return;
             }
+            if (biliVideoDetail.mPageList.size() <= 1) {
+                TextView textView = VideoDetailActivity.this.hh;
+                if (textView != null) {
+                    textView.setVisibility(8);
+                }
+                RecyclerView recyclerView = VideoDetailActivity.this.o;
+                if (recyclerView != null) {
+                    recyclerView.setVisibility(8);
+                    return;
+                }
+                return;
+            }
             TextView textView2 = VideoDetailActivity.this.hh;
             int i = 0;
             if (textView2 != null) {
@@ -1574,9 +2288,12 @@ public final class VideoDetailActivity extends BaseActivity implements View.OnCl
             }
             TextView textView3 = VideoDetailActivity.this.hh;
             if (textView3 != null) {
-                textView3.setText(VideoDetailActivity.this.getString(R.string.video_detail_ep_title, new Object[]{String.valueOf(biliVideoDetail.mPageList.size())}));
+                textView3.setText(VideoDetailActivity.this.getString(R.string.video_detail_ep_title,
+                        new Object[] { String.valueOf(biliVideoDetail.mPageList.size()) }));
             }
-            int i2 = biliVideoDetail.mRelatedList != null && !biliVideoDetail.mRelatedList.isEmpty() ? VideoDetailActivity.E : VideoDetailActivity.F;
+            int i2 = biliVideoDetail.mRelatedList != null && !biliVideoDetail.mRelatedList.isEmpty()
+                    ? VideoDetailActivity.E
+                    : VideoDetailActivity.F;
             int size = biliVideoDetail.mPageList.size();
             if (size > i2) {
                 size = i2;

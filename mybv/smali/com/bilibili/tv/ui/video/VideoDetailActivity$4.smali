@@ -23,7 +23,7 @@
     .locals 0
 
     .prologue
-    .line 340
+    .line 331
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$4;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0, p2, p3, p4}, Lcom/bilibili/tv/widget/FixLinearLayoutManager;-><init>(Landroid/content/Context;IZ)V
@@ -37,51 +37,45 @@
     .locals 2
 
     .prologue
-    .line 343
-    if-eqz p1, :cond_1e
+    .line 334
+    if-eqz p1, :cond_1a
 
-    .line 344
-    invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$4;->d(Landroid/view/View;)I
+    const/16 v0, 0x82
 
-    move-result v0
+    if-ne p2, v0, :cond_1a
 
-    .line 357
-    const/16 v1, 0x11
+    .line 335
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$4;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    if-ne p2, v1, :cond_d
+    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->n:Landroid/support/v7/widget/RecyclerView;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$100(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/support/v7/widget/RecyclerView;
 
-    if-nez v0, :cond_d
+    move-result-object v0
 
-    .line 361
-    :cond_c
-    :goto_c
-    return-object p1
+    .line 336
+    if-eqz v0, :cond_1a
 
-    .line 358
-    :cond_d
-    const/16 v1, 0x42
-
-    if-ne p2, v1, :cond_19
-
-    invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$4;->H()I
+    invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
 
     move-result v1
 
-    add-int/lit8 v1, v1, -0x1
+    if-lez v1, :cond_1a
 
-    if-eq v0, v1, :cond_c
+    .line 337
+    const/4 v1, 0x0
 
-    .line 359
-    :cond_19
+    invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
+
+    move-result-object v0
+
+    .line 340
+    :goto_19
+    return-object v0
+
+    :cond_1a
     invoke-super {p0, p1, p2}, Lcom/bilibili/tv/widget/FixLinearLayoutManager;->d(Landroid/view/View;I)Landroid/view/View;
 
-    move-result-object p1
+    move-result-object v0
 
-    goto :goto_c
-
-    .line 361
-    :cond_1e
-    const/4 p1, 0x0
-
-    goto :goto_c
+    goto :goto_19
 .end method

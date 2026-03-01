@@ -18,6 +18,8 @@
 
 .field private static h:I
 
+.field private static homeDefaultType:I
+
 .field private static j:F
 
 .field private static k:F
@@ -49,14 +51,14 @@
     .line 15
     new-array v0, v2, [F
 
-    fill-array-data v0, :array_20
+    fill-array-data v0, :array_22
 
     sput-object v0, Lbl/abd;->a:[F
 
     .line 16
     new-array v0, v2, [F
 
-    fill-array-data v0, :array_34
+    fill-array-data v0, :array_36
 
     sput-object v0, Lbl/abd;->b:[F
 
@@ -68,7 +70,7 @@
 
     new-array v0, v0, [F
 
-    fill-array-data v0, :array_48
+    fill-array-data v0, :array_4a
 
     sput-object v0, Lbl/abd;->speeds:[F
 
@@ -78,10 +80,13 @@
     .line 30
     sput v1, Lbl/abd;->mode_id:I
 
+    .line 274
+    sput v1, Lbl/abd;->homeDefaultType:I
+
     return-void
 
     .line 15
-    :array_20
+    :array_22
     .array-data 4
         0x3f000000    # 0.5f
         0x3f19999a    # 0.6f
@@ -94,7 +99,7 @@
     .end array-data
 
     .line 16
-    :array_34
+    :array_36
     .array-data 4
         0x3e99999a    # 0.3f
         0x3ecccccd    # 0.4f
@@ -107,7 +112,7 @@
     .end array-data
 
     .line 28
-    :array_48
+    :array_4a
     .array-data 4
         0x40000000    # 2.0f
         0x3fc00000    # 1.5f
@@ -860,6 +865,43 @@
     return-object v0
 .end method
 
+.method public static get_home_default(Landroid/content/Context;)I
+    .locals 3
+
+    .prologue
+    .line 282
+    sget v0, Lbl/abd;->homeDefaultType:I
+
+    const/4 v1, -0x1
+
+    if-ne v0, v1, :cond_16
+
+    .line 283
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    const-string v1, "home_default_type"
+
+    const/4 v2, 0x0
+
+    invoke-interface {v0, v1, v2}, Landroid/content/SharedPreferences;->getInt(Ljava/lang/String;I)I
+
+    move-result v0
+
+    sput v0, Lbl/abd;->homeDefaultType:I
+
+    .line 285
+    :cond_16
+    sget v0, Lbl/abd;->homeDefaultType:I
+
+    return v0
+.end method
+
 .method public static get_mode_id(Landroid/content/Context;)I
     .locals 3
 
@@ -901,13 +943,13 @@
     .locals 4
 
     .prologue
-    .line 258
+    .line 263
     const/4 v0, 0x0
 
-    .line 259
+    .line 264
     const-string v1, "{\"filter_on\":false,\"progressbar_on\":false,\"fastquit_on\":false,\"auto_update\":false}"
 
-    .line 261
+    .line 266
     :try_start_3
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
@@ -929,15 +971,15 @@
 
     move-result-object v0
 
-    .line 266
+    .line 271
     :goto_15
     return-object v0
 
-    .line 263
+    .line 268
     :catch_16
     move-exception v1
 
-    .line 264
+    .line 269
     invoke-virtual {v1}, Ljava/lang/Exception;->printStackTrace()V
 
     goto :goto_15
@@ -981,41 +1023,54 @@
 
     move-result-object v0
 
+    .line 239
+    if-eqz v0, :cond_38
+
+    invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
+
+    move-result v2
+
+    if-nez v2, :cond_38
+
+    .line 240
     invoke-static {v0}, Lcom/alibaba/fastjson/JSON;->parseArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
 
     move-result-object v2
 
-    .line 239
+    .line 241
+    if-eqz v2, :cond_38
+
+    .line 242
     const/4 v0, 0x0
 
-    :goto_1a
+    :goto_24
     invoke-virtual {v2}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
     move-result v3
 
-    if-ge v0, v3, :cond_2e
+    if-ge v0, v3, :cond_38
 
     invoke-virtual {v2, v0}, Lcom/alibaba/fastjson/JSONArray;->getString(I)Ljava/lang/String;
 
     move-result-object v3
 
     invoke-virtual {v1, v3}, Ljava/util/HashSet;->add(Ljava/lang/Object;)Z
-    :try_end_27
-    .catch Ljava/lang/Exception; {:try_start_5 .. :try_end_27} :catch_2a
+    :try_end_31
+    .catch Ljava/lang/Exception; {:try_start_5 .. :try_end_31} :catch_34
 
     add-int/lit8 v0, v0, 0x1
 
-    goto :goto_1a
+    goto :goto_24
 
-    .line 241
-    :catch_2a
+    .line 246
+    :catch_34
     move-exception v0
 
-    .line 242
+    .line 247
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
-    .line 244
-    :cond_2e
+    .line 249
+    :cond_38
     return-object v1
 .end method
 
@@ -1255,6 +1310,38 @@
     return-void
 .end method
 
+.method public static set_home_default(Landroid/content/Context;I)V
+    .locals 2
+
+    .prologue
+    .line 277
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    const-string v1, "home_default_type"
+
+    invoke-interface {v0, v1, p1}, Landroid/content/SharedPreferences$Editor;->putInt(Ljava/lang/String;I)Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
+
+    .line 278
+    sput p1, Lbl/abd;->homeDefaultType:I
+
+    .line 279
+    return-void
+.end method
+
 .method public static set_mode_id(Landroid/content/Context;I)V
     .locals 2
 
@@ -1291,16 +1378,16 @@
     .locals 3
 
     .prologue
-    .line 249
+    .line 254
     :try_start_0
     invoke-static {p0}, Lbl/abd;->get_personal_config(Landroid/content/Context;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 250
+    .line 255
     invoke-virtual {v0, p1, p2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 251
+    .line 256
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v1
@@ -1327,15 +1414,15 @@
     :try_end_20
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_20} :catch_21
 
-    .line 255
+    .line 260
     :goto_20
     return-void
 
-    .line 252
+    .line 257
     :catch_21
     move-exception v0
 
-    .line 253
+    .line 258
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
     goto :goto_20
