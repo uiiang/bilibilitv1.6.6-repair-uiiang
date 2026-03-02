@@ -343,17 +343,28 @@ public final class VideoDetailActivity extends BaseActivity
             });
             this.r.setAdapter(this.v);
             // 添加焦点监听器
-            this.r.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (hasFocus) {
-                        View focusView = restoreFocusPosition(VideoDetailActivity.this.r, relateVideoFocusPosition);
-                        if (focusView != null) {
-                            focusView.requestFocus();
+        this.r.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    // 检查焦点来源：如果是从播放按钮移动过来，重置焦点位置到第1个item
+                    View currentFocus = getCurrentFocus();
+                    if (currentFocus != null) {
+                        int currentFocusId = currentFocus.getId();
+                        if (currentFocusId == R.id.video_history_play_btn_layout || 
+                            currentFocusId == R.id.video_re_play_btn_layout) {
+                            // 从播放按钮移动过来，重置焦点到第1个item
+                            relateVideoFocusPosition = 0;
                         }
                     }
+                    
+                    View focusView = restoreFocusPosition(VideoDetailActivity.this.r, relateVideoFocusPosition);
+                    if (focusView != null) {
+                        focusView.requestFocus();
+                    }
                 }
-            });
+            }
+        });
         }
         this.episodes_video = (RecyclerView) d(R.id.video_detail_episodes_video);
         this.episodes_video_adapter = new EpisodesVideoAdapter();
@@ -640,6 +651,15 @@ public final class VideoDetailActivity extends BaseActivity
                             }
 
                             epVideoView.requestFocus();
+                            return true;
+                        }
+                    } else if (this.r != null && this.r.getVisibility() == View.VISIBLE && this.r.getChildCount() > 0) {
+                        // 没有分集列表时，从播放按钮移动到相关视频列表，使用记忆的焦点位置
+                        int savedPosition = Math.min(relateVideoFocusPosition, this.r.getChildCount() - 1);
+                        savedPosition = Math.max(0, savedPosition);
+                        View relateView = this.r.getChildAt(savedPosition);
+                        if (relateView != null) {
+                            relateView.requestFocus();
                             return true;
                         }
                     }
