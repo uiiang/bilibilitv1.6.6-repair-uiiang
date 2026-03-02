@@ -3044,6 +3044,8 @@ public final class R {
         public static final int area_movie = 0x7f0c017f;
         public static final int area_tv = 0x7f0c0180;
         public static final int area_doc = 0x7f0c0181;
+
+        public static final int player_chapter_tip = 0x7f0c0182;
     }
 
     public static final class style {

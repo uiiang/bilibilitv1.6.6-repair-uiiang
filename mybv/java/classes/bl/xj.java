@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.ViewStub;
 import android.view.animation.Animation;
@@ -19,7 +20,8 @@ import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 import tv.danmaku.videoplayer.core.danmaku.IDanmakuDocument;
 
-import org.json.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
@@ -57,9 +59,13 @@ public class xj extends xh {
             this.d = ztVar;
             this.e = new zu(p());
             this.f = true;
+            
+            // 获取章节数据
+            obtainResolveParams.initPlayInfo();
             return;
         }
         this.f = false;
+        Log.d("ChapterTip", "播放器参数为空，f=false");
     }
 
     @Override // bl.xh
@@ -150,7 +156,22 @@ public class xj extends xh {
         super.onPrepared(iMediaPlayer);
         this.i = I();
         yh c = c();
+        
         if (this.f && this.g == 0 && c != null) {
+            // 检查是否有章节数据
+            ResolveResourceParams resolveParams = c.a.mVideoParams.obtainResolveParams();
+            JSONArray view_points = resolveParams.view_points;
+            
+            if (view_points != null && view_points.length() > 0) {
+                // 有章节数据，显示章节数量提示
+                if(this.c == null)Q();
+                if(this.c == null)return;
+                String chapterText = lp.a(o().getString(R.string.player_chapter_tip), String.valueOf(view_points.length()));
+                this.c.setText(chapterText);
+                this.l = true;
+                a(this.j, 5000L);
+            }
+            // 保持自动续播功能，但不显示提示
             long j = c.d;
             IDanmakuDocument danmakuDocument = c.a.mDanmakuParams.getDanmakuDocument();
             if (danmakuDocument != null && danmakuDocument.hasPlayerSeekScript()) {
@@ -159,18 +180,10 @@ public class xj extends xh {
                     j = b;
                 }
             }
-            if (j > 0) {
-                if (zt.a(j, this.i)) {
-                    String a = aan.a(j);
-                    if(this.c == null)Q();
-                    if(this.c == null)return;
-                    this.c.setText(lp.a(this.h, a));
-                    this.l = true;
-                    c((int)j);
-                    a(this.j, 5000L);
-                }
+            if (j > 0 && zt.a(j, this.i)) {
+                c((int)j);
             }
-            this.e.b(String.valueOf(c.a.mVideoParams.obtainResolveParams().mCid));
+            this.e.b(String.valueOf(resolveParams.mCid));
         }
         a(IjkMediaPlayer.FFP_PROP_INT64_ASYNC_STATISTIC_BUF_FORWARDS, (Object) null, 30000L);
         this.g++;
@@ -213,7 +226,7 @@ public class xj extends xh {
         if (i != 4 || !this.l) {
             return false;
         }
-        c(0);
+        // 去除重新播放逻辑，只隐藏提示
         a(this.j);
         a(this.j, 0L);
         return true;

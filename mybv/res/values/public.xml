@@ -3009,6 +3009,8 @@
     <public type="string" name="area_movie" id="0x7f0c017f" />
     <public type="string" name="area_tv" id="0x7f0c0180" />
     <public type="string" name="area_doc" id="0x7f0c0181" />
+    <public type="string" name="player_chapter_tip" id="0x7f0c0182" />
+
 
     <public type="style" name="AlertDialog.AppCompat" id="0x7f0d0000" />
     <public type="style" name="AlertDialog.AppCompat.Light" id="0x7f0d0001" />

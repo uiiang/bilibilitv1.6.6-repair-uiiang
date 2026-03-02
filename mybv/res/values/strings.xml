@@ -214,6 +214,7 @@
     <string name="on">弹幕开</string>
     <string name="play">播放</string>
     <string name="player_continue_play_tip">自动为您续播 %s   按 “返回” 键重新播放</string>
+    <string name="player_chapter_tip">本视频有%s个章节</string>
     <string name="player_loading_live_tips">tips：直播无法播放有可能是主播已下线。</string>
     <string name="player_loading_tips">tips：长按[OK]键可设置画面</string>
     <string name="player_loading_title">正在加载: %s</string>
