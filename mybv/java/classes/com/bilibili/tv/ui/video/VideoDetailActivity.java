@@ -1783,18 +1783,6 @@ public final class VideoDetailActivity extends BaseActivity
                     if (currentVideo != null && currentVideo.mAvid == clickedVideo.mAvid) {
                         return;
                     }
-                    // 修改：分集列表点击直接启动播放器，传递进度-1表示使用数据库记录
-                    BiliVideoDetail.Page targetPage = null;
-                    if (clickedVideo.mPageList != null && !clickedVideo.mPageList.isEmpty()) {
-                        targetPage = clickedVideo.mPageList.get(0);
-                    }
-                    if (targetPage != null) {
-                        Log.d("VideoDetail", "分集列表点击: 传递进度=-1, cid=" + targetPage.mCid);
-                        xg.a(currentActivity, clickedVideo, targetPage, new Bundle(), VideoDetailActivity.REQUEST_CODE_PLAY_VIDEO, -1);
-                    } else {
-                        Log.d("VideoDetail", "分集列表点击: 没有找到目标页面");
-                    }
-                    return;
                 }
                 a2.startActivity(VideoDetailActivity.Companion.a(a2, clickedVideo.mAvid));
             }
@@ -1860,7 +1848,6 @@ public final class VideoDetailActivity extends BaseActivity
             VideoDetailActivity videoDetailActivity = (VideoDetailActivity) a2;
             if (videoDetailActivity != null) {
                 // 修改：分集列表点击直接启动播放器，传递进度-1表示使用数据库记录
-                Log.d("VideoDetail", "分集列表点击(c类): 传递进度=-1, cid=" + page.mCid);
                 xg.a(videoDetailActivity, videoDetailActivity.u, page, new Bundle(), VideoDetailActivity.REQUEST_CODE_PLAY_VIDEO, -1);
             }
             ok.a("tv_video_view_click_part", new String[0]);
@@ -2269,8 +2256,17 @@ public final class VideoDetailActivity extends BaseActivity
             }
             TextView textView2 = VideoDetailActivity.this.episodes_title;
             if (textView2 != null) {
-                if (biliVideoDetail.season_title != null)
-                    textView2.setText(biliVideoDetail.season_title);
+                if (biliVideoDetail.season_title != null) {
+                    // 在合集标题后面加上合集列表的总数
+                    int totalEpisodes = biliVideoDetail.episodes != null ? biliVideoDetail.episodes.size() : 0;
+                    String titleWithCount = biliVideoDetail.season_title + "(" + totalEpisodes + ")";
+                    textView2.setText(titleWithCount);
+                } else {
+                    // 如果没有season_title，使用默认标题并显示总数
+                    int totalEpisodes = biliVideoDetail.episodes != null ? biliVideoDetail.episodes.size() : 0;
+                    String defaultTitle = "视频选集(" + totalEpisodes + ")";
+                    textView2.setText(defaultTitle);
+                }
                 textView2.setVisibility(0);
             }
             RecyclerView recyclerView2 = VideoDetailActivity.this.episodes_video;

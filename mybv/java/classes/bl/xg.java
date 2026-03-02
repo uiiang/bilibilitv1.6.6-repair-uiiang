@@ -204,7 +204,6 @@ public class xg {
 
         obtainResolveParams.mBvid = biliVideoDetail.mBvid;
         obtainResolveParams.mProgress = progress;
-        Log.d("PlayerDebug", "xg.b方法: 设置播放进度: progress=" + progress + ", mProgress=" + obtainResolveParams.mProgress + ", cid=" + obtainResolveParams.mCid);
 
         if (i > 0) {
             obtainResolveParams.mExpectedQuality = i;
