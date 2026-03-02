@@ -1,11 +1,13 @@
 package bl;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import com.bilibili.bangumi.api.newbean.BangumiEpisodeEx;
 import com.bilibili.tv.api.video.BiliVideoDetail;
 import com.bilibili.tv.player.PlayerActivity;
@@ -82,6 +84,10 @@ public class xg {
         b(context, biliVideoDetail, page, bundle, -1);
     }
 
+    public static void a(Activity activity, BiliVideoDetail biliVideoDetail, BiliVideoDetail.Page page, Bundle bundle, int requestCode, int progress) {
+        b(activity, biliVideoDetail, page, bundle, -1, requestCode, progress);
+    }
+
     public static void a(Context context, BiliVideoDetail biliVideoDetail, BiliVideoDetail.Page page, Bundle bundle, int i) {
         b(context, biliVideoDetail, page, bundle, i);
     }
@@ -108,8 +114,6 @@ public class xg {
         obtainResolveParams.mTid = biliVideoDetail.mTid;
 
         obtainResolveParams.mBvid = biliVideoDetail.mBvid;
-        if(biliVideoDetail.mHistory!=null && page.mCid==biliVideoDetail.mHistory.mCid)obtainResolveParams.mProgress=biliVideoDetail.mHistory.mProgress;
-
         if (i > 0) {
             obtainResolveParams.mExpectedQuality = i;
         }
@@ -177,12 +181,114 @@ public class xg {
         a(context, a, bundle);
     }
 
+    public static void b(Activity activity, BiliVideoDetail biliVideoDetail, BiliVideoDetail.Page page, Bundle bundle, int i, int requestCode, int progress) {
+        PlayerParams a = aaj.a(activity);
+        yr.a(a, biliVideoDetail.mCover);
+        yr.c(a, biliVideoDetail.getAuthor());
+        yr.b(a, biliVideoDetail.mTitle);
+
+        biliVideoDetail.getUGCseason();
+
+        ResolveResourceParams obtainResolveParams = a.mVideoParams.obtainResolveParams();
+        obtainResolveParams.mSpid = biliVideoDetail.getSpid();
+        obtainResolveParams.mAvid = biliVideoDetail.mAvid;
+        obtainResolveParams.mPage = page.mPage;
+        obtainResolveParams.mFrom = page.mFrom;
+        obtainResolveParams.mPageTitle = page.mTitle;
+        obtainResolveParams.mVid = page.mVid;
+        obtainResolveParams.mRawVid = page.mRawVid;
+        obtainResolveParams.mCid = page.mCid;
+        obtainResolveParams.mWeb = page.mWebLink;
+        obtainResolveParams.mHasAlias = page.mHasAlias;
+        obtainResolveParams.mTid = biliVideoDetail.mTid;
+
+        obtainResolveParams.mBvid = biliVideoDetail.mBvid;
+        obtainResolveParams.mProgress = progress;
+        Log.d("PlayerDebug", "xg.b方法: 设置播放进度: progress=" + progress + ", mProgress=" + obtainResolveParams.mProgress + ", cid=" + obtainResolveParams.mCid);
+
+        if (i > 0) {
+            obtainResolveParams.mExpectedQuality = i;
+        }
+        if (biliVideoDetail.mBangumiInfo != null) {
+            obtainResolveParams.mSeasonId = biliVideoDetail.mBangumiInfo.mSeasonId + "";
+        }
+        if (TextUtils.isEmpty(yr.a(a))) {
+            yr.b(a, page.mTitle);
+        }
+
+        if (biliVideoDetail.episodes != null) {
+            int size = biliVideoDetail.episodes.size();
+            ResolveResourceParams[] obtainResolveParamsArray = a.mVideoParams.obtainResolveParamsArray(size);
+            for (int i3 = 0; i3 < size; i3++) {
+                JSONObject episode = biliVideoDetail.episodes.getJSONObject(i3);
+                ResolveResourceParams resolveResourceParams = new ResolveResourceParams();
+                resolveResourceParams.mSpid = biliVideoDetail.getSpid();
+                resolveResourceParams.mAvid = episode.getLongValue("aid");
+                resolveResourceParams.mPage = episode.getJSONObject("page").getIntValue("page");
+                resolveResourceParams.mFrom = episode.getJSONObject("page").getString("from");
+                resolveResourceParams.mVid = episode.getJSONObject("page").getString("vid");
+                resolveResourceParams.mCid = episode.getLongValue("cid");
+                resolveResourceParams.mWeb = episode.getJSONObject("page").getString("weblink");
+                resolveResourceParams.mPageTitle = episode.getString("title");
+                resolveResourceParams.mSeasonId = obtainResolveParams.mSeasonId;
+                if (i > 0) {
+                    resolveResourceParams.mExpectedQuality = i;
+                } else {
+                    resolveResourceParams.mExpectedQuality = obtainResolveParams.mExpectedQuality;
+                }
+                obtainResolveParamsArray[i3] = resolveResourceParams;
+            }
+            a(activity, a, bundle, requestCode);
+            return;
+        }
+
+        if (biliVideoDetail.mPageList != null) {
+            int size = biliVideoDetail.mPageList.size();
+            ResolveResourceParams[] obtainResolveParamsArray = a.mVideoParams.obtainResolveParamsArray(size);
+            for (int i3 = 0; i3 < size; i3++) {
+                BiliVideoDetail.Page page2 = biliVideoDetail.mPageList.get(i3);
+                ResolveResourceParams resolveResourceParams = new ResolveResourceParams();
+                resolveResourceParams.mSpid = biliVideoDetail.getSpid();
+                resolveResourceParams.mTid = page2.mTid;
+                resolveResourceParams.mAvid = biliVideoDetail.mAvid;
+                resolveResourceParams.mPage = page2.mPage;
+                resolveResourceParams.mFrom = page2.mFrom;
+                resolveResourceParams.mVid = page2.mVid;
+                resolveResourceParams.mRawVid = page2.mRawVid;
+                resolveResourceParams.mCid = page2.mCid;
+                resolveResourceParams.mWeb = page2.mWebLink;
+                resolveResourceParams.mHasAlias = page2.mHasAlias;
+                resolveResourceParams.mPageTitle = page2.mTitle;
+                resolveResourceParams.mSeasonId = obtainResolveParams.mSeasonId;
+                if (i > 0) {
+                    resolveResourceParams.mExpectedQuality = i;
+                } else {
+                    resolveResourceParams.mExpectedQuality = obtainResolveParams.mExpectedQuality;
+                }
+                obtainResolveParamsArray[i3] = resolveResourceParams;
+            }
+            a(activity, a, bundle, requestCode);
+            return;
+        }
+        a(activity, a, bundle, requestCode);
+    }
+
     public static void a(Context context, PlayerParams playerParams, Bundle bundle) {
         if (playerParams.mVideoParams.mResolveParamsArray == null) {
             playerParams.mVideoParams.mResolveParamsArray = playerParams.mVideoParams.obtainResolveParamsArray(1);
             playerParams.mVideoParams.mResolveParamsArray[0] = playerParams.mVideoParams.obtainResolveParams();
         }
         context.startActivity(PlayerActivity.a(context, playerParams));
+    }
+
+    public static void a(Activity activity, PlayerParams playerParams, Bundle bundle, int requestCode) {
+        if (playerParams.mVideoParams.mResolveParamsArray == null) {
+            playerParams.mVideoParams.mResolveParamsArray = playerParams.mVideoParams.obtainResolveParamsArray(1);
+            playerParams.mVideoParams.mResolveParamsArray[0] = playerParams.mVideoParams.obtainResolveParams();
+        }
+        Intent intent = PlayerActivity.a(activity, playerParams);
+        intent.setFlags(0);
+        activity.startActivityForResult(intent, requestCode);
     }
 
     public static void playCheese(Context context, BiliVideoDetail biliVideoDetail, BiliVideoDetail.Page page, int i) {
@@ -206,8 +312,6 @@ public class xg {
 
         obtainResolveParams.mSeasonId = biliVideoDetail.mCheeseInfo.getString("season_id");
         obtainResolveParams.mEpisodeId = Long.parseLong(biliVideoDetail.mRedirectLink.split("ep")[1]);
-
-        if(biliVideoDetail.mHistory!=null && page.mCid==biliVideoDetail.mHistory.mCid)obtainResolveParams.mProgress=biliVideoDetail.mHistory.mProgress;
 
         if (i > 0) {
             obtainResolveParams.mExpectedQuality = i;

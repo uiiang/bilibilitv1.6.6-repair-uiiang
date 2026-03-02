@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import com.bilibili.lib.media.resolver.exception.ResolveException;
 import com.bilibili.lib.media.resource.MediaResource;
 import com.bilibili.tv.player.basic.context.PlayerParams;
@@ -144,10 +145,23 @@ public final class yt {
 
     public final void a(Context context) {
         ResolveResourceParams obtainResolveParams = this.b.a.mVideoParams.obtainResolveParams();
-        if(obtainResolveParams.mProgress>0){
-            this.b.d = obtainResolveParams.mProgress*1000;
+        Log.d("PlayerDebug", "播放器初始化: mProgress=" + obtainResolveParams.mProgress + ", cid=" + obtainResolveParams.mCid);
+        
+        // 优先级调整：明确传递的进度参数优先于数据库记录
+        if (obtainResolveParams.mProgress > 0) {
+            // 继续播放：使用参数进度
+            Log.d("PlayerDebug", "继续播放：使用参数进度: mProgress=" + obtainResolveParams.mProgress);
+            this.b.d = obtainResolveParams.mProgress * 1000;
+            return;
+        } else if (obtainResolveParams.mProgress == 0) {
+            // 重新播放：进度为0表示从头播放，跳过数据库读取
+            Log.d("PlayerDebug", "重新播放：跳过数据库读取，从头开始");
+            this.b.d = 0; // 确保进度设置为0
             return;
         }
+        
+        // 默认情况：未设置进度参数或进度=-1时读取数据库（分集列表点击等场景）
+        Log.d("PlayerDebug", "默认播放：读取数据库记录");
         zt ztVar;
         zu zuVar = new zu(context);
         if (!TextUtils.isEmpty(obtainResolveParams.mSeasonId) && obtainResolveParams.mEpisodeId > 0) {
@@ -156,7 +170,12 @@ public final class yt {
             ztVar = new zt(zu.getCid(obtainResolveParams.mCid));
         }
         if (zuVar.b(ztVar)) {
+            Log.d("PlayerDebug", "从数据库读取进度: " + ztVar.b);
             this.b.d = ztVar.b;
+        } else {
+            // 数据库无记录时，默认从头开始播放
+            Log.d("PlayerDebug", "数据库无记录，从头开始播放");
+            this.b.d = 0;
         }
     }
 

@@ -139,6 +139,7 @@ public final class VideoDetailActivity extends BaseActivity
     private static final int F = E * 2;
     private static final int G = 10066;
     private static final int H = G + 1;
+    private static final int REQUEST_CODE_PLAY_VIDEO = 10068;
 
     public TextView episodes_title;
     public RecyclerView episodes_video;
@@ -991,11 +992,17 @@ public final class VideoDetailActivity extends BaseActivity
             rePlayBtnLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.d("VideoDetail", "重新播放按钮点击: mHistory=" + (finalBiliVideoDetail != null ? finalBiliVideoDetail.mHistory : "null"));
                     if (finalBiliVideoDetail != null && finalBiliVideoDetail.mHistory != null) {
                         long historyCid = finalBiliVideoDetail.mHistory.mCid;
-                        int historyProgressVal = finalBiliVideoDetail.mHistory.mProgress;
+                        int oldProgress = finalBiliVideoDetail.mHistory.mProgress;
+                        Log.d("VideoDetail", "重新播放前: cid=" + historyCid + ", oldProgress=" + oldProgress);
+                        // 重新播放时清除历史进度
+                        finalBiliVideoDetail.mHistory.mProgress = 0;
+                        Log.d("VideoDetail", "重新播放后: mProgress=" + finalBiliVideoDetail.mHistory.mProgress);
                         playVideo(finalBiliVideoDetail, historyCid, 0);
                     } else {
+                        Log.d("VideoDetail", "重新播放: 没有历史记录");
                         playVideo(finalBiliVideoDetail, 0, 0);
                     }
                 }
@@ -1020,7 +1027,7 @@ public final class VideoDetailActivity extends BaseActivity
             targetPage = biliVideoDetail.mPageList.get(0);
         }
         if (targetPage != null) {
-            xg.a(this, biliVideoDetail, targetPage, new Bundle());
+            xg.a(this, biliVideoDetail, targetPage, new Bundle(), REQUEST_CODE_PLAY_VIDEO, progress);
         }
     }
 
@@ -1137,8 +1144,25 @@ public final class VideoDetailActivity extends BaseActivity
 
     @Override // android.support.v4.app.FragmentActivity, android.app.Activity
     public void onActivityResult(int i2, int i3, Intent intent) {
+        Log.d("VideoDetail", "onActivityResult: requestCode=" + i2 + ", resultCode=" + i3 + ", intent=" + intent);
         if (i3 == -1 && (i2 == G || i2 == H)) {
             n();
+        }
+        if (i3 == -1 && i2 == REQUEST_CODE_PLAY_VIDEO && intent != null) {
+            long lastCid = intent.getLongExtra("last_cid", 0);
+            int lastProgress = intent.getIntExtra("last_progress", 0);
+            Log.d("VideoDetail", "Received from player: lastCid=" + lastCid + ", lastProgress=" + lastProgress);
+            if (this.u != null && lastCid > 0) {
+                if (this.u.mHistory == null) {
+                    this.u.mHistory = new BiliVideoDetail.History();
+                }
+                this.u.mHistory.mCid = lastCid;
+                this.u.mHistory.mProgress = lastProgress/1000;
+                Log.d("VideoDetail", "Updated history: mCid=" + this.u.mHistory.mCid + ", mProgress=" + this.u.mHistory.mProgress);
+                updateHistoryDisplay(this.u);
+            } else {
+                Log.d("VideoDetail", "Skip update: this.u=" + this.u + ", lastCid=" + lastCid);
+            }
         }
         super.onActivityResult(i2, i3, intent);
     }
@@ -1759,6 +1783,18 @@ public final class VideoDetailActivity extends BaseActivity
                     if (currentVideo != null && currentVideo.mAvid == clickedVideo.mAvid) {
                         return;
                     }
+                    // 修改：分集列表点击直接启动播放器，传递进度-1表示使用数据库记录
+                    BiliVideoDetail.Page targetPage = null;
+                    if (clickedVideo.mPageList != null && !clickedVideo.mPageList.isEmpty()) {
+                        targetPage = clickedVideo.mPageList.get(0);
+                    }
+                    if (targetPage != null) {
+                        Log.d("VideoDetail", "分集列表点击: 传递进度=-1, cid=" + targetPage.mCid);
+                        xg.a(currentActivity, clickedVideo, targetPage, new Bundle(), VideoDetailActivity.REQUEST_CODE_PLAY_VIDEO, -1);
+                    } else {
+                        Log.d("VideoDetail", "分集列表点击: 没有找到目标页面");
+                    }
+                    return;
                 }
                 a2.startActivity(VideoDetailActivity.Companion.a(a2, clickedVideo.mAvid));
             }
@@ -1823,7 +1859,9 @@ public final class VideoDetailActivity extends BaseActivity
             }
             VideoDetailActivity videoDetailActivity = (VideoDetailActivity) a2;
             if (videoDetailActivity != null) {
-                videoDetailActivity.a(page);
+                // 修改：分集列表点击直接启动播放器，传递进度-1表示使用数据库记录
+                Log.d("VideoDetail", "分集列表点击(c类): 传递进度=-1, cid=" + page.mCid);
+                xg.a(videoDetailActivity, videoDetailActivity.u, page, new Bundle(), VideoDetailActivity.REQUEST_CODE_PLAY_VIDEO, -1);
             }
             ok.a("tv_video_view_click_part", new String[0]);
         }
