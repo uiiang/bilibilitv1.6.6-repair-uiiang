@@ -46,8 +46,14 @@ public class yb extends xh {
                 zk.a(p(), playerParams.mVideoParams.obtainResolveParams(), this.e);
                 return;
             case SEEK:
-                if (objArr != null && objArr.length >= 1) {
+                if (objArr != null && objArr.length >= 3) {
                     aai.a(((Boolean) objArr[0]).booleanValue());
+                    // 获取目标位置并执行跳转
+                    Long targetPosition = (Long) objArr[2];
+                    if (targetPosition != null) {
+                        // 执行实际的跳转操作
+                        c(targetPosition.intValue());
+                    }
                 }
                 if (this.i) {
                     this.h.g();

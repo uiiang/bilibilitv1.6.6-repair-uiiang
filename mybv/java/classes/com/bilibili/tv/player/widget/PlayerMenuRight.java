@@ -60,6 +60,7 @@ public class PlayerMenuRight extends aay<String> {
     public List<String> speed_list;
     public List<String> mode_list;
     public List<String> subtitle_list;
+    public List<String> chapter_list;
     public static boolean danmaku_valid_list[] = {false,true,false,false,true,true,true,true,false,false};
     public static int danmaku_level=0;
 
@@ -85,6 +86,41 @@ public class PlayerMenuRight extends aay<String> {
         void switch_speed(float f);
 
         void refresh_subtitle();
+
+        void jumpToChapter(int chapterIndex);
+    }
+
+    private void jumpToChapter(int chapterIndex) {
+        // 实现章节跳转功能
+        if (this.d != null && this.chapter_list != null && chapterIndex >= 0 && chapterIndex < this.chapter_list.size()) {
+            // 检查是否是"无"，如果是则不做任何操作
+            if ("无".equals(this.chapter_list.get(chapterIndex))) {
+                return;
+            }
+            // 调用播放器接口进行跳转
+            this.d.jumpToChapter(chapterIndex);
+        }
+    }
+
+    public void init_chapter(JSONArray view_points) {
+        // 初始化章节列表数据
+        this.chapter_list = new ArrayList<>();
+        
+        if (view_points == null || view_points.length() == 0) {
+            // 章节数据为空时，显示一个"无"，点击无效果
+            this.chapter_list.add("无");
+            return;
+        }
+        
+        for (int i = 0; i < view_points.length(); i++) {
+            JSONObject chapter = view_points.optJSONObject(i);
+            if (chapter != null) {
+                String content = chapter.optString("content", "");
+                if (!TextUtils.isEmpty(content)) {
+                    this.chapter_list.add(content);
+                }
+            }
+        }
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
@@ -379,6 +415,11 @@ public class PlayerMenuRight extends aay<String> {
                 this.subtitle_id = i2;
                 this.d.refresh_subtitle();
             }
+            if (this.chapter_list != null && this.chapter_list.contains(str)) {
+                // 处理章节列表项点击
+                jumpToChapter(i2);
+                return true;
+            }
         }
         TextView textView = (TextView) viewGroup.getChildAt(i3);
         if (textView != null) {
@@ -440,6 +481,9 @@ public class PlayerMenuRight extends aay<String> {
             case 8:
                 i3 = this.subtitle_id;
                 break;
+            case 9:
+                i3 = 0; // 章节列表默认选中第一个
+                break;
             default:
                 i3 = 0;
                 break;
@@ -486,6 +530,9 @@ public class PlayerMenuRight extends aay<String> {
                     break;
                 case 8:
                     list = this.subtitle_list;
+                    break;
+                case 9:
+                    list = this.chapter_list;
                     break;
                 default:
                     return null;

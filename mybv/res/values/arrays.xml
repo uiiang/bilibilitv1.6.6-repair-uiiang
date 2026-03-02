@@ -24,6 +24,7 @@
         <item>播放速度</item>
         <item>播放模式</item>
         <item>CC字幕</item>
+        <item>章节</item>
     </string-array>
     <string-array name="player_right_menu_level_1_1">
         <item>@string/episode</item>

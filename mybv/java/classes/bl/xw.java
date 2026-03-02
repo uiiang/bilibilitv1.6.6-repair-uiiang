@@ -3,6 +3,7 @@ package bl;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Message;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.ViewConfiguration;
 import android.view.ViewStub;
@@ -12,6 +13,8 @@ import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.player.interfaces.IEventCenter;
 import com.bilibili.tv.player.widget.PlayerMenuRight;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -256,6 +259,37 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         this.c.init_speed(arrayList3, abd.get_speed_id(p()));
         this.c.init_mode(Arrays.asList(resources.getStringArray(R.array.player_mode)), abd.get_mode_id(p()));
         this.c.init_subtitle(c().a.mVideoParams.obtainResolveParams().subtitle_info);
+        
+        // 初始化章节列表
+        JSONArray view_points = c().a.mVideoParams.obtainResolveParams().view_points;
+        this.c.init_chapter(view_points);
+    }
+
+    @Override // com.bilibili.tv.player.widget.PlayerMenuRight.a
+    public void jumpToChapter(int chapterIndex) {
+        // 实现章节跳转功能
+        if (c() == null || c().a.mVideoParams.obtainResolveParams().view_points == null) {
+            return;
+        }
+        
+        JSONArray view_points = c().a.mVideoParams.obtainResolveParams().view_points;
+        
+        // 检查章节索引有效性，使用view_points的长度而不是chapter_list的长度
+        if (chapterIndex < 0 || chapterIndex >= view_points.length()) {
+            return;
+        }
+        
+        JSONObject chapter = view_points.optJSONObject(chapterIndex);
+        if (chapter != null) {
+            int from = chapter.optInt("from", 0); // from字段单位为秒
+            int targetPosition = from * 1000; // 转换为毫秒
+            int currentPosition = x(); // 获取当前播放位置
+            
+            // 调用播放器跳转到指定时间
+            // SEEK事件需要4个参数：事件类型、方向、原始位置、目标位置
+            boolean direction = targetPosition > currentPosition; // true表示向前跳转
+            a(IEventCenter.EventType.SEEK, direction, Long.valueOf(currentPosition), Long.valueOf(targetPosition));
+        }
     }
 
     private int T() {

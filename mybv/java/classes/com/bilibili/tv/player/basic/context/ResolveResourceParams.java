@@ -20,6 +20,7 @@ import mybl.BiliFilter;
 import java.util.concurrent.*;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.player.widget.PlayerMenuRight;
+import android.util.Log;
 
 /* compiled from: BL */
 @Keep
@@ -79,6 +80,7 @@ public class ResolveResourceParams implements Parcelable, Serializable {
     public JSONArray skips;
     public JSONObject subtitle_info;
     public JSONObject subtitle_data;
+    public JSONArray view_points;
 
     public static class JsonResponse extends qe {
         public JSONObject result() {
@@ -177,12 +179,23 @@ public class ResolveResourceParams implements Parcelable, Serializable {
         this.getSkipInfo();
         try{
             ExecutorService threadPool  = Executors.newSingleThreadExecutor();
-            if(this.subtitle_info == null)this.subtitle_info = threadPool.submit(new Callable<JSONObject>() {
+            JSONObject playerData = threadPool.submit(new Callable<JSONObject>() {
                 @Override
                 public JSONObject call() {
                     return ((JsonResponse) pz.a(new qa.a(JsonResponse.class).a("https://api.bilibili.com/x/player/wbi/v2").a(true).a("Cookie","SESSDATA="+mg.a(MainApplication.a()).getSESSDATA()).b("").b("aid", String.valueOf(ResolveResourceParams.this.mAvid)).b("cid", String.valueOf(ResolveResourceParams.this.mCid)).a(new qb()).a(), "GET")).result();
                 }
-            }).get().optJSONObject("data").optJSONObject("subtitle");
+            }).get();
+            
+            // 获取字幕信息
+            this.subtitle_info = playerData.optJSONObject("data").optJSONObject("subtitle");
+            
+            // 获取章节列表信息（view_points）
+            JSONArray viewPoints = playerData.optJSONObject("data").optJSONArray("view_points");
+            if (viewPoints != null && viewPoints.length() > 0) {
+                this.view_points = viewPoints;
+                Log.d("ResolveResourceParams", "发现章节列表，共" + viewPoints.length() + "个章节");
+            }
+            
             int subtitle_id = PlayerMenuRight.subtitle_id - 1;
             if(subtitle_id==-1 || this.subtitle_info.optJSONArray("subtitles").length()==0){this.subtitle_data=null;return;}
             if(subtitle_id<-1 && this.subtitle_info.optJSONArray("subtitles").optJSONObject(0).optString("lan").startsWith("ai-"))return;
@@ -289,6 +302,13 @@ public class ResolveResourceParams implements Parcelable, Serializable {
 
         parcel.writeInt(this.mProgress);
         parcel.writeString(this.mBvid);
+        
+        // 写入章节列表信息
+        if (this.view_points != null) {
+            parcel.writeString(this.view_points.toString());
+        } else {
+            parcel.writeString("");
+        }
     }
 
     protected ResolveResourceParams(Parcel parcel) {
@@ -322,6 +342,17 @@ public class ResolveResourceParams implements Parcelable, Serializable {
 
         this.mProgress = parcel.readInt();
         this.mBvid = parcel.readString();
+        
+        // 读取章节列表信息
+        String viewPointsStr = parcel.readString();
+        if (!TextUtils.isEmpty(viewPointsStr)) {
+            try {
+                this.view_points = new JSONArray(viewPointsStr);
+            } catch (JSONException e) {
+                this.view_points = null;
+                Log.e("ResolveResourceParams", "解析章节列表失败: " + e.getMessage());
+            }
+        }
     }
 
     public ResolveMediaResourceParams obtainMediaResourceParams() {
