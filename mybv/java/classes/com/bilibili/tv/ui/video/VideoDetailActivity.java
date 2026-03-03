@@ -56,6 +56,7 @@ import com.bilibili.tv.api.video.VideoApiParser2;
 import com.bilibili.tv.api.video.VideoApiService;
 import com.bilibili.tv.ui.account.LoginActivity;
 import com.bilibili.tv.ui.auth.AuthSpaceActivity;
+import com.bilibili.tv.ui.auth.AuthSpaceSideActivity;
 import com.bilibili.tv.ui.bangumi.BangumiDetailActivity;
 import com.bilibili.tv.ui.base.BaseActivity;
 import com.bilibili.tv.ui.base.LoadingImageView;
@@ -1135,7 +1136,7 @@ public final class VideoDetailActivity extends BaseActivity
             if (id == R.id.video_detail_up_text && (biliVideoDetail = this.u) != null) {
                 String author = biliVideoDetail.getAuthor();
                 bbi.a((Object) author, "it.author");
-                AuthSpaceActivity.Companion.a(this, author, biliVideoDetail.getMid());
+                AuthSpaceSideActivity.start(this, biliVideoDetail.getMid(), author);
             }
         } else {
             BiliVideoDetail biliVideoDetail3 = this.u;

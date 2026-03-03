@@ -2648,6 +2648,7 @@ public final class R {
         public static final int fragment_experiment = 0x7f0a0089;
         public static final int fragment_personalization = 0x7f0a008a;
         public static final int activity_attention_dynamic_side = 0x7f0a008b;
+        public static final int activity_auth_space_side = 0x7f0a008c;
     }
 
     public static final class mipmap {
