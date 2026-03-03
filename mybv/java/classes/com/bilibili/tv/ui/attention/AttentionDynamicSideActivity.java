@@ -442,6 +442,9 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
                         int f = vVar.f();
                         // 自动切换逻辑已移除：不再 postDelayed 自动调用 showVideoList
                         a.this.c = f;
+                        // 记录获得焦点的时间并安排安全的延迟 Runnable（保留焦点触发 UX）
+                        a.this.d = System.currentTimeMillis();
+                        view.postDelayed(a.this, 500L);
                         // 点击或确认键触发切换（显式确认）
                         vVar.a.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -480,13 +483,39 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
         @Override // java.lang.Runnable
         public void run() {
             AttentionDynamicSideActivity activity = this.a.get();
-            if (activity == null || activity.isFinishing()) {
-                return;
+            if (activity == null || activity.isFinishing()) return;
+            if (this.uperItems == null || this.c >= this.uperItems.size()) return;
+            try {
+                // 若 adapter 被临时禁用，跳过
+                if (this.e) return;
+
+                // 在 RecyclerView 中找到对应 position 的 child
+                RecyclerView leftRv = activity.j();
+                View targetChild = null;
+                if (leftRv != null) {
+                    for (int i = 0; i < leftRv.getChildCount(); i++) {
+                        View child = leftRv.getChildAt(i);
+                        if (leftRv.g(child) == this.c) {
+                            targetChild = child;
+                            break;
+                        }
+                    }
+                }
+
+                // 校验 child 仍存在、已附着并持有焦点
+                if (targetChild == null || !targetChild.isAttachedToWindow() || !targetChild.hasFocus()) return;
+
+                // 检查右侧 fragment 是否处于加载中，若在加载则不切换
+                Fragment frag = activity.h();
+                if (frag instanceof AttentionDynamicFragment) {
+                    AttentionDynamicFragment adf = (AttentionDynamicFragment) frag;
+                    if (adf.isLoading()) return;
+                }
+
+                // 二次校验通过后执行切换
+                activity.showVideoList(this.uperItems.get(this.c));
+            } catch (Exception ignored) {
             }
-            if (this.uperItems == null || this.c >= this.uperItems.size()) {
-                return;
-            }
-                // Runnable 不再由焦点自动触发；保留为空以避免并发问题
         }
     }
     

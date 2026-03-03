@@ -420,7 +420,8 @@ public class FavoriteSideActivity extends BaseSideActivity {
                         TextView textView = holder.n;
                         textView.setMaxLines(3);
                         activity.b(4);
-                        // 删除自动延迟切换，改为显式点击触发切换，避免在右侧动态加载时误切换
+                        // 安全版：安排延迟 Runnable，但在执行前做二次校验；同时保留点击触发
+                        view.postDelayed(a.this, 500L);
                         vVar.a.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -451,7 +452,40 @@ public class FavoriteSideActivity extends BaseSideActivity {
 
         @Override // java.lang.Runnable
         public void run() {
-            // 已移除自动切换逻辑，保留空实现以兼容旧代码对 Runnable 的引用
+            FavoriteSideActivity activity = this.a.get();
+            if (activity == null || activity.isFinishing()) return;
+            if (this.folders == null || this.c >= this.folders.size()) return;
+            try {
+                // 如果 adapter 行为被临时禁用，跳过
+                if (this.e) return;
+
+                // 在 RecyclerView 中找到对应 position 的 child
+                RecyclerView leftRv = activity.j();
+                View targetChild = null;
+                if (leftRv != null) {
+                    for (int i = 0; i < leftRv.getChildCount(); i++) {
+                        View child = leftRv.getChildAt(i);
+                        if (leftRv.g(child) == this.c) {
+                            targetChild = child;
+                            break;
+                        }
+                    }
+                }
+
+                // 校验 child 仍存在、已附着并持有焦点
+                if (targetChild == null || !targetChild.isAttachedToWindow() || !targetChild.hasFocus()) return;
+
+                // 检查右侧 fragment 是否处于加载中
+                Fragment frag = activity.h();
+                if (frag instanceof FavoriteVideoFragment) {
+                    FavoriteVideoFragment fv = (FavoriteVideoFragment) frag;
+                    if (fv.isLoading()) return;
+                }
+
+                // 二次校验通过后执行切换
+                activity.showVideoList(this.folders.get(this.c));
+            } catch (Exception ignored) {
+            }
         }
     }
 }

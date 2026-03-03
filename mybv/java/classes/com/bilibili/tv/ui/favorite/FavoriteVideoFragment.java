@@ -415,6 +415,10 @@ public final class FavoriteVideoFragment extends ady {
             });
     }
 
+    public boolean isLoading() {
+        return this.h;
+    }
+
     /* compiled from: BL */
     final class b extends vn<BiliFavVideoDetailList> {
         public b() {

@@ -161,6 +161,8 @@ public class ElseActivity extends BaseSideActivity {
                     public void onFocusChange(View view, boolean z) {
                         ElseActivity liveActivity = (ElseActivity) a.this.a.get();
                         if (!z) {
+                            // 失去焦点时取消延迟 runnable，防止在数据变更或视图重建期间触发切换
+                            view.removeCallbacks(a.this);
                             if (a.this.e) {
                                 return;
                             }
@@ -175,11 +177,19 @@ public class ElseActivity extends BaseSideActivity {
                             view.removeCallbacks(a.this);
                         }
                         a.this.c = f;
-                        view.postDelayed(a.this, 500L);
                         a.this.d = System.currentTimeMillis();
                         vVar.a.setSelected(true);
                         ((SideLeftSelectLinearLayout) vVar.a).a();
                         liveActivity.b(4);
+                        // 删除自动延迟切换，改为点击触发切换，避免在右侧动态加载或布局变更时误切换
+                        vVar.a.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ElseActivity act = (ElseActivity) a.this.a.get();
+                                if (act == null || act.isFinishing() || act.b == null) return;
+                                act.b.c(a.this.c);
+                            }
+                        });
                     }
                 });
             }
@@ -203,12 +213,7 @@ public class ElseActivity extends BaseSideActivity {
 
         @Override // java.lang.Runnable
         public void run() {
-            aeg2 aeg2Var;
-            ElseActivity liveActivity = this.a.get();
-            if (liveActivity == null || liveActivity.isFinishing() || liveActivity.b == null || liveActivity.getSupportFragmentManager() == null || (aeg2Var = liveActivity.b) == null) {
-                return;
-            }
-            aeg2Var.c(this.c);
+            // 已移除自动切换逻辑，保留空实现以兼容旧代码对 Runnable 的引用
         }
     }
 }
