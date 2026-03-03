@@ -195,7 +195,7 @@ public final class AttentionDynamicFragment extends ady {
         @Override // android.support.v7.widget.RecyclerView.m
         public void a(RecyclerView recyclerView, int i) {
             super.a(recyclerView, i);
-            if (AttentionDynamicFragment.this.h || !AttentionDynamicFragment.this.g || AttentionDynamicFragment.this.c == null) {
+            if (AttentionDynamicFragment.this.h || AttentionDynamicFragment.this.c == null) {
                 return;
             }
             int iP = this.b.p();
@@ -352,10 +352,18 @@ public final class AttentionDynamicFragment extends ady {
                                 c.b(list);
                             }
                             g = list.size() == 20;
-                            // 数据加载完成后，强制重新布局
                             View view = getView();
                             if (view != null) {
                                 view.requestLayout();
+                            }
+                            if (g && c.a() < 8) {
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                f++;
+                                AttentionDynamicFragment.this.b();
                             }
                             return;
                         }
