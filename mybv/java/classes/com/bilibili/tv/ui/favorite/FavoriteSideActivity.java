@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.TextView;
 import bl.adl;
 import bl.adw;
@@ -103,6 +104,21 @@ public class FavoriteSideActivity extends BaseSideActivity {
             if (currentFocus == null) {
                 return super.dispatchKeyEvent(keyEvent);
             }
+            // 预测 focusSearch 目标，拦截从右侧（fragment）向左侧跳转的导航，防止在右侧加载或视图变更时发生意外切换
+            if (keyCode == 20 || keyCode == 19) {
+                try {
+                    View predicted = currentFocus.focusSearch(keyCode == 20 ? View.FOCUS_DOWN : View.FOCUS_UP);
+                    View fragmentView = null;
+                    Fragment h = h();
+                    if (h != null && h.getView() != null) {
+                        fragmentView = h.getView();
+                    }
+                    if (predicted != null && isDescendantOf(j(), predicted) && isDescendantOf(fragmentView, currentFocus)) {
+                        return true;
+                    }
+                } catch (Exception ignored) {
+                }
+            }
             switch (keyCode) {
                 case 21:
                     if (TextUtils.equals((CharSequence) ((View) currentFocus.getParent()).getTag(), adw.a)) {
@@ -135,6 +151,20 @@ public class FavoriteSideActivity extends BaseSideActivity {
             return null;
         }
         return getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+    }
+
+    private boolean isDescendantOf(View parent, View child) {
+        if (parent == null || child == null) {
+            return false;
+        }
+        ViewParent p = child.getParent();
+        while (p instanceof View) {
+            if (p == parent) {
+                return true;
+            }
+            p = p.getParent();
+        }
+        return false;
     }
     
     private void loadAllFolders() {
@@ -362,9 +392,11 @@ public class FavoriteSideActivity extends BaseSideActivity {
                     public void onFocusChange(View view, boolean z) {
                         FavoriteSideActivity activity = a.this.a.get();
                         if (!z) {
-                            if (a.this.e) {
-                                return;
-                            }
+                                    // 失去焦点时取消延迟 runnable，防止在数据变更或视图重建期间触发切换
+                                    view.removeCallbacks(a.this);
+                                    if (a.this.e) {
+                                        return;
+                                    }
                             vVar.a.setSelected(false);
                             // 焦点移出时恢复为单行显示
                             TextView textView = holder.n;
@@ -379,7 +411,6 @@ public class FavoriteSideActivity extends BaseSideActivity {
                             view.removeCallbacks(a.this);
                         }
                         a.this.c = f;
-                        view.postDelayed(a.this, 500L);
                         a.this.d = System.currentTimeMillis();
                         vVar.a.setSelected(true);
                         if (vVar.a instanceof SideLeftSelectLinearLayout) {
@@ -389,6 +420,17 @@ public class FavoriteSideActivity extends BaseSideActivity {
                         TextView textView = holder.n;
                         textView.setMaxLines(3);
                         activity.b(4);
+                        // 删除自动延迟切换，改为显式点击触发切换，避免在右侧动态加载时误切换
+                        vVar.a.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                FavoriteSideActivity act = a.this.a.get();
+                                if (act == null || act.isFinishing()) {
+                                    return;
+                                }
+                                act.showVideoList(folder);
+                            }
+                        });
                     }
                 });
             }
@@ -409,13 +451,7 @@ public class FavoriteSideActivity extends BaseSideActivity {
 
         @Override // java.lang.Runnable
         public void run() {
-            FavoriteSideActivity activity = this.a.get();
-            if (activity == null || activity.isFinishing()) {
-                return;
-            }
-            if (this.folders != null && this.c < this.folders.size()) {
-                activity.showVideoList(this.folders.get(this.c));
-            }
+            // 已移除自动切换逻辑，保留空实现以兼容旧代码对 Runnable 的引用
         }
     }
 }

@@ -25,6 +25,8 @@ import bl.agf;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import com.bilibili.tv.widget.CircleImageView;
+import android.util.Log;
+import android.view.ViewParent;
 
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
@@ -145,8 +147,60 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
                     }
                     break;
             }
+
+            // 预测 focusSearch 的目标：若系统会把焦点移到左侧而右侧仍在加载，则吞掉按键
+            int dir = -1;
+            if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) dir = View.FOCUS_DOWN;
+            else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) dir = View.FOCUS_UP;
+            else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) dir = View.FOCUS_LEFT;
+            else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) dir = View.FOCUS_RIGHT;
+            if (dir != -1) {
+                try {
+                    View predicted = currentFocus.focusSearch(dir);
+                    if (predicted != null) {
+                        RecyclerView leftRv = j();
+                        if (leftRv != null && isDescendantOfView(predicted, leftRv)) {
+                            Fragment frag = h();
+                            if (frag instanceof AttentionDynamicFragment) {
+                                AttentionDynamicFragment adf = (AttentionDynamicFragment) frag;
+                                if (adf.isLoading()) {
+                                    Log.d("AttentionDynamicSideActivity", "Swallow key " + keyCode + " because right side loading and predicted focus on left");
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                } catch (Exception ignored) {
+                }
+            }
         }
         return super.dispatchKeyEvent(keyEvent);
+    }
+
+    private boolean isDescendantOfFragment(View view, Fragment fragment) {
+        if (view == null || fragment == null) return false;
+        View fragView = fragment.getView();
+        if (fragView == null) return false;
+        View cur = view;
+        while (cur != null) {
+            if (cur == fragView) return true;
+            ViewParent parent = cur.getParent();
+            if (!(parent instanceof View)) break;
+            cur = (View) parent;
+        }
+        return false;
+    }
+
+    private boolean isDescendantOfView(View view, View parentView) {
+        if (view == null || parentView == null) return false;
+        View cur = view;
+        while (cur != null) {
+            if (cur == parentView) return true;
+            ViewParent parent = cur.getParent();
+            if (!(parent instanceof View)) break;
+            cur = (View) parent;
+        }
+        return false;
     }
 
     @Override // com.bilibili.tv.ui.base.BaseSideActivity
@@ -247,10 +301,12 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
                 focusedPosition = -1;
             }
             
+            // 禁止 adapter 在数据更新期间触发其延迟 runnable 导致切换
+            c.b(true);
             // 更新数据
             c.d();
-            
-            // 恢复焦点位置
+
+            // 恢复焦点位置，并在恢复后允许 adapter 响应焦点事件
             if (focusedPosition != -1 && focusedPosition < uperItems.size()) {
                 recyclerView.post(new Runnable() {
                     @Override
@@ -262,17 +318,24 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
                                 int childPosition = recyclerView.g(child);
                                 if (childPosition == focusedPosition) {
                                     child.requestFocus();
+                                    // 允许 adapter 响应
+                                    c.b(false);
                                     return;
                                 }
                             }
                             // 如果找不到原来的位置，焦点移动到第一个可见项
                             recyclerView.getChildAt(0).requestFocus();
                         }
+                        c.b(false);
                     }
                 });
+            } else {
+                // 没有原焦点，立即恢复 adapter 行为
+                c.b(false);
             }
         }
-        if (!uperItems.isEmpty()) {
+        // 仅在未选择任何项时，才默认显示第一个视频列表，避免数据更新时强制切换
+        if (!uperItems.isEmpty() && selectedItem == null) {
             showVideoList(uperItems.get(0));
         }
     }
@@ -362,9 +425,11 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
                     public void onFocusChange(View view, boolean z) {
                         AttentionDynamicSideActivity activity = a.this.a.get();
                         if (!z) {
-                            if (a.this.e) {
-                                return;
-                            }
+                                    // 失去焦点时取消延迟 runnable，防止在数据变更或视图重建期间触发切换
+                                    view.removeCallbacks(a.this);
+                                    if (a.this.e) {
+                                        return;
+                                    }
                             vVar.a.setSelected(false);
                             // 焦点移出时恢复为单行显示
                             TextView textView = holder.n;
@@ -375,12 +440,17 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
                             return;
                         }
                         int f = vVar.f();
-                        if (System.currentTimeMillis() - a.this.d < 500) {
-                            view.removeCallbacks(a.this);
-                        }
+                        // 自动切换逻辑已移除：不再 postDelayed 自动调用 showVideoList
                         a.this.c = f;
-                        view.postDelayed(a.this, 500L);
-                        a.this.d = System.currentTimeMillis();
+                        // 点击或确认键触发切换（显式确认）
+                        vVar.a.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                AttentionDynamicSideActivity act = a.this.a.get();
+                                if (act == null || act.isFinishing()) return;
+                                act.showVideoList(item);
+                            }
+                        });
                         vVar.a.setSelected(true);
                         if (vVar.a instanceof SideLeftSelectLinearLayout) {
                             ((SideLeftSelectLinearLayout) vVar.a).a();
@@ -413,9 +483,10 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
             if (activity == null || activity.isFinishing()) {
                 return;
             }
-            if (this.uperItems != null && this.c < this.uperItems.size()) {
-                activity.showVideoList(this.uperItems.get(this.c));
+            if (this.uperItems == null || this.c >= this.uperItems.size()) {
+                return;
             }
+                // Runnable 不再由焦点自动触发；保留为空以避免并发问题
         }
     }
     

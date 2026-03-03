@@ -89,6 +89,7 @@ public final class AttentionDynamicFragment extends ady {
     public void a(RecyclerView recyclerView, Bundle bundle) {
         bbi.b(recyclerView, "recyclerView");
         super.a(recyclerView, bundle);
+        this.mRecyclerView = recyclerView;
         SideRightGridLayoutManger sideRightGridLayoutManger = new SideRightGridLayoutManger(getActivity(), j);
         FragmentActivity activity = getActivity();
         if (activity == null) {
@@ -108,6 +109,29 @@ public final class AttentionDynamicFragment extends ady {
         this.d = new b();
         b();
         // recyclerView.requestLayout();
+    }
+
+    // 保存 RecyclerView 引用，用于外部判断是否在底部
+    private RecyclerView mRecyclerView;
+
+    // 外部判断当前 Fragment 是否正在加载下一页
+    public boolean isLoading() {
+        return this.h;
+    }
+
+    // 外部判断右侧列表是否已经到达底部
+    public boolean isAtBottom() {
+        if (this.mRecyclerView == null) return false;
+        Object lm = this.mRecyclerView.getLayoutManager();
+        if (lm instanceof SideRightGridLayoutManger) {
+            SideRightGridLayoutManger s = (SideRightGridLayoutManger) lm;
+            try {
+                return s.p() >= s.H() - 1;
+            } catch (Exception ignored) {
+                return false;
+            }
+        }
+        return false;
     }
 
     /* compiled from: BL */
