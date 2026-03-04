@@ -12,11 +12,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.ImageView;
 import android.widget.TextView;
 import bl.abc;
@@ -480,6 +482,59 @@ public final class MainActivity extends BaseActivity {
         if (dVar != null) {
             dVar.b(true);
         }
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent keyEvent) {
+        int action = keyEvent.getAction();
+        int keyCode = keyEvent.getKeyCode();
+        if (action == 0) {
+            View currentFocus = getCurrentFocus();
+            if (currentFocus == null) {
+                return super.dispatchKeyEvent(keyEvent);
+            }
+
+            // 预测 focusSearch 的目标：若系统会把焦点移到上方标题而下方列表正在加载，则吞掉按键
+            int dir = -1;
+            if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) dir = View.FOCUS_DOWN;
+            else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) dir = View.FOCUS_UP;
+            else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) dir = View.FOCUS_LEFT;
+            else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) dir = View.FOCUS_RIGHT;
+            if (dir != -1) {
+                try {
+                    View predicted = currentFocus.focusSearch(dir);
+                    if (predicted != null) {
+                        RecyclerView titleRv = this.c;
+                        if (titleRv != null && isDescendantOfView(predicted, titleRv)) {
+                            // 预测焦点会跳到上方标题栏
+                            aey a2 = MainActivity.a(MainActivity.this);
+                            Fragment a3 = a2 != null ? a2.a() : null;
+                            if (a3 instanceof com.bilibili.tv.ui.main.content.MainRecommendFragment) {
+                                com.bilibili.tv.ui.main.content.MainRecommendFragment fragment = (com.bilibili.tv.ui.main.content.MainRecommendFragment) a3;
+                                if (fragment.isLoading()) {
+                                    // 下方列表正在加载，吞掉按键
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                } catch (Exception ignored) {
+                }
+            }
+        }
+        return super.dispatchKeyEvent(keyEvent);
+    }
+
+    private boolean isDescendantOfView(View view, View parentView) {
+        if (view == null || parentView == null) return false;
+        View cur = view;
+        while (cur != null) {
+            if (cur == parentView) return true;
+            ViewParent parent = cur.getParent();
+            if (!(parent instanceof View)) break;
+            cur = (View) parent;
+        }
+        return false;
     }
 
     @Override // android.support.v7.app.AppCompatActivity, android.app.Activity, android.view.KeyEvent.Callback

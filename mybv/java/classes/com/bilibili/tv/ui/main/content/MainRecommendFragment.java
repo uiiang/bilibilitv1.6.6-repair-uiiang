@@ -98,7 +98,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                     bbi.a();
                 }
                 
-                if (MainRecommendFragment.this.isLoadingMore || !MainRecommendFragment.this.hasMoreData) {
+                if (MainRecommendFragment.this.isLoadingMore) {
                     return view;
                 }
                 
@@ -253,6 +253,10 @@ public final class MainRecommendFragment extends adu implements aez, wf {
             return;
         }
         c2.requestFocus();
+    }
+
+    public boolean isLoading() {
+        return this.isLoadingMore;
     }
 
     @Override // bl.aez
