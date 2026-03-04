@@ -131,16 +131,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
         recyclerView.setAdapter(this.a);
         getRecommendVideos();
 
-        recyclerView.setRecycledViewPool(new MyRecycledViewPool());
         recyclerView.a(new g());
-    }
-
-    static final class MyRecycledViewPool extends RecyclerView.n {
-        @Override
-        public void a(RecyclerView.v vVar){}
-
-        @Override
-        public RecyclerView.v a(int i) {return null;}
     }
     
     public final class g extends RecyclerView.m {
@@ -451,7 +442,6 @@ public final class MainRecommendFragment extends adu implements aez, wf {
 
         @Override // android.support.v7.widget.RecyclerView.a
         public void a(adv advVar, int i) {
-            bbi.b(advVar, "viewHolder");
             if (advVar instanceof e) {
                 advVar.a.setTag(R.id.position, Integer.valueOf(i));
                 if (this.ugcList.size() < i + 1) {
@@ -464,7 +454,10 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                 if (content == null) {
                     advVar.a.setFocusable(false);
                     advVar.a.setVisibility(View.GONE);
-                    advVar.a.getLayoutParams().width=0;
+                    ViewGroup.LayoutParams params = advVar.a.getLayoutParams();
+                    if (params != null) {
+                        params.width = 0;
+                    }
                     return;
                 }
                 advVar.a.setFocusable(true);
@@ -475,12 +468,10 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                 if (!TextUtils.isEmpty(content.getCover())) {
                     nv a4 = nv.a();
                     MainApplication a5 = MainApplication.a();
-                    bbi.a((Object) a5, "MainApplication.getInstance()");
                     a4.a(ach.a(a5.getApplicationContext(), content.getCover(), this.e, this.f), eVar.A());
                 }
                 if (!TextUtils.isEmpty(content.getUri())) {
                     View view2 = advVar.a;
-                    bbi.a((Object) view2, "viewHolder.itemView");
                     view2.setTag(content.getUri());
                 }
                 advVar.a.setTag(R.id.report_position, Integer.valueOf(i + 1));
@@ -570,8 +561,6 @@ public final class MainRecommendFragment extends adu implements aez, wf {
         /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
         public a(View view, WeakReference<MainRecommendFragment> weakReference) {
             super(view);
-            bbi.b(view, "itemView");
-            bbi.b(weakReference, "mWeakReference");
             this.r = weakReference;
             this.n = (TextView) a(view, R.id.title);
             this.o = (ScalableImageView) a(view, R.id.img);
@@ -641,13 +630,14 @@ public final class MainRecommendFragment extends adu implements aez, wf {
 
         @Override // android.view.View.OnFocusChangeListener
         public void onFocusChange(View view, boolean z) {
-            bbi.b(view, "v");
             MainRecommendFragment MainRecommendFragmentVar = this.r.get();
-            Object tag = view.getTag(R.id.position);
-            if (MainRecommendFragmentVar == null || tag == null) {
+            if (MainRecommendFragmentVar == null) {
                 return;
             }
-            MainRecommendFragmentVar.c = ((Integer) tag).intValue();
+            Object tag = view.getTag(R.id.position);
+            if (tag != null) {
+                MainRecommendFragmentVar.c = ((Integer) tag).intValue();
+            }
             adj.a(view, z);
             this.q.setUpEnabled(z);
             this.n.setSelected(z);
@@ -667,17 +657,12 @@ public final class MainRecommendFragment extends adu implements aez, wf {
         /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
         public e(View view, WeakReference<MainRecommendFragment> weakReference) {
             super(view);
-            bbi.b(view, "itemView");
-            bbi.b(weakReference, "mWeakReference");
             this.r = weakReference;
             this.n = (TextView) a(view, R.id.title);
             this.o = (ScalableImageView) a(view, R.id.img);
             this.p = (ScalableImageView) a(view, R.id.black_img);
             this.q = (DrawFrameLayout) view;
             this.q.setUpDrawable(R.drawable.shadow_item_main);
-            float b = adl.b(R.dimen.px_24);
-            this.p.a(0.0f, 0.0f, b, b);
-            nv.a().a(R.drawable.background_main_recommend, this.p);
             view.setOnClickListener(this);
             view.setOnFocusChangeListener(this);
         }
@@ -739,13 +724,14 @@ public final class MainRecommendFragment extends adu implements aez, wf {
 
         @Override // android.view.View.OnFocusChangeListener
         public void onFocusChange(View view, boolean z) {
-            bbi.b(view, "v");
             MainRecommendFragment MainRecommendFragmentVar = this.r.get();
-            Object tag = view.getTag(R.id.position);
-            if (MainRecommendFragmentVar == null || tag == null) {
+            if (MainRecommendFragmentVar == null) {
                 return;
             }
-            MainRecommendFragmentVar.c = ((Integer) tag).intValue();
+            Object tag = view.getTag(R.id.position);
+            if (tag != null) {
+                MainRecommendFragmentVar.c = ((Integer) tag).intValue();
+            }
             adj.a(view, z);
             this.q.setUpEnabled(z);
             this.n.setSelected(z);

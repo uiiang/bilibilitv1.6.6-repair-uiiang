@@ -44,7 +44,7 @@ public final class MainMyFragment extends adu implements aez, wf {
     private b b;
     private boolean c;
 
-    public static int[] MyMap={0,1,2,3,4,5};
+    public static int[] MyMap={0,1,2,3,4};
 
     @Override // bl.wf
     public String a() {
@@ -269,9 +269,9 @@ public final class MainMyFragment extends adu implements aez, wf {
     /* compiled from: BL */
     /* loaded from: classes.dex */
     static final class b extends RecyclerView.a<adv> implements View.OnClickListener {
-        private final int[] titles = {R.string.login, R.string.my_attention, R.string.my_toview, R.string.my_follow, R.string.my_favorite, R.string.my_history};
-        private final int[] colors = {R.color.color_1, R.color.color_2, R.color.color_3, R.color.color_4, R.color.color_5, R.color.color_6};
-        private final int[] logos = {R.drawable.ic_user_center_default_avatar, R.drawable.ic_group_180, R.drawable.ic_toview_180, R.drawable.ic_user_center_follow_bangumi, R.drawable.ic_user_center_star, R.drawable.ic_user_center_history};
+        private final int[] titles = {R.string.login, R.string.my_attention, R.string.my_toview, R.string.my_favorite, R.string.my_history};
+        private final int[] colors = {R.color.color_1, R.color.color_2, R.color.color_3, R.color.color_5, R.color.color_6};
+        private final int[] logos = {R.drawable.ic_user_center_default_avatar, R.drawable.ic_group_180, R.drawable.ic_toview_180, R.drawable.ic_user_center_star, R.drawable.ic_user_center_history};
         private AccountInfo d;
         private boolean e;
         private int f;
@@ -448,20 +448,10 @@ public final class MainMyFragment extends adu implements aez, wf {
                             this.f = intValue;
                             return;
                         }
-                        // 跳转到新的动态页面（左右分栏）
-                        AttentionDynamicSideActivity.a(a2);
-                        ok.a("tv_my_attention_click", "action", "1");
-                        return;
-                    case 4:
-                        if (!this.e) {
-                            LoginActivity.Companion.a(a2, MainActivity.Companion.a());
-                            this.f = intValue;
-                            return;
-                        }
                         FavoriteSideActivity.a(a2);
                         ok.a("tv_my_favourite_click", "action", "1");
                         return;
-                    case 5:
+                    case 4:
                         VideoHistoryActivity.Companion.a(a2, VideoHistoryActivity.Companion.b());
                         return;
                     default:
