@@ -13,6 +13,7 @@ import com.bilibili.tv.api.video.BiliVideoDetail;
 import com.bilibili.tv.player.PlayerActivity;
 import com.bilibili.tv.player.basic.context.PlayerParams;
 import com.bilibili.tv.player.basic.context.ResolveResourceParams;
+import com.bilibili.tv.ui.video.VideoDetailActivity;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
@@ -73,6 +74,7 @@ public class xg {
                     resolveResourceParams.mRawVid = bangumiEpisodeEx.vid;
                     resolveResourceParams.mEpCover = bangumiEpisodeEx.cover;
                     resolveResourceParams.mExpectedQuality = obtainResolveParams.mExpectedQuality;
+                    resolveResourceParams.mNoHistoryPlay = VideoDetailActivity.sNoHistoryPlayMode;
                     obtainResolveParamsArray[i3] = resolveResourceParams;
                 }
             }
@@ -114,6 +116,7 @@ public class xg {
         obtainResolveParams.mTid = biliVideoDetail.mTid;
 
         obtainResolveParams.mBvid = biliVideoDetail.mBvid;
+        obtainResolveParams.mNoHistoryPlay = VideoDetailActivity.sNoHistoryPlayMode;
         if (i > 0) {
             obtainResolveParams.mExpectedQuality = i;
         }
@@ -144,6 +147,7 @@ public class xg {
                 } else {
                     resolveResourceParams.mExpectedQuality = obtainResolveParams.mExpectedQuality;
                 }
+                resolveResourceParams.mNoHistoryPlay = VideoDetailActivity.sNoHistoryPlayMode;
                 obtainResolveParamsArray[i3] = resolveResourceParams;
             }
             a(context, a, bundle);
@@ -173,6 +177,7 @@ public class xg {
                 } else {
                     resolveResourceParams.mExpectedQuality = obtainResolveParams.mExpectedQuality;
                 }
+                resolveResourceParams.mNoHistoryPlay = VideoDetailActivity.sNoHistoryPlayMode;
                 obtainResolveParamsArray[i3] = resolveResourceParams;
             }
             a(context, a, bundle);
@@ -204,6 +209,7 @@ public class xg {
 
         obtainResolveParams.mBvid = biliVideoDetail.mBvid;
         obtainResolveParams.mProgress = progress;
+        obtainResolveParams.mNoHistoryPlay = VideoDetailActivity.sNoHistoryPlayMode;
 
         if (i > 0) {
             obtainResolveParams.mExpectedQuality = i;
@@ -235,6 +241,7 @@ public class xg {
                 } else {
                     resolveResourceParams.mExpectedQuality = obtainResolveParams.mExpectedQuality;
                 }
+                resolveResourceParams.mNoHistoryPlay = VideoDetailActivity.sNoHistoryPlayMode;
                 obtainResolveParamsArray[i3] = resolveResourceParams;
             }
             a(activity, a, bundle, requestCode);
@@ -264,6 +271,7 @@ public class xg {
                 } else {
                     resolveResourceParams.mExpectedQuality = obtainResolveParams.mExpectedQuality;
                 }
+                resolveResourceParams.mNoHistoryPlay = VideoDetailActivity.sNoHistoryPlayMode;
                 obtainResolveParamsArray[i3] = resolveResourceParams;
             }
             a(activity, a, bundle, requestCode);
@@ -285,6 +293,7 @@ public class xg {
             playerParams.mVideoParams.mResolveParamsArray = playerParams.mVideoParams.obtainResolveParamsArray(1);
             playerParams.mVideoParams.mResolveParamsArray[0] = playerParams.mVideoParams.obtainResolveParams();
         }
+        playerParams.mVideoParams.mResolveParamsArray[0].mNoHistoryPlay = VideoDetailActivity.sNoHistoryPlayMode;
         Intent intent = PlayerActivity.a(activity, playerParams);
         intent.setFlags(0);
         activity.startActivityForResult(intent, requestCode);

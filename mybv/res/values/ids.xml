@@ -305,4 +305,9 @@
     <item type="id" name="video_history_play_img" />
     <item type="id" name="video_re_play_btn" />
     <item type="id" name="video_re_play_btn_layout" />
+    <item type="id" name="video_no_history_play_btn_layout" />
+    <item type="id" name="video_no_history_play_btn" />
+    <item type="id" name="video_no_history_play_checkbox" />
+
+    
 </resources>

@@ -13,6 +13,9 @@ public class zk {
         if (resolveResourceParams.mAvid <= 0 && resolveResourceParams.mEpisodeId <= 0) {
             return false;
         }
+        if (resolveResourceParams.mNoHistoryPlay) {
+            return false;
+        }
         try {
             zq.a(zmVar.h, zmVar.l, zmVar.i, zmVar.j, zmVar.o, zmVar.k, zmVar.p, zmVar.n, zmVar.m, zmVar.q, 1, "0");
         } catch (Exception e) {

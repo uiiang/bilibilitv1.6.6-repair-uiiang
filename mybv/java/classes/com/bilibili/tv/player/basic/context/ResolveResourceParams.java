@@ -75,6 +75,7 @@ public class ResolveResourceParams implements Parcelable, Serializable {
     public String mWeb;
 
     public int mProgress;
+    public boolean mNoHistoryPlay;
     public String mBvid;
 
     public JSONArray skips;
@@ -302,6 +303,7 @@ public class ResolveResourceParams implements Parcelable, Serializable {
 
         parcel.writeInt(this.mProgress);
         parcel.writeString(this.mBvid);
+        parcel.writeByte(this.mNoHistoryPlay ? (byte) 1 : (byte) 0);
         
         // 写入章节列表信息
         if (this.view_points != null) {
@@ -342,6 +344,7 @@ public class ResolveResourceParams implements Parcelable, Serializable {
 
         this.mProgress = parcel.readInt();
         this.mBvid = parcel.readString();
+        this.mNoHistoryPlay = parcel.readByte() != 0;
         
         // 读取章节列表信息
         String viewPointsStr = parcel.readString();

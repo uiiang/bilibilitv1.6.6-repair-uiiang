@@ -17,6 +17,10 @@ public final class zn {
         if (zoVar.a() == 0 || playerParams == null || context == null) {
             return;
         }
+        ResolveResourceParams resolveResourceParams = playerParams.mVideoParams.obtainResolveParams();
+        if (resolveResourceParams != null && resolveResourceParams.mNoHistoryPlay) {
+            return;
+        }
         kn a = kn.a();
         bbi.a((Object) a, "ConnectivityMonitor.getInstance()");
         if (a.c()) {
@@ -28,9 +32,9 @@ public final class zn {
             String str2 = str == null ? "3" : "4";
             VideoViewParams videoViewParams = playerParams.mVideoParams;
             int i5 = a(playerParams, videoViewParams != null ? videoViewParams.obtainResolveParams() : null, yhVar)[1];
-            ResolveResourceParams resolveResourceParams = playerParams.mVideoParams.mResolveParams;
-            bbi.a((Object) resolveResourceParams, "playerParams.mVideoParams.mResolveParams");
-            int qualityInt = resolveResourceParams.getQualityInt();
+            ResolveResourceParams resolveParams = playerParams.mVideoParams.mResolveParams;
+            bbi.a((Object) resolveParams, "playerParams.mVideoParams.mResolveParams");
+            int qualityInt = resolveParams.getQualityInt();
             long j2 = i / 1000;
             String str3 = str != null ? "2" : "1";
             int i6 = bbi.a((Object) "downloaded", (Object) playerParams.mVideoParams.obtainResolveParams().mFrom) ? 2 : 1;

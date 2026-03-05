@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.CheckBox;
 import bl.abi;
 import bl.ach;
 import bl.adc;
@@ -116,8 +117,12 @@ public final class VideoDetailActivity extends BaseActivity
     private DrawLinearLayout rePlayBtnLayout;
     private DrawTextView historyPlayBtn;
     private DrawTextView rePlayBtn;
+    private DrawLinearLayout noHistoryPlayBtnLayout;
+    private CheckBox noHistoryPlayCheckBox;
+    private DrawTextView noHistoryPlayBtn;
     private TextView historyTitle;
     private TextView historyProgress;
+    public static boolean sNoHistoryPlayMode = false;
     private long s;
     private List<BiliVideoDetail.Page> t;
 
@@ -399,6 +404,16 @@ public final class VideoDetailActivity extends BaseActivity
         }
         this.historyPlayBtn = (DrawTextView) d(R.id.video_history_play_btn);
         this.rePlayBtn = (DrawTextView) d(R.id.video_re_play_btn);
+        this.noHistoryPlayBtnLayout = (DrawLinearLayout) d(R.id.video_no_history_play_btn_layout);
+        this.noHistoryPlayCheckBox = (CheckBox) d(R.id.video_no_history_play_checkbox);
+        this.noHistoryPlayBtn = (DrawTextView) d(R.id.video_no_history_play_btn);
+        if (this.noHistoryPlayBtnLayout != null) {
+            this.noHistoryPlayBtnLayout.setOnFocusChangeListener(new d());
+            this.noHistoryPlayBtnLayout.setUpDrawable(R.drawable.shadow_red_rect);
+        }
+        if (this.noHistoryPlayBtn != null) {
+            this.noHistoryPlayBtn.setText("无痕播放");
+        }
         this.historyTitle = (TextView) d(R.id.video_history_title);
         this.historyProgress = (TextView) d(R.id.video_history_progress);
         this.scrollView = (ScrollView) d(R.id.scrollView);
@@ -616,13 +631,16 @@ public final class VideoDetailActivity extends BaseActivity
                         }
                         historyPlayBtnLayout.requestFocus();
                         return true;
+                    } else if (rePlayBtnLayout != null && rePlayBtnLayout.getVisibility() == View.VISIBLE) {
+                        rePlayBtnLayout.requestFocus();
+                        return true;
                     }
                 }
-                if (currentFocus.getId() == R.id.video_history_play_btn_layout || currentFocus.getId() == R.id.video_re_play_btn_layout) {
+                if (currentFocus.getId() == R.id.video_history_play_btn_layout || currentFocus.getId() == R.id.video_re_play_btn_layout || currentFocus.getId() == R.id.video_no_history_play_btn_layout) {
                     return super.dispatchKeyEvent(keyEvent);
                 }
             } else if (valueOf2 != null && valueOf2.intValue() == KeyEvent.KEYCODE_DPAD_DOWN) {
-                if (currentFocus.getId() == R.id.video_history_play_btn_layout || currentFocus.getId() == R.id.video_re_play_btn_layout) {
+                if (currentFocus.getId() == R.id.video_history_play_btn_layout || currentFocus.getId() == R.id.video_re_play_btn_layout || currentFocus.getId() == R.id.video_no_history_play_btn_layout) {
                     if (this.o != null && this.o.getVisibility() == View.VISIBLE && this.o.getChildCount() > 0) {
                         int savedPosition = Math.min(epLayoutFocusPosition, this.o.getChildCount() - 1);
                         savedPosition = Math.max(0, savedPosition);
@@ -956,6 +974,9 @@ public final class VideoDetailActivity extends BaseActivity
         }
         if (biliVideoDetail == null) {
             historyContainer.setVisibility(View.GONE);
+            if (noHistoryPlayBtnLayout != null) {
+                noHistoryPlayBtnLayout.setVisibility(View.VISIBLE);
+            }
             return;
         } else {
             historyContainer.setVisibility(View.VISIBLE);
@@ -965,6 +986,12 @@ public final class VideoDetailActivity extends BaseActivity
             historyTitle.setVisibility(View.GONE);
             historyProgress.setVisibility(View.GONE);
             historyContainer.setVisibility(View.GONE);
+            if (noHistoryPlayBtnLayout != null) {
+                noHistoryPlayBtnLayout.setVisibility(View.VISIBLE);
+                if (historyPlayBtnLayout != null) {
+                    historyPlayBtnLayout.setNextFocusRightId(R.id.video_no_history_play_btn_layout);
+                }
+            }
         } else {
             int episodeCount = 0;
             if (biliVideoDetail.episodes != null) {
@@ -993,12 +1020,21 @@ public final class VideoDetailActivity extends BaseActivity
             }
             historyPlayBtn.setText("继续播放");
             rePlayBtn.setText("重新播放");
+            if (noHistoryPlayBtnLayout != null) {
+                noHistoryPlayBtnLayout.setVisibility(View.GONE);
+            }
+            if (historyPlayBtnLayout != null) {
+                historyPlayBtnLayout.setNextFocusRightId(R.id.video_re_play_btn_layout);
+            }
         }
         final BiliVideoDetail finalBiliVideoDetail = biliVideoDetail;
         if (historyPlayBtnLayout != null) {
             historyPlayBtnLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (noHistoryPlayCheckBox != null) {
+                        sNoHistoryPlayMode = noHistoryPlayCheckBox.isChecked();
+                    }
                     if (finalBiliVideoDetail != null && finalBiliVideoDetail.mHistory != null) {
                         long historyCid = finalBiliVideoDetail.mHistory.mCid;
                         int historyProgressVal = finalBiliVideoDetail.mHistory.mProgress;
@@ -1018,7 +1054,6 @@ public final class VideoDetailActivity extends BaseActivity
                         long historyCid = finalBiliVideoDetail.mHistory.mCid;
                         int oldProgress = finalBiliVideoDetail.mHistory.mProgress;
                         Log.d("VideoDetail", "重新播放前: cid=" + historyCid + ", oldProgress=" + oldProgress);
-                        // 重新播放时清除历史进度
                         finalBiliVideoDetail.mHistory.mProgress = 0;
                         Log.d("VideoDetail", "重新播放后: mProgress=" + finalBiliVideoDetail.mHistory.mProgress);
                         playVideo(finalBiliVideoDetail, historyCid, 0);
@@ -1026,6 +1061,33 @@ public final class VideoDetailActivity extends BaseActivity
                         Log.d("VideoDetail", "重新播放: 没有历史记录");
                         playVideo(finalBiliVideoDetail, 0, 0);
                     }
+                }
+            });
+        }
+        if (noHistoryPlayBtnLayout != null) {
+            final BiliVideoDetail finalBiliVideoDetail2 = biliVideoDetail;
+            noHistoryPlayBtnLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (noHistoryPlayCheckBox != null) {
+                        boolean newState = !noHistoryPlayCheckBox.isChecked();
+                        noHistoryPlayCheckBox.setChecked(newState);
+                        sNoHistoryPlayMode = newState;
+                        Log.d("VideoDetail", "无痕播放复选框状态切换: isChecked=" + newState + ", sNoHistoryPlayMode=" + sNoHistoryPlayMode);
+                    }
+                }
+            });
+        }
+        if (noHistoryPlayBtn != null) {
+            final BiliVideoDetail finalBiliVideoDetail3 = biliVideoDetail;
+            noHistoryPlayBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (noHistoryPlayCheckBox != null) {
+                        sNoHistoryPlayMode = noHistoryPlayCheckBox.isChecked();
+                    }
+                    Log.d("VideoDetail", "无痕播放按钮点击: sNoHistoryPlayMode=" + sNoHistoryPlayMode);
+                    playVideo(finalBiliVideoDetail3, 0, 0);
                 }
             });
         }

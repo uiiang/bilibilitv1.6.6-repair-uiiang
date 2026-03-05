@@ -137,6 +137,7 @@
                         android:layout_width="wrap_content" android:minWidth="@dimen/px_100"
                         android:layout_height="@dimen/px_80">
                         <ImageView android:id="@+id/video_history_play_img"
+                            android:focusable="false"
                             android:background="@drawable/ic_play_arrow_white_48dp"
                             android:layout_width="@dimen/px_48"
                             android:layout_height="@dimen/px_48"
@@ -146,6 +147,33 @@
                         <com.bilibili.tv.widget.DrawTextView android:textSize="@dimen/px_36"
                             android:textColor="@color/white" android:gravity="center"
                             android:id="@+id/video_history_play_btn" android:focusable="false"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="@dimen/px_26" />
+                    </com.bilibili.tv.widget.DrawLinearLayout>
+                    <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:id="@+id/video_no_history_play_btn_layout"
+                        android:background="@drawable/background_white_rect"
+                        android:focusable="true" android:focusableInTouchMode="true"
+                        android:visibility="gone"
+                        android:nextFocusLeft="@id/video_history_play_btn_layout"
+                        android:nextFocusRight="@id/video_re_play_btn_layout"
+                        android:clipToPadding="false"
+                        android:layout_width="wrap_content" android:minWidth="@dimen/px_100"
+                        android:layout_height="@dimen/px_80"
+                        android:layout_marginLeft="@dimen/px_10">
+                        <CheckBox android:id="@+id/video_no_history_play_checkbox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/px_20"
+                            android:layout_marginRight="@dimen/px_10"
+                            android:scaleX="1.3"
+                            android:scaleY="1.3"
+                            android:focusable="false" />
+                        <com.bilibili.tv.widget.DrawTextView android:textSize="@dimen/px_36"
+                            android:textColor="@color/white" android:gravity="center"
+                            android:id="@+id/video_no_history_play_btn" android:focusable="false"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginRight="@dimen/px_26" />

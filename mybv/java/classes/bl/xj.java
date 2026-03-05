@@ -115,7 +115,8 @@ public class xj extends xh {
         }
         PlayerParams b = b();
         if (b != null) {
-            a(b.mVideoParams.obtainResolveParams());
+            ResolveResourceParams resolveParams = b.mVideoParams.obtainResolveParams();
+            a(resolveParams);
         }
     }
 
@@ -124,6 +125,7 @@ public class xj extends xh {
         if (resolveResourceParams == null) {
             return;
         }
+        boolean noHistoryPlay = resolveResourceParams.mNoHistoryPlay;
         long i = resolveResourceParams.mCid;
         long i2 = resolveResourceParams.mAvid;
         int i3 = this.i;
@@ -140,7 +142,7 @@ public class xj extends xh {
         } else {
             j = 0;
         }
-        zq.a(p(), i, i2, j2, j, b, i4, 1L);
+        zq.a(p(), i, i2, j2, j, b, i4, 1L, noHistoryPlay);
     }
 
     private int b(ResolveResourceParams resolveResourceParams) {

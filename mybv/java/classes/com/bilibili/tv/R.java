@@ -2493,6 +2493,9 @@ public final class R {
         public static final int video_history_play_img = 0x7f080193;
         public static final int video_re_play_btn = 0x7f080194;
         public static final int video_re_play_btn_layout = 0x7f080195;
+        public static final int video_no_history_play_btn_layout = 0x7f080196;
+        public static final int video_no_history_play_btn = 0x7f080197;
+        public static final int video_no_history_play_checkbox = 0x7f080198;
     }
 
     public static final class integer {
