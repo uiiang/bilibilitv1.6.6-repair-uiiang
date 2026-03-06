@@ -412,7 +412,7 @@ public final class VideoDetailActivity extends BaseActivity
             this.noHistoryPlayBtnLayout.setUpDrawable(R.drawable.shadow_red_rect);
         }
         if (this.noHistoryPlayBtn != null) {
-            this.noHistoryPlayBtn.setText("无痕播放");
+            this.noHistoryPlayBtn.setText("无痕模式");
         }
         this.historyTitle = (TextView) d(R.id.video_history_title);
         this.historyProgress = (TextView) d(R.id.video_history_progress);
@@ -947,6 +947,13 @@ public final class VideoDetailActivity extends BaseActivity
         if (biliVideoDetail == null) {
             return null;
         }
+        if (biliVideoDetail.mPageList != null) {
+            for (BiliVideoDetail.Page page : biliVideoDetail.mPageList) {
+                if (page.mCid == cid) {
+                    return page.mPage + " : " + page.mTitle;
+                }
+            }
+        }
         if (biliVideoDetail.episodes != null) {
             for (int i = 0; i < biliVideoDetail.episodes.size(); i++) {
                 JSONObject episode = biliVideoDetail.episodes.getJSONObject(i);
@@ -955,13 +962,6 @@ public final class VideoDetailActivity extends BaseActivity
                     if (page.containsKey("cid") && page.getLongValue("cid") == cid) {
                         return episode.getString("title");
                     }
-                }
-            }
-        }
-        if (biliVideoDetail.mPageList != null) {
-            for (BiliVideoDetail.Page page : biliVideoDetail.mPageList) {
-                if (page.mCid == cid) {
-                    return page.mTitle;
                 }
             }
         }
@@ -1940,7 +1940,8 @@ public final class VideoDetailActivity extends BaseActivity
         public void b(Object obj) {
             if (obj instanceof BiliVideoDetail.Page) {
                 BiliVideoDetail.Page page = (BiliVideoDetail.Page) obj;
-                this.n.setText(TextUtils.isEmpty(page.mTitle) ? "点击播放" : page.mTitle);
+                String displayText = TextUtils.isEmpty(page.mTitle) ? "点击播放" : (page.mPage + " : " + page.mTitle);
+                this.n.setText(displayText);
                 this.n.setTag(obj);
                 this.a.setOnClickListener(this);
                 View view = this.a;

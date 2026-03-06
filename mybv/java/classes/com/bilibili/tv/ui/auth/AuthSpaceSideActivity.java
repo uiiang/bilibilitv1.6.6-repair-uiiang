@@ -31,6 +31,7 @@ import bl.mg;
 import mybl.MyBiliApiService;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONArray;
+import android.os.Build;
 import android.util.Log;
 
 public class AuthSpaceSideActivity extends BaseSideActivity {
@@ -443,7 +444,15 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
             }
           }
         }
-        if (target == null || !target.isAttachedToWindow() || !target.hasFocus())
+        boolean isAttached = false;
+        if (target != null) {
+          if (Build.VERSION.SDK_INT >= 21) {
+            isAttached = target.isAttachedToWindow();
+          } else {
+            isAttached = target.getParent() != null;
+          }
+        }
+        if (target == null || !isAttached || !target.hasFocus())
           return;
         Fragment frag = act.h();
         if (frag instanceof AuthSpaceVideoFragment) {

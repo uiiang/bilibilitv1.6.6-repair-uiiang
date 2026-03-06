@@ -3,6 +3,7 @@ package com.bilibili.tv.ui.attention;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -503,7 +504,15 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
                 }
 
                 // 校验 child 仍存在、已附着并持有焦点
-                if (targetChild == null || !targetChild.isAttachedToWindow() || !targetChild.hasFocus()) return;
+                boolean isAttached = false;
+                if (targetChild != null) {
+                    if (Build.VERSION.SDK_INT >= 21) {
+                        isAttached = targetChild.isAttachedToWindow();
+                    } else {
+                        isAttached = targetChild.getParent() != null;
+                    }
+                }
+                if (targetChild == null || !isAttached || !targetChild.hasFocus()) return;
 
                 // 检查右侧 fragment 是否处于加载中，若在加载则不切换
                 Fragment frag = activity.h();

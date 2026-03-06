@@ -10,8 +10,10 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.os.Build;
 import android.view.ViewParent;
 import android.widget.TextView;
+import android.util.Log;
 import bl.adl;
 import bl.adw;
 import bl.adz;
@@ -473,7 +475,15 @@ public class FavoriteSideActivity extends BaseSideActivity {
                 }
 
                 // 校验 child 仍存在、已附着并持有焦点
-                if (targetChild == null || !targetChild.isAttachedToWindow() || !targetChild.hasFocus()) return;
+                boolean isAttached = false;
+                if (targetChild != null) {
+                    if (Build.VERSION.SDK_INT >= 21) {
+                        isAttached = targetChild.isAttachedToWindow();
+                    } else {
+                        isAttached = targetChild.getParent() != null;
+                    }
+                }
+                if (targetChild == null || !isAttached || !targetChild.hasFocus()) return;
 
                 // 检查右侧 fragment 是否处于加载中
                 Fragment frag = activity.h();
