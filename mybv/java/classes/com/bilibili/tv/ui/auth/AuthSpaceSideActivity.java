@@ -35,6 +35,7 @@ import android.os.Build;
 import android.util.Log;
 
 public class AuthSpaceSideActivity extends BaseSideActivity {
+  private static final int COLUMNS = 2;
   private a c;
   private List<MenuItem> menuItems = new ArrayList<>();
   private MenuItem selectedItem;
@@ -117,6 +118,46 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
       if (currentFocus == null) {
         return super.dispatchKeyEvent(keyEvent);
       }
+      
+      // 处理右侧面板 header 区域的焦点逻辑
+      Fragment fragment = h();
+      if (fragment instanceof AuthSpaceVideoFragment) {
+        AuthSpaceVideoFragment avf = (AuthSpaceVideoFragment) fragment;
+        
+        // 处理关注按钮的焦点逻辑
+        if (avf.attentionButton != null && avf.attentionButton.isFocused()) {
+          if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+            // 在关注按钮上按下键，将焦点移到视频列表第一行
+            if (avf.mRecyclerView != null && avf.mRecyclerView.getChildCount() > 0) {
+              View firstChild = avf.mRecyclerView.getChildAt(0);
+              if (firstChild != null) {
+                firstChild.requestFocus();
+                return true;
+              }
+            }
+          } else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+            // 在关注按钮上按左右键，焦点保持在关注按钮上
+            return true;
+          }
+        }
+        
+        // 处理视频列表第一行的上键焦点切换
+        if (keyCode == KeyEvent.KEYCODE_DPAD_UP && avf.mRecyclerView != null) {
+          View focusedView = avf.mRecyclerView.getFocusedChild();
+          if (focusedView != null) {
+            int focusedPosition = avf.mRecyclerView.g(focusedView);
+            // 判断是否是第一行（前两个位置，因为是 2 列布局）
+            if (focusedPosition >= 0 && focusedPosition < COLUMNS) {
+              // 将焦点切换到关注按钮
+              if (avf.attentionButton != null && avf.attentionButton.getVisibility() == View.VISIBLE) {
+                avf.attentionButton.requestFocus();
+                return true;
+              }
+            }
+          }
+        }
+      }
+      
       switch (keyCode) {
         case 21:
           if (TextUtils.equals((CharSequence) ((View) currentFocus.getParent()).getTag(), adw.a)) {
@@ -148,9 +189,9 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
           if (predicted != null) {
             RecyclerView leftRv = j();
             if (leftRv != null && isDescendantOfView(predicted, leftRv)) {
-              Fragment fragment = h();
-              if (fragment instanceof AuthSpaceVideoFragment) {
-                AuthSpaceVideoFragment avf = (AuthSpaceVideoFragment) fragment;
+              Fragment fragment2 = h();
+              if (fragment2 instanceof AuthSpaceVideoFragment) {
+                AuthSpaceVideoFragment avf = (AuthSpaceVideoFragment) fragment2;
                 if (avf.isLoading()) {
                   Log.d("AuthSpaceSideActivity", "Swallow key " + keyCode + " because right side loading and predicted focus on left");
                   return true;
@@ -323,11 +364,12 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
     selectedItem = item;
     AuthSpaceVideoFragment frag;
     if (item.type == 0) {
-      frag = AuthSpaceVideoFragment.newInstance("all", targetMid, -1);
+      // 全部视频模式，传递 UP 主名称
+      frag = AuthSpaceVideoFragment.newInstance("all", targetMid, -1, targetUname);
     } else if (item.type == 1) {
-      frag = AuthSpaceVideoFragment.newInstance("season", targetMid, item.id);
+      frag = AuthSpaceVideoFragment.newInstance("season", targetMid, item.id, item.name);
     } else {
-      frag = AuthSpaceVideoFragment.newInstance("series", targetMid, item.id);
+      frag = AuthSpaceVideoFragment.newInstance("series", targetMid, item.id, item.name);
     }
     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, frag).commit();
   }

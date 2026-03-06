@@ -34,6 +34,9 @@ public interface BiliPlayerHistoryService {
     @POST(value = "/x/v2/history/toview/del")
     vp<JSONObject> clearVideoToviews(@Query(value = "access_key") String access_key, @Query(value = "aid") long aid);
 
+    @POST(value = "/x/v2/history/toview/add")
+    vp<JSONObject> addVideoToviews(@Query(value = "access_key") String access_key, @Query(value = "aid") long aid);
+
     @GET(value = "/x/v2/history/toview")
     vp<GeneralResponse<JSONObject>> getVideoToviewList(@Query(value = "access_key") String str);
 

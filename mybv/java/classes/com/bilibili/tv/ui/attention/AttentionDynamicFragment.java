@@ -430,10 +430,16 @@ public final class AttentionDynamicFragment extends ady {
                         nv.a().a(ach.c(MainApplication.a(), feedArchiveItem.getString("cover")), dVar.z());
                     }
                 } else if (item instanceof BiliSpaceVideo) {
-                    // UP主视频模式
+                    // UP 主视频模式
                     BiliSpaceVideo video = (BiliSpaceVideo) item;
                     dVar.A().setText(video.title);
-                    dVar.B().setText(uperName);
+                    // 显示发布时间
+                    if (video.ctime != null && video.ctime > 0) {
+                        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy年MM月dd日", java.util.Locale.CHINA);
+                        dVar.B().setText(sdf.format(new java.util.Date(video.ctime * 1000)));
+                    } else {
+                        dVar.B().setText("");
+                    }
                     dVar.C().setText(bl.adh.a(video.play));
                     dVar.D().setText(bl.adh.a(video.danmaku));
                     if (video.cover != null) {

@@ -2496,6 +2496,12 @@ public final class R {
         public static final int video_no_history_play_btn_layout = 0x7f080196;
         public static final int video_no_history_play_btn = 0x7f080197;
         public static final int video_no_history_play_checkbox = 0x7f080198;
+
+        public static final int space_header_layout = 0x7f080199;
+        public static final int header_title = 0x7f08019a;
+        public static final int header_count = 0x7f08019b;
+        public static final int video_detail_watch_later = 0x7f08019c;
+        
     }
 
     public static final class integer {
@@ -2652,6 +2658,7 @@ public final class R {
         public static final int fragment_personalization = 0x7f0a008a;
         public static final int activity_attention_dynamic_side = 0x7f0a008b;
         public static final int activity_auth_space_side = 0x7f0a008c;
+        public static final int fragment_auth_space_video = 0x7f0a008d;
     }
 
     public static final class mipmap {

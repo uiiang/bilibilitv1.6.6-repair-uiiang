@@ -41,6 +41,7 @@ import bl.lr;
 import bl.mg;
 import bl.nv;
 import bl.ok;
+import bl.vm;
 import bl.vn;
 import bl.vo;
 import bl.wf;
@@ -55,6 +56,7 @@ import com.bilibili.tv.api.video.BiliVideoDetail;
 import com.bilibili.tv.api.video.VideoApiParser;
 import com.bilibili.tv.api.video.VideoApiParser2;
 import com.bilibili.tv.api.video.VideoApiService;
+import com.bilibili.tv.api.history.BiliPlayerHistoryService;
 import com.bilibili.tv.ui.account.LoginActivity;
 import com.bilibili.tv.ui.auth.AuthSpaceActivity;
 import com.bilibili.tv.ui.auth.AuthSpaceSideActivity;
@@ -105,6 +107,7 @@ public final class VideoDetailActivity extends BaseActivity
     private DrawLinearLayout j;
     private ImageView k;
     private TextView l;
+    private DrawLinearLayout watchLaterBtn;
     private View m;
     private RecyclerView n;
     private RecyclerView o;
@@ -233,6 +236,14 @@ public final class VideoDetailActivity extends BaseActivity
             drawLinearLayout.setOnClickListener(this);
             drawLinearLayout.setOnLongClickListener(this);
             drawLinearLayout.findViewById(R.id.video_detail_coin_text).setVisibility(0);
+        }
+
+        // 初始化稍后再看按钮
+        watchLaterBtn = (DrawLinearLayout) d(R.id.video_detail_watch_later);
+        if (watchLaterBtn != null) {
+            watchLaterBtn.setOnFocusChangeListener(dVar);
+            watchLaterBtn.setUpDrawable(R.drawable.shadow_red_rect);
+            watchLaterBtn.setOnClickListener(this);
         }
 
         DrawTextView drawTextView = (DrawTextView) findViewById(R.id.video_detail_more_btn);
@@ -1194,6 +1205,20 @@ public final class VideoDetailActivity extends BaseActivity
             }
             p("0");
             ok.a("tv_video_view_click_fav", "action", "收藏");
+        } else if (id == R.id.video_detail_watch_later) {
+            mg biliAccount = mg.a(this);
+            bbi.a((Object) biliAccount, "BiliAccount.get(this)");
+            if (!biliAccount.a()) {
+                lr.a(this, (int) R.string.bangumi_not_login);
+                LoginActivity.Companion.a(this, H);
+                return;
+            }
+            BiliVideoDetail biliVideoDetail3 = this.u;
+            if (biliVideoDetail3 != null) {
+                ((BiliPlayerHistoryService) vo.a(BiliPlayerHistoryService.class))
+                        .addVideoToviews(biliAccount.e(), biliVideoDetail3.mAvid)
+                        .a(new AddToViewResponse());
+            }
         } else if (id != R.id.video_detail_more_btn) {
             if (id == R.id.video_detail_up_text && (biliVideoDetail = this.u) != null) {
                 String author = biliVideoDetail.getAuthor();
@@ -1505,6 +1530,35 @@ public final class VideoDetailActivity extends BaseActivity
             VideoDetailActivity.this.B = false;
             VideoDetailActivity.this.o();
             lr.b(VideoDetailActivity.this.getApplicationContext(), th.getMessage());
+        }
+
+        @Override // bl.vm
+        public boolean isCancel() {
+            return VideoDetailActivity.this.o == null;
+        }
+    }
+
+    public final class AddToViewResponse extends vm<JSONObject> {
+        AddToViewResponse() {
+        }
+
+        @Override // bl.vm
+        public void onSuccess(JSONObject response) {
+            if (response != null) {
+                String message = response.getString("message");
+                if ("OK".equals(message)) {
+                    lr.a(VideoDetailActivity.this, "已将视频添加到稍后再看");
+                } else {
+                    lr.a(VideoDetailActivity.this, "添加稍后再看失败");
+                }
+            } else {
+                lr.a(VideoDetailActivity.this, "添加稍后再看失败");
+            }
+        }
+
+        @Override // bl.vm
+        public void onError(Throwable th) {
+            lr.a(VideoDetailActivity.this, "添加稍后再看失败");
         }
 
         @Override // bl.vm

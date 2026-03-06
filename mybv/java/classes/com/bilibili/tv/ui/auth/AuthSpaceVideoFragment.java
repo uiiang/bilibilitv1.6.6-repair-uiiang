@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import bl.adl;
 import bl.ady;
@@ -14,6 +15,7 @@ import bl.adv;
 import bl.adz;
 import bl.agd;
 import bl.bbi;
+import bl.lr;
 import bl.vn;
 import bl.vo;
 import bl.aj;
@@ -21,6 +23,7 @@ import bl.ach;
 import bl.nv;
 import bl.adh;
 import com.bilibili.tv.R;
+import com.bilibili.tv.widget.DrawTextView;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
 import com.bilibili.tv.widget.side.SideRightGridLayoutManger;
 import mybl.MyBiliApiService;
@@ -45,6 +48,16 @@ public final class AuthSpaceVideoFragment extends ady {
   private long mid;
   private String mode;
   private long targetId;
+  private String upName; // UP 主名称
+  
+  // Header 相关视图
+  private View headerLayout;
+  private TextView headerTitle;
+  private TextView headerCount;
+  public DrawTextView attentionButton;
+  
+  // 视频总数（用于 header 显示）
+  private int totalCount = 0;
 
   public static AuthSpaceVideoFragment newInstance(String mode, long mid, long id) {
     AuthSpaceVideoFragment f = new AuthSpaceVideoFragment();
@@ -52,6 +65,33 @@ public final class AuthSpaceVideoFragment extends ady {
     f.mid = mid;
     f.targetId = id;
     return f;
+  }
+  
+  public static AuthSpaceVideoFragment newInstance(String mode, long mid, long id, String upName) {
+    AuthSpaceVideoFragment f = new AuthSpaceVideoFragment();
+    f.mode = mode;
+    f.mid = mid;
+    f.targetId = id;
+    f.upName = upName;
+    return f;
+  }
+
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
+    // 使用新的布局文件
+    View rootView = inflater.inflate(R.layout.fragment_auth_space_video, container, false);
+    this.headerLayout = rootView.findViewById(R.id.space_header_layout);
+    this.headerTitle = (TextView) rootView.findViewById(R.id.header_title);
+    this.headerCount = (TextView) rootView.findViewById(R.id.header_count);
+    this.attentionButton = (DrawTextView) rootView.findViewById(R.id.attention);
+    
+    RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+    a(recyclerView, bundle);
+    
+    // 初始化完成后加载数据
+    d_();
+    
+    return rootView;
   }
 
   @Override
@@ -73,15 +113,135 @@ public final class AuthSpaceVideoFragment extends ady {
     this.adapter = new c();
     recyclerView.setAdapter(this.adapter);
     this.callback = new b();
-    d_();
+    
+    // 初始化 header 和关注按钮
+    initHeader();
   }
 
   // 保存 RecyclerView 引用，用于外部判断是否在底部
-  private RecyclerView mRecyclerView;
+  public RecyclerView mRecyclerView;
 
   // expose loading state
   public boolean isLoading() {
     return this.loading;
+  }
+  
+  // 初始化 header 区域
+  private void initHeader() {
+    if ("all".equals(mode)) {
+      // 全部视频模式：显示 UP 主名称和关注按钮
+      if (headerTitle != null) {
+        // 优先显示 UP 主名称，如果没有则显示 mid
+        if (upName != null && !upName.isEmpty()) {
+          headerTitle.setText(upName);
+        } else {
+          headerTitle.setText(String.valueOf(mid));
+        }
+      }
+      if (attentionButton != null) {
+        attentionButton.setVisibility(View.VISIBLE);
+        attentionButton.setUpDrawable(R.drawable.shadow_red_rect);
+        attentionButton.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+          @Override
+          public void onFocusChange(View view, boolean z) {
+            ((DrawTextView) view).setUpEnabled(z);
+          }
+        });
+        attentionButton.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            mg account = mg.a(getActivity());
+            if (account == null) return;
+            ((MyBiliApiService) vo.a(MyBiliApiService.class)).modifyRelation(
+              account.e(), mid, 
+              attentionButton.getText().equals("已关注") ? 2 : 1, 
+              11
+            ).a(new vn<JSONObject>() {
+              @Override
+              public void a(JSONObject response) {
+                boolean followed = attentionButton.getText().equals("已关注");
+                attentionButton.setText(followed ? "＋关注" : "已关注");
+                lr.b(getContext(), followed ? "取消关注成功" : "关注成功");
+              }
+
+              @Override
+              public void onError(Throwable th) {
+                boolean followed = attentionButton.getText().equals("已关注");
+                lr.b(getContext(), followed ? "取消关注失败" : "关注失败");
+              }
+
+              @Override
+              public boolean isCancel() {
+                return getActivity() == null || getActivity().isFinishing();
+              }
+            });
+          }
+        });
+        
+        // 查询关注状态
+        mg account = mg.a(getActivity());
+        if (account != null) {
+          ((MyBiliApiService) vo.a(MyBiliApiService.class)).getRelation(account.e(), mid)
+            .a(new vn<JSONObject>() {
+              @Override
+              public void a(JSONObject response) {
+                int attribute = response.getIntValue("attribute");
+                if (attribute == 2 || attribute == 6) {
+                  attentionButton.setText("已关注");
+                }
+              }
+
+              @Override
+              public void onError(Throwable th) {}
+
+              @Override
+              public boolean isCancel() {
+                return getActivity() == null || getActivity().isFinishing();
+              }
+            });
+        }
+      }
+      if (headerCount != null) {
+        headerCount.setText(totalCount > 0 ? totalCount + "条" : "");
+      }
+    } else if ("season".equals(mode)) {
+      // 合集模式：显示合集标题和视频数
+      if (headerTitle != null) {
+        headerTitle.setText("加载中...");
+      }
+      if (attentionButton != null) {
+        attentionButton.setVisibility(View.GONE);
+      }
+      if (headerCount != null) {
+        headerCount.setText(totalCount > 0 ? totalCount + "个视频" : "");
+      }
+    } else if ("series".equals(mode)) {
+      // 系列模式：显示系列标题和视频数
+      if (headerTitle != null) {
+        headerTitle.setText("加载中...");
+      }
+      if (attentionButton != null) {
+        attentionButton.setVisibility(View.GONE);
+      }
+      if (headerCount != null) {
+        headerCount.setText(totalCount > 0 ? totalCount + "个视频" : "");
+      }
+    }
+  }
+  
+  // 更新 header 显示
+  public void updateHeaderInfo(String title, int count) {
+    this.totalCount = count;
+    if (headerTitle != null && title != null) {
+      headerTitle.setText(title);
+    }
+    if (headerCount != null) {
+      String countText = count + "个视频";
+      if ("all".equals(mode)) {
+        countText = count + "条";
+      }
+      headerCount.setText(countText);
+    }
   }
 
   @Override // bl.adw
@@ -94,7 +254,8 @@ public final class AuthSpaceVideoFragment extends ady {
 
   @Override
   public void d_() {
-    super.d_();
+    // 不调用 super.d_()，避免访问未初始化的 recyclerView
+    // super.d_();
     this.page = 1;
     this.hasMore = true;
     b();
@@ -142,11 +303,20 @@ public final class AuthSpaceVideoFragment extends ady {
         j();
         loading = false;
         if (list != null && list.videos != null && list.videos.size() > 0) {
+          // 打印 ctime 字段日志
+          for (BiliSpaceVideo video : list.videos) {
+            if (video != null) {
+              android.util.Log.d("AuthSpaceVideoFragment", "Video title: " + video.title + ", ctime: " + video.ctime);
+            }
+          }
           List<BiliSpaceVideo> filtered = mybl.BiliFilter.filterBiliSpaceVideo(list.videos, "个人投稿");
-          if (page == 1)
+          if (page == 1) {
             adapter.setVideos(filtered);
-          else
+            // 更新 header 显示的视频总数
+            updateHeaderInfo(null, list.count);
+          } else {
             adapter.addVideos(filtered);
+          }
           hasMore = filtered.size() == 20;
           View view = getView();
           if (view != null)
@@ -201,6 +371,18 @@ public final class AuthSpaceVideoFragment extends ady {
               j();
               loading = false;
               if (resp != null) {
+                // 获取合集标题
+                String seasonTitle = "合集";
+                int totalCount = 0;
+                JSONObject meta = resp.getJSONObject("meta");
+                if (meta != null) {
+                  String name = meta.getString("name");
+                  if (name != null && !name.isEmpty()) {
+                    seasonTitle = name;
+                  }
+                  totalCount = meta.getIntValue("total");
+                }
+                
                 JSONArray arr = resp.getJSONArray("archives");
                 if (arr == null)
                   arr = resp.getJSONArray("list");
@@ -208,10 +390,13 @@ public final class AuthSpaceVideoFragment extends ady {
                   List<JSONObject> items = new ArrayList<>();
                   for (int i = 0; i < arr.size(); i++)
                     items.add(arr.getJSONObject(i));
-                  if (page == 1)
+                  if (page == 1) {
                     adapter.setJsonItems(items);
-                  else
+                    // 更新 header 显示
+                    updateHeaderInfo(seasonTitle, totalCount);
+                  } else {
                     adapter.addJsonItems(items);
+                  }
                   hasMore = arr.size() == 30;
                   View view = getView();
                   if (view != null)
@@ -259,9 +444,23 @@ public final class AuthSpaceVideoFragment extends ady {
               j();
               loading = false;
               if (resp != null) {
+                // 获取系列标题
+                String seriesTitle = "系列";
+                int totalCount = 0;
+                JSONObject data = resp.getJSONObject("data");
+                if (data != null) {
+                  JSONObject meta = data.getJSONObject("meta");
+                  if (meta != null) {
+                    String name = meta.getString("name");
+                    if (name != null && !name.isEmpty()) {
+                      seriesTitle = name;
+                    }
+                    totalCount = meta.getIntValue("total");
+                  }
+                }
+                
                 JSONArray arr = resp.getJSONArray("archives");
                 if (arr == null) {
-                  JSONObject data = resp.getJSONObject("data");
                   if (data != null)
                     arr = data.getJSONArray("archives");
                   if (arr == null && data != null)
@@ -271,10 +470,13 @@ public final class AuthSpaceVideoFragment extends ady {
                   List<JSONObject> items = new ArrayList<>();
                   for (int i = 0; i < arr.size(); i++)
                     items.add(arr.getJSONObject(i));
-                  if (page == 1)
+                  if (page == 1) {
                     adapter.setJsonItems(items);
-                  else
+                    // 更新 header 显示
+                    updateHeaderInfo(seriesTitle, totalCount);
+                  } else {
                     adapter.addJsonItems(items);
+                  }
                   hasMore = arr.size() == 30;
                   View view = getView();
                   if (view != null)
@@ -350,9 +552,9 @@ public final class AuthSpaceVideoFragment extends ady {
       int pos = recyclerView.g(view);
       int top = pos > AuthSpaceVideoFragment.COLUMNS + (-1) ? this.a : 0;
       if (pos % AuthSpaceVideoFragment.COLUMNS == 0) {
-        rect.set(0, top, this.b, 0);
+        rect.set(0, 0, this.b, 0);
       } else {
-        rect.set(this.b, top, 0, 0);
+        rect.set(this.b, 0, 0, 0);
       }
     }
   }
@@ -431,9 +633,41 @@ public final class AuthSpaceVideoFragment extends ady {
         } else if (item instanceof BiliSpaceVideo) {
           BiliSpaceVideo v = (BiliSpaceVideo) item;
           vh.A().setText(v.title);
-          vh.B().setText("");
-          vh.C().setText(adh.a(v.play));
-          vh.D().setText(adh.a(v.danmaku));
+          
+          // 显示 ctime 转换后的日期
+          if (v.ctime != null && v.ctime > 0) {
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy年MM月dd日", java.util.Locale.CHINA);
+            vh.B().setText(sdf.format(new java.util.Date(v.ctime * 1000)));
+          } else {
+            vh.B().setText("");
+          }
+          
+          // 显示播放数量，为 0 时直接显示 0
+          String playText = (v.play == 0) ? "0" : adh.a(v.play);
+          vh.C().setText(playText);
+          
+          // 显示弹幕数量，为 0 时直接显示 0
+          String danmakuText = "0";
+          if (v.danmaku != null && !"0".equals(v.danmaku)) {
+            danmakuText = adh.a(v.danmaku);
+          }
+          vh.D().setText(danmakuText);
+          
+          // 添加播放和弹幕图标
+          int iconSize = bl.adl.b(R.dimen.px_34);
+          android.graphics.drawable.Drawable playIcon = bl.adl.a.c(R.drawable.ic_video_info_play);
+          android.graphics.drawable.Drawable danmakuIcon = bl.adl.a.c(R.drawable.ic_video_info_danmaku);
+          if (playIcon != null) {
+            playIcon.setBounds(0, 0, iconSize, iconSize);
+            playIcon.setColorFilter(bl.adl.d(R.color.white_50), android.graphics.PorterDuff.Mode.MULTIPLY);
+          }
+          if (danmakuIcon != null) {
+            danmakuIcon.setBounds(0, 0, iconSize, iconSize);
+            danmakuIcon.setColorFilter(bl.adl.d(R.color.white_50), android.graphics.PorterDuff.Mode.MULTIPLY);
+          }
+          vh.C().setCompoundDrawables(playIcon, null, null, null);
+          vh.D().setCompoundDrawables(danmakuIcon, null, null, null);
+          
           if (v.cover != null)
             nv.a().a(ach.c(com.bilibili.tv.MainApplication.a(), v.cover), vh.z());
           vh.a.setTag(v);

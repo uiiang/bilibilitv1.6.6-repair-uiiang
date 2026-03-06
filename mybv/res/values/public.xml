@@ -2473,6 +2473,11 @@
     <public type="id" name="video_no_history_play_btn_layout" id="0x7f080196" />
     <public type="id" name="video_no_history_play_btn" id="0x7f080197" />
     <public type="id" name="video_no_history_play_checkbox" id="0x7f080198" />
+    <public type="id" name="space_header_layout" id="0x7f080199" />
+    <public type="id" name="header_title" id="0x7f08019a" />
+    <public type="id" name="header_count" id="0x7f08019b" />
+    <public type="id" name="video_detail_watch_later" id="0x7f08019c" />
+
 
 
 
@@ -2626,6 +2631,8 @@
     <public type="layout" name="fragment_personalization" id="0x7f0a008a" />
     <public type="layout" name="activity_attention_dynamic_side" id="0x7f0a008b" />
     <public type="layout" name="activity_auth_space_side" id="0x7f0a008c" />
+    <public type="layout" name="fragment_auth_space_video" id="0x7f0a008d" />
+     
 
     <public type="mipmap" name="ic_launcher" id="0x7f0b0000" />
     <public type="string" name="dialog_btn_i_know" id="0x7f0c008a" />

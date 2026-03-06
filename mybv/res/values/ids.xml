@@ -274,6 +274,9 @@
     <item type="id" name="video_detail_favorite" />
     <item type="id" name="video_detail_favorite_img" />
     <item type="id" name="video_detail_favorite_text" />
+    <item type="id" name="video_detail_watch_later" />
+    <item type="id" name="video_detail_watch_later_img" />
+    <item type="id" name="video_detail_watch_later_text" />
     <item type="id" name="video_detail_info_layout" />
     <item type="id" name="video_detail_layout" />
     <item type="id" name="video_detail_more_btn" />
@@ -308,6 +311,9 @@
     <item type="id" name="video_no_history_play_btn_layout" />
     <item type="id" name="video_no_history_play_btn" />
     <item type="id" name="video_no_history_play_checkbox" />
-
+    <item type="id" name="space_header_layout" />
+    <item type="id" name="header_title" />
+    <item type="id" name="header_count" />
+    <item type="id" name="video_detail_watch_later" />
     
 </resources>
