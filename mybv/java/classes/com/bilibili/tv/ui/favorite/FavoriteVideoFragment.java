@@ -65,6 +65,8 @@ public final class FavoriteVideoFragment extends ady {
     private LinearLayout headerLayout;
     private TextView headerTitle;
     private TextView headerCount;
+    private TextView hintSort;
+    private String sortOrder = "mtime";
 
     /* compiled from: BL */
     public static final class a {
@@ -102,6 +104,7 @@ public final class FavoriteVideoFragment extends ady {
         this.headerLayout = (LinearLayout) rootView.findViewById(R.id.space_header_layout);
         this.headerTitle = (TextView) rootView.findViewById(R.id.header_title);
         this.headerCount = (TextView) rootView.findViewById(R.id.header_count);
+        this.hintSort = (TextView) rootView.findViewById(R.id.hint_sort);
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         a(recyclerView, savedInstanceState);
         return rootView;
@@ -114,6 +117,37 @@ public final class FavoriteVideoFragment extends ady {
         if (headerCount != null && mediaCount > 0) {
             headerCount.setText(mediaCount + "个视频");
         }
+        if (hintSort != null) {
+            hintSort.setVisibility(isVideoFavoriteMode() ? View.VISIBLE : View.GONE);
+        }
+    }
+    
+    public void setSortOrder(String order) {
+        if (TextUtils.equals(order, this.sortOrder)) {
+            return;
+        }
+        this.sortOrder = order;
+        if (this.c != null) {
+            d_();
+            loadVideoFavoriteVideos();
+        }
+    }
+    
+    public String getSortOrder() {
+        return this.sortOrder;
+    }
+    
+    public boolean isVideoFavoriteMode() {
+        return this.folderType == 1;
+    }
+    
+    public long getFolderId() {
+        return this.folderId;
+    }
+    
+    public void clearData() {
+        this.f = 1;
+        this.g = true;
     }
 
     @Override // bl.ady
@@ -268,7 +302,7 @@ public final class FavoriteVideoFragment extends ady {
             if (api != null && account != null) {
                 String referer = "https://space.bilibili.com/" + account.d() + "/favlist?fid=" + folderId
                         + "&ftype=create";
-                api.getFavoriteResourceList(folderId, f, 40, "", "mtime", 0, 0, "web", "333.1387", account.e(), referer)
+                api.getFavoriteResourceList(folderId, f, 40, "", sortOrder, 0, 0, "web", "333.1387", account.e(), referer)
                         .a(new vn<JSONObject>() {
                             @Override
                             public void a(JSONObject data) {
@@ -814,6 +848,10 @@ public final class FavoriteVideoFragment extends ady {
             this.p.setCompoundDrawables(c, null, null, null);
             this.q.setCompoundDrawables(c2, null, null, null);
             this.r.setCompoundDrawables(c3, null, null, null);
+            Object context = view.getContext();
+            if (context instanceof View.OnLongClickListener) {
+                view.setOnLongClickListener((View.OnLongClickListener) context);
+            }
             view.setOnFocusChangeListener(this);
         }
 

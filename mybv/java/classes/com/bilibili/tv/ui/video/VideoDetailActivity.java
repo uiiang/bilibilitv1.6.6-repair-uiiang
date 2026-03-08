@@ -940,7 +940,9 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private final String formatProgressTime(int progress) {
-        if (progress < 60) {
+        if (progress <= 0) {
+            return "00:00";
+        } else if (progress < 60) {
             return String.format("00:%02d", progress);
         } else if (progress < 3600) {
             int minutes = progress / 60;

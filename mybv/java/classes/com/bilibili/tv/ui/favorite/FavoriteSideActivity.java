@@ -14,6 +14,8 @@ import android.os.Build;
 import android.view.ViewParent;
 import android.widget.TextView;
 import android.util.Log;
+import java.util.LinkedHashMap;
+import bl.agb;
 import bl.adl;
 import bl.adw;
 import bl.adz;
@@ -45,7 +47,7 @@ import java.util.List;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
-public class FavoriteSideActivity extends BaseSideActivity {
+public class FavoriteSideActivity extends BaseSideActivity implements View.OnLongClickListener {
     private a c;
     private List<FavoriteFolder> folders = new ArrayList<>();
     private FavoriteFolder selectedFolder;
@@ -359,6 +361,89 @@ public class FavoriteSideActivity extends BaseSideActivity {
             .beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .commit();
+    }
+    
+    public void setSortOrder(String order) {
+        if (TextUtils.equals(order, getSortOrder())) {
+            return;
+        }
+        
+        Fragment frag = h();
+        if (frag instanceof FavoriteVideoFragment) {
+            FavoriteVideoFragment fv = (FavoriteVideoFragment) frag;
+            
+            View selectedView = getSelectedView();
+            
+            fv.setSortOrder(order);
+            
+            if (selectedView != null) {
+                selectedView.requestFocus();
+            }
+        }
+    }
+    
+    private View getSelectedView() {
+        RecyclerView leftRv = j();
+        if (leftRv == null) {
+            return null;
+        }
+        for (int i = 0; i < leftRv.getChildCount(); i++) {
+            View child = leftRv.getChildAt(i);
+            if (child.isSelected()) {
+                return child;
+            }
+        }
+        return null;
+    }
+    
+    public String getSortOrder() {
+        Fragment frag = h();
+        if (frag instanceof FavoriteVideoFragment) {
+            return ((FavoriteVideoFragment) frag).getSortOrder();
+        }
+        return "mtime";
+    }
+    
+    public boolean isVideoFavoriteMode() {
+        Fragment frag = h();
+        if (frag instanceof FavoriteVideoFragment) {
+            return ((FavoriteVideoFragment) frag).isVideoFavoriteMode();
+        }
+        return false;
+    }
+    
+    @Override
+    public boolean onLongClick(View view) {
+        Fragment frag = h();
+        if (!(frag instanceof FavoriteVideoFragment)) {
+            return true;
+        }
+        
+        FavoriteVideoFragment fv = (FavoriteVideoFragment) frag;
+        if (!fv.isVideoFavoriteMode()) {
+            return true;
+        }
+        
+        LinkedHashMap<String, Object> sortOptions = new LinkedHashMap<>();
+        sortOptions.put("最近收藏", "mtime");
+        sortOptions.put("最多播放", "view");
+        sortOptions.put("最近投稿", "pubtime");
+        
+        agb.a builder = new agb.a(this);
+        builder.a(2)
+            .a("排序:")
+            .a(sortOptions, new agb.c() {
+                @Override
+                public void a(agb dialog, View view, String key) {
+                    String order = (String) sortOptions.get(key);
+                    setSortOrder(order);
+                    dialog.dismiss();
+                }
+            });
+        builder.a((Object) getSortOrder());
+        builder.a().show();
+        
+        return true;
     }
 
     /* compiled from: BL */
