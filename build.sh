@@ -15,7 +15,38 @@ case "$1" in
         exit 0
     ;;
     -h|--help)
-        echo "./build.sh [-d|-s 包名]"
+        echo "./build.sh [-d|-s 包名|-p 包名]"
+        exit 0
+    ;;
+    -p|--package)
+        if [ -n "$2" ]; then
+            packageid="$2"
+        else
+            packageid='com.bilibilitv.repair'
+        fi
+        rm -r mybv/build
+        rm -r mybv/dist
+        sed -i "/renameManifestPackage/c\ \ renameManifestPackage: $packageid" mybv/apktool.yml
+        sed -i "s/android:authorities=\"com\.bilibili\.tv\.provider\./android:authorities=\"$packageid.provider./g" mybv/AndroidManifest.xml
+        sed -i "s/android:authorities=\"com\.bilibili\.tv\.fileprovider/android:authorities=\"$packageid.fileprovider/g" mybv/AndroidManifest.xml
+        sed -i "s/android:authorities=\"com\.bilibili\.tv\.fileProvider/android:authorities=\"$packageid.fileProvider/g" mybv/AndroidManifest.xml
+        cd mybv/java;./build.sh;cd ../..
+        apktool b --use-aapt2 mybv
+        signapk platform.x509.pem platform.pk8 ./mybv/dist/mybv.apk mybv.apk
+        cat <<EOF > update.json
+{
+    "apkMd5":"$(md5sum mybv.apk|awk '{print $1}')",
+    "apkUrl":"https://github.com/qidian55/bilibilitv1.6.6-repair/raw/refs/heads/main/mybv.apk",
+    "fileSize":$(stat -c %s mybv.apk),
+    "id":"",
+    "newFeature":"",
+    "publishTime":0,
+    "title":"New",
+    "upgradeType":1,
+    "versionCode":1606,
+    "versionName":"1.6.6.$(date '+%Y%m%d')"
+}
+EOF
         exit 0
     ;;
     -s|--special)
@@ -27,9 +58,9 @@ case "$1" in
         rm -r mybv/build
         rm -r mybv/dist
         sed -i "/renameManifestPackage/c\ \ renameManifestPackage: $packageid" mybv/apktool.yml
-        sed -i "s/com\.bilibili\.tv\.provider\./$packageid.provider./g" mybv/AndroidManifest.xml
-        sed -i "s/com\.bilibili\.tv\.fileprovider/$packageid.fileprovider/g" mybv/AndroidManifest.xml
-        sed -i "s/com\.bilibili\.tv\.fileProvider/$packageid.fileProvider/g" mybv/AndroidManifest.xml
+        sed -i "s/android:authorities=\"com\.bilibili\.tv\.provider\./android:authorities=\"$packageid.provider./g" mybv/AndroidManifest.xml
+        sed -i "s/android:authorities=\"com\.bilibili\.tv\.fileprovider/android:authorities=\"$packageid.fileprovider/g" mybv/AndroidManifest.xml
+        sed -i "s/android:authorities=\"com\.bilibili\.tv\.fileProvider/android:authorities=\"$packageid.fileProvider/g" mybv/AndroidManifest.xml
         cd mybv/java;./build.sh;cd ../..
         apktool b --use-aapt2 mybv
         signapk platform.x509.pem platform.pk8 ./mybv/dist/mybv.apk mybv.apk
