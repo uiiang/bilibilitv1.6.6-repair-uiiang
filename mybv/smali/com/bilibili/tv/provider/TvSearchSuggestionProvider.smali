@@ -36,7 +36,7 @@
     .line 29
     invoke-direct {p0}, Landroid/content/SearchRecentSuggestionsProvider;-><init>()V
 
-    const-string v0, "com.bilibili.tv.provider.TvSearchSuggestionProvider"
+    const-string v0, "uii.ang.bilitv.provider.TvSearchSuggestionProvider"
 
     const/4 v1, 0x1
 

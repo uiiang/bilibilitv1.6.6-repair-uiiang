@@ -52,7 +52,7 @@
     sput-object v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->Companion:Lcom/bilibili/tv/ui/main/content/MainMyFragment$a;
 
     .line 47
-    const/4 v0, 0x6
+    const/4 v0, 0x5
 
     new-array v0, v0, [I
 
@@ -71,7 +71,6 @@
         0x2
         0x3
         0x4
-        0x5
     .end array-data
 .end method
 
@@ -381,10 +380,10 @@
     .locals 2
 
     .prologue
-    .line 612
+    .line 602
     invoke-super {p0, p1}, Lbl/adu;->onHiddenChanged(Z)V
 
-    .line 613
+    .line 603
     invoke-static {}, Lbl/wh;->a()Lbl/wh;
 
     move-result-object v1
@@ -396,10 +395,10 @@
     :goto_a
     invoke-virtual {v1, p0, v0}, Lbl/wh;->a(Landroid/support/v4/app/Fragment;Z)V
 
-    .line 614
+    .line 604
     return-void
 
-    .line 613
+    .line 603
     :cond_e
     const/4 v0, 0x0
 

@@ -23,13 +23,13 @@
     .locals 0
 
     .prologue
-    .line 441
+    .line 480
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$g;-><init>()V
 
-    .line 442
+    .line 481
     iput p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$j;->a:I
 
-    .line 443
+    .line 482
     return-void
 .end method
 
@@ -41,40 +41,40 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 447
+    .line 486
     const-string v0, "outRect"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 448
+    .line 487
     const-string v0, "view"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 449
+    .line 488
     const-string v0, "parent"
 
     invoke-static {p3, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 450
+    .line 489
     invoke-super {p0, p1, p2, p3, p4}, Landroid/support/v7/widget/RecyclerView$g;->a(Landroid/graphics/Rect;Landroid/view/View;Landroid/support/v7/widget/RecyclerView;Landroid/support/v7/widget/RecyclerView$s;)V
 
-    .line 451
+    .line 490
     iput v1, p1, Landroid/graphics/Rect;->left:I
 
-    .line 452
+    .line 491
     iget v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$j;->a:I
 
     iput v0, p1, Landroid/graphics/Rect;->right:I
 
-    .line 453
+    .line 492
     iput v1, p1, Landroid/graphics/Rect;->top:I
 
-    .line 454
+    .line 493
     iget v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$j;->a:I
 
     iput v0, p1, Landroid/graphics/Rect;->bottom:I
 
-    .line 455
+    .line 494
     return-void
 .end method

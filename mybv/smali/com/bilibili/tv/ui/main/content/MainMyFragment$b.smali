@@ -53,7 +53,7 @@
     .locals 2
 
     .prologue
-    const/4 v1, 0x6
+    const/4 v1, 0x5
 
     .line 279
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$a;-><init>()V
@@ -68,14 +68,14 @@
     .line 273
     new-array v0, v1, [I
 
-    fill-array-data v0, :array_40
+    fill-array-data v0, :array_3e
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->colors:[I
 
     .line 274
     new-array v0, v1, [I
 
-    fill-array-data v0, :array_50
+    fill-array-data v0, :array_4c
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->logos:[I
 
@@ -115,29 +115,26 @@
         0x7f0c00b6
         0x7f0c00d1
         0x7f0c017b
-        0x7f0c017a
         0x7f0c00d2
         0x7f0c00d3
     .end array-data
 
     .line 273
-    :array_40
+    :array_3e
     .array-data 4
         0x7f050038
         0x7f050039
         0x7f05003a
-        0x7f05003b
         0x7f05003c
         0x7f05003d
     .end array-data
 
     .line 274
-    :array_50
+    :array_4c
     .array-data 4
         0x7f0700a9
         0x7f070104
         0x7f070105
-        0x7f0700aa
         0x7f0700ac
         0x7f0700ab
     .end array-data
@@ -839,9 +836,9 @@
 
     aget v3, v3, v0
 
-    packed-switch v3, :pswitch_data_11e
+    packed-switch v3, :pswitch_data_f8
 
-    .line 471
+    .line 461
     :cond_2d
     :goto_2d
     return-void
@@ -1034,54 +1031,11 @@
 
     goto/16 :goto_2d
 
-    .line 452
+    .line 451
     :cond_d6
-    invoke-static {v2}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->a(Landroid/content/Context;)V
-
-    .line 453
-    const-string v0, "tv_my_attention_click"
-
-    new-array v2, v5, [Ljava/lang/String;
-
-    const-string v3, "action"
-
-    aput-object v3, v2, v1
-
-    const-string v1, "1"
-
-    aput-object v1, v2, v4
-
-    invoke-static {v0, v2}, Lbl/ok;->a(Ljava/lang/String;[Ljava/lang/String;)V
-
-    goto/16 :goto_2d
-
-    .line 456
-    :pswitch_ea
-    iget-boolean v3, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->e:Z
-
-    if-nez v3, :cond_fd
-
-    .line 457
-    sget-object v1, Lcom/bilibili/tv/ui/account/LoginActivity;->Companion:Lcom/bilibili/tv/ui/account/LoginActivity$a;
-
-    sget-object v3, Lcom/bilibili/tv/ui/main/MainActivity;->Companion:Lcom/bilibili/tv/ui/main/MainActivity$a;
-
-    invoke-virtual {v3}, Lcom/bilibili/tv/ui/main/MainActivity$a;->a()I
-
-    move-result v3
-
-    invoke-virtual {v1, v2, v3}, Lcom/bilibili/tv/ui/account/LoginActivity$a;->a(Landroid/app/Activity;I)V
-
-    .line 458
-    iput v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->f:I
-
-    goto/16 :goto_2d
-
-    .line 461
-    :cond_fd
     invoke-static {v2}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->a(Landroid/content/Context;)V
 
-    .line 462
+    .line 452
     const-string v0, "tv_my_favourite_click"
 
     new-array v2, v5, [Ljava/lang/String;
@@ -1098,8 +1052,8 @@
 
     goto/16 :goto_2d
 
-    .line 465
-    :pswitch_111
+    .line 455
+    :pswitch_ea
     sget-object v0, Lcom/bilibili/tv/ui/history/VideoHistoryActivity;->Companion:Lcom/bilibili/tv/ui/history/VideoHistoryActivity$b;
 
     sget-object v1, Lcom/bilibili/tv/ui/history/VideoHistoryActivity;->Companion:Lcom/bilibili/tv/ui/history/VideoHistoryActivity$b;
@@ -1113,13 +1067,14 @@
     goto/16 :goto_2d
 
     .line 414
-    :pswitch_data_11e
+    nop
+
+    :pswitch_data_f8
     .packed-switch 0x0
         :pswitch_30
         :pswitch_7e
         :pswitch_a3
         :pswitch_c3
         :pswitch_ea
-        :pswitch_111
     .end packed-switch
 .end method

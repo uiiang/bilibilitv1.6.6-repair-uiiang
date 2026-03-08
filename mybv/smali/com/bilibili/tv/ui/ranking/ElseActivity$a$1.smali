@@ -41,11 +41,9 @@
 
 # virtual methods
 .method public onFocusChange(Landroid/view/View;Z)V
-    .locals 8
+    .locals 6
 
     .prologue
-    const-wide/16 v6, 0x1f4
-
     .line 162
     iget-object v0, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->this$0:Lcom/bilibili/tv/ui/ranking/ElseActivity$a;
 
@@ -61,9 +59,14 @@
     check-cast v0, Lcom/bilibili/tv/ui/ranking/ElseActivity;
 
     .line 163
-    if-nez p2, :cond_22
+    if-nez p2, :cond_25
 
-    .line 164
+    .line 165
+    iget-object v0, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->this$0:Lcom/bilibili/tv/ui/ranking/ElseActivity$a;
+
+    invoke-virtual {p1, v0}, Landroid/view/View;->removeCallbacks(Ljava/lang/Runnable;)Z
+
+    .line 166
     iget-object v0, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->this$0:Lcom/bilibili/tv/ui/ranking/ElseActivity$a;
 
     # getter for: Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->e:Z
@@ -71,15 +74,15 @@
 
     move-result v0
 
-    if-eqz v0, :cond_19
+    if-eqz v0, :cond_1c
 
-    .line 183
-    :cond_18
-    :goto_18
+    .line 193
+    :cond_1b
+    :goto_1b
     return-void
 
-    .line 167
-    :cond_19
+    .line 169
+    :cond_1c
     iget-object v0, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     iget-object v0, v0, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
@@ -88,39 +91,39 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setSelected(Z)V
 
-    goto :goto_18
+    goto :goto_1b
 
-    .line 170
-    :cond_22
-    if-eqz v0, :cond_18
+    .line 172
+    :cond_25
+    if-eqz v0, :cond_1b
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/ranking/ElseActivity;->isFinishing()Z
 
     move-result v1
 
-    if-nez v1, :cond_18
+    if-nez v1, :cond_1b
 
     # getter for: Lcom/bilibili/tv/ui/ranking/ElseActivity;->b:Lbl/aeg2;
     invoke-static {v0}, Lcom/bilibili/tv/ui/ranking/ElseActivity;->access$200(Lcom/bilibili/tv/ui/ranking/ElseActivity;)Lbl/aeg2;
 
     move-result-object v1
 
-    if-eqz v1, :cond_18
+    if-eqz v1, :cond_1b
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/ranking/ElseActivity;->getSupportFragmentManager()Landroid/support/v4/app/FragmentManager;
 
     move-result-object v1
 
-    if-eqz v1, :cond_18
+    if-eqz v1, :cond_1b
 
-    .line 173
+    .line 175
     iget-object v1, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     invoke-virtual {v1}, Landroid/support/v7/widget/RecyclerView$v;->f()I
 
     move-result v1
 
-    .line 174
+    .line 176
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v2
@@ -134,28 +137,25 @@
 
     sub-long/2addr v2, v4
 
-    cmp-long v2, v2, v6
+    const-wide/16 v4, 0x1f4
 
-    if-gez v2, :cond_50
+    cmp-long v2, v2, v4
 
-    .line 175
+    if-gez v2, :cond_55
+
+    .line 177
     iget-object v2, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->this$0:Lcom/bilibili/tv/ui/ranking/ElseActivity$a;
 
     invoke-virtual {p1, v2}, Landroid/view/View;->removeCallbacks(Ljava/lang/Runnable;)Z
 
-    .line 177
-    :cond_50
+    .line 179
+    :cond_55
     iget-object v2, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->this$0:Lcom/bilibili/tv/ui/ranking/ElseActivity$a;
 
     # setter for: Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->c:I
     invoke-static {v2, v1}, Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->access$402(Lcom/bilibili/tv/ui/ranking/ElseActivity$a;I)I
 
-    .line 178
-    iget-object v1, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->this$0:Lcom/bilibili/tv/ui/ranking/ElseActivity$a;
-
-    invoke-virtual {p1, v1, v6, v7}, Landroid/view/View;->postDelayed(Ljava/lang/Runnable;J)Z
-
-    .line 179
+    .line 180
     iget-object v1, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->this$0:Lcom/bilibili/tv/ui/ranking/ElseActivity$a;
 
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
@@ -165,7 +165,7 @@
     # setter for: Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->d:J
     invoke-static {v1, v2, v3}, Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->access$302(Lcom/bilibili/tv/ui/ranking/ElseActivity$a;J)J
 
-    .line 180
+    .line 181
     iget-object v1, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     iget-object v1, v1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
@@ -174,7 +174,7 @@
 
     invoke-virtual {v1, v2}, Landroid/view/View;->setSelected(Z)V
 
-    .line 181
+    .line 182
     iget-object v1, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     iget-object v1, v1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
@@ -183,10 +183,21 @@
 
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->a()V
 
-    .line 182
+    .line 183
     const/4 v1, 0x4
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/ranking/ElseActivity;->b(I)V
 
-    goto :goto_18
+    .line 185
+    iget-object v0, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
+
+    iget-object v0, v0, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
+
+    new-instance v1, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1$1;
+
+    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1$1;-><init>(Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;)V
+
+    invoke-virtual {v0, v1}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+
+    goto :goto_1b
 .end method

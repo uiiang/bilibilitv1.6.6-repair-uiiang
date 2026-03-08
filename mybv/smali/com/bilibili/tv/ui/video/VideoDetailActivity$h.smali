@@ -36,7 +36,7 @@
     .locals 2
 
     .prologue
-    .line 1874
+    .line 2056
     new-instance v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$h$a;
 
     const/4 v1, 0x0
@@ -52,15 +52,15 @@
     .locals 2
 
     .prologue
-    .line 1882
+    .line 2064
     invoke-direct {p0, p1}, Lbl/adv;-><init>(Landroid/view/View;)V
 
-    .line 1883
+    .line 2065
     const-string v0, "itemView"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 1884
+    .line 2066
     const v0, 0x7f080127
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$h;->a(Landroid/view/View;I)Landroid/view/View;
@@ -71,24 +71,24 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$h;->n:Lcom/bilibili/tv/widget/DrawTextView;
 
-    .line 1885
+    .line 2067
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$h;->n:Lcom/bilibili/tv/widget/DrawTextView;
 
     const v1, 0x7f0700e7
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawTextView;->setUpDrawable(I)V
 
-    .line 1886
+    .line 2068
     new-instance v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$d;
 
     invoke-direct {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$d;-><init>()V
 
     invoke-virtual {p1, v0}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 1887
+    .line 2069
     invoke-virtual {p1, p0}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 1888
+    .line 2070
     return-void
 .end method
 
@@ -98,20 +98,20 @@
     .locals 5
 
     .prologue
-    .line 1900
+    .line 2082
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 1901
+    .line 2083
     invoke-virtual {p1}, Landroid/view/View;->getTag()Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 1902
+    .line 2084
     if-nez v0, :cond_13
 
-    .line 1903
+    .line 2085
     new-instance v0, Lkotlin/TypeCastException;
 
     const-string v1, "null cannot be cast to non-null type kotlin.String"
@@ -120,21 +120,21 @@
 
     throw v0
 
-    .line 1905
+    .line 2087
     :cond_13
     check-cast v0, Ljava/lang/String;
 
-    .line 1906
+    .line 2088
     const v1, 0x7f08015d
 
     invoke-virtual {p1, v1}, Landroid/view/View;->getTag(I)Ljava/lang/Object;
 
     move-result-object v1
 
-    .line 1907
+    .line 2089
     if-nez v1, :cond_26
 
-    .line 1908
+    .line 2090
     new-instance v0, Lkotlin/TypeCastException;
 
     const-string v1, "null cannot be cast to non-null type kotlin.Int"
@@ -143,7 +143,7 @@
 
     throw v0
 
-    .line 1910
+    .line 2092
     :cond_26
     check-cast v1, Ljava/lang/Integer;
 
@@ -151,40 +151,40 @@
 
     move-result v1
 
-    .line 1911
+    .line 2093
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v2
 
-    .line 1912
+    .line 2094
     const-string v3, "v.context"
 
     invoke-static {v2, v3}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 1913
+    .line 2095
     invoke-static {v2}, Lbl/adl;->a(Landroid/content/Context;)Landroid/app/Activity;
 
     move-result-object v2
 
-    .line 1914
+    .line 2096
     instance-of v3, v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     if-eqz v3, :cond_3f
 
     if-nez v0, :cond_40
 
-    .line 1919
+    .line 2101
     :cond_3f
     :goto_3f
     return-void
 
-    .line 1917
+    .line 2099
     :cond_40
     sget-object v3, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->Companion:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$a;
 
     invoke-virtual {v3, v2, v0, v1}, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$a;->a(Landroid/content/Context;Ljava/lang/String;I)V
 
-    .line 1918
+    .line 2100
     const-string v1, "tv_video_view_tag_click"
 
     const/4 v2, 0x2
@@ -210,7 +210,7 @@
     .locals 1
 
     .prologue
-    .line 1895
+    .line 2077
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$h;->n:Lcom/bilibili/tv/widget/DrawTextView;
 
     return-object v0

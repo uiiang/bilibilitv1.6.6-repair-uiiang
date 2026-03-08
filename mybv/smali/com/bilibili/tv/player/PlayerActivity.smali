@@ -56,6 +56,32 @@
     return-object p1
 .end method
 
+.method public static aForResult(Landroid/content/Context;Lcom/bilibili/tv/player/basic/context/PlayerParams;)Landroid/content/Intent;
+    .locals 2
+
+    new-instance v0, Landroid/os/Bundle;
+
+    invoke-direct {v0}, Landroid/os/Bundle;-><init>()V
+
+    invoke-static {p0, v0, p1}, Lbl/zs;->a(Landroid/content/Context;Landroid/os/Bundle;Lcom/bilibili/tv/player/basic/context/PlayerParams;)Landroid/os/Bundle;
+
+    iget-object p1, p1, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
+
+    const/4 v1, 0x0
+
+    iput-object v1, p1, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mResolveParamsArray:[Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
+
+    new-instance p1, Landroid/content/Intent;
+
+    const-class v1, Lcom/bilibili/tv/player/PlayerActivity;
+
+    invoke-direct {p1, p0, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
+
+    invoke-virtual {p1, v0}, Landroid/content/Intent;->putExtras(Landroid/os/Bundle;)Landroid/content/Intent;
+
+    return-object p1
+.end method
+
 
 # virtual methods
 .method public a()Ljava/lang/String;
@@ -85,13 +111,121 @@
 .end method
 
 .method public finish()V
-    .locals 1
+    .locals 5
 
     .line 126
     iget-object v0, p0, Lcom/bilibili/tv/player/PlayerActivity;->a:Lbl/xh;
 
     invoke-virtual {v0}, Lbl/xh;->i()V
 
+    const-string v4, "PlayerActivity"
+
+    const-string v0, "finish() called"
+
+    invoke-static {v4, v0}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    iget-object v0, p0, Lcom/bilibili/tv/player/PlayerActivity;->a:Lbl/xh;
+
+    if-eqz v0, :cond_return
+
+    const-string v0, "xh is not null"
+
+    invoke-static {v4, v0}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    iget-object v0, p0, Lcom/bilibili/tv/player/PlayerActivity;->a:Lbl/xh;
+
+    invoke-virtual {v0}, Lbl/xh;->x()I
+
+    move-result v0
+
+    if-lez v0, :cond_return
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "progress="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v4, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    iget-object v1, p0, Lcom/bilibili/tv/player/PlayerActivity;->a:Lbl/xh;
+
+    invoke-virtual {v1}, Lbl/xh;->b()Lcom/bilibili/tv/player/basic/context/PlayerParams;
+
+    move-result-object v1
+
+    if-eqz v1, :cond_return
+
+    const-string v2, "PlayerParams is not null"
+
+    invoke-static {v4, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    iget-object v2, v1, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
+
+    if-eqz v2, :cond_return
+
+    const-string v2, "mVideoParams is not null"
+
+    invoke-static {v4, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    iget-object v1, v1, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
+
+    iget-object v1, v1, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mResolveParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
+
+    if-eqz v1, :cond_return
+
+    const-string v2, "mResolveParams is not null"
+
+    invoke-static {v4, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    iget-boolean v2, v1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mNoHistoryPlay:Z
+
+    if-eqz v2, :cond_continue
+
+    goto :cond_return
+
+    :cond_continue
+    new-instance v2, Landroid/content/Intent;
+
+    invoke-direct {v2}, Landroid/content/Intent;-><init>()V
+
+    const-string v3, "last_progress"
+
+    invoke-virtual {v2, v3, v0}, Landroid/content/Intent;->putExtra(Ljava/lang/String;I)Landroid/content/Intent;
+
+    iget-object v0, p0, Lcom/bilibili/tv/player/PlayerActivity;->a:Lbl/xh;
+
+    invoke-virtual {v0}, Lbl/xh;->b()Lcom/bilibili/tv/player/basic/context/PlayerParams;
+
+    move-result-object v0
+
+    iget-object v0, v0, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
+
+    iget-object v0, v0, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mResolveParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
+
+    iget-wide v0, v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mCid:J
+
+    const-string v3, "last_cid"
+
+    invoke-virtual {v2, v3, v0, v1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;J)Landroid/content/Intent;
+
+    const-string v0, "setResult with cid and progress"
+
+    invoke-static {v4, v0}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    const/4 v0, -0x1
+
+    invoke-virtual {p0, v0, v2}, Lcom/bilibili/tv/player/PlayerActivity;->setResult(ILandroid/content/Intent;)V
+
+    :cond_return
     .line 127
     invoke-super {p0}, Landroid/support/v7/app/AppCompatActivity;->finish()V
 

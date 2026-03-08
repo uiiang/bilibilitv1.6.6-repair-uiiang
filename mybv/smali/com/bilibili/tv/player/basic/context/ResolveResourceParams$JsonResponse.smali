@@ -19,7 +19,7 @@
     .locals 0
 
     .prologue
-    .line 83
+    .line 86
     invoke-direct {p0}, Lbl/qe;-><init>()V
 
     return-void
@@ -33,7 +33,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 86
+    .line 89
     :try_start_1
     invoke-virtual {p0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;->a()Z
 
@@ -41,7 +41,7 @@
 
     if-eqz v0, :cond_14
 
-    .line 87
+    .line 90
     new-instance v0, Lorg/json/JSONObject;
 
     new-instance v2, Ljava/lang/String;
@@ -54,23 +54,23 @@
     :try_end_13
     .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_13} :catch_16
 
-    .line 91
+    .line 94
     :goto_13
     return-object v0
 
     :cond_14
     move-object v0, v1
 
-    .line 89
+    .line 92
     goto :goto_13
 
-    .line 90
+    .line 93
     :catch_16
     move-exception v0
 
     move-object v0, v1
 
-    .line 91
+    .line 94
     goto :goto_13
 .end method
 
@@ -80,7 +80,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 96
+    .line 99
     :try_start_1
     invoke-virtual {p0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;->a()Z
 
@@ -88,7 +88,7 @@
 
     if-eqz v0, :cond_14
 
-    .line 97
+    .line 100
     new-instance v0, Lorg/json/JSONArray;
 
     new-instance v2, Ljava/lang/String;
@@ -101,22 +101,22 @@
     :try_end_13
     .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_13} :catch_16
 
-    .line 101
+    .line 104
     :goto_13
     return-object v0
 
     :cond_14
     move-object v0, v1
 
-    .line 99
+    .line 102
     goto :goto_13
 
-    .line 100
+    .line 103
     :catch_16
     move-exception v0
 
     move-object v0, v1
 
-    .line 101
+    .line 104
     goto :goto_13
 .end method

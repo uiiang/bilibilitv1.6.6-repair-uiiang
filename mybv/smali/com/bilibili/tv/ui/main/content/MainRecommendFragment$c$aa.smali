@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 547
+    .line 542
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 548
+    .line 543
     return-void
 .end method
 
@@ -30,9 +30,9 @@
     .locals 0
 
     .prologue
-    .line 551
+    .line 546
     invoke-direct {p0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c$aa;-><init>()V
 
-    .line 552
+    .line 547
     return-void
 .end method

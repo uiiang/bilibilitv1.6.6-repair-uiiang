@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 322
+    .line 317
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$dd;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     invoke-direct {p0}, Lbl/vm;-><init>()V
@@ -46,12 +46,12 @@
     .locals 2
 
     .prologue
-    .line 350
+    .line 345
     const-string v0, "t"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 351
+    .line 346
     const-string v0, "MainRecommend"
 
     invoke-virtual {p1}, Ljava/lang/Throwable;->getMessage()Ljava/lang/String;
@@ -60,7 +60,7 @@
 
     invoke-static {v0, v1}, Ltv/danmaku/android/log/BLog;->e(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 352
+    .line 347
     return-void
 .end method
 
@@ -70,7 +70,7 @@
     .prologue
     const/16 v8, 0x14
 
-    .line 326
+    .line 321
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$dd;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     # getter for: Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->a:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;
@@ -88,17 +88,17 @@
 
     if-nez v0, :cond_13
 
-    .line 346
+    .line 341
     :cond_12
     return-void
 
-    .line 329
+    .line 324
     :cond_13
     new-instance v2, Ljava/util/ArrayList;
 
     invoke-direct {v2, v8}, Ljava/util/ArrayList;-><init>(I)V
 
-    .line 330
+    .line 325
     invoke-virtual {p1}, Lcom/bilibili/tv/api/main/MainRecommend;->getData()Ljava/util/List;
 
     move-result-object v0
@@ -121,7 +121,7 @@
 
     check-cast v0, Lcom/bilibili/tv/api/main/MainRecommend$Data;
 
-    .line 331
+    .line 326
     const-string v1, "recommend"
 
     invoke-virtual {v0}, Lcom/bilibili/tv/api/main/MainRecommend$Data;->getType()Ljava/lang/String;
@@ -140,7 +140,7 @@
 
     if-eqz v1, :cond_20
 
-    .line 332
+    .line 327
     invoke-virtual {v0}, Lcom/bilibili/tv/api/main/MainRecommend$Data;->getBody()Ljava/util/List;
 
     move-result-object v1
@@ -162,22 +162,22 @@
 
     check-cast v1, Lcom/bilibili/tv/api/main/MainRecommend$Body;
 
-    .line 333
+    .line 328
     new-instance v5, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;
 
     invoke-direct {v5}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;-><init>()V
 
-    .line 334
+    .line 329
     const-string v6, "small_popular_ugc"
 
     invoke-virtual {v5, v6}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setCardType(Ljava/lang/String;)V
 
-    .line 335
+    .line 330
     const-string v6, "av"
 
     invoke-virtual {v5, v6}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setCardGoto(Ljava/lang/String;)V
 
-    .line 336
+    .line 331
     invoke-virtual {v1}, Lcom/bilibili/tv/api/main/MainRecommend$Body;->getParam()Ljava/lang/String;
 
     move-result-object v6
@@ -192,33 +192,33 @@
 
     invoke-virtual {v5, v6}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setJumpId(Ljava/lang/Long;)V
 
-    .line 337
+    .line 332
     invoke-virtual {v1}, Lcom/bilibili/tv/api/main/MainRecommend$Body;->getCover()Ljava/lang/String;
 
     move-result-object v6
 
     invoke-virtual {v5, v6}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setCover(Ljava/lang/String;)V
 
-    .line 338
+    .line 333
     invoke-virtual {v1}, Lcom/bilibili/tv/api/main/MainRecommend$Body;->getTitle()Ljava/lang/String;
 
     move-result-object v6
 
     invoke-virtual {v5, v6}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setTitle(Ljava/lang/String;)V
 
-    .line 339
+    .line 334
     invoke-virtual {v1}, Lcom/bilibili/tv/api/main/MainRecommend$Body;->getUri()Ljava/lang/String;
 
     move-result-object v1
 
     invoke-virtual {v5, v1}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setUri(Ljava/lang/String;)V
 
-    .line 340
+    .line 335
     invoke-virtual {v2, v5}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
     goto :goto_46
 
-    .line 342
+    .line 337
     :cond_89
     invoke-virtual {v0}, Lcom/bilibili/tv/api/main/MainRecommend$Data;->getBody()Ljava/util/List;
 
@@ -239,7 +239,7 @@
 
     goto :goto_91
 
-    .line 343
+    .line 338
     :cond_9a
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$dd;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
@@ -264,7 +264,7 @@
     .locals 0
 
     .prologue
-    .line 322
+    .line 317
     check-cast p1, Lcom/bilibili/tv/api/main/MainRecommend;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$dd;->onSuccess(Lcom/bilibili/tv/api/main/MainRecommend;)V

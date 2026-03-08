@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 150
+    .line 186
     iput-object p1, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$1;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     iput p2, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$1;->val$i2:I
@@ -52,7 +52,7 @@
     .locals 6
 
     .prologue
-    .line 153
+    .line 189
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v0
@@ -65,7 +65,7 @@
 
     invoke-static {v0, v1}, Lbl/abd;->set_speed_id(Landroid/content/Context;I)V
 
-    .line 154
+    .line 190
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$1;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     iget v1, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$1;->val$i:I
@@ -84,7 +84,7 @@
 
     invoke-virtual/range {v0 .. v5}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->a(IILandroid/view/View;Landroid/view/ViewGroup;Ljava/lang/String;)Z
 
-    .line 155
+    .line 191
     const/4 v0, 0x1
 
     return v0

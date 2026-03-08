@@ -109,6 +109,42 @@
     .end annotation
 .end method
 
+.method public abstract getCreatedFolderList(JLjava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # J
+        .annotation runtime Lretrofit2/http/Query;
+            value = "up_mid"
+        .end annotation
+    .end param
+    .param p3    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "web_location"
+        .end annotation
+    .end param
+    .param p4    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Referer"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(J",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            ")",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Lcom/alibaba/fastjson/JSONObject;",
+            ">;>;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/GET;
+        value = "/x/v3/fav/folder/created/list-all"
+    .end annotation
+.end method
+
 .method public abstract getDanmuFilter()Lbl/vp;
     .annotation system Ldalvik/annotation/Signature;
         value = {
@@ -170,6 +206,87 @@
         value = {
             "Referer: https://www.bilibili.com"
         }
+    .end annotation
+.end method
+
+.method public abstract getFavoriteResourceList(JIILjava/lang/String;Ljava/lang/String;IILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # J
+        .annotation runtime Lretrofit2/http/Query;
+            value = "media_id"
+        .end annotation
+    .end param
+    .param p3    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "pn"
+        .end annotation
+    .end param
+    .param p4    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "ps"
+        .end annotation
+    .end param
+    .param p5    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "keyword"
+        .end annotation
+    .end param
+    .param p6    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "order"
+        .end annotation
+    .end param
+    .param p7    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "type"
+        .end annotation
+    .end param
+    .param p8    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "tid"
+        .end annotation
+    .end param
+    .param p9    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "platform"
+        .end annotation
+    .end param
+    .param p10    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "web_location"
+        .end annotation
+    .end param
+    .param p11    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "access_key"
+        .end annotation
+    .end param
+    .param p12    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Referer"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(JII",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            "II",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            ")",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Lcom/alibaba/fastjson/JSONObject;",
+            ">;>;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/GET;
+        value = "/x/v3/fav/resource/list"
     .end annotation
 .end method
 
@@ -469,6 +586,197 @@
 
     .annotation runtime Lretrofit2/http/GET;
         value = "/x/relation"
+    .end annotation
+.end method
+
+.method public abstract getSeasonsArchivesList(Ljava/lang/String;JJZIILjava/lang/String;)Lbl/vp;
+    .param p1    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "access_key"
+        .end annotation
+    .end param
+    .param p2    # J
+        .annotation runtime Lretrofit2/http/Query;
+            value = "mid"
+        .end annotation
+    .end param
+    .param p4    # J
+        .annotation runtime Lretrofit2/http/Query;
+            value = "season_id"
+        .end annotation
+    .end param
+    .param p6    # Z
+        .annotation runtime Lretrofit2/http/Query;
+            value = "sort_reverse"
+        .end annotation
+    .end param
+    .param p7    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "page_size"
+        .end annotation
+    .end param
+    .param p8    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "page_num"
+        .end annotation
+    .end param
+    .param p9    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "web_location"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            "JJZII",
+            "Ljava/lang/String;",
+            ")",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Lcom/alibaba/fastjson/JSONObject;",
+            ">;>;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/GET;
+        value = "/x/polymer/web-space/seasons_archives_list"
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/Headers;
+        value = {
+            "Referer: https://space.bilibili.com"
+        }
+    .end annotation
+.end method
+
+.method public abstract getSeasonsSeriesList(Ljava/lang/String;JIILjava/lang/String;)Lbl/vp;
+    .param p1    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "access_key"
+        .end annotation
+    .end param
+    .param p2    # J
+        .annotation runtime Lretrofit2/http/Query;
+            value = "mid"
+        .end annotation
+    .end param
+    .param p4    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "page_size"
+        .end annotation
+    .end param
+    .param p5    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "page_num"
+        .end annotation
+    .end param
+    .param p6    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "web_location"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            "JII",
+            "Ljava/lang/String;",
+            ")",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Lcom/alibaba/fastjson/JSONObject;",
+            ">;>;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/GET;
+        value = "/x/polymer/web-space/seasons_series_list"
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/Headers;
+        value = {
+            "Referer: https://space.bilibili.com"
+        }
+    .end annotation
+.end method
+
+.method public abstract getSeriesArchives(Ljava/lang/String;JJJZLjava/lang/String;IILjava/lang/String;)Lbl/vp;
+    .param p1    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "access_key"
+        .end annotation
+    .end param
+    .param p2    # J
+        .annotation runtime Lretrofit2/http/Query;
+            value = "mid"
+        .end annotation
+    .end param
+    .param p4    # J
+        .annotation runtime Lretrofit2/http/Query;
+            value = "current_mid"
+        .end annotation
+    .end param
+    .param p6    # J
+        .annotation runtime Lretrofit2/http/Query;
+            value = "series_id"
+        .end annotation
+    .end param
+    .param p8    # Z
+        .annotation runtime Lretrofit2/http/Query;
+            value = "only_normal"
+        .end annotation
+    .end param
+    .param p9    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "sort"
+        .end annotation
+    .end param
+    .param p10    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "ps"
+        .end annotation
+    .end param
+    .param p11    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "pn"
+        .end annotation
+    .end param
+    .param p12    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "web_location"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            "JJJZ",
+            "Ljava/lang/String;",
+            "II",
+            "Ljava/lang/String;",
+            ")",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Lcom/alibaba/fastjson/JSONObject;",
+            ">;>;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/GET;
+        value = "/x/series/archives"
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/Headers;
+        value = {
+            "Referer: https://space.bilibili.com"
+        }
     .end annotation
 .end method
 

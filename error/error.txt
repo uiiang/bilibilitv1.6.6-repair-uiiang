@@ -1,0 +1,392 @@
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:369: error: cannot find symbol
+  public class c extends ady.c<d> {
+                            ^
+  symbol:   class c
+  location: class ady
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:353: error: cannot find symbol
+  public static class d extends ady.e {
+                                   ^
+  symbol:   class e
+  location: class ady
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:415: error: cannot find symbol
+  public class b extends ady.b {
+                            ^
+  symbol:   class b
+  location: class ady
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:431: error: RecyclerView.f is not public in RecyclerView; cannot be accessed from outside package
+  public static class f extends RecyclerView.f {
+                                            ^
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:468: error: no interface expected here
+  public static class g extends BorderGridLayoutManager.a {
+                                                       ^
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:45: error: AuthSpaceVideoFragment is not abstract and does not override abstract method c() in adw
+public final class AuthSpaceVideoFragment extends ady {
+             ^
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:134: error: no suitable method found for a(f)
+    recyclerView.a(new f(margin, gap));
+                ^
+    method RecyclerView.a(Context,String) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(float,float,float,float) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(long,v,v) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(Context,String,AttributeSet,int,int) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(a,boolean,boolean) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(v,v,RecyclerView$e$c,RecyclerView$e$c,boolean,boolean) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(View,Rect) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(View,View) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(int[]) is not applicable
+      (argument mismatch; f cannot be converted to int[])
+    method RecyclerView.a(MotionEvent) is not applicable
+      (argument mismatch; f cannot be converted to MotionEvent)
+    method RecyclerView.a(View,View,int) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(v) is not applicable
+      (argument mismatch; f cannot be converted to v)
+    method RecyclerView.a(int,boolean) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(long) is not applicable
+      (argument mismatch; f cannot be converted to long)
+    method RecyclerView.a() is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(int) is not applicable
+      (argument mismatch; f cannot be converted to int)
+    method RecyclerView.a(int,int) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(int,int,Interpolator) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(int,int,Object) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(int,int,boolean) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(StateListDrawable,Drawable,StateListDrawable,Drawable) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(g) is not applicable
+      (argument mismatch; f cannot be converted to g)
+    method RecyclerView.a(g,int) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(l) is not applicable
+      (argument mismatch; f cannot be converted to l)
+    method RecyclerView.a(m) is not applicable
+      (argument mismatch; f cannot be converted to m)
+    method RecyclerView.a(s) is not applicable
+      (argument mismatch; f cannot be converted to s)
+    method RecyclerView.a(v,RecyclerView$e$c) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(v,RecyclerView$e$c,RecyclerView$e$c) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(String) is not applicable
+      (argument mismatch; f cannot be converted to String)
+    method RecyclerView.a(boolean) is not applicable
+      (argument mismatch; f cannot be converted to boolean)
+    method RecyclerView.a(int,int,int,int,int[],int) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(int,int,MotionEvent) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(int,int,int[],int[],int) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(v,int) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(View) is not applicable
+      (argument mismatch; f cannot be converted to View)
+    method RecyclerView.a(AccessibilityEvent) is not applicable
+      (argument mismatch; f cannot be converted to AccessibilityEvent)
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:135: error: no suitable method found for a(com.bilibili.tv.ui.auth.AuthSpaceVideoFragment.g)
+    recyclerView.a(new g(lm));
+                ^
+    method RecyclerView.a(Context,String) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(float,float,float,float) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(long,v,v) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(Context,String,AttributeSet,int,int) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(a,boolean,boolean) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(v,v,RecyclerView$e$c,RecyclerView$e$c,boolean,boolean) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(View,Rect) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(View,View) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(int[]) is not applicable
+      (argument mismatch; com.bilibili.tv.ui.auth.AuthSpaceVideoFragment.g cannot be converted to int[])
+    method RecyclerView.a(MotionEvent) is not applicable
+      (argument mismatch; com.bilibili.tv.ui.auth.AuthSpaceVideoFragment.g cannot be converted to MotionEvent)
+    method RecyclerView.a(View,View,int) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(v) is not applicable
+      (argument mismatch; com.bilibili.tv.ui.auth.AuthSpaceVideoFragment.g cannot be converted to v)
+    method RecyclerView.a(int,boolean) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(long) is not applicable
+      (argument mismatch; com.bilibili.tv.ui.auth.AuthSpaceVideoFragment.g cannot be converted to long)
+    method RecyclerView.a() is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(int) is not applicable
+      (argument mismatch; com.bilibili.tv.ui.auth.AuthSpaceVideoFragment.g cannot be converted to int)
+    method RecyclerView.a(int,int) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(int,int,Interpolator) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(int,int,Object) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(int,int,boolean) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(StateListDrawable,Drawable,StateListDrawable,Drawable) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(android.support.v7.widget.RecyclerView.g) is not applicable
+      (argument mismatch; com.bilibili.tv.ui.auth.AuthSpaceVideoFragment.g cannot be converted to android.support.v7.widget.RecyclerView.g)
+    method RecyclerView.a(android.support.v7.widget.RecyclerView.g,int) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(l) is not applicable
+      (argument mismatch; com.bilibili.tv.ui.auth.AuthSpaceVideoFragment.g cannot be converted to l)
+    method RecyclerView.a(m) is not applicable
+      (argument mismatch; com.bilibili.tv.ui.auth.AuthSpaceVideoFragment.g cannot be converted to m)
+    method RecyclerView.a(s) is not applicable
+      (argument mismatch; com.bilibili.tv.ui.auth.AuthSpaceVideoFragment.g cannot be converted to s)
+    method RecyclerView.a(v,RecyclerView$e$c) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(v,RecyclerView$e$c,RecyclerView$e$c) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(String) is not applicable
+      (argument mismatch; com.bilibili.tv.ui.auth.AuthSpaceVideoFragment.g cannot be converted to String)
+    method RecyclerView.a(boolean) is not applicable
+      (argument mismatch; com.bilibili.tv.ui.auth.AuthSpaceVideoFragment.g cannot be converted to boolean)
+    method RecyclerView.a(int,int,int,int,int[],int) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(int,int,MotionEvent) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(int,int,int[],int[],int) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(v,int) is not applicable
+      (actual and formal argument lists differ in length)
+    method RecyclerView.a(View) is not applicable
+      (argument mismatch; com.bilibili.tv.ui.auth.AuthSpaceVideoFragment.g cannot be converted to View)
+    method RecyclerView.a(AccessibilityEvent) is not applicable
+      (argument mismatch; com.bilibili.tv.ui.auth.AuthSpaceVideoFragment.g cannot be converted to AccessibilityEvent)
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:137: error: method setAdapter in class RecyclerView cannot be applied to given types;
+    recyclerView.setAdapter(this.adapter);
+                ^
+  required: a
+  found: AuthSpaceVideoFragment.c
+  reason: argument mismatch; AuthSpaceVideoFragment.c cannot be converted to a
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:245: error: cannot find symbol
+          if (response != null && response.getList() != null) {
+                                          ^
+  symbol:   method getList()
+  location: variable response of type BiliSpaceVideoList
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:246: error: cannot find symbol
+            totalCount = response.getCount();
+                                 ^
+  symbol:   method getCount()
+  location: variable response of type BiliSpaceVideoList
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:247: error: cannot find symbol
+            List<BiliSpaceVideo> videos = response.getList();
+                                                  ^
+  symbol:   method getList()
+  location: variable response of type BiliSpaceVideoList
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:240: error: cannot find symbol
+      .getSpaceVideo(mid, page)
+      ^
+  symbol:   method getSpaceVideo(long,int)
+  location: interface MyBiliApiService
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:284: error: cannot find symbol
+          if (response != null && response.getList() != null) {
+                                          ^
+  symbol:   method getList()
+  location: variable response of type BiliSpaceVideoList
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:285: error: cannot find symbol
+            List<BiliSpaceVideo> videos = response.getList();
+                                                  ^
+  symbol:   method getList()
+  location: variable response of type BiliSpaceVideoList
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:279: error: cannot find symbol
+      .getSeasonVideos(mid, targetId, page)
+      ^
+  symbol:   method getSeasonVideos(long,long,int)
+  location: interface BiliSpaceApiService
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:319: error: cannot find symbol
+          if (response != null && response.getList() != null) {
+                                          ^
+  symbol:   method getList()
+  location: variable response of type BiliSpaceVideoList
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:320: error: cannot find symbol
+            List<BiliSpaceVideo> videos = response.getList();
+                                                  ^
+  symbol:   method getList()
+  location: variable response of type BiliSpaceVideoList
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:314: error: cannot find symbol
+      .getSeriesVideos(mid, targetId, page)
+      ^
+  symbol:   method getSeriesVideos(long,long,int)
+  location: interface BiliSpaceApiService
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:344: error: method does not override or implement a method from a supertype
+  @Override
+  ^
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:346: error: cannot find symbol
+    super.e();
+         ^
+  symbol: method e()
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:348: error: no suitable method found for a(AuthSpaceVideoFragment.b)
+      adapter.a(callback);
+             ^
+    method AuthSpaceVideoFragment.c.a(ViewGroup,int) is not applicable
+      (actual and formal argument lists differ in length)
+    method AuthSpaceVideoFragment.c.a(d,int) is not applicable
+      (actual and formal argument lists differ in length)
+    method AuthSpaceVideoFragment.c.a(List<BiliSpaceVideo>) is not applicable
+      (argument mismatch; AuthSpaceVideoFragment.b cannot be converted to List<BiliSpaceVideo>)
+    method AuthSpaceVideoFragment.c.a(BiliSpaceVideo) is not applicable
+      (argument mismatch; AuthSpaceVideoFragment.b cannot be converted to BiliSpaceVideo)
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:361: error: cannot find symbol
+      title = (TextView) itemView.findViewById(R.id.video_info_title);
+                                                   ^
+  symbol:   variable video_info_title
+  location: class id
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:362: error: cannot find symbol
+      playCount = (TextView) itemView.findViewById(R.id.video_info_play_count);
+                                                       ^
+  symbol:   variable video_info_play_count
+  location: class id
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:363: error: cannot find symbol
+      duration = (TextView) itemView.findViewById(R.id.video_info_duration);
+                                                      ^
+  symbol:   variable video_info_duration
+  location: class id
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:364: error: cannot find symbol
+      ownerName = (DrawTextView) itemView.findViewById(R.id.video_info_owner_name);
+                                                           ^
+  symbol:   variable video_info_owner_name
+  location: class id
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:372: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:378: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:382: error: cannot find symbol
+        holder.title.setText(video.getTitle());
+                                  ^
+  symbol:   method getTitle()
+  location: variable video of type BiliSpaceVideo
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:383: error: cannot find symbol
+        holder.playCount.setText(video.getPlayCount());
+                                      ^
+  symbol:   method getPlayCount()
+  location: variable video of type BiliSpaceVideo
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:384: error: cannot find symbol
+        holder.duration.setText(video.getDuration());
+                                     ^
+  symbol:   method getDuration()
+  location: variable video of type BiliSpaceVideo
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:394: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:401: error: cannot find symbol
+      notifyDataSetChanged();
+      ^
+  symbol:   method notifyDataSetChanged()
+  location: class AuthSpaceVideoFragment.c
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:406: error: cannot find symbol
+      notifyItemInserted(videos.size() - 1);
+      ^
+  symbol:   method notifyItemInserted(int)
+  location: class AuthSpaceVideoFragment.c
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:416: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:423: error: no suitable method found for a(BiliSpaceVideo)
+            activity.a(video);
+                    ^
+    method AppCompatActivity.a(a) is not applicable
+      (argument mismatch; BiliSpaceVideo cannot be converted to a)
+    method AppCompatActivity.a(ai) is not applicable
+      (argument mismatch; BiliSpaceVideo cannot be converted to ai)
+    method AppCompatActivity.a(fa) is not applicable
+      (argument mismatch; BiliSpaceVideo cannot be converted to fa)
+    method AppCompatActivity.a(Intent) is not applicable
+      (argument mismatch; BiliSpaceVideo cannot be converted to Intent)
+    method BaseActivity.a(Bundle) is not applicable
+      (argument mismatch; BiliSpaceVideo cannot be converted to Bundle)
+    method BaseUpViewActivity.a(agd) is not applicable
+      (argument mismatch; BiliSpaceVideo cannot be converted to agd)
+    method BaseSideActivity.a(RecyclerView) is not applicable
+      (argument mismatch; BiliSpaceVideo cannot be converted to RecyclerView)
+    method AuthSpaceSideActivity.a(agd) is not applicable
+      (argument mismatch; BiliSpaceVideo cannot be converted to agd)
+    method AuthSpaceSideActivity.a(Bundle) is not applicable
+      (argument mismatch; BiliSpaceVideo cannot be converted to Bundle)
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:440: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:442: error: cannot find symbol
+      int position = parent.getChildAdapterPosition(view);
+                           ^
+  symbol:   method getChildAdapterPosition(View)
+  location: variable parent of type RecyclerView
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:443: error: cannot find symbol
+      int spanSize = ((SideRightGridLayoutManger) parent.getLayoutManager()).getSpanSize(position);
+                                                                            ^
+  symbol:   method getSpanSize(int)
+  location: class SideRightGridLayoutManger
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:444: error: cannot find symbol
+      int index = ((SideRightGridLayoutManger) parent.getLayoutManager()).getIndex(position);
+                                                                         ^
+  symbol:   method getIndex(int)
+  location: class SideRightGridLayoutManger
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:475: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:477: error: cannot find symbol
+      return layoutManager.getSpanSize(position);
+                          ^
+  symbol:   method getSpanSize(int)
+  location: variable layoutManager of type SideRightGridLayoutManger
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:480: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:482: error: cannot find symbol
+      return layoutManager.getIndex(position);
+                          ^
+  symbol:   method getIndex(int)
+  location: variable layoutManager of type SideRightGridLayoutManger
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:487: error: e is not abstract and does not override abstract method a(View,View,int,int,int) in a
+  public static class e implements SideRightGridLayoutManger.a {
+                ^
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:494: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+classes/com/bilibili/tv/ui/auth/AuthSpaceVideoFragment.java:497: error: no suitable method found for a(int)
+        activity.a(position);
+                ^
+    method AppCompatActivity.a(a) is not applicable
+      (argument mismatch; int cannot be converted to a)
+    method AppCompatActivity.a(ai) is not applicable
+      (argument mismatch; int cannot be converted to ai)
+    method AppCompatActivity.a(fa) is not applicable
+      (argument mismatch; int cannot be converted to fa)
+    method AppCompatActivity.a(Intent) is not applicable
+      (argument mismatch; int cannot be converted to Intent)
+    method BaseActivity.a(Bundle) is not applicable
+      (argument mismatch; int cannot be converted to Bundle)
+    method BaseUpViewActivity.a(agd) is not applicable
+      (argument mismatch; int cannot be converted to agd)
+    method BaseSideActivity.a(RecyclerView) is not applicable
+      (argument mismatch; int cannot be converted to RecyclerView)
+    method AuthSpaceSideActivity.a(agd) is not applicable
+      (argument mismatch; int cannot be converted to agd)
+    method AuthSpaceSideActivity.a(Bundle) is not applicable
+      (argument mismatch; int cannot be converted to Bundle)
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+47 errors

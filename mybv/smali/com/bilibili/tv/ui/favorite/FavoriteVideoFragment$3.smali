@@ -5,7 +5,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->loadCourseVideos()V
+    value = Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->loadCollectionVideos()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 372
+    .line 426
     iput-object p1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
@@ -43,103 +43,34 @@
 
 # virtual methods
 .method public a(Lcom/alibaba/fastjson/JSONObject;)V
-    .locals 5
+    .locals 11
 
     .prologue
-    const/4 v4, 0x0
+    const/4 v10, 0x1
 
-    .line 375
-    const-string v1, "FavoriteVideoFragment"
+    const/4 v1, 0x0
 
-    new-instance v0, Ljava/lang/StringBuilder;
-
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "Course videos result: "
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    if-eqz p1, :cond_28
-
-    invoke-virtual {p1}, Lcom/alibaba/fastjson/JSONObject;->toJSONString()Ljava/lang/String;
-
-    move-result-object v0
-
-    :goto_14
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {v1, v0}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 376
-    iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
-
-    # getter for: Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->c:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->access$300(Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;)Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;
-
-    move-result-object v0
-
-    if-nez v0, :cond_2b
-
-    .line 399
-    :goto_27
-    return-void
-
-    .line 375
-    :cond_28
-    const-string v0, "null"
-
-    goto :goto_14
-
-    .line 379
-    :cond_2b
-    iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->j()V
-
-    .line 380
-    iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
-
-    # setter for: Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->h:Z
-    invoke-static {v0, v4}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->access$102(Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;Z)Z
-
-    .line 381
-    if-eqz p1, :cond_a4
-
-    .line 382
-    const-string v0, "episodes"
-
-    invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
-
-    move-result-object v1
-
-    .line 383
+    .line 429
     const-string v2, "FavoriteVideoFragment"
 
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v3, "Episodes: "
+    const-string v3, "Collection result: "
 
     invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v3
 
-    if-eqz v1, :cond_97
+    if-eqz p1, :cond_29
 
-    invoke-virtual {v1}, Lcom/alibaba/fastjson/JSONArray;->toJSONString()Ljava/lang/String;
+    .line 430
+    invoke-virtual {p1}, Lcom/alibaba/fastjson/JSONObject;->toJSONString()Ljava/lang/String;
 
     move-result-object v0
 
-    :goto_50
+    :goto_15
     invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
@@ -148,45 +79,139 @@
 
     move-result-object v0
 
+    .line 429
     invoke-static {v2, v0}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 384
-    if-eqz v1, :cond_a4
+    .line 431
+    iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
-    invoke-virtual {v1}, Lcom/alibaba/fastjson/JSONArray;->isEmpty()Z
+    # getter for: Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->c:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->access$300(Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;)Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;
+
+    move-result-object v0
+
+    if-nez v0, :cond_2c
+
+    .line 475
+    :cond_28
+    :goto_28
+    return-void
+
+    .line 430
+    :cond_29
+    const-string v0, "null"
+
+    goto :goto_15
+
+    .line 434
+    :cond_2c
+    iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->j()V
+
+    .line 435
+    iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
+
+    # setter for: Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->h:Z
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->access$102(Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;Z)Z
+
+    .line 436
+    if-eqz p1, :cond_d0
+
+    .line 437
+    const-string v0, "medias"
+
+    invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
+
+    move-result-object v2
+
+    .line 438
+    const-string v0, "info"
+
+    invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
+
+    move-result-object v3
+
+    .line 439
+    if-eqz v2, :cond_d0
+
+    invoke-virtual {v2}, Lcom/alibaba/fastjson/JSONArray;->isEmpty()Z
 
     move-result v0
 
-    if-nez v0, :cond_a4
+    if-nez v0, :cond_d0
 
-    .line 385
-    const-string v0, "FavoriteVideoFragment"
+    .line 440
+    new-instance v4, Ljava/util/ArrayList;
 
-    new-instance v2, Ljava/lang/StringBuilder;
+    invoke-direct {v4}, Ljava/util/ArrayList;-><init>()V
 
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+    move v0, v1
 
-    const-string v3, "Episodes size: "
+    .line 441
+    :goto_52
+    invoke-virtual {v2}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    move-result v5
 
-    move-result-object v2
+    if-ge v0, v5, :cond_87
 
-    invoke-virtual {v1}, Lcom/alibaba/fastjson/JSONArray;->size()I
+    .line 442
+    invoke-virtual {v2, v0}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
-    move-result v3
+    move-result-object v5
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    .line 443
+    new-instance v6, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
-    move-result-object v2
+    invoke-direct {v6}, Lcom/bilibili/tv/api/video/BiliVideoDetail;-><init>()V
 
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    .line 444
+    const-string v7, "id"
 
-    move-result-object v2
+    invoke-virtual {v5, v7}, Lcom/alibaba/fastjson/JSONObject;->getLong(Ljava/lang/String;)Ljava/lang/Long;
 
-    invoke-static {v0, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    move-result-object v7
 
-    .line 387
+    invoke-virtual {v7}, Ljava/lang/Long;->longValue()J
+
+    move-result-wide v8
+
+    iput-wide v8, v6, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mAvid:J
+
+    .line 445
+    const-string v7, "cover"
+
+    invoke-virtual {v5, v7}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v7
+
+    iput-object v7, v6, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mCover:Ljava/lang/String;
+
+    .line 446
+    const-string v7, "title"
+
+    invoke-virtual {v5, v7}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v5
+
+    iput-object v5, v6, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mTitle:Ljava/lang/String;
+
+    .line 447
+    const-string v5, "\u756a\u5267"
+
+    iput-object v5, v6, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mTypeName:Ljava/lang/String;
+
+    .line 448
+    invoke-interface {v4, v6}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    .line 441
+    add-int/lit8 v0, v0, 0x1
+
+    goto :goto_52
+
+    .line 450
+    :cond_87
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->f:I
@@ -194,11 +219,9 @@
 
     move-result v0
 
-    const/4 v2, 0x1
+    if-ne v0, v10, :cond_c6
 
-    if-ne v0, v2, :cond_9a
-
-    .line 388
+    .line 451
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->c:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;
@@ -206,25 +229,66 @@
 
     move-result-object v0
 
-    invoke-virtual {v0, v1, p1}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;->a(Lcom/alibaba/fastjson/JSONArray;Lcom/alibaba/fastjson/JSONObject;)V
+    invoke-virtual {v0, v4}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;->a(Ljava/util/List;)V
 
-    .line 392
-    :goto_91
+    .line 452
+    if-eqz v3, :cond_ab
+
+    .line 453
+    const-string v0, "title"
+
+    invoke-virtual {v3, v0}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 454
+    const-string v2, "media_count"
+
+    invoke-virtual {v3, v2}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
+
+    move-result v2
+
+    .line 455
+    iget-object v4, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
+
+    invoke-virtual {v4, v0, v2}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->updateHeaderInfo(Ljava/lang/String;I)V
+
+    .line 461
+    :cond_ab
+    :goto_ab
+    if-eqz v3, :cond_28
+
+    .line 462
+    const-string v0, "media_count"
+
+    invoke-virtual {v3, v0}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
+
+    move-result v0
+
+    .line 463
+    iget-object v2, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
+
+    # getter for: Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->c:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;
+    invoke-static {v2}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->access$300(Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;)Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;->a()I
+
+    move-result v2
+
+    if-lt v2, v0, :cond_28
+
+    .line 464
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     # setter for: Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->g:Z
-    invoke-static {v0, v4}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->access$202(Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;Z)Z
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->access$202(Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;Z)Z
 
-    goto :goto_27
+    goto/16 :goto_28
 
-    .line 383
-    :cond_97
-    const-string v0, "null"
-
-    goto :goto_50
-
-    .line 390
-    :cond_9a
+    .line 458
+    :cond_c6
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->c:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;
@@ -232,37 +296,47 @@
 
     move-result-object v0
 
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;->b(Lcom/alibaba/fastjson/JSONArray;)V
+    invoke-virtual {v0, v4}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;->b(Ljava/util/List;)V
 
-    goto :goto_91
+    goto :goto_ab
 
-    .line 396
-    :cond_a4
+    .line 470
+    :cond_d0
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     # setter for: Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->g:Z
-    invoke-static {v0, v4}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->access$202(Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;Z)Z
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->access$202(Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;Z)Z
 
-    .line 397
+    .line 471
+    iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
+
+    # getter for: Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->f:I
+    invoke-static {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->access$400(Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;)I
+
+    move-result v0
+
+    if-ne v0, v10, :cond_28
+
+    .line 472
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->l()V
 
-    .line 398
+    .line 473
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     const v1, 0x7f0c00d8
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->a(I)V
 
-    goto/16 :goto_27
+    goto/16 :goto_28
 .end method
 
 .method public bridge synthetic a(Ljava/lang/Object;)V
     .locals 0
 
     .prologue
-    .line 372
+    .line 426
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->a(Lcom/alibaba/fastjson/JSONObject;)V
@@ -274,7 +348,7 @@
     .locals 1
 
     .prologue
-    .line 403
+    .line 479
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -308,7 +382,7 @@
     .locals 2
 
     .prologue
-    .line 408
+    .line 484
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
@@ -319,7 +393,7 @@
 
     invoke-virtual {v0, p1, v1}, Lbl/adl;->a(Ljava/lang/Throwable;Landroid/app/Activity;)V
 
-    .line 409
+    .line 485
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->c:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;
@@ -329,11 +403,12 @@
 
     if-nez v0, :cond_14
 
-    .line 414
+    .line 492
+    :cond_13
     :goto_13
     return-void
 
-    .line 412
+    .line 488
     :cond_14
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
@@ -342,7 +417,19 @@
     # setter for: Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->h:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->access$102(Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;Z)Z
 
-    .line 413
+    .line 489
+    iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
+
+    # getter for: Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->f:I
+    invoke-static {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->access$400(Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;)I
+
+    move-result v0
+
+    const/4 v1, 0x1
+
+    if-ne v0, v1, :cond_13
+
+    .line 490
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->k()V

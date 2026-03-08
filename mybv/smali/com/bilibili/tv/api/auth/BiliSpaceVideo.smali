@@ -1,17 +1,18 @@
 .class public Lcom/bilibili/tv/api/auth/BiliSpaceVideo;
 .super Ljava/lang/Object;
-.source "BL"
-
-
-# annotations
-.annotation build Landroid/support/annotation/Keep;
-.end annotation
+.source "BiliSpaceVideo.java"
 
 
 # instance fields
 .field public cover:Ljava/lang/String;
     .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
         name = "cover"
+    .end annotation
+.end field
+
+.field public ctime:Ljava/lang/Long;
+    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
+        name = "ctime"
     .end annotation
 .end field
 
@@ -50,7 +51,8 @@
 .method public constructor <init>()V
     .locals 0
 
-    .line 15
+    .prologue
+    .line 5
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void

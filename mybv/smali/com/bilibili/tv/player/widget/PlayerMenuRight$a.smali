@@ -36,6 +36,9 @@
 .method public abstract f(I)V
 .end method
 
+.method public abstract jumpToChapter(I)V
+.end method
+
 .method public abstract refresh_subtitle()V
 .end method
 

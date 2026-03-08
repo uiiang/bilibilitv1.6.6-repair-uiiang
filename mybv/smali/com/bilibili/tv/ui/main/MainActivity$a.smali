@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 114
+    .line 116
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 115
+    .line 117
     return-void
 .end method
 
@@ -30,10 +30,10 @@
     .locals 0
 
     .prologue
-    .line 118
+    .line 120
     invoke-direct {p0}, Lcom/bilibili/tv/ui/main/MainActivity$a;-><init>()V
 
-    .line 119
+    .line 121
     return-void
 .end method
 
@@ -43,7 +43,7 @@
     .locals 1
 
     .prologue
-    .line 122
+    .line 124
     const/16 v0, 0x65
 
     return v0
@@ -53,12 +53,12 @@
     .locals 2
 
     .prologue
-    .line 127
+    .line 129
     const-string v0, "context"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 128
+    .line 130
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     invoke-virtual {v0}, Lbl/adl;->d()Z
@@ -67,21 +67,21 @@
 
     if-eqz v0, :cond_18
 
-    .line 129
+    .line 131
     new-instance v0, Landroid/content/Intent;
 
     const-class v1, Lcom/bilibili/tv/ui/main/MainActivity;
 
     invoke-direct {v0, p1, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
 
-    .line 133
+    .line 135
     :goto_14
     invoke-virtual {p1, v0}, Landroid/content/Context;->startActivity(Landroid/content/Intent;)V
 
-    .line 134
+    .line 136
     return-void
 
-    .line 131
+    .line 133
     :cond_18
     new-instance v0, Landroid/content/Intent;
 

@@ -57,7 +57,7 @@
     .locals 2
 
     .prologue
-    .line 73
+    .line 75
     new-instance v0, Lcom/bilibili/tv/ui/main/MainActivity$a;
 
     const/4 v1, 0x0
@@ -73,10 +73,10 @@
     .locals 3
 
     .prologue
-    .line 72
+    .line 74
     invoke-direct {p0}, Lcom/bilibili/tv/ui/base/BaseActivity;-><init>()V
 
-    .line 82
+    .line 84
     new-instance v0, Ljava/text/SimpleDateFormat;
 
     const-string v1, "HH:mm"
@@ -96,7 +96,7 @@
     .locals 1
 
     .prologue
-    .line 92
+    .line 94
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity;->e:Lbl/aey;
 
     return-object v0
@@ -106,7 +106,7 @@
     .locals 1
 
     .prologue
-    .line 72
+    .line 74
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity;->d:Lcom/bilibili/tv/ui/main/MainActivity$d;
 
     return-object v0
@@ -116,35 +116,88 @@
     .locals 1
 
     .prologue
-    .line 72
+    .line 74
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity;->g:Ljava/text/SimpleDateFormat;
 
     return-object v0
+.end method
+
+.method private isDescendantOfView(Landroid/view/View;Landroid/view/View;)Z
+    .locals 3
+
+    .prologue
+    const/4 v1, 0x0
+
+    .line 529
+    if-eqz p1, :cond_5
+
+    if-nez p2, :cond_a
+
+    :cond_5
+    move v0, v1
+
+    .line 537
+    :goto_6
+    return v0
+
+    .line 535
+    :cond_7
+    check-cast v0, Landroid/view/View;
+
+    move-object p1, v0
+
+    .line 531
+    :cond_a
+    if-eqz p1, :cond_18
+
+    .line 532
+    if-ne p1, p2, :cond_10
+
+    const/4 v0, 0x1
+
+    goto :goto_6
+
+    .line 533
+    :cond_10
+    invoke-virtual {p1}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
+
+    move-result-object v0
+
+    .line 534
+    instance-of v2, v0, Landroid/view/View;
+
+    if-nez v2, :cond_7
+
+    :cond_18
+    move v0, v1
+
+    .line 537
+    goto :goto_6
 .end method
 
 .method private final p()V
     .locals 4
 
     .prologue
-    .line 766
+    .line 821
     sget-boolean v0, Lmybl/BiliFilter;->fastquit_on:Z
 
     if-eqz v0, :cond_8
 
-    .line 767
+    .line 822
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/MainActivity;->onBackPressed()V
 
-    .line 773
+    .line 828
     :goto_7
     return-void
 
-    .line 770
+    .line 825
     :cond_8
     new-instance v0, Lbl/agb$a;
 
     invoke-direct {v0, p0}, Lbl/agb$a;-><init>(Landroid/app/Activity;)V
 
-    .line 771
+    .line 826
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Lbl/agb$a;->a(I)Lbl/agb$a;
@@ -185,7 +238,7 @@
 
     invoke-virtual {v1, v2, v3}, Lbl/agb$a;->a(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
 
-    .line 772
+    .line 827
     invoke-virtual {v0}, Lbl/agb$a;->a()Lbl/agb;
 
     move-result-object v0
@@ -205,7 +258,7 @@
 
     const/4 v9, 0x0
 
-    .line 140
+    .line 142
     const v0, 0x7f080160
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/main/MainActivity;->d(I)Landroid/view/View;
@@ -216,7 +269,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity;->f:Lcom/bilibili/tv/widget/FixedViewPager;
 
-    .line 141
+    .line 143
     const v0, 0x7f080134
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/main/MainActivity;->d(I)Landroid/view/View;
@@ -227,24 +280,24 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity;->c:Landroid/support/v7/widget/RecyclerView;
 
-    .line 142
+    .line 144
     const v0, 0x7f08012c
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/main/MainActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 143
+    .line 145
     const-string v1, "findViewById(R.id.time)"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
     move-object v6, v0
 
-    .line 144
+    .line 146
     check-cast v6, Landroid/widget/TextView;
 
-    .line 145
+    .line 147
     new-instance v0, Lcom/bilibili/tv/ui/main/MainActivity$d;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/MainActivity;->f:Lcom/bilibili/tv/widget/FixedViewPager;
@@ -253,33 +306,33 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity;->d:Lcom/bilibili/tv/ui/main/MainActivity$d;
 
-    .line 146
+    .line 148
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity;->c:Landroid/support/v7/widget/RecyclerView;
 
-    .line 147
+    .line 149
     if-eqz v0, :cond_39
 
-    .line 148
+    .line 150
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/MainActivity;->d:Lcom/bilibili/tv/ui/main/MainActivity$d;
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setAdapter(Landroid/support/v7/widget/RecyclerView$a;)V
 
-    .line 151
+    .line 153
     :cond_39
     new-instance v7, Lcom/bilibili/tv/ui/main/MainActivity$1;
 
     invoke-direct {v7, p0, p0, v9, v9}, Lcom/bilibili/tv/ui/main/MainActivity$1;-><init>(Lcom/bilibili/tv/ui/main/MainActivity;Landroid/content/Context;IZ)V
 
-    .line 185
+    .line 187
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity;->c:Landroid/support/v7/widget/RecyclerView;
 
-    .line 186
+    .line 188
     if-eqz v0, :cond_45
 
-    .line 187
+    .line 189
     invoke-virtual {v0, v7}, Landroid/support/v7/widget/RecyclerView;->setLayoutManager(Landroid/support/v7/widget/RecyclerView$h;)V
 
-    .line 189
+    .line 191
     :cond_45
     const v0, 0x7f0601bc
 
@@ -287,34 +340,34 @@
 
     move-result v2
 
-    .line 190
+    .line 192
     const v0, 0x7f0601a5
 
     invoke-static {v0}, Lbl/adl;->b(I)I
 
     move-result v3
 
-    .line 191
+    .line 193
     const v0, 0x7f060378
 
     invoke-static {v0}, Lbl/adl;->b(I)I
 
     move-result v4
 
-    .line 192
+    .line 194
     const v0, 0x7f06022a
 
     invoke-static {v0}, Lbl/adl;->b(I)I
 
     move-result v5
 
-    .line 193
+    .line 195
     iget-object v8, p0, Lcom/bilibili/tv/ui/main/MainActivity;->c:Landroid/support/v7/widget/RecyclerView;
 
-    .line 194
+    .line 196
     if-eqz v8, :cond_6e
 
-    .line 195
+    .line 197
     new-instance v0, Lcom/bilibili/tv/ui/main/MainActivity$f;
 
     move-object v1, p0
@@ -323,62 +376,62 @@
 
     invoke-virtual {v8, v0}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$g;)V
 
-    .line 197
+    .line 199
     :cond_6e
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/MainActivity;->getSupportFragmentManager()Landroid/support/v4/app/FragmentManager;
 
     move-result-object v0
 
-    .line 198
+    .line 200
     const-string v1, "supportFragmentManager"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 199
+    .line 201
     new-instance v1, Lbl/aey;
 
     invoke-direct {v1, v0}, Lbl/aey;-><init>(Landroid/support/v4/app/FragmentManager;)V
 
     iput-object v1, p0, Lcom/bilibili/tv/ui/main/MainActivity;->e:Lbl/aey;
 
-    .line 200
+    .line 202
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity;->f:Lcom/bilibili/tv/widget/FixedViewPager;
 
-    .line 201
+    .line 203
     if-eqz v0, :cond_87
 
-    .line 202
+    .line 204
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/MainActivity;->e:Lbl/aey;
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/FixedViewPager;->setAdapter(Lbl/cy;)V
 
-    .line 204
+    .line 206
     :cond_87
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity;->f:Lcom/bilibili/tv/widget/FixedViewPager;
 
-    .line 205
+    .line 207
     if-eqz v0, :cond_8f
 
-    .line 206
+    .line 208
     const/4 v1, 0x4
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/FixedViewPager;->setOffscreenPageLimit(I)V
 
-    .line 208
+    .line 210
     :cond_8f
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity;->f:Lcom/bilibili/tv/widget/FixedViewPager;
 
-    .line 209
+    .line 211
     if-eqz v0, :cond_9b
 
-    .line 210
+    .line 212
     new-instance v1, Lcom/bilibili/tv/ui/main/MainActivity$g;
 
     invoke-direct {v1, p0, v7}, Lcom/bilibili/tv/ui/main/MainActivity$g;-><init>(Lcom/bilibili/tv/ui/main/MainActivity;Landroid/support/v7/widget/LinearLayoutManager;)V
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/FixedViewPager;->a(Landroid/support/v4/view/ViewPager$f;)V
 
-    .line 212
+    .line 214
     :cond_9b
     new-instance v0, Lcom/bilibili/tv/ui/main/MainActivity$h;
 
@@ -386,7 +439,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity;->h:Ljava/lang/Runnable;
 
-    .line 213
+    .line 215
     invoke-static {v9}, Lbl/lv;->a(I)Landroid/os/Handler;
 
     move-result-object v0
@@ -395,27 +448,27 @@
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
 
-    .line 214
+    .line 216
     invoke-static {p0}, Lbl/adm;->a(Landroid/app/Activity;)V
 
-    .line 215
+    .line 217
     invoke-static {}, Lbl/kn;->a()Lbl/kn;
 
     move-result-object v0
 
-    .line 216
+    .line 218
     const-string v1, "ConnectivityMonitor.getInstance()"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 217
+    .line 219
     invoke-virtual {v0}, Lbl/kn;->c()Z
 
     move-result v0
 
     if-nez v0, :cond_c7
 
-    .line 218
+    .line 220
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v0
@@ -424,7 +477,7 @@
 
     invoke-static {v0, v1}, Lbl/lr;->a(Landroid/content/Context;I)V
 
-    .line 220
+    .line 222
     :cond_c7
     invoke-static {v9}, Lbl/lv;->a(I)Landroid/os/Handler;
 
@@ -438,24 +491,24 @@
 
     invoke-virtual {v0, v1, v2, v3}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 221
+    .line 223
     new-instance v0, Landroid/os/Handler;
 
     invoke-direct {v0}, Landroid/os/Handler;-><init>()V
 
-    .line 222
+    .line 224
     new-instance v1, Lcom/bilibili/tv/ui/main/MainActivity$k;
 
     invoke-direct {v1, p0, v0}, Lcom/bilibili/tv/ui/main/MainActivity$k;-><init>(Lcom/bilibili/tv/ui/main/MainActivity;Landroid/os/Handler;)V
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
 
-    .line 223
+    .line 225
     sget-object v0, Lbl/ace;->a:Lbl/ace;
 
     invoke-virtual {v0, p0}, Lbl/ace;->a(Landroid/content/Context;)V
 
-    .line 224
+    .line 226
     sget-object v0, Lbl/azo;->a:Lbl/azo$a;
 
     invoke-virtual {v0}, Lbl/azo$a;->a()Lbl/azo;
@@ -464,7 +517,7 @@
 
     invoke-virtual {v0}, Lbl/azo;->i()V
 
-    .line 225
+    .line 227
     sget-object v0, Lbl/azo;->a:Lbl/azo$a;
 
     invoke-virtual {v0}, Lbl/azo$a;->a()Lbl/azo;
@@ -473,7 +526,7 @@
 
     invoke-virtual {v0}, Lbl/azo;->c()V
 
-    .line 226
+    .line 228
     new-instance v0, Lcom/bilibili/tv/ui/main/MainActivity$b;
 
     new-instance v1, Ljava/lang/ref/WeakReference;
@@ -484,7 +537,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity;->i:Lcom/bilibili/tv/ui/main/MainActivity$b;
 
-    .line 227
+    .line 229
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
@@ -511,14 +564,14 @@
 
     invoke-virtual {v0, v1, v2}, Lbl/mg;->a(Lbl/mn;[Lcom/bilibili/lib/account/subscribe/Topic;)V
 
-    .line 228
+    .line 230
     new-instance v0, Lcom/bilibili/tv/ui/main/MainActivity$j;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/main/MainActivity$j;-><init>(Lcom/bilibili/tv/ui/main/MainActivity;)V
 
     invoke-static {v10, v0}, Lbl/lv;->a(ILjava/lang/Runnable;)V
 
-    .line 229
+    .line 231
     invoke-static {}, Lbl/wh;->a()Lbl/wh;
 
     move-result-object v0
@@ -527,7 +580,7 @@
 
     invoke-virtual {v0, v1}, Lbl/wh;->a(Landroid/support/v4/view/ViewPager;)V
 
-    .line 230
+    .line 232
     return-void
 .end method
 
@@ -535,10 +588,10 @@
     .locals 0
 
     .prologue
-    .line 96
+    .line 98
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/main/MainActivity;->a:Z
 
-    .line 97
+    .line 99
     return-void
 .end method
 
@@ -546,18 +599,176 @@
     .locals 0
 
     .prologue
-    .line 104
+    .line 106
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/main/MainActivity;->b:Z
 
-    .line 105
+    .line 107
     return-void
+.end method
+
+.method public dispatchKeyEvent(Landroid/view/KeyEvent;)Z
+    .locals 4
+
+    .prologue
+    const/4 v1, -0x1
+
+    .line 489
+    invoke-virtual {p1}, Landroid/view/KeyEvent;->getAction()I
+
+    move-result v0
+
+    .line 490
+    invoke-virtual {p1}, Landroid/view/KeyEvent;->getKeyCode()I
+
+    move-result v2
+
+    .line 491
+    if-nez v0, :cond_5e
+
+    .line 492
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/MainActivity;->getCurrentFocus()Landroid/view/View;
+
+    move-result-object v3
+
+    .line 493
+    if-nez v3, :cond_16
+
+    .line 494
+    invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseActivity;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
+
+    move-result v0
+
+    .line 525
+    :goto_15
+    return v0
+
+    .line 499
+    :cond_16
+    const/16 v0, 0x14
+
+    if-ne v2, v0, :cond_46
+
+    const/16 v0, 0x82
+
+    .line 503
+    :goto_1c
+    if-eq v0, v1, :cond_5e
+
+    .line 505
+    :try_start_1e
+    invoke-virtual {v3, v0}, Landroid/view/View;->focusSearch(I)Landroid/view/View;
+
+    move-result-object v0
+
+    .line 506
+    if-eqz v0, :cond_5e
+
+    .line 507
+    iget-object v1, p0, Lcom/bilibili/tv/ui/main/MainActivity;->c:Landroid/support/v7/widget/RecyclerView;
+
+    .line 508
+    if-eqz v1, :cond_5e
+
+    invoke-direct {p0, v0, v1}, Lcom/bilibili/tv/ui/main/MainActivity;->isDescendantOfView(Landroid/view/View;Landroid/view/View;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_5e
+
+    .line 510
+    invoke-static {p0}, Lcom/bilibili/tv/ui/main/MainActivity;->a(Lcom/bilibili/tv/ui/main/MainActivity;)Lbl/aey;
+
+    move-result-object v0
+
+    .line 511
+    if-eqz v0, :cond_5b
+
+    invoke-virtual {v0}, Lbl/aey;->a()Landroid/support/v4/app/Fragment;
+
+    move-result-object v0
+
+    .line 512
+    :goto_38
+    instance-of v1, v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
+
+    if-eqz v1, :cond_5e
+
+    .line 513
+    check-cast v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
+
+    .line 514
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->isLoading()Z
+    :try_end_41
+    .catch Ljava/lang/Exception; {:try_start_1e .. :try_end_41} :catch_5d
+
+    move-result v0
+
+    if-eqz v0, :cond_5e
+
+    .line 516
+    const/4 v0, 0x1
+
+    goto :goto_15
+
+    .line 500
+    :cond_46
+    const/16 v0, 0x13
+
+    if-ne v2, v0, :cond_4d
+
+    const/16 v0, 0x21
+
+    goto :goto_1c
+
+    .line 501
+    :cond_4d
+    const/16 v0, 0x15
+
+    if-ne v2, v0, :cond_54
+
+    const/16 v0, 0x11
+
+    goto :goto_1c
+
+    .line 502
+    :cond_54
+    const/16 v0, 0x16
+
+    if-ne v2, v0, :cond_63
+
+    const/16 v0, 0x42
+
+    goto :goto_1c
+
+    .line 511
+    :cond_5b
+    const/4 v0, 0x0
+
+    goto :goto_38
+
+    .line 521
+    :catch_5d
+    move-exception v0
+
+    .line 525
+    :cond_5e
+    invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseActivity;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
+
+    move-result v0
+
+    goto :goto_15
+
+    :cond_63
+    move v0, v1
+
+    goto :goto_1c
 .end method
 
 .method public g()I
     .locals 1
 
     .prologue
-    .line 88
+    .line 90
     const v0, 0x7f0a0020
 
     return v0
@@ -567,7 +778,7 @@
     .locals 1
 
     .prologue
-    .line 100
+    .line 102
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/MainActivity;->a:Z
 
     return v0
@@ -577,7 +788,7 @@
     .locals 1
 
     .prologue
-    .line 108
+    .line 110
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/MainActivity;->b:Z
 
     return v0
@@ -591,10 +802,10 @@
 
     const/4 v1, 0x0
 
-    .line 457
+    .line 459
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity;->c:Landroid/support/v7/widget/RecyclerView;
 
-    .line 458
+    .line 460
     if-eqz v0, :cond_1f
 
     invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
@@ -604,21 +815,21 @@
     :goto_a
     move v4, v1
 
-    .line 461
+    .line 463
     :goto_b
     if-ge v4, v0, :cond_27
 
-    .line 462
+    .line 464
     iget-object v2, p0, Lcom/bilibili/tv/ui/main/MainActivity;->c:Landroid/support/v7/widget/RecyclerView;
 
-    .line 463
+    .line 465
     if-eqz v2, :cond_21
 
     invoke-virtual {v2, v4}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
 
     move-result-object v2
 
-    .line 464
+    .line 466
     :goto_15
     if-eqz v2, :cond_23
 
@@ -630,39 +841,39 @@
 
     move-object v0, v2
 
-    .line 473
+    .line 475
     :goto_1e
     return-object v0
 
     :cond_1f
     move v0, v1
 
-    .line 458
+    .line 460
     goto :goto_a
 
     :cond_21
     move-object v2, v3
 
-    .line 463
+    .line 465
     goto :goto_15
 
-    .line 467
+    .line 469
     :cond_23
     add-int/lit8 v2, v4, 0x1
 
     move v4, v2
 
-    .line 468
+    .line 470
     goto :goto_b
 
-    .line 469
+    .line 471
     :cond_27
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity;->c:Landroid/support/v7/widget/RecyclerView;
 
-    .line 470
+    .line 472
     if-eqz v0, :cond_30
 
-    .line 471
+    .line 473
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
 
     move-result-object v0
@@ -672,7 +883,7 @@
     :cond_30
     move-object v0, v3
 
-    .line 473
+    .line 475
     goto :goto_1e
 .end method
 
@@ -680,18 +891,18 @@
     .locals 2
 
     .prologue
-    .line 479
+    .line 481
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity;->d:Lcom/bilibili/tv/ui/main/MainActivity$d;
 
-    .line 480
+    .line 482
     if-eqz v0, :cond_8
 
-    .line 481
+    .line 483
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/main/MainActivity$d;->b(Z)V
 
-    .line 483
+    .line 485
     :cond_8
     return-void
 .end method
@@ -702,17 +913,17 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 803
+    .line 858
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity;->e:Lbl/aey;
 
-    .line 804
+    .line 859
     if-eqz v0, :cond_16
 
     invoke-virtual {v0}, Lbl/aey;->a()Landroid/support/v4/app/Fragment;
 
     move-result-object v0
 
-    .line 805
+    .line 860
     :goto_9
     instance-of v2, v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;
 
@@ -720,24 +931,24 @@
 
     move-object v0, v1
 
-    .line 808
+    .line 863
     :cond_e
     check-cast v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;
 
-    .line 809
+    .line 864
     if-eqz v0, :cond_15
 
-    .line 810
+    .line 865
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->e()V
 
-    .line 812
+    .line 867
     :cond_15
     return-void
 
     :cond_16
     move-object v0, v1
 
-    .line 804
+    .line 859
     goto :goto_9
 .end method
 
@@ -745,12 +956,12 @@
     .locals 1
 
     .prologue
-    .line 815
+    .line 870
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     invoke-virtual {v0, p0}, Lbl/adl;->a(Landroid/app/Activity;)V
 
-    .line 816
+    .line 871
     return-void
 .end method
 
@@ -762,22 +973,22 @@
 
     const/4 v8, 0x1
 
-    .line 420
+    .line 422
     invoke-static {}, Lbl/abc;->b()Lbl/abc;
 
     move-result-object v0
 
-    .line 421
+    .line 423
     invoke-static {}, Lbl/ok;->a()Lbl/ok;
 
     move-result-object v1
 
-    .line 422
+    .line 424
     const-string v2, "env"
 
     invoke-static {v0, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 423
+    .line 425
     const-string v2, "app_main"
 
     const/4 v3, 0x4
@@ -812,7 +1023,7 @@
 
     invoke-virtual {v1, v8, v2, v3}, Lbl/ok;->a(ZLjava/lang/String;[Ljava/lang/String;)V
 
-    .line 424
+    .line 426
     invoke-static {}, Lbl/ok;->a()Lbl/ok;
 
     move-result-object v1
@@ -833,20 +1044,20 @@
 
     invoke-virtual {v1, v8, v2, v3}, Lbl/ok;->b(ZLjava/lang/String;[Ljava/lang/String;)V
 
-    .line 425
+    .line 427
     sget-object v1, Lbl/abl;->a:Lbl/abl;
 
-    .line 426
+    .line 428
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/MainActivity;->getApplicationContext()Landroid/content/Context;
 
     move-result-object v2
 
-    .line 427
+    .line 429
     const-string v3, "applicationContext"
 
     invoke-static {v2, v3}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 428
+    .line 430
     invoke-virtual {v0}, Lbl/abc;->g()J
 
     move-result-wide v4
@@ -857,17 +1068,17 @@
 
     invoke-virtual {v1, v2, v8, v3}, Lbl/abl;->a(Landroid/content/Context;ZLjava/lang/String;)V
 
-    .line 429
+    .line 431
     invoke-virtual {v0}, Lbl/abc;->h()V
 
-    .line 430
+    .line 432
     const-string v0, "tv_home_pageview"
 
     new-array v1, v9, [Ljava/lang/String;
 
     invoke-static {v0, v1}, Lbl/ok;->a(Ljava/lang/String;[Ljava/lang/String;)V
 
-    .line 431
+    .line 433
     return-void
 .end method
 
@@ -875,10 +1086,10 @@
     .locals 1
 
     .prologue
-    .line 435
+    .line 437
     invoke-super {p0, p1, p2, p3}, Lcom/bilibili/tv/ui/base/BaseActivity;->onActivityResult(IILandroid/content/Intent;)V
 
-    .line 436
+    .line 438
     const/4 v0, -0x1
 
     if-ne p2, v0, :cond_d
@@ -887,10 +1098,10 @@
 
     if-ne p1, v0, :cond_d
 
-    .line 437
+    .line 439
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/MainActivity;->l()V
 
-    .line 439
+    .line 441
     :cond_d
     return-void
 .end method
@@ -901,7 +1112,7 @@
     .prologue
     const/4 v4, 0x0
 
-    .line 443
+    .line 445
     invoke-static {v4}, Lbl/lv;->a(I)Landroid/os/Handler;
 
     move-result-object v0
@@ -910,12 +1121,12 @@
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->removeCallbacks(Ljava/lang/Runnable;)V
 
-    .line 444
+    .line 446
     sget-object v0, Lbl/ace;->a:Lbl/ace;
 
     invoke-virtual {v0}, Lbl/ace;->c()V
 
-    .line 445
+    .line 447
     sget-object v0, Lbl/azo;->a:Lbl/azo$a;
 
     invoke-virtual {v0}, Lbl/azo$a;->a()Lbl/azo;
@@ -924,7 +1135,7 @@
 
     invoke-virtual {v0}, Lbl/azo;->i()V
 
-    .line 446
+    .line 448
     sget-object v0, Lbl/azo;->a:Lbl/azo$a;
 
     invoke-virtual {v0}, Lbl/azo$a;->a()Lbl/azo;
@@ -933,7 +1144,7 @@
 
     invoke-virtual {v0}, Lbl/azo;->d()V
 
-    .line 447
+    .line 449
     sget-object v0, Lbl/afr;->Companion:Lbl/afr$a;
 
     invoke-virtual {v0}, Lbl/afr$a;->a()Lbl/afr;
@@ -942,10 +1153,10 @@
 
     invoke-virtual {v0}, Lbl/afr;->b()V
 
-    .line 449
+    .line 451
     invoke-static {p0}, Lbl/aby;->a(Landroid/content/Context;)V
 
-    .line 450
+    .line 452
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
@@ -974,22 +1185,22 @@
 
     invoke-virtual {v0, v1, v2}, Lbl/mg;->b(Lbl/mn;[Lcom/bilibili/lib/account/subscribe/Topic;)V
 
-    .line 451
+    .line 453
     const/4 v0, 0x0
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity;->i:Lcom/bilibili/tv/ui/main/MainActivity$b;
 
-    .line 452
+    .line 454
     invoke-static {}, Lbl/abq;->a()Lbl/abq;
 
     move-result-object v0
 
     invoke-virtual {v0}, Lbl/abq;->d()V
 
-    .line 453
+    .line 455
     invoke-super {p0}, Lcom/bilibili/tv/ui/base/BaseActivity;->onDestroy()V
 
-    .line 454
+    .line 456
     return-void
 .end method
 
@@ -1003,17 +1214,17 @@
 
     const/4 v0, 0x1
 
-    .line 487
+    .line 542
     const-string v1, "event"
 
     invoke-static {p2, v1}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 488
+    .line 543
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/MainActivity;->getCurrentFocus()Landroid/view/View;
 
     move-result-object v1
 
-    .line 489
+    .line 544
     const/4 v2, 0x4
 
     if-eq p1, v2, :cond_15
@@ -1022,59 +1233,59 @@
 
     if-ne p1, v2, :cond_37
 
-    .line 490
+    .line 545
     :cond_15
     if-eqz v1, :cond_23
 
-    .line 491
+    .line 546
     invoke-virtual {v1, v3}, Landroid/view/View;->getTag(I)Ljava/lang/Object;
 
     move-result-object v1
 
-    .line 492
+    .line 547
     instance-of v1, v1, Ljava/lang/Integer;
 
     if-eqz v1, :cond_23
 
-    .line 493
+    .line 548
     invoke-direct {p0}, Lcom/bilibili/tv/ui/main/MainActivity;->p()V
 
-    .line 518
+    .line 573
     :cond_22
     :goto_22
     return v0
 
-    .line 497
+    .line 552
     :cond_23
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/MainActivity;->j()Landroid/view/View;
 
     move-result-object v1
 
-    .line 498
+    .line 553
     if-eqz v1, :cond_33
 
-    .line 499
+    .line 554
     invoke-virtual {p0, v4}, Lcom/bilibili/tv/ui/main/MainActivity;->a(Z)V
 
-    .line 500
+    .line 555
     invoke-virtual {p0, v4}, Lcom/bilibili/tv/ui/main/MainActivity;->b(Z)V
 
-    .line 501
+    .line 556
     invoke-virtual {v1}, Landroid/view/View;->requestFocus()Z
 
     goto :goto_22
 
-    .line 504
+    .line 559
     :cond_33
     invoke-direct {p0}, Lcom/bilibili/tv/ui/main/MainActivity;->p()V
 
     goto :goto_22
 
-    .line 507
+    .line 562
     :cond_37
     packed-switch p1, :pswitch_data_68
 
-    .line 518
+    .line 573
     :cond_3a
     invoke-super {p0, p1, p2}, Lcom/bilibili/tv/ui/base/BaseActivity;->onKeyDown(ILandroid/view/KeyEvent;)Z
 
@@ -1082,21 +1293,21 @@
 
     goto :goto_22
 
-    .line 509
+    .line 564
     :pswitch_3f
     iget-object v2, p0, Lcom/bilibili/tv/ui/main/MainActivity;->d:Lcom/bilibili/tv/ui/main/MainActivity$d;
 
-    .line 510
+    .line 565
     if-eqz v2, :cond_3a
 
     if-eqz v1, :cond_3a
 
-    .line 511
+    .line 566
     invoke-virtual {v1, v3}, Landroid/view/View;->getTag(I)Ljava/lang/Object;
 
     move-result-object v1
 
-    .line 512
+    .line 567
     instance-of v3, v1, Ljava/lang/Integer;
 
     if-eqz v3, :cond_3a
@@ -1129,7 +1340,7 @@
 
     goto :goto_22
 
-    .line 507
+    .line 562
     :pswitch_data_68
     .packed-switch 0x14
         :pswitch_3f

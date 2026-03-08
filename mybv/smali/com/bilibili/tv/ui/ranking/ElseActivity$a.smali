@@ -129,6 +129,16 @@
     return-wide p1
 .end method
 
+.method static synthetic access$400(Lcom/bilibili/tv/ui/ranking/ElseActivity$a;)I
+    .locals 1
+
+    .prologue
+    .line 131
+    iget v0, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->c:I
+
+    return v0
+.end method
+
 .method static synthetic access$402(Lcom/bilibili/tv/ui/ranking/ElseActivity$a;I)I
     .locals 0
 
@@ -145,15 +155,15 @@
     .locals 1
 
     .prologue
-    .line 190
+    .line 200
     iget-object v0, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->b:Lbl/cj;
 
     if-nez v0, :cond_6
 
-    .line 191
+    .line 201
     const/4 v0, 0x0
 
-    .line 193
+    .line 203
     :goto_5
     return v0
 
@@ -220,7 +230,7 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 186
+    .line 196
     :cond_22
     return-void
 .end method
@@ -229,10 +239,10 @@
     .locals 0
 
     .prologue
-    .line 197
+    .line 207
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->e:Z
 
-    .line 198
+    .line 208
     return-void
 .end method
 
@@ -250,64 +260,16 @@
     .locals 1
 
     .prologue
-    .line 201
+    .line 211
     iget v0, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->c:I
 
     return v0
 .end method
 
 .method public run()V
-    .locals 2
+    .locals 0
 
     .prologue
-    .line 207
-    iget-object v0, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->a:Ljava/lang/ref/WeakReference;
-
-    invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
-
-    move-result-object v0
-
-    check-cast v0, Lcom/bilibili/tv/ui/ranking/ElseActivity;
-
-    .line 208
-    if-eqz v0, :cond_22
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/ranking/ElseActivity;->isFinishing()Z
-
-    move-result v1
-
-    if-nez v1, :cond_22
-
-    # getter for: Lcom/bilibili/tv/ui/ranking/ElseActivity;->b:Lbl/aeg2;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/ranking/ElseActivity;->access$200(Lcom/bilibili/tv/ui/ranking/ElseActivity;)Lbl/aeg2;
-
-    move-result-object v1
-
-    if-eqz v1, :cond_22
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/ranking/ElseActivity;->getSupportFragmentManager()Landroid/support/v4/app/FragmentManager;
-
-    move-result-object v1
-
-    if-eqz v1, :cond_22
-
-    # getter for: Lcom/bilibili/tv/ui/ranking/ElseActivity;->b:Lbl/aeg2;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/ranking/ElseActivity;->access$200(Lcom/bilibili/tv/ui/ranking/ElseActivity;)Lbl/aeg2;
-
-    move-result-object v0
-
-    if-nez v0, :cond_23
-
-    .line 212
-    :cond_22
-    :goto_22
+    .line 217
     return-void
-
-    .line 211
-    :cond_23
-    iget v1, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->c:I
-
-    invoke-virtual {v0, v1}, Lbl/aeg2;->c(I)V
-
-    goto :goto_22
 .end method

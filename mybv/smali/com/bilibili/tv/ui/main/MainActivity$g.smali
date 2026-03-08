@@ -28,15 +28,15 @@
     .locals 0
 
     .prologue
-    .line 292
+    .line 294
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/MainActivity$g;->this$0:Lcom/bilibili/tv/ui/main/MainActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 293
+    .line 295
     iput-object p2, p0, Lcom/bilibili/tv/ui/main/MainActivity$g;->b:Landroid/support/v7/widget/LinearLayoutManager;
 
-    .line 294
+    .line 296
     return-void
 .end method
 
@@ -48,7 +48,7 @@
     .prologue
     const/4 v3, 0x1
 
-    .line 298
+    .line 300
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$g;->b:Landroid/support/v7/widget/LinearLayoutManager;
 
     add-int/lit8 v1, p1, 0x1
@@ -57,14 +57,14 @@
 
     move-result-object v0
 
-    .line 299
+    .line 301
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/MainActivity$g;->this$0:Lcom/bilibili/tv/ui/main/MainActivity;
 
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/main/MainActivity;->getCurrentFocus()Landroid/view/View;
 
     move-result-object v1
 
-    .line 300
+    .line 302
     instance-of v2, v0, Lcom/bilibili/tv/widget/MainTitleLayout;
 
     if-eqz v2, :cond_1c
@@ -73,19 +73,19 @@
 
     if-nez v1, :cond_1c
 
-    .line 301
+    .line 303
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/MainActivity$g;->this$0:Lcom/bilibili/tv/ui/main/MainActivity;
 
     invoke-virtual {v1, v3}, Lcom/bilibili/tv/ui/main/MainActivity;->b(Z)V
 
-    .line 303
+    .line 305
     :cond_1c
     if-eqz v0, :cond_21
 
-    .line 304
+    .line 306
     invoke-virtual {v0, v3}, Landroid/view/View;->setSelected(Z)V
 
-    .line 306
+    .line 308
     :cond_21
     return-void
 .end method
@@ -94,7 +94,7 @@
     .locals 0
 
     .prologue
-    .line 286
+    .line 288
     return-void
 .end method
 
@@ -102,6 +102,6 @@
     .locals 0
 
     .prologue
-    .line 290
+    .line 292
     return-void
 .end method

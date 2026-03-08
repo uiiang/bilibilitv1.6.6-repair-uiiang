@@ -10,6 +10,34 @@
 
 
 # virtual methods
+.method public abstract addVideoToviews(Ljava/lang/String;J)Lbl/vp;
+    .param p1    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "access_key"
+        .end annotation
+    .end param
+    .param p2    # J
+        .annotation runtime Lretrofit2/http/Query;
+            value = "aid"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            "J)",
+            "Lbl/vp",
+            "<",
+            "Lcom/alibaba/fastjson/JSONObject;",
+            ">;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/POST;
+        value = "/x/v2/history/toview/add"
+    .end annotation
+.end method
+
 .method public abstract clearVideoHistories(Ljava/lang/String;)Lbl/vp;
     .param p1    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Query;

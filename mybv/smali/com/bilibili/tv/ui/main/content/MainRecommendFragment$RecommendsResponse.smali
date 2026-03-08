@@ -34,17 +34,17 @@
     .locals 1
 
     .prologue
-    .line 359
+    .line 354
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
 
-    .line 360
+    .line 355
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->isAppendMode:Z
 
-    .line 361
+    .line 356
     return-void
 .end method
 
@@ -52,15 +52,15 @@
     .locals 0
 
     .prologue
-    .line 363
+    .line 358
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
 
-    .line 364
+    .line 359
     iput-boolean p2, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->isAppendMode:Z
 
-    .line 365
+    .line 360
     return-void
 .end method
 
@@ -76,7 +76,7 @@
 
     const/4 v1, 0x0
 
-    .line 369
+    .line 364
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     # getter for: Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->a:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;
@@ -96,18 +96,18 @@
 
     if-nez v0, :cond_1c
 
-    .line 370
+    .line 365
     :cond_16
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     # setter for: Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->isLoadingMore:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->access$002(Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;Z)Z
 
-    .line 402
+    .line 397
     :goto_1b
     return-void
 
-    .line 373
+    .line 368
     :cond_1c
     const-string v0, "item"
 
@@ -115,20 +115,20 @@
 
     move-result-object v2
 
-    .line 375
+    .line 370
     invoke-virtual {v2}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
     move-result v0
 
     if-ge v0, v5, :cond_2d
 
-    .line 376
+    .line 371
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     # setter for: Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->hasMoreData:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->access$102(Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;Z)Z
 
-    .line 379
+    .line 374
     :cond_2d
     const/4 v0, 0x5
 
@@ -152,7 +152,7 @@
 
     aput-object v4, v0, v3
 
-    .line 380
+    .line 375
     new-instance v3, Ljava/util/ArrayList;
 
     invoke-static {v0}, Ljava/util/Arrays;->asList([Ljava/lang/Object;)Ljava/util/List;
@@ -161,14 +161,14 @@
 
     invoke-direct {v3, v0}, Ljava/util/ArrayList;-><init>(Ljava/util/Collection;)V
 
-    .line 381
+    .line 376
     new-instance v4, Ljava/util/ArrayList;
 
     invoke-direct {v4, v5}, Ljava/util/ArrayList;-><init>(I)V
 
     move v0, v1
 
-    .line 383
+    .line 378
     :goto_4d
     invoke-virtual {v2}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
@@ -176,27 +176,27 @@
 
     if-ge v0, v5, :cond_a7
 
-    .line 384
+    .line 379
     invoke-virtual {v2, v0}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v5
 
-    .line 385
+    .line 380
     new-instance v6, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;
 
     invoke-direct {v6}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;-><init>()V
 
-    .line 386
+    .line 381
     const-string v7, "small_popular_ugc"
 
     invoke-virtual {v6, v7}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setCardType(Ljava/lang/String;)V
 
-    .line 387
+    .line 382
     const-string v7, "av"
 
     invoke-virtual {v6, v7}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setCardGoto(Ljava/lang/String;)V
 
-    .line 388
+    .line 383
     const-string v7, "id"
 
     invoke-virtual {v5, v7}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
@@ -209,7 +209,7 @@
 
     invoke-virtual {v6, v7}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setJumpId(Ljava/lang/Long;)V
 
-    .line 389
+    .line 384
     const-string v7, "pic"
 
     invoke-virtual {v5, v7}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -218,7 +218,7 @@
 
     invoke-virtual {v6, v7}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setCover(Ljava/lang/String;)V
 
-    .line 390
+    .line 385
     const-string v7, "title"
 
     invoke-virtual {v5, v7}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -227,7 +227,7 @@
 
     invoke-virtual {v6, v7}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setTitle(Ljava/lang/String;)V
 
-    .line 391
+    .line 386
     new-instance v7, Ljava/lang/StringBuilder;
 
     invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
@@ -254,21 +254,21 @@
 
     invoke-virtual {v6, v5}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setUri(Ljava/lang/String;)V
 
-    .line 392
+    .line 387
     invoke-virtual {v4, v6}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 383
+    .line 378
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_4d
 
-    .line 395
+    .line 390
     :cond_a7
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->isAppendMode:Z
 
     if-eqz v0, :cond_bb
 
-    .line 396
+    .line 391
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     # getter for: Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->a:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;
@@ -278,7 +278,7 @@
 
     invoke-virtual {v0, v3, v4}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;->appendData(Ljava/util/List;Ljava/util/List;)V
 
-    .line 401
+    .line 396
     :goto_b4
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
@@ -287,7 +287,7 @@
 
     goto/16 :goto_1b
 
-    .line 398
+    .line 393
     :cond_bb
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
@@ -305,7 +305,7 @@
     .locals 0
 
     .prologue
-    .line 356
+    .line 351
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->a(Lcom/alibaba/fastjson/JSONObject;)V
@@ -317,12 +317,12 @@
     .locals 2
 
     .prologue
-    .line 406
+    .line 401
     const-string v0, "t"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 407
+    .line 402
     const-string v0, "VideoRecommend"
 
     invoke-virtual {p1}, Ljava/lang/Throwable;->getMessage()Ljava/lang/String;
@@ -331,7 +331,7 @@
 
     invoke-static {v0, v1}, Ltv/danmaku/android/log/BLog;->e(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 408
+    .line 403
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     const/4 v1, 0x0
@@ -339,6 +339,6 @@
     # setter for: Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->isLoadingMore:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->access$002(Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;Z)Z
 
-    .line 409
+    .line 404
     return-void
 .end method

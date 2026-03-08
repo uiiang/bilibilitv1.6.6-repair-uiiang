@@ -54,24 +54,14 @@
 
     move-result v0
 
-    if-nez v0, :cond_16
-
-    iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$1;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
-
-    # getter for: Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->hasMoreData:Z
-    invoke-static {v0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->access$100(Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;)Z
-
-    move-result v0
-
-    if-nez v0, :cond_17
+    if-eqz v0, :cond_f
 
     .line 119
-    :cond_16
-    :goto_16
+    :goto_e
     return-object p1
 
     .line 105
-    :cond_17
+    :cond_f
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$1;->d(Landroid/view/View;)I
 
     move-result v0
@@ -82,9 +72,9 @@
     .line 108
     const/16 v1, 0x21
 
-    if-ne p2, v1, :cond_40
+    if-ne p2, v1, :cond_38
 
-    if-nez v0, :cond_40
+    if-nez v0, :cond_38
 
     .line 109
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$1;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
@@ -94,7 +84,7 @@
     move-result-object v0
 
     .line 110
-    if-nez v0, :cond_33
+    if-nez v0, :cond_2b
 
     .line 111
     new-instance v0, Lkotlin/TypeCastException;
@@ -106,7 +96,7 @@
     throw v0
 
     .line 113
-    :cond_33
+    :cond_2b
     check-cast v0, Lcom/bilibili/tv/ui/main/MainActivity;
 
     .line 114
@@ -120,13 +110,13 @@
 
     move-result-object p1
 
-    goto :goto_16
+    goto :goto_e
 
     .line 119
-    :cond_40
+    :cond_38
     invoke-super {p0, p1, p2}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->d(Landroid/view/View;I)Landroid/view/View;
 
     move-result-object p1
 
-    goto :goto_16
+    goto :goto_e
 .end method

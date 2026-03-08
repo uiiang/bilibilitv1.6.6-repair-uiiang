@@ -31,24 +31,24 @@
     .locals 0
 
     .prologue
-    .line 240
+    .line 242
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->this$0:Lcom/bilibili/tv/ui/main/MainActivity;
 
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$g;-><init>()V
 
-    .line 241
+    .line 243
     iput p2, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->b:I
 
-    .line 242
+    .line 244
     iput p3, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->c:I
 
-    .line 243
+    .line 245
     iput p4, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->d:I
 
-    .line 244
+    .line 246
     iput p5, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->e:I
 
-    .line 245
+    .line 247
     return-void
 .end method
 
@@ -62,22 +62,22 @@
 
     const/4 v1, 0x0
 
-    .line 250
+    .line 252
     const-string v0, "outRect"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 251
+    .line 253
     const-string v0, "view"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 252
+    .line 254
     const-string v0, "parent"
 
     invoke-static {p3, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 253
+    .line 255
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->this$0:Lcom/bilibili/tv/ui/main/MainActivity;
 
     # getter for: Lcom/bilibili/tv/ui/main/MainActivity;->d:Lcom/bilibili/tv/ui/main/MainActivity$d;
@@ -87,63 +87,63 @@
 
     if-nez v0, :cond_1a
 
-    .line 276
+    .line 278
     :goto_19
     return-void
 
-    .line 256
+    .line 258
     :cond_1a
     invoke-virtual {p3, p2}, Landroid/support/v7/widget/RecyclerView;->f(Landroid/view/View;)I
 
     move-result v0
 
-    .line 257
+    .line 259
     const/4 v2, 0x1
 
     if-ne v0, v2, :cond_27
 
-    .line 258
+    .line 260
     iget v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->b:I
 
-    .line 275
+    .line 277
     :goto_23
     invoke-virtual {p1, v0, v1, v1, v1}, Landroid/graphics/Rect;->set(IIII)V
 
     goto :goto_19
 
-    .line 259
+    .line 261
     :cond_27
     const/4 v2, 0x2
 
     if-ne v0, v2, :cond_2e
 
-    .line 260
+    .line 262
     iget v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->c:I
 
     neg-int v0, v0
 
     goto :goto_23
 
-    .line 261
+    .line 263
     :cond_2e
     const/4 v2, 0x3
 
     if-ne v0, v2, :cond_35
 
-    .line 262
+    .line 264
     iget v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->d:I
 
     neg-int v0, v0
 
     goto :goto_23
 
-    .line 263
+    .line 265
     :cond_35
     const/4 v2, 0x4
 
     if-ne v0, v2, :cond_4f
 
-    .line 264
+    .line 266
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->this$0:Lcom/bilibili/tv/ui/main/MainActivity;
 
     # getter for: Lcom/bilibili/tv/ui/main/MainActivity;->d:Lcom/bilibili/tv/ui/main/MainActivity$d;
@@ -151,7 +151,7 @@
 
     move-result-object v0
 
-    .line 265
+    .line 267
     if-eqz v0, :cond_49
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/MainActivity$d;->a()I
@@ -161,7 +161,7 @@
     :goto_44
     if-ge v0, v3, :cond_4b
 
-    .line 266
+    .line 268
     iget v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->e:I
 
     goto :goto_23
@@ -169,10 +169,10 @@
     :cond_49
     move v0, v1
 
-    .line 265
+    .line 267
     goto :goto_44
 
-    .line 268
+    .line 270
     :cond_4b
     iget v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->d:I
 
@@ -180,20 +180,20 @@
 
     goto :goto_23
 
-    .line 270
+    .line 272
     :cond_4f
     const/4 v2, 0x5
 
     if-ne v0, v2, :cond_56
 
-    .line 271
+    .line 273
     iget v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->d:I
 
     neg-int v0, v0
 
     goto :goto_23
 
-    .line 273
+    .line 275
     :cond_56
     if-ne v0, v3, :cond_5b
 

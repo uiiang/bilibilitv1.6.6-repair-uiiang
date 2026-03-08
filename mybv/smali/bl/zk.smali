@@ -32,7 +32,7 @@
     .line 11
     const/4 v2, 0x0
 
-    .line 25
+    .line 28
     :goto_b
     return v2
 
@@ -63,9 +63,22 @@
 
     goto :goto_b
 
-    .line 17
+    .line 16
     :cond_22
-    :try_start_22
+    move-object/from16 v0, p1
+
+    iget-boolean v2, v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mNoHistoryPlay:Z
+
+    if-eqz v2, :cond_2a
+
+    .line 17
+    const/4 v2, 0x0
+
+    goto :goto_b
+
+    .line 20
+    :cond_2a
+    :try_start_2a
     move-object/from16 v0, p2
 
     iget-object v2, v0, Lbl/zm;->h:Ljava/lang/String;
@@ -111,11 +124,11 @@
     const-string v15, "0"
 
     invoke-static/range {v2 .. v15}, Lbl/zq;->a(Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;JJIZIIILjava/lang/String;)V
-    :try_end_50
-    .catch Ljava/lang/Exception; {:try_start_22 .. :try_end_50} :catch_5c
+    :try_end_58
+    .catch Ljava/lang/Exception; {:try_start_2a .. :try_end_58} :catch_64
 
-    .line 21
-    :goto_50
+    .line 24
+    :goto_58
     move-object/from16 v0, p1
 
     iget-wide v2, v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mEpisodeId:J
@@ -124,24 +137,24 @@
 
     cmp-long v2, v2, v4
 
-    if-nez v2, :cond_61
+    if-nez v2, :cond_69
 
-    .line 22
+    .line 25
     const/4 v2, 0x1
 
     goto :goto_b
 
-    .line 18
-    :catch_5c
+    .line 21
+    :catch_64
     move-exception v2
 
-    .line 19
+    .line 22
     invoke-static {v2}, Lbl/att;->a(Ljava/lang/Throwable;)V
 
-    goto :goto_50
+    goto :goto_58
 
-    .line 24
-    :cond_61
+    .line 27
+    :cond_69
     move-object/from16 v0, p1
 
     iget-object v2, v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mSeasonId:Ljava/lang/String;
@@ -158,7 +171,7 @@
 
     invoke-static {v0, v2, v4, v5, v3}, Lbl/zj;->a(Landroid/content/Context;Ljava/lang/String;JLjava/lang/String;)V
 
-    .line 25
+    .line 28
     const/4 v2, 0x1
 
     goto :goto_b

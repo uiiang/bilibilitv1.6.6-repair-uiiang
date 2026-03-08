@@ -5,7 +5,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/zq;->a(Landroid/content/Context;JJJJIJJ)V
+    value = Lbl/zq;->a(Landroid/content/Context;JJJJIJJZ)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 17
+    .line 22
     invoke-direct {p0}, Lbl/vm;-><init>()V
 
     return-void
@@ -42,7 +42,7 @@
     .locals 0
 
     .prologue
-    .line 25
+    .line 30
     return-void
 .end method
 
@@ -59,7 +59,7 @@
     .end annotation
 
     .prologue
-    .line 21
+    .line 26
     return-void
 .end method
 
@@ -67,7 +67,7 @@
     .locals 0
 
     .prologue
-    .line 17
+    .line 22
     check-cast p1, Lcom/bilibili/okretro/GeneralResponse;
 
     invoke-virtual {p0, p1}, Lbl/zq$1;->onSuccess(Lcom/bilibili/okretro/GeneralResponse;)V
