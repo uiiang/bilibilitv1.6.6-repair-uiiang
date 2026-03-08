@@ -117,4 +117,24 @@ public interface MyBiliApiService {
 
     @GET("https://github.com/qidian55/bilibilitv1.6.6-repair/raw/refs/heads/main/update.json")
     vp<com.bilibili.tv.ui.upgrade.BiliUpgradeInfo> getThirdUpdateInfo();
+
+    @GET("/x/v3/fav/resource/list")
+    vp<GeneralResponse<JSONObject>> getFavoriteResourceList(
+            @Query("media_id") long media_id,
+            @Query("pn") int pn,
+            @Query("ps") int ps,
+            @Query("keyword") String keyword,
+            @Query("order") String order,
+            @Query("type") int type,
+            @Query("tid") int tid,
+            @Query("platform") String platform,
+            @Query("web_location") String web_location,
+            @Query("access_key") String access_key,
+            @Header("Referer") String referer);
+
+    @GET("/x/v3/fav/folder/created/list-all")
+    vp<GeneralResponse<JSONObject>> getCreatedFolderList(
+            @Query("up_mid") long up_mid,
+            @Query("web_location") String web_location,
+            @Header("Referer") String referer);
 }

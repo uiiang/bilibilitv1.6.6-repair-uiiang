@@ -2632,6 +2632,7 @@
     <public type="layout" name="activity_attention_dynamic_side" id="0x7f0a008b" />
     <public type="layout" name="activity_auth_space_side" id="0x7f0a008c" />
     <public type="layout" name="fragment_auth_space_video" id="0x7f0a008d" />
+    <public type="layout" name="fragment_favorite_video" id="0x7f0a008e" />
      
 
     <public type="mipmap" name="ic_launcher" id="0x7f0b0000" />

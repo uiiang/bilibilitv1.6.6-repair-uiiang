@@ -193,15 +193,25 @@ public class FavoriteSideActivity extends BaseSideActivity {
     private void loadVideoFolders() {
         mg account = mg.a(this);
         if (account != null) {
-            ((com.bilibili.tv.api.favorite.BiliFavoriteVideoApiService) vo.a(com.bilibili.tv.api.favorite.BiliFavoriteVideoApiService.class))
-                .getStatedBoxList(account.e(), Long.valueOf(account.d()), 0L)
-                .a(new vn<List<BiliFavoriteBox>>() {
+            String referer = "https://space.bilibili.com/" + account.d() + "/favlist";
+            ((MyBiliApiService) vo.a(MyBiliApiService.class))
+                .getCreatedFolderList(account.d(), "333.1387", referer)
+                .a(new vn<JSONObject>() {
                     @Override
-                    public void a(List<BiliFavoriteBox> list) {
+                    public void a(JSONObject result) {
                         videoFolders.clear();
-                        if (list != null && !list.isEmpty()) {
-                            for (BiliFavoriteBox box : list) {
-                                videoFolders.add(new VideoFavoriteFolder(box));
+                        if (result != null) {
+                            JSONArray list = result.getJSONArray("list");
+                            if (list != null && !list.isEmpty()) {
+                                for (int i = 0; i < list.size(); i++) {
+                                    JSONObject item = list.getJSONObject(i);
+                                    BiliFavoriteBox box = new BiliFavoriteBox();
+                                    box.setMId(item.getLongValue("id"));
+                                    box.setMName(item.getString("title"));
+                                    box.setMCount(item.getIntValue("media_count"));
+                                    box.setMMid(item.getLongValue("mid"));
+                                    videoFolders.add(new VideoFavoriteFolder(box));
+                                }
                             }
                         }
                         videoLoaded = true;

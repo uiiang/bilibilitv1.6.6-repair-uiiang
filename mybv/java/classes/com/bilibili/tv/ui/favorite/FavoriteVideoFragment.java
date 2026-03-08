@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.LinearLayout;
+import android.text.TextUtils;
 import bl.adl;
 import bl.ady;
 import bl.aj;
@@ -31,6 +33,7 @@ import com.bilibili.tv.api.favorite.BiliFavVideoDetailList;
 import com.bilibili.tv.api.favorite.BiliFavoriteVideoApiService;
 import com.bilibili.tv.api.video.BiliVideoDetail;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
+import com.bilibili.tv.ui.bangumi.BangumiDetailActivity;
 import com.bilibili.tv.widget.DrawRelativeLayout;
 import com.bilibili.tv.widget.ScalableImageView;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
@@ -58,6 +61,10 @@ public final class FavoriteVideoFragment extends ady {
     private int folderType;
     private long fid;
     private long mid;
+    
+    private LinearLayout headerLayout;
+    private TextView headerTitle;
+    private TextView headerCount;
 
     /* compiled from: BL */
     public static final class a {
@@ -89,6 +96,26 @@ public final class FavoriteVideoFragment extends ady {
         return fragment;
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_favorite_video, container, false);
+        this.headerLayout = (LinearLayout) rootView.findViewById(R.id.space_header_layout);
+        this.headerTitle = (TextView) rootView.findViewById(R.id.header_title);
+        this.headerCount = (TextView) rootView.findViewById(R.id.header_count);
+        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+        a(recyclerView, savedInstanceState);
+        return rootView;
+    }
+    
+    public void updateHeaderInfo(String title, int mediaCount) {
+        if (headerTitle != null && title != null) {
+            headerTitle.setText(title);
+        }
+        if (headerCount != null && mediaCount > 0) {
+            headerCount.setText(mediaCount + "个视频");
+        }
+    }
+
     @Override // bl.ady
     public void a(RecyclerView recyclerView, Bundle bundle) {
         bbi.b(recyclerView, "recyclerView");
@@ -96,7 +123,8 @@ public final class FavoriteVideoFragment extends ady {
         SideRightGridLayoutManger sideRightGridLayoutManger = new SideRightGridLayoutManger(getActivity(), j);
         FragmentActivity activity = getActivity();
         if (activity == null) {
-            throw new TypeCastException("null cannot be cast to non-null type com.bilibili.tv.ui.favorite.FavoriteSideActivity");
+            throw new TypeCastException(
+                    "null cannot be cast to non-null type com.bilibili.tv.ui.favorite.FavoriteSideActivity");
         }
         sideRightGridLayoutManger.a(new e((FavoriteSideActivity) activity));
         recyclerView.setHasFixedSize(true);
@@ -230,126 +258,253 @@ public final class FavoriteVideoFragment extends ady {
                 break;
         }
     }
-    
+
     private void loadVideoFavoriteVideos() {
         Activity activity = getActivity();
+        Log.d("FavoriteVideoFragment", "loadVideoFavoriteVideos: folderId=" + folderId + ", page=" + f);
         if (activity != null) {
-            BiliFavoriteVideoApiService api = (BiliFavoriteVideoApiService) vo.a(BiliFavoriteVideoApiService.class);
+            MyBiliApiService api = (MyBiliApiService) vo.a(MyBiliApiService.class);
             mg account = mg.a(activity);
-            if (account != null) {
-                api.getFavoriteVideoListV2(
-                    account.e(),
-                    new BiliFavoriteVideoApiService.FavParamsMap(account.d(), folderId, f)
-                ).a(this.d);
+            if (api != null && account != null) {
+                String referer = "https://space.bilibili.com/" + account.d() + "/favlist?fid=" + folderId
+                        + "&ftype=create";
+                api.getFavoriteResourceList(folderId, f, 40, "", "mtime", 0, 0, "web", "333.1387", account.e(), referer)
+                        .a(new vn<JSONObject>() {
+                            @Override
+                            public void a(JSONObject data) {
+                                Log.d("FavoriteVideoFragment",
+                                        "onResponse: data=" + (data != null ? data.toJSONString() : "null"));
+                                if (c == null) {
+                                    return;
+                                }
+                                j();
+                                h = false;
+                                if (data != null) {
+                                    JSONArray medias = data.getJSONArray("medias");
+                                    JSONObject info = data.getJSONObject("info");
+                                    boolean hasMore = data.getBooleanValue("has_more");
+                                    Log.d("FavoriteVideoFragment", "medias size=" + (medias != null ? medias.size() : 0)
+                                            + ", hasMore=" + hasMore);
+
+                                    if (medias != null && !medias.isEmpty()) {
+                                        if (f == 1) {
+                                            String title = info != null ? info.getString("title") : null;
+                                            int mediaCount = info != null ? info.getIntValue("media_count") : 0;
+                                            c.a(medias, title);
+                                            updateHeaderInfo(title, mediaCount);
+                                        } else {
+                                            c.c(medias);
+                                        }
+                                        if (!hasMore) {
+                                            g = false;
+                                        }
+                                        return;
+                                    }
+                                }
+                                g = false;
+                                if (f == 1) {
+                                    l();
+                                    FavoriteVideoFragment.this.a(R.string.nothing_show);
+                                }
+                            }
+
+                            @Override
+                            public boolean isCancel() {
+                                return getActivity() == null || c == null;
+                            }
+
+                            @Override
+                            public void onError(Throwable th) {
+                                Log.e("FavoriteVideoFragment", "onError: " + th.getMessage(), th);
+                                adl.a.a(th, getActivity());
+                                if (c == null) {
+                                    return;
+                                }
+                                h = false;
+                                if (f == 1) {
+                                    k();
+                                }
+                            }
+                        });
             }
         }
     }
-    
+
     private void loadCollectionVideos() {
         if (fid != 0 && mid != 0) {
             // 使用 fid 和 mid 调用 getFavoriteSearchedVideoList
             Log.d("FavoriteVideoFragment", "Collection with fid: fid=" + fid + ", mid=" + mid + ", page=" + f);
             ((BiliFavoriteVideoApiService) vo.a(BiliFavoriteVideoApiService.class))
-                .getFavoriteSearchedVideoList(mg.a(getActivity()).e(), new BiliFavoriteVideoApiService.FavParamsMap(mid, fid, 0L, null, null, f))
-                .a(new vn<com.bilibili.tv.api.favorite.BiliSearchFavoriteBox>() {
-                    @Override
-                    public void a(com.bilibili.tv.api.favorite.BiliSearchFavoriteBox result) {
-                        Log.d("FavoriteVideoFragment", "Collection result: fid=" + fid + ", videos count=" + (result != null && result.videos != null ? result.videos.size() : 0));
-                        if (c == null) {
-                            return;
-                        }
-                        j();
-                        h = false;
-                        if (result != null && result.videos != null && !result.videos.isEmpty()) {
+                    .getFavoriteSearchedVideoList(mg.a(getActivity()).e(),
+                            new BiliFavoriteVideoApiService.FavParamsMap(mid, fid, 0L, null, null, f))
+                    .a(new vn<com.bilibili.tv.api.favorite.BiliSearchFavoriteBox>() {
+                        @Override
+                        public void a(com.bilibili.tv.api.favorite.BiliSearchFavoriteBox result) {
+                            Log.d("FavoriteVideoFragment", "Collection result: fid=" + fid + ", videos count="
+                                    + (result != null && result.videos != null ? result.videos.size() : 0));
+                            if (c == null) {
+                                return;
+                            }
+                            j();
+                            h = false;
+                            if (result != null && result.videos != null && !result.videos.isEmpty()) {
+                                if (f == 1) {
+                                    c.a(result.videos);
+                                    updateHeaderInfo(result.mName, result.videos.size());
+                                } else {
+                                    c.b(result.videos);
+                                }
+                                if (f >= result.mPageCount) {
+                                    g = false;
+                                }
+                                return;
+                            }
+                            g = false;
                             if (f == 1) {
-                                c.a(result.videos);
-                            } else {
-                                c.b(result.videos);
+                                l();
+                                FavoriteVideoFragment.this.a(R.string.nothing_show);
                             }
-                            if (f >= result.mPageCount) {
-                                g = false;
+                        }
+
+                        @Override
+                        public boolean isCancel() {
+                            return getActivity() == null || c == null;
+                        }
+
+                        @Override
+                        public void onError(Throwable th) {
+                            Log.d("FavoriteVideoFragment", "Collection error: " + th.getMessage());
+                            adl.a.a(th, getActivity());
+                            if (c == null) {
+                                return;
                             }
-                            return;
+                            h = false;
+                            if (f == 1) {
+                                k();
+                            }
                         }
-                        g = false;
-                        if (f == 1) {
-                            l();
-                            FavoriteVideoFragment.this.a(R.string.nothing_show);
-                        }
-                    }
-                    
-                    @Override
-                    public boolean isCancel() {
-                        return getActivity() == null || c == null;
-                    }
-                    
-                    @Override
-                    public void onError(Throwable th) {
-                        Log.d("FavoriteVideoFragment", "Collection error: " + th.getMessage());
-                        adl.a.a(th, getActivity());
-                        if (c == null) {
-                            return;
-                        }
-                        h = false;
-                        if (f == 1) {
-                            k();
-                        }
-                    }
-                });
+                    });
         } else {
             // 使用 season_id 调用 getFavoriteUserSeason
             Log.d("FavoriteVideoFragment", "Collection with season_id: season_id=" + folderId + ", page=" + f);
             ((MyBiliApiService) vo.a(MyBiliApiService.class))
-                .getFavoriteUserSeason(folderId, f, 20)
+                    .getFavoriteUserSeason(folderId, f, 20)
+                    .a(new vn<JSONObject>() {
+                        @Override
+                        public void a(JSONObject result) {
+                            Log.d("FavoriteVideoFragment",
+                                    "Collection result: " + (result != null ? result.toJSONString() : "null"));
+                            if (c == null) {
+                                return;
+                            }
+                            j();
+                            h = false;
+                            if (result != null) {
+                                JSONArray medias = result.getJSONArray("medias");
+                                JSONObject info = result.getJSONObject("info");
+                                if (medias != null && !medias.isEmpty()) {
+                                    List<BiliVideoDetail> videos = new ArrayList<>();
+                                    for (int i = 0; i < medias.size(); i++) {
+                                        JSONObject item = medias.getJSONObject(i);
+                                        BiliVideoDetail video = new BiliVideoDetail();
+                                        video.mAvid = item.getLong("id");
+                                        video.mCover = item.getString("cover");
+                                        video.mTitle = item.getString("title");
+                                        video.mTypeName = "番剧";
+                                        videos.add(video);
+                                    }
+                                    if (f == 1) {
+                                        c.a(videos);
+                                        if (info != null) {
+                                            String title = info.getString("title");
+                                            int mediaCount = info.getIntValue("media_count");
+                                            updateHeaderInfo(title, mediaCount);
+                                        }
+                                    } else {
+                                        c.b(videos);
+                                    }
+                                    // 检查是否还有更多数据
+                                    if (info != null) {
+                                        int totalCount = info.getIntValue("media_count");
+                                        if (c.a() >= totalCount) {
+                                            g = false;
+                                        }
+                                    }
+                                    return;
+                                }
+                            }
+                            g = false;
+                            if (f == 1) {
+                                l();
+                                FavoriteVideoFragment.this.a(R.string.nothing_show);
+                            }
+                        }
+
+                        @Override
+                        public boolean isCancel() {
+                            return getActivity() == null || c == null;
+                        }
+
+                        @Override
+                        public void onError(Throwable th) {
+                            adl.a.a(th, getActivity());
+                            if (c == null) {
+                                return;
+                            }
+                            h = false;
+                            if (f == 1) {
+                                k();
+                            }
+                        }
+                    });
+        }
+    }
+
+    private void loadCourseVideos() {
+        Log.d("FavoriteVideoFragment", "Course videos: season_id=" + folderId);
+        ((MyBiliApiService) vo.a(MyBiliApiService.class))
+                .getPugvSeason(folderId)
                 .a(new vn<JSONObject>() {
                     @Override
                     public void a(JSONObject result) {
-                        Log.d("FavoriteVideoFragment", "Collection result: " + (result != null ? result.toJSONString() : "null"));
+                        Log.d("FavoriteVideoFragment",
+                                "Course videos result: " + (result != null ? result.toJSONString() : "null"));
                         if (c == null) {
                             return;
                         }
                         j();
                         h = false;
                         if (result != null) {
-                            JSONArray medias = result.getJSONArray("medias");
-                            if (medias != null && !medias.isEmpty()) {
-                                List<BiliVideoDetail> videos = new ArrayList<>();
-                                for (int i = 0; i < medias.size(); i++) {
-                                    JSONObject item = medias.getJSONObject(i);
-                                    BiliVideoDetail video = new BiliVideoDetail();
-                                    video.mAvid = item.getLong("id");
-                                    video.mCover = item.getString("cover");
-                                    video.mTitle = item.getString("title");
-                                    video.mTypeName = "番剧";
-                                    videos.add(video);
-                                }
+                            JSONArray eps = result.getJSONArray("episodes");
+                            Log.d("FavoriteVideoFragment", "Episodes: " + (eps != null ? eps.toJSONString() : "null"));
+                            if (eps != null && !eps.isEmpty()) {
+                                Log.d("FavoriteVideoFragment", "Episodes size: " + eps.size());
+                                // 直接使用 JSONArray，不转换为 List<BiliVideoDetail>
                                 if (f == 1) {
-                                    c.a(videos);
-                                } else {
-                                    c.b(videos);
-                                }
-                                // 检查是否还有更多数据
-                                if (result.getJSONObject("info") != null) {
-                                    int totalCount = result.getJSONObject("info").getIntValue("media_count");
-                                    if (c.a() >= totalCount) {
-                                        g = false;
+                                    c.a(eps, result);
+                                    String title = result.getString("title");
+                                    int mediaCount = eps.size();
+                                    if (result.containsKey("media_count")) {
+                                        mediaCount = result.getIntValue("media_count");
                                     }
+                                    updateHeaderInfo(title, mediaCount);
+                                } else {
+                                    c.b(eps);
                                 }
+                                g = false;
                                 return;
                             }
                         }
                         g = false;
-                        if (f == 1) {
-                            l();
-                            FavoriteVideoFragment.this.a(R.string.nothing_show);
-                        }
+                        l();
+                        FavoriteVideoFragment.this.a(R.string.nothing_show);
                     }
-                    
+
                     @Override
                     public boolean isCancel() {
                         return getActivity() == null || c == null;
                     }
-                    
+
                     @Override
                     public void onError(Throwable th) {
                         adl.a.a(th, getActivity());
@@ -357,62 +512,9 @@ public final class FavoriteVideoFragment extends ady {
                             return;
                         }
                         h = false;
-                        if (f == 1) {
-                            k();
-                        }
+                        k();
                     }
                 });
-        }
-    }
-    
-    private void loadCourseVideos() {
-        Log.d("FavoriteVideoFragment", "Course videos: season_id=" + folderId);
-        ((MyBiliApiService) vo.a(MyBiliApiService.class))
-            .getPugvSeason(folderId)
-            .a(new vn<JSONObject>() {
-                @Override
-                public void a(JSONObject result) {
-                    Log.d("FavoriteVideoFragment", "Course videos result: " + (result != null ? result.toJSONString() : "null"));
-                    if (c == null) {
-                        return;
-                    }
-                    j();
-                    h = false;
-                    if (result != null) {
-                        JSONArray eps = result.getJSONArray("episodes");
-                        Log.d("FavoriteVideoFragment", "Episodes: " + (eps != null ? eps.toJSONString() : "null"));
-                        if (eps != null && !eps.isEmpty()) {
-                            Log.d("FavoriteVideoFragment", "Episodes size: " + eps.size());
-                            // 直接使用 JSONArray，不转换为 List<BiliVideoDetail>
-                            if (f == 1) {
-                                c.a(eps, result);
-                            } else {
-                                c.b(eps);
-                            }
-                            g = false;
-                            return;
-                        }
-                    }
-                    g = false;
-                    l();
-                    FavoriteVideoFragment.this.a(R.string.nothing_show);
-                }
-                
-                @Override
-                public boolean isCancel() {
-                    return getActivity() == null || c == null;
-                }
-                
-                @Override
-                public void onError(Throwable th) {
-                    adl.a.a(th, getActivity());
-                    if (c == null) {
-                        return;
-                    }
-                    h = false;
-                    k();
-                }
-            });
     }
 
     public boolean isLoading() {
@@ -446,7 +548,10 @@ public final class FavoriteVideoFragment extends ady {
         public void a(BiliFavVideoDetailList biliFavVideoDetailList) {
             Log.d("FavoriteVideoFragment", "VideoFavorite: page=" + FavoriteVideoFragment.this.f);
             if (biliFavVideoDetailList != null) {
-                Log.d("FavoriteVideoFragment", "VideoFavorite: videos count=" + (biliFavVideoDetailList.getFavVideos() != null ? biliFavVideoDetailList.getFavVideos().size() : 0) + ", pages=" + biliFavVideoDetailList.getPages());
+                Log.d("FavoriteVideoFragment",
+                        "VideoFavorite: videos count=" + (biliFavVideoDetailList.getFavVideos() != null
+                                ? biliFavVideoDetailList.getFavVideos().size()
+                                : 0) + ", pages=" + biliFavVideoDetailList.getPages());
             }
             if (FavoriteVideoFragment.this.c == null) {
                 return;
@@ -500,20 +605,50 @@ public final class FavoriteVideoFragment extends ady {
         private JSONArray b = new JSONArray();
         private JSONObject cheeseInfo = null;
         private boolean isCourseMode = false;
+        private boolean isFavoriteVideoMode = false;
+        private String folderTitle = null;
 
         @Override // android.support.v7.widget.RecyclerView.a
         /* renamed from: c, reason: merged with bridge method [inline-methods] */
         public adv a(ViewGroup viewGroup, int i) {
             bbi.b(viewGroup, "parent");
-            return ((d)null).Companion.a(viewGroup);
+            return ((d) null).Companion.a(viewGroup);
         }
 
         @Override // android.support.v7.widget.RecyclerView.a
         public void a(adv advVar, int i) {
             bbi.b(advVar, "viewHolder");
             if (advVar instanceof d) {
-                if (isCourseMode) {
-                    // 课程模式：使用 JSONArray
+                if (isFavoriteVideoMode) {
+                    JSONObject item = this.b.getJSONObject(i);
+                    if (item.containsKey("cover")) {
+                        nv.a().a(ach.c(MainApplication.a(), item.getString("cover")), ((d) advVar).z());
+                    }
+                    if (item.containsKey("title")) {
+                        ((d) advVar).A().setText(item.getString("title"));
+                    }
+                    JSONObject upper = item.getJSONObject("upper");
+                    String upName = null;
+                    if (upper != null && upper.containsKey("name") && !TextUtils.isEmpty(upper.getString("name"))) {
+                        upName = upper.getString("name");
+                    } else {
+                        JSONObject ogv = item.getJSONObject("ogv");
+                        if (ogv != null && ogv.containsKey("type_name")) {
+                            upName = ogv.getString("type_name");
+                        }
+                    }
+                    if (upName != null) {
+                        ((d) advVar).B().setText(upName);
+                    }
+                    JSONObject cntInfo = item.getJSONObject("cnt_info");
+                    if (cntInfo != null) {
+                        ((d) advVar).C().setText(bl.adh.a(cntInfo.getLongValue("play")));
+                        ((d) advVar).D().setText(bl.adh.a(cntInfo.getLongValue("danmaku")));
+                    }
+                    View view = advVar.a;
+                    bbi.a((Object) view, "viewHolder.itemView");
+                    view.setTag(item);
+                } else if (isCourseMode) {
                     JSONObject item = this.b.getJSONObject(i);
                     if (item.containsKey("cover")) {
                         nv.a().a(ach.c(MainApplication.a(), item.getString("cover")), ((d) advVar).z());
@@ -526,7 +661,6 @@ public final class FavoriteVideoFragment extends ady {
                     bbi.a((Object) view, "viewHolder.itemView");
                     view.setTag(item);
                 } else {
-                    // 正常模式：使用 List<BiliVideoDetail>
                     BiliVideoDetail biliVideoDetail = this.a.get(i);
                     if (biliVideoDetail.mCover != null) {
                         nv.a().a(ach.c(MainApplication.a(), biliVideoDetail.mCover), ((d) advVar).z());
@@ -548,12 +682,13 @@ public final class FavoriteVideoFragment extends ady {
 
         @Override // android.support.v7.widget.RecyclerView.a
         public int a() {
-            return isCourseMode ? this.b.size() : this.a.size();
+            return (isCourseMode || isFavoriteVideoMode) ? this.b.size() : this.a.size();
         }
 
         public final void a(List<BiliVideoDetail> list) {
             bbi.b(list, "list");
             isCourseMode = false;
+            isFavoriteVideoMode = false;
             this.a.addAll(list);
             d();
         }
@@ -561,6 +696,7 @@ public final class FavoriteVideoFragment extends ady {
         public final void b(List<BiliVideoDetail> list) {
             bbi.b(list, "list");
             isCourseMode = false;
+            isFavoriteVideoMode = false;
             int size = this.a.size();
             this.a.addAll(list);
             d(size);
@@ -569,6 +705,7 @@ public final class FavoriteVideoFragment extends ady {
         public final void a(JSONArray list, JSONObject cheeseInfo) {
             bbi.b(list, "list");
             isCourseMode = true;
+            isFavoriteVideoMode = false;
             this.cheeseInfo = cheeseInfo;
             this.b.addAll(list);
             d();
@@ -577,6 +714,26 @@ public final class FavoriteVideoFragment extends ady {
         public final void b(JSONArray list) {
             bbi.b(list, "list");
             isCourseMode = true;
+            isFavoriteVideoMode = false;
+            int size = this.b.size();
+            this.b.addAll(list);
+            d(size);
+        }
+
+        public final void a(JSONArray list, String title) {
+            bbi.b(list, "list");
+            isCourseMode = false;
+            isFavoriteVideoMode = true;
+            this.folderTitle = title;
+            this.b.clear();
+            this.b.addAll(list);
+            d();
+        }
+
+        public final void c(JSONArray list) {
+            bbi.b(list, "list");
+            isCourseMode = false;
+            isFavoriteVideoMode = true;
             int size = this.b.size();
             this.b.addAll(list);
             d(size);
@@ -591,15 +748,34 @@ public final class FavoriteVideoFragment extends ady {
             if (activityA != null) {
                 Object tag = view.getTag();
                 if (tag instanceof BiliVideoDetail) {
-                    activityA.startActivity(VideoDetailActivity.Companion.a((Context) activityA, ((BiliVideoDetail) tag).mAvid));
+                    activityA.startActivity(
+                            VideoDetailActivity.Companion.a((Context) activityA, ((BiliVideoDetail) tag).mAvid));
                 } else if (tag instanceof JSONObject) {
-                    // 课程模式：使用 xg.playCheese2 播放
                     JSONObject item = (JSONObject) tag;
-                    xg.playCheese2(context, this.cheeseInfo, item);
-                    ok.a("tv_myfavourite_fold_video_click", new String[0]);
+                    if (isFavoriteVideoMode) {
+                        JSONObject ogv = item.getJSONObject("ogv");
+                        boolean isPgc = false;
+                        if (ogv != null) {
+                            int typeId = ogv.getIntValue("type_id");
+                            isPgc = typeId >= 1 && typeId <= 5 || typeId == 7;
+                        }
+                        if (isPgc) {
+                            String seasonId = ogv.getString("season_id");
+                            activityA.startActivity(BangumiDetailActivity.Companion.a((Context) activityA, seasonId));
+                        } else {
+                            long id = item.getLongValue("id");
+                            activityA.startActivity(VideoDetailActivity.Companion.a((Context) activityA, id));
+                        }
+                    } else {
+                        xg.playCheese2(context, this.cheeseInfo, item);
+                        ok.a("tv_myfavourite_fold_video_click", new String[0]);
+                    }
                 }
                 if (view.getTag(R.id.position) != null) {
-                    ok.a("tv_myfavourite_video_click", "row", String.valueOf(((int) Math.floor(((Integer) view.getTag(R.id.position)).intValue() / FavoriteVideoFragment.j)) + 1));
+                    ok.a("tv_myfavourite_video_click", "row",
+                            String.valueOf(((int) Math
+                                    .floor(((Integer) view.getTag(R.id.position)).intValue() / FavoriteVideoFragment.j))
+                                    + 1));
                 }
             }
         }
@@ -611,15 +787,33 @@ public final class FavoriteVideoFragment extends ady {
         private ScalableImageView n;
         private TextView o;
         private TextView p;
-        private DrawRelativeLayout q;
+        private TextView q;
+        private TextView r;
+        private DrawRelativeLayout s;
 
         public d(View view) {
             super(view);
             bbi.b(view, "itemView");
             this.n = (ScalableImageView) a(view, R.id.img);
             this.o = (TextView) a(view, R.id.title);
-            this.p = (TextView) a(view, R.id.sub_title);
-            this.q = (DrawRelativeLayout) a(view, R.id.draw);
+            this.p = (TextView) a(view, R.id.up);
+            this.q = (TextView) a(view, R.id.play);
+            this.r = (TextView) a(view, R.id.danmaku);
+            this.s = (DrawRelativeLayout) a(view, R.id.draw);
+            android.graphics.drawable.Drawable c = bl.adl.a.c(R.drawable.ic_video_info_up);
+            android.graphics.drawable.Drawable c2 = bl.adl.a.c(R.drawable.ic_video_info_play);
+            android.graphics.drawable.Drawable c3 = bl.adl.a.c(R.drawable.ic_video_info_danmaku);
+            int b = bl.adl.b(R.dimen.px_34);
+            c.setBounds(0, 0, b, b);
+            c2.setBounds(0, 0, b, b);
+            c3.setBounds(0, 0, b, b);
+            int d = bl.adl.d(R.color.white_50);
+            c.setColorFilter(d, android.graphics.PorterDuff.Mode.MULTIPLY);
+            c2.setColorFilter(d, android.graphics.PorterDuff.Mode.MULTIPLY);
+            c3.setColorFilter(d, android.graphics.PorterDuff.Mode.MULTIPLY);
+            this.p.setCompoundDrawables(c, null, null, null);
+            this.q.setCompoundDrawables(c2, null, null, null);
+            this.r.setCompoundDrawables(c3, null, null, null);
             view.setOnFocusChangeListener(this);
         }
 
@@ -635,10 +829,18 @@ public final class FavoriteVideoFragment extends ady {
             return this.p;
         }
 
+        public final TextView C() {
+            return this.q;
+        }
+
+        public final TextView D() {
+            return this.r;
+        }
+
         @Override // android.view.View.OnFocusChangeListener
         public void onFocusChange(View view, boolean z) {
             bbi.b(view, "v");
-            this.q.setUpEnabled(z);
+            this.s.setUpEnabled(z);
         }
 
         /* compiled from: BL */
@@ -652,7 +854,8 @@ public final class FavoriteVideoFragment extends ady {
 
             public final d a(ViewGroup viewGroup) {
                 bbi.b(viewGroup, "parent");
-                View viewInflate = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_view_item_video_history, viewGroup, false);
+                View viewInflate = LayoutInflater.from(viewGroup.getContext())
+                        .inflate(R.layout.recycler_view_item_video_info, viewGroup, false);
                 bbi.a((Object) viewInflate, "view");
                 return new d(viewInflate);
             }

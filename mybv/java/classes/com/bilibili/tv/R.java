@@ -2659,6 +2659,7 @@ public final class R {
         public static final int activity_attention_dynamic_side = 0x7f0a008b;
         public static final int activity_auth_space_side = 0x7f0a008c;
         public static final int fragment_auth_space_video = 0x7f0a008d;
+        public static final int fragment_favorite_video = 0x7f0a008e;
     }
 
     public static final class mipmap {
