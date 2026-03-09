@@ -63,8 +63,8 @@
         <activity android:name="com.bilibili.tv.ui.bangumi.follow.NewFollowBangumiActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.vip.VipActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.favorite.FavoriteSideActivity" android:screenOrientation="landscape"/>
-        <provider android:authorities="uii.ang.bili.provider.TvSearchSuggestionProvider" android:exported="false" android:name="com.bilibili.tv.provider.TvSearchSuggestionProvider"/>
-        <provider android:authorities="uii.ang.bili.provider.resolver" android:exported="false" android:multiprocess="false" android:name="com.bilibili.lib.media.resolver.resolve.MediaResolveProvider"/>
+        <provider android:authorities="uii.ang.bilitv.provider.TvSearchSuggestionProvider" android:exported="false" android:name="com.bilibili.tv.provider.TvSearchSuggestionProvider"/>
+        <provider android:authorities="uii.ang.bilitv.provider.resolver" android:exported="false" android:multiprocess="false" android:name="com.bilibili.lib.media.resolver.resolve.MediaResolveProvider"/>
         <service android:label="@string/app_name" android:name="com.bilibili.tv.service.paper.LiveWallpaperService" android:permission="android.permission.BIND_WALLPAPER">
             <intent-filter>
                 <action android:name="android.service.wallpaper.WallpaperService"/>
@@ -73,20 +73,20 @@
         </service>
         <meta-data android:name="UMENG_APPKEY" android:value="53d2412e56240b8a6500dd63"/>
         <meta-data android:name="UMENG_CHANNEL" android:value="xxxxxxxxxxxxxxxx"/>
-        <provider android:authorities="uii.ang.bili.fileprovider" android:exported="false" android:grantUriPermissions="true" android:name="android.support.v4.content.FileProvider">
+        <provider android:authorities="uii.ang.bilitv.fileprovider" android:exported="false" android:grantUriPermissions="true" android:name="android.support.v4.content.FileProvider">
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"/>
         </provider>
         <service android:exported="false" android:name="com.bilibili.lib.neuron.internal.NeuronLocalService"/>
         <service android:exported="false" android:name="com.bilibili.lib.neuron.internal.NeuronRemoteService" android:process=":stats"/>
-        <provider android:authorities="uii.ang.bili.provider.modresource" android:exported="false" android:multiprocess="false" android:name="com.bilibili.lib.mod.ModResourceProvider"/>
-        <provider android:authorities="uii.ang.bili.provider.umeng" android:exported="false" android:name="com.bilibili.umeng.BiliUmengProvider"/>
-        <provider android:authorities="uii.ang.bili.provider.auth" android:exported="false" android:multiprocess="false" android:name="com.bilibili.lib.account.AuthProvider"/>
+        <provider android:authorities="uii.ang.bilitv.provider.modresource" android:exported="false" android:multiprocess="false" android:name="com.bilibili.lib.mod.ModResourceProvider"/>
+        <provider android:authorities="uii.ang.bilitv.provider.umeng" android:exported="false" android:name="com.bilibili.umeng.BiliUmengProvider"/>
+        <provider android:authorities="uii.ang.bilitv.provider.auth" android:exported="false" android:multiprocess="false" android:name="com.bilibili.lib.account.AuthProvider"/>
         <service android:enabled="true" android:exported="false" android:name="tv.danmaku.ijk.media.player.services.IjkMediaPlayerService" android:process=":ijkservice"/>
         <service android:exported="false" android:name="com.bilibili.lib.infoeyes.InfoEyesLocalService"/>
         <service android:exported="false" android:name="com.bilibili.lib.infoeyes.InfoEyesRemoteService" android:process=":stats"/>
-        <provider android:authorities="uii.ang.bili.provider.xpref" android:exported="false" android:name="com.bilibili.xpref.XprefProvider"/>
+        <provider android:authorities="uii.ang.bilitv.provider.xpref" android:exported="false" android:name="com.bilibili.xpref.XprefProvider"/>
         <activity android:configChanges="keyboardHidden|locale|orientation|screenSize" android:name="com.tencent.bugly.beta.ui.BetaActivity" android:theme="@android:style/Theme.Translucent"/>
-        <provider android:authorities="uii.ang.bili.fileProvider" android:exported="false" android:grantUriPermissions="true" android:name="com.tencent.bugly.beta.utils.BuglyFileProvider">
+        <provider android:authorities="uii.ang.bilitv.fileProvider" android:exported="false" android:grantUriPermissions="true" android:name="com.tencent.bugly.beta.utils.BuglyFileProvider">
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths"/>
         </provider>
         <service android:exported="false" android:name="com.tencent.bugly.beta.tinker.TinkerResultService"/>

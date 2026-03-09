@@ -291,10 +291,10 @@
 .end method
 
 .method public onCreateView(Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View;
-    .locals 6
+    .locals 7
 
     .prologue
-    const v5, 0x7f0700e8
+    const v6, 0x7f0700e8
 
     const/4 v1, 0x0
 
@@ -330,27 +330,45 @@
     move-result-object v1
 
     .line 51
-    if-eqz v1, :cond_8e
+    new-instance v4, Ljava/lang/StringBuilder;
+
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+
+    if-eqz v1, :cond_a1
 
     invoke-virtual {v1}, Landroid/support/v4/app/FragmentActivity;->getPackageName()Ljava/lang/String;
 
     move-result-object v1
 
-    :goto_26
-    const/4 v4, 0x0
+    :goto_2b
+    const/4 v5, 0x0
 
-    invoke-virtual {v3, v1, v4}, Landroid/content/pm/PackageManager;->getPackageInfo(Ljava/lang/String;I)Landroid/content/pm/PackageInfo;
+    invoke-virtual {v3, v1, v5}, Landroid/content/pm/PackageManager;->getPackageInfo(Ljava/lang/String;I)Landroid/content/pm/PackageInfo;
 
     move-result-object v1
 
     iget-object v1, v1, Landroid/content/pm/PackageInfo;->versionName:Ljava/lang/String;
 
+    invoke-virtual {v4, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v3, "-U"
+
+    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->append(Ljava/lang/CharSequence;)V
-    :try_end_30
-    .catch Landroid/content/pm/PackageManager$NameNotFoundException; {:try_start_1c .. :try_end_30} :catch_90
+    :try_end_43
+    .catch Landroid/content/pm/PackageManager$NameNotFoundException; {:try_start_1c .. :try_end_43} :catch_a3
 
     .line 55
-    :goto_30
+    :goto_43
     new-instance v0, Lbl/afq$1;
 
     invoke-direct {v0, p0}, Lbl/afq$1;-><init>(Lbl/afq;)V
@@ -382,7 +400,7 @@
     .line 79
     iget-object v0, p0, Lbl/afq;->mCheckUpdateView:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    invoke-virtual {v0, v5}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
+    invoke-virtual {v0, v6}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
 
     .line 80
     iget-object v0, p0, Lbl/afq;->mCheckUpdateView:Lcom/bilibili/tv/widget/DrawFrameLayout;
@@ -408,7 +426,7 @@
     .line 83
     iget-object v0, p0, Lbl/afq;->mCheckUpdateView2:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    invoke-virtual {v0, v5}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
+    invoke-virtual {v0, v6}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
 
     .line 84
     iget-object v0, p0, Lbl/afq;->mCheckUpdateView2:Lcom/bilibili/tv/widget/DrawFrameLayout;
@@ -447,19 +465,19 @@
     return-object v2
 
     .line 51
-    :cond_8e
+    :cond_a1
     const/4 v1, 0x0
 
-    goto :goto_26
+    goto :goto_2b
 
     .line 52
-    :catch_90
+    :catch_a3
     move-exception v0
 
     .line 53
     invoke-static {v0}, Lbl/att;->a(Ljava/lang/Throwable;)V
 
-    goto :goto_30
+    goto :goto_43
 .end method
 
 .method public onDestroyView()V

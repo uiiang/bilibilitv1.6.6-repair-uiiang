@@ -54,7 +54,7 @@
 
     move-result-object p1
 
-    const-string v0, "com.bilibili.tv.provider.TvSearchSuggestionProvider"
+    const-string v0, "uii.ang.bilitv.provider.TvSearchSuggestionProvider"
 
     .line 179
     invoke-virtual {p1, v0}, Landroid/net/Uri$Builder;->authority(Ljava/lang/String;)Landroid/net/Uri$Builder;

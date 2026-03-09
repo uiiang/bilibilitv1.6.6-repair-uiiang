@@ -10,7 +10,7 @@ doNotCompress:
 isFrameworkApk: false
 packageInfo:
   forcedPackageId: '127'
-  renameManifestPackage: uii.ang.bili
+  renameManifestPackage: uii.ang.bilitv
 sdkInfo:
   minSdkVersion: '15'
   targetSdkVersion: '27'

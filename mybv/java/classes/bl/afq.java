@@ -48,7 +48,7 @@ public final class afq extends adw implements View.OnFocusChangeListener, View.O
         PackageManager packageManager = getActivity().getPackageManager();
         try {
             FragmentActivity activity2 = getActivity();
-            textView.append(packageManager.getPackageInfo(activity2 != null ? activity2.getPackageName() : null, 0).versionName);
+            textView.append(packageManager.getPackageInfo(activity2 != null ? activity2.getPackageName() : null, 0).versionName+"-U");
         } catch (PackageManager.NameNotFoundException e) {
             att.a(e);
         }

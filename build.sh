@@ -22,14 +22,18 @@ case "$1" in
         if [ -n "$2" ]; then
             packageid="$2"
         else
-            packageid='com.bilibilitv.repair'
+            packageid='com.bilibili.tv'
         fi
         rm -r mybv/build
         rm -r mybv/dist
         sed -i "/renameManifestPackage/c\ \ renameManifestPackage: $packageid" mybv/apktool.yml
-        sed -i "s/android:authorities=\"com\.bilibili\.tv\.provider\./android:authorities=\"$packageid.provider./g" mybv/AndroidManifest.xml
-        sed -i "s/android:authorities=\"com\.bilibili\.tv\.fileprovider/android:authorities=\"$packageid.fileprovider/g" mybv/AndroidManifest.xml
-        sed -i "s/android:authorities=\"com\.bilibili\.tv\.fileProvider/android:authorities=\"$packageid.fileProvider/g" mybv/AndroidManifest.xml
+        sed -i "s/android:authorities=\"[^\"]*\\.provider\\./android:authorities=\"$packageid.provider./g" mybv/AndroidManifest.xml
+        sed -i "s/android:authorities=\"[^\"]*\\.fileprovider/android:authorities=\"$packageid.fileprovider/g" mybv/AndroidManifest.xml
+        sed -i "s/android:authorities=\"[^\"]*\\.fileProvider/android:authorities=\"$packageid.fileProvider/g" mybv/AndroidManifest.xml
+        sed -i "s/\"[^\"]*\\.provider\\.TvSearchSuggestionProvider\"/\"$packageid.provider.TvSearchSuggestionProvider\"/g" mybv/smali/com/bilibili/tv/provider/TvSearchSuggestionProvider.smali
+        sed -i "s/\"[^\"]*\\.provider\\.TvSearchSuggestionProvider\"/\"$packageid.provider.TvSearchSuggestionProvider\"/g" mybv/smali/com/bilibili/tv/provider/TvSearchSuggestionProvider\$a.smali
+        sed -i "s/\"[^\"]*\\.provider\\.TvSearchSuggestionProvider\"/\"$packageid.provider.TvSearchSuggestionProvider\"/g" mybv/smali/com/bilibili/tv/ui/search/SearchActivity.smali
+        sed -i "s/\"[^\"]*\\.provider\\.TvSearchSuggestionProvider\"/\"$packageid.provider.TvSearchSuggestionProvider\"/g" mybv/smali/bl/afh.smali
         cd mybv/java;./build.sh;cd ../..
         apktool b --use-aapt2 mybv
         signapk platform.x509.pem platform.pk8 ./mybv/dist/mybv.apk mybv.apk
@@ -53,14 +57,18 @@ EOF
         if [ -n "$2" ]; then
             packageid="$2"
         else
-            packageid='com.bilibilitv.repair'
+            packageid='com.bilibili.tv'
         fi
         rm -r mybv/build
         rm -r mybv/dist
         sed -i "/renameManifestPackage/c\ \ renameManifestPackage: $packageid" mybv/apktool.yml
-        sed -i "s/android:authorities=\"com\.bilibili\.tv\.provider\./android:authorities=\"$packageid.provider./g" mybv/AndroidManifest.xml
-        sed -i "s/android:authorities=\"com\.bilibili\.tv\.fileprovider/android:authorities=\"$packageid.fileprovider/g" mybv/AndroidManifest.xml
-        sed -i "s/android:authorities=\"com\.bilibili\.tv\.fileProvider/android:authorities=\"$packageid.fileProvider/g" mybv/AndroidManifest.xml
+        sed -i "s/android:authorities=\"[^\"]*\\.provider\\./android:authorities=\"$packageid.provider./g" mybv/AndroidManifest.xml
+        sed -i "s/android:authorities=\"[^\"]*\\.fileprovider/android:authorities=\"$packageid.fileprovider/g" mybv/AndroidManifest.xml
+        sed -i "s/android:authorities=\"[^\"]*\\.fileProvider/android:authorities=\"$packageid.fileProvider/g" mybv/AndroidManifest.xml
+        sed -i "s/\"[^\"]*\\.provider\\.TvSearchSuggestionProvider\"/\"$packageid.provider.TvSearchSuggestionProvider\"/g" mybv/smali/com/bilibili/tv/provider/TvSearchSuggestionProvider.smali
+        sed -i "s/\"[^\"]*\\.provider\\.TvSearchSuggestionProvider\"/\"$packageid.provider.TvSearchSuggestionProvider\"/g" mybv/smali/com/bilibili/tv/provider/TvSearchSuggestionProvider\$a.smali
+        sed -i "s/\"[^\"]*\\.provider\\.TvSearchSuggestionProvider\"/\"$packageid.provider.TvSearchSuggestionProvider\"/g" mybv/smali/com/bilibili/tv/ui/search/SearchActivity.smali
+        sed -i "s/\"[^\"]*\\.provider\\.TvSearchSuggestionProvider\"/\"$packageid.provider.TvSearchSuggestionProvider\"/g" mybv/smali/bl/afh.smali
         cd mybv/java;./build.sh;cd ../..
         apktool b --use-aapt2 mybv
         signapk platform.x509.pem platform.pk8 ./mybv/dist/mybv.apk mybv.apk

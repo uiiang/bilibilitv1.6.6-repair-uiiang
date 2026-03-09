@@ -501,7 +501,7 @@
 
     check-cast v1, Landroid/content/Context;
 
-    const-string v2, "com.bilibili.tv.provider.TvSearchSuggestionProvider"
+    const-string v2, "uii.ang.bilitv.provider.TvSearchSuggestionProvider"
 
     const/4 v3, 0x1
 
