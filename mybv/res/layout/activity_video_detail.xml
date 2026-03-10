@@ -242,10 +242,18 @@
                     android:paddingLeft="@dimen/px_50" android:paddingTop="@dimen/px_24"
                     android:paddingRight="@dimen/px_70" android:focusable="true"
                     android:nextFocusUp="@id/video_detail_coin"
+                    android:nextFocusDown="@+id/video_detail_seasons_container"
                     android:nextFocusLeft="@id/video_detail_ep_layout"
                     android:nextFocusRight="@id/video_detail_ep_layout"
                     android:visibility="gone" android:clipChildren="false"
                     android:clipToPadding="false" android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:id="@+id/video_detail_seasons_container"
+                    android:orientation="vertical"
+                    android:focusable="false"
+                    android:visibility="gone"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />
                 <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_36"
                     android:textColor="@color/white" android:id="@id/video_detail_episodes_title"

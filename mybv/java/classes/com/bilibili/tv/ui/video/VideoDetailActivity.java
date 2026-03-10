@@ -141,6 +141,8 @@ public final class VideoDetailActivity extends BaseActivity
     private int episodesVideoFocusPosition = 0;
     private int relateVideoFocusPosition = 0;
     private int tagViewFocusPosition = 0;
+    // 多合集列表焦点位置记忆
+    private Map<Integer, Integer> seasonSectionFocusPositions = new HashMap<>();
     // 阻止分集列表在初始化时被适配器/绑定逻辑自动抢焦
     private boolean blockEpisodeAutoFocus = true;
     public static final a Companion = new a(null);
@@ -153,6 +155,24 @@ public final class VideoDetailActivity extends BaseActivity
     public TextView episodes_title;
     public RecyclerView episodes_video;
     public EpisodesVideoAdapter episodes_video_adapter;
+    // 多合集列表容器
+    public LinearLayout seasonsContainer;
+    // 存储动态创建的合集列表
+    private List<SeasonSectionView> seasonSectionViews = new ArrayList<>();
+
+    public static class SeasonSectionView {
+        public TextView titleView;
+        public RecyclerView recyclerView;
+        public EpisodesVideoAdapter adapter;
+        public int sectionId;
+        
+        public SeasonSectionView(TextView titleView, RecyclerView recyclerView, EpisodesVideoAdapter adapter, int sectionId) {
+            this.titleView = titleView;
+            this.recyclerView = recyclerView;
+            this.adapter = adapter;
+            this.sectionId = sectionId;
+        }
+    }
 
     @Override // bl.wf
     public String a() {
@@ -402,6 +422,8 @@ public final class VideoDetailActivity extends BaseActivity
                 }
             });
         }
+        // 初始化多合集列表容器
+        this.seasonsContainer = (LinearLayout) d(R.id.video_detail_seasons_container);
         this.historyContainer = (LinearLayout) d(R.id.video_history_container);
         this.historyPlayBtnLayout = (DrawLinearLayout) d(R.id.video_history_play_btn_layout);
         if (this.historyPlayBtnLayout != null) {
@@ -666,6 +688,21 @@ public final class VideoDetailActivity extends BaseActivity
                             epView.requestFocus();
                             return true;
                         }
+                    } else if (seasonsContainer != null && seasonsContainer.getVisibility() == View.VISIBLE 
+                            && !seasonSectionViews.isEmpty()) {
+                        // 移动到第一个合集列表
+                        SeasonSectionView firstSection = seasonSectionViews.get(0);
+                        if (firstSection.recyclerView != null && firstSection.recyclerView.getChildCount() > 0) {
+                            int savedPosition = seasonSectionFocusPositions.containsKey(firstSection.sectionId) 
+                                    ? seasonSectionFocusPositions.get(firstSection.sectionId) : 0;
+                            savedPosition = Math.min(savedPosition, firstSection.recyclerView.getChildCount() - 1);
+                            savedPosition = Math.max(0, savedPosition);
+                            View seasonView = firstSection.recyclerView.getChildAt(savedPosition);
+                            if (seasonView != null) {
+                                seasonView.requestFocus();
+                                return true;
+                            }
+                        }
                     } else if (this.episodes_video != null && this.episodes_video.getVisibility() == View.VISIBLE
                             && this.episodes_video.getChildCount() > 0) {
                         int savedPosition = Math.min(episodesVideoFocusPosition,
@@ -719,7 +756,15 @@ public final class VideoDetailActivity extends BaseActivity
 
         if (direction == KeyEvent.KEYCODE_DPAD_DOWN) {
             if (currentListType == LIST_TYPE_EP_LAYOUT) {
-                if (this.episodes_video != null && this.episodes_video.getVisibility() == View.VISIBLE) {
+                // 从分P列表向下移动
+                if (seasonsContainer != null && seasonsContainer.getVisibility() == View.VISIBLE 
+                        && !seasonSectionViews.isEmpty()) {
+                    // 移动到第一个合集列表
+                    SeasonSectionView firstSection = seasonSectionViews.get(0);
+                    targetRecyclerView = firstSection.recyclerView;
+                    savedPosition = seasonSectionFocusPositions.containsKey(firstSection.sectionId) 
+                            ? seasonSectionFocusPositions.get(firstSection.sectionId) : 0;
+                } else if (this.episodes_video != null && this.episodes_video.getVisibility() == View.VISIBLE) {
                     targetRecyclerView = this.episodes_video;
                     savedPosition = episodesVideoFocusPosition;
                 } else if (this.r != null && this.r.getVisibility() == View.VISIBLE) {
@@ -728,6 +773,25 @@ public final class VideoDetailActivity extends BaseActivity
                 } else if (this.n != null && this.n.getVisibility() == View.VISIBLE) {
                     targetRecyclerView = this.n;
                     savedPosition = tagViewFocusPosition;
+                }
+            } else if (currentListType == LIST_TYPE_SEASON_SECTION) {
+                // 从合集列表向下移动
+                int currentSectionIndex = getCurrentSeasonSectionIndex(currentFocus);
+                if (currentSectionIndex >= 0 && currentSectionIndex < seasonSectionViews.size() - 1) {
+                    // 移动到下一个合集列表
+                    SeasonSectionView nextSection = seasonSectionViews.get(currentSectionIndex + 1);
+                    targetRecyclerView = nextSection.recyclerView;
+                    savedPosition = seasonSectionFocusPositions.containsKey(nextSection.sectionId) 
+                            ? seasonSectionFocusPositions.get(nextSection.sectionId) : 0;
+                } else {
+                    // 移动到相关视频列表
+                    if (this.r != null && this.r.getVisibility() == View.VISIBLE) {
+                        targetRecyclerView = this.r;
+                        savedPosition = relateVideoFocusPosition;
+                    } else if (this.n != null && this.n.getVisibility() == View.VISIBLE) {
+                        targetRecyclerView = this.n;
+                        savedPosition = tagViewFocusPosition;
+                    }
                 }
             } else if (currentListType == LIST_TYPE_EPISODES_VIDEO) {
                 if (this.r != null && this.r.getVisibility() == View.VISIBLE) {
@@ -745,7 +809,37 @@ public final class VideoDetailActivity extends BaseActivity
             }
         } else if (direction == KeyEvent.KEYCODE_DPAD_UP) {
             // 检查是否在最上面的列表，需要导航到播放按钮
-            if (currentListType == LIST_TYPE_EP_LAYOUT || currentListType == LIST_TYPE_EPISODES_VIDEO) {
+            if (currentListType == LIST_TYPE_EP_LAYOUT) {
+                if (historyPlayBtnLayout != null && historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
+                    historyPlayBtnLayout.requestFocus();
+                    return true;
+                } else if (rePlayBtnLayout != null && rePlayBtnLayout.getVisibility() == View.VISIBLE) {
+                    rePlayBtnLayout.requestFocus();
+                    return true;
+                }
+            } else if (currentListType == LIST_TYPE_SEASON_SECTION) {
+                // 从合集列表向上移动
+                int currentSectionIndex = getCurrentSeasonSectionIndex(currentFocus);
+                if (currentSectionIndex > 0) {
+                    // 移动到上一个合集列表
+                    SeasonSectionView prevSection = seasonSectionViews.get(currentSectionIndex - 1);
+                    targetRecyclerView = prevSection.recyclerView;
+                    savedPosition = seasonSectionFocusPositions.containsKey(prevSection.sectionId) 
+                            ? seasonSectionFocusPositions.get(prevSection.sectionId) : 0;
+                } else {
+                    // 移动到分P列表或播放按钮
+                    if (this.o != null && this.o.getVisibility() == View.VISIBLE) {
+                        targetRecyclerView = this.o;
+                        savedPosition = epLayoutFocusPosition;
+                    } else if (historyPlayBtnLayout != null && historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
+                        historyPlayBtnLayout.requestFocus();
+                        return true;
+                    } else if (rePlayBtnLayout != null && rePlayBtnLayout.getVisibility() == View.VISIBLE) {
+                        rePlayBtnLayout.requestFocus();
+                        return true;
+                    }
+                }
+            } else if (currentListType == LIST_TYPE_EPISODES_VIDEO) {
                 if (historyPlayBtnLayout != null && historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
                     historyPlayBtnLayout.requestFocus();
                     return true;
@@ -754,7 +848,15 @@ public final class VideoDetailActivity extends BaseActivity
                     return true;
                 }
             } else if (currentListType == LIST_TYPE_RELATE_VIDEO) {
-                if (this.episodes_video != null && this.episodes_video.getVisibility() == View.VISIBLE) {
+                // 从相关视频向上移动
+                if (seasonsContainer != null && seasonsContainer.getVisibility() == View.VISIBLE 
+                        && !seasonSectionViews.isEmpty()) {
+                    // 移动到最后一个合集列表
+                    SeasonSectionView lastSection = seasonSectionViews.get(seasonSectionViews.size() - 1);
+                    targetRecyclerView = lastSection.recyclerView;
+                    savedPosition = seasonSectionFocusPositions.containsKey(lastSection.sectionId) 
+                            ? seasonSectionFocusPositions.get(lastSection.sectionId) : 0;
+                } else if (this.episodes_video != null && this.episodes_video.getVisibility() == View.VISIBLE) {
                     targetRecyclerView = this.episodes_video;
                     savedPosition = episodesVideoFocusPosition;
                 } else if (this.o != null && this.o.getVisibility() == View.VISIBLE) {
@@ -765,6 +867,12 @@ public final class VideoDetailActivity extends BaseActivity
                 if (this.r != null && this.r.getVisibility() == View.VISIBLE) {
                     targetRecyclerView = this.r;
                     savedPosition = relateVideoFocusPosition;
+                } else if (seasonsContainer != null && seasonsContainer.getVisibility() == View.VISIBLE 
+                        && !seasonSectionViews.isEmpty()) {
+                    SeasonSectionView lastSection = seasonSectionViews.get(seasonSectionViews.size() - 1);
+                    targetRecyclerView = lastSection.recyclerView;
+                    savedPosition = seasonSectionFocusPositions.containsKey(lastSection.sectionId) 
+                            ? seasonSectionFocusPositions.get(lastSection.sectionId) : 0;
                 } else if (this.episodes_video != null && this.episodes_video.getVisibility() == View.VISIBLE) {
                     targetRecyclerView = this.episodes_video;
                     savedPosition = episodesVideoFocusPosition;
@@ -791,11 +899,25 @@ public final class VideoDetailActivity extends BaseActivity
 
         return false;
     }
+    
+    private int getCurrentSeasonSectionIndex(View currentFocus) {
+        ViewParent parent = currentFocus.getParent();
+        if (parent instanceof RecyclerView) {
+            RecyclerView recyclerView = (RecyclerView) parent;
+            for (int i = 0; i < seasonSectionViews.size(); i++) {
+                if (seasonSectionViews.get(i).recyclerView == recyclerView) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
 
     private static final int LIST_TYPE_EP_LAYOUT = 1;
     private static final int LIST_TYPE_EPISODES_VIDEO = 2;
     private static final int LIST_TYPE_RELATE_VIDEO = 3;
     private static final int LIST_TYPE_TAG = 4;
+    private static final int LIST_TYPE_SEASON_SECTION = 5;
 
     private int getCurrentListType(View currentFocus) {
         if (currentFocus == null) {
@@ -813,6 +935,8 @@ public final class VideoDetailActivity extends BaseActivity
                 return LIST_TYPE_RELATE_VIDEO;
             } else if (id == R.id.flow_tag_view) {
                 return LIST_TYPE_TAG;
+            } else if (id == R.id.season_section_recycler) {
+                return LIST_TYPE_SEASON_SECTION;
             }
             ViewParent parent = view.getParent();
             if (parent instanceof View) {
@@ -882,6 +1006,25 @@ public final class VideoDetailActivity extends BaseActivity
                 if (recyclerView.getChildAt(i) == currentFocus) {
                     episodesVideoFocusPosition = i;
                     break;
+                }
+            }
+        }
+        // 检查是否在多合集列表内
+        else if (currentFocus.getParent() instanceof RecyclerView) {
+            RecyclerView recyclerView = (RecyclerView) currentFocus.getParent();
+            int recyclerViewId = recyclerView.getId();
+            if (recyclerViewId == R.id.season_section_recycler) {
+                // 查找对应的sectionId
+                for (SeasonSectionView ssv : seasonSectionViews) {
+                    if (ssv.recyclerView == recyclerView) {
+                        for (int i = 0; i < recyclerView.getChildCount(); i++) {
+                            if (recyclerView.getChildAt(i) == currentFocus) {
+                                seasonSectionFocusPositions.put(ssv.sectionId, i);
+                                break;
+                            }
+                        }
+                        break;
+                    }
                 }
             }
         }
@@ -2293,126 +2436,164 @@ public final class VideoDetailActivity extends BaseActivity
 
         private final void showEpisodes(BiliVideoDetail biliVideoDetail) {
             biliVideoDetail.getUGCseason();
-            if (biliVideoDetail.episodes == null) {
-                TextView textView = VideoDetailActivity.this.episodes_title;
-                if (textView != null) {
-                    textView.setVisibility(8);
-                }
-                RecyclerView recyclerView = VideoDetailActivity.this.episodes_video;
-                if (recyclerView != null) {
-                    recyclerView.setVisibility(8);
+            
+            // 隐藏旧的单一合集列表（使用新的多合集列表替代）
+            TextView textView = VideoDetailActivity.this.episodes_title;
+            if (textView != null) {
+                textView.setVisibility(8);
+            }
+            RecyclerView recyclerView = VideoDetailActivity.this.episodes_video;
+            if (recyclerView != null) {
+                recyclerView.setVisibility(8);
+            }
+            
+            // 清空之前的多合集列表
+            if (VideoDetailActivity.this.seasonsContainer != null) {
+                VideoDetailActivity.this.seasonsContainer.removeAllViews();
+            }
+            VideoDetailActivity.this.seasonSectionViews.clear();
+            
+            // 检查是否有sections数据
+            if (biliVideoDetail.sectionInfoList == null || biliVideoDetail.sectionInfoList.isEmpty()) {
+                if (VideoDetailActivity.this.seasonsContainer != null) {
+                    VideoDetailActivity.this.seasonsContainer.setVisibility(8);
                 }
                 return;
             }
-            if (VideoDetailActivity.this.episodes_video_adapter != null) {
-                List<BiliVideoDetail> list = new ArrayList<BiliVideoDetail>();
-                for (int i = 0; i < biliVideoDetail.episodes.size(); i++) {
-                    BiliVideoDetail t = JSON.parseObject(
-                            biliVideoDetail.episodes.getJSONObject(i).getJSONObject("arc").toString(),
-                            BiliVideoDetail.class);
-                    t.mOwner = biliVideoDetail.mOwner;
-                    list.add(t);
-                }
-                VideoDetailActivity.this.episodes_video_adapter.setData(list);
-
-                // 自动滚动到当前视频位置
-                if (!list.isEmpty()) {
-                    int currentPosition = -1;
-                    for (int i = 0; i < list.size(); i++) {
-                        if (list.get(i).mAvid == VideoDetailActivity.this.s) {
-                            currentPosition = i;
-                            break;
+            
+            // 显示多合集列表容器
+            if (VideoDetailActivity.this.seasonsContainer != null) {
+                VideoDetailActivity.this.seasonsContainer.setVisibility(0);
+            }
+            
+            // 为每个section创建独立的列表
+            int totalSections = biliVideoDetail.sectionInfoList.size();
+            for (int sectionIndex = 0; sectionIndex < totalSections; sectionIndex++) {
+                BiliVideoDetail.SectionInfo sectionInfo = biliVideoDetail.sectionInfoList.get(sectionIndex);
+                createSeasonSectionView(sectionInfo, sectionIndex, totalSections, biliVideoDetail);
+            }
+        }
+        
+        private void createSeasonSectionView(BiliVideoDetail.SectionInfo sectionInfo, int sectionIndex, int totalSections, BiliVideoDetail biliVideoDetail) {
+            if (VideoDetailActivity.this.seasonsContainer == null || sectionInfo.episodes == null) {
+                return;
+            }
+            
+            // 创建列表项视图
+            View sectionView = LayoutInflater.from(VideoDetailActivity.this).inflate(R.layout.layout_season_section, null);
+            TextView titleView = (TextView) sectionView.findViewById(R.id.season_section_title);
+            final RecyclerView recyclerView = (RecyclerView) sectionView.findViewById(R.id.season_section_recycler);
+            
+            // 设置标题
+            int totalEpisodes = sectionInfo.episodes.size();
+            String titleWithCount = sectionInfo.title + "(" + totalEpisodes + ")";
+            titleView.setText(titleWithCount);
+            
+            // 创建适配器
+            EpisodesVideoAdapter adapter = new EpisodesVideoAdapter();
+            recyclerView.setLayoutManager(new FixLinearLayoutManager(VideoDetailActivity.this, 0, false));
+            recyclerView.setAdapter(adapter);
+            
+            // 设置焦点属性
+            recyclerView.setFocusable(true);
+            recyclerView.setFocusableInTouchMode(true);
+            recyclerView.setNextFocusLeftId(R.id.season_section_recycler);
+            recyclerView.setNextFocusRightId(R.id.season_section_recycler);
+            recyclerView.setNextFocusUpId(R.id.video_detail_coin);
+            
+            // 解析数据
+            List<BiliVideoDetail> list = new ArrayList<BiliVideoDetail>();
+            for (int i = 0; i < sectionInfo.episodes.size(); i++) {
+                BiliVideoDetail t = JSON.parseObject(
+                        sectionInfo.episodes.getJSONObject(i).getJSONObject("arc").toString(),
+                        BiliVideoDetail.class);
+                t.mOwner = biliVideoDetail.mOwner;
+                list.add(t);
+            }
+            adapter.setData(list);
+            
+            // 保存到列表
+            final int sectionId = sectionInfo.id;
+            SeasonSectionView seasonSectionView = new SeasonSectionView(titleView, recyclerView, adapter, sectionId);
+            VideoDetailActivity.this.seasonSectionViews.add(seasonSectionView);
+            
+            // 设置焦点监听器 - 恢复焦点位置
+            recyclerView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        int savedPosition = 0;
+                        if (VideoDetailActivity.this.seasonSectionFocusPositions.containsKey(sectionId)) {
+                            savedPosition = VideoDetailActivity.this.seasonSectionFocusPositions.get(sectionId);
+                        }
+                        View focusView = restoreFocusPosition(recyclerView, savedPosition);
+                        if (focusView != null) {
+                            focusView.requestFocus();
+                        } else if (recyclerView.getChildCount() > 0) {
+                            recyclerView.getChildAt(0).requestFocus();
                         }
                     }
-                    Log.d("VideoDetailActivity", "自动滚动调试 - 当前视频aid: " + VideoDetailActivity.this.s +
-                            ", 合集列表大小: " + list.size() + ", 找到的位置: " + currentPosition);
-                    if (currentPosition >= 0) {
-                        final RecyclerView recyclerView2 = VideoDetailActivity.this.episodes_video;
-                        if (recyclerView2 != null) {
-                            // 延迟滚动，确保RecyclerView已经完成布局
-                            final int finalCurrentPosition = currentPosition;
-                            recyclerView2.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d("VideoDetailActivity", "开始滚动 - 目标位置: " + finalCurrentPosition +
-                                            ", 子视图数量: " + recyclerView2.getChildCount());
-                                    // 最简单的滚动实现：直接使用scrollBy
-                                    if (recyclerView2.getChildCount() > 0) {
-                                        View firstChild = recyclerView2.getChildAt(0);
-                                        if (firstChild != null) {
-                                            int childWidth = firstChild.getWidth();
-                                            int targetOffset = finalCurrentPosition * childWidth;
-                                            Log.d("VideoDetailActivity", "滚动参数 - 子视图宽度: " + childWidth +
-                                                    ", 目标偏移量: " + targetOffset);
-
-                                            // 直接滚动到目标位置
-                                            recyclerView2.scrollBy(targetOffset, 0);
-                                            Log.d("VideoDetailActivity", "滚动完成");
-                                            // 记录焦点相对于可见子视图的索引，供后续聚焦恢复使用
-                                            try {
-                                                int childCount = recyclerView2.getChildCount();
-                                                int foundIndex = -1;
-                                                for (int ci = 0; ci < childCount; ci++) {
-                                                    View cv = recyclerView2.getChildAt(ci);
-                                                    if (cv == null)
-                                                        continue;
-                                                    Object tag = cv.getTag();
-                                                    if (tag instanceof BiliVideoDetail) {
-                                                        BiliVideoDetail bd = (BiliVideoDetail) tag;
-                                                        if (bd.mAvid == VideoDetailActivity.this.s) {
-                                                            foundIndex = ci;
-                                                            break;
-                                                        }
-                                                    }
+                }
+            });
+            
+            // 自动滚动到当前视频位置
+            if (!list.isEmpty()) {
+                int currentPosition = -1;
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i).mAvid == VideoDetailActivity.this.s) {
+                        currentPosition = i;
+                        break;
+                    }
+                }
+                
+                if (currentPosition >= 0) {
+                    final int finalCurrentPosition = currentPosition;
+                    final int finalSectionId = sectionId;
+                    recyclerView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (recyclerView.getChildCount() > 0) {
+                                View firstChild = recyclerView.getChildAt(0);
+                                if (firstChild != null) {
+                                    int childWidth = firstChild.getWidth();
+                                    int targetOffset = finalCurrentPosition * childWidth;
+                                    recyclerView.scrollBy(targetOffset, 0);
+                                    
+                                    // 记录焦点位置
+                                    try {
+                                        int childCount = recyclerView.getChildCount();
+                                        int foundIndex = -1;
+                                        for (int ci = 0; ci < childCount; ci++) {
+                                            View cv = recyclerView.getChildAt(ci);
+                                            if (cv == null) continue;
+                                            Object tag = cv.getTag();
+                                            if (tag instanceof BiliVideoDetail) {
+                                                BiliVideoDetail bd = (BiliVideoDetail) tag;
+                                                if (bd.mAvid == VideoDetailActivity.this.s) {
+                                                    foundIndex = ci;
+                                                    break;
                                                 }
-                                                int childIndex;
-                                                if (foundIndex >= 0) {
-                                                    childIndex = foundIndex;
-                                                } else {
-                                                    childIndex = Math.max(0, Math.min(finalCurrentPosition,
-                                                            recyclerView2.getChildCount() - 1));
-                                                }
-                                                VideoDetailActivity.this.episodesVideoFocusPosition = childIndex;
-                                                Log.d("VideoDetailActivity", "记录焦点子索引(by tag search): " + childIndex
-                                                        + " (visibleChildren=" + recyclerView2.getChildCount() + ")");
-                                            } catch (Exception ex) {
-                                                Log.d("VideoDetailActivity", "记录焦点位置失败: " + ex.getMessage());
                                             }
-                                        } else {
-                                            Log.d("VideoDetailActivity", "第一个子视图为null");
                                         }
-                                    } else {
-                                        Log.d("VideoDetailActivity", "没有子视图可滚动");
+                                        int childIndex;
+                                        if (foundIndex >= 0) {
+                                            childIndex = foundIndex;
+                                        } else {
+                                            childIndex = Math.max(0, Math.min(finalCurrentPosition, recyclerView.getChildCount() - 1));
+                                        }
+                                        VideoDetailActivity.this.seasonSectionFocusPositions.put(finalSectionId, childIndex);
+                                    } catch (Exception ex) {
+                                        // ignore
                                     }
                                 }
-                            });
-                        } else {
-                            Log.d("VideoDetailActivity", "RecyclerView为null");
+                            }
                         }
-                    } else {
-                        Log.d("VideoDetailActivity", "未找到匹配的视频位置");
-                    }
+                    });
                 }
             }
-            TextView textView2 = VideoDetailActivity.this.episodes_title;
-            if (textView2 != null) {
-                if (biliVideoDetail.season_title != null) {
-                    // 在合集标题后面加上合集列表的总数
-                    int totalEpisodes = biliVideoDetail.episodes != null ? biliVideoDetail.episodes.size() : 0;
-                    String titleWithCount = biliVideoDetail.season_title + "(" + totalEpisodes + ")";
-                    textView2.setText(titleWithCount);
-                } else {
-                    // 如果没有season_title，使用默认标题并显示总数
-                    int totalEpisodes = biliVideoDetail.episodes != null ? biliVideoDetail.episodes.size() : 0;
-                    String defaultTitle = "视频选集(" + totalEpisodes + ")";
-                    textView2.setText(defaultTitle);
-                }
-                textView2.setVisibility(0);
-            }
-            RecyclerView recyclerView2 = VideoDetailActivity.this.episodes_video;
-            if (recyclerView2 != null) {
-                recyclerView2.setVisibility(0);
-            }
+            
+            // 添加到容器
+            VideoDetailActivity.this.seasonsContainer.addView(sectionView);
         }
 
         private final void c(BiliVideoDetail biliVideoDetail) {

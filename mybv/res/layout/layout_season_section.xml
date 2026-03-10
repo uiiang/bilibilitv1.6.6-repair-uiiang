@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:focusable="false"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_36"
+        android:textColor="@color/white" 
+        android:id="@+id/season_section_title"
+        android:paddingLeft="@dimen/px_70" android:focusable="false"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" android:layout_marginTop="@dimen/px_16"
+        android:text="合集标题" />
+    <android.support.v7.widget.RecyclerView 
+        android:id="@+id/season_section_recycler"
+        android:paddingLeft="@dimen/px_50" android:paddingTop="@dimen/px_24"
+        android:paddingRight="@dimen/px_70" android:paddingBottom="@dimen/px_24"
+        android:focusable="true"
+        android:nextFocusLeft="@+id/season_section_recycler"
+        android:nextFocusRight="@+id/season_section_recycler"
+        android:clipChildren="false"
+        android:clipToPadding="false" android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

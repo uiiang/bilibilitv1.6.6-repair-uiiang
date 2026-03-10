@@ -2501,7 +2501,10 @@ public final class R {
         public static final int header_title = 0x7f08019a;
         public static final int header_count = 0x7f08019b;
         public static final int video_detail_watch_later = 0x7f08019c;
-        
+        public static final int video_detail_extra_episodes_container = 0x7f08019d;
+        public static final int video_detail_seasons_container = 0x7f08019e;
+        public static final int season_section_title = 0x7f08019f;
+        public static final int season_section_recycler = 0x7f0801a0;
     }
 
     public static final class integer {
@@ -2660,6 +2663,7 @@ public final class R {
         public static final int activity_auth_space_side = 0x7f0a008c;
         public static final int fragment_auth_space_video = 0x7f0a008d;
         public static final int fragment_favorite_video = 0x7f0a008e;
+        public static final int layout_season_section = 0x7f0a008f;
     }
 
     public static final class mipmap {

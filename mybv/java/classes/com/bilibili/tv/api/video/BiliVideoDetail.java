@@ -111,6 +111,21 @@ public class BiliVideoDetail implements Parcelable {
     public JSONArray sections;
     public JSONArray episodes;
     public String season_title;
+    public List<SectionInfo> sectionInfoList;
+
+    public static class SectionInfo {
+        public String title;
+        public JSONArray episodes;
+        public int id;
+        public int type;
+        
+        public SectionInfo(String title, JSONArray episodes, int id, int type) {
+            this.title = title;
+            this.episodes = episodes;
+            this.id = id;
+            this.type = type;
+        }
+    }
 
     public static class JsonResponse extends qe {
         public JSONObject result() {
@@ -126,7 +141,7 @@ public class BiliVideoDetail implements Parcelable {
     }
 
     public void getUGCseason() {
-        if(this.mSeasonOId == 0 || (this.mPageList!=null&&this.mPageList.size()>1) || this.episodes != null)return;
+        if(this.mSeasonOId == 0 || this.episodes != null)return;
         ExecutorService threadPool  = Executors.newSingleThreadExecutor();
         Future<JSONObject> future = threadPool.submit(new Callable<JSONObject>() {
             @Override
@@ -138,17 +153,27 @@ public class BiliVideoDetail implements Parcelable {
             JSONObject detail_infos = future.get().getJSONObject("data");
             this.sections = detail_infos.getJSONObject("View").getJSONObject("ugc_season").getJSONArray("sections");
             this.season_title = detail_infos.getJSONObject("View").getJSONObject("ugc_season").getString("title");
+            
+            this.sectionInfoList = new ArrayList<>();
             for(int i=0;i<this.sections.size();i++){
-                boolean f=false;
-                this.episodes = this.sections.getJSONObject(i).getJSONArray("episodes");
-                for(int j=0;j<this.episodes.size();j++){
-                    if(this.episodes.getJSONObject(j).getLongValue("aid")==this.mAvid){
-                        f=true;
-                        if(this.sections.size()>1)this.season_title += " - " + this.sections.getJSONObject(i).getString("title");
+                JSONObject sectionObj = this.sections.getJSONObject(i);
+                String sectionTitle = sectionObj.getString("title");
+                JSONArray sectionEpisodes = sectionObj.getJSONArray("episodes");
+                int sectionId = sectionObj.getIntValue("id");
+                int sectionType = sectionObj.getIntValue("type");
+                
+                this.sectionInfoList.add(new SectionInfo(sectionTitle, sectionEpisodes, sectionId, sectionType));
+                
+                boolean found = false;
+                for(int j=0;j<sectionEpisodes.size();j++){
+                    if(sectionEpisodes.getJSONObject(j).getLongValue("aid")==this.mAvid){
+                        found = true;
                         break;
                     }
                 }
-                if(f)break;
+                if(!found || this.episodes == null){
+                    this.episodes = sectionEpisodes;
+                }
             }
         }catch(Exception e){
             e.printStackTrace();

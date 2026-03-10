@@ -2477,7 +2477,10 @@
     <public type="id" name="header_title" id="0x7f08019a" />
     <public type="id" name="header_count" id="0x7f08019b" />
     <public type="id" name="video_detail_watch_later" id="0x7f08019c" />
-
+    <public type="id" name="video_detail_extra_episodes_container" id="0x7f08019d" />
+    <public type="id" name="video_detail_seasons_container" id="0x7f08019e" />
+    <public type="id" name="season_section_title" id="0x7f08019f" />
+    <public type="id" name="season_section_recycler" id="0x7f0801a0" />
 
 
 
@@ -2633,6 +2636,7 @@
     <public type="layout" name="activity_auth_space_side" id="0x7f0a008c" />
     <public type="layout" name="fragment_auth_space_video" id="0x7f0a008d" />
     <public type="layout" name="fragment_favorite_video" id="0x7f0a008e" />
+    <public type="layout" name="layout_season_section" id="0x7f0a008f" />
      
 
     <public type="mipmap" name="ic_launcher" id="0x7f0b0000" />
