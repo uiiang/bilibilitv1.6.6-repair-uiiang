@@ -155,6 +155,7 @@ public class BiliVideoDetail implements Parcelable {
             this.season_title = detail_infos.getJSONObject("View").getJSONObject("ugc_season").getString("title");
             
             this.sectionInfoList = new ArrayList<>();
+            this.episodes = new JSONArray();
             for(int i=0;i<this.sections.size();i++){
                 JSONObject sectionObj = this.sections.getJSONObject(i);
                 String sectionTitle = sectionObj.getString("title");
@@ -164,15 +165,8 @@ public class BiliVideoDetail implements Parcelable {
                 
                 this.sectionInfoList.add(new SectionInfo(sectionTitle, sectionEpisodes, sectionId, sectionType));
                 
-                boolean found = false;
                 for(int j=0;j<sectionEpisodes.size();j++){
-                    if(sectionEpisodes.getJSONObject(j).getLongValue("aid")==this.mAvid){
-                        found = true;
-                        break;
-                    }
-                }
-                if(!found || this.episodes == null){
-                    this.episodes = sectionEpisodes;
+                    this.episodes.add(sectionEpisodes.getJSONObject(j));
                 }
             }
         }catch(Exception e){

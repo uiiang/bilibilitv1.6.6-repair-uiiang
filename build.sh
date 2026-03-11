@@ -36,7 +36,7 @@ case "$1" in
         sed -i "s/\"[^\"]*\\.provider\\.TvSearchSuggestionProvider\"/\"$packageid.provider.TvSearchSuggestionProvider\"/g" mybv/smali/bl/afh.smali
         cd mybv/java;./build.sh;cd ../..
         apktool b --use-aapt2 mybv
-        signapk platform.x509.pem platform.pk8 ./mybv/dist/mybv.apk mybv.apk
+        java -jar /usr/bin/signapk platform.x509.pem platform.pk8 ./mybv/dist/mybv.apk mybv.apk
         cat <<EOF > update.json
 {
     "apkMd5":"$(md5sum mybv.apk|awk '{print $1}')",
@@ -71,7 +71,7 @@ EOF
         sed -i "s/\"[^\"]*\\.provider\\.TvSearchSuggestionProvider\"/\"$packageid.provider.TvSearchSuggestionProvider\"/g" mybv/smali/bl/afh.smali
         cd mybv/java;./build.sh;cd ../..
         apktool b --use-aapt2 mybv
-        signapk platform.x509.pem platform.pk8 ./mybv/dist/mybv.apk mybv.apk
+        java -jar /usr/bin/signapk platform.x509.pem platform.pk8 ./mybv/dist/mybv.apk mybv.apk
         exit 0
     ;;
     *)
@@ -82,7 +82,7 @@ EOF
         #编译apk
         apktool b -c --use-aapt2 mybv
         #签名apk
-        signapk platform.x509.pem platform.pk8 ./mybv/dist/mybv.apk mybv.apk
+        java -jar /usr/bin/signapk platform.x509.pem platform.pk8 ./mybv/dist/mybv.apk mybv.apk
         cat <<EOF > update.json
 {
     "apkMd5":"$(md5sum mybv.apk|awk '{print $1}')",

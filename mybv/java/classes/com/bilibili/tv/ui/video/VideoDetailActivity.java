@@ -2461,6 +2461,20 @@ public final class VideoDetailActivity extends BaseActivity
                 return;
             }
             
+            // 计算总集数，如果只有一集则隐藏合集列表
+            int totalEpisodesCount = 0;
+            for (BiliVideoDetail.SectionInfo sectionInfo : biliVideoDetail.sectionInfoList) {
+                if (sectionInfo.episodes != null) {
+                    totalEpisodesCount += sectionInfo.episodes.size();
+                }
+            }
+            if (totalEpisodesCount <= 1) {
+                if (VideoDetailActivity.this.seasonsContainer != null) {
+                    VideoDetailActivity.this.seasonsContainer.setVisibility(8);
+                }
+                return;
+            }
+            
             // 显示多合集列表容器
             if (VideoDetailActivity.this.seasonsContainer != null) {
                 VideoDetailActivity.this.seasonsContainer.setVisibility(0);

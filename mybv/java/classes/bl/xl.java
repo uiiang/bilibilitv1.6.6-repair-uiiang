@@ -46,6 +46,8 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
     private boolean g = false;
     private int i = 0;
     private boolean m = false;
+    private long lastCompletionTime = 0;
+    private static final long COMPLETION_DEBOUNCE_MS = 1000;
 
     /* JADX INFO: Access modifiers changed from: package-private */
     public static final /* synthetic */ boolean a(View view, View view2, int i, int i2, KeyEvent keyEvent) {
@@ -179,6 +181,13 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
     @Override // bl.xh, tv.danmaku.ijk.media.player.IMediaPlayer.OnCompletionListener
     public void onCompletion(IMediaPlayer iMediaPlayer) {
         super.onCompletion(iMediaPlayer);
+        
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastCompletionTime < COMPLETION_DEBOUNCE_MS) {
+            return;
+        }
+        lastCompletionTime = currentTime;
+        
         int i;
         int mode_id = PlayerMenuRight.mode_id>=0?PlayerMenuRight.mode_id:abd.get_mode_id(MainApplication.a().getApplicationContext());
         switch(mode_id){
@@ -401,7 +410,8 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
                         xl.this.k.d(xl.this.i);
                         xl.this.f(xl.this.h.getChildCount() - 1);
                     } else {
-                        xl.this.f(xl.this.i - xl.this.k.n());
+                        int focusPos = xl.this.i - xl.this.k.n();
+                        xl.this.f(focusPos);
                     }
                     xl.this.W();
                 }

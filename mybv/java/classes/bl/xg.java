@@ -127,34 +127,7 @@ public class xg {
             yr.b(a, page.mTitle);
         }
 
-        if (biliVideoDetail.episodes != null) {
-            int size = biliVideoDetail.episodes.size();
-            ResolveResourceParams[] obtainResolveParamsArray = a.mVideoParams.obtainResolveParamsArray(size);
-            for (int i3 = 0; i3 < size; i3++) {
-                JSONObject episode = biliVideoDetail.episodes.getJSONObject(i3);
-                ResolveResourceParams resolveResourceParams = new ResolveResourceParams();
-                resolveResourceParams.mSpid = biliVideoDetail.getSpid();
-                resolveResourceParams.mAvid = episode.getLongValue("aid");
-                resolveResourceParams.mPage = episode.getJSONObject("page").getIntValue("page");
-                resolveResourceParams.mFrom = episode.getJSONObject("page").getString("from");
-                resolveResourceParams.mVid = episode.getJSONObject("page").getString("vid");
-                resolveResourceParams.mCid = episode.getLongValue("cid");
-                resolveResourceParams.mWeb = episode.getJSONObject("page").getString("weblink");
-                resolveResourceParams.mPageTitle = episode.getString("title");
-                resolveResourceParams.mSeasonId = obtainResolveParams.mSeasonId;
-                if (i > 0) {
-                    resolveResourceParams.mExpectedQuality = i;
-                } else {
-                    resolveResourceParams.mExpectedQuality = obtainResolveParams.mExpectedQuality;
-                }
-                resolveResourceParams.mNoHistoryPlay = VideoDetailActivity.sNoHistoryPlayMode;
-                obtainResolveParamsArray[i3] = resolveResourceParams;
-            }
-            a(context, a, bundle);
-            return;
-        }
-
-        if (biliVideoDetail.mPageList != null) {
+        if (biliVideoDetail.mPageList != null && biliVideoDetail.mPageList.size() > 1) {
             int size = biliVideoDetail.mPageList.size();
             ResolveResourceParams[] obtainResolveParamsArray = a.mVideoParams.obtainResolveParamsArray(size);
             for (int i3 = 0; i3 < size; i3++) {
@@ -179,6 +152,39 @@ public class xg {
                 }
                 resolveResourceParams.mNoHistoryPlay = VideoDetailActivity.sNoHistoryPlayMode;
                 obtainResolveParamsArray[i3] = resolveResourceParams;
+            }
+            a(context, a, bundle);
+            return;
+        }
+
+        if (biliVideoDetail.episodes != null && biliVideoDetail.episodes.size() > 0) {
+            int size = biliVideoDetail.episodes.size();
+            ResolveResourceParams[] obtainResolveParamsArray = a.mVideoParams.obtainResolveParamsArray(size);
+            for (int i3 = 0; i3 < size; i3++) {
+                JSONObject episode = biliVideoDetail.episodes.getJSONObject(i3);
+                long episodeCid = episode.getLongValue("cid");
+                if (episodeCid == obtainResolveParams.mCid) {
+                    a.mVideoParams.mResolveParams.mPage = i3;
+                    obtainResolveParamsArray[i3] = a.mVideoParams.mResolveParams;
+                } else {
+                    ResolveResourceParams resolveResourceParams = new ResolveResourceParams();
+                    resolveResourceParams.mSpid = biliVideoDetail.getSpid();
+                    resolveResourceParams.mAvid = episode.getLongValue("aid");
+                    resolveResourceParams.mPage = episode.getJSONObject("page").getIntValue("page");
+                    resolveResourceParams.mFrom = episode.getJSONObject("page").getString("from");
+                    resolveResourceParams.mVid = episode.getJSONObject("page").getString("vid");
+                    resolveResourceParams.mCid = episodeCid;
+                    resolveResourceParams.mWeb = episode.getJSONObject("page").getString("weblink");
+                    resolveResourceParams.mPageTitle = episode.getString("title");
+                    resolveResourceParams.mSeasonId = obtainResolveParams.mSeasonId;
+                    if (i > 0) {
+                        resolveResourceParams.mExpectedQuality = i;
+                    } else {
+                        resolveResourceParams.mExpectedQuality = obtainResolveParams.mExpectedQuality;
+                    }
+                    resolveResourceParams.mNoHistoryPlay = VideoDetailActivity.sNoHistoryPlayMode;
+                    obtainResolveParamsArray[i3] = resolveResourceParams;
+                }
             }
             a(context, a, bundle);
             return;
@@ -221,34 +227,7 @@ public class xg {
             yr.b(a, page.mTitle);
         }
 
-        if (biliVideoDetail.episodes != null) {
-            int size = biliVideoDetail.episodes.size();
-            ResolveResourceParams[] obtainResolveParamsArray = a.mVideoParams.obtainResolveParamsArray(size);
-            for (int i3 = 0; i3 < size; i3++) {
-                JSONObject episode = biliVideoDetail.episodes.getJSONObject(i3);
-                ResolveResourceParams resolveResourceParams = new ResolveResourceParams();
-                resolveResourceParams.mSpid = biliVideoDetail.getSpid();
-                resolveResourceParams.mAvid = episode.getLongValue("aid");
-                resolveResourceParams.mPage = episode.getJSONObject("page").getIntValue("page");
-                resolveResourceParams.mFrom = episode.getJSONObject("page").getString("from");
-                resolveResourceParams.mVid = episode.getJSONObject("page").getString("vid");
-                resolveResourceParams.mCid = episode.getLongValue("cid");
-                resolveResourceParams.mWeb = episode.getJSONObject("page").getString("weblink");
-                resolveResourceParams.mPageTitle = episode.getString("title");
-                resolveResourceParams.mSeasonId = obtainResolveParams.mSeasonId;
-                if (i > 0) {
-                    resolveResourceParams.mExpectedQuality = i;
-                } else {
-                    resolveResourceParams.mExpectedQuality = obtainResolveParams.mExpectedQuality;
-                }
-                resolveResourceParams.mNoHistoryPlay = VideoDetailActivity.sNoHistoryPlayMode;
-                obtainResolveParamsArray[i3] = resolveResourceParams;
-            }
-            a(activity, a, bundle, requestCode);
-            return;
-        }
-
-        if (biliVideoDetail.mPageList != null) {
+        if (biliVideoDetail.mPageList != null && biliVideoDetail.mPageList.size() > 1) {
             int size = biliVideoDetail.mPageList.size();
             ResolveResourceParams[] obtainResolveParamsArray = a.mVideoParams.obtainResolveParamsArray(size);
             for (int i3 = 0; i3 < size; i3++) {
@@ -273,6 +252,39 @@ public class xg {
                 }
                 resolveResourceParams.mNoHistoryPlay = VideoDetailActivity.sNoHistoryPlayMode;
                 obtainResolveParamsArray[i3] = resolveResourceParams;
+            }
+            a(activity, a, bundle, requestCode);
+            return;
+        }
+
+        if (biliVideoDetail.episodes != null && biliVideoDetail.episodes.size() > 0) {
+            int size = biliVideoDetail.episodes.size();
+            ResolveResourceParams[] obtainResolveParamsArray = a.mVideoParams.obtainResolveParamsArray(size);
+            for (int i3 = 0; i3 < size; i3++) {
+                JSONObject episode = biliVideoDetail.episodes.getJSONObject(i3);
+                long episodeCid = episode.getLongValue("cid");
+                if (episodeCid == obtainResolveParams.mCid) {
+                    a.mVideoParams.mResolveParams.mPage = i3;
+                    obtainResolveParamsArray[i3] = a.mVideoParams.mResolveParams;
+                } else {
+                    ResolveResourceParams resolveResourceParams = new ResolveResourceParams();
+                    resolveResourceParams.mSpid = biliVideoDetail.getSpid();
+                    resolveResourceParams.mAvid = episode.getLongValue("aid");
+                    resolveResourceParams.mPage = episode.getJSONObject("page").getIntValue("page");
+                    resolveResourceParams.mFrom = episode.getJSONObject("page").getString("from");
+                    resolveResourceParams.mVid = episode.getJSONObject("page").getString("vid");
+                    resolveResourceParams.mCid = episodeCid;
+                    resolveResourceParams.mWeb = episode.getJSONObject("page").getString("weblink");
+                    resolveResourceParams.mPageTitle = episode.getString("title");
+                    resolveResourceParams.mSeasonId = obtainResolveParams.mSeasonId;
+                    if (i > 0) {
+                        resolveResourceParams.mExpectedQuality = i;
+                    } else {
+                        resolveResourceParams.mExpectedQuality = obtainResolveParams.mExpectedQuality;
+                    }
+                    resolveResourceParams.mNoHistoryPlay = VideoDetailActivity.sNoHistoryPlayMode;
+                    obtainResolveParamsArray[i3] = resolveResourceParams;
+                }
             }
             a(activity, a, bundle, requestCode);
             return;
