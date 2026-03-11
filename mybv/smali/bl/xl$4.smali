@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 384
+    .line 393
     iput-object p1, p0, Lbl/xl$4;->this$0:Lbl/xl;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -42,12 +42,12 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 396
+    .line 405
     iget-object v0, p0, Lbl/xl$4;->this$0:Lbl/xl;
 
     invoke-virtual {v0, v2}, Lbl/xl;->f(I)V
 
-    .line 397
+    .line 406
     iget-object v0, p0, Lbl/xl$4;->this$0:Lbl/xl;
 
     # getter for: Lbl/xl;->i:I
@@ -68,7 +68,7 @@
 
     if-ge v0, v1, :cond_32
 
-    .line 398
+    .line 407
     iget-object v0, p0, Lbl/xl$4;->this$0:Lbl/xl;
 
     # getter for: Lbl/xl;->k:Landroid/support/v7/widget/LinearLayoutManager;
@@ -85,21 +85,21 @@
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/LinearLayoutManager;->d(I)V
 
-    .line 399
+    .line 408
     iget-object v0, p0, Lbl/xl$4;->this$0:Lbl/xl;
 
     invoke-virtual {v0, v2}, Lbl/xl;->f(I)V
 
-    .line 406
+    .line 416
     :goto_2c
     iget-object v0, p0, Lbl/xl$4;->this$0:Lbl/xl;
 
     invoke-virtual {v0}, Lbl/xl;->W()V
 
-    .line 407
+    .line 417
     return-void
 
-    .line 400
+    .line 409
     :cond_32
     iget-object v0, p0, Lbl/xl$4;->this$0:Lbl/xl;
 
@@ -121,7 +121,7 @@
 
     if-le v0, v1, :cond_65
 
-    .line 401
+    .line 410
     iget-object v0, p0, Lbl/xl$4;->this$0:Lbl/xl;
 
     # getter for: Lbl/xl;->k:Landroid/support/v7/widget/LinearLayoutManager;
@@ -138,7 +138,7 @@
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/LinearLayoutManager;->d(I)V
 
-    .line 402
+    .line 411
     iget-object v0, p0, Lbl/xl$4;->this$0:Lbl/xl;
 
     iget-object v1, p0, Lbl/xl$4;->this$0:Lbl/xl;
@@ -158,31 +158,32 @@
 
     goto :goto_2c
 
-    .line 404
+    .line 413
     :cond_65
     iget-object v0, p0, Lbl/xl$4;->this$0:Lbl/xl;
 
+    # getter for: Lbl/xl;->i:I
+    invoke-static {v0}, Lbl/xl;->access$000(Lbl/xl;)I
+
+    move-result v0
+
     iget-object v1, p0, Lbl/xl$4;->this$0:Lbl/xl;
 
-    # getter for: Lbl/xl;->i:I
-    invoke-static {v1}, Lbl/xl;->access$000(Lbl/xl;)I
+    # getter for: Lbl/xl;->k:Landroid/support/v7/widget/LinearLayoutManager;
+    invoke-static {v1}, Lbl/xl;->access$300(Lbl/xl;)Landroid/support/v7/widget/LinearLayoutManager;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Landroid/support/v7/widget/LinearLayoutManager;->n()I
 
     move-result v1
 
-    iget-object v2, p0, Lbl/xl$4;->this$0:Lbl/xl;
+    sub-int/2addr v0, v1
 
-    # getter for: Lbl/xl;->k:Landroid/support/v7/widget/LinearLayoutManager;
-    invoke-static {v2}, Lbl/xl;->access$300(Lbl/xl;)Landroid/support/v7/widget/LinearLayoutManager;
+    .line 414
+    iget-object v1, p0, Lbl/xl$4;->this$0:Lbl/xl;
 
-    move-result-object v2
-
-    invoke-virtual {v2}, Landroid/support/v7/widget/LinearLayoutManager;->n()I
-
-    move-result v2
-
-    sub-int/2addr v1, v2
-
-    invoke-virtual {v0, v1}, Lbl/xl;->f(I)V
+    invoke-virtual {v1, v0}, Lbl/xl;->f(I)V
 
     goto :goto_2c
 .end method
@@ -191,7 +192,7 @@
     .locals 0
 
     .prologue
-    .line 387
+    .line 396
     return-void
 .end method
 
@@ -199,7 +200,7 @@
     .locals 2
 
     .prologue
-    .line 391
+    .line 400
     iget-object v0, p0, Lbl/xl$4;->this$0:Lbl/xl;
 
     # getter for: Lbl/xl;->c:Landroid/view/ViewGroup;
@@ -211,6 +212,6 @@
 
     invoke-virtual {v0, v1}, Landroid/view/ViewGroup;->setVisibility(I)V
 
-    .line 392
+    .line 401
     return-void
 .end method

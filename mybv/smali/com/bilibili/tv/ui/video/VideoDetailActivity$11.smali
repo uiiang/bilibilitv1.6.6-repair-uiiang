@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 1096
+    .line 1239
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->val$finalBiliVideoDetail3:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -44,7 +44,7 @@
     .locals 5
 
     .prologue
-    .line 1099
+    .line 1242
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->noHistoryPlayCheckBox:Landroid/widget/CheckBox;
@@ -54,7 +54,7 @@
 
     if-eqz v0, :cond_14
 
-    .line 1100
+    .line 1243
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->noHistoryPlayCheckBox:Landroid/widget/CheckBox;
@@ -68,7 +68,7 @@
 
     sput-boolean v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->sNoHistoryPlayMode:Z
 
-    .line 1102
+    .line 1245
     :cond_14
     const-string v0, "VideoDetail"
 
@@ -94,7 +94,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1103
+    .line 1246
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->val$finalBiliVideoDetail3:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -106,6 +106,6 @@
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->playVideo(Lcom/bilibili/tv/api/video/BiliVideoDetail;JI)V
     invoke-static {v0, v1, v2, v3, v4}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;JI)V
 
-    .line 1104
+    .line 1247
     return-void
 .end method

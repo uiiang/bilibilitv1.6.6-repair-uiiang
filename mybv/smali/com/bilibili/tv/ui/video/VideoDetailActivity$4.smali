@@ -23,7 +23,7 @@
     .locals 0
 
     .prologue
-    .line 349
+    .line 369
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$4;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0, p2, p3, p4}, Lcom/bilibili/tv/widget/FixLinearLayoutManager;-><init>(Landroid/content/Context;IZ)V
@@ -37,14 +37,14 @@
     .locals 2
 
     .prologue
-    .line 352
+    .line 372
     if-eqz p1, :cond_1a
 
     const/16 v0, 0x82
 
     if-ne p2, v0, :cond_1a
 
-    .line 353
+    .line 373
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$4;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->n:Landroid/support/v7/widget/RecyclerView;
@@ -52,7 +52,7 @@
 
     move-result-object v0
 
-    .line 354
+    .line 374
     if-eqz v0, :cond_1a
 
     invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
@@ -61,14 +61,14 @@
 
     if-lez v1, :cond_1a
 
-    .line 355
+    .line 375
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 358
+    .line 378
     :goto_19
     return-object v0
 
