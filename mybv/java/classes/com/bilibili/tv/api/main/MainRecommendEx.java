@@ -42,6 +42,15 @@ public final class MainRecommendEx {
         @JSONField(name = "uri")
         private String uri;
 
+        @JSONField(name = "owner_name")
+        private String ownerName;
+
+        @JSONField(name = "play")
+        private int play;
+
+        @JSONField(name = "danmaku")
+        private int danmaku;
+
         public final String getCardType() {
             return this.cardType;
         }
@@ -88,6 +97,30 @@ public final class MainRecommendEx {
 
         public final void setUri(String str) {
             this.uri = str;
+        }
+
+        public final String getOwnerName() {
+            return this.ownerName;
+        }
+
+        public final void setOwnerName(String str) {
+            this.ownerName = str;
+        }
+
+        public final int getPlay() {
+            return this.play;
+        }
+
+        public final void setPlay(int i) {
+            this.play = i;
+        }
+
+        public final int getDanmaku() {
+            return this.danmaku;
+        }
+
+        public final void setDanmaku(int i) {
+            this.danmaku = i;
         }
     }
 }

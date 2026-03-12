@@ -22,6 +22,7 @@ import com.bilibili.tv.ui.bangumi.BangumiDetailActivity;
 import com.bilibili.tv.ui.main.MainActivity;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
 import com.bilibili.tv.widget.DrawFrameLayout;
+import com.bilibili.tv.widget.DrawRelativeLayout;
 import com.bilibili.tv.widget.ScalableImageView;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
 import java.lang.ref.WeakReference;
@@ -91,7 +92,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
         int b2 = adl.b(R.dimen.px_12);
         int b3 = adl.b(R.dimen.px_50);
         recyclerView.setPadding(b3, b3, b3, b3);
-        this.b = new BorderGridLayoutManager(getActivity(), 4, 1, false) { // from class: com.bilibili.tv.ui.main.content.MainRecommendFragment$onViewCreated$1
+        this.b = new BorderGridLayoutManager(getActivity(), 2, 1, false) { // from class: com.bilibili.tv.ui.main.content.MainRecommendFragment$onViewCreated$1
             @Override // android.support.v7.widget.RecyclerView.h
             public View d(View view, int i) {
                 if (view == null) {
@@ -103,7 +104,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                 }
                 
                 int d2 = d(view);
-                int row = d2 / 4;
+                int row = d2 / 2;
                 
                 if (i == 33 && row == 0) {
                     FragmentActivity activity2 = MainRecommendFragment.this.getActivity();
@@ -204,8 +205,8 @@ public final class MainRecommendFragment extends adu implements aez, wf {
             bbi.b(view, "view");
             bbi.b(parent, "parent");
             int position = parent.f(view);
-            int column = position % 4;
-            int row = position / 4;
+            int column = position % 2;
+            int row = position / 2;
             
             outRect.left = this.space;
             outRect.right = this.space;
@@ -332,6 +333,8 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                         content.setCover(body.getCover());
                         content.setTitle(body.getTitle());
                         content.setUri(body.getUri());
+                        content.setPlay(body.getPlay());
+                        content.setDanmaku(body.getDanmaku());
                         arrayList.add(content);
                     }
                     for(int i=data.getBody().size();i<20;i++)arrayList.add(null);
@@ -384,6 +387,15 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                 content.setCover(item.getString("pic"));
                 content.setTitle(item.getString("title"));
                 content.setUri("bilibili_yst://video/"+item.getLongValue("id"));
+                JSONObject owner = item.getJSONObject("owner");
+                if (owner != null) {
+                    content.setOwnerName(owner.getString("name"));
+                }
+                JSONObject stat = item.getJSONObject("stat");
+                if (stat != null) {
+                    content.setPlay(stat.getIntValue("view"));
+                    content.setDanmaku(stat.getIntValue("danmaku"));
+                }
                 arrayList2.add(content);
             }
             
@@ -474,6 +486,14 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                     View view2 = advVar.a;
                     view2.setTag(content.getUri());
                 }
+                if (!TextUtils.isEmpty(content.getOwnerName())) {
+                     eVar.B().setText(content.getOwnerName());
+                     eVar.B().setVisibility(View.VISIBLE);
+                 } else {
+                     eVar.B().setVisibility(View.GONE);
+                 }
+                 eVar.C().setText(String.valueOf(content.getPlay()));
+                 eVar.D().setText(String.valueOf(content.getDanmaku()));
                 advVar.a.setTag(R.id.report_position, Integer.valueOf(i + 1));
             }
         }
@@ -650,19 +670,38 @@ public final class MainRecommendFragment extends adu implements aez, wf {
         public static final a Companion = new a(null);
         private final TextView n;
         private final ScalableImageView o;
-        private final ScalableImageView p;
-        private final DrawFrameLayout q;
-        private final WeakReference<MainRecommendFragment> r;
+        private final TextView p;
+        private final TextView q;
+        private final TextView r;
+        private final com.bilibili.tv.widget.DrawRelativeLayout s;
+        private final WeakReference<MainRecommendFragment> t;
 
         /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
         public e(View view, WeakReference<MainRecommendFragment> weakReference) {
             super(view);
-            this.r = weakReference;
+            this.t = weakReference;
             this.n = (TextView) a(view, R.id.title);
             this.o = (ScalableImageView) a(view, R.id.img);
-            this.p = (ScalableImageView) a(view, R.id.black_img);
-            this.q = (DrawFrameLayout) view;
-            this.q.setUpDrawable(R.drawable.shadow_item_main);
+            this.p = (TextView) a(view, R.id.up);
+            this.q = (TextView) a(view, R.id.play);
+            this.r = (TextView) a(view, R.id.danmaku);
+            this.s = (com.bilibili.tv.widget.DrawRelativeLayout) view;
+            this.s.setUpDrawable(R.drawable.shadow_white_rect);
+            android.content.Context ctx = view.getContext();
+            android.graphics.drawable.Drawable c = ctx.getResources().getDrawable(R.drawable.ic_video_info_up);
+            android.graphics.drawable.Drawable c2 = ctx.getResources().getDrawable(R.drawable.ic_video_info_play);
+            android.graphics.drawable.Drawable c3 = ctx.getResources().getDrawable(R.drawable.ic_video_info_danmaku);
+            int b = ctx.getResources().getDimensionPixelSize(R.dimen.px_34);
+            c.setBounds(0, 0, b, b);
+            c2.setBounds(0, 0, b, b);
+            c3.setBounds(0, 0, b, b);
+            int d = ctx.getResources().getColor(R.color.white_50);
+            c.setColorFilter(d, android.graphics.PorterDuff.Mode.MULTIPLY);
+            c2.setColorFilter(d, android.graphics.PorterDuff.Mode.MULTIPLY);
+            c3.setColorFilter(d, android.graphics.PorterDuff.Mode.MULTIPLY);
+            this.p.setCompoundDrawables(c, null, null, null);
+            this.q.setCompoundDrawables(c2, null, null, null);
+            this.r.setCompoundDrawables(c3, null, null, null);
             view.setOnClickListener(this);
             view.setOnFocusChangeListener(this);
         }
@@ -675,8 +714,16 @@ public final class MainRecommendFragment extends adu implements aez, wf {
             return this.o;
         }
 
-        public final ScalableImageView B() {
+        public final TextView B() {
             return this.p;
+        }
+
+        public final TextView C() {
+            return this.q;
+        }
+
+        public final TextView D() {
+            return this.r;
         }
 
         /* compiled from: BL */
@@ -692,7 +739,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
             public final e a(ViewGroup viewGroup, WeakReference<MainRecommendFragment> weakReference) {
                 bbi.b(viewGroup, "parent");
                 bbi.b(weakReference, "weakReference");
-                View inflate = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_view_item_main_recommend_small, viewGroup, false);
+                View inflate = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_view_item_main_recommend_video, viewGroup, false);
                 bbi.a((Object) inflate, "view");
                 return new e(inflate, weakReference);
             }
@@ -724,7 +771,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
 
         @Override // android.view.View.OnFocusChangeListener
         public void onFocusChange(View view, boolean z) {
-            MainRecommendFragment MainRecommendFragmentVar = this.r.get();
+            MainRecommendFragment MainRecommendFragmentVar = this.t.get();
             if (MainRecommendFragmentVar == null) {
                 return;
             }
@@ -733,7 +780,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                 MainRecommendFragmentVar.c = ((Integer) tag).intValue();
             }
             adj.a(view, z);
-            this.q.setUpEnabled(z);
+            this.s.setUpEnabled(z);
             this.n.setSelected(z);
         }
     }

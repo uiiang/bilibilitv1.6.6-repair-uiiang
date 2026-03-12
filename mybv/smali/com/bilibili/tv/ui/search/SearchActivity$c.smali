@@ -26,12 +26,12 @@
     .locals 0
 
     .prologue
-    .line 600
+    .line 602
     iput-object p1, p0, Lcom/bilibili/tv/ui/search/SearchActivity$c;->this$0:Lcom/bilibili/tv/ui/search/SearchActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 601
+    .line 603
     return-void
 .end method
 
@@ -41,7 +41,7 @@
     .locals 2
 
     .prologue
-    .line 605
+    .line 607
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity$c;->this$0:Lcom/bilibili/tv/ui/search/SearchActivity;
 
     # getter for: Lcom/bilibili/tv/ui/search/SearchActivity;->f:Lbl/afh;
@@ -51,7 +51,7 @@
 
     invoke-virtual {v0}, Lbl/afh;->d()V
 
-    .line 606
+    .line 608
     const-string v0, "tv_search_clearall_click"
 
     const/4 v1, 0x0
@@ -60,9 +60,9 @@
 
     invoke-static {v0, v1}, Lbl/ok;->a(Ljava/lang/String;[Ljava/lang/String;)V
 
-    .line 607
+    .line 609
     invoke-virtual {p1}, Lbl/agb;->dismiss()V
 
-    .line 608
+    .line 610
     return-void
 .end method

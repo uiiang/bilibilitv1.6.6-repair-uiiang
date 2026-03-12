@@ -2637,6 +2637,7 @@
     <public type="layout" name="fragment_auth_space_video" id="0x7f0a008d" />
     <public type="layout" name="fragment_favorite_video" id="0x7f0a008e" />
     <public type="layout" name="layout_season_section" id="0x7f0a008f" />
+    <public type="layout" name="recycler_view_item_main_recommend_video" id="0x7f0a0090" />
      
 
     <public type="mipmap" name="ic_launcher" id="0x7f0b0000" />

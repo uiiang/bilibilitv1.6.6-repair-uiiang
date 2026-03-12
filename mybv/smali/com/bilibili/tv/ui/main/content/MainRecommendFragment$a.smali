@@ -54,7 +54,7 @@
     .locals 2
 
     .prologue
-    .line 554
+    .line 574
     new-instance v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$a$aa;
 
     const/4 v1, 0x0
@@ -80,13 +80,13 @@
     .end annotation
 
     .prologue
-    .line 563
+    .line 583
     invoke-direct {p0, p1}, Lbl/adv;-><init>(Landroid/view/View;)V
 
-    .line 564
+    .line 584
     iput-object p2, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$a;->r:Ljava/lang/ref/WeakReference;
 
-    .line 565
+    .line 585
     const v0, 0x7f080132
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$a;->a(Landroid/view/View;I)Landroid/view/View;
@@ -97,7 +97,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$a;->n:Landroid/widget/TextView;
 
-    .line 566
+    .line 586
     const v0, 0x7f0800a1
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$a;->a(Landroid/view/View;I)Landroid/view/View;
@@ -108,7 +108,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$a;->o:Lcom/bilibili/tv/widget/ScalableImageView;
 
-    .line 567
+    .line 587
     const v0, 0x7f08003f
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$a;->a(Landroid/view/View;I)Landroid/view/View;
@@ -121,25 +121,25 @@
 
     move-object v0, p1
 
-    .line 568
+    .line 588
     check-cast v0, Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$a;->q:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 569
+    .line 589
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$a;->q:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     const v1, 0x7f0700e6
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
 
-    .line 570
+    .line 590
     invoke-virtual {p1, p0}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 571
+    .line 591
     invoke-virtual {p1, p0}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 572
+    .line 592
     return-void
 .end method
 
@@ -149,7 +149,7 @@
     .locals 1
 
     .prologue
-    .line 579
+    .line 599
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$a;->o:Lcom/bilibili/tv/widget/ScalableImageView;
 
     return-object v0
@@ -159,7 +159,7 @@
     .locals 1
 
     .prologue
-    .line 583
+    .line 603
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$a;->p:Lcom/bilibili/tv/widget/ScalableImageView;
 
     return-object v0
@@ -173,56 +173,56 @@
 
     const/4 v5, 0x0
 
-    .line 608
+    .line 628
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 609
+    .line 629
     sget-object v0, Lbl/abl;->a:Lbl/abl;
 
     const-string v1, "ott-platform.home.recommend.0.click"
 
     invoke-virtual {v0, v1}, Lbl/abl;->a(Ljava/lang/String;)V
 
-    .line 610
+    .line 630
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    .line 611
+    .line 631
     const-string v1, "v.context"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 612
+    .line 632
     invoke-static {v0}, Lbl/adl;->a(Landroid/content/Context;)Landroid/app/Activity;
 
     move-result-object v4
 
-    .line 613
+    .line 633
     invoke-virtual {p1}, Landroid/view/View;->getTag()Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 614
+    .line 634
     if-nez v4, :cond_23
 
-    .line 629
+    .line 649
     :cond_22
     :goto_22
     return-void
 
-    .line 617
+    .line 637
     :cond_23
     instance-of v1, v0, Ljava/lang/String;
 
     if-eqz v1, :cond_4a
 
-    .line 618
+    .line 638
     check-cast v0, Ljava/lang/String;
 
-    .line 619
+    .line 639
     const-string v1, "bilibili_yst://pgc"
 
     invoke-static {v0, v1, v5}, Lbl/bcl;->b(Ljava/lang/String;Ljava/lang/String;Z)Z
@@ -239,13 +239,13 @@
 
     move-result-wide v0
 
-    .line 620
+    .line 640
     :goto_39
     cmp-long v2, v0, v2
 
     if-lez v2, :cond_22
 
-    .line 623
+    .line 643
     sget-object v2, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->Companion:Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$a;
 
     invoke-static {v0, v1}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
@@ -258,7 +258,7 @@
 
     invoke-virtual {v4, v0}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
 
-    .line 625
+    .line 645
     :cond_4a
     const v0, 0x7f0800ec
 
@@ -266,12 +266,12 @@
 
     move-result-object v0
 
-    .line 626
+    .line 646
     instance-of v1, v0, Ljava/lang/Integer;
 
     if-eqz v1, :cond_22
 
-    .line 627
+    .line 647
     const-string v1, "tv_home_recommend_click"
 
     const/4 v2, 0x4
@@ -309,7 +309,7 @@
     :cond_73
     move-wide v0, v2
 
-    .line 619
+    .line 639
     goto :goto_39
 .end method
 
@@ -317,7 +317,7 @@
     .locals 2
 
     .prologue
-    .line 633
+    .line 653
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$a;->r:Ljava/lang/ref/WeakReference;
 
     invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
@@ -326,14 +326,14 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
-    .line 634
+    .line 654
     if-nez v0, :cond_b
 
-    .line 644
+    .line 664
     :goto_a
     return-void
 
-    .line 637
+    .line 657
     :cond_b
     const v1, 0x7f0800d8
 
@@ -341,10 +341,10 @@
 
     move-result-object v1
 
-    .line 638
+    .line 658
     if-eqz v1, :cond_1d
 
-    .line 639
+    .line 659
     check-cast v1, Ljava/lang/Integer;
 
     invoke-virtual {v1}, Ljava/lang/Integer;->intValue()I
@@ -354,16 +354,16 @@
     # setter for: Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->c:I
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->access$402(Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;I)I
 
-    .line 641
+    .line 661
     :cond_1d
     invoke-static {p1, p2}, Lbl/adj;->a(Landroid/view/View;Z)V
 
-    .line 642
+    .line 662
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$a;->q:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpEnabled(Z)V
 
-    .line 643
+    .line 663
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$a;->n:Landroid/widget/TextView;
 
     invoke-virtual {v0, p2}, Landroid/widget/TextView;->setSelected(Z)V
@@ -375,7 +375,7 @@
     .locals 1
 
     .prologue
-    .line 575
+    .line 595
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$a;->n:Landroid/widget/TextView;
 
     return-object v0

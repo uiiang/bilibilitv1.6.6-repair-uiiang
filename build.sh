@@ -34,6 +34,7 @@ case "$1" in
         sed -i "s/\"[^\"]*\\.provider\\.TvSearchSuggestionProvider\"/\"$packageid.provider.TvSearchSuggestionProvider\"/g" mybv/smali/com/bilibili/tv/provider/TvSearchSuggestionProvider\$a.smali
         sed -i "s/\"[^\"]*\\.provider\\.TvSearchSuggestionProvider\"/\"$packageid.provider.TvSearchSuggestionProvider\"/g" mybv/smali/com/bilibili/tv/ui/search/SearchActivity.smali
         sed -i "s/\"[^\"]*\\.provider\\.TvSearchSuggestionProvider\"/\"$packageid.provider.TvSearchSuggestionProvider\"/g" mybv/smali/bl/afh.smali
+        sed -i "s/\"[^\"]*\\.provider\\.TvSearchSuggestionProvider\"/\"$packageid.provider.TvSearchSuggestionProvider\"/g" mybv/java/classes/com/bilibili/tv/ui/search/SearchActivity.java
         cd mybv/java;./build.sh;cd ../..
         apktool b --use-aapt2 mybv
         java -jar /usr/bin/signapk platform.x509.pem platform.pk8 ./mybv/dist/mybv.apk mybv.apk
@@ -69,6 +70,7 @@ EOF
         sed -i "s/\"[^\"]*\\.provider\\.TvSearchSuggestionProvider\"/\"$packageid.provider.TvSearchSuggestionProvider\"/g" mybv/smali/com/bilibili/tv/provider/TvSearchSuggestionProvider\$a.smali
         sed -i "s/\"[^\"]*\\.provider\\.TvSearchSuggestionProvider\"/\"$packageid.provider.TvSearchSuggestionProvider\"/g" mybv/smali/com/bilibili/tv/ui/search/SearchActivity.smali
         sed -i "s/\"[^\"]*\\.provider\\.TvSearchSuggestionProvider\"/\"$packageid.provider.TvSearchSuggestionProvider\"/g" mybv/smali/bl/afh.smali
+        sed -i "s/\"[^\"]*\\.provider\\.TvSearchSuggestionProvider\"/\"$packageid.provider.TvSearchSuggestionProvider\"/g" mybv/java/classes/com/bilibili/tv/ui/search/SearchActivity.java
         cd mybv/java;./build.sh;cd ../..
         apktool b --use-aapt2 mybv
         java -jar /usr/bin/signapk platform.x509.pem platform.pk8 ./mybv/dist/mybv.apk mybv.apk

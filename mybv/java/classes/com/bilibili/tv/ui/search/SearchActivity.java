@@ -311,7 +311,9 @@ public final class SearchActivity extends BaseActivity implements View.OnLongCli
     }
 
     private final void b(String str) {
-        new SearchRecentSuggestions(this, "com.bilibili.tv.provider.TvSearchSuggestionProvider", 1).saveRecentQuery(str, null);
+        BLog.i(j, "保存搜索历史: " + str);
+        new SearchRecentSuggestions(this, "uii.ang.bilitv.provider.TvSearchSuggestionProvider", 1).saveRecentQuery(str, null);
+        BLog.i(j, "保存搜索历史成功");
     }
 
     /* JADX INFO: Access modifiers changed from: private */

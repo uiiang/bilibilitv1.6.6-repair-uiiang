@@ -28,15 +28,15 @@
     .locals 0
 
     .prologue
-    .line 630
+    .line 632
     iput-object p1, p0, Lcom/bilibili/tv/ui/search/SearchActivity$e;->this$0:Lcom/bilibili/tv/ui/search/SearchActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 631
+    .line 633
     iput-object p2, p0, Lcom/bilibili/tv/ui/search/SearchActivity$e;->b:Ljava/util/LinkedHashMap;
 
-    .line 632
+    .line 634
     return-void
 .end method
 
@@ -46,7 +46,7 @@
     .locals 2
 
     .prologue
-    .line 636
+    .line 638
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity$e;->this$0:Lcom/bilibili/tv/ui/search/SearchActivity;
 
     # getter for: Lcom/bilibili/tv/ui/search/SearchActivity;->g:Lbl/afi;
@@ -64,9 +64,9 @@
 
     invoke-virtual {v1, v0}, Lbl/afi;->c(Ljava/lang/String;)V
 
-    .line 637
+    .line 639
     invoke-virtual {p1}, Lbl/agb;->dismiss()V
 
-    .line 638
+    .line 640
     return-void
 .end method
