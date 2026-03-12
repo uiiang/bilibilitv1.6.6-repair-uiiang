@@ -484,10 +484,35 @@ public final class MainActivity extends BaseActivity {
         }
     }
 
+    private long lastKeyDownTime = 0;
+    private static final long KEY_INTERVAL_THRESHOLD = 100; // 100ms防抖阈值
+
     @Override
     public boolean dispatchKeyEvent(KeyEvent keyEvent) {
         int action = keyEvent.getAction();
         int keyCode = keyEvent.getKeyCode();
+        
+        // 简单的防抖处理：只拦截快速点击（不影响长按）
+        if (action == 0 && keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+            long currentTime = System.currentTimeMillis();
+            long timeSinceLastKey = currentTime - lastKeyDownTime;
+            lastKeyDownTime = currentTime;
+            
+            // 只有当时间间隔很短（<100ms）且不是首次按键时才拦截
+            if (timeSinceLastKey < KEY_INTERVAL_THRESHOLD && timeSinceLastKey > 0) {
+                // 检查是否正在加载
+                aey a2 = MainActivity.a(MainActivity.this);
+                Fragment a3 = a2 != null ? a2.a() : null;
+                if (a3 instanceof com.bilibili.tv.ui.main.content.MainRecommendFragment) {
+                    com.bilibili.tv.ui.main.content.MainRecommendFragment fragment = (com.bilibili.tv.ui.main.content.MainRecommendFragment) a3;
+                    if (fragment.isLoading()) {
+                        // 正在加载时，拦截快速点击
+                        return true;
+                    }
+                }
+            }
+        }
+        
         if (action == 0) {
             View currentFocus = getCurrentFocus();
             if (currentFocus == null) {
