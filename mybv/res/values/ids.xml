@@ -315,5 +315,6 @@
     <item type="id" name="header_title" />
     <item type="id" name="header_count" />
     <item type="id" name="video_detail_watch_later" />
-    
+    <item type="id" name="duration" />
+    <item type="id" name="show_title" />
 </resources>

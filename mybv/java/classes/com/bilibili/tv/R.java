@@ -2505,6 +2505,8 @@ public final class R {
         public static final int video_detail_seasons_container = 0x7f08019e;
         public static final int season_section_title = 0x7f08019f;
         public static final int season_section_recycler = 0x7f0801a0;
+        public static final int duration = 0x7f0801a1;
+        public static final int show_title = 0x7f0801a2;
     }
 
     public static final class integer {

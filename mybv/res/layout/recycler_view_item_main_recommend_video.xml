@@ -5,7 +5,7 @@
   android:focusable="true"
   android:focusableInTouchMode="true"
   android:clickable="true"
-  android:layout_width="match_parent" 
+  android:layout_width="match_parent"
   android:layout_height="wrap_content"
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -22,17 +22,33 @@
     <TextView android:textSize="@dimen/px_40" android:textColor="@color/white"
       android:gravity="center" android:id="@id/tag_text" android:focusable="false"
       android:layout_width="@dimen/px_60" android:layout_height="@dimen/px_60" />
+    <TextView android:id="@+id/duration"
+      android:layout_width="match_parent" android:layout_height="wrap_content"
+      android:layout_gravity="bottom"
+      android:background="@color/black_50"
+      android:textColor="@color/white"
+      android:textSize="@dimen/px_32"
+      android:gravity="end|center_vertical"
+      android:paddingRight="@dimen/px_12"
+      android:paddingTop="@dimen/px_4"
+      android:paddingBottom="@dimen/px_4"
+      android:focusable="false" />
   </FrameLayout>
   <LinearLayout android:id="@+id/bottom_info" android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_toRightOf="@id/img_layout" android:layout_marginLeft="@dimen/px_20"
     android:orientation="vertical" android:layout_alignBottom="@id/img_layout">
-    <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_32"
-      android:textColor="@color/white_50" android:gravity="center_vertical"
+    <com.bilibili.tv.widget.ShadowTextView
+      android:textSize="@dimen/px_32"
+      android:textColor="@color/white_50"
+      android:gravity="center_vertical"
       android:id="@id/up"
-      android:focusable="false" android:duplicateParentState="true"
-      android:layout_width="wrap_content" android:layout_height="wrap_content"
-      android:maxLines="1" android:singleLine="true"
+      android:focusable="false"
+      android:duplicateParentState="true"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:maxLines="1"
+      android:singleLine="true"
       android:drawablePadding="@dimen/px_8" />
     <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
       android:orientation="horizontal" android:layout_marginTop="@dimen/px_6">
@@ -51,12 +67,17 @@
         android:drawablePadding="@dimen/px_8" />
     </LinearLayout>
   </LinearLayout>
-  <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_36"
-    android:textColor="@color/white" android:id="@id/title" android:focusable="false"
-    android:duplicateParentState="true" android:layout_width="wrap_content"
-    android:layout_height="wrap_content" android:maxLines="3"
-    android:layout_toRightOf="@id/img_layout" android:layout_marginLeft="@dimen/px_20"
+  <com.bilibili.tv.widget.ShadowTextView
+    android:textSize="@dimen/px_36"
+    android:textColor="@color/white"
+    android:id="@id/title"
+    android:focusable="false"
+    android:duplicateParentState="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:maxLines="3"
+    android:layout_toRightOf="@id/img_layout"
+    android:layout_marginLeft="@dimen/px_20"
     android:layout_alignTop="@id/img_layout"
-    android:layout_above="@id/bottom_info"
     android:layout_marginBottom="@dimen/px_10" />
 </com.bilibili.tv.widget.DrawRelativeLayout>

@@ -387,6 +387,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                 content.setCover(item.getString("pic"));
                 content.setTitle(item.getString("title"));
                 content.setUri("bilibili_yst://video/"+item.getLongValue("id"));
+                content.setDuration(item.getIntValue("duration"));
                 JSONObject owner = item.getJSONObject("owner");
                 if (owner != null) {
                     content.setOwnerName(owner.getString("name"));
@@ -494,6 +495,12 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                  }
                  eVar.C().setText(String.valueOf(content.getPlay()));
                  eVar.D().setText(String.valueOf(content.getDanmaku()));
+                int duration = content.getDuration();
+                if (duration >= 3600) {
+                    eVar.E().setText(String.format("%d:%02d:%02d", duration / 3600, (duration % 3600) / 60, duration % 60));
+                } else {
+                    eVar.E().setText(String.format("%02d:%02d", duration / 60, duration % 60));
+                }
                 advVar.a.setTag(R.id.report_position, Integer.valueOf(i + 1));
             }
         }
@@ -673,6 +680,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
         private final TextView p;
         private final TextView q;
         private final TextView r;
+        private final TextView u;
         private final com.bilibili.tv.widget.DrawRelativeLayout s;
         private final WeakReference<MainRecommendFragment> t;
 
@@ -685,6 +693,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
             this.p = (TextView) a(view, R.id.up);
             this.q = (TextView) a(view, R.id.play);
             this.r = (TextView) a(view, R.id.danmaku);
+            this.u = (TextView) a(view, R.id.duration);
             this.s = (com.bilibili.tv.widget.DrawRelativeLayout) view;
             this.s.setUpDrawable(R.drawable.shadow_white_rect);
             android.content.Context ctx = view.getContext();
@@ -724,6 +733,10 @@ public final class MainRecommendFragment extends adu implements aez, wf {
 
         public final TextView D() {
             return this.r;
+        }
+
+        public final TextView E() {
+            return this.u;
         }
 
         /* compiled from: BL */

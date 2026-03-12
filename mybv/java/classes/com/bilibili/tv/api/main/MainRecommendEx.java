@@ -51,6 +51,9 @@ public final class MainRecommendEx {
         @JSONField(name = "danmaku")
         private int danmaku;
 
+        @JSONField(name = "duration")
+        private int duration;
+
         public final String getCardType() {
             return this.cardType;
         }
@@ -121,6 +124,14 @@ public final class MainRecommendEx {
 
         public final void setDanmaku(int i) {
             this.danmaku = i;
+        }
+
+        public final int getDuration() {
+            return this.duration;
+        }
+
+        public final void setDuration(int i) {
+            this.duration = i;
         }
     }
 }
