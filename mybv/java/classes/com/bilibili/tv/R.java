@@ -2667,6 +2667,8 @@ public final class R {
         public static final int fragment_favorite_video = 0x7f0a008e;
         public static final int layout_season_section = 0x7f0a008f;
         public static final int recycler_view_item_main_recommend_video = 0x7f0a0090;
+       public static final int activity_history = 0x7f0a0091;
+       public static final int fragment_history_video = 0x7f0a0092;
     }
 
     public static final class mipmap {

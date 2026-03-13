@@ -141,30 +141,56 @@
     .end annotation
 .end method
 
-.method public abstract getVideoHistoryList(Ljava/lang/String;)Lbl/vp;
+.method public abstract getVideoHistoryList(Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;I)Lbl/vp;
     .param p1    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
+    .param p2    # J
         .annotation runtime Lretrofit2/http/Query;
-            value = "access_key"
+            value = "max"
+        .end annotation
+    .end param
+    .param p4    # J
+        .annotation runtime Lretrofit2/http/Query;
+            value = "view_at"
+        .end annotation
+    .end param
+    .param p6    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "business"
+        .end annotation
+    .end param
+    .param p7    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "type"
+        .end annotation
+    .end param
+    .param p8    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "ps"
         .end annotation
     .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
             "Ljava/lang/String;",
-            ")",
+            "JJ",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            "I)",
             "Lbl/vp",
             "<",
             "Lcom/bilibili/okretro/GeneralResponse",
             "<",
-            "Ljava/util/List",
-            "<",
-            "Lcom/bilibili/tv/api/video/BiliVideoDetail;",
-            ">;>;>;"
+            "Lcom/alibaba/fastjson/JSONObject;",
+            ">;>;"
         }
     .end annotation
 
     .annotation runtime Lretrofit2/http/GET;
-        value = "/x/v2/history?pn=1&ps=200"
+        value = "/x/web-interface/history/cursor"
     .end annotation
 .end method
 

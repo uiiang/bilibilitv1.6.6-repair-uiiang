@@ -57,7 +57,7 @@ public class FavoriteSideActivity extends BaseSideActivity implements View.OnLon
     private boolean videoLoaded = false;
     private boolean collectionLoaded = false;
     private boolean courseLoaded = false;
-    
+
     @Override // com.bilibili.tv.ui.base.BaseUpViewActivity
     public void a(agd agdVar) {
     }
@@ -90,13 +90,19 @@ public class FavoriteSideActivity extends BaseSideActivity implements View.OnLon
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
-    @Override // com.bilibili.tv.ui.base.BaseUpViewActivity, com.bilibili.tv.ui.base.BaseActivity, android.support.v7.app.AppCompatActivity, android.support.v4.app.FragmentActivity, android.app.Activity
+    @Override // com.bilibili.tv.ui.base.BaseUpViewActivity,
+              // com.bilibili.tv.ui.base.BaseActivity,
+              // android.support.v7.app.AppCompatActivity,
+              // android.support.v4.app.FragmentActivity, android.app.Activity
     public void onDestroy() {
         this.c = null;
         super.onDestroy();
     }
 
-    @Override // com.bilibili.tv.ui.base.BaseSideActivity, com.bilibili.tv.ui.base.BaseActivity, android.support.v7.app.AppCompatActivity, android.app.Activity, android.view.Window.Callback
+    @Override // com.bilibili.tv.ui.base.BaseSideActivity,
+              // com.bilibili.tv.ui.base.BaseActivity,
+              // android.support.v7.app.AppCompatActivity, android.app.Activity,
+              // android.view.Window.Callback
     public boolean dispatchKeyEvent(KeyEvent keyEvent) {
         if (this.c == null) {
             return super.dispatchKeyEvent(keyEvent);
@@ -117,7 +123,8 @@ public class FavoriteSideActivity extends BaseSideActivity implements View.OnLon
                     if (h != null && h.getView() != null) {
                         fragmentView = h.getView();
                     }
-                    if (predicted != null && isDescendantOf(j(), predicted) && isDescendantOf(fragmentView, currentFocus)) {
+                    if (predicted != null && isDescendantOf(j(), predicted)
+                            && isDescendantOf(fragmentView, currentFocus)) {
                         return true;
                     }
                 } catch (Exception ignored) {
@@ -170,13 +177,13 @@ public class FavoriteSideActivity extends BaseSideActivity implements View.OnLon
         }
         return false;
     }
-    
+
     private void loadAllFolders() {
         loadVideoFolders();
         loadCollectionFolders();
         loadCourseFolders();
     }
-    
+
     private void checkAllLoaded() {
         if (videoLoaded && collectionLoaded && courseLoaded) {
             folders.clear();
@@ -191,53 +198,53 @@ public class FavoriteSideActivity extends BaseSideActivity implements View.OnLon
             }
         }
     }
-    
+
     private void loadVideoFolders() {
         mg account = mg.a(this);
         if (account != null) {
             String referer = "https://space.bilibili.com/" + account.d() + "/favlist";
             ((MyBiliApiService) vo.a(MyBiliApiService.class))
-                .getCreatedFolderList(account.d(), "333.1387", referer)
-                .a(new vn<JSONObject>() {
-                    @Override
-                    public void a(JSONObject result) {
-                        videoFolders.clear();
-                        if (result != null) {
-                            JSONArray list = result.getJSONArray("list");
-                            if (list != null && !list.isEmpty()) {
-                                for (int i = 0; i < list.size(); i++) {
-                                    JSONObject item = list.getJSONObject(i);
-                                    BiliFavoriteBox box = new BiliFavoriteBox();
-                                    box.setMId(item.getLongValue("id"));
-                                    box.setMName(item.getString("title"));
-                                    box.setMCount(item.getIntValue("media_count"));
-                                    box.setMMid(item.getLongValue("mid"));
-                                    videoFolders.add(new VideoFavoriteFolder(box));
+                    .getCreatedFolderList(account.d(), "333.1387", referer)
+                    .a(new vn<JSONObject>() {
+                        @Override
+                        public void a(JSONObject result) {
+                            videoFolders.clear();
+                            if (result != null) {
+                                JSONArray list = result.getJSONArray("list");
+                                if (list != null && !list.isEmpty()) {
+                                    for (int i = 0; i < list.size(); i++) {
+                                        JSONObject item = list.getJSONObject(i);
+                                        BiliFavoriteBox box = new BiliFavoriteBox();
+                                        box.setMId(item.getLongValue("id"));
+                                        box.setMName(item.getString("title"));
+                                        box.setMCount(item.getIntValue("media_count"));
+                                        box.setMMid(item.getLongValue("mid"));
+                                        videoFolders.add(new VideoFavoriteFolder(box));
+                                    }
                                 }
                             }
+                            videoLoaded = true;
+                            checkAllLoaded();
                         }
-                        videoLoaded = true;
-                        checkAllLoaded();
-                    }
-                    
-                    @Override
-                    public boolean isCancel() {
-                        return isFinishing();
-                    }
-                    
-                    @Override
-                    public void onError(Throwable t) {
-                        adl.a.a(t, FavoriteSideActivity.this);
-                        videoLoaded = true;
-                        checkAllLoaded();
-                    }
-                });
+
+                        @Override
+                        public boolean isCancel() {
+                            return isFinishing();
+                        }
+
+                        @Override
+                        public void onError(Throwable t) {
+                            adl.a.a(t, FavoriteSideActivity.this);
+                            videoLoaded = true;
+                            checkAllLoaded();
+                        }
+                    });
         } else {
             videoLoaded = true;
             checkAllLoaded();
         }
     }
-    
+
     private void loadCollectionFolders() {
         mg account = mg.a(this);
         if (account != null) {
@@ -249,32 +256,32 @@ public class FavoriteSideActivity extends BaseSideActivity implements View.OnLon
                     return;
                 }
                 ((MyBiliApiService) vo.a(MyBiliApiService.class))
-                    .getCollectedFolders(1, 50, Long.valueOf(account.d()), "SESSDATA=" + sessdata)
-                    .a(new vn<JSONObject>() {
-                        @Override
-                        public void a(JSONObject result) {
-                            collectionFolders.clear();
-                            if (result != null && result.getJSONArray("list") != null) {
-                                JSONArray list = result.getJSONArray("list");
-                                for (int i = 0; i < list.size(); i++) {
-                                    collectionFolders.add(new CollectionFavoriteFolder(list.getJSONObject(i)));
+                        .getCollectedFolders(1, 50, Long.valueOf(account.d()), "SESSDATA=" + sessdata)
+                        .a(new vn<JSONObject>() {
+                            @Override
+                            public void a(JSONObject result) {
+                                collectionFolders.clear();
+                                if (result != null && result.getJSONArray("list") != null) {
+                                    JSONArray list = result.getJSONArray("list");
+                                    for (int i = 0; i < list.size(); i++) {
+                                        collectionFolders.add(new CollectionFavoriteFolder(list.getJSONObject(i)));
+                                    }
                                 }
+                                collectionLoaded = true;
+                                checkAllLoaded();
                             }
-                            collectionLoaded = true;
-                            checkAllLoaded();
-                        }
-                        
-                        @Override
-                        public boolean isCancel() {
-                            return isFinishing();
-                        }
-                        
-                        @Override
-                        public void onError(Throwable t) {
-                            collectionLoaded = true;
-                            checkAllLoaded();
-                        }
-                    });
+
+                            @Override
+                            public boolean isCancel() {
+                                return isFinishing();
+                            }
+
+                            @Override
+                            public void onError(Throwable t) {
+                                collectionLoaded = true;
+                                checkAllLoaded();
+                            }
+                        });
             } catch (Exception e) {
                 collectionLoaded = true;
                 checkAllLoaded();
@@ -284,7 +291,7 @@ public class FavoriteSideActivity extends BaseSideActivity implements View.OnLon
             checkAllLoaded();
         }
     }
-    
+
     private void loadCourseFolders() {
         mg account = mg.a(this);
         if (account != null) {
@@ -296,32 +303,32 @@ public class FavoriteSideActivity extends BaseSideActivity implements View.OnLon
                     return;
                 }
                 ((MyBiliApiService) vo.a(MyBiliApiService.class))
-                    .getFavoritePugv(1, 50, Long.valueOf(account.d()), "SESSDATA=" + sessdata)
-                    .a(new vn<JSONObject>() {
-                        @Override
-                        public void a(JSONObject result) {
-                            courseFolders.clear();
-                            if (result != null && result.getJSONArray("items") != null) {
-                                JSONArray list = result.getJSONArray("items");
-                                for (int i = 0; i < list.size(); i++) {
-                                    courseFolders.add(new CourseFavoriteFolder(list.getJSONObject(i)));
+                        .getFavoritePugv(1, 50, Long.valueOf(account.d()), "SESSDATA=" + sessdata)
+                        .a(new vn<JSONObject>() {
+                            @Override
+                            public void a(JSONObject result) {
+                                courseFolders.clear();
+                                if (result != null && result.getJSONArray("items") != null) {
+                                    JSONArray list = result.getJSONArray("items");
+                                    for (int i = 0; i < list.size(); i++) {
+                                        courseFolders.add(new CourseFavoriteFolder(list.getJSONObject(i)));
+                                    }
                                 }
+                                courseLoaded = true;
+                                checkAllLoaded();
                             }
-                            courseLoaded = true;
-                            checkAllLoaded();
-                        }
-                        
-                        @Override
-                        public boolean isCancel() {
-                            return isFinishing();
-                        }
-                        
-                        @Override
-                        public void onError(Throwable t) {
-                            courseLoaded = true;
-                            checkAllLoaded();
-                        }
-                    });
+
+                            @Override
+                            public boolean isCancel() {
+                                return isFinishing();
+                            }
+
+                            @Override
+                            public void onError(Throwable t) {
+                                courseLoaded = true;
+                                checkAllLoaded();
+                            }
+                        });
             } catch (Exception e) {
                 courseLoaded = true;
                 checkAllLoaded();
@@ -331,57 +338,55 @@ public class FavoriteSideActivity extends BaseSideActivity implements View.OnLon
             checkAllLoaded();
         }
     }
-    
+
     private void showVideoList(FavoriteFolder folder) {
         if (selectedFolder == folder) {
             return;
         }
-        
+
         selectedFolder = folder;
-        
+
         FavoriteVideoFragment fragment;
         if (folder instanceof CollectionFavoriteFolder) {
             // 对于合集类型，传递 fid 和 mid 参数
             CollectionFavoriteFolder collectionFolder = (CollectionFavoriteFolder) folder;
             fragment = FavoriteVideoFragment.newInstance(
-                folder.getId(),
-                folder.getType(),
-                collectionFolder.getFid(),
-                collectionFolder.getMid()
-            );
+                    folder.getId(),
+                    folder.getType(),
+                    collectionFolder.getFid(),
+                    collectionFolder.getMid());
         } else {
             // 对于其他类型，使用默认构造函数
             fragment = FavoriteVideoFragment.newInstance(
-                folder.getId(),
-                folder.getType()
-            );
+                    folder.getId(),
+                    folder.getType());
         }
-        
+
         getSupportFragmentManager()
-            .beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .commit();
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
     }
-    
+
     public void setSortOrder(String order) {
         if (TextUtils.equals(order, getSortOrder())) {
             return;
         }
-        
+
         Fragment frag = h();
         if (frag instanceof FavoriteVideoFragment) {
             FavoriteVideoFragment fv = (FavoriteVideoFragment) frag;
-            
+
             View selectedView = getSelectedView();
-            
+
             fv.setSortOrder(order);
-            
+
             if (selectedView != null) {
                 selectedView.requestFocus();
             }
         }
     }
-    
+
     private View getSelectedView() {
         RecyclerView leftRv = j();
         if (leftRv == null) {
@@ -395,7 +400,7 @@ public class FavoriteSideActivity extends BaseSideActivity implements View.OnLon
         }
         return null;
     }
-    
+
     public String getSortOrder() {
         Fragment frag = h();
         if (frag instanceof FavoriteVideoFragment) {
@@ -403,7 +408,7 @@ public class FavoriteSideActivity extends BaseSideActivity implements View.OnLon
         }
         return "mtime";
     }
-    
+
     public boolean isVideoFavoriteMode() {
         Fragment frag = h();
         if (frag instanceof FavoriteVideoFragment) {
@@ -411,38 +416,38 @@ public class FavoriteSideActivity extends BaseSideActivity implements View.OnLon
         }
         return false;
     }
-    
+
     @Override
     public boolean onLongClick(View view) {
         Fragment frag = h();
         if (!(frag instanceof FavoriteVideoFragment)) {
             return true;
         }
-        
+
         FavoriteVideoFragment fv = (FavoriteVideoFragment) frag;
         if (!fv.isVideoFavoriteMode()) {
             return true;
         }
-        
+
         LinkedHashMap<String, Object> sortOptions = new LinkedHashMap<>();
         sortOptions.put("最近收藏", "mtime");
         sortOptions.put("最多播放", "view");
         sortOptions.put("最近投稿", "pubtime");
-        
+
         agb.a builder = new agb.a(this);
         builder.a(2)
-            .a("排序:")
-            .a(sortOptions, new agb.c() {
-                @Override
-                public void a(agb dialog, View view, String key) {
-                    String order = (String) sortOptions.get(key);
-                    setSortOrder(order);
-                    dialog.dismiss();
-                }
-            });
+                .a("排序:")
+                .a(sortOptions, new agb.c() {
+                    @Override
+                    public void a(agb dialog, View view, String key) {
+                        String order = (String) sortOptions.get(key);
+                        setSortOrder(order);
+                        dialog.dismiss();
+                    }
+                });
         builder.a((Object) getSortOrder());
         builder.a().show();
-        
+
         return true;
     }
 
@@ -473,27 +478,27 @@ public class FavoriteSideActivity extends BaseSideActivity implements View.OnLon
         public void a(final RecyclerView.v vVar, int i) {
             if (vVar instanceof agf) {
                 final FavoriteFolder folder = folders.get(i);
-                
+
                 agf holder = (agf) vVar;
                 if (folder.getTitle() != null) {
                     holder.n.setText(folder.getTitle());
                 }
                 // 初始设置为1行，超出部分截断
                 holder.n.setMaxLines(1);
-                
+
                 vVar.a.setTag(R.id.position, Integer.valueOf(i));
                 vVar.a.setTag(folder);
-                
+
                 vVar.a.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                     @Override
                     public void onFocusChange(View view, boolean z) {
                         FavoriteSideActivity activity = a.this.a.get();
                         if (!z) {
-                                    // 失去焦点时取消延迟 runnable，防止在数据变更或视图重建期间触发切换
-                                    view.removeCallbacks(a.this);
-                                    if (a.this.e) {
-                                        return;
-                                    }
+                            // 失去焦点时取消延迟 runnable，防止在数据变更或视图重建期间触发切换
+                            view.removeCallbacks(a.this);
+                            if (a.this.e) {
+                                return;
+                            }
                             vVar.a.setSelected(false);
                             // 焦点移出时恢复为单行显示
                             TextView textView = holder.n;
@@ -550,11 +555,14 @@ public class FavoriteSideActivity extends BaseSideActivity implements View.OnLon
         @Override // java.lang.Runnable
         public void run() {
             FavoriteSideActivity activity = this.a.get();
-            if (activity == null || activity.isFinishing()) return;
-            if (this.folders == null || this.c >= this.folders.size()) return;
+            if (activity == null || activity.isFinishing())
+                return;
+            if (this.folders == null || this.c >= this.folders.size())
+                return;
             try {
                 // 如果 adapter 行为被临时禁用，跳过
-                if (this.e) return;
+                if (this.e)
+                    return;
 
                 // 在 RecyclerView 中找到对应 position 的 child
                 RecyclerView leftRv = activity.j();
@@ -578,13 +586,15 @@ public class FavoriteSideActivity extends BaseSideActivity implements View.OnLon
                         isAttached = targetChild.getParent() != null;
                     }
                 }
-                if (targetChild == null || !isAttached || !targetChild.hasFocus()) return;
+                if (targetChild == null || !isAttached || !targetChild.hasFocus())
+                    return;
 
                 // 检查右侧 fragment 是否处于加载中
                 Fragment frag = activity.h();
                 if (frag instanceof FavoriteVideoFragment) {
                     FavoriteVideoFragment fv = (FavoriteVideoFragment) frag;
-                    if (fv.isLoading()) return;
+                    if (fv.isLoading())
+                        return;
                 }
 
                 // 二次校验通过后执行切换

@@ -2639,7 +2639,10 @@
     <public type="layout" name="fragment_favorite_video" id="0x7f0a008e" />
     <public type="layout" name="layout_season_section" id="0x7f0a008f" />
     <public type="layout" name="recycler_view_item_main_recommend_video" id="0x7f0a0090" />
-     
+    <public type="layout" name="activity_history" id="0x7f0a0091" />
+    <public type="layout" name="fragment_history_video" id="0x7f0a0092" />
+
+
 
     <public type="mipmap" name="ic_launcher" id="0x7f0b0000" />
     <public type="string" name="dialog_btn_i_know" id="0x7f0c008a" />

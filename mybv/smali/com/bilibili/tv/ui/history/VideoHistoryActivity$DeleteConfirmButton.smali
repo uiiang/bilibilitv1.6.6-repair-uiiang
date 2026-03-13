@@ -26,12 +26,12 @@
     .locals 0
 
     .prologue
-    .line 264
+    .line 299
     iput-object p1, p0, Lcom/bilibili/tv/ui/history/VideoHistoryActivity$DeleteConfirmButton;->this$0:Lcom/bilibili/tv/ui/history/VideoHistoryActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 265
+    .line 300
     return-void
 .end method
 
@@ -41,7 +41,7 @@
     .locals 3
 
     .prologue
-    .line 269
+    .line 304
     new-instance v0, Lcom/bilibili/tv/ui/history/VideoHistoryActivity$DeleteHistoryTask;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/history/VideoHistoryActivity$DeleteConfirmButton;->this$0:Lcom/bilibili/tv/ui/history/VideoHistoryActivity;
@@ -58,9 +58,9 @@
 
     invoke-virtual {v0, v1, v2}, Lcom/bilibili/tv/ui/history/VideoHistoryActivity$DeleteHistoryTask;->executeOnExecutor(Ljava/util/concurrent/Executor;[Ljava/lang/Object;)Landroid/os/AsyncTask;
 
-    .line 270
+    .line 305
     invoke-virtual {p1}, Lbl/agb;->dismiss()V
 
-    .line 271
+    .line 306
     return-void
 .end method

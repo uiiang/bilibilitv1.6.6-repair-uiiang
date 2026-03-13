@@ -31,6 +31,7 @@ import kotlin.TypeCastException;
 
 import bl.*;
 import com.bilibili.tv.ui.history.VideoToviewActivity;
+import com.bilibili.tv.ui.history.HistorySideActivity;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
 import com.bilibili.tv.widget.side.SideRightGridLayoutManger;
 
@@ -452,7 +453,13 @@ public final class MainMyFragment extends adu implements aez, wf {
                         ok.a("tv_my_favourite_click", "action", "1");
                         return;
                     case 4:
-                        VideoHistoryActivity.Companion.a(a2, VideoHistoryActivity.Companion.b());
+                        if (!this.e) {
+                            LoginActivity.Companion.a(a2, MainActivity.Companion.a());
+                            this.f = intValue;
+                            return;
+                        }
+                        HistorySideActivity.a(a2);
+                        ok.a("tv_my_history_click", "action", "1");
                         return;
                     default:
                         return;

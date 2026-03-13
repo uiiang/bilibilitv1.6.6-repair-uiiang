@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 300
+    .line 307
     iput-object p1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
@@ -46,7 +46,7 @@
     .locals 5
 
     .prologue
-    .line 303
+    .line 310
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->courseFolders:Ljava/util/List;
@@ -56,7 +56,7 @@
 
     invoke-interface {v0}, Ljava/util/List;->clear()V
 
-    .line 304
+    .line 311
     if-eqz p1, :cond_35
 
     const-string v0, "items"
@@ -67,14 +67,14 @@
 
     if-eqz v0, :cond_35
 
-    .line 305
+    .line 312
     const-string v0, "items"
 
     invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
 
     move-result-object v1
 
-    .line 306
+    .line 313
     const/4 v0, 0x0
 
     :goto_1a
@@ -84,7 +84,7 @@
 
     if-ge v0, v2, :cond_35
 
-    .line 307
+    .line 314
     iget-object v2, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->courseFolders:Ljava/util/List;
@@ -102,12 +102,12 @@
 
     invoke-interface {v2, v3}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 306
+    .line 313
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_1a
 
-    .line 310
+    .line 317
     :cond_35
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
@@ -116,13 +116,13 @@
     # setter for: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->courseLoaded:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->access$602(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;Z)Z
 
-    .line 311
+    .line 318
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
     # invokes: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->checkAllLoaded()V
     invoke-static {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->access$200(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;)V
 
-    .line 312
+    .line 319
     return-void
 .end method
 
@@ -130,7 +130,7 @@
     .locals 0
 
     .prologue
-    .line 300
+    .line 307
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$3;->a(Lcom/alibaba/fastjson/JSONObject;)V
@@ -142,7 +142,7 @@
     .locals 1
 
     .prologue
-    .line 316
+    .line 323
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->isFinishing()Z
@@ -156,7 +156,7 @@
     .locals 2
 
     .prologue
-    .line 321
+    .line 328
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
     const/4 v1, 0x1
@@ -164,12 +164,12 @@
     # setter for: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->courseLoaded:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->access$602(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;Z)Z
 
-    .line 322
+    .line 329
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$3;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
     # invokes: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->checkAllLoaded()V
     invoke-static {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->access$200(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;)V
 
-    .line 323
+    .line 330
     return-void
 .end method

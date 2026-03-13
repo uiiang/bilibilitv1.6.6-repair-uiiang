@@ -49,34 +49,34 @@
     .locals 2
 
     .prologue
-    .line 420
+    .line 385
     iput-object p1, p0, Lcom/bilibili/tv/ui/history/VideoHistoryActivity$DeleteHistoryTask;->this$0:Lcom/bilibili/tv/ui/history/VideoHistoryActivity;
 
     invoke-direct {p0}, Landroid/os/AsyncTask;-><init>()V
 
-    .line 421
+    .line 386
     const-string v0, "videoHistoryActivity"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 422
+    .line 387
     new-instance v0, Ljava/lang/ref/WeakReference;
 
     invoke-direct {v0, p2}, Ljava/lang/ref/WeakReference;-><init>(Ljava/lang/Object;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/history/VideoHistoryActivity$DeleteHistoryTask;->mVideoHistoryActivityWeakReference:Ljava/lang/ref/WeakReference;
 
-    .line 423
+    .line 388
     sget-wide v0, Lcom/bilibili/tv/ui/history/VideoHistoryActivity;->current_avid:J
 
     iput-wide v0, p0, Lcom/bilibili/tv/ui/history/VideoHistoryActivity$DeleteHistoryTask;->mAvid:J
 
-    .line 424
+    .line 389
     sget v0, Lcom/bilibili/tv/ui/history/VideoHistoryActivity;->current_pos:I
 
     iput v0, p0, Lcom/bilibili/tv/ui/history/VideoHistoryActivity$DeleteHistoryTask;->mPos:I
 
-    .line 425
+    .line 390
     return-void
 .end method
 
@@ -88,12 +88,12 @@
     .prologue
     const/4 v6, 0x0
 
-    .line 429
+    .line 394
     const-string v0, "params"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 430
+    .line 395
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoHistoryActivity$DeleteHistoryTask;->mVideoHistoryActivityWeakReference:Ljava/lang/ref/WeakReference;
 
     invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
@@ -102,28 +102,15 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/history/VideoHistoryActivity;
 
-    .line 431
-    if-eqz v0, :cond_5c
+    .line 396
+    if-eqz v0, :cond_4e
 
-    .line 432
+    .line 397
     const-string v1, "mVideoHistoryActivityWea\u2026ence.get() ?: return null"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 433
-    new-instance v1, Lbl/zp;
-
-    invoke-direct {v1, v0}, Lbl/zp;-><init>(Landroid/content/Context;)V
-
-    iget-wide v2, p0, Lcom/bilibili/tv/ui/history/VideoHistoryActivity$DeleteHistoryTask;->mAvid:J
-
-    invoke-static {v2, v3}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {v1, v0}, Lbl/zp;->b(Ljava/lang/String;)V
-
-    .line 434
+    .line 398
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v0
@@ -132,12 +119,12 @@
 
     move-result-object v1
 
-    .line 435
+    .line 399
     const-string v0, "BiliAccount.get(MainApplication.getInstance())"
 
     invoke-static {v1, v0}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 436
+    .line 400
     const-class v0, Lcom/bilibili/tv/api/history/BiliPlayerHistoryService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -180,8 +167,8 @@
 
     invoke-virtual {v0}, Lbl/vp;->a()V
 
-    .line 439
-    :cond_5c
+    .line 403
+    :cond_4e
     return-object v6
 .end method
 
@@ -189,7 +176,7 @@
     .locals 1
 
     .prologue
-    .line 415
+    .line 380
     check-cast p1, [Ljava/lang/Void;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/history/VideoHistoryActivity$DeleteHistoryTask;->doInBackground([Ljava/lang/Void;)Ljava/lang/Exception;
@@ -203,17 +190,17 @@
     .locals 3
 
     .prologue
-    .line 444
+    .line 408
     const-wide/16 v0, -0x1
 
     sput-wide v0, Lcom/bilibili/tv/ui/history/VideoHistoryActivity;->current_avid:J
 
-    .line 445
+    .line 409
     const/4 v0, -0x1
 
     sput v0, Lcom/bilibili/tv/ui/history/VideoHistoryActivity;->current_pos:I
 
-    .line 446
+    .line 410
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoHistoryActivity$DeleteHistoryTask;->mVideoHistoryActivityWeakReference:Ljava/lang/ref/WeakReference;
 
     invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
@@ -222,19 +209,19 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/history/VideoHistoryActivity;
 
-    .line 447
+    .line 411
     if-eqz v0, :cond_3f
 
-    .line 448
+    .line 412
     iget-object v1, p0, Lcom/bilibili/tv/ui/history/VideoHistoryActivity$DeleteHistoryTask;->mVideoHistoryActivityWeakReference:Ljava/lang/ref/WeakReference;
 
     const-string v2, "mVideoHistoryActivityWeakReference.get() ?: return"
 
     invoke-static {v1, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 449
+    .line 413
     # getter for: Lcom/bilibili/tv/ui/history/VideoHistoryActivity;->d:Ljava/util/List;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/history/VideoHistoryActivity;->access$200(Lcom/bilibili/tv/ui/history/VideoHistoryActivity;)Ljava/util/List;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/history/VideoHistoryActivity;->access$700(Lcom/bilibili/tv/ui/history/VideoHistoryActivity;)Ljava/util/List;
 
     move-result-object v1
 
@@ -242,27 +229,27 @@
 
     invoke-interface {v1, v2}, Ljava/util/List;->remove(I)Ljava/lang/Object;
 
-    .line 450
+    .line 414
     # getter for: Lcom/bilibili/tv/ui/history/VideoHistoryActivity;->a:Lcom/bilibili/tv/ui/history/VideoHistoryActivity$g;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/history/VideoHistoryActivity;->access$400(Lcom/bilibili/tv/ui/history/VideoHistoryActivity;)Lcom/bilibili/tv/ui/history/VideoHistoryActivity$g;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/history/VideoHistoryActivity;->access$200(Lcom/bilibili/tv/ui/history/VideoHistoryActivity;)Lcom/bilibili/tv/ui/history/VideoHistoryActivity$g;
 
     move-result-object v1
 
-    .line 451
+    .line 415
     if-eqz v1, :cond_2a
 
-    .line 452
+    .line 416
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/history/VideoHistoryActivity$g;->d()V
 
-    .line 454
+    .line 418
     :cond_2a
     const/4 v1, 0x4
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/history/VideoHistoryActivity;->b(I)V
 
-    .line 455
+    .line 419
     # getter for: Lcom/bilibili/tv/ui/history/VideoHistoryActivity;->d:Ljava/util/List;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/history/VideoHistoryActivity;->access$200(Lcom/bilibili/tv/ui/history/VideoHistoryActivity;)Ljava/util/List;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/history/VideoHistoryActivity;->access$700(Lcom/bilibili/tv/ui/history/VideoHistoryActivity;)Ljava/util/List;
 
     move-result-object v1
 
@@ -272,14 +259,14 @@
 
     if-eqz v1, :cond_3f
 
-    .line 456
+    .line 420
     invoke-static {v0}, Lcom/bilibili/tv/ui/history/VideoHistoryActivity;->c(Lcom/bilibili/tv/ui/history/VideoHistoryActivity;)Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     move-result-object v0
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->c()V
 
-    .line 459
+    .line 423
     :cond_3f
     return-void
 .end method
@@ -288,7 +275,7 @@
     .locals 0
 
     .prologue
-    .line 415
+    .line 380
     check-cast p1, Ljava/lang/Exception;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/history/VideoHistoryActivity$DeleteHistoryTask;->onPostExecute(Ljava/lang/Exception;)V

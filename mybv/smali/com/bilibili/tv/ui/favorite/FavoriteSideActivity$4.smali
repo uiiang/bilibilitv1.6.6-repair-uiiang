@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 435
+    .line 440
     iput-object p1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$4;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$4;->val$sortOptions:Ljava/util/LinkedHashMap;
@@ -44,7 +44,7 @@
     .locals 2
 
     .prologue
-    .line 438
+    .line 443
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$4;->val$sortOptions:Ljava/util/LinkedHashMap;
 
     invoke-virtual {v0, p3}, Ljava/util/LinkedHashMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
@@ -53,14 +53,14 @@
 
     check-cast v0, Ljava/lang/String;
 
-    .line 439
+    .line 444
     iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$4;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->setSortOrder(Ljava/lang/String;)V
 
-    .line 440
+    .line 445
     invoke-virtual {p1}, Lbl/agb;->dismiss()V
 
-    .line 441
+    .line 446
     return-void
 .end method
