@@ -9,6 +9,7 @@ import retrofit2.http.BaseUrl;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -22,8 +23,8 @@ public interface BiliPlayerHistoryService {
     @POST(value = "/x/v2/history/delete")
     vp<JSONObject> clearVideoHistories(@Query(value = "access_key") String access_key, @Query(value = "kid") String kid);
 
-    @GET(value = "/x/v2/history?pn=1&ps=200")
-    vp<GeneralResponse<List<BiliVideoDetail>>> getVideoHistoryList(@Query(value = "access_key") String str);
+    @GET(value = "/x/web-interface/history/cursor")
+    vp<GeneralResponse<JSONObject>> getVideoHistoryList(@Header("Cookie") String cookie, @Query(value = "max") long max, @Query(value = "view_at") long view_at, @Query(value = "business") String business, @Query(value = "type") String type, @Query(value = "ps") int ps);
 
     //@POST(value = "/x/v2/history/toview/clear")
     //vp<JSONObject> clearVideoToviews(@Query(value = "access_key") String str);

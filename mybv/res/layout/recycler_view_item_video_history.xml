@@ -36,7 +36,7 @@
       android:textSize="@dimen/px_32"
       android:textColor="@color/white_50"
       android:gravity="center_vertical"
-      android:id="@+id/show_title"
+      android:id="@id/show_title"
       android:focusable="false"
       android:duplicateParentState="true"
       android:layout_width="wrap_content"
@@ -44,17 +44,12 @@
       android:maxLines="1"
       android:singleLine="true"
       android:drawablePadding="@dimen/px_8" />
-    <com.bilibili.tv.widget.ShadowTextView
-      android:textSize="@dimen/px_32"
-      android:textColor="@color/white_50"
-      android:gravity="center_vertical"
+    <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_32"
+      android:textColor="@color/white_50" android:gravity="center_vertical"
       android:id="@id/sub_title"
-      android:focusable="false"
-      android:duplicateParentState="true"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:maxLines="1"
-      android:singleLine="true"
+      android:focusable="false" android:duplicateParentState="true"
+      android:layout_width="wrap_content" android:layout_height="wrap_content"
+      android:maxLines="1" android:singleLine="true"
       android:drawablePadding="@dimen/px_8" />
   </LinearLayout>
   <com.bilibili.tv.widget.ShadowTextView

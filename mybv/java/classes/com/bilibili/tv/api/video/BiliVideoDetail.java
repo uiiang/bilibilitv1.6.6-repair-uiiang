@@ -102,6 +102,10 @@ public class BiliVideoDetail implements Parcelable {
     public String mRedirectLink;
     @JSONField(name = "cheese")
     public JSONObject mCheeseInfo;
+    @JSONField(name = "progress")
+    public int mProgress;
+    @JSONField(name = "show_title")
+    public String mShowTitle;
 
     @JSONField(name = "bangumi")
     public void setBangumi(JSONObject mBangumiInfo){

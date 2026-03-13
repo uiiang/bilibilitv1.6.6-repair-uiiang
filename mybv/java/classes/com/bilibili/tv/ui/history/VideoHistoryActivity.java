@@ -3,13 +3,11 @@ package com.bilibili.tv.ui.history;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteException;
 import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.LongSparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +21,6 @@ import bl.adz;
 import bl.agb;
 import bl.agd;
 import bl.aj;
-import bl.att;
-import bl.baf;
 import bl.bbg;
 import bl.bbi;
 import bl.mg;
@@ -34,12 +30,13 @@ import bl.vn;
 import bl.vo;
 import bl.wf;
 import bl.wg;
-import bl.zp;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.history.BiliPlayerHistoryService;
 import com.bilibili.tv.api.video.BiliVideoDetail;
-import com.bilibili.tv.api.video.BiliVideoHistorylList;
 import com.bilibili.tv.ui.base.BaseUpViewActivity;
 import com.bilibili.tv.ui.base.LoadingImageView;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
@@ -79,6 +76,12 @@ public final class VideoHistoryActivity extends BaseUpViewActivity implements Vi
 
     public static long current_avid = -1;
     public static int current_pos = -1;
+    
+    private long cursorMax = 0;
+    private long cursorViewAt = 0;
+    private String cursorBusiness = "";
+    private boolean isLoading = false;
+    private boolean hasMore = true;
 
     @Override // bl.wf
     public String a() {
@@ -149,12 +152,38 @@ public final class VideoHistoryActivity extends BaseUpViewActivity implements Vi
         ((LinearLayout.LayoutParams) layoutParams).topMargin = 0;
         recyclerView.a(new h(b2, b4));
         recyclerView.setAdapter(this.a);
+        recyclerView.a(new l());
         o();
         LoadingImageView loadingImageView = this.c;
         if (loadingImageView == null) {
             bbi.b("mLoadingImageView");
         }
         loadingImageView.a();
+    }
+
+    /* compiled from: BL */
+    /* loaded from: classes.dex */
+    public final class l extends RecyclerView.m {
+        @Override
+        public void a(RecyclerView recyclerView, int i) {
+            super.a(recyclerView, i);
+            if (VideoHistoryActivity.this.isLoading || !VideoHistoryActivity.this.hasMore || VideoHistoryActivity.this.a == null) {
+                return;
+            }
+            BorderGridLayoutManager layoutManager = VideoHistoryActivity.this.b;
+            if (layoutManager == null) {
+                return;
+            }
+            int firstVisibleItemPosition = layoutManager.p();
+            if (layoutManager.x() > 0) {
+                int itemCount = layoutManager.H();
+                if (firstVisibleItemPosition + 20 >= itemCount - 1) {
+                    if (itemCount > layoutManager.x()) {
+                        VideoHistoryActivity.this.o();
+                    }
+                }
+            }
+        }
     }
 
     /* compiled from: BL */
@@ -225,18 +254,24 @@ public final class VideoHistoryActivity extends BaseUpViewActivity implements Vi
 
     /* JADX INFO: Access modifiers changed from: private */
     public final void n() {
-        new d().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, this);
     }
 
     private final void o() {
+        if (isLoading || !hasMore) {
+            return;
+        }
+        isLoading = true;
         mg a2 = mg.a(getApplicationContext());
         if (a2 != null && a2.a()) {
             mg a3 = mg.a(this);
             bbi.a((Object) a3, "BiliAccount.get(this)");
-            ((BiliPlayerHistoryService) vo.a(BiliPlayerHistoryService.class)).getVideoHistoryList(a3.e()).a(new e());
-            return;
+            String sessdata = a3.getSESSDATA();
+            String cookie = "SESSDATA=" + sessdata;
+            android.util.Log.d("VideoHistoryActivity", "开始加载历史记录，cookie=" + cookie + ", cursorMax=" + cursorMax + ", cursorViewAt=" + cursorViewAt + ", cursorBusiness=" + cursorBusiness);
+            ((BiliPlayerHistoryService) vo.a(BiliPlayerHistoryService.class))
+                .getVideoHistoryList(cookie, cursorMax, cursorViewAt, cursorBusiness, "archive", 30)
+                .a(new e());
         }
-        n();
     }
 
     @Override // android.view.View.OnLongClickListener
@@ -299,75 +334,6 @@ public final class VideoHistoryActivity extends BaseUpViewActivity implements Vi
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /* compiled from: BL */
-    /* loaded from: classes.dex */
-    public final class d extends AsyncTask<Context, Void, BiliVideoHistorylList> {
-        public d() {
-        }
-
-        /* JADX INFO: Access modifiers changed from: protected */
-        @Override // android.os.AsyncTask
-        /* renamed from: a */
-        public BiliVideoHistorylList doInBackground(Context... contextArr) {
-            bbi.b(contextArr, "params");
-            Context context = contextArr[0];
-            if (context != null) {
-                try {
-                    return new zp(context).a();
-                } catch (SQLiteException e) {
-                    att.a(e);
-                    return null;
-                }
-            }
-            return null;
-        }
-
-        /* JADX INFO: Access modifiers changed from: protected */
-        @Override // android.os.AsyncTask
-        /* renamed from: a */
-        public void onPostExecute(BiliVideoHistorylList biliVideoHistorylList) {
-            g gVar;
-            List<BiliVideoDetail> list;
-            super.onPostExecute(biliVideoHistorylList);
-            if (biliVideoHistorylList != null && (list = biliVideoHistorylList.mList) != null && !list.isEmpty()) {
-                LongSparseArray sparseArray = new LongSparseArray();
-                for (BiliVideoDetail biliVideoDetail : list) {
-                    sparseArray.put(biliVideoDetail.mAvid, biliVideoDetail);
-                }
-                for (BiliVideoDetail biliVideoDetail2 : VideoHistoryActivity.this.d) {
-                    int indexOfKey = sparseArray.indexOfKey(biliVideoDetail2.mAvid);
-                    if (indexOfKey < 0) {
-                        sparseArray.put(biliVideoDetail2.mAvid, biliVideoDetail2);
-                    } else if (((BiliVideoDetail) sparseArray.valueAt(indexOfKey)).mViewAt < biliVideoDetail2.mViewAt) {
-                        sparseArray.setValueAt(indexOfKey, biliVideoDetail2);
-                    }
-                }
-                VideoHistoryActivity.this.d.clear();
-                int size = sparseArray.size();
-                for (int i = 0; i < size; i++) {
-                    List list2 = VideoHistoryActivity.this.d;
-                    Object valueAt = sparseArray.valueAt(i);
-                    bbi.a(valueAt, "array.valueAt(i)");
-                    list2.add(valueAt);
-                }
-            }
-            Collections.sort(VideoHistoryActivity.this.d, VideoHistoryActivity.i);
-            if (VideoHistoryActivity.this.a == null || VideoHistoryActivity.this.isFinishing()) {
-                return;
-            }
-            VideoHistoryActivity.c(VideoHistoryActivity.this).b();
-            if (VideoHistoryActivity.this.d.isEmpty()) {
-                VideoHistoryActivity.c(VideoHistoryActivity.this).c();
-                VideoHistoryActivity.c(VideoHistoryActivity.this).a(R.string.nothing_show);
-            }
-            if (VideoHistoryActivity.this.a == null || (gVar = VideoHistoryActivity.this.a) == null) {
-                return;
-            }
-            gVar.a(VideoHistoryActivity.this.d);
-        }
-    }
-
     /* compiled from: BL */
     /* loaded from: classes.dex */
     static final class a extends AsyncTask<Void, Void, Exception> {
@@ -386,7 +352,6 @@ public final class VideoHistoryActivity extends BaseUpViewActivity implements Vi
             VideoHistoryActivity videoHistoryActivity = this.a.get();
             if (videoHistoryActivity != null) {
                 bbi.a((Object) videoHistoryActivity, "mVideoHistoryActivityWea…ence.get() ?: return null");
-                zp.a(videoHistoryActivity);
                 mg a = mg.a(MainApplication.a());
                 bbi.a((Object) a, "BiliAccount.get(MainApplication.getInstance())");
                 ((BiliPlayerHistoryService) vo.a(BiliPlayerHistoryService.class)).clearVideoHistories(a.e()).a();
@@ -430,7 +395,6 @@ public final class VideoHistoryActivity extends BaseUpViewActivity implements Vi
             VideoHistoryActivity videoHistoryActivity = this.mVideoHistoryActivityWeakReference.get();
             if (videoHistoryActivity != null) {
                 bbi.a((Object) videoHistoryActivity, "mVideoHistoryActivityWea…ence.get() ?: return null");
-                new zp(videoHistoryActivity).b(String.valueOf(this.mAvid));
                 mg a = mg.a(MainApplication.a());
                 bbi.a((Object) a, "BiliAccount.get(MainApplication.getInstance())");
                 ((BiliPlayerHistoryService) vo.a(BiliPlayerHistoryService.class)).clearVideoHistories(a.e(),"archive_"+String.valueOf(this.mAvid)).a();
@@ -464,7 +428,7 @@ public final class VideoHistoryActivity extends BaseUpViewActivity implements Vi
     /* JADX INFO: Access modifiers changed from: package-private */
     /* compiled from: BL */
     /* loaded from: classes.dex */
-    public final class e extends vn<List<BiliVideoDetail>> {
+    public final class e extends vn<JSONObject> {
         public e() {
         }
 
@@ -475,22 +439,80 @@ public final class VideoHistoryActivity extends BaseUpViewActivity implements Vi
 
         @Override // bl.vm
         public void onError(Throwable th) {
+            VideoHistoryActivity.this.isLoading = false;
+            android.util.Log.e("VideoHistoryActivity", "加载历史记录失败", th);
             adl.a.a(th, VideoHistoryActivity.this);
             if (VideoHistoryActivity.this.a == null || VideoHistoryActivity.c(VideoHistoryActivity.this) == null) {
                 return;
             }
-            VideoHistoryActivity.this.n();
+            VideoHistoryActivity.c(VideoHistoryActivity.this).b();
         }
 
         @Override // bl.vn
-        public void a(List<BiliVideoDetail> list) {
+        public void a(JSONObject response) {
+            VideoHistoryActivity.this.isLoading = false;
+            android.util.Log.d("VideoHistoryActivity", "历史记录接口返回数据: " + response);
             if (VideoHistoryActivity.this.a == null) {
                 return;
             }
-            if (list != null && !list.isEmpty()) {
-                VideoHistoryActivity.this.d = baf.b((Collection) list);
+            if (response != null) {
+                // 直接解析cursor和list，因为返回的数据结构就是{"cursor":..., "list":...}
+                JSONObject cursor = response.getJSONObject("cursor");
+                if (cursor != null) {
+                    VideoHistoryActivity.this.cursorMax = cursor.getLongValue("max");
+                    VideoHistoryActivity.this.cursorViewAt = cursor.getLongValue("view_at");
+                    VideoHistoryActivity.this.cursorBusiness = cursor.getString("business");
+                    VideoHistoryActivity.this.hasMore = true;
+                    android.util.Log.d("VideoHistoryActivity", "cursor信息: max=" + VideoHistoryActivity.this.cursorMax + ", view_at=" + VideoHistoryActivity.this.cursorViewAt + ", business=" + VideoHistoryActivity.this.cursorBusiness);
+                } else {
+                    VideoHistoryActivity.this.hasMore = false;
+                    android.util.Log.d("VideoHistoryActivity", "cursor为null，没有更多数据");
+                }
+                
+                JSONArray list = response.getJSONArray("list");
+                android.util.Log.d("VideoHistoryActivity", "list数组大小: " + (list != null ? list.size() : "null"));
+                if (list != null && !list.isEmpty()) {
+                    for (int i = 0; i < list.size(); i++) {
+                        JSONObject item = list.getJSONObject(i);
+                        BiliVideoDetail detail = new BiliVideoDetail();
+                        detail.mTitle = item.getString("title");
+                        detail.mCover = item.getString("cover");
+                        detail.mViewAt = item.getLongValue("view_at");
+                        detail.mProgress = item.getIntValue("progress");
+                        detail.mDuration = item.getIntValue("duration");
+                        detail.mShowTitle = item.getString("show_title");
+                        
+                        JSONObject history = item.getJSONObject("history");
+                        if (history != null) {
+                            detail.mAvid = history.getLongValue("oid");
+                            detail.mBusinessType = history.getString("business");
+                            if ("pgc".equals(detail.mBusinessType)) {
+                                JSONObject bangumiInfo = new JSONObject();
+                                JSONObject season = new JSONObject();
+                                season.put("season_id", item.getString("kid"));
+                                bangumiInfo.put("season", season);
+                                detail.mBangumiInfo = JSON.parseObject(bangumiInfo.toJSONString(), BiliVideoDetail.BangumiInfo.class);
+                            }
+                        }
+                        
+                        VideoHistoryActivity.this.d.add(detail);
+                        android.util.Log.d("VideoHistoryActivity", "添加历史记录: " + detail.mTitle + ", avid=" + detail.mAvid);
+                    }
+                    
+                    if (VideoHistoryActivity.this.a != null) {
+                        VideoHistoryActivity.this.a.a(VideoHistoryActivity.this.d);
+                    }
+                } else {
+                    VideoHistoryActivity.this.hasMore = false;
+                    android.util.Log.d("VideoHistoryActivity", "list为空或null，没有更多数据");
+                }
             }
-            VideoHistoryActivity.this.n();
+            
+            VideoHistoryActivity.c(VideoHistoryActivity.this).b();
+            if (VideoHistoryActivity.this.d.isEmpty()) {
+                VideoHistoryActivity.c(VideoHistoryActivity.this).c();
+                VideoHistoryActivity.c(VideoHistoryActivity.this).a(R.string.nothing_show);
+            }
         }
     }
 
@@ -526,6 +548,39 @@ public final class VideoHistoryActivity extends BaseUpViewActivity implements Vi
                     ((f) advVar).A().setText(biliVideoDetail.mTitle);
                 }
                 ((f) advVar).B().setText(b.format(new Date(biliVideoDetail.mViewAt * ((long) IjkMediaCodecInfo.RANK_MAX))));
+                int duration = biliVideoDetail.mDuration;
+                int progress = biliVideoDetail.mProgress;
+                if (progress == -1) {
+                    ((f) advVar).C().setText("已看完");
+                    ((f) advVar).C().setVisibility(View.VISIBLE);
+                } else {
+                    String durationStr;
+                    if (duration >= 3600) {
+                        durationStr = String.format("%d:%02d:%02d", duration / 3600, (duration % 3600) / 60, duration % 60);
+                    } else {
+                        durationStr = String.format("%02d:%02d", duration / 60, duration % 60);
+                    }
+                    if (progress > 0) {
+                        String progressStr;
+                        if (progress >= 3600) {
+                            progressStr = String.format("%d:%02d:%02d", progress / 3600, (progress % 3600) / 60, progress % 60);
+                        } else {
+                            progressStr = String.format("%02d:%02d", progress / 60, progress % 60);
+                        }
+                        ((f) advVar).C().setText(String.format("%s/%s", progressStr, durationStr));
+                    } else {
+                        ((f) advVar).C().setText(durationStr);
+                    }
+                    ((f) advVar).C().setVisibility(View.VISIBLE);
+                }
+                if (!TextUtils.isEmpty(biliVideoDetail.mShowTitle)) {
+                    ((f) advVar).A().setMaxLines(2);
+                    ((f) advVar).D().setText(biliVideoDetail.mShowTitle);
+                    ((f) advVar).D().setVisibility(View.VISIBLE);
+                } else {
+                    ((f) advVar).A().setMaxLines(3);
+                    ((f) advVar).D().setVisibility(View.GONE);
+                }
                 View view = advVar.a;
                 bbi.a((Object) view, "holder.itemView");
                 view.setTag(biliVideoDetail);
@@ -614,6 +669,8 @@ public final class VideoHistoryActivity extends BaseUpViewActivity implements Vi
         private ScalableImageView n;
         private TextView o;
         private TextView p;
+        private TextView r;
+        private TextView s;
         private DrawRelativeLayout q;
 
         /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
@@ -623,6 +680,8 @@ public final class VideoHistoryActivity extends BaseUpViewActivity implements Vi
             this.n = (ScalableImageView) a(view, R.id.img);
             this.o = (TextView) a(view, R.id.title);
             this.p = (TextView) a(view, R.id.sub_title);
+            this.r = (TextView) a(view, R.id.duration);
+            this.s = (TextView) a(view, R.id.show_title);
             this.q = (DrawRelativeLayout) a(view, R.id.draw);
             Context context = view.getContext();
             if (context instanceof View.OnLongClickListener) {
@@ -640,6 +699,14 @@ public final class VideoHistoryActivity extends BaseUpViewActivity implements Vi
 
         public final TextView B() {
             return this.p;
+        }
+
+        public final TextView C() {
+            return this.r;
+        }
+
+        public final TextView D() {
+            return this.s;
         }
 
         /* compiled from: BL */
