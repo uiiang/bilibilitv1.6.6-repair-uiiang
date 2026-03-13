@@ -18,5 +18,5 @@
   </LinearLayout>
   <com.bilibili.tv.widget.FixedViewPager android:id="@id/view_pager" android:focusable="false"
     android:clipChildren="false" android:clipToPadding="false" android:layout_width="fill_parent"
-    android:layout_height="fill_parent" android:layout_marginTop="@dimen/px_34" />
+    android:layout_height="fill_parent" />
 </LinearLayout>

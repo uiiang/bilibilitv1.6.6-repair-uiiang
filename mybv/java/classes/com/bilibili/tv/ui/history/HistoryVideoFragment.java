@@ -110,7 +110,7 @@ public final class HistoryVideoFragment extends ady {
         recyclerView.setLayoutManager(layoutManager);
         
         int spacing = adl.b(R.dimen.px_4);
-        int margin = adl.b(R.dimen.px_20);
+        int margin = adl.b(R.dimen.px_10);
         int padding = adl.b(R.dimen.px_30);
         recyclerView.setPadding(padding, padding, padding, padding);
         recyclerView.a(new f(margin, spacing));

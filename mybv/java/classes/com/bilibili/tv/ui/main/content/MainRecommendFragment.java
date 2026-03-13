@@ -89,9 +89,9 @@ public final class MainRecommendFragment extends adu implements aez, wf {
         bbi.b(recyclerView, "recyclerView");
         super.a(recyclerView, bundle);
         ok.a("tv_home_recommend_pageview", new String[0]);
-        int b2 = adl.b(R.dimen.px_12);
+        int b2 = adl.b(R.dimen.px_10);
         int b3 = adl.b(R.dimen.px_50);
-        recyclerView.setPadding(b3, b3, b3, b3);
+        recyclerView.setPadding(b3, b2, b3, b2);
         this.b = new BorderGridLayoutManager(getActivity(), 2, 1, false) { // from class: com.bilibili.tv.ui.main.content.MainRecommendFragment$onViewCreated$1
             @Override // android.support.v7.widget.RecyclerView.h
             public View d(View view, int i) {

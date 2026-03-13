@@ -105,7 +105,7 @@ public final class AuthSpaceVideoFragment extends ady {
     lm.a(new e((AuthSpaceSideActivity) activity));
     recyclerView.setLayoutManager(lm);
     int gap = adl.b(R.dimen.px_4);
-    int margin = adl.b(R.dimen.px_20);
+    int margin = adl.b(R.dimen.px_10);
     int pad = adl.b(R.dimen.px_30);
     recyclerView.setPadding(pad, pad, pad, pad);
     recyclerView.a(new f(margin, gap));

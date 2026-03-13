@@ -164,7 +164,7 @@ public final class FavoriteVideoFragment extends ady {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(sideRightGridLayoutManger);
         int iB = adl.b(R.dimen.px_4);
-        int iB2 = adl.b(R.dimen.px_20);
+        int iB2 = adl.b(R.dimen.px_10);
         int iB3 = adl.b(R.dimen.px_30);
         recyclerView.setPadding(iB3, iB3, iB3, iB3);
         recyclerView.a(new f(iB2, iB));

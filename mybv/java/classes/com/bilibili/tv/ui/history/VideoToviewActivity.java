@@ -138,7 +138,7 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements Vie
         this.a = new g();
         recyclerView.setLayoutManager(this.b);
         recyclerView.setFocusable(false);
-        int b2 = adl.b(R.dimen.px_20);
+        int b2 = adl.b(R.dimen.px_10);
         int b3 = adl.b(R.dimen.px_60);
         int b4 = adl.b(R.dimen.px_70);
         int b5 = adl.b(R.dimen.px_130);
