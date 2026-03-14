@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 527
+    .line 528
     iput-object p1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a$1$1;->this$1:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a$1;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 530
+    .line 531
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a$1$1;->this$1:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a$1;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a$1;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a;
@@ -56,7 +56,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
-    .line 531
+    .line 532
     if-eqz v0, :cond_16
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->isFinishing()Z
@@ -65,12 +65,12 @@
 
     if-eqz v1, :cond_17
 
-    .line 535
+    .line 536
     :cond_16
     :goto_16
     return-void
 
-    .line 534
+    .line 535
     :cond_17
     iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a$1$1;->this$1:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a$1;
 

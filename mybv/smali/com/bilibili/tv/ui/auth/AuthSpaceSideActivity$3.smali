@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 333
+    .line 331
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$3;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$3;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
@@ -50,7 +50,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 336
+    .line 334
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$3;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
@@ -61,7 +61,7 @@
 
     move v0, v1
 
-    .line 337
+    .line 335
     :goto_a
     iget-object v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$3;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
@@ -71,29 +71,29 @@
 
     if-ge v0, v2, :cond_32
 
-    .line 338
+    .line 336
     iget-object v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$3;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v2, v0}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
 
     move-result-object v2
 
-    .line 339
+    .line 337
     iget-object v3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$3;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v3, v2}, Landroid/support/v7/widget/RecyclerView;->g(Landroid/view/View;)I
 
     move-result v3
 
-    .line 340
+    .line 338
     iget v4, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$3;->val$focusedPosition:I
 
     if-ne v3, v4, :cond_2f
 
-    .line 341
+    .line 339
     invoke-virtual {v2}, Landroid/view/View;->requestFocus()Z
 
-    .line 342
+    .line 340
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$3;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->c:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;
@@ -103,17 +103,17 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;->b(Z)V
 
-    .line 349
+    .line 347
     :goto_2e
     return-void
 
-    .line 337
+    .line 335
     :cond_2f
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_a
 
-    .line 346
+    .line 344
     :cond_32
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$3;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
@@ -123,7 +123,7 @@
 
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 348
+    .line 346
     :cond_3b
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$3;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 

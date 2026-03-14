@@ -64,6 +64,7 @@
         <activity android:name="com.bilibili.tv.ui.bangumi.follow.NewFollowBangumiActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.vip.VipActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.favorite.FavoriteSideActivity" android:screenOrientation="landscape"/>
+        <activity android:name="com.bilibili.tv.ui.weekly.WeeklyActivity" android:screenOrientation="landscape"/>
         <provider android:authorities="uii.ang.bilitv.provider.TvSearchSuggestionProvider" android:exported="false" android:name="com.bilibili.tv.provider.TvSearchSuggestionProvider"/>
         <provider android:authorities="uii.ang.bilitv.provider.resolver" android:exported="false" android:multiprocess="false" android:name="com.bilibili.lib.media.resolver.resolve.MediaResolveProvider"/>
         <service android:label="@string/app_name" android:name="com.bilibili.tv.service.paper.LiveWallpaperService" android:permission="android.permission.BIND_WALLPAPER">

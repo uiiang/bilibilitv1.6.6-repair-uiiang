@@ -2061,6 +2061,8 @@
     <public type="drawable" name="background_splash" id="0x7f070106" />
     <public type="drawable" name="ic_folder_open_180" id="0x7f070107" />
     <public type="drawable" name="ic_more_horiz_180" id="0x7f070108" />
+    <public type="drawable" name="ic_weekly" id="0x7f070109" />
+
 
     <public type="id" name="ALT" id="0x7f080000" />
     <public type="id" name="CTRL" id="0x7f080001" />
@@ -2642,6 +2644,8 @@
     <public type="layout" name="recycler_view_item_main_recommend_video" id="0x7f0a0090" />
     <public type="layout" name="activity_history" id="0x7f0a0091" />
     <public type="layout" name="fragment_history_video" id="0x7f0a0092" />
+    <public type="layout" name="activity_weekly" id="0x7f0a0093" />
+    <public type="layout" name="fragment_weekly_video" id="0x7f0a0094" />
 
 
 

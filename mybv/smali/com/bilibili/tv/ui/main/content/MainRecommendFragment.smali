@@ -207,7 +207,7 @@
     invoke-static {v0, v1}, Lbl/ok;->a(Ljava/lang/String;[Ljava/lang/String;)V
 
     .line 92
-    const v0, 0x7f060085
+    const v0, 0x7f06006e
 
     invoke-static {v0}, Lbl/adl;->b(I)I
 
@@ -221,7 +221,7 @@
     move-result v0
 
     .line 94
-    invoke-virtual {p1, v0, v0, v0, v0}, Landroid/support/v7/widget/RecyclerView;->setPadding(IIII)V
+    invoke-virtual {p1, v0, v6, v0, v6}, Landroid/support/v7/widget/RecyclerView;->setPadding(IIII)V
 
     .line 95
     new-instance v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$1;

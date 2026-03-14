@@ -143,8 +143,8 @@
 
 .method public abstract getVideoHistoryList(Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;I)Lbl/vp;
     .param p1    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Header;
-            value = "Cookie"
+        .annotation runtime Lretrofit2/http/Query;
+            value = "access_key"
         .end annotation
     .end param
     .param p2    # J

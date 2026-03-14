@@ -86,6 +86,8 @@
 
 .field public static final T1_TV:I = 0xb
 
+.field public static final T1_WEEKLY:I = 0x10068
+
 .field public static final T2_ADVERTISE:I = 0xa6
 
 .field public static final T2_BANGUMI_ON_AIR:I = 0x21
@@ -116,7 +118,7 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 84
+    .line 85
     new-instance v0, Lcom/bilibili/tv/api/category/CategoryMeta;
 
     const/4 v1, 0x0
@@ -125,14 +127,14 @@
 
     sput-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->NULL:Lcom/bilibili/tv/api/category/CategoryMeta;
 
-    .line 85
+    .line 86
     new-instance v0, Landroid/util/SparseIntArray;
 
     invoke-direct {v0}, Landroid/util/SparseIntArray;-><init>()V
 
     sput-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
-    .line 88
+    .line 89
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const v1, 0x10066
@@ -141,7 +143,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
-    .line 89
+    .line 90
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const v1, 0x10001
@@ -150,7 +152,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
-    .line 90
+    .line 91
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const/4 v1, 0x1
@@ -159,7 +161,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
-    .line 91
+    .line 92
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const/16 v1, 0xa7
@@ -168,7 +170,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
-    .line 92
+    .line 93
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const/4 v1, 0x3
@@ -177,7 +179,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
-    .line 93
+    .line 94
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const/16 v1, 0xd
@@ -186,7 +188,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
-    .line 94
+    .line 95
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const/16 v1, 0x81
@@ -195,7 +197,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
-    .line 95
+    .line 96
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const/4 v1, 0x4
@@ -204,7 +206,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
-    .line 96
+    .line 97
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const/16 v1, 0xbc
@@ -213,7 +215,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
-    .line 97
+    .line 98
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const/16 v1, 0x24
@@ -222,7 +224,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
-    .line 98
+    .line 99
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const/16 v1, 0xa0
@@ -231,7 +233,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
-    .line 99
+    .line 100
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const/16 v1, 0x77
@@ -240,7 +242,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
-    .line 100
+    .line 101
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const/4 v1, 0x5
@@ -249,7 +251,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
-    .line 101
+    .line 102
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const/16 v1, 0x17
@@ -258,7 +260,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
-    .line 102
+    .line 103
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const/16 v1, 0xb
@@ -267,7 +269,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
-    .line 103
+    .line 104
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const/16 v1, 0x9b
@@ -276,7 +278,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
-    .line 104
+    .line 105
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const/16 v1, 0xb1
@@ -285,7 +287,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
-    .line 106
+    .line 107
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const/16 v1, 0xb5
@@ -294,7 +296,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
-    .line 107
+    .line 108
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const/16 v1, 0xca
@@ -303,7 +305,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
-    .line 108
+    .line 109
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const/16 v1, 0xd3
@@ -312,7 +314,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
-    .line 109
+    .line 110
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const/16 v1, 0xd9
@@ -321,7 +323,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
-    .line 110
+    .line 111
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const/16 v1, 0xdf
@@ -330,7 +332,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
-    .line 111
+    .line 112
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const/16 v1, 0xea
@@ -339,7 +341,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
-    .line 112
+    .line 113
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
 
     const v1, 0x10067
@@ -349,13 +351,22 @@
     invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
 
     .line 114
+    sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sIconsArray:Landroid/util/SparseIntArray;
+
+    const v1, 0x10068
+
+    const v2, 0x7f070109
+
+    invoke-virtual {v0, v1, v2}, Landroid/util/SparseIntArray;->append(II)V
+
+    .line 116
     new-instance v0, Ljava/lang/Object;
 
     invoke-direct {v0}, Ljava/lang/Object;-><init>()V
 
     sput-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sFileLock:Ljava/lang/Object;
 
-    .line 115
+    .line 117
     return-void
 .end method
 
@@ -395,7 +406,7 @@
     .end annotation
 
     .prologue
-    .line 254
+    .line 256
     new-instance v0, Ljava/io/File;
 
     invoke-virtual {p0}, Landroid/content/Context;->getFilesDir()Ljava/io/File;
@@ -406,17 +417,17 @@
 
     invoke-direct {v0, v1, v2}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 255
+    .line 257
     invoke-virtual {v0}, Ljava/io/File;->exists()Z
 
     move-result v1
 
     if-nez v1, :cond_14
 
-    .line 256
+    .line 258
     invoke-virtual {v0}, Ljava/io/File;->mkdirs()Z
 
-    .line 258
+    .line 260
     :cond_14
     new-instance v1, Ljava/io/File;
 
@@ -446,7 +457,7 @@
 
     const/4 v3, 0x0
 
-    .line 152
+    .line 154
     invoke-static {p0}, Lcom/bilibili/tv/api/category/CategoryManager;->getRootCategory(Landroid/content/Context;)Lcom/bilibili/tv/api/category/CategoryMeta;
 
     move-result-object v0
@@ -455,19 +466,19 @@
 
     move-result-object v0
 
-    .line 153
+    .line 155
     invoke-virtual {v0}, Lcom/bilibili/tv/api/category/CategoryMeta;->getChildren()Ljava/util/List;
 
     move-result-object v1
 
-    .line 154
+    .line 156
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/api/category/CategoryMeta;->getChild(I)Lcom/bilibili/tv/api/category/CategoryMeta;
 
     move-result-object v0
 
     if-nez v0, :cond_20
 
-    .line 155
+    .line 157
     new-instance v0, Lcom/bilibili/tv/api/category/CategoryMeta;
 
     const-string v2, "\u76f4\u64ad"
@@ -476,7 +487,7 @@
 
     invoke-interface {v1, v3, v0}, Ljava/util/List;->add(ILjava/lang/Object;)V
 
-    .line 157
+    .line 159
     :cond_20
     return-object v1
 .end method
@@ -485,7 +496,7 @@
     .locals 1
 
     .prologue
-    .line 118
+    .line 120
     invoke-static {p0}, Lcom/bilibili/tv/api/category/CategoryManager;->getRootCategory(Landroid/content/Context;)Lcom/bilibili/tv/api/category/CategoryMeta;
 
     move-result-object v0
@@ -494,13 +505,13 @@
 
     move-result-object v0
 
-    .line 119
+    .line 121
     if-nez v0, :cond_c
 
-    .line 120
+    .line 122
     const/4 v0, 0x0
 
-    .line 122
+    .line 124
     :goto_b
     return-object v0
 
@@ -516,17 +527,17 @@
     .locals 4
 
     .prologue
-    .line 126
+    .line 128
     invoke-static {p0}, Lcom/bilibili/tv/api/category/CategoryManager;->getPrimaryCategories(Landroid/content/Context;)Ljava/util/List;
 
     move-result-object v0
 
-    .line 127
+    .line 129
     invoke-static {}, Ljava/util/Collections;->emptyList()Ljava/util/List;
 
     move-result-object v1
 
-    .line 128
+    .line 130
     invoke-interface {v0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
 
     move-result-object v2
@@ -544,27 +555,27 @@
 
     check-cast v0, Lcom/bilibili/tv/api/category/CategoryMeta;
 
-    .line 129
+    .line 131
     iget v3, v0, Lcom/bilibili/tv/api/category/CategoryMeta;->mTid:I
 
     if-ne v3, p1, :cond_1d
 
-    .line 142
+    .line 144
     :goto_1c
     return p1
 
-    .line 132
+    .line 134
     :cond_1d
     sget-object v3, Ljava/util/Collections;->EMPTY_LIST:Ljava/util/List;
 
     if-ne v1, v3, :cond_26
 
-    .line 133
+    .line 135
     new-instance v1, Ljava/util/ArrayList;
 
     invoke-direct {v1}, Ljava/util/ArrayList;-><init>()V
 
-    .line 135
+    .line 137
     :cond_26
     invoke-virtual {v0}, Lcom/bilibili/tv/api/category/CategoryMeta;->getChildren()Ljava/util/List;
 
@@ -574,7 +585,7 @@
 
     goto :goto_c
 
-    .line 137
+    .line 139
     :cond_2e
     invoke-interface {v1}, Ljava/util/List;->iterator()Ljava/util/Iterator;
 
@@ -593,17 +604,17 @@
 
     check-cast v0, Lcom/bilibili/tv/api/category/CategoryMeta;
 
-    .line 138
+    .line 140
     iget v2, v0, Lcom/bilibili/tv/api/category/CategoryMeta;->mTid:I
 
     if-ne v2, p1, :cond_32
 
-    .line 139
+    .line 141
     iget p1, v0, Lcom/bilibili/tv/api/category/CategoryMeta;->mParentTid:I
 
     goto :goto_1c
 
-    .line 142
+    .line 144
     :cond_45
     const/4 p1, 0x0
 
@@ -625,7 +636,7 @@
     .end annotation
 
     .prologue
-    .line 146
+    .line 148
     invoke-static {p0}, Lcom/bilibili/tv/api/category/CategoryManager;->getRootCategory(Landroid/content/Context;)Lcom/bilibili/tv/api/category/CategoryMeta;
 
     move-result-object v0
@@ -634,7 +645,7 @@
 
     move-result-object v0
 
-    .line 147
+    .line 149
     const/16 v1, 0xa
 
     new-array v1, v1, [I
@@ -643,14 +654,14 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/api/category/CategoryMeta;->remove([I)V
 
-    .line 148
+    .line 150
     invoke-virtual {v0}, Lcom/bilibili/tv/api/category/CategoryMeta;->getChildren()Ljava/util/List;
 
     move-result-object v0
 
     return-object v0
 
-    .line 147
+    .line 149
     nop
 
     :array_18
@@ -678,15 +689,15 @@
 
     const/4 v2, 0x0
 
-    .line 263
+    .line 265
     if-nez p0, :cond_5
 
-    .line 276
+    .line 278
     :cond_4
     :goto_4
     return-object v0
 
-    .line 266
+    .line 268
     :cond_5
     const-string v1, "ver"
 
@@ -696,31 +707,31 @@
 
     sput-object v1, Lcom/bilibili/tv/api/category/CategoryManager;->sApiVersion:Ljava/lang/String;
 
-    .line 267
+    .line 269
     const-string v1, "data"
 
     invoke-virtual {p0, v1}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
 
     move-result-object v3
 
-    .line 268
+    .line 270
     if-eqz v3, :cond_4
 
-    .line 271
+    .line 273
     new-instance v1, Lcom/bilibili/tv/api/category/CategoryMeta;
 
     invoke-direct {v1, v2, v0, v2}, Lcom/bilibili/tv/api/category/CategoryMeta;-><init>(ILjava/lang/String;I)V
 
-    .line 272
+    .line 274
     invoke-virtual {v3}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
     move-result v4
 
-    .line 273
+    .line 275
     :goto_1e
     if-ge v2, v4, :cond_2f
 
-    .line 274
+    .line 276
     const-class v0, Lcom/bilibili/tv/api/category/CategoryMeta;
 
     invoke-virtual {v3, v2, v0}, Lcom/alibaba/fastjson/JSONArray;->getObject(ILjava/lang/Class;)Ljava/lang/Object;
@@ -731,7 +742,7 @@
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/api/category/CategoryMeta;->addChild(Lcom/bilibili/tv/api/category/CategoryMeta;)V
 
-    .line 273
+    .line 275
     add-int/lit8 v0, v2, 0x1
 
     move v2, v0
@@ -741,7 +752,7 @@
     :cond_2f
     move-object v0, v1
 
-    .line 276
+    .line 278
     goto :goto_4
 .end method
 
@@ -749,38 +760,38 @@
     .locals 2
 
     .prologue
-    .line 161
+    .line 163
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sRoot:Lcom/bilibili/tv/api/category/CategoryMeta;
 
     if-eqz v0, :cond_7
 
-    .line 162
+    .line 164
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sRoot:Lcom/bilibili/tv/api/category/CategoryMeta;
 
-    .line 175
+    .line 177
     :goto_6
     return-object v0
 
-    .line 167
+    .line 169
     :cond_7
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sRoot:Lcom/bilibili/tv/api/category/CategoryMeta;
 
     if-nez v0, :cond_11
 
-    .line 168
+    .line 170
     invoke-static {p0}, Lcom/bilibili/tv/api/category/CategoryManager;->loadFromAssets(Landroid/content/Context;)Lcom/bilibili/tv/api/category/CategoryMeta;
 
     move-result-object v0
 
     sput-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sRoot:Lcom/bilibili/tv/api/category/CategoryMeta;
 
-    .line 170
+    .line 172
     :cond_11
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sRoot:Lcom/bilibili/tv/api/category/CategoryMeta;
 
     if-nez v0, :cond_1d
 
-    .line 171
+    .line 173
     new-instance v0, Ljava/lang/AssertionError;
 
     const-string v1, "null root category"
@@ -789,7 +800,7 @@
 
     throw v0
 
-    .line 173
+    .line 175
     :cond_1d
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sRoot:Lcom/bilibili/tv/api/category/CategoryMeta;
 
@@ -801,7 +812,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/api/category/CategoryMeta;->remove([I)V
 
-    .line 175
+    .line 177
     sget-object v0, Lcom/bilibili/tv/api/category/CategoryManager;->sRoot:Lcom/bilibili/tv/api/category/CategoryMeta;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/api/category/CategoryMeta;->clone()Lcom/bilibili/tv/api/category/CategoryMeta;
@@ -810,7 +821,7 @@
 
     goto :goto_6
 
-    .line 173
+    .line 175
     :array_30
     .array-data 4
         0x10002
@@ -833,12 +844,12 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 225
+    .line 227
     const-string v0, "load from assets!"
 
     invoke-static {v0}, Ltv/danmaku/android/log/BLog;->d(Ljava/lang/String;)V
 
-    .line 228
+    .line 230
     :try_start_6
     invoke-virtual {p0}, Landroid/content/Context;->getAssets()Landroid/content/res/AssetManager;
 
@@ -856,14 +867,14 @@
 
     move-object v2, v0
 
-    .line 236
+    .line 238
     :goto_11
     :try_start_11
     invoke-static {v2}, Lbl/kz;->c(Ljava/io/InputStream;)Ljava/lang/String;
 
     move-result-object v3
 
-    .line 237
+    .line 239
     new-instance v0, Lcom/bilibili/tv/api/category/CategoryMeta;
 
     const/4 v4, 0x0
@@ -874,7 +885,7 @@
 
     invoke-direct {v0, v4, v5, v6}, Lcom/bilibili/tv/api/category/CategoryMeta;-><init>(ILjava/lang/String;I)V
 
-    .line 238
+    .line 240
     const-class v4, Lcom/bilibili/tv/api/category/CategoryMeta;
 
     invoke-static {v3, v4}, Lcom/alibaba/fastjson/JSON;->parseArray(Ljava/lang/String;Ljava/lang/Class;)Ljava/util/List;
@@ -883,7 +894,7 @@
 
     iput-object v3, v0, Lcom/bilibili/tv/api/category/CategoryMeta;->mChildren:Ljava/util/List;
 
-    .line 239
+    .line 241
     invoke-static {v2}, Lbl/kz;->a(Ljava/io/InputStream;)V
     :try_end_28
     .catch Ljava/io/IOException; {:try_start_11 .. :try_end_28} :catch_49
@@ -892,27 +903,27 @@
 
     move-object v1, v0
 
-    .line 244
+    .line 246
     :goto_29
     return-object v1
 
-    .line 229
+    .line 231
     :catch_2a
     move-exception v0
 
     :goto_2b
     move-object v2, v1
 
-    .line 234
+    .line 236
     goto :goto_11
 
-    .line 231
+    .line 233
     :catch_2d
     move-exception v0
 
     move-object v2, v0
 
-    .line 232
+    .line 234
     const/4 v0, 0x0
 
     :try_start_30
@@ -920,12 +931,12 @@
 
     invoke-static {v0}, Lbl/kz;->a(Ljava/io/InputStream;)V
 
-    .line 233
+    .line 235
     throw v2
     :try_end_36
     .catch Ljava/lang/Throwable; {:try_start_30 .. :try_end_36} :catch_36
 
-    .line 246
+    .line 248
     :catch_36
     move-exception v0
 
@@ -933,39 +944,39 @@
 
     move-object v0, v1
 
-    .line 247
+    .line 249
     check-cast v0, Ljava/io/InputStream;
 
     invoke-static {v0}, Lbl/kz;->a(Ljava/io/InputStream;)V
 
-    .line 248
+    .line 250
     throw v2
 
-    .line 241
+    .line 243
     :catch_3f
     move-exception v0
 
-    .line 242
+    .line 244
     :goto_40
     :try_start_40
     const-string v3, "Error parse region json str!"
 
     invoke-static {v3, v0}, Ltv/danmaku/android/log/BLog;->w(Ljava/lang/String;Ljava/lang/Throwable;)V
 
-    .line 243
+    .line 245
     invoke-static {v2}, Lbl/kz;->a(Ljava/io/InputStream;)V
     :try_end_48
     .catch Ljava/lang/Throwable; {:try_start_40 .. :try_end_48} :catch_36
 
     goto :goto_29
 
-    .line 241
+    .line 243
     :catch_49
     move-exception v0
 
     goto :goto_40
 
-    .line 229
+    .line 231
     :catch_4b
     move-exception v0
 
@@ -980,12 +991,12 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 187
+    .line 189
     invoke-static {p0}, Lcom/bilibili/tv/api/category/CategoryManager;->getCateJsonFile(Landroid/content/Context;)Ljava/io/File;
 
     move-result-object v0
 
-    .line 188
+    .line 190
     invoke-virtual {v0}, Ljava/io/File;->exists()Z
 
     move-result v2
@@ -998,42 +1009,42 @@
 
     if-eqz v2, :cond_53
 
-    .line 189
+    .line 191
     sget-object v2, Lcom/bilibili/tv/api/category/CategoryManager;->sFileLock:Ljava/lang/Object;
 
     monitor-enter v2
 
-    .line 191
+    .line 193
     :try_start_14
     new-instance v3, Ljava/io/FileInputStream;
 
     invoke-direct {v3, v0}, Ljava/io/FileInputStream;-><init>(Ljava/io/File;)V
 
-    .line 192
+    .line 194
     invoke-static {v3}, Lbl/kz;->c(Ljava/io/InputStream;)Ljava/lang/String;
 
     move-result-object v4
 
-    .line 193
+    .line 195
     invoke-static {v3}, Lbl/kz;->a(Ljava/io/InputStream;)V
     :try_end_20
     .catch Ljava/lang/Exception; {:try_start_14 .. :try_end_20} :catch_2f
     .catchall {:try_start_14 .. :try_end_20} :catchall_3e
 
-    .line 199
+    .line 201
     :try_start_20
     monitor-exit v2
     :try_end_21
     .catchall {:try_start_20 .. :try_end_21} :catchall_3e
 
-    .line 200
+    .line 202
     invoke-static {v4}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v2
 
     if-nez v2, :cond_51
 
-    .line 202
+    .line 204
     :try_start_27
     invoke-static {v4}, Lcom/alibaba/fastjson/JSON;->parseObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
     :try_end_2a
@@ -1041,40 +1052,40 @@
 
     move-result-object v2
 
-    .line 203
+    .line 205
     if-nez v2, :cond_41
 
     move-object v0, v1
 
-    .line 215
+    .line 217
     :goto_2e
     return-object v0
 
-    .line 194
+    .line 196
     :catch_2f
     move-exception v0
 
-    .line 195
+    .line 197
     :try_start_30
     const-string v3, "Error read disk region.json!"
 
     invoke-static {v3, v0}, Ltv/danmaku/android/log/BLog;->w(Ljava/lang/String;Ljava/lang/Throwable;)V
 
-    .line 196
+    .line 198
     const/4 v0, 0x0
 
     check-cast v0, Ljava/io/InputStream;
 
     invoke-static {v0}, Lbl/kz;->a(Ljava/io/InputStream;)V
 
-    .line 197
+    .line 199
     monitor-exit v2
 
     move-object v0, v1
 
     goto :goto_2e
 
-    .line 199
+    .line 201
     :catchall_3e
     move-exception v0
 
@@ -1084,7 +1095,7 @@
 
     throw v0
 
-    .line 206
+    .line 208
     :cond_41
     :try_start_41
     invoke-static {v2}, Lcom/bilibili/tv/api/category/CategoryManager;->getResult(Lcom/alibaba/fastjson/JSONObject;)Lcom/bilibili/tv/api/category/CategoryMeta;
@@ -1095,33 +1106,33 @@
 
     goto :goto_2e
 
-    .line 207
+    .line 209
     :catch_46
     move-exception v2
 
-    .line 208
+    .line 210
     const-string v2, "Error parse disk region.json!"
 
     invoke-static {v2}, Ltv/danmaku/android/log/BLog;->w(Ljava/lang/String;)V
 
-    .line 209
+    .line 211
     invoke-virtual {v0}, Ljava/io/File;->delete()Z
 
     move-object v0, v1
 
-    .line 210
+    .line 212
     goto :goto_2e
 
     :cond_51
     move-object v0, v1
 
-    .line 213
+    .line 215
     goto :goto_2e
 
     :cond_53
     move-object v0, v1
 
-    .line 215
+    .line 217
     goto :goto_2e
 .end method
 
@@ -1129,12 +1140,12 @@
     .locals 6
 
     .prologue
-    .line 280
+    .line 282
     invoke-static {p0}, Lcom/bilibili/tv/api/category/CategoryManager;->getCateJsonFile(Landroid/content/Context;)Ljava/io/File;
 
     move-result-object v0
 
-    .line 281
+    .line 283
     invoke-virtual {v0}, Ljava/io/File;->exists()Z
 
     move-result v1
@@ -1157,7 +1168,7 @@
 
     if-lez v1, :cond_2b
 
-    .line 282
+    .line 284
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v2
@@ -1174,11 +1185,11 @@
 
     if-gez v0, :cond_2b
 
-    .line 304
+    .line 306
     :goto_2a
     return-void
 
-    .line 286
+    .line 288
     :cond_2b
     const-class v0, Lcom/bilibili/tv/api/area/RegionService;
 
@@ -1194,14 +1205,14 @@
 
     move-result-object v0
 
-    .line 287
+    .line 289
     new-instance v1, Lcom/bilibili/tv/api/category/CategoryManager$CategoryParser;
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/api/category/CategoryManager$CategoryParser;-><init>(Landroid/content/Context;)V
 
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lbl/vu;)Lbl/vp;
 
-    .line 288
+    .line 290
     new-instance v1, Lcom/bilibili/tv/api/category/CategoryManager$1;
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/api/category/CategoryManager$1;-><init>(Landroid/content/Context;)V

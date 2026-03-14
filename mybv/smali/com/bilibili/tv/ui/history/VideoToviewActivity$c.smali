@@ -39,7 +39,7 @@
     .locals 1
 
     .prologue
-    .line 545
+    .line 574
     new-instance v0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$c;
 
     invoke-direct {v0}, Lcom/bilibili/tv/ui/history/VideoToviewActivity$c;-><init>()V
@@ -53,10 +53,10 @@
     .locals 0
 
     .prologue
-    .line 547
+    .line 576
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 548
+    .line 577
     return-void
 .end method
 
@@ -70,17 +70,17 @@
 
     const/4 v0, 0x0
 
-    .line 553
+    .line 582
     if-eqz p1, :cond_7
 
     if-nez p2, :cond_8
 
-    .line 560
+    .line 589
     :cond_7
     :goto_7
     return v0
 
-    .line 556
+    .line 585
     :cond_8
     iget-wide v2, p2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mViewAt:J
 
@@ -88,12 +88,12 @@
 
     sub-long/2addr v2, v4
 
-    .line 557
+    .line 586
     cmp-long v1, v2, v6
 
     if-eqz v1, :cond_7
 
-    .line 560
+    .line 589
     cmp-long v0, v2, v6
 
     if-lez v0, :cond_17
@@ -112,7 +112,7 @@
     .locals 1
 
     .prologue
-    .line 544
+    .line 573
     check-cast p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     check-cast p2, Lcom/bilibili/tv/api/video/BiliVideoDetail;

@@ -22,6 +22,12 @@
     .end annotation
 .end field
 
+.field public duration:I
+    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
+        name = "duration"
+    .end annotation
+.end field
+
 .field public param:Ljava/lang/String;
     .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
         name = "param"

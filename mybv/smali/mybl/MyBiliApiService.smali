@@ -109,7 +109,7 @@
     .end annotation
 .end method
 
-.method public abstract getCreatedFolderList(JLjava/lang/String;Ljava/lang/String;)Lbl/vp;
+.method public abstract getCreatedFolderList(JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lbl/vp;
     .param p1    # J
         .annotation runtime Lretrofit2/http/Query;
             value = "up_mid"
@@ -121,6 +121,11 @@
         .end annotation
     .end param
     .param p4    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "access_key"
+        .end annotation
+    .end param
+    .param p5    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Header;
             value = "Referer"
         .end annotation
@@ -128,6 +133,7 @@
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(J",
+            "Ljava/lang/String;",
             "Ljava/lang/String;",
             "Ljava/lang/String;",
             ")",
@@ -839,6 +845,30 @@
 
     .annotation runtime Lretrofit2/http/GET;
         value = "/x/web-interface/popular/series/one"
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/Headers;
+        value = {
+            "Cookie: buvid3=00000000-0000-0000-0000-00000000000000000infoc"
+        }
+    .end annotation
+.end method
+
+.method public abstract getWeeklySeriesList()Lbl/vp;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Lcom/alibaba/fastjson/JSONObject;",
+            ">;>;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/GET;
+        value = "/x/web-interface/popular/series/list"
     .end annotation
 
     .annotation runtime Lretrofit2/http/Headers;

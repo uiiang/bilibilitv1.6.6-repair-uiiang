@@ -2081,6 +2081,7 @@ public final class R {
         public static final int background_splash = 0x7f070106;
         public static final int ic_folder_open_180 = 0x7f070107;
         public static final int ic_more_horiz_180 = 0x7f070108;
+        public static final int ic_weekly = 0x7f070109;
     }
 
     public static final class id {
@@ -2482,7 +2483,7 @@ public final class R {
         public static final int view_radiogroup = 0x7f08018a;
         public static final int hot_recommend_button = 0x7f08018b;
         public static final int personal_recommend_button = 0x7f08018c;
-        //video_controller
+        // video_controller
         public static final int video_controller = 0x7f08018d;
         // video_detail_history
         public static final int video_history_container = 0x7f08018e;
@@ -2668,8 +2669,10 @@ public final class R {
         public static final int fragment_favorite_video = 0x7f0a008e;
         public static final int layout_season_section = 0x7f0a008f;
         public static final int recycler_view_item_main_recommend_video = 0x7f0a0090;
-       public static final int activity_history = 0x7f0a0091;
-       public static final int fragment_history_video = 0x7f0a0092;
+        public static final int activity_history = 0x7f0a0091;
+        public static final int fragment_history_video = 0x7f0a0092;
+        public static final int activity_weekly = 0x7f0a0093;
+        public static final int fragment_weekly_video = 0x7f0a0094;
     }
 
     public static final class mipmap {
@@ -3010,7 +3013,7 @@ public final class R {
         public static final int title_filter = 0x7f0c014a;
         public static final int total_episode_count = 0x7f0c014b;
 
-        /* renamed from: tv  reason: collision with root package name */
+        /* renamed from: tv reason: collision with root package name */
         public static final int f87tv = 0x7f0c014c;
         public static final int type_name = 0x7f0c014d;
         public static final int type_tag_value = 0x7f0c014e;

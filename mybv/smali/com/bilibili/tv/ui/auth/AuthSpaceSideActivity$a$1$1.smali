@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 439
+    .line 437
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a$1$1;->this$1:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a$1;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 442
+    .line 440
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a$1$1;->this$1:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a$1;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a$1;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;
@@ -56,7 +56,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
-    .line 443
+    .line 441
     if-eqz v0, :cond_16
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->isFinishing()Z
@@ -65,12 +65,12 @@
 
     if-eqz v1, :cond_17
 
-    .line 446
+    .line 444
     :cond_16
     :goto_16
     return-void
 
-    .line 445
+    .line 443
     :cond_17
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a$1$1;->this$1:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a$1;
 

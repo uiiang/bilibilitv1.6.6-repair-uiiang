@@ -231,6 +231,18 @@ public final class afa extends adu implements aez, wf {
                     this.d.add(0, new CategoryMeta(CategoryManager.T1_LIVE, adl.e(R.string.live), 0));
                 }
                 this.d.add(0, new CategoryMeta(CategoryManager.T2_RANKING, adl.e(R.string.ranking), 0));
+                int liveIndex = -1;
+                for (int i = 0; i < this.d.size(); i++) {
+                    if (this.d.get(i).mTid == CategoryManager.T1_LIVE) {
+                        liveIndex = i;
+                        break;
+                    }
+                }
+                if (liveIndex >= 0) {
+                    this.d.add(liveIndex + 1, new CategoryMeta(CategoryManager.T1_WEEKLY, "每周必看", 0));
+                } else {
+                    this.d.add(1, new CategoryMeta(CategoryManager.T1_WEEKLY, "每周必看", 0));
+                }
                 this.d.add(new CategoryMeta(CategoryManager.T2_ELSE, "其它", 0));
             }
         }
@@ -295,6 +307,8 @@ public final class afa extends adu implements aez, wf {
                 RankingActivity.Companion.a(a);
             } else if (i == 65639) {
                 ElseActivity.a((Context) a);
+            } else if (i == 65640) {
+                com.bilibili.tv.ui.weekly.WeeklyActivity.a((Context) a);
             } else {
                 AreaActivity.Companion.a(a, i);
             }

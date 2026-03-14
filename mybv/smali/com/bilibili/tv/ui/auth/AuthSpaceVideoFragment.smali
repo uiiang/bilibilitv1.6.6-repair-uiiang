@@ -617,7 +617,7 @@
     .line 279
     if-nez v1, :cond_7
 
-    .line 342
+    .line 336
     :cond_6
     :goto_6
     return-void
@@ -668,29 +668,29 @@
     .locals 10
 
     .prologue
-    .line 345
+    .line 339
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 346
+    .line 340
     if-nez v0, :cond_7
 
-    .line 415
+    .line 409
     :cond_6
     :goto_6
     return-void
 
-    .line 349
+    .line 343
     :cond_7
     invoke-static {v0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v1
 
-    .line 350
+    .line 344
     if-eqz v1, :cond_6
 
-    .line 351
+    .line 345
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -699,7 +699,7 @@
 
     check-cast v0, Lmybl/MyBiliApiService;
 
-    .line 352
+    .line 346
     invoke-virtual {v1}, Lbl/mg;->e()Ljava/lang/String;
 
     move-result-object v1
@@ -724,7 +724,7 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$5;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
 
-    .line 353
+    .line 347
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
     goto :goto_6
@@ -734,29 +734,29 @@
     .locals 13
 
     .prologue
-    .line 418
+    .line 412
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 419
+    .line 413
     if-nez v0, :cond_7
 
-    .line 495
+    .line 489
     :cond_6
     :goto_6
     return-void
 
-    .line 421
+    .line 415
     :cond_7
     invoke-static {v0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v4
 
-    .line 422
+    .line 416
     if-eqz v4, :cond_6
 
-    .line 424
+    .line 418
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -765,7 +765,7 @@
 
     check-cast v0, Lmybl/MyBiliApiService;
 
-    .line 425
+    .line 419
     invoke-virtual {v4}, Lbl/mg;->e()Ljava/lang/String;
 
     move-result-object v1
@@ -796,7 +796,7 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$6;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
 
-    .line 426
+    .line 420
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
     goto :goto_6
@@ -905,7 +905,7 @@
     move-result v0
 
     .line 108
-    const v2, 0x7f0600de
+    const v2, 0x7f06006e
 
     invoke-static {v2}, Lbl/adl;->b(I)I
 

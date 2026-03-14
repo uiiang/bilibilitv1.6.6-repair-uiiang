@@ -242,7 +242,7 @@
 
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 331
+    .line 330
     :cond_26
     return-void
 .end method
@@ -251,15 +251,15 @@
     .locals 6
 
     .prologue
-    .line 334
+    .line 333
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v1
 
-    .line 335
+    .line 334
     if-eqz v1, :cond_2a
 
-    .line 336
+    .line 335
     const-class v0, Lcom/bilibili/tv/api/auth/BiliSpaceApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -268,15 +268,15 @@
 
     check-cast v0, Lcom/bilibili/tv/api/auth/BiliSpaceApiService;
 
-    .line 337
+    .line 336
     invoke-static {v1}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v1
 
-    .line 338
+    .line 337
     if-eqz v1, :cond_2a
 
-    .line 339
+    .line 338
     invoke-virtual {v1}, Lbl/mg;->e()Ljava/lang/String;
 
     move-result-object v1
@@ -297,7 +297,7 @@
 
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 397
+    .line 395
     :cond_2a
     return-void
 .end method
@@ -409,7 +409,7 @@
     move-result v0
 
     .line 101
-    const v2, 0x7f0600de
+    const v2, 0x7f06006e
 
     invoke-static {v2}, Lbl/adl;->b(I)I
 

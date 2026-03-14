@@ -40,9 +40,9 @@
     .line 176
     const/16 v0, 0x21
 
-    if-ne p2, v0, :cond_26
+    if-ne p2, v0, :cond_1f
 
-    if-eqz p1, :cond_26
+    if-eqz p1, :cond_1f
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$4;->d(Landroid/view/View;)I
 
@@ -52,39 +52,32 @@
 
     move-result v1
 
-    if-ge v0, v1, :cond_26
+    if-ge v0, v1, :cond_1f
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
-    if-eqz v0, :cond_26
+    if-eqz v0, :cond_1f
 
     .line 177
-    const-string v0, "test"
-
-    const-string v1, "top!!!"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 178
     const/4 v0, 0x0
 
     invoke-virtual {p1, v0}, Landroid/view/View;->setSelected(Z)V
 
-    .line 179
+    .line 178
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
-    .line 181
-    :goto_25
+    .line 180
+    :goto_1e
     return-object v0
 
-    :cond_26
+    :cond_1f
     invoke-super {p0, p1, p2}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->d(Landroid/view/View;I)Landroid/view/View;
 
     move-result-object v0
 
-    goto :goto_25
+    goto :goto_1e
 .end method

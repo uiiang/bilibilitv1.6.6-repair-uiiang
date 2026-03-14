@@ -436,7 +436,7 @@
     invoke-virtual {v0, v5}, Landroid/support/v7/widget/RecyclerView;->setFocusable(Z)V
 
     .line 141
-    const v1, 0x7f0600de
+    const v1, 0x7f06006e
 
     invoke-static {v1}, Lbl/adl;->b(I)I
 

@@ -89,6 +89,10 @@ public interface MyBiliApiService {
     @GET("/x/web-interface/popular/series/one")
     vp<GeneralResponse<JSONObject>> getWeeklyPrecious(@Query("number") long number);
 
+    @Headers("Cookie: buvid3=00000000-0000-0000-0000-00000000000000000infoc")
+    @GET("/x/web-interface/popular/series/list")
+    vp<GeneralResponse<JSONObject>> getWeeklySeriesList();
+
     @GET("/x/web-interface/popular/precious?page_size=100&page=1")
     vp<GeneralResponse<JSONObject>> getPopularPrecious();
 
