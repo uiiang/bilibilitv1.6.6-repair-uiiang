@@ -30,6 +30,8 @@
 
 .field public s:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
+.field public t:Landroid/widget/TextView;
+
 
 # direct methods
 .method public constructor <init>(Landroid/view/View;)V
@@ -40,15 +42,15 @@
 
     const/4 v5, 0x0
 
-    .line 203
+    .line 226
     invoke-direct {p0, p1}, Lbl/adv;-><init>(Landroid/view/View;)V
 
-    .line 204
+    .line 227
     const-string v0, "itemView"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 205
+    .line 228
     const v0, 0x7f0800a1
 
     invoke-virtual {p0, p1, v0}, Lbl/aef4$c;->a(Landroid/view/View;I)Landroid/view/View;
@@ -59,7 +61,7 @@
 
     iput-object v0, p0, Lbl/aef4$c;->n:Lcom/bilibili/tv/widget/ScalableImageView;
 
-    .line 206
+    .line 229
     const v0, 0x7f080132
 
     invoke-virtual {p0, p1, v0}, Lbl/aef4$c;->a(Landroid/view/View;I)Landroid/view/View;
@@ -70,7 +72,7 @@
 
     iput-object v0, p0, Lbl/aef4$c;->o:Landroid/widget/TextView;
 
-    .line 207
+    .line 230
     const v0, 0x7f08013f
 
     invoke-virtual {p0, p1, v0}, Lbl/aef4$c;->a(Landroid/view/View;I)Landroid/view/View;
@@ -81,7 +83,7 @@
 
     iput-object v0, p0, Lbl/aef4$c;->p:Landroid/widget/TextView;
 
-    .line 208
+    .line 231
     const v0, 0x7f0800d4
 
     invoke-virtual {p0, p1, v0}, Lbl/aef4$c;->a(Landroid/view/View;I)Landroid/view/View;
@@ -92,7 +94,7 @@
 
     iput-object v0, p0, Lbl/aef4$c;->q:Landroid/widget/TextView;
 
-    .line 209
+    .line 232
     const v0, 0x7f08006c
 
     invoke-virtual {p0, p1, v0}, Lbl/aef4$c;->a(Landroid/view/View;I)Landroid/view/View;
@@ -103,7 +105,18 @@
 
     iput-object v0, p0, Lbl/aef4$c;->r:Landroid/widget/TextView;
 
-    .line 210
+    .line 233
+    const v0, 0x7f0801a1
+
+    invoke-virtual {p0, p1, v0}, Lbl/aef4$c;->a(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object v0
+
+    check-cast v0, Landroid/widget/TextView;
+
+    iput-object v0, p0, Lbl/aef4$c;->t:Landroid/widget/TextView;
+
+    .line 234
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     const v1, 0x7f0700b2
@@ -112,7 +125,7 @@
 
     move-result-object v0
 
-    .line 211
+    .line 235
     sget-object v1, Lbl/adl;->a:Lbl/adl;
 
     const v2, 0x7f0700b1
@@ -121,7 +134,7 @@
 
     move-result-object v1
 
-    .line 212
+    .line 236
     sget-object v2, Lbl/adl;->a:Lbl/adl;
 
     const v3, 0x7f0700b0
@@ -130,77 +143,77 @@
 
     move-result-object v2
 
-    .line 213
+    .line 237
     const v3, 0x7f060179
 
     invoke-static {v3}, Lbl/adl;->b(I)I
 
     move-result v3
 
-    .line 214
+    .line 238
     invoke-virtual {v0, v4, v4, v3, v3}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
 
-    .line 215
+    .line 239
     invoke-virtual {v1, v4, v4, v3, v3}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
 
-    .line 216
+    .line 240
     invoke-virtual {v2, v4, v4, v3, v3}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
 
-    .line 217
+    .line 241
     const v3, 0x7f0500a7
 
     invoke-static {v3}, Lbl/adl;->d(I)I
 
     move-result v3
 
-    .line 218
+    .line 242
     sget-object v4, Landroid/graphics/PorterDuff$Mode;->MULTIPLY:Landroid/graphics/PorterDuff$Mode;
 
     invoke-virtual {v0, v3, v4}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
 
-    .line 219
+    .line 243
     sget-object v4, Landroid/graphics/PorterDuff$Mode;->MULTIPLY:Landroid/graphics/PorterDuff$Mode;
 
     invoke-virtual {v1, v3, v4}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
 
-    .line 220
+    .line 244
     sget-object v4, Landroid/graphics/PorterDuff$Mode;->MULTIPLY:Landroid/graphics/PorterDuff$Mode;
 
     invoke-virtual {v2, v3, v4}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
 
-    .line 221
+    .line 245
     iget-object v3, p0, Lbl/aef4$c;->p:Landroid/widget/TextView;
 
     invoke-virtual {v3, v0, v5, v5, v5}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
 
-    .line 222
+    .line 246
     iget-object v0, p0, Lbl/aef4$c;->q:Landroid/widget/TextView;
 
     invoke-virtual {v0, v1, v5, v5, v5}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
 
-    .line 223
+    .line 247
     iget-object v0, p0, Lbl/aef4$c;->r:Landroid/widget/TextView;
 
     invoke-virtual {v0, v2, v5, v5, v5}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
 
     move-object v0, p1
 
-    .line 224
+    .line 248
     check-cast v0, Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     iput-object v0, p0, Lbl/aef4$c;->s:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
-    .line 225
+    .line 249
     iget-object v0, p0, Lbl/aef4$c;->s:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     const v1, 0x7f0700e8
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawRelativeLayout;->setUpDrawable(I)V
 
-    .line 226
+    .line 250
     invoke-virtual {p1, p0}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 227
+    .line 251
     return-void
 .end method
 
@@ -210,7 +223,7 @@
     .locals 6
 
     .prologue
-    .line 231
+    .line 255
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -219,26 +232,26 @@
 
     move-result-object v1
 
-    .line 232
+    .line 256
     if-nez v1, :cond_b
 
-    .line 239
+    .line 263
     :cond_a
     :goto_a
     return-void
 
-    .line 235
+    .line 259
     :cond_b
     invoke-virtual {p1}, Landroid/view/View;->getTag()Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 236
+    .line 260
     instance-of v2, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     if-eqz v2, :cond_a
 
-    .line 237
+    .line 261
     sget-object v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
 
     check-cast v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;

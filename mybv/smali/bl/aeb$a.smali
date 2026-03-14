@@ -25,7 +25,7 @@
     .locals 0
 
     .prologue
-    .line 137
+    .line 145
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -37,7 +37,7 @@
     .locals 1
 
     .prologue
-    .line 142
+    .line 150
     iget-object v0, p0, Lbl/aeb$a;->a:Lcom/bilibili/tv/api/area/BiliVideoV2;
 
     return-object v0
@@ -47,10 +47,10 @@
     .locals 0
 
     .prologue
-    .line 146
+    .line 154
     iput-object p1, p0, Lbl/aeb$a;->a:Lcom/bilibili/tv/api/area/BiliVideoV2;
 
-    .line 147
+    .line 155
     return-void
 .end method
 
@@ -58,10 +58,10 @@
     .locals 0
 
     .prologue
-    .line 150
+    .line 158
     iput-boolean p1, p0, Lbl/aeb$a;->b:Z
 
-    .line 151
+    .line 159
     return-void
 .end method
 
@@ -69,7 +69,7 @@
     .locals 1
 
     .prologue
-    .line 154
+    .line 162
     iget-boolean v0, p0, Lbl/aeb$a;->b:Z
 
     return v0

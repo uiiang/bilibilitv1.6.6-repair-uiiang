@@ -271,7 +271,7 @@ public final class afa extends adu implements aez, wf {
                 bVar.z().setText(categoryMeta2.mTypeName);
                 bVar.A().setBackgroundDrawable(adl.a.c(CategoryManager.sIconsArray.get(categoryMeta2.mTid)));
                 Drawable c = adl.a.c(R.drawable.background_item_main);
-                c.setColorFilter(adl.d(this.b[i]), PorterDuff.Mode.SRC_ATOP);
+                c.setColorFilter(adl.d(this.b[i % this.b.length]), PorterDuff.Mode.SRC_ATOP);
                 advVar.a.setBackgroundDrawable(c);
                 advVar.a.setOnClickListener(this);
                 View view2 = advVar.a;

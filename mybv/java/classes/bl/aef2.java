@@ -25,6 +25,7 @@ import java.util.List;
 import mybl.MyBiliApiService;
 import com.alibaba.fastjson.*;
 import com.bilibili.tv.MainApplication;
+import android.util.Log;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
@@ -48,8 +49,10 @@ public class aef2 extends ady {
 
     @Override // bl.ady
     public void a(RecyclerView recyclerView, @Nullable Bundle bundle) {
+        Log.d("aef2", "initRecyclerView: start");
         super.a(recyclerView, bundle);
         this.d = new a();
+        Log.d("aef2", "initRecyclerView: adapter created");
         final SideRightGridLayoutManger sideRightGridLayoutManger = new SideRightGridLayoutManger(getActivity(), 2);
         final ElseActivity elseActivity = (ElseActivity) getActivity();
         sideRightGridLayoutManger.a(new BorderGridLayoutManager.a() { // from class: bl.aef2.1
@@ -105,7 +108,14 @@ public class aef2 extends ady {
         this.c = new b();
         recyclerView.setAdapter(this.c);
         i();
-        ((MyBiliApiService) vo.a(MyBiliApiService.class)).getPopular(this.f,20).a(this.d);
+        Log.d("aef2", "initRecyclerView: calling getPopular");
+        MyBiliApiService api = (MyBiliApiService) vo.a(MyBiliApiService.class);
+        Log.d("aef2", "initRecyclerView: api=" + api);
+        if (api != null) {
+            api.getPopular(this.f, 20).a(this.d);
+        } else {
+            Log.e("aef2", "initRecyclerView: api is null");
+        }
     }
 
     @Override // bl.adw
@@ -129,7 +139,14 @@ public class aef2 extends ady {
     /* JADX INFO: Access modifiers changed from: private */
     public void a() {
         this.h = true;
-        ((MyBiliApiService) vo.a(MyBiliApiService.class)).getPopular(this.f,20).a(this.d);
+        Log.d("aef2", "loadData: page=" + this.f);
+        MyBiliApiService api = (MyBiliApiService) vo.a(MyBiliApiService.class);
+        Log.d("aef2", "loadData: api=" + api);
+        if (api != null) {
+            api.getPopular(this.f, 20).a(this.d);
+        } else {
+            Log.e("aef2", "loadData: api is null");
+        }
     }
 
     /* compiled from: BL */
@@ -140,13 +157,18 @@ public class aef2 extends ady {
 
         @Override // bl.vn
         public /* synthetic */ void a(JSONObject response) {
+            Log.d("aef2", "onResponse: response=" + response);
             if (aef2.this.c == null) {
+                Log.e("aef2", "onResponse: adapter is null");
                 return;
             }
             aef2.this.j();
             aef2.this.h = false;
             if (aef2.this.c.a() != 0 || (response != null && response.getJSONArray("list")!=null)) {
-                List<BiliVideoDetail> data = new ArrayList<BiliVideoDetail>(JSON.parseArray(response.getJSONArray("list").toString(), BiliVideoDetail.class));
+                JSONArray list = response.getJSONArray("list");
+                Log.d("aef2", "onResponse: list size=" + (list != null ? list.size() : "null"));
+                List<BiliVideoDetail> data = new ArrayList<BiliVideoDetail>(JSON.parseArray(list.toString(), BiliVideoDetail.class));
+                Log.d("aef2", "onResponse: data size=" + data.size());
                 if (aef2.this.f == 1) {
                     aef2.this.c.a(data);
                     return;
@@ -169,6 +191,7 @@ public class aef2 extends ady {
 
         @Override // bl.vm
         public void onError(Throwable th) {
+            Log.e("aef2", "onError", th);
             if (aef2.this.c == null) {
                 return;
             }
@@ -209,6 +232,12 @@ public class aef2 extends ady {
             cVar.q.setText(adh.a(biliVideoDetail.getPlays()));
             cVar.r.setText(adh.a(biliVideoDetail.getDanmakus()));
             cVar.s.setTag(biliVideoDetail);
+            int duration = biliVideoDetail.mDuration;
+            if (duration >= 3600) {
+                cVar.t.setText(String.format("%d:%02d:%02d", duration / 3600, (duration % 3600) / 60, duration % 60));
+            } else {
+                cVar.t.setText(String.format("%02d:%02d", duration / 60, duration % 60));
+            }
         }
 
         @Override // android.support.v7.widget.RecyclerView.a
@@ -238,6 +267,7 @@ public class aef2 extends ady {
         public TextView p;
         public TextView q;
         public TextView r;
+        public TextView t;
         public DrawRelativeLayout s;
 
 
@@ -249,6 +279,7 @@ public class aef2 extends ady {
             this.p = (TextView) a(itemView, R.id.up);
             this.q = (TextView) a(itemView, R.id.play);
             this.r = (TextView) a(itemView, R.id.danmaku);
+            this.t = (TextView) a(itemView, R.id.duration);
             Drawable c = adl.a.c(R.drawable.ic_video_info_up);
             Drawable c2 = adl.a.c(R.drawable.ic_video_info_play);
             Drawable c3 = adl.a.c(R.drawable.ic_video_info_danmaku);

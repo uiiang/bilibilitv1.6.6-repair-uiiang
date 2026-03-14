@@ -27,6 +27,7 @@ public final class aeb extends adc.a implements View.OnClickListener {
     private TextView p;
     private TextView q;
     private TextView r;
+    private TextView s;
 
     /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
     public aeb(View view) {
@@ -37,6 +38,7 @@ public final class aeb extends adc.a implements View.OnClickListener {
         this.p = (TextView) a(view, R.id.up);
         this.q = (TextView) a(view, R.id.play);
         this.r = (TextView) a(view, R.id.danmaku);
+        this.s = (TextView) a(view, R.id.duration);
         Drawable c = adl.a.c(R.drawable.ic_video_info_up);
         Drawable c2 = adl.a.c(R.drawable.ic_video_info_play);
         Drawable c3 = adl.a.c(R.drawable.ic_video_info_danmaku);
@@ -99,6 +101,12 @@ public final class aeb extends adc.a implements View.OnClickListener {
             }
             this.q.setText(adh.a(a2.play));
             this.r.setText(adh.a(a2.danmaku));
+            int duration = a2.duration;
+            if (duration >= 3600) {
+                this.s.setText(String.format("%d:%02d:%02d", duration / 3600, (duration % 3600) / 60, duration % 60));
+            } else {
+                this.s.setText(String.format("%02d:%02d", duration / 60, duration % 60));
+            }
             if (a2.cover != null) {
                 nv.a().a(ach.c(MainApplication.a(), a2.cover), this.n);
             }

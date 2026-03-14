@@ -32,12 +32,12 @@
     .locals 0
 
     .prologue
-    .line 138
+    .line 155
     iput-object p1, p0, Lbl/aef2$a;->this$0:Lbl/aef2;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
 
-    .line 139
+    .line 156
     return-void
 .end method
 
@@ -45,7 +45,7 @@
     .locals 0
 
     .prologue
-    .line 137
+    .line 154
     invoke-direct {p0, p1}, Lbl/aef2$a;-><init>(Lbl/aef2;)V
 
     return-void
@@ -54,14 +54,37 @@
 
 # virtual methods
 .method public a(Lcom/alibaba/fastjson/JSONObject;)V
-    .locals 4
+    .locals 5
 
     .prologue
-    const/4 v3, 0x1
+    const/4 v4, 0x1
 
-    const/4 v2, 0x0
+    const/4 v3, 0x0
 
-    .line 143
+    .line 160
+    const-string v0, "aef2"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "onResponse: response="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 161
     iget-object v0, p0, Lbl/aef2$a;->this$0:Lbl/aef2;
 
     # getter for: Lbl/aef2;->c:Lbl/aef2$b;
@@ -69,25 +92,32 @@
 
     move-result-object v0
 
-    if-nez v0, :cond_b
+    if-nez v0, :cond_2a
 
-    .line 163
-    :goto_a
+    .line 162
+    const-string v0, "aef2"
+
+    const-string v1, "onResponse: adapter is null"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 185
+    :goto_29
     return-void
 
-    .line 146
-    :cond_b
+    .line 165
+    :cond_2a
     iget-object v0, p0, Lbl/aef2$a;->this$0:Lbl/aef2;
 
     invoke-virtual {v0}, Lbl/aef2;->j()V
 
-    .line 147
+    .line 166
     iget-object v0, p0, Lbl/aef2$a;->this$0:Lbl/aef2;
 
     # setter for: Lbl/aef2;->h:Z
-    invoke-static {v0, v2}, Lbl/aef2;->access$302(Lbl/aef2;Z)Z
+    invoke-static {v0, v3}, Lbl/aef2;->access$302(Lbl/aef2;Z)Z
 
-    .line 148
+    .line 167
     iget-object v0, p0, Lbl/aef2$a;->this$0:Lbl/aef2;
 
     # getter for: Lbl/aef2;->c:Lbl/aef2$b;
@@ -99,9 +129,9 @@
 
     move-result v0
 
-    if-nez v0, :cond_2b
+    if-nez v0, :cond_4a
 
-    if-eqz p1, :cond_5c
+    if-eqz p1, :cond_be
 
     const-string v0, "list"
 
@@ -109,17 +139,52 @@
 
     move-result-object v0
 
-    if-eqz v0, :cond_5c
+    if-eqz v0, :cond_be
 
-    .line 149
-    :cond_2b
-    new-instance v0, Ljava/util/ArrayList;
+    .line 168
+    :cond_4a
+    const-string v0, "list"
 
-    const-string v1, "list"
-
-    invoke-virtual {p1, v1}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
+    invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
 
     move-result-object v1
+
+    .line 169
+    const-string v2, "aef2"
+
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "onResponse: list size="
+
+    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    if-eqz v1, :cond_b0
+
+    invoke-virtual {v1}, Lcom/alibaba/fastjson/JSONArray;->size()I
+
+    move-result v0
+
+    invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object v0
+
+    :goto_67
+    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v2, v0}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 170
+    new-instance v0, Ljava/util/ArrayList;
 
     invoke-virtual {v1}, Lcom/alibaba/fastjson/JSONArray;->toString()Ljava/lang/String;
 
@@ -133,7 +198,34 @@
 
     invoke-direct {v0, v1}, Ljava/util/ArrayList;-><init>(Ljava/util/Collection;)V
 
-    .line 150
+    .line 171
+    const-string v1, "aef2"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "onResponse: data size="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-interface {v0}, Ljava/util/List;->size()I
+
+    move-result v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v1, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 172
     iget-object v1, p0, Lbl/aef2$a;->this$0:Lbl/aef2;
 
     # getter for: Lbl/aef2;->f:I
@@ -141,9 +233,9 @@
 
     move-result v1
 
-    if-ne v1, v3, :cond_52
+    if-ne v1, v4, :cond_b3
 
-    .line 151
+    .line 173
     iget-object v1, p0, Lbl/aef2$a;->this$0:Lbl/aef2;
 
     # getter for: Lbl/aef2;->c:Lbl/aef2$b;
@@ -153,10 +245,16 @@
 
     invoke-virtual {v1, v0}, Lbl/aef2$b;->a(Ljava/util/List;)V
 
-    goto :goto_a
+    goto/16 :goto_29
 
-    .line 154
-    :cond_52
+    .line 169
+    :cond_b0
+    const-string v0, "null"
+
+    goto :goto_67
+
+    .line 176
+    :cond_b3
     iget-object v1, p0, Lbl/aef2$a;->this$0:Lbl/aef2;
 
     # getter for: Lbl/aef2;->c:Lbl/aef2$b;
@@ -166,10 +264,10 @@
 
     invoke-virtual {v1, v0}, Lbl/aef2$b;->b(Ljava/util/List;)V
 
-    goto :goto_a
+    goto/16 :goto_29
 
-    .line 158
-    :cond_5c
+    .line 180
+    :cond_be
     iget-object v0, p0, Lbl/aef2$a;->this$0:Lbl/aef2;
 
     # getter for: Lbl/aef2;->f:I
@@ -177,35 +275,35 @@
 
     move-result v0
 
-    if-ne v0, v3, :cond_71
+    if-ne v0, v4, :cond_d3
 
-    .line 159
+    .line 181
     iget-object v0, p0, Lbl/aef2$a;->this$0:Lbl/aef2;
 
     invoke-virtual {v0}, Lbl/aef2;->l()V
 
-    .line 160
+    .line 182
     iget-object v0, p0, Lbl/aef2$a;->this$0:Lbl/aef2;
 
     const v1, 0x7f0c00d8
 
     invoke-virtual {v0, v1}, Lbl/aef2;->a(I)V
 
-    .line 162
-    :cond_71
+    .line 184
+    :cond_d3
     iget-object v0, p0, Lbl/aef2$a;->this$0:Lbl/aef2;
 
     # setter for: Lbl/aef2;->g:Z
-    invoke-static {v0, v2}, Lbl/aef2;->access$202(Lbl/aef2;Z)Z
+    invoke-static {v0, v3}, Lbl/aef2;->access$202(Lbl/aef2;Z)Z
 
-    goto :goto_a
+    goto/16 :goto_29
 .end method
 
 .method public bridge synthetic a(Ljava/lang/Object;)V
     .locals 0
 
     .prologue
-    .line 137
+    .line 154
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lbl/aef2$a;->a(Lcom/alibaba/fastjson/JSONObject;)V
@@ -217,7 +315,7 @@
     .locals 1
 
     .prologue
-    .line 167
+    .line 189
     iget-object v0, p0, Lbl/aef2$a;->this$0:Lbl/aef2;
 
     invoke-virtual {v0}, Lbl/aef2;->isAdded()Z
@@ -241,7 +339,14 @@
     .locals 2
 
     .prologue
-    .line 172
+    .line 194
+    const-string v0, "aef2"
+
+    const-string v1, "onError"
+
+    invoke-static {v0, v1, p1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+
+    .line 195
     iget-object v0, p0, Lbl/aef2$a;->this$0:Lbl/aef2;
 
     # getter for: Lbl/aef2;->c:Lbl/aef2$b;
@@ -249,15 +354,15 @@
 
     move-result-object v0
 
-    if-nez v0, :cond_9
+    if-nez v0, :cond_10
 
-    .line 179
-    :cond_8
-    :goto_8
+    .line 202
+    :cond_f
+    :goto_f
     return-void
 
-    .line 175
-    :cond_9
+    .line 198
+    :cond_10
     iget-object v0, p0, Lbl/aef2$a;->this$0:Lbl/aef2;
 
     const/4 v1, 0x0
@@ -265,7 +370,7 @@
     # setter for: Lbl/aef2;->h:Z
     invoke-static {v0, v1}, Lbl/aef2;->access$302(Lbl/aef2;Z)Z
 
-    .line 176
+    .line 199
     iget-object v0, p0, Lbl/aef2$a;->this$0:Lbl/aef2;
 
     # getter for: Lbl/aef2;->f:I
@@ -275,12 +380,12 @@
 
     const/4 v1, 0x1
 
-    if-ne v0, v1, :cond_8
+    if-ne v0, v1, :cond_f
 
-    .line 177
+    .line 200
     iget-object v0, p0, Lbl/aef2$a;->this$0:Lbl/aef2;
 
     invoke-virtual {v0}, Lbl/aef2;->k()V
 
-    goto :goto_8
+    goto :goto_f
 .end method

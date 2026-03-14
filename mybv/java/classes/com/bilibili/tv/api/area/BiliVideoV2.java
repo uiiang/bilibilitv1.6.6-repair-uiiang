@@ -12,6 +12,7 @@ public class BiliVideoV2 {
     public String cover;
     public int danmaku;
     public int favourite;
+    public int duration;
 
     @JSONField(name = "goto")
     public String jumpTo;

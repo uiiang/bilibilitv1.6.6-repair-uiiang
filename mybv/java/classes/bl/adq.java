@@ -502,6 +502,7 @@ public final class adq extends ady {
                 BiliVideoV2 t = new BiliVideoV2();
                 t.cover=s.getString("pic");
                 t.danmaku=s.getJSONObject("stat").getIntValue("danmaku");
+                t.duration=s.getIntValue("duration");
                 t.jumpTo="av";//s.getString("redirect_url")!=null?"bangumi":"av";
                 t.name=s.getJSONObject("owner").getString("name");
                 t.param=String.valueOf(s.getLongValue("aid"));

@@ -49,7 +49,7 @@
     .locals 2
 
     .prologue
-    .line 605
+    .line 606
     new-instance v0, Lbl/adq$j$a;
 
     const/4 v1, 0x0
@@ -65,7 +65,7 @@
     .locals 0
 
     .prologue
-    .line 604
+    .line 605
     invoke-direct {p0}, Lbl/adc;-><init>()V
 
     return-void
@@ -77,7 +77,7 @@
     .locals 1
 
     .prologue
-    .line 604
+    .line 605
     invoke-virtual {p0, p1, p2}, Lbl/adq$j;->a(Landroid/view/ViewGroup;I)Lbl/adc$a;
 
     move-result-object v0
@@ -91,12 +91,12 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 615
+    .line 616
     const-string v1, "parent"
 
     invoke-static {p1, v1}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 617
+    .line 618
     const/4 v1, 0x1
 
     if-ne p2, v1, :cond_12
@@ -170,63 +170,63 @@
     .end annotation
 
     .prologue
-    .line 651
+    .line 652
     const-string v0, "title"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 652
+    .line 653
     const-string v0, "otherList"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 653
+    .line 654
     const-string v0, "\u5206\u533a\u89c6\u9891"
 
     invoke-static {p2, v0}, Lmybl/BiliFilter;->filterBiliVideoV2(Ljava/util/List;Ljava/lang/String;)Ljava/util/List;
 
     move-result-object v0
 
-    .line 666
+    .line 667
     invoke-interface {v0}, Ljava/util/List;->size()I
 
     move-result v1
 
     if-nez v1, :cond_17
 
-    .line 679
+    .line 680
     :goto_16
     return-void
 
-    .line 669
+    .line 670
     :cond_17
     iget-object v1, p0, Lbl/adq$j;->a:Lbl/adq$d;
 
     if-nez v1, :cond_2f
 
-    .line 670
+    .line 671
     new-instance v1, Lbl/adq$d;
 
     invoke-direct {v1, p1, v0}, Lbl/adq$d;-><init>(Ljava/lang/String;Ljava/util/List;)V
 
     iput-object v1, p0, Lbl/adq$j;->a:Lbl/adq$d;
 
-    .line 671
+    .line 672
     invoke-super {p0}, Lbl/adc;->g()V
 
-    .line 672
+    .line 673
     iget-object v0, p0, Lbl/adq$j;->a:Lbl/adq$d;
 
     invoke-virtual {p0, v0}, Lbl/adq$j;->a(Lbl/ade;)V
 
-    .line 673
+    .line 674
     const/4 v0, 0x1
 
     invoke-virtual {p0, v0}, Lbl/adq$j;->b(Z)V
 
     goto :goto_16
 
-    .line 676
+    .line 677
     :cond_2f
     iget-object v1, p0, Lbl/adq$j;->a:Lbl/adq$d;
 
@@ -236,7 +236,7 @@
 
     invoke-interface {v1, v0}, Ljava/util/List;->addAll(Ljava/util/Collection;)Z
 
-    .line 677
+    .line 678
     const/4 v0, 0x0
 
     invoke-virtual {p0, v0}, Lbl/adq$j;->b(Z)V
@@ -257,36 +257,36 @@
     .end annotation
 
     .prologue
-    .line 637
+    .line 638
     const-string v0, "hotList"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 638
+    .line 639
     const-string v0, "\u5206\u533a\u89c6\u9891"
 
     invoke-static {p1, v0}, Lmybl/BiliFilter;->filterBiliVideoV2(Ljava/util/List;Ljava/lang/String;)Ljava/util/List;
 
     move-result-object v0
 
-    .line 639
+    .line 640
     invoke-interface {v0}, Ljava/util/List;->size()I
 
     move-result v1
 
     if-nez v1, :cond_12
 
-    .line 648
+    .line 649
     :goto_11
     return-void
 
-    .line 642
+    .line 643
     :cond_12
     iget-object v1, p0, Lbl/adq$j;->a:Lbl/adq$d;
 
     if-nez v1, :cond_24
 
-    .line 643
+    .line 644
     new-instance v1, Lbl/adq$d;
 
     const v2, 0x7f0c009e
@@ -299,16 +299,16 @@
 
     iput-object v1, p0, Lbl/adq$j;->a:Lbl/adq$d;
 
-    .line 645
+    .line 646
     :cond_24
     invoke-super {p0}, Lbl/adc;->g()V
 
-    .line 646
+    .line 647
     iget-object v0, p0, Lbl/adq$j;->a:Lbl/adq$d;
 
     invoke-virtual {p0, v0}, Lbl/adq$j;->a(Lbl/ade;)V
 
-    .line 647
+    .line 648
     const/4 v0, 0x1
 
     invoke-virtual {p0, v0}, Lbl/adq$j;->b(Z)V
@@ -320,16 +320,16 @@
     .locals 1
 
     .prologue
-    .line 682
+    .line 683
     invoke-super {p0}, Lbl/adc;->g()V
 
-    .line 683
+    .line 684
     const/4 v0, 0x0
 
     check-cast v0, Lbl/adq$d;
 
     iput-object v0, p0, Lbl/adq$j;->a:Lbl/adq$d;
 
-    .line 685
+    .line 686
     return-void
 .end method

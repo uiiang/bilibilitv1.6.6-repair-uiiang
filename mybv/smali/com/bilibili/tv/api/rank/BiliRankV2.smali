@@ -1,6 +1,6 @@
-.class public final Lcom/bilibili/tv/api/rank/BiliRankV2;
+.class public Lcom/bilibili/tv/api/rank/BiliRankV2;
 .super Ljava/lang/Object;
-.source "BL"
+.source "BiliRankV2.java"
 
 
 # annotations
@@ -16,13 +16,10 @@
 
 # instance fields
 .field private children:Ljava/util/List;
-    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
-        name = "children"
-    .end annotation
-
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "Ljava/util/List<",
+            "Ljava/util/List",
+            "<",
             "Lcom/bilibili/tv/api/rank/BiliRankV2$Children;",
             ">;"
         }
@@ -30,67 +27,34 @@
 .end field
 
 .field private cover:Ljava/lang/String;
-    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
-        name = "cover"
-    .end annotation
-.end field
 
 .field private danmaku:I
-    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
-        name = "danmaku"
-    .end annotation
-.end field
+
+.field private duration:I
 
 .field private gotoX:Ljava/lang/String;
-    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
-        name = "goto"
-    .end annotation
-.end field
 
 .field private name:Ljava/lang/String;
-    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
-        name = "name"
-    .end annotation
-.end field
 
 .field private param:Ljava/lang/String;
-    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
-        name = "param"
-    .end annotation
-.end field
 
 .field private play:I
-    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
-        name = "play"
-    .end annotation
-.end field
 
 .field private pts:I
-    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
-        name = "pts"
-    .end annotation
-.end field
 
 .field private showMore:Z
 
 .field private title:Ljava/lang/String;
-    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
-        name = "title"
-    .end annotation
-.end field
 
 .field private uri:Ljava/lang/String;
-    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
-        name = "uri"
-    .end annotation
-.end field
 
 
 # direct methods
 .method public constructor <init>()V
     .locals 0
 
-    .line 16
+    .prologue
+    .line 8
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -98,216 +62,275 @@
 
 
 # virtual methods
-.method public final getChildren()Ljava/util/List;
+.method public getChildren()Ljava/util/List;
     .locals 1
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "()",
-            "Ljava/util/List<",
+            "Ljava/util/List",
+            "<",
             "Lcom/bilibili/tv/api/rank/BiliRankV2$Children;",
             ">;"
         }
     .end annotation
 
-    .line 50
+    .prologue
+    .line 23
     iget-object v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->children:Ljava/util/List;
 
     return-object v0
 .end method
 
-.method public final getCover()Ljava/lang/String;
+.method public getCover()Ljava/lang/String;
     .locals 1
 
-    .line 34
+    .prologue
+    .line 31
     iget-object v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->cover:Ljava/lang/String;
 
     return-object v0
 .end method
 
-.method public final getDanmaku()I
+.method public getDanmaku()I
     .locals 1
 
-    .line 46
+    .prologue
+    .line 39
     iget v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->danmaku:I
 
     return v0
 .end method
 
-.method public final getGotoX()Ljava/lang/String;
+.method public getDuration()I
     .locals 1
 
-    .line 40
+    .prologue
+    .line 47
+    iget v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->duration:I
+
+    return v0
+.end method
+
+.method public getGotoX()Ljava/lang/String;
+    .locals 1
+
+    .prologue
+    .line 55
     iget-object v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->gotoX:Ljava/lang/String;
 
     return-object v0
 .end method
 
-.method public final getName()Ljava/lang/String;
+.method public getName()Ljava/lang/String;
     .locals 1
 
-    .line 42
+    .prologue
+    .line 64
     iget-object v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->name:Ljava/lang/String;
 
     return-object v0
 .end method
 
-.method public final getParam()Ljava/lang/String;
+.method public getParam()Ljava/lang/String;
     .locals 1
 
-    .line 38
+    .prologue
+    .line 72
     iget-object v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->param:Ljava/lang/String;
 
     return-object v0
 .end method
 
-.method public final getPlay()I
+.method public getPlay()I
     .locals 1
 
-    .line 44
+    .prologue
+    .line 80
     iget v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->play:I
 
     return v0
 .end method
 
-.method public final getPts()I
+.method public getPts()I
     .locals 1
 
-    .line 48
+    .prologue
+    .line 88
     iget v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->pts:I
 
     return v0
 .end method
 
-.method public final getShowMore()Z
+.method public getTitle()Ljava/lang/String;
     .locals 1
 
-    .line 52
-    iget-boolean v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->showMore:Z
-
-    return v0
-.end method
-
-.method public final getTitle()Ljava/lang/String;
-    .locals 1
-
-    .line 32
+    .prologue
+    .line 104
     iget-object v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->title:Ljava/lang/String;
 
     return-object v0
 .end method
 
-.method public final getUri()Ljava/lang/String;
+.method public getUri()Ljava/lang/String;
     .locals 1
 
-    .line 36
+    .prologue
+    .line 112
     iget-object v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->uri:Ljava/lang/String;
 
     return-object v0
 .end method
 
-.method public final setChildren(Ljava/util/List;)V
+.method public isShowMore()Z
+    .locals 1
+
+    .prologue
+    .line 96
+    iget-boolean v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->showMore:Z
+
+    return v0
+.end method
+
+.method public setChildren(Ljava/util/List;)V
     .locals 0
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
-            "Ljava/util/List<",
+            "Ljava/util/List",
+            "<",
             "Lcom/bilibili/tv/api/rank/BiliRankV2$Children;",
             ">;)V"
         }
     .end annotation
 
-    .line 50
+    .prologue
+    .line 27
     iput-object p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->children:Ljava/util/List;
 
+    .line 28
     return-void
 .end method
 
-.method public final setCover(Ljava/lang/String;)V
+.method public setCover(Ljava/lang/String;)V
     .locals 0
 
-    .line 34
+    .prologue
+    .line 35
     iput-object p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->cover:Ljava/lang/String;
 
+    .line 36
     return-void
 .end method
 
-.method public final setDanmaku(I)V
+.method public setDanmaku(I)V
     .locals 0
 
-    .line 46
+    .prologue
+    .line 43
     iput p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->danmaku:I
 
-    return-void
-.end method
-
-.method public final setGotoX(Ljava/lang/String;)V
-    .locals 0
-
-    .line 40
-    iput-object p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->gotoX:Ljava/lang/String;
-
-    return-void
-.end method
-
-.method public final setName(Ljava/lang/String;)V
-    .locals 0
-
-    .line 42
-    iput-object p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->name:Ljava/lang/String;
-
-    return-void
-.end method
-
-.method public final setParam(Ljava/lang/String;)V
-    .locals 0
-
-    .line 38
-    iput-object p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->param:Ljava/lang/String;
-
-    return-void
-.end method
-
-.method public final setPlay(I)V
-    .locals 0
-
     .line 44
-    iput p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->play:I
-
     return-void
 .end method
 
-.method public final setPts(I)V
+.method public setDuration(I)V
     .locals 0
 
-    .line 48
-    iput p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->pts:I
-
-    return-void
-.end method
-
-.method public final setShowMore(Z)V
-    .locals 0
+    .prologue
+    .line 51
+    iput p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->duration:I
 
     .line 52
+    return-void
+.end method
+
+.method public setGotoX(Ljava/lang/String;)V
+    .locals 0
+    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
+        name = "goto"
+    .end annotation
+
+    .prologue
+    .line 60
+    iput-object p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->gotoX:Ljava/lang/String;
+
+    .line 61
+    return-void
+.end method
+
+.method public setName(Ljava/lang/String;)V
+    .locals 0
+
+    .prologue
+    .line 68
+    iput-object p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->name:Ljava/lang/String;
+
+    .line 69
+    return-void
+.end method
+
+.method public setParam(Ljava/lang/String;)V
+    .locals 0
+
+    .prologue
+    .line 76
+    iput-object p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->param:Ljava/lang/String;
+
+    .line 77
+    return-void
+.end method
+
+.method public setPlay(I)V
+    .locals 0
+
+    .prologue
+    .line 84
+    iput p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->play:I
+
+    .line 85
+    return-void
+.end method
+
+.method public setPts(I)V
+    .locals 0
+
+    .prologue
+    .line 92
+    iput p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->pts:I
+
+    .line 93
+    return-void
+.end method
+
+.method public setShowMore(Z)V
+    .locals 0
+
+    .prologue
+    .line 100
     iput-boolean p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->showMore:Z
 
+    .line 101
     return-void
 .end method
 
-.method public final setTitle(Ljava/lang/String;)V
+.method public setTitle(Ljava/lang/String;)V
     .locals 0
 
-    .line 32
+    .prologue
+    .line 108
     iput-object p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->title:Ljava/lang/String;
 
+    .line 109
     return-void
 .end method
 
-.method public final setUri(Ljava/lang/String;)V
+.method public setUri(Ljava/lang/String;)V
     .locals 0
 
-    .line 36
+    .prologue
+    .line 116
     iput-object p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->uri:Ljava/lang/String;
 
+    .line 117
     return-void
 .end method

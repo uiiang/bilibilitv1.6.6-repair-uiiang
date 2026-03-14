@@ -254,6 +254,12 @@ public final class aff extends ady {
                 dVar.B().setText(biliRankV2.getName());
                 dVar.C().setText(adh.a(biliRankV2.getPlay()));
                 dVar.D().setText(adh.a(biliRankV2.getDanmaku()));
+                int duration = biliRankV2.getDuration();
+                if (duration >= 3600) {
+                    dVar.G().setText(String.format("%d:%02d:%02d", duration / 3600, (duration % 3600) / 60, duration % 60));
+                } else {
+                    dVar.G().setText(String.format("%02d:%02d", duration / 60, duration % 60));
+                }
                 nv.a().a(ach.c(MainApplication.a(), biliRankV2.getCover()), dVar.z());
                 switch (i) {
                     case 0:
@@ -333,6 +339,7 @@ public final class aff extends ady {
         private TextView r;
         private ImageView s;
         private TextView t;
+        private TextView u;
 
         /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
         public d(View view) {
@@ -345,6 +352,7 @@ public final class aff extends ady {
             this.r = (TextView) a(view, R.id.danmaku);
             this.s = (ImageView) a(view, R.id.tag);
             this.t = (TextView) a(view, R.id.tag_text);
+            this.u = (TextView) a(view, R.id.duration);
             Drawable c = adl.a.c(R.drawable.ic_video_info_up);
             Drawable c2 = adl.a.c(R.drawable.ic_video_info_play);
             Drawable c3 = adl.a.c(R.drawable.ic_video_info_danmaku);
@@ -387,6 +395,10 @@ public final class aff extends ady {
 
         public final TextView F() {
             return this.t;
+        }
+
+        public final TextView G() {
+            return this.u;
         }
 
         /* compiled from: BL */

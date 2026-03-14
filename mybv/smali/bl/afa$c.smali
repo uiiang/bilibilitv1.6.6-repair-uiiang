@@ -461,7 +461,7 @@
     .line 262
     instance-of v0, p1, Lbl/afa$b;
 
-    if-eqz v0, :cond_77
+    if-eqz v0, :cond_7c
 
     .line 263
     iget-object v0, p0, Lbl/afa$c;->d:Ljava/util/ArrayList;
@@ -546,7 +546,13 @@
     .line 274
     iget-object v1, p0, Lbl/afa$c;->b:[I
 
-    aget v1, v1, p2
+    iget-object v2, p0, Lbl/afa$c;->b:[I
+
+    array-length v2, v2
+
+    rem-int v2, p2, v2
+
+    aget v1, v1, v2
 
     invoke-static {v1}, Lbl/adl;->d(I)I
 
@@ -578,7 +584,7 @@
     invoke-virtual {v0, p0}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
     .line 281
-    :cond_77
+    :cond_7c
     return-void
 .end method
 

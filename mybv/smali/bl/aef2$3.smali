@@ -25,7 +25,7 @@
     .locals 0
 
     .prologue
-    .line 90
+    .line 93
     iput-object p1, p0, Lbl/aef2$3;->this$0:Lbl/aef2;
 
     iput-object p2, p0, Lbl/aef2$3;->val$sideRightGridLayoutManger:Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;
@@ -41,10 +41,10 @@
     .locals 2
 
     .prologue
-    .line 93
+    .line 96
     invoke-super {p0, p1, p2}, Landroid/support/v7/widget/RecyclerView$m;->a(Landroid/support/v7/widget/RecyclerView;I)V
 
-    .line 94
+    .line 97
     iget-object v0, p0, Lbl/aef2$3;->this$0:Lbl/aef2;
 
     # getter for: Lbl/aef2;->g:Z
@@ -72,12 +72,12 @@
 
     if-nez v0, :cond_1c
 
-    .line 103
+    .line 106
     :cond_1b
     :goto_1b
     return-void
 
-    .line 97
+    .line 100
     :cond_1c
     iget-object v0, p0, Lbl/aef2$3;->val$sideRightGridLayoutManger:Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;
 
@@ -85,7 +85,7 @@
 
     move-result v0
 
-    .line 98
+    .line 101
     iget-object v1, p0, Lbl/aef2$3;->val$sideRightGridLayoutManger:Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;
 
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;->x()I
@@ -120,12 +120,12 @@
 
     if-le v0, v1, :cond_1b
 
-    .line 101
+    .line 104
     iget-object v0, p0, Lbl/aef2$3;->this$0:Lbl/aef2;
 
     invoke-static {v0}, Lbl/aef2;->e(Lbl/aef2;)I
 
-    .line 102
+    .line 105
     iget-object v0, p0, Lbl/aef2$3;->this$0:Lbl/aef2;
 
     invoke-virtual {v0}, Lbl/aef2;->a()V

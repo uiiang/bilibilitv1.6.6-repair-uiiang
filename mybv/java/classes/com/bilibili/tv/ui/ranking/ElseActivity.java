@@ -24,6 +24,7 @@ import com.bilibili.tv.widget.side.SideLeftSelectLinearLayout;
 import java.lang.ref.WeakReference;
 
 import com.bilibili.tv.ui.live.LiveLeftLinearLayoutManger;
+import android.util.Log;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
@@ -46,28 +47,35 @@ public class ElseActivity extends BaseSideActivity {
 
     @Override // com.bilibili.tv.ui.base.BaseActivity
     public void a(Bundle bundle) {
+        Log.d("ElseActivity", "initData: start");
         if (getIntent() == null) {
             return;
         }
         b((RecyclerView) d(R.id.recycler_view));
         ((TextView) d(R.id.content_name)).setText("其它");
         this.b = new aeg2(getSupportFragmentManager(), R.id.fragment_container);
+        Log.d("ElseActivity", "initData: aeg2 created, count=" + this.b.a());
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
     @Override // android.support.v7.app.AppCompatActivity, android.app.Activity
     public void onPostCreate(@Nullable Bundle bundle) {
         super.onPostCreate(bundle);
+        Log.d("ElseActivity", "onPostCreate: start");
         j().setLayoutManager(new LiveLeftLinearLayoutManger(this, 1, false));
         int a2 = this.b.a();
+        Log.d("ElseActivity", "onPostCreate: tabCount=" + a2);
         cj cjVar = new cj();
         for (int i = 0; i < a2; i++) {
             cjVar.b(i, this.b.b(i).toString());
+            Log.d("ElseActivity", "onPostCreate: tab[" + i + "]=" + this.b.b(i));
         }
         this.c = new a(this, cjVar);
         j().setAdapter(this.c);
         j().setFocusable(false);
         j().setHasFixedSize(true);
+        Log.d("ElseActivity", "onPostCreate: selecting first tab");
+        this.b.c(0);
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
@@ -161,7 +169,6 @@ public class ElseActivity extends BaseSideActivity {
                     public void onFocusChange(View view, boolean z) {
                         ElseActivity liveActivity = (ElseActivity) a.this.a.get();
                         if (!z) {
-                            // 失去焦点时取消延迟 runnable，防止在数据变更或视图重建期间触发切换
                             view.removeCallbacks(a.this);
                             if (a.this.e) {
                                 return;
@@ -181,15 +188,7 @@ public class ElseActivity extends BaseSideActivity {
                         vVar.a.setSelected(true);
                         ((SideLeftSelectLinearLayout) vVar.a).a();
                         liveActivity.b(4);
-                        // 删除自动延迟切换，改为点击触发切换，避免在右侧动态加载或布局变更时误切换
-                        vVar.a.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                ElseActivity act = (ElseActivity) a.this.a.get();
-                                if (act == null || act.isFinishing() || act.b == null) return;
-                                act.b.c(a.this.c);
-                            }
-                        });
+                        view.postDelayed(a.this, 300L);
                     }
                 });
             }
@@ -213,7 +212,11 @@ public class ElseActivity extends BaseSideActivity {
 
         @Override // java.lang.Runnable
         public void run() {
-            // 已移除自动切换逻辑，保留空实现以兼容旧代码对 Runnable 的引用
+            ElseActivity act = (ElseActivity) this.a.get();
+            if (act == null || act.isFinishing() || act.b == null) {
+                return;
+            }
+            act.b.c(this.c);
         }
     }
 }

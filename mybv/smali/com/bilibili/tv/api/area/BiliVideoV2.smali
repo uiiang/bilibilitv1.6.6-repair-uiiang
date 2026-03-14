@@ -15,6 +15,8 @@
 
 .field public danmaku:I
 
+.field public duration:I
+
 .field public favourite:I
 
 .field public jumpTo:Ljava/lang/String;
@@ -55,7 +57,7 @@
     .prologue
     const-wide/16 v0, 0x0
 
-    .line 26
+    .line 27
     iget-object v2, p0, Lcom/bilibili/tv/api/area/BiliVideoV2;->param:Ljava/lang/String;
 
     invoke-static {v2}, Lbl/kt;->a(Ljava/lang/CharSequence;)Z
@@ -64,11 +66,11 @@
 
     if-eqz v2, :cond_b
 
-    .line 32
+    .line 33
     :goto_a
     return-wide v0
 
-    .line 30
+    .line 31
     :cond_b
     :try_start_b
     iget-object v2, p0, Lcom/bilibili/tv/api/area/BiliVideoV2;->param:Ljava/lang/String;
@@ -81,7 +83,7 @@
 
     goto :goto_a
 
-    .line 31
+    .line 32
     :catch_12
     move-exception v2
 

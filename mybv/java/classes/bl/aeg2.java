@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentManager;
 public class aeg2 extends adx {
     @Override // bl.adx
     public int a() {
-        return 3;
+        return 2;
     }
 
     public CharSequence b(int i) {
@@ -17,8 +17,6 @@ public class aeg2 extends adx {
             case 0:
                 return "综合热门";
             case 1:
-                return "每周必看";
-            case 2:
                 return "入站必刷";
             default:
                 return "";
@@ -35,8 +33,6 @@ public class aeg2 extends adx {
             case 0:
                 return aef2.b();
             case 1:
-                return aef3.b();
-            case 2:
                 return aef4.b();
             default:
                 return null;

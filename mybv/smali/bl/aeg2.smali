@@ -12,10 +12,10 @@
     .end param
 
     .prologue
-    .line 29
+    .line 27
     invoke-direct {p0, p1, p2}, Lbl/adx;-><init>(Landroid/support/v4/app/FragmentManager;I)V
 
-    .line 30
+    .line 28
     return-void
 .end method
 
@@ -26,7 +26,7 @@
 
     .prologue
     .line 12
-    const/4 v0, 0x3
+    const/4 v0, 0x2
 
     return v0
 .end method
@@ -35,16 +35,16 @@
     .locals 1
 
     .prologue
-    .line 34
-    packed-switch p1, :pswitch_data_14
+    .line 32
+    packed-switch p1, :pswitch_data_10
 
-    .line 42
+    .line 38
     const/4 v0, 0x0
 
     :goto_4
     return-object v0
 
-    .line 36
+    .line 34
     :pswitch_5
     invoke-static {}, Lbl/aef2;->b()Lbl/aef2;
 
@@ -52,28 +52,21 @@
 
     goto :goto_4
 
-    .line 38
+    .line 36
     :pswitch_a
-    invoke-static {}, Lbl/aef3;->b()Lbl/aef3;
-
-    move-result-object v0
-
-    goto :goto_4
-
-    .line 40
-    :pswitch_f
     invoke-static {}, Lbl/aef4;->b()Lbl/aef4;
 
     move-result-object v0
 
     goto :goto_4
 
-    .line 34
-    :pswitch_data_14
+    .line 32
+    nop
+
+    :pswitch_data_10
     .packed-switch 0x0
         :pswitch_5
         :pswitch_a
-        :pswitch_f
     .end packed-switch
 .end method
 
@@ -82,9 +75,9 @@
 
     .prologue
     .line 16
-    packed-switch p1, :pswitch_data_10
+    packed-switch p1, :pswitch_data_c
 
-    .line 24
+    .line 22
     const-string v0, ""
 
     :goto_5
@@ -98,23 +91,14 @@
 
     .line 20
     :pswitch_9
-    const-string v0, "\u6bcf\u5468\u5fc5\u770b"
-
-    goto :goto_5
-
-    .line 22
-    :pswitch_c
     const-string v0, "\u5165\u7ad9\u5fc5\u5237"
 
     goto :goto_5
 
     .line 16
-    nop
-
-    :pswitch_data_10
+    :pswitch_data_c
     .packed-switch 0x0
         :pswitch_6
         :pswitch_9
-        :pswitch_c
     .end packed-switch
 .end method

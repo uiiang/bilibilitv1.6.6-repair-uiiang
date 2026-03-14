@@ -57,7 +57,7 @@
 
     if-nez v1, :cond_a
 
-    .line 519
+    .line 520
     :cond_9
     :goto_9
     return-void
@@ -101,7 +101,7 @@
 
     move-result v3
 
-    if-ge v0, v3, :cond_87
+    if-ge v0, v3, :cond_8f
 
     .line 501
     invoke-virtual {v2, v0}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
@@ -138,11 +138,20 @@
     iput v5, v4, Lcom/bilibili/tv/api/area/BiliVideoV2;->danmaku:I
 
     .line 505
+    const-string v5, "duration"
+
+    invoke-virtual {v3, v5}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
+
+    move-result v5
+
+    iput v5, v4, Lcom/bilibili/tv/api/area/BiliVideoV2;->duration:I
+
+    .line 506
     const-string v5, "av"
 
     iput-object v5, v4, Lcom/bilibili/tv/api/area/BiliVideoV2;->jumpTo:Ljava/lang/String;
 
-    .line 506
+    .line 507
     const-string v5, "owner"
 
     invoke-virtual {v3, v5}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
@@ -157,7 +166,7 @@
 
     iput-object v5, v4, Lcom/bilibili/tv/api/area/BiliVideoV2;->name:Ljava/lang/String;
 
-    .line 507
+    .line 508
     const-string v5, "aid"
 
     invoke-virtual {v3, v5}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
@@ -170,7 +179,7 @@
 
     iput-object v5, v4, Lcom/bilibili/tv/api/area/BiliVideoV2;->param:Ljava/lang/String;
 
-    .line 508
+    .line 509
     const-string v5, "stat"
 
     invoke-virtual {v3, v5}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
@@ -185,7 +194,7 @@
 
     iput v5, v4, Lcom/bilibili/tv/api/area/BiliVideoV2;->play:I
 
-    .line 509
+    .line 510
     const-string v5, "title"
 
     invoke-virtual {v3, v5}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -194,7 +203,7 @@
 
     iput-object v3, v4, Lcom/bilibili/tv/api/area/BiliVideoV2;->title:Ljava/lang/String;
 
-    .line 510
+    .line 511
     invoke-interface {v1, v4}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 500
@@ -202,25 +211,25 @@
 
     goto :goto_28
 
-    .line 512
-    :cond_87
+    .line 513
+    :cond_8f
     if-eqz v1, :cond_9
 
-    .line 513
+    .line 514
     iget-object v0, p0, Lbl/adq$RegionHotVideoResponse;->this$0:Lbl/adq;
 
     invoke-virtual {v0}, Lbl/adq;->a()Lbl/adq$j;
 
     move-result-object v0
 
-    .line 514
-    if-nez v0, :cond_94
-
     .line 515
+    if-nez v0, :cond_9c
+
+    .line 516
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 517
-    :cond_94
+    .line 518
+    :cond_9c
     invoke-virtual {v0, v1}, Lbl/adq$j;->a(Ljava/util/List;)V
 
     goto/16 :goto_9
@@ -242,12 +251,12 @@
     .locals 2
 
     .prologue
-    .line 523
+    .line 524
     const-string v0, "t"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 524
+    .line 525
     iget-object v0, p0, Lbl/adq$RegionHotVideoResponse;->this$0:Lbl/adq;
 
     invoke-virtual {v0}, Lbl/adq;->a()Lbl/adq$j;
@@ -256,11 +265,11 @@
 
     if-nez v0, :cond_e
 
-    .line 529
+    .line 530
     :goto_d
     return-void
 
-    .line 527
+    .line 528
     :cond_e
     iget-object v0, p0, Lbl/adq$RegionHotVideoResponse;->this$0:Lbl/adq;
 
@@ -269,7 +278,7 @@
     # setter for: Lbl/adq;->k:Z
     invoke-static {v0, v1}, Lbl/adq;->access$202(Lbl/adq;Z)Z
 
-    .line 528
+    .line 529
     iget-object v0, p0, Lbl/adq$RegionHotVideoResponse;->this$0:Lbl/adq;
 
     invoke-virtual {v0}, Lbl/adq;->k()V
