@@ -520,10 +520,16 @@ public final class VideoDetailActivity extends BaseActivity
     public final DrawTextView l() {
         View inflate = LayoutInflater.from(this).inflate(R.layout.layout_video_detail_episode_item, (ViewGroup) this.o,
                 false);
-        if (inflate == null) {
+        DrawTextView drawTextView = (DrawTextView) inflate.findViewById(R.id.video_detail_episode_txt);
+        if (drawTextView == null) {
             throw new TypeCastException("null cannot be cast to non-null type com.bilibili.tv.widget.DrawTextView");
         }
-        DrawTextView drawTextView = (DrawTextView) inflate;
+        ViewGroup parent = (ViewGroup) drawTextView.getParent();
+        if (parent != null) {
+            parent.removeView(drawTextView);
+        }
+        drawTextView.setFocusable(true);
+        drawTextView.setFocusableInTouchMode(false);
         drawTextView.setNextFocusRightId(drawTextView.getId());
         drawTextView.setText(R.string.video_detail_more_episode);
         drawTextView.getLayoutParams().width = -1;
@@ -2092,20 +2098,20 @@ public final class VideoDetailActivity extends BaseActivity
     static final class c extends adc.a implements View.OnClickListener {
         public static final a Companion = new a(null);
         private final DrawTextView n;
+        private final TextView pageBadge;
+        private final FrameLayout rootView;
 
-        /*
-         * JADX WARN: 'super' call moved to the top of the method (can break code
-         * semantics)
-         */
         public c(View view) {
             super(view);
             bbi.b(view, "itemView");
+            this.rootView = (FrameLayout) view;
             View findViewById = view.findViewById(R.id.video_detail_episode_txt);
             if (findViewById == null) {
                 throw new TypeCastException("null cannot be cast to non-null type com.bilibili.tv.widget.DrawTextView");
             }
             this.n = (DrawTextView) findViewById;
             this.n.setUpDrawable(R.drawable.shadow_red_rect);
+            this.pageBadge = (TextView) view.findViewById(R.id.page_badge);
         }
 
         @Override // android.view.View.OnClickListener
@@ -2125,7 +2131,6 @@ public final class VideoDetailActivity extends BaseActivity
             }
             VideoDetailActivity videoDetailActivity = (VideoDetailActivity) a2;
             if (videoDetailActivity != null) {
-                // 修改：分集列表点击直接启动播放器，传递进度-1表示使用数据库记录
                 xg.a(videoDetailActivity, videoDetailActivity.u, page, new Bundle(), VideoDetailActivity.REQUEST_CODE_PLAY_VIDEO, -1);
             }
             ok.a("tv_video_view_click_part", new String[0]);
@@ -2135,28 +2140,22 @@ public final class VideoDetailActivity extends BaseActivity
         public void b(Object obj) {
             if (obj instanceof BiliVideoDetail.Page) {
                 BiliVideoDetail.Page page = (BiliVideoDetail.Page) obj;
-                String displayText = TextUtils.isEmpty(page.mTitle) ? "点击播放" : (page.mPage + " : " + page.mTitle);
+                String displayText = TextUtils.isEmpty(page.mTitle) ? "点击播放" : page.mTitle;
                 this.n.setText(displayText);
-                this.n.setTag(obj);
+                if (this.pageBadge != null) {
+                    this.pageBadge.setText("P" + page.mPage);
+                }
+                this.a.setTag(obj);
                 this.a.setOnClickListener(this);
-                View view = this.a;
-                bbi.a((Object) view, "itemView");
-                // 合并焦点监听器：先执行原有的 d() 行为（绘制焦点样式），再执行诊断与阻断逻辑
-                final View.OnFocusChangeListener baseListener = new d();
-                view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                this.a.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                     @Override
                     public void onFocusChange(View vv, boolean hasFocus) {
-                        // 保留原始焦点处理（例如绘制焦点边框）
-                        baseListener.onFocusChange(vv, hasFocus);
-                        // 额外诊断与阻断逻辑
+                        c.this.n.setUpEnabled(hasFocus);
                         if (hasFocus) {
-
-                            // 如果仍处于阻止自动聚焦阶段，重定向焦点回播放按钮并记录
                             Activity _a = adl.a(vv.getContext());
                             if (_a instanceof VideoDetailActivity) {
                                 VideoDetailActivity _activity = (VideoDetailActivity) _a;
                                 if (_activity.blockEpisodeAutoFocus) {
-
                                     if (_activity.historyPlayBtnLayout != null &&
                                             _activity.historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
                                         _activity.historyPlayBtnLayout.requestFocus();
