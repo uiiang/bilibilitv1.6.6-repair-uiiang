@@ -202,9 +202,10 @@ public class FavoriteSideActivity extends BaseSideActivity implements View.OnLon
     private void loadVideoFolders() {
         mg account = mg.a(this);
         if (account != null) {
-            String referer = "https://space.bilibili.com/" + account.d() + "/favlist";
+            String referer = "https://space.bilibili.com/" + account.d() + "/favlist?ftype=create&ctype=21";
+            String accessKey = account.e();
             ((MyBiliApiService) vo.a(MyBiliApiService.class))
-                    .getCreatedFolderList(account.d(), "333.1387", referer)
+                    .getCreatedFolderList(account.d(), "333.1387", accessKey, referer)
                     .a(new vn<JSONObject>() {
                         @Override
                         public void a(JSONObject result) {

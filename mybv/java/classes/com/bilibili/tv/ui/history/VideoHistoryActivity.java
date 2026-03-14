@@ -267,7 +267,6 @@ public final class VideoHistoryActivity extends BaseUpViewActivity implements Vi
             bbi.a((Object) a3, "BiliAccount.get(this)");
             String sessdata = a3.getSESSDATA();
             String cookie = "SESSDATA=" + sessdata;
-            android.util.Log.d("VideoHistoryActivity", "开始加载历史记录，cookie=" + cookie + ", cursorMax=" + cursorMax + ", cursorViewAt=" + cursorViewAt + ", cursorBusiness=" + cursorBusiness);
             ((BiliPlayerHistoryService) vo.a(BiliPlayerHistoryService.class))
                 .getVideoHistoryList(cookie, cursorMax, cursorViewAt, cursorBusiness, "archive", 30)
                 .a(new e());
@@ -440,7 +439,6 @@ public final class VideoHistoryActivity extends BaseUpViewActivity implements Vi
         @Override // bl.vm
         public void onError(Throwable th) {
             VideoHistoryActivity.this.isLoading = false;
-            android.util.Log.e("VideoHistoryActivity", "加载历史记录失败", th);
             adl.a.a(th, VideoHistoryActivity.this);
             if (VideoHistoryActivity.this.a == null || VideoHistoryActivity.c(VideoHistoryActivity.this) == null) {
                 return;
@@ -451,26 +449,21 @@ public final class VideoHistoryActivity extends BaseUpViewActivity implements Vi
         @Override // bl.vn
         public void a(JSONObject response) {
             VideoHistoryActivity.this.isLoading = false;
-            android.util.Log.d("VideoHistoryActivity", "历史记录接口返回数据: " + response);
             if (VideoHistoryActivity.this.a == null) {
                 return;
             }
             if (response != null) {
-                // 直接解析cursor和list，因为返回的数据结构就是{"cursor":..., "list":...}
                 JSONObject cursor = response.getJSONObject("cursor");
                 if (cursor != null) {
                     VideoHistoryActivity.this.cursorMax = cursor.getLongValue("max");
                     VideoHistoryActivity.this.cursorViewAt = cursor.getLongValue("view_at");
                     VideoHistoryActivity.this.cursorBusiness = cursor.getString("business");
                     VideoHistoryActivity.this.hasMore = true;
-                    android.util.Log.d("VideoHistoryActivity", "cursor信息: max=" + VideoHistoryActivity.this.cursorMax + ", view_at=" + VideoHistoryActivity.this.cursorViewAt + ", business=" + VideoHistoryActivity.this.cursorBusiness);
                 } else {
                     VideoHistoryActivity.this.hasMore = false;
-                    android.util.Log.d("VideoHistoryActivity", "cursor为null，没有更多数据");
                 }
                 
                 JSONArray list = response.getJSONArray("list");
-                android.util.Log.d("VideoHistoryActivity", "list数组大小: " + (list != null ? list.size() : "null"));
                 if (list != null && !list.isEmpty()) {
                     for (int i = 0; i < list.size(); i++) {
                         JSONObject item = list.getJSONObject(i);
@@ -496,7 +489,6 @@ public final class VideoHistoryActivity extends BaseUpViewActivity implements Vi
                         }
                         
                         VideoHistoryActivity.this.d.add(detail);
-                        android.util.Log.d("VideoHistoryActivity", "添加历史记录: " + detail.mTitle + ", avid=" + detail.mAvid);
                     }
                     
                     if (VideoHistoryActivity.this.a != null) {
@@ -504,7 +496,6 @@ public final class VideoHistoryActivity extends BaseUpViewActivity implements Vi
                     }
                 } else {
                     VideoHistoryActivity.this.hasMore = false;
-                    android.util.Log.d("VideoHistoryActivity", "list为空或null，没有更多数据");
                 }
             }
             

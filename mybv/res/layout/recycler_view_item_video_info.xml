@@ -21,6 +21,17 @@
     <TextView android:textSize="@dimen/px_40" android:textColor="@color/white"
       android:gravity="center" android:id="@id/tag_text" android:focusable="false"
       android:layout_width="@dimen/px_60" android:layout_height="@dimen/px_60" />
+    <TextView android:id="@+id/duration"
+      android:layout_width="match_parent" android:layout_height="wrap_content"
+      android:layout_gravity="bottom"
+      android:background="@color/black_50"
+      android:textColor="@color/white"
+      android:textSize="@dimen/px_32"
+      android:gravity="end|center_vertical"
+      android:paddingRight="@dimen/px_12"
+      android:paddingTop="@dimen/px_4"
+      android:paddingBottom="@dimen/px_4"
+      android:focusable="false" />
   </FrameLayout>
   <LinearLayout android:id="@+id/bottom_info" android:layout_width="wrap_content"
     android:layout_height="wrap_content"

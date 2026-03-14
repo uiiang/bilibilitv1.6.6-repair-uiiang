@@ -303,12 +303,6 @@ public final class AuthSpaceVideoFragment extends ady {
         j();
         loading = false;
         if (list != null && list.videos != null && list.videos.size() > 0) {
-          // 打印 ctime 字段日志
-          for (BiliSpaceVideo video : list.videos) {
-            if (video != null) {
-              android.util.Log.d("AuthSpaceVideoFragment", "Video title: " + video.title + ", ctime: " + video.ctime);
-            }
-          }
           List<BiliSpaceVideo> filtered = mybl.BiliFilter.filterBiliSpaceVideo(list.videos, "个人投稿");
           if (page == 1) {
             adapter.setVideos(filtered);
@@ -613,6 +607,12 @@ public final class AuthSpaceVideoFragment extends ady {
               : archive.getString("danmaku");
           vh.C().setText(bl.adh.a(playStr));
           vh.D().setText(bl.adh.a(danmakuStr));
+          int durationVal = archive.getIntValue("duration");
+          if (durationVal >= 3600) {
+            vh.E().setText(String.format("%d:%02d:%02d", durationVal / 3600, (durationVal % 3600) / 60, durationVal % 60));
+          } else {
+            vh.E().setText(String.format("%02d:%02d", durationVal / 60, durationVal % 60));
+          }
           int iconSize = bl.adl.b(R.dimen.px_34);
           android.graphics.drawable.Drawable playIcon = bl.adl.a.c(R.drawable.ic_video_info_play);
           android.graphics.drawable.Drawable danmakuIcon = bl.adl.a.c(R.drawable.ic_video_info_danmaku);
@@ -634,7 +634,6 @@ public final class AuthSpaceVideoFragment extends ady {
           BiliSpaceVideo v = (BiliSpaceVideo) item;
           vh.A().setText(v.title);
           
-          // 显示 ctime 转换后的日期
           if (v.ctime != null && v.ctime > 0) {
             java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy年MM月dd日", java.util.Locale.CHINA);
             vh.B().setText(sdf.format(new java.util.Date(v.ctime * 1000)));
@@ -642,18 +641,22 @@ public final class AuthSpaceVideoFragment extends ady {
             vh.B().setText("");
           }
           
-          // 显示播放数量，为 0 时直接显示 0
           String playText = (v.play == 0) ? "0" : adh.a(v.play);
           vh.C().setText(playText);
           
-          // 显示弹幕数量，为 0 时直接显示 0
           String danmakuText = "0";
           if (v.danmaku != null && !"0".equals(v.danmaku)) {
             danmakuText = adh.a(v.danmaku);
           }
           vh.D().setText(danmakuText);
           
-          // 添加播放和弹幕图标
+          int durationVal = v.duration;
+          if (durationVal >= 3600) {
+            vh.E().setText(String.format("%d:%02d:%02d", durationVal / 3600, (durationVal % 3600) / 60, durationVal % 60));
+          } else {
+            vh.E().setText(String.format("%02d:%02d", durationVal / 60, durationVal % 60));
+          }
+          
           int iconSize = bl.adl.b(R.dimen.px_34);
           android.graphics.drawable.Drawable playIcon = bl.adl.a.c(R.drawable.ic_video_info_play);
           android.graphics.drawable.Drawable danmakuIcon = bl.adl.a.c(R.drawable.ic_video_info_danmaku);
@@ -744,6 +747,7 @@ public final class AuthSpaceVideoFragment extends ady {
     private TextView p;
     private TextView q;
     private TextView r;
+    private TextView duration;
 
     public d(View view) {
       super(view);
@@ -752,6 +756,7 @@ public final class AuthSpaceVideoFragment extends ady {
       this.p = (TextView) a(view, R.id.up);
       this.q = (TextView) a(view, R.id.play);
       this.r = (TextView) a(view, R.id.danmaku);
+      this.duration = (TextView) a(view, R.id.duration);
     }
 
     public com.bilibili.tv.widget.ScalableImageView z() {
@@ -772,6 +777,10 @@ public final class AuthSpaceVideoFragment extends ady {
 
     public TextView D() {
       return this.r;
+    }
+
+    public TextView E() {
+      return this.duration;
     }
 
     public static final class a {

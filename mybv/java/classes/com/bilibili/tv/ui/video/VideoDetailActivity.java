@@ -1205,16 +1205,11 @@ public final class VideoDetailActivity extends BaseActivity
             rePlayBtnLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("VideoDetail", "重新播放按钮点击: mHistory=" + (finalBiliVideoDetail != null ? finalBiliVideoDetail.mHistory : "null"));
                     if (finalBiliVideoDetail != null && finalBiliVideoDetail.mHistory != null) {
                         long historyCid = finalBiliVideoDetail.mHistory.mCid;
-                        int oldProgress = finalBiliVideoDetail.mHistory.mProgress;
-                        Log.d("VideoDetail", "重新播放前: cid=" + historyCid + ", oldProgress=" + oldProgress);
                         finalBiliVideoDetail.mHistory.mProgress = 0;
-                        Log.d("VideoDetail", "重新播放后: mProgress=" + finalBiliVideoDetail.mHistory.mProgress);
                         playVideo(finalBiliVideoDetail, historyCid, 0);
                     } else {
-                        Log.d("VideoDetail", "重新播放: 没有历史记录");
                         playVideo(finalBiliVideoDetail, 0, 0);
                     }
                 }
@@ -1229,7 +1224,6 @@ public final class VideoDetailActivity extends BaseActivity
                         boolean newState = !noHistoryPlayCheckBox.isChecked();
                         noHistoryPlayCheckBox.setChecked(newState);
                         sNoHistoryPlayMode = newState;
-                        Log.d("VideoDetail", "无痕播放复选框状态切换: isChecked=" + newState + ", sNoHistoryPlayMode=" + sNoHistoryPlayMode);
                     }
                 }
             });
@@ -1242,7 +1236,6 @@ public final class VideoDetailActivity extends BaseActivity
                     if (noHistoryPlayCheckBox != null) {
                         sNoHistoryPlayMode = noHistoryPlayCheckBox.isChecked();
                     }
-                    Log.d("VideoDetail", "无痕播放按钮点击: sNoHistoryPlayMode=" + sNoHistoryPlayMode);
                     playVideo(finalBiliVideoDetail3, 0, 0);
                 }
             });
@@ -1397,24 +1390,19 @@ public final class VideoDetailActivity extends BaseActivity
 
     @Override // android.support.v4.app.FragmentActivity, android.app.Activity
     public void onActivityResult(int i2, int i3, Intent intent) {
-        Log.d("VideoDetail", "onActivityResult: requestCode=" + i2 + ", resultCode=" + i3 + ", intent=" + intent);
         if (i3 == -1 && (i2 == G || i2 == H)) {
             n();
         }
         if (i3 == -1 && i2 == REQUEST_CODE_PLAY_VIDEO && intent != null) {
             long lastCid = intent.getLongExtra("last_cid", 0);
             int lastProgress = intent.getIntExtra("last_progress", 0);
-            Log.d("VideoDetail", "Received from player: lastCid=" + lastCid + ", lastProgress=" + lastProgress);
             if (this.u != null && lastCid > 0) {
                 if (this.u.mHistory == null) {
                     this.u.mHistory = new BiliVideoDetail.History();
                 }
                 this.u.mHistory.mCid = lastCid;
                 this.u.mHistory.mProgress = lastProgress/1000;
-                Log.d("VideoDetail", "Updated history: mCid=" + this.u.mHistory.mCid + ", mProgress=" + this.u.mHistory.mProgress);
                 updateHistoryDisplay(this.u);
-            } else {
-                Log.d("VideoDetail", "Skip update: this.u=" + this.u + ", lastCid=" + lastCid);
             }
         }
         super.onActivityResult(i2, i3, intent);
@@ -1962,6 +1950,7 @@ public final class VideoDetailActivity extends BaseActivity
         private TextView p;
         private TextView q;
         private TextView r;
+        private TextView duration;
         private DrawRelativeLayout s;
 
         /*
@@ -1976,6 +1965,7 @@ public final class VideoDetailActivity extends BaseActivity
             this.p = (TextView) a(view, R.id.up);
             this.q = (TextView) a(view, R.id.play);
             this.r = (TextView) a(view, R.id.danmaku);
+            this.duration = (TextView) a(view, R.id.duration);
             Drawable c = adl.a.c(R.drawable.ic_video_info_up);
             Drawable c2 = adl.a.c(R.drawable.ic_video_info_play);
             Drawable c3 = adl.a.c(R.drawable.ic_video_info_danmaku);
@@ -2017,6 +2007,12 @@ public final class VideoDetailActivity extends BaseActivity
                 }
                 if (biliVideoDetail.getDanmakus() != null) {
                     this.r.setText(adh.a(biliVideoDetail.getDanmakus()));
+                }
+                int durationVal = biliVideoDetail.mDuration;
+                if (durationVal >= 3600) {
+                    this.duration.setText(String.format("%d:%02d:%02d", durationVal / 3600, (durationVal % 3600) / 60, durationVal % 60));
+                } else {
+                    this.duration.setText(String.format("%02d:%02d", durationVal / 60, durationVal % 60));
                 }
                 if (biliVideoDetail.mCover != null) {
                     nv a2 = nv.a();
@@ -2352,12 +2348,6 @@ public final class VideoDetailActivity extends BaseActivity
                 loadingImageView3.b();
             }
             VideoDetailActivity.this.u = biliVideoDetail;
-            String jsonStr = JSON.toJSONString(biliVideoDetail);
-            int maxLen = 2000;
-            for (int i = 0; i < jsonStr.length(); i += maxLen) {
-                Log.d("VideoDetail", "详情数据(" + i + "-" + Math.min(i + maxLen, jsonStr.length()) + "): "
-                        + jsonStr.substring(i, Math.min(i + maxLen, jsonStr.length())));
-            }
             VideoDetailActivity.this.a(ach.c(VideoDetailActivity.this.getApplicationContext(), biliVideoDetail.mCover));
             VideoDetailActivity.this.o();
             TextView textView = VideoDetailActivity.this.cc;

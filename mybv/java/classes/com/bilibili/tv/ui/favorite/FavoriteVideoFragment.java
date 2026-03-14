@@ -295,7 +295,6 @@ public final class FavoriteVideoFragment extends ady {
 
     private void loadVideoFavoriteVideos() {
         Activity activity = getActivity();
-        Log.d("FavoriteVideoFragment", "loadVideoFavoriteVideos: folderId=" + folderId + ", page=" + f);
         if (activity != null) {
             MyBiliApiService api = (MyBiliApiService) vo.a(MyBiliApiService.class);
             mg account = mg.a(activity);
@@ -306,8 +305,6 @@ public final class FavoriteVideoFragment extends ady {
                         .a(new vn<JSONObject>() {
                             @Override
                             public void a(JSONObject data) {
-                                Log.d("FavoriteVideoFragment",
-                                        "onResponse: data=" + (data != null ? data.toJSONString() : "null"));
                                 if (c == null) {
                                     return;
                                 }
@@ -317,8 +314,6 @@ public final class FavoriteVideoFragment extends ady {
                                     JSONArray medias = data.getJSONArray("medias");
                                     JSONObject info = data.getJSONObject("info");
                                     boolean hasMore = data.getBooleanValue("has_more");
-                                    Log.d("FavoriteVideoFragment", "medias size=" + (medias != null ? medias.size() : 0)
-                                            + ", hasMore=" + hasMore);
 
                                     if (medias != null && !medias.isEmpty()) {
                                         if (f == 1) {
@@ -349,7 +344,6 @@ public final class FavoriteVideoFragment extends ady {
 
                             @Override
                             public void onError(Throwable th) {
-                                Log.e("FavoriteVideoFragment", "onError: " + th.getMessage(), th);
                                 adl.a.a(th, getActivity());
                                 if (c == null) {
                                     return;
@@ -366,16 +360,12 @@ public final class FavoriteVideoFragment extends ady {
 
     private void loadCollectionVideos() {
         if (fid != 0 && mid != 0) {
-            // 使用 fid 和 mid 调用 getFavoriteSearchedVideoList
-            Log.d("FavoriteVideoFragment", "Collection with fid: fid=" + fid + ", mid=" + mid + ", page=" + f);
             ((BiliFavoriteVideoApiService) vo.a(BiliFavoriteVideoApiService.class))
                     .getFavoriteSearchedVideoList(mg.a(getActivity()).e(),
                             new BiliFavoriteVideoApiService.FavParamsMap(mid, fid, 0L, null, null, f))
                     .a(new vn<com.bilibili.tv.api.favorite.BiliSearchFavoriteBox>() {
                         @Override
                         public void a(com.bilibili.tv.api.favorite.BiliSearchFavoriteBox result) {
-                            Log.d("FavoriteVideoFragment", "Collection result: fid=" + fid + ", videos count="
-                                    + (result != null && result.videos != null ? result.videos.size() : 0));
                             if (c == null) {
                                 return;
                             }
@@ -407,7 +397,6 @@ public final class FavoriteVideoFragment extends ady {
 
                         @Override
                         public void onError(Throwable th) {
-                            Log.d("FavoriteVideoFragment", "Collection error: " + th.getMessage());
                             adl.a.a(th, getActivity());
                             if (c == null) {
                                 return;
@@ -419,15 +408,11 @@ public final class FavoriteVideoFragment extends ady {
                         }
                     });
         } else {
-            // 使用 season_id 调用 getFavoriteUserSeason
-            Log.d("FavoriteVideoFragment", "Collection with season_id: season_id=" + folderId + ", page=" + f);
             ((MyBiliApiService) vo.a(MyBiliApiService.class))
                     .getFavoriteUserSeason(folderId, f, 20)
                     .a(new vn<JSONObject>() {
                         @Override
                         public void a(JSONObject result) {
-                            Log.d("FavoriteVideoFragment",
-                                    "Collection result: " + (result != null ? result.toJSONString() : "null"));
                             if (c == null) {
                                 return;
                             }
@@ -495,14 +480,11 @@ public final class FavoriteVideoFragment extends ady {
     }
 
     private void loadCourseVideos() {
-        Log.d("FavoriteVideoFragment", "Course videos: season_id=" + folderId);
         ((MyBiliApiService) vo.a(MyBiliApiService.class))
                 .getPugvSeason(folderId)
                 .a(new vn<JSONObject>() {
                     @Override
                     public void a(JSONObject result) {
-                        Log.d("FavoriteVideoFragment",
-                                "Course videos result: " + (result != null ? result.toJSONString() : "null"));
                         if (c == null) {
                             return;
                         }
@@ -510,10 +492,7 @@ public final class FavoriteVideoFragment extends ady {
                         h = false;
                         if (result != null) {
                             JSONArray eps = result.getJSONArray("episodes");
-                            Log.d("FavoriteVideoFragment", "Episodes: " + (eps != null ? eps.toJSONString() : "null"));
                             if (eps != null && !eps.isEmpty()) {
-                                Log.d("FavoriteVideoFragment", "Episodes size: " + eps.size());
-                                // 直接使用 JSONArray，不转换为 List<BiliVideoDetail>
                                 if (f == 1) {
                                     c.a(eps, result);
                                     String title = result.getString("title");
@@ -580,13 +559,6 @@ public final class FavoriteVideoFragment extends ady {
 
         @Override // bl.vn
         public void a(BiliFavVideoDetailList biliFavVideoDetailList) {
-            Log.d("FavoriteVideoFragment", "VideoFavorite: page=" + FavoriteVideoFragment.this.f);
-            if (biliFavVideoDetailList != null) {
-                Log.d("FavoriteVideoFragment",
-                        "VideoFavorite: videos count=" + (biliFavVideoDetailList.getFavVideos() != null
-                                ? biliFavVideoDetailList.getFavVideos().size()
-                                : 0) + ", pages=" + biliFavVideoDetailList.getPages());
-            }
             if (FavoriteVideoFragment.this.c == null) {
                 return;
             }
@@ -679,6 +651,12 @@ public final class FavoriteVideoFragment extends ady {
                         ((d) advVar).C().setText(bl.adh.a(cntInfo.getLongValue("play")));
                         ((d) advVar).D().setText(bl.adh.a(cntInfo.getLongValue("danmaku")));
                     }
+                    int durationVal = item.getIntValue("duration");
+                    if (durationVal >= 3600) {
+                        ((d) advVar).E().setText(String.format("%d:%02d:%02d", durationVal / 3600, (durationVal % 3600) / 60, durationVal % 60));
+                    } else {
+                        ((d) advVar).E().setText(String.format("%02d:%02d", durationVal / 60, durationVal % 60));
+                    }
                     View view = advVar.a;
                     bbi.a((Object) view, "viewHolder.itemView");
                     view.setTag(item);
@@ -704,6 +682,12 @@ public final class FavoriteVideoFragment extends ady {
                     }
                     if (biliVideoDetail.mTypeName != null) {
                         ((d) advVar).B().setText(adl.e(R.string.type_name) + biliVideoDetail.mTypeName);
+                    }
+                    int durationVal = biliVideoDetail.mDuration;
+                    if (durationVal >= 3600) {
+                        ((d) advVar).E().setText(String.format("%d:%02d:%02d", durationVal / 3600, (durationVal % 3600) / 60, durationVal % 60));
+                    } else {
+                        ((d) advVar).E().setText(String.format("%02d:%02d", durationVal / 60, durationVal % 60));
                     }
                     View view = advVar.a;
                     bbi.a((Object) view, "viewHolder.itemView");
@@ -823,6 +807,7 @@ public final class FavoriteVideoFragment extends ady {
         private TextView p;
         private TextView q;
         private TextView r;
+        private TextView duration;
         private DrawRelativeLayout s;
 
         public d(View view) {
@@ -833,6 +818,7 @@ public final class FavoriteVideoFragment extends ady {
             this.p = (TextView) a(view, R.id.up);
             this.q = (TextView) a(view, R.id.play);
             this.r = (TextView) a(view, R.id.danmaku);
+            this.duration = (TextView) a(view, R.id.duration);
             this.s = (DrawRelativeLayout) a(view, R.id.draw);
             android.graphics.drawable.Drawable c = bl.adl.a.c(R.drawable.ic_video_info_up);
             android.graphics.drawable.Drawable c2 = bl.adl.a.c(R.drawable.ic_video_info_play);
@@ -873,6 +859,10 @@ public final class FavoriteVideoFragment extends ady {
 
         public final TextView D() {
             return this.r;
+        }
+
+        public final TextView E() {
+            return this.duration;
         }
 
         @Override // android.view.View.OnFocusChangeListener

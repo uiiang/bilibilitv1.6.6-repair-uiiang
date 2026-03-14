@@ -193,7 +193,6 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
               if (fragment2 instanceof AuthSpaceVideoFragment) {
                 AuthSpaceVideoFragment avf = (AuthSpaceVideoFragment) fragment2;
                 if (avf.isLoading()) {
-                  Log.d("AuthSpaceSideActivity", "Swallow key " + keyCode + " because right side loading and predicted focus on left");
                   return true;
                 }
               }
@@ -293,7 +292,6 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
               AuthSpaceSideActivity.this.g = (respPageNum * pageSize) < total;
               AuthSpaceSideActivity.this.updateMenu();
             } catch (Exception ex) {
-              Log.e("AuthSpaceSideActivity", "parse error", ex);
               AuthSpaceSideActivity.this.g = false;
               AuthSpaceSideActivity.this.updateMenu();
             }

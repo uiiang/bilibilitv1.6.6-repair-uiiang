@@ -174,7 +174,6 @@ public final class AuthSpaceActivity extends BaseReloadActivity {
             @Override // android.support.v7.widget.RecyclerView.h onInterceptFocusSearch
             public View d(View focused, int direction) {
                 if (direction == View.FOCUS_UP && focused != null && d(focused)<c() && AuthSpaceActivity.this.attentionButton != null) {
-                    Log.d("test","top!!!");
                     focused.setSelected(false);
                     return AuthSpaceActivity.this.attentionButton;
                 }

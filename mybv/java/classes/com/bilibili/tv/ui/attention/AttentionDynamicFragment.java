@@ -315,7 +315,6 @@ public final class AttentionDynamicFragment extends ady {
                     
                     @Override
                     public void onError(Throwable th) {
-                        android.util.Log.e("AttentionDynamicFragment", "loadAllDynamic error: " + th.getMessage());
                         adl.a.a(th, getActivity());
                         if (c == null) {
                             return;
@@ -381,7 +380,6 @@ public final class AttentionDynamicFragment extends ady {
                     
                     @Override
                     public void onError(Throwable th) {
-                        android.util.Log.e("AttentionDynamicFragment", "loadUperVideos error: " + th.getMessage());
                         adl.a.a(th, getActivity());
                         if (c == null) {
                             return;
@@ -426,6 +424,8 @@ public final class AttentionDynamicFragment extends ady {
                     dVar.B().setText(feedItem.getJSONObject("module_author").getString("name"));
                     dVar.C().setText(feedArchiveItem.getJSONObject("stat").getString("play"));
                     dVar.D().setText(feedArchiveItem.getJSONObject("stat").getString("danmaku"));
+                    String durationText = feedArchiveItem.getString("duration_text");
+                    dVar.E().setText(durationText != null ? durationText : "");
                     if (feedArchiveItem.getString("cover") != null) {
                         nv.a().a(ach.c(MainApplication.a(), feedArchiveItem.getString("cover")), dVar.z());
                     }
@@ -442,6 +442,12 @@ public final class AttentionDynamicFragment extends ady {
                     }
                     dVar.C().setText(bl.adh.a(video.play));
                     dVar.D().setText(bl.adh.a(video.danmaku));
+                    int durationVal = video.duration;
+                    if (durationVal >= 3600) {
+                        dVar.E().setText(String.format("%d:%02d:%02d", durationVal / 3600, (durationVal % 3600) / 60, durationVal % 60));
+                    } else {
+                        dVar.E().setText(String.format("%02d:%02d", durationVal / 60, durationVal % 60));
+                    }
                     if (video.cover != null) {
                         nv.a().a(ach.c(MainApplication.a(), video.cover), dVar.z());
                     }
@@ -512,6 +518,7 @@ public final class AttentionDynamicFragment extends ady {
         private TextView p;
         private TextView q;
         private TextView r;
+        private TextView duration;
 
         /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
         public d(View view) {
@@ -522,6 +529,7 @@ public final class AttentionDynamicFragment extends ady {
             this.p = (TextView) a(view, R.id.up);
             this.q = (TextView) a(view, R.id.play);
             this.r = (TextView) a(view, R.id.danmaku);
+            this.duration = (TextView) a(view, R.id.duration);
             android.graphics.drawable.Drawable c = bl.adl.a.c(R.drawable.ic_video_info_up);
             android.graphics.drawable.Drawable c2 = bl.adl.a.c(R.drawable.ic_video_info_play);
             android.graphics.drawable.Drawable c3 = bl.adl.a.c(R.drawable.ic_video_info_danmaku);
@@ -556,6 +564,10 @@ public final class AttentionDynamicFragment extends ady {
 
         public final TextView D() {
             return this.r;
+        }
+
+        public final TextView E() {
+            return this.duration;
         }
 
         /* compiled from: BL */

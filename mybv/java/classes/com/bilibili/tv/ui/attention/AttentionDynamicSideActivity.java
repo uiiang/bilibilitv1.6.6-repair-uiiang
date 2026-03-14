@@ -165,7 +165,6 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
                             if (frag instanceof AttentionDynamicFragment) {
                                 AttentionDynamicFragment adf = (AttentionDynamicFragment) frag;
                                 if (adf.isLoading()) {
-                                    Log.d("AttentionDynamicSideActivity", "Swallow key " + keyCode + " because right side loading and predicted focus on left");
                                     return true;
                                 }
                             }
@@ -342,9 +341,7 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
     }
     
     private void showVideoList(UperItem item) {
-        android.util.Log.d("AttentionDynamicSideActivity", "showVideoList() called, item: " + item.getName() + ", mid: " + item.getMid() + ", isAllDynamic: " + item.isAllDynamic());
         if (selectedItem == item) {
-            android.util.Log.d("AttentionDynamicSideActivity", "Selected item is same as current, returning");
             return;
         }
         
@@ -352,20 +349,15 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
         
         AttentionDynamicFragment fragment;
         if (item.isAllDynamic()) {
-            // 全部动态
             fragment = AttentionDynamicFragment.newInstance(-1, "all", "");
-            android.util.Log.d("AttentionDynamicSideActivity", "Creating all dynamic fragment");
         } else {
-            // 单个UP主
             fragment = AttentionDynamicFragment.newInstance(item.getMid(), "uper", item.getName());
-            android.util.Log.d("AttentionDynamicSideActivity", "Creating uper fragment for mid: " + item.getMid() + ", name: " + item.getName());
         }
         
         getSupportFragmentManager()
             .beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .commit();
-        android.util.Log.d("AttentionDynamicSideActivity", "Fragment transaction committed");
     }
 
     /* compiled from: BL */

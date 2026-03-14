@@ -23,4 +23,7 @@ public class BiliSpaceVideo {
 
     @JSONField(name = "ctime")
     public Long ctime;
+
+    @JSONField(name = "duration")
+    public int duration;
 }

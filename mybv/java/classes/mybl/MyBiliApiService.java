@@ -136,5 +136,6 @@ public interface MyBiliApiService {
     vp<GeneralResponse<JSONObject>> getCreatedFolderList(
             @Query("up_mid") long up_mid,
             @Query("web_location") String web_location,
+            @Query("access_key") String access_key,
             @Header("Referer") String referer);
 }

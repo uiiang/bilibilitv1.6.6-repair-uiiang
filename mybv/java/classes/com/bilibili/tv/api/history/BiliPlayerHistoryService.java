@@ -24,7 +24,7 @@ public interface BiliPlayerHistoryService {
     vp<JSONObject> clearVideoHistories(@Query(value = "access_key") String access_key, @Query(value = "kid") String kid);
 
     @GET(value = "/x/web-interface/history/cursor")
-    vp<GeneralResponse<JSONObject>> getVideoHistoryList(@Header("Cookie") String cookie, @Query(value = "max") long max, @Query(value = "view_at") long view_at, @Query(value = "business") String business, @Query(value = "type") String type, @Query(value = "ps") int ps);
+    vp<GeneralResponse<JSONObject>> getVideoHistoryList(@Query(value = "access_key") String access_key, @Query(value = "max") long max, @Query(value = "view_at") long view_at, @Query(value = "business") String business, @Query(value = "type") String type, @Query(value = "ps") int ps);
 
     //@POST(value = "/x/v2/history/toview/clear")
     //vp<JSONObject> clearVideoToviews(@Query(value = "access_key") String str);

@@ -366,6 +366,29 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements Vie
                 ((f) holder).B().setText(biliVideoDetail.getAuthor());
                 ((f) holder).C().setText(adh.a(biliVideoDetail.getPlays()));
                 ((f) holder).D().setText(adh.a(biliVideoDetail.getDanmakus()));
+                int durationVal = biliVideoDetail.mDuration;
+                int progressVal = biliVideoDetail.mProgress;
+                if (progressVal == -1) {
+                    ((f) holder).E().setText("已看完");
+                } else {
+                    String durationStr;
+                    if (durationVal >= 3600) {
+                        durationStr = String.format("%d:%02d:%02d", durationVal / 3600, (durationVal % 3600) / 60, durationVal % 60);
+                    } else {
+                        durationStr = String.format("%02d:%02d", durationVal / 60, durationVal % 60);
+                    }
+                    if (progressVal > 0) {
+                        String progressStr;
+                        if (progressVal >= 3600) {
+                            progressStr = String.format("%d:%02d:%02d", progressVal / 3600, (progressVal % 3600) / 60, progressVal % 60);
+                        } else {
+                            progressStr = String.format("%02d:%02d", progressVal / 60, progressVal % 60);
+                        }
+                        ((f) holder).E().setText(progressStr + "/" + durationStr);
+                    } else {
+                        ((f) holder).E().setText(durationStr);
+                    }
+                }
                 if (biliVideoDetail.mCover != null) {
                     nv.a().a(ach.c(MainApplication.a(), biliVideoDetail.mCover), ((f) holder).z());
                 }
@@ -442,6 +465,7 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements Vie
         private TextView p;
         private TextView q;
         private TextView r;
+        private TextView duration;
 
         /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
         public f(View view) {
@@ -452,6 +476,7 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements Vie
             this.p = (TextView) a(view, R.id.up);
             this.q = (TextView) a(view, R.id.play);
             this.r = (TextView) a(view, R.id.danmaku);
+            this.duration = (TextView) a(view, R.id.duration);
 
             Drawable c = adl.a.c(R.drawable.ic_video_info_up);
             Drawable c2 = adl.a.c(R.drawable.ic_video_info_play);
@@ -491,6 +516,10 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements Vie
 
         public final TextView D() {
             return this.r;
+        }
+
+        public final TextView E() {
+            return this.duration;
         }
 
         /* compiled from: BL */

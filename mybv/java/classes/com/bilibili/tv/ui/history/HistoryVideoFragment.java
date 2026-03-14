@@ -231,18 +231,19 @@ public final class HistoryVideoFragment extends ady {
         }
         
         mg account = mg.a(activity);
-        if (account == null || !account.a()) {
+        if (account == null) {
             isLoading = false;
             return;
         }
         
-        String sessdata = account.getSESSDATA();
-        String cookie = "SESSDATA=" + sessdata;
-        
-        android.util.Log.d(TAG, "loadHistoryData: type=" + historyType + ", cursorMax=" + cursorMax);
+        String accessKey = account.e();
+        if (TextUtils.isEmpty(accessKey)) {
+            isLoading = false;
+            return;
+        }
         
         ((BiliPlayerHistoryService) vo.a(BiliPlayerHistoryService.class))
-            .getVideoHistoryList(cookie, cursorMax, cursorViewAt, cursorBusiness, historyType, PAGE_SIZE)
+            .getVideoHistoryList(accessKey, cursorMax, cursorViewAt, cursorBusiness, historyType, PAGE_SIZE)
             .a(new vn<JSONObject>() {
                 @Override
                 public boolean isCancel() {
@@ -251,7 +252,6 @@ public final class HistoryVideoFragment extends ady {
                 
                 @Override
                 public void onError(Throwable th) {
-                    android.util.Log.e(TAG, "loadHistoryData error: " + th.getMessage(), th);
                     isLoading = false;
                     adl.a.a(th, getActivity());
                 }
