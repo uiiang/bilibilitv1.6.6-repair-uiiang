@@ -433,13 +433,22 @@ public class AuthSpaceSideActivity extends BaseSideActivity implements View.OnLo
     }
 
     AuthSpaceVideoFragment avf = (AuthSpaceVideoFragment) frag;
-    if (!avf.isSeasonOrSeriesMode()) {
+    if (!avf.canSort()) {
       return true;
     }
 
     LinkedHashMap<String, Object> sortOptions = new LinkedHashMap<>();
-    sortOptions.put("默认排序", "default");
-    sortOptions.put("倒序排序", "reverse");
+    String currentOrder = getSortOrder();
+    
+    if (avf.getCurrentMode() == 0) {
+      // 全部视频模式：最新发布、最多播放
+      sortOptions.put("最新发布", "pubdate");
+      sortOptions.put("最多播放", "click");
+    } else {
+      // 合集/系列模式：默认排序、倒序排序
+      sortOptions.put("默认排序", "default");
+      sortOptions.put("倒序排序", "reverse");
+    }
 
     agb.a builder = new agb.a(this);
     builder.a(2)
@@ -452,7 +461,7 @@ public class AuthSpaceSideActivity extends BaseSideActivity implements View.OnLo
                 dialog.dismiss();
               }
             });
-    builder.a((Object) getSortOrder());
+    builder.a((Object) currentOrder);
     builder.a().show();
 
     return true;

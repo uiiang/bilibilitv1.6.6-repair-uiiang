@@ -335,7 +335,7 @@ public final class AttentionDynamicFragment extends ady {
             BiliSpaceApiService api = (BiliSpaceApiService) vo.a(BiliSpaceApiService.class);
             mg account = mg.a(activity);
             if (account != null) {
-                api.loadArchiveVideos(account.e(), mid, f, 20).a(new vn<BiliSpaceVideoList>() {
+                api.loadArchiveVideos(account.e(), mid, f, 20, null).a(new vn<BiliSpaceVideoList>() {
                     @Override
                     public void a(BiliSpaceVideoList biliSpaceVideoList) {
                         if (c == null) {

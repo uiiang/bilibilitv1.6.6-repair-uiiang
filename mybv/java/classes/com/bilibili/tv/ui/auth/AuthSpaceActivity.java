@@ -340,7 +340,7 @@ public final class AuthSpaceActivity extends BaseReloadActivity {
         BiliSpaceApiService biliSpaceApiService = (BiliSpaceApiService) vo.a(BiliSpaceApiService.class);
         mg account = mg.a(this);
         bbi.a((Object) account, "BiliAccount.get(this)");
-        biliSpaceApiService.loadArchiveVideos(account.e(), this.k, this.g, 20).a(this.b);
+        biliSpaceApiService.loadArchiveVideos(account.e(), this.k, this.g, 20, null).a(this.b);
     }
 
     @Override // com.bilibili.tv.ui.base.BaseReloadActivity, bl.aea

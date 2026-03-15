@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 160
+    .line 162
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 6
 
     .prologue
-    .line 163
+    .line 165
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -51,14 +51,14 @@
 
     move-result-object v1
 
-    .line 164
+    .line 166
     if-nez v1, :cond_d
 
-    .line 188
+    .line 190
     :goto_c
     return-void
 
-    .line 165
+    .line 167
     :cond_d
     const-class v0, Lmybl/MyBiliApiService;
 
@@ -68,7 +68,7 @@
 
     check-cast v0, Lmybl/MyBiliApiService;
 
-    .line 166
+    .line 168
     invoke-virtual {v1}, Lbl/mg;->e()Ljava/lang/String;
 
     move-result-object v1
@@ -84,7 +84,7 @@
 
     iget-object v4, v4, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
-    .line 167
+    .line 169
     invoke-virtual {v4}, Lcom/bilibili/tv/widget/DrawTextView;->getText()Ljava/lang/CharSequence;
 
     move-result-object v4
@@ -102,7 +102,7 @@
     :goto_30
     const/16 v5, 0xb
 
-    .line 165
+    .line 167
     invoke-interface/range {v0 .. v5}, Lmybl/MyBiliApiService;->modifyRelation(Ljava/lang/String;JII)Lbl/vp;
 
     move-result-object v0
@@ -111,12 +111,12 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2$1;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;)V
 
-    .line 169
+    .line 171
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
     goto :goto_c
 
-    .line 167
+    .line 169
     :cond_3f
     const/4 v4, 0x1
 

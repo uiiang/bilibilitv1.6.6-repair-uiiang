@@ -10,7 +10,7 @@
 
 
 # virtual methods
-.method public abstract loadArchiveVideos(Ljava/lang/String;JII)Lbl/vp;
+.method public abstract loadArchiveVideos(Ljava/lang/String;JIILjava/lang/String;)Lbl/vp;
     .param p1    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Query;
             value = "access_key"
@@ -31,6 +31,11 @@
             value = "ps"
         .end annotation
     .end param
+    .param p6    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "order"
+        .end annotation
+    .end param
     .annotation runtime Lcom/bilibili/okretro/anno/CacheControl;
         value = 0xbb8L
     .end annotation
@@ -39,7 +44,9 @@
         value = {
             "(",
             "Ljava/lang/String;",
-            "JII)",
+            "JII",
+            "Ljava/lang/String;",
+            ")",
             "Lbl/vp",
             "<",
             "Lcom/bilibili/okretro/GeneralResponse",
@@ -50,7 +57,7 @@
     .end annotation
 
     .annotation runtime Lretrofit2/http/GET;
-        value = "/x/v2/space/archive"
+        value = "/x/v2/space/archive/cursor"
     .end annotation
 .end method
 

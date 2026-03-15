@@ -1299,10 +1299,10 @@
 .end method
 
 .method public onLongClick(Landroid/view/View;)Z
-    .locals 5
+    .locals 6
 
     .prologue
-    const/4 v4, 0x1
+    const/4 v5, 0x1
 
     .line 430
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->h()Landroid/support/v4/app/Fragment;
@@ -1314,82 +1314,108 @@
 
     if-nez v1, :cond_a
 
-    .line 458
+    .line 467
     :cond_9
     :goto_9
-    return v4
+    return v5
 
     .line 435
     :cond_a
     check-cast v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     .line 436
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->isSeasonOrSeriesMode()Z
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->canSort()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_9
+
+    .line 440
+    new-instance v1, Ljava/util/LinkedHashMap;
+
+    invoke-direct {v1}, Ljava/util/LinkedHashMap;-><init>()V
+
+    .line 441
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->getSortOrder()Ljava/lang/String;
+
+    move-result-object v2
+
+    .line 443
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getCurrentMode()I
 
     move-result v0
 
-    if-eqz v0, :cond_9
-
-    .line 440
-    new-instance v0, Ljava/util/LinkedHashMap;
-
-    invoke-direct {v0}, Ljava/util/LinkedHashMap;-><init>()V
-
-    .line 441
-    const-string v1, "\u9ed8\u8ba4\u6392\u5e8f"
-
-    const-string v2, "default"
-
-    invoke-virtual {v0, v1, v2}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-
-    .line 442
-    const-string v1, "\u5012\u5e8f\u6392\u5e8f"
-
-    const-string v2, "reverse"
-
-    invoke-virtual {v0, v1, v2}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-
-    .line 444
-    new-instance v1, Lbl/agb$a;
-
-    invoke-direct {v1, p0}, Lbl/agb$a;-><init>(Landroid/app/Activity;)V
+    if-nez v0, :cond_52
 
     .line 445
-    const/4 v2, 0x2
+    const-string v0, "\u6700\u65b0\u53d1\u5e03"
 
-    invoke-virtual {v1, v2}, Lbl/agb$a;->a(I)Lbl/agb$a;
+    const-string v3, "pubdate"
 
-    move-result-object v2
-
-    const-string v3, "\u6392\u5e8f:"
+    invoke-virtual {v1, v0, v3}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
     .line 446
-    invoke-virtual {v2, v3}, Lbl/agb$a;->a(Ljava/lang/String;)Lbl/agb$a;
+    const-string v0, "\u6700\u591a\u64ad\u653e"
 
-    move-result-object v2
+    const-string v3, "click"
 
-    new-instance v3, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;
+    invoke-virtual {v1, v0, v3}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    invoke-direct {v3, p0, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;Ljava/util/LinkedHashMap;)V
+    .line 453
+    :goto_2f
+    new-instance v0, Lbl/agb$a;
 
-    .line 447
-    invoke-virtual {v2, v0, v3}, Lbl/agb$a;->a(Ljava/util/LinkedHashMap;Lbl/agb$c;)Lbl/agb$a;
+    invoke-direct {v0, p0}, Lbl/agb$a;-><init>(Landroid/app/Activity;)V
+
+    .line 454
+    const/4 v3, 0x2
+
+    invoke-virtual {v0, v3}, Lbl/agb$a;->a(I)Lbl/agb$a;
+
+    move-result-object v3
+
+    const-string v4, "\u6392\u5e8f:"
 
     .line 455
-    invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->getSortOrder()Ljava/lang/String;
+    invoke-virtual {v3, v4}, Lbl/agb$a;->a(Ljava/lang/String;)Lbl/agb$a;
 
-    move-result-object v0
+    move-result-object v3
 
-    invoke-virtual {v1, v0}, Lbl/agb$a;->a(Ljava/lang/Object;)Lbl/agb$a;
+    new-instance v4, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;
+
+    invoke-direct {v4, p0, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;Ljava/util/LinkedHashMap;)V
 
     .line 456
-    invoke-virtual {v1}, Lbl/agb$a;->a()Lbl/agb;
+    invoke-virtual {v3, v1, v4}, Lbl/agb$a;->a(Ljava/util/LinkedHashMap;Lbl/agb$c;)Lbl/agb$a;
+
+    .line 464
+    invoke-virtual {v0, v2}, Lbl/agb$a;->a(Ljava/lang/Object;)Lbl/agb$a;
+
+    .line 465
+    invoke-virtual {v0}, Lbl/agb$a;->a()Lbl/agb;
 
     move-result-object v0
 
     invoke-virtual {v0}, Lbl/agb;->show()V
 
     goto :goto_9
+
+    .line 449
+    :cond_52
+    const-string v0, "\u9ed8\u8ba4\u6392\u5e8f"
+
+    const-string v3, "default"
+
+    invoke-virtual {v1, v0, v3}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    .line 450
+    const-string v0, "\u5012\u5e8f\u6392\u5e8f"
+
+    const-string v3, "reverse"
+
+    invoke-virtual {v1, v0, v3}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    goto :goto_2f
 .end method
 
 .method public onPostCreate(Landroid/os/Bundle;)V

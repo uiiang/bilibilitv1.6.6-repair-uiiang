@@ -62,8 +62,10 @@ public final class AuthSpaceVideoFragment extends ady {
   private int totalCount = 0;
   
   // 排序参数
+  // 全部视频模式: order, click=最多播放, pubdate=最新发布
   // 合集模式: sort_reverse, true=默认排序, false=倒序排序
   // 系列模式: sort, desc=默认排序, asc=倒序排序
+  private String allVideoOrder = "pubdate";  // 全部视频模式排序，默认最新发布
   private boolean sortReverse = true;  // 合集模式排序
   private String sortDirection = "desc";  // 系列模式排序
 
@@ -214,6 +216,9 @@ public final class AuthSpaceVideoFragment extends ady {
       if (headerCount != null) {
         headerCount.setText(totalCount > 0 ? totalCount + "条" : "");
       }
+      if (hintSort != null) {
+        hintSort.setVisibility(View.VISIBLE);
+      }
     } else if ("season".equals(mode)) {
       // 合集模式：显示合集标题和视频数
       if (headerTitle != null) {
@@ -264,8 +269,21 @@ public final class AuthSpaceVideoFragment extends ady {
     return "season".equals(mode) || "series".equals(mode);
   }
   
+  public boolean canSort() {
+    return "all".equals(mode) || "season".equals(mode) || "series".equals(mode);
+  }
+  
+  public int getCurrentMode() {
+    if ("all".equals(mode)) return 0;
+    if ("season".equals(mode)) return 1;
+    if ("series".equals(mode)) return 2;
+    return -1;
+  }
+  
   public String getSortOrder() {
-    if ("season".equals(mode)) {
+    if ("all".equals(mode)) {
+      return allVideoOrder;
+    } else if ("season".equals(mode)) {
       return sortReverse ? "default" : "reverse";
     } else if ("series".equals(mode)) {
       return "desc".equals(sortDirection) ? "default" : "reverse";
@@ -277,7 +295,9 @@ public final class AuthSpaceVideoFragment extends ady {
     if (TextUtils.equals(order, getSortOrder())) {
       return;
     }
-    if ("season".equals(mode)) {
+    if ("all".equals(mode)) {
+      allVideoOrder = order;
+    } else if ("season".equals(mode)) {
       sortReverse = "default".equals(order);
     } else if ("series".equals(mode)) {
       sortDirection = "default".equals(order) ? "desc" : "asc";
@@ -324,7 +344,7 @@ public final class AuthSpaceVideoFragment extends ady {
     mg account = mg.a(activity);
     if (account == null)
       return;
-    api.loadArchiveVideos(account.e(), this.mid, this.page, 20).a(new vn<BiliSpaceVideoList>() {
+    api.loadArchiveVideos(account.e(), this.mid, this.page, 20, this.allVideoOrder).a(new vn<BiliSpaceVideoList>() {
       @Override
       public boolean isCancel() {
         return getActivity() == null || adapter == null;

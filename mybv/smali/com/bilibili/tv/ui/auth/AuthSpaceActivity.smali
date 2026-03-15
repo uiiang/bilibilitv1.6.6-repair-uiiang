@@ -599,7 +599,7 @@
 .end method
 
 .method public final k()V
-    .locals 6
+    .locals 7
 
     .prologue
     .line 339
@@ -637,7 +637,9 @@
 
     const/16 v5, 0x14
 
-    invoke-interface/range {v0 .. v5}, Lcom/bilibili/tv/api/auth/BiliSpaceApiService;->loadArchiveVideos(Ljava/lang/String;JII)Lbl/vp;
+    const/4 v6, 0x0
+
+    invoke-interface/range {v0 .. v6}, Lcom/bilibili/tv/api/auth/BiliSpaceApiService;->loadArchiveVideos(Ljava/lang/String;JIILjava/lang/String;)Lbl/vp;
 
     move-result-object v0
 

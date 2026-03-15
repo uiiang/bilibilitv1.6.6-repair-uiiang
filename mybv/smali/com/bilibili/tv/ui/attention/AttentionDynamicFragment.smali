@@ -248,7 +248,7 @@
 .end method
 
 .method private loadUperVideos()V
-    .locals 6
+    .locals 7
 
     .prologue
     .line 333
@@ -257,7 +257,7 @@
     move-result-object v1
 
     .line 334
-    if-eqz v1, :cond_2a
+    if-eqz v1, :cond_2b
 
     .line 335
     const-class v0, Lcom/bilibili/tv/api/auth/BiliSpaceApiService;
@@ -274,7 +274,7 @@
     move-result-object v1
 
     .line 337
-    if-eqz v1, :cond_2a
+    if-eqz v1, :cond_2b
 
     .line 338
     invoke-virtual {v1}, Lbl/mg;->e()Ljava/lang/String;
@@ -287,7 +287,9 @@
 
     const/16 v5, 0x14
 
-    invoke-interface/range {v0 .. v5}, Lcom/bilibili/tv/api/auth/BiliSpaceApiService;->loadArchiveVideos(Ljava/lang/String;JII)Lbl/vp;
+    const/4 v6, 0x0
+
+    invoke-interface/range {v0 .. v6}, Lcom/bilibili/tv/api/auth/BiliSpaceApiService;->loadArchiveVideos(Ljava/lang/String;JIILjava/lang/String;)Lbl/vp;
 
     move-result-object v0
 
@@ -298,7 +300,7 @@
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
     .line 395
-    :cond_2a
+    :cond_2b
     return-void
 .end method
 

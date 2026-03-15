@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 447
+    .line 456
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;->val$sortOptions:Ljava/util/LinkedHashMap;
@@ -44,7 +44,7 @@
     .locals 2
 
     .prologue
-    .line 450
+    .line 459
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;->val$sortOptions:Ljava/util/LinkedHashMap;
 
     invoke-virtual {v0, p3}, Ljava/util/LinkedHashMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
@@ -53,14 +53,14 @@
 
     check-cast v0, Ljava/lang/String;
 
-    .line 451
+    .line 460
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->setSortOrder(Ljava/lang/String;)V
 
-    .line 452
+    .line 461
     invoke-virtual {p1}, Lbl/agb;->dismiss()V
 
-    .line 453
+    .line 462
     return-void
 .end method
