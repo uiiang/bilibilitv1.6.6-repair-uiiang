@@ -26,12 +26,12 @@
     .locals 0
 
     .prologue
-    .line 181
+    .line 183
     iput-object p1, p0, Lbl/yt$a;->this$0:Lbl/yt;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 182
+    .line 184
     return-void
 .end method
 
@@ -39,7 +39,7 @@
     .locals 0
 
     .prologue
-    .line 180
+    .line 182
     invoke-direct {p0, p1}, Lbl/yt$a;-><init>(Lbl/yt;)V
 
     return-void
@@ -51,7 +51,7 @@
     .locals 5
 
     .prologue
-    .line 186
+    .line 188
     iget-object v0, p0, Lbl/yt$a;->this$0:Lbl/yt;
 
     iget-object v0, v0, Lbl/yt;->a:Ljava/lang/ref/WeakReference;
@@ -62,28 +62,28 @@
 
     check-cast v0, Landroid/os/Handler;
 
-    .line 187
+    .line 189
     if-nez v0, :cond_d
 
-    .line 207
+    .line 209
     :cond_c
     :goto_c
     return-void
 
-    .line 190
+    .line 192
     :cond_d
     const/16 v1, 0x27db
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->sendEmptyMessage(I)Z
 
-    .line 191
+    .line 193
     iget-object v1, p0, Lbl/yt$a;->this$0:Lbl/yt;
 
     iget-object v1, v1, Lbl/yt;->b:Lbl/yh;
 
     iget-object v2, v1, Lbl/yh;->a:Lcom/bilibili/tv/player/basic/context/PlayerParams;
 
-    .line 192
+    .line 194
     iget-object v1, p0, Lbl/yt$a;->this$0:Lbl/yt;
 
     # getter for: Lbl/yt;->c:Landroid/content/Context;
@@ -95,7 +95,7 @@
 
     move-result-object v1
 
-    .line 193
+    .line 195
     invoke-static {}, Lbl/yn;->a()Lbl/yn;
 
     move-result-object v3
@@ -104,10 +104,10 @@
 
     invoke-virtual {v3, v4}, Lbl/yn;->a(I)V
 
-    .line 194
+    .line 196
     if-nez v1, :cond_73
 
-    .line 195
+    .line 197
     iget-object v1, p0, Lbl/yt$a;->this$0:Lbl/yt;
 
     # getter for: Lbl/yt;->j:Lbl/yu;
@@ -132,16 +132,16 @@
 
     move-result-object v1
 
-    .line 200
+    .line 202
     :goto_42
     if-nez v1, :cond_49
 
-    .line 201
+    .line 203
     const/16 v2, 0x27dd
 
     invoke-virtual {v0, v2}, Landroid/os/Handler;->sendEmptyMessage(I)Z
 
-    .line 203
+    .line 205
     :cond_49
     iget-object v0, p0, Lbl/yt$a;->this$0:Lbl/yt;
 
@@ -153,7 +153,7 @@
 
     invoke-interface {v0, v1}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuParams;->setDanmakuDocument(Ltv/danmaku/videoplayer/core/danmaku/IDanmakuDocument;)V
 
-    .line 204
+    .line 206
     iget-object v0, p0, Lbl/yt$a;->this$0:Lbl/yt;
 
     iget-object v0, v0, Lbl/yt;->b:Lbl/yh;
@@ -168,7 +168,7 @@
 
     if-nez v0, :cond_c
 
-    .line 205
+    .line 207
     iget-object v0, p0, Lbl/yt$a;->this$0:Lbl/yt;
 
     iget-object v0, v0, Lbl/yt;->b:Lbl/yh;
@@ -185,7 +185,7 @@
 
     goto :goto_c
 
-    .line 197
+    .line 199
     :cond_73
     invoke-static {}, Lbl/yn;->a()Lbl/yn;
 
@@ -193,7 +193,7 @@
 
     invoke-virtual {v2}, Lbl/yn;->b()V
 
-    .line 198
+    .line 200
     invoke-static {}, Lbl/yn;->a()Lbl/yn;
 
     move-result-object v2

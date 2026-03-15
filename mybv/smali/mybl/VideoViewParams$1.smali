@@ -3,12 +3,12 @@
 .source "VideoViewParams.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Ljava/util/Comparator;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lmybl/VideoViewParams;->testAndSelectBestCDNAsync(Lorg/json/JSONArray;Lorg/json/JSONArray;)V
+    value = Lmybl/VideoViewParams;->sortUrlsByCdnScore(Ljava/util/List;)Ljava/util/List;
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -16,23 +16,23 @@
     name = null
 .end annotation
 
-
-# instance fields
-.field final synthetic val$audios:Lorg/json/JSONArray;
-
-.field final synthetic val$videos:Lorg/json/JSONArray;
+.annotation system Ldalvik/annotation/Signature;
+    value = {
+        "Ljava/lang/Object;",
+        "Ljava/util/Comparator",
+        "<",
+        "Ljava/lang/String;",
+        ">;"
+    }
+.end annotation
 
 
 # direct methods
-.method constructor <init>(Lorg/json/JSONArray;Lorg/json/JSONArray;)V
+.method constructor <init>()V
     .locals 0
 
     .prologue
-    .line 37
-    iput-object p1, p0, Lmybl/VideoViewParams$1;->val$videos:Lorg/json/JSONArray;
-
-    iput-object p2, p0, Lmybl/VideoViewParams$1;->val$audios:Lorg/json/JSONArray;
-
+    .line 252
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -40,43 +40,58 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 3
+.method public bridge synthetic compare(Ljava/lang/Object;Ljava/lang/Object;)I
+    .locals 1
 
     .prologue
-    const/4 v2, 0x0
+    .line 252
+    check-cast p1, Ljava/lang/String;
 
-    .line 40
-    const/4 v0, 0x1
+    check-cast p2, Ljava/lang/String;
 
-    # setter for: Lmybl/VideoViewParams;->isTestingCDN:Z
-    invoke-static {v0}, Lmybl/VideoViewParams;->access$002(Z)Z
+    invoke-virtual {p0, p1, p2}, Lmybl/VideoViewParams$1;->compare(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 42
-    :try_start_5
-    iget-object v0, p0, Lmybl/VideoViewParams$1;->val$videos:Lorg/json/JSONArray;
+    move-result v0
 
-    iget-object v1, p0, Lmybl/VideoViewParams$1;->val$audios:Lorg/json/JSONArray;
+    return v0
+.end method
 
-    # invokes: Lmybl/VideoViewParams;->testAndSelectBestCDNInternal(Lorg/json/JSONArray;Lorg/json/JSONArray;)V
-    invoke-static {v0, v1}, Lmybl/VideoViewParams;->access$100(Lorg/json/JSONArray;Lorg/json/JSONArray;)V
-    :try_end_c
-    .catchall {:try_start_5 .. :try_end_c} :catchall_10
+.method public compare(Ljava/lang/String;Ljava/lang/String;)I
+    .locals 2
 
-    .line 44
-    # setter for: Lmybl/VideoViewParams;->isTestingCDN:Z
-    invoke-static {v2}, Lmybl/VideoViewParams;->access$002(Z)Z
+    .prologue
+    .line 255
+    invoke-static {p1}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
-    .line 46
-    return-void
+    move-result-object v0
 
-    .line 44
-    :catchall_10
-    move-exception v0
+    invoke-virtual {v0}, Landroid/net/Uri;->getHost()Ljava/lang/String;
 
-    # setter for: Lmybl/VideoViewParams;->isTestingCDN:Z
-    invoke-static {v2}, Lmybl/VideoViewParams;->access$002(Z)Z
+    move-result-object v0
 
-    .line 45
-    throw v0
+    .line 256
+    invoke-static {p2}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Landroid/net/Uri;->getHost()Ljava/lang/String;
+
+    move-result-object v1
+
+    .line 257
+    invoke-static {v0}, Lmybl/CdnSelector;->getCdnScore(Ljava/lang/String;)I
+
+    move-result v0
+
+    .line 258
+    invoke-static {v1}, Lmybl/CdnSelector;->getCdnScore(Ljava/lang/String;)I
+
+    move-result v1
+
+    .line 259
+    invoke-static {v1, v0}, Ljava/lang/Integer;->compare(II)I
+
+    move-result v0
+
+    return v0
 .end method

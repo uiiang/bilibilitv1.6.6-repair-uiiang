@@ -103,6 +103,7 @@ public class MainApplication extends Application {
     }
 
     public void init_globals() {
+        mybl.VideoViewParams.init(this);
         int danmaku_type = abd.get_danmaku_type(this);
         for(int i=0;i<10;i++)PlayerMenuRight.danmaku_valid_list[i]=((danmaku_type>>i)&1)>0;
         BiliFilter.skip_categories=abd.get_skip_categories(this);

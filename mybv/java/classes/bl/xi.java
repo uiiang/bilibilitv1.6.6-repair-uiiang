@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -490,6 +491,10 @@ public class xi extends xh implements bbb<Message, Boolean> {
         if (this.c != null && a.mVideoParams.obtainResolveParams().mCid != this.c.c().a.mVideoParams.obtainResolveParams().mCid) {
             this.c.b();
         }
+        
+        long cid = a.mVideoParams.obtainResolveParams().mCid;
+        mybl.VideoViewParams.setCurrentVideo(String.valueOf(cid));
+        
         yh yhVar = new yh();
         yhVar.a = a;
         this.c = new yd(o(), yhVar, new yt(), new zi(), new yx(), new za(), new ze(), new yu());
@@ -644,6 +649,9 @@ public class xi extends xh implements bbb<Message, Boolean> {
     @Override // bl.xh, tv.danmaku.ijk.media.player.IMediaPlayer.OnErrorListener
     public boolean onError(IMediaPlayer iMediaPlayer, int i, int i2) {
         super.onError(iMediaPlayer, i, i2);
+        
+        mybl.VideoViewParams.reportPlaybackFailed();
+        
         PlayerCodecConfig y = y();
         if (y.d < y.e || !y.a.equals(PlayerCodecConfig.Player.NONE)) {
             return true;
@@ -654,6 +662,8 @@ public class xi extends xh implements bbb<Message, Boolean> {
 
     @Override // bl.xh, tv.danmaku.ijk.media.player.IMediaPlayer.OnPreparedListener
     public void onPrepared(IMediaPlayer iMediaPlayer) {
+        mybl.VideoViewParams.reportPlaybackSuccess();
+        
         if (n() != null) {
             F();
         }

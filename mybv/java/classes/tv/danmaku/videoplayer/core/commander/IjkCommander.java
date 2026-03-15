@@ -82,23 +82,33 @@ class IjkCommander extends AbsPlayerCommander {
             }
             applyUriHookForIjkPlayer = iVideoParams.applyUriHookForIjkPlayer(uri2);
         }
+        
         if (i != 0) {
             this.mIjkMediaPlayer.setDataSourceBase64(applyUriHookForIjkPlayer);
         } else {
-            //this.mIjkMediaPlayer.setDataSource(context, Uri.parse(applyUriHookForIjkPlayer));
             if(((com.bilibili.tv.player.basic.context.VideoViewParams)iVideoParams).mMediaResource.dash != null){
                 if(((com.bilibili.tv.player.basic.context.VideoViewParams)iVideoParams).mMediaResource.dash.optJSONArray("video").optJSONObject(0).optString("base_url").indexOf("platform=pc")>=0){this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "headers", "Referer: https://www.bilibili.com\r\n");}
                 this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "user_agent", "Bilibili Freedoooooom/MarkII");
                 this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec-all-videos", 1);
                 this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec-hevc", 1);
+                this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "timeout", 5000000);
+                this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "connect_timeout", 3000000);
+                this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "dns_cache_clear", 1);
+                this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "reconnect", 1);
+                this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "auto_reconnect", 1);
+                this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "multipart", 1);
 
                 this.mIjkMediaPlayer.setDataSource("ijkdash");
                 this.mIjkMediaPlayer.setDashDataSource(VideoViewParams.toBundleData(((com.bilibili.tv.player.basic.context.VideoViewParams)iVideoParams).mMediaResource.dash),-1,((com.bilibili.tv.player.basic.context.VideoViewParams)iVideoParams).mMediaResource.quality);
             }
-            else{this.mIjkMediaPlayer.setDataSource(applyUriHookForIjkPlayer);}
+            else{
+                this.mIjkMediaPlayer.setDataSource(applyUriHookForIjkPlayer);
+            }
         }
+        
         int speed_id = PlayerMenuRight.speed_id>=0?PlayerMenuRight.speed_id:abd.get_speed_id(MainApplication.a().getApplicationContext());
         this.mIjkMediaPlayer.setSpeed(abd.get_speed(speed_id));
+        
         this.mMediaPlayer.prepareAsync();
     }
 
