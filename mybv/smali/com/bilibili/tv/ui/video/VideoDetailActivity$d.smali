@@ -22,7 +22,7 @@
     .locals 0
 
     .prologue
-    .line 1716
+    .line 1732
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -34,28 +34,28 @@
     .locals 2
 
     .prologue
-    .line 1720
+    .line 1736
     if-nez p1, :cond_3
 
-    .line 1730
+    .line 1746
     :cond_2
     :goto_2
     return-void
 
-    .line 1723
+    .line 1739
     :cond_3
     instance-of v0, p1, Lbl/afz;
 
     if-eqz v0, :cond_d
 
-    .line 1724
+    .line 1740
     check-cast p1, Lbl/afz;
 
     invoke-interface {p1, p2}, Lbl/afz;->setUpEnabled(Z)V
 
     goto :goto_2
 
-    .line 1725
+    .line 1741
     :cond_d
     invoke-virtual {p1}, Landroid/view/View;->getId()I
 
@@ -67,7 +67,7 @@
 
     const v0, 0x7f080127
 
-    .line 1726
+    .line 1742
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
@@ -76,7 +76,7 @@
 
     if-eqz v0, :cond_2
 
-    .line 1728
+    .line 1744
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawTextView;->setUpEnabled(Z)V
 
     goto :goto_2

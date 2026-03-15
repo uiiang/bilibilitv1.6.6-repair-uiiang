@@ -1249,6 +1249,8 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private final void playVideo(BiliVideoDetail biliVideoDetail, long cid, int progress) {
+        long startTime = System.currentTimeMillis();
+        Log.d("UI_TRANSITION", "[1_PLAY_CLICK] playVideo() called, cid=" + cid + ", progress=" + progress + ", time=" + startTime);
         if (biliVideoDetail == null) {
             return;
         }
@@ -1265,7 +1267,9 @@ public final class VideoDetailActivity extends BaseActivity
             targetPage = biliVideoDetail.mPageList.get(0);
         }
         if (targetPage != null) {
+            Log.d("UI_TRANSITION", "[2_BEFORE_XG_A] calling xg.a(), elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
             xg.a(this, biliVideoDetail, targetPage, new Bundle(), REQUEST_CODE_PLAY_VIDEO, progress);
+            Log.d("UI_TRANSITION", "[3_AFTER_XG_A] xg.a() returned, elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
         }
     }
 
@@ -1382,6 +1386,18 @@ public final class VideoDetailActivity extends BaseActivity
                 ok.a("tv_video_view_click_infomore", new String[0]);
             }
         }
+    }
+
+    @Override
+    public void onPause() {
+        Log.d("UI_TRANSITION", "[VIDEO_DETAIL_PAUSE] VideoDetailActivity onPause called");
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        Log.d("UI_TRANSITION", "[VIDEO_DETAIL_STOP] VideoDetailActivity onStop called");
+        super.onStop();
     }
 
     @Override // android.support.v7.app.AppCompatActivity, android.app.Activity,

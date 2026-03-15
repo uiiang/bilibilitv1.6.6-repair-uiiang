@@ -193,7 +193,10 @@ public class xg {
     }
 
     public static void b(Activity activity, BiliVideoDetail biliVideoDetail, BiliVideoDetail.Page page, Bundle bundle, int i, int requestCode, int progress) {
+        long startTime = System.currentTimeMillis();
+        Log.d("UI_TRANSITION", "[4_XG_B_START] b() method started, cid=" + page.mCid + ", time=" + startTime);
         PlayerParams a = aaj.a(activity);
+        Log.d("UI_TRANSITION", "[5_AFTER_AAJ] aaj.a() returned, elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
         yr.a(a, biliVideoDetail.mCover);
         yr.c(a, biliVideoDetail.getAuthor());
         yr.b(a, biliVideoDetail.mTitle);
@@ -226,6 +229,7 @@ public class xg {
         if (TextUtils.isEmpty(yr.a(a))) {
             yr.b(a, page.mTitle);
         }
+        Log.d("UI_TRANSITION", "[6_BEFORE_PAGELIST] checking pageList, elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
 
         if (biliVideoDetail.mPageList != null && biliVideoDetail.mPageList.size() > 1) {
             int size = biliVideoDetail.mPageList.size();
@@ -301,14 +305,20 @@ public class xg {
     }
 
     public static void a(Activity activity, PlayerParams playerParams, Bundle bundle, int requestCode) {
+        long startTime = System.currentTimeMillis();
+        Log.d("UI_TRANSITION", "[7_A_METHOD_START] a(Activity,PlayerParams,Bundle,int) started, time=" + startTime);
         if (playerParams.mVideoParams.mResolveParamsArray == null) {
             playerParams.mVideoParams.mResolveParamsArray = playerParams.mVideoParams.obtainResolveParamsArray(1);
             playerParams.mVideoParams.mResolveParamsArray[0] = playerParams.mVideoParams.obtainResolveParams();
         }
         playerParams.mVideoParams.mResolveParamsArray[0].mNoHistoryPlay = VideoDetailActivity.sNoHistoryPlayMode;
+        Log.d("UI_TRANSITION", "[8_BEFORE_INTENT] creating PlayerActivity intent, elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
         Intent intent = PlayerActivity.a(activity, playerParams);
+        Log.d("UI_TRANSITION", "[9_AFTER_INTENT] intent created, elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
         intent.setFlags(0);
+        Log.d("UI_TRANSITION", "[10_BEFORE_START_ACTIVITY] calling startActivityForResult, elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
         activity.startActivityForResult(intent, requestCode);
+        Log.d("UI_TRANSITION", "[11_AFTER_START_ACTIVITY] startActivityForResult returned, elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
     }
 
     public static void playCheese(Context context, BiliVideoDetail biliVideoDetail, BiliVideoDetail.Page page, int i) {

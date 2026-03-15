@@ -614,17 +614,21 @@ public class xi extends xh implements bbb<Message, Boolean> {
             switch (what) {
                 case IMediaPlayer.MEDIA_INFO_BUFFERING_START /* 701 */:
                     M();
-                    this.b.removeMessages(IjkMediaPlayer.FFP_PROP_INT64_BIT_RATE);
-                    Message obtainMessage = this.b.obtainMessage(IjkMediaPlayer.FFP_PROP_INT64_BIT_RATE);
-                    xh.a a = ((xh.a)null).a();
-                    a.a = x();
-                    a.b = 0;
-                    a.c = System.currentTimeMillis();
-                    obtainMessage.obj = a;
-                    this.b.sendMessage(obtainMessage);
+                    if (this.b != null) {
+                        this.b.removeMessages(IjkMediaPlayer.FFP_PROP_INT64_BIT_RATE);
+                        Message obtainMessage = this.b.obtainMessage(IjkMediaPlayer.FFP_PROP_INT64_BIT_RATE);
+                        xh.a a = ((xh.a)null).a();
+                        a.a = x();
+                        a.b = 0;
+                        a.c = System.currentTimeMillis();
+                        obtainMessage.obj = a;
+                        this.b.sendMessage(obtainMessage);
+                    }
                     break;
                 case IMediaPlayer.MEDIA_INFO_BUFFERING_END /* 702 */:
-                    this.b.removeMessages(IjkMediaPlayer.FFP_PROP_INT64_BIT_RATE);
+                    if (this.b != null) {
+                        this.b.removeMessages(IjkMediaPlayer.FFP_PROP_INT64_BIT_RATE);
+                    }
                     if (this.m != null) {
                         this.m.post(new Runnable() { // from class: bl.xi.3
                             @Override // java.lang.Runnable

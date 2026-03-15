@@ -60,8 +60,18 @@ public class xj extends xh {
             this.e = new zu(p());
             this.f = true;
             
-            // 获取章节数据
-            obtainResolveParams.initPlayInfo();
+            // 异步获取章节数据，不阻塞UI跳转
+            final ResolveResourceParams finalParams = obtainResolveParams;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        finalParams.initPlayInfo();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
             return;
         }
         this.f = false;

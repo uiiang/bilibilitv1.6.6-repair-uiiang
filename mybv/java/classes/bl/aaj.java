@@ -1,6 +1,7 @@
 package bl;
 
 import android.content.Context;
+import android.util.Log;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.player.basic.context.PlayerParams;
 import com.bilibili.tv.player.basic.context.ResolveResourceParams;
@@ -11,11 +12,14 @@ import com.bilibili.tv.player.danmaku.DanmakuParams;
 /* loaded from: classes.dex */
 public class aaj {
     public static PlayerParams a(Context context) {
+        long startTime = System.currentTimeMillis();
+        Log.d("UI_TRANSITION", "[AAJ_START] aaj.a() creating PlayerParams, time=" + startTime);
         DanmakuParams danmakuParams = new DanmakuParams();
         danmakuParams.setDanmakuTextSizeScaleFactor(abd.f(MainApplication.a().getApplicationContext()));
         danmakuParams.setDanmakuAlphaFactor(abd.g(MainApplication.a().getApplicationContext()));
         PlayerParams playerParams = new PlayerParams(new VideoViewParams(), danmakuParams);
         a(context, playerParams);
+        Log.d("UI_TRANSITION", "[AAJ_END] aaj.a() completed, elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
         return playerParams;
     }
 

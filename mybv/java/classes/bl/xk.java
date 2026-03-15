@@ -67,13 +67,31 @@ public class xk extends xh implements bbb<Message, Boolean> {
 
     public void initSubtitle() {
         PlayerParams b = b();
-        b.mVideoParams.obtainResolveParams().initPlayInfo();
-        BiliPlayerContext bc = (BiliPlayerContext) this.c;
-        DanmakuPlayerDFM dp = (DanmakuPlayerDFM) bc.mDanmakuPlayerContext.mDanmakuPlayer;
-        xj _xj = (xj) this.next().next().next().next().next();
-        _xj.skips = b.mVideoParams.obtainResolveParams().skips;
-        ((bgy)dp.mDanmakuView)._xj = _xj;
-        dp.subtitle_data = b.mVideoParams.obtainResolveParams().subtitle_data;
+        if (b == null) return;
+        final ResolveResourceParams resolveParams = b.mVideoParams.obtainResolveParams();
+        final BiliPlayerContext bc = (BiliPlayerContext) this.c;
+        if (bc == null || bc.mDanmakuPlayerContext == null) return;
+        final DanmakuPlayerDFM dp = (DanmakuPlayerDFM) bc.mDanmakuPlayerContext.mDanmakuPlayer;
+        final xk self = this;
+        
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    resolveParams.initPlayInfo();
+                    xj _xj = (xj) self.next().next().next().next().next();
+                    if (_xj != null) {
+                        _xj.skips = resolveParams.skips;
+                    }
+                    if (dp != null && dp.mDanmakuView != null) {
+                        ((bgy)dp.mDanmakuView)._xj = _xj;
+                        dp.subtitle_data = resolveParams.subtitle_data;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
 

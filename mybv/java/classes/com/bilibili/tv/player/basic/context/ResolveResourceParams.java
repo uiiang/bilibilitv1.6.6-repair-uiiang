@@ -159,16 +159,18 @@ public class ResolveResourceParams implements Parcelable, Serializable {
             });
             try{
                 JSONArray datas = future.get();
-                for(int i=0;i<datas.length();i++){
-                    JSONArray segment = datas.optJSONObject(i).optJSONArray("segment");
-                    JSONObject skip_info = new JSONObject();
-                    String c = datas.optJSONObject(i).optString("category");
-                    if(c.equals("intro"))skip_info.put("type","片头");
-                    if(c.equals("outro"))skip_info.put("type","片尾");
-                    if(c.equals("sponsor"))skip_info.put("type","硬广");
-                    skip_info.put("start",(long)segment.optDouble(0)*1000);
-                    skip_info.put("end",(long)segment.optDouble(1)*1000);
-                    this.skips.put(skip_info);
+                if(datas != null){
+                    for(int i=0;i<datas.length();i++){
+                        JSONArray segment = datas.optJSONObject(i).optJSONArray("segment");
+                        JSONObject skip_info = new JSONObject();
+                        String c = datas.optJSONObject(i).optString("category");
+                        if(c.equals("intro"))skip_info.put("type","片头");
+                        if(c.equals("outro"))skip_info.put("type","片尾");
+                        if(c.equals("sponsor"))skip_info.put("type","硬广");
+                        skip_info.put("start",(long)segment.optDouble(0)*1000);
+                        skip_info.put("end",(long)segment.optDouble(1)*1000);
+                        this.skips.put(skip_info);
+                    }
                 }
             }catch(Exception e){
                 e.printStackTrace();
@@ -177,15 +179,22 @@ public class ResolveResourceParams implements Parcelable, Serializable {
     }
 
     public void initPlayInfo() {
+        long startTime = System.currentTimeMillis();
+        Log.d("UI_TRANSITION", "[INIT_PLAY_INFO] initPlayInfo() started");
+        
         this.getSkipInfo();
+        Log.d("UI_TRANSITION", "[INIT_PLAY_INFO] getSkipInfo() done, elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
+        
         try{
             ExecutorService threadPool  = Executors.newSingleThreadExecutor();
+            long t1 = System.currentTimeMillis();
             JSONObject playerData = threadPool.submit(new Callable<JSONObject>() {
                 @Override
                 public JSONObject call() {
                     return ((JsonResponse) pz.a(new qa.a(JsonResponse.class).a("https://api.bilibili.com/x/player/wbi/v2").a(true).a("Cookie","SESSDATA="+mg.a(MainApplication.a()).getSESSDATA()).b("").b("aid", String.valueOf(ResolveResourceParams.this.mAvid)).b("cid", String.valueOf(ResolveResourceParams.this.mCid)).a(new qb()).a(), "GET")).result();
                 }
             }).get();
+            Log.d("UI_TRANSITION", "[INIT_PLAY_INFO] player/wbi/v2 API done, elapsed=" + (System.currentTimeMillis() - t1) + "ms");
             
             // 获取字幕信息
             this.subtitle_info = playerData.optJSONObject("data").optJSONObject("subtitle");
@@ -200,15 +209,18 @@ public class ResolveResourceParams implements Parcelable, Serializable {
             int subtitle_id = PlayerMenuRight.subtitle_id - 1;
             if(subtitle_id==-1 || this.subtitle_info.optJSONArray("subtitles").length()==0){this.subtitle_data=null;return;}
             if(subtitle_id<-1 && this.subtitle_info.optJSONArray("subtitles").optJSONObject(0).optString("lan").startsWith("ai-"))return;
+            long t2 = System.currentTimeMillis();
             if(this.subtitle_info != null)this.subtitle_data = threadPool.submit(new Callable<JSONObject>() {
                 @Override
                 public JSONObject call() {
                     return ((JsonResponse) pz.a(new qa.a(JsonResponse.class).a("https:"+ResolveResourceParams.this.subtitle_info.optJSONArray("subtitles").optJSONObject(subtitle_id<0?0:subtitle_id).optString("subtitle_url")).a(true).a(new qb()).a(), "GET")).result();
                 }
             }).get();
+            Log.d("UI_TRANSITION", "[INIT_PLAY_INFO] subtitle fetch done, elapsed=" + (System.currentTimeMillis() - t2) + "ms");
         }catch(Exception e){
             e.printStackTrace();
         }
+        Log.d("UI_TRANSITION", "[INIT_PLAY_INFO] initPlayInfo() completed, total=" + (System.currentTimeMillis() - startTime) + "ms");
     }
 
     /* compiled from: BL */

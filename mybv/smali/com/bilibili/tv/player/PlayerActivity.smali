@@ -271,32 +271,50 @@
 .end method
 
 .method protected onCreate(Landroid/os/Bundle;)V
-    .locals 3
+    .locals 5
 
     .line 38
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+    move-result-wide v0
+    const-string v2, "UI_TRANSITION"
+    const-string v3, "[12_PLAYER_ONCREATE] PlayerActivity onCreate started"
+    invoke-static {v2, v3}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
     invoke-super {p0, p1}, Landroid/support/v7/app/AppCompatActivity;->onCreate(Landroid/os/Bundle;)V
+
+    const-string v2, "UI_TRANSITION"
+    const-string v3, "[12a_AFTER_SUPER_ONCREATE] super.onCreate() done"
+    invoke-static {v2, v3}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 39
     invoke-static {p0}, Lbl/xe;->a(Landroid/app/Activity;)Lbl/xh;
 
-    move-result-object v0
+    move-result-object v4
 
-    iput-object v0, p0, Lcom/bilibili/tv/player/PlayerActivity;->a:Lbl/xh;
+    iput-object v4, p0, Lcom/bilibili/tv/player/PlayerActivity;->a:Lbl/xh;
+
+    const-string v2, "UI_TRANSITION"
+    const-string v3, "[12b_AFTER_XE_A] xe.a() done, xh created"
+    invoke-static {v2, v3}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 40
-    iget-object v0, p0, Lcom/bilibili/tv/player/PlayerActivity;->a:Lbl/xh;
+    iget-object v4, p0, Lcom/bilibili/tv/player/PlayerActivity;->a:Lbl/xh;
 
     invoke-virtual {p0}, Lcom/bilibili/tv/player/PlayerActivity;->getLayoutInflater()Landroid/view/LayoutInflater;
 
-    move-result-object v1
+    move-result-object v2
 
-    const/4 v2, 0x0
+    const/4 v3, 0x0
 
-    invoke-virtual {v0, v1, v2, p1}, Lbl/xh;->a(Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View;
+    invoke-virtual {v4, v2, v3, p1}, Lbl/xh;->a(Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View;
 
-    move-result-object v0
+    move-result-object v4
 
-    if-nez v0, :cond_0
+    const-string v2, "UI_TRANSITION"
+    const-string v3, "[12c_AFTER_INFLATE] xh.a() inflate done"
+    invoke-static {v2, v3}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    if-nez v4, :cond_0
 
     const-string p1, "\u5e94\u7528\u8fd0\u884c\u5f02\u5e38\uff0c\u8bf7\u8054\u7cfbqq\u7fa4\uff01"
 
@@ -310,17 +328,29 @@
 
     .line 46
     :cond_0
-    invoke-virtual {p0, v0}, Lcom/bilibili/tv/player/PlayerActivity;->setContentView(Landroid/view/View;)V
+    invoke-virtual {p0, v4}, Lcom/bilibili/tv/player/PlayerActivity;->setContentView(Landroid/view/View;)V
+
+    const-string v2, "UI_TRANSITION"
+    const-string v3, "[12d_AFTER_SETCONTENTVIEW] setContentView() done"
+    invoke-static {v2, v3}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 47
-    iget-object v1, p0, Lcom/bilibili/tv/player/PlayerActivity;->a:Lbl/xh;
+    iget-object v2, p0, Lcom/bilibili/tv/player/PlayerActivity;->a:Lbl/xh;
 
-    invoke-virtual {v1, v0, p1}, Lbl/xh;->a(Landroid/view/View;Landroid/os/Bundle;)V
+    invoke-virtual {v2, v4, p1}, Lbl/xh;->a(Landroid/view/View;Landroid/os/Bundle;)V
+
+    const-string v2, "UI_TRANSITION"
+    const-string v3, "[12e_AFTER_XH_A_VIEW] xh.a(View,Bundle) done"
+    invoke-static {v2, v3}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 48
-    iget-object v0, p0, Lcom/bilibili/tv/player/PlayerActivity;->a:Lbl/xh;
+    iget-object v2, p0, Lcom/bilibili/tv/player/PlayerActivity;->a:Lbl/xh;
 
-    invoke-virtual {v0, p1}, Lbl/xh;->a(Landroid/os/Bundle;)V
+    invoke-virtual {v2, p1}, Lbl/xh;->a(Landroid/os/Bundle;)V
+
+    const-string v2, "UI_TRANSITION"
+    const-string v3, "[13_PLAYER_ONCREATE_END] PlayerActivity onCreate completed"
+    invoke-static {v2, v3}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
     return-void
 .end method
@@ -448,7 +478,11 @@
 .end method
 
 .method protected onResume()V
-    .locals 1
+    .locals 2
+
+    const-string v0, "UI_TRANSITION"
+    const-string v1, "[15_PLAYER_ONRESUME] PlayerActivity onResume started"
+    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 65
     invoke-super {p0}, Landroid/support/v7/app/AppCompatActivity;->onResume()V
@@ -476,7 +510,11 @@
 .end method
 
 .method protected onStart()V
-    .locals 1
+    .locals 2
+
+    const-string v0, "UI_TRANSITION"
+    const-string v1, "[14_PLAYER_ONSTART] PlayerActivity onStart started"
+    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 77
     invoke-super {p0}, Landroid/support/v7/app/AppCompatActivity;->onStart()V

@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xj;->Q()V
+    value = Lbl/xj;->a(Landroid/os/Bundle;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,18 +20,18 @@
 # instance fields
 .field final synthetic this$0:Lbl/xj;
 
-.field final synthetic val$o:Landroid/app/Activity;
+.field final synthetic val$finalParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
 
 # direct methods
-.method constructor <init>(Lbl/xj;Landroid/app/Activity;)V
+.method constructor <init>(Lbl/xj;Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;)V
     .locals 0
 
     .prologue
-    .line 201
+    .line 65
     iput-object p1, p0, Lbl/xj$1;->this$0:Lbl/xj;
 
-    iput-object p2, p0, Lbl/xj$1;->val$o:Landroid/app/Activity;
+    iput-object p2, p0, Lbl/xj$1;->val$finalParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -41,62 +41,27 @@
 
 # virtual methods
 .method public run()V
-    .locals 3
+    .locals 1
 
     .prologue
-    .line 204
-    iget-object v0, p0, Lbl/xj$1;->this$0:Lbl/xj;
+    .line 69
+    :try_start_0
+    iget-object v0, p0, Lbl/xj$1;->val$finalParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
-    # getter for: Lbl/xj;->k:Landroid/view/animation/Animation;
-    invoke-static {v0}, Lbl/xj;->access$000(Lbl/xj;)Landroid/view/animation/Animation;
+    invoke-virtual {v0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->initPlayInfo()V
+    :try_end_5
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_5} :catch_6
 
-    move-result-object v0
-
-    if-nez v0, :cond_24
-
-    .line 205
-    iget-object v0, p0, Lbl/xj$1;->this$0:Lbl/xj;
-
-    iget-object v1, p0, Lbl/xj$1;->val$o:Landroid/app/Activity;
-
-    const v2, 0x7f01000e
-
-    invoke-static {v1, v2}, Landroid/view/animation/AnimationUtils;->loadAnimation(Landroid/content/Context;I)Landroid/view/animation/Animation;
-
-    move-result-object v1
-
-    # setter for: Lbl/xj;->k:Landroid/view/animation/Animation;
-    invoke-static {v0, v1}, Lbl/xj;->access$002(Lbl/xj;Landroid/view/animation/Animation;)Landroid/view/animation/Animation;
-
-    .line 206
-    iget-object v0, p0, Lbl/xj$1;->this$0:Lbl/xj;
-
-    # getter for: Lbl/xj;->k:Landroid/view/animation/Animation;
-    invoke-static {v0}, Lbl/xj;->access$000(Lbl/xj;)Landroid/view/animation/Animation;
-
-    move-result-object v0
-
-    new-instance v1, Lbl/xj$1$1;
-
-    invoke-direct {v1, p0}, Lbl/xj$1$1;-><init>(Lbl/xj$1;)V
-
-    invoke-virtual {v0, v1}, Landroid/view/animation/Animation;->setAnimationListener(Landroid/view/animation/Animation$AnimationListener;)V
-
-    .line 221
-    :cond_24
-    iget-object v0, p0, Lbl/xj$1;->this$0:Lbl/xj;
-
-    iget-object v0, v0, Lbl/xj;->c:Landroid/widget/TextView;
-
-    iget-object v1, p0, Lbl/xj$1;->this$0:Lbl/xj;
-
-    # getter for: Lbl/xj;->k:Landroid/view/animation/Animation;
-    invoke-static {v1}, Lbl/xj;->access$000(Lbl/xj;)Landroid/view/animation/Animation;
-
-    move-result-object v1
-
-    invoke-virtual {v0, v1}, Landroid/widget/TextView;->startAnimation(Landroid/view/animation/Animation;)V
-
-    .line 222
+    .line 73
+    :goto_5
     return-void
+
+    .line 70
+    :catch_6
+    move-exception v0
+
+    .line 71
+    invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
+
+    goto :goto_5
 .end method
