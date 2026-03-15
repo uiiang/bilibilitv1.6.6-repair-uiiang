@@ -14,8 +14,6 @@ import com.bilibili.lib.media.resolver.resolve.vip.VipQualityToken;
 import com.bilibili.lib.media.resource.MediaResource;
 import com.bilibili.lib.media.resource.Segment;
 
-/* compiled from: BL */
-/* loaded from: classes.dex */
 public class ql implements IMediaResolver {
     private static final SparseArray<qn> a = new SparseArray<>();
     private qx b;
@@ -57,8 +55,8 @@ public class ql implements IMediaResolver {
     private MediaResource a(Context context, ResolveMediaResourceParams resolveMediaResourceParams, ps psVar, pu puVar, ResolveResourceExtra resolveResourceExtra, boolean z) throws ResolveException {
         a(resolveMediaResourceParams);
         int a2 = a(resolveMediaResourceParams, psVar);
+        
         qa a3 = new qa.a(qm.class).a("https://api.bilibili.com/x/player/playurl").b("").a(true)
-            //.a("X-BVC-FINGERPRINT", a(context, a2, resolveMediaResourceParams, resolveResourceExtra, puVar, psVar))
             .b("cid", String.valueOf(resolveMediaResourceParams.c()))
             .b("avid", String.valueOf(resolveMediaResourceParams.a()))
             .b("qn", String.valueOf(a2))
@@ -81,7 +79,9 @@ public class ql implements IMediaResolver {
             .b("try_look", (puVar==null||puVar.c==null||puVar.c.isEmpty())?"1":null)
             .a(new qd()).a();
         this.b.a(a3.g());
+        
         qm qmVar = (qm) pz.a(a3);
+        
         int i = -5;
         if (qmVar == null) {
             throw new ResolveMediaSourceException("empty response", -5);

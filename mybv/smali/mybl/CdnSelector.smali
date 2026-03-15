@@ -84,28 +84,28 @@
     .locals 1
 
     .prologue
-    .line 242
+    .line 243
     :try_start_0
     invoke-static {p0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v0
 
-    .line 243
+    .line 244
     invoke-virtual {v0}, Landroid/net/Uri;->getHost()Ljava/lang/String;
     :try_end_7
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_7} :catch_9
 
     move-result-object v0
 
-    .line 245
+    .line 246
     :goto_8
     return-object v0
 
-    .line 244
+    .line 245
     :catch_9
     move-exception v0
 
-    .line 245
+    .line 246
     const-string v0, ""
 
     goto :goto_8
@@ -117,18 +117,18 @@
     .prologue
     const/16 v0, 0x46
 
-    .line 171
+    .line 172
     :try_start_2
     sget-object v1, Lmybl/CdnSelector;->prefs:Landroid/content/SharedPreferences;
 
     if-nez v1, :cond_7
 
-    .line 181
+    .line 182
     :cond_6
     :goto_6
     return v0
 
-    .line 172
+    .line 173
     :cond_7
     sget-object v1, Lmybl/CdnSelector;->prefs:Landroid/content/SharedPreferences;
 
@@ -140,24 +140,24 @@
 
     move-result-object v1
 
-    .line 173
+    .line 174
     new-instance v2, Lorg/json/JSONObject;
 
     invoke-direct {v2, v1}, Lorg/json/JSONObject;-><init>(Ljava/lang/String;)V
 
-    .line 175
+    .line 176
     invoke-virtual {v2, p0}, Lorg/json/JSONObject;->has(Ljava/lang/String;)Z
 
     move-result v1
 
     if-eqz v1, :cond_6
 
-    .line 176
+    .line 177
     invoke-virtual {v2, p0}, Lorg/json/JSONObject;->getJSONObject(Ljava/lang/String;)Lorg/json/JSONObject;
 
     move-result-object v1
 
-    .line 177
+    .line 178
     const-string v2, "score"
 
     const/16 v3, 0x46
@@ -170,7 +170,7 @@
 
     goto :goto_6
 
-    .line 179
+    .line 180
     :catch_29
     move-exception v1
 
@@ -204,10 +204,10 @@
     .locals 0
 
     .prologue
-    .line 237
+    .line 238
     invoke-static {p0, p1, p2}, Lmybl/CdnSelector;->updateCdnScore(Ljava/lang/String;ZZ)V
 
-    .line 238
+    .line 239
     return-void
 .end method
 
@@ -242,7 +242,7 @@
     :cond_9
     const/4 v0, 0x0
 
-    .line 133
+    .line 134
     :goto_a
     return-object v0
 
@@ -357,7 +357,7 @@
 
     move-result v0
 
-    if-eqz v0, :cond_c9
+    if-eqz v0, :cond_e5
 
     invoke-interface {v1}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
@@ -426,7 +426,7 @@
 
     invoke-direct {v8}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v9, "[RACE] winner="
+    const-string v9, "\u7ade\u901f\u5b8c\u6210 cdn="
 
     invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -474,22 +474,49 @@
     :catch_c8
     move-exception v0
 
-    .line 131
-    :cond_c9
-    invoke-interface {p2, v6}, Ljava/util/List;->get(I)Ljava/lang/Object;
-
-    move-result-object v0
-
-    check-cast v0, Lmybl/CdnSelector$CdnUrlInfo;
-
-    .line 132
+    .line 129
     const-string v1, "CdnSelector"
 
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v3, "[RACE] \u5168\u90e8\u5931\u8d25\uff0c\u4f7f\u7528\u6700\u9ad8\u5206CDN: "
+    const-string v3, "\u7ade\u901f\u5f02\u5e38: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v0}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v1, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 132
+    :cond_e5
+    invoke-interface {p2, v6}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lmybl/CdnSelector$CdnUrlInfo;
+
+    .line 133
+    const-string v1, "CdnSelector"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "\u7ade\u901f\u5931\u8d25\uff0c\u4f7f\u7528\u6700\u9ad8\u5206CDN: "
 
     invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -507,7 +534,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 133
+    .line 134
     new-instance v1, Lmybl/CdnSelector$RaceResult;
 
     iget-object v2, v0, Lmybl/CdnSelector$CdnUrlInfo;->url:Ljava/lang/String;
@@ -533,8 +560,8 @@
 
     const/4 v7, 0x0
 
-    .line 137
-    .line 140
+    .line 138
+    .line 141
     :try_start_4
     new-instance v0, Ljava/net/URL;
 
@@ -542,7 +569,7 @@
 
     invoke-direct {v0, v2}, Ljava/net/URL;-><init>(Ljava/lang/String;)V
 
-    .line 141
+    .line 142
     invoke-virtual {v0}, Ljava/net/URL;->openConnection()Ljava/net/URLConnection;
 
     move-result-object v0
@@ -552,37 +579,37 @@
     .catch Ljava/lang/Exception; {:try_start_4 .. :try_end_11} :catch_73
     .catchall {:try_start_4 .. :try_end_11} :catchall_83
 
-    .line 142
+    .line 143
     const/16 v2, 0x7d0
 
     :try_start_13
     invoke-virtual {v0, v2}, Ljava/net/HttpURLConnection;->setConnectTimeout(I)V
 
-    .line 143
+    .line 144
     const/16 v2, 0x7d0
 
     invoke-virtual {v0, v2}, Ljava/net/HttpURLConnection;->setReadTimeout(I)V
 
-    .line 144
+    .line 145
     const-string v2, "Range"
 
     const-string v3, "bytes=0-1023"
 
     invoke-virtual {v0, v2, v3}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 145
+    .line 146
     const-string v2, "User-Agent"
 
     const-string v3, "Bilibili Freedoooooom/MarkII"
 
     invoke-virtual {v0, v2, v3}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 147
+    .line 148
     invoke-virtual {v0}, Ljava/net/HttpURLConnection;->getResponseCode()I
 
     move-result v2
 
-    .line 148
+    .line 149
     const/16 v3, 0xc8
 
     if-eq v2, v3, :cond_35
@@ -591,7 +618,7 @@
 
     if-ne v2, v3, :cond_66
 
-    .line 149
+    .line 150
     :cond_35
     invoke-virtual {v0}, Ljava/net/HttpURLConnection;->getInputStream()Ljava/io/InputStream;
     :try_end_38
@@ -600,13 +627,13 @@
 
     move-result-object v8
 
-    .line 150
+    .line 151
     const/16 v2, 0x400
 
     :try_start_3b
     new-array v2, v2, [B
 
-    .line 153
+    .line 154
     :goto_3d
     if-ge v1, v4, :cond_49
 
@@ -618,12 +645,12 @@
 
     if-lez v3, :cond_49
 
-    .line 154
+    .line 155
     add-int/2addr v1, v3
 
     goto :goto_3d
 
-    .line 157
+    .line 158
     :cond_49
     if-lez v1, :cond_67
 
@@ -631,7 +658,7 @@
 
     if-nez v1, :cond_67
 
-    .line 158
+    .line 159
     new-instance v1, Lmybl/CdnSelector$RaceResult;
 
     iget-object v2, p0, Lmybl/CdnSelector$CdnUrlInfo;->url:Ljava/lang/String;
@@ -647,7 +674,7 @@
     .catch Ljava/lang/Exception; {:try_start_3b .. :try_end_5b} :catch_aa
     .catchall {:try_start_3b .. :try_end_5b} :catchall_a4
 
-    .line 163
+    .line 164
     if-eqz v8, :cond_60
 
     :try_start_5d
@@ -655,7 +682,7 @@
     :try_end_60
     .catch Ljava/lang/Exception; {:try_start_5d .. :try_end_60} :catch_92
 
-    .line 164
+    .line 165
     :cond_60
     :goto_60
     if-eqz v0, :cond_65
@@ -665,7 +692,7 @@
     :try_end_65
     .catch Ljava/lang/Exception; {:try_start_62 .. :try_end_65} :catch_94
 
-    .line 166
+    .line 167
     :cond_65
     :goto_65
     return-object v1
@@ -673,7 +700,7 @@
     :cond_66
     move-object v8, v7
 
-    .line 163
+    .line 164
     :cond_67
     if-eqz v8, :cond_6c
 
@@ -682,7 +709,7 @@
     :try_end_6c
     .catch Ljava/lang/Exception; {:try_start_69 .. :try_end_6c} :catch_96
 
-    .line 164
+    .line 165
     :cond_6c
     :goto_6c
     if-eqz v0, :cond_71
@@ -696,10 +723,10 @@
     :goto_71
     move-object v1, v7
 
-    .line 166
+    .line 167
     goto :goto_65
 
-    .line 161
+    .line 162
     :catch_73
     move-exception v0
 
@@ -707,7 +734,7 @@
 
     move-object v0, v7
 
-    .line 163
+    .line 164
     :goto_76
     if-eqz v1, :cond_7b
 
@@ -716,7 +743,7 @@
     :try_end_7b
     .catch Ljava/lang/Exception; {:try_start_78 .. :try_end_7b} :catch_9a
 
-    .line 164
+    .line 165
     :cond_7b
     :goto_7b
     if-eqz v0, :cond_71
@@ -733,7 +760,7 @@
 
     goto :goto_71
 
-    .line 163
+    .line 164
     :catchall_83
     move-exception v0
 
@@ -751,7 +778,7 @@
     :try_end_8c
     .catch Ljava/lang/Exception; {:try_start_89 .. :try_end_8c} :catch_9c
 
-    .line 164
+    .line 165
     :cond_8c
     :goto_8c
     if-eqz v2, :cond_91
@@ -761,36 +788,36 @@
     :try_end_91
     .catch Ljava/lang/Exception; {:try_start_8e .. :try_end_91} :catch_9e
 
-    .line 165
+    .line 166
     :cond_91
     :goto_91
     throw v1
 
-    .line 163
+    .line 164
     :catch_92
     move-exception v2
 
     goto :goto_60
 
-    .line 164
+    .line 165
     :catch_94
     move-exception v0
 
     goto :goto_65
 
-    .line 163
+    .line 164
     :catch_96
     move-exception v1
 
     goto :goto_6c
 
-    .line 164
+    .line 165
     :catch_98
     move-exception v0
 
     goto :goto_71
 
-    .line 163
+    .line 164
     :catch_9a
     move-exception v1
 
@@ -801,13 +828,13 @@
 
     goto :goto_8c
 
-    .line 164
+    .line 165
     :catch_9e
     move-exception v0
 
     goto :goto_91
 
-    .line 163
+    .line 164
     :catchall_a0
     move-exception v1
 
@@ -824,7 +851,7 @@
 
     goto :goto_87
 
-    .line 161
+    .line 162
     :catch_a7
     move-exception v1
 
@@ -846,7 +873,7 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 186
+    .line 187
     :try_start_1
     sget-object v0, Lmybl/CdnSelector;->prefs:Landroid/content/SharedPreferences;
 
@@ -858,26 +885,26 @@
 
     move-result-object v0
 
-    .line 187
+    .line 188
     new-instance v5, Lorg/json/JSONObject;
 
     invoke-direct {v5, v0}, Lorg/json/JSONObject;-><init>(Ljava/lang/String;)V
 
-    .line 190
+    .line 191
     invoke-virtual {v5, p0}, Lorg/json/JSONObject;->has(Ljava/lang/String;)Z
 
     move-result v0
 
     if-eqz v0, :cond_83
 
-    .line 191
+    .line 192
     invoke-virtual {v5, p0}, Lorg/json/JSONObject;->getJSONObject(Ljava/lang/String;)Lorg/json/JSONObject;
 
     move-result-object v0
 
     move-object v4, v0
 
-    .line 200
+    .line 201
     :goto_1b
     const-string v0, "score"
 
@@ -887,7 +914,7 @@
 
     move-result v3
 
-    .line 201
+    .line 202
     const-string v0, "failStreak"
 
     const/4 v1, 0x0
@@ -896,7 +923,7 @@
 
     move-result v6
 
-    .line 202
+    .line 203
     const-string v0, "timeoutCount"
 
     const/4 v1, 0x0
@@ -905,7 +932,7 @@
 
     move-result v1
 
-    .line 203
+    .line 204
     const-string v0, "successCount"
 
     const/4 v7, 0x0
@@ -914,10 +941,10 @@
 
     move-result v0
 
-    .line 205
+    .line 206
     if-eqz p1, :cond_a4
 
-    .line 206
+    .line 207
     const/16 v6, 0x64
 
     add-int/lit8 v3, v3, 0xa
@@ -926,32 +953,32 @@
 
     move-result v3
 
-    .line 208
+    .line 209
     add-int/lit8 v0, v0, 0x1
 
-    .line 221
+    .line 222
     :cond_44
     :goto_44
     const-string v6, "score"
 
     invoke-virtual {v4, v6, v3}, Lorg/json/JSONObject;->put(Ljava/lang/String;I)Lorg/json/JSONObject;
 
-    .line 222
+    .line 223
     const-string v3, "failStreak"
 
     invoke-virtual {v4, v3, v2}, Lorg/json/JSONObject;->put(Ljava/lang/String;I)Lorg/json/JSONObject;
 
-    .line 223
+    .line 224
     const-string v2, "timeoutCount"
 
     invoke-virtual {v4, v2, v1}, Lorg/json/JSONObject;->put(Ljava/lang/String;I)Lorg/json/JSONObject;
 
-    .line 224
+    .line 225
     const-string v1, "successCount"
 
     invoke-virtual {v4, v1, v0}, Lorg/json/JSONObject;->put(Ljava/lang/String;I)Lorg/json/JSONObject;
 
-    .line 225
+    .line 226
     const-string v0, "lastUpdateTime"
 
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
@@ -960,10 +987,10 @@
 
     invoke-virtual {v4, v0, v2, v3}, Lorg/json/JSONObject;->put(Ljava/lang/String;J)Lorg/json/JSONObject;
 
-    .line 226
+    .line 227
     if-nez p1, :cond_6c
 
-    .line 227
+    .line 228
     const-string v0, "lastFailTime"
 
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
@@ -972,11 +999,11 @@
 
     invoke-virtual {v4, v0, v2, v3}, Lorg/json/JSONObject;->put(Ljava/lang/String;J)Lorg/json/JSONObject;
 
-    .line 230
+    .line 231
     :cond_6c
     invoke-virtual {v5, p0, v4}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
 
-    .line 231
+    .line 232
     sget-object v0, Lmybl/CdnSelector;->prefs:Landroid/content/SharedPreferences;
 
     invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
@@ -995,38 +1022,38 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 234
+    .line 235
     :goto_82
     return-void
 
-    .line 193
+    .line 194
     :cond_83
     new-instance v0, Lorg/json/JSONObject;
 
     invoke-direct {v0}, Lorg/json/JSONObject;-><init>()V
 
-    .line 194
+    .line 195
     const-string v1, "score"
 
     const/16 v3, 0x46
 
     invoke-virtual {v0, v1, v3}, Lorg/json/JSONObject;->put(Ljava/lang/String;I)Lorg/json/JSONObject;
 
-    .line 195
+    .line 196
     const-string v1, "failStreak"
 
     const/4 v3, 0x0
 
     invoke-virtual {v0, v1, v3}, Lorg/json/JSONObject;->put(Ljava/lang/String;I)Lorg/json/JSONObject;
 
-    .line 196
+    .line 197
     const-string v1, "timeoutCount"
 
     const/4 v3, 0x0
 
     invoke-virtual {v0, v1, v3}, Lorg/json/JSONObject;->put(Ljava/lang/String;I)Lorg/json/JSONObject;
 
-    .line 197
+    .line 198
     const-string v1, "successCount"
 
     const/4 v3, 0x0
@@ -1037,7 +1064,7 @@
 
     goto/16 :goto_1b
 
-    .line 210
+    .line 211
     :cond_a4
     const/4 v2, 0x0
 
@@ -1047,13 +1074,13 @@
 
     move-result v3
 
-    .line 211
+    .line 212
     add-int/lit8 v2, v6, 0x1
 
-    .line 212
+    .line 213
     if-eqz p2, :cond_b8
 
-    .line 213
+    .line 214
     const/4 v6, 0x0
 
     add-int/lit8 v3, v3, -0x1e
@@ -1062,16 +1089,16 @@
 
     move-result v3
 
-    .line 214
+    .line 215
     add-int/lit8 v1, v1, 0x1
 
-    .line 216
+    .line 217
     :cond_b8
     const/4 v6, 0x3
 
     if-lt v2, v6, :cond_44
 
-    .line 217
+    .line 218
     const/4 v6, 0x0
 
     add-int/lit8 v3, v3, -0x1e
@@ -1084,7 +1111,7 @@
 
     goto :goto_44
 
-    .line 232
+    .line 233
     :catch_c3
     move-exception v0
 

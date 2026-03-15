@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import com.bilibili.lib.media.resolver.exception.ResolveException;
 import com.bilibili.lib.media.resource.MediaResource;
 import com.bilibili.tv.player.basic.context.PlayerParams;
@@ -20,8 +19,6 @@ import tv.danmaku.videoplayer.core.danmaku.IDanmakuDocument;
 
 import tv.danmaku.android.log.BLog;
 
-/* compiled from: BL */
-/* loaded from: classes.dex */
 public final class yt {
     public WeakReference<Handler> a;
     public yh b;
@@ -50,8 +47,8 @@ public final class yt {
     }
 
     public void a(Context context, Handler handler, yh yhVar) {
-        boolean z;
         Boolean bool;
+        boolean z;
         if (handler == null) {
             return;
         }
@@ -145,20 +142,13 @@ public final class yt {
 
     public final void a(Context context) {
         ResolveResourceParams obtainResolveParams = this.b.a.mVideoParams.obtainResolveParams();
-        Log.d("PlayerDebug", "播放器初始化: mProgress=" + obtainResolveParams.mProgress + ", cid=" + obtainResolveParams.mCid);
-        
-        // 优先级调整：明确传递的进度参数优先于数据库记录
         if (obtainResolveParams.mProgress > 0) {
-            // 继续播放：使用参数进度
             this.b.d = obtainResolveParams.mProgress * 1000;
             return;
         } else if (obtainResolveParams.mProgress == 0) {
-            // 重新播放：进度为0表示从头播放，跳过数据库读取
             this.b.d = 0;
             return;
         }
-        
-        // 默认情况：未设置进度参数或进度=-1时读取数据库（分集列表点击等场景）
         zt ztVar;
         zu zuVar = new zu(context);
         if (!TextUtils.isEmpty(obtainResolveParams.mSeasonId) && obtainResolveParams.mEpisodeId > 0) {
@@ -169,14 +159,10 @@ public final class yt {
         if (zuVar.b(ztVar)) {
             this.b.d = ztVar.b;
         } else {
-            // 数据库无记录时，默认从头开始播放
             this.b.d = 0;
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /* compiled from: BL */
-    /* loaded from: classes.dex */
     public class a implements Runnable {
         private a() {
         }
@@ -207,8 +193,6 @@ public final class yt {
         }
     }
 
-    /* compiled from: BL */
-    /* loaded from: classes.dex */
     public class b implements Runnable {
         public b() {
         }
@@ -216,9 +200,6 @@ public final class yt {
         @Override // java.lang.Runnable
         public void run() {
             Handler handler = yt.this.a.get();
-            //if (handler == null) {
-            //    return;
-            //}
             handler.sendEmptyMessage(10210);
             try {
                 yt.this.h.a(yt.this.c, yt.this.b.a.mVideoParams);

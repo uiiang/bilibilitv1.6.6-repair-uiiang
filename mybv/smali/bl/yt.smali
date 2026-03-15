@@ -57,10 +57,10 @@
     .locals 1
 
     .prologue
-    .line 25
+    .line 22
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 34
+    .line 31
     const/4 v0, 0x2
 
     invoke-static {v0}, Ljava/util/concurrent/Executors;->newFixedThreadPool(I)Ljava/util/concurrent/ExecutorService;
@@ -69,7 +69,7 @@
 
     iput-object v0, p0, Lbl/yt;->e:Ljava/util/concurrent/Executor;
 
-    .line 35
+    .line 32
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lbl/yt;->d:Z
@@ -86,22 +86,22 @@
     .end annotation
 
     .prologue
-    .line 125
+    .line 121
     const/16 v0, 0x2774
 
     invoke-virtual {p2, v0}, Landroid/os/Handler;->sendEmptyMessage(I)Z
 
-    .line 126
+    .line 122
     iget-object v0, p0, Lbl/yt;->b:Lbl/yh;
 
     iget-object v0, v0, Lbl/yh;->a:Lcom/bilibili/tv/player/basic/context/PlayerParams;
 
-    .line 127
+    .line 123
     iget-object v1, p0, Lbl/yt;->i:Lbl/ze;
 
     if-nez v1, :cond_15
 
-    .line 128
+    .line 124
     new-instance v0, Lcom/bilibili/lib/media/resolver/exception/ResolveException;
 
     const-string v1, "MediaResource resoler is null"
@@ -110,7 +110,7 @@
 
     throw v0
 
-    .line 131
+    .line 127
     :cond_15
     :try_start_15
     iget-object v1, p0, Lbl/yt;->i:Lbl/ze;
@@ -121,7 +121,7 @@
 
     move-result-object v1
 
-    .line 133
+    .line 128
     if-eqz v1, :cond_2e
 
     invoke-virtual {v1}, Lcom/bilibili/lib/media/resource/MediaResource;->c()Z
@@ -130,20 +130,20 @@
 
     if-eqz v2, :cond_2e
 
-    .line 134
+    .line 129
     iget-object v0, v0, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
 
     iput-object v1, v0, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mMediaResource:Lcom/bilibili/lib/media/resource/MediaResource;
 
-    .line 135
+    .line 130
     const/16 v0, 0x2775
 
     invoke-virtual {p2, v0}, Landroid/os/Handler;->sendEmptyMessage(I)Z
 
-    .line 136
+    .line 131
     return-void
 
-    .line 138
+    .line 133
     :cond_2e
     new-instance v0, Lcom/bilibili/lib/media/resolver/exception/ResolveException;
 
@@ -155,27 +155,27 @@
     :try_end_36
     .catch Lcom/bilibili/lib/media/resolver/exception/ResolveException; {:try_start_15 .. :try_end_36} :catch_36
 
-    .line 139
+    .line 134
     :catch_36
     move-exception v0
 
-    .line 140
+    .line 135
     invoke-static {}, Landroid/os/Message;->obtain()Landroid/os/Message;
 
     move-result-object v1
 
-    .line 141
+    .line 136
     const/16 v2, 0x2776
 
     iput v2, v1, Landroid/os/Message;->what:I
 
-    .line 142
+    .line 137
     iput-object v0, v1, Landroid/os/Message;->obj:Ljava/lang/Object;
 
-    .line 143
+    .line 138
     invoke-virtual {p2, v1}, Landroid/os/Handler;->sendMessage(Landroid/os/Message;)Z
 
-    .line 144
+    .line 139
     throw v0
 .end method
 
@@ -183,7 +183,7 @@
     .locals 1
 
     .prologue
-    .line 25
+    .line 22
     iget-object v0, p0, Lbl/yt;->c:Landroid/content/Context;
 
     return-object v0
@@ -193,7 +193,7 @@
     .locals 1
 
     .prologue
-    .line 25
+    .line 22
     iget-object v0, p0, Lbl/yt;->j:Lbl/yu;
 
     return-object v0
@@ -203,7 +203,7 @@
     .locals 1
 
     .prologue
-    .line 25
+    .line 22
     iget-object v0, p0, Lbl/yt;->h:Lbl/yj;
 
     return-object v0
@@ -217,10 +217,10 @@
     .prologue
     const/4 v1, 0x1
 
-    .line 38
+    .line 35
     iput-boolean v1, p0, Lbl/yt;->d:Z
 
-    .line 39
+    .line 36
     iget-object v0, p0, Lbl/yt;->f:Ljava/util/concurrent/FutureTask;
 
     if-eqz v0, :cond_f
@@ -233,18 +233,18 @@
 
     if-eqz v0, :cond_10
 
-    .line 44
+    .line 41
     :cond_f
     :goto_f
     return-void
 
-    .line 42
+    .line 39
     :cond_10
     iget-object v0, p0, Lbl/yt;->f:Ljava/util/concurrent/FutureTask;
 
     invoke-virtual {v0, v1}, Ljava/util/concurrent/FutureTask;->cancel(Z)Z
 
-    .line 43
+    .line 40
     const/4 v0, 0x0
 
     iput-object v0, p0, Lbl/yt;->f:Ljava/util/concurrent/FutureTask;
@@ -258,7 +258,7 @@
     .prologue
     const-wide/16 v6, 0x0
 
-    .line 149
+    .line 144
     iget-object v0, p0, Lbl/yt;->b:Lbl/yh;
 
     iget-object v0, v0, Lbl/yh;->a:Lcom/bilibili/tv/player/basic/context/PlayerParams;
@@ -269,49 +269,12 @@
 
     move-result-object v1
 
-    .line 150
-    const-string v0, "PlayerDebug"
-
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "\u64ad\u653e\u5668\u521d\u59cb\u5316: mProgress="
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    iget v3, v1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mProgress:I
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    const-string v3, ", cid="
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    iget-wide v4, v1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mCid:J
-
-    invoke-virtual {v2, v4, v5}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v2
-
-    invoke-static {v0, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 153
+    .line 145
     iget v0, v1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mProgress:I
 
-    if-lez v0, :cond_40
+    if-lez v0, :cond_1a
 
-    .line 155
+    .line 146
     iget-object v0, p0, Lbl/yt;->b:Lbl/yh;
 
     iget v1, v1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mProgress:I
@@ -322,45 +285,45 @@
 
     iput-wide v2, v0, Lbl/yh;->d:J
 
-    .line 177
-    :goto_3f
+    .line 164
+    :goto_19
     return-void
 
-    .line 157
-    :cond_40
+    .line 148
+    :cond_1a
     iget v0, v1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mProgress:I
 
-    if-nez v0, :cond_49
+    if-nez v0, :cond_23
 
-    .line 159
+    .line 149
     iget-object v0, p0, Lbl/yt;->b:Lbl/yh;
 
     iput-wide v6, v0, Lbl/yh;->d:J
 
-    goto :goto_3f
+    goto :goto_19
 
-    .line 165
-    :cond_49
+    .line 153
+    :cond_23
     new-instance v2, Lbl/zu;
 
     invoke-direct {v2, p1}, Lbl/zu;-><init>(Landroid/content/Context;)V
 
-    .line 166
+    .line 154
     iget-object v0, v1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mSeasonId:Ljava/lang/String;
 
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v0
 
-    if-nez v0, :cond_74
+    if-nez v0, :cond_4e
 
     iget-wide v4, v1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mEpisodeId:J
 
     cmp-long v0, v4, v6
 
-    if-lez v0, :cond_74
+    if-lez v0, :cond_4e
 
-    .line 167
+    .line 155
     new-instance v0, Lbl/zt;
 
     iget-wide v4, v1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mEpisodeId:J
@@ -371,25 +334,25 @@
 
     invoke-direct {v0, v1}, Lbl/zt;-><init>(Ljava/lang/String;)V
 
-    .line 171
-    :goto_67
+    .line 159
+    :goto_41
     invoke-virtual {v2, v0}, Lbl/zu;->b(Lbl/zt;)Z
 
     move-result v1
 
-    if-eqz v1, :cond_80
+    if-eqz v1, :cond_5a
 
-    .line 172
+    .line 160
     iget-object v1, p0, Lbl/yt;->b:Lbl/yh;
 
     iget-wide v2, v0, Lbl/zt;->b:J
 
     iput-wide v2, v1, Lbl/yh;->d:J
 
-    goto :goto_3f
+    goto :goto_19
 
-    .line 169
-    :cond_74
+    .line 157
+    :cond_4e
     new-instance v0, Lbl/zt;
 
     iget-wide v4, v1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mCid:J
@@ -400,15 +363,15 @@
 
     invoke-direct {v0, v1}, Lbl/zt;-><init>(Ljava/lang/String;)V
 
-    goto :goto_67
+    goto :goto_41
 
-    .line 175
-    :cond_80
+    .line 162
+    :cond_5a
     iget-object v0, p0, Lbl/yt;->b:Lbl/yh;
 
     iput-wide v6, v0, Lbl/yh;->d:J
 
-    goto :goto_3f
+    goto :goto_19
 .end method
 
 .method public a(Landroid/content/Context;Landroid/os/Handler;Lbl/yh;)V
@@ -421,14 +384,14 @@
 
     const/4 v1, 0x0
 
-    .line 55
+    .line 52
     if-nez p2, :cond_6
 
-    .line 122
+    .line 118
     :goto_5
     return-void
 
-    .line 59
+    .line 55
     :cond_6
     invoke-virtual {p1}, Landroid/content/Context;->getApplicationContext()Landroid/content/Context;
 
@@ -436,27 +399,27 @@
 
     iput-object v2, p0, Lbl/yt;->c:Landroid/content/Context;
 
-    .line 60
+    .line 56
     new-instance v2, Ljava/lang/ref/WeakReference;
 
     invoke-direct {v2, p2}, Ljava/lang/ref/WeakReference;-><init>(Ljava/lang/Object;)V
 
     iput-object v2, p0, Lbl/yt;->a:Ljava/lang/ref/WeakReference;
 
-    .line 61
+    .line 57
     iput-object p3, p0, Lbl/yt;->b:Lbl/yh;
 
-    .line 62
+    .line 58
     const/16 v2, 0x2711
 
     invoke-virtual {p2, v2}, Landroid/os/Handler;->sendEmptyMessage(I)Z
 
-    .line 63
+    .line 59
     const/16 v2, 0x271b
 
     invoke-virtual {p2, v2}, Landroid/os/Handler;->sendEmptyMessage(I)Z
 
-    .line 64
+    .line 60
     iget-object v2, p0, Lbl/yt;->g:Lbl/zi;
 
     iget-object v3, p0, Lbl/yt;->c:Landroid/content/Context;
@@ -471,12 +434,12 @@
 
     if-eqz v2, :cond_10f
 
-    .line 65
+    .line 61
     const/16 v2, 0x271d
 
     invoke-virtual {p2, v2}, Landroid/os/Handler;->sendEmptyMessage(I)Z
 
-    .line 70
+    .line 66
     :goto_32
     :try_start_32
     iget-object v2, p0, Lbl/yt;->b:Lbl/yh;
@@ -495,7 +458,7 @@
 
     if-nez v2, :cond_116
 
-    .line 71
+    .line 67
     new-instance v2, Ljava/util/concurrent/FutureTask;
 
     new-instance v3, Lbl/yt$b;
@@ -506,28 +469,28 @@
 
     invoke-direct {v2, v3, v4}, Ljava/util/concurrent/FutureTask;-><init>(Ljava/lang/Runnable;Ljava/lang/Object;)V
 
-    .line 72
+    .line 68
     iget-object v3, p0, Lbl/yt;->e:Ljava/util/concurrent/Executor;
 
     invoke-interface {v3, v2}, Ljava/util/concurrent/Executor;->execute(Ljava/lang/Runnable;)V
 
-    .line 73
+    .line 69
     invoke-static {v2}, Lbl/blw;->a(Ljava/util/concurrent/Future;)Ljava/lang/Object;
 
-    .line 77
+    .line 73
     :goto_56
     const/16 v2, 0x283c
 
     invoke-virtual {p2, v2}, Landroid/os/Handler;->sendEmptyMessage(I)Z
 
-    .line 78
+    .line 74
     new-instance v3, Lbl/yt$a;
 
     const/4 v2, 0x0
 
     invoke-direct {v3, p0, v2}, Lbl/yt$a;-><init>(Lbl/yt;Lbl/yt$1;)V
 
-    .line 79
+    .line 75
     new-instance v2, Ljava/util/concurrent/FutureTask;
 
     sget-object v4, Ljava/lang/Boolean;->TRUE:Ljava/lang/Boolean;
@@ -536,60 +499,60 @@
 
     iput-object v2, p0, Lbl/yt;->f:Ljava/util/concurrent/FutureTask;
 
-    .line 80
+    .line 76
     iget-object v2, p0, Lbl/yt;->e:Ljava/util/concurrent/Executor;
 
     iget-object v4, p0, Lbl/yt;->f:Ljava/util/concurrent/FutureTask;
 
     invoke-interface {v2, v4}, Ljava/util/concurrent/Executor;->execute(Ljava/lang/Runnable;)V
 
-    .line 81
+    .line 77
     iget-object v2, p0, Lbl/yt;->c:Landroid/content/Context;
 
     invoke-direct {p0, v2, p2}, Lbl/yt;->a(Landroid/content/Context;Landroid/os/Handler;)V
 
-    .line 82
+    .line 78
     invoke-virtual {p0}, Lbl/yt;->b()V
 
-    .line 83
+    .line 79
     iget-object v2, p0, Lbl/yt;->c:Landroid/content/Context;
 
     invoke-virtual {p0, v2}, Lbl/yt;->a(Landroid/content/Context;)V
 
-    .line 84
+    .line 80
     iget-object v2, p0, Lbl/yt;->b:Lbl/yh;
 
     iget-boolean v2, v2, Lbl/yh;->b:Z
 
     if-eqz v2, :cond_11d
 
-    .line 85
+    .line 81
     iget-object v1, p0, Lbl/yt;->c:Landroid/content/Context;
 
     invoke-static {v1}, Lbl/bll;->d(Landroid/content/Context;)Z
 
     move-result v1
 
-    .line 86
+    .line 82
     iget-object v2, p0, Lbl/yt;->c:Landroid/content/Context;
 
     invoke-static {v2}, Lbl/bll;->c(Landroid/content/Context;)Z
 
     move-result v2
 
-    .line 87
+    .line 83
     if-nez v1, :cond_99
 
     if-eqz v2, :cond_99
 
-    .line 88
+    .line 84
     iget-object v1, p0, Lbl/yt;->b:Lbl/yh;
 
     const/4 v2, 0x0
 
     iput-boolean v2, v1, Lbl/yh;->c:Z
 
-    .line 91
+    .line 87
     :cond_99
     iget-object v1, p0, Lbl/yt;->b:Lbl/yh;
 
@@ -599,7 +562,7 @@
 
     move v2, v0
 
-    .line 96
+    .line 92
     :goto_9f
     iget-object v0, p0, Lbl/yt;->b:Lbl/yh;
 
@@ -607,7 +570,7 @@
 
     if-eqz v0, :cond_11f
 
-    .line 97
+    .line 93
     iget-object v0, p0, Lbl/yt;->f:Ljava/util/concurrent/FutureTask;
 
     invoke-static {v0}, Lbl/blw;->a(Ljava/util/concurrent/Future;)Ljava/lang/Object;
@@ -616,11 +579,11 @@
 
     check-cast v0, Ljava/lang/Boolean;
 
-    .line 105
+    .line 101
     :goto_ad
     invoke-virtual {p0}, Lbl/yt;->b()V
 
-    .line 106
+    .line 102
     sget-object v1, Ljava/lang/Boolean;->TRUE:Ljava/lang/Boolean;
 
     if-eq v1, v0, :cond_ea
@@ -641,26 +604,26 @@
 
     if-nez v0, :cond_ea
 
-    .line 107
+    .line 103
     const-string v0, "PlayerContextResolver"
 
     const-string v1, "retry loading danmaku"
 
     invoke-static {v0, v1}, Ltv/danmaku/android/log/BLog;->w(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 108
+    .line 104
     iget-object v0, p0, Lbl/yt;->b:Lbl/yh;
 
     iput-boolean v2, v0, Lbl/yh;->c:Z
 
-    .line 109
+    .line 105
     iget-object v0, p0, Lbl/yt;->f:Ljava/util/concurrent/FutureTask;
 
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Ljava/util/concurrent/FutureTask;->cancel(Z)Z
 
-    .line 110
+    .line 106
     new-instance v0, Ljava/util/concurrent/FutureTask;
 
     sget-object v1, Ljava/lang/Boolean;->TRUE:Ljava/lang/Boolean;
@@ -669,30 +632,30 @@
 
     iput-object v0, p0, Lbl/yt;->f:Ljava/util/concurrent/FutureTask;
 
-    .line 111
+    .line 107
     iget-object v0, p0, Lbl/yt;->e:Ljava/util/concurrent/Executor;
 
     iget-object v1, p0, Lbl/yt;->f:Ljava/util/concurrent/FutureTask;
 
     invoke-interface {v0, v1}, Ljava/util/concurrent/Executor;->execute(Ljava/lang/Runnable;)V
 
-    .line 112
+    .line 108
     iget-object v0, p0, Lbl/yt;->f:Ljava/util/concurrent/FutureTask;
 
     invoke-static {v0}, Lbl/blw;->a(Ljava/util/concurrent/Future;)Ljava/lang/Object;
 
-    .line 114
+    .line 110
     :cond_ea
     const/16 v0, 0x27dc
 
     invoke-virtual {p2, v0}, Landroid/os/Handler;->sendEmptyMessage(I)Z
 
-    .line 115
+    .line 111
     const/16 v0, 0x27d9
 
     invoke-virtual {p2, v0}, Landroid/os/Handler;->sendEmptyMessage(I)Z
 
-    .line 116
+    .line 112
     const/16 v0, 0x283d
 
     invoke-virtual {p2, v0}, Landroid/os/Handler;->sendEmptyMessage(I)Z
@@ -701,30 +664,30 @@
 
     goto/16 :goto_5
 
-    .line 117
+    .line 113
     :catch_fb
     move-exception v0
 
-    .line 118
+    .line 114
     invoke-virtual {v0}, Lcom/bilibili/lib/media/resolver/exception/ResolveException;->toString()Ljava/lang/String;
 
     move-result-object v0
 
     invoke-static {v0}, Ltv/danmaku/android/log/BLog;->e(Ljava/lang/String;)V
 
-    .line 119
+    .line 115
     const/16 v0, 0x27da
 
     invoke-virtual {p2, v0}, Landroid/os/Handler;->sendEmptyMessage(I)Z
 
-    .line 120
+    .line 116
     const/16 v0, 0x283e
 
     invoke-virtual {p2, v0}, Landroid/os/Handler;->sendEmptyMessage(I)Z
 
     goto/16 :goto_5
 
-    .line 67
+    .line 63
     :cond_10f
     const/16 v2, 0x271e
 
@@ -732,7 +695,7 @@
 
     goto/16 :goto_32
 
-    .line 75
+    .line 71
     :cond_116
     const/16 v2, 0x27e3
 
@@ -746,10 +709,10 @@
     :cond_11d
     move v2, v1
 
-    .line 94
+    .line 90
     goto :goto_9f
 
-    .line 100
+    .line 96
     :cond_11f
     :try_start_11f
     iget-object v4, p0, Lbl/yt;->f:Ljava/util/concurrent/FutureTask;
@@ -779,11 +742,11 @@
 
     goto :goto_129
 
-    .line 101
+    .line 97
     :catch_134
     move-exception v0
 
-    .line 102
+    .line 98
     const/4 v0, 0x0
 
     :try_start_136
@@ -800,10 +763,10 @@
     .locals 0
 
     .prologue
-    .line 239
+    .line 218
     iput-object p1, p0, Lbl/yt;->h:Lbl/yj;
 
-    .line 240
+    .line 219
     return-void
 .end method
 
@@ -811,10 +774,10 @@
     .locals 0
 
     .prologue
-    .line 247
+    .line 226
     iput-object p1, p0, Lbl/yt;->j:Lbl/yu;
 
-    .line 248
+    .line 227
     return-void
 .end method
 
@@ -822,10 +785,10 @@
     .locals 0
 
     .prologue
-    .line 243
+    .line 222
     iput-object p1, p0, Lbl/yt;->i:Lbl/ze;
 
-    .line 244
+    .line 223
     return-void
 .end method
 
@@ -833,10 +796,10 @@
     .locals 0
 
     .prologue
-    .line 235
+    .line 214
     iput-object p1, p0, Lbl/yt;->g:Lbl/zi;
 
-    .line 236
+    .line 215
     return-void
 .end method
 
@@ -849,12 +812,12 @@
     .end annotation
 
     .prologue
-    .line 47
+    .line 44
     iget-boolean v0, p0, Lbl/yt;->d:Z
 
     if-eqz v0, :cond_c
 
-    .line 48
+    .line 45
     new-instance v0, Lcom/bilibili/lib/media/resolver/exception/ResolveException;
 
     const-string v1, "cancelled"
@@ -863,7 +826,7 @@
 
     throw v0
 
-    .line 50
+    .line 47
     :cond_c
     return-void
 .end method

@@ -13,8 +13,6 @@ import com.bilibili.lib.media.resolver.resolve.IMediaResolver;
 import com.bilibili.lib.media.resource.MediaResource;
 import com.bilibili.lib.media.resource.Segment;
 
-/* compiled from: BL */
-/* loaded from: classes.dex */
 public class qh implements IMediaResolver {
     static final SparseArray<qn> a = new SparseArray<>();
     private qx b;
@@ -60,9 +58,12 @@ public class qh implements IMediaResolver {
     private MediaResource a(Context context, ResolveMediaResourceParams resolveMediaResourceParams, ps psVar, pu puVar, ResolveResourceExtra resolveResourceExtra, boolean z) throws ResolveException {
         a(resolveMediaResourceParams);
         int a2 = a(resolveMediaResourceParams, psVar);
+        
         qa a3 = new qa.a(qi.class).a("https://api.bilibili.com/pgc/player/web/playurl").b("Bilibili Freedoooooom/MarkII").a(true).b("cid", String.valueOf(resolveMediaResourceParams.c())).b("qn", String.valueOf(a2)).b("appkey", qy.a(3, "fSDRQgpusmIbrzyc")).b("otype", "json").b("platform", "android_tv_yst").b("mobi_app", psVar.d()).b("build", psVar.a()).b("buvid", psVar.b()).b("device", psVar.c()).b("type", resolveMediaResourceParams.g()).b("access_key", puVar != null ? puVar.c : null).b("mid", puVar != null ? String.valueOf(puVar.b) : null).b("expire", puVar != null ? String.valueOf(puVar.a) : null).b("npcybs", resolveMediaResourceParams.d() ? "1" : "0").b("module", resolveMediaResourceParams.b()).b("track_path", resolveResourceExtra.e()).b("model", a2 == 0 ? psVar.e() : null).b("resolution", a2 == 0 ? psVar.f() : null).b("unicom_free", resolveResourceExtra.f() ? "1" : null).b("season_type", resolveResourceExtra.g()).b("fnval", String.valueOf(0b011111010000)).a(new qd()).a();
         this.b.a(a3.g());
+        
         qi qiVar = (qi) pz.a(a3);
+        
         if (qiVar == null) {
             throw new ResolveMediaSourceException("empty response", -5);
         }

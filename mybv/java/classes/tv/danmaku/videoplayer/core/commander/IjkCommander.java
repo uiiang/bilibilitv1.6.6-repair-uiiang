@@ -22,19 +22,15 @@ import tv.danmaku.videoplayer.core.videoview.IVideoView;
 import bl.abd;
 import com.bilibili.tv.MainApplication;
 import tv.danmaku.ijk.media.player.IjkCodecHelper;
-import android.util.Log;
 import mybl.VideoViewParams;
 import com.bilibili.tv.player.widget.PlayerMenuRight;
 
-/* compiled from: BL */
-/* loaded from: classes.dex */
 class IjkCommander extends AbsPlayerCommander {
     private static final String TAG = "IjkCommander";
     private IjkInfoStatistics mIjkInfoStatistics;
     private IjkMediaPlayer mIjkMediaPlayer;
     private IVideoView.OnExtraInfoListener mOnExtraInfoListener;
 
-    /* JADX INFO: Access modifiers changed from: package-private */
     public IjkCommander(IMediaPlayer iMediaPlayer) {
         super(iMediaPlayer);
         this.mIjkMediaPlayer = (IjkMediaPlayer) (iMediaPlayer instanceof MediaPlayerProxy ? ((MediaPlayerProxy) iMediaPlayer).getInternalMediaPlayer() : iMediaPlayer);
@@ -115,8 +111,6 @@ class IjkCommander extends AbsPlayerCommander {
     @Override // tv.danmaku.ijk.media.player.IMediaPlayer
     public void start() throws IllegalStateException {
         this.mMediaPlayer.start();
-        Log.d("MyBv","Video CodecName: "+this.mIjkMediaPlayer.getCodecName());
-        //Log.d("MyBv","Max Memory: "+String.valueOf(Runtime.getRuntime().maxMemory()));
     }
 
     @Override // tv.danmaku.videoplayer.core.commander.AbsPlayerCommander, tv.danmaku.videoplayer.core.commander.IPlayerCommander
@@ -158,7 +152,6 @@ class IjkCommander extends AbsPlayerCommander {
         }
     }
 
-    /* JADX WARN: Can't fix incorrect switch cases order, some code will duplicate */
     @Override // tv.danmaku.videoplayer.core.commander.AbsPlayerCommander, tv.danmaku.videoplayer.core.commander.IPlayerCommander
     public Object act(String str, Object... objArr) {
         char c;
@@ -275,7 +268,7 @@ class IjkCommander extends AbsPlayerCommander {
 
     private void setOnNativeInvokeListener(final IVideoView.OnExtraInfoListener onExtraInfoListener) {
         this.mOnExtraInfoListener = onExtraInfoListener;
-        this.mIjkMediaPlayer.setOnNativeInvokeListener(new IjkMediaPlayer.OnNativeInvokeListener() { // from class: tv.danmaku.videoplayer.core.commander.IjkCommander.1
+        this.mIjkMediaPlayer.setOnNativeInvokeListener(new IjkMediaPlayer.OnNativeInvokeListener() {
             @Override // tv.danmaku.ijk.media.player.IjkMediaPlayer.OnNativeInvokeListener
             public boolean onNativeInvoke(int i, Bundle bundle) {
                 BLog.i(IjkCommander.TAG, "onNativeInvoke,what:" + i + ", args size:" + bundle.size());
