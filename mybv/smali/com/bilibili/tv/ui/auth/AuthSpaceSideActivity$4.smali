@@ -3,12 +3,12 @@
 .source "AuthSpaceSideActivity.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Lbl/agb$c;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->requestVideoListFocus()V
+    value = Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->onLongClick(Landroid/view/View;)Z
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,14 +20,18 @@
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
+.field final synthetic val$sortOptions:Ljava/util/LinkedHashMap;
+
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;Ljava/util/LinkedHashMap;)V
     .locals 0
 
     .prologue
-    .line 595
+    .line 447
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
+
+    iput-object p2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;->val$sortOptions:Ljava/util/LinkedHashMap;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -36,34 +40,27 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 3
+.method public a(Lbl/agb;Landroid/view/View;Ljava/lang/String;)V
+    .locals 2
 
     .prologue
-    const/4 v2, 0x1
+    .line 450
+    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;->val$sortOptions:Ljava/util/LinkedHashMap;
 
-    .line 598
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
-
-    const v1, 0x7f080091
-
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->findViewById(I)Landroid/view/View;
+    invoke-virtual {v0, p3}, Ljava/util/LinkedHashMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 599
-    if-eqz v0, :cond_15
+    check-cast v0, Ljava/lang/String;
 
-    .line 600
-    invoke-virtual {v0, v2}, Landroid/view/View;->setFocusable(Z)V
+    .line 451
+    iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
-    .line 601
-    invoke-virtual {v0, v2}, Landroid/view/View;->setFocusableInTouchMode(Z)V
+    invoke-virtual {v1, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->setSortOrder(Ljava/lang/String;)V
 
-    .line 602
-    invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
+    .line 452
+    invoke-virtual {p1}, Lbl/agb;->dismiss()V
 
-    .line 604
-    :cond_15
+    .line 453
     return-void
 .end method

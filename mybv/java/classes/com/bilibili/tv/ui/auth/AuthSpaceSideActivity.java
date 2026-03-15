@@ -14,6 +14,7 @@ import android.view.ViewParent;
 import android.widget.TextView;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.bilibili.tv.R;
@@ -21,6 +22,7 @@ import com.bilibili.tv.ui.base.BaseSideActivity;
 import com.bilibili.tv.ui.live.LiveLeftLinearLayoutManger;
 import com.bilibili.tv.widget.side.SideLeftSelectLinearLayout;
 import bl.adz;
+import bl.agb;
 import bl.agf;
 import bl.agd;
 import bl.vn;
@@ -34,7 +36,7 @@ import com.alibaba.fastjson.JSONArray;
 import android.os.Build;
 import android.util.Log;
 
-public class AuthSpaceSideActivity extends BaseSideActivity {
+public class AuthSpaceSideActivity extends BaseSideActivity implements View.OnLongClickListener {
   private static final int COLUMNS = 2;
   private a c;
   private List<MenuItem> menuItems = new ArrayList<>();
@@ -370,6 +372,90 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
       frag = AuthSpaceVideoFragment.newInstance("series", targetMid, item.id, item.name);
     }
     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, frag).commit();
+  }
+
+  private View getSelectedView() {
+    RecyclerView leftRv = j();
+    if (leftRv == null) {
+      return null;
+    }
+    for (int i = 0; i < leftRv.getChildCount(); i++) {
+      View child = leftRv.getChildAt(i);
+      if (child.isSelected()) {
+        return child;
+      }
+    }
+    return null;
+  }
+
+  public void setSortOrder(String order) {
+    if (TextUtils.equals(order, getSortOrder())) {
+      return;
+    }
+
+    Fragment frag = h();
+    if (frag instanceof AuthSpaceVideoFragment) {
+      AuthSpaceVideoFragment avf = (AuthSpaceVideoFragment) frag;
+      View selectedView = getSelectedView();
+      avf.setSortOrder(order);
+      if (selectedView != null) {
+        selectedView.requestFocus();
+      }
+    }
+  }
+
+  public String getSortOrder() {
+    Fragment frag = h();
+    if (frag instanceof AuthSpaceVideoFragment) {
+      return ((AuthSpaceVideoFragment) frag).getSortOrder();
+    }
+    return "default";
+  }
+
+  public boolean isSeasonOrSeriesMode() {
+    Fragment frag = h();
+    if (frag instanceof AuthSpaceVideoFragment) {
+      return ((AuthSpaceVideoFragment) frag).isSeasonOrSeriesMode();
+    }
+    return false;
+  }
+
+  public int getCurrentMode() {
+    if (selectedItem == null) return 0;
+    return selectedItem.type;
+  }
+
+  @Override
+  public boolean onLongClick(View view) {
+    Fragment frag = h();
+    if (!(frag instanceof AuthSpaceVideoFragment)) {
+      return true;
+    }
+
+    AuthSpaceVideoFragment avf = (AuthSpaceVideoFragment) frag;
+    if (!avf.isSeasonOrSeriesMode()) {
+      return true;
+    }
+
+    LinkedHashMap<String, Object> sortOptions = new LinkedHashMap<>();
+    sortOptions.put("默认排序", "default");
+    sortOptions.put("倒序排序", "reverse");
+
+    agb.a builder = new agb.a(this);
+    builder.a(2)
+            .a("排序:")
+            .a(sortOptions, new agb.c() {
+              @Override
+              public void a(agb dialog, View view, String key) {
+                String order = (String) sortOptions.get(key);
+                setSortOrder(order);
+                dialog.dismiss();
+              }
+            });
+    builder.a((Object) getSortOrder());
+    builder.a().show();
+
+    return true;
   }
 
   public static class MenuItem {

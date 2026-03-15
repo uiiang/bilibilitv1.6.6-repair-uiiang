@@ -28,15 +28,15 @@
     .locals 0
 
     .prologue
-    .line 131
+    .line 130
     iput-object p1, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$e;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 132
+    .line 131
     iput-object p2, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$e;->b:Lcom/bilibili/tv/ui/history/HistorySideActivity;
 
-    .line 133
+    .line 132
     return-void
 .end method
 
@@ -46,24 +46,24 @@
     .locals 3
 
     .prologue
-    .line 137
+    .line 136
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$e;->b:Lcom/bilibili/tv/ui/history/HistorySideActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/history/HistorySideActivity;->m()Lbl/agd;
 
     move-result-object v0
 
-    .line 138
+    .line 137
     if-eqz v0, :cond_a
 
     if-nez p1, :cond_b
 
-    .line 143
+    .line 142
     :cond_a
     :goto_a
     return-void
 
-    .line 141
+    .line 140
     :cond_b
     iget-object v1, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$e;->b:Lcom/bilibili/tv/ui/history/HistorySideActivity;
 
@@ -75,7 +75,7 @@
 
     invoke-virtual {v0, v1}, Lbl/agd;->setUpRectDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 142
+    .line 141
     const/4 v1, 0x0
 
     invoke-virtual {v0, p1, p4, p5, v1}, Lbl/agd;->a(Landroid/view/View;IIZ)V

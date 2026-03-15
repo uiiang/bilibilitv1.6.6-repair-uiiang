@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 529
+    .line 508
     iput-object p1, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c$1;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,33 +40,33 @@
     .locals 2
 
     .prologue
-    .line 532
+    .line 511
     if-eqz p2, :cond_2d
 
-    .line 533
+    .line 512
     invoke-virtual {p1}, Landroid/view/View;->getTag()Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 534
+    .line 513
     instance-of v1, v0, Lcom/alibaba/fastjson/JSONObject;
 
     if-eqz v1, :cond_2d
 
-    .line 535
+    .line 514
     check-cast v0, Lcom/alibaba/fastjson/JSONObject;
 
-    .line 536
+    .line 515
     const-string v1, "history"
 
     invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 537
+    .line 516
     if-eqz v0, :cond_1c
 
-    .line 538
+    .line 517
     const-string v1, "oid"
 
     invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
@@ -75,7 +75,7 @@
 
     sput-wide v0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->currentAvid:J
 
-    .line 540
+    .line 519
     :cond_1c
     const v0, 0x7f0800d8
 
@@ -85,17 +85,17 @@
 
     check-cast v0, Ljava/lang/Integer;
 
-    .line 541
+    .line 520
     if-eqz v0, :cond_2d
 
-    .line 542
+    .line 521
     invoke-virtual {v0}, Ljava/lang/Integer;->intValue()I
 
     move-result v0
 
     sput v0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->currentPos:I
 
-    .line 546
+    .line 525
     :cond_2d
     return-void
 .end method

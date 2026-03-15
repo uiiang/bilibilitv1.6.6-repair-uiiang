@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,9 +56,16 @@ public final class AuthSpaceVideoFragment extends ady {
   private TextView headerTitle;
   private TextView headerCount;
   public DrawTextView attentionButton;
+  private TextView hintSort;
   
   // 视频总数（用于 header 显示）
   private int totalCount = 0;
+  
+  // 排序参数
+  // 合集模式: sort_reverse, true=默认排序, false=倒序排序
+  // 系列模式: sort, desc=默认排序, asc=倒序排序
+  private boolean sortReverse = true;  // 合集模式排序
+  private String sortDirection = "desc";  // 系列模式排序
 
   public static AuthSpaceVideoFragment newInstance(String mode, long mid, long id) {
     AuthSpaceVideoFragment f = new AuthSpaceVideoFragment();
@@ -84,12 +92,10 @@ public final class AuthSpaceVideoFragment extends ady {
     this.headerTitle = (TextView) rootView.findViewById(R.id.header_title);
     this.headerCount = (TextView) rootView.findViewById(R.id.header_count);
     this.attentionButton = (DrawTextView) rootView.findViewById(R.id.attention);
+    this.hintSort = (TextView) rootView.findViewById(R.id.hint_sort);
     
     RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
     a(recyclerView, bundle);
-    
-    // 初始化完成后加载数据
-    d_();
     
     return rootView;
   }
@@ -116,6 +122,10 @@ public final class AuthSpaceVideoFragment extends ady {
     
     // 初始化 header 和关注按钮
     initHeader();
+    
+    // 初始化完成后加载数据
+    i();
+    b();
   }
 
   // 保存 RecyclerView 引用，用于外部判断是否在底部
@@ -215,6 +225,9 @@ public final class AuthSpaceVideoFragment extends ady {
       if (headerCount != null) {
         headerCount.setText(totalCount > 0 ? totalCount + "个视频" : "");
       }
+      if (hintSort != null) {
+        hintSort.setVisibility(View.VISIBLE);
+      }
     } else if ("series".equals(mode)) {
       // 系列模式：显示系列标题和视频数
       if (headerTitle != null) {
@@ -225,6 +238,9 @@ public final class AuthSpaceVideoFragment extends ady {
       }
       if (headerCount != null) {
         headerCount.setText(totalCount > 0 ? totalCount + "个视频" : "");
+      }
+      if (hintSort != null) {
+        hintSort.setVisibility(View.VISIBLE);
       }
     }
   }
@@ -243,6 +259,33 @@ public final class AuthSpaceVideoFragment extends ady {
       headerCount.setText(countText);
     }
   }
+  
+  public boolean isSeasonOrSeriesMode() {
+    return "season".equals(mode) || "series".equals(mode);
+  }
+  
+  public String getSortOrder() {
+    if ("season".equals(mode)) {
+      return sortReverse ? "default" : "reverse";
+    } else if ("series".equals(mode)) {
+      return "desc".equals(sortDirection) ? "default" : "reverse";
+    }
+    return "default";
+  }
+  
+  public void setSortOrder(String order) {
+    if (TextUtils.equals(order, getSortOrder())) {
+      return;
+    }
+    if ("season".equals(mode)) {
+      sortReverse = "default".equals(order);
+    } else if ("series".equals(mode)) {
+      sortDirection = "default".equals(order) ? "desc" : "asc";
+    }
+    if (this.adapter != null) {
+      d_();
+    }
+  }
 
   @Override // bl.adw
   public boolean c() {
@@ -254,8 +297,7 @@ public final class AuthSpaceVideoFragment extends ady {
 
   @Override
   public void d_() {
-    // 不调用 super.d_()，避免访问未初始化的 recyclerView
-    // super.d_();
+    super.d_();
     this.page = 1;
     this.hasMore = true;
     b();
@@ -343,7 +385,7 @@ public final class AuthSpaceVideoFragment extends ady {
     mg biliAccount = mg.a(activity);
     if (biliAccount != null) {
       ((MyBiliApiService) vo.a(MyBiliApiService.class))
-          .getSeasonsArchivesList(biliAccount.e(), this.mid, this.targetId, false, 30, this.page, "333.1387")
+          .getSeasonsArchivesList(biliAccount.e(), this.mid, this.targetId, this.sortReverse, 30, this.page, "333.1387")
           .a(new vn<JSONObject>() {
             @Override
             public boolean isCancel() {
@@ -416,7 +458,7 @@ public final class AuthSpaceVideoFragment extends ady {
     if (biliAccount != null) {
 
       ((MyBiliApiService) vo.a(MyBiliApiService.class))
-          .getSeriesArchives(biliAccount.e(), this.mid, biliAccount.d(), this.targetId, true, "desc", 30, this.page, "333.1387")
+          .getSeriesArchives(biliAccount.e(), this.mid, biliAccount.d(), this.targetId, true, this.sortDirection, 30, this.page, "333.1387")
           .a(new vn<JSONObject>() {
             @Override
             public boolean isCancel() {
@@ -442,15 +484,9 @@ public final class AuthSpaceVideoFragment extends ady {
                 String seriesTitle = "系列";
                 int totalCount = 0;
                 JSONObject data = resp.getJSONObject("data");
-                if (data != null) {
-                  JSONObject meta = data.getJSONObject("meta");
-                  if (meta != null) {
-                    String name = meta.getString("name");
-                    if (name != null && !name.isEmpty()) {
-                      seriesTitle = name;
-                    }
-                    totalCount = meta.getIntValue("total");
-                  }
+                JSONObject pageInfo = resp.getJSONObject("page");
+                if (pageInfo != null) {
+                  totalCount = pageInfo.getIntValue("total");
                 }
                 
                 JSONArray arr = resp.getJSONArray("archives");
@@ -677,6 +713,10 @@ public final class AuthSpaceVideoFragment extends ady {
         }
         vh.a.setOnClickListener(this);
         vh.a.setOnFocusChangeListener(this);
+        Object context = vh.a.getContext();
+        if (context instanceof View.OnLongClickListener) {
+          vh.a.setOnLongClickListener((View.OnLongClickListener) context);
+        }
       }
     }
 
@@ -688,13 +728,13 @@ public final class AuthSpaceVideoFragment extends ady {
     public void setVideos(List<? extends BiliSpaceVideo> list) {
       this.data.clear();
       this.data.addAll(list);
-      d(0);
+      d();
     }
 
     public void setJsonItems(List<JSONObject> list) {
       this.data.clear();
       this.data.addAll(list);
-      d(0);
+      d();
     }
 
     public void addVideos(List<? extends BiliSpaceVideo> list) {

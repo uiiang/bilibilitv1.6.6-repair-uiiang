@@ -910,9 +910,6 @@
     .line 131
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->d_()V
 
-    .line 132
-    invoke-direct {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->loadVideoFavoriteVideos()V
-
     goto :goto_8
 .end method
 

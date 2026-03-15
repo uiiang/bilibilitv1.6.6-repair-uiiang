@@ -47,10 +47,10 @@
     .locals 1
 
     .prologue
-    .line 577
+    .line 613
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$a;-><init>()V
 
-    .line 578
+    .line 614
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
@@ -66,7 +66,7 @@
     .locals 1
 
     .prologue
-    .line 685
+    .line 725
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;->data:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->size()I
@@ -80,7 +80,7 @@
     .locals 1
 
     .prologue
-    .line 577
+    .line 613
     invoke-virtual {p0, p1, p2}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;->a(Landroid/view/ViewGroup;I)Lbl/adv;
 
     move-result-object v0
@@ -92,7 +92,7 @@
     .locals 1
 
     .prologue
-    .line 582
+    .line 618
     sget-object v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->Companion:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d$a;
 
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d$a;->a(Landroid/view/ViewGroup;)Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;
@@ -106,7 +106,7 @@
     .locals 0
 
     .prologue
-    .line 577
+    .line 613
     check-cast p1, Lbl/adv;
 
     invoke-virtual {p0, p1, p2}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;->a(Lbl/adv;I)V
@@ -118,39 +118,39 @@
     .locals 10
 
     .prologue
-    .line 587
+    .line 623
     instance-of v0, p1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;
 
-    if-eqz v0, :cond_15b
+    if-eqz v0, :cond_16c
 
-    .line 588
+    .line 624
     check-cast p1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;
 
-    .line 589
+    .line 625
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;->data:Ljava/util/List;
 
     invoke-interface {v0, p2}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 590
+    .line 626
     instance-of v1, v0, Lcom/alibaba/fastjson/JSONObject;
 
-    if-eqz v1, :cond_1b1
+    if-eqz v1, :cond_1c3
 
-    .line 591
+    .line 627
     check-cast v0, Lcom/alibaba/fastjson/JSONObject;
 
-    .line 593
+    .line 629
     const-string v1, "module_dynamic"
 
     invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v1
 
-    if-eqz v1, :cond_2f9
+    if-eqz v1, :cond_30b
 
-    .line 594
+    .line 630
     const-string v1, "module_dynamic"
 
     invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
@@ -169,7 +169,7 @@
 
     move-result-object v1
 
-    .line 596
+    .line 632
     :goto_2c
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->A()Landroid/widget/TextView;
 
@@ -183,21 +183,21 @@
 
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 597
+    .line 633
     const-string v2, "pubdate"
 
     invoke-virtual {v1, v2}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
 
     move-result-wide v2
 
-    .line 598
+    .line 634
     const-wide/16 v4, 0x0
 
     cmp-long v4, v2, v4
 
-    if-lez v4, :cond_15c
+    if-lez v4, :cond_16d
 
-    .line 599
+    .line 635
     new-instance v4, Ljava/text/SimpleDateFormat;
 
     const-string v5, "yyyy\u5e74MM\u6708dd\u65e5"
@@ -206,7 +206,7 @@
 
     invoke-direct {v4, v5, v6}, Ljava/text/SimpleDateFormat;-><init>(Ljava/lang/String;Ljava/util/Locale;)V
 
-    .line 600
+    .line 636
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->B()Landroid/widget/TextView;
 
     move-result-object v5
@@ -225,7 +225,7 @@
 
     invoke-virtual {v5, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 604
+    .line 640
     :goto_61
     const-string v2, "stat"
 
@@ -233,7 +233,7 @@
 
     move-result-object v2
 
-    if-eqz v2, :cond_176
+    if-eqz v2, :cond_187
 
     const-string v2, "stat"
 
@@ -247,7 +247,7 @@
 
     move-result-object v2
 
-    .line 606
+    .line 642
     :goto_75
     const-string v3, "stat"
 
@@ -255,7 +255,7 @@
 
     move-result-object v3
 
-    if-eqz v3, :cond_17e
+    if-eqz v3, :cond_18f
 
     const-string v3, "stat"
 
@@ -269,7 +269,7 @@
 
     move-result-object v3
 
-    .line 608
+    .line 644
     :goto_89
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->C()Landroid/widget/TextView;
 
@@ -281,7 +281,7 @@
 
     invoke-virtual {v4, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 609
+    .line 645
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->D()Landroid/widget/TextView;
 
     move-result-object v2
@@ -292,19 +292,19 @@
 
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 610
+    .line 646
     const-string v2, "duration"
 
     invoke-virtual {v1, v2}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
     move-result v2
 
-    .line 611
+    .line 647
     const/16 v3, 0xe10
 
-    if-lt v2, v3, :cond_186
+    if-lt v2, v3, :cond_197
 
-    .line 612
+    .line 648
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->E()Landroid/widget/TextView;
 
     move-result-object v3
@@ -353,7 +353,7 @@
 
     invoke-virtual {v3, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 616
+    .line 652
     :goto_d6
     const v2, 0x7f060179
 
@@ -361,7 +361,7 @@
 
     move-result v2
 
-    .line 617
+    .line 653
     sget-object v3, Lbl/adl;->a:Lbl/adl;
 
     const v4, 0x7f0700b1
@@ -370,7 +370,7 @@
 
     move-result-object v3
 
-    .line 618
+    .line 654
     sget-object v4, Lbl/adl;->a:Lbl/adl;
 
     const v5, 0x7f0700b0
@@ -379,17 +379,17 @@
 
     move-result-object v4
 
-    .line 619
+    .line 655
     if-eqz v3, :cond_102
 
-    .line 620
+    .line 656
     const/4 v5, 0x0
 
     const/4 v6, 0x0
 
     invoke-virtual {v3, v5, v6, v2, v2}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
 
-    .line 621
+    .line 657
     const v5, 0x7f0500a7
 
     invoke-static {v5}, Lbl/adl;->d(I)I
@@ -400,18 +400,18 @@
 
     invoke-virtual {v3, v5, v6}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
 
-    .line 623
+    .line 659
     :cond_102
     if-eqz v4, :cond_115
 
-    .line 624
+    .line 660
     const/4 v5, 0x0
 
     const/4 v6, 0x0
 
     invoke-virtual {v4, v5, v6, v2, v2}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
 
-    .line 625
+    .line 661
     const v2, 0x7f0500a7
 
     invoke-static {v2}, Lbl/adl;->d(I)I
@@ -422,7 +422,7 @@
 
     invoke-virtual {v4, v2, v5}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
 
-    .line 627
+    .line 663
     :cond_115
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->C()Landroid/widget/TextView;
 
@@ -436,7 +436,7 @@
 
     invoke-virtual {v2, v3, v5, v6, v7}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
 
-    .line 628
+    .line 664
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->D()Landroid/widget/TextView;
 
     move-result-object v2
@@ -449,14 +449,14 @@
 
     invoke-virtual {v2, v4, v3, v5, v6}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
 
-    .line 629
+    .line 665
     const-string v2, "pic"
 
     invoke-virtual {v1, v2}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v2
 
-    if-eqz v2, :cond_1aa
+    if-eqz v2, :cond_1bb
 
     const-string v2, "pic"
 
@@ -464,11 +464,11 @@
 
     move-result-object v1
 
-    .line 630
+    .line 666
     :goto_137
     if-eqz v1, :cond_14c
 
-    .line 631
+    .line 667
     invoke-static {}, Lbl/nv;->a()Lbl/nv;
 
     move-result-object v2
@@ -487,30 +487,49 @@
 
     invoke-virtual {v2, v1, v3}, Lbl/nv;->a(Ljava/lang/String;Landroid/widget/ImageView;)V
 
-    .line 632
+    .line 668
     :cond_14c
     iget-object v1, p1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->a:Landroid/view/View;
 
     invoke-virtual {v1, v0}, Landroid/view/View;->setTag(Ljava/lang/Object;)V
 
-    .line 678
+    .line 714
     :cond_151
     :goto_151
     iget-object v0, p1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->a:Landroid/view/View;
 
     invoke-virtual {v0, p0}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 679
+    .line 715
     iget-object v0, p1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->a:Landroid/view/View;
 
     invoke-virtual {v0, p0}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 681
-    :cond_15b
+    .line 716
+    iget-object v0, p1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->a:Landroid/view/View;
+
+    invoke-virtual {v0}, Landroid/view/View;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    .line 717
+    instance-of v1, v0, Landroid/view/View$OnLongClickListener;
+
+    if-eqz v1, :cond_16c
+
+    .line 718
+    iget-object v1, p1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->a:Landroid/view/View;
+
+    check-cast v0, Landroid/view/View$OnLongClickListener;
+
+    invoke-virtual {v1, v0}, Landroid/view/View;->setOnLongClickListener(Landroid/view/View$OnLongClickListener;)V
+
+    .line 721
+    :cond_16c
     return-void
 
-    .line 602
-    :cond_15c
+    .line 638
+    :cond_16d
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->B()Landroid/widget/TextView;
 
     move-result-object v3
@@ -521,48 +540,48 @@
 
     move-result-object v2
 
-    if-nez v2, :cond_16f
+    if-nez v2, :cond_180
 
     const-string v2, ""
 
-    :goto_16a
+    :goto_17b
     invoke-virtual {v3, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
     goto/16 :goto_61
 
-    :cond_16f
+    :cond_180
     const-string v2, "author"
 
     invoke-virtual {v1, v2}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v2
 
-    goto :goto_16a
+    goto :goto_17b
 
-    .line 604
-    :cond_176
+    .line 640
+    :cond_187
     const-string v2, "play"
 
-    .line 605
+    .line 641
     invoke-virtual {v1, v2}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v2
 
     goto/16 :goto_75
 
-    .line 606
-    :cond_17e
+    .line 642
+    :cond_18f
     const-string v3, "danmaku"
 
-    .line 607
+    .line 643
     invoke-virtual {v1, v3}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v3
 
     goto/16 :goto_89
 
-    .line 614
-    :cond_186
+    .line 650
+    :cond_197
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->E()Landroid/widget/TextView;
 
     move-result-object v3
@@ -601,26 +620,26 @@
 
     goto/16 :goto_d6
 
-    .line 629
-    :cond_1aa
+    .line 665
+    :cond_1bb
     const-string v2, "cover"
 
     invoke-virtual {v1, v2}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v1
 
-    goto :goto_137
+    goto/16 :goto_137
 
-    .line 633
-    :cond_1b1
+    .line 669
+    :cond_1c3
     instance-of v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;
 
     if-eqz v1, :cond_151
 
-    .line 634
+    .line 670
     check-cast v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;
 
-    .line 635
+    .line 671
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->A()Landroid/widget/TextView;
 
     move-result-object v1
@@ -629,10 +648,10 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 637
+    .line 673
     iget-object v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->ctime:Ljava/lang/Long;
 
-    if-eqz v1, :cond_2c2
+    if-eqz v1, :cond_2d4
 
     iget-object v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->ctime:Ljava/lang/Long;
 
@@ -644,9 +663,9 @@
 
     cmp-long v1, v2, v4
 
-    if-lez v1, :cond_2c2
+    if-lez v1, :cond_2d4
 
-    .line 638
+    .line 674
     new-instance v1, Ljava/text/SimpleDateFormat;
 
     const-string v2, "yyyy\u5e74MM\u6708dd\u65e5"
@@ -655,7 +674,7 @@
 
     invoke-direct {v1, v2, v3}, Ljava/text/SimpleDateFormat;-><init>(Ljava/lang/String;Ljava/util/Locale;)V
 
-    .line 639
+    .line 675
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->B()Landroid/widget/TextView;
 
     move-result-object v2
@@ -680,29 +699,29 @@
 
     invoke-virtual {v2, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 644
-    :goto_1f2
+    .line 680
+    :goto_204
     iget v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->play:I
 
-    if-nez v1, :cond_2cd
+    if-nez v1, :cond_2df
 
     const-string v1, "0"
 
-    .line 645
-    :goto_1f8
+    .line 681
+    :goto_20a
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->C()Landroid/widget/TextView;
 
     move-result-object v2
 
     invoke-virtual {v2, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 647
+    .line 683
     const-string v1, "0"
 
-    .line 648
+    .line 684
     iget-object v2, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->danmaku:Ljava/lang/String;
 
-    if-eqz v2, :cond_215
+    if-eqz v2, :cond_227
 
     const-string v2, "0"
 
@@ -712,32 +731,32 @@
 
     move-result v2
 
-    if-nez v2, :cond_215
+    if-nez v2, :cond_227
 
-    .line 649
+    .line 685
     iget-object v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->danmaku:Ljava/lang/String;
 
     invoke-static {v1}, Lbl/adh;->a(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 651
-    :cond_215
+    .line 687
+    :cond_227
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->D()Landroid/widget/TextView;
 
     move-result-object v2
 
     invoke-virtual {v2, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 653
+    .line 689
     iget v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->duration:I
 
-    .line 654
+    .line 690
     const/16 v2, 0xe10
 
-    if-lt v1, v2, :cond_2d5
+    if-lt v1, v2, :cond_2e7
 
-    .line 655
+    .line 691
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->E()Landroid/widget/TextView;
 
     move-result-object v2
@@ -786,15 +805,15 @@
 
     invoke-virtual {v2, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 660
-    :goto_24f
+    .line 696
+    :goto_261
     const v1, 0x7f060179
 
     invoke-static {v1}, Lbl/adl;->b(I)I
 
     move-result v1
 
-    .line 661
+    .line 697
     sget-object v2, Lbl/adl;->a:Lbl/adl;
 
     const v3, 0x7f0700b1
@@ -803,7 +822,7 @@
 
     move-result-object v2
 
-    .line 662
+    .line 698
     sget-object v3, Lbl/adl;->a:Lbl/adl;
 
     const v4, 0x7f0700b0
@@ -812,17 +831,17 @@
 
     move-result-object v3
 
-    .line 663
-    if-eqz v2, :cond_27b
+    .line 699
+    if-eqz v2, :cond_28d
 
-    .line 664
+    .line 700
     const/4 v4, 0x0
 
     const/4 v5, 0x0
 
     invoke-virtual {v2, v4, v5, v1, v1}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
 
-    .line 665
+    .line 701
     const v4, 0x7f0500a7
 
     invoke-static {v4}, Lbl/adl;->d(I)I
@@ -833,18 +852,18 @@
 
     invoke-virtual {v2, v4, v5}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
 
-    .line 667
-    :cond_27b
-    if-eqz v3, :cond_28e
+    .line 703
+    :cond_28d
+    if-eqz v3, :cond_2a0
 
-    .line 668
+    .line 704
     const/4 v4, 0x0
 
     const/4 v5, 0x0
 
     invoke-virtual {v3, v4, v5, v1, v1}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
 
-    .line 669
+    .line 705
     const v1, 0x7f0500a7
 
     invoke-static {v1}, Lbl/adl;->d(I)I
@@ -855,8 +874,8 @@
 
     invoke-virtual {v3, v1, v4}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
 
-    .line 671
-    :cond_28e
+    .line 707
+    :cond_2a0
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->C()Landroid/widget/TextView;
 
     move-result-object v1
@@ -869,7 +888,7 @@
 
     invoke-virtual {v1, v2, v4, v5, v6}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
 
-    .line 672
+    .line 708
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->D()Landroid/widget/TextView;
 
     move-result-object v1
@@ -882,12 +901,12 @@
 
     invoke-virtual {v1, v3, v2, v4, v5}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
 
-    .line 674
+    .line 710
     iget-object v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->cover:Ljava/lang/String;
 
-    if-eqz v1, :cond_2bb
+    if-eqz v1, :cond_2cd
 
-    .line 675
+    .line 711
     invoke-static {}, Lbl/nv;->a()Lbl/nv;
 
     move-result-object v1
@@ -908,16 +927,16 @@
 
     invoke-virtual {v1, v2, v3}, Lbl/nv;->a(Ljava/lang/String;Landroid/widget/ImageView;)V
 
-    .line 676
-    :cond_2bb
+    .line 712
+    :cond_2cd
     iget-object v1, p1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->a:Landroid/view/View;
 
     invoke-virtual {v1, v0}, Landroid/view/View;->setTag(Ljava/lang/Object;)V
 
     goto/16 :goto_151
 
-    .line 641
-    :cond_2c2
+    .line 677
+    :cond_2d4
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->B()Landroid/widget/TextView;
 
     move-result-object v1
@@ -926,20 +945,20 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    goto/16 :goto_1f2
+    goto/16 :goto_204
 
-    .line 644
-    :cond_2cd
+    .line 680
+    :cond_2df
     iget v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->play:I
 
     invoke-static {v1}, Lbl/adh;->a(I)Ljava/lang/String;
 
     move-result-object v1
 
-    goto/16 :goto_1f8
+    goto/16 :goto_20a
 
-    .line 657
-    :cond_2d5
+    .line 693
+    :cond_2e7
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->E()Landroid/widget/TextView;
 
     move-result-object v2
@@ -976,9 +995,9 @@
 
     invoke-virtual {v2, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    goto/16 :goto_24f
+    goto/16 :goto_261
 
-    :cond_2f9
+    :cond_30b
     move-object v1, v0
 
     goto/16 :goto_2c
@@ -997,22 +1016,22 @@
     .end annotation
 
     .prologue
-    .line 707
+    .line 747
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;->data:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->size()I
 
     move-result v0
 
-    .line 708
+    .line 748
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;->data:Ljava/util/List;
 
     invoke-interface {v1, p1}, Ljava/util/List;->addAll(Ljava/util/Collection;)Z
 
-    .line 709
+    .line 749
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;->d(I)V
 
-    .line 710
+    .line 750
     return-void
 .end method
 
@@ -1029,22 +1048,22 @@
     .end annotation
 
     .prologue
-    .line 701
+    .line 741
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;->data:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->size()I
 
     move-result v0
 
-    .line 702
+    .line 742
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;->data:Ljava/util/List;
 
     invoke-interface {v1, p1}, Ljava/util/List;->addAll(Ljava/util/Collection;)Z
 
-    .line 703
+    .line 743
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;->d(I)V
 
-    .line 704
+    .line 744
     return-void
 .end method
 
@@ -1052,12 +1071,12 @@
     .locals 5
 
     .prologue
-    .line 714
+    .line 754
     invoke-virtual {p1}, Landroid/view/View;->getTag()Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 715
+    .line 755
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v1
@@ -1066,24 +1085,24 @@
 
     move-result-object v4
 
-    .line 716
+    .line 756
     if-nez v4, :cond_f
 
-    .line 734
+    .line 774
     :cond_e
     :goto_e
     return-void
 
-    .line 718
+    .line 758
     :cond_f
     instance-of v1, v0, Lcom/alibaba/fastjson/JSONObject;
 
     if-eqz v1, :cond_3f
 
-    .line 719
+    .line 759
     check-cast v0, Lcom/alibaba/fastjson/JSONObject;
 
-    .line 721
+    .line 761
     const-string v1, "module_dynamic"
 
     invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
@@ -1092,7 +1111,7 @@
 
     if-eqz v1, :cond_2f
 
-    .line 722
+    .line 762
     const-string v1, "module_dynamic"
 
     invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
@@ -1111,7 +1130,7 @@
 
     move-result-object v0
 
-    .line 723
+    .line 763
     :cond_2f
     const-string v1, "aid"
 
@@ -1119,7 +1138,7 @@
 
     move-result-wide v0
 
-    .line 724
+    .line 764
     sget-object v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
 
     invoke-virtual {v2, v4, v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;J)Landroid/content/Intent;
@@ -1130,19 +1149,19 @@
 
     goto :goto_e
 
-    .line 725
+    .line 765
     :cond_3f
     instance-of v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;
 
     if-eqz v1, :cond_e
 
-    .line 726
+    .line 766
     check-cast v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;
 
-    .line 727
+    .line 767
     const-wide/16 v2, 0x0
 
-    .line 729
+    .line 769
     :try_start_47
     iget-object v0, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->param:Ljava/lang/String;
 
@@ -1152,7 +1171,7 @@
 
     move-result-wide v0
 
-    .line 732
+    .line 772
     :goto_4d
     sget-object v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
 
@@ -1164,7 +1183,7 @@
 
     goto :goto_e
 
-    .line 730
+    .line 770
     :catch_57
     move-exception v0
 
@@ -1177,17 +1196,17 @@
     .locals 1
 
     .prologue
-    .line 738
+    .line 778
     instance-of v0, p1, Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     if-eqz v0, :cond_9
 
-    .line 739
+    .line 779
     check-cast p1, Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     invoke-virtual {p1, p2}, Lcom/bilibili/tv/widget/DrawRelativeLayout;->setUpEnabled(Z)V
 
-    .line 740
+    .line 780
     :cond_9
     return-void
 .end method
@@ -1205,22 +1224,20 @@
     .end annotation
 
     .prologue
-    .line 695
+    .line 735
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;->data:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->clear()V
 
-    .line 696
+    .line 736
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;->data:Ljava/util/List;
 
     invoke-interface {v0, p1}, Ljava/util/List;->addAll(Ljava/util/Collection;)Z
 
-    .line 697
-    const/4 v0, 0x0
+    .line 737
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;->d()V
 
-    invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;->d(I)V
-
-    .line 698
+    .line 738
     return-void
 .end method
 
@@ -1237,21 +1254,19 @@
     .end annotation
 
     .prologue
-    .line 689
+    .line 729
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;->data:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->clear()V
 
-    .line 690
+    .line 730
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;->data:Ljava/util/List;
 
     invoke-interface {v0, p1}, Ljava/util/List;->addAll(Ljava/util/Collection;)Z
 
-    .line 691
-    const/4 v0, 0x0
+    .line 731
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;->d()V
 
-    invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;->d(I)V
-
-    .line 692
+    .line 732
     return-void
 .end method

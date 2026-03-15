@@ -129,7 +129,7 @@ public final class FavoriteVideoFragment extends ady {
         this.sortOrder = order;
         if (this.c != null) {
             d_();
-            loadVideoFavoriteVideos();
+            // loadVideoFavoriteVideos();
         }
     }
     

@@ -25,15 +25,15 @@
     .locals 0
 
     .prologue
-    .line 178
+    .line 177
     iput-object p1, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$g;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$m;-><init>()V
 
-    .line 179
+    .line 178
     iput-object p2, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$g;->b:Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;
 
-    .line 180
+    .line 179
     return-void
 .end method
 
@@ -43,10 +43,10 @@
     .locals 2
 
     .prologue
-    .line 184
+    .line 183
     invoke-super {p0, p1, p2}, Landroid/support/v7/widget/RecyclerView$m;->a(Landroid/support/v7/widget/RecyclerView;I)V
 
-    .line 185
+    .line 184
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$g;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->isLoading:Z
@@ -74,12 +74,12 @@
 
     if-nez v0, :cond_1c
 
-    .line 193
+    .line 192
     :cond_1b
     :goto_1b
     return-void
 
-    .line 188
+    .line 187
     :cond_1c
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$g;->b:Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;
 
@@ -87,7 +87,7 @@
 
     move-result v0
 
-    .line 189
+    .line 188
     iget-object v1, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$g;->b:Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;
 
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;->x()I
@@ -122,7 +122,7 @@
 
     if-le v0, v1, :cond_1b
 
-    .line 192
+    .line 191
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$g;->this$0:Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
     # invokes: Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->b()V
