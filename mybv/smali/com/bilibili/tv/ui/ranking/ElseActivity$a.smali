@@ -72,20 +72,20 @@
     .end annotation
 
     .prologue
-    .line 151
+    .line 144
     invoke-direct {p0}, Lbl/adz;-><init>()V
 
-    .line 152
+    .line 145
     new-instance v0, Ljava/lang/ref/WeakReference;
 
     invoke-direct {v0, p1}, Ljava/lang/ref/WeakReference;-><init>(Ljava/lang/Object;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->a:Ljava/lang/ref/WeakReference;
 
-    .line 153
+    .line 146
     iput-object p2, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->b:Lbl/cj;
 
-    .line 154
+    .line 147
     return-void
 .end method
 
@@ -93,7 +93,7 @@
     .locals 1
 
     .prologue
-    .line 139
+    .line 132
     iget-object v0, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->a:Ljava/lang/ref/WeakReference;
 
     return-object v0
@@ -103,7 +103,7 @@
     .locals 1
 
     .prologue
-    .line 139
+    .line 132
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->e:Z
 
     return v0
@@ -113,7 +113,7 @@
     .locals 2
 
     .prologue
-    .line 139
+    .line 132
     iget-wide v0, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->d:J
 
     return-wide v0
@@ -123,7 +123,7 @@
     .locals 1
 
     .prologue
-    .line 139
+    .line 132
     iput-wide p1, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->d:J
 
     return-wide p1
@@ -133,7 +133,7 @@
     .locals 0
 
     .prologue
-    .line 139
+    .line 132
     iput p1, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->c:I
 
     return p1
@@ -145,15 +145,15 @@
     .locals 1
 
     .prologue
-    .line 199
+    .line 192
     iget-object v0, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->b:Lbl/cj;
 
     if-nez v0, :cond_6
 
-    .line 200
+    .line 193
     const/4 v0, 0x0
 
-    .line 202
+    .line 195
     :goto_5
     return v0
 
@@ -171,7 +171,7 @@
     .locals 1
 
     .prologue
-    .line 158
+    .line 151
     invoke-static {p1}, Lbl/agf;->a(Landroid/view/ViewGroup;)Lbl/agf;
 
     move-result-object v0
@@ -183,19 +183,19 @@
     .locals 2
 
     .prologue
-    .line 163
+    .line 156
     instance-of v0, p1, Lbl/agf;
 
     if-eqz v0, :cond_22
 
-    .line 164
+    .line 157
     iget-object v0, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->b:Lbl/cj;
 
     if-eqz v0, :cond_18
 
     move-object v0, p1
 
-    .line 165
+    .line 158
     check-cast v0, Lbl/agf;
 
     iget-object v1, v0, Lbl/agf;->n:Landroid/widget/TextView;
@@ -210,7 +210,7 @@
 
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 167
+    .line 160
     :cond_18
     iget-object v0, p1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
 
@@ -220,7 +220,7 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 195
+    .line 188
     :cond_22
     return-void
 .end method
@@ -229,10 +229,10 @@
     .locals 0
 
     .prologue
-    .line 206
+    .line 199
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->e:Z
 
-    .line 207
+    .line 200
     return-void
 .end method
 
@@ -240,7 +240,7 @@
     .locals 1
 
     .prologue
-    .line 148
+    .line 141
     const/4 v0, 0x0
 
     return v0
@@ -250,7 +250,7 @@
     .locals 1
 
     .prologue
-    .line 210
+    .line 203
     iget v0, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->c:I
 
     return v0
@@ -260,7 +260,7 @@
     .locals 2
 
     .prologue
-    .line 215
+    .line 208
     iget-object v0, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->a:Ljava/lang/ref/WeakReference;
 
     invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
@@ -269,7 +269,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/ranking/ElseActivity;
 
-    .line 216
+    .line 209
     if-eqz v0, :cond_16
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/ranking/ElseActivity;->isFinishing()Z
@@ -285,12 +285,12 @@
 
     if-nez v1, :cond_17
 
-    .line 220
+    .line 213
     :cond_16
     :goto_16
     return-void
 
-    .line 219
+    .line 212
     :cond_17
     # getter for: Lcom/bilibili/tv/ui/ranking/ElseActivity;->b:Lbl/aeg2;
     invoke-static {v0}, Lcom/bilibili/tv/ui/ranking/ElseActivity;->access$200(Lcom/bilibili/tv/ui/ranking/ElseActivity;)Lbl/aeg2;

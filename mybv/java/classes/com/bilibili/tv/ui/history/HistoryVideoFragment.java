@@ -219,11 +219,14 @@ public final class HistoryVideoFragment extends ady {
     }
     
     private final void b() {
-        this.isLoading = true;
         loadHistoryData();
     }
     
     private void loadHistoryData() {
+        if (isLoading) {
+            return;
+        }
+        
         Activity activity = getActivity();
         if (activity == null || activity.isFinishing()) {
             isLoading = false;
@@ -241,6 +244,8 @@ public final class HistoryVideoFragment extends ady {
             isLoading = false;
             return;
         }
+        
+        isLoading = true;
         
         ((BiliPlayerHistoryService) vo.a(BiliPlayerHistoryService.class))
             .getVideoHistoryList(accessKey, cursorMax, cursorViewAt, cursorBusiness, historyType, PAGE_SIZE)
@@ -270,6 +275,8 @@ public final class HistoryVideoFragment extends ady {
                     }
                     
                     JSONObject cursor = response.getJSONObject("cursor");
+                    long oldCursorMax = cursorMax;
+                    
                     if (cursor != null) {
                         cursorMax = cursor.getLongValue("max");
                         cursorViewAt = cursor.getLongValue("view_at");
@@ -281,7 +288,7 @@ public final class HistoryVideoFragment extends ady {
                     
                     JSONArray list = response.getJSONArray("list");
                     if (list != null && !list.isEmpty()) {
-                        boolean isFirstLoad = (cursorMax == 0);
+                        boolean isFirstLoad = (oldCursorMax == 0);
                         if (isFirstLoad) {
                             adapter.a(list);
                         } else {
@@ -451,11 +458,11 @@ public final class HistoryVideoFragment extends ady {
                     }
                 } else {
                     if (!TextUtils.isEmpty(showTitle)) {
-                        holder.A().setMaxLines(2);
+                        holder.A().setMaxLines(3);
                         holder.B().setText(showTitle);
                         holder.B().setVisibility(View.VISIBLE);
                     } else {
-                        holder.A().setMaxLines(3);
+                        holder.A().setMaxLines(4);
                         holder.B().setVisibility(View.GONE);
                     }
                 }

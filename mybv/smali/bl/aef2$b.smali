@@ -41,17 +41,17 @@
     .locals 1
 
     .prologue
-    .line 211
+    .line 195
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$a;-><init>()V
 
-    .line 212
+    .line 196
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
 
     iput-object v0, p0, Lbl/aef2$b;->a:Ljava/util/List;
 
-    .line 213
+    .line 197
     return-void
 .end method
 
@@ -59,7 +59,7 @@
     .locals 0
 
     .prologue
-    .line 208
+    .line 192
     invoke-direct {p0}, Lbl/aef2$b;-><init>()V
 
     return-void
@@ -71,7 +71,7 @@
     .locals 1
 
     .prologue
-    .line 245
+    .line 229
     iget-object v0, p0, Lbl/aef2$b;->a:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->size()I
@@ -85,7 +85,7 @@
     .locals 1
 
     .prologue
-    .line 208
+    .line 192
     invoke-virtual {p0, p1, p2}, Lbl/aef2$b;->a(Landroid/view/ViewGroup;I)Lbl/adv;
 
     move-result-object v0
@@ -97,7 +97,7 @@
     .locals 4
 
     .prologue
-    .line 217
+    .line 201
     new-instance v0, Lbl/aef2$c;
 
     invoke-virtual {p1}, Landroid/view/ViewGroup;->getContext()Landroid/content/Context;
@@ -125,7 +125,7 @@
     .locals 0
 
     .prologue
-    .line 208
+    .line 192
     check-cast p1, Lbl/adv;
 
     invoke-virtual {p0, p1, p2}, Lbl/aef2$b;->a(Lbl/adv;I)V
@@ -143,7 +143,7 @@
 
     const/4 v5, 0x0
 
-    .line 223
+    .line 207
     instance-of v0, p1, Lbl/aef2$c;
 
     if-eqz v0, :cond_11
@@ -158,21 +158,21 @@
 
     if-nez v0, :cond_12
 
-    .line 241
+    .line 225
     :cond_11
     :goto_11
     return-void
 
-    .line 226
+    .line 210
     :cond_12
     check-cast p1, Lbl/aef2$c;
 
-    .line 227
+    .line 211
     iget-object v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mCover:Ljava/lang/String;
 
     if-eqz v1, :cond_23
 
-    .line 228
+    .line 212
     invoke-static {}, Lbl/nv;->a()Lbl/nv;
 
     move-result-object v1
@@ -183,7 +183,7 @@
 
     invoke-virtual {v1, v2, v3}, Lbl/nv;->a(Ljava/lang/String;Landroid/widget/ImageView;)V
 
-    .line 230
+    .line 214
     :cond_23
     iget-object v1, p1, Lbl/aef2$c;->o:Landroid/widget/TextView;
 
@@ -191,7 +191,7 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 231
+    .line 215
     iget-object v1, p1, Lbl/aef2$c;->p:Landroid/widget/TextView;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/api/video/BiliVideoDetail;->getAuthor()Ljava/lang/String;
@@ -200,7 +200,7 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 232
+    .line 216
     iget-object v1, p1, Lbl/aef2$c;->q:Landroid/widget/TextView;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/api/video/BiliVideoDetail;->getPlays()Ljava/lang/String;
@@ -213,7 +213,7 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 233
+    .line 217
     iget-object v1, p1, Lbl/aef2$c;->r:Landroid/widget/TextView;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/api/video/BiliVideoDetail;->getDanmakus()Ljava/lang/String;
@@ -226,20 +226,20 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 234
+    .line 218
     iget-object v1, p1, Lbl/aef2$c;->s:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/widget/DrawRelativeLayout;->setTag(Ljava/lang/Object;)V
 
-    .line 235
+    .line 219
     iget v0, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mDuration:I
 
-    .line 236
+    .line 220
     const/16 v1, 0xe10
 
     if-lt v0, v1, :cond_81
 
-    .line 237
+    .line 221
     iget-object v1, p1, Lbl/aef2$c;->t:Landroid/widget/TextView;
 
     const-string v2, "%d:%02d:%02d"
@@ -282,7 +282,7 @@
 
     goto :goto_11
 
-    .line 239
+    .line 223
     :cond_81
     iget-object v1, p1, Lbl/aef2$c;->t:Landroid/widget/TextView;
 
@@ -328,13 +328,13 @@
     .end annotation
 
     .prologue
-    .line 250
+    .line 234
     iput-object p1, p0, Lbl/aef2$b;->a:Ljava/util/List;
 
-    .line 251
+    .line 235
     invoke-virtual {p0}, Lbl/aef2$b;->d()V
 
-    .line 252
+    .line 236
     return-void
 .end method
 
@@ -351,21 +351,21 @@
     .end annotation
 
     .prologue
-    .line 256
+    .line 240
     iget-object v0, p0, Lbl/aef2$b;->a:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->size()I
 
     move-result v0
 
-    .line 257
+    .line 241
     iget-object v1, p0, Lbl/aef2$b;->a:Ljava/util/List;
 
     invoke-interface {v1, p1}, Ljava/util/List;->addAll(Ljava/util/Collection;)Z
 
-    .line 258
+    .line 242
     invoke-virtual {p0, v0}, Lbl/aef2$b;->d(I)V
 
-    .line 259
+    .line 243
     return-void
 .end method

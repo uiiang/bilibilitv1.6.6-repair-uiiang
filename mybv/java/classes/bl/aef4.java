@@ -25,7 +25,6 @@ import java.util.List;
 import mybl.MyBiliApiService;
 import com.alibaba.fastjson.*;
 import com.bilibili.tv.MainApplication;
-import android.util.Log;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
@@ -42,10 +41,8 @@ public class aef4 extends ady {
 
     @Override // bl.ady
     public void a(RecyclerView recyclerView, @Nullable Bundle bundle) {
-        Log.d("aef4", "initRecyclerView: start");
         super.a(recyclerView, bundle);
         this.d = new a();
-        Log.d("aef4", "initRecyclerView: adapter created");
         final SideRightGridLayoutManger sideRightGridLayoutManger = new SideRightGridLayoutManger(getActivity(), 2);
         final ElseActivity elseActivity = (ElseActivity) getActivity();
         sideRightGridLayoutManger.a(new BorderGridLayoutManager.a() { // from class: bl.aef4.1
@@ -86,13 +83,9 @@ public class aef4 extends ady {
         this.c = new b();
         recyclerView.setAdapter(this.c);
         i();
-        Log.d("aef4", "initLoad: start");
         MyBiliApiService api = (MyBiliApiService) vo.a(MyBiliApiService.class);
-        Log.d("aef4", "initLoad: api=" + api);
         if (api != null) {
             api.getPopularPrecious().a(this.d);
-        } else {
-            Log.e("aef4", "initLoad: api is null");
         }
     }
 
@@ -121,18 +114,14 @@ public class aef4 extends ady {
 
         @Override // bl.vn
         public /* synthetic */ void a(JSONObject response) {
-            Log.d("aef4", "onResponse: response=" + response);
             if (aef4.this.c == null) {
-                Log.e("aef4", "onResponse: adapter is null");
                 return;
             }
             aef4.this.j();
             aef4.this.h = false;
             if (aef4.this.c.a() != 0 || (response != null && response.getJSONArray("list")!=null)) {
                 JSONArray list = response.getJSONArray("list");
-                Log.d("aef4", "onResponse: list size=" + (list != null ? list.size() : "null"));
                 List<BiliVideoDetail> data = new ArrayList<BiliVideoDetail>(JSON.parseArray(list.toString(), BiliVideoDetail.class));
-                Log.d("aef4", "onResponse: data size=" + data.size());
                 aef4.this.c.a(data);
             } else {
                 aef4.this.l();
@@ -148,7 +137,6 @@ public class aef4 extends ady {
 
         @Override // bl.vm
         public void onError(Throwable th) {
-            Log.e("aef4", "onError", th);
             if (aef4.this.c == null) {
                 return;
             }

@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 167
+    .line 160
     iput-object p1, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->this$0:Lcom/bilibili/tv/ui/ranking/ElseActivity$a;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
@@ -44,7 +44,7 @@
     .locals 6
 
     .prologue
-    .line 170
+    .line 163
     iget-object v0, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->this$0:Lcom/bilibili/tv/ui/ranking/ElseActivity$a;
 
     # getter for: Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->a:Ljava/lang/ref/WeakReference;
@@ -58,15 +58,15 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/ranking/ElseActivity;
 
-    .line 171
+    .line 164
     if-nez p2, :cond_25
 
-    .line 172
+    .line 165
     iget-object v0, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->this$0:Lcom/bilibili/tv/ui/ranking/ElseActivity$a;
 
     invoke-virtual {p1, v0}, Landroid/view/View;->removeCallbacks(Ljava/lang/Runnable;)Z
 
-    .line 173
+    .line 166
     iget-object v0, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->this$0:Lcom/bilibili/tv/ui/ranking/ElseActivity$a;
 
     # getter for: Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->e:Z
@@ -76,12 +76,12 @@
 
     if-eqz v0, :cond_1c
 
-    .line 192
+    .line 185
     :cond_1b
     :goto_1b
     return-void
 
-    .line 176
+    .line 169
     :cond_1c
     iget-object v0, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
@@ -93,7 +93,7 @@
 
     goto :goto_1b
 
-    .line 179
+    .line 172
     :cond_25
     if-eqz v0, :cond_1b
 
@@ -116,14 +116,14 @@
 
     if-eqz v1, :cond_1b
 
-    .line 182
+    .line 175
     iget-object v1, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     invoke-virtual {v1}, Landroid/support/v7/widget/RecyclerView$v;->f()I
 
     move-result v1
 
-    .line 183
+    .line 176
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v2
@@ -143,19 +143,19 @@
 
     if-gez v2, :cond_55
 
-    .line 184
+    .line 177
     iget-object v2, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->this$0:Lcom/bilibili/tv/ui/ranking/ElseActivity$a;
 
     invoke-virtual {p1, v2}, Landroid/view/View;->removeCallbacks(Ljava/lang/Runnable;)Z
 
-    .line 186
+    .line 179
     :cond_55
     iget-object v2, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->this$0:Lcom/bilibili/tv/ui/ranking/ElseActivity$a;
 
     # setter for: Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->c:I
     invoke-static {v2, v1}, Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->access$402(Lcom/bilibili/tv/ui/ranking/ElseActivity$a;I)I
 
-    .line 187
+    .line 180
     iget-object v1, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->this$0:Lcom/bilibili/tv/ui/ranking/ElseActivity$a;
 
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
@@ -165,7 +165,7 @@
     # setter for: Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->d:J
     invoke-static {v1, v2, v3}, Lcom/bilibili/tv/ui/ranking/ElseActivity$a;->access$302(Lcom/bilibili/tv/ui/ranking/ElseActivity$a;J)J
 
-    .line 188
+    .line 181
     iget-object v1, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     iget-object v1, v1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
@@ -174,7 +174,7 @@
 
     invoke-virtual {v1, v2}, Landroid/view/View;->setSelected(Z)V
 
-    .line 189
+    .line 182
     iget-object v1, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     iget-object v1, v1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
@@ -183,12 +183,12 @@
 
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->a()V
 
-    .line 190
+    .line 183
     const/4 v1, 0x4
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/ranking/ElseActivity;->b(I)V
 
-    .line 191
+    .line 184
     iget-object v0, p0, Lcom/bilibili/tv/ui/ranking/ElseActivity$a$1;->this$0:Lcom/bilibili/tv/ui/ranking/ElseActivity$a;
 
     const-wide/16 v2, 0x12c
