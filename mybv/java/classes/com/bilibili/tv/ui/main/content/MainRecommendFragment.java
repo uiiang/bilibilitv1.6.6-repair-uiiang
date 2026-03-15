@@ -493,8 +493,8 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                  } else {
                      eVar.B().setVisibility(View.GONE);
                  }
-                 eVar.C().setText(String.valueOf(content.getPlay()));
-                 eVar.D().setText(String.valueOf(content.getDanmaku()));
+                 eVar.C().setText(adh.a(content.getPlay()));
+                 eVar.D().setText(adh.a(content.getDanmaku()));
                 int duration = content.getDuration();
                 if (duration >= 3600) {
                     eVar.E().setText(String.format("%d:%02d:%02d", duration / 3600, (duration % 3600) / 60, duration % 60));

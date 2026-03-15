@@ -507,7 +507,7 @@
 
     move-result v3
 
-    invoke-static {v3}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
+    invoke-static {v3}, Lbl/adh;->a(I)Ljava/lang/String;
 
     move-result-object v3
 
@@ -522,7 +522,7 @@
 
     move-result v3
 
-    invoke-static {v3}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
+    invoke-static {v3}, Lbl/adh;->a(I)Ljava/lang/String;
 
     move-result-object v3
 
