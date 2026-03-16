@@ -141,9 +141,7 @@ public final class AuthSpaceVideoFragment extends ady {
   // 初始化 header 区域
   private void initHeader() {
     if ("all".equals(mode)) {
-      // 全部视频模式：显示 UP 主名称和关注按钮
       if (headerTitle != null) {
-        // 优先显示 UP 主名称，如果没有则显示 mid
         if (upName != null && !upName.isEmpty()) {
           headerTitle.setText(upName);
         } else {

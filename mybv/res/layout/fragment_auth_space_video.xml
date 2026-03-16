@@ -22,6 +22,9 @@
             android:id="@id/header_title"
             android:textSize="@dimen/px_48"
             android:textColor="@color/white"
+            android:ellipsize="middle"
+            android:maxEms="15"
+            android:singleLine="true"
             android:focusable="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
