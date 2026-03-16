@@ -1,17 +1,18 @@
 .class public Lcom/bilibili/tv/api/auth/BiliSpaceVideoList;
 .super Ljava/lang/Object;
-.source "BL"
-
-
-# annotations
-.annotation build Landroid/support/annotation/Keep;
-.end annotation
+.source "BiliSpaceVideoList.java"
 
 
 # instance fields
 .field public count:I
     .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
         name = "count"
+    .end annotation
+.end field
+
+.field public hasNext:Z
+    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
+        name = "has_next"
     .end annotation
 .end field
 
@@ -22,7 +23,8 @@
 
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "Ljava/util/List<",
+            "Ljava/util/List",
+            "<",
             "Lcom/bilibili/tv/api/auth/BiliSpaceVideo;",
             ">;"
         }
@@ -34,7 +36,8 @@
 .method public constructor <init>()V
     .locals 0
 
-    .line 17
+    .prologue
+    .line 6
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void

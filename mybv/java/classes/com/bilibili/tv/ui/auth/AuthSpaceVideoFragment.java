@@ -44,6 +44,7 @@ public final class AuthSpaceVideoFragment extends ady {
   private c adapter;
   private b callback;
   private boolean loading = false;
+  private Long cursor = null;
   private int page = 1;
   private boolean hasMore = true;
   private boolean firstLoad = false;
@@ -66,7 +67,7 @@ public final class AuthSpaceVideoFragment extends ady {
   // 全部视频模式: order, click=最多播放, pubdate=最新发布
   // 合集模式: sort_reverse, true=默认排序, false=倒序排序
   // 系列模式: sort, desc=默认排序, asc=倒序排序
-  private String allVideoOrder = "pubdate";  // 全部视频模式排序，默认最新发布
+  private String allVideoOrder = null;  // 全部视频模式排序，null=默认排序(按aid倒序)
   private boolean sortReverse = true;  // 合集模式排序
   private String sortDirection = "desc";  // 系列模式排序
 
@@ -89,7 +90,6 @@ public final class AuthSpaceVideoFragment extends ady {
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
-    // 使用新的布局文件
     View rootView = inflater.inflate(R.layout.fragment_auth_space_video, container, false);
     this.headerLayout = rootView.findViewById(R.id.space_header_layout);
     this.headerTitle = (TextView) rootView.findViewById(R.id.header_title);
@@ -101,6 +101,12 @@ public final class AuthSpaceVideoFragment extends ady {
     a(recyclerView, bundle);
     
     return rootView;
+  }
+
+  @Override
+  public void onViewCreated(View view, Bundle bundle) {
+    // 不调用 super.onViewCreated()，因为 a() 已经在 onCreateView 中调用过了
+    // 这样可以避免 b() 被调用两次
   }
 
   @Override
@@ -317,6 +323,7 @@ public final class AuthSpaceVideoFragment extends ady {
   @Override
   public void d_() {
     super.d_();
+    this.cursor = null;
     this.page = 1;
     this.hasMore = true;
     b();
@@ -343,7 +350,8 @@ public final class AuthSpaceVideoFragment extends ady {
     mg account = mg.a(activity);
     if (account == null)
       return;
-    api.loadArchiveVideos(account.e(), this.mid, this.page, 20, this.allVideoOrder).a(new vn<BiliSpaceVideoList>() {
+    api.loadArchiveVideos(account.e(), this.mid, this.cursor, 20, this.allVideoOrder)
+    .a(new vn<BiliSpaceVideoList>() {
       @Override
       public boolean isCancel() {
         return getActivity() == null || adapter == null;
@@ -353,7 +361,7 @@ public final class AuthSpaceVideoFragment extends ady {
       public void onError(Throwable th) {
         adl.a.a(th, getActivity());
         loading = false;
-        if (page == 1)
+        if (cursor == null)
           k();
       }
 
@@ -365,14 +373,22 @@ public final class AuthSpaceVideoFragment extends ady {
         loading = false;
         if (list != null && list.videos != null && list.videos.size() > 0) {
           List<BiliSpaceVideo> filtered = mybl.BiliFilter.filterBiliSpaceVideo(list.videos, "个人投稿");
-          if (page == 1) {
+          if (cursor == null) {
             adapter.setVideos(filtered);
-            // 更新 header 显示的视频总数
             updateHeaderInfo(null, list.count);
           } else {
             adapter.addVideos(filtered);
           }
-          hasMore = filtered.size() == 20;
+          if (list.videos.size() > 0) {
+            BiliSpaceVideo lastVideo = list.videos.get(list.videos.size() - 1);
+            if (lastVideo.param != null) {
+              try {
+                cursor = Long.parseLong(lastVideo.param);
+              } catch (NumberFormatException e) {
+              }
+            }
+          }
+          hasMore = list.hasNext && filtered.size() > 0;
           View view = getView();
           if (view != null)
             view.requestLayout();
@@ -382,13 +398,12 @@ public final class AuthSpaceVideoFragment extends ady {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            page++;
             b();
           }
           return;
         }
         hasMore = false;
-        if (page == 1) {
+        if (cursor == null) {
           k();
           AuthSpaceVideoFragment.this.a(R.string.nothing_show);
         }

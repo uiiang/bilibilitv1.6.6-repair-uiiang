@@ -10,7 +10,7 @@
 
 
 # virtual methods
-.method public abstract loadArchiveVideos(Ljava/lang/String;JIILjava/lang/String;)Lbl/vp;
+.method public abstract loadArchiveVideos(Ljava/lang/String;JLjava/lang/Long;ILjava/lang/String;)Lbl/vp;
     .param p1    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Query;
             value = "access_key"
@@ -21,9 +21,9 @@
             value = "vmid"
         .end annotation
     .end param
-    .param p4    # I
+    .param p4    # Ljava/lang/Long;
         .annotation runtime Lretrofit2/http/Query;
-            value = "pn"
+            value = "aid"
         .end annotation
     .end param
     .param p5    # I
@@ -44,7 +44,9 @@
         value = {
             "(",
             "Ljava/lang/String;",
-            "JII",
+            "J",
+            "Ljava/lang/Long;",
+            "I",
             "Ljava/lang/String;",
             ")",
             "Lbl/vp",

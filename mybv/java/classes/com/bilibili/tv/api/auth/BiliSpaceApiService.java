@@ -13,7 +13,7 @@ import retrofit2.http.Query;
 public interface BiliSpaceApiService {
     @GET("/x/v2/space/archive/cursor")
     @CacheControl(3000)
-    vp<GeneralResponse<BiliSpaceVideoList>> loadArchiveVideos(@Query("access_key") String str, @Query("vmid") long j, @Query("pn") int i, @Query("ps") int i2, @Query("order") String order);
+    vp<GeneralResponse<BiliSpaceVideoList>> loadArchiveVideos(@Query("access_key") String str, @Query("vmid") long j, @Query("aid") Long aid, @Query("ps") int i2, @Query("order") String order);
 
     @GET("/x/v2/space/bangumi")
     @CacheControl(3000)

@@ -67,6 +67,7 @@ public final class AuthSpaceActivity extends BaseReloadActivity {
     private RecyclerView e;
     private TextView f;
     private int g = 1;
+    private Long cursor = null;
     private boolean h = true;
     private boolean i;
     private String j;
@@ -341,11 +342,13 @@ public final class AuthSpaceActivity extends BaseReloadActivity {
         BiliSpaceApiService biliSpaceApiService = (BiliSpaceApiService) vo.a(BiliSpaceApiService.class);
         mg account = mg.a(this);
         bbi.a((Object) account, "BiliAccount.get(this)");
-        biliSpaceApiService.loadArchiveVideos(account.e(), this.k, this.g, 20, null).a(this.b);
+        biliSpaceApiService.loadArchiveVideos(account.e(), this.k, this.cursor, 20, null).a(this.b);
     }
 
     @Override // com.bilibili.tv.ui.base.BaseReloadActivity, bl.aea
     public void d_() {
+        this.cursor = null;
+        this.g = 1;
         k();
     }
 
@@ -382,9 +385,8 @@ public final class AuthSpaceActivity extends BaseReloadActivity {
                 }
                 return;
             }
-            if (AuthSpaceActivity.this.g == 1) {
+            if (AuthSpaceActivity.this.cursor == null) {
                 AuthSpaceActivity.this.a(true);
-                //LoadingImageView.a(loadingImageView, false, 1, null);
                 loadingImageView.setRefreshError(true);
             }
         }
@@ -407,7 +409,7 @@ public final class AuthSpaceActivity extends BaseReloadActivity {
             recyclerView.setVisibility(0);
             AuthSpaceActivity.this.i = false;
             if (biliSpaceVideoList == null || biliSpaceVideoList.videos == null || biliSpaceVideoList.videos.size() == 0) {
-                if (AuthSpaceActivity.this.g == 1) {
+                if (AuthSpaceActivity.this.cursor == null) {
                     loadingImageView.c();
                     loadingImageView.a(R.string.nothing_show);
                 }
@@ -421,7 +423,17 @@ public final class AuthSpaceActivity extends BaseReloadActivity {
             AuthSpaceActivity.this.a.filter_num += biliSpaceVideoList.videos.size()-list.size();
             if(BiliFilter.filter_on)info+="，已过滤"+String.valueOf(AuthSpaceActivity.this.a.filter_num)+"条";
             AuthSpaceActivity.this.f.setText(info);
-            if(AuthSpaceActivity.this.h&&AuthSpaceActivity.this.a.a()<8){
+            if (biliSpaceVideoList.videos.size() > 0) {
+                BiliSpaceVideo lastVideo = biliSpaceVideoList.videos.get(biliSpaceVideoList.videos.size() - 1);
+                if (lastVideo.param != null) {
+                    try {
+                        AuthSpaceActivity.this.cursor = Long.parseLong(lastVideo.param);
+                    } catch (NumberFormatException e) {
+                    }
+                }
+            }
+            AuthSpaceActivity.this.h = biliSpaceVideoList.hasNext && list.size() > 0;
+            if(AuthSpaceActivity.this.h && AuthSpaceActivity.this.a.a()<8){
                 try{Thread.sleep(1000);}catch(Exception e){e.printStackTrace();}
                 loadingImageView.a();
                 AuthSpaceActivity.this.g++;

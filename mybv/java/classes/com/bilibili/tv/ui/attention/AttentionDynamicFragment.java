@@ -49,6 +49,7 @@ public final class AttentionDynamicFragment extends ady {
     private b d;
     private boolean e;
     private int f = 1;
+    private Long cursor = null;
     private boolean g = true;
     private boolean h;
     private long mid;
@@ -203,7 +204,6 @@ public final class AttentionDynamicFragment extends ady {
             if (this.b.x() <= 0 || iP + 10 < this.b.H() - 1 || this.b.H() <= this.b.x()) {
                 return;
             }
-            AttentionDynamicFragment.this.f++;
             AttentionDynamicFragment.this.b();
         }
     }
@@ -227,6 +227,7 @@ public final class AttentionDynamicFragment extends ady {
     public void d_() {
         super.d_();
         this.f = 1;
+        this.cursor = null;
         this.offset = "";
         b();
     }
@@ -258,7 +259,7 @@ public final class AttentionDynamicFragment extends ady {
                 return;
             }
             h = false;
-            if (f == 1) {
+            if (cursor == 0) {
                 k();
             }
         }
@@ -293,6 +294,7 @@ public final class AttentionDynamicFragment extends ady {
                             } else {
                                 c.b(list);
                             }
+                            f++;
                             g = response.getBoolean("has_more");
                             offset = response.getString("offset");
                             // 数据加载完成后，强制重新布局
@@ -336,7 +338,8 @@ public final class AttentionDynamicFragment extends ady {
             BiliSpaceApiService api = (BiliSpaceApiService) vo.a(BiliSpaceApiService.class);
             mg account = mg.a(activity);
             if (account != null) {
-                api.loadArchiveVideos(account.e(), mid, f, 20, null).a(new vn<BiliSpaceVideoList>() {
+                api.loadArchiveVideos(account.e(), mid, cursor, 20, null)
+                .a(new vn<BiliSpaceVideoList>() {
                     @Override
                     public void a(BiliSpaceVideoList biliSpaceVideoList) {
                         if (c == null) {
@@ -346,12 +349,21 @@ public final class AttentionDynamicFragment extends ady {
                         h = false;
                         if (biliSpaceVideoList != null && biliSpaceVideoList.videos != null && biliSpaceVideoList.videos.size() > 0) {
                             List<BiliSpaceVideo> list = BiliFilter.filterBiliSpaceVideo(biliSpaceVideoList.videos, "个人投稿");
-                            if (f == 1) {
+                            if (cursor == null) {
                                 c.a(list);
                             } else {
                                 c.b(list);
                             }
-                            g = list.size() == 20;
+                            if (biliSpaceVideoList.videos.size() > 0) {
+                                BiliSpaceVideo lastVideo = biliSpaceVideoList.videos.get(biliSpaceVideoList.videos.size() - 1);
+                                if (lastVideo.param != null) {
+                                    try {
+                                        cursor = Long.parseLong(lastVideo.param);
+                                    } catch (NumberFormatException e) {
+                                    }
+                                }
+                            }
+                            g = biliSpaceVideoList.hasNext && list.size() > 0;
                             View view = getView();
                             if (view != null) {
                                 view.requestLayout();
@@ -362,13 +374,12 @@ public final class AttentionDynamicFragment extends ady {
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
-                                f++;
                                 AttentionDynamicFragment.this.b();
                             }
                             return;
                         }
                         g = false;
-                        if (f == 1) {
+                        if (cursor == null) {
                             l();
                             AttentionDynamicFragment.this.a(R.string.nothing_show);
                         }
@@ -386,7 +397,7 @@ public final class AttentionDynamicFragment extends ady {
                             return;
                         }
                         h = false;
-                        if (f == 1) {
+                        if (cursor == null) {
                             k();
                         }
                     }

@@ -25,15 +25,15 @@
     .locals 0
 
     .prologue
-    .line 192
+    .line 193
     iput-object p1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$g;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$m;-><init>()V
 
-    .line 193
+    .line 194
     iput-object p2, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$g;->b:Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;
 
-    .line 194
+    .line 195
     return-void
 .end method
 
@@ -43,10 +43,10 @@
     .locals 2
 
     .prologue
-    .line 198
+    .line 199
     invoke-super {p0, p1, p2}, Landroid/support/v7/widget/RecyclerView$m;->a(Landroid/support/v7/widget/RecyclerView;I)V
 
-    .line 199
+    .line 200
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$g;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->h:Z
@@ -70,7 +70,7 @@
     :goto_13
     return-void
 
-    .line 202
+    .line 203
     :cond_14
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$g;->b:Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;
 
@@ -78,7 +78,7 @@
 
     move-result v0
 
-    .line 203
+    .line 204
     iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$g;->b:Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;
 
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;->x()I
@@ -112,12 +112,6 @@
     move-result v1
 
     if-le v0, v1, :cond_13
-
-    .line 206
-    iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$g;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
-
-    # operator++ for: Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->f:I
-    invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$308(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;)I
 
     .line 207
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$g;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
