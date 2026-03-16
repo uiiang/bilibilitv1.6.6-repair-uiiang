@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import bl.ach;
+import bl.abd;
 import bl.adl;
 import bl.adv;
 import bl.adz;
@@ -533,7 +534,7 @@ public final class VideoHistoryActivity extends BaseUpViewActivity implements Vi
             if (advVar instanceof f) {
                 BiliVideoDetail biliVideoDetail = this.a.get(i);
                 if (!TextUtils.isEmpty(biliVideoDetail.mCover)) {
-                    nv.a().a(ach.c(MainApplication.a(), biliVideoDetail.mCover), ((f) advVar).z());
+                    nv.a().a(abd.get_thumb_url_c(MainApplication.a(), biliVideoDetail.mCover), ((f) advVar).z());
                 }
                 if (!TextUtils.isEmpty(biliVideoDetail.mTitle)) {
                     ((f) advVar).A().setText(biliVideoDetail.mTitle);

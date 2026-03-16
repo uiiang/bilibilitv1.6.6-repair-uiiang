@@ -22,6 +22,7 @@ import com.bilibili.tv.widget.border.BorderGridLayoutManager;
 import com.bilibili.tv.widget.side.SideRightGridLayoutManger;
 import java.util.List;
 import kotlin.TypeCastException;
+import bl.abd;
 
 import mybl.BiliFilter;
 
@@ -260,7 +261,7 @@ public final class aff extends ady {
                 } else {
                     dVar.G().setText(String.format("%02d:%02d", duration / 60, duration % 60));
                 }
-                nv.a().a(ach.c(MainApplication.a(), biliRankV2.getCover()), dVar.z());
+                nv.a().a(abd.get_thumb_url_c(MainApplication.a(), biliRankV2.getCover()), dVar.z());
                 switch (i) {
                     case 0:
                         dVar.E().setBackgroundResource(R.drawable.ic_ranking_one);

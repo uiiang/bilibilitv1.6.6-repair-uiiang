@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import bl.abl;
+import bl.abd;
 import bl.ach;
 import bl.adj;
 import bl.adl;
@@ -356,7 +357,7 @@ public final class FollowPgcActivity extends BaseReloadActivity implements wf {
             if (advVar instanceof d) {
                 BiliBangumiSeason biliBangumiSeason = this.a.get(i);
                 if (biliBangumiSeason.mCover != null) {
-                    nv.a().a(ach.b(MainApplication.a(), biliBangumiSeason.mCover), ((d) advVar).z());
+                    nv.a().a(abd.get_thumb_url_b(MainApplication.a(), biliBangumiSeason.mCover), ((d) advVar).z());
                 }
                 if (biliBangumiSeason.mTitle != null) {
                     ((d) advVar).A().setText(biliBangumiSeason.mTitle);

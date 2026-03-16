@@ -47,7 +47,7 @@
     .locals 2
 
     .prologue
-    .line 334
+    .line 335
     new-instance v0, Lbl/aff$d$a;
 
     const/4 v1, 0x0
@@ -67,15 +67,15 @@
 
     const/4 v5, 0x0
 
-    .line 346
+    .line 347
     invoke-direct {p0, p1}, Lbl/adv;-><init>(Landroid/view/View;)V
 
-    .line 347
+    .line 348
     const-string v0, "itemView"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 348
+    .line 349
     const v0, 0x7f0800a1
 
     invoke-virtual {p0, p1, v0}, Lbl/aff$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -86,7 +86,7 @@
 
     iput-object v0, p0, Lbl/aff$d;->n:Lcom/bilibili/tv/widget/ScalableImageView;
 
-    .line 349
+    .line 350
     const v0, 0x7f080132
 
     invoke-virtual {p0, p1, v0}, Lbl/aff$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -97,7 +97,7 @@
 
     iput-object v0, p0, Lbl/aff$d;->o:Landroid/widget/TextView;
 
-    .line 350
+    .line 351
     const v0, 0x7f08013f
 
     invoke-virtual {p0, p1, v0}, Lbl/aff$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -108,7 +108,7 @@
 
     iput-object v0, p0, Lbl/aff$d;->p:Landroid/widget/TextView;
 
-    .line 351
+    .line 352
     const v0, 0x7f0800d4
 
     invoke-virtual {p0, p1, v0}, Lbl/aff$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -119,7 +119,7 @@
 
     iput-object v0, p0, Lbl/aff$d;->q:Landroid/widget/TextView;
 
-    .line 352
+    .line 353
     const v0, 0x7f08006c
 
     invoke-virtual {p0, p1, v0}, Lbl/aff$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -130,7 +130,7 @@
 
     iput-object v0, p0, Lbl/aff$d;->r:Landroid/widget/TextView;
 
-    .line 353
+    .line 354
     const v0, 0x7f080123
 
     invoke-virtual {p0, p1, v0}, Lbl/aff$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -141,7 +141,7 @@
 
     iput-object v0, p0, Lbl/aff$d;->s:Landroid/widget/ImageView;
 
-    .line 354
+    .line 355
     const v0, 0x7f080124
 
     invoke-virtual {p0, p1, v0}, Lbl/aff$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -152,7 +152,7 @@
 
     iput-object v0, p0, Lbl/aff$d;->t:Landroid/widget/TextView;
 
-    .line 355
+    .line 356
     const v0, 0x7f0801a1
 
     invoke-virtual {p0, p1, v0}, Lbl/aff$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -163,7 +163,7 @@
 
     iput-object v0, p0, Lbl/aff$d;->u:Landroid/widget/TextView;
 
-    .line 356
+    .line 357
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     const v1, 0x7f0700b2
@@ -172,7 +172,7 @@
 
     move-result-object v0
 
-    .line 357
+    .line 358
     sget-object v1, Lbl/adl;->a:Lbl/adl;
 
     const v2, 0x7f0700b1
@@ -181,7 +181,7 @@
 
     move-result-object v1
 
-    .line 358
+    .line 359
     sget-object v2, Lbl/adl;->a:Lbl/adl;
 
     const v3, 0x7f0700b0
@@ -190,60 +190,60 @@
 
     move-result-object v2
 
-    .line 359
+    .line 360
     const v3, 0x7f060179
 
     invoke-static {v3}, Lbl/adl;->b(I)I
 
     move-result v3
 
-    .line 360
+    .line 361
     invoke-virtual {v0, v4, v4, v3, v3}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
 
-    .line 361
+    .line 362
     invoke-virtual {v1, v4, v4, v3, v3}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
 
-    .line 362
+    .line 363
     invoke-virtual {v2, v4, v4, v3, v3}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
 
-    .line 363
+    .line 364
     const v3, 0x7f0500a7
 
     invoke-static {v3}, Lbl/adl;->d(I)I
 
     move-result v3
 
-    .line 364
+    .line 365
     sget-object v4, Landroid/graphics/PorterDuff$Mode;->MULTIPLY:Landroid/graphics/PorterDuff$Mode;
 
     invoke-virtual {v0, v3, v4}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
 
-    .line 365
+    .line 366
     sget-object v4, Landroid/graphics/PorterDuff$Mode;->MULTIPLY:Landroid/graphics/PorterDuff$Mode;
 
     invoke-virtual {v1, v3, v4}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
 
-    .line 366
+    .line 367
     sget-object v4, Landroid/graphics/PorterDuff$Mode;->MULTIPLY:Landroid/graphics/PorterDuff$Mode;
 
     invoke-virtual {v2, v3, v4}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
 
-    .line 367
+    .line 368
     iget-object v3, p0, Lbl/aff$d;->p:Landroid/widget/TextView;
 
     invoke-virtual {v3, v0, v5, v5, v5}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
 
-    .line 368
+    .line 369
     iget-object v0, p0, Lbl/aff$d;->q:Landroid/widget/TextView;
 
     invoke-virtual {v0, v1, v5, v5, v5}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
 
-    .line 369
+    .line 370
     iget-object v0, p0, Lbl/aff$d;->r:Landroid/widget/TextView;
 
     invoke-virtual {v0, v2, v5, v5, v5}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
 
-    .line 370
+    .line 371
     return-void
 .end method
 
@@ -253,7 +253,7 @@
     .locals 1
 
     .prologue
-    .line 377
+    .line 378
     iget-object v0, p0, Lbl/aff$d;->o:Landroid/widget/TextView;
 
     return-object v0
@@ -263,7 +263,7 @@
     .locals 1
 
     .prologue
-    .line 381
+    .line 382
     iget-object v0, p0, Lbl/aff$d;->p:Landroid/widget/TextView;
 
     return-object v0
@@ -273,7 +273,7 @@
     .locals 1
 
     .prologue
-    .line 385
+    .line 386
     iget-object v0, p0, Lbl/aff$d;->q:Landroid/widget/TextView;
 
     return-object v0
@@ -283,7 +283,7 @@
     .locals 1
 
     .prologue
-    .line 389
+    .line 390
     iget-object v0, p0, Lbl/aff$d;->r:Landroid/widget/TextView;
 
     return-object v0
@@ -293,7 +293,7 @@
     .locals 1
 
     .prologue
-    .line 393
+    .line 394
     iget-object v0, p0, Lbl/aff$d;->s:Landroid/widget/ImageView;
 
     return-object v0
@@ -303,7 +303,7 @@
     .locals 1
 
     .prologue
-    .line 397
+    .line 398
     iget-object v0, p0, Lbl/aff$d;->t:Landroid/widget/TextView;
 
     return-object v0
@@ -313,7 +313,7 @@
     .locals 1
 
     .prologue
-    .line 401
+    .line 402
     iget-object v0, p0, Lbl/aff$d;->u:Landroid/widget/TextView;
 
     return-object v0
@@ -323,7 +323,7 @@
     .locals 1
 
     .prologue
-    .line 373
+    .line 374
     iget-object v0, p0, Lbl/aff$d;->n:Lcom/bilibili/tv/widget/ScalableImageView;
 
     return-object v0

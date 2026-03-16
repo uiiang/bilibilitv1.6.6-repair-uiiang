@@ -23,7 +23,7 @@
     .locals 0
 
     .prologue
-    .line 173
+    .line 174
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     invoke-direct {p0, p2, p3}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;-><init>(Landroid/content/Context;I)V
@@ -37,7 +37,7 @@
     .locals 2
 
     .prologue
-    .line 176
+    .line 177
     const/16 v0, 0x21
 
     if-ne p2, v0, :cond_1f
@@ -60,17 +60,17 @@
 
     if-eqz v0, :cond_1f
 
-    .line 177
+    .line 178
     const/4 v0, 0x0
 
     invoke-virtual {p1, v0}, Landroid/view/View;->setSelected(Z)V
 
-    .line 178
+    .line 179
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
-    .line 180
+    .line 181
     :goto_1e
     return-object v0
 

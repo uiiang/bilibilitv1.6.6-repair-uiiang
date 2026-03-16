@@ -28,15 +28,15 @@
     .locals 0
 
     .prologue
-    .line 111
+    .line 112
     iput-object p1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$e;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 112
+    .line 113
     iput-object p2, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$e;->b:Lcom/bilibili/tv/ui/weekly/WeeklyActivity;
 
-    .line 113
+    .line 114
     return-void
 .end method
 
@@ -46,24 +46,24 @@
     .locals 3
 
     .prologue
-    .line 117
+    .line 118
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$e;->b:Lcom/bilibili/tv/ui/weekly/WeeklyActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->m()Lbl/agd;
 
     move-result-object v0
 
-    .line 118
+    .line 119
     if-eqz v0, :cond_a
 
     if-nez p1, :cond_b
 
-    .line 124
+    .line 125
     :cond_a
     :goto_a
     return-void
 
-    .line 121
+    .line 122
     :cond_b
     iget-object v1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$e;->b:Lcom/bilibili/tv/ui/weekly/WeeklyActivity;
 
@@ -75,7 +75,7 @@
 
     invoke-virtual {v0, v1}, Lbl/agd;->setUpRectDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 122
+    .line 123
     iget-object v1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$e;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->e:Z
@@ -85,7 +85,7 @@
 
     invoke-virtual {v0, p1, p4, p5, v1}, Lbl/agd;->a(Landroid/view/View;IIZ)V
 
-    .line 123
+    .line 124
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$e;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;
 
     const/4 v1, 0x0

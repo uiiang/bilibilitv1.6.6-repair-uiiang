@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import bl.ach;
+import bl.abd;
 import bl.adl;
 import bl.adv;
 import bl.ady;
@@ -438,7 +439,7 @@ public final class HistoryVideoFragment extends ady {
             
             String cover = item.getString("cover");
             if (!TextUtils.isEmpty(cover)) {
-                nv.a().a(ach.c(MainApplication.a(), cover), holder.z());
+                nv.a().a(abd.get_thumb_url_c(MainApplication.a(), cover), holder.z());
             }
             
             String title = item.getString("title");

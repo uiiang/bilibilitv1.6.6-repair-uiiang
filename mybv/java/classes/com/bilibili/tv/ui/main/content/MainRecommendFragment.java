@@ -481,7 +481,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                 if (!TextUtils.isEmpty(content.getCover())) {
                     nv a4 = nv.a();
                     MainApplication a5 = MainApplication.a();
-                    a4.a(ach.a(a5.getApplicationContext(), content.getCover(), this.e, this.f), eVar.A());
+                    a4.a(abd.get_thumb_url_with_size(a5.getApplicationContext(), content.getCover(), this.e, this.f), eVar.A());
                 }
                 if (!TextUtils.isEmpty(content.getUri())) {
                     View view2 = advVar.a;

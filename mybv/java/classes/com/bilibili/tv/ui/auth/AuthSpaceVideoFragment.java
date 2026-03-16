@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import bl.adl;
 import bl.ady;
+import bl.abd;
 import bl.adv;
 import bl.adz;
 import bl.agd;
@@ -682,7 +683,7 @@ public final class AuthSpaceVideoFragment extends ady {
           vh.D().setCompoundDrawables(danmakuIcon, null, null, null);
           String coverUrl = archive.getString("pic") != null ? archive.getString("pic") : archive.getString("cover");
           if (coverUrl != null)
-            nv.a().a(ach.c(com.bilibili.tv.MainApplication.a(), coverUrl), vh.z());
+            nv.a().a(abd.get_thumb_url_c(com.bilibili.tv.MainApplication.a(), coverUrl), vh.z());
           vh.a.setTag(jo);
         } else if (item instanceof BiliSpaceVideo) {
           BiliSpaceVideo v = (BiliSpaceVideo) item;
@@ -726,7 +727,7 @@ public final class AuthSpaceVideoFragment extends ady {
           vh.D().setCompoundDrawables(danmakuIcon, null, null, null);
           
           if (v.cover != null)
-            nv.a().a(ach.c(com.bilibili.tv.MainApplication.a(), v.cover), vh.z());
+            nv.a().a(abd.get_thumb_url_c(com.bilibili.tv.MainApplication.a(), v.cover), vh.z());
           vh.a.setTag(v);
         }
         vh.a.setOnClickListener(this);

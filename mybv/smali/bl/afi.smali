@@ -84,7 +84,7 @@
     .locals 2
 
     .prologue
-    .line 54
+    .line 55
     new-instance v0, Lbl/afi$e;
 
     const/4 v1, 0x0
@@ -104,10 +104,10 @@
 
     const/4 v1, 0x0
 
-    .line 53
+    .line 54
     invoke-direct {p0}, Lbl/adt;-><init>()V
 
-    .line 74
+    .line 75
     sget-object v0, Lcom/bilibili/tv/ui/search/SearchActivity;->Companion:Lcom/bilibili/tv/ui/search/SearchActivity$a;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/search/SearchActivity$a;->c()[Ljava/lang/String;
@@ -118,7 +118,7 @@
 
     iput-object v0, p0, Lbl/afi;->l:Ljava/lang/String;
 
-    .line 75
+    .line 76
     sget-object v0, Lcom/bilibili/tv/ui/search/SearchActivity;->Companion:Lcom/bilibili/tv/ui/search/SearchActivity$a;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/search/SearchActivity$a;->d()[Ljava/lang/String;
@@ -129,17 +129,17 @@
 
     iput-object v0, p0, Lbl/afi;->m:Ljava/lang/String;
 
-    .line 76
+    .line 77
     sget-object v0, Lcom/bilibili/tv/ui/search/SearchActivity;->live_orders:[Ljava/lang/String;
 
     aget-object v0, v0, v1
 
     iput-object v0, p0, Lbl/afi;->live_order:Ljava/lang/String;
 
-    .line 77
+    .line 78
     iput v2, p0, Lbl/afi;->o:I
 
-    .line 78
+    .line 79
     iput-boolean v2, p0, Lbl/afi;->p:Z
 
     return-void
@@ -149,7 +149,7 @@
     .locals 1
 
     .prologue
-    .line 53
+    .line 54
     iget-boolean v0, p0, Lbl/afi;->q:Z
 
     return v0
@@ -159,7 +159,7 @@
     .locals 0
 
     .prologue
-    .line 53
+    .line 54
     iput-boolean p1, p0, Lbl/afi;->q:Z
 
     return p1
@@ -169,7 +169,7 @@
     .locals 1
 
     .prologue
-    .line 53
+    .line 54
     iget-object v0, p0, Lbl/afi;->f:Landroid/support/v7/widget/LinearLayoutManager;
 
     return-object v0
@@ -179,7 +179,7 @@
     .locals 1
 
     .prologue
-    .line 53
+    .line 54
     iget-object v0, p0, Lbl/afi;->r:Ljava/lang/String;
 
     return-object v0
@@ -189,7 +189,7 @@
     .locals 1
 
     .prologue
-    .line 53
+    .line 54
     iget-object v0, p0, Lbl/afi;->g:Landroid/support/v7/widget/LinearLayoutManager;
 
     return-object v0
@@ -199,7 +199,7 @@
     .locals 1
 
     .prologue
-    .line 53
+    .line 54
     iget-object v0, p0, Lbl/afi;->e:Lbl/afi$c;
 
     return-object v0
@@ -209,7 +209,7 @@
     .locals 1
 
     .prologue
-    .line 53
+    .line 54
     iget-boolean v0, p0, Lbl/afi;->p:Z
 
     return v0
@@ -219,7 +219,7 @@
     .locals 0
 
     .prologue
-    .line 53
+    .line 54
     iput-boolean p1, p0, Lbl/afi;->p:Z
 
     return p1
@@ -229,7 +229,7 @@
     .locals 1
 
     .prologue
-    .line 53
+    .line 54
     iget-object v0, p0, Lbl/afi;->d:Lbl/afi$f;
 
     return-object v0
@@ -239,7 +239,7 @@
     .locals 1
 
     .prologue
-    .line 53
+    .line 54
     iget v0, p0, Lbl/afi;->o:I
 
     return v0
@@ -249,7 +249,7 @@
     .locals 2
 
     .prologue
-    .line 53
+    .line 54
     iget v0, p0, Lbl/afi;->o:I
 
     add-int/lit8 v1, v0, 0x1
@@ -263,7 +263,7 @@
     .locals 1
 
     .prologue
-    .line 53
+    .line 54
     iget v0, p0, Lbl/afi;->s:I
 
     return v0
@@ -273,7 +273,7 @@
     .locals 0
 
     .prologue
-    .line 53
+    .line 54
     iput p1, p0, Lbl/afi;->s:I
 
     return p1
@@ -283,7 +283,7 @@
     .locals 1
 
     .prologue
-    .line 53
+    .line 54
     iget-object v0, p0, Lbl/afi;->c:Landroid/support/v7/widget/RecyclerView;
 
     return-object v0
@@ -293,7 +293,7 @@
     .locals 1
 
     .prologue
-    .line 53
+    .line 54
     iget-object v0, p0, Lbl/afi;->b:Landroid/support/v7/widget/RecyclerView;
 
     return-object v0
@@ -303,7 +303,7 @@
     .locals 1
 
     .prologue
-    .line 53
+    .line 54
     iget-object v0, p0, Lbl/afi;->a:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     return-object v0
@@ -315,10 +315,10 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 352
+    .line 353
     iput v1, p0, Lbl/afi;->s:I
 
-    .line 353
+    .line 354
     sget-object v0, Lcom/bilibili/tv/ui/search/SearchActivity;->Companion:Lcom/bilibili/tv/ui/search/SearchActivity$a;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/search/SearchActivity$a;->c()[Ljava/lang/String;
@@ -329,7 +329,7 @@
 
     iput-object v0, p0, Lbl/afi;->l:Ljava/lang/String;
 
-    .line 354
+    .line 355
     sget-object v0, Lcom/bilibili/tv/ui/search/SearchActivity;->Companion:Lcom/bilibili/tv/ui/search/SearchActivity$a;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/search/SearchActivity$a;->d()[Ljava/lang/String;
@@ -340,14 +340,14 @@
 
     iput-object v0, p0, Lbl/afi;->m:Ljava/lang/String;
 
-    .line 355
+    .line 356
     sget-object v0, Lcom/bilibili/tv/ui/search/SearchActivity;->live_orders:[Ljava/lang/String;
 
     aget-object v0, v0, v1
 
     iput-object v0, p0, Lbl/afi;->live_order:Ljava/lang/String;
 
-    .line 356
+    .line 357
     return-void
 .end method
 
@@ -368,7 +368,7 @@
 
     const/4 v5, 0x0
 
-    .line 1588
+    .line 1589
     invoke-virtual {p0}, Lbl/afi;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
@@ -377,28 +377,28 @@
 
     move-result-object v0
 
-    .line 1589
+    .line 1590
     if-nez v0, :cond_f
 
-    .line 1590
+    .line 1591
     const/4 v0, 0x0
 
-    .line 1602
+    .line 1603
     :goto_e
     return-object v0
 
-    .line 1592
+    .line 1593
     :cond_f
     invoke-virtual {v0}, Lcom/bilibili/tv/api/category/CategoryMeta;->getChildren()Ljava/util/List;
 
     move-result-object v0
 
-    .line 1593
+    .line 1594
     new-instance v1, Ljava/util/ArrayList;
 
     invoke-direct {v1, v6}, Ljava/util/ArrayList;-><init>(I)V
 
-    .line 1594
+    .line 1595
     invoke-interface {v0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
 
     move-result-object v2
@@ -417,7 +417,7 @@
 
     check-cast v0, Lcom/bilibili/tv/api/category/CategoryMeta;
 
-    .line 1595
+    .line 1596
     iget v3, v0, Lcom/bilibili/tv/api/category/CategoryMeta;->mTid:I
 
     if-eq v3, v6, :cond_1c
@@ -428,12 +428,12 @@
 
     if-eq v3, v4, :cond_1c
 
-    .line 1596
+    .line 1597
     invoke-virtual {v1, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
     goto :goto_1c
 
-    .line 1599
+    .line 1600
     :cond_36
     new-instance v0, Lcom/bilibili/tv/api/category/CategoryMeta;
 
@@ -443,7 +443,7 @@
 
     invoke-virtual {v1, v5, v0}, Ljava/util/ArrayList;->add(ILjava/lang/Object;)V
 
-    .line 1600
+    .line 1601
     const/4 v0, 0x1
 
     new-instance v2, Lcom/bilibili/tv/api/category/CategoryMeta;
@@ -456,7 +456,7 @@
 
     invoke-virtual {v1, v0, v2}, Ljava/util/ArrayList;->add(ILjava/lang/Object;)V
 
-    .line 1601
+    .line 1602
     const/4 v0, 0x2
 
     new-instance v2, Lcom/bilibili/tv/api/category/CategoryMeta;
@@ -471,7 +471,7 @@
 
     move-object v0, v1
 
-    .line 1602
+    .line 1603
     goto :goto_e
 .end method
 
@@ -481,7 +481,7 @@
     .locals 1
 
     .prologue
-    .line 81
+    .line 82
     iget-object v0, p0, Lbl/afi;->l:Ljava/lang/String;
 
     return-object v0
@@ -491,44 +491,44 @@
     .locals 0
 
     .prologue
-    .line 1606
+    .line 1607
     if-nez p1, :cond_6
 
-    .line 1607
+    .line 1608
     invoke-virtual {p0}, Lbl/afi;->e()V
 
-    .line 1622
+    .line 1623
     :goto_5
     return-void
 
-    .line 1610
+    .line 1611
     :cond_6
     sparse-switch p1, :sswitch_data_1a
 
-    .line 1621
+    .line 1622
     invoke-virtual {p0}, Lbl/afi;->f()V
 
     goto :goto_5
 
-    .line 1612
+    .line 1613
     :sswitch_d
     invoke-virtual {p0}, Lbl/afi;->g()V
 
     goto :goto_5
 
-    .line 1615
+    .line 1616
     :sswitch_11
     invoke-virtual {p0}, Lbl/afi;->h()V
 
     goto :goto_5
 
-    .line 1618
+    .line 1619
     :sswitch_15
     invoke-virtual {p0}, Lbl/afi;->getLives()V
 
     goto :goto_5
 
-    .line 1610
+    .line 1611
     nop
 
     :sswitch_data_1a
@@ -543,24 +543,24 @@
     .locals 4
 
     .prologue
-    .line 343
+    .line 344
     const-string v0, "text"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 344
+    .line 345
     iput-object p1, p0, Lbl/afi;->r:Ljava/lang/String;
 
-    .line 345
+    .line 346
     invoke-direct {p0}, Lbl/afi;->n()V
 
-    .line 346
+    .line 347
     invoke-virtual {p0}, Lbl/afi;->o()V
 
-    .line 347
+    .line 348
     invoke-virtual {p0}, Lbl/afi;->e()V
 
-    .line 348
+    .line 349
     const-string v0, "tv_search_result"
 
     const/4 v1, 0x2
@@ -579,7 +579,7 @@
 
     invoke-static {v0, v1}, Lbl/ok;->a(Ljava/lang/String;[Ljava/lang/String;)V
 
-    .line 349
+    .line 350
     return-void
 .end method
 
@@ -587,7 +587,7 @@
     .locals 1
 
     .prologue
-    .line 85
+    .line 86
     iget-object v0, p0, Lbl/afi;->m:Ljava/lang/String;
 
     return-object v0
@@ -597,51 +597,51 @@
     .locals 1
 
     .prologue
-    .line 420
+    .line 421
     const-string v0, "order"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 421
+    .line 422
     iget-object v0, p0, Lbl/afi;->l:Ljava/lang/String;
 
     invoke-static {p1, v0}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
 
     move-result v0
 
-    .line 422
+    .line 423
     iput-object p1, p0, Lbl/afi;->l:Ljava/lang/String;
 
-    .line 423
+    .line 424
     if-eqz v0, :cond_10
 
-    .line 434
+    .line 435
     :cond_f
     :goto_f
     return-void
 
-    .line 426
+    .line 427
     :cond_10
     invoke-virtual {p0}, Lbl/afi;->m()Landroid/view/View;
 
     move-result-object v0
 
-    .line 427
+    .line 428
     if-eqz v0, :cond_19
 
-    .line 428
+    .line 429
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 430
+    .line 431
     :cond_19
     iget-object v0, p0, Lbl/afi;->d:Lbl/afi$f;
 
     if-eqz v0, :cond_f
 
-    .line 431
+    .line 432
     invoke-virtual {p0}, Lbl/afi;->o()V
 
-    .line 432
+    .line 433
     iget v0, p0, Lbl/afi;->s:I
 
     invoke-virtual {p0, v0}, Lbl/afi;->a(I)V
@@ -653,7 +653,7 @@
     .locals 1
 
     .prologue
-    .line 89
+    .line 90
     iget-object v0, p0, Lbl/afi;->n:Landroid/widget/ImageView;
 
     return-object v0
@@ -663,51 +663,51 @@
     .locals 1
 
     .prologue
-    .line 437
+    .line 438
     const-string v0, "order"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 438
+    .line 439
     iget-object v0, p0, Lbl/afi;->m:Ljava/lang/String;
 
     invoke-static {p1, v0}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
 
     move-result v0
 
-    .line 439
+    .line 440
     iput-object p1, p0, Lbl/afi;->m:Ljava/lang/String;
 
-    .line 440
+    .line 441
     if-eqz v0, :cond_10
 
-    .line 451
+    .line 452
     :cond_f
     :goto_f
     return-void
 
-    .line 443
+    .line 444
     :cond_10
     invoke-virtual {p0}, Lbl/afi;->m()Landroid/view/View;
 
     move-result-object v0
 
-    .line 444
+    .line 445
     if-eqz v0, :cond_19
 
-    .line 445
+    .line 446
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 447
+    .line 448
     :cond_19
     iget-object v0, p0, Lbl/afi;->d:Lbl/afi$f;
 
     if-eqz v0, :cond_f
 
-    .line 448
+    .line 449
     invoke-virtual {p0}, Lbl/afi;->o()V
 
-    .line 449
+    .line 450
     iget v0, p0, Lbl/afi;->s:I
 
     invoke-virtual {p0, v0}, Lbl/afi;->a(I)V
@@ -719,7 +719,7 @@
     .locals 1
 
     .prologue
-    .line 455
+    .line 456
     iget-object v0, p0, Lbl/afi;->live_order:Ljava/lang/String;
 
     invoke-static {p1, v0}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
@@ -728,36 +728,36 @@
 
     if-eqz v0, :cond_9
 
-    .line 465
+    .line 466
     :cond_8
     :goto_8
     return-void
 
-    .line 456
+    .line 457
     :cond_9
     iput-object p1, p0, Lbl/afi;->live_order:Ljava/lang/String;
 
-    .line 457
+    .line 458
     invoke-virtual {p0}, Lbl/afi;->m()Landroid/view/View;
 
     move-result-object v0
 
-    .line 458
+    .line 459
     if-eqz v0, :cond_14
 
-    .line 459
+    .line 460
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 461
+    .line 462
     :cond_14
     iget-object v0, p0, Lbl/afi;->d:Lbl/afi$f;
 
     if-eqz v0, :cond_8
 
-    .line 462
+    .line 463
     invoke-virtual {p0}, Lbl/afi;->o()V
 
-    .line 463
+    .line 464
     iget v0, p0, Lbl/afi;->s:I
 
     invoke-virtual {p0, v0}, Lbl/afi;->a(I)V
@@ -769,7 +769,7 @@
     .locals 2
 
     .prologue
-    .line 302
+    .line 303
     iget-object v0, p0, Lbl/afi;->b:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->getVisibility()I
@@ -778,41 +778,41 @@
 
     if-nez v0, :cond_1a
 
-    .line 303
+    .line 304
     iget-object v0, p0, Lbl/afi;->f:Landroid/support/v7/widget/LinearLayoutManager;
 
     invoke-virtual {v0}, Landroid/support/v7/widget/LinearLayoutManager;->o()I
 
     move-result v0
 
-    .line 304
+    .line 305
     iget-object v1, p0, Lbl/afi;->f:Landroid/support/v7/widget/LinearLayoutManager;
 
     invoke-virtual {v1, v0}, Landroid/support/v7/widget/LinearLayoutManager;->c(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 305
+    .line 306
     if-eqz v0, :cond_19
 
-    .line 306
+    .line 307
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 315
+    .line 316
     :cond_19
     :goto_19
     return-void
 
-    .line 311
+    .line 312
     :cond_1a
     invoke-virtual {p0}, Lbl/afi;->m()Landroid/view/View;
 
     move-result-object v0
 
-    .line 312
+    .line 313
     if-eqz v0, :cond_19
 
-    .line 313
+    .line 314
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
     goto :goto_19
@@ -826,45 +826,45 @@
 
     const/4 v1, 0x0
 
-    .line 359
+    .line 360
     iput-boolean v4, p0, Lbl/afi;->q:Z
 
-    .line 360
+    .line 361
     iget-object v0, p0, Lbl/afi;->c:Landroid/support/v7/widget/RecyclerView;
 
     const-wide/16 v2, 0xa
 
     invoke-static {v0, v1, v2, v3}, Lbl/adn;->a(Landroid/support/v7/widget/RecyclerView;IJ)V
 
-    .line 361
+    .line 362
     iget-object v0, p0, Lbl/afi;->e:Lbl/afi$c;
 
     if-eqz v0, :cond_14
 
-    .line 362
+    .line 363
     iget-object v0, p0, Lbl/afi;->e:Lbl/afi$c;
 
     invoke-virtual {v0, v1}, Lbl/afi$c;->e(I)V
 
-    .line 364
+    .line 365
     :cond_14
     iget v0, p0, Lbl/afi;->o:I
 
     if-ne v0, v4, :cond_23
 
-    .line 365
+    .line 366
     iget-object v0, p0, Lbl/afi;->a:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->a()V
 
-    .line 366
+    .line 367
     iget-object v0, p0, Lbl/afi;->b:Landroid/support/v7/widget/RecyclerView;
 
     const/4 v1, 0x4
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
 
-    .line 368
+    .line 369
     :cond_23
     const-class v0, Lcom/bilibili/tv/api/search/BiliSearchApi;
 
@@ -894,7 +894,7 @@
 
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 369
+    .line 370
     return-void
 .end method
 
@@ -904,27 +904,27 @@
     .prologue
     const/4 v1, 0x1
 
-    .line 372
+    .line 373
     iput-boolean v1, p0, Lbl/afi;->q:Z
 
-    .line 373
+    .line 374
     iget v0, p0, Lbl/afi;->o:I
 
     if-ne v0, v1, :cond_12
 
-    .line 374
+    .line 375
     iget-object v0, p0, Lbl/afi;->a:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->a()V
 
-    .line 375
+    .line 376
     iget-object v0, p0, Lbl/afi;->b:Landroid/support/v7/widget/RecyclerView;
 
     const/4 v1, 0x4
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
 
-    .line 377
+    .line 378
     :cond_12
     const-class v0, Lcom/bilibili/tv/api/search/BiliSearchApi;
 
@@ -954,7 +954,7 @@
 
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 378
+    .line 379
     return-void
 .end method
 
@@ -964,27 +964,27 @@
     .prologue
     const/4 v1, 0x1
 
-    .line 381
+    .line 382
     iput-boolean v1, p0, Lbl/afi;->q:Z
 
-    .line 382
+    .line 383
     iget v0, p0, Lbl/afi;->o:I
 
     if-ne v0, v1, :cond_12
 
-    .line 383
+    .line 384
     iget-object v0, p0, Lbl/afi;->a:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->a()V
 
-    .line 384
+    .line 385
     iget-object v0, p0, Lbl/afi;->b:Landroid/support/v7/widget/RecyclerView;
 
     const/4 v1, 0x4
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
 
-    .line 386
+    .line 387
     :cond_12
     const-class v0, Lcom/bilibili/tv/api/search/BiliSearchApi;
 
@@ -1014,7 +1014,7 @@
 
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 387
+    .line 388
     return-void
 .end method
 
@@ -1024,27 +1024,27 @@
     .prologue
     const/4 v1, 0x1
 
-    .line 399
+    .line 400
     iput-boolean v1, p0, Lbl/afi;->q:Z
 
-    .line 400
+    .line 401
     iget v0, p0, Lbl/afi;->o:I
 
     if-ne v0, v1, :cond_12
 
-    .line 401
+    .line 402
     iget-object v0, p0, Lbl/afi;->a:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->a()V
 
-    .line 402
+    .line 403
     iget-object v0, p0, Lbl/afi;->b:Landroid/support/v7/widget/RecyclerView;
 
     const/4 v1, 0x4
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
 
-    .line 404
+    .line 405
     :cond_12
     const-class v0, Lmybl/MyBiliApiService;
 
@@ -1072,7 +1072,7 @@
 
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 405
+    .line 406
     return-void
 .end method
 
@@ -1082,27 +1082,27 @@
     .prologue
     const/4 v1, 0x1
 
-    .line 390
+    .line 391
     iput-boolean v1, p0, Lbl/afi;->q:Z
 
-    .line 391
+    .line 392
     iget v0, p0, Lbl/afi;->o:I
 
     if-ne v0, v1, :cond_12
 
-    .line 392
+    .line 393
     iget-object v0, p0, Lbl/afi;->a:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->a()V
 
-    .line 393
+    .line 394
     iget-object v0, p0, Lbl/afi;->b:Landroid/support/v7/widget/RecyclerView;
 
     const/4 v1, 0x4
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
 
-    .line 395
+    .line 396
     :cond_12
     const-class v0, Lcom/bilibili/tv/api/search/BiliSearchApi;
 
@@ -1130,7 +1130,7 @@
 
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 396
+    .line 397
     return-void
 .end method
 
@@ -1138,7 +1138,7 @@
     .locals 2
 
     .prologue
-    .line 408
+    .line 409
     iget v0, p0, Lbl/afi;->s:I
 
     const/4 v1, -0x2
@@ -1160,7 +1160,7 @@
     .locals 2
 
     .prologue
-    .line 412
+    .line 413
     iget v0, p0, Lbl/afi;->s:I
 
     const v1, 0x10001
@@ -1182,7 +1182,7 @@
     .locals 2
 
     .prologue
-    .line 416
+    .line 417
     iget v0, p0, Lbl/afi;->s:I
 
     const/4 v1, -0x1
@@ -1204,23 +1204,23 @@
     .locals 4
 
     .prologue
-    .line 319
+    .line 320
     iget-object v0, p0, Lbl/afi;->c:Landroid/support/v7/widget/RecyclerView;
 
     if-nez v0, :cond_6
 
-    .line 320
+    .line 321
     const/4 v0, 0x0
 
-    .line 339
+    .line 340
     :goto_5
     return-object v0
 
-    .line 322
+    .line 323
     :cond_6
     const/4 v0, 0x0
 
-    .line 323
+    .line 324
     iget-object v1, p0, Lbl/afi;->c:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v1}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
@@ -1229,10 +1229,10 @@
 
     add-int/lit8 v2, v1, -0x1
 
-    .line 324
+    .line 325
     if-ltz v2, :cond_24
 
-    .line 326
+    .line 327
     :goto_11
     iget-object v1, p0, Lbl/afi;->c:Landroid/support/v7/widget/RecyclerView;
 
@@ -1240,22 +1240,22 @@
 
     move-result-object v1
 
-    .line 327
+    .line 328
     const-string v3, "child"
 
     invoke-static {v1, v3}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 328
+    .line 329
     invoke-virtual {v1}, Landroid/view/View;->isSelected()Z
 
     move-result v3
 
     if-nez v3, :cond_34
 
-    .line 329
+    .line 330
     if-ne v0, v2, :cond_31
 
-    .line 338
+    .line 339
     :cond_24
     iget-object v0, p0, Lbl/afi;->g:Landroid/support/v7/widget/LinearLayoutManager;
 
@@ -1263,7 +1263,7 @@
 
     move-result v0
 
-    .line 339
+    .line 340
     iget-object v1, p0, Lbl/afi;->g:Landroid/support/v7/widget/LinearLayoutManager;
 
     invoke-virtual {v1, v0}, Landroid/support/v7/widget/LinearLayoutManager;->c(I)Landroid/view/View;
@@ -1272,7 +1272,7 @@
 
     goto :goto_5
 
-    .line 332
+    .line 333
     :cond_31
     add-int/lit8 v0, v0, 0x1
 
@@ -1281,7 +1281,7 @@
     :cond_34
     move-object v0, v1
 
-    .line 334
+    .line 335
     goto :goto_5
 .end method
 
@@ -1291,23 +1291,23 @@
     .prologue
     const/4 v0, 0x1
 
-    .line 470
+    .line 471
     iput v0, p0, Lbl/afi;->o:I
 
-    .line 471
-    iput-boolean v0, p0, Lbl/afi;->p:Z
-
     .line 472
-    iget-object v0, p0, Lbl/afi;->d:Lbl/afi$f;
-
-    if-eqz v0, :cond_e
+    iput-boolean v0, p0, Lbl/afi;->p:Z
 
     .line 473
     iget-object v0, p0, Lbl/afi;->d:Lbl/afi$f;
 
+    if-eqz v0, :cond_e
+
+    .line 474
+    iget-object v0, p0, Lbl/afi;->d:Lbl/afi$f;
+
     invoke-virtual {v0}, Lbl/afi$f;->i()V
 
-    .line 475
+    .line 476
     :cond_e
     iget-object v0, p0, Lbl/afi;->b:Landroid/support/v7/widget/RecyclerView;
 
@@ -1315,14 +1315,14 @@
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
 
-    .line 476
+    .line 477
     iget-object v0, p0, Lbl/afi;->b:Landroid/support/v7/widget/RecyclerView;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->a(I)V
 
-    .line 477
+    .line 478
     return-void
 .end method
 
@@ -1330,12 +1330,12 @@
     .locals 2
 
     .prologue
-    .line 121
+    .line 122
     const-string v0, "inflater"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 122
+    .line 123
     const v0, 0x7f0a0039
 
     const/4 v1, 0x0
@@ -1351,17 +1351,17 @@
     .locals 1
 
     .prologue
-    .line 297
+    .line 298
     invoke-super {p0}, Lbl/adt;->onDestroy()V
 
-    .line 298
+    .line 299
     const/4 v0, 0x0
 
     check-cast v0, Lbl/afi$f;
 
     iput-object v0, p0, Lbl/afi;->d:Lbl/afi$f;
 
-    .line 299
+    .line 300
     return-void
 .end method
 
@@ -1371,38 +1371,29 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 275
+    .line 276
     invoke-super {p0, p1}, Lbl/adt;->onHiddenChanged(Z)V
 
-    .line 276
+    .line 277
     if-eqz p1, :cond_38
 
-    .line 277
+    .line 278
     iput v2, p0, Lbl/afi;->s:I
 
-    .line 278
+    .line 279
     invoke-virtual {p0}, Lbl/afi;->o()V
 
-    .line 279
+    .line 280
     iget-object v0, p0, Lbl/afi;->d:Lbl/afi$f;
 
     if-eqz v0, :cond_26
 
-    .line 280
+    .line 281
     iget-object v0, p0, Lbl/afi;->d:Lbl/afi$f;
 
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Lbl/afi$f;->c(Z)V
-
-    .line 281
-    iget-object v0, p0, Lbl/afi;->d:Lbl/afi$f;
-
-    invoke-virtual {v0}, Lbl/afi$f;->h()Ljava/util/ArrayList;
-
-    move-result-object v0
-
-    if-eqz v0, :cond_26
 
     .line 282
     iget-object v0, p0, Lbl/afi;->d:Lbl/afi$f;
@@ -1411,32 +1402,41 @@
 
     move-result-object v0
 
+    if-eqz v0, :cond_26
+
+    .line 283
+    iget-object v0, p0, Lbl/afi;->d:Lbl/afi$f;
+
+    invoke-virtual {v0}, Lbl/afi$f;->h()Ljava/util/ArrayList;
+
+    move-result-object v0
+
     invoke-virtual {v0}, Ljava/util/ArrayList;->clear()V
 
-    .line 285
+    .line 286
     :cond_26
     invoke-virtual {p0}, Lbl/afi;->m()Landroid/view/View;
 
     move-result-object v0
 
-    .line 286
+    .line 287
     if-eqz v0, :cond_2f
 
-    .line 287
+    .line 288
     invoke-virtual {v0, v2}, Landroid/view/View;->setSelected(Z)V
 
-    .line 289
+    .line 290
     :cond_2f
     iget-object v0, p0, Lbl/afi;->c:Landroid/support/v7/widget/RecyclerView;
 
     if-eqz v0, :cond_38
 
-    .line 290
+    .line 291
     iget-object v0, p0, Lbl/afi;->c:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v0, v2}, Landroid/support/v7/widget/RecyclerView;->a(I)V
 
-    .line 293
+    .line 294
     :cond_38
     return-void
 .end method
@@ -1449,23 +1449,23 @@
 
     const/4 v3, 0x0
 
-    .line 128
+    .line 129
     const-string v0, "view"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 129
+    .line 130
     invoke-super {p0, p1, p2}, Lbl/adt;->onViewCreated(Landroid/view/View;Landroid/os/Bundle;)V
 
-    .line 130
+    .line 131
     invoke-virtual {p0}, Lbl/afi;->getArguments()Landroid/os/Bundle;
 
     move-result-object v0
 
-    .line 131
+    .line 132
     if-eqz v0, :cond_18
 
-    .line 132
+    .line 133
     const-string v1, "com.bilibili.tv.ui.search.SearchResultFragment.EXTRA_TID"
 
     invoke-virtual {v0, v1}, Landroid/os/Bundle;->getInt(Ljava/lang/String;)I
@@ -1474,7 +1474,7 @@
 
     iput v0, p0, Lbl/afi;->s:I
 
-    .line 134
+    .line 135
     :cond_18
     const v0, 0x7f0800ed
 
@@ -1486,7 +1486,7 @@
 
     iput-object v0, p0, Lbl/afi;->b:Landroid/support/v7/widget/RecyclerView;
 
-    .line 135
+    .line 136
     const v0, 0x7f080052
 
     invoke-virtual {p0, p1, v0}, Lbl/afi;->a(Landroid/view/View;I)Landroid/view/View;
@@ -1497,7 +1497,7 @@
 
     iput-object v0, p0, Lbl/afi;->c:Landroid/support/v7/widget/RecyclerView;
 
-    .line 136
+    .line 137
     const v0, 0x7f080053
 
     invoke-virtual {p0, p1, v0}, Lbl/afi;->a(Landroid/view/View;I)Landroid/view/View;
@@ -1508,12 +1508,12 @@
 
     iput-object v0, p0, Lbl/afi;->n:Landroid/widget/ImageView;
 
-    .line 137
+    .line 138
     iget-object v0, p0, Lbl/afi;->b:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v0, v7}, Landroid/support/v7/widget/RecyclerView;->setHasFixedSize(Z)V
 
-    .line 138
+    .line 139
     const v0, 0x7f0800b7
 
     invoke-virtual {p0, p1, v0}, Lbl/afi;->a(Landroid/view/View;I)Landroid/view/View;
@@ -1524,26 +1524,26 @@
 
     iput-object v0, p0, Lbl/afi;->a:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
-    .line 139
+    .line 140
     invoke-virtual {p0}, Lbl/afi;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 140
+    .line 141
     new-instance v1, Lbl/afi$1;
 
     invoke-direct {v1, p0, v0}, Lbl/afi$1;-><init>(Lbl/afi;Landroid/content/Context;)V
 
     iput-object v1, p0, Lbl/afi;->f:Landroid/support/v7/widget/LinearLayoutManager;
 
-    .line 166
+    .line 167
     iget-object v0, p0, Lbl/afi;->b:Landroid/support/v7/widget/RecyclerView;
 
     iget-object v1, p0, Lbl/afi;->f:Landroid/support/v7/widget/LinearLayoutManager;
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setLayoutManager(Landroid/support/v7/widget/RecyclerView$h;)V
 
-    .line 167
+    .line 168
     iget-object v0, p0, Lbl/afi;->b:Landroid/support/v7/widget/RecyclerView;
 
     new-instance v1, Lbl/afi$o;
@@ -1552,48 +1552,48 @@
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$m;)V
 
-    .line 168
+    .line 169
     new-instance v0, Lbl/afi$f;
 
     invoke-direct {v0}, Lbl/afi$f;-><init>()V
 
     iput-object v0, p0, Lbl/afi;->d:Lbl/afi$f;
 
-    .line 169
+    .line 170
     iget-object v0, p0, Lbl/afi;->b:Landroid/support/v7/widget/RecyclerView;
 
     iget-object v1, p0, Lbl/afi;->d:Lbl/afi$f;
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setAdapter(Landroid/support/v7/widget/RecyclerView$a;)V
 
-    .line 170
+    .line 171
     invoke-virtual {p0}, Lbl/afi;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 171
+    .line 172
     new-instance v1, Lbl/afi$2;
 
     invoke-direct {v1, p0, v0}, Lbl/afi$2;-><init>(Lbl/afi;Landroid/content/Context;)V
 
     iput-object v1, p0, Lbl/afi;->g:Landroid/support/v7/widget/LinearLayoutManager;
 
-    .line 196
+    .line 197
     iget-object v0, p0, Lbl/afi;->c:Landroid/support/v7/widget/RecyclerView;
 
     iget-object v1, p0, Lbl/afi;->g:Landroid/support/v7/widget/LinearLayoutManager;
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setLayoutManager(Landroid/support/v7/widget/RecyclerView$h;)V
 
-    .line 197
+    .line 198
     invoke-direct {p0}, Lbl/afi;->p()Ljava/util/List;
 
     move-result-object v4
 
-    .line 198
+    .line 199
     if-eqz v4, :cond_a4
 
-    .line 199
+    .line 200
     invoke-interface {v4}, Ljava/util/List;->size()I
 
     move-result v5
@@ -1602,11 +1602,11 @@
 
     move v2, v3
 
-    .line 201
+    .line 202
     :goto_91
     if-ge v1, v5, :cond_a5
 
-    .line 202
+    .line 203
     invoke-interface {v4, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v0
@@ -1621,7 +1621,7 @@
 
     move v0, v1
 
-    .line 201
+    .line 202
     :goto_a0
     add-int/lit8 v1, v1, 0x1
 
@@ -1632,7 +1632,7 @@
     :cond_a4
     move v2, v3
 
-    .line 209
+    .line 210
     :cond_a5
     new-instance v0, Lbl/afi$c;
 
@@ -1640,29 +1640,29 @@
 
     iput-object v0, p0, Lbl/afi;->e:Lbl/afi$c;
 
-    .line 210
+    .line 211
     iget-object v0, p0, Lbl/afi;->c:Landroid/support/v7/widget/RecyclerView;
 
     iget-object v1, p0, Lbl/afi;->e:Lbl/afi$c;
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setAdapter(Landroid/support/v7/widget/RecyclerView$a;)V
 
-    .line 211
+    .line 212
     iget-object v0, p0, Lbl/afi;->g:Landroid/support/v7/widget/LinearLayoutManager;
 
     invoke-virtual {v0, v2, v3}, Landroid/support/v7/widget/LinearLayoutManager;->b(II)V
 
-    .line 212
+    .line 213
     const/16 v0, 0x8
 
     if-lt v2, v0, :cond_c1
 
-    .line 213
+    .line 214
     iget-object v0, p0, Lbl/afi;->g:Landroid/support/v7/widget/LinearLayoutManager;
 
     invoke-virtual {v0, v7}, Landroid/support/v7/widget/LinearLayoutManager;->a(Z)V
 
-    .line 215
+    .line 216
     :cond_c1
     iget-object v0, p0, Lbl/afi;->c:Landroid/support/v7/widget/RecyclerView;
 
@@ -1676,35 +1676,35 @@
 
     invoke-virtual {v0, v1}, Landroid/view/ViewTreeObserver;->addOnGlobalFocusChangeListener(Landroid/view/ViewTreeObserver$OnGlobalFocusChangeListener;)V
 
-    .line 216
+    .line 217
     new-instance v0, Lbl/afi$g;
 
     invoke-direct {v0, p0}, Lbl/afi$g;-><init>(Lbl/afi;)V
 
     iput-object v0, p0, Lbl/afi;->h:Lbl/afi$g;
 
-    .line 217
+    .line 218
     new-instance v0, Lbl/afi$j;
 
     invoke-direct {v0, p0}, Lbl/afi$j;-><init>(Lbl/afi;)V
 
     iput-object v0, p0, Lbl/afi;->i:Lbl/afi$j;
 
-    .line 218
+    .line 219
     new-instance v0, Lbl/afi$h;
 
     invoke-direct {v0, p0}, Lbl/afi$h;-><init>(Lbl/afi;)V
 
     iput-object v0, p0, Lbl/afi;->j:Lbl/afi$h;
 
-    .line 219
+    .line 220
     new-instance v0, Lbl/afi$i;
 
     invoke-direct {v0, p0}, Lbl/afi$i;-><init>(Lbl/afi;)V
 
     iput-object v0, p0, Lbl/afi;->k:Lbl/afi$i;
 
-    .line 220
+    .line 221
     return-void
 
     :cond_ec

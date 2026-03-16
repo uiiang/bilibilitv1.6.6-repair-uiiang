@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 504
+    .line 505
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 505
+    .line 506
     return-void
 .end method
 
@@ -30,10 +30,10 @@
     .locals 0
 
     .prologue
-    .line 508
+    .line 509
     invoke-direct {p0}, Lcom/bilibili/tv/ui/main/content/MainPgcFragment$e$a;-><init>()V
 
-    .line 509
+    .line 510
     return-void
 .end method
 
@@ -54,17 +54,17 @@
     .end annotation
 
     .prologue
-    .line 512
+    .line 513
     const-string v0, "parent"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 513
+    .line 514
     const-string v0, "weakReference"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 514
+    .line 515
     invoke-virtual {p1}, Landroid/view/ViewGroup;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -81,12 +81,12 @@
 
     move-result-object v0
 
-    .line 515
+    .line 516
     const-string v1, "view"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 516
+    .line 517
     new-instance v1, Lcom/bilibili/tv/ui/main/content/MainPgcFragment$e;
 
     invoke-direct {v1, v0, p2}, Lcom/bilibili/tv/ui/main/content/MainPgcFragment$e;-><init>(Landroid/view/View;Ljava/lang/ref/WeakReference;)V

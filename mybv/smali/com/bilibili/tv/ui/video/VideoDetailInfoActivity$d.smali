@@ -42,12 +42,12 @@
     .locals 0
 
     .prologue
-    .line 149
+    .line 150
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity$d;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 150
+    .line 151
     return-void
 .end method
 
@@ -62,7 +62,7 @@
     .end annotation
 
     .prologue
-    .line 148
+    .line 149
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity$d;->a(Lbl/jb;)Ljava/lang/Void;
 
     move-result-object v0
@@ -86,7 +86,7 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 155
+    .line 156
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity$d;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity;->isFinishing()Z
@@ -95,11 +95,11 @@
 
     if-eqz v0, :cond_a
 
-    .line 164
+    .line 165
     :goto_9
     return-object v2
 
-    .line 158
+    .line 159
     :cond_a
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity$d;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity;
 
@@ -108,19 +108,19 @@
 
     move-result-object v1
 
-    .line 159
+    .line 160
     if-nez v1, :cond_15
 
-    .line 160
+    .line 161
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 162
+    .line 163
     :cond_15
     const-string v0, "task"
 
     invoke-static {p1, v0}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 163
+    .line 164
     invoke-virtual {p1}, Lbl/jb;->f()Ljava/lang/Object;
 
     move-result-object v0

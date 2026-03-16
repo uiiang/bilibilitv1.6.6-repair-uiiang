@@ -16,6 +16,7 @@ import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import bl.ach;
+import bl.abd;
 import bl.adh;
 import bl.adl;
 import bl.adv;
@@ -465,7 +466,7 @@ public final class VideoTagSearchActivity extends BaseReloadActivity {
                 cVar.C().setText(adh.a(tagVideoDetail2.getPlays()));
                 cVar.D().setText(adh.a(tagVideoDetail2.getDanmakus()));
                 if (tagVideoDetail2.mCover != null) {
-                    nv.a().a(ach.c(MainApplication.a(), tagVideoDetail2.mCover), cVar.z());
+                    nv.a().a(abd.get_thumb_url_c(MainApplication.a(), tagVideoDetail2.mCover), cVar.z());
                 }
                 View view = advVar.a;
                 bbi.a((Object) view, "holder.itemView");

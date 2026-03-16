@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 87
+    .line 88
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 88
+    .line 89
     return-void
 .end method
 
@@ -30,10 +30,10 @@
     .locals 0
 
     .prologue
-    .line 91
+    .line 92
     invoke-direct {p0}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2$c;-><init>()V
 
-    .line 92
+    .line 93
     return-void
 .end method
 
@@ -43,35 +43,35 @@
     .locals 2
 
     .prologue
-    .line 95
+    .line 96
     new-instance v0, Landroid/content/Intent;
 
     const-class v1, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity2;
 
     invoke-direct {v0, p1, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
 
-    .line 96
+    .line 97
     const-string v1, "season_id"
 
     invoke-virtual {v0, v1, p2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/io/Serializable;)Landroid/content/Intent;
 
-    .line 97
+    .line 98
     const-string v1, "box_id"
 
     invoke-virtual {v0, v1, p3}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/io/Serializable;)Landroid/content/Intent;
 
-    .line 98
+    .line 99
     const-string v1, "box_name"
 
     invoke-virtual {v0, v1, p4}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 99
+    .line 100
     if-eqz p1, :cond_1b
 
-    .line 100
+    .line 101
     invoke-virtual {p1, v0}, Landroid/content/Context;->startActivity(Landroid/content/Intent;)V
 
-    .line 102
+    .line 103
     :cond_1b
     return-void
 .end method

@@ -25,15 +25,15 @@
     .locals 0
 
     .prologue
-    .line 233
+    .line 234
     iput-object p1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$g;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$m;-><init>()V
 
-    .line 234
+    .line 235
     iput-object p2, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$g;->b:Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;
 
-    .line 235
+    .line 236
     return-void
 .end method
 
@@ -43,10 +43,10 @@
     .locals 2
 
     .prologue
-    .line 239
+    .line 240
     invoke-super {p0, p1, p2}, Landroid/support/v7/widget/RecyclerView$m;->a(Landroid/support/v7/widget/RecyclerView;I)V
 
-    .line 240
+    .line 241
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$g;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->h:Z
@@ -74,12 +74,12 @@
 
     if-nez v0, :cond_1c
 
-    .line 249
+    .line 250
     :cond_1b
     :goto_1b
     return-void
 
-    .line 243
+    .line 244
     :cond_1c
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$g;->b:Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;
 
@@ -87,7 +87,7 @@
 
     move-result v0
 
-    .line 244
+    .line 245
     iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$g;->b:Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;
 
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;->x()I
@@ -122,13 +122,13 @@
 
     if-le v0, v1, :cond_1b
 
-    .line 247
+    .line 248
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$g;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     # operator++ for: Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->f:I
     invoke-static {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->access$408(Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;)I
 
-    .line 248
+    .line 249
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$g;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->b()V

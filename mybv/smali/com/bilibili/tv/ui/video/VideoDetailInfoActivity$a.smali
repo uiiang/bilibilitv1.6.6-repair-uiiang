@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 52
+    .line 53
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 53
+    .line 54
     return-void
 .end method
 
@@ -30,10 +30,10 @@
     .locals 0
 
     .prologue
-    .line 56
+    .line 57
     invoke-direct {p0}, Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity$a;-><init>()V
 
-    .line 57
+    .line 58
     return-void
 .end method
 
@@ -43,61 +43,61 @@
     .locals 4
 
     .prologue
-    .line 60
+    .line 61
     const-string v0, "context"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 61
+    .line 62
     const-string v0, "des"
 
     invoke-static {p4, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 62
+    .line 63
     const-string v0, "cover"
 
     invoke-static {p5, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 63
+    .line 64
     const-string v0, "url"
 
     invoke-static {p6, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 64
+    .line 65
     new-instance v0, Landroid/content/Intent;
 
     const-class v1, Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity;
 
     invoke-direct {v0, p1, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
 
-    .line 65
+    .line 66
     new-instance v1, Landroid/os/Bundle;
 
     invoke-direct {v1}, Landroid/os/Bundle;-><init>()V
 
-    .line 66
+    .line 67
     const-string v2, "bundle_avid"
 
     invoke-virtual {v1, v2, p2, p3}, Landroid/os/Bundle;->putLong(Ljava/lang/String;J)V
 
-    .line 67
+    .line 68
     const-string v2, "bundle_des"
 
     invoke-virtual {v1, v2, p4}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 68
+    .line 69
     const-string v2, "bundle_cover"
 
     invoke-virtual {v1, v2, p5}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 69
+    .line 70
     const-string v2, "bundle_url"
 
     invoke-virtual {v1, v2, p6}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 70
+    .line 71
     invoke-virtual {v0, v1}, Landroid/content/Intent;->putExtras(Landroid/os/Bundle;)Landroid/content/Intent;
 
-    .line 71
+    .line 72
     return-object v0
 .end method

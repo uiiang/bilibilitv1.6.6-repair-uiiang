@@ -16,6 +16,7 @@ import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import bl.ach;
+import bl.abd;
 import bl.adh;
 import bl.adl;
 import bl.adv;
@@ -466,7 +467,7 @@ public final class AuthSpaceActivity extends BaseReloadActivity {
                 dVar.C().setText(adh.a(biliSpaceVideo2.play));
                 dVar.D().setText(adh.a(biliSpaceVideo2.danmaku));
                 if (biliSpaceVideo2.cover != null) {
-                    nv.a().a(ach.c(MainApplication.a(), biliSpaceVideo2.cover), dVar.z());
+                    nv.a().a(abd.get_thumb_url_c(MainApplication.a(), biliSpaceVideo2.cover), dVar.z());
                 }
                 View view = advVar.a;
                 bbi.a((Object) view, "holder.itemView");

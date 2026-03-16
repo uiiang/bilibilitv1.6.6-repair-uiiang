@@ -23,7 +23,7 @@
     .locals 0
 
     .prologue
-    .line 140
+    .line 141
     iput-object p1, p0, Lbl/afi$1;->this$0:Lbl/afi;
 
     invoke-direct {p0, p2}, Lcom/bilibili/tv/widget/FixLinearLayoutManager;-><init>(Landroid/content/Context;)V
@@ -37,27 +37,27 @@
     .locals 2
 
     .prologue
-    .line 144
+    .line 145
     invoke-virtual {p0, p1}, Lbl/afi$1;->d(Landroid/view/View;)I
 
     move-result v0
 
-    .line 145
+    .line 146
     const/16 v1, 0x11
 
     if-ne p2, v1, :cond_1f
 
-    .line 146
+    .line 147
     iget-object v0, p0, Lbl/afi$1;->this$0:Lbl/afi;
 
     invoke-virtual {v0}, Lbl/afi;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 147
+    .line 148
     if-nez v0, :cond_18
 
-    .line 148
+    .line 149
     new-instance v0, Lkotlin/TypeCastException;
 
     const-string v1, "null cannot be cast to non-null type com.bilibili.tv.ui.search.SearchActivity"
@@ -66,7 +66,7 @@
 
     throw v0
 
-    .line 150
+    .line 151
     :cond_18
     check-cast v0, Lcom/bilibili/tv/ui/search/SearchActivity;
 
@@ -74,37 +74,37 @@
 
     move-result-object p1
 
-    .line 163
+    .line 164
     :cond_1e
     :goto_1e
     return-object p1
 
-    .line 152
+    .line 153
     :cond_1f
     const/16 v1, 0x21
 
     if-eq p2, v1, :cond_42
 
-    .line 153
+    .line 154
     const/16 v1, 0x42
 
     if-ne p2, v1, :cond_31
 
-    .line 154
+    .line 155
     iget-object v0, p0, Lbl/afi$1;->this$0:Lbl/afi;
 
     invoke-virtual {v0}, Lbl/afi;->m()Landroid/view/View;
 
     move-result-object v0
 
-    .line 155
+    .line 156
     if-eqz v0, :cond_1e
 
     move-object p1, v0
 
     goto :goto_1e
 
-    .line 157
+    .line 158
     :cond_31
     const/16 v1, 0x82
 
@@ -118,7 +118,7 @@
 
     if-ge v0, v1, :cond_1e
 
-    .line 163
+    .line 164
     :cond_3d
     invoke-super {p0, p1, p2}, Lcom/bilibili/tv/widget/FixLinearLayoutManager;->d(Landroid/view/View;I)Landroid/view/View;
 
@@ -126,7 +126,7 @@
 
     goto :goto_1e
 
-    .line 160
+    .line 161
     :cond_42
     if-gtz v0, :cond_3d
 

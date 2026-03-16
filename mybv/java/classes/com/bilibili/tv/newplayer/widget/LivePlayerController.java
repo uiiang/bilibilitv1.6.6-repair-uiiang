@@ -448,7 +448,7 @@ public class LivePlayerController extends FrameLayout implements View.OnClickLis
                 case AVATAR:
                     textView.setText("UP投稿");
                     if (!TextUtils.isEmpty(this.c)) {
-                        nv.a().a(ach.d(LivePlayerController.this.getContext(), this.c), imageView);
+                        nv.a().a(abd.get_thumb_url_d(LivePlayerController.this.getContext(), this.c), imageView);
                     }
                     if (imageView instanceof ScalableImageView) {
                         ((ScalableImageView) imageView).setRoundAsCircle(true);

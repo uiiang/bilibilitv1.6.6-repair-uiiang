@@ -10,6 +10,8 @@
 
 .field private static c:Lbl/abd;
 
+.field private static cacheLimitType:I
+
 .field private static danmaku_type:I
 
 .field private static f:I
@@ -19,6 +21,8 @@
 .field private static h:I
 
 .field private static homeDefaultType:I
+
+.field private static imageSizeType:I
 
 .field private static j:F
 
@@ -51,14 +55,14 @@
     .line 15
     new-array v0, v2, [F
 
-    fill-array-data v0, :array_22
+    fill-array-data v0, :array_26
 
     sput-object v0, Lbl/abd;->a:[F
 
     .line 16
     new-array v0, v2, [F
 
-    fill-array-data v0, :array_36
+    fill-array-data v0, :array_3a
 
     sput-object v0, Lbl/abd;->b:[F
 
@@ -70,7 +74,7 @@
 
     new-array v0, v0, [F
 
-    fill-array-data v0, :array_4a
+    fill-array-data v0, :array_4e
 
     sput-object v0, Lbl/abd;->speeds:[F
 
@@ -83,10 +87,16 @@
     .line 274
     sput v1, Lbl/abd;->homeDefaultType:I
 
+    .line 288
+    sput v1, Lbl/abd;->imageSizeType:I
+
+    .line 340
+    sput v1, Lbl/abd;->cacheLimitType:I
+
     return-void
 
     .line 15
-    :array_22
+    :array_26
     .array-data 4
         0x3f000000    # 0.5f
         0x3f19999a    # 0.6f
@@ -99,7 +109,7 @@
     .end array-data
 
     .line 16
-    :array_36
+    :array_3a
     .array-data 4
         0x3e99999a    # 0.3f
         0x3ecccccd    # 0.4f
@@ -112,7 +122,7 @@
     .end array-data
 
     .line 28
-    :array_4a
+    :array_4e
     .array-data 4
         0x40000000    # 2.0f
         0x3fc00000    # 1.5f
@@ -804,6 +814,92 @@
     goto :goto_19
 .end method
 
+.method public static get_cache_limit(Landroid/content/Context;)I
+    .locals 3
+
+    .prologue
+    .line 348
+    sget v0, Lbl/abd;->cacheLimitType:I
+
+    const/4 v1, -0x1
+
+    if-ne v0, v1, :cond_16
+
+    .line 349
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    const-string v1, "cache_limit_type"
+
+    const/4 v2, 0x1
+
+    invoke-interface {v0, v1, v2}, Landroid/content/SharedPreferences;->getInt(Ljava/lang/String;I)I
+
+    move-result v0
+
+    sput v0, Lbl/abd;->cacheLimitType:I
+
+    .line 351
+    :cond_16
+    sget v0, Lbl/abd;->cacheLimitType:I
+
+    return v0
+.end method
+
+.method public static get_cache_limit_mb(Landroid/content/Context;)I
+    .locals 2
+
+    .prologue
+    const/16 v0, 0x64
+
+    .line 355
+    invoke-static {p0}, Lbl/abd;->get_cache_limit(Landroid/content/Context;)I
+
+    move-result v1
+
+    .line 356
+    packed-switch v1, :pswitch_data_14
+
+    .line 361
+    :goto_9
+    :pswitch_9
+    return v0
+
+    .line 357
+    :pswitch_a
+    const/16 v0, 0x32
+
+    goto :goto_9
+
+    .line 359
+    :pswitch_d
+    const/16 v0, 0x12c
+
+    goto :goto_9
+
+    .line 360
+    :pswitch_10
+    const/16 v0, 0x1f4
+
+    goto :goto_9
+
+    .line 356
+    nop
+
+    :pswitch_data_14
+    .packed-switch 0x0
+        :pswitch_a
+        :pswitch_9
+        :pswitch_d
+        :pswitch_10
+    .end packed-switch
+.end method
+
 .method public static get_danmaku_type(Landroid/content/Context;)I
     .locals 3
 
@@ -898,6 +994,43 @@
     .line 285
     :cond_16
     sget v0, Lbl/abd;->homeDefaultType:I
+
+    return v0
+.end method
+
+.method public static get_image_size(Landroid/content/Context;)I
+    .locals 3
+
+    .prologue
+    .line 296
+    sget v0, Lbl/abd;->imageSizeType:I
+
+    const/4 v1, -0x1
+
+    if-ne v0, v1, :cond_16
+
+    .line 297
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    const-string v1, "image_size_type"
+
+    const/4 v2, 0x1
+
+    invoke-interface {v0, v1, v2}, Landroid/content/SharedPreferences;->getInt(Ljava/lang/String;I)I
+
+    move-result v0
+
+    sput v0, Lbl/abd;->imageSizeType:I
+
+    .line 299
+    :cond_16
+    sget v0, Lbl/abd;->imageSizeType:I
 
     return v0
 .end method
@@ -1123,6 +1256,171 @@
     return v0
 .end method
 
+.method public static get_thumb_url(Landroid/content/Context;Ljava/lang/String;I)Ljava/lang/String;
+    .locals 1
+
+    .prologue
+    .line 307
+    if-eqz p1, :cond_8
+
+    invoke-virtual {p1}, Ljava/lang/String;->isEmpty()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_9
+
+    .line 314
+    :cond_8
+    :goto_8
+    return-object p1
+
+    .line 308
+    :cond_9
+    invoke-static {p0}, Lbl/abd;->is_hd_image(Landroid/content/Context;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_8
+
+    .line 309
+    packed-switch p2, :pswitch_data_28
+
+    goto :goto_8
+
+    .line 310
+    :pswitch_13
+    invoke-static {p0, p1}, Lbl/ach;->a(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object p1
+
+    goto :goto_8
+
+    .line 311
+    :pswitch_18
+    invoke-static {p0, p1}, Lbl/ach;->b(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object p1
+
+    goto :goto_8
+
+    .line 312
+    :pswitch_1d
+    invoke-static {p0, p1}, Lbl/ach;->c(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object p1
+
+    goto :goto_8
+
+    .line 313
+    :pswitch_22
+    invoke-static {p0, p1}, Lbl/ach;->d(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object p1
+
+    goto :goto_8
+
+    .line 309
+    nop
+
+    :pswitch_data_28
+    .packed-switch 0x0
+        :pswitch_13
+        :pswitch_18
+        :pswitch_1d
+        :pswitch_22
+    .end packed-switch
+.end method
+
+.method public static get_thumb_url_a(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
+    .locals 1
+
+    .prologue
+    .line 319
+    const/4 v0, 0x0
+
+    invoke-static {p0, p1, v0}, Lbl/abd;->get_thumb_url(Landroid/content/Context;Ljava/lang/String;I)Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public static get_thumb_url_b(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
+    .locals 1
+
+    .prologue
+    .line 323
+    const/4 v0, 0x1
+
+    invoke-static {p0, p1, v0}, Lbl/abd;->get_thumb_url(Landroid/content/Context;Ljava/lang/String;I)Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public static get_thumb_url_c(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
+    .locals 1
+
+    .prologue
+    .line 327
+    const/4 v0, 0x2
+
+    invoke-static {p0, p1, v0}, Lbl/abd;->get_thumb_url(Landroid/content/Context;Ljava/lang/String;I)Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public static get_thumb_url_d(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
+    .locals 1
+
+    .prologue
+    .line 331
+    const/4 v0, 0x3
+
+    invoke-static {p0, p1, v0}, Lbl/abd;->get_thumb_url(Landroid/content/Context;Ljava/lang/String;I)Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public static get_thumb_url_with_size(Landroid/content/Context;Ljava/lang/String;II)Ljava/lang/String;
+    .locals 1
+
+    .prologue
+    .line 335
+    if-eqz p1, :cond_8
+
+    invoke-virtual {p1}, Ljava/lang/String;->isEmpty()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_9
+
+    .line 337
+    :cond_8
+    :goto_8
+    return-object p1
+
+    .line 336
+    :cond_9
+    invoke-static {p0}, Lbl/abd;->is_hd_image(Landroid/content/Context;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_8
+
+    .line 337
+    invoke-static {p0, p1, p2, p3}, Lbl/ach;->a(Landroid/content/Context;Ljava/lang/String;II)Ljava/lang/String;
+
+    move-result-object p1
+
+    goto :goto_8
+.end method
+
 .method public static h(Landroid/content/Context;)I
     .locals 3
 
@@ -1186,6 +1484,28 @@
     return-object v0
 .end method
 
+.method public static is_hd_image(Landroid/content/Context;)Z
+    .locals 1
+
+    .prologue
+    .line 303
+    invoke-static {p0}, Lbl/abd;->get_image_size(Landroid/content/Context;)I
+
+    move-result v0
+
+    if-nez v0, :cond_8
+
+    const/4 v0, 0x1
+
+    :goto_7
+    return v0
+
+    :cond_8
+    const/4 v0, 0x0
+
+    goto :goto_7
+.end method
+
 .method private static declared-synchronized j(Landroid/content/Context;)V
     .locals 3
 
@@ -1247,6 +1567,38 @@
     monitor-exit v1
 
     throw v0
+.end method
+
+.method public static set_cache_limit(Landroid/content/Context;I)V
+    .locals 2
+
+    .prologue
+    .line 343
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    const-string v1, "cache_limit_type"
+
+    invoke-interface {v0, v1, p1}, Landroid/content/SharedPreferences$Editor;->putInt(Ljava/lang/String;I)Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
+
+    .line 344
+    sput p1, Lbl/abd;->cacheLimitType:I
+
+    .line 345
+    return-void
 .end method
 
 .method public static set_danmaku_type(Landroid/content/Context;I)V
@@ -1339,6 +1691,38 @@
     sput p1, Lbl/abd;->homeDefaultType:I
 
     .line 279
+    return-void
+.end method
+
+.method public static set_image_size(Landroid/content/Context;I)V
+    .locals 2
+
+    .prologue
+    .line 291
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    const-string v1, "image_size_type"
+
+    invoke-interface {v0, v1, p1}, Landroid/content/SharedPreferences$Editor;->putInt(Ljava/lang/String;I)Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
+
+    .line 292
+    sput p1, Lbl/abd;->imageSizeType:I
+
+    .line 293
     return-void
 .end method
 

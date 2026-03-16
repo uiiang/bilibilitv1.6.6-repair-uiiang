@@ -435,7 +435,7 @@
 
     iget v6, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;->f:I
 
-    invoke-static {v3, v4, v5, v6}, Lbl/ach;->a(Landroid/content/Context;Ljava/lang/String;II)Ljava/lang/String;
+    invoke-static {v3, v4, v5, v6}, Lbl/abd;->get_thumb_url_with_size(Landroid/content/Context;Ljava/lang/String;II)Ljava/lang/String;
 
     move-result-object v3
 

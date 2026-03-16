@@ -32,10 +32,10 @@
     .locals 1
 
     .prologue
-    .line 147
+    .line 148
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$a;-><init>()V
 
-    .line 148
+    .line 149
     new-instance v0, Lcom/alibaba/fastjson/JSONArray;
 
     invoke-direct {v0}, Lcom/alibaba/fastjson/JSONArray;-><init>()V
@@ -51,7 +51,7 @@
     .locals 1
 
     .prologue
-    .line 183
+    .line 184
     iget-object v0, p0, Lbl/aed2$b;->a:Lcom/alibaba/fastjson/JSONArray;
 
     invoke-virtual {v0}, Lcom/alibaba/fastjson/JSONArray;->size()I
@@ -65,7 +65,7 @@
     .locals 1
 
     .prologue
-    .line 147
+    .line 148
     invoke-virtual {p0, p1, p2}, Lbl/aed2$b;->a(Landroid/view/ViewGroup;I)Lbl/adv;
 
     move-result-object v0
@@ -77,12 +77,12 @@
     .locals 1
 
     .prologue
-    .line 153
+    .line 154
     const-string v0, "parent"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 154
+    .line 155
     const/4 v0, 0x0
 
     check-cast v0, Lbl/aed2$c;
@@ -100,7 +100,7 @@
     .locals 0
 
     .prologue
-    .line 147
+    .line 148
     check-cast p1, Lbl/adv;
 
     invoke-virtual {p0, p1, p2}, Lbl/aed2$b;->a(Lbl/adv;I)V
@@ -112,24 +112,24 @@
     .locals 4
 
     .prologue
-    .line 159
+    .line 160
     const-string v0, "viewHolder"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 160
+    .line 161
     instance-of v0, p1, Lbl/aed2$c;
 
     if-eqz v0, :cond_7f
 
-    .line 161
+    .line 162
     iget-object v0, p0, Lbl/aed2$b;->a:Lcom/alibaba/fastjson/JSONArray;
 
     invoke-virtual {v0, p2}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v1
 
-    .line 162
+    .line 163
     const-string v0, "title"
 
     invoke-virtual {v1, v0}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -140,7 +140,7 @@
 
     move-object v0, p1
 
-    .line 163
+    .line 164
     check-cast v0, Lbl/aed2$c;
 
     invoke-virtual {v0}, Lbl/aed2$c;->A()Landroid/widget/TextView;
@@ -155,7 +155,7 @@
 
     invoke-virtual {v0, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 165
+    .line 166
     :cond_27
     const-string v0, "cover"
 
@@ -165,7 +165,7 @@
 
     if-eqz v0, :cond_80
 
-    .line 166
+    .line 167
     invoke-static {}, Lbl/nv;->a()Lbl/nv;
 
     move-result-object v2
@@ -180,7 +180,7 @@
 
     move-result-object v3
 
-    invoke-static {v0, v3}, Lbl/ach;->c(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
+    invoke-static {v0, v3}, Lbl/abd;->get_thumb_url_c(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v3
 
@@ -194,7 +194,7 @@
 
     invoke-virtual {v2, v3, v0}, Lbl/nv;->a(Ljava/lang/String;Landroid/widget/ImageView;)V
 
-    .line 169
+    .line 170
     :goto_4b
     const-string v0, "media_count"
 
@@ -208,7 +208,7 @@
 
     move-object v0, p1
 
-    .line 170
+    .line 171
     check-cast v0, Lbl/aed2$c;
 
     invoke-virtual {v0}, Lbl/aed2$c;->B()Landroid/widget/TextView;
@@ -227,7 +227,7 @@
 
     invoke-virtual {v0, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 174
+    .line 175
     :goto_69
     iget-object v0, p1, Lbl/adv;->a:Landroid/view/View;
 
@@ -239,22 +239,22 @@
 
     invoke-virtual {v0, v2, v3}, Landroid/view/View;->setTag(ILjava/lang/Object;)V
 
-    .line 175
+    .line 176
     iget-object v0, p1, Lbl/adv;->a:Landroid/view/View;
 
-    .line 176
+    .line 177
     const-string v2, "viewHolder.itemView"
 
     invoke-static {v0, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 177
+    .line 178
     invoke-virtual {v0, v1}, Landroid/view/View;->setTag(Ljava/lang/Object;)V
 
-    .line 179
+    .line 180
     :cond_7f
     return-void
 
-    .line 168
+    .line 169
     :cond_80
     invoke-static {}, Lbl/nv;->a()Lbl/nv;
 
@@ -277,7 +277,7 @@
     :cond_91
     move-object v0, p1
 
-    .line 172
+    .line 173
     check-cast v0, Lbl/aed2$c;
 
     invoke-virtual {v0}, Lbl/aed2$c;->B()Landroid/widget/TextView;
@@ -295,19 +295,19 @@
     .locals 1
 
     .prologue
-    .line 187
+    .line 188
     const-string v0, "list"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 188
+    .line 189
     iget-object v0, p0, Lbl/aed2$b;->a:Lcom/alibaba/fastjson/JSONArray;
 
     invoke-virtual {v0, p1}, Lcom/alibaba/fastjson/JSONArray;->addAll(Ljava/util/Collection;)Z
 
-    .line 189
+    .line 190
     invoke-virtual {p0}, Lbl/aed2$b;->d()V
 
-    .line 190
+    .line 191
     return-void
 .end method

@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 312
+    .line 313
     iput-object p1, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$FollowBangumiResponse;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
@@ -50,7 +50,7 @@
 
     const/4 v2, 0x0
 
-    .line 320
+    .line 321
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$FollowBangumiResponse;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;
 
     # getter for: Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->a:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$c;
@@ -69,24 +69,24 @@
 
     if-nez v0, :cond_13
 
-    .line 352
+    .line 353
     :cond_12
     :goto_12
     return-void
 
-    .line 323
+    .line 324
     :cond_13
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$FollowBangumiResponse;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;
 
     # setter for: Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->i:Z
     invoke-static {v0, v2}, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->access$002(Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;Z)Z
 
-    .line 324
+    .line 325
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$FollowBangumiResponse;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->a(Z)V
 
-    .line 325
+    .line 326
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$FollowBangumiResponse;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;
 
     # getter for: Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->c:Lcom/bilibili/tv/ui/base/LoadingImageView;
@@ -96,7 +96,7 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->b()V
 
-    .line 326
+    .line 327
     if-eqz p1, :cond_3c
 
     const-string v0, "list"
@@ -119,7 +119,7 @@
 
     if-eqz v0, :cond_5a
 
-    .line 327
+    .line 328
     :cond_3c
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$FollowBangumiResponse;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;
 
@@ -130,7 +130,7 @@
 
     if-ne v0, v8, :cond_12
 
-    .line 328
+    .line 329
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$FollowBangumiResponse;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;
 
     # getter for: Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->c:Lcom/bilibili/tv/ui/base/LoadingImageView;
@@ -140,7 +140,7 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->c()V
 
-    .line 329
+    .line 330
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$FollowBangumiResponse;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;
 
     # getter for: Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->c:Lcom/bilibili/tv/ui/base/LoadingImageView;
@@ -154,13 +154,13 @@
 
     goto :goto_12
 
-    .line 334
+    .line 335
     :cond_5a
     new-instance v3, Ljava/util/ArrayList;
 
     invoke-direct {v3}, Ljava/util/ArrayList;-><init>()V
 
-    .line 335
+    .line 336
     const-string v0, "list"
 
     invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
@@ -169,7 +169,7 @@
 
     move v1, v2
 
-    .line 336
+    .line 337
     :goto_66
     invoke-virtual {v4}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
@@ -177,12 +177,12 @@
 
     if-ge v1, v0, :cond_c9
 
-    .line 337
+    .line 338
     invoke-virtual {v4, v1}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v5
 
-    .line 338
+    .line 339
     invoke-virtual {v5}, Lcom/alibaba/fastjson/JSONObject;->toString()Ljava/lang/String;
 
     move-result-object v0
@@ -195,7 +195,7 @@
 
     check-cast v0, Lcom/bilibili/bangumi/api/BiliBangumiSeason;
 
-    .line 339
+    .line 340
     const-string v6, "series"
 
     invoke-virtual {v5, v6}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
@@ -210,7 +210,7 @@
 
     iput-object v6, v0, Lcom/bilibili/bangumi/api/BiliBangumiSeason;->mBangumiId:Ljava/lang/String;
 
-    .line 340
+    .line 341
     const-string v6, "stat"
 
     invoke-virtual {v5, v6}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
@@ -225,7 +225,7 @@
 
     iput-object v6, v0, Lcom/bilibili/bangumi/api/BiliBangumiSeason;->mDanmakus:Ljava/lang/String;
 
-    .line 341
+    .line 342
     const-string v6, "stat"
 
     invoke-virtual {v5, v6}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
@@ -240,7 +240,7 @@
 
     iput-object v6, v0, Lcom/bilibili/bangumi/api/BiliBangumiSeason;->mPlays:Ljava/lang/String;
 
-    .line 342
+    .line 343
     const-string v6, "stat"
 
     invoke-virtual {v5, v6}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
@@ -255,7 +255,7 @@
 
     iput-object v6, v0, Lcom/bilibili/bangumi/api/BiliBangumiSeason;->mFavorites:Ljava/lang/String;
 
-    .line 343
+    .line 344
     const-string v6, "new_ep"
 
     invoke-virtual {v5, v6}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
@@ -270,17 +270,17 @@
 
     iput-object v5, v0, Lcom/bilibili/bangumi/api/BiliBangumiSeason;->mLastEPId:Ljava/lang/String;
 
-    .line 344
+    .line 345
     invoke-interface {v3, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 336
+    .line 337
     add-int/lit8 v0, v1, 0x1
 
     move v1, v0
 
     goto :goto_66
 
-    .line 346
+    .line 347
     :cond_c9
     if-eqz v3, :cond_12
 
@@ -293,7 +293,7 @@
 
     if-eqz v0, :cond_12
 
-    .line 349
+    .line 350
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$FollowBangumiResponse;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;
 
     # getter for: Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->g:I
@@ -312,7 +312,7 @@
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$c;->a(Ljava/util/List;)V
 
-    .line 351
+    .line 352
     :goto_e4
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$FollowBangumiResponse;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;
 
@@ -340,7 +340,7 @@
 
     goto/16 :goto_12
 
-    .line 350
+    .line 351
     :cond_fd
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$FollowBangumiResponse;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;
 
@@ -358,7 +358,7 @@
     .locals 0
 
     .prologue
-    .line 312
+    .line 313
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$FollowBangumiResponse;->a(Lcom/alibaba/fastjson/JSONObject;)V
@@ -370,7 +370,7 @@
     .locals 1
 
     .prologue
-    .line 315
+    .line 316
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$FollowBangumiResponse;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->isFinishing()Z
@@ -386,19 +386,19 @@
     .prologue
     const/4 v2, 0x1
 
-    .line 356
+    .line 357
     const-string v0, "t"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 357
+    .line 358
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$FollowBangumiResponse;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;
 
     invoke-virtual {v0, p1, v1}, Lbl/adl;->a(Ljava/lang/Throwable;Landroid/app/Activity;)V
 
-    .line 358
+    .line 359
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$FollowBangumiResponse;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;
 
     # getter for: Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->a:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$c;
@@ -417,12 +417,12 @@
 
     if-nez v0, :cond_1e
 
-    .line 366
+    .line 367
     :cond_1d
     :goto_1d
     return-void
 
-    .line 361
+    .line 362
     :cond_1e
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$FollowBangumiResponse;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;
 
@@ -431,7 +431,7 @@
     # setter for: Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->i:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->access$002(Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;Z)Z
 
-    .line 362
+    .line 363
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$FollowBangumiResponse;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;
 
     # getter for: Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->g:I
@@ -441,12 +441,12 @@
 
     if-ne v0, v2, :cond_1d
 
-    .line 363
+    .line 364
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$FollowBangumiResponse;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->a(Z)V
 
-    .line 364
+    .line 365
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$FollowBangumiResponse;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;
 
     # getter for: Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->c:Lcom/bilibili/tv/ui/base/LoadingImageView;

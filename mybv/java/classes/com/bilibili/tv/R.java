@@ -2509,6 +2509,12 @@ public final class R {
         public static final int duration = 0x7f0801a1;
         public static final int show_title = 0x7f0801a2;
         public static final int page_badge = 0x7f0801a3;
+        public static final int image_size_hd = 0x7f0801a4;
+        public static final int image_size_thumbnail = 0x7f0801a5;
+        public static final int cache_limit_50 = 0x7f0801a6;
+        public static final int cache_limit_100 = 0x7f0801a7;
+        public static final int cache_limit_300 = 0x7f0801a8;
+        public static final int cache_limit_500 = 0x7f0801a9;
     }
 
     public static final class integer {

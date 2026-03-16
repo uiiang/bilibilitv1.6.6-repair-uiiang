@@ -26,12 +26,12 @@
     .locals 0
 
     .prologue
-    .line 249
+    .line 250
     iput-object p1, p0, Lbl/afi$p;->this$0:Lbl/afi;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 250
+    .line 251
     return-void
 .end method
 
@@ -43,20 +43,20 @@
     .prologue
     const/4 v3, 0x0
 
-    .line 254
+    .line 255
     iget-object v0, p0, Lbl/afi$p;->this$0:Lbl/afi;
 
     invoke-virtual {v0}, Lbl/afi;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 255
+    .line 256
     if-nez p2, :cond_19
 
-    .line 256
+    .line 257
     if-nez v0, :cond_13
 
-    .line 257
+    .line 258
     new-instance v0, Lkotlin/TypeCastException;
 
     const-string v1, "null cannot be cast to non-null type com.bilibili.tv.ui.search.SearchActivity"
@@ -65,18 +65,18 @@
 
     throw v0
 
-    .line 259
+    .line 260
     :cond_13
     check-cast v0, Lcom/bilibili/tv/ui/search/SearchActivity;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/ui/search/SearchActivity;->b(Z)V
 
-    .line 270
+    .line 271
     :cond_18
     :goto_18
     return-void
 
-    .line 260
+    .line 261
     :cond_19
     invoke-virtual {p2}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
 
@@ -91,12 +91,12 @@
 
     if-ne v1, v2, :cond_30
 
-    .line 261
+    .line 262
     instance-of v1, v0, Lcom/bilibili/tv/ui/search/SearchActivity;
 
     if-eqz v1, :cond_18
 
-    .line 262
+    .line 263
     check-cast v0, Lcom/bilibili/tv/ui/search/SearchActivity;
 
     const/4 v1, 0x1
@@ -105,11 +105,11 @@
 
     goto :goto_18
 
-    .line 265
+    .line 266
     :cond_30
     if-nez v0, :cond_3a
 
-    .line 266
+    .line 267
     new-instance v0, Lkotlin/TypeCastException;
 
     const-string v1, "null cannot be cast to non-null type com.bilibili.tv.ui.search.SearchActivity"
@@ -118,7 +118,7 @@
 
     throw v0
 
-    .line 268
+    .line 269
     :cond_3a
     check-cast v0, Lcom/bilibili/tv/ui/search/SearchActivity;
 

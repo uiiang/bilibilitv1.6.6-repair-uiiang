@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import bl.ach;
+import bl.abd;
 import bl.adh;
 import bl.adl;
 import bl.adv;
@@ -390,7 +391,7 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements Vie
                     }
                 }
                 if (biliVideoDetail.mCover != null) {
-                    nv.a().a(ach.c(MainApplication.a(), biliVideoDetail.mCover), ((f) holder).z());
+                    nv.a().a(abd.get_thumb_url_c(MainApplication.a(), biliVideoDetail.mCover), ((f) holder).z());
                 }
                 View view = holder.a;
                 bbi.a((Object) view, "holder.itemView");

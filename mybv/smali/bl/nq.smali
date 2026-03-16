@@ -159,7 +159,7 @@
 .end method
 
 .method public a(Landroid/content/Context;Lbl/nx;)V
-    .locals 4
+    .locals 6
     .param p2    # Lbl/nx;
         .annotation build Landroid/support/annotation/NonNull;
         .end annotation
@@ -239,7 +239,19 @@
 
     move-result-object v1
 
-    const-wide/32 v2, 0x6400000
+    invoke-static {p1}, Lbl/abd;->get_cache_limit_mb(Landroid/content/Context;)I
+
+    move-result v2
+
+    int-to-long v2, v2
+
+    const-wide/16 v4, 0x400
+
+    mul-long/2addr v2, v4
+
+    const-wide/16 v4, 0x400
+
+    mul-long/2addr v2, v4
 
     .line 360
     invoke-virtual {v1, v2, v3}, Lbl/agx$a;->a(J)Lbl/agx$a;

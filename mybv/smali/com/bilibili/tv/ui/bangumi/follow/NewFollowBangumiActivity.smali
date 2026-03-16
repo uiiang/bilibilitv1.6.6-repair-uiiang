@@ -55,7 +55,7 @@
     .locals 2
 
     .prologue
-    .line 61
+    .line 62
     new-instance v0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$a;
 
     const/4 v1, 0x0
@@ -73,13 +73,13 @@
     .prologue
     const/4 v0, 0x1
 
-    .line 60
+    .line 61
     invoke-direct {p0}, Lcom/bilibili/tv/ui/base/BaseReloadActivity;-><init>()V
 
-    .line 69
+    .line 70
     iput v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->g:I
 
-    .line 70
+    .line 71
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->h:Z
 
     return-void
@@ -89,7 +89,7 @@
     .locals 1
 
     .prologue
-    .line 60
+    .line 61
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->i:Z
 
     return v0
@@ -99,7 +99,7 @@
     .locals 0
 
     .prologue
-    .line 60
+    .line 61
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->i:Z
 
     return p1
@@ -109,7 +109,7 @@
     .locals 1
 
     .prologue
-    .line 60
+    .line 61
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->h:Z
 
     return v0
@@ -119,7 +119,7 @@
     .locals 0
 
     .prologue
-    .line 60
+    .line 61
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->h:Z
 
     return p1
@@ -129,7 +129,7 @@
     .locals 1
 
     .prologue
-    .line 60
+    .line 61
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->a:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$c;
 
     return-object v0
@@ -139,7 +139,7 @@
     .locals 1
 
     .prologue
-    .line 60
+    .line 61
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->f:Lcom/bilibili/tv/widget/FixGridLayoutManager;
 
     return-object v0
@@ -149,7 +149,7 @@
     .locals 1
 
     .prologue
-    .line 60
+    .line 61
     iget v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->g:I
 
     return v0
@@ -159,7 +159,7 @@
     .locals 2
 
     .prologue
-    .line 60
+    .line 61
     iget v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->g:I
 
     add-int/lit8 v1, v0, 0x1
@@ -173,7 +173,7 @@
     .locals 1
 
     .prologue
-    .line 60
+    .line 61
     iget v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->j:I
 
     return v0
@@ -183,7 +183,7 @@
     .locals 0
 
     .prologue
-    .line 60
+    .line 61
     iput p1, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->j:I
 
     return p1
@@ -193,7 +193,7 @@
     .locals 1
 
     .prologue
-    .line 60
+    .line 61
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->c:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     return-object v0
@@ -203,7 +203,7 @@
     .locals 0
 
     .prologue
-    .line 60
+    .line 61
     iput-object p1, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->e:Ljava/lang/String;
 
     return-object p1
@@ -215,7 +215,7 @@
     .locals 1
 
     .prologue
-    .line 76
+    .line 77
     const-string v0, "ott-platform.favorite.0.0.pv"
 
     return-object v0
@@ -227,14 +227,14 @@
     .prologue
     const/4 v4, 0x0
 
-    .line 106
+    .line 107
     const-string v0, "tv_mybangumi_pageview"
 
     new-array v1, v4, [Ljava/lang/String;
 
     invoke-static {v0, v1}, Lbl/ok;->a(Ljava/lang/String;[Ljava/lang/String;)V
 
-    .line 107
+    .line 108
     const v0, 0x7f080132
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->d(I)Landroid/view/View;
@@ -251,7 +251,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 108
+    .line 109
     sget-object v1, Lcom/bilibili/tv/ui/base/LoadingImageView;->Companion:Lcom/bilibili/tv/ui/base/LoadingImageView$a;
 
     const v0, 0x7f0800b8
@@ -268,7 +268,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->c:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
-    .line 109
+    .line 110
     const v0, 0x7f08003d
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->d(I)Landroid/view/View;
@@ -279,7 +279,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->d:Lcom/bilibili/tv/widget/FadeImageView;
 
-    .line 110
+    .line 111
     const v0, 0x7f0800eb
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->d(I)Landroid/view/View;
@@ -288,7 +288,7 @@
 
     check-cast v0, Landroid/support/v7/widget/RecyclerView;
 
-    .line 111
+    .line 112
     new-instance v1, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$1;
 
     const/4 v2, 0x6
@@ -297,92 +297,92 @@
 
     iput-object v1, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->f:Lcom/bilibili/tv/widget/FixGridLayoutManager;
 
-    .line 128
+    .line 129
     iget-object v1, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->f:Lcom/bilibili/tv/widget/FixGridLayoutManager;
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setLayoutManager(Landroid/support/v7/widget/RecyclerView$h;)V
 
-    .line 129
+    .line 130
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setHasFixedSize(Z)V
 
-    .line 130
+    .line 131
     const v1, 0x7f060299
 
     invoke-static {v1}, Lbl/adl;->b(I)I
 
     move-result v1
 
-    .line 131
+    .line 132
     const v2, 0x7f060120
 
     invoke-static {v2}, Lbl/adl;->b(I)I
 
     move-result v2
 
-    .line 132
+    .line 133
     const v3, 0x7f06022b
 
     invoke-static {v3}, Lbl/adl;->b(I)I
 
     move-result v3
 
-    .line 133
+    .line 134
     invoke-virtual {v0, v3, v1, v3, v3}, Landroid/support/v7/widget/RecyclerView;->setPadding(IIII)V
 
-    .line 134
+    .line 135
     new-instance v3, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$e;
 
     invoke-direct {v3, v1, v2}, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$e;-><init>(II)V
 
     invoke-virtual {v0, v3}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$g;)V
 
-    .line 135
+    .line 136
     new-instance v1, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$c;
 
     invoke-direct {v1}, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$c;-><init>()V
 
     iput-object v1, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->a:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$c;
 
-    .line 136
+    .line 137
     iget-object v1, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->a:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$c;
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setAdapter(Landroid/support/v7/widget/RecyclerView$a;)V
 
-    .line 137
+    .line 138
     invoke-virtual {v0, v4}, Landroid/support/v7/widget/RecyclerView;->setFocusable(Z)V
 
-    .line 138
+    .line 139
     new-instance v1, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$f;
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$f;-><init>(Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;)V
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$m;)V
 
-    .line 139
+    .line 140
     new-instance v1, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$g;
 
     invoke-direct {v1, p0, v0}, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$g;-><init>(Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;Landroid/support/v7/widget/RecyclerView;)V
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setChildDrawingOrderCallback(Landroid/support/v7/widget/RecyclerView$d;)V
 
-    .line 140
+    .line 141
     new-instance v0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$b;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$b;-><init>(Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->b:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$b;
 
-    .line 141
+    .line 142
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->i()V
 
-    .line 142
+    .line 143
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->c:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->a()V
 
-    .line 143
+    .line 144
     return-void
 .end method
 
@@ -390,7 +390,7 @@
     .locals 1
 
     .prologue
-    .line 81
+    .line 82
     invoke-static {p0}, Lbl/wg;->a(Lbl/wf;)Z
 
     move-result v0
@@ -402,7 +402,7 @@
     .locals 1
 
     .prologue
-    .line 86
+    .line 87
     const/4 v0, 0x0
 
     return-object v0
@@ -412,10 +412,10 @@
     .locals 0
 
     .prologue
-    .line 251
+    .line 252
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->i()V
 
-    .line 252
+    .line 253
     return-void
 .end method
 
@@ -423,7 +423,7 @@
     .locals 1
 
     .prologue
-    .line 91
+    .line 92
     const v0, 0x7f0a004d
 
     return v0
@@ -435,20 +435,20 @@
     .prologue
     const/4 v3, 0x1
 
-    .line 234
+    .line 235
     iput-boolean v3, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->i:Z
 
-    .line 235
+    .line 236
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
 
-    .line 236
+    .line 237
     const-string v1, "BiliAccount.get(this)"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 238
+    .line 239
     const-class v1, Lmybl/MyBiliApiService;
 
     invoke-static {v1}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -479,7 +479,7 @@
 
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 239
+    .line 240
     return-void
 .end method
 
@@ -489,7 +489,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 243
+    .line 244
     move-object v0, v1
 
     check-cast v0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$c;
@@ -498,20 +498,20 @@
 
     move-object v0, v1
 
-    .line 244
+    .line 245
     check-cast v0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$b;
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->b:Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$b;
 
-    .line 245
+    .line 246
     check-cast v1, Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     iput-object v1, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->c:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
-    .line 246
+    .line 247
     invoke-super {p0}, Lcom/bilibili/tv/ui/base/BaseReloadActivity;->onDestroy()V
 
-    .line 247
+    .line 248
     return-void
 .end method
 
@@ -519,12 +519,12 @@
     .locals 2
 
     .prologue
-    .line 373
+    .line 374
     const-string v0, "event"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 374
+    .line 375
     sget v0, Landroid/os/Build$VERSION;->SDK_INT:I
 
     const/16 v1, 0xf
@@ -541,43 +541,43 @@
 
     if-eqz v0, :cond_30
 
-    .line 375
+    .line 376
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->f:Lcom/bilibili/tv/widget/FixGridLayoutManager;
 
-    .line 376
+    .line 377
     if-nez v0, :cond_1c
 
-    .line 377
+    .line 378
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 379
+    .line 380
     :cond_1c
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/FixGridLayoutManager;->o()I
 
     move-result v0
 
-    .line 380
+    .line 381
     iget-object v1, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->f:Lcom/bilibili/tv/widget/FixGridLayoutManager;
 
-    .line 381
+    .line 382
     if-nez v1, :cond_27
 
-    .line 382
+    .line 383
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 384
+    .line 385
     :cond_27
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/widget/FixGridLayoutManager;->c(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 385
+    .line 386
     if-eqz v0, :cond_30
 
-    .line 386
+    .line 387
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 389
+    .line 390
     :cond_30
     invoke-super {p0, p1, p2}, Lcom/bilibili/tv/ui/base/BaseReloadActivity;->onKeyDown(ILandroid/view/KeyEvent;)Z
 
@@ -590,24 +590,24 @@
     .locals 4
 
     .prologue
-    .line 580
+    .line 581
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v0
 
-    .line 581
+    .line 582
     const-string v1, "MainApplication.getInstance()"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 582
+    .line 583
     invoke-virtual {v0}, Lcom/bilibili/tv/MainApplication;->getApplicationContext()Landroid/content/Context;
 
     move-result-object v0
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->e:Ljava/lang/String;
 
-    invoke-static {v0, v1}, Lbl/ach;->b(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
+    invoke-static {v0, v1}, Lbl/abd;->get_thumb_url_b(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v0
 
@@ -635,7 +635,7 @@
 
     move-result-object v0
 
-    .line 583
+    .line 584
     invoke-static {}, Lbl/ajq;->a()Lbl/ajs;
 
     move-result-object v1
@@ -646,7 +646,7 @@
 
     check-cast v0, Lbl/ajs;
 
-    .line 584
+    .line 585
     iget-object v1, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->d:Lcom/bilibili/tv/widget/FadeImageView;
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->d:Lcom/bilibili/tv/widget/FadeImageView;
@@ -667,6 +667,6 @@
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/widget/FadeImageView;->a(Lbl/alf;)V
 
-    .line 585
+    .line 586
     return-void
 .end method

@@ -15,6 +15,7 @@ import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import bl.ach;
+import bl.abd;
 import bl.adh;
 import bl.adl;
 import bl.adv;
@@ -453,7 +454,7 @@ public final class AttentionDynamicActivity extends BaseReloadActivity implement
 
                     //dVar.C().setText("");
                     if (followingItem.getString("face") != null) {
-                        nv.a().a(ach.c(MainApplication.a(), followingItem.getString("face")), dVar.z());
+                        nv.a().a(abd.get_thumb_url_c(MainApplication.a(), followingItem.getString("face")), dVar.z());
                     }
                 }else{
                     //UpperFeedList.UpperFeedItem upperFeedItem = (UpperFeedList.UpperFeedItem)this.a.get(i);
@@ -473,7 +474,7 @@ public final class AttentionDynamicActivity extends BaseReloadActivity implement
                     dVar.C().setText(feedArchiveItem.getJSONObject("stat").getString("play"));
                     dVar.D().setText(feedArchiveItem.getJSONObject("stat").getString("danmaku"));
                     if (feedArchiveItem.getString("cover") != null) {
-                        nv.a().a(ach.c(MainApplication.a(), feedArchiveItem.getString("cover")), dVar.z());
+                        nv.a().a(abd.get_thumb_url_c(MainApplication.a(), feedArchiveItem.getString("cover")), dVar.z());
                     }
                 }
                 View view = holder.a;

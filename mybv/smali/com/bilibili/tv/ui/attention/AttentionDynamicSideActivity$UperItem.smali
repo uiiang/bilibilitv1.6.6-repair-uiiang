@@ -29,22 +29,22 @@
     .locals 1
 
     .prologue
-    .line 531
+    .line 532
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 532
+    .line 533
     iput-wide p1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$UperItem;->mid:J
 
-    .line 533
+    .line 534
     iput-object p3, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$UperItem;->name:Ljava/lang/String;
 
-    .line 534
+    .line 535
     iput-object p4, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$UperItem;->face:Ljava/lang/String;
 
-    .line 535
+    .line 536
     iput-boolean p5, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$UperItem;->allDynamic:Z
 
-    .line 536
+    .line 537
     return-void
 .end method
 
@@ -54,7 +54,7 @@
     .locals 1
 
     .prologue
-    .line 547
+    .line 548
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$UperItem;->face:Ljava/lang/String;
 
     return-object v0
@@ -64,7 +64,7 @@
     .locals 2
 
     .prologue
-    .line 539
+    .line 540
     iget-wide v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$UperItem;->mid:J
 
     return-wide v0
@@ -74,7 +74,7 @@
     .locals 1
 
     .prologue
-    .line 543
+    .line 544
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$UperItem;->name:Ljava/lang/String;
 
     return-object v0
@@ -84,7 +84,7 @@
     .locals 1
 
     .prologue
-    .line 551
+    .line 552
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$UperItem;->allDynamic:Z
 
     return v0

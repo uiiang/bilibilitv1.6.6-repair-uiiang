@@ -45,10 +45,10 @@
     .locals 1
 
     .prologue
-    .line 304
+    .line 305
     invoke-direct {p0}, Lbl/adz;-><init>()V
 
-    .line 305
+    .line 306
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
@@ -64,7 +64,7 @@
     .locals 1
 
     .prologue
-    .line 343
+    .line 344
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity$b;->a:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->size()I
@@ -78,7 +78,7 @@
     .locals 1
 
     .prologue
-    .line 304
+    .line 305
     invoke-virtual {p0, p1, p2}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity$b;->a(Landroid/view/ViewGroup;I)Lbl/adv;
 
     move-result-object v0
@@ -90,12 +90,12 @@
     .locals 1
 
     .prologue
-    .line 315
+    .line 316
     const-string v0, "parent"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 316
+    .line 317
     sget-object v0, Lbl/aeb;->Companion:Lbl/aeb$b;
 
     invoke-virtual {v0, p1}, Lbl/aeb$b;->a(Landroid/view/ViewGroup;)Lbl/aeb;
@@ -109,7 +109,7 @@
     .locals 0
 
     .prologue
-    .line 304
+    .line 305
     check-cast p1, Lbl/adv;
 
     invoke-virtual {p0, p1, p2}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity$b;->a(Lbl/adv;I)V
@@ -121,17 +121,17 @@
     .locals 5
 
     .prologue
-    .line 321
+    .line 322
     const-string v0, "viewHolder"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 322
+    .line 323
     instance-of v0, p1, Lbl/aeb;
 
     if-eqz v0, :cond_75
 
-    .line 323
+    .line 324
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity$b;->a:Ljava/util/List;
 
     invoke-interface {v0, p2}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -140,14 +140,14 @@
 
     check-cast v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
-    .line 324
+    .line 325
     iget-object v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mTitle:Ljava/lang/String;
 
     if-eqz v1, :cond_21
 
     move-object v1, p1
 
-    .line 325
+    .line 326
     check-cast v1, Lbl/aeb;
 
     invoke-virtual {v1}, Lbl/aeb;->A()Landroid/widget/TextView;
@@ -161,10 +161,10 @@
     :cond_21
     move-object v1, p1
 
-    .line 327
+    .line 328
     check-cast v1, Lbl/aeb;
 
-    .line 328
+    .line 329
     invoke-virtual {v1}, Lbl/aeb;->B()Landroid/widget/TextView;
 
     move-result-object v2
@@ -175,7 +175,7 @@
 
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 329
+    .line 330
     invoke-virtual {v1}, Lbl/aeb;->C()Landroid/widget/TextView;
 
     move-result-object v2
@@ -190,7 +190,7 @@
 
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 330
+    .line 331
     invoke-virtual {v1}, Lbl/aeb;->D()Landroid/widget/TextView;
 
     move-result-object v2
@@ -205,12 +205,12 @@
 
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 331
+    .line 332
     iget-object v2, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mCover:Ljava/lang/String;
 
     if-eqz v2, :cond_66
 
-    .line 332
+    .line 333
     invoke-static {}, Lbl/nv;->a()Lbl/nv;
 
     move-result-object v2
@@ -221,7 +221,7 @@
 
     iget-object v4, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mCover:Ljava/lang/String;
 
-    invoke-static {v3, v4}, Lbl/ach;->c(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
+    invoke-static {v3, v4}, Lbl/abd;->get_thumb_url_c(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v3
 
@@ -231,24 +231,24 @@
 
     invoke-virtual {v2, v3, v1}, Lbl/nv;->a(Ljava/lang/String;Landroid/widget/ImageView;)V
 
-    .line 334
+    .line 335
     :cond_66
     iget-object v1, p1, Lbl/adv;->a:Landroid/view/View;
 
-    .line 335
+    .line 336
     const-string v2, "viewHolder.itemView"
 
     invoke-static {v1, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 336
+    .line 337
     invoke-virtual {v1, v0}, Landroid/view/View;->setTag(Ljava/lang/Object;)V
 
-    .line 337
+    .line 338
     iget-object v0, p1, Lbl/adv;->a:Landroid/view/View;
 
     invoke-virtual {v0, p0}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 339
+    .line 340
     :cond_75
     return-void
 .end method
@@ -266,20 +266,20 @@
     .end annotation
 
     .prologue
-    .line 347
+    .line 348
     const-string v0, "biliVideos"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 348
+    .line 349
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity$b;->a:Ljava/util/List;
 
     invoke-interface {v0, p1}, Ljava/util/List;->addAll(Ljava/util/Collection;)Z
 
-    .line 349
+    .line 350
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity$b;->d()V
 
-    .line 350
+    .line 351
     return-void
 .end method
 
@@ -296,27 +296,27 @@
     .end annotation
 
     .prologue
-    .line 353
+    .line 354
     const-string v0, "biliVideos"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 354
+    .line 355
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity$b;->a:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->size()I
 
     move-result v0
 
-    .line 355
+    .line 356
     iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity$b;->a:Ljava/util/List;
 
     invoke-interface {v1, p1}, Ljava/util/List;->addAll(Ljava/util/Collection;)Z
 
-    .line 356
+    .line 357
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity$b;->d(I)V
 
-    .line 357
+    .line 358
     return-void
 .end method
 
@@ -324,7 +324,7 @@
     .locals 1
 
     .prologue
-    .line 309
+    .line 310
     const/4 v0, 0x0
 
     return v0
@@ -334,39 +334,39 @@
     .locals 6
 
     .prologue
-    .line 361
+    .line 362
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 362
+    .line 363
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    .line 363
+    .line 364
     const-string v1, "v.context"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 364
+    .line 365
     invoke-static {v0}, Lbl/adl;->a(Landroid/content/Context;)Landroid/app/Activity;
 
     move-result-object v1
 
-    .line 365
+    .line 366
     invoke-virtual {p1}, Landroid/view/View;->getTag()Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 366
+    .line 367
     if-eqz v1, :cond_31
 
     instance-of v2, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     if-eqz v2, :cond_31
 
-    .line 367
+    .line 368
     sget-object v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
 
     check-cast v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -379,7 +379,7 @@
 
     invoke-virtual {v1, v0}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
 
-    .line 368
+    .line 369
     const-string v0, "tv_myfavourite_fold_video_click"
 
     const/4 v1, 0x0
@@ -388,7 +388,7 @@
 
     invoke-static {v0, v1}, Lbl/ok;->a(Ljava/lang/String;[Ljava/lang/String;)V
 
-    .line 370
+    .line 371
     :cond_31
     return-void
 .end method

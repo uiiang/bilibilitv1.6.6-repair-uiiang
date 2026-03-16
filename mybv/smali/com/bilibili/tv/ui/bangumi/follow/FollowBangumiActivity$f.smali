@@ -23,12 +23,12 @@
     .locals 0
 
     .prologue
-    .line 162
+    .line 163
     iput-object p1, p0, Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity$f;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity;
 
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$m;-><init>()V
 
-    .line 163
+    .line 164
     return-void
 .end method
 
@@ -38,10 +38,10 @@
     .locals 2
 
     .prologue
-    .line 167
+    .line 168
     invoke-super {p0, p1, p2, p3}, Landroid/support/v7/widget/RecyclerView$m;->a(Landroid/support/v7/widget/RecyclerView;II)V
 
-    .line 168
+    .line 169
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity$f;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity;
 
     # getter for: Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity;->g:Z
@@ -69,12 +69,12 @@
 
     if-nez v0, :cond_1c
 
-    .line 182
+    .line 183
     :cond_1b
     :goto_1b
     return-void
 
-    .line 171
+    .line 172
     :cond_1c
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity$f;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity;
 
@@ -87,7 +87,7 @@
 
     move-result v0
 
-    .line 172
+    .line 173
     iget-object v1, p0, Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity$f;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity;
 
     # getter for: Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity;->d:Lcom/bilibili/tv/widget/FixGridLayoutManager;
@@ -101,10 +101,10 @@
 
     if-lez v1, :cond_1b
 
-    .line 173
+    .line 174
     add-int/lit8 v0, v0, 0x1
 
-    .line 174
+    .line 175
     iget-object v1, p0, Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity$f;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity;
 
     # getter for: Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity;->d:Lcom/bilibili/tv/widget/FixGridLayoutManager;
@@ -120,7 +120,7 @@
 
     if-lt v0, v1, :cond_1b
 
-    .line 175
+    .line 176
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity$f;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity;
 
     # getter for: Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity;->d:Lcom/bilibili/tv/widget/FixGridLayoutManager;
@@ -132,7 +132,7 @@
 
     move-result v0
 
-    .line 176
+    .line 177
     iget-object v1, p0, Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity$f;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity;
 
     # getter for: Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity;->d:Lcom/bilibili/tv/widget/FixGridLayoutManager;
@@ -146,13 +146,13 @@
 
     if-le v0, v1, :cond_1b
 
-    .line 177
+    .line 178
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity$f;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity;
 
     # operator++ for: Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity;->e:I
     invoke-static {v0}, Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity;->access$408(Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity;)I
 
-    .line 178
+    .line 179
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity$f;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity;->i()V

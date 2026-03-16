@@ -19,6 +19,7 @@ import com.bilibili.tv.widget.ScalableImageView;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
 import java.util.ArrayList;
 import java.util.List;
+import bl.abd;
 
 import mybl.MyBiliApiService;
 import com.alibaba.fastjson.*;
@@ -163,7 +164,7 @@ public final class aed2 extends ady {
                     ((c) advVar).A().setText(biliFavoriteBox.getString("title"));
                 }
                 if (biliFavoriteBox.getString("cover") != null) {
-                    nv.a().a(ach.c(MainApplication.a(), biliFavoriteBox.getString("cover")), ((c) advVar).z());
+                    nv.a().a(abd.get_thumb_url_c(MainApplication.a(), biliFavoriteBox.getString("cover")), ((c) advVar).z());
                 }
                 else{nv.a().a("", ((c) advVar).z());}
                 if (biliFavoriteBox.getIntValue("media_count") <= 999) {

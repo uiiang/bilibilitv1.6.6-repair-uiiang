@@ -23,7 +23,7 @@
     .locals 0
 
     .prologue
-    .line 224
+    .line 225
     iput-object p1, p0, Lbl/afi$o;->this$0:Lbl/afi;
 
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$m;-><init>()V
@@ -37,10 +37,10 @@
     .locals 2
 
     .prologue
-    .line 227
+    .line 228
     invoke-super {p0, p1, p2}, Landroid/support/v7/widget/RecyclerView$m;->a(Landroid/support/v7/widget/RecyclerView;I)V
 
-    .line 228
+    .line 229
     iget-object v0, p0, Lbl/afi$o;->this$0:Lbl/afi;
 
     # getter for: Lbl/afi;->p:Z
@@ -68,12 +68,12 @@
 
     if-nez v0, :cond_1c
 
-    .line 243
+    .line 244
     :cond_1b
     :goto_1b
     return-void
 
-    .line 231
+    .line 232
     :cond_1c
     iget-object v0, p0, Lbl/afi$o;->this$0:Lbl/afi;
 
@@ -86,7 +86,7 @@
 
     move-result v0
 
-    .line 232
+    .line 233
     iget-object v1, p0, Lbl/afi$o;->this$0:Lbl/afi;
 
     # getter for: Lbl/afi;->f:Landroid/support/v7/widget/LinearLayoutManager;
@@ -100,10 +100,10 @@
 
     if-lez v1, :cond_1b
 
-    .line 233
+    .line 234
     add-int/lit8 v0, v0, 0x2
 
-    .line 234
+    .line 235
     iget-object v1, p0, Lbl/afi$o;->this$0:Lbl/afi;
 
     # getter for: Lbl/afi;->f:Landroid/support/v7/widget/LinearLayoutManager;
@@ -119,7 +119,7 @@
 
     if-lt v0, v1, :cond_1b
 
-    .line 235
+    .line 236
     iget-object v0, p0, Lbl/afi$o;->this$0:Lbl/afi;
 
     # getter for: Lbl/afi;->f:Landroid/support/v7/widget/LinearLayoutManager;
@@ -131,7 +131,7 @@
 
     move-result v0
 
-    .line 236
+    .line 237
     iget-object v1, p0, Lbl/afi$o;->this$0:Lbl/afi;
 
     # getter for: Lbl/afi;->f:Landroid/support/v7/widget/LinearLayoutManager;
@@ -145,13 +145,13 @@
 
     if-le v0, v1, :cond_1b
 
-    .line 237
+    .line 238
     iget-object v0, p0, Lbl/afi$o;->this$0:Lbl/afi;
 
     # operator++ for: Lbl/afi;->o:I
     invoke-static {v0}, Lbl/afi;->access$508(Lbl/afi;)I
 
-    .line 238
+    .line 239
     iget-object v0, p0, Lbl/afi$o;->this$0:Lbl/afi;
 
     # getter for: Lbl/afi;->s:I
@@ -167,7 +167,7 @@
 
     goto :goto_1b
 
-    .line 239
+    .line 240
     :cond_6b
     iget-object v0, p0, Lbl/afi$o;->this$0:Lbl/afi;
 

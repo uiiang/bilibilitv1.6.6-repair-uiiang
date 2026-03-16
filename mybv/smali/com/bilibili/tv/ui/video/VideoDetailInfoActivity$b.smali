@@ -26,12 +26,12 @@
     .locals 0
 
     .prologue
-    .line 98
+    .line 99
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity$b;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 99
+    .line 100
     return-void
 .end method
 
@@ -41,18 +41,18 @@
     .locals 1
 
     .prologue
-    .line 103
+    .line 104
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity$b;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity;
 
     # operator++ for: Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity;->h:I
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity;->access$008(Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity;)I
 
-    .line 104
+    .line 105
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity$b;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity;->h:I
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity;->access$000(Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity;)I
 
-    .line 105
+    .line 106
     return-void
 .end method

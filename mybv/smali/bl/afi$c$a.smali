@@ -26,13 +26,13 @@
     .locals 0
 
     .prologue
-    .line 1694
+    .line 1695
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 1695
+    .line 1696
     iput-object p1, p0, Lbl/afi$c$a;->a:Landroid/support/v7/widget/RecyclerView$v;
 
-    .line 1696
+    .line 1697
     return-void
 .end method
 
@@ -42,7 +42,7 @@
     .locals 2
 
     .prologue
-    .line 1700
+    .line 1701
     iget-object v0, p0, Lbl/afi$c$a;->a:Landroid/support/v7/widget/RecyclerView$v;
 
     iget-object v0, v0, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
@@ -51,22 +51,22 @@
 
     if-eqz v0, :cond_15
 
-    .line 1701
+    .line 1702
     iget-object v0, p0, Lbl/afi$c$a;->a:Landroid/support/v7/widget/RecyclerView$v;
 
     iget-object v0, v0, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
 
-    .line 1702
+    .line 1703
     const-string v1, "holder.itemView"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 1703
+    .line 1704
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setSelected(Z)V
 
-    .line 1705
+    .line 1706
     :cond_15
     return-void
 .end method

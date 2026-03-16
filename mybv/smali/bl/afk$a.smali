@@ -1,6 +1,6 @@
 .class public final Lbl/afk$a;
 .super Ljava/lang/Object;
-.source "BL"
+.source "afk.java"
 
 
 # annotations
@@ -18,18 +18,22 @@
 .method private constructor <init>()V
     .locals 0
 
-    .line 66
+    .prologue
+    .line 175
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
+    .line 176
     return-void
 .end method
 
-.method public synthetic constructor <init>(Lbl/bbg;)V
+.method public constructor <init>(Lbl/bbg;)V
     .locals 0
 
-    .line 66
+    .prologue
+    .line 179
     invoke-direct {p0}, Lbl/afk$a;-><init>()V
 
+    .line 180
     return-void
 .end method
 
@@ -38,7 +42,8 @@
 .method public final a()Lbl/afk;
     .locals 1
 
-    .line 69
+    .prologue
+    .line 183
     new-instance v0, Lbl/afk;
 
     invoke-direct {v0}, Lbl/afk;-><init>()V

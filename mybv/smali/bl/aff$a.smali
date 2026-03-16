@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 46
+    .line 47
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 47
+    .line 48
     return-void
 .end method
 
@@ -30,10 +30,10 @@
     .locals 0
 
     .prologue
-    .line 50
+    .line 51
     invoke-direct {p0}, Lbl/aff$a;-><init>()V
 
-    .line 51
+    .line 52
     return-void
 .end method
 
@@ -43,27 +43,27 @@
     .locals 2
 
     .prologue
-    .line 58
+    .line 59
     new-instance v0, Landroid/os/Bundle;
 
     invoke-direct {v0}, Landroid/os/Bundle;-><init>()V
 
-    .line 59
+    .line 60
     invoke-virtual {p0}, Lbl/aff$a;->a()Ljava/lang/String;
 
     move-result-object v1
 
     invoke-virtual {v0, v1, p1}, Landroid/os/Bundle;->putInt(Ljava/lang/String;I)V
 
-    .line 60
+    .line 61
     new-instance v1, Lbl/aff;
 
     invoke-direct {v1}, Lbl/aff;-><init>()V
 
-    .line 61
+    .line 62
     invoke-virtual {v1, v0}, Lbl/aff;->setArguments(Landroid/os/Bundle;)V
 
-    .line 62
+    .line 63
     return-object v1
 .end method
 
@@ -71,7 +71,7 @@
     .locals 1
 
     .prologue
-    .line 54
+    .line 55
     const-string v0, "ranking_type_or_tid"
 
     return-object v0

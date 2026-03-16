@@ -28,15 +28,15 @@
     .locals 0
 
     .prologue
-    .line 183
+    .line 184
     iput-object p1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$e;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 184
+    .line 185
     iput-object p2, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$e;->b:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
-    .line 185
+    .line 186
     return-void
 .end method
 
@@ -46,24 +46,24 @@
     .locals 3
 
     .prologue
-    .line 189
+    .line 190
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$e;->b:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->m()Lbl/agd;
 
     move-result-object v0
 
-    .line 190
+    .line 191
     if-eqz v0, :cond_a
 
     if-nez p1, :cond_b
 
-    .line 196
+    .line 197
     :cond_a
     :goto_a
     return-void
 
-    .line 193
+    .line 194
     :cond_b
     iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$e;->b:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
@@ -75,7 +75,7 @@
 
     invoke-virtual {v0, v1}, Lbl/agd;->setUpRectDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 194
+    .line 195
     iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$e;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->e:Z
@@ -85,7 +85,7 @@
 
     invoke-virtual {v0, p1, p4, p5, v1}, Lbl/agd;->a(Landroid/view/View;IIZ)V
 
-    .line 195
+    .line 196
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$e;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     const/4 v1, 0x0

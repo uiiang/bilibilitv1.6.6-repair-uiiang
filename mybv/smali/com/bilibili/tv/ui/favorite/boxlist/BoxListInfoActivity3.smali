@@ -56,7 +56,7 @@
     .locals 2
 
     .prologue
-    .line 51
+    .line 52
     new-instance v0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$c;
 
     const/4 v1, 0x0
@@ -74,16 +74,16 @@
     .prologue
     const/4 v0, 0x1
 
-    .line 50
+    .line 51
     invoke-direct {p0}, Lcom/bilibili/tv/ui/base/BaseReloadActivity;-><init>()V
 
-    .line 61
+    .line 62
     iput v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->g:I
 
-    .line 62
+    .line 63
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->h:Z
 
-    .line 65
+    .line 66
     const/4 v0, 0x0
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->cheeseInfo:Lcom/alibaba/fastjson/JSONObject;
@@ -95,7 +95,7 @@
     .locals 1
 
     .prologue
-    .line 50
+    .line 51
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->i:Z
 
     return v0
@@ -105,7 +105,7 @@
     .locals 0
 
     .prologue
-    .line 50
+    .line 51
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->i:Z
 
     return p1
@@ -115,7 +115,7 @@
     .locals 1
 
     .prologue
-    .line 50
+    .line 51
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->h:Z
 
     return v0
@@ -125,7 +125,7 @@
     .locals 0
 
     .prologue
-    .line 50
+    .line 51
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->h:Z
 
     return p1
@@ -135,7 +135,7 @@
     .locals 1
 
     .prologue
-    .line 50
+    .line 51
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->a:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$b;
 
     return-object v0
@@ -145,7 +145,7 @@
     .locals 1
 
     .prologue
-    .line 50
+    .line 51
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->c:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     return-object v0
@@ -155,7 +155,7 @@
     .locals 1
 
     .prologue
-    .line 50
+    .line 51
     iget v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->g:I
 
     return v0
@@ -165,7 +165,7 @@
     .locals 2
 
     .prologue
-    .line 50
+    .line 51
     iget v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->g:I
 
     add-int/lit8 v1, v0, 0x1
@@ -179,7 +179,7 @@
     .locals 1
 
     .prologue
-    .line 50
+    .line 51
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->l()Z
 
     move-result v0
@@ -191,7 +191,7 @@
     .locals 0
 
     .prologue
-    .line 50
+    .line 51
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->b(Z)V
 
     return-void
@@ -201,7 +201,7 @@
     .locals 1
 
     .prologue
-    .line 50
+    .line 51
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->d:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     return-object v0
@@ -211,7 +211,7 @@
     .locals 1
 
     .prologue
-    .line 50
+    .line 51
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->cheeseInfo:Lcom/alibaba/fastjson/JSONObject;
 
     return-object v0
@@ -221,7 +221,7 @@
     .locals 0
 
     .prologue
-    .line 50
+    .line 51
     iput-object p1, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->cheeseInfo:Lcom/alibaba/fastjson/JSONObject;
 
     return-object p1
@@ -233,7 +233,7 @@
     .locals 1
 
     .prologue
-    .line 69
+    .line 70
     const-string v0, "ott-platform.collection.0.0.pv"
 
     return-object v0
@@ -247,22 +247,22 @@
 
     const/4 v5, 0x0
 
-    .line 110
+    .line 111
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->getIntent()Landroid/content/Intent;
 
     move-result-object v0
 
-    .line 111
+    .line 112
     if-eqz v0, :cond_b0
 
-    .line 112
+    .line 113
     const-string v1, "box_name"
 
     invoke-virtual {v0, v1}, Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 113
+    .line 114
     const-string v2, "season_id"
 
     invoke-virtual {v0, v2, v6, v7}, Landroid/content/Intent;->getLongExtra(Ljava/lang/String;J)J
@@ -271,7 +271,7 @@
 
     iput-wide v2, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->season_id:J
 
-    .line 114
+    .line 115
     const-string v2, "box_id"
 
     invoke-virtual {v0, v2, v6, v7}, Landroid/content/Intent;->getLongExtra(Ljava/lang/String;J)J
@@ -280,7 +280,7 @@
 
     iput-wide v2, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->box_id:J
 
-    .line 115
+    .line 116
     const v0, 0x7f080132
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->d(I)Landroid/view/View;
@@ -289,13 +289,13 @@
 
     check-cast v0, Landroid/widget/TextView;
 
-    .line 116
+    .line 117
     if-eqz v1, :cond_2d
 
-    .line 117
+    .line 118
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 119
+    .line 120
     :cond_2d
     const v0, 0x7f0800eb
 
@@ -305,7 +305,7 @@
 
     check-cast v0, Landroid/support/v7/widget/RecyclerView;
 
-    .line 120
+    .line 121
     sget-object v2, Lcom/bilibili/tv/ui/base/LoadingImageView;->Companion:Lcom/bilibili/tv/ui/base/LoadingImageView$a;
 
     const v1, 0x7f0800b8
@@ -322,7 +322,7 @@
 
     iput-object v1, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->d:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
-    .line 121
+    .line 122
     new-instance v1, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     const/4 v2, 0x2
@@ -331,66 +331,66 @@
 
     iput-object v1, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->c:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
-    .line 122
+    .line 123
     new-instance v1, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$b;
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$b;-><init>(Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;)V
 
     iput-object v1, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->a:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$b;
 
-    .line 123
+    .line 124
     iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->c:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setLayoutManager(Landroid/support/v7/widget/RecyclerView$h;)V
 
-    .line 124
+    .line 125
     invoke-virtual {v0, v5}, Landroid/support/v7/widget/RecyclerView;->setFocusable(Z)V
 
-    .line 125
+    .line 126
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setHasFixedSize(Z)V
 
-    .line 126
+    .line 127
     const v1, 0x7f0600de
 
     invoke-static {v1}, Lbl/adl;->b(I)I
 
     move-result v2
 
-    .line 127
+    .line 128
     const v1, 0x7f06029a
 
     invoke-static {v1}, Lbl/adl;->b(I)I
 
     move-result v1
 
-    .line 128
+    .line 129
     const v3, 0x7f060309
 
     invoke-static {v3}, Lbl/adl;->b(I)I
 
     move-result v3
 
-    .line 129
+    .line 130
     const v4, 0x7f060091
 
     invoke-static {v4}, Lbl/adl;->b(I)I
 
     move-result v4
 
-    .line 130
+    .line 131
     invoke-virtual {v0, v4, v2, v4, v1}, Landroid/support/v7/widget/RecyclerView;->setPadding(IIII)V
 
-    .line 131
+    .line 132
     invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
 
     move-result-object v1
 
-    .line 132
+    .line 133
     if-nez v1, :cond_8f
 
-    .line 133
+    .line 134
     new-instance v0, Lkotlin/TypeCastException;
 
     const-string v1, "null cannot be cast to non-null type android.widget.LinearLayout.LayoutParams"
@@ -399,40 +399,40 @@
 
     throw v0
 
-    .line 135
+    .line 136
     :cond_8f
     check-cast v1, Landroid/widget/LinearLayout$LayoutParams;
 
     iput v5, v1, Landroid/widget/LinearLayout$LayoutParams;->topMargin:I
 
-    .line 136
+    .line 137
     new-instance v1, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$d;
 
     invoke-direct {v1, v2, v3}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$d;-><init>(II)V
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$g;)V
 
-    .line 137
+    .line 138
     new-instance v1, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$e;
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$e;-><init>(Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;)V
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$m;)V
 
-    .line 138
+    .line 139
     iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->a:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$b;
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setAdapter(Landroid/support/v7/widget/RecyclerView$a;)V
 
-    .line 139
+    .line 140
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->n()V
 
-    .line 140
+    .line 141
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->d:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->a()V
 
-    .line 142
+    .line 143
     :cond_b0
     return-void
 .end method
@@ -441,7 +441,7 @@
     .locals 2
 
     .prologue
-    .line 230
+    .line 231
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->c:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     new-instance v1, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$f;
@@ -450,7 +450,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->a(Lcom/bilibili/tv/widget/border/BorderGridLayoutManager$a;)V
 
-    .line 231
+    .line 232
     return-void
 .end method
 
@@ -458,7 +458,7 @@
     .locals 1
 
     .prologue
-    .line 74
+    .line 75
     invoke-static {p0}, Lbl/wg;->a(Lbl/wf;)Z
 
     move-result v0
@@ -470,7 +470,7 @@
     .locals 1
 
     .prologue
-    .line 79
+    .line 80
     const/4 v0, 0x0
 
     return-object v0
@@ -480,10 +480,10 @@
     .locals 0
 
     .prologue
-    .line 241
+    .line 242
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->n()V
 
-    .line 242
+    .line 243
     return-void
 .end method
 
@@ -491,7 +491,7 @@
     .locals 1
 
     .prologue
-    .line 84
+    .line 85
     const v0, 0x7f0a002a
 
     return v0
@@ -501,12 +501,12 @@
     .locals 4
 
     .prologue
-    .line 235
+    .line 236
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->i:Z
 
-    .line 236
+    .line 237
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -527,7 +527,7 @@
 
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 237
+    .line 238
     return-void
 .end method
 
@@ -537,21 +537,21 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 203
+    .line 204
     move-object v0, v1
 
     check-cast v0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$b;
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->a:Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$b;
 
-    .line 204
+    .line 205
     check-cast v1, Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     iput-object v1, p0, Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3;->d:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
-    .line 205
+    .line 206
     invoke-super {p0}, Lcom/bilibili/tv/ui/base/BaseReloadActivity;->onDestroy()V
 
-    .line 206
+    .line 207
     return-void
 .end method

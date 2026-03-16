@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 278
+    .line 279
     iput-object p1, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$ClearConfirmButton;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 281
+    .line 282
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$ClearConfirmButton;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
     invoke-static {v0}, Lcom/bilibili/tv/ui/history/VideoToviewActivity;->c(Lcom/bilibili/tv/ui/history/VideoToviewActivity;)Lcom/bilibili/tv/ui/base/LoadingImageView;
@@ -49,7 +49,7 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->b()V
 
-    .line 282
+    .line 283
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$ClearConfirmButton;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
     invoke-static {v0}, Lcom/bilibili/tv/ui/history/VideoToviewActivity;->c(Lcom/bilibili/tv/ui/history/VideoToviewActivity;)Lcom/bilibili/tv/ui/base/LoadingImageView;
@@ -58,7 +58,7 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->a()V
 
-    .line 283
+    .line 284
     const-class v0, Lcom/bilibili/tv/api/history/BiliPlayerHistoryService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -85,10 +85,10 @@
 
     invoke-virtual {v0}, Lbl/vp;->a()V
 
-    .line 284
+    .line 285
     invoke-virtual {p1}, Lbl/agb;->dismiss()V
 
-    .line 285
+    .line 286
     const-wide/16 v0, 0x3e8
 
     :try_start_32
@@ -96,17 +96,17 @@
     :try_end_35
     .catch Ljava/lang/Exception; {:try_start_32 .. :try_end_35} :catch_3b
 
-    .line 286
+    .line 287
     :goto_35
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$ClearConfirmButton;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
     # invokes: Lcom/bilibili/tv/ui/history/VideoToviewActivity;->o()V
     invoke-static {v0}, Lcom/bilibili/tv/ui/history/VideoToviewActivity;->access$400(Lcom/bilibili/tv/ui/history/VideoToviewActivity;)V
 
-    .line 287
+    .line 288
     return-void
 
-    .line 285
+    .line 286
     :catch_3b
     move-exception v0
 

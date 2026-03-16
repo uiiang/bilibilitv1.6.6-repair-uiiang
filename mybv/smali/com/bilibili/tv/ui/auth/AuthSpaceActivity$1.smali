@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 122
+    .line 123
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$1;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,11 +40,11 @@
     .locals 0
 
     .prologue
-    .line 125
+    .line 126
     check-cast p1, Lcom/bilibili/tv/widget/DrawTextView;
 
     invoke-virtual {p1, p2}, Lcom/bilibili/tv/widget/DrawTextView;->setUpEnabled(Z)V
 
-    .line 126
+    .line 127
     return-void
 .end method

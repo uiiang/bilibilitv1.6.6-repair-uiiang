@@ -60,7 +60,7 @@
     .locals 2
 
     .prologue
-    .line 49
+    .line 50
     new-instance v0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$a;
 
     const/4 v1, 0x0
@@ -78,13 +78,13 @@
     .prologue
     const/4 v0, 0x1
 
-    .line 48
+    .line 49
     invoke-direct {p0}, Lcom/bilibili/tv/ui/base/BaseReloadActivity;-><init>()V
 
-    .line 60
+    .line 61
     iput v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->h:I
 
-    .line 61
+    .line 62
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->i:Z
 
     return-void
@@ -94,7 +94,7 @@
     .locals 1
 
     .prologue
-    .line 48
+    .line 49
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->i:Z
 
     return v0
@@ -104,7 +104,7 @@
     .locals 0
 
     .prologue
-    .line 48
+    .line 49
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->i:Z
 
     return p1
@@ -114,7 +114,7 @@
     .locals 1
 
     .prologue
-    .line 48
+    .line 49
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->j:Z
 
     return v0
@@ -124,7 +124,7 @@
     .locals 0
 
     .prologue
-    .line 48
+    .line 49
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->j:Z
 
     return p1
@@ -134,7 +134,7 @@
     .locals 1
 
     .prologue
-    .line 48
+    .line 49
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->a:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$b;
 
     return-object v0
@@ -144,7 +144,7 @@
     .locals 1
 
     .prologue
-    .line 48
+    .line 49
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->d:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     return-object v0
@@ -154,7 +154,7 @@
     .locals 1
 
     .prologue
-    .line 48
+    .line 49
     iget v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->h:I
 
     return v0
@@ -164,7 +164,7 @@
     .locals 2
 
     .prologue
-    .line 48
+    .line 49
     iget v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->h:I
 
     add-int/lit8 v1, v0, 0x1
@@ -178,7 +178,7 @@
     .locals 1
 
     .prologue
-    .line 48
+    .line 49
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->l()Z
 
     move-result v0
@@ -190,7 +190,7 @@
     .locals 0
 
     .prologue
-    .line 48
+    .line 49
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->b(Z)V
 
     return-void
@@ -200,7 +200,7 @@
     .locals 1
 
     .prologue
-    .line 48
+    .line 49
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->e:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     return-object v0
@@ -210,7 +210,7 @@
     .locals 1
 
     .prologue
-    .line 48
+    .line 49
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->f:Landroid/support/v7/widget/RecyclerView;
 
     return-object v0
@@ -220,7 +220,7 @@
     .locals 1
 
     .prologue
-    .line 48
+    .line 49
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->g:Landroid/widget/TextView;
 
     return-object v0
@@ -234,15 +234,15 @@
     .prologue
     const/4 v3, 0x0
 
-    .line 93
+    .line 94
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->getIntent()Landroid/content/Intent;
 
     move-result-object v0
 
-    .line 94
+    .line 95
     if-eqz v0, :cond_17
 
-    .line 95
+    .line 96
     const-string v1, "tag"
 
     invoke-virtual {v0, v1}, Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;
@@ -251,7 +251,7 @@
 
     iput-object v1, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->k:Ljava/lang/String;
 
-    .line 96
+    .line 97
     const-string v1, "tag_id"
 
     invoke-virtual {v0, v1, v3}, Landroid/content/Intent;->getIntExtra(Ljava/lang/String;I)I
@@ -260,7 +260,7 @@
 
     iput v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->l:I
 
-    .line 98
+    .line 99
     :cond_17
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->k:Ljava/lang/String;
 
@@ -274,20 +274,20 @@
 
     if-nez v0, :cond_2c
 
-    .line 99
+    .line 100
     :cond_23
     const-string v0, "\u641c\u7d22\u5931\u8d25\uff01\uff01\uff01"
 
     invoke-static {p0, v0}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 100
+    .line 101
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->finish()V
 
-    .line 156
+    .line 157
     :goto_2b
     return-void
 
-    .line 103
+    .line 104
     :cond_2c
     const v0, 0x7f0800eb
 
@@ -299,7 +299,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->f:Landroid/support/v7/widget/RecyclerView;
 
-    .line 104
+    .line 105
     const v0, 0x7f080123
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->d(I)Landroid/view/View;
@@ -308,7 +308,7 @@
 
     check-cast v0, Landroid/widget/TextView;
 
-    .line 105
+    .line 106
     const v1, 0x7f0800cc
 
     invoke-virtual {p0, v1}, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->d(I)Landroid/view/View;
@@ -319,7 +319,7 @@
 
     iput-object v1, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->g:Landroid/widget/TextView;
 
-    .line 106
+    .line 107
     sget-object v2, Lcom/bilibili/tv/ui/base/LoadingImageView;->Companion:Lcom/bilibili/tv/ui/base/LoadingImageView$a;
 
     const v1, 0x7f0800b8
@@ -336,26 +336,26 @@
 
     iput-object v1, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->e:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
-    .line 107
+    .line 108
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->k:Ljava/lang/String;
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 108
+    .line 109
     new-instance v0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$d;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$d;-><init>(Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->b:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$d;
 
-    .line 109
+    .line 110
     new-instance v0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$e;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$e;-><init>(Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->c:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$e;
 
-    .line 110
+    .line 111
     new-instance v0, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     const/4 v1, 0x2
@@ -364,92 +364,92 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->d:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
-    .line 111
+    .line 112
     new-instance v0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$b;
 
     invoke-direct {v0}, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$b;-><init>()V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->a:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$b;
 
-    .line 112
+    .line 113
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->f:Landroid/support/v7/widget/RecyclerView;
 
-    .line 113
+    .line 114
     if-nez v0, :cond_85
 
-    .line 114
+    .line 115
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 116
+    .line 117
     :cond_85
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->d:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setLayoutManager(Landroid/support/v7/widget/RecyclerView$h;)V
 
-    .line 117
+    .line 118
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->f:Landroid/support/v7/widget/RecyclerView;
 
-    .line 118
+    .line 119
     if-nez v0, :cond_91
 
-    .line 119
+    .line 120
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 121
+    .line 122
     :cond_91
     invoke-virtual {v0, v3}, Landroid/support/v7/widget/RecyclerView;->setFocusable(Z)V
 
-    .line 122
+    .line 123
     const v0, 0x7f0600de
 
     invoke-static {v0}, Lbl/adl;->b(I)I
 
     move-result v0
 
-    .line 123
+    .line 124
     const v1, 0x7f06029a
 
     invoke-static {v1}, Lbl/adl;->b(I)I
 
     move-result v1
 
-    .line 124
+    .line 125
     const v2, 0x7f060309
 
     invoke-static {v2}, Lbl/adl;->b(I)I
 
     move-result v2
 
-    .line 125
+    .line 126
     const v3, 0x7f060091
 
     invoke-static {v3}, Lbl/adl;->b(I)I
 
     move-result v3
 
-    .line 126
+    .line 127
     iget-object v4, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->f:Landroid/support/v7/widget/RecyclerView;
 
-    .line 127
+    .line 128
     if-nez v4, :cond_b7
 
-    .line 128
+    .line 129
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 130
+    .line 131
     :cond_b7
     invoke-virtual {v4, v3, v0, v3, v1}, Landroid/support/v7/widget/RecyclerView;->setPadding(IIII)V
 
-    .line 131
+    .line 132
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->f:Landroid/support/v7/widget/RecyclerView;
 
-    .line 132
+    .line 133
     if-nez v1, :cond_c1
 
-    .line 133
+    .line 134
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 135
+    .line 136
     :cond_c1
     new-instance v3, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$f;
 
@@ -457,16 +457,16 @@
 
     invoke-virtual {v1, v3}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$g;)V
 
-    .line 136
+    .line 137
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->f:Landroid/support/v7/widget/RecyclerView;
 
-    .line 137
+    .line 138
     if-nez v0, :cond_d0
 
-    .line 138
+    .line 139
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 140
+    .line 141
     :cond_d0
     new-instance v1, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$g;
 
@@ -474,16 +474,16 @@
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$m;)V
 
-    .line 141
+    .line 142
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->f:Landroid/support/v7/widget/RecyclerView;
 
-    .line 142
+    .line 143
     if-nez v0, :cond_df
 
-    .line 143
+    .line 144
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 145
+    .line 146
     :cond_df
     invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->getViewTreeObserver()Landroid/view/ViewTreeObserver;
 
@@ -495,31 +495,31 @@
 
     invoke-virtual {v0, v1}, Landroid/view/ViewTreeObserver;->addOnGlobalLayoutListener(Landroid/view/ViewTreeObserver$OnGlobalLayoutListener;)V
 
-    .line 146
+    .line 147
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->f:Landroid/support/v7/widget/RecyclerView;
 
-    .line 147
+    .line 148
     if-nez v0, :cond_f2
 
-    .line 148
+    .line 149
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 150
+    .line 151
     :cond_f2
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->a:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$b;
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setAdapter(Landroid/support/v7/widget/RecyclerView$a;)V
 
-    .line 151
+    .line 152
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->e:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
-    .line 152
+    .line 153
     if-nez v0, :cond_fe
 
-    .line 153
+    .line 154
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 155
+    .line 156
     :cond_fe
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->a()V
 
@@ -530,16 +530,16 @@
     .locals 2
 
     .prologue
-    .line 289
+    .line 290
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->d:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
-    .line 290
+    .line 291
     if-nez v0, :cond_7
 
-    .line 291
+    .line 292
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 293
+    .line 294
     :cond_7
     new-instance v1, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$i;
 
@@ -547,7 +547,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->a(Lcom/bilibili/tv/widget/border/BorderGridLayoutManager$a;)V
 
-    .line 294
+    .line 295
     return-void
 .end method
 
@@ -555,10 +555,10 @@
     .locals 0
 
     .prologue
-    .line 316
+    .line 317
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->k()V
 
-    .line 317
+    .line 318
     return-void
 .end method
 
@@ -566,7 +566,7 @@
     .locals 1
 
     .prologue
-    .line 68
+    .line 69
     const v0, 0x7f0a002e
 
     return v0
@@ -580,15 +580,15 @@
 
     const/4 v1, 0x1
 
-    .line 306
+    .line 307
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->j:Z
 
-    .line 307
+    .line 308
     iget v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->h:I
 
     if-gt v0, v1, :cond_1f
 
-    .line 308
+    .line 309
     const-class v0, Lcom/bilibili/tv/api/favorite/BiliFavoriteVideoApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -609,11 +609,11 @@
 
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 312
+    .line 313
     :goto_1e
     return-void
 
-    .line 310
+    .line 311
     :cond_1f
     const-class v0, Lcom/bilibili/tv/api/favorite/BiliFavoriteVideoApiService;
 
@@ -644,22 +644,22 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 299
+    .line 300
     move-object v0, v1
 
     check-cast v0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$b;
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->a:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$b;
 
-    .line 300
+    .line 301
     check-cast v1, Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     iput-object v1, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->e:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
-    .line 301
+    .line 302
     invoke-super {p0}, Lcom/bilibili/tv/ui/base/BaseReloadActivity;->onDestroy()V
 
-    .line 302
+    .line 303
     return-void
 .end method
 
@@ -667,12 +667,12 @@
     .locals 0
 
     .prologue
-    .line 263
+    .line 264
     invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseReloadActivity;->onPostCreate(Landroid/os/Bundle;)V
 
-    .line 264
+    .line 265
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->k()V
 
-    .line 265
+    .line 266
     return-void
 .end method

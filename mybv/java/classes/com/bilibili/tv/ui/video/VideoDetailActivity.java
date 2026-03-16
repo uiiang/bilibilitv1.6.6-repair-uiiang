@@ -26,6 +26,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.CheckBox;
 import bl.abi;
+import bl.abd;
 import bl.ach;
 import bl.adc;
 import bl.add;
@@ -627,8 +628,7 @@ public final class VideoDetailActivity extends BaseActivity
         if (str != null) {
             nv.a().a(str, this.a);
             adl adlVar = adl.a;
-            String a2 = ach.a(getApplication(), str);
-            bbi.a((Object) a2, "ThumbImageUrlHelper.forB…Cover(application, cover)");
+            String a2 = abd.get_thumb_url_a(getApplication(), str);
             adlVar.a(a2, this.b);
         }
     }
@@ -2040,7 +2040,7 @@ public final class VideoDetailActivity extends BaseActivity
                     nv a2 = nv.a();
                     MainApplication a3 = MainApplication.a();
                     bbi.a((Object) a3, "MainApplication.getInstance()");
-                    a2.a(ach.c(a3.getApplicationContext(), biliVideoDetail.mCover), this.n);
+                    a2.a(abd.get_thumb_url_c(a3.getApplicationContext(), biliVideoDetail.mCover), this.n);
                 }
                 View view = this.a;
                 bbi.a((Object) view, "itemView");
@@ -2363,7 +2363,7 @@ public final class VideoDetailActivity extends BaseActivity
                 loadingImageView3.b();
             }
             VideoDetailActivity.this.u = biliVideoDetail;
-            VideoDetailActivity.this.a(ach.c(VideoDetailActivity.this.getApplicationContext(), biliVideoDetail.mCover));
+            VideoDetailActivity.this.a(biliVideoDetail.mCover);
             VideoDetailActivity.this.o();
             TextView textView = VideoDetailActivity.this.cc;
             if (textView != null) {

@@ -16,6 +16,7 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 import bl.adc;
+import bl.abd;
 import bl.bbi;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
@@ -1245,7 +1246,7 @@ public final class afi extends adt {
                     this.r.setText(adh.a(video.danmaku));
                 }
                 if (video.cover != null) {
-                    nv.a().a(ach.c(MainApplication.a(), video.cover), this.n);
+                    nv.a().a(abd.get_thumb_url_c(MainApplication.a(), video.cover), this.n);
                 }
                 View itemView = this.a;
                 bbi.a((Object) itemView, "itemView");
@@ -1354,7 +1355,7 @@ public final class afi extends adt {
                     this.r.setVisibility(8);
                 }
                 if (bangumi.cover != null) {
-                    nv.a().a(ach.b(MainApplication.a(), bangumi.cover), this.n);
+                    nv.a().a(abd.get_thumb_url_b(MainApplication.a(), bangumi.cover), this.n);
                 }
                 View view = this.a;
                 bbi.a((Object) view, "itemView");
@@ -1451,7 +1452,7 @@ public final class afi extends adt {
                     this.q.setText(biliSearchResultUper.videos + "个视频");
                 }
                 if (!TextUtils.isEmpty(biliSearchResultUper.upic)) {
-                    nv.a().a(ach.b(MainApplication.a(), biliSearchResultUper.upic), this.n);
+                    nv.a().a(abd.get_thumb_url_b(MainApplication.a(), biliSearchResultUper.upic), this.n);
                 }
                 this.s.setVisibility(8);
                 View view = this.a;
@@ -1540,7 +1541,7 @@ public final class afi extends adt {
                     this.p.setText("在线 " + adh.a(biliLive.mOnline));
                 }
                 if (!TextUtils.isEmpty(biliLive.mCover)) {
-                    nv.a().a(ach.b(MainApplication.a(), biliLive.mCover), this.n);
+                    nv.a().a(abd.get_thumb_url_b(MainApplication.a(), biliLive.mCover), this.n);
                 }
                 this.a.setTag(obj);
             }

@@ -63,7 +63,7 @@
     .locals 2
 
     .prologue
-    .line 903
+    .line 904
     new-instance v0, Lbl/afi$f$a;
 
     const/4 v1, 0x0
@@ -79,15 +79,15 @@
     .locals 1
 
     .prologue
-    .line 902
+    .line 903
     invoke-direct {p0}, Lbl/adc;-><init>()V
 
-    .line 908
+    .line 909
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lbl/afi$f;->d:Z
 
-    .line 909
+    .line 910
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
@@ -103,7 +103,7 @@
     .locals 1
 
     .prologue
-    .line 902
+    .line 903
     invoke-virtual {p0, p1, p2}, Lbl/afi$f;->a(Landroid/view/ViewGroup;I)Lbl/adc$a;
 
     move-result-object v0
@@ -117,15 +117,15 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 938
+    .line 939
     const-string v1, "parent"
 
     invoke-static {p1, v1}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 939
+    .line 940
     packed-switch p2, :pswitch_data_3c
 
-    .line 949
+    .line 950
     new-instance v0, Lbl/afi$f$b;
 
     new-instance v1, Landroid/view/View;
@@ -141,7 +141,7 @@
     :goto_17
     return-object v0
 
-    .line 941
+    .line 942
     :pswitch_18
     check-cast v0, Lbl/afi$m;
 
@@ -153,7 +153,7 @@
 
     goto :goto_17
 
-    .line 943
+    .line 944
     :pswitch_21
     check-cast v0, Lbl/afi$a;
 
@@ -165,7 +165,7 @@
 
     goto :goto_17
 
-    .line 945
+    .line 946
     :pswitch_2a
     check-cast v0, Lbl/afi$l;
 
@@ -177,7 +177,7 @@
 
     goto :goto_17
 
-    .line 947
+    .line 948
     :pswitch_33
     check-cast v0, Lbl/afi$LiveRoomView;
 
@@ -189,7 +189,7 @@
 
     goto :goto_17
 
-    .line 939
+    .line 940
     :pswitch_data_3c
     .packed-switch 0x1
         :pswitch_18
@@ -212,52 +212,52 @@
     .end annotation
 
     .prologue
-    .line 981
+    .line 982
     const-string v0, "list"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 982
+    .line 983
     iget-object v0, p0, Lbl/afi$f;->e:Ljava/util/ArrayList;
 
     invoke-virtual {v0}, Ljava/util/ArrayList;->clear()V
 
-    .line 983
+    .line 984
     iget-object v0, p0, Lbl/afi$f;->e:Ljava/util/ArrayList;
 
     invoke-virtual {v0, p1}, Ljava/util/ArrayList;->addAll(Ljava/util/Collection;)Z
 
-    .line 984
+    .line 985
     iget-object v0, p0, Lbl/afi$f;->a:Lbl/afi$b;
 
     if-nez v0, :cond_23
 
-    .line 985
+    .line 986
     new-instance v0, Lbl/afi$b;
 
     invoke-direct {v0, p1}, Lbl/afi$b;-><init>(Ljava/util/List;)V
 
     iput-object v0, p0, Lbl/afi$f;->a:Lbl/afi$b;
 
-    .line 986
+    .line 987
     iget-object v0, p0, Lbl/afi$f;->a:Lbl/afi$b;
 
     invoke-virtual {p0, v0}, Lbl/afi$f;->a(Lbl/ade;)V
 
-    .line 987
+    .line 988
     invoke-virtual {p0}, Lbl/afi$f;->e()V
 
-    .line 992
+    .line 993
     :goto_22
     return-void
 
-    .line 990
+    .line 991
     :cond_23
     iget-object v0, p0, Lbl/afi$f;->a:Lbl/afi$b;
 
     invoke-virtual {v0, p1}, Lbl/afi$b;->a(Ljava/util/List;)V
 
-    .line 991
+    .line 992
     const/4 v0, 0x0
 
     invoke-virtual {p0, v0}, Lbl/afi$f;->b(Z)V
@@ -278,17 +278,17 @@
     .end annotation
 
     .prologue
-    .line 1016
+    .line 1017
     const-string v0, "list"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 1017
+    .line 1018
     iget-object v0, p0, Lbl/afi$f;->b:Lbl/afi$n;
 
     if-nez v0, :cond_39
 
-    .line 1018
+    .line 1019
     if-eqz p2, :cond_29
 
     iget-object v0, p0, Lbl/afi$f;->e:Ljava/util/ArrayList;
@@ -299,29 +299,29 @@
 
     if-lez v0, :cond_29
 
-    .line 1019
+    .line 1020
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
 
-    .line 1020
+    .line 1021
     iget-object v1, p0, Lbl/afi$f;->e:Ljava/util/ArrayList;
 
     invoke-virtual {v0, v1}, Ljava/util/ArrayList;->addAll(Ljava/util/Collection;)Z
 
-    .line 1021
+    .line 1022
     new-instance v1, Lbl/afi$b;
 
     invoke-direct {v1, v0}, Lbl/afi$b;-><init>(Ljava/util/List;)V
 
     iput-object v1, p0, Lbl/afi$f;->a:Lbl/afi$b;
 
-    .line 1022
+    .line 1023
     iget-object v0, p0, Lbl/afi$f;->a:Lbl/afi$b;
 
     invoke-virtual {p0, v0}, Lbl/afi$f;->a(Lbl/ade;)V
 
-    .line 1024
+    .line 1025
     :cond_29
     new-instance v0, Lbl/afi$n;
 
@@ -329,25 +329,25 @@
 
     iput-object v0, p0, Lbl/afi$f;->b:Lbl/afi$n;
 
-    .line 1025
+    .line 1026
     iget-object v0, p0, Lbl/afi$f;->b:Lbl/afi$n;
 
     invoke-virtual {p0, v0}, Lbl/afi$f;->a(Lbl/ade;)V
 
-    .line 1026
+    .line 1027
     invoke-virtual {p0}, Lbl/afi$f;->e()V
 
-    .line 1031
+    .line 1032
     :goto_38
     return-void
 
-    .line 1029
+    .line 1030
     :cond_39
     iget-object v0, p0, Lbl/afi$f;->b:Lbl/afi$n;
 
     invoke-virtual {v0, p1}, Lbl/afi$n;->a(Ljava/util/List;)V
 
-    .line 1030
+    .line 1031
     const/4 v0, 0x0
 
     invoke-virtual {p0, v0}, Lbl/afi$f;->b(Z)V
@@ -368,17 +368,17 @@
     .end annotation
 
     .prologue
-    .line 1034
+    .line 1035
     const-string v0, "list"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 1035
+    .line 1036
     iget-object v0, p0, Lbl/afi$f;->cc:Lbl/afi$kk;
 
     if-nez v0, :cond_1d
 
-    .line 1036
+    .line 1037
     new-instance v0, Lbl/afi$kk;
 
     invoke-static {p1}, Lbl/baf;->b(Ljava/util/Collection;)Ljava/util/List;
@@ -389,25 +389,25 @@
 
     iput-object v0, p0, Lbl/afi$f;->cc:Lbl/afi$kk;
 
-    .line 1037
+    .line 1038
     iget-object v0, p0, Lbl/afi$f;->cc:Lbl/afi$kk;
 
     invoke-virtual {p0, v0}, Lbl/afi$f;->a(Lbl/ade;)V
 
-    .line 1038
+    .line 1039
     invoke-virtual {p0}, Lbl/afi$f;->e()V
 
-    .line 1043
+    .line 1044
     :goto_1c
     return-void
 
-    .line 1041
+    .line 1042
     :cond_1d
     iget-object v0, p0, Lbl/afi$f;->cc:Lbl/afi$kk;
 
     invoke-virtual {v0, p1}, Lbl/afi$kk;->a(Ljava/util/List;)V
 
-    .line 1042
+    .line 1043
     const/4 v0, 0x0
 
     invoke-virtual {p0, v0}, Lbl/afi$f;->b(Z)V
@@ -428,33 +428,33 @@
     .end annotation
 
     .prologue
-    .line 995
+    .line 996
     const-string v0, "list"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 996
+    .line 997
     iget-object v0, p0, Lbl/afi$f;->b:Lbl/afi$n;
 
     if-nez v0, :cond_10
 
-    .line 997
+    .line 998
     new-instance v0, Lbl/afi$n;
 
     invoke-direct {v0, p1}, Lbl/afi$n;-><init>(Ljava/util/List;)V
 
     iput-object v0, p0, Lbl/afi$f;->b:Lbl/afi$n;
 
-    .line 999
+    .line 1000
     :cond_10
     iget-object v0, p0, Lbl/afi$f;->b:Lbl/afi$n;
 
     invoke-virtual {p0, v0}, Lbl/afi$f;->a(Lbl/ade;)V
 
-    .line 1000
+    .line 1001
     invoke-virtual {p0}, Lbl/afi$f;->e()V
 
-    .line 1001
+    .line 1002
     return-void
 .end method
 
@@ -462,7 +462,7 @@
     .locals 0
 
     .prologue
-    .line 902
+    .line 903
     check-cast p1, Lbl/adc$a;
 
     invoke-virtual {p0, p1}, Lbl/afi$f;->c(Lbl/adc$a;)V
@@ -474,15 +474,15 @@
     .locals 2
 
     .prologue
-    .line 956
+    .line 957
     const-string v0, "holder"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 957
+    .line 958
     invoke-super {p0, p1}, Lbl/adc;->c(Landroid/support/v7/widget/RecyclerView$v;)V
 
-    .line 958
+    .line 959
     iget-boolean v0, p0, Lbl/afi$f;->d:Z
 
     if-eqz v0, :cond_1f
@@ -493,7 +493,7 @@
 
     if-nez v0, :cond_1f
 
-    .line 959
+    .line 960
     iget-object v0, p1, Lbl/adc$a;->a:Landroid/view/View;
 
     new-instance v1, Lbl/afi$f$c;
@@ -502,12 +502,12 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->post(Ljava/lang/Runnable;)Z
 
-    .line 960
+    .line 961
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lbl/afi$f;->d:Z
 
-    .line 962
+    .line 963
     :cond_1f
     return-void
 .end method
@@ -525,17 +525,17 @@
     .end annotation
 
     .prologue
-    .line 1004
+    .line 1005
     const-string v0, "list"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 1005
+    .line 1006
     iget-object v0, p0, Lbl/afi$f;->c:Lbl/afi$k;
 
     if-nez v0, :cond_1d
 
-    .line 1006
+    .line 1007
     new-instance v0, Lbl/afi$k;
 
     invoke-static {p1}, Lbl/baf;->b(Ljava/util/Collection;)Ljava/util/List;
@@ -546,25 +546,25 @@
 
     iput-object v0, p0, Lbl/afi$f;->c:Lbl/afi$k;
 
-    .line 1007
+    .line 1008
     iget-object v0, p0, Lbl/afi$f;->c:Lbl/afi$k;
 
     invoke-virtual {p0, v0}, Lbl/afi$f;->a(Lbl/ade;)V
 
-    .line 1008
+    .line 1009
     invoke-virtual {p0}, Lbl/afi$f;->e()V
 
-    .line 1013
+    .line 1014
     :goto_1c
     return-void
 
-    .line 1011
+    .line 1012
     :cond_1d
     iget-object v0, p0, Lbl/afi$f;->c:Lbl/afi$k;
 
     invoke-virtual {v0, p1}, Lbl/afi$k;->a(Ljava/util/List;)V
 
-    .line 1012
+    .line 1013
     const/4 v0, 0x0
 
     invoke-virtual {p0, v0}, Lbl/afi$f;->b(Z)V
@@ -576,10 +576,10 @@
     .locals 0
 
     .prologue
-    .line 912
+    .line 913
     iput-boolean p1, p0, Lbl/afi$f;->d:Z
 
-    .line 913
+    .line 914
     return-void
 .end method
 
@@ -596,7 +596,7 @@
     .end annotation
 
     .prologue
-    .line 916
+    .line 917
     iget-object v0, p0, Lbl/afi$f;->e:Ljava/util/ArrayList;
 
     return-object v0
@@ -608,30 +608,30 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 1046
+    .line 1047
     invoke-virtual {p0}, Lbl/afi$f;->g()V
 
-    .line 1047
-    iget-object v0, p0, Lbl/afi$f;->a:Lbl/afi$b;
-
-    invoke-virtual {p0, v0}, Lbl/afi$f;->b(Lbl/ade;)V
-
     .line 1048
-    iget-object v0, p0, Lbl/afi$f;->b:Lbl/afi$n;
+    iget-object v0, p0, Lbl/afi$f;->a:Lbl/afi$b;
 
     invoke-virtual {p0, v0}, Lbl/afi$f;->b(Lbl/ade;)V
 
     .line 1049
-    iget-object v0, p0, Lbl/afi$f;->c:Lbl/afi$k;
+    iget-object v0, p0, Lbl/afi$f;->b:Lbl/afi$n;
 
     invoke-virtual {p0, v0}, Lbl/afi$f;->b(Lbl/ade;)V
 
     .line 1050
+    iget-object v0, p0, Lbl/afi$f;->c:Lbl/afi$k;
+
+    invoke-virtual {p0, v0}, Lbl/afi$f;->b(Lbl/ade;)V
+
+    .line 1051
     iget-object v0, p0, Lbl/afi$f;->a:Lbl/afi$b;
 
     if-eqz v0, :cond_25
 
-    .line 1051
+    .line 1052
     iget-object v0, p0, Lbl/afi$f;->a:Lbl/afi$b;
 
     invoke-virtual {v0}, Lbl/afi$b;->b()Ljava/util/ArrayList;
@@ -642,18 +642,18 @@
 
     move-object v0, v1
 
-    .line 1052
+    .line 1053
     check-cast v0, Lbl/afi$b;
 
     iput-object v0, p0, Lbl/afi$f;->a:Lbl/afi$b;
 
-    .line 1054
+    .line 1055
     :cond_25
     iget-object v0, p0, Lbl/afi$f;->b:Lbl/afi$n;
 
     if-eqz v0, :cond_37
 
-    .line 1055
+    .line 1056
     iget-object v0, p0, Lbl/afi$f;->b:Lbl/afi$n;
 
     invoke-virtual {v0}, Lbl/afi$n;->b()Ljava/util/List;
@@ -664,18 +664,18 @@
 
     move-object v0, v1
 
-    .line 1056
+    .line 1057
     check-cast v0, Lbl/afi$n;
 
     iput-object v0, p0, Lbl/afi$f;->b:Lbl/afi$n;
 
-    .line 1058
+    .line 1059
     :cond_37
     iget-object v0, p0, Lbl/afi$f;->c:Lbl/afi$k;
 
     if-eqz v0, :cond_49
 
-    .line 1059
+    .line 1060
     iget-object v0, p0, Lbl/afi$f;->c:Lbl/afi$k;
 
     invoke-virtual {v0}, Lbl/afi$k;->b()Ljava/util/List;
@@ -686,18 +686,18 @@
 
     move-object v0, v1
 
-    .line 1060
+    .line 1061
     check-cast v0, Lbl/afi$k;
 
     iput-object v0, p0, Lbl/afi$f;->c:Lbl/afi$k;
 
-    .line 1062
+    .line 1063
     :cond_49
     iget-object v0, p0, Lbl/afi$f;->cc:Lbl/afi$kk;
 
     if-eqz v0, :cond_5a
 
-    .line 1063
+    .line 1064
     iget-object v0, p0, Lbl/afi$f;->cc:Lbl/afi$kk;
 
     invoke-virtual {v0}, Lbl/afi$kk;->b()Ljava/util/List;
@@ -706,12 +706,12 @@
 
     invoke-interface {v0}, Ljava/util/List;->clear()V
 
-    .line 1064
+    .line 1065
     check-cast v1, Lbl/afi$kk;
 
     iput-object v1, p0, Lbl/afi$f;->cc:Lbl/afi$kk;
 
-    .line 1066
+    .line 1067
     :cond_5a
     return-void
 .end method

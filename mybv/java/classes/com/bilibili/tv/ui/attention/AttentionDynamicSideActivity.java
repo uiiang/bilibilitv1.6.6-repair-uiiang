@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import bl.adl;
+import bl.abd;
 import bl.adw;
 import bl.adz;
 import bl.agd;
@@ -402,7 +403,7 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
                 /*
                 if (item.getFace() != null && !item.isAllDynamic()) {
                     // 显示圆形头像
-                    nv.a().a(ach.c(MainApplication.a(), item.getFace()), holder.A());
+                    nv.a().a(abd.get_thumb_url_c(MainApplication.a(), item.getFace()), holder.A());
                     holder.A().setVisibility(View.VISIBLE);
                 } else {
                     // 全部动态显示默认图标

@@ -39,6 +39,7 @@ import kotlin.TypeCastException;
 import tv.danmaku.videoplayer.core.pluginapk.PluginApk;
 
 import bl.abl;
+import bl.abd;
 import bl.ach;
 import bl.adj;
 import bl.adl;
@@ -320,7 +321,7 @@ public final class MainPgcFragment extends adu implements aez, wf {
                     eVar.z().setText(content.getString("title"));
                 }
                 if (!TextUtils.isEmpty(content.getString("cover"))) {
-                    nv.a().a(ach.a(MainApplication.a(), content.getString("cover")), eVar.A());
+                    nv.a().a(abd.get_thumb_url_a(MainApplication.a(), content.getString("cover")), eVar.A());
                 }
                 View view = advVar.a;
                 bbi.a((Object) view, "viewHolder.itemView");

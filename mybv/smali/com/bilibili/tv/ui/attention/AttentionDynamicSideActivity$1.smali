@@ -23,7 +23,7 @@
     .locals 0
 
     .prologue
-    .line 84
+    .line 85
     iput-object p1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$1;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
 
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$m;-><init>()V
@@ -37,10 +37,10 @@
     .locals 3
 
     .prologue
-    .line 87
+    .line 88
     invoke-super {p0, p1, p2}, Landroid/support/v7/widget/RecyclerView$m;->a(Landroid/support/v7/widget/RecyclerView;I)V
 
-    .line 88
+    .line 89
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$1;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
 
     # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->h:Z
@@ -68,12 +68,12 @@
 
     if-nez v0, :cond_1c
 
-    .line 106
+    .line 107
     :cond_1b
     :goto_1b
     return-void
 
-    .line 91
+    .line 92
     :cond_1c
     invoke-virtual {p1}, Landroid/support/v7/widget/RecyclerView;->getLayoutManager()Landroid/support/v7/widget/RecyclerView$h;
 
@@ -81,25 +81,25 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/live/LiveLeftLinearLayoutManger;
 
-    .line 92
+    .line 93
     if-eqz v0, :cond_1b
 
-    .line 95
+    .line 96
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/live/LiveLeftLinearLayoutManger;->p()I
 
     move-result v1
 
-    .line 96
+    .line 97
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/live/LiveLeftLinearLayoutManger;->x()I
 
     move-result v2
 
     if-lez v2, :cond_1b
 
-    .line 97
+    .line 98
     add-int/lit8 v1, v1, 0xa
 
-    .line 98
+    .line 99
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/live/LiveLeftLinearLayoutManger;->H()I
 
     move-result v2
@@ -108,25 +108,25 @@
 
     if-lt v1, v2, :cond_1b
 
-    .line 99
+    .line 100
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/live/LiveLeftLinearLayoutManger;->H()I
 
     move-result v1
 
-    .line 100
+    .line 101
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/live/LiveLeftLinearLayoutManger;->x()I
 
     move-result v0
 
     if-le v1, v0, :cond_1b
 
-    .line 101
+    .line 102
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$1;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
 
     # operator++ for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->f:I
     invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$308(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;)I
 
-    .line 102
+    .line 103
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$1;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
 
     # invokes: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->loadFollowings()V

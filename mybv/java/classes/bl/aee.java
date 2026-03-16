@@ -23,6 +23,7 @@ import com.bilibili.tv.widget.border.BorderGridLayoutManager;
 import com.bilibili.tv.widget.side.SideRightGridLayoutManger;
 import java.util.ArrayList;
 import java.util.List;
+import bl.abd;
 import kotlin.TypeCastException;
 
 /* compiled from: BL */
@@ -280,7 +281,7 @@ public final class aee extends ady {
             if (advVar instanceof d) {
                 BiliVideoDetail biliVideoDetail = this.a.get(i);
                 if (biliVideoDetail.mCover != null) {
-                    nv.a().a(ach.c(MainApplication.a(), biliVideoDetail.mCover), ((d) advVar).z());
+                    nv.a().a(abd.get_thumb_url_c(MainApplication.a(), biliVideoDetail.mCover), ((d) advVar).z());
                 }
                 if (biliVideoDetail.mTitle != null) {
                     ((d) advVar).A().setText(biliVideoDetail.mTitle);

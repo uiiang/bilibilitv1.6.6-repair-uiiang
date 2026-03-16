@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import bl.adc;
+import bl.abd;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.area.BiliVideoV2;
@@ -108,7 +109,7 @@ public final class aeb extends adc.a implements View.OnClickListener {
                 this.s.setText(String.format("%02d:%02d", duration / 60, duration % 60));
             }
             if (a2.cover != null) {
-                nv.a().a(ach.c(MainApplication.a(), a2.cover), this.n);
+                nv.a().a(abd.get_thumb_url_c(MainApplication.a(), a2.cover), this.n);
             }
             if (aVar.b()) {
                 this.a.setTag(R.id.isNeedPx, true);

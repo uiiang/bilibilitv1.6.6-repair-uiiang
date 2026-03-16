@@ -43,7 +43,7 @@
     .locals 2
 
     .prologue
-    .line 485
+    .line 486
     new-instance v0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$d$a;
 
     const/4 v1, 0x0
@@ -59,15 +59,15 @@
     .locals 1
 
     .prologue
-    .line 493
+    .line 494
     invoke-direct {p0, p1}, Lbl/adv;-><init>(Landroid/view/View;)V
 
-    .line 494
+    .line 495
     const-string v0, "itemView"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 495
+    .line 496
     const v0, 0x7f0800a1
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -78,7 +78,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$d;->n:Lcom/bilibili/tv/widget/ScalableImageView;
 
-    .line 496
+    .line 497
     const v0, 0x7f080132
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -89,7 +89,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$d;->o:Lcom/bilibili/tv/widget/ShadowTextView;
 
-    .line 497
+    .line 498
     const v0, 0x7f080082
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -98,13 +98,13 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$d;->p:Landroid/view/View;
 
-    .line 498
+    .line 499
     invoke-virtual {p1, p0}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 499
+    .line 500
     invoke-virtual {p1, p0}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 500
+    .line 501
     return-void
 .end method
 
@@ -114,7 +114,7 @@
     .locals 1
 
     .prologue
-    .line 507
+    .line 508
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$d;->o:Lcom/bilibili/tv/widget/ShadowTextView;
 
     return-object v0
@@ -124,7 +124,7 @@
     .locals 1
 
     .prologue
-    .line 511
+    .line 512
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$d;->p:Landroid/view/View;
 
     return-object v0
@@ -134,46 +134,46 @@
     .locals 6
 
     .prologue
-    .line 516
+    .line 517
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 517
+    .line 518
     sget-object v0, Lbl/abl;->a:Lbl/abl;
 
     const-string v1, "ott-platform.favorite.favorite.0.click"
 
     invoke-virtual {v0, v1}, Lbl/abl;->a(Ljava/lang/String;)V
 
-    .line 518
+    .line 519
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    .line 519
+    .line 520
     const-string v1, "v.context"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 520
+    .line 521
     invoke-static {v0}, Lbl/adl;->a(Landroid/content/Context;)Landroid/app/Activity;
 
     move-result-object v2
 
-    .line 521
+    .line 522
     invoke-virtual {p1}, Landroid/view/View;->getTag()Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 523
+    .line 524
     const v1, 0x7f0800d8
 
     invoke-virtual {p1, v1}, Landroid/view/View;->getTag(I)Ljava/lang/Object;
 
     move-result-object v1
 
-    .line 524
+    .line 525
     if-eqz v2, :cond_32
 
     if-eqz v0, :cond_32
@@ -188,16 +188,16 @@
 
     if-nez v3, :cond_33
 
-    .line 530
+    .line 531
     :cond_32
     :goto_32
     return-void
 
-    .line 527
+    .line 528
     :cond_33
     check-cast v0, Lcom/bilibili/bangumi/api/BiliBangumiSeason;
 
-    .line 528
+    .line 529
     sget-object v3, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->Companion:Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$a;
 
     iget-object v4, v0, Lcom/bilibili/bangumi/api/BiliBangumiSeason;->mSeasonId:Ljava/lang/String;
@@ -208,7 +208,7 @@
 
     invoke-virtual {v2, v3}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
 
-    .line 529
+    .line 530
     const-string v2, "tv_mybangumi_click"
 
     const/4 v3, 0x6
@@ -284,66 +284,66 @@
     .prologue
     const-wide/16 v8, 0x5dc
 
-    .line 534
+    .line 535
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 535
+    .line 536
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$d;->o:Lcom/bilibili/tv/widget/ShadowTextView;
 
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/ShadowTextView;->setSelected(Z)V
 
-    .line 536
+    .line 537
     if-eqz p2, :cond_5c
 
-    .line 537
+    .line 538
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$d;->p:Landroid/view/View;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setBackgroundResource(I)V
 
-    .line 541
+    .line 542
     :goto_14
     const v0, 0x3f8ccccd    # 1.1f
 
     invoke-static {p1, v0, p2}, Lbl/adj;->a(Landroid/view/View;FZ)V
 
-    .line 542
+    .line 543
     if-eqz p2, :cond_5b
 
-    .line 543
+    .line 544
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    .line 544
+    .line 545
     const-string v1, "v.context"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 545
+    .line 546
     invoke-static {v0}, Lbl/adl;->a(Landroid/content/Context;)Landroid/app/Activity;
 
     move-result-object v1
 
-    .line 546
+    .line 547
     instance-of v0, v1, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;
 
     if-eqz v0, :cond_5b
 
-    .line 547
+    .line 548
     invoke-virtual {p1}, Landroid/view/View;->getTag()Ljava/lang/Object;
 
     move-result-object v2
 
-    .line 548
+    .line 549
     instance-of v0, v2, Lcom/bilibili/bangumi/api/BiliBangumiSeason;
 
     if-eqz v0, :cond_5b
 
-    .line 549
+    .line 550
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v4
@@ -358,7 +358,7 @@
 
     move-object v0, v1
 
-    .line 550
+    .line 551
     check-cast v0, Ljava/lang/Runnable;
 
     invoke-virtual {p1, v0}, Landroid/view/View;->removeCallbacks(Ljava/lang/Runnable;)Z
@@ -366,7 +366,7 @@
     :cond_46
     move-object v0, v1
 
-    .line 552
+    .line 553
     check-cast v0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;
 
     check-cast v2, Lcom/bilibili/bangumi/api/BiliBangumiSeason;
@@ -376,23 +376,23 @@
     # setter for: Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->e:Ljava/lang/String;
     invoke-static {v0, v2}, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;->access$702(Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity;Ljava/lang/String;)Ljava/lang/String;
 
-    .line 553
+    .line 554
     check-cast v1, Ljava/lang/Runnable;
 
     invoke-virtual {p1, v1, v8, v9}, Landroid/view/View;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 554
+    .line 555
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v0
 
     iput-wide v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$d;->q:J
 
-    .line 558
+    .line 559
     :cond_5b
     return-void
 
-    .line 539
+    .line 540
     :cond_5c
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$d;->p:Landroid/view/View;
 
@@ -407,7 +407,7 @@
     .locals 1
 
     .prologue
-    .line 503
+    .line 504
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$d;->n:Lcom/bilibili/tv/widget/ScalableImageView;
 
     return-object v0

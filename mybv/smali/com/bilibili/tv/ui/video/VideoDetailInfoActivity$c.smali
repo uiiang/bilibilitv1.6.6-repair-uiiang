@@ -36,12 +36,12 @@
     .locals 0
 
     .prologue
-    .line 135
+    .line 136
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity$c;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 136
+    .line 137
     return-void
 .end method
 
@@ -51,7 +51,7 @@
     .locals 3
 
     .prologue
-    .line 141
+    .line 142
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity$c;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity;->d:Ljava/lang/String;
@@ -87,7 +87,7 @@
     .end annotation
 
     .prologue
-    .line 134
+    .line 135
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity$c;->call()Landroid/graphics/Bitmap;
 
     move-result-object v0

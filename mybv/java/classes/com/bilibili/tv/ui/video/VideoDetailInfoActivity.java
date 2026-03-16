@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import bl.ach;
 import bl.ada;
+import bl.abd;
 import bl.bbg;
 import bl.bbi;
 import bl.ja;
@@ -76,7 +77,7 @@ public final class VideoDetailInfoActivity extends BaseActivity {
     public void a(Bundle bundle) {
         m();
         l();
-        a(ach.c(getApplication(), this.c));
+        a(abd.get_thumb_url_c(getApplication(), this.c));
         n();
     }
 

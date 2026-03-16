@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import bl.adl;
 import bl.ady;
+import bl.abd;
 import bl.aj;
 import bl.agd;
 import bl.bbi;
@@ -427,7 +428,7 @@ public final class AttentionDynamicFragment extends ady {
                     String durationText = feedArchiveItem.getString("duration_text");
                     dVar.E().setText(durationText != null ? durationText : "");
                     if (feedArchiveItem.getString("cover") != null) {
-                        nv.a().a(ach.c(MainApplication.a(), feedArchiveItem.getString("cover")), dVar.z());
+                        nv.a().a(abd.get_thumb_url_c(MainApplication.a(), feedArchiveItem.getString("cover")), dVar.z());
                     }
                 } else if (item instanceof BiliSpaceVideo) {
                     // UP 主视频模式
@@ -449,7 +450,7 @@ public final class AttentionDynamicFragment extends ady {
                         dVar.E().setText(String.format("%02d:%02d", durationVal / 60, durationVal % 60));
                     }
                     if (video.cover != null) {
-                        nv.a().a(ach.c(MainApplication.a(), video.cover), dVar.z());
+                        nv.a().a(abd.get_thumb_url_c(MainApplication.a(), video.cover), dVar.z());
                     }
                 }
                 View view = advVar.a;

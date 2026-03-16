@@ -28,15 +28,15 @@
     .locals 0
 
     .prologue
-    .line 85
+    .line 86
     iput-object p1, p0, Lbl/aee$e;->this$0:Lbl/aee;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 86
+    .line 87
     iput-object p2, p0, Lbl/aee$e;->b:Lcom/bilibili/tv/ui/favorite/FavoriteActivity;
 
-    .line 87
+    .line 88
     return-void
 .end method
 
@@ -46,24 +46,24 @@
     .locals 3
 
     .prologue
-    .line 91
+    .line 92
     iget-object v0, p0, Lbl/aee$e;->b:Lcom/bilibili/tv/ui/favorite/FavoriteActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteActivity;->m()Lbl/agd;
 
     move-result-object v0
 
-    .line 92
+    .line 93
     if-eqz v0, :cond_a
 
     if-nez p1, :cond_b
 
-    .line 98
+    .line 99
     :cond_a
     :goto_a
     return-void
 
-    .line 95
+    .line 96
     :cond_b
     iget-object v1, p0, Lbl/aee$e;->b:Lcom/bilibili/tv/ui/favorite/FavoriteActivity;
 
@@ -75,7 +75,7 @@
 
     invoke-virtual {v0, v1}, Lbl/agd;->setUpRectDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 96
+    .line 97
     iget-object v1, p0, Lbl/aee$e;->this$0:Lbl/aee;
 
     # getter for: Lbl/aee;->e:Z
@@ -85,7 +85,7 @@
 
     invoke-virtual {v0, p1, p4, p5, v1}, Lbl/agd;->a(Landroid/view/View;IIZ)V
 
-    .line 97
+    .line 98
     iget-object v0, p0, Lbl/aee$e;->this$0:Lbl/aee;
 
     const/4 v1, 0x0

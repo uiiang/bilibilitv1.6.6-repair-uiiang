@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.LinearLayout;
 import android.text.TextUtils;
 import bl.adl;
+import bl.abd;
 import bl.ady;
 import bl.aj;
 import bl.agd;
@@ -285,7 +286,7 @@ public final class WeeklyVideoFragment extends ady {
             if (advVar instanceof d) {
                 JSONObject item = this.b.getJSONObject(i);
                 if (item.containsKey("pic")) {
-                    nv.a().a(ach.c(MainApplication.a(), item.getString("pic")), ((d) advVar).z());
+                    nv.a().a(abd.get_thumb_url_c(MainApplication.a(), item.getString("pic")), ((d) advVar).z());
                 }
                 if (item.containsKey("title")) {
                     ((d) advVar).A().setText(item.getString("title"));

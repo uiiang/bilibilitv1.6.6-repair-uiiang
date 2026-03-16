@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import bl.abl;
+import bl.abd;
 import bl.ach;
 import bl.adj;
 import bl.adl;
@@ -416,7 +417,7 @@ public final class NewFollowBangumiActivity extends BaseReloadActivity implement
                     nv a2 = nv.a();
                     MainApplication a3 = MainApplication.a();
                     bbi.a((Object) a3, "MainApplication.getInstance()");
-                    a2.a(ach.b(a3.getApplicationContext(), biliBangumiSeason.mCover), ((d) advVar).z(), new a(advVar));
+                    a2.a(abd.get_thumb_url_b(a3.getApplicationContext(), biliBangumiSeason.mCover), ((d) advVar).z(), new a(advVar));
                 }
                 ((d) advVar).A().setText(biliBangumiSeason.mTitle);
                 View view = advVar.a;
@@ -579,7 +580,7 @@ public final class NewFollowBangumiActivity extends BaseReloadActivity implement
     public void run() {
         MainApplication a2 = MainApplication.a();
         bbi.a((Object) a2, "MainApplication.getInstance()");
-        ImageRequest o = ImageRequestBuilder.a(Uri.parse(ach.b(a2.getApplicationContext(), this.e))).a(new aqx(2, 5)).o();
+        ImageRequest o = ImageRequestBuilder.a(Uri.parse(abd.get_thumb_url_b(a2.getApplicationContext(), this.e))).a(new aqx(2, 5)).o();
         ajs b2 = ajq.a().b(o);
         this.d.a(b2.a(this.d.getController()).i());
     }

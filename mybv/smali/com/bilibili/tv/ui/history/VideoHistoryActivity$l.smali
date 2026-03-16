@@ -23,7 +23,7 @@
     .locals 0
 
     .prologue
-    .line 166
+    .line 167
     iput-object p1, p0, Lcom/bilibili/tv/ui/history/VideoHistoryActivity$l;->this$0:Lcom/bilibili/tv/ui/history/VideoHistoryActivity;
 
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$m;-><init>()V
@@ -37,10 +37,10 @@
     .locals 4
 
     .prologue
-    .line 169
+    .line 170
     invoke-super {p0, p1, p2}, Landroid/support/v7/widget/RecyclerView$m;->a(Landroid/support/v7/widget/RecyclerView;I)V
 
-    .line 170
+    .line 171
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoHistoryActivity$l;->this$0:Lcom/bilibili/tv/ui/history/VideoHistoryActivity;
 
     # getter for: Lcom/bilibili/tv/ui/history/VideoHistoryActivity;->isLoading:Z
@@ -68,12 +68,12 @@
 
     if-nez v0, :cond_1c
 
-    .line 186
+    .line 187
     :cond_1b
     :goto_1b
     return-void
 
-    .line 173
+    .line 174
     :cond_1c
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoHistoryActivity$l;->this$0:Lcom/bilibili/tv/ui/history/VideoHistoryActivity;
 
@@ -82,41 +82,41 @@
 
     move-result-object v0
 
-    .line 174
+    .line 175
     if-eqz v0, :cond_1b
 
-    .line 177
+    .line 178
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->p()I
 
     move-result v1
 
-    .line 178
+    .line 179
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->x()I
 
     move-result v2
 
     if-lez v2, :cond_1b
 
-    .line 179
+    .line 180
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->H()I
 
     move-result v2
 
-    .line 180
+    .line 181
     add-int/lit8 v1, v1, 0x14
 
     add-int/lit8 v3, v2, -0x1
 
     if-lt v1, v3, :cond_1b
 
-    .line 181
+    .line 182
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->x()I
 
     move-result v0
 
     if-le v2, v0, :cond_1b
 
-    .line 182
+    .line 183
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoHistoryActivity$l;->this$0:Lcom/bilibili/tv/ui/history/VideoHistoryActivity;
 
     # invokes: Lcom/bilibili/tv/ui/history/VideoHistoryActivity;->o()V

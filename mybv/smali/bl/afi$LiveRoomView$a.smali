@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 1573
+    .line 1574
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 1574
+    .line 1575
     return-void
 .end method
 
@@ -30,10 +30,10 @@
     .locals 0
 
     .prologue
-    .line 1577
+    .line 1578
     invoke-direct {p0}, Lbl/afi$LiveRoomView$a;-><init>()V
 
-    .line 1578
+    .line 1579
     return-void
 .end method
 
@@ -43,7 +43,7 @@
     .locals 4
 
     .prologue
-    .line 1581
+    .line 1582
     new-instance v0, Lbl/afi$LiveRoomView;
 
     invoke-virtual {p1}, Landroid/view/ViewGroup;->getContext()Landroid/content/Context;

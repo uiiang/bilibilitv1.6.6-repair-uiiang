@@ -28,15 +28,15 @@
     .locals 0
 
     .prologue
-    .line 220
+    .line 221
     iput-object p1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$h;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 221
+    .line 222
     iput-object p2, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$h;->b:Lbl/agd;
 
-    .line 222
+    .line 223
     return-void
 .end method
 
@@ -46,16 +46,16 @@
     .locals 3
 
     .prologue
-    .line 226
+    .line 227
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$h;->b:Lbl/agd;
 
     if-nez v0, :cond_5
 
-    .line 232
+    .line 233
     :goto_4
     return-void
 
-    .line 229
+    .line 230
     :cond_5
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$h;->b:Lbl/agd;
 
@@ -69,7 +69,7 @@
 
     invoke-virtual {v0, v1}, Lbl/agd;->setUpRectDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 230
+    .line 231
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$h;->b:Lbl/agd;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$h;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity;
@@ -81,7 +81,7 @@
 
     invoke-virtual {v0, p1, p4, p5, v1}, Lbl/agd;->a(Landroid/view/View;IIZ)V
 
-    .line 231
+    .line 232
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$h;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity;
 
     const/4 v1, 0x0

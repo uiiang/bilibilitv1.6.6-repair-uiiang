@@ -284,4 +284,81 @@ public class abd {
         }
         return homeDefaultType;
     }
+
+    private static int imageSizeType = -1;
+
+    public static void set_image_size(Context context, int type) {
+        a(context).a().edit().putInt("image_size_type", type).apply();
+        imageSizeType = type;
+    }
+
+    public static int get_image_size(Context context) {
+        if (imageSizeType == -1) {
+            imageSizeType = a(context).a().getInt("image_size_type", 1);
+        }
+        return imageSizeType;
+    }
+
+    public static boolean is_hd_image(Context context) {
+        return get_image_size(context) == 0;
+    }
+
+    public static String get_thumb_url(Context context, String url, int type) {
+        if (url == null || url.isEmpty()) return url;
+        if (is_hd_image(context)) return url;
+        switch (type) {
+            case 0: return ach.a(context, url);
+            case 1: return ach.b(context, url);
+            case 2: return ach.c(context, url);
+            case 3: return ach.d(context, url);
+            default: return url;
+        }
+    }
+
+    public static String get_thumb_url_a(Context context, String url) {
+        return get_thumb_url(context, url, 0);
+    }
+
+    public static String get_thumb_url_b(Context context, String url) {
+        return get_thumb_url(context, url, 1);
+    }
+
+    public static String get_thumb_url_c(Context context, String url) {
+        return get_thumb_url(context, url, 2);
+    }
+
+    public static String get_thumb_url_d(Context context, String url) {
+        return get_thumb_url(context, url, 3);
+    }
+
+    public static String get_thumb_url_with_size(Context context, String url, int width, int height) {
+        if (url == null || url.isEmpty()) return url;
+        if (is_hd_image(context)) return url;
+        return ach.a(context, url, width, height);
+    }
+
+    private static int cacheLimitType = -1;
+
+    public static void set_cache_limit(Context context, int type) {
+        a(context).a().edit().putInt("cache_limit_type", type).apply();
+        cacheLimitType = type;
+    }
+
+    public static int get_cache_limit(Context context) {
+        if (cacheLimitType == -1) {
+            cacheLimitType = a(context).a().getInt("cache_limit_type", 1);
+        }
+        return cacheLimitType;
+    }
+
+    public static int get_cache_limit_mb(Context context) {
+        int type = get_cache_limit(context);
+        switch (type) {
+            case 0: return 50;
+            case 1: return 100;
+            case 2: return 300;
+            case 3: return 500;
+            default: return 100;
+        }
+    }
 }

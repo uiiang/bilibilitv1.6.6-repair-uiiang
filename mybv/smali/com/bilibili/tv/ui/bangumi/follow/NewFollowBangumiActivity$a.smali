@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 96
+    .line 97
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 97
+    .line 98
     return-void
 .end method
 
@@ -30,9 +30,9 @@
     .locals 0
 
     .prologue
-    .line 100
+    .line 101
     invoke-direct {p0}, Lcom/bilibili/tv/ui/bangumi/follow/NewFollowBangumiActivity$a;-><init>()V
 
-    .line 101
+    .line 102
     return-void
 .end method

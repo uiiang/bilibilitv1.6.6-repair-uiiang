@@ -23,7 +23,7 @@
     .locals 0
 
     .prologue
-    .line 171
+    .line 172
     iput-object p1, p0, Lbl/afi$2;->this$0:Lbl/afi;
 
     invoke-direct {p0, p2}, Lcom/bilibili/tv/widget/FixLinearLayoutManager;-><init>(Landroid/content/Context;)V
@@ -37,17 +37,17 @@
     .locals 3
 
     .prologue
-    .line 174
+    .line 175
     invoke-virtual {p0, p1}, Lbl/afi$2;->d(Landroid/view/View;)I
 
     move-result v0
 
-    .line 175
+    .line 176
     const/16 v1, 0x11
 
     if-ne p2, v1, :cond_30
 
-    .line 176
+    .line 177
     iget-object v0, p0, Lbl/afi$2;->this$0:Lbl/afi;
 
     # getter for: Lbl/afi;->q:Z
@@ -57,12 +57,12 @@
 
     if-eqz v0, :cond_11
 
-    .line 193
+    .line 194
     :cond_10
     :goto_10
     return-object p1
 
-    .line 179
+    .line 180
     :cond_11
     iget-object v0, p0, Lbl/afi$2;->this$0:Lbl/afi;
 
@@ -75,7 +75,7 @@
 
     move-result v0
 
-    .line 180
+    .line 181
     iget-object v1, p0, Lbl/afi$2;->this$0:Lbl/afi;
 
     # getter for: Lbl/afi;->e:Lbl/afi$c;
@@ -87,7 +87,7 @@
 
     invoke-virtual {v1, v2}, Lbl/afi$c;->b(Z)V
 
-    .line 181
+    .line 182
     iget-object v1, p0, Lbl/afi$2;->this$0:Lbl/afi;
 
     # getter for: Lbl/afi;->f:Landroid/support/v7/widget/LinearLayoutManager;
@@ -101,18 +101,18 @@
 
     goto :goto_10
 
-    .line 183
+    .line 184
     :cond_30
     const/16 v1, 0x21
 
     if-eq p2, v1, :cond_49
 
-    .line 184
+    .line 185
     const/16 v1, 0x42
 
     if-eq p2, v1, :cond_10
 
-    .line 187
+    .line 188
     const/16 v1, 0x82
 
     if-ne p2, v1, :cond_44
@@ -125,7 +125,7 @@
 
     if-ge v0, v1, :cond_10
 
-    .line 193
+    .line 194
     :cond_44
     invoke-super {p0, p1, p2}, Lcom/bilibili/tv/widget/FixLinearLayoutManager;->d(Landroid/view/View;I)Landroid/view/View;
 
@@ -133,7 +133,7 @@
 
     goto :goto_10
 
-    .line 190
+    .line 191
     :cond_49
     if-gtz v0, :cond_44
 

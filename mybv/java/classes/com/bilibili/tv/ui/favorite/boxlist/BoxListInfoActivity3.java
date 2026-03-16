@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import bl.ach;
+import bl.abd;
 import bl.adh;
 import bl.adl;
 import bl.adv;
@@ -317,7 +318,7 @@ public final class BoxListInfoActivity3 extends BaseReloadActivity implements wf
                 //aebVar.D().setText(adh.a(biliVideoDetail.getLong("danmaku")));
                 aebVar.D().setVisibility(View.GONE);
                 if (biliVideoDetail.getString("cover") != null) {
-                    nv.a().a(ach.c(MainApplication.a(), biliVideoDetail.getString("cover")), aebVar.z());
+                    nv.a().a(abd.get_thumb_url_c(MainApplication.a(), biliVideoDetail.getString("cover")), aebVar.z());
                 }
                 View view = advVar.a;
                 bbi.a((Object) view, "viewHolder.itemView");

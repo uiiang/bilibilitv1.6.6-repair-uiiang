@@ -47,10 +47,10 @@
     .locals 1
 
     .prologue
-    .line 423
+    .line 424
     invoke-direct {p0}, Lbl/adz;-><init>()V
 
-    .line 424
+    .line 425
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
@@ -66,7 +66,7 @@
     .locals 1
 
     .prologue
-    .line 490
+    .line 491
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$c;->a:Ljava/util/ArrayList;
 
     invoke-virtual {v0}, Ljava/util/ArrayList;->size()I
@@ -80,7 +80,7 @@
     .locals 1
 
     .prologue
-    .line 423
+    .line 424
     invoke-virtual {p0, p1, p2}, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$c;->a(Landroid/view/ViewGroup;I)Lbl/adv;
 
     move-result-object v0
@@ -92,12 +92,12 @@
     .locals 1
 
     .prologue
-    .line 434
+    .line 435
     const-string v0, "parent"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 435
+    .line 436
     const/4 v0, 0x0
 
     check-cast v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$d;
@@ -115,7 +115,7 @@
     .locals 0
 
     .prologue
-    .line 423
+    .line 424
     check-cast p1, Lbl/adv;
 
     invoke-virtual {p0, p1, p2}, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$c;->a(Lbl/adv;I)V
@@ -127,27 +127,27 @@
     .locals 5
 
     .prologue
-    .line 440
+    .line 441
     const-string v0, "holder"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 441
+    .line 442
     instance-of v0, p1, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$d;
 
     if-eqz v0, :cond_9d
 
     move-object v0, p1
 
-    .line 442
+    .line 443
     check-cast v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$d;
 
-    .line 443
+    .line 444
     sget-boolean v1, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity;->uperMode:Z
 
     if-eqz v1, :cond_9e
 
-    .line 444
+    .line 445
     iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$c;->a:Ljava/util/ArrayList;
 
     invoke-virtual {v1, p2}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
@@ -156,12 +156,12 @@
 
     check-cast v1, Lcom/alibaba/fastjson/JSONObject;
 
-    .line 445
+    .line 446
     const-string v2, "mFollowings[position]"
 
     invoke-static {v1, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 446
+    .line 447
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$d;->A()Landroid/widget/TextView;
 
     move-result-object v2
@@ -174,7 +174,7 @@
 
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 447
+    .line 448
     const-string v2, "official_verify"
 
     invoke-virtual {v1, v2}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
@@ -187,7 +187,7 @@
 
     move-result-object v2
 
-    .line 448
+    .line 449
     invoke-virtual {v2}, Ljava/lang/String;->isEmpty()Z
 
     move-result v3
@@ -200,7 +200,7 @@
 
     move-result-object v2
 
-    .line 449
+    .line 450
     :cond_42
     invoke-virtual {v2}, Ljava/lang/String;->isEmpty()Z
 
@@ -210,7 +210,7 @@
 
     const-string v2, "\u8fd9\u4e2a\u4eba\u6ca1\u6709\u586b\u7b80\u4ecb\u554a~~~ "
 
-    .line 450
+    .line 451
     :cond_4a
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$d;->B()Landroid/widget/TextView;
 
@@ -218,7 +218,7 @@
 
     invoke-virtual {v3, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 451
+    .line 452
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$d;->B()Landroid/widget/TextView;
 
     move-result-object v2
@@ -227,7 +227,7 @@
 
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setHorizontallyScrolling(Z)V
 
-    .line 452
+    .line 453
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$d;->B()Landroid/widget/TextView;
 
     move-result-object v2
@@ -236,7 +236,7 @@
 
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setEllipsize(Landroid/text/TextUtils$TruncateAt;)V
 
-    .line 455
+    .line 456
     const-string v2, "face"
 
     invoke-virtual {v1, v2}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -245,7 +245,7 @@
 
     if-eqz v2, :cond_83
 
-    .line 456
+    .line 457
     invoke-static {}, Lbl/nv;->a()Lbl/nv;
 
     move-result-object v2
@@ -260,7 +260,7 @@
 
     move-result-object v1
 
-    invoke-static {v3, v1}, Lbl/ach;->c(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
+    invoke-static {v3, v1}, Lbl/abd;->get_thumb_url_c(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v1
 
@@ -270,17 +270,17 @@
 
     invoke-virtual {v2, v1, v0}, Lbl/nv;->a(Ljava/lang/String;Landroid/widget/ImageView;)V
 
-    .line 479
+    .line 480
     :cond_83
     :goto_83
     iget-object v0, p1, Lbl/adv;->a:Landroid/view/View;
 
-    .line 480
+    .line 481
     const-string v1, "holder.itemView"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 481
+    .line 482
     iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$c;->a:Ljava/util/ArrayList;
 
     invoke-virtual {v1, p2}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
@@ -289,21 +289,21 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setTag(Ljava/lang/Object;)V
 
-    .line 482
+    .line 483
     iget-object v0, p1, Lbl/adv;->a:Landroid/view/View;
 
     invoke-virtual {v0, p0}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 484
+    .line 485
     iget-object v0, p1, Lbl/adv;->a:Landroid/view/View;
 
     invoke-virtual {v0, p0}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 486
+    .line 487
     :cond_9d
     return-void
 
-    .line 468
+    .line 469
     :cond_9e
     iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$c;->a:Ljava/util/ArrayList;
 
@@ -313,7 +313,7 @@
 
     check-cast v1, Lcom/alibaba/fastjson/JSONObject;
 
-    .line 469
+    .line 470
     const-string v2, "module_dynamic"
 
     invoke-virtual {v1, v2}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
@@ -332,12 +332,12 @@
 
     move-result-object v2
 
-    .line 470
+    .line 471
     const-string v3, "mBiliVideos[position]"
 
     invoke-static {v1, v3}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 471
+    .line 472
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$d;->A()Landroid/widget/TextView;
 
     move-result-object v3
@@ -350,7 +350,7 @@
 
     invoke-virtual {v3, v4}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 472
+    .line 473
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$d;->B()Landroid/widget/TextView;
 
     move-result-object v3
@@ -369,7 +369,7 @@
 
     invoke-virtual {v3, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 473
+    .line 474
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$d;->C()Landroid/widget/TextView;
 
     move-result-object v1
@@ -388,7 +388,7 @@
 
     invoke-virtual {v1, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 474
+    .line 475
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$d;->D()Landroid/widget/TextView;
 
     move-result-object v1
@@ -407,7 +407,7 @@
 
     invoke-virtual {v1, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 475
+    .line 476
     const-string v1, "cover"
 
     invoke-virtual {v2, v1}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -416,7 +416,7 @@
 
     if-eqz v1, :cond_83
 
-    .line 476
+    .line 477
     invoke-static {}, Lbl/nv;->a()Lbl/nv;
 
     move-result-object v1
@@ -431,7 +431,7 @@
 
     move-result-object v2
 
-    invoke-static {v3, v2}, Lbl/ach;->c(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
+    invoke-static {v3, v2}, Lbl/abd;->get_thumb_url_c(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v2
 
@@ -457,19 +457,19 @@
     .end annotation
 
     .prologue
-    .line 494
+    .line 495
     const-string v0, "list"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 495
+    .line 496
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$c;->a:Ljava/util/ArrayList;
 
     invoke-virtual {v0}, Ljava/util/ArrayList;->size()I
 
     move-result v0
 
-    .line 496
+    .line 497
     new-instance v1, Ljava/util/ArrayList;
 
     invoke-interface {p1}, Ljava/util/List;->size()I
@@ -478,7 +478,7 @@
 
     invoke-direct {v1, v2}, Ljava/util/ArrayList;-><init>(I)V
 
-    .line 497
+    .line 498
     invoke-interface {p1}, Ljava/util/List;->iterator()Ljava/util/Iterator;
 
     move-result-object v2
@@ -495,7 +495,7 @@
 
     move-result-object v3
 
-    .line 498
+    .line 499
     iget-object v4, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$c;->a:Ljava/util/ArrayList;
 
     invoke-virtual {v4, v3}, Ljava/util/ArrayList;->contains(Ljava/lang/Object;)Z
@@ -504,21 +504,21 @@
 
     if-nez v4, :cond_18
 
-    .line 499
+    .line 500
     invoke-virtual {v1, v3}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
     goto :goto_18
 
-    .line 502
+    .line 503
     :cond_2e
     iget-object v2, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$c;->a:Ljava/util/ArrayList;
 
     invoke-virtual {v2, v1}, Ljava/util/ArrayList;->addAll(Ljava/util/Collection;)Z
 
-    .line 503
+    .line 504
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$c;->d(I)V
 
-    .line 504
+    .line 505
     return-void
 .end method
 
@@ -526,7 +526,7 @@
     .locals 1
 
     .prologue
-    .line 428
+    .line 429
     const/4 v0, 0x0
 
     return v0
@@ -536,32 +536,32 @@
     .locals 6
 
     .prologue
-    .line 508
+    .line 509
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 509
+    .line 510
     invoke-virtual {p1}, Landroid/view/View;->getTag()Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 510
+    .line 511
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v1
 
-    .line 511
+    .line 512
     const-string v2, "v.context"
 
     invoke-static {v1, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 512
+    .line 513
     invoke-static {v1}, Lbl/adl;->a(Landroid/content/Context;)Landroid/app/Activity;
 
     move-result-object v2
 
-    .line 514
+    .line 515
     instance-of v1, v0, Lcom/alibaba/fastjson/JSONObject;
 
     if-eqz v1, :cond_4c
@@ -572,7 +572,7 @@
 
     if-eqz v2, :cond_4c
 
-    .line 516
+    .line 517
     check-cast v0, Lcom/alibaba/fastjson/JSONObject;
 
     const-string v1, "module_dynamic"
@@ -603,7 +603,7 @@
 
     move-result-object v0
 
-    .line 517
+    .line 518
     sget-object v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
 
     invoke-virtual {v0}, Ljava/lang/Long;->longValue()J
@@ -616,12 +616,12 @@
 
     invoke-virtual {v2, v0}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
 
-    .line 521
+    .line 522
     :cond_4b
     :goto_4b
     return-void
 
-    .line 518
+    .line 519
     :cond_4c
     instance-of v1, v0, Lcom/alibaba/fastjson/JSONObject;
 
@@ -629,7 +629,7 @@
 
     if-eqz v2, :cond_4b
 
-    .line 519
+    .line 520
     sget-object v3, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->Companion:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$a;
 
     move-object v1, v0
@@ -659,7 +659,7 @@
     .locals 2
 
     .prologue
-    .line 525
+    .line 526
     const v0, 0x7f080081
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -668,22 +668,22 @@
 
     check-cast v0, Landroid/widget/TextView;
 
-    .line 526
+    .line 527
     if-eqz v0, :cond_11
 
-    .line 527
+    .line 528
     if-eqz p2, :cond_12
 
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setSelected(Z)V
 
-    .line 530
+    .line 531
     :cond_11
     :goto_11
     return-void
 
-    .line 528
+    .line 529
     :cond_12
     const/4 v1, 0x0
 

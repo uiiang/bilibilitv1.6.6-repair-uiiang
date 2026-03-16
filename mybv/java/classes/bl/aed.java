@@ -20,6 +20,7 @@ import com.bilibili.tv.widget.ScalableImageView;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
 import java.util.ArrayList;
 import java.util.List;
+import bl.abd;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
@@ -192,7 +193,7 @@ public final class aed extends ady {
                     ((c) advVar).A().setText(biliFavoriteBox2.getMName());
                 }
                 if (videoCovers != null && videoCovers.get(0).getCover() != null) {
-                    nv.a().a(ach.c(MainApplication.a(), videoCovers.get(0).getCover()), ((c) advVar).z());
+                    nv.a().a(abd.get_thumb_url_c(MainApplication.a(), videoCovers.get(0).getCover()), ((c) advVar).z());
                 }
                 else{nv.a().a("", ((c) advVar).z());}
                 if (biliFavoriteBox2.getMCount() <= 999) {

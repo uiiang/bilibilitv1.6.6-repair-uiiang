@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.text.TextUtils;
 import bl.adl;
 import bl.ady;
+import bl.abd;
 import bl.aj;
 import bl.agd;
 import bl.bbi;
@@ -628,7 +629,7 @@ public final class FavoriteVideoFragment extends ady {
                 if (isFavoriteVideoMode) {
                     JSONObject item = this.b.getJSONObject(i);
                     if (item.containsKey("cover")) {
-                        nv.a().a(ach.c(MainApplication.a(), item.getString("cover")), ((d) advVar).z());
+                        nv.a().a(abd.get_thumb_url_c(MainApplication.a(), item.getString("cover")), ((d) advVar).z());
                     }
                     if (item.containsKey("title")) {
                         ((d) advVar).A().setText(item.getString("title"));
@@ -663,7 +664,7 @@ public final class FavoriteVideoFragment extends ady {
                 } else if (isCourseMode) {
                     JSONObject item = this.b.getJSONObject(i);
                     if (item.containsKey("cover")) {
-                        nv.a().a(ach.c(MainApplication.a(), item.getString("cover")), ((d) advVar).z());
+                        nv.a().a(abd.get_thumb_url_c(MainApplication.a(), item.getString("cover")), ((d) advVar).z());
                     }
                     if (item.containsKey("title")) {
                         ((d) advVar).A().setText(item.getString("title"));
@@ -675,7 +676,7 @@ public final class FavoriteVideoFragment extends ady {
                 } else {
                     BiliVideoDetail biliVideoDetail = this.a.get(i);
                     if (biliVideoDetail.mCover != null) {
-                        nv.a().a(ach.c(MainApplication.a(), biliVideoDetail.mCover), ((d) advVar).z());
+                        nv.a().a(abd.get_thumb_url_c(MainApplication.a(), biliVideoDetail.mCover), ((d) advVar).z());
                     }
                     if (biliVideoDetail.mTitle != null) {
                         ((d) advVar).A().setText(biliVideoDetail.mTitle);

@@ -41,10 +41,10 @@
     .locals 1
 
     .prologue
-    .line 173
+    .line 174
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$a;-><init>()V
 
-    .line 174
+    .line 175
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
@@ -60,7 +60,7 @@
     .locals 1
 
     .prologue
-    .line 212
+    .line 213
     iget-object v0, p0, Lbl/aed$b;->a:Ljava/util/ArrayList;
 
     invoke-virtual {v0}, Ljava/util/ArrayList;->size()I
@@ -74,7 +74,7 @@
     .locals 1
 
     .prologue
-    .line 173
+    .line 174
     invoke-virtual {p0, p1, p2}, Lbl/aed$b;->a(Landroid/view/ViewGroup;I)Lbl/adv;
 
     move-result-object v0
@@ -86,12 +86,12 @@
     .locals 1
 
     .prologue
-    .line 179
+    .line 180
     const-string v0, "parent"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 180
+    .line 181
     const/4 v0, 0x0
 
     check-cast v0, Lbl/aed$c;
@@ -109,7 +109,7 @@
     .locals 0
 
     .prologue
-    .line 173
+    .line 174
     check-cast p1, Lbl/adv;
 
     invoke-virtual {p0, p1, p2}, Lbl/aed$b;->a(Lbl/adv;I)V
@@ -123,17 +123,17 @@
     .prologue
     const/4 v5, 0x0
 
-    .line 185
+    .line 186
     const-string v0, "viewHolder"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 186
+    .line 187
     instance-of v0, p1, Lbl/aed$c;
 
     if-eqz v0, :cond_8d
 
-    .line 187
+    .line 188
     iget-object v0, p0, Lbl/aed$b;->a:Ljava/util/ArrayList;
 
     invoke-virtual {v0, p2}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
@@ -142,17 +142,17 @@
 
     check-cast v0, Lcom/bilibili/tv/api/favorite/BiliFavoriteBox;
 
-    .line 188
+    .line 189
     const-string v1, "mBiliFavoriteBoxes[position]"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 190
+    .line 191
     invoke-virtual {v0}, Lcom/bilibili/tv/api/favorite/BiliFavoriteBox;->getVideoCovers()Ljava/util/List;
 
     move-result-object v2
 
-    .line 191
+    .line 192
     invoke-virtual {v0}, Lcom/bilibili/tv/api/favorite/BiliFavoriteBox;->getMName()Ljava/lang/String;
 
     move-result-object v1
@@ -161,7 +161,7 @@
 
     move-object v1, p1
 
-    .line 192
+    .line 193
     check-cast v1, Lbl/aed$c;
 
     invoke-virtual {v1}, Lbl/aed$c;->A()Landroid/widget/TextView;
@@ -174,7 +174,7 @@
 
     invoke-virtual {v1, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 194
+    .line 195
     :cond_2f
     if-eqz v2, :cond_8e
 
@@ -190,7 +190,7 @@
 
     if-eqz v1, :cond_8e
 
-    .line 195
+    .line 196
     invoke-static {}, Lbl/nv;->a()Lbl/nv;
 
     move-result-object v3
@@ -209,7 +209,7 @@
 
     move-result-object v1
 
-    invoke-static {v4, v1}, Lbl/ach;->c(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
+    invoke-static {v4, v1}, Lbl/abd;->get_thumb_url_c(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v2
 
@@ -223,7 +223,7 @@
 
     invoke-virtual {v3, v2, v1}, Lbl/nv;->a(Ljava/lang/String;Landroid/widget/ImageView;)V
 
-    .line 198
+    .line 199
     :goto_5d
     invoke-virtual {v0}, Lcom/bilibili/tv/api/favorite/BiliFavoriteBox;->getMCount()I
 
@@ -235,7 +235,7 @@
 
     move-object v1, p1
 
-    .line 199
+    .line 200
     check-cast v1, Lbl/aed$c;
 
     invoke-virtual {v1}, Lbl/aed$c;->B()Landroid/widget/TextView;
@@ -252,7 +252,7 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 203
+    .line 204
     :goto_77
     iget-object v1, p1, Lbl/adv;->a:Landroid/view/View;
 
@@ -264,22 +264,22 @@
 
     invoke-virtual {v1, v2, v3}, Landroid/view/View;->setTag(ILjava/lang/Object;)V
 
-    .line 204
+    .line 205
     iget-object v1, p1, Lbl/adv;->a:Landroid/view/View;
 
-    .line 205
+    .line 206
     const-string v2, "viewHolder.itemView"
 
     invoke-static {v1, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 206
+    .line 207
     invoke-virtual {v1, v0}, Landroid/view/View;->setTag(Ljava/lang/Object;)V
 
-    .line 208
+    .line 209
     :cond_8d
     return-void
 
-    .line 197
+    .line 198
     :cond_8e
     invoke-static {}, Lbl/nv;->a()Lbl/nv;
 
@@ -302,7 +302,7 @@
     :cond_9f
     move-object v1, p1
 
-    .line 201
+    .line 202
     check-cast v1, Lbl/aed$c;
 
     invoke-virtual {v1}, Lbl/aed$c;->B()Landroid/widget/TextView;
@@ -329,19 +329,19 @@
     .end annotation
 
     .prologue
-    .line 216
+    .line 217
     const-string v0, "list"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 217
+    .line 218
     iget-object v0, p0, Lbl/aed$b;->a:Ljava/util/ArrayList;
 
     invoke-virtual {v0, p1}, Ljava/util/ArrayList;->addAll(Ljava/util/Collection;)Z
 
-    .line 218
+    .line 219
     invoke-virtual {p0}, Lbl/aed$b;->d()V
 
-    .line 219
+    .line 220
     return-void
 .end method

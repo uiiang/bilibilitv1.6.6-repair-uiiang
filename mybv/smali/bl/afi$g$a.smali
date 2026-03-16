@@ -26,12 +26,12 @@
     .locals 0
 
     .prologue
-    .line 571
+    .line 572
     iput-object p1, p0, Lbl/afi$g$a;->this$1:Lbl/afi$g;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 572
+    .line 573
     return-void
 .end method
 
@@ -41,7 +41,7 @@
     .locals 1
 
     .prologue
-    .line 576
+    .line 577
     iget-object v0, p0, Lbl/afi$g$a;->this$1:Lbl/afi$g;
 
     iget-object v0, v0, Lbl/afi$g;->this$0:Lbl/afi;
@@ -53,6 +53,6 @@
 
     invoke-static {v0}, Lbl/adn;->a(Landroid/support/v7/widget/RecyclerView;)V
 
-    .line 577
+    .line 578
     return-void
 .end method

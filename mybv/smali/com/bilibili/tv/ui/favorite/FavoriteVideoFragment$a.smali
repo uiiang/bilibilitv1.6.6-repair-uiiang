@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 73
+    .line 74
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 74
+    .line 75
     return-void
 .end method
 
@@ -30,10 +30,10 @@
     .locals 0
 
     .prologue
-    .line 77
+    .line 78
     invoke-direct {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$a;-><init>()V
 
-    .line 78
+    .line 79
     return-void
 .end method
 
@@ -43,7 +43,7 @@
     .locals 1
 
     .prologue
-    .line 81
+    .line 82
     new-instance v0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     invoke-direct {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;-><init>()V

@@ -26,12 +26,12 @@
     .locals 0
 
     .prologue
-    .line 196
+    .line 197
     iput-object p1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$g;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 197
+    .line 198
     return-void
 .end method
 
@@ -41,7 +41,7 @@
     .locals 2
 
     .prologue
-    .line 201
+    .line 202
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$g;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity;
 
     # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity;->f:I
@@ -53,7 +53,7 @@
 
     if-ne v0, v1, :cond_21
 
-    .line 202
+    .line 203
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity$g;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity;
 
     # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicActivity;->b:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
@@ -61,30 +61,30 @@
 
     move-result-object v0
 
-    .line 203
+    .line 204
     if-nez v0, :cond_14
 
-    .line 204
+    .line 205
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 206
+    .line 207
     :cond_14
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->o()I
 
     move-result v1
 
-    .line 207
+    .line 208
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->c(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 208
+    .line 209
     if-eqz v0, :cond_21
 
-    .line 209
+    .line 210
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 212
+    .line 213
     :cond_21
     return-void
 .end method

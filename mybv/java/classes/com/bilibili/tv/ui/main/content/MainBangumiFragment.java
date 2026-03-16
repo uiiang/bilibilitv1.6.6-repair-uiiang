@@ -40,6 +40,7 @@ import kotlin.TypeCastException;
 import tv.danmaku.videoplayer.core.pluginapk.PluginApk;
 
 import bl.abl;
+import bl.abd;
 import bl.ach;
 import bl.adj;
 import bl.adl;
@@ -322,7 +323,7 @@ public final class MainBangumiFragment extends adu implements aez, wf {
                     eVar.z().setText(content.title);
                 }
                 if (!TextUtils.isEmpty(content.cover)) {
-                    nv.a().a(ach.a(MainApplication.a(), content.cover), eVar.A());
+                    nv.a().a(abd.get_thumb_url_a(MainApplication.a(), content.cover), eVar.A());
                 }
                 View view = advVar.a;
                 bbi.a((Object) view, "viewHolder.itemView");

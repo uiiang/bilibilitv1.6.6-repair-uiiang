@@ -23,7 +23,7 @@
     .locals 0
 
     .prologue
-    .line 106
+    .line 107
     iput-object p1, p0, Lcom/bilibili/tv/ui/bangumi/follow/FollowPgcActivity$1;->this$0:Lcom/bilibili/tv/ui/bangumi/follow/FollowPgcActivity;
 
     invoke-direct {p0, p2, p3}, Lcom/bilibili/tv/widget/FixGridLayoutManager;-><init>(Landroid/content/Context;I)V
@@ -37,22 +37,22 @@
     .locals 2
 
     .prologue
-    .line 109
+    .line 110
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/bangumi/follow/FollowPgcActivity$1;->d(Landroid/view/View;)I
 
     move-result v0
 
-    .line 110
+    .line 111
     const/16 v1, 0x21
 
     if-eq p2, v1, :cond_1f
 
-    .line 111
+    .line 112
     const/16 v1, 0x82
 
     if-ne p2, v1, :cond_21
 
-    .line 112
+    .line 113
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/bangumi/follow/FollowPgcActivity$1;->H()I
 
     move-result v1
@@ -61,12 +61,12 @@
 
     if-lt v0, v1, :cond_15
 
-    .line 117
+    .line 118
     :cond_14
     :goto_14
     return-object p1
 
-    .line 112
+    .line 113
     :cond_15
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/bangumi/follow/FollowPgcActivity$1;->c()I
 
@@ -80,11 +80,11 @@
 
     goto :goto_14
 
-    .line 114
+    .line 115
     :cond_1f
     if-lez v0, :cond_14
 
-    .line 117
+    .line 118
     :cond_21
     invoke-super {p0, p1, p2}, Lcom/bilibili/tv/widget/FixGridLayoutManager;->d(Landroid/view/View;I)Landroid/view/View;
 

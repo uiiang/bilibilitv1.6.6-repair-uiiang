@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import bl.abx;
+import bl.abd;
 import bl.ach;
 import bl.adl;
 import bl.ads;
@@ -568,7 +569,7 @@ public final class BangumiDetailActivity extends BaseActivity implements ViewPag
     /* JADX INFO: Access modifiers changed from: private */
     public final void a(String str) {
         if (str != null) {
-            String a2 = ach.a(getApplication(), str);
+            String a2 = abd.get_thumb_url_a(getApplication(), str);
             nv.a().a(a2, this.d);
             adl adlVar = adl.a;
             bbi.a((Object) a2, "url");

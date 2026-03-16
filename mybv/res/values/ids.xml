@@ -317,4 +317,8 @@
     <item type="id" name="video_detail_watch_later" />
     <item type="id" name="duration" />
     <item type="id" name="show_title" />
+    <item type="id" name="cache_limit_50" />
+    <item type="id" name="cache_limit_100" />
+    <item type="id" name="cache_limit_300" />
+    <item type="id" name="cache_limit_500" />
 </resources>

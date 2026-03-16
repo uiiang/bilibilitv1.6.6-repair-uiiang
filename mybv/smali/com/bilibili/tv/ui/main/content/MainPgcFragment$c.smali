@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 90
+    .line 91
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 91
+    .line 92
     return-void
 .end method
 
@@ -30,10 +30,10 @@
     .locals 0
 
     .prologue
-    .line 94
+    .line 95
     invoke-direct {p0}, Lcom/bilibili/tv/ui/main/content/MainPgcFragment$c;-><init>()V
 
-    .line 95
+    .line 96
     return-void
 .end method
 
@@ -43,7 +43,7 @@
     .locals 1
 
     .prologue
-    .line 98
+    .line 99
     new-instance v0, Lcom/bilibili/tv/ui/main/content/MainPgcFragment;
 
     invoke-direct {v0}, Lcom/bilibili/tv/ui/main/content/MainPgcFragment;-><init>()V
