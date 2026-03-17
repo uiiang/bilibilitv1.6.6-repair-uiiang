@@ -111,7 +111,9 @@ public class VideoViewParams {
         for (Map.Entry<String, String> entry : cdnToUrl.entrySet()) {
             String cdn = entry.getKey();
             String url = entry.getValue();
-            CdnSelector.CdnUrlInfo info = new CdnSelector.CdnUrlInfo(url, cdn, cdnScore.getOrDefault(cdn, 70));
+            Integer score = cdnScore.get(cdn);
+            int finalScore = (score != null) ? score : 70;
+            CdnSelector.CdnUrlInfo info = new CdnSelector.CdnUrlInfo(url, cdn, finalScore);
             urlInfos.add(info);
         }
         

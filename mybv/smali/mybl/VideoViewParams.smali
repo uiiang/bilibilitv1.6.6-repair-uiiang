@@ -295,7 +295,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 130
+    .line 132
     move v0, v1
 
     :goto_2
@@ -305,22 +305,22 @@
 
     if-ge v0, v2, :cond_69
 
-    .line 131
+    .line 133
     invoke-virtual {p0, v0}, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
 
     move-result-object v2
 
-    .line 132
+    .line 134
     if-eqz v2, :cond_66
 
-    .line 133
+    .line 135
     const-string v3, "base_url"
 
     invoke-virtual {v2, v3}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v3
 
-    .line 134
+    .line 136
     invoke-static {v3}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v4
@@ -329,7 +329,7 @@
 
     move-result-object v4
 
-    .line 135
+    .line 137
     if-eqz v4, :cond_32
 
     invoke-interface {p1, v4}, Ljava/util/Map;->containsKey(Ljava/lang/Object;)Z
@@ -338,10 +338,10 @@
 
     if-nez v5, :cond_32
 
-    .line 136
+    .line 138
     invoke-interface {p1, v4, v3}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 137
+    .line 139
     invoke-static {v4}, Lmybl/CdnSelector;->getCdnScore(Ljava/lang/String;)I
 
     move-result v3
@@ -352,7 +352,7 @@
 
     invoke-interface {p2, v4, v3}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 140
+    .line 142
     :cond_32
     const-string v3, "backup_url"
 
@@ -360,12 +360,12 @@
 
     move-result-object v3
 
-    .line 141
+    .line 143
     if-eqz v3, :cond_66
 
     move v2, v1
 
-    .line 142
+    .line 144
     :goto_3b
     invoke-virtual {v3}, Lorg/json/JSONArray;->length()I
 
@@ -373,12 +373,12 @@
 
     if-ge v2, v4, :cond_66
 
-    .line 143
+    .line 145
     invoke-virtual {v3, v2}, Lorg/json/JSONArray;->optString(I)Ljava/lang/String;
 
     move-result-object v4
 
-    .line 144
+    .line 146
     invoke-static {v4}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v5
@@ -387,7 +387,7 @@
 
     move-result-object v5
 
-    .line 145
+    .line 147
     if-eqz v5, :cond_63
 
     invoke-interface {p1, v5}, Ljava/util/Map;->containsKey(Ljava/lang/Object;)Z
@@ -396,10 +396,10 @@
 
     if-nez v6, :cond_63
 
-    .line 146
+    .line 148
     invoke-interface {p1, v5, v4}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 147
+    .line 149
     invoke-static {v5}, Lmybl/CdnSelector;->getCdnScore(Ljava/lang/String;)I
 
     move-result v4
@@ -410,19 +410,19 @@
 
     invoke-interface {p2, v5, v4}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 142
+    .line 144
     :cond_63
     add-int/lit8 v2, v2, 0x1
 
     goto :goto_3b
 
-    .line 130
+    .line 132
     :cond_66
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_2
 
-    .line 153
+    .line 155
     :cond_69
     return-void
 .end method
@@ -431,37 +431,37 @@
     .locals 17
 
     .prologue
-    .line 172
+    .line 174
     new-instance v7, Landroid/os/Bundle;
 
     invoke-direct {v7}, Landroid/os/Bundle;-><init>()V
 
-    .line 173
+    .line 175
     new-instance v8, Landroid/os/Bundle;
 
     invoke-direct {v8}, Landroid/os/Bundle;-><init>()V
 
-    .line 174
+    .line 176
     new-instance v9, Landroid/os/Bundle;
 
     invoke-direct {v9}, Landroid/os/Bundle;-><init>()V
 
-    .line 175
+    .line 177
     new-instance v10, Landroid/os/Bundle;
 
     invoke-direct {v10}, Landroid/os/Bundle;-><init>()V
 
-    .line 176
+    .line 178
     new-instance v11, Landroid/os/Bundle;
 
     invoke-direct {v11}, Landroid/os/Bundle;-><init>()V
 
-    .line 177
+    .line 179
     new-instance v12, Ljava/util/HashSet;
 
     invoke-direct {v12}, Ljava/util/HashSet;-><init>()V
 
-    .line 179
+    .line 181
     const/4 v1, 0x0
 
     move v2, v1
@@ -473,57 +473,57 @@
 
     if-ge v2, v1, :cond_121
 
-    .line 180
+    .line 182
     move-object/from16 v0, p2
 
     invoke-virtual {v0, v2}, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
 
     move-result-object v3
 
-    .line 181
+    .line 183
     if-eqz v3, :cond_11c
 
-    .line 182
+    .line 184
     const-string v1, "id"
 
     invoke-virtual {v3, v1}, Lorg/json/JSONObject;->optInt(Ljava/lang/String;)I
 
     move-result v1
 
-    .line 183
+    .line 185
     const-string v4, "codecid"
 
     invoke-virtual {v3, v4}, Lorg/json/JSONObject;->optInt(Ljava/lang/String;)I
 
     move-result v5
 
-    .line 184
+    .line 186
     const-string v4, "bandwidth"
 
     invoke-virtual {v3, v4}, Lorg/json/JSONObject;->optInt(Ljava/lang/String;)I
 
     move-result v13
 
-    .line 185
+    .line 187
     invoke-static {v1}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
 
     move-result-object v14
 
-    .line 186
+    .line 188
     invoke-static {v1}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
     move-result-object v1
 
     invoke-interface {v12, v1}, Ljava/util/Set;->add(Ljava/lang/Object;)Z
 
-    .line 187
+    .line 189
     const-string v1, "base_url"
 
     invoke-virtual {v3, v1}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v4
 
-    .line 188
+    .line 190
     invoke-static {v4}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v1
@@ -532,7 +532,7 @@
 
     move-result-object v1
 
-    .line 189
+    .line 191
     sget-object v6, Lmybl/VideoViewParams;->cdn_history:Ljava/util/List;
 
     invoke-interface {v6, v1}, Ljava/util/List;->contains(Ljava/lang/Object;)Z
@@ -545,7 +545,7 @@
 
     invoke-interface {v6, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 191
+    .line 193
     :cond_66
     invoke-virtual {v8, v14}, Landroid/os/Bundle;->getString(Ljava/lang/String;)Ljava/lang/String;
 
@@ -560,24 +560,24 @@
     :cond_70
     const/4 v1, 0x1
 
-    .line 192
+    .line 194
     :goto_71
     if-eqz v1, :cond_11c
 
-    .line 194
+    .line 196
     const/4 v5, 0x0
 
-    .line 195
+    .line 197
     const/4 v6, 0x0
 
-    .line 197
+    .line 199
     const-string v1, "backup_url"
 
     invoke-virtual {v3, v1}, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
 
     move-result-object v15
 
-    .line 198
+    .line 200
     if-eqz v15, :cond_164
 
     invoke-virtual {v15}, Lorg/json/JSONArray;->length()I
@@ -586,15 +586,15 @@
 
     if-lez v1, :cond_164
 
-    .line 199
+    .line 201
     new-instance v3, Ljava/util/ArrayList;
 
     invoke-direct {v3}, Ljava/util/ArrayList;-><init>()V
 
-    .line 200
+    .line 202
     invoke-interface {v3, v4}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 201
+    .line 203
     const/4 v1, 0x0
 
     :goto_8c
@@ -604,25 +604,25 @@
 
     if-ge v1, v4, :cond_9e
 
-    .line 202
+    .line 204
     invoke-virtual {v15, v1}, Lorg/json/JSONArray;->optString(I)Ljava/lang/String;
 
     move-result-object v4
 
     invoke-interface {v3, v4}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 201
+    .line 203
     add-int/lit8 v1, v1, 0x1
 
     goto :goto_8c
 
-    .line 191
+    .line 193
     :cond_9c
     const/4 v1, 0x0
 
     goto :goto_71
 
-    .line 205
+    .line 207
     :cond_9e
     sget-object v1, Lmybl/VideoViewParams;->selectedBestCdn:Ljava/lang/String;
 
@@ -630,15 +630,15 @@
 
     move-result-object v1
 
-    .line 206
+    .line 208
     if-nez v1, :cond_161
 
-    .line 207
+    .line 209
     invoke-static {v3}, Lmybl/VideoViewParams;->sortUrlsByCdnScore(Ljava/util/List;)Ljava/util/List;
 
     move-result-object v3
 
-    .line 208
+    .line 210
     const/4 v1, 0x0
 
     invoke-interface {v3, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -649,13 +649,13 @@
 
     move-object v4, v1
 
-    .line 211
+    .line 213
     :goto_b2
     new-instance v15, Ljava/util/ArrayList;
 
     invoke-direct {v15}, Ljava/util/ArrayList;-><init>()V
 
-    .line 212
+    .line 214
     invoke-interface {v3}, Ljava/util/List;->iterator()Ljava/util/Iterator;
 
     move-result-object v3
@@ -674,25 +674,25 @@
 
     check-cast v1, Ljava/lang/String;
 
-    .line 213
+    .line 215
     invoke-virtual {v1, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
     move-result v16
 
     if-nez v16, :cond_bb
 
-    .line 214
+    .line 216
     invoke-interface {v15, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     goto :goto_bb
 
-    .line 217
+    .line 219
     :cond_d1
     invoke-static {v15}, Lmybl/VideoViewParams;->sortUrlsByCdnScore(Ljava/util/List;)Ljava/util/List;
 
     move-result-object v15
 
-    .line 219
+    .line 221
     invoke-interface {v15}, Ljava/util/List;->size()I
 
     move-result v1
@@ -709,7 +709,7 @@
 
     move-object v3, v1
 
-    .line 220
+    .line 222
     :goto_e3
     invoke-interface {v15}, Ljava/util/List;->size()I
 
@@ -727,7 +727,7 @@
 
     check-cast v1, Ljava/lang/String;
 
-    .line 223
+    .line 225
     :goto_f1
     invoke-static {v4}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
@@ -737,7 +737,7 @@
 
     move-result-object v5
 
-    .line 224
+    .line 226
     const/4 v6, 0x7
 
     move/from16 v0, p0
@@ -756,32 +756,32 @@
 
     if-ne v0, v6, :cond_10c
 
-    .line 225
+    .line 227
     :cond_10a
     sput-object v5, Lmybl/VideoViewParams;->currentCdn:Ljava/lang/String;
 
-    .line 228
+    .line 230
     :cond_10c
     invoke-virtual {v8, v14, v4}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 229
+    .line 231
     if-eqz v3, :cond_114
 
-    .line 230
+    .line 232
     invoke-virtual {v9, v14, v3}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 232
+    .line 234
     :cond_114
     if-eqz v1, :cond_119
 
-    .line 233
+    .line 235
     invoke-virtual {v10, v14, v1}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 235
+    .line 237
     :cond_119
     invoke-virtual {v11, v14, v13}, Landroid/os/Bundle;->putInt(Ljava/lang/String;I)V
 
-    .line 179
+    .line 181
     :cond_11c
     add-int/lit8 v1, v2, 0x1
 
@@ -789,7 +789,7 @@
 
     goto/16 :goto_20
 
-    .line 239
+    .line 241
     :cond_121
     invoke-interface {v12}, Ljava/util/Set;->size()I
 
@@ -797,10 +797,10 @@
 
     new-array v4, v1, [I
 
-    .line 240
+    .line 242
     const/4 v1, 0x0
 
-    .line 241
+    .line 243
     invoke-interface {v12}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
 
     move-result-object v5
@@ -832,33 +832,33 @@
 
     goto :goto_12d
 
-    .line 242
+    .line 244
     :cond_143
     const-string v1, "dash_id"
 
     invoke-virtual {v7, v1, v4}, Landroid/os/Bundle;->putIntArray(Ljava/lang/String;[I)V
 
-    .line 243
+    .line 245
     const-string v1, "dash_base_url"
 
     invoke-virtual {v7, v1, v8}, Landroid/os/Bundle;->putBundle(Ljava/lang/String;Landroid/os/Bundle;)V
 
-    .line 244
+    .line 246
     const-string v1, "dash_backup_url0"
 
     invoke-virtual {v7, v1, v9}, Landroid/os/Bundle;->putBundle(Ljava/lang/String;Landroid/os/Bundle;)V
 
-    .line 245
+    .line 247
     const-string v1, "dash_backup_url1"
 
     invoke-virtual {v7, v1, v10}, Landroid/os/Bundle;->putBundle(Ljava/lang/String;Landroid/os/Bundle;)V
 
-    .line 246
+    .line 248
     const-string v1, "dash_bandwidth"
 
     invoke-virtual {v7, v1, v11}, Landroid/os/Bundle;->putBundle(Ljava/lang/String;Landroid/os/Bundle;)V
 
-    .line 248
+    .line 250
     return-object v7
 
     :cond_15d
@@ -902,16 +902,16 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 266
+    .line 268
     if-nez p1, :cond_5
 
     move-object v0, v1
 
-    .line 273
+    .line 275
     :goto_4
     return-object v0
 
-    .line 267
+    .line 269
     :cond_5
     invoke-interface {p0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
 
@@ -930,7 +930,7 @@
 
     check-cast v0, Ljava/lang/String;
 
-    .line 268
+    .line 270
     invoke-static {v0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v3
@@ -939,7 +939,7 @@
 
     move-result-object v3
 
-    .line 269
+    .line 271
     invoke-virtual {p1, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
     move-result v3
@@ -951,7 +951,7 @@
     :cond_24
     move-object v0, v1
 
-    .line 273
+    .line 275
     goto :goto_4
 .end method
 
@@ -1027,7 +1027,7 @@
     .line 107
     const-string v0, "upos-sz-mirror08c.bilivideo.com"
 
-    .line 126
+    .line 128
     :cond_28
     :goto_28
     return-object v0
@@ -1052,7 +1052,7 @@
 
     move-result v0
 
-    if-eqz v0, :cond_67
+    if-eqz v0, :cond_66
 
     invoke-interface {v5}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
@@ -1075,33 +1075,38 @@
     check-cast v0, Ljava/lang/String;
 
     .line 114
-    new-instance v6, Lmybl/CdnSelector$CdnUrlInfo;
-
-    const/16 v2, 0x46
-
-    invoke-static {v2}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
-
-    move-result-object v2
-
-    invoke-interface {v3, v1, v2}, Ljava/util/Map;->getOrDefault(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    invoke-interface {v3, v1}, Ljava/util/Map;->get(Ljava/lang/Object;)Ljava/lang/Object;
 
     move-result-object v2
 
     check-cast v2, Ljava/lang/Integer;
 
+    .line 115
+    if-eqz v2, :cond_63
+
     invoke-virtual {v2}, Ljava/lang/Integer;->intValue()I
 
     move-result v2
 
+    .line 116
+    :goto_5a
+    new-instance v6, Lmybl/CdnSelector$CdnUrlInfo;
+
     invoke-direct {v6, v0, v1, v2}, Lmybl/CdnSelector$CdnUrlInfo;-><init>(Ljava/lang/String;Ljava/lang/String;I)V
 
-    .line 115
+    .line 117
     invoke-interface {v4, v6}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     goto :goto_36
 
-    .line 118
-    :cond_67
+    .line 115
+    :cond_63
+    const/16 v2, 0x46
+
+    goto :goto_5a
+
+    .line 120
+    :cond_66
     sget-object v0, Lmybl/VideoViewParams;->appContext:Landroid/content/Context;
 
     sget-object v1, Lmybl/VideoViewParams;->currentVideoId:Ljava/lang/String;
@@ -1110,30 +1115,30 @@
 
     move-result-object v0
 
-    .line 120
-    if-eqz v0, :cond_7b
+    .line 122
+    if-eqz v0, :cond_7a
 
     iget-object v1, v0, Lmybl/CdnSelector$RaceResult;->winningCdn:Ljava/lang/String;
 
-    if-eqz v1, :cond_7b
+    if-eqz v1, :cond_7a
 
-    .line 121
+    .line 123
     const/4 v1, 0x1
 
     sput-boolean v1, Lmybl/VideoViewParams;->hasCommonCdn:Z
 
-    .line 122
+    .line 124
     iget-object v0, v0, Lmybl/CdnSelector$RaceResult;->winningCdn:Ljava/lang/String;
 
     goto :goto_28
 
-    .line 125
-    :cond_7b
+    .line 127
+    :cond_7a
     invoke-static {v3}, Lmybl/VideoViewParams;->selectCdnByScore(Ljava/util/Map;)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 126
+    .line 128
     if-nez v0, :cond_28
 
     const-string v0, "upos-sz-mirror08c.bilivideo.com"
@@ -1225,22 +1230,22 @@
     .prologue
     const/4 v3, 0x0
 
-    .line 156
+    .line 158
     invoke-interface {p0}, Ljava/util/Map;->isEmpty()Z
 
     move-result v0
 
     if-eqz v0, :cond_8
 
-    .line 168
+    .line 170
     :cond_7
     return-object v3
 
-    .line 159
+    .line 161
     :cond_8
     const/4 v2, -0x1
 
-    .line 161
+    .line 163
     invoke-interface {p0}, Ljava/util/Map;->entrySet()Ljava/util/Set;
 
     move-result-object v0
@@ -1262,7 +1267,7 @@
 
     check-cast v0, Ljava/util/Map$Entry;
 
-    .line 162
+    .line 164
     invoke-interface {v0}, Ljava/util/Map$Entry;->getValue()Ljava/lang/Object;
 
     move-result-object v1
@@ -1275,7 +1280,7 @@
 
     if-le v1, v2, :cond_3c
 
-    .line 163
+    .line 165
     invoke-interface {v0}, Ljava/util/Map$Entry;->getValue()Ljava/lang/Object;
 
     move-result-object v1
@@ -1286,7 +1291,7 @@
 
     move-result v1
 
-    .line 164
+    .line 166
     invoke-interface {v0}, Ljava/util/Map$Entry;->getKey()Ljava/lang/Object;
 
     move-result-object v0
@@ -1298,7 +1303,7 @@
 
     move-object v3, v0
 
-    .line 166
+    .line 168
     goto :goto_11
 
     :cond_3c
@@ -1337,14 +1342,14 @@
     .end annotation
 
     .prologue
-    .line 252
+    .line 254
     new-instance v0, Lmybl/VideoViewParams$1;
 
     invoke-direct {v0}, Lmybl/VideoViewParams$1;-><init>()V
 
     invoke-static {p0, v0}, Ljava/util/Collections;->sort(Ljava/util/List;Ljava/util/Comparator;)V
 
-    .line 262
+    .line 264
     return-object p0
 .end method
 
