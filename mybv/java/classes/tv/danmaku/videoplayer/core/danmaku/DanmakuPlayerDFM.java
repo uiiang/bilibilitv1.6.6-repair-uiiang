@@ -130,6 +130,13 @@ public class DanmakuPlayerDFM implements IDanmakuPlayer {
 
     public JSONObject subtitle_data;
 
+    public void setSubtitleData(JSONObject data) {
+        this.subtitle_data = data;
+        if (this.mPrepared && data != null) {
+            send_subtitle(data);
+        }
+    }
+
     @Override // tv.danmaku.videoplayer.core.danmaku.IDanmakuPlayer
     public void clear() {
     }
@@ -609,6 +616,8 @@ DanmakuPlayerDFM.this.send_subtitle(DanmakuPlayerDFM.this.subtitle_data);
     public void release() {
         this.mResumePosition = 0L;
         this.mPaused = true;
+        this.mPrepared = false;
+        this.subtitle_data = null;
         if (this.mInfo != null) {
             DanmakuDurationManager.getInstance().clear(this.mInfo.mCid);
         }

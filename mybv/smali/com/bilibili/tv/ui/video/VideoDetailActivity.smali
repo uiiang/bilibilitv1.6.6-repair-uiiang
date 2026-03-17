@@ -4827,7 +4827,7 @@
 
     move-result-object v1
 
-    invoke-static {v1, p1}, Lbl/abd;->get_thumb_url_a(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
+    invoke-static {v1, p1}, Lbl/ach;->a(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v1
 

@@ -97,13 +97,13 @@
     :cond_25
     iget-object v1, p0, Lbl/xk$2;->val$dp:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
-    if-eqz v1, :cond_3f
+    if-eqz v1, :cond_40
 
     iget-object v1, p0, Lbl/xk$2;->val$dp:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     iget-object v1, v1, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mDanmakuView:Lbl/bfd;
 
-    if-eqz v1, :cond_3f
+    if-eqz v1, :cond_40
 
     .line 87
     iget-object v1, p0, Lbl/xk$2;->val$dp:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
@@ -121,21 +121,21 @@
 
     iget-object v1, v1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->subtitle_data:Lorg/json/JSONObject;
 
-    iput-object v1, v0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->subtitle_data:Lorg/json/JSONObject;
-    :try_end_3f
-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_3f} :catch_40
+    invoke-virtual {v0, v1}, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->setSubtitleData(Lorg/json/JSONObject;)V
+    :try_end_40
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_40} :catch_41
 
     .line 93
-    :cond_3f
-    :goto_3f
+    :cond_40
+    :goto_40
     return-void
 
     .line 90
-    :catch_40
+    :catch_41
     move-exception v0
 
     .line 91
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
-    goto :goto_3f
+    goto :goto_40
 .end method

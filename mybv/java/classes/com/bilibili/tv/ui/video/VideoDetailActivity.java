@@ -628,7 +628,7 @@ public final class VideoDetailActivity extends BaseActivity
         if (str != null) {
             nv.a().a(str, this.a);
             adl adlVar = adl.a;
-            String a2 = abd.get_thumb_url_a(getApplication(), str);
+            String a2 = ach.a(getApplication(), str);
             adlVar.a(a2, this.b);
         }
     }

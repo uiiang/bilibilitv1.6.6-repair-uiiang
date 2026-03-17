@@ -85,7 +85,7 @@ public class xk extends xh implements bbb<Message, Boolean> {
                     }
                     if (dp != null && dp.mDanmakuView != null) {
                         ((bgy)dp.mDanmakuView)._xj = _xj;
-                        dp.subtitle_data = resolveParams.subtitle_data;
+                        dp.setSubtitleData(resolveParams.subtitle_data);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
