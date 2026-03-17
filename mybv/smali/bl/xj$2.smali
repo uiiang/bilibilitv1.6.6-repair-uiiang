@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 211
+    .line 214
     iput-object p1, p0, Lbl/xj$2;->this$0:Lbl/xj;
 
     iput-object p2, p0, Lbl/xj$2;->val$o:Landroid/app/Activity;
@@ -44,7 +44,7 @@
     .locals 3
 
     .prologue
-    .line 214
+    .line 217
     iget-object v0, p0, Lbl/xj$2;->this$0:Lbl/xj;
 
     # getter for: Lbl/xj;->k:Landroid/view/animation/Animation;
@@ -54,7 +54,7 @@
 
     if-nez v0, :cond_24
 
-    .line 215
+    .line 218
     iget-object v0, p0, Lbl/xj$2;->this$0:Lbl/xj;
 
     iget-object v1, p0, Lbl/xj$2;->val$o:Landroid/app/Activity;
@@ -68,7 +68,7 @@
     # setter for: Lbl/xj;->k:Landroid/view/animation/Animation;
     invoke-static {v0, v1}, Lbl/xj;->access$002(Lbl/xj;Landroid/view/animation/Animation;)Landroid/view/animation/Animation;
 
-    .line 216
+    .line 219
     iget-object v0, p0, Lbl/xj$2;->this$0:Lbl/xj;
 
     # getter for: Lbl/xj;->k:Landroid/view/animation/Animation;
@@ -82,7 +82,7 @@
 
     invoke-virtual {v0, v1}, Landroid/view/animation/Animation;->setAnimationListener(Landroid/view/animation/Animation$AnimationListener;)V
 
-    .line 231
+    .line 234
     :cond_24
     iget-object v0, p0, Lbl/xj$2;->this$0:Lbl/xj;
 
@@ -97,6 +97,6 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->startAnimation(Landroid/view/animation/Animation;)V
 
-    .line 232
+    .line 235
     return-void
 .end method

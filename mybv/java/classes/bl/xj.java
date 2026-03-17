@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.ViewStub;
 import android.view.animation.Animation;
@@ -75,7 +74,6 @@ public class xj extends xh {
             return;
         }
         this.f = false;
-        Log.d("ChapterTip", "播放器参数为空，f=false");
     }
 
     @Override // bl.xh
@@ -98,17 +96,22 @@ public class xj extends xh {
     }
 
     public void checkSkip(long t) {
+        if (this.skips == null || this.skips.length() == 0) {
+            return;
+        }
         for(int i=0;i<this.skips.length();i++){
             JSONObject skip_info = this.skips.optJSONObject(i);
-            if(t>=skip_info.optLong("start") && t<skip_info.optLong("start")+1000){
+            long start = skip_info.optLong("start");
+            long end = skip_info.optLong("end");
+            if(t>=start && t<start+1000){
                 if(this.c==null)Q();
                 if(this.c==null)return;
-                this.c.setText("侦测到"+skip_info.optString("type")+"，已空降至"+aan.a(skip_info.optLong("end")));
+                this.c.setText("侦测到"+skip_info.optString("type")+"，已空降至"+aan.a(end));
                 this.c.clearAnimation();
                 if(this.k!=null)this.k.reset();
                 this.l = true;
                 a(this.j, 5000L);
-                c((int)skip_info.optLong("end"));
+                c((int)end);
                 return;
             }
         }

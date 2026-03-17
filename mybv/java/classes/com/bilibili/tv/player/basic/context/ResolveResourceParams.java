@@ -1,5 +1,6 @@
 package com.bilibili.tv.player.basic.context;
 
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Keep;
@@ -20,12 +21,12 @@ import mybl.BiliFilter;
 import java.util.concurrent.*;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.player.widget.PlayerMenuRight;
-import android.util.Log;
 
 /* compiled from: BL */
 @Keep
 /* loaded from: classes.dex */
 public class ResolveResourceParams implements Parcelable, Serializable {
+
     public static final Parcelable.Creator<ResolveResourceParams> CREATOR = new Parcelable.Creator<ResolveResourceParams>() { // from class: com.bilibili.tv.player.basic.context.ResolveResourceParams.1
         @Override // android.os.Parcelable.Creator
         /* renamed from: a */
@@ -154,16 +155,32 @@ public class ResolveResourceParams implements Parcelable, Serializable {
             Future<JSONArray> future = threadPool.submit(new Callable<JSONArray>() {
                 @Override
                 public JSONArray call() {
-                    return ((JsonResponse) pz.a(new qa.a(JsonResponse.class).a("https://bsbsb.top/api/skipSegments").a(true).b("videoID", String.valueOf(ResolveResourceParams.this.mBvid)).b("categories",new JSONArray(BiliFilter.skip_categories).toString()).b("actionType","skip").a(new qb()).a(), "GET")).result2();
+                    String httpsUrl = "https://bsbsb.top/api/skipSegments";
+                    String httpUrl = "http://bsbsb.top/api/skipSegments";
+                    
+                    try {
+                        JSONArray result = ((JsonResponse) pz.a(new qa.a(JsonResponse.class).a(httpsUrl).a(true).b("videoID", String.valueOf(ResolveResourceParams.this.mBvid)).b("categories",new JSONArray(BiliFilter.skip_categories).toString()).b("actionType","skip").a(new qb()).a(), "GET")).result2();
+                        if (result != null && result.length() > 0) {
+                            return result;
+                        }
+                    } catch (Exception e) {
+                    }
+                    
+                    try {
+                        return ((JsonResponse) pz.a(new qa.a(JsonResponse.class).a(httpUrl).a(true).b("videoID", String.valueOf(ResolveResourceParams.this.mBvid)).b("categories",new JSONArray(BiliFilter.skip_categories).toString()).b("actionType","skip").a(new qb()).a(), "GET")).result2();
+                    } catch (Exception e) {
+                        return null;
+                    }
                 }
             });
             try{
                 JSONArray datas = future.get();
                 if(datas != null){
                     for(int i=0;i<datas.length();i++){
-                        JSONArray segment = datas.optJSONObject(i).optJSONArray("segment");
+                        JSONObject item = datas.optJSONObject(i);
+                        JSONArray segment = item.optJSONArray("segment");
                         JSONObject skip_info = new JSONObject();
-                        String c = datas.optJSONObject(i).optString("category");
+                        String c = item.optString("category");
                         if(c.equals("intro"))skip_info.put("type","片头");
                         if(c.equals("outro"))skip_info.put("type","片尾");
                         if(c.equals("sponsor"))skip_info.put("type","硬广");
@@ -179,48 +196,36 @@ public class ResolveResourceParams implements Parcelable, Serializable {
     }
 
     public void initPlayInfo() {
-        long startTime = System.currentTimeMillis();
-        Log.d("UI_TRANSITION", "[INIT_PLAY_INFO] initPlayInfo() started");
-        
         this.getSkipInfo();
-        Log.d("UI_TRANSITION", "[INIT_PLAY_INFO] getSkipInfo() done, elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
         
         try{
             ExecutorService threadPool  = Executors.newSingleThreadExecutor();
-            long t1 = System.currentTimeMillis();
             JSONObject playerData = threadPool.submit(new Callable<JSONObject>() {
                 @Override
                 public JSONObject call() {
                     return ((JsonResponse) pz.a(new qa.a(JsonResponse.class).a("https://api.bilibili.com/x/player/wbi/v2").a(true).a("Cookie","SESSDATA="+mg.a(MainApplication.a()).getSESSDATA()).b("").b("aid", String.valueOf(ResolveResourceParams.this.mAvid)).b("cid", String.valueOf(ResolveResourceParams.this.mCid)).a(new qb()).a(), "GET")).result();
                 }
             }).get();
-            Log.d("UI_TRANSITION", "[INIT_PLAY_INFO] player/wbi/v2 API done, elapsed=" + (System.currentTimeMillis() - t1) + "ms");
             
-            // 获取字幕信息
             this.subtitle_info = playerData.optJSONObject("data").optJSONObject("subtitle");
             
-            // 获取章节列表信息（view_points）
             JSONArray viewPoints = playerData.optJSONObject("data").optJSONArray("view_points");
             if (viewPoints != null && viewPoints.length() > 0) {
                 this.view_points = viewPoints;
-                Log.d("ResolveResourceParams", "发现章节列表，共" + viewPoints.length() + "个章节");
             }
             
             int subtitle_id = PlayerMenuRight.subtitle_id - 1;
             if(subtitle_id==-1 || this.subtitle_info.optJSONArray("subtitles").length()==0){this.subtitle_data=null;return;}
             if(subtitle_id<-1 && this.subtitle_info.optJSONArray("subtitles").optJSONObject(0).optString("lan").startsWith("ai-"))return;
-            long t2 = System.currentTimeMillis();
             if(this.subtitle_info != null)this.subtitle_data = threadPool.submit(new Callable<JSONObject>() {
                 @Override
                 public JSONObject call() {
                     return ((JsonResponse) pz.a(new qa.a(JsonResponse.class).a("https:"+ResolveResourceParams.this.subtitle_info.optJSONArray("subtitles").optJSONObject(subtitle_id<0?0:subtitle_id).optString("subtitle_url")).a(true).a(new qb()).a(), "GET")).result();
                 }
             }).get();
-            Log.d("UI_TRANSITION", "[INIT_PLAY_INFO] subtitle fetch done, elapsed=" + (System.currentTimeMillis() - t2) + "ms");
         }catch(Exception e){
             e.printStackTrace();
         }
-        Log.d("UI_TRANSITION", "[INIT_PLAY_INFO] initPlayInfo() completed, total=" + (System.currentTimeMillis() - startTime) + "ms");
     }
 
     /* compiled from: BL */
@@ -365,7 +370,6 @@ public class ResolveResourceParams implements Parcelable, Serializable {
                 this.view_points = new JSONArray(viewPointsStr);
             } catch (JSONException e) {
                 this.view_points = null;
-                Log.e("ResolveResourceParams", "解析章节列表失败: " + e.getMessage());
             }
         }
     }
