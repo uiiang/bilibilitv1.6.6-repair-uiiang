@@ -103,11 +103,9 @@ public class PlayerMenuRight extends aay<String> {
     }
 
     public void init_chapter(JSONArray view_points) {
-        // 初始化章节列表数据
         this.chapter_list = new ArrayList<>();
         
         if (view_points == null || view_points.length() == 0) {
-            // 章节数据为空时，显示一个"无"，点击无效果
             this.chapter_list.add("无");
             return;
         }
@@ -264,8 +262,16 @@ public class PlayerMenuRight extends aay<String> {
                     a(false);
                 }
                 return true;
-            } else if ((i == 0 && i2 == 19) || (i == ((RecyclerView) view).getChildCount() - 1 && i2 == 20)) {
+            } else if (i == 0 && i2 == 19) {
                 return true;
+            } else if (i2 == 20) {
+                RecyclerView recyclerView = (RecyclerView) view;
+                RecyclerView.h layoutManager = recyclerView.getLayoutManager();
+                int adapterPosition = layoutManager.d(view2);
+                int itemCount = aaxVar.a();
+                if (adapterPosition == itemCount - 1) {
+                    return true;
+                }
             }
         }
         return false;
