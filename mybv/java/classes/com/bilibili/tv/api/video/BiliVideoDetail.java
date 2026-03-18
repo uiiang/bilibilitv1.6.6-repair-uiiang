@@ -116,6 +116,20 @@ public class BiliVideoDetail implements Parcelable {
     public JSONArray episodes;
     public String season_title;
     public List<SectionInfo> sectionInfoList;
+    public JSONObject ugcSeason;
+    @JSONField(name = "staff")
+    public List<Staff> mStaffList;
+
+    public static class Staff {
+        @JSONField(name = "mid")
+        public long mid;
+        @JSONField(name = "title")
+        public String title;
+        @JSONField(name = "name")
+        public String name;
+        @JSONField(name = "face")
+        public String face;
+    }
 
     public static class SectionInfo {
         public String title;
@@ -145,36 +159,18 @@ public class BiliVideoDetail implements Parcelable {
     }
 
     public void getUGCseason() {
-        if(this.mSeasonOId == 0 || this.episodes != null)return;
-        ExecutorService threadPool  = Executors.newSingleThreadExecutor();
-        Future<JSONObject> future = threadPool.submit(new Callable<JSONObject>() {
-            @Override
-            public JSONObject call() {
-                return ((JsonResponse) pz.a(new qa.a(JsonResponse.class).a("https://api.bilibili.com/x/web-interface/view/detail").a(true).b("").b("aid", String.valueOf(BiliVideoDetail.this.mAvid)).a(new qb()).a(), "GET")).result();
-            }
-        });
-        try{
-            JSONObject detail_infos = future.get().getJSONObject("data");
-            this.sections = detail_infos.getJSONObject("View").getJSONObject("ugc_season").getJSONArray("sections");
-            this.season_title = detail_infos.getJSONObject("View").getJSONObject("ugc_season").getString("title");
-            
-            this.sectionInfoList = new ArrayList<>();
-            this.episodes = new JSONArray();
-            for(int i=0;i<this.sections.size();i++){
-                JSONObject sectionObj = this.sections.getJSONObject(i);
-                String sectionTitle = sectionObj.getString("title");
-                JSONArray sectionEpisodes = sectionObj.getJSONArray("episodes");
-                int sectionId = sectionObj.getIntValue("id");
-                int sectionType = sectionObj.getIntValue("type");
-                
-                this.sectionInfoList.add(new SectionInfo(sectionTitle, sectionEpisodes, sectionId, sectionType));
-                
-                for(int j=0;j<sectionEpisodes.size();j++){
+        if (this.episodes != null || this.sectionInfoList == null || this.sectionInfoList.isEmpty()) {
+            return;
+        }
+        this.episodes = new JSONArray();
+        for (int i = 0; i < this.sectionInfoList.size(); i++) {
+            BiliVideoDetail.SectionInfo sectionInfo = this.sectionInfoList.get(i);
+            JSONArray sectionEpisodes = sectionInfo.episodes;
+            if (sectionEpisodes != null) {
+                for (int j = 0; j < sectionEpisodes.size(); j++) {
                     this.episodes.add(sectionEpisodes.getJSONObject(j));
                 }
             }
-        }catch(Exception e){
-            e.printStackTrace();
         }
     }
 
@@ -262,6 +258,14 @@ public class BiliVideoDetail implements Parcelable {
 
     public String getAuthor() {
         return this.mOwner != null ? this.mOwner.name : "";
+    }
+
+    public boolean hasStaff() {
+        return this.mStaffList != null && !this.mStaffList.isEmpty();
+    }
+
+    public List<Staff> getStaffList() {
+        return this.mStaffList;
     }
 
     public long getMid() {

@@ -4,6 +4,7 @@ import android.os.Looper;
 import android.text.TextUtils;
 import bl.abd;
 import bl.vp;
+import com.alibaba.fastjson.JSONObject;
 import com.bilibili.api.base.util.ParamsMap;
 import com.bilibili.okretro.GeneralResponse;
 import com.bilibili.tv.MainApplication;
@@ -29,7 +30,7 @@ public interface VideoApiService {
     vp<GeneralResponse<VideoJumpPgc>> getJumpPgc(@QueryMap VideoParamsMapV2 videoParamsMapV2, @Query(value = "access_key") String str);
 
     @GET(value = "/x/v2/view")
-    vp<GeneralResponse<BiliVideoDetail>> getVideoDetails(@QueryMap VideoParamsMapV2 videoParamsMapV2, @Query(value = "access_key") String str);
+    vp<GeneralResponse<JSONObject>> getVideoDetails(@QueryMap VideoParamsMapV2 videoParamsMapV2, @Query(value = "access_key") String str);
 
     /* compiled from: BL */
     /* loaded from: classes.dex */

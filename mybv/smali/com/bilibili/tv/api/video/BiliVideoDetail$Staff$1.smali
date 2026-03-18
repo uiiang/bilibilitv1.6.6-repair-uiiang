@@ -1,4 +1,4 @@
-.class final Lcom/bilibili/tv/api/video/BiliVideoDetail$Page$1;
+.class final Lcom/bilibili/tv/api/video/BiliVideoDetail$Staff$1;
 .super Ljava/lang/Object;
 .source "BiliVideoDetail.java"
 
@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingClass;
-    value = Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;
+    value = Lcom/bilibili/tv/api/video/BiliVideoDetail$Staff;
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -21,7 +21,7 @@
         "Ljava/lang/Object;",
         "Landroid/os/Parcelable$Creator",
         "<",
-        "Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;",
+        "Lcom/bilibili/tv/api/video/BiliVideoDetail$Staff;",
         ">;"
     }
 .end annotation
@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 541
+    .line 902
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -40,14 +40,14 @@
 
 
 # virtual methods
-.method public createFromParcel(Landroid/os/Parcel;)Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;
+.method public createFromParcel(Landroid/os/Parcel;)Lcom/bilibili/tv/api/video/BiliVideoDetail$Staff;
     .locals 1
 
     .prologue
-    .line 546
-    new-instance v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;
+    .line 905
+    new-instance v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Staff;
 
-    invoke-direct {v0, p1}, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;-><init>(Landroid/os/Parcel;)V
+    invoke-direct {v0, p1}, Lcom/bilibili/tv/api/video/BiliVideoDetail$Staff;-><init>(Landroid/os/Parcel;)V
 
     return-object v0
 .end method
@@ -56,20 +56,20 @@
     .locals 1
 
     .prologue
-    .line 541
-    invoke-virtual {p0, p1}, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page$1;->createFromParcel(Landroid/os/Parcel;)Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;
+    .line 902
+    invoke-virtual {p0, p1}, Lcom/bilibili/tv/api/video/BiliVideoDetail$Staff$1;->createFromParcel(Landroid/os/Parcel;)Lcom/bilibili/tv/api/video/BiliVideoDetail$Staff;
 
     move-result-object v0
 
     return-object v0
 .end method
 
-.method public newArray(I)[Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;
+.method public newArray(I)[Lcom/bilibili/tv/api/video/BiliVideoDetail$Staff;
     .locals 1
 
     .prologue
-    .line 553
-    new-array v0, p1, [Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;
+    .line 910
+    new-array v0, p1, [Lcom/bilibili/tv/api/video/BiliVideoDetail$Staff;
 
     return-object v0
 .end method
@@ -78,8 +78,8 @@
     .locals 1
 
     .prologue
-    .line 541
-    invoke-virtual {p0, p1}, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page$1;->newArray(I)[Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;
+    .line 902
+    invoke-virtual {p0, p1}, Lcom/bilibili/tv/api/video/BiliVideoDetail$Staff$1;->newArray(I)[Lcom/bilibili/tv/api/video/BiliVideoDetail$Staff;
 
     move-result-object v0
 

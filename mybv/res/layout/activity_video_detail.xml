@@ -38,7 +38,7 @@
                 </LinearLayout>
                 <!-- 第二部分：播放数量、弹幕数量、时长、投稿时间、up主名字 -->
                 <LinearLayout android:orientation="vertical" android:focusable="false"
-                    android:clipChildren="false" android:clipToPadding="false"
+                    android:clipChildren="true" android:clipToPadding="false"
                     android:layout_width="fill_parent" android:layout_height="0.0dip"
                     android:layout_weight="1.0">
                     <!-- 播放数量和弹幕数量 -->
@@ -91,33 +91,27 @@
                     </LinearLayout>
                     <!-- up主名字 -->
                     <LinearLayout android:gravity="center" android:id="@id/video_uper_container"
-                        android:focusable="false" android:clipChildren="false"
+                        android:focusable="false" android:clipChildren="true"
                         android:clipToPadding="false"
                         android:layout_width="fill_parent" android:layout_height="wrap_content">
                         <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_32"
                             android:textColor="@color/white_50" android:focusable="false"
                             android:layout_width="wrap_content" android:layout_height="wrap_content"
                             android:text="@string/video_detail_uper" />
-                        <FrameLayout android:id="@id/video_detail_up_layout"
+                        <HorizontalScrollView android:id="@id/video_detail_up_layout"
                             android:focusable="false"
-                            android:clipChildren="false" android:clipToPadding="false"
+                            android:scrollbars="none"
+                            android:clipChildren="true" android:clipToPadding="false"
                             android:layout_width="0.0dip" android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/px_10" android:layout_weight="1.0">
-                            <com.bilibili.tv.widget.DrawTextView android:textSize="@dimen/px_36"
-                                android:textColor="@color/white" android:ellipsize="end"
-                                android:id="@id/video_detail_up_text"
-                                android:background="@drawable/background_white_rect"
-                                android:paddingLeft="@dimen/px_18" android:paddingTop="@dimen/px_8"
-                                android:paddingRight="@dimen/px_18"
-                                android:focusable="true"
-                                android:nextFocusLeft="@id/video_detail_up_text"
-                                android:nextFocusRight="@id/video_detail_up_text"
-                                android:nextFocusUp="@id/video_detail_up_text"
-                                android:nextFocusDown="@id/video_history_play_btn_layout"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:maxLines="1" android:maxEms="20" />
-                        </FrameLayout>
+                            android:layout_marginLeft="@dimen/px_10" android:layout_weight="1.0"
+                            android:paddingRight="@dimen/px_20">
+                            <LinearLayout android:id="@+id/video_detail_staff_container"
+                                android:orientation="horizontal"
+                                android:focusable="false"
+                                android:clipChildren="false" android:clipToPadding="false"
+                                android:layout_width="wrap_content" android:layout_height="wrap_content">
+                            </LinearLayout>
+                        </HorizontalScrollView>
                     </LinearLayout>
                 </LinearLayout>
                 <!-- 第三部分：播放进度显示区域 -->

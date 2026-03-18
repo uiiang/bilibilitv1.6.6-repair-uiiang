@@ -2,6 +2,7 @@ package com.bilibili.tv.api.video;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 import bl.jp;
 import bl.jq;
 import bl.vu;
@@ -15,6 +16,7 @@ import okhttp3.ResponseBody;
 /* compiled from: BL */
 /* loaded from: classes.dex */
 public class VideoApiParser2 implements vu<GeneralResponse<BiliVideoDetail>> {
+    static final String TAG = "VideoApiParser2";
     static final String DISALLOW_DOWNLOAD = "应版权方要求，仅供在线播放";
     static final String UNSUPPORT_DOWNLOAD = "该视频暂不支持缓存";
 
@@ -24,7 +26,13 @@ public class VideoApiParser2 implements vu<GeneralResponse<BiliVideoDetail>> {
     @Override // retrofit2.Converter
     @NonNull
     public GeneralResponse<BiliVideoDetail> convert(ResponseBody responseBody) throws IOException {
-        Object a = jp.a(responseBody.string());
+        Log.i(TAG, "VideoApiParser2.convert() called!");
+        String rawResponse = responseBody.string();
+        Log.i(TAG, "========== VIDEO DETAIL API RESPONSE START ==========");
+        Log.i(TAG, "Response length: " + rawResponse.length());
+        Log.i(TAG, rawResponse);
+        Log.i(TAG, "========== VIDEO DETAIL API RESPONSE END ==========");
+        Object a = jp.a(rawResponse);
         if (a instanceof JSONObject) {
             GeneralResponse<BiliVideoDetail> generalResponse = new GeneralResponse<>();
             JSONObject jSONObject = (JSONObject) a;
@@ -69,7 +77,26 @@ public class VideoApiParser2 implements vu<GeneralResponse<BiliVideoDetail>> {
                     }
                 }
                 r1.mTags = JSON.parseArray(tags.toString(), BiliVideoDetail.Tag.class);
-                r1.mRelatedList = JSON.parseArray(tags.toString(), BiliVideoDetail.class);
+                r1.mRelatedList = JSON.parseArray(related.toString(), BiliVideoDetail.class);
+                if (view.containsKey("ugc_season")) {
+                    r1.ugcSeason = view.getJSONObject("ugc_season");
+                    if (r1.ugcSeason != null) {
+                        r1.season_title = r1.ugcSeason.getString("title");
+                        JSONArray sections = r1.ugcSeason.getJSONArray("sections");
+                        if (sections != null) {
+                            r1.sections = sections;
+                            r1.sectionInfoList = new ArrayList<>();
+                            for (int i = 0; i < sections.size(); i++) {
+                                JSONObject sectionObj = sections.getJSONObject(i);
+                                String sectionTitle = sectionObj.getString("title");
+                                JSONArray sectionEpisodes = sectionObj.getJSONArray("episodes");
+                                int sectionId = sectionObj.getIntValue("id");
+                                int sectionType = sectionObj.getIntValue("type");
+                                r1.sectionInfoList.add(new BiliVideoDetail.SectionInfo(sectionTitle, sectionEpisodes, sectionId, sectionType));
+                            }
+                        }
+                    }
+                }
                 generalResponse.data = r1;
             }
             jSONObject.clear();

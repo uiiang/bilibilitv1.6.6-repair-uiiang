@@ -3,12 +3,12 @@
 .source "VideoDetailActivity.java"
 
 # interfaces
-.implements Landroid/view/View$OnFocusChangeListener;
+.implements Landroid/view/View$OnClickListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->createSeasonSectionView(Lcom/bilibili/tv/api/video/BiliVideoDetail$SectionInfo;IILcom/bilibili/tv/api/video/BiliVideoDetail;)V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->addStaffView(Landroid/widget/LinearLayout;Ljava/lang/String;JII)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,22 +20,22 @@
 # instance fields
 .field final synthetic this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
-.field final synthetic val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+.field final synthetic val$staffMid:J
 
-.field final synthetic val$sectionId:I
+.field final synthetic val$staffName:Ljava/lang/String;
 
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;ILandroid/support/v7/widget/RecyclerView;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;JLjava/lang/String;)V
     .locals 0
 
     .prologue
-    .line 2558
+    .line 2496
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
-    iput p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$1;->val$sectionId:I
+    iput-wide p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$1;->val$staffMid:J
 
-    iput-object p3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$1;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+    iput-object p4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$1;->val$staffName:Ljava/lang/String;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -44,110 +44,21 @@
 
 
 # virtual methods
-.method public onFocusChange(Landroid/view/View;Z)V
+.method public onClick(Landroid/view/View;)V
     .locals 4
 
     .prologue
-    const/4 v1, 0x0
-
-    .line 2561
-    if-eqz p2, :cond_3e
-
-    .line 2563
+    .line 2499
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonSectionFocusPositions:Ljava/util/Map;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3400(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Ljava/util/Map;
+    iget-wide v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$1;->val$staffMid:J
 
-    move-result-object v0
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$1;->val$staffName:Ljava/lang/String;
 
-    iget v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$1;->val$sectionId:I
+    invoke-static {v0, v2, v3, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->start(Landroid/content/Context;JLjava/lang/String;)V
 
-    invoke-static {v2}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
-
-    move-result-object v2
-
-    invoke-interface {v0, v2}, Ljava/util/Map;->containsKey(Ljava/lang/Object;)Z
-
-    move-result v0
-
-    if-eqz v0, :cond_51
-
-    .line 2564
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
-
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonSectionFocusPositions:Ljava/util/Map;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3400(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Ljava/util/Map;
-
-    move-result-object v0
-
-    iget v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$1;->val$sectionId:I
-
-    invoke-static {v2}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
-
-    move-result-object v2
-
-    invoke-interface {v0, v2}, Ljava/util/Map;->get(Ljava/lang/Object;)Ljava/lang/Object;
-
-    move-result-object v0
-
-    check-cast v0, Ljava/lang/Integer;
-
-    invoke-virtual {v0}, Ljava/lang/Integer;->intValue()I
-
-    move-result v0
-
-    .line 2566
-    :goto_2f
-    iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
-
-    iget-object v2, v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    iget-object v3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$1;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
-
-    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->restoreFocusPosition(Landroid/support/v7/widget/RecyclerView;I)Landroid/view/View;
-    invoke-static {v2, v3, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$300(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Landroid/support/v7/widget/RecyclerView;I)Landroid/view/View;
-
-    move-result-object v0
-
-    .line 2567
-    if-eqz v0, :cond_3f
-
-    .line 2568
-    invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
-
-    .line 2573
-    :cond_3e
-    :goto_3e
+    .line 2500
     return-void
-
-    .line 2569
-    :cond_3f
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$1;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
-
-    invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
-
-    move-result v0
-
-    if-lez v0, :cond_3e
-
-    .line 2570
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$1;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
-
-    invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
-
-    goto :goto_3e
-
-    :cond_51
-    move v0, v1
-
-    goto :goto_2f
 .end method

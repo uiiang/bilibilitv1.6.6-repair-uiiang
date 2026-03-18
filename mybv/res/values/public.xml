@@ -2493,6 +2493,7 @@
     <public type="id" name="cache_limit_300" id="0x7f0801a8" />
     <public type="id" name="cache_limit_500" id="0x7f0801a9" />
     <public type="id" name="pubdate" id="0x7f0801aa" />
+    <public type="id" name="video_detail_staff_container" id="0x7f0801ab" />
 
 
     <public type="integer" name="config_danmaku_fly_duration" id="0x7f090003" />

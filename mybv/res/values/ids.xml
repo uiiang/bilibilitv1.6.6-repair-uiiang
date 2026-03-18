@@ -283,6 +283,7 @@
     <item type="id" name="video_detail_play_count" />
     <item type="id" name="video_detail_relate_title" />
     <item type="id" name="video_detail_relate_video" />
+    <item type="id" name="video_detail_staff_container" />
     <item type="id" name="video_detail_title" />
     <item type="id" name="video_detail_up_layout" />
     <item type="id" name="video_detail_up_text" />

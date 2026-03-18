@@ -95,7 +95,7 @@
             "<",
             "Lcom/bilibili/okretro/GeneralResponse",
             "<",
-            "Lcom/bilibili/tv/api/video/BiliVideoDetail;",
+            "Lcom/alibaba/fastjson/JSONObject;",
             ">;>;"
         }
     .end annotation

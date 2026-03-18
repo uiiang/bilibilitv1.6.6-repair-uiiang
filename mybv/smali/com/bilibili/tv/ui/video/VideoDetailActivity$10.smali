@@ -20,14 +20,18 @@
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
+.field final synthetic val$finalBiliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
     .locals 0
 
     .prologue
-    .line 1226
+    .line 1240
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->val$finalBiliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -37,24 +41,24 @@
 
 # virtual methods
 .method public onClick(Landroid/view/View;)V
-    .locals 2
+    .locals 5
 
     .prologue
-    .line 1229
+    .line 1243
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->noHistoryPlayCheckBox:Landroid/widget/CheckBox;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1400(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/CheckBox;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/CheckBox;
 
     move-result-object v0
 
-    if-eqz v0, :cond_20
+    if-eqz v0, :cond_14
 
-    .line 1230
+    .line 1244
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->noHistoryPlayCheckBox:Landroid/widget/CheckBox;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1400(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/CheckBox;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/CheckBox;
 
     move-result-object v0
 
@@ -62,31 +66,58 @@
 
     move-result v0
 
-    if-nez v0, :cond_21
-
-    const/4 v0, 0x1
-
-    .line 1231
-    :goto_15
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->noHistoryPlayCheckBox:Landroid/widget/CheckBox;
-    invoke-static {v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1400(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/CheckBox;
-
-    move-result-object v1
-
-    invoke-virtual {v1, v0}, Landroid/widget/CheckBox;->setChecked(Z)V
-
-    .line 1232
     sput-boolean v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->sNoHistoryPlayMode:Z
 
-    .line 1234
-    :cond_20
+    .line 1246
+    :cond_14
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->val$finalBiliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+
+    if-eqz v0, :cond_32
+
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->val$finalBiliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+
+    iget-object v0, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mHistory:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
+
+    if-eqz v0, :cond_32
+
+    .line 1247
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->val$finalBiliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+
+    iget-object v0, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mHistory:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
+
+    iget-wide v0, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mCid:J
+
+    .line 1248
+    iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->val$finalBiliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+
+    iget-object v2, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mHistory:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
+
+    iget v2, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mProgress:I
+
+    .line 1249
+    iget-object v3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    iget-object v4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->val$finalBiliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+
+    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->playVideo(Lcom/bilibili/tv/api/video/BiliVideoDetail;JI)V
+    invoke-static {v3, v4, v0, v1, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;JI)V
+
+    .line 1253
+    :goto_31
     return-void
 
-    .line 1230
-    :cond_21
-    const/4 v0, 0x0
+    .line 1251
+    :cond_32
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    goto :goto_15
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->val$finalBiliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+
+    const-wide/16 v2, 0x0
+
+    const/4 v4, 0x0
+
+    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->playVideo(Lcom/bilibili/tv/api/video/BiliVideoDetail;JI)V
+    invoke-static {v0, v1, v2, v3, v4}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;JI)V
+
+    goto :goto_31
 .end method
