@@ -19,7 +19,6 @@ import com.bilibili.lib.account.model.AccountInfo;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.ui.account.LoginActivity;
-import com.bilibili.tv.ui.attention.AttentionDynamicActivity;
 import com.bilibili.tv.ui.attention.AttentionDynamicSideActivity;
 import com.bilibili.tv.ui.favorite.FavoriteSideActivity;
 import com.bilibili.tv.ui.history.VideoHistoryActivity;

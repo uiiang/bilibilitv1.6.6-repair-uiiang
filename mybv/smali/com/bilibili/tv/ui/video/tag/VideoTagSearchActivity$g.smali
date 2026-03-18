@@ -23,12 +23,12 @@
     .locals 0
 
     .prologue
-    .line 193
+    .line 196
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$g;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$m;-><init>()V
 
-    .line 194
+    .line 197
     return-void
 .end method
 
@@ -38,10 +38,10 @@
     .locals 3
 
     .prologue
-    .line 198
+    .line 201
     invoke-super {p0, p1, p2}, Landroid/support/v7/widget/RecyclerView$m;->a(Landroid/support/v7/widget/RecyclerView;I)V
 
-    .line 199
+    .line 202
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$g;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->i:Z
@@ -69,12 +69,12 @@
 
     if-nez v0, :cond_1c
 
-    .line 232
+    .line 235
     :cond_1b
     :goto_1b
     return-void
 
-    .line 202
+    .line 205
     :cond_1c
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$g;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
@@ -83,19 +83,19 @@
 
     move-result-object v0
 
-    .line 203
+    .line 206
     if-nez v0, :cond_27
 
-    .line 204
+    .line 207
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 206
+    .line 209
     :cond_27
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->p()I
 
     move-result v0
 
-    .line 207
+    .line 210
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$g;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->d:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
@@ -103,13 +103,13 @@
 
     move-result-object v1
 
-    .line 208
+    .line 211
     if-nez v1, :cond_36
 
-    .line 209
+    .line 212
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 211
+    .line 214
     :cond_36
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->x()I
 
@@ -117,10 +117,10 @@
 
     if-lez v2, :cond_1b
 
-    .line 212
+    .line 215
     add-int/lit8 v0, v0, 0x1
 
-    .line 213
+    .line 216
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$g;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->d:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
@@ -130,10 +130,10 @@
 
     if-nez v2, :cond_49
 
-    .line 214
+    .line 217
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 216
+    .line 219
     :cond_49
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->H()I
 
@@ -143,7 +143,7 @@
 
     if-lt v0, v1, :cond_1b
 
-    .line 217
+    .line 220
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$g;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->d:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
@@ -151,19 +151,19 @@
 
     move-result-object v0
 
-    .line 218
+    .line 221
     if-nez v0, :cond_5c
 
-    .line 219
+    .line 222
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 221
+    .line 224
     :cond_5c
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->H()I
 
     move-result v0
 
-    .line 222
+    .line 225
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$g;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->d:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
@@ -171,13 +171,13 @@
 
     move-result-object v1
 
-    .line 223
+    .line 226
     if-nez v1, :cond_6b
 
-    .line 224
+    .line 227
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 226
+    .line 229
     :cond_6b
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->x()I
 
@@ -185,13 +185,13 @@
 
     if-le v0, v1, :cond_1b
 
-    .line 227
+    .line 230
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$g;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     # operator++ for: Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->h:I
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->access$408(Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;)I
 
-    .line 228
+    .line 231
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$g;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->k()V

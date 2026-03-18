@@ -25,16 +25,16 @@
     .locals 0
 
     .prologue
-    .line 214
+    .line 217
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$g;-><init>()V
 
-    .line 215
+    .line 218
     iput p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$e;->a:I
 
-    .line 216
+    .line 219
     iput p2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$e;->b:I
 
-    .line 217
+    .line 220
     return-void
 .end method
 
@@ -46,63 +46,63 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 223
+    .line 226
     const-string v0, "outRect"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 224
+    .line 227
     const-string v0, "view"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 225
+    .line 228
     const-string v0, "parent"
 
     invoke-static {p3, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 226
+    .line 229
     invoke-virtual {p3, p2}, Landroid/support/v7/widget/RecyclerView;->g(Landroid/view/View;)I
 
     move-result v2
 
-    .line 227
+    .line 230
     const/4 v0, 0x1
 
     if-le v2, v0, :cond_24
 
     iget v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$e;->a:I
 
-    .line 228
+    .line 231
     :goto_19
     rem-int/lit8 v2, v2, 0x2
 
     if-nez v2, :cond_26
 
-    .line 229
+    .line 232
     iget v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$e;->b:I
 
     move v3, v1
 
-    .line 235
+    .line 238
     :goto_20
     invoke-virtual {p1, v3, v0, v2, v1}, Landroid/graphics/Rect;->set(IIII)V
 
-    .line 236
+    .line 239
     return-void
 
     :cond_24
     move v0, v1
 
-    .line 227
+    .line 230
     goto :goto_19
 
-    .line 232
+    .line 235
     :cond_26
     iget v3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$e;->b:I
 
     move v2, v1
 
-    .line 233
+    .line 236
     goto :goto_20
 .end method

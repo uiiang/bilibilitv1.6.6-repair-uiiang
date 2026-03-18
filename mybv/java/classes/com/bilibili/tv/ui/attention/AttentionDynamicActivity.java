@@ -45,8 +45,10 @@ import java.util.List;
 import mybl.BiliFilter;
 import mybl.MyBiliApiService;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import com.alibaba.fastjson.JSONObject;
 import com.bilibili.tv.ui.auth.AuthSpaceActivity;
+import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
@@ -472,7 +474,22 @@ public final class AttentionDynamicActivity extends BaseReloadActivity implement
                     dVar.A().setText(feedArchiveItem.getString("title"));
                     dVar.B().setText(feedItem.getJSONObject("module_author").getString("name"));
                     dVar.C().setText(feedArchiveItem.getJSONObject("stat").getString("play"));
-                    dVar.D().setText(feedArchiveItem.getJSONObject("stat").getString("danmaku"));
+                    int danmaku = feedArchiveItem.getJSONObject("stat").getIntValue("danmaku");
+                    if (danmaku > 0) {
+                        dVar.danmakuInImage.setText(adh.a(danmaku));
+                        dVar.danmakuInImage.setVisibility(View.VISIBLE);
+                    } else {
+                        dVar.danmakuInImage.setVisibility(View.GONE);
+                    }
+                    long pubdate = feedArchiveItem.getLongValue("pubdate");
+                    if (pubdate > 0) {
+                        dVar.D().setText(DateUtils.getRelativeTimeSpanString(
+                                pubdate * ((long) IjkMediaCodecInfo.RANK_MAX),
+                                System.currentTimeMillis(), 1000L));
+                        dVar.D().setVisibility(View.VISIBLE);
+                    } else {
+                        dVar.D().setVisibility(View.GONE);
+                    }
                     if (feedArchiveItem.getString("cover") != null) {
                         nv.a().a(abd.get_thumb_url_c(MainApplication.a(), feedArchiveItem.getString("cover")), dVar.z());
                     }
@@ -541,6 +558,7 @@ public final class AttentionDynamicActivity extends BaseReloadActivity implement
         private TextView p;
         private TextView q;
         private TextView r;
+        private TextView danmakuInImage;
 
         /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
         public d(View view) {
@@ -557,22 +575,23 @@ public final class AttentionDynamicActivity extends BaseReloadActivity implement
                 this.o = (TextView) a(view, R.id.title);
                 this.p = (TextView) a(view, R.id.up);
                 this.q = (TextView) a(view, R.id.play);
-                this.r = (TextView) a(view, R.id.danmaku);
+                this.r = (TextView) a(view, R.id.pubdate);
+                this.danmakuInImage = (TextView) a(view, R.id.danmaku);
 
                 Drawable c = adl.a.c(R.drawable.ic_video_info_up);
                 Drawable c2 = adl.a.c(R.drawable.ic_video_info_play);
                 Drawable c3 = adl.a.c(R.drawable.ic_video_info_danmaku);
-                int b = adl.b(R.dimen.px_34);
+                int b = adl.b(R.dimen.px_26);
                 c.setBounds(0, 0, b, b);
                 c2.setBounds(0, 0, b, b);
                 c3.setBounds(0, 0, b, b);
-                int d = adl.d(R.color.white_50);
-                c.setColorFilter(d, PorterDuff.Mode.MULTIPLY);
-                c2.setColorFilter(d, PorterDuff.Mode.MULTIPLY);
-                c3.setColorFilter(d, PorterDuff.Mode.MULTIPLY);
+                int danmakuColor = adl.d(R.color.white);
+                c.setColorFilter(danmakuColor, PorterDuff.Mode.MULTIPLY);
+                c2.setColorFilter(danmakuColor, PorterDuff.Mode.MULTIPLY);
+                c3.setColorFilter(danmakuColor, PorterDuff.Mode.MULTIPLY);
                 this.p.setCompoundDrawables(c, null, null, null);
                 this.q.setCompoundDrawables(c2, null, null, null);
-                this.r.setCompoundDrawables(c3, null, null, null);
+                this.danmakuInImage.setCompoundDrawables(c3, null, null, null);
             }
         }
 

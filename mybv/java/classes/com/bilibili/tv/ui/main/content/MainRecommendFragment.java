@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ import tv.danmaku.android.log.BLog;
 import bl.*;
 import java.util.Arrays;
 import mybl.MyBiliApiService;
+import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.bilibili.tv.api.BiliApiService;
@@ -386,6 +388,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                 content.setJumpId(item.getLongValue("id"));
                 content.setCover(item.getString("pic"));
                 content.setTitle(item.getString("title"));
+                content.setPubdate(item.getLongValue("pubdate"));
                 content.setUri("bilibili_yst://video/"+item.getLongValue("id"));
                 content.setDuration(item.getIntValue("duration"));
                 JSONObject owner = item.getJSONObject("owner");
@@ -494,7 +497,22 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                      eVar.B().setVisibility(View.GONE);
                  }
                  eVar.C().setText(adh.a(content.getPlay()));
-                 eVar.D().setText(adh.a(content.getDanmaku()));
+                 int danmaku = content.getDanmaku();
+                 if (danmaku > 0) {
+                     eVar.D().setText(adh.a(danmaku));
+                     eVar.D().setVisibility(View.VISIBLE);
+                 } else {
+                     eVar.D().setVisibility(View.GONE);
+                 }
+                 long pubdate = content.getPubdate();
+                 if (pubdate > 0) {
+                     eVar.F().setText(DateUtils.getRelativeTimeSpanString(
+                             pubdate * ((long) IjkMediaCodecInfo.RANK_MAX),
+                             System.currentTimeMillis(), 1000L));
+                     eVar.F().setVisibility(View.VISIBLE);
+                 } else {
+                     eVar.F().setVisibility(View.GONE);
+                 }
                 int duration = content.getDuration();
                 if (duration >= 3600) {
                     eVar.E().setText(String.format("%d:%02d:%02d", duration / 3600, (duration % 3600) / 60, duration % 60));
@@ -681,6 +699,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
         private final TextView q;
         private final TextView r;
         private final TextView u;
+        private final TextView v;
         private final com.bilibili.tv.widget.DrawRelativeLayout s;
         private final WeakReference<MainRecommendFragment> t;
 
@@ -694,17 +713,18 @@ public final class MainRecommendFragment extends adu implements aez, wf {
             this.q = (TextView) a(view, R.id.play);
             this.r = (TextView) a(view, R.id.danmaku);
             this.u = (TextView) a(view, R.id.duration);
+            this.v = (TextView) a(view, R.id.pubdate);
             this.s = (com.bilibili.tv.widget.DrawRelativeLayout) view;
             this.s.setUpDrawable(R.drawable.shadow_white_rect);
             android.content.Context ctx = view.getContext();
             android.graphics.drawable.Drawable c = ctx.getResources().getDrawable(R.drawable.ic_video_info_up);
             android.graphics.drawable.Drawable c2 = ctx.getResources().getDrawable(R.drawable.ic_video_info_play);
             android.graphics.drawable.Drawable c3 = ctx.getResources().getDrawable(R.drawable.ic_video_info_danmaku);
-            int b = ctx.getResources().getDimensionPixelSize(R.dimen.px_34);
+            int b = ctx.getResources().getDimensionPixelSize(R.dimen.px_26);
             c.setBounds(0, 0, b, b);
             c2.setBounds(0, 0, b, b);
             c3.setBounds(0, 0, b, b);
-            int d = ctx.getResources().getColor(R.color.white_50);
+            int d = ctx.getResources().getColor(R.color.white);
             c.setColorFilter(d, android.graphics.PorterDuff.Mode.MULTIPLY);
             c2.setColorFilter(d, android.graphics.PorterDuff.Mode.MULTIPLY);
             c3.setColorFilter(d, android.graphics.PorterDuff.Mode.MULTIPLY);
@@ -737,6 +757,10 @@ public final class MainRecommendFragment extends adu implements aez, wf {
 
         public final TextView E() {
             return this.u;
+        }
+
+        public final TextView F() {
+            return this.v;
         }
 
         /* compiled from: BL */

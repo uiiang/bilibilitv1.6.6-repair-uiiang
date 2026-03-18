@@ -62,7 +62,7 @@
     .locals 2
 
     .prologue
-    .line 52
+    .line 54
     new-instance v0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$a;
 
     const/4 v1, 0x0
@@ -80,16 +80,16 @@
     .prologue
     const/4 v0, 0x1
 
-    .line 51
+    .line 53
     invoke-direct {p0}, Lbl/ady;-><init>()V
 
-    .line 58
+    .line 60
     iput v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->f:I
 
-    .line 59
+    .line 61
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->g:Z
 
-    .line 70
+    .line 72
     const-string v0, "mtime"
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->sortOrder:Ljava/lang/String;
@@ -101,7 +101,7 @@
     .locals 1
 
     .prologue
-    .line 51
+    .line 53
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->e:Z
 
     return v0
@@ -111,7 +111,7 @@
     .locals 0
 
     .prologue
-    .line 51
+    .line 53
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->e:Z
 
     return p1
@@ -121,7 +121,7 @@
     .locals 1
 
     .prologue
-    .line 51
+    .line 53
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->h:Z
 
     return v0
@@ -131,7 +131,7 @@
     .locals 0
 
     .prologue
-    .line 51
+    .line 53
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->h:Z
 
     return p1
@@ -141,7 +141,7 @@
     .locals 1
 
     .prologue
-    .line 51
+    .line 53
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->g:Z
 
     return v0
@@ -151,7 +151,7 @@
     .locals 0
 
     .prologue
-    .line 51
+    .line 53
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->g:Z
 
     return p1
@@ -161,7 +161,7 @@
     .locals 1
 
     .prologue
-    .line 51
+    .line 53
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->c:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;
 
     return-object v0
@@ -171,7 +171,7 @@
     .locals 1
 
     .prologue
-    .line 51
+    .line 53
     iget v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->f:I
 
     return v0
@@ -181,7 +181,7 @@
     .locals 2
 
     .prologue
-    .line 51
+    .line 53
     iget v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->f:I
 
     add-int/lit8 v1, v0, 0x1
@@ -199,7 +199,7 @@
 
     const-wide/16 v6, 0x0
 
-    .line 363
+    .line 365
     iget-wide v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->fid:J
 
     cmp-long v0, v0, v6
@@ -212,7 +212,7 @@
 
     if-eqz v0, :cond_3c
 
-    .line 364
+    .line 366
     const-class v0, Lcom/bilibili/tv/api/favorite/BiliFavoriteVideoApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -221,7 +221,7 @@
 
     check-cast v0, Lcom/bilibili/tv/api/favorite/BiliFavoriteVideoApiService;
 
-    .line 365
+    .line 367
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v1
@@ -254,14 +254,14 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$2;-><init>(Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;)V
 
-    .line 367
+    .line 369
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 481
+    .line 483
     :goto_3b
     return-void
 
-    .line 412
+    .line 414
     :cond_3c
     const-class v0, Lmybl/MyBiliApiService;
 
@@ -277,7 +277,7 @@
 
     const/16 v4, 0x14
 
-    .line 413
+    .line 415
     invoke-interface {v0, v2, v3, v1, v4}, Lmybl/MyBiliApiService;->getFavoriteUserSeason(JII)Lbl/vp;
 
     move-result-object v0
@@ -286,7 +286,7 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;-><init>(Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;)V
 
-    .line 414
+    .line 416
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
     goto :goto_3b
@@ -296,7 +296,7 @@
     .locals 4
 
     .prologue
-    .line 484
+    .line 486
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -307,7 +307,7 @@
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->folderId:J
 
-    .line 485
+    .line 487
     invoke-interface {v0, v2, v3}, Lmybl/MyBiliApiService;->getPugvSeason(J)Lbl/vp;
 
     move-result-object v0
@@ -316,10 +316,10 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$4;-><init>(Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;)V
 
-    .line 486
+    .line 488
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 532
+    .line 534
     return-void
 .end method
 
@@ -329,15 +329,15 @@
     .prologue
     const/4 v8, 0x0
 
-    .line 298
+    .line 300
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 299
+    .line 301
     if-eqz v0, :cond_5f
 
-    .line 300
+    .line 302
     const-class v1, Lmybl/MyBiliApiService;
 
     invoke-static {v1}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -346,17 +346,17 @@
 
     check-cast v1, Lmybl/MyBiliApiService;
 
-    .line 301
+    .line 303
     invoke-static {v0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
 
-    .line 302
+    .line 304
     if-eqz v1, :cond_5f
 
     if-eqz v0, :cond_5f
 
-    .line 303
+    .line 305
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
@@ -397,7 +397,7 @@
 
     move-result-object v13
 
-    .line 305
+    .line 307
     iget-wide v2, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->folderId:J
 
     iget v4, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->f:I
@@ -426,10 +426,10 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$1;-><init>(Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;)V
 
-    .line 306
+    .line 308
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 360
+    .line 362
     :cond_5f
     return-void
 .end method
@@ -438,18 +438,18 @@
     .locals 2
 
     .prologue
-    .line 87
+    .line 89
     new-instance v0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     invoke-direct {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;-><init>()V
 
-    .line 88
+    .line 90
     iput-wide p0, v0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->folderId:J
 
-    .line 89
+    .line 91
     iput p2, v0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->folderType:I
 
-    .line 90
+    .line 92
     return-object v0
 .end method
 
@@ -457,24 +457,24 @@
     .locals 1
 
     .prologue
-    .line 94
+    .line 96
     new-instance v0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     invoke-direct {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;-><init>()V
 
-    .line 95
+    .line 97
     iput-wide p0, v0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->folderId:J
 
-    .line 96
+    .line 98
     iput p2, v0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->folderType:I
 
-    .line 97
+    .line 99
     iput-wide p3, v0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->fid:J
 
-    .line 98
+    .line 100
     iput-wide p5, v0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->mid:J
 
-    .line 99
+    .line 101
     return-object v0
 .end method
 
@@ -484,15 +484,15 @@
     .locals 4
 
     .prologue
-    .line 156
+    .line 158
     const-string v0, "recyclerView"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 157
+    .line 159
     invoke-super {p0, p1, p2}, Lbl/ady;->a(Landroid/support/v7/widget/RecyclerView;Landroid/os/Bundle;)V
 
-    .line 158
+    .line 160
     new-instance v1, Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;
 
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -503,15 +503,15 @@
 
     invoke-direct {v1, v0, v2}, Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;-><init>(Landroid/content/Context;I)V
 
-    .line 159
+    .line 161
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 160
+    .line 162
     if-nez v0, :cond_20
 
-    .line 161
+    .line 163
     new-instance v0, Lkotlin/TypeCastException;
 
     const-string v1, "null cannot be cast to non-null type com.bilibili.tv.ui.favorite.FavoriteSideActivity"
@@ -520,7 +520,7 @@
 
     throw v0
 
-    .line 164
+    .line 166
     :cond_20
     new-instance v2, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$e;
 
@@ -530,78 +530,78 @@
 
     invoke-virtual {v1, v2}, Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;->a(Lcom/bilibili/tv/widget/border/BorderGridLayoutManager$a;)V
 
-    .line 165
+    .line 167
     const/4 v0, 0x1
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->setHasFixedSize(Z)V
 
-    .line 166
+    .line 168
     invoke-virtual {p1, v1}, Landroid/support/v7/widget/RecyclerView;->setLayoutManager(Landroid/support/v7/widget/RecyclerView$h;)V
 
-    .line 167
+    .line 169
     const v0, 0x7f0601bb
 
     invoke-static {v0}, Lbl/adl;->b(I)I
 
     move-result v0
 
-    .line 168
+    .line 170
     const v2, 0x7f06006e
 
     invoke-static {v2}, Lbl/adl;->b(I)I
 
     move-result v2
 
-    .line 169
+    .line 171
     const v3, 0x7f06014d
 
     invoke-static {v3}, Lbl/adl;->b(I)I
 
     move-result v3
 
-    .line 170
+    .line 172
     invoke-virtual {p1, v3, v3, v3, v3}, Landroid/support/v7/widget/RecyclerView;->setPadding(IIII)V
 
-    .line 171
+    .line 173
     new-instance v3, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$f;
 
     invoke-direct {v3, v2, v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$f;-><init>(II)V
 
     invoke-virtual {p1, v3}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$g;)V
 
-    .line 172
+    .line 174
     new-instance v0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$g;
 
     invoke-direct {v0, p0, v1}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$g;-><init>(Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;)V
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$m;)V
 
-    .line 173
+    .line 175
     new-instance v0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;
 
     invoke-direct {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;-><init>()V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->c:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;
 
-    .line 174
+    .line 176
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->c:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->setAdapter(Landroid/support/v7/widget/RecyclerView$a;)V
 
-    .line 175
+    .line 177
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->i()V
 
-    .line 176
+    .line 178
     new-instance v0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$b;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$b;-><init>(Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->d:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$b;
 
-    .line 177
+    .line 179
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->b()V
 
-    .line 178
+    .line 180
     return-void
 .end method
 
@@ -609,39 +609,39 @@
     .locals 1
 
     .prologue
-    .line 283
+    .line 285
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->h:Z
 
-    .line 284
+    .line 286
     iget v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->folderType:I
 
     packed-switch v0, :pswitch_data_16
 
-    .line 295
+    .line 297
     :goto_8
     return-void
 
-    .line 286
+    .line 288
     :pswitch_9
     invoke-direct {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->loadVideoFavoriteVideos()V
 
     goto :goto_8
 
-    .line 289
+    .line 291
     :pswitch_d
     invoke-direct {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->loadCollectionVideos()V
 
     goto :goto_8
 
-    .line 292
+    .line 294
     :pswitch_11
     invoke-direct {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->loadCourseVideos()V
 
     goto :goto_8
 
-    .line 284
+    .line 286
     nop
 
     :pswitch_data_16
@@ -656,7 +656,7 @@
     .locals 1
 
     .prologue
-    .line 255
+    .line 257
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->isVisible()Z
 
     move-result v0
@@ -667,16 +667,16 @@
 
     if-eqz v0, :cond_19
 
-    .line 256
+    .line 258
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->c:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;
 
-    .line 257
+    .line 259
     if-nez v0, :cond_11
 
-    .line 258
+    .line 260
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 260
+    .line 262
     :cond_11
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;->a()I
 
@@ -684,10 +684,10 @@
 
     if-lez v0, :cond_19
 
-    .line 261
+    .line 263
     const/4 v0, 0x1
 
-    .line 264
+    .line 266
     :goto_18
     return v0
 
@@ -703,13 +703,13 @@
     .prologue
     const/4 v0, 0x1
 
-    .line 150
+    .line 152
     iput v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->f:I
 
-    .line 151
+    .line 153
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->g:Z
 
-    .line 152
+    .line 154
     return-void
 .end method
 
@@ -717,18 +717,18 @@
     .locals 1
 
     .prologue
-    .line 276
+    .line 278
     invoke-super {p0}, Lbl/ady;->d_()V
 
-    .line 277
+    .line 279
     const/4 v0, 0x1
 
     iput v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->f:I
 
-    .line 278
+    .line 280
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->b()V
 
-    .line 279
+    .line 281
     return-void
 .end method
 
@@ -736,7 +736,7 @@
     .locals 2
 
     .prologue
-    .line 146
+    .line 148
     iget-wide v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->folderId:J
 
     return-wide v0
@@ -746,7 +746,7 @@
     .locals 1
 
     .prologue
-    .line 138
+    .line 140
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->sortOrder:Ljava/lang/String;
 
     return-object v0
@@ -756,7 +756,7 @@
     .locals 1
 
     .prologue
-    .line 535
+    .line 537
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->h:Z
 
     return v0
@@ -768,7 +768,7 @@
     .prologue
     const/4 v0, 0x1
 
-    .line 142
+    .line 144
     iget v1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->folderType:I
 
     if-ne v1, v0, :cond_6
@@ -786,7 +786,7 @@
     .locals 2
 
     .prologue
-    .line 104
+    .line 106
     const v0, 0x7f0a008e
 
     const/4 v1, 0x0
@@ -795,7 +795,7 @@
 
     move-result-object v1
 
-    .line 105
+    .line 107
     const v0, 0x7f080199
 
     invoke-virtual {v1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -806,7 +806,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->headerLayout:Landroid/widget/LinearLayout;
 
-    .line 106
+    .line 108
     const v0, 0x7f08019a
 
     invoke-virtual {v1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -817,7 +817,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->headerTitle:Landroid/widget/TextView;
 
-    .line 107
+    .line 109
     const v0, 0x7f08019b
 
     invoke-virtual {v1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -828,7 +828,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->headerCount:Landroid/widget/TextView;
 
-    .line 108
+    .line 110
     const v0, 0x7f080097
 
     invoke-virtual {v1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -839,7 +839,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->hintSort:Landroid/widget/TextView;
 
-    .line 109
+    .line 111
     const v0, 0x7f0800eb
 
     invoke-virtual {v1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -848,10 +848,10 @@
 
     check-cast v0, Landroid/support/v7/widget/RecyclerView;
 
-    .line 110
+    .line 112
     invoke-virtual {p0, v0, p3}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->a(Landroid/support/v7/widget/RecyclerView;Landroid/os/Bundle;)V
 
-    .line 111
+    .line 113
     return-object v1
 .end method
 
@@ -861,22 +861,22 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 269
+    .line 271
     move-object v0, v1
 
     check-cast v0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->c:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;
 
-    .line 270
+    .line 272
     check-cast v1, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$b;
 
     iput-object v1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->d:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$b;
 
-    .line 271
+    .line 273
     invoke-super {p0}, Lbl/ady;->onDestroyView()V
 
-    .line 272
+    .line 274
     return-void
 .end method
 
@@ -884,7 +884,7 @@
     .locals 1
 
     .prologue
-    .line 127
+    .line 129
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->sortOrder:Ljava/lang/String;
 
     invoke-static {p1, v0}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
@@ -893,21 +893,21 @@
 
     if-eqz v0, :cond_9
 
-    .line 135
+    .line 137
     :cond_8
     :goto_8
     return-void
 
-    .line 130
+    .line 132
     :cond_9
     iput-object p1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->sortOrder:Ljava/lang/String;
 
-    .line 131
+    .line 133
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->c:Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;
 
     if-eqz v0, :cond_8
 
-    .line 132
+    .line 134
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->d_()V
 
     goto :goto_8
@@ -917,19 +917,19 @@
     .locals 3
 
     .prologue
-    .line 115
+    .line 117
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->headerTitle:Landroid/widget/TextView;
 
     if-eqz v0, :cond_b
 
     if-eqz p1, :cond_b
 
-    .line 116
+    .line 118
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->headerTitle:Landroid/widget/TextView;
 
     invoke-virtual {v0, p1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 118
+    .line 120
     :cond_b
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->headerCount:Landroid/widget/TextView;
 
@@ -937,7 +937,7 @@
 
     if-lez p2, :cond_29
 
-    .line 119
+    .line 121
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->headerCount:Landroid/widget/TextView;
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -960,13 +960,13 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 121
+    .line 123
     :cond_29
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->hintSort:Landroid/widget/TextView;
 
     if-eqz v0, :cond_39
 
-    .line 122
+    .line 124
     iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->hintSort:Landroid/widget/TextView;
 
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->isVideoFavoriteMode()Z
@@ -980,11 +980,11 @@
     :goto_36
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 124
+    .line 126
     :cond_39
     return-void
 
-    .line 122
+    .line 124
     :cond_3a
     const/16 v0, 0x8
 

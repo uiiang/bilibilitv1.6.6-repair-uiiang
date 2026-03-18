@@ -32,12 +32,12 @@
     .locals 0
 
     .prologue
-    .line 324
+    .line 327
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$d;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
 
-    .line 325
+    .line 328
     return-void
 .end method
 
@@ -49,7 +49,7 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 351
+    .line 354
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$d;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->a:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$b;
@@ -68,18 +68,18 @@
 
     if-nez v0, :cond_12
 
-    .line 394
+    .line 397
     :cond_11
     :goto_11
     return-void
 
-    .line 354
+    .line 357
     :cond_12
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$d;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->a(Z)V
 
-    .line 355
+    .line 358
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$d;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->e:Lcom/bilibili/tv/ui/base/LoadingImageView;
@@ -87,17 +87,17 @@
 
     move-result-object v0
 
-    .line 356
+    .line 359
     if-nez v0, :cond_22
 
-    .line 357
+    .line 360
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 359
+    .line 362
     :cond_22
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->b()V
 
-    .line 360
+    .line 363
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$d;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->f:Landroid/support/v7/widget/RecyclerView;
@@ -105,23 +105,23 @@
 
     move-result-object v0
 
-    .line 361
+    .line 364
     if-nez v0, :cond_30
 
-    .line 362
+    .line 365
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 364
+    .line 367
     :cond_30
     invoke-virtual {v0, v2}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
 
-    .line 365
+    .line 368
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$d;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     # setter for: Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->j:Z
     invoke-static {v0, v2}, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->access$102(Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;Z)Z
 
-    .line 366
+    .line 369
     if-eqz p1, :cond_4e
 
     iget-object v0, p1, Lcom/bilibili/tv/api/video/tag/TagInfo;->archives:Lcom/bilibili/tv/api/video/tag/TagArchives;
@@ -144,7 +144,7 @@
 
     if-nez v0, :cond_7c
 
-    .line 367
+    .line 370
     :cond_4e
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$d;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
@@ -157,7 +157,7 @@
 
     if-ne v0, v1, :cond_76
 
-    .line 368
+    .line 371
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$d;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->e:Lcom/bilibili/tv/ui/base/LoadingImageView;
@@ -165,17 +165,17 @@
 
     move-result-object v0
 
-    .line 369
+    .line 372
     if-nez v0, :cond_62
 
-    .line 370
+    .line 373
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 372
+    .line 375
     :cond_62
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->c()V
 
-    .line 373
+    .line 376
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$d;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->e:Lcom/bilibili/tv/ui/base/LoadingImageView;
@@ -183,19 +183,19 @@
 
     move-result-object v0
 
-    .line 374
+    .line 377
     if-nez v0, :cond_70
 
-    .line 375
+    .line 378
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 377
+    .line 380
     :cond_70
     const v1, 0x7f0c00d8
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/base/LoadingImageView;->a(I)V
 
-    .line 379
+    .line 382
     :cond_76
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$d;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
@@ -204,7 +204,7 @@
 
     goto :goto_11
 
-    .line 382
+    .line 385
     :cond_7c
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$d;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
@@ -213,13 +213,13 @@
 
     move-result-object v0
 
-    .line 383
+    .line 386
     if-nez v0, :cond_87
 
-    .line 384
+    .line 387
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 386
+    .line 389
     :cond_87
     new-instance v1, Ljava/lang/StringBuilder;
 
@@ -249,7 +249,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 387
+    .line 390
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$d;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->a:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$b;
@@ -257,24 +257,24 @@
 
     move-result-object v0
 
-    .line 388
+    .line 391
     if-nez v0, :cond_b0
 
-    .line 389
+    .line 392
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 391
+    .line 394
     :cond_b0
     iget-object v1, p1, Lcom/bilibili/tv/api/video/tag/TagInfo;->archives:Lcom/bilibili/tv/api/video/tag/TagArchives;
 
     iget-object v1, v1, Lcom/bilibili/tv/api/video/tag/TagArchives;->list:Ljava/util/List;
 
-    .line 392
+    .line 395
     const-string v2, "response.archives.list"
 
     invoke-static {v1, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 393
+    .line 396
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$b;->a(Ljava/util/List;)V
 
     goto/16 :goto_11
@@ -284,7 +284,7 @@
     .locals 0
 
     .prologue
-    .line 323
+    .line 326
     check-cast p1, Lcom/bilibili/tv/api/video/tag/TagInfo;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$d;->a(Lcom/bilibili/tv/api/video/tag/TagInfo;)V
@@ -296,7 +296,7 @@
     .locals 1
 
     .prologue
-    .line 329
+    .line 332
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$d;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->a:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$b;
@@ -323,12 +323,12 @@
     .prologue
     const/4 v2, 0x1
 
-    .line 334
+    .line 337
     const-string v0, "t"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 335
+    .line 338
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$d;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->a:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$b;
@@ -347,12 +347,12 @@
 
     if-nez v0, :cond_17
 
-    .line 347
+    .line 350
     :cond_16
     :goto_16
     return-void
 
-    .line 338
+    .line 341
     :cond_17
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$d;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
@@ -361,7 +361,7 @@
     # setter for: Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->j:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->access$102(Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;Z)Z
 
-    .line 339
+    .line 342
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$d;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->h:I
@@ -371,12 +371,12 @@
 
     if-ne v0, v2, :cond_16
 
-    .line 340
+    .line 343
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$d;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->a(Z)V
 
-    .line 341
+    .line 344
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$d;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->e:Lcom/bilibili/tv/ui/base/LoadingImageView;
@@ -384,13 +384,13 @@
 
     move-result-object v0
 
-    .line 342
+    .line 345
     if-nez v0, :cond_35
 
-    .line 343
+    .line 346
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 345
+    .line 348
     :cond_35
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/base/LoadingImageView;->setRefreshError(Z)V
 

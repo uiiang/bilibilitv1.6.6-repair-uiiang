@@ -6,12 +6,15 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.LinearLayout;
-import android.text.TextUtils;
+
+import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
 import bl.adl;
 import bl.abd;
 import bl.ady;
@@ -302,7 +305,22 @@ public final class WeeklyVideoFragment extends ady {
                 JSONObject stat = item.getJSONObject("stat");
                 if (stat != null) {
                     ((d) advVar).C().setText(bl.adh.a(stat.getLongValue("view")));
-                    ((d) advVar).D().setText(bl.adh.a(stat.getLongValue("danmaku")));
+                    int danmaku = stat.getIntValue("danmaku");
+                    if (danmaku > 0) {
+                        ((d) advVar).danmakuInImage.setText(bl.adh.a(danmaku));
+                        ((d) advVar).danmakuInImage.setVisibility(View.VISIBLE);
+                    } else {
+                        ((d) advVar).danmakuInImage.setVisibility(View.GONE);
+                    }
+                }
+                long pubdate = item.getLongValue("pubdate");
+                if (pubdate > 0) {
+                    ((d) advVar).D().setText(DateUtils.getRelativeTimeSpanString(
+                            pubdate * ((long) IjkMediaCodecInfo.RANK_MAX),
+                            System.currentTimeMillis(), 1000L));
+                    ((d) advVar).D().setVisibility(View.VISIBLE);
+                } else {
+                    ((d) advVar).D().setVisibility(View.GONE);
                 }
                 int durationVal = item.getIntValue("duration");
                 if (durationVal >= 3600) {
@@ -343,6 +361,7 @@ public final class WeeklyVideoFragment extends ady {
         private TextView q;
         private TextView r;
         private TextView duration;
+        private TextView danmakuInImage;
         private DrawRelativeLayout s;
 
         public d(View view) {
@@ -352,23 +371,24 @@ public final class WeeklyVideoFragment extends ady {
             this.o = (TextView) a(view, R.id.title);
             this.p = (TextView) a(view, R.id.up);
             this.q = (TextView) a(view, R.id.play);
-            this.r = (TextView) a(view, R.id.danmaku);
+            this.r = (TextView) a(view, R.id.pubdate);
             this.duration = (TextView) a(view, R.id.duration);
+            this.danmakuInImage = (TextView) a(view, R.id.danmaku);
             this.s = (DrawRelativeLayout) a(view, R.id.draw);
             android.graphics.drawable.Drawable c = bl.adl.a.c(R.drawable.ic_video_info_up);
             android.graphics.drawable.Drawable c2 = bl.adl.a.c(R.drawable.ic_video_info_play);
             android.graphics.drawable.Drawable c3 = bl.adl.a.c(R.drawable.ic_video_info_danmaku);
-            int b = bl.adl.b(R.dimen.px_34);
+            int b = bl.adl.b(R.dimen.px_26);
             c.setBounds(0, 0, b, b);
             c2.setBounds(0, 0, b, b);
             c3.setBounds(0, 0, b, b);
-            int d = bl.adl.d(R.color.white_50);
-            c.setColorFilter(d, android.graphics.PorterDuff.Mode.MULTIPLY);
-            c2.setColorFilter(d, android.graphics.PorterDuff.Mode.MULTIPLY);
-            c3.setColorFilter(d, android.graphics.PorterDuff.Mode.MULTIPLY);
+            int danmakuColor = bl.adl.d(R.color.white);
+            c.setColorFilter(danmakuColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+            c2.setColorFilter(danmakuColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+            c3.setColorFilter(danmakuColor, android.graphics.PorterDuff.Mode.MULTIPLY);
             this.p.setCompoundDrawables(c, null, null, null);
             this.q.setCompoundDrawables(c2, null, null, null);
-            this.r.setCompoundDrawables(c3, null, null, null);
+            this.danmakuInImage.setCompoundDrawables(c3, null, null, null);
             view.setOnFocusChangeListener(this);
         }
 

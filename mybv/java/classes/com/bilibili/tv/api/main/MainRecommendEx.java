@@ -54,6 +54,9 @@ public final class MainRecommendEx {
         @JSONField(name = "duration")
         private int duration;
 
+        @JSONField(name = "pubdate")
+        private long pubdate;
+
         public final String getCardType() {
             return this.cardType;
         }
@@ -132,6 +135,14 @@ public final class MainRecommendEx {
 
         public final void setDuration(int i) {
             this.duration = i;
+        }
+
+        public final long getPubdate() {
+            return this.pubdate;
+        }
+
+        public final void setPubdate(long j) {
+            this.pubdate = j;
         }
     }
 }

@@ -1973,6 +1973,7 @@ public final class VideoDetailActivity extends BaseActivity
         private TextView q;
         private TextView r;
         private TextView duration;
+        private TextView danmakuInImage;
         private DrawRelativeLayout s;
 
         /*
@@ -1986,22 +1987,23 @@ public final class VideoDetailActivity extends BaseActivity
             this.o = (TextView) a(view, R.id.title);
             this.p = (TextView) a(view, R.id.up);
             this.q = (TextView) a(view, R.id.play);
-            this.r = (TextView) a(view, R.id.danmaku);
+            this.r = (TextView) a(view, R.id.pubdate);
             this.duration = (TextView) a(view, R.id.duration);
+            this.danmakuInImage = (TextView) a(view, R.id.danmaku);
             Drawable c = adl.a.c(R.drawable.ic_video_info_up);
             Drawable c2 = adl.a.c(R.drawable.ic_video_info_play);
             Drawable c3 = adl.a.c(R.drawable.ic_video_info_danmaku);
-            int b2 = adl.b(R.dimen.px_34);
+            int b2 = adl.b(R.dimen.px_26);
             c.setBounds(0, 0, b2, b2);
             c2.setBounds(0, 0, b2, b2);
             c3.setBounds(0, 0, b2, b2);
-            int d = adl.d(R.color.white_50);
-            c.setColorFilter(d, PorterDuff.Mode.MULTIPLY);
-            c2.setColorFilter(d, PorterDuff.Mode.MULTIPLY);
-            c3.setColorFilter(d, PorterDuff.Mode.MULTIPLY);
+            int danmakuColor = adl.d(R.color.white);
+            c.setColorFilter(danmakuColor, PorterDuff.Mode.MULTIPLY);
+            c2.setColorFilter(danmakuColor, PorterDuff.Mode.MULTIPLY);
+            c3.setColorFilter(danmakuColor, PorterDuff.Mode.MULTIPLY);
             this.p.setCompoundDrawables(c, null, null, null);
             this.q.setCompoundDrawables(c2, null, null, null);
-            this.r.setCompoundDrawables(c3, null, null, null);
+            this.danmakuInImage.setCompoundDrawables(c3, null, null, null);
             this.s = (DrawRelativeLayout) view;
             this.s.setUpDrawable(R.drawable.shadow_white_rect);
         }
@@ -2027,8 +2029,24 @@ public final class VideoDetailActivity extends BaseActivity
                 if (biliVideoDetail.getPlays() != null) {
                     this.q.setText(adh.a(biliVideoDetail.getPlays()));
                 }
-                if (biliVideoDetail.getDanmakus() != null) {
-                    this.r.setText(adh.a(biliVideoDetail.getDanmakus()));
+                int danmaku = 0;
+                try {
+                    danmaku = Integer.parseInt(biliVideoDetail.getDanmakus());
+                } catch (Exception e) {}
+                if (danmaku > 0) {
+                    this.danmakuInImage.setText(adh.a(danmaku));
+                    this.danmakuInImage.setVisibility(View.VISIBLE);
+                } else {
+                    this.danmakuInImage.setVisibility(View.GONE);
+                }
+                long pubdate = biliVideoDetail.mCreatedTimestamp;
+                if (pubdate > 0) {
+                    this.r.setText(DateUtils.getRelativeTimeSpanString(
+                            pubdate * ((long) IjkMediaCodecInfo.RANK_MAX),
+                            System.currentTimeMillis(), 1000L));
+                    this.r.setVisibility(View.VISIBLE);
+                } else {
+                    this.r.setVisibility(View.GONE);
                 }
                 int durationVal = biliVideoDetail.mDuration;
                 if (durationVal >= 3600) {

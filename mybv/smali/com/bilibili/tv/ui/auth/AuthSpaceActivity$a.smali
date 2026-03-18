@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 86
+    .line 89
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 87
+    .line 90
     return-void
 .end method
 
@@ -30,10 +30,10 @@
     .locals 0
 
     .prologue
-    .line 90
+    .line 93
     invoke-direct {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$a;-><init>()V
 
-    .line 91
+    .line 94
     return-void
 .end method
 
@@ -43,36 +43,36 @@
     .locals 3
 
     .prologue
-    .line 94
+    .line 97
     const-string v0, "context"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 95
+    .line 98
     const-string v0, "name"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 96
+    .line 99
     new-instance v0, Landroid/content/Intent;
 
     const-class v1, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     invoke-direct {v0, p1, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
 
-    .line 97
+    .line 100
     const-string v1, "user_name"
 
     invoke-virtual {v0, v1, p2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 98
+    .line 101
     const-string v1, "user_id"
 
     invoke-virtual {v0, v1, p3, p4}, Landroid/content/Intent;->putExtra(Ljava/lang/String;J)Landroid/content/Intent;
 
-    .line 99
+    .line 102
     invoke-virtual {p1, v0}, Landroid/content/Context;->startActivity(Landroid/content/Intent;)V
 
-    .line 100
+    .line 103
     return-void
 .end method

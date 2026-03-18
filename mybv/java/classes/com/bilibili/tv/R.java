@@ -2515,6 +2515,7 @@ public final class R {
         public static final int cache_limit_100 = 0x7f0801a7;
         public static final int cache_limit_300 = 0x7f0801a8;
         public static final int cache_limit_500 = 0x7f0801a9;
+        public static final int pubdate = 0x7f0801aa;
     }
 
     public static final class integer {

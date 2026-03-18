@@ -9,12 +9,15 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
 import bl.ach;
 import bl.abd;
 import bl.adh;
@@ -464,7 +467,31 @@ public final class VideoTagSearchActivity extends BaseReloadActivity {
                 cVar.A().setText(tagVideoDetail2.mTitle);
                 cVar.B().setText(tagVideoDetail2.getAuthor());
                 cVar.C().setText(adh.a(tagVideoDetail2.getPlays()));
-                cVar.D().setText(adh.a(tagVideoDetail2.getDanmakus()));
+                int danmaku = 0;
+                try {
+                    danmaku = Integer.parseInt(tagVideoDetail2.getDanmakus());
+                } catch (Exception e) {}
+                if (danmaku > 0) {
+                    cVar.danmakuInImage.setText(adh.a(danmaku));
+                    cVar.danmakuInImage.setVisibility(View.VISIBLE);
+                } else {
+                    cVar.danmakuInImage.setVisibility(View.GONE);
+                }
+                long pubdate = tagVideoDetail2.mCreatedTimestamp;
+                if (pubdate > 0) {
+                    cVar.D().setText(DateUtils.getRelativeTimeSpanString(
+                            pubdate * ((long) IjkMediaCodecInfo.RANK_MAX),
+                            System.currentTimeMillis(), 1000L));
+                    cVar.D().setVisibility(View.VISIBLE);
+                } else {
+                    cVar.D().setVisibility(View.GONE);
+                }
+                int durationVal = (int) tagVideoDetail2.mDuration;
+                if (durationVal >= 3600) {
+                    cVar.E().setText(String.format("%d:%02d:%02d", durationVal / 3600, (durationVal % 3600) / 60, durationVal % 60));
+                } else {
+                    cVar.E().setText(String.format("%02d:%02d", durationVal / 60, durationVal % 60));
+                }
                 if (tagVideoDetail2.mCover != null) {
                     nv.a().a(abd.get_thumb_url_c(MainApplication.a(), tagVideoDetail2.mCover), cVar.z());
                 }
@@ -510,6 +537,8 @@ public final class VideoTagSearchActivity extends BaseReloadActivity {
         private TextView p;
         private TextView q;
         private TextView r;
+        private TextView danmakuInImage;
+        private TextView duration;
 
         /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
         public c(View view) {
@@ -519,27 +548,29 @@ public final class VideoTagSearchActivity extends BaseReloadActivity {
             this.o = (TextView) a(view, R.id.title);
             this.p = (TextView) a(view, R.id.up);
             this.q = (TextView) a(view, R.id.play);
-            this.r = (TextView) a(view, R.id.danmaku);
+            this.r = (TextView) a(view, R.id.pubdate);
+            this.danmakuInImage = (TextView) a(view, R.id.danmaku);
+            this.duration = (TextView) a(view, R.id.duration);
             Drawable c = adl.a.c(R.drawable.ic_video_info_up);
             Drawable c2 = adl.a.c(R.drawable.ic_video_info_play);
             Drawable c3 = adl.a.c(R.drawable.ic_video_info_danmaku);
-            int b = adl.b(R.dimen.px_34);
+            int b = adl.b(R.dimen.px_26);
             c.setBounds(0, 0, b, b);
             c2.setBounds(0, 0, b, b);
             c3.setBounds(0, 0, b, b);
-            int d = adl.d(R.color.white_50);
+            int danmakuColor = adl.d(R.color.white);
             if (c != null) {
-                c.setColorFilter(d, PorterDuff.Mode.MULTIPLY);
+                c.setColorFilter(danmakuColor, PorterDuff.Mode.MULTIPLY);
             }
             if (c2 != null) {
-                c2.setColorFilter(d, PorterDuff.Mode.MULTIPLY);
+                c2.setColorFilter(danmakuColor, PorterDuff.Mode.MULTIPLY);
             }
             if (c3 != null) {
-                c3.setColorFilter(d, PorterDuff.Mode.MULTIPLY);
+                c3.setColorFilter(danmakuColor, PorterDuff.Mode.MULTIPLY);
             }
             this.p.setCompoundDrawables(c, null, null, null);
             this.q.setCompoundDrawables(c2, null, null, null);
-            this.r.setCompoundDrawables(c3, null, null, null);
+            this.danmakuInImage.setCompoundDrawables(c3, null, null, null);
         }
 
         public final ScalableImageView z() {
@@ -560,6 +591,10 @@ public final class VideoTagSearchActivity extends BaseReloadActivity {
 
         public final TextView D() {
             return this.r;
+        }
+
+        public final TextView E() {
+            return this.duration;
         }
 
         /* compiled from: BL */

@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.text.format.DateUtils;
+
+import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
 import bl.adl;
 import bl.ady;
 import bl.abd;
@@ -434,8 +437,21 @@ public final class AttentionDynamicFragment extends ady {
                     JSONObject feedArchiveItem = feedItem.getJSONObject("module_dynamic").getJSONObject("major").getJSONObject("archive");
                     dVar.A().setText(feedArchiveItem.getString("title"));
                     dVar.B().setText(feedItem.getJSONObject("module_author").getString("name"));
+                    dVar.B().setVisibility(View.VISIBLE);
                     dVar.C().setText(feedArchiveItem.getJSONObject("stat").getString("play"));
-                    dVar.D().setText(feedArchiveItem.getJSONObject("stat").getString("danmaku"));
+                    int danmaku = 0;
+                    try {
+                        danmaku = Integer.parseInt(feedArchiveItem.getJSONObject("stat").getString("danmaku"));
+                    } catch (Exception e) {}
+                    if (danmaku > 0) {
+                        dVar.F().setText(bl.adh.a(danmaku));
+                        dVar.F().setVisibility(View.VISIBLE);
+                    } else {
+                        dVar.F().setVisibility(View.GONE);
+                    }
+                    String pubTime = feedItem.getJSONObject("module_author").getString("pub_time");
+                    dVar.D().setText(pubTime);
+                    dVar.D().setVisibility(View.VISIBLE);
                     String durationText = feedArchiveItem.getString("duration_text");
                     dVar.E().setText(durationText != null ? durationText : "");
                     if (feedArchiveItem.getString("cover") != null) {
@@ -445,15 +461,27 @@ public final class AttentionDynamicFragment extends ady {
                     // UP 主视频模式
                     BiliSpaceVideo video = (BiliSpaceVideo) item;
                     dVar.A().setText(video.title);
-                    // 显示发布时间
-                    if (video.ctime != null && video.ctime > 0) {
-                        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy年MM月dd日", java.util.Locale.CHINA);
-                        dVar.B().setText(sdf.format(new java.util.Date(video.ctime * 1000)));
-                    } else {
-                        dVar.B().setText("");
-                    }
+                    dVar.B().setVisibility(View.GONE);
                     dVar.C().setText(bl.adh.a(video.play));
-                    dVar.D().setText(bl.adh.a(video.danmaku));
+                    int danmaku = 0;
+                    try {
+                        danmaku = Integer.parseInt(video.danmaku);
+                    } catch (Exception e) {}
+                    if (danmaku > 0) {
+                        dVar.F().setText(bl.adh.a(danmaku));
+                        dVar.F().setVisibility(View.VISIBLE);
+                    } else {
+                        dVar.F().setVisibility(View.GONE);
+                    }
+                    long pubdate = video.ctime != null ? video.ctime : 0;
+                    if (pubdate > 0) {
+                        dVar.D().setText(DateUtils.getRelativeTimeSpanString(
+                                pubdate * ((long) IjkMediaCodecInfo.RANK_MAX),
+                                System.currentTimeMillis(), 1000L));
+                        dVar.D().setVisibility(View.VISIBLE);
+                    } else {
+                        dVar.D().setVisibility(View.GONE);
+                    }
                     int durationVal = video.duration;
                     if (durationVal >= 3600) {
                         dVar.E().setText(String.format("%d:%02d:%02d", durationVal / 3600, (durationVal % 3600) / 60, durationVal % 60));
@@ -531,6 +559,7 @@ public final class AttentionDynamicFragment extends ady {
         private TextView q;
         private TextView r;
         private TextView duration;
+        private TextView danmakuInImage;
 
         /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
         public d(View view) {
@@ -540,22 +569,23 @@ public final class AttentionDynamicFragment extends ady {
             this.o = (TextView) a(view, R.id.title);
             this.p = (TextView) a(view, R.id.up);
             this.q = (TextView) a(view, R.id.play);
-            this.r = (TextView) a(view, R.id.danmaku);
+            this.r = (TextView) a(view, R.id.pubdate);
             this.duration = (TextView) a(view, R.id.duration);
+            this.danmakuInImage = (TextView) a(view, R.id.danmaku);
             android.graphics.drawable.Drawable c = bl.adl.a.c(R.drawable.ic_video_info_up);
             android.graphics.drawable.Drawable c2 = bl.adl.a.c(R.drawable.ic_video_info_play);
             android.graphics.drawable.Drawable c3 = bl.adl.a.c(R.drawable.ic_video_info_danmaku);
-            int b = bl.adl.b(R.dimen.px_34);
+            int b = bl.adl.b(R.dimen.px_26);
             c.setBounds(0, 0, b, b);
             c2.setBounds(0, 0, b, b);
             c3.setBounds(0, 0, b, b);
-            int d = bl.adl.d(R.color.white_50);
-            c.setColorFilter(d, android.graphics.PorterDuff.Mode.MULTIPLY);
-            c2.setColorFilter(d, android.graphics.PorterDuff.Mode.MULTIPLY);
-            c3.setColorFilter(d, android.graphics.PorterDuff.Mode.MULTIPLY);
+            int danmakuColor = bl.adl.d(R.color.white);
+            c.setColorFilter(danmakuColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+            c2.setColorFilter(danmakuColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+            c3.setColorFilter(danmakuColor, android.graphics.PorterDuff.Mode.MULTIPLY);
             this.p.setCompoundDrawables(c, null, null, null);
             this.q.setCompoundDrawables(c2, null, null, null);
-            this.r.setCompoundDrawables(c3, null, null, null);
+            this.danmakuInImage.setCompoundDrawables(c3, null, null, null);
         }
 
         public final ScalableImageView z() {
@@ -580,6 +610,10 @@ public final class AttentionDynamicFragment extends ady {
 
         public final TextView E() {
             return this.duration;
+        }
+
+        public final TextView F() {
+            return this.danmakuInImage;
         }
 
         /* compiled from: BL */

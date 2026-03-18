@@ -448,6 +448,7 @@ public final class HistoryVideoFragment extends ady {
             }
             
             String showTitle = item.getString("show_title");
+            String authorName = item.getString("author_name");
             String tagName = item.getString("tag_name");
             if (holder.B() != null) {
                 if ("live".equals(historyType)) {
@@ -461,10 +462,23 @@ public final class HistoryVideoFragment extends ady {
                     if (!TextUtils.isEmpty(showTitle)) {
                         holder.A().setMaxLines(3);
                         holder.B().setText(showTitle);
+                        holder.B().setCompoundDrawables(null, null, null, null);
                         holder.B().setVisibility(View.VISIBLE);
                     } else {
-                        holder.A().setMaxLines(4);
-                        holder.B().setVisibility(View.GONE);
+                        holder.A().setMaxLines(3);
+                        if (!TextUtils.isEmpty(authorName)) {
+                            holder.B().setText(authorName);
+                            android.graphics.drawable.Drawable upIcon = bl.adl.a.c(R.drawable.ic_video_info_up);
+                            int iconSize = bl.adl.b(R.dimen.px_26);
+                            if (upIcon != null) {
+                                upIcon.setBounds(0, 0, iconSize, iconSize);
+                                upIcon.setColorFilter(bl.adl.d(R.color.white_50), android.graphics.PorterDuff.Mode.MULTIPLY);
+                            }
+                            holder.B().setCompoundDrawables(upIcon, null, null, null);
+                            holder.B().setVisibility(View.VISIBLE);
+                        } else {
+                            holder.B().setVisibility(View.GONE);
+                        }
                     }
                 }
             }
@@ -653,6 +667,7 @@ public final class HistoryVideoFragment extends ady {
             this.q = (TextView) a(view, R.id.duration);
             this.r = (TextView) a(view, R.id.sub_title);
             this.s = (DrawRelativeLayout) a(view, R.id.draw);
+            
             view.setOnFocusChangeListener(this);
         }
         

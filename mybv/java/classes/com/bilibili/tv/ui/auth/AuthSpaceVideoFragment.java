@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
 import bl.adl;
 import bl.ady;
 import bl.abd;
@@ -664,38 +667,50 @@ public final class AuthSpaceVideoFragment extends ady {
             archive = jo.getJSONObject("module_dynamic").getJSONObject("major").getJSONObject("archive");
           }
           vh.A().setText(archive.getString("title"));
+          vh.B().setVisibility(View.GONE);
           long pubdate = archive.getLongValue("pubdate");
-          if (pubdate > 0) {
-            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy年MM月dd日", java.util.Locale.CHINA);
-            vh.B().setText(sdf.format(new java.util.Date(pubdate * 1000)));
-          } else {
-            vh.B().setText(archive.getString("author") == null ? "" : archive.getString("author"));
-          }
           String playStr = archive.getJSONObject("stat") != null ? archive.getJSONObject("stat").getString("view")
               : archive.getString("play");
           String danmakuStr = archive.getJSONObject("stat") != null ? archive.getJSONObject("stat").getString("danmaku")
               : archive.getString("danmaku");
           vh.C().setText(bl.adh.a(playStr));
-          vh.D().setText(bl.adh.a(danmakuStr));
+          int danmaku = 0;
+          try {
+              danmaku = Integer.parseInt(danmakuStr);
+          } catch (Exception e) {}
+          if (danmaku > 0) {
+              vh.danmakuInImage.setText(bl.adh.a(danmaku));
+              vh.danmakuInImage.setVisibility(View.VISIBLE);
+          } else {
+              vh.danmakuInImage.setVisibility(View.GONE);
+          }
+          if (pubdate > 0) {
+              vh.D().setText(DateUtils.getRelativeTimeSpanString(
+                      pubdate * ((long) IjkMediaCodecInfo.RANK_MAX),
+                      System.currentTimeMillis(), 1000L));
+              vh.D().setVisibility(View.VISIBLE);
+          } else {
+              vh.D().setVisibility(View.GONE);
+          }
           int durationVal = archive.getIntValue("duration");
           if (durationVal >= 3600) {
             vh.E().setText(String.format("%d:%02d:%02d", durationVal / 3600, (durationVal % 3600) / 60, durationVal % 60));
           } else {
             vh.E().setText(String.format("%02d:%02d", durationVal / 60, durationVal % 60));
           }
-          int iconSize = bl.adl.b(R.dimen.px_34);
+          int iconSize = bl.adl.b(R.dimen.px_26);
           android.graphics.drawable.Drawable playIcon = bl.adl.a.c(R.drawable.ic_video_info_play);
           android.graphics.drawable.Drawable danmakuIcon = bl.adl.a.c(R.drawable.ic_video_info_danmaku);
           if (playIcon != null) {
             playIcon.setBounds(0, 0, iconSize, iconSize);
-            playIcon.setColorFilter(bl.adl.d(R.color.white_50), android.graphics.PorterDuff.Mode.MULTIPLY);
+            playIcon.setColorFilter(bl.adl.d(R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
           }
           if (danmakuIcon != null) {
             danmakuIcon.setBounds(0, 0, iconSize, iconSize);
-            danmakuIcon.setColorFilter(bl.adl.d(R.color.white_50), android.graphics.PorterDuff.Mode.MULTIPLY);
+            danmakuIcon.setColorFilter(bl.adl.d(R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
           }
           vh.C().setCompoundDrawables(playIcon, null, null, null);
-          vh.D().setCompoundDrawables(danmakuIcon, null, null, null);
+          vh.danmakuInImage.setCompoundDrawables(danmakuIcon, null, null, null);
           String coverUrl = archive.getString("pic") != null ? archive.getString("pic") : archive.getString("cover");
           if (coverUrl != null)
             nv.a().a(abd.get_thumb_url_c(com.bilibili.tv.MainApplication.a(), coverUrl), vh.z());
@@ -703,22 +718,29 @@ public final class AuthSpaceVideoFragment extends ady {
         } else if (item instanceof BiliSpaceVideo) {
           BiliSpaceVideo v = (BiliSpaceVideo) item;
           vh.A().setText(v.title);
-          
-          if (v.ctime != null && v.ctime > 0) {
-            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy年MM月dd日", java.util.Locale.CHINA);
-            vh.B().setText(sdf.format(new java.util.Date(v.ctime * 1000)));
-          } else {
-            vh.B().setText("");
-          }
+          vh.B().setVisibility(View.GONE);
           
           String playText = (v.play == 0) ? "0" : adh.a(v.play);
           vh.C().setText(playText);
           
-          String danmakuText = "0";
-          if (v.danmaku != null && !"0".equals(v.danmaku)) {
-            danmakuText = adh.a(v.danmaku);
+          int danmakuVal = 0;
+          try {
+              danmakuVal = Integer.parseInt(v.danmaku);
+          } catch (Exception e) {}
+          if (danmakuVal > 0) {
+              vh.danmakuInImage.setText(adh.a(danmakuVal));
+              vh.danmakuInImage.setVisibility(View.VISIBLE);
+          } else {
+              vh.danmakuInImage.setVisibility(View.GONE);
           }
-          vh.D().setText(danmakuText);
+           if (v.ctime != null && v.ctime > 0) {
+               vh.D().setText(DateUtils.getRelativeTimeSpanString(
+                       v.ctime * ((long) IjkMediaCodecInfo.RANK_MAX),
+                       System.currentTimeMillis(), 1000L));
+               vh.D().setVisibility(View.VISIBLE);
+           } else {
+              vh.D().setVisibility(View.GONE);
+          }
           
           int durationVal = v.duration;
           if (durationVal >= 3600) {
@@ -727,19 +749,19 @@ public final class AuthSpaceVideoFragment extends ady {
             vh.E().setText(String.format("%02d:%02d", durationVal / 60, durationVal % 60));
           }
           
-          int iconSize = bl.adl.b(R.dimen.px_34);
+          int iconSize = bl.adl.b(R.dimen.px_26);
           android.graphics.drawable.Drawable playIcon = bl.adl.a.c(R.drawable.ic_video_info_play);
           android.graphics.drawable.Drawable danmakuIcon = bl.adl.a.c(R.drawable.ic_video_info_danmaku);
           if (playIcon != null) {
             playIcon.setBounds(0, 0, iconSize, iconSize);
-            playIcon.setColorFilter(bl.adl.d(R.color.white_50), android.graphics.PorterDuff.Mode.MULTIPLY);
+            playIcon.setColorFilter(bl.adl.d(R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
           }
           if (danmakuIcon != null) {
             danmakuIcon.setBounds(0, 0, iconSize, iconSize);
-            danmakuIcon.setColorFilter(bl.adl.d(R.color.white_50), android.graphics.PorterDuff.Mode.MULTIPLY);
+            danmakuIcon.setColorFilter(bl.adl.d(R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
           }
           vh.C().setCompoundDrawables(playIcon, null, null, null);
-          vh.D().setCompoundDrawables(danmakuIcon, null, null, null);
+          vh.danmakuInImage.setCompoundDrawables(danmakuIcon, null, null, null);
           
           if (v.cover != null)
             nv.a().a(abd.get_thumb_url_c(com.bilibili.tv.MainApplication.a(), v.cover), vh.z());
@@ -822,6 +844,7 @@ public final class AuthSpaceVideoFragment extends ady {
     private TextView q;
     private TextView r;
     private TextView duration;
+    private TextView danmakuInImage;
 
     public d(View view) {
       super(view);
@@ -829,8 +852,9 @@ public final class AuthSpaceVideoFragment extends ady {
       this.o = (TextView) a(view, R.id.title);
       this.p = (TextView) a(view, R.id.up);
       this.q = (TextView) a(view, R.id.play);
-      this.r = (TextView) a(view, R.id.danmaku);
+      this.r = (TextView) a(view, R.id.pubdate);
       this.duration = (TextView) a(view, R.id.duration);
+      this.danmakuInImage = (TextView) a(view, R.id.danmaku);
     }
 
     public com.bilibili.tv.widget.ScalableImageView z() {

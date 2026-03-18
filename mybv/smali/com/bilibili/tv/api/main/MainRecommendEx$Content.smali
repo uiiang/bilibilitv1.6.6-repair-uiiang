@@ -63,6 +63,12 @@
     .end annotation
 .end field
 
+.field private pubdate:J
+    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
+        name = "pubdate"
+    .end annotation
+.end field
+
 .field private title:Ljava/lang/String;
     .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
         name = "title"
@@ -93,7 +99,7 @@
     .locals 1
 
     .prologue
-    .line 66
+    .line 69
     iget-object v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->cardGoto:Ljava/lang/String;
 
     return-object v0
@@ -103,7 +109,7 @@
     .locals 1
 
     .prologue
-    .line 58
+    .line 61
     iget-object v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->cardType:Ljava/lang/String;
 
     return-object v0
@@ -113,7 +119,7 @@
     .locals 1
 
     .prologue
-    .line 82
+    .line 85
     iget-object v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->cover:Ljava/lang/String;
 
     return-object v0
@@ -123,7 +129,7 @@
     .locals 1
 
     .prologue
-    .line 122
+    .line 125
     iget v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->danmaku:I
 
     return v0
@@ -133,7 +139,7 @@
     .locals 1
 
     .prologue
-    .line 130
+    .line 133
     iget v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->duration:I
 
     return v0
@@ -143,7 +149,7 @@
     .locals 1
 
     .prologue
-    .line 74
+    .line 77
     iget-object v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->jumpId:Ljava/lang/Long;
 
     return-object v0
@@ -153,7 +159,7 @@
     .locals 1
 
     .prologue
-    .line 106
+    .line 109
     iget-object v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->ownerName:Ljava/lang/String;
 
     return-object v0
@@ -163,17 +169,27 @@
     .locals 1
 
     .prologue
-    .line 114
+    .line 117
     iget v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->play:I
 
     return v0
+.end method
+
+.method public final getPubdate()J
+    .locals 2
+
+    .prologue
+    .line 141
+    iget-wide v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->pubdate:J
+
+    return-wide v0
 .end method
 
 .method public final getTitle()Ljava/lang/String;
     .locals 1
 
     .prologue
-    .line 90
+    .line 93
     iget-object v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->title:Ljava/lang/String;
 
     return-object v0
@@ -183,7 +199,7 @@
     .locals 1
 
     .prologue
-    .line 98
+    .line 101
     iget-object v0, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->uri:Ljava/lang/String;
 
     return-object v0
@@ -193,10 +209,10 @@
     .locals 0
 
     .prologue
-    .line 70
+    .line 73
     iput-object p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->cardGoto:Ljava/lang/String;
 
-    .line 71
+    .line 74
     return-void
 .end method
 
@@ -204,10 +220,10 @@
     .locals 0
 
     .prologue
-    .line 62
+    .line 65
     iput-object p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->cardType:Ljava/lang/String;
 
-    .line 63
+    .line 66
     return-void
 .end method
 
@@ -215,10 +231,10 @@
     .locals 0
 
     .prologue
-    .line 86
+    .line 89
     iput-object p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->cover:Ljava/lang/String;
 
-    .line 87
+    .line 90
     return-void
 .end method
 
@@ -226,10 +242,10 @@
     .locals 0
 
     .prologue
-    .line 126
+    .line 129
     iput p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->danmaku:I
 
-    .line 127
+    .line 130
     return-void
 .end method
 
@@ -237,10 +253,10 @@
     .locals 0
 
     .prologue
-    .line 134
+    .line 137
     iput p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->duration:I
 
-    .line 135
+    .line 138
     return-void
 .end method
 
@@ -248,10 +264,10 @@
     .locals 0
 
     .prologue
-    .line 78
+    .line 81
     iput-object p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->jumpId:Ljava/lang/Long;
 
-    .line 79
+    .line 82
     return-void
 .end method
 
@@ -259,10 +275,10 @@
     .locals 0
 
     .prologue
-    .line 110
+    .line 113
     iput-object p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->ownerName:Ljava/lang/String;
 
-    .line 111
+    .line 114
     return-void
 .end method
 
@@ -270,10 +286,21 @@
     .locals 0
 
     .prologue
-    .line 118
+    .line 121
     iput p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->play:I
 
-    .line 119
+    .line 122
+    return-void
+.end method
+
+.method public final setPubdate(J)V
+    .locals 1
+
+    .prologue
+    .line 145
+    iput-wide p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->pubdate:J
+
+    .line 146
     return-void
 .end method
 
@@ -281,10 +308,10 @@
     .locals 0
 
     .prologue
-    .line 94
+    .line 97
     iput-object p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->title:Ljava/lang/String;
 
-    .line 95
+    .line 98
     return-void
 .end method
 
@@ -292,9 +319,9 @@
     .locals 0
 
     .prologue
-    .line 102
+    .line 105
     iput-object p1, p0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->uri:Ljava/lang/String;
 
-    .line 103
+    .line 106
     return-void
 .end method

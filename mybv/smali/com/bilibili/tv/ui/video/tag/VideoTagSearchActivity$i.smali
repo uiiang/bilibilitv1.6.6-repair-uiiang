@@ -28,15 +28,15 @@
     .locals 0
 
     .prologue
-    .line 273
+    .line 276
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$i;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 274
+    .line 277
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$i;->b:Lbl/agd;
 
-    .line 275
+    .line 278
     return-void
 .end method
 
@@ -46,16 +46,16 @@
     .locals 3
 
     .prologue
-    .line 279
+    .line 282
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$i;->b:Lbl/agd;
 
     if-nez v0, :cond_5
 
-    .line 285
+    .line 288
     :goto_4
     return-void
 
-    .line 282
+    .line 285
     :cond_5
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$i;->b:Lbl/agd;
 
@@ -69,7 +69,7 @@
 
     invoke-virtual {v0, v1}, Lbl/agd;->setUpRectDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 283
+    .line 286
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$i;->b:Lbl/agd;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$i;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
@@ -81,7 +81,7 @@
 
     invoke-virtual {v0, p1, p4, p5, v1}, Lbl/agd;->a(Landroid/view/View;IIZ)V
 
-    .line 284
+    .line 287
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$i;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     const/4 v1, 0x0

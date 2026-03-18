@@ -55,31 +55,31 @@
     .prologue
     const/4 v1, 0x5
 
-    .line 280
+    .line 279
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$a;-><init>()V
 
-    .line 273
+    .line 272
     new-array v0, v1, [I
 
     fill-array-data v0, :array_30
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->titles:[I
 
-    .line 274
+    .line 273
     new-array v0, v1, [I
 
     fill-array-data v0, :array_3e
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->colors:[I
 
-    .line 275
+    .line 274
     new-array v0, v1, [I
 
     fill-array-data v0, :array_4c
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->logos:[I
 
-    .line 281
+    .line 280
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v0
@@ -88,28 +88,28 @@
 
     move-result-object v0
 
-    .line 282
+    .line 281
     if-eqz v0, :cond_2f
 
-    .line 283
+    .line 282
     invoke-virtual {v0}, Lbl/mg;->c()Lcom/bilibili/lib/account/model/AccountInfo;
 
     move-result-object v1
 
     iput-object v1, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->d:Lcom/bilibili/lib/account/model/AccountInfo;
 
-    .line 284
+    .line 283
     invoke-virtual {v0}, Lbl/mg;->a()Z
 
     move-result v0
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->e:Z
 
-    .line 286
+    .line 285
     :cond_2f
     return-void
 
-    .line 273
+    .line 272
     :array_30
     .array-data 4
         0x7f0c00b6
@@ -119,7 +119,7 @@
         0x7f0c00d3
     .end array-data
 
-    .line 274
+    .line 273
     :array_3e
     .array-data 4
         0x7f050038
@@ -129,7 +129,7 @@
         0x7f05003d
     .end array-data
 
-    .line 275
+    .line 274
     :array_4c
     .array-data 4
         0x7f0700a9
@@ -146,7 +146,7 @@
     .locals 1
 
     .prologue
-    .line 378
+    .line 377
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->titles:[I
 
     array-length v0, v0
@@ -158,7 +158,7 @@
     .locals 1
 
     .prologue
-    .line 272
+    .line 271
     invoke-virtual {p0, p1, p2}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->a(Landroid/view/ViewGroup;I)Lbl/adv;
 
     move-result-object v0
@@ -170,12 +170,12 @@
     .locals 1
 
     .prologue
-    .line 298
+    .line 297
     const-string v0, "parent"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 299
+    .line 298
     const/4 v0, 0x0
 
     check-cast v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;
@@ -193,19 +193,19 @@
     .locals 2
 
     .prologue
-    .line 382
+    .line 381
     const-string v0, "activity"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 383
+    .line 382
     if-nez p2, :cond_b
 
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->e:Z
 
     if-nez v0, :cond_48
 
-    .line 384
+    .line 383
     :cond_b
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
@@ -215,25 +215,25 @@
 
     move-result-object v0
 
-    .line 385
+    .line 384
     const-string v1, "BiliAccount.get(MainApplication.getInstance())"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 386
+    .line 385
     invoke-virtual {v0}, Lbl/mg;->a()Z
 
     move-result v0
 
-    .line 387
+    .line 386
     iget-boolean v1, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->e:Z
 
     if-eq v1, v0, :cond_48
 
-    .line 388
+    .line 387
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->e:Z
 
-    .line 389
+    .line 388
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v0
@@ -242,46 +242,46 @@
 
     move-result-object v0
 
-    .line 390
+    .line 389
     if-eqz v0, :cond_32
 
-    .line 391
+    .line 390
     invoke-virtual {v0}, Lbl/mg;->c()Lcom/bilibili/lib/account/model/AccountInfo;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->d:Lcom/bilibili/lib/account/model/AccountInfo;
 
-    .line 393
+    .line 392
     :cond_32
     instance-of v0, p1, Lcom/bilibili/tv/ui/main/MainActivity;
 
     if-eqz v0, :cond_45
 
-    .line 394
+    .line 393
     check-cast p1, Lcom/bilibili/tv/ui/main/MainActivity;
 
-    .line 395
+    .line 394
     const/4 v0, 0x0
 
     invoke-virtual {p1, v0}, Lcom/bilibili/tv/ui/main/MainActivity;->a(Z)V
 
-    .line 396
+    .line 395
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/main/MainActivity;->j()Landroid/view/View;
 
     move-result-object v0
 
-    .line 397
+    .line 396
     if-eqz v0, :cond_45
 
-    .line 398
+    .line 397
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 401
+    .line 400
     :cond_45
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->d()V
 
-    .line 404
+    .line 403
     :cond_48
     return-void
 .end method
@@ -290,7 +290,7 @@
     .locals 0
 
     .prologue
-    .line 272
+    .line 271
     check-cast p1, Lbl/adv;
 
     invoke-virtual {p0, p1, p2}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->a(Lbl/adv;I)V
@@ -306,22 +306,22 @@
 
     const/4 v5, 0x0
 
-    .line 305
+    .line 304
     const-string v0, "viewHolder"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 306
+    .line 305
     instance-of v0, p1, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;
 
     if-eqz v0, :cond_186
 
     move-object v0, p1
 
-    .line 307
+    .line 306
     check-cast v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;
 
-    .line 308
+    .line 307
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->z()Landroid/widget/TextView;
 
     move-result-object v1
@@ -336,7 +336,7 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(I)V
 
-    .line 309
+    .line 308
     invoke-static {}, Lbl/nv;->a()Lbl/nv;
 
     move-result-object v1
@@ -355,21 +355,21 @@
 
     invoke-virtual {v1, v2, v3}, Lbl/nv;->a(ILandroid/widget/ImageView;)V
 
-    .line 310
+    .line 309
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->A()Lcom/bilibili/tv/widget/CircleImageView;
 
     move-result-object v1
 
     invoke-virtual {v1, v5}, Lcom/bilibili/tv/widget/CircleImageView;->setVisibility(I)V
 
-    .line 311
+    .line 310
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->B()Lcom/bilibili/tv/widget/CircleImageView;
 
     move-result-object v1
 
     invoke-virtual {v1, v4}, Lcom/bilibili/tv/widget/CircleImageView;->setVisibility(I)V
 
-    .line 312
+    .line 311
     sget-object v1, Lbl/adl;->a:Lbl/adl;
 
     const v2, 0x7f070054
@@ -378,7 +378,7 @@
 
     move-result-object v1
 
-    .line 313
+    .line 312
     iget-object v2, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->colors:[I
 
     aget v2, v2, p2
@@ -391,26 +391,26 @@
 
     invoke-virtual {v1, v2, v3}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
 
-    .line 314
+    .line 313
     iget-object v2, p1, Lbl/adv;->a:Landroid/view/View;
 
     invoke-virtual {v2, v1}, Landroid/view/View;->setBackgroundDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 315
+    .line 314
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->C()Landroid/widget/ImageView;
 
     move-result-object v1
 
     invoke-virtual {v1, v5}, Landroid/widget/ImageView;->setBackgroundResource(I)V
 
-    .line 316
+    .line 315
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->D()Landroid/widget/ImageView;
 
     move-result-object v1
 
     invoke-virtual {v1, v5}, Landroid/widget/ImageView;->setBackgroundResource(I)V
 
-    .line 317
+    .line 316
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->E()Landroid/widget/TextView;
 
     move-result-object v1
@@ -419,14 +419,14 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 318
+    .line 317
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->E()Landroid/widget/TextView;
 
     move-result-object v1
 
     invoke-virtual {v1, v5}, Landroid/widget/TextView;->setBackgroundResource(I)V
 
-    .line 319
+    .line 318
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->F()Landroid/widget/TextView;
 
     move-result-object v1
@@ -435,7 +435,7 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 320
+    .line 319
     iget-object v1, p1, Lbl/adv;->a:Landroid/view/View;
 
     const v2, 0x7f0800d8
@@ -446,12 +446,12 @@
 
     invoke-virtual {v1, v2, v3}, Landroid/view/View;->setTag(ILjava/lang/Object;)V
 
-    .line 321
+    .line 320
     iget-object v1, p1, Lbl/adv;->a:Landroid/view/View;
 
     invoke-virtual {v1, p0}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 322
+    .line 321
     sget-object v1, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->MyMap:[I
 
     aget v1, v1, p2
@@ -462,36 +462,36 @@
 
     if-eqz v1, :cond_186
 
-    .line 323
+    .line 322
     iget-object v2, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->d:Lcom/bilibili/lib/account/model/AccountInfo;
 
-    .line 324
+    .line 323
     if-nez v2, :cond_a3
 
-    .line 325
+    .line 324
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 327
+    .line 326
     :cond_a3
     iget-object v1, v2, Lcom/bilibili/lib/account/model/AccountInfo;->mAvatar:Ljava/lang/String;
 
     if-eqz v1, :cond_f7
 
-    .line 328
+    .line 327
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->B()Lcom/bilibili/tv/widget/CircleImageView;
 
     move-result-object v1
 
     invoke-virtual {v1, v5}, Lcom/bilibili/tv/widget/CircleImageView;->setVisibility(I)V
 
-    .line 329
+    .line 328
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->A()Lcom/bilibili/tv/widget/CircleImageView;
 
     move-result-object v1
 
     invoke-virtual {v1, v4}, Lcom/bilibili/tv/widget/CircleImageView;->setVisibility(I)V
 
-    .line 330
+    .line 329
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->B()Lcom/bilibili/tv/widget/CircleImageView;
 
     move-result-object v1
@@ -512,14 +512,14 @@
 
     invoke-virtual {v1, v3, v4}, Lcom/bilibili/tv/widget/CircleImageView;->a(IF)V
 
-    .line 331
+    .line 330
     const v1, 0x7f0603e7
 
     invoke-static {v1}, Lbl/adl;->b(I)I
 
     move-result v3
 
-    .line 332
+    .line 331
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->H()Landroid/widget/LinearLayout;
 
     move-result-object v1
@@ -528,10 +528,10 @@
 
     move-result-object v1
 
-    .line 333
+    .line 332
     if-nez v1, :cond_e4
 
-    .line 334
+    .line 333
     new-instance v0, Lkotlin/TypeCastException;
 
     const-string v1, "null cannot be cast to non-null type android.widget.LinearLayout.LayoutParams"
@@ -540,7 +540,7 @@
 
     throw v0
 
-    .line 336
+    .line 335
     :cond_e4
     check-cast v1, Landroid/widget/LinearLayout$LayoutParams;
 
@@ -548,12 +548,12 @@
 
     invoke-virtual {v1, v5, v3, v5, v5}, Landroid/widget/LinearLayout$LayoutParams;->setMargins(IIII)V
 
-    .line 337
+    .line 336
     invoke-static {}, Lbl/nv;->a()Lbl/nv;
 
     move-result-object v1
 
-    .line 338
+    .line 337
     iget-object v3, v2, Lcom/bilibili/lib/account/model/AccountInfo;->mAvatar:Ljava/lang/String;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->B()Lcom/bilibili/tv/widget/CircleImageView;
@@ -562,29 +562,29 @@
 
     invoke-virtual {v1, v3, v4}, Lbl/nv;->a(Ljava/lang/String;Landroid/widget/ImageView;)V
 
-    .line 340
+    .line 339
     :cond_f7
     iget-object v1, v2, Lcom/bilibili/lib/account/model/AccountInfo;->mUserName:Ljava/lang/String;
 
     if-eqz v1, :cond_104
 
-    .line 341
+    .line 340
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->z()Landroid/widget/TextView;
 
     move-result-object v1
 
-    .line 342
+    .line 341
     iget-object v3, v2, Lcom/bilibili/lib/account/model/AccountInfo;->mUserName:Ljava/lang/String;
 
     invoke-virtual {v1, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 344
+    .line 343
     :cond_104
     iget-object v1, v2, Lcom/bilibili/lib/account/model/AccountInfo;->mSex:Ljava/lang/String;
 
     if-eqz v1, :cond_11c
 
-    .line 345
+    .line 344
     const-string v1, "1"
 
     iget-object v3, v2, Lcom/bilibili/lib/account/model/AccountInfo;->mSex:Ljava/lang/String;
@@ -595,7 +595,7 @@
 
     if-eqz v1, :cond_187
 
-    .line 346
+    .line 345
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->C()Landroid/widget/ImageView;
 
     move-result-object v1
@@ -604,14 +604,14 @@
 
     invoke-virtual {v1, v3}, Landroid/widget/ImageView;->setBackgroundResource(I)V
 
-    .line 355
+    .line 354
     :cond_11c
     :goto_11c
     iget-object v1, v2, Lcom/bilibili/lib/account/model/AccountInfo;->mLevelInfo:Lcom/bilibili/lib/account/model/BiliLevelInfo;
 
     if-eqz v1, :cond_131
 
-    .line 356
+    .line 355
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->D()Landroid/widget/ImageView;
 
     move-result-object v1
@@ -628,7 +628,7 @@
 
     invoke-virtual {v1, v3}, Landroid/widget/ImageView;->setBackgroundResource(I)V
 
-    .line 358
+    .line 357
     :cond_131
     invoke-virtual {v2}, Lcom/bilibili/lib/account/model/AccountInfo;->isFormalAccount()Z
 
@@ -636,14 +636,14 @@
 
     if-eqz v1, :cond_1a8
 
-    .line 359
+    .line 358
     iget-object v1, v2, Lcom/bilibili/lib/account/model/AccountInfo;->mRank:Ljava/lang/String;
 
     invoke-static {v1}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
 
     move-result v1
 
-    .line 363
+    .line 362
     :goto_13d
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->E()Landroid/widget/TextView;
 
@@ -657,7 +657,7 @@
 
     invoke-virtual {v3, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 364
+    .line 363
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->E()Landroid/widget/TextView;
 
     move-result-object v1
@@ -678,22 +678,22 @@
 
     invoke-virtual {v1, v3}, Landroid/widget/TextView;->setBackgroundDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 365
+    .line 364
     iget-object v1, v2, Lcom/bilibili/lib/account/model/AccountInfo;->mCoins:Ljava/lang/String;
 
     if-eqz v1, :cond_186
 
-    .line 366
+    .line 365
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->F()Landroid/widget/TextView;
 
     move-result-object v0
 
-    .line 367
+    .line 366
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 368
+    .line 367
     const v3, 0x7f0c0077
 
     invoke-static {v3}, Lbl/adl;->e(I)Ljava/lang/String;
@@ -702,23 +702,23 @@
 
     invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 369
+    .line 368
     iget-object v2, v2, Lcom/bilibili/lib/account/model/AccountInfo;->mCoins:Ljava/lang/String;
 
     invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 370
+    .line 369
     invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v1
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 374
+    .line 373
     :cond_186
     return-void
 
-    .line 348
+    .line 347
     :cond_187
     const-string v1, "2"
 
@@ -730,7 +730,7 @@
 
     if-eqz v1, :cond_19c
 
-    .line 349
+    .line 348
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->C()Landroid/widget/ImageView;
 
     move-result-object v1
@@ -741,7 +741,7 @@
 
     goto :goto_11c
 
-    .line 351
+    .line 350
     :cond_19c
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->C()Landroid/widget/ImageView;
 
@@ -753,7 +753,7 @@
 
     goto/16 :goto_11c
 
-    .line 361
+    .line 360
     :cond_1a8
     const/16 v1, 0x1388
 
@@ -764,7 +764,7 @@
     .locals 1
 
     .prologue
-    .line 289
+    .line 288
     iget v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->f:I
 
     return v0
@@ -774,10 +774,10 @@
     .locals 0
 
     .prologue
-    .line 293
+    .line 292
     iput p1, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->f:I
 
-    .line 294
+    .line 293
     return-void
 .end method
 
@@ -791,37 +791,37 @@
 
     const/4 v1, 0x0
 
-    .line 408
+    .line 407
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 409
+    .line 408
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    .line 410
+    .line 409
     const-string v2, "v.context"
 
     invoke-static {v0, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 411
+    .line 410
     invoke-static {v0}, Lbl/adl;->a(Landroid/content/Context;)Landroid/app/Activity;
 
     move-result-object v2
 
-    .line 412
+    .line 411
     if-eqz v2, :cond_2d
 
-    .line 413
+    .line 412
     const v0, 0x7f0800d8
 
     invoke-virtual {p1, v0}, Landroid/view/View;->getTag(I)Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 414
+    .line 413
     if-eqz v0, :cond_2e
 
     check-cast v0, Ljava/lang/Integer;
@@ -830,7 +830,7 @@
 
     move-result v0
 
-    .line 415
+    .line 414
     :goto_26
     sget-object v3, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->MyMap:[I
 
@@ -838,7 +838,7 @@
 
     packed-switch v3, :pswitch_data_112
 
-    .line 468
+    .line 467
     :cond_2d
     :goto_2d
     return-void
@@ -846,16 +846,16 @@
     :cond_2e
     move v0, v1
 
-    .line 414
+    .line 413
     goto :goto_26
 
-    .line 417
+    .line 416
     :pswitch_30
     iget-boolean v1, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->e:Z
 
     if-nez v1, :cond_42
 
-    .line 418
+    .line 417
     sget-object v1, Lcom/bilibili/tv/ui/account/LoginActivity;->Companion:Lcom/bilibili/tv/ui/account/LoginActivity$a;
 
     sget-object v3, Lcom/bilibili/tv/ui/main/MainActivity;->Companion:Lcom/bilibili/tv/ui/main/MainActivity$a;
@@ -866,23 +866,23 @@
 
     invoke-virtual {v1, v2, v3}, Lcom/bilibili/tv/ui/account/LoginActivity$a;->a(Landroid/app/Activity;I)V
 
-    .line 419
+    .line 418
     iput v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->f:I
 
     goto :goto_2d
 
-    .line 422
+    .line 421
     :cond_42
     instance-of v0, v2, Lcom/bilibili/tv/ui/main/MainActivity;
 
     if-eqz v0, :cond_2d
 
-    .line 423
+    .line 422
     new-instance v0, Lbl/agb$a;
 
     invoke-direct {v0, v2}, Lbl/agb$a;-><init>(Landroid/app/Activity;)V
 
-    .line 424
+    .line 423
     invoke-virtual {v0, v4}, Lbl/agb$a;->a(I)Lbl/agb$a;
 
     move-result-object v1
@@ -921,7 +921,7 @@
 
     invoke-virtual {v1, v2, v3}, Lbl/agb$a;->b(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
 
-    .line 425
+    .line 424
     invoke-virtual {v0}, Lbl/agb$a;->a()Lbl/agb;
 
     move-result-object v0
@@ -930,13 +930,13 @@
 
     goto :goto_2d
 
-    .line 429
+    .line 428
     :pswitch_7e
     iget-boolean v3, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->e:Z
 
     if-nez v3, :cond_90
 
-    .line 430
+    .line 429
     sget-object v1, Lcom/bilibili/tv/ui/account/LoginActivity;->Companion:Lcom/bilibili/tv/ui/account/LoginActivity$a;
 
     sget-object v3, Lcom/bilibili/tv/ui/main/MainActivity;->Companion:Lcom/bilibili/tv/ui/main/MainActivity$a;
@@ -947,16 +947,16 @@
 
     invoke-virtual {v1, v2, v3}, Lcom/bilibili/tv/ui/account/LoginActivity$a;->a(Landroid/app/Activity;I)V
 
-    .line 431
+    .line 430
     iput v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->f:I
 
     goto :goto_2d
 
-    .line 435
+    .line 434
     :cond_90
     invoke-static {v2}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->a(Landroid/content/Context;)V
 
-    .line 436
+    .line 435
     const-string v0, "tv_my_mybangumi_click"
 
     new-array v2, v5, [Ljava/lang/String;
@@ -973,13 +973,13 @@
 
     goto :goto_2d
 
-    .line 439
+    .line 438
     :pswitch_a3
     iget-boolean v1, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->e:Z
 
     if-nez v1, :cond_b6
 
-    .line 440
+    .line 439
     sget-object v1, Lcom/bilibili/tv/ui/account/LoginActivity;->Companion:Lcom/bilibili/tv/ui/account/LoginActivity$a;
 
     sget-object v3, Lcom/bilibili/tv/ui/main/MainActivity;->Companion:Lcom/bilibili/tv/ui/main/MainActivity$a;
@@ -990,12 +990,12 @@
 
     invoke-virtual {v1, v2, v3}, Lcom/bilibili/tv/ui/account/LoginActivity$a;->a(Landroid/app/Activity;I)V
 
-    .line 441
+    .line 440
     iput v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->f:I
 
     goto/16 :goto_2d
 
-    .line 444
+    .line 443
     :cond_b6
     sget-object v0, Lcom/bilibili/tv/ui/history/VideoToviewActivity;->Companion:Lcom/bilibili/tv/ui/history/VideoToviewActivity$b;
 
@@ -1009,13 +1009,13 @@
 
     goto/16 :goto_2d
 
-    .line 447
+    .line 446
     :pswitch_c3
     iget-boolean v3, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->e:Z
 
     if-nez v3, :cond_d6
 
-    .line 448
+    .line 447
     sget-object v1, Lcom/bilibili/tv/ui/account/LoginActivity;->Companion:Lcom/bilibili/tv/ui/account/LoginActivity$a;
 
     sget-object v3, Lcom/bilibili/tv/ui/main/MainActivity;->Companion:Lcom/bilibili/tv/ui/main/MainActivity$a;
@@ -1026,16 +1026,16 @@
 
     invoke-virtual {v1, v2, v3}, Lcom/bilibili/tv/ui/account/LoginActivity$a;->a(Landroid/app/Activity;I)V
 
-    .line 449
+    .line 448
     iput v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->f:I
 
     goto/16 :goto_2d
 
-    .line 452
+    .line 451
     :cond_d6
     invoke-static {v2}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->a(Landroid/content/Context;)V
 
-    .line 453
+    .line 452
     const-string v0, "tv_my_favourite_click"
 
     new-array v2, v5, [Ljava/lang/String;
@@ -1052,13 +1052,13 @@
 
     goto/16 :goto_2d
 
-    .line 456
+    .line 455
     :pswitch_ea
     iget-boolean v3, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->e:Z
 
     if-nez v3, :cond_fd
 
-    .line 457
+    .line 456
     sget-object v1, Lcom/bilibili/tv/ui/account/LoginActivity;->Companion:Lcom/bilibili/tv/ui/account/LoginActivity$a;
 
     sget-object v3, Lcom/bilibili/tv/ui/main/MainActivity;->Companion:Lcom/bilibili/tv/ui/main/MainActivity$a;
@@ -1069,16 +1069,16 @@
 
     invoke-virtual {v1, v2, v3}, Lcom/bilibili/tv/ui/account/LoginActivity$a;->a(Landroid/app/Activity;I)V
 
-    .line 458
+    .line 457
     iput v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->f:I
 
     goto/16 :goto_2d
 
-    .line 461
+    .line 460
     :cond_fd
     invoke-static {v2}, Lcom/bilibili/tv/ui/history/HistorySideActivity;->a(Landroid/content/Context;)V
 
-    .line 462
+    .line 461
     const-string v0, "tv_my_history_click"
 
     new-array v2, v5, [Ljava/lang/String;
@@ -1095,7 +1095,7 @@
 
     goto/16 :goto_2d
 
-    .line 415
+    .line 414
     nop
 
     :pswitch_data_112

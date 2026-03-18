@@ -9,12 +9,15 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
 import bl.ach;
 import bl.abd;
 import bl.adh;
@@ -475,9 +478,33 @@ public final class AuthSpaceActivity extends BaseReloadActivity {
                 BiliSpaceVideo biliSpaceVideo2 = biliSpaceVideo;
                 d dVar = (d) advVar;
                 dVar.A().setText(biliSpaceVideo2.title);
-                dVar.B().setText(this.b);
+                dVar.B().setVisibility(View.GONE);
                 dVar.C().setText(adh.a(biliSpaceVideo2.play));
-                dVar.D().setText(adh.a(biliSpaceVideo2.danmaku));
+                int danmaku = 0;
+                try {
+                    danmaku = Integer.parseInt(biliSpaceVideo2.danmaku);
+                } catch (Exception e) {}
+                if (danmaku > 0) {
+                    dVar.danmakuInImage.setText(adh.a(danmaku));
+                    dVar.danmakuInImage.setVisibility(View.VISIBLE);
+                } else {
+                    dVar.danmakuInImage.setVisibility(View.GONE);
+                }
+                long pubdate = biliSpaceVideo2.ctime != null ? biliSpaceVideo2.ctime : 0;
+                if (pubdate > 0) {
+                    dVar.D().setText(DateUtils.getRelativeTimeSpanString(
+                            pubdate * ((long) IjkMediaCodecInfo.RANK_MAX),
+                            System.currentTimeMillis(), 1000L));
+                    dVar.D().setVisibility(View.VISIBLE);
+                } else {
+                    dVar.D().setVisibility(View.GONE);
+                }
+                int durationVal = biliSpaceVideo2.duration;
+                if (durationVal >= 3600) {
+                    dVar.E().setText(String.format("%d:%02d:%02d", durationVal / 3600, (durationVal % 3600) / 60, durationVal % 60));
+                } else {
+                    dVar.E().setText(String.format("%02d:%02d", durationVal / 60, durationVal % 60));
+                }
                 if (biliSpaceVideo2.cover != null) {
                     nv.a().a(abd.get_thumb_url_c(MainApplication.a(), biliSpaceVideo2.cover), dVar.z());
                 }
@@ -537,6 +564,8 @@ public final class AuthSpaceActivity extends BaseReloadActivity {
         private TextView p;
         private TextView q;
         private TextView r;
+        private TextView danmakuInImage;
+        private TextView duration;
 
         /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
         public d(View view) {
@@ -546,21 +575,23 @@ public final class AuthSpaceActivity extends BaseReloadActivity {
             this.o = (TextView) a(view, R.id.title);
             this.p = (TextView) a(view, R.id.up);
             this.q = (TextView) a(view, R.id.play);
-            this.r = (TextView) a(view, R.id.danmaku);
+            this.r = (TextView) a(view, R.id.pubdate);
+            this.danmakuInImage = (TextView) a(view, R.id.danmaku);
+            this.duration = (TextView) a(view, R.id.duration);
             Drawable c = adl.a.c(R.drawable.ic_video_info_up);
             Drawable c2 = adl.a.c(R.drawable.ic_video_info_play);
             Drawable c3 = adl.a.c(R.drawable.ic_video_info_danmaku);
-            int b = adl.b(R.dimen.px_34);
+            int b = adl.b(R.dimen.px_26);
             c.setBounds(0, 0, b, b);
             c2.setBounds(0, 0, b, b);
             c3.setBounds(0, 0, b, b);
-            int d = adl.d(R.color.white_50);
-            c.setColorFilter(d, PorterDuff.Mode.MULTIPLY);
-            c2.setColorFilter(d, PorterDuff.Mode.MULTIPLY);
-            c3.setColorFilter(d, PorterDuff.Mode.MULTIPLY);
+            int danmakuColor = adl.d(R.color.white);
+            c.setColorFilter(danmakuColor, PorterDuff.Mode.MULTIPLY);
+            c2.setColorFilter(danmakuColor, PorterDuff.Mode.MULTIPLY);
+            c3.setColorFilter(danmakuColor, PorterDuff.Mode.MULTIPLY);
             this.p.setCompoundDrawables(c, null, null, null);
             this.q.setCompoundDrawables(c2, null, null, null);
-            this.r.setCompoundDrawables(c3, null, null, null);
+            this.danmakuInImage.setCompoundDrawables(c3, null, null, null);
         }
 
         public final ScalableImageView z() {
@@ -581,6 +612,10 @@ public final class AuthSpaceActivity extends BaseReloadActivity {
 
         public final TextView D() {
             return this.r;
+        }
+
+        public final TextView E() {
+            return this.duration;
         }
 
         /* compiled from: BL */
