@@ -1075,20 +1075,97 @@ public final class VideoDetailActivity extends BaseActivity
     private final void loadHistory(BiliVideoDetail biliVideoDetail) {
         mg a2 = mg.a(this);
         bbi.a((Object) a2, "BiliAccount.get(this)");
-        // String requestUrl = "https://app.bilibili.com/x/v2/view?aid=" + this.s + "&plat=0&autoplay=0&access_key=" + a2.e();
-        // android.util.Log.i("VideoDetailApi", "========== HISTORY REQUEST URL ==========");
-        // android.util.Log.i("VideoDetailApi", requestUrl);
-        // android.util.Log.i("VideoDetailApi", "========== HISTORY REQUEST URL END ==========");
+        
+        long cid = 0;
+        if (biliVideoDetail.mPageList != null && !biliVideoDetail.mPageList.isEmpty()) {
+            cid = biliVideoDetail.mPageList.get(0).mCid;
+        }
+        
+        if (cid == 0) {
+            android.util.Log.i("VideoDetailApi", "cid is 0, fallback to getVideoDetails");
+            fallbackLoadHistory(biliVideoDetail, a2.e());
+            return;
+        }
+        
+        final long finalCid = cid;
+        final long avid = this.s;
+        final BiliVideoDetail finalBiliVideoDetail = biliVideoDetail;
+        final String accessKey = a2.e();
+        final String sessdata = a2.getSESSDATA();
+        
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean playurlSuccess = false;
+                try {
+                    // android.util.Log.i("VideoDetailApi", "========== PLAYER WBI V2 REQUEST ==========");
+                    
+                    com.alibaba.fastjson.JSONObject playerData = ((BiliVideoDetail.JsonResponse) bl.pz.a(
+                        new bl.qa.a(BiliVideoDetail.JsonResponse.class)
+                            .a("https://api.bilibili.com/x/player/wbi/v2")
+                            .a(true)
+                            .a("Cookie", "SESSDATA=" + sessdata)
+                            .b("")
+                            .b("aid", String.valueOf(avid))
+                            .b("cid", String.valueOf(finalCid))
+                            .a(new bl.qb()).a(), "GET")).result();
+                    
+                    // android.util.Log.i("VideoDetailApi", "========== PLAYER WBI V2 RESPONSE ==========");
+                    // android.util.Log.i("VideoDetailApi", "playerData=" + playerData);
+                    // android.util.Log.i("VideoDetailApi", "========== PLAYER WBI V2 RESPONSE END ==========");
+                    
+                    if (playerData != null && playerData.getIntValue("code") == 0) {
+                        com.alibaba.fastjson.JSONObject data = playerData.getJSONObject("data");
+                        if (data != null) {
+                            long lastPlayCid = data.getLongValue("last_play_cid");
+                            int lastPlayTime = data.getIntValue("last_play_time");
+                            
+                            if (lastPlayCid > 0 || lastPlayTime > 0) {
+                                playurlSuccess = true;
+                                final BiliVideoDetail.History history = new BiliVideoDetail.History();
+                                history.mCid = lastPlayCid > 0 ? lastPlayCid : finalCid;
+                                history.mProgress = lastPlayTime;
+                                
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        finalBiliVideoDetail.mHistory = history;
+                                        // android.util.Log.i("VideoDetailApi", "History from wbi/v2: cid=" + history.mCid + ", progress=" + history.mProgress);
+                                        updateHistoryDisplay(finalBiliVideoDetail);
+                                        if (VideoDetailActivity.this.historyPlayBtnLayout != null &&
+                                                VideoDetailActivity.this.historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
+                                            VideoDetailActivity.this.historyPlayBtnLayout.requestFocus();
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    android.util.Log.e("VideoDetailApi", "Player WBI V2 Error: " + e.getMessage(), e);
+                }
+                
+                if (!playurlSuccess) {
+                    android.util.Log.i("VideoDetailApi", "Playurl failed, fallback to getVideoDetails");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            fallbackLoadHistory(finalBiliVideoDetail, a2.e());
+                        }
+                    });
+                }
+            }
+        }).start();
+    }
+    
+    private final void fallbackLoadHistory(BiliVideoDetail biliVideoDetail, String accessKey) {
         ((VideoApiService) vo.a(VideoApiService.class)).getVideoDetails(
             new VideoApiService.VideoParamsMapV2.Builder(this.s).setAutoPlay("0").build(),
-            a2.e()
+            accessKey
         ).a(new bl.vu<GeneralResponse<JSONObject>>() {
             @Override
             public GeneralResponse<JSONObject> convert(okhttp3.ResponseBody responseBody) throws java.io.IOException {
                 String rawResponse = responseBody.string();
-                // android.util.Log.i("VideoDetailApi", "========== HISTORY API RESPONSE START ==========");
-                // android.util.Log.i("VideoDetailApi", rawResponse);
-                // android.util.Log.i("VideoDetailApi", "========== HISTORY API RESPONSE END ==========");
                 com.alibaba.fastjson.JSONObject jSONObject = com.alibaba.fastjson.JSON.parseObject(rawResponse);
                 GeneralResponse<JSONObject> response = new GeneralResponse<>();
                 response.code = jSONObject.getIntValue("code");
@@ -1111,7 +1188,7 @@ public final class VideoDetailActivity extends BaseActivity
             }
             @Override
             public void onSuccess(GeneralResponse<JSONObject> result) {
-                android.util.Log.i("VideoDetailApi", "History onSuccess called, result=" + result);
+                // android.util.Log.i("VideoDetailApi", "History onSuccess called, result=" + result);
                 if (result != null && result.data != null) {
                     com.alibaba.fastjson.JSONObject data = result.data;
                     if (data.containsKey("history")) {
@@ -1121,7 +1198,7 @@ public final class VideoDetailActivity extends BaseActivity
                             history.mCid = historyObj.getLongValue("cid");
                             history.mProgress = historyObj.getIntValue("progress");
                             biliVideoDetail.mHistory = history;
-                            android.util.Log.i("VideoDetailApi", "History merged: cid=" + history.mCid + ", progress=" + history.mProgress);
+                            // android.util.Log.i("VideoDetailApi", "History merged: cid=" + history.mCid + ", progress=" + history.mProgress);
                         }
                     }
                 }

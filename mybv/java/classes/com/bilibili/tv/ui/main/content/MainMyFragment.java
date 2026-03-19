@@ -307,15 +307,13 @@ public final class MainMyFragment extends adu implements aez, wf {
                 cVar.z().setText(this.titles[MyMap[i]]);
                 nv.a().a(this.logos[MyMap[i]], cVar.A());
                 cVar.A().setVisibility(0);
-                cVar.B().setVisibility(8);
                 Drawable c = adl.a.c(R.drawable.background_item_main);
                 c.setColorFilter(adl.d(this.colors[i]), PorterDuff.Mode.SRC_ATOP);
                 advVar.a.setBackgroundDrawable(c);
-                cVar.C().setBackgroundResource(0);
-                cVar.D().setBackgroundResource(0);
-                cVar.E().setText("");
-                cVar.E().setBackgroundResource(0);
-                cVar.F().setText("");
+                cVar.E().setVisibility(8);
+                cVar.F().setVisibility(8);
+                cVar.C().setVisibility(8);
+                cVar.D().setVisibility(8);
                 advVar.a.setTag(R.id.position, Integer.valueOf(i));
                 advVar.a.setOnClickListener(this);
                 if (MyMap[i] == 0 && this.d != null) {
@@ -324,49 +322,12 @@ public final class MainMyFragment extends adu implements aez, wf {
                         bbi.a();
                     }
                     if (accountInfo.mAvatar != null) {
-                        cVar.B().setVisibility(0);
-                        cVar.A().setVisibility(8);
-                        cVar.B().a(adl.d(R.color.white), adl.b(R.dimen.px_6));
-                        int b = adl.b(R.dimen.px_90);
-                        ViewGroup.LayoutParams layoutParams = cVar.H().getLayoutParams();
-                        if (layoutParams == null) {
-                            throw new TypeCastException("null cannot be cast to non-null type android.widget.LinearLayout.LayoutParams");
-                        }
-                        ((LinearLayout.LayoutParams) layoutParams).setMargins(0, -b, 0, 0);
                         nv a2 = nv.a();
-                        a2.a(accountInfo.mAvatar, cVar.B());
+                        a2.a(accountInfo.mAvatar, cVar.A());
                     }
                     if (accountInfo.mUserName != null) {
                         TextView z = cVar.z();
                         z.setText(accountInfo.mUserName);
-                    }
-                    if (accountInfo.mSex != null) {
-                        if (bbi.a((Object) "1", (Object) accountInfo.mSex)) {
-                            cVar.C().setBackgroundResource(R.drawable.ic_user_male_border);
-                        } else {
-                            if (bbi.a((Object) "2", (Object) accountInfo.mSex)) {
-                                cVar.C().setBackgroundResource(R.drawable.ic_user_female_border);
-                            } else {
-                                cVar.C().setBackgroundResource(R.drawable.ic_user_gay_border);
-                            }
-                        }
-                    }
-                    if (accountInfo.mLevelInfo != null) {
-                        cVar.D().setBackgroundResource(MainMyFragment.Companion.b(accountInfo.mLevelInfo.mCurrentLevel));
-                    }
-                    if (accountInfo.isFormalAccount()) {
-                        i2 = Integer.parseInt(accountInfo.mRank);
-                    } else {
-                        i2 = 5000;
-                    }
-                    cVar.E().setText(MainMyFragment.Companion.a(i2));
-                    cVar.E().setBackgroundDrawable(adl.a.a(R.dimen.px_8, R.dimen.px_2, R.color.transparent, R.color.tv_user_center_text));
-                    if (accountInfo.mCoins != null) {
-                        TextView F = cVar.F();
-                        StringBuilder sb = new StringBuilder();
-                        sb.append(adl.e(R.string.coin));
-                        sb.append(accountInfo.mCoins);
-                        F.setText(sb.toString());
                     }
                 }
             }
@@ -516,7 +477,6 @@ public final class MainMyFragment extends adu implements aez, wf {
         public static final a Companion = new a(null);
         private final TextView n;
         private final CircleImageView o;
-        private final CircleImageView p;
         private final ImageView q;
         private final ImageView r;
         private final TextView s;
@@ -531,7 +491,6 @@ public final class MainMyFragment extends adu implements aez, wf {
             bbi.b(view, "itemView");
             this.n = (TextView) a(view, R.id.name);
             this.o = (CircleImageView) a(view, R.id.img_icon);
-            this.p = (CircleImageView) a(view, R.id.img_avatar);
             this.q = (ImageView) a(view, R.id.sex);
             this.r = (ImageView) a(view, R.id.level);
             this.s = (TextView) a(view, R.id.member);
@@ -554,10 +513,6 @@ public final class MainMyFragment extends adu implements aez, wf {
 
         public final CircleImageView A() {
             return this.o;
-        }
-
-        public final CircleImageView B() {
-            return this.p;
         }
 
         public final ImageView C() {

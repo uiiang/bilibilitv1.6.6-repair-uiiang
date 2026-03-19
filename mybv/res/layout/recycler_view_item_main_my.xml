@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_horizontal"
+<com.bilibili.tv.widget.DrawLinearLayout android:gravity="center"
     android:orientation="vertical" android:id="@id/frame" android:focusable="true"
     android:focusableInTouchMode="true" android:clipChildren="false"
-    android:layout_width="@dimen/px_406" android:layout_height="@dimen/px_540"
+    android:layout_width="@dimen/px_406" android:layout_height="@dimen/px_406"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <FrameLayout android:layout_width="@dimen/px_180" android:layout_height="@dimen/px_180"
-        android:layout_marginTop="@dimen/px_120">
-        <com.bilibili.tv.widget.CircleImageView android:layout_gravity="center_horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/px_30">
+        <com.bilibili.tv.widget.CircleImageView android:layout_gravity="center"
             android:id="@id/img_icon" android:focusable="false" android:layout_width="@dimen/px_180"
             android:layout_height="@dimen/px_180" />
-        <com.bilibili.tv.widget.CircleImageView android:layout_gravity="center_horizontal"
-            android:id="@id/img_avatar" android:focusable="false" android:visibility="gone"
-            android:layout_width="@dimen/px_140" android:layout_height="@dimen/px_140"
-            android:layout_marginTop="@dimen/px_minus_60" />
     </FrameLayout>
     <LinearLayout android:gravity="center_horizontal" android:orientation="vertical"
         android:id="@id/fuck_layout" android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px_30">
         <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_44"
             android:textColor="@color/white" android:gravity="center" android:id="@id/name"
             android:focusable="false" android:layout_width="wrap_content"
