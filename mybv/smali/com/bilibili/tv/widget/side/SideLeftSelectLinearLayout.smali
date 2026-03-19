@@ -1,337 +1,387 @@
 .class public Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;
 .super Landroid/widget/LinearLayout;
-.source "BL"
+.source "SideLeftSelectLinearLayout.java"
 
 
 # direct methods
 .method public constructor <init>(Landroid/content/Context;)V
     .locals 0
 
-    .line 27
+    .prologue
+    .line 16
     invoke-direct {p0, p1}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
 
+    .line 17
     return-void
 .end method
 
 .method public constructor <init>(Landroid/content/Context;Landroid/util/AttributeSet;)V
     .locals 0
 
-    .line 31
+    .prologue
+    .line 20
     invoke-direct {p0, p1, p2}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;)V
 
+    .line 21
     return-void
 .end method
 
 .method public constructor <init>(Landroid/content/Context;Landroid/util/AttributeSet;I)V
     .locals 0
 
-    .line 35
+    .prologue
+    .line 24
     invoke-direct {p0, p1, p2, p3}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;I)V
 
+    .line 25
     return-void
 .end method
 
 .method public constructor <init>(Landroid/content/Context;Landroid/util/AttributeSet;II)V
     .locals 0
-    .annotation build Landroid/annotation/TargetApi;
-        value = 0x15
-    .end annotation
 
-    .line 40
+    .prologue
+    .line 28
     invoke-direct {p0, p1, p2, p3, p4}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;II)V
 
+    .line 29
     return-void
 .end method
 
 
 # virtual methods
 .method public a()V
-    .locals 6
+    .locals 9
 
-    .line 66
+    .prologue
+    const v8, 0x3f8a3d71    # 1.08f
+
+    const/4 v3, 0x0
+
+    .line 32
     invoke-virtual {p0}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->getChildCount()I
 
-    move-result v0
+    move-result v4
 
-    const/4 v1, 0x0
+    move v2, v3
 
-    const/4 v2, 0x0
+    .line 33
+    :goto_9
+    if-ge v2, v4, :cond_46
 
-    :goto_0
-    if-ge v2, v0, :cond_1
-
-    .line 68
+    .line 34
     invoke-virtual {p0, v2}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->getChildAt(I)Landroid/view/View;
 
-    move-result-object v3
+    move-result-object v1
 
-    .line 69
-    instance-of v4, v3, Lcom/bilibili/tv/widget/ShadowTextView;
+    .line 35
+    instance-of v0, v1, Lcom/bilibili/tv/widget/ShadowTextView;
 
-    if-eqz v4, :cond_0
+    if-eqz v0, :cond_39
 
-    .line 70
-    move-object v4, v3
+    move-object v0, v1
 
-    check-cast v4, Lcom/bilibili/tv/widget/ShadowTextView;
+    .line 36
+    check-cast v0, Lcom/bilibili/tv/widget/ShadowTextView;
 
+    .line 37
     const v5, 0x7f0500a1
 
     invoke-static {v5}, Lbl/adl;->d(I)I
 
     move-result v5
 
-    invoke-virtual {v4, v5}, Lcom/bilibili/tv/widget/ShadowTextView;->setTextColor(I)V
+    invoke-virtual {v0, v5}, Lcom/bilibili/tv/widget/ShadowTextView;->setTextColor(I)V
 
-    .line 71
-    invoke-virtual {v3}, Landroid/view/View;->animate()Landroid/view/ViewPropertyAnimator;
+    .line 38
+    invoke-virtual {v1}, Landroid/view/View;->animate()Landroid/view/ViewPropertyAnimator;
 
-    move-result-object v3
+    move-result-object v0
 
-    const v4, 0x3f8a3d71    # 1.08f
+    invoke-virtual {v0, v8}, Landroid/view/ViewPropertyAnimator;->scaleX(F)Landroid/view/ViewPropertyAnimator;
 
-    invoke-virtual {v3, v4}, Landroid/view/ViewPropertyAnimator;->scaleX(F)Landroid/view/ViewPropertyAnimator;
+    move-result-object v0
 
-    move-result-object v3
+    invoke-virtual {v0, v8}, Landroid/view/ViewPropertyAnimator;->scaleY(F)Landroid/view/ViewPropertyAnimator;
 
-    invoke-virtual {v3, v4}, Landroid/view/ViewPropertyAnimator;->scaleY(F)Landroid/view/ViewPropertyAnimator;
+    move-result-object v0
 
-    move-result-object v3
+    const-wide/16 v6, 0x0
 
-    const-wide/16 v4, 0x0
+    invoke-virtual {v0, v6, v7}, Landroid/view/ViewPropertyAnimator;->setDuration(J)Landroid/view/ViewPropertyAnimator;
 
-    invoke-virtual {v3, v4, v5}, Landroid/view/ViewPropertyAnimator;->setDuration(J)Landroid/view/ViewPropertyAnimator;
+    move-result-object v0
 
-    move-result-object v3
+    invoke-virtual {v0}, Landroid/view/ViewPropertyAnimator;->start()V
 
-    invoke-virtual {v3}, Landroid/view/ViewPropertyAnimator;->start()V
+    .line 33
+    :cond_35
+    :goto_35
+    add-int/lit8 v0, v2, 0x1
 
-    goto :goto_1
+    move v2, v0
 
-    .line 73
-    :cond_0
-    invoke-virtual {v3, v1}, Landroid/view/View;->setVisibility(I)V
+    goto :goto_9
 
-    :goto_1
-    add-int/lit8 v2, v2, 0x1
+    .line 39
+    :cond_39
+    invoke-virtual {v1}, Landroid/view/View;->getId()I
 
-    goto :goto_0
+    move-result v0
 
-    .line 76
-    :cond_1
-    invoke-static {v1}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+    const v5, 0x7f080126
+
+    if-ne v0, v5, :cond_35
+
+    .line 40
+    invoke-virtual {v1, v3}, Landroid/view/View;->setVisibility(I)V
+
+    goto :goto_35
+
+    .line 43
+    :cond_46
+    invoke-static {v3}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
 
     move-result-object v0
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->setTag(Ljava/lang/Object;)V
 
+    .line 44
     const v0, 0x7f0700da
 
-    .line 77
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->setBackgroundResource(I)V
 
+    .line 45
     return-void
 .end method
 
 .method public b()V
-    .locals 6
+    .locals 9
 
-    .line 81
+    .prologue
+    const/4 v3, 0x0
+
+    const/high16 v8, 0x3f800000    # 1.0f
+
+    .line 48
     invoke-virtual {p0}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->getChildCount()I
 
-    move-result v0
+    move-result v4
 
-    const/4 v1, 0x0
+    move v2, v3
 
-    const/4 v2, 0x0
+    .line 49
+    :goto_8
+    if-ge v2, v4, :cond_46
 
-    :goto_0
-    if-ge v2, v0, :cond_1
-
-    .line 83
+    .line 50
     invoke-virtual {p0, v2}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->getChildAt(I)Landroid/view/View;
 
-    move-result-object v3
+    move-result-object v1
 
-    .line 84
-    instance-of v4, v3, Lcom/bilibili/tv/widget/ShadowTextView;
+    .line 51
+    instance-of v0, v1, Lcom/bilibili/tv/widget/ShadowTextView;
 
-    if-eqz v4, :cond_0
+    if-eqz v0, :cond_38
 
-    .line 85
-    move-object v4, v3
+    move-object v0, v1
 
-    check-cast v4, Lcom/bilibili/tv/widget/ShadowTextView;
+    .line 52
+    check-cast v0, Lcom/bilibili/tv/widget/ShadowTextView;
 
+    .line 53
     const v5, 0x7f0500a7
 
     invoke-static {v5}, Lbl/adl;->d(I)I
 
     move-result v5
 
-    invoke-virtual {v4, v5}, Lcom/bilibili/tv/widget/ShadowTextView;->setTextColor(I)V
+    invoke-virtual {v0, v5}, Lcom/bilibili/tv/widget/ShadowTextView;->setTextColor(I)V
 
-    .line 86
-    invoke-virtual {v3}, Landroid/view/View;->animate()Landroid/view/ViewPropertyAnimator;
+    .line 54
+    invoke-virtual {v1}, Landroid/view/View;->animate()Landroid/view/ViewPropertyAnimator;
 
-    move-result-object v3
+    move-result-object v0
 
-    const/high16 v4, 0x3f800000    # 1.0f
+    invoke-virtual {v0, v8}, Landroid/view/ViewPropertyAnimator;->scaleX(F)Landroid/view/ViewPropertyAnimator;
 
-    invoke-virtual {v3, v4}, Landroid/view/ViewPropertyAnimator;->scaleX(F)Landroid/view/ViewPropertyAnimator;
+    move-result-object v0
 
-    move-result-object v3
+    invoke-virtual {v0, v8}, Landroid/view/ViewPropertyAnimator;->scaleY(F)Landroid/view/ViewPropertyAnimator;
 
-    invoke-virtual {v3, v4}, Landroid/view/ViewPropertyAnimator;->scaleY(F)Landroid/view/ViewPropertyAnimator;
+    move-result-object v0
 
-    move-result-object v3
+    const-wide/16 v6, 0x0
 
-    const-wide/16 v4, 0x0
+    invoke-virtual {v0, v6, v7}, Landroid/view/ViewPropertyAnimator;->setDuration(J)Landroid/view/ViewPropertyAnimator;
 
-    invoke-virtual {v3, v4, v5}, Landroid/view/ViewPropertyAnimator;->setDuration(J)Landroid/view/ViewPropertyAnimator;
+    move-result-object v0
 
-    move-result-object v3
+    invoke-virtual {v0}, Landroid/view/ViewPropertyAnimator;->start()V
 
-    invoke-virtual {v3}, Landroid/view/ViewPropertyAnimator;->start()V
+    .line 49
+    :cond_34
+    :goto_34
+    add-int/lit8 v0, v2, 0x1
 
-    goto :goto_1
+    move v2, v0
 
-    :cond_0
-    const/4 v4, 0x4
+    goto :goto_8
 
-    .line 88
-    invoke-virtual {v3, v4}, Landroid/view/View;->setVisibility(I)V
+    .line 55
+    :cond_38
+    invoke-virtual {v1}, Landroid/view/View;->getId()I
 
-    :goto_1
-    add-int/lit8 v2, v2, 0x1
+    move-result v0
 
-    goto :goto_0
+    const v5, 0x7f080126
 
-    .line 91
-    :cond_1
-    invoke-virtual {p0, v1}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->setBackgroundResource(I)V
+    if-ne v0, v5, :cond_34
 
+    .line 56
+    const/4 v0, 0x4
+
+    invoke-virtual {v1, v0}, Landroid/view/View;->setVisibility(I)V
+
+    goto :goto_34
+
+    .line 59
+    :cond_46
+    invoke-virtual {p0, v3}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->setBackgroundResource(I)V
+
+    .line 60
     return-void
 .end method
 
 .method public c()V
     .locals 5
 
-    .line 95
+    .prologue
+    .line 63
     invoke-virtual {p0}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->getChildCount()I
 
-    move-result v0
+    move-result v1
 
-    const/4 v1, 0x0
+    .line 64
+    const/4 v0, 0x0
 
-    :goto_0
-    if-ge v1, v0, :cond_1
+    :goto_5
+    if-ge v0, v1, :cond_1b
 
-    .line 97
-    invoke-virtual {p0, v1}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->getChildAt(I)Landroid/view/View;
+    .line 65
+    invoke-virtual {p0, v0}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->getChildAt(I)Landroid/view/View;
 
     move-result-object v2
 
-    .line 98
+    .line 66
     invoke-virtual {v2}, Landroid/view/View;->getId()I
 
     move-result v3
 
     const v4, 0x7f080126
 
-    if-ne v3, v4, :cond_0
+    if-ne v3, v4, :cond_18
 
+    .line 67
     const/4 v3, 0x4
 
-    .line 99
     invoke-virtual {v2, v3}, Landroid/view/View;->setVisibility(I)V
 
-    :cond_0
-    add-int/lit8 v1, v1, 0x1
+    .line 64
+    :cond_18
+    add-int/lit8 v0, v0, 0x1
 
-    goto :goto_0
+    goto :goto_5
 
-    :cond_1
+    .line 70
+    :cond_1b
     const/4 v0, 0x1
 
-    .line 102
     invoke-static {v0}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
 
     move-result-object v0
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->setTag(Ljava/lang/Object;)V
 
+    .line 71
     const v0, 0x7f0700d9
 
-    .line 103
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->setBackgroundResource(I)V
 
+    .line 72
     return-void
 .end method
 
 .method public setSelected(Z)V
     .locals 5
 
-    if-eqz p1, :cond_1
+    .prologue
+    const/4 v2, 0x0
 
-    .line 46
+    .line 76
+    if-eqz p1, :cond_29
+
     invoke-virtual {p0}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->isSelected()Z
 
     move-result v0
 
-    if-nez v0, :cond_1
+    if-nez v0, :cond_29
 
-    .line 47
+    .line 77
     invoke-virtual {p0}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->a()V
 
-    .line 49
+    .line 78
     invoke-virtual {p0}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->getParent()Landroid/view/ViewParent;
 
     move-result-object v0
 
-    .line 50
+    .line 79
     instance-of v1, v0, Landroid/support/v7/widget/RecyclerView;
 
-    if-eqz v1, :cond_2
+    if-eqz v1, :cond_2e
 
-    .line 51
+    .line 80
     check-cast v0, Landroid/view/ViewGroup;
 
+    .line 81
     invoke-virtual {v0}, Landroid/view/ViewGroup;->getChildCount()I
 
-    move-result v1
+    move-result v3
 
-    const/4 v2, 0x0
+    move v1, v2
 
-    const/4 v3, 0x0
+    .line 82
+    :goto_1b
+    if-ge v1, v3, :cond_2e
 
-    :goto_0
-    if-ge v3, v1, :cond_2
-
-    .line 53
-    invoke-virtual {v0, v3}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
+    .line 83
+    invoke-virtual {v0, v1}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
 
     move-result-object v4
 
-    if-eq v4, p0, :cond_0
+    .line 84
+    if-eq v4, p0, :cond_26
 
-    .line 55
+    .line 85
     invoke-virtual {v4, v2}, Landroid/view/View;->setSelected(Z)V
 
-    :cond_0
-    add-int/lit8 v3, v3, 0x1
+    .line 82
+    :cond_26
+    add-int/lit8 v1, v1, 0x1
 
-    goto :goto_0
+    goto :goto_1b
 
-    :cond_1
-    if-nez p1, :cond_2
+    .line 89
+    :cond_29
+    if-nez p1, :cond_2e
 
-    .line 60
+    .line 90
     invoke-virtual {p0}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->b()V
 
-    .line 62
-    :cond_2
+    .line 92
+    :cond_2e
     invoke-super {p0, p1}, Landroid/widget/LinearLayout;->setSelected(Z)V
 
+    .line 93
     return-void
 .end method

@@ -2517,6 +2517,13 @@ public final class R {
         public static final int cache_limit_500 = 0x7f0801a9;
         public static final int pubdate = 0x7f0801aa;
         public static final int video_detail_staff_container = 0x7f0801ab;
+        public static final int face = 0x7f0801ac;
+        public static final int dynamic_header_layout = 0x7f0801ad;
+        public static final int dynamic_header_face = 0x7f0801ae;
+        public static final int dynamic_header_title = 0x7f0801af;
+        public static final int dynamic_header_attention_layout = 0x7f0801b0;
+        public static final int dynamic_header_attention = 0x7f0801b1;
+        public static final int dynamic_header_count = 0x7f0801b2;
     }
 
     public static final class integer {
@@ -2681,6 +2688,7 @@ public final class R {
         public static final int fragment_history_video = 0x7f0a0092;
         public static final int activity_weekly = 0x7f0a0093;
         public static final int fragment_weekly_video = 0x7f0a0094;
+        public static final int fragment_attention_dynamic_video = 0x7f0a0095;
     }
 
     public static final class mipmap {

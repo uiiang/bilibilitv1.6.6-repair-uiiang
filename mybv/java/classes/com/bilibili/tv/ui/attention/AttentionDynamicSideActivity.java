@@ -127,6 +127,38 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
             if (currentFocus == null) {
                 return super.dispatchKeyEvent(keyEvent);
             }
+
+            // 处理右侧面板 header 区域的焦点逻辑
+            Fragment currentFragment = h();
+            if (currentFragment instanceof AttentionDynamicFragment) {
+                AttentionDynamicFragment adf = (AttentionDynamicFragment) currentFragment;
+                if (adf.attentionButton != null && adf.attentionButton.isFocused()) {
+                    if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                        if (adf.mRecyclerView != null && adf.mRecyclerView.getChildCount() > 0) {
+                            View firstChild = adf.mRecyclerView.getChildAt(0);
+                            if (firstChild != null) {
+                                firstChild.requestFocus();
+                                return true;
+                            }
+                        }
+                    } else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                        return true;
+                    }
+                }
+                if (keyCode == KeyEvent.KEYCODE_DPAD_UP && adf.mRecyclerView != null) {
+                    View focusedView = adf.mRecyclerView.getFocusedChild();
+                    if (focusedView != null) {
+                        int focusedPosition = adf.mRecyclerView.g(focusedView);
+                        if (focusedPosition >= 0 && focusedPosition < 2) {
+                            if (adf.attentionButton != null && adf.attentionButton.getVisibility() == View.VISIBLE) {
+                                adf.attentionButton.requestFocus();
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+
             switch (keyCode) {
                 case 21:
                     if (TextUtils.equals((CharSequence) ((View) currentFocus.getParent()).getTag(), adw.a)) {
@@ -350,9 +382,9 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
         
         AttentionDynamicFragment fragment;
         if (item.isAllDynamic()) {
-            fragment = AttentionDynamicFragment.newInstance(-1, "all", "");
+            fragment = AttentionDynamicFragment.newInstance(-1, "all", "", null);
         } else {
-            fragment = AttentionDynamicFragment.newInstance(item.getMid(), "uper", item.getName());
+            fragment = AttentionDynamicFragment.newInstance(item.getMid(), "uper", item.getName(), item.getFace());
         }
         
         getSupportFragmentManager()
@@ -397,19 +429,24 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
                 holder.n.setMaxLines(1);
                 
                 // 设置头像
-                // agf类只有n字段用于显示文字，没有头像字段
-                // 头像需要在布局文件中定义并在agf类中添加相应字段
-                // 暂时注释掉头像显示逻辑
-                /*
                 if (item.getFace() != null && !item.isAllDynamic()) {
                     // 显示圆形头像
                     nv.a().a(abd.get_thumb_url_c(MainApplication.a(), item.getFace()), holder.A());
                     holder.A().setVisibility(View.VISIBLE);
-                } else {
-                    // 全部动态显示默认图标
-                    holder.A().setVisibility(View.GONE);
+                    // 文字左边距调整为头像右边距
+                    android.view.ViewGroup.MarginLayoutParams textParams = (android.view.ViewGroup.MarginLayoutParams) holder.n.getLayoutParams();
+                    textParams.leftMargin = holder.n.getContext().getResources().getDimensionPixelSize(R.dimen.px_16);
+                    holder.n.setLayoutParams(textParams);
+                } else if (item.isAllDynamic()) {
+                    // 全部动态显示应用图标
+                    holder.A().setImageResource(R.mipmap.ic_launcher);
+                    holder.A().setVisibility(View.VISIBLE);
+                    // 文字左边距调整为头像右边距
+                    android.view.ViewGroup.MarginLayoutParams textParams = (android.view.ViewGroup.MarginLayoutParams) holder.n.getLayoutParams();
+                    textParams.leftMargin = holder.n.getContext().getResources().getDimensionPixelSize(R.dimen.px_16);
+                    holder.n.setLayoutParams(textParams);
                 }
-                */
+                // 无头像时使用布局默认值（头像gone，文字左边距与右侧一致px_46）
                 
                 vVar.a.setTag(R.id.position, Integer.valueOf(i));
                 vVar.a.setTag(item);
@@ -433,6 +470,8 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
                         if (activity == null || activity.isFinishing()) {
                             return;
                         }
+                        // 焦点移入左侧目录时，恢复 adapter 的自动切换功能
+                        a.this.b(false);
                         int f = vVar.f();
                         // 自动切换逻辑已移除：不再 postDelayed 自动调用 showVideoList
                         a.this.c = f;

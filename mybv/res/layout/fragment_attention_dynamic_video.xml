@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/background_image"
+    android:focusable="false"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Header 区域：固定在顶部 -->
+    <LinearLayout
+        android:id="@+id/dynamic_header_layout"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/px_50"
+        android:layout_marginTop="@dimen/px_50"
+        android:layout_marginRight="@dimen/px_50"
+        android:focusable="false">
+
+        <com.bilibili.tv.widget.CircleImageView
+            android:id="@+id/dynamic_header_face"
+            android:focusable="false"
+            android:visibility="gone"
+            android:layout_width="@dimen/px_53"
+            android:layout_height="@dimen/px_53" />
+
+        <com.bilibili.tv.widget.ShadowTextView
+            android:id="@+id/dynamic_header_title"
+            android:textSize="@dimen/px_48"
+            android:textColor="@color/white"
+            android:ellipsize="middle"
+            android:maxEms="15"
+            android:singleLine="true"
+            android:focusable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_16" />
+
+        <FrameLayout
+            android:id="@+id/dynamic_header_attention_layout"
+            android:padding="@dimen/px_16"
+            android:focusable="false"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <com.bilibili.tv.widget.DrawTextView
+                android:id="@+id/dynamic_header_attention"
+                android:textSize="@dimen/px_32"
+                android:textColor="@color/white"
+                android:ellipsize="end"
+                android:background="@drawable/background_white_rect"
+                android:paddingLeft="@dimen/px_18"
+                android:paddingTop="@dimen/px_5"
+                android:paddingRight="@dimen/px_18"
+                android:paddingBottom="@dimen/px_5"
+                android:focusable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="＋关注" />
+        </FrameLayout>
+
+        <com.bilibili.tv.widget.ShadowTextView
+            android:id="@+id/dynamic_header_count"
+            android:textSize="@dimen/px_32"
+            android:textColor="@color/white_50"
+            android:focusable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_24"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <!-- 视频列表 -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:focusable="false"
+        android:scrollbars="none"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/px_10" />
+</LinearLayout>

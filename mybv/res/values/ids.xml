@@ -322,4 +322,11 @@
     <item type="id" name="cache_limit_100" />
     <item type="id" name="cache_limit_300" />
     <item type="id" name="cache_limit_500" />
+    <item type="id" name="face" />
+    <item type="id" name="dynamic_header_layout" />
+    <item type="id" name="dynamic_header_face" />
+    <item type="id" name="dynamic_header_title" />
+    <item type="id" name="dynamic_header_attention_layout" />
+    <item type="id" name="dynamic_header_attention" />
+    <item type="id" name="dynamic_header_count" />
 </resources>

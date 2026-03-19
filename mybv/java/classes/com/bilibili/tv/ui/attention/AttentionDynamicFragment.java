@@ -9,9 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.text.format.DateUtils;
 
+import com.bilibili.tv.widget.CircleImageView;
+import com.bilibili.tv.widget.DrawTextView;
 import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
 import bl.adl;
 import bl.ady;
@@ -26,6 +29,7 @@ import bl.nv;
 import bl.ach;
 import bl.vo;
 import bl.vn;
+import bl.lr;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.auth.BiliSpaceApiService;
@@ -58,6 +62,14 @@ public final class AttentionDynamicFragment extends ady {
     private long mid;
     private String mode;
     private String offset = "";
+    private String uperFace = "";
+    private View rootView;
+    private View headerLayout;
+    private View attentionButtonLayout;
+    private CircleImageView headerFace;
+    private TextView headerTitle;
+    public DrawTextView attentionButton;
+    private TextView headerCount;
 
     /* compiled from: BL */
     public static final class a {
@@ -90,6 +102,133 @@ public final class AttentionDynamicFragment extends ady {
         return fragment;
     }
 
+    public static AttentionDynamicFragment newInstance(long mid, String mode, String uperName, String uperFace) {
+        AttentionDynamicFragment fragment = new AttentionDynamicFragment();
+        fragment.mid = mid;
+        fragment.mode = mode;
+        fragment.uperName = uperName;
+        fragment.uperFace = uperFace;
+        return fragment;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
+        this.rootView = inflater.inflate(R.layout.fragment_attention_dynamic_video, container, false);
+        this.headerLayout = this.rootView.findViewById(R.id.dynamic_header_layout);
+        this.attentionButtonLayout = this.rootView.findViewById(R.id.dynamic_header_attention_layout);
+        this.headerFace = (CircleImageView) this.rootView.findViewById(R.id.dynamic_header_face);
+        this.headerTitle = (TextView) this.rootView.findViewById(R.id.dynamic_header_title);
+        this.attentionButton = (DrawTextView) this.rootView.findViewById(R.id.dynamic_header_attention);
+        this.headerCount = (TextView) this.rootView.findViewById(R.id.dynamic_header_count);
+        initHeader();
+        RecyclerView recyclerView = (RecyclerView) this.rootView.findViewById(R.id.recycler_view);
+        a(recyclerView, bundle);
+        return this.rootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle bundle) {
+    }
+
+    private void initHeader() {
+        if ("all".equals(mode)) {
+            if (this.headerTitle != null) {
+                this.headerTitle.setText("全部动态");
+            }
+            if (this.headerFace != null) {
+                this.headerFace.setImageResource(R.mipmap.ic_launcher);
+                this.headerFace.setVisibility(View.VISIBLE);
+            }
+            if (this.attentionButtonLayout != null) {
+                this.attentionButtonLayout.setVisibility(View.GONE);
+            }
+            if (this.headerCount != null) {
+                this.headerCount.setVisibility(View.GONE);
+            }
+        } else if ("uper".equals(mode)) {
+            if (this.headerTitle != null) {
+                this.headerTitle.setText(this.uperName != null ? this.uperName : "");
+            }
+            if (this.headerFace != null && this.uperFace != null && !this.uperFace.isEmpty()) {
+                nv.a().a(abd.get_thumb_url_c(MainApplication.a(), this.uperFace), this.headerFace);
+                this.headerFace.setVisibility(View.VISIBLE);
+            } else if (this.headerFace != null) {
+                this.headerFace.setImageResource(R.mipmap.ic_launcher);
+                this.headerFace.setVisibility(View.VISIBLE);
+            }
+            if (this.attentionButtonLayout != null) {
+                this.attentionButtonLayout.setVisibility(View.VISIBLE);
+            }
+            if (this.attentionButton != null) {
+                this.attentionButton.setUpDrawable(R.drawable.shadow_red_rect);
+                this.attentionButton.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View view, boolean z) {
+                        ((DrawTextView) view).setUpEnabled(z);
+                    }
+                });
+                this.attentionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mg account = mg.a(getActivity());
+                        if (account == null) return;
+                        ((MyBiliApiService) vo.a(MyBiliApiService.class)).modifyRelation(
+                            account.e(), mid,
+                            AttentionDynamicFragment.this.attentionButton.getText().equals("已关注") ? 2 : 1,
+                            11
+                        ).a(new vn<JSONObject>() {
+                            @Override
+                            public void a(JSONObject response) {
+                                boolean followed = AttentionDynamicFragment.this.attentionButton.getText().equals("已关注");
+                                AttentionDynamicFragment.this.attentionButton.setText(followed ? "＋关注" : "已关注");
+                                lr.b(getContext(), followed ? "取消关注成功" : "关注成功");
+                            }
+
+                            @Override
+                            public void onError(Throwable th) {
+                                boolean followed = AttentionDynamicFragment.this.attentionButton.getText().equals("已关注");
+                                lr.b(getContext(), followed ? "取消关注失败" : "关注失败");
+                            }
+
+                            @Override
+                            public boolean isCancel() {
+                                return getActivity() == null || getActivity().isFinishing();
+                            }
+                        });
+                    }
+                });
+                mg account = mg.a(getActivity());
+                if (account != null) {
+                    ((MyBiliApiService) vo.a(MyBiliApiService.class)).getRelation(account.e(), mid)
+                        .a(new vn<JSONObject>() {
+                            @Override
+                            public void a(JSONObject response) {
+                                int attribute = response.getIntValue("attribute");
+                                if (attribute == 2 || attribute == 6) {
+                                    AttentionDynamicFragment.this.attentionButton.setText("已关注");
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable th) {}
+
+                            @Override
+                            public boolean isCancel() {
+                                return getActivity() == null || getActivity().isFinishing();
+                            }
+                        });
+                }
+            }
+        }
+    }
+
+    public void updateHeaderCount(int count) {
+        if (this.headerCount != null && "uper".equals(mode)) {
+            this.headerCount.setText(count > 0 ? count + "条" : "");
+            this.headerCount.setVisibility(View.VISIBLE);
+        }
+    }
+
     @Override // bl.ady
     public void a(RecyclerView recyclerView, Bundle bundle) {
         bbi.b(recyclerView, "recyclerView");
@@ -117,7 +256,7 @@ public final class AttentionDynamicFragment extends ady {
     }
 
     // 保存 RecyclerView 引用，用于外部判断是否在底部
-    private RecyclerView mRecyclerView;
+    public RecyclerView mRecyclerView;
 
     // 外部判断当前 Fragment 是否正在加载下一页
     public boolean isLoading() {
@@ -354,6 +493,7 @@ public final class AttentionDynamicFragment extends ady {
                             List<BiliSpaceVideo> list = BiliFilter.filterBiliSpaceVideo(biliSpaceVideoList.videos, "个人投稿");
                             if (cursor == null) {
                                 c.a(list);
+                                updateHeaderCount(biliSpaceVideoList.count);
                             } else {
                                 c.b(list);
                             }
