@@ -39,5 +39,6 @@
         android:id="@id/title" android:focusable="false" android:duplicateParentState="true"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/px_18" android:layout_marginTop="@dimen/px_18"
+        android:ellipsize="end"
         android:layout_marginRight="@dimen/px_18" android:maxLines="3" android:singleLine="true" />
 </LinearLayout>

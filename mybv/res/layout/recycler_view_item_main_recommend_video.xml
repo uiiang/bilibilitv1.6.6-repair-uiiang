@@ -110,6 +110,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:maxLines="3"
+    android:ellipsize="end"
     android:layout_toRightOf="@id/img_layout"
     android:layout_marginLeft="@dimen/px_20"
     android:layout_alignTop="@id/img_layout"

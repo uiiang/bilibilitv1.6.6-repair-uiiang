@@ -28,10 +28,10 @@ public class VideoApiParser2 implements vu<GeneralResponse<BiliVideoDetail>> {
     public GeneralResponse<BiliVideoDetail> convert(ResponseBody responseBody) throws IOException {
         Log.i(TAG, "VideoApiParser2.convert() called!");
         String rawResponse = responseBody.string();
-        Log.i(TAG, "========== VIDEO DETAIL API RESPONSE START ==========");
-        Log.i(TAG, "Response length: " + rawResponse.length());
-        Log.i(TAG, rawResponse);
-        Log.i(TAG, "========== VIDEO DETAIL API RESPONSE END ==========");
+        // Log.i(TAG, "========== VIDEO DETAIL API RESPONSE START ==========");
+        // Log.i(TAG, "Response length: " + rawResponse.length());
+        // Log.i(TAG, rawResponse);
+        // Log.i(TAG, "========== VIDEO DETAIL API RESPONSE END ==========");
         Object a = jp.a(rawResponse);
         if (a instanceof JSONObject) {
             GeneralResponse<BiliVideoDetail> generalResponse = new GeneralResponse<>();

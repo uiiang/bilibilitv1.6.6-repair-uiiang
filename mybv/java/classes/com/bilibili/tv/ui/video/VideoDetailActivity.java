@@ -1075,10 +1075,10 @@ public final class VideoDetailActivity extends BaseActivity
     private final void loadHistory(BiliVideoDetail biliVideoDetail) {
         mg a2 = mg.a(this);
         bbi.a((Object) a2, "BiliAccount.get(this)");
-        String requestUrl = "https://app.bilibili.com/x/v2/view?aid=" + this.s + "&plat=0&autoplay=0&access_key=" + a2.e();
-        android.util.Log.i("VideoDetailApi", "========== HISTORY REQUEST URL ==========");
-        android.util.Log.i("VideoDetailApi", requestUrl);
-        android.util.Log.i("VideoDetailApi", "========== HISTORY REQUEST URL END ==========");
+        // String requestUrl = "https://app.bilibili.com/x/v2/view?aid=" + this.s + "&plat=0&autoplay=0&access_key=" + a2.e();
+        // android.util.Log.i("VideoDetailApi", "========== HISTORY REQUEST URL ==========");
+        // android.util.Log.i("VideoDetailApi", requestUrl);
+        // android.util.Log.i("VideoDetailApi", "========== HISTORY REQUEST URL END ==========");
         ((VideoApiService) vo.a(VideoApiService.class)).getVideoDetails(
             new VideoApiService.VideoParamsMapV2.Builder(this.s).setAutoPlay("0").build(),
             a2.e()
@@ -1086,9 +1086,9 @@ public final class VideoDetailActivity extends BaseActivity
             @Override
             public GeneralResponse<JSONObject> convert(okhttp3.ResponseBody responseBody) throws java.io.IOException {
                 String rawResponse = responseBody.string();
-                android.util.Log.i("VideoDetailApi", "========== HISTORY API RESPONSE START ==========");
-                android.util.Log.i("VideoDetailApi", rawResponse);
-                android.util.Log.i("VideoDetailApi", "========== HISTORY API RESPONSE END ==========");
+                // android.util.Log.i("VideoDetailApi", "========== HISTORY API RESPONSE START ==========");
+                // android.util.Log.i("VideoDetailApi", rawResponse);
+                // android.util.Log.i("VideoDetailApi", "========== HISTORY API RESPONSE END ==========");
                 com.alibaba.fastjson.JSONObject jSONObject = com.alibaba.fastjson.JSON.parseObject(rawResponse);
                 GeneralResponse<JSONObject> response = new GeneralResponse<>();
                 response.code = jSONObject.getIntValue("code");

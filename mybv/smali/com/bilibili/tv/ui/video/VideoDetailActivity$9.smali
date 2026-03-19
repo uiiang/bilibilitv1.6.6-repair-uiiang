@@ -74,25 +74,6 @@
 
     move-result-object v0
 
-    .line 1089
-    const-string v1, "VideoDetailApi"
-
-    const-string v2, "========== HISTORY API RESPONSE START =========="
-
-    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 1090
-    const-string v1, "VideoDetailApi"
-
-    invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 1091
-    const-string v1, "VideoDetailApi"
-
-    const-string v2, "========== HISTORY API RESPONSE END =========="
-
-    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
     .line 1092
     invoke-static {v0}, Lcom/alibaba/fastjson/JSON;->parseObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
@@ -115,7 +96,7 @@
     .line 1095
     iget v2, v1, Lcom/bilibili/okretro/GeneralResponse;->code:I
 
-    if-nez v2, :cond_36
+    if-nez v2, :cond_23
 
     .line 1096
     const-string v2, "data"
@@ -125,13 +106,13 @@
     move-result-object v0
 
     .line 1097
-    if-eqz v0, :cond_36
+    if-eqz v0, :cond_23
 
     .line 1098
     iput-object v0, v1, Lcom/bilibili/okretro/GeneralResponse;->data:Ljava/lang/Object;
 
     .line 1101
-    :cond_36
+    :cond_23
     return-object v1
 .end method
 
