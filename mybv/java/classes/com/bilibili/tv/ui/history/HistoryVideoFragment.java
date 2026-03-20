@@ -266,16 +266,16 @@ public final class HistoryVideoFragment extends ady {
                 public void a(JSONObject response) {
                     if (response != null) {
                         String responseStr = response.toString();
-                        android.util.Log.i("HistoryApi", "========== getVideoHistoryList RESPONSE ==========");
+                        // android.util.Log.i("HistoryApi", "========== getVideoHistoryList RESPONSE ==========");
                         int maxLogSize = 1000;
                         for (int i = 0; i < responseStr.length(); i += maxLogSize) {
                             if (i + maxLogSize < responseStr.length()) {
-                                android.util.Log.i("HistoryApi", responseStr.substring(i, i + maxLogSize));
+                                // android.util.Log.i("HistoryApi", responseStr.substring(i, i + maxLogSize));
                             } else {
-                                android.util.Log.i("HistoryApi", responseStr.substring(i));
+                                // android.util.Log.i("HistoryApi", responseStr.substring(i));
                             }
                         }
-                        android.util.Log.i("HistoryApi", "========== getVideoHistoryList RESPONSE END ==========");
+                        // android.util.Log.i("HistoryApi", "========== getVideoHistoryList RESPONSE END ==========");
                     }
                     if (adapter == null) {
                         return;

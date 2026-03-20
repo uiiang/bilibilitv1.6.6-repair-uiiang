@@ -1075,10 +1075,10 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private final void initDefaultPlayButtons(BiliVideoDetail biliVideoDetail) {
-        android.util.Log.i("HistoryDisplay", "========== initDefaultPlayButtons START ==========");
-        android.util.Log.i("HistoryDisplay", "historyContainer=" + historyContainer + ", historyPlayBtn=" + historyPlayBtn);
+        // android.util.Log.i("HistoryDisplay", "========== initDefaultPlayButtons START ==========");
+        // android.util.Log.i("HistoryDisplay", "historyContainer=" + historyContainer + ", historyPlayBtn=" + historyPlayBtn);
         if (historyContainer == null || historyPlayBtn == null) {
-            android.util.Log.e("HistoryDisplay", "EARLY RETURN: some views are null");
+            // android.util.Log.e("HistoryDisplay", "EARLY RETURN: some views are null");
             return;
         }
         historyPlayBtn.setText("开始播放");
@@ -1088,19 +1088,19 @@ public final class VideoDetailActivity extends BaseActivity
         historyTitle.setVisibility(View.GONE);
         historyProgress.setVisibility(View.GONE);
         historyContainer.setVisibility(View.GONE);
-        android.util.Log.i("HistoryDisplay", "historyContainer.setVisibility(GONE)");
+        // android.util.Log.i("HistoryDisplay", "historyContainer.setVisibility(GONE)");
         if (noHistoryPlayBtnLayout != null) {
             noHistoryPlayBtnLayout.setVisibility(View.VISIBLE);
-            android.util.Log.i("HistoryDisplay", "noHistoryPlayBtnLayout.setVisibility(VISIBLE)");
+            // android.util.Log.i("HistoryDisplay", "noHistoryPlayBtnLayout.setVisibility(VISIBLE)");
             if (historyPlayBtnLayout != null) {
                 historyPlayBtnLayout.setNextFocusRightId(R.id.video_no_history_play_btn_layout);
             }
         }
         if (rePlayBtnLayout != null) {
             rePlayBtnLayout.setVisibility(View.GONE);
-            android.util.Log.i("HistoryDisplay", "rePlayBtnLayout.setVisibility(GONE)");
+            // android.util.Log.i("HistoryDisplay", "rePlayBtnLayout.setVisibility(GONE)");
         }
-        android.util.Log.i("HistoryDisplay", "========== initDefaultPlayButtons END ==========");
+        // android.util.Log.i("HistoryDisplay", "========== initDefaultPlayButtons END ==========");
         final BiliVideoDetail finalBiliVideoDetail = biliVideoDetail;
         if (historyPlayBtnLayout != null) {
             historyPlayBtnLayout.setOnClickListener(new View.OnClickListener() {
@@ -1159,56 +1159,56 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private final void loadArchiveRelation(final BiliVideoDetail biliVideoDetail) {
-        android.util.Log.i("ArchiveRelation", "=== loadArchiveRelation START ===");
+        // android.util.Log.i("ArchiveRelation", "=== loadArchiveRelation START ===");
         if (biliVideoDetail == null || biliVideoDetail.mBvid == null) {
-            android.util.Log.i("ArchiveRelation", "EARLY RETURN: biliVideoDetail=" + biliVideoDetail + ", mBvid=" + (biliVideoDetail != null ? biliVideoDetail.mBvid : "null"));
+            // android.util.Log.i("ArchiveRelation", "EARLY RETURN: biliVideoDetail=" + biliVideoDetail + ", mBvid=" + (biliVideoDetail != null ? biliVideoDetail.mBvid : "null"));
             return;
         }
         mg a2 = mg.a(this);
         bbi.a((Object) a2, "BiliAccount.get(this)");
         boolean isLoggedIn = a2.a();
-        android.util.Log.i("ArchiveRelation", "isLoggedIn=" + isLoggedIn + ", bvid=" + biliVideoDetail.mBvid);
+        // android.util.Log.i("ArchiveRelation", "isLoggedIn=" + isLoggedIn + ", bvid=" + biliVideoDetail.mBvid);
         if (!isLoggedIn) {
-            android.util.Log.i("ArchiveRelation", "EARLY RETURN: not logged in");
+            // android.util.Log.i("ArchiveRelation", "EARLY RETURN: not logged in");
             return;
         }
         final String sessdata = a2.getSESSDATA();
         final String bvid = biliVideoDetail.mBvid;
         final BiliVideoDetail finalDetail = biliVideoDetail;
         final String cookie = "SESSDATA=" + sessdata;
-        android.util.Log.i("ArchiveRelation", "Requesting API: bvid=" + bvid + ", sessdata length=" + (sessdata != null ? sessdata.length() : "null"));
+        // android.util.Log.i("ArchiveRelation", "Requesting API: bvid=" + bvid + ", sessdata length=" + (sessdata != null ? sessdata.length() : "null"));
         
         ((MyBiliApiService) vo.a(MyBiliApiService.class)).getArchiveRelation(bvid, cookie).a(new vn<JSONObject>() {
             @Override
             public void a(JSONObject jsonObject) {
-                android.util.Log.i("ArchiveRelation", "=== API Response ===");
+                // android.util.Log.i("ArchiveRelation", "=== API Response ===");
                 if (jsonObject == null) {
-                    android.util.Log.i("ArchiveRelation", "Response: jsonObject is NULL");
+                    // android.util.Log.i("ArchiveRelation", "Response: jsonObject is NULL");
                     return;
                 }
-                android.util.Log.i("ArchiveRelation", "Response: " + jsonObject.toString());
+                // android.util.Log.i("ArchiveRelation", "Response: " + jsonObject.toString());
                 
                 boolean like = jsonObject.getBooleanValue("like");
                 boolean favorite = jsonObject.getBooleanValue("favorite");
                 int coin = jsonObject.getIntValue("coin");
-                android.util.Log.i("ArchiveRelation", "Parsed: like=" + like + ", favorite=" + favorite + ", coin=" + coin);
+                // android.util.Log.i("ArchiveRelation", "Parsed: like=" + like + ", favorite=" + favorite + ", coin=" + coin);
                 
                 BiliVideoDetail.RequestUser requestUser = finalDetail.mRequestUser;
                 if (requestUser == null) {
-                    android.util.Log.i("ArchiveRelation", "Creating new RequestUser");
+                    // android.util.Log.i("ArchiveRelation", "Creating new RequestUser");
                     requestUser = new BiliVideoDetail.RequestUser();
                     finalDetail.mRequestUser = requestUser;
                 }
                 requestUser.mLike = like;
                 requestUser.mFavorite = favorite;
                 requestUser.mCoin = coin > 0;
-                android.util.Log.i("ArchiveRelation", "Updated RequestUser: mLike=" + requestUser.mLike + ", mFavorite=" + requestUser.mFavorite + ", mCoin=" + requestUser.mCoin);
-                android.util.Log.i("ArchiveRelation", "Calling o() to update UI");
+                // android.util.Log.i("ArchiveRelation", "Updated RequestUser: mLike=" + requestUser.mLike + ", mFavorite=" + requestUser.mFavorite + ", mCoin=" + requestUser.mCoin);
+                // android.util.Log.i("ArchiveRelation", "Calling o() to update UI");
                 
                 VideoDetailActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        android.util.Log.i("ArchiveRelation", "runOnUiThread: calling o()");
+                        // android.util.Log.i("ArchiveRelation", "runOnUiThread: calling o()");
                         VideoDetailActivity.this.o();
                     }
                 });
@@ -1216,7 +1216,7 @@ public final class VideoDetailActivity extends BaseActivity
 
             @Override
             public void onError(Throwable th) {
-                android.util.Log.e("ArchiveRelation", "API Error: " + th.getMessage(), th);
+                // android.util.Log.e("ArchiveRelation", "API Error: " + th.getMessage(), th);
             }
         });
     }
@@ -1231,7 +1231,7 @@ public final class VideoDetailActivity extends BaseActivity
         }
         
         if (cid == 0) {
-            android.util.Log.i("VideoDetailApi", "cid is 0, fallback to getVideoDetails");
+            // android.util.Log.i("VideoDetailApi", "cid is 0, fallback to getVideoDetails");
             fallbackLoadHistory(biliVideoDetail, a2.e());
             return;
         }
@@ -1247,7 +1247,7 @@ public final class VideoDetailActivity extends BaseActivity
             public void run() {
                 boolean playurlSuccess = false;
                 try {
-                    android.util.Log.i("VideoDetailApi", "========== PLAYER WBI V2 REQUEST ==========");
+                    // android.util.Log.i("VideoDetailApi", "========== PLAYER WBI V2 REQUEST ==========");
                     
                     com.alibaba.fastjson.JSONObject playerData = ((BiliVideoDetail.JsonResponse) bl.pz.a(
                         new bl.qa.a(BiliVideoDetail.JsonResponse.class)
@@ -1259,10 +1259,10 @@ public final class VideoDetailActivity extends BaseActivity
                             .b("cid", String.valueOf(finalCid))
                             .a(new bl.qb()).a(), "GET")).result();
                     
-                    android.util.Log.i("VideoDetailApi", "cid=" + finalCid + ", avid=" + avid +", Cookie="+sessdata);
-                    android.util.Log.i("VideoDetailApi", "========== PLAYER WBI V2 RESPONSE ==========");
-                    android.util.Log.i("VideoDetailApi", "playerData=" + playerData);
-                    android.util.Log.i("VideoDetailApi", "========== PLAYER WBI V2 RESPONSE END ==========");
+                    // android.util.Log.i("VideoDetailApi", "cid=" + finalCid + ", avid=" + avid +", Cookie="+sessdata);
+                    // android.util.Log.i("VideoDetailApi", "========== PLAYER WBI V2 RESPONSE ==========");
+                    // android.util.Log.i("VideoDetailApi", "playerData=" + playerData);
+                    // android.util.Log.i("VideoDetailApi", "========== PLAYER WBI V2 RESPONSE END ==========");
                     
                     if (playerData != null && playerData.getIntValue("code") == 0) {
                         com.alibaba.fastjson.JSONObject data = playerData.getJSONObject("data");
@@ -1280,7 +1280,7 @@ public final class VideoDetailActivity extends BaseActivity
                                     @Override
                                     public void run() {
                                         finalBiliVideoDetail.mHistory = history;
-                                        android.util.Log.i("VideoDetailApi", "loadHistory History from wbi/v2: cid=" + history.mCid + ", progress=" + history.mProgress);
+                                        // android.util.Log.i("VideoDetailApi", "loadHistory History from wbi/v2: cid=" + history.mCid + ", progress=" + history.mProgress);
                                         updateHistoryDisplay(finalBiliVideoDetail);
                                         if (VideoDetailActivity.this.historyPlayBtnLayout != null &&
                                                 VideoDetailActivity.this.historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
@@ -1292,11 +1292,11 @@ public final class VideoDetailActivity extends BaseActivity
                         }
                     }
                 } catch (Exception e) {
-                    android.util.Log.e("VideoDetailApi", "Player WBI V2 Error: " + e.getMessage(), e);
+                    // android.util.Log.e("VideoDetailApi", "Player WBI V2 Error: " + e.getMessage(), e);
                 }
                 
                 if (!playurlSuccess) {
-                    android.util.Log.i("VideoDetailApi", "Playurl failed, fallback to getVideoDetails");
+                    // android.util.Log.i("VideoDetailApi", "Playurl failed, fallback to getVideoDetails");
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -1334,11 +1334,11 @@ public final class VideoDetailActivity extends BaseActivity
             }
             @Override
             public void onError(Throwable th) {
-                android.util.Log.e("VideoDetailApi", "History Error: " + th.getMessage(), th);
+                // android.util.Log.e("VideoDetailApi", "History Error: " + th.getMessage(), th);
             }
             @Override
             public void onSuccess(GeneralResponse<JSONObject> result) {
-                // android.util.Log.i("VideoDetailApi", "History onSuccess called, result=" + result);
+                // // android.util.Log.i("VideoDetailApi", "History onSuccess called, result=" + result);
                 if (result != null && result.data != null) {
                     com.alibaba.fastjson.JSONObject data = result.data;
                     if (data.containsKey("history")) {
@@ -1348,7 +1348,7 @@ public final class VideoDetailActivity extends BaseActivity
                             history.mCid = historyObj.getLongValue("cid");
                             history.mProgress = historyObj.getIntValue("progress");
                             biliVideoDetail.mHistory = history;
-                            android.util.Log.i("VideoDetailApi", "fallbackLoadHistory History merged: cid=" + history.mCid + ", progress=" + history.mProgress);
+                            // android.util.Log.i("VideoDetailApi", "fallbackLoadHistory History merged: cid=" + history.mCid + ", progress=" + history.mProgress);
                         }
                     }
                 }
@@ -1404,15 +1404,15 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private final void updateHistoryDisplay(BiliVideoDetail biliVideoDetail) {
-        android.util.Log.i("HistoryDisplay", "========== updateHistoryDisplay START ==========");
-        android.util.Log.i("HistoryDisplay", "historyContainer=" + historyContainer + ", historyTitle=" + historyTitle + ", historyProgress=" + historyProgress + ", historyPlayBtn=" + historyPlayBtn);
+        // android.util.Log.i("HistoryDisplay", "========== updateHistoryDisplay START ==========");
+        // android.util.Log.i("HistoryDisplay", "historyContainer=" + historyContainer + ", historyTitle=" + historyTitle + ", historyProgress=" + historyProgress + ", historyPlayBtn=" + historyPlayBtn);
         if (historyContainer == null || historyTitle == null || historyProgress == null || historyPlayBtn == null) {
-            android.util.Log.e("HistoryDisplay", "EARLY RETURN: some views are null");
+            // android.util.Log.e("HistoryDisplay", "EARLY RETURN: some views are null");
             return;
         }
-        android.util.Log.i("HistoryDisplay", "biliVideoDetail=" + biliVideoDetail + ", mHistory=" + (biliVideoDetail != null ? biliVideoDetail.mHistory : null));
+        // android.util.Log.i("HistoryDisplay", "biliVideoDetail=" + biliVideoDetail + ", mHistory=" + (biliVideoDetail != null ? biliVideoDetail.mHistory : null));
         if (biliVideoDetail == null || biliVideoDetail.mHistory == null) {
-            android.util.Log.e("HistoryDisplay", "EARLY RETURN: biliVideoDetail or mHistory is null");
+            // android.util.Log.e("HistoryDisplay", "EARLY RETURN: biliVideoDetail or mHistory is null");
             return;
         }
         
@@ -1427,23 +1427,23 @@ public final class VideoDetailActivity extends BaseActivity
         int progress = biliVideoDetail.mHistory.mProgress;
         String title = findTitleByCid(cid, biliVideoDetail);
         
-        android.util.Log.i("HistoryDisplay", "episodeCount=" + episodeCount + ", cid=" + cid + ", progress=" + progress + ", title=" + title);
-        android.util.Log.i("HistoryDisplay", "rePlayBtnLayout=" + rePlayBtnLayout + ", historyLabel=" + historyLabel);
+        // android.util.Log.i("HistoryDisplay", "episodeCount=" + episodeCount + ", cid=" + cid + ", progress=" + progress + ", title=" + title);
+        // android.util.Log.i("HistoryDisplay", "rePlayBtnLayout=" + rePlayBtnLayout + ", historyLabel=" + historyLabel);
         
         historyPlayBtn.setText("继续播放");
         rePlayBtn.setText("重新播放");
         
         if (historyContainer != null) {
             historyContainer.setVisibility(View.VISIBLE);
-            android.util.Log.i("HistoryDisplay", "historyContainer.setVisibility(VISIBLE)");
+            // android.util.Log.i("HistoryDisplay", "historyContainer.setVisibility(VISIBLE)");
         }
         if (noHistoryPlayBtnLayout != null) {
             noHistoryPlayBtnLayout.setVisibility(View.GONE);
-            android.util.Log.i("HistoryDisplay", "noHistoryPlayBtnLayout.setVisibility(GONE)");
+            // android.util.Log.i("HistoryDisplay", "noHistoryPlayBtnLayout.setVisibility(GONE)");
         }
         if (rePlayBtnLayout != null) {
             rePlayBtnLayout.setVisibility(View.VISIBLE);
-            android.util.Log.i("HistoryDisplay", "rePlayBtnLayout.setVisibility(VISIBLE), current visibility=" + rePlayBtnLayout.getVisibility());
+            // android.util.Log.i("HistoryDisplay", "rePlayBtnLayout.setVisibility(VISIBLE), current visibility=" + rePlayBtnLayout.getVisibility());
         }
         
         boolean hasHistory = cid > 0;
@@ -1451,10 +1451,10 @@ public final class VideoDetailActivity extends BaseActivity
         boolean hasProgress = progress > 0;
         boolean hasTitle = title != null && !title.isEmpty();
         
-        android.util.Log.i("HistoryDisplay", "hasHistory=" + hasHistory + ", isFinished=" + isFinished + ", hasProgress=" + hasProgress + ", hasTitle=" + hasTitle);
+        // android.util.Log.i("HistoryDisplay", "hasHistory=" + hasHistory + ", isFinished=" + isFinished + ", hasProgress=" + hasProgress + ", hasTitle=" + hasTitle);
         
         if (!hasHistory) {
-            android.util.Log.i("HistoryDisplay", "no history, hiding label/title/progress");
+            // android.util.Log.i("HistoryDisplay", "no history, hiding label/title/progress");
             if (historyLabel != null) {
                 historyLabel.setVisibility(View.GONE);
             }
@@ -1463,35 +1463,35 @@ public final class VideoDetailActivity extends BaseActivity
         } else {
             if (historyLabel != null) {
                 historyLabel.setVisibility(View.VISIBLE);
-                android.util.Log.i("HistoryDisplay", "historyLabel.setVisibility(VISIBLE)");
+                // android.util.Log.i("HistoryDisplay", "historyLabel.setVisibility(VISIBLE)");
             }
             if (hasTitle) {
-                android.util.Log.i("HistoryDisplay", "showing title: " + title);
+                // android.util.Log.i("HistoryDisplay", "showing title: " + title);
                 historyTitle.setText(title);
                 historyTitle.setVisibility(View.VISIBLE);
             } else {
-                android.util.Log.i("HistoryDisplay", "no title, hiding historyTitle");
+                // android.util.Log.i("HistoryDisplay", "no title, hiding historyTitle");
                 historyTitle.setVisibility(View.GONE);
             }
             if (isFinished) {
-                android.util.Log.i("HistoryDisplay", "showing 已看完");
+                // android.util.Log.i("HistoryDisplay", "showing 已看完");
                 historyProgress.setText("已看完");
                 historyProgress.setVisibility(View.VISIBLE);
             } else if (hasProgress) {
-                android.util.Log.i("HistoryDisplay", "showing progress: " + formatProgressTime(progress));
+                // android.util.Log.i("HistoryDisplay", "showing progress: " + formatProgressTime(progress));
                 historyProgress.setText(formatProgressTime(progress));
                 historyProgress.setVisibility(View.VISIBLE);
             } else {
-                android.util.Log.i("HistoryDisplay", "no progress, showing 00:00");
+                // android.util.Log.i("HistoryDisplay", "no progress, showing 00:00");
                 historyProgress.setText("00:00");
                 historyProgress.setVisibility(View.VISIBLE);
             }
         }
         
-        android.util.Log.i("HistoryDisplay", "historyContainer visibility=" + (historyContainer != null ? historyContainer.getVisibility() : "null"));
-        android.util.Log.i("HistoryDisplay", "rePlayBtnLayout visibility=" + (rePlayBtnLayout != null ? rePlayBtnLayout.getVisibility() : "null"));
-        android.util.Log.i("HistoryDisplay", "historyPlayBtnLayout visibility=" + (historyPlayBtnLayout != null ? historyPlayBtnLayout.getVisibility() : "null"));
-        android.util.Log.i("HistoryDisplay", "========== updateHistoryDisplay END ==========");
+        // android.util.Log.i("HistoryDisplay", "historyContainer visibility=" + (historyContainer != null ? historyContainer.getVisibility() : "null"));
+        // android.util.Log.i("HistoryDisplay", "rePlayBtnLayout visibility=" + (rePlayBtnLayout != null ? rePlayBtnLayout.getVisibility() : "null"));
+        // android.util.Log.i("HistoryDisplay", "historyPlayBtnLayout visibility=" + (historyPlayBtnLayout != null ? historyPlayBtnLayout.getVisibility() : "null"));
+        // android.util.Log.i("HistoryDisplay", "========== updateHistoryDisplay END ==========");
         
         if (historyPlayBtnLayout != null) {
             historyPlayBtnLayout.setNextFocusRightId(R.id.video_re_play_btn_layout);
@@ -1673,47 +1673,47 @@ public final class VideoDetailActivity extends BaseActivity
 
     /* JADX INFO: Access modifiers changed from: private */
     public final void o() {
-        android.util.Log.i("ArchiveRelation", "=== o() called ===");
+        // android.util.Log.i("ArchiveRelation", "=== o() called ===");
         BiliVideoDetail biliVideoDetail = this.u;
-        android.util.Log.i("ArchiveRelation", "o(): biliVideoDetail=" + biliVideoDetail);
+        // android.util.Log.i("ArchiveRelation", "o(): biliVideoDetail=" + biliVideoDetail);
         if (biliVideoDetail != null) {
-            android.util.Log.i("ArchiveRelation", "o(): isLikeVideo=" + biliVideoDetail.isLikeVideo() + ", isCoinVideo=" + biliVideoDetail.isCoinVideo() + ", isFavoriteVideo=" + biliVideoDetail.isFavoriteVideo());
+            // android.util.Log.i("ArchiveRelation", "o(): isLikeVideo=" + biliVideoDetail.isLikeVideo() + ", isCoinVideo=" + biliVideoDetail.isCoinVideo() + ", isFavoriteVideo=" + biliVideoDetail.isFavoriteVideo());
             ImageView imageView = (ImageView) d(R.id.video_detail_like_img);
             if (imageView != null) {
                 imageView.setBackgroundResource(
                         biliVideoDetail.isLikeVideo() ? R.drawable.ic_like_hightlight : R.drawable.ic_like);
-                android.util.Log.i("ArchiveRelation", "o(): Updated like image to " + (biliVideoDetail.isLikeVideo() ? "highlight" : "normal"));
+                // android.util.Log.i("ArchiveRelation", "o(): Updated like image to " + (biliVideoDetail.isLikeVideo() ? "highlight" : "normal"));
             }
             TextView textView = (TextView) d(R.id.video_detail_like_text);
             if (textView != null) {
                 textView.setText(biliVideoDetail.isLikeVideo() ? "已点赞" : "点赞");
-                android.util.Log.i("ArchiveRelation", "o(): Updated like text to " + (biliVideoDetail.isLikeVideo() ? "已点赞" : "点赞"));
+                // android.util.Log.i("ArchiveRelation", "o(): Updated like text to " + (biliVideoDetail.isLikeVideo() ? "已点赞" : "点赞"));
             }
             imageView = (ImageView) d(R.id.video_detail_coin_img);
             if (imageView != null) {
                 imageView.setBackgroundResource(
                         biliVideoDetail.isCoinVideo() ? R.drawable.ic_coin_hightlight : R.drawable.ic_coin);
-                android.util.Log.i("ArchiveRelation", "o(): Updated coin image to " + (biliVideoDetail.isCoinVideo() ? "highlight" : "normal"));
+                // android.util.Log.i("ArchiveRelation", "o(): Updated coin image to " + (biliVideoDetail.isCoinVideo() ? "highlight" : "normal"));
             }
             textView = (TextView) d(R.id.video_detail_coin_text);
             if (textView != null) {
                 textView.setText(biliVideoDetail.isCoinVideo() ? "已投币" : "投币");
-                android.util.Log.i("ArchiveRelation", "o(): Updated coin text to " + (biliVideoDetail.isCoinVideo() ? "已投币" : "投币"));
+                // android.util.Log.i("ArchiveRelation", "o(): Updated coin text to " + (biliVideoDetail.isCoinVideo() ? "已投币" : "投币"));
             }
             imageView = this.k;
             if (imageView != null) {
                 imageView.setBackgroundResource(
                         biliVideoDetail.isFavoriteVideo() ? R.drawable.ic_favorite_hightlight : R.drawable.ic_favorite);
-                android.util.Log.i("ArchiveRelation", "o(): Updated favorite image to " + (biliVideoDetail.isFavoriteVideo() ? "highlight" : "normal"));
+                // android.util.Log.i("ArchiveRelation", "o(): Updated favorite image to " + (biliVideoDetail.isFavoriteVideo() ? "highlight" : "normal"));
             }
             textView = this.l;
             if (textView != null) {
                 textView.setText(
                         biliVideoDetail.isFavoriteVideo() ? R.string.video_favorited : R.string.video_favorite);
-                android.util.Log.i("ArchiveRelation", "o(): Updated favorite text");
+                // android.util.Log.i("ArchiveRelation", "o(): Updated favorite text");
             }
         }
-        android.util.Log.i("ArchiveRelation", "=== o() END ===");
+        // android.util.Log.i("ArchiveRelation", "=== o() END ===");
     }
 
     private final void p(String fid) {
@@ -2644,10 +2644,11 @@ public final class VideoDetailActivity extends BaseActivity
                     totalCount = staffList.size();
                     for (int i = 0; i < staffList.size(); i++) {
                         BiliVideoDetail.Staff staff = staffList.get(i);
-                        addStaffView(staffContainer, staff.name, staff.mid, i, totalCount);
+                        addStaffView(staffContainer, staff.name, staff.mid, staff.face, i, totalCount);
                     }
                 } else {
-                    addStaffView(staffContainer, biliVideoDetail.getAuthor(), biliVideoDetail.getMid(), 0, 1);
+                    String ownerFace = biliVideoDetail.mOwner != null ? biliVideoDetail.mOwner.face : null;
+                    addStaffView(staffContainer, biliVideoDetail.getAuthor(), biliVideoDetail.getMid(), ownerFace, 0, 1);
                 }
             }
             TextView textView2 = VideoDetailActivity.this.e;
@@ -2673,35 +2674,45 @@ public final class VideoDetailActivity extends BaseActivity
             loadHistory(biliVideoDetail);
         }
 
-        private void addStaffView(LinearLayout container, String name, long mid, int index, int totalCount) {
-            FrameLayout wrapper = new FrameLayout(VideoDetailActivity.this);
-            int padding = VideoDetailActivity.this.getResources().getDimensionPixelSize(R.dimen.px_4);
-            wrapper.setPadding(padding, padding, padding, padding);
+        private void addStaffView(LinearLayout container, String name, long mid, String faceUrl, int index, int totalCount) {
+            DrawLinearLayout wrapper = new DrawLinearLayout(VideoDetailActivity.this);
+            wrapper.setOrientation(LinearLayout.HORIZONTAL);
+            wrapper.setGravity(android.view.Gravity.CENTER_VERTICAL);
             wrapper.setFocusable(true);
             wrapper.setFocusableInTouchMode(true);
             wrapper.setClipChildren(false);
             wrapper.setClipToPadding(false);
+            wrapper.setUpDrawable(R.drawable.shadow_red_rect);
+            int contentPaddingH = VideoDetailActivity.this.getResources().getDimensionPixelSize(R.dimen.px_12);
+            int contentPaddingV = VideoDetailActivity.this.getResources().getDimensionPixelSize(R.dimen.px_8);
+            wrapper.setPadding(contentPaddingH, contentPaddingV, contentPaddingH, contentPaddingV);
+            
+            com.bilibili.tv.widget.CircleImageView avatarView = new com.bilibili.tv.widget.CircleImageView(VideoDetailActivity.this);
+            int avatarSize = VideoDetailActivity.this.getResources().getDimensionPixelSize(R.dimen.px_32);
+            LinearLayout.LayoutParams avatarLp = new LinearLayout.LayoutParams(avatarSize, avatarSize);
+            int avatarMargin = VideoDetailActivity.this.getResources().getDimensionPixelSize(R.dimen.px_6);
+            avatarLp.rightMargin = avatarMargin;
+            avatarView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            avatarView.setImageResource(R.mipmap.ic_launcher);
+            if (faceUrl != null && !faceUrl.isEmpty()) {
+                adl.a.a(faceUrl, avatarView);
+            }
+            wrapper.addView(avatarView, avatarLp);
             
             final DrawTextView staffView = new DrawTextView(VideoDetailActivity.this);
-            staffView.setTextSize(TypedValue.COMPLEX_UNIT_PX, VideoDetailActivity.this.getResources().getDimension(R.dimen.px_32));
+            staffView.setTextSize(TypedValue.COMPLEX_UNIT_PX, VideoDetailActivity.this.getResources().getDimension(R.dimen.px_28));
             staffView.setTextColor(0xffffffff);
             staffView.setGravity(android.view.Gravity.CENTER);
             staffView.setEllipsize(android.text.TextUtils.TruncateAt.END);
-            staffView.setBackgroundResource(R.drawable.background_white_rect);
-            staffView.setUpDrawable(R.drawable.shadow_red_rect);
-            int paddingH = VideoDetailActivity.this.getResources().getDimensionPixelSize(R.dimen.px_18);
-            int paddingV = VideoDetailActivity.this.getResources().getDimensionPixelSize(R.dimen.px_5);
-            staffView.setPadding(paddingH, paddingV, paddingH, paddingV);
             staffView.setFocusable(false);
             staffView.setMaxLines(1);
             staffView.setMaxEms(16);
             staffView.setText(name);
             
-            FrameLayout.LayoutParams innerLp = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.WRAP_CONTENT,
-                VideoDetailActivity.this.getResources().getDimensionPixelSize(R.dimen.px_70),
-                android.view.Gravity.CENTER);
-            wrapper.addView(staffView, innerLp);
+            LinearLayout.LayoutParams textLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+            wrapper.addView(staffView, textLp);
             
             final String staffName = name;
             final long staffMid = mid;
@@ -2714,20 +2725,22 @@ public final class VideoDetailActivity extends BaseActivity
             wrapper.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
-                    staffView.setUpEnabled(hasFocus);
+                    wrapper.setUpEnabled(hasFocus);
                 }
             });
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
-            if (index > 0) {
-                lp.leftMargin = VideoDetailActivity.this.getResources().getDimensionPixelSize(R.dimen.px_10);
-            }
+            int margin = VideoDetailActivity.this.getResources().getDimensionPixelSize(R.dimen.px_6);
+            lp.leftMargin = margin;
+            lp.rightMargin = margin;
+            lp.topMargin = margin;
+            lp.bottomMargin = margin;
             wrapper.setId(View.generateViewId());
             container.addView(wrapper, lp);
             int childCount = container.getChildCount();
             for (int i = 0; i < childCount; i++) {
-                FrameLayout child = (FrameLayout) container.getChildAt(i);
+                DrawLinearLayout child = (DrawLinearLayout) container.getChildAt(i);
                 if (i == 0) {
                     child.setNextFocusLeftId(child.getId());
                 } else {

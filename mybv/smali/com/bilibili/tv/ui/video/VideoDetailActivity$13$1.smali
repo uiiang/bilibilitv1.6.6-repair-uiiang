@@ -41,7 +41,7 @@
 
 # virtual methods
 .method public run()V
-    .locals 4
+    .locals 2
 
     .prologue
     .line 1282
@@ -52,47 +52,6 @@
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$13$1;->val$history:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
 
     iput-object v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mHistory:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
-
-    .line 1283
-    const-string v0, "VideoDetailApi"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "loadHistory History from wbi/v2: cid="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$13$1;->val$history:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
-
-    iget-wide v2, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mCid:J
-
-    invoke-virtual {v1, v2, v3}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, ", progress="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$13$1;->val$history:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
-
-    iget v2, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mProgress:I
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 1284
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$13$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$13;
@@ -116,7 +75,7 @@
 
     move-result-object v0
 
-    if-eqz v0, :cond_60
+    if-eqz v0, :cond_36
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$13$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$13;
 
@@ -132,7 +91,7 @@
 
     move-result v0
 
-    if-nez v0, :cond_60
+    if-nez v0, :cond_36
 
     .line 1287
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$13$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$13;
@@ -147,6 +106,6 @@
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawLinearLayout;->requestFocus()Z
 
     .line 1289
-    :cond_60
+    :cond_36
     return-void
 .end method
