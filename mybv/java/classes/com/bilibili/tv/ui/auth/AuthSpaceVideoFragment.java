@@ -99,17 +99,12 @@ public final class AuthSpaceVideoFragment extends ady {
     this.headerCount = (TextView) rootView.findViewById(R.id.header_count);
     this.attentionButton = (DrawTextView) rootView.findViewById(R.id.attention);
     this.hintSort = (TextView) rootView.findViewById(R.id.hint_sort);
-    
-    RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-    a(recyclerView, bundle);
-    
     return rootView;
   }
 
   @Override
   public void onViewCreated(View view, Bundle bundle) {
-    // 不调用 super.onViewCreated()，因为 a() 已经在 onCreateView 中调用过了
-    // 这样可以避免 b() 被调用两次
+    super.onViewCreated(view, bundle);
   }
 
   @Override

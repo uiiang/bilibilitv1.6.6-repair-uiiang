@@ -46,7 +46,7 @@
     .locals 2
 
     .prologue
-    .line 653
+    .line 662
     new-instance v0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h$a;
 
     const/4 v1, 0x0
@@ -62,15 +62,15 @@
     .locals 1
 
     .prologue
-    .line 662
+    .line 671
     invoke-direct {p0, p1}, Lbl/adv;-><init>(Landroid/view/View;)V
 
-    .line 663
+    .line 672
     const-string v0, "itemView"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 664
+    .line 673
     const v0, 0x7f0800a1
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->a(Landroid/view/View;I)Landroid/view/View;
@@ -81,7 +81,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->n:Lcom/bilibili/tv/widget/ScalableImageView;
 
-    .line 665
+    .line 674
     const v0, 0x7f080132
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->a(Landroid/view/View;I)Landroid/view/View;
@@ -92,7 +92,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->o:Landroid/widget/TextView;
 
-    .line 666
+    .line 675
     const v0, 0x7f0801a2
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->a(Landroid/view/View;I)Landroid/view/View;
@@ -103,7 +103,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->p:Landroid/widget/TextView;
 
-    .line 667
+    .line 676
     const v0, 0x7f0801a1
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->a(Landroid/view/View;I)Landroid/view/View;
@@ -114,7 +114,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->q:Landroid/widget/TextView;
 
-    .line 668
+    .line 677
     const v0, 0x7f08011c
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->a(Landroid/view/View;I)Landroid/view/View;
@@ -125,7 +125,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->r:Landroid/widget/TextView;
 
-    .line 669
+    .line 678
     const v0, 0x7f080074
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->a(Landroid/view/View;I)Landroid/view/View;
@@ -136,10 +136,10 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->s:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
-    .line 671
+    .line 680
     invoke-virtual {p1, p0}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 672
+    .line 681
     return-void
 .end method
 
@@ -149,7 +149,7 @@
     .locals 1
 
     .prologue
-    .line 679
+    .line 688
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->o:Landroid/widget/TextView;
 
     return-object v0
@@ -159,7 +159,7 @@
     .locals 1
 
     .prologue
-    .line 683
+    .line 692
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->p:Landroid/widget/TextView;
 
     return-object v0
@@ -169,7 +169,7 @@
     .locals 1
 
     .prologue
-    .line 687
+    .line 696
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->q:Landroid/widget/TextView;
 
     return-object v0
@@ -179,7 +179,7 @@
     .locals 1
 
     .prologue
-    .line 691
+    .line 700
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->r:Landroid/widget/TextView;
 
     return-object v0
@@ -189,22 +189,22 @@
     .locals 1
 
     .prologue
-    .line 696
+    .line 705
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 697
+    .line 706
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->s:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     if-eqz v0, :cond_e
 
-    .line 698
+    .line 707
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->s:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawRelativeLayout;->setUpEnabled(Z)V
 
-    .line 700
+    .line 709
     :cond_e
     return-void
 .end method
@@ -213,7 +213,7 @@
     .locals 1
 
     .prologue
-    .line 675
+    .line 684
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->n:Lcom/bilibili/tv/widget/ScalableImageView;
 
     return-object v0

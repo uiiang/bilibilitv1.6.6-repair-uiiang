@@ -2524,6 +2524,7 @@ public final class R {
         public static final int dynamic_header_attention_layout = 0x7f0801b0;
         public static final int dynamic_header_attention = 0x7f0801b1;
         public static final int dynamic_header_count = 0x7f0801b2;
+        public static final int video_history_label = 0x7f0801b3;
     }
 
     public static final class integer {

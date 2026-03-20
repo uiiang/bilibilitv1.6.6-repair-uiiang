@@ -264,6 +264,19 @@ public final class HistoryVideoFragment extends ady {
                 
                 @Override
                 public void a(JSONObject response) {
+                    if (response != null) {
+                        String responseStr = response.toString();
+                        android.util.Log.i("HistoryApi", "========== getVideoHistoryList RESPONSE ==========");
+                        int maxLogSize = 1000;
+                        for (int i = 0; i < responseStr.length(); i += maxLogSize) {
+                            if (i + maxLogSize < responseStr.length()) {
+                                android.util.Log.i("HistoryApi", responseStr.substring(i, i + maxLogSize));
+                            } else {
+                                android.util.Log.i("HistoryApi", responseStr.substring(i));
+                            }
+                        }
+                        android.util.Log.i("HistoryApi", "========== getVideoHistoryList RESPONSE END ==========");
+                    }
                     if (adapter == null) {
                         return;
                     }
@@ -500,12 +513,8 @@ public final class HistoryVideoFragment extends ady {
                         holder.C().setVisibility(View.VISIBLE);
                     } else {
                         String durationStr = formatDuration(duration);
-                        if (progress > 0) {
-                            String progressStr = formatDuration(progress);
-                            holder.C().setText(progressStr + "/" + durationStr);
-                        } else {
-                            holder.C().setText(durationStr);
-                        }
+                        String progressStr = formatDuration(progress);
+                        holder.C().setText(progressStr + "/" + durationStr);
                         holder.C().setVisibility(View.VISIBLE);
                     }
                 }

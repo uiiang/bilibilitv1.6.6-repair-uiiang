@@ -34,7 +34,7 @@
     .locals 0
 
     .prologue
-    .line 1167
+    .line 1181
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;->val$finalDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -50,28 +50,28 @@
     .locals 6
 
     .prologue
-    .line 1170
+    .line 1184
     const-string v0, "ArchiveRelation"
 
     const-string v1, "=== API Response ==="
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1171
+    .line 1185
     if-nez p1, :cond_11
 
-    .line 1172
+    .line 1186
     const-string v0, "ArchiveRelation"
 
     const-string v1, "Response: jsonObject is NULL"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1201
+    .line 1215
     :goto_10
     return-void
 
-    .line 1175
+    .line 1189
     :cond_11
     const-string v0, "ArchiveRelation"
 
@@ -99,28 +99,28 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1177
+    .line 1191
     const-string v0, "like"
 
     invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getBooleanValue(Ljava/lang/String;)Z
 
     move-result v1
 
-    .line 1178
+    .line 1192
     const-string v0, "favorite"
 
     invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getBooleanValue(Ljava/lang/String;)Z
 
     move-result v2
 
-    .line 1179
+    .line 1193
     const-string v0, "coin"
 
     invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
     move-result v3
 
-    .line 1180
+    .line 1194
     const-string v0, "ArchiveRelation"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -163,39 +163,39 @@
 
     invoke-static {v0, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1182
+    .line 1196
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;->val$finalDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     iget-object v0, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mRequestUser:Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;
 
-    .line 1183
+    .line 1197
     if-nez v0, :cond_81
 
-    .line 1184
+    .line 1198
     const-string v0, "ArchiveRelation"
 
     const-string v4, "Creating new RequestUser"
 
     invoke-static {v0, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1185
+    .line 1199
     new-instance v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;-><init>()V
 
-    .line 1186
+    .line 1200
     iget-object v4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;->val$finalDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     iput-object v0, v4, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mRequestUser:Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;
 
-    .line 1188
+    .line 1202
     :cond_81
     iput-boolean v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;->mLike:Z
 
-    .line 1189
+    .line 1203
     iput-boolean v2, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;->mFavorite:Z
 
-    .line 1190
+    .line 1204
     if-lez v3, :cond_cf
 
     const/4 v1, 0x1
@@ -203,7 +203,7 @@
     :goto_88
     iput-boolean v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;->mCoin:Z
 
-    .line 1191
+    .line 1205
     const-string v1, "ArchiveRelation"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -252,14 +252,14 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1192
+    .line 1206
     const-string v0, "ArchiveRelation"
 
     const-string v1, "Calling o() to update UI"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1194
+    .line 1208
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     new-instance v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12$1;
@@ -270,7 +270,7 @@
 
     goto/16 :goto_10
 
-    .line 1190
+    .line 1204
     :cond_cf
     const/4 v1, 0x0
 
@@ -281,7 +281,7 @@
     .locals 0
 
     .prologue
-    .line 1167
+    .line 1181
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;->a(Lcom/alibaba/fastjson/JSONObject;)V
@@ -293,7 +293,7 @@
     .locals 3
 
     .prologue
-    .line 1205
+    .line 1219
     const-string v0, "ArchiveRelation"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -320,6 +320,6 @@
 
     invoke-static {v0, v1, p1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    .line 1206
+    .line 1220
     return-void
 .end method

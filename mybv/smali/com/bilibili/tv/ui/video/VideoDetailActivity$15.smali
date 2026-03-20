@@ -38,7 +38,7 @@
     .locals 0
 
     .prologue
-    .line 1300
+    .line 1315
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$15;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -69,22 +69,22 @@
     .end annotation
 
     .prologue
-    .line 1303
+    .line 1318
     invoke-virtual {p1}, Lokhttp3/ResponseBody;->string()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 1304
+    .line 1319
     invoke-static {v0}, Lcom/alibaba/fastjson/JSON;->parseObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 1305
+    .line 1320
     new-instance v1, Lcom/bilibili/okretro/GeneralResponse;
 
     invoke-direct {v1}, Lcom/bilibili/okretro/GeneralResponse;-><init>()V
 
-    .line 1306
+    .line 1321
     const-string v2, "code"
 
     invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -93,25 +93,25 @@
 
     iput v2, v1, Lcom/bilibili/okretro/GeneralResponse;->code:I
 
-    .line 1307
+    .line 1322
     iget v2, v1, Lcom/bilibili/okretro/GeneralResponse;->code:I
 
     if-nez v2, :cond_23
 
-    .line 1308
+    .line 1323
     const-string v2, "data"
 
     invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 1309
+    .line 1324
     if-eqz v0, :cond_23
 
-    .line 1310
+    .line 1325
     iput-object v0, v1, Lcom/bilibili/okretro/GeneralResponse;->data:Ljava/lang/Object;
 
-    .line 1313
+    .line 1328
     :cond_23
     return-object v1
 .end method
@@ -125,7 +125,7 @@
     .end annotation
 
     .prologue
-    .line 1300
+    .line 1315
     check-cast p1, Lokhttp3/ResponseBody;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$15;->convert(Lokhttp3/ResponseBody;)Lcom/bilibili/okretro/GeneralResponse;

@@ -173,7 +173,7 @@
                             android:layout_marginRight="@dimen/px_26" />
                     </com.bilibili.tv.widget.DrawLinearLayout>
                     <LinearLayout android:id="@+id/video_history_container"
-                        android:visibility="gone" android:focusable="false"
+                        android:visibility="visible" android:focusable="false"
                         android:gravity="center_vertical"
                         android:layout_marginLeft="@dimen/px_10"
                         android:clipChildren="false" android:clipToPadding="false"
@@ -198,6 +198,7 @@
                         </com.bilibili.tv.widget.DrawLinearLayout>
                         <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_32"
                             android:textColor="@color/white_50" android:focusable="false"
+                            android:id="@+id/video_history_label"
                             android:layout_width="wrap_content" android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/px_20"
                             android:text="上次播放到" />

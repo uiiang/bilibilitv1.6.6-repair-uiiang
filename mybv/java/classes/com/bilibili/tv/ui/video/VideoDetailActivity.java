@@ -128,6 +128,7 @@ public final class VideoDetailActivity extends BaseActivity
     private DrawTextView noHistoryPlayBtn;
     private TextView historyTitle;
     private TextView historyProgress;
+    private TextView historyLabel;
     public static boolean sNoHistoryPlayMode = false;
     private long s;
     private List<BiliVideoDetail.Page> t;
@@ -446,6 +447,7 @@ public final class VideoDetailActivity extends BaseActivity
         }
         this.historyTitle = (TextView) d(R.id.video_history_title);
         this.historyProgress = (TextView) d(R.id.video_history_progress);
+        this.historyLabel = (TextView) d(R.id.video_history_label);
         this.scrollView = (ScrollView) d(R.id.scrollView);
         setupGlobalFocusChangeListener();
     }
@@ -1073,19 +1075,32 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private final void initDefaultPlayButtons(BiliVideoDetail biliVideoDetail) {
+        android.util.Log.i("HistoryDisplay", "========== initDefaultPlayButtons START ==========");
+        android.util.Log.i("HistoryDisplay", "historyContainer=" + historyContainer + ", historyPlayBtn=" + historyPlayBtn);
         if (historyContainer == null || historyPlayBtn == null) {
+            android.util.Log.e("HistoryDisplay", "EARLY RETURN: some views are null");
             return;
         }
         historyPlayBtn.setText("开始播放");
+        if (historyLabel != null) {
+            historyLabel.setVisibility(View.GONE);
+        }
         historyTitle.setVisibility(View.GONE);
         historyProgress.setVisibility(View.GONE);
         historyContainer.setVisibility(View.GONE);
+        android.util.Log.i("HistoryDisplay", "historyContainer.setVisibility(GONE)");
         if (noHistoryPlayBtnLayout != null) {
             noHistoryPlayBtnLayout.setVisibility(View.VISIBLE);
+            android.util.Log.i("HistoryDisplay", "noHistoryPlayBtnLayout.setVisibility(VISIBLE)");
             if (historyPlayBtnLayout != null) {
                 historyPlayBtnLayout.setNextFocusRightId(R.id.video_no_history_play_btn_layout);
             }
         }
+        if (rePlayBtnLayout != null) {
+            rePlayBtnLayout.setVisibility(View.GONE);
+            android.util.Log.i("HistoryDisplay", "rePlayBtnLayout.setVisibility(GONE)");
+        }
+        android.util.Log.i("HistoryDisplay", "========== initDefaultPlayButtons END ==========");
         final BiliVideoDetail finalBiliVideoDetail = biliVideoDetail;
         if (historyPlayBtnLayout != null) {
             historyPlayBtnLayout.setOnClickListener(new View.OnClickListener() {
@@ -1105,7 +1120,6 @@ public final class VideoDetailActivity extends BaseActivity
             });
         }
         if (rePlayBtnLayout != null) {
-            rePlayBtnLayout.setVisibility(View.GONE);
             rePlayBtnLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1233,7 +1247,7 @@ public final class VideoDetailActivity extends BaseActivity
             public void run() {
                 boolean playurlSuccess = false;
                 try {
-                    // android.util.Log.i("VideoDetailApi", "========== PLAYER WBI V2 REQUEST ==========");
+                    android.util.Log.i("VideoDetailApi", "========== PLAYER WBI V2 REQUEST ==========");
                     
                     com.alibaba.fastjson.JSONObject playerData = ((BiliVideoDetail.JsonResponse) bl.pz.a(
                         new bl.qa.a(BiliVideoDetail.JsonResponse.class)
@@ -1241,13 +1255,14 @@ public final class VideoDetailActivity extends BaseActivity
                             .a(true)
                             .a("Cookie", "SESSDATA=" + sessdata)
                             .b("")
-                            .b("aid", String.valueOf(avid))
+                            .b("bvid", biliVideoDetail.mBvid)
                             .b("cid", String.valueOf(finalCid))
                             .a(new bl.qb()).a(), "GET")).result();
                     
-                    // android.util.Log.i("VideoDetailApi", "========== PLAYER WBI V2 RESPONSE ==========");
-                    // android.util.Log.i("VideoDetailApi", "playerData=" + playerData);
-                    // android.util.Log.i("VideoDetailApi", "========== PLAYER WBI V2 RESPONSE END ==========");
+                    android.util.Log.i("VideoDetailApi", "cid=" + finalCid + ", avid=" + avid +", Cookie="+sessdata);
+                    android.util.Log.i("VideoDetailApi", "========== PLAYER WBI V2 RESPONSE ==========");
+                    android.util.Log.i("VideoDetailApi", "playerData=" + playerData);
+                    android.util.Log.i("VideoDetailApi", "========== PLAYER WBI V2 RESPONSE END ==========");
                     
                     if (playerData != null && playerData.getIntValue("code") == 0) {
                         com.alibaba.fastjson.JSONObject data = playerData.getJSONObject("data");
@@ -1255,7 +1270,7 @@ public final class VideoDetailActivity extends BaseActivity
                             long lastPlayCid = data.getLongValue("last_play_cid");
                             int lastPlayTime = data.getIntValue("last_play_time") / 1000;
                             
-                            if (lastPlayCid > 0 || lastPlayTime > 0) {
+                            if (lastPlayCid > 0) {
                                 playurlSuccess = true;
                                 final BiliVideoDetail.History history = new BiliVideoDetail.History();
                                 history.mCid = lastPlayCid > 0 ? lastPlayCid : finalCid;
@@ -1265,7 +1280,7 @@ public final class VideoDetailActivity extends BaseActivity
                                     @Override
                                     public void run() {
                                         finalBiliVideoDetail.mHistory = history;
-                                        android.util.Log.i("VideoDetailApi", "History from wbi/v2: cid=" + history.mCid + ", progress=" + history.mProgress);
+                                        android.util.Log.i("VideoDetailApi", "loadHistory History from wbi/v2: cid=" + history.mCid + ", progress=" + history.mProgress);
                                         updateHistoryDisplay(finalBiliVideoDetail);
                                         if (VideoDetailActivity.this.historyPlayBtnLayout != null &&
                                                 VideoDetailActivity.this.historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
@@ -1333,7 +1348,7 @@ public final class VideoDetailActivity extends BaseActivity
                             history.mCid = historyObj.getLongValue("cid");
                             history.mProgress = historyObj.getIntValue("progress");
                             biliVideoDetail.mHistory = history;
-                            // android.util.Log.i("VideoDetailApi", "History merged: cid=" + history.mCid + ", progress=" + history.mProgress);
+                            android.util.Log.i("VideoDetailApi", "fallbackLoadHistory History merged: cid=" + history.mCid + ", progress=" + history.mProgress);
                         }
                     }
                 }
@@ -1389,10 +1404,15 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private final void updateHistoryDisplay(BiliVideoDetail biliVideoDetail) {
+        android.util.Log.i("HistoryDisplay", "========== updateHistoryDisplay START ==========");
+        android.util.Log.i("HistoryDisplay", "historyContainer=" + historyContainer + ", historyTitle=" + historyTitle + ", historyProgress=" + historyProgress + ", historyPlayBtn=" + historyPlayBtn);
         if (historyContainer == null || historyTitle == null || historyProgress == null || historyPlayBtn == null) {
+            android.util.Log.e("HistoryDisplay", "EARLY RETURN: some views are null");
             return;
         }
+        android.util.Log.i("HistoryDisplay", "biliVideoDetail=" + biliVideoDetail + ", mHistory=" + (biliVideoDetail != null ? biliVideoDetail.mHistory : null));
         if (biliVideoDetail == null || biliVideoDetail.mHistory == null) {
+            android.util.Log.e("HistoryDisplay", "EARLY RETURN: biliVideoDetail or mHistory is null");
             return;
         }
         
@@ -1406,29 +1426,73 @@ public final class VideoDetailActivity extends BaseActivity
         long cid = biliVideoDetail.mHistory.mCid;
         int progress = biliVideoDetail.mHistory.mProgress;
         String title = findTitleByCid(cid, biliVideoDetail);
-        if (title == null || title.isEmpty()) {
-            historyTitle.setVisibility(View.GONE);
-            historyProgress.setVisibility(View.GONE);
-            historyContainer.setVisibility(View.GONE);
-        } else {
-            if (episodeCount <= 1) {
-                historyTitle.setVisibility(View.GONE);
-            } else {
-                historyTitle.setVisibility(View.VISIBLE);
-            }
-            historyTitle.setText(title);
-            historyProgress.setText(formatProgressTime(progress));
-            historyProgress.setVisibility(View.VISIBLE);
-            historyContainer.setVisibility(View.VISIBLE);
-        }
+        
+        android.util.Log.i("HistoryDisplay", "episodeCount=" + episodeCount + ", cid=" + cid + ", progress=" + progress + ", title=" + title);
+        android.util.Log.i("HistoryDisplay", "rePlayBtnLayout=" + rePlayBtnLayout + ", historyLabel=" + historyLabel);
+        
         historyPlayBtn.setText("继续播放");
         rePlayBtn.setText("重新播放");
+        
+        if (historyContainer != null) {
+            historyContainer.setVisibility(View.VISIBLE);
+            android.util.Log.i("HistoryDisplay", "historyContainer.setVisibility(VISIBLE)");
+        }
         if (noHistoryPlayBtnLayout != null) {
             noHistoryPlayBtnLayout.setVisibility(View.GONE);
+            android.util.Log.i("HistoryDisplay", "noHistoryPlayBtnLayout.setVisibility(GONE)");
         }
         if (rePlayBtnLayout != null) {
             rePlayBtnLayout.setVisibility(View.VISIBLE);
+            android.util.Log.i("HistoryDisplay", "rePlayBtnLayout.setVisibility(VISIBLE), current visibility=" + rePlayBtnLayout.getVisibility());
         }
+        
+        boolean hasHistory = cid > 0;
+        boolean isFinished = progress == -1;
+        boolean hasProgress = progress > 0;
+        boolean hasTitle = title != null && !title.isEmpty();
+        
+        android.util.Log.i("HistoryDisplay", "hasHistory=" + hasHistory + ", isFinished=" + isFinished + ", hasProgress=" + hasProgress + ", hasTitle=" + hasTitle);
+        
+        if (!hasHistory) {
+            android.util.Log.i("HistoryDisplay", "no history, hiding label/title/progress");
+            if (historyLabel != null) {
+                historyLabel.setVisibility(View.GONE);
+            }
+            historyTitle.setVisibility(View.GONE);
+            historyProgress.setVisibility(View.GONE);
+        } else {
+            if (historyLabel != null) {
+                historyLabel.setVisibility(View.VISIBLE);
+                android.util.Log.i("HistoryDisplay", "historyLabel.setVisibility(VISIBLE)");
+            }
+            if (hasTitle) {
+                android.util.Log.i("HistoryDisplay", "showing title: " + title);
+                historyTitle.setText(title);
+                historyTitle.setVisibility(View.VISIBLE);
+            } else {
+                android.util.Log.i("HistoryDisplay", "no title, hiding historyTitle");
+                historyTitle.setVisibility(View.GONE);
+            }
+            if (isFinished) {
+                android.util.Log.i("HistoryDisplay", "showing 已看完");
+                historyProgress.setText("已看完");
+                historyProgress.setVisibility(View.VISIBLE);
+            } else if (hasProgress) {
+                android.util.Log.i("HistoryDisplay", "showing progress: " + formatProgressTime(progress));
+                historyProgress.setText(formatProgressTime(progress));
+                historyProgress.setVisibility(View.VISIBLE);
+            } else {
+                android.util.Log.i("HistoryDisplay", "no progress, showing 00:00");
+                historyProgress.setText("00:00");
+                historyProgress.setVisibility(View.VISIBLE);
+            }
+        }
+        
+        android.util.Log.i("HistoryDisplay", "historyContainer visibility=" + (historyContainer != null ? historyContainer.getVisibility() : "null"));
+        android.util.Log.i("HistoryDisplay", "rePlayBtnLayout visibility=" + (rePlayBtnLayout != null ? rePlayBtnLayout.getVisibility() : "null"));
+        android.util.Log.i("HistoryDisplay", "historyPlayBtnLayout visibility=" + (historyPlayBtnLayout != null ? historyPlayBtnLayout.getVisibility() : "null"));
+        android.util.Log.i("HistoryDisplay", "========== updateHistoryDisplay END ==========");
+        
         if (historyPlayBtnLayout != null) {
             historyPlayBtnLayout.setNextFocusRightId(R.id.video_re_play_btn_layout);
         }

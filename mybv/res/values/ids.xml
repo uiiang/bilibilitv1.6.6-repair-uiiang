@@ -329,4 +329,5 @@
     <item type="id" name="dynamic_header_attention_layout" />
     <item type="id" name="dynamic_header_attention" />
     <item type="id" name="dynamic_header_count" />
+    <item type="id" name="video_history_label" />
 </resources>

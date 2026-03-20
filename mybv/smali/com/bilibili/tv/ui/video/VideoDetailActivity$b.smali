@@ -52,15 +52,15 @@
     .end annotation
 
     .prologue
-    .line 1951
+    .line 2015
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$b;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Lbl/adz;-><init>()V
 
-    .line 1952
+    .line 2016
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$b;->b:Ljava/util/List;
 
-    .line 1953
+    .line 2017
     return-void
 .end method
 
@@ -70,18 +70,18 @@
     .locals 1
 
     .prologue
-    .line 1976
+    .line 2040
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$b;->b:Ljava/util/List;
 
-    .line 1977
+    .line 2041
     if-eqz v0, :cond_9
 
-    .line 1978
+    .line 2042
     invoke-interface {v0}, Ljava/util/List;->size()I
 
     move-result v0
 
-    .line 1980
+    .line 2044
     :goto_8
     return v0
 
@@ -95,12 +95,12 @@
     .locals 1
 
     .prologue
-    .line 1957
+    .line 2021
     const-string v0, "parent"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 1958
+    .line 2022
     sget-object v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$c$a;
 
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c$a;->a(Landroid/view/ViewGroup;)Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;
@@ -116,29 +116,29 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 1963
+    .line 2027
     const-string v0, "holder"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 1964
+    .line 2028
     instance-of v0, p1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;
 
     if-nez v0, :cond_1b
 
     move-object v0, v1
 
-    .line 1967
+    .line 2031
     :goto_b
     check-cast v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;
 
-    .line 1968
+    .line 2032
     if-eqz v0, :cond_1a
 
-    .line 1969
+    .line 2033
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$b;->b:Ljava/util/List;
 
-    .line 1970
+    .line 2034
     if-eqz v2, :cond_17
 
     invoke-interface {v2, p2}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -148,7 +148,7 @@
     :cond_17
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;->b(Ljava/lang/Object;)V
 
-    .line 1972
+    .line 2036
     :cond_1a
     return-void
 
@@ -162,7 +162,7 @@
     .locals 1
 
     .prologue
-    .line 1943
+    .line 2007
     const/4 v0, 0x0
 
     return v0
