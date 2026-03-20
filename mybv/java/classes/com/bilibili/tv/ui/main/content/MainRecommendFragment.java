@@ -54,6 +54,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
     public static MainRecommendFragment _this;
     public static int fresh_idx=0;
     public static boolean isPersonalRecommend = false;
+    private int popularPage = 1;
 
     @Override // bl.wf
     public String a() {
@@ -167,17 +168,24 @@ public final class MainRecommendFragment extends adu implements aez, wf {
             this.hasMoreData = true;
             ((MyBiliApiService) vo.a(MyBiliApiService.class)).recommendVideos(20,access_key,(access_key==null||access_key.isEmpty())?this.fresh_idx++:0).a(new RecommendsResponse(false));
         } else {
-            ((kh) vo.a(kh.class)).a().a(new d());
+            this.popularPage = 1;
+            this.hasMoreData = true;
+            ((MyBiliApiService) vo.a(MyBiliApiService.class)).getPopular(this.popularPage, 20).a(new PopularResponse(false));
         }
     }
     
     public void loadMoreData(){
-        if (!isPersonalRecommend || this.isLoadingMore || !this.hasMoreData) {
+        if (this.isLoadingMore || !this.hasMoreData) {
             return;
         }
         this.isLoadingMore = true;
-        String access_key = mg.a(MainApplication.a()).e();
-        ((MyBiliApiService) vo.a(MyBiliApiService.class)).recommendVideos(20,access_key,(access_key==null||access_key.isEmpty())?this.fresh_idx++:0).a(new RecommendsResponse(true));
+        if (isPersonalRecommend) {
+            String access_key = mg.a(MainApplication.a()).e();
+            ((MyBiliApiService) vo.a(MyBiliApiService.class)).recommendVideos(20,access_key,(access_key==null||access_key.isEmpty())?this.fresh_idx++:0).a(new RecommendsResponse(true));
+        } else {
+            this.popularPage++;
+            ((MyBiliApiService) vo.a(MyBiliApiService.class)).getPopular(this.popularPage, 20).a(new PopularResponse(true));
+        }
     }
 
     /* compiled from: BL */
@@ -416,6 +424,77 @@ public final class MainRecommendFragment extends adu implements aez, wf {
         public void onError(Throwable th) {
             bbi.b(th, "t");
             BLog.e("VideoRecommend", th.getMessage());
+            MainRecommendFragment.this.isLoadingMore = false;
+        }
+    }
+
+    final class PopularResponse extends vn<JSONObject> {
+        private boolean isAppendMode;
+
+        public PopularResponse() {
+            this.isAppendMode = false;
+        }
+
+        public PopularResponse(boolean isAppendMode) {
+            this.isAppendMode = isAppendMode;
+        }
+
+        @Override // bl.vn
+        public void a(JSONObject data) {
+            if (MainRecommendFragment.this.a == null || data == null) {
+                MainRecommendFragment.this.isLoadingMore = false;
+                return;
+            }
+            JSONArray list = data.getJSONArray("list");
+            if (list == null || list.isEmpty()) {
+                MainRecommendFragment.this.hasMoreData = false;
+                MainRecommendFragment.this.isLoadingMore = false;
+                return;
+            }
+            
+            boolean noMore = data.getBooleanValue("no_more");
+            MainRecommendFragment.this.hasMoreData = !noMore;
+            
+            MainRecommendEx.Content[] contents = {null, null, null, null, null};
+            ArrayList arrayList = new ArrayList<MainRecommendEx.Content>(Arrays.asList(contents));
+            ArrayList arrayList2 = new ArrayList<MainRecommendEx.Content>(20);
+            
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject item = list.getJSONObject(i);
+                MainRecommendEx.Content content = new MainRecommendEx.Content();
+                content.setCardType("small_popular_ugc");
+                content.setCardGoto("av");
+                content.setJumpId(item.getLongValue("aid"));
+                content.setCover(item.getString("pic"));
+                content.setTitle(item.getString("title"));
+                content.setPubdate(item.getLongValue("pubdate"));
+                content.setUri("bilibili_yst://video/" + item.getLongValue("aid"));
+                content.setDuration(item.getIntValue("duration"));
+                JSONObject owner = item.getJSONObject("owner");
+                if (owner != null) {
+                    content.setOwnerName(owner.getString("name"));
+                }
+                JSONObject stat = item.getJSONObject("stat");
+                if (stat != null) {
+                    content.setPlay(stat.getIntValue("view"));
+                    content.setDanmaku(stat.getIntValue("danmaku"));
+                }
+                arrayList2.add(content);
+            }
+            
+            if (this.isAppendMode) {
+                MainRecommendFragment.this.a.appendData(arrayList, arrayList2);
+            } else {
+                MainRecommendFragment.this.a.a(arrayList, arrayList2);
+            }
+            
+            MainRecommendFragment.this.isLoadingMore = false;
+        }
+
+        @Override // bl.vn
+        public void onError(Throwable th) {
+            bbi.b(th, "t");
+            BLog.e("PopularRecommend", th.getMessage());
             MainRecommendFragment.this.isLoadingMore = false;
         }
     }

@@ -23,13 +23,13 @@
     .locals 0
 
     .prologue
-    .line 200
+    .line 208
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$g;-><init>()V
 
-    .line 201
+    .line 209
     iput p1, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$ItemDecoration;->space:I
 
-    .line 202
+    .line 210
     return-void
 .end method
 
@@ -39,52 +39,52 @@
     .locals 2
 
     .prologue
-    .line 206
+    .line 214
     const-string v0, "outRect"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 207
+    .line 215
     const-string v0, "view"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 208
+    .line 216
     const-string v0, "parent"
 
     invoke-static {p3, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 209
+    .line 217
     invoke-virtual {p3, p2}, Landroid/support/v7/widget/RecyclerView;->f(Landroid/view/View;)I
 
     move-result v0
 
-    .line 210
+    .line 218
     rem-int/lit8 v1, v0, 0x2
 
-    .line 211
+    .line 219
     div-int/lit8 v0, v0, 0x2
 
-    .line 213
+    .line 221
     iget v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$ItemDecoration;->space:I
 
     iput v0, p1, Landroid/graphics/Rect;->left:I
 
-    .line 214
+    .line 222
     iget v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$ItemDecoration;->space:I
 
     iput v0, p1, Landroid/graphics/Rect;->right:I
 
-    .line 215
+    .line 223
     iget v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$ItemDecoration;->space:I
 
     iput v0, p1, Landroid/graphics/Rect;->top:I
 
-    .line 216
+    .line 224
     iget v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$ItemDecoration;->space:I
 
     iput v0, p1, Landroid/graphics/Rect;->bottom:I
 
-    .line 217
+    .line 225
     return-void
 .end method

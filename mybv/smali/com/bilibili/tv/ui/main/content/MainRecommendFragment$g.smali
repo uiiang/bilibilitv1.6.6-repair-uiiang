@@ -23,7 +23,7 @@
     .locals 0
 
     .prologue
-    .line 140
+    .line 141
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$g;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$m;-><init>()V
@@ -37,10 +37,10 @@
     .locals 3
 
     .prologue
-    .line 143
+    .line 144
     invoke-super {p0, p1, p2}, Landroid/support/v7/widget/RecyclerView$m;->a(Landroid/support/v7/widget/RecyclerView;I)V
 
-    .line 144
+    .line 145
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$g;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     # getter for: Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->isLoadingMore:Z
@@ -68,12 +68,12 @@
 
     if-nez v0, :cond_1c
 
-    .line 161
+    .line 162
     :cond_1b
     :goto_1b
     return-void
 
-    .line 147
+    .line 148
     :cond_1c
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$g;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
@@ -82,25 +82,25 @@
 
     move-result-object v0
 
-    .line 148
+    .line 149
     if-eqz v0, :cond_1b
 
-    .line 151
+    .line 152
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->p()I
 
     move-result v1
 
-    .line 152
+    .line 153
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->x()I
 
     move-result v2
 
     if-lez v2, :cond_1b
 
-    .line 153
+    .line 154
     add-int/lit8 v1, v1, 0x14
 
-    .line 154
+    .line 155
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->H()I
 
     move-result v2
@@ -109,19 +109,19 @@
 
     if-lt v1, v2, :cond_1b
 
-    .line 155
+    .line 156
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->H()I
 
     move-result v1
 
-    .line 156
+    .line 157
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->x()I
 
     move-result v0
 
     if-le v1, v0, :cond_1b
 
-    .line 157
+    .line 158
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$g;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->loadMoreData()V
