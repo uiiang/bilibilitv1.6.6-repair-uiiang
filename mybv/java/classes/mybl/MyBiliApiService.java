@@ -41,6 +41,9 @@ public interface MyBiliApiService {
     @GET("/x/web-interface/view/detail")
     vp<GeneralResponse<BiliVideoDetail>> getVideoDetail(@Query("aid") long aid);
 
+    @GET("/x/web-interface/archive/relation")
+    vp<GeneralResponse<JSONObject>> getArchiveRelation(@Query("bvid") String bvid, @Header("Cookie") String cookie);
+
     @GET("/x/web-interface/dynamic/region")
     vp<GeneralResponse<JSONObject>> getRegionHotVideo(@Query("rid") int rid, @Query("ps") int page_size);
 

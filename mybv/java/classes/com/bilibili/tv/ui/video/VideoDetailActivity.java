@@ -1072,6 +1072,141 @@ public final class VideoDetailActivity extends BaseActivity
         ((MyBiliApiService) vo.a(MyBiliApiService.class)).getVideoDetail(this.s).a(new VideoApiParser2()).a(this.A);
     }
 
+    private final void initDefaultPlayButtons(BiliVideoDetail biliVideoDetail) {
+        if (historyContainer == null || historyPlayBtn == null) {
+            return;
+        }
+        historyPlayBtn.setText("开始播放");
+        historyTitle.setVisibility(View.GONE);
+        historyProgress.setVisibility(View.GONE);
+        historyContainer.setVisibility(View.GONE);
+        if (noHistoryPlayBtnLayout != null) {
+            noHistoryPlayBtnLayout.setVisibility(View.VISIBLE);
+            if (historyPlayBtnLayout != null) {
+                historyPlayBtnLayout.setNextFocusRightId(R.id.video_no_history_play_btn_layout);
+            }
+        }
+        final BiliVideoDetail finalBiliVideoDetail = biliVideoDetail;
+        if (historyPlayBtnLayout != null) {
+            historyPlayBtnLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (noHistoryPlayCheckBox != null) {
+                        sNoHistoryPlayMode = noHistoryPlayCheckBox.isChecked();
+                    }
+                    if (finalBiliVideoDetail != null && finalBiliVideoDetail.mHistory != null) {
+                        long historyCid = finalBiliVideoDetail.mHistory.mCid;
+                        int historyProgressVal = finalBiliVideoDetail.mHistory.mProgress;
+                        playVideo(finalBiliVideoDetail, historyCid, historyProgressVal);
+                    } else {
+                        playVideo(finalBiliVideoDetail, 0, 0);
+                    }
+                }
+            });
+        }
+        if (rePlayBtnLayout != null) {
+            rePlayBtnLayout.setVisibility(View.GONE);
+            rePlayBtnLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (finalBiliVideoDetail != null && finalBiliVideoDetail.mHistory != null) {
+                        long historyCid = finalBiliVideoDetail.mHistory.mCid;
+                        finalBiliVideoDetail.mHistory.mProgress = 0;
+                        playVideo(finalBiliVideoDetail, historyCid, 0);
+                    } else {
+                        playVideo(finalBiliVideoDetail, 0, 0);
+                    }
+                }
+            });
+        }
+        if (noHistoryPlayBtnLayout != null) {
+            noHistoryPlayBtnLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (noHistoryPlayCheckBox != null) {
+                        boolean newState = !noHistoryPlayCheckBox.isChecked();
+                        noHistoryPlayCheckBox.setChecked(newState);
+                        sNoHistoryPlayMode = newState;
+                    }
+                }
+            });
+        }
+        if (noHistoryPlayBtn != null) {
+            noHistoryPlayBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (noHistoryPlayCheckBox != null) {
+                        sNoHistoryPlayMode = noHistoryPlayCheckBox.isChecked();
+                    }
+                    playVideo(finalBiliVideoDetail, 0, 0);
+                }
+            });
+        }
+    }
+
+    private final void loadArchiveRelation(final BiliVideoDetail biliVideoDetail) {
+        android.util.Log.i("ArchiveRelation", "=== loadArchiveRelation START ===");
+        if (biliVideoDetail == null || biliVideoDetail.mBvid == null) {
+            android.util.Log.i("ArchiveRelation", "EARLY RETURN: biliVideoDetail=" + biliVideoDetail + ", mBvid=" + (biliVideoDetail != null ? biliVideoDetail.mBvid : "null"));
+            return;
+        }
+        mg a2 = mg.a(this);
+        bbi.a((Object) a2, "BiliAccount.get(this)");
+        boolean isLoggedIn = a2.a();
+        android.util.Log.i("ArchiveRelation", "isLoggedIn=" + isLoggedIn + ", bvid=" + biliVideoDetail.mBvid);
+        if (!isLoggedIn) {
+            android.util.Log.i("ArchiveRelation", "EARLY RETURN: not logged in");
+            return;
+        }
+        final String sessdata = a2.getSESSDATA();
+        final String bvid = biliVideoDetail.mBvid;
+        final BiliVideoDetail finalDetail = biliVideoDetail;
+        final String cookie = "SESSDATA=" + sessdata;
+        android.util.Log.i("ArchiveRelation", "Requesting API: bvid=" + bvid + ", sessdata length=" + (sessdata != null ? sessdata.length() : "null"));
+        
+        ((MyBiliApiService) vo.a(MyBiliApiService.class)).getArchiveRelation(bvid, cookie).a(new vn<JSONObject>() {
+            @Override
+            public void a(JSONObject jsonObject) {
+                android.util.Log.i("ArchiveRelation", "=== API Response ===");
+                if (jsonObject == null) {
+                    android.util.Log.i("ArchiveRelation", "Response: jsonObject is NULL");
+                    return;
+                }
+                android.util.Log.i("ArchiveRelation", "Response: " + jsonObject.toString());
+                
+                boolean like = jsonObject.getBooleanValue("like");
+                boolean favorite = jsonObject.getBooleanValue("favorite");
+                int coin = jsonObject.getIntValue("coin");
+                android.util.Log.i("ArchiveRelation", "Parsed: like=" + like + ", favorite=" + favorite + ", coin=" + coin);
+                
+                BiliVideoDetail.RequestUser requestUser = finalDetail.mRequestUser;
+                if (requestUser == null) {
+                    android.util.Log.i("ArchiveRelation", "Creating new RequestUser");
+                    requestUser = new BiliVideoDetail.RequestUser();
+                    finalDetail.mRequestUser = requestUser;
+                }
+                requestUser.mLike = like;
+                requestUser.mFavorite = favorite;
+                requestUser.mCoin = coin > 0;
+                android.util.Log.i("ArchiveRelation", "Updated RequestUser: mLike=" + requestUser.mLike + ", mFavorite=" + requestUser.mFavorite + ", mCoin=" + requestUser.mCoin);
+                android.util.Log.i("ArchiveRelation", "Calling o() to update UI");
+                
+                VideoDetailActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        android.util.Log.i("ArchiveRelation", "runOnUiThread: calling o()");
+                        VideoDetailActivity.this.o();
+                    }
+                });
+            }
+
+            @Override
+            public void onError(Throwable th) {
+                android.util.Log.e("ArchiveRelation", "API Error: " + th.getMessage(), th);
+            }
+        });
+    }
+
     private final void loadHistory(BiliVideoDetail biliVideoDetail) {
         mg a2 = mg.a(this);
         bbi.a((Object) a2, "BiliAccount.get(this)");
@@ -1118,7 +1253,7 @@ public final class VideoDetailActivity extends BaseActivity
                         com.alibaba.fastjson.JSONObject data = playerData.getJSONObject("data");
                         if (data != null) {
                             long lastPlayCid = data.getLongValue("last_play_cid");
-                            int lastPlayTime = data.getIntValue("last_play_time");
+                            int lastPlayTime = data.getIntValue("last_play_time") / 1000;
                             
                             if (lastPlayCid > 0 || lastPlayTime > 0) {
                                 playurlSuccess = true;
@@ -1130,7 +1265,7 @@ public final class VideoDetailActivity extends BaseActivity
                                     @Override
                                     public void run() {
                                         finalBiliVideoDetail.mHistory = history;
-                                        // android.util.Log.i("VideoDetailApi", "History from wbi/v2: cid=" + history.mCid + ", progress=" + history.mProgress);
+                                        android.util.Log.i("VideoDetailApi", "History from wbi/v2: cid=" + history.mCid + ", progress=" + history.mProgress);
                                         updateHistoryDisplay(finalBiliVideoDetail);
                                         if (VideoDetailActivity.this.historyPlayBtnLayout != null &&
                                                 VideoDetailActivity.this.historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
@@ -1257,117 +1392,45 @@ public final class VideoDetailActivity extends BaseActivity
         if (historyContainer == null || historyTitle == null || historyProgress == null || historyPlayBtn == null) {
             return;
         }
-        if (biliVideoDetail == null) {
-            historyContainer.setVisibility(View.GONE);
-            if (noHistoryPlayBtnLayout != null) {
-                noHistoryPlayBtnLayout.setVisibility(View.VISIBLE);
-            }
+        if (biliVideoDetail == null || biliVideoDetail.mHistory == null) {
             return;
-        } else {
-            historyContainer.setVisibility(View.VISIBLE);
         }
-        if (biliVideoDetail.mHistory == null) {
-            historyPlayBtn.setText("开始播放");
+        
+        int episodeCount = 0;
+        if (biliVideoDetail.episodes != null) {
+            episodeCount += biliVideoDetail.episodes.size();
+        }
+        if (biliVideoDetail.mPageList != null) {
+            episodeCount += biliVideoDetail.mPageList.size();
+        }
+        long cid = biliVideoDetail.mHistory.mCid;
+        int progress = biliVideoDetail.mHistory.mProgress;
+        String title = findTitleByCid(cid, biliVideoDetail);
+        if (title == null || title.isEmpty()) {
             historyTitle.setVisibility(View.GONE);
             historyProgress.setVisibility(View.GONE);
             historyContainer.setVisibility(View.GONE);
-            if (noHistoryPlayBtnLayout != null) {
-                noHistoryPlayBtnLayout.setVisibility(View.VISIBLE);
-                if (historyPlayBtnLayout != null) {
-                    historyPlayBtnLayout.setNextFocusRightId(R.id.video_no_history_play_btn_layout);
-                }
-            }
         } else {
-            int episodeCount = 0;
-            if (biliVideoDetail.episodes != null) {
-                episodeCount += biliVideoDetail.episodes.size();
-            }
-            if (biliVideoDetail.mPageList != null) {
-                episodeCount += biliVideoDetail.mPageList.size();
-            }
-            long cid = biliVideoDetail.mHistory.mCid;
-            int progress = biliVideoDetail.mHistory.mProgress;
-            String title = findTitleByCid(cid, biliVideoDetail);
-            if (title == null || title.isEmpty()) {
+            if (episodeCount <= 1) {
                 historyTitle.setVisibility(View.GONE);
-                historyProgress.setVisibility(View.GONE);
-                historyContainer.setVisibility(View.GONE);
             } else {
-                if (episodeCount <= 1) {
-                    historyTitle.setVisibility(View.GONE);
-                } else {
-                    historyTitle.setVisibility(View.VISIBLE);
-                }
-                historyTitle.setText(title);
-                historyProgress.setText(formatProgressTime(progress));
-                historyProgress.setVisibility(View.VISIBLE);
-                historyContainer.setVisibility(View.VISIBLE);
+                historyTitle.setVisibility(View.VISIBLE);
             }
-            historyPlayBtn.setText("继续播放");
-            rePlayBtn.setText("重新播放");
-            if (noHistoryPlayBtnLayout != null) {
-                noHistoryPlayBtnLayout.setVisibility(View.GONE);
-            }
-            if (historyPlayBtnLayout != null) {
-                historyPlayBtnLayout.setNextFocusRightId(R.id.video_re_play_btn_layout);
-            }
+            historyTitle.setText(title);
+            historyProgress.setText(formatProgressTime(progress));
+            historyProgress.setVisibility(View.VISIBLE);
+            historyContainer.setVisibility(View.VISIBLE);
         }
-        final BiliVideoDetail finalBiliVideoDetail = biliVideoDetail;
-        if (historyPlayBtnLayout != null) {
-            historyPlayBtnLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (noHistoryPlayCheckBox != null) {
-                        sNoHistoryPlayMode = noHistoryPlayCheckBox.isChecked();
-                    }
-                    if (finalBiliVideoDetail != null && finalBiliVideoDetail.mHistory != null) {
-                        long historyCid = finalBiliVideoDetail.mHistory.mCid;
-                        int historyProgressVal = finalBiliVideoDetail.mHistory.mProgress;
-                        playVideo(finalBiliVideoDetail, historyCid, historyProgressVal);
-                    } else {
-                        playVideo(finalBiliVideoDetail, 0, 0);
-                    }
-                }
-            });
+        historyPlayBtn.setText("继续播放");
+        rePlayBtn.setText("重新播放");
+        if (noHistoryPlayBtnLayout != null) {
+            noHistoryPlayBtnLayout.setVisibility(View.GONE);
         }
         if (rePlayBtnLayout != null) {
-            rePlayBtnLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (finalBiliVideoDetail != null && finalBiliVideoDetail.mHistory != null) {
-                        long historyCid = finalBiliVideoDetail.mHistory.mCid;
-                        finalBiliVideoDetail.mHistory.mProgress = 0;
-                        playVideo(finalBiliVideoDetail, historyCid, 0);
-                    } else {
-                        playVideo(finalBiliVideoDetail, 0, 0);
-                    }
-                }
-            });
+            rePlayBtnLayout.setVisibility(View.VISIBLE);
         }
-        if (noHistoryPlayBtnLayout != null) {
-            final BiliVideoDetail finalBiliVideoDetail2 = biliVideoDetail;
-            noHistoryPlayBtnLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (noHistoryPlayCheckBox != null) {
-                        boolean newState = !noHistoryPlayCheckBox.isChecked();
-                        noHistoryPlayCheckBox.setChecked(newState);
-                        sNoHistoryPlayMode = newState;
-                    }
-                }
-            });
-        }
-        if (noHistoryPlayBtn != null) {
-            final BiliVideoDetail finalBiliVideoDetail3 = biliVideoDetail;
-            noHistoryPlayBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (noHistoryPlayCheckBox != null) {
-                        sNoHistoryPlayMode = noHistoryPlayCheckBox.isChecked();
-                    }
-                    playVideo(finalBiliVideoDetail3, 0, 0);
-                }
-            });
+        if (historyPlayBtnLayout != null) {
+            historyPlayBtnLayout.setNextFocusRightId(R.id.video_re_play_btn_layout);
         }
     }
 
@@ -1440,8 +1503,7 @@ public final class VideoDetailActivity extends BaseActivity
             mg a2 = mg.a(this);
             bbi.a((Object) a2, "BiliAccount.get(this)");
             if (!a2.a()) {
-                lr.a(this, (int) R.string.bangumi_not_login);
-                LoginActivity.Companion.a(this, H);
+                lr.a(this, "账号未登录，无法点击");
                 return;
             }
             if (this.u != null && this.u.isLikeVideo()) {
@@ -1454,8 +1516,7 @@ public final class VideoDetailActivity extends BaseActivity
             mg a2 = mg.a(this);
             bbi.a((Object) a2, "BiliAccount.get(this)");
             if (!a2.a()) {
-                lr.a(this, (int) R.string.bangumi_not_login);
-                LoginActivity.Companion.a(this, H);
+                lr.a(this, "账号未登录，无法点击");
                 return;
             }
             coinVideo(1, 0);
@@ -1464,8 +1525,7 @@ public final class VideoDetailActivity extends BaseActivity
             mg a2 = mg.a(this);
             bbi.a((Object) a2, "BiliAccount.get(this)");
             if (!a2.a()) {
-                lr.a(this, (int) R.string.bangumi_not_login);
-                LoginActivity.Companion.a(this, H);
+                lr.a(this, "账号未登录，无法点击");
                 return;
             }
             BiliVideoDetail biliVideoDetail2 = this.u;
@@ -1480,8 +1540,7 @@ public final class VideoDetailActivity extends BaseActivity
             mg biliAccount = mg.a(this);
             bbi.a((Object) biliAccount, "BiliAccount.get(this)");
             if (!biliAccount.a()) {
-                lr.a(this, (int) R.string.bangumi_not_login);
-                LoginActivity.Companion.a(this, H);
+                lr.a(this, "账号未登录，无法点击");
                 return;
             }
             BiliVideoDetail biliVideoDetail3 = this.u;
@@ -1550,37 +1609,47 @@ public final class VideoDetailActivity extends BaseActivity
 
     /* JADX INFO: Access modifiers changed from: private */
     public final void o() {
+        android.util.Log.i("ArchiveRelation", "=== o() called ===");
         BiliVideoDetail biliVideoDetail = this.u;
+        android.util.Log.i("ArchiveRelation", "o(): biliVideoDetail=" + biliVideoDetail);
         if (biliVideoDetail != null) {
+            android.util.Log.i("ArchiveRelation", "o(): isLikeVideo=" + biliVideoDetail.isLikeVideo() + ", isCoinVideo=" + biliVideoDetail.isCoinVideo() + ", isFavoriteVideo=" + biliVideoDetail.isFavoriteVideo());
             ImageView imageView = (ImageView) d(R.id.video_detail_like_img);
             if (imageView != null) {
                 imageView.setBackgroundResource(
                         biliVideoDetail.isLikeVideo() ? R.drawable.ic_like_hightlight : R.drawable.ic_like);
+                android.util.Log.i("ArchiveRelation", "o(): Updated like image to " + (biliVideoDetail.isLikeVideo() ? "highlight" : "normal"));
             }
             TextView textView = (TextView) d(R.id.video_detail_like_text);
             if (textView != null) {
                 textView.setText(biliVideoDetail.isLikeVideo() ? "已点赞" : "点赞");
+                android.util.Log.i("ArchiveRelation", "o(): Updated like text to " + (biliVideoDetail.isLikeVideo() ? "已点赞" : "点赞"));
             }
             imageView = (ImageView) d(R.id.video_detail_coin_img);
             if (imageView != null) {
                 imageView.setBackgroundResource(
                         biliVideoDetail.isCoinVideo() ? R.drawable.ic_coin_hightlight : R.drawable.ic_coin);
+                android.util.Log.i("ArchiveRelation", "o(): Updated coin image to " + (biliVideoDetail.isCoinVideo() ? "highlight" : "normal"));
             }
             textView = (TextView) d(R.id.video_detail_coin_text);
             if (textView != null) {
                 textView.setText(biliVideoDetail.isCoinVideo() ? "已投币" : "投币");
+                android.util.Log.i("ArchiveRelation", "o(): Updated coin text to " + (biliVideoDetail.isCoinVideo() ? "已投币" : "投币"));
             }
             imageView = this.k;
             if (imageView != null) {
                 imageView.setBackgroundResource(
                         biliVideoDetail.isFavoriteVideo() ? R.drawable.ic_favorite_hightlight : R.drawable.ic_favorite);
+                android.util.Log.i("ArchiveRelation", "o(): Updated favorite image to " + (biliVideoDetail.isFavoriteVideo() ? "highlight" : "normal"));
             }
             textView = this.l;
             if (textView != null) {
                 textView.setText(
                         biliVideoDetail.isFavoriteVideo() ? R.string.video_favorited : R.string.video_favorite);
+                android.util.Log.i("ArchiveRelation", "o(): Updated favorite text");
             }
         }
+        android.util.Log.i("ArchiveRelation", "=== o() END ===");
     }
 
     private final void p(String fid) {
@@ -2535,6 +2604,8 @@ public final class VideoDetailActivity extends BaseActivity
 
             abi.a.a("tv_detail_view2_resp", abi.a.a(String.valueOf(VideoDetailActivity.this.s),
                     String.valueOf(mg.a(VideoDetailActivity.this).d()), "success", "0"));
+            initDefaultPlayButtons(biliVideoDetail);
+            loadArchiveRelation(biliVideoDetail);
             loadHistory(biliVideoDetail);
         }
 
