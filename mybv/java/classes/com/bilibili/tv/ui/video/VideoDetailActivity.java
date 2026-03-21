@@ -1532,28 +1532,130 @@ public final class VideoDetailActivity extends BaseActivity
 
     public final void a(Activity activity, BiliVideoDetail biliVideoDetail) {
         bbi.b(biliVideoDetail, "video");
-        if (!a(biliVideoDetail) || activity == null) {
+        android.util.Log.i("BangumiJump", "a() called, checking jump condition...");
+        if (!a(biliVideoDetail)) {
+            android.util.Log.i("BangumiJump", "a() returned false, not jumping");
+            return;
+        }
+        if (activity == null) {
+            android.util.Log.i("BangumiJump", "activity is null, not jumping");
+            return;
+        }
+        String seasonId = b(biliVideoDetail);
+        android.util.Log.i("BangumiJump", "seasonId extracted: " + seasonId);
+        if (TextUtils.isEmpty(seasonId)) {
+            android.util.Log.i("BangumiJump", "seasonId is empty, not jumping");
             return;
         }
         activity.finish();
-        a(activity, b(biliVideoDetail));
+        a(activity, seasonId);
     }
 
     private final boolean a(BiliVideoDetail biliVideoDetail) {
+        android.util.Log.i("BangumiJump", "checking jump: mRedirectUrl=" + biliVideoDetail.mRedirectUrl + ", mFirstFrame=" + biliVideoDetail.mFirstFrame);
+        if (!TextUtils.isEmpty(biliVideoDetail.mRedirectUrl)) {
+            android.util.Log.i("BangumiJump", "mRedirectUrl is not empty, returning true");
+            return true;
+        }
         if (TextUtils.isEmpty(biliVideoDetail.mFirstFrame)) {
             if ((biliVideoDetail != null ? biliVideoDetail.mBangumiInfo : null) != null
                     && biliVideoDetail.mBangumiInfo.isJump == 1) {
+                android.util.Log.i("BangumiJump", "mBangumiInfo.isJump == 1, returning true");
                 return true;
             }
         }
+        android.util.Log.i("BangumiJump", "jump condition not met, returning false");
         return false;
     }
 
     private final String b(BiliVideoDetail video) {
+        if (!TextUtils.isEmpty(video.mRedirectUrl)) {
+            String url = video.mRedirectUrl.trim();
+            if (url.endsWith(",")) {
+                url = url.substring(0, url.length() - 1);
+            }
+            android.util.Log.i("BangumiJump", "parsing redirect_url: " + url);
+            if (url.contains("/ss")) {
+                int idx = url.indexOf("/ss");
+                String sub = url.substring(idx + 3);
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < sub.length(); i++) {
+                    char c = sub.charAt(i);
+                    if (Character.isDigit(c)) {
+                        sb.append(c);
+                    } else {
+                        break;
+                    }
+                }
+                if (sb.length() > 0) {
+                    android.util.Log.i("BangumiJump", "extracted seasonId from /ss: " + sb.toString());
+                    return sb.toString();
+                }
+            } else if (url.contains("/ep")) {
+                int idx = url.indexOf("/ep");
+                String sub = url.substring(idx + 3);
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < sub.length(); i++) {
+                    char c = sub.charAt(i);
+                    if (Character.isDigit(c)) {
+                        sb.append(c);
+                    } else {
+                        break;
+                    }
+                }
+                if (sb.length() > 0) {
+                    String epId = sb.toString();
+                    android.util.Log.i("BangumiJump", "found /ep format, epId: " + epId + ", need to fetch seasonId");
+                    String seasonId = fetchSeasonIdFromEpId(epId);
+                    android.util.Log.i("BangumiJump", "fetched seasonId: " + seasonId);
+                    return seasonId;
+                }
+            }
+        }
         if ((video != null ? video.mBangumiInfo : null) != null) {
             String str = video.mBangumiInfo.mSeasonId;
             bbi.a((Object) str, "video.mBangumiInfo.mSeasonId");
+            android.util.Log.i("BangumiJump", "using mBangumiInfo.mSeasonId: " + str);
             return str;
+        }
+        android.util.Log.i("BangumiJump", "no seasonId found, returning empty");
+        return "";
+    }
+
+    private String fetchSeasonIdFromEpId(String epId) {
+        try {
+            String apiUrl = "https://api.bilibili.com/pgc/view/web/season?ep_id=" + epId;
+            android.util.Log.i("BangumiJump", "fetching seasonId from: " + apiUrl);
+            java.util.concurrent.ExecutorService threadPool = java.util.concurrent.Executors.newSingleThreadExecutor();
+            java.util.concurrent.Future<org.json.JSONObject> future = threadPool.submit(new java.util.concurrent.Callable<org.json.JSONObject>() {
+                @Override
+                public org.json.JSONObject call() {
+                    try {
+                        return ((com.bilibili.tv.player.basic.context.ResolveResourceParams.JsonResponse) bl.pz.a(
+                            new bl.qa.a(com.bilibili.tv.player.basic.context.ResolveResourceParams.JsonResponse.class)
+                                .a(apiUrl)
+                                .a(true)
+                                .a(new bl.qb())
+                                .a(), "GET")).result();
+                    } catch (Exception e) {
+                        android.util.Log.e("BangumiJump", "API call error: " + e.getMessage());
+                        return null;
+                    }
+                }
+            });
+            org.json.JSONObject response = future.get(5, java.util.concurrent.TimeUnit.SECONDS);
+            android.util.Log.i("BangumiJump", "API response: " + (response != null ? response.toString() : "null"));
+            if (response != null && response.has("result")) {
+                org.json.JSONObject result = response.getJSONObject("result");
+                if (result.has("season_id")) {
+                    String seasonId = String.valueOf(result.getInt("season_id"));
+                    android.util.Log.i("BangumiJump", "got season_id: " + seasonId);
+                    return seasonId;
+                }
+            }
+        } catch (Exception e) {
+            android.util.Log.e("BangumiJump", "fetchSeasonIdFromEpId error: " + e.getMessage());
+            e.printStackTrace();
         }
         return "";
     }
@@ -2620,6 +2722,12 @@ public final class VideoDetailActivity extends BaseActivity
                         String.valueOf(mg.a(VideoDetailActivity.this).d()), "parse_error", "0"));
                 return;
             }
+            VideoDetailActivity.this.u = biliVideoDetail;
+            if (VideoDetailActivity.this.a(biliVideoDetail)) {
+                android.util.Log.i("BangumiJump", "need jump, skipping UI rendering");
+                VideoDetailActivity.this.a((Activity) VideoDetailActivity.this, biliVideoDetail);
+                return;
+            }
             View view = VideoDetailActivity.this.m;
             if (view != null) {
                 view.setVisibility(0);
@@ -2628,7 +2736,6 @@ public final class VideoDetailActivity extends BaseActivity
             if (loadingImageView3 != null) {
                 loadingImageView3.b();
             }
-            VideoDetailActivity.this.u = biliVideoDetail;
             VideoDetailActivity.this.a(biliVideoDetail.mCover);
             VideoDetailActivity.this.o();
             TextView textView = VideoDetailActivity.this.cc;
@@ -2663,9 +2770,7 @@ public final class VideoDetailActivity extends BaseActivity
             a((List<? extends BiliVideoDetail.Tag>) biliVideoDetail.mTags);
             d(biliVideoDetail);
             showEpisodes(biliVideoDetail);
-            // if(biliVideoDetail.episodes == null)
             c(biliVideoDetail);
-            VideoDetailActivity.this.a((Activity) VideoDetailActivity.this, biliVideoDetail);
 
             abi.a.a("tv_detail_view2_resp", abi.a.a(String.valueOf(VideoDetailActivity.this.s),
                     String.valueOf(mg.a(VideoDetailActivity.this).d()), "success", "0"));

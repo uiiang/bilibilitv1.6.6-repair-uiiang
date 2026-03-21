@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.bilibili.tv.widget.DrawLinearLayout
+  android:id="@id/draw"
+  android:orientation="vertical"
+  android:focusable="true"
+  android:focusableInTouchMode="true"
+  android:clickable="true"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+  <FrameLayout android:id="@id/img_layout" android:focusable="false"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal">
+    <com.bilibili.tv.widget.ScalableImageView android:id="@id/img"
+      android:background="@drawable/shape_default_loading_img" android:focusable="false"
+      android:layout_width="match_parent" android:layout_height="@dimen/px_200"
+      app:placeholderImage="@drawable/default_img_loading"
+      app:placeholderImageScaleType="centerInside" app:roundedCornerRadius="@dimen/px_12" />
+    <ImageView android:id="@id/tag" android:focusable="false" android:layout_width="@dimen/px_50"
+      android:layout_height="@dimen/px_50" />
+    <TextView android:textSize="@dimen/px_36" android:textColor="@color/white"
+      android:gravity="center" android:id="@id/tag_text" android:focusable="false"
+      android:layout_width="@dimen/px_50" android:layout_height="@dimen/px_50" />
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom"
+      android:orientation="horizontal"
+      android:background="@color/black_50"
+      android:paddingLeft="@dimen/px_6"
+      android:paddingRight="@dimen/px_6"
+      android:paddingTop="@dimen/px_2"
+      android:paddingBottom="@dimen/px_2"
+      android:focusable="false">
+      <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <com.bilibili.tv.widget.ShadowTextView
+          android:textSize="@dimen/px_22"
+          android:textColor="@color/white"
+          android:gravity="center_vertical"
+          android:id="@id/play"
+          android:focusable="false"
+          android:duplicateParentState="true"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:maxLines="1"
+          android:drawablePadding="@dimen/px_2" />
+        <com.bilibili.tv.widget.ShadowTextView
+          android:textSize="@dimen/px_22"
+          android:textColor="@color/white"
+          android:gravity="center_vertical"
+          android:id="@id/danmaku"
+          android:focusable="false"
+          android:duplicateParentState="true"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/px_8"
+          android:maxLines="1"
+          android:drawablePadding="@dimen/px_2" />
+      </LinearLayout>
+      <TextView android:id="@+id/duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/px_22"
+        android:gravity="center"
+        android:focusable="false" />
+    </LinearLayout>
+  </FrameLayout>
+  <com.bilibili.tv.widget.ShadowTextView
+    android:textSize="@dimen/px_28"
+    android:textColor="@color/white"
+    android:id="@id/title"
+    android:focusable="false"
+    android:duplicateParentState="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:maxLines="2"
+    android:ellipsize="end"
+    android:layout_marginTop="@dimen/px_8"
+    android:layout_marginLeft="@dimen/px_4"
+    android:layout_marginRight="@dimen/px_4" />
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/px_4"
+    android:layout_marginLeft="@dimen/px_4"
+    android:layout_marginRight="@dimen/px_4"
+    android:orientation="horizontal">
+    <com.bilibili.tv.widget.ShadowTextView
+      android:textSize="@dimen/px_24"
+      android:textColor="@color/white_50"
+      android:gravity="center_vertical"
+      android:id="@id/up"
+      android:focusable="false"
+      android:duplicateParentState="true"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:maxLines="1"
+      android:singleLine="true"
+      android:drawablePadding="@dimen/px_4" />
+    <com.bilibili.tv.widget.ShadowTextView
+      android:textSize="@dimen/px_24"
+      android:textColor="@color/white_50"
+      android:gravity="center_vertical"
+      android:id="@id/pubdate"
+      android:focusable="false"
+      android:duplicateParentState="true"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:maxLines="1"
+      android:singleLine="true" />
+  </LinearLayout>
+</com.bilibili.tv.widget.DrawLinearLayout>

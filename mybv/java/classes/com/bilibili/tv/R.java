@@ -2525,6 +2525,9 @@ public final class R {
         public static final int dynamic_header_attention = 0x7f0801b1;
         public static final int dynamic_header_count = 0x7f0801b2;
         public static final int video_history_label = 0x7f0801b3;
+        public static final int column_2_button = 0x7f0801b4;
+        public static final int column_3_button = 0x7f0801b5;
+        public static final int column_4_button = 0x7f0801b6;
     }
 
     public static final class integer {
@@ -2690,6 +2693,7 @@ public final class R {
         public static final int activity_weekly = 0x7f0a0093;
         public static final int fragment_weekly_video = 0x7f0a0094;
         public static final int fragment_attention_dynamic_video = 0x7f0a0095;
+        public static final int recycler_view_item_main_recommend_compact = 0x7f0a0096;
     }
 
     public static final class mipmap {

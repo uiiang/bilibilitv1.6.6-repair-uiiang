@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 2924
+    .line 3029
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
@@ -54,7 +54,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 2927
+    .line 3032
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
@@ -63,32 +63,32 @@
 
     if-lez v0, :cond_61
 
-    .line 2928
+    .line 3033
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 2929
+    .line 3034
     if-eqz v0, :cond_61
 
-    .line 2930
+    .line 3035
     invoke-virtual {v0}, Landroid/view/View;->getWidth()I
 
     move-result v0
 
-    .line 2931
+    .line 3036
     iget v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->val$finalCurrentPosition:I
 
     mul-int/2addr v0, v2
 
-    .line 2932
+    .line 3037
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v2, v0, v1}, Landroid/support/v7/widget/RecyclerView;->scrollBy(II)V
 
-    .line 2936
+    .line 3041
     :try_start_1d
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
@@ -96,44 +96,44 @@
 
     move-result v3
 
-    .line 2937
+    .line 3042
     const/4 v2, -0x1
 
-    .line 2938
+    .line 3043
     :goto_24
     if-ge v1, v3, :cond_78
 
-    .line 2939
+    .line 3044
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 2940
+    .line 3045
     if-nez v0, :cond_31
 
-    .line 2938
+    .line 3043
     :cond_2e
     add-int/lit8 v1, v1, 0x1
 
     goto :goto_24
 
-    .line 2941
+    .line 3046
     :cond_31
     invoke-virtual {v0}, Landroid/view/View;->getTag()Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 2942
+    .line 3047
     instance-of v4, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     if-eqz v4, :cond_2e
 
-    .line 2943
+    .line 3048
     check-cast v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
-    .line 2944
+    .line 3049
     iget-wide v4, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mAvid:J
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
@@ -151,18 +151,18 @@
 
     move v0, v1
 
-    .line 2951
+    .line 3056
     :goto_4a
     if-ltz v0, :cond_62
 
-    .line 2956
+    .line 3061
     :goto_4c
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v1, v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonSectionFocusPositions:Ljava/util/Map;
-    invoke-static {v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Ljava/util/Map;
+    invoke-static {v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3800(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Ljava/util/Map;
 
     move-result-object v1
 
@@ -178,12 +178,12 @@
 
     invoke-interface {v1, v2, v0}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 2962
+    .line 3067
     :cond_61
     :goto_61
     return-void
 
-    .line 2954
+    .line 3059
     :cond_62
     const/4 v0, 0x0
 
@@ -209,7 +209,7 @@
 
     goto :goto_4c
 
-    .line 2957
+    .line 3062
     :catch_76
     move-exception v0
 

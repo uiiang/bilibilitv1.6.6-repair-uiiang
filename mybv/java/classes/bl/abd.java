@@ -285,6 +285,20 @@ public class abd {
         return homeDefaultType;
     }
 
+    private static int homeColumnType = -1;
+
+    public static void set_home_column(Context context, int columns) {
+        a(context).a().edit().putInt("home_column_type", columns).apply();
+        homeColumnType = columns;
+    }
+
+    public static int get_home_column(Context context) {
+        if (homeColumnType == -1) {
+            homeColumnType = a(context).a().getInt("home_column_type", 2);
+        }
+        return homeColumnType;
+    }
+
     private static int imageSizeType = -1;
 
     public static void set_image_size(Context context, int type) {

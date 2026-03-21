@@ -23,6 +23,7 @@ import com.bilibili.tv.ui.bangumi.BangumiDetailActivity;
 import com.bilibili.tv.ui.main.MainActivity;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
 import com.bilibili.tv.widget.DrawFrameLayout;
+import com.bilibili.tv.widget.DrawLinearLayout;
 import com.bilibili.tv.widget.DrawRelativeLayout;
 import com.bilibili.tv.widget.ScalableImageView;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
@@ -95,7 +96,8 @@ public final class MainRecommendFragment extends adu implements aez, wf {
         int b2 = adl.b(R.dimen.px_10);
         int b3 = adl.b(R.dimen.px_50);
         recyclerView.setPadding(b3, b2, b3, b2);
-        this.b = new BorderGridLayoutManager(getActivity(), 2, 1, false) { // from class: com.bilibili.tv.ui.main.content.MainRecommendFragment$onViewCreated$1
+        final int columnCount = abd.get_home_column(getActivity());
+        this.b = new BorderGridLayoutManager(getActivity(), columnCount, 1, false) { // from class: com.bilibili.tv.ui.main.content.MainRecommendFragment$onViewCreated$1
             @Override // android.support.v7.widget.RecyclerView.h
             public View d(View view, int i) {
                 if (view == null) {
@@ -107,7 +109,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                 }
                 
                 int d2 = d(view);
-                int row = d2 / 2;
+                int row = d2 / columnCount;
                 
                 if (i == 33 && row == 0) {
                     FragmentActivity activity2 = MainRecommendFragment.this.getActivity();
@@ -130,7 +132,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
             bbi.a();
         }
         borderGridLayoutManager.a(new f());
-        recyclerView.a(new ItemDecoration(b2));
+        recyclerView.a(new ItemDecoration(b2, columnCount));
         recyclerView.setFocusable(false);
         recyclerView.setAdapter(this.a);
         getRecommendVideos();
@@ -203,10 +205,12 @@ public final class MainRecommendFragment extends adu implements aez, wf {
     /* compiled from: BL */
     /* loaded from: classes.dex */
     public static final class ItemDecoration extends RecyclerView.g {
-        final /* synthetic */ int space;
+        final int space;
+        final int columnCount;
 
-        ItemDecoration(int space) {
+        ItemDecoration(int space, int columnCount) {
             this.space = space;
+            this.columnCount = columnCount;
         }
 
         @Override // android.support.v7.widget.RecyclerView.g
@@ -214,14 +218,16 @@ public final class MainRecommendFragment extends adu implements aez, wf {
             bbi.b(outRect, "outRect");
             bbi.b(view, "view");
             bbi.b(parent, "parent");
-            int position = parent.f(view);
-            int column = position % 2;
-            int row = position / 2;
             
-            outRect.left = this.space;
-            outRect.right = this.space;
-            outRect.top = this.space;
-            outRect.bottom = this.space;
+            int itemSpace = this.space;
+            if (this.columnCount == 3 || this.columnCount == 4) {
+                itemSpace = this.space * 2;
+            }
+            
+            outRect.left = itemSpace;
+            outRect.right = itemSpace;
+            outRect.top = itemSpace;
+            outRect.bottom = itemSpace;
         }
     }
 
@@ -510,6 +516,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
         private final UriMatcher d;
         private final int e;
         private final int f;
+        private int columnCount = 2;
 
         @Override // android.support.v7.widget.RecyclerView.a
         public int a() {
@@ -524,6 +531,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
             this.d = new UriMatcher(-1);
             this.e = adl.b(R.dimen.px_512);
             this.f = adl.b(R.dimen.px_335);
+            this.columnCount = abd.get_home_column(MainRecommendFragmentVar.getActivity());
         }
 
         @Override // android.support.v7.widget.RecyclerView.a
@@ -531,6 +539,11 @@ public final class MainRecommendFragment extends adu implements aez, wf {
             bbi.b(viewGroup, "parent");
             if (i == 1) {
                 return ((MainRecommendFragment.a)null).Companion.a(viewGroup, this.c);
+            }
+            if (this.columnCount == 3 || this.columnCount == 4) {
+                View inflate = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_view_item_main_recommend_compact, viewGroup, false);
+                bbi.a((Object) inflate, "view");
+                return new e(inflate, this.c);
             }
             return MainRecommendFragment.e.Companion.a(viewGroup, this.c);
         }
@@ -557,6 +570,23 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                 }
                 advVar.a.setFocusable(true);
                 advVar.a.setVisibility(View.VISIBLE);
+                
+                if (this.columnCount == 3 || this.columnCount == 4) {
+                    int screenWidth = advVar.a.getResources().getDisplayMetrics().widthPixels;
+                    int horizontalPadding = adl.b(R.dimen.px_50) * 2 + adl.b(R.dimen.px_20) + adl.b(R.dimen.px_10);
+                    int itemWidth = (screenWidth - horizontalPadding) / this.columnCount;
+                    int imageHeight = (int) (itemWidth * 0.56f);
+                    ViewGroup.LayoutParams imgParams = eVar.A().getLayoutParams();
+                    if (imgParams != null) {
+                        imgParams.height = imageHeight;
+                    }
+                    ViewGroup.LayoutParams itemParams = advVar.a.getLayoutParams();
+                    if (itemParams == null) {
+                        itemParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    }
+                    advVar.a.setLayoutParams(itemParams);
+                }
+                
                 if (!TextUtils.isEmpty(content.getTitle())) {
                     eVar.z().setText(content.getTitle());
                 }
@@ -584,13 +614,15 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                      eVar.D().setVisibility(View.GONE);
                  }
                  long pubdate = content.getPubdate();
-                 if (pubdate > 0) {
-                     eVar.F().setText(DateUtils.getRelativeTimeSpanString(
-                             pubdate * ((long) IjkMediaCodecInfo.RANK_MAX),
-                             System.currentTimeMillis(), 1000L));
-                     eVar.F().setVisibility(View.VISIBLE);
-                 } else {
-                     eVar.F().setVisibility(View.GONE);
+                 if (eVar.F() != null) {
+                     if (pubdate > 0) {
+                         eVar.F().setText(DateUtils.getRelativeTimeSpanString(
+                                 pubdate * ((long) IjkMediaCodecInfo.RANK_MAX),
+                                 System.currentTimeMillis(), 1000L));
+                         eVar.F().setVisibility(View.VISIBLE);
+                     } else {
+                         eVar.F().setVisibility(View.GONE);
+                     }
                  }
                 int duration = content.getDuration();
                 if (duration >= 3600) {
@@ -779,22 +811,25 @@ public final class MainRecommendFragment extends adu implements aez, wf {
         private final TextView r;
         private final TextView u;
         private final TextView v;
-        private final com.bilibili.tv.widget.DrawRelativeLayout s;
+        private final View s;
         private final WeakReference<MainRecommendFragment> t;
 
-        /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
         public e(View view, WeakReference<MainRecommendFragment> weakReference) {
             super(view);
             this.t = weakReference;
-            this.n = (TextView) a(view, R.id.title);
-            this.o = (ScalableImageView) a(view, R.id.img);
-            this.p = (TextView) a(view, R.id.up);
-            this.q = (TextView) a(view, R.id.play);
-            this.r = (TextView) a(view, R.id.danmaku);
-            this.u = (TextView) a(view, R.id.duration);
-            this.v = (TextView) a(view, R.id.pubdate);
-            this.s = (com.bilibili.tv.widget.DrawRelativeLayout) view;
-            this.s.setUpDrawable(R.drawable.shadow_white_rect);
+            this.n = (TextView) view.findViewById(R.id.title);
+            this.o = (ScalableImageView) view.findViewById(R.id.img);
+            this.p = (TextView) view.findViewById(R.id.up);
+            this.q = (TextView) view.findViewById(R.id.play);
+            this.r = (TextView) view.findViewById(R.id.danmaku);
+            this.u = (TextView) view.findViewById(R.id.duration);
+            this.v = (TextView) view.findViewById(R.id.pubdate);
+            this.s = view;
+            if (view instanceof com.bilibili.tv.widget.DrawRelativeLayout) {
+                ((com.bilibili.tv.widget.DrawRelativeLayout) view).setUpDrawable(R.drawable.shadow_white_rect);
+            } else if (view instanceof com.bilibili.tv.widget.DrawLinearLayout) {
+                ((com.bilibili.tv.widget.DrawLinearLayout) view).setUpDrawable(R.drawable.shadow_white_rect);
+            }
             android.content.Context ctx = view.getContext();
             android.graphics.drawable.Drawable c = ctx.getResources().getDrawable(R.drawable.ic_video_info_up);
             android.graphics.drawable.Drawable c2 = ctx.getResources().getDrawable(R.drawable.ic_video_info_play);
@@ -896,7 +931,11 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                 MainRecommendFragmentVar.c = ((Integer) tag).intValue();
             }
             adj.a(view, z);
-            this.s.setUpEnabled(z);
+            if (this.s instanceof com.bilibili.tv.widget.DrawRelativeLayout) {
+                ((com.bilibili.tv.widget.DrawRelativeLayout) this.s).setUpEnabled(z);
+            } else if (this.s instanceof com.bilibili.tv.widget.DrawLinearLayout) {
+                ((com.bilibili.tv.widget.DrawLinearLayout) this.s).setUpEnabled(z);
+            }
             this.n.setSelected(z);
         }
     }

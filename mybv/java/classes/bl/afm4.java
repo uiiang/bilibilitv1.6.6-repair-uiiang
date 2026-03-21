@@ -23,6 +23,9 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
 
     public static String[] tab_names = {"登录","动态","待看","收藏","历史"};
     private DrawFrameLayout[] tab_buttons = {null,null,null,null,null};
+    private DrawFrameLayout column2Button;
+    private DrawFrameLayout column3Button;
+    private DrawFrameLayout column4Button;
 
     @Override // bl.adw
     public boolean c() {
@@ -84,6 +87,34 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
             this.personalRecommendButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
         }
 
+        this.column2Button = (DrawFrameLayout)inflate.findViewById(R.id.column_2_button);
+        this.column3Button = (DrawFrameLayout)inflate.findViewById(R.id.column_3_button);
+        this.column4Button = (DrawFrameLayout)inflate.findViewById(R.id.column_4_button);
+        this.column2Button.setUpDrawable(R.drawable.shadow_white_rect);
+        this.column3Button.setUpDrawable(R.drawable.shadow_white_rect);
+        this.column4Button.setUpDrawable(R.drawable.shadow_white_rect);
+        this.column2Button.setOnFocusChangeListener(this);
+        this.column3Button.setOnFocusChangeListener(this);
+        this.column4Button.setOnFocusChangeListener(this);
+        this.column2Button.setOnClickListener(this);
+        this.column3Button.setOnClickListener(this);
+        this.column4Button.setOnClickListener(this);
+
+        int homeColumn = abd.get_home_column(getActivity());
+        if (homeColumn == 2) {
+            this.column2Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+            this.column3Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+            this.column4Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+        } else if (homeColumn == 3) {
+            this.column2Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+            this.column3Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+            this.column4Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+        } else {
+            this.column2Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+            this.column3Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+            this.column4Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+        }
+
         return inflate;
     }
 
@@ -132,6 +163,23 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
             this.hotRecommendButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
             this.personalRecommendButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
         }
+
+        if (view == this.column2Button) {
+            abd.set_home_column(getActivity(), 2);
+            this.column2Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+            this.column3Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+            this.column4Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+        } else if (view == this.column3Button) {
+            abd.set_home_column(getActivity(), 3);
+            this.column2Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+            this.column3Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+            this.column4Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+        } else if (view == this.column4Button) {
+            abd.set_home_column(getActivity(), 4);
+            this.column2Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+            this.column3Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+            this.column4Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+        }
     }
 
     @Override // android.view.View.OnFocusChangeListener
@@ -157,7 +205,7 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         if (this.progressbar_button == null) {
             return false;
         }
-        if (!this.progressbar_button.hasFocus() && !this.fastquit_button.hasFocus() && !this.hotRecommendButton.hasFocus() && !this.personalRecommendButton.hasFocus()) {
+        if (!this.progressbar_button.hasFocus() && !this.fastquit_button.hasFocus() && !this.hotRecommendButton.hasFocus() && !this.personalRecommendButton.hasFocus() && !this.column2Button.hasFocus() && !this.column3Button.hasFocus() && !this.column4Button.hasFocus()) {
             boolean allTabsNoFocus = true;
             for(int i=0;i<5;i++){
                 if(this.tab_buttons[i] != null && this.tab_buttons[i].hasFocus()){

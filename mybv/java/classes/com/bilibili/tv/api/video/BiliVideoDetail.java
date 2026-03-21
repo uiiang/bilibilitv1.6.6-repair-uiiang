@@ -53,6 +53,8 @@ public class BiliVideoDetail implements Parcelable {
     public String mDownloadableInfo;
     @JSONField(name = "first_frame")
     public String mFirstFrame;
+    @JSONField(name = "redirect_url")
+    public String mRedirectUrl;
     @JSONField(name = "jump_aid")
     public int mJumpAid;
     @JSONField(name = "movie")

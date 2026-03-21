@@ -224,10 +224,28 @@ public final class MainPgcFragment extends adu implements aez, wf {
 
         /* JADX DEBUG: Method merged with bridge method: onSuccess(Ljava/lang/Object;)V */
         @Override // bl.vm
-        /* renamed from: a, reason: merged with bridge method [inline-methods] */
         public void onSuccess(JSONObject result) {
-            JSONArray items = result.getJSONObject("data").getJSONArray("modules").getJSONObject(1).getJSONArray("items");
-            MainPgcFragment.this.b.a(items);
+            JSONArray modules = result.getJSONObject("data").getJSONArray("modules");
+            android.util.Log.i("MainPgcFragment", "modules count: " + modules.size());
+            JSONArray allItems = new JSONArray();
+            java.util.Set<Integer> seasonIdSet = new java.util.HashSet<>();
+            for (int i = 0; i < modules.size(); i++) {
+                JSONArray items = modules.getJSONObject(i).getJSONArray("items");
+                int itemCount = (items != null) ? items.size() : 0;
+                android.util.Log.i("MainPgcFragment", "module[" + i + "] items count: " + itemCount);
+                if (items != null && items.size() > 0) {
+                    for (int j = 0; j < items.size(); j++) {
+                        JSONObject item = items.getJSONObject(j);
+                        int seasonId = item.getIntValue("season_id");
+                        if (!seasonIdSet.contains(seasonId)) {
+                            seasonIdSet.add(seasonId);
+                            allItems.add(item);
+                        }
+                    }
+                }
+            }
+            android.util.Log.i("MainPgcFragment", "total allItems count: " + allItems.size() + ", unique: " + seasonIdSet.size());
+            MainPgcFragment.this.b.a(allItems);
         }
 
         @Override // bl.vm
@@ -256,7 +274,7 @@ public final class MainPgcFragment extends adu implements aez, wf {
 
         @Override // android.support.v7.widget.RecyclerView.a
         public int a() {
-            return 10;
+            return MainPgcFragment.f + this.f.size();
         }
 
         public b(MainPgcFragment MainPgcFragmentVar) {

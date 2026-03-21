@@ -20,6 +20,8 @@
 
 .field private static h:I
 
+.field private static homeColumnType:I
+
 .field private static homeDefaultType:I
 
 .field private static imageSizeType:I
@@ -55,14 +57,14 @@
     .line 15
     new-array v0, v2, [F
 
-    fill-array-data v0, :array_26
+    fill-array-data v0, :array_28
 
     sput-object v0, Lbl/abd;->a:[F
 
     .line 16
     new-array v0, v2, [F
 
-    fill-array-data v0, :array_3a
+    fill-array-data v0, :array_3c
 
     sput-object v0, Lbl/abd;->b:[F
 
@@ -74,7 +76,7 @@
 
     new-array v0, v0, [F
 
-    fill-array-data v0, :array_4e
+    fill-array-data v0, :array_50
 
     sput-object v0, Lbl/abd;->speeds:[F
 
@@ -88,15 +90,18 @@
     sput v1, Lbl/abd;->homeDefaultType:I
 
     .line 288
+    sput v1, Lbl/abd;->homeColumnType:I
+
+    .line 302
     sput v1, Lbl/abd;->imageSizeType:I
 
-    .line 340
+    .line 354
     sput v1, Lbl/abd;->cacheLimitType:I
 
     return-void
 
     .line 15
-    :array_26
+    :array_28
     .array-data 4
         0x3f000000    # 0.5f
         0x3f19999a    # 0.6f
@@ -109,7 +114,7 @@
     .end array-data
 
     .line 16
-    :array_3a
+    :array_3c
     .array-data 4
         0x3e99999a    # 0.3f
         0x3ecccccd    # 0.4f
@@ -122,7 +127,7 @@
     .end array-data
 
     .line 28
-    :array_4e
+    :array_50
     .array-data 4
         0x40000000    # 2.0f
         0x3fc00000    # 1.5f
@@ -818,14 +823,14 @@
     .locals 3
 
     .prologue
-    .line 348
+    .line 362
     sget v0, Lbl/abd;->cacheLimitType:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_16
 
-    .line 349
+    .line 363
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -844,7 +849,7 @@
 
     sput v0, Lbl/abd;->cacheLimitType:I
 
-    .line 351
+    .line 365
     :cond_16
     sget v0, Lbl/abd;->cacheLimitType:I
 
@@ -857,38 +862,38 @@
     .prologue
     const/16 v0, 0x64
 
-    .line 355
+    .line 369
     invoke-static {p0}, Lbl/abd;->get_cache_limit(Landroid/content/Context;)I
 
     move-result v1
 
-    .line 356
+    .line 370
     packed-switch v1, :pswitch_data_14
 
-    .line 361
+    .line 375
     :goto_9
     :pswitch_9
     return v0
 
-    .line 357
+    .line 371
     :pswitch_a
     const/16 v0, 0x32
 
     goto :goto_9
 
-    .line 359
+    .line 373
     :pswitch_d
     const/16 v0, 0x12c
 
     goto :goto_9
 
-    .line 360
+    .line 374
     :pswitch_10
     const/16 v0, 0x1f4
 
     goto :goto_9
 
-    .line 356
+    .line 370
     nop
 
     :pswitch_data_14
@@ -961,6 +966,43 @@
     return-object v0
 .end method
 
+.method public static get_home_column(Landroid/content/Context;)I
+    .locals 3
+
+    .prologue
+    .line 296
+    sget v0, Lbl/abd;->homeColumnType:I
+
+    const/4 v1, -0x1
+
+    if-ne v0, v1, :cond_16
+
+    .line 297
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    const-string v1, "home_column_type"
+
+    const/4 v2, 0x2
+
+    invoke-interface {v0, v1, v2}, Landroid/content/SharedPreferences;->getInt(Ljava/lang/String;I)I
+
+    move-result v0
+
+    sput v0, Lbl/abd;->homeColumnType:I
+
+    .line 299
+    :cond_16
+    sget v0, Lbl/abd;->homeColumnType:I
+
+    return v0
+.end method
+
 .method public static get_home_default(Landroid/content/Context;)I
     .locals 3
 
@@ -1002,14 +1044,14 @@
     .locals 3
 
     .prologue
-    .line 296
+    .line 310
     sget v0, Lbl/abd;->imageSizeType:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_16
 
-    .line 297
+    .line 311
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1028,7 +1070,7 @@
 
     sput v0, Lbl/abd;->imageSizeType:I
 
-    .line 299
+    .line 313
     :cond_16
     sget v0, Lbl/abd;->imageSizeType:I
 
@@ -1260,7 +1302,7 @@
     .locals 1
 
     .prologue
-    .line 307
+    .line 321
     if-eqz p1, :cond_8
 
     invoke-virtual {p1}, Ljava/lang/String;->isEmpty()Z
@@ -1269,12 +1311,12 @@
 
     if-eqz v0, :cond_9
 
-    .line 314
+    .line 328
     :cond_8
     :goto_8
     return-object p1
 
-    .line 308
+    .line 322
     :cond_9
     invoke-static {p0}, Lbl/abd;->is_hd_image(Landroid/content/Context;)Z
 
@@ -1282,12 +1324,12 @@
 
     if-nez v0, :cond_8
 
-    .line 309
+    .line 323
     packed-switch p2, :pswitch_data_28
 
     goto :goto_8
 
-    .line 310
+    .line 324
     :pswitch_13
     invoke-static {p0, p1}, Lbl/ach;->a(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
 
@@ -1295,7 +1337,7 @@
 
     goto :goto_8
 
-    .line 311
+    .line 325
     :pswitch_18
     invoke-static {p0, p1}, Lbl/ach;->b(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
 
@@ -1303,7 +1345,7 @@
 
     goto :goto_8
 
-    .line 312
+    .line 326
     :pswitch_1d
     invoke-static {p0, p1}, Lbl/ach;->c(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
 
@@ -1311,7 +1353,7 @@
 
     goto :goto_8
 
-    .line 313
+    .line 327
     :pswitch_22
     invoke-static {p0, p1}, Lbl/ach;->d(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
 
@@ -1319,7 +1361,7 @@
 
     goto :goto_8
 
-    .line 309
+    .line 323
     nop
 
     :pswitch_data_28
@@ -1335,7 +1377,7 @@
     .locals 1
 
     .prologue
-    .line 319
+    .line 333
     const/4 v0, 0x0
 
     invoke-static {p0, p1, v0}, Lbl/abd;->get_thumb_url(Landroid/content/Context;Ljava/lang/String;I)Ljava/lang/String;
@@ -1349,7 +1391,7 @@
     .locals 1
 
     .prologue
-    .line 323
+    .line 337
     const/4 v0, 0x1
 
     invoke-static {p0, p1, v0}, Lbl/abd;->get_thumb_url(Landroid/content/Context;Ljava/lang/String;I)Ljava/lang/String;
@@ -1363,7 +1405,7 @@
     .locals 1
 
     .prologue
-    .line 327
+    .line 341
     const/4 v0, 0x2
 
     invoke-static {p0, p1, v0}, Lbl/abd;->get_thumb_url(Landroid/content/Context;Ljava/lang/String;I)Ljava/lang/String;
@@ -1377,7 +1419,7 @@
     .locals 1
 
     .prologue
-    .line 331
+    .line 345
     const/4 v0, 0x3
 
     invoke-static {p0, p1, v0}, Lbl/abd;->get_thumb_url(Landroid/content/Context;Ljava/lang/String;I)Ljava/lang/String;
@@ -1391,7 +1433,7 @@
     .locals 1
 
     .prologue
-    .line 335
+    .line 349
     if-eqz p1, :cond_8
 
     invoke-virtual {p1}, Ljava/lang/String;->isEmpty()Z
@@ -1400,12 +1442,12 @@
 
     if-eqz v0, :cond_9
 
-    .line 337
+    .line 351
     :cond_8
     :goto_8
     return-object p1
 
-    .line 336
+    .line 350
     :cond_9
     invoke-static {p0}, Lbl/abd;->is_hd_image(Landroid/content/Context;)Z
 
@@ -1413,7 +1455,7 @@
 
     if-nez v0, :cond_8
 
-    .line 337
+    .line 351
     invoke-static {p0, p1, p2, p3}, Lbl/ach;->a(Landroid/content/Context;Ljava/lang/String;II)Ljava/lang/String;
 
     move-result-object p1
@@ -1488,7 +1530,7 @@
     .locals 1
 
     .prologue
-    .line 303
+    .line 317
     invoke-static {p0}, Lbl/abd;->get_image_size(Landroid/content/Context;)I
 
     move-result v0
@@ -1573,7 +1615,7 @@
     .locals 2
 
     .prologue
-    .line 343
+    .line 357
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1594,10 +1636,10 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 344
+    .line 358
     sput p1, Lbl/abd;->cacheLimitType:I
 
-    .line 345
+    .line 359
     return-void
 .end method
 
@@ -1662,6 +1704,38 @@
     return-void
 .end method
 
+.method public static set_home_column(Landroid/content/Context;I)V
+    .locals 2
+
+    .prologue
+    .line 291
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    const-string v1, "home_column_type"
+
+    invoke-interface {v0, v1, p1}, Landroid/content/SharedPreferences$Editor;->putInt(Ljava/lang/String;I)Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
+
+    .line 292
+    sput p1, Lbl/abd;->homeColumnType:I
+
+    .line 293
+    return-void
+.end method
+
 .method public static set_home_default(Landroid/content/Context;I)V
     .locals 2
 
@@ -1698,7 +1772,7 @@
     .locals 2
 
     .prologue
-    .line 291
+    .line 305
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1719,10 +1793,10 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 292
+    .line 306
     sput p1, Lbl/abd;->imageSizeType:I
 
-    .line 293
+    .line 307
     return-void
 .end method
 

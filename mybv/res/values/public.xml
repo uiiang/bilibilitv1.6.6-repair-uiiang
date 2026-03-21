@@ -2500,6 +2500,9 @@
     <public type="id" name="dynamic_header_attention" id="0x7f0801b1" />
     <public type="id" name="dynamic_header_count" id="0x7f0801b2" />
     <public type="id" name="video_history_label" id="0x7f0801b3" />
+    <public type="id" name="column_2_button" id="0x7f0801b4" />
+    <public type="id" name="column_3_button" id="0x7f0801b5" />
+    <public type="id" name="column_4_button" id="0x7f0801b6" />
 
 
     <public type="integer" name="config_danmaku_fly_duration" id="0x7f090003" />
@@ -2661,6 +2664,7 @@
     <public type="layout" name="activity_weekly" id="0x7f0a0093" />
     <public type="layout" name="fragment_weekly_video" id="0x7f0a0094" />
     <public type="layout" name="fragment_attention_dynamic_video" id="0x7f0a0095" />
+    <public type="layout" name="recycler_view_item_main_recommend_compact" id="0x7f0a0096" />
 
 
     <public type="mipmap" name="ic_launcher" id="0x7f0b0000" />
