@@ -61,7 +61,7 @@
     .locals 2
 
     .prologue
-    .line 62
+    .line 63
     new-instance v0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$a;
 
     const/4 v1, 0x0
@@ -79,18 +79,18 @@
     .prologue
     const/4 v1, 0x1
 
-    .line 61
+    .line 62
     invoke-direct {p0}, Lcom/bilibili/tv/ui/base/BaseReloadActivity;-><init>()V
 
-    .line 72
+    .line 73
     iput v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->g:I
 
-    .line 73
+    .line 74
     const/4 v0, 0x0
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->cursor:Ljava/lang/Long;
 
-    .line 74
+    .line 75
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->h:Z
 
     return-void
@@ -100,7 +100,7 @@
     .locals 1
 
     .prologue
-    .line 61
+    .line 62
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->d(I)Landroid/view/View;
 
     move-result-object v0
@@ -112,7 +112,7 @@
     .locals 2
 
     .prologue
-    .line 61
+    .line 62
     iget-wide v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->k:J
 
     return-wide v0
@@ -122,7 +122,7 @@
     .locals 1
 
     .prologue
-    .line 61
+    .line 62
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->f:Landroid/widget/TextView;
 
     return-object v0
@@ -132,7 +132,7 @@
     .locals 1
 
     .prologue
-    .line 61
+    .line 62
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->c:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     return-object v0
@@ -142,7 +142,7 @@
     .locals 1
 
     .prologue
-    .line 61
+    .line 62
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->h:Z
 
     return v0
@@ -152,7 +152,7 @@
     .locals 0
 
     .prologue
-    .line 61
+    .line 62
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->h:Z
 
     return p1
@@ -162,7 +162,7 @@
     .locals 1
 
     .prologue
-    .line 61
+    .line 62
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->i:Z
 
     return v0
@@ -172,7 +172,7 @@
     .locals 0
 
     .prologue
-    .line 61
+    .line 62
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->i:Z
 
     return p1
@@ -182,7 +182,7 @@
     .locals 1
 
     .prologue
-    .line 61
+    .line 62
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->a:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$c;
 
     return-object v0
@@ -192,7 +192,7 @@
     .locals 1
 
     .prologue
-    .line 61
+    .line 62
     iget v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->g:I
 
     return v0
@@ -202,7 +202,7 @@
     .locals 2
 
     .prologue
-    .line 61
+    .line 62
     iget v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->g:I
 
     add-int/lit8 v1, v0, 0x1
@@ -216,7 +216,7 @@
     .locals 1
 
     .prologue
-    .line 61
+    .line 62
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->d:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     return-object v0
@@ -226,7 +226,7 @@
     .locals 1
 
     .prologue
-    .line 61
+    .line 62
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->cursor:Ljava/lang/Long;
 
     return-object v0
@@ -236,7 +236,7 @@
     .locals 0
 
     .prologue
-    .line 61
+    .line 62
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->cursor:Ljava/lang/Long;
 
     return-object p1
@@ -246,7 +246,7 @@
     .locals 1
 
     .prologue
-    .line 61
+    .line 62
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->e:Landroid/support/v7/widget/RecyclerView;
 
     return-object v0
@@ -262,15 +262,15 @@
 
     const/4 v4, 0x0
 
-    .line 108
+    .line 109
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->getIntent()Landroid/content/Intent;
 
     move-result-object v0
 
-    .line 109
+    .line 110
     if-eqz v0, :cond_19
 
-    .line 110
+    .line 111
     const-string v1, "user_name"
 
     invoke-virtual {v0, v1}, Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;
@@ -279,7 +279,7 @@
 
     iput-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->j:Ljava/lang/String;
 
-    .line 111
+    .line 112
     const-string v1, "user_id"
 
     invoke-virtual {v0, v1, v2, v3}, Landroid/content/Intent;->getLongExtra(Ljava/lang/String;J)J
@@ -288,7 +288,7 @@
 
     iput-wide v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->k:J
 
-    .line 113
+    .line 114
     :cond_19
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->j:Ljava/lang/String;
 
@@ -304,20 +304,20 @@
 
     if-nez v0, :cond_30
 
-    .line 114
+    .line 115
     :cond_27
     const-string v0, "\u65e0\u6548\u7684\u7528\u6237\uff01\uff01\uff01"
 
     invoke-static {p0, v0}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 115
+    .line 116
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->finish()V
 
-    .line 209
+    .line 210
     :goto_2f
     return-void
 
-    .line 118
+    .line 119
     :cond_30
     const v0, 0x7f0800eb
 
@@ -329,7 +329,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->e:Landroid/support/v7/widget/RecyclerView;
 
-    .line 119
+    .line 120
     const v0, 0x7f0800cc
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->d(I)Landroid/view/View;
@@ -340,7 +340,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->f:Landroid/widget/TextView;
 
-    .line 120
+    .line 121
     const v0, 0x7f080132
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->d(I)Landroid/view/View;
@@ -353,7 +353,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 121
+    .line 122
     sget-object v1, Lcom/bilibili/tv/ui/base/LoadingImageView;->Companion:Lcom/bilibili/tv/ui/base/LoadingImageView$a;
 
     const v0, 0x7f0800b8
@@ -370,7 +370,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->d:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
-    .line 122
+    .line 123
     const v0, 0x7f080123
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->d(I)Landroid/view/View;
@@ -383,7 +383,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 124
+    .line 125
     const v0, 0x7f08016e
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->d(I)Landroid/view/View;
@@ -394,19 +394,19 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
-    .line 125
+    .line 126
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawTextView;->setVisibility(I)V
 
-    .line 126
+    .line 127
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
     const v1, 0x7f0700e7
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawTextView;->setUpDrawable(I)V
 
-    .line 127
+    .line 128
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
     new-instance v1, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$1;
@@ -415,7 +415,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawTextView;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 133
+    .line 134
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
     new-instance v1, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$2;
@@ -424,17 +424,17 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawTextView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 159
+    .line 160
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v1
 
-    .line 160
+    .line 161
     const-string v0, "BiliAccount.get(this)"
 
     invoke-static {v1, v0}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 161
+    .line 162
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -459,14 +459,14 @@
 
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 177
+    .line 178
     new-instance v0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->b:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;
 
-    .line 178
+    .line 179
     new-instance v0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$4;
 
     const/4 v1, 0x2
@@ -475,7 +475,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->c:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
-    .line 188
+    .line 189
     new-instance v0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$c;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->j:Ljava/lang/String;
@@ -484,70 +484,70 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->a:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$c;
 
-    .line 189
+    .line 190
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->e:Landroid/support/v7/widget/RecyclerView;
 
-    .line 190
+    .line 191
     if-nez v0, :cond_e1
 
-    .line 191
+    .line 192
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 193
+    .line 194
     :cond_e1
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->c:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setLayoutManager(Landroid/support/v7/widget/RecyclerView$h;)V
 
-    .line 194
+    .line 195
     invoke-virtual {v0, v4}, Landroid/support/v7/widget/RecyclerView;->setFocusable(Z)V
 
-    .line 195
+    .line 196
     const v1, 0x7f0600de
 
     invoke-static {v1}, Lbl/adl;->b(I)I
 
     move-result v1
 
-    .line 196
+    .line 197
     const v2, 0x7f06029a
 
     invoke-static {v2}, Lbl/adl;->b(I)I
 
     move-result v2
 
-    .line 197
+    .line 198
     const v3, 0x7f060309
 
     invoke-static {v3}, Lbl/adl;->b(I)I
 
     move-result v3
 
-    .line 198
+    .line 199
     const v4, 0x7f060091
 
     invoke-static {v4}, Lbl/adl;->b(I)I
 
     move-result v4
 
-    .line 199
+    .line 200
     invoke-virtual {v0, v4, v1, v4, v2}, Landroid/support/v7/widget/RecyclerView;->setPadding(IIII)V
 
-    .line 200
+    .line 201
     new-instance v2, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$e;
 
     invoke-direct {v2, v1, v3}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$e;-><init>(II)V
 
     invoke-virtual {v0, v2}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$g;)V
 
-    .line 201
+    .line 202
     new-instance v1, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$f;
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$f;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;)V
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$m;)V
 
-    .line 202
+    .line 203
     invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->getViewTreeObserver()Landroid/view/ViewTreeObserver;
 
     move-result-object v1
@@ -558,21 +558,21 @@
 
     invoke-virtual {v1, v2}, Landroid/view/ViewTreeObserver;->addOnGlobalLayoutListener(Landroid/view/ViewTreeObserver$OnGlobalLayoutListener;)V
 
-    .line 203
+    .line 204
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->a:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$c;
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setAdapter(Landroid/support/v7/widget/RecyclerView$a;)V
 
-    .line 204
+    .line 205
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->d:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
-    .line 205
+    .line 206
     if-nez v0, :cond_130
 
-    .line 206
+    .line 207
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 208
+    .line 209
     :cond_130
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->a()V
 
@@ -583,16 +583,16 @@
     .locals 2
 
     .prologue
-    .line 327
+    .line 328
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->c:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
-    .line 328
+    .line 329
     if-nez v0, :cond_7
 
-    .line 329
+    .line 330
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 331
+    .line 332
     :cond_7
     new-instance v1, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$h;
 
@@ -600,7 +600,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->a(Lcom/bilibili/tv/widget/border/BorderGridLayoutManager$a;)V
 
-    .line 332
+    .line 333
     return-void
 .end method
 
@@ -608,20 +608,20 @@
     .locals 1
 
     .prologue
-    .line 353
+    .line 354
     const/4 v0, 0x0
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->cursor:Ljava/lang/Long;
 
-    .line 354
+    .line 355
     const/4 v0, 0x1
 
     iput v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->g:I
 
-    .line 355
+    .line 356
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->k()V
 
-    .line 356
+    .line 357
     return-void
 .end method
 
@@ -629,7 +629,7 @@
     .locals 1
 
     .prologue
-    .line 83
+    .line 84
     const v0, 0x7f0a002e
 
     return v0
@@ -639,12 +639,12 @@
     .locals 7
 
     .prologue
-    .line 344
+    .line 345
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->i:Z
 
-    .line 345
+    .line 346
     const-class v0, Lcom/bilibili/tv/api/auth/BiliSpaceApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -653,17 +653,17 @@
 
     check-cast v0, Lcom/bilibili/tv/api/auth/BiliSpaceApiService;
 
-    .line 346
+    .line 347
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v1
 
-    .line 347
+    .line 348
     const-string v2, "BiliAccount.get(this)"
 
     invoke-static {v1, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 348
+    .line 349
     invoke-virtual {v1}, Lbl/mg;->e()Ljava/lang/String;
 
     move-result-object v1
@@ -684,7 +684,7 @@
 
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 349
+    .line 350
     return-void
 .end method
 
@@ -694,16 +694,16 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 337
+    .line 338
     iput-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->a:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$c;
 
-    .line 338
+    .line 339
     iput-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->d:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
-    .line 339
+    .line 340
     invoke-super {p0}, Lcom/bilibili/tv/ui/base/BaseReloadActivity;->onDestroy()V
 
-    .line 340
+    .line 341
     return-void
 .end method
 
@@ -711,12 +711,12 @@
     .locals 0
 
     .prologue
-    .line 301
+    .line 302
     invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseReloadActivity;->onPostCreate(Landroid/os/Bundle;)V
 
-    .line 302
+    .line 303
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->k()V
 
-    .line 303
+    .line 304
     return-void
 .end method

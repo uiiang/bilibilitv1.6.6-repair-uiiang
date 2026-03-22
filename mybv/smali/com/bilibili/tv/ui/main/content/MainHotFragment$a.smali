@@ -54,7 +54,7 @@
     .locals 2
 
     .prologue
-    .line 537
+    .line 536
     new-instance v0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$a$aa;
 
     const/4 v1, 0x0
@@ -80,13 +80,13 @@
     .end annotation
 
     .prologue
-    .line 545
+    .line 544
     invoke-direct {p0, p1}, Lbl/adv;-><init>(Landroid/view/View;)V
 
-    .line 546
+    .line 545
     iput-object p2, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$a;->r:Ljava/lang/ref/WeakReference;
 
-    .line 547
+    .line 546
     const v0, 0x7f080132
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/main/content/MainHotFragment$a;->a(Landroid/view/View;I)Landroid/view/View;
@@ -97,7 +97,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$a;->n:Landroid/widget/TextView;
 
-    .line 548
+    .line 547
     const v0, 0x7f0800a1
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/main/content/MainHotFragment$a;->a(Landroid/view/View;I)Landroid/view/View;
@@ -108,7 +108,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$a;->o:Lcom/bilibili/tv/widget/ScalableImageView;
 
-    .line 549
+    .line 548
     const v0, 0x7f08003f
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/main/content/MainHotFragment$a;->a(Landroid/view/View;I)Landroid/view/View;
@@ -121,25 +121,25 @@
 
     move-object v0, p1
 
-    .line 550
+    .line 549
     check-cast v0, Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$a;->q:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 551
+    .line 550
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$a;->q:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     const v1, 0x7f0700e6
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
 
-    .line 552
+    .line 551
     invoke-virtual {p1, p0}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 553
+    .line 552
     invoke-virtual {p1, p0}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 554
+    .line 553
     return-void
 .end method
 
@@ -149,7 +149,7 @@
     .locals 1
 
     .prologue
-    .line 561
+    .line 560
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$a;->o:Lcom/bilibili/tv/widget/ScalableImageView;
 
     return-object v0
@@ -159,7 +159,7 @@
     .locals 1
 
     .prologue
-    .line 565
+    .line 564
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$a;->p:Lcom/bilibili/tv/widget/ScalableImageView;
 
     return-object v0
@@ -169,19 +169,19 @@
     .locals 2
 
     .prologue
-    .line 587
+    .line 586
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 588
+    .line 587
     sget-object v0, Lbl/abl;->a:Lbl/abl;
 
     const-string v1, "ott-platform.home.hot.0.click"
 
     invoke-virtual {v0, v1}, Lbl/abl;->a(Ljava/lang/String;)V
 
-    .line 589
+    .line 588
     return-void
 .end method
 
@@ -189,7 +189,7 @@
     .locals 2
 
     .prologue
-    .line 593
+    .line 592
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$a;->r:Ljava/lang/ref/WeakReference;
 
     invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
@@ -198,14 +198,14 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
-    .line 594
+    .line 593
     if-nez v0, :cond_b
 
-    .line 602
+    .line 601
     :goto_a
     return-void
 
-    .line 597
+    .line 596
     :cond_b
     const v1, 0x7f0800d8
 
@@ -213,10 +213,10 @@
 
     move-result-object v1
 
-    .line 598
+    .line 597
     if-eqz v1, :cond_1d
 
-    .line 599
+    .line 598
     check-cast v1, Ljava/lang/Integer;
 
     invoke-virtual {v1}, Ljava/lang/Integer;->intValue()I
@@ -226,7 +226,7 @@
     # setter for: Lcom/bilibili/tv/ui/main/content/MainHotFragment;->c:I
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->access$402(Lcom/bilibili/tv/ui/main/content/MainHotFragment;I)I
 
-    .line 601
+    .line 600
     :cond_1d
     invoke-static {p1, p2}, Lbl/adj;->a(Landroid/view/View;Z)V
 
@@ -237,7 +237,7 @@
     .locals 1
 
     .prologue
-    .line 557
+    .line 556
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$a;->n:Landroid/widget/TextView;
 
     return-object v0

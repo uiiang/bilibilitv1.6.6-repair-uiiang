@@ -41,6 +41,7 @@ import com.bilibili.tv.api.video.tag.TagVideoDetail;
 import com.bilibili.tv.ui.base.BaseReloadActivity;
 import com.bilibili.tv.ui.base.LoadingImageView;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
+import com.bilibili.tv.util.DateHelper;
 import com.bilibili.tv.widget.ScalableImageView;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
 import java.util.ArrayList;
@@ -479,9 +480,7 @@ public final class VideoTagSearchActivity extends BaseReloadActivity {
                 }
                 long pubdate = tagVideoDetail2.mCreatedTimestamp;
                 if (pubdate > 0) {
-                    cVar.D().setText(DateUtils.getRelativeTimeSpanString(
-                            pubdate * ((long) IjkMediaCodecInfo.RANK_MAX),
-                            System.currentTimeMillis(), 1000L));
+                    cVar.D().setText(DateHelper.formatDate(pubdate));
                     cVar.D().setVisibility(View.VISIBLE);
                 } else {
                     cVar.D().setVisibility(View.GONE);

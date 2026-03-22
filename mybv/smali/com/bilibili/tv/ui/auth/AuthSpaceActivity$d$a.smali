@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 624
+    .line 623
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 625
+    .line 624
     return-void
 .end method
 
@@ -30,10 +30,10 @@
     .locals 0
 
     .prologue
-    .line 628
+    .line 627
     invoke-direct {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$d$a;-><init>()V
 
-    .line 629
+    .line 628
     return-void
 .end method
 
@@ -43,12 +43,12 @@
     .locals 3
 
     .prologue
-    .line 632
+    .line 631
     const-string v0, "parent"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 633
+    .line 632
     invoke-virtual {p1}, Landroid/view/ViewGroup;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -65,12 +65,12 @@
 
     move-result-object v0
 
-    .line 634
+    .line 633
     const-string v1, "view"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 635
+    .line 634
     new-instance v1, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$d;
 
     invoke-direct {v1, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$d;-><init>(Landroid/view/View;)V

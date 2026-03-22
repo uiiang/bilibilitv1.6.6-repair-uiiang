@@ -22,6 +22,7 @@ import com.bilibili.tv.api.main.MainRecommendEx;
 import com.bilibili.tv.ui.bangumi.BangumiDetailActivity;
 import com.bilibili.tv.ui.main.MainActivity;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
+import com.bilibili.tv.util.DateHelper;
 import com.bilibili.tv.widget.DrawFrameLayout;
 import com.bilibili.tv.widget.DrawLinearLayout;
 import com.bilibili.tv.widget.DrawRelativeLayout;
@@ -531,9 +532,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                  long pubdate = content.getPubdate();
                  if (eVar.F() != null) {
                      if (pubdate > 0) {
-                         eVar.F().setText(DateUtils.getRelativeTimeSpanString(
-                                 pubdate * ((long) IjkMediaCodecInfo.RANK_MAX),
-                                 System.currentTimeMillis(), 1000L));
+                         eVar.F().setText(DateHelper.formatDate(pubdate));
                          eVar.F().setVisibility(View.VISIBLE);
                      } else {
                          eVar.F().setVisibility(View.GONE);

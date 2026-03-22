@@ -36,6 +36,7 @@ import com.bilibili.tv.api.auth.BiliSpaceApiService;
 import com.bilibili.tv.api.auth.BiliSpaceVideo;
 import com.bilibili.tv.api.auth.BiliSpaceVideoList;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
+import com.bilibili.tv.util.DateHelper;
 import com.bilibili.tv.widget.DrawRelativeLayout;
 import com.bilibili.tv.widget.ScalableImageView;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
@@ -615,9 +616,7 @@ public final class AttentionDynamicFragment extends ady {
                     }
                     long pubdate = video.ctime != null ? video.ctime : 0;
                     if (pubdate > 0) {
-                        dVar.D().setText(DateUtils.getRelativeTimeSpanString(
-                                pubdate * ((long) IjkMediaCodecInfo.RANK_MAX),
-                                System.currentTimeMillis(), 1000L));
+                        dVar.D().setText(DateHelper.formatDate(pubdate));
                         dVar.D().setVisibility(View.VISIBLE);
                     } else {
                         dVar.D().setVisibility(View.GONE);

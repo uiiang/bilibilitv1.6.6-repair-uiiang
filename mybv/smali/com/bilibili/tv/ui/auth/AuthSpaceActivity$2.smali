@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 133
+    .line 134
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,19 +40,19 @@
     .locals 6
 
     .prologue
-    .line 136
+    .line 137
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     invoke-static {v0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v1
 
-    .line 137
+    .line 138
     const-string v0, "BiliAccount.get(this)"
 
     invoke-static {v1, v0}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 138
+    .line 139
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -101,10 +101,10 @@
 
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 157
+    .line 158
     return-void
 
-    .line 138
+    .line 139
     :cond_3b
     const/4 v4, 0x1
 

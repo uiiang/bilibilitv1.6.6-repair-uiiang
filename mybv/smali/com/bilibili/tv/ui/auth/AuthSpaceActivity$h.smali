@@ -28,15 +28,15 @@
     .locals 0
 
     .prologue
-    .line 310
+    .line 311
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$h;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 311
+    .line 312
     iput-object p2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$h;->b:Lbl/agd;
 
-    .line 312
+    .line 313
     return-void
 .end method
 
@@ -46,6 +46,6 @@
     .locals 0
 
     .prologue
-    .line 322
+    .line 323
     return-void
 .end method

@@ -35,6 +35,7 @@ import mybl.MyBiliApiService;
 import com.bilibili.tv.api.auth.BiliSpaceApiService;
 import com.bilibili.tv.api.auth.BiliSpaceVideo;
 import com.bilibili.tv.api.auth.BiliSpaceVideoList;
+import com.bilibili.tv.util.DateHelper;
 import java.util.ArrayList;
 import java.util.List;
 import com.alibaba.fastjson.JSONObject;
@@ -680,9 +681,7 @@ public final class AuthSpaceVideoFragment extends ady {
               vh.danmakuInImage.setVisibility(View.GONE);
           }
           if (pubdate > 0) {
-              vh.D().setText(DateUtils.getRelativeTimeSpanString(
-                      pubdate * ((long) IjkMediaCodecInfo.RANK_MAX),
-                      System.currentTimeMillis(), 1000L));
+              vh.D().setText(DateHelper.formatDate(pubdate));
               vh.D().setVisibility(View.VISIBLE);
           } else {
               vh.D().setVisibility(View.GONE);
@@ -729,9 +728,7 @@ public final class AuthSpaceVideoFragment extends ady {
               vh.danmakuInImage.setVisibility(View.GONE);
           }
            if (v.ctime != null && v.ctime > 0) {
-               vh.D().setText(DateUtils.getRelativeTimeSpanString(
-                       v.ctime * ((long) IjkMediaCodecInfo.RANK_MAX),
-                       System.currentTimeMillis(), 1000L));
+               vh.D().setText(DateHelper.formatDate(v.ctime));
                vh.D().setVisibility(View.VISIBLE);
            } else {
               vh.D().setVisibility(View.GONE);

@@ -31,6 +31,7 @@ import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.video.BiliVideoDetail;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
+import com.bilibili.tv.util.DateHelper;
 import com.bilibili.tv.widget.DrawRelativeLayout;
 import com.bilibili.tv.widget.ScalableImageView;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
@@ -315,9 +316,7 @@ public final class WeeklyVideoFragment extends ady {
                 }
                 long pubdate = item.getLongValue("pubdate");
                 if (pubdate > 0) {
-                    ((d) advVar).D().setText(DateUtils.getRelativeTimeSpanString(
-                            pubdate * ((long) IjkMediaCodecInfo.RANK_MAX),
-                            System.currentTimeMillis(), 1000L));
+                    ((d) advVar).D().setText(DateHelper.formatDate(pubdate));
                     ((d) advVar).D().setVisibility(View.VISIBLE);
                 } else {
                     ((d) advVar).D().setVisibility(View.GONE);

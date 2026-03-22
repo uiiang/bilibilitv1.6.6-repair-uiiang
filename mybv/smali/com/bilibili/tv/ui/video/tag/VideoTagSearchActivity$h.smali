@@ -26,12 +26,12 @@
     .locals 0
 
     .prologue
-    .line 241
+    .line 242
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$h;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 242
+    .line 243
     return-void
 .end method
 
@@ -41,7 +41,7 @@
     .locals 2
 
     .prologue
-    .line 246
+    .line 247
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$h;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->h:I
@@ -53,7 +53,7 @@
 
     if-ne v0, v1, :cond_2c
 
-    .line 247
+    .line 248
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$h;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->d:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
@@ -61,19 +61,19 @@
 
     move-result-object v0
 
-    .line 248
+    .line 249
     if-nez v0, :cond_14
 
-    .line 249
+    .line 250
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 251
+    .line 252
     :cond_14
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->o()I
 
     move-result v0
 
-    .line 252
+    .line 253
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$h;->this$0:Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity;->d:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
@@ -81,25 +81,25 @@
 
     move-result-object v1
 
-    .line 253
+    .line 254
     if-nez v1, :cond_23
 
-    .line 254
+    .line 255
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 256
+    .line 257
     :cond_23
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->c(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 257
+    .line 258
     if-eqz v0, :cond_2c
 
-    .line 258
+    .line 259
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 261
+    .line 262
     :cond_2c
     return-void
 .end method

@@ -37,6 +37,7 @@ import com.bilibili.tv.api.attention.UpperFeedList;
 import com.bilibili.tv.ui.base.BaseReloadActivity;
 import com.bilibili.tv.ui.base.LoadingImageView;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
+import com.bilibili.tv.util.DateHelper;
 import com.bilibili.tv.widget.ScalableImageView;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
 import java.util.ArrayList;
@@ -483,9 +484,7 @@ public final class AttentionDynamicActivity extends BaseReloadActivity implement
                     }
                     long pubdate = feedArchiveItem.getLongValue("pubdate");
                     if (pubdate > 0) {
-                        dVar.D().setText(DateUtils.getRelativeTimeSpanString(
-                                pubdate * ((long) IjkMediaCodecInfo.RANK_MAX),
-                                System.currentTimeMillis(), 1000L));
+                        dVar.D().setText(DateHelper.formatDate(pubdate));
                         dVar.D().setVisibility(View.VISIBLE);
                     } else {
                         dVar.D().setVisibility(View.GONE);

@@ -25,16 +25,16 @@
     .locals 0
 
     .prologue
-    .line 187
+    .line 188
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$g;-><init>()V
 
-    .line 188
+    .line 189
     iput p1, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$ItemDecoration;->space:I
 
-    .line 189
+    .line 190
     iput p2, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$ItemDecoration;->columnCount:I
 
-    .line 190
+    .line 191
     return-void
 .end method
 
@@ -44,25 +44,25 @@
     .locals 3
 
     .prologue
-    .line 194
+    .line 195
     const-string v0, "outRect"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 195
+    .line 196
     const-string v0, "view"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 196
+    .line 197
     const-string v0, "parent"
 
     invoke-static {p3, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 198
+    .line 199
     iget v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$ItemDecoration;->space:I
 
-    .line 199
+    .line 200
     iget v1, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$ItemDecoration;->columnCount:I
 
     const/4 v2, 0x3
@@ -75,25 +75,25 @@
 
     if-ne v1, v2, :cond_1f
 
-    .line 200
+    .line 201
     :cond_1b
     iget v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$ItemDecoration;->space:I
 
     mul-int/lit8 v0, v0, 0x2
 
-    .line 203
+    .line 204
     :cond_1f
     iput v0, p1, Landroid/graphics/Rect;->left:I
 
-    .line 204
+    .line 205
     iput v0, p1, Landroid/graphics/Rect;->right:I
 
-    .line 205
+    .line 206
     iput v0, p1, Landroid/graphics/Rect;->top:I
 
-    .line 206
+    .line 207
     iput v0, p1, Landroid/graphics/Rect;->bottom:I
 
-    .line 207
+    .line 208
     return-void
 .end method

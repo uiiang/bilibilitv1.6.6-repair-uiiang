@@ -32,12 +32,12 @@
     .locals 0
 
     .prologue
-    .line 362
+    .line 363
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
 
-    .line 363
+    .line 364
     return-void
 .end method
 
@@ -49,7 +49,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 399
+    .line 400
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->a:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$c;
@@ -68,18 +68,18 @@
 
     if-nez v0, :cond_12
 
-    .line 445
+    .line 446
     :cond_11
     :goto_11
     return-void
 
-    .line 402
+    .line 403
     :cond_12
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->a(Z)V
 
-    .line 403
+    .line 404
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->d:Lcom/bilibili/tv/ui/base/LoadingImageView;
@@ -87,17 +87,17 @@
 
     move-result-object v2
 
-    .line 404
+    .line 405
     if-nez v2, :cond_22
 
-    .line 405
+    .line 406
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 407
+    .line 408
     :cond_22
     invoke-virtual {v2}, Lcom/bilibili/tv/ui/base/LoadingImageView;->b()V
 
-    .line 408
+    .line 409
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->e:Landroid/support/v7/widget/RecyclerView;
@@ -105,23 +105,23 @@
 
     move-result-object v0
 
-    .line 409
+    .line 410
     if-nez v0, :cond_30
 
-    .line 410
+    .line 411
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 412
+    .line 413
     :cond_30
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
 
-    .line 413
+    .line 414
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->i:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->access$402(Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;Z)Z
 
-    .line 414
+    .line 415
     if-eqz p1, :cond_46
 
     iget-object v0, p1, Lcom/bilibili/tv/api/auth/BiliSpaceVideoList;->videos:Ljava/util/List;
@@ -136,7 +136,7 @@
 
     if-nez v0, :cond_5d
 
-    .line 415
+    .line 416
     :cond_46
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
@@ -147,15 +147,15 @@
 
     if-nez v0, :cond_57
 
-    .line 416
+    .line 417
     invoke-virtual {v2}, Lcom/bilibili/tv/ui/base/LoadingImageView;->c()V
 
-    .line 417
+    .line 418
     const v0, 0x7f0c00d8
 
     invoke-virtual {v2, v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->a(I)V
 
-    .line 419
+    .line 420
     :cond_57
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
@@ -164,7 +164,7 @@
 
     goto :goto_11
 
-    .line 422
+    .line 423
     :cond_5d
     iget-object v0, p1, Lcom/bilibili/tv/api/auth/BiliSpaceVideoList;->videos:Ljava/util/List;
 
@@ -174,12 +174,12 @@
 
     move-result-object v3
 
-    .line 423
+    .line 424
     const-string v0, "data.videos"
 
     invoke-static {v3, v0}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 424
+    .line 425
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->a:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$c;
@@ -189,7 +189,7 @@
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$c;->a(Ljava/util/List;)V
 
-    .line 425
+    .line 426
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -214,7 +214,7 @@
 
     move-result-object v0
 
-    .line 426
+    .line 427
     iget-object v4, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->a:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$c;
@@ -240,7 +240,7 @@
 
     iput v5, v4, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$c;->filter_num:I
 
-    .line 427
+    .line 428
     sget-boolean v4, Lmybl/BiliFilter;->filter_on:Z
 
     if-eqz v4, :cond_cf
@@ -286,7 +286,7 @@
 
     move-result-object v0
 
-    .line 428
+    .line 429
     :cond_cf
     iget-object v4, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
@@ -297,7 +297,7 @@
 
     invoke-virtual {v4, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 429
+    .line 430
     iget-object v0, p1, Lcom/bilibili/tv/api/auth/BiliSpaceVideoList;->videos:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->size()I
@@ -306,7 +306,7 @@
 
     if-lez v0, :cond_103
 
-    .line 430
+    .line 431
     iget-object v0, p1, Lcom/bilibili/tv/api/auth/BiliSpaceVideoList;->videos:Ljava/util/List;
 
     iget-object v4, p1, Lcom/bilibili/tv/api/auth/BiliSpaceVideoList;->videos:Ljava/util/List;
@@ -323,12 +323,12 @@
 
     check-cast v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;
 
-    .line 431
+    .line 432
     iget-object v4, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->param:Ljava/lang/String;
 
     if-eqz v4, :cond_103
 
-    .line 433
+    .line 434
     :try_start_f4
     iget-object v4, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
@@ -347,7 +347,7 @@
     :try_end_103
     .catch Ljava/lang/NumberFormatException; {:try_start_f4 .. :try_end_103} :catch_144
 
-    .line 438
+    .line 439
     :cond_103
     :goto_103
     iget-object v4, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
@@ -368,7 +368,7 @@
     # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->h:Z
     invoke-static {v4, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->access$302(Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;Z)Z
 
-    .line 439
+    .line 440
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->h:Z
@@ -393,7 +393,7 @@
 
     if-ge v0, v1, :cond_11
 
-    .line 440
+    .line 441
     const-wide/16 v0, 0x3e8
 
     :try_start_12b
@@ -401,17 +401,17 @@
     :try_end_12e
     .catch Ljava/lang/Exception; {:try_start_12b .. :try_end_12e} :catch_13f
 
-    .line 441
+    .line 442
     :goto_12e
     invoke-virtual {v2}, Lcom/bilibili/tv/ui/base/LoadingImageView;->a()V
 
-    .line 442
+    .line 443
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     # operator++ for: Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->g:I
     invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->access$608(Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;)I
 
-    .line 443
+    .line 444
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->k()V
@@ -421,10 +421,10 @@
     :cond_13d
     move v0, v1
 
-    .line 438
+    .line 439
     goto :goto_110
 
-    .line 440
+    .line 441
     :catch_13f
     move-exception v0
 
@@ -432,7 +432,7 @@
 
     goto :goto_12e
 
-    .line 434
+    .line 435
     :catch_144
     move-exception v0
 
@@ -443,7 +443,7 @@
     .locals 0
 
     .prologue
-    .line 361
+    .line 362
     check-cast p1, Lcom/bilibili/tv/api/auth/BiliSpaceVideoList;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->a(Lcom/bilibili/tv/api/auth/BiliSpaceVideoList;)V
@@ -455,7 +455,7 @@
     .locals 1
 
     .prologue
-    .line 367
+    .line 368
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->isFinishing()Z
@@ -473,19 +473,19 @@
 
     const/4 v3, 0x0
 
-    .line 372
+    .line 373
     const-string v0, "t"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 373
+    .line 374
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     invoke-virtual {v0, p1, v1}, Lbl/adl;->a(Ljava/lang/Throwable;Landroid/app/Activity;)V
 
-    .line 374
+    .line 375
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->a:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$c;
@@ -504,19 +504,19 @@
 
     if-nez v0, :cond_1f
 
-    .line 395
+    .line 396
     :cond_1e
     :goto_1e
     return-void
 
-    .line 377
+    .line 378
     :cond_1f
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->i:Z
     invoke-static {v0, v3}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->access$402(Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;Z)Z
 
-    .line 378
+    .line 379
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->d:Lcom/bilibili/tv/ui/base/LoadingImageView;
@@ -524,44 +524,44 @@
 
     move-result-object v0
 
-    .line 379
+    .line 380
     if-nez v0, :cond_2f
 
-    .line 380
+    .line 381
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 382
+    .line 383
     :cond_2f
     instance-of v1, p1, Lcom/bilibili/api/BiliApiException;
 
     if-eqz v1, :cond_4a
 
-    .line 383
+    .line 384
     check-cast p1, Lcom/bilibili/api/BiliApiException;
 
-    .line 384
+    .line 385
     iget v1, p1, Lcom/bilibili/api/BiliApiException;->mCode:I
 
     const/16 v2, -0x194
 
     if-ne v1, v2, :cond_1e
 
-    .line 385
+    .line 386
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     invoke-virtual {v1, v3}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->a(Z)V
 
-    .line 386
+    .line 387
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->c()V
 
-    .line 387
+    .line 388
     const v1, 0x7f0c00d8
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/base/LoadingImageView;->a(I)V
 
     goto :goto_1e
 
-    .line 391
+    .line 392
     :cond_4a
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
@@ -572,12 +572,12 @@
 
     if-nez v1, :cond_1e
 
-    .line 392
+    .line 393
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;
 
     invoke-virtual {v1, v2}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->a(Z)V
 
-    .line 393
+    .line 394
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/base/LoadingImageView;->setRefreshError(Z)V
 
     goto :goto_1e

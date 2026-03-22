@@ -48,6 +48,7 @@ import com.bilibili.tv.api.video.BiliVideoHistorylList;
 import com.bilibili.tv.ui.base.BaseUpViewActivity;
 import com.bilibili.tv.ui.base.LoadingImageView;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
+import com.bilibili.tv.util.DateHelper;
 import com.bilibili.tv.widget.DrawRelativeLayout;
 import com.bilibili.tv.widget.ScalableImageView;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
@@ -381,9 +382,7 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements Vie
                 }
                 long pubdate = biliVideoDetail.mCreatedTimestamp;
                 if (pubdate > 0) {
-                    ((f) holder).D().setText(DateUtils.getRelativeTimeSpanString(
-                            pubdate * ((long) IjkMediaCodecInfo.RANK_MAX),
-                            System.currentTimeMillis(), 1000L));
+                    ((f) holder).D().setText(DateHelper.formatDate(pubdate));
                     ((f) holder).D().setVisibility(View.VISIBLE);
                 } else {
                     ((f) holder).D().setVisibility(View.GONE);

@@ -66,6 +66,7 @@ import com.bilibili.tv.ui.bangumi.BangumiDetailActivity;
 import com.bilibili.tv.ui.base.BaseActivity;
 import com.bilibili.tv.ui.base.LoadingImageView;
 import com.bilibili.tv.ui.video.tag.VideoTagSearchActivity;
+import com.bilibili.tv.util.DateHelper;
 import com.bilibili.tv.widget.DrawLinearLayout;
 import com.bilibili.tv.widget.DrawRelativeLayout;
 import com.bilibili.tv.widget.DrawTextView;
@@ -2394,9 +2395,7 @@ public final class VideoDetailActivity extends BaseActivity
                 }
                 long pubdate = biliVideoDetail.mCreatedTimestamp;
                 if (pubdate > 0) {
-                    this.r.setText(DateUtils.getRelativeTimeSpanString(
-                            pubdate * ((long) IjkMediaCodecInfo.RANK_MAX),
-                            System.currentTimeMillis(), 1000L));
+                    this.r.setText(DateHelper.formatDate(pubdate));
                     this.r.setVisibility(View.VISIBLE);
                 } else {
                     this.r.setVisibility(View.GONE);
@@ -2876,9 +2875,7 @@ public final class VideoDetailActivity extends BaseActivity
                     textView2.setVisibility(8);
                 } else {
                     textView2.setVisibility(0);
-                    textView2.setText(DateUtils.getRelativeTimeSpanString(
-                            biliVideoDetail.mCreatedTimestamp * ((long) IjkMediaCodecInfo.RANK_MAX),
-                            System.currentTimeMillis(), 1000L));
+                    textView2.setText(DateHelper.formatDate(biliVideoDetail.mCreatedTimestamp));
                 }
             }
         }
