@@ -33,7 +33,7 @@
     .locals 2
 
     .prologue
-    .line 751
+    .line 768
     new-instance v0, Lcom/bilibili/tv/ui/main/MainActivity$e$a;
 
     const/4 v1, 0x0
@@ -49,15 +49,15 @@
     .locals 1
 
     .prologue
-    .line 756
+    .line 773
     invoke-direct {p0, p1}, Lbl/adv;-><init>(Landroid/view/View;)V
 
-    .line 757
+    .line 774
     const-string v0, "itemView"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 758
+    .line 775
     const v0, 0x7f080132
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/main/MainActivity$e;->a(Landroid/view/View;I)Landroid/view/View;
@@ -68,7 +68,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$e;->n:Landroid/widget/TextView;
 
-    .line 759
+    .line 776
     return-void
 .end method
 
@@ -78,7 +78,7 @@
     .locals 1
 
     .prologue
-    .line 762
+    .line 779
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$e;->n:Landroid/widget/TextView;
 
     return-object v0

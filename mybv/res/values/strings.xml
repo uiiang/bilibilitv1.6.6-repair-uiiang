@@ -149,7 +149,7 @@
     <string name="fun">娱乐</string>
     <string name="game">游戏</string>
     <string name="history">历史</string>
-    <string name="hot_recommend">热门推荐</string>
+    <string name="hot_recommend">热门</string>
     <string name="hot_video">热门视频</string>
     <string name="hour">小时</string>
     <string name="hours_ago">%1$d小时前</string>
@@ -388,7 +388,7 @@ Jungly   农业银行"</string>
     <string name="year_specific">%1$d-%2$d-%3$d</string>
     <string name="years_ago">%1$d年前</string>
 
-    <string name="personal_recommend">个性推荐</string>
+    <string name="personal_recommend">推荐</string>
     <string name="my_follow">关注</string>
     <string name="my_toview">稍后再看</string>
     <string name="pgc">影视</string>

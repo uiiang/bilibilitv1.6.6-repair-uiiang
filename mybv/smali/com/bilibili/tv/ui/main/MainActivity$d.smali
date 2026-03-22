@@ -69,7 +69,7 @@
 
 .field private d:Z
 
-.field private isPersonalRecommend:Z
+.field private tabMapping:[I
 
 
 # direct methods
@@ -77,7 +77,7 @@
     .locals 2
 
     .prologue
-    .line 579
+    .line 568
     new-instance v0, Lcom/bilibili/tv/ui/main/MainActivity$d$a;
 
     const/4 v1, 0x0
@@ -93,270 +93,235 @@
     .locals 8
 
     .prologue
-    const/4 v7, 0x3
+    const/4 v7, 0x4
 
-    const/4 v2, 0x0
+    const/4 v5, 0x0
 
-    const/4 v6, 0x4
+    const/4 v1, 0x2
 
-    const/4 v5, 0x2
+    const/4 v2, 0x1
 
-    const/4 v1, 0x1
-
-    .line 593
+    .line 582
     invoke-direct {p0}, Lbl/adz;-><init>()V
 
-    .line 583
+    .line 572
     new-instance v0, Landroid/util/SparseArray;
 
-    invoke-direct {v0, v6}, Landroid/util/SparseArray;-><init>(I)V
+    invoke-direct {v0, v7}, Landroid/util/SparseArray;-><init>(I)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->b:Landroid/util/SparseArray;
 
-    .line 594
+    .line 583
     new-instance v0, Ljava/lang/ref/WeakReference;
 
     invoke-direct {v0, p1}, Ljava/lang/ref/WeakReference;-><init>(Ljava/lang/Object;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->c:Ljava/lang/ref/WeakReference;
 
-    .line 595
-    invoke-static {p2}, Lbl/abd;->get_home_default(Landroid/content/Context;)I
-
-    move-result v0
-
-    if-ne v0, v1, :cond_8b
-
-    move v0, v1
-
-    :goto_1d
-    iput-boolean v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->isPersonalRecommend:Z
-
-    .line 596
-    iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->isPersonalRecommend:Z
-
-    sput-boolean v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->isPersonalRecommend:Z
-
-    .line 597
+    .line 584
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->b:Landroid/util/SparseArray;
 
     new-instance v3, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;
 
     const v4, 0x7f0700e3
 
-    invoke-direct {v3, v5, v4}, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;-><init>(II)V
+    invoke-direct {v3, v1, v4}, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;-><init>(II)V
 
-    invoke-virtual {v0, v2, v3}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
+    invoke-virtual {v0, v5, v3}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
+
+    .line 586
+    invoke-static {p2}, Lbl/abd;->get_top_tab_config(Landroid/content/Context;)I
+
+    move-result v3
+
+    .line 588
+    const/16 v0, 0x8
+
+    new-array v0, v0, [I
+
+    iput-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->tabMapping:[I
+
+    .line 589
+    iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->tabMapping:[I
+
+    const/4 v4, -0x1
+
+    aput v4, v0, v5
+
+    .line 591
+    and-int/lit8 v0, v3, 0x1
+
+    if-eqz v0, :cond_cc
+
+    .line 592
+    iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->b:Landroid/util/SparseArray;
+
+    new-instance v4, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;
+
+    const v5, 0x7f0c0179
+
+    invoke-direct {v4, v2, v5}, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;-><init>(II)V
+
+    invoke-virtual {v0, v2, v4}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
+
+    .line 593
+    iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->tabMapping:[I
+
+    aput v2, v0, v2
+
+    move v0, v1
+
+    .line 596
+    :goto_47
+    and-int/lit8 v4, v3, 0x2
+
+    if-eqz v4, :cond_5e
+
+    .line 597
+    iget-object v4, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->b:Landroid/util/SparseArray;
+
+    new-instance v5, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;
+
+    const v6, 0x7f0c009d
+
+    invoke-direct {v5, v2, v6}, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;-><init>(II)V
+
+    invoke-virtual {v4, v0, v5}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
 
     .line 598
-    invoke-static {}, Lbl/acc;->d()Z
+    iget-object v4, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->tabMapping:[I
 
-    move-result v0
-
-    if-eqz v0, :cond_91
+    aput v1, v4, v0
 
     .line 599
+    add-int/lit8 v0, v0, 0x1
+
+    .line 601
+    :cond_5e
+    and-int/lit8 v4, v3, 0x4
+
+    if-eqz v4, :cond_76
+
+    .line 602
+    iget-object v4, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->b:Landroid/util/SparseArray;
+
+    new-instance v5, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;
+
+    const v6, 0x7f0c0050
+
+    invoke-direct {v5, v2, v6}, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;-><init>(II)V
+
+    invoke-virtual {v4, v0, v5}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
+
+    .line 603
+    iget-object v4, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->tabMapping:[I
+
+    const/4 v5, 0x3
+
+    aput v5, v4, v0
+
+    .line 604
+    add-int/lit8 v0, v0, 0x1
+
+    .line 606
+    :cond_76
+    and-int/lit8 v4, v3, 0x8
+
+    if-eqz v4, :cond_8d
+
+    .line 607
+    iget-object v4, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->b:Landroid/util/SparseArray;
+
+    new-instance v5, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;
+
+    const v6, 0x7f0c0052
+
+    invoke-direct {v5, v2, v6}, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;-><init>(II)V
+
+    invoke-virtual {v4, v0, v5}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
+
+    .line 608
+    iget-object v4, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->tabMapping:[I
+
+    aput v7, v4, v0
+
+    .line 609
+    add-int/lit8 v0, v0, 0x1
+
+    .line 611
+    :cond_8d
+    and-int/lit8 v3, v3, 0x10
+
+    if-eqz v3, :cond_a5
+
+    .line 612
+    iget-object v3, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->b:Landroid/util/SparseArray;
+
+    new-instance v4, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;
+
+    const v5, 0x7f0c017c
+
+    invoke-direct {v4, v2, v5}, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;-><init>(II)V
+
+    invoke-virtual {v3, v0, v4}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
+
+    .line 613
+    iget-object v3, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->tabMapping:[I
+
+    const/4 v4, 0x5
+
+    aput v4, v3, v0
+
+    .line 614
+    add-int/lit8 v0, v0, 0x1
+
+    .line 617
+    :cond_a5
+    iget-object v3, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->b:Landroid/util/SparseArray;
+
+    new-instance v4, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;
+
+    const v5, 0x7f0c00d0
+
+    invoke-direct {v4, v2, v5}, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;-><init>(II)V
+
+    invoke-virtual {v3, v0, v4}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
+
+    .line 618
+    iget-object v2, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->tabMapping:[I
+
+    const/4 v3, 0x6
+
+    aput v3, v2, v0
+
+    .line 619
+    add-int/lit8 v0, v0, 0x1
+
+    .line 620
     iget-object v2, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->b:Landroid/util/SparseArray;
 
     new-instance v3, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;
 
-    iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->isPersonalRecommend:Z
-
-    if-eqz v0, :cond_8d
-
-    const v0, 0x7f0c0179
-
-    :goto_41
-    invoke-direct {v3, v1, v0}, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;-><init>(II)V
-
-    invoke-virtual {v2, v1, v3}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
-
-    .line 600
-    iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->b:Landroid/util/SparseArray;
-
-    new-instance v2, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;
-
-    const v3, 0x7f0c0050
-
-    invoke-direct {v2, v1, v3}, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;-><init>(II)V
-
-    invoke-virtual {v0, v5, v2}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
-
-    .line 601
-    iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->b:Landroid/util/SparseArray;
-
-    new-instance v2, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;
-
-    const v3, 0x7f0c0052
-
-    invoke-direct {v2, v1, v3}, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;-><init>(II)V
-
-    invoke-virtual {v0, v7, v2}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
-
-    .line 602
-    iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->b:Landroid/util/SparseArray;
-
-    new-instance v2, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;
-
-    const v3, 0x7f0c017c
-
-    invoke-direct {v2, v1, v3}, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;-><init>(II)V
-
-    invoke-virtual {v0, v6, v2}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
-
-    .line 603
-    iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->b:Landroid/util/SparseArray;
-
-    const/4 v2, 0x5
-
-    new-instance v3, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;
-
-    const v4, 0x7f0c00d0
+    const v4, 0x7f0700e4
 
     invoke-direct {v3, v1, v4}, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;-><init>(II)V
 
-    invoke-virtual {v0, v2, v3}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
+    invoke-virtual {v2, v0, v3}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
 
-    .line 604
-    iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->b:Landroid/util/SparseArray;
+    .line 621
+    iget-object v1, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->tabMapping:[I
 
-    const/4 v1, 0x6
+    const/4 v2, 0x7
 
-    new-instance v2, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;
+    aput v2, v1, v0
 
-    const v3, 0x7f0700e4
-
-    invoke-direct {v2, v5, v3}, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;-><init>(II)V
-
-    invoke-virtual {v0, v1, v2}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
-
-    .line 611
-    :goto_8a
+    .line 622
     return-void
 
-    :cond_8b
+    :cond_cc
     move v0, v2
 
-    .line 595
-    goto :goto_1d
-
-    .line 599
-    :cond_8d
-    const v0, 0x7f0c009d
-
-    goto :goto_41
-
-    .line 607
-    :cond_91
-    iget-object v2, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->b:Landroid/util/SparseArray;
-
-    new-instance v3, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;
-
-    iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->isPersonalRecommend:Z
-
-    if-eqz v0, :cond_ca
-
-    const v0, 0x7f0c0179
-
-    :goto_9c
-    invoke-direct {v3, v1, v0}, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;-><init>(II)V
-
-    invoke-virtual {v2, v1, v3}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
-
-    .line 608
-    iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->b:Landroid/util/SparseArray;
-
-    new-instance v2, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;
-
-    const v3, 0x7f0c0050
-
-    invoke-direct {v2, v1, v3}, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;-><init>(II)V
-
-    invoke-virtual {v0, v5, v2}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
-
-    .line 609
-    iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->b:Landroid/util/SparseArray;
-
-    new-instance v2, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;
-
-    const v3, 0x7f0c00d0
-
-    invoke-direct {v2, v1, v3}, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;-><init>(II)V
-
-    invoke-virtual {v0, v7, v2}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
-
-    .line 610
-    iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->b:Landroid/util/SparseArray;
-
-    new-instance v1, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;
-
-    const v2, 0x7f0700e4
-
-    invoke-direct {v1, v5, v2}, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;-><init>(II)V
-
-    invoke-virtual {v0, v6, v1}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
-
-    goto :goto_8a
-
-    .line 607
-    :cond_ca
-    const v0, 0x7f0c009d
-
-    goto :goto_9c
-.end method
-
-.method static synthetic access$200(Lcom/bilibili/tv/ui/main/MainActivity$d;)Z
-    .locals 1
-
-    .prologue
-    .line 578
-    iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->isPersonalRecommend:Z
-
-    return v0
-.end method
-
-.method static synthetic access$202(Lcom/bilibili/tv/ui/main/MainActivity$d;Z)Z
-    .locals 0
-
-    .prologue
-    .line 578
-    iput-boolean p1, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->isPersonalRecommend:Z
-
-    return p1
-.end method
-
-.method static synthetic access$300(Lcom/bilibili/tv/ui/main/MainActivity$d;)Landroid/util/SparseArray;
-    .locals 1
-
-    .prologue
-    .line 578
-    iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->b:Landroid/util/SparseArray;
-
-    return-object v0
-.end method
-
-.method static synthetic access$400(Lcom/bilibili/tv/ui/main/MainActivity$d;)I
-    .locals 1
-
-    .prologue
-    .line 578
-    iget v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->a:I
-
-    return v0
-.end method
-
-.method static synthetic access$408(Lcom/bilibili/tv/ui/main/MainActivity$d;)I
-    .locals 2
-
-    .prologue
-    .line 578
-    iget v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->a:I
-
-    add-int/lit8 v1, v0, 0x1
-
-    iput v1, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->a:I
-
-    return v0
+    goto/16 :goto_47
 .end method
 
 
@@ -365,7 +330,7 @@
     .locals 1
 
     .prologue
-    .line 692
+    .line 708
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->b:Landroid/util/SparseArray;
 
     invoke-virtual {v0}, Landroid/util/SparseArray;->size()I
@@ -379,7 +344,7 @@
     .locals 1
 
     .prologue
-    .line 697
+    .line 713
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->b:Landroid/util/SparseArray;
 
     invoke-virtual {v0, p1}, Landroid/util/SparseArray;->get(I)Ljava/lang/Object;
@@ -399,7 +364,7 @@
     .locals 1
 
     .prologue
-    .line 578
+    .line 567
     invoke-virtual {p0, p1, p2}, Lcom/bilibili/tv/ui/main/MainActivity$d;->a(Landroid/view/ViewGroup;I)Lbl/adv;
 
     move-result-object v0
@@ -413,17 +378,17 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 616
+    .line 641
     const-string v1, "parent"
 
     invoke-static {p1, v1}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 617
+    .line 642
     const/4 v1, 0x1
 
     if-ne p2, v1, :cond_12
 
-    .line 618
+    .line 643
     check-cast v0, Lcom/bilibili/tv/ui/main/MainActivity$e;
 
     sget-object v0, Lcom/bilibili/tv/ui/main/MainActivity$e;->Companion:Lcom/bilibili/tv/ui/main/MainActivity$e$a;
@@ -432,7 +397,7 @@
 
     move-result-object v0
 
-    .line 620
+    .line 645
     :goto_11
     return-object v0
 
@@ -452,7 +417,7 @@
     .locals 0
 
     .prologue
-    .line 578
+    .line 567
     check-cast p1, Lbl/adv;
 
     invoke-virtual {p0, p1, p2}, Lcom/bilibili/tv/ui/main/MainActivity$d;->a(Lbl/adv;I)V
@@ -466,12 +431,12 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 627
+    .line 652
     const-string v0, "viewHolder"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 628
+    .line 653
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->b:Landroid/util/SparseArray;
 
     invoke-virtual {v0, p2}, Landroid/util/SparseArray;->get(I)Ljava/lang/Object;
@@ -480,7 +445,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;
 
-    .line 629
+    .line 654
     instance-of v1, p1, Lcom/bilibili/tv/ui/main/MainActivity$e;
 
     if-nez v1, :cond_56
@@ -492,7 +457,7 @@
 
     check-cast v1, Lcom/bilibili/tv/ui/main/MainActivity$e;
 
-    .line 630
+    .line 655
     if-eqz v1, :cond_1f
 
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/main/MainActivity$e;->z()Landroid/widget/TextView;
@@ -501,7 +466,7 @@
 
     if-nez v1, :cond_5a
 
-    .line 631
+    .line 656
     :cond_1f
     instance-of v1, p1, Lcom/bilibili/tv/ui/main/MainActivity$c;
 
@@ -511,7 +476,7 @@
 
     check-cast v1, Lcom/bilibili/tv/ui/main/MainActivity$c;
 
-    .line 632
+    .line 657
     :goto_26
     if-eqz v1, :cond_35
 
@@ -521,14 +486,14 @@
 
     if-eqz v1, :cond_35
 
-    .line 633
+    .line 658
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;->getResId()I
 
     move-result v0
 
     invoke-virtual {v1, v0}, Landroid/widget/ImageView;->setBackgroundResource(I)V
 
-    .line 638
+    .line 663
     :cond_35
     :goto_35
     iget-object v0, p1, Lbl/adv;->a:Landroid/view/View;
@@ -541,18 +506,18 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/view/View;->setTag(ILjava/lang/Object;)V
 
-    .line 639
+    .line 664
     iget-object v0, p1, Lbl/adv;->a:Landroid/view/View;
 
-    .line 640
+    .line 665
     const-string v1, "viewHolder.itemView"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 641
+    .line 666
     invoke-virtual {v0, p0}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 642
+    .line 667
     iget-object v0, p1, Lbl/adv;->a:Landroid/view/View;
 
     new-instance v1, Lcom/bilibili/tv/ui/main/MainActivity$d$b;
@@ -561,22 +526,22 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 643
+    .line 668
     return-void
 
     :cond_56
     move-object v1, p1
 
-    .line 629
+    .line 654
     goto :goto_13
 
     :cond_58
     move-object v1, v2
 
-    .line 631
+    .line 656
     goto :goto_26
 
-    .line 636
+    .line 661
     :cond_5a
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;->getResId()I
 
@@ -591,10 +556,10 @@
     .locals 0
 
     .prologue
-    .line 701
+    .line 717
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->d:Z
 
-    .line 702
+    .line 718
     return-void
 .end method
 
@@ -602,10 +567,67 @@
     .locals 1
 
     .prologue
-    .line 590
+    .line 579
     const/4 v0, 0x1
 
     return v0
+.end method
+
+.method public final getFragmentPosition(I)I
+    .locals 1
+
+    .prologue
+    .line 632
+    if-lez p1, :cond_a
+
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/MainActivity$d;->a()I
+
+    move-result v0
+
+    add-int/lit8 v0, v0, -0x1
+
+    if-lt p1, v0, :cond_c
+
+    .line 633
+    :cond_a
+    const/4 v0, -0x1
+
+    .line 635
+    :goto_b
+    return v0
+
+    :cond_c
+    add-int/lit8 v0, p1, -0x1
+
+    goto :goto_b
+.end method
+
+.method public final getTabType(I)I
+    .locals 1
+
+    .prologue
+    .line 625
+    if-ltz p1, :cond_c
+
+    iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->tabMapping:[I
+
+    array-length v0, v0
+
+    if-ge p1, v0, :cond_c
+
+    .line 626
+    iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->tabMapping:[I
+
+    aget v0, v0, p1
+
+    .line 628
+    :goto_b
+    return v0
+
+    :cond_c
+    const/4 v0, -0x1
+
+    goto :goto_b
 .end method
 
 .method public onFocusChange(Landroid/view/View;Z)V
@@ -614,25 +636,25 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 706
+    .line 722
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 707
+    .line 723
     const v0, 0x7f0800bd
 
     invoke-virtual {p1, v0}, Landroid/view/View;->getTag(I)Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 708
-    if-eqz v0, :cond_3e
+    .line 724
+    if-eqz v0, :cond_38
 
-    .line 709
+    .line 725
     if-nez v0, :cond_19
 
-    .line 710
+    .line 726
     new-instance v0, Lkotlin/TypeCastException;
 
     const-string v1, "null cannot be cast to non-null type kotlin.Int"
@@ -641,7 +663,7 @@
 
     throw v0
 
-    .line 712
+    .line 728
     :cond_19
     check-cast v0, Ljava/lang/Integer;
 
@@ -649,10 +671,10 @@
 
     move-result v1
 
-    .line 713
-    if-eqz p2, :cond_3f
+    .line 729
+    if-eqz p2, :cond_39
 
-    .line 714
+    .line 730
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->c:Ljava/lang/ref/WeakReference;
 
     invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
@@ -661,73 +683,68 @@
 
     check-cast v0, Landroid/support/v4/view/ViewPager;
 
-    .line 715
-    if-eqz v0, :cond_3e
+    .line 731
+    if-eqz v0, :cond_38
 
-    .line 716
-    if-eqz v1, :cond_3a
+    .line 732
+    invoke-virtual {p0, v1}, Lcom/bilibili/tv/ui/main/MainActivity$d;->getFragmentPosition(I)I
 
-    invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/MainActivity$d;->a()I
+    move-result v1
 
-    move-result v2
+    .line 733
+    if-ltz v1, :cond_34
 
-    add-int/lit8 v2, v2, -0x1
-
-    if-eq v1, v2, :cond_3a
-
-    .line 717
-    add-int/lit8 v1, v1, -0x1
-
+    .line 734
     invoke-virtual {v0, v1}, Landroid/support/v4/view/ViewPager;->setCurrentItem(I)V
 
-    .line 719
-    :cond_3a
+    .line 736
+    :cond_34
     const/4 v0, 0x1
 
     invoke-virtual {p1, v0}, Landroid/view/View;->setSelected(Z)V
 
-    .line 734
-    :cond_3e
-    :goto_3e
+    .line 751
+    :cond_38
+    :goto_38
     return-void
 
-    .line 721
-    :cond_3f
+    .line 738
+    :cond_39
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->d:Z
 
-    if-eqz v0, :cond_52
+    if-eqz v0, :cond_4c
 
-    .line 722
+    .line 739
     iput-boolean v2, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->d:Z
 
-    .line 723
+    .line 740
     instance-of v0, p1, Lcom/bilibili/tv/widget/MainTitleLayout;
 
-    if-nez v0, :cond_56
+    if-nez v0, :cond_50
 
-    .line 724
+    .line 741
     const/4 v0, 0x0
 
-    .line 726
-    :goto_4a
+    .line 743
+    :goto_44
     check-cast v0, Lcom/bilibili/tv/widget/MainTitleLayout;
 
-    .line 727
-    if-eqz v0, :cond_3e
+    .line 744
+    if-eqz v0, :cond_38
 
-    .line 728
+    .line 745
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/MainTitleLayout;->d()V
 
-    goto :goto_3e
+    goto :goto_38
 
-    .line 731
-    :cond_52
+    .line 748
+    :cond_4c
     invoke-virtual {p1, v2}, Landroid/view/View;->setSelected(Z)V
 
-    goto :goto_3e
+    goto :goto_38
 
-    :cond_56
+    :cond_50
     move-object v0, p1
 
-    goto :goto_4a
+    goto :goto_44
 .end method

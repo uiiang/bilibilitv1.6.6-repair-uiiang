@@ -1,5 +1,6 @@
 package bl;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -13,22 +14,46 @@ import com.bilibili.tv.ui.main.content.*;
 public final class aey extends FragmentPagerAdapter {
     private Fragment a;
     private SparseArray<Fragment> mFragments;
+    private int[] fragmentTypes;
 
     /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
-    public aey(FragmentManager fm) {
+    public aey(FragmentManager fm, Context context) {
         super(fm);
         bbi.b(fm, "fm");
         this.mFragments = new SparseArray<>(4);
-        this.mFragments.put(0, MainRecommendFragment.Companion.a());
-        if (acc.d()) {
-            this.mFragments.put(1, afa.Companion.a());
-            this.mFragments.put(2, MainBangumiFragment.Companion.a());
-            this.mFragments.put(3, MainPgcFragment.Companion.a());
-            this.mFragments.put(4, MainMyFragment.Companion.a());
-            return;
+        this.fragmentTypes = new int[8];
+        
+        int topTabConfig = abd.get_top_tab_config(context);
+        int position = 0;
+        
+        if ((topTabConfig & abd.TAB_PERSONAL_RECOMMEND) != 0) {
+            this.mFragments.put(position, MainRecommendFragment.Companion.a());
+            this.fragmentTypes[position] = 1;
+            position++;
         }
-        this.mFragments.put(1, afa.Companion.a());
-        this.mFragments.put(2, MainMyFragment.Companion.a());
+        if ((topTabConfig & abd.TAB_HOT_RECOMMEND) != 0) {
+            this.mFragments.put(position, MainHotFragment.Companion.a());
+            this.fragmentTypes[position] = 2;
+            position++;
+        }
+        if ((topTabConfig & abd.TAB_AREA) != 0) {
+            this.mFragments.put(position, afa.Companion.a());
+            this.fragmentTypes[position] = 3;
+            position++;
+        }
+        if ((topTabConfig & abd.TAB_BANGUMI) != 0) {
+            this.mFragments.put(position, MainBangumiFragment.Companion.a());
+            this.fragmentTypes[position] = 4;
+            position++;
+        }
+        if ((topTabConfig & abd.TAB_PGC) != 0) {
+            this.mFragments.put(position, MainPgcFragment.Companion.a());
+            this.fragmentTypes[position] = 5;
+            position++;
+        }
+        
+        this.mFragments.put(position, MainMyFragment.Companion.a());
+        this.fragmentTypes[position] = 6;
     }
 
     public final Fragment a() {
@@ -49,21 +74,16 @@ public final class aey extends FragmentPagerAdapter {
 
     @Override // bl.cy
     public CharSequence getPageTitle(int position) {
-        Fragment fragment = this.mFragments.get(position);
-        if (fragment instanceof MainRecommendFragment) {
-            return "热门推荐";
-        }
-        if (fragment instanceof afa) {
-            return "分区";
-        }
-        if (fragment instanceof MainBangumiFragment) {
-            return "番剧";
-        }
-        if (fragment instanceof MainPgcFragment) {
-            return "影视";
-        }
-        if (fragment instanceof MainMyFragment) {
-            return "我的";
+        if (position >= 0 && position < fragmentTypes.length) {
+            int type = fragmentTypes[position];
+            switch (type) {
+                case 1: return "推荐";
+                case 2: return "热门";
+                case 3: return "分区";
+                case 4: return "番剧";
+                case 5: return "影视";
+                case 6: return "我的";
+            }
         }
         return "";
     }

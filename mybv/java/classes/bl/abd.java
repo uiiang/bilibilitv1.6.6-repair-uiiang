@@ -375,4 +375,30 @@ public class abd {
             default: return 100;
         }
     }
+
+    private static int topTabConfig = -1;
+    public static final int TAB_PERSONAL_RECOMMEND = 1;
+    public static final int TAB_HOT_RECOMMEND = 2;
+    public static final int TAB_AREA = 4;
+    public static final int TAB_BANGUMI = 8;
+    public static final int TAB_PGC = 16;
+    public static final int TAB_ALL = TAB_PERSONAL_RECOMMEND | TAB_HOT_RECOMMEND | TAB_AREA | TAB_BANGUMI | TAB_PGC;
+
+    public static void set_top_tab_config(Context context, int config) {
+        if (config == 0) config = TAB_PERSONAL_RECOMMEND;
+        a(context).a().edit().putInt("top_tab_config", config).apply();
+        topTabConfig = config;
+    }
+
+    public static int get_top_tab_config(Context context) {
+        if (topTabConfig == -1) {
+            topTabConfig = a(context).a().getInt("top_tab_config", TAB_ALL);
+        }
+        if (topTabConfig == 0) topTabConfig = TAB_PERSONAL_RECOMMEND;
+        return topTabConfig;
+    }
+
+    public static boolean is_tab_enabled(Context context, int tabFlag) {
+        return (get_top_tab_config(context) & tabFlag) != 0;
+    }
 }

@@ -185,22 +185,23 @@ public final class MainBangumiFragment extends adu implements aez, wf {
     @Override // android.support.v4.app.Fragment
     public void setUserVisibleHint(boolean z) {
         super.setUserVisibleHint(z);
-        if (z) {
-            FragmentActivity activity = getActivity();
-            if (activity == null) {
-                throw new TypeCastException("null cannot be cast to non-null type com.bilibili.tv.ui.main.MainActivity");
-            }
-            MainActivity mainActivity = (MainActivity) activity;
-            if (d() == null) {
-                return;
-            }
-            d().a(this.d);
-            View c2 = d().getLayoutManager().c(this.d);
-            if (c2 == null || !mainActivity.h()) {
-                return;
-            }
-            c2.requestFocus();
+        if (!z || getActivity() == null) {
+            return;
         }
+        FragmentActivity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+        MainActivity mainActivity = (MainActivity) activity;
+        if (d() == null) {
+            return;
+        }
+        d().a(this.d);
+        View c2 = d().getLayoutManager().c(this.d);
+        if (c2 == null || !mainActivity.h()) {
+            return;
+        }
+        c2.requestFocus();
     }
 
     @Override // bl.aez

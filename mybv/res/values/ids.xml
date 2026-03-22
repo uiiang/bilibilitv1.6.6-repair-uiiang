@@ -333,4 +333,9 @@
     <item type="id" name="column_2_button" />
     <item type="id" name="column_3_button" />
     <item type="id" name="column_4_button" />
+    <item type="id" name="tab_personal_recommend" />
+    <item type="id" name="tab_hot_recommend" />
+    <item type="id" name="tab_area" />
+    <item type="id" name="tab_bangumi" />
+    <item type="id" name="tab_pgc" />
 </resources>

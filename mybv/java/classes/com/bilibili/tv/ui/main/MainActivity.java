@@ -67,6 +67,7 @@ import java.util.concurrent.Callable;
 import kotlin.TypeCastException;
 
 import com.bilibili.tv.ui.main.content.MainRecommendFragment;
+import com.bilibili.tv.ui.main.content.MainHotFragment;
 import com.bilibili.tv.ui.main.content.MainMyFragment;
 
 /* compiled from: BL */
@@ -188,17 +189,17 @@ public final class MainActivity extends BaseActivity {
         if (recyclerView2 != null) {
             recyclerView2.setLayoutManager((RecyclerView.h) r0);
         }
-        int b2 = adl.b(R.dimen.px_40);
-        int b3 = adl.b(R.dimen.px_38);
-        int b4 = adl.b(R.dimen.px_80);
-        int b5 = adl.b(R.dimen.px_5);
+        int b2 = adl.b(R.dimen.px_10);
+        int b3 = adl.b(R.dimen.px_10);
+        int b4 = adl.b(R.dimen.px_10);
+        int b5 = adl.b(R.dimen.px_10);
         RecyclerView recyclerView3 = this.c;
         if (recyclerView3 != null) {
             recyclerView3.a(new f(b2, b3, b4, b5));
         }
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         bbi.a((Object) supportFragmentManager, "supportFragmentManager");
-        this.e = new aey(supportFragmentManager);
+        this.e = new aey(supportFragmentManager, this);
         FixedViewPager fixedViewPager = this.f;
         if (fixedViewPager != null) {
             fixedViewPager.setAdapter(this.e);
@@ -248,7 +249,6 @@ public final class MainActivity extends BaseActivity {
 
         @Override // android.support.v7.widget.RecyclerView.g
         public void a(Rect rect, View view, RecyclerView recyclerView, RecyclerView.s sVar) {
-            int i;
             bbi.b(rect, "outRect");
             bbi.b(view, "view");
             bbi.b(recyclerView, "parent");
@@ -256,25 +256,11 @@ public final class MainActivity extends BaseActivity {
                 return;
             }
             int f = recyclerView.f(view);
-            if (f == 1) {
-                i = this.b;
-            } else if (f == 2) {
-                i = -this.c;
-            } else if (f == 3) {
-                i = -this.d;
-            } else if (f == 4) {
-                d dVar = MainActivity.this.d;
-                if ((dVar != null ? dVar.a() : 0) < 6) {
-                    i = this.e;
-                } else {
-                    i = -this.d;
-                }
-            } else if (f == 5) {
-                i = -this.d;
+            if (f == 0) {
+                rect.set(0, 0, 0, 0);
             } else {
-                i = f == 6 ? this.e : 0;
+                rect.set(this.b, 0, 0, 0);
             }
-            rect.set(i, 0, 0, 0);
         }
     }
 
@@ -297,7 +283,8 @@ public final class MainActivity extends BaseActivity {
 
         @Override // android.support.v4.view.ViewPager.f
         public void a(int i) {
-            View c = this.b.c(i + 1);
+            int tabPosition = i + 1;
+            View c = this.b.c(tabPosition);
             View currentFocus = MainActivity.this.getCurrentFocus();
             if ((c instanceof MainTitleLayout) && !(currentFocus instanceof MainTitleLayout)) {
                 MainActivity.this.b(true);
@@ -494,7 +481,6 @@ public final class MainActivity extends BaseActivity {
                 return super.dispatchKeyEvent(keyEvent);
             }
 
-            // 预测 focusSearch 的目标：若系统会把焦点移到上方标题而下方列表正在加载，则吞掉按键
             int dir = -1;
             if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) dir = View.FOCUS_DOWN;
             else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) dir = View.FOCUS_UP;
@@ -506,13 +492,16 @@ public final class MainActivity extends BaseActivity {
                     if (predicted != null) {
                         RecyclerView titleRv = this.c;
                         if (titleRv != null && isDescendantOfView(predicted, titleRv)) {
-                            // 预测焦点会跳到上方标题栏
                             aey a2 = MainActivity.a(MainActivity.this);
                             Fragment a3 = a2 != null ? a2.a() : null;
                             if (a3 instanceof com.bilibili.tv.ui.main.content.MainRecommendFragment) {
                                 com.bilibili.tv.ui.main.content.MainRecommendFragment fragment = (com.bilibili.tv.ui.main.content.MainRecommendFragment) a3;
                                 if (fragment.isLoading()) {
-                                    // 下方列表正在加载，吞掉按键
+                                    return true;
+                                }
+                            } else if (a3 instanceof com.bilibili.tv.ui.main.content.MainHotFragment) {
+                                com.bilibili.tv.ui.main.content.MainHotFragment fragment = (com.bilibili.tv.ui.main.content.MainHotFragment) a3;
+                                if (fragment.isLoading()) {
                                     return true;
                                 }
                             }
@@ -583,7 +572,7 @@ public final class MainActivity extends BaseActivity {
         private final SparseArray<MainTitle> b = new SparseArray<>(4);
         private final WeakReference<ViewPager> c;
         private boolean d;
-        private boolean isPersonalRecommend;
+        private int[] tabMapping;
 
         @Override // bl.adz
         public int e() {
@@ -592,22 +581,58 @@ public final class MainActivity extends BaseActivity {
 
         public d(ViewPager viewPager, Context context) {
             this.c = new WeakReference<>(viewPager);
-            this.isPersonalRecommend = abd.get_home_default(context) == 1;
-            MainRecommendFragment.isPersonalRecommend = this.isPersonalRecommend;
             this.b.put(0, new MainTitle(f, R.drawable.selector_main_search));
-            if (acc.d()) {
-                this.b.put(1, new MainTitle(e, this.isPersonalRecommend ? R.string.personal_recommend : R.string.hot_recommend));
-                this.b.put(2, new MainTitle(e, R.string.area));
-                this.b.put(3, new MainTitle(e, R.string.bangumi));
-                this.b.put(4, new MainTitle(e, R.string.pgc));
-                this.b.put(5, new MainTitle(e, R.string.my));
-                this.b.put(6, new MainTitle(f, R.drawable.selector_main_setting));
-                return;
+            
+            int topTabConfig = abd.get_top_tab_config(context);
+            int position = 1;
+            this.tabMapping = new int[8];
+            this.tabMapping[0] = -1;
+            
+            if ((topTabConfig & abd.TAB_PERSONAL_RECOMMEND) != 0) {
+                this.b.put(position, new MainTitle(e, R.string.personal_recommend));
+                this.tabMapping[position] = 1;
+                position++;
             }
-            this.b.put(1, new MainTitle(e, this.isPersonalRecommend ? R.string.personal_recommend : R.string.hot_recommend));
-            this.b.put(2, new MainTitle(e, R.string.area));
-            this.b.put(3, new MainTitle(e, R.string.my));
-            this.b.put(4, new MainTitle(f, R.drawable.selector_main_setting));
+            if ((topTabConfig & abd.TAB_HOT_RECOMMEND) != 0) {
+                this.b.put(position, new MainTitle(e, R.string.hot_recommend));
+                this.tabMapping[position] = 2;
+                position++;
+            }
+            if ((topTabConfig & abd.TAB_AREA) != 0) {
+                this.b.put(position, new MainTitle(e, R.string.area));
+                this.tabMapping[position] = 3;
+                position++;
+            }
+            if ((topTabConfig & abd.TAB_BANGUMI) != 0) {
+                this.b.put(position, new MainTitle(e, R.string.bangumi));
+                this.tabMapping[position] = 4;
+                position++;
+            }
+            if ((topTabConfig & abd.TAB_PGC) != 0) {
+                this.b.put(position, new MainTitle(e, R.string.pgc));
+                this.tabMapping[position] = 5;
+                position++;
+            }
+            
+            this.b.put(position, new MainTitle(e, R.string.my));
+            this.tabMapping[position] = 6;
+            position++;
+            this.b.put(position, new MainTitle(f, R.drawable.selector_main_setting));
+            this.tabMapping[position] = 7;
+        }
+
+        public final int getTabType(int position) {
+            if (position >= 0 && position < tabMapping.length) {
+                return tabMapping[position];
+            }
+            return -1;
+        }
+
+        public final int getFragmentPosition(int tabPosition) {
+            if (tabPosition <= 0 || tabPosition >= a() - 1) {
+                return -1;
+            }
+            return tabPosition - 1;
         }
 
         @Override // android.support.v7.widget.RecyclerView.a
@@ -658,30 +683,21 @@ public final class MainActivity extends BaseActivity {
                 bbi.a((Object) context, "v.context");
                 Activity a = adl.a(context);
                 if (a != null) {
+                    int tabCount = d.this.a();
+                    int settingIndex = tabCount - 1;
+                    int tabType = d.this.getTabType(this.b);
                     if (this.b == 0) {
                         SearchActivity.Companion.a(a, 0);
-                    } else if (this.b == 1){
-                        d.this.isPersonalRecommend = !d.this.isPersonalRecommend;
-                        MainRecommendFragment.isPersonalRecommend = d.this.isPersonalRecommend;
-                        if (d.this.isPersonalRecommend) {
-                            d.this.b.get(1).setResId(R.string.personal_recommend);
-                            ((TextView)view.findViewById(R.id.title)).setText(R.string.personal_recommend);
-                        } else {
-                            d.this.b.get(1).setResId(R.string.hot_recommend);
-                            ((TextView)view.findViewById(R.id.title)).setText(R.string.hot_recommend);
-                        }
-                        MainRecommendFragment._this.getRecommendVideos();
-                    } else if (this.b == 2) {
-                        d.this.a++;
-                        if (d.this.a >= 27) {
-                            abd.b((Context) a, true);
-                        }
-                    } else if (this.b == 4) {
-                        if (d.this.a() < 6) {
-                            SettingActivity.Companion.a(a, SettingActivity.Companion.b());
-                        }
-                    } else if (this.b == 6) {
+                    } else if (this.b == settingIndex) {
                         SettingActivity.Companion.a(a, SettingActivity.Companion.b());
+                    } else if (tabType == 1) {
+                        if (MainRecommendFragment._this != null) {
+                            MainRecommendFragment._this.getRecommendVideos();
+                        }
+                    } else if (tabType == 2) {
+                        if (MainHotFragment._this != null) {
+                            MainHotFragment._this.getHotVideos();
+                        }
                     }
                 }
             }
@@ -713,8 +729,9 @@ public final class MainActivity extends BaseActivity {
                 if (z) {
                     ViewPager viewPager = this.c.get();
                     if (viewPager != null) {
-                        if (intValue != 0 && intValue != a() - 1) {
-                            viewPager.setCurrentItem(intValue - 1);
+                        int fragmentPos = getFragmentPosition(intValue);
+                        if (fragmentPos >= 0) {
+                            viewPager.setCurrentItem(fragmentPos);
                         }
                         view.setSelected(true);
                     }

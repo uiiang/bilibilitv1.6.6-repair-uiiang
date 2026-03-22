@@ -6,6 +6,8 @@
 # instance fields
 .field private a:Landroid/support/v4/app/Fragment;
 
+.field private fragmentTypes:[I
+
 .field private mFragments:Landroid/util/SparseArray;
     .annotation system Ldalvik/annotation/Signature;
         value = {
@@ -19,77 +21,152 @@
 
 
 # direct methods
-.method public constructor <init>(Landroid/support/v4/app/FragmentManager;)V
+.method public constructor <init>(Landroid/support/v4/app/FragmentManager;Landroid/content/Context;)V
     .locals 6
 
     .prologue
     const/4 v5, 0x4
 
-    const/4 v4, 0x2
-
-    const/4 v3, 0x1
-
-    .line 19
-    invoke-direct {p0, p1}, Landroid/support/v4/app/FragmentPagerAdapter;-><init>(Landroid/support/v4/app/FragmentManager;)V
-
-    .line 20
-    const-string v0, "fm"
-
-    invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
+    const/4 v0, 0x1
 
     .line 21
-    new-instance v0, Landroid/util/SparseArray;
-
-    invoke-direct {v0, v5}, Landroid/util/SparseArray;-><init>(I)V
-
-    iput-object v0, p0, Lbl/aey;->mFragments:Landroid/util/SparseArray;
+    invoke-direct {p0, p1}, Landroid/support/v4/app/FragmentPagerAdapter;-><init>(Landroid/support/v4/app/FragmentManager;)V
 
     .line 22
-    iget-object v0, p0, Lbl/aey;->mFragments:Landroid/util/SparseArray;
+    const-string v1, "fm"
 
-    const/4 v1, 0x0
-
-    sget-object v2, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->Companion:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$b;
-
-    invoke-virtual {v2}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$b;->a()Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
-
-    move-result-object v2
-
-    invoke-virtual {v0, v1, v2}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
+    invoke-static {p1, v1}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
     .line 23
-    invoke-static {}, Lbl/acc;->d()Z
+    new-instance v1, Landroid/util/SparseArray;
 
-    move-result v0
+    invoke-direct {v1, v5}, Landroid/util/SparseArray;-><init>(I)V
 
-    if-eqz v0, :cond_52
+    iput-object v1, p0, Lbl/aey;->mFragments:Landroid/util/SparseArray;
 
     .line 24
-    iget-object v0, p0, Lbl/aey;->mFragments:Landroid/util/SparseArray;
+    const/16 v1, 0x8
 
-    sget-object v1, Lbl/afa;->Companion:Lbl/afa$a;
+    new-array v1, v1, [I
 
-    invoke-virtual {v1}, Lbl/afa$a;->a()Lbl/afa;
-
-    move-result-object v1
-
-    invoke-virtual {v0, v3, v1}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
-
-    .line 25
-    iget-object v0, p0, Lbl/aey;->mFragments:Landroid/util/SparseArray;
-
-    sget-object v1, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->Companion:Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$c;
-
-    invoke-virtual {v1}, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$c;->a()Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;
-
-    move-result-object v1
-
-    invoke-virtual {v0, v4, v1}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
+    iput-object v1, p0, Lbl/aey;->fragmentTypes:[I
 
     .line 26
-    iget-object v0, p0, Lbl/aey;->mFragments:Landroid/util/SparseArray;
+    invoke-static {p2}, Lbl/abd;->get_top_tab_config(Landroid/content/Context;)I
 
-    const/4 v1, 0x3
+    move-result v2
+
+    .line 27
+    const/4 v1, 0x0
+
+    .line 29
+    and-int/lit8 v3, v2, 0x1
+
+    if-eqz v3, :cond_97
+
+    .line 30
+    iget-object v3, p0, Lbl/aey;->mFragments:Landroid/util/SparseArray;
+
+    sget-object v4, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->Companion:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$b;
+
+    invoke-virtual {v4}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$b;->a()Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
+
+    move-result-object v4
+
+    invoke-virtual {v3, v1, v4}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
+
+    .line 31
+    iget-object v3, p0, Lbl/aey;->fragmentTypes:[I
+
+    aput v0, v3, v1
+
+    .line 34
+    :goto_2f
+    and-int/lit8 v1, v2, 0x2
+
+    if-eqz v1, :cond_45
+
+    .line 35
+    iget-object v1, p0, Lbl/aey;->mFragments:Landroid/util/SparseArray;
+
+    sget-object v3, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->Companion:Lcom/bilibili/tv/ui/main/content/MainHotFragment$b;
+
+    invoke-virtual {v3}, Lcom/bilibili/tv/ui/main/content/MainHotFragment$b;->a()Lcom/bilibili/tv/ui/main/content/MainHotFragment;
+
+    move-result-object v3
+
+    invoke-virtual {v1, v0, v3}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
+
+    .line 36
+    iget-object v1, p0, Lbl/aey;->fragmentTypes:[I
+
+    const/4 v3, 0x2
+
+    aput v3, v1, v0
+
+    .line 37
+    add-int/lit8 v0, v0, 0x1
+
+    .line 39
+    :cond_45
+    and-int/lit8 v1, v2, 0x4
+
+    if-eqz v1, :cond_5b
+
+    .line 40
+    iget-object v1, p0, Lbl/aey;->mFragments:Landroid/util/SparseArray;
+
+    sget-object v3, Lbl/afa;->Companion:Lbl/afa$a;
+
+    invoke-virtual {v3}, Lbl/afa$a;->a()Lbl/afa;
+
+    move-result-object v3
+
+    invoke-virtual {v1, v0, v3}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
+
+    .line 41
+    iget-object v1, p0, Lbl/aey;->fragmentTypes:[I
+
+    const/4 v3, 0x3
+
+    aput v3, v1, v0
+
+    .line 42
+    add-int/lit8 v0, v0, 0x1
+
+    .line 44
+    :cond_5b
+    and-int/lit8 v1, v2, 0x8
+
+    if-eqz v1, :cond_70
+
+    .line 45
+    iget-object v1, p0, Lbl/aey;->mFragments:Landroid/util/SparseArray;
+
+    sget-object v3, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->Companion:Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$c;
+
+    invoke-virtual {v3}, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$c;->a()Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;
+
+    move-result-object v3
+
+    invoke-virtual {v1, v0, v3}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
+
+    .line 46
+    iget-object v1, p0, Lbl/aey;->fragmentTypes:[I
+
+    aput v5, v1, v0
+
+    .line 47
+    add-int/lit8 v0, v0, 0x1
+
+    .line 49
+    :cond_70
+    and-int/lit8 v1, v2, 0x10
+
+    if-eqz v1, :cond_86
+
+    .line 50
+    iget-object v1, p0, Lbl/aey;->mFragments:Landroid/util/SparseArray;
 
     sget-object v2, Lcom/bilibili/tv/ui/main/content/MainPgcFragment;->Companion:Lcom/bilibili/tv/ui/main/content/MainPgcFragment$c;
 
@@ -97,47 +174,44 @@
 
     move-result-object v2
 
-    invoke-virtual {v0, v1, v2}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
+    invoke-virtual {v1, v0, v2}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
 
-    .line 27
-    iget-object v0, p0, Lbl/aey;->mFragments:Landroid/util/SparseArray;
+    .line 51
+    iget-object v1, p0, Lbl/aey;->fragmentTypes:[I
 
-    sget-object v1, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->Companion:Lcom/bilibili/tv/ui/main/content/MainMyFragment$a;
+    const/4 v2, 0x5
 
-    invoke-virtual {v1}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$a;->a()Lcom/bilibili/tv/ui/main/content/MainMyFragment;
+    aput v2, v1, v0
 
-    move-result-object v1
+    .line 52
+    add-int/lit8 v0, v0, 0x1
 
-    invoke-virtual {v0, v5, v1}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
+    .line 55
+    :cond_86
+    iget-object v1, p0, Lbl/aey;->mFragments:Landroid/util/SparseArray;
 
-    .line 32
-    :goto_51
+    sget-object v2, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->Companion:Lcom/bilibili/tv/ui/main/content/MainMyFragment$a;
+
+    invoke-virtual {v2}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$a;->a()Lcom/bilibili/tv/ui/main/content/MainMyFragment;
+
+    move-result-object v2
+
+    invoke-virtual {v1, v0, v2}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
+
+    .line 56
+    iget-object v1, p0, Lbl/aey;->fragmentTypes:[I
+
+    const/4 v2, 0x6
+
+    aput v2, v1, v0
+
+    .line 57
     return-void
 
-    .line 30
-    :cond_52
-    iget-object v0, p0, Lbl/aey;->mFragments:Landroid/util/SparseArray;
+    :cond_97
+    move v0, v1
 
-    sget-object v1, Lbl/afa;->Companion:Lbl/afa$a;
-
-    invoke-virtual {v1}, Lbl/afa$a;->a()Lbl/afa;
-
-    move-result-object v1
-
-    invoke-virtual {v0, v3, v1}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
-
-    .line 31
-    iget-object v0, p0, Lbl/aey;->mFragments:Landroid/util/SparseArray;
-
-    sget-object v1, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->Companion:Lcom/bilibili/tv/ui/main/content/MainMyFragment$a;
-
-    invoke-virtual {v1}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$a;->a()Lcom/bilibili/tv/ui/main/content/MainMyFragment;
-
-    move-result-object v1
-
-    invoke-virtual {v0, v4, v1}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
-
-    goto :goto_51
+    goto :goto_2f
 .end method
 
 
@@ -146,7 +220,7 @@
     .locals 1
 
     .prologue
-    .line 35
+    .line 60
     iget-object v0, p0, Lbl/aey;->a:Landroid/support/v4/app/Fragment;
 
     return-object v0
@@ -156,7 +230,7 @@
     .locals 1
 
     .prologue
-    .line 47
+    .line 72
     iget-object v0, p0, Lbl/aey;->mFragments:Landroid/util/SparseArray;
 
     invoke-virtual {v0}, Landroid/util/SparseArray;->size()I
@@ -170,7 +244,7 @@
     .locals 2
 
     .prologue
-    .line 40
+    .line 65
     iget-object v0, p0, Lbl/aey;->mFragments:Landroid/util/SparseArray;
 
     invoke-virtual {v0, p1}, Landroid/util/SparseArray;->get(I)Ljava/lang/Object;
@@ -179,121 +253,123 @@
 
     check-cast v0, Landroid/support/v4/app/Fragment;
 
-    .line 41
+    .line 66
     const-string v1, "mFragments!!.get(position)"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 42
+    .line 67
     return-object v0
 .end method
 
 .method public getPageTitle(I)Ljava/lang/CharSequence;
-    .locals 2
+    .locals 1
 
     .prologue
-    .line 52
-    iget-object v0, p0, Lbl/aey;->mFragments:Landroid/util/SparseArray;
+    .line 77
+    if-ltz p1, :cond_e
 
-    invoke-virtual {v0, p1}, Landroid/util/SparseArray;->get(I)Ljava/lang/Object;
+    iget-object v0, p0, Lbl/aey;->fragmentTypes:[I
 
-    move-result-object v0
+    array-length v0, v0
 
-    check-cast v0, Landroid/support/v4/app/Fragment;
+    if-ge p1, v0, :cond_e
 
-    .line 53
-    instance-of v1, v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
+    .line 78
+    iget-object v0, p0, Lbl/aey;->fragmentTypes:[I
 
-    if-eqz v1, :cond_f
+    aget v0, v0, p1
 
-    .line 54
-    const-string v0, "\u70ed\u95e8\u63a8\u8350"
+    .line 79
+    packed-switch v0, :pswitch_data_24
 
-    .line 68
-    :goto_e
-    return-object v0
-
-    .line 56
-    :cond_f
-    instance-of v1, v0, Lbl/afa;
-
-    if-eqz v1, :cond_16
-
-    .line 57
-    const-string v0, "\u5206\u533a"
-
-    goto :goto_e
-
-    .line 59
-    :cond_16
-    instance-of v1, v0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;
-
-    if-eqz v1, :cond_1d
-
-    .line 60
-    const-string v0, "\u756a\u5267"
-
-    goto :goto_e
-
-    .line 62
-    :cond_1d
-    instance-of v1, v0, Lcom/bilibili/tv/ui/main/content/MainPgcFragment;
-
-    if-eqz v1, :cond_24
-
-    .line 63
-    const-string v0, "\u5f71\u89c6"
-
-    goto :goto_e
-
-    .line 65
-    :cond_24
-    instance-of v0, v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;
-
-    if-eqz v0, :cond_2b
-
-    .line 66
-    const-string v0, "\u6211\u7684"
-
-    goto :goto_e
-
-    .line 68
-    :cond_2b
+    .line 88
+    :cond_e
     const-string v0, ""
 
-    goto :goto_e
+    :goto_10
+    return-object v0
+
+    .line 80
+    :pswitch_11
+    const-string v0, "\u63a8\u8350"
+
+    goto :goto_10
+
+    .line 81
+    :pswitch_14
+    const-string v0, "\u70ed\u95e8"
+
+    goto :goto_10
+
+    .line 82
+    :pswitch_17
+    const-string v0, "\u5206\u533a"
+
+    goto :goto_10
+
+    .line 83
+    :pswitch_1a
+    const-string v0, "\u756a\u5267"
+
+    goto :goto_10
+
+    .line 84
+    :pswitch_1d
+    const-string v0, "\u5f71\u89c6"
+
+    goto :goto_10
+
+    .line 85
+    :pswitch_20
+    const-string v0, "\u6211\u7684"
+
+    goto :goto_10
+
+    .line 79
+    nop
+
+    :pswitch_data_24
+    .packed-switch 0x1
+        :pswitch_11
+        :pswitch_14
+        :pswitch_17
+        :pswitch_1a
+        :pswitch_1d
+        :pswitch_20
+    .end packed-switch
 .end method
 
 .method public setPrimaryItem(Landroid/view/ViewGroup;ILjava/lang/Object;)V
     .locals 1
 
     .prologue
-    .line 73
+    .line 93
     const-string v0, "container"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 74
+    .line 94
     const-string v0, "object"
 
     invoke-static {p3, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 75
+    .line 95
     iget-object v0, p0, Lbl/aey;->a:Landroid/support/v4/app/Fragment;
 
     if-eq v0, p3, :cond_13
 
     move-object v0, p3
 
-    .line 76
+    .line 96
     check-cast v0, Landroid/support/v4/app/Fragment;
 
     iput-object v0, p0, Lbl/aey;->a:Landroid/support/v4/app/Fragment;
 
-    .line 78
+    .line 98
     :cond_13
     invoke-super {p0, p1, p2, p3}, Landroid/support/v4/app/FragmentPagerAdapter;->setPrimaryItem(Landroid/view/ViewGroup;ILjava/lang/Object;)V
 
-    .line 79
+    .line 99
     return-void
 .end method

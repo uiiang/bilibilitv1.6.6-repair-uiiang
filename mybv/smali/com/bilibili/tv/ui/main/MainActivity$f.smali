@@ -31,35 +31,33 @@
     .locals 0
 
     .prologue
-    .line 242
+    .line 243
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->this$0:Lcom/bilibili/tv/ui/main/MainActivity;
 
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$g;-><init>()V
 
-    .line 243
+    .line 244
     iput p2, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->b:I
 
-    .line 244
+    .line 245
     iput p3, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->c:I
 
-    .line 245
+    .line 246
     iput p4, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->d:I
 
-    .line 246
+    .line 247
     iput p5, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->e:I
 
-    .line 247
+    .line 248
     return-void
 .end method
 
 
 # virtual methods
 .method public a(Landroid/graphics/Rect;Landroid/view/View;Landroid/support/v7/widget/RecyclerView;Landroid/support/v7/widget/RecyclerView$s;)V
-    .locals 4
+    .locals 2
 
     .prologue
-    const/4 v3, 0x6
-
     const/4 v1, 0x0
 
     .line 252
@@ -85,124 +83,31 @@
 
     move-result-object v0
 
-    if-nez v0, :cond_1a
+    if-nez v0, :cond_19
 
-    .line 278
-    :goto_19
+    .line 264
+    :goto_18
     return-void
 
     .line 258
-    :cond_1a
+    :cond_19
     invoke-virtual {p3, p2}, Landroid/support/v7/widget/RecyclerView;->f(Landroid/view/View;)I
 
     move-result v0
 
     .line 259
-    const/4 v2, 0x1
-
-    if-ne v0, v2, :cond_27
+    if-nez v0, :cond_23
 
     .line 260
-    iget v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->b:I
+    invoke-virtual {p1, v1, v1, v1, v1}, Landroid/graphics/Rect;->set(IIII)V
 
-    .line 277
-    :goto_23
-    invoke-virtual {p1, v0, v1, v1, v1}, Landroid/graphics/Rect;->set(IIII)V
-
-    goto :goto_19
-
-    .line 261
-    :cond_27
-    const/4 v2, 0x2
-
-    if-ne v0, v2, :cond_2e
+    goto :goto_18
 
     .line 262
-    iget v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->c:I
+    :cond_23
+    iget v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->b:I
 
-    neg-int v0, v0
+    invoke-virtual {p1, v0, v1, v1, v1}, Landroid/graphics/Rect;->set(IIII)V
 
-    goto :goto_23
-
-    .line 263
-    :cond_2e
-    const/4 v2, 0x3
-
-    if-ne v0, v2, :cond_35
-
-    .line 264
-    iget v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->d:I
-
-    neg-int v0, v0
-
-    goto :goto_23
-
-    .line 265
-    :cond_35
-    const/4 v2, 0x4
-
-    if-ne v0, v2, :cond_4f
-
-    .line 266
-    iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->this$0:Lcom/bilibili/tv/ui/main/MainActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/main/MainActivity;->d:Lcom/bilibili/tv/ui/main/MainActivity$d;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/main/MainActivity;->access$000(Lcom/bilibili/tv/ui/main/MainActivity;)Lcom/bilibili/tv/ui/main/MainActivity$d;
-
-    move-result-object v0
-
-    .line 267
-    if-eqz v0, :cond_49
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/MainActivity$d;->a()I
-
-    move-result v0
-
-    :goto_44
-    if-ge v0, v3, :cond_4b
-
-    .line 268
-    iget v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->e:I
-
-    goto :goto_23
-
-    :cond_49
-    move v0, v1
-
-    .line 267
-    goto :goto_44
-
-    .line 270
-    :cond_4b
-    iget v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->d:I
-
-    neg-int v0, v0
-
-    goto :goto_23
-
-    .line 272
-    :cond_4f
-    const/4 v2, 0x5
-
-    if-ne v0, v2, :cond_56
-
-    .line 273
-    iget v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->d:I
-
-    neg-int v0, v0
-
-    goto :goto_23
-
-    .line 275
-    :cond_56
-    if-ne v0, v3, :cond_5b
-
-    iget v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->e:I
-
-    goto :goto_23
-
-    :cond_5b
-    move v0, v1
-
-    goto :goto_23
+    goto :goto_18
 .end method

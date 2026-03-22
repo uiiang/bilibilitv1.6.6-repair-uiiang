@@ -198,27 +198,27 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 180
+    .line 181
     iget-object v1, p0, Lbl/afa;->b:Lbl/afa$c;
 
     if-nez v1, :cond_6
 
-    .line 199
+    .line 200
     :cond_5
     :goto_5
     return-object v0
 
-    .line 183
+    .line 184
     :cond_6
     iget-object v1, p0, Lbl/afa;->b:Lbl/afa$c;
 
-    .line 184
+    .line 185
     if-nez v1, :cond_d
 
-    .line 185
+    .line 186
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 187
+    .line 188
     :cond_d
     invoke-virtual {v1}, Lbl/afa$c;->a()I
 
@@ -226,31 +226,31 @@
 
     if-eqz v1, :cond_5
 
-    .line 190
+    .line 191
     iget-object v0, p0, Lbl/afa;->a:Landroid/support/v7/widget/GridLayoutManager;
 
-    .line 191
+    .line 192
     if-nez v0, :cond_1a
 
-    .line 192
+    .line 193
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 194
+    .line 195
     :cond_1a
     invoke-virtual {v0}, Landroid/support/v7/widget/GridLayoutManager;->o()I
 
     move-result v0
 
-    .line 195
+    .line 196
     iget-object v1, p0, Lbl/afa;->a:Landroid/support/v7/widget/GridLayoutManager;
 
-    .line 196
+    .line 197
     if-nez v1, :cond_25
 
-    .line 197
+    .line 198
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 199
+    .line 200
     :cond_25
     invoke-virtual {v1, v0}, Landroid/support/v7/widget/GridLayoutManager;->c(I)Landroid/view/View;
 
@@ -281,10 +281,10 @@
     .locals 2
 
     .prologue
-    .line 386
+    .line 387
     invoke-super {p0, p1}, Lbl/adu;->onHiddenChanged(Z)V
 
-    .line 387
+    .line 388
     invoke-static {}, Lbl/wh;->a()Lbl/wh;
 
     move-result-object v1
@@ -296,10 +296,10 @@
     :goto_a
     invoke-virtual {v1, p0, v0}, Lbl/wh;->a(Landroid/support/v4/app/Fragment;Z)V
 
-    .line 388
+    .line 389
     return-void
 
-    .line 387
+    .line 388
     :cond_e
     const/4 v0, 0x0
 
@@ -314,72 +314,68 @@
     invoke-super {p0, p1}, Lbl/adu;->setUserVisibleHint(Z)V
 
     .line 152
-    if-eqz p1, :cond_1b
+    if-eqz p1, :cond_b
 
-    .line 153
     invoke-virtual {p0}, Lbl/afa;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 154
-    if-nez v0, :cond_13
+    if-nez v0, :cond_c
 
-    .line 155
-    new-instance v0, Lkotlin/TypeCastException;
-
-    const-string v1, "null cannot be cast to non-null type com.bilibili.tv.ui.main.MainActivity"
-
-    invoke-direct {v0, v1}, Lkotlin/TypeCastException;-><init>(Ljava/lang/String;)V
-
-    throw v0
-
-    .line 157
-    :cond_13
-    check-cast v0, Lcom/bilibili/tv/ui/main/MainActivity;
-
-    .line 158
-    invoke-virtual {p0}, Lbl/afa;->d()Landroid/support/v7/widget/RecyclerView;
-
-    move-result-object v1
-
-    if-nez v1, :cond_1c
-
-    .line 176
-    :cond_1b
-    :goto_1b
+    .line 177
+    :cond_b
+    :goto_b
     return-void
 
-    .line 161
-    :cond_1c
+    .line 155
+    :cond_c
+    invoke-virtual {p0}, Lbl/afa;->getActivity()Landroid/support/v4/app/FragmentActivity;
+
+    move-result-object v0
+
+    .line 156
+    if-eqz v0, :cond_b
+
+    .line 159
+    check-cast v0, Lcom/bilibili/tv/ui/main/MainActivity;
+
+    .line 160
     invoke-virtual {p0}, Lbl/afa;->d()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v1
 
-    .line 162
-    if-nez v1, :cond_25
+    if-eqz v1, :cond_b
 
     .line 163
-    invoke-static {}, Lbl/bbi;->a()V
+    invoke-virtual {p0}, Lbl/afa;->d()Landroid/support/v7/widget/RecyclerView;
+
+    move-result-object v1
+
+    .line 164
+    if-nez v1, :cond_23
 
     .line 165
-    :cond_25
+    invoke-static {}, Lbl/bbi;->a()V
+
+    .line 167
+    :cond_23
     iget v2, p0, Lbl/afa;->c:I
 
     invoke-virtual {v1, v2}, Landroid/support/v7/widget/RecyclerView;->a(I)V
 
-    .line 166
+    .line 168
     invoke-virtual {p0}, Lbl/afa;->d()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v1
 
-    .line 167
-    if-nez v1, :cond_33
-
-    .line 168
-    invoke-static {}, Lbl/bbi;->a()V
+    .line 169
+    if-nez v1, :cond_31
 
     .line 170
-    :cond_33
+    invoke-static {}, Lbl/bbi;->a()V
+
+    .line 172
+    :cond_31
     invoke-virtual {v1}, Landroid/support/v7/widget/RecyclerView;->getLayoutManager()Landroid/support/v7/widget/RecyclerView$h;
 
     move-result-object v1
@@ -390,17 +386,17 @@
 
     move-result-object v1
 
-    .line 171
-    if-eqz v1, :cond_1b
+    .line 173
+    if-eqz v1, :cond_b
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/MainActivity;->h()Z
 
     move-result v0
 
-    if-eqz v0, :cond_1b
+    if-eqz v0, :cond_b
 
-    .line 174
+    .line 176
     invoke-virtual {v1}, Landroid/view/View;->requestFocus()Z
 
-    goto :goto_1b
+    goto :goto_b
 .end method

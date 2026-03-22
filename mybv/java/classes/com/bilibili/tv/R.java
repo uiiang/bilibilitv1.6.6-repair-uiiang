@@ -2528,6 +2528,11 @@ public final class R {
         public static final int column_2_button = 0x7f0801b4;
         public static final int column_3_button = 0x7f0801b5;
         public static final int column_4_button = 0x7f0801b6;
+        public static final int tab_personal_recommend = 0x7f0801b7;
+        public static final int tab_hot_recommend = 0x7f0801b8;
+        public static final int tab_area = 0x7f0801b9;
+        public static final int tab_bangumi = 0x7f0801ba;
+        public static final int tab_pgc = 0x7f0801bb;
     }
 
     public static final class integer {

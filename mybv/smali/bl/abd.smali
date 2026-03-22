@@ -4,6 +4,18 @@
 
 
 # static fields
+.field public static final TAB_ALL:I = 0x1f
+
+.field public static final TAB_AREA:I = 0x4
+
+.field public static final TAB_BANGUMI:I = 0x8
+
+.field public static final TAB_HOT_RECOMMEND:I = 0x2
+
+.field public static final TAB_PERSONAL_RECOMMEND:I = 0x1
+
+.field public static final TAB_PGC:I = 0x10
+
 .field public static final a:[F
 
 .field public static final b:[F
@@ -38,6 +50,8 @@
 
 .field public static final speeds:[F
 
+.field private static topTabConfig:I
+
 
 # instance fields
 .field private d:Landroid/content/SharedPreferences;
@@ -57,14 +71,14 @@
     .line 15
     new-array v0, v2, [F
 
-    fill-array-data v0, :array_28
+    fill-array-data v0, :array_2a
 
     sput-object v0, Lbl/abd;->a:[F
 
     .line 16
     new-array v0, v2, [F
 
-    fill-array-data v0, :array_3c
+    fill-array-data v0, :array_3e
 
     sput-object v0, Lbl/abd;->b:[F
 
@@ -76,7 +90,7 @@
 
     new-array v0, v0, [F
 
-    fill-array-data v0, :array_50
+    fill-array-data v0, :array_52
 
     sput-object v0, Lbl/abd;->speeds:[F
 
@@ -98,10 +112,13 @@
     .line 354
     sput v1, Lbl/abd;->cacheLimitType:I
 
+    .line 379
+    sput v1, Lbl/abd;->topTabConfig:I
+
     return-void
 
     .line 15
-    :array_28
+    :array_2a
     .array-data 4
         0x3f000000    # 0.5f
         0x3f19999a    # 0.6f
@@ -114,7 +131,7 @@
     .end array-data
 
     .line 16
-    :array_3c
+    :array_3e
     .array-data 4
         0x3e99999a    # 0.3f
         0x3ecccccd    # 0.4f
@@ -127,7 +144,7 @@
     .end array-data
 
     .line 28
-    :array_50
+    :array_52
     .array-data 4
         0x40000000    # 2.0f
         0x3fc00000    # 1.5f
@@ -1463,6 +1480,53 @@
     goto :goto_8
 .end method
 
+.method public static get_top_tab_config(Landroid/content/Context;)I
+    .locals 3
+
+    .prologue
+    .line 394
+    sget v0, Lbl/abd;->topTabConfig:I
+
+    const/4 v1, -0x1
+
+    if-ne v0, v1, :cond_17
+
+    .line 395
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    const-string v1, "top_tab_config"
+
+    const/16 v2, 0x1f
+
+    invoke-interface {v0, v1, v2}, Landroid/content/SharedPreferences;->getInt(Ljava/lang/String;I)I
+
+    move-result v0
+
+    sput v0, Lbl/abd;->topTabConfig:I
+
+    .line 397
+    :cond_17
+    sget v0, Lbl/abd;->topTabConfig:I
+
+    if-nez v0, :cond_1e
+
+    const/4 v0, 0x1
+
+    sput v0, Lbl/abd;->topTabConfig:I
+
+    .line 398
+    :cond_1e
+    sget v0, Lbl/abd;->topTabConfig:I
+
+    return v0
+.end method
+
 .method public static h(Landroid/content/Context;)I
     .locals 3
 
@@ -1546,6 +1610,30 @@
     const/4 v0, 0x0
 
     goto :goto_7
+.end method
+
+.method public static is_tab_enabled(Landroid/content/Context;I)Z
+    .locals 1
+
+    .prologue
+    .line 402
+    invoke-static {p0}, Lbl/abd;->get_top_tab_config(Landroid/content/Context;)I
+
+    move-result v0
+
+    and-int/2addr v0, p1
+
+    if-eqz v0, :cond_9
+
+    const/4 v0, 0x1
+
+    :goto_8
+    return v0
+
+    :cond_9
+    const/4 v0, 0x0
+
+    goto :goto_8
 .end method
 
 .method private static declared-synchronized j(Landroid/content/Context;)V
@@ -1971,6 +2059,44 @@
     sput p1, Lbl/abd;->speed_id:I
 
     .line 193
+    return-void
+.end method
+
+.method public static set_top_tab_config(Landroid/content/Context;I)V
+    .locals 2
+
+    .prologue
+    .line 388
+    if-nez p1, :cond_3
+
+    const/4 p1, 0x1
+
+    .line 389
+    :cond_3
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    const-string v1, "top_tab_config"
+
+    invoke-interface {v0, v1, p1}, Landroid/content/SharedPreferences$Editor;->putInt(Ljava/lang/String;I)Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
+
+    .line 390
+    sput p1, Lbl/abd;->topTabConfig:I
+
+    .line 391
     return-void
 .end method
 

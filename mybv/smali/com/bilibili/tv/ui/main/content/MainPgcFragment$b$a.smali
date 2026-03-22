@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 366
+    .line 367
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 367
+    .line 368
     return-void
 .end method
 
@@ -30,9 +30,9 @@
     .locals 0
 
     .prologue
-    .line 370
+    .line 371
     invoke-direct {p0}, Lcom/bilibili/tv/ui/main/content/MainPgcFragment$b$a;-><init>()V
 
-    .line 371
+    .line 372
     return-void
 .end method

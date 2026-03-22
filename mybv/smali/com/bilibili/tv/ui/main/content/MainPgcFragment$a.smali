@@ -32,12 +32,12 @@
     .locals 0
 
     .prologue
-    .line 222
+    .line 223
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/MainPgcFragment$a;->this$0:Lcom/bilibili/tv/ui/main/content/MainPgcFragment;
 
     invoke-direct {p0}, Lbl/vm;-><init>()V
 
-    .line 223
+    .line 224
     return-void
 .end method
 
@@ -47,7 +47,7 @@
     .locals 1
 
     .prologue
-    .line 253
+    .line 254
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainPgcFragment$a;->this$0:Lcom/bilibili/tv/ui/main/content/MainPgcFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainPgcFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -81,12 +81,12 @@
     .locals 2
 
     .prologue
-    .line 258
+    .line 259
     const-string v0, "t"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 259
+    .line 260
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/content/MainPgcFragment$a;->this$0:Lcom/bilibili/tv/ui/main/content/MainPgcFragment;
@@ -97,7 +97,7 @@
 
     invoke-virtual {v0, p1, v1}, Lbl/adl;->a(Ljava/lang/Throwable;Landroid/app/Activity;)V
 
-    .line 260
+    .line 261
     return-void
 .end method
 
@@ -107,7 +107,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 228
+    .line 229
     const-string v0, "data"
 
     invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
@@ -120,7 +120,7 @@
 
     move-result-object v3
 
-    .line 229
+    .line 230
     const-string v0, "MainPgcFragment"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -147,19 +147,19 @@
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 230
+    .line 231
     new-instance v4, Lcom/alibaba/fastjson/JSONArray;
 
     invoke-direct {v4}, Lcom/alibaba/fastjson/JSONArray;-><init>()V
 
-    .line 231
+    .line 232
     new-instance v5, Ljava/util/HashSet;
 
     invoke-direct {v5}, Ljava/util/HashSet;-><init>()V
 
     move v0, v1
 
-    .line 232
+    .line 233
     :goto_34
     invoke-virtual {v3}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
@@ -167,7 +167,7 @@
 
     if-ge v0, v2, :cond_a1
 
-    .line 233
+    .line 234
     invoke-virtual {v3, v0}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v2
@@ -178,14 +178,14 @@
 
     move-result-object v6
 
-    .line 234
+    .line 235
     if-eqz v6, :cond_9c
 
     invoke-virtual {v6}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
     move-result v2
 
-    .line 235
+    .line 236
     :goto_4a
     const-string v7, "MainPgcFragment"
 
@@ -219,7 +219,7 @@
 
     invoke-static {v7, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 236
+    .line 237
     if-eqz v6, :cond_9e
 
     invoke-virtual {v6}, Lcom/alibaba/fastjson/JSONArray;->size()I
@@ -230,7 +230,7 @@
 
     move v2, v1
 
-    .line 237
+    .line 238
     :goto_75
     invoke-virtual {v6}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
@@ -238,19 +238,19 @@
 
     if-ge v2, v7, :cond_9e
 
-    .line 238
+    .line 239
     invoke-virtual {v6, v2}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v7
 
-    .line 239
+    .line 240
     const-string v8, "season_id"
 
     invoke-virtual {v7, v8}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
     move-result v8
 
-    .line 240
+    .line 241
     invoke-static {v8}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
     move-result-object v9
@@ -261,17 +261,17 @@
 
     if-nez v9, :cond_99
 
-    .line 241
+    .line 242
     invoke-static {v8}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
     move-result-object v8
 
     invoke-interface {v5, v8}, Ljava/util/Set;->add(Ljava/lang/Object;)Z
 
-    .line 242
+    .line 243
     invoke-virtual {v4, v7}, Lcom/alibaba/fastjson/JSONArray;->add(Ljava/lang/Object;)Z
 
-    .line 237
+    .line 238
     :cond_99
     add-int/lit8 v2, v2, 0x1
 
@@ -280,16 +280,16 @@
     :cond_9c
     move v2, v1
 
-    .line 234
+    .line 235
     goto :goto_4a
 
-    .line 232
+    .line 233
     :cond_9e
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_34
 
-    .line 247
+    .line 248
     :cond_a1
     const-string v0, "MainPgcFragment"
 
@@ -331,7 +331,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 248
+    .line 249
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainPgcFragment$a;->this$0:Lcom/bilibili/tv/ui/main/content/MainPgcFragment;
 
     # getter for: Lcom/bilibili/tv/ui/main/content/MainPgcFragment;->b:Lcom/bilibili/tv/ui/main/content/MainPgcFragment$b;
@@ -341,7 +341,7 @@
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/ui/main/content/MainPgcFragment$b;->a(Lcom/alibaba/fastjson/JSONArray;)V
 
-    .line 249
+    .line 250
     return-void
 .end method
 
@@ -349,7 +349,7 @@
     .locals 0
 
     .prologue
-    .line 220
+    .line 221
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/main/content/MainPgcFragment$a;->onSuccess(Lcom/alibaba/fastjson/JSONObject;)V

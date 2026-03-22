@@ -257,17 +257,17 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 208
+    .line 209
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->b:Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$b;
 
     if-nez v1, :cond_6
 
-    .line 215
+    .line 216
     :cond_5
     :goto_5
     return-object v0
 
-    .line 211
+    .line 212
     :cond_6
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->b:Lcom/bilibili/tv/ui/main/content/MainBangumiFragment$b;
 
@@ -277,14 +277,14 @@
 
     if-eqz v1, :cond_5
 
-    .line 214
+    .line 215
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->a:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->o()I
 
     move-result v0
 
-    .line 215
+    .line 216
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->a:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->c(I)Landroid/view/View;
@@ -316,10 +316,10 @@
     .locals 2
 
     .prologue
-    .line 570
+    .line 571
     invoke-super {p0, p1}, Lbl/adu;->onHiddenChanged(Z)V
 
-    .line 571
+    .line 572
     invoke-static {}, Lbl/wh;->a()Lbl/wh;
 
     move-result-object v1
@@ -331,10 +331,10 @@
     :goto_a
     invoke-virtual {v1, p0, v0}, Lbl/wh;->a(Landroid/support/v4/app/Fragment;Z)V
 
-    .line 572
+    .line 573
     return-void
 
-    .line 571
+    .line 572
     :cond_e
     const/4 v0, 0x0
 
@@ -349,43 +349,39 @@
     invoke-super {p0, p1}, Lbl/adu;->setUserVisibleHint(Z)V
 
     .line 188
-    if-eqz p1, :cond_1b
+    if-eqz p1, :cond_b
 
-    .line 189
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 190
-    if-nez v0, :cond_13
+    if-nez v0, :cond_c
+
+    .line 205
+    :cond_b
+    :goto_b
+    return-void
 
     .line 191
-    new-instance v0, Lkotlin/TypeCastException;
+    :cond_c
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
-    const-string v1, "null cannot be cast to non-null type com.bilibili.tv.ui.main.MainActivity"
+    move-result-object v0
 
-    invoke-direct {v0, v1}, Lkotlin/TypeCastException;-><init>(Ljava/lang/String;)V
+    .line 192
+    if-eqz v0, :cond_b
 
-    throw v0
-
-    .line 193
-    :cond_13
+    .line 195
     check-cast v0, Lcom/bilibili/tv/ui/main/MainActivity;
 
-    .line 194
+    .line 196
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->d()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v1
 
-    if-nez v1, :cond_1c
+    if-eqz v1, :cond_b
 
-    .line 204
-    :cond_1b
-    :goto_1b
-    return-void
-
-    .line 197
-    :cond_1c
+    .line 199
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->d()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v1
@@ -394,7 +390,7 @@
 
     invoke-virtual {v1, v2}, Landroid/support/v7/widget/RecyclerView;->a(I)V
 
-    .line 198
+    .line 200
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainBangumiFragment;->d()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v1
@@ -409,17 +405,17 @@
 
     move-result-object v1
 
-    .line 199
-    if-eqz v1, :cond_1b
+    .line 201
+    if-eqz v1, :cond_b
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/MainActivity;->h()Z
 
     move-result v0
 
-    if-eqz v0, :cond_1b
+    if-eqz v0, :cond_b
 
-    .line 202
+    .line 204
     invoke-virtual {v1}, Landroid/view/View;->requestFocus()Z
 
-    goto :goto_1b
+    goto :goto_b
 .end method

@@ -2503,6 +2503,11 @@
     <public type="id" name="column_2_button" id="0x7f0801b4" />
     <public type="id" name="column_3_button" id="0x7f0801b5" />
     <public type="id" name="column_4_button" id="0x7f0801b6" />
+    <public type="id" name="tab_personal_recommend" id="0x7f0801b7" />
+    <public type="id" name="tab_hot_recommend" id="0x7f0801b8" />
+    <public type="id" name="tab_area" id="0x7f0801b9" />
+    <public type="id" name="tab_bangumi" id="0x7f0801ba" />
+    <public type="id" name="tab_pgc" id="0x7f0801bb" />
 
 
     <public type="integer" name="config_danmaku_fly_duration" id="0x7f090003" />

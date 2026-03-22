@@ -28,15 +28,15 @@
     .locals 0
 
     .prologue
-    .line 294
+    .line 280
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/MainActivity$g;->this$0:Lcom/bilibili/tv/ui/main/MainActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 295
+    .line 281
     iput-object p2, p0, Lcom/bilibili/tv/ui/main/MainActivity$g;->b:Landroid/support/v7/widget/LinearLayoutManager;
 
-    .line 296
+    .line 282
     return-void
 .end method
 
@@ -48,23 +48,24 @@
     .prologue
     const/4 v3, 0x1
 
-    .line 300
-    iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$g;->b:Landroid/support/v7/widget/LinearLayoutManager;
+    .line 286
+    add-int/lit8 v0, p1, 0x1
 
-    add-int/lit8 v1, p1, 0x1
+    .line 287
+    iget-object v1, p0, Lcom/bilibili/tv/ui/main/MainActivity$g;->b:Landroid/support/v7/widget/LinearLayoutManager;
 
-    invoke-virtual {v0, v1}, Landroid/support/v7/widget/LinearLayoutManager;->c(I)Landroid/view/View;
+    invoke-virtual {v1, v0}, Landroid/support/v7/widget/LinearLayoutManager;->c(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 301
+    .line 288
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/MainActivity$g;->this$0:Lcom/bilibili/tv/ui/main/MainActivity;
 
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/main/MainActivity;->getCurrentFocus()Landroid/view/View;
 
     move-result-object v1
 
-    .line 302
+    .line 289
     instance-of v2, v0, Lcom/bilibili/tv/widget/MainTitleLayout;
 
     if-eqz v2, :cond_1c
@@ -73,19 +74,19 @@
 
     if-nez v1, :cond_1c
 
-    .line 303
+    .line 290
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/MainActivity$g;->this$0:Lcom/bilibili/tv/ui/main/MainActivity;
 
     invoke-virtual {v1, v3}, Lcom/bilibili/tv/ui/main/MainActivity;->b(Z)V
 
-    .line 305
+    .line 292
     :cond_1c
     if-eqz v0, :cond_21
 
-    .line 306
+    .line 293
     invoke-virtual {v0, v3}, Landroid/view/View;->setSelected(Z)V
 
-    .line 308
+    .line 295
     :cond_21
     return-void
 .end method
@@ -94,7 +95,7 @@
     .locals 0
 
     .prologue
-    .line 288
+    .line 274
     return-void
 .end method
 
@@ -102,6 +103,6 @@
     .locals 0
 
     .prologue
-    .line 292
+    .line 278
     return-void
 .end method
