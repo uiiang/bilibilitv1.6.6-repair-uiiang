@@ -14,9 +14,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import bl.adc;
 import bl.abd;
+import bl.vo;
+import com.alibaba.fastjson.JSONObject;
+import java.io.IOException;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import bl.bbi;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
@@ -46,8 +57,11 @@ import kotlin.TypeCastException;
 import mybl.BiliLiveContent;
 import mybl.BiliLiveContentEx2;
 import mybl.MyBiliApiService;
+import mybl.LogUtil;
+import mybl.WbiSigner;
 import com.alibaba.fastjson.*;
 import com.bilibili.tv.ui.live.player.LivePlayerActivity;
+import android.util.Log;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
@@ -236,8 +250,7 @@ public final class afi extends adt {
                     int H = afi.this.f.H();
                     if (H > afi.this.f.x()) {
                         afi.this.o++;
-                        if(afi.this.s==0)afi.this.f();
-                        else afi.this.a(afi.this.s);
+                        afi.this.a(afi.this.s);
                     }
                 }
             }
@@ -341,22 +354,18 @@ public final class afi extends adt {
     }
 
     public final void a(String str) {
+        android.util.Log.i("SearchFragment", "afi.a(String) called, keyword=" + str);
         bbi.b(str, "text");
         this.r = str;
-        n();
-        o();
-        e();
-        ok.a("tv_search_result", "keyword", str);
-    }
-
-    private final void n() {
-        this.s = 0;
+        this.o = 1;
         this.l = SearchActivity.Companion.c()[0];
         this.m = SearchActivity.Companion.d()[0];
         this.live_order = SearchActivity.live_orders[0];
+        ok.a("tv_search_result", "keyword", str);
+        searchVideo();
     }
 
-    public final void e() {
+    public final void searchVideo() {
         this.q = true;
         adn.a(this.c, 0, 10L);
         if (this.e != null) {
@@ -366,58 +375,378 @@ public final class afi extends adt {
             this.a.a();
             this.b.setVisibility(View.INVISIBLE);
         }
-        ((BiliSearchApi) vo.a(BiliSearchApi.class)).searchAll(new BiliSearchApi.SearchAllParamsMap(this.r, this.o, this.l, this.s)).a(this.h);
+        String access_key = mg.a(MainApplication.a()).e();
+        WbiSigner wbi = WbiSigner.getInstance();
+        java.util.TreeMap<String, String> params = new java.util.TreeMap<>();
+        params.put("search_type", "video");
+        params.put("keyword", this.r);
+        params.put("order", this.l);
+        params.put("page", String.valueOf(this.o));
+        params.put("pagesize", "20");
+        params.put("tids", String.valueOf(this.s));
+        // params.put("access_key", access_key);
+        String signedQuery = wbi.encWbiAndGetQuery(params);
+        String url = "https://api.bilibili.com/x/web-interface/wbi/search/type?" + signedQuery;
+        android.util.Log.i("SearchFragment", "SearchVideo URL: " + url);
+        android.util.Log.i("SearchFragment", "SearchVideo method called, s=" + this.s + ", o=" + this.o + ", access_key=" + access_key);
+        android.util.Log.i("SearchFragment", "SearchVideo start");
+        final SearchVideoResponse searchResponse = new SearchVideoResponse();
+        OkHttpClient client = vo.getOkHttpClient();
+        Request request = new Request.Builder().url(url).get().build();
+        android.util.Log.i("SearchFragment", "OkHttpClient created, executing request...");
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, final IOException e) {
+                android.util.Log.e("SearchFragment", "OkHttp onFailure: " + e.getMessage());
+                android.util.Log.e("SearchFragment", "Posting error to main thread...");
+                android.os.Handler mainHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        android.util.Log.e("SearchFragment", "Calling searchResponse.onError on main thread...");
+                        searchResponse.onError(e);
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                android.util.Log.d("SearchFragment", "OkHttp onResponse, code=" + response.code());
+                try {
+                    ResponseBody body = response.body();
+                    if (body != null) {
+                        String jsonStr = body.string();
+                        android.util.Log.d("SearchFragment", "OkHttp response body length=" + jsonStr.length());
+                        final com.alibaba.fastjson.JSONObject json = com.alibaba.fastjson.JSONObject.parseObject(jsonStr);
+                        final int code = json.getIntValue("code");
+                        final String message = json.getString("message");
+                        android.util.Log.d("SearchFragment", "API response code=" + code + ", message=" + message);
+                        android.util.Log.d("SearchFragment", "Posting response to main thread...");
+                        android.os.Handler mainHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+                        mainHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (code == 0) {
+                                    android.util.Log.d("SearchFragment", "API success, passing full json to response handler on main thread");
+                                    searchResponse.a(json);
+                                } else {
+                                    android.util.Log.e("SearchFragment", "API error: code=" + code + ", message=" + message);
+                                    com.bilibili.api.BiliApiException ex = new com.bilibili.api.BiliApiException(code, message);
+                                    searchResponse.onError(ex);
+                                }
+                            }
+                        });
+                    }
+                } catch (final Exception e) {
+                    android.util.Log.e("SearchFragment", "OkHttp parse error", e);
+                    android.os.Handler mainHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            searchResponse.onError(e);
+                        }
+                    });
+                }
+            }
+        });
+        android.util.Log.i("SearchFragment", "SearchVideo request sent");
     }
 
-    public final void f() {
+    public final void searchBangumi() {
         this.q = true;
         if (this.o == 1) {
             this.a.a();
             this.b.setVisibility(View.INVISIBLE);
         }
-        ((BiliSearchApi) vo.a(BiliSearchApi.class)).searchAll(new BiliSearchApi.SearchAllParamsMap(this.r, this.o, this.l, this.s)).a(this.i);
+        String access_key = mg.a(MainApplication.a()).e();
+        WbiSigner wbi = WbiSigner.getInstance();
+        java.util.TreeMap<String, String> params = new java.util.TreeMap<>();
+        params.put("search_type", "media_bangumi");
+        params.put("keyword", this.r);
+        params.put("order", this.l);
+        params.put("page", String.valueOf(this.o));
+        params.put("pagesize", "20");
+        params.put("access_key", access_key);
+        String signedQuery = wbi.encWbiAndGetQuery(params);
+        String url = "https://api.bilibili.com/x/web-interface/wbi/search/type?" + signedQuery;
+        android.util.Log.i("SearchFragment", "SearchBangumi URL: " + url);
+        android.util.Log.i("SearchFragment", "SearchBangumi method called, s=" + this.s);
+        android.util.Log.i("SearchFragment", "SearchBangumi start");
+        final SearchBangumiResponse searchResponse = new SearchBangumiResponse();
+        OkHttpClient client = vo.getOkHttpClient();
+        Request request = new Request.Builder().url(url).get().build();
+        android.util.Log.i("SearchFragment", "OkHttpClient created, executing request...");
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, final IOException e) {
+                android.util.Log.e("SearchFragment", "OkHttp onFailure: " + e.getMessage());
+                android.os.Handler mainHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        searchResponse.onError(e);
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                android.util.Log.d("SearchFragment", "OkHttp onResponse, code=" + response.code());
+                try {
+                    ResponseBody body = response.body();
+                    if (body != null) {
+                        String jsonStr = body.string();
+                        android.util.Log.d("SearchFragment", "OkHttp response body length=" + jsonStr.length());
+                        final com.alibaba.fastjson.JSONObject json = com.alibaba.fastjson.JSONObject.parseObject(jsonStr);
+                        final int code = json.getIntValue("code");
+                        final String message = json.getString("message");
+                        android.util.Log.d("SearchFragment", "API response code=" + code + ", message=" + message);
+                        android.os.Handler mainHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+                        mainHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (code == 0) {
+                                    searchResponse.a(json);
+                                } else {
+                                    com.bilibili.api.BiliApiException ex = new com.bilibili.api.BiliApiException(code, message);
+                                    searchResponse.onError(ex);
+                                }
+                            }
+                        });
+                    }
+                } catch (final Exception e) {
+                    android.util.Log.e("SearchFragment", "OkHttp parse error", e);
+                    android.os.Handler mainHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            searchResponse.onError(e);
+                        }
+                    });
+                }
+            }
+        });
     }
 
-    public final void g() {
+    public final void searchMediaFt() {
         this.q = true;
         if (this.o == 1) {
             this.a.a();
             this.b.setVisibility(View.INVISIBLE);
         }
-        ((BiliSearchApi) vo.a(BiliSearchApi.class)).searchPgc(new BiliSearchApi.SearchAllParamsMap(this.r, this.o, this.l, 0)).a(this.j);
+        String access_key = mg.a(MainApplication.a()).e();
+        WbiSigner wbi = WbiSigner.getInstance();
+        java.util.TreeMap<String, String> params = new java.util.TreeMap<>();
+        params.put("search_type", "media_ft");
+        params.put("keyword", this.r);
+        params.put("order", this.l);
+        params.put("page", String.valueOf(this.o));
+        params.put("pagesize", "20");
+        params.put("access_key", access_key);
+        String signedQuery = wbi.encWbiAndGetQuery(params);
+        String url = "https://api.bilibili.com/x/web-interface/wbi/search/type?" + signedQuery;
+        android.util.Log.i("SearchFragment", "SearchMediaFt URL: " + url);
+        final SearchMediaFtResponse searchResponse = new SearchMediaFtResponse();
+        OkHttpClient client = vo.getOkHttpClient();
+        Request request = new Request.Builder().url(url).get().build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, final IOException e) {
+                android.util.Log.e("SearchFragment", "OkHttp onFailure: " + e.getMessage());
+                android.os.Handler mainHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        searchResponse.onError(e);
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    ResponseBody body = response.body();
+                    if (body != null) {
+                        String jsonStr = body.string();
+                        final com.alibaba.fastjson.JSONObject json = com.alibaba.fastjson.JSONObject.parseObject(jsonStr);
+                        final int code = json.getIntValue("code");
+                        final String message = json.getString("message");
+                        android.os.Handler mainHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+                        mainHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (code == 0) {
+                                    searchResponse.a(json);
+                                } else {
+                                    com.bilibili.api.BiliApiException ex = new com.bilibili.api.BiliApiException(code, message);
+                                    searchResponse.onError(ex);
+                                }
+                            }
+                        });
+                    }
+                } catch (final Exception e) {
+                    android.os.Handler mainHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            searchResponse.onError(e);
+                        }
+                    });
+                }
+            }
+        });
     }
 
-    public final void h() {
+    public final void searchLiveRoom() {
         this.q = true;
         if (this.o == 1) {
             this.a.a();
             this.b.setVisibility(View.INVISIBLE);
         }
-        ((BiliSearchApi) vo.a(BiliSearchApi.class)).searchUper(new BiliSearchApi.SearchUperParamsMap(this.r, this.o, this.m)).a(this.k);
+        String access_key = mg.a(MainApplication.a()).e();
+        WbiSigner wbi = WbiSigner.getInstance();
+        java.util.TreeMap<String, String> params = new java.util.TreeMap<>();
+        params.put("search_type", "live_room");
+        params.put("keyword", this.r);
+        params.put("order", this.live_order);
+        params.put("page", String.valueOf(this.o));
+        params.put("pagesize", "20");
+        params.put("access_key", access_key);
+        String signedQuery = wbi.encWbiAndGetQuery(params);
+        String url = "https://api.bilibili.com/x/web-interface/wbi/search/type?" + signedQuery;
+        android.util.Log.i("SearchFragment", "SearchLiveRoom URL: " + url);
+        final SearchLiveRoomResponse searchResponse = new SearchLiveRoomResponse();
+        OkHttpClient client = vo.getOkHttpClient();
+        Request request = new Request.Builder().url(url).get().build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, final IOException e) {
+                android.os.Handler mainHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        searchResponse.onError(e);
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    ResponseBody body = response.body();
+                    if (body != null) {
+                        String jsonStr = body.string();
+                        final com.alibaba.fastjson.JSONObject json = com.alibaba.fastjson.JSONObject.parseObject(jsonStr);
+                        final int code = json.getIntValue("code");
+                        final String message = json.getString("message");
+                        android.os.Handler mainHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+                        mainHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (code == 0) {
+                                    searchResponse.a(json);
+                                } else {
+                                    com.bilibili.api.BiliApiException ex = new com.bilibili.api.BiliApiException(code, message);
+                                    searchResponse.onError(ex);
+                                }
+                            }
+                        });
+                    }
+                } catch (final Exception e) {
+                    android.os.Handler mainHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            searchResponse.onError(e);
+                        }
+                    });
+                }
+            }
+        });
     }
 
-    public final void getLives() {
+    public final void searchUser() {
         this.q = true;
         if (this.o == 1) {
             this.a.a();
             this.b.setVisibility(View.INVISIBLE);
         }
-        ((MyBiliApiService) vo.a(MyBiliApiService.class)).searchLive(this.r, this.o, 20, this.live_order).a(new SearchLiveResponse());
+        String access_key = mg.a(MainApplication.a()).e();
+        WbiSigner wbi = WbiSigner.getInstance();
+        java.util.TreeMap<String, String> params = new java.util.TreeMap<>();
+        params.put("search_type", "bili_user");
+        params.put("keyword", this.r);
+        params.put("order", this.m);
+        params.put("page", String.valueOf(this.o));
+        params.put("pagesize", "20");
+        params.put("access_key", access_key);
+        String signedQuery = wbi.encWbiAndGetQuery(params);
+        String url = "https://api.bilibili.com/x/web-interface/wbi/search/type?" + signedQuery;
+        android.util.Log.i("SearchFragment", "SearchUser URL: " + url);
+        final SearchUserResponse searchResponse = new SearchUserResponse();
+        OkHttpClient client = vo.getOkHttpClient();
+        Request request = new Request.Builder().url(url).get().build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, final IOException e) {
+                android.os.Handler mainHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        searchResponse.onError(e);
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    ResponseBody body = response.body();
+                    if (body != null) {
+                        String jsonStr = body.string();
+                        final com.alibaba.fastjson.JSONObject json = com.alibaba.fastjson.JSONObject.parseObject(jsonStr);
+                        final int code = json.getIntValue("code");
+                        final String message = json.getString("message");
+                        android.os.Handler mainHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+                        mainHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (code == 0) {
+                                    searchResponse.a(json);
+                                } else {
+                                    com.bilibili.api.BiliApiException ex = new com.bilibili.api.BiliApiException(code, message);
+                                    searchResponse.onError(ex);
+                                }
+                            }
+                        });
+                    }
+                } catch (final Exception e) {
+                    android.os.Handler mainHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            searchResponse.onError(e);
+                        }
+                    });
+                }
+            }
+        });
     }
 
     public final boolean i() {
-        return this.s == -2;
-    }
-
-    public final boolean is_live() {
-        return this.s == CategoryManager.T1_LIVE;
+        return this.s == 4;
     }
 
     public final boolean j() {
-        return this.s == -1;
+        return this.s == 0;
+    }
+
+    public final boolean is_live() {
+        return this.s == 3;
     }
 
     public final void b(String str) {
+        LogUtil.i(t, "b(String) called, order=" + str);
         bbi.b(str, "order");
         boolean equals = TextUtils.equals(str, this.l);
         this.l = str;
@@ -435,6 +764,7 @@ public final class afi extends adt {
     }
 
     public final void c(String order) {
+        LogUtil.i(t, "c(String) called, order=" + order);
         bbi.b(order, "order");
         boolean equals = TextUtils.equals(order, this.m);
         this.m = order;
@@ -453,6 +783,7 @@ public final class afi extends adt {
 
 
     public final void cc(String order) {
+        LogUtil.i(t, "cc(String) called, order=" + order);
         if(TextUtils.equals(order, this.live_order))return;
         this.live_order = order;
         View m2 = m();
@@ -518,6 +849,7 @@ public final class afi extends adt {
         @Override // bl.vn
         public void a(BiliSearchResultAllNew biliSearchResultAllNew) {
             SearchKeyboardView h;
+            LogUtil.json(afi.t, biliSearchResultAllNew);
             if (afi.this.d == null || biliSearchResultAllNew == null || !afi.this.isVisible()) {
                 return;
             }
@@ -820,14 +1152,509 @@ public final class afi extends adt {
     }
 
 
-    public final class SearchLiveResponse extends vn<JSONObject> {
+    public final class SearchVideoResponse extends vn<JSONObject> {
 
-        @Override // bl.vm
+        @Override
         public boolean isCancel() {
             return afi.this.d == null;
         }
 
-        @Override // bl.vn
+        @Override
+        public void a(JSONObject response) {
+            android.util.Log.d("SearchFragment", "SearchVideoResponse.a() called");
+            android.util.Log.d("SearchFragment", "SearchVideoResponse.a(), response=" + (response != null ? response.toJSONString().substring(0, Math.min(500, response.toJSONString().length())) : "null"));
+            LogUtil.json(afi.t + "_SearchVideo", response);
+            SearchKeyboardView h;
+            JSONObject result = response.getJSONObject("data");
+            android.util.Log.d("SearchFragment", "SearchVideoResponse.a(), result from data=" + (result != null ? "not null, size=" + result.size() : "null"));
+            if (result == null) {
+                android.util.Log.w("SearchFragment", "SearchVideoResponse.a(), data field is null, trying to use root as data");
+                result = response;
+            }
+            android.util.Log.d("SearchFragment", "SearchVideoResponse.a(), result keys=" + (result != null ? result.keySet() : "null"));
+            JSONArray archives = result.getJSONArray("result");
+            android.util.Log.d("SearchFragment", "SearchVideoResponse.a(), archives=" + (archives != null ? archives.size() : "null") + ", isVisible=" + afi.this.isVisible() + ", d=" + (afi.this.d != null));
+            if (afi.this.d == null || archives == null || !afi.this.isVisible()) {
+                android.util.Log.e("SearchFragment", "SearchVideoResponse.a(), early return: d=" + (afi.this.d != null) + ", archives=" + (archives != null) + ", isVisible=" + afi.this.isVisible());
+                return;
+            }
+            afi.this.q = false;
+            android.util.Log.d("SearchFragment", "SearchVideoResponse.a(), q set to false");
+            FragmentActivity activity = afi.this.getActivity();
+            if (!(activity instanceof SearchActivity)) {
+                activity = null;
+            }
+            SearchActivity searchActivity = (SearchActivity) activity;
+            if (searchActivity != null) {
+                if (archives.isEmpty()) {
+                    if (searchActivity.h() != null) {
+                        if (afi.this.o == 1) {
+                            afi.this.b.setVisibility(4);
+                            afi.this.a.c();
+                        }
+                        if (searchActivity.j() && (h = searchActivity.h()) != null) {
+                            h.j(37);
+                        }
+                        searchActivity.i().setFocusable(false);
+                    }
+                    afi.this.p = false;
+                    return;
+                }
+                searchActivity.a(false);
+                afi.this.a.b();
+                if (afi.this.b.getVisibility() == 4) {
+                    afi.this.b.setVisibility(0);
+                }
+                ArrayList<BiliSearchResultNew.Video> videos = new ArrayList<>();
+                for (int i = 0; i < archives.size(); i++) {
+                    JSONObject item = archives.getJSONObject(i);
+                    BiliSearchResultNew.Video video = new BiliSearchResultNew.Video();
+                    String title = item.getString("title");
+                    video.title = android.text.Html.fromHtml(title).toString();
+                    video.author = item.getString("author");
+                    video.play = String.valueOf(item.getInteger("play"));
+                    video.danmaku = String.valueOf(item.getInteger("video_review"));
+                    video.cover = item.getString("pic");
+                    video.param = String.valueOf(item.getLong("aid"));
+                    if (item.containsKey("pubdate")) {
+                        long pubdate = item.getLong("pubdate");
+                        video.pubdateFormatted = com.bilibili.tv.util.DateHelper.formatDate(pubdate);
+                    }
+                    videos.add(video);
+                }
+                if (!videos.isEmpty()) {
+                    afi.this.d.b(videos);
+                }
+            }
+        }
+
+        @Override
+        public void onError(Throwable th) {
+            android.util.Log.e("SearchFragment", "SearchVideo onError: " + th.getMessage());
+            SearchKeyboardView h;
+            bbi.b(th, "t");
+            if (afi.this.d == null) {
+                return;
+            }
+            afi.this.q = false;
+            FragmentActivity activity = afi.this.getActivity();
+            if (!(activity instanceof SearchActivity)) {
+                activity = null;
+            }
+            SearchActivity searchActivity = (SearchActivity) activity;
+            if (searchActivity != null) {
+                Toast.makeText(searchActivity, "搜索失败: " + th.getMessage(), Toast.LENGTH_SHORT).show();
+                if (searchActivity.h() != null) {
+                    searchActivity.i().setFocusable(false);
+                    if (afi.this.o == 1) {
+                        afi.this.b.setVisibility(4);
+                        afi.this.a.setRefreshError(false);
+                    }
+                    if (searchActivity.j() && (h = searchActivity.h()) != null) {
+                        h.j(37);
+                    }
+                }
+                searchActivity.a(false);
+            }
+        }
+    }
+
+
+    public final class SearchBangumiResponse extends vn<JSONObject> {
+
+        @Override
+        public boolean isCancel() {
+            return afi.this.d == null;
+        }
+
+        @Override
+        public void a(JSONObject response) {
+            LogUtil.json(afi.t + "_SearchBangumi", response);
+            SearchKeyboardView h;
+            JSONObject result = response.getJSONObject("data");
+            if (result == null) {
+                return;
+            }
+            JSONArray seasons = result.getJSONArray("result");
+            if (afi.this.d == null || seasons == null || !afi.this.isVisible()) {
+                return;
+            }
+            afi.this.q = false;
+            FragmentActivity activity = afi.this.getActivity();
+            if (!(activity instanceof SearchActivity)) {
+                activity = null;
+            }
+            SearchActivity searchActivity = (SearchActivity) activity;
+            if (searchActivity != null) {
+                if (seasons.isEmpty()) {
+                    if (searchActivity.h() != null) {
+                        if (afi.this.o == 1) {
+                            afi.this.b.setVisibility(4);
+                            afi.this.a.c();
+                        }
+                        if (searchActivity.j() && (h = searchActivity.h()) != null) {
+                            h.j(37);
+                        }
+                        searchActivity.i().setFocusable(false);
+                    }
+                    afi.this.p = false;
+                    return;
+                }
+                searchActivity.a(false);
+                afi.this.a.b();
+                if (afi.this.b.getVisibility() == 4) {
+                    afi.this.b.setVisibility(0);
+                }
+                ArrayList<BiliSearchResultNew.Bangumi> bangumis = new ArrayList<>();
+                for (int i = 0; i < seasons.size(); i++) {
+                    JSONObject item = seasons.getJSONObject(i);
+                    BiliSearchResultNew.Bangumi bangumi = new BiliSearchResultNew.Bangumi();
+                    String title = item.getString("title");
+                    bangumi.title = android.text.Html.fromHtml(title).toString();
+                    bangumi.cover = item.getString("cover");
+                    bangumi.param = String.valueOf(item.getLong("season_id"));
+                    if (item.containsKey("index_show")) {
+                        bangumi.indexShow = item.getString("index_show");
+                    }
+                    if (item.containsKey("season_type_name")) {
+                        bangumi.seasonTypeName = item.getString("season_type_name");
+                    }
+                    if (item.containsKey("areas")) {
+                        bangumi.areas = item.getString("areas");
+                    }
+                    bangumis.add(bangumi);
+                }
+                if (!bangumis.isEmpty()) {
+                    afi.this.d.a(bangumis);
+                }
+            }
+        }
+
+        @Override
+        public void onError(Throwable th) {
+            SearchKeyboardView h;
+            bbi.b(th, "t");
+            if (afi.this.d == null) {
+                return;
+            }
+            afi.this.q = false;
+            FragmentActivity activity = afi.this.getActivity();
+            if (!(activity instanceof SearchActivity)) {
+                activity = null;
+            }
+            SearchActivity searchActivity = (SearchActivity) activity;
+            if (searchActivity != null) {
+                if (searchActivity.h() != null) {
+                    searchActivity.i().setFocusable(false);
+                    if (afi.this.o == 1) {
+                        afi.this.b.setVisibility(4);
+                        afi.this.a.setRefreshError(false);
+                    }
+                    if (searchActivity.j() && (h = searchActivity.h()) != null) {
+                        h.j(37);
+                    }
+                }
+                searchActivity.a(false);
+            }
+        }
+    }
+
+
+    public final class SearchMediaFtResponse extends vn<JSONObject> {
+
+        @Override
+        public boolean isCancel() {
+            return afi.this.d == null;
+        }
+
+        @Override
+        public void a(JSONObject response) {
+            LogUtil.json(afi.t + "_SearchMediaFt", response);
+            SearchKeyboardView h;
+            JSONObject result = response.getJSONObject("data");
+            if (result == null) {
+                return;
+            }
+            JSONArray movies = result.getJSONArray("result");
+            if (afi.this.d == null || movies == null || !afi.this.isVisible()) {
+                return;
+            }
+            afi.this.q = false;
+            FragmentActivity activity = afi.this.getActivity();
+            if (!(activity instanceof SearchActivity)) {
+                activity = null;
+            }
+            SearchActivity searchActivity = (SearchActivity) activity;
+            if (searchActivity != null) {
+                if (movies.isEmpty()) {
+                    if (searchActivity.h() != null) {
+                        if (afi.this.o == 1) {
+                            afi.this.b.setVisibility(4);
+                            afi.this.a.c();
+                        }
+                        if (searchActivity.j() && (h = searchActivity.h()) != null) {
+                            h.j(37);
+                        }
+                        searchActivity.i().setFocusable(false);
+                    }
+                    afi.this.p = false;
+                    return;
+                }
+                searchActivity.a(false);
+                afi.this.a.b();
+                if (afi.this.b.getVisibility() == 4) {
+                    afi.this.b.setVisibility(0);
+                }
+                ArrayList<BiliSearchResultNew.Bangumi> mediaList = new ArrayList<>();
+                for (int i = 0; i < movies.size(); i++) {
+                    JSONObject item = movies.getJSONObject(i);
+                    BiliSearchResultNew.Bangumi media = new BiliSearchResultNew.Bangumi();
+                    String title = item.getString("title");
+                    media.title = android.text.Html.fromHtml(title).toString();
+                    media.cover = item.getString("cover");
+                    media.param = String.valueOf(item.getLong("season_id"));
+                    if (item.containsKey("index_show")) {
+                        media.indexShow = item.getString("index_show");
+                    }
+                    if (item.containsKey("season_type_name")) {
+                        media.seasonTypeName = item.getString("season_type_name");
+                    }
+                    if (item.containsKey("areas")) {
+                        media.areas = item.getString("areas");
+                    }
+                    if (item.containsKey("styles")) {
+                        String styles = item.getString("styles");
+                        if (media.indexShow != null && styles != null) {
+                            media.indexShow = media.indexShow + " | " + styles;
+                        } else if (styles != null) {
+                            media.indexShow = styles;
+                        }
+                    }
+                    mediaList.add(media);
+                }
+                if (!mediaList.isEmpty()) {
+                    afi.this.d.a(mediaList);
+                }
+            }
+        }
+
+        @Override
+        public void onError(Throwable th) {
+            android.util.Log.e("SearchFragment", "SearchMediaFt onError: " + th.getMessage());
+            SearchKeyboardView h;
+            bbi.b(th, "t");
+            if (afi.this.d == null) {
+                return;
+            }
+            afi.this.q = false;
+            FragmentActivity activity = afi.this.getActivity();
+            if (!(activity instanceof SearchActivity)) {
+                activity = null;
+            }
+            SearchActivity searchActivity = (SearchActivity) activity;
+            if (searchActivity != null) {
+                Toast.makeText(searchActivity, "搜索失败: " + th.getMessage(), Toast.LENGTH_SHORT).show();
+                if (searchActivity.h() != null) {
+                    searchActivity.i().setFocusable(false);
+                    if (afi.this.o == 1) {
+                        afi.this.b.setVisibility(4);
+                        afi.this.a.setRefreshError(false);
+                    }
+                    if (searchActivity.j() && (h = searchActivity.h()) != null) {
+                        h.j(37);
+                    }
+                }
+                searchActivity.a(false);
+            }
+        }
+    }
+
+
+    public final class SearchLiveRoomResponse extends vn<JSONObject> {
+
+        @Override
+        public boolean isCancel() {
+            return afi.this.d == null;
+        }
+
+        @Override
+        public void a(JSONObject response) {
+            LogUtil.json(afi.t + "_SearchLiveRoom", response);
+            SearchKeyboardView h;
+            JSONObject result = response.getJSONObject("data");
+            if (result == null) {
+                return;
+            }
+            JSONArray liveRooms = result.getJSONArray("result");
+            if (afi.this.d == null || liveRooms == null || !afi.this.isVisible()) {
+                return;
+            }
+            afi.this.q = false;
+            FragmentActivity activity = afi.this.getActivity();
+            if (!(activity instanceof SearchActivity)) {
+                activity = null;
+            }
+            SearchActivity searchActivity = (SearchActivity) activity;
+            if (searchActivity != null) {
+                if (liveRooms.isEmpty()) {
+                    if (searchActivity.h() != null) {
+                        if (afi.this.o == 1) {
+                            afi.this.b.setVisibility(4);
+                            afi.this.a.c();
+                        }
+                        if (searchActivity.j() && (h = searchActivity.h()) != null) {
+                            h.j(37);
+                        }
+                        searchActivity.i().setFocusable(false);
+                    }
+                    afi.this.p = false;
+                    return;
+                }
+                searchActivity.a(false);
+                afi.this.a.b();
+                if (afi.this.b.getVisibility() == 4) {
+                    afi.this.b.setVisibility(0);
+                }
+                List<BiliLiveContent> rooms = new ArrayList<>(JSON.parseArray(liveRooms.toString(), BiliLiveContentEx2.class));
+                if (!rooms.isEmpty()) {
+                    afi.this.d.addRooms(rooms);
+                }
+            }
+        }
+
+        @Override
+        public void onError(Throwable th) {
+            android.util.Log.e("SearchFragment", "SearchLiveRoom onError: " + th.getMessage());
+            SearchKeyboardView h;
+            bbi.b(th, "t");
+            if (afi.this.d == null) {
+                return;
+            }
+            afi.this.q = false;
+            FragmentActivity activity = afi.this.getActivity();
+            if (!(activity instanceof SearchActivity)) {
+                activity = null;
+            }
+            SearchActivity searchActivity = (SearchActivity) activity;
+            if (searchActivity != null) {
+                Toast.makeText(searchActivity, "搜索失败: " + th.getMessage(), Toast.LENGTH_SHORT).show();
+                if (searchActivity.h() != null) {
+                    searchActivity.i().setFocusable(false);
+                    if (afi.this.o == 1) {
+                        afi.this.b.setVisibility(4);
+                        afi.this.a.setRefreshError(false);
+                    }
+                    if (searchActivity.j() && (h = searchActivity.h()) != null) {
+                        h.j(37);
+                    }
+                }
+                searchActivity.a(false);
+            }
+        }
+    }
+
+    public final class SearchUserResponse extends vn<JSONObject> {
+
+        @Override
+        public boolean isCancel() {
+            return afi.this.d == null;
+        }
+
+        @Override
+        public void a(JSONObject response) {
+            LogUtil.json(afi.t + "_SearchUser", response);
+            SearchKeyboardView h;
+            JSONObject result = response.getJSONObject("data");
+            if (result == null) {
+                return;
+            }
+            JSONArray users = result.getJSONArray("result");
+            if (afi.this.d == null || users == null || !afi.this.isVisible()) {
+                return;
+            }
+            afi.this.q = false;
+            FragmentActivity activity = afi.this.getActivity();
+            if (!(activity instanceof SearchActivity)) {
+                activity = null;
+            }
+            SearchActivity searchActivity = (SearchActivity) activity;
+            if (searchActivity != null) {
+                if (users.isEmpty()) {
+                    if (searchActivity.h() != null) {
+                        if (afi.this.o == 1) {
+                            afi.this.b.setVisibility(4);
+                            afi.this.a.c();
+                        }
+                        if (searchActivity.j() && (h = searchActivity.h()) != null) {
+                            h.j(37);
+                        }
+                        searchActivity.i().setFocusable(false);
+                    }
+                    afi.this.p = false;
+                    return;
+                }
+                searchActivity.a(false);
+                afi.this.a.b();
+                if (afi.this.b.getVisibility() == 4) {
+                    afi.this.b.setVisibility(0);
+                }
+                ArrayList<BiliSearchResultUper> upers = new ArrayList<>();
+                for (int i = 0; i < users.size(); i++) {
+                    JSONObject item = users.getJSONObject(i);
+                    BiliSearchResultUper uper = new BiliSearchResultUper();
+                    uper.uname = item.getString("uname");
+                    uper.upic = item.getString("upic");
+                    uper.usign = item.getString("usign");
+                    uper.mid = item.getLong("mid");
+                    uper.fans = item.getIntValue("fans");
+                    uper.videos = item.getIntValue("videos");
+                    upers.add(uper);
+                }
+                if (!upers.isEmpty()) {
+                    afi.this.d.c(upers);
+                }
+            }
+        }
+
+        @Override
+        public void onError(Throwable th) {
+            SearchKeyboardView h;
+            bbi.b(th, "t");
+            if (afi.this.d == null) {
+                return;
+            }
+            afi.this.q = false;
+            FragmentActivity activity = afi.this.getActivity();
+            if (!(activity instanceof SearchActivity)) {
+                activity = null;
+            }
+            SearchActivity searchActivity = (SearchActivity) activity;
+            if (searchActivity != null) {
+                Toast.makeText(searchActivity, "搜索失败: " + th.getMessage(), Toast.LENGTH_SHORT).show();
+                if (searchActivity.h() != null) {
+                    searchActivity.i().setFocusable(false);
+                    if (afi.this.o == 1) {
+                        afi.this.b.setVisibility(4);
+                        afi.this.a.setRefreshError(false);
+                    }
+                    if (searchActivity.j() && (h = searchActivity.h()) != null) {
+                        h.j(37);
+                    }
+                }
+                searchActivity.a(false);
+            }
+        }
+    }
+
+
+    public final class OldSearchLiveResponse extends vn<JSONObject> {
+
+        @Override
+        public boolean isCancel() {
+            return afi.this.d == null;
+        }
+
+        @Override
         public void a(JSONObject response) {
             SearchKeyboardView h;
             List<BiliLiveContent> rooms = new ArrayList<BiliLiveContent>(JSON.parseArray(response.getJSONObject("result").getJSONArray("live_room").toString(), BiliLiveContentEx2.class));
@@ -869,6 +1696,7 @@ public final class afi extends adt {
 
         @Override // bl.vm
         public void onError(Throwable th) {
+            android.util.Log.e("SearchFragment", "OldSearchLive onError: " + th.getMessage());
             SearchKeyboardView h;
             bbi.b(th, "t");
             if (afi.this.d == null) {
@@ -881,6 +1709,7 @@ public final class afi extends adt {
             }
             SearchActivity searchActivity = (SearchActivity) activity;
             if (searchActivity != null) {
+                Toast.makeText(searchActivity, "搜索失败: " + th.getMessage(), Toast.LENGTH_SHORT).show();
                 if (searchActivity.h() != null) {
                     searchActivity.i().setFocusable(false);
                     if (afi.this.o == 1) {
@@ -1191,6 +2020,7 @@ public final class afi extends adt {
         private TextView p;
         private TextView q;
         private TextView r;
+        private TextView u;
         private final DrawRelativeLayout s;
         private final RecyclerView t;
 
@@ -1204,6 +2034,7 @@ public final class afi extends adt {
             this.p = (TextView) a(itemView, R.id.up);
             this.q = (TextView) a(itemView, R.id.play);
             this.r = (TextView) a(itemView, R.id.danmaku);
+            this.u = (TextView) a(itemView, R.id.pubdate);
             this.s = (DrawRelativeLayout) itemView;
             this.t = (RecyclerView) parent;
             this.s.setUpDrawable(R.drawable.shadow_white_rect);
@@ -1246,7 +2077,19 @@ public final class afi extends adt {
                     this.r.setText(adh.a(video.danmaku));
                 }
                 if (video.cover != null) {
-                    nv.a().a(abd.get_thumb_url_c(MainApplication.a(), video.cover), this.n);
+                    String coverUrl = video.cover;
+                    if (!coverUrl.startsWith("http")) {
+                        coverUrl = "https:" + coverUrl;
+                    }
+                    String processedUrl = abd.get_thumb_url_c(MainApplication.a(), coverUrl);
+                    android.util.Log.i("SearchFragment", "Video binding cover: " + video.cover + " -> " + processedUrl);
+                    nv.a().a(processedUrl, this.n);
+                } else {
+                    android.util.Log.w("SearchFragment", "Video cover is null");
+                }
+                if (video.pubdateFormatted != null) {
+                    this.u.setText(video.pubdateFormatted);
+                    android.util.Log.d("SearchFragment", "Video pubdate: " + video.pubdateFormatted);
                 }
                 View itemView = this.a;
                 bbi.a((Object) itemView, "itemView");
@@ -1337,25 +2180,19 @@ public final class afi extends adt {
                 if (bangumi.title != null) {
                     this.o.setText(bangumi.title);
                 }
-                this.p.setText(ads.a(bangumi.seasonType) + " | " + bangumi.area);
-                if (bangumi.rating > 0) {
-                    this.q.setVisibility(0);
-                    TextView textView = this.q;
-                    StringBuilder sb = new StringBuilder();
-                    sb.append(bangumi.rating);
-                    sb.append((char) 20998);
-                    textView.setText(sb.toString());
-                } else {
-                    this.q.setVisibility(8);
-                }
-                if (bangumi.vote > 0) {
-                    this.r.setVisibility(0);
-                    this.r.setText(adh.a(bangumi.vote) + "人");
-                } else {
-                    this.r.setVisibility(8);
-                }
+                String typeText = bangumi.indexShow != null ? bangumi.indexShow : (ads.a(bangumi.seasonType) + " | " + bangumi.area);
+                this.p.setText(typeText);
+                android.util.Log.d("SearchFragment", "Bangumi indexShow: " + bangumi.indexShow + ", seasonTypeName: " + bangumi.seasonTypeName + ", areas: " + bangumi.areas);
+                String numText = bangumi.seasonTypeName != null ? bangumi.seasonTypeName : "";
+                this.q.setText(numText);
+                String countText = bangumi.areas != null ? bangumi.areas : "";
+                this.r.setText(countText);
                 if (bangumi.cover != null) {
-                    nv.a().a(abd.get_thumb_url_b(MainApplication.a(), bangumi.cover), this.n);
+                    String coverUrl = bangumi.cover;
+                    if (!coverUrl.startsWith("http")) {
+                        coverUrl = "https:" + coverUrl;
+                    }
+                    nv.a().a(abd.get_thumb_url_b(MainApplication.a(), coverUrl), this.n);
                 }
                 View view = this.a;
                 bbi.a((Object) view, "itemView");
@@ -1373,7 +2210,7 @@ public final class afi extends adt {
             if (!(tag instanceof BiliSearchResultNew.Bangumi) || a == null) {
                 return;
             }
-            a.startActivity(BangumiDetailActivity.Companion.a(a, ((BiliSearchResultNew.Bangumi) tag).param));
+            a.startActivity(BangumiDetailActivity.Companion.a(a, String.valueOf(((BiliSearchResultNew.Bangumi) tag).param)));
         }
 
         /* JADX WARN: Multi-variable type inference failed */
@@ -1452,7 +2289,11 @@ public final class afi extends adt {
                     this.q.setText(biliSearchResultUper.videos + "个视频");
                 }
                 if (!TextUtils.isEmpty(biliSearchResultUper.upic)) {
-                    nv.a().a(abd.get_thumb_url_b(MainApplication.a(), biliSearchResultUper.upic), this.n);
+                    String upicUrl = biliSearchResultUper.upic;
+                    if (!upicUrl.startsWith("http")) {
+                        upicUrl = "https:" + upicUrl;
+                    }
+                    nv.a().a(abd.get_thumb_url_b(MainApplication.a(), upicUrl), this.n);
                 }
                 this.s.setVisibility(8);
                 View view = this.a;
@@ -1509,6 +2350,7 @@ public final class afi extends adt {
         public ScalableImageView n;
         public TextView o;
         public TextView p;
+        public TextView u;
         public DrawRelativeLayout q;
         private DrawRelativeLayout t;
 
@@ -1518,10 +2360,17 @@ public final class afi extends adt {
             bbi.b(view, "itemView");
             this.n = (ScalableImageView) a(view, R.id.img);
             this.o = (TextView) a(view, R.id.title);
-            this.p = (TextView) a(view, R.id.sub_title);
+            this.p = (TextView) a(view, R.id.up);
+            this.u = (TextView) a(view, R.id.pubdate);
             this.q = (DrawRelativeLayout) a(view, R.id.draw);
             this.t = (DrawRelativeLayout) view;
             this.t.setUpDrawable(R.drawable.shadow_white_rect);
+            Drawable c = adl.a.c(R.drawable.ic_video_info_up);
+            int b = adl.b(R.dimen.px_34);
+            c.setBounds(0, 0, b, b);
+            int d = adl.d(R.color.white_50);
+            c.setColorFilter(d, PorterDuff.Mode.MULTIPLY);
+            this.p.setCompoundDrawables(c, null, null, null);
             Object context = view.getContext();
             if (context instanceof View.OnLongClickListener) {
                 view.setOnLongClickListener((View.OnLongClickListener) context);
@@ -1537,11 +2386,31 @@ public final class afi extends adt {
                 if (biliLive.mTitle != null) {
                     this.o.setText(biliLive.mTitle);
                 }
+                if (biliLive.mUname != null) {
+                    this.p.setText(biliLive.mUname);
+                }
                 if (biliLive.mOnline > 0) {
-                    this.p.setText("在线 " + adh.a(biliLive.mOnline));
+                    this.u.setText("在线人数 " + adh.a(biliLive.mOnline));
                 }
                 if (!TextUtils.isEmpty(biliLive.mCover)) {
-                    nv.a().a(abd.get_thumb_url_b(MainApplication.a(), biliLive.mCover), this.n);
+                    String coverUrl = biliLive.mCover;
+                    if (!coverUrl.startsWith("http")) {
+                        coverUrl = "https:" + coverUrl;
+                    }
+                    nv.a().a(abd.get_thumb_url_c(MainApplication.a(), coverUrl), this.n);
+                }
+                if (this.n.getParent() instanceof ViewGroup) {
+                    ViewGroup frameLayout = (ViewGroup) this.n.getParent();
+                    for (int i = 0; i < frameLayout.getChildCount(); i++) {
+                        View child = frameLayout.getChildAt(i);
+                        if (child instanceof LinearLayout) {
+                            LinearLayout ll = (LinearLayout) child;
+                            if (ll.getChildCount() > 0 && ll.getChildAt(0) instanceof LinearLayout) {
+                                ll.setVisibility(View.GONE);
+                                break;
+                            }
+                        }
+                    }
                 }
                 this.a.setTag(obj);
             }
@@ -1579,47 +2448,43 @@ public final class afi extends adt {
             }
 
             public final LiveRoomView a(ViewGroup parent) {
-                return new LiveRoomView(LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_item_video_history, parent, false));
+                return new LiveRoomView(LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_item_video_info, parent, false));
             }
         }
     }
 
 
     private final List<CategoryMeta> p() {
-        CategoryMeta rootCategory = CategoryManager.getRootCategory(getActivity());
-        if (rootCategory == null) {
-            return null;
-        }
-        List<CategoryMeta> children = rootCategory.getChildren();
-        ArrayList arrayList = new ArrayList(13);
-        for (CategoryMeta categoryMeta : children) {
-            if (categoryMeta.mTid != 13 && categoryMeta.mTid != 167) {
-                arrayList.add(categoryMeta);
-            }
-        }
-        arrayList.add(0, new CategoryMeta(0, "全部", 0));
-        arrayList.add(1, new CategoryMeta(-1, "番剧影视", 0));
-        arrayList.add(2, new CategoryMeta(-2, "用户", 0));
+        ArrayList arrayList = new ArrayList(5);
+        arrayList.add(0, new CategoryMeta(0, "视频", 0));
+        arrayList.add(1, new CategoryMeta(1, "番剧", 0));
+        arrayList.add(2, new CategoryMeta(2, "影视", 0));
+        arrayList.add(3, new CategoryMeta(3, "直播", 0));
+        arrayList.add(4, new CategoryMeta(4, "用户", 0));
         return arrayList;
     }
 
     public final void a(int i2) {
+        LogUtil.i(t, "a(int) called with i2=" + i2);
         if (i2 == 0) {
-            e();
+            searchVideo();
             return;
         }
         switch (i2) {
-            case -1:
-                g();
+            case 1:
+                searchBangumi();
                 return;
-            case -2:
-                h();
+            case 2:
+                searchMediaFt();
                 return;
-            case CategoryManager.T1_LIVE:
-                getLives();
+            case 3:
+                searchLiveRoom();
+                return;
+            case 4:
+                searchUser();
                 return;
             default:
-                f();
+                searchVideo();
                 return;
         }
     }
@@ -1712,9 +2577,11 @@ public final class afi extends adt {
 
         @Override // java.lang.Runnable
         public void run() {
+            LogUtil.i(t, "Category run() called");
             afi afiVar = this.c.get();
             if (afiVar != null) {
                 CategoryMeta categoryMeta = this.f.get(this.e);
+                LogUtil.i(t, "Category run, position=" + this.e + ", mTid=" + categoryMeta.mTid + ", mTypeName=" + categoryMeta.mTypeName);
                 afiVar.s = categoryMeta.mTid;
                 afiVar.o();
                 afiVar.a(categoryMeta.mTid);

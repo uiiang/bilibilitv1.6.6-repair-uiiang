@@ -1,0 +1,463 @@
+.class public Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;
+.super Lbl/adz;
+.source "SearchResultSideActivity.java"
+
+# interfaces
+.implements Ljava/lang/Runnable;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/bilibili/tv/ui/search/SearchResultSideActivity;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x9
+    name = "a"
+.end annotation
+
+.annotation system Ldalvik/annotation/Signature;
+    value = {
+        "Lbl/adz",
+        "<",
+        "Landroid/support/v7/widget/RecyclerView$v;",
+        ">;",
+        "Ljava/lang/Runnable;"
+    }
+.end annotation
+
+
+# instance fields
+.field private a:Ljava/lang/ref/WeakReference;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "Ljava/lang/ref/WeakReference",
+            "<",
+            "Lcom/bilibili/tv/ui/search/SearchResultSideActivity;",
+            ">;"
+        }
+    .end annotation
+.end field
+
+.field private c:I
+
+.field private d:J
+
+.field private e:Z
+
+.field private folders:Ljava/util/List;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "Ljava/util/List",
+            "<",
+            "Lbl/SearchFolder;",
+            ">;"
+        }
+    .end annotation
+.end field
+
+
+# direct methods
+.method public constructor <init>(Lcom/bilibili/tv/ui/search/SearchResultSideActivity;Ljava/util/List;)V
+    .locals 1
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Lcom/bilibili/tv/ui/search/SearchResultSideActivity;",
+            "Ljava/util/List",
+            "<",
+            "Lbl/SearchFolder;",
+            ">;)V"
+        }
+    .end annotation
+
+    .prologue
+    .line 221
+    invoke-direct {p0}, Lbl/adz;-><init>()V
+
+    .line 222
+    new-instance v0, Ljava/lang/ref/WeakReference;
+
+    invoke-direct {v0, p1}, Ljava/lang/ref/WeakReference;-><init>(Ljava/lang/Object;)V
+
+    iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->a:Ljava/lang/ref/WeakReference;
+
+    .line 223
+    iput-object p2, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->folders:Ljava/util/List;
+
+    .line 224
+    return-void
+.end method
+
+.method static synthetic access$000(Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;)Ljava/lang/ref/WeakReference;
+    .locals 1
+
+    .prologue
+    .line 209
+    iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->a:Ljava/lang/ref/WeakReference;
+
+    return-object v0
+.end method
+
+.method static synthetic access$100(Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;)Z
+    .locals 1
+
+    .prologue
+    .line 209
+    iget-boolean v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->e:Z
+
+    return v0
+.end method
+
+.method static synthetic access$200(Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;)J
+    .locals 2
+
+    .prologue
+    .line 209
+    iget-wide v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->d:J
+
+    return-wide v0
+.end method
+
+.method static synthetic access$202(Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;J)J
+    .locals 1
+
+    .prologue
+    .line 209
+    iput-wide p1, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->d:J
+
+    return-wide p1
+.end method
+
+.method static synthetic access$302(Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;I)I
+    .locals 0
+
+    .prologue
+    .line 209
+    iput p1, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->c:I
+
+    return p1
+.end method
+
+
+# virtual methods
+.method public a()I
+    .locals 1
+
+    .prologue
+    .line 293
+    iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->folders:Ljava/util/List;
+
+    invoke-interface {v0}, Ljava/util/List;->size()I
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public a(Landroid/view/ViewGroup;I)Landroid/support/v7/widget/RecyclerView$v;
+    .locals 1
+
+    .prologue
+    .line 228
+    invoke-static {p1}, Lbl/agf;->a(Landroid/view/ViewGroup;)Lbl/agf;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public a(Landroid/support/v7/widget/RecyclerView$v;I)V
+    .locals 5
+
+    .prologue
+    .line 233
+    instance-of v0, p1, Lbl/agf;
+
+    if-eqz v0, :cond_3f
+
+    .line 234
+    iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->folders:Ljava/util/List;
+
+    invoke-interface {v0, p2}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lbl/SearchFolder;
+
+    move-object v1, p1
+
+    .line 236
+    check-cast v1, Lbl/agf;
+
+    .line 237
+    invoke-virtual {v0}, Lbl/SearchFolder;->getTitle()Ljava/lang/String;
+
+    move-result-object v2
+
+    if-eqz v2, :cond_1e
+
+    .line 238
+    iget-object v2, v1, Lbl/agf;->n:Landroid/widget/TextView;
+
+    invoke-virtual {v0}, Lbl/SearchFolder;->getTitle()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v2, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    .line 240
+    :cond_1e
+    iget-object v2, v1, Lbl/agf;->n:Landroid/widget/TextView;
+
+    const/4 v3, 0x1
+
+    invoke-virtual {v2, v3}, Landroid/widget/TextView;->setMaxLines(I)V
+
+    .line 242
+    iget-object v2, p1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
+
+    const v3, 0x7f0800d8
+
+    invoke-static {p2}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object v4
+
+    invoke-virtual {v2, v3, v4}, Landroid/view/View;->setTag(ILjava/lang/Object;)V
+
+    .line 243
+    iget-object v2, p1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
+
+    invoke-virtual {v2, v0}, Landroid/view/View;->setTag(Ljava/lang/Object;)V
+
+    .line 245
+    iget-object v2, p1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
+
+    new-instance v3, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a$1;
+
+    invoke-direct {v3, p0, p1, v1, v0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a$1;-><init>(Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;Landroid/support/v7/widget/RecyclerView$v;Lbl/agf;Lbl/SearchFolder;)V
+
+    invoke-virtual {v2, v3}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
+
+    .line 289
+    :cond_3f
+    return-void
+.end method
+
+.method public b(Z)V
+    .locals 0
+
+    .prologue
+    .line 297
+    iput-boolean p1, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->e:Z
+
+    .line 298
+    return-void
+.end method
+
+.method public e()I
+    .locals 1
+
+    .prologue
+    .line 218
+    const/4 v0, 0x0
+
+    return v0
+.end method
+
+.method public f()I
+    .locals 1
+
+    .prologue
+    .line 301
+    iget v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->c:I
+
+    return v0
+.end method
+
+.method public run()V
+    .locals 8
+
+    .prologue
+    const/4 v1, 0x0
+
+    .line 306
+    iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->a:Ljava/lang/ref/WeakReference;
+
+    invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;
+
+    .line 307
+    if-eqz v0, :cond_11
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->isFinishing()Z
+
+    move-result v2
+
+    if-eqz v2, :cond_12
+
+    .line 349
+    :cond_11
+    :goto_11
+    return-void
+
+    .line 310
+    :cond_12
+    iget-object v2, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->folders:Ljava/util/List;
+
+    if-eqz v2, :cond_11
+
+    iget v2, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->c:I
+
+    iget-object v3, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->folders:Ljava/util/List;
+
+    invoke-interface {v3}, Ljava/util/List;->size()I
+
+    move-result v3
+
+    if-ge v2, v3, :cond_11
+
+    .line 313
+    :try_start_20
+    iget-boolean v2, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->e:Z
+
+    if-nez v2, :cond_11
+
+    .line 316
+    # invokes: Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->j()Landroid/support/v7/widget/RecyclerView;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->access$500(Lcom/bilibili/tv/ui/search/SearchResultSideActivity;)Landroid/support/v7/widget/RecyclerView;
+
+    move-result-object v5
+
+    .line 317
+    const/4 v3, 0x0
+
+    .line 318
+    if-eqz v5, :cond_80
+
+    move v4, v1
+
+    .line 319
+    :goto_2c
+    invoke-virtual {v5}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
+
+    move-result v2
+
+    if-ge v4, v2, :cond_80
+
+    .line 320
+    invoke-virtual {v5, v4}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
+
+    move-result-object v2
+
+    .line 321
+    invoke-virtual {v5, v2}, Landroid/support/v7/widget/RecyclerView;->g(Landroid/view/View;)I
+
+    move-result v6
+
+    iget v7, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->c:I
+
+    if-ne v6, v7, :cond_74
+
+    .line 329
+    :goto_3e
+    if-eqz v2, :cond_4a
+
+    .line 330
+    sget v3, Landroid/os/Build$VERSION;->SDK_INT:I
+
+    const/16 v4, 0x15
+
+    if-lt v3, v4, :cond_78
+
+    .line 331
+    invoke-virtual {v2}, Landroid/view/View;->isAttachedToWindow()Z
+
+    move-result v1
+
+    .line 336
+    :cond_4a
+    :goto_4a
+    if-eqz v2, :cond_11
+
+    if-eqz v1, :cond_11
+
+    invoke-virtual {v2}, Landroid/view/View;->hasFocus()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_11
+
+    .line 339
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->h()Landroid/support/v4/app/Fragment;
+
+    move-result-object v1
+
+    .line 340
+    instance-of v2, v1, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
+
+    if-eqz v2, :cond_64
+
+    .line 341
+    check-cast v1, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
+
+    .line 342
+    invoke-virtual {v1}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->isLoading()Z
+
+    move-result v1
+
+    if-nez v1, :cond_11
+
+    .line 346
+    :cond_64
+    iget-object v1, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->folders:Ljava/util/List;
+
+    iget v2, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->c:I
+
+    invoke-interface {v1, v2}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v1
+
+    check-cast v1, Lbl/SearchFolder;
+
+    # invokes: Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->showSearchResultList(Lbl/SearchFolder;)V
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->access$400(Lcom/bilibili/tv/ui/search/SearchResultSideActivity;Lbl/SearchFolder;)V
+
+    goto :goto_11
+
+    .line 347
+    :catch_72
+    move-exception v0
+
+    goto :goto_11
+
+    .line 319
+    :cond_74
+    add-int/lit8 v2, v4, 0x1
+
+    move v4, v2
+
+    goto :goto_2c
+
+    .line 333
+    :cond_78
+    invoke-virtual {v2}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
+    :try_end_7b
+    .catch Ljava/lang/Exception; {:try_start_20 .. :try_end_7b} :catch_72
+
+    move-result-object v3
+
+    if-eqz v3, :cond_4a
+
+    const/4 v1, 0x1
+
+    goto :goto_4a
+
+    :cond_80
+    move-object v2, v3
+
+    goto :goto_3e
+.end method

@@ -211,6 +211,7 @@ public final class SearchActivity extends BaseActivity implements View.OnLongCli
 
         @Override // com.bilibili.tv.ui.search.SearchKeyboardView.f
         public void b(String str) {
+            android.util.Log.i("SearchActivity", "b(String) called with: " + str);
             bbi.b(str, "searchText");
             if (TextUtils.isEmpty(str)) {
                 lr.b(SearchActivity.this, SearchActivity.this.getString(R.string.search_none_word));
@@ -228,8 +229,7 @@ public final class SearchActivity extends BaseActivity implements View.OnLongCli
     }
 
     public final void a(String str) {
-        List a2;
-        long i;
+        android.util.Log.i("SearchActivity", "a(String) called with: " + str);
         bbi.b(str, "text");
         BLog.i(j, "search " + str);
         String str2 = str;
@@ -237,77 +237,8 @@ public final class SearchActivity extends BaseActivity implements View.OnLongCli
             return;
         }
         this.i = str;
-        View view = this.a;
-        if (view == null) {
-            bbi.b("focusHolder");
-        }
-        view.setFocusable(true);
-        View view2 = this.a;
-        if (view2 == null) {
-            bbi.b("focusHolder");
-        }
-        view2.requestFocus();
-        this.c = true;
-        SearchKeyboardView searchKeyboardView = this.b;
-        if (searchKeyboardView == null) {
-            bbi.a();
-        }
-        searchKeyboardView.getSearchText().setFocusable(false);
-        SearchKeyboardView searchKeyboardView2 = this.b;
-        if (searchKeyboardView2 == null) {
-            bbi.a();
-        }
-        searchKeyboardView2.setSearchText(str);
-        View currentFocus = getCurrentFocus();
-        if (currentFocus instanceof EditText) {
-            currentFocus.clearFocus();
-            lk.a(this);
-        }
-        u();
-        afi afiVar = this.g;
-        if (afiVar == null) {
-            bbi.a();
-        }
-        afiVar.a(str);
         b(str);
-        List<String> a3 = new Regex("AVAV").a(str2, 0);
-        if (!a3.isEmpty()) {
-            ListIterator<String> listIterator = a3.listIterator(a3.size());
-            while (listIterator.hasPrevious()) {
-                if (!(listIterator.previous().length() == 0)) {
-                    a2 = baf.b(a3, listIterator.nextIndex() + 1);
-                    break;
-                }
-            }
-        }
-        a2 = baf.a();
-        List list = a2;
-        if (list == null) {
-            throw new TypeCastException("null cannot be cast to non-null type java.util.Collection<T>");
-        }
-        Object[] array = list.toArray(new String[0]);
-        if (array == null) {
-            throw new TypeCastException("null cannot be cast to non-null type kotlin.Array<T>");
-        }
-        String[] strArr = (String[]) array;
-        if (strArr.length > 1) {
-            String str3 = strArr[0];
-            if (TextUtils.equals(str3, strArr[1])) {
-                try {
-                    Long valueOf = Long.valueOf(str3);
-                    if (valueOf == null) {
-                        bbi.a();
-                    }
-                    i = valueOf.longValue();
-                } catch (NumberFormatException unused) {
-                    i = 0;
-                }
-                if (i == 0) {
-                    return;
-                }
-                startActivity(VideoDetailActivity.Companion.a((Context) this, i));
-            }
-        }
+        SearchResultSideActivity.a((Context) this, str, this.e);
     }
 
     private final void b(String str) {
@@ -517,14 +448,18 @@ public final class SearchActivity extends BaseActivity implements View.OnLongCli
     }
 
     private final void u() {
+        android.util.Log.i("SearchActivity", "u() called");
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         Fragment findFragmentByTag = supportFragmentManager.findFragmentByTag(afi.Companion.a());
+        android.util.Log.i("SearchActivity", "u() findFragmentByTag: " + findFragmentByTag);
         if (!(findFragmentByTag instanceof afi)) {
             findFragmentByTag = null;
         }
         this.g = (afi) findFragmentByTag;
+        android.util.Log.i("SearchActivity", "u() this.g after find: " + this.g);
         if (this.g == null) {
             this.g = afi.Companion.a(this.e);
+            android.util.Log.i("SearchActivity", "u() created new fragment: " + this.g);
         }
         afi afiVar = this.g;
         if (afiVar == null) {

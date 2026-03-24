@@ -37,7 +37,8 @@
         android:layout_weight="1"
         android:orientation="horizontal">
         <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_26"
-          android:textColor="@color/white" android:gravity="center_vertical" android:id="@id/play"
+          android:textColor="@color/white" android:gravity="center_vertical" 
+          android:id="@id/play"
           android:focusable="false" android:duplicateParentState="true"
           android:layout_width="wrap_content" android:layout_height="wrap_content"
           android:maxLines="1"

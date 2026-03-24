@@ -20,6 +20,7 @@ public abstract class vm<T> implements Callback<T> {
 
     @Override // retrofit2.Callback
     public void onResponse(@Nullable Call<T> call, Response<T> response) {
+        android.util.Log.d("vm", "onResponse called, isCancel=" + isCancel() + ", response=" + (response != null ? response.code() : "null"));
         if (isCancel()) {
             return;
         }
@@ -32,6 +33,7 @@ public abstract class vm<T> implements Callback<T> {
 
     @Override // retrofit2.Callback
     public void onFailure(@Nullable Call<T> call, Throwable th) {
+        android.util.Log.e("vm", "onFailure called, isCancel=" + isCancel() + ", th=" + th.getMessage());
         if (isCancel()) {
             return;
         }

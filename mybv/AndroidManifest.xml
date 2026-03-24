@@ -30,6 +30,7 @@
         </activity>
         <activity android:name="com.bilibili.tv.ui.main.MainActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.search.SearchActivity" android:screenOrientation="landscape" android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name="com.bilibili.tv.ui.search.SearchResultSideActivity" android:screenOrientation="landscape"/>
         <activity android:launchMode="singleTop" android:name="com.bilibili.tv.ui.account.LoginActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.history.VideoHistoryActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.history.HistorySideActivity" android:screenOrientation="landscape"/>

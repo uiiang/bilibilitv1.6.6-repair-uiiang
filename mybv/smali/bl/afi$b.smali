@@ -41,7 +41,7 @@
     .end annotation
 
     .prologue
-    .line 1089
+    .line 1918
     invoke-direct {p0}, Lbl/adb;-><init>()V
 
     check-cast p1, Ljava/util/ArrayList;
@@ -57,7 +57,7 @@
     .locals 1
 
     .prologue
-    .line 1100
+    .line 1929
     iget-object v0, p0, Lbl/afi$b;->a:Ljava/util/ArrayList;
 
     invoke-virtual {v0}, Ljava/util/ArrayList;->size()I
@@ -71,7 +71,7 @@
     .locals 2
 
     .prologue
-    .line 1102
+    .line 1931
     invoke-virtual {p0, p1}, Lbl/afi$b;->c(I)I
 
     move-result v0
@@ -98,7 +98,7 @@
     .end annotation
 
     .prologue
-    .line 1103
+    .line 1932
     iget-object v0, p0, Lbl/afi$b;->a:Ljava/util/ArrayList;
 
     invoke-virtual {v0, p1}, Ljava/util/ArrayList;->addAll(Ljava/util/Collection;)Z
@@ -110,7 +110,7 @@
     .locals 2
 
     .prologue
-    .line 1094
+    .line 1923
     iget-object v0, p0, Lbl/afi$b;->a:Ljava/util/ArrayList;
 
     invoke-virtual {p0, p1}, Lbl/afi$b;->e(I)I
@@ -123,12 +123,12 @@
 
     check-cast v0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;
 
-    .line 1095
+    .line 1924
     const-string v1, "mContents[offsetPosition]"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 1096
+    .line 1925
     return-object v0
 .end method
 
@@ -145,7 +145,7 @@
     .end annotation
 
     .prologue
-    .line 1090
+    .line 1919
     iget-object v0, p0, Lbl/afi$b;->a:Ljava/util/ArrayList;
 
     return-object v0
@@ -155,7 +155,7 @@
     .locals 1
 
     .prologue
-    .line 1088
+    .line 1917
     const/4 v0, 0x2
 
     return v0

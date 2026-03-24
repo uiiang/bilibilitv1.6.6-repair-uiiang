@@ -1025,30 +1025,102 @@
     .end annotation
 .end method
 
-.method public abstract searchLive(Ljava/lang/String;IILjava/lang/String;)Lbl/vp;
+.method public abstract search(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IILjava/lang/String;Ljava/lang/String;)Lbl/vp;
     .param p1    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "search_type"
+        .end annotation
+    .end param
+    .param p2    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Query;
             value = "keyword"
         .end annotation
     .end param
-    .param p2    # I
+    .param p3    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "order"
+        .end annotation
+    .end param
+    .param p4    # I
         .annotation runtime Lretrofit2/http/Query;
             value = "page"
         .end annotation
     .end param
-    .param p3    # I
+    .param p5    # I
         .annotation runtime Lretrofit2/http/Query;
-            value = "page_size"
+            value = "pagesize"
         .end annotation
     .end param
-    .param p4    # Ljava/lang/String;
+    .param p6    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Query;
-            value = "order"
+            value = "tids"
+        .end annotation
+    .end param
+    .param p7    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "access_key"
         .end annotation
     .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            "II",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            ")",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Lcom/alibaba/fastjson/JSONObject;",
+            ">;>;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/GET;
+        value = "/x/web-interface/wbi/search/type"
+    .end annotation
+.end method
+
+.method public abstract searchLiveRoom(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IILjava/lang/String;)Lbl/vp;
+    .param p1    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "search_type"
+        .end annotation
+    .end param
+    .param p2    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "keyword"
+        .end annotation
+    .end param
+    .param p3    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "order"
+        .end annotation
+    .end param
+    .param p4    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "page"
+        .end annotation
+    .end param
+    .param p5    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "pagesize"
+        .end annotation
+    .end param
+    .param p6    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "access_key"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
             "Ljava/lang/String;",
             "II",
             "Ljava/lang/String;",
@@ -1063,13 +1135,30 @@
     .end annotation
 
     .annotation runtime Lretrofit2/http/GET;
-        value = "/x/web-interface/search/type?search_type=live"
+        value = "/x/web-interface/wbi/search/type"
+    .end annotation
+.end method
+
+.method public abstract searchWithWbi(Ljava/lang/String;)Lretrofit2/Call;
+    .param p1    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Url;
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            ")",
+            "Lretrofit2/Call",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Lcom/alibaba/fastjson/JSONObject;",
+            ">;>;"
+        }
     .end annotation
 
-    .annotation runtime Lretrofit2/http/Headers;
-        value = {
-            "Cookie: "
-        }
+    .annotation runtime Lretrofit2/http/GET;
     .end annotation
 .end method
 

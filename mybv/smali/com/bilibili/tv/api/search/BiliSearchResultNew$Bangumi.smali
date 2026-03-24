@@ -1,6 +1,6 @@
 .class public Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;
 .super Ljava/lang/Object;
-.source "BL"
+.source "BiliSearchResultNew.java"
 
 # interfaces
 .implements Landroid/os/Parcelable;
@@ -24,7 +24,8 @@
 .field public static final CREATOR:Landroid/os/Parcelable$Creator;
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "Landroid/os/Parcelable$Creator<",
+            "Landroid/os/Parcelable$Creator",
+            "<",
             "Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;",
             ">;"
         }
@@ -35,11 +36,9 @@
 # instance fields
 .field public area:Ljava/lang/String;
 
+.field public areas:Ljava/lang/String;
+
 .field public catDesc:Ljava/lang/String;
-    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
-        name = "cat_desc"
-    .end annotation
-.end field
 
 .field public cover:Ljava/lang/String;
 
@@ -47,37 +46,25 @@
 
 .field public index:Ljava/lang/String;
 
+.field public indexShow:Ljava/lang/String;
+
 .field public newestCat:Ljava/lang/String;
-    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
-        name = "newest_cat"
-    .end annotation
-.end field
 
 .field public newestSeason:Ljava/lang/String;
-    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
-        name = "newest_season"
-    .end annotation
-.end field
 
 .field public param:Ljava/lang/String;
 
 .field public rating:I
 
 .field public seasonType:I
-    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
-        name = "media_type"
-    .end annotation
-.end field
+
+.field public seasonTypeName:Ljava/lang/String;
 
 .field public staff:Ljava/lang/String;
 
 .field public title:Ljava/lang/String;
 
 .field public totalCount:Ljava/lang/String;
-    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
-        name = "total_count"
-    .end annotation
-.end field
 
 .field public uri:Ljava/lang/String;
 
@@ -88,7 +75,8 @@
 .method static constructor <clinit>()V
     .locals 1
 
-    .line 96
+    .prologue
+    .line 131
     new-instance v0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi$1;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi$1;-><init>()V
@@ -101,88 +89,113 @@
 .method public constructor <init>()V
     .locals 0
 
-    .line 80
+    .prologue
+    .line 143
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
+    .line 144
     return-void
 .end method
 
 .method protected constructor <init>(Landroid/os/Parcel;)V
     .locals 1
 
-    .line 83
+    .prologue
+    .line 146
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 84
+    .line 147
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->title:Ljava/lang/String;
 
-    .line 85
+    .line 148
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->cover:Ljava/lang/String;
 
-    .line 86
+    .line 149
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->uri:Ljava/lang/String;
 
-    .line 87
+    .line 150
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->param:Ljava/lang/String;
 
-    .line 88
+    .line 151
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->index:Ljava/lang/String;
 
-    .line 89
+    .line 152
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->totalCount:Ljava/lang/String;
 
-    .line 90
+    .line 153
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->finish:I
 
-    .line 91
+    .line 154
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->catDesc:Ljava/lang/String;
 
-    .line 92
+    .line 155
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->newestCat:Ljava/lang/String;
 
-    .line 93
+    .line 156
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
-    move-result-object p1
+    move-result-object v0
 
-    iput-object p1, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->newestSeason:Ljava/lang/String;
+    iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->newestSeason:Ljava/lang/String;
 
+    .line 157
+    invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
+
+    move-result-object v0
+
+    iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->areas:Ljava/lang/String;
+
+    .line 158
+    invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
+
+    move-result-object v0
+
+    iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->indexShow:Ljava/lang/String;
+
+    .line 159
+    invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
+
+    move-result-object v0
+
+    iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->seasonTypeName:Ljava/lang/String;
+
+    .line 160
     return-void
 .end method
 
@@ -191,63 +204,82 @@
 .method public describeContents()I
     .locals 1
 
+    .prologue
+    .line 164
     const/4 v0, 0x0
 
     return v0
 .end method
 
 .method public writeToParcel(Landroid/os/Parcel;I)V
-    .locals 0
+    .locals 1
 
-    .line 115
-    iget-object p2, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->title:Ljava/lang/String;
+    .prologue
+    .line 169
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->title:Ljava/lang/String;
 
-    invoke-virtual {p1, p2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 116
-    iget-object p2, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->cover:Ljava/lang/String;
+    .line 170
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->cover:Ljava/lang/String;
 
-    invoke-virtual {p1, p2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 117
-    iget-object p2, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->uri:Ljava/lang/String;
+    .line 171
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->uri:Ljava/lang/String;
 
-    invoke-virtual {p1, p2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 118
-    iget-object p2, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->param:Ljava/lang/String;
+    .line 172
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->param:Ljava/lang/String;
 
-    invoke-virtual {p1, p2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 119
-    iget-object p2, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->index:Ljava/lang/String;
+    .line 173
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->index:Ljava/lang/String;
 
-    invoke-virtual {p1, p2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 120
-    iget-object p2, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->totalCount:Ljava/lang/String;
+    .line 174
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->totalCount:Ljava/lang/String;
 
-    invoke-virtual {p1, p2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 121
-    iget p2, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->finish:I
+    .line 175
+    iget v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->finish:I
 
-    invoke-virtual {p1, p2}, Landroid/os/Parcel;->writeInt(I)V
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 122
-    iget-object p2, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->catDesc:Ljava/lang/String;
+    .line 176
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->catDesc:Ljava/lang/String;
 
-    invoke-virtual {p1, p2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 123
-    iget-object p2, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->newestCat:Ljava/lang/String;
+    .line 177
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->newestCat:Ljava/lang/String;
 
-    invoke-virtual {p1, p2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 124
-    iget-object p2, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->newestSeason:Ljava/lang/String;
+    .line 178
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->newestSeason:Ljava/lang/String;
 
-    invoke-virtual {p1, p2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
+    .line 179
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->areas:Ljava/lang/String;
+
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+
+    .line 180
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->indexShow:Ljava/lang/String;
+
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+
+    .line 181
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->seasonTypeName:Ljava/lang/String;
+
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+
+    .line 182
     return-void
 .end method

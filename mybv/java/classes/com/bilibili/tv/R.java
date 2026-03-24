@@ -2699,6 +2699,8 @@ public final class R {
         public static final int fragment_weekly_video = 0x7f0a0094;
         public static final int fragment_attention_dynamic_video = 0x7f0a0095;
         public static final int recycler_view_item_main_recommend_compact = 0x7f0a0096;
+        public static final int activity_search_result_side = 0x7f0a0097;
+        public static final int fragment_search_result_video = 0x7f0a0098;
     }
 
     public static final class mipmap {

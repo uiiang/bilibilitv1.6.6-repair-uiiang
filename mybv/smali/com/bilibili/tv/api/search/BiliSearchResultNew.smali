@@ -1,6 +1,6 @@
 .class public Lcom/bilibili/tv/api/search/BiliSearchResultNew;
 .super Ljava/lang/Object;
-.source "BL"
+.source "BiliSearchResultNew.java"
 
 # interfaces
 .implements Landroid/os/Parcelable;
@@ -12,11 +12,11 @@
 
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;,
+        Lcom/bilibili/tv/api/search/BiliSearchResultNew$Movie;,
         Lcom/bilibili/tv/api/search/BiliSearchResultNew$Special;,
         Lcom/bilibili/tv/api/search/BiliSearchResultNew$Upuser;,
-        Lcom/bilibili/tv/api/search/BiliSearchResultNew$Movie;,
-        Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;
+        Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;,
+        Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;
     }
 .end annotation
 
@@ -25,7 +25,8 @@
 .field public static final CREATOR:Landroid/os/Parcelable$Creator;
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "Landroid/os/Parcelable$Creator<",
+            "Landroid/os/Parcelable$Creator",
+            "<",
             "Lcom/bilibili/tv/api/search/BiliSearchResultNew;",
             ">;"
         }
@@ -37,7 +38,8 @@
 .field public archive:Ljava/util/ArrayList;
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "Ljava/util/ArrayList<",
+            "Ljava/util/ArrayList",
+            "<",
             "Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;",
             ">;"
         }
@@ -47,22 +49,33 @@
 .field public movie:Ljava/util/ArrayList;
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "Ljava/util/ArrayList<",
-            "Lcom/bilibili/tv/api/search/BiliSearchResultNew$Movie;",
+            "Ljava/util/ArrayList",
+            "<",
+            "Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;",
             ">;"
         }
     .end annotation
 .end field
 
 .field public season:Ljava/util/ArrayList;
-    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
-        name = "season2"
-    .end annotation
-
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "Ljava/util/ArrayList<",
+            "Ljava/util/ArrayList",
+            "<",
             "Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;",
+            ">;"
+        }
+    .end annotation
+.end field
+
+.field public trackId:Ljava/lang/String;
+
+.field public upuser:Ljava/util/ArrayList;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "Ljava/util/ArrayList",
+            "<",
+            "Lcom/bilibili/tv/api/search/BiliSearchResultNew$Upuser;",
             ">;"
         }
     .end annotation
@@ -73,7 +86,8 @@
 .method static constructor <clinit>()V
     .locals 1
 
-    .line 32
+    .prologue
+    .line 17
     new-instance v0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$1;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/search/BiliSearchResultNew$1;-><init>()V
@@ -86,45 +100,29 @@
 .method public constructor <init>()V
     .locals 0
 
-    .line 23
+    .prologue
+    .line 29
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
+    .line 30
     return-void
 .end method
 
 .method protected constructor <init>(Landroid/os/Parcel;)V
     .locals 1
 
-    .line 26
+    .prologue
+    .line 32
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 27
-    sget-object v0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Bangumi;->CREATOR:Landroid/os/Parcelable$Creator;
-
-    invoke-virtual {p1, v0}, Landroid/os/Parcel;->createTypedArrayList(Landroid/os/Parcelable$Creator;)Ljava/util/ArrayList;
+    .line 33
+    invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
-    iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew;->season:Ljava/util/ArrayList;
+    iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew;->trackId:Ljava/lang/String;
 
-    .line 28
-    sget-object v0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Movie;->CREATOR:Landroid/os/Parcelable$Creator;
-
-    invoke-virtual {p1, v0}, Landroid/os/Parcel;->createTypedArrayList(Landroid/os/Parcelable$Creator;)Ljava/util/ArrayList;
-
-    move-result-object v0
-
-    iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew;->movie:Ljava/util/ArrayList;
-
-    .line 29
-    sget-object v0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->CREATOR:Landroid/os/Parcelable$Creator;
-
-    invoke-virtual {p1, v0}, Landroid/os/Parcel;->createTypedArrayList(Landroid/os/Parcelable$Creator;)Ljava/util/ArrayList;
-
-    move-result-object p1
-
-    iput-object p1, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew;->archive:Ljava/util/ArrayList;
-
+    .line 34
     return-void
 .end method
 
@@ -133,28 +131,22 @@
 .method public describeContents()I
     .locals 1
 
+    .prologue
+    .line 38
     const/4 v0, 0x0
 
     return v0
 .end method
 
 .method public writeToParcel(Landroid/os/Parcel;I)V
-    .locals 0
+    .locals 1
 
-    .line 51
-    iget-object p2, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew;->season:Ljava/util/ArrayList;
+    .prologue
+    .line 43
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew;->trackId:Ljava/lang/String;
 
-    invoke-virtual {p1, p2}, Landroid/os/Parcel;->writeTypedList(Ljava/util/List;)V
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 52
-    iget-object p2, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew;->movie:Ljava/util/ArrayList;
-
-    invoke-virtual {p1, p2}, Landroid/os/Parcel;->writeTypedList(Ljava/util/List;)V
-
-    .line 53
-    iget-object p2, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew;->archive:Ljava/util/ArrayList;
-
-    invoke-virtual {p1, p2}, Landroid/os/Parcel;->writeTypedList(Ljava/util/List;)V
-
+    .line 44
     return-void
 .end method

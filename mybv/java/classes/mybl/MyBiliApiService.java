@@ -1,6 +1,7 @@
 package mybl;
 
 import bl.vp;
+import retrofit2.Call;
 import retrofit2.http.*;
 import com.alibaba.fastjson.JSONObject;
 import com.bilibili.okretro.GeneralResponse;
@@ -54,10 +55,18 @@ public interface MyBiliApiService {
     vp<GeneralResponse<JSONObject>> getFollowBangumi(@Query("access_key") String access_key, @Query("type") int type,
             @Query("pn") int page, @Query("ps") int page_size, @Query("vmid") long vmid);
 
-    @Headers("Cookie: ")
-    @GET("/x/web-interface/search/type?search_type=live")
-    vp<GeneralResponse<JSONObject>> searchLive(@Query("keyword") String keyword, @Query("page") int page,
-            @Query("page_size") int page_size, @Query("order") String order);
+    @GET("/x/web-interface/wbi/search/type")
+    vp<GeneralResponse<JSONObject>> search(@Query("search_type") String search_type, @Query("keyword") String keyword,
+            @Query("order") String order, @Query("page") int page, @Query("pagesize") int page_size,
+            @Query("tids") String tids, @Query("access_key") String access_key);
+
+    @GET
+    Call<GeneralResponse<JSONObject>> searchWithWbi(@Url String fullUrl);
+
+    @GET("/x/web-interface/wbi/search/type")
+    vp<GeneralResponse<JSONObject>> searchLiveRoom(@Query("search_type") String search_type, @Query("keyword") String keyword,
+            @Query("order") String order, @Query("page") int page, @Query("pagesize") int page_size,
+            @Query("access_key") String access_key);
 
     @GET("/x/polymer/web-dynamic/v1/feed/all?type=video")
     vp<GeneralResponse<JSONObject>> getFeedVideos(@Query("access_key") String access_key,

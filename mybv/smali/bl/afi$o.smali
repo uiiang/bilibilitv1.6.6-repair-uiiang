@@ -23,7 +23,7 @@
     .locals 0
 
     .prologue
-    .line 225
+    .line 239
     iput-object p1, p0, Lbl/afi$o;->this$0:Lbl/afi;
 
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$m;-><init>()V
@@ -37,10 +37,10 @@
     .locals 2
 
     .prologue
-    .line 228
+    .line 242
     invoke-super {p0, p1, p2}, Landroid/support/v7/widget/RecyclerView$m;->a(Landroid/support/v7/widget/RecyclerView;I)V
 
-    .line 229
+    .line 243
     iget-object v0, p0, Lbl/afi$o;->this$0:Lbl/afi;
 
     # getter for: Lbl/afi;->p:Z
@@ -68,12 +68,12 @@
 
     if-nez v0, :cond_1c
 
-    .line 244
+    .line 257
     :cond_1b
     :goto_1b
     return-void
 
-    .line 232
+    .line 246
     :cond_1c
     iget-object v0, p0, Lbl/afi$o;->this$0:Lbl/afi;
 
@@ -86,7 +86,7 @@
 
     move-result v0
 
-    .line 233
+    .line 247
     iget-object v1, p0, Lbl/afi$o;->this$0:Lbl/afi;
 
     # getter for: Lbl/afi;->f:Landroid/support/v7/widget/LinearLayoutManager;
@@ -100,10 +100,10 @@
 
     if-lez v1, :cond_1b
 
-    .line 234
+    .line 248
     add-int/lit8 v0, v0, 0x2
 
-    .line 235
+    .line 249
     iget-object v1, p0, Lbl/afi$o;->this$0:Lbl/afi;
 
     # getter for: Lbl/afi;->f:Landroid/support/v7/widget/LinearLayoutManager;
@@ -119,7 +119,7 @@
 
     if-lt v0, v1, :cond_1b
 
-    .line 236
+    .line 250
     iget-object v0, p0, Lbl/afi$o;->this$0:Lbl/afi;
 
     # getter for: Lbl/afi;->f:Landroid/support/v7/widget/LinearLayoutManager;
@@ -131,7 +131,7 @@
 
     move-result v0
 
-    .line 237
+    .line 251
     iget-object v1, p0, Lbl/afi$o;->this$0:Lbl/afi;
 
     # getter for: Lbl/afi;->f:Landroid/support/v7/widget/LinearLayoutManager;
@@ -145,30 +145,13 @@
 
     if-le v0, v1, :cond_1b
 
-    .line 238
+    .line 252
     iget-object v0, p0, Lbl/afi$o;->this$0:Lbl/afi;
 
     # operator++ for: Lbl/afi;->o:I
     invoke-static {v0}, Lbl/afi;->access$508(Lbl/afi;)I
 
-    .line 239
-    iget-object v0, p0, Lbl/afi$o;->this$0:Lbl/afi;
-
-    # getter for: Lbl/afi;->s:I
-    invoke-static {v0}, Lbl/afi;->access$600(Lbl/afi;)I
-
-    move-result v0
-
-    if-nez v0, :cond_6b
-
-    iget-object v0, p0, Lbl/afi$o;->this$0:Lbl/afi;
-
-    invoke-virtual {v0}, Lbl/afi;->f()V
-
-    goto :goto_1b
-
-    .line 240
-    :cond_6b
+    .line 253
     iget-object v0, p0, Lbl/afi$o;->this$0:Lbl/afi;
 
     iget-object v1, p0, Lbl/afi$o;->this$0:Lbl/afi;

@@ -1,6 +1,6 @@
 .class public Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;
 .super Ljava/lang/Object;
-.source "BL"
+.source "BiliSearchResultNew.java"
 
 # interfaces
 .implements Landroid/os/Parcelable;
@@ -24,7 +24,8 @@
 .field public static final CREATOR:Landroid/os/Parcelable$Creator;
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "Landroid/os/Parcelable$Creator<",
+            "Landroid/os/Parcelable$Creator",
+            "<",
             "Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;",
             ">;"
         }
@@ -47,6 +48,8 @@
 
 .field public play:Ljava/lang/String;
 
+.field public pubdateFormatted:Ljava/lang/String;
+
 .field public title:Ljava/lang/String;
 
 .field public trackId:Ljava/lang/String;
@@ -58,7 +61,8 @@
 .method static constructor <clinit>()V
     .locals 1
 
-    .line 335
+    .prologue
+    .line 60
     new-instance v0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video$1;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video$1;-><init>()V
@@ -71,88 +75,99 @@
 .method public constructor <init>()V
     .locals 0
 
-    .line 319
+    .prologue
+    .line 72
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
+    .line 73
     return-void
 .end method
 
 .method protected constructor <init>(Landroid/os/Parcel;)V
     .locals 1
 
-    .line 322
+    .prologue
+    .line 75
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 323
+    .line 76
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->title:Ljava/lang/String;
 
-    .line 324
+    .line 77
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->cover:Ljava/lang/String;
 
-    .line 325
+    .line 78
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->uri:Ljava/lang/String;
 
-    .line 326
+    .line 79
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->param:Ljava/lang/String;
 
-    .line 327
+    .line 80
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->duration:Ljava/lang/String;
 
-    .line 328
+    .line 81
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->desc:Ljava/lang/String;
 
-    .line 329
+    .line 82
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->author:Ljava/lang/String;
 
-    .line 330
+    .line 83
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->play:Ljava/lang/String;
 
-    .line 331
+    .line 84
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->danmaku:Ljava/lang/String;
 
-    .line 332
+    .line 85
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
-    move-result-object p1
+    move-result-object v0
 
-    iput-object p1, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->trackId:Ljava/lang/String;
+    iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->trackId:Ljava/lang/String;
 
+    .line 86
+    invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
+
+    move-result-object v0
+
+    iput-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->pubdateFormatted:Ljava/lang/String;
+
+    .line 87
     return-void
 .end method
 
@@ -161,63 +176,72 @@
 .method public describeContents()I
     .locals 1
 
+    .prologue
+    .line 91
     const/4 v0, 0x0
 
     return v0
 .end method
 
 .method public writeToParcel(Landroid/os/Parcel;I)V
-    .locals 0
+    .locals 1
 
-    .line 354
-    iget-object p2, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->title:Ljava/lang/String;
+    .prologue
+    .line 96
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->title:Ljava/lang/String;
 
-    invoke-virtual {p1, p2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 355
-    iget-object p2, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->cover:Ljava/lang/String;
+    .line 97
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->cover:Ljava/lang/String;
 
-    invoke-virtual {p1, p2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 356
-    iget-object p2, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->uri:Ljava/lang/String;
+    .line 98
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->uri:Ljava/lang/String;
 
-    invoke-virtual {p1, p2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 357
-    iget-object p2, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->param:Ljava/lang/String;
+    .line 99
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->param:Ljava/lang/String;
 
-    invoke-virtual {p1, p2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 358
-    iget-object p2, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->duration:Ljava/lang/String;
+    .line 100
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->duration:Ljava/lang/String;
 
-    invoke-virtual {p1, p2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 359
-    iget-object p2, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->desc:Ljava/lang/String;
+    .line 101
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->desc:Ljava/lang/String;
 
-    invoke-virtual {p1, p2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 360
-    iget-object p2, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->author:Ljava/lang/String;
+    .line 102
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->author:Ljava/lang/String;
 
-    invoke-virtual {p1, p2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 361
-    iget-object p2, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->play:Ljava/lang/String;
+    .line 103
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->play:Ljava/lang/String;
 
-    invoke-virtual {p1, p2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 362
-    iget-object p2, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->danmaku:Ljava/lang/String;
+    .line 104
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->danmaku:Ljava/lang/String;
 
-    invoke-virtual {p1, p2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 363
-    iget-object p2, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->trackId:Ljava/lang/String;
+    .line 105
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->trackId:Ljava/lang/String;
 
-    invoke-virtual {p1, p2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
+    .line 106
+    iget-object v0, p0, Lcom/bilibili/tv/api/search/BiliSearchResultNew$Video;->pubdateFormatted:Ljava/lang/String;
+
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+
+    .line 107
     return-void
 .end method

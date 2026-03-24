@@ -38,7 +38,7 @@
     .locals 0
 
     .prologue
-    .line 1631
+    .line 1632
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->val$apiUrl:Ljava/lang/String;
@@ -59,7 +59,7 @@
     .end annotation
 
     .prologue
-    .line 1631
+    .line 1632
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->call()Lorg/json/JSONObject;
 
     move-result-object v0
@@ -71,7 +71,7 @@
     .locals 4
 
     .prologue
-    .line 1635
+    .line 1636
     :try_start_0
     new-instance v0, Lbl/qa$a;
 
@@ -81,14 +81,14 @@
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->val$apiUrl:Ljava/lang/String;
 
-    .line 1637
+    .line 1638
     invoke-virtual {v0, v1}, Lbl/qa$a;->a(Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
 
     const/4 v1, 0x1
 
-    .line 1638
+    .line 1639
     invoke-virtual {v0, v1}, Lbl/qa$a;->a(Z)Lbl/qa$a;
 
     move-result-object v0
@@ -97,41 +97,41 @@
 
     invoke-direct {v1}, Lbl/qb;-><init>()V
 
-    .line 1639
+    .line 1640
     invoke-virtual {v0, v1}, Lbl/qa$a;->a(Lbl/qf;)Lbl/qa$a;
 
     move-result-object v0
 
-    .line 1640
+    .line 1641
     invoke-virtual {v0}, Lbl/qa$a;->a()Lbl/qa;
 
     move-result-object v0
 
     const-string v1, "GET"
 
-    .line 1635
+    .line 1636
     invoke-static {v0, v1}, Lbl/pz;->a(Lbl/qa;Ljava/lang/String;)Lbl/qe;
 
     move-result-object v0
 
     check-cast v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;
 
-    .line 1640
+    .line 1641
     invoke-virtual {v0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;->result()Lorg/json/JSONObject;
     :try_end_2a
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_2a} :catch_2c
 
     move-result-object v0
 
-    .line 1643
+    .line 1644
     :goto_2b
     return-object v0
 
-    .line 1641
+    .line 1642
     :catch_2c
     move-exception v0
 
-    .line 1642
+    .line 1643
     const-string v1, "BangumiJump"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -158,7 +158,7 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1643
+    .line 1644
     const/4 v0, 0x0
 
     goto :goto_2b

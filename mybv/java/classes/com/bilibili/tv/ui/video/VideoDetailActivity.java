@@ -1462,16 +1462,17 @@ public final class VideoDetailActivity extends BaseActivity
             historyTitle.setVisibility(View.GONE);
             historyProgress.setVisibility(View.GONE);
         } else {
+            boolean hasMultipleEpisodes = biliVideoDetail.mPageList!=null && biliVideoDetail.mPageList.size() > 1;
             if (historyLabel != null) {
                 historyLabel.setVisibility(View.VISIBLE);
                 // android.util.Log.i("HistoryDisplay", "historyLabel.setVisibility(VISIBLE)");
             }
-            if (hasTitle) {
+            if (hasTitle && hasMultipleEpisodes) {
                 // android.util.Log.i("HistoryDisplay", "showing title: " + title);
                 historyTitle.setText(title);
                 historyTitle.setVisibility(View.VISIBLE);
             } else {
-                // android.util.Log.i("HistoryDisplay", "no title, hiding historyTitle");
+                // android.util.Log.i("HistoryDisplay", "no title or single episode, hiding historyTitle");
                 historyTitle.setVisibility(View.GONE);
             }
             if (isFinished) {

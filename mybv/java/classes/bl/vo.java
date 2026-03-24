@@ -24,6 +24,10 @@ public class vo {
         return (T) b(service).create(service);
     }
 
+    public static OkHttpClient getOkHttpClient() {
+        return b();
+    }
+
     private static Retrofit b(Class<?> service) {
         //if (d == null) {
             synchronized (vo.class) {

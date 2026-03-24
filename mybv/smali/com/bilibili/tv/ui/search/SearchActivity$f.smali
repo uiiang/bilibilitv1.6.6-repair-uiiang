@@ -28,15 +28,15 @@
     .locals 0
 
     .prologue
-    .line 664
+    .line 599
     iput-object p1, p0, Lcom/bilibili/tv/ui/search/SearchActivity$f;->this$0:Lcom/bilibili/tv/ui/search/SearchActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 665
+    .line 600
     iput-object p2, p0, Lcom/bilibili/tv/ui/search/SearchActivity$f;->b:Ljava/util/LinkedHashMap;
 
-    .line 666
+    .line 601
     return-void
 .end method
 
@@ -52,7 +52,7 @@
 
     const/4 v4, 0x0
 
-    .line 670
+    .line 605
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity$f;->b:Ljava/util/LinkedHashMap;
 
     invoke-virtual {v0, p3}, Ljava/util/LinkedHashMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
@@ -61,7 +61,7 @@
 
     check-cast v0, Ljava/lang/String;
 
-    .line 671
+    .line 606
     iget-object v1, p0, Lcom/bilibili/tv/ui/search/SearchActivity$f;->this$0:Lcom/bilibili/tv/ui/search/SearchActivity;
 
     # getter for: Lcom/bilibili/tv/ui/search/SearchActivity;->g:Lbl/afi;
@@ -71,10 +71,10 @@
 
     invoke-virtual {v1, v0}, Lbl/afi;->b(Ljava/lang/String;)V
 
-    .line 672
+    .line 607
     const-string v1, ""
 
-    .line 674
+    .line 609
     sget-object v2, Lcom/bilibili/tv/ui/search/SearchActivity;->Companion:Lcom/bilibili/tv/ui/search/SearchActivity$a;
 
     invoke-virtual {v2}, Lcom/bilibili/tv/ui/search/SearchActivity$a;->c()[Ljava/lang/String;
@@ -89,10 +89,10 @@
 
     if-eqz v2, :cond_37
 
-    .line 675
+    .line 610
     const-string v0, "1"
 
-    .line 683
+    .line 618
     :goto_26
     const-string v1, "tv_search_result_index_sort_click"
 
@@ -106,13 +106,13 @@
 
     invoke-static {v1, v2}, Lbl/ok;->a(Ljava/lang/String;[Ljava/lang/String;)V
 
-    .line 684
+    .line 619
     invoke-virtual {p1}, Lbl/agb;->dismiss()V
 
-    .line 685
+    .line 620
     return-void
 
-    .line 676
+    .line 611
     :cond_37
     sget-object v2, Lcom/bilibili/tv/ui/search/SearchActivity;->Companion:Lcom/bilibili/tv/ui/search/SearchActivity$a;
 
@@ -128,12 +128,12 @@
 
     if-eqz v2, :cond_48
 
-    .line 677
+    .line 612
     const-string v0, "3"
 
     goto :goto_26
 
-    .line 678
+    .line 613
     :cond_48
     sget-object v2, Lcom/bilibili/tv/ui/search/SearchActivity;->Companion:Lcom/bilibili/tv/ui/search/SearchActivity$a;
 
@@ -149,12 +149,12 @@
 
     if-eqz v2, :cond_59
 
-    .line 679
+    .line 614
     const-string v0, "4"
 
     goto :goto_26
 
-    .line 680
+    .line 615
     :cond_59
     sget-object v2, Lcom/bilibili/tv/ui/search/SearchActivity;->Companion:Lcom/bilibili/tv/ui/search/SearchActivity$a;
 
@@ -172,7 +172,7 @@
 
     if-eqz v0, :cond_6b
 
-    .line 681
+    .line 616
     const-string v0, "5"
 
     goto :goto_26
