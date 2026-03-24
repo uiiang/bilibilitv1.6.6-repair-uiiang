@@ -14,6 +14,8 @@ import android.view.ViewParent;
 import android.widget.TextView;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Calendar;
 import java.lang.ref.WeakReference;
 import bl.agb;
 import bl.adl;
@@ -27,7 +29,7 @@ import com.bilibili.tv.ui.base.BaseSideActivity;
 import com.bilibili.tv.ui.live.LiveLeftLinearLayoutManger;
 import com.bilibili.tv.widget.side.SideLeftSelectLinearLayout;
 
-public class SearchResultSideActivity extends BaseSideActivity {
+public class SearchResultSideActivity extends BaseSideActivity implements View.OnLongClickListener {
     public static final String EXTRA_KEYWORD = "extra_keyword";
     public static final String EXTRA_TID = "extra_tid";
     
@@ -206,6 +208,164 @@ public class SearchResultSideActivity extends BaseSideActivity {
         return keyword;
     }
     
+    public int getCurrentTid() {
+        if (selectedFolder != null) {
+            return selectedFolder.getTid();
+        }
+        return 0;
+    }
+    
+    private View getSelectedView() {
+        RecyclerView leftRv = j();
+        if (leftRv == null) {
+            return null;
+        }
+        for (int i = 0; i < leftRv.getChildCount(); i++) {
+            View child = leftRv.getChildAt(i);
+            if (child.isSelected()) {
+                return child;
+            }
+        }
+        return null;
+    }
+    
+    @Override
+    public boolean onLongClick(View view) {
+        Fragment frag = h();
+        if (!(frag instanceof SearchResultVideoFragment)) {
+            return true;
+        }
+        
+        SearchResultVideoFragment sv = (SearchResultVideoFragment) frag;
+        int tid = sv.getTid();
+        
+        switch (tid) {
+            case 0:
+                showVideoSortDialog(sv);
+                break;
+            case 1:
+            case 2:
+                return true;
+            case 3:
+                showLiveSortDialog(sv);
+                break;
+            case 4:
+                showUserSortDialog(sv);
+                break;
+        }
+        return true;
+    }
+    
+    private void showVideoSortDialog(final SearchResultVideoFragment fragment) {
+        LinkedHashMap<String, Object> sortOptions = new LinkedHashMap<>();
+        sortOptions.put("综合排序", "");
+        sortOptions.put("最多播放", "click");
+        sortOptions.put("最新发布", "pubdate");
+        sortOptions.put("最多弹幕", "dm");
+        sortOptions.put("最多收藏", "stow");
+        
+        LinkedHashMap<String, Object> dateOptions = new LinkedHashMap<>();
+        dateOptions.put("全部日期", "");
+        dateOptions.put("最近一天", "1");
+        dateOptions.put("最近一周", "7");
+        dateOptions.put("最近半年", "180");
+        
+        LinkedHashMap<String, Object> durationOptions = new LinkedHashMap<>();
+        durationOptions.put("全部时长", "");
+        durationOptions.put("10分钟以下", "1");
+        durationOptions.put("10-30分钟", "2");
+        durationOptions.put("30-60分钟", "3");
+        durationOptions.put("60分钟以上", "4");
+        
+        agb.a builder = new agb.a(this);
+        builder.addGroup("排序", sortOptions, fragment.getOrder())
+               .addGroup("日期", dateOptions, fragment.getDateType())
+               .addGroup("时长", durationOptions, fragment.getDuration())
+               .setGroupClickListener(new agb.GroupClickListener() {
+                   @Override
+                   public void onGroupItemClick(agb dialog, View view, int groupIndex, Object value) {
+                       String val = (String) value;
+                       View selectedView = getSelectedView();
+                       if (groupIndex == 0) {
+                           fragment.setOrder(val);
+                       } else if (groupIndex == 1) {
+                           if (TextUtils.isEmpty(val)) {
+                               fragment.setPubtime("", "", "");
+                           } else {
+                               String[] timeRange = getDateRange(Integer.parseInt(val)).split(",");
+                               if (timeRange.length == 2) {
+                                   fragment.setPubtime(timeRange[0], timeRange[1], val);
+                               }
+                           }
+                       } else if (groupIndex == 2) {
+                           fragment.setDuration(val);
+                       }
+                       dialog.dismiss();
+                       if (selectedView != null) {
+                           selectedView.requestFocus();
+                       }
+                   }
+               });
+        builder.a().show();
+    }
+    
+    private String getDateRange(int days) {
+        long endTime = System.currentTimeMillis() / 1000;
+        long beginTime = endTime - (days * 24 * 60 * 60L);
+        return String.valueOf(beginTime) + "," + String.valueOf(endTime);
+    }
+    
+    private void showLiveSortDialog(final SearchResultVideoFragment fragment) {
+        LinkedHashMap<String, Object> sortOptions = new LinkedHashMap<>();
+        sortOptions.put("综合排序", "online");
+        sortOptions.put("最新开播", "live_time");
+        
+        agb.a builder = new agb.a(this);
+        builder.a(2)
+                .a("排序:")
+                .a(sortOptions, new agb.c() {
+                    @Override
+                    public void a(agb dialog, View view, String key) {
+                        String order = (String) sortOptions.get(key);
+                        View selectedView = getSelectedView();
+                        fragment.setLiveOrder(order);
+                        dialog.dismiss();
+                        if (selectedView != null) {
+                            selectedView.requestFocus();
+                        }
+                    }
+                });
+        builder.a((Object) fragment.getLiveOrder());
+        builder.a().show();
+    }
+    
+    private void showUserSortDialog(final SearchResultVideoFragment fragment) {
+        LinkedHashMap<String, Object> sortOptions = new LinkedHashMap<>();
+        sortOptions.put("默认排序", "");
+        sortOptions.put("粉丝数由高到低", "fans");
+        sortOptions.put("粉丝数由低到高", "fans_asc");
+        sortOptions.put("Lv等级由高到低", "level");
+        sortOptions.put("Lv等级由低到高", "level_asc");
+        
+        agb.a builder = new agb.a(this);
+        builder.a(2)
+                .a("排序:")
+                .a(sortOptions, new agb.c() {
+                    @Override
+                    public void a(agb dialog, View view, String key) {
+                        String order = (String) sortOptions.get(key);
+                        View selectedView = getSelectedView();
+                        fragment.setUserOrder(order);
+                        dialog.dismiss();
+                        if (selectedView != null) {
+                            selectedView.requestFocus();
+                        }
+                    }
+                });
+        builder.a((Object) fragment.getUserOrder());
+        builder.a().show();
+    }
+    
     public static class a extends adz<RecyclerView.v> implements Runnable {
         private WeakReference<SearchResultSideActivity> a;
         private List<SearchFolder> folders;
@@ -265,6 +425,7 @@ public class SearchResultSideActivity extends BaseSideActivity {
                         }
                         a.this.c = f;
                         a.this.d = System.currentTimeMillis();
+                        a.this.e = false;
                         vVar.a.setSelected(true);
                         if (vVar.a instanceof SideLeftSelectLinearLayout) {
                             ((SideLeftSelectLinearLayout) vVar.a).a();

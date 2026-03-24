@@ -67,9 +67,14 @@ public final class SearchResultVideoFragment extends ady {
     private String keyword;
     private int tid = 0;
     private int currentPage = 1;
-    private String order = "totalrank";
-    private String userOrder = "totalrank";
+    private String order = "";
+    private String userOrder = "";
+    private int userOrderSort = 0;
     public String liveOrder = "online";
+    private String pubtimeBegin = "";
+    private String pubtimeEnd = "";
+    private String duration = "";
+    private String dateType = "";
     
     private LinearLayout headerLayout;
     private TextView headerTitle;
@@ -280,8 +285,12 @@ public final class SearchResultVideoFragment extends ady {
             headerCount.setVisibility(View.GONE);
         }
         if (hintSort != null) {
-            hintSort.setText("长按[OK]键排序");
-            hintSort.setVisibility(View.VISIBLE);
+            if (tid == 1 || tid == 2) {
+                hintSort.setVisibility(View.GONE);
+            } else {
+                hintSort.setText("长按[OK]键排序");
+                hintSort.setVisibility(View.VISIBLE);
+            }
         }
     }
     
@@ -301,13 +310,24 @@ public final class SearchResultVideoFragment extends ady {
         java.util.TreeMap<String, String> params = new java.util.TreeMap<>();
         params.put("search_type", "video");
         params.put("keyword", keyword);
-        params.put("order", order);
+        if (!TextUtils.isEmpty(order)) {
+            params.put("order", order);
+        }
+        if (!TextUtils.isEmpty(pubtimeBegin)) {
+            params.put("pubtime_begin_s", pubtimeBegin);
+        }
+        if (!TextUtils.isEmpty(pubtimeEnd)) {
+            params.put("pubtime_end_s", pubtimeEnd);
+        }
+        if (!TextUtils.isEmpty(duration)) {
+            params.put("duration", duration);
+        }
         params.put("page", String.valueOf(currentPage));
         params.put("pagesize", "20");
         String signedQuery = wbi.encWbiAndGetQuery(params);
         String url = "https://api.bilibili.com/x/web-interface/wbi/search/type?" + signedQuery;
-        Log.i(TAG, "SearchVideo URL: " + url);
-        
+        LogUtil.d(TAG, "=== SearchVideo URL ===\n" + url);
+
         OkHttpClient client = vo.getOkHttpClient();
         Request request = new Request.Builder().url(url).get().build();
         client.newCall(request).enqueue(new SearchVideoResponse());
@@ -323,8 +343,8 @@ public final class SearchResultVideoFragment extends ady {
         params.put("pagesize", "20");
         String signedQuery = wbi.encWbiAndGetQuery(params);
         String url = "https://api.bilibili.com/x/web-interface/wbi/search/type?" + signedQuery;
-        Log.i(TAG, "SearchBangumi URL: " + url);
-        
+        LogUtil.d(TAG, "=== SearchBangumi URL ===\n" + url);
+
         OkHttpClient client = vo.getOkHttpClient();
         Request request = new Request.Builder().url(url).get().build();
         client.newCall(request).enqueue(new SearchBangumiResponse());
@@ -340,8 +360,8 @@ public final class SearchResultVideoFragment extends ady {
         params.put("pagesize", "20");
         String signedQuery = wbi.encWbiAndGetQuery(params);
         String url = "https://api.bilibili.com/x/web-interface/wbi/search/type?" + signedQuery;
-        Log.i(TAG, "SearchMediaFt URL: " + url);
-        
+        LogUtil.d(TAG, "=== SearchMediaFt URL ===\n" + url);
+
         OkHttpClient client = vo.getOkHttpClient();
         Request request = new Request.Builder().url(url).get().build();
         client.newCall(request).enqueue(new SearchBangumiResponse());
@@ -357,8 +377,8 @@ public final class SearchResultVideoFragment extends ady {
         params.put("pagesize", "20");
         String signedQuery = wbi.encWbiAndGetQuery(params);
         String url = "https://api.bilibili.com/x/web-interface/wbi/search/type?" + signedQuery;
-        Log.i(TAG, "SearchLiveRoom URL: " + url);
-        
+        LogUtil.d(TAG, "=== SearchLiveRoom URL ===\n" + url);
+
         OkHttpClient client = vo.getOkHttpClient();
         Request request = new Request.Builder().url(url).get().build();
         client.newCall(request).enqueue(new SearchLiveRoomResponse());
@@ -369,18 +389,21 @@ public final class SearchResultVideoFragment extends ady {
         java.util.TreeMap<String, String> params = new java.util.TreeMap<>();
         params.put("search_type", "bili_user");
         params.put("keyword", keyword);
-        params.put("order", userOrder);
+        if (!TextUtils.isEmpty(userOrder)) {
+            params.put("order", userOrder);
+            params.put("order_sort", String.valueOf(userOrderSort));
+        }
         params.put("page", String.valueOf(currentPage));
         params.put("pagesize", "20");
         String signedQuery = wbi.encWbiAndGetQuery(params);
         String url = "https://api.bilibili.com/x/web-interface/wbi/search/type?" + signedQuery;
-        Log.i(TAG, "SearchUser URL: " + url);
-        
+        LogUtil.d(TAG, "=== SearchUser URL ===\n" + url);
+
         OkHttpClient client = vo.getOkHttpClient();
         Request request = new Request.Builder().url(url).get().build();
         client.newCall(request).enqueue(new SearchUserResponse());
     }
-    
+
     public void setOrder(String newOrder) {
         if (TextUtils.equals(newOrder, this.order)) {
             return;
@@ -394,17 +417,48 @@ public final class SearchResultVideoFragment extends ady {
         b();
     }
     
+    public String getOrder() {
+        return this.order;
+    }
+    
     public void setUserOrder(String newOrder) {
-        if (TextUtils.equals(newOrder, this.userOrder)) {
-            return;
+        if (TextUtils.isEmpty(newOrder)) {
+            this.userOrder = "";
+            this.userOrderSort = 0;
+        } else if (newOrder.equals("fans")) {
+            this.userOrder = "fans";
+            this.userOrderSort = 0;
+        } else if (newOrder.equals("fans_asc")) {
+            this.userOrder = "fans";
+            this.userOrderSort = 1;
+        } else if (newOrder.equals("level")) {
+            this.userOrder = "level";
+            this.userOrderSort = 0;
+        } else if (newOrder.equals("level_asc")) {
+            this.userOrder = "level";
+            this.userOrderSort = 1;
+        } else {
+            this.userOrder = newOrder;
+            this.userOrderSort = 0;
         }
-        this.userOrder = newOrder;
         currentPage = 1;
         hasMore = true;
         if (adapter != null) {
             adapter.clear();
         }
         b();
+    }
+    
+    public String getUserOrder() {
+        if (TextUtils.isEmpty(this.userOrder)) {
+            return "";
+        } else if (this.userOrder.equals("fans") && this.userOrderSort == 1) {
+            return "fans_asc";
+        } else if (this.userOrder.equals("level") && this.userOrderSort == 1) {
+            return "level_asc";
+        } else {
+            return this.userOrder;
+        }
     }
     
     public void setLiveOrder(String newOrder) {
@@ -418,6 +472,48 @@ public final class SearchResultVideoFragment extends ady {
             adapter.clear();
         }
         b();
+    }
+    
+    public String getLiveOrder() {
+        return this.liveOrder;
+    }
+    
+    public void setPubtime(String begin, String end, String dateType) {
+        this.pubtimeBegin = begin;
+        this.pubtimeEnd = end;
+        this.dateType = dateType;
+        currentPage = 1;
+        hasMore = true;
+        if (adapter != null) {
+            adapter.clear();
+        }
+        b();
+    }
+    
+    public String getDateType() {
+        return this.dateType;
+    }
+    
+    public String getPubtimeBegin() {
+        return this.pubtimeBegin;
+    }
+    
+    public String getPubtimeEnd() {
+        return this.pubtimeEnd;
+    }
+    
+    public void setDuration(String duration) {
+        this.duration = duration;
+        currentPage = 1;
+        hasMore = true;
+        if (adapter != null) {
+            adapter.clear();
+        }
+        b();
+    }
+    
+    public String getDuration() {
+        return this.duration;
     }
     
     public int getTid() {
@@ -452,6 +548,7 @@ public final class SearchResultVideoFragment extends ady {
                 if (body != null) {
                     String jsonStr = body.string();
                     final JSONObject json = JSONObject.parseObject(jsonStr);
+                    LogUtil.json(TAG + "_SearchVideo_Response", json);
                     final int code = json.getIntValue("code");
                     android.os.Handler mainHandler = new android.os.Handler(android.os.Looper.getMainLooper());
                     mainHandler.post(new Runnable() {
@@ -558,6 +655,7 @@ public final class SearchResultVideoFragment extends ady {
                 if (body != null) {
                     String jsonStr = body.string();
                     final JSONObject json = JSONObject.parseObject(jsonStr);
+                    LogUtil.json(TAG + "_SearchBangumi_Response", json);
                     final int code = json.getIntValue("code");
                     android.os.Handler mainHandler = new android.os.Handler(android.os.Looper.getMainLooper());
                     mainHandler.post(new Runnable() {
@@ -659,6 +757,7 @@ public final class SearchResultVideoFragment extends ady {
                 if (body != null) {
                     String jsonStr = body.string();
                     final JSONObject json = JSONObject.parseObject(jsonStr);
+                    LogUtil.json(TAG + "_SearchLiveRoom_Response", json);
                     final int code = json.getIntValue("code");
                     android.os.Handler mainHandler = new android.os.Handler(android.os.Looper.getMainLooper());
                     mainHandler.post(new Runnable() {
@@ -760,6 +859,7 @@ public final class SearchResultVideoFragment extends ady {
                 if (body != null) {
                     String jsonStr = body.string();
                     final JSONObject json = JSONObject.parseObject(jsonStr);
+                    LogUtil.json(TAG + "_SearchUser_Response", json);
                     final int code = json.getIntValue("code");
                     android.os.Handler mainHandler = new android.os.Handler(android.os.Looper.getMainLooper());
                     mainHandler.post(new Runnable() {
@@ -1158,6 +1258,11 @@ public final class SearchResultVideoFragment extends ady {
             up.setCompoundDrawables(c, null, null, null);
             play.setCompoundDrawables(c2, null, null, null);
             danmaku.setCompoundDrawables(c3, null, null, null);
+            
+            Object context = itemView.getContext();
+            if (context instanceof View.OnLongClickListener) {
+                itemView.setOnLongClickListener((View.OnLongClickListener) context);
+            }
         }
         
         static VideoViewHolder create(ViewGroup parent) {
@@ -1206,6 +1311,11 @@ public final class SearchResultVideoFragment extends ady {
             archives = (TextView) a(itemView, R.id.archives);
             root = (DrawRelativeLayout) itemView;
             root.setUpDrawable(R.drawable.shadow_white_rect);
+            
+            Object context = itemView.getContext();
+            if (context instanceof View.OnLongClickListener) {
+                itemView.setOnLongClickListener((View.OnLongClickListener) context);
+            }
         }
         
         static UserViewHolder create(ViewGroup parent) {
@@ -1251,6 +1361,11 @@ public final class SearchResultVideoFragment extends ady {
                         }
                     }
                 }
+            }
+            
+            Object context = itemView.getContext();
+            if (context instanceof View.OnLongClickListener) {
+                itemView.setOnLongClickListener((View.OnLongClickListener) context);
             }
         }
         

@@ -1,6 +1,6 @@
 .class public interface abstract Lbl/afz;
 .super Ljava/lang/Object;
-.source "BL"
+.source "afz.java"
 
 
 # virtual methods

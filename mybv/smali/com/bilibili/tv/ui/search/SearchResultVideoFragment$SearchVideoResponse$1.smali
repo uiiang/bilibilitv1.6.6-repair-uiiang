@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 436
+    .line 532
     iput-object p1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchVideoResponse$1;->this$1:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchVideoResponse;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -42,7 +42,7 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 439
+    .line 535
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchVideoResponse$1;->this$1:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchVideoResponse;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchVideoResponse;->this$0:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
@@ -50,7 +50,7 @@
     # setter for: Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->isLoading:Z
     invoke-static {v0, v2}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->access$002(Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;Z)Z
 
-    .line 440
+    .line 536
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchVideoResponse$1;->this$1:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchVideoResponse;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchVideoResponse;->this$0:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
@@ -62,7 +62,7 @@
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/base/LoadingImageView;->setRefreshError(Z)V
 
-    .line 441
+    .line 537
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchVideoResponse$1;->this$1:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchVideoResponse;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchVideoResponse;->this$0:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
@@ -73,7 +73,7 @@
 
     if-eqz v0, :cond_2e
 
-    .line 442
+    .line 538
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchVideoResponse$1;->this$1:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchVideoResponse;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchVideoResponse;->this$0:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
@@ -90,7 +90,7 @@
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    .line 444
+    .line 540
     :cond_2e
     return-void
 .end method

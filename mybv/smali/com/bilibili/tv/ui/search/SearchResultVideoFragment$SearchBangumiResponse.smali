@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 541
+    .line 638
     iput-object p1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchBangumiResponse;->this$0:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 544
+    .line 641
     new-instance v0, Landroid/os/Handler;
 
     invoke-static {}, Landroid/os/Looper;->getMainLooper()Landroid/os/Looper;
@@ -49,14 +49,14 @@
 
     invoke-direct {v0, v1}, Landroid/os/Handler;-><init>(Landroid/os/Looper;)V
 
-    .line 545
+    .line 642
     new-instance v1, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchBangumiResponse$1;
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchBangumiResponse$1;-><init>(Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchBangumiResponse;)V
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
 
-    .line 552
+    .line 649
     return-void
 .end method
 
@@ -69,33 +69,38 @@
     .end annotation
 
     .prologue
-    .line 557
+    .line 654
     :try_start_0
     invoke-virtual {p2}, Lokhttp3/Response;->body()Lokhttp3/ResponseBody;
 
     move-result-object v0
 
-    .line 558
-    if-eqz v0, :cond_25
+    .line 655
+    if-eqz v0, :cond_2a
 
-    .line 559
+    .line 656
     invoke-virtual {v0}, Lokhttp3/ResponseBody;->string()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 560
+    .line 657
     invoke-static {v0}, Lcom/alibaba/fastjson/JSONObject;->parseObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 561
+    .line 658
+    const-string v1, "SearchResultVideoFrag_SearchBangumi_Response"
+
+    invoke-static {v1, v0}, Lmybl/LogUtil;->json(Ljava/lang/String;Ljava/lang/Object;)V
+
+    .line 659
     const-string v1, "code"
 
     invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
     move-result v1
 
-    .line 562
+    .line 660
     new-instance v2, Landroid/os/Handler;
 
     invoke-static {}, Landroid/os/Looper;->getMainLooper()Landroid/os/Looper;
@@ -104,25 +109,25 @@
 
     invoke-direct {v2, v3}, Landroid/os/Handler;-><init>(Landroid/os/Looper;)V
 
-    .line 563
+    .line 661
     new-instance v3, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchBangumiResponse$2;
 
     invoke-direct {v3, p0, v1, v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchBangumiResponse$2;-><init>(Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchBangumiResponse;ILcom/alibaba/fastjson/JSONObject;)V
 
     invoke-virtual {v2, v3}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
-    :try_end_25
-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_25} :catch_26
+    :try_end_2a
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_2a} :catch_2b
 
-    .line 585
-    :cond_25
-    :goto_25
+    .line 683
+    :cond_2a
+    :goto_2a
     return-void
 
-    .line 575
-    :catch_26
+    .line 673
+    :catch_2b
     move-exception v0
 
-    .line 576
+    .line 674
     new-instance v0, Landroid/os/Handler;
 
     invoke-static {}, Landroid/os/Looper;->getMainLooper()Landroid/os/Looper;
@@ -131,12 +136,12 @@
 
     invoke-direct {v0, v1}, Landroid/os/Handler;-><init>(Landroid/os/Looper;)V
 
-    .line 577
+    .line 675
     new-instance v1, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchBangumiResponse$3;
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchBangumiResponse$3;-><init>(Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchBangumiResponse;)V
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
 
-    goto :goto_25
+    goto :goto_2a
 .end method

@@ -1,4 +1,4 @@
-.class public interface abstract Lbl/agb$c;
+.class public interface abstract Lbl/agb$GroupClickListener;
 .super Ljava/lang/Object;
 .source "agb.java"
 
@@ -10,10 +10,10 @@
 
 .annotation system Ldalvik/annotation/InnerClass;
     accessFlags = 0x609
-    name = "c"
+    name = "GroupClickListener"
 .end annotation
 
 
 # virtual methods
-.method public abstract a(Lbl/agb;Landroid/view/View;Ljava/lang/String;)V
+.method public abstract onGroupItemClick(Lbl/agb;Landroid/view/View;ILjava/lang/Object;)V
 .end method

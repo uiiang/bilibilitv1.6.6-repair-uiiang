@@ -1,14 +1,14 @@
 .class Lbl/agb$1;
 .super Ljava/lang/Object;
-.source "BL"
+.source "agb.java"
 
 # interfaces
-.implements Landroid/view/View$OnClickListener;
+.implements Landroid/view/View$OnFocusChangeListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/agb;->c()V
+    value = Lbl/agb;->setupFilterDialog()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -18,19 +18,24 @@
 
 
 # instance fields
-.field final synthetic a:Ljava/util/Map$Entry;
+.field final synthetic this$0:Lbl/agb;
 
-.field final synthetic b:Lbl/agb;
+.field final synthetic val$fi:I
+
+.field final synthetic val$groupSelectedViews:Ljava/util/List;
 
 
 # direct methods
-.method constructor <init>(Lbl/agb;Ljava/util/Map$Entry;)V
+.method constructor <init>(Lbl/agb;Ljava/util/List;I)V
     .locals 0
 
-    .line 165
-    iput-object p1, p0, Lbl/agb$1;->b:Lbl/agb;
+    .prologue
+    .line 229
+    iput-object p1, p0, Lbl/agb$1;->this$0:Lbl/agb;
 
-    iput-object p2, p0, Lbl/agb$1;->a:Ljava/util/Map$Entry;
+    iput-object p2, p0, Lbl/agb$1;->val$groupSelectedViews:Ljava/util/List;
+
+    iput p3, p0, Lbl/agb$1;->val$fi:I
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -39,45 +44,49 @@
 
 
 # virtual methods
-.method public onClick(Landroid/view/View;)V
+.method public onFocusChange(Landroid/view/View;Z)V
     .locals 3
 
-    .line 168
-    iget-object v0, p0, Lbl/agb$1;->b:Lbl/agb;
+    .prologue
+    const/4 v1, 0x1
 
-    invoke-static {v0}, Lbl/agb;->a(Lbl/agb;)Lbl/agb$a;
+    .line 232
+    check-cast p1, Lcom/bilibili/tv/widget/DrawTextView;
 
-    move-result-object v0
+    .line 233
+    if-eqz p2, :cond_9
 
-    invoke-static {v0}, Lbl/agb$a;->h(Lbl/agb$a;)Lbl/agb$c;
+    .line 234
+    invoke-virtual {p1, v1}, Lcom/bilibili/tv/widget/DrawTextView;->setUpEnabled(Z)V
 
-    move-result-object v0
-
-    if-eqz v0, :cond_0
-
-    .line 169
-    iget-object v0, p0, Lbl/agb$1;->b:Lbl/agb;
-
-    invoke-static {v0}, Lbl/agb;->a(Lbl/agb;)Lbl/agb$a;
-
-    move-result-object v0
-
-    invoke-static {v0}, Lbl/agb$a;->h(Lbl/agb$a;)Lbl/agb$c;
-
-    move-result-object v0
-
-    iget-object v1, p0, Lbl/agb$1;->b:Lbl/agb;
-
-    iget-object v2, p0, Lbl/agb$1;->a:Ljava/util/Map$Entry;
-
-    invoke-interface {v2}, Ljava/util/Map$Entry;->getKey()Ljava/lang/Object;
-
-    move-result-object v2
-
-    check-cast v2, Ljava/lang/String;
-
-    invoke-interface {v0, v1, p1, v2}, Lbl/agb$c;->a(Lbl/agb;Landroid/view/View;Ljava/lang/String;)V
-
-    :cond_0
+    .line 239
+    :goto_8
     return-void
+
+    .line 236
+    :cond_9
+    iget-object v0, p0, Lbl/agb$1;->val$groupSelectedViews:Ljava/util/List;
+
+    iget v2, p0, Lbl/agb$1;->val$fi:I
+
+    invoke-interface {v0, v2}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/bilibili/tv/widget/DrawTextView;
+
+    .line 237
+    if-ne p1, v0, :cond_1a
+
+    move v0, v1
+
+    :goto_16
+    invoke-virtual {p1, v0}, Lcom/bilibili/tv/widget/DrawTextView;->setUpEnabled(Z)V
+
+    goto :goto_8
+
+    :cond_1a
+    const/4 v0, 0x0
+
+    goto :goto_16
 .end method

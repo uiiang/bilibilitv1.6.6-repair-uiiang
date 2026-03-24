@@ -54,7 +54,9 @@
     .prologue
     const-wide/16 v8, 0x1f4
 
-    const/4 v6, 0x1
+    const/4 v7, 0x1
+
+    const/4 v6, 0x0
 
     .line 496
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a$1;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a;
@@ -86,22 +88,20 @@
 
     move-result v0
 
-    if-eqz v0, :cond_1f
+    if-eqz v0, :cond_20
 
-    .line 538
-    :cond_1e
-    :goto_1e
+    .line 539
+    :cond_1f
+    :goto_1f
     return-void
 
     .line 503
-    :cond_1f
+    :cond_20
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     iget-object v0, v0, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
 
-    const/4 v1, 0x0
-
-    invoke-virtual {v0, v1}, Landroid/view/View;->setSelected(Z)V
+    invoke-virtual {v0, v6}, Landroid/view/View;->setSelected(Z)V
 
     .line 505
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a$1;->val$holder:Lbl/agf;
@@ -109,19 +109,19 @@
     iget-object v0, v0, Lbl/agf;->n:Landroid/widget/TextView;
 
     .line 506
-    invoke-virtual {v0, v6}, Landroid/widget/TextView;->setMaxLines(I)V
+    invoke-virtual {v0, v7}, Landroid/widget/TextView;->setMaxLines(I)V
 
-    goto :goto_1e
+    goto :goto_1f
 
     .line 509
     :cond_2f
-    if-eqz v0, :cond_1e
+    if-eqz v0, :cond_1f
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->isFinishing()Z
 
     move-result v1
 
-    if-nez v1, :cond_1e
+    if-nez v1, :cond_1f
 
     .line 512
     iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
@@ -171,22 +171,28 @@
     invoke-static {v1, v2, v3}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a;->access$902(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a;J)J
 
     .line 518
-    iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
+    iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a$1;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a;
 
-    iget-object v1, v1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
-
-    invoke-virtual {v1, v6}, Landroid/view/View;->setSelected(Z)V
+    # setter for: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a;->e:Z
+    invoke-static {v1, v6}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a;->access$802(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a;Z)Z
 
     .line 519
     iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     iget-object v1, v1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
 
-    instance-of v1, v1, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;
-
-    if-eqz v1, :cond_77
+    invoke-virtual {v1, v7}, Landroid/view/View;->setSelected(Z)V
 
     .line 520
+    iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
+
+    iget-object v1, v1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
+
+    instance-of v1, v1, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;
+
+    if-eqz v1, :cond_7c
+
+    .line 521
     iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     iget-object v1, v1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
@@ -195,28 +201,28 @@
 
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->a()V
 
-    .line 523
-    :cond_77
+    .line 524
+    :cond_7c
     iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a$1;->val$holder:Lbl/agf;
 
     iget-object v1, v1, Lbl/agf;->n:Landroid/widget/TextView;
 
-    .line 524
+    .line 525
     const/4 v2, 0x3
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setMaxLines(I)V
 
-    .line 525
+    .line 526
     const/4 v1, 0x4
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->b(I)V
 
-    .line 527
+    .line 528
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a$1;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a;
 
     invoke-virtual {p1, v0, v8, v9}, Landroid/view/View;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 528
+    .line 529
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     iget-object v0, v0, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
@@ -227,5 +233,5 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    goto :goto_1e
+    goto :goto_1f
 .end method

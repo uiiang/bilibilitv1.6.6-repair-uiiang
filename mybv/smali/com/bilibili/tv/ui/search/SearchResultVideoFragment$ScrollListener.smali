@@ -23,7 +23,7 @@
     .locals 0
 
     .prologue
-    .line 190
+    .line 195
     iput-object p1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$ScrollListener;->this$0:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
 
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$m;-><init>()V
@@ -37,10 +37,10 @@
     .locals 2
 
     .prologue
-    .line 193
+    .line 198
     invoke-super {p0, p1, p2}, Landroid/support/v7/widget/RecyclerView$m;->a(Landroid/support/v7/widget/RecyclerView;I)V
 
-    .line 194
+    .line 199
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$ScrollListener;->this$0:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->isLoading:Z
@@ -68,12 +68,12 @@
 
     if-nez v0, :cond_1c
 
-    .line 202
+    .line 207
     :cond_1b
     :goto_1b
     return-void
 
-    .line 197
+    .line 202
     :cond_1c
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$ScrollListener;->this$0:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
 
@@ -86,7 +86,7 @@
 
     move-result v0
 
-    .line 198
+    .line 203
     iget-object v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$ScrollListener;->this$0:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->layoutManager:Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;
@@ -141,7 +141,7 @@
 
     if-le v0, v1, :cond_1b
 
-    .line 201
+    .line 206
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$ScrollListener;->this$0:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
 
     # invokes: Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->b()V

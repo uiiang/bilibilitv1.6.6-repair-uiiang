@@ -119,6 +119,16 @@
     return v0
 .end method
 
+.method static synthetic access$802(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a;Z)Z
+    .locals 0
+
+    .prologue
+    .line 456
+    iput-boolean p1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a;->e:Z
+
+    return p1
+.end method
+
 .method static synthetic access$900(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a;)J
     .locals 2
 
@@ -145,7 +155,7 @@
     .locals 1
 
     .prologue
-    .line 545
+    .line 546
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a;->folders:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->size()I
@@ -239,7 +249,7 @@
 
     invoke-virtual {v2, v3}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 541
+    .line 542
     :cond_3f
     return-void
 .end method
@@ -248,10 +258,10 @@
     .locals 0
 
     .prologue
-    .line 549
+    .line 550
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a;->e:Z
 
-    .line 550
+    .line 551
     return-void
 .end method
 
@@ -269,7 +279,7 @@
     .locals 1
 
     .prologue
-    .line 553
+    .line 554
     iget v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a;->c:I
 
     return v0
@@ -281,7 +291,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 558
+    .line 559
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a;->a:Ljava/lang/ref/WeakReference;
 
     invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
@@ -290,7 +300,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
-    .line 559
+    .line 560
     if-eqz v0, :cond_11
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->isFinishing()Z
@@ -299,12 +309,12 @@
 
     if-eqz v2, :cond_12
 
-    .line 605
+    .line 606
     :cond_11
     :goto_11
     return-void
 
-    .line 561
+    .line 562
     :cond_12
     iget-object v2, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a;->folders:Ljava/util/List;
 
@@ -320,27 +330,27 @@
 
     if-ge v2, v3, :cond_11
 
-    .line 565
+    .line 566
     :try_start_20
     iget-boolean v2, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a;->e:Z
 
     if-nez v2, :cond_11
 
-    .line 569
+    .line 570
     # invokes: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->j()Landroid/support/v7/widget/RecyclerView;
     invoke-static {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->access$1200(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;)Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v5
 
-    .line 570
+    .line 571
     const/4 v3, 0x0
 
-    .line 571
+    .line 572
     if-eqz v5, :cond_80
 
     move v4, v1
 
-    .line 572
+    .line 573
     :goto_2c
     invoke-virtual {v5}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
 
@@ -348,12 +358,12 @@
 
     if-ge v4, v2, :cond_80
 
-    .line 573
+    .line 574
     invoke-virtual {v5, v4}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
 
     move-result-object v2
 
-    .line 574
+    .line 575
     invoke-virtual {v5, v2}, Landroid/support/v7/widget/RecyclerView;->g(Landroid/view/View;)I
 
     move-result v6
@@ -362,23 +372,23 @@
 
     if-ne v6, v7, :cond_74
 
-    .line 583
+    .line 584
     :goto_3e
     if-eqz v2, :cond_4a
 
-    .line 584
+    .line 585
     sget v3, Landroid/os/Build$VERSION;->SDK_INT:I
 
     const/16 v4, 0x15
 
     if-lt v3, v4, :cond_78
 
-    .line 585
+    .line 586
     invoke-virtual {v2}, Landroid/view/View;->isAttachedToWindow()Z
 
     move-result v1
 
-    .line 590
+    .line 591
     :cond_4a
     :goto_4a
     if-eqz v2, :cond_11
@@ -391,27 +401,27 @@
 
     if-eqz v1, :cond_11
 
-    .line 594
+    .line 595
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v1
 
-    .line 595
+    .line 596
     instance-of v2, v1, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     if-eqz v2, :cond_64
 
-    .line 596
+    .line 597
     check-cast v1, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
-    .line 597
+    .line 598
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->isLoading()Z
 
     move-result v1
 
     if-nez v1, :cond_11
 
-    .line 602
+    .line 603
     :cond_64
     iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$a;->folders:Ljava/util/List;
 
@@ -428,13 +438,13 @@
 
     goto :goto_11
 
-    .line 603
+    .line 604
     :catch_72
     move-exception v0
 
     goto :goto_11
 
-    .line 572
+    .line 573
     :cond_74
     add-int/lit8 v2, v4, 0x1
 
@@ -442,7 +452,7 @@
 
     goto :goto_2c
 
-    .line 587
+    .line 588
     :cond_78
     invoke-virtual {v2}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
     :try_end_7b

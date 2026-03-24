@@ -1,6 +1,6 @@
 .class public interface abstract Lbl/agb$b;
 .super Ljava/lang/Object;
-.source "BL"
+.source "agb.java"
 
 
 # annotations

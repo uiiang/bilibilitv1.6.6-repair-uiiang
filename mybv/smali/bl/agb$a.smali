@@ -1,6 +1,6 @@
 .class public Lbl/agb$a;
 .super Ljava/lang/Object;
-.source "BL"
+.source "agb.java"
 
 
 # annotations
@@ -15,148 +15,159 @@
 
 
 # instance fields
-.field private a:Landroid/app/Activity;
+.field private activity:Landroid/app/Activity;
 
-.field private b:I
+.field private cancelClickListener:Lbl/agb$b;
 
-.field private c:Ljava/lang/String;
+.field private cancelText:Ljava/lang/String;
 
-.field private d:Ljava/util/LinkedHashMap;
+.field private confirmClickListener:Lbl/agb$b;
+
+.field private confirmText:Ljava/lang/String;
+
+.field private focusCancel:Z
+
+.field private groupClickListener:Lbl/agb$GroupClickListener;
+
+.field private groups:Ljava/util/List;
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "Ljava/util/LinkedHashMap<",
-            "Ljava/lang/String;",
-            "Ljava/lang/Object;",
+            "Ljava/util/List",
+            "<",
+            "Lbl/agb$GroupData;",
             ">;"
         }
     .end annotation
 .end field
 
-.field private e:Lbl/agb$c;
+.field private title:Ljava/lang/String;
 
-.field private f:Ljava/lang/Object;
-
-.field private g:Ljava/lang/String;
-
-.field private h:Ljava/lang/String;
-
-.field private i:Lbl/agb$b;
-
-.field private j:Lbl/agb$b;
-
-.field private k:Z
+.field private type:I
 
 
 # direct methods
 .method public constructor <init>(Landroid/app/Activity;)V
-    .locals 0
+    .locals 1
 
-    .line 243
+    .prologue
+    .line 408
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 244
-    iput-object p1, p0, Lbl/agb$a;->a:Landroid/app/Activity;
+    .line 397
+    const/4 v0, 0x2
 
+    iput v0, p0, Lbl/agb$a;->type:I
+
+    .line 403
+    const/4 v0, 0x0
+
+    iput-boolean v0, p0, Lbl/agb$a;->focusCancel:Z
+
+    .line 409
+    iput-object p1, p0, Lbl/agb$a;->activity:Landroid/app/Activity;
+
+    .line 410
     return-void
 .end method
 
-.method static synthetic a(Lbl/agb$a;)Landroid/app/Activity;
-    .locals 0
+.method static synthetic access$000(Lbl/agb$a;)Landroid/app/Activity;
+    .locals 1
 
-    .line 226
-    iget-object p0, p0, Lbl/agb$a;->a:Landroid/app/Activity;
+    .prologue
+    .line 395
+    iget-object v0, p0, Lbl/agb$a;->activity:Landroid/app/Activity;
 
-    return-object p0
+    return-object v0
 .end method
 
-.method static synthetic b(Lbl/agb$a;)I
-    .locals 0
+.method static synthetic access$100(Lbl/agb$a;)I
+    .locals 1
 
-    .line 226
-    iget p0, p0, Lbl/agb$a;->b:I
+    .prologue
+    .line 395
+    iget v0, p0, Lbl/agb$a;->type:I
 
-    return p0
+    return v0
 .end method
 
-.method static synthetic c(Lbl/agb$a;)Ljava/lang/String;
-    .locals 0
+.method static synthetic access$1000(Lbl/agb$a;)Lbl/agb$b;
+    .locals 1
 
-    .line 226
-    iget-object p0, p0, Lbl/agb$a;->c:Ljava/lang/String;
+    .prologue
+    .line 395
+    iget-object v0, p0, Lbl/agb$a;->cancelClickListener:Lbl/agb$b;
 
-    return-object p0
+    return-object v0
 .end method
 
-.method static synthetic d(Lbl/agb$a;)Ljava/lang/String;
-    .locals 0
+.method static synthetic access$1100(Lbl/agb$a;)Lbl/agb$b;
+    .locals 1
 
-    .line 226
-    iget-object p0, p0, Lbl/agb$a;->h:Ljava/lang/String;
+    .prologue
+    .line 395
+    iget-object v0, p0, Lbl/agb$a;->confirmClickListener:Lbl/agb$b;
 
-    return-object p0
+    return-object v0
 .end method
 
-.method static synthetic e(Lbl/agb$a;)Ljava/lang/String;
-    .locals 0
+.method static synthetic access$200(Lbl/agb$a;)Ljava/lang/String;
+    .locals 1
 
-    .line 226
-    iget-object p0, p0, Lbl/agb$a;->g:Ljava/lang/String;
+    .prologue
+    .line 395
+    iget-object v0, p0, Lbl/agb$a;->title:Ljava/lang/String;
 
-    return-object p0
+    return-object v0
 .end method
 
-.method static synthetic f(Lbl/agb$a;)Z
-    .locals 0
+.method static synthetic access$300(Lbl/agb$a;)Ljava/lang/String;
+    .locals 1
 
-    .line 226
-    iget-boolean p0, p0, Lbl/agb$a;->k:Z
+    .prologue
+    .line 395
+    iget-object v0, p0, Lbl/agb$a;->confirmText:Ljava/lang/String;
 
-    return p0
+    return-object v0
 .end method
 
-.method static synthetic g(Lbl/agb$a;)Ljava/util/LinkedHashMap;
-    .locals 0
+.method static synthetic access$400(Lbl/agb$a;)Ljava/lang/String;
+    .locals 1
 
-    .line 226
-    iget-object p0, p0, Lbl/agb$a;->d:Ljava/util/LinkedHashMap;
+    .prologue
+    .line 395
+    iget-object v0, p0, Lbl/agb$a;->cancelText:Ljava/lang/String;
 
-    return-object p0
+    return-object v0
 .end method
 
-.method static synthetic h(Lbl/agb$a;)Lbl/agb$c;
-    .locals 0
+.method static synthetic access$500(Lbl/agb$a;)Z
+    .locals 1
 
-    .line 226
-    iget-object p0, p0, Lbl/agb$a;->e:Lbl/agb$c;
+    .prologue
+    .line 395
+    iget-boolean v0, p0, Lbl/agb$a;->focusCancel:Z
 
-    return-object p0
+    return v0
 .end method
 
-.method static synthetic i(Lbl/agb$a;)Ljava/lang/Object;
-    .locals 0
+.method static synthetic access$600(Lbl/agb$a;)Ljava/util/List;
+    .locals 1
 
-    .line 226
-    iget-object p0, p0, Lbl/agb$a;->f:Ljava/lang/Object;
+    .prologue
+    .line 395
+    iget-object v0, p0, Lbl/agb$a;->groups:Ljava/util/List;
 
-    return-object p0
+    return-object v0
 .end method
 
-.method static synthetic j(Lbl/agb$a;)Lbl/agb$b;
-    .locals 0
+.method static synthetic access$900(Lbl/agb$a;)Lbl/agb$GroupClickListener;
+    .locals 1
 
-    .line 226
-    iget-object p0, p0, Lbl/agb$a;->j:Lbl/agb$b;
+    .prologue
+    .line 395
+    iget-object v0, p0, Lbl/agb$a;->groupClickListener:Lbl/agb$GroupClickListener;
 
-    return-object p0
-.end method
-
-.method static synthetic k(Lbl/agb$a;)Lbl/agb$b;
-    .locals 0
-
-    .line 226
-    iget-object p0, p0, Lbl/agb$a;->i:Lbl/agb$b;
-
-    return-object p0
+    return-object v0
 .end method
 
 
@@ -164,48 +175,81 @@
 .method public a(I)Lbl/agb$a;
     .locals 0
 
-    .line 248
-    iput p1, p0, Lbl/agb$a;->b:I
+    .prologue
+    .line 413
+    iput p1, p0, Lbl/agb$a;->type:I
 
+    .line 414
     return-object p0
 .end method
 
 .method public a(Ljava/lang/Object;)Lbl/agb$a;
-    .locals 0
+    .locals 2
 
-    .line 281
-    iput-object p1, p0, Lbl/agb$a;->f:Ljava/lang/Object;
+    .prologue
+    .line 453
+    iget-object v0, p0, Lbl/agb$a;->groups:Ljava/util/List;
 
+    if-eqz v0, :cond_17
+
+    iget-object v0, p0, Lbl/agb$a;->groups:Ljava/util/List;
+
+    invoke-interface {v0}, Ljava/util/List;->isEmpty()Z
+
+    move-result v0
+
+    if-nez v0, :cond_17
+
+    .line 454
+    iget-object v0, p0, Lbl/agb$a;->groups:Ljava/util/List;
+
+    const/4 v1, 0x0
+
+    invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lbl/agb$GroupData;
+
+    iput-object p1, v0, Lbl/agb$GroupData;->selectedValue:Ljava/lang/Object;
+
+    .line 456
+    :cond_17
     return-object p0
 .end method
 
 .method public a(Ljava/lang/String;)Lbl/agb$a;
     .locals 0
 
-    .line 253
-    iput-object p1, p0, Lbl/agb$a;->c:Ljava/lang/String;
+    .prologue
+    .line 418
+    iput-object p1, p0, Lbl/agb$a;->title:Ljava/lang/String;
 
+    .line 419
     return-object p0
 .end method
 
 .method public a(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
     .locals 0
 
-    .line 263
-    iput-object p1, p0, Lbl/agb$a;->g:Ljava/lang/String;
+    .prologue
+    .line 423
+    iput-object p1, p0, Lbl/agb$a;->confirmText:Ljava/lang/String;
 
-    .line 264
-    iput-object p2, p0, Lbl/agb$a;->i:Lbl/agb$b;
+    .line 424
+    iput-object p2, p0, Lbl/agb$a;->confirmClickListener:Lbl/agb$b;
 
+    .line 425
     return-object p0
 .end method
 
 .method public a(Ljava/util/LinkedHashMap;Lbl/agb$c;)Lbl/agb$a;
-    .locals 0
+    .locals 2
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
-            "Ljava/util/LinkedHashMap<",
+            "Ljava/util/LinkedHashMap",
+            "<",
             "Ljava/lang/String;",
             "Ljava/lang/Object;",
             ">;",
@@ -215,28 +259,64 @@
         }
     .end annotation
 
-    .line 275
-    iput-object p1, p0, Lbl/agb$a;->d:Ljava/util/LinkedHashMap;
+    .prologue
+    const/4 v1, 0x0
 
-    .line 276
-    iput-object p2, p0, Lbl/agb$a;->e:Lbl/agb$c;
+    .line 435
+    iget-object v0, p0, Lbl/agb$a;->groups:Ljava/util/List;
 
+    if-nez v0, :cond_c
+
+    .line 436
+    new-instance v0, Ljava/util/ArrayList;
+
+    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
+
+    iput-object v0, p0, Lbl/agb$a;->groups:Ljava/util/List;
+
+    .line 438
+    :cond_c
+    new-instance v0, Lbl/agb$GroupData;
+
+    invoke-direct {v0, v1, p1, v1}, Lbl/agb$GroupData;-><init>(Ljava/lang/String;Ljava/util/LinkedHashMap;Ljava/lang/Object;)V
+
+    .line 439
+    const/4 v1, 0x1
+
+    iput-boolean v1, v0, Lbl/agb$GroupData;->useKeyAsTag:Z
+
+    .line 440
+    iget-object v1, p0, Lbl/agb$a;->groups:Ljava/util/List;
+
+    invoke-interface {v1, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    .line 441
+    new-instance v0, Lbl/agb$a$1;
+
+    invoke-direct {v0, p0, p2}, Lbl/agb$a$1;-><init>(Lbl/agb$a;Lbl/agb$c;)V
+
+    iput-object v0, p0, Lbl/agb$a;->groupClickListener:Lbl/agb$GroupClickListener;
+
+    .line 449
     return-object p0
 .end method
 
 .method public a(Z)Lbl/agb$a;
     .locals 0
 
-    .line 286
-    iput-boolean p1, p0, Lbl/agb$a;->k:Z
+    .prologue
+    .line 460
+    iput-boolean p1, p0, Lbl/agb$a;->focusCancel:Z
 
+    .line 461
     return-object p0
 .end method
 
 .method public a()Lbl/agb;
     .locals 1
 
-    .line 291
+    .prologue
+    .line 465
     new-instance v0, Lbl/agb;
 
     invoke-direct {v0, p0}, Lbl/agb;-><init>(Lbl/agb$a;)V
@@ -244,14 +324,71 @@
     return-object v0
 .end method
 
+.method public addGroup(Ljava/lang/String;Ljava/util/LinkedHashMap;Ljava/lang/Object;)Lbl/agb$a;
+    .locals 2
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            "Ljava/util/LinkedHashMap",
+            "<",
+            "Ljava/lang/String;",
+            "Ljava/lang/Object;",
+            ">;",
+            "Ljava/lang/Object;",
+            ")",
+            "Lbl/agb$a;"
+        }
+    .end annotation
+
+    .prologue
+    .line 469
+    iget-object v0, p0, Lbl/agb$a;->groups:Ljava/util/List;
+
+    if-nez v0, :cond_b
+
+    .line 470
+    new-instance v0, Ljava/util/ArrayList;
+
+    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
+
+    iput-object v0, p0, Lbl/agb$a;->groups:Ljava/util/List;
+
+    .line 472
+    :cond_b
+    iget-object v0, p0, Lbl/agb$a;->groups:Ljava/util/List;
+
+    new-instance v1, Lbl/agb$GroupData;
+
+    invoke-direct {v1, p1, p2, p3}, Lbl/agb$GroupData;-><init>(Ljava/lang/String;Ljava/util/LinkedHashMap;Ljava/lang/Object;)V
+
+    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    .line 473
+    return-object p0
+.end method
+
 .method public b(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
     .locals 0
 
-    .line 269
-    iput-object p1, p0, Lbl/agb$a;->h:Ljava/lang/String;
+    .prologue
+    .line 429
+    iput-object p1, p0, Lbl/agb$a;->cancelText:Ljava/lang/String;
 
-    .line 270
-    iput-object p2, p0, Lbl/agb$a;->j:Lbl/agb$b;
+    .line 430
+    iput-object p2, p0, Lbl/agb$a;->cancelClickListener:Lbl/agb$b;
 
+    .line 431
+    return-object p0
+.end method
+
+.method public setGroupClickListener(Lbl/agb$GroupClickListener;)Lbl/agb$a;
+    .locals 0
+
+    .prologue
+    .line 477
+    iput-object p1, p0, Lbl/agb$a;->groupClickListener:Lbl/agb$GroupClickListener;
+
+    .line 478
     return-object p0
 .end method

@@ -515,6 +515,7 @@ public class FavoriteSideActivity extends BaseSideActivity implements View.OnLon
                         }
                         a.this.c = f;
                         a.this.d = System.currentTimeMillis();
+                        a.this.e = false;
                         vVar.a.setSelected(true);
                         if (vVar.a instanceof SideLeftSelectLinearLayout) {
                             ((SideLeftSelectLinearLayout) vVar.a).a();
