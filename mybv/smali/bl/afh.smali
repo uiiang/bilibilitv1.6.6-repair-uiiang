@@ -642,9 +642,6 @@
     .line 196
     invoke-super {p0}, Lbl/adt;->onResume()V
 
-    .line 197
-    invoke-direct {p0}, Lbl/afh;->f()V
-
     return-void
 .end method
 
@@ -926,6 +923,9 @@
     new-array p2, p2, [Ljava/lang/String;
 
     invoke-static {p1, p2}, Lbl/ok;->a(Ljava/lang/String;[Ljava/lang/String;)V
+
+    .line 197
+    invoke-direct {p0}, Lbl/afh;->f()V
 
     return-void
 .end method

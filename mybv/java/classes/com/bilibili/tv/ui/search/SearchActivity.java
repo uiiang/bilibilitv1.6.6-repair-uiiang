@@ -13,9 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import bl.adl;
 import bl.afh;
-import bl.afi;
 import bl.agb;
-import bl.baf;
 import bl.bbg;
 import bl.bbi;
 import bl.lk;
@@ -28,16 +26,12 @@ import com.bilibili.tv.api.category.CategoryManager;
 import com.bilibili.tv.api.category.CategoryMeta;
 import com.bilibili.tv.ui.base.BaseActivity;
 import com.bilibili.tv.ui.search.SearchKeyboardView;
-import com.bilibili.tv.ui.video.VideoDetailActivity;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
 import kotlin.TypeCastException;
 import kotlin.text.Regex;
 import tv.danmaku.android.log.BLog;
 
-/* compiled from: BL */
-/* loaded from: classes.dex */
 public final class SearchActivity extends BaseActivity implements View.OnLongClickListener, wf {
     private static final String j = "SearchActivity";
     private static final String k = "com.bilibili.tv.ui.search.SearchActivity.EXTRA_TID";
@@ -47,30 +41,26 @@ public final class SearchActivity extends BaseActivity implements View.OnLongCli
     private boolean d;
     private int e;
     private afh f;
-    private afi g;
     private int h;
     private String i;
     public static final a Companion = new a(null);
-    private static final String[] l = {"totalrank", "click", "pubdate", "dm"};
-    private static final String[] m = {"totalrank", "fans", "fansasc", "lv", "lvasc"};
-    public static final String[] live_orders = {"online","live_time"};
 
-    @Override // bl.wf
+    @Override
     public String a() {
         return "ott-search.search.0.0.pv";
     }
 
-    @Override // bl.wf
+    @Override
     public boolean a_() {
         return wg.a(this);
     }
 
-    @Override // bl.wf
+    @Override
     public Bundle b() {
         return null;
     }
 
-    @Override // com.bilibili.tv.ui.base.BaseActivity
+    @Override
     public int g() {
         return R.layout.activity_search;
     }
@@ -108,13 +98,11 @@ public final class SearchActivity extends BaseActivity implements View.OnLongCli
         return this.d;
     }
 
-    /* compiled from: BL */
-    /* loaded from: classes.dex */
     public static final class a {
         private a() {
         }
 
-        public /* synthetic */ a(bbg bbgVar) {
+        public a(bbg bbgVar) {
             this();
         }
 
@@ -126,14 +114,6 @@ public final class SearchActivity extends BaseActivity implements View.OnLongCli
             return SearchActivity.k;
         }
 
-        public final String[] c() {
-            return SearchActivity.l;
-        }
-
-        public final String[] d() {
-            return SearchActivity.m;
-        }
-
         public final void a(Context context, Integer num) {
             Intent intent = new Intent(context, (Class<?>) SearchActivity.class);
             intent.putExtra(b(), num);
@@ -143,7 +123,7 @@ public final class SearchActivity extends BaseActivity implements View.OnLongCli
         }
     }
 
-    @Override // com.bilibili.tv.ui.base.BaseActivity
+    @Override
     public void a(Bundle bundle) {
         if (getIntent() != null) {
             this.e = getIntent().getIntExtra(k, 0);
@@ -170,13 +150,11 @@ public final class SearchActivity extends BaseActivity implements View.OnLongCli
         searchKeyboardView2.requestFocus();
     }
 
-    /* compiled from: BL */
-    /* loaded from: classes.dex */
     public final class b implements SearchKeyboardView.f {
         b() {
         }
 
-        @Override // com.bilibili.tv.ui.search.SearchKeyboardView.f
+        @Override
         public void a() {
             if (!SearchActivity.this.q()) {
                 SearchActivity.this.t();
@@ -189,7 +167,7 @@ public final class SearchActivity extends BaseActivity implements View.OnLongCli
             SearchActivity.this.i = "";
         }
 
-        @Override // com.bilibili.tv.ui.search.SearchKeyboardView.f
+        @Override
         public void a(String str) {
             bbi.b(str, "text");
             BLog.d(SearchActivity.Companion.a(), "get suggestion for " + str);
@@ -209,7 +187,7 @@ public final class SearchActivity extends BaseActivity implements View.OnLongCli
             }
         }
 
-        @Override // com.bilibili.tv.ui.search.SearchKeyboardView.f
+        @Override
         public void b(String str) {
             android.util.Log.i("SearchActivity", "b(String) called with: " + str);
             bbi.b(str, "searchText");
@@ -221,8 +199,7 @@ public final class SearchActivity extends BaseActivity implements View.OnLongCli
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    @Override // android.support.v7.app.AppCompatActivity, android.app.Activity
+    @Override
     public void onPostCreate(Bundle bundle) {
         super.onPostCreate(bundle);
         t();
@@ -247,7 +224,6 @@ public final class SearchActivity extends BaseActivity implements View.OnLongCli
         BLog.i(j, "保存搜索历史成功");
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
     public final boolean q() {
         if (this.f != null) {
             afh afhVar = this.f;
@@ -255,19 +231,6 @@ public final class SearchActivity extends BaseActivity implements View.OnLongCli
                 bbi.a();
             }
             if (afhVar.isVisible()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private final boolean r() {
-        if (this.g != null) {
-            afi afiVar = this.g;
-            if (afiVar == null) {
-                bbi.a();
-            }
-            if (afiVar.isVisible()) {
                 return true;
             }
         }
@@ -304,7 +267,7 @@ public final class SearchActivity extends BaseActivity implements View.OnLongCli
         }
     }
 
-    @Override // com.bilibili.tv.ui.base.BaseActivity, android.support.v7.app.AppCompatActivity, android.app.Activity, android.view.Window.Callback
+    @Override
     public boolean dispatchKeyEvent(KeyEvent keyEvent) {
         if (this.b == null) {
             return super.dispatchKeyEvent(keyEvent);
@@ -351,12 +314,6 @@ public final class SearchActivity extends BaseActivity implements View.OnLongCli
                                 bbi.a();
                             }
                             afhVar.a();
-                        } else if (r()) {
-                            afi afiVar = this.g;
-                            if (afiVar == null) {
-                                bbi.a();
-                            }
-                            afiVar.d();
                         }
                         return true;
                     }
@@ -421,7 +378,6 @@ public final class SearchActivity extends BaseActivity implements View.OnLongCli
         return super.dispatchKeyEvent(keyEvent);
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
     public final void t() {
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         Fragment findFragmentByTag = supportFragmentManager.findFragmentByTag(afh.Companion.a());
@@ -441,46 +397,10 @@ public final class SearchActivity extends BaseActivity implements View.OnLongCli
             return;
         }
         FragmentTransaction show = supportFragmentManager.beginTransaction().show(this.f);
-        if (r()) {
-            show.hide(this.g);
-        }
         adl.a.a(supportFragmentManager, show);
     }
 
-    private final void u() {
-        android.util.Log.i("SearchActivity", "u() called");
-        FragmentManager supportFragmentManager = getSupportFragmentManager();
-        Fragment findFragmentByTag = supportFragmentManager.findFragmentByTag(afi.Companion.a());
-        android.util.Log.i("SearchActivity", "u() findFragmentByTag: " + findFragmentByTag);
-        if (!(findFragmentByTag instanceof afi)) {
-            findFragmentByTag = null;
-        }
-        this.g = (afi) findFragmentByTag;
-        android.util.Log.i("SearchActivity", "u() this.g after find: " + this.g);
-        if (this.g == null) {
-            this.g = afi.Companion.a(this.e);
-            android.util.Log.i("SearchActivity", "u() created new fragment: " + this.g);
-        }
-        afi afiVar = this.g;
-        if (afiVar == null) {
-            bbi.a();
-        }
-        if (!afiVar.isAdded()) {
-            FragmentTransaction add = supportFragmentManager.beginTransaction().add(R.id.fragment_container, this.g, afi.Companion.a());
-            if (this.f != null) {
-                add.hide(this.f);
-            }
-            adl.a.a(supportFragmentManager, add);
-            return;
-        }
-        FragmentTransaction show = supportFragmentManager.beginTransaction().show(this.g);
-        if (q()) {
-            show.hide(this.f);
-        }
-        adl.a.a(supportFragmentManager, show);
-    }
-
-    @Override // android.view.View.OnLongClickListener
+    @Override
     public boolean onLongClick(View view) {
         bbi.b(view, "v");
         if (q()) {
@@ -490,54 +410,19 @@ public final class SearchActivity extends BaseActivity implements View.OnLongCli
             }
             if (afhVar.c()) {
                 agb.a aVar = new agb.a(this);
-                aVar.a(1).a("确认清除搜索历史?").b(getString(R.string.confirm), new c()).a(getString(R.string.cancel), ((d)null).a);
+                aVar.a(1).a("确认清除搜索历史?").a(getString(R.string.confirm), new c()).b(getString(R.string.cancel), DismissListener.INSTANCE);
                 aVar.a().show();
                 return true;
-            }
-        }
-        if (r()) {
-            if (this.g.j()) {
-                return true;
-            }
-            LinkedHashMap<String, Object> linkedHashMap = new LinkedHashMap<>();
-            if (this.g.i()) {
-                linkedHashMap.put(adl.e(R.string.search_rank_default), m[0]);
-                linkedHashMap.put(adl.e(R.string.search_rank_fans), m[1]);
-                linkedHashMap.put(adl.e(R.string.search_rank_fans_asc), m[2]);
-                linkedHashMap.put(adl.e(R.string.search_rank_level), m[3]);
-                linkedHashMap.put(adl.e(R.string.search_rank_level_asc), m[4]);
-                agb.a aVar2 = new agb.a(this);
-                agb.a a2 = aVar2.a(2).a(adl.e(R.string.title_filter)).a(linkedHashMap, new e(linkedHashMap));
-                a2.a((Object) this.g.b());
-                aVar2.a().show();
-            } else if(this.g.is_live()){
-                linkedHashMap.put("在线人数", live_orders[0]);
-                linkedHashMap.put("开播时长", live_orders[1]);
-                agb.a aVar2 = new agb.a(this);
-                agb.a a2 = aVar2.a(2).a(adl.e(R.string.title_filter)).a(linkedHashMap, new ee(linkedHashMap));
-                a2.a((Object) this.g.live_order);
-                aVar2.a().show();
-            } else {
-                linkedHashMap.put(adl.e(R.string.search_rank_default), l[0]);
-                linkedHashMap.put(adl.e(R.string.search_rank_click), l[1]);
-                linkedHashMap.put(adl.e(R.string.search_rank_date), l[2]);
-                linkedHashMap.put(adl.e(R.string.search_rank_danmaku), l[3]);
-                agb.a aVar3 = new agb.a(this);
-                agb.a a3 = aVar3.a(2).a(adl.e(R.string.title_filter)).a(linkedHashMap, new f(linkedHashMap));
-                a3.a((Object) this.g.a());
-                aVar3.a().show();
             }
         }
         return true;
     }
 
-    /* compiled from: BL */
-    /* loaded from: classes.dex */
-    final class c implements agb.b {
+    public final class c implements agb.b {
         c() {
         }
 
-        @Override // bl.agb.b
+        @Override
         public final void a(agb agbVar, View view) {
             SearchActivity.this.f.d();
             ok.a("tv_search_clearall_click", new String[0]);
@@ -545,77 +430,14 @@ public final class SearchActivity extends BaseActivity implements View.OnLongCli
         }
     }
 
-    /* compiled from: BL */
-    /* loaded from: classes.dex */
-    static final class d implements agb.b {
-        public static final d a = new d();
+    public static final class DismissListener implements agb.b {
+        public static final DismissListener INSTANCE = new DismissListener();
 
-        d() {
+        DismissListener() {
         }
 
-        @Override // bl.agb.b
+        @Override
         public final void a(agb agbVar, View view) {
-            agbVar.dismiss();
-        }
-    }
-
-    /* compiled from: BL */
-    /* loaded from: classes.dex */
-    final class e implements agb.c {
-        final /* synthetic */ LinkedHashMap b;
-
-        e(LinkedHashMap linkedHashMap) {
-            this.b = linkedHashMap;
-        }
-
-        @Override // bl.agb.c
-        public final void a(agb agbVar, View view, String str) {
-            SearchActivity.this.g.c((String) this.b.get(str));
-            agbVar.dismiss();
-        }
-    }
-
-
-    final class ee implements agb.c {
-        final /* synthetic */ LinkedHashMap b;
-
-        ee(LinkedHashMap linkedHashMap) {
-            this.b = linkedHashMap;
-        }
-
-        @Override // bl.agb.c
-        public final void a(agb agbVar, View view, String str) {
-            SearchActivity.this.g.cc((String) this.b.get(str));
-            agbVar.dismiss();
-        }
-    }
-
-
-    /* compiled from: BL */
-    /* loaded from: classes.dex */
-    final class f implements agb.c {
-        final /* synthetic */ LinkedHashMap b;
-
-        f(LinkedHashMap linkedHashMap) {
-            this.b = linkedHashMap;
-        }
-
-        @Override // bl.agb.c
-        public final void a(agb agbVar, View view, String str) {
-            String str2 = (String) this.b.get(str);
-            SearchActivity.this.g.b(str2);
-            String str3 = "";
-            String str4 = str2;
-            if (TextUtils.equals(str4, SearchActivity.Companion.c()[0])) {
-                str3 = "1";
-            } else if (TextUtils.equals(str4, SearchActivity.Companion.c()[2])) {
-                str3 = "3";
-            } else if (TextUtils.equals(str4, SearchActivity.Companion.c()[1])) {
-                str3 = "4";
-            } else if (TextUtils.equals(str4, SearchActivity.Companion.c()[3])) {
-                str3 = "5";
-            }
-            ok.a("tv_search_result_index_sort_click", "type", str3);
             agbVar.dismiss();
         }
     }

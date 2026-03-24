@@ -1,4 +1,4 @@
-.class final Lcom/bilibili/tv/ui/search/SearchActivity$c;
+.class public final Lcom/bilibili/tv/ui/search/SearchActivity$c;
 .super Ljava/lang/Object;
 .source "SearchActivity.java"
 
@@ -12,7 +12,7 @@
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
-    accessFlags = 0x10
+    accessFlags = 0x11
     name = "c"
 .end annotation
 
@@ -26,12 +26,12 @@
     .locals 0
 
     .prologue
-    .line 537
+    .line 422
     iput-object p1, p0, Lcom/bilibili/tv/ui/search/SearchActivity$c;->this$0:Lcom/bilibili/tv/ui/search/SearchActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 538
+    .line 423
     return-void
 .end method
 
@@ -41,17 +41,17 @@
     .locals 2
 
     .prologue
-    .line 542
+    .line 427
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity$c;->this$0:Lcom/bilibili/tv/ui/search/SearchActivity;
 
     # getter for: Lcom/bilibili/tv/ui/search/SearchActivity;->f:Lbl/afh;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/search/SearchActivity;->access$200(Lcom/bilibili/tv/ui/search/SearchActivity;)Lbl/afh;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/search/SearchActivity;->access$000(Lcom/bilibili/tv/ui/search/SearchActivity;)Lbl/afh;
 
     move-result-object v0
 
     invoke-virtual {v0}, Lbl/afh;->d()V
 
-    .line 543
+    .line 428
     const-string v0, "tv_search_clearall_click"
 
     const/4 v1, 0x0
@@ -60,9 +60,9 @@
 
     invoke-static {v0, v1}, Lbl/ok;->a(Ljava/lang/String;[Ljava/lang/String;)V
 
-    .line 544
+    .line 429
     invoke-virtual {p1}, Lbl/agb;->dismiss()V
 
-    .line 545
+    .line 430
     return-void
 .end method
