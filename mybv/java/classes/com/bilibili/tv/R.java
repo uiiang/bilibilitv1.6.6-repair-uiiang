@@ -22,6 +22,8 @@ public final class R {
         public static final int out_to_right = 0x7f01000f;
         public static final int tooltip_enter = 0x7f010010;
         public static final int tooltip_exit = 0x7f010011;
+        public static final int slide_in_right = 0x7f010012;
+        public static final int slide_out_right = 0x7f010013;
     }
 
     public static final class array {
@@ -2082,6 +2084,8 @@ public final class R {
         public static final int ic_folder_open_180 = 0x7f070107;
         public static final int ic_more_horiz_180 = 0x7f070108;
         public static final int ic_weekly = 0x7f070109;
+        public static final int ic_check = 0x7f07010a;
+        public static final int selector_favorite_item = 0x7f07010b;
     }
 
     public static final class id {
@@ -2535,6 +2539,11 @@ public final class R {
         public static final int tab_pgc = 0x7f0801bb;
         public static final int iv_loading_cover = 0x7f0801bc;
         public static final int tv_loading_page = 0x7f0801bd;
+        public static final int dim_background = 0x7f0801be;
+        public static final int menu_container = 0x7f0801bf;
+        public static final int favorite_list = 0x7f0801c0;
+        public static final int check_icon = 0x7f0801c1;
+        public static final int favorite_name = 0x7f0801c2;
     }
 
     public static final class integer {
@@ -2703,6 +2712,8 @@ public final class R {
         public static final int recycler_view_item_main_recommend_compact = 0x7f0a0096;
         public static final int activity_search_result_side = 0x7f0a0097;
         public static final int fragment_search_result_video = 0x7f0a0098;
+        public static final int dialog_favorite_menu = 0x7f0a0099;
+        public static final int item_favorite_menu = 0x7f0a009a;
     }
 
     public static final class mipmap {

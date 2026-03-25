@@ -340,4 +340,9 @@
     <item type="id" name="tab_pgc" />
     <item type="id" name="iv_loading_cover" />
     <item type="id" name="tv_loading_page" />
+    <item type="id" name="dim_background" />
+    <item type="id" name="menu_container" />
+    <item type="id" name="favorite_list" />
+    <item type="id" name="check_icon" />
+    <item type="id" name="favorite_name" />
 </resources>

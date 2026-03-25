@@ -149,9 +149,31 @@ public interface MyBiliApiService {
             @Header("Referer") String referer);
 
     @GET("/x/v3/fav/folder/created/list-all")
-    vp<GeneralResponse<JSONObject>> getCreatedFolderList(
+    vp<JSONObject> getCreatedFolderList(
             @Query("up_mid") long up_mid,
+            @Query("rid") long rid,
+            @Query("type") int type,
             @Query("web_location") String web_location,
             @Query("access_key") String access_key,
             @Header("Referer") String referer);
+    
+    @Headers("Referer: https://www.bilibili.com")
+    @FormUrlEncoded
+    @POST("/x/v3/fav/resource/deal")
+    vp<JSONObject> addVideoToFavorite(
+            @Field("rid") long rid,
+            @Field("type") int type,
+            @Field("add_media_ids") long media_id,
+            @Field("csrf") String csrf,
+            @Field("access_key") String access_key);
+    
+    @Headers("Referer: https://www.bilibili.com")
+    @FormUrlEncoded
+    @POST("/x/v3/fav/resource/deal")
+    vp<JSONObject> delVideoFromFavorite(
+            @Field("rid") long rid,
+            @Field("type") int type,
+            @Field("del_media_ids") long media_id,
+            @Field("csrf") String csrf,
+            @Field("access_key") String access_key);
 }

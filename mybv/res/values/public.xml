@@ -18,6 +18,8 @@
     <public type="anim" name="out_to_right" id="0x7f01000f" />
     <public type="anim" name="tooltip_enter" id="0x7f010010" />
     <public type="anim" name="tooltip_exit" id="0x7f010011" />
+    <public type="anim" name="slide_in_right" id="0x7f010012" />
+    <public type="anim" name="slide_out_right" id="0x7f010013" />
     <public type="array" name="player_danmaku_toggle" id="0x7f020000" />
     <public type="array" name="player_quality" id="0x7f020001" />
     <public type="array" name="player_right_menu_level_1" id="0x7f020002" />
@@ -1986,6 +1988,8 @@
     <public type="drawable" name="tooltip_frame_dark" id="0x7f0700f3" />
     <public type="drawable" name="tooltip_frame_light" id="0x7f0700f4" />
     <public type="drawable" name="upgrade_progress" id="0x7f0700f7" />
+    <public type="drawable" name="ic_check" id="0x7f07010a" />
+    <public type="drawable" name="selector_favorite_item" id="0x7f07010b" />
     <public type="drawable" name="abc_action_bar_item_background_material" id="0x7f070001" />
     <public type="drawable" name="notification_action_background" id="0x7f0700c0" />
     <public type="drawable" name="abc_control_background_material" id="0x7f070010" />
@@ -2510,6 +2514,11 @@
     <public type="id" name="tab_pgc" id="0x7f0801bb" />
     <public type="id" name="iv_loading_cover" id="0x7f0801bc" />
     <public type="id" name="tv_loading_page" id="0x7f0801bd" />
+    <public type="id" name="dim_background" id="0x7f0801be" />
+    <public type="id" name="menu_container" id="0x7f0801bf" />
+    <public type="id" name="favorite_list" id="0x7f0801c0" />
+    <public type="id" name="check_icon" id="0x7f0801c1" />
+    <public type="id" name="favorite_name" id="0x7f0801c2" />
 
 
     <public type="integer" name="config_danmaku_fly_duration" id="0x7f090003" />
@@ -2672,6 +2681,8 @@
     <public type="layout" name="fragment_weekly_video" id="0x7f0a0094" />
     <public type="layout" name="fragment_attention_dynamic_video" id="0x7f0a0095" />
     <public type="layout" name="recycler_view_item_main_recommend_compact" id="0x7f0a0096" />
+    <public type="layout" name="dialog_favorite_menu" id="0x7f0a0099" />
+    <public type="layout" name="item_favorite_menu" id="0x7f0a009a" />
 
 
     <public type="mipmap" name="ic_launcher" id="0x7f0b0000" />

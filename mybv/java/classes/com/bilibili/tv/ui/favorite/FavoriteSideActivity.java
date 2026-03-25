@@ -28,6 +28,7 @@ import bl.CourseFavoriteFolder;
 import bl.nv;
 import bl.ach;
 import bl.vo;
+import bl.vm;
 import bl.mg;
 import bl.vn;
 import bl.agf;
@@ -205,13 +206,16 @@ public class FavoriteSideActivity extends BaseSideActivity implements View.OnLon
             String referer = "https://space.bilibili.com/" + account.d() + "/favlist?ftype=create&ctype=21";
             String accessKey = account.e();
             ((MyBiliApiService) vo.a(MyBiliApiService.class))
-                    .getCreatedFolderList(account.d(), "333.1387", accessKey, referer)
-                    .a(new vn<JSONObject>() {
+                    .getCreatedFolderList(account.d(), 0L, 2, "333.1387", accessKey, referer)
+                    .a(new vm<JSONObject>() {
                         @Override
-                        public void a(JSONObject result) {
+                        public void onSuccess(JSONObject result) {
+                            Log.d("FavoriteSideActivity", "loadVideoFolders result: " + result);
                             videoFolders.clear();
                             if (result != null) {
-                                JSONArray list = result.getJSONArray("list");
+                                JSONObject data = result.getJSONObject("data");
+                                JSONArray list = data != null ? data.getJSONArray("list") : null;
+                                Log.d("FavoriteSideActivity", "list: " + list + ", size: " + (list != null ? list.size() : 0));
                                 if (list != null && !list.isEmpty()) {
                                     for (int i = 0; i < list.size(); i++) {
                                         JSONObject item = list.getJSONObject(i);
@@ -235,6 +239,7 @@ public class FavoriteSideActivity extends BaseSideActivity implements View.OnLon
 
                         @Override
                         public void onError(Throwable t) {
+                            Log.e("FavoriteSideActivity", "loadVideoFolders error", t);
                             adl.a.a(t, FavoriteSideActivity.this);
                             videoLoaded = true;
                             checkAllLoaded();

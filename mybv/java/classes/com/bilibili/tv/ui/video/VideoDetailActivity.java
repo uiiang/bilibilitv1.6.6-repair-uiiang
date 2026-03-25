@@ -574,11 +574,6 @@ public final class VideoDetailActivity extends BaseActivity
             VideoDetailActivity.this.tripleVideo();
         else if (id == R.id.video_detail_coin)
             VideoDetailActivity.this.coinVideo(2, 1);
-        else if (id == R.id.video_detail_favorite) {
-            ((BiliFavoriteVideoApiService) vo.a(BiliFavoriteVideoApiService.class))
-                    .getStatedBoxList(biliAccount.e(), Long.valueOf(biliAccount.d()), 0L)
-                    .a(new BiliFavoriteBoxResponse());
-        }
         return true;
     }
 
@@ -1696,14 +1691,7 @@ public final class VideoDetailActivity extends BaseActivity
                 lr.a(this, "账号未登录，无法点击");
                 return;
             }
-            BiliVideoDetail biliVideoDetail2 = this.u;
-            if (biliVideoDetail2 != null && biliVideoDetail2.isFavoriteVideo()) {
-                q("0");
-                ok.a("tv_video_view_click_fav", "action", "取消收藏");
-                return;
-            }
-            p("0");
-            ok.a("tv_video_view_click_fav", "action", "收藏");
+            showFavoriteMenu();
         } else if (id == R.id.video_detail_watch_later) {
             mg biliAccount = mg.a(this);
             bbi.a((Object) biliAccount, "BiliAccount.get(this)");
@@ -1818,6 +1806,23 @@ public final class VideoDetailActivity extends BaseActivity
             }
         }
         // android.util.Log.i("ArchiveRelation", "=== o() END ===");
+    }
+
+    private void showFavoriteMenu() {
+        if (this.u == null) {
+            return;
+        }
+        FavoriteMenuDialog dialog = new FavoriteMenuDialog(this, this.s, this.u);
+        dialog.setOnFavoriteStatusChangedListener(new FavoriteMenuDialog.OnFavoriteStatusChangedListener() {
+            @Override
+            public void onFavoriteStatusChanged(boolean isFavorited) {
+                if (u != null) {
+                    u.setFavoriteStatus(isFavorited);
+                }
+                o();
+            }
+        });
+        dialog.show();
     }
 
     private final void p(String fid) {

@@ -1,6 +1,6 @@
 .class public interface abstract Lcom/bilibili/tv/api/favorite/BiliFavoriteVideoApiService;
 .super Ljava/lang/Object;
-.source "BL"
+.source "BiliFavoriteVideoApiService.java"
 
 
 # annotations
@@ -38,8 +38,10 @@
             "Ljava/lang/String;",
             "Ljava/lang/String;",
             "I)",
-            "Lbl/vp<",
-            "Lcom/bilibili/okretro/GeneralResponse<",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
             "Ljava/lang/Void;",
             ">;>;"
         }
@@ -82,8 +84,10 @@
             "J",
             "Ljava/lang/String;",
             ")",
-            "Lbl/vp<",
-            "Lcom/bilibili/okretro/GeneralResponse<",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
             "Ljava/lang/Void;",
             ">;>;"
         }
@@ -113,8 +117,10 @@
             "(",
             "Ljava/lang/String;",
             "J)",
-            "Lbl/vp<",
-            "Lcom/bilibili/okretro/GeneralResponse<",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
             "Ljava/lang/Void;",
             ">;>;"
         }
@@ -149,8 +155,10 @@
             "(",
             "Ljava/lang/String;",
             "JJ)",
-            "Lbl/vp<",
-            "Lcom/bilibili/okretro/GeneralResponse<",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
             "Ljava/lang/Void;",
             ">;>;"
         }
@@ -187,8 +195,10 @@
             "J",
             "Ljava/lang/String;",
             ")",
-            "Lbl/vp<",
-            "Lcom/bilibili/okretro/GeneralResponse<",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
             "Ljava/lang/Void;",
             ">;>;"
         }
@@ -224,8 +234,10 @@
             "Ljava/lang/String;",
             "Ljava/lang/String;",
             "J)",
-            "Lbl/vp<",
-            "Lcom/bilibili/okretro/GeneralResponse<",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
             "Ljava/lang/Void;",
             ">;>;"
         }
@@ -255,8 +267,10 @@
             "Ljava/lang/String;",
             "Lcom/bilibili/tv/api/favorite/BiliFavoriteVideoApiService$FavParamsMap;",
             ")",
-            "Lbl/vp<",
-            "Lcom/bilibili/okretro/GeneralResponse<",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
             "Lcom/bilibili/tv/api/favorite/BiliSearchFavoriteBox;",
             ">;>;"
         }
@@ -283,8 +297,10 @@
             "Ljava/lang/String;",
             "Lcom/bilibili/tv/api/BiliApiService$MaoPageParamsMap;",
             ")",
-            "Lbl/vp<",
-            "Lcom/bilibili/okretro/GeneralResponse<",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
             "Lcom/bilibili/tv/api/favorite/BiliFavVideoDetailList;",
             ">;>;"
         }
@@ -318,9 +334,12 @@
             "Ljava/lang/Long;",
             "Ljava/lang/Long;",
             ")",
-            "Lbl/vp<",
-            "Lcom/bilibili/okretro/GeneralResponse<",
-            "Ljava/util/List<",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Ljava/util/List",
+            "<",
             "Lcom/bilibili/tv/api/favorite/BiliFavoriteBox;",
             ">;>;>;"
         }
@@ -350,8 +369,10 @@
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(III)",
-            "Lbl/vp<",
-            "Lcom/bilibili/okretro/GeneralResponse<",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
             "Lcom/bilibili/tv/api/video/tag/TagInfo;",
             ">;>;"
         }
@@ -381,8 +402,10 @@
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(III)",
-            "Lbl/vp<",
-            "Lcom/bilibili/okretro/GeneralResponse<",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
             "Lcom/bilibili/tv/api/video/tag/TagArchives;",
             ">;>;"
         }
@@ -416,8 +439,10 @@
             "J",
             "Ljava/lang/String;",
             ")",
-            "Lbl/vp<",
-            "Lcom/bilibili/okretro/GeneralResponse<",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
             "Ljava/lang/Void;",
             ">;>;"
         }
@@ -428,41 +453,5 @@
 
     .annotation runtime Lretrofit2/http/POST;
         value = "/x/v2/fav/folder/rename"
-    .end annotation
-.end method
-
-.method public abstract switchPublic(Ljava/lang/String;JI)Lbl/vp;
-    .param p1    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Field;
-            value = "access_key"
-        .end annotation
-    .end param
-    .param p2    # J
-        .annotation runtime Lretrofit2/http/Field;
-            value = "fid"
-        .end annotation
-    .end param
-    .param p4    # I
-        .annotation runtime Lretrofit2/http/Field;
-            value = "public"
-        .end annotation
-    .end param
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "(",
-            "Ljava/lang/String;",
-            "JI)",
-            "Lbl/vp<",
-            "Lcom/bilibili/okretro/GeneralResponse<",
-            "Ljava/lang/Void;",
-            ">;>;"
-        }
-    .end annotation
-
-    .annotation runtime Lretrofit2/http/FormUrlEncoded;
-    .end annotation
-
-    .annotation runtime Lretrofit2/http/POST;
-        value = "/x/v2/fav/folder/public"
     .end annotation
 .end method

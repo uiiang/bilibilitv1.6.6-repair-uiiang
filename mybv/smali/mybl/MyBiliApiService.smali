@@ -10,6 +10,59 @@
 
 
 # virtual methods
+.method public abstract addVideoToFavorite(JIJLjava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # J
+        .annotation runtime Lretrofit2/http/Field;
+            value = "rid"
+        .end annotation
+    .end param
+    .param p3    # I
+        .annotation runtime Lretrofit2/http/Field;
+            value = "type"
+        .end annotation
+    .end param
+    .param p4    # J
+        .annotation runtime Lretrofit2/http/Field;
+            value = "add_media_ids"
+        .end annotation
+    .end param
+    .param p6    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Field;
+            value = "csrf"
+        .end annotation
+    .end param
+    .param p7    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Field;
+            value = "access_key"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(JIJ",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            ")",
+            "Lbl/vp",
+            "<",
+            "Lcom/alibaba/fastjson/JSONObject;",
+            ">;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/FormUrlEncoded;
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/Headers;
+        value = {
+            "Referer: https://www.bilibili.com"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/POST;
+        value = "/x/v3/fav/resource/deal"
+    .end annotation
+.end method
+
 .method public abstract coinVideo(Ljava/lang/String;JII)Lbl/vp;
     .param p1    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Field;
@@ -50,6 +103,59 @@
 
     .annotation runtime Lretrofit2/http/POST;
         value = "https://app.bilibili.com/x/v2/view/coin/add"
+    .end annotation
+.end method
+
+.method public abstract delVideoFromFavorite(JIJLjava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # J
+        .annotation runtime Lretrofit2/http/Field;
+            value = "rid"
+        .end annotation
+    .end param
+    .param p3    # I
+        .annotation runtime Lretrofit2/http/Field;
+            value = "type"
+        .end annotation
+    .end param
+    .param p4    # J
+        .annotation runtime Lretrofit2/http/Field;
+            value = "del_media_ids"
+        .end annotation
+    .end param
+    .param p6    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Field;
+            value = "csrf"
+        .end annotation
+    .end param
+    .param p7    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Field;
+            value = "access_key"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(JIJ",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            ")",
+            "Lbl/vp",
+            "<",
+            "Lcom/alibaba/fastjson/JSONObject;",
+            ">;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/FormUrlEncoded;
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/Headers;
+        value = {
+            "Referer: https://www.bilibili.com"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/POST;
+        value = "/x/v3/fav/resource/deal"
     .end annotation
 .end method
 
@@ -140,40 +246,48 @@
     .end annotation
 .end method
 
-.method public abstract getCreatedFolderList(JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lbl/vp;
+.method public abstract getCreatedFolderList(JJILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lbl/vp;
     .param p1    # J
         .annotation runtime Lretrofit2/http/Query;
             value = "up_mid"
         .end annotation
     .end param
-    .param p3    # Ljava/lang/String;
+    .param p3    # J
+        .annotation runtime Lretrofit2/http/Query;
+            value = "rid"
+        .end annotation
+    .end param
+    .param p5    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "type"
+        .end annotation
+    .end param
+    .param p6    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Query;
             value = "web_location"
         .end annotation
     .end param
-    .param p4    # Ljava/lang/String;
+    .param p7    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Query;
             value = "access_key"
         .end annotation
     .end param
-    .param p5    # Ljava/lang/String;
+    .param p8    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Header;
             value = "Referer"
         .end annotation
     .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "(J",
+            "(JJI",
             "Ljava/lang/String;",
             "Ljava/lang/String;",
             "Ljava/lang/String;",
             ")",
             "Lbl/vp",
             "<",
-            "Lcom/bilibili/okretro/GeneralResponse",
-            "<",
             "Lcom/alibaba/fastjson/JSONObject;",
-            ">;>;"
+            ">;"
         }
     .end annotation
 
