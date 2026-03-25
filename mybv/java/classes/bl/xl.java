@@ -238,8 +238,17 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
     public void onFocusChange(View view, boolean hasFocus) {
         TextView t = (TextView) view.findViewById(R.id.text);
         if(t != null){
-            if(hasFocus)t.setSelected(true);
-            else t.setSelected(false);
+            if(hasFocus) {
+                t.setSelected(true);
+                t.setSingleLine(false);
+                t.setMaxLines(3);
+                t.setEllipsize(TextUtils.TruncateAt.END);
+            } else {
+                t.setSelected(false);
+                t.setSingleLine(true);
+                t.setMaxLines(1);
+                t.setEllipsize(TextUtils.TruncateAt.END);
+            }
         }
     }
 
@@ -265,7 +274,8 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
                     TextView textView2 = (TextView) childAt;
                     textView2.setText(str);
                     textView2.setSingleLine(true);
-                    textView2.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                    textView2.setEllipsize(TextUtils.TruncateAt.END);
+                    textView2.setMaxLines(1);
                     viewGroup2.setOnFocusChangeListener(xl.this);
                     if (i == xl.this.i) {
                         viewGroup2.getChildAt(1).setVisibility(0);
@@ -337,6 +347,15 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
                     f = f2;
                 }
                 textView.setTextSize(0, f);
+                if (z) {
+                    textView.setSingleLine(false);
+                    textView.setMaxLines(3);
+                    textView.setEllipsize(TextUtils.TruncateAt.END);
+                } else {
+                    textView.setSingleLine(true);
+                    textView.setMaxLines(1);
+                    textView.setEllipsize(TextUtils.TruncateAt.END);
+                }
             }
         }
     }
