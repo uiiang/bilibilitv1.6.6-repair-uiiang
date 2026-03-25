@@ -2946,11 +2946,50 @@ public final class VideoDetailActivity extends BaseActivity
                 VideoDetailActivity.this.seasonsContainer.setVisibility(0);
             }
             
-            // 为每个section创建独立的列表
+            // 找到包含当前视频的合集索引
+            int currentVideoSectionIndex = -1;
+            long currentAvid = VideoDetailActivity.this.s;
+            for (int i = 0; i < biliVideoDetail.sectionInfoList.size(); i++) {
+                BiliVideoDetail.SectionInfo sectionInfo = biliVideoDetail.sectionInfoList.get(i);
+                if (sectionInfo.episodes != null) {
+                    for (int j = 0; j < sectionInfo.episodes.size(); j++) {
+                        try {
+                            long episodeAvid = sectionInfo.episodes.getJSONObject(j).getJSONObject("arc").getLongValue("aid");
+                            if (episodeAvid == currentAvid) {
+                                currentVideoSectionIndex = i;
+                                break;
+                            }
+                        } catch (Exception e) {
+                            // ignore
+                        }
+                    }
+                }
+                if (currentVideoSectionIndex >= 0) {
+                    break;
+                }
+            }
+            
+            // 创建排序后的索引列表：包含当前视频的合集放在最前面
+            List<Integer> sortedIndices = new ArrayList<>();
+            if (currentVideoSectionIndex >= 0) {
+                sortedIndices.add(currentVideoSectionIndex);
+                for (int i = 0; i < biliVideoDetail.sectionInfoList.size(); i++) {
+                    if (i != currentVideoSectionIndex) {
+                        sortedIndices.add(i);
+                    }
+                }
+            } else {
+                for (int i = 0; i < biliVideoDetail.sectionInfoList.size(); i++) {
+                    sortedIndices.add(i);
+                }
+            }
+            
+            // 为每个section创建独立的列表（按排序后的顺序）
             int totalSections = biliVideoDetail.sectionInfoList.size();
-            for (int sectionIndex = 0; sectionIndex < totalSections; sectionIndex++) {
-                BiliVideoDetail.SectionInfo sectionInfo = biliVideoDetail.sectionInfoList.get(sectionIndex);
-                createSeasonSectionView(sectionInfo, sectionIndex, totalSections, biliVideoDetail);
+            for (int displayIndex = 0; displayIndex < sortedIndices.size(); displayIndex++) {
+                int originalIndex = sortedIndices.get(displayIndex);
+                BiliVideoDetail.SectionInfo sectionInfo = biliVideoDetail.sectionInfoList.get(originalIndex);
+                createSeasonSectionView(sectionInfo, displayIndex, totalSections, biliVideoDetail);
             }
         }
         

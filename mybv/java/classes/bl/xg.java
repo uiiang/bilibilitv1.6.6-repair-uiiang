@@ -158,10 +158,29 @@ public class xg {
         }
 
         if (biliVideoDetail.episodes != null && biliVideoDetail.episodes.size() > 0) {
-            int size = biliVideoDetail.episodes.size();
+            com.alibaba.fastjson.JSONArray currentSectionEpisodes = biliVideoDetail.episodes;
+            
+            if (biliVideoDetail.sectionInfoList != null && biliVideoDetail.sectionInfoList.size() > 1) {
+                for (com.bilibili.tv.api.video.BiliVideoDetail.SectionInfo sectionInfo : biliVideoDetail.sectionInfoList) {
+                    if (sectionInfo.episodes != null) {
+                        for (int ei = 0; ei < sectionInfo.episodes.size(); ei++) {
+                            com.alibaba.fastjson.JSONObject ep = sectionInfo.episodes.getJSONObject(ei);
+                            if (ep.getLongValue("cid") == obtainResolveParams.mCid) {
+                                currentSectionEpisodes = sectionInfo.episodes;
+                                break;
+                            }
+                        }
+                    }
+                    if (currentSectionEpisodes == sectionInfo.episodes) {
+                        break;
+                    }
+                }
+            }
+            
+            int size = currentSectionEpisodes.size();
             ResolveResourceParams[] obtainResolveParamsArray = a.mVideoParams.obtainResolveParamsArray(size);
             for (int i3 = 0; i3 < size; i3++) {
-                JSONObject episode = biliVideoDetail.episodes.getJSONObject(i3);
+                JSONObject episode = currentSectionEpisodes.getJSONObject(i3);
                 long episodeCid = episode.getLongValue("cid");
                 if (episodeCid == obtainResolveParams.mCid) {
                     a.mVideoParams.mResolveParams.mPage = i3;
@@ -262,10 +281,29 @@ public class xg {
         }
 
         if (biliVideoDetail.episodes != null && biliVideoDetail.episodes.size() > 0) {
-            int size = biliVideoDetail.episodes.size();
+            com.alibaba.fastjson.JSONArray currentSectionEpisodes = biliVideoDetail.episodes;
+            
+            if (biliVideoDetail.sectionInfoList != null && biliVideoDetail.sectionInfoList.size() > 1) {
+                for (com.bilibili.tv.api.video.BiliVideoDetail.SectionInfo sectionInfo : biliVideoDetail.sectionInfoList) {
+                    if (sectionInfo.episodes != null) {
+                        for (int ei = 0; ei < sectionInfo.episodes.size(); ei++) {
+                            com.alibaba.fastjson.JSONObject ep = sectionInfo.episodes.getJSONObject(ei);
+                            if (ep.getLongValue("cid") == obtainResolveParams.mCid) {
+                                currentSectionEpisodes = sectionInfo.episodes;
+                                break;
+                            }
+                        }
+                    }
+                    if (currentSectionEpisodes == sectionInfo.episodes) {
+                        break;
+                    }
+                }
+            }
+            
+            int size = currentSectionEpisodes.size();
             ResolveResourceParams[] obtainResolveParamsArray = a.mVideoParams.obtainResolveParamsArray(size);
             for (int i3 = 0; i3 < size; i3++) {
-                JSONObject episode = biliVideoDetail.episodes.getJSONObject(i3);
+                JSONObject episode = currentSectionEpisodes.getJSONObject(i3);
                 long episodeCid = episode.getLongValue("cid");
                 if (episodeCid == obtainResolveParams.mCid) {
                     a.mVideoParams.mResolveParams.mPage = i3;
