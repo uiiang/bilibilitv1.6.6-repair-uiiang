@@ -678,6 +678,10 @@ public final class HistoryVideoFragment extends ady {
             this.s = (DrawRelativeLayout) a(view, R.id.draw);
             
             view.setOnFocusChangeListener(this);
+            Context context = view.getContext();
+            if (context instanceof View.OnLongClickListener) {
+                view.setOnLongClickListener((View.OnLongClickListener) context);
+            }
         }
         
         public final ScalableImageView z() {

@@ -10,6 +10,7 @@
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
         Lcom/bilibili/tv/ui/history/HistorySideActivity$a;,
+        Lcom/bilibili/tv/ui/history/HistorySideActivity$DismissListener;,
         Lcom/bilibili/tv/ui/history/HistorySideActivity$DeleteConfirmClickListener;,
         Lcom/bilibili/tv/ui/history/HistorySideActivity$ClearConfirmClickListener;
     }
@@ -149,12 +150,12 @@
     .prologue
     const/4 v4, 0x0
 
-    .line 233
+    .line 242
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity;->folders:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->clear()V
 
-    .line 234
+    .line 243
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity;->folders:Ljava/util/List;
 
     new-instance v1, Lbl/HistoryFolder;
@@ -167,7 +168,7 @@
 
     invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 235
+    .line 244
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity;->folders:Ljava/util/List;
 
     new-instance v1, Lbl/HistoryFolder;
@@ -180,7 +181,7 @@
 
     invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 237
+    .line 246
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity;->folders:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->isEmpty()Z
@@ -189,7 +190,7 @@
 
     if-nez v0, :cond_35
 
-    .line 238
+    .line 247
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity;->folders:Ljava/util/List;
 
     invoke-interface {v0, v4}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -200,7 +201,7 @@
 
     invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/history/HistorySideActivity;->showHistoryList(Lbl/HistoryFolder;)V
 
-    .line 240
+    .line 249
     :cond_35
     return-void
 .end method
@@ -209,8 +210,6 @@
     .locals 5
 
     .prologue
-    const/4 v4, 0x0
-
     .line 203
     new-instance v0, Lbl/agb$a;
 
@@ -238,9 +237,11 @@
 
     new-instance v3, Lcom/bilibili/tv/ui/history/HistorySideActivity$ClearConfirmClickListener;
 
+    const/4 v4, 0x0
+
     invoke-direct {v3, p0, v4}, Lcom/bilibili/tv/ui/history/HistorySideActivity$ClearConfirmClickListener;-><init>(Lcom/bilibili/tv/ui/history/HistorySideActivity;Lcom/bilibili/tv/ui/history/HistorySideActivity$1;)V
 
-    invoke-virtual {v1, v2, v3}, Lbl/agb$a;->b(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
+    invoke-virtual {v1, v2, v3}, Lbl/agb$a;->a(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
 
     move-result-object v1
 
@@ -251,7 +252,9 @@
 
     move-result-object v2
 
-    invoke-virtual {v1, v2, v4}, Lbl/agb$a;->a(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
+    sget-object v3, Lcom/bilibili/tv/ui/history/HistorySideActivity$DismissListener;->INSTANCE:Lcom/bilibili/tv/ui/history/HistorySideActivity$DismissListener;
+
+    invoke-virtual {v1, v2, v3}, Lbl/agb$a;->b(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
 
     .line 207
     invoke-virtual {v0}, Lbl/agb$a;->a()Lbl/agb;
@@ -268,8 +271,6 @@
     .locals 5
 
     .prologue
-    const/4 v4, 0x0
-
     .line 195
     new-instance v0, Lbl/agb$a;
 
@@ -297,9 +298,11 @@
 
     new-instance v3, Lcom/bilibili/tv/ui/history/HistorySideActivity$DeleteConfirmClickListener;
 
+    const/4 v4, 0x0
+
     invoke-direct {v3, p0, v4}, Lcom/bilibili/tv/ui/history/HistorySideActivity$DeleteConfirmClickListener;-><init>(Lcom/bilibili/tv/ui/history/HistorySideActivity;Lcom/bilibili/tv/ui/history/HistorySideActivity$1;)V
 
-    invoke-virtual {v1, v2, v3}, Lbl/agb$a;->b(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
+    invoke-virtual {v1, v2, v3}, Lbl/agb$a;->a(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
 
     move-result-object v1
 
@@ -310,7 +313,9 @@
 
     move-result-object v2
 
-    invoke-virtual {v1, v2, v4}, Lbl/agb$a;->a(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
+    sget-object v3, Lcom/bilibili/tv/ui/history/HistorySideActivity$DismissListener;->INSTANCE:Lcom/bilibili/tv/ui/history/HistorySideActivity$DismissListener;
+
+    invoke-virtual {v1, v2, v3}, Lbl/agb$a;->b(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
 
     .line 199
     invoke-virtual {v0}, Lbl/agb$a;->a()Lbl/agb;
@@ -327,20 +332,20 @@
     .locals 3
 
     .prologue
-    .line 243
+    .line 252
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity;->selectedFolder:Lbl/HistoryFolder;
 
     if-ne v0, p1, :cond_5
 
-    .line 256
+    .line 265
     :goto_4
     return-void
 
-    .line 247
+    .line 256
     :cond_5
     iput-object p1, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity;->selectedFolder:Lbl/HistoryFolder;
 
-    .line 250
+    .line 259
     invoke-virtual {p1}, Lbl/HistoryFolder;->getHistoryType()Ljava/lang/String;
 
     move-result-object v0
@@ -349,24 +354,24 @@
 
     move-result-object v0
 
-    .line 252
+    .line 261
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/history/HistorySideActivity;->getSupportFragmentManager()Landroid/support/v4/app/FragmentManager;
 
     move-result-object v1
 
-    .line 253
+    .line 262
     invoke-virtual {v1}, Landroid/support/v4/app/FragmentManager;->beginTransaction()Landroid/support/v4/app/FragmentTransaction;
 
     move-result-object v1
 
     const v2, 0x7f080091
 
-    .line 254
+    .line 263
     invoke-virtual {v1, v2, v0}, Landroid/support/v4/app/FragmentTransaction;->replace(ILandroid/support/v4/app/Fragment;)Landroid/support/v4/app/FragmentTransaction;
 
     move-result-object v0
 
-    .line 255
+    .line 264
     invoke-virtual {v0}, Landroid/support/v4/app/FragmentTransaction;->commit()I
 
     goto :goto_4

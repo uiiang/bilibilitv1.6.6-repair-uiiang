@@ -194,16 +194,16 @@ public class HistorySideActivity extends BaseSideActivity implements View.OnLong
     private void showDeleteConfirmDialog() {
         agb.a dialogBuilder = new agb.a(this);
         dialogBuilder.a(1).a("确认删除该条历史记录？")
-                .b(getString(R.string.confirm), new DeleteConfirmClickListener())
-                .a(getString(R.string.cancel), null);
+                .a(getString(R.string.confirm), new DeleteConfirmClickListener())
+                .b(getString(R.string.cancel), DismissListener.INSTANCE);
         dialogBuilder.a().show();
     }
 
     private void showClearConfirmDialog() {
         agb.a dialogBuilder = new agb.a(this);
         dialogBuilder.a(1).a("确认清空所有历史记录？")
-                .b(getString(R.string.confirm), new ClearConfirmClickListener())
-                .a(getString(R.string.cancel), null);
+                .a(getString(R.string.confirm), new ClearConfirmClickListener())
+                .b(getString(R.string.cancel), DismissListener.INSTANCE);
         dialogBuilder.a().show();
     }
 
@@ -225,6 +225,15 @@ public class HistorySideActivity extends BaseSideActivity implements View.OnLong
             if (frag instanceof HistoryVideoFragment) {
                 ((HistoryVideoFragment) frag).deleteCurrentHistory();
             }
+            dialog.dismiss();
+        }
+    }
+
+    private static class DismissListener implements agb.b {
+        public static final DismissListener INSTANCE = new DismissListener();
+
+        @Override
+        public void a(agb dialog, View view) {
             dialog.dismiss();
         }
     }
@@ -314,6 +323,7 @@ public class HistorySideActivity extends BaseSideActivity implements View.OnLong
                         }
                         a.this.c = f;
                         a.this.d = System.currentTimeMillis();
+                        a.this.e = false;
                         vVar.a.setSelected(true);
                         if (vVar.a instanceof SideLeftSelectLinearLayout) {
                             ((SideLeftSelectLinearLayout) vVar.a).a();
