@@ -2508,6 +2508,8 @@
     <public type="id" name="tab_area" id="0x7f0801b9" />
     <public type="id" name="tab_bangumi" id="0x7f0801ba" />
     <public type="id" name="tab_pgc" id="0x7f0801bb" />
+    <public type="id" name="iv_loading_cover" id="0x7f0801bc" />
+    <public type="id" name="tv_loading_page" id="0x7f0801bd" />
 
 
     <public type="integer" name="config_danmaku_fly_duration" id="0x7f090003" />

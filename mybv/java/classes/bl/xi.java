@@ -511,6 +511,13 @@ public class xi extends xh implements bbb<Message, Boolean> {
         this.c.a();
         R();
         String a2 = yr.a(b);
+        String coverUrl = yr.d(b);
+        String pageTitle = null;
+        if (b.mVideoParams != null && b.mVideoParams.mResolveParams != null) {
+            if (b.mVideoParams.mResolveParamsArray != null && b.mVideoParams.mResolveParamsArray.length > 1) {
+                pageTitle = b.mVideoParams.mResolveParams.mPageTitle;
+            }
+        }
         if (b.isBangumi()) {
             if (TextUtils.isEmpty(a2)) {
                 a2 = BiliBangumiSeason.getReadableIndexTitle(b.mVideoParams.mResolveParams.mPageIndex);
@@ -519,6 +526,7 @@ public class xi extends xh implements bbb<Message, Boolean> {
             }
         }
         this.k.b(lp.a(o.getString(R.string.player_loading_title), a2));
+        this.k.a(coverUrl, pageTitle);
     }
 
     private void e(int i) {

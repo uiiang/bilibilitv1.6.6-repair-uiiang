@@ -338,4 +338,6 @@
     <item type="id" name="tab_area" />
     <item type="id" name="tab_bangumi" />
     <item type="id" name="tab_pgc" />
+    <item type="id" name="iv_loading_cover" />
+    <item type="id" name="tv_loading_page" />
 </resources>

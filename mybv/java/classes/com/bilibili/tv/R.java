@@ -2533,6 +2533,8 @@ public final class R {
         public static final int tab_area = 0x7f0801b9;
         public static final int tab_bangumi = 0x7f0801ba;
         public static final int tab_pgc = 0x7f0801bb;
+        public static final int iv_loading_cover = 0x7f0801bc;
+        public static final int tv_loading_page = 0x7f0801bd;
     }
 
     public static final class integer {

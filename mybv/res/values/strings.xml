@@ -217,7 +217,7 @@
     <string name="player_chapter_tip">本视频有%s个章节</string>
     <string name="player_loading_live_tips">tips：直播无法播放有可能是主播已下线。</string>
     <string name="player_loading_tips">tips：长按[OK]键可设置画面</string>
-    <string name="player_loading_title">正在加载: %s</string>
+    <string name="player_loading_title">即将播放: %s</string>
     <string name="pref_key_choose_danmaku_engine">ChooseDanmakuEngine</string>
     <string name="pref_key_danmaku_hide_by_default">DanmakuHideByDefault</string>
     <string name="pref_summary_danmaku_engine_auto">自动选择（推荐）</string>
