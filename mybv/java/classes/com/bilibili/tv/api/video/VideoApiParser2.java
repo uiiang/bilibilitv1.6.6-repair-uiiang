@@ -2,7 +2,6 @@ package com.bilibili.tv.api.video;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.Log;
 import bl.jp;
 import bl.jq;
 import bl.vu;
@@ -16,7 +15,6 @@ import okhttp3.ResponseBody;
 /* compiled from: BL */
 /* loaded from: classes.dex */
 public class VideoApiParser2 implements vu<GeneralResponse<BiliVideoDetail>> {
-    static final String TAG = "VideoApiParser2";
     static final String DISALLOW_DOWNLOAD = "应版权方要求，仅供在线播放";
     static final String UNSUPPORT_DOWNLOAD = "该视频暂不支持缓存";
 
@@ -26,12 +24,7 @@ public class VideoApiParser2 implements vu<GeneralResponse<BiliVideoDetail>> {
     @Override // retrofit2.Converter
     @NonNull
     public GeneralResponse<BiliVideoDetail> convert(ResponseBody responseBody) throws IOException {
-        Log.i(TAG, "VideoApiParser2.convert() called!");
         String rawResponse = responseBody.string();
-        // Log.i(TAG, "========== VIDEO DETAIL API RESPONSE START ==========");
-        // Log.i(TAG, "Response length: " + rawResponse.length());
-        // Log.i(TAG, rawResponse);
-        // Log.i(TAG, "========== VIDEO DETAIL API RESPONSE END ==========");
         Object a = jp.a(rawResponse);
         if (a instanceof JSONObject) {
             GeneralResponse<BiliVideoDetail> generalResponse = new GeneralResponse<>();
@@ -76,8 +69,8 @@ public class VideoApiParser2 implements vu<GeneralResponse<BiliVideoDetail>> {
                         resetPageObject(it.next(), r1.mTid);
                     }
                 }
-                r1.mTags = JSON.parseArray(tags.toString(), BiliVideoDetail.Tag.class);
-                r1.mRelatedList = JSON.parseArray(related.toString(), BiliVideoDetail.class);
+                r1.mTags = tags != null ? JSON.parseArray(tags.toString(), BiliVideoDetail.Tag.class) : null;
+                r1.mRelatedList = related != null ? JSON.parseArray(related.toString(), BiliVideoDetail.class) : null;
                 if (view.containsKey("ugc_season")) {
                     r1.ugcSeason = view.getJSONObject("ugc_season");
                     if (r1.ugcSeason != null) {

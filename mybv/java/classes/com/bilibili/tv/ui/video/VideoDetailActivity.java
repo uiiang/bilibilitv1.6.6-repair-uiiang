@@ -1155,56 +1155,43 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private final void loadArchiveRelation(final BiliVideoDetail biliVideoDetail) {
-        // android.util.Log.i("ArchiveRelation", "=== loadArchiveRelation START ===");
         if (biliVideoDetail == null || biliVideoDetail.mBvid == null) {
-            // android.util.Log.i("ArchiveRelation", "EARLY RETURN: biliVideoDetail=" + biliVideoDetail + ", mBvid=" + (biliVideoDetail != null ? biliVideoDetail.mBvid : "null"));
             return;
         }
         mg a2 = mg.a(this);
         bbi.a((Object) a2, "BiliAccount.get(this)");
         boolean isLoggedIn = a2.a();
-        // android.util.Log.i("ArchiveRelation", "isLoggedIn=" + isLoggedIn + ", bvid=" + biliVideoDetail.mBvid);
         if (!isLoggedIn) {
-            // android.util.Log.i("ArchiveRelation", "EARLY RETURN: not logged in");
             return;
         }
         final String sessdata = a2.getSESSDATA();
         final String bvid = biliVideoDetail.mBvid;
         final BiliVideoDetail finalDetail = biliVideoDetail;
         final String cookie = "SESSDATA=" + sessdata;
-        // android.util.Log.i("ArchiveRelation", "Requesting API: bvid=" + bvid + ", sessdata length=" + (sessdata != null ? sessdata.length() : "null"));
         
         ((MyBiliApiService) vo.a(MyBiliApiService.class)).getArchiveRelation(bvid, cookie).a(new vn<JSONObject>() {
             @Override
             public void a(JSONObject jsonObject) {
-                // android.util.Log.i("ArchiveRelation", "=== API Response ===");
                 if (jsonObject == null) {
-                    // android.util.Log.i("ArchiveRelation", "Response: jsonObject is NULL");
                     return;
                 }
-                // android.util.Log.i("ArchiveRelation", "Response: " + jsonObject.toString());
                 
                 boolean like = jsonObject.getBooleanValue("like");
                 boolean favorite = jsonObject.getBooleanValue("favorite");
                 int coin = jsonObject.getIntValue("coin");
-                // android.util.Log.i("ArchiveRelation", "Parsed: like=" + like + ", favorite=" + favorite + ", coin=" + coin);
                 
                 BiliVideoDetail.RequestUser requestUser = finalDetail.mRequestUser;
                 if (requestUser == null) {
-                    // android.util.Log.i("ArchiveRelation", "Creating new RequestUser");
                     requestUser = new BiliVideoDetail.RequestUser();
                     finalDetail.mRequestUser = requestUser;
                 }
                 requestUser.mLike = like;
                 requestUser.mFavorite = favorite;
                 requestUser.mCoin = coin > 0;
-                // android.util.Log.i("ArchiveRelation", "Updated RequestUser: mLike=" + requestUser.mLike + ", mFavorite=" + requestUser.mFavorite + ", mCoin=" + requestUser.mCoin);
-                // android.util.Log.i("ArchiveRelation", "Calling o() to update UI");
                 
                 VideoDetailActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        // android.util.Log.i("ArchiveRelation", "runOnUiThread: calling o()");
                         VideoDetailActivity.this.o();
                     }
                 });
@@ -1212,7 +1199,6 @@ public final class VideoDetailActivity extends BaseActivity
 
             @Override
             public void onError(Throwable th) {
-                // android.util.Log.e("ArchiveRelation", "API Error: " + th.getMessage(), th);
             }
         });
     }
@@ -1227,7 +1213,6 @@ public final class VideoDetailActivity extends BaseActivity
         }
         
         if (cid == 0) {
-            // android.util.Log.i("VideoDetailApi", "cid is 0, fallback to getVideoDetails");
             fallbackLoadHistory(biliVideoDetail, a2.e());
             return;
         }
@@ -1243,8 +1228,6 @@ public final class VideoDetailActivity extends BaseActivity
             public void run() {
                 boolean playurlSuccess = false;
                 try {
-                    // android.util.Log.i("VideoDetailApi", "========== PLAYER WBI V2 REQUEST ==========");
-                    
                     com.alibaba.fastjson.JSONObject playerData = ((BiliVideoDetail.JsonResponse) bl.pz.a(
                         new bl.qa.a(BiliVideoDetail.JsonResponse.class)
                             .a("https://api.bilibili.com/x/player/wbi/v2")
@@ -1254,11 +1237,6 @@ public final class VideoDetailActivity extends BaseActivity
                             .b("bvid", biliVideoDetail.mBvid)
                             .b("cid", String.valueOf(finalCid))
                             .a(new bl.qb()).a(), "GET")).result();
-                    
-                    // android.util.Log.i("VideoDetailApi", "cid=" + finalCid + ", avid=" + avid +", Cookie="+sessdata);
-                    // android.util.Log.i("VideoDetailApi", "========== PLAYER WBI V2 RESPONSE ==========");
-                    // android.util.Log.i("VideoDetailApi", "playerData=" + playerData);
-                    // android.util.Log.i("VideoDetailApi", "========== PLAYER WBI V2 RESPONSE END ==========");
                     
                     if (playerData != null && playerData.getIntValue("code") == 0) {
                         com.alibaba.fastjson.JSONObject data = playerData.getJSONObject("data");
@@ -1276,7 +1254,6 @@ public final class VideoDetailActivity extends BaseActivity
                                     @Override
                                     public void run() {
                                         finalBiliVideoDetail.mHistory = history;
-                                        // android.util.Log.i("VideoDetailApi", "loadHistory History from wbi/v2: cid=" + history.mCid + ", progress=" + history.mProgress);
                                         updateHistoryDisplay(finalBiliVideoDetail);
                                         if (VideoDetailActivity.this.historyPlayBtnLayout != null &&
                                                 VideoDetailActivity.this.historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
@@ -1288,11 +1265,9 @@ public final class VideoDetailActivity extends BaseActivity
                         }
                     }
                 } catch (Exception e) {
-                    // android.util.Log.e("VideoDetailApi", "Player WBI V2 Error: " + e.getMessage(), e);
                 }
                 
                 if (!playurlSuccess) {
-                    // android.util.Log.i("VideoDetailApi", "Playurl failed, fallback to getVideoDetails");
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -1330,11 +1305,9 @@ public final class VideoDetailActivity extends BaseActivity
             }
             @Override
             public void onError(Throwable th) {
-                // android.util.Log.e("VideoDetailApi", "History Error: " + th.getMessage(), th);
             }
             @Override
             public void onSuccess(GeneralResponse<JSONObject> result) {
-                // // android.util.Log.i("VideoDetailApi", "History onSuccess called, result=" + result);
                 if (result != null && result.data != null) {
                     com.alibaba.fastjson.JSONObject data = result.data;
                     if (data.containsKey("history")) {
@@ -1344,7 +1317,6 @@ public final class VideoDetailActivity extends BaseActivity
                             history.mCid = historyObj.getLongValue("cid");
                             history.mProgress = historyObj.getIntValue("progress");
                             biliVideoDetail.mHistory = history;
-                            // android.util.Log.i("VideoDetailApi", "fallbackLoadHistory History merged: cid=" + history.mCid + ", progress=" + history.mProgress);
                         }
                     }
                 }
