@@ -29,14 +29,18 @@ public class xp extends xh {
 
     @Override // bl.xh
     public boolean g(int keyCode, KeyEvent event) {
-        boolean z;
-        if (keyCode != KeyEvent.KEYCODE_BACK) {
-            z = false;
-        } else {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (this.c != null && this.c.isShowing()) {
+                this.c.dismiss();
+                return true;
+            }
+            if (a() != null && a().g(keyCode, event)) {
+                return true;
+            }
             Q();
-            z = true;
+            return true;
         }
-        return z || P();
+        return P();
     }
 
     private boolean P() {

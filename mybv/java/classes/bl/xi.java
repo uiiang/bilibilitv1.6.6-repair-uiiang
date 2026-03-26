@@ -143,6 +143,12 @@ public class xi extends xh implements bbb<Message, Boolean> {
     @Override // bl.xh
     public boolean g(int keyCode, KeyEvent event) {
         switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                if (s()) {
+                    v();
+                    return true;
+                }
+                return false;
             case KeyEvent.KEYCODE_DPAD_UP:
             case KeyEvent.KEYCODE_DPAD_DOWN:
                 tt();
