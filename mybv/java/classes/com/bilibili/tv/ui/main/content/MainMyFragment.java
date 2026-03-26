@@ -21,7 +21,6 @@ import com.bilibili.tv.R;
 import com.bilibili.tv.ui.account.LoginActivity;
 import com.bilibili.tv.ui.attention.AttentionDynamicSideActivity;
 import com.bilibili.tv.ui.favorite.FavoriteSideActivity;
-import com.bilibili.tv.ui.history.VideoHistoryActivity;
 import com.bilibili.tv.ui.main.MainActivity;
 import com.bilibili.tv.widget.CircleImageView;
 import com.bilibili.tv.widget.DrawLinearLayout;

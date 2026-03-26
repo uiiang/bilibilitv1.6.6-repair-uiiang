@@ -32,7 +32,6 @@
         <activity android:name="com.bilibili.tv.ui.search.SearchActivity" android:screenOrientation="landscape" android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name="com.bilibili.tv.ui.search.SearchResultSideActivity" android:screenOrientation="landscape"/>
         <activity android:launchMode="singleTop" android:name="com.bilibili.tv.ui.account.LoginActivity" android:screenOrientation="landscape"/>
-        <activity android:name="com.bilibili.tv.ui.history.VideoHistoryActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.history.HistorySideActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.history.VideoToviewActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.bangumi.follow.FollowBangumiActivity" android:screenOrientation="landscape"/>
@@ -54,7 +53,6 @@
         <activity android:name="com.bilibili.tv.ui.setting.SettingActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.area.AreaActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.video.tag.VideoTagSearchActivity" android:screenOrientation="landscape"/>
-        <activity android:name="com.bilibili.tv.ui.attention.AttentionDynamicActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.attention.AttentionDynamicSideActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.auth.AuthSpaceSideActivity" android:screenOrientation="landscape"/>
         <activity android:launchMode="singleTop" android:name="com.bilibili.tv.ui.upgrade.UpgradeActivity" android:screenOrientation="landscape"/>
