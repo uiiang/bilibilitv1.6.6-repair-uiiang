@@ -14,7 +14,6 @@ import android.view.ViewParent;
 import android.widget.TextView;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.bilibili.tv.R;
@@ -22,7 +21,6 @@ import com.bilibili.tv.ui.base.BaseSideActivity;
 import com.bilibili.tv.ui.live.LiveLeftLinearLayoutManger;
 import com.bilibili.tv.widget.side.SideLeftSelectLinearLayout;
 import bl.adz;
-import bl.agb;
 import bl.agf;
 import bl.agd;
 import bl.vn;
@@ -36,7 +34,7 @@ import com.alibaba.fastjson.JSONArray;
 import android.os.Build;
 import android.util.Log;
 
-public class AuthSpaceSideActivity extends BaseSideActivity implements View.OnLongClickListener {
+public class AuthSpaceSideActivity extends BaseSideActivity {
   private static final int COLUMNS = 2;
   private a c;
   private List<MenuItem> menuItems = new ArrayList<>();
@@ -115,6 +113,18 @@ public class AuthSpaceSideActivity extends BaseSideActivity implements View.OnLo
     }
     int action = keyEvent.getAction();
     int keyCode = keyEvent.getKeyCode();
+    
+    if (action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_MENU) {
+      View currentFocus = getCurrentFocus();
+      Fragment frag = h();
+      if (currentFocus != null && frag != null && frag.getView() != null) {
+        if (isDescendantOfView(currentFocus, frag.getView())) {
+          showSortMenu();
+          return true;
+        }
+      }
+    }
+    
     if (action == 0) {
       View currentFocus = getCurrentFocus();
       if (currentFocus == null) {
@@ -425,46 +435,38 @@ public class AuthSpaceSideActivity extends BaseSideActivity implements View.OnLo
     return selectedItem.type;
   }
 
-  @Override
-  public boolean onLongClick(View view) {
+  private void showSortMenu() {
     Fragment frag = h();
     if (!(frag instanceof AuthSpaceVideoFragment)) {
-      return true;
+      return;
     }
 
     AuthSpaceVideoFragment avf = (AuthSpaceVideoFragment) frag;
     if (!avf.canSort()) {
-      return true;
+      return;
     }
 
-    LinkedHashMap<String, Object> sortOptions = new LinkedHashMap<>();
-    String currentOrder = getSortOrder();
+    bl.SortMenuDialog dialog = new bl.SortMenuDialog(this);
     
     if (avf.getCurrentMode() == 0) {
-      // 全部视频模式：最新发布、最多播放
-      sortOptions.put("最新发布", "pubdate");
-      sortOptions.put("最多播放", "click");
+      dialog.addGroup(null,
+        new String[]{"最新发布", "最多播放"},
+        new String[]{"pubdate", "click"},
+        getSortOrder());
     } else {
-      // 合集/系列模式：默认排序、倒序排序
-      sortOptions.put("默认排序", "default");
-      sortOptions.put("倒序排序", "reverse");
+      dialog.addGroup(null,
+        new String[]{"默认排序", "倒序排序"},
+        new String[]{"default", "reverse"},
+        getSortOrder());
     }
-
-    agb.a builder = new agb.a(this);
-    builder.a(2)
-            .a("排序:")
-            .a(sortOptions, new agb.c() {
-              @Override
-              public void a(agb dialog, View view, String key) {
-                String order = (String) sortOptions.get(key);
-                setSortOrder(order);
-                dialog.dismiss();
-              }
-            });
-    builder.a((Object) currentOrder);
-    builder.a().show();
-
-    return true;
+    
+    dialog.setOnSortSelectedListener(new bl.SortMenuDialog.OnSortSelectedListener() {
+      @Override
+      public void onSortSelected(String sortOrder, String sortName) {
+        setSortOrder(sortOrder);
+      }
+    });
+    dialog.show();
   }
 
   public static class MenuItem {

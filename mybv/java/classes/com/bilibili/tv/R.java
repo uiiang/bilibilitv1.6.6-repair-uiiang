@@ -2544,6 +2544,10 @@ public final class R {
         public static final int favorite_list = 0x7f0801c0;
         public static final int check_icon = 0x7f0801c1;
         public static final int favorite_name = 0x7f0801c2;
+        public static final int sort_list = 0x7f0801c3;
+        public static final int sort_name = 0x7f0801c4;
+        public static final int group_title = 0x7f0801c5;
+        public static final int item_layout = 0x7f0801c6;
     }
 
     public static final class integer {
@@ -2714,6 +2718,10 @@ public final class R {
         public static final int fragment_search_result_video = 0x7f0a0098;
         public static final int dialog_favorite_menu = 0x7f0a0099;
         public static final int item_favorite_menu = 0x7f0a009a;
+        public static final int dialog_sort_menu = 0x7f0a009b;
+        public static final int item_sort_menu = 0x7f0a009c;
+        public static final int dialog_sort_menu_multi = 0x7f0a009d;
+        public static final int item_sort_menu_multi = 0x7f0a009e;
     }
 
     public static final class mipmap {

@@ -14,8 +14,6 @@ import android.os.Build;
 import android.view.ViewParent;
 import android.widget.TextView;
 import android.util.Log;
-import java.util.LinkedHashMap;
-import bl.agb;
 import bl.adl;
 import bl.adw;
 import bl.adz;
@@ -48,7 +46,7 @@ import java.util.List;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
-public class FavoriteSideActivity extends BaseSideActivity implements View.OnLongClickListener {
+public class FavoriteSideActivity extends BaseSideActivity {
     private a c;
     private List<FavoriteFolder> folders = new ArrayList<>();
     private FavoriteFolder selectedFolder;
@@ -110,12 +108,21 @@ public class FavoriteSideActivity extends BaseSideActivity implements View.OnLon
         }
         int action = keyEvent.getAction();
         int keyCode = keyEvent.getKeyCode();
+        if (action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_MENU) {
+            View currentFocus = getCurrentFocus();
+            Fragment frag = h();
+            if (currentFocus != null && frag != null && frag.getView() != null) {
+                if (isDescendantOf(frag.getView(), currentFocus)) {
+                    showSortMenu();
+                    return true;
+                }
+            }
+        }
         if (action == 0) {
             View currentFocus = getCurrentFocus();
             if (currentFocus == null) {
                 return super.dispatchKeyEvent(keyEvent);
             }
-            // 预测 focusSearch 目标，拦截从右侧（fragment）向左侧跳转的导航，防止在右侧加载或视图变更时发生意外切换
             if (keyCode == 20 || keyCode == 19) {
                 try {
                     View predicted = currentFocus.focusSearch(keyCode == 20 ? View.FOCUS_DOWN : View.FOCUS_UP);
@@ -423,38 +430,29 @@ public class FavoriteSideActivity extends BaseSideActivity implements View.OnLon
         return false;
     }
 
-    @Override
-    public boolean onLongClick(View view) {
+    private void showSortMenu() {
         Fragment frag = h();
         if (!(frag instanceof FavoriteVideoFragment)) {
-            return true;
+            return;
         }
 
         FavoriteVideoFragment fv = (FavoriteVideoFragment) frag;
         if (!fv.isVideoFavoriteMode()) {
-            return true;
+            return;
         }
 
-        LinkedHashMap<String, Object> sortOptions = new LinkedHashMap<>();
-        sortOptions.put("最近收藏", "mtime");
-        sortOptions.put("最多播放", "view");
-        sortOptions.put("最近投稿", "pubtime");
-
-        agb.a builder = new agb.a(this);
-        builder.a(2)
-                .a("排序:")
-                .a(sortOptions, new agb.c() {
-                    @Override
-                    public void a(agb dialog, View view, String key) {
-                        String order = (String) sortOptions.get(key);
-                        setSortOrder(order);
-                        dialog.dismiss();
-                    }
-                });
-        builder.a((Object) getSortOrder());
-        builder.a().show();
-
-        return true;
+        bl.SortMenuDialog dialog = new bl.SortMenuDialog(this);
+        dialog.addGroup(null,
+            new String[]{"最近收藏", "最多播放", "最近投稿"},
+            new String[]{"mtime", "view", "pubtime"},
+            getSortOrder());
+        dialog.setOnSortSelectedListener(new bl.SortMenuDialog.OnSortSelectedListener() {
+            @Override
+            public void onSortSelected(String sortOrder, String sortName) {
+                setSortOrder(sortOrder);
+            }
+        });
+        dialog.show();
     }
 
     /* compiled from: BL */

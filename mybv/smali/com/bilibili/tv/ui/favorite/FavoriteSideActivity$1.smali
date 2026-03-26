@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 210
+    .line 217
     iput-object p1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$1;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
     invoke-direct {p0}, Lbl/vm;-><init>()V
@@ -46,7 +46,7 @@
     .locals 1
 
     .prologue
-    .line 237
+    .line 244
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$1;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->isFinishing()Z
@@ -60,21 +60,21 @@
     .locals 2
 
     .prologue
-    .line 242
+    .line 249
     const-string v0, "FavoriteSideActivity"
 
     const-string v1, "loadVideoFolders error"
 
     invoke-static {v0, v1, p1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    .line 243
+    .line 250
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$1;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
     invoke-virtual {v0, p1, v1}, Lbl/adl;->a(Ljava/lang/Throwable;Landroid/app/Activity;)V
 
-    .line 244
+    .line 251
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$1;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
     const/4 v1, 0x1
@@ -82,13 +82,13 @@
     # setter for: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->videoLoaded:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->access$102(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;Z)Z
 
-    .line 245
+    .line 252
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$1;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
     # invokes: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->checkAllLoaded()V
     invoke-static {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->access$200(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;)V
 
-    .line 246
+    .line 253
     return-void
 .end method
 
@@ -98,7 +98,7 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 213
+    .line 220
     const-string v0, "FavoriteSideActivity"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -121,7 +121,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 214
+    .line 221
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$1;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->videoFolders:Ljava/util/List;
@@ -131,17 +131,17 @@
 
     invoke-interface {v0}, Ljava/util/List;->clear()V
 
-    .line 215
+    .line 222
     if-eqz p1, :cond_aa
 
-    .line 216
+    .line 223
     const-string v0, "data"
 
     invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 217
+    .line 224
     if-eqz v0, :cond_a6
 
     const-string v1, "list"
@@ -150,7 +150,7 @@
 
     move-result-object v0
 
-    .line 218
+    .line 225
     :goto_32
     const-string v3, "FavoriteSideActivity"
 
@@ -191,7 +191,7 @@
 
     invoke-static {v3, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 219
+    .line 226
     if-eqz v0, :cond_aa
 
     invoke-virtual {v0}, Lcom/alibaba/fastjson/JSONArray;->isEmpty()Z
@@ -200,7 +200,7 @@
 
     if-nez v1, :cond_aa
 
-    .line 220
+    .line 227
     :goto_62
     invoke-virtual {v0}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
@@ -208,17 +208,17 @@
 
     if-ge v2, v1, :cond_aa
 
-    .line 221
+    .line 228
     invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v1
 
-    .line 222
+    .line 229
     new-instance v3, Lcom/bilibili/tv/api/favorite/BiliFavoriteBox;
 
     invoke-direct {v3}, Lcom/bilibili/tv/api/favorite/BiliFavoriteBox;-><init>()V
 
-    .line 223
+    .line 230
     const-string v4, "id"
 
     invoke-virtual {v1, v4}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
@@ -227,7 +227,7 @@
 
     invoke-virtual {v3, v4, v5}, Lcom/bilibili/tv/api/favorite/BiliFavoriteBox;->setMId(J)V
 
-    .line 224
+    .line 231
     const-string v4, "title"
 
     invoke-virtual {v1, v4}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -236,7 +236,7 @@
 
     invoke-virtual {v3, v4}, Lcom/bilibili/tv/api/favorite/BiliFavoriteBox;->setMName(Ljava/lang/String;)V
 
-    .line 225
+    .line 232
     const-string v4, "media_count"
 
     invoke-virtual {v1, v4}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -245,7 +245,7 @@
 
     invoke-virtual {v3, v4}, Lcom/bilibili/tv/api/favorite/BiliFavoriteBox;->setMCount(I)V
 
-    .line 226
+    .line 233
     const-string v4, "mid"
 
     invoke-virtual {v1, v4}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
@@ -254,7 +254,7 @@
 
     invoke-virtual {v3, v4, v5}, Lcom/bilibili/tv/api/favorite/BiliFavoriteBox;->setMMid(J)V
 
-    .line 227
+    .line 234
     iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$1;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
     # getter for: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->videoFolders:Ljava/util/List;
@@ -268,12 +268,12 @@
 
     invoke-interface {v1, v4}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 220
+    .line 227
     add-int/lit8 v2, v2, 0x1
 
     goto :goto_62
 
-    .line 217
+    .line 224
     :cond_a6
     const/4 v0, 0x0
 
@@ -282,10 +282,10 @@
     :cond_a8
     move v1, v2
 
-    .line 218
+    .line 225
     goto :goto_4f
 
-    .line 231
+    .line 238
     :cond_aa
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$1;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
@@ -294,13 +294,13 @@
     # setter for: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->videoLoaded:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->access$102(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;Z)Z
 
-    .line 232
+    .line 239
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$1;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
     # invokes: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->checkAllLoaded()V
     invoke-static {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->access$200(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;)V
 
-    .line 233
+    .line 240
     return-void
 .end method
 
@@ -308,7 +308,7 @@
     .locals 0
 
     .prologue
-    .line 210
+    .line 217
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$1;->onSuccess(Lcom/alibaba/fastjson/JSONObject;)V

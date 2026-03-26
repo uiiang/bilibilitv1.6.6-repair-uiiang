@@ -3,12 +3,12 @@
 .source "SearchResultSideActivity.java"
 
 # interfaces
-.implements Lbl/agb$c;
+.implements Lbl/SortMenuDialog$OnSortSelectedListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->showLiveSortDialog(Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;)V
+    value = Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->showLiveSortMenu(Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -22,20 +22,16 @@
 
 .field final synthetic val$fragment:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
 
-.field final synthetic val$sortOptions:Ljava/util/LinkedHashMap;
-
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/search/SearchResultSideActivity;Ljava/util/LinkedHashMap;Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/search/SearchResultSideActivity;Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;)V
     .locals 0
 
     .prologue
-    .line 326
+    .line 315
     iput-object p1, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$2;->this$0:Lcom/bilibili/tv/ui/search/SearchResultSideActivity;
 
-    iput-object p2, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$2;->val$sortOptions:Ljava/util/LinkedHashMap;
-
-    iput-object p3, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$2;->val$fragment:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
+    iput-object p2, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$2;->val$fragment:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -44,42 +40,30 @@
 
 
 # virtual methods
-.method public a(Lbl/agb;Landroid/view/View;Ljava/lang/String;)V
-    .locals 3
+.method public onSortSelected(Ljava/lang/String;Ljava/lang/String;)V
+    .locals 2
 
     .prologue
-    .line 329
-    iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$2;->val$sortOptions:Ljava/util/LinkedHashMap;
+    .line 318
+    iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$2;->this$0:Lcom/bilibili/tv/ui/search/SearchResultSideActivity;
 
-    invoke-virtual {v0, p3}, Ljava/util/LinkedHashMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
+    # invokes: Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->getSelectedView()Landroid/view/View;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->access$000(Lcom/bilibili/tv/ui/search/SearchResultSideActivity;)Landroid/view/View;
 
     move-result-object v0
 
-    check-cast v0, Ljava/lang/String;
+    .line 319
+    iget-object v1, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$2;->val$fragment:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
 
-    .line 330
-    iget-object v1, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$2;->this$0:Lcom/bilibili/tv/ui/search/SearchResultSideActivity;
+    invoke-virtual {v1, p1}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->setLiveOrder(Ljava/lang/String;)V
 
-    # invokes: Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->getSelectedView()Landroid/view/View;
-    invoke-static {v1}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->access$000(Lcom/bilibili/tv/ui/search/SearchResultSideActivity;)Landroid/view/View;
+    .line 320
+    if-eqz v0, :cond_10
 
-    move-result-object v1
+    .line 321
+    invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 331
-    iget-object v2, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$2;->val$fragment:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
-
-    invoke-virtual {v2, v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->setLiveOrder(Ljava/lang/String;)V
-
-    .line 332
-    invoke-virtual {p1}, Lbl/agb;->dismiss()V
-
-    .line 333
-    if-eqz v1, :cond_1b
-
-    .line 334
-    invoke-virtual {v1}, Landroid/view/View;->requestFocus()Z
-
-    .line 336
-    :cond_1b
+    .line 323
+    :cond_10
     return-void
 .end method

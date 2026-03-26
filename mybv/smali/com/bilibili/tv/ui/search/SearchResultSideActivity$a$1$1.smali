@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 437
+    .line 415
     iput-object p1, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a$1$1;->this$1:Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a$1;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,13 +40,13 @@
     .locals 2
 
     .prologue
-    .line 440
+    .line 418
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a$1$1;->this$1:Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a$1;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a$1;->this$0:Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;
 
     # getter for: Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->a:Ljava/lang/ref/WeakReference;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->access$200(Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;)Ljava/lang/ref/WeakReference;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->access$100(Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;)Ljava/lang/ref/WeakReference;
 
     move-result-object v0
 
@@ -56,7 +56,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;
 
-    .line 441
+    .line 419
     if-eqz v0, :cond_16
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->isFinishing()Z
@@ -65,19 +65,19 @@
 
     if-eqz v1, :cond_17
 
-    .line 445
+    .line 423
     :cond_16
     :goto_16
     return-void
 
-    .line 444
+    .line 422
     :cond_17
     iget-object v1, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a$1$1;->this$1:Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a$1;
 
     iget-object v1, v1, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a$1;->val$folder:Lbl/SearchFolder;
 
     # invokes: Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->showSearchResultList(Lbl/SearchFolder;)V
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->access$600(Lcom/bilibili/tv/ui/search/SearchResultSideActivity;Lbl/SearchFolder;)V
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->access$500(Lcom/bilibili/tv/ui/search/SearchResultSideActivity;Lbl/SearchFolder;)V
 
     goto :goto_16
 .end method

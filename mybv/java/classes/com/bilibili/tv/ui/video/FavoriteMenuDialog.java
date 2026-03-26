@@ -63,13 +63,21 @@ public class FavoriteMenuDialog extends Dialog {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_favorite_menu);
-        
-        getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        WindowManager.LayoutParams params = getWindow().getAttributes();
+
+        Window dialogWindow = getWindow();
+        dialogWindow.setBackgroundDrawable(new ColorDrawable(0));
+        dialogWindow.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS | WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS | WindowManager.LayoutParams.FLAG_FULLSCREEN
+        );
+        WindowManager.LayoutParams params = dialogWindow.getAttributes();
         params.width = WindowManager.LayoutParams.MATCH_PARENT;
         params.height = WindowManager.LayoutParams.MATCH_PARENT;
-        getWindow().setAttributes(params);
-        
+        dialogWindow.setAttributes(params);
+
+        View decorView = dialogWindow.getDecorView();
+        decorView.setPadding(0, 0, 0, 0);
+
         LinearLayout menuContainer = (LinearLayout) findViewById(R.id.menu_container);
         menuContainer.setFocusable(true);
         menuContainer.setFocusableInTouchMode(true);

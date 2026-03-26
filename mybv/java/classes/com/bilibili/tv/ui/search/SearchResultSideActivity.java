@@ -14,10 +14,7 @@ import android.view.ViewParent;
 import android.widget.TextView;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Calendar;
 import java.lang.ref.WeakReference;
-import bl.agb;
 import bl.adl;
 import bl.adw;
 import bl.adz;
@@ -29,7 +26,7 @@ import com.bilibili.tv.ui.base.BaseSideActivity;
 import com.bilibili.tv.ui.live.LiveLeftLinearLayoutManger;
 import com.bilibili.tv.widget.side.SideLeftSelectLinearLayout;
 
-public class SearchResultSideActivity extends BaseSideActivity implements View.OnLongClickListener {
+public class SearchResultSideActivity extends BaseSideActivity {
     public static final String EXTRA_KEYWORD = "extra_keyword";
     public static final String EXTRA_TID = "extra_tid";
     
@@ -91,6 +88,18 @@ public class SearchResultSideActivity extends BaseSideActivity implements View.O
         }
         int action = keyEvent.getAction();
         int keyCode = keyEvent.getKeyCode();
+        
+        if (action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_MENU) {
+            View currentFocus = getCurrentFocus();
+            Fragment frag = h();
+            if (currentFocus != null && frag != null && frag.getView() != null) {
+                if (isDescendantOf(frag.getView(), currentFocus)) {
+                    showSortMenu();
+                    return true;
+                }
+            }
+        }
+        
         if (action == 0) {
             View currentFocus = getCurrentFocus();
             if (currentFocus == null) {
@@ -229,11 +238,10 @@ public class SearchResultSideActivity extends BaseSideActivity implements View.O
         return null;
     }
     
-    @Override
-    public boolean onLongClick(View view) {
+    private void showSortMenu() {
         Fragment frag = h();
         if (!(frag instanceof SearchResultVideoFragment)) {
-            return true;
+            return;
         }
         
         SearchResultVideoFragment sv = (SearchResultVideoFragment) frag;
@@ -241,72 +249,55 @@ public class SearchResultSideActivity extends BaseSideActivity implements View.O
         
         switch (tid) {
             case 0:
-                showVideoSortDialog(sv);
+                showVideoSortMenu(sv);
                 break;
             case 1:
             case 2:
-                return true;
+                return;
             case 3:
-                showLiveSortDialog(sv);
+                showLiveSortMenu(sv);
                 break;
             case 4:
-                showUserSortDialog(sv);
+                showUserSortMenu(sv);
                 break;
         }
-        return true;
     }
     
-    private void showVideoSortDialog(final SearchResultVideoFragment fragment) {
-        LinkedHashMap<String, Object> sortOptions = new LinkedHashMap<>();
-        sortOptions.put("综合排序", "");
-        sortOptions.put("最多播放", "click");
-        sortOptions.put("最新发布", "pubdate");
-        sortOptions.put("最多弹幕", "dm");
-        sortOptions.put("最多收藏", "stow");
+    private void showVideoSortMenu(final SearchResultVideoFragment fragment) {
+        bl.SortMenuDialog dialog = new bl.SortMenuDialog(this);
         
-        LinkedHashMap<String, Object> dateOptions = new LinkedHashMap<>();
-        dateOptions.put("全部日期", "");
-        dateOptions.put("最近一天", "1");
-        dateOptions.put("最近一周", "7");
-        dateOptions.put("最近半年", "180");
+        dialog.addGroup("排序",
+            new String[]{"综合排序", "最多播放", "最新发布", "最多弹幕", "最多收藏"},
+            new String[]{"", "click", "pubdate", "dm", "stow"},
+            fragment.getOrder());
         
-        LinkedHashMap<String, Object> durationOptions = new LinkedHashMap<>();
-        durationOptions.put("全部时长", "");
-        durationOptions.put("10分钟以下", "1");
-        durationOptions.put("10-30分钟", "2");
-        durationOptions.put("30-60分钟", "3");
-        durationOptions.put("60分钟以上", "4");
+        dialog.addGroup("日期",
+            new String[]{"全部日期", "最近一天", "最近一周", "最近半年"},
+            new String[]{"", "1", "7", "180"},
+            fragment.getDateType());
         
-        agb.a builder = new agb.a(this);
-        builder.addGroup("排序", sortOptions, fragment.getOrder())
-               .addGroup("日期", dateOptions, fragment.getDateType())
-               .addGroup("时长", durationOptions, fragment.getDuration())
-               .setGroupClickListener(new agb.GroupClickListener() {
-                   @Override
-                   public void onGroupItemClick(agb dialog, View view, int groupIndex, Object value) {
-                       String val = (String) value;
-                       View selectedView = getSelectedView();
-                       if (groupIndex == 0) {
-                           fragment.setOrder(val);
-                       } else if (groupIndex == 1) {
-                           if (TextUtils.isEmpty(val)) {
-                               fragment.setPubtime("", "", "");
-                           } else {
-                               String[] timeRange = getDateRange(Integer.parseInt(val)).split(",");
-                               if (timeRange.length == 2) {
-                                   fragment.setPubtime(timeRange[0], timeRange[1], val);
-                               }
-                           }
-                       } else if (groupIndex == 2) {
-                           fragment.setDuration(val);
-                       }
-                       dialog.dismiss();
-                       if (selectedView != null) {
-                           selectedView.requestFocus();
-                       }
-                   }
-               });
-        builder.a().show();
+        dialog.addGroup("时长",
+            new String[]{"全部时长", "10分钟以下", "10-30分钟", "30-60分钟", "60分钟以上"},
+            new String[]{"", "1", "2", "3", "4"},
+            fragment.getDuration());
+        
+        dialog.setOnConfirmListener(new bl.SortMenuDialog.OnConfirmListener() {
+            @Override
+            public void onConfirm(List<bl.SortMenuDialog.SortGroup> groups) {
+                View selectedView = getSelectedView();
+                
+                String order = groups.get(0).getSelectedValue();
+                String dateType = groups.get(1).getSelectedValue();
+                String duration = groups.get(2).getSelectedValue();
+                
+                fragment.updateSearchParams(order, dateType, duration);
+                
+                if (selectedView != null) {
+                    selectedView.requestFocus();
+                }
+            }
+        });
+        dialog.show();
     }
     
     private String getDateRange(int days) {
@@ -315,55 +306,42 @@ public class SearchResultSideActivity extends BaseSideActivity implements View.O
         return String.valueOf(beginTime) + "," + String.valueOf(endTime);
     }
     
-    private void showLiveSortDialog(final SearchResultVideoFragment fragment) {
-        LinkedHashMap<String, Object> sortOptions = new LinkedHashMap<>();
-        sortOptions.put("综合排序", "online");
-        sortOptions.put("最新开播", "live_time");
-        
-        agb.a builder = new agb.a(this);
-        builder.a(2)
-                .a("排序:")
-                .a(sortOptions, new agb.c() {
-                    @Override
-                    public void a(agb dialog, View view, String key) {
-                        String order = (String) sortOptions.get(key);
-                        View selectedView = getSelectedView();
-                        fragment.setLiveOrder(order);
-                        dialog.dismiss();
-                        if (selectedView != null) {
-                            selectedView.requestFocus();
-                        }
-                    }
-                });
-        builder.a((Object) fragment.getLiveOrder());
-        builder.a().show();
+    private void showLiveSortMenu(final SearchResultVideoFragment fragment) {
+        bl.SortMenuDialog dialog = new bl.SortMenuDialog(this);
+        dialog.addGroup(null,
+            new String[]{"综合排序", "最新开播"},
+            new String[]{"online", "live_time"},
+            fragment.getLiveOrder());
+        dialog.setOnSortSelectedListener(new bl.SortMenuDialog.OnSortSelectedListener() {
+            @Override
+            public void onSortSelected(String sortOrder, String sortName) {
+                View selectedView = getSelectedView();
+                fragment.setLiveOrder(sortOrder);
+                if (selectedView != null) {
+                    selectedView.requestFocus();
+                }
+            }
+        });
+        dialog.show();
     }
     
-    private void showUserSortDialog(final SearchResultVideoFragment fragment) {
-        LinkedHashMap<String, Object> sortOptions = new LinkedHashMap<>();
-        sortOptions.put("默认排序", "");
-        sortOptions.put("粉丝数由高到低", "fans");
-        sortOptions.put("粉丝数由低到高", "fans_asc");
-        sortOptions.put("Lv等级由高到低", "level");
-        sortOptions.put("Lv等级由低到高", "level_asc");
-        
-        agb.a builder = new agb.a(this);
-        builder.a(2)
-                .a("排序:")
-                .a(sortOptions, new agb.c() {
-                    @Override
-                    public void a(agb dialog, View view, String key) {
-                        String order = (String) sortOptions.get(key);
-                        View selectedView = getSelectedView();
-                        fragment.setUserOrder(order);
-                        dialog.dismiss();
-                        if (selectedView != null) {
-                            selectedView.requestFocus();
-                        }
-                    }
-                });
-        builder.a((Object) fragment.getUserOrder());
-        builder.a().show();
+    private void showUserSortMenu(final SearchResultVideoFragment fragment) {
+        bl.SortMenuDialog dialog = new bl.SortMenuDialog(this);
+        dialog.addGroup(null,
+            new String[]{"默认排序", "粉丝数由高到低", "粉丝数由低到高", "Lv等级由高到低", "Lv等级由低到高"},
+            new String[]{"", "fans", "fans_asc", "level", "level_asc"},
+            fragment.getUserOrder());
+        dialog.setOnSortSelectedListener(new bl.SortMenuDialog.OnSortSelectedListener() {
+            @Override
+            public void onSortSelected(String sortOrder, String sortName) {
+                View selectedView = getSelectedView();
+                fragment.setUserOrder(sortOrder);
+                if (selectedView != null) {
+                    selectedView.requestFocus();
+                }
+            }
+        });
+        dialog.show();
     }
     
     public static class a extends adz<RecyclerView.v> implements Runnable {

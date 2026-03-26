@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.FocusFinder;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -372,6 +373,8 @@ public final class adq extends ady {
         bbi.a((Object) a2, "BiliAccount.get(activity)");
         //regionApiManager.a(a2.e(), this.h, 0, this.e);
         //((MyBiliApiService) vo.a(MyBiliApiService.class)).getRegionHotVideo(this.h, 50).a(new RegionHotVideoResponse());
+        String url = "http://app.bilibili.com/x/v2/region/show/dynamic?rid=" + this.h + "&pn=1&ps=50&channel=" + BiliConfig.d();
+        Log.d("AreaFragment", "Request URL: " + url);
         ((RegionService) vo.a(RegionService.class)).getDynamicVideo(this.h, 1, 50, BiliConfig.d()).a(new DynamicVideoResponse());
         
     }
@@ -383,7 +386,10 @@ public final class adq extends ady {
         int i2 = this.h;
         int i3 = this.i;
         RegionApiManager.ListOrder listOrder = this.m;
-        regionApiManager.a(i2, i3, listOrder != null ? listOrder.toString() : null, 0, this.d);
+        String orderStr = listOrder != null ? listOrder.toString() : null;
+        String url = "http://app.bilibili.com/x/v2/region/show/child/list?rid=" + i2 + "&pn=" + i3 + "&ps=30&order=" + orderStr + "&tag_id=0&channel=" + BiliConfig.d();
+        Log.d("AreaFragment", "Request URL: " + url);
+        regionApiManager.a(i2, i3, orderStr, 0, this.d);
     }
 
     public final void a(RegionApiManager.ListOrder listOrder) {

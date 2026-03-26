@@ -252,11 +252,11 @@
 
     .line 434
     :pswitch_3e
-    sget-object v0, Lcom/bilibili/tv/ui/area/AreaActivity;->Companion:Lcom/bilibili/tv/ui/area/AreaActivity$a;
+    sget-object v0, Lcom/bilibili/tv/ui/area/AreaActivity;->Companion:Lcom/bilibili/tv/ui/area/AreaActivity$Companion;
 
     const/16 v2, 0xd
 
-    invoke-virtual {v0, v1, v2}, Lcom/bilibili/tv/ui/area/AreaActivity$a;->a(Landroid/content/Context;I)V
+    invoke-virtual {v0, v1, v2}, Lcom/bilibili/tv/ui/area/AreaActivity$Companion;->a(Landroid/content/Context;I)V
 
     .line 435
     const-string v0, "tv_home_bangumi_all_click"

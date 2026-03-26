@@ -1,5 +1,6 @@
 package bl;
 
+import android.util.Log;
 import com.bilibili.tv.api.rank.BiliRankV2;
 import com.bilibili.tv.api.rank.RankApiService;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 /* loaded from: classes.dex */
 public final class afe {
     public static final afe a = new afe();
+    private static final String TAG = "RankApi";
 
     private afe() {
     }

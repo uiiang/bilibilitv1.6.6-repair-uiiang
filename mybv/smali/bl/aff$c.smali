@@ -45,7 +45,7 @@
     .locals 0
 
     .prologue
-    .line 234
+    .line 235
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$a;-><init>()V
 
     return-void
@@ -57,29 +57,29 @@
     .locals 1
 
     .prologue
-    .line 289
+    .line 297
     iget-object v0, p0, Lbl/aff$c;->a:Ljava/util/List;
 
     if-nez v0, :cond_6
 
-    .line 290
+    .line 298
     const/4 v0, 0x0
 
-    .line 296
+    .line 304
     :goto_5
     return v0
 
-    .line 292
+    .line 300
     :cond_6
     iget-object v0, p0, Lbl/aff$c;->a:Ljava/util/List;
 
-    .line 293
+    .line 301
     if-nez v0, :cond_d
 
-    .line 294
+    .line 302
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 296
+    .line 304
     :cond_d
     invoke-interface {v0}, Ljava/util/List;->size()I
 
@@ -92,7 +92,7 @@
     .locals 1
 
     .prologue
-    .line 234
+    .line 235
     invoke-virtual {p0, p1, p2}, Lbl/aff$c;->a(Landroid/view/ViewGroup;I)Lbl/adv;
 
     move-result-object v0
@@ -104,12 +104,12 @@
     .locals 1
 
     .prologue
-    .line 240
+    .line 241
     const-string v0, "parent"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 241
+    .line 242
     const/4 v0, 0x0
 
     check-cast v0, Lbl/aff$d;
@@ -127,7 +127,7 @@
     .locals 0
 
     .prologue
-    .line 234
+    .line 235
     check-cast p1, Lbl/adv;
 
     invoke-virtual {p0, p1, p2}, Lbl/aff$c;->a(Lbl/adv;I)V
@@ -145,30 +145,30 @@
 
     const/4 v7, 0x0
 
-    .line 246
+    .line 247
     const-string v0, "viewHolder"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 247
-    iget-object v0, p0, Lbl/aff$c;->a:Ljava/util/List;
-
-    if-eqz v0, :cond_c6
-
-    instance-of v0, p1, Lbl/aff$d;
-
-    if-eqz v0, :cond_c6
-
     .line 248
     iget-object v0, p0, Lbl/aff$c;->a:Ljava/util/List;
 
+    if-eqz v0, :cond_e2
+
+    instance-of v0, p1, Lbl/aff$d;
+
+    if-eqz v0, :cond_e2
+
     .line 249
-    if-nez v0, :cond_17
+    iget-object v0, p0, Lbl/aff$c;->a:Ljava/util/List;
 
     .line 250
+    if-nez v0, :cond_17
+
+    .line 251
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 252
+    .line 253
     :cond_17
     invoke-interface {v0, p2}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
@@ -178,10 +178,10 @@
 
     move-object v1, p1
 
-    .line 253
+    .line 254
     check-cast v1, Lbl/aff$d;
 
-    .line 254
+    .line 255
     invoke-virtual {v1}, Lbl/aff$d;->A()Landroid/widget/TextView;
 
     move-result-object v2
@@ -192,7 +192,7 @@
 
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 255
+    .line 256
     invoke-virtual {v1}, Lbl/aff$d;->B()Landroid/widget/TextView;
 
     move-result-object v2
@@ -203,7 +203,7 @@
 
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 256
+    .line 257
     invoke-virtual {v1}, Lbl/aff$d;->C()Landroid/widget/TextView;
 
     move-result-object v2
@@ -218,7 +218,7 @@
 
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 257
+    .line 258
     invoke-virtual {v1}, Lbl/aff$d;->D()Landroid/widget/TextView;
 
     move-result-object v2
@@ -233,17 +233,17 @@
 
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 258
+    .line 259
     invoke-virtual {v0}, Lcom/bilibili/tv/api/rank/BiliRankV2;->getDuration()I
 
     move-result v2
 
-    .line 259
+    .line 260
     const/16 v3, 0xe10
 
-    if-lt v2, v3, :cond_c7
+    if-lt v2, v3, :cond_e3
 
-    .line 260
+    .line 261
     invoke-virtual {v1}, Lbl/aff$d;->G()Landroid/widget/TextView;
 
     move-result-object v3
@@ -286,8 +286,39 @@
 
     invoke-virtual {v3, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 264
+    .line 265
     :goto_86
+    invoke-virtual {v0}, Lcom/bilibili/tv/api/rank/BiliRankV2;->getPub_date()J
+
+    move-result-wide v2
+
+    .line 266
+    const-wide/16 v4, 0x0
+
+    cmp-long v4, v2, v4
+
+    if-lez v4, :cond_103
+
+    .line 267
+    invoke-virtual {v1}, Lbl/aff$d;->H()Landroid/widget/TextView;
+
+    move-result-object v4
+
+    invoke-static {v2, v3}, Lcom/bilibili/tv/util/DateHelper;->formatDate(J)Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v4, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    .line 268
+    invoke-virtual {v1}, Lbl/aff$d;->H()Landroid/widget/TextView;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v7}, Landroid/widget/TextView;->setVisibility(I)V
+
+    .line 272
+    :goto_a2
     invoke-static {}, Lbl/nv;->a()Lbl/nv;
 
     move-result-object v2
@@ -310,10 +341,10 @@
 
     invoke-virtual {v2, v3, v4}, Lbl/nv;->a(Ljava/lang/String;Landroid/widget/ImageView;)V
 
-    .line 265
-    packed-switch p2, :pswitch_data_108
+    .line 273
+    packed-switch p2, :pswitch_data_12e
 
-    .line 276
+    .line 284
     invoke-virtual {v1}, Lbl/aff$d;->E()Landroid/widget/ImageView;
 
     move-result-object v2
@@ -322,8 +353,8 @@
 
     invoke-virtual {v2, v3}, Landroid/widget/ImageView;->setBackgroundResource(I)V
 
-    .line 279
-    :goto_aa
+    .line 287
+    :goto_c6
     invoke-virtual {v1}, Lbl/aff$d;->F()Landroid/widget/TextView;
 
     move-result-object v1
@@ -336,28 +367,28 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 280
+    .line 288
     iget-object v1, p1, Lbl/adv;->a:Landroid/view/View;
 
-    .line 281
+    .line 289
     const-string v2, "viewHolder.itemView"
 
     invoke-static {v1, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 282
+    .line 290
     invoke-virtual {v1, v0}, Landroid/view/View;->setTag(Ljava/lang/Object;)V
 
-    .line 283
+    .line 291
     iget-object v0, p1, Lbl/adv;->a:Landroid/view/View;
 
     invoke-virtual {v0, p0}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 285
-    :cond_c6
+    .line 293
+    :cond_e2
     return-void
 
-    .line 262
-    :cond_c7
+    .line 263
+    :cond_e3
     invoke-virtual {v1}, Lbl/aff$d;->G()Landroid/widget/TextView;
 
     move-result-object v3
@@ -390,8 +421,20 @@
 
     goto :goto_86
 
-    .line 267
-    :pswitch_e7
+    .line 270
+    :cond_103
+    invoke-virtual {v1}, Lbl/aff$d;->H()Landroid/widget/TextView;
+
+    move-result-object v2
+
+    const/16 v3, 0x8
+
+    invoke-virtual {v2, v3}, Landroid/widget/TextView;->setVisibility(I)V
+
+    goto :goto_a2
+
+    .line 275
+    :pswitch_10d
     invoke-virtual {v1}, Lbl/aff$d;->E()Landroid/widget/ImageView;
 
     move-result-object v2
@@ -400,10 +443,10 @@
 
     invoke-virtual {v2, v3}, Landroid/widget/ImageView;->setBackgroundResource(I)V
 
-    goto :goto_aa
+    goto :goto_c6
 
-    .line 270
-    :pswitch_f2
+    .line 278
+    :pswitch_118
     invoke-virtual {v1}, Lbl/aff$d;->E()Landroid/widget/ImageView;
 
     move-result-object v2
@@ -412,10 +455,10 @@
 
     invoke-virtual {v2, v3}, Landroid/widget/ImageView;->setBackgroundResource(I)V
 
-    goto :goto_aa
+    goto :goto_c6
 
-    .line 273
-    :pswitch_fd
+    .line 281
+    :pswitch_123
     invoke-virtual {v1}, Lbl/aff$d;->E()Landroid/widget/ImageView;
 
     move-result-object v2
@@ -424,14 +467,14 @@
 
     invoke-virtual {v2, v3}, Landroid/widget/ImageView;->setBackgroundResource(I)V
 
-    goto :goto_aa
+    goto :goto_c6
 
-    .line 265
-    :pswitch_data_108
+    .line 273
+    :pswitch_data_12e
     .packed-switch 0x0
-        :pswitch_e7
-        :pswitch_f2
-        :pswitch_fd
+        :pswitch_10d
+        :pswitch_118
+        :pswitch_123
     .end packed-switch
 .end method
 
@@ -448,18 +491,18 @@
     .end annotation
 
     .prologue
-    .line 300
+    .line 308
     const-string v0, "list"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 301
+    .line 309
     iput-object p1, p0, Lbl/aff$c;->a:Ljava/util/List;
 
-    .line 302
+    .line 310
     invoke-virtual {p0}, Lbl/aff$c;->d()V
 
-    .line 303
+    .line 311
     return-void
 .end method
 
@@ -476,27 +519,27 @@
     .end annotation
 
     .prologue
-    .line 306
+    .line 314
     const-string v0, "list"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 307
+    .line 315
     iget-object v0, p0, Lbl/aff$c;->a:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->size()I
 
     move-result v0
 
-    .line 308
+    .line 316
     iget-object v1, p0, Lbl/aff$c;->a:Ljava/util/List;
 
     invoke-interface {v1, p1}, Ljava/util/List;->addAll(Ljava/util/Collection;)Z
 
-    .line 309
+    .line 317
     invoke-virtual {p0, v0}, Lbl/aff$c;->d(I)V
 
-    .line 310
+    .line 318
     return-void
 .end method
 
@@ -504,39 +547,39 @@
     .locals 3
 
     .prologue
-    .line 315
+    .line 323
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 316
+    .line 324
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    .line 317
+    .line 325
     const-string v1, "v.context"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 318
+    .line 326
     invoke-static {v0}, Lbl/adl;->a(Landroid/content/Context;)Landroid/app/Activity;
 
     move-result-object v2
 
-    .line 319
+    .line 327
     invoke-virtual {p1}, Landroid/view/View;->getTag()Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 320
+    .line 328
     if-eqz v2, :cond_2d
 
     instance-of v1, v0, Lcom/bilibili/tv/api/rank/BiliRankV2;
 
     if-eqz v1, :cond_2d
 
-    .line 322
+    .line 330
     :try_start_1c
     check-cast v0, Lcom/bilibili/tv/api/rank/BiliRankV2;
 
@@ -554,22 +597,22 @@
 
     move-result-wide v0
 
-    .line 327
+    .line 335
     :goto_2a
     invoke-static {v0, v1, v2}, Lbl/adl;->a(JLandroid/content/Context;)V
 
-    .line 329
+    .line 337
     :cond_2d
     return-void
 
-    .line 323
+    .line 331
     :catch_2e
     move-exception v0
 
-    .line 324
+    .line 332
     invoke-static {v0}, Lbl/att;->a(Ljava/lang/Throwable;)V
 
-    .line 325
+    .line 333
     const-wide/16 v0, 0x0
 
     goto :goto_2a

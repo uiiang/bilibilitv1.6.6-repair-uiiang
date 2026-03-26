@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 237
+    .line 245
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$6$1;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$6;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 240
+    .line 248
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$6$1;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$6;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$6;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
@@ -56,7 +56,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;->notifyItemChanged(I)V
 
-    .line 241
+    .line 249
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$6$1;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$6;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$6;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
@@ -64,6 +64,6 @@
     # invokes: Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->updateMainFavoriteStatus()V
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->access$500(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;)V
 
-    .line 242
+    .line 250
     return-void
 .end method

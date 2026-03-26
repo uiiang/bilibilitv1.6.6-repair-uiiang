@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 163
+    .line 171
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$1$1;->this$2:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$1;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$1$1;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
@@ -44,7 +44,7 @@
     .locals 2
 
     .prologue
-    .line 166
+    .line 174
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$1$1;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     const/4 v1, 0x0
@@ -53,13 +53,13 @@
 
     move-result-object v0
 
-    .line 167
+    .line 175
     if-eqz v0, :cond_c
 
-    .line 168
+    .line 176
     invoke-virtual {v0}, Landroid/view/View;->requestFocusFromTouch()Z
 
-    .line 170
+    .line 178
     :cond_c
     return-void
 .end method

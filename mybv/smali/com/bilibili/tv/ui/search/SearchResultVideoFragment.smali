@@ -332,22 +332,22 @@
 
     const/4 v1, 0x0
 
-    .line 687
+    .line 733
     const-string v0, "SearchResultVideoFrag_SearchBangumi"
 
     invoke-static {v0, p1}, Lmybl/LogUtil;->json(Ljava/lang/String;Ljava/lang/Object;)V
 
-    .line 688
+    .line 734
     const-string v0, "data"
 
     invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 689
+    .line 735
     if-nez v0, :cond_cd
 
-    .line 692
+    .line 738
     :goto_f
     const-string v0, "result"
 
@@ -355,7 +355,7 @@
 
     move-result-object v4
 
-    .line 693
+    .line 739
     if-eqz v4, :cond_1d
 
     invoke-virtual {v4}, Lcom/alibaba/fastjson/JSONArray;->isEmpty()Z
@@ -364,53 +364,53 @@
 
     if-eqz v0, :cond_2b
 
-    .line 694
+    .line 740
     :cond_1d
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->isLoading:Z
 
-    .line 695
+    .line 741
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->hasMore:Z
 
-    .line 696
+    .line 742
     iget v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->currentPage:I
 
     if-ne v0, v3, :cond_2a
 
-    .line 697
+    .line 743
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->loadingView:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->c()V
 
-    .line 738
+    .line 784
     :cond_2a
     :goto_2a
     return-void
 
-    .line 702
+    .line 748
     :cond_2b
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->isLoading:Z
 
-    .line 703
+    .line 749
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->loadingView:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->b()V
 
-    .line 704
+    .line 750
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
 
-    .line 705
+    .line 751
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->headerLayout:Landroid/widget/LinearLayout;
 
     if-eqz v0, :cond_40
 
-    .line 706
+    .line 752
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->headerLayout:Landroid/widget/LinearLayout;
 
     invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->setVisibility(I)V
 
-    .line 709
+    .line 755
     :cond_40
     new-instance v5, Ljava/util/ArrayList;
 
@@ -418,7 +418,7 @@
 
     move v0, v1
 
-    .line 710
+    .line 756
     :goto_46
     invoke-virtual {v4}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
@@ -426,24 +426,24 @@
 
     if-ge v0, v2, :cond_a8
 
-    .line 711
+    .line 757
     invoke-virtual {v4, v0}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v2
 
-    .line 712
+    .line 758
     new-instance v6, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiItem;
 
     invoke-direct {v6}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiItem;-><init>()V
 
-    .line 713
+    .line 759
     const-string v7, "title"
 
     invoke-virtual {v2, v7}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v7
 
-    .line 714
+    .line 760
     invoke-static {v7}, Landroid/text/Html;->fromHtml(Ljava/lang/String;)Landroid/text/Spanned;
 
     move-result-object v7
@@ -454,7 +454,7 @@
 
     iput-object v7, v6, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiItem;->title:Ljava/lang/String;
 
-    .line 715
+    .line 761
     const-string v7, "cover"
 
     invoke-virtual {v2, v7}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -463,7 +463,7 @@
 
     iput-object v7, v6, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiItem;->cover:Ljava/lang/String;
 
-    .line 716
+    .line 762
     const-string v7, "season_id"
 
     invoke-virtual {v2, v7}, Lcom/alibaba/fastjson/JSONObject;->getLong(Ljava/lang/String;)Ljava/lang/Long;
@@ -476,7 +476,7 @@
 
     iput-object v7, v6, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiItem;->param:Ljava/lang/String;
 
-    .line 717
+    .line 763
     const-string v7, "areas"
 
     invoke-virtual {v2, v7}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -485,7 +485,7 @@
 
     iput-object v7, v6, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiItem;->area:Ljava/lang/String;
 
-    .line 718
+    .line 764
     const-string v7, "styles"
 
     invoke-virtual {v2, v7}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -494,7 +494,7 @@
 
     iput-object v7, v6, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiItem;->style:Ljava/lang/String;
 
-    .line 719
+    .line 765
     const-string v7, "rating"
 
     invoke-virtual {v2, v7}, Lcom/alibaba/fastjson/JSONObject;->getDoubleValue(Ljava/lang/String;)D
@@ -503,7 +503,7 @@
 
     iput-wide v8, v6, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiItem;->rating:D
 
-    .line 720
+    .line 766
     const-string v7, "vote"
 
     invoke-virtual {v2, v7}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -512,7 +512,7 @@
 
     iput v2, v6, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiItem;->vote:I
 
-    .line 721
+    .line 767
     iget v2, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->tid:I
 
     if-ne v2, v3, :cond_a6
@@ -522,10 +522,10 @@
     :goto_9e
     iput-boolean v2, v6, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiItem;->isBangumi:Z
 
-    .line 722
+    .line 768
     invoke-interface {v5, v6}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 710
+    .line 756
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_46
@@ -533,21 +533,21 @@
     :cond_a6
     move v2, v1
 
-    .line 721
+    .line 767
     goto :goto_9e
 
-    .line 725
+    .line 771
     :cond_a8
     iget v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->currentPage:I
 
     if-ne v0, v3, :cond_c0
 
-    .line 726
+    .line 772
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->adapter:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;
 
     invoke-virtual {v0, v5}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;->setBangumis(Ljava/util/List;)V
 
-    .line 731
+    .line 777
     :goto_b1
     invoke-virtual {v4}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
@@ -557,16 +557,16 @@
 
     if-ge v0, v2, :cond_c6
 
-    .line 732
+    .line 778
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->hasMore:Z
 
-    .line 737
+    .line 783
     :goto_bb
     invoke-direct {p0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->updateHeaderInfo()V
 
     goto/16 :goto_2a
 
-    .line 728
+    .line 774
     :cond_c0
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->adapter:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;
 
@@ -574,7 +574,7 @@
 
     goto :goto_b1
 
-    .line 734
+    .line 780
     :cond_c6
     iget v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->currentPage:I
 
@@ -598,22 +598,22 @@
 
     const/4 v1, 0x0
 
-    .line 789
+    .line 835
     const-string v0, "SearchResultVideoFrag_SearchLiveRoom"
 
     invoke-static {v0, p1}, Lmybl/LogUtil;->json(Ljava/lang/String;Ljava/lang/Object;)V
 
-    .line 790
+    .line 836
     const-string v0, "data"
 
     invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 791
+    .line 837
     if-nez v0, :cond_c1
 
-    .line 794
+    .line 840
     :goto_f
     const-string v0, "result"
 
@@ -621,7 +621,7 @@
 
     move-result-object v2
 
-    .line 795
+    .line 841
     if-eqz v2, :cond_1d
 
     invoke-virtual {v2}, Lcom/alibaba/fastjson/JSONArray;->isEmpty()Z
@@ -630,53 +630,53 @@
 
     if-eqz v0, :cond_2b
 
-    .line 796
+    .line 842
     :cond_1d
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->isLoading:Z
 
-    .line 797
+    .line 843
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->hasMore:Z
 
-    .line 798
+    .line 844
     iget v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->currentPage:I
 
     if-ne v0, v8, :cond_2a
 
-    .line 799
+    .line 845
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->loadingView:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->c()V
 
-    .line 840
+    .line 886
     :cond_2a
     :goto_2a
     return-void
 
-    .line 804
+    .line 850
     :cond_2b
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->isLoading:Z
 
-    .line 805
+    .line 851
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->loadingView:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->b()V
 
-    .line 806
+    .line 852
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
 
-    .line 807
+    .line 853
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->headerLayout:Landroid/widget/LinearLayout;
 
     if-eqz v0, :cond_40
 
-    .line 808
+    .line 854
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->headerLayout:Landroid/widget/LinearLayout;
 
     invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->setVisibility(I)V
 
-    .line 811
+    .line 857
     :cond_40
     new-instance v3, Ljava/util/ArrayList;
 
@@ -684,7 +684,7 @@
 
     move v0, v1
 
-    .line 812
+    .line 858
     :goto_46
     invoke-virtual {v2}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
@@ -692,24 +692,24 @@
 
     if-ge v0, v4, :cond_9c
 
-    .line 813
+    .line 859
     invoke-virtual {v2, v0}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v4
 
-    .line 814
+    .line 860
     new-instance v5, Lmybl/BiliLiveContentEx2;
 
     invoke-direct {v5}, Lmybl/BiliLiveContentEx2;-><init>()V
 
-    .line 815
+    .line 861
     const-string v6, "title"
 
     invoke-virtual {v4, v6}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v6
 
-    .line 816
+    .line 862
     invoke-static {v6}, Landroid/text/Html;->fromHtml(Ljava/lang/String;)Landroid/text/Spanned;
 
     move-result-object v6
@@ -720,7 +720,7 @@
 
     iput-object v6, v5, Lmybl/BiliLiveContentEx2;->mTitle:Ljava/lang/String;
 
-    .line 817
+    .line 863
     const-string v6, "uname"
 
     invoke-virtual {v4, v6}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -729,7 +729,7 @@
 
     iput-object v6, v5, Lmybl/BiliLiveContentEx2;->mUname:Ljava/lang/String;
 
-    .line 818
+    .line 864
     const-string v6, "user_cover"
 
     invoke-virtual {v4, v6}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -738,7 +738,7 @@
 
     iput-object v6, v5, Lmybl/BiliLiveContentEx2;->mCover:Ljava/lang/String;
 
-    .line 819
+    .line 865
     iget-object v6, v5, Lmybl/BiliLiveContentEx2;->mCover:Ljava/lang/String;
 
     invoke-static {v6}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
@@ -747,7 +747,7 @@
 
     if-eqz v6, :cond_85
 
-    .line 820
+    .line 866
     const-string v6, "cover"
 
     invoke-virtual {v4, v6}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -756,7 +756,7 @@
 
     iput-object v6, v5, Lmybl/BiliLiveContentEx2;->mCover:Ljava/lang/String;
 
-    .line 822
+    .line 868
     :cond_85
     const-string v6, "online"
 
@@ -768,7 +768,7 @@
 
     iput-wide v6, v5, Lmybl/BiliLiveContentEx2;->mOnline:J
 
-    .line 823
+    .line 869
     const-string v6, "roomid"
 
     invoke-virtual {v4, v6}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -777,26 +777,26 @@
 
     iput v4, v5, Lmybl/BiliLiveContentEx2;->mRoomId:I
 
-    .line 824
+    .line 870
     invoke-interface {v3, v5}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 812
+    .line 858
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_46
 
-    .line 827
+    .line 873
     :cond_9c
     iget v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->currentPage:I
 
     if-ne v0, v8, :cond_b4
 
-    .line 828
+    .line 874
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->adapter:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;->setLiveRooms(Ljava/util/List;)V
 
-    .line 833
+    .line 879
     :goto_a5
     invoke-virtual {v2}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
@@ -806,16 +806,16 @@
 
     if-ge v0, v2, :cond_ba
 
-    .line 834
+    .line 880
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->hasMore:Z
 
-    .line 839
+    .line 885
     :goto_af
     invoke-direct {p0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->updateHeaderInfo()V
 
     goto/16 :goto_2a
 
-    .line 830
+    .line 876
     :cond_b4
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->adapter:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;
 
@@ -823,7 +823,7 @@
 
     goto :goto_a5
 
-    .line 836
+    .line 882
     :cond_ba
     iget v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->currentPage:I
 
@@ -847,27 +847,27 @@
 
     const/4 v1, 0x0
 
-    .line 891
+    .line 937
     const-string v0, "SearchResultVideoFrag_SearchUser"
 
     invoke-static {v0, p1}, Lmybl/LogUtil;->json(Ljava/lang/String;Ljava/lang/Object;)V
 
-    .line 892
+    .line 938
     const-string v0, "data"
 
     invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 893
+    .line 939
     if-nez v0, :cond_10
 
-    .line 940
+    .line 986
     :cond_f
     :goto_f
     return-void
 
-    .line 896
+    .line 942
     :cond_10
     const-string v2, "result"
 
@@ -875,7 +875,7 @@
 
     move-result-object v2
 
-    .line 897
+    .line 943
     if-eqz v2, :cond_1e
 
     invoke-virtual {v2}, Lcom/alibaba/fastjson/JSONArray;->isEmpty()Z
@@ -884,50 +884,50 @@
 
     if-eqz v0, :cond_2c
 
-    .line 898
+    .line 944
     :cond_1e
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->isLoading:Z
 
-    .line 899
+    .line 945
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->hasMore:Z
 
-    .line 900
+    .line 946
     iget v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->currentPage:I
 
     if-ne v0, v8, :cond_f
 
-    .line 901
+    .line 947
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->loadingView:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->c()V
 
     goto :goto_f
 
-    .line 906
+    .line 952
     :cond_2c
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->isLoading:Z
 
-    .line 907
+    .line 953
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->loadingView:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->b()V
 
-    .line 908
+    .line 954
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
 
-    .line 909
+    .line 955
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->headerLayout:Landroid/widget/LinearLayout;
 
     if-eqz v0, :cond_41
 
-    .line 910
+    .line 956
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->headerLayout:Landroid/widget/LinearLayout;
 
     invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->setVisibility(I)V
 
-    .line 913
+    .line 959
     :cond_41
     new-instance v3, Ljava/util/ArrayList;
 
@@ -935,7 +935,7 @@
 
     move v0, v1
 
-    .line 914
+    .line 960
     :goto_47
     invoke-virtual {v2}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
@@ -943,24 +943,24 @@
 
     if-ge v0, v4, :cond_98
 
-    .line 915
+    .line 961
     invoke-virtual {v2, v0}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v4
 
-    .line 916
+    .line 962
     new-instance v5, Lcom/bilibili/tv/api/search/BiliSearchResultUper;
 
     invoke-direct {v5}, Lcom/bilibili/tv/api/search/BiliSearchResultUper;-><init>()V
 
-    .line 917
+    .line 963
     const-string v6, "uname"
 
     invoke-virtual {v4, v6}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v6
 
-    .line 918
+    .line 964
     invoke-static {v6}, Landroid/text/Html;->fromHtml(Ljava/lang/String;)Landroid/text/Spanned;
 
     move-result-object v6
@@ -971,7 +971,7 @@
 
     iput-object v6, v5, Lcom/bilibili/tv/api/search/BiliSearchResultUper;->uname:Ljava/lang/String;
 
-    .line 919
+    .line 965
     const-string v6, "upic"
 
     invoke-virtual {v4, v6}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -980,7 +980,7 @@
 
     iput-object v6, v5, Lcom/bilibili/tv/api/search/BiliSearchResultUper;->upic:Ljava/lang/String;
 
-    .line 920
+    .line 966
     const-string v6, "usign"
 
     invoke-virtual {v4, v6}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -989,7 +989,7 @@
 
     iput-object v6, v5, Lcom/bilibili/tv/api/search/BiliSearchResultUper;->usign:Ljava/lang/String;
 
-    .line 921
+    .line 967
     const-string v6, "mid"
 
     invoke-virtual {v4, v6}, Lcom/alibaba/fastjson/JSONObject;->getLong(Ljava/lang/String;)Ljava/lang/Long;
@@ -1002,7 +1002,7 @@
 
     iput-wide v6, v5, Lcom/bilibili/tv/api/search/BiliSearchResultUper;->mid:J
 
-    .line 922
+    .line 968
     const-string v6, "fans"
 
     invoke-virtual {v4, v6}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -1011,7 +1011,7 @@
 
     iput v6, v5, Lcom/bilibili/tv/api/search/BiliSearchResultUper;->fans:I
 
-    .line 923
+    .line 969
     const-string v6, "videos"
 
     invoke-virtual {v4, v6}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -1020,26 +1020,26 @@
 
     iput v4, v5, Lcom/bilibili/tv/api/search/BiliSearchResultUper;->videos:I
 
-    .line 924
+    .line 970
     invoke-interface {v3, v5}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 914
+    .line 960
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_47
 
-    .line 927
+    .line 973
     :cond_98
     iget v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->currentPage:I
 
     if-ne v0, v8, :cond_b0
 
-    .line 928
+    .line 974
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->adapter:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;->setUsers(Ljava/util/List;)V
 
-    .line 933
+    .line 979
     :goto_a1
     invoke-virtual {v2}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
@@ -1049,16 +1049,16 @@
 
     if-ge v0, v2, :cond_b6
 
-    .line 934
+    .line 980
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->hasMore:Z
 
-    .line 939
+    .line 985
     :goto_ab
     invoke-direct {p0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->updateHeaderInfo()V
 
     goto/16 :goto_f
 
-    .line 930
+    .line 976
     :cond_b0
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->adapter:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;
 
@@ -1066,7 +1066,7 @@
 
     goto :goto_a1
 
-    .line 936
+    .line 982
     :cond_b6
     iget v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->currentPage:I
 
@@ -1085,22 +1085,22 @@
 
     const/4 v1, 0x0
 
-    .line 580
+    .line 626
     const-string v0, "SearchResultVideoFrag_SearchVideo"
 
     invoke-static {v0, p1}, Lmybl/LogUtil;->json(Ljava/lang/String;Ljava/lang/Object;)V
 
-    .line 581
+    .line 627
     const-string v0, "data"
 
     invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 582
+    .line 628
     if-nez v0, :cond_ec
 
-    .line 585
+    .line 631
     :goto_f
     const-string v0, "result"
 
@@ -1108,7 +1108,7 @@
 
     move-result-object v2
 
-    .line 586
+    .line 632
     if-eqz v2, :cond_1d
 
     invoke-virtual {v2}, Lcom/alibaba/fastjson/JSONArray;->isEmpty()Z
@@ -1117,53 +1117,53 @@
 
     if-eqz v0, :cond_2b
 
-    .line 587
+    .line 633
     :cond_1d
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->isLoading:Z
 
-    .line 588
+    .line 634
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->hasMore:Z
 
-    .line 589
+    .line 635
     iget v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->currentPage:I
 
     if-ne v0, v8, :cond_2a
 
-    .line 590
+    .line 636
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->loadingView:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->c()V
 
-    .line 636
+    .line 682
     :cond_2a
     :goto_2a
     return-void
 
-    .line 595
+    .line 641
     :cond_2b
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->isLoading:Z
 
-    .line 596
+    .line 642
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->loadingView:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->b()V
 
-    .line 597
+    .line 643
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
 
-    .line 598
+    .line 644
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->headerLayout:Landroid/widget/LinearLayout;
 
     if-eqz v0, :cond_40
 
-    .line 599
+    .line 645
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->headerLayout:Landroid/widget/LinearLayout;
 
     invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->setVisibility(I)V
 
-    .line 602
+    .line 648
     :cond_40
     new-instance v3, Ljava/util/ArrayList;
 
@@ -1171,7 +1171,7 @@
 
     move v0, v1
 
-    .line 603
+    .line 649
     :goto_46
     invoke-virtual {v2}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
@@ -1179,24 +1179,24 @@
 
     if-ge v0, v4, :cond_c7
 
-    .line 604
+    .line 650
     invoke-virtual {v2, v0}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v4
 
-    .line 605
+    .line 651
     new-instance v5, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoItem;
 
     invoke-direct {v5}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoItem;-><init>()V
 
-    .line 606
+    .line 652
     const-string v6, "title"
 
     invoke-virtual {v4, v6}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v6
 
-    .line 607
+    .line 653
     invoke-static {v6}, Landroid/text/Html;->fromHtml(Ljava/lang/String;)Landroid/text/Spanned;
 
     move-result-object v6
@@ -1207,7 +1207,7 @@
 
     iput-object v6, v5, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoItem;->title:Ljava/lang/String;
 
-    .line 608
+    .line 654
     const-string v6, "author"
 
     invoke-virtual {v4, v6}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -1216,7 +1216,7 @@
 
     iput-object v6, v5, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoItem;->author:Ljava/lang/String;
 
-    .line 609
+    .line 655
     const-string v6, "play"
 
     invoke-virtual {v4, v6}, Lcom/alibaba/fastjson/JSONObject;->getInteger(Ljava/lang/String;)Ljava/lang/Integer;
@@ -1229,7 +1229,7 @@
 
     iput-object v6, v5, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoItem;->play:Ljava/lang/String;
 
-    .line 610
+    .line 656
     const-string v6, "video_review"
 
     invoke-virtual {v4, v6}, Lcom/alibaba/fastjson/JSONObject;->getInteger(Ljava/lang/String;)Ljava/lang/Integer;
@@ -1242,7 +1242,7 @@
 
     iput-object v6, v5, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoItem;->danmaku:Ljava/lang/String;
 
-    .line 611
+    .line 657
     const-string v6, "pic"
 
     invoke-virtual {v4, v6}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -1251,7 +1251,7 @@
 
     iput-object v6, v5, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoItem;->cover:Ljava/lang/String;
 
-    .line 612
+    .line 658
     const-string v6, "aid"
 
     invoke-virtual {v4, v6}, Lcom/alibaba/fastjson/JSONObject;->getLong(Ljava/lang/String;)Ljava/lang/Long;
@@ -1264,7 +1264,7 @@
 
     iput-object v6, v5, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoItem;->param:Ljava/lang/String;
 
-    .line 613
+    .line 659
     const-string v6, "pubdate"
 
     invoke-virtual {v4, v6}, Lcom/alibaba/fastjson/JSONObject;->containsKey(Ljava/lang/Object;)Z
@@ -1273,7 +1273,7 @@
 
     if-eqz v6, :cond_b1
 
-    .line 614
+    .line 660
     const-string v6, "pubdate"
 
     invoke-virtual {v4, v6}, Lcom/alibaba/fastjson/JSONObject;->getLong(Ljava/lang/String;)Ljava/lang/Long;
@@ -1284,14 +1284,14 @@
 
     move-result-wide v6
 
-    .line 615
+    .line 661
     invoke-static {v6, v7}, Lcom/bilibili/tv/util/DateHelper;->formatDate(J)Ljava/lang/String;
 
     move-result-object v6
 
     iput-object v6, v5, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoItem;->pubdate:Ljava/lang/String;
 
-    .line 617
+    .line 663
     :cond_b1
     const-string v6, "duration"
 
@@ -1301,7 +1301,7 @@
 
     if-eqz v6, :cond_c1
 
-    .line 618
+    .line 664
     const-string v6, "duration"
 
     invoke-virtual {v4, v6}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -1310,27 +1310,27 @@
 
     iput-object v4, v5, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoItem;->duration:Ljava/lang/String;
 
-    .line 620
+    .line 666
     :cond_c1
     invoke-interface {v3, v5}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 603
+    .line 649
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_46
 
-    .line 623
+    .line 669
     :cond_c7
     iget v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->currentPage:I
 
     if-ne v0, v8, :cond_df
 
-    .line 624
+    .line 670
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->adapter:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;->setVideos(Ljava/util/List;)V
 
-    .line 629
+    .line 675
     :goto_d0
     invoke-virtual {v2}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
@@ -1340,16 +1340,16 @@
 
     if-ge v0, v2, :cond_e5
 
-    .line 630
+    .line 676
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->hasMore:Z
 
-    .line 635
+    .line 681
     :goto_da
     invoke-direct {p0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->updateHeaderInfo()V
 
     goto/16 :goto_2a
 
-    .line 626
+    .line 672
     :cond_df
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->adapter:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;
 
@@ -1357,7 +1357,7 @@
 
     goto :goto_d0
 
-    .line 632
+    .line 678
     :cond_e5
     iget v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->currentPage:I
 
@@ -1612,7 +1612,7 @@
     :cond_4b
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->hintSort:Landroid/widget/TextView;
 
-    const-string v1, "\u957f\u6309[OK]\u952e\u6392\u5e8f"
+    const-string v1, "\u70b9\u51fb[\u83dc\u5355]\u952e\u6392\u5e8f"
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
@@ -1815,7 +1815,7 @@
     .locals 1
 
     .prologue
-    .line 494
+    .line 540
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->dateType:Ljava/lang/String;
 
     return-object v0
@@ -1825,7 +1825,7 @@
     .locals 1
 
     .prologue
-    .line 516
+    .line 562
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->duration:Ljava/lang/String;
 
     return-object v0
@@ -1835,7 +1835,7 @@
     .locals 1
 
     .prologue
-    .line 478
+    .line 524
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->liveOrder:Ljava/lang/String;
 
     return-object v0
@@ -1845,7 +1845,7 @@
     .locals 1
 
     .prologue
-    .line 421
+    .line 467
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->order:Ljava/lang/String;
 
     return-object v0
@@ -1855,7 +1855,7 @@
     .locals 1
 
     .prologue
-    .line 498
+    .line 544
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->pubtimeBegin:Ljava/lang/String;
 
     return-object v0
@@ -1865,7 +1865,7 @@
     .locals 1
 
     .prologue
-    .line 502
+    .line 548
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->pubtimeEnd:Ljava/lang/String;
 
     return-object v0
@@ -1875,7 +1875,7 @@
     .locals 1
 
     .prologue
-    .line 520
+    .line 566
     iget v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->tid:I
 
     return v0
@@ -1887,7 +1887,7 @@
     .prologue
     const/4 v2, 0x1
 
-    .line 453
+    .line 499
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->userOrder:Ljava/lang/String;
 
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
@@ -1896,14 +1896,14 @@
 
     if-eqz v0, :cond_c
 
-    .line 454
+    .line 500
     const-string v0, ""
 
-    .line 460
+    .line 506
     :goto_b
     return-object v0
 
-    .line 455
+    .line 501
     :cond_c
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->userOrder:Ljava/lang/String;
 
@@ -1919,12 +1919,12 @@
 
     if-ne v0, v2, :cond_1d
 
-    .line 456
+    .line 502
     const-string v0, "fans_asc"
 
     goto :goto_b
 
-    .line 457
+    .line 503
     :cond_1d
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->userOrder:Ljava/lang/String;
 
@@ -1940,12 +1940,12 @@
 
     if-ne v0, v2, :cond_2e
 
-    .line 458
+    .line 504
     const-string v0, "level_asc"
 
     goto :goto_b
 
-    .line 460
+    .line 506
     :cond_2e
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->userOrder:Ljava/lang/String;
 
@@ -1956,7 +1956,7 @@
     .locals 1
 
     .prologue
-    .line 524
+    .line 570
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->isLoading:Z
 
     return v0
@@ -2888,30 +2888,30 @@
     .prologue
     const/4 v0, 0x1
 
-    .line 506
+    .line 552
     iput-object p1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->duration:Ljava/lang/String;
 
-    .line 507
+    .line 553
     iput v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->currentPage:I
 
-    .line 508
+    .line 554
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->hasMore:Z
 
-    .line 509
+    .line 555
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->adapter:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;
 
     if-eqz v0, :cond_10
 
-    .line 510
+    .line 556
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->adapter:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;->clear()V
 
-    .line 512
+    .line 558
     :cond_10
     invoke-direct {p0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->b()V
 
-    .line 513
+    .line 559
     return-void
 .end method
 
@@ -2921,7 +2921,7 @@
     .prologue
     const/4 v1, 0x1
 
-    .line 465
+    .line 511
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->liveOrder:Ljava/lang/String;
 
     invoke-static {p1, v0}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
@@ -2930,31 +2930,31 @@
 
     if-eqz v0, :cond_a
 
-    .line 475
+    .line 521
     :goto_9
     return-void
 
-    .line 468
+    .line 514
     :cond_a
     iput-object p1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->liveOrder:Ljava/lang/String;
 
-    .line 469
+    .line 515
     iput v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->currentPage:I
 
-    .line 470
+    .line 516
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->hasMore:Z
 
-    .line 471
+    .line 517
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->adapter:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;
 
     if-eqz v0, :cond_19
 
-    .line 472
+    .line 518
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->adapter:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;->clear()V
 
-    .line 474
+    .line 520
     :cond_19
     invoke-direct {p0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->b()V
 
@@ -2967,7 +2967,7 @@
     .prologue
     const/4 v1, 0x1
 
-    .line 408
+    .line 454
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->order:Ljava/lang/String;
 
     invoke-static {p1, v0}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
@@ -2976,31 +2976,31 @@
 
     if-eqz v0, :cond_a
 
-    .line 418
+    .line 464
     :goto_9
     return-void
 
-    .line 411
+    .line 457
     :cond_a
     iput-object p1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->order:Ljava/lang/String;
 
-    .line 412
+    .line 458
     iput v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->currentPage:I
 
-    .line 413
+    .line 459
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->hasMore:Z
 
-    .line 414
+    .line 460
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->adapter:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;
 
     if-eqz v0, :cond_19
 
-    .line 415
+    .line 461
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->adapter:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;->clear()V
 
-    .line 417
+    .line 463
     :cond_19
     invoke-direct {p0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->b()V
 
@@ -3013,36 +3013,36 @@
     .prologue
     const/4 v0, 0x1
 
-    .line 482
+    .line 528
     iput-object p1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->pubtimeBegin:Ljava/lang/String;
 
-    .line 483
+    .line 529
     iput-object p2, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->pubtimeEnd:Ljava/lang/String;
 
-    .line 484
+    .line 530
     iput-object p3, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->dateType:Ljava/lang/String;
 
-    .line 485
+    .line 531
     iput v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->currentPage:I
 
-    .line 486
+    .line 532
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->hasMore:Z
 
-    .line 487
+    .line 533
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->adapter:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;
 
     if-eqz v0, :cond_14
 
-    .line 488
+    .line 534
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->adapter:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;->clear()V
 
-    .line 490
+    .line 536
     :cond_14
     invoke-direct {p0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->b()V
 
-    .line 491
+    .line 537
     return-void
 .end method
 
@@ -3054,46 +3054,46 @@
 
     const/4 v1, 0x0
 
-    .line 425
+    .line 471
     invoke-static {p1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v0
 
     if-eqz v0, :cond_1f
 
-    .line 426
+    .line 472
     const-string v0, ""
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->userOrder:Ljava/lang/String;
 
-    .line 427
+    .line 473
     iput v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->userOrderSort:I
 
-    .line 444
+    .line 490
     :goto_e
     iput v2, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->currentPage:I
 
-    .line 445
+    .line 491
     iput-boolean v2, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->hasMore:Z
 
-    .line 446
+    .line 492
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->adapter:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;
 
     if-eqz v0, :cond_1b
 
-    .line 447
+    .line 493
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->adapter:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;->clear()V
 
-    .line 449
+    .line 495
     :cond_1b
     invoke-direct {p0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->b()V
 
-    .line 450
+    .line 496
     return-void
 
-    .line 428
+    .line 474
     :cond_1f
     const-string v0, "fans"
 
@@ -3103,17 +3103,17 @@
 
     if-eqz v0, :cond_2e
 
-    .line 429
+    .line 475
     const-string v0, "fans"
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->userOrder:Ljava/lang/String;
 
-    .line 430
+    .line 476
     iput v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->userOrderSort:I
 
     goto :goto_e
 
-    .line 431
+    .line 477
     :cond_2e
     const-string v0, "fans_asc"
 
@@ -3123,17 +3123,17 @@
 
     if-eqz v0, :cond_3d
 
-    .line 432
+    .line 478
     const-string v0, "fans"
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->userOrder:Ljava/lang/String;
 
-    .line 433
+    .line 479
     iput v2, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->userOrderSort:I
 
     goto :goto_e
 
-    .line 434
+    .line 480
     :cond_3d
     const-string v0, "level"
 
@@ -3143,17 +3143,17 @@
 
     if-eqz v0, :cond_4c
 
-    .line 435
+    .line 481
     const-string v0, "level"
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->userOrder:Ljava/lang/String;
 
-    .line 436
+    .line 482
     iput v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->userOrderSort:I
 
     goto :goto_e
 
-    .line 437
+    .line 483
     :cond_4c
     const-string v0, "level_asc"
 
@@ -3163,22 +3163,213 @@
 
     if-eqz v0, :cond_5b
 
-    .line 438
+    .line 484
     const-string v0, "level"
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->userOrder:Ljava/lang/String;
 
-    .line 439
+    .line 485
     iput v2, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->userOrderSort:I
 
     goto :goto_e
 
-    .line 441
+    .line 487
     :cond_5b
     iput-object p1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->userOrder:Ljava/lang/String;
 
-    .line 442
+    .line 488
     iput v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->userOrderSort:I
 
     goto :goto_e
+.end method
+
+.method public updateSearchParams(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+    .locals 10
+
+    .prologue
+    const/4 v1, 0x1
+
+    .line 408
+    const/4 v0, 0x0
+
+    .line 410
+    iget-object v2, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->order:Ljava/lang/String;
+
+    invoke-static {p1, v2}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
+
+    move-result v2
+
+    if-nez v2, :cond_d
+
+    .line 411
+    iput-object p1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->order:Ljava/lang/String;
+
+    move v0, v1
+
+    .line 415
+    :cond_d
+    const-string v3, ""
+
+    .line 416
+    const-string v2, ""
+
+    .line 417
+    invoke-static {p2}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v4
+
+    if-nez v4, :cond_34
+
+    .line 419
+    :try_start_17
+    invoke-static {p2}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
+
+    move-result v4
+
+    .line 420
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+
+    move-result-wide v6
+
+    const-wide/16 v8, 0x3e8
+
+    div-long/2addr v6, v8
+
+    .line 421
+    mul-int/lit8 v4, v4, 0x18
+
+    mul-int/lit8 v4, v4, 0x3c
+
+    int-to-long v4, v4
+
+    const-wide/16 v8, 0x3c
+
+    mul-long/2addr v4, v8
+
+    sub-long v4, v6, v4
+
+    .line 422
+    invoke-static {v4, v5}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
+
+    move-result-object v3
+
+    .line 423
+    invoke-static {v6, v7}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
+    :try_end_33
+    .catch Ljava/lang/NumberFormatException; {:try_start_17 .. :try_end_33} :catch_71
+
+    move-result-object v2
+
+    .line 429
+    :cond_34
+    :goto_34
+    iget-object v4, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->pubtimeBegin:Ljava/lang/String;
+
+    invoke-static {v3, v4}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
+
+    move-result v4
+
+    if-eqz v4, :cond_4c
+
+    iget-object v4, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->pubtimeEnd:Ljava/lang/String;
+
+    .line 430
+    invoke-static {v2, v4}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
+
+    move-result v4
+
+    if-eqz v4, :cond_4c
+
+    iget-object v4, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->dateType:Ljava/lang/String;
+
+    .line 431
+    invoke-static {p2, v4}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
+
+    move-result v4
+
+    if-nez v4, :cond_53
+
+    .line 432
+    :cond_4c
+    iput-object v3, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->pubtimeBegin:Ljava/lang/String;
+
+    .line 433
+    iput-object v2, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->pubtimeEnd:Ljava/lang/String;
+
+    .line 434
+    iput-object p2, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->dateType:Ljava/lang/String;
+
+    move v0, v1
+
+    .line 438
+    :cond_53
+    iget-object v2, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->duration:Ljava/lang/String;
+
+    invoke-static {p3, v2}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
+
+    move-result v2
+
+    if-nez v2, :cond_5e
+
+    .line 439
+    iput-object p3, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->duration:Ljava/lang/String;
+
+    move v0, v1
+
+    .line 443
+    :cond_5e
+    if-eqz v0, :cond_70
+
+    .line 444
+    iput v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->currentPage:I
+
+    .line 445
+    iput-boolean v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->hasMore:Z
+
+    .line 446
+    iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->adapter:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;
+
+    if-eqz v0, :cond_6d
+
+    .line 447
+    iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->adapter:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;->clear()V
+
+    .line 449
+    :cond_6d
+    invoke-direct {p0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->b()V
+
+    .line 451
+    :cond_70
+    return-void
+
+    .line 424
+    :catch_71
+    move-exception v4
+
+    .line 425
+    const-string v4, "SearchResultVideoFrag"
+
+    new-instance v5, Ljava/lang/StringBuilder;
+
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v6, "Invalid dateType: "
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    invoke-virtual {v5, p2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-static {v4, v5}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_34
 .end method

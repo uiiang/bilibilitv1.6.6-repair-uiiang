@@ -42,7 +42,7 @@
     .locals 0
 
     .prologue
-    .line 120
+    .line 129
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -54,7 +54,7 @@
     .locals 1
 
     .prologue
-    .line 132
+    .line 141
     iget-object v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2$Children;->cover:Ljava/lang/String;
 
     return-object v0
@@ -64,7 +64,7 @@
     .locals 1
 
     .prologue
-    .line 140
+    .line 149
     iget v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2$Children;->danmaku:I
 
     return v0
@@ -74,7 +74,7 @@
     .locals 1
 
     .prologue
-    .line 148
+    .line 157
     iget v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2$Children;->duration:I
 
     return v0
@@ -84,7 +84,7 @@
     .locals 1
 
     .prologue
-    .line 156
+    .line 165
     iget-object v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2$Children;->gotoX:Ljava/lang/String;
 
     return-object v0
@@ -94,7 +94,7 @@
     .locals 1
 
     .prologue
-    .line 165
+    .line 174
     iget-object v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2$Children;->name:Ljava/lang/String;
 
     return-object v0
@@ -104,7 +104,7 @@
     .locals 1
 
     .prologue
-    .line 173
+    .line 182
     iget-object v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2$Children;->param:Ljava/lang/String;
 
     return-object v0
@@ -114,7 +114,7 @@
     .locals 1
 
     .prologue
-    .line 181
+    .line 190
     iget v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2$Children;->play:I
 
     return v0
@@ -124,7 +124,7 @@
     .locals 1
 
     .prologue
-    .line 189
+    .line 198
     iget-object v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2$Children;->title:Ljava/lang/String;
 
     return-object v0
@@ -134,7 +134,7 @@
     .locals 1
 
     .prologue
-    .line 197
+    .line 206
     iget-object v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2$Children;->uri:Ljava/lang/String;
 
     return-object v0
@@ -144,10 +144,10 @@
     .locals 0
 
     .prologue
-    .line 136
+    .line 145
     iput-object p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2$Children;->cover:Ljava/lang/String;
 
-    .line 137
+    .line 146
     return-void
 .end method
 
@@ -155,10 +155,10 @@
     .locals 0
 
     .prologue
-    .line 144
+    .line 153
     iput p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2$Children;->danmaku:I
 
-    .line 145
+    .line 154
     return-void
 .end method
 
@@ -166,10 +166,10 @@
     .locals 0
 
     .prologue
-    .line 152
+    .line 161
     iput p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2$Children;->duration:I
 
-    .line 153
+    .line 162
     return-void
 .end method
 
@@ -180,10 +180,10 @@
     .end annotation
 
     .prologue
-    .line 161
+    .line 170
     iput-object p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2$Children;->gotoX:Ljava/lang/String;
 
-    .line 162
+    .line 171
     return-void
 .end method
 
@@ -191,10 +191,10 @@
     .locals 0
 
     .prologue
-    .line 169
+    .line 178
     iput-object p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2$Children;->name:Ljava/lang/String;
 
-    .line 170
+    .line 179
     return-void
 .end method
 
@@ -202,10 +202,10 @@
     .locals 0
 
     .prologue
-    .line 177
+    .line 186
     iput-object p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2$Children;->param:Ljava/lang/String;
 
-    .line 178
+    .line 187
     return-void
 .end method
 
@@ -213,10 +213,10 @@
     .locals 0
 
     .prologue
-    .line 185
+    .line 194
     iput p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2$Children;->play:I
 
-    .line 186
+    .line 195
     return-void
 .end method
 
@@ -224,10 +224,10 @@
     .locals 0
 
     .prologue
-    .line 193
+    .line 202
     iput-object p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2$Children;->title:Ljava/lang/String;
 
-    .line 194
+    .line 203
     return-void
 .end method
 
@@ -235,9 +235,9 @@
     .locals 0
 
     .prologue
-    .line 201
+    .line 210
     iput-object p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2$Children;->uri:Ljava/lang/String;
 
-    .line 202
+    .line 211
     return-void
 .end method

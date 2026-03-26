@@ -706,9 +706,9 @@
 
     .line 314
     :cond_5e
-    sget-object v2, Lcom/bilibili/tv/ui/area/AreaActivity;->Companion:Lcom/bilibili/tv/ui/area/AreaActivity$a;
+    sget-object v2, Lcom/bilibili/tv/ui/area/AreaActivity;->Companion:Lcom/bilibili/tv/ui/area/AreaActivity$Companion;
 
-    invoke-virtual {v2, v1, v0}, Lcom/bilibili/tv/ui/area/AreaActivity$a;->a(Landroid/content/Context;I)V
+    invoke-virtual {v2, v1, v0}, Lcom/bilibili/tv/ui/area/AreaActivity$Companion;->a(Landroid/content/Context;I)V
 
     goto :goto_1c
 .end method

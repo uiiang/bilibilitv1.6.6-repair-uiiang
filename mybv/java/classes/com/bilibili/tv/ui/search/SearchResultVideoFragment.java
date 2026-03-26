@@ -288,7 +288,7 @@ public final class SearchResultVideoFragment extends ady {
             if (tid == 1 || tid == 2) {
                 hintSort.setVisibility(View.GONE);
             } else {
-                hintSort.setText("长按[OK]键排序");
+                hintSort.setText("点击[菜单]键排序");
                 hintSort.setVisibility(View.VISIBLE);
             }
         }
@@ -402,6 +402,52 @@ public final class SearchResultVideoFragment extends ady {
         OkHttpClient client = vo.getOkHttpClient();
         Request request = new Request.Builder().url(url).get().build();
         client.newCall(request).enqueue(new SearchUserResponse());
+    }
+
+    public void updateSearchParams(String newOrder, String newDateType, String newDuration) {
+        boolean changed = false;
+        
+        if (!TextUtils.equals(newOrder, this.order)) {
+            this.order = newOrder;
+            changed = true;
+        }
+        
+        String newPubtimeBegin = "";
+        String newPubtimeEnd = "";
+        if (!TextUtils.isEmpty(newDateType)) {
+            try {
+                int days = Integer.parseInt(newDateType);
+                long endTime = System.currentTimeMillis() / 1000;
+                long beginTime = endTime - (days * 24 * 60 * 60L);
+                newPubtimeBegin = String.valueOf(beginTime);
+                newPubtimeEnd = String.valueOf(endTime);
+            } catch (NumberFormatException e) {
+                Log.e(TAG, "Invalid dateType: " + newDateType);
+            }
+        }
+        
+        if (!TextUtils.equals(newPubtimeBegin, this.pubtimeBegin) ||
+            !TextUtils.equals(newPubtimeEnd, this.pubtimeEnd) ||
+            !TextUtils.equals(newDateType, this.dateType)) {
+            this.pubtimeBegin = newPubtimeBegin;
+            this.pubtimeEnd = newPubtimeEnd;
+            this.dateType = newDateType;
+            changed = true;
+        }
+        
+        if (!TextUtils.equals(newDuration, this.duration)) {
+            this.duration = newDuration;
+            changed = true;
+        }
+        
+        if (changed) {
+            currentPage = 1;
+            hasMore = true;
+            if (adapter != null) {
+                adapter.clear();
+            }
+            b();
+        }
     }
 
     public void setOrder(String newOrder) {

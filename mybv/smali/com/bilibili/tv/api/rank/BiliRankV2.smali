@@ -42,6 +42,8 @@
 
 .field private pts:I
 
+.field private pub_date:J
+
 .field private showMore:Z
 
 .field private title:Ljava/lang/String;
@@ -75,7 +77,7 @@
     .end annotation
 
     .prologue
-    .line 23
+    .line 24
     iget-object v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->children:Ljava/util/List;
 
     return-object v0
@@ -85,7 +87,7 @@
     .locals 1
 
     .prologue
-    .line 31
+    .line 32
     iget-object v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->cover:Ljava/lang/String;
 
     return-object v0
@@ -95,7 +97,7 @@
     .locals 1
 
     .prologue
-    .line 39
+    .line 40
     iget v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->danmaku:I
 
     return v0
@@ -105,7 +107,7 @@
     .locals 1
 
     .prologue
-    .line 47
+    .line 48
     iget v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->duration:I
 
     return v0
@@ -115,7 +117,7 @@
     .locals 1
 
     .prologue
-    .line 55
+    .line 56
     iget-object v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->gotoX:Ljava/lang/String;
 
     return-object v0
@@ -125,7 +127,7 @@
     .locals 1
 
     .prologue
-    .line 64
+    .line 65
     iget-object v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->name:Ljava/lang/String;
 
     return-object v0
@@ -135,7 +137,7 @@
     .locals 1
 
     .prologue
-    .line 72
+    .line 73
     iget-object v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->param:Ljava/lang/String;
 
     return-object v0
@@ -145,7 +147,7 @@
     .locals 1
 
     .prologue
-    .line 80
+    .line 81
     iget v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->play:I
 
     return v0
@@ -155,17 +157,27 @@
     .locals 1
 
     .prologue
-    .line 88
+    .line 89
     iget v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->pts:I
 
     return v0
+.end method
+
+.method public getPub_date()J
+    .locals 2
+
+    .prologue
+    .line 97
+    iget-wide v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->pub_date:J
+
+    return-wide v0
 .end method
 
 .method public getTitle()Ljava/lang/String;
     .locals 1
 
     .prologue
-    .line 104
+    .line 113
     iget-object v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->title:Ljava/lang/String;
 
     return-object v0
@@ -175,7 +187,7 @@
     .locals 1
 
     .prologue
-    .line 112
+    .line 121
     iget-object v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->uri:Ljava/lang/String;
 
     return-object v0
@@ -185,7 +197,7 @@
     .locals 1
 
     .prologue
-    .line 96
+    .line 105
     iget-boolean v0, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->showMore:Z
 
     return v0
@@ -204,10 +216,10 @@
     .end annotation
 
     .prologue
-    .line 27
+    .line 28
     iput-object p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->children:Ljava/util/List;
 
-    .line 28
+    .line 29
     return-void
 .end method
 
@@ -215,10 +227,10 @@
     .locals 0
 
     .prologue
-    .line 35
+    .line 36
     iput-object p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->cover:Ljava/lang/String;
 
-    .line 36
+    .line 37
     return-void
 .end method
 
@@ -226,10 +238,10 @@
     .locals 0
 
     .prologue
-    .line 43
+    .line 44
     iput p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->danmaku:I
 
-    .line 44
+    .line 45
     return-void
 .end method
 
@@ -237,10 +249,10 @@
     .locals 0
 
     .prologue
-    .line 51
+    .line 52
     iput p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->duration:I
 
-    .line 52
+    .line 53
     return-void
 .end method
 
@@ -251,10 +263,10 @@
     .end annotation
 
     .prologue
-    .line 60
+    .line 61
     iput-object p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->gotoX:Ljava/lang/String;
 
-    .line 61
+    .line 62
     return-void
 .end method
 
@@ -262,10 +274,10 @@
     .locals 0
 
     .prologue
-    .line 68
+    .line 69
     iput-object p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->name:Ljava/lang/String;
 
-    .line 69
+    .line 70
     return-void
 .end method
 
@@ -273,10 +285,10 @@
     .locals 0
 
     .prologue
-    .line 76
+    .line 77
     iput-object p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->param:Ljava/lang/String;
 
-    .line 77
+    .line 78
     return-void
 .end method
 
@@ -284,10 +296,10 @@
     .locals 0
 
     .prologue
-    .line 84
+    .line 85
     iput p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->play:I
 
-    .line 85
+    .line 86
     return-void
 .end method
 
@@ -295,10 +307,21 @@
     .locals 0
 
     .prologue
-    .line 92
+    .line 93
     iput p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->pts:I
 
-    .line 93
+    .line 94
+    return-void
+.end method
+
+.method public setPub_date(J)V
+    .locals 1
+
+    .prologue
+    .line 101
+    iput-wide p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->pub_date:J
+
+    .line 102
     return-void
 .end method
 
@@ -306,10 +329,10 @@
     .locals 0
 
     .prologue
-    .line 100
+    .line 109
     iput-boolean p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->showMore:Z
 
-    .line 101
+    .line 110
     return-void
 .end method
 
@@ -317,10 +340,10 @@
     .locals 0
 
     .prologue
-    .line 108
+    .line 117
     iput-object p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->title:Ljava/lang/String;
 
-    .line 109
+    .line 118
     return-void
 .end method
 
@@ -328,9 +351,9 @@
     .locals 0
 
     .prologue
-    .line 116
+    .line 125
     iput-object p1, p0, Lcom/bilibili/tv/api/rank/BiliRankV2;->uri:Ljava/lang/String;
 
-    .line 117
+    .line 126
     return-void
 .end method

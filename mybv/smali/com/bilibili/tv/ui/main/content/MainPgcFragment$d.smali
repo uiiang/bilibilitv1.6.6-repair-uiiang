@@ -293,31 +293,31 @@
 
     .line 458
     :pswitch_62
-    sget-object v0, Lcom/bilibili/tv/ui/area/AreaActivity;->Companion:Lcom/bilibili/tv/ui/area/AreaActivity$a;
+    sget-object v0, Lcom/bilibili/tv/ui/area/AreaActivity;->Companion:Lcom/bilibili/tv/ui/area/AreaActivity$Companion;
 
     const/16 v2, 0x17
 
-    invoke-virtual {v0, v1, v2}, Lcom/bilibili/tv/ui/area/AreaActivity$a;->a(Landroid/content/Context;I)V
+    invoke-virtual {v0, v1, v2}, Lcom/bilibili/tv/ui/area/AreaActivity$Companion;->a(Landroid/content/Context;I)V
 
     goto :goto_1d
 
     .line 461
     :pswitch_6a
-    sget-object v0, Lcom/bilibili/tv/ui/area/AreaActivity;->Companion:Lcom/bilibili/tv/ui/area/AreaActivity$a;
+    sget-object v0, Lcom/bilibili/tv/ui/area/AreaActivity;->Companion:Lcom/bilibili/tv/ui/area/AreaActivity$Companion;
 
     const/16 v2, 0xb
 
-    invoke-virtual {v0, v1, v2}, Lcom/bilibili/tv/ui/area/AreaActivity$a;->a(Landroid/content/Context;I)V
+    invoke-virtual {v0, v1, v2}, Lcom/bilibili/tv/ui/area/AreaActivity$Companion;->a(Landroid/content/Context;I)V
 
     goto :goto_1d
 
     .line 464
     :pswitch_72
-    sget-object v0, Lcom/bilibili/tv/ui/area/AreaActivity;->Companion:Lcom/bilibili/tv/ui/area/AreaActivity$a;
+    sget-object v0, Lcom/bilibili/tv/ui/area/AreaActivity;->Companion:Lcom/bilibili/tv/ui/area/AreaActivity$Companion;
 
     const/16 v2, 0xb1
 
-    invoke-virtual {v0, v1, v2}, Lcom/bilibili/tv/ui/area/AreaActivity$a;->a(Landroid/content/Context;I)V
+    invoke-virtual {v0, v1, v2}, Lcom/bilibili/tv/ui/area/AreaActivity$Companion;->a(Landroid/content/Context;I)V
 
     goto :goto_1d
 

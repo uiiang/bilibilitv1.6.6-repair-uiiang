@@ -16,6 +16,7 @@ import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.area.BiliVideoV2;
 import com.bilibili.tv.ui.bangumi.BangumiDetailActivity;
+import com.bilibili.tv.util.DateHelper;
 import com.bilibili.tv.widget.ScalableImageView;
 import kotlin.TypeCastException;
 
@@ -29,6 +30,7 @@ public final class aeb extends adc.a implements View.OnClickListener {
     private TextView q;
     private TextView r;
     private TextView s;
+    private TextView t;
 
     /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
     public aeb(View view) {
@@ -40,6 +42,7 @@ public final class aeb extends adc.a implements View.OnClickListener {
         this.q = (TextView) a(view, R.id.play);
         this.r = (TextView) a(view, R.id.danmaku);
         this.s = (TextView) a(view, R.id.duration);
+        this.t = (TextView) a(view, R.id.pubdate);
         Drawable c = adl.a.c(R.drawable.ic_video_info_up);
         Drawable c2 = adl.a.c(R.drawable.ic_video_info_play);
         Drawable c3 = adl.a.c(R.drawable.ic_video_info_danmaku);
@@ -107,6 +110,12 @@ public final class aeb extends adc.a implements View.OnClickListener {
                 this.s.setText(String.format("%d:%02d:%02d", duration / 3600, (duration % 3600) / 60, duration % 60));
             } else {
                 this.s.setText(String.format("%02d:%02d", duration / 60, duration % 60));
+            }
+            if (a2.pubdate > 0) {
+                this.t.setText(DateHelper.formatDate(a2.pubdate));
+                this.t.setVisibility(View.VISIBLE);
+            } else {
+                this.t.setVisibility(View.GONE);
             }
             if (a2.cover != null) {
                 nv.a().a(abd.get_thumb_url_c(MainApplication.a(), a2.cover), this.n);

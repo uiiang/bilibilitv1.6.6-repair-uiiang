@@ -305,7 +305,7 @@ Jungly   农业银行"</string>
     <string name="sohu_api_url_2">http://my.tv.sohu.com/play/videonew.do?vid=%1$s_%2$s&amp;plid=%3$s</string>
     <string name="sohu_api_url_p2purl">http://%1$s/p2p?new=%2$s&amp;num=%3$s&amp;key=%4$s</string>
     <string name="sohu_api_url_segment">http://%1$s%2$s/%3$s?key=%4$s&amp;idc=%5$s&amp;n=1</string>
-    <string name="sort">长按[OK]键排序</string>
+    <string name="sort">点击[菜单]键排序</string>
     <string name="status_bar_notification_info_overflow">999+</string>
     <string name="strNetworkTipsCancelBtn">取消</string>
     <string name="strNetworkTipsConfirmBtn">继续下载</string>

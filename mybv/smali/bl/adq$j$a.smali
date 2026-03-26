@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 691
+    .line 697
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 692
+    .line 698
     return-void
 .end method
 
@@ -30,10 +30,10 @@
     .locals 0
 
     .prologue
-    .line 695
+    .line 701
     invoke-direct {p0}, Lbl/adq$j$a;-><init>()V
 
-    .line 696
+    .line 702
     return-void
 .end method
 
@@ -43,7 +43,7 @@
     .locals 1
 
     .prologue
-    .line 699
+    .line 705
     const/4 v0, 0x1
 
     return v0
@@ -53,7 +53,7 @@
     .locals 1
 
     .prologue
-    .line 703
+    .line 709
     const/4 v0, 0x2
 
     return v0
@@ -63,7 +63,7 @@
     .locals 1
 
     .prologue
-    .line 707
+    .line 713
     const/4 v0, 0x3
 
     return v0

@@ -2,9 +2,6 @@
 .super Lcom/bilibili/tv/ui/base/BaseSideActivity;
 .source "SearchResultSideActivity.java"
 
-# interfaces
-.implements Landroid/view/View$OnLongClickListener;
-
 
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
@@ -46,10 +43,10 @@
     .locals 1
 
     .prologue
-    .line 32
+    .line 29
     invoke-direct {p0}, Lcom/bilibili/tv/ui/base/BaseSideActivity;-><init>()V
 
-    .line 37
+    .line 34
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
@@ -63,27 +60,27 @@
     .locals 2
 
     .prologue
-    .line 52
+    .line 49
     new-instance v0, Landroid/content/Intent;
 
     const-class v1, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;
 
     invoke-direct {v0, p0, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
 
-    .line 53
+    .line 50
     const-string v1, "extra_keyword"
 
     invoke-virtual {v0, v1, p1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 54
+    .line 51
     const-string v1, "extra_tid"
 
     invoke-virtual {v0, v1, p2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;I)Landroid/content/Intent;
 
-    .line 55
+    .line 52
     invoke-virtual {p0, v0}, Landroid/content/Context;->startActivity(Landroid/content/Intent;)V
 
-    .line 56
+    .line 53
     return-void
 .end method
 
@@ -91,7 +88,7 @@
     .locals 1
 
     .prologue
-    .line 32
+    .line 29
     invoke-direct {p0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->getSelectedView()Landroid/view/View;
 
     move-result-object v0
@@ -99,33 +96,21 @@
     return-object v0
 .end method
 
-.method static synthetic access$100(Lcom/bilibili/tv/ui/search/SearchResultSideActivity;I)Ljava/lang/String;
-    .locals 1
-
-    .prologue
-    .line 32
-    invoke-direct {p0, p1}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->getDateRange(I)Ljava/lang/String;
-
-    move-result-object v0
-
-    return-object v0
-.end method
-
-.method static synthetic access$600(Lcom/bilibili/tv/ui/search/SearchResultSideActivity;Lbl/SearchFolder;)V
+.method static synthetic access$500(Lcom/bilibili/tv/ui/search/SearchResultSideActivity;Lbl/SearchFolder;)V
     .locals 0
 
     .prologue
-    .line 32
+    .line 29
     invoke-direct {p0, p1}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->showSearchResultList(Lbl/SearchFolder;)V
 
     return-void
 .end method
 
-.method static synthetic access$700(Lcom/bilibili/tv/ui/search/SearchResultSideActivity;)Landroid/support/v7/widget/RecyclerView;
+.method static synthetic access$600(Lcom/bilibili/tv/ui/search/SearchResultSideActivity;)Landroid/support/v7/widget/RecyclerView;
     .locals 1
 
     .prologue
-    .line 32
+    .line 29
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
@@ -137,7 +122,7 @@
     .locals 6
 
     .prologue
-    .line 313
+    .line 304
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v0
@@ -146,7 +131,7 @@
 
     div-long/2addr v0, v2
 
-    .line 314
+    .line 305
     mul-int/lit8 v2, p1, 0x18
 
     mul-int/lit8 v2, v2, 0x3c
@@ -159,7 +144,7 @@
 
     sub-long v2, v0, v2
 
-    .line 315
+    .line 306
     new-instance v4, Ljava/lang/StringBuilder;
 
     invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
@@ -199,21 +184,21 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 219
+    .line 228
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v3
 
-    .line 220
+    .line 229
     if-nez v3, :cond_9
 
     move-object v0, v1
 
-    .line 229
+    .line 238
     :goto_8
     return-object v0
 
-    .line 223
+    .line 232
     :cond_9
     const/4 v0, 0x0
 
@@ -224,12 +209,12 @@
 
     if-ge v0, v2, :cond_1f
 
-    .line 224
+    .line 233
     invoke-virtual {v3, v0}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
 
     move-result-object v2
 
-    .line 225
+    .line 234
     invoke-virtual {v2}, Landroid/view/View;->isSelected()Z
 
     move-result v4
@@ -238,10 +223,10 @@
 
     move-object v0, v2
 
-    .line 226
+    .line 235
     goto :goto_8
 
-    .line 223
+    .line 232
     :cond_1c
     add-int/lit8 v0, v0, 0x1
 
@@ -250,7 +235,7 @@
     :cond_1f
     move-object v0, v1
 
-    .line 229
+    .line 238
     goto :goto_8
 .end method
 
@@ -260,7 +245,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 160
+    .line 169
     if-eqz p1, :cond_5
 
     if-nez p2, :cond_7
@@ -268,31 +253,31 @@
     :cond_5
     move v0, v1
 
-    .line 170
+    .line 179
     :goto_6
     return v0
 
-    .line 163
+    .line 172
     :cond_7
     invoke-virtual {p2}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
 
     move-result-object v0
 
-    .line 164
+    .line 173
     :goto_b
     instance-of v2, v0, Landroid/view/View;
 
     if-eqz v2, :cond_18
 
-    .line 165
+    .line 174
     if-ne v0, p1, :cond_13
 
-    .line 166
+    .line 175
     const/4 v0, 0x1
 
     goto :goto_6
 
-    .line 168
+    .line 177
     :cond_13
     invoke-interface {v0}, Landroid/view/ViewParent;->getParent()Landroid/view/ViewParent;
 
@@ -303,7 +288,7 @@
     :cond_18
     move v0, v1
 
-    .line 170
+    .line 179
     goto :goto_6
 .end method
 
@@ -313,12 +298,12 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 174
+    .line 183
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->folders:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->clear()V
 
-    .line 175
+    .line 184
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->folders:Ljava/util/List;
 
     new-instance v1, Lbl/SearchFolder;
@@ -329,7 +314,7 @@
 
     invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 176
+    .line 185
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->folders:Ljava/util/List;
 
     new-instance v1, Lbl/SearchFolder;
@@ -342,7 +327,7 @@
 
     invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 177
+    .line 186
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->folders:Ljava/util/List;
 
     new-instance v1, Lbl/SearchFolder;
@@ -355,7 +340,7 @@
 
     invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 178
+    .line 187
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->folders:Ljava/util/List;
 
     new-instance v1, Lbl/SearchFolder;
@@ -368,7 +353,7 @@
 
     invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 179
+    .line 188
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->folders:Ljava/util/List;
 
     new-instance v1, Lbl/SearchFolder;
@@ -381,7 +366,7 @@
 
     invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 181
+    .line 190
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->folders:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->isEmpty()Z
@@ -392,7 +377,7 @@
 
     move v1, v2
 
-    .line 183
+    .line 192
     :goto_4f
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->folders:Ljava/util/List;
 
@@ -402,7 +387,7 @@
 
     if-ge v1, v0, :cond_77
 
-    .line 184
+    .line 193
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->folders:Ljava/util/List;
 
     invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -419,7 +404,7 @@
 
     if-ne v0, v3, :cond_73
 
-    .line 189
+    .line 198
     :goto_67
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->folders:Ljava/util/List;
 
@@ -431,11 +416,11 @@
 
     invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->showSearchResultList(Lbl/SearchFolder;)V
 
-    .line 191
+    .line 200
     :cond_72
     return-void
 
-    .line 183
+    .line 192
     :cond_73
     add-int/lit8 v0, v1, 0x1
 
@@ -449,70 +434,63 @@
     goto :goto_67
 .end method
 
-.method private showLiveSortDialog(Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;)V
-    .locals 4
+.method private showLiveSortMenu(Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;)V
+    .locals 7
 
     .prologue
-    .line 319
-    new-instance v0, Ljava/util/LinkedHashMap;
+    const/4 v4, 0x2
 
-    invoke-direct {v0}, Ljava/util/LinkedHashMap;-><init>()V
+    const/4 v6, 0x1
 
-    .line 320
-    const-string v1, "\u7efc\u5408\u6392\u5e8f"
+    const/4 v5, 0x0
 
-    const-string v2, "online"
+    .line 310
+    new-instance v0, Lbl/SortMenuDialog;
 
-    invoke-virtual {v0, v1, v2}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    invoke-direct {v0, p0}, Lbl/SortMenuDialog;-><init>(Landroid/app/Activity;)V
 
-    .line 321
-    const-string v1, "\u6700\u65b0\u5f00\u64ad"
+    .line 311
+    const/4 v1, 0x0
 
-    const-string v2, "live_time"
+    new-array v2, v4, [Ljava/lang/String;
 
-    invoke-virtual {v0, v1, v2}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    const-string v3, "\u7efc\u5408\u6392\u5e8f"
 
-    .line 323
-    new-instance v1, Lbl/agb$a;
+    aput-object v3, v2, v5
 
-    invoke-direct {v1, p0}, Lbl/agb$a;-><init>(Landroid/app/Activity;)V
+    const-string v3, "\u6700\u65b0\u5f00\u64ad"
 
-    .line 324
-    const/4 v2, 0x2
+    aput-object v3, v2, v6
 
-    invoke-virtual {v1, v2}, Lbl/agb$a;->a(I)Lbl/agb$a;
+    new-array v3, v4, [Ljava/lang/String;
 
-    move-result-object v2
+    const-string v4, "online"
 
-    const-string v3, "\u6392\u5e8f:"
+    aput-object v4, v3, v5
 
-    .line 325
-    invoke-virtual {v2, v3}, Lbl/agb$a;->a(Ljava/lang/String;)Lbl/agb$a;
+    const-string v4, "live_time"
 
-    move-result-object v2
+    aput-object v4, v3, v6
 
-    new-instance v3, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$2;
-
-    invoke-direct {v3, p0, v0, p1}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$2;-><init>(Lcom/bilibili/tv/ui/search/SearchResultSideActivity;Ljava/util/LinkedHashMap;Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;)V
-
-    .line 326
-    invoke-virtual {v2, v0, v3}, Lbl/agb$a;->a(Ljava/util/LinkedHashMap;Lbl/agb$c;)Lbl/agb$a;
-
-    .line 338
+    .line 314
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->getLiveOrder()Ljava/lang/String;
 
-    move-result-object v0
+    move-result-object v4
 
-    invoke-virtual {v1, v0}, Lbl/agb$a;->a(Ljava/lang/Object;)Lbl/agb$a;
+    .line 311
+    invoke-virtual {v0, v1, v2, v3, v4}, Lbl/SortMenuDialog;->addGroup(Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 339
-    invoke-virtual {v1}, Lbl/agb$a;->a()Lbl/agb;
+    .line 315
+    new-instance v1, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$2;
 
-    move-result-object v0
+    invoke-direct {v1, p0, p1}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$2;-><init>(Lcom/bilibili/tv/ui/search/SearchResultSideActivity;Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;)V
 
-    invoke-virtual {v0}, Lbl/agb;->show()V
+    invoke-virtual {v0, v1}, Lbl/SortMenuDialog;->setOnSortSelectedListener(Lbl/SortMenuDialog$OnSortSelectedListener;)V
 
-    .line 340
+    .line 325
+    invoke-virtual {v0}, Lbl/SortMenuDialog;->show()V
+
+    .line 326
     return-void
 .end method
 
@@ -520,20 +498,20 @@
     .locals 3
 
     .prologue
-    .line 194
+    .line 203
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->selectedFolder:Lbl/SearchFolder;
 
     if-ne v0, p1, :cond_5
 
-    .line 205
+    .line 214
     :goto_4
     return-void
 
-    .line 198
+    .line 207
     :cond_5
     iput-object p1, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->selectedFolder:Lbl/SearchFolder;
 
-    .line 199
+    .line 208
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->keyword:Ljava/lang/String;
 
     invoke-virtual {p1}, Lbl/SearchFolder;->getTid()I
@@ -544,287 +522,380 @@
 
     move-result-object v0
 
-    .line 201
+    .line 210
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->getSupportFragmentManager()Landroid/support/v4/app/FragmentManager;
 
     move-result-object v1
 
-    .line 202
+    .line 211
     invoke-virtual {v1}, Landroid/support/v4/app/FragmentManager;->beginTransaction()Landroid/support/v4/app/FragmentTransaction;
 
     move-result-object v1
 
     const v2, 0x7f080091
 
-    .line 203
+    .line 212
     invoke-virtual {v1, v2, v0}, Landroid/support/v4/app/FragmentTransaction;->replace(ILandroid/support/v4/app/Fragment;)Landroid/support/v4/app/FragmentTransaction;
 
     move-result-object v0
 
-    .line 204
+    .line 213
     invoke-virtual {v0}, Landroid/support/v4/app/FragmentTransaction;->commit()I
 
     goto :goto_4
 .end method
 
-.method private showUserSortDialog(Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;)V
-    .locals 4
+.method private showSortMenu()V
+    .locals 2
 
     .prologue
-    .line 343
-    new-instance v0, Ljava/util/LinkedHashMap;
-
-    invoke-direct {v0}, Ljava/util/LinkedHashMap;-><init>()V
-
-    .line 344
-    const-string v1, "\u9ed8\u8ba4\u6392\u5e8f"
-
-    const-string v2, ""
-
-    invoke-virtual {v0, v1, v2}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-
-    .line 345
-    const-string v1, "\u7c89\u4e1d\u6570\u7531\u9ad8\u5230\u4f4e"
-
-    const-string v2, "fans"
-
-    invoke-virtual {v0, v1, v2}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-
-    .line 346
-    const-string v1, "\u7c89\u4e1d\u6570\u7531\u4f4e\u5230\u9ad8"
-
-    const-string v2, "fans_asc"
-
-    invoke-virtual {v0, v1, v2}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-
-    .line 347
-    const-string v1, "Lv\u7b49\u7ea7\u7531\u9ad8\u5230\u4f4e"
-
-    const-string v2, "level"
-
-    invoke-virtual {v0, v1, v2}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-
-    .line 348
-    const-string v1, "Lv\u7b49\u7ea7\u7531\u4f4e\u5230\u9ad8"
-
-    const-string v2, "level_asc"
-
-    invoke-virtual {v0, v1, v2}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-
-    .line 350
-    new-instance v1, Lbl/agb$a;
-
-    invoke-direct {v1, p0}, Lbl/agb$a;-><init>(Landroid/app/Activity;)V
-
-    .line 351
-    const/4 v2, 0x2
-
-    invoke-virtual {v1, v2}, Lbl/agb$a;->a(I)Lbl/agb$a;
-
-    move-result-object v2
-
-    const-string v3, "\u6392\u5e8f:"
-
-    .line 352
-    invoke-virtual {v2, v3}, Lbl/agb$a;->a(Ljava/lang/String;)Lbl/agb$a;
-
-    move-result-object v2
-
-    new-instance v3, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$3;
-
-    invoke-direct {v3, p0, v0, p1}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$3;-><init>(Lcom/bilibili/tv/ui/search/SearchResultSideActivity;Ljava/util/LinkedHashMap;Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;)V
-
-    .line 353
-    invoke-virtual {v2, v0, v3}, Lbl/agb$a;->a(Ljava/util/LinkedHashMap;Lbl/agb$c;)Lbl/agb$a;
-
-    .line 365
-    invoke-virtual {p1}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->getUserOrder()Ljava/lang/String;
+    .line 242
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v0
 
-    invoke-virtual {v1, v0}, Lbl/agb$a;->a(Ljava/lang/Object;)Lbl/agb$a;
+    .line 243
+    instance-of v1, v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
 
-    .line 366
-    invoke-virtual {v1}, Lbl/agb$a;->a()Lbl/agb;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Lbl/agb;->show()V
-
-    .line 367
-    return-void
-.end method
-
-.method private showVideoSortDialog(Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;)V
-    .locals 6
-
-    .prologue
-    .line 260
-    new-instance v0, Ljava/util/LinkedHashMap;
-
-    invoke-direct {v0}, Ljava/util/LinkedHashMap;-><init>()V
-
-    .line 261
-    const-string v1, "\u7efc\u5408\u6392\u5e8f"
-
-    const-string v2, ""
-
-    invoke-virtual {v0, v1, v2}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-
-    .line 262
-    const-string v1, "\u6700\u591a\u64ad\u653e"
-
-    const-string v2, "click"
-
-    invoke-virtual {v0, v1, v2}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-
-    .line 263
-    const-string v1, "\u6700\u65b0\u53d1\u5e03"
-
-    const-string v2, "pubdate"
-
-    invoke-virtual {v0, v1, v2}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    if-nez v1, :cond_9
 
     .line 264
-    const-string v1, "\u6700\u591a\u5f39\u5e55"
+    :goto_8
+    :pswitch_8
+    return-void
 
-    const-string v2, "dm"
+    .line 247
+    :cond_9
+    check-cast v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
 
-    invoke-virtual {v0, v1, v2}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    .line 248
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->getTid()I
 
-    .line 265
-    const-string v1, "\u6700\u591a\u6536\u85cf"
+    move-result v1
 
-    const-string v2, "stow"
+    .line 250
+    packed-switch v1, :pswitch_data_20
 
-    invoke-virtual {v0, v1, v2}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    goto :goto_8
 
-    .line 267
-    new-instance v1, Ljava/util/LinkedHashMap;
+    .line 252
+    :pswitch_13
+    invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->showVideoSortMenu(Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;)V
 
-    invoke-direct {v1}, Ljava/util/LinkedHashMap;-><init>()V
+    goto :goto_8
 
-    .line 268
-    const-string v2, "\u5168\u90e8\u65e5\u671f"
+    .line 258
+    :pswitch_17
+    invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->showLiveSortMenu(Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;)V
 
-    const-string v3, ""
+    goto :goto_8
 
-    invoke-virtual {v1, v2, v3}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    .line 261
+    :pswitch_1b
+    invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->showUserSortMenu(Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;)V
 
-    .line 269
-    const-string v2, "\u6700\u8fd1\u4e00\u5929"
+    goto :goto_8
 
-    const-string v3, "1"
+    .line 250
+    nop
 
-    invoke-virtual {v1, v2, v3}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    :pswitch_data_20
+    .packed-switch 0x0
+        :pswitch_13
+        :pswitch_8
+        :pswitch_8
+        :pswitch_17
+        :pswitch_1b
+    .end packed-switch
+.end method
 
-    .line 270
-    const-string v2, "\u6700\u8fd1\u4e00\u5468"
+.method private showUserSortMenu(Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;)V
+    .locals 10
 
-    const-string v3, "7"
+    .prologue
+    const/4 v9, 0x4
 
-    invoke-virtual {v1, v2, v3}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    const/4 v8, 0x3
 
-    .line 271
-    const-string v2, "\u6700\u8fd1\u534a\u5e74"
+    const/4 v7, 0x2
 
-    const-string v3, "180"
+    const/4 v6, 0x1
 
-    invoke-virtual {v1, v2, v3}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    const/4 v5, 0x0
 
-    .line 273
-    new-instance v2, Ljava/util/LinkedHashMap;
+    .line 329
+    new-instance v0, Lbl/SortMenuDialog;
 
-    invoke-direct {v2}, Ljava/util/LinkedHashMap;-><init>()V
+    invoke-direct {v0, p0}, Lbl/SortMenuDialog;-><init>(Landroid/app/Activity;)V
 
-    .line 274
-    const-string v3, "\u5168\u90e8\u65f6\u957f"
+    .line 330
+    const/4 v1, 0x0
+
+    const/4 v2, 0x5
+
+    new-array v2, v2, [Ljava/lang/String;
+
+    const-string v3, "\u9ed8\u8ba4\u6392\u5e8f"
+
+    aput-object v3, v2, v5
+
+    const-string v3, "\u7c89\u4e1d\u6570\u7531\u9ad8\u5230\u4f4e"
+
+    aput-object v3, v2, v6
+
+    const-string v3, "\u7c89\u4e1d\u6570\u7531\u4f4e\u5230\u9ad8"
+
+    aput-object v3, v2, v7
+
+    const-string v3, "Lv\u7b49\u7ea7\u7531\u9ad8\u5230\u4f4e"
+
+    aput-object v3, v2, v8
+
+    const-string v3, "Lv\u7b49\u7ea7\u7531\u4f4e\u5230\u9ad8"
+
+    aput-object v3, v2, v9
+
+    const/4 v3, 0x5
+
+    new-array v3, v3, [Ljava/lang/String;
 
     const-string v4, ""
 
-    invoke-virtual {v2, v3, v4}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    aput-object v4, v3, v5
 
-    .line 275
-    const-string v3, "10\u5206\u949f\u4ee5\u4e0b"
+    const-string v4, "fans"
+
+    aput-object v4, v3, v6
+
+    const-string v4, "fans_asc"
+
+    aput-object v4, v3, v7
+
+    const-string v4, "level"
+
+    aput-object v4, v3, v8
+
+    const-string v4, "level_asc"
+
+    aput-object v4, v3, v9
+
+    .line 333
+    invoke-virtual {p1}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->getUserOrder()Ljava/lang/String;
+
+    move-result-object v4
+
+    .line 330
+    invoke-virtual {v0, v1, v2, v3, v4}, Lbl/SortMenuDialog;->addGroup(Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 334
+    new-instance v1, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$3;
+
+    invoke-direct {v1, p0, p1}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$3;-><init>(Lcom/bilibili/tv/ui/search/SearchResultSideActivity;Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;)V
+
+    invoke-virtual {v0, v1}, Lbl/SortMenuDialog;->setOnSortSelectedListener(Lbl/SortMenuDialog$OnSortSelectedListener;)V
+
+    .line 344
+    invoke-virtual {v0}, Lbl/SortMenuDialog;->show()V
+
+    .line 345
+    return-void
+.end method
+
+.method private showVideoSortMenu(Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;)V
+    .locals 10
+
+    .prologue
+    const/4 v9, 0x4
+
+    const/4 v8, 0x3
+
+    const/4 v7, 0x2
+
+    const/4 v6, 0x1
+
+    const/4 v5, 0x0
+
+    .line 267
+    new-instance v0, Lbl/SortMenuDialog;
+
+    invoke-direct {v0, p0}, Lbl/SortMenuDialog;-><init>(Landroid/app/Activity;)V
+
+    .line 269
+    const-string v1, "\u6392\u5e8f"
+
+    const/4 v2, 0x5
+
+    new-array v2, v2, [Ljava/lang/String;
+
+    const-string v3, "\u7efc\u5408\u6392\u5e8f"
+
+    aput-object v3, v2, v5
+
+    const-string v3, "\u6700\u591a\u64ad\u653e"
+
+    aput-object v3, v2, v6
+
+    const-string v3, "\u6700\u65b0\u53d1\u5e03"
+
+    aput-object v3, v2, v7
+
+    const-string v3, "\u6700\u591a\u5f39\u5e55"
+
+    aput-object v3, v2, v8
+
+    const-string v3, "\u6700\u591a\u6536\u85cf"
+
+    aput-object v3, v2, v9
+
+    const/4 v3, 0x5
+
+    new-array v3, v3, [Ljava/lang/String;
+
+    const-string v4, ""
+
+    aput-object v4, v3, v5
+
+    const-string v4, "click"
+
+    aput-object v4, v3, v6
+
+    const-string v4, "pubdate"
+
+    aput-object v4, v3, v7
+
+    const-string v4, "dm"
+
+    aput-object v4, v3, v8
+
+    const-string v4, "stow"
+
+    aput-object v4, v3, v9
+
+    .line 272
+    invoke-virtual {p1}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->getOrder()Ljava/lang/String;
+
+    move-result-object v4
+
+    .line 269
+    invoke-virtual {v0, v1, v2, v3, v4}, Lbl/SortMenuDialog;->addGroup(Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 274
+    const-string v1, "\u65e5\u671f"
+
+    new-array v2, v9, [Ljava/lang/String;
+
+    const-string v3, "\u5168\u90e8\u65e5\u671f"
+
+    aput-object v3, v2, v5
+
+    const-string v3, "\u6700\u8fd1\u4e00\u5929"
+
+    aput-object v3, v2, v6
+
+    const-string v3, "\u6700\u8fd1\u4e00\u5468"
+
+    aput-object v3, v2, v7
+
+    const-string v3, "\u6700\u8fd1\u534a\u5e74"
+
+    aput-object v3, v2, v8
+
+    new-array v3, v9, [Ljava/lang/String;
+
+    const-string v4, ""
+
+    aput-object v4, v3, v5
 
     const-string v4, "1"
 
-    invoke-virtual {v2, v3, v4}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    aput-object v4, v3, v6
 
-    .line 276
+    const-string v4, "7"
+
+    aput-object v4, v3, v7
+
+    const-string v4, "180"
+
+    aput-object v4, v3, v8
+
+    .line 277
+    invoke-virtual {p1}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->getDateType()Ljava/lang/String;
+
+    move-result-object v4
+
+    .line 274
+    invoke-virtual {v0, v1, v2, v3, v4}, Lbl/SortMenuDialog;->addGroup(Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 279
+    const-string v1, "\u65f6\u957f"
+
+    const/4 v2, 0x5
+
+    new-array v2, v2, [Ljava/lang/String;
+
+    const-string v3, "\u5168\u90e8\u65f6\u957f"
+
+    aput-object v3, v2, v5
+
+    const-string v3, "10\u5206\u949f\u4ee5\u4e0b"
+
+    aput-object v3, v2, v6
+
     const-string v3, "10-30\u5206\u949f"
+
+    aput-object v3, v2, v7
+
+    const-string v3, "30-60\u5206\u949f"
+
+    aput-object v3, v2, v8
+
+    const-string v3, "60\u5206\u949f\u4ee5\u4e0a"
+
+    aput-object v3, v2, v9
+
+    const/4 v3, 0x5
+
+    new-array v3, v3, [Ljava/lang/String;
+
+    const-string v4, ""
+
+    aput-object v4, v3, v5
+
+    const-string v4, "1"
+
+    aput-object v4, v3, v6
 
     const-string v4, "2"
 
-    invoke-virtual {v2, v3, v4}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-
-    .line 277
-    const-string v3, "30-60\u5206\u949f"
+    aput-object v4, v3, v7
 
     const-string v4, "3"
 
-    invoke-virtual {v2, v3, v4}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-
-    .line 278
-    const-string v3, "60\u5206\u949f\u4ee5\u4e0a"
+    aput-object v4, v3, v8
 
     const-string v4, "4"
 
-    invoke-virtual {v2, v3, v4}, Ljava/util/LinkedHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-
-    .line 280
-    new-instance v3, Lbl/agb$a;
-
-    invoke-direct {v3, p0}, Lbl/agb$a;-><init>(Landroid/app/Activity;)V
-
-    .line 281
-    const-string v4, "\u6392\u5e8f"
-
-    invoke-virtual {p1}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->getOrder()Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-virtual {v3, v4, v0, v5}, Lbl/agb$a;->addGroup(Ljava/lang/String;Ljava/util/LinkedHashMap;Ljava/lang/Object;)Lbl/agb$a;
-
-    move-result-object v0
-
-    const-string v4, "\u65e5\u671f"
+    aput-object v4, v3, v9
 
     .line 282
-    invoke-virtual {p1}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->getDateType()Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-virtual {v0, v4, v1, v5}, Lbl/agb$a;->addGroup(Ljava/lang/String;Ljava/util/LinkedHashMap;Ljava/lang/Object;)Lbl/agb$a;
-
-    move-result-object v0
-
-    const-string v1, "\u65f6\u957f"
-
-    .line 283
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->getDuration()Ljava/lang/String;
 
     move-result-object v4
 
-    invoke-virtual {v0, v1, v2, v4}, Lbl/agb$a;->addGroup(Ljava/lang/String;Ljava/util/LinkedHashMap;Ljava/lang/Object;)Lbl/agb$a;
+    .line 279
+    invoke-virtual {v0, v1, v2, v3, v4}, Lbl/SortMenuDialog;->addGroup(Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)V
 
-    move-result-object v0
-
+    .line 284
     new-instance v1, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$1;
 
     invoke-direct {v1, p0, p1}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$1;-><init>(Lcom/bilibili/tv/ui/search/SearchResultSideActivity;Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;)V
 
-    .line 284
-    invoke-virtual {v0, v1}, Lbl/agb$a;->setGroupClickListener(Lbl/agb$GroupClickListener;)Lbl/agb$a;
+    invoke-virtual {v0, v1}, Lbl/SortMenuDialog;->setOnConfirmListener(Lbl/SortMenuDialog$OnConfirmListener;)V
 
-    .line 309
-    invoke-virtual {v3}, Lbl/agb$a;->a()Lbl/agb;
+    .line 300
+    invoke-virtual {v0}, Lbl/SortMenuDialog;->show()V
 
-    move-result-object v0
-
-    invoke-virtual {v0}, Lbl/agb;->show()V
-
-    .line 310
+    .line 301
     return-void
 .end method
 
@@ -834,7 +905,7 @@
     .locals 3
 
     .prologue
-    .line 60
+    .line 57
     const v0, 0x7f0800eb
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->d(I)Landroid/view/View;
@@ -845,7 +916,7 @@
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->b(Landroid/support/v7/widget/RecyclerView;)V
 
-    .line 61
+    .line 58
     const v0, 0x7f080065
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->d(I)Landroid/view/View;
@@ -858,14 +929,14 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 63
+    .line 60
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->getIntent()Landroid/content/Intent;
 
     move-result-object v0
 
     if-eqz v0, :cond_39
 
-    .line 64
+    .line 61
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->getIntent()Landroid/content/Intent;
 
     move-result-object v0
@@ -878,7 +949,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->keyword:Ljava/lang/String;
 
-    .line 65
+    .line 62
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->getIntent()Landroid/content/Intent;
 
     move-result-object v0
@@ -893,11 +964,11 @@
 
     iput v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->initTid:I
 
-    .line 68
+    .line 65
     :cond_39
     invoke-direct {p0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->loadFolders()V
 
-    .line 69
+    .line 66
     return-void
 .end method
 
@@ -905,7 +976,7 @@
     .locals 0
 
     .prologue
-    .line 44
+    .line 41
     return-void
 .end method
 
@@ -913,175 +984,223 @@
     .locals 9
 
     .prologue
-    const/16 v5, 0x14
+    const/16 v7, 0x14
 
     const/4 v3, 0x0
 
     const/4 v2, 0x1
 
-    .line 89
+    .line 86
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->c:Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;
 
     if-nez v0, :cond_d
 
-    .line 90
+    .line 87
     invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseSideActivity;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
 
     move-result v0
 
-    .line 148
+    .line 157
     :goto_c
     return v0
 
-    .line 92
+    .line 89
     :cond_d
     invoke-virtual {p1}, Landroid/view/KeyEvent;->getAction()I
 
     move-result v0
 
-    .line 93
+    .line 90
     invoke-virtual {p1}, Landroid/view/KeyEvent;->getKeyCode()I
 
     move-result v4
 
-    .line 94
-    if-nez v0, :cond_67
+    .line 92
+    if-nez v0, :cond_3c
 
-    .line 95
+    const/16 v1, 0x52
+
+    if-ne v4, v1, :cond_3c
+
+    .line 93
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->getCurrentFocus()Landroid/view/View;
 
     move-result-object v1
 
+    .line 94
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->h()Landroid/support/v4/app/Fragment;
+
+    move-result-object v5
+
+    .line 95
+    if-eqz v1, :cond_3c
+
+    if-eqz v5, :cond_3c
+
+    invoke-virtual {v5}, Landroid/support/v4/app/Fragment;->getView()Landroid/view/View;
+
+    move-result-object v6
+
+    if-eqz v6, :cond_3c
+
     .line 96
-    if-nez v1, :cond_22
+    invoke-virtual {v5}, Landroid/support/v4/app/Fragment;->getView()Landroid/view/View;
+
+    move-result-object v5
+
+    invoke-direct {p0, v5, v1}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->isDescendantOf(Landroid/view/View;Landroid/view/View;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_3c
 
     .line 97
+    invoke-direct {p0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->showSortMenu()V
+
+    move v0, v2
+
+    .line 98
+    goto :goto_c
+
+    .line 103
+    :cond_3c
+    if-nez v0, :cond_8e
+
+    .line 104
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->getCurrentFocus()Landroid/view/View;
+
+    move-result-object v1
+
+    .line 105
+    if-nez v1, :cond_49
+
+    .line 106
     invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseSideActivity;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
 
     move-result v0
 
     goto :goto_c
 
-    .line 100
-    :cond_22
-    if-eq v4, v5, :cond_28
+    .line 109
+    :cond_49
+    if-eq v4, v7, :cond_4f
 
     const/16 v0, 0x13
 
-    if-ne v4, v0, :cond_64
+    if-ne v4, v0, :cond_8b
 
-    .line 102
-    :cond_28
-    if-ne v4, v5, :cond_58
+    .line 111
+    :cond_4f
+    if-ne v4, v7, :cond_7f
 
     const/16 v0, 0x82
 
-    :goto_2c
-    :try_start_2c
+    :goto_53
+    :try_start_53
     invoke-virtual {v1, v0}, Landroid/view/View;->focusSearch(I)Landroid/view/View;
 
     move-result-object v5
 
-    .line 103
+    .line 112
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v6
 
-    .line 104
+    .line 113
     const/4 v0, 0x0
 
-    .line 105
+    .line 114
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v7
 
-    .line 106
-    if-eqz v7, :cond_45
+    .line 115
+    if-eqz v7, :cond_6c
 
     invoke-virtual {v7}, Landroid/support/v4/app/Fragment;->getView()Landroid/view/View;
 
     move-result-object v8
 
-    if-eqz v8, :cond_45
+    if-eqz v8, :cond_6c
 
-    .line 107
+    .line 116
     invoke-virtual {v7}, Landroid/support/v4/app/Fragment;->getView()Landroid/view/View;
 
     move-result-object v0
 
-    .line 110
-    :cond_45
+    .line 119
+    :cond_6c
     invoke-direct {p0, v6, v5}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->isDescendantOf(Landroid/view/View;Landroid/view/View;)Z
 
     move-result v6
 
-    .line 111
+    .line 120
     invoke-direct {p0, v0, v1}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->isDescendantOf(Landroid/view/View;Landroid/view/View;)Z
-    :try_end_4c
-    .catch Ljava/lang/Exception; {:try_start_2c .. :try_end_4c} :catch_63
+    :try_end_73
+    .catch Ljava/lang/Exception; {:try_start_53 .. :try_end_73} :catch_8a
 
     move-result v7
 
-    .line 112
-    if-ne v5, v1, :cond_5b
-
-    move v0, v2
-
-    .line 114
-    :goto_50
-    if-eqz v5, :cond_5d
-
-    if-eqz v6, :cond_5d
-
-    if-eqz v7, :cond_5d
-
-    move v0, v2
-
-    .line 115
-    goto :goto_c
-
-    .line 102
-    :cond_58
-    const/16 v0, 0x21
-
-    goto :goto_2c
-
-    :cond_5b
-    move v0, v3
-
-    .line 112
-    goto :goto_50
-
-    .line 118
-    :cond_5d
-    if-eqz v0, :cond_64
-
-    if-eqz v7, :cond_64
-
-    move v0, v2
-
-    .line 119
-    goto :goto_c
-
     .line 121
-    :catch_63
-    move-exception v0
+    if-ne v5, v1, :cond_82
+
+    move v0, v2
+
+    .line 123
+    :goto_77
+    if-eqz v5, :cond_84
+
+    if-eqz v6, :cond_84
+
+    if-eqz v7, :cond_84
+
+    move v0, v2
 
     .line 124
-    :cond_64
-    packed-switch v4, :pswitch_data_ae
+    goto :goto_c
 
-    .line 148
-    :cond_67
-    :goto_67
+    .line 111
+    :cond_7f
+    const/16 v0, 0x21
+
+    goto :goto_53
+
+    :cond_82
+    move v0, v3
+
+    .line 121
+    goto :goto_77
+
+    .line 127
+    :cond_84
+    if-eqz v0, :cond_8b
+
+    if-eqz v7, :cond_8b
+
+    move v0, v2
+
+    .line 128
+    goto :goto_c
+
+    .line 130
+    :catch_8a
+    move-exception v0
+
+    .line 133
+    :cond_8b
+    packed-switch v4, :pswitch_data_d6
+
+    .line 157
+    :cond_8e
+    :goto_8e
     invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseSideActivity;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
 
     move-result v0
 
-    goto :goto_c
+    goto/16 :goto_c
 
-    .line 126
-    :pswitch_6c
+    .line 135
+    :pswitch_94
     invoke-virtual {v1}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
 
     move-result-object v0
@@ -1100,34 +1219,34 @@
 
     move-result v0
 
-    if-eqz v0, :cond_67
+    if-eqz v0, :cond_8e
 
-    .line 127
+    .line 136
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->c:Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->b(Z)V
 
-    goto :goto_67
+    goto :goto_8e
 
-    .line 132
-    :pswitch_86
+    .line 141
+    :pswitch_ae
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v0
 
-    .line 133
-    if-nez v0, :cond_8f
+    .line 142
+    if-nez v0, :cond_b7
 
     move v0, v2
 
-    .line 134
+    .line 143
     goto/16 :goto_c
 
-    .line 136
-    :cond_8f
+    .line 145
+    :cond_b7
     instance-of v3, v0, Lbl/adw;
 
-    if-eqz v3, :cond_9e
+    if-eqz v3, :cond_c6
 
     check-cast v0, Lbl/adw;
 
@@ -1135,38 +1254,38 @@
 
     move-result v0
 
-    if-nez v0, :cond_9e
+    if-nez v0, :cond_c6
 
     move v0, v2
 
-    .line 137
+    .line 146
     goto/16 :goto_c
 
-    .line 139
-    :cond_9e
+    .line 148
+    :cond_c6
     instance-of v0, v1, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;
 
-    if-eqz v0, :cond_67
+    if-eqz v0, :cond_8e
 
     move-object v0, v1
 
-    .line 140
+    .line 149
     check-cast v0, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->c()V
 
-    .line 141
+    .line 150
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->c:Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;->b(Z)V
 
-    goto :goto_67
+    goto :goto_8e
 
-    .line 124
-    :pswitch_data_ae
+    .line 133
+    :pswitch_data_d6
     .packed-switch 0x15
-        :pswitch_6c
-        :pswitch_86
+        :pswitch_94
+        :pswitch_ae
     .end packed-switch
 .end method
 
@@ -1174,7 +1293,7 @@
     .locals 1
 
     .prologue
-    .line 48
+    .line 45
     const v0, 0x7f0a0097
 
     return v0
@@ -1184,19 +1303,19 @@
     .locals 1
 
     .prologue
-    .line 212
+    .line 221
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->selectedFolder:Lbl/SearchFolder;
 
     if-eqz v0, :cond_b
 
-    .line 213
+    .line 222
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->selectedFolder:Lbl/SearchFolder;
 
     invoke-virtual {v0}, Lbl/SearchFolder;->getTid()I
 
     move-result v0
 
-    .line 215
+    .line 224
     :goto_a
     return v0
 
@@ -1210,7 +1329,7 @@
     .locals 1
 
     .prologue
-    .line 208
+    .line 217
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->keyword:Ljava/lang/String;
 
     return-object v0
@@ -1220,17 +1339,17 @@
     .locals 2
 
     .prologue
-    .line 153
+    .line 162
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->getSupportFragmentManager()Landroid/support/v4/app/FragmentManager;
 
     move-result-object v0
 
     if-nez v0, :cond_8
 
-    .line 154
+    .line 163
     const/4 v0, 0x0
 
-    .line 156
+    .line 165
     :goto_7
     return-object v0
 
@@ -1252,80 +1371,16 @@
     .locals 1
 
     .prologue
-    .line 83
+    .line 80
     const/4 v0, 0x0
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->c:Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;
 
-    .line 84
+    .line 81
     invoke-super {p0}, Lcom/bilibili/tv/ui/base/BaseSideActivity;->onDestroy()V
 
-    .line 85
+    .line 82
     return-void
-.end method
-
-.method public onLongClick(Landroid/view/View;)Z
-    .locals 3
-
-    .prologue
-    const/4 v2, 0x1
-
-    .line 234
-    invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->h()Landroid/support/v4/app/Fragment;
-
-    move-result-object v0
-
-    .line 235
-    instance-of v1, v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
-
-    if-nez v1, :cond_a
-
-    .line 256
-    :goto_9
-    :pswitch_9
-    return v2
-
-    .line 239
-    :cond_a
-    check-cast v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
-
-    .line 240
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->getTid()I
-
-    move-result v1
-
-    .line 242
-    packed-switch v1, :pswitch_data_20
-
-    goto :goto_9
-
-    .line 244
-    :pswitch_14
-    invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->showVideoSortDialog(Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;)V
-
-    goto :goto_9
-
-    .line 250
-    :pswitch_18
-    invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->showLiveSortDialog(Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;)V
-
-    goto :goto_9
-
-    .line 253
-    :pswitch_1c
-    invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->showUserSortDialog(Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;)V
-
-    goto :goto_9
-
-    .line 242
-    :pswitch_data_20
-    .packed-switch 0x0
-        :pswitch_14
-        :pswitch_9
-        :pswitch_9
-        :pswitch_18
-        :pswitch_1c
-    .end packed-switch
 .end method
 
 .method public onPostCreate(Landroid/os/Bundle;)V
@@ -1340,10 +1395,10 @@
 
     const/4 v2, 0x0
 
-    .line 73
+    .line 70
     invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseSideActivity;->onPostCreate(Landroid/os/Bundle;)V
 
-    .line 74
+    .line 71
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
@@ -1354,7 +1409,7 @@
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setLayoutManager(Landroid/support/v7/widget/RecyclerView$h;)V
 
-    .line 75
+    .line 72
     new-instance v0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->folders:Ljava/util/List;
@@ -1363,7 +1418,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->c:Lcom/bilibili/tv/ui/search/SearchResultSideActivity$a;
 
-    .line 76
+    .line 73
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
@@ -1372,20 +1427,20 @@
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setAdapter(Landroid/support/v7/widget/RecyclerView$a;)V
 
-    .line 77
+    .line 74
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
 
     invoke-virtual {v0, v2}, Landroid/support/v7/widget/RecyclerView;->setFocusable(Z)V
 
-    .line 78
+    .line 75
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchResultSideActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
 
     invoke-virtual {v0, v3}, Landroid/support/v7/widget/RecyclerView;->setHasFixedSize(Z)V
 
-    .line 79
+    .line 76
     return-void
 .end method

@@ -4,6 +4,8 @@
 
 
 # static fields
+.field private static final TAG:Ljava/lang/String; = "RankApi"
+
 .field public static final a:Lbl/afe;
 
 
@@ -12,7 +14,7 @@
     .locals 1
 
     .prologue
-    .line 10
+    .line 11
     new-instance v0, Lbl/afe;
 
     invoke-direct {v0}, Lbl/afe;-><init>()V
@@ -26,10 +28,10 @@
     .locals 0
 
     .prologue
-    .line 12
+    .line 14
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 13
+    .line 15
     return-void
 .end method
 
@@ -50,12 +52,12 @@
     .end annotation
 
     .prologue
-    .line 16
+    .line 18
     const-string v0, "cb"
 
     invoke-static {p3, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 17
+    .line 19
     const-class v0, Lcom/bilibili/tv/api/rank/RankApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -72,7 +74,7 @@
 
     invoke-virtual {v0, p3}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 18
+    .line 20
     return-void
 .end method
 
@@ -91,20 +93,20 @@
     .end annotation
 
     .prologue
-    .line 22
+    .line 24
     const-string v0, "cb"
 
     invoke-static {p3, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 23
+    .line 25
     packed-switch p1, :pswitch_data_2a
 
-    .line 34
+    .line 36
     const-string v0, "all"
 
     move-object v1, v0
 
-    .line 37
+    .line 39
     :goto_b
     const-class v0, Lcom/bilibili/tv/api/rank/RankApiService;
 
@@ -122,37 +124,37 @@
 
     invoke-virtual {v0, p3}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 38
+    .line 40
     return-void
 
-    .line 25
+    .line 27
     :pswitch_1d
     const-string v0, "origin"
 
     move-object v1, v0
 
-    .line 26
+    .line 28
     goto :goto_b
 
-    .line 28
+    .line 30
     :pswitch_21
     const-string v0, "all"
 
     move-object v1, v0
 
-    .line 29
+    .line 31
     goto :goto_b
 
-    .line 31
+    .line 33
     :pswitch_25
     const-string v0, "bangumi"
 
     move-object v1, v0
 
-    .line 32
+    .line 34
     goto :goto_b
 
-    .line 23
+    .line 25
     nop
 
     :pswitch_data_2a

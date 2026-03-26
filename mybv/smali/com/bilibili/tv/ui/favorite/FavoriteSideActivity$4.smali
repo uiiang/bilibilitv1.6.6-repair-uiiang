@@ -3,12 +3,12 @@
 .source "FavoriteSideActivity.java"
 
 # interfaces
-.implements Lbl/agb$c;
+.implements Lbl/SortMenuDialog$OnSortSelectedListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->onLongClick(Landroid/view/View;)Z
+    value = Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->showSortMenu()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,18 +20,14 @@
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
-.field final synthetic val$sortOptions:Ljava/util/LinkedHashMap;
-
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;Ljava/util/LinkedHashMap;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;)V
     .locals 0
 
     .prologue
-    .line 446
+    .line 449
     iput-object p1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$4;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
-
-    iput-object p2, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$4;->val$sortOptions:Ljava/util/LinkedHashMap;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -40,27 +36,15 @@
 
 
 # virtual methods
-.method public a(Lbl/agb;Landroid/view/View;Ljava/lang/String;)V
-    .locals 2
+.method public onSortSelected(Ljava/lang/String;Ljava/lang/String;)V
+    .locals 1
 
     .prologue
-    .line 449
-    iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$4;->val$sortOptions:Ljava/util/LinkedHashMap;
-
-    invoke-virtual {v0, p3}, Ljava/util/LinkedHashMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
-
-    move-result-object v0
-
-    check-cast v0, Ljava/lang/String;
-
-    .line 450
-    iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$4;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
-
-    invoke-virtual {v1, v0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->setSortOrder(Ljava/lang/String;)V
-
-    .line 451
-    invoke-virtual {p1}, Lbl/agb;->dismiss()V
-
     .line 452
+    iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$4;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
+
+    invoke-virtual {v0, p1}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->setSortOrder(Ljava/lang/String;)V
+
+    .line 453
     return-void
 .end method

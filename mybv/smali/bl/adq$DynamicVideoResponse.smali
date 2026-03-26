@@ -34,7 +34,7 @@
     .locals 0
 
     .prologue
-    .line 462
+    .line 468
     iput-object p1, p0, Lbl/adq$DynamicVideoResponse;->this$0:Lbl/adq;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
@@ -48,7 +48,7 @@
     .locals 0
 
     .prologue
-    .line 462
+    .line 468
     check-cast p1, Ljava/util/List;
 
     invoke-virtual {p0, p1}, Lbl/adq$DynamicVideoResponse;->a(Ljava/util/List;)V
@@ -71,7 +71,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 465
+    .line 471
     iget-object v0, p0, Lbl/adq$DynamicVideoResponse;->this$0:Lbl/adq;
 
     invoke-virtual {v0}, Lbl/adq;->a()Lbl/adq$j;
@@ -80,18 +80,18 @@
 
     if-nez v0, :cond_a
 
-    .line 476
+    .line 482
     :goto_9
     return-void
 
-    .line 468
+    .line 474
     :cond_a
     iget-object v0, p0, Lbl/adq$DynamicVideoResponse;->this$0:Lbl/adq;
 
     # setter for: Lbl/adq;->k:Z
     invoke-static {v0, v1}, Lbl/adq;->access$202(Lbl/adq;Z)Z
 
-    .line 469
+    .line 475
     iget-object v0, p0, Lbl/adq$DynamicVideoResponse;->this$0:Lbl/adq;
 
     invoke-virtual {v0}, Lbl/adq;->h()Landroid/support/v7/widget/RecyclerView;
@@ -100,7 +100,7 @@
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
 
-    .line 470
+    .line 476
     if-eqz p1, :cond_20
 
     invoke-interface {p1}, Ljava/util/List;->size()I
@@ -109,7 +109,7 @@
 
     if-nez v0, :cond_26
 
-    .line 471
+    .line 477
     :cond_20
     iget-object v0, p0, Lbl/adq$DynamicVideoResponse;->this$0:Lbl/adq;
 
@@ -118,13 +118,13 @@
 
     goto :goto_9
 
-    .line 474
+    .line 480
     :cond_26
     iget-object v0, p0, Lbl/adq$DynamicVideoResponse;->this$0:Lbl/adq;
 
     invoke-virtual {v0}, Lbl/adq;->j()V
 
-    .line 475
+    .line 481
     iget-object v0, p0, Lbl/adq$DynamicVideoResponse;->this$0:Lbl/adq;
 
     invoke-virtual {v0}, Lbl/adq;->a()Lbl/adq$j;
@@ -140,12 +140,12 @@
     .locals 2
 
     .prologue
-    .line 480
+    .line 486
     const-string v0, "t"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 481
+    .line 487
     iget-object v0, p0, Lbl/adq$DynamicVideoResponse;->this$0:Lbl/adq;
 
     invoke-virtual {v0}, Lbl/adq;->a()Lbl/adq$j;
@@ -154,11 +154,11 @@
 
     if-nez v0, :cond_e
 
-    .line 486
+    .line 492
     :goto_d
     return-void
 
-    .line 484
+    .line 490
     :cond_e
     iget-object v0, p0, Lbl/adq$DynamicVideoResponse;->this$0:Lbl/adq;
 
@@ -167,7 +167,7 @@
     # setter for: Lbl/adq;->k:Z
     invoke-static {v0, v1}, Lbl/adq;->access$202(Lbl/adq;Z)Z
 
-    .line 485
+    .line 491
     iget-object v0, p0, Lbl/adq$DynamicVideoResponse;->this$0:Lbl/adq;
 
     invoke-virtual {v0}, Lbl/adq;->k()V

@@ -2519,6 +2519,10 @@
     <public type="id" name="favorite_list" id="0x7f0801c0" />
     <public type="id" name="check_icon" id="0x7f0801c1" />
     <public type="id" name="favorite_name" id="0x7f0801c2" />
+    <public type="id" name="sort_list" id="0x7f0801c3" />
+    <public type="id" name="sort_name" id="0x7f0801c4" />
+    <public type="id" name="group_title" id="0x7f0801c5" />
+    <public type="id" name="item_layout" id="0x7f0801c6" />
 
 
     <public type="integer" name="config_danmaku_fly_duration" id="0x7f090003" />
@@ -2683,6 +2687,10 @@
     <public type="layout" name="recycler_view_item_main_recommend_compact" id="0x7f0a0096" />
     <public type="layout" name="dialog_favorite_menu" id="0x7f0a0099" />
     <public type="layout" name="item_favorite_menu" id="0x7f0a009a" />
+    <public type="layout" name="dialog_sort_menu" id="0x7f0a009b" />
+    <public type="layout" name="item_sort_menu" id="0x7f0a009c" />
+    <public type="layout" name="dialog_sort_menu_multi" id="0x7f0a009d" />
+    <public type="layout" name="item_sort_menu_multi" id="0x7f0a009e" />
 
 
     <public type="mipmap" name="ic_launcher" id="0x7f0b0000" />

@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 157
+    .line 165
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$1;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 160
+    .line 168
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$1;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
@@ -52,7 +52,7 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;->notifyDataSetChanged()V
 
-    .line 161
+    .line 169
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$1;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
@@ -65,17 +65,17 @@
 
     check-cast v0, Landroid/support/v7/widget/RecyclerView;
 
-    .line 162
+    .line 170
     if-eqz v0, :cond_22
 
-    .line 163
+    .line 171
     new-instance v1, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$1$1;
 
     invoke-direct {v1, p0, v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$1$1;-><init>(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$1;Landroid/support/v7/widget/RecyclerView;)V
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->post(Ljava/lang/Runnable;)Z
 
-    .line 173
+    .line 181
     :cond_22
     return-void
 .end method

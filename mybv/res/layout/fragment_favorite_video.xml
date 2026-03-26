@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            android:text="长按[OK]键排序" />
+            android:text="点击[菜单]键排序" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

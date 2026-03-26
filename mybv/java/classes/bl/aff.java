@@ -17,6 +17,7 @@ import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.rank.BiliRankV2;
 import com.bilibili.tv.ui.ranking.RankingActivity;
+import com.bilibili.tv.util.DateHelper;
 import com.bilibili.tv.widget.ScalableImageView;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
 import com.bilibili.tv.widget.side.SideRightGridLayoutManger;
@@ -261,6 +262,13 @@ public final class aff extends ady {
                 } else {
                     dVar.G().setText(String.format("%02d:%02d", duration / 60, duration % 60));
                 }
+                long pubDate = biliRankV2.getPub_date();
+                if (pubDate > 0) {
+                    dVar.H().setText(DateHelper.formatDate(pubDate));
+                    dVar.H().setVisibility(View.VISIBLE);
+                } else {
+                    dVar.H().setVisibility(View.GONE);
+                }
                 nv.a().a(abd.get_thumb_url_c(MainApplication.a(), biliRankV2.getCover()), dVar.z());
                 switch (i) {
                     case 0:
@@ -341,6 +349,7 @@ public final class aff extends ady {
         private ImageView s;
         private TextView t;
         private TextView u;
+        private TextView v;
 
         /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
         public d(View view) {
@@ -354,6 +363,7 @@ public final class aff extends ady {
             this.s = (ImageView) a(view, R.id.tag);
             this.t = (TextView) a(view, R.id.tag_text);
             this.u = (TextView) a(view, R.id.duration);
+            this.v = (TextView) a(view, R.id.pubdate);
             Drawable c = adl.a.c(R.drawable.ic_video_info_up);
             Drawable c2 = adl.a.c(R.drawable.ic_video_info_play);
             Drawable c3 = adl.a.c(R.drawable.ic_video_info_danmaku);
@@ -400,6 +410,10 @@ public final class aff extends ady {
 
         public final TextView G() {
             return this.u;
+        }
+
+        public final TextView H() {
+            return this.v;
         }
 
         /* compiled from: BL */

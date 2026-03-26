@@ -345,4 +345,8 @@
     <item type="id" name="favorite_list" />
     <item type="id" name="check_icon" />
     <item type="id" name="favorite_name" />
+    <item type="id" name="sort_list" />
+    <item type="id" name="sort_name" />
+    <item type="id" name="group_title" />
+    <item type="id" name="item_layout" />
 </resources>

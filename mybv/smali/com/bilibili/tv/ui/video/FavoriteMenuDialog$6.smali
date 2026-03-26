@@ -36,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 232
+    .line 240
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$6;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$6;->val$folder:Lmybl/FavoriteFolder;
@@ -54,7 +54,7 @@
     .locals 0
 
     .prologue
-    .line 232
+    .line 240
     check-cast p1, Ljava/lang/Void;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$6;->a(Ljava/lang/Void;)V
@@ -68,18 +68,18 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 235
+    .line 243
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$6;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
 
     # setter for: Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->isOperating:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->access$002(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;Z)Z
 
-    .line 236
+    .line 244
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$6;->val$folder:Lmybl/FavoriteFolder;
 
     invoke-virtual {v0, v1}, Lmybl/FavoriteFolder;->setFavState(I)V
 
-    .line 237
+    .line 245
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$6;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
 
     # getter for: Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->activity:Landroid/app/Activity;
@@ -93,7 +93,7 @@
 
     invoke-virtual {v0, v1}, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
 
-    .line 244
+    .line 252
     return-void
 .end method
 
@@ -101,7 +101,7 @@
     .locals 1
 
     .prologue
-    .line 248
+    .line 256
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$6;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
 
     # getter for: Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->activity:Landroid/app/Activity;
@@ -140,7 +140,7 @@
     .locals 2
 
     .prologue
-    .line 253
+    .line 261
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$6;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
 
     const/4 v1, 0x0
@@ -148,13 +148,13 @@
     # setter for: Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->isOperating:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->access$002(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;Z)Z
 
-    .line 254
+    .line 262
     const-string v0, "FavoriteMenuDialog"
 
     const-string v1, "Failed to remove video from favorite"
 
     invoke-static {v0, v1, p1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    .line 255
+    .line 263
     return-void
 .end method

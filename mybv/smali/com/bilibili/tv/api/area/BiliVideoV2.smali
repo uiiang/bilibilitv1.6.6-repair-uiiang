@@ -31,6 +31,8 @@
 
 .field public play:I
 
+.field public pubdate:J
+
 .field public reply:I
 
 .field public title:Ljava/lang/String;
@@ -57,7 +59,7 @@
     .prologue
     const-wide/16 v0, 0x0
 
-    .line 27
+    .line 28
     iget-object v2, p0, Lcom/bilibili/tv/api/area/BiliVideoV2;->param:Ljava/lang/String;
 
     invoke-static {v2}, Lbl/kt;->a(Ljava/lang/CharSequence;)Z
@@ -66,11 +68,11 @@
 
     if-eqz v2, :cond_b
 
-    .line 33
+    .line 34
     :goto_a
     return-wide v0
 
-    .line 31
+    .line 32
     :cond_b
     :try_start_b
     iget-object v2, p0, Lcom/bilibili/tv/api/area/BiliVideoV2;->param:Ljava/lang/String;
@@ -83,7 +85,7 @@
 
     goto :goto_a
 
-    .line 32
+    .line 33
     :catch_12
     move-exception v2
 

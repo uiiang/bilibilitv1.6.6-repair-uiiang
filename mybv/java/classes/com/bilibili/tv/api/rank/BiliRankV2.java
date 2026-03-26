@@ -15,6 +15,7 @@ public class BiliRankV2 {
     private String param;
     private int play;
     private int pts;
+    private long pub_date;
     private boolean showMore;
     private String title;
     private String uri;
@@ -90,6 +91,14 @@ public class BiliRankV2 {
 
     public void setPts(int pts) {
         this.pts = pts;
+    }
+
+    public long getPub_date() {
+        return this.pub_date;
+    }
+
+    public void setPub_date(long pub_date) {
+        this.pub_date = pub_date;
     }
 
     public boolean isShowMore() {
