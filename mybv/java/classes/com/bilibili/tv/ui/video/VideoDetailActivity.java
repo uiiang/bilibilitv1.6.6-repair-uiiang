@@ -98,7 +98,6 @@ public final class VideoDetailActivity extends BaseActivity
     private static final String D = "bundle_ac_id";
     private i A;
     private boolean B;
-    private ImageView a;
     private ImageView b;
     private TextView cc;
     private LinearLayout staffContainer;
@@ -222,7 +221,6 @@ public final class VideoDetailActivity extends BaseActivity
 
     private final void k() {
         d dVar = new d();
-        this.a = (ImageView) d(R.id.video_detail_cover);
         this.b = (ImageView) d(R.id.blur);
         this.cc = (TextView) d(R.id.video_detail_title);
         this.staffContainer = (LinearLayout) d(R.id.video_detail_staff_container);
@@ -619,10 +617,7 @@ public final class VideoDetailActivity extends BaseActivity
     /* JADX INFO: Access modifiers changed from: private */
     public final void a(String str) {
         if (str != null) {
-            nv.a().a(str, this.a);
-            adl adlVar = adl.a;
-            String a2 = ach.a(getApplication(), str);
-            adlVar.a(a2, this.b);
+            nv.a().a(str, this.b);
         }
     }
 

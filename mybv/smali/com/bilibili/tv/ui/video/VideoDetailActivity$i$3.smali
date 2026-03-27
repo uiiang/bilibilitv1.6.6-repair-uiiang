@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 3011
+    .line 3006
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$3;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iput p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$3;->val$sectionId:I
@@ -50,10 +50,10 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 3014
+    .line 3009
     if-eqz p2, :cond_3e
 
-    .line 3016
+    .line 3011
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$3;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -75,7 +75,7 @@
 
     if-eqz v0, :cond_51
 
-    .line 3017
+    .line 3012
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$3;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -101,7 +101,7 @@
 
     move-result v0
 
-    .line 3019
+    .line 3014
     :goto_2f
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$3;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
@@ -114,18 +114,18 @@
 
     move-result-object v0
 
-    .line 3020
+    .line 3015
     if-eqz v0, :cond_3f
 
-    .line 3021
+    .line 3016
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 3026
+    .line 3021
     :cond_3e
     :goto_3e
     return-void
 
-    .line 3022
+    .line 3017
     :cond_3f
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$3;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
@@ -135,7 +135,7 @@
 
     if-lez v0, :cond_3e
 
-    .line 3023
+    .line 3018
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$3;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
