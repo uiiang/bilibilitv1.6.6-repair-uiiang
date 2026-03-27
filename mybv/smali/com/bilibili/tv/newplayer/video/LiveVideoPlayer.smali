@@ -41,16 +41,18 @@
 
 .field public danmakuClient:Lmybl/DanmakuClient;
 
+.field private loadingCover:Lcom/bilibili/tv/widget/ScalableImageView;
+
 
 # direct methods
 .method public constructor <init>(Landroid/content/Context;)V
     .locals 1
 
     .prologue
-    .line 77
+    .line 80
     invoke-direct {p0, p1}, Lbl/wy;-><init>(Landroid/content/Context;)V
 
-    .line 40
+    .line 42
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v0
@@ -65,19 +67,19 @@
 
     iput-boolean v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->G:Z
 
-    .line 78
+    .line 81
     const/4 v0, 0x1
 
     iput v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->ah:I
 
-    .line 79
+    .line 82
     new-instance v0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer$2;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer$2;-><init>(Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->al:Ljava/lang/Runnable;
 
-    .line 89
+    .line 92
     return-void
 .end method
 
@@ -85,10 +87,10 @@
     .locals 1
 
     .prologue
-    .line 92
+    .line 95
     invoke-direct {p0, p1, p2}, Lbl/wy;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;)V
 
-    .line 40
+    .line 42
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v0
@@ -103,19 +105,19 @@
 
     iput-boolean v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->G:Z
 
-    .line 93
+    .line 96
     const/4 v0, 0x1
 
     iput v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->ah:I
 
-    .line 94
+    .line 97
     new-instance v0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer$3;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer$3;-><init>(Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->al:Ljava/lang/Runnable;
 
-    .line 104
+    .line 107
     return-void
 .end method
 
@@ -123,10 +125,10 @@
     .locals 1
 
     .prologue
-    .line 62
+    .line 65
     invoke-direct {p0, p1, p2}, Lbl/wy;-><init>(Landroid/content/Context;Ljava/lang/Boolean;)V
 
-    .line 40
+    .line 42
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v0
@@ -141,19 +143,19 @@
 
     iput-boolean v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->G:Z
 
-    .line 63
+    .line 66
     const/4 v0, 0x1
 
     iput v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->ah:I
 
-    .line 64
+    .line 67
     new-instance v0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer$1;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer$1;-><init>(Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->al:Ljava/lang/Runnable;
 
-    .line 74
+    .line 77
     return-void
 .end method
 
@@ -163,30 +165,30 @@
     .prologue
     const/4 v1, 0x4
 
-    .line 212
+    .line 221
     const-string v0, "change2Playing"
 
     invoke-static {v0}, Lbl/ww;->a(Ljava/lang/String;)V
 
-    .line 213
+    .line 222
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->D:Landroid/view/ViewGroup;
 
     invoke-virtual {v0, v1}, Landroid/view/ViewGroup;->setVisibility(I)V
 
-    .line 214
+    .line 223
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->C:Landroid/view/ViewGroup;
 
     invoke-virtual {v0, v1}, Landroid/view/ViewGroup;->setVisibility(I)V
 
-    .line 215
+    .line 224
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->y:Landroid/widget/ImageView;
 
     invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setVisibility(I)V
 
-    .line 216
+    .line 225
     invoke-virtual {p0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->k()V
 
-    .line 217
+    .line 226
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     if-eqz v0, :cond_20
@@ -195,18 +197,18 @@
 
     if-nez v0, :cond_21
 
-    .line 222
+    .line 231
     :cond_20
     :goto_20
     return-void
 
-    .line 220
+    .line 229
     :cond_21
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;->start()V
 
-    .line 221
+    .line 230
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->ag:Z
@@ -220,28 +222,28 @@
     .prologue
     const/4 v1, 0x4
 
-    .line 225
+    .line 234
     const-string v0, "change2Pause"
 
     invoke-static {v0}, Lbl/ww;->a(Ljava/lang/String;)V
 
-    .line 226
+    .line 235
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->D:Landroid/view/ViewGroup;
 
     invoke-virtual {v0, v1}, Landroid/view/ViewGroup;->setVisibility(I)V
 
-    .line 227
+    .line 236
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->C:Landroid/view/ViewGroup;
 
     invoke-virtual {v0, v1}, Landroid/view/ViewGroup;->setVisibility(I)V
 
-    .line 228
+    .line 237
     invoke-direct {p0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F()V
 
-    .line 229
+    .line 238
     invoke-virtual {p0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->j()V
 
-    .line 230
+    .line 239
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     if-eqz v0, :cond_1e
@@ -250,18 +252,18 @@
 
     if-eqz v0, :cond_1f
 
-    .line 235
+    .line 244
     :cond_1e
     :goto_1e
     return-void
 
-    .line 233
+    .line 242
     :cond_1f
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;->stop()V
 
-    .line 234
+    .line 243
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->ag:Z
@@ -275,29 +277,29 @@
     .prologue
     const/4 v2, 0x4
 
-    .line 238
+    .line 247
     const-string v0, "change2PlayingBuffering"
 
     invoke-static {v0}, Lbl/ww;->a(Ljava/lang/String;)V
 
-    .line 239
+    .line 248
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->D:Landroid/view/ViewGroup;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Landroid/view/ViewGroup;->setVisibility(I)V
 
-    .line 240
+    .line 249
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->C:Landroid/view/ViewGroup;
 
     invoke-virtual {v0, v2}, Landroid/view/ViewGroup;->setVisibility(I)V
 
-    .line 241
+    .line 250
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->y:Landroid/widget/ImageView;
 
     invoke-virtual {v0, v2}, Landroid/widget/ImageView;->setVisibility(I)V
 
-    .line 242
+    .line 251
     return-void
 .end method
 
@@ -307,49 +309,49 @@
     .prologue
     const/4 v2, 0x4
 
-    .line 245
+    .line 254
     const-string v0, "change2Complete"
 
     invoke-static {v0}, Lbl/ww;->a(Ljava/lang/String;)V
 
-    .line 246
+    .line 255
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->D:Landroid/view/ViewGroup;
 
     invoke-virtual {v0, v2}, Landroid/view/ViewGroup;->setVisibility(I)V
 
-    .line 247
+    .line 256
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->C:Landroid/view/ViewGroup;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Landroid/view/ViewGroup;->setVisibility(I)V
 
-    .line 248
+    .line 257
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->y:Landroid/widget/ImageView;
 
     invoke-virtual {v0, v2}, Landroid/widget/ImageView;->setVisibility(I)V
 
-    .line 249
+    .line 258
     invoke-virtual {p0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    .line 250
+    .line 259
     const-string v1, "\u76f4\u64ad\u7ed3\u675f"
 
     invoke-static {v0, v1}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 251
+    .line 260
     instance-of v1, v0, Landroid/app/Activity;
 
     if-eqz v1, :cond_28
 
-    .line 252
+    .line 261
     check-cast v0, Landroid/app/Activity;
 
     invoke-virtual {v0}, Landroid/app/Activity;->finish()V
 
-    .line 254
+    .line 263
     :cond_28
     return-void
 .end method
@@ -360,49 +362,49 @@
     .prologue
     const/4 v1, 0x4
 
-    .line 257
+    .line 266
     const-string v0, "change2Error"
 
     invoke-static {v0}, Lbl/ww;->a(Ljava/lang/String;)V
 
-    .line 258
+    .line 267
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->D:Landroid/view/ViewGroup;
 
     invoke-virtual {v0, v1}, Landroid/view/ViewGroup;->setVisibility(I)V
 
-    .line 259
+    .line 268
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->C:Landroid/view/ViewGroup;
 
     invoke-virtual {v0, v1}, Landroid/view/ViewGroup;->setVisibility(I)V
 
-    .line 260
+    .line 269
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->y:Landroid/widget/ImageView;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setVisibility(I)V
 
-    .line 261
+    .line 270
     invoke-virtual {p0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    .line 262
+    .line 271
     const-string v1, "\u5f53\u524d\u76f4\u64ad\u65e0\u6cd5\u64ad\u653e\uff01\uff01\uff01"
 
     invoke-static {v0, v1}, Lbl/lr;->a(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 263
+    .line 272
     instance-of v1, v0, Landroid/app/Activity;
 
     if-eqz v1, :cond_28
 
-    .line 264
+    .line 273
     check-cast v0, Landroid/app/Activity;
 
     invoke-virtual {v0}, Landroid/app/Activity;->finish()V
 
-    .line 266
+    .line 275
     :cond_28
     return-void
 .end method
@@ -411,7 +413,7 @@
     .locals 3
 
     .prologue
-    .line 269
+    .line 278
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->z:Landroid/graphics/Bitmap;
 
     if-eqz v0, :cond_c
@@ -424,7 +426,7 @@
 
     if-eqz v0, :cond_20
 
-    .line 272
+    .line 281
     :cond_c
     :try_start_c
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->x:Landroid/view/TextureView;
@@ -449,22 +451,22 @@
     :try_end_20
     .catch Ljava/lang/Exception; {:try_start_c .. :try_end_20} :catch_24
 
-    .line 278
+    .line 287
     :cond_20
     :goto_20
     invoke-virtual {p0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->q()V
 
-    .line 279
+    .line 288
     return-void
 
-    .line 273
+    .line 282
     :catch_24
     move-exception v0
 
-    .line 274
+    .line 283
     invoke-static {v0}, Lbl/att;->a(Ljava/lang/Throwable;)V
 
-    .line 275
+    .line 284
     const/4 v0, 0x0
 
     iput-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->z:Landroid/graphics/Bitmap;
@@ -478,17 +480,17 @@
     .prologue
     const/4 v3, 0x1
 
-    .line 373
+    .line 382
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     if-nez v0, :cond_6
 
-    .line 392
+    .line 401
     :cond_5
     :goto_5
     return-void
 
-    .line 376
+    .line 385
     :cond_6
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
@@ -498,15 +500,15 @@
 
     invoke-interface {v0, v1, v3, v2}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;->initView(Landroid/view/ViewGroup;ZI)V
 
-    .line 377
+    .line 386
     new-instance v1, Lcom/bilibili/tv/player/danmaku/DanmakuParams;
 
     invoke-direct {v1}, Lcom/bilibili/tv/player/danmaku/DanmakuParams;-><init>()V
 
-    .line 378
+    .line 387
     invoke-virtual {v1, v3}, Lcom/bilibili/tv/player/danmaku/DanmakuParams;->setRealTimeDanmaku(Z)V
 
-    .line 379
+    .line 388
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v0
@@ -521,7 +523,7 @@
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/player/danmaku/DanmakuParams;->setDanmakuTextSizeScaleFactor(F)V
 
-    .line 380
+    .line 389
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v0
@@ -536,7 +538,7 @@
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/player/danmaku/DanmakuParams;->setDanmakuAlphaFactor(F)V
 
-    .line 381
+    .line 390
     invoke-virtual {p0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -545,10 +547,10 @@
 
     move-result-object v2
 
-    .line 382
+    .line 391
     const/4 v0, 0x0
 
-    .line 383
+    .line 392
     if-eqz v2, :cond_69
 
     invoke-virtual {v2}, Lbl/mg;->c()Lcom/bilibili/lib/account/model/AccountInfo;
@@ -557,14 +559,14 @@
 
     if-eqz v2, :cond_69
 
-    .line 384
+    .line 393
     iget-wide v2, v2, Lcom/bilibili/lib/account/model/AccountInfo;->mMid:J
 
     long-to-int v0, v2
 
     move v6, v0
 
-    .line 386
+    .line 395
     :goto_4a
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
@@ -580,19 +582,19 @@
 
     invoke-interface/range {v0 .. v5}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;->start(Ltv/danmaku/videoplayer/core/danmaku/IDanmakuParams;Ltv/danmaku/videoplayer/core/danmaku/IDanmakuDocument;Ltv/danmaku/videoplayer/core/danmaku/DanmakuAnimationTicker;J)V
 
-    .line 387
+    .line 396
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->ak:Lbl/aei;
 
     iget v1, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->af:I
 
     invoke-virtual {v0, v1, v6}, Lbl/aei;->a(II)V
 
-    .line 388
+    .line 397
     iget-boolean v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->G:Z
 
     if-nez v0, :cond_5
 
-    .line 391
+    .line 400
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;->hide()V
@@ -609,7 +611,7 @@
     .locals 1
 
     .prologue
-    .line 34
+    .line 36
     iget v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->af:I
 
     return v0
@@ -621,29 +623,29 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 198
+    .line 207
     const-string v0, "change2Normal"
 
     invoke-static {v0}, Lbl/ww;->a(Ljava/lang/String;)V
 
-    .line 199
+    .line 208
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->C:Landroid/view/ViewGroup;
 
     invoke-virtual {v0, v2}, Landroid/view/ViewGroup;->setVisibility(I)V
 
-    .line 200
+    .line 209
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->D:Landroid/view/ViewGroup;
 
     const/4 v1, 0x4
 
     invoke-virtual {v0, v1}, Landroid/view/ViewGroup;->setVisibility(I)V
 
-    .line 201
+    .line 210
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->y:Landroid/widget/ImageView;
 
     invoke-virtual {v0, v2}, Landroid/widget/ImageView;->setVisibility(I)V
 
-    .line 202
+    .line 211
     return-void
 .end method
 
@@ -653,29 +655,29 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 205
+    .line 214
     const-string v0, "change2Preparing"
 
     invoke-static {v0}, Lbl/ww;->a(Ljava/lang/String;)V
 
-    .line 206
+    .line 215
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->C:Landroid/view/ViewGroup;
 
     invoke-virtual {v0, v2}, Landroid/view/ViewGroup;->setVisibility(I)V
 
-    .line 207
+    .line 216
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->D:Landroid/view/ViewGroup;
 
     const/4 v1, 0x4
 
     invoke-virtual {v0, v1}, Landroid/view/ViewGroup;->setVisibility(I)V
 
-    .line 208
+    .line 217
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->y:Landroid/widget/ImageView;
 
     invoke-virtual {v0, v2}, Landroid/widget/ImageView;->setVisibility(I)V
 
-    .line 209
+    .line 218
     return-void
 .end method
 
@@ -689,7 +691,7 @@
 
     const/4 v2, 0x0
 
-    .line 346
+    .line 355
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->ai:Landroid/view/ViewGroup;
 
     if-eqz v0, :cond_a
@@ -698,21 +700,21 @@
 
     if-eqz v0, :cond_12
 
-    .line 347
+    .line 356
     :cond_a
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     if-eqz v0, :cond_11
 
-    .line 348
+    .line 357
     invoke-virtual {p0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->k()V
 
-    .line 362
+    .line 371
     :cond_11
     :goto_11
     return-void
 
-    .line 353
+    .line 362
     :cond_12
     invoke-static {v2, v1, v1}, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerCreator;->create(ILtv/danmaku/videoplayer/core/media/resource/PlayerConfig;Ltv/danmaku/ijk/media/player/MediaInfo;)Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
@@ -720,34 +722,34 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
-    .line 354
+    .line 363
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     invoke-interface {v0, v2}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;->alignDanmakuBottom(Z)V
 
-    .line 355
+    .line 364
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     iget v1, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->ah:I
 
     invoke-interface {v0, v2, v1}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;->setPortraitPlayingEnable(ZI)V
 
-    .line 356
+    .line 365
     invoke-direct {p0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->H()V
 
-    .line 357
+    .line 366
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->aj:Lbl/aeu;
 
     if-eqz v0, :cond_32
 
-    .line 358
+    .line 367
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->aj:Lbl/aeu;
 
     iget-object v1, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     invoke-virtual {v0, v1}, Lbl/aeu;->a(Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;)V
 
-    .line 361
+    .line 370
     :cond_32
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->danmakuClient:Lmybl/DanmakuClient;
 
@@ -762,10 +764,10 @@
     .locals 3
 
     .prologue
-    .line 109
+    .line 112
     invoke-super {p0, p1}, Lbl/wy;->a(Landroid/content/Context;)V
 
-    .line 110
+    .line 113
     const v0, 0x7f08013a
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->findViewById(I)Landroid/view/View;
@@ -776,7 +778,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->B:Landroid/widget/TextView;
 
-    .line 111
+    .line 114
     const v0, 0x7f0800d9
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->findViewById(I)Landroid/view/View;
@@ -787,22 +789,20 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->C:Landroid/view/ViewGroup;
 
-    .line 112
+    .line 115
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->C:Landroid/view/ViewGroup;
 
-    const v1, 0x7f08013b
+    const v1, 0x7f0801bc
 
     invoke-virtual {v0, v1}, Landroid/view/ViewGroup;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
-    check-cast v0, Landroid/widget/TextView;
+    check-cast v0, Lcom/bilibili/tv/widget/ScalableImageView;
 
-    const v1, 0x7f0c00df
+    iput-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->loadingCover:Lcom/bilibili/tv/widget/ScalableImageView;
 
-    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(I)V
-
-    .line 113
+    .line 116
     const v0, 0x7f080044
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->findViewById(I)Landroid/view/View;
@@ -813,7 +813,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->D:Landroid/view/ViewGroup;
 
-    .line 114
+    .line 117
     const v0, 0x7f08006e
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->findViewById(I)Landroid/view/View;
@@ -824,7 +824,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->ai:Landroid/view/ViewGroup;
 
-    .line 115
+    .line 118
     invoke-virtual {p0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->getResources()Landroid/content/res/Resources;
 
     move-result-object v0
@@ -837,14 +837,14 @@
 
     iput v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->ah:I
 
-    .line 116
+    .line 119
     new-instance v0, Lbl/aeu;
 
     invoke-direct {v0}, Lbl/aeu;-><init>()V
 
     iput-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->aj:Lbl/aeu;
 
-    .line 117
+    .line 120
     new-instance v0, Lbl/aei;
 
     iget-object v1, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->aj:Lbl/aeu;
@@ -857,7 +857,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->ak:Lbl/aei;
 
-    .line 118
+    .line 121
     return-void
 .end method
 
@@ -865,15 +865,15 @@
     .locals 2
 
     .prologue
-    .line 314
+    .line 323
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     if-eqz v0, :cond_1f
 
-    .line 315
+    .line 324
     if-nez p1, :cond_20
 
-    .line 316
+    .line 325
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v0
@@ -886,12 +886,12 @@
 
     invoke-static {v0, v1}, Lbl/abd;->c(Landroid/content/Context;Z)V
 
-    .line 317
+    .line 326
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;->hide()V
 
-    .line 322
+    .line 331
     :goto_17
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
@@ -901,11 +901,11 @@
 
     iput-boolean v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->G:Z
 
-    .line 324
+    .line 333
     :cond_1f
     return-void
 
-    .line 319
+    .line 328
     :cond_20
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
@@ -919,7 +919,7 @@
 
     invoke-static {v0, v1}, Lbl/abd;->c(Landroid/content/Context;Z)V
 
-    .line 320
+    .line 329
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;->show()V
@@ -931,7 +931,7 @@
     .locals 1
 
     .prologue
-    .line 122
+    .line 125
     const/4 v0, 0x1
 
     aget-object v0, p4, v0
@@ -944,7 +944,7 @@
 
     iput v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->af:I
 
-    .line 123
+    .line 126
     invoke-super {p0, p1, p2, p3, p4}, Lbl/wy;->a(Ljava/lang/String;ZLjava/io/File;[Ljava/lang/Object;)Z
 
     move-result v0
@@ -956,7 +956,7 @@
     .locals 4
 
     .prologue
-    .line 133
+    .line 142
     invoke-static {}, Lbl/wm;->a()Lbl/wm;
 
     move-result-object v0
@@ -965,7 +965,7 @@
 
     move-result-object v0
 
-    .line 134
+    .line 143
     if-eqz v0, :cond_10
 
     invoke-virtual {v0}, Ltv/danmaku/ijk/media/player/AbstractMediaPlayer;->isPlaying()Z
@@ -974,25 +974,25 @@
 
     if-nez v1, :cond_11
 
-    .line 144
+    .line 153
     :cond_10
     :goto_10
     return-void
 
-    .line 137
+    .line 146
     :cond_11
     const/4 v1, 0x5
 
     invoke-virtual {p0, v1}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->setStateAndUi(I)V
 
-    .line 138
+    .line 147
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v2
 
     iput-wide v2, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->aa:J
 
-    .line 140
+    .line 149
     :try_start_1b
     invoke-virtual {v0}, Ltv/danmaku/ijk/media/player/AbstractMediaPlayer;->pause()V
     :try_end_1e
@@ -1000,11 +1000,11 @@
 
     goto :goto_10
 
-    .line 141
+    .line 150
     :catch_1f
     move-exception v0
 
-    .line 142
+    .line 151
     invoke-static {v0}, Lbl/att;->a(Ljava/lang/Throwable;)V
 
     goto :goto_10
@@ -1014,12 +1014,12 @@
     .locals 2
 
     .prologue
-    .line 149
+    .line 158
     const-wide/16 v0, 0x0
 
     iput-wide v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->aa:J
 
-    .line 150
+    .line 159
     iget v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->g:I
 
     const/4 v1, 0x5
@@ -1042,23 +1042,23 @@
 
     if-eqz v1, :cond_1a
 
-    .line 163
+    .line 172
     :cond_19
     :goto_19
     return-void
 
-    .line 153
+    .line 162
     :cond_1a
     const/4 v1, 0x2
 
     invoke-virtual {p0, v1}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->setStateAndUi(I)V
 
-    .line 154
+    .line 163
     instance-of v1, v0, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
     if-eqz v1, :cond_2b
 
-    .line 156
+    .line 165
     :try_start_22
     invoke-virtual {v0}, Ltv/danmaku/ijk/media/player/AbstractMediaPlayer;->start()V
     :try_end_25
@@ -1066,22 +1066,22 @@
 
     goto :goto_19
 
-    .line 157
+    .line 166
     :catch_26
     move-exception v0
 
-    .line 158
+    .line 167
     invoke-static {v0}, Lbl/att;->a(Ljava/lang/Throwable;)V
 
     goto :goto_19
 
-    .line 160
+    .line 169
     :cond_2b
     instance-of v0, v0, Ltv/danmaku/ijk/media/player/AndroidMediaPlayer;
 
     if-eqz v0, :cond_19
 
-    .line 161
+    .line 170
     invoke-virtual {p0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->m()V
 
     goto :goto_19
@@ -1091,7 +1091,7 @@
     .locals 1
 
     .prologue
-    .line 53
+    .line 56
     const v0, 0x7f0a0043
 
     return v0
@@ -1103,51 +1103,51 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 283
+    .line 292
     invoke-super {p0}, Lbl/wy;->i()V
 
-    .line 284
+    .line 293
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->ai:Landroid/view/ViewGroup;
 
     if-eqz v0, :cond_a
 
-    .line 285
+    .line 294
     iput-object v1, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->ai:Landroid/view/ViewGroup;
 
-    .line 287
+    .line 296
     :cond_a
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     if-eqz v0, :cond_20
 
-    .line 288
+    .line 297
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;->release()V
 
-    .line 289
+    .line 298
     iput-object v1, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
-    .line 291
+    .line 300
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->danmakuClient:Lmybl/DanmakuClient;
 
     invoke-virtual {v0}, Lmybl/DanmakuClient;->release()V
 
-    .line 292
+    .line 301
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->danmakuClient:Lmybl/DanmakuClient;
 
     sput-object v1, Lmybl/DanmakuClient;->player:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
-    .line 293
+    .line 302
     iput-object v1, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->danmakuClient:Lmybl/DanmakuClient;
 
-    .line 295
+    .line 304
     :cond_20
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->aj:Lbl/aeu;
 
     if-eqz v0, :cond_2e
 
-    .line 296
+    .line 305
     iget-object v2, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->aj:Lbl/aeu;
 
     move-object v0, v1
@@ -1156,24 +1156,24 @@
 
     invoke-virtual {v2, v0}, Lbl/aeu;->a(Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;)V
 
-    .line 297
+    .line 306
     iput-object v1, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->aj:Lbl/aeu;
 
-    .line 299
+    .line 308
     :cond_2e
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->ak:Lbl/aei;
 
     if-eqz v0, :cond_39
 
-    .line 300
+    .line 309
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->ak:Lbl/aei;
 
     invoke-virtual {v0}, Lbl/aei;->a()V
 
-    .line 301
+    .line 310
     iput-object v1, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->ak:Lbl/aei;
 
-    .line 303
+    .line 312
     :cond_39
     return-void
 .end method
@@ -1182,17 +1182,17 @@
     .locals 1
 
     .prologue
-    .line 327
+    .line 336
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     if-eqz v0, :cond_9
 
-    .line 328
+    .line 337
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;->pause()V
 
-    .line 330
+    .line 339
     :cond_9
     return-void
 .end method
@@ -1201,12 +1201,12 @@
     .locals 2
 
     .prologue
-    .line 333
+    .line 342
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     if-eqz v0, :cond_12
 
-    .line 334
+    .line 343
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;->isPaused()Z
@@ -1215,17 +1215,17 @@
 
     if-eqz v0, :cond_11
 
-    .line 335
+    .line 344
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;->resume()V
 
-    .line 342
+    .line 351
     :cond_11
     :goto_11
     return-void
 
-    .line 340
+    .line 349
     :cond_12
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->ai:Landroid/view/ViewGroup;
 
@@ -1233,7 +1233,7 @@
 
     invoke-virtual {v0, v1}, Landroid/view/ViewGroup;->removeCallbacks(Ljava/lang/Runnable;)Z
 
-    .line 341
+    .line 350
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->ai:Landroid/view/ViewGroup;
 
     iget-object v1, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->al:Ljava/lang/Runnable;
@@ -1247,20 +1247,20 @@
     .locals 1
 
     .prologue
-    .line 365
+    .line 374
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     if-eqz v0, :cond_c
 
-    .line 366
+    .line 375
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;->release()V
 
-    .line 367
+    .line 376
     invoke-direct {p0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->H()V
 
-    .line 369
+    .line 378
     :cond_c
     return-void
 .end method
@@ -1269,13 +1269,13 @@
     .locals 0
 
     .prologue
-    .line 57
+    .line 60
     iput-object p1, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->E:Lbl/wt;
 
-    .line 58
+    .line 61
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->setVideoPlayCallBack(Lbl/wt;)V
 
-    .line 59
+    .line 62
     return-void
 .end method
 
@@ -1283,7 +1283,7 @@
     .locals 5
 
     .prologue
-    .line 310
+    .line 319
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     sget-object v1, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;->TRANSPARENCY:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;
@@ -1302,7 +1302,7 @@
 
     invoke-interface {v0, v1, v2}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;->setDanmakuOption(Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;[Ljava/lang/Object;)V
 
-    .line 311
+    .line 320
     return-void
 .end method
 
@@ -1310,7 +1310,7 @@
     .locals 5
 
     .prologue
-    .line 306
+    .line 315
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
 
     sget-object v1, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;->TEXTSIZE_SCALE:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;
@@ -1329,7 +1329,38 @@
 
     invoke-interface {v0, v1, v2}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;->setDanmakuOption(Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;[Ljava/lang/Object;)V
 
-    .line 307
+    .line 316
+    return-void
+.end method
+
+.method public setLoadingCover(Ljava/lang/String;)V
+    .locals 2
+
+    .prologue
+    .line 135
+    iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->loadingCover:Lcom/bilibili/tv/widget/ScalableImageView;
+
+    if-eqz v0, :cond_15
+
+    if-eqz p1, :cond_15
+
+    invoke-virtual {p1}, Ljava/lang/String;->isEmpty()Z
+
+    move-result v0
+
+    if-nez v0, :cond_15
+
+    .line 136
+    invoke-static {}, Lbl/nv;->a()Lbl/nv;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->loadingCover:Lcom/bilibili/tv/widget/ScalableImageView;
+
+    invoke-virtual {v0, p1, v1}, Lbl/nv;->a(Ljava/lang/String;Landroid/widget/ImageView;)V
+
+    .line 138
+    :cond_15
     return-void
 .end method
 
@@ -1337,62 +1368,62 @@
     .locals 1
 
     .prologue
-    .line 168
+    .line 177
     invoke-super {p0, p1}, Lbl/wy;->setStateAndUi(I)V
 
-    .line 169
+    .line 178
     iget v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->g:I
 
     packed-switch v0, :pswitch_data_26
 
-    .line 193
+    .line 202
     :goto_8
     :pswitch_8
     return-void
 
-    .line 171
+    .line 180
     :pswitch_9
     invoke-direct {p0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->y()V
 
     goto :goto_8
 
-    .line 174
+    .line 183
     :pswitch_d
     invoke-direct {p0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->z()V
 
     goto :goto_8
 
-    .line 177
+    .line 186
     :pswitch_11
     invoke-direct {p0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->A()V
 
     goto :goto_8
 
-    .line 180
+    .line 189
     :pswitch_15
     invoke-direct {p0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->C()V
 
     goto :goto_8
 
-    .line 186
+    .line 195
     :pswitch_19
     invoke-direct {p0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->B()V
 
     goto :goto_8
 
-    .line 189
+    .line 198
     :pswitch_1d
     invoke-direct {p0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->D()V
 
     goto :goto_8
 
-    .line 192
+    .line 201
     :pswitch_21
     invoke-direct {p0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->E()V
 
     goto :goto_8
 
-    .line 169
+    .line 178
     nop
 
     :pswitch_data_26
@@ -1412,11 +1443,11 @@
     .locals 1
 
     .prologue
-    .line 128
+    .line 131
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->B:Landroid/widget/TextView;
 
     invoke-virtual {v0, p1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 129
+    .line 132
     return-void
 .end method

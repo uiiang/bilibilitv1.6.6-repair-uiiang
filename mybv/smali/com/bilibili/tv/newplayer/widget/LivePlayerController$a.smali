@@ -88,7 +88,7 @@
 
     aget v2, v2, v3
 
-    packed-switch v2, :pswitch_data_16c
+    packed-switch v2, :pswitch_data_16a
 
     .line 442
     :cond_d
@@ -112,16 +112,14 @@
     if-eqz v0, :cond_d
 
     .line 352
-    sget-object v0, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity;->Companion:Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$a;
-
-    iget-object v1, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
+    iget-object v0, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
 
     # getter for: Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->m:Lmybl/BiliLiveContent;
-    invoke-static {v1}, Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->access$300(Lcom/bilibili/tv/newplayer/widget/LivePlayerController;)Lmybl/BiliLiveContent;
+    invoke-static {v0}, Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->access$300(Lcom/bilibili/tv/newplayer/widget/LivePlayerController;)Lmybl/BiliLiveContent;
 
-    move-result-object v1
+    move-result-object v0
 
-    iget-object v1, v1, Lmybl/BiliLiveContent;->mUname:Ljava/lang/String;
+    iget-wide v0, v0, Lmybl/BiliLiveContent;->mUid:J
 
     iget-object v2, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
 
@@ -130,14 +128,14 @@
 
     move-result-object v2
 
-    iget-wide v2, v2, Lmybl/BiliLiveContent;->mUid:J
+    iget-object v2, v2, Lmybl/BiliLiveContent;->mUname:Ljava/lang/String;
 
-    invoke-virtual {v0, p1, v1, v2, v3}, Lcom/bilibili/tv/ui/auth/AuthSpaceActivity$a;->a(Landroid/content/Context;Ljava/lang/String;J)V
+    invoke-static {p1, v0, v1, v2}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->start(Landroid/content/Context;JLjava/lang/String;)V
 
     goto :goto_d
 
     .line 357
-    :pswitch_31
+    :pswitch_2f
     iget-object v2, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
 
     # getter for: Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->k:Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;
@@ -154,11 +152,11 @@
 
     iget-boolean v3, v3, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->G:Z
 
-    if-nez v3, :cond_42
+    if-nez v3, :cond_40
 
     move v0, v1
 
-    :cond_42
+    :cond_40
     invoke-virtual {v2, v0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->a(Z)V
 
     .line 358
@@ -167,7 +165,7 @@
     goto :goto_d
 
     .line 361
-    :pswitch_49
+    :pswitch_47
     iget-object v2, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
 
     invoke-virtual {v2, v0}, Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->a(Z)V
@@ -206,8 +204,8 @@
     move v2, v0
 
     .line 365
-    :goto_6a
-    if-ge v2, v5, :cond_83
+    :goto_68
+    if-ge v2, v5, :cond_81
 
     .line 366
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
@@ -227,20 +225,20 @@
 
     move-result v0
 
-    if-eqz v0, :cond_169
+    if-eqz v0, :cond_167
 
     move v0, v2
 
     .line 369
-    :goto_7f
+    :goto_7d
     add-int/lit8 v2, v2, 0x1
 
     move v3, v0
 
-    goto :goto_6a
+    goto :goto_68
 
     .line 371
-    :cond_83
+    :cond_81
     new-instance v0, Lbl/xa$a;
 
     invoke-direct {v0, p1}, Lbl/xa$a;-><init>(Landroid/app/Activity;)V
@@ -283,7 +281,7 @@
     goto/16 :goto_d
 
     .line 387
-    :pswitch_ad
+    :pswitch_ab
     iget-object v2, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
 
     invoke-virtual {v2, v0}, Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->a(Z)V
@@ -322,8 +320,8 @@
     move v2, v0
 
     .line 391
-    :goto_ce
-    if-ge v2, v5, :cond_e7
+    :goto_cc
+    if-ge v2, v5, :cond_e5
 
     .line 392
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
@@ -343,20 +341,20 @@
 
     move-result v0
 
-    if-eqz v0, :cond_166
+    if-eqz v0, :cond_164
 
     move v0, v2
 
     .line 395
-    :goto_e3
+    :goto_e1
     add-int/lit8 v2, v2, 0x1
 
     move v3, v0
 
-    goto :goto_ce
+    goto :goto_cc
 
     .line 397
-    :cond_e7
+    :cond_e5
     new-instance v0, Lbl/xa$a;
 
     invoke-direct {v0, p1}, Lbl/xa$a;-><init>(Landroid/app/Activity;)V
@@ -399,7 +397,7 @@
     goto/16 :goto_d
 
     .line 413
-    :pswitch_111
+    :pswitch_10f
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
 
     # getter for: Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->k:Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;
@@ -415,7 +413,7 @@
     goto/16 :goto_d
 
     .line 417
-    :pswitch_11f
+    :pswitch_11d
     iget-object v2, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
 
     invoke-virtual {v2, v0}, Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->a(Z)V
@@ -433,12 +431,12 @@
     move v3, v0
 
     .line 420
-    :goto_12c
+    :goto_12a
     iget-object v0, v4, Lmybl/BiliLiveContent;->mAcceptQuality:[I
 
     array-length v0, v0
 
-    if-ge v2, v0, :cond_13e
+    if-ge v2, v0, :cond_13c
 
     .line 421
     iget-object v0, v4, Lmybl/BiliLiveContent;->mAcceptQuality:[I
@@ -447,20 +445,20 @@
 
     iget v5, v4, Lmybl/BiliLiveContent;->mCurrentQuality:I
 
-    if-ne v0, v5, :cond_13a
+    if-ne v0, v5, :cond_138
 
     move v3, v2
 
     .line 420
-    :cond_13a
+    :cond_138
     add-int/lit8 v0, v2, 0x1
 
     move v2, v0
 
-    goto :goto_12c
+    goto :goto_12a
 
     .line 423
-    :cond_13e
+    :cond_13c
     new-instance v0, Lbl/xa$a;
 
     invoke-direct {v0, p1}, Lbl/xa$a;-><init>(Landroid/app/Activity;)V
@@ -499,25 +497,25 @@
 
     goto/16 :goto_d
 
-    :cond_166
+    :cond_164
     move v0, v3
 
-    goto/16 :goto_e3
+    goto/16 :goto_e1
 
-    :cond_169
+    :cond_167
     move v0, v3
 
-    goto/16 :goto_7f
+    goto/16 :goto_7d
 
     .line 348
-    :pswitch_data_16c
+    :pswitch_data_16a
     .packed-switch 0x1
         :pswitch_e
-        :pswitch_31
-        :pswitch_49
-        :pswitch_ad
-        :pswitch_111
-        :pswitch_11f
+        :pswitch_2f
+        :pswitch_47
+        :pswitch_ab
+        :pswitch_10f
+        :pswitch_11d
     .end packed-switch
 .end method
 

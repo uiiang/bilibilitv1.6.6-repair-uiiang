@@ -28,7 +28,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.search.BiliSearchResultUper;
-import com.bilibili.tv.ui.auth.AuthSpaceActivity;
 import com.bilibili.tv.ui.auth.AuthSpaceSideActivity;
 import com.bilibili.tv.ui.bangumi.BangumiDetailActivity;
 import com.bilibili.tv.ui.base.LoadingImageView;

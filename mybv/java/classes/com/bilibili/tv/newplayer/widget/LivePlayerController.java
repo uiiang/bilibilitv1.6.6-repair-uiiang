@@ -31,7 +31,7 @@ import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.newplayer.bean.PlayControllerOptionType;
 import com.bilibili.tv.newplayer.video.LiveVideoPlayer;
-import com.bilibili.tv.ui.auth.AuthSpaceActivity;
+import com.bilibili.tv.ui.auth.AuthSpaceSideActivity;
 import com.bilibili.tv.widget.FixLinearLayoutManager;
 import com.bilibili.tv.widget.ScalableImageView;
 
@@ -349,7 +349,7 @@ public class LivePlayerController extends FrameLayout implements View.OnClickLis
                 case AVATAR:
                     LivePlayerController.this.a(false);
                     if (LivePlayerController.this.m != null) {
-                        AuthSpaceActivity.Companion.a(activity, LivePlayerController.this.m.mUname, LivePlayerController.this.m.mUid);
+                        AuthSpaceSideActivity.start(activity, LivePlayerController.this.m.mUid, LivePlayerController.this.m.mUname);
                         return;
                     }
                     return;

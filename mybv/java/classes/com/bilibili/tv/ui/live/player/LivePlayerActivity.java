@@ -78,6 +78,8 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
             return;
         }
         this.g = (LiveVideoPlayer) d(R.id.video_view);
+        this.g.setLoadingCover(this.a.mCover);
+        this.g.setTitle(this.c);
         this.g.a(this.b, this.c, Integer.valueOf(this.d));
         this.g.m();
         this.g.setOnClickListener(this);

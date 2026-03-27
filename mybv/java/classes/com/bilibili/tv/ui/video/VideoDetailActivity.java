@@ -60,7 +60,6 @@ import com.bilibili.tv.api.video.VideoApiParser2;
 import com.bilibili.tv.api.video.VideoApiService;
 import com.bilibili.tv.api.history.BiliPlayerHistoryService;
 import com.bilibili.tv.ui.account.LoginActivity;
-import com.bilibili.tv.ui.auth.AuthSpaceActivity;
 import com.bilibili.tv.ui.auth.AuthSpaceSideActivity;
 import com.bilibili.tv.ui.bangumi.BangumiDetailActivity;
 import com.bilibili.tv.ui.base.BaseActivity;

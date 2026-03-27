@@ -12,6 +12,7 @@ import bl.aeu;
 import bl.att;
 import bl.lr;
 import bl.mg;
+import bl.nv;
 import bl.wm;
 import bl.wt;
 import bl.ww;
@@ -19,6 +20,7 @@ import bl.wy;
 import com.bilibili.lib.account.model.AccountInfo;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.player.danmaku.DanmakuParams;
+import com.bilibili.tv.widget.ScalableImageView;
 import java.io.File;
 import tv.danmaku.ijk.media.player.AbstractMediaPlayer;
 import tv.danmaku.ijk.media.player.AndroidMediaPlayer;
@@ -45,6 +47,7 @@ public class LiveVideoPlayer extends wy {
     private aeu aj;
     private aei ak;
     private Runnable al;
+    private ScalableImageView loadingCover;
 
     public DanmakuClient danmakuClient;
 
@@ -109,7 +112,7 @@ public class LiveVideoPlayer extends wy {
         super.a(context);
         this.B = (TextView) findViewById(com.bilibili.tv.R.id.tv_loading);
         this.C = (ViewGroup) findViewById(com.bilibili.tv.R.id.preparing);
-        ((TextView) this.C.findViewById(com.bilibili.tv.R.id.tv_tips)).setText(com.bilibili.tv.R.string.player_loading_live_tips);
+        this.loadingCover = (ScalableImageView) this.C.findViewById(com.bilibili.tv.R.id.iv_loading_cover);
         this.D = (ViewGroup) findViewById(com.bilibili.tv.R.id.buffering_group);
         this.ai = (ViewGroup) findViewById(com.bilibili.tv.R.id.danmaku_view);
         this.ah = getResources().getDisplayMetrics().widthPixels;
@@ -126,6 +129,12 @@ public class LiveVideoPlayer extends wy {
     @Override // bl.wy
     public void setTitle(String str) {
         this.B.setText(str);
+    }
+
+    public void setLoadingCover(String coverUrl) {
+        if (this.loadingCover != null && coverUrl != null && !coverUrl.isEmpty()) {
+            nv.a().a(coverUrl, this.loadingCover);
+        }
     }
 
     @Override // bl.wy, bl.ws
