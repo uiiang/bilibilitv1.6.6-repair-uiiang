@@ -363,7 +363,7 @@
 .end method
 
 .method public final i()V
-    .locals 8
+    .locals 7
 
     .prologue
     .line 184
@@ -374,37 +374,38 @@
     .line 186
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
-    move-result-object v0
+    move-result-object v4
 
     .line 187
-    const-string v1, "BiliAccount.get(this)"
+    const-string v0, "BiliAccount.get(this)"
 
-    invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
+    invoke-static {v4, v0}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
+
+    .line 188
+    invoke-static {v4}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
+
+    move-result-object v6
 
     .line 189
-    const-class v1, Lmybl/MyBiliApiService;
+    const-class v0, Lmybl/MyBiliApiService;
 
-    invoke-static {v1}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
+    invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
 
-    move-result-object v1
+    move-result-object v0
 
-    check-cast v1, Lmybl/MyBiliApiService;
+    check-cast v0, Lmybl/MyBiliApiService;
 
-    invoke-virtual {v0}, Lbl/mg;->e()Ljava/lang/String;
+    const/4 v1, 0x2
 
-    move-result-object v2
+    iget v2, p0, Lcom/bilibili/tv/ui/bangumi/follow/FollowPgcActivity;->e:I
 
-    const/4 v3, 0x2
+    const/16 v3, 0x1e
 
-    iget v4, p0, Lcom/bilibili/tv/ui/bangumi/follow/FollowPgcActivity;->e:I
+    invoke-virtual {v4}, Lbl/mg;->d()J
 
-    const/16 v5, 0x1e
+    move-result-wide v4
 
-    invoke-virtual {v0}, Lbl/mg;->d()J
-
-    move-result-wide v6
-
-    invoke-interface/range {v1 .. v7}, Lmybl/MyBiliApiService;->getFollowBangumi(Ljava/lang/String;IIIJ)Lbl/vp;
+    invoke-interface/range {v0 .. v6}, Lmybl/MyBiliApiService;->getFollowBangumi(IIIJLjava/lang/String;)Lbl/vp;
 
     move-result-object v0
 

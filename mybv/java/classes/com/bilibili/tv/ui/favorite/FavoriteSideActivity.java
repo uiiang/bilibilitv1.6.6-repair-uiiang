@@ -211,9 +211,9 @@ public class FavoriteSideActivity extends BaseSideActivity {
         mg account = mg.a(this);
         if (account != null) {
             String referer = "https://space.bilibili.com/" + account.d() + "/favlist?ftype=create&ctype=21";
-            String accessKey = account.e();
+            String cookie = mybl.CookieUtil.getFullCookieWithDevice(account);
             ((MyBiliApiService) vo.a(MyBiliApiService.class))
-                    .getCreatedFolderList(account.d(), 0L, 2, "333.1387", accessKey, referer)
+                    .getCreatedFolderList(account.d(), 0L, 2, "333.1387", referer, cookie)
                     .a(new vm<JSONObject>() {
                         @Override
                         public void onSuccess(JSONObject result) {
@@ -268,8 +268,9 @@ public class FavoriteSideActivity extends BaseSideActivity {
                     checkAllLoaded();
                     return;
                 }
+                String cookie = mybl.CookieUtil.getFullCookieWithDevice(account);
                 ((MyBiliApiService) vo.a(MyBiliApiService.class))
-                        .getCollectedFolders(1, 50, Long.valueOf(account.d()), "SESSDATA=" + sessdata)
+                        .getCollectedFolders(1, 50, Long.valueOf(account.d()), cookie)
                         .a(new vn<JSONObject>() {
                             @Override
                             public void a(JSONObject result) {
@@ -315,8 +316,9 @@ public class FavoriteSideActivity extends BaseSideActivity {
                     checkAllLoaded();
                     return;
                 }
+                String cookie = mybl.CookieUtil.getFullCookieWithDevice(account);
                 ((MyBiliApiService) vo.a(MyBiliApiService.class))
-                        .getFavoritePugv(1, 50, Long.valueOf(account.d()), "SESSDATA=" + sessdata)
+                        .getFavoritePugv(1, 50, Long.valueOf(account.d()), cookie)
                         .a(new vn<JSONObject>() {
                             @Override
                             public void a(JSONObject result) {

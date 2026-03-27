@@ -189,8 +189,8 @@ public final class FollowBangumiActivity extends BaseReloadActivity implements w
         FollowBangumiActivity followBangumiActivity = this;
         mg a2 = mg.a(this);
         bbi.a((Object) a2, "BiliAccount.get(this)");
-        //((BangumiApiService) vo.a(BangumiApiService.class)).a(this.e, h*5, a2.d(), a2.e()).a(this.b);
-        ((MyBiliApiService) vo.a(MyBiliApiService.class)).getFollowBangumi(a2.e(),1,this.e,h*5,a2.d()).a(new FollowBangumiResponse());
+        String cookie = mybl.CookieUtil.getFullCookieWithDevice(a2);
+        ((MyBiliApiService) vo.a(MyBiliApiService.class)).getFollowBangumi(1,this.e,h*5,a2.d(),cookie).a(new FollowBangumiResponse());
     }
 
     /* JADX INFO: Access modifiers changed from: protected */

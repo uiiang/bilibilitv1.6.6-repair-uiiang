@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import bl.vo;
 import bl.adl;
 import bl.adw;
 import bl.mg;
+import mybl.LogUtil;
 import mybl.MyBiliApiService;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONArray;
@@ -256,10 +258,16 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
       updateMenu();
       return;
     }
-    ((MyBiliApiService) vo.a(MyBiliApiService.class)).getSeasonsSeriesList(biliAccount.e(), targetMid, 20, pageNum, "333.1387")
+    String cookie = mybl.CookieUtil.getFullCookieWithDevice(biliAccount);
+    String url = "https://api.bilibili.com/x/polymer/web-space/seasons_series_list?" +
+        "mid=" + targetMid + "&page_size=20&page_num=" + pageNum + "&web_location=333.1387";
+    LogUtil.i("AuthSpaceSide", "loadMenuPage URL: " + url);
+    
+    ((MyBiliApiService) vo.a(MyBiliApiService.class)).getSeasonsSeriesList(targetMid, 20, pageNum, "333.1387", cookie)
         .a(new vn<JSONObject>() {
           @Override
           public void a(JSONObject resp) {
+            LogUtil.i("AuthSpaceSide", "loadMenuPage response: " + (resp != null ? resp.toString() : "null"));
             if (AuthSpaceSideActivity.this.c == null) {
               return;
             }
@@ -304,6 +312,7 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
               AuthSpaceSideActivity.this.g = (respPageNum * pageSize) < total;
               AuthSpaceSideActivity.this.updateMenu();
             } catch (Exception ex) {
+              Log.i("AuthSpaceSide", "loadMenuPage parse error: " + ex.getMessage());
               AuthSpaceSideActivity.this.g = false;
               AuthSpaceSideActivity.this.updateMenu();
             }
@@ -316,6 +325,7 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
 
           @Override
           public void onError(Throwable t) {
+            Log.i("AuthSpaceSide", "loadMenuPage error: " + t.getMessage());
             adl.a.a(t, AuthSpaceSideActivity.this);
             if (AuthSpaceSideActivity.this.c == null) {
               return;

@@ -51,7 +51,7 @@
     .locals 2
 
     .prologue
-    .line 49
+    .line 50
     new-instance v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$b;
 
     const/4 v1, 0x0
@@ -60,7 +60,7 @@
 
     sput-object v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->Companion:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$b;
 
-    .line 57
+    .line 58
     const/4 v0, 0x0
 
     sput v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->fresh_idx:I
@@ -74,18 +74,18 @@
     .prologue
     const/4 v1, 0x1
 
-    .line 48
+    .line 49
     invoke-direct {p0}, Lbl/adu;-><init>()V
 
-    .line 53
+    .line 54
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->isLoadingMore:Z
 
-    .line 54
+    .line 55
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->hasMoreData:Z
 
-    .line 58
+    .line 59
     iput v1, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->popularPage:I
 
     return-void
@@ -95,7 +95,7 @@
     .locals 1
 
     .prologue
-    .line 48
+    .line 49
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->isLoadingMore:Z
 
     return v0
@@ -105,7 +105,7 @@
     .locals 0
 
     .prologue
-    .line 48
+    .line 49
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->isLoadingMore:Z
 
     return p1
@@ -115,7 +115,7 @@
     .locals 1
 
     .prologue
-    .line 48
+    .line 49
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->hasMoreData:Z
 
     return v0
@@ -125,7 +125,7 @@
     .locals 0
 
     .prologue
-    .line 48
+    .line 49
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->hasMoreData:Z
 
     return p1
@@ -135,7 +135,7 @@
     .locals 1
 
     .prologue
-    .line 48
+    .line 49
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->a:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;
 
     return-object v0
@@ -145,7 +145,7 @@
     .locals 1
 
     .prologue
-    .line 48
+    .line 49
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->b:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     return-object v0
@@ -155,7 +155,7 @@
     .locals 0
 
     .prologue
-    .line 48
+    .line 49
     iput p1, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->c:I
 
     return p1
@@ -165,7 +165,7 @@
     .locals 1
 
     .prologue
-    .line 48
+    .line 49
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->d()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
@@ -179,7 +179,7 @@
     .locals 1
 
     .prologue
-    .line 62
+    .line 63
     const-string v0, "ott-platform.home.0.0.pv"
 
     return-object v0
@@ -191,39 +191,39 @@
     .prologue
     const/4 v5, 0x0
 
-    .line 93
+    .line 94
     const-string v0, "recyclerView"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 94
+    .line 95
     invoke-super {p0, p1, p2}, Lbl/adu;->a(Landroid/support/v7/widget/RecyclerView;Landroid/os/Bundle;)V
 
-    .line 95
+    .line 96
     const-string v0, "tv_home_recommend_pageview"
 
     new-array v1, v5, [Ljava/lang/String;
 
     invoke-static {v0, v1}, Lbl/ok;->a(Ljava/lang/String;[Ljava/lang/String;)V
 
-    .line 96
+    .line 97
     const v0, 0x7f06006e
 
     invoke-static {v0}, Lbl/adl;->b(I)I
 
     move-result v7
 
-    .line 97
+    .line 98
     const v0, 0x7f06022b
 
     invoke-static {v0}, Lbl/adl;->b(I)I
 
     move-result v0
 
-    .line 98
+    .line 99
     invoke-virtual {p1, v0, v7, v0, v7}, Landroid/support/v7/widget/RecyclerView;->setPadding(IIII)V
 
-    .line 99
+    .line 100
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
@@ -232,7 +232,7 @@
 
     move-result v3
 
-    .line 100
+    .line 101
     new-instance v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$1;
 
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -249,28 +249,28 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->b:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
-    .line 128
+    .line 129
     new-instance v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;-><init>(Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->a:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;
 
-    .line 129
+    .line 130
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->b:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->setLayoutManager(Landroid/support/v7/widget/RecyclerView$h;)V
 
-    .line 130
+    .line 131
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->b:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
-    .line 131
+    .line 132
     if-nez v0, :cond_4a
 
-    .line 132
+    .line 133
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 134
+    .line 135
     :cond_4a
     new-instance v1, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$f;
 
@@ -278,32 +278,32 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->a(Landroid/support/v7/widget/GridLayoutManager$c;)V
 
-    .line 135
+    .line 136
     new-instance v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$ItemDecoration;
 
     invoke-direct {v0, v7, v3}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$ItemDecoration;-><init>(II)V
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$g;)V
 
-    .line 136
+    .line 137
     invoke-virtual {p1, v5}, Landroid/support/v7/widget/RecyclerView;->setFocusable(Z)V
 
-    .line 137
+    .line 138
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->a:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->setAdapter(Landroid/support/v7/widget/RecyclerView$a;)V
 
-    .line 138
+    .line 139
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->getRecommendVideos()V
 
-    .line 140
+    .line 141
     new-instance v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$g;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$g;-><init>(Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;)V
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$m;)V
 
-    .line 141
+    .line 142
     return-void
 .end method
 
@@ -311,7 +311,7 @@
     .locals 1
 
     .prologue
-    .line 67
+    .line 68
     invoke-static {p0}, Lbl/wg;->a(Lbl/wf;)Z
 
     move-result v0
@@ -323,7 +323,7 @@
     .locals 1
 
     .prologue
-    .line 72
+    .line 73
     const/4 v0, 0x0
 
     return-object v0
@@ -335,21 +335,21 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 261
+    .line 264
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->a:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;
 
     if-eqz v1, :cond_12
 
-    .line 262
+    .line 265
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->a:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;
 
-    .line 263
+    .line 266
     if-nez v1, :cond_c
 
-    .line 264
+    .line 267
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 266
+    .line 269
     :cond_c
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;->a()I
 
@@ -357,23 +357,23 @@
 
     if-nez v1, :cond_13
 
-    .line 281
+    .line 284
     :cond_12
     :goto_12
     return-object v0
 
-    .line 269
+    .line 272
     :cond_13
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->b:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     if-nez v1, :cond_1b
 
-    .line 270
+    .line 273
     invoke-static {}, Lbl/bbi;->a()V
 
     goto :goto_12
 
-    .line 274
+    .line 277
     :cond_1b
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->b:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
@@ -383,7 +383,7 @@
 
     move-result-object v0
 
-    .line 275
+    .line 278
     if-eqz v0, :cond_12
 
     invoke-virtual {v0}, Landroid/view/View;->isFocusable()Z
@@ -392,12 +392,12 @@
 
     if-nez v1, :cond_12
 
-    .line 276
+    .line 279
     const/4 v0, 0x1
 
     iput v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->c:I
 
-    .line 277
+    .line 280
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->b:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     iget v1, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->c:I
@@ -415,7 +415,7 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 168
+    .line 169
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v0
@@ -424,16 +424,17 @@
 
     move-result-object v0
 
-    invoke-virtual {v0}, Lbl/mg;->e()Ljava/lang/String;
+    .line 170
+    invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v3
 
-    .line 169
+    .line 171
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->hasMoreData:Z
 
-    .line 170
+    .line 172
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -460,7 +461,7 @@
     sput v5, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->fresh_idx:I
 
     :goto_28
-    invoke-interface {v0, v4, v3, v1}, Lmybl/MyBiliApiService;->recommendVideos(ILjava/lang/String;I)Lbl/vp;
+    invoke-interface {v0, v4, v1, v3}, Lmybl/MyBiliApiService;->recommendVideos(IILjava/lang/String;)Lbl/vp;
 
     move-result-object v0
 
@@ -470,13 +471,13 @@
 
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 171
+    .line 173
     return-void
 
     :cond_35
     move v1, v2
 
-    .line 170
+    .line 172
     goto :goto_28
 .end method
 
@@ -484,7 +485,7 @@
     .locals 1
 
     .prologue
-    .line 256
+    .line 259
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->isLoadingMore:Z
 
     return v0
@@ -496,7 +497,7 @@
     .prologue
     const/4 v5, 0x1
 
-    .line 174
+    .line 176
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->isLoadingMore:Z
 
     if-nez v0, :cond_9
@@ -505,16 +506,16 @@
 
     if-nez v0, :cond_a
 
-    .line 180
+    .line 183
     :cond_9
     :goto_9
     return-void
 
-    .line 177
+    .line 179
     :cond_a
     iput-boolean v5, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->isLoadingMore:Z
 
-    .line 178
+    .line 180
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v0
@@ -523,11 +524,12 @@
 
     move-result-object v0
 
-    invoke-virtual {v0}, Lbl/mg;->e()Ljava/lang/String;
+    .line 181
+    invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v2
 
-    .line 179
+    .line 182
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -554,7 +556,7 @@
     sput v4, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->fresh_idx:I
 
     :goto_30
-    invoke-interface {v0, v3, v2, v1}, Lmybl/MyBiliApiService;->recommendVideos(ILjava/lang/String;I)Lbl/vp;
+    invoke-interface {v0, v3, v1, v2}, Lmybl/MyBiliApiService;->recommendVideos(IILjava/lang/String;)Lbl/vp;
 
     move-result-object v0
 
@@ -576,15 +578,15 @@
     .locals 1
 
     .prologue
-    .line 225
+    .line 228
     invoke-super {p0}, Lbl/adu;->onDestroyView()V
 
-    .line 226
+    .line 229
     const/4 v0, 0x0
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->a:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$c;
 
-    .line 227
+    .line 230
     return-void
 .end method
 
@@ -592,10 +594,10 @@
     .locals 2
 
     .prologue
-    .line 859
+    .line 862
     invoke-super {p0, p1}, Lbl/adu;->onHiddenChanged(Z)V
 
-    .line 860
+    .line 863
     invoke-static {}, Lbl/wh;->a()Lbl/wh;
 
     move-result-object v1
@@ -607,10 +609,10 @@
     :goto_a
     invoke-virtual {v1, p0, v0}, Lbl/wh;->a(Landroid/support/v4/app/Fragment;Z)V
 
-    .line 861
+    .line 864
     return-void
 
-    .line 860
+    .line 863
     :cond_e
     const/4 v0, 0x0
 
@@ -621,10 +623,10 @@
     .locals 3
 
     .prologue
-    .line 231
+    .line 234
     invoke-super {p0, p1}, Lbl/adu;->setUserVisibleHint(Z)V
 
-    .line 232
+    .line 235
     if-eqz p1, :cond_b
 
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -633,21 +635,21 @@
 
     if-nez v0, :cond_c
 
-    .line 253
+    .line 256
     :cond_b
     :goto_b
     return-void
 
-    .line 235
+    .line 238
     :cond_c
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 236
+    .line 239
     if-nez v0, :cond_1a
 
-    .line 237
+    .line 240
     new-instance v0, Lkotlin/TypeCastException;
 
     const-string v1, "null cannot be cast to non-null type com.bilibili.tv.ui.main.MainActivity"
@@ -656,36 +658,36 @@
 
     throw v0
 
-    .line 239
+    .line 242
     :cond_1a
     check-cast v0, Lcom/bilibili/tv/ui/main/MainActivity;
 
-    .line 240
+    .line 243
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->d()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v1
 
-    .line 241
+    .line 244
     if-eqz v1, :cond_27
 
-    .line 242
+    .line 245
     iget v2, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->c:I
 
     invoke-virtual {v1, v2}, Landroid/support/v7/widget/RecyclerView;->a(I)V
 
-    .line 244
+    .line 247
     :cond_27
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->d()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v1
 
-    .line 245
+    .line 248
     if-nez v1, :cond_30
 
-    .line 246
+    .line 249
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 248
+    .line 251
     :cond_30
     invoke-virtual {v1}, Landroid/support/v7/widget/RecyclerView;->getLayoutManager()Landroid/support/v7/widget/RecyclerView$h;
 
@@ -697,7 +699,7 @@
 
     move-result-object v1
 
-    .line 249
+    .line 252
     if-eqz v1, :cond_b
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/MainActivity;->h()Z
@@ -706,7 +708,7 @@
 
     if-eqz v0, :cond_b
 
-    .line 252
+    .line 255
     invoke-virtual {v1}, Landroid/view/View;->requestFocus()Z
 
     goto :goto_b

@@ -173,10 +173,12 @@ public final class AttentionDynamicFragment extends ady {
                     public void onClick(View view) {
                         mg account = mg.a(getActivity());
                         if (account == null) return;
+                        String cookie = mybl.CookieUtil.getFullCookieWithDevice(account);
+                        String csrf = mybl.CookieUtil.getBiliJct(account);
                         ((MyBiliApiService) vo.a(MyBiliApiService.class)).modifyRelation(
-                            account.e(), mid,
+                            mid,
                             AttentionDynamicFragment.this.attentionButton.getText().equals("已关注") ? 2 : 1,
-                            11
+                            11, csrf, cookie
                         ).a(new vn<JSONObject>() {
                             @Override
                             public void a(JSONObject response) {
@@ -200,7 +202,8 @@ public final class AttentionDynamicFragment extends ady {
                 });
                 mg account = mg.a(getActivity());
                 if (account != null) {
-                    ((MyBiliApiService) vo.a(MyBiliApiService.class)).getRelation(account.e(), mid)
+                    String cookie = mybl.CookieUtil.getFullCookieWithDevice(account);
+                    ((MyBiliApiService) vo.a(MyBiliApiService.class)).getRelation(mid, cookie)
                         .a(new vn<JSONObject>() {
                             @Override
                             public void a(JSONObject response) {
@@ -418,7 +421,8 @@ public final class AttentionDynamicFragment extends ady {
             MyBiliApiService api = (MyBiliApiService) vo.a(MyBiliApiService.class);
             mg account = mg.a(activity);
             if (account != null) {
-                api.getFeedVideos(account.e(), offset).a(new vn<JSONObject>() {
+                String cookie = mybl.CookieUtil.getFullCookieWithDevice(account);
+                api.getFeedVideos(offset, cookie).a(new vn<JSONObject>() {
                     @Override
                     public void a(JSONObject response) {
                         if (c == null) {

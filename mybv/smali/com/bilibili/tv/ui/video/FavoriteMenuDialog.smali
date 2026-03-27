@@ -160,9 +160,9 @@
     move-result-wide v2
 
     .line 137
-    invoke-virtual {v0}, Lbl/mg;->e()Ljava/lang/String;
+    invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
-    move-result-object v8
+    move-result-object v9
 
     .line 139
     const-wide/16 v0, 0x0
@@ -211,7 +211,7 @@
 
     invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v9
+    move-result-object v8
 
     .line 146
     iget-wide v4, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->avid:J

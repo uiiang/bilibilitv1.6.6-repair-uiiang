@@ -357,7 +357,7 @@
     .end annotation
 
     .prologue
-    .line 198
+    .line 213
     :try_start_0
     iget-object v0, p0, Lbl/mg;->d:Lbl/ve;
 
@@ -377,13 +377,13 @@
 
     move-result-object v0
 
-    .line 199
+    .line 214
     if-nez v0, :cond_13
 
-    .line 200
+    .line 215
     const/4 v0, 0x0
 
-    .line 202
+    .line 217
     :goto_12
     return-object v0
 
@@ -394,11 +394,11 @@
 
     goto :goto_12
 
-    .line 203
+    .line 218
     :catch_16
     move-exception v0
 
-    .line 204
+    .line 219
     new-instance v1, Lcom/bilibili/lib/account/AccountException;
 
     iget v2, v0, Lcom/bilibili/lib/passport/BiliPassportException;->code:I
@@ -430,7 +430,7 @@
     .end annotation
 
     .prologue
-    .line 185
+    .line 200
     :try_start_0
     iget-object v0, p0, Lbl/mg;->d:Lbl/ve;
 
@@ -442,13 +442,13 @@
 
     move-result-object v0
 
-    .line 186
+    .line 201
     if-nez v0, :cond_f
 
-    .line 187
+    .line 202
     const/4 v0, 0x0
 
-    .line 189
+    .line 204
     :goto_e
     return-object v0
 
@@ -459,11 +459,11 @@
 
     goto :goto_e
 
-    .line 190
+    .line 205
     :catch_12
     move-exception v0
 
-    .line 191
+    .line 206
     new-instance v1, Lcom/bilibili/lib/account/AccountException;
 
     iget v2, v0, Lcom/bilibili/lib/passport/BiliPassportException;->code:I
@@ -477,12 +477,12 @@
     .locals 1
 
     .prologue
-    .line 168
+    .line 183
     iget-object v0, p0, Lbl/mg;->d:Lbl/ve;
 
     invoke-virtual {v0, p1, p2}, Lbl/ve;->a(Lbl/mn;[Lcom/bilibili/lib/account/subscribe/Topic;)V
 
-    .line 169
+    .line 184
     return-void
 .end method
 
@@ -542,7 +542,7 @@
     .end annotation
 
     .prologue
-    .line 177
+    .line 192
     :try_start_0
     iget-object v0, p0, Lbl/mg;->d:Lbl/ve;
 
@@ -554,11 +554,11 @@
 
     return-object v0
 
-    .line 178
+    .line 193
     :catch_7
     move-exception v0
 
-    .line 179
+    .line 194
     new-instance v1, Lcom/bilibili/lib/account/AccountException;
 
     iget v2, v0, Lcom/bilibili/lib/passport/BiliPassportException;->code:I
@@ -609,12 +609,12 @@
     .locals 1
 
     .prologue
-    .line 172
+    .line 187
     iget-object v0, p0, Lbl/mg;->d:Lbl/ve;
 
     invoke-virtual {v0, p1, p2}, Lbl/ve;->b(Lbl/mn;[Lcom/bilibili/lib/account/subscribe/Topic;)V
 
-    .line 173
+    .line 188
     return-void
 .end method
 
@@ -728,20 +728,20 @@
     .locals 2
 
     .prologue
-    .line 146
+    .line 161
     iget-object v0, p0, Lbl/mg;->d:Lbl/ve;
 
     invoke-virtual {v0}, Lbl/ve;->a()Lbl/vd;
 
     move-result-object v0
 
-    .line 147
+    .line 162
     if-nez v0, :cond_b
 
-    .line 148
+    .line 163
     const-wide/16 v0, 0x0
 
-    .line 150
+    .line 165
     :goto_a
     return-wide v0
 
@@ -755,14 +755,14 @@
     .locals 1
 
     .prologue
-    .line 154
+    .line 169
     iget-object v0, p0, Lbl/mg;->d:Lbl/ve;
 
     invoke-virtual {v0}, Lbl/ve;->a()Lbl/vd;
 
     move-result-object v0
 
-    .line 155
+    .line 170
     if-eqz v0, :cond_10
 
     invoke-virtual {v0}, Lbl/vd;->a()Z
@@ -780,6 +780,57 @@
     const/4 v0, 0x0
 
     goto :goto_f
+.end method
+
+.method public getRefreshToken()Ljava/lang/String;
+    .locals 1
+
+    .prologue
+    .line 147
+    :try_start_0
+    iget-object v0, p0, Lbl/mg;->d:Lbl/ve;
+
+    if-nez v0, :cond_7
+
+    .line 148
+    const-string v0, ""
+
+    .line 156
+    :goto_6
+    return-object v0
+
+    .line 150
+    :cond_7
+    iget-object v0, p0, Lbl/mg;->d:Lbl/ve;
+
+    invoke-virtual {v0}, Lbl/ve;->a()Lbl/vd;
+
+    move-result-object v0
+
+    .line 151
+    if-nez v0, :cond_12
+
+    .line 152
+    const-string v0, ""
+
+    goto :goto_6
+
+    .line 154
+    :cond_12
+    iget-object v0, v0, Lbl/vd;->d:Ljava/lang/String;
+    :try_end_14
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_14} :catch_15
+
+    goto :goto_6
+
+    .line 155
+    :catch_15
+    move-exception v0
+
+    .line 156
+    const-string v0, ""
+
+    goto :goto_6
 .end method
 
 .method public getSESSDATA()Ljava/lang/String;
@@ -896,7 +947,7 @@
     .end annotation
 
     .prologue
-    .line 160
+    .line 175
     iget-object v0, p0, Lbl/mg;->d:Lbl/ve;
 
     invoke-virtual {v0}, Lbl/ve;->b()Lbl/ml;
@@ -910,11 +961,11 @@
     .locals 1
 
     .prologue
-    .line 164
+    .line 179
     iget-object v0, p0, Lbl/mg;->d:Lbl/ve;
 
     invoke-virtual {v0}, Lbl/ve;->c()V
 
-    .line 165
+    .line 180
     return-void
 .end method

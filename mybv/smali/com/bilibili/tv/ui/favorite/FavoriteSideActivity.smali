@@ -313,21 +313,21 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 404
+    .line 406
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v3
 
-    .line 405
+    .line 407
     if-nez v3, :cond_9
 
     move-object v0, v1
 
-    .line 414
+    .line 416
     :goto_8
     return-object v0
 
-    .line 408
+    .line 410
     :cond_9
     const/4 v0, 0x0
 
@@ -338,12 +338,12 @@
 
     if-ge v0, v2, :cond_1f
 
-    .line 409
+    .line 411
     invoke-virtual {v3, v0}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
 
     move-result-object v2
 
-    .line 410
+    .line 412
     invoke-virtual {v2}, Landroid/view/View;->isSelected()Z
 
     move-result v4
@@ -352,10 +352,10 @@
 
     move-object v0, v2
 
-    .line 411
+    .line 413
     goto :goto_8
 
-    .line 408
+    .line 410
     :cond_1c
     add-int/lit8 v0, v0, 0x1
 
@@ -364,7 +364,7 @@
     :cond_1f
     move-object v0, v1
 
-    .line 414
+    .line 416
     goto :goto_8
 .end method
 
@@ -439,10 +439,10 @@
 .end method
 
 .method private loadCollectionFolders()V
-    .locals 9
+    .locals 8
 
     .prologue
-    const/4 v8, 0x1
+    const/4 v7, 0x1
 
     .line 262
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
@@ -450,16 +450,16 @@
     move-result-object v0
 
     .line 263
-    if-eqz v0, :cond_56
+    if-eqz v0, :cond_47
 
     .line 265
     :try_start_7
     invoke-virtual {v0}, Lbl/mg;->getSESSDATA()Ljava/lang/String;
 
-    move-result-object v6
+    move-result-object v1
 
     .line 266
-    invoke-static {v6}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+    invoke-static {v1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v1
 
@@ -473,12 +473,17 @@
     .line 268
     invoke-direct {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->checkAllLoaded()V
 
-    .line 306
+    .line 307
     :goto_17
     return-void
 
     .line 271
     :cond_18
+    invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
+
+    move-result-object v6
+
+    .line 272
     const-class v1, Lmybl/MyBiliApiService;
 
     invoke-static {v1}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -491,7 +496,7 @@
 
     const/16 v3, 0x32
 
-    .line 272
+    .line 273
     invoke-virtual {v0}, Lbl/mg;->d()J
 
     move-result-wide v4
@@ -503,24 +508,6 @@
     invoke-virtual {v0}, Ljava/lang/Long;->longValue()J
 
     move-result-wide v4
-
-    new-instance v0, Ljava/lang/StringBuilder;
-
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v7, "SESSDATA="
-
-    invoke-virtual {v0, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v6
 
     invoke-interface/range {v1 .. v6}, Lmybl/MyBiliApiService;->getCollectedFolders(IIJLjava/lang/String;)Lbl/vp;
 
@@ -530,76 +517,81 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$2;-><init>(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;)V
 
-    .line 273
+    .line 274
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
-    :try_end_4e
-    .catch Ljava/lang/Exception; {:try_start_7 .. :try_end_4e} :catch_4f
+    :try_end_3f
+    .catch Ljava/lang/Exception; {:try_start_7 .. :try_end_3f} :catch_40
 
     goto :goto_17
 
-    .line 298
-    :catch_4f
+    .line 299
+    :catch_40
     move-exception v0
 
-    .line 299
-    iput-boolean v8, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->collectionLoaded:Z
-
     .line 300
+    iput-boolean v7, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->collectionLoaded:Z
+
+    .line 301
     invoke-direct {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->checkAllLoaded()V
 
     goto :goto_17
 
-    .line 303
-    :cond_56
-    iput-boolean v8, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->collectionLoaded:Z
-
     .line 304
+    :cond_47
+    iput-boolean v7, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->collectionLoaded:Z
+
+    .line 305
     invoke-direct {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->checkAllLoaded()V
 
     goto :goto_17
 .end method
 
 .method private loadCourseFolders()V
-    .locals 9
+    .locals 8
 
     .prologue
-    const/4 v8, 0x1
+    const/4 v7, 0x1
 
-    .line 309
+    .line 310
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
 
-    .line 310
-    if-eqz v0, :cond_56
+    .line 311
+    if-eqz v0, :cond_47
 
-    .line 312
+    .line 313
     :try_start_7
     invoke-virtual {v0}, Lbl/mg;->getSESSDATA()Ljava/lang/String;
 
-    move-result-object v6
+    move-result-object v1
 
-    .line 313
-    invoke-static {v6}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+    .line 314
+    invoke-static {v1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v1
 
     if-eqz v1, :cond_18
 
-    .line 314
+    .line 315
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->courseLoaded:Z
 
-    .line 315
+    .line 316
     invoke-direct {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->checkAllLoaded()V
 
-    .line 353
+    .line 355
     :goto_17
     return-void
 
-    .line 318
+    .line 319
     :cond_18
+    invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
+
+    move-result-object v6
+
+    .line 320
     const-class v1, Lmybl/MyBiliApiService;
 
     invoke-static {v1}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -612,7 +604,7 @@
 
     const/16 v3, 0x32
 
-    .line 319
+    .line 321
     invoke-virtual {v0}, Lbl/mg;->d()J
 
     move-result-wide v4
@@ -625,24 +617,6 @@
 
     move-result-wide v4
 
-    new-instance v0, Ljava/lang/StringBuilder;
-
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v7, "SESSDATA="
-
-    invoke-virtual {v0, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v6
-
     invoke-interface/range {v1 .. v6}, Lmybl/MyBiliApiService;->getFavoritePugv(IIJLjava/lang/String;)Lbl/vp;
 
     move-result-object v0
@@ -651,30 +625,30 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$3;-><init>(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;)V
 
-    .line 320
+    .line 322
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
-    :try_end_4e
-    .catch Ljava/lang/Exception; {:try_start_7 .. :try_end_4e} :catch_4f
+    :try_end_3f
+    .catch Ljava/lang/Exception; {:try_start_7 .. :try_end_3f} :catch_40
 
     goto :goto_17
 
-    .line 345
-    :catch_4f
+    .line 347
+    :catch_40
     move-exception v0
 
-    .line 346
-    iput-boolean v8, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->courseLoaded:Z
+    .line 348
+    iput-boolean v7, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->courseLoaded:Z
 
-    .line 347
+    .line 349
     invoke-direct {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->checkAllLoaded()V
 
     goto :goto_17
 
-    .line 350
-    :cond_56
-    iput-boolean v8, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->courseLoaded:Z
+    .line 352
+    :cond_47
+    iput-boolean v7, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->courseLoaded:Z
 
-    .line 351
+    .line 353
     invoke-direct {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->checkAllLoaded()V
 
     goto :goto_17
@@ -719,12 +693,12 @@
 
     invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v9
+    move-result-object v8
 
     .line 214
-    invoke-virtual {v0}, Lbl/mg;->e()Ljava/lang/String;
+    invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
-    move-result-object v8
+    move-result-object v9
 
     .line 215
     const-class v1, Lmybl/MyBiliApiService;
@@ -785,38 +759,38 @@
 
     const/4 v5, 0x0
 
-    .line 434
+    .line 436
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v0
 
-    .line 435
+    .line 437
     instance-of v1, v0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     if-nez v1, :cond_d
 
-    .line 456
+    .line 458
     :cond_c
     :goto_c
     return-void
 
-    .line 439
+    .line 441
     :cond_d
     check-cast v0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
-    .line 440
+    .line 442
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->isVideoFavoriteMode()Z
 
     move-result v0
 
     if-eqz v0, :cond_c
 
-    .line 444
+    .line 446
     new-instance v0, Lbl/SortMenuDialog;
 
     invoke-direct {v0, p0}, Lbl/SortMenuDialog;-><init>(Landroid/app/Activity;)V
 
-    .line 445
+    .line 447
     const/4 v1, 0x0
 
     new-array v2, v4, [Ljava/lang/String;
@@ -847,22 +821,22 @@
 
     aput-object v4, v3, v7
 
-    .line 448
+    .line 450
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->getSortOrder()Ljava/lang/String;
 
     move-result-object v4
 
-    .line 445
+    .line 447
     invoke-virtual {v0, v1, v2, v3, v4}, Lbl/SortMenuDialog;->addGroup(Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 449
+    .line 451
     new-instance v1, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$4;
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$4;-><init>(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;)V
 
     invoke-virtual {v0, v1}, Lbl/SortMenuDialog;->setOnSortSelectedListener(Lbl/SortMenuDialog$OnSortSelectedListener;)V
 
-    .line 455
+    .line 457
     invoke-virtual {v0}, Lbl/SortMenuDialog;->show()V
 
     goto :goto_c
@@ -872,89 +846,89 @@
     .locals 8
 
     .prologue
-    .line 356
+    .line 358
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->selectedFolder:Lbl/FavoriteFolder;
 
     if-ne v0, p1, :cond_5
 
-    .line 382
+    .line 384
     :goto_4
     return-void
 
-    .line 360
+    .line 362
     :cond_5
     iput-object p1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->selectedFolder:Lbl/FavoriteFolder;
 
-    .line 363
+    .line 365
     instance-of v0, p1, Lbl/CollectionFavoriteFolder;
 
     if-eqz v0, :cond_35
 
     move-object v0, p1
 
-    .line 365
+    .line 367
     check-cast v0, Lbl/CollectionFavoriteFolder;
 
-    .line 367
+    .line 369
     invoke-interface {p1}, Lbl/FavoriteFolder;->getId()J
 
     move-result-wide v1
 
-    .line 368
+    .line 370
     invoke-interface {p1}, Lbl/FavoriteFolder;->getType()I
 
     move-result v3
 
-    .line 369
+    .line 371
     invoke-virtual {v0}, Lbl/CollectionFavoriteFolder;->getFid()J
 
     move-result-wide v4
 
-    .line 370
+    .line 372
     invoke-virtual {v0}, Lbl/CollectionFavoriteFolder;->getMid()J
 
     move-result-wide v6
 
-    .line 366
+    .line 368
     invoke-static/range {v1 .. v7}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->newInstance(JIJJ)Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     move-result-object v0
 
-    .line 378
+    .line 380
     :goto_22
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->getSupportFragmentManager()Landroid/support/v4/app/FragmentManager;
 
     move-result-object v1
 
-    .line 379
+    .line 381
     invoke-virtual {v1}, Landroid/support/v4/app/FragmentManager;->beginTransaction()Landroid/support/v4/app/FragmentTransaction;
 
     move-result-object v1
 
     const v2, 0x7f080091
 
-    .line 380
+    .line 382
     invoke-virtual {v1, v2, v0}, Landroid/support/v4/app/FragmentTransaction;->replace(ILandroid/support/v4/app/Fragment;)Landroid/support/v4/app/FragmentTransaction;
 
     move-result-object v0
 
-    .line 381
+    .line 383
     invoke-virtual {v0}, Landroid/support/v4/app/FragmentTransaction;->commit()I
 
     goto :goto_4
 
-    .line 374
+    .line 376
     :cond_35
     invoke-interface {p1}, Lbl/FavoriteFolder;->getId()J
 
     move-result-wide v0
 
-    .line 375
+    .line 377
     invoke-interface {p1}, Lbl/FavoriteFolder;->getType()I
 
     move-result v2
 
-    .line 373
+    .line 375
     invoke-static {v0, v1, v2}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->newInstance(JI)Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     move-result-object v0
@@ -1305,24 +1279,24 @@
     .locals 2
 
     .prologue
-    .line 418
+    .line 420
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v0
 
-    .line 419
+    .line 421
     instance-of v1, v0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     if-eqz v1, :cond_f
 
-    .line 420
+    .line 422
     check-cast v0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->getSortOrder()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 422
+    .line 424
     :goto_e
     return-object v0
 
@@ -1368,24 +1342,24 @@
     .locals 2
 
     .prologue
-    .line 426
+    .line 428
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v0
 
-    .line 427
+    .line 429
     instance-of v1, v0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     if-eqz v1, :cond_f
 
-    .line 428
+    .line 430
     check-cast v0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->isVideoFavoriteMode()Z
 
     move-result v0
 
-    .line 430
+    .line 432
     :goto_e
     return v0
 
@@ -1477,7 +1451,7 @@
     .locals 2
 
     .prologue
-    .line 385
+    .line 387
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->getSortOrder()Ljava/lang/String;
 
     move-result-object v0
@@ -1488,37 +1462,37 @@
 
     if-eqz v0, :cond_b
 
-    .line 401
+    .line 403
     :cond_a
     :goto_a
     return-void
 
-    .line 389
+    .line 391
     :cond_b
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v0
 
-    .line 390
+    .line 392
     instance-of v1, v0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
     if-eqz v1, :cond_a
 
-    .line 391
+    .line 393
     check-cast v0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;
 
-    .line 393
+    .line 395
     invoke-direct {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->getSelectedView()Landroid/view/View;
 
     move-result-object v1
 
-    .line 395
+    .line 397
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->setSortOrder(Ljava/lang/String;)V
 
-    .line 397
+    .line 399
     if-eqz v1, :cond_a
 
-    .line 398
+    .line 400
     invoke-virtual {v1}, Landroid/view/View;->requestFocus()Z
 
     goto :goto_a

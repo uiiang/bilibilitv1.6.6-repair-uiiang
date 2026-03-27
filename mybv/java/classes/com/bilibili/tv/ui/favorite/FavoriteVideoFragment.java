@@ -305,7 +305,8 @@ public final class FavoriteVideoFragment extends ady {
             if (api != null && account != null) {
                 String referer = "https://space.bilibili.com/" + account.d() + "/favlist?fid=" + folderId
                         + "&ftype=create";
-                api.getFavoriteResourceList(folderId, f, 40, "", sortOrder, 0, 0, "web", "333.1387", account.e(), referer)
+                String cookie = mybl.CookieUtil.getFullCookieWithDevice(account);
+                api.getFavoriteResourceList(folderId, f, 40, "", sortOrder, 0, 0, "web", "333.1387", referer, cookie)
                         .a(new vn<JSONObject>() {
                             @Override
                             public void a(JSONObject data) {

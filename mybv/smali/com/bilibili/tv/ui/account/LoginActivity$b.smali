@@ -152,6 +152,8 @@
 
     .line 533
     invoke-virtual {v0, v1}, Lbl/mg;->a(Ljava/lang/String;)Lcom/bilibili/lib/account/model/AccountInfo;
+
+    invoke-static {}, Lmybl/LoginCookieHelper;->fetchCookiesAfterLogin()V
     :try_end_0
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
 

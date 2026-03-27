@@ -199,7 +199,7 @@
 
     const-wide/16 v6, 0x0
 
-    .line 366
+    .line 367
     iget-wide v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->fid:J
 
     cmp-long v0, v0, v6
@@ -212,7 +212,7 @@
 
     if-eqz v0, :cond_3c
 
-    .line 367
+    .line 368
     const-class v0, Lcom/bilibili/tv/api/favorite/BiliFavoriteVideoApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -221,7 +221,7 @@
 
     check-cast v0, Lcom/bilibili/tv/api/favorite/BiliFavoriteVideoApiService;
 
-    .line 368
+    .line 369
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v1
@@ -254,14 +254,14 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$2;-><init>(Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;)V
 
-    .line 370
+    .line 371
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 484
+    .line 485
     :goto_3b
     return-void
 
-    .line 415
+    .line 416
     :cond_3c
     const-class v0, Lmybl/MyBiliApiService;
 
@@ -277,7 +277,7 @@
 
     const/16 v4, 0x14
 
-    .line 416
+    .line 417
     invoke-interface {v0, v2, v3, v1, v4}, Lmybl/MyBiliApiService;->getFavoriteUserSeason(JII)Lbl/vp;
 
     move-result-object v0
@@ -286,7 +286,7 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$3;-><init>(Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;)V
 
-    .line 417
+    .line 418
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
     goto :goto_3b
@@ -296,7 +296,7 @@
     .locals 4
 
     .prologue
-    .line 487
+    .line 488
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -307,7 +307,7 @@
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->folderId:J
 
-    .line 488
+    .line 489
     invoke-interface {v0, v2, v3}, Lmybl/MyBiliApiService;->getPugvSeason(J)Lbl/vp;
 
     move-result-object v0
@@ -316,10 +316,10 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$4;-><init>(Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;)V
 
-    .line 489
+    .line 490
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 535
+    .line 536
     return-void
 .end method
 
@@ -395,9 +395,14 @@
 
     invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v13
+    move-result-object v12
 
     .line 308
+    invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
+
+    move-result-object v13
+
+    .line 309
     iget-wide v2, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->folderId:J
 
     iget v4, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->f:I
@@ -412,10 +417,6 @@
 
     const-string v11, "333.1387"
 
-    invoke-virtual {v0}, Lbl/mg;->e()Ljava/lang/String;
-
-    move-result-object v12
-
     move v9, v8
 
     invoke-interface/range {v1 .. v13}, Lmybl/MyBiliApiService;->getFavoriteResourceList(JIILjava/lang/String;Ljava/lang/String;IILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lbl/vp;
@@ -426,10 +427,10 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$1;-><init>(Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;)V
 
-    .line 309
+    .line 310
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 363
+    .line 364
     :cond_5f
     return-void
 .end method
@@ -756,7 +757,7 @@
     .locals 1
 
     .prologue
-    .line 538
+    .line 539
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment;->h:Z
 
     return v0

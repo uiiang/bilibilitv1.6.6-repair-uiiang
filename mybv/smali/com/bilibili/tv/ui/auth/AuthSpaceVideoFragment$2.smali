@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 166
+    .line 170
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -37,10 +37,10 @@
 
 # virtual methods
 .method public onClick(Landroid/view/View;)V
-    .locals 6
+    .locals 8
 
     .prologue
-    .line 169
+    .line 173
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -49,61 +49,67 @@
 
     invoke-static {v0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
-    move-result-object v1
+    move-result-object v0
 
-    .line 170
-    if-nez v1, :cond_d
+    .line 174
+    if-nez v0, :cond_d
 
-    .line 194
+    .line 200
     :goto_c
     return-void
 
-    .line 171
+    .line 175
     :cond_d
+    invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
+
+    move-result-object v7
+
+    .line 176
+    invoke-static {v0}, Lmybl/CookieUtil;->getBiliJct(Lbl/mg;)Ljava/lang/String;
+
+    move-result-object v6
+
+    .line 177
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
 
-    move-result-object v0
-
-    check-cast v0, Lmybl/MyBiliApiService;
-
-    .line 172
-    invoke-virtual {v1}, Lbl/mg;->e()Ljava/lang/String;
-
     move-result-object v1
 
-    iget-object v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
+    check-cast v1, Lmybl/MyBiliApiService;
 
+    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
+
+    .line 178
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mid:J
-    invoke-static {v2}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$000(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)J
+    invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$000(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)J
 
     move-result-wide v2
 
-    iget-object v4, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
+    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
-    iget-object v4, v4, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
+    iget-object v0, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
-    .line 173
-    invoke-virtual {v4}, Lcom/bilibili/tv/widget/DrawTextView;->getText()Ljava/lang/CharSequence;
+    .line 179
+    invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawTextView;->getText()Ljava/lang/CharSequence;
 
-    move-result-object v4
+    move-result-object v0
 
-    const-string v5, "\u5df2\u5173\u6ce8"
+    const-string v4, "\u5df2\u5173\u6ce8"
 
-    invoke-virtual {v4, v5}, Ljava/lang/Object;->equals(Ljava/lang/Object;)Z
+    invoke-virtual {v0, v4}, Ljava/lang/Object;->equals(Ljava/lang/Object;)Z
 
-    move-result v4
+    move-result v0
 
-    if-eqz v4, :cond_3f
+    if-eqz v0, :cond_43
 
     const/4 v4, 0x2
 
-    :goto_30
+    :goto_34
     const/16 v5, 0xb
 
-    .line 171
-    invoke-interface/range {v0 .. v5}, Lmybl/MyBiliApiService;->modifyRelation(Ljava/lang/String;JII)Lbl/vp;
+    .line 177
+    invoke-interface/range {v1 .. v7}, Lmybl/MyBiliApiService;->modifyRelation(JIILjava/lang/String;Ljava/lang/String;)Lbl/vp;
 
     move-result-object v0
 
@@ -111,14 +117,14 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2$1;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;)V
 
-    .line 175
+    .line 181
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
     goto :goto_c
 
-    .line 173
-    :cond_3f
+    .line 179
+    :cond_43
     const/4 v4, 0x1
 
-    goto :goto_30
+    goto :goto_34
 .end method

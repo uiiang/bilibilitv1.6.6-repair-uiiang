@@ -185,8 +185,8 @@ public final class FollowPgcActivity extends BaseReloadActivity implements wf {
         FollowPgcActivity FollowPgcActivity = this;
         mg a2 = mg.a(this);
         bbi.a((Object) a2, "BiliAccount.get(this)");
-        //((BangumiApiService) vo.a(BangumiApiService.class)).a(this.e, h*5, a2.d(), a2.e()).a(this.b);
-        ((MyBiliApiService) vo.a(MyBiliApiService.class)).getFollowBangumi(a2.e(),2,this.e,h*5,a2.d()).a(new FollowPgcResponse());
+        String cookie = mybl.CookieUtil.getFullCookieWithDevice(a2);
+        ((MyBiliApiService) vo.a(MyBiliApiService.class)).getFollowBangumi(2,this.e,h*5,a2.d(),cookie).a(new FollowPgcResponse());
     }
 
     /* JADX INFO: Access modifiers changed from: protected */

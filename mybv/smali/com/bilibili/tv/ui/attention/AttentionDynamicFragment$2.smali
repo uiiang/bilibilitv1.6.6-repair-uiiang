@@ -37,7 +37,7 @@
 
 # virtual methods
 .method public onClick(Landroid/view/View;)V
-    .locals 6
+    .locals 8
 
     .prologue
     .line 174
@@ -49,61 +49,67 @@
 
     invoke-static {v0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
-    move-result-object v1
+    move-result-object v0
 
     .line 175
-    if-nez v1, :cond_d
+    if-nez v0, :cond_d
 
-    .line 199
+    .line 201
     :goto_c
     return-void
 
     .line 176
     :cond_d
+    invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
+
+    move-result-object v7
+
+    .line 177
+    invoke-static {v0}, Lmybl/CookieUtil;->getBiliJct(Lbl/mg;)Ljava/lang/String;
+
+    move-result-object v6
+
+    .line 178
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
 
-    move-result-object v0
-
-    check-cast v0, Lmybl/MyBiliApiService;
-
-    .line 177
-    invoke-virtual {v1}, Lbl/mg;->e()Ljava/lang/String;
-
     move-result-object v1
 
-    iget-object v2, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
+    check-cast v1, Lmybl/MyBiliApiService;
 
+    iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
+
+    .line 179
     # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->mid:J
-    invoke-static {v2}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$000(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;)J
+    invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$000(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;)J
 
     move-result-wide v2
 
-    iget-object v4, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
+    iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
-    iget-object v4, v4, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
+    iget-object v0, v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
-    .line 178
-    invoke-virtual {v4}, Lcom/bilibili/tv/widget/DrawTextView;->getText()Ljava/lang/CharSequence;
+    .line 180
+    invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawTextView;->getText()Ljava/lang/CharSequence;
 
-    move-result-object v4
+    move-result-object v0
 
-    const-string v5, "\u5df2\u5173\u6ce8"
+    const-string v4, "\u5df2\u5173\u6ce8"
 
-    invoke-virtual {v4, v5}, Ljava/lang/Object;->equals(Ljava/lang/Object;)Z
+    invoke-virtual {v0, v4}, Ljava/lang/Object;->equals(Ljava/lang/Object;)Z
 
-    move-result v4
+    move-result v0
 
-    if-eqz v4, :cond_3f
+    if-eqz v0, :cond_43
 
     const/4 v4, 0x2
 
-    :goto_30
+    :goto_34
     const/16 v5, 0xb
 
-    .line 176
-    invoke-interface/range {v0 .. v5}, Lmybl/MyBiliApiService;->modifyRelation(Ljava/lang/String;JII)Lbl/vp;
+    .line 178
+    invoke-interface/range {v1 .. v7}, Lmybl/MyBiliApiService;->modifyRelation(JIILjava/lang/String;Ljava/lang/String;)Lbl/vp;
 
     move-result-object v0
 
@@ -111,14 +117,14 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2$1;-><init>(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2;)V
 
-    .line 180
+    .line 182
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
     goto :goto_c
 
-    .line 178
-    :cond_3f
+    .line 180
+    :cond_43
     const/4 v4, 0x1
 
-    goto :goto_30
+    goto :goto_34
 .end method

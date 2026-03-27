@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,8 @@ import com.bilibili.tv.R;
 import com.bilibili.tv.widget.DrawTextView;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
 import com.bilibili.tv.widget.side.SideRightGridLayoutManger;
+import mybl.CookieUtil;
+import mybl.LogUtil;
 import mybl.MyBiliApiService;
 import com.bilibili.tv.api.auth.BiliSpaceApiService;
 import com.bilibili.tv.api.auth.BiliSpaceVideo;
@@ -44,6 +47,7 @@ import bl.mg;
 import bl.vo;
 
 public final class AuthSpaceVideoFragment extends ady {
+  private static final String TAG = "AuthSpaceVideo";
   private static final int COLUMNS = 2;
   private c adapter;
   private b callback;
@@ -168,10 +172,12 @@ public final class AuthSpaceVideoFragment extends ady {
           public void onClick(View view) {
             mg account = mg.a(getActivity());
             if (account == null) return;
+            String cookie = CookieUtil.getFullCookieWithDevice(account);
+            String csrf = CookieUtil.getBiliJct(account);
             ((MyBiliApiService) vo.a(MyBiliApiService.class)).modifyRelation(
-              account.e(), mid, 
+              mid, 
               attentionButton.getText().equals("已关注") ? 2 : 1, 
-              11
+              11, csrf, cookie
             ).a(new vn<JSONObject>() {
               @Override
               public void a(JSONObject response) {
@@ -197,7 +203,8 @@ public final class AuthSpaceVideoFragment extends ady {
         // 查询关注状态
         mg account = mg.a(getActivity());
         if (account != null) {
-          ((MyBiliApiService) vo.a(MyBiliApiService.class)).getRelation(account.e(), mid)
+          String cookie = CookieUtil.getFullCookieWithDevice(account);
+          ((MyBiliApiService) vo.a(MyBiliApiService.class)).getRelation(mid, cookie)
             .a(new vn<JSONObject>() {
               @Override
               public void a(JSONObject response) {
@@ -349,6 +356,12 @@ public final class AuthSpaceVideoFragment extends ady {
     mg account = mg.a(activity);
     if (account == null)
       return;
+    String url = "https://api.bilibili.com/x/space/wbi/arc/search?" +
+        "access_key=" + account.e() + "&mid=" + this.mid + "&ps=20" +
+        (this.cursor != null ? "&cursor=" + this.cursor : "") +
+        (this.allVideoOrder != null ? "&order=" + this.allVideoOrder : "");
+    LogUtil.i(TAG, "loadAllVideos URL: " + url);
+    
     api.loadArchiveVideos(account.e(), this.mid, this.cursor, 20, this.allVideoOrder)
     .a(new vn<BiliSpaceVideoList>() {
       @Override
@@ -358,6 +371,7 @@ public final class AuthSpaceVideoFragment extends ady {
 
       @Override
       public void onError(Throwable th) {
+        Log.i(TAG, "loadAllVideos error: " + th.getMessage());
         adl.a.a(th, getActivity());
         loading = false;
         if (cursor == null)
@@ -366,6 +380,7 @@ public final class AuthSpaceVideoFragment extends ady {
 
       @Override
       public void a(BiliSpaceVideoList list) {
+        LogUtil.i(TAG, "loadAllVideos result: count=" + (list != null && list.videos != null ? list.videos.size() : 0));
         if (adapter == null)
           return;
         j();
@@ -417,8 +432,15 @@ public final class AuthSpaceVideoFragment extends ady {
     }
     mg biliAccount = mg.a(activity);
     if (biliAccount != null) {
+      String url = "https://api.bilibili.com/x/polymer/web-space/seasons_archives_list?" +
+          "mid=" + this.mid + "&season_id=" + this.targetId +
+          "&sort_reverse=" + this.sortReverse + "&page_size=30&page_num=" + this.page + "&web_location=333.1387";
+      LogUtil.i(TAG, "loadSeasonVideos URL: " + url);
+      
+      String referer = "https://space.bilibili.com/" + this.mid + "/lists/" + this.targetId + "?type=season";
+      String cookie = CookieUtil.getFullCookieWithDevice(biliAccount);
       ((MyBiliApiService) vo.a(MyBiliApiService.class))
-          .getSeasonsArchivesList(biliAccount.e(), this.mid, this.targetId, this.sortReverse, 30, this.page, "333.1387")
+          .getSeasonsArchivesList(this.mid, this.targetId, this.sortReverse, 30, this.page, "333.1387", referer, cookie)
           .a(new vn<JSONObject>() {
             @Override
             public boolean isCancel() {
@@ -427,6 +449,7 @@ public final class AuthSpaceVideoFragment extends ady {
 
             @Override
             public void onError(Throwable th) {
+              Log.i(TAG, "loadSeasonVideos error: " + th.getMessage());
               adl.a.a(th, getActivity());
               loading = false;
               if (page == 1)
@@ -435,6 +458,7 @@ public final class AuthSpaceVideoFragment extends ady {
 
             @Override
             public void a(JSONObject resp) {
+              LogUtil.i(TAG, "loadSeasonVideos response: " + (resp != null ? resp.toString() : "null"));
               if (adapter == null)
                 return;
               j();
@@ -489,9 +513,16 @@ public final class AuthSpaceVideoFragment extends ady {
       return;
     mg biliAccount = mg.a(activity);
     if (biliAccount != null) {
+      String url = "https://api.bilibili.com/x/series/archives?" +
+          "mid=" + this.mid + "&current_mid=" + biliAccount.d() +
+          "&series_id=" + this.targetId + "&only_normal=true&sort=" + this.sortDirection +
+          "&ps=30&pn=" + this.page + "&web_location=333.1387";
+      LogUtil.i(TAG, "loadSeriesVideos URL: " + url);
 
+      String referer = "https://space.bilibili.com/" + this.mid + "/lists/" + this.targetId + "?type=series";
+      String cookie = CookieUtil.getFullCookieWithDevice(biliAccount);
       ((MyBiliApiService) vo.a(MyBiliApiService.class))
-          .getSeriesArchives(biliAccount.e(), this.mid, biliAccount.d(), this.targetId, true, this.sortDirection, 30, this.page, "333.1387")
+          .getSeriesArchives(this.mid, biliAccount.d(), this.targetId, true, this.sortDirection, 30, this.page, "333.1387", referer, cookie)
           .a(new vn<JSONObject>() {
             @Override
             public boolean isCancel() {
@@ -500,6 +531,7 @@ public final class AuthSpaceVideoFragment extends ady {
 
             @Override
             public void onError(Throwable th) {
+              Log.i(TAG, "loadSeriesVideos error: " + th.getMessage());
               adl.a.a(th, getActivity());
               loading = false;
               if (page == 1)
@@ -508,6 +540,7 @@ public final class AuthSpaceVideoFragment extends ady {
 
             @Override
             public void a(JSONObject resp) {
+              LogUtil.i(TAG, "loadSeriesVideos response: " + (resp != null ? resp.toString() : "null"));
               if (adapter == null)
                 return;
               j();

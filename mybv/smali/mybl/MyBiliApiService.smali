@@ -32,8 +32,8 @@
         .end annotation
     .end param
     .param p7    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Field;
-            value = "access_key"
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
         .end annotation
     .end param
     .annotation system Ldalvik/annotation/Signature;
@@ -128,8 +128,8 @@
         .end annotation
     .end param
     .param p7    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Field;
-            value = "access_key"
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
         .end annotation
     .end param
     .annotation system Ldalvik/annotation/Signature;
@@ -268,13 +268,13 @@
         .end annotation
     .end param
     .param p7    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Query;
-            value = "access_key"
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Referer"
         .end annotation
     .end param
     .param p8    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Header;
-            value = "Referer"
+            value = "Cookie"
         .end annotation
     .end param
     .annotation system Ldalvik/annotation/Signature;
@@ -407,13 +407,13 @@
         .end annotation
     .end param
     .param p11    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Query;
-            value = "access_key"
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Referer"
         .end annotation
     .end param
     .param p12    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Header;
-            value = "Referer"
+            value = "Cookie"
         .end annotation
     .end param
     .annotation system Ldalvik/annotation/Signature;
@@ -477,12 +477,12 @@
 .method public abstract getFeedVideos(Ljava/lang/String;Ljava/lang/String;)Lbl/vp;
     .param p1    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Query;
-            value = "access_key"
+            value = "offset"
         .end annotation
     .end param
     .param p2    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Query;
-            value = "offset"
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
         .end annotation
     .end param
     .annotation system Ldalvik/annotation/Signature;
@@ -505,37 +505,37 @@
     .end annotation
 .end method
 
-.method public abstract getFollowBangumi(Ljava/lang/String;IIIJ)Lbl/vp;
-    .param p1    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Query;
-            value = "access_key"
-        .end annotation
-    .end param
-    .param p2    # I
+.method public abstract getFollowBangumi(IIIJLjava/lang/String;)Lbl/vp;
+    .param p1    # I
         .annotation runtime Lretrofit2/http/Query;
             value = "type"
         .end annotation
     .end param
-    .param p3    # I
+    .param p2    # I
         .annotation runtime Lretrofit2/http/Query;
             value = "pn"
         .end annotation
     .end param
-    .param p4    # I
+    .param p3    # I
         .annotation runtime Lretrofit2/http/Query;
             value = "ps"
         .end annotation
     .end param
-    .param p5    # J
+    .param p4    # J
         .annotation runtime Lretrofit2/http/Query;
             value = "vmid"
         .end annotation
     .end param
+    .param p6    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "(",
+            "(IIIJ",
             "Ljava/lang/String;",
-            "IIIJ)",
+            ")",
             "Lbl/vp",
             "<",
             "Lcom/bilibili/okretro/GeneralResponse",
@@ -550,39 +550,39 @@
     .end annotation
 .end method
 
-.method public abstract getFollowings(Ljava/lang/String;JLjava/lang/String;II)Lbl/vp;
-    .param p1    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Query;
-            value = "access_key"
-        .end annotation
-    .end param
-    .param p2    # J
+.method public abstract getFollowings(JLjava/lang/String;IILjava/lang/String;)Lbl/vp;
+    .param p1    # J
         .annotation runtime Lretrofit2/http/Query;
             value = "vmid"
         .end annotation
     .end param
-    .param p4    # Ljava/lang/String;
+    .param p3    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Query;
             value = "order_type"
         .end annotation
     .end param
-    .param p5    # I
+    .param p4    # I
         .annotation runtime Lretrofit2/http/Query;
             value = "ps"
         .end annotation
     .end param
-    .param p6    # I
+    .param p5    # I
         .annotation runtime Lretrofit2/http/Query;
             value = "pn"
         .end annotation
     .end param
+    .param p6    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "(",
+            "(J",
             "Ljava/lang/String;",
-            "J",
+            "II",
             "Ljava/lang/String;",
-            "II)",
+            ")",
             "Lbl/vp",
             "<",
             "Lcom/bilibili/okretro/GeneralResponse",
@@ -710,22 +710,22 @@
     .end annotation
 .end method
 
-.method public abstract getRelation(Ljava/lang/String;J)Lbl/vp;
-    .param p1    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Query;
-            value = "access_key"
-        .end annotation
-    .end param
-    .param p2    # J
+.method public abstract getRelation(JLjava/lang/String;)Lbl/vp;
+    .param p1    # J
         .annotation runtime Lretrofit2/http/Query;
             value = "fid"
         .end annotation
     .end param
+    .param p3    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "(",
+            "(J",
             "Ljava/lang/String;",
-            "J)",
+            ")",
             "Lbl/vp",
             "<",
             "Lcom/bilibili/okretro/GeneralResponse",
@@ -740,47 +740,52 @@
     .end annotation
 .end method
 
-.method public abstract getSeasonsArchivesList(Ljava/lang/String;JJZIILjava/lang/String;)Lbl/vp;
-    .param p1    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Query;
-            value = "access_key"
-        .end annotation
-    .end param
-    .param p2    # J
+.method public abstract getSeasonsArchivesList(JJZIILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # J
         .annotation runtime Lretrofit2/http/Query;
             value = "mid"
         .end annotation
     .end param
-    .param p4    # J
+    .param p3    # J
         .annotation runtime Lretrofit2/http/Query;
             value = "season_id"
         .end annotation
     .end param
-    .param p6    # Z
+    .param p5    # Z
         .annotation runtime Lretrofit2/http/Query;
             value = "sort_reverse"
         .end annotation
     .end param
-    .param p7    # I
+    .param p6    # I
         .annotation runtime Lretrofit2/http/Query;
             value = "page_size"
         .end annotation
     .end param
-    .param p8    # I
+    .param p7    # I
         .annotation runtime Lretrofit2/http/Query;
             value = "page_num"
         .end annotation
     .end param
-    .param p9    # Ljava/lang/String;
+    .param p8    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Query;
             value = "web_location"
         .end annotation
     .end param
+    .param p9    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Referer"
+        .end annotation
+    .end param
+    .param p10    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "(",
+            "(JJZII",
             "Ljava/lang/String;",
-            "JJZII",
+            "Ljava/lang/String;",
             "Ljava/lang/String;",
             ")",
             "Lbl/vp",
@@ -795,45 +800,38 @@
     .annotation runtime Lretrofit2/http/GET;
         value = "/x/polymer/web-space/seasons_archives_list"
     .end annotation
-
-    .annotation runtime Lretrofit2/http/Headers;
-        value = {
-            "Referer: https://space.bilibili.com"
-        }
-    .end annotation
 .end method
 
-.method public abstract getSeasonsSeriesList(Ljava/lang/String;JIILjava/lang/String;)Lbl/vp;
-    .param p1    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Query;
-            value = "access_key"
-        .end annotation
-    .end param
-    .param p2    # J
+.method public abstract getSeasonsSeriesList(JIILjava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # J
         .annotation runtime Lretrofit2/http/Query;
             value = "mid"
         .end annotation
     .end param
-    .param p4    # I
+    .param p3    # I
         .annotation runtime Lretrofit2/http/Query;
             value = "page_size"
         .end annotation
     .end param
-    .param p5    # I
+    .param p4    # I
         .annotation runtime Lretrofit2/http/Query;
             value = "page_num"
         .end annotation
     .end param
-    .param p6    # Ljava/lang/String;
+    .param p5    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Query;
             value = "web_location"
         .end annotation
     .end param
+    .param p6    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "(",
+            "(JII",
             "Ljava/lang/String;",
-            "JII",
             "Ljava/lang/String;",
             ")",
             "Lbl/vp",
@@ -856,59 +854,64 @@
     .end annotation
 .end method
 
-.method public abstract getSeriesArchives(Ljava/lang/String;JJJZLjava/lang/String;IILjava/lang/String;)Lbl/vp;
-    .param p1    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Query;
-            value = "access_key"
-        .end annotation
-    .end param
-    .param p2    # J
+.method public abstract getSeriesArchives(JJJZLjava/lang/String;IILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # J
         .annotation runtime Lretrofit2/http/Query;
             value = "mid"
         .end annotation
     .end param
-    .param p4    # J
+    .param p3    # J
         .annotation runtime Lretrofit2/http/Query;
             value = "current_mid"
         .end annotation
     .end param
-    .param p6    # J
+    .param p5    # J
         .annotation runtime Lretrofit2/http/Query;
             value = "series_id"
         .end annotation
     .end param
-    .param p8    # Z
+    .param p7    # Z
         .annotation runtime Lretrofit2/http/Query;
             value = "only_normal"
         .end annotation
     .end param
-    .param p9    # Ljava/lang/String;
+    .param p8    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Query;
             value = "sort"
         .end annotation
     .end param
-    .param p10    # I
+    .param p9    # I
         .annotation runtime Lretrofit2/http/Query;
             value = "ps"
         .end annotation
     .end param
-    .param p11    # I
+    .param p10    # I
         .annotation runtime Lretrofit2/http/Query;
             value = "pn"
         .end annotation
     .end param
-    .param p12    # Ljava/lang/String;
+    .param p11    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Query;
             value = "web_location"
         .end annotation
     .end param
+    .param p12    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Referer"
+        .end annotation
+    .end param
+    .param p13    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "(",
-            "Ljava/lang/String;",
-            "JJJZ",
+            "(JJJZ",
             "Ljava/lang/String;",
             "II",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
             "Ljava/lang/String;",
             ")",
             "Lbl/vp",
@@ -922,12 +925,6 @@
 
     .annotation runtime Lretrofit2/http/GET;
         value = "/x/series/archives"
-    .end annotation
-
-    .annotation runtime Lretrofit2/http/Headers;
-        value = {
-            "Referer: https://space.bilibili.com"
-        }
     .end annotation
 .end method
 
@@ -1061,32 +1058,38 @@
     .end annotation
 .end method
 
-.method public abstract modifyRelation(Ljava/lang/String;JII)Lbl/vp;
-    .param p1    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Field;
-            value = "access_key"
-        .end annotation
-    .end param
-    .param p2    # J
+.method public abstract modifyRelation(JIILjava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # J
         .annotation runtime Lretrofit2/http/Field;
             value = "fid"
         .end annotation
     .end param
-    .param p4    # I
+    .param p3    # I
         .annotation runtime Lretrofit2/http/Field;
             value = "act"
         .end annotation
     .end param
-    .param p5    # I
+    .param p4    # I
         .annotation runtime Lretrofit2/http/Field;
             value = "re_src"
         .end annotation
     .end param
+    .param p5    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Field;
+            value = "csrf"
+        .end annotation
+    .end param
+    .param p6    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "(",
+            "(JII",
             "Ljava/lang/String;",
-            "JII)",
+            "Ljava/lang/String;",
+            ")",
             "Lbl/vp",
             "<",
             "Lcom/bilibili/okretro/GeneralResponse",
@@ -1104,27 +1107,27 @@
     .end annotation
 .end method
 
-.method public abstract recommendVideos(ILjava/lang/String;I)Lbl/vp;
+.method public abstract recommendVideos(IILjava/lang/String;)Lbl/vp;
     .param p1    # I
         .annotation runtime Lretrofit2/http/Query;
             value = "ps"
         .end annotation
     .end param
-    .param p2    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Query;
-            value = "access_key"
-        .end annotation
-    .end param
-    .param p3    # I
+    .param p2    # I
         .annotation runtime Lretrofit2/http/Query;
             value = "fresh_idx"
         .end annotation
     .end param
+    .param p3    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "(I",
+            "(II",
             "Ljava/lang/String;",
-            "I)",
+            ")",
             "Lbl/vp",
             "<",
             "Lcom/bilibili/okretro/GeneralResponse",
@@ -1171,8 +1174,8 @@
         .end annotation
     .end param
     .param p7    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Query;
-            value = "access_key"
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
         .end annotation
     .end param
     .annotation system Ldalvik/annotation/Signature;
@@ -1226,8 +1229,8 @@
         .end annotation
     .end param
     .param p6    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Query;
-            value = "access_key"
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
         .end annotation
     .end param
     .annotation system Ldalvik/annotation/Signature;

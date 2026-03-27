@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 344
+    .line 345
     iput-object p1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
@@ -50,7 +50,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 347
+    .line 348
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
@@ -61,7 +61,7 @@
 
     move v0, v1
 
-    .line 349
+    .line 350
     :goto_a
     iget-object v2, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
@@ -71,29 +71,29 @@
 
     if-ge v0, v2, :cond_32
 
-    .line 350
+    .line 351
     iget-object v2, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v2, v0}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
 
     move-result-object v2
 
-    .line 351
+    .line 352
     iget-object v3, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v3, v2}, Landroid/support/v7/widget/RecyclerView;->g(Landroid/view/View;)I
 
     move-result v3
 
-    .line 352
+    .line 353
     iget v4, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->val$focusedPosition:I
 
     if-ne v3, v4, :cond_2f
 
-    .line 353
+    .line 354
     invoke-virtual {v2}, Landroid/view/View;->requestFocus()Z
 
-    .line 355
+    .line 356
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
 
     # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->c:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;
@@ -103,17 +103,17 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;->b(Z)V
 
-    .line 363
+    .line 364
     :goto_2e
     return-void
 
-    .line 349
+    .line 350
     :cond_2f
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_a
 
-    .line 360
+    .line 361
     :cond_32
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
@@ -123,7 +123,7 @@
 
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 362
+    .line 363
     :cond_3b
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
 

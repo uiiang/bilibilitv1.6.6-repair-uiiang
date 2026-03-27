@@ -142,6 +142,21 @@ public class mg {
         }
     }
 
+    public String getRefreshToken() {
+        try {
+            if (this.d == null) {
+                return "";
+            }
+            vd tokenInfo = this.d.a();
+            if (tokenInfo == null) {
+                return "";
+            }
+            return tokenInfo.d;
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
     public long f() {
         vd a = this.d.a();
         if (a == null) {

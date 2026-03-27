@@ -24,20 +24,21 @@ public interface MyBiliApiService {
     vp<GeneralResponse<JSONObject>> tripleVideo(@Field("access_key") String access_key, @Field("aid") long aid);
 
     @GET("/x/web-interface/wbi/index/top/feed/rcmd")
-    vp<GeneralResponse<JSONObject>> recommendVideos(@Query("ps") int page_size, @Query("access_key") String access_key,
-            @Query("fresh_idx") int fresh_idx);
+    vp<GeneralResponse<JSONObject>> recommendVideos(@Query("ps") int page_size, @Query("fresh_idx") int fresh_idx,
+            @Header("Cookie") String cookie);
 
     @GET("/x/relation")
-    vp<GeneralResponse<JSONObject>> getRelation(@Query("access_key") String access_key, @Query("fid") long fid);
+    vp<GeneralResponse<JSONObject>> getRelation(@Query("fid") long fid, @Header("Cookie") String cookie);
 
     @GET("/x/relation/followings")
-    vp<GeneralResponse<JSONObject>> getFollowings(@Query("access_key") String access_key, @Query("vmid") long vmid,
-            @Query("order_type") String order_type, @Query("ps") int page_size, @Query("pn") int page);
+    vp<GeneralResponse<JSONObject>> getFollowings(@Query("vmid") long vmid,
+            @Query("order_type") String order_type, @Query("ps") int page_size, @Query("pn") int page,
+            @Header("Cookie") String cookie);
 
     @FormUrlEncoded
     @POST("/x/relation/modify")
-    vp<GeneralResponse<JSONObject>> modifyRelation(@Field("access_key") String access_key, @Field("fid") long fid,
-            @Field("act") int act, @Field("re_src") int re_src);
+    vp<GeneralResponse<JSONObject>> modifyRelation(@Field("fid") long fid,
+            @Field("act") int act, @Field("re_src") int re_src, @Field("csrf") String csrf, @Header("Cookie") String cookie);
 
     @GET("/x/web-interface/view/detail")
     vp<GeneralResponse<BiliVideoDetail>> getVideoDetail(@Query("aid") long aid);
@@ -52,13 +53,13 @@ public interface MyBiliApiService {
     vp<GeneralResponse<JSONObject>> getDanmuFilter();
 
     @GET("/x/space/bangumi/follow/list")
-    vp<GeneralResponse<JSONObject>> getFollowBangumi(@Query("access_key") String access_key, @Query("type") int type,
-            @Query("pn") int page, @Query("ps") int page_size, @Query("vmid") long vmid);
+    vp<GeneralResponse<JSONObject>> getFollowBangumi(@Query("type") int type,
+            @Query("pn") int page, @Query("ps") int page_size, @Query("vmid") long vmid, @Header("Cookie") String cookie);
 
     @GET("/x/web-interface/wbi/search/type")
     vp<GeneralResponse<JSONObject>> search(@Query("search_type") String search_type, @Query("keyword") String keyword,
             @Query("order") String order, @Query("page") int page, @Query("pagesize") int page_size,
-            @Query("tids") String tids, @Query("access_key") String access_key);
+            @Query("tids") String tids, @Header("Cookie") String cookie);
 
     @GET
     Call<GeneralResponse<JSONObject>> searchWithWbi(@Url String fullUrl);
@@ -66,11 +67,10 @@ public interface MyBiliApiService {
     @GET("/x/web-interface/wbi/search/type")
     vp<GeneralResponse<JSONObject>> searchLiveRoom(@Query("search_type") String search_type, @Query("keyword") String keyword,
             @Query("order") String order, @Query("page") int page, @Query("pagesize") int page_size,
-            @Query("access_key") String access_key);
+            @Header("Cookie") String cookie);
 
     @GET("/x/polymer/web-dynamic/v1/feed/all?type=video")
-    vp<GeneralResponse<JSONObject>> getFeedVideos(@Query("access_key") String access_key,
-            @Query("offset") String offset);
+    vp<GeneralResponse<JSONObject>> getFeedVideos(@Query("offset") String offset, @Header("Cookie") String cookie);
 
     @GET("/pgc/page/pc/bangumi/tab?is_refresh=0&cursor=0")
     vp<JSONObject> getBangumiInfos();
@@ -111,25 +111,23 @@ public interface MyBiliApiService {
     // Auth space - seasons and series list
     @Headers("Referer: https://space.bilibili.com")
     @GET("/x/polymer/web-space/seasons_series_list")
-    vp<GeneralResponse<JSONObject>> getSeasonsSeriesList(@Query("access_key") String access_key, @Query("mid") long mid,
+    vp<GeneralResponse<JSONObject>> getSeasonsSeriesList(@Query("mid") long mid,
             @Query("page_size") int pageSize, @Query("page_num") int pageNum,
-            @Query("web_location") String webLocation);
+            @Query("web_location") String webLocation, @Header("Cookie") String cookie);
 
     // Auth space - season archives list
-    @Headers("Referer: https://space.bilibili.com")
     @GET("/x/polymer/web-space/seasons_archives_list")
-    vp<GeneralResponse<JSONObject>> getSeasonsArchivesList(@Query("access_key") String access_key,
-            @Query("mid") long mid, @Query("season_id") long seasonId, @Query("sort_reverse") boolean sortReverse,
+    vp<GeneralResponse<JSONObject>> getSeasonsArchivesList(@Query("mid") long mid, @Query("season_id") long seasonId, @Query("sort_reverse") boolean sortReverse,
             @Query("page_size") int pageSize, @Query("page_num") int pageNum,
-            @Query("web_location") String webLocation);
+            @Query("web_location") String webLocation, @Header("Referer") String referer, @Header("Cookie") String cookie);
 
     // Series archives
-    @Headers("Referer: https://space.bilibili.com")
     @GET("/x/series/archives")
-    vp<GeneralResponse<JSONObject>> getSeriesArchives(@Query("access_key") String access_key, @Query("mid") long mid,
+    vp<GeneralResponse<JSONObject>> getSeriesArchives(@Query("mid") long mid,
             @Query("current_mid") long currentMid,
             @Query("series_id") long seriesId, @Query("only_normal") boolean onlyNormal, @Query("sort") String sort,
-            @Query("ps") int pageSize, @Query("pn") int pageNum, @Query("web_location") String webLocation);
+            @Query("ps") int pageSize, @Query("pn") int pageNum, @Query("web_location") String webLocation,
+            @Header("Referer") String referer, @Header("Cookie") String cookie);
 
     @GET("https://github.com/qidian55/bilibilitv1.6.6-repair/raw/refs/heads/main/update.json")
     vp<com.bilibili.tv.ui.upgrade.BiliUpgradeInfo> getThirdUpdateInfo();
@@ -145,8 +143,8 @@ public interface MyBiliApiService {
             @Query("tid") int tid,
             @Query("platform") String platform,
             @Query("web_location") String web_location,
-            @Query("access_key") String access_key,
-            @Header("Referer") String referer);
+            @Header("Referer") String referer,
+            @Header("Cookie") String cookie);
 
     @GET("/x/v3/fav/folder/created/list-all")
     vp<JSONObject> getCreatedFolderList(
@@ -154,8 +152,8 @@ public interface MyBiliApiService {
             @Query("rid") long rid,
             @Query("type") int type,
             @Query("web_location") String web_location,
-            @Query("access_key") String access_key,
-            @Header("Referer") String referer);
+            @Header("Referer") String referer,
+            @Header("Cookie") String cookie);
     
     @Headers("Referer: https://www.bilibili.com")
     @FormUrlEncoded
@@ -165,7 +163,7 @@ public interface MyBiliApiService {
             @Field("type") int type,
             @Field("add_media_ids") long media_id,
             @Field("csrf") String csrf,
-            @Field("access_key") String access_key);
+            @Header("Cookie") String cookie);
     
     @Headers("Referer: https://www.bilibili.com")
     @FormUrlEncoded
@@ -175,5 +173,5 @@ public interface MyBiliApiService {
             @Field("type") int type,
             @Field("del_media_ids") long media_id,
             @Field("csrf") String csrf,
-            @Field("access_key") String access_key);
+            @Header("Cookie") String cookie);
 }

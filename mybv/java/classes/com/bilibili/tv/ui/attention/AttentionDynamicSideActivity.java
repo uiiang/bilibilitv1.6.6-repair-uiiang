@@ -268,7 +268,8 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
         
         mg biliAccount = mg.a(this);
         if (biliAccount != null) {
-            ((MyBiliApiService) vo.a(MyBiliApiService.class)).getFollowings(biliAccount.e(), biliAccount.d(), "attention", 30, this.f).a(new vn<JSONObject>() {
+            String cookie = mybl.CookieUtil.getFullCookieWithDevice(biliAccount);
+            ((MyBiliApiService) vo.a(MyBiliApiService.class)).getFollowings(biliAccount.d(), "attention", 30, this.f, cookie).a(new vn<JSONObject>() {
                 @Override
                 public void a(JSONObject response) {
                     if (AttentionDynamicSideActivity.this.c == null) {

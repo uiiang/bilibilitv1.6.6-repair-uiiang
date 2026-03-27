@@ -134,7 +134,7 @@ public class FavoriteMenuDialog extends Dialog {
     private void loadFavoriteFolders() {
         mg biliAccount = mg.a(activity);
         long mid = biliAccount.d();
-        String accessKey = biliAccount.e();
+        String cookie = mybl.CookieUtil.getFullCookieWithDevice(biliAccount);
         
         if (mid <= 0) {
             Log.d(TAG, "User not logged in");
@@ -143,7 +143,7 @@ public class FavoriteMenuDialog extends Dialog {
         
         MyBiliApiService apiService = (MyBiliApiService) vo.a(MyBiliApiService.class);
         String referer = "https://www.bilibili.com/video/av" + avid;
-        vp<JSONObject> call = apiService.getCreatedFolderList(mid, avid, 2, "333.788", accessKey, referer);
+        vp<JSONObject> call = apiService.getCreatedFolderList(mid, avid, 2, "333.788", referer, cookie);
         
         Log.d(TAG, "Loading favorite folders for avid: " + avid + ", mid: " + mid);
         

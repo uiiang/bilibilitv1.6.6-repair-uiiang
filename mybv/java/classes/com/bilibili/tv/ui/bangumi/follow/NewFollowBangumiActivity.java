@@ -235,8 +235,8 @@ public final class NewFollowBangumiActivity extends BaseReloadActivity implement
         this.i = true;
         mg a2 = mg.a(this);
         bbi.a((Object) a2, "BiliAccount.get(this)");
-        //((BangumiApiService) vo.a(BangumiApiService.class)).a(this.g, k*5, a2.d(), a2.e()).a(this.b);
-        ((MyBiliApiService) vo.a(MyBiliApiService.class)).getFollowBangumi(a2.e(),1,this.g,k*5,a2.d()).a(new FollowBangumiResponse());
+        String cookie = mybl.CookieUtil.getFullCookieWithDevice(a2);
+        ((MyBiliApiService) vo.a(MyBiliApiService.class)).getFollowBangumi(1,this.g,k*5,a2.d(),cookie).a(new FollowBangumiResponse());
     }
 
     @Override // com.bilibili.tv.ui.base.BaseUpViewActivity, com.bilibili.tv.ui.base.BaseActivity, android.support.v7.app.AppCompatActivity, android.support.v4.app.FragmentActivity, android.app.Activity

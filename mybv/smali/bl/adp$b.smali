@@ -103,6 +103,8 @@
 
     invoke-virtual {v1, v0}, Lbl/mg;->a(Ljava/lang/String;)Lcom/bilibili/lib/account/model/AccountInfo;
 
+    invoke-static {}, Lmybl/LoginCookieHelper;->fetchCookiesAfterLogin()V
+
     move-result-object v0
 
     return-object v0

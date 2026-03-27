@@ -329,7 +329,7 @@
 .end method
 
 .method private loadFollowings()V
-    .locals 7
+    .locals 8
 
     .prologue
     .line 263
@@ -341,7 +341,7 @@
 
     if-nez v0, :cond_9
 
-    .line 323
+    .line 324
     :cond_8
     :goto_8
     return-void
@@ -355,25 +355,26 @@
     .line 269
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
-    move-result-object v2
-
-    .line 270
-    if-eqz v2, :cond_35
-
-    .line 271
-    const-class v0, Lmybl/MyBiliApiService;
-
-    invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
-
     move-result-object v0
 
-    check-cast v0, Lmybl/MyBiliApiService;
+    .line 270
+    if-eqz v0, :cond_35
 
-    invoke-virtual {v2}, Lbl/mg;->e()Ljava/lang/String;
+    .line 271
+    invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
+
+    move-result-object v7
+
+    .line 272
+    const-class v1, Lmybl/MyBiliApiService;
+
+    invoke-static {v1}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
 
     move-result-object v1
 
-    invoke-virtual {v2}, Lbl/mg;->d()J
+    check-cast v1, Lmybl/MyBiliApiService;
+
+    invoke-virtual {v0}, Lbl/mg;->d()J
 
     move-result-wide v2
 
@@ -383,7 +384,7 @@
 
     iget v6, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->f:I
 
-    invoke-interface/range {v0 .. v6}, Lmybl/MyBiliApiService;->getFollowings(Ljava/lang/String;JLjava/lang/String;II)Lbl/vp;
+    invoke-interface/range {v1 .. v7}, Lmybl/MyBiliApiService;->getFollowings(JLjava/lang/String;IILjava/lang/String;)Lbl/vp;
 
     move-result-object v0
 
@@ -395,13 +396,13 @@
 
     goto :goto_8
 
-    .line 320
+    .line 321
     :cond_35
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->h:Z
 
-    .line 321
+    .line 322
     invoke-direct {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->updateUperList()V
 
     goto :goto_8
@@ -450,27 +451,27 @@
     .locals 5
 
     .prologue
-    .line 377
+    .line 378
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->selectedItem:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$UperItem;
 
     if-ne v0, p1, :cond_5
 
-    .line 394
+    .line 395
     :goto_4
     return-void
 
-    .line 381
+    .line 382
     :cond_5
     iput-object p1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->selectedItem:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$UperItem;
 
-    .line 384
+    .line 385
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$UperItem;->isAllDynamic()Z
 
     move-result v0
 
     if-eqz v0, :cond_2b
 
-    .line 385
+    .line 386
     const-wide/16 v0, -0x1
 
     const-string v2, "all"
@@ -483,30 +484,30 @@
 
     move-result-object v0
 
-    .line 390
+    .line 391
     :goto_18
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->getSupportFragmentManager()Landroid/support/v4/app/FragmentManager;
 
     move-result-object v1
 
-    .line 391
+    .line 392
     invoke-virtual {v1}, Landroid/support/v4/app/FragmentManager;->beginTransaction()Landroid/support/v4/app/FragmentTransaction;
 
     move-result-object v1
 
     const v2, 0x7f080091
 
-    .line 392
+    .line 393
     invoke-virtual {v1, v2, v0}, Landroid/support/v4/app/FragmentTransaction;->replace(ILandroid/support/v4/app/Fragment;)Landroid/support/v4/app/FragmentTransaction;
 
     move-result-object v0
 
-    .line 393
+    .line 394
     invoke-virtual {v0}, Landroid/support/v4/app/FragmentTransaction;->commit()I
 
     goto :goto_4
 
-    .line 387
+    .line 388
     :cond_2b
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$UperItem;->getMid()J
 
@@ -537,30 +538,30 @@
 
     const/4 v1, -0x1
 
-    .line 326
+    .line 327
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->c:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;
 
     if-eqz v0, :cond_31
 
-    .line 328
+    .line 329
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v2
 
-    .line 329
+    .line 330
     invoke-virtual {v2}, Landroid/support/v7/widget/RecyclerView;->getFocusedChild()Landroid/view/View;
 
     move-result-object v0
 
-    .line 331
+    .line 332
     if-eqz v0, :cond_49
 
-    .line 332
+    .line 333
     invoke-virtual {v2, v0}, Landroid/support/v7/widget/RecyclerView;->g(Landroid/view/View;)I
 
     move-result v0
 
-    .line 338
+    .line 339
     :goto_14
     iget-object v3, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->c:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;
 
@@ -568,12 +569,12 @@
 
     invoke-virtual {v3, v4}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;->b(Z)V
 
-    .line 340
+    .line 341
     iget-object v3, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->c:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;
 
     invoke-virtual {v3}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;->d()V
 
-    .line 343
+    .line 344
     if-eq v0, v1, :cond_4b
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->uperItems:Ljava/util/List;
@@ -584,14 +585,14 @@
 
     if-ge v0, v1, :cond_4b
 
-    .line 344
+    .line 345
     new-instance v1, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;
 
     invoke-direct {v1, p0, v2, v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;-><init>(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;Landroid/support/v7/widget/RecyclerView;I)V
 
     invoke-virtual {v2, v1}, Landroid/support/v7/widget/RecyclerView;->post(Ljava/lang/Runnable;)Z
 
-    .line 371
+    .line 372
     :cond_31
     :goto_31
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->uperItems:Ljava/util/List;
@@ -606,7 +607,7 @@
 
     if-nez v0, :cond_48
 
-    .line 372
+    .line 373
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->uperItems:Ljava/util/List;
 
     invoke-interface {v0, v5}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -617,17 +618,17 @@
 
     invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->showVideoList(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$UperItem;)V
 
-    .line 374
+    .line 375
     :cond_48
     return-void
 
     :cond_49
     move v0, v1
 
-    .line 334
+    .line 335
     goto :goto_14
 
-    .line 367
+    .line 368
     :cond_4b
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->c:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;
 

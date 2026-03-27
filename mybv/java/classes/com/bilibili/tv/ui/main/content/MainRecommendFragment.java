@@ -37,6 +37,7 @@ import tv.danmaku.android.log.BLog;
 import bl.*;
 import java.util.Arrays;
 import mybl.MyBiliApiService;
+import mybl.CookieUtil;
 import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -165,9 +166,10 @@ public final class MainRecommendFragment extends adu implements aez, wf {
     }
 
     public void getRecommendVideos(){
-        String access_key = mg.a(MainApplication.a()).e();
+        mg biliAccount = mg.a(MainApplication.a());
+        String cookie = CookieUtil.getFullCookieWithDevice(biliAccount);
         this.hasMoreData = true;
-        ((MyBiliApiService) vo.a(MyBiliApiService.class)).recommendVideos(20,access_key,(access_key==null||access_key.isEmpty())?this.fresh_idx++:0).a(new RecommendsResponse(false));
+        ((MyBiliApiService) vo.a(MyBiliApiService.class)).recommendVideos(20, (cookie == null || cookie.isEmpty()) ? this.fresh_idx++ : 0, cookie).a(new RecommendsResponse(false));
     }
     
     public void loadMoreData(){
@@ -175,8 +177,9 @@ public final class MainRecommendFragment extends adu implements aez, wf {
             return;
         }
         this.isLoadingMore = true;
-        String access_key = mg.a(MainApplication.a()).e();
-        ((MyBiliApiService) vo.a(MyBiliApiService.class)).recommendVideos(20,access_key,(access_key==null||access_key.isEmpty())?this.fresh_idx++:0).a(new RecommendsResponse(true));
+        mg biliAccount = mg.a(MainApplication.a());
+        String cookie = CookieUtil.getFullCookieWithDevice(biliAccount);
+        ((MyBiliApiService) vo.a(MyBiliApiService.class)).recommendVideos(20, (cookie == null || cookie.isEmpty()) ? this.fresh_idx++ : 0, cookie).a(new RecommendsResponse(true));
     }
 
     /* compiled from: BL */
