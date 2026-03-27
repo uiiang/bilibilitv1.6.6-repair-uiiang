@@ -58,7 +58,6 @@
         <activity android:launchMode="singleTop" android:name="com.bilibili.tv.ui.upgrade.UpgradeActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.live.LiveActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.live.player.LivePlayerActivity" android:screenOrientation="landscape"/>
-        <activity android:name="com.bilibili.tv.ui.auth.AuthSpaceActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.bangumi.tag.BangumiTagActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.bangumi.follow.NewFollowBangumiActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.vip.VipActivity" android:screenOrientation="landscape"/>
