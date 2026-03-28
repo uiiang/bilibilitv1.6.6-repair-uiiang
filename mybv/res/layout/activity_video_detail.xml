@@ -124,74 +124,19 @@
                         </HorizontalScrollView>
                     </LinearLayout>
                 </LinearLayout>
-                <LinearLayout android:focusable="false"
-                    android:gravity="center_vertical"
-                    android:paddingBottom="@dimen/px_10"
-                    android:paddingTop="@dimen/px_10"
-                    android:paddingLeft="@dimen/px_10"
+                <LinearLayout android:orientation="vertical" android:focusable="false"
                     android:clipChildren="false" android:clipToPadding="false"
-                    android:layout_width="fill_parent" android:layout_height="wrap_content">
-                    <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:id="@+id/video_history_play_btn_layout"
-                        android:background="@drawable/background_white_rect"
-                        android:focusable="true" android:focusableInTouchMode="true"
-                        android:nextFocusLeft="@id/video_history_play_btn_layout"
-                        android:nextFocusRight="@id/video_re_play_btn_layout"
-                        android:clipToPadding="false"
-                        android:layout_width="wrap_content" android:minWidth="@dimen/px_100"
-                        android:layout_height="@dimen/px_80">
-                        <ImageView android:id="@+id/video_history_play_img"
-                            android:focusable="false"
-                            android:background="@drawable/ic_play_arrow_white_48dp"
-                            android:layout_width="@dimen/px_48"
-                            android:layout_height="@dimen/px_48"
-                            android:layout_marginLeft="@dimen/px_20"
-                            android:layout_marginRight="@dimen/px_20"
-                            android:scaleType="fitCenter" />
-                        <com.bilibili.tv.widget.DrawTextView android:textSize="@dimen/px_36"
-                            android:textColor="@color/white" android:gravity="center"
-                            android:id="@+id/video_history_play_btn" android:focusable="false"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="@dimen/px_26" />
-                    </com.bilibili.tv.widget.DrawLinearLayout>
-                    <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:id="@+id/video_no_history_play_btn_layout"
-                        android:background="@drawable/background_white_rect"
-                        android:focusable="true" android:focusableInTouchMode="true"
-                        android:visibility="gone"
-                        android:nextFocusLeft="@id/video_history_play_btn_layout"
-                        android:nextFocusRight="@id/video_re_play_btn_layout"
-                        android:clipToPadding="false"
-                        android:layout_width="wrap_content" android:minWidth="@dimen/px_100"
-                        android:layout_height="@dimen/px_80"
-                        android:layout_marginLeft="@dimen/px_10">
-                        <CheckBox android:id="@+id/video_no_history_play_checkbox"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/px_20"
-                            android:layout_marginRight="@dimen/px_10"
-                            android:scaleX="1.3"
-                            android:scaleY="1.3"
-                            android:focusable="false" />
-                        <com.bilibili.tv.widget.DrawTextView android:textSize="@dimen/px_36"
-                            android:textColor="@color/white" android:gravity="center"
-                            android:id="@+id/video_no_history_play_btn" android:focusable="false"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="@dimen/px_26" />
-                    </com.bilibili.tv.widget.DrawLinearLayout>
-                    <LinearLayout android:id="@+id/video_history_container"
-                        android:visibility="visible" android:focusable="false"
+                    android:layout_width="fill_parent" android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/px_10"
+                    android:paddingBottom="@dimen/px_30"
+                    android:paddingLeft="@dimen/px_10">
+                    <LinearLayout android:focusable="false"
                         android:gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/px_10"
                         android:clipChildren="false" android:clipToPadding="false"
                         android:layout_width="fill_parent" android:layout_height="wrap_content">
                         <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
                             android:orientation="horizontal"
-                            android:id="@+id/video_re_play_btn_layout"
+                            android:id="@+id/video_history_play_btn_layout"
                             android:background="@drawable/background_white_rect"
                             android:focusable="true" android:focusableInTouchMode="true"
                             android:nextFocusLeft="@id/video_history_play_btn_layout"
@@ -199,6 +144,59 @@
                             android:clipToPadding="false"
                             android:layout_width="wrap_content" android:minWidth="@dimen/px_100"
                             android:layout_height="@dimen/px_80">
+                            <ImageView android:id="@+id/video_history_play_img"
+                                android:focusable="false"
+                                android:background="@drawable/ic_play_arrow_white_48dp"
+                                android:layout_width="@dimen/px_48"
+                                android:layout_height="@dimen/px_48"
+                                android:layout_marginLeft="@dimen/px_20"
+                                android:layout_marginRight="@dimen/px_20"
+                                android:scaleType="fitCenter" />
+                            <com.bilibili.tv.widget.DrawTextView android:textSize="@dimen/px_36"
+                                android:textColor="@color/white" android:gravity="center"
+                                android:id="@+id/video_history_play_btn" android:focusable="false"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="@dimen/px_26" />
+                        </com.bilibili.tv.widget.DrawLinearLayout>
+                        <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:id="@+id/video_no_history_play_btn_layout"
+                            android:background="@drawable/background_white_rect"
+                            android:focusable="true" android:focusableInTouchMode="true"
+                            android:visibility="gone"
+                            android:nextFocusLeft="@id/video_history_play_btn_layout"
+                            android:nextFocusRight="@id/video_detail_like"
+                            android:clipToPadding="false"
+                            android:layout_width="wrap_content" android:minWidth="@dimen/px_100"
+                            android:layout_height="@dimen/px_80"
+                            android:layout_marginLeft="@dimen/px_10">
+                            <CheckBox android:id="@+id/video_no_history_play_checkbox"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/px_20"
+                                android:layout_marginRight="@dimen/px_10"
+                                android:scaleX="1.3"
+                                android:scaleY="1.3"
+                                android:focusable="false" />
+                            <com.bilibili.tv.widget.DrawTextView android:textSize="@dimen/px_36"
+                                android:textColor="@color/white" android:gravity="center"
+                                android:id="@+id/video_no_history_play_btn" android:focusable="false"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="@dimen/px_26" />
+                        </com.bilibili.tv.widget.DrawLinearLayout>
+                        <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:id="@+id/video_re_play_btn_layout"
+                            android:background="@drawable/background_white_rect"
+                            android:focusable="true" android:focusableInTouchMode="true"
+                            android:nextFocusLeft="@id/video_history_play_btn_layout"
+                            android:nextFocusRight="@id/video_detail_like"
+                            android:clipToPadding="false"
+                            android:layout_width="wrap_content" android:minWidth="@dimen/px_100"
+                            android:layout_height="@dimen/px_80"
+                            android:layout_marginLeft="@dimen/px_10">
                             <com.bilibili.tv.widget.DrawTextView android:textSize="@dimen/px_36"
                                 android:textColor="@color/white" android:gravity="center"
                                 android:id="@+id/video_re_play_btn" android:focusable="false"
@@ -207,11 +205,127 @@
                                 android:layout_marginLeft="@dimen/px_20"
                                 android:layout_marginRight="@dimen/px_20" />
                         </com.bilibili.tv.widget.DrawLinearLayout>
+                        <LinearLayout android:id="@+id/video_action_buttons_container"
+                            android:orientation="horizontal"
+                            android:focusable="false"
+                            android:gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/px_20"
+                            android:clipChildren="false" android:clipToPadding="false"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content">
+                            <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
+                                android:orientation="horizontal" android:id="@id/video_detail_like"
+                                android:background="@drawable/background_white_rect"
+                                android:focusable="true" android:focusableInTouchMode="true"
+                                android:nextFocusLeft="@id/video_re_play_btn_layout"
+                                android:nextFocusRight="@id/video_detail_coin"
+                                android:clipToPadding="false"
+                                android:layout_width="wrap_content" android:minWidth="@dimen/px_80"
+                                android:layout_height="@dimen/px_80">
+                                <ImageView android:id="@id/video_detail_like_img"
+                                    android:background="@drawable/ic_like"
+                                    android:layout_width="@dimen/px_44"
+                                    android:layout_height="@dimen/px_44"
+                                    android:layout_marginLeft="@dimen/px_18"
+                                    android:layout_marginRight="@dimen/px_18"
+                                    android:scaleType="fitCenter" />
+                                <com.bilibili.tv.widget.DrawTextView android:textSize="@dimen/px_36"
+                                    android:textColor="@color/white" android:gravity="center"
+                                    android:id="@id/video_detail_like_text" android:focusable="false"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:visibility="gone"
+                                    android:layout_marginRight="@dimen/px_18" android:text="点赞" />
+                            </com.bilibili.tv.widget.DrawLinearLayout>
+                            <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
+                                android:orientation="horizontal" android:id="@id/video_detail_coin"
+                                android:background="@drawable/background_white_rect"
+                                android:focusable="true" android:focusableInTouchMode="true"
+                                android:nextFocusLeft="@id/video_detail_like"
+                                android:nextFocusRight="@id/video_detail_favorite"
+                                android:clipToPadding="false"
+                                android:layout_marginLeft="@dimen/px_10"
+                                android:layout_width="wrap_content" android:minWidth="@dimen/px_80"
+                                android:layout_height="@dimen/px_80">
+                                <ImageView android:id="@id/video_detail_coin_img"
+                                    android:background="@drawable/ic_coin"
+                                    android:layout_width="@dimen/px_44"
+                                    android:layout_height="@dimen/px_44"
+                                    android:layout_marginLeft="@dimen/px_18"
+                                    android:layout_marginRight="@dimen/px_18"
+                                    android:scaleType="fitCenter" />
+                                <com.bilibili.tv.widget.DrawTextView android:textSize="@dimen/px_36"
+                                    android:textColor="@color/white" android:gravity="center"
+                                    android:id="@id/video_detail_coin_text" android:focusable="false"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:visibility="gone"
+                                    android:layout_marginRight="@dimen/px_18" android:text="投币" />
+                            </com.bilibili.tv.widget.DrawLinearLayout>
+                            <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
+                                android:orientation="horizontal" android:id="@id/video_detail_favorite"
+                                android:background="@drawable/background_white_rect"
+                                android:focusable="true" android:focusableInTouchMode="true"
+                                android:nextFocusLeft="@id/video_detail_coin"
+                                android:nextFocusRight="@id/video_detail_watch_later"
+                                android:clipToPadding="false"
+                                android:layout_marginLeft="@dimen/px_10"
+                                android:layout_width="wrap_content" android:minWidth="@dimen/px_80"
+                                android:layout_height="@dimen/px_80">
+                                <ImageView android:id="@id/video_detail_favorite_img"
+                                    android:background="@drawable/ic_favorite"
+                                    android:layout_width="@dimen/px_44"
+                                    android:layout_height="@dimen/px_44"
+                                    android:layout_marginLeft="@dimen/px_18"
+                                    android:layout_marginRight="@dimen/px_18"
+                                    android:scaleType="fitCenter" />
+                                <com.bilibili.tv.widget.DrawTextView android:textSize="@dimen/px_36"
+                                    android:textColor="@color/white" android:gravity="center"
+                                    android:id="@id/video_detail_favorite_text"
+                                    android:focusable="false"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:visibility="gone"
+                                    android:layout_marginRight="@dimen/px_18" android:text="收藏" />
+                            </com.bilibili.tv.widget.DrawLinearLayout>
+                            <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:id="@id/video_detail_watch_later"
+                                android:background="@drawable/background_white_rect"
+                                android:focusable="true" android:focusableInTouchMode="true"
+                                android:nextFocusLeft="@id/video_detail_favorite"
+                                android:nextFocusRight="@id/video_detail_watch_later"
+                                android:clipToPadding="false"
+                                android:layout_marginLeft="@dimen/px_10"
+                                android:layout_width="wrap_content" android:minWidth="@dimen/px_80"
+                                android:layout_height="@dimen/px_80">
+                                <ImageView android:id="@id/video_detail_watch_later_img"
+                                    android:background="@drawable/ic_hourglass_empty_white_48dp"
+                                    android:layout_width="@dimen/px_44"
+                                    android:layout_height="@dimen/px_44"
+                                    android:layout_marginLeft="@dimen/px_18"
+                                    android:layout_marginRight="@dimen/px_18"
+                                    android:scaleType="fitCenter" />
+                                <com.bilibili.tv.widget.DrawTextView android:textSize="@dimen/px_36"
+                                    android:textColor="@color/white" android:gravity="center"
+                                    android:id="@id/video_detail_watch_later_text"
+                                    android:focusable="false"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:visibility="gone"
+                                    android:layout_marginRight="@dimen/px_18" android:text="稍后再看" />
+                            </com.bilibili.tv.widget.DrawLinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/video_history_container"
+                        android:visibility="visible" android:focusable="false"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="@dimen/px_10"
+                        android:clipChildren="false" android:clipToPadding="false"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content">
                         <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_32"
                             android:textColor="@color/white_50" android:focusable="false"
                             android:id="@+id/video_history_label"
                             android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/px_20"
                             android:text="上次播放到" />
                         <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_32"
                             android:textColor="@color/white" android:id="@+id/video_history_title"
@@ -295,136 +409,9 @@
                     <android.support.v7.widget.RecyclerView android:id="@id/flow_tag_view"
                         android:focusable="true"
                         android:nextFocusUp="@id/video_detail_coin"
+                        android:nextFocusDown="@id/flow_tag_view"
                         android:layout_width="fill_parent" android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/px_10" />
-                </LinearLayout>
-
-                <LinearLayout android:gravity="center_vertical" android:id="@id/video_controller"
-                    android:paddingLeft="@dimen/px_50" android:paddingRight="@dimen/px_70"
-                    android:focusable="false" android:clipChildren="false"
-                    android:clipToPadding="false"
-                    android:layout_width="fill_parent" android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/px_16"
-                    android:layout_marginBottom="@dimen/px_100">
-                    <LinearLayout android:padding="@dimen/px_20" android:clipChildren="false"
-                        android:clipToPadding="false" android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
-                            android:orientation="horizontal" android:id="@id/video_detail_like"
-                            android:background="@drawable/background_white_rect"
-                            android:focusable="true" android:focusableInTouchMode="true"
-                            android:nextFocusLeft="@id/video_detail_like"
-                            android:nextFocusRight="@id/video_detail_coin"
-                            android:nextFocusUp="@id/flow_tag_view"
-                            android:nextFocusDown="@id/video_detail_like"
-                            android:clipToPadding="false"
-                            android:layout_width="wrap_content" android:minWidth="@dimen/px_120"
-                            android:layout_height="@dimen/px_80">
-                            <ImageView android:id="@id/video_detail_like_img"
-                                android:background="@drawable/ic_like"
-                                android:layout_width="@dimen/px_44"
-                                android:layout_height="@dimen/px_44"
-                                android:layout_marginLeft="@dimen/px_36"
-                                android:layout_marginRight="@dimen/px_36"
-                                android:scaleType="fitCenter" />
-                            <com.bilibili.tv.widget.DrawTextView android:textSize="@dimen/px_36"
-                                android:textColor="@color/white" android:gravity="center"
-                                android:id="@id/video_detail_like_text" android:focusable="false"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginRight="@dimen/px_36" android:text="点赞" />
-                        </com.bilibili.tv.widget.DrawLinearLayout>
-                    </LinearLayout>
-                    <LinearLayout android:padding="@dimen/px_20" android:clipChildren="false"
-                        android:clipToPadding="false" android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
-                            android:orientation="horizontal" android:id="@id/video_detail_coin"
-                            android:background="@drawable/background_white_rect"
-                            android:focusable="true" android:focusableInTouchMode="true"
-                            android:nextFocusLeft="@id/video_detail_like"
-                            android:nextFocusRight="@id/video_detail_favorite"
-                            android:nextFocusUp="@id/flow_tag_view"
-                            android:nextFocusDown="@id/video_detail_coin"
-                            android:clipToPadding="false"
-                            android:layout_width="wrap_content" android:minWidth="@dimen/px_120"
-                            android:layout_height="@dimen/px_80">
-                            <ImageView android:id="@id/video_detail_coin_img"
-                                android:background="@drawable/ic_coin"
-                                android:layout_width="@dimen/px_44"
-                                android:layout_height="@dimen/px_44"
-                                android:layout_marginLeft="@dimen/px_36"
-                                android:layout_marginRight="@dimen/px_36"
-                                android:scaleType="fitCenter" />
-                            <com.bilibili.tv.widget.DrawTextView android:textSize="@dimen/px_36"
-                                android:textColor="@color/white" android:gravity="center"
-                                android:id="@id/video_detail_coin_text" android:focusable="false"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginRight="@dimen/px_36" android:text="投币" />
-                        </com.bilibili.tv.widget.DrawLinearLayout>
-                    </LinearLayout>
-                    <LinearLayout android:padding="@dimen/px_20" android:clipChildren="false"
-                        android:clipToPadding="false" android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
-                            android:orientation="horizontal" android:id="@id/video_detail_favorite"
-                            android:background="@drawable/background_white_rect"
-                            android:focusable="true" android:focusableInTouchMode="true"
-                            android:nextFocusLeft="@id/video_detail_coin"
-                            android:nextFocusRight="@id/video_detail_watch_later"
-                            android:nextFocusUp="@id/flow_tag_view"
-                            android:nextFocusDown="@id/video_detail_favorite"
-                            android:clipToPadding="false"
-                            android:layout_width="wrap_content" android:minWidth="@dimen/px_120"
-                            android:layout_height="@dimen/px_80">
-                            <ImageView android:id="@id/video_detail_favorite_img"
-                                android:background="@drawable/ic_favorite"
-                                android:layout_width="@dimen/px_44"
-                                android:layout_height="@dimen/px_44"
-                                android:layout_marginLeft="@dimen/px_36"
-                                android:layout_marginRight="@dimen/px_36"
-                                android:scaleType="fitCenter" />
-                            <com.bilibili.tv.widget.DrawTextView android:textSize="@dimen/px_36"
-                                android:textColor="@color/white" android:gravity="center"
-                                android:id="@id/video_detail_favorite_text"
-                                android:focusable="false"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginRight="@dimen/px_36" android:text="收藏" />
-                        </com.bilibili.tv.widget.DrawLinearLayout>
-                    </LinearLayout>
-                    <LinearLayout android:padding="@dimen/px_20" android:clipChildren="false"
-                        android:clipToPadding="false" android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:id="@id/video_detail_watch_later"
-                            android:background="@drawable/background_white_rect"
-                            android:focusable="true" android:focusableInTouchMode="true"
-                            android:nextFocusLeft="@id/video_detail_favorite"
-                            android:nextFocusRight="@id/video_detail_watch_later"
-                            android:nextFocusUp="@id/flow_tag_view"
-                            android:nextFocusDown="@id/video_detail_watch_later"
-                            android:clipToPadding="false"
-                            android:layout_width="wrap_content" android:minWidth="@dimen/px_120"
-                            android:layout_height="@dimen/px_80">
-                            <ImageView android:id="@id/video_detail_watch_later_img"
-                                android:background="@drawable/ic_hourglass_empty_white_48dp"
-                                android:layout_width="@dimen/px_44"
-                                android:layout_height="@dimen/px_44"
-                                android:layout_marginLeft="@dimen/px_36"
-                                android:layout_marginRight="@dimen/px_36"
-                                android:scaleType="fitCenter" />
-                            <com.bilibili.tv.widget.DrawTextView android:textSize="@dimen/px_36"
-                                android:textColor="@color/white" android:gravity="center"
-                                android:id="@id/video_detail_watch_later_text"
-                                android:focusable="false"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginRight="@dimen/px_36" android:text="稍后再看" />
-                        </com.bilibili.tv.widget.DrawLinearLayout>
-                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

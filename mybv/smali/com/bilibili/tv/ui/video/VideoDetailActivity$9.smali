@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 1113
+    .line 1134
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;->val$finalBiliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -46,7 +46,7 @@
     .prologue
     const/4 v4, 0x0
 
-    .line 1116
+    .line 1137
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;->val$finalBiliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     if-eqz v0, :cond_1f
@@ -57,21 +57,21 @@
 
     if-eqz v0, :cond_1f
 
-    .line 1117
+    .line 1138
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;->val$finalBiliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     iget-object v0, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mHistory:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
 
     iget-wide v0, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mCid:J
 
-    .line 1118
+    .line 1139
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;->val$finalBiliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     iget-object v2, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mHistory:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
 
     iput v4, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mProgress:I
 
-    .line 1119
+    .line 1140
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iget-object v3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;->val$finalBiliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -79,11 +79,11 @@
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->playVideo(Lcom/bilibili/tv/api/video/BiliVideoDetail;JI)V
     invoke-static {v2, v3, v0, v1, v4}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;JI)V
 
-    .line 1123
+    .line 1144
     :goto_1e
     return-void
 
-    .line 1121
+    .line 1142
     :cond_1f
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 

@@ -240,7 +240,6 @@ public final class VideoDetailActivity extends BaseActivity
             drawLinearLayout.setUpDrawable(R.drawable.shadow_red_rect);
             drawLinearLayout.setOnClickListener(this);
             drawLinearLayout.setOnLongClickListener(this);
-            drawLinearLayout.findViewById(R.id.video_detail_favorite_text).setVisibility(0);
         }
 
         drawLinearLayout = (DrawLinearLayout) d(R.id.video_detail_like);
@@ -249,7 +248,6 @@ public final class VideoDetailActivity extends BaseActivity
             drawLinearLayout.setUpDrawable(R.drawable.shadow_red_rect);
             drawLinearLayout.setOnClickListener(this);
             drawLinearLayout.setOnLongClickListener(this);
-            drawLinearLayout.findViewById(R.id.video_detail_like_text).setVisibility(0);
         }
         drawLinearLayout = (DrawLinearLayout) d(R.id.video_detail_coin);
         if (drawLinearLayout != null) {
@@ -257,10 +255,8 @@ public final class VideoDetailActivity extends BaseActivity
             drawLinearLayout.setUpDrawable(R.drawable.shadow_red_rect);
             drawLinearLayout.setOnClickListener(this);
             drawLinearLayout.setOnLongClickListener(this);
-            drawLinearLayout.findViewById(R.id.video_detail_coin_text).setVisibility(0);
         }
 
-        // 初始化稍后再看按钮
         watchLaterBtn = (DrawLinearLayout) d(R.id.video_detail_watch_later);
         if (watchLaterBtn != null) {
             watchLaterBtn.setOnFocusChangeListener(dVar);
@@ -441,7 +437,7 @@ public final class VideoDetailActivity extends BaseActivity
             this.noHistoryPlayBtnLayout.setUpDrawable(R.drawable.shadow_red_rect);
         }
         if (this.noHistoryPlayBtn != null) {
-            this.noHistoryPlayBtn.setText("无痕模式");
+            this.noHistoryPlayBtn.setText("无痕");
         }
         this.historyTitle = (TextView) d(R.id.video_history_title);
         this.historyProgress = (TextView) d(R.id.video_history_progress);
@@ -466,6 +462,27 @@ public final class VideoDetailActivity extends BaseActivity
 
     private void scrollToViewIfNeeded(View view) {
         if (scrollView == null || view == null) {
+            return;
+        }
+        int viewId = view.getId();
+        boolean isPlayButtonArea = viewId == R.id.video_history_play_btn_layout 
+                || viewId == R.id.video_re_play_btn_layout 
+                || viewId == R.id.video_no_history_play_btn_layout
+                || viewId == R.id.video_detail_like 
+                || viewId == R.id.video_detail_coin
+                || viewId == R.id.video_detail_favorite 
+                || viewId == R.id.video_detail_watch_later;
+        boolean isStaffArea = false;
+        if (staffContainer != null) {
+            for (int i = 0; i < staffContainer.getChildCount(); i++) {
+                if (staffContainer.getChildAt(i) == view) {
+                    isStaffArea = true;
+                    break;
+                }
+            }
+        }
+        if (isPlayButtonArea || isStaffArea) {
+            scrollView.smoothScrollTo(0, 0);
             return;
         }
         Rect scrollBounds = new Rect();
@@ -644,18 +661,16 @@ public final class VideoDetailActivity extends BaseActivity
             saveCurrentFocusPosition(currentFocus);
             if (valueOf2 != null && valueOf2.intValue() == KeyEvent.KEYCODE_DPAD_UP) {
                 if (currentFocus.getId() == R.id.video_detail_like || currentFocus.getId() == R.id.video_detail_coin
-                        || currentFocus.getId() == R.id.video_detail_favorite) {
-                    if (historyPlayBtnLayout != null && historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
-                        if (this.n != null && this.n.getVisibility() == View.VISIBLE && this.n.getChildCount() > 0) {
-                            int savedPosition = Math.min(tagViewFocusPosition, this.n.getChildCount() - 1);
-                            savedPosition = Math.max(0, savedPosition);
-                            View tagView = this.n.getChildAt(savedPosition);
-                            if (tagView != null) {
-
-                                tagView.requestFocus();
-                                return true;
-                            }
+                        || currentFocus.getId() == R.id.video_detail_favorite
+                        || currentFocus.getId() == R.id.video_detail_watch_later) {
+                    if (staffContainer != null && staffContainer.getChildCount() > 0) {
+                        View firstStaff = staffContainer.getChildAt(0);
+                        if (firstStaff != null) {
+                            firstStaff.requestFocus();
+                            return true;
                         }
+                    }
+                    if (historyPlayBtnLayout != null && historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
                         historyPlayBtnLayout.requestFocus();
                         return true;
                     } else if (rePlayBtnLayout != null && rePlayBtnLayout.getVisibility() == View.VISIBLE) {
@@ -667,24 +682,26 @@ public final class VideoDetailActivity extends BaseActivity
                     return super.dispatchKeyEvent(keyEvent);
                 }
             } else if (valueOf2 != null && valueOf2.intValue() == KeyEvent.KEYCODE_DPAD_DOWN) {
-                if (currentFocus.getId() == R.id.video_history_play_btn_layout || currentFocus.getId() == R.id.video_re_play_btn_layout || currentFocus.getId() == R.id.video_no_history_play_btn_layout) {
+                if (currentFocus.getId() == R.id.video_detail_like || currentFocus.getId() == R.id.video_detail_coin
+                        || currentFocus.getId() == R.id.video_detail_favorite
+                        || currentFocus.getId() == R.id.video_detail_watch_later
+                        || currentFocus.getId() == R.id.video_history_play_btn_layout 
+                        || currentFocus.getId() == R.id.video_re_play_btn_layout 
+                        || currentFocus.getId() == R.id.video_no_history_play_btn_layout) {
                     if (this.o != null && this.o.getVisibility() == View.VISIBLE && this.o.getChildCount() > 0) {
                         int savedPosition = Math.min(epLayoutFocusPosition, this.o.getChildCount() - 1);
                         savedPosition = Math.max(0, savedPosition);
                         View epView = this.o.getChildAt(savedPosition);
                         if (epView != null) {
-                            // 允许用户操作时从播放按钮向下切换焦点
                             VideoDetailActivity.this.blockEpisodeAutoFocus = false;
                             if (VideoDetailActivity.this.o != null) {
                                 VideoDetailActivity.this.o.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
                             }
-
                             epView.requestFocus();
                             return true;
                         }
                     } else if (seasonsContainer != null && seasonsContainer.getVisibility() == View.VISIBLE 
                             && !seasonSectionViews.isEmpty()) {
-                        // 移动到第一个合集列表
                         SeasonSectionView firstSection = seasonSectionViews.get(0);
                         if (firstSection.recyclerView != null && firstSection.recyclerView.getChildCount() > 0) {
                             int savedPosition = seasonSectionFocusPositions.containsKey(firstSection.sectionId) 
@@ -704,18 +721,15 @@ public final class VideoDetailActivity extends BaseActivity
                         savedPosition = Math.max(0, savedPosition);
                         View epVideoView = this.episodes_video.getChildAt(savedPosition);
                         if (epVideoView != null) {
-                            // 允许用户操作时从播放按钮向下切换焦点
                             VideoDetailActivity.this.blockEpisodeAutoFocus = false;
                             if (VideoDetailActivity.this.episodes_video != null) {
                                 VideoDetailActivity.this.episodes_video
                                         .setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
                             }
-
                             epVideoView.requestFocus();
                             return true;
                         }
                     } else if (this.r != null && this.r.getVisibility() == View.VISIBLE && this.r.getChildCount() > 0) {
-                        // 没有分集列表时，从播放按钮移动到相关视频列表，使用记忆的焦点位置
                         int savedPosition = Math.min(relateVideoFocusPosition, this.r.getChildCount() - 1);
                         savedPosition = Math.max(0, savedPosition);
                         View relateView = this.r.getChildAt(savedPosition);
@@ -800,6 +814,8 @@ public final class VideoDetailActivity extends BaseActivity
                     targetRecyclerView = this.n;
                     savedPosition = tagViewFocusPosition;
                 }
+            } else if (currentListType == LIST_TYPE_TAG) {
+                return true;
             }
         } else if (direction == KeyEvent.KEYCODE_DPAD_UP) {
             // 检查是否在最上面的列表，需要导航到播放按钮
@@ -1085,6 +1101,11 @@ public final class VideoDetailActivity extends BaseActivity
             if (historyPlayBtnLayout != null) {
                 historyPlayBtnLayout.setNextFocusRightId(R.id.video_no_history_play_btn_layout);
             }
+            noHistoryPlayBtnLayout.setNextFocusRightId(R.id.video_detail_like);
+        }
+        DrawLinearLayout likeBtn = (DrawLinearLayout) d(R.id.video_detail_like);
+        if (likeBtn != null) {
+            likeBtn.setNextFocusLeftId(R.id.video_no_history_play_btn_layout);
         }
         if (rePlayBtnLayout != null) {
             rePlayBtnLayout.setVisibility(View.GONE);
@@ -1393,7 +1414,7 @@ public final class VideoDetailActivity extends BaseActivity
         // android.util.Log.i("HistoryDisplay", "rePlayBtnLayout=" + rePlayBtnLayout + ", historyLabel=" + historyLabel);
         
         historyPlayBtn.setText("继续播放");
-        rePlayBtn.setText("重新播放");
+        rePlayBtn.setText("重播");
         
         if (historyContainer != null) {
             historyContainer.setVisibility(View.VISIBLE);
@@ -1458,6 +1479,10 @@ public final class VideoDetailActivity extends BaseActivity
         
         if (historyPlayBtnLayout != null) {
             historyPlayBtnLayout.setNextFocusRightId(R.id.video_re_play_btn_layout);
+        }
+        DrawLinearLayout likeBtn = (DrawLinearLayout) d(R.id.video_detail_like);
+        if (likeBtn != null) {
+            likeBtn.setNextFocusLeftId(R.id.video_re_play_btn_layout);
         }
     }
 
@@ -2068,6 +2093,23 @@ public final class VideoDetailActivity extends BaseActivity
                     || (drawTextView = (DrawTextView) view.findViewById(R.id.text)) == null) {
             } else {
                 drawTextView.setUpEnabled(z);
+            }
+            int viewId = view.getId();
+            if (viewId == R.id.video_detail_like || viewId == R.id.video_detail_coin 
+                    || viewId == R.id.video_detail_favorite || viewId == R.id.video_detail_watch_later) {
+                TextView textView = null;
+                if (viewId == R.id.video_detail_like) {
+                    textView = (TextView) view.findViewById(R.id.video_detail_like_text);
+                } else if (viewId == R.id.video_detail_coin) {
+                    textView = (TextView) view.findViewById(R.id.video_detail_coin_text);
+                } else if (viewId == R.id.video_detail_favorite) {
+                    textView = (TextView) view.findViewById(R.id.video_detail_favorite_text);
+                } else if (viewId == R.id.video_detail_watch_later) {
+                    textView = (TextView) view.findViewById(R.id.video_detail_watch_later_text);
+                }
+                if (textView != null) {
+                    textView.setVisibility(z ? View.VISIBLE : View.GONE);
+                }
             }
         }
     }

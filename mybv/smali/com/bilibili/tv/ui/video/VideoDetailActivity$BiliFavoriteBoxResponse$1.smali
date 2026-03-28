@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 588
+    .line 605
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$BiliFavoriteBoxResponse$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$BiliFavoriteBoxResponse;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$BiliFavoriteBoxResponse$1;->val$fids:Ljava/util/List;
@@ -44,7 +44,7 @@
     .locals 2
 
     .prologue
-    .line 591
+    .line 608
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$BiliFavoriteBoxResponse$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$BiliFavoriteBoxResponse;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$BiliFavoriteBoxResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -71,7 +71,7 @@
 
     if-eqz v0, :cond_28
 
-    .line 592
+    .line 609
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$BiliFavoriteBoxResponse$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$BiliFavoriteBoxResponse;
 
     iget-object v1, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$BiliFavoriteBoxResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -87,11 +87,11 @@
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->q(Ljava/lang/String;)V
     invoke-static {v1, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1200(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Ljava/lang/String;)V
 
-    .line 595
+    .line 612
     :goto_27
     return-void
 
-    .line 594
+    .line 611
     :cond_28
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$BiliFavoriteBoxResponse$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$BiliFavoriteBoxResponse;
 

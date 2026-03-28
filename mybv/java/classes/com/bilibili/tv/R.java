@@ -2507,6 +2507,8 @@ public final class R {
         public static final int header_title = 0x7f08019a;
         public static final int header_count = 0x7f08019b;
         public static final int video_detail_watch_later = 0x7f08019c;
+        public static final int video_detail_watch_later_img = 0x7f0801c7;
+        public static final int video_detail_watch_later_text = 0x7f0801c8;
         public static final int video_detail_extra_episodes_container = 0x7f08019d;
         public static final int video_detail_seasons_container = 0x7f08019e;
         public static final int season_section_title = 0x7f08019f;
