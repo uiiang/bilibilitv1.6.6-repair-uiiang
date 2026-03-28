@@ -2,6 +2,7 @@ package com.bilibili.tv.api.video;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 import bl.jp;
 import bl.jq;
 import bl.vu;
@@ -11,6 +12,7 @@ import com.bilibili.okretro.GeneralResponse;
 import com.bilibili.tv.api.video.BiliVideoDetail;
 import java.io.IOException;
 import okhttp3.ResponseBody;
+import mybl.LogUtil;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
@@ -25,6 +27,8 @@ public class VideoApiParser2 implements vu<GeneralResponse<BiliVideoDetail>> {
     @NonNull
     public GeneralResponse<BiliVideoDetail> convert(ResponseBody responseBody) throws IOException {
         String rawResponse = responseBody.string();
+        LogUtil.i("VideoDetailApi", "========== API Response ==========");
+        LogUtil.i("VideoDetailApi", rawResponse);
         Object a = jp.a(rawResponse);
         if (a instanceof JSONObject) {
             GeneralResponse<BiliVideoDetail> generalResponse = new GeneralResponse<>();

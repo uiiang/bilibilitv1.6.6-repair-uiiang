@@ -710,6 +710,31 @@
     .end annotation
 .end method
 
+.method public abstract getRelatedVideos(J)Lbl/vp;
+    .param p1    # J
+        .annotation runtime Lretrofit2/http/Query;
+            value = "aid"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(J)",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Ljava/util/List",
+            "<",
+            "Lcom/bilibili/tv/api/video/BiliVideoDetail;",
+            ">;>;>;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/GET;
+        value = "/x/web-interface/archive/related"
+    .end annotation
+.end method
+
 .method public abstract getRelation(JLjava/lang/String;)Lbl/vp;
     .param p1    # J
         .annotation runtime Lretrofit2/http/Query;
@@ -964,6 +989,54 @@
 
     .annotation runtime Lretrofit2/http/GET;
         value = "/x/web-interface/view/detail"
+    .end annotation
+.end method
+
+.method public abstract getVideoInfo(J)Lbl/vp;
+    .param p1    # J
+        .annotation runtime Lretrofit2/http/Query;
+            value = "aid"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(J)",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Lcom/bilibili/tv/api/video/BiliVideoDetail;",
+            ">;>;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/GET;
+        value = "/x/web-interface/view"
+    .end annotation
+.end method
+
+.method public abstract getVideoTags(J)Lbl/vp;
+    .param p1    # J
+        .annotation runtime Lretrofit2/http/Query;
+            value = "aid"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(J)",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Ljava/util/List",
+            "<",
+            "Lcom/bilibili/tv/api/video/BiliVideoDetail$Tag;",
+            ">;>;>;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/GET;
+        value = "/x/web-interface/view/detail/tag"
     .end annotation
 .end method
 

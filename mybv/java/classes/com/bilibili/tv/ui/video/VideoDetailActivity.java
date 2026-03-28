@@ -57,6 +57,9 @@ import com.bilibili.tv.api.favorite.BiliFavoriteVideoApiService;
 import com.bilibili.tv.api.video.BiliVideoDetail;
 import com.bilibili.tv.api.video.VideoApiParser;
 import com.bilibili.tv.api.video.VideoApiParser2;
+import com.bilibili.tv.api.video.VideoApiParser3;
+import com.bilibili.tv.api.video.RelatedVideoParser;
+import com.bilibili.tv.api.video.TagParser;
 import com.bilibili.tv.api.video.VideoApiService;
 import com.bilibili.tv.api.history.BiliPlayerHistoryService;
 import com.bilibili.tv.ui.account.LoginActivity;
@@ -96,6 +99,7 @@ public final class VideoDetailActivity extends BaseActivity
         implements View.OnClickListener, View.OnLongClickListener, wf {
     private static final String C = "VideoDetailActivity";
     private static final String D = "bundle_ac_id";
+    private static final boolean ENABLE_BANGUMI_JUMP = false;
     private i A;
     private boolean B;
     private ImageView b;
@@ -1077,7 +1081,9 @@ public final class VideoDetailActivity extends BaseActivity
         if (loadingImageView != null) {
             loadingImageView.a();
         }
-        ((MyBiliApiService) vo.a(MyBiliApiService.class)).getVideoDetail(this.s).a(new VideoApiParser2()).a(this.A);
+        Log.i("VideoDetailApi", "========== Request URL ==========");
+        Log.i("VideoDetailApi", "https://api.bilibili.com/x/web-interface/view?aid=" + this.s);
+        ((MyBiliApiService) vo.a(MyBiliApiService.class)).getVideoInfo(this.s).a(new VideoApiParser3()).a(this.A);
     }
 
     private final void initDefaultPlayButtons(BiliVideoDetail biliVideoDetail) {
@@ -1540,6 +1546,10 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private final boolean a(BiliVideoDetail biliVideoDetail) {
+        if (!ENABLE_BANGUMI_JUMP) {
+            android.util.Log.i("BangumiJump", "ENABLE_BANGUMI_JUMP is false, skip jump");
+            return false;
+        }
         android.util.Log.i("BangumiJump", "checking jump: mRedirectUrl=" + biliVideoDetail.mRedirectUrl + ", mFirstFrame=" + biliVideoDetail.mFirstFrame);
         if (!TextUtils.isEmpty(biliVideoDetail.mRedirectUrl)) {
             android.util.Log.i("BangumiJump", "mRedirectUrl is not empty, returning true");
@@ -2149,6 +2159,20 @@ public final class VideoDetailActivity extends BaseActivity
             if (cVar != null) {
                 List<BiliVideoDetail.Page> list = this.b;
                 cVar.b(list != null ? list.get(i) : null);
+                View itemView = cVar.a;
+                if (itemView != null) {
+                    int size = this.b != null ? this.b.size() : 0;
+                    if (i == 0) {
+                        itemView.setNextFocusLeftId(itemView.getId());
+                    } else {
+                        itemView.setNextFocusLeftId(View.NO_ID);
+                    }
+                    if (i == size - 1) {
+                        itemView.setNextFocusRightId(itemView.getId());
+                    } else {
+                        itemView.setNextFocusRightId(View.NO_ID);
+                    }
+                }
             }
         }
 
@@ -2780,16 +2804,93 @@ public final class VideoDetailActivity extends BaseActivity
                 textView3.setText(adh.a(biliVideoDetail.getDanmakus()));
             }
             b(biliVideoDetail);
-            a((List<? extends BiliVideoDetail.Tag>) biliVideoDetail.mTags);
             d(biliVideoDetail);
             showEpisodes(biliVideoDetail);
-            c(biliVideoDetail);
 
             abi.a.a("tv_detail_view2_resp", abi.a.a(String.valueOf(VideoDetailActivity.this.s),
                     String.valueOf(mg.a(VideoDetailActivity.this).d()), "success", "0"));
             initDefaultPlayButtons(biliVideoDetail);
             loadArchiveRelation(biliVideoDetail);
             loadHistory(biliVideoDetail);
+            
+            loadRelatedVideosAndTags();
+        }
+        
+        private void loadRelatedVideosAndTags() {
+            final long aid = VideoDetailActivity.this.s;
+            ((MyBiliApiService) vo.a(MyBiliApiService.class)).getRelatedVideos(aid).a(new RelatedVideoParser()).a(new vn<List<BiliVideoDetail>>() {
+                @Override
+                public boolean isCancel() {
+                    return VideoDetailActivity.this.isFinishing();
+                }
+                
+                @Override
+                public void onError(Throwable th) {
+                    Log.i("VideoDetailApi", "loadRelatedVideos error: " + th.getMessage());
+                    TextView textView = VideoDetailActivity.this.i;
+                    if (textView != null) {
+                        textView.setVisibility(8);
+                    }
+                    RecyclerView recyclerView = VideoDetailActivity.this.r;
+                    if (recyclerView != null) {
+                        recyclerView.setVisibility(8);
+                    }
+                }
+                
+                @Override
+                public void a(List<BiliVideoDetail> relatedList) {
+                    if (relatedList == null || relatedList.isEmpty()) {
+                        TextView textView = VideoDetailActivity.this.i;
+                        if (textView != null) {
+                            textView.setVisibility(8);
+                        }
+                        RecyclerView recyclerView = VideoDetailActivity.this.r;
+                        if (recyclerView != null) {
+                            recyclerView.setVisibility(8);
+                            return;
+                        }
+                        return;
+                    }
+                    if (VideoDetailActivity.this.v != null) {
+                        VideoDetailActivity.this.v.a(relatedList);
+                    }
+                    TextView textView2 = VideoDetailActivity.this.i;
+                    if (textView2 != null) {
+                        textView2.setVisibility(0);
+                    }
+                    RecyclerView recyclerView2 = VideoDetailActivity.this.r;
+                    if (recyclerView2 != null) {
+                        recyclerView2.setVisibility(0);
+                    }
+                }
+            });
+            
+            ((MyBiliApiService) vo.a(MyBiliApiService.class)).getVideoTags(aid).a(new TagParser()).a(new vn<List<BiliVideoDetail.Tag>>() {
+                @Override
+                public boolean isCancel() {
+                    return VideoDetailActivity.this.isFinishing();
+                }
+                
+                @Override
+                public void onError(Throwable th) {
+                    Log.i("VideoDetailApi", "loadVideoTags error: " + th.getMessage());
+                }
+                
+                @Override
+                public void a(List<BiliVideoDetail.Tag> tagList) {
+                    if (tagList == null || tagList.isEmpty()) {
+                        return;
+                    }
+                    HashMap<String, Integer> hashMap = new HashMap<>(tagList.size());
+                    for (BiliVideoDetail.Tag tag : tagList) {
+                        hashMap.put(tag.name, Integer.valueOf(tag.id));
+                    }
+                    g gVar = VideoDetailActivity.this.x;
+                    if (gVar != null) {
+                        gVar.a(hashMap);
+                    }
+                }
+            });
         }
 
         private void addStaffView(LinearLayout container, String name, long mid, String faceUrl, int index, int totalCount) {
@@ -3190,42 +3291,30 @@ public final class VideoDetailActivity extends BaseActivity
                 textView3.setText(VideoDetailActivity.this.getString(R.string.video_detail_ep_title,
                         new Object[] { String.valueOf(biliVideoDetail.mPageList.size()) }));
             }
-            int i2 = biliVideoDetail.mRelatedList != null && !biliVideoDetail.mRelatedList.isEmpty()
-                    ? VideoDetailActivity.E
-                    : VideoDetailActivity.F;
-            int size = biliVideoDetail.mPageList.size();
-            if (size > i2) {
-                size = i2;
-            }
+            int maxShowCount = VideoDetailActivity.E;
+            int totalPages = biliVideoDetail.mPageList.size();
+            boolean needMoreButton = totalPages > maxShowCount;
+            int size = needMoreButton ? maxShowCount - 1 : totalPages;
             d dVar = new d();
             List list = VideoDetailActivity.this.t;
             if (list != null) {
                 list.clear();
             }
-            int i3 = size - 1;
-            if (i3 >= 0) {
-                while (true) {
-                    if (i == i2 - 1) {
-                        DrawTextView l = VideoDetailActivity.this.l();
-                        l.setUpDrawable(R.drawable.shadow_red_rect);
-                        l.setOnFocusChangeListener(dVar);
-                        add addVar = VideoDetailActivity.this.w;
-                        if (addVar != null) {
-                            addVar.a(l);
-                        }
-                        break;
-                    } else {
-                        List list2 = VideoDetailActivity.this.t;
-                        if (list2 != null) {
-                            BiliVideoDetail.Page page = biliVideoDetail.mPageList.get(i);
-                            bbi.a((Object) page, "videoDetail.mPageList[i]");
-                            list2.add(page);
-                        }
-                        if (i == i3) {
-                            break;
-                        }
-                        i++;
-                    }
+            for (i = 0; i < size; i++) {
+                List list2 = VideoDetailActivity.this.t;
+                if (list2 != null) {
+                    BiliVideoDetail.Page page = biliVideoDetail.mPageList.get(i);
+                    bbi.a((Object) page, "videoDetail.mPageList[i]");
+                    list2.add(page);
+                }
+            }
+            if (needMoreButton) {
+                DrawTextView l = VideoDetailActivity.this.l();
+                l.setUpDrawable(R.drawable.shadow_red_rect);
+                l.setOnFocusChangeListener(dVar);
+                add addVar = VideoDetailActivity.this.w;
+                if (addVar != null) {
+                    addVar.a(l);
                 }
             }
             add addVar2 = VideoDetailActivity.this.w;
