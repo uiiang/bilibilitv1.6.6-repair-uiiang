@@ -518,6 +518,8 @@ public class xi extends xh implements bbb<Message, Boolean> {
         R();
         String a2 = yr.a(b);
         String coverUrl = yr.d(b);
+        android.util.Log.d("CoverDebug", "========== xi.d() Cover Info ==========");
+        android.util.Log.d("CoverDebug", "coverUrl from yr.d(b) = " + coverUrl);
         String pageTitle = null;
         if (b.mVideoParams != null && b.mVideoParams.mResolveParams != null) {
             if (b.mVideoParams.mResolveParamsArray != null && b.mVideoParams.mResolveParamsArray.length > 1) {

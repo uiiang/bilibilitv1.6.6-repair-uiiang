@@ -57,7 +57,7 @@
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
 
-    const v1, 0x7f0801c0
+    const v1, 0x7f0801c5
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->findViewById(I)Landroid/view/View;
 

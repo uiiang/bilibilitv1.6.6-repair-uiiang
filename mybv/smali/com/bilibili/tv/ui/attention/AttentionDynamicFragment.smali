@@ -1016,7 +1016,7 @@
     .line 118
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->rootView:Landroid/view/View;
 
-    const v1, 0x7f0801ad
+    const v1, 0x7f0801b2
 
     invoke-virtual {v0, v1}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -1027,7 +1027,7 @@
     .line 119
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->rootView:Landroid/view/View;
 
-    const v1, 0x7f0801b0
+    const v1, 0x7f0801b5
 
     invoke-virtual {v0, v1}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -1038,7 +1038,7 @@
     .line 120
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->rootView:Landroid/view/View;
 
-    const v1, 0x7f0801ae
+    const v1, 0x7f0801b3
 
     invoke-virtual {v0, v1}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -1051,7 +1051,7 @@
     .line 121
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->rootView:Landroid/view/View;
 
-    const v1, 0x7f0801af
+    const v1, 0x7f0801b4
 
     invoke-virtual {v0, v1}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -1064,7 +1064,7 @@
     .line 122
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->rootView:Landroid/view/View;
 
-    const v1, 0x7f0801b1
+    const v1, 0x7f0801b6
 
     invoke-virtual {v0, v1}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -1077,7 +1077,7 @@
     .line 123
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->rootView:Landroid/view/View;
 
-    const v1, 0x7f0801b2
+    const v1, 0x7f0801b7
 
     invoke-virtual {v0, v1}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 

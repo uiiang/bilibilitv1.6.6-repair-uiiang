@@ -118,7 +118,7 @@
     iput-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$f;->q:Landroid/widget/TextView;
 
     .line 500
-    const v0, 0x7f0801aa
+    const v0, 0x7f0801af
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/history/VideoToviewActivity$f;->a(Landroid/view/View;I)Landroid/view/View;
 
@@ -129,7 +129,7 @@
     iput-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$f;->r:Landroid/widget/TextView;
 
     .line 501
-    const v0, 0x7f0801a1
+    const v0, 0x7f0801a6
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/history/VideoToviewActivity$f;->a(Landroid/view/View;I)Landroid/view/View;
 

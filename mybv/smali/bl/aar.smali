@@ -61,7 +61,7 @@
 
     .line 23
     :cond_1a
-    const v0, 0x7f0801bc
+    const v0, 0x7f0801c1
 
     invoke-virtual {p1, v0}, Landroid/view/ViewGroup;->findViewById(I)Landroid/view/View;
 
@@ -72,7 +72,7 @@
     iput-object v0, p0, Lbl/aar;->c:Lcom/bilibili/tv/widget/ScalableImageView;
 
     .line 24
-    const v0, 0x7f0801bd
+    const v0, 0x7f0801c2
 
     invoke-virtual {p1, v0}, Landroid/view/ViewGroup;->findViewById(I)Landroid/view/View;
 
@@ -117,17 +117,79 @@
 .end method
 
 .method public a(Ljava/lang/String;Ljava/lang/String;)V
-    .locals 2
+    .locals 3
 
     .prologue
     .line 63
-    iget-object v0, p0, Lbl/aar;->c:Lcom/bilibili/tv/widget/ScalableImageView;
+    const-string v0, "CoverDebug"
 
-    if-eqz v0, :cond_f
+    const-string v1, "========== aar.a() called =========="
 
-    if-eqz p1, :cond_f
+    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 64
+    const-string v0, "CoverDebug"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "coverUrl = "
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 65
+    const-string v0, "CoverDebug"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "this.c (ScalableImageView) = "
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lbl/aar;->c:Lcom/bilibili/tv/widget/ScalableImageView;
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 66
+    iget-object v0, p0, Lbl/aar;->c:Lcom/bilibili/tv/widget/ScalableImageView;
+
+    if-eqz v0, :cond_67
+
+    if-eqz p1, :cond_67
+
+    .line 67
+    const-string v0, "CoverDebug"
+
+    const-string v1, "Calling nv.a().a(coverUrl, this.c)"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 68
     invoke-static {}, Lbl/nv;->a()Lbl/nv;
 
     move-result-object v0
@@ -136,47 +198,85 @@
 
     invoke-virtual {v0, p1, v1}, Lbl/nv;->a(Ljava/lang/String;Landroid/widget/ImageView;)V
 
-    .line 66
-    :cond_f
+    .line 72
+    :goto_4f
     iget-object v0, p0, Lbl/aar;->d:Landroid/widget/TextView;
 
-    if-eqz v0, :cond_26
+    if-eqz v0, :cond_66
 
-    .line 67
-    if-eqz p2, :cond_27
+    .line 73
+    if-eqz p2, :cond_8c
 
     invoke-virtual {p2}, Ljava/lang/String;->isEmpty()Z
 
     move-result v0
 
-    if-nez v0, :cond_27
+    if-nez v0, :cond_8c
 
-    .line 68
+    .line 74
     iget-object v0, p0, Lbl/aar;->d:Landroid/widget/TextView;
 
     invoke-virtual {v0, p2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 69
+    .line 75
     iget-object v0, p0, Lbl/aar;->d:Landroid/widget/TextView;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 74
-    :cond_26
-    :goto_26
+    .line 80
+    :cond_66
+    :goto_66
     return-void
 
-    .line 71
-    :cond_27
+    .line 70
+    :cond_67
+    const-string v0, "CoverDebug"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "SKIPPED image loading: this.c="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lbl/aar;->c:Lcom/bilibili/tv/widget/ScalableImageView;
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, ", coverUrl="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_4f
+
+    .line 77
+    :cond_8c
     iget-object v0, p0, Lbl/aar;->d:Landroid/widget/TextView;
 
     const/16 v1, 0x8
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
 
-    goto :goto_26
+    goto :goto_66
 .end method
 
 .method public a()Z

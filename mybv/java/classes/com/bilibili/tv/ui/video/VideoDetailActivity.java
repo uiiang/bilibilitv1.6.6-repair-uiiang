@@ -55,6 +55,9 @@ import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.favorite.BiliFavoriteVideoApiService;
 import com.bilibili.tv.api.video.BiliVideoDetail;
+import com.bilibili.tv.api.video.BiliUser;
+import com.bilibili.tv.api.video.PgcInfo;
+import com.bilibili.tv.api.video.PgcInfoParser;
 import com.bilibili.tv.api.video.VideoApiParser;
 import com.bilibili.tv.api.video.VideoApiParser2;
 import com.bilibili.tv.api.video.VideoApiParser3;
@@ -135,6 +138,11 @@ public final class VideoDetailActivity extends BaseActivity
     public static boolean sNoHistoryPlayMode = false;
     private long s;
     private List<BiliVideoDetail.Page> t;
+    private LinearLayout pgcInfoContainer;
+    private TextView pgcRating;
+    private TextView pgcType;
+    private TextView pgcArea;
+    private TextView pgcNewEp;
 
     /* renamed from: u reason: collision with root package name */
     private BiliVideoDetail u;
@@ -235,6 +243,11 @@ public final class VideoDetailActivity extends BaseActivity
         this.i = (TextView) d(R.id.video_detail_relate_title);
         this.episodes_title = (TextView) d(R.id.video_detail_episodes_title);
         this.m = d(R.id.content_layout);
+        this.pgcInfoContainer = (LinearLayout) d(R.id.pgc_info_container);
+        this.pgcRating = (TextView) d(R.id.pgc_rating);
+        this.pgcType = (TextView) d(R.id.pgc_type);
+        this.pgcArea = (TextView) d(R.id.pgc_area);
+        this.pgcNewEp = (TextView) d(R.id.pgc_new_ep);
         this.j = (DrawLinearLayout) d(R.id.video_detail_favorite);
         this.k = (ImageView) d(R.id.video_detail_favorite_img);
         this.l = (TextView) d(R.id.video_detail_favorite_text);
@@ -1545,6 +1558,302 @@ public final class VideoDetailActivity extends BaseActivity
         a(activity, seasonId);
     }
 
+    private boolean isPgcVideo(BiliVideoDetail biliVideoDetail) {
+        if (biliVideoDetail == null) {
+            return false;
+        }
+        if (!TextUtils.isEmpty(biliVideoDetail.mRedirectUrl)) {
+            return true;
+        }
+        if (biliVideoDetail.mBangumiInfo != null) {
+            return true;
+        }
+        return false;
+    }
+
+    private String extractSeasonId(BiliVideoDetail biliVideoDetail) {
+        if (biliVideoDetail == null) {
+            return "";
+        }
+        if (!TextUtils.isEmpty(biliVideoDetail.mRedirectUrl)) {
+            String url = biliVideoDetail.mRedirectUrl.trim();
+            if (url.endsWith(",")) {
+                url = url.substring(0, url.length() - 1);
+            }
+            if (url.contains("/ss")) {
+                int idx = url.indexOf("/ss");
+                String sub = url.substring(idx + 3);
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < sub.length(); i++) {
+                    char c = sub.charAt(i);
+                    if (Character.isDigit(c)) {
+                        sb.append(c);
+                    } else {
+                        break;
+                    }
+                }
+                if (sb.length() > 0) {
+                    return sb.toString();
+                }
+            } else if (url.contains("/ep")) {
+                int idx = url.indexOf("/ep");
+                String sub = url.substring(idx + 3);
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < sub.length(); i++) {
+                    char c = sub.charAt(i);
+                    if (Character.isDigit(c)) {
+                        sb.append(c);
+                    } else {
+                        break;
+                    }
+                }
+                if (sb.length() > 0) {
+                    String epId = sb.toString();
+                    return fetchSeasonIdFromEpId(epId);
+                }
+            }
+        }
+        if (biliVideoDetail.mBangumiInfo != null) {
+            return biliVideoDetail.mBangumiInfo.mSeasonId;
+        }
+        return "";
+    }
+
+    private void loadPgcInfo(BiliVideoDetail biliVideoDetail) {
+        String seasonId = extractSeasonId(biliVideoDetail);
+        if (TextUtils.isEmpty(seasonId)) {
+            android.util.Log.i("PgcInfo", "seasonId is empty, skip loading PGC info");
+            return;
+        }
+        android.util.Log.i("PgcInfo", "loading PGC info for seasonId: " + seasonId);
+        ((MyBiliApiService) vo.a(MyBiliApiService.class)).getPgcSeasonInfo(seasonId).a(new PgcInfoParser()).a(new vn<PgcInfo>() {
+            @Override
+            public boolean isCancel() {
+                return VideoDetailActivity.this.isFinishing();
+            }
+
+            @Override
+            public void onError(Throwable th) {
+                android.util.Log.e("PgcInfo", "loadPgcInfo error: " + th.getMessage());
+            }
+
+            @Override
+            public void a(PgcInfo pgcInfo) {
+                if (pgcInfo == null) {
+                    android.util.Log.i("PgcInfo", "pgcInfo is null");
+                    return;
+                }
+                android.util.Log.i("PgcInfo", "got PGC info: " + pgcInfo.title);
+                VideoDetailActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showPgcInfo(pgcInfo);
+                    }
+                });
+            }
+        });
+    }
+
+    private void showPgcInfo(PgcInfo pgcInfo) {
+        if (pgcInfoContainer == null) {
+            return;
+        }
+        pgcInfoContainer.setVisibility(0);
+        
+        if (pgcRating != null && pgcInfo.rating != null) {
+            pgcRating.setText(pgcInfo.getRatingString());
+            pgcRating.setVisibility(0);
+        } else if (pgcRating != null) {
+            pgcRating.setVisibility(8);
+        }
+        
+        if (pgcType != null) {
+            pgcType.setText(pgcInfo.getTypeName());
+        }
+        
+        if (pgcArea != null) {
+            pgcArea.setText(pgcInfo.getAreaString());
+        }
+        
+        if (pgcNewEp != null && pgcInfo.newEp != null) {
+            pgcNewEp.setText(pgcInfo.newEp.indexShow);
+        } else if (pgcNewEp != null) {
+            pgcNewEp.setText("");
+        }
+        
+        showPgcEpisodes(pgcInfo);
+        showPgcSections(pgcInfo);
+    }
+
+    private BiliVideoDetail.Page convertEpisodeToPage(PgcInfo.Episode episode, int pageIndex) {
+        BiliVideoDetail.Page page = new BiliVideoDetail.Page();
+        page.mCid = episode.cid;
+        page.mPage = pageIndex;
+        page.mTitle = !TextUtils.isEmpty(episode.longTitle) ? episode.longTitle : episode.title;
+        page.mLink = episode.link;
+        return page;
+    }
+
+    private BiliVideoDetail convertEpisodeToBiliVideoDetail(PgcInfo.Episode episode) {
+        BiliVideoDetail detail = new BiliVideoDetail();
+        detail.mAvid = episode.aid;
+        detail.mBvid = episode.bvid;
+        detail.mCover = episode.cover;
+        detail.mTitle = !TextUtils.isEmpty(episode.showTitle) ? episode.showTitle : 
+                        (!TextUtils.isEmpty(episode.longTitle) ? episode.longTitle : episode.title);
+        detail.mDuration = (int) (episode.duration / 1000);
+        detail.mCreatedTimestamp = episode.pubTime;
+        
+        BiliVideoDetail.Stat stat = new BiliVideoDetail.Stat();
+        if (episode.stat != null) {
+            stat.mPlays = String.valueOf(episode.stat.play);
+            stat.mDanmakus = String.valueOf(episode.stat.danmakus);
+        } else {
+            stat.mPlays = "0";
+            stat.mDanmakus = "0";
+        }
+        detail.mStat = stat;
+        
+        BiliUser owner = new BiliUser();
+        owner.name = !TextUtils.isEmpty(episode.subtitle) ? episode.subtitle : "";
+        detail.mOwner = owner;
+        
+        return detail;
+    }
+
+    private void showPgcEpisodes(PgcInfo pgcInfo) {
+        if (pgcInfo.episodes == null || pgcInfo.episodes.isEmpty()) {
+            if (hh != null) {
+                hh.setVisibility(View.GONE);
+            }
+            if (o != null) {
+                o.setVisibility(View.GONE);
+            }
+            return;
+        }
+        
+        if (pgcInfo.episodes.size() <= 1) {
+            if (hh != null) {
+                hh.setVisibility(View.GONE);
+            }
+            if (o != null) {
+                o.setVisibility(View.GONE);
+            }
+            return;
+        }
+        
+        if (hh != null) {
+            hh.setVisibility(View.VISIBLE);
+            hh.setText(getString(R.string.video_detail_ep_title, pgcInfo.episodes.size()));
+        }
+        
+        if (o != null) {
+            o.setVisibility(View.VISIBLE);
+        }
+        
+        int maxShowCount = E;
+        int totalPages = pgcInfo.episodes.size();
+        boolean needMoreButton = totalPages > maxShowCount;
+        int size = needMoreButton ? maxShowCount - 1 : totalPages;
+        
+        if (t != null) {
+            t.clear();
+            for (int i = 0; i < size; i++) {
+                PgcInfo.Episode episode = pgcInfo.episodes.get(i);
+                BiliVideoDetail.Page page = convertEpisodeToPage(episode, i + 1);
+                t.add(page);
+            }
+        }
+        
+        if (needMoreButton) {
+            DrawTextView moreBtn = l();
+            moreBtn.setUpDrawable(R.drawable.shadow_red_rect);
+            moreBtn.setOnFocusChangeListener(new d());
+            if (w != null) {
+                w.a(moreBtn);
+            }
+        }
+        
+        if (w != null) {
+            w.d();
+        }
+    }
+
+    private void showPgcSections(PgcInfo pgcInfo) {
+        if (seasonsContainer == null) {
+            return;
+        }
+        
+        seasonsContainer.setVisibility(View.VISIBLE);
+        seasonsContainer.removeAllViews();
+        seasonSectionViews.clear();
+        
+        if (pgcInfo.sections == null || pgcInfo.sections.isEmpty()) {
+            return;
+        }
+        
+        for (int i = 0; i < pgcInfo.sections.size(); i++) {
+            PgcInfo.Section section = pgcInfo.sections.get(i);
+            createPgcSectionView(section, i, pgcInfo.sections.size());
+        }
+    }
+
+    private void createPgcSectionView(PgcInfo.Section section, int sectionIndex, int totalSections) {
+        if (seasonsContainer == null || section.episodes == null || section.episodes.isEmpty()) {
+            return;
+        }
+        
+        View sectionView = LayoutInflater.from(this).inflate(R.layout.layout_season_section, null);
+        TextView titleView = (TextView) sectionView.findViewById(R.id.season_section_title);
+        final RecyclerView recyclerView = (RecyclerView) sectionView.findViewById(R.id.season_section_recycler);
+        
+        int totalEpisodes = section.episodes.size();
+        String titleWithCount = section.title + "(" + totalEpisodes + ")";
+        titleView.setText(titleWithCount);
+        
+        EpisodesVideoAdapter adapter = new EpisodesVideoAdapter();
+        recyclerView.setLayoutManager(new FixLinearLayoutManager(this, 0, false));
+        recyclerView.setAdapter(adapter);
+        
+        recyclerView.setFocusable(true);
+        recyclerView.setFocusableInTouchMode(true);
+        recyclerView.setNextFocusLeftId(R.id.season_section_recycler);
+        recyclerView.setNextFocusRightId(R.id.season_section_recycler);
+        recyclerView.setNextFocusUpId(R.id.video_detail_coin);
+        
+        List<BiliVideoDetail> list = new ArrayList<>();
+        for (int i = 0; i < section.episodes.size(); i++) {
+            PgcInfo.Episode episode = section.episodes.get(i);
+            BiliVideoDetail detail = convertEpisodeToBiliVideoDetail(episode);
+            list.add(detail);
+        }
+        adapter.setData(list);
+        
+        final int sectionId = sectionIndex;
+        SeasonSectionView seasonSectionView = new SeasonSectionView(titleView, recyclerView, adapter, sectionId);
+        seasonSectionViews.add(seasonSectionView);
+        
+        recyclerView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    int savedPosition = 0;
+                    if (seasonSectionFocusPositions.containsKey(sectionId)) {
+                        savedPosition = seasonSectionFocusPositions.get(sectionId);
+                    }
+                    View focusView = restoreFocusPosition(recyclerView, savedPosition);
+                    if (focusView != null) {
+                        focusView.requestFocus();
+                    } else if (recyclerView.getChildCount() > 0) {
+                        recyclerView.getChildAt(0).requestFocus();
+                    }
+                }
+            }
+        });
+        
+        seasonsContainer.addView(sectionView);
+    }
+
     private final boolean a(BiliVideoDetail biliVideoDetail) {
         if (!ENABLE_BANGUMI_JUMP) {
             android.util.Log.i("BangumiJump", "ENABLE_BANGUMI_JUMP is false, skip jump");
@@ -2760,11 +3069,6 @@ public final class VideoDetailActivity extends BaseActivity
                 return;
             }
             VideoDetailActivity.this.u = biliVideoDetail;
-            if (VideoDetailActivity.this.a(biliVideoDetail)) {
-                android.util.Log.i("BangumiJump", "need jump, skipping UI rendering");
-                VideoDetailActivity.this.a((Activity) VideoDetailActivity.this, biliVideoDetail);
-                return;
-            }
             View view = VideoDetailActivity.this.m;
             if (view != null) {
                 view.setVisibility(0);
@@ -2778,6 +3082,9 @@ public final class VideoDetailActivity extends BaseActivity
             TextView textView = VideoDetailActivity.this.cc;
             if (textView != null) {
                 textView.setText(biliVideoDetail.mTitle);
+            }
+            if (VideoDetailActivity.this.isPgcVideo(biliVideoDetail)) {
+                VideoDetailActivity.this.loadPgcInfo(biliVideoDetail);
             }
             LinearLayout staffContainer = VideoDetailActivity.this.staffContainer;
             if (staffContainer != null) {

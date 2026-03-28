@@ -312,6 +312,11 @@
     <item type="id" name="video_no_history_play_btn_layout" />
     <item type="id" name="video_no_history_play_btn" />
     <item type="id" name="video_no_history_play_checkbox" />
+    <item type="id" name="pgc_info_container" />
+    <item type="id" name="pgc_rating" />
+    <item type="id" name="pgc_type" />
+    <item type="id" name="pgc_area" />
+    <item type="id" name="pgc_new_ep" />
     <item type="id" name="space_header_layout" />
     <item type="id" name="header_title" />
     <item type="id" name="header_count" />

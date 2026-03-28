@@ -34,7 +34,7 @@
     .locals 0
 
     .prologue
-    .line 598
+    .line 611
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$BiliFavoriteBoxResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
@@ -48,7 +48,7 @@
     .locals 0
 
     .prologue
-    .line 598
+    .line 611
     check-cast p1, Ljava/util/List;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$BiliFavoriteBoxResponse;->a(Ljava/util/List;)V
@@ -71,19 +71,19 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 602
+    .line 615
     new-instance v3, Ljava/util/ArrayList;
 
     invoke-direct {v3}, Ljava/util/ArrayList;-><init>()V
 
-    .line 603
+    .line 616
     new-instance v4, Ljava/util/ArrayList;
 
     invoke-direct {v4}, Ljava/util/ArrayList;-><init>()V
 
     move v1, v2
 
-    .line 604
+    .line 617
     :goto_c
     invoke-interface {p1}, Ljava/util/List;->size()I
 
@@ -91,7 +91,7 @@
 
     if-ge v1, v0, :cond_34
 
-    .line 605
+    .line 618
     invoke-interface {p1, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v0
@@ -108,7 +108,7 @@
 
     invoke-interface {v3, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 606
+    .line 619
     invoke-interface {p1, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v0
@@ -121,14 +121,14 @@
 
     invoke-interface {v4, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 604
+    .line 617
     add-int/lit8 v0, v1, 0x1
 
     move v1, v0
 
     goto :goto_c
 
-    .line 608
+    .line 621
     :cond_34
     new-instance v1, Landroid/app/AlertDialog$Builder;
 
@@ -138,7 +138,7 @@
 
     new-array v0, v2, [Ljava/lang/String;
 
-    .line 609
+    .line 622
     invoke-interface {v4, v0}, Ljava/util/List;->toArray([Ljava/lang/Object;)[Ljava/lang/Object;
 
     move-result-object v0
@@ -153,15 +153,15 @@
 
     move-result-object v0
 
-    .line 617
+    .line 630
     invoke-virtual {v0}, Landroid/app/AlertDialog$Builder;->create()Landroid/app/AlertDialog;
 
     move-result-object v0
 
-    .line 618
+    .line 631
     invoke-virtual {v0}, Landroid/app/AlertDialog;->show()V
 
-    .line 619
+    .line 632
     return-void
 .end method
 
@@ -169,6 +169,6 @@
     .locals 0
 
     .prologue
-    .line 623
+    .line 636
     return-void
 .end method

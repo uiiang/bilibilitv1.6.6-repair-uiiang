@@ -6,6 +6,7 @@ import retrofit2.http.*;
 import com.alibaba.fastjson.JSONObject;
 import com.bilibili.okretro.GeneralResponse;
 import com.bilibili.tv.api.video.BiliVideoDetail;
+import com.bilibili.tv.api.video.PgcInfo;
 import java.util.List;
 
 @BaseUrl("https://api.bilibili.com/")
@@ -52,6 +53,9 @@ public interface MyBiliApiService {
 
     @GET("/x/web-interface/view/detail/tag")
     vp<GeneralResponse<List<BiliVideoDetail.Tag>>> getVideoTags(@Query("aid") long aid);
+
+    @GET("/pgc/view/web/season")
+    vp<GeneralResponse<PgcInfo>> getPgcSeasonInfo(@Query("season_id") String seasonId);
 
     @GET("/x/web-interface/archive/relation")
     vp<GeneralResponse<JSONObject>> getArchiveRelation(@Query("bvid") String bvid, @Header("Cookie") String cookie);

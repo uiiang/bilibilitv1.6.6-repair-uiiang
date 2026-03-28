@@ -792,7 +792,7 @@
     .line 115
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->C:Landroid/view/ViewGroup;
 
-    const v1, 0x7f0801bc
+    const v1, 0x7f0801c1
 
     invoke-virtual {v0, v1}, Landroid/view/ViewGroup;->findViewById(I)Landroid/view/View;
 

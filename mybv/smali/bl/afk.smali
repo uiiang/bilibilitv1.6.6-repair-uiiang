@@ -428,7 +428,7 @@
     check-cast v0, Landroid/widget/TextView;
 
     .line 82
-    const v1, 0x7f0801a4
+    const v1, 0x7f0801a9
 
     invoke-virtual {p0, v2, v1}, Lbl/afk;->a(Landroid/view/View;I)Landroid/view/View;
 
@@ -439,7 +439,7 @@
     iput-object v1, p0, Lbl/afk;->c:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     .line 83
-    const v1, 0x7f0801a5
+    const v1, 0x7f0801aa
 
     invoke-virtual {p0, v2, v1}, Lbl/afk;->a(Landroid/view/View;I)Landroid/view/View;
 
@@ -522,7 +522,7 @@
     invoke-virtual {v1, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
     .line 100
-    const v1, 0x7f0801a6
+    const v1, 0x7f0801ab
 
     invoke-virtual {p0, v2, v1}, Lbl/afk;->a(Landroid/view/View;I)Landroid/view/View;
 
@@ -533,7 +533,7 @@
     iput-object v1, p0, Lbl/afk;->e:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     .line 101
-    const v1, 0x7f0801a7
+    const v1, 0x7f0801ac
 
     invoke-virtual {p0, v2, v1}, Lbl/afk;->a(Landroid/view/View;I)Landroid/view/View;
 
@@ -544,7 +544,7 @@
     iput-object v1, p0, Lbl/afk;->f:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     .line 102
-    const v1, 0x7f0801a8
+    const v1, 0x7f0801ad
 
     invoke-virtual {p0, v2, v1}, Lbl/afk;->a(Landroid/view/View;I)Landroid/view/View;
 
@@ -555,7 +555,7 @@
     iput-object v1, p0, Lbl/afk;->g:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     .line 103
-    const v1, 0x7f0801a9
+    const v1, 0x7f0801ae
 
     invoke-virtual {p0, v2, v1}, Lbl/afk;->a(Landroid/view/View;I)Landroid/view/View;
 

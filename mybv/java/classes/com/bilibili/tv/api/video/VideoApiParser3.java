@@ -21,8 +21,8 @@ public class VideoApiParser3 implements vu<GeneralResponse<BiliVideoDetail>> {
     @NonNull
     public GeneralResponse<BiliVideoDetail> convert(ResponseBody responseBody) throws IOException {
         String rawResponse = responseBody.string();
-        // LogUtil.i("VideoInfoApi", "========== /x/web-interface/view Response ==========");
-        // LogUtil.i("VideoInfoApi", rawResponse);
+        LogUtil.i("VideoInfoApi", "========== /x/web-interface/view Response ==========");
+        LogUtil.i("VideoInfoApi", rawResponse);
         Object a = jp.a(rawResponse);
         if (a instanceof JSONObject) {
             GeneralResponse<BiliVideoDetail> generalResponse = new GeneralResponse<>();
@@ -42,6 +42,9 @@ public class VideoApiParser3 implements vu<GeneralResponse<BiliVideoDetail>> {
                     }
                 }
                 BiliVideoDetail videoDetail = data.toJavaObject(BiliVideoDetail.class);
+                LogUtil.i("VideoInfoApi", "========== Parsed BiliVideoDetail ==========");
+                LogUtil.i("VideoInfoApi", "mCover = " + videoDetail.mCover);
+                LogUtil.i("VideoInfoApi", "mTitle = " + videoDetail.mTitle);
                 videoDetail.mTitle = unescapeHtml(videoDetail.mTitle);
                 videoDetail.mDescription = unescapeHtml(videoDetail.mDescription);
                 if (!videoDetail.canDownload()) {

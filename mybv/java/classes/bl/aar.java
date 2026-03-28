@@ -20,8 +20,8 @@ public class aar {
             if (this.b != null) {
                 this.b.setMovementMethod(android.text.method.ScrollingMovementMethod.getInstance());
             }
-            this.c = (ScalableImageView) viewGroup.findViewById(0x7f0801bc);
-            this.d = (TextView) viewGroup.findViewById(0x7f0801bd);
+            this.c = (ScalableImageView) viewGroup.findViewById(0x7f0801c1);
+            this.d = (TextView) viewGroup.findViewById(0x7f0801c2);
         }
         this.a = viewGroup;
     }
@@ -60,8 +60,14 @@ public class aar {
     }
 
     public void a(String coverUrl, String pageTitle) {
+        android.util.Log.d("CoverDebug", "========== aar.a() called ==========");
+        android.util.Log.d("CoverDebug", "coverUrl = " + coverUrl);
+        android.util.Log.d("CoverDebug", "this.c (ScalableImageView) = " + this.c);
         if (this.c != null && coverUrl != null) {
+            android.util.Log.d("CoverDebug", "Calling nv.a().a(coverUrl, this.c)");
             nv.a().a(coverUrl, this.c);
+        } else {
+            android.util.Log.d("CoverDebug", "SKIPPED image loading: this.c=" + this.c + ", coverUrl=" + coverUrl);
         }
         if (this.d != null) {
             if (pageTitle != null && !pageTitle.isEmpty()) {

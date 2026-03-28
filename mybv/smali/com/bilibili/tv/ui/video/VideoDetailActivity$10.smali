@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1154
+    .line 1167
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 1157
+    .line 1170
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->noHistoryPlayCheckBox:Landroid/widget/CheckBox;
@@ -50,7 +50,7 @@
 
     if-eqz v0, :cond_20
 
-    .line 1158
+    .line 1171
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->noHistoryPlayCheckBox:Landroid/widget/CheckBox;
@@ -66,7 +66,7 @@
 
     const/4 v0, 0x1
 
-    .line 1159
+    .line 1172
     :goto_15
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
@@ -77,14 +77,14 @@
 
     invoke-virtual {v1, v0}, Landroid/widget/CheckBox;->setChecked(Z)V
 
-    .line 1160
+    .line 1173
     sput-boolean v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->sNoHistoryPlayMode:Z
 
-    .line 1162
+    .line 1175
     :cond_20
     return-void
 
-    .line 1158
+    .line 1171
     :cond_21
     const/4 v0, 0x0
 

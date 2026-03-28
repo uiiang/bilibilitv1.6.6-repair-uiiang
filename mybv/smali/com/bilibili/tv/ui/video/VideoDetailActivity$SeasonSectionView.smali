@@ -29,21 +29,21 @@
     .locals 0
 
     .prologue
-    .line 176
+    .line 184
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 177
+    .line 185
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonSectionView;->titleView:Landroid/widget/TextView;
 
-    .line 178
+    .line 186
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonSectionView;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
-    .line 179
+    .line 187
     iput-object p3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonSectionView;->adapter:Lcom/bilibili/tv/ui/video/VideoDetailActivity$EpisodesVideoAdapter;
 
-    .line 180
+    .line 188
     iput p4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonSectionView;->sectionId:I
 
-    .line 181
+    .line 189
     return-void
 .end method

@@ -1289,7 +1289,7 @@
 
     .line 76
     :cond_ed
-    const v0, 0x7f0801b4
+    const v0, 0x7f0801b9
 
     invoke-virtual {v4, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -1300,7 +1300,7 @@
     iput-object v0, p0, Lbl/afm4;->column2Button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     .line 77
-    const v0, 0x7f0801b5
+    const v0, 0x7f0801ba
 
     invoke-virtual {v4, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -1311,7 +1311,7 @@
     iput-object v0, p0, Lbl/afm4;->column3Button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     .line 78
-    const v0, 0x7f0801b6
+    const v0, 0x7f0801bb
 
     invoke-virtual {v4, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -1397,7 +1397,7 @@
 
     .line 104
     :goto_155
-    const v0, 0x7f0801b7
+    const v0, 0x7f0801bc
 
     invoke-virtual {v4, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -1408,7 +1408,7 @@
     iput-object v0, p0, Lbl/afm4;->tabPersonalRecommend:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     .line 105
-    const v0, 0x7f0801b8
+    const v0, 0x7f0801bd
 
     invoke-virtual {v4, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -1419,7 +1419,7 @@
     iput-object v0, p0, Lbl/afm4;->tabHotRecommend:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     .line 106
-    const v0, 0x7f0801b9
+    const v0, 0x7f0801be
 
     invoke-virtual {v4, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -1430,7 +1430,7 @@
     iput-object v0, p0, Lbl/afm4;->tabArea:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     .line 107
-    const v0, 0x7f0801ba
+    const v0, 0x7f0801bf
 
     invoke-virtual {v4, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -1441,7 +1441,7 @@
     iput-object v0, p0, Lbl/afm4;->tabBangumi:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     .line 108
-    const v0, 0x7f0801bb
+    const v0, 0x7f0801c0
 
     invoke-virtual {v4, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 

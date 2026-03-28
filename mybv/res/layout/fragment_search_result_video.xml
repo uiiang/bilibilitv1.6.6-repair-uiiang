@@ -63,7 +63,7 @@
         android:layout_height="0dp"
         android:layout_weight="1">
         
-        <com.bilibili.tv.widget.TvRecyclerView 
+        <android.support.v7.widget.RecyclerView
             android:id="@id/recycler_view"
             android:focusable="false"
             android:scrollbars="none"

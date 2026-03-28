@@ -423,7 +423,7 @@
     move-result-object v1
 
     .line 72
-    const v0, 0x7f080199
+    const v0, 0x7f08019e
 
     invoke-virtual {v1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -434,7 +434,7 @@
     iput-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->headerLayout:Landroid/widget/LinearLayout;
 
     .line 73
-    const v0, 0x7f08019a
+    const v0, 0x7f08019f
 
     invoke-virtual {v1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -445,7 +445,7 @@
     iput-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->headerTitle:Landroid/widget/TextView;
 
     .line 74
-    const v0, 0x7f08019b
+    const v0, 0x7f0801a0
 
     invoke-virtual {v1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 

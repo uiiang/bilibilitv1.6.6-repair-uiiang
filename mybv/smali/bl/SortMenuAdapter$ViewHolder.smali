@@ -38,7 +38,7 @@
     invoke-direct {p0, p2}, Landroid/support/v7/widget/RecyclerView$v;-><init>(Landroid/view/View;)V
 
     .line 166
-    const v0, 0x7f0801c5
+    const v0, 0x7f0801cc
 
     invoke-virtual {p2, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -49,7 +49,7 @@
     iput-object v0, p0, Lbl/SortMenuAdapter$ViewHolder;->groupTitle:Landroid/widget/TextView;
 
     .line 167
-    const v0, 0x7f0801c6
+    const v0, 0x7f0801cd
 
     invoke-virtual {p2, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -60,7 +60,7 @@
     iput-object v0, p0, Lbl/SortMenuAdapter$ViewHolder;->itemLayout:Landroid/widget/LinearLayout;
 
     .line 168
-    const v0, 0x7f0801c1
+    const v0, 0x7f0801c6
 
     invoke-virtual {p2, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -71,7 +71,7 @@
     iput-object v0, p0, Lbl/SortMenuAdapter$ViewHolder;->checkIcon:Landroid/widget/ImageView;
 
     .line 169
-    const v0, 0x7f0801c4
+    const v0, 0x7f0801cb
 
     invoke-virtual {p2, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 

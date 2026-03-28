@@ -34,6 +34,42 @@
                 <View android:layout_width="0dp" android:layout_height="0dp"
                     android:layout_weight="1" />
             </LinearLayout>
+            <LinearLayout android:id="@+id/pgc_info_container"
+                android:orientation="horizontal"
+                android:focusable="false"
+                android:visibility="gone"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px_16">
+                <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_28"
+                    android:textColor="@color/pink"
+                    android:id="@+id/pgc_rating"
+                    android:focusable="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/px_8" />
+                <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_28"
+                    android:textColor="@color/white_50"
+                    android:id="@+id/pgc_type"
+                    android:focusable="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/px_30" />
+                <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_28"
+                    android:textColor="@color/white_50"
+                    android:id="@+id/pgc_area"
+                    android:focusable="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/px_30" />
+                <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_28"
+                    android:textColor="@color/white_50"
+                    android:id="@+id/pgc_new_ep"
+                    android:focusable="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/px_30" />
+            </LinearLayout>
 
         </LinearLayout>
 

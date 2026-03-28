@@ -155,7 +155,7 @@
     iput-object v0, p0, Lbl/aff$d;->t:Landroid/widget/TextView;
 
     .line 365
-    const v0, 0x7f0801a1
+    const v0, 0x7f0801a6
 
     invoke-virtual {p0, p1, v0}, Lbl/aff$d;->a(Landroid/view/View;I)Landroid/view/View;
 
@@ -166,7 +166,7 @@
     iput-object v0, p0, Lbl/aff$d;->u:Landroid/widget/TextView;
 
     .line 366
-    const v0, 0x7f0801aa
+    const v0, 0x7f0801af
 
     invoke-virtual {p0, p1, v0}, Lbl/aff$d;->a(Landroid/view/View;I)Landroid/view/View;
 

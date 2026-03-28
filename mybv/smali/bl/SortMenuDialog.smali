@@ -226,7 +226,7 @@
     invoke-virtual {v0, v2, v2, v2, v2}, Landroid/view/View;->setPadding(IIII)V
 
     .line 139
-    const v0, 0x7f0801bf
+    const v0, 0x7f0801c4
 
     invoke-virtual {p0, v0}, Lbl/SortMenuDialog;->findViewById(I)Landroid/view/View;
 
@@ -241,7 +241,7 @@
     invoke-virtual {v0, v3}, Landroid/widget/LinearLayout;->setFocusableInTouchMode(Z)V
 
     .line 143
-    const v0, 0x7f0801be
+    const v0, 0x7f0801c3
 
     invoke-virtual {p0, v0}, Lbl/SortMenuDialog;->findViewById(I)Landroid/view/View;
 
@@ -255,7 +255,7 @@
     invoke-virtual {v0, v1}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
     .line 151
-    const v0, 0x7f0801c3
+    const v0, 0x7f0801ca
 
     invoke-virtual {p0, v0}, Lbl/SortMenuDialog;->findViewById(I)Landroid/view/View;
 
@@ -404,7 +404,7 @@
     invoke-super {p0}, Landroid/app/Dialog;->show()V
 
     .line 189
-    const v0, 0x7f0801c3
+    const v0, 0x7f0801ca
 
     invoke-virtual {p0, v0}, Lbl/SortMenuDialog;->findViewById(I)Landroid/view/View;
 

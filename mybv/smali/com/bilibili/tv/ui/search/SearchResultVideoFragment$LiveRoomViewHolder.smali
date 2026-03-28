@@ -74,7 +74,7 @@
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$LiveRoomViewHolder;->up:Landroid/widget/TextView;
 
     .line 1385
-    const v0, 0x7f0801aa
+    const v0, 0x7f0801af
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$LiveRoomViewHolder;->a(Landroid/view/View;I)Landroid/view/View;
 

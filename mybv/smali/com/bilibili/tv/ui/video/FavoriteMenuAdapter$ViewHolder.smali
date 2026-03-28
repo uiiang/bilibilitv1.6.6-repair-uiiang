@@ -41,7 +41,7 @@
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$ViewHolder;->itemView:Landroid/view/View;
 
     .line 102
-    const v0, 0x7f0801c1
+    const v0, 0x7f0801c6
 
     invoke-virtual {p2, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -52,7 +52,7 @@
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$ViewHolder;->checkIcon:Landroid/widget/ImageView;
 
     .line 103
-    const v0, 0x7f0801c2
+    const v0, 0x7f0801c9
 
     invoke-virtual {p2, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 

@@ -118,7 +118,7 @@
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$c;->q:Landroid/widget/TextView;
 
     .line 550
-    const v0, 0x7f0801aa
+    const v0, 0x7f0801af
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$c;->a(Landroid/view/View;I)Landroid/view/View;
 
@@ -140,7 +140,7 @@
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$c;->danmakuInImage:Landroid/widget/TextView;
 
     .line 552
-    const v0, 0x7f0801a1
+    const v0, 0x7f0801a6
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$c;->a(Landroid/view/View;I)Landroid/view/View;
 

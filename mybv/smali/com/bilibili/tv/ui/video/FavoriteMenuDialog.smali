@@ -578,7 +578,7 @@
     invoke-virtual {v0, v2, v2, v2, v2}, Landroid/view/View;->setPadding(IIII)V
 
     .line 81
-    const v0, 0x7f0801bf
+    const v0, 0x7f0801c4
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->findViewById(I)Landroid/view/View;
 
@@ -593,7 +593,7 @@
     invoke-virtual {v0, v3}, Landroid/widget/LinearLayout;->setFocusableInTouchMode(Z)V
 
     .line 85
-    const v0, 0x7f0801be
+    const v0, 0x7f0801c3
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->findViewById(I)Landroid/view/View;
 
@@ -607,7 +607,7 @@
     invoke-virtual {v0, v1}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
     .line 93
-    const v0, 0x7f0801c0
+    const v0, 0x7f0801c5
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->findViewById(I)Landroid/view/View;
 
@@ -695,7 +695,7 @@
     invoke-super {p0}, Landroid/app/Dialog;->show()V
 
     .line 120
-    const v0, 0x7f0801c0
+    const v0, 0x7f0801c5
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->findViewById(I)Landroid/view/View;
 

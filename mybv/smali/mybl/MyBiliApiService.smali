@@ -613,6 +613,31 @@
     .end annotation
 .end method
 
+.method public abstract getPgcSeasonInfo(Ljava/lang/String;)Lbl/vp;
+    .param p1    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "season_id"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            ")",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Lcom/bilibili/tv/api/video/PgcInfo;",
+            ">;>;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/GET;
+        value = "/pgc/view/web/season"
+    .end annotation
+.end method
+
 .method public abstract getPopular(II)Lbl/vp;
     .param p1    # I
         .annotation runtime Lretrofit2/http/Query;

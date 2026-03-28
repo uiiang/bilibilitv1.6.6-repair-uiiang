@@ -214,9 +214,12 @@ public class xg {
     public static void b(Activity activity, BiliVideoDetail biliVideoDetail, BiliVideoDetail.Page page, Bundle bundle, int i, int requestCode, int progress) {
         long startTime = System.currentTimeMillis();
         Log.d("UI_TRANSITION", "[4_XG_B_START] b() method started, cid=" + page.mCid + ", time=" + startTime);
+        Log.d("CoverDebug", "========== xg.b() Cover Info ==========");
+        Log.d("CoverDebug", "biliVideoDetail.mCover = " + biliVideoDetail.mCover);
         PlayerParams a = aaj.a(activity);
         Log.d("UI_TRANSITION", "[5_AFTER_AAJ] aaj.a() returned, elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
         yr.a(a, biliVideoDetail.mCover);
+        Log.d("CoverDebug", "After yr.a(), cover stored in PlayerParams");
         yr.c(a, biliVideoDetail.getAuthor());
         yr.b(a, biliVideoDetail.mTitle);
 
