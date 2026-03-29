@@ -1,11 +1,11 @@
 .class Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;
-.super Lbl/vm;
+.super Lbl/vn;
 .source "VideoDetailActivity.java"
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->fallbackLoadHistory(Lcom/bilibili/tv/api/video/BiliVideoDetail;Ljava/lang/String;)V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->loadArchiveRelation(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -15,12 +15,10 @@
 
 .annotation system Ldalvik/annotation/Signature;
     value = {
-        "Lbl/vm",
-        "<",
-        "Lcom/bilibili/okretro/GeneralResponse",
+        "Lbl/vn",
         "<",
         "Lcom/alibaba/fastjson/JSONObject;",
-        ">;>;"
+        ">;"
     }
 .end annotation
 
@@ -28,7 +26,7 @@
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-.field final synthetic val$biliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+.field final synthetic val$finalDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
 
 # direct methods
@@ -36,168 +34,118 @@
     .locals 0
 
     .prologue
-    .line 1335
+    .line 1407
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;->val$biliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;->val$finalDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
-    invoke-direct {p0}, Lbl/vm;-><init>()V
+    invoke-direct {p0}, Lbl/vn;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public isCancel()Z
-    .locals 1
+.method public a(Lcom/alibaba/fastjson/JSONObject;)V
+    .locals 5
 
     .prologue
-    .line 1338
+    .line 1410
+    if-nez p1, :cond_3
+
+    .line 1433
+    :goto_2
+    return-void
+
+    .line 1414
+    :cond_3
+    const-string v0, "like"
+
+    invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getBooleanValue(Ljava/lang/String;)Z
+
+    move-result v1
+
+    .line 1415
+    const-string v0, "favorite"
+
+    invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getBooleanValue(Ljava/lang/String;)Z
+
+    move-result v2
+
+    .line 1416
+    const-string v0, "coin"
+
+    invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
+
+    move-result v3
+
+    .line 1418
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;->val$finalDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+
+    iget-object v0, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mRequestUser:Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;
+
+    .line 1419
+    if-nez v0, :cond_24
+
+    .line 1420
+    new-instance v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;
+
+    invoke-direct {v0}, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;-><init>()V
+
+    .line 1421
+    iget-object v4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;->val$finalDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+
+    iput-object v0, v4, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mRequestUser:Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;
+
+    .line 1423
+    :cond_24
+    iput-boolean v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;->mLike:Z
+
+    .line 1424
+    iput-boolean v2, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;->mFavorite:Z
+
+    .line 1425
+    if-lez v3, :cond_38
+
+    const/4 v1, 0x1
+
+    :goto_2b
+    iput-boolean v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;->mCoin:Z
+
+    .line 1427
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isFinishing()Z
+    new-instance v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$14$1;
 
-    move-result v0
+    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$14$1;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;)V
 
-    return v0
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->runOnUiThread(Ljava/lang/Runnable;)V
+
+    goto :goto_2
+
+    .line 1425
+    :cond_38
+    const/4 v1, 0x0
+
+    goto :goto_2b
+.end method
+
+.method public bridge synthetic a(Ljava/lang/Object;)V
+    .locals 0
+
+    .prologue
+    .line 1407
+    check-cast p1, Lcom/alibaba/fastjson/JSONObject;
+
+    invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;->a(Lcom/alibaba/fastjson/JSONObject;)V
+
+    return-void
 .end method
 
 .method public onError(Ljava/lang/Throwable;)V
     .locals 0
 
     .prologue
-    .line 1342
-    return-void
-.end method
-
-.method public onSuccess(Lcom/bilibili/okretro/GeneralResponse;)V
-    .locals 4
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "(",
-            "Lcom/bilibili/okretro/GeneralResponse",
-            "<",
-            "Lcom/alibaba/fastjson/JSONObject;",
-            ">;)V"
-        }
-    .end annotation
-
-    .prologue
-    .line 1345
-    if-eqz p1, :cond_33
-
-    iget-object v0, p1, Lcom/bilibili/okretro/GeneralResponse;->data:Ljava/lang/Object;
-
-    if-eqz v0, :cond_33
-
-    .line 1346
-    iget-object v0, p1, Lcom/bilibili/okretro/GeneralResponse;->data:Ljava/lang/Object;
-
-    check-cast v0, Lcom/alibaba/fastjson/JSONObject;
-
-    .line 1347
-    const-string v1, "history"
-
-    invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->containsKey(Ljava/lang/Object;)Z
-
-    move-result v1
-
-    if-eqz v1, :cond_33
-
-    .line 1348
-    const-string v1, "history"
-
-    invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
-
-    move-result-object v0
-
-    .line 1349
-    if-eqz v0, :cond_33
-
-    .line 1350
-    new-instance v1, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
-
-    invoke-direct {v1}, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;-><init>()V
-
-    .line 1351
-    const-string v2, "cid"
-
-    invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
-
-    move-result-wide v2
-
-    iput-wide v2, v1, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mCid:J
-
-    .line 1352
-    const-string v2, "progress"
-
-    invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
-
-    move-result v0
-
-    iput v0, v1, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mProgress:I
-
-    .line 1353
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;->val$biliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
-
-    iput-object v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mHistory:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
-
-    .line 1357
-    :cond_33
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;->val$biliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
-
-    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateHistoryDisplay(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
-
-    .line 1358
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
-
-    move-result-object v0
-
-    if-eqz v0, :cond_57
-
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    .line 1359
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawLinearLayout;->getVisibility()I
-
-    move-result v0
-
-    if-nez v0, :cond_57
-
-    .line 1360
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawLinearLayout;->requestFocus()Z
-
-    .line 1362
-    :cond_57
-    return-void
-.end method
-
-.method public bridge synthetic onSuccess(Ljava/lang/Object;)V
-    .locals 0
-
-    .prologue
-    .line 1335
-    check-cast p1, Lcom/bilibili/okretro/GeneralResponse;
-
-    invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;->onSuccess(Lcom/bilibili/okretro/GeneralResponse;)V
-
+    .line 1437
     return-void
 .end method

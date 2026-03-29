@@ -354,4 +354,12 @@
     <item type="id" name="sort_name" />
     <item type="id" name="group_title" />
     <item type="id" name="item_layout" />
+    <item type="id" name="sticky_title_container" />
+    <item type="id" name="sticky_video_detail_title" />
+    <item type="id" name="sticky_pgc_info_container" />
+    <item type="id" name="sticky_pgc_rating" />
+    <item type="id" name="sticky_pgc_type" />
+    <item type="id" name="sticky_pgc_area" />
+    <item type="id" name="sticky_pgc_new_ep" />
+    <item type="id" name="title_section" />
 </resources>

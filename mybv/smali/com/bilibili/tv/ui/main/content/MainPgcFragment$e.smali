@@ -223,7 +223,7 @@
     check-cast v0, Lcom/alibaba/fastjson/JSONObject;
 
     .line 551
-    sget-object v2, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->Companion:Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$a;
+    sget-object v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
 
     const-string v3, "season_id"
 
@@ -231,7 +231,7 @@
 
     move-result-object v3
 
-    invoke-virtual {v2, v1, v3}, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$a;->a(Landroid/content/Context;Ljava/lang/String;)Landroid/content/Intent;
+    invoke-virtual {v2, v1, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;Ljava/lang/String;)Landroid/content/Intent;
 
     move-result-object v2
 

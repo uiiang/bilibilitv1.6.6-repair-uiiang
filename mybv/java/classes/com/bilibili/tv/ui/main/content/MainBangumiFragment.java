@@ -23,7 +23,7 @@ import com.bilibili.tv.R;
 import com.bilibili.tv.api.main.MainPagerInfo;
 import com.bilibili.tv.ui.account.LoginActivity;
 import com.bilibili.tv.ui.area.AreaActivity;
-import com.bilibili.tv.ui.bangumi.BangumiDetailActivity;
+import com.bilibili.tv.ui.video.VideoDetailActivity;
 import com.bilibili.tv.ui.bangumi.follow.FollowBangumiActivity;
 import com.bilibili.tv.ui.bangumi.tag.BangumiTagActivity;
 import com.bilibili.tv.ui.bangumi.time.BangumiTimelineActivity;
@@ -540,7 +540,7 @@ public final class MainBangumiFragment extends adu implements aez, wf {
             BangumiMainEx.Content content = (BangumiMainEx.Content) tag;
             long parseId = ContentUris.parseId(Uri.parse(content.uri));
             if (parseId > 0) {
-                a2.startActivity(BangumiDetailActivity.Companion.a(a2, String.valueOf(parseId)));
+                a2.startActivity(VideoDetailActivity.Companion.a(a2, String.valueOf(parseId)));
             }
             Object tag2 = view.getTag(R.id.position);
             if (tag2 instanceof Integer) {

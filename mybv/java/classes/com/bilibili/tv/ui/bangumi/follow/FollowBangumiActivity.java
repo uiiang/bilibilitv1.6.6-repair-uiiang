@@ -34,7 +34,7 @@ import com.bilibili.bangumi.api.BangumiApiService;
 import com.bilibili.bangumi.api.BiliBangumiSeason;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
-import com.bilibili.tv.ui.bangumi.BangumiDetailActivity;
+import com.bilibili.tv.ui.video.VideoDetailActivity;
 import com.bilibili.tv.ui.base.BaseReloadActivity;
 import com.bilibili.tv.ui.base.LoadingImageView;
 import com.bilibili.tv.widget.FixGridLayoutManager;
@@ -432,7 +432,7 @@ public final class FollowBangumiActivity extends BaseReloadActivity implements w
                 return;
             }
             BiliBangumiSeason biliBangumiSeason = (BiliBangumiSeason) tag;
-            a2.startActivity(BangumiDetailActivity.Companion.a(a2, biliBangumiSeason.mSeasonId));
+            a2.startActivity(VideoDetailActivity.Companion.a(a2, biliBangumiSeason.mSeasonId));
             ok.a("tv_mybangumi_click", "title", biliBangumiSeason.mTitle, "bangumiid", biliBangumiSeason.mBangumiId, "row", String.valueOf(((int) Math.floor(((Number) tag2).intValue() / FollowBangumiActivity.h)) + 1));
         }
 

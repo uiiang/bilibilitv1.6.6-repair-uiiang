@@ -15,7 +15,7 @@ import bl.abd;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.area.BiliVideoV2;
-import com.bilibili.tv.ui.bangumi.BangumiDetailActivity;
+import com.bilibili.tv.ui.video.VideoDetailActivity;
 import com.bilibili.tv.util.DateHelper;
 import com.bilibili.tv.widget.ScalableImageView;
 import kotlin.TypeCastException;
@@ -146,7 +146,7 @@ public final class aeb extends adc.a implements View.OnClickListener {
         if (TextUtils.equals("av", str)) {
             adl.a(biliVideoV2.videoId(), a2);
         } else if (TextUtils.equals("bangumi", str)) {
-            a2.startActivity(BangumiDetailActivity.Companion.a(a2, String.valueOf(biliVideoV2.videoId())));
+            a2.startActivity(VideoDetailActivity.Companion.a(a2, String.valueOf(biliVideoV2.videoId())));
         }
     }
 

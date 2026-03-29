@@ -1253,7 +1253,7 @@ public final class SearchResultVideoFragment extends ady {
                 } catch (NumberFormatException ignored) {}
             } else if (tag instanceof BangumiItem) {
                 BangumiItem bangumi = (BangumiItem) tag;
-                a.startActivity(BangumiDetailActivity.Companion.a(a, bangumi.param));
+                a.startActivity(VideoDetailActivity.Companion.a(a, bangumi.param));
             } else if (tag instanceof BiliSearchResultUper) {
                 BiliSearchResultUper user = (BiliSearchResultUper) tag;
                 AuthSpaceSideActivity.start(a, user.mid, user.uname);

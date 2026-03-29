@@ -22,7 +22,7 @@ import com.bilibili.tv.R;
 import com.bilibili.tv.api.main.MainPagerInfo;
 import com.bilibili.tv.ui.account.LoginActivity;
 import com.bilibili.tv.ui.area.AreaActivity;
-import com.bilibili.tv.ui.bangumi.BangumiDetailActivity;
+import com.bilibili.tv.ui.video.VideoDetailActivity;
 import com.bilibili.tv.ui.bangumi.follow.FollowPgcActivity;
 import com.bilibili.tv.ui.bangumi.tag.BangumiTagActivity;
 import com.bilibili.tv.ui.bangumi.time.BangumiTimelineActivity;
@@ -548,7 +548,7 @@ public final class MainPgcFragment extends adu implements aez, wf {
                 return;
             }
             JSONObject content = (JSONObject) tag;
-            a2.startActivity(BangumiDetailActivity.Companion.a(a2, content.getString("season_id")));
+            a2.startActivity(VideoDetailActivity.Companion.a(a2, content.getString("season_id")));
             Object tag2 = view.getTag(R.id.position);
             if (tag2 instanceof Integer) {
                 ok.a("tv_home_bangumi_recommend", "position", tag2.toString(), PluginApk.PROP_NAME, content.getString("title"));

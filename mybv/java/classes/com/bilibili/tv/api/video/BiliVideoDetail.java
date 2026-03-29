@@ -122,6 +122,8 @@ public class BiliVideoDetail implements Parcelable {
     @JSONField(name = "staff")
     public List<Staff> mStaffList;
 
+    public boolean hideUpIcon = false;
+
     public static class Staff {
         @JSONField(name = "mid")
         public long mid;

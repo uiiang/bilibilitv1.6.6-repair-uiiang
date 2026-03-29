@@ -49,7 +49,7 @@
     .locals 1
 
     .prologue
-    .line 223
+    .line 478
     new-instance v0, Lcom/bilibili/tv/api/video/PgcInfo$EpisodeStat$1;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/video/PgcInfo$EpisodeStat$1;-><init>()V
@@ -63,7 +63,7 @@
     .locals 0
 
     .prologue
-    .line 241
+    .line 496
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -73,24 +73,24 @@
     .locals 2
 
     .prologue
-    .line 243
+    .line 498
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 244
+    .line 499
     invoke-virtual {p1}, Landroid/os/Parcel;->readLong()J
 
     move-result-wide v0
 
     iput-wide v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$EpisodeStat;->play:J
 
-    .line 245
+    .line 500
     invoke-virtual {p1}, Landroid/os/Parcel;->readLong()J
 
     move-result-wide v0
 
     iput-wide v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$EpisodeStat;->danmakus:J
 
-    .line 246
+    .line 501
     return-void
 .end method
 
@@ -100,7 +100,7 @@
     .locals 1
 
     .prologue
-    .line 250
+    .line 505
     const/4 v0, 0x0
 
     return v0
@@ -110,16 +110,16 @@
     .locals 2
 
     .prologue
-    .line 255
+    .line 510
     iget-wide v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$EpisodeStat;->play:J
 
     invoke-virtual {p1, v0, v1}, Landroid/os/Parcel;->writeLong(J)V
 
-    .line 256
+    .line 511
     iget-wide v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$EpisodeStat;->danmakus:J
 
     invoke-virtual {p1, v0, v1}, Landroid/os/Parcel;->writeLong(J)V
 
-    .line 257
+    .line 512
     return-void
 .end method

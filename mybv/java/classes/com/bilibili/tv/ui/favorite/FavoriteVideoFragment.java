@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -306,6 +307,9 @@ public final class FavoriteVideoFragment extends ady {
                 String referer = "https://space.bilibili.com/" + account.d() + "/favlist?fid=" + folderId
                         + "&ftype=create";
                 String cookie = mybl.CookieUtil.getFullCookieWithDevice(account);
+                String url = "https://api.bilibili.com/x/v3/fav/resource/list?media_id=" + folderId 
+                        + "&pn=" + f + "&ps=40&keyword=&order=" + sortOrder + "&type=0&platform=web";
+                Log.i("FavoriteVideoFragment", "=== FavoriteVideo URL ===\n" + url);
                 api.getFavoriteResourceList(folderId, f, 40, "", sortOrder, 0, 0, "web", "333.1387", referer, cookie)
                         .a(new vn<JSONObject>() {
                             @Override
@@ -797,7 +801,7 @@ public final class FavoriteVideoFragment extends ady {
                         }
                         if (isPgc) {
                             String seasonId = ogv.getString("season_id");
-                            activityA.startActivity(BangumiDetailActivity.Companion.a((Context) activityA, seasonId));
+                            activityA.startActivity(VideoDetailActivity.Companion.a((Context) activityA, seasonId));
                         } else {
                             long id = item.getLongValue("id");
                             activityA.startActivity(VideoDetailActivity.Companion.a((Context) activityA, id));

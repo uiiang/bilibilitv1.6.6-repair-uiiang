@@ -3,12 +3,12 @@
 .source "VideoDetailActivity.java"
 
 # interfaces
-.implements Landroid/view/ViewTreeObserver$OnGlobalFocusChangeListener;
+.implements Landroid/view/ViewTreeObserver$OnScrollChangedListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->setupGlobalFocusChangeListener()V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->setupScrollViewListener()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 469
+    .line 491
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$7;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,29 +36,16 @@
 
 
 # virtual methods
-.method public onGlobalFocusChanged(Landroid/view/View;Landroid/view/View;)V
+.method public onScrollChanged()V
     .locals 1
 
     .prologue
-    .line 472
-    if-eqz p2, :cond_f
-
+    .line 494
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$7;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->scrollView:Landroid/widget/ScrollView;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$900(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/ScrollView;
+    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateStickyTitleVisibility()V
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$900(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
 
-    move-result-object v0
-
-    if-eqz v0, :cond_f
-
-    .line 473
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$7;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->scrollToViewIfNeeded(Landroid/view/View;)V
-    invoke-static {v0, p2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1000(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Landroid/view/View;)V
-
-    .line 475
-    :cond_f
+    .line 495
     return-void
 .end method

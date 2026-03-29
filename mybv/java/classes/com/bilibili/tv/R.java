@@ -2555,6 +2555,14 @@ public final class R {
         public static final int sort_name = 0x7f0801cb;
         public static final int group_title = 0x7f0801cc;
         public static final int item_layout = 0x7f0801cd;
+        public static final int sticky_title_container = 0x7f0801ce;
+        public static final int sticky_video_detail_title = 0x7f0801cf;
+        public static final int sticky_pgc_info_container = 0x7f0801d0;
+        public static final int sticky_pgc_rating = 0x7f0801d1;
+        public static final int sticky_pgc_type = 0x7f0801d2;
+        public static final int sticky_pgc_area = 0x7f0801d3;
+        public static final int sticky_pgc_new_ep = 0x7f0801d4;
+        public static final int title_section = 0x7f0801d5;
     }
 
     public static final class integer {

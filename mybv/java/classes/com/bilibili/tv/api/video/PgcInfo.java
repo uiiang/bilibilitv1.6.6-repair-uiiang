@@ -3,6 +3,7 @@ package com.bilibili.tv.api.video;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Keep;
+import android.text.TextUtils;
 import com.alibaba.fastjson.annotation.JSONField;
 import java.util.List;
 
@@ -61,6 +62,260 @@ public class PgcInfo implements Parcelable {
 
     @JSONField(name = "section")
     public List<Section> sections;
+
+    @JSONField(name = "up_info")
+    public UpInfo upInfo;
+
+    @JSONField(name = "seasons")
+    public List<Season> seasons;
+
+    public static class Season implements Parcelable {
+        public static final Creator<Season> CREATOR = new Creator<Season>() {
+            @Override
+            public Season createFromParcel(Parcel parcel) {
+                return new Season(parcel);
+            }
+
+            @Override
+            public Season[] newArray(int i) {
+                return new Season[i];
+            }
+        };
+
+        @JSONField(name = "season_id")
+        public int seasonId;
+
+        @JSONField(name = "season_title")
+        public String seasonTitle;
+
+        @JSONField(name = "cover")
+        public String cover;
+
+        @JSONField(name = "horizontal_cover_169")
+        public String horizontalCover169;
+
+        @JSONField(name = "horizontal_cover_1610")
+        public String horizontalCover1610;
+
+        @JSONField(name = "badge")
+        public String badge;
+
+        @JSONField(name = "new_ep")
+        public SeasonNewEp newEp;
+
+        @JSONField(name = "stat")
+        public SeasonStat stat;
+
+        @JSONField(name = "icon_font")
+        public IconFont iconFont;
+
+        public Season() {}
+
+        protected Season(Parcel parcel) {
+            this.seasonId = parcel.readInt();
+            this.seasonTitle = parcel.readString();
+            this.cover = parcel.readString();
+            this.horizontalCover169 = parcel.readString();
+            this.horizontalCover1610 = parcel.readString();
+            this.badge = parcel.readString();
+            this.newEp = parcel.readParcelable(SeasonNewEp.class.getClassLoader());
+            this.stat = parcel.readParcelable(SeasonStat.class.getClassLoader());
+            this.iconFont = parcel.readParcelable(IconFont.class.getClassLoader());
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeInt(this.seasonId);
+            parcel.writeString(this.seasonTitle);
+            parcel.writeString(this.cover);
+            parcel.writeString(this.horizontalCover169);
+            parcel.writeString(this.horizontalCover1610);
+            parcel.writeString(this.badge);
+            parcel.writeParcelable(this.newEp, i);
+            parcel.writeParcelable(this.stat, i);
+            parcel.writeParcelable(this.iconFont, i);
+        }
+
+        public String getBestCover() {
+            if (newEp != null && !TextUtils.isEmpty(newEp.cover)) {
+                return newEp.cover;
+            }
+            if (!TextUtils.isEmpty(horizontalCover169)) {
+                return horizontalCover169;
+            }
+            if (!TextUtils.isEmpty(horizontalCover1610)) {
+                return horizontalCover1610;
+            }
+            return cover;
+        }
+    }
+
+    public static class SeasonNewEp implements Parcelable {
+        public static final Creator<SeasonNewEp> CREATOR = new Creator<SeasonNewEp>() {
+            @Override
+            public SeasonNewEp createFromParcel(Parcel parcel) {
+                return new SeasonNewEp(parcel);
+            }
+
+            @Override
+            public SeasonNewEp[] newArray(int i) {
+                return new SeasonNewEp[i];
+            }
+        };
+
+        @JSONField(name = "id")
+        public int id;
+
+        @JSONField(name = "cover")
+        public String cover;
+
+        @JSONField(name = "index_show")
+        public String indexShow;
+
+        public SeasonNewEp() {}
+
+        protected SeasonNewEp(Parcel parcel) {
+            this.id = parcel.readInt();
+            this.cover = parcel.readString();
+            this.indexShow = parcel.readString();
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeInt(this.id);
+            parcel.writeString(this.cover);
+            parcel.writeString(this.indexShow);
+        }
+    }
+
+    public static class SeasonStat implements Parcelable {
+        public static final Creator<SeasonStat> CREATOR = new Creator<SeasonStat>() {
+            @Override
+            public SeasonStat createFromParcel(Parcel parcel) {
+                return new SeasonStat(parcel);
+            }
+
+            @Override
+            public SeasonStat[] newArray(int i) {
+                return new SeasonStat[i];
+            }
+        };
+
+        @JSONField(name = "views")
+        public long views;
+
+        @JSONField(name = "favorites")
+        public long favorites;
+
+        public SeasonStat() {}
+
+        protected SeasonStat(Parcel parcel) {
+            this.views = parcel.readLong();
+            this.favorites = parcel.readLong();
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeLong(this.views);
+            parcel.writeLong(this.favorites);
+        }
+    }
+
+    public static class IconFont implements Parcelable {
+        public static final Creator<IconFont> CREATOR = new Creator<IconFont>() {
+            @Override
+            public IconFont createFromParcel(Parcel parcel) {
+                return new IconFont(parcel);
+            }
+
+            @Override
+            public IconFont[] newArray(int i) {
+                return new IconFont[i];
+            }
+        };
+
+        @JSONField(name = "text")
+        public String text;
+
+        @JSONField(name = "name")
+        public String name;
+
+        public IconFont() {}
+
+        protected IconFont(Parcel parcel) {
+            this.text = parcel.readString();
+            this.name = parcel.readString();
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeString(this.text);
+            parcel.writeString(this.name);
+        }
+    }
+
+    public static class UpInfo implements Parcelable {
+        public static final Creator<UpInfo> CREATOR = new Creator<UpInfo>() {
+            @Override
+            public UpInfo createFromParcel(Parcel parcel) {
+                return new UpInfo(parcel);
+            }
+
+            @Override
+            public UpInfo[] newArray(int i) {
+                return new UpInfo[i];
+            }
+        };
+
+        @JSONField(name = "mid")
+        public long mid;
+
+        @JSONField(name = "uname")
+        public String name;
+
+        @JSONField(name = "avatar")
+        public String face;
+
+        public UpInfo() {}
+
+        protected UpInfo(Parcel parcel) {
+            this.mid = parcel.readLong();
+            this.name = parcel.readString();
+            this.face = parcel.readString();
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeLong(this.mid);
+            parcel.writeString(this.name);
+            parcel.writeString(this.face);
+        }
+    }
 
     public static class Area implements Parcelable {
         public static final Creator<Area> CREATOR = new Creator<Area>() {
@@ -405,6 +660,8 @@ public class PgcInfo implements Parcelable {
         this.total = parcel.readInt();
         this.episodes = parcel.createTypedArrayList(Episode.CREATOR);
         this.sections = parcel.createTypedArrayList(Section.CREATOR);
+        this.upInfo = parcel.readParcelable(UpInfo.class.getClassLoader());
+        this.seasons = parcel.createTypedArrayList(Season.CREATOR);
     }
 
     @Override
@@ -428,6 +685,8 @@ public class PgcInfo implements Parcelable {
         parcel.writeInt(this.total);
         parcel.writeTypedList(this.episodes);
         parcel.writeTypedList(this.sections);
+        parcel.writeParcelable(this.upInfo, i);
+        parcel.writeTypedList(this.seasons);
     }
 
     public String getAreaString() {

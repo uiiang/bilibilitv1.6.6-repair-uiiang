@@ -50,7 +50,7 @@
     .locals 2
 
     .prologue
-    .line 822
+    .line 826
     new-instance v0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d$a;
 
     const/4 v1, 0x0
@@ -70,15 +70,15 @@
 
     const/4 v5, 0x0
 
-    .line 833
+    .line 837
     invoke-direct {p0, p1}, Lbl/adv;-><init>(Landroid/view/View;)V
 
-    .line 834
+    .line 838
     const-string v0, "itemView"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 835
+    .line 839
     const v0, 0x7f0800a1
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -89,7 +89,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->n:Lcom/bilibili/tv/widget/ScalableImageView;
 
-    .line 836
+    .line 840
     const v0, 0x7f080132
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -100,7 +100,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->o:Landroid/widget/TextView;
 
-    .line 837
+    .line 841
     const v0, 0x7f08013f
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -111,7 +111,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->p:Landroid/widget/TextView;
 
-    .line 838
+    .line 842
     const v0, 0x7f0800d4
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -122,7 +122,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->q:Landroid/widget/TextView;
 
-    .line 839
+    .line 843
     const v0, 0x7f0801af
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -133,7 +133,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->r:Landroid/widget/TextView;
 
-    .line 840
+    .line 844
     const v0, 0x7f0801a6
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -144,7 +144,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->duration:Landroid/widget/TextView;
 
-    .line 841
+    .line 845
     const v0, 0x7f08006c
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -155,7 +155,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->danmakuInImage:Landroid/widget/TextView;
 
-    .line 842
+    .line 846
     const v0, 0x7f080074
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -166,7 +166,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->s:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
-    .line 843
+    .line 847
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     const v1, 0x7f0700b2
@@ -175,7 +175,7 @@
 
     move-result-object v0
 
-    .line 844
+    .line 848
     sget-object v1, Lbl/adl;->a:Lbl/adl;
 
     const v2, 0x7f0700b1
@@ -184,7 +184,7 @@
 
     move-result-object v1
 
-    .line 845
+    .line 849
     sget-object v2, Lbl/adl;->a:Lbl/adl;
 
     const v3, 0x7f0700b0
@@ -193,79 +193,79 @@
 
     move-result-object v2
 
-    .line 846
+    .line 850
     const v3, 0x7f060120
 
     invoke-static {v3}, Lbl/adl;->b(I)I
 
     move-result v3
 
-    .line 847
+    .line 851
     invoke-virtual {v0, v4, v4, v3, v3}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
 
-    .line 848
+    .line 852
     invoke-virtual {v1, v4, v4, v3, v3}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
 
-    .line 849
+    .line 853
     invoke-virtual {v2, v4, v4, v3, v3}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
 
-    .line 850
+    .line 854
     const v3, 0x7f0500a1
 
     invoke-static {v3}, Lbl/adl;->d(I)I
 
     move-result v3
 
-    .line 851
+    .line 855
     sget-object v4, Landroid/graphics/PorterDuff$Mode;->MULTIPLY:Landroid/graphics/PorterDuff$Mode;
 
     invoke-virtual {v0, v3, v4}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
 
-    .line 852
+    .line 856
     sget-object v4, Landroid/graphics/PorterDuff$Mode;->MULTIPLY:Landroid/graphics/PorterDuff$Mode;
 
     invoke-virtual {v1, v3, v4}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
 
-    .line 853
+    .line 857
     sget-object v4, Landroid/graphics/PorterDuff$Mode;->MULTIPLY:Landroid/graphics/PorterDuff$Mode;
 
     invoke-virtual {v2, v3, v4}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
 
-    .line 854
+    .line 858
     iget-object v3, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->p:Landroid/widget/TextView;
 
     invoke-virtual {v3, v0, v5, v5, v5}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
 
-    .line 855
+    .line 859
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->q:Landroid/widget/TextView;
 
     invoke-virtual {v0, v1, v5, v5, v5}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
 
-    .line 856
+    .line 860
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->danmakuInImage:Landroid/widget/TextView;
 
     invoke-virtual {v0, v2, v5, v5, v5}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
 
-    .line 857
+    .line 861
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    .line 858
+    .line 862
     instance-of v1, v0, Landroid/view/View$OnLongClickListener;
 
     if-eqz v1, :cond_bf
 
-    .line 859
+    .line 863
     check-cast v0, Landroid/view/View$OnLongClickListener;
 
     invoke-virtual {p1, v0}, Landroid/view/View;->setOnLongClickListener(Landroid/view/View$OnLongClickListener;)V
 
-    .line 861
+    .line 865
     :cond_bf
     invoke-virtual {p1, p0}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 862
+    .line 866
     return-void
 .end method
 
@@ -273,7 +273,7 @@
     .locals 1
 
     .prologue
-    .line 821
+    .line 825
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->danmakuInImage:Landroid/widget/TextView;
 
     return-object v0
@@ -285,7 +285,7 @@
     .locals 1
 
     .prologue
-    .line 869
+    .line 873
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->o:Landroid/widget/TextView;
 
     return-object v0
@@ -295,7 +295,7 @@
     .locals 1
 
     .prologue
-    .line 873
+    .line 877
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->p:Landroid/widget/TextView;
 
     return-object v0
@@ -305,7 +305,7 @@
     .locals 1
 
     .prologue
-    .line 877
+    .line 881
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->q:Landroid/widget/TextView;
 
     return-object v0
@@ -315,7 +315,7 @@
     .locals 1
 
     .prologue
-    .line 881
+    .line 885
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->r:Landroid/widget/TextView;
 
     return-object v0
@@ -325,7 +325,7 @@
     .locals 1
 
     .prologue
-    .line 885
+    .line 889
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->duration:Landroid/widget/TextView;
 
     return-object v0
@@ -335,17 +335,17 @@
     .locals 1
 
     .prologue
-    .line 890
+    .line 894
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 891
+    .line 895
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->s:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawRelativeLayout;->setUpEnabled(Z)V
 
-    .line 892
+    .line 896
     return-void
 .end method
 
@@ -353,7 +353,7 @@
     .locals 1
 
     .prologue
-    .line 865
+    .line 869
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;->n:Lcom/bilibili/tv/widget/ScalableImageView;
 
     return-object v0

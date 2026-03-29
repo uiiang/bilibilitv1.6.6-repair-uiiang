@@ -693,7 +693,7 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                 if (parseId <= 0) {
                     return;
                 }
-                a.startActivity(BangumiDetailActivity.Companion.a(a, String.valueOf(parseId)));
+                a.startActivity(VideoDetailActivity.Companion.a(a, String.valueOf(parseId)));
             }
             Object tag2 = view.getTag(R.id.report_position);
             if (tag2 instanceof Integer) {
