@@ -39,6 +39,7 @@ import bl.aft;
 import bl.afz;
 import bl.bbg;
 import bl.bbi;
+import bl.ke;
 import bl.lr;
 import bl.mg;
 import bl.nv;
@@ -46,10 +47,13 @@ import bl.ok;
 import bl.vm;
 import bl.vn;
 import bl.vo;
+import bl.vp;
 import bl.wf;
 import bl.wg;
 import bl.xg;
 import com.bilibili.api.BiliApiException;
+import com.bilibili.bangumi.api.BangumiApiResponse;
+import com.bilibili.bangumi.api.uniform.BangumiUniformSeason;
 import com.bilibili.lib.account.model.AccountInfo;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
@@ -82,6 +86,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import kotlin.TypeCastException;
 import retrofit2.HttpException;
 import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
@@ -95,6 +100,9 @@ import com.bilibili.okretro.GeneralResponse;
 import android.content.DialogInterface;
 import com.bilibili.tv.api.favorite.BiliFavoriteBox;
 import android.util.Log;
+import com.bilibili.nativelibrary.LibBili;
+import com.bilibili.nativelibrary.SignedQuery;
+import com.bilibili.api.BiliConfig;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
@@ -104,10 +112,18 @@ public final class VideoDetailActivity extends BaseActivity
     private static final String D = "bundle_ac_id";
     private static final String SEASON_ID_KEY = "bundle_season_id";
     private static final boolean ENABLE_BANGUMI_JUMP = false;
+    
+    public enum EntryType {
+        UGC_BY_AVID,
+        PGC_BY_SEASON_ID
+    }
+    
+    private EntryType mEntryType = EntryType.UGC_BY_AVID;
     private i A;
     private boolean B;
     private ImageView b;
     private TextView cc;
+    private LinearLayout uperContainer;
     private LinearLayout staffContainer;
     private TextView e;
     private TextView ff;
@@ -247,6 +263,7 @@ public final class VideoDetailActivity extends BaseActivity
         d dVar = new d();
         this.b = (ImageView) d(R.id.blur);
         this.cc = (TextView) d(R.id.video_detail_title);
+        this.uperContainer = (LinearLayout) d(R.id.video_uper_container);
         this.staffContainer = (LinearLayout) d(R.id.video_detail_staff_container);
         this.e = (TextView) d(R.id.video_detail_play_count);
         this.ff = (TextView) d(R.id.video_detail_danmaku);
@@ -733,11 +750,13 @@ public final class VideoDetailActivity extends BaseActivity
         this.s = extras.getLong(D);
         Log.i("VideoDetailActivity", "m() mSeasonId=" + this.mSeasonId + ", s=" + this.s);
         if (!TextUtils.isEmpty(this.mSeasonId)) {
+            mEntryType = EntryType.PGC_BY_SEASON_ID;
             mIsPgcMode = true;
-            Log.i("VideoDetailActivity", "m() PGC mode enabled");
+            Log.i("VideoDetailActivity", "m() EntryType=PGC_BY_SEASON_ID, seasonId=" + mSeasonId);
         } else if (this.s > 0) {
+            mEntryType = EntryType.UGC_BY_AVID;
             mIsPgcMode = false;
-            Log.i("VideoDetailActivity", "m() UGC mode enabled");
+            Log.i("VideoDetailActivity", "m() EntryType=UGC_BY_AVID, avid=" + s);
         } else {
             Log.i("VideoDetailActivity", "m() no valid params");
             lr.a(this, (int) R.string.video_not_exist);
@@ -1180,15 +1199,19 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private final void n() {
-        Log.i("VideoDetailActivity", "n() called, mIsPgcMode=" + mIsPgcMode + ", mSeasonId=" + mSeasonId);
-        if (mIsPgcMode) {
-            loadPgcBySeasonId();
-        } else {
-            n2();
+        Log.i("VideoDetailActivity", "n() called, mEntryType=" + mEntryType + ", mSeasonId=" + mSeasonId + ", avid=" + s);
+        switch (mEntryType) {
+            case PGC_BY_SEASON_ID:
+                loadPgcBySeasonId();
+                break;
+            case UGC_BY_AVID:
+            default:
+                loadUgcByAvid();
+                break;
         }
     }
-
-    private final void n2() {
+    
+    private final void loadUgcByAvid() {
         if (this.s <= 0 || this.A == null) {
             return;
         }
@@ -1196,13 +1219,13 @@ public final class VideoDetailActivity extends BaseActivity
         if (loadingImageView != null) {
             loadingImageView.a();
         }
-        Log.i("VideoDetailApi", "========== Request URL ==========");
+        Log.i("VideoDetailApi", "========== UGC_BY_AVID Request ==========");
         Log.i("VideoDetailApi", "https://api.bilibili.com/x/web-interface/view?aid=" + this.s);
         ((MyBiliApiService) vo.a(MyBiliApiService.class)).getVideoInfo(this.s).a(new VideoApiParser3()).a(this.A);
     }
 
     private void loadPgcBySeasonId() {
-        Log.i("VideoDetailActivity", "loadPgcBySeasonId() called, mSeasonId=" + mSeasonId);
+        Log.i("VideoDetailActivity", "loadPgcBySeasonId() EntryType=PGC_BY_SEASON_ID, mSeasonId=" + mSeasonId);
         if (TextUtils.isEmpty(mSeasonId)) {
             Log.i("VideoDetailActivity", "loadPgcBySeasonId() mSeasonId is empty, return");
             return;
@@ -1212,51 +1235,111 @@ public final class VideoDetailActivity extends BaseActivity
             loadingImageView.a();
         }
         
-        Log.i("VideoDetailApi", "========== PGC Mode ==========");
-        Log.i("VideoDetailApi", "https://api.bilibili.com/pgc/view/web/season?season_id=" + mSeasonId);
-        
-        ((MyBiliApiService) vo.a(MyBiliApiService.class))
-            .getPgcSeasonInfo(mSeasonId)
-            .a(new PgcInfoParser())
-            .a(new vn<PgcInfo>() {
-                @Override
-                public boolean isCancel() {
-                    return VideoDetailActivity.this.isFinishing();
-                }
-                
-                @Override
-                public void onError(Throwable th) {
-                    Log.i("VideoDetailApi", "loadPgcBySeasonId error: " + th.getMessage());
-                    lr.a(VideoDetailActivity.this, R.string.video_not_exist);
-                    finish();
-                }
-                
-                @Override
-                public void a(PgcInfo pgcInfo) {
-                    if (pgcInfo == null || pgcInfo.episodes == null || pgcInfo.episodes.isEmpty()) {
-                        VideoDetailActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                lr.a(VideoDetailActivity.this, R.string.video_not_exist);
-                                finish();
-                            }
-                        });
-                        return;
-                    }
-                    mPgcInfo = pgcInfo;
-                    BiliVideoDetail detail = convertPgcToBiliVideoDetail(pgcInfo);
-                    s = detail.mAvid;
+        loadPgcSeasonInfo(mSeasonId, new PgcLoadCallback() {
+            @Override
+            public void onSuccess(PgcInfo pgcInfo) {
+                if (pgcInfo == null || pgcInfo.episodes == null || pgcInfo.episodes.isEmpty()) {
                     VideoDetailActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if (A != null) {
-                                A.a(detail);
-                            }
-                            showPgcInfo(pgcInfo);
+                            lr.a(VideoDetailActivity.this, R.string.video_not_exist);
+                            finish();
                         }
                     });
+                    return;
                 }
-            });
+                mPgcInfo = pgcInfo;
+                BiliVideoDetail detail = convertPgcToBiliVideoDetail(pgcInfo);
+                s = detail.mAvid;
+                VideoDetailActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (A != null) {
+                            A.a(detail);
+                        }
+                        showPgcInfo(pgcInfo);
+                    }
+                });
+            }
+
+            @Override
+            public void onError(String message) {
+                Log.i("VideoDetailApi", "loadPgcBySeasonId error: " + message);
+                VideoDetailActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        lr.a(VideoDetailActivity.this, R.string.video_not_exist);
+                        finish();
+                    }
+                });
+            }
+        });
+    }
+
+    private interface PgcLoadCallback {
+        void onSuccess(PgcInfo pgcInfo);
+        void onError(String message);
+    }
+
+    private void loadPgcSeasonInfo(String seasonId, final PgcLoadCallback callback) {
+        final String accessKey = mg.a(this).e();
+        
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("access_key", accessKey);
+                    params.put("season_id", seasonId);
+                    params.put("season_type", "1");
+                    params.put("track_path", "0");
+                    params.put("platform", "android");
+                    params.put("mobi_app", com.bilibili.api.BiliConfig.e());
+                    params.put("appkey", com.bilibili.api.BiliConfig.a());
+                    params.put("build", String.valueOf(com.bilibili.api.BiliConfig.c()));
+                    
+                    com.bilibili.nativelibrary.SignedQuery signedQuery = com.bilibili.nativelibrary.LibBili.a(params);
+                    String signedUrl = "http://api.bilibili.com/pgc/view/app/season?" + signedQuery.toString();
+                    
+                    Log.i("PgcSeasonApi", "Request URL: " + signedUrl);
+                    
+                    retrofit2.Call<JSONObject> call = ((MyBiliApiService) vo.a(MyBiliApiService.class)).getPgcSeasonInfo(signedUrl);
+                    retrofit2.Response<JSONObject> response = call.execute();
+                    
+                    if (!response.isSuccessful()) {
+                        callback.onError("HTTP error: " + response.code());
+                        return;
+                    }
+                    
+                    JSONObject jsonObj = response.body();
+                    if (jsonObj == null) {
+                        callback.onError("Response body is null");
+                        return;
+                    }
+                    
+                    Log.i("PgcSeasonApi", "Response: " + jsonObj.toJSONString());
+                    
+                    int code = jsonObj.getIntValue("code");
+                    if (code != 0) {
+                        callback.onError("API error: " + jsonObj.getString("message"));
+                        return;
+                    }
+                    
+                    JSONObject result = jsonObj.getJSONObject("result");
+                    if (result == null) {
+                        callback.onError("Result is null");
+                        return;
+                    }
+                    
+                    PgcInfo pgcInfo = JSON.parseObject(result.toJSONString(), PgcInfo.class);
+                    callback.onSuccess(pgcInfo);
+                    
+                } catch (Exception e) {
+                    Log.e("PgcSeasonApi", "loadPgcSeasonInfo error: " + e.getMessage(), e);
+                    callback.onError(e.getMessage());
+                }
+            }
+        }).start();
     }
 
     private BiliVideoDetail convertPgcToBiliVideoDetail(PgcInfo pgcInfo) {
@@ -1271,15 +1354,40 @@ public final class VideoDetailActivity extends BaseActivity
         detail.mDuration = (int) (firstEp.duration / 1000);
         detail.mCreatedTimestamp = firstEp.pubTime;
         
+        detail.mBangumiInfo = new BiliVideoDetail.BangumiInfo();
+        detail.mBangumiInfo.mSeasonId = String.valueOf(pgcInfo.seasonId);
+        detail.mBangumiInfo.mTitle = pgcInfo.title;
+        
         detail.mOwner = new BiliUser();
-        if (pgcInfo.upInfo != null) {
+        detail.mStaffList = new ArrayList<>();
+        
+        if (pgcInfo.producer != null && pgcInfo.producer.list != null && !pgcInfo.producer.list.isEmpty()) {
+            for (PgcInfo.ProducerInfo pi : pgcInfo.producer.list) {
+                BiliVideoDetail.Staff staff = new BiliVideoDetail.Staff();
+                staff.mid = pi.mid;
+                staff.title = pi.name;
+                staff.face = pi.face;
+                detail.mStaffList.add(staff);
+            }
+            detail.mOwner.mid = detail.mStaffList.get(0).mid;
+            detail.mOwner.name = detail.mStaffList.get(0).title;
+            detail.mOwner.face = detail.mStaffList.get(0).face;
+            Log.i("PgcInfo", "Using producer list: " + detail.mStaffList.size() + " producers");
+        } else if (pgcInfo.upInfo != null) {
             detail.mOwner.mid = pgcInfo.upInfo.mid;
             detail.mOwner.name = pgcInfo.upInfo.name;
             detail.mOwner.face = pgcInfo.upInfo.face;
+            BiliVideoDetail.Staff staff = new BiliVideoDetail.Staff();
+            staff.mid = pgcInfo.upInfo.mid;
+            staff.title = pgcInfo.upInfo.name;
+            staff.face = pgcInfo.upInfo.face;
+            detail.mStaffList.add(staff);
+            Log.i("PgcInfo", "Using up_info: " + pgcInfo.upInfo.name);
         } else {
             detail.mOwner.mid = 0;
-            detail.mOwner.name = pgcInfo.getTypeName();
+            detail.mOwner.name = "";
             detail.mOwner.face = "";
+            Log.i("PgcInfo", "No producer or up_info, hiding staff area");
         }
         
         detail.mStat = new BiliVideoDetail.Stat();
@@ -1295,6 +1403,30 @@ public final class VideoDetailActivity extends BaseActivity
             PgcInfo.Episode ep = pgcInfo.episodes.get(i);
             BiliVideoDetail.Page page = convertEpisodeToPage(ep, i + 1);
             detail.mPageList.add(page);
+        }
+        
+        if (pgcInfo.userStatus != null && pgcInfo.userStatus.progress != null) {
+            PgcInfo.Progress progress = pgcInfo.userStatus.progress;
+            long lastEpId = progress.lastEpId;
+            int lastTime = progress.lastTime;
+            
+            Log.i("PgcInfo", "Found user progress: last_ep_id=" + lastEpId + ", last_time=" + lastTime + "s");
+            
+            long historyCid = 0;
+            for (PgcInfo.Episode ep : pgcInfo.episodes) {
+                if (ep.id == lastEpId) {
+                    historyCid = ep.cid;
+                    break;
+                }
+            }
+            
+            if (historyCid > 0 && lastTime > 0) {
+                BiliVideoDetail.History history = new BiliVideoDetail.History();
+                history.mCid = historyCid;
+                history.mProgress = lastTime;
+                detail.mHistory = history;
+                Log.i("PgcInfo", "Set history: cid=" + historyCid + ", progress=" + lastTime + "s");
+            }
         }
         
         return detail;
@@ -1442,10 +1574,28 @@ public final class VideoDetailActivity extends BaseActivity
         mg a2 = mg.a(this);
         bbi.a((Object) a2, "BiliAccount.get(this)");
         
+        if (biliVideoDetail.mHistory != null) {
+            Log.i("HistoryLoad", "History already set from PGC progress, updating display directly");
+            updateHistoryDisplay(biliVideoDetail);
+            if (VideoDetailActivity.this.historyPlayBtnLayout != null &&
+                    VideoDetailActivity.this.historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
+                VideoDetailActivity.this.historyPlayBtnLayout.requestFocus();
+            }
+            return;
+        }
+        
         long cid = 0;
+        long episodeId = 0;
+        String bvid = biliVideoDetail.mBvid;
         if (biliVideoDetail.mPageList != null && !biliVideoDetail.mPageList.isEmpty()) {
             cid = biliVideoDetail.mPageList.get(0).mCid;
+            episodeId = biliVideoDetail.mPageList.get(0).mEpisodeId;
+            if (biliVideoDetail.mPageList.get(0).mBvid != null && !biliVideoDetail.mPageList.get(0).mBvid.isEmpty()) {
+                bvid = biliVideoDetail.mPageList.get(0).mBvid;
+            }
         }
+        
+        Log.i("HistoryLoad", "loadHistory: mEntryType=" + mEntryType + ", isPgc=" + isPgcVideo(biliVideoDetail) + ", cid=" + cid + ", episodeId=" + episodeId + ", bvid=" + bvid);
         
         if (cid == 0) {
             fallbackLoadHistory(biliVideoDetail, a2.e());
@@ -1453,31 +1603,51 @@ public final class VideoDetailActivity extends BaseActivity
         }
         
         final long finalCid = cid;
+        final long finalEpisodeId = episodeId;
         final long avid = this.s;
         final BiliVideoDetail finalBiliVideoDetail = biliVideoDetail;
         final String accessKey = a2.e();
         final String sessdata = a2.getSESSDATA();
+        final String finalBvid = bvid;
         
         new Thread(new Runnable() {
             @Override
             public void run() {
                 boolean playurlSuccess = false;
                 try {
+                    TreeMap<String, String> params = new TreeMap<>();
+                    params.put("bvid", finalBvid);
+                    params.put("cid", String.valueOf(finalCid));
+                    if (finalEpisodeId > 0) {
+                        params.put("ep_id", String.valueOf(finalEpisodeId));
+                    }
+                    
+                    String signedQuery = mybl.WbiSigner.getInstance().encWbiAndGetQuery(params);
+                    String fullUrl = "https://api.bilibili.com/x/player/wbi/v2?" + signedQuery;
+                    Log.i("HistoryApi", "========== History API Request ==========");
+                    Log.i("HistoryApi", "URL: " + fullUrl);
+                    Log.i("HistoryApi", "bvid=" + finalBvid + ", cid=" + finalCid + ", ep_id=" + finalEpisodeId);
+                    
+                    bl.qa request = new bl.qa.a(BiliVideoDetail.JsonResponse.class)
+                        .a(fullUrl)
+                        .a(true)
+                        .a("Cookie", "SESSDATA=" + sessdata)
+                        .b("")
+                        .a(new bl.qb())
+                        .a();
+                    
                     com.alibaba.fastjson.JSONObject playerData = ((BiliVideoDetail.JsonResponse) bl.pz.a(
-                        new bl.qa.a(BiliVideoDetail.JsonResponse.class)
-                            .a("https://api.bilibili.com/x/player/wbi/v2")
-                            .a(true)
-                            .a("Cookie", "SESSDATA=" + sessdata)
-                            .b("")
-                            .b("bvid", biliVideoDetail.mBvid)
-                            .b("cid", String.valueOf(finalCid))
-                            .a(new bl.qb()).a(), "GET")).result();
+                        request, "GET")).result();
+                    
+                    Log.i("HistoryApi", "Response: " + (playerData != null ? playerData.toJSONString() : "null"));
                     
                     if (playerData != null && playerData.getIntValue("code") == 0) {
                         com.alibaba.fastjson.JSONObject data = playerData.getJSONObject("data");
                         if (data != null) {
                             long lastPlayCid = data.getLongValue("last_play_cid");
                             int lastPlayTime = data.getIntValue("last_play_time") / 1000;
+                            
+                            Log.i("HistoryApi", "last_play_cid=" + lastPlayCid + ", last_play_time=" + lastPlayTime + "s");
                             
                             if (lastPlayCid > 0) {
                                 playurlSuccess = true;
@@ -1500,6 +1670,7 @@ public final class VideoDetailActivity extends BaseActivity
                         }
                     }
                 } catch (Exception e) {
+                    android.util.Log.e("HistoryApi", "loadHistory error: " + e.getMessage());
                 }
                 
                 if (!playurlSuccess) {
@@ -1515,6 +1686,9 @@ public final class VideoDetailActivity extends BaseActivity
     }
     
     private final void fallbackLoadHistory(BiliVideoDetail biliVideoDetail, String accessKey) {
+        Log.i("HistoryApi", "========== Fallback History API Request ==========");
+        Log.i("HistoryApi", "avid=" + this.s);
+        
         ((VideoApiService) vo.a(VideoApiService.class)).getVideoDetails(
             new VideoApiService.VideoParamsMapV2.Builder(this.s).setAutoPlay("0").build(),
             accessKey
@@ -1522,6 +1696,7 @@ public final class VideoDetailActivity extends BaseActivity
             @Override
             public GeneralResponse<JSONObject> convert(okhttp3.ResponseBody responseBody) throws java.io.IOException {
                 String rawResponse = responseBody.string();
+                Log.i("HistoryApi", "Fallback Response: " + rawResponse);
                 com.alibaba.fastjson.JSONObject jSONObject = com.alibaba.fastjson.JSON.parseObject(rawResponse);
                 GeneralResponse<JSONObject> response = new GeneralResponse<>();
                 response.code = jSONObject.getIntValue("code");
@@ -1540,6 +1715,7 @@ public final class VideoDetailActivity extends BaseActivity
             }
             @Override
             public void onError(Throwable th) {
+                Log.e("HistoryApi", "Fallback error: " + th.getMessage());
             }
             @Override
             public void onSuccess(GeneralResponse<JSONObject> result) {
@@ -1551,8 +1727,11 @@ public final class VideoDetailActivity extends BaseActivity
                             BiliVideoDetail.History history = new BiliVideoDetail.History();
                             history.mCid = historyObj.getLongValue("cid");
                             history.mProgress = historyObj.getIntValue("progress");
+                            Log.i("HistoryApi", "Fallback history: cid=" + history.mCid + ", progress=" + history.mProgress + "s");
                             biliVideoDetail.mHistory = history;
                         }
+                    } else {
+                        Log.i("HistoryApi", "Fallback: no history data found");
                     }
                 }
                 updateHistoryDisplay(biliVideoDetail);
@@ -1667,6 +1846,7 @@ public final class VideoDetailActivity extends BaseActivity
             boolean hasMultipleEpisodes = biliVideoDetail.mPageList!=null && biliVideoDetail.mPageList.size() > 1;
             if (historyLabel != null) {
                 historyLabel.setVisibility(View.VISIBLE);
+                historyLabel.setText("上次播放到");
                 // android.util.Log.i("HistoryDisplay", "historyLabel.setVisibility(VISIBLE)");
             }
             if (hasTitle && hasMultipleEpisodes) {
@@ -1827,32 +2007,106 @@ public final class VideoDetailActivity extends BaseActivity
             return;
         }
         android.util.Log.i("PgcInfo", "loading PGC info for seasonId: " + seasonId);
-        ((MyBiliApiService) vo.a(MyBiliApiService.class)).getPgcSeasonInfo(seasonId).a(new PgcInfoParser()).a(new vn<PgcInfo>() {
+        
+        loadPgcSeasonInfo(seasonId, new PgcLoadCallback() {
             @Override
-            public boolean isCancel() {
-                return VideoDetailActivity.this.isFinishing();
-            }
-
-            @Override
-            public void onError(Throwable th) {
-                android.util.Log.e("PgcInfo", "loadPgcInfo error: " + th.getMessage());
-            }
-
-            @Override
-            public void a(PgcInfo pgcInfo) {
+            public void onSuccess(PgcInfo pgcInfo) {
                 if (pgcInfo == null) {
                     android.util.Log.i("PgcInfo", "pgcInfo is null");
                     return;
                 }
                 android.util.Log.i("PgcInfo", "got PGC info: " + pgcInfo.title);
+                mPgcInfo = pgcInfo;
+                updateBiliVideoDetailWithPgcInfo(biliVideoDetail, pgcInfo);
                 VideoDetailActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         showPgcInfo(pgcInfo);
+                        if (biliVideoDetail.mHistory != null) {
+                            android.util.Log.i("PgcInfo", "History already set from PGC progress, updating display");
+                            updateHistoryDisplay(biliVideoDetail);
+                            if (VideoDetailActivity.this.historyPlayBtnLayout != null &&
+                                    VideoDetailActivity.this.historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
+                                VideoDetailActivity.this.historyPlayBtnLayout.requestFocus();
+                            }
+                        } else {
+                            loadHistory(biliVideoDetail);
+                        }
                     }
                 });
             }
+
+            @Override
+            public void onError(String message) {
+                android.util.Log.e("PgcInfo", "loadPgcInfo error: " + message);
+            }
         });
+    }
+    
+    private void updateBiliVideoDetailWithPgcInfo(BiliVideoDetail biliVideoDetail, PgcInfo pgcInfo) {
+        if (biliVideoDetail == null || pgcInfo == null || pgcInfo.episodes == null) {
+            return;
+        }
+        
+        if (biliVideoDetail.mBangumiInfo == null) {
+            biliVideoDetail.mBangumiInfo = new BiliVideoDetail.BangumiInfo();
+        }
+        biliVideoDetail.mBangumiInfo.mSeasonId = String.valueOf(pgcInfo.seasonId);
+        biliVideoDetail.mBangumiInfo.mTitle = pgcInfo.title;
+        android.util.Log.i("PgcInfo", "Set mBangumiInfo.mSeasonId=" + biliVideoDetail.mBangumiInfo.mSeasonId);
+        
+        long originalCid = 0;
+        if (biliVideoDetail.mPageList != null && !biliVideoDetail.mPageList.isEmpty()) {
+            originalCid = biliVideoDetail.mPageList.get(0).mCid;
+        }
+        
+        boolean foundInEpisodes = false;
+        for (PgcInfo.Episode ep : pgcInfo.episodes) {
+            if (ep.cid == originalCid) {
+                foundInEpisodes = true;
+                break;
+            }
+        }
+        
+        if (!foundInEpisodes && originalCid > 0) {
+            android.util.Log.i("PgcInfo", "Original cid " + originalCid + " not found in PGC episodes, keeping original mPageList");
+            return;
+        }
+        
+        if (biliVideoDetail.mPageList == null) {
+            biliVideoDetail.mPageList = new ArrayList<>();
+        }
+        biliVideoDetail.mPageList.clear();
+        for (int i = 0; i < pgcInfo.episodes.size(); i++) {
+            PgcInfo.Episode ep = pgcInfo.episodes.get(i);
+            BiliVideoDetail.Page page = convertEpisodeToPage(ep, i + 1);
+            biliVideoDetail.mPageList.add(page);
+        }
+        android.util.Log.i("PgcInfo", "Updated mPageList with " + biliVideoDetail.mPageList.size() + " episodes");
+        
+        if (pgcInfo.userStatus != null && pgcInfo.userStatus.progress != null) {
+            PgcInfo.Progress progress = pgcInfo.userStatus.progress;
+            long lastEpId = progress.lastEpId;
+            int lastTime = progress.lastTime;
+            
+            android.util.Log.i("PgcInfo", "Found user progress: last_ep_id=" + lastEpId + ", last_time=" + lastTime + "s");
+            
+            long historyCid = 0;
+            for (PgcInfo.Episode ep : pgcInfo.episodes) {
+                if (ep.id == lastEpId) {
+                    historyCid = ep.cid;
+                    break;
+                }
+            }
+            
+            if (historyCid > 0 && lastTime > 0) {
+                BiliVideoDetail.History history = new BiliVideoDetail.History();
+                history.mCid = historyCid;
+                history.mProgress = lastTime;
+                biliVideoDetail.mHistory = history;
+                android.util.Log.i("PgcInfo", "Set history: cid=" + historyCid + ", progress=" + lastTime + "s");
+            }
+        }
     }
 
     private void showPgcInfo(PgcInfo pgcInfo) {
@@ -1914,6 +2168,22 @@ public final class VideoDetailActivity extends BaseActivity
         page.mPage = pageIndex;
         page.mTitle = !TextUtils.isEmpty(episode.longTitle) ? episode.longTitle : episode.title;
         page.mLink = episode.link;
+        page.mEpisodeId = episode.id;
+        page.mSeasonId = String.valueOf(mPgcInfo != null ? mPgcInfo.seasonId : 0);
+        page.mEpCover = episode.cover;
+        page.mBvid = episode.bvid;
+        
+        if (mPgcInfo != null) {
+            int pgcType = mPgcInfo.type;
+            if (pgcType == 2) {
+                page.mFrom = "movie";
+            } else {
+                page.mFrom = "bangumi";
+            }
+        }
+        
+        Log.i("PgcPlayUrl", "convertEpisodeToPage: cid=" + episode.cid + ", epId=" + episode.id + ", mFrom=" + page.mFrom + ", pgcType=" + (mPgcInfo != null ? mPgcInfo.type : "null"));
+        
         return page;
     }
 
@@ -3418,10 +3688,12 @@ public final class VideoDetailActivity extends BaseActivity
             if (VideoDetailActivity.this.stickyVideoDetailTitle != null) {
                 VideoDetailActivity.this.stickyVideoDetailTitle.setText(biliVideoDetail.mTitle);
             }
-            if (!mIsPgcMode && VideoDetailActivity.this.isPgcVideo(biliVideoDetail)) {
+            if (mEntryType == EntryType.UGC_BY_AVID && VideoDetailActivity.this.isPgcVideo(biliVideoDetail)) {
+                Log.i("VideoDetailActivity", "UGC入口检测到PGC视频，加载PGC信息");
                 VideoDetailActivity.this.loadPgcInfo(biliVideoDetail);
             }
             LinearLayout staffContainer = VideoDetailActivity.this.staffContainer;
+            LinearLayout uperContainer = VideoDetailActivity.this.uperContainer;
             if (staffContainer != null) {
                 staffContainer.removeAllViews();
                 List<BiliVideoDetail.Staff> staffList = biliVideoDetail.hasStaff() ? biliVideoDetail.getStaffList() : null;
@@ -3430,11 +3702,24 @@ public final class VideoDetailActivity extends BaseActivity
                     totalCount = staffList.size();
                     for (int i = 0; i < staffList.size(); i++) {
                         BiliVideoDetail.Staff staff = staffList.get(i);
-                        addStaffView(staffContainer, staff.name, staff.mid, staff.face, i, totalCount);
+                        addStaffView(staffContainer, staff.title, staff.mid, staff.face, i, totalCount);
+                    }
+                    if (uperContainer != null) {
+                        uperContainer.setVisibility(View.VISIBLE);
                     }
                 } else {
-                    String ownerFace = biliVideoDetail.mOwner != null ? biliVideoDetail.mOwner.face : null;
-                    addStaffView(staffContainer, biliVideoDetail.getAuthor(), biliVideoDetail.getMid(), ownerFace, 0, 1);
+                    String authorName = biliVideoDetail.getAuthor();
+                    if (!TextUtils.isEmpty(authorName) && !"null".equals(authorName)) {
+                        String ownerFace = biliVideoDetail.mOwner != null ? biliVideoDetail.mOwner.face : null;
+                        addStaffView(staffContainer, authorName, biliVideoDetail.getMid(), ownerFace, 0, 1);
+                        if (uperContainer != null) {
+                            uperContainer.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        if (uperContainer != null) {
+                            uperContainer.setVisibility(View.GONE);
+                        }
+                    }
                 }
             }
             TextView textView2 = VideoDetailActivity.this.e;
@@ -3453,7 +3738,12 @@ public final class VideoDetailActivity extends BaseActivity
                     String.valueOf(mg.a(VideoDetailActivity.this).d()), "success", "0"));
             initDefaultPlayButtons(biliVideoDetail);
             loadArchiveRelation(biliVideoDetail);
-            loadHistory(biliVideoDetail);
+            
+            if (mEntryType == EntryType.UGC_BY_AVID && VideoDetailActivity.this.isPgcVideo(biliVideoDetail)) {
+                Log.i("VideoDetailActivity", "UGC入口检测到PGC视频，延迟加载历史记录");
+            } else {
+                loadHistory(biliVideoDetail);
+            }
             
             loadRelatedVideosAndTags();
         }

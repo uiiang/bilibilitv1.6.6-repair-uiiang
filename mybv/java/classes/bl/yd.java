@@ -409,7 +409,9 @@ public class yd implements Handler.Callback, IMediaPlayer.OnCompletionListener, 
                 } catch (ResolveException unused) {
                     BLog.e("PlayerController", "exception happened when segment update in segment");
                 }
-                String str = d2.a(i3).a;
+                Segment segment = d2.a(i3);
+                String str = getNextSegmentUrl(segment, i2);
+                BLog.i("PlayerController", "segment url (retry=" + i2 + "): " + (str != null && str.length() > 100 ? str.substring(0, 100) + "..." : str));
                 if (i == 131079) {
                     if (this.b.b) {
                         String a2 = a(this.a, str);
@@ -529,8 +531,9 @@ public class yd implements Handler.Callback, IMediaPlayer.OnCompletionListener, 
                             z2 = (e2 instanceof UrlHandleException) && ((UrlHandleException) e2).a();
                             BLog.e("PlayerController", "exception happened when segment update in http open: " + z2);
                         }
-                        String str2 = d3.a(i4).a;
-                        BLog.i("PlayerController", "final url, " + str2);
+                        Segment segment2 = d3.a(i4);
+                        String str2 = getNextSegmentUrl(segment2, i5);
+                        BLog.i("PlayerController", "final url (retry=" + i5 + "): " + (str2 != null && str2.length() > 100 ? str2.substring(0, 100) + "..." : str2));
                         if (aVar != null && aVar.a(i, bundle2, str2)) {
                             str2 = bundle2.getString("url", str2);
                             BLog.i("PlayerController", "last: url after handled by " + aVar.getClass().getSimpleName() + "," + str2);
@@ -600,6 +603,27 @@ public class yd implements Handler.Callback, IMediaPlayer.OnCompletionListener, 
 
     private boolean b(int i, Bundle bundle) {
         return this.r != null && this.r.onNativeInvoke(i, bundle);
+    }
+
+    private String getNextSegmentUrl(Segment segment, int retryCounter) {
+        if (segment == null) {
+            return null;
+        }
+        
+        if (retryCounter <= 0 || segment.e == null || segment.e.isEmpty()) {
+            BLog.i("PlayerController", "Using primary url, backup_urls: " + (segment.e != null ? segment.e.size() : 0));
+            return segment.a;
+        }
+        
+        int backupIndex = retryCounter - 1;
+        if (backupIndex < segment.e.size()) {
+            String backupUrl = segment.e.get(backupIndex);
+            BLog.i("PlayerController", "Using backup_url[" + backupIndex + "], total backups: " + segment.e.size());
+            return backupUrl;
+        }
+        
+        BLog.i("PlayerController", "No more backup urls, using primary url");
+        return segment.a;
     }
 
     private void a(PlayIndex playIndex, int i) throws ResolveException {

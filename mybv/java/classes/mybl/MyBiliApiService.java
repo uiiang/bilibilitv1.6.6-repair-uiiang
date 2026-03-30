@@ -54,8 +54,8 @@ public interface MyBiliApiService {
     @GET("/x/web-interface/view/detail/tag")
     vp<GeneralResponse<List<BiliVideoDetail.Tag>>> getVideoTags(@Query("aid") long aid);
 
-    @GET("/pgc/view/web/season")
-    vp<GeneralResponse<PgcInfo>> getPgcSeasonInfo(@Query("season_id") String seasonId);
+    @GET
+    Call<JSONObject> getPgcSeasonInfo(@Url String signedUrl);
 
     @GET("/x/web-interface/archive/relation")
     vp<GeneralResponse<JSONObject>> getArchiveRelation(@Query("bvid") String bvid, @Header("Cookie") String cookie);

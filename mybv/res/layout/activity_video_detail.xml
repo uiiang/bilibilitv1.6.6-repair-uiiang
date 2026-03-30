@@ -460,6 +460,7 @@
                                     android:textColor="@color/white" android:gravity="center"
                                     android:id="@id/video_detail_favorite_text"
                                     android:focusable="false"
+                                    android:visibility="gone"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:layout_marginRight="@dimen/px_18" android:text="收藏" />
@@ -490,6 +491,7 @@
                                     android:textColor="@color/white" android:gravity="center"
                                     android:id="@id/video_detail_watch_later_text"
                                     android:focusable="false"
+                                    android:visibility="gone"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:layout_marginRight="@dimen/px_18" android:text="稍后" />
@@ -579,11 +581,12 @@
                 <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_36"
                     android:textColor="@color/white" android:id="@id/video_detail_relate_title"
                     android:focusable="false" android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" android:maxLines="1" />
+                    android:layout_height="wrap_content" android:maxLines="1"
+                    android:text="相关推荐" />
                 <!-- 相关推荐列表RecyclerView -->
                 <android.support.v7.widget.RecyclerView android:id="@id/video_detail_relate_video"
                     android:paddingTop="@dimen/px_24"
-                    android:paddingBottom="@dimen/px_24"
+                    android:paddingBottom="@dimen/px_10"
                     android:paddingLeft="@dimen/px_10"
                     android:focusable="true"
                     android:nextFocusLeft="@id/video_detail_relate_video"
@@ -597,7 +600,7 @@
                 <LinearLayout android:orientation="vertical" android:focusable="false"
                     android:id="@id/video_detail_des_layout"
                     android:layout_width="fill_parent" android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/px_30">
+                    android:layout_marginBottom="@dimen/px_10">
                     <!-- 视频简介标题 -->
                     <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_36"
                         android:textColor="@color/white" android:id="@id/video_info_describe_title"
@@ -607,14 +610,14 @@
                     <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_32"
                         android:textColor="@color/white_50" android:id="@id/video_info_describe"
                         android:focusable="false" android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" android:layout_marginTop="@dimen/px_16" />
+                        android:layout_height="wrap_content" android:layout_marginTop="@dimen/px_10" />
                 </LinearLayout>
                 
                 <!-- ==================== 标签列表区域 ==================== -->
                 <!-- 视频标签，可点击搜索相关内容 -->
                 <android.support.v7.widget.RecyclerView android:id="@id/flow_tag_view"
-                    android:paddingTop="@dimen/px_24"
-                    android:paddingBottom="@dimen/px_24"
+                    android:paddingTop="@dimen/px_6"
+                    android:paddingBottom="@dimen/px_10"
                     android:paddingLeft="@dimen/px_10"
                     android:focusable="true"
                     android:nextFocusLeft="@id/flow_tag_view"

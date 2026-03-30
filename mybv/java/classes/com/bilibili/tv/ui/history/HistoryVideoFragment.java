@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -623,8 +624,16 @@ public final class HistoryVideoFragment extends ady {
                             android.widget.Toast.makeText(context, "未开播", android.widget.Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        long avid = history.getLongValue("oid");
-                        activity.startActivity(VideoDetailActivity.Companion.a(context, avid));
+                        String business = history.getString("business");
+                        if ("pgc".equals(business)) {
+                            long seasonId = item.getLongValue("kid");
+                            Log.i("HistoryVideoFragment", "PGC video: seasonId=" + seasonId);
+                            activity.startActivity(VideoDetailActivity.Companion.a(context, String.valueOf(seasonId)));
+                        } else {
+                            long avid = history.getLongValue("oid");
+                            Log.i("HistoryVideoFragment", "UGC video: avid=" + avid);
+                            activity.startActivity(VideoDetailActivity.Companion.a(context, avid));
+                        }
                     }
                 }
             }

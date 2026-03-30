@@ -115,13 +115,22 @@ public class xg {
         obtainResolveParams.mHasAlias = page.mHasAlias;
         obtainResolveParams.mTid = biliVideoDetail.mTid;
 
-        obtainResolveParams.mBvid = biliVideoDetail.mBvid;
+        if (page.mBvid != null && !page.mBvid.isEmpty()) {
+            obtainResolveParams.mBvid = page.mBvid;
+        } else {
+            obtainResolveParams.mBvid = biliVideoDetail.mBvid;
+        }
         obtainResolveParams.mNoHistoryPlay = VideoDetailActivity.sNoHistoryPlayMode;
         if (i > 0) {
             obtainResolveParams.mExpectedQuality = i;
         }
         if (biliVideoDetail.mBangumiInfo != null) {
             obtainResolveParams.mSeasonId = biliVideoDetail.mBangumiInfo.mSeasonId + "";
+        }
+        if (page.mEpisodeId > 0) {
+            obtainResolveParams.mEpisodeId = page.mEpisodeId;
+            obtainResolveParams.mSeasonId = page.mSeasonId;
+            obtainResolveParams.mEpCover = page.mEpCover;
         }
         if (TextUtils.isEmpty(yr.a(a))) {
             yr.b(a, page.mTitle);
@@ -145,6 +154,13 @@ public class xg {
                 resolveResourceParams.mHasAlias = page2.mHasAlias;
                 resolveResourceParams.mPageTitle = page2.mTitle;
                 resolveResourceParams.mSeasonId = obtainResolveParams.mSeasonId;
+                resolveResourceParams.mEpisodeId = page2.mEpisodeId;
+                resolveResourceParams.mEpCover = page2.mEpCover;
+                if (page2.mBvid != null && !page2.mBvid.isEmpty()) {
+                    resolveResourceParams.mBvid = page2.mBvid;
+                } else {
+                    resolveResourceParams.mBvid = biliVideoDetail.mBvid;
+                }
                 if (i > 0) {
                     resolveResourceParams.mExpectedQuality = i;
                 } else {
@@ -248,6 +264,11 @@ public class xg {
         if (biliVideoDetail.mBangumiInfo != null) {
             obtainResolveParams.mSeasonId = biliVideoDetail.mBangumiInfo.mSeasonId + "";
         }
+        if (page.mEpisodeId > 0) {
+            obtainResolveParams.mEpisodeId = page.mEpisodeId;
+            obtainResolveParams.mSeasonId = page.mSeasonId;
+            obtainResolveParams.mEpCover = page.mEpCover;
+        }
         if (TextUtils.isEmpty(yr.a(a))) {
             yr.b(a, page.mTitle);
         }
@@ -271,6 +292,8 @@ public class xg {
                 resolveResourceParams.mHasAlias = page2.mHasAlias;
                 resolveResourceParams.mPageTitle = page2.mTitle;
                 resolveResourceParams.mSeasonId = obtainResolveParams.mSeasonId;
+                resolveResourceParams.mEpisodeId = page2.mEpisodeId;
+                resolveResourceParams.mEpCover = page2.mEpCover;
                 if (i > 0) {
                     resolveResourceParams.mExpectedQuality = i;
                 } else {

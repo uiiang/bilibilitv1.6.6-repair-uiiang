@@ -66,8 +66,100 @@ public class PgcInfo implements Parcelable {
     @JSONField(name = "up_info")
     public UpInfo upInfo;
 
+    @JSONField(name = "producer")
+    public Producer producer;
+
     @JSONField(name = "seasons")
     public List<Season> seasons;
+
+    @JSONField(name = "user_status")
+    public UserStatus userStatus;
+
+    public static class UserStatus implements Parcelable {
+        public static final Creator<UserStatus> CREATOR = new Creator<UserStatus>() {
+            @Override
+            public UserStatus createFromParcel(Parcel parcel) {
+                return new UserStatus(parcel);
+            }
+
+            @Override
+            public UserStatus[] newArray(int i) {
+                return new UserStatus[i];
+            }
+        };
+
+        @JSONField(name = "follow")
+        public int follow;
+
+        @JSONField(name = "pay")
+        public int pay;
+
+        @JSONField(name = "progress")
+        public Progress progress;
+
+        public UserStatus() {}
+
+        protected UserStatus(Parcel parcel) {
+            this.follow = parcel.readInt();
+            this.pay = parcel.readInt();
+            this.progress = parcel.readParcelable(Progress.class.getClassLoader());
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeInt(this.follow);
+            parcel.writeInt(this.pay);
+            parcel.writeParcelable(this.progress, i);
+        }
+    }
+
+    public static class Progress implements Parcelable {
+        public static final Creator<Progress> CREATOR = new Creator<Progress>() {
+            @Override
+            public Progress createFromParcel(Parcel parcel) {
+                return new Progress(parcel);
+            }
+
+            @Override
+            public Progress[] newArray(int i) {
+                return new Progress[i];
+            }
+        };
+
+        @JSONField(name = "last_ep_id")
+        public long lastEpId;
+
+        @JSONField(name = "last_ep_index")
+        public String lastEpIndex;
+
+        @JSONField(name = "last_time")
+        public int lastTime;
+
+        public Progress() {}
+
+        protected Progress(Parcel parcel) {
+            this.lastEpId = parcel.readLong();
+            this.lastEpIndex = parcel.readString();
+            this.lastTime = parcel.readInt();
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeLong(this.lastEpId);
+            parcel.writeString(this.lastEpIndex);
+            parcel.writeInt(this.lastTime);
+        }
+    }
 
     public static class Season implements Parcelable {
         public static final Creator<Season> CREATOR = new Creator<Season>() {
@@ -299,6 +391,92 @@ public class PgcInfo implements Parcelable {
         public UpInfo() {}
 
         protected UpInfo(Parcel parcel) {
+            this.mid = parcel.readLong();
+            this.name = parcel.readString();
+            this.face = parcel.readString();
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeLong(this.mid);
+            parcel.writeString(this.name);
+            parcel.writeString(this.face);
+        }
+    }
+
+    public static class Producer implements Parcelable {
+        public static final Creator<Producer> CREATOR = new Creator<Producer>() {
+            @Override
+            public Producer createFromParcel(Parcel parcel) {
+                return new Producer(parcel);
+            }
+
+            @Override
+            public Producer[] newArray(int i) {
+                return new Producer[i];
+            }
+        };
+
+        @JSONField(name = "list")
+        public List<ProducerInfo> list;
+
+        @JSONField(name = "title")
+        public String title;
+
+        @JSONField(name = "total")
+        public int total;
+
+        public Producer() {}
+
+        protected Producer(Parcel parcel) {
+            this.list = parcel.createTypedArrayList(ProducerInfo.CREATOR);
+            this.title = parcel.readString();
+            this.total = parcel.readInt();
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeTypedList(this.list);
+            parcel.writeString(this.title);
+            parcel.writeInt(this.total);
+        }
+    }
+
+    public static class ProducerInfo implements Parcelable {
+        public static final Creator<ProducerInfo> CREATOR = new Creator<ProducerInfo>() {
+            @Override
+            public ProducerInfo createFromParcel(Parcel parcel) {
+                return new ProducerInfo(parcel);
+            }
+
+            @Override
+            public ProducerInfo[] newArray(int i) {
+                return new ProducerInfo[i];
+            }
+        };
+
+        @JSONField(name = "mid")
+        public long mid;
+
+        @JSONField(name = "uname")
+        public String name;
+
+        @JSONField(name = "avatar")
+        public String face;
+
+        public ProducerInfo() {}
+
+        protected ProducerInfo(Parcel parcel) {
             this.mid = parcel.readLong();
             this.name = parcel.readString();
             this.face = parcel.readString();
@@ -661,7 +839,9 @@ public class PgcInfo implements Parcelable {
         this.episodes = parcel.createTypedArrayList(Episode.CREATOR);
         this.sections = parcel.createTypedArrayList(Section.CREATOR);
         this.upInfo = parcel.readParcelable(UpInfo.class.getClassLoader());
+        this.producer = parcel.readParcelable(Producer.class.getClassLoader());
         this.seasons = parcel.createTypedArrayList(Season.CREATOR);
+        this.userStatus = parcel.readParcelable(UserStatus.class.getClassLoader());
     }
 
     @Override
@@ -686,7 +866,9 @@ public class PgcInfo implements Parcelable {
         parcel.writeTypedList(this.episodes);
         parcel.writeTypedList(this.sections);
         parcel.writeParcelable(this.upInfo, i);
+        parcel.writeParcelable(this.producer, i);
         parcel.writeTypedList(this.seasons);
+        parcel.writeParcelable(this.userStatus, i);
     }
 
     public String getAreaString() {

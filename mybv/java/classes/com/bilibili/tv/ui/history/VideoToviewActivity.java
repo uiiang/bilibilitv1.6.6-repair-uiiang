@@ -450,8 +450,16 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements Vie
                 if ((tag2 instanceof BiliVideoDetail) && (tag instanceof Integer)) {
                     ok.a("tv_history_click", "row", String.valueOf(((int) Math.floor(((Number) tag).intValue() / VideoToviewActivity.h)) + 1));
                     BiliVideoDetail detail = (BiliVideoDetail) tag2;
-                    //xg.a(context, detail, detail.mPage, null);
-                    a2.startActivity(VideoDetailActivity.Companion.a(a2, detail.mAvid));
+                    String seasonId = detail.getSeasonId();
+                    if (!"0".equals(seasonId) && Integer.parseInt(seasonId) > 0) {
+                        android.util.Log.i("ToviewClick", "PGC video detected, seasonId=" + seasonId);
+                        a2.startActivity(VideoDetailActivity.Companion.a(a2, seasonId));
+                    } else if (detail.mRedirectUrl != null && detail.mRedirectUrl.contains("bangumi/play/ep")) {
+                        android.util.Log.i("ToviewClick", "PGC video via redirect_url, use avid=" + detail.mAvid);
+                        a2.startActivity(VideoDetailActivity.Companion.a(a2, detail.mAvid));
+                    } else {
+                        a2.startActivity(VideoDetailActivity.Companion.a(a2, detail.mAvid));
+                    }
                 }
             }
         }

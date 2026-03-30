@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;->a(Lcom/bilibili/tv/api/video/PgcInfo;)V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;->onSuccess(Lcom/bilibili/tv/api/video/PgcInfo;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1237
+    .line 1242
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 1240
+    .line 1245
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -49,13 +49,13 @@
 
     invoke-static {v0, v1}, Lbl/lr;->a(Landroid/content/Context;I)V
 
-    .line 1241
+    .line 1246
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->finish()V
 
-    .line 1242
+    .line 1247
     return-void
 .end method

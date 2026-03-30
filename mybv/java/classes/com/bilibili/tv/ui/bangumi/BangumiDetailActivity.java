@@ -204,7 +204,32 @@ public final class BangumiDetailActivity extends BaseActivity implements ViewPag
         ke keVar = (ke) vo.a(ke.class);
         mg a2 = mg.a(this);
         bbi.a((Object) a2, "BiliAccount.get(this)");
-        keVar.a(a2.e(), this.a, "1", "0").a(this.D);
+        final String accessKey = a2.e();
+        final String seasonId = this.a;
+        String url = "http://api.bilibili.com/pgc/view/app/season?access_key=" + accessKey + "&season_id=" + seasonId + "&season_type=1&track_path=0";
+        android.util.Log.i("BangumiDetailApi", "========== Bangumi Detail API ==========");
+        android.util.Log.i("BangumiDetailApi", "URL: " + url);
+        
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String url = "http://api.bilibili.com/pgc/view/app/season?access_key=" + accessKey + "&season_id=" + seasonId + "&season_type=1&track_path=0";
+                    okhttp3.OkHttpClient client = vo.getOkHttpClient();
+                    okhttp3.Request request = new okhttp3.Request.Builder()
+                        .url(url)
+                        .get()
+                        .build();
+                    okhttp3.Response response = client.newCall(request).execute();
+                    String jsonResponse = response.body().string();
+                    android.util.Log.i("BangumiDetailApi", "Raw JSON Response: " + jsonResponse);
+                } catch (Exception e) {
+                    android.util.Log.e("BangumiDetailApi", "Error: " + e.getMessage(), e);
+                }
+            }
+        }).start();
+        
+        keVar.a(accessKey, seasonId, "1", "0").a(this.D);
     }
 
     /* JADX INFO: Access modifiers changed from: private */
@@ -592,6 +617,28 @@ public final class BangumiDetailActivity extends BaseActivity implements ViewPag
         @Override // bl.vm
         /* renamed from: a, reason: merged with bridge method [inline-methods] */
         public void onSuccess(BangumiApiResponse<BangumiUniformSeason> bangumiApiResponse) {
+            android.util.Log.i("BangumiDetailApi", "Response code: " + (bangumiApiResponse != null ? bangumiApiResponse.code : "null"));
+            android.util.Log.i("BangumiDetailApi", "Response message: " + (bangumiApiResponse != null ? bangumiApiResponse.message : "null"));
+            
+            if (bangumiApiResponse != null && bangumiApiResponse.result != null) {
+                BangumiUniformSeason season = bangumiApiResponse.result;
+                android.util.Log.i("BangumiDetailApi", "season title: " + season.title);
+                android.util.Log.i("BangumiDetailApi", "seasonId: " + season.seasonId);
+                
+                if (season.userStatus != null) {
+                    android.util.Log.i("BangumiDetailApi", "userStatus: " + season.userStatus.toString());
+                    if (season.userStatus.watchProgress != null) {
+                        android.util.Log.i("BangumiDetailApi", "watchProgress: last_ep_id=" + season.userStatus.watchProgress.lastEpId 
+                            + ", last_time=" + season.userStatus.watchProgress.lastEpProgress
+                            + ", last_ep_index=" + season.userStatus.watchProgress.lastEpIndex);
+                    }
+                }
+                
+                if (season.episodes != null) {
+                    android.util.Log.i("BangumiDetailApi", "episodes count: " + season.episodes.size());
+                }
+            }
+            
             if ((bangumiApiResponse != null ? bangumiApiResponse.result : null) == null) {
                 LoadingImageView loadingImageView = BangumiDetailActivity.this.n;
                 if (loadingImageView == null) {

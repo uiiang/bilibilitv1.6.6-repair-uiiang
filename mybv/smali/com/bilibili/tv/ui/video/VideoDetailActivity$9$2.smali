@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;->a(Lcom/bilibili/tv/api/video/PgcInfo;)V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;->onSuccess(Lcom/bilibili/tv/api/video/PgcInfo;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 1249
+    .line 1254
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9$2;->val$detail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -48,7 +48,7 @@
     .locals 2
 
     .prologue
-    .line 1252
+    .line 1257
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -60,7 +60,7 @@
 
     if-eqz v0, :cond_17
 
-    .line 1253
+    .line 1258
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -74,7 +74,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->a(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
 
-    .line 1255
+    .line 1260
     :cond_17
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;
 
@@ -85,6 +85,6 @@
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->showPgcInfo(Lcom/bilibili/tv/api/video/PgcInfo;)V
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1900(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/PgcInfo;)V
 
-    .line 1256
+    .line 1261
     return-void
 .end method

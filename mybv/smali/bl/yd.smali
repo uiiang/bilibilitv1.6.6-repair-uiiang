@@ -199,26 +199,26 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 637
-    .line 639
+    .line 661
+    .line 663
     invoke-static {p2}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v0
 
     if-eqz v0, :cond_8
 
-    .line 674
+    .line 698
     :cond_7
     :goto_7
     return-object v1
 
-    .line 642
+    .line 666
     :cond_8
     invoke-static {p2}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v3
 
-    .line 643
+    .line 667
     const-string v0, "content"
 
     invoke-virtual {v3}, Landroid/net/Uri;->getScheme()Ljava/lang/String;
@@ -231,7 +231,7 @@
 
     if-eqz v0, :cond_7
 
-    .line 647
+    .line 671
     :try_start_18
     const-string v0, "PlayerController"
 
@@ -239,7 +239,7 @@
 
     invoke-static {v0, v2}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 648
+    .line 672
     invoke-virtual {p1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
     move-result-object v0
@@ -256,11 +256,11 @@
 
     move-object v2, v0
 
-    .line 652
+    .line 676
     :goto_2a
     if-eqz v2, :cond_a3
 
-    .line 654
+    .line 678
     :try_start_2c
     iget-object v0, p0, Lbl/yd;->q:Ltv/danmaku/videoplayer/core/context/IPlayerContext;
 
@@ -282,19 +282,19 @@
 
     move-result-object v0
 
-    .line 655
+    .line 679
     instance-of v4, v0, Ljava/lang/Integer;
 
     if-eqz v4, :cond_a3
 
-    .line 656
+    .line 680
     check-cast v0, Ljava/lang/Integer;
 
     invoke-virtual {v0}, Ljava/lang/Integer;->intValue()I
 
     move-result v0
 
-    .line 657
+    .line 681
     const-string v4, "PlayerController"
 
     new-instance v5, Ljava/lang/StringBuilder;
@@ -317,12 +317,12 @@
 
     invoke-static {v4, v5}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 658
+    .line 682
     const/4 v4, -0x1
 
     if-eq v0, v4, :cond_a3
 
-    .line 659
+    .line 683
     new-instance v4, Ljava/lang/StringBuilder;
 
     invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
@@ -344,11 +344,11 @@
 
     move-result-object v0
 
-    .line 666
+    .line 690
     :goto_76
     if-eqz v2, :cond_7
 
-    .line 670
+    .line 694
     :try_start_78
     invoke-virtual {v2}, Landroid/content/res/AssetFileDescriptor;->close()V
     :try_end_7b
@@ -357,24 +357,24 @@
     :goto_7b
     move-object v1, v0
 
-    .line 674
+    .line 698
     goto :goto_7
 
-    .line 649
+    .line 673
     :catch_7d
     move-exception v0
 
     :goto_7e
     move-object v2, v1
 
-    .line 650
+    .line 674
     goto :goto_2a
 
-    .line 662
+    .line 686
     :catch_80
     move-exception v0
 
-    .line 663
+    .line 687
     :goto_81
     const-string v4, "PlayerController"
 
@@ -413,11 +413,11 @@
 
     goto :goto_76
 
-    .line 671
+    .line 695
     :catch_a5
     move-exception v1
 
-    .line 672
+    .line 696
     const-string v2, "PlayerController"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -442,13 +442,13 @@
 
     goto :goto_7b
 
-    .line 662
+    .line 686
     :catch_bf
     move-exception v0
 
     goto :goto_81
 
-    .line 649
+    .line 673
     :catch_c1
     move-exception v0
 
@@ -466,12 +466,12 @@
     .prologue
     const/16 v0, 0xd
 
-    .line 560
+    .line 563
     const/4 v1, 0x3
 
     if-le p1, v1, :cond_16
 
-    .line 562
+    .line 565
     :try_start_5
     iget-object v1, p0, Lbl/yd;->s:Ljava/lang/Object;
 
@@ -479,12 +479,12 @@
     :try_end_8
     .catch Ljava/lang/InterruptedException; {:try_start_5 .. :try_end_8} :catch_1a
 
-    .line 563
+    .line 566
     if-le p1, v0, :cond_b
 
     move p1, v0
 
-    .line 566
+    .line 569
     :cond_b
     :try_start_b
     iget-object v0, p0, Lbl/yd;->s:Ljava/lang/Object;
@@ -497,15 +497,15 @@
 
     invoke-virtual {v0, v2, v3}, Ljava/lang/Object;->wait(J)V
 
-    .line 567
+    .line 570
     monitor-exit v1
 
-    .line 572
+    .line 575
     :cond_16
     :goto_16
     return-void
 
-    .line 567
+    .line 570
     :catchall_17
     move-exception v0
 
@@ -518,11 +518,11 @@
     :try_end_1a
     .catch Ljava/lang/InterruptedException; {:try_start_19 .. :try_end_1a} :catch_1a
 
-    .line 568
+    .line 571
     :catch_1a
     move-exception v0
 
-    .line 569
+    .line 572
     const-string v1, "PlayerController"
 
     invoke-static {v1, v0}, Ltv/danmaku/android/log/BLog;->e(Ljava/lang/String;Ljava/lang/Throwable;)V
@@ -541,7 +541,7 @@
     .prologue
     const/4 v1, 0x1
 
-    .line 607
+    .line 631
     invoke-virtual {p1, p2}, Lcom/bilibili/lib/media/resource/PlayIndex;->a(I)Lcom/bilibili/lib/media/resource/Segment;
 
     move-result-object v0
@@ -565,7 +565,7 @@
     :cond_15
     move v0, v1
 
-    .line 608
+    .line 632
     :goto_16
     iget-object v2, p0, Lbl/yd;->f89u:Lbl/yd$d;
 
@@ -577,13 +577,13 @@
 
     move-result v1
 
-    .line 609
+    .line 633
     :cond_20
     if-nez v0, :cond_24
 
     if-nez v1, :cond_44
 
-    .line 611
+    .line 635
     :cond_24
     :try_start_24
     iget-object v0, p0, Lbl/yd;->b:Lbl/yh;
@@ -600,7 +600,7 @@
 
     move-result-object v0
 
-    .line 612
+    .line 636
     if-eqz v0, :cond_44
 
     iget-object v1, p0, Lbl/yd;->a:Landroid/content/Context;
@@ -619,18 +619,18 @@
 
     if-eqz v1, :cond_47
 
-    .line 626
+    .line 650
     :cond_44
     :goto_44
     return-void
 
-    .line 607
+    .line 631
     :cond_45
     const/4 v0, 0x0
 
     goto :goto_16
 
-    .line 615
+    .line 639
     :cond_47
     iget-object v1, v0, Lcom/bilibili/lib/media/resource/Segment;->a:Ljava/lang/String;
 
@@ -638,7 +638,7 @@
 
     move-result-object v1
 
-    .line 616
+    .line 640
     const-string v2, "file"
 
     invoke-virtual {v1}, Landroid/net/Uri;->getScheme()Ljava/lang/String;
@@ -651,20 +651,20 @@
 
     if-eqz v2, :cond_5f
 
-    .line 617
+    .line 641
     invoke-virtual {v1}, Landroid/net/Uri;->getPath()Ljava/lang/String;
 
     move-result-object v1
 
     iput-object v1, v0, Lcom/bilibili/lib/media/resource/Segment;->a:Ljava/lang/String;
 
-    .line 619
+    .line 643
     :cond_5f
     iget-object v1, p1, Lcom/bilibili/lib/media/resource/PlayIndex;->f:Ljava/util/ArrayList;
 
     invoke-virtual {v1, p2, v0}, Ljava/util/ArrayList;->set(ILjava/lang/Object;)Ljava/lang/Object;
 
-    .line 620
+    .line 644
     const-string v1, "PlayerController"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -693,16 +693,16 @@
 
     goto :goto_44
 
-    .line 621
+    .line 645
     :catch_7f
     move-exception v0
 
-    .line 622
+    .line 646
     const-string v1, "PlayerController"
 
     invoke-static {v1, v0}, Ltv/danmaku/android/log/BLog;->e(Ljava/lang/String;Ljava/lang/Throwable;)V
 
-    .line 623
+    .line 647
     throw v0
 .end method
 
@@ -713,7 +713,7 @@
     .line 385
     iget-object v0, p0, Lbl/yd;->b:Lbl/yh;
 
-    iget-object v3, v0, Lbl/yh;->a:Lcom/bilibili/tv/player/basic/context/PlayerParams;
+    iget-object v4, v0, Lbl/yh;->a:Lcom/bilibili/tv/player/basic/context/PlayerParams;
 
     .line 386
     invoke-direct {p0, p1, p2}, Lbl/yd;->b(ILandroid/os/Bundle;)Z
@@ -721,17 +721,17 @@
     move-result v0
 
     .line 387
-    iget-object v4, p0, Lbl/yd;->y:Lbl/yd$a;
+    iget-object v5, p0, Lbl/yd;->y:Lbl/yd$a;
 
     .line 388
-    new-instance v5, Landroid/os/Bundle;
+    new-instance v6, Landroid/os/Bundle;
 
-    invoke-direct {v5, p2}, Landroid/os/Bundle;-><init>(Landroid/os/Bundle;)V
+    invoke-direct {v6, p2}, Landroid/os/Bundle;-><init>(Landroid/os/Bundle;)V
 
     .line 389
-    sparse-switch p1, :sswitch_data_396
+    sparse-switch p1, :sswitch_data_416
 
-    .line 555
+    .line 558
     const/4 v0, 0x1
 
     :goto_13
@@ -791,9 +791,9 @@
 
     .line 400
     :cond_3a
-    if-eqz v3, :cond_50
+    if-eqz v4, :cond_50
 
-    iget-object v0, v3, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
+    iget-object v0, v4, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->getMediaResource()Lcom/bilibili/lib/media/resource/MediaResource;
 
@@ -801,7 +801,7 @@
 
     if-eqz v0, :cond_50
 
-    iget-object v0, v3, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
+    iget-object v0, v4, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->getMediaResource()Lcom/bilibili/lib/media/resource/MediaResource;
 
@@ -832,9 +832,9 @@
     :cond_58
     const-string v1, "segment_index"
 
-    const/4 v6, 0x0
+    const/4 v3, 0x0
 
-    invoke-virtual {p2, v1, v6}, Landroid/os/Bundle;->getInt(Ljava/lang/String;I)I
+    invoke-virtual {p2, v1, v3}, Landroid/os/Bundle;->getInt(Ljava/lang/String;I)I
 
     move-result v1
 
@@ -842,7 +842,7 @@
     :try_start_5f
     invoke-direct {p0, v0, v1}, Lbl/yd;->a(Lcom/bilibili/lib/media/resource/PlayIndex;I)V
     :try_end_62
-    .catch Lcom/bilibili/lib/media/resolver/exception/ResolveException; {:try_start_5f .. :try_end_62} :catch_9d
+    .catch Lcom/bilibili/lib/media/resolver/exception/ResolveException; {:try_start_5f .. :try_end_62} :catch_e5
 
     .line 412
     :goto_62
@@ -850,47 +850,63 @@
 
     move-result-object v0
 
-    iget-object v0, v0, Lcom/bilibili/lib/media/resource/Segment;->a:Ljava/lang/String;
-
     .line 413
-    const v1, 0x20007
+    invoke-direct {p0, v0, v2}, Lbl/yd;->getNextSegmentUrl(Lcom/bilibili/lib/media/resource/Segment;I)Ljava/lang/String;
 
-    if-ne p1, v1, :cond_ad
+    move-result-object v1
 
     .line 414
-    iget-object v1, p0, Lbl/yd;->b:Lbl/yh;
+    const-string v3, "PlayerController"
 
-    iget-boolean v1, v1, Lbl/yh;->b:Z
+    new-instance v0, Ljava/lang/StringBuilder;
 
-    if-eqz v1, :cond_a6
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 415
-    iget-object v1, p0, Lbl/yd;->a:Landroid/content/Context;
+    const-string v7, "segment url (retry="
 
-    invoke-direct {p0, v1, v0}, Lbl/yd;->a(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {v0, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v1
+    move-result-object v0
 
-    .line 416
-    invoke-static {v1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    move-result v3
+    move-result-object v0
 
-    if-eqz v3, :cond_393
+    const-string v7, "): "
 
-    .line 419
-    :goto_7f
-    new-instance v1, Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+    move-result-object v7
 
-    const-string v3, "async:"
+    if-eqz v1, :cond_ef
 
-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1}, Ljava/lang/String;->length()I
 
-    move-result-object v1
+    move-result v0
 
-    invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    const/16 v8, 0x64
+
+    if-le v0, v8, :cond_ef
+
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const/4 v8, 0x0
+
+    const/16 v9, 0x64
+
+    invoke-virtual {v1, v8, v9}, Ljava/lang/String;->substring(II)Ljava/lang/String;
+
+    move-result-object v8
+
+    invoke-virtual {v0, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    const-string v8, "..."
+
+    invoke-virtual {v0, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
@@ -898,70 +914,133 @@
 
     move-result-object v0
 
-    .line 427
-    :cond_92
-    :goto_92
-    const-string v1, "url"
+    :goto_a5
+    invoke-virtual {v7, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-virtual {p2, v1, v0}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
+    move-result-object v0
 
-    .line 428
-    const/4 v0, 0x3
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    if-gt v2, v0, :cond_de
+    move-result-object v0
+
+    invoke-static {v3, v0}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 415
+    const v0, 0x20007
+
+    if-ne p1, v0, :cond_f8
+
+    .line 416
+    iget-object v0, p0, Lbl/yd;->b:Lbl/yh;
+
+    iget-boolean v0, v0, Lbl/yh;->b:Z
+
+    if-eqz v0, :cond_f1
+
+    .line 417
+    iget-object v0, p0, Lbl/yd;->a:Landroid/content/Context;
+
+    invoke-direct {p0, v0, v1}, Lbl/yd;->a(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 418
+    invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v3
+
+    if-eqz v3, :cond_412
+
+    .line 421
+    :goto_c7
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "async:"
+
+    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
 
     .line 429
+    :cond_da
+    :goto_da
+    const-string v0, "url"
+
+    invoke-virtual {p2, v0, v1}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 430
+    const/4 v0, 0x3
+
+    if-gt v2, v0, :cond_129
+
+    .line 431
     const/4 v0, 0x1
 
     goto/16 :goto_13
 
     .line 409
-    :catch_9d
-    move-exception v6
+    :catch_e5
+    move-exception v3
 
     .line 410
-    const-string v6, "PlayerController"
+    const-string v3, "PlayerController"
 
     const-string v7, "exception happened when segment update in segment"
 
-    invoke-static {v6, v7}, Ltv/danmaku/android/log/BLog;->e(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-static {v3, v7}, Ltv/danmaku/android/log/BLog;->e(Ljava/lang/String;Ljava/lang/String;)V
 
-    goto :goto_62
+    goto/16 :goto_62
 
-    .line 421
-    :cond_a6
-    iget-object v1, v3, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
+    :cond_ef
+    move-object v0, v1
 
-    invoke-virtual {v1, v0}, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->applyUriHookForIjkPlayer(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v0
-
-    goto :goto_92
+    .line 414
+    goto :goto_a5
 
     .line 423
-    :cond_ad
-    if-eqz v4, :cond_92
+    :cond_f1
+    iget-object v0, v4, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
 
-    invoke-virtual {v4, p1, v5, v0}, Lbl/yd$a;->a(ILandroid/os/Bundle;Ljava/lang/String;)Z
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->applyUriHookForIjkPlayer(Ljava/lang/String;)Ljava/lang/String;
 
-    move-result v1
+    move-result-object v1
 
-    if-eqz v1, :cond_92
+    goto :goto_da
 
-    .line 424
-    const-string v1, "PlayerController"
+    .line 425
+    :cond_f8
+    if-eqz v5, :cond_da
+
+    invoke-virtual {v5, p1, v6, v1}, Lbl/yd$a;->a(ILandroid/os/Bundle;Ljava/lang/String;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_da
+
+    .line 426
+    const-string v0, "PlayerController"
 
     new-instance v3, Ljava/lang/StringBuilder;
 
     invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v6, "android last: url after handled by "
+    const-string v4, "android last: url after handled by "
 
-    invoke-virtual {v3, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v3
 
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
 
     move-result-object v3
 
@@ -971,7 +1050,7 @@
 
     move-result-object v3
 
-    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v3
 
@@ -979,40 +1058,40 @@
 
     move-result-object v3
 
-    invoke-static {v1, v3}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-static {v0, v3}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 425
-    const-string v1, "url"
+    .line 427
+    const-string v0, "url"
 
-    invoke-virtual {v5, v1, v0}, Landroid/os/Bundle;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {v6, v0, v1}, Landroid/os/Bundle;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
-    move-result-object v0
+    move-result-object v1
 
-    goto :goto_92
+    goto :goto_da
 
-    .line 431
-    :cond_de
+    .line 433
+    :cond_129
     invoke-direct {p0}, Lbl/yd;->i()V
 
-    .line 432
+    .line 434
     const/4 v0, 0x1
 
     goto/16 :goto_13
 
-    .line 434
-    :sswitch_e4
+    .line 436
+    :sswitch_12f
     iget-object v0, p0, Lbl/yd;->q:Ltv/danmaku/videoplayer/core/context/IPlayerContext;
 
-    .line 435
-    if-nez v0, :cond_eb
+    .line 437
+    if-nez v0, :cond_136
 
-    .line 436
+    .line 438
     const/4 v0, 0x0
 
     goto/16 :goto_13
 
-    .line 438
-    :cond_eb
+    .line 440
+    :cond_136
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/context/IPlayerContext;->getPlayerConfig()Ltv/danmaku/videoplayer/core/media/resource/PlayerConfig;
 
     move-result-object v0
@@ -1021,40 +1100,40 @@
 
     const/4 v1, 0x1
 
-    if-eq v0, v1, :cond_f7
+    if-eq v0, v1, :cond_142
 
-    .line 439
+    .line 441
     const/4 v0, 0x1
 
     goto/16 :goto_13
 
-    .line 441
-    :cond_f7
+    .line 443
+    :cond_142
     const-string v0, "url"
 
     const-string v1, ""
 
-    invoke-virtual {v5, v0, v1}, Landroid/os/Bundle;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {v6, v0, v1}, Landroid/os/Bundle;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 442
-    if-eqz v4, :cond_107
+    .line 444
+    if-eqz v5, :cond_152
 
-    invoke-virtual {v4, p1, v5, v0}, Lbl/yd$a;->a(ILandroid/os/Bundle;Ljava/lang/String;)Z
+    invoke-virtual {v5, p1, v6, v0}, Lbl/yd$a;->a(ILandroid/os/Bundle;Ljava/lang/String;)Z
 
     move-result v1
 
-    if-nez v1, :cond_10a
+    if-nez v1, :cond_155
 
-    .line 443
-    :cond_107
+    .line 445
+    :cond_152
     const/4 v0, 0x1
 
     goto/16 :goto_13
 
-    .line 445
-    :cond_10a
+    .line 447
+    :cond_155
     const-string v1, "PlayerController"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -1067,7 +1146,7 @@
 
     move-result-object v2
 
-    invoke-virtual {v2, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
 
     move-result-object v2
 
@@ -1087,24 +1166,24 @@
 
     invoke-static {v1, v2}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 446
+    .line 448
     const-string v1, "url"
 
     const-string v2, "url"
 
-    invoke-virtual {v5, v2, v0}, Landroid/os/Bundle;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {v6, v2, v0}, Landroid/os/Bundle;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v0
 
     invoke-virtual {p2, v1, v0}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 447
+    .line 449
     const/4 v0, 0x1
 
     goto/16 :goto_13
 
-    .line 452
-    :sswitch_13a
+    .line 454
+    :sswitch_185
     const-string v0, "url_resolved"
 
     const/4 v1, 0x0
@@ -1113,95 +1192,95 @@
 
     move-result v0
 
-    if-eqz v0, :cond_14c
+    if-eqz v0, :cond_197
 
-    .line 453
+    .line 455
     const-string v0, "url_resolved"
 
     const/4 v1, 0x0
 
     invoke-virtual {p2, v0, v1}, Landroid/os/Bundle;->putBoolean(Ljava/lang/String;Z)V
 
-    .line 454
+    .line 456
     const/4 v0, 0x1
 
     goto/16 :goto_13
 
-    .line 456
-    :cond_14c
-    iget-object v0, v3, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
+    .line 458
+    :cond_197
+    iget-object v0, v4, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->getMediaResource()Lcom/bilibili/lib/media/resource/MediaResource;
 
     move-result-object v2
 
-    .line 457
+    .line 459
     const-string v0, "segment_index"
 
     const/4 v1, 0x0
 
     invoke-virtual {p2, v0, v1}, Landroid/os/Bundle;->getInt(Ljava/lang/String;I)I
 
-    move-result v6
+    move-result v7
 
-    .line 458
+    .line 460
     iget-object v0, p0, Lbl/yd;->a:Landroid/content/Context;
 
     invoke-static {v0}, Lbl/qv;->a(Landroid/content/Context;)I
 
-    move-result v7
+    move-result v3
 
-    .line 459
+    .line 461
     const/4 v0, -0x1
 
-    if-ne v7, v0, :cond_169
+    if-ne v3, v0, :cond_1b4
 
-    .line 460
+    .line 462
     const-string v0, "PlayerController"
 
     const-string v1, "Unknown network!!"
 
     invoke-static {v0, v1}, Ltv/danmaku/android/log/BLog;->w(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 462
-    :cond_169
-    if-eqz v2, :cond_16f
+    .line 464
+    :cond_1b4
+    if-eqz v2, :cond_1ba
 
     iget v0, v2, Lcom/bilibili/lib/media/resource/MediaResource;->c:I
 
-    if-eq v0, v7, :cond_1e1
+    if-eq v0, v3, :cond_22c
 
-    :cond_16f
+    :cond_1ba
     const/4 v0, 0x1
 
-    .line 463
-    :goto_170
+    .line 465
+    :goto_1bb
     new-instance v8, Ljava/lang/StringBuilder;
 
     invoke-direct {v8}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 464
+    .line 466
     const-string v1, "check resource network: "
 
     invoke-virtual {v8, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 465
-    if-nez v2, :cond_1e3
+    .line 467
+    if-nez v2, :cond_22e
 
     const/16 v1, -0x194
 
-    :goto_17e
+    :goto_1c9
     invoke-virtual {v8, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    .line 466
+    .line 468
     const-string v1, ","
 
     invoke-virtual {v8, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 467
-    invoke-virtual {v8, v7}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    .line 469
+    invoke-virtual {v8, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    .line 468
+    .line 470
     const-string v1, "PlayerController"
 
     invoke-virtual {v8}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
@@ -1210,7 +1289,7 @@
 
     invoke-static {v1, v8}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 469
+    .line 471
     const-string v1, "retry_counter"
 
     const/4 v8, -0x1
@@ -1219,7 +1298,7 @@
 
     move-result v1
 
-    .line 470
+    .line 472
     const-string v8, "PlayerController"
 
     new-instance v9, Ljava/lang/StringBuilder;
@@ -1242,14 +1321,14 @@
 
     invoke-static {v8, v9}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 471
+    .line 473
     const-string v8, "url"
 
     invoke-virtual {p2, v8}, Landroid/os/Bundle;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v8
 
-    .line 472
+    .line 474
     const-string v9, "PlayerController"
 
     new-instance v10, Ljava/lang/StringBuilder;
@@ -1272,216 +1351,215 @@
 
     invoke-static {v9, v10}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 473
+    .line 475
     const-string v9, ".ts"
 
     invoke-static {v8, v9}, Lbl/yd;->a(Ljava/lang/String;Ljava/lang/String;)Z
 
     move-result v9
 
-    if-eqz v9, :cond_1e6
+    if-eqz v9, :cond_231
 
-    .line 474
+    .line 476
     const-string v0, "PlayerController"
 
     const-string v1, "skip all steps for ts"
 
     invoke-static {v0, v1}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 475
+    .line 477
     const/4 v0, 0x0
 
     goto/16 :goto_13
 
-    .line 462
-    :cond_1e1
+    .line 464
+    :cond_22c
     const/4 v0, 0x0
 
-    goto :goto_170
+    goto :goto_1bb
 
-    .line 465
-    :cond_1e3
+    .line 467
+    :cond_22e
     iget v1, v2, Lcom/bilibili/lib/media/resource/MediaResource;->c:I
 
-    goto :goto_17e
+    goto :goto_1c9
 
-    .line 477
-    :cond_1e6
+    .line 479
+    :cond_231
     const-string v9, ".m3u8"
 
     invoke-static {v8, v9}, Lbl/yd;->a(Ljava/lang/String;Ljava/lang/String;)Z
 
     move-result v9
 
-    if-eqz v9, :cond_203
+    if-eqz v9, :cond_24e
 
-    .line 478
+    .line 480
     const/4 v0, 0x1
 
-    if-ge v1, v0, :cond_1fb
+    if-ge v1, v0, :cond_246
 
-    .line 479
+    .line 481
     const-string v0, "PlayerController"
 
     const-string v1, "return true directly for m3u8 first time"
 
     invoke-static {v0, v1}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 480
+    .line 482
     const/4 v0, 0x1
 
     goto/16 :goto_13
 
-    .line 482
-    :cond_1fb
+    .line 484
+    :cond_246
     const-string v0, "PlayerController"
 
     const-string v9, "resolve new url for m3u8"
 
     invoke-static {v0, v9}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 483
+    .line 485
     const/4 v0, 0x1
 
-    .line 485
-    :cond_203
-    if-nez v0, :cond_208
+    .line 487
+    :cond_24e
+    if-nez v0, :cond_253
 
     const/4 v9, 0x3
 
-    if-le v1, v9, :cond_26a
+    if-le v1, v9, :cond_32a
 
-    .line 486
-    :cond_208
-    if-eqz v0, :cond_28c
+    .line 488
+    :cond_253
+    if-eqz v0, :cond_2d7
 
-    .line 487
+    .line 489
     const/4 v0, 0x0
 
-    .line 496
-    :goto_20b
-    if-nez v0, :cond_26a
-
-    .line 497
-    invoke-direct {p0}, Lbl/yd;->h()V
-
     .line 498
-    invoke-direct {p0, v1}, Lbl/yd;->a(I)V
+    :goto_256
+    if-nez v0, :cond_32a
 
     .line 499
+    invoke-direct {p0}, Lbl/yd;->h()V
+
+    .line 500
+    invoke-direct {p0, v1}, Lbl/yd;->a(I)V
+
+    .line 501
     iget-object v0, p0, Lbl/yd;->b:Lbl/yh;
 
     iget-boolean v0, v0, Lbl/yh;->b:Z
 
-    if-nez v0, :cond_26a
+    if-nez v0, :cond_32a
 
-    .line 501
-    :try_start_219
+    .line 503
+    :try_start_264
     rem-int/lit8 v0, v1, 0xa
 
-    const/4 v1, 0x4
+    const/4 v9, 0x4
 
-    if-ne v0, v1, :cond_221
-
-    .line 502
-    invoke-static {}, Lbl/pb;->c()V
+    if-ne v0, v9, :cond_26c
 
     .line 504
-    :cond_221
-    invoke-virtual {p0, v3}, Lbl/yd;->a(Lcom/bilibili/tv/player/basic/context/PlayerParams;)Lcom/bilibili/lib/media/resource/MediaResource;
+    invoke-static {}, Lbl/pb;->c()V
+
+    .line 506
+    :cond_26c
+    invoke-virtual {p0, v4}, Lbl/yd;->a(Lcom/bilibili/tv/player/basic/context/PlayerParams;)Lcom/bilibili/lib/media/resource/MediaResource;
 
     move-result-object v0
 
-    .line 505
-    const-string v1, "PlayerController"
+    .line 507
+    const-string v9, "PlayerController"
 
-    new-instance v9, Ljava/lang/StringBuilder;
+    new-instance v10, Ljava/lang/StringBuilder;
 
-    invoke-direct {v9}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v10}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v10, "new resource: "
+    const-string v11, "new resource: "
 
-    invoke-virtual {v9, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v10, v11}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v9
+    move-result-object v10
 
-    invoke-virtual {v9, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+    invoke-virtual {v10, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
 
-    move-result-object v9
+    move-result-object v10
 
-    invoke-virtual {v9}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v10}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v9
+    move-result-object v10
 
-    invoke-static {v1, v9}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-static {v9, v10}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 506
-    if-eqz v0, :cond_390
+    .line 508
+    if-eqz v0, :cond_40f
 
     invoke-virtual {v0}, Lcom/bilibili/lib/media/resource/MediaResource;->c()Z
 
-    move-result v1
+    move-result v9
 
-    if-eqz v1, :cond_390
+    if-eqz v9, :cond_40f
 
-    .line 507
-    const-string v1, "PlayerController"
+    .line 509
+    const-string v9, "PlayerController"
 
-    new-instance v9, Ljava/lang/StringBuilder;
+    new-instance v10, Ljava/lang/StringBuilder;
 
-    invoke-direct {v9}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v10}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v10, "new resource network: "
+    const-string v11, "new resource network: "
 
-    invoke-virtual {v9, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v10, v11}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v9
+    move-result-object v10
 
-    iget v10, v0, Lcom/bilibili/lib/media/resource/MediaResource;->c:I
+    iget v11, v0, Lcom/bilibili/lib/media/resource/MediaResource;->c:I
 
-    invoke-virtual {v9, v10}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v10, v11}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    move-result-object v9
+    move-result-object v10
 
-    const-string v10, ","
+    const-string v11, ","
 
-    invoke-virtual {v9, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v10, v11}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v9
+    move-result-object v10
 
-    invoke-virtual {v9, v7}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v10, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    move-result-object v7
+    move-result-object v3
 
-    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v7
+    move-result-object v3
 
-    invoke-static {v1, v7}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
-    :try_end_269
-    .catch Lcom/bilibili/lib/media/resolver/exception/ResolveException; {:try_start_219 .. :try_end_269} :catch_2d9
+    invoke-static {v9, v3}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
+    :try_end_2b4
+    .catch Lcom/bilibili/lib/media/resolver/exception/ResolveException; {:try_start_264 .. :try_end_2b4} :catch_324
 
-    :goto_269
-    move-object v2, v0
+    :goto_2b4
+    move-object v3, v0
 
-    .line 516
-    :cond_26a
-    :goto_26a
-    if-eqz v2, :cond_38a
+    .line 518
+    :goto_2b5
+    if-eqz v3, :cond_409
 
-    .line 517
+    .line 519
     const-string v0, ".m4s"
 
     invoke-static {v8, v0}, Lbl/yd;->a(Ljava/lang/String;Ljava/lang/String;)Z
 
     move-result v0
 
-    if-eqz v0, :cond_2e0
+    if-eqz v0, :cond_32c
 
-    .line 518
+    .line 520
     const-string v0, "url"
 
-    iget-object v1, v2, Lcom/bilibili/lib/media/resource/MediaResource;->dash:Lorg/json/JSONObject;
+    iget-object v1, v3, Lcom/bilibili/lib/media/resource/MediaResource;->dash:Lorg/json/JSONObject;
 
     invoke-static {v8, v1}, Lmybl/VideoViewParams;->CloestURL(Ljava/lang/String;Lorg/json/JSONObject;)Ljava/lang/String;
 
@@ -1489,58 +1567,58 @@
 
     invoke-virtual {p2, v0, v1}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 519
+    .line 521
     const-string v0, "PlayerController"
 
     const-string v1, "skip other steps for ijkdash"
 
     invoke-static {v0, v1}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 520
+    .line 522
     invoke-direct {p0}, Lbl/yd;->i()V
 
-    .line 521
+    .line 523
     const/4 v0, 0x1
 
     goto/16 :goto_13
 
-    .line 489
-    :cond_28c
-    if-eqz v4, :cond_2d7
+    .line 491
+    :cond_2d7
+    if-eqz v5, :cond_322
 
     add-int/lit8 v0, v1, -0x3
 
     add-int/lit8 v0, v0, -0x1
 
-    invoke-virtual {v4, v0, p1, v5, v2}, Lbl/yd$a;->a(IILandroid/os/Bundle;Lcom/bilibili/lib/media/resource/MediaResource;)Z
+    invoke-virtual {v5, v0, p1, v6, v2}, Lbl/yd$a;->a(IILandroid/os/Bundle;Lcom/bilibili/lib/media/resource/MediaResource;)Z
 
     move-result v0
 
-    if-eqz v0, :cond_2d7
+    if-eqz v0, :cond_322
 
     const/4 v0, 0x1
 
-    .line 490
-    :goto_299
-    if-nez v0, :cond_2a9
+    .line 492
+    :goto_2e4
+    if-nez v0, :cond_2f4
 
     iget-object v9, p0, Lbl/yd;->z:Lbl/yd$a;
 
-    if-eqz v9, :cond_2a9
+    if-eqz v9, :cond_2f4
 
-    .line 491
+    .line 493
     iget-object v0, p0, Lbl/yd;->z:Lbl/yd$a;
 
     add-int/lit8 v9, v1, -0x3
 
     add-int/lit8 v9, v9, -0x1
 
-    invoke-virtual {v0, v9, p1, v5, v2}, Lbl/yd$a;->a(IILandroid/os/Bundle;Lcom/bilibili/lib/media/resource/MediaResource;)Z
+    invoke-virtual {v0, v9, p1, v6, v2}, Lbl/yd$a;->a(IILandroid/os/Bundle;Lcom/bilibili/lib/media/resource/MediaResource;)Z
 
     move-result v0
 
-    .line 494
-    :cond_2a9
+    .line 496
+    :cond_2f4
     const-string v9, "PlayerController"
 
     new-instance v10, Ljava/lang/StringBuilder;
@@ -1553,7 +1631,7 @@
 
     move-result-object v10
 
-    invoke-virtual {v10, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+    invoke-virtual {v10, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
 
     move-result-object v10
 
@@ -1583,92 +1661,145 @@
 
     invoke-static {v9, v10}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    goto/16 :goto_20b
+    goto/16 :goto_256
 
-    .line 489
-    :cond_2d7
+    .line 491
+    :cond_322
     const/4 v0, 0x0
 
-    goto :goto_299
+    goto :goto_2e4
 
-    .line 510
-    :catch_2d9
+    .line 512
+    :catch_324
     move-exception v0
 
-    .line 511
-    const-string v1, "PlayerController"
+    .line 513
+    const-string v3, "PlayerController"
 
-    invoke-static {v1, v0}, Ltv/danmaku/android/log/BLog;->e(Ljava/lang/String;Ljava/lang/Throwable;)V
+    invoke-static {v3, v0}, Ltv/danmaku/android/log/BLog;->e(Ljava/lang/String;Ljava/lang/Throwable;)V
 
-    goto :goto_26a
+    :cond_32a
+    move-object v3, v2
 
-    .line 523
-    :cond_2e0
-    invoke-virtual {v2}, Lcom/bilibili/lib/media/resource/MediaResource;->d()Lcom/bilibili/lib/media/resource/PlayIndex;
+    goto :goto_2b5
 
-    move-result-object v1
+    .line 525
+    :cond_32c
+    invoke-virtual {v3}, Lcom/bilibili/lib/media/resource/MediaResource;->d()Lcom/bilibili/lib/media/resource/PlayIndex;
 
-    .line 524
-    if-eqz v1, :cond_38a
+    move-result-object v2
 
     .line 526
-    :try_start_2e6
-    invoke-direct {p0, v1, v6}, Lbl/yd;->a(Lcom/bilibili/lib/media/resource/PlayIndex;I)V
-    :try_end_2e9
-    .catch Lcom/bilibili/lib/media/resolver/exception/ResolveException; {:try_start_2e6 .. :try_end_2e9} :catch_353
+    if-eqz v2, :cond_409
 
-    .line 527
+    .line 528
+    :try_start_332
+    invoke-direct {p0, v2, v7}, Lbl/yd;->a(Lcom/bilibili/lib/media/resource/PlayIndex;I)V
+    :try_end_335
+    .catch Lcom/bilibili/lib/media/resolver/exception/ResolveException; {:try_start_332 .. :try_end_335} :catch_3cf
+
+    .line 529
     const/4 v0, 0x0
 
-    .line 532
-    :goto_2ea
-    invoke-virtual {v1, v6}, Lcom/bilibili/lib/media/resource/PlayIndex;->a(I)Lcom/bilibili/lib/media/resource/Segment;
-
-    move-result-object v1
-
-    iget-object v1, v1, Lcom/bilibili/lib/media/resource/Segment;->a:Ljava/lang/String;
-
-    .line 533
-    const-string v6, "PlayerController"
-
-    new-instance v7, Ljava/lang/StringBuilder;
-
-    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v8, "final url, "
-
-    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    invoke-virtual {v7, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v7
-
-    invoke-static {v6, v7}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
-
     .line 534
-    if-eqz v4, :cond_340
+    :goto_336
+    invoke-virtual {v2, v7}, Lcom/bilibili/lib/media/resource/PlayIndex;->a(I)Lcom/bilibili/lib/media/resource/Segment;
 
-    invoke-virtual {v4, p1, v5, v1}, Lbl/yd$a;->a(ILandroid/os/Bundle;Ljava/lang/String;)Z
-
-    move-result v6
-
-    if-eqz v6, :cond_340
+    move-result-object v2
 
     .line 535
-    const-string v6, "url"
+    invoke-direct {p0, v2, v1}, Lbl/yd;->getNextSegmentUrl(Lcom/bilibili/lib/media/resource/Segment;I)Ljava/lang/String;
 
-    invoke-virtual {v5, v6, v1}, Landroid/os/Bundle;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v2
+
+    .line 536
+    const-string v7, "PlayerController"
+
+    new-instance v8, Ljava/lang/StringBuilder;
+
+    invoke-direct {v8}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v9, "final url (retry="
+
+    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v8
+
+    invoke-virtual {v8, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
-    .line 536
-    const-string v5, "PlayerController"
+    const-string v8, "): "
+
+    invoke-virtual {v1, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v8
+
+    if-eqz v2, :cond_3f9
+
+    invoke-virtual {v2}, Ljava/lang/String;->length()I
+
+    move-result v1
+
+    const/16 v9, 0x64
+
+    if-le v1, v9, :cond_3f9
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const/4 v9, 0x0
+
+    const/16 v10, 0x64
+
+    invoke-virtual {v2, v9, v10}, Ljava/lang/String;->substring(II)Ljava/lang/String;
+
+    move-result-object v9
+
+    invoke-virtual {v1, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v9, "..."
+
+    invoke-virtual {v1, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    :goto_379
+    invoke-virtual {v8, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v7, v1}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 537
+    if-eqz v5, :cond_3bc
+
+    invoke-virtual {v5, p1, v6, v2}, Lbl/yd$a;->a(ILandroid/os/Bundle;Ljava/lang/String;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_3bc
+
+    .line 538
+    const-string v1, "url"
+
+    invoke-virtual {v6, v1, v2}, Landroid/os/Bundle;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v2
+
+    .line 539
+    const-string v1, "PlayerController"
 
     new-instance v6, Ljava/lang/StringBuilder;
 
@@ -1680,67 +1811,67 @@
 
     move-result-object v6
 
-    invoke-virtual {v4}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+    invoke-virtual {v5}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
-    move-result-object v4
+    move-result-object v5
 
-    invoke-virtual {v4}, Ljava/lang/Class;->getSimpleName()Ljava/lang/String;
+    invoke-virtual {v5}, Ljava/lang/Class;->getSimpleName()Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v5
 
-    invoke-virtual {v6, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v6, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v5
 
     const-string v6, ","
 
-    invoke-virtual {v4, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v5
 
-    invoke-virtual {v4, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v5, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v5
 
-    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v5
 
-    invoke-static {v5, v4}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-static {v1, v5}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 538
-    :cond_340
-    if-eqz v0, :cond_37d
+    .line 541
+    :cond_3bc
+    if-eqz v0, :cond_3fc
 
-    .line 539
+    .line 542
     const-string v0, "url"
 
     const-string v1, ""
 
     invoke-virtual {p2, v0, v1}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 540
+    .line 543
     const/4 v0, 0x0
 
-    .line 547
-    :goto_34a
-    iget-object v1, v3, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
+    .line 550
+    :goto_3c6
+    iget-object v1, v4, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
 
-    iput-object v2, v1, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mMediaResource:Lcom/bilibili/lib/media/resource/MediaResource;
+    iput-object v3, v1, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mMediaResource:Lcom/bilibili/lib/media/resource/MediaResource;
 
-    .line 548
+    .line 551
     invoke-direct {p0}, Lbl/yd;->i()V
 
     goto/16 :goto_13
 
-    .line 528
-    :catch_353
+    .line 530
+    :catch_3cf
     move-exception v0
 
-    .line 529
-    instance-of v7, v0, Lcom/bilibili/tv/player/basic/UrlHandleException;
+    .line 531
+    instance-of v8, v0, Lcom/bilibili/tv/player/basic/UrlHandleException;
 
-    if-eqz v7, :cond_37b
+    if-eqz v8, :cond_3f7
 
     check-cast v0, Lcom/bilibili/tv/player/basic/UrlHandleException;
 
@@ -1748,88 +1879,96 @@
 
     move-result v0
 
-    if-eqz v0, :cond_37b
+    if-eqz v0, :cond_3f7
 
     const/4 v0, 0x1
 
-    .line 530
-    :goto_361
-    const-string v7, "PlayerController"
+    .line 532
+    :goto_3dd
+    const-string v8, "PlayerController"
 
-    new-instance v8, Ljava/lang/StringBuilder;
+    new-instance v9, Ljava/lang/StringBuilder;
 
-    invoke-direct {v8}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v9}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v9, "exception happened when segment update in http open: "
+    const-string v10, "exception happened when segment update in http open: "
 
-    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v9, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v8
+    move-result-object v9
 
-    invoke-virtual {v8, v0}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+    invoke-virtual {v9, v0}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
 
-    move-result-object v8
+    move-result-object v9
 
-    invoke-virtual {v8}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v9}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v8
+    move-result-object v9
 
-    invoke-static {v7, v8}, Ltv/danmaku/android/log/BLog;->e(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-static {v8, v9}, Ltv/danmaku/android/log/BLog;->e(Ljava/lang/String;Ljava/lang/String;)V
 
-    goto/16 :goto_2ea
+    goto/16 :goto_336
 
-    .line 529
-    :cond_37b
+    .line 531
+    :cond_3f7
     const/4 v0, 0x0
 
-    goto :goto_361
+    goto :goto_3dd
 
-    .line 542
-    :cond_37d
-    invoke-static {v1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+    :cond_3f9
+    move-object v1, v2
+
+    .line 536
+    goto/16 :goto_379
+
+    .line 545
+    :cond_3fc
+    invoke-static {v2}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v0
 
-    if-nez v0, :cond_388
+    if-nez v0, :cond_407
 
-    .line 543
+    .line 546
     const-string v0, "url"
 
-    invoke-virtual {p2, v0, v1}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-virtual {p2, v0, v2}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 545
-    :cond_388
+    .line 548
+    :cond_407
     const/4 v0, 0x1
 
-    goto :goto_34a
+    goto :goto_3c6
 
-    .line 552
-    :cond_38a
+    .line 555
+    :cond_409
     invoke-direct {p0}, Lbl/yd;->i()V
 
-    .line 553
+    .line 556
     const/4 v0, 0x1
 
     goto/16 :goto_13
 
-    :cond_390
+    :cond_40f
     move-object v0, v2
 
-    goto/16 :goto_269
+    goto/16 :goto_2b4
 
-    :cond_393
-    move-object v0, v1
+    :cond_412
+    move-object v1, v0
 
-    goto/16 :goto_7f
+    goto/16 :goto_c7
 
     .line 389
-    :sswitch_data_396
+    nop
+
+    :sswitch_data_416
     .sparse-switch
         0x10025 -> :sswitch_14
-        0x10026 -> :sswitch_e4
+        0x10026 -> :sswitch_12f
         0x20001 -> :sswitch_13
-        0x20003 -> :sswitch_13a
-        0x20005 -> :sswitch_13a
+        0x20003 -> :sswitch_185
+        0x20005 -> :sswitch_185
         0x20007 -> :sswitch_14
     .end sparse-switch
 .end method
@@ -1840,7 +1979,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 575
+    .line 578
     invoke-static {p0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v0
@@ -1856,11 +1995,11 @@
     :cond_d
     move v0, v1
 
-    .line 586
+    .line 589
     :goto_e
     return v0
 
-    .line 579
+    .line 582
     :cond_f
     :try_start_f
     invoke-static {p0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
@@ -1871,7 +2010,7 @@
 
     move-result-object v0
 
-    .line 580
+    .line 583
     if-eqz v0, :cond_36
 
     invoke-interface {v0}, Ljava/util/List;->isEmpty()Z
@@ -1880,7 +2019,7 @@
 
     if-nez v2, :cond_36
 
-    .line 581
+    .line 584
     invoke-interface {v0}, Ljava/util/List;->size()I
 
     move-result v2
@@ -1901,11 +2040,11 @@
 
     goto :goto_e
 
-    .line 583
+    .line 586
     :catch_30
     move-exception v0
 
-    .line 584
+    .line 587
     const-string v2, "PlayerController"
 
     invoke-static {v2, p0, v0}, Ltv/danmaku/android/log/BLog;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
@@ -1913,7 +2052,7 @@
     :cond_36
     move v0, v1
 
-    .line 586
+    .line 589
     goto :goto_e
 .end method
 
@@ -1937,7 +2076,7 @@
     .locals 1
 
     .prologue
-    .line 602
+    .line 605
     iget-object v0, p0, Lbl/yd;->r:Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;
 
     if-eqz v0, :cond_e
@@ -2156,16 +2295,169 @@
     goto :goto_11
 .end method
 
+.method private getNextSegmentUrl(Lcom/bilibili/lib/media/resource/Segment;I)Ljava/lang/String;
+    .locals 5
+
+    .prologue
+    .line 609
+    if-nez p1, :cond_4
+
+    .line 610
+    const/4 v0, 0x0
+
+    .line 626
+    :goto_3
+    return-object v0
+
+    .line 613
+    :cond_4
+    if-lez p2, :cond_12
+
+    iget-object v0, p1, Lcom/bilibili/lib/media/resource/Segment;->e:Ljava/util/ArrayList;
+
+    if-eqz v0, :cond_12
+
+    iget-object v0, p1, Lcom/bilibili/lib/media/resource/Segment;->e:Ljava/util/ArrayList;
+
+    invoke-virtual {v0}, Ljava/util/ArrayList;->isEmpty()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_39
+
+    .line 614
+    :cond_12
+    const-string v1, "PlayerController"
+
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "Using primary url, backup_urls: "
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    iget-object v0, p1, Lcom/bilibili/lib/media/resource/Segment;->e:Ljava/util/ArrayList;
+
+    if-eqz v0, :cond_37
+
+    iget-object v0, p1, Lcom/bilibili/lib/media/resource/Segment;->e:Ljava/util/ArrayList;
+
+    invoke-virtual {v0}, Ljava/util/ArrayList;->size()I
+
+    move-result v0
+
+    :goto_29
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v1, v0}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 615
+    iget-object v0, p1, Lcom/bilibili/lib/media/resource/Segment;->a:Ljava/lang/String;
+
+    goto :goto_3
+
+    .line 614
+    :cond_37
+    const/4 v0, 0x0
+
+    goto :goto_29
+
+    .line 618
+    :cond_39
+    add-int/lit8 v1, p2, -0x1
+
+    .line 619
+    iget-object v0, p1, Lcom/bilibili/lib/media/resource/Segment;->e:Ljava/util/ArrayList;
+
+    invoke-virtual {v0}, Ljava/util/ArrayList;->size()I
+
+    move-result v0
+
+    if-ge v1, v0, :cond_74
+
+    .line 620
+    iget-object v0, p1, Lcom/bilibili/lib/media/resource/Segment;->e:Ljava/util/ArrayList;
+
+    invoke-virtual {v0, v1}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/lang/String;
+
+    .line 621
+    const-string v2, "PlayerController"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "Using backup_url["
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v3, "], total backups: "
+
+    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    iget-object v3, p1, Lcom/bilibili/lib/media/resource/Segment;->e:Ljava/util/ArrayList;
+
+    invoke-virtual {v3}, Ljava/util/ArrayList;->size()I
+
+    move-result v3
+
+    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v2, v1}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
+
+    goto :goto_3
+
+    .line 625
+    :cond_74
+    const-string v0, "PlayerController"
+
+    const-string v1, "No more backup urls, using primary url"
+
+    invoke-static {v0, v1}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 626
+    iget-object v0, p1, Lcom/bilibili/lib/media/resource/Segment;->a:Ljava/lang/String;
+
+    goto :goto_3
+.end method
+
 .method private h()V
     .locals 3
 
     .prologue
-    .line 590
+    .line 593
     iget-object v0, p0, Lbl/yd;->r:Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;
 
     if-eqz v0, :cond_f
 
-    .line 591
+    .line 594
     iget-object v0, p0, Lbl/yd;->r:Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;
 
     const v1, 0x10018
@@ -2176,7 +2468,7 @@
 
     invoke-interface {v0, v1, v2}, Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;->onExtraInfo(I[Ljava/lang/Object;)V
 
-    .line 593
+    .line 596
     :cond_f
     return-void
 .end method
@@ -2185,12 +2477,12 @@
     .locals 3
 
     .prologue
-    .line 596
+    .line 599
     iget-object v0, p0, Lbl/yd;->r:Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;
 
     if-eqz v0, :cond_f
 
-    .line 597
+    .line 600
     iget-object v0, p0, Lbl/yd;->r:Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;
 
     const v1, 0x10019
@@ -2201,7 +2493,7 @@
 
     invoke-interface {v0, v1, v2}, Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;->onExtraInfo(I[Ljava/lang/Object;)V
 
-    .line 599
+    .line 602
     :cond_f
     return-void
 .end method
@@ -2649,10 +2941,10 @@
     .locals 0
 
     .prologue
-    .line 682
+    .line 706
     iput-object p1, p0, Lbl/yd;->j:Lbl/xd;
 
-    .line 683
+    .line 707
     return-void
 .end method
 
@@ -2749,10 +3041,10 @@
     .locals 0
 
     .prologue
-    .line 678
+    .line 702
     iput-object p1, p0, Lbl/yd;->q:Ltv/danmaku/videoplayer/core/context/IPlayerContext;
 
-    .line 679
+    .line 703
     return-void
 .end method
 
@@ -2839,7 +3131,7 @@
     .locals 1
 
     .prologue
-    .line 686
+    .line 710
     iget-object v0, p0, Lbl/yd;->j:Lbl/xd;
 
     return-object v0

@@ -3,6 +3,7 @@ package bl;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.SparseArray;
 import bl.qa;
 import com.bilibili.lib.media.resolver.exception.ResolveException;
@@ -59,26 +60,53 @@ public class qh implements IMediaResolver {
         a(resolveMediaResourceParams);
         int a2 = a(resolveMediaResourceParams, psVar);
         
-        qa a3 = new qa.a(qi.class).a("https://api.bilibili.com/pgc/player/web/playurl").b("Bilibili Freedoooooom/MarkII").a(true).b("cid", String.valueOf(resolveMediaResourceParams.c())).b("qn", String.valueOf(a2)).b("appkey", qy.a(3, "fSDRQgpusmIbrzyc")).b("otype", "json").b("platform", "android_tv_yst").b("mobi_app", psVar.d()).b("build", psVar.a()).b("buvid", psVar.b()).b("device", psVar.c()).b("type", resolveMediaResourceParams.g()).b("access_key", puVar != null ? puVar.c : null).b("mid", puVar != null ? String.valueOf(puVar.b) : null).b("expire", puVar != null ? String.valueOf(puVar.a) : null).b("npcybs", resolveMediaResourceParams.d() ? "1" : "0").b("module", resolveMediaResourceParams.b()).b("track_path", resolveResourceExtra.e()).b("model", a2 == 0 ? psVar.e() : null).b("resolution", a2 == 0 ? psVar.f() : null).b("unicom_free", resolveResourceExtra.f() ? "1" : null).b("season_type", resolveResourceExtra.g()).b("fnval", String.valueOf(0b011111010000)).a(new qd()).a();
+        long cid = resolveMediaResourceParams.c();
+        long avid = resolveMediaResourceParams.a();
+        long epId = resolveResourceExtra.a();
+        String accessKey = puVar != null ? puVar.c : null;
+        
+        Log.i("PgcPlayUrl", "========== PGC PlayUrl Request ==========");
+        Log.i("PgcPlayUrl", "cid=" + cid + ", avid=" + avid + ", epId=" + epId + ", qn=" + a2);
+        Log.i("PgcPlayUrl", "access_key=" + (accessKey != null ? "exists(" + accessKey.length() + "chars)" : "null"));
+        Log.i("PgcPlayUrl", "season_type=" + resolveResourceExtra.g());
+        
+        qa.a requestBuilder = new qa.a(qi.class).a("https://api.bilibili.com/pgc/player/web/playurl").b("Bilibili Freedoooooom/MarkII").a(true).b("cid", String.valueOf(resolveMediaResourceParams.c())).b("qn", String.valueOf(a2)).b("appkey", qy.a(3, "fSDRQgpusmIbrzyc")).b("otype", "json").b("platform", "android_tv_yst").b("mobi_app", psVar.d()).b("build", psVar.a()).b("buvid", psVar.b()).b("device", psVar.c()).b("type", resolveMediaResourceParams.g()).b("access_key", puVar != null ? puVar.c : null).b("mid", puVar != null ? String.valueOf(puVar.b) : null).b("expire", puVar != null ? String.valueOf(puVar.a) : null).b("npcybs", resolveMediaResourceParams.d() ? "1" : "0").b("module", resolveMediaResourceParams.b()).b("track_path", resolveResourceExtra.e()).b("model", a2 == 0 ? psVar.e() : null).b("resolution", a2 == 0 ? psVar.f() : null).b("unicom_free", resolveResourceExtra.f() ? "1" : null).b("season_type", resolveResourceExtra.g()).b("fnval", String.valueOf(0b011111010000));
+        
+        if (epId > 0) {
+            requestBuilder.b("ep_id", String.valueOf(epId));
+        }
+        
+        qa a3 = requestBuilder.a(new qd()).a();
         this.b.a(a3.g());
+        
+        Log.i("PgcPlayUrl", "Response URL: " + a3.g());
         
         qi qiVar = (qi) pz.a(a3);
         
         if (qiVar == null) {
+            Log.e("PgcPlayUrl", "Response is null!");
             throw new ResolveMediaSourceException("empty response", -5);
         }
         this.b.a(qiVar.b(), qiVar.c());
+        
+        Log.i("PgcPlayUrl", "Response code=" + qiVar.b() + ", message=" + qiVar.c());
+        Log.i("PgcPlayUrl", "qiVar.a()=" + qiVar.a() + " (isSuccess)");
+        
         if (!qiVar.a()) {
+            Log.e("PgcPlayUrl", "PlayUrl request failed!");
             throw new ResolveMediaSourceException("connect error", -5);
         }
         try {
             MediaResource a5 = qiVar.a(context, resolveMediaResourceParams, a2, (SparseArray<qn>) null, (int[]) null);
             if (a5 == null) {
+                Log.e("PgcPlayUrl", "MediaResource is null!");
                 throw new ResolveMediaSourceException("resolve fake", -3);
             }
+            Log.i("PgcPlayUrl", "MediaResource resolved successfully");
             this.b.a(a5);
             return a5;
         } catch (ResolveException e) {
+            Log.e("PgcPlayUrl", "ResolveException: " + e.getMessage());
             this.b.a(e, new String(qiVar.c()));
             throw e;
         }

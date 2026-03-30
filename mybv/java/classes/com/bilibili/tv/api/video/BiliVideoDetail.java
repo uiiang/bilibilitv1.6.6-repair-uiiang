@@ -111,7 +111,16 @@ public class BiliVideoDetail implements Parcelable {
 
     @JSONField(name = "bangumi")
     public void setBangumi(JSONObject mBangumiInfo){
-        this.mBangumiInfo = JSON.parseObject(mBangumiInfo.getJSONObject("season").toJSONString(), BangumiInfo.class);
+        JSONObject seasonObj = mBangumiInfo.getJSONObject("season");
+        if (seasonObj != null) {
+            this.mBangumiInfo = new BangumiInfo();
+            Object seasonId = seasonObj.get("season_id");
+            if (seasonId != null) {
+                this.mBangumiInfo.mSeasonId = String.valueOf(seasonId);
+            }
+            this.mBangumiInfo.mTitle = seasonObj.getString("title");
+            this.mBangumiInfo.mIsFinish = seasonObj.getIntValue("is_finish");
+        }
     }
 
     public JSONArray sections;
@@ -581,6 +590,14 @@ public class BiliVideoDetail implements Parcelable {
         public String mVid;
         @JSONField(name = "weblink")
         public String mWebLink;
+        @JSONField(deserialize = false, serialize = false)
+        public long mEpisodeId;
+        @JSONField(deserialize = false, serialize = false)
+        public String mSeasonId;
+        @JSONField(deserialize = false, serialize = false)
+        public String mEpCover;
+        @JSONField(deserialize = false, serialize = false)
+        public String mBvid;
 
         @Override // android.os.Parcelable
         public int describeContents() {
@@ -625,6 +642,10 @@ public class BiliVideoDetail implements Parcelable {
             parcel.writeString(this.mWebLink);
             parcel.writeString(this.mOffsite);
             parcel.writeByte(this.mAlreadyPlayed ? (byte) 1 : (byte) 0);
+            parcel.writeLong(this.mEpisodeId);
+            parcel.writeString(this.mSeasonId);
+            parcel.writeString(this.mEpCover);
+            parcel.writeString(this.mBvid);
         }
 
         protected Page(Parcel parcel) {
@@ -639,6 +660,10 @@ public class BiliVideoDetail implements Parcelable {
             this.mWebLink = parcel.readString();
             this.mOffsite = parcel.readString();
             this.mAlreadyPlayed = parcel.readByte() != 0;
+            this.mEpisodeId = parcel.readLong();
+            this.mSeasonId = parcel.readString();
+            this.mEpCover = parcel.readString();
+            this.mBvid = parcel.readString();
         }
     }
 
