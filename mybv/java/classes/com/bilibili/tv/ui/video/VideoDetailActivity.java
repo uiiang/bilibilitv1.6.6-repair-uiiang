@@ -163,13 +163,6 @@ public final class VideoDetailActivity extends BaseActivity
     private TextView pgcType;
     private TextView pgcArea;
     private TextView pgcNewEp;
-    private LinearLayout stickyTitleContainer;
-    private TextView stickyVideoDetailTitle;
-    private LinearLayout stickyPgcInfoContainer;
-    private TextView stickyPgcRating;
-    private TextView stickyPgcType;
-    private TextView stickyPgcArea;
-    private TextView stickyPgcNewEp;
     private LinearLayout titleSection;
 
     /* renamed from: u reason: collision with root package name */
@@ -277,13 +270,6 @@ public final class VideoDetailActivity extends BaseActivity
         this.pgcType = (TextView) d(R.id.pgc_type);
         this.pgcArea = (TextView) d(R.id.pgc_area);
         this.pgcNewEp = (TextView) d(R.id.pgc_new_ep);
-        this.stickyTitleContainer = (LinearLayout) d(R.id.sticky_title_container);
-        this.stickyVideoDetailTitle = (TextView) d(R.id.sticky_video_detail_title);
-        this.stickyPgcInfoContainer = (LinearLayout) d(R.id.sticky_pgc_info_container);
-        this.stickyPgcRating = (TextView) d(R.id.sticky_pgc_rating);
-        this.stickyPgcType = (TextView) d(R.id.sticky_pgc_type);
-        this.stickyPgcArea = (TextView) d(R.id.sticky_pgc_area);
-        this.stickyPgcNewEp = (TextView) d(R.id.sticky_pgc_new_ep);
         this.titleSection = (LinearLayout) d(R.id.title_section);
         this.j = (DrawLinearLayout) d(R.id.video_detail_favorite);
         this.k = (ImageView) d(R.id.video_detail_favorite_img);
@@ -497,43 +483,7 @@ public final class VideoDetailActivity extends BaseActivity
         this.historyProgress = (TextView) d(R.id.video_history_progress);
         this.historyLabel = (TextView) d(R.id.video_history_label);
         this.scrollView = (ScrollView) d(R.id.scrollView);
-        setupScrollViewListener();
         setupGlobalFocusChangeListener();
-    }
-
-    private void setupScrollViewListener() {
-        if (scrollView == null) {
-            return;
-        }
-        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                updateStickyTitleVisibility();
-            }
-        });
-    }
-
-    private void updateStickyTitleVisibility() {
-        if (scrollView == null || titleSection == null || stickyTitleContainer == null) {
-            return;
-        }
-        
-        int[] titleLocation = new int[2];
-        titleSection.getLocationOnScreen(titleLocation);
-        
-        int[] scrollLocation = new int[2];
-        scrollView.getLocationOnScreen(scrollLocation);
-        
-        int titleTop = titleLocation[1];
-        int scrollViewTop = scrollLocation[1];
-        float density = getResources().getDisplayMetrics().density;
-        int threshold = (int) (10 * density);
-        
-        if (titleTop < scrollViewTop + threshold) {
-            stickyTitleContainer.setVisibility(View.VISIBLE);
-        } else {
-            stickyTitleContainer.setVisibility(View.GONE);
-        }
     }
 
     private void setupGlobalFocusChangeListener() {
@@ -2225,10 +2175,6 @@ public final class VideoDetailActivity extends BaseActivity
         }
         pgcInfoContainer.setVisibility(0);
         
-        if (stickyPgcInfoContainer != null) {
-            stickyPgcInfoContainer.setVisibility(0);
-        }
-        
         if (pgcRating != null && pgcInfo.rating != null) {
             pgcRating.setText(pgcInfo.getRatingString());
             pgcRating.setVisibility(0);
@@ -2236,36 +2182,18 @@ public final class VideoDetailActivity extends BaseActivity
             pgcRating.setVisibility(8);
         }
         
-        if (stickyPgcRating != null && pgcInfo.rating != null) {
-            stickyPgcRating.setText(pgcInfo.getRatingString());
-            stickyPgcRating.setVisibility(0);
-        } else if (stickyPgcRating != null) {
-            stickyPgcRating.setVisibility(8);
-        }
-        
         if (pgcType != null) {
             pgcType.setText(pgcInfo.getTypeName());
-        }
-        if (stickyPgcType != null) {
-            stickyPgcType.setText(pgcInfo.getTypeName());
         }
         
         if (pgcArea != null) {
             pgcArea.setText(pgcInfo.getAreaString());
-        }
-        if (stickyPgcArea != null) {
-            stickyPgcArea.setText(pgcInfo.getAreaString());
         }
         
         if (pgcNewEp != null && pgcInfo.newEp != null) {
             pgcNewEp.setText(pgcInfo.newEp.indexShow);
         } else if (pgcNewEp != null) {
             pgcNewEp.setText("");
-        }
-        if (stickyPgcNewEp != null && pgcInfo.newEp != null) {
-            stickyPgcNewEp.setText(pgcInfo.newEp.indexShow);
-        } else if (stickyPgcNewEp != null) {
-            stickyPgcNewEp.setText("");
         }
         
         showPgcEpisodes(pgcInfo);
@@ -3798,9 +3726,6 @@ public final class VideoDetailActivity extends BaseActivity
                 if (textView != null) {
                     textView.setText(biliVideoDetail.mTitle);
                 }
-                if (VideoDetailActivity.this.stickyVideoDetailTitle != null) {
-                    VideoDetailActivity.this.stickyVideoDetailTitle.setText(biliVideoDetail.mTitle);
-                }
                 VideoDetailActivity.this.loadPgcInfo(biliVideoDetail);
                 return;
             }
@@ -3827,14 +3752,11 @@ public final class VideoDetailActivity extends BaseActivity
             }
             VideoDetailActivity.this.a(biliVideoDetail.mCover);
             VideoDetailActivity.this.o();
-            TextView textView = VideoDetailActivity.this.cc;
-            if (textView != null) {
-                textView.setText(biliVideoDetail.mTitle);
-            }
-            if (VideoDetailActivity.this.stickyVideoDetailTitle != null) {
-                VideoDetailActivity.this.stickyVideoDetailTitle.setText(biliVideoDetail.mTitle);
-            }
-            LinearLayout staffContainer = VideoDetailActivity.this.staffContainer;
+                TextView textView = VideoDetailActivity.this.cc;
+                if (textView != null) {
+                    textView.setText(biliVideoDetail.mTitle);
+                }
+                LinearLayout staffContainer = VideoDetailActivity.this.staffContainer;
             LinearLayout uperContainer = VideoDetailActivity.this.uperContainer;
             if (staffContainer != null) {
                 staffContainer.removeAllViews();
