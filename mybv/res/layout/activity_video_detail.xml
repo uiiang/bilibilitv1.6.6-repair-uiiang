@@ -480,7 +480,7 @@
                                 android:layout_height="@dimen/px_80">
                                 <!-- 稍后再看图标 -->
                                 <ImageView android:id="@id/video_detail_watch_later_img"
-                                    android:background="@drawable/ic_watch_later"
+                                    android:background="@drawable/ic_hourglass_empty_white_48dp"
                                     android:layout_width="@dimen/px_44"
                                     android:layout_height="@dimen/px_44"
                                     android:layout_marginLeft="@dimen/px_18"
