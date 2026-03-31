@@ -793,17 +793,29 @@ public final class FavoriteVideoFragment extends ady {
                 } else if (tag instanceof JSONObject) {
                     JSONObject item = (JSONObject) tag;
                     if (isFavoriteVideoMode) {
+                        int type = item.getIntValue("type");
                         JSONObject ogv = item.getJSONObject("ogv");
-                        boolean isPgc = false;
-                        if (ogv != null) {
+                        long id = item.getLongValue("id");
+                        String title = item.getString("title");
+                        Log.i("FavoriteClick", "=== Favorite Item Click ===");
+                        Log.i("FavoriteClick", "id=" + id + ", type=" + type + ", title=" + title);
+                        Log.i("FavoriteClick", "ogv=" + (ogv != null ? ogv.toJSONString() : "null"));
+                        
+                        boolean isPgc = (type == 24);
+                        if (!isPgc && ogv != null) {
                             int typeId = ogv.getIntValue("type_id");
                             isPgc = typeId >= 1 && typeId <= 5 || typeId == 7;
+                            Log.i("FavoriteClick", "ogv.type_id=" + typeId + ", isPgc=" + isPgc);
                         }
+                        
+                        Log.i("FavoriteClick", "final isPgc=" + isPgc);
+                        
                         if (isPgc) {
-                            String seasonId = ogv.getString("season_id");
+                            String seasonId = ogv != null ? ogv.getString("season_id") : null;
+                            Log.i("FavoriteClick", "Starting PGC with seasonId=" + seasonId);
                             activityA.startActivity(VideoDetailActivity.Companion.a((Context) activityA, seasonId));
                         } else {
-                            long id = item.getLongValue("id");
+                            Log.i("FavoriteClick", "Starting UGC with avid=" + id);
                             activityA.startActivity(VideoDetailActivity.Companion.a((Context) activityA, id));
                         }
                     } else {
