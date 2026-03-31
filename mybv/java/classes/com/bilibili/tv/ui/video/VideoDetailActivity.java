@@ -1965,6 +1965,7 @@ public final class VideoDetailActivity extends BaseActivity
             targetPage = biliVideoDetail.mPageList.get(0);
         }
         if (targetPage != null) {
+            abd.prefetchCoverToMemoryCache(this, biliVideoDetail.mCover);
             Log.d("UI_TRANSITION", "[2_BEFORE_XG_A] calling xg.a(), elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
             xg.a(this, biliVideoDetail, targetPage, new Bundle(), REQUEST_CODE_PLAY_VIDEO, progress);
             Log.d("UI_TRANSITION", "[3_AFTER_XG_A] xg.a() returned, elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
@@ -3504,6 +3505,9 @@ public final class VideoDetailActivity extends BaseActivity
             }
             VideoDetailActivity videoDetailActivity = (VideoDetailActivity) a2;
             if (videoDetailActivity != null) {
+                if (videoDetailActivity.u != null && videoDetailActivity.u.mCover != null) {
+                    abd.prefetchCoverToMemoryCache(videoDetailActivity, videoDetailActivity.u.mCover);
+                }
                 xg.a(videoDetailActivity, videoDetailActivity.u, page, new Bundle(), VideoDetailActivity.REQUEST_CODE_PLAY_VIDEO, -1);
             }
             ok.a("tv_video_view_click_part", new String[0]);

@@ -27,6 +27,9 @@ public final class aft {
         if (page == null || context == null || biliVideoDetail == null) {
             return;
         }
+        if (biliVideoDetail.mCover != null) {
+            abd.prefetchCoverToMemoryCache(context, biliVideoDetail.mCover);
+        }
         Resources resources = context.getResources();
         String str = "http://www.bilibili.com/video/av" + biliVideoDetail.mAvid;
         if (!TextUtils.isEmpty(page.mWebLink) || bcl.a("qq", page.mFrom, true)) {
@@ -62,6 +65,9 @@ public final class aft {
         @Override // android.content.DialogInterface.OnClickListener
         public final void onClick(DialogInterface dialogInterface, int i) {
             dialogInterface.dismiss();
+            if (this.b != null && this.b.mCover != null) {
+                abd.prefetchCoverToMemoryCache(this.a, this.b.mCover);
+            }
             xg.a(this.a, this.b, this.c, null);
         }
     }

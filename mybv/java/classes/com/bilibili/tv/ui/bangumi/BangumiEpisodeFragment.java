@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import bl.abd;
 import bl.abx;
 import bl.adl;
 import bl.ads;
@@ -238,6 +239,9 @@ public final class BangumiEpisodeFragment extends adu {
         }
 
         private final void a(BangumiEpisodeEx bangumiEpisodeEx, Activity activity) {
+            if (bangumiEpisodeEx != null && bangumiEpisodeEx.cover != null) {
+                abd.prefetchCoverToMemoryCache(activity, bangumiEpisodeEx.cover);
+            }
             if (BangumiEpisodeFragment.h) {
                 Integer num = BangumiEpisodeFragment.this.c;
                 xg.a(num != null ? num.intValue() : -1, activity, BangumiEpisodeFragment.this.b, bangumiEpisodeEx, BangumiEpisodeFragment.this.all_episodes);

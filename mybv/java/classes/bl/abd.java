@@ -401,4 +401,23 @@ public class abd {
     public static boolean is_tab_enabled(Context context, int tabFlag) {
         return (get_top_tab_config(context) & tabFlag) != 0;
     }
+
+    public static void prefetchCoverToMemoryCache(Context context, String coverUrl) {
+        if (coverUrl == null || coverUrl.isEmpty()) {
+            return;
+        }
+        try {
+            android.net.Uri uri = android.net.Uri.parse(coverUrl);
+            com.facebook.imagepipeline.request.ImageRequestBuilder builder = com.facebook.imagepipeline.request.ImageRequestBuilder.a(uri);
+            com.facebook.imagepipeline.request.ImageRequest imageRequest = builder.o();
+            aoy imagePipelineFactory = ajq.b();
+            if (imagePipelineFactory != null) {
+                aov imagePipeline = imagePipelineFactory.h();
+                if (imagePipeline != null) {
+                    imagePipeline.b(imageRequest, null);
+                }
+            }
+        } catch (Exception e) {
+        }
+    }
 }

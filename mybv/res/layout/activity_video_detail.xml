@@ -5,22 +5,22 @@
     android:focusable="false" android:layout_width="fill_parent" android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    
+
     <!-- ==================== 背景层 ==================== -->
     <!-- 视频封面模糊背景图，作为页面底层装饰 -->
     <com.bilibili.tv.widget.ScalableImageView android:id="@id/blur"
         android:layout_width="fill_parent" android:layout_height="fill_parent"
         android:scaleType="fitCenter" />
-    
+
     <!-- 纯黑半透明遮罩层（已注释，备用） -->
     <!-- <View android:background="@color/black_80" android:layout_width="fill_parent"
         android:layout_height="fill_parent" /> -->
-    
+
     <!-- 渐变遮罩层，从上到下渐变，使顶部内容更清晰可见 -->
     <View android:background="@drawable/video_detail_gradient_mask"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
-    
+
     <!-- ==================== 主内容区 ==================== -->
     <!-- 内容主容器，默认隐藏，数据加载完成后显示 -->
     <!-- paddingTop预留顶部空间给视频封面区域 -->
@@ -41,7 +41,7 @@
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/px_50"
                 android:paddingRight="@dimen/px_70">
-                
+
                 <!-- ==================== 标题区域 ==================== -->
                 <!-- 原始标题容器，随页面滚动 -->
                 <LinearLayout android:orientation="vertical"
@@ -52,7 +52,7 @@
                     android:clipChildren="false" android:clipToPadding="false"
                     android:layout_width="fill_parent" android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/px_50">
-                    
+
                     <!-- 视频标题，最多显示4行 -->
                     <LinearLayout android:orientation="horizontal" android:focusable="false"
                         android:clipChildren="false" android:clipToPadding="false"
@@ -66,7 +66,7 @@
                         <View android:layout_width="0dp" android:layout_height="0dp"
                             android:layout_weight="1" />
                     </LinearLayout>
-                    
+
                     <!-- PGC信息容器（番剧评分、类型、地区、更新信息），仅PGC视频显示 -->
                     <LinearLayout android:id="@+id/pgc_info_container"
                         android:orientation="horizontal"
@@ -109,16 +109,17 @@
                             android:layout_marginLeft="@dimen/px_30" />
                     </LinearLayout>
                 </LinearLayout>
-                
+
                 <!-- ==================== 视频统计信息区域 ==================== -->
                 <!-- 包含：播放量、弹幕数、时长、上传时间 -->
                 <LinearLayout android:orientation="vertical" android:focusable="false"
                     android:clipChildren="true" android:clipToPadding="false"
                     android:layout_width="fill_parent" android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/px_20">
-                    
+
                     <!-- 视频统计数据行 -->
-                    <LinearLayout android:gravity="left|center_vertical" android:id="@id/video_stats"
+                    <LinearLayout android:gravity="left|center_vertical"
+                        android:id="@id/video_stats"
                         android:focusable="false" android:clipChildren="false"
                         android:clipToPadding="false"
                         android:layout_width="fill_parent" android:layout_height="wrap_content"
@@ -173,7 +174,7 @@
                             android:layout_marginLeft="@dimen/px_10"
                             android:layout_marginRight="@dimen/px_30" android:layout_weight="1.0" />
                     </LinearLayout>
-                    
+
                     <!-- ==================== UP主/创作者区域 ==================== -->
                     <LinearLayout android:gravity="center" android:id="@id/video_uper_container"
                         android:focusable="false" android:clipChildren="true"
@@ -203,7 +204,7 @@
                         </HorizontalScrollView>
                     </LinearLayout>
                 </LinearLayout>
-                
+
                 <!-- ==================== 操作按钮区域 ==================== -->
                 <!-- 包含：播放按钮、点赞、投币、收藏、稍后再看 -->
                 <LinearLayout android:orientation="vertical" android:focusable="false"
@@ -212,12 +213,12 @@
                     android:paddingTop="@dimen/px_10"
                     android:paddingBottom="@dimen/px_30"
                     android:paddingLeft="@dimen/px_10">
-                    
+
                     <LinearLayout android:focusable="false"
                         android:gravity="center_vertical"
                         android:clipChildren="false" android:clipToPadding="false"
                         android:layout_width="fill_parent" android:layout_height="wrap_content">
-                        
+
                         <!-- ===== 继续播放按钮（有历史记录时显示） ===== -->
                         <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
                             android:orientation="horizontal"
@@ -246,7 +247,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginRight="@dimen/px_26" />
                         </com.bilibili.tv.widget.DrawLinearLayout>
-                        
+
                         <!-- ===== 无痕播放按钮（可选功能，默认隐藏） ===== -->
                         <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
                             android:orientation="horizontal"
@@ -272,12 +273,13 @@
                             <!-- 无痕播放按钮文本 -->
                             <com.bilibili.tv.widget.DrawTextView android:textSize="@dimen/px_36"
                                 android:textColor="@color/white" android:gravity="center"
-                                android:id="@+id/video_no_history_play_btn" android:focusable="false"
+                                android:id="@+id/video_no_history_play_btn"
+                                android:focusable="false"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginRight="@dimen/px_26" />
                         </com.bilibili.tv.widget.DrawLinearLayout>
-                        
+
                         <!-- ===== 重新播放按钮 ===== -->
                         <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
                             android:orientation="horizontal"
@@ -299,7 +301,7 @@
                                 android:layout_marginLeft="@dimen/px_20"
                                 android:layout_marginRight="@dimen/px_20" />
                         </com.bilibili.tv.widget.DrawLinearLayout>
-                        
+
                         <!-- ===== 互动按钮容器（点赞、投币、收藏、稍后再看） ===== -->
                         <LinearLayout android:id="@+id/video_action_buttons_container"
                             android:orientation="horizontal"
@@ -308,9 +310,10 @@
                             android:layout_marginLeft="@dimen/px_20"
                             android:clipChildren="false" android:clipToPadding="false"
                             android:layout_width="wrap_content" android:layout_height="wrap_content">
-                            
+
                             <!-- 点赞按钮 -->
-                            <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
+                            <com.bilibili.tv.widget.DrawLinearLayout
+                                android:gravity="center_vertical"
                                 android:orientation="horizontal" android:id="@id/video_detail_like"
                                 android:background="@drawable/background_white_rect"
                                 android:focusable="true" android:focusableInTouchMode="true"
@@ -330,15 +333,17 @@
                                 <!-- 点赞文本（默认隐藏） -->
                                 <com.bilibili.tv.widget.DrawTextView android:textSize="@dimen/px_36"
                                     android:textColor="@color/white" android:gravity="center"
-                                    android:id="@id/video_detail_like_text" android:focusable="false"
+                                    android:id="@id/video_detail_like_text"
+                                    android:focusable="false"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:visibility="gone"
                                     android:layout_marginRight="@dimen/px_18" android:text="点赞" />
                             </com.bilibili.tv.widget.DrawLinearLayout>
-                            
+
                             <!-- 投币按钮 -->
-                            <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
+                            <com.bilibili.tv.widget.DrawLinearLayout
+                                android:gravity="center_vertical"
                                 android:orientation="horizontal" android:id="@id/video_detail_coin"
                                 android:background="@drawable/background_white_rect"
                                 android:focusable="true" android:focusableInTouchMode="true"
@@ -359,16 +364,19 @@
                                 <!-- 投币文本（默认隐藏） -->
                                 <com.bilibili.tv.widget.DrawTextView android:textSize="@dimen/px_36"
                                     android:textColor="@color/white" android:gravity="center"
-                                    android:id="@id/video_detail_coin_text" android:focusable="false"
+                                    android:id="@id/video_detail_coin_text"
+                                    android:focusable="false"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:visibility="gone"
                                     android:layout_marginRight="@dimen/px_18" android:text="投币" />
                             </com.bilibili.tv.widget.DrawLinearLayout>
-                            
+
                             <!-- 收藏按钮（支持长按弹出收藏夹菜单） -->
-                            <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
-                                android:orientation="horizontal" android:id="@id/video_detail_favorite"
+                            <com.bilibili.tv.widget.DrawLinearLayout
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:id="@id/video_detail_favorite"
                                 android:background="@drawable/background_white_rect"
                                 android:focusable="true" android:focusableInTouchMode="true"
                                 android:nextFocusLeft="@id/video_detail_coin"
@@ -395,9 +403,10 @@
                                     android:layout_height="match_parent"
                                     android:layout_marginRight="@dimen/px_18" android:text="收藏" />
                             </com.bilibili.tv.widget.DrawLinearLayout>
-                            
+
                             <!-- 稍后再看按钮 -->
-                            <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
+                            <com.bilibili.tv.widget.DrawLinearLayout
+                                android:gravity="center_vertical"
                                 android:orientation="horizontal"
                                 android:id="@id/video_detail_watch_later"
                                 android:background="@drawable/background_white_rect"
@@ -428,7 +437,7 @@
                             </com.bilibili.tv.widget.DrawLinearLayout>
                         </LinearLayout>
                     </LinearLayout>
-                    
+
                     <!-- ===== 历史记录信息区域（显示上次播放进度） ===== -->
                     <LinearLayout android:id="@+id/video_history_container"
                         android:orientation="horizontal"
@@ -461,7 +470,7 @@
                             android:layout_marginLeft="@dimen/px_10" />
                     </LinearLayout>
                 </LinearLayout>
-                
+
                 <!-- ==================== 分P列表区域 ==================== -->
                 <!-- 视频的分P选集列表 -->
                 <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_36"
@@ -479,7 +488,7 @@
                     android:clipChildren="false"
                     android:clipToPadding="false" android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />
-                
+
                 <!-- ==================== 多合集列表容器 ==================== -->
                 <!-- 用于显示PGC番剧的多季/多合集 -->
                 <LinearLayout android:id="@+id/video_detail_seasons_container"
@@ -487,7 +496,7 @@
                     android:focusable="false"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />
-                
+
                 <!-- ==================== 合集列表区域 ==================== -->
                 <!-- UGC视频的合集选集列表 -->
                 <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_36"
@@ -505,7 +514,7 @@
                     android:clipChildren="false"
                     android:clipToPadding="false" android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />
-                
+
                 <!-- ==================== 相关推荐区域 ==================== -->
                 <!-- 相关视频推荐列表 -->
                 <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_36"
@@ -524,25 +533,25 @@
                     android:clipChildren="false"
                     android:clipToPadding="false" android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />
-                
+
                 <!-- ==================== 视频简介区域 ==================== -->
                 <!-- 视频描述信息容器 -->
-                <LinearLayout android:orientation="vertical" android:focusable="false"
+                <!-- <LinearLayout android:orientation="vertical" android:focusable="false"
                     android:id="@id/video_detail_des_layout"
                     android:layout_width="fill_parent" android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/px_10">
+                    android:layout_marginBottom="@dimen/px_10"> -->
                     <!-- 视频简介标题 -->
-                    <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_36"
+                    <!-- <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_36"
                         android:textColor="@color/white" android:id="@id/video_info_describe_title"
                         android:focusable="false" android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" android:maxLines="1" />
+                        android:layout_height="wrap_content" android:maxLines="1" /> -->
                     <!-- 视频简介内容 -->
-                    <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_32"
+                    <!-- <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_32"
                         android:textColor="@color/white_50" android:id="@id/video_info_describe"
                         android:focusable="false" android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" android:layout_marginTop="@dimen/px_10" />
-                </LinearLayout>
-                
+                        android:layout_height="wrap_content" android:layout_marginTop="@dimen/px_10" /> -->
+                <!-- </LinearLayout> -->
+
                 <!-- ==================== 标签列表区域 ==================== -->
                 <!-- 视频标签，可点击搜索相关内容 -->
                 <android.support.v7.widget.RecyclerView android:id="@id/flow_tag_view"

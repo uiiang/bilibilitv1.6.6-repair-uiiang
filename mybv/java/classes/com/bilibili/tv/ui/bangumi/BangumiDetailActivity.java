@@ -455,6 +455,9 @@ public final class BangumiDetailActivity extends BaseActivity implements ViewPag
             bbi.a();
         }
         BangumiEpisodeEx bangumiEpisodeEx = bangumiUniformSeason3.episodes.get(this.z);
+        if (bangumiEpisodeEx != null && bangumiEpisodeEx.cover != null) {
+            abd.prefetchCoverToMemoryCache(this, bangumiEpisodeEx.cover);
+        }
         BangumiUniformSeason bangumiUniformSeason4 = this.A;
         if (bangumiUniformSeason4 == null) {
             bbi.a();
