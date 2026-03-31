@@ -3,7 +3,7 @@
 .source "VideoDetailActivity.java"
 
 # interfaces
-.implements Landroid/view/View$OnFocusChangeListener;
+.implements Landroid/view/View$OnClickListener;
 
 
 # annotations
@@ -20,18 +20,22 @@
 # instance fields
 .field final synthetic this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
-.field final synthetic val$wrapper:Lcom/bilibili/tv/widget/DrawLinearLayout;
+.field final synthetic val$staffMid:J
+
+.field final synthetic val$staffName:Ljava/lang/String;
 
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;Lcom/bilibili/tv/widget/DrawLinearLayout;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;JLjava/lang/String;)V
     .locals 0
 
     .prologue
-    .line 3876
+    .line 4012
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
-    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->val$wrapper:Lcom/bilibili/tv/widget/DrawLinearLayout;
+    iput-wide p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->val$staffMid:J
+
+    iput-object p4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->val$staffName:Ljava/lang/String;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -40,15 +44,21 @@
 
 
 # virtual methods
-.method public onFocusChange(Landroid/view/View;Z)V
-    .locals 1
+.method public onClick(Landroid/view/View;)V
+    .locals 4
 
     .prologue
-    .line 3879
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->val$wrapper:Lcom/bilibili/tv/widget/DrawLinearLayout;
+    .line 4015
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
-    invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawLinearLayout;->setUpEnabled(Z)V
+    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    .line 3880
+    iget-wide v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->val$staffMid:J
+
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$4;->val$staffName:Ljava/lang/String;
+
+    invoke-static {v0, v2, v3, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->start(Landroid/content/Context;JLjava/lang/String;)V
+
+    .line 4016
     return-void
 .end method

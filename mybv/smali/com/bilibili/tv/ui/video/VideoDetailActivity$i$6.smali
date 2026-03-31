@@ -3,7 +3,7 @@
 .source "VideoDetailActivity.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Landroid/view/View$OnFocusChangeListener;
 
 
 # annotations
@@ -20,26 +20,22 @@
 # instance fields
 .field final synthetic this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
-.field final synthetic val$finalCurrentPosition:I
-
-.field final synthetic val$finalSectionId:I
-
 .field final synthetic val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+
+.field final synthetic val$sectionId:I
 
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;Landroid/support/v7/widget/RecyclerView;II)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;ILandroid/support/v7/widget/RecyclerView;)V
     .locals 0
 
     .prologue
-    .line 4116
+    .line 4223
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
-    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+    iput p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->val$sectionId:I
 
-    iput p3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->val$finalCurrentPosition:I
-
-    iput p4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->val$finalSectionId:I
+    iput-object p3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -48,175 +44,110 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 8
+.method public onFocusChange(Landroid/view/View;Z)V
+    .locals 4
 
     .prologue
     const/4 v1, 0x0
 
-    .line 4119
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+    .line 4226
+    if-eqz p2, :cond_3e
 
-    invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
-
-    move-result v0
-
-    if-lez v0, :cond_61
-
-    .line 4120
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
-
-    invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
-
-    move-result-object v0
-
-    .line 4121
-    if-eqz v0, :cond_61
-
-    .line 4122
-    invoke-virtual {v0}, Landroid/view/View;->getWidth()I
-
-    move-result v0
-
-    .line 4123
-    iget v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->val$finalCurrentPosition:I
-
-    mul-int/2addr v0, v2
-
-    .line 4124
-    iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
-
-    invoke-virtual {v2, v0, v1}, Landroid/support/v7/widget/RecyclerView;->scrollBy(II)V
-
-    .line 4128
-    :try_start_1d
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
-
-    invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
-
-    move-result v3
-
-    .line 4129
-    const/4 v2, -0x1
-
-    .line 4130
-    :goto_24
-    if-ge v1, v3, :cond_78
-
-    .line 4131
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
-
-    invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
-
-    move-result-object v0
-
-    .line 4132
-    if-nez v0, :cond_31
-
-    .line 4130
-    :cond_2e
-    add-int/lit8 v1, v1, 0x1
-
-    goto :goto_24
-
-    .line 4133
-    :cond_31
-    invoke-virtual {v0}, Landroid/view/View;->getTag()Ljava/lang/Object;
-
-    move-result-object v0
-
-    .line 4134
-    instance-of v4, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;
-
-    if-eqz v4, :cond_2e
-
-    .line 4135
-    check-cast v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;
-
-    .line 4136
-    iget-wide v4, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mAvid:J
-
+    .line 4228
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->s:J
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)J
-
-    move-result-wide v6
-
-    cmp-long v0, v4, v6
-
-    if-nez v0, :cond_2e
-
-    move v0, v1
-
-    .line 4143
-    :goto_4a
-    if-ltz v0, :cond_62
-
-    .line 4148
-    :goto_4c
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
-
-    iget-object v1, v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonSectionFocusPositions:Ljava/util/Map;
-    invoke-static {v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Ljava/util/Map;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Ljava/util/Map;
 
-    move-result-object v1
+    move-result-object v0
 
-    iget v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->val$finalSectionId:I
+    iget v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->val$sectionId:I
 
     invoke-static {v2}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
     move-result-object v2
 
-    invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
-
-    move-result-object v0
-
-    invoke-interface {v1, v2, v0}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-
-    .line 4154
-    :cond_61
-    :goto_61
-    return-void
-
-    .line 4146
-    :cond_62
-    const/4 v0, 0x0
-
-    iget v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->val$finalCurrentPosition:I
-
-    iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
-
-    invoke-virtual {v2}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
-
-    move-result v2
-
-    add-int/lit8 v2, v2, -0x1
-
-    invoke-static {v1, v2}, Ljava/lang/Math;->min(II)I
-
-    move-result v1
-
-    invoke-static {v0, v1}, Ljava/lang/Math;->max(II)I
-    :try_end_74
-    .catch Ljava/lang/Exception; {:try_start_1d .. :try_end_74} :catch_76
+    invoke-interface {v0, v2}, Ljava/util/Map;->containsKey(Ljava/lang/Object;)Z
 
     move-result v0
 
-    goto :goto_4c
+    if-eqz v0, :cond_51
 
-    .line 4149
-    :catch_76
-    move-exception v0
+    .line 4229
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
-    goto :goto_61
+    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    :cond_78
-    move v0, v2
+    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonSectionFocusPositions:Ljava/util/Map;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Ljava/util/Map;
 
-    goto :goto_4a
+    move-result-object v0
+
+    iget v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->val$sectionId:I
+
+    invoke-static {v2}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object v2
+
+    invoke-interface {v0, v2}, Ljava/util/Map;->get(Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/lang/Integer;
+
+    invoke-virtual {v0}, Ljava/lang/Integer;->intValue()I
+
+    move-result v0
+
+    .line 4231
+    :goto_2f
+    iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
+
+    iget-object v2, v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    iget-object v3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+
+    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->restoreFocusPosition(Landroid/support/v7/widget/RecyclerView;I)Landroid/view/View;
+    invoke-static {v2, v3, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$300(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Landroid/support/v7/widget/RecyclerView;I)Landroid/view/View;
+
+    move-result-object v0
+
+    .line 4232
+    if-eqz v0, :cond_3f
+
+    .line 4233
+    invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
+
+    .line 4238
+    :cond_3e
+    :goto_3e
+    return-void
+
+    .line 4234
+    :cond_3f
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+
+    invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
+
+    move-result v0
+
+    if-lez v0, :cond_3e
+
+    .line 4235
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$6;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+
+    invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
+
+    goto :goto_3e
+
+    :cond_51
+    move v0, v1
+
+    goto :goto_2f
 .end method

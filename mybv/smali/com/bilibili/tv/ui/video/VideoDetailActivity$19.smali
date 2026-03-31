@@ -3,12 +3,12 @@
 .source "VideoDetailActivity.java"
 
 # interfaces
-.implements Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcLoadCallback;
+.implements Lbl/vu;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->loadPgcInfo(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->fallbackLoadHistory(Lcom/bilibili/tv/api/video/BiliVideoDetail;Ljava/lang/String;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -16,22 +16,30 @@
     name = null
 .end annotation
 
+.annotation system Ldalvik/annotation/Signature;
+    value = {
+        "Ljava/lang/Object;",
+        "Lbl/vu",
+        "<",
+        "Lcom/bilibili/okretro/GeneralResponse",
+        "<",
+        "Lcom/alibaba/fastjson/JSONObject;",
+        ">;>;"
+    }
+.end annotation
+
 
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-.field final synthetic val$biliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
-
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
     .locals 0
 
     .prologue
-    .line 2011
+    .line 1804
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;->val$biliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -40,103 +48,94 @@
 
 
 # virtual methods
-.method public onError(Ljava/lang/String;)V
+.method public convert(Lokhttp3/ResponseBody;)Lcom/bilibili/okretro/GeneralResponse;
     .locals 3
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Lokhttp3/ResponseBody;",
+            ")",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Lcom/alibaba/fastjson/JSONObject;",
+            ">;"
+        }
+    .end annotation
+
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/io/IOException;
+        }
+    .end annotation
 
     .prologue
-    .line 2041
-    const-string v0, "PgcInfo"
+    .line 1807
+    invoke-virtual {p1}, Lokhttp3/ResponseBody;->string()Ljava/lang/String;
 
-    new-instance v1, Ljava/lang/StringBuilder;
+    move-result-object v0
 
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+    .line 1809
+    const-string v1, "HistoryApi"
 
-    const-string v2, "loadPgcInfo error: "
+    invoke-static {v1, v0}, Lmybl/LogUtil;->json(Ljava/lang/String;Ljava/lang/String;)V
 
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    .line 1810
+    invoke-static {v0}, Lcom/alibaba/fastjson/JSON;->parseObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
-    move-result-object v1
+    move-result-object v0
 
-    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    .line 1811
+    new-instance v1, Lcom/bilibili/okretro/GeneralResponse;
 
-    move-result-object v1
+    invoke-direct {v1}, Lcom/bilibili/okretro/GeneralResponse;-><init>()V
 
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    .line 1812
+    const-string v2, "code"
 
-    move-result-object v1
+    invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
-    invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+    move-result v2
 
-    .line 2042
-    return-void
+    iput v2, v1, Lcom/bilibili/okretro/GeneralResponse;->code:I
+
+    .line 1813
+    iget v2, v1, Lcom/bilibili/okretro/GeneralResponse;->code:I
+
+    if-nez v2, :cond_28
+
+    .line 1814
+    const-string v2, "data"
+
+    invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
+
+    move-result-object v0
+
+    .line 1815
+    if-eqz v0, :cond_28
+
+    .line 1816
+    iput-object v0, v1, Lcom/bilibili/okretro/GeneralResponse;->data:Ljava/lang/Object;
+
+    .line 1819
+    :cond_28
+    return-object v1
 .end method
 
-.method public onSuccess(Lcom/bilibili/tv/api/video/PgcInfo;)V
-    .locals 3
+.method public bridge synthetic convert(Ljava/lang/Object;)Ljava/lang/Object;
+    .locals 1
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/io/IOException;
+        }
+    .end annotation
 
     .prologue
-    .line 2014
-    if-nez p1, :cond_a
+    .line 1804
+    check-cast p1, Lokhttp3/ResponseBody;
 
-    .line 2015
-    const-string v0, "PgcInfo"
+    invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;->convert(Lokhttp3/ResponseBody;)Lcom/bilibili/okretro/GeneralResponse;
 
-    const-string v1, "pgcInfo is null"
+    move-result-object v0
 
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 2037
-    :goto_9
-    return-void
-
-    .line 2018
-    :cond_a
-    const-string v0, "PgcInfo"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "got PGC info: "
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v2, p1, Lcom/bilibili/tv/api/video/PgcInfo;->title:Ljava/lang/String;
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 2019
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->mPgcInfo:Lcom/bilibili/tv/api/video/PgcInfo;
-    invoke-static {v0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1502(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/PgcInfo;)Lcom/bilibili/tv/api/video/PgcInfo;
-
-    .line 2020
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;->val$biliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
-
-    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateBiliVideoDetailWithPgcInfo(Lcom/bilibili/tv/api/video/BiliVideoDetail;Lcom/bilibili/tv/api/video/PgcInfo;)V
-    invoke-static {v0, v1, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;Lcom/bilibili/tv/api/video/PgcInfo;)V
-
-    .line 2021
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    new-instance v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19$1;
-
-    invoke-direct {v1, p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19$1;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;Lcom/bilibili/tv/api/video/PgcInfo;)V
-
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->runOnUiThread(Ljava/lang/Runnable;)V
-
-    goto :goto_9
+    return-object v0
 .end method

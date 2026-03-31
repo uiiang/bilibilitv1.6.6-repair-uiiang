@@ -91,7 +91,7 @@ import kotlin.TypeCastException;
 import retrofit2.HttpException;
 import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
 import tv.danmaku.videoplayer.core.pluginapk.PluginApk;
-
+import mybl.LogUtil;
 import mybl.MyBiliApiService;
 import android.app.AlertDialog;
 import com.alibaba.fastjson.JSON;
@@ -1223,6 +1223,105 @@ public final class VideoDetailActivity extends BaseActivity
         Log.i("VideoDetailApi", "https://api.bilibili.com/x/web-interface/view?aid=" + this.s);
         ((MyBiliApiService) vo.a(MyBiliApiService.class)).getVideoInfo(this.s).a(new VideoApiParser3()).a(this.A);
     }
+    
+    private void requestHistoryForUgc(final BiliVideoDetail biliVideoDetail, final Runnable callback) {
+        Log.i("HistoryLoad", "requestHistoryForUgc: starting parallel history request");
+        
+        if (biliVideoDetail.mHistory != null) {
+            Log.i("HistoryLoad", "History already set, callback directly");
+            if (callback != null) {
+                callback.run();
+            }
+            return;
+        }
+        
+        mg a2 = mg.a(this);
+        bbi.a((Object) a2, "BiliAccount.get(this)");
+        
+        long cid = 0;
+        long episodeId = 0;
+        String bvid = biliVideoDetail.mBvid;
+        if (biliVideoDetail.mPageList != null && !biliVideoDetail.mPageList.isEmpty()) {
+            cid = biliVideoDetail.mPageList.get(0).mCid;
+            episodeId = biliVideoDetail.mPageList.get(0).mEpisodeId;
+            if (biliVideoDetail.mPageList.get(0).mBvid != null && !biliVideoDetail.mPageList.get(0).mBvid.isEmpty()) {
+                bvid = biliVideoDetail.mPageList.get(0).mBvid;
+            }
+        }
+        
+        Log.i("HistoryLoad", "requestHistoryForUgc: cid=" + cid + ", episodeId=" + episodeId + ", bvid=" + bvid);
+        
+        if (cid == 0) {
+            Log.i("HistoryLoad", "requestHistoryForUgc: cid is 0, callback directly");
+            if (callback != null) {
+                callback.run();
+            }
+            return;
+        }
+        
+        final long finalCid = cid;
+        final long finalEpisodeId = episodeId;
+        final String sessdata = a2.getSESSDATA();
+        final String finalBvid = bvid;
+        
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    TreeMap<String, String> params = new TreeMap<>();
+                    params.put("bvid", finalBvid);
+                    params.put("cid", String.valueOf(finalCid));
+                    if (finalEpisodeId > 0) {
+                        params.put("ep_id", String.valueOf(finalEpisodeId));
+                    }
+                    
+                    String signedQuery = mybl.WbiSigner.getInstance().encWbiAndGetQuery(params);
+                    String fullUrl = "https://api.bilibili.com/x/player/wbi/v2?" + signedQuery;
+                    Log.i("HistoryApi", "Parallel History Request URL: " + fullUrl);
+                    
+                    bl.qa request = new bl.qa.a(BiliVideoDetail.JsonResponse.class)
+                        .a(fullUrl)
+                        .a(true)
+                        .a("Cookie", "SESSDATA=" + sessdata)
+                        .b("")
+                        .a(new bl.qb())
+                        .a();
+                    
+                    com.alibaba.fastjson.JSONObject playerData = ((BiliVideoDetail.JsonResponse) bl.pz.a(
+                        request, "GET")).result();
+                    
+                    if (playerData != null && playerData.getIntValue("code") == 0) {
+                        com.alibaba.fastjson.JSONObject data = playerData.getJSONObject("data");
+                        if (data != null) {
+                            long lastPlayCid = data.getLongValue("last_play_cid");
+                            int lastPlayTime = data.getIntValue("last_play_time") / 1000;
+                            
+                            Log.i("HistoryApi", "Parallel History: last_play_cid=" + lastPlayCid + ", last_play_time=" + lastPlayTime + "s");
+                            
+                            if (lastPlayCid > 0) {
+                                final BiliVideoDetail.History history = new BiliVideoDetail.History();
+                                history.mCid = lastPlayCid;
+                                history.mProgress = lastPlayTime;
+                                biliVideoDetail.mHistory = history;
+                                Log.i("HistoryApi", "Set history to biliVideoDetail: cid=" + lastPlayCid + ", progress=" + lastPlayTime + "s");
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    Log.e("HistoryApi", "requestHistoryForUgc error: " + e.getMessage());
+                }
+                
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (callback != null) {
+                            callback.run();
+                        }
+                    }
+                });
+            }
+        }).start();
+    }
 
     private void loadPgcBySeasonId() {
         Log.i("VideoDetailActivity", "loadPgcBySeasonId() EntryType=PGC_BY_SEASON_ID, mSeasonId=" + mSeasonId);
@@ -1688,15 +1787,26 @@ public final class VideoDetailActivity extends BaseActivity
     private final void fallbackLoadHistory(BiliVideoDetail biliVideoDetail, String accessKey) {
         Log.i("HistoryApi", "========== Fallback History API Request ==========");
         Log.i("HistoryApi", "avid=" + this.s);
+                
+        VideoApiService.VideoParamsMapV2 params = new VideoApiService.VideoParamsMapV2.Builder(this.s).setAutoPlay("0").build();
+        StringBuilder urlBuilder = new StringBuilder();
+        urlBuilder.append("https://app.bilibili.com/x/v2/view?");
+        urlBuilder.append("plat=0&aid=").append(this.s);
+        urlBuilder.append("&autoplay=0");
+        if (!TextUtils.isEmpty(accessKey)) {
+            urlBuilder.append("&access_key=").append(accessKey);
+        }
+        Log.i("HistoryApi", "Request URL: " + urlBuilder.toString());
         
         ((VideoApiService) vo.a(VideoApiService.class)).getVideoDetails(
-            new VideoApiService.VideoParamsMapV2.Builder(this.s).setAutoPlay("0").build(),
+            params,
             accessKey
         ).a(new bl.vu<GeneralResponse<JSONObject>>() {
             @Override
             public GeneralResponse<JSONObject> convert(okhttp3.ResponseBody responseBody) throws java.io.IOException {
                 String rawResponse = responseBody.string();
-                Log.i("HistoryApi", "Fallback Response: " + rawResponse);
+                // Log.i("HistoryApi", "Fallback Response: " + rawResponse);
+                LogUtil.json("HistoryApi", rawResponse);
                 com.alibaba.fastjson.JSONObject jSONObject = com.alibaba.fastjson.JSON.parseObject(rawResponse);
                 GeneralResponse<JSONObject> response = new GeneralResponse<>();
                 response.code = jSONObject.getIntValue("code");
@@ -3670,6 +3780,42 @@ public final class VideoDetailActivity extends BaseActivity
                         String.valueOf(mg.a(VideoDetailActivity.this).d()), "parse_error", "0"));
                 return;
             }
+            
+            if (mEntryType == EntryType.UGC_BY_AVID && VideoDetailActivity.this.isPgcVideo(biliVideoDetail)) {
+                Log.i("VideoDetailActivity", "UGC入口检测到PGC视频，加载PGC信息");
+                VideoDetailActivity.this.u = biliVideoDetail;
+                View view = VideoDetailActivity.this.m;
+                if (view != null) {
+                    view.setVisibility(0);
+                }
+                LoadingImageView loadingImageView3 = VideoDetailActivity.this.p;
+                if (loadingImageView3 != null) {
+                    loadingImageView3.b();
+                }
+                VideoDetailActivity.this.a(biliVideoDetail.mCover);
+                VideoDetailActivity.this.o();
+                TextView textView = VideoDetailActivity.this.cc;
+                if (textView != null) {
+                    textView.setText(biliVideoDetail.mTitle);
+                }
+                if (VideoDetailActivity.this.stickyVideoDetailTitle != null) {
+                    VideoDetailActivity.this.stickyVideoDetailTitle.setText(biliVideoDetail.mTitle);
+                }
+                VideoDetailActivity.this.loadPgcInfo(biliVideoDetail);
+                return;
+            }
+            
+            Log.i("VideoDetailActivity", "Pure UGC video, using parallel history loading");
+            VideoDetailActivity.this.requestHistoryForUgc(biliVideoDetail, new Runnable() {
+                @Override
+                public void run() {
+                    updateAllUIForUgc(biliVideoDetail);
+                }
+            });
+        }
+        
+        private void updateAllUIForUgc(final BiliVideoDetail biliVideoDetail) {
+            VideoDetailActivity.this.y = false;
             VideoDetailActivity.this.u = biliVideoDetail;
             View view = VideoDetailActivity.this.m;
             if (view != null) {
@@ -3687,10 +3833,6 @@ public final class VideoDetailActivity extends BaseActivity
             }
             if (VideoDetailActivity.this.stickyVideoDetailTitle != null) {
                 VideoDetailActivity.this.stickyVideoDetailTitle.setText(biliVideoDetail.mTitle);
-            }
-            if (mEntryType == EntryType.UGC_BY_AVID && VideoDetailActivity.this.isPgcVideo(biliVideoDetail)) {
-                Log.i("VideoDetailActivity", "UGC入口检测到PGC视频，加载PGC信息");
-                VideoDetailActivity.this.loadPgcInfo(biliVideoDetail);
             }
             LinearLayout staffContainer = VideoDetailActivity.this.staffContainer;
             LinearLayout uperContainer = VideoDetailActivity.this.uperContainer;
@@ -3739,10 +3881,10 @@ public final class VideoDetailActivity extends BaseActivity
             initDefaultPlayButtons(biliVideoDetail);
             loadArchiveRelation(biliVideoDetail);
             
-            if (mEntryType == EntryType.UGC_BY_AVID && VideoDetailActivity.this.isPgcVideo(biliVideoDetail)) {
-                Log.i("VideoDetailActivity", "UGC入口检测到PGC视频，延迟加载历史记录");
-            } else {
-                loadHistory(biliVideoDetail);
+            updateHistoryDisplay(biliVideoDetail);
+            if (VideoDetailActivity.this.historyPlayBtnLayout != null &&
+                    VideoDetailActivity.this.historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
+                VideoDetailActivity.this.historyPlayBtnLayout.requestFocus();
             }
             
             loadRelatedVideosAndTags();

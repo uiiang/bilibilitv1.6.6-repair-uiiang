@@ -3,12 +3,12 @@
 .source "VideoDetailActivity.java"
 
 # interfaces
-.implements Ljava/util/concurrent/Callable;
+.implements Landroid/view/View$OnFocusChangeListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->fetchSeasonIdFromEpId(Ljava/lang/String;)Ljava/lang/String;
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->createPgcSectionView(Lcom/bilibili/tv/api/video/PgcInfo$Section;I)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -16,32 +16,26 @@
     name = null
 .end annotation
 
-.annotation system Ldalvik/annotation/Signature;
-    value = {
-        "Ljava/lang/Object;",
-        "Ljava/util/concurrent/Callable",
-        "<",
-        "Lorg/json/JSONObject;",
-        ">;"
-    }
-.end annotation
-
 
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-.field final synthetic val$apiUrl:Ljava/lang/String;
+.field final synthetic val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+
+.field final synthetic val$sectionId:I
 
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Ljava/lang/String;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;ILandroid/support/v7/widget/RecyclerView;)V
     .locals 0
 
     .prologue
-    .line 2499
+    .line 2508
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$22;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$22;->val$apiUrl:Ljava/lang/String;
+    iput p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$22;->val$sectionId:I
+
+    iput-object p3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$22;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -50,116 +44,104 @@
 
 
 # virtual methods
-.method public bridge synthetic call()Ljava/lang/Object;
-    .locals 1
-    .annotation system Ldalvik/annotation/Throws;
-        value = {
-            Ljava/lang/Exception;
-        }
-    .end annotation
-
-    .prologue
-    .line 2499
-    invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$22;->call()Lorg/json/JSONObject;
-
-    move-result-object v0
-
-    return-object v0
-.end method
-
-.method public call()Lorg/json/JSONObject;
+.method public onFocusChange(Landroid/view/View;Z)V
     .locals 4
 
     .prologue
-    .line 2503
-    :try_start_0
-    new-instance v0, Lbl/qa$a;
-
-    const-class v1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;
-
-    invoke-direct {v0, v1}, Lbl/qa$a;-><init>(Ljava/lang/Class;)V
-
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$22;->val$apiUrl:Ljava/lang/String;
-
-    .line 2505
-    invoke-virtual {v0, v1}, Lbl/qa$a;->a(Ljava/lang/String;)Lbl/qa$a;
-
-    move-result-object v0
-
-    const/4 v1, 0x1
-
-    .line 2506
-    invoke-virtual {v0, v1}, Lbl/qa$a;->a(Z)Lbl/qa$a;
-
-    move-result-object v0
-
-    new-instance v1, Lbl/qb;
-
-    invoke-direct {v1}, Lbl/qb;-><init>()V
-
-    .line 2507
-    invoke-virtual {v0, v1}, Lbl/qa$a;->a(Lbl/qf;)Lbl/qa$a;
-
-    move-result-object v0
-
-    .line 2508
-    invoke-virtual {v0}, Lbl/qa$a;->a()Lbl/qa;
-
-    move-result-object v0
-
-    const-string v1, "GET"
-
-    .line 2503
-    invoke-static {v0, v1}, Lbl/pz;->a(Lbl/qa;Ljava/lang/String;)Lbl/qe;
-
-    move-result-object v0
-
-    check-cast v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;
-
-    .line 2508
-    invoke-virtual {v0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;->result()Lorg/json/JSONObject;
-    :try_end_2a
-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_2a} :catch_2c
-
-    move-result-object v0
+    const/4 v1, 0x0
 
     .line 2511
-    :goto_2b
-    return-object v0
+    if-eqz p2, :cond_38
 
-    .line 2509
-    :catch_2c
-    move-exception v0
+    .line 2513
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$22;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    .line 2510
-    const-string v1, "BangumiJump"
+    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonSectionFocusPositions:Ljava/util/Map;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Ljava/util/Map;
 
-    new-instance v2, Ljava/lang/StringBuilder;
+    move-result-object v0
 
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+    iget v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$22;->val$sectionId:I
 
-    const-string v3, "API call error: "
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-static {v2}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
     move-result-object v2
 
-    invoke-virtual {v0}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
+    invoke-interface {v0, v2}, Ljava/util/Map;->containsKey(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_4b
+
+    .line 2514
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$22;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonSectionFocusPositions:Ljava/util/Map;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Ljava/util/Map;
 
     move-result-object v0
 
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    iget v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$22;->val$sectionId:I
+
+    invoke-static {v2}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object v2
+
+    invoke-interface {v0, v2}, Ljava/util/Map;->get(Ljava/lang/Object;)Ljava/lang/Object;
 
     move-result-object v0
 
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    check-cast v0, Ljava/lang/Integer;
+
+    invoke-virtual {v0}, Ljava/lang/Integer;->intValue()I
+
+    move-result v0
+
+    .line 2516
+    :goto_2b
+    iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$22;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    iget-object v3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$22;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+
+    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->restoreFocusPosition(Landroid/support/v7/widget/RecyclerView;I)Landroid/view/View;
+    invoke-static {v2, v3, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$300(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Landroid/support/v7/widget/RecyclerView;I)Landroid/view/View;
 
     move-result-object v0
 
-    invoke-static {v1, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+    .line 2517
+    if-eqz v0, :cond_39
 
-    .line 2511
-    const/4 v0, 0x0
+    .line 2518
+    invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
+
+    .line 2523
+    :cond_38
+    :goto_38
+    return-void
+
+    .line 2519
+    :cond_39
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$22;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+
+    invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
+
+    move-result v0
+
+    if-lez v0, :cond_38
+
+    .line 2520
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$22;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+
+    invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
+
+    goto :goto_38
+
+    :cond_4b
+    move v0, v1
 
     goto :goto_2b
 .end method
