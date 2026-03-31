@@ -9,6 +9,7 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import bl.yk;
 import com.bilibili.lib.media.resolver.exception.ResolveException;
 import com.bilibili.lib.media.resource.MediaResource;
@@ -19,10 +20,13 @@ import com.bilibili.tv.player.basic.UrlHandleException;
 import com.bilibili.tv.player.basic.context.PlayerParams;
 import com.bilibili.tv.player.basic.context.ResolveResourceParams;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import mybl.VideoViewParams;
+import mybl.CdnSelector;
 import tv.danmaku.android.log.BLog;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.videoplayer.core.commander.Commands;
@@ -610,8 +614,14 @@ public class yd implements Handler.Callback, IMediaPlayer.OnCompletionListener, 
             return null;
         }
         
-        if (retryCounter <= 0 || segment.e == null || segment.e.isEmpty()) {
-            BLog.i("PlayerController", "Using primary url, backup_urls: " + (segment.e != null ? segment.e.size() : 0));
+        if (retryCounter <= 0) {
+            String selectedUrl = selectBestCdnUrl(segment);
+            BLog.i("PlayerController", "[CDN Race] Selected URL, backup_urls: " + (segment.e != null ? segment.e.size() : 0));
+            return selectedUrl;
+        }
+        
+        if (segment.e == null || segment.e.isEmpty()) {
+            BLog.i("PlayerController", "No backup urls, using primary url");
             return segment.a;
         }
         
@@ -623,6 +633,46 @@ public class yd implements Handler.Callback, IMediaPlayer.OnCompletionListener, 
         }
         
         BLog.i("PlayerController", "No more backup urls, using primary url");
+        return segment.a;
+    }
+    
+    private String selectBestCdnUrl(Segment segment) {
+        if (segment.a == null) {
+            return null;
+        }
+        
+        List<String> allUrls = new ArrayList<>();
+        allUrls.add(segment.a);
+        
+        if (segment.e != null && !segment.e.isEmpty()) {
+            allUrls.addAll(segment.e);
+        }
+        
+        if (allUrls.size() == 1) {
+            String cdn = Uri.parse(segment.a).getHost();
+            VideoViewParams.currentCdn = cdn;
+            Log.i("PlayerController", "[CDN Race] Only one URL, cdn=" + cdn);
+            return segment.a;
+        }
+        
+        List<CdnSelector.CdnUrlInfo> urlInfos = new ArrayList<>();
+        for (String url : allUrls) {
+            String cdn = Uri.parse(url).getHost();
+            int score = CdnSelector.getCdnScore(cdn);
+            urlInfos.add(new CdnSelector.CdnUrlInfo(url, cdn, score));
+        }
+        
+        CdnSelector.RaceResult result = CdnSelector.selectBestUrl(this.a, VideoViewParams.currentVideoId, urlInfos);
+        
+        if (result != null && result.winningUrl != null) {
+            VideoViewParams.currentCdn = result.winningCdn;
+            Log.i("PlayerController", "[CDN Race] Winner: cdn=" + result.winningCdn + ", url=" + result.winningUrl.substring(0, Math.min(100, result.winningUrl.length())) + "...");
+            return result.winningUrl;
+        }
+        
+        String cdn = Uri.parse(segment.a).getHost();
+        VideoViewParams.currentCdn = cdn;
+        Log.i("PlayerController", "[CDN Race] No winner, using primary url, cdn=" + cdn);
         return segment.a;
     }
 

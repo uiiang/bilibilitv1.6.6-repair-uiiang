@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.ViewStub;
 import android.view.animation.Animation;
@@ -173,12 +174,10 @@ public class xj extends xh {
         yh c = c();
         
         if (this.f && this.g == 0 && c != null) {
-            // 检查是否有章节数据
             ResolveResourceParams resolveParams = c.a.mVideoParams.obtainResolveParams();
             JSONArray view_points = resolveParams.view_points;
             
             if (view_points != null && view_points.length() > 0) {
-                // 有章节数据，显示章节数量提示
                 if(this.c == null)Q();
                 if(this.c == null)return;
                 String chapterText = lp.a(o().getString(R.string.player_chapter_tip), String.valueOf(view_points.length()));
@@ -186,7 +185,7 @@ public class xj extends xh {
                 this.l = true;
                 a(this.j, 5000L);
             }
-            // 保持自动续播功能，但不显示提示
+            
             long j = c.d;
             IDanmakuDocument danmakuDocument = c.a.mDanmakuParams.getDanmakuDocument();
             if (danmakuDocument != null && danmakuDocument.hasPlayerSeekScript()) {
@@ -195,8 +194,14 @@ public class xj extends xh {
                     j = b;
                 }
             }
+            
+            boolean isDashStream = c.a.mVideoParams.mMediaResource != null && c.a.mVideoParams.mMediaResource.dash != null;
             if (j > 0 && zt.a(j, this.i)) {
-                c((int)j);
+                if (isDashStream) {
+                    Log.i("xj", "[seek-at-start] DASH stream, skip seekTo in onPrepared, seek-at-start will handle it");
+                } else {
+                    c((int)j);
+                }
             }
             this.e.b(String.valueOf(resolveParams.mCid));
         }

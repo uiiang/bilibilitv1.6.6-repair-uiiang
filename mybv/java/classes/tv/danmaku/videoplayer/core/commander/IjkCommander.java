@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.util.Iterator;
@@ -82,8 +83,13 @@ class IjkCommander extends AbsPlayerCommander {
         if (i != 0) {
             this.mIjkMediaPlayer.setDataSourceBase64(applyUriHookForIjkPlayer);
         } else {
-            if(((com.bilibili.tv.player.basic.context.VideoViewParams)iVideoParams).mMediaResource.dash != null){
-                if(((com.bilibili.tv.player.basic.context.VideoViewParams)iVideoParams).mMediaResource.dash.optJSONArray("video").optJSONObject(0).optString("base_url").indexOf("platform=pc")>=0){this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "headers", "Referer: https://www.bilibili.com\r\n");}
+            com.bilibili.tv.player.basic.context.VideoViewParams videoViewParams = (com.bilibili.tv.player.basic.context.VideoViewParams)iVideoParams;
+            boolean hasDash = videoViewParams.mMediaResource != null && videoViewParams.mMediaResource.dash != null;
+            Log.i(TAG, "[openVideo] mMediaResource=" + videoViewParams.mMediaResource + ", hasDash=" + hasDash);
+            
+            if(hasDash){
+                Log.i(TAG, "[openVideo] DASH stream detected, video count=" + videoViewParams.mMediaResource.dash.optJSONArray("video").length());
+                if(videoViewParams.mMediaResource.dash.optJSONArray("video").optJSONObject(0).optString("base_url").indexOf("platform=pc")>=0){this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "headers", "Referer: https://www.bilibili.com\r\n");}
                 this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "user_agent", "Bilibili Freedoooooom/MarkII");
                 this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec-all-videos", 1);
                 this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec-hevc", 1);
@@ -93,11 +99,20 @@ class IjkCommander extends AbsPlayerCommander {
                 this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "reconnect", 1);
                 this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "auto_reconnect", 1);
                 this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "multipart", 1);
+                
+                int progressSec = videoViewParams.mResolveParams != null ? videoViewParams.mResolveParams.mProgress : 0;
+                Log.i(TAG, "[openVideo] mResolveParams=" + videoViewParams.mResolveParams + ", mProgress=" + progressSec);
+                if (progressSec > 0) {
+                    long progressMs = progressSec * 1000L;
+                    this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "seek-at-start", progressMs);
+                    Log.i(TAG, "[seek-at-start] DASH stream, set seek-at-start: " + progressMs + "ms (" + progressSec + "s)");
+                }
 
                 this.mIjkMediaPlayer.setDataSource("ijkdash");
-                this.mIjkMediaPlayer.setDashDataSource(VideoViewParams.toBundleData(((com.bilibili.tv.player.basic.context.VideoViewParams)iVideoParams).mMediaResource.dash),-1,((com.bilibili.tv.player.basic.context.VideoViewParams)iVideoParams).mMediaResource.quality);
+                this.mIjkMediaPlayer.setDashDataSource(VideoViewParams.toBundleData(videoViewParams.mMediaResource.dash),-1,videoViewParams.mMediaResource.quality);
             }
             else{
+                Log.i(TAG, "[openVideo] Non-DASH stream, url=" + applyUriHookForIjkPlayer);
                 this.mIjkMediaPlayer.setDataSource(applyUriHookForIjkPlayer);
             }
         }

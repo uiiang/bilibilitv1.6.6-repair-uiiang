@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 64
+    .line 65
     iput-object p1, p0, Lbl/xj$1;->this$0:Lbl/xj;
 
     iput-object p2, p0, Lbl/xj$1;->val$finalParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
@@ -44,7 +44,7 @@
     .locals 1
 
     .prologue
-    .line 68
+    .line 69
     :try_start_0
     iget-object v0, p0, Lbl/xj$1;->val$finalParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
@@ -52,15 +52,15 @@
     :try_end_5
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_5} :catch_6
 
-    .line 72
+    .line 73
     :goto_5
     return-void
 
-    .line 69
+    .line 70
     :catch_6
     move-exception v0
 
-    .line 70
+    .line 71
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
     goto :goto_5
