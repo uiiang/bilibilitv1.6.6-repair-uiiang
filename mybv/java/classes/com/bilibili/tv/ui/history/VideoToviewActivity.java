@@ -40,6 +40,7 @@ import bl.vo;
 import bl.wf;
 import bl.wg;
 import bl.zp;
+import mybl.CookieUtil;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.history.BiliPlayerHistoryService;
@@ -63,6 +64,7 @@ import java.util.List;
 import java.util.Locale;
 import kotlin.TypeCastException;
 import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
+import mybl.LogUtil;
 
 import bl.xg;
 import android.widget.Toast;
@@ -234,7 +236,9 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements Vie
         if (a2 != null && a2.a()) {
             mg biliAccount = mg.a(this);
             bbi.a((Object) biliAccount, "BiliAccount.get(this)");
-            ((BiliPlayerHistoryService) vo.a(BiliPlayerHistoryService.class)).getVideoToviewList(biliAccount.e()).a(new ToviewResponse());
+            String cookie = CookieUtil.getFullCookieWithDevice(biliAccount);
+            String referer = "https://www.bilibili.com/?spm_id_from=333.788.0.0";
+            ((BiliPlayerHistoryService) vo.a(BiliPlayerHistoryService.class)).getVideoToviewList(cookie, referer).a(new ToviewResponse());
         }
     }
 
@@ -326,6 +330,7 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements Vie
             if (VideoToviewActivity.this.a == null || VideoToviewActivity.this.isFinishing()) {
                 return;
             }
+            LogUtil.json("ToviewResponse",jSONObject);
             List<BiliVideoDetail> list = new ArrayList<BiliVideoDetail>();
             for(int i=0;i<jSONObject.getJSONArray("list").size();i++)list.add(JSON.parseObject(jSONObject.getJSONArray("list").getJSONObject(i).toString(), BiliVideoDetail.class));
             if (list != null && !list.isEmpty()) {
@@ -368,7 +373,36 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements Vie
                 if (biliVideoDetail.mTitle != null) {
                     ((f) holder).A().setText(biliVideoDetail.mTitle);
                 }
-                ((f) holder).B().setText(biliVideoDetail.getAuthor());
+                TextView upTextView = ((f) holder).B();
+                String upText = "";
+                boolean showUpIcon = false;
+                if (biliVideoDetail.mOwner != null && biliVideoDetail.mOwner.name != null && !biliVideoDetail.mOwner.name.isEmpty()) {
+                    upText = biliVideoDetail.mOwner.name;
+                    showUpIcon = true;
+                } else if (biliVideoDetail.mBangumiInfo != null) {
+                    if (biliVideoDetail.mBangumiInfo.mIsFinish == 1) {
+                        upText = "已完结";
+                    } else if (biliVideoDetail.mBangumiInfo.mNewestEpIndex != null && !biliVideoDetail.mBangumiInfo.mNewestEpIndex.isEmpty()) {
+                        upText = "更新至第" + biliVideoDetail.mBangumiInfo.mNewestEpIndex + "集";
+                    }
+                }
+                if (upText.isEmpty() && biliVideoDetail.mTypeName != null && !biliVideoDetail.mTypeName.isEmpty()) {
+                    upText = biliVideoDetail.mTypeName;
+                }
+                if (upText.isEmpty() && biliVideoDetail.mPgcLabel != null && !biliVideoDetail.mPgcLabel.isEmpty()) {
+                    upText = biliVideoDetail.mPgcLabel;
+                }
+                upTextView.setText(upText);
+                if (showUpIcon) {
+                    Drawable c = adl.a.c(R.drawable.ic_video_info_up);
+                    int b = adl.b(R.dimen.px_26);
+                    c.setBounds(0, 0, b, b);
+                    int danmakuColor = adl.d(R.color.white);
+                    c.setColorFilter(danmakuColor, PorterDuff.Mode.MULTIPLY);
+                    upTextView.setCompoundDrawables(c, null, null, null);
+                } else {
+                    upTextView.setCompoundDrawables(null, null, null, null);
+                }
                 ((f) holder).C().setText(adh.a(biliVideoDetail.getPlays()));
                 int danmaku = 0;
                 try {

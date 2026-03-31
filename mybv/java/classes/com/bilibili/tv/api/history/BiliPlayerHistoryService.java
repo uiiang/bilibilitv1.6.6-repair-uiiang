@@ -38,8 +38,8 @@ public interface BiliPlayerHistoryService {
     @POST(value = "/x/v2/history/toview/add")
     vp<JSONObject> addVideoToviews(@Query(value = "access_key") String access_key, @Query(value = "aid") long aid);
 
-    @GET(value = "/x/v2/history/toview")
-    vp<GeneralResponse<JSONObject>> getVideoToviewList(@Query(value = "access_key") String str);
+    @GET(value = "/x/v2/history/toview/web")
+    vp<GeneralResponse<JSONObject>> getVideoToviewList(@Header(value = "Cookie") String cookie, @Header(value = "Referer") String referer);
 
     @FormUrlEncoded
     @POST(value = "/x/v2/history/report")

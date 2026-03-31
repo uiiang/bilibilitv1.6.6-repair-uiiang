@@ -108,6 +108,8 @@ public class BiliVideoDetail implements Parcelable {
     public int mProgress;
     @JSONField(name = "show_title")
     public String mShowTitle;
+    @JSONField(name = "pgc_label")
+    public String mPgcLabel;
 
     @JSONField(name = "bangumi")
     public void setBangumi(JSONObject mBangumiInfo){
@@ -120,6 +122,7 @@ public class BiliVideoDetail implements Parcelable {
             }
             this.mBangumiInfo.mTitle = seasonObj.getString("title");
             this.mBangumiInfo.mIsFinish = seasonObj.getIntValue("is_finish");
+            this.mBangumiInfo.mNewestEpIndex = seasonObj.getString("newest_ep_index");
         }
     }
 
@@ -700,6 +703,8 @@ public class BiliVideoDetail implements Parcelable {
         public String mTotalCount;
         @JSONField(name = "weekday")
         public int mWeekday;
+        @JSONField(name = "newest_ep_index")
+        public String mNewestEpIndex;
 
         @Override // android.os.Parcelable
         public int describeContents() {
