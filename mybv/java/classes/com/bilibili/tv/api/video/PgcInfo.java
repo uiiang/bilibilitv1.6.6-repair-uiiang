@@ -180,6 +180,9 @@ public class PgcInfo implements Parcelable {
         @JSONField(name = "season_title")
         public String seasonTitle;
 
+        @JSONField(name = "title")
+        public String title;
+
         @JSONField(name = "cover")
         public String cover;
 
@@ -206,6 +209,7 @@ public class PgcInfo implements Parcelable {
         protected Season(Parcel parcel) {
             this.seasonId = parcel.readInt();
             this.seasonTitle = parcel.readString();
+            this.title = parcel.readString();
             this.cover = parcel.readString();
             this.horizontalCover169 = parcel.readString();
             this.horizontalCover1610 = parcel.readString();
@@ -224,6 +228,7 @@ public class PgcInfo implements Parcelable {
         public void writeToParcel(Parcel parcel, int i) {
             parcel.writeInt(this.seasonId);
             parcel.writeString(this.seasonTitle);
+            parcel.writeString(this.title);
             parcel.writeString(this.cover);
             parcel.writeString(this.horizontalCover169);
             parcel.writeString(this.horizontalCover1610);

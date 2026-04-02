@@ -1414,12 +1414,12 @@ public final class VideoDetailActivity extends BaseActivity
             for (PgcInfo.ProducerInfo pi : pgcInfo.producer.list) {
                 BiliVideoDetail.Staff staff = new BiliVideoDetail.Staff();
                 staff.mid = pi.mid;
-                staff.title = pi.name;
+                staff.name = pi.name;
                 staff.face = pi.face;
                 detail.mStaffList.add(staff);
             }
             detail.mOwner.mid = detail.mStaffList.get(0).mid;
-            detail.mOwner.name = detail.mStaffList.get(0).title;
+            detail.mOwner.name = detail.mStaffList.get(0).name;
             detail.mOwner.face = detail.mStaffList.get(0).face;
             Log.i("PgcInfo", "Using producer list: " + detail.mStaffList.size() + " producers");
         } else if (pgcInfo.upInfo != null) {
@@ -1428,7 +1428,7 @@ public final class VideoDetailActivity extends BaseActivity
             detail.mOwner.face = pgcInfo.upInfo.face;
             BiliVideoDetail.Staff staff = new BiliVideoDetail.Staff();
             staff.mid = pgcInfo.upInfo.mid;
-            staff.title = pgcInfo.upInfo.name;
+            staff.name = pgcInfo.upInfo.name;
             staff.face = pgcInfo.upInfo.face;
             detail.mStaffList.add(staff);
             Log.i("PgcInfo", "Using up_info: " + pgcInfo.upInfo.name);
@@ -3471,14 +3471,24 @@ public final class VideoDetailActivity extends BaseActivity
                 this.a.setOnClickListener(this);
             } else if (obj instanceof PgcInfo.Season) {
                 PgcInfo.Season season = (PgcInfo.Season) obj;
-                if (season.seasonTitle != null) {
-                    this.o.setText(season.seasonTitle);
+                String displayTitle = "";
+                if (season.title != null && !season.title.isEmpty()) {
+                    displayTitle = season.title;
+                    if (season.seasonTitle != null && !season.seasonTitle.isEmpty()) {
+                        displayTitle = displayTitle + "-" + season.seasonTitle;
+                    }
+                } else if (season.seasonTitle != null) {
+                    displayTitle = season.seasonTitle;
+                }
+                if (!displayTitle.isEmpty()) {
+                    this.o.setText(displayTitle);
                 }
                 if (season.newEp != null && season.newEp.indexShow != null) {
                     this.p.setText(season.newEp.indexShow);
                     this.p.setCompoundDrawables(null, null, null, null);
                 } else {
                     this.p.setText("");
+                    this.p.setCompoundDrawables(null, null, null, null);
                 }
                 if (season.iconFont != null && season.iconFont.text != null) {
                     this.r.setText(season.iconFont.text + "播放");
@@ -3855,7 +3865,7 @@ public final class VideoDetailActivity extends BaseActivity
                     totalCount = staffList.size();
                     for (int i = 0; i < staffList.size(); i++) {
                         BiliVideoDetail.Staff staff = staffList.get(i);
-                        addStaffView(staffContainer, staff.title, staff.mid, staff.face, i, totalCount);
+                        addStaffView(staffContainer, staff.name, staff.mid, staff.face, i, totalCount);
                     }
                     if (uperContainer != null) {
                         uperContainer.setVisibility(View.VISIBLE);
