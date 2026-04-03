@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 1254
+    .line 1303
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9$2;->val$detail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -48,25 +48,25 @@
     .locals 2
 
     .prologue
-    .line 1257
+    .line 1306
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->A:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1800(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     move-result-object v0
 
     if-eqz v0, :cond_17
 
-    .line 1258
+    .line 1307
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->A:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1800(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     move-result-object v0
 
@@ -74,7 +74,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->a(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
 
-    .line 1260
+    .line 1309
     :cond_17
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$9;
 
@@ -83,8 +83,8 @@
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$9$2;->val$pgcInfo:Lcom/bilibili/tv/api/video/PgcInfo;
 
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->showPgcInfo(Lcom/bilibili/tv/api/video/PgcInfo;)V
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1900(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/PgcInfo;)V
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1800(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/PgcInfo;)V
 
-    .line 1261
+    .line 1310
     return-void
 .end method

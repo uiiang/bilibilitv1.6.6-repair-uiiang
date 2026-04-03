@@ -20,18 +20,14 @@
 # instance fields
 .field final synthetic this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;
 
-.field final synthetic val$history:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
-
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;Lcom/bilibili/tv/api/video/BiliVideoDetail$History;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;)V
     .locals 0
 
     .prologue
-    .line 1183
+    .line 1471
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;
-
-    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11$1;->val$history:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -41,112 +37,24 @@
 
 # virtual methods
 .method public run()V
-    .locals 4
+    .locals 1
 
     .prologue
-    .line 1186
+    .line 1474
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;
 
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->val$finalBiliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->val$callback:Ljava/lang/Runnable;
 
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11$1;->val$history:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
+    if-eqz v0, :cond_d
 
-    iput-object v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mHistory:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
-
-    .line 1187
-    const-string v0, "VideoDetailApi"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "History from wbi/v2: cid="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11$1;->val$history:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
-
-    iget-wide v2, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mCid:J
-
-    invoke-virtual {v1, v2, v3}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, ", progress="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11$1;->val$history:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
-
-    iget v2, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mProgress:I
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 1188
+    .line 1475
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;
 
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->val$callback:Ljava/lang/Runnable;
 
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;
+    invoke-interface {v0}, Ljava/lang/Runnable;->run()V
 
-    iget-object v1, v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->val$finalBiliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
-
-    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateHistoryDisplay(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
-
-    .line 1189
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;
-
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
-
-    move-result-object v0
-
-    if-eqz v0, :cond_60
-
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;
-
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    .line 1190
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawLinearLayout;->getVisibility()I
-
-    move-result v0
-
-    if-nez v0, :cond_60
-
-    .line 1191
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;
-
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawLinearLayout;->requestFocus()Z
-
-    .line 1193
-    :cond_60
+    .line 1477
+    :cond_d
     return-void
 .end method

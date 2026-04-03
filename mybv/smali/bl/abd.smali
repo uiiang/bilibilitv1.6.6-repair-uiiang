@@ -1699,6 +1699,73 @@
     throw v0
 .end method
 
+.method public static prefetchCoverToMemoryCache(Landroid/content/Context;Ljava/lang/String;)V
+    .locals 3
+
+    .prologue
+    .line 406
+    if-eqz p1, :cond_8
+
+    invoke-virtual {p1}, Ljava/lang/String;->isEmpty()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_9
+
+    .line 422
+    :cond_8
+    :goto_8
+    return-void
+
+    .line 410
+    :cond_9
+    :try_start_9
+    invoke-static {p1}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v0
+
+    .line 411
+    invoke-static {v0}, Lcom/facebook/imagepipeline/request/ImageRequestBuilder;->a(Landroid/net/Uri;)Lcom/facebook/imagepipeline/request/ImageRequestBuilder;
+
+    move-result-object v0
+
+    .line 412
+    invoke-virtual {v0}, Lcom/facebook/imagepipeline/request/ImageRequestBuilder;->o()Lcom/facebook/imagepipeline/request/ImageRequest;
+
+    move-result-object v0
+
+    .line 413
+    invoke-static {}, Lbl/ajq;->b()Lbl/aoy;
+
+    move-result-object v1
+
+    .line 414
+    if-eqz v1, :cond_8
+
+    .line 415
+    invoke-virtual {v1}, Lbl/aoy;->h()Lbl/aov;
+
+    move-result-object v1
+
+    .line 416
+    if-eqz v1, :cond_8
+
+    .line 417
+    const/4 v2, 0x0
+
+    invoke-virtual {v1, v0, v2}, Lbl/aov;->b(Lcom/facebook/imagepipeline/request/ImageRequest;Ljava/lang/Object;)Lbl/aji;
+    :try_end_25
+    .catch Ljava/lang/Exception; {:try_start_9 .. :try_end_25} :catch_26
+
+    goto :goto_8
+
+    .line 420
+    :catch_26
+    move-exception v0
+
+    goto :goto_8
+.end method
+
 .method public static set_cache_limit(Landroid/content/Context;I)V
     .locals 2
 

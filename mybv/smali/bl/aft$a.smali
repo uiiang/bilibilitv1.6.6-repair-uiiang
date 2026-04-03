@@ -30,19 +30,19 @@
     .locals 0
 
     .prologue
-    .line 56
+    .line 59
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 57
+    .line 60
     iput-object p1, p0, Lbl/aft$a;->a:Landroid/content/Context;
 
-    .line 58
+    .line 61
     iput-object p2, p0, Lbl/aft$a;->b:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
-    .line 59
+    .line 62
     iput-object p3, p0, Lbl/aft$a;->c:Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;
 
-    .line 60
+    .line 63
     return-void
 .end method
 
@@ -52,10 +52,31 @@
     .locals 4
 
     .prologue
-    .line 64
+    .line 67
     invoke-interface {p1}, Landroid/content/DialogInterface;->dismiss()V
 
-    .line 65
+    .line 68
+    iget-object v0, p0, Lbl/aft$a;->b:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+
+    if-eqz v0, :cond_16
+
+    iget-object v0, p0, Lbl/aft$a;->b:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+
+    iget-object v0, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mCover:Ljava/lang/String;
+
+    if-eqz v0, :cond_16
+
+    .line 69
+    iget-object v0, p0, Lbl/aft$a;->a:Landroid/content/Context;
+
+    iget-object v1, p0, Lbl/aft$a;->b:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+
+    iget-object v1, v1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mCover:Ljava/lang/String;
+
+    invoke-static {v0, v1}, Lbl/abd;->prefetchCoverToMemoryCache(Landroid/content/Context;Ljava/lang/String;)V
+
+    .line 71
+    :cond_16
     iget-object v0, p0, Lbl/aft$a;->a:Landroid/content/Context;
 
     iget-object v1, p0, Lbl/aft$a;->b:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -66,6 +87,6 @@
 
     invoke-static {v0, v1, v2, v3}, Lbl/xg;->a(Landroid/content/Context;Lcom/bilibili/tv/api/video/BiliVideoDetail;Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;Landroid/os/Bundle;)V
 
-    .line 66
+    .line 72
     return-void
 .end method

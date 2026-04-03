@@ -71,18 +71,29 @@
 
     if-nez p2, :cond_9
 
-    .line 46
+    .line 49
     :cond_8
     :goto_8
     return-void
 
     .line 30
     :cond_9
+    iget-object v1, p2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mCover:Ljava/lang/String;
+
+    if-eqz v1, :cond_12
+
+    .line 31
+    iget-object v1, p2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mCover:Ljava/lang/String;
+
+    invoke-static {p1, v1}, Lbl/abd;->prefetchCoverToMemoryCache(Landroid/content/Context;Ljava/lang/String;)V
+
+    .line 33
+    :cond_12
     invoke-virtual {p1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v1
 
-    .line 31
+    .line 34
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
@@ -103,14 +114,14 @@
 
     move-result-object v2
 
-    .line 32
+    .line 35
     iget-object v3, p3, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->mWebLink:Ljava/lang/String;
 
     invoke-static {v3}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v3
 
-    if-eqz v3, :cond_35
+    if-eqz v3, :cond_3e
 
     const-string v3, "qq"
 
@@ -122,10 +133,10 @@
 
     move-result v3
 
-    if-eqz v3, :cond_60
+    if-eqz v3, :cond_69
 
-    .line 33
-    :cond_35
+    .line 36
+    :cond_3e
     new-instance v3, Lbl/aga$a;
 
     invoke-direct {v3, p1}, Lbl/aga$a;-><init>(Landroid/content/Context;)V
@@ -166,34 +177,34 @@
 
     goto :goto_8
 
-    .line 36
-    :cond_60
+    .line 39
+    :cond_69
     invoke-virtual {p2}, Lcom/bilibili/tv/api/video/BiliVideoDetail;->canMovie()Z
 
     move-result v3
 
-    if-eqz v3, :cond_b3
+    if-eqz v3, :cond_bc
 
     iget-object v3, p2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mMovie:Lcom/bilibili/tv/api/video/BiliMovie;
 
-    if-eqz v3, :cond_b3
+    if-eqz v3, :cond_bc
 
-    .line 37
+    .line 40
     iget-object v3, p2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mMovie:Lcom/bilibili/tv/api/video/BiliMovie;
 
-    .line 38
+    .line 41
     const-string v4, "detail.mMovie"
 
     invoke-static {v3, v4}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 39
+    .line 42
     invoke-virtual {v3}, Lcom/bilibili/tv/api/video/BiliMovie;->isNeedPurchase()Z
 
     move-result v3
 
-    if-eqz v3, :cond_b3
+    if-eqz v3, :cond_bc
 
-    .line 40
+    .line 43
     new-instance v3, Lbl/aga$a;
 
     invoke-direct {v3, p1}, Lbl/aga$a;-><init>(Landroid/content/Context;)V
@@ -248,13 +259,13 @@
 
     goto/16 :goto_8
 
-    .line 44
-    :cond_b3
+    .line 47
+    :cond_bc
     check-cast v0, Landroid/os/Bundle;
 
     invoke-static {p1, p2, p3, v0, p4}, Lbl/xg;->a(Landroid/content/Context;Lcom/bilibili/tv/api/video/BiliVideoDetail;Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;Landroid/os/Bundle;I)V
 
-    .line 45
+    .line 48
     invoke-static {p1, p2}, Lbl/zp;->a(Landroid/content/Context;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
 
     goto/16 :goto_8

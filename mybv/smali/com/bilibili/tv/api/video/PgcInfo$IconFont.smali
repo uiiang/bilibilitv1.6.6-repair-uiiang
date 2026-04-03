@@ -49,7 +49,7 @@
     .locals 1
 
     .prologue
-    .line 332
+    .line 337
     new-instance v0, Lcom/bilibili/tv/api/video/PgcInfo$IconFont$1;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/video/PgcInfo$IconFont$1;-><init>()V
@@ -63,7 +63,7 @@
     .locals 0
 
     .prologue
-    .line 350
+    .line 355
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -73,24 +73,24 @@
     .locals 1
 
     .prologue
-    .line 352
+    .line 357
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 353
+    .line 358
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$IconFont;->text:Ljava/lang/String;
 
-    .line 354
+    .line 359
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$IconFont;->name:Ljava/lang/String;
 
-    .line 355
+    .line 360
     return-void
 .end method
 
@@ -100,7 +100,7 @@
     .locals 1
 
     .prologue
-    .line 359
+    .line 364
     const/4 v0, 0x0
 
     return v0
@@ -110,16 +110,16 @@
     .locals 1
 
     .prologue
-    .line 364
+    .line 369
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$IconFont;->text:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 365
+    .line 370
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$IconFont;->name:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 366
+    .line 371
     return-void
 .end method

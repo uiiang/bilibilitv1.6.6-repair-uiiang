@@ -1,11 +1,14 @@
 .class Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;
-.super Lbl/vn;
+.super Ljava/lang/Object;
 .source "VideoDetailActivity.java"
+
+# interfaces
+.implements Landroid/view/View$OnClickListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->loadArchiveRelation(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->initDefaultPlayButtons(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -13,139 +16,77 @@
     name = null
 .end annotation
 
-.annotation system Ldalvik/annotation/Signature;
-    value = {
-        "Lbl/vn",
-        "<",
-        "Lcom/alibaba/fastjson/JSONObject;",
-        ">;"
-    }
-.end annotation
-
 
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-.field final synthetic val$finalDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
-
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
     .locals 0
 
     .prologue
-    .line 1638
+    .line 1756
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->val$finalDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
-
-    invoke-direct {p0}, Lbl/vn;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public a(Lcom/alibaba/fastjson/JSONObject;)V
-    .locals 5
+.method public onClick(Landroid/view/View;)V
+    .locals 2
 
     .prologue
-    .line 1641
-    if-nez p1, :cond_3
-
-    .line 1664
-    :goto_2
-    return-void
-
-    .line 1645
-    :cond_3
-    const-string v0, "like"
-
-    invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getBooleanValue(Ljava/lang/String;)Z
-
-    move-result v1
-
-    .line 1646
-    const-string v0, "favorite"
-
-    invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getBooleanValue(Ljava/lang/String;)Z
-
-    move-result v2
-
-    .line 1647
-    const-string v0, "coin"
-
-    invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
-
-    move-result v3
-
-    .line 1649
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->val$finalDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
-
-    iget-object v0, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mRequestUser:Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;
-
-    .line 1650
-    if-nez v0, :cond_24
-
-    .line 1651
-    new-instance v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;
-
-    invoke-direct {v0}, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;-><init>()V
-
-    .line 1652
-    iget-object v4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->val$finalDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
-
-    iput-object v0, v4, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mRequestUser:Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;
-
-    .line 1654
-    :cond_24
-    iput-boolean v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;->mLike:Z
-
-    .line 1655
-    iput-boolean v2, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;->mFavorite:Z
-
-    .line 1656
-    if-lez v3, :cond_38
-
-    const/4 v1, 0x1
-
-    :goto_2b
-    iput-boolean v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;->mCoin:Z
-
-    .line 1658
+    .line 1759
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    new-instance v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16$1;
+    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->noHistoryPlayCheckBox:Landroid/widget/CheckBox;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1900(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/CheckBox;
 
-    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16$1;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;)V
+    move-result-object v0
 
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->runOnUiThread(Ljava/lang/Runnable;)V
+    if-eqz v0, :cond_20
 
-    goto :goto_2
+    .line 1760
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    .line 1656
-    :cond_38
-    const/4 v1, 0x0
+    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->noHistoryPlayCheckBox:Landroid/widget/CheckBox;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1900(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/CheckBox;
 
-    goto :goto_2b
-.end method
+    move-result-object v0
 
-.method public bridge synthetic a(Ljava/lang/Object;)V
-    .locals 0
+    invoke-virtual {v0}, Landroid/widget/CheckBox;->isChecked()Z
 
-    .prologue
-    .line 1638
-    check-cast p1, Lcom/alibaba/fastjson/JSONObject;
+    move-result v0
 
-    invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->a(Lcom/alibaba/fastjson/JSONObject;)V
+    if-nez v0, :cond_21
 
+    const/4 v0, 0x1
+
+    .line 1761
+    :goto_15
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->noHistoryPlayCheckBox:Landroid/widget/CheckBox;
+    invoke-static {v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1900(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/CheckBox;
+
+    move-result-object v1
+
+    invoke-virtual {v1, v0}, Landroid/widget/CheckBox;->setChecked(Z)V
+
+    .line 1762
+    sput-boolean v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->sNoHistoryPlayMode:Z
+
+    .line 1764
+    :cond_20
     return-void
-.end method
 
-.method public onError(Ljava/lang/Throwable;)V
-    .locals 0
+    .line 1760
+    :cond_21
+    const/4 v0, 0x0
 
-    .prologue
-    .line 1668
-    return-void
+    goto :goto_15
 .end method

@@ -3,12 +3,12 @@
 .source "VideoDetailActivity.java"
 
 # interfaces
-.implements Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcLoadCallback;
+.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->loadPgcBySeasonId()V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,14 +20,22 @@
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
+.field final synthetic val$expectedPosition:I
+
+.field final synthetic val$verifyRv:Landroid/support/v7/widget/RecyclerView;
+
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;ILandroid/support/v7/widget/RecyclerView;)V
     .locals 0
 
     .prologue
-    .line 1337
+    .line 904
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    iput p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->val$expectedPosition:I
+
+    iput-object p3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->val$verifyRv:Landroid/support/v7/widget/RecyclerView;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -36,110 +44,190 @@
 
 
 # virtual methods
-.method public onError(Ljava/lang/String;)V
-    .locals 3
+.method public run()V
+    .locals 5
 
     .prologue
-    .line 1366
-    const-string v0, "VideoDetailApi"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "loadPgcBySeasonId error: "
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 1367
+    .line 907
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    new-instance v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10$3;
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->getCurrentFocus()Landroid/view/View;
 
-    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10$3;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;)V
+    move-result-object v2
 
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->runOnUiThread(Ljava/lang/Runnable;)V
+    .line 908
+    const-string v1, "VideoDetailActivity"
 
-    .line 1374
-    return-void
-.end method
+    new-instance v0, Ljava/lang/StringBuilder;
 
-.method public onSuccess(Lcom/bilibili/tv/api/video/PgcInfo;)V
-    .locals 4
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
 
-    .prologue
-    .line 1340
-    if-eqz p1, :cond_e
+    const-string v3, "dispatchKeyEvent.post | \u7126\u70b9\u9a8c\u8bc1 | \u9884\u671fposition="
 
-    iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo;->episodes:Ljava/util/List;
-
-    if-eqz v0, :cond_e
-
-    iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo;->episodes:Ljava/util/List;
-
-    invoke-interface {v0}, Ljava/util/List;->isEmpty()Z
-
-    move-result v0
-
-    if-eqz v0, :cond_19
-
-    .line 1341
-    :cond_e
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    new-instance v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10$1;
-
-    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10$1;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;)V
-
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->runOnUiThread(Ljava/lang/Runnable;)V
-
-    .line 1362
-    :goto_18
-    return-void
-
-    .line 1350
-    :cond_19
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->mPgcInfo:Lcom/bilibili/tv/api/video/PgcInfo;
-    invoke-static {v0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1502(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/PgcInfo;)Lcom/bilibili/tv/api/video/PgcInfo;
-
-    .line 1351
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->convertPgcToBiliVideoDetail(Lcom/bilibili/tv/api/video/PgcInfo;)Lcom/bilibili/tv/api/video/BiliVideoDetail;
-    invoke-static {v0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/PgcInfo;)Lcom/bilibili/tv/api/video/BiliVideoDetail;
+    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
-    .line 1352
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+    iget v3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->val$expectedPosition:I
 
-    iget-wide v2, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mAvid:J
+    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->s:J
-    invoke-static {v1, v2, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1702(Lcom/bilibili/tv/ui/video/VideoDetailActivity;J)J
+    move-result-object v0
 
-    .line 1353
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+    const-string v3, " | \u5b9e\u9645\u7126\u70b9="
 
-    new-instance v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10$2;
+    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-direct {v2, p0, v0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10$2;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;Lcom/bilibili/tv/api/video/BiliVideoDetail;Lcom/bilibili/tv/api/video/PgcInfo;)V
+    move-result-object v3
 
-    invoke-virtual {v1, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->runOnUiThread(Ljava/lang/Runnable;)V
+    if-eqz v2, :cond_98
 
-    goto :goto_18
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    .line 911
+    invoke-virtual {v2}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+
+    move-result-object v4
+
+    invoke-virtual {v4}, Ljava/lang/Class;->getSimpleName()Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-virtual {v0, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    const-string v4, "@id="
+
+    invoke-virtual {v0, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    .line 912
+    invoke-virtual {v2}, Landroid/view/View;->getId()I
+
+    move-result v4
+
+    invoke-virtual {v0, v4}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    :goto_44
+    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 908
+    invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 914
+    const/4 v1, -0x1
+
+    .line 915
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->val$verifyRv:Landroid/support/v7/widget/RecyclerView;
+
+    if-eqz v0, :cond_9e
+
+    if-eqz v2, :cond_9e
+
+    .line 916
+    const/4 v0, 0x0
+
+    :goto_57
+    iget-object v3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->val$verifyRv:Landroid/support/v7/widget/RecyclerView;
+
+    invoke-virtual {v3}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
+
+    move-result v3
+
+    if-ge v0, v3, :cond_9e
+
+    .line 917
+    iget-object v3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->val$verifyRv:Landroid/support/v7/widget/RecyclerView;
+
+    invoke-virtual {v3, v0}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
+
+    move-result-object v3
+
+    if-ne v3, v2, :cond_9b
+
+    .line 923
+    :goto_67
+    if-ltz v0, :cond_97
+
+    .line 924
+    const-string v1, "VideoDetailActivity"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "dispatchKeyEvent.post | \u5b9e\u9645\u805a\u7126\u5230\u7b2c"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    add-int/lit8 v0, v0, 0x1
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    const-string v2, "\u4e2a\u53ef\u89c1\u5b50view | \u9884\u671f\u662f\u7b2c"
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    iget v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->val$expectedPosition:I
+
+    add-int/lit8 v2, v2, 0x1
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    const-string v2, "\u4e2a\u89c6\u9891"
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 927
+    :cond_97
+    return-void
+
+    .line 912
+    :cond_98
+    const-string v0, "null"
+
+    goto :goto_44
+
+    .line 916
+    :cond_9b
+    add-int/lit8 v0, v0, 0x1
+
+    goto :goto_57
+
+    :cond_9e
+    move v0, v1
+
+    goto :goto_67
 .end method

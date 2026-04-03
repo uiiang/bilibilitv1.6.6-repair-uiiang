@@ -52,15 +52,15 @@
     .end annotation
 
     .prologue
-    .line 3123
+    .line 3364
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$b;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Lbl/adz;-><init>()V
 
-    .line 3124
+    .line 3365
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$b;->b:Ljava/util/List;
 
-    .line 3125
+    .line 3366
     return-void
 .end method
 
@@ -70,18 +70,18 @@
     .locals 1
 
     .prologue
-    .line 3162
+    .line 3403
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$b;->b:Ljava/util/List;
 
-    .line 3163
+    .line 3404
     if-eqz v0, :cond_9
 
-    .line 3164
+    .line 3405
     invoke-interface {v0}, Ljava/util/List;->size()I
 
     move-result v0
 
-    .line 3166
+    .line 3407
     :goto_8
     return v0
 
@@ -95,12 +95,12 @@
     .locals 1
 
     .prologue
-    .line 3129
+    .line 3370
     const-string v0, "parent"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 3130
+    .line 3371
     sget-object v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$c$a;
 
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c$a;->a(Landroid/view/ViewGroup;)Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;
@@ -118,29 +118,29 @@
 
     const/4 v3, -0x1
 
-    .line 3135
+    .line 3376
     const-string v0, "holder"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 3136
+    .line 3377
     instance-of v0, p1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;
 
     if-nez v0, :cond_48
 
     move-object v0, v1
 
-    .line 3139
+    .line 3380
     :goto_c
     check-cast v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;
 
-    .line 3140
+    .line 3381
     if-eqz v0, :cond_3d
 
-    .line 3141
+    .line 3382
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$b;->b:Ljava/util/List;
 
-    .line 3142
+    .line 3383
     if-eqz v2, :cond_18
 
     invoke-interface {v2, p2}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -150,13 +150,13 @@
     :cond_18
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;->b(Ljava/lang/Object;)V
 
-    .line 3143
+    .line 3384
     iget-object v1, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;->a:Landroid/view/View;
 
-    .line 3144
+    .line 3385
     if-eqz v1, :cond_3d
 
-    .line 3145
+    .line 3386
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$b;->b:Ljava/util/List;
 
     if-eqz v0, :cond_3e
@@ -167,48 +167,48 @@
 
     move-result v0
 
-    .line 3146
+    .line 3387
     :goto_29
     if-nez p2, :cond_40
 
-    .line 3147
+    .line 3388
     invoke-virtual {v1}, Landroid/view/View;->getId()I
 
     move-result v2
 
     invoke-virtual {v1, v2}, Landroid/view/View;->setNextFocusLeftId(I)V
 
-    .line 3151
+    .line 3392
     :goto_32
     add-int/lit8 v0, v0, -0x1
 
     if-ne p2, v0, :cond_44
 
-    .line 3152
+    .line 3393
     invoke-virtual {v1}, Landroid/view/View;->getId()I
 
     move-result v0
 
     invoke-virtual {v1, v0}, Landroid/view/View;->setNextFocusRightId(I)V
 
-    .line 3158
+    .line 3399
     :cond_3d
     :goto_3d
     return-void
 
-    .line 3145
+    .line 3386
     :cond_3e
     const/4 v0, 0x0
 
     goto :goto_29
 
-    .line 3149
+    .line 3390
     :cond_40
     invoke-virtual {v1, v3}, Landroid/view/View;->setNextFocusLeftId(I)V
 
     goto :goto_32
 
-    .line 3154
+    .line 3395
     :cond_44
     invoke-virtual {v1, v3}, Landroid/view/View;->setNextFocusRightId(I)V
 
@@ -224,7 +224,7 @@
     .locals 1
 
     .prologue
-    .line 3115
+    .line 3356
     const/4 v0, 0x0
 
     return v0

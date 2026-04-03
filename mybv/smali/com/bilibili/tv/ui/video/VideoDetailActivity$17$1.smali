@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;->run()V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;->a(Lcom/alibaba/fastjson/JSONObject;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,18 +20,14 @@
 # instance fields
 .field final synthetic this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
 
-.field final synthetic val$history:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
-
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;Lcom/bilibili/tv/api/video/BiliVideoDetail$History;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;)V
     .locals 0
 
     .prologue
-    .line 1757
+    .line 1760
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
-
-    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->val$history:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -41,71 +37,16 @@
 
 # virtual methods
 .method public run()V
-    .locals 2
+    .locals 1
 
     .prologue
-    .line 1760
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
-
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;->val$finalBiliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
-
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->val$history:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
-
-    iput-object v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mHistory:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
-
-    .line 1761
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
-
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
-
-    iget-object v1, v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;->val$finalBiliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
-
-    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateHistoryDisplay(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2200(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
-
-    .line 1762
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
-
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2300(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
-
-    move-result-object v0
-
-    if-eqz v0, :cond_36
-
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
-
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
     .line 1763
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2300(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
 
-    move-result-object v0
+    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawLinearLayout;->getVisibility()I
-
-    move-result v0
-
-    if-nez v0, :cond_36
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->o()V
 
     .line 1764
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;
-
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$17;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2300(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawLinearLayout;->requestFocus()Z
-
-    .line 1766
-    :cond_36
     return-void
 .end method

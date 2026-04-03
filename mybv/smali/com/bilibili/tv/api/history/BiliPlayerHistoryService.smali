@@ -194,15 +194,21 @@
     .end annotation
 .end method
 
-.method public abstract getVideoToviewList(Ljava/lang/String;)Lbl/vp;
+.method public abstract getVideoToviewList(Ljava/lang/String;Ljava/lang/String;)Lbl/vp;
     .param p1    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Query;
-            value = "access_key"
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
+    .param p2    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Referer"
         .end annotation
     .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
+            "Ljava/lang/String;",
             "Ljava/lang/String;",
             ")",
             "Lbl/vp",
@@ -215,7 +221,7 @@
     .end annotation
 
     .annotation runtime Lretrofit2/http/GET;
-        value = "/x/v2/history/toview"
+        value = "/x/v2/history/toview/web"
     .end annotation
 .end method
 
