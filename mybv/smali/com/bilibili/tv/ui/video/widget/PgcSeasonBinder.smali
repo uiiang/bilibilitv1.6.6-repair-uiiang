@@ -27,215 +27,23 @@
     .locals 6
 
     .prologue
-    const/16 v5, 0x8
+    const/16 v3, 0x8
 
-    const/4 v4, 0x0
-
-    .line 17
-    const-string v1, "PgcBinder"
-
-    new-instance v0, Ljava/lang/StringBuilder;
-
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "bind | position="
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0, p3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    const-string v2, " | dataClass="
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    if-nez p2, :cond_4a
-
-    const-string v0, "null"
-
-    :goto_1e
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    const/4 v2, 0x0
 
     .line 18
     instance-of v0, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;
 
-    if-nez v0, :cond_5c
-
-    .line 19
-    const-string v1, "PgcBinder"
-
-    new-instance v0, Ljava/lang/StringBuilder;
-
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "bind | \u6570\u636e\u7c7b\u578b\u4e0d\u5339\u914d\uff0c\u671f\u671bPgcInfo.Season\uff0c\u5b9e\u9645="
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    if-nez p2, :cond_53
-
-    const-string v0, "null"
-
-    :goto_3e
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {v1, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+    if-nez v0, :cond_8
 
     .line 76
-    :goto_49
+    :cond_7
+    :goto_7
     return-void
 
-    .line 17
-    :cond_4a
-    invoke-virtual {p2}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/Class;->getSimpleName()Ljava/lang/String;
-
-    move-result-object v0
-
-    goto :goto_1e
-
-    .line 19
-    :cond_53
-    invoke-virtual {p2}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/Class;->getName()Ljava/lang/String;
-
-    move-result-object v0
-
-    goto :goto_3e
-
     .line 22
-    :cond_5c
+    :cond_8
     check-cast p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;
-
-    .line 24
-    const-string v1, "PgcBinder"
-
-    new-instance v0, Ljava/lang/StringBuilder;
-
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "bind | seasonId="
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    iget v2, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->seasonId:I
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    const-string v2, " | title="
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    iget-object v2, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->title:Ljava/lang/String;
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    const-string v2, " | seasonTitle="
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    iget-object v2, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->seasonTitle:Ljava/lang/String;
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    const-string v2, " | indexShow="
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    iget-object v0, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->newEp:Lcom/bilibili/tv/api/video/PgcInfo$SeasonNewEp;
-
-    if-eqz v0, :cond_1d2
-
-    iget-object v0, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->newEp:Lcom/bilibili/tv/api/video/PgcInfo$SeasonNewEp;
-
-    iget-object v0, v0, Lcom/bilibili/tv/api/video/PgcInfo$SeasonNewEp;->indexShow:Ljava/lang/String;
-
-    :goto_97
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    const-string v2, " | iconFontText="
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    iget-object v0, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->iconFont:Lcom/bilibili/tv/api/video/PgcInfo$IconFont;
-
-    if-eqz v0, :cond_1d6
-
-    iget-object v0, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->iconFont:Lcom/bilibili/tv/api/video/PgcInfo$IconFont;
-
-    iget-object v0, v0, Lcom/bilibili/tv/api/video/PgcInfo$IconFont;->text:Ljava/lang/String;
-
-    :goto_a9
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    const-string v2, " | cover="
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    .line 28
-    invoke-virtual {p2}, Lcom/bilibili/tv/api/video/PgcInfo$Season;->getBestCover()Ljava/lang/String;
-
-    move-result-object v2
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    .line 24
-    invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 30
     const-string v0, ""
@@ -243,7 +51,7 @@
     .line 31
     iget-object v1, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->title:Ljava/lang/String;
 
-    if-eqz v1, :cond_1da
+    if-eqz v1, :cond_f8
 
     iget-object v1, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->title:Ljava/lang/String;
 
@@ -251,7 +59,7 @@
 
     move-result v1
 
-    if-nez v1, :cond_1da
+    if-nez v1, :cond_f8
 
     .line 32
     iget-object v0, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->title:Ljava/lang/String;
@@ -259,7 +67,7 @@
     .line 33
     iget-object v1, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->seasonTitle:Ljava/lang/String;
 
-    if-eqz v1, :cond_f7
+    if-eqz v1, :cond_3f
 
     iget-object v1, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->seasonTitle:Ljava/lang/String;
 
@@ -267,7 +75,7 @@
 
     move-result v1
 
-    if-nez v1, :cond_f7
+    if-nez v1, :cond_3f
 
     .line 34
     new-instance v1, Ljava/lang/StringBuilder;
@@ -295,13 +103,13 @@
     move-result-object v0
 
     .line 39
-    :cond_f7
-    :goto_f7
+    :cond_3f
+    :goto_3f
     invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
 
     move-result v1
 
-    if-nez v1, :cond_1e2
+    if-nez v1, :cond_4c
 
     .line 40
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;->getTitleView()Landroid/widget/TextView;
@@ -310,50 +118,17 @@
 
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 41
-    const-string v1, "PgcBinder"
-
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "bind | position="
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v2, p3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    const-string v3, " | \u8bbe\u7f6e\u6807\u9898: "
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {v1, v0}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-
     .line 46
-    :goto_126
+    :cond_4c
     iget-object v0, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->newEp:Lcom/bilibili/tv/api/video/PgcInfo$SeasonNewEp;
 
-    if-eqz v0, :cond_208
+    if-eqz v0, :cond_100
 
     iget-object v0, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->newEp:Lcom/bilibili/tv/api/video/PgcInfo$SeasonNewEp;
 
     iget-object v0, v0, Lcom/bilibili/tv/api/video/PgcInfo$SeasonNewEp;->indexShow:Ljava/lang/String;
 
-    if-eqz v0, :cond_208
+    if-eqz v0, :cond_100
 
     .line 47
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;->getUpView()Landroid/widget/TextView;
@@ -371,19 +146,19 @@
 
     move-result-object v0
 
-    invoke-virtual {v0, v4, v4, v4, v4}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
+    invoke-virtual {v0, v2, v2, v2, v2}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
 
     .line 55
-    :goto_142
+    :goto_68
     iget-object v0, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->iconFont:Lcom/bilibili/tv/api/video/PgcInfo$IconFont;
 
-    if-eqz v0, :cond_238
+    if-eqz v0, :cond_112
 
     iget-object v0, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->iconFont:Lcom/bilibili/tv/api/video/PgcInfo$IconFont;
 
     iget-object v0, v0, Lcom/bilibili/tv/api/video/PgcInfo$IconFont;->text:Ljava/lang/String;
 
-    if-eqz v0, :cond_238
+    if-eqz v0, :cond_112
 
     .line 56
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;->getPubdateView()Landroid/widget/TextView;
@@ -424,26 +199,26 @@
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
 
     .line 62
-    :goto_172
+    :goto_98
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;->getPlayCountView()Landroid/widget/TextView;
 
     move-result-object v0
 
-    invoke-virtual {v0, v5}, Landroid/widget/TextView;->setVisibility(I)V
+    invoke-virtual {v0, v3}, Landroid/widget/TextView;->setVisibility(I)V
 
     .line 63
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;->getDanmakuInImageView()Landroid/widget/TextView;
 
     move-result-object v0
 
-    invoke-virtual {v0, v5}, Landroid/widget/TextView;->setVisibility(I)V
+    invoke-virtual {v0, v3}, Landroid/widget/TextView;->setVisibility(I)V
 
     .line 64
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;->getDurationView()Landroid/widget/TextView;
 
     move-result-object v0
 
-    invoke-virtual {v0, v5}, Landroid/widget/TextView;->setVisibility(I)V
+    invoke-virtual {v0, v3}, Landroid/widget/TextView;->setVisibility(I)V
 
     .line 66
     invoke-virtual {p2}, Lcom/bilibili/tv/api/video/PgcInfo$Season;->getBestCover()Ljava/lang/String;
@@ -451,7 +226,7 @@
     move-result-object v0
 
     .line 67
-    if-eqz v0, :cond_241
+    if-eqz v0, :cond_7
 
     .line 68
     invoke-static {}, Lbl/nv;->a()Lbl/nv;
@@ -522,70 +297,21 @@
 
     invoke-virtual {v1, v2, v0}, Lbl/nv;->a(Ljava/lang/String;Landroid/widget/ImageView;)V
 
-    goto/16 :goto_49
-
-    .line 24
-    :cond_1d2
-    const-string v0, "null"
-
-    goto/16 :goto_97
-
-    :cond_1d6
-    const-string v0, "null"
-
-    goto/16 :goto_a9
+    goto/16 :goto_7
 
     .line 36
-    :cond_1da
+    :cond_f8
     iget-object v1, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->seasonTitle:Ljava/lang/String;
 
-    if-eqz v1, :cond_f7
+    if-eqz v1, :cond_3f
 
     .line 37
     iget-object v0, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->seasonTitle:Ljava/lang/String;
 
-    goto/16 :goto_f7
-
-    .line 43
-    :cond_1e2
-    const-string v0, "PgcBinder"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "bind | position="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1, p3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, " | \u6807\u9898\u4e3a\u7a7a! seasonId="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget v2, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->seasonId:I
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
-
-    goto/16 :goto_126
+    goto/16 :goto_3f
 
     .line 50
-    :cond_208
+    :cond_100
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;->getUpView()Landroid/widget/TextView;
 
     move-result-object v0
@@ -599,90 +325,23 @@
 
     move-result-object v0
 
-    invoke-virtual {v0, v4, v4, v4, v4}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
+    invoke-virtual {v0, v2, v2, v2, v2}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
 
-    .line 52
-    const-string v0, "PgcBinder"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "bind | position="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1, p3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, " | indexShow\u4e3a\u7a7a\uff0cUP\u4e3b\u533a\u57df\u6e05\u7a7a"
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    goto/16 :goto_142
+    goto/16 :goto_68
 
     .line 59
-    :cond_238
+    :cond_112
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;->getPubdateView()Landroid/widget/TextView;
 
     move-result-object v0
 
-    invoke-virtual {v0, v5}, Landroid/widget/TextView;->setVisibility(I)V
+    invoke-virtual {v0, v3}, Landroid/widget/TextView;->setVisibility(I)V
 
-    goto/16 :goto_172
-
-    .line 74
-    :cond_241
-    const-string v0, "PgcBinder"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "bind | position="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1, p3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, " | \u5c01\u9762URL\u4e3a\u7a7a | seasonId="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget v2, p2, Lcom/bilibili/tv/api/video/PgcInfo$Season;->seasonId:I
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
-
-    goto/16 :goto_49
+    goto/16 :goto_98
 .end method
 
 .method public getCoverUrl(Ljava/lang/Object;)Ljava/lang/String;
-    .locals 4
+    .locals 2
 
     .prologue
     .line 91
@@ -691,74 +350,22 @@
     .line 92
     instance-of v1, p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
 
-    if-eqz v1, :cond_c
-
-    move-object v0, p1
+    if-eqz v1, :cond_b
 
     .line 93
-    check-cast v0, Lcom/bilibili/tv/api/video/PgcInfo$Season;
+    check-cast p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
 
-    invoke-virtual {v0}, Lcom/bilibili/tv/api/video/PgcInfo$Season;->getBestCover()Ljava/lang/String;
+    invoke-virtual {p1}, Lcom/bilibili/tv/api/video/PgcInfo$Season;->getBestCover()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 95
-    :cond_c
-    const-string v2, "PgcBinder"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "getCoverUrl | dataClass="
-
-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    if-nez p1, :cond_33
-
-    const-string v1, "null"
-
-    :goto_1d
-    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v3, " | return="
-
-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v2, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-
     .line 96
+    :cond_b
     return-object v0
-
-    .line 95
-    :cond_33
-    invoke-virtual {p1}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/Class;->getSimpleName()Ljava/lang/String;
-
-    move-result-object v1
-
-    goto :goto_1d
 .end method
 
 .method public getVideoId(Ljava/lang/Object;)J
-    .locals 5
+    .locals 3
 
     .prologue
     .line 80
@@ -767,209 +374,61 @@
     .line 81
     instance-of v2, p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
 
-    if-eqz v2, :cond_c
-
-    move-object v0, p1
+    if-eqz v2, :cond_b
 
     .line 82
-    check-cast v0, Lcom/bilibili/tv/api/video/PgcInfo$Season;
+    check-cast p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
 
-    iget v0, v0, Lcom/bilibili/tv/api/video/PgcInfo$Season;->seasonId:I
+    iget v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;->seasonId:I
 
     int-to-long v0, v0
 
-    .line 84
-    :cond_c
-    const-string v3, "PgcBinder"
-
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v4, "getVideoId | dataClass="
-
-    invoke-virtual {v2, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    if-nez p1, :cond_33
-
-    const-string v2, "null"
-
-    :goto_1d
-    invoke-virtual {v4, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    const-string v4, " | return(seasonId)="
-
-    invoke-virtual {v2, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v2, v0, v1}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v2
-
-    invoke-static {v3, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-
     .line 86
+    :cond_b
     return-wide v0
-
-    .line 84
-    :cond_33
-    invoke-virtual {p1}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Ljava/lang/Class;->getSimpleName()Ljava/lang/String;
-
-    move-result-object v2
-
-    goto :goto_1d
 .end method
 
 .method public isCurrentSeason(Ljava/lang/Object;I)Z
-    .locals 4
+    .locals 2
 
     .prologue
-    const/4 v1, 0x0
+    const/4 v0, 0x0
 
-    .line 108
-    .line 109
-    instance-of v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
-
-    if-eqz v0, :cond_4b
-
-    move-object v0, p1
-
-    .line 110
-    check-cast v0, Lcom/bilibili/tv/api/video/PgcInfo$Season;
-
-    iget v0, v0, Lcom/bilibili/tv/api/video/PgcInfo$Season;->seasonId:I
-
-    if-ne v0, p2, :cond_46
-
-    const/4 v0, 0x1
-
-    .line 112
-    :goto_d
-    const-string v2, "PgcBinder"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "isCurrentSeason | currentSeasonId="
-
-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1, p2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v3, " | dataSeasonId="
-
-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
+    .line 114
+    .line 115
     instance-of v1, p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
 
-    if-eqz v1, :cond_48
+    if-eqz v1, :cond_c
 
+    .line 116
     check-cast p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
 
     iget v1, p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;->seasonId:I
 
-    .line 113
-    invoke-static {v1}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
+    if-ne v1, p2, :cond_c
 
-    move-result-object v1
+    const/4 v0, 0x1
 
-    :goto_30
-    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v3, " | return="
-
-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    .line 112
-    invoke-static {v2, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 115
+    .line 121
+    :cond_c
     return v0
-
-    :cond_46
-    move v0, v1
-
-    .line 110
-    goto :goto_d
-
-    .line 113
-    :cond_48
-    const-string v1, "N/A"
-
-    goto :goto_30
-
-    :cond_4b
-    move v0, v1
-
-    goto :goto_d
 .end method
 
 .method public isCurrentVideo(Ljava/lang/Object;J)Z
-    .locals 4
+    .locals 1
 
     .prologue
-    .line 101
-    const-string v0, "PgcBinder"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "isCurrentVideo | currentVideoId="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1, p2, p3}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, " | PgcSeason\u4f7f\u7528avid\u6bd4\u8f83\uff0c\u5bf9\u4e8ePGC\u591a\u5b63\u5217\u8868\u5e94\u4f7f\u7528seasonId\u6bd4\u8f83"
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-
     .line 103
+    const/4 v0, 0x0
+
+    return v0
+.end method
+
+.method public isCurrentVideoByCid(Ljava/lang/Object;J)Z
+    .locals 1
+
+    .prologue
+    .line 109
     const/4 v0, 0x0
 
     return v0

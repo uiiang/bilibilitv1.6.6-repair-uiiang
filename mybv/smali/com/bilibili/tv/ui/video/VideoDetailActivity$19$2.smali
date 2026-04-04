@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1933
+    .line 1983
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 3
 
     .prologue
-    .line 1936
+    .line 1986
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -60,6 +60,6 @@
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->fallbackLoadHistory(Lcom/bilibili/tv/api/video/BiliVideoDetail;Ljava/lang/String;)V
     invoke-static {v0, v1, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2300(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;Ljava/lang/String;)V
 
-    .line 1937
+    .line 1987
     return-void
 .end method

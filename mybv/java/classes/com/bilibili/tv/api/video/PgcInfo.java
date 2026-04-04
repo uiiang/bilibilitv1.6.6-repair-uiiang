@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Keep;
 import android.text.TextUtils;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
 import java.util.List;
 
@@ -746,6 +748,9 @@ public class PgcInfo implements Parcelable {
 
         @JSONField(name = "subtitle")
         public String subtitle;
+
+        @JSONField(name = "statFor_unity")
+        public JSONObject statForUnity;
 
         public Episode() {}
 

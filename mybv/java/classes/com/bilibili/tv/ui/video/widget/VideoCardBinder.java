@@ -5,5 +5,6 @@ public interface VideoCardBinder {
     long getVideoId(Object data);
     String getCoverUrl(Object data);
     boolean isCurrentVideo(Object data, long currentVideoId);
+    boolean isCurrentVideoByCid(Object data, long currentCid);
     boolean isCurrentSeason(Object data, int currentSeasonId);
 }

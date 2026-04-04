@@ -55,7 +55,7 @@
     .locals 1
 
     .prologue
-    .line 79
+    .line 81
     new-instance v0, Lcom/bilibili/tv/api/video/PgcInfo$UserStatus$1;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/video/PgcInfo$UserStatus$1;-><init>()V
@@ -69,7 +69,7 @@
     .locals 0
 
     .prologue
-    .line 100
+    .line 102
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -79,24 +79,24 @@
     .locals 1
 
     .prologue
-    .line 102
+    .line 104
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 103
+    .line 105
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$UserStatus;->follow:I
 
-    .line 104
+    .line 106
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$UserStatus;->pay:I
 
-    .line 105
+    .line 107
     const-class v0, Lcom/bilibili/tv/api/video/PgcInfo$Progress;
 
     invoke-virtual {v0}, Ljava/lang/Class;->getClassLoader()Ljava/lang/ClassLoader;
@@ -111,7 +111,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$UserStatus;->progress:Lcom/bilibili/tv/api/video/PgcInfo$Progress;
 
-    .line 106
+    .line 108
     return-void
 .end method
 
@@ -121,7 +121,7 @@
     .locals 1
 
     .prologue
-    .line 110
+    .line 112
     const/4 v0, 0x0
 
     return v0
@@ -131,21 +131,21 @@
     .locals 1
 
     .prologue
-    .line 115
+    .line 117
     iget v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$UserStatus;->follow:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 116
+    .line 118
     iget v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$UserStatus;->pay:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 117
+    .line 119
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$UserStatus;->progress:Lcom/bilibili/tv/api/video/PgcInfo$Progress;
 
     invoke-virtual {p1, v0, p2}, Landroid/os/Parcel;->writeParcelable(Landroid/os/Parcelable;I)V
 
-    .line 118
+    .line 120
     return-void
 .end method

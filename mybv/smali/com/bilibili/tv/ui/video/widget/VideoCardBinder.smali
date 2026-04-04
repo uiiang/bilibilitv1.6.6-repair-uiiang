@@ -18,3 +18,6 @@
 
 .method public abstract isCurrentVideo(Ljava/lang/Object;J)Z
 .end method
+
+.method public abstract isCurrentVideoByCid(Ljava/lang/Object;J)Z
+.end method

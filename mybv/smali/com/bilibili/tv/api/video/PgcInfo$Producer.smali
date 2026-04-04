@@ -64,7 +64,7 @@
     .locals 1
 
     .prologue
-    .line 418
+    .line 420
     new-instance v0, Lcom/bilibili/tv/api/video/PgcInfo$Producer$1;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/video/PgcInfo$Producer$1;-><init>()V
@@ -78,7 +78,7 @@
     .locals 0
 
     .prologue
-    .line 439
+    .line 441
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -88,10 +88,10 @@
     .locals 1
 
     .prologue
-    .line 441
+    .line 443
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 442
+    .line 444
     sget-object v0, Lcom/bilibili/tv/api/video/PgcInfo$ProducerInfo;->CREATOR:Landroid/os/Parcelable$Creator;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->createTypedArrayList(Landroid/os/Parcelable$Creator;)Ljava/util/ArrayList;
@@ -100,21 +100,21 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Producer;->list:Ljava/util/List;
 
-    .line 443
+    .line 445
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Producer;->title:Ljava/lang/String;
 
-    .line 444
+    .line 446
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Producer;->total:I
 
-    .line 445
+    .line 447
     return-void
 .end method
 
@@ -124,7 +124,7 @@
     .locals 1
 
     .prologue
-    .line 449
+    .line 451
     const/4 v0, 0x0
 
     return v0
@@ -134,21 +134,21 @@
     .locals 1
 
     .prologue
-    .line 454
+    .line 456
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Producer;->list:Ljava/util/List;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeTypedList(Ljava/util/List;)V
 
-    .line 455
+    .line 457
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Producer;->title:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 456
+    .line 458
     iget v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Producer;->total:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 457
+    .line 459
     return-void
 .end method

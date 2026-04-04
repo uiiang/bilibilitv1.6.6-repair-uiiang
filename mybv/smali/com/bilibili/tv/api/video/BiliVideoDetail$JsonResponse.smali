@@ -19,7 +19,7 @@
     .locals 0
 
     .prologue
-    .line 164
+    .line 169
     invoke-direct {p0}, Lbl/qe;-><init>()V
 
     return-void
@@ -33,7 +33,7 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 167
+    .line 172
     :try_start_1
     invoke-virtual {p0}, Lcom/bilibili/tv/api/video/BiliVideoDetail$JsonResponse;->a()Z
 
@@ -41,7 +41,7 @@
 
     if-eqz v1, :cond_12
 
-    .line 168
+    .line 173
     new-instance v1, Ljava/lang/String;
 
     iget-object v2, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$JsonResponse;->b:[B
@@ -54,12 +54,12 @@
 
     move-result-object v0
 
-    .line 172
+    .line 177
     :cond_12
     :goto_12
     return-object v0
 
-    .line 171
+    .line 176
     :catch_13
     move-exception v1
 

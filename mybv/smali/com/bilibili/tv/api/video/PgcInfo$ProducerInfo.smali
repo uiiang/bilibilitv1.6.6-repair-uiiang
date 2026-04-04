@@ -55,7 +55,7 @@
     .locals 1
 
     .prologue
-    .line 461
+    .line 463
     new-instance v0, Lcom/bilibili/tv/api/video/PgcInfo$ProducerInfo$1;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/video/PgcInfo$ProducerInfo$1;-><init>()V
@@ -69,7 +69,7 @@
     .locals 0
 
     .prologue
-    .line 482
+    .line 484
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -79,31 +79,31 @@
     .locals 2
 
     .prologue
-    .line 484
+    .line 486
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 485
+    .line 487
     invoke-virtual {p1}, Landroid/os/Parcel;->readLong()J
 
     move-result-wide v0
 
     iput-wide v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$ProducerInfo;->mid:J
 
-    .line 486
+    .line 488
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$ProducerInfo;->name:Ljava/lang/String;
 
-    .line 487
+    .line 489
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$ProducerInfo;->face:Ljava/lang/String;
 
-    .line 488
+    .line 490
     return-void
 .end method
 
@@ -113,7 +113,7 @@
     .locals 1
 
     .prologue
-    .line 492
+    .line 494
     const/4 v0, 0x0
 
     return v0
@@ -123,21 +123,21 @@
     .locals 2
 
     .prologue
-    .line 497
+    .line 499
     iget-wide v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$ProducerInfo;->mid:J
 
     invoke-virtual {p1, v0, v1}, Landroid/os/Parcel;->writeLong(J)V
 
-    .line 498
+    .line 500
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$ProducerInfo;->name:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 499
+    .line 501
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$ProducerInfo;->face:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 500
+    .line 502
     return-void
 .end method

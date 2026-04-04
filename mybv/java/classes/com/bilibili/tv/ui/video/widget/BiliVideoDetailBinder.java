@@ -18,18 +18,18 @@ public class BiliVideoDetailBinder implements VideoCardBinder {
 
     @Override
     public void bind(VideoDetailActivity.f holder, Object data, int position) {
-        Log.i(TAG, "bind | position=" + position + " | dataClass=" + (data == null ? "null" : data.getClass().getSimpleName()));
+        // Log.i(TAG, "bind | position=" + position + " | dataClass=" + (data == null ? "null" : data.getClass().getSimpleName()));
         if (!(data instanceof BiliVideoDetail)) {
-            Log.w(TAG, "bind | 数据类型不匹配，期望BiliVideoDetail，实际=" + (data == null ? "null" : data.getClass().getName()));
+            // Log.w(TAG, "bind | 数据类型不匹配，期望BiliVideoDetail，实际=" + (data == null ? "null" : data.getClass().getName()));
             return;
         }
         BiliVideoDetail detail = (BiliVideoDetail) data;
 
-        Log.i(TAG, "bind | mAvid=" + detail.mAvid + " | mTitle=" + detail.mTitle
-                + " | author=" + detail.getAuthor() + " | hideUpIcon=" + detail.hideUpIcon
-                + " | plays=" + detail.getPlays() + " | danmaku=" + detail.getDanmakus()
-                + " | duration=" + detail.mDuration + " | pubdateTs=" + detail.mCreatedTimestamp
-                + " | cover=" + detail.mCover);
+        // Log.i(TAG, "bind | mAvid=" + detail.mAvid + " | mTitle=" + detail.mTitle
+        //         + " | author=" + detail.getAuthor() + " | hideUpIcon=" + detail.hideUpIcon
+        //         + " | plays=" + detail.getPlays() + " | danmaku=" + detail.getDanmakus()
+        //         + " | duration=" + detail.mDuration + " | pubdateTs=" + detail.mCreatedTimestamp
+        //         + " | cover=" + detail.mCover);
 
         holder.getTitleView().setText(detail.mTitle);
 
@@ -39,7 +39,7 @@ public class BiliVideoDetailBinder implements VideoCardBinder {
         }
         if (detail.hideUpIcon) {
             holder.getUpView().setCompoundDrawables(null, null, null, null);
-            Log.d(TAG, "bind | position=" + position + " | 隐藏UP主图标(hideUpIcon=true)");
+            // Log.d(TAG, "bind | position=" + position + " | 隐藏UP主图标(hideUpIcon=true)");
         }
 
         String plays = detail.getPlays();
@@ -51,7 +51,7 @@ public class BiliVideoDetailBinder implements VideoCardBinder {
         try {
             danmaku = Integer.parseInt(detail.getDanmakus());
         } catch (Exception e) {
-            Log.w(TAG, "bind | position=" + position + " | 弹幕数解析异常: " + e.getMessage());
+            // Log.w(TAG, "bind | position=" + position + " | 弹幕数解析异常: " + e.getMessage());
         }
         if (danmaku > 0) {
             holder.getDanmakuInImageView().setText(adh.a(danmaku));
@@ -84,7 +84,7 @@ public class BiliVideoDetailBinder implements VideoCardBinder {
             Log.d(TAG, "bind | position=" + position + " | 加载封面 | originalUrl=" + detail.mCover + " | thumbUrl=" + thumbUrl);
             imageLoader.a(thumbUrl, holder.getCoverImageView());
         } else {
-            Log.w(TAG, "bind | position=" + position + " | 封面URL为空");
+            // Log.w(TAG, "bind | position=" + position + " | 封面URL为空");
         }
     }
 
@@ -94,7 +94,7 @@ public class BiliVideoDetailBinder implements VideoCardBinder {
         if (data instanceof BiliVideoDetail) {
             videoId = ((BiliVideoDetail) data).mAvid;
         }
-        Log.d(TAG, "getVideoId | dataClass=" + (data == null ? "null" : data.getClass().getSimpleName()) + " | return=" + videoId);
+        // Log.d(TAG, "getVideoId | dataClass=" + (data == null ? "null" : data.getClass().getSimpleName()) + " | return=" + videoId);
         return videoId;
     }
 
@@ -104,7 +104,7 @@ public class BiliVideoDetailBinder implements VideoCardBinder {
         if (data instanceof BiliVideoDetail) {
             coverUrl = ((BiliVideoDetail) data).mCover;
         }
-        Log.d(TAG, "getCoverUrl | dataClass=" + (data == null ? "null" : data.getClass().getSimpleName()) + " | return=" + coverUrl);
+        // Log.d(TAG, "getCoverUrl | dataClass=" + (data == null ? "null" : data.getClass().getSimpleName()) + " | return=" + coverUrl);
         return coverUrl;
     }
 
@@ -114,15 +114,28 @@ public class BiliVideoDetailBinder implements VideoCardBinder {
         if (data instanceof BiliVideoDetail) {
             isCurrent = ((BiliVideoDetail) data).mAvid == currentVideoId;
         }
-        Log.d(TAG, "isCurrentVideo | currentVideoId=" + currentVideoId + " | dataAvid="
-                + (data instanceof BiliVideoDetail ? String.valueOf(((BiliVideoDetail) data).mAvid) : "N/A")
-                + " | return=" + isCurrent);
+        // Log.d(TAG, "isCurrentVideo | currentVideoId=" + currentVideoId + " | dataAvid="
+        //         + (data instanceof BiliVideoDetail ? String.valueOf(((BiliVideoDetail) data).mAvid) : "N/A")
+        //         + " | return=" + isCurrent);
+        return isCurrent;
+    }
+
+    @Override
+    public boolean isCurrentVideoByCid(Object data, long currentCid) {
+        boolean isCurrent = false;
+        if (data instanceof BiliVideoDetail) {
+            BiliVideoDetail detail = (BiliVideoDetail) data;
+            isCurrent = detail.mCid == currentCid;
+        }
+        // Log.d(TAG, "isCurrentVideoByCid | currentCid=" + currentCid
+        //         + " | dataCid=" + (data instanceof BiliVideoDetail ? ((BiliVideoDetail) data).mCid : "N/A")
+        //         + " | return=" + isCurrent);
         return isCurrent;
     }
 
     @Override
     public boolean isCurrentSeason(Object data, int currentSeasonId) {
-        Log.d(TAG, "isCurrentSeason | BiliVideoDetail不使用seasonId比较，始终返回false");
+        // Log.d(TAG, "isCurrentSeason | BiliVideoDetail不使用seasonId比较，始终返回false");
         return false;
     }
 }

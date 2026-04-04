@@ -55,7 +55,7 @@
     .locals 1
 
     .prologue
-    .line 580
+    .line 582
     new-instance v0, Lcom/bilibili/tv/api/video/PgcInfo$NewEp$1;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/video/PgcInfo$NewEp$1;-><init>()V
@@ -69,7 +69,7 @@
     .locals 0
 
     .prologue
-    .line 601
+    .line 603
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -79,31 +79,31 @@
     .locals 1
 
     .prologue
-    .line 603
+    .line 605
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 604
+    .line 606
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$NewEp;->id:I
 
-    .line 605
+    .line 607
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$NewEp;->index:Ljava/lang/String;
 
-    .line 606
+    .line 608
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$NewEp;->indexShow:Ljava/lang/String;
 
-    .line 607
+    .line 609
     return-void
 .end method
 
@@ -113,7 +113,7 @@
     .locals 1
 
     .prologue
-    .line 611
+    .line 613
     const/4 v0, 0x0
 
     return v0
@@ -123,21 +123,21 @@
     .locals 1
 
     .prologue
-    .line 616
+    .line 618
     iget v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$NewEp;->id:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 617
+    .line 619
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$NewEp;->index:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 618
+    .line 620
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$NewEp;->indexShow:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 619
+    .line 621
     return-void
 .end method

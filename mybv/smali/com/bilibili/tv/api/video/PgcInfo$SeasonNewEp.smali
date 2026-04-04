@@ -55,7 +55,7 @@
     .locals 1
 
     .prologue
-    .line 256
+    .line 258
     new-instance v0, Lcom/bilibili/tv/api/video/PgcInfo$SeasonNewEp$1;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/video/PgcInfo$SeasonNewEp$1;-><init>()V
@@ -69,7 +69,7 @@
     .locals 0
 
     .prologue
-    .line 277
+    .line 279
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -79,31 +79,31 @@
     .locals 1
 
     .prologue
-    .line 279
+    .line 281
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 280
+    .line 282
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$SeasonNewEp;->id:I
 
-    .line 281
+    .line 283
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$SeasonNewEp;->cover:Ljava/lang/String;
 
-    .line 282
+    .line 284
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$SeasonNewEp;->indexShow:Ljava/lang/String;
 
-    .line 283
+    .line 285
     return-void
 .end method
 
@@ -113,7 +113,7 @@
     .locals 1
 
     .prologue
-    .line 287
+    .line 289
     const/4 v0, 0x0
 
     return v0
@@ -123,21 +123,21 @@
     .locals 1
 
     .prologue
-    .line 292
+    .line 294
     iget v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$SeasonNewEp;->id:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 293
+    .line 295
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$SeasonNewEp;->cover:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 294
+    .line 296
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$SeasonNewEp;->indexShow:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 295
+    .line 297
     return-void
 .end method

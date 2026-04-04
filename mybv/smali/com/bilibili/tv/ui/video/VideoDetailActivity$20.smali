@@ -36,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 1978
+    .line 2028
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->val$biliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -52,7 +52,7 @@
     .locals 1
 
     .prologue
-    .line 1981
+    .line 2031
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isFinishing()Z
@@ -66,7 +66,7 @@
     .locals 3
 
     .prologue
-    .line 1985
+    .line 2035
     const-string v0, "HistoryApi"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -93,7 +93,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1986
+    .line 2036
     return-void
 .end method
 
@@ -110,19 +110,19 @@
     .end annotation
 
     .prologue
-    .line 1989
+    .line 2039
     if-eqz p1, :cond_5f
 
     iget-object v0, p1, Lcom/bilibili/okretro/GeneralResponse;->data:Ljava/lang/Object;
 
     if-eqz v0, :cond_5f
 
-    .line 1990
+    .line 2040
     iget-object v0, p1, Lcom/bilibili/okretro/GeneralResponse;->data:Ljava/lang/Object;
 
     check-cast v0, Lcom/alibaba/fastjson/JSONObject;
 
-    .line 1991
+    .line 2041
     const-string v1, "history"
 
     invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->containsKey(Ljava/lang/Object;)Z
@@ -131,22 +131,22 @@
 
     if-eqz v1, :cond_84
 
-    .line 1992
+    .line 2042
     const-string v1, "history"
 
     invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 1993
+    .line 2043
     if-eqz v0, :cond_5f
 
-    .line 1994
+    .line 2044
     new-instance v1, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
 
     invoke-direct {v1}, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;-><init>()V
 
-    .line 1995
+    .line 2045
     const-string v2, "cid"
 
     invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
@@ -155,7 +155,7 @@
 
     iput-wide v2, v1, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mCid:J
 
-    .line 1996
+    .line 2046
     const-string v2, "progress"
 
     invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -164,7 +164,7 @@
 
     iput v0, v1, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mProgress:I
 
-    .line 1997
+    .line 2047
     const-string v0, "HistoryApi"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -207,12 +207,12 @@
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1998
+    .line 2048
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->val$biliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     iput-object v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mHistory:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
 
-    .line 2004
+    .line 2054
     :cond_5f
     :goto_5f
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -222,7 +222,7 @@
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateHistoryDisplay(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2100(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
 
-    .line 2005
+    .line 2055
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
@@ -234,7 +234,7 @@
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    .line 2006
+    .line 2056
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2200(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
 
@@ -246,7 +246,7 @@
 
     if-nez v0, :cond_83
 
-    .line 2007
+    .line 2057
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
@@ -256,11 +256,11 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawLinearLayout;->requestFocus()Z
 
-    .line 2009
+    .line 2059
     :cond_83
     return-void
 
-    .line 2001
+    .line 2051
     :cond_84
     const-string v0, "HistoryApi"
 
@@ -275,7 +275,7 @@
     .locals 0
 
     .prologue
-    .line 1978
+    .line 2028
     check-cast p1, Lcom/bilibili/okretro/GeneralResponse;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->onSuccess(Lcom/bilibili/okretro/GeneralResponse;)V

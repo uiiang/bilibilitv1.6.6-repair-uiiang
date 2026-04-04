@@ -135,6 +135,11 @@ public class BiliVideoDetail implements Parcelable {
     public List<Staff> mStaffList;
 
     public boolean hideUpIcon = false;
+    public String vtText;
+
+    public BiliVideoDetail.Page sourcePage;
+    public Object sourceEpisode;
+    public long mCid;
 
     public static class Staff {
         @JSONField(name = "mid")
@@ -601,6 +606,18 @@ public class BiliVideoDetail implements Parcelable {
         public String mEpCover;
         @JSONField(deserialize = false, serialize = false)
         public String mBvid;
+
+        @JSONField(name = "first_frame")
+        public String firstFrame;
+
+        @JSONField(name = "cover")
+        public String cover;
+
+        @JSONField(name = "duration")
+        public int duration;
+
+        @JSONField(name = "ctime")
+        public long ctime;
 
         @Override // android.os.Parcelable
         public int describeContents() {

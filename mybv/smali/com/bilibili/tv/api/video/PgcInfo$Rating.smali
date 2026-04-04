@@ -49,7 +49,7 @@
     .locals 1
 
     .prologue
-    .line 542
+    .line 544
     new-instance v0, Lcom/bilibili/tv/api/video/PgcInfo$Rating$1;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/video/PgcInfo$Rating$1;-><init>()V
@@ -63,7 +63,7 @@
     .locals 0
 
     .prologue
-    .line 560
+    .line 562
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -73,24 +73,24 @@
     .locals 2
 
     .prologue
-    .line 562
+    .line 564
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 563
+    .line 565
     invoke-virtual {p1}, Landroid/os/Parcel;->readDouble()D
 
     move-result-wide v0
 
     iput-wide v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Rating;->score:D
 
-    .line 564
+    .line 566
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Rating;->count:I
 
-    .line 565
+    .line 567
     return-void
 .end method
 
@@ -100,7 +100,7 @@
     .locals 1
 
     .prologue
-    .line 569
+    .line 571
     const/4 v0, 0x0
 
     return v0
@@ -110,16 +110,16 @@
     .locals 2
 
     .prologue
-    .line 574
+    .line 576
     iget-wide v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Rating;->score:D
 
     invoke-virtual {p1, v0, v1}, Landroid/os/Parcel;->writeDouble(D)V
 
-    .line 575
+    .line 577
     iget v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Rating;->count:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 576
+    .line 578
     return-void
 .end method

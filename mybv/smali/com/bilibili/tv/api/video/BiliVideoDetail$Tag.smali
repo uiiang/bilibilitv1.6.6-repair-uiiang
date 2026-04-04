@@ -83,7 +83,7 @@
     .locals 1
 
     .prologue
-    .line 901
+    .line 918
     new-instance v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Tag$1;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/video/BiliVideoDetail$Tag$1;-><init>()V
@@ -97,15 +97,15 @@
     .locals 1
 
     .prologue
-    .line 944
+    .line 961
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 920
+    .line 937
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Tag;->hasReport:Z
 
-    .line 945
+    .line 962
     return-void
 .end method
 
@@ -113,43 +113,43 @@
     .locals 1
 
     .prologue
-    .line 947
+    .line 964
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 920
+    .line 937
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Tag;->hasReport:Z
 
-    .line 948
+    .line 965
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Tag;->id:I
 
-    .line 949
+    .line 966
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Tag;->name:Ljava/lang/String;
 
-    .line 950
+    .line 967
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Tag;->likeNum:I
 
-    .line 951
+    .line 968
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Tag;->hateNum:I
 
-    .line 952
+    .line 969
     return-void
 .end method
 
@@ -159,7 +159,7 @@
     .locals 1
 
     .prologue
-    .line 933
+    .line 950
     const/4 v0, 0x0
 
     return v0
@@ -169,26 +169,26 @@
     .locals 1
 
     .prologue
-    .line 938
+    .line 955
     iget v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Tag;->id:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 939
+    .line 956
     iget-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Tag;->name:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 940
+    .line 957
     iget v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Tag;->likeNum:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 941
+    .line 958
     iget v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Tag;->hateNum:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 942
+    .line 959
     return-void
 .end method

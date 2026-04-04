@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->createPgcSectionView(Lcom/bilibili/tv/api/video/PgcInfo$Section;I)V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->createSeasonsSectionView(Ljava/util/List;I)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 2742
+    .line 2812
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -37,33 +37,33 @@
 
 # virtual methods
 .method public onVideoClicked(Ljava/lang/Object;I)V
-    .locals 6
+    .locals 4
 
     .prologue
-    .line 2745
-    instance-of v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;
+    .line 2815
+    instance-of v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
 
     if-eqz v0, :cond_15
 
-    .line 2746
-    check-cast p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;
+    .line 2816
+    check-cast p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
 
-    .line 2747
+    .line 2817
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     sget-object v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    iget-wide v4, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mAvid:J
+    iget v3, p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;->seasonId:I
 
-    invoke-virtual {v1, v2, v4, v5}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;J)Landroid/content/Intent;
+    invoke-virtual {v1, v2, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->aForSeason(Landroid/content/Context;I)Landroid/content/Intent;
 
     move-result-object v1
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->startActivity(Landroid/content/Intent;)V
 
-    .line 2749
+    .line 2819
     :cond_15
     return-void
 .end method
