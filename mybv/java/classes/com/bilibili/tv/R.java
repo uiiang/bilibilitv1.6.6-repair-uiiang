@@ -2565,6 +2565,7 @@ public final class R {
         public static final int title_section = 0x7f0801d5;
         public static final int season_section_nav_tags = 0x7f0801d6;
         public static final int nav_tag_text = 0x7f0801d7;
+        public static final int badge = 0x7f0801d8;
     }
 
     public static final class integer {

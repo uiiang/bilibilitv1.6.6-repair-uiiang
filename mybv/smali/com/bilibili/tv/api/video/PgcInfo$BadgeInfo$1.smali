@@ -1,4 +1,4 @@
-.class final Lcom/bilibili/tv/api/video/PgcInfo$Episode$1;
+.class final Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo$1;
 .super Ljava/lang/Object;
 .source "PgcInfo.java"
 
@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingClass;
-    value = Lcom/bilibili/tv/api/video/PgcInfo$Episode;
+    value = Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -21,7 +21,7 @@
         "Ljava/lang/Object;",
         "Landroid/os/Parcelable$Creator",
         "<",
-        "Lcom/bilibili/tv/api/video/PgcInfo$Episode;",
+        "Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;",
         ">;"
     }
 .end annotation
@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 752
+    .line 709
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -40,14 +40,14 @@
 
 
 # virtual methods
-.method public createFromParcel(Landroid/os/Parcel;)Lcom/bilibili/tv/api/video/PgcInfo$Episode;
+.method public createFromParcel(Landroid/os/Parcel;)Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
     .locals 1
 
     .prologue
-    .line 755
-    new-instance v0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;
+    .line 712
+    new-instance v0, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
 
-    invoke-direct {v0, p1}, Lcom/bilibili/tv/api/video/PgcInfo$Episode;-><init>(Landroid/os/Parcel;)V
+    invoke-direct {v0, p1}, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;-><init>(Landroid/os/Parcel;)V
 
     return-object v0
 .end method
@@ -56,20 +56,20 @@
     .locals 1
 
     .prologue
-    .line 752
-    invoke-virtual {p0, p1}, Lcom/bilibili/tv/api/video/PgcInfo$Episode$1;->createFromParcel(Landroid/os/Parcel;)Lcom/bilibili/tv/api/video/PgcInfo$Episode;
+    .line 709
+    invoke-virtual {p0, p1}, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo$1;->createFromParcel(Landroid/os/Parcel;)Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
 
     move-result-object v0
 
     return-object v0
 .end method
 
-.method public newArray(I)[Lcom/bilibili/tv/api/video/PgcInfo$Episode;
+.method public newArray(I)[Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
     .locals 1
 
     .prologue
-    .line 760
-    new-array v0, p1, [Lcom/bilibili/tv/api/video/PgcInfo$Episode;
+    .line 717
+    new-array v0, p1, [Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
 
     return-object v0
 .end method
@@ -78,8 +78,8 @@
     .locals 1
 
     .prologue
-    .line 752
-    invoke-virtual {p0, p1}, Lcom/bilibili/tv/api/video/PgcInfo$Episode$1;->newArray(I)[Lcom/bilibili/tv/api/video/PgcInfo$Episode;
+    .line 709
+    invoke-virtual {p0, p1}, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo$1;->newArray(I)[Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
 
     move-result-object v0
 

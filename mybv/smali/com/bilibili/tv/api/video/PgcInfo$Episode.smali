@@ -37,6 +37,12 @@
     .end annotation
 .end field
 
+.field public badgeInfo:Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
+    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
+        name = "badge_info"
+    .end annotation
+.end field
+
 .field public bvid:Ljava/lang/String;
     .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
         name = "bvid"
@@ -121,7 +127,7 @@
     .locals 1
 
     .prologue
-    .line 701
+    .line 752
     new-instance v0, Lcom/bilibili/tv/api/video/PgcInfo$Episode$1;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/video/PgcInfo$Episode$1;-><init>()V
@@ -135,7 +141,7 @@
     .locals 0
 
     .prologue
-    .line 755
+    .line 809
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -145,87 +151,87 @@
     .locals 2
 
     .prologue
-    .line 757
+    .line 811
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 758
+    .line 812
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->id:I
 
-    .line 759
+    .line 813
     invoke-virtual {p1}, Landroid/os/Parcel;->readLong()J
 
     move-result-wide v0
 
     iput-wide v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->aid:J
 
-    .line 760
+    .line 814
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->bvid:Ljava/lang/String;
 
-    .line 761
+    .line 815
     invoke-virtual {p1}, Landroid/os/Parcel;->readLong()J
 
     move-result-wide v0
 
     iput-wide v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->cid:J
 
-    .line 762
+    .line 816
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->title:Ljava/lang/String;
 
-    .line 763
+    .line 817
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->longTitle:Ljava/lang/String;
 
-    .line 764
+    .line 818
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->showTitle:Ljava/lang/String;
 
-    .line 765
+    .line 819
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->cover:Ljava/lang/String;
 
-    .line 766
+    .line 820
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->link:Ljava/lang/String;
 
-    .line 767
+    .line 821
     invoke-virtual {p1}, Landroid/os/Parcel;->readLong()J
 
     move-result-wide v0
 
     iput-wide v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->duration:J
 
-    .line 768
+    .line 822
     invoke-virtual {p1}, Landroid/os/Parcel;->readLong()J
 
     move-result-wide v0
 
     iput-wide v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->pubTime:J
 
-    .line 769
+    .line 823
     const-class v0, Lcom/bilibili/tv/api/video/PgcInfo$EpisodeStat;
 
     invoke-virtual {v0}, Ljava/lang/Class;->getClassLoader()Ljava/lang/ClassLoader;
@@ -240,14 +246,29 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->stat:Lcom/bilibili/tv/api/video/PgcInfo$EpisodeStat;
 
-    .line 770
+    .line 824
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->subtitle:Ljava/lang/String;
 
-    .line 771
+    .line 825
+    const-class v0, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
+
+    invoke-virtual {v0}, Ljava/lang/Class;->getClassLoader()Ljava/lang/ClassLoader;
+
+    move-result-object v0
+
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->readParcelable(Ljava/lang/ClassLoader;)Landroid/os/Parcelable;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
+
+    iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->badgeInfo:Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
+
+    .line 826
     return-void
 .end method
 
@@ -257,7 +278,7 @@
     .locals 1
 
     .prologue
-    .line 775
+    .line 830
     const/4 v0, 0x0
 
     return v0
@@ -267,71 +288,76 @@
     .locals 2
 
     .prologue
-    .line 780
+    .line 835
     iget v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->id:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 781
+    .line 836
     iget-wide v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->aid:J
 
     invoke-virtual {p1, v0, v1}, Landroid/os/Parcel;->writeLong(J)V
 
-    .line 782
+    .line 837
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->bvid:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 783
+    .line 838
     iget-wide v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->cid:J
 
     invoke-virtual {p1, v0, v1}, Landroid/os/Parcel;->writeLong(J)V
 
-    .line 784
+    .line 839
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->title:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 785
+    .line 840
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->longTitle:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 786
+    .line 841
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->showTitle:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 787
+    .line 842
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->cover:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 788
+    .line 843
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->link:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 789
+    .line 844
     iget-wide v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->duration:J
 
     invoke-virtual {p1, v0, v1}, Landroid/os/Parcel;->writeLong(J)V
 
-    .line 790
+    .line 845
     iget-wide v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->pubTime:J
 
     invoke-virtual {p1, v0, v1}, Landroid/os/Parcel;->writeLong(J)V
 
-    .line 791
+    .line 846
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->stat:Lcom/bilibili/tv/api/video/PgcInfo$EpisodeStat;
 
     invoke-virtual {p1, v0, p2}, Landroid/os/Parcel;->writeParcelable(Landroid/os/Parcelable;I)V
 
-    .line 792
+    .line 847
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->subtitle:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 793
+    .line 848
+    iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->badgeInfo:Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
+
+    invoke-virtual {p1, v0, p2}, Landroid/os/Parcel;->writeParcelable(Landroid/os/Parcelable;I)V
+
+    .line 849
     return-void
 .end method

@@ -63,6 +63,30 @@ public class PgcSeasonBinder implements VideoCardBinder {
         holder.getDanmakuInImageView().setVisibility(View.GONE);
         holder.getDurationView().setVisibility(View.GONE);
 
+        if (season.badgeInfo != null && season.badgeInfo.text != null && !season.badgeInfo.text.isEmpty()) {
+            holder.getBadgeView().setText(season.badgeInfo.text);
+            Context context = MainApplication.a().getApplicationContext();
+            float cornerRadius = 4 * context.getResources().getDisplayMetrics().density;
+            try {
+                int bgColor = android.graphics.Color.parseColor(season.badgeInfo.bgColor);
+                int alphaColor = (bgColor & 0x00FFFFFF) | (153 << 24);
+                android.graphics.drawable.GradientDrawable drawable = new android.graphics.drawable.GradientDrawable();
+                drawable.setShape(android.graphics.drawable.GradientDrawable.RECTANGLE);
+                drawable.setCornerRadius(cornerRadius);
+                drawable.setColor(alphaColor);
+                holder.getBadgeView().setBackground(drawable);
+            } catch (Exception e) {
+                android.graphics.drawable.GradientDrawable drawable = new android.graphics.drawable.GradientDrawable();
+                drawable.setShape(android.graphics.drawable.GradientDrawable.RECTANGLE);
+                drawable.setCornerRadius(cornerRadius);
+                drawable.setColor(0x99FB7299);
+                holder.getBadgeView().setBackground(drawable);
+            }
+            holder.getBadgeView().setVisibility(View.VISIBLE);
+        } else {
+            holder.getBadgeView().setVisibility(View.GONE);
+        }
+
         String cover = season.getBestCover();
         if (cover != null) {
             nv imageLoader = nv.a();

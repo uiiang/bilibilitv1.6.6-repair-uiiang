@@ -77,6 +77,9 @@ public class PgcInfo implements Parcelable {
     @JSONField(name = "user_status")
     public UserStatus userStatus;
 
+    @JSONField(name = "badge_info")
+    public BadgeInfo badgeInfo;
+
     public static class UserStatus implements Parcelable {
         public static final Creator<UserStatus> CREATOR = new Creator<UserStatus>() {
             @Override
@@ -206,6 +209,9 @@ public class PgcInfo implements Parcelable {
         @JSONField(name = "icon_font")
         public IconFont iconFont;
 
+        @JSONField(name = "badge_info")
+        public BadgeInfo badgeInfo;
+
         public Season() {}
 
         protected Season(Parcel parcel) {
@@ -219,6 +225,7 @@ public class PgcInfo implements Parcelable {
             this.newEp = parcel.readParcelable(SeasonNewEp.class.getClassLoader());
             this.stat = parcel.readParcelable(SeasonStat.class.getClassLoader());
             this.iconFont = parcel.readParcelable(IconFont.class.getClassLoader());
+            this.badgeInfo = parcel.readParcelable(BadgeInfo.class.getClassLoader());
         }
 
         @Override
@@ -238,6 +245,7 @@ public class PgcInfo implements Parcelable {
             parcel.writeParcelable(this.newEp, i);
             parcel.writeParcelable(this.stat, i);
             parcel.writeParcelable(this.iconFont, i);
+            parcel.writeParcelable(this.badgeInfo, i);
         }
 
         public String getBestCover() {
@@ -697,6 +705,49 @@ public class PgcInfo implements Parcelable {
         }
     }
 
+    public static class BadgeInfo implements Parcelable {
+        public static final Creator<BadgeInfo> CREATOR = new Creator<BadgeInfo>() {
+            @Override
+            public BadgeInfo createFromParcel(Parcel parcel) {
+                return new BadgeInfo(parcel);
+            }
+
+            @Override
+            public BadgeInfo[] newArray(int i) {
+                return new BadgeInfo[i];
+            }
+        };
+
+        @JSONField(name = "text")
+        public String text;
+
+        @JSONField(name = "bg_color")
+        public String bgColor;
+
+        @JSONField(name = "bg_style")
+        public int bgStyle;
+
+        public BadgeInfo() {}
+
+        protected BadgeInfo(Parcel parcel) {
+            this.text = parcel.readString();
+            this.bgColor = parcel.readString();
+            this.bgStyle = parcel.readInt();
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeString(this.text);
+            parcel.writeString(this.bgColor);
+            parcel.writeInt(this.bgStyle);
+        }
+    }
+
     public static class Episode implements Parcelable {
         public static final Creator<Episode> CREATOR = new Creator<Episode>() {
             @Override
@@ -752,6 +803,9 @@ public class PgcInfo implements Parcelable {
         @JSONField(name = "statFor_unity")
         public JSONObject statForUnity;
 
+        @JSONField(name = "badge_info")
+        public BadgeInfo badgeInfo;
+
         public Episode() {}
 
         protected Episode(Parcel parcel) {
@@ -768,6 +822,7 @@ public class PgcInfo implements Parcelable {
             this.pubTime = parcel.readLong();
             this.stat = parcel.readParcelable(EpisodeStat.class.getClassLoader());
             this.subtitle = parcel.readString();
+            this.badgeInfo = parcel.readParcelable(BadgeInfo.class.getClassLoader());
         }
 
         @Override
@@ -790,6 +845,7 @@ public class PgcInfo implements Parcelable {
             parcel.writeLong(this.pubTime);
             parcel.writeParcelable(this.stat, i);
             parcel.writeString(this.subtitle);
+            parcel.writeParcelable(this.badgeInfo, i);
         }
     }
 

@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 506
+    .line 514
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -44,7 +44,7 @@
     .locals 1
 
     .prologue
-    .line 509
+    .line 517
     new-instance v0, Lcom/bilibili/tv/api/video/PgcInfo$Area;
 
     invoke-direct {v0, p1}, Lcom/bilibili/tv/api/video/PgcInfo$Area;-><init>(Landroid/os/Parcel;)V
@@ -56,7 +56,7 @@
     .locals 1
 
     .prologue
-    .line 506
+    .line 514
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/api/video/PgcInfo$Area$1;->createFromParcel(Landroid/os/Parcel;)Lcom/bilibili/tv/api/video/PgcInfo$Area;
 
     move-result-object v0
@@ -68,7 +68,7 @@
     .locals 1
 
     .prologue
-    .line 514
+    .line 522
     new-array v0, p1, [Lcom/bilibili/tv/api/video/PgcInfo$Area;
 
     return-object v0
@@ -78,7 +78,7 @@
     .locals 1
 
     .prologue
-    .line 506
+    .line 514
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/api/video/PgcInfo$Area$1;->newArray(I)[Lcom/bilibili/tv/api/video/PgcInfo$Area;
 
     move-result-object v0

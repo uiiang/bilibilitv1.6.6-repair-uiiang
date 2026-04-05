@@ -1,4 +1,4 @@
-.class public Lcom/bilibili/tv/api/video/PgcInfo$Progress;
+.class public Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
 .super Ljava/lang/Object;
 .source "PgcInfo.java"
 
@@ -13,7 +13,7 @@
 
 .annotation system Ldalvik/annotation/InnerClass;
     accessFlags = 0x9
-    name = "Progress"
+    name = "BadgeInfo"
 .end annotation
 
 
@@ -23,7 +23,7 @@
         value = {
             "Landroid/os/Parcelable$Creator",
             "<",
-            "Lcom/bilibili/tv/api/video/PgcInfo$Progress;",
+            "Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;",
             ">;"
         }
     .end annotation
@@ -31,21 +31,21 @@
 
 
 # instance fields
-.field public lastEpId:J
+.field public bgColor:Ljava/lang/String;
     .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
-        name = "last_ep_id"
+        name = "bg_color"
     .end annotation
 .end field
 
-.field public lastEpIndex:Ljava/lang/String;
+.field public bgStyle:I
     .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
-        name = "last_ep_index"
+        name = "bg_style"
     .end annotation
 .end field
 
-.field public lastTime:I
+.field public text:Ljava/lang/String;
     .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
-        name = "last_time"
+        name = "text"
     .end annotation
 .end field
 
@@ -55,12 +55,12 @@
     .locals 1
 
     .prologue
-    .line 127
-    new-instance v0, Lcom/bilibili/tv/api/video/PgcInfo$Progress$1;
+    .line 709
+    new-instance v0, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo$1;
 
-    invoke-direct {v0}, Lcom/bilibili/tv/api/video/PgcInfo$Progress$1;-><init>()V
+    invoke-direct {v0}, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo$1;-><init>()V
 
-    sput-object v0, Lcom/bilibili/tv/api/video/PgcInfo$Progress;->CREATOR:Landroid/os/Parcelable$Creator;
+    sput-object v0, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;->CREATOR:Landroid/os/Parcelable$Creator;
 
     return-void
 .end method
@@ -69,41 +69,41 @@
     .locals 0
 
     .prologue
-    .line 148
+    .line 730
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
 
 .method protected constructor <init>(Landroid/os/Parcel;)V
-    .locals 2
+    .locals 1
 
     .prologue
-    .line 150
+    .line 732
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 151
-    invoke-virtual {p1}, Landroid/os/Parcel;->readLong()J
-
-    move-result-wide v0
-
-    iput-wide v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Progress;->lastEpId:J
-
-    .line 152
+    .line 733
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
-    iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Progress;->lastEpIndex:Ljava/lang/String;
+    iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;->text:Ljava/lang/String;
 
-    .line 153
+    .line 734
+    invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
+
+    move-result-object v0
+
+    iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;->bgColor:Ljava/lang/String;
+
+    .line 735
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
-    iput v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Progress;->lastTime:I
+    iput v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;->bgStyle:I
 
-    .line 154
+    .line 736
     return-void
 .end method
 
@@ -113,31 +113,31 @@
     .locals 1
 
     .prologue
-    .line 158
+    .line 740
     const/4 v0, 0x0
 
     return v0
 .end method
 
 .method public writeToParcel(Landroid/os/Parcel;I)V
-    .locals 2
+    .locals 1
 
     .prologue
-    .line 163
-    iget-wide v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Progress;->lastEpId:J
-
-    invoke-virtual {p1, v0, v1}, Landroid/os/Parcel;->writeLong(J)V
-
-    .line 164
-    iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Progress;->lastEpIndex:Ljava/lang/String;
+    .line 745
+    iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;->text:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 165
-    iget v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Progress;->lastTime:I
+    .line 746
+    iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;->bgColor:Ljava/lang/String;
+
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+
+    .line 747
+    iget v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;->bgStyle:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 166
+    .line 748
     return-void
 .end method

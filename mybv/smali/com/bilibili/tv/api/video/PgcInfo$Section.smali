@@ -58,7 +58,7 @@
     .locals 1
 
     .prologue
-    .line 797
+    .line 853
     new-instance v0, Lcom/bilibili/tv/api/video/PgcInfo$Section$1;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/video/PgcInfo$Section$1;-><init>()V
@@ -72,7 +72,7 @@
     .locals 0
 
     .prologue
-    .line 815
+    .line 871
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -82,17 +82,17 @@
     .locals 1
 
     .prologue
-    .line 817
+    .line 873
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 818
+    .line 874
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Section;->title:Ljava/lang/String;
 
-    .line 819
+    .line 875
     sget-object v0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->CREATOR:Landroid/os/Parcelable$Creator;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->createTypedArrayList(Landroid/os/Parcelable$Creator;)Ljava/util/ArrayList;
@@ -101,7 +101,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Section;->episodes:Ljava/util/List;
 
-    .line 820
+    .line 876
     return-void
 .end method
 
@@ -111,7 +111,7 @@
     .locals 1
 
     .prologue
-    .line 824
+    .line 880
     const/4 v0, 0x0
 
     return v0
@@ -121,16 +121,16 @@
     .locals 1
 
     .prologue
-    .line 829
+    .line 885
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Section;->title:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 830
+    .line 886
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Section;->episodes:Ljava/util/List;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeTypedList(Ljava/util/List;)V
 
-    .line 831
+    .line 887
     return-void
 .end method

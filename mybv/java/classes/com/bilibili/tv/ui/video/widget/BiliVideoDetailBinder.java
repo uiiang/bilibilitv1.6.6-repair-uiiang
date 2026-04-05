@@ -77,6 +77,30 @@ public class BiliVideoDetailBinder implements VideoCardBinder {
             durationView.setText(String.format("%02d:%02d", durationVal / 60, durationVal % 60));
         }
 
+        if (detail.badgeText != null && !detail.badgeText.isEmpty()) {
+            holder.getBadgeView().setText(detail.badgeText);
+            Context context = MainApplication.a().getApplicationContext();
+            float cornerRadius = 4 * context.getResources().getDisplayMetrics().density;
+            try {
+                int bgColor = android.graphics.Color.parseColor(detail.badgeBgColor);
+                int alphaColor = (bgColor & 0x00FFFFFF) | (153 << 24);
+                android.graphics.drawable.GradientDrawable drawable = new android.graphics.drawable.GradientDrawable();
+                drawable.setShape(android.graphics.drawable.GradientDrawable.RECTANGLE);
+                drawable.setCornerRadius(cornerRadius);
+                drawable.setColor(alphaColor);
+                holder.getBadgeView().setBackground(drawable);
+            } catch (Exception e) {
+                android.graphics.drawable.GradientDrawable drawable = new android.graphics.drawable.GradientDrawable();
+                drawable.setShape(android.graphics.drawable.GradientDrawable.RECTANGLE);
+                drawable.setCornerRadius(cornerRadius);
+                drawable.setColor(0x99FB7299);
+                holder.getBadgeView().setBackground(drawable);
+            }
+            holder.getBadgeView().setVisibility(View.VISIBLE);
+        } else {
+            holder.getBadgeView().setVisibility(View.GONE);
+        }
+
         if (detail.mCover != null) {
             nv imageLoader = nv.a();
             Context context = MainApplication.a().getApplicationContext();

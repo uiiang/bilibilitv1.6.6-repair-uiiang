@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 2796
+    .line 2834
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->val$listSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -44,7 +44,7 @@
     .locals 3
 
     .prologue
-    .line 2799
+    .line 2837
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonSectionNavTagFocusPositions:Ljava/util/Map;
@@ -62,22 +62,22 @@
 
     invoke-interface {v0, v1, v2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 2801
+    .line 2839
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->val$listSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->getFocusPosition()I
 
     move-result v0
 
-    .line 2803
+    .line 2841
     add-int/lit8 v1, p3, 0x9
 
-    .line 2805
+    .line 2843
     if-lt v0, p3, :cond_1d
 
     if-le v0, v1, :cond_24
 
-    .line 2807
+    .line 2845
     :cond_1d
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
@@ -86,7 +86,7 @@
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->scrollVideoListToPosition(Lcom/bilibili/tv/ui/video/widget/VideoListSection;I)V
     invoke-static {v0, v1, p3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/ui/video/widget/VideoListSection;I)V
 
-    .line 2809
+    .line 2847
     :cond_24
     return-void
 .end method

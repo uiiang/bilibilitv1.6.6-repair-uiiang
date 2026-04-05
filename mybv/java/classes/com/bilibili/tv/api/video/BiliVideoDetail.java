@@ -136,6 +136,8 @@ public class BiliVideoDetail implements Parcelable {
 
     public boolean hideUpIcon = false;
     public String vtText;
+    public String badgeText;
+    public String badgeBgColor;
 
     public BiliVideoDetail.Page sourcePage;
     public Object sourceEpisode;

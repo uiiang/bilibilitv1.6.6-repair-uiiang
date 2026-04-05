@@ -2544,6 +2544,39 @@ public final class VideoDetailActivity extends BaseActivity
             pgcNewEp.setText("");
         }
         
+        if (pgcInfo.badgeInfo != null && pgcInfo.badgeInfo.text != null && !pgcInfo.badgeInfo.text.isEmpty()) {
+            TextView badgeView = new TextView(this);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            layoutParams.setMargins(adl.b(R.dimen.px_30), 0, 0, 0);
+            badgeView.setLayoutParams(layoutParams);
+            badgeView.setTextSize(14);
+            badgeView.setTextColor(getResources().getColor(R.color.white));
+            badgeView.setText(pgcInfo.badgeInfo.text);
+            badgeView.setPadding(adl.b(R.dimen.px_8), adl.b(R.dimen.px_4), adl.b(R.dimen.px_8), adl.b(R.dimen.px_4));
+            badgeView.setGravity(android.view.Gravity.CENTER);
+            badgeView.setFocusable(false);
+            float cornerRadius = 4 * getResources().getDisplayMetrics().density;
+            try {
+                int bgColor = android.graphics.Color.parseColor(pgcInfo.badgeInfo.bgColor);
+                int alphaColor = (bgColor & 0x00FFFFFF) | (153 << 24);
+                android.graphics.drawable.GradientDrawable drawable = new android.graphics.drawable.GradientDrawable();
+                drawable.setShape(android.graphics.drawable.GradientDrawable.RECTANGLE);
+                drawable.setCornerRadius(cornerRadius);
+                drawable.setColor(alphaColor);
+                badgeView.setBackground(drawable);
+            } catch (Exception e) {
+                android.graphics.drawable.GradientDrawable drawable = new android.graphics.drawable.GradientDrawable();
+                drawable.setShape(android.graphics.drawable.GradientDrawable.RECTANGLE);
+                drawable.setCornerRadius(cornerRadius);
+                drawable.setColor(0x99FB7299);
+                badgeView.setBackground(drawable);
+            }
+            pgcInfoContainer.addView(badgeView);
+        }
+        
         showPgcSections(pgcInfo);
         showPgcEpisodes(pgcInfo);
         refreshVisualOrder();
@@ -2585,6 +2618,11 @@ public final class VideoDetailActivity extends BaseActivity
         detail.mCreatedTimestamp = episode.pubTime;
         detail.sourceEpisode = episode;
         detail.mCid = episode.cid;
+        
+        if (episode.badgeInfo != null && episode.badgeInfo.text != null && !episode.badgeInfo.text.isEmpty()) {
+            detail.badgeText = episode.badgeInfo.text;
+            detail.badgeBgColor = episode.badgeInfo.bgColor;
+        }
         
         BiliVideoDetail.Stat stat = new BiliVideoDetail.Stat();
         if (episode.stat != null) {
@@ -3766,6 +3804,7 @@ public final class VideoDetailActivity extends BaseActivity
         private TextView r;
         private TextView duration;
         private TextView danmakuInImage;
+        private TextView badge;
         private DrawRelativeLayout s;
 
         /*
@@ -3782,6 +3821,7 @@ public final class VideoDetailActivity extends BaseActivity
             this.r = (TextView) a(view, R.id.pubdate);
             this.duration = (TextView) a(view, R.id.duration);
             this.danmakuInImage = (TextView) a(view, R.id.danmaku);
+            this.badge = (TextView) a(view, R.id.badge);
             Drawable c = adl.a.c(R.drawable.ic_video_info_up);
             Drawable c2 = adl.a.c(R.drawable.ic_video_info_play);
             Drawable c3 = adl.a.c(R.drawable.ic_video_info_danmaku);
@@ -3806,6 +3846,10 @@ public final class VideoDetailActivity extends BaseActivity
          */
         public final DrawRelativeLayout z() {
             return this.s;
+        }
+        
+        public final TextView getBadgeView() {
+            return this.badge;
         }
 
         @Override // bl.adc.a
@@ -3846,6 +3890,28 @@ public final class VideoDetailActivity extends BaseActivity
                     this.duration.setText(String.format("%d:%02d:%02d", durationVal / 3600, (durationVal % 3600) / 60, durationVal % 60));
                 } else {
                     this.duration.setText(String.format("%02d:%02d", durationVal / 60, durationVal % 60));
+                }
+                if (biliVideoDetail.badgeText != null && !biliVideoDetail.badgeText.isEmpty()) {
+                    this.badge.setText(biliVideoDetail.badgeText);
+                    float cornerRadius = 4 * this.a.getContext().getResources().getDisplayMetrics().density;
+                    try {
+                        int bgColor = android.graphics.Color.parseColor(biliVideoDetail.badgeBgColor);
+                        int alphaColor = (bgColor & 0x00FFFFFF) | (153 << 24);
+                        android.graphics.drawable.GradientDrawable drawable = new android.graphics.drawable.GradientDrawable();
+                        drawable.setShape(android.graphics.drawable.GradientDrawable.RECTANGLE);
+                        drawable.setCornerRadius(cornerRadius);
+                        drawable.setColor(alphaColor);
+                        this.badge.setBackground(drawable);
+                    } catch (Exception e) {
+                        android.graphics.drawable.GradientDrawable drawable = new android.graphics.drawable.GradientDrawable();
+                        drawable.setShape(android.graphics.drawable.GradientDrawable.RECTANGLE);
+                        drawable.setCornerRadius(cornerRadius);
+                        drawable.setColor(0x99FB7299);
+                        this.badge.setBackground(drawable);
+                    }
+                    this.badge.setVisibility(View.VISIBLE);
+                } else {
+                    this.badge.setVisibility(View.GONE);
                 }
                 if (biliVideoDetail.mCover != null) {
                     nv a2 = nv.a();
@@ -3890,6 +3956,28 @@ public final class VideoDetailActivity extends BaseActivity
                 this.q.setVisibility(View.GONE);
                 this.danmakuInImage.setVisibility(View.GONE);
                 this.duration.setVisibility(View.GONE);
+                if (season.badgeInfo != null && season.badgeInfo.text != null && !season.badgeInfo.text.isEmpty()) {
+                    this.badge.setText(season.badgeInfo.text);
+                    float cornerRadius = 4 * this.a.getContext().getResources().getDisplayMetrics().density;
+                    try {
+                        int bgColor = android.graphics.Color.parseColor(season.badgeInfo.bgColor);
+                        int alphaColor = (bgColor & 0x00FFFFFF) | (153 << 24);
+                        android.graphics.drawable.GradientDrawable drawable = new android.graphics.drawable.GradientDrawable();
+                        drawable.setShape(android.graphics.drawable.GradientDrawable.RECTANGLE);
+                        drawable.setCornerRadius(cornerRadius);
+                        drawable.setColor(alphaColor);
+                        this.badge.setBackground(drawable);
+                    } catch (Exception e) {
+                        android.graphics.drawable.GradientDrawable drawable = new android.graphics.drawable.GradientDrawable();
+                        drawable.setShape(android.graphics.drawable.GradientDrawable.RECTANGLE);
+                        drawable.setCornerRadius(cornerRadius);
+                        drawable.setColor(0x99FB7299);
+                        this.badge.setBackground(drawable);
+                    }
+                    this.badge.setVisibility(View.VISIBLE);
+                } else {
+                    this.badge.setVisibility(View.GONE);
+                }
                 String cover = season.getBestCover();
                 if (cover != null) {
                     nv a2 = nv.a();
@@ -4603,10 +4691,22 @@ public final class VideoDetailActivity extends BaseActivity
 
             List<Object> list = new ArrayList<Object>();
             for (int i = 0; i < sectionInfo.episodes.size(); i++) {
+                JSONObject episodeObj = sectionInfo.episodes.getJSONObject(i);
                 BiliVideoDetail t = JSON.parseObject(
-                        sectionInfo.episodes.getJSONObject(i).getJSONObject("arc").toString(),
+                        episodeObj.getJSONObject("arc").toString(),
                         BiliVideoDetail.class);
                 t.mOwner = biliVideoDetail.mOwner;
+                
+                JSONObject badgeInfo = episodeObj.getJSONObject("badge_info");
+                if (badgeInfo != null) {
+                    String badgeText = badgeInfo.getString("text");
+                    String badgeBgColor = badgeInfo.getString("bg_color");
+                    if (badgeText != null && !badgeText.isEmpty()) {
+                        t.badgeText = badgeText;
+                        t.badgeBgColor = badgeBgColor;
+                    }
+                }
+                
                 list.add(t);
             }
 

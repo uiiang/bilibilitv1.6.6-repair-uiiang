@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 4789
+    .line 4889
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$8;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,15 +40,15 @@
     .locals 6
 
     .prologue
-    .line 4792
+    .line 4892
     instance-of v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     if-eqz v0, :cond_4a
 
-    .line 4793
+    .line 4893
     check-cast p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
-    .line 4794
+    .line 4894
     iget-object v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->sourcePage:Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;
 
     if-eqz v0, :cond_4b
@@ -64,7 +64,7 @@
 
     if-eqz v0, :cond_4b
 
-    .line 4795
+    .line 4895
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$8;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -78,7 +78,7 @@
 
     if-eqz v0, :cond_31
 
-    .line 4796
+    .line 4896
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$8;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -96,7 +96,7 @@
 
     invoke-static {v0, v1}, Lbl/abd;->prefetchCoverToMemoryCache(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 4798
+    .line 4898
     :cond_31
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$8;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
@@ -123,12 +123,12 @@
 
     invoke-static/range {v0 .. v5}, Lbl/xg;->a(Landroid/app/Activity;Lcom/bilibili/tv/api/video/BiliVideoDetail;Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;Landroid/os/Bundle;II)V
 
-    .line 4803
+    .line 4903
     :cond_4a
     :goto_4a
     return-void
 
-    .line 4800
+    .line 4900
     :cond_4b
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$8;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 

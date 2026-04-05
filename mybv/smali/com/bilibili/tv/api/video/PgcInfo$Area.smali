@@ -49,7 +49,7 @@
     .locals 1
 
     .prologue
-    .line 506
+    .line 514
     new-instance v0, Lcom/bilibili/tv/api/video/PgcInfo$Area$1;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/video/PgcInfo$Area$1;-><init>()V
@@ -63,7 +63,7 @@
     .locals 0
 
     .prologue
-    .line 524
+    .line 532
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -73,24 +73,24 @@
     .locals 1
 
     .prologue
-    .line 526
+    .line 534
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 527
+    .line 535
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Area;->id:I
 
-    .line 528
+    .line 536
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Area;->name:Ljava/lang/String;
 
-    .line 529
+    .line 537
     return-void
 .end method
 
@@ -100,7 +100,7 @@
     .locals 1
 
     .prologue
-    .line 533
+    .line 541
     const/4 v0, 0x0
 
     return v0
@@ -110,16 +110,16 @@
     .locals 1
 
     .prologue
-    .line 538
+    .line 546
     iget v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Area;->id:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 539
+    .line 547
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$Area;->name:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 540
+    .line 548
     return-void
 .end method

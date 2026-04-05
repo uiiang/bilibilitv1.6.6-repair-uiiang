@@ -55,7 +55,7 @@
     .locals 1
 
     .prologue
-    .line 377
+    .line 385
     new-instance v0, Lcom/bilibili/tv/api/video/PgcInfo$UpInfo$1;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/video/PgcInfo$UpInfo$1;-><init>()V
@@ -69,7 +69,7 @@
     .locals 0
 
     .prologue
-    .line 398
+    .line 406
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -79,31 +79,31 @@
     .locals 2
 
     .prologue
-    .line 400
+    .line 408
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 401
+    .line 409
     invoke-virtual {p1}, Landroid/os/Parcel;->readLong()J
 
     move-result-wide v0
 
     iput-wide v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$UpInfo;->mid:J
 
-    .line 402
+    .line 410
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$UpInfo;->name:Ljava/lang/String;
 
-    .line 403
+    .line 411
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$UpInfo;->face:Ljava/lang/String;
 
-    .line 404
+    .line 412
     return-void
 .end method
 
@@ -113,7 +113,7 @@
     .locals 1
 
     .prologue
-    .line 408
+    .line 416
     const/4 v0, 0x0
 
     return v0
@@ -123,21 +123,21 @@
     .locals 2
 
     .prologue
-    .line 413
+    .line 421
     iget-wide v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$UpInfo;->mid:J
 
     invoke-virtual {p1, v0, v1}, Landroid/os/Parcel;->writeLong(J)V
 
-    .line 414
+    .line 422
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$UpInfo;->name:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 415
+    .line 423
     iget-object v0, p0, Lcom/bilibili/tv/api/video/PgcInfo$UpInfo;->face:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 416
+    .line 424
     return-void
 .end method
