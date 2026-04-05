@@ -462,7 +462,7 @@ public final class adl {
             Integer valueOf = bangumiInfo != null ? Integer.valueOf(bangumiInfo.isJump) : null;
             String str = bangumiInfo != null ? bangumiInfo.mSeasonId : null;
             if (valueOf != null && valueOf.intValue() == 1 && !TextUtils.isEmpty(str)) {
-                this.a.startActivity(BangumiDetailActivity.Companion.a(this.a, str));
+                this.a.startActivity(VideoDetailActivity.Companion.a(this.a, str));
             } else {
                 this.a.startActivity(VideoDetailActivity.Companion.a(this.a, this.b));
             }

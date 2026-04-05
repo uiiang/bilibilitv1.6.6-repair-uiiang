@@ -26,16 +26,16 @@
 
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;ILjava/lang/Object;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;Ljava/lang/Object;I)V
     .locals 0
 
     .prologue
-    .line 86
+    .line 68
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$1;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 
-    iput p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$1;->val$pos:I
+    iput-object p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$1;->val$tagData:Ljava/lang/Object;
 
-    iput-object p3, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$1;->val$tagData:Ljava/lang/Object;
+    iput p3, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$1;->val$pos:I
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -48,59 +48,7 @@
     .locals 3
 
     .prologue
-    .line 89
-    const-string v1, "CardAdapter"
-
-    new-instance v0, Ljava/lang/StringBuilder;
-
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "onClick | position="
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    iget v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$1;->val$pos:I
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    const-string v2, " | dataClass="
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$1;->val$tagData:Ljava/lang/Object;
-
-    if-eqz v0, :cond_40
-
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$1;->val$tagData:Ljava/lang/Object;
-
-    .line 90
-    invoke-virtual {v0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/Class;->getSimpleName()Ljava/lang/String;
-
-    move-result-object v0
-
-    :goto_27
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    .line 89
-    invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 91
+    .line 71
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$1;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->clickListener:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemClickListener;
@@ -114,12 +62,6 @@
 
     invoke-interface {v0, v1, v2}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemClickListener;->onItemClick(Ljava/lang/Object;I)V
 
-    .line 92
+    .line 72
     return-void
-
-    .line 90
-    :cond_40
-    const-string v0, "null"
-
-    goto :goto_27
 .end method
