@@ -26,12 +26,12 @@
     .locals 0
 
     .prologue
-    .line 695
+    .line 697
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$k;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 696
+    .line 698
     return-void
 .end method
 
@@ -41,27 +41,27 @@
     .locals 3
 
     .prologue
-    .line 700
+    .line 702
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 701
+    .line 703
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    .line 702
+    .line 704
     const-string v1, "v.context"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 703
+    .line 705
     invoke-static {v0}, Lbl/adl;->a(Landroid/content/Context;)Landroid/app/Activity;
 
     move-result-object v0
 
-    .line 704
+    .line 706
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$k;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -69,17 +69,17 @@
 
     move-result-object v1
 
-    .line 705
+    .line 707
     if-eqz v1, :cond_1c
 
     if-nez v0, :cond_1d
 
-    .line 709
+    .line 711
     :cond_1c
     :goto_1c
     return-void
 
-    .line 708
+    .line 710
     :cond_1d
     sget-object v2, Lcom/bilibili/tv/ui/video/VideoMoreEpisodeActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoMoreEpisodeActivity$a;
 

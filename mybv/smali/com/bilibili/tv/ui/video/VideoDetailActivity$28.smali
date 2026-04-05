@@ -1,80 +1,69 @@
-.class synthetic Lcom/bilibili/tv/ui/video/VideoDetailActivity$28;
+.class Lcom/bilibili/tv/ui/video/VideoDetailActivity$28;
 .super Ljava/lang/Object;
 .source "VideoDetailActivity.java"
 
+# interfaces
+.implements Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoClickListener;
+
 
 # annotations
-.annotation system Ldalvik/annotation/EnclosingClass;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+.annotation system Ldalvik/annotation/EnclosingMethod;
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->createPgcSectionView(Lcom/bilibili/tv/api/video/PgcInfo$Section;I)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
-    accessFlags = 0x1008
+    accessFlags = 0x0
     name = null
 .end annotation
 
 
-# static fields
-.field static final synthetic $SwitchMap$com$bilibili$tv$ui$video$VideoDetailActivity$EntryType:[I
+# instance fields
+.field final synthetic this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
 
 # direct methods
-.method static constructor <clinit>()V
-    .locals 3
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
+    .locals 0
 
     .prologue
-    .line 1410
-    invoke-static {}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;->values()[Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
+    .line 3035
+    iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$28;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    move-result-object v0
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    array-length v0, v0
-
-    new-array v0, v0, [I
-
-    sput-object v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$28;->$SwitchMap$com$bilibili$tv$ui$video$VideoDetailActivity$EntryType:[I
-
-    :try_start_9
-    sget-object v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$28;->$SwitchMap$com$bilibili$tv$ui$video$VideoDetailActivity$EntryType:[I
-
-    sget-object v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;->PGC_BY_SEASON_ID:Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
-
-    invoke-virtual {v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;->ordinal()I
-
-    move-result v1
-
-    const/4 v2, 0x1
-
-    aput v2, v0, v1
-    :try_end_14
-    .catch Ljava/lang/NoSuchFieldError; {:try_start_9 .. :try_end_14} :catch_22
-
-    :goto_14
-    :try_start_14
-    sget-object v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$28;->$SwitchMap$com$bilibili$tv$ui$video$VideoDetailActivity$EntryType:[I
-
-    sget-object v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;->UGC_BY_AVID:Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
-
-    invoke-virtual {v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;->ordinal()I
-
-    move-result v1
-
-    const/4 v2, 0x2
-
-    aput v2, v0, v1
-    :try_end_1f
-    .catch Ljava/lang/NoSuchFieldError; {:try_start_14 .. :try_end_1f} :catch_20
-
-    :goto_1f
     return-void
+.end method
 
-    :catch_20
-    move-exception v0
 
-    goto :goto_1f
+# virtual methods
+.method public onVideoClicked(Ljava/lang/Object;I)V
+    .locals 6
 
-    :catch_22
-    move-exception v0
+    .prologue
+    .line 3038
+    instance-of v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
-    goto :goto_14
+    if-eqz v0, :cond_15
+
+    .line 3039
+    check-cast p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;
+
+    .line 3040
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$28;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    sget-object v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
+
+    iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$28;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    iget-wide v4, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mAvid:J
+
+    invoke-virtual {v1, v2, v4, v5}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;J)Landroid/content/Intent;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->startActivity(Landroid/content/Intent;)V
+
+    .line 3042
+    :cond_15
+    return-void
 .end method

@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 904
+    .line 906
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->val$expectedPosition:I
@@ -48,14 +48,14 @@
     .locals 5
 
     .prologue
-    .line 907
+    .line 909
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->getCurrentFocus()Landroid/view/View;
 
     move-result-object v2
 
-    .line 908
+    .line 910
     const-string v1, "VideoDetailActivity"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -86,7 +86,7 @@
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 911
+    .line 913
     invoke-virtual {v2}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
     move-result-object v4
@@ -105,7 +105,7 @@
 
     move-result-object v0
 
-    .line 912
+    .line 914
     invoke-virtual {v2}, Landroid/view/View;->getId()I
 
     move-result v4
@@ -127,20 +127,20 @@
 
     move-result-object v0
 
-    .line 908
+    .line 910
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 914
+    .line 916
     const/4 v1, -0x1
 
-    .line 915
+    .line 917
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->val$verifyRv:Landroid/support/v7/widget/RecyclerView;
 
     if-eqz v0, :cond_9e
 
     if-eqz v2, :cond_9e
 
-    .line 916
+    .line 918
     const/4 v0, 0x0
 
     :goto_57
@@ -152,7 +152,7 @@
 
     if-ge v0, v3, :cond_9e
 
-    .line 917
+    .line 919
     iget-object v3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->val$verifyRv:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v3, v0}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
@@ -161,11 +161,11 @@
 
     if-ne v3, v2, :cond_9b
 
-    .line 923
+    .line 925
     :goto_67
     if-ltz v0, :cond_97
 
-    .line 924
+    .line 926
     const-string v1, "VideoDetailActivity"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -210,17 +210,17 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 927
+    .line 929
     :cond_97
     return-void
 
-    .line 912
+    .line 914
     :cond_98
     const-string v0, "null"
 
     goto :goto_44
 
-    .line 916
+    .line 918
     :cond_9b
     add-int/lit8 v0, v0, 0x1
 

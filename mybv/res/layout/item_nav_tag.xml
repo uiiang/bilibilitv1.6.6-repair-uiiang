@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nav_tag_text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minWidth="@dimen/px_120"
+    android:paddingLeft="@dimen/px_16"
+    android:paddingRight="@dimen/px_16"
+    android:paddingTop="@dimen/px_8"
+    android:paddingBottom="@dimen/px_8"
+    android:layout_marginRight="@dimen/px_8"
+    android:gravity="center"
+    android:textSize="@dimen/px_28"
+    android:textColor="@color/white"
+    android:focusable="true"
+    android:clickable="true"
+    android:background="@drawable/nav_tag_selector" />

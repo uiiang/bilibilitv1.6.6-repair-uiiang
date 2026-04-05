@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 76
+    .line 86
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$1;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 
     iput p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$1;->val$pos:I
@@ -48,7 +48,7 @@
     .locals 3
 
     .prologue
-    .line 79
+    .line 89
     const-string v1, "CardAdapter"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -79,7 +79,7 @@
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$1;->val$tagData:Ljava/lang/Object;
 
-    .line 80
+    .line 90
     invoke-virtual {v0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
     move-result-object v0
@@ -97,10 +97,10 @@
 
     move-result-object v0
 
-    .line 79
+    .line 89
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 81
+    .line 91
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$1;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->clickListener:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemClickListener;
@@ -114,10 +114,10 @@
 
     invoke-interface {v0, v1, v2}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemClickListener;->onItemClick(Ljava/lang/Object;I)V
 
-    .line 82
+    .line 92
     return-void
 
-    .line 80
+    .line 90
     :cond_40
     const-string v0, "null"
 

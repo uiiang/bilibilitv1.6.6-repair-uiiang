@@ -182,6 +182,8 @@ public final class VideoDetailActivity extends BaseActivity
     private int tagViewFocusPosition = 0;
     // 多合集列表焦点位置记忆
     private Map<Integer, Integer> seasonSectionFocusPositions = new HashMap<>();
+    // 多合集列表导航标签焦点位置记忆
+    private Map<Integer, Integer> seasonSectionNavTagFocusPositions = new HashMap<>();
     // 阻止分集列表在初始化时被适配器/绑定逻辑自动抢焦
     private boolean blockEpisodeAutoFocus = true;
     public static final a Companion = new a(null);
@@ -813,18 +815,18 @@ public final class VideoDetailActivity extends BaseActivity
         
         if (valueOf != null && valueOf.intValue() == 0) {
             View currentFocus = getCurrentFocus();
-            // Log.i(C, "========== dispatchKeyEvent ==========");
-            // Log.i(C, "dispatchKeyEvent | 按键=" + keyName + "(" + valueOf2 + ") | 动作=" + actionName);
-            // Log.i(C, "dispatchKeyEvent | 当前焦点=" + (currentFocus != null ?
-            //         currentFocus.getClass().getSimpleName() + "@id=" + currentFocus.getId() : "null"));
+            Log.i(C, "========== dispatchKeyEvent ==========");
+            Log.i(C, "dispatchKeyEvent | 按键=" + keyName + "(" + valueOf2 + ") | 动作=" + actionName);
+            Log.i(C, "dispatchKeyEvent | 当前焦点=" + (currentFocus != null ?
+                    currentFocus.getClass().getSimpleName() + "@id=" + currentFocus.getId() : "null"));
 
             if (currentFocus == null) {
-                // Log.w(C, "dispatchKeyEvent | currentFocus为null，调用super");
+                Log.w(C, "dispatchKeyEvent | currentFocus为null，调用super");
                 return super.dispatchKeyEvent(keyEvent);
             }
 
             saveCurrentFocusPosition(currentFocus);
-            // Log.d(C, "dispatchKeyEvent | 已保存当前焦点位置");
+            Log.d(C, "dispatchKeyEvent | 已保存当前焦点位置");
 
             if (valueOf2 != null && valueOf2.intValue() == KeyEvent.KEYCODE_DPAD_UP) {
                 // Log.i(C, "dispatchKeyEvent | 处理DPAD_UP");
@@ -1023,6 +1025,40 @@ public final class VideoDetailActivity extends BaseActivity
             } else if (currentListType == LIST_TYPE_SEASON_SECTION) {
                 // 从合集列表向下移动
                 int currentSectionIndex = getCurrentSeasonSectionIndex(currentFocus);
+                SeasonSectionView currentSection = (currentSectionIndex >= 0 && currentSectionIndex < seasonSectionViews.size()) 
+                        ? seasonSectionViews.get(currentSectionIndex) : null;
+                
+                // 先检查是否有导航标签
+                if (currentSection != null) {
+                    com.bilibili.tv.ui.video.widget.VideoListSection vls = findVideoListSection(currentSection.sectionId);
+                    if (vls != null) {
+                        com.bilibili.tv.ui.video.widget.NavigationTagAdapter navTagAdapter = vls.getNavTagAdapter();
+                        RecyclerView navTagRecyclerView = vls.getNavTagRecyclerView();
+                        if (navTagAdapter != null && !navTagAdapter.isEmpty() 
+                                && navTagRecyclerView != null && navTagRecyclerView.getVisibility() == View.VISIBLE) {
+                            Log.i(C, "handleListFocusNavigation | 移动焦点到导航标签 | sectionId=" + currentSection.sectionId);
+                            int selectedTagPos = vls.getNavTagSelectedPosition();
+                            if (selectedTagPos >= 0) {
+                                navTagAdapter.scrollToPositionWithOffset(selectedTagPos);
+                                navTagRecyclerView.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        View selectedTag = navTagAdapter.findViewByPosition(selectedTagPos);
+                                        if (selectedTag != null) {
+                                            selectedTag.requestFocus();
+                                        } else {
+                                            navTagRecyclerView.requestFocus();
+                                        }
+                                    }
+                                });
+                                return true;
+                            }
+                            navTagRecyclerView.requestFocus();
+                            return true;
+                        }
+                    }
+                }
+                
                 if (currentSectionIndex >= 0 && currentSectionIndex < seasonSectionViews.size() - 1) {
                     // 移动到下一个合集列表
                     SeasonSectionView nextSection = seasonSectionViews.get(currentSectionIndex + 1);
@@ -1053,6 +1089,21 @@ public final class VideoDetailActivity extends BaseActivity
                 }
             } else if (currentListType == LIST_TYPE_TAG) {
                 return true;
+            } else if (currentListType == LIST_TYPE_NAV_TAG) {
+                int currentSectionIndex = getCurrentNavTagSectionIndex(currentFocus);
+                if (currentSectionIndex >= 0 && currentSectionIndex < seasonSectionViews.size() - 1) {
+                    SeasonSectionView nextSection = seasonSectionViews.get(currentSectionIndex + 1);
+                    targetRecyclerView = nextSection.recyclerView;
+                    savedPosition = getSeasonSectionFocusPosition(nextSection.sectionId);
+                } else {
+                    if (this.r != null && this.r.getVisibility() == View.VISIBLE) {
+                        targetRecyclerView = this.r;
+                        savedPosition = relateVideoFocusPosition;
+                    } else if (this.n != null && this.n.getVisibility() == View.VISIBLE) {
+                        targetRecyclerView = this.n;
+                        savedPosition = tagViewFocusPosition;
+                    }
+                }
             }
         } else if (direction == KeyEvent.KEYCODE_DPAD_UP) {
             // 检查是否在最上面的列表，需要导航到播放按钮
@@ -1123,6 +1174,13 @@ public final class VideoDetailActivity extends BaseActivity
                 } else if (this.o != null && this.o.getVisibility() == View.VISIBLE) {
                     targetRecyclerView = this.o;
                     savedPosition = epLayoutFocusPosition;
+                }
+            } else if (currentListType == LIST_TYPE_NAV_TAG) {
+                int currentSectionIndex = getCurrentNavTagSectionIndex(currentFocus);
+                if (currentSectionIndex >= 0 && currentSectionIndex < seasonSectionViews.size()) {
+                    SeasonSectionView currentSection = seasonSectionViews.get(currentSectionIndex);
+                    targetRecyclerView = currentSection.recyclerView;
+                    savedPosition = getSeasonSectionFocusPosition(currentSection.sectionId);
                 }
             }
         }
@@ -1230,11 +1288,26 @@ public final class VideoDetailActivity extends BaseActivity
         return -1;
     }
 
+    private int getCurrentNavTagSectionIndex(View currentFocus) {
+        ViewParent parent = currentFocus.getParent();
+        if (parent instanceof RecyclerView) {
+            RecyclerView navTagRecyclerView = (RecyclerView) parent;
+            for (int i = 0; i < seasonSectionViews.size(); i++) {
+                com.bilibili.tv.ui.video.widget.VideoListSection vls = findVideoListSection(seasonSectionViews.get(i).sectionId);
+                if (vls != null && vls.getNavTagRecyclerView() == navTagRecyclerView) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
     private static final int LIST_TYPE_EP_LAYOUT = 1;
     private static final int LIST_TYPE_EPISODES_VIDEO = 2;
     private static final int LIST_TYPE_RELATE_VIDEO = 3;
     private static final int LIST_TYPE_TAG = 4;
     private static final int LIST_TYPE_SEASON_SECTION = 5;
+    private static final int LIST_TYPE_NAV_TAG = 6;
 
     private int getCurrentListType(View currentFocus) {
         if (currentFocus == null) {
@@ -1254,6 +1327,8 @@ public final class VideoDetailActivity extends BaseActivity
                 return LIST_TYPE_TAG;
             } else if (id == R.id.season_section_recycler) {
                 return LIST_TYPE_SEASON_SECTION;
+            } else if (id == R.id.season_section_nav_tags) {
+                return LIST_TYPE_NAV_TAG;
             }
             ViewParent parent = view.getParent();
             if (parent instanceof View) {
@@ -1364,7 +1439,10 @@ public final class VideoDetailActivity extends BaseActivity
                         seasonSectionFocusPositions.put(ssv.sectionId, dataPosition);
                         if (targetVls != null) {
                             targetVls.setFocusPosition(dataPosition);
+                            
+                            updateNavTagSelectionForSection(targetVls, dataPosition);
                         }
+                        
                         break;
                     }
                 }
@@ -2734,6 +2812,8 @@ public final class VideoDetailActivity extends BaseActivity
 
         listSection.scrollToCurrentVideo();
 
+        setupNavigationTagsForSection(listSection, totalEpisodes);
+
         seasonsContainer.addView(listSection, 0);
 
         if (hh != null) {
@@ -2777,6 +2857,92 @@ public final class VideoDetailActivity extends BaseActivity
                 sectionIndex++;
             }
         }
+    }
+
+    private void setupNavigationTagsForSection(final com.bilibili.tv.ui.video.widget.VideoListSection listSection, int totalCount) {
+        if (listSection == null) {
+            return;
+        }
+        
+        final int sectionId = listSection.getSectionId();
+        Log.i(C, "setupNavigationTagsForSection | sectionId=" + sectionId + " | totalCount=" + totalCount);
+        
+        listSection.setupNavigationTags(totalCount);
+        
+        listSection.setOnNavTagFocusListener(new com.bilibili.tv.ui.video.widget.VideoListSection.OnNavTagFocusListener() {
+            @Override
+            public void onNavTagFocus(int sectionId, int tagIndex, int videoStartPosition) {
+                Log.i(C, "onNavTagFocus | sectionId=" + sectionId + " | tagIndex=" + tagIndex 
+                        + " | videoStartPosition=" + videoStartPosition);
+                
+                if (tagIndex < 0) {
+                    Log.i(C, "onNavTagFocus | tagIndex<0，跳过滚动（视频列表焦点触发）");
+                    return;
+                }
+                
+                seasonSectionNavTagFocusPositions.put(sectionId, tagIndex);
+                
+                int currentVideoPosition = listSection.getFocusPosition();
+                int rangeStart = videoStartPosition;
+                int rangeEnd = videoStartPosition + 9;
+                
+                Log.i(C, "onNavTagFocus | currentVideoPosition=" + currentVideoPosition 
+                        + " | rangeStart=" + rangeStart + " | rangeEnd=" + rangeEnd);
+                
+                if (currentVideoPosition < rangeStart || currentVideoPosition > rangeEnd) {
+                    int targetPosition = videoStartPosition;
+                    scrollVideoListToPosition(listSection, targetPosition);
+                    Log.i(C, "onNavTagFocus | 视频位置不在范围内，滚动到position=" + targetPosition);
+                } else {
+                    Log.i(C, "onNavTagFocus | 视频位置已在范围内，不滚动");
+                }
+            }
+        });
+        
+        listSection.setOnNavTagClickListener(new com.bilibili.tv.ui.video.widget.VideoListSection.OnNavTagClickListener() {
+            @Override
+            public void onNavTagClick(int sectionId, int tagIndex, int videoStartPosition) {
+                Log.i(C, "onNavTagClick | sectionId=" + sectionId + " | tagIndex=" + tagIndex 
+                        + " | videoStartPosition=" + videoStartPosition);
+                
+                seasonSectionNavTagFocusPositions.put(sectionId, tagIndex);
+                
+                int currentVideoPosition = listSection.getFocusPosition();
+                int rangeStart = videoStartPosition;
+                int rangeEnd = videoStartPosition + 9;
+                
+                if (currentVideoPosition < rangeStart || currentVideoPosition > rangeEnd) {
+                    int targetPosition = videoStartPosition;
+                    scrollVideoListToPosition(listSection, targetPosition);
+                    Log.i(C, "onNavTagClick | 视频位置不在范围内，滚动到position=" + targetPosition);
+                }
+            }
+        });
+        
+        int currentVideoPosition = listSection.getFocusPosition();
+        if (currentVideoPosition >= 0) {
+            listSection.updateNavTagSelection(currentVideoPosition);
+            Log.i(C, "setupNavigationTagsForSection | 初始化导航标签选中状态 | currentVideoPosition=" + currentVideoPosition);
+        }
+    }
+
+    private void scrollVideoListToPosition(com.bilibili.tv.ui.video.widget.VideoListSection listSection, int position) {
+        if (listSection == null) {
+            return;
+        }
+        
+        Log.i(C, "scrollVideoListToPosition | sectionId=" + listSection.getSectionId() + " | position=" + position);
+        listSection.scrollToDataPosition(position);
+    }
+
+    private void updateNavTagSelectionForSection(com.bilibili.tv.ui.video.widget.VideoListSection listSection, int videoPosition) {
+        if (listSection == null || !listSection.hasNavigationTags()) {
+            return;
+        }
+        
+        listSection.updateNavTagSelection(videoPosition);
+        Log.i(C, "updateNavTagSelectionForSection | sectionId=" + listSection.getSectionId() 
+                + " | videoPosition=" + videoPosition);
     }
 
     private void createSeasonsSectionView(List<PgcInfo.Season> seasons, int sectionIndex) {
@@ -2834,6 +3000,8 @@ public final class VideoDetailActivity extends BaseActivity
 
         listSection.scrollToCurrentVideo();
 
+        setupNavigationTagsForSection(listSection, totalSeasons);
+
         seasonsContainer.addView(listSection);
     }
 
@@ -2888,6 +3056,8 @@ public final class VideoDetailActivity extends BaseActivity
         }
 
         listSection.scrollToCurrentVideo();
+
+        setupNavigationTagsForSection(listSection, totalEpisodes);
 
         seasonsContainer.addView(listSection);
     }
@@ -4598,6 +4768,8 @@ public final class VideoDetailActivity extends BaseActivity
 
             section.scrollToCurrentVideo();
 
+            setupNavigationTagsForSection(section, totalEpisodes);
+
             VideoDetailActivity.this.seasonsContainer.addView(section);
         }
 
@@ -4775,6 +4947,8 @@ public final class VideoDetailActivity extends BaseActivity
             }
 
             listSection.scrollToCurrentVideo();
+
+            setupNavigationTagsForSection(listSection, totalPages);
 
             seasonsContainer.addView(listSection, 0);
 

@@ -6,6 +6,7 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
+        Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemFocusListener;,
         Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemClickListener;,
         Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$FocusBoundaryHandler;
     }
@@ -43,6 +44,10 @@
 
 .field private focusBoundaryHandler:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$FocusBoundaryHandler;
 
+.field private focusListener:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemFocusListener;
+
+.field private nextFocusDownId:I
+
 
 # direct methods
 .method public constructor <init>()V
@@ -52,12 +57,17 @@
     .line 11
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$a;-><init>()V
 
-    .line 22
+    .line 26
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->dataList:Ljava/util/List;
+
+    .line 31
+    const/4 v0, -0x1
+
+    iput v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->nextFocusDownId:I
 
     return-void
 .end method
@@ -72,20 +82,30 @@
     return-object v0
 .end method
 
+.method static synthetic access$100(Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;)Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemFocusListener;
+    .locals 1
+
+    .prologue
+    .line 11
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->focusListener:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemFocusListener;
+
+    return-object v0
+.end method
+
 
 # virtual methods
 .method public a()I
     .locals 4
 
     .prologue
-    .line 110
+    .line 124
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->dataList:Ljava/util/List;
 
     if-nez v0, :cond_1e
 
     const/4 v0, 0x0
 
-    .line 111
+    .line 125
     :goto_5
     const-string v1, "CardAdapter"
 
@@ -109,10 +129,10 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 112
+    .line 126
     return v0
 
-    .line 110
+    .line 124
     :cond_1e
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->dataList:Ljava/util/List;
 
@@ -127,7 +147,7 @@
     .locals 3
 
     .prologue
-    .line 29
+    .line 35
     const-string v0, "CardAdapter"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -150,7 +170,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 30
+    .line 36
     sget-object v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$f$a;
 
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f$a;->a(Landroid/view/ViewGroup;)Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;
@@ -166,11 +186,11 @@
     .prologue
     const/4 v3, 0x1
 
-    const/4 v7, -0x1
-
     const/4 v1, 0x0
 
-    .line 35
+    const/4 v7, -0x1
+
+    .line 41
     const-string v2, "CardAdapter"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -199,7 +219,7 @@
 
     move v0, v1
 
-    .line 36
+    .line 42
     :goto_1f
     invoke-virtual {v4, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
@@ -217,7 +237,7 @@
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->binder:Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;
 
-    .line 37
+    .line 43
     invoke-virtual {v0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
     move-result-object v0
@@ -239,7 +259,7 @@
 
     if-eqz p1, :cond_83
 
-    .line 38
+    .line 44
     invoke-virtual {p1}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
     move-result-object v0
@@ -257,15 +277,15 @@
 
     move-result-object v0
 
-    .line 35
+    .line 41
     invoke-static {v2, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 40
+    .line 46
     instance-of v0, p1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;
 
     if-nez v0, :cond_86
 
-    .line 41
+    .line 47
     const-string v0, "CardAdapter"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -294,28 +314,28 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 106
+    .line 120
     :goto_78
     return-void
 
-    .line 35
+    .line 41
     :cond_79
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->dataList:Ljava/util/List;
 
-    .line 36
+    .line 42
     invoke-interface {v0}, Ljava/util/List;->size()I
 
     move-result v0
 
     goto :goto_1f
 
-    .line 37
+    .line 43
     :cond_80
     const-string v0, "null"
 
     goto :goto_37
 
-    .line 38
+    .line 44
     :cond_83
     const-string v0, "null"
 
@@ -324,17 +344,17 @@
     :cond_86
     move-object v0, p1
 
-    .line 44
+    .line 50
     check-cast v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;
 
-    .line 45
+    .line 51
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->dataList:Ljava/util/List;
 
     invoke-interface {v2, p2}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v4
 
-    .line 47
+    .line 53
     const-string v5, "CardAdapter"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -357,9 +377,9 @@
 
     move-result-object v6
 
-    if-eqz v4, :cond_134
+    if-eqz v4, :cond_149
 
-    .line 48
+    .line 54
     invoke-virtual {v4}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
     move-result-object v2
@@ -377,58 +397,69 @@
 
     move-result-object v2
 
-    .line 47
+    .line 53
     invoke-static {v5, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 50
+    .line 56
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->binder:Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;
 
-    if-eqz v2, :cond_138
+    if-eqz v2, :cond_14d
 
-    .line 51
+    .line 57
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->binder:Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;
 
     invoke-interface {v2, v0, v4, p2}, Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;->bind(Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;Ljava/lang/Object;I)V
 
-    .line 55
+    .line 61
     :goto_c4
     iget-object v2, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;->a:Landroid/view/View;
 
-    .line 56
-    if-eqz v2, :cond_115
+    .line 62
+    if-eqz v2, :cond_12a
 
-    .line 57
+    .line 63
     iget-object v5, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->dataList:Ljava/util/List;
 
     invoke-interface {v5}, Ljava/util/List;->size()I
 
     move-result v5
 
-    .line 58
-    if-nez p2, :cond_158
+    .line 64
+    if-nez p2, :cond_16d
 
-    .line 59
+    .line 65
     invoke-virtual {v2}, Landroid/view/View;->getId()I
 
     move-result v6
 
     invoke-virtual {v2, v6}, Landroid/view/View;->setNextFocusLeftId(I)V
 
-    .line 63
+    .line 69
     :goto_d7
     add-int/lit8 v6, v5, -0x1
 
-    if-ne p2, v6, :cond_15d
+    if-ne p2, v6, :cond_172
 
-    .line 64
+    .line 70
     invoke-virtual {v2}, Landroid/view/View;->getId()I
 
     move-result v6
 
     invoke-virtual {v2, v6}, Landroid/view/View;->setNextFocusRightId(I)V
 
-    .line 68
+    .line 74
     :goto_e2
+    iget v6, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->nextFocusDownId:I
+
+    if-eq v6, v7, :cond_eb
+
+    .line 75
+    iget v6, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->nextFocusDownId:I
+
+    invoke-virtual {v2, v6}, Landroid/view/View;->setNextFocusDownId(I)V
+
+    .line 77
+    :cond_eb
     const-string v6, "CardAdapter"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -451,11 +482,11 @@
 
     move-result-object v7
 
-    if-nez p2, :cond_161
+    if-nez p2, :cond_177
 
     move v2, v3
 
-    :goto_fc
+    :goto_105
     invoke-virtual {v7, v2}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
 
     move-result-object v2
@@ -468,10 +499,22 @@
 
     add-int/lit8 v5, v5, -0x1
 
-    if-ne p2, v5, :cond_163
+    if-ne p2, v5, :cond_179
 
-    :goto_10a
+    :goto_113
     invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, " | nextFocusDownId="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    iget v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->nextFocusDownId:I
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
@@ -479,20 +522,20 @@
 
     move-result-object v1
 
-    invoke-static {v6, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v6, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 72
-    :cond_115
+    .line 82
+    :cond_12a
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->clickListener:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemClickListener;
 
-    if-eqz v1, :cond_128
+    if-eqz v1, :cond_13d
 
-    .line 75
+    .line 85
     iget-object v1, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;->a:Landroid/view/View;
 
     invoke-virtual {v1, v4}, Landroid/view/View;->setTag(Ljava/lang/Object;)V
 
-    .line 76
+    .line 86
     iget-object v1, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;->a:Landroid/view/View;
 
     new-instance v2, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$1;
@@ -501,8 +544,8 @@
 
     invoke-virtual {v1, v2}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 85
-    :cond_128
+    .line 95
+    :cond_13d
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;->a:Landroid/view/View;
 
     new-instance v1, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$2;
@@ -513,14 +556,14 @@
 
     goto/16 :goto_78
 
-    .line 48
-    :cond_134
+    .line 54
+    :cond_149
     const-string v2, "null"
 
     goto/16 :goto_b0
 
-    .line 53
-    :cond_138
+    .line 59
+    :cond_14d
     const-string v2, "CardAdapter"
 
     new-instance v5, Ljava/lang/StringBuilder;
@@ -551,35 +594,35 @@
 
     goto/16 :goto_c4
 
-    .line 61
-    :cond_158
+    .line 67
+    :cond_16d
     invoke-virtual {v2, v7}, Landroid/view/View;->setNextFocusLeftId(I)V
 
     goto/16 :goto_d7
 
-    .line 66
-    :cond_15d
+    .line 72
+    :cond_172
     invoke-virtual {v2, v7}, Landroid/view/View;->setNextFocusRightId(I)V
 
-    goto :goto_e2
+    goto/16 :goto_e2
 
-    :cond_161
+    :cond_177
     move v2, v1
 
-    .line 68
-    goto :goto_fc
+    .line 77
+    goto :goto_105
 
-    :cond_163
+    :cond_179
     move v3, v1
 
-    goto :goto_10a
+    goto :goto_113
 .end method
 
 .method public getBinder()Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;
     .locals 1
 
     .prologue
-    .line 143
+    .line 167
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->binder:Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;
 
     return-object v0
@@ -589,7 +632,7 @@
     .locals 3
 
     .prologue
-    .line 134
+    .line 158
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->dataList:Ljava/util/List;
 
     if-eqz v0, :cond_e
@@ -604,7 +647,7 @@
 
     if-lt p1, v0, :cond_3e
 
-    .line 135
+    .line 159
     :cond_e
     const-string v1, "CardAdapter"
 
@@ -634,7 +677,7 @@
 
     const/4 v0, 0x0
 
-    .line 136
+    .line 160
     :goto_2a
     invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
@@ -644,28 +687,28 @@
 
     move-result-object v0
 
-    .line 135
+    .line 159
     invoke-static {v1, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 137
+    .line 161
     const/4 v0, 0x0
 
-    .line 139
+    .line 163
     :goto_36
     return-object v0
 
-    .line 135
+    .line 159
     :cond_37
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->dataList:Ljava/util/List;
 
-    .line 136
+    .line 160
     invoke-interface {v0}, Ljava/util/List;->size()I
 
     move-result v0
 
     goto :goto_2a
 
-    .line 139
+    .line 163
     :cond_3e
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->dataList:Ljava/util/List;
 
@@ -689,13 +732,13 @@
     .end annotation
 
     .prologue
-    .line 116
+    .line 130
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->dataList:Ljava/util/List;
 
-    .line 117
+    .line 131
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->binder:Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;
 
-    .line 118
+    .line 132
     const-string v1, "CardAdapter"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -725,7 +768,7 @@
 
     if-eqz p2, :cond_3c
 
-    .line 119
+    .line 133
     invoke-virtual {p2}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
     move-result-object v0
@@ -743,16 +786,16 @@
 
     move-result-object v0
 
-    .line 118
+    .line 132
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 120
+    .line 134
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->d()V
 
-    .line 121
+    .line 135
     return-void
 
-    .line 118
+    .line 132
     :cond_37
     invoke-interface {p1}, Ljava/util/List;->size()I
 
@@ -760,7 +803,7 @@
 
     goto :goto_14
 
-    .line 119
+    .line 133
     :cond_3c
     const-string v0, "null"
 
@@ -771,10 +814,10 @@
     .locals 3
 
     .prologue
-    .line 124
+    .line 138
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->focusBoundaryHandler:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$FocusBoundaryHandler;
 
-    .line 125
+    .line 139
     const-string v1, "CardAdapter"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -802,24 +845,58 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 126
+    .line 140
     return-void
 
-    .line 125
+    .line 139
     :cond_1f
     const-string v0, "null"
 
     goto :goto_13
 .end method
 
+.method public setNextFocusDownId(I)V
+    .locals 3
+
+    .prologue
+    .line 153
+    iput p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->nextFocusDownId:I
+
+    .line 154
+    const-string v0, "CardAdapter"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "setNextFocusDownId | resId="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 155
+    return-void
+.end method
+
 .method public setOnItemClickListener(Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemClickListener;)V
     .locals 3
 
     .prologue
-    .line 129
+    .line 143
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->clickListener:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemClickListener;
 
-    .line 130
+    .line 144
     const-string v1, "CardAdapter"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -847,10 +924,55 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 131
+    .line 145
     return-void
 
-    .line 130
+    .line 144
+    :cond_1f
+    const-string v0, "null"
+
+    goto :goto_13
+.end method
+
+.method public setOnItemFocusListener(Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemFocusListener;)V
+    .locals 3
+
+    .prologue
+    .line 148
+    iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->focusListener:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemFocusListener;
+
+    .line 149
+    const-string v1, "CardAdapter"
+
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "setOnItemFocusListener | listener="
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    if-eqz p1, :cond_1f
+
+    const-string v0, "\u5df2\u8bbe\u7f6e"
+
+    :goto_13
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v1, v0}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 150
+    return-void
+
+    .line 149
     :cond_1f
     const-string v0, "null"
 

@@ -19,10 +19,16 @@ public class VideoCardAdapter extends RecyclerView.a<RecyclerView.v> {
         void onItemClick(Object data, int position);
     }
 
+    public interface OnItemFocusListener {
+        void onItemFocus(int position, boolean hasFocus);
+    }
+
     private List<Object> dataList = new ArrayList();
     private VideoCardBinder binder;
     private FocusBoundaryHandler focusBoundaryHandler;
     private OnItemClickListener clickListener;
+    private OnItemFocusListener focusListener;
+    private int nextFocusDownId = View.NO_ID;
 
     @Override
     public RecyclerView.v a(ViewGroup parent, int viewType) {
@@ -65,9 +71,13 @@ public class VideoCardAdapter extends RecyclerView.a<RecyclerView.v> {
             } else {
                 itemView.setNextFocusRightId(View.NO_ID);
             }
-            Log.d(TAG, "onBindViewHolder | position=" + position
+            if (nextFocusDownId != View.NO_ID) {
+                itemView.setNextFocusDownId(nextFocusDownId);
+            }
+            Log.i(TAG, "onBindViewHolder | position=" + position
                     + " | 焦点边界 | isFirst=" + (position == 0)
-                    + " | isLast=" + (position == size - 1));
+                    + " | isLast=" + (position == size - 1)
+                    + " | nextFocusDownId=" + nextFocusDownId);
         }
         if (clickListener != null) {
             final Object tagData = item;
@@ -101,6 +111,10 @@ public class VideoCardAdapter extends RecyclerView.a<RecyclerView.v> {
                     Log.i(TAG, "Card onFocusChange | <<< 卡片失去焦点 | position=" + position);
                 }
                 Log.i(TAG, "========== Card onFocusChange END ==========");
+                
+                if (focusListener != null) {
+                    focusListener.onItemFocus(position, hasFocus);
+                }
             }
         });
     }
@@ -128,6 +142,16 @@ public class VideoCardAdapter extends RecyclerView.a<RecyclerView.v> {
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.clickListener = listener;
         Log.d(TAG, "setOnItemClickListener | listener=" + (listener != null ? "已设置" : "null"));
+    }
+
+    public void setOnItemFocusListener(OnItemFocusListener listener) {
+        this.focusListener = listener;
+        Log.d(TAG, "setOnItemFocusListener | listener=" + (listener != null ? "已设置" : "null"));
+    }
+
+    public void setNextFocusDownId(int resId) {
+        this.nextFocusDownId = resId;
+        Log.d(TAG, "setNextFocusDownId | resId=" + resId);
     }
 
     public Object getItem(int position) {

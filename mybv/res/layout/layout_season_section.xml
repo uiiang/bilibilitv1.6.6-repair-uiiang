@@ -22,4 +22,16 @@
         android:clipChildren="false"
         android:clipToPadding="false" android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/season_section_nav_tags"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:paddingLeft="@dimen/px_10"
+        android:paddingTop="@dimen/px_8"
+        android:paddingBottom="@dimen/px_8"
+        android:focusable="false"
+        android:descendantFocusability="afterDescendants"
+        android:clipChildren="false"
+        android:clipToPadding="false" />
 </LinearLayout>

@@ -20,9 +20,19 @@ public class VideoListSection extends LinearLayout {
         void onVideoClicked(Object data, int position);
     }
 
+    public interface OnNavTagFocusListener {
+        void onNavTagFocus(int sectionId, int tagIndex, int videoStartPosition);
+    }
+
+    public interface OnNavTagClickListener {
+        void onNavTagClick(int sectionId, int tagIndex, int videoStartPosition);
+    }
+
     private TextView titleView;
     private RecyclerView recyclerView;
     private VideoCardAdapter adapter;
+    private RecyclerView navTagRecyclerView;
+    private NavigationTagAdapter navTagAdapter;
     private int sectionId = -1;
     private int focusPosition = 0;
     private long currentVideoId = -1;
@@ -31,6 +41,8 @@ public class VideoListSection extends LinearLayout {
     private int currentSeasonId = -1;
     private VideoCardBinder binder;
     private OnVideoClickListener videoClickListener;
+    private OnNavTagFocusListener navTagFocusListener;
+    private OnNavTagClickListener navTagClickListener;
     private List<?> dataList;
     private boolean manualFocusRequested = false;
 
@@ -127,6 +139,19 @@ public class VideoListSection extends LinearLayout {
             }
         });
 
+        adapter.setOnItemFocusListener(new VideoCardAdapter.OnItemFocusListener() {
+            @Override
+            public void onItemFocus(int position, boolean hasFocus) {
+                Log.i(TAG, "onItemFocus | sectionId=" + sectionId + " | position=" + position + " | hasFocus=" + hasFocus);
+                if (hasFocus) {
+                    updateNavTagSelection(position);
+                    if (navTagFocusListener != null) {
+                        navTagFocusListener.onNavTagFocus(sectionId, -1, position);
+                    }
+                }
+            }
+        });
+
         recyclerView.setLayoutManager(new FixLinearLayoutManager(getContext(), 0, false));
         recyclerView.setAdapter(adapter);
         // Log.d(TAG, "initViews | RecyclerView配置完成 | layoutManager=FixLinearLayoutManager(HORIZONTAL)");
@@ -191,6 +216,71 @@ public class VideoListSection extends LinearLayout {
                 // Log.i(TAG, "========== onFocusChange END ==========");
             }
         });
+
+        initNavigationTags();
+    }
+
+    private void initNavigationTags() {
+        navTagRecyclerView = (RecyclerView) findViewById(R.id.season_section_nav_tags);
+        if (navTagRecyclerView == null) {
+            Log.w(TAG, "initNavigationTags | navTagRecyclerView为null");
+            return;
+        }
+        
+        navTagRecyclerView.setLayoutManager(new FixLinearLayoutManager(getContext(), 0, false));
+        navTagAdapter = new NavigationTagAdapter();
+        navTagRecyclerView.setAdapter(navTagAdapter);
+        navTagAdapter.attachRecyclerView(navTagRecyclerView);
+        
+        navTagAdapter.setFocusBoundaryHandler(new NavigationTagAdapter.FocusBoundaryHandler() {
+            @Override
+            public void setupFocusBoundary(View itemView, int position, int size) {
+                if (itemView == null) {
+                    return;
+                }
+                boolean isFirst = (position == 0);
+                boolean isLast = (position == size - 1);
+                
+                if (isFirst) {
+                    itemView.setNextFocusLeftId(itemView.getId());
+                } else {
+                    itemView.setNextFocusLeftId(View.NO_ID);
+                }
+                if (isLast) {
+                    itemView.setNextFocusRightId(itemView.getId());
+                } else {
+                    itemView.setNextFocusRightId(View.NO_ID);
+                }
+                
+                Log.i(TAG, "setupNavTagFocusBoundary | position=" + position 
+                        + " | isFirst=" + isFirst + " | isLast=" + isLast);
+            }
+        });
+        
+        navTagAdapter.setOnTagFocusListener(new NavigationTagAdapter.OnTagFocusListener() {
+            @Override
+            public void onTagFocus(int tagIndex, int videoStartPosition) {
+                Log.i(TAG, "onTagFocus | sectionId=" + sectionId + " | tagIndex=" + tagIndex 
+                        + " | videoStartPosition=" + videoStartPosition);
+                navTagAdapter.setSelectedPosition(tagIndex);
+                if (navTagFocusListener != null) {
+                    navTagFocusListener.onNavTagFocus(sectionId, tagIndex, videoStartPosition);
+                }
+            }
+        });
+        
+        navTagAdapter.setOnTagClickListener(new NavigationTagAdapter.OnTagClickListener() {
+            @Override
+            public void onTagClick(int tagIndex, int videoStartPosition) {
+                Log.i(TAG, "onTagClick | sectionId=" + sectionId + " | tagIndex=" + tagIndex 
+                        + " | videoStartPosition=" + videoStartPosition);
+                if (navTagClickListener != null) {
+                    navTagClickListener.onNavTagClick(sectionId, tagIndex, videoStartPosition);
+                }
+            }
+        });
+        
+        Log.i(TAG, "initNavigationTags | 导航标签初始化完成");
     }
 
     private int getViewPosition(View view) {
@@ -380,6 +470,52 @@ public class VideoListSection extends LinearLayout {
 
                 focusPosition = finalPos;
                 // Log.i(TAG, "scrollToCurrentVideo.post | 完成 | focusPosition更新为=" + finalPos);
+            }
+        });
+    }
+
+    public void scrollToDataPosition(int position) {
+        Log.i(TAG, "scrollToDataPosition | sectionId=" + sectionId + " | position=" + position);
+        
+        if (recyclerView == null) {
+            Log.w(TAG, "scrollToDataPosition | recyclerView为null");
+            return;
+        }
+        
+        int dataSize = (dataList == null ? 0 : dataList.size());
+        if (position < 0 || position >= dataSize) {
+            Log.w(TAG, "scrollToDataPosition | position越界 | position=" + position + " | dataSize=" + dataSize);
+            return;
+        }
+        
+        final int finalPos = position;
+        recyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                if (!recyclerView.isAttachedToWindow()) {
+                    Log.w(TAG, "scrollToDataPosition.post | RecyclerView已脱离窗口");
+                    return;
+                }
+                
+                try {
+                    Object layoutManager = recyclerView.getLayoutManager();
+                    if (layoutManager != null) {
+                        java.lang.reflect.Method scrollToWithOffset = layoutManager.getClass().getMethod("b", int.class, int.class);
+                        scrollToWithOffset.invoke(layoutManager, finalPos, 0);
+                        Log.i(TAG, "scrollToDataPosition.post | b(int,int)成功 | position=" + finalPos);
+                    }
+                } catch (Exception e) {
+                    Log.w(TAG, "scrollToDataPosition.post | b(int,int)失败: " + e.getMessage());
+                    try {
+                        java.lang.reflect.Method scrollToMethod = recyclerView.getClass().getMethod("d", int.class);
+                        scrollToMethod.invoke(recyclerView, finalPos);
+                        Log.i(TAG, "scrollToDataPosition.post | d(int)成功 | position=" + finalPos);
+                    } catch (Exception e2) {
+                        Log.w(TAG, "scrollToDataPosition.post | d(int)失败: " + e2.getMessage());
+                    }
+                }
+                
+                focusPosition = finalPos;
             }
         });
     }
@@ -659,5 +795,122 @@ public class VideoListSection extends LinearLayout {
 
     public void setOnVideoClickListener(OnVideoClickListener listener) {
         this.videoClickListener = listener;
+    }
+
+    public void setOnNavTagFocusListener(OnNavTagFocusListener listener) {
+        this.navTagFocusListener = listener;
+    }
+
+    public void setOnNavTagClickListener(OnNavTagClickListener listener) {
+        this.navTagClickListener = listener;
+    }
+
+    public void setupNavigationTags(int totalCount) {
+        Log.i(TAG, "setupNavigationTags | sectionId=" + sectionId + " | totalCount=" + totalCount);
+        if (navTagRecyclerView == null || navTagAdapter == null) {
+            Log.w(TAG, "setupNavigationTags | navTagRecyclerView或navTagAdapter为null");
+            return;
+        }
+        
+        if (totalCount > 10) {
+            navTagAdapter.setTags(totalCount);
+            navTagRecyclerView.setVisibility(View.VISIBLE);
+            navTagRecyclerView.requestLayout();
+            
+            int navTagId = R.id.season_section_nav_tags;
+            adapter.setNextFocusDownId(navTagId);
+            recyclerView.setNextFocusDownId(navTagId);
+            navTagRecyclerView.setNextFocusUpId(R.id.season_section_recycler);
+            
+            recyclerView.post(new Runnable() {
+                @Override
+                public void run() {
+                    updateItemsFocusDownId(R.id.season_section_nav_tags);
+                }
+            });
+            
+            Log.i(TAG, "setupNavigationTags | 导航标签已显示 | tagCount=" + navTagAdapter.getTagCount());
+        } else {
+            navTagRecyclerView.setVisibility(View.GONE);
+            adapter.setNextFocusDownId(View.NO_ID);
+            recyclerView.post(new Runnable() {
+                @Override
+                public void run() {
+                    updateItemsFocusDownId(View.NO_ID);
+                }
+            });
+            Log.i(TAG, "setupNavigationTags | 视频数量<=10，不显示导航标签");
+        }
+    }
+
+    private void updateItemsFocusDownId(int focusDownId) {
+        if (recyclerView == null) {
+            return;
+        }
+        int childCount = recyclerView.getChildCount();
+        Log.i(TAG, "updateItemsFocusDownId | focusDownId=" + focusDownId + " | childCount=" + childCount);
+        for (int i = 0; i < childCount; i++) {
+            View child = recyclerView.getChildAt(i);
+            if (child != null) {
+                child.setNextFocusDownId(focusDownId);
+            }
+        }
+    }
+
+    public void updateNavTagSelection(int videoPosition) {
+        if (navTagAdapter == null || navTagAdapter.isEmpty()) {
+            return;
+        }
+        
+        int visiblePosition = videoPosition + 1;
+        int tagIndex = (visiblePosition - 1) / 10;
+        
+        if (tagIndex >= 0 && tagIndex < navTagAdapter.getTagCount()) {
+            navTagAdapter.setSelectedPosition(tagIndex);
+            navTagAdapter.scrollToPositionWithOffset(tagIndex);
+            Log.i(TAG, "updateNavTagSelection | videoPosition=" + videoPosition 
+                    + " | visiblePosition=" + visiblePosition 
+                    + " | tagIndex=" + tagIndex);
+        }
+    }
+
+    public int getNavTagSelectedPosition() {
+        if (navTagAdapter == null) {
+            return -1;
+        }
+        return navTagAdapter.getSelectedPosition();
+    }
+
+    public void scrollNavTagToPosition(int position) {
+        if (navTagAdapter != null) {
+            navTagAdapter.scrollToPosition(position);
+        }
+    }
+
+    public void setNavTagSelectedPosition(int position) {
+        if (navTagAdapter != null) {
+            navTagAdapter.setSelectedPosition(position);
+        }
+    }
+
+    public boolean hasNavigationTags() {
+        return navTagRecyclerView != null 
+                && navTagRecyclerView.getVisibility() == View.VISIBLE 
+                && navTagAdapter != null 
+                && !navTagAdapter.isEmpty();
+    }
+
+    public RecyclerView getNavTagRecyclerView() {
+        return navTagRecyclerView;
+    }
+
+    public NavigationTagAdapter getNavTagAdapter() {
+        return navTagAdapter;
+    }
+
+    public void setNavTagNextFocusDownId(int resId) {
+        if (navTagRecyclerView != null) {
+            navTagRecyclerView.setNextFocusDownId(resId);
+        }
     }
 }

@@ -3,12 +3,12 @@
 .source "VideoDetailActivity.java"
 
 # interfaces
-.implements Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$OnFavoriteStatusChangedListener;
+.implements Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoClickListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->showFavoriteMenu()V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->createSeasonsSectionView(Ljava/util/List;I)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 3164
+    .line 2978
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$27;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,36 +36,34 @@
 
 
 # virtual methods
-.method public onFavoriteStatusChanged(Z)V
-    .locals 1
+.method public onVideoClicked(Ljava/lang/Object;I)V
+    .locals 4
 
     .prologue
-    .line 3167
+    .line 2981
+    instance-of v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
+
+    if-eqz v0, :cond_15
+
+    .line 2982
+    check-cast p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
+
+    .line 2983
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$27;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1100(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/api/video/BiliVideoDetail;
+    sget-object v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
 
-    move-result-object v0
+    iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$27;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    if-eqz v0, :cond_11
+    iget v3, p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;->seasonId:I
 
-    .line 3168
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$27;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+    invoke-virtual {v1, v2, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->aForSeason(Landroid/content/Context;I)Landroid/content/Intent;
 
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1100(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/api/video/BiliVideoDetail;
+    move-result-object v1
 
-    move-result-object v0
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->startActivity(Landroid/content/Intent;)V
 
-    invoke-virtual {v0, p1}, Lcom/bilibili/tv/api/video/BiliVideoDetail;->setFavoriteStatus(Z)V
-
-    .line 3170
-    :cond_11
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$27;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->o()V
-
-    .line 3171
+    .line 2985
+    :cond_15
     return-void
 .end method

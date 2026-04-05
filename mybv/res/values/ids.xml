@@ -362,4 +362,6 @@
     <item type="id" name="sticky_pgc_area" />
     <item type="id" name="sticky_pgc_new_ep" />
     <item type="id" name="title_section" />
+    <item type="id" name="season_section_nav_tags" />
+    <item type="id" name="nav_tag_text" />
 </resources>

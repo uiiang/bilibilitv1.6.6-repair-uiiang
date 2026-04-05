@@ -2539,6 +2539,8 @@
     <public type="id" name="sticky_pgc_area" id="0x7f0801d3" />
     <public type="id" name="sticky_pgc_new_ep" id="0x7f0801d4" />
     <public type="id" name="title_section" id="0x7f0801d5" />
+    <public type="id" name="season_section_nav_tags" id="0x7f0801d6" />
+    <public type="id" name="nav_tag_text" id="0x7f0801d7" />
 
 
     <public type="integer" name="config_danmaku_fly_duration" id="0x7f090003" />
@@ -2707,6 +2709,7 @@
     <public type="layout" name="item_sort_menu" id="0x7f0a009c" />
     <public type="layout" name="dialog_sort_menu_multi" id="0x7f0a009d" />
     <public type="layout" name="item_sort_menu_multi" id="0x7f0a009e" />
+    <public type="layout" name="item_nav_tag" id="0x7f0a009f" />
 
 
     <public type="mipmap" name="ic_launcher" id="0x7f0b0000" />

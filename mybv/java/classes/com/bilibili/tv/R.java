@@ -2563,6 +2563,8 @@ public final class R {
         public static final int sticky_pgc_area = 0x7f0801d3;
         public static final int sticky_pgc_new_ep = 0x7f0801d4;
         public static final int title_section = 0x7f0801d5;
+        public static final int season_section_nav_tags = 0x7f0801d6;
+        public static final int nav_tag_text = 0x7f0801d7;
     }
 
     public static final class integer {
@@ -2737,6 +2739,7 @@ public final class R {
         public static final int item_sort_menu = 0x7f0a009c;
         public static final int dialog_sort_menu_multi = 0x7f0a009d;
         public static final int item_sort_menu_multi = 0x7f0a009e;
+        public static final int item_nav_tag = 0x7f0a009f;
     }
 
     public static final class mipmap {

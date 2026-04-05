@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 4742
+    .line 4914
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$8;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 6
 
     .prologue
-    .line 4745
+    .line 4917
     const-string v1, "VideoDetailActivity"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -84,15 +84,15 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 4746
+    .line 4918
     instance-of v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     if-eqz v0, :cond_d5
 
-    .line 4747
+    .line 4919
     check-cast p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
-    .line 4748
+    .line 4920
     const-string v1, "VideoDetailActivity"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -150,7 +150,7 @@
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    .line 4750
+    .line 4922
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1100(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
@@ -182,10 +182,10 @@
 
     move-result-object v0
 
-    .line 4748
+    .line 4920
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 4751
+    .line 4923
     iget-object v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->sourcePage:Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;
 
     if-eqz v0, :cond_e0
@@ -201,14 +201,14 @@
 
     if-eqz v0, :cond_e0
 
-    .line 4752
+    .line 4924
     const-string v0, "VideoDetailActivity"
 
     const-string v1, "UGC\u5206P\u5217\u8868\u70b9\u51fb | \u8c03\u7528playVideo\u76f4\u63a5\u64ad\u653e"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 4753
+    .line 4925
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$8;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -222,7 +222,7 @@
 
     if-eqz v0, :cond_bc
 
-    .line 4754
+    .line 4926
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$8;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -240,7 +240,7 @@
 
     invoke-static {v0, v1}, Lbl/abd;->prefetchCoverToMemoryCache(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 4756
+    .line 4928
     :cond_bc
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$8;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
@@ -267,30 +267,30 @@
 
     invoke-static/range {v0 .. v5}, Lbl/xg;->a(Landroid/app/Activity;Lcom/bilibili/tv/api/video/BiliVideoDetail;Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;Landroid/os/Bundle;II)V
 
-    .line 4762
+    .line 4934
     :cond_d5
     :goto_d5
     return-void
 
-    .line 4745
+    .line 4917
     :cond_d6
     const-string v0, "null"
 
     goto/16 :goto_21
 
-    .line 4748
+    .line 4920
     :cond_da
     const-string v0, "\u65e0"
 
     goto :goto_5d
 
-    .line 4750
+    .line 4922
     :cond_dd
     const-string v0, "null"
 
     goto :goto_7f
 
-    .line 4758
+    .line 4930
     :cond_e0
     const-string v0, "VideoDetailActivity"
 
@@ -298,7 +298,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 4759
+    .line 4931
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$8;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
