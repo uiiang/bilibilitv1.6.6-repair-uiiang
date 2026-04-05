@@ -1512,6 +1512,9 @@ public final class VideoDetailActivity extends BaseActivity
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        if (isFinishing()) {
+                            return;
+                        }
                         if (callback != null) {
                             callback.run();
                         }
@@ -1537,39 +1540,48 @@ public final class VideoDetailActivity extends BaseActivity
             public void onSuccess(PgcInfo pgcInfo) {
                 if (pgcInfo == null || pgcInfo.episodes == null || pgcInfo.episodes.isEmpty()) {
                     VideoDetailActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            lr.a(VideoDetailActivity.this, R.string.video_not_exist);
-                            finish();
-                        }
-                    });
-                    return;
-                }
-                mPgcInfo = pgcInfo;
-                BiliVideoDetail detail = convertPgcToBiliVideoDetail(pgcInfo);
-                s = detail.mAvid;
-                VideoDetailActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (A != null) {
-                            A.a(detail);
+                        if (VideoDetailActivity.this.isFinishing()) {
+                            return;
                         }
-                        showPgcInfo(pgcInfo);
-                    }
-                });
-            }
-
-            @Override
-            public void onError(String message) {
-                Log.i("VideoDetailApi", "loadPgcBySeasonId error: " + message);
-                VideoDetailActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
                         lr.a(VideoDetailActivity.this, R.string.video_not_exist);
                         finish();
                     }
                 });
+                return;
             }
+            mPgcInfo = pgcInfo;
+            BiliVideoDetail detail = convertPgcToBiliVideoDetail(pgcInfo);
+            s = detail.mAvid;
+            VideoDetailActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (VideoDetailActivity.this.isFinishing()) {
+                        return;
+                    }
+                    if (A != null) {
+                        A.a(detail);
+                    }
+                    showPgcInfo(pgcInfo);
+                }
+            });
+        }
+
+        @Override
+        public void onError(String message) {
+            Log.i("VideoDetailApi", "loadPgcBySeasonId error: " + message);
+            VideoDetailActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (VideoDetailActivity.this.isFinishing()) {
+                        return;
+                    }
+                    lr.a(VideoDetailActivity.this, R.string.video_not_exist);
+                    finish();
+                }
+            });
+        }
         });
     }
 
@@ -1856,6 +1868,9 @@ public final class VideoDetailActivity extends BaseActivity
                 VideoDetailActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        if (VideoDetailActivity.this.isFinishing()) {
+                            return;
+                        }
                         VideoDetailActivity.this.o();
                     }
                 });
@@ -1955,6 +1970,9 @@ public final class VideoDetailActivity extends BaseActivity
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        if (isFinishing()) {
+                                            return;
+                                        }
                                         finalBiliVideoDetail.mHistory = history;
                                         updateHistoryDisplay(finalBiliVideoDetail);
                                         if (VideoDetailActivity.this.historyPlayBtnLayout != null &&
@@ -1974,6 +1992,9 @@ public final class VideoDetailActivity extends BaseActivity
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            if (isFinishing()) {
+                                return;
+                            }
                             fallbackLoadHistory(finalBiliVideoDetail, a2.e());
                         }
                     });
@@ -2332,6 +2353,9 @@ public final class VideoDetailActivity extends BaseActivity
                 VideoDetailActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        if (VideoDetailActivity.this.isFinishing()) {
+                            return;
+                        }
                         android.util.Log.i("PgcInfo", "=== runOnUiThread: showPgcInfo ===");
                         
                         View contentView = VideoDetailActivity.this.m;
