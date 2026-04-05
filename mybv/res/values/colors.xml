@@ -67,7 +67,7 @@
     <color name="level_progressbar_lv7">#ffe52fec</color>
     <color name="level_progressbar_lv8">#ff841cf9</color>
     <color name="level_progressbar_lv9">#ff151515</color>
-    <color name="loading_background">#ffbababa</color>
+    <color name="loading_background">#ff000000</color>
     <color name="loading_tip_color">#ff9a9a9a</color>
     <color name="material_blue_grey_800">#ff37474f</color>
     <color name="material_blue_grey_900">#ff263238</color>

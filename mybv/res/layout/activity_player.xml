@@ -26,8 +26,8 @@
     android:layout_height="fill_parent" android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true" />
   <ViewStub android:id="@id/continued_play_tip" android:focusable="false"
-    android:layout="@layout/play_continued_tip" android:layout_width="@dimen/px_520"
-    android:layout_height="@dimen/px_150" android:layout_marginBottom="@dimen/px_88"
+    android:layout="@layout/play_continued_tip" android:layout_width="wrap_content"
+    android:layout_height="wrap_content" android:layout_marginBottom="@dimen/px_88"
     android:layout_above="@id/bottom" />
   <include android:id="@id/buffering_group" android:focusable="false"
     android:layout_width="wrap_content" android:layout_height="wrap_content"

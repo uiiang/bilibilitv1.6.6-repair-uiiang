@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.bilibili.tv.widget.ShadowTextView android:id="@id/continued_play_tip"
-  android:background="@color/black_80" android:padding="@dimen/px_40"
+  android:background="@color/black_80" 
+  android:paddingLeft="20dp" android:paddingRight="20dp"
+  android:paddingTop="@dimen/px_40" android:paddingBottom="@dimen/px_40"
   android:layout_width="wrap_content" android:layout_height="wrap_content"
   android:text="@string/player_continue_play_tip" style="@style/PlayerTextView.Big"
   xmlns:android="http://schemas.android.com/apk/res/android" />
