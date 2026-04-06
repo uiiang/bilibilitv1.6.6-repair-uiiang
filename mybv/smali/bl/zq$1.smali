@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 22
+    .line 24
     invoke-direct {p0}, Lbl/vm;-><init>()V
 
     return-void
@@ -42,7 +42,7 @@
     .locals 0
 
     .prologue
-    .line 30
+    .line 32
     return-void
 .end method
 
@@ -59,7 +59,7 @@
     .end annotation
 
     .prologue
-    .line 26
+    .line 28
     return-void
 .end method
 
@@ -67,7 +67,7 @@
     .locals 0
 
     .prologue
-    .line 22
+    .line 24
     check-cast p1, Lcom/bilibili/okretro/GeneralResponse;
 
     invoke-virtual {p0, p1}, Lbl/zq$1;->onSuccess(Lcom/bilibili/okretro/GeneralResponse;)V

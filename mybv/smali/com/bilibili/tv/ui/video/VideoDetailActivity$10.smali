@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 977
+    .line 978
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->val$navTagAdapter:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
@@ -52,7 +52,7 @@
     .locals 2
 
     .prologue
-    .line 980
+    .line 981
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->val$navTagAdapter:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     iget v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->val$selectedTagPos:I
@@ -61,17 +61,17 @@
 
     move-result-object v0
 
-    .line 981
+    .line 982
     if-eqz v0, :cond_e
 
-    .line 982
+    .line 983
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 986
+    .line 987
     :goto_d
     return-void
 
-    .line 984
+    .line 985
     :cond_e
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$10;->val$navTagRecyclerView:Landroid/support/v7/widget/RecyclerView;
 

@@ -266,7 +266,10 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements Vie
     final class DeleteConfirmButton implements agb.b {
         @Override // bl.agb.b
         public final void a(agb agbVar, View view) {
-            ((BiliPlayerHistoryService) vo.a(BiliPlayerHistoryService.class)).clearVideoToviews(mg.a(MainApplication.a()).e(), VideoToviewActivity.current_avid).a();
+            mg biliAccount = mg.a(MainApplication.a());
+            String cookie = CookieUtil.getFullCookieWithDevice(biliAccount);
+            String csrf = CookieUtil.getBiliJct(biliAccount);
+            ((BiliPlayerHistoryService) vo.a(BiliPlayerHistoryService.class)).clearVideoToviews(VideoToviewActivity.current_avid, csrf, cookie).a();
             VideoToviewActivity.current_avid = -1;
             VideoToviewActivity.this.d.remove(VideoToviewActivity.current_pos);
             VideoToviewActivity.current_pos = -1;
@@ -289,7 +292,10 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements Vie
         public final void a(agb agbVar, View view) {
             VideoToviewActivity.c(VideoToviewActivity.this).b();
             VideoToviewActivity.c(VideoToviewActivity.this).a();
-            ((BiliPlayerHistoryService) vo.a(BiliPlayerHistoryService.class)).clearVideoToviews(mg.a(MainApplication.a()).e()).a();
+            mg biliAccount = mg.a(MainApplication.a());
+            String cookie = CookieUtil.getFullCookieWithDevice(biliAccount);
+            String csrf = CookieUtil.getBiliJct(biliAccount);
+            ((BiliPlayerHistoryService) vo.a(BiliPlayerHistoryService.class)).clearVideoToviews(csrf, cookie).a();
             agbVar.dismiss();
             try{Thread.sleep(1000);}catch(Exception e){}
             VideoToviewActivity.this.o();

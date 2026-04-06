@@ -156,7 +156,7 @@ public class xj extends xh {
         } else {
             j = 0;
         }
-        zq.a(p(), i, i2, j2, j, b, i4, 1L, noHistoryPlay);
+        zq.a(p(), i2, i, j2, j, b, i4, 1L, noHistoryPlay);
     }
 
     private int b(ResolveResourceParams resolveResourceParams) {

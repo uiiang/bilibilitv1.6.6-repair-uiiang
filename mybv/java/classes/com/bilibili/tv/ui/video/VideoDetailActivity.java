@@ -51,6 +51,7 @@ import bl.vp;
 import bl.wf;
 import bl.wg;
 import bl.xg;
+import mybl.CookieUtil;
 import com.bilibili.api.BiliApiException;
 import com.bilibili.bangumi.api.BangumiApiResponse;
 import com.bilibili.bangumi.api.uniform.BangumiUniformSeason;
@@ -3164,8 +3165,10 @@ public final class VideoDetailActivity extends BaseActivity
             }
             BiliVideoDetail biliVideoDetail3 = this.u;
             if (biliVideoDetail3 != null) {
+                String cookie = CookieUtil.getFullCookieWithDevice(biliAccount);
+                String csrf = CookieUtil.getBiliJct(biliAccount);
                 ((BiliPlayerHistoryService) vo.a(BiliPlayerHistoryService.class))
-                        .addVideoToviews(biliAccount.e(), biliVideoDetail3.mAvid)
+                        .addVideoToviews(biliVideoDetail3.mAvid, csrf, cookie)
                         .a(new AddToViewResponse());
             }
         } else if (id != R.id.video_detail_more_btn) {
@@ -3384,7 +3387,13 @@ public final class VideoDetailActivity extends BaseActivity
         this.B = true;
         mg a2 = mg.a(this);
         bbi.a((Object) a2, "BiliAccount.get(this)");
-        ((MyBiliApiService) vo.a(MyBiliApiService.class)).likeVideo(a2.e(), this.s, z).a(new LikeResponse());
+        String cookie = CookieUtil.getFullCookieWithDevice(a2);
+        String csrf = CookieUtil.getBiliJct(a2);
+        int webLike = z + 1;
+        Log.i("LikeVideo", "aid=" + this.s + ", appLike=" + z + ", webLike=" + webLike);
+        Log.i("LikeVideo", "csrf=" + csrf);
+        Log.i("LikeVideo", "cookie=" + cookie);
+        ((MyBiliApiService) vo.a(MyBiliApiService.class)).likeVideo(this.s, webLike, csrf, cookie).a(new LikeResponse());
     }
 
     public final class LikeResponse extends vn<JSONObject> {
@@ -3399,10 +3408,10 @@ public final class VideoDetailActivity extends BaseActivity
                 biliVideoDetail.setLikeStatus(!biliVideoDetail.isLikeVideo());
             }
             VideoDetailActivity.this.o();
-            if (response.getString("toast") != null && !response.getString("toast").equals("")) {
-                lr.b(VideoDetailActivity.this.getApplicationContext(), response.getString("toast"));
-            } else if (biliVideoDetail != null && biliVideoDetail.isLikeVideo()) {
+            if (biliVideoDetail != null && biliVideoDetail.isLikeVideo()) {
                 lr.b(VideoDetailActivity.this.getApplicationContext(), "点赞成功啦");
+            } else {
+                lr.b(VideoDetailActivity.this.getApplicationContext(), "取消点赞成功");
             }
         }
 
@@ -3431,7 +3440,9 @@ public final class VideoDetailActivity extends BaseActivity
         this.B = true;
         mg a2 = mg.a(this);
         bbi.a((Object) a2, "BiliAccount.get(this)");
-        ((MyBiliApiService) vo.a(MyBiliApiService.class)).coinVideo(a2.e(), this.s, multiply, select_like)
+        String cookie = CookieUtil.getFullCookieWithDevice(a2);
+        String csrf = CookieUtil.getBiliJct(a2);
+        ((MyBiliApiService) vo.a(MyBiliApiService.class)).coinVideo(this.s, multiply, select_like, csrf, cookie)
                 .a(new CoinResponse());
     }
 
@@ -3443,16 +3454,18 @@ public final class VideoDetailActivity extends BaseActivity
         public void a(JSONObject response) {
             VideoDetailActivity.this.B = false;
             BiliVideoDetail biliVideoDetail = VideoDetailActivity.this.u;
+            JSONObject data = response != null ? response.getJSONObject("data") : null;
+            boolean isLike = data != null && data.getBooleanValue("like");
             if (biliVideoDetail != null) {
                 biliVideoDetail.setCoinStatus(true);
                 biliVideoDetail.increaseCoins(1);
-                if (response.getBoolean("like")) {
+                if (isLike) {
                     biliVideoDetail.setLikeStatus(true);
                     biliVideoDetail.increaseCoins(1);
                 }
             }
             VideoDetailActivity.this.o();
-            if (response.getBoolean("like")) {
+            if (isLike) {
                 lr.b(VideoDetailActivity.this.getApplicationContext(), "投币成功，感谢您的支持");
             } else {
                 lr.b(VideoDetailActivity.this.getApplicationContext(), "投币成功啦");
@@ -3480,7 +3493,9 @@ public final class VideoDetailActivity extends BaseActivity
         this.B = true;
         mg a2 = mg.a(this);
         bbi.a((Object) a2, "BiliAccount.get(this)");
-        ((MyBiliApiService) vo.a(MyBiliApiService.class)).tripleVideo(a2.e(), this.s).a(new TripleResponse());
+        String cookie = CookieUtil.getFullCookieWithDevice(a2);
+        String csrf = CookieUtil.getBiliJct(a2);
+        ((MyBiliApiService) vo.a(MyBiliApiService.class)).tripleVideo(this.s, csrf, cookie).a(new TripleResponse());
     }
 
     public final class TripleResponse extends vn<JSONObject> {
@@ -3491,11 +3506,13 @@ public final class VideoDetailActivity extends BaseActivity
         public void a(JSONObject response) {
             VideoDetailActivity.this.B = false;
             BiliVideoDetail biliVideoDetail = VideoDetailActivity.this.u;
+            JSONObject data = response != null ? response.getJSONObject("data") : null;
+            int multiply = data != null ? data.getIntValue("multiply") : 2;
             if (biliVideoDetail != null) {
                 biliVideoDetail.setLikeStatus(true);
                 biliVideoDetail.setCoinStatus(true);
                 biliVideoDetail.setFavoriteStatus(true);
-                biliVideoDetail.increaseCoins(response.getIntValue("multiply"));
+                biliVideoDetail.increaseCoins(multiply);
             }
             VideoDetailActivity.this.o();
             lr.b(VideoDetailActivity.this.getApplicationContext(), "三连推荐成功");

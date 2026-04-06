@@ -63,32 +63,38 @@
     .end annotation
 .end method
 
-.method public abstract coinVideo(Ljava/lang/String;JII)Lbl/vp;
-    .param p1    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Field;
-            value = "access_key"
-        .end annotation
-    .end param
-    .param p2    # J
+.method public abstract coinVideo(JIILjava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # J
         .annotation runtime Lretrofit2/http/Field;
             value = "aid"
         .end annotation
     .end param
-    .param p4    # I
+    .param p3    # I
         .annotation runtime Lretrofit2/http/Field;
             value = "multiply"
         .end annotation
     .end param
-    .param p5    # I
+    .param p4    # I
         .annotation runtime Lretrofit2/http/Field;
             value = "select_like"
         .end annotation
     .end param
+    .param p5    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Field;
+            value = "csrf"
+        .end annotation
+    .end param
+    .param p6    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "(",
+            "(JII",
             "Ljava/lang/String;",
-            "JII)",
+            "Ljava/lang/String;",
+            ")",
             "Lbl/vp",
             "<",
             "Lcom/bilibili/okretro/GeneralResponse",
@@ -102,7 +108,7 @@
     .end annotation
 
     .annotation runtime Lretrofit2/http/POST;
-        value = "https://app.bilibili.com/x/v2/view/coin/add"
+        value = "/x/web-interface/coin/add"
     .end annotation
 .end method
 
@@ -1114,27 +1120,33 @@
     .end annotation
 .end method
 
-.method public abstract likeVideo(Ljava/lang/String;JI)Lbl/vp;
-    .param p1    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Field;
-            value = "access_key"
-        .end annotation
-    .end param
-    .param p2    # J
+.method public abstract likeVideo(JILjava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # J
         .annotation runtime Lretrofit2/http/Field;
             value = "aid"
         .end annotation
     .end param
-    .param p4    # I
+    .param p3    # I
         .annotation runtime Lretrofit2/http/Field;
             value = "like"
         .end annotation
     .end param
+    .param p4    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Field;
+            value = "csrf"
+        .end annotation
+    .end param
+    .param p5    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "(",
+            "(JI",
             "Ljava/lang/String;",
-            "JI)",
+            "Ljava/lang/String;",
+            ")",
             "Lbl/vp",
             "<",
             "Lcom/bilibili/okretro/GeneralResponse",
@@ -1148,7 +1160,7 @@
     .end annotation
 
     .annotation runtime Lretrofit2/http/POST;
-        value = "https://app.bilibili.com/x/v2/view/like"
+        value = "/x/web-interface/archive/like"
     .end annotation
 .end method
 
@@ -1373,22 +1385,28 @@
     .end annotation
 .end method
 
-.method public abstract tripleVideo(Ljava/lang/String;J)Lbl/vp;
-    .param p1    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Field;
-            value = "access_key"
-        .end annotation
-    .end param
-    .param p2    # J
+.method public abstract tripleVideo(JLjava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # J
         .annotation runtime Lretrofit2/http/Field;
             value = "aid"
         .end annotation
     .end param
+    .param p3    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Field;
+            value = "csrf"
+        .end annotation
+    .end param
+    .param p4    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "(",
+            "(J",
             "Ljava/lang/String;",
-            "J)",
+            "Ljava/lang/String;",
+            ")",
             "Lbl/vp",
             "<",
             "Lcom/bilibili/okretro/GeneralResponse",
@@ -1402,6 +1420,6 @@
     .end annotation
 
     .annotation runtime Lretrofit2/http/POST;
-        value = "https://app.bilibili.com/x/v2/view/like/triple"
+        value = "/x/web-interface/archive/like/triple"
     .end annotation
 .end method

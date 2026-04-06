@@ -13,35 +13,35 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
-/* compiled from: BL */
-@BaseUrl(value = "http://api.bilibili.com")
-/* loaded from: classes.dex */
+@BaseUrl(value = "https://api.bilibili.com")
 public interface BiliPlayerHistoryService {
+    @FormUrlEncoded
     @POST(value = "/x/v2/history/clear")
-    vp<JSONObject> clearVideoHistories(@Query(value = "access_key") String str);
+    vp<JSONObject> clearVideoHistories(@Field(value = "csrf") String csrf, @Header(value = "Cookie") String cookie);
 
+    @FormUrlEncoded
     @POST(value = "/x/v2/history/delete")
-    vp<JSONObject> clearVideoHistories(@Query(value = "access_key") String access_key, @Query(value = "kid") String kid);
+    vp<JSONObject> clearVideoHistories(@Field(value = "kid") String kid, @Field(value = "csrf") String csrf, @Header(value = "Cookie") String cookie);
 
     @GET(value = "/x/web-interface/history/cursor")
-    vp<GeneralResponse<JSONObject>> getVideoHistoryList(@Query(value = "access_key") String access_key, @Query(value = "max") long max, @Query(value = "view_at") long view_at, @Query(value = "business") String business, @Query(value = "type") String type, @Query(value = "ps") int ps);
+    vp<GeneralResponse<JSONObject>> getVideoHistoryList(@Header(value = "Cookie") String cookie, @Query(value = "max") long max, @Query(value = "view_at") long view_at, @Query(value = "business") String business, @Query(value = "type") String type, @Query(value = "ps") int ps);
 
-    //@POST(value = "/x/v2/history/toview/clear")
-    //vp<JSONObject> clearVideoToviews(@Query(value = "access_key") String str);
-
+    @FormUrlEncoded
     @POST(value = "/x/v2/history/toview/del?viewed=true")
-    vp<JSONObject> clearVideoToviews(@Query(value = "access_key") String access_key);
+    vp<JSONObject> clearVideoToviews(@Field(value = "csrf") String csrf, @Header(value = "Cookie") String cookie);
 
+    @FormUrlEncoded
     @POST(value = "/x/v2/history/toview/del")
-    vp<JSONObject> clearVideoToviews(@Query(value = "access_key") String access_key, @Query(value = "aid") long aid);
+    vp<JSONObject> clearVideoToviews(@Field(value = "aid") long aid, @Field(value = "csrf") String csrf, @Header(value = "Cookie") String cookie);
 
+    @FormUrlEncoded
     @POST(value = "/x/v2/history/toview/add")
-    vp<JSONObject> addVideoToviews(@Query(value = "access_key") String access_key, @Query(value = "aid") long aid);
+    vp<JSONObject> addVideoToviews(@Field(value = "aid") long aid, @Field(value = "csrf") String csrf, @Header(value = "Cookie") String cookie);
 
     @GET(value = "/x/v2/history/toview/web")
     vp<GeneralResponse<JSONObject>> getVideoToviewList(@Header(value = "Cookie") String cookie, @Header(value = "Referer") String referer);
 
     @FormUrlEncoded
     @POST(value = "/x/v2/history/report")
-    vp<GeneralResponse<Void>> reportProgress(@Field(value = "access_key") String str, @Field(value = "cid") long j, @Field(value = "aid") long i, @Field(value = "sid") long j2, @Field(value = "epid") long j3, @Field(value = "progress") long j4, @Field(value = "type") int i2, @Field(value = "realtime") long j5);
+    vp<GeneralResponse<Void>> reportProgress(@Field(value = "aid") long aid, @Field(value = "cid") long cid, @Field(value = "sid") long sid, @Field(value = "epid") long epid, @Field(value = "progress") long progress, @Field(value = "type") int type, @Field(value = "realtime") long realtime, @Field(value = "csrf") String csrf, @Header(value = "Cookie") String cookie);
 }

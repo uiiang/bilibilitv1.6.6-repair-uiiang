@@ -8,25 +8,25 @@
     .locals 0
 
     .prologue
-    .line 12
+    .line 11
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
 
 .method public static a(Landroid/content/Context;JJJJIJJZ)V
-    .locals 15
+    .locals 17
 
     .prologue
-    .line 18
+    .line 17
     if-eqz p14, :cond_3
 
-    .line 33
+    .line 35
     :cond_2
     :goto_2
     return-void
 
-    .line 21
+    .line 20
     :cond_3
     invoke-static {}, Lbl/kn;->a()Lbl/kn;
 
@@ -44,7 +44,7 @@
 
     if-ltz v0, :cond_2
 
-    invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
+    invoke-static/range {p0 .. p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
 
@@ -54,22 +54,29 @@
 
     if-eqz v0, :cond_2
 
+    .line 21
+    invoke-static/range {p0 .. p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
+
+    move-result-object v0
+
     .line 22
+    invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
+
+    move-result-object v16
+
+    .line 23
+    invoke-static {v0}, Lmybl/CookieUtil;->getBiliJct(Lbl/mg;)Ljava/lang/String;
+
+    move-result-object v15
+
+    .line 24
     const-class v0, Lcom/bilibili/tv/api/history/BiliPlayerHistoryService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
 
-    move-result-object v0
-
-    check-cast v0, Lcom/bilibili/tv/api/history/BiliPlayerHistoryService;
-
-    invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
-
     move-result-object v1
 
-    invoke-virtual {v1}, Lbl/mg;->e()Ljava/lang/String;
-
-    move-result-object v1
+    check-cast v1, Lcom/bilibili/tv/api/history/BiliPlayerHistoryService;
 
     move-wide/from16 v2, p1
 
@@ -85,7 +92,7 @@
 
     move-wide/from16 v13, p12
 
-    invoke-interface/range {v0 .. v14}, Lcom/bilibili/tv/api/history/BiliPlayerHistoryService;->reportProgress(Ljava/lang/String;JJJJJIJ)Lbl/vp;
+    invoke-interface/range {v1 .. v16}, Lcom/bilibili/tv/api/history/BiliPlayerHistoryService;->reportProgress(JJJJJIJLjava/lang/String;Ljava/lang/String;)Lbl/vp;
 
     move-result-object v0
 
@@ -102,7 +109,7 @@
     .locals 6
 
     .prologue
-    .line 14
+    .line 13
     invoke-static {}, Lbl/ok;->a()Lbl/ok;
 
     move-result-object v0
@@ -281,6 +288,6 @@
 
     invoke-virtual {v0, v1, v2, v3}, Lbl/ok;->a(ZLjava/lang/String;[Ljava/lang/String;)V
 
-    .line 15
+    .line 14
     return-void
 .end method

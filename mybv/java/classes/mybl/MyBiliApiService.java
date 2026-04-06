@@ -12,18 +12,19 @@ import java.util.List;
 @BaseUrl("https://api.bilibili.com/")
 public interface MyBiliApiService {
     @FormUrlEncoded
-    @POST("https://app.bilibili.com/x/v2/view/like")
-    vp<GeneralResponse<JSONObject>> likeVideo(@Field("access_key") String access_key, @Field("aid") long aid,
-            @Field("like") int like);
+    @POST("/x/web-interface/archive/like")
+    vp<GeneralResponse<JSONObject>> likeVideo(@Field("aid") long aid, @Field("like") int like,
+            @Field("csrf") String csrf, @Header("Cookie") String cookie);
 
     @FormUrlEncoded
-    @POST("https://app.bilibili.com/x/v2/view/coin/add")
-    vp<GeneralResponse<JSONObject>> coinVideo(@Field("access_key") String access_key, @Field("aid") long aid,
-            @Field("multiply") int multiply, @Field("select_like") int select_like);
+    @POST("/x/web-interface/coin/add")
+    vp<GeneralResponse<JSONObject>> coinVideo(@Field("aid") long aid, @Field("multiply") int multiply,
+            @Field("select_like") int select_like, @Field("csrf") String csrf, @Header("Cookie") String cookie);
 
     @FormUrlEncoded
-    @POST("https://app.bilibili.com/x/v2/view/like/triple")
-    vp<GeneralResponse<JSONObject>> tripleVideo(@Field("access_key") String access_key, @Field("aid") long aid);
+    @POST("/x/web-interface/archive/like/triple")
+    vp<GeneralResponse<JSONObject>> tripleVideo(@Field("aid") long aid, @Field("csrf") String csrf,
+            @Header("Cookie") String cookie);
 
     @GET("/x/web-interface/wbi/index/top/feed/rcmd")
     vp<GeneralResponse<JSONObject>> recommendVideos(@Query("ps") int page_size, @Query("fresh_idx") int fresh_idx,

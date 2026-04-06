@@ -26,6 +26,7 @@ import bl.mg;
 import bl.nv;
 import bl.vo;
 import bl.vn;
+import mybl.CookieUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.bilibili.tv.MainApplication;
@@ -241,8 +242,8 @@ public final class HistoryVideoFragment extends ady {
             return;
         }
         
-        String accessKey = account.e();
-        if (TextUtils.isEmpty(accessKey)) {
+        String cookie = CookieUtil.getFullCookieWithDevice(account);
+        if (TextUtils.isEmpty(cookie)) {
             isLoading = false;
             return;
         }
@@ -250,7 +251,7 @@ public final class HistoryVideoFragment extends ady {
         isLoading = true;
         
         ((BiliPlayerHistoryService) vo.a(BiliPlayerHistoryService.class))
-            .getVideoHistoryList(accessKey, cursorMax, cursorViewAt, cursorBusiness, historyType, PAGE_SIZE)
+            .getVideoHistoryList(cookie, cursorMax, cursorViewAt, cursorBusiness, historyType, PAGE_SIZE)
             .a(new vn<JSONObject>() {
                 @Override
                 public boolean isCancel() {
@@ -349,10 +350,11 @@ public final class HistoryVideoFragment extends ady {
             return;
         }
         
-        String accessKey = account.e();
+        String cookie = CookieUtil.getFullCookieWithDevice(account);
+        String csrf = CookieUtil.getBiliJct(account);
         
         ((BiliPlayerHistoryService) vo.a(BiliPlayerHistoryService.class))
-            .clearVideoHistories(accessKey)
+            .clearVideoHistories(csrf, cookie)
             .a();
         
         if (adapter != null) {
@@ -380,11 +382,12 @@ public final class HistoryVideoFragment extends ady {
             return;
         }
         
-        String accessKey = account.e();
+        String cookie = CookieUtil.getFullCookieWithDevice(account);
+        String csrf = CookieUtil.getBiliJct(account);
         String kid = historyType + "_" + String.valueOf(video.mAvid);
         
         ((BiliPlayerHistoryService) vo.a(BiliPlayerHistoryService.class))
-            .clearVideoHistories(accessKey, kid)
+            .clearVideoHistories(kid, csrf, cookie)
             .a();
         
         updateHeaderInfo();
@@ -405,11 +408,12 @@ public final class HistoryVideoFragment extends ady {
             return;
         }
         
-        String accessKey = account.e();
+        String cookie = CookieUtil.getFullCookieWithDevice(account);
+        String csrf = CookieUtil.getBiliJct(account);
         String kid = historyType + "_" + String.valueOf(currentAvid);
         
         ((BiliPlayerHistoryService) vo.a(BiliPlayerHistoryService.class))
-            .clearVideoHistories(accessKey, kid)
+            .clearVideoHistories(kid, csrf, cookie)
             .a();
         
         if (adapter != null) {

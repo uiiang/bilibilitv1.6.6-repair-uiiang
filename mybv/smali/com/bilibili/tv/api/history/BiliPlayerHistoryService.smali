@@ -5,32 +5,41 @@
 
 # annotations
 .annotation runtime Lretrofit2/http/BaseUrl;
-    value = "http://api.bilibili.com"
+    value = "https://api.bilibili.com"
 .end annotation
 
 
 # virtual methods
-.method public abstract addVideoToviews(Ljava/lang/String;J)Lbl/vp;
-    .param p1    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Query;
-            value = "access_key"
+.method public abstract addVideoToviews(JLjava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # J
+        .annotation runtime Lretrofit2/http/Field;
+            value = "aid"
         .end annotation
     .end param
-    .param p2    # J
-        .annotation runtime Lretrofit2/http/Query;
-            value = "aid"
+    .param p3    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Field;
+            value = "csrf"
+        .end annotation
+    .end param
+    .param p4    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
         .end annotation
     .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "(",
+            "(J",
             "Ljava/lang/String;",
-            "J)",
+            "Ljava/lang/String;",
+            ")",
             "Lbl/vp",
             "<",
             "Lcom/alibaba/fastjson/JSONObject;",
             ">;"
         }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/FormUrlEncoded;
     .end annotation
 
     .annotation runtime Lretrofit2/http/POST;
@@ -38,15 +47,21 @@
     .end annotation
 .end method
 
-.method public abstract clearVideoHistories(Ljava/lang/String;)Lbl/vp;
+.method public abstract clearVideoHistories(Ljava/lang/String;Ljava/lang/String;)Lbl/vp;
     .param p1    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Query;
-            value = "access_key"
+        .annotation runtime Lretrofit2/http/Field;
+            value = "csrf"
+        .end annotation
+    .end param
+    .param p2    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
         .end annotation
     .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
+            "Ljava/lang/String;",
             "Ljava/lang/String;",
             ")",
             "Lbl/vp",
@@ -54,6 +69,9 @@
             "Lcom/alibaba/fastjson/JSONObject;",
             ">;"
         }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/FormUrlEncoded;
     .end annotation
 
     .annotation runtime Lretrofit2/http/POST;
@@ -61,20 +79,26 @@
     .end annotation
 .end method
 
-.method public abstract clearVideoHistories(Ljava/lang/String;Ljava/lang/String;)Lbl/vp;
+.method public abstract clearVideoHistories(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lbl/vp;
     .param p1    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Query;
-            value = "access_key"
+        .annotation runtime Lretrofit2/http/Field;
+            value = "kid"
         .end annotation
     .end param
     .param p2    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Query;
-            value = "kid"
+        .annotation runtime Lretrofit2/http/Field;
+            value = "csrf"
+        .end annotation
+    .end param
+    .param p3    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
         .end annotation
     .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
+            "Ljava/lang/String;",
             "Ljava/lang/String;",
             "Ljava/lang/String;",
             ")",
@@ -83,6 +107,9 @@
             "Lcom/alibaba/fastjson/JSONObject;",
             ">;"
         }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/FormUrlEncoded;
     .end annotation
 
     .annotation runtime Lretrofit2/http/POST;
@@ -90,15 +117,26 @@
     .end annotation
 .end method
 
-.method public abstract clearVideoToviews(Ljava/lang/String;)Lbl/vp;
-    .param p1    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Query;
-            value = "access_key"
+.method public abstract clearVideoToviews(JLjava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # J
+        .annotation runtime Lretrofit2/http/Field;
+            value = "aid"
+        .end annotation
+    .end param
+    .param p3    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Field;
+            value = "csrf"
+        .end annotation
+    .end param
+    .param p4    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
         .end annotation
     .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "(",
+            "(J",
+            "Ljava/lang/String;",
             "Ljava/lang/String;",
             ")",
             "Lbl/vp",
@@ -108,32 +146,7 @@
         }
     .end annotation
 
-    .annotation runtime Lretrofit2/http/POST;
-        value = "/x/v2/history/toview/del?viewed=true"
-    .end annotation
-.end method
-
-.method public abstract clearVideoToviews(Ljava/lang/String;J)Lbl/vp;
-    .param p1    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Query;
-            value = "access_key"
-        .end annotation
-    .end param
-    .param p2    # J
-        .annotation runtime Lretrofit2/http/Query;
-            value = "aid"
-        .end annotation
-    .end param
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "(",
-            "Ljava/lang/String;",
-            "J)",
-            "Lbl/vp",
-            "<",
-            "Lcom/alibaba/fastjson/JSONObject;",
-            ">;"
-        }
+    .annotation runtime Lretrofit2/http/FormUrlEncoded;
     .end annotation
 
     .annotation runtime Lretrofit2/http/POST;
@@ -141,10 +154,42 @@
     .end annotation
 .end method
 
+.method public abstract clearVideoToviews(Ljava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Field;
+            value = "csrf"
+        .end annotation
+    .end param
+    .param p2    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            ")",
+            "Lbl/vp",
+            "<",
+            "Lcom/alibaba/fastjson/JSONObject;",
+            ">;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/FormUrlEncoded;
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/POST;
+        value = "/x/v2/history/toview/del?viewed=true"
+    .end annotation
+.end method
+
 .method public abstract getVideoHistoryList(Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;I)Lbl/vp;
     .param p1    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Query;
-            value = "access_key"
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
         .end annotation
     .end param
     .param p2    # J
@@ -225,52 +270,58 @@
     .end annotation
 .end method
 
-.method public abstract reportProgress(Ljava/lang/String;JJJJJIJ)Lbl/vp;
-    .param p1    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Field;
-            value = "access_key"
-        .end annotation
-    .end param
-    .param p2    # J
-        .annotation runtime Lretrofit2/http/Field;
-            value = "cid"
-        .end annotation
-    .end param
-    .param p4    # J
+.method public abstract reportProgress(JJJJJIJLjava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # J
         .annotation runtime Lretrofit2/http/Field;
             value = "aid"
         .end annotation
     .end param
-    .param p6    # J
+    .param p3    # J
+        .annotation runtime Lretrofit2/http/Field;
+            value = "cid"
+        .end annotation
+    .end param
+    .param p5    # J
         .annotation runtime Lretrofit2/http/Field;
             value = "sid"
         .end annotation
     .end param
-    .param p8    # J
+    .param p7    # J
         .annotation runtime Lretrofit2/http/Field;
             value = "epid"
         .end annotation
     .end param
-    .param p10    # J
+    .param p9    # J
         .annotation runtime Lretrofit2/http/Field;
             value = "progress"
         .end annotation
     .end param
-    .param p12    # I
+    .param p11    # I
         .annotation runtime Lretrofit2/http/Field;
             value = "type"
         .end annotation
     .end param
-    .param p13    # J
+    .param p12    # J
         .annotation runtime Lretrofit2/http/Field;
             value = "realtime"
         .end annotation
     .end param
+    .param p14    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Field;
+            value = "csrf"
+        .end annotation
+    .end param
+    .param p15    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "(",
+            "(JJJJJIJ",
             "Ljava/lang/String;",
-            "JJJJJIJ)",
+            "Ljava/lang/String;",
+            ")",
             "Lbl/vp",
             "<",
             "Lcom/bilibili/okretro/GeneralResponse",
