@@ -7,7 +7,7 @@
         android:focusable="false"
         android:clipChildren="false"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px_200">
+        android:layout_height="@dimen/px_150">
         <com.bilibili.tv.widget.ShadowTextView
             android:gravity="center"
             android:layout_gravity="center"
@@ -46,7 +46,7 @@
         android:focusable="false"
         android:clipChildren="false"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px_200">
+        android:layout_height="@dimen/px_150">
         <com.bilibili.tv.widget.ShadowTextView
             android:gravity="center"
             android:layout_gravity="center"
@@ -85,7 +85,7 @@
         android:focusable="false"
         android:clipChildren="false"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px_200">
+        android:layout_height="@dimen/px_150">
         <com.bilibili.tv.widget.ShadowTextView
             android:gravity="center"
             android:layout_gravity="center"
@@ -167,7 +167,67 @@
         android:focusable="false"
         android:clipChildren="false"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px_200">
+        android:layout_height="@dimen/px_150">
+        <com.bilibili.tv.widget.ShadowTextView
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:focusable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="其它布局："
+            android:textColor="@color/white"
+            android:textSize="@dimen/px_44"
+            android:layout_marginLeft="@dimen/px_30"
+            android:layout_marginRight="@dimen/px_30" />
+        <com.bilibili.tv.widget.DrawFrameLayout
+            android:id="@id/other_normal_button"
+            android:background="@drawable/shape_rectangle_trans_with_12corner_white_10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:nextFocusRight="@id/other_compact_button"
+            android:paddingLeft="@dimen/px_30"
+            android:paddingRight="@dimen/px_30"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/px_96">
+            <com.bilibili.tv.widget.ShadowTextView
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:focusable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="普通"
+                android:textColor="@color/white"
+                android:textSize="@dimen/px_44" />
+        </com.bilibili.tv.widget.DrawFrameLayout>
+        <com.bilibili.tv.widget.DrawFrameLayout
+            android:id="@id/other_compact_button"
+            android:background="@drawable/shape_rectangle_trans_with_12corner_white_10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:nextFocusLeft="@id/other_normal_button"
+            android:paddingLeft="@dimen/px_30"
+            android:paddingRight="@dimen/px_30"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/px_96"
+            android:layout_marginLeft="@dimen/px_40">
+            <com.bilibili.tv.widget.ShadowTextView
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:focusable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="紧凑"
+                android:textColor="@color/white"
+                android:textSize="@dimen/px_44" />
+        </com.bilibili.tv.widget.DrawFrameLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:focusable="false"
+        android:clipChildren="false"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_150">
         <com.bilibili.tv.widget.ShadowTextView
             android:gravity="center"
             android:layout_gravity="center"

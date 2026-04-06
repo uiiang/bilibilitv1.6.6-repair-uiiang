@@ -68,7 +68,7 @@ public class VideoListSection extends LinearLayout {
         recyclerView.setNextFocusLeftId(R.id.season_section_recycler);
         recyclerView.setNextFocusRightId(R.id.season_section_recycler);
 
-        adapter = new VideoCardAdapter();
+        adapter = new VideoCardAdapter(getContext());
 
         adapter.setFocusBoundaryHandler(new VideoCardAdapter.FocusBoundaryHandler() {
             @Override
@@ -439,37 +439,23 @@ public class VideoListSection extends LinearLayout {
         recyclerView.post(new Runnable() {
             @Override
             public void run() {
-                // Log.d(TAG, "scrollToCurrentVideo.post | 执行滚动 | targetPos=" + finalPos
-                //         + " | isAttachedToWindow=" + recyclerView.isAttachedToWindow()
-                //         + " | childCount=" + recyclerView.getChildCount());
-
                 if (!recyclerView.isAttachedToWindow()) {
-                    // Log.w(TAG, "scrollToCurrentVideo.post | RecyclerView已脱离窗口，取消滚动");
                     return;
                 }
                 try {
-                    // Log.d(TAG, "scrollToCurrentVideo.post | 使用scrollToPosition确保view可见 | targetPos=" + finalPos);
-                    try {
-                        java.lang.reflect.Method scrollToMethod = recyclerView.getClass().getMethod("scrollToPosition", int.class);
-                        scrollToMethod.invoke(recyclerView, finalPos);
-                        // Log.d(TAG, "scrollToCurrentVideo.post | scrollToPosition反射调用成功");
-                    } catch (NoSuchMethodException e1) {
-                        // Log.w(TAG, "scrollToCurrentVideo.post | scrollToPosition不存在，尝试scrollBy");
-                        if (recyclerView.getChildCount() > 0) {
-                            View firstChild = recyclerView.getChildAt(0);
-                            if (firstChild != null) {
-                                int childWidth = firstChild.getWidth();
-                                recyclerView.scrollBy(finalPos * childWidth, 0);
-                                // Log.d(TAG, "scrollToCurrentVideo.post | scrollBy fallback成功");
-                            }
-                        }
+                    Object layoutManager = recyclerView.getLayoutManager();
+                    if (layoutManager != null) {
+                        java.lang.reflect.Method scrollToWithOffset = layoutManager.getClass().getMethod("b", int.class, int.class);
+                        scrollToWithOffset.invoke(layoutManager, finalPos, 0);
                     }
                 } catch (Exception e) {
-                    // Log.e(TAG, "scrollToCurrentVideo.post | 滚动异常: " + e.getMessage());
+                    try {
+                        java.lang.reflect.Method scrollToMethod = recyclerView.getClass().getMethod("a", int.class);
+                        scrollToMethod.invoke(recyclerView, finalPos);
+                    } catch (Exception e2) {
+                    }
                 }
-
                 focusPosition = finalPos;
-                // Log.i(TAG, "scrollToCurrentVideo.post | 完成 | focusPosition更新为=" + finalPos);
             }
         });
     }
@@ -498,23 +484,12 @@ public class VideoListSection extends LinearLayout {
                 }
                 
                 try {
-                    Object layoutManager = recyclerView.getLayoutManager();
-                    if (layoutManager != null) {
-                        java.lang.reflect.Method scrollToWithOffset = layoutManager.getClass().getMethod("b", int.class, int.class);
-                        scrollToWithOffset.invoke(layoutManager, finalPos, 0);
-                        Log.i(TAG, "scrollToDataPosition.post | b(int,int)成功 | position=" + finalPos);
-                    }
+                    java.lang.reflect.Method scrollToMethod = recyclerView.getClass().getMethod("a", int.class);
+                    scrollToMethod.invoke(recyclerView, finalPos);
+                    Log.i(TAG, "scrollToDataPosition.post | a(int)成功 | position=" + finalPos);
                 } catch (Exception e) {
-                    Log.w(TAG, "scrollToDataPosition.post | b(int,int)失败: " + e.getMessage());
-                    try {
-                        java.lang.reflect.Method scrollToMethod = recyclerView.getClass().getMethod("d", int.class);
-                        scrollToMethod.invoke(recyclerView, finalPos);
-                        Log.i(TAG, "scrollToDataPosition.post | d(int)成功 | position=" + finalPos);
-                    } catch (Exception e2) {
-                        Log.w(TAG, "scrollToDataPosition.post | d(int)失败: " + e2.getMessage());
-                    }
+                    Log.w(TAG, "scrollToDataPosition.post | a(int)失败: " + e.getMessage());
                 }
-                
                 focusPosition = finalPos;
             }
         });

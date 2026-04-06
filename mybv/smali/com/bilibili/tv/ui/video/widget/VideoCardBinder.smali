@@ -7,6 +7,9 @@
 .method public abstract bind(Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;Ljava/lang/Object;I)V
 .end method
 
+.method public abstract bindCompact(Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;Ljava/lang/Object;I)V
+.end method
+
 .method public abstract getCoverUrl(Ljava/lang/Object;)Ljava/lang/String;
 .end method
 

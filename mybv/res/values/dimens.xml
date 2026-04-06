@@ -131,4 +131,7 @@
     <item type="dimen" name="tv_text_size_medium">@dimen/px_36</item>
     <item type="dimen" name="tv_text_size_small">@dimen/px_32</item>
     <item type="dimen" name="tv_text_size_xlarge">@dimen/px_48</item>
+    <dimen name="px_430">286.6667dip</dimen>
+    <dimen name="px_241">160.6667dip</dimen>
+    <dimen name="px_310">206.6667dip</dimen>
 </resources>

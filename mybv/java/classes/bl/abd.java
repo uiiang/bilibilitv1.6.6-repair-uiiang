@@ -299,6 +299,22 @@ public class abd {
         return homeColumnType;
     }
 
+    private static int otherColumnType = -1;
+    public static final int OTHER_COLUMN_NORMAL = 0;
+    public static final int OTHER_COLUMN_COMPACT = 1;
+
+    public static void set_other_column(Context context, int type) {
+        a(context).a().edit().putInt("other_column_type", type).apply();
+        otherColumnType = type;
+    }
+
+    public static int get_other_column(Context context) {
+        if (otherColumnType == -1) {
+            otherColumnType = a(context).a().getInt("other_column_type", OTHER_COLUMN_NORMAL);
+        }
+        return otherColumnType;
+    }
+
     private static int imageSizeType = -1;
 
     public static void set_image_size(Context context, int type) {

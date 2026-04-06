@@ -25,6 +25,9 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
     private DrawFrameLayout column3Button;
     private DrawFrameLayout column4Button;
 
+    private DrawFrameLayout otherNormalButton;
+    private DrawFrameLayout otherCompactButton;
+
     private DrawFrameLayout tabPersonalRecommend;
     private DrawFrameLayout tabHotRecommend;
     private DrawFrameLayout tabArea;
@@ -99,6 +102,24 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
             this.column2Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
             this.column3Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
             this.column4Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+        }
+
+        this.otherNormalButton = (DrawFrameLayout)inflate.findViewById(R.id.other_normal_button);
+        this.otherCompactButton = (DrawFrameLayout)inflate.findViewById(R.id.other_compact_button);
+        this.otherNormalButton.setUpDrawable(R.drawable.shadow_white_rect);
+        this.otherCompactButton.setUpDrawable(R.drawable.shadow_white_rect);
+        this.otherNormalButton.setOnFocusChangeListener(this);
+        this.otherCompactButton.setOnFocusChangeListener(this);
+        this.otherNormalButton.setOnClickListener(this);
+        this.otherCompactButton.setOnClickListener(this);
+
+        int otherColumn = abd.get_other_column(getActivity());
+        if (otherColumn == abd.OTHER_COLUMN_NORMAL) {
+            this.otherNormalButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+            this.otherCompactButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+        } else {
+            this.otherNormalButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+            this.otherCompactButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
         }
 
         this.tabPersonalRecommend = (DrawFrameLayout)inflate.findViewById(R.id.tab_personal_recommend);
@@ -196,6 +217,16 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
             this.column4Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
         }
 
+        if (view == this.otherNormalButton) {
+            abd.set_other_column(getActivity(), abd.OTHER_COLUMN_NORMAL);
+            this.otherNormalButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+            this.otherCompactButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+        } else if (view == this.otherCompactButton) {
+            abd.set_other_column(getActivity(), abd.OTHER_COLUMN_COMPACT);
+            this.otherNormalButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+            this.otherCompactButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+        }
+
         if (view == this.tabPersonalRecommend || view == this.tabHotRecommend || 
             view == this.tabArea || view == this.tabBangumi || view == this.tabPgc) {
             int config = abd.get_top_tab_config(getActivity());
@@ -243,6 +274,9 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         if (this.column2Button != null && this.column2Button.hasFocus()) {
             return false;
         }
+        if (this.otherNormalButton != null && this.otherNormalButton.hasFocus()) {
+            return false;
+        }
         if (this.tabPersonalRecommend != null && this.tabPersonalRecommend.hasFocus()) {
             return false;
         }
@@ -256,7 +290,7 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         if (this.progressbar_button == null) {
             return false;
         }
-        if (!this.progressbar_button.hasFocus() && !this.fastquit_button.hasFocus() && !this.column2Button.hasFocus() && !this.column3Button.hasFocus() && !this.column4Button.hasFocus()) {
+        if (!this.progressbar_button.hasFocus() && !this.fastquit_button.hasFocus() && !this.column2Button.hasFocus() && !this.column3Button.hasFocus() && !this.column4Button.hasFocus() && !this.otherNormalButton.hasFocus() && !this.otherCompactButton.hasFocus()) {
             boolean allTabsNoFocus = true;
             for(int i=0;i<5;i++){
                 if(this.tab_buttons[i] != null && this.tab_buttons[i].hasFocus()){

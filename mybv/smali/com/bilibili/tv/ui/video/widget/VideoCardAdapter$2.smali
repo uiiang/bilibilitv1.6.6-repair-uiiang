@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->a(Landroid/support/v7/widget/RecyclerView$v;I)V
+    value = Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->bindNormalHolder(Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;Ljava/lang/Object;II)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,20 +20,20 @@
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 
-.field final synthetic val$holder:Landroid/support/v7/widget/RecyclerView$v;
+.field final synthetic val$fHolder:Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;
 
 .field final synthetic val$position:I
 
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;Landroid/support/v7/widget/RecyclerView$v;I)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;I)V
     .locals 0
 
     .prologue
-    .line 75
+    .line 98
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$2;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 
-    iput-object p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$2;->val$holder:Landroid/support/v7/widget/RecyclerView$v;
+    iput-object p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$2;->val$fHolder:Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;
 
     iput p3, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$2;->val$position:I
 
@@ -48,26 +48,25 @@
     .locals 2
 
     .prologue
-    .line 78
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$2;->val$holder:Landroid/support/v7/widget/RecyclerView$v;
+    .line 101
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$2;->val$fHolder:Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;
 
-    check-cast v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;
-
-    .line 79
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;->z()Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
-    move-result-object v1
+    move-result-object v0
 
-    if-eqz v1, :cond_11
+    if-eqz v0, :cond_11
 
-    .line 80
+    .line 102
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$2;->val$fHolder:Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;
+
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;->z()Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     move-result-object v0
 
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawRelativeLayout;->setUpEnabled(Z)V
 
-    .line 83
+    .line 104
     :cond_11
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$2;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 
@@ -78,7 +77,7 @@
 
     if-eqz v0, :cond_24
 
-    .line 84
+    .line 105
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$2;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->focusListener:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemFocusListener;
@@ -90,7 +89,7 @@
 
     invoke-interface {v0, v1, p2}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemFocusListener;->onItemFocus(IZ)V
 
-    .line 86
+    .line 107
     :cond_24
     return-void
 .end method

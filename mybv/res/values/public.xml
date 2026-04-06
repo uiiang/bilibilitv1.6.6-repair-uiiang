@@ -2542,6 +2542,8 @@
     <public type="id" name="season_section_nav_tags" id="0x7f0801d6" />
     <public type="id" name="nav_tag_text" id="0x7f0801d7" />
     <public type="id" name="badge" id="0x7f0801d8" />
+    <public type="id" name="other_normal_button" id="0x7f0801d9" />
+    <public type="id" name="other_compact_button" id="0x7f0801da" />
 
 
     <public type="integer" name="config_danmaku_fly_duration" id="0x7f090003" />
@@ -2711,6 +2713,7 @@
     <public type="layout" name="dialog_sort_menu_multi" id="0x7f0a009d" />
     <public type="layout" name="item_sort_menu_multi" id="0x7f0a009e" />
     <public type="layout" name="item_nav_tag" id="0x7f0a009f" />
+    <public type="layout" name="recycler_view_item_video_info_compact" id="0x7f0a00a0" />
 
 
     <public type="mipmap" name="ic_launcher" id="0x7f0b0000" />

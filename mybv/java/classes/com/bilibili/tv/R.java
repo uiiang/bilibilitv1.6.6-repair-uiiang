@@ -2566,6 +2566,8 @@ public final class R {
         public static final int season_section_nav_tags = 0x7f0801d6;
         public static final int nav_tag_text = 0x7f0801d7;
         public static final int badge = 0x7f0801d8;
+        public static final int other_normal_button = 0x7f0801d9;
+        public static final int other_compact_button = 0x7f0801da;
     }
 
     public static final class integer {
@@ -2741,6 +2743,7 @@ public final class R {
         public static final int dialog_sort_menu_multi = 0x7f0a009d;
         public static final int item_sort_menu_multi = 0x7f0a009e;
         public static final int item_nav_tag = 0x7f0a009f;
+        public static final int recycler_view_item_video_info_compact = 0x7f0a00a0;
     }
 
     public static final class mipmap {

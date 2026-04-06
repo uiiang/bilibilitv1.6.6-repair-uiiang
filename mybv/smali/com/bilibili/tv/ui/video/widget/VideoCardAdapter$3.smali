@@ -1,4 +1,4 @@
-.class Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$1;
+.class Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$3;
 .super Ljava/lang/Object;
 .source "VideoCardAdapter.java"
 
@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->bindNormalHolder(Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;Ljava/lang/Object;II)V
+    value = Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->bindCompactHolder(Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;Ljava/lang/Object;II)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -30,12 +30,12 @@
     .locals 0
 
     .prologue
-    .line 91
-    iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$1;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
+    .line 124
+    iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$3;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 
-    iput-object p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$1;->val$item:Ljava/lang/Object;
+    iput-object p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$3;->val$item:Ljava/lang/Object;
 
-    iput p3, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$1;->val$position:I
+    iput p3, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$3;->val$position:I
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -48,20 +48,20 @@
     .locals 3
 
     .prologue
-    .line 94
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$1;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
+    .line 127
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$3;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->clickListener:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemClickListener;
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->access$000(Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;)Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemClickListener;
 
     move-result-object v0
 
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$1;->val$item:Ljava/lang/Object;
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$3;->val$item:Ljava/lang/Object;
 
-    iget v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$1;->val$position:I
+    iget v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$3;->val$position:I
 
     invoke-interface {v0, v1, v2}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemClickListener;->onItemClick(Ljava/lang/Object;I)V
 
-    .line 95
+    .line 128
     return-void
 .end method

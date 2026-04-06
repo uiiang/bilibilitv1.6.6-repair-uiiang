@@ -4,6 +4,10 @@
 
 
 # static fields
+.field public static final OTHER_COLUMN_COMPACT:I = 0x1
+
+.field public static final OTHER_COLUMN_NORMAL:I = 0x0
+
 .field public static final TAB_ALL:I = 0x1f
 
 .field public static final TAB_AREA:I = 0x4
@@ -46,6 +50,8 @@
 
 .field private static mode_id:I
 
+.field private static otherColumnType:I
+
 .field private static speed_id:I
 
 .field public static final speeds:[F
@@ -71,14 +77,14 @@
     .line 15
     new-array v0, v2, [F
 
-    fill-array-data v0, :array_2a
+    fill-array-data v0, :array_2c
 
     sput-object v0, Lbl/abd;->a:[F
 
     .line 16
     new-array v0, v2, [F
 
-    fill-array-data v0, :array_3e
+    fill-array-data v0, :array_40
 
     sput-object v0, Lbl/abd;->b:[F
 
@@ -90,7 +96,7 @@
 
     new-array v0, v0, [F
 
-    fill-array-data v0, :array_52
+    fill-array-data v0, :array_54
 
     sput-object v0, Lbl/abd;->speeds:[F
 
@@ -107,18 +113,21 @@
     sput v1, Lbl/abd;->homeColumnType:I
 
     .line 302
+    sput v1, Lbl/abd;->otherColumnType:I
+
+    .line 318
     sput v1, Lbl/abd;->imageSizeType:I
 
-    .line 354
+    .line 370
     sput v1, Lbl/abd;->cacheLimitType:I
 
-    .line 379
+    .line 395
     sput v1, Lbl/abd;->topTabConfig:I
 
     return-void
 
     .line 15
-    :array_2a
+    :array_2c
     .array-data 4
         0x3f000000    # 0.5f
         0x3f19999a    # 0.6f
@@ -131,7 +140,7 @@
     .end array-data
 
     .line 16
-    :array_3e
+    :array_40
     .array-data 4
         0x3e99999a    # 0.3f
         0x3ecccccd    # 0.4f
@@ -144,7 +153,7 @@
     .end array-data
 
     .line 28
-    :array_52
+    :array_54
     .array-data 4
         0x40000000    # 2.0f
         0x3fc00000    # 1.5f
@@ -840,14 +849,14 @@
     .locals 3
 
     .prologue
-    .line 362
+    .line 378
     sget v0, Lbl/abd;->cacheLimitType:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_16
 
-    .line 363
+    .line 379
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -866,7 +875,7 @@
 
     sput v0, Lbl/abd;->cacheLimitType:I
 
-    .line 365
+    .line 381
     :cond_16
     sget v0, Lbl/abd;->cacheLimitType:I
 
@@ -879,38 +888,38 @@
     .prologue
     const/16 v0, 0x64
 
-    .line 369
+    .line 385
     invoke-static {p0}, Lbl/abd;->get_cache_limit(Landroid/content/Context;)I
 
     move-result v1
 
-    .line 370
+    .line 386
     packed-switch v1, :pswitch_data_14
 
-    .line 375
+    .line 391
     :goto_9
     :pswitch_9
     return v0
 
-    .line 371
+    .line 387
     :pswitch_a
     const/16 v0, 0x32
 
     goto :goto_9
 
-    .line 373
+    .line 389
     :pswitch_d
     const/16 v0, 0x12c
 
     goto :goto_9
 
-    .line 374
+    .line 390
     :pswitch_10
     const/16 v0, 0x1f4
 
     goto :goto_9
 
-    .line 370
+    .line 386
     nop
 
     :pswitch_data_14
@@ -1061,14 +1070,14 @@
     .locals 3
 
     .prologue
-    .line 310
+    .line 326
     sget v0, Lbl/abd;->imageSizeType:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_16
 
-    .line 311
+    .line 327
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1087,7 +1096,7 @@
 
     sput v0, Lbl/abd;->imageSizeType:I
 
-    .line 313
+    .line 329
     :cond_16
     sget v0, Lbl/abd;->imageSizeType:I
 
@@ -1127,6 +1136,43 @@
     .line 215
     :cond_16
     sget v0, Lbl/abd;->mode_id:I
+
+    return v0
+.end method
+
+.method public static get_other_column(Landroid/content/Context;)I
+    .locals 3
+
+    .prologue
+    .line 312
+    sget v0, Lbl/abd;->otherColumnType:I
+
+    const/4 v1, -0x1
+
+    if-ne v0, v1, :cond_16
+
+    .line 313
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    const-string v1, "other_column_type"
+
+    const/4 v2, 0x0
+
+    invoke-interface {v0, v1, v2}, Landroid/content/SharedPreferences;->getInt(Ljava/lang/String;I)I
+
+    move-result v0
+
+    sput v0, Lbl/abd;->otherColumnType:I
+
+    .line 315
+    :cond_16
+    sget v0, Lbl/abd;->otherColumnType:I
 
     return v0
 .end method
@@ -1319,7 +1365,7 @@
     .locals 1
 
     .prologue
-    .line 321
+    .line 337
     if-eqz p1, :cond_8
 
     invoke-virtual {p1}, Ljava/lang/String;->isEmpty()Z
@@ -1328,12 +1374,12 @@
 
     if-eqz v0, :cond_9
 
-    .line 328
+    .line 344
     :cond_8
     :goto_8
     return-object p1
 
-    .line 322
+    .line 338
     :cond_9
     invoke-static {p0}, Lbl/abd;->is_hd_image(Landroid/content/Context;)Z
 
@@ -1341,12 +1387,12 @@
 
     if-nez v0, :cond_8
 
-    .line 323
+    .line 339
     packed-switch p2, :pswitch_data_28
 
     goto :goto_8
 
-    .line 324
+    .line 340
     :pswitch_13
     invoke-static {p0, p1}, Lbl/ach;->a(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
 
@@ -1354,7 +1400,7 @@
 
     goto :goto_8
 
-    .line 325
+    .line 341
     :pswitch_18
     invoke-static {p0, p1}, Lbl/ach;->b(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
 
@@ -1362,7 +1408,7 @@
 
     goto :goto_8
 
-    .line 326
+    .line 342
     :pswitch_1d
     invoke-static {p0, p1}, Lbl/ach;->c(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
 
@@ -1370,7 +1416,7 @@
 
     goto :goto_8
 
-    .line 327
+    .line 343
     :pswitch_22
     invoke-static {p0, p1}, Lbl/ach;->d(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
 
@@ -1378,7 +1424,7 @@
 
     goto :goto_8
 
-    .line 323
+    .line 339
     nop
 
     :pswitch_data_28
@@ -1394,7 +1440,7 @@
     .locals 1
 
     .prologue
-    .line 333
+    .line 349
     const/4 v0, 0x0
 
     invoke-static {p0, p1, v0}, Lbl/abd;->get_thumb_url(Landroid/content/Context;Ljava/lang/String;I)Ljava/lang/String;
@@ -1408,7 +1454,7 @@
     .locals 1
 
     .prologue
-    .line 337
+    .line 353
     const/4 v0, 0x1
 
     invoke-static {p0, p1, v0}, Lbl/abd;->get_thumb_url(Landroid/content/Context;Ljava/lang/String;I)Ljava/lang/String;
@@ -1422,7 +1468,7 @@
     .locals 1
 
     .prologue
-    .line 341
+    .line 357
     const/4 v0, 0x2
 
     invoke-static {p0, p1, v0}, Lbl/abd;->get_thumb_url(Landroid/content/Context;Ljava/lang/String;I)Ljava/lang/String;
@@ -1436,7 +1482,7 @@
     .locals 1
 
     .prologue
-    .line 345
+    .line 361
     const/4 v0, 0x3
 
     invoke-static {p0, p1, v0}, Lbl/abd;->get_thumb_url(Landroid/content/Context;Ljava/lang/String;I)Ljava/lang/String;
@@ -1450,7 +1496,7 @@
     .locals 1
 
     .prologue
-    .line 349
+    .line 365
     if-eqz p1, :cond_8
 
     invoke-virtual {p1}, Ljava/lang/String;->isEmpty()Z
@@ -1459,12 +1505,12 @@
 
     if-eqz v0, :cond_9
 
-    .line 351
+    .line 367
     :cond_8
     :goto_8
     return-object p1
 
-    .line 350
+    .line 366
     :cond_9
     invoke-static {p0}, Lbl/abd;->is_hd_image(Landroid/content/Context;)Z
 
@@ -1472,7 +1518,7 @@
 
     if-nez v0, :cond_8
 
-    .line 351
+    .line 367
     invoke-static {p0, p1, p2, p3}, Lbl/ach;->a(Landroid/content/Context;Ljava/lang/String;II)Ljava/lang/String;
 
     move-result-object p1
@@ -1484,14 +1530,14 @@
     .locals 3
 
     .prologue
-    .line 394
+    .line 410
     sget v0, Lbl/abd;->topTabConfig:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_17
 
-    .line 395
+    .line 411
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1510,7 +1556,7 @@
 
     sput v0, Lbl/abd;->topTabConfig:I
 
-    .line 397
+    .line 413
     :cond_17
     sget v0, Lbl/abd;->topTabConfig:I
 
@@ -1520,7 +1566,7 @@
 
     sput v0, Lbl/abd;->topTabConfig:I
 
-    .line 398
+    .line 414
     :cond_1e
     sget v0, Lbl/abd;->topTabConfig:I
 
@@ -1594,7 +1640,7 @@
     .locals 1
 
     .prologue
-    .line 317
+    .line 333
     invoke-static {p0}, Lbl/abd;->get_image_size(Landroid/content/Context;)I
 
     move-result v0
@@ -1616,7 +1662,7 @@
     .locals 1
 
     .prologue
-    .line 402
+    .line 418
     invoke-static {p0}, Lbl/abd;->get_top_tab_config(Landroid/content/Context;)I
 
     move-result v0
@@ -1703,7 +1749,7 @@
     .locals 3
 
     .prologue
-    .line 406
+    .line 422
     if-eqz p1, :cond_8
 
     invoke-virtual {p1}, Ljava/lang/String;->isEmpty()Z
@@ -1712,45 +1758,45 @@
 
     if-eqz v0, :cond_9
 
-    .line 422
+    .line 438
     :cond_8
     :goto_8
     return-void
 
-    .line 410
+    .line 426
     :cond_9
     :try_start_9
     invoke-static {p1}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v0
 
-    .line 411
+    .line 427
     invoke-static {v0}, Lcom/facebook/imagepipeline/request/ImageRequestBuilder;->a(Landroid/net/Uri;)Lcom/facebook/imagepipeline/request/ImageRequestBuilder;
 
     move-result-object v0
 
-    .line 412
+    .line 428
     invoke-virtual {v0}, Lcom/facebook/imagepipeline/request/ImageRequestBuilder;->o()Lcom/facebook/imagepipeline/request/ImageRequest;
 
     move-result-object v0
 
-    .line 413
+    .line 429
     invoke-static {}, Lbl/ajq;->b()Lbl/aoy;
 
     move-result-object v1
 
-    .line 414
+    .line 430
     if-eqz v1, :cond_8
 
-    .line 415
+    .line 431
     invoke-virtual {v1}, Lbl/aoy;->h()Lbl/aov;
 
     move-result-object v1
 
-    .line 416
+    .line 432
     if-eqz v1, :cond_8
 
-    .line 417
+    .line 433
     const/4 v2, 0x0
 
     invoke-virtual {v1, v0, v2}, Lbl/aov;->b(Lcom/facebook/imagepipeline/request/ImageRequest;Ljava/lang/Object;)Lbl/aji;
@@ -1759,7 +1805,7 @@
 
     goto :goto_8
 
-    .line 420
+    .line 436
     :catch_26
     move-exception v0
 
@@ -1770,7 +1816,7 @@
     .locals 2
 
     .prologue
-    .line 357
+    .line 373
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1791,10 +1837,10 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 358
+    .line 374
     sput p1, Lbl/abd;->cacheLimitType:I
 
-    .line 359
+    .line 375
     return-void
 .end method
 
@@ -1927,7 +1973,7 @@
     .locals 2
 
     .prologue
-    .line 305
+    .line 321
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1948,10 +1994,10 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 306
+    .line 322
     sput p1, Lbl/abd;->imageSizeType:I
 
-    .line 307
+    .line 323
     return-void
 .end method
 
@@ -1984,6 +2030,38 @@
     sput p1, Lbl/abd;->mode_id:I
 
     .line 209
+    return-void
+.end method
+
+.method public static set_other_column(Landroid/content/Context;I)V
+    .locals 2
+
+    .prologue
+    .line 307
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    const-string v1, "other_column_type"
+
+    invoke-interface {v0, v1, p1}, Landroid/content/SharedPreferences$Editor;->putInt(Ljava/lang/String;I)Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
+
+    .line 308
+    sput p1, Lbl/abd;->otherColumnType:I
+
+    .line 309
     return-void
 .end method
 
@@ -2133,12 +2211,12 @@
     .locals 2
 
     .prologue
-    .line 388
+    .line 404
     if-nez p1, :cond_3
 
     const/4 p1, 0x1
 
-    .line 389
+    .line 405
     :cond_3
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
@@ -2160,10 +2238,10 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 390
+    .line 406
     sput p1, Lbl/abd;->topTabConfig:I
 
-    .line 391
+    .line 407
     return-void
 .end method
 

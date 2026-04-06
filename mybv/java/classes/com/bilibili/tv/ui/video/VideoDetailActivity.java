@@ -412,7 +412,7 @@ public final class VideoDetailActivity extends BaseActivity
         this.r = (RecyclerView) d(R.id.video_detail_relate_video);
         this.v = new e();
         relateBinder = new com.bilibili.tv.ui.video.widget.BiliVideoDetailBinder();
-        relateCardAdapter = new com.bilibili.tv.ui.video.widget.VideoCardAdapter();
+        relateCardAdapter = new com.bilibili.tv.ui.video.widget.VideoCardAdapter(this);
         if (this.r != null) {
             this.r.setLayoutManager(new FixLinearLayoutManager(this, 0, false) {
                 @Override
@@ -468,7 +468,7 @@ public final class VideoDetailActivity extends BaseActivity
         }
         this.episodes_video = (RecyclerView) d(R.id.video_detail_episodes_video);
         this.episodes_video_adapter = new EpisodesVideoAdapter();
-        episodesCardAdapter = new com.bilibili.tv.ui.video.widget.VideoCardAdapter();
+        episodesCardAdapter = new com.bilibili.tv.ui.video.widget.VideoCardAdapter(this);
         if (this.episodes_video != null) {
             this.episodes_video.setLayoutManager(new FixLinearLayoutManager(this, 0, false));
             this.episodes_video.setAdapter(episodesCardAdapter);

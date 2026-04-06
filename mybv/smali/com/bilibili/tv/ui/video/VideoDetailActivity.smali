@@ -6612,7 +6612,7 @@
     .line 415
     new-instance v0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 
-    invoke-direct {v0}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;-><init>()V
+    invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;-><init>(Landroid/content/Context;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->relateCardAdapter:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 
@@ -6677,7 +6677,7 @@
     .line 471
     new-instance v0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 
-    invoke-direct {v0}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;-><init>()V
+    invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;-><init>(Landroid/content/Context;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->episodesCardAdapter:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 

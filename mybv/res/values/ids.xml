@@ -365,4 +365,6 @@
     <item type="id" name="season_section_nav_tags" />
     <item type="id" name="nav_tag_text" />
     <item type="id" name="badge" />
+    <item type="id" name="other_normal_button" />
+    <item type="id" name="other_compact_button" />
 </resources>

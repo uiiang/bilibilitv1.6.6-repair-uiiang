@@ -337,16 +337,16 @@
     .prologue
     const/4 v2, -0x1
 
-    .line 743
+    .line 718
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     if-nez v0, :cond_6
 
-    .line 750
+    .line 725
     :cond_5
     return v2
 
-    .line 744
+    .line 719
     :cond_6
     const/4 v0, 0x0
 
@@ -359,7 +359,7 @@
 
     if-ge v0, v1, :cond_5
 
-    .line 745
+    .line 720
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v1, v0}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
@@ -368,7 +368,7 @@
 
     if-eq v1, p1, :cond_5
 
-    .line 744
+    .line 719
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_7
@@ -382,7 +382,7 @@
 
     const/4 v2, 0x0
 
-    .line 625
+    .line 600
     :try_start_2
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
@@ -390,17 +390,17 @@
 
     move-result-object v0
 
-    .line 626
+    .line 601
     if-nez v0, :cond_c
 
     move-object v0, v1
 
-    .line 655
+    .line 630
     :cond_b
     :goto_b
     return-object v0
 
-    .line 631
+    .line 606
     :cond_c
     invoke-virtual {v0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
@@ -422,7 +422,7 @@
 
     move-result-object v3
 
-    .line 632
+    .line 607
     const/4 v4, 0x1
 
     new-array v4, v4, [Ljava/lang/Object;
@@ -441,10 +441,10 @@
 
     check-cast v0, Landroid/view/View;
 
-    .line 634
+    .line 609
     if-eqz v0, :cond_44
 
-    .line 639
+    .line 614
     :goto_30
     iget-object v3, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
@@ -454,7 +454,7 @@
 
     if-ge v2, v3, :cond_b
 
-    .line 640
+    .line 615
     iget-object v3, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v3, v2}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
@@ -466,12 +466,12 @@
 
     if-eq v3, v0, :cond_b
 
-    .line 639
+    .line 614
     add-int/lit8 v2, v2, 0x1
 
     goto :goto_30
 
-    .line 652
+    .line 627
     :catch_43
     move-exception v0
 
@@ -479,10 +479,10 @@
     :goto_44
     move-object v0, v1
 
-    .line 655
+    .line 630
     goto :goto_b
 
-    .line 650
+    .line 625
     :catch_46
     move-exception v0
 
@@ -707,7 +707,11 @@
     .line 71
     new-instance v0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 
-    invoke-direct {v0}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;-><init>()V
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->getContext()Landroid/content/Context;
+
+    move-result-object v1
+
+    invoke-direct {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;-><init>(Landroid/content/Context;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->adapter:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 
@@ -852,17 +856,17 @@
 
     const/4 v0, 0x0
 
-    .line 575
+    .line 550
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     if-nez v1, :cond_7
 
-    .line 620
+    .line 595
     :cond_6
     :goto_6
     return-object v0
 
-    .line 580
+    .line 555
     :cond_7
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->dataList:Ljava/util/List;
 
@@ -870,11 +874,11 @@
 
     move v1, v2
 
-    .line 584
+    .line 559
     :goto_c
     if-eqz v1, :cond_6
 
-    .line 589
+    .line 564
     iget v3, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusPosition:I
 
     add-int/lit8 v1, v1, -0x1
@@ -883,35 +887,35 @@
 
     move-result v1
 
-    .line 590
+    .line 565
     invoke-static {v2, v1}, Ljava/lang/Math;->max(II)I
 
     move-result v1
 
-    .line 594
+    .line 569
     iget-object v3, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v3}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
 
     move-result v3
 
-    .line 597
+    .line 572
     if-eqz v3, :cond_6
 
-    .line 602
+    .line 577
     invoke-direct {p0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->findViewByDataPosition(I)Landroid/view/View;
 
     move-result-object v1
 
-    .line 603
+    .line 578
     if-eqz v1, :cond_31
 
     move-object v0, v1
 
-    .line 607
+    .line 582
     goto :goto_6
 
-    .line 580
+    .line 555
     :cond_2a
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->dataList:Ljava/util/List;
 
@@ -921,7 +925,7 @@
 
     goto :goto_c
 
-    .line 614
+    .line 589
     :cond_31
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
@@ -929,12 +933,12 @@
 
     move-result-object v1
 
-    .line 615
+    .line 590
     if-eqz v1, :cond_6
 
     move-object v0, v1
 
-    .line 617
+    .line 592
     goto :goto_6
 .end method
 
@@ -942,17 +946,17 @@
     .locals 3
 
     .prologue
-    .line 692
+    .line 667
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     if-nez v0, :cond_5
 
-    .line 713
+    .line 688
     :cond_4
     :goto_4
     return-void
 
-    .line 693
+    .line 668
     :cond_5
     const/4 v0, 0x0
 
@@ -965,14 +969,14 @@
 
     if-ge v0, v1, :cond_4
 
-    .line 694
+    .line 669
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v1, v0}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
 
     move-result-object v1
 
-    .line 695
+    .line 670
     if-eqz v1, :cond_2a
 
     invoke-virtual {v1}, Landroid/view/View;->hasFocus()Z
@@ -981,29 +985,29 @@
 
     if-eqz v2, :cond_2a
 
-    .line 696
+    .line 671
     invoke-virtual {p0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->getDataPositionForView(Landroid/view/View;)I
 
     move-result v1
 
-    .line 697
+    .line 672
     iget v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusPosition:I
 
-    .line 698
+    .line 673
     if-ltz v1, :cond_27
 
-    .line 699
+    .line 674
     iput v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusPosition:I
 
     goto :goto_4
 
-    .line 703
+    .line 678
     :cond_27
     iput v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusPosition:I
 
     goto :goto_4
 
-    .line 693
+    .line 668
     :cond_2a
     add-int/lit8 v0, v0, 0x1
 
@@ -1014,13 +1018,13 @@
     .locals 1
 
     .prologue
-    .line 685
+    .line 660
     iget v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusPosition:I
 
-    .line 686
+    .line 661
     iput p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusPosition:I
 
-    .line 689
+    .line 664
     return-void
 .end method
 
@@ -1028,16 +1032,16 @@
     .locals 4
 
     .prologue
-    .line 847
+    .line 822
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     if-nez v0, :cond_5
 
-    .line 858
+    .line 833
     :cond_4
     return-void
 
-    .line 850
+    .line 825
     :cond_5
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
@@ -1045,7 +1049,7 @@
 
     move-result v1
 
-    .line 851
+    .line 826
     const-string v0, "ListSection"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -1078,26 +1082,26 @@
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 852
+    .line 827
     const/4 v0, 0x0
 
     :goto_2e
     if-ge v0, v1, :cond_4
 
-    .line 853
+    .line 828
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v2, v0}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
 
     move-result-object v2
 
-    .line 854
+    .line 829
     if-eqz v2, :cond_3b
 
-    .line 855
+    .line 830
     invoke-virtual {v2, p1}, Landroid/view/View;->setNextFocusDownId(I)V
 
-    .line 852
+    .line 827
     :cond_3b
     add-int/lit8 v0, v0, 0x1
 
@@ -1110,7 +1114,7 @@
     .locals 1
 
     .prologue
-    .line 780
+    .line 755
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->adapter:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 
     return-object v0
@@ -1120,7 +1124,7 @@
     .locals 1
 
     .prologue
-    .line 793
+    .line 768
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->binder:Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;
 
     return-object v0
@@ -1157,7 +1161,7 @@
     .end annotation
 
     .prologue
-    .line 789
+    .line 764
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->dataList:Ljava/util/List;
 
     return-object v0
@@ -1167,7 +1171,7 @@
     .locals 3
 
     .prologue
-    .line 720
+    .line 695
     if-eqz p1, :cond_a
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->dataList:Ljava/util/List;
@@ -1178,32 +1182,32 @@
 
     if-nez v0, :cond_c
 
-    .line 722
+    .line 697
     :cond_a
     const/4 v0, -0x1
 
-    .line 739
+    .line 714
     :cond_b
     :goto_b
     return v0
 
-    .line 725
+    .line 700
     :cond_c
     invoke-virtual {p1}, Landroid/view/View;->getTag()Ljava/lang/Object;
 
     move-result-object v1
 
-    .line 726
+    .line 701
     if-nez v1, :cond_17
 
-    .line 728
+    .line 703
     invoke-direct {p0, p1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->findPositionByTraversal(Landroid/view/View;)I
 
     move-result v0
 
     goto :goto_b
 
-    .line 731
+    .line 706
     :cond_17
     const/4 v0, 0x0
 
@@ -1216,7 +1220,7 @@
 
     if-ge v0, v2, :cond_2b
 
-    .line 732
+    .line 707
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->dataList:Ljava/util/List;
 
     invoke-interface {v2, v0}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -1225,12 +1229,12 @@
 
     if-eq v2, v1, :cond_b
 
-    .line 731
+    .line 706
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_18
 
-    .line 739
+    .line 714
     :cond_2b
     invoke-direct {p0, p1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->findPositionByTraversal(Landroid/view/View;)I
 
@@ -1243,7 +1247,7 @@
     .locals 1
 
     .prologue
-    .line 754
+    .line 729
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->dataList:Ljava/util/List;
 
     if-nez v0, :cond_6
@@ -1267,7 +1271,7 @@
     .locals 1
 
     .prologue
-    .line 716
+    .line 691
     iget v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusPosition:I
 
     return v0
@@ -1277,7 +1281,7 @@
     .locals 1
 
     .prologue
-    .line 908
+    .line 883
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagAdapter:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     return-object v0
@@ -1287,7 +1291,7 @@
     .locals 1
 
     .prologue
-    .line 904
+    .line 879
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     return-object v0
@@ -1297,15 +1301,15 @@
     .locals 1
 
     .prologue
-    .line 878
+    .line 853
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagAdapter:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     if-nez v0, :cond_6
 
-    .line 879
+    .line 854
     const/4 v0, -0x1
 
-    .line 881
+    .line 856
     :goto_5
     return v0
 
@@ -1323,7 +1327,7 @@
     .locals 1
 
     .prologue
-    .line 772
+    .line 747
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     return-object v0
@@ -1333,7 +1337,7 @@
     .locals 1
 
     .prologue
-    .line 763
+    .line 738
     iget v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->sectionId:I
 
     return v0
@@ -1343,7 +1347,7 @@
     .locals 1
 
     .prologue
-    .line 776
+    .line 751
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->titleView:Landroid/widget/TextView;
 
     return-object v0
@@ -1353,7 +1357,7 @@
     .locals 1
 
     .prologue
-    .line 784
+    .line 759
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->dataList:Ljava/util/List;
 
     if-eqz v0, :cond_e
@@ -1368,11 +1372,11 @@
 
     const/4 v0, 0x1
 
-    .line 785
+    .line 760
     :goto_d
     return v0
 
-    .line 784
+    .line 759
     :cond_e
     const/4 v0, 0x0
 
@@ -1383,14 +1387,14 @@
     .locals 1
 
     .prologue
-    .line 897
+    .line 872
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     if-eqz v0, :cond_1a
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
-    .line 898
+    .line 873
     invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->getVisibility()I
 
     move-result v0
@@ -1403,7 +1407,7 @@
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagAdapter:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
-    .line 900
+    .line 875
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->isEmpty()Z
 
     move-result v0
@@ -1412,11 +1416,11 @@
 
     const/4 v0, 0x1
 
-    .line 897
+    .line 872
     :goto_19
     return v0
 
-    .line 900
+    .line 875
     :cond_1a
     const/4 v0, 0x0
 
@@ -1429,33 +1433,33 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 540
+    .line 515
     const/4 v1, 0x1
 
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->manualFocusRequested:Z
 
-    .line 543
+    .line 518
     invoke-direct {p0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->restoreFocusPositionInternal()Landroid/view/View;
 
     move-result-object v1
 
-    .line 544
+    .line 519
     if-eqz v1, :cond_12
 
-    .line 545
+    .line 520
     invoke-direct {p0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->getViewPosition(Landroid/view/View;)I
 
-    .line 550
+    .line 525
     invoke-virtual {v1}, Landroid/view/View;->requestFocus()Z
 
     move-result v0
 
-    .line 568
+    .line 543
     :cond_11
     :goto_11
     return v0
 
-    .line 558
+    .line 533
     :cond_12
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
@@ -1469,14 +1473,14 @@
 
     if-lez v1, :cond_11
 
-    .line 559
+    .line 534
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v1, v0}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 560
+    .line 535
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
     move-result v0
@@ -1488,7 +1492,7 @@
     .locals 1
 
     .prologue
-    .line 531
+    .line 506
     invoke-direct {p0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->restoreFocusPositionInternal()Landroid/view/View;
 
     move-result-object v0
@@ -1500,19 +1504,19 @@
     .locals 3
 
     .prologue
-    .line 659
+    .line 634
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     if-eqz v0, :cond_6
 
     if-nez p1, :cond_7
 
-    .line 682
+    .line 657
     :cond_6
     :goto_6
     return-void
 
-    .line 664
+    .line 639
     :cond_7
     const/4 v0, 0x0
 
@@ -1525,7 +1529,7 @@
 
     if-ge v0, v1, :cond_6
 
-    .line 665
+    .line 640
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v1, v0}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
@@ -1534,29 +1538,29 @@
 
     if-ne v1, p1, :cond_26
 
-    .line 666
+    .line 641
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->getDataPositionForView(Landroid/view/View;)I
 
     move-result v1
 
-    .line 667
+    .line 642
     iget v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusPosition:I
 
-    .line 668
+    .line 643
     if-ltz v1, :cond_23
 
-    .line 669
+    .line 644
     iput v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusPosition:I
 
     goto :goto_6
 
-    .line 673
+    .line 648
     :cond_23
     iput v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusPosition:I
 
     goto :goto_6
 
-    .line 664
+    .line 639
     :cond_26
     add-int/lit8 v0, v0, 0x1
 
@@ -1567,17 +1571,17 @@
     .locals 1
 
     .prologue
-    .line 885
+    .line 860
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagAdapter:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     if-eqz v0, :cond_9
 
-    .line 886
+    .line 861
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagAdapter:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->scrollToPosition(I)V
 
-    .line 888
+    .line 863
     :cond_9
     return-void
 .end method
@@ -1595,7 +1599,7 @@
 
     if-nez v0, :cond_8
 
-    .line 475
+    .line 461
     :cond_7
     :goto_7
     return-void
@@ -1738,7 +1742,7 @@
     .locals 4
 
     .prologue
-    .line 478
+    .line 464
     const-string v0, "ListSection"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1773,23 +1777,23 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 480
+    .line 466
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     if-nez v0, :cond_30
 
-    .line 481
+    .line 467
     const-string v0, "ListSection"
 
     const-string v1, "scrollToDataPosition | recyclerView\u4e3anull"
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 521
+    .line 496
     :goto_2f
     return-void
 
-    .line 485
+    .line 471
     :cond_30
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->dataList:Ljava/util/List;
 
@@ -1797,13 +1801,13 @@
 
     const/4 v0, 0x0
 
-    .line 486
+    .line 472
     :goto_35
     if-ltz p1, :cond_39
 
     if-lt p1, v0, :cond_63
 
-    .line 487
+    .line 473
     :cond_39
     const-string v1, "ListSection"
 
@@ -1839,7 +1843,7 @@
 
     goto :goto_2f
 
-    .line 485
+    .line 471
     :cond_5c
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->dataList:Ljava/util/List;
 
@@ -1849,7 +1853,7 @@
 
     goto :goto_35
 
-    .line 492
+    .line 478
     :cond_63
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
@@ -1933,10 +1937,10 @@
     .locals 0
 
     .prologue
-    .line 759
+    .line 734
     iput p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusPosition:I
 
-    .line 760
+    .line 735
     return-void
 .end method
 
@@ -1955,17 +1959,17 @@
     .locals 1
 
     .prologue
-    .line 912
+    .line 887
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     if-eqz v0, :cond_9
 
-    .line 913
+    .line 888
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v0, p1}, Landroid/support/v7/widget/RecyclerView;->setNextFocusDownId(I)V
 
-    .line 915
+    .line 890
     :cond_9
     return-void
 .end method
@@ -1974,17 +1978,17 @@
     .locals 1
 
     .prologue
-    .line 891
+    .line 866
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagAdapter:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     if-eqz v0, :cond_9
 
-    .line 892
+    .line 867
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagAdapter:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->setSelectedPosition(I)V
 
-    .line 894
+    .line 869
     :cond_9
     return-void
 .end method
@@ -1993,17 +1997,17 @@
     .locals 1
 
     .prologue
-    .line 525
+    .line 500
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     if-eqz v0, :cond_9
 
-    .line 526
+    .line 501
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v0, p1}, Landroid/support/v7/widget/RecyclerView;->setNextFocusUpId(I)V
 
-    .line 528
+    .line 503
     :cond_9
     return-void
 .end method
@@ -2012,10 +2016,10 @@
     .locals 0
 
     .prologue
-    .line 805
+    .line 780
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagClickListener:Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagClickListener;
 
-    .line 806
+    .line 781
     return-void
 .end method
 
@@ -2023,10 +2027,10 @@
     .locals 0
 
     .prologue
-    .line 801
+    .line 776
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagFocusListener:Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagFocusListener;
 
-    .line 802
+    .line 777
     return-void
 .end method
 
@@ -2034,10 +2038,10 @@
     .locals 0
 
     .prologue
-    .line 797
+    .line 772
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->videoClickListener:Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoClickListener;
 
-    .line 798
+    .line 773
     return-void
 .end method
 
@@ -2045,10 +2049,10 @@
     .locals 0
 
     .prologue
-    .line 768
+    .line 743
     iput p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->sectionId:I
 
-    .line 769
+    .line 744
     return-void
 .end method
 
@@ -2127,7 +2131,7 @@
     .locals 3
 
     .prologue
-    .line 809
+    .line 784
     const-string v0, "ListSection"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -2162,7 +2166,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 810
+    .line 785
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     if-eqz v0, :cond_2c
@@ -2171,7 +2175,7 @@
 
     if-nez v0, :cond_34
 
-    .line 811
+    .line 786
     :cond_2c
     const-string v0, "ListSection"
 
@@ -2179,54 +2183,54 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 844
+    .line 819
     :goto_33
     return-void
 
-    .line 815
+    .line 790
     :cond_34
     const/16 v0, 0xa
 
     if-le p1, v0, :cond_86
 
-    .line 816
+    .line 791
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagAdapter:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->setTags(I)V
 
-    .line 817
+    .line 792
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
 
-    .line 818
+    .line 793
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->requestLayout()V
 
-    .line 820
+    .line 795
     const v0, 0x7f0801d6
 
-    .line 821
+    .line 796
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->adapter:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->setNextFocusDownId(I)V
 
-    .line 822
+    .line 797
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v1, v0}, Landroid/support/v7/widget/RecyclerView;->setNextFocusDownId(I)V
 
-    .line 823
+    .line 798
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     const v1, 0x7f0801a5
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setNextFocusUpId(I)V
 
-    .line 825
+    .line 800
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     new-instance v1, Lcom/bilibili/tv/ui/video/widget/VideoListSection$10;
@@ -2235,7 +2239,7 @@
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->post(Ljava/lang/Runnable;)Z
 
-    .line 832
+    .line 807
     const-string v0, "ListSection"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -2266,7 +2270,7 @@
 
     goto :goto_33
 
-    .line 834
+    .line 809
     :cond_86
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
@@ -2274,14 +2278,14 @@
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
 
-    .line 835
+    .line 810
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->adapter:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 
     const/4 v1, -0x1
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->setNextFocusDownId(I)V
 
-    .line 836
+    .line 811
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     new-instance v1, Lcom/bilibili/tv/ui/video/widget/VideoListSection$11;
@@ -2290,7 +2294,7 @@
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->post(Ljava/lang/Runnable;)Z
 
-    .line 842
+    .line 817
     const-string v0, "ListSection"
 
     const-string v1, "setupNavigationTags | \u89c6\u9891\u6570\u91cf<=10\uff0c\u4e0d\u663e\u793a\u5bfc\u822a\u6807\u7b7e"
@@ -2304,7 +2308,7 @@
     .locals 5
 
     .prologue
-    .line 861
+    .line 836
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagAdapter:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     if-eqz v0, :cond_c
@@ -2317,21 +2321,21 @@
 
     if-eqz v0, :cond_d
 
-    .line 875
+    .line 850
     :cond_c
     :goto_c
     return-void
 
-    .line 865
+    .line 840
     :cond_d
     add-int/lit8 v0, p1, 0x1
 
-    .line 866
+    .line 841
     add-int/lit8 v1, v0, -0x1
 
     div-int/lit8 v1, v1, 0xa
 
-    .line 868
+    .line 843
     if-ltz v1, :cond_c
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagAdapter:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
@@ -2342,17 +2346,17 @@
 
     if-ge v1, v2, :cond_c
 
-    .line 869
+    .line 844
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagAdapter:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     invoke-virtual {v2, v1}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->setSelectedPosition(I)V
 
-    .line 870
+    .line 845
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagAdapter:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     invoke-virtual {v2, v1}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->scrollToPositionWithOffset(I)V
 
-    .line 871
+    .line 846
     const-string v2, "ListSection"
 
     new-instance v3, Ljava/lang/StringBuilder;

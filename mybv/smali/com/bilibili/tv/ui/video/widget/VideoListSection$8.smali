@@ -41,10 +41,10 @@
 
 # virtual methods
 .method public run()V
-    .locals 5
+    .locals 6
 
     .prologue
-    .line 446
+    .line 442
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$8;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
@@ -58,13 +58,101 @@
 
     if-nez v0, :cond_d
 
-    .line 473
+    .line 459
     :goto_c
     return-void
 
-    .line 453
+    .line 446
     :cond_d
     :try_start_d
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$8;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+
+    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$1400(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)Landroid/support/v7/widget/RecyclerView;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->getLayoutManager()Landroid/support/v7/widget/RecyclerView$h;
+
+    move-result-object v0
+
+    .line 447
+    if-eqz v0, :cond_47
+
+    .line 448
+    invoke-virtual {v0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+
+    move-result-object v1
+
+    const-string v2, "b"
+
+    const/4 v3, 0x2
+
+    new-array v3, v3, [Ljava/lang/Class;
+
+    const/4 v4, 0x0
+
+    sget-object v5, Ljava/lang/Integer;->TYPE:Ljava/lang/Class;
+
+    aput-object v5, v3, v4
+
+    const/4 v4, 0x1
+
+    sget-object v5, Ljava/lang/Integer;->TYPE:Ljava/lang/Class;
+
+    aput-object v5, v3, v4
+
+    invoke-virtual {v1, v2, v3}, Ljava/lang/Class;->getMethod(Ljava/lang/String;[Ljava/lang/Class;)Ljava/lang/reflect/Method;
+
+    move-result-object v1
+
+    .line 449
+    const/4 v2, 0x2
+
+    new-array v2, v2, [Ljava/lang/Object;
+
+    const/4 v3, 0x0
+
+    iget v4, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$8;->val$finalPos:I
+
+    invoke-static {v4}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object v4
+
+    aput-object v4, v2, v3
+
+    const/4 v3, 0x1
+
+    const/4 v4, 0x0
+
+    invoke-static {v4}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object v4
+
+    aput-object v4, v2, v3
+
+    invoke-virtual {v1, v0, v2}, Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+    :try_end_47
+    .catch Ljava/lang/Exception; {:try_start_d .. :try_end_47} :catch_4f
+
+    .line 458
+    :cond_47
+    :goto_47
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$8;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+
+    iget v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$8;->val$finalPos:I
+
+    # setter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusPosition:I
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$1002(Lcom/bilibili/tv/ui/video/widget/VideoListSection;I)I
+
+    goto :goto_c
+
+    .line 451
+    :catch_4f
+    move-exception v0
+
+    .line 453
+    :try_start_50
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$8;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
@@ -76,7 +164,7 @@
 
     move-result-object v0
 
-    const-string v1, "scrollToPosition"
+    const-string v1, "a"
 
     const/4 v2, 0x1
 
@@ -115,86 +203,14 @@
     aput-object v4, v2, v3
 
     invoke-virtual {v0, v1, v2}, Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
-    :try_end_3a
-    .catch Ljava/lang/NoSuchMethodException; {:try_start_d .. :try_end_3a} :catch_42
-    .catch Ljava/lang/Exception; {:try_start_d .. :try_end_3a} :catch_6e
+    :try_end_7d
+    .catch Ljava/lang/Exception; {:try_start_50 .. :try_end_7d} :catch_7e
 
-    .line 471
-    :cond_3a
-    :goto_3a
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$8;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+    goto :goto_47
 
-    iget v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$8;->val$finalPos:I
-
-    # setter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusPosition:I
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$1002(Lcom/bilibili/tv/ui/video/widget/VideoListSection;I)I
-
-    goto :goto_c
-
-    .line 456
-    :catch_42
+    .line 455
+    :catch_7e
     move-exception v0
 
-    .line 458
-    :try_start_43
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$8;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-
-    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$1400(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)Landroid/support/v7/widget/RecyclerView;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
-
-    move-result v0
-
-    if-lez v0, :cond_3a
-
-    .line 459
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$8;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-
-    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$1400(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)Landroid/support/v7/widget/RecyclerView;
-
-    move-result-object v0
-
-    const/4 v1, 0x0
-
-    invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
-
-    move-result-object v0
-
-    .line 460
-    if-eqz v0, :cond_3a
-
-    .line 461
-    invoke-virtual {v0}, Landroid/view/View;->getWidth()I
-
-    move-result v0
-
-    .line 462
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$8;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-
-    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
-    invoke-static {v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$1400(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)Landroid/support/v7/widget/RecyclerView;
-
-    move-result-object v1
-
-    iget v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$8;->val$finalPos:I
-
-    mul-int/2addr v0, v2
-
-    const/4 v2, 0x0
-
-    invoke-virtual {v1, v0, v2}, Landroid/support/v7/widget/RecyclerView;->scrollBy(II)V
-    :try_end_6d
-    .catch Ljava/lang/Exception; {:try_start_43 .. :try_end_6d} :catch_6e
-
-    goto :goto_3a
-
-    .line 467
-    :catch_6e
-    move-exception v0
-
-    goto :goto_3a
+    goto :goto_47
 .end method

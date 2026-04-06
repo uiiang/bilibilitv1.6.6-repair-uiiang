@@ -98,17 +98,41 @@ public class NavigationTagAdapter extends RecyclerView.a<NavigationTagAdapter.Ta
                 + " | tagsSize=" + tags.size());
 
         if (selectedPosition != position) {
-            int oldSelected = selectedPosition;
+            final int oldSelected = selectedPosition;
             selectedPosition = position;
 
             if (attachedRecyclerView != null) {
-                if (oldSelected >= 0 && oldSelected < tags.size()) {
-                    c(oldSelected);
-                    Log.i(TAG, "setSelectedPosition | notifyItemChanged旧位置: " + oldSelected);
-                }
-                if (position >= 0 && position < tags.size()) {
-                    c(position);
-                    Log.i(TAG, "setSelectedPosition | notifyItemChanged新位置: " + position);
+                final int finalPosition = position;
+                final int finalOldSelected = oldSelected;
+                final int tagsSize = tags.size();
+                
+                Runnable notifyRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        if (finalOldSelected >= 0 && finalOldSelected < tagsSize) {
+                            c(finalOldSelected);
+                            Log.i(TAG, "setSelectedPosition | notifyItemChanged旧位置: " + finalOldSelected);
+                        }
+                        if (finalPosition >= 0 && finalPosition < tagsSize) {
+                            c(finalPosition);
+                            Log.i(TAG, "setSelectedPosition | notifyItemChanged新位置: " + finalPosition);
+                        }
+                    }
+                };
+                
+                try {
+                    java.lang.reflect.Method isComputingMethod = attachedRecyclerView.getClass().getMethod("o");
+                    boolean isComputing = (boolean) isComputingMethod.invoke(attachedRecyclerView);
+                    
+                    if (isComputing) {
+                        Log.i(TAG, "setSelectedPosition | RecyclerView正在计算布局，使用post延迟执行");
+                        attachedRecyclerView.post(notifyRunnable);
+                    } else {
+                        notifyRunnable.run();
+                    }
+                } catch (Exception e) {
+                    Log.w(TAG, "setSelectedPosition | isComputingLayout检查失败，使用post延迟执行: " + e.getMessage());
+                    attachedRecyclerView.post(notifyRunnable);
                 }
             }
 
