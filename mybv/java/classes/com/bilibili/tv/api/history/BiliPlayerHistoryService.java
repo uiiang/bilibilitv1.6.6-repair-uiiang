@@ -44,4 +44,8 @@ public interface BiliPlayerHistoryService {
     @FormUrlEncoded
     @POST(value = "/x/v2/history/report")
     vp<GeneralResponse<Void>> reportProgress(@Field(value = "aid") long aid, @Field(value = "cid") long cid, @Field(value = "sid") long sid, @Field(value = "epid") long epid, @Field(value = "progress") long progress, @Field(value = "type") int type, @Field(value = "realtime") long realtime, @Field(value = "csrf") String csrf, @Header(value = "Cookie") String cookie);
+
+    @FormUrlEncoded
+    @POST(value = "https://api.live.bilibili.com/xlive/web-room/v1/index/roomEntryAction")
+    vp<GeneralResponse<Void>> reportLiveEntry(@Field(value = "room_id") long roomId, @Field(value = "csrf") String csrf, @Field(value = "csrf_token") String csrfToken, @Header(value = "Cookie") String cookie);
 }

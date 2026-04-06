@@ -5,18 +5,24 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import bl.abt;
 import bl.adl;
 import bl.agb;
 import bl.lr;
+import bl.vm;
 import bl.wm;
 import bl.wr;
+import com.bilibili.okretro.GeneralResponse;
 import com.bilibili.tv.R;
+import com.bilibili.tv.api.history.BiliPlayerHistoryService;
 import com.bilibili.tv.newplayer.video.LiveVideoPlayer;
 import com.bilibili.tv.newplayer.widget.LivePlayerController;
 import com.bilibili.tv.ui.base.BaseActivity;
+import mybl.CookieUtil;
+import bl.mg;
 import u.aly.j;
 
 import java.util.List;
@@ -96,6 +102,8 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
 
         this.g.danmakuClient = new DanmakuClient(this.d);
         LivePlayerActivity._this = this;
+
+        reportLiveHistory();
     }
 
     @Override // android.app.Activity, android.view.ContextThemeWrapper, android.content.ContextWrapper
@@ -224,5 +232,27 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
         if(this.g != null){this.g.i();}
         this.e = null;
         super.onDestroy();
+    }
+
+    private void reportLiveHistory() {
+        mg biliAccount = mg.a(this);
+        if (biliAccount != null && biliAccount.a()) {
+            String cookie = CookieUtil.getFullCookieWithDevice(biliAccount);
+            String csrf = CookieUtil.getBiliJct(biliAccount);
+            Log.i("LivePlayerActivity", "reportLiveHistory: roomId=" + this.d);
+            ((BiliPlayerHistoryService) bl.vo.a(BiliPlayerHistoryService.class))
+                .reportLiveEntry(this.d, csrf, csrf, cookie)
+                .a(new vm<GeneralResponse<Void>>() {
+                    @Override
+                    public void onSuccess(GeneralResponse<Void> response) {
+                        Log.i("LivePlayerActivity", "reportLiveHistory success");
+                    }
+
+                    @Override
+                    public void onError(Throwable th) {
+                        Log.e("LivePlayerActivity", "reportLiveHistory error: " + th.getMessage());
+                    }
+                });
+        }
     }
 }
