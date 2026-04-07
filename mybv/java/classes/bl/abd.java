@@ -310,7 +310,7 @@ public class abd {
 
     public static int get_other_column(Context context) {
         if (otherColumnType == -1) {
-            otherColumnType = a(context).a().getInt("other_column_type", OTHER_COLUMN_NORMAL);
+            otherColumnType = a(context).a().getInt("other_column_type", OTHER_COLUMN_COMPACT);
         }
         return otherColumnType;
     }

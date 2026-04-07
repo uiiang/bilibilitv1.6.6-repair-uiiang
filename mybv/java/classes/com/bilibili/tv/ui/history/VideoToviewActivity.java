@@ -409,17 +409,8 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements Vie
                 } else {
                     upTextView.setCompoundDrawables(null, null, null, null);
                 }
-                ((f) holder).C().setText(adh.a(biliVideoDetail.getPlays()));
-                int danmaku = 0;
-                try {
-                    danmaku = Integer.parseInt(biliVideoDetail.getDanmakus());
-                } catch (Exception e) {}
-                if (danmaku > 0) {
-                    ((f) holder).danmakuInImage.setText(adh.a(danmaku));
-                    ((f) holder).danmakuInImage.setVisibility(View.VISIBLE);
-                } else {
-                    ((f) holder).danmakuInImage.setVisibility(View.GONE);
-                }
+                ((f) holder).C().setVisibility(View.GONE);
+                ((f) holder).danmakuInImage.setVisibility(View.GONE);
                 long pubdate = biliVideoDetail.mCreatedTimestamp;
                 if (pubdate > 0) {
                     ((f) holder).D().setText(DateHelper.formatDate(pubdate));

@@ -92,7 +92,7 @@
   </FrameLayout>
   <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="@dimen/px_110"
+    android:layout_height="@dimen/px_120"
     android:orientation="vertical">
     <com.bilibili.tv.widget.ShadowTextView
       android:textSize="@dimen/px_28"
@@ -114,6 +114,7 @@
       android:layout_height="wrap_content"
       android:layout_marginLeft="@dimen/px_4"
       android:layout_marginRight="@dimen/px_4"
+      android:layout_marginTop="@dimen/px_10"
       android:layout_marginBottom="@dimen/px_4"
       android:orientation="horizontal">
       <com.bilibili.tv.widget.ShadowTextView
