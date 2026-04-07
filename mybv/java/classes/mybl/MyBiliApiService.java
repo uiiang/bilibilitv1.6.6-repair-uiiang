@@ -112,16 +112,14 @@ public interface MyBiliApiService {
     @GET("/x/web-interface/popular")
     vp<GeneralResponse<JSONObject>> getPopular(@Query("pn") int page_number, @Query("ps") int page_size);
 
-    @Headers("Cookie: buvid3=00000000-0000-0000-0000-00000000000000000infoc")
     @GET("/x/web-interface/popular/series/one")
-    vp<GeneralResponse<JSONObject>> getWeeklyPrecious(@Query("number") long number);
+    vp<GeneralResponse<JSONObject>> getWeeklyPrecious(@Query("number") long number, @Header("Cookie") String cookie);
 
-    @Headers("Cookie: buvid3=00000000-0000-0000-0000-00000000000000000infoc")
     @GET("/x/web-interface/popular/series/list")
-    vp<GeneralResponse<JSONObject>> getWeeklySeriesList();
+    vp<GeneralResponse<JSONObject>> getWeeklySeriesList(@Header("Cookie") String cookie);
 
-    @GET("/x/web-interface/popular/precious?page_size=100&page=1")
-    vp<GeneralResponse<JSONObject>> getPopularPrecious();
+    @GET("/x/web-interface/popular/precious")
+    vp<GeneralResponse<JSONObject>> getPopularPrecious(@Query("page_size") int pageSize, @Query("page") int page, @Header("Cookie") String cookie);
 
     // Auth space - seasons and series list
     @Headers("Referer: https://space.bilibili.com")

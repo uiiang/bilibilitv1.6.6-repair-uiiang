@@ -3,18 +3,39 @@ package com.bilibili.tv.player.report;
 import android.text.TextUtils;
 import bl.vp;
 import com.bilibili.api.base.util.ParamsMap;
+import com.bilibili.okretro.GeneralResponse;
 import retrofit2.http.BaseUrl;
+import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 /* compiled from: BL */
-@BaseUrl(value = "http://api.bilibili.com")
+@BaseUrl(value = "https://api.bilibili.com")
 /* loaded from: classes.dex */
 public interface HeartbeatApiService {
     @FormUrlEncoded
     @POST(value = "/x/report/heartbeat/mobile")
     vp<Void> a(@FieldMap ParamsV2 paramsV2);
+
+    @FormUrlEncoded
+    @POST(value = "/x/click-interface/web/heartbeat")
+    vp<GeneralResponse<Void>> webHeartbeat(
+        @Field("aid") long aid,
+        @Field("cid") long cid,
+        @Field("sid") long sid,
+        @Field("epid") long epid,
+        @Field("played_time") long playedTime,
+        @Field("realtime") long realtime,
+        @Field("start_ts") long startTs,
+        @Field("type") int type,
+        @Field("sub_type") int subType,
+        @Field("quality") int quality,
+        @Field("video_duration") long videoDuration,
+        @Field("csrf") String csrf,
+        @Header("Cookie") String cookie
+    );
 
     /* compiled from: BL */
     /* loaded from: classes.dex */

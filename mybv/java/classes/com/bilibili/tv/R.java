@@ -2569,6 +2569,10 @@ public final class R {
         public static final int other_normal_button = 0x7f0801d9;
         public static final int other_compact_button = 0x7f0801da;
         public static final int gradient_mask = 0x7f0801db;
+        public static final int video_detail_info = 0x7f0801dc;
+        public static final int video_detail_info_img = 0x7f0801dd;
+        public static final int video_detail_info_text = 0x7f0801de;
+        public static final int video_detail_expand_btn = 0x7f0801df;
     }
 
     public static final class integer {

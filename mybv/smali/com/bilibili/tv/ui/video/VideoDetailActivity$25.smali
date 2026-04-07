@@ -3,7 +3,7 @@
 .source "VideoDetailActivity.java"
 
 # interfaces
-.implements Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagClickListener;
+.implements Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagFocusListener;
 
 
 # annotations
@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 2874
+    .line 2915
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->val$listSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -40,15 +40,24 @@
 
 
 # virtual methods
-.method public onNavTagClick(III)V
+.method public onNavTagFocus(III)V
     .locals 3
 
     .prologue
-    .line 2877
+    .line 2918
+    if-gez p2, :cond_3
+
+    .line 2932
+    :cond_2
+    :goto_2
+    return-void
+
+    .line 2922
+    :cond_3
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonSectionNavTagFocusPositions:Ljava/util/Map;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Ljava/util/Map;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3800(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Ljava/util/Map;
 
     move-result-object v0
 
@@ -62,31 +71,29 @@
 
     invoke-interface {v0, v1, v2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 2879
+    .line 2924
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->val$listSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->getFocusPosition()I
 
     move-result v0
 
-    .line 2881
+    .line 2926
     add-int/lit8 v1, p3, 0x9
 
-    .line 2883
-    if-lt v0, p3, :cond_1d
+    .line 2928
+    if-lt v0, p3, :cond_20
 
-    if-le v0, v1, :cond_24
+    if-le v0, v1, :cond_2
 
-    .line 2885
-    :cond_1d
+    .line 2930
+    :cond_20
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->val$listSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->scrollVideoListToPosition(Lcom/bilibili/tv/ui/video/widget/VideoListSection;I)V
-    invoke-static {v0, v1, p3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/ui/video/widget/VideoListSection;I)V
+    invoke-static {v0, v1, p3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3900(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/ui/video/widget/VideoListSection;I)V
 
-    .line 2887
-    :cond_24
-    return-void
+    goto :goto_2
 .end method

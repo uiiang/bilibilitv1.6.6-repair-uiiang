@@ -34,10 +34,10 @@
     .locals 1
 
     .prologue
-    .line 35
+    .line 38
     invoke-direct {p0}, Lcom/bilibili/tv/ui/base/BaseSideActivity;-><init>()V
 
-    .line 37
+    .line 40
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
@@ -51,7 +51,7 @@
     .locals 2
 
     .prologue
-    .line 50
+    .line 53
     new-instance v0, Landroid/content/Intent;
 
     const-class v1, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;
@@ -60,7 +60,7 @@
 
     invoke-virtual {p0, v0}, Landroid/content/Context;->startActivity(Landroid/content/Intent;)V
 
-    .line 51
+    .line 54
     return-void
 .end method
 
@@ -68,7 +68,7 @@
     .locals 1
 
     .prologue
-    .line 35
+    .line 38
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->weeklyItems:Ljava/util/List;
 
     return-object v0
@@ -78,7 +78,7 @@
     .locals 1
 
     .prologue
-    .line 35
+    .line 38
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->c:Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;
 
     return-object v0
@@ -88,7 +88,7 @@
     .locals 0
 
     .prologue
-    .line 35
+    .line 38
     invoke-direct {p0, p1}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->showVideoList(Lcom/bilibili/tv/ui/weekly/WeeklyActivity$WeeklyItem;)V
 
     return-void
@@ -100,7 +100,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 132
+    .line 135
     if-eqz p1, :cond_5
 
     if-nez p2, :cond_7
@@ -108,31 +108,31 @@
     :cond_5
     move v0, v1
 
-    .line 142
+    .line 145
     :goto_6
     return v0
 
-    .line 135
+    .line 138
     :cond_7
     invoke-virtual {p2}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
 
     move-result-object v0
 
-    .line 136
+    .line 139
     :goto_b
     instance-of v2, v0, Landroid/view/View;
 
     if-eqz v2, :cond_18
 
-    .line 137
+    .line 140
     if-ne v0, p1, :cond_13
 
-    .line 138
+    .line 141
     const/4 v0, 0x1
 
     goto :goto_6
 
-    .line 140
+    .line 143
     :cond_13
     invoke-interface {v0}, Landroid/view/ViewParent;->getParent()Landroid/view/ViewParent;
 
@@ -143,7 +143,7 @@
     :cond_18
     move v0, v1
 
-    .line 142
+    .line 145
     goto :goto_6
 .end method
 
@@ -151,7 +151,7 @@
     .locals 2
 
     .prologue
-    .line 146
+    .line 149
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -160,16 +160,30 @@
 
     check-cast v0, Lmybl/MyBiliApiService;
 
-    .line 147
+    .line 150
     if-nez v0, :cond_b
 
-    .line 186
+    .line 192
     :goto_a
     return-void
 
-    .line 150
+    .line 153
     :cond_b
-    invoke-interface {v0}, Lmybl/MyBiliApiService;->getWeeklySeriesList()Lbl/vp;
+    invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
+
+    move-result-object v1
+
+    invoke-static {v1}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
+
+    move-result-object v1
+
+    .line 154
+    invoke-static {v1}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
+
+    move-result-object v1
+
+    .line 156
+    invoke-interface {v0, v1}, Lmybl/MyBiliApiService;->getWeeklySeriesList(Ljava/lang/String;)Lbl/vp;
 
     move-result-object v0
 
@@ -177,7 +191,7 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$1;-><init>(Lcom/bilibili/tv/ui/weekly/WeeklyActivity;)V
 
-    .line 151
+    .line 157
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
     goto :goto_a
@@ -187,20 +201,20 @@
     .locals 3
 
     .prologue
-    .line 189
+    .line 195
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->selectedItem:Lcom/bilibili/tv/ui/weekly/WeeklyActivity$WeeklyItem;
 
     if-ne v0, p1, :cond_5
 
-    .line 200
+    .line 206
     :goto_4
     return-void
 
-    .line 192
+    .line 198
     :cond_5
     iput-object p1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->selectedItem:Lcom/bilibili/tv/ui/weekly/WeeklyActivity$WeeklyItem;
 
-    .line 194
+    .line 200
     iget v0, p1, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$WeeklyItem;->number:I
 
     iget-object v1, p1, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$WeeklyItem;->name:Ljava/lang/String;
@@ -211,24 +225,24 @@
 
     move-result-object v0
 
-    .line 196
+    .line 202
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->getSupportFragmentManager()Landroid/support/v4/app/FragmentManager;
 
     move-result-object v1
 
-    .line 197
+    .line 203
     invoke-virtual {v1}, Landroid/support/v4/app/FragmentManager;->beginTransaction()Landroid/support/v4/app/FragmentTransaction;
 
     move-result-object v1
 
     const v2, 0x7f080091
 
-    .line 198
+    .line 204
     invoke-virtual {v1, v2, v0}, Landroid/support/v4/app/FragmentTransaction;->replace(ILandroid/support/v4/app/Fragment;)Landroid/support/v4/app/FragmentTransaction;
 
     move-result-object v0
 
-    .line 199
+    .line 205
     invoke-virtual {v0}, Landroid/support/v4/app/FragmentTransaction;->commit()I
 
     goto :goto_4
@@ -240,7 +254,7 @@
     .locals 2
 
     .prologue
-    .line 55
+    .line 58
     const v0, 0x7f0800eb
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->d(I)Landroid/view/View;
@@ -251,7 +265,7 @@
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->b(Landroid/support/v7/widget/RecyclerView;)V
 
-    .line 56
+    .line 59
     const v0, 0x7f080065
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->d(I)Landroid/view/View;
@@ -264,10 +278,10 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 57
+    .line 60
     invoke-direct {p0}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->loadWeeklyList()V
 
-    .line 58
+    .line 61
     return-void
 .end method
 
@@ -275,7 +289,7 @@
     .locals 0
 
     .prologue
-    .line 42
+    .line 45
     return-void
 .end method
 
@@ -287,50 +301,50 @@
 
     const/4 v2, 0x1
 
-    .line 72
+    .line 75
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->c:Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;
 
     if-nez v0, :cond_c
 
-    .line 73
+    .line 76
     invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseSideActivity;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
 
     move-result v0
 
-    .line 120
+    .line 123
     :goto_b
     return v0
 
-    .line 75
+    .line 78
     :cond_c
     invoke-virtual {p1}, Landroid/view/KeyEvent;->getAction()I
 
     move-result v0
 
-    .line 76
+    .line 79
     invoke-virtual {p1}, Landroid/view/KeyEvent;->getKeyCode()I
 
     move-result v3
 
-    .line 77
+    .line 80
     if-nez v0, :cond_5b
 
-    .line 78
+    .line 81
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->getCurrentFocus()Landroid/view/View;
 
     move-result-object v1
 
-    .line 79
+    .line 82
     if-nez v1, :cond_21
 
-    .line 80
+    .line 83
     invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseSideActivity;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
 
     move-result v0
 
     goto :goto_b
 
-    .line 82
+    .line 85
     :cond_21
     if-eq v3, v4, :cond_27
 
@@ -338,7 +352,7 @@
 
     if-ne v3, v0, :cond_58
 
-    .line 84
+    .line 87
     :cond_27
     if-ne v3, v4, :cond_54
 
@@ -350,15 +364,15 @@
 
     move-result-object v4
 
-    .line 85
+    .line 88
     const/4 v0, 0x0
 
-    .line 86
+    .line 89
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v5
 
-    .line 87
+    .line 90
     if-eqz v5, :cond_40
 
     invoke-virtual {v5}, Landroid/support/v4/app/Fragment;->getView()Landroid/view/View;
@@ -367,12 +381,12 @@
 
     if-eqz v6, :cond_40
 
-    .line 88
+    .line 91
     invoke-virtual {v5}, Landroid/support/v4/app/Fragment;->getView()Landroid/view/View;
 
     move-result-object v0
 
-    .line 90
+    .line 93
     :cond_40
     if-eqz v4, :cond_58
 
@@ -386,7 +400,7 @@
 
     if-eqz v4, :cond_58
 
-    .line 91
+    .line 94
     invoke-direct {p0, v0, v1}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->isDescendantOf(Landroid/view/View;Landroid/view/View;)Z
     :try_end_4f
     .catch Ljava/lang/Exception; {:try_start_2b .. :try_end_4f} :catch_57
@@ -397,24 +411,24 @@
 
     move v0, v2
 
-    .line 92
+    .line 95
     goto :goto_b
 
-    .line 84
+    .line 87
     :cond_54
     const/16 v0, 0x21
 
     goto :goto_2b
 
-    .line 94
+    .line 97
     :catch_57
     move-exception v0
 
-    .line 97
+    .line 100
     :cond_58
     packed-switch v3, :pswitch_data_a2
 
-    .line 120
+    .line 123
     :cond_5b
     :goto_5b
     invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseSideActivity;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
@@ -423,7 +437,7 @@
 
     goto :goto_b
 
-    .line 99
+    .line 102
     :pswitch_60
     invoke-virtual {v1}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
 
@@ -445,7 +459,7 @@
 
     if-eqz v0, :cond_5b
 
-    .line 100
+    .line 103
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->c:Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;
 
     const/4 v1, 0x0
@@ -454,21 +468,21 @@
 
     goto :goto_5b
 
-    .line 105
+    .line 108
     :pswitch_7b
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v0
 
-    .line 106
+    .line 109
     if-nez v0, :cond_83
 
     move v0, v2
 
-    .line 107
+    .line 110
     goto :goto_b
 
-    .line 109
+    .line 112
     :cond_83
     instance-of v3, v0, Lbl/adw;
 
@@ -484,10 +498,10 @@
 
     move v0, v2
 
-    .line 110
+    .line 113
     goto/16 :goto_b
 
-    .line 112
+    .line 115
     :cond_92
     instance-of v0, v1, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;
 
@@ -495,19 +509,19 @@
 
     move-object v0, v1
 
-    .line 113
+    .line 116
     check-cast v0, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->c()V
 
-    .line 114
+    .line 117
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->c:Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;->b(Z)V
 
     goto :goto_5b
 
-    .line 97
+    .line 100
     :pswitch_data_a2
     .packed-switch 0x15
         :pswitch_60
@@ -519,7 +533,7 @@
     .locals 1
 
     .prologue
-    .line 46
+    .line 49
     const v0, 0x7f0a0093
 
     return v0
@@ -529,17 +543,17 @@
     .locals 2
 
     .prologue
-    .line 125
+    .line 128
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->getSupportFragmentManager()Landroid/support/v4/app/FragmentManager;
 
     move-result-object v0
 
     if-nez v0, :cond_8
 
-    .line 126
+    .line 129
     const/4 v0, 0x0
 
-    .line 128
+    .line 131
     :goto_7
     return-object v0
 
@@ -569,10 +583,10 @@
 
     const/4 v2, 0x0
 
-    .line 62
+    .line 65
     invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseSideActivity;->onPostCreate(Landroid/os/Bundle;)V
 
-    .line 63
+    .line 66
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
@@ -583,7 +597,7 @@
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setLayoutManager(Landroid/support/v7/widget/RecyclerView$h;)V
 
-    .line 64
+    .line 67
     new-instance v0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->weeklyItems:Ljava/util/List;
@@ -592,7 +606,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->c:Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;
 
-    .line 65
+    .line 68
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
@@ -601,20 +615,20 @@
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setAdapter(Landroid/support/v7/widget/RecyclerView$a;)V
 
-    .line 66
+    .line 69
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
 
     invoke-virtual {v0, v2}, Landroid/support/v7/widget/RecyclerView;->setFocusable(Z)V
 
-    .line 67
+    .line 70
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
 
     invoke-virtual {v0, v3}, Landroid/support/v7/widget/RecyclerView;->setHasFixedSize(Z)V
 
-    .line 68
+    .line 71
     return-void
 .end method

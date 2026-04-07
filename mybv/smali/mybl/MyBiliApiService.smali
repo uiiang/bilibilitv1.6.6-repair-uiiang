@@ -668,10 +668,27 @@
     .end annotation
 .end method
 
-.method public abstract getPopularPrecious()Lbl/vp;
+.method public abstract getPopularPrecious(IILjava/lang/String;)Lbl/vp;
+    .param p1    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "page_size"
+        .end annotation
+    .end param
+    .param p2    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "page"
+        .end annotation
+    .end param
+    .param p3    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "()",
+            "(II",
+            "Ljava/lang/String;",
+            ")",
             "Lbl/vp",
             "<",
             "Lcom/bilibili/okretro/GeneralResponse",
@@ -682,7 +699,7 @@
     .end annotation
 
     .annotation runtime Lretrofit2/http/GET;
-        value = "/x/web-interface/popular/precious?page_size=100&page=1"
+        value = "/x/web-interface/popular/precious"
     .end annotation
 .end method
 
@@ -1067,15 +1084,22 @@
     .end annotation
 .end method
 
-.method public abstract getWeeklyPrecious(J)Lbl/vp;
+.method public abstract getWeeklyPrecious(JLjava/lang/String;)Lbl/vp;
     .param p1    # J
         .annotation runtime Lretrofit2/http/Query;
             value = "number"
         .end annotation
     .end param
+    .param p3    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "(J)",
+            "(J",
+            "Ljava/lang/String;",
+            ")",
             "Lbl/vp",
             "<",
             "Lcom/bilibili/okretro/GeneralResponse",
@@ -1088,18 +1112,19 @@
     .annotation runtime Lretrofit2/http/GET;
         value = "/x/web-interface/popular/series/one"
     .end annotation
-
-    .annotation runtime Lretrofit2/http/Headers;
-        value = {
-            "Cookie: buvid3=00000000-0000-0000-0000-00000000000000000infoc"
-        }
-    .end annotation
 .end method
 
-.method public abstract getWeeklySeriesList()Lbl/vp;
+.method public abstract getWeeklySeriesList(Ljava/lang/String;)Lbl/vp;
+    .param p1    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "()",
+            "(",
+            "Ljava/lang/String;",
+            ")",
             "Lbl/vp",
             "<",
             "Lcom/bilibili/okretro/GeneralResponse",
@@ -1111,12 +1136,6 @@
 
     .annotation runtime Lretrofit2/http/GET;
         value = "/x/web-interface/popular/series/list"
-    .end annotation
-
-    .annotation runtime Lretrofit2/http/Headers;
-        value = {
-            "Cookie: buvid3=00000000-0000-0000-0000-00000000000000000infoc"
-        }
     .end annotation
 .end method
 

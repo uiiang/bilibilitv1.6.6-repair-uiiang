@@ -24,6 +24,8 @@ import java.util.List;
 
 import java.util.Date;
 import mybl.MyBiliApiService;
+import mybl.CookieUtil;
+import bl.mg;
 import com.alibaba.fastjson.*;
 import com.bilibili.tv.MainApplication;
 
@@ -88,7 +90,11 @@ public class aef3 extends ady {
         Date currentDate = new Date();
         long millisecondsBetween = currentDate.getTime() - startDate.getTime();
         long weeksBetween = millisecondsBetween / (7 * 24 * 60 * 60 * 1000);
-        ((MyBiliApiService) vo.a(MyBiliApiService.class)).getWeeklyPrecious(weeksBetween).a(this.d);
+        
+        mg biliAccount = mg.a(MainApplication.a());
+        String cookie = CookieUtil.getFullCookieWithDevice(biliAccount);
+        
+        ((MyBiliApiService) vo.a(MyBiliApiService.class)).getWeeklyPrecious(weeksBetween, cookie).a(this.d);
     }
 
     @Override // bl.adw

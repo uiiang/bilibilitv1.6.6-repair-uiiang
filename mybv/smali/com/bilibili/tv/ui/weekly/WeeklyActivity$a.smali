@@ -72,20 +72,20 @@
     .end annotation
 
     .prologue
-    .line 228
+    .line 234
     invoke-direct {p0}, Lbl/adz;-><init>()V
 
-    .line 229
+    .line 235
     new-instance v0, Ljava/lang/ref/WeakReference;
 
     invoke-direct {v0, p1}, Ljava/lang/ref/WeakReference;-><init>(Ljava/lang/Object;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;->a:Ljava/lang/ref/WeakReference;
 
-    .line 230
+    .line 236
     iput-object p2, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;->items:Ljava/util/List;
 
-    .line 231
+    .line 237
     return-void
 .end method
 
@@ -93,7 +93,7 @@
     .locals 1
 
     .prologue
-    .line 216
+    .line 222
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;->a:Ljava/lang/ref/WeakReference;
 
     return-object v0
@@ -103,7 +103,7 @@
     .locals 1
 
     .prologue
-    .line 216
+    .line 222
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;->e:Z
 
     return v0
@@ -113,7 +113,7 @@
     .locals 2
 
     .prologue
-    .line 216
+    .line 222
     iget-wide v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;->d:J
 
     return-wide v0
@@ -123,7 +123,7 @@
     .locals 1
 
     .prologue
-    .line 216
+    .line 222
     iput-wide p1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;->d:J
 
     return-wide p1
@@ -133,7 +133,7 @@
     .locals 0
 
     .prologue
-    .line 216
+    .line 222
     iput p1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;->c:I
 
     return p1
@@ -145,7 +145,7 @@
     .locals 1
 
     .prologue
-    .line 317
+    .line 323
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;->items:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->size()I
@@ -159,7 +159,7 @@
     .locals 1
 
     .prologue
-    .line 235
+    .line 241
     invoke-static {p1}, Lbl/agf;->a(Landroid/view/ViewGroup;)Lbl/agf;
 
     move-result-object v0
@@ -171,12 +171,12 @@
     .locals 5
 
     .prologue
-    .line 240
+    .line 246
     instance-of v0, p1, Lbl/agf;
 
     if-eqz v0, :cond_49
 
-    .line 241
+    .line 247
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;->items:Ljava/util/List;
 
     invoke-interface {v0, p2}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -187,17 +187,17 @@
 
     move-object v1, p1
 
-    .line 243
+    .line 249
     check-cast v1, Lbl/agf;
 
-    .line 244
+    .line 250
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$WeeklyItem;->getTitle()Ljava/lang/String;
 
     move-result-object v2
 
     if-eqz v2, :cond_1e
 
-    .line 245
+    .line 251
     iget-object v2, v1, Lbl/agf;->n:Landroid/widget/TextView;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$WeeklyItem;->getTitle()Ljava/lang/String;
@@ -206,7 +206,7 @@
 
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 247
+    .line 253
     :cond_1e
     iget-object v2, v1, Lbl/agf;->n:Landroid/widget/TextView;
 
@@ -214,7 +214,7 @@
 
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setMaxLines(I)V
 
-    .line 249
+    .line 255
     iget-object v2, p1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
 
     const v3, 0x7f0800d8
@@ -225,12 +225,12 @@
 
     invoke-virtual {v2, v3, v4}, Landroid/view/View;->setTag(ILjava/lang/Object;)V
 
-    .line 250
+    .line 256
     iget-object v2, p1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
 
     invoke-virtual {v2, v0}, Landroid/view/View;->setTag(Ljava/lang/Object;)V
 
-    .line 252
+    .line 258
     iget-object v0, p1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
 
     new-instance v2, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a$1;
@@ -239,7 +239,7 @@
 
     invoke-virtual {v0, v2}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 284
+    .line 290
     iget-object v0, p1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
 
     new-instance v1, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a$2;
@@ -248,7 +248,7 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 295
+    .line 301
     :cond_49
     return-void
 .end method
@@ -257,10 +257,10 @@
     .locals 0
 
     .prologue
-    .line 312
+    .line 318
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;->e:Z
 
-    .line 313
+    .line 319
     return-void
 .end method
 
@@ -268,7 +268,7 @@
     .locals 1
 
     .prologue
-    .line 225
+    .line 231
     const/4 v0, 0x0
 
     return v0
@@ -278,7 +278,7 @@
     .locals 3
 
     .prologue
-    .line 299
+    .line 305
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;->a:Ljava/lang/ref/WeakReference;
 
     invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
@@ -287,19 +287,19 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;
 
-    .line 300
+    .line 306
     if-nez v0, :cond_b
 
-    .line 309
+    .line 315
     :cond_a
     :goto_a
     return-void
 
-    .line 303
+    .line 309
     :cond_b
     iget v1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;->c:I
 
-    .line 304
+    .line 310
     if-ltz v1, :cond_a
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;->items:Ljava/util/List;
@@ -310,7 +310,7 @@
 
     if-ge v1, v2, :cond_a
 
-    .line 307
+    .line 313
     iget-object v2, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;->items:Ljava/util/List;
 
     invoke-interface {v2, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -319,7 +319,7 @@
 
     check-cast v1, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$WeeklyItem;
 
-    .line 308
+    .line 314
     # invokes: Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->showVideoList(Lcom/bilibili/tv/ui/weekly/WeeklyActivity$WeeklyItem;)V
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->access$200(Lcom/bilibili/tv/ui/weekly/WeeklyActivity;Lcom/bilibili/tv/ui/weekly/WeeklyActivity$WeeklyItem;)V
 

@@ -2545,6 +2545,10 @@
     <public type="id" name="other_normal_button" id="0x7f0801d9" />
     <public type="id" name="other_compact_button" id="0x7f0801da" />
     <public type="id" name="gradient_mask" id="0x7f0801db" />
+    <public type="id" name="video_detail_info" id="0x7f0801dc" />
+    <public type="id" name="video_detail_info_img" id="0x7f0801dd" />
+    <public type="id" name="video_detail_info_text" id="0x7f0801de" />
+    <public type="id" name="video_detail_expand_btn" id="0x7f0801df" />
 
 
     <public type="integer" name="config_danmaku_fly_duration" id="0x7f090003" />

@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 284
+    .line 290
     iput-object p1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a$2;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 287
+    .line 293
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a$2;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;
 
     # getter for: Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;->a:Ljava/lang/ref/WeakReference;
@@ -54,21 +54,21 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;
 
-    .line 288
+    .line 294
     if-eqz v0, :cond_17
 
-    .line 289
+    .line 295
     invoke-virtual {p1}, Landroid/view/View;->getTag()Ljava/lang/Object;
 
     move-result-object v1
 
     check-cast v1, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$WeeklyItem;
 
-    .line 290
+    .line 296
     # invokes: Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->showVideoList(Lcom/bilibili/tv/ui/weekly/WeeklyActivity$WeeklyItem;)V
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->access$200(Lcom/bilibili/tv/ui/weekly/WeeklyActivity;Lcom/bilibili/tv/ui/weekly/WeeklyActivity$WeeklyItem;)V
 
-    .line 292
+    .line 298
     :cond_17
     return-void
 .end method

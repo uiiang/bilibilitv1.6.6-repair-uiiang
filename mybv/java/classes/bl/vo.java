@@ -11,6 +11,7 @@ import okhttp3.Protocol;
 import retrofit2.Retrofit;
 
 import retrofit2.http.BaseUrl;
+import mybl.WbiSignInterceptor;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
@@ -19,6 +20,10 @@ public class vo {
     public static a b = new a();
     private static volatile OkHttpClient c;
     private static volatile Retrofit d;
+
+    static {
+        b.d().add(new WbiSignInterceptor());
+    }
 
     public static <T> T a(Class<T> service) {
         return (T) b(service).create(service);

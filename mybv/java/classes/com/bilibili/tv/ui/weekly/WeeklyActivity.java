@@ -28,6 +28,9 @@ import com.bilibili.tv.ui.base.BaseSideActivity;
 import com.bilibili.tv.ui.live.LiveLeftLinearLayoutManger;
 import com.bilibili.tv.widget.side.SideLeftSelectLinearLayout;
 import mybl.MyBiliApiService;
+import mybl.CookieUtil;
+import bl.mg;
+import com.bilibili.tv.MainApplication;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONArray;
 import java.lang.ref.WeakReference;
@@ -147,7 +150,10 @@ public class WeeklyActivity extends BaseSideActivity {
         if (api == null) {
             return;
         }
-        api.getWeeklySeriesList()
+        mg biliAccount = mg.a(MainApplication.a());
+        String cookie = CookieUtil.getFullCookieWithDevice(biliAccount);
+        
+        api.getWeeklySeriesList(cookie)
                 .a(new vn<JSONObject>() {
                     @Override
                     public void a(JSONObject result) {

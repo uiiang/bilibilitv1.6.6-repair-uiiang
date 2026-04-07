@@ -136,6 +136,8 @@ public final class VideoDetailActivity extends BaseActivity
     private ImageView k;
     private TextView l;
     private DrawLinearLayout watchLaterBtn;
+    private DrawLinearLayout infoBtn;
+    private DrawLinearLayout expandBtn;
     private View m;
     private RecyclerView n;
     private RecyclerView o;
@@ -274,7 +276,7 @@ public final class VideoDetailActivity extends BaseActivity
         this.b = (ImageView) d(R.id.blur);
         this.gradientMaskView = d(R.id.gradient_mask);
         if (!TextUtils.isEmpty(preloadCoverUrl) && this.b != null) {
-            Log.i(C, "k() preload cover: " + preloadCoverUrl);
+            // Log.i(C, "k() preload cover: " + preloadCoverUrl);
             nv.a().a(preloadCoverUrl, this.b);
             if (this.gradientMaskView != null) {
                 this.gradientMaskView.setVisibility(View.INVISIBLE);
@@ -307,6 +309,28 @@ public final class VideoDetailActivity extends BaseActivity
             drawLinearLayout.setOnLongClickListener(this);
         }
 
+        expandBtn = (DrawLinearLayout) d(R.id.video_detail_expand_btn);
+        if (expandBtn != null) {
+            expandBtn.setUpDrawable(R.drawable.shadow_red_rect);
+            expandBtn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        showInteractionButtons();
+                        v.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                View likeBtn = findViewById(R.id.video_detail_like);
+                                if (likeBtn != null) {
+                                    likeBtn.requestFocus();
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
         drawLinearLayout = (DrawLinearLayout) d(R.id.video_detail_like);
         if (drawLinearLayout != null) {
             drawLinearLayout.setOnFocusChangeListener(dVar);
@@ -327,6 +351,13 @@ public final class VideoDetailActivity extends BaseActivity
             watchLaterBtn.setOnFocusChangeListener(dVar);
             watchLaterBtn.setUpDrawable(R.drawable.shadow_red_rect);
             watchLaterBtn.setOnClickListener(this);
+        }
+
+        infoBtn = (DrawLinearLayout) d(R.id.video_detail_info);
+        if (infoBtn != null) {
+            infoBtn.setOnFocusChangeListener(dVar);
+            infoBtn.setUpDrawable(R.drawable.shadow_red_rect);
+            infoBtn.setOnClickListener(this);
         }
 
         DrawTextView drawTextView = (DrawTextView) findViewById(R.id.video_detail_more_btn);
@@ -545,8 +576,37 @@ public final class VideoDetailActivity extends BaseActivity
                     if (newFocus != null && scrollView != null) {
                         scrollToViewIfNeeded(newFocus);
                     }
+                    if (staffContainer != null && staffContainer.getChildCount() > 1) {
+                        boolean oldFocusInStaff = false;
+                        boolean newFocusInStaff = false;
+                        for (int i = 0; i < staffContainer.getChildCount(); i++) {
+                            if (staffContainer.getChildAt(i) == oldFocus) {
+                                oldFocusInStaff = true;
+                            }
+                            if (staffContainer.getChildAt(i) == newFocus) {
+                                newFocusInStaff = true;
+                            }
+                        }
+                        if (oldFocusInStaff && !newFocusInStaff) {
+                            resetStaffNameVisibility();
+                        }
+                    }
                 }
             });
+        }
+    }
+
+    private void resetStaffNameVisibility() {
+        if (staffContainer == null) {
+            return;
+        }
+        int childCount = staffContainer.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            DrawLinearLayout wrapper = (DrawLinearLayout) staffContainer.getChildAt(i);
+            if (wrapper.getChildCount() > 1 && wrapper.getChildAt(1) instanceof TextView) {
+                TextView nameView = (TextView) wrapper.getChildAt(1);
+                nameView.setVisibility(i == 0 ? View.VISIBLE : View.GONE);
+            }
         }
     }
 
@@ -1409,7 +1469,7 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private final void n() {
-        Log.i("VideoDetailActivity", "n() called, mEntryType=" + mEntryType + ", mSeasonId=" + mSeasonId + ", avid=" + s);
+        // Log.i("VideoDetailActivity", "n() called, mEntryType=" + mEntryType + ", mSeasonId=" + mSeasonId + ", avid=" + s);
         switch (mEntryType) {
             case PGC_BY_SEASON_ID:
                 loadPgcBySeasonId();
@@ -1435,10 +1495,10 @@ public final class VideoDetailActivity extends BaseActivity
     }
     
     private void requestHistoryForUgc(final BiliVideoDetail biliVideoDetail, final Runnable callback) {
-        Log.i("HistoryLoad", "requestHistoryForUgc: starting parallel history request");
+        // Log.i("HistoryLoad", "requestHistoryForUgc: starting parallel history request");
         
         if (biliVideoDetail.mHistory != null) {
-            Log.i("HistoryLoad", "History already set, callback directly");
+            // Log.i("HistoryLoad", "History already set, callback directly");
             if (callback != null) {
                 callback.run();
             }
@@ -1459,10 +1519,10 @@ public final class VideoDetailActivity extends BaseActivity
             }
         }
         
-        Log.i("HistoryLoad", "requestHistoryForUgc: cid=" + cid + ", episodeId=" + episodeId + ", bvid=" + bvid);
+        // Log.i("HistoryLoad", "requestHistoryForUgc: cid=" + cid + ", episodeId=" + episodeId + ", bvid=" + bvid);
         
         if (cid == 0) {
-            Log.i("HistoryLoad", "requestHistoryForUgc: cid is 0, callback directly");
+            // Log.i("HistoryLoad", "requestHistoryForUgc: cid is 0, callback directly");
             if (callback != null) {
                 callback.run();
             }
@@ -1506,14 +1566,14 @@ public final class VideoDetailActivity extends BaseActivity
                             long lastPlayCid = data.getLongValue("last_play_cid");
                             int lastPlayTime = data.getIntValue("last_play_time") / 1000;
                             
-                            Log.i("HistoryApi", "Parallel History: last_play_cid=" + lastPlayCid + ", last_play_time=" + lastPlayTime + "s");
+                            // Log.i("HistoryApi", "Parallel History: last_play_cid=" + lastPlayCid + ", last_play_time=" + lastPlayTime + "s");
                             
                             if (lastPlayCid > 0) {
                                 final BiliVideoDetail.History history = new BiliVideoDetail.History();
                                 history.mCid = lastPlayCid;
                                 history.mProgress = lastPlayTime;
                                 biliVideoDetail.mHistory = history;
-                                Log.i("HistoryApi", "Set history to biliVideoDetail: cid=" + lastPlayCid + ", progress=" + lastPlayTime + "s");
+                                // Log.i("HistoryApi", "Set history to biliVideoDetail: cid=" + lastPlayCid + ", progress=" + lastPlayTime + "s");
                             }
                         }
                     }
@@ -1537,9 +1597,9 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private void loadPgcBySeasonId() {
-        Log.i("VideoDetailActivity", "loadPgcBySeasonId() EntryType=PGC_BY_SEASON_ID, mSeasonId=" + mSeasonId);
+        // Log.i("VideoDetailActivity", "loadPgcBySeasonId() EntryType=PGC_BY_SEASON_ID, mSeasonId=" + mSeasonId);
         if (TextUtils.isEmpty(mSeasonId)) {
-            Log.i("VideoDetailActivity", "loadPgcBySeasonId() mSeasonId is empty, return");
+            // Log.i("VideoDetailActivity", "loadPgcBySeasonId() mSeasonId is empty, return");
             return;
         }
         LoadingImageView loadingImageView = this.p;
@@ -1638,7 +1698,7 @@ public final class VideoDetailActivity extends BaseActivity
                         return;
                     }
                     
-                    Log.i("PgcSeasonApi", "Response: " + jsonObj.toJSONString());
+                    // Log.i("PgcSeasonApi", "Response: " + jsonObj.toJSONString());
                     
                     int code = jsonObj.getIntValue("code");
                     if (code != 0) {
@@ -1693,7 +1753,7 @@ public final class VideoDetailActivity extends BaseActivity
             detail.mOwner.mid = detail.mStaffList.get(0).mid;
             detail.mOwner.name = detail.mStaffList.get(0).name;
             detail.mOwner.face = detail.mStaffList.get(0).face;
-            Log.i("PgcInfo", "Using producer list: " + detail.mStaffList.size() + " producers");
+            // Log.i("PgcInfo", "Using producer list: " + detail.mStaffList.size() + " producers");
         } else if (pgcInfo.upInfo != null) {
             detail.mOwner.mid = pgcInfo.upInfo.mid;
             detail.mOwner.name = pgcInfo.upInfo.name;
@@ -1703,7 +1763,7 @@ public final class VideoDetailActivity extends BaseActivity
             staff.name = pgcInfo.upInfo.name;
             staff.face = pgcInfo.upInfo.face;
             detail.mStaffList.add(staff);
-            Log.i("PgcInfo", "Using up_info: " + pgcInfo.upInfo.name);
+            // Log.i("PgcInfo", "Using up_info: " + pgcInfo.upInfo.name);
         } else {
             detail.mOwner.mid = 0;
             detail.mOwner.name = "";
@@ -1731,7 +1791,7 @@ public final class VideoDetailActivity extends BaseActivity
             long lastEpId = progress.lastEpId;
             int lastTime = progress.lastTime;
             
-            Log.i("PgcInfo", "Found user progress: last_ep_id=" + lastEpId + ", last_time=" + lastTime + "s");
+            // Log.i("PgcInfo", "Found user progress: last_ep_id=" + lastEpId + ", last_time=" + lastTime + "s");
             
             long historyCid = 0;
             for (PgcInfo.Episode ep : pgcInfo.episodes) {
@@ -1746,7 +1806,7 @@ public final class VideoDetailActivity extends BaseActivity
                 history.mCid = historyCid;
                 history.mProgress = lastTime;
                 detail.mHistory = history;
-                Log.i("PgcInfo", "Set history: cid=" + historyCid + ", progress=" + lastTime + "s (允许progress=0)");
+                // Log.i("PgcInfo", "Set history: cid=" + historyCid + ", progress=" + lastTime + "s (允许progress=0)");
             }
         }
         
@@ -1774,11 +1834,10 @@ public final class VideoDetailActivity extends BaseActivity
             if (historyPlayBtnLayout != null) {
                 historyPlayBtnLayout.setNextFocusRightId(R.id.video_no_history_play_btn_layout);
             }
-            noHistoryPlayBtnLayout.setNextFocusRightId(R.id.video_detail_like);
+            noHistoryPlayBtnLayout.setNextFocusRightId(R.id.video_detail_expand_btn);
         }
-        DrawLinearLayout likeBtn = (DrawLinearLayout) d(R.id.video_detail_like);
-        if (likeBtn != null) {
-            likeBtn.setNextFocusLeftId(R.id.video_no_history_play_btn_layout);
+        if (expandBtn != null) {
+            expandBtn.setNextFocusLeftId(R.id.video_no_history_play_btn_layout);
         }
         if (rePlayBtnLayout != null) {
             rePlayBtnLayout.setVisibility(View.GONE);
@@ -1899,7 +1958,7 @@ public final class VideoDetailActivity extends BaseActivity
         bbi.a((Object) a2, "BiliAccount.get(this)");
         
         if (biliVideoDetail.mHistory != null) {
-            Log.i("HistoryLoad", "History already set from PGC progress, updating display directly");
+            // Log.i("HistoryLoad", "History already set from PGC progress, updating display directly");
             updateHistoryDisplay(biliVideoDetail);
             if (VideoDetailActivity.this.historyPlayBtnLayout != null &&
                     VideoDetailActivity.this.historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
@@ -1919,7 +1978,7 @@ public final class VideoDetailActivity extends BaseActivity
             }
         }
         
-        Log.i("HistoryLoad", "loadHistory: mEntryType=" + mEntryType + ", isPgc=" + isPgcVideo(biliVideoDetail) + ", cid=" + cid + ", episodeId=" + episodeId + ", bvid=" + bvid);
+        // Log.i("HistoryLoad", "loadHistory: mEntryType=" + mEntryType + ", isPgc=" + isPgcVideo(biliVideoDetail) + ", cid=" + cid + ", episodeId=" + episodeId + ", bvid=" + bvid);
         
         if (cid == 0) {
             fallbackLoadHistory(biliVideoDetail, a2.e());
@@ -1950,7 +2009,7 @@ public final class VideoDetailActivity extends BaseActivity
                     String fullUrl = "https://api.bilibili.com/x/player/wbi/v2?" + signedQuery;
                     Log.i("HistoryApi", "========== History API Request ==========");
                     Log.i("HistoryApi", "URL: " + fullUrl);
-                    Log.i("HistoryApi", "bvid=" + finalBvid + ", cid=" + finalCid + ", ep_id=" + finalEpisodeId);
+                    // Log.i("HistoryApi", "bvid=" + finalBvid + ", cid=" + finalCid + ", ep_id=" + finalEpisodeId);
                     
                     bl.qa request = new bl.qa.a(BiliVideoDetail.JsonResponse.class)
                         .a(fullUrl)
@@ -1963,7 +2022,7 @@ public final class VideoDetailActivity extends BaseActivity
                     com.alibaba.fastjson.JSONObject playerData = ((BiliVideoDetail.JsonResponse) bl.pz.a(
                         request, "GET")).result();
                     
-                    Log.i("HistoryApi", "Response: " + (playerData != null ? playerData.toJSONString() : "null"));
+                    // Log.i("HistoryApi", "Response: " + (playerData != null ? playerData.toJSONString() : "null"));
                     
                     if (playerData != null && playerData.getIntValue("code") == 0) {
                         com.alibaba.fastjson.JSONObject data = playerData.getJSONObject("data");
@@ -1971,7 +2030,7 @@ public final class VideoDetailActivity extends BaseActivity
                             long lastPlayCid = data.getLongValue("last_play_cid");
                             int lastPlayTime = data.getIntValue("last_play_time") / 1000;
                             
-                            Log.i("HistoryApi", "last_play_cid=" + lastPlayCid + ", last_play_time=" + lastPlayTime + "s");
+                            // Log.i("HistoryApi", "last_play_cid=" + lastPlayCid + ", last_play_time=" + lastPlayTime + "s");
                             
                             if (lastPlayCid > 0) {
                                 playurlSuccess = true;
@@ -2016,8 +2075,8 @@ public final class VideoDetailActivity extends BaseActivity
     }
     
     private final void fallbackLoadHistory(BiliVideoDetail biliVideoDetail, String accessKey) {
-        Log.i("HistoryApi", "========== Fallback History API Request ==========");
-        Log.i("HistoryApi", "avid=" + this.s);
+        // Log.i("HistoryApi", "========== Fallback History API Request ==========");
+        // Log.i("HistoryApi", "avid=" + this.s);
                 
         VideoApiService.VideoParamsMapV2 params = new VideoApiService.VideoParamsMapV2.Builder(this.s).setAutoPlay("0").build();
         StringBuilder urlBuilder = new StringBuilder();
@@ -2221,15 +2280,17 @@ public final class VideoDetailActivity extends BaseActivity
         if (historyPlayBtnLayout != null) {
             historyPlayBtnLayout.setNextFocusRightId(R.id.video_re_play_btn_layout);
         }
-        DrawLinearLayout likeBtn = (DrawLinearLayout) d(R.id.video_detail_like);
-        if (likeBtn != null) {
-            likeBtn.setNextFocusLeftId(R.id.video_re_play_btn_layout);
+        if (rePlayBtnLayout != null) {
+            rePlayBtnLayout.setNextFocusRightId(R.id.video_detail_expand_btn);
+        }
+        if (expandBtn != null) {
+            expandBtn.setNextFocusLeftId(R.id.video_re_play_btn_layout);
         }
     }
 
     private final void playVideo(BiliVideoDetail biliVideoDetail, long cid, int progress) {
         long startTime = System.currentTimeMillis();
-        Log.d("UI_TRANSITION", "[1_PLAY_CLICK] playVideo() called, cid=" + cid + ", progress=" + progress + ", time=" + startTime);
+        // Log.d("UI_TRANSITION", "[1_PLAY_CLICK] playVideo() called, cid=" + cid + ", progress=" + progress + ", time=" + startTime);
         if (biliVideoDetail == null) {
             return;
         }
@@ -2247,9 +2308,9 @@ public final class VideoDetailActivity extends BaseActivity
         }
         if (targetPage != null) {
             abd.prefetchCoverToMemoryCache(this, biliVideoDetail.mCover);
-            Log.d("UI_TRANSITION", "[2_BEFORE_XG_A] calling xg.a(), elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
+            // Log.d("UI_TRANSITION", "[2_BEFORE_XG_A] calling xg.a(), elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
             xg.a(this, biliVideoDetail, targetPage, new Bundle(), REQUEST_CODE_PLAY_VIDEO, progress);
-            Log.d("UI_TRANSITION", "[3_AFTER_XG_A] xg.a() returned, elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
+            // Log.d("UI_TRANSITION", "[3_AFTER_XG_A] xg.a() returned, elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
         }
     }
 
@@ -2642,7 +2703,7 @@ public final class VideoDetailActivity extends BaseActivity
             }
         }
         
-        Log.i("PgcPlayUrl", "convertEpisodeToPage: cid=" + episode.cid + ", epId=" + episode.id + ", mFrom=" + page.mFrom + ", pgcType=" + (mPgcInfo != null ? mPgcInfo.type : "null"));
+        // Log.i("PgcPlayUrl", "convertEpisodeToPage: cid=" + episode.cid + ", epId=" + episode.id + ", mFrom=" + page.mFrom + ", pgcType=" + (mPgcInfo != null ? mPgcInfo.type : "null"));
         
         return page;
     }
@@ -3186,6 +3247,18 @@ public final class VideoDetailActivity extends BaseActivity
                         .addVideoToviews(biliVideoDetail3.mAvid, csrf, cookie)
                         .a(new AddToViewResponse());
             }
+        } else if (id == R.id.video_detail_info) {
+            BiliVideoDetail biliVideoDetail3 = this.u;
+            if (biliVideoDetail3 != null) {
+                long i2 = this.s;
+                String str = biliVideoDetail3.mDescription;
+                bbi.a((Object) str, "it.mDescription");
+                String str2 = biliVideoDetail3.mCover;
+                bbi.a((Object) str2, "it.mCover");
+                startActivity(VideoDetailInfoActivity.Companion.a(this, i2, str, str2,
+                        "http://www.bilibili.com/video/av" + biliVideoDetail3.mAvid));
+                ok.a("tv_video_view_click_infomore", new String[0]);
+            }
         } else if (id != R.id.video_detail_more_btn) {
         } else {
             BiliVideoDetail biliVideoDetail3 = this.u;
@@ -3204,13 +3277,13 @@ public final class VideoDetailActivity extends BaseActivity
 
     @Override
     public void onPause() {
-        Log.d("UI_TRANSITION", "[VIDEO_DETAIL_PAUSE] VideoDetailActivity onPause called");
+        // Log.d("UI_TRANSITION", "[VIDEO_DETAIL_PAUSE] VideoDetailActivity onPause called");
         super.onPause();
     }
 
     @Override
     public void onStop() {
-        Log.d("UI_TRANSITION", "[VIDEO_DETAIL_STOP] VideoDetailActivity onStop called");
+        // Log.d("UI_TRANSITION", "[VIDEO_DETAIL_STOP] VideoDetailActivity onStop called");
         super.onStop();
     }
 
@@ -3405,9 +3478,9 @@ public final class VideoDetailActivity extends BaseActivity
         String cookie = CookieUtil.getFullCookieWithDevice(a2);
         String csrf = CookieUtil.getBiliJct(a2);
         int webLike = z + 1;
-        Log.i("LikeVideo", "aid=" + this.s + ", appLike=" + z + ", webLike=" + webLike);
-        Log.i("LikeVideo", "csrf=" + csrf);
-        Log.i("LikeVideo", "cookie=" + cookie);
+        // Log.i("LikeVideo", "aid=" + this.s + ", appLike=" + z + ", webLike=" + webLike);
+        // Log.i("LikeVideo", "csrf=" + csrf);
+        // Log.i("LikeVideo", "cookie=" + cookie);
         ((MyBiliApiService) vo.a(MyBiliApiService.class)).likeVideo(this.s, webLike, csrf, cookie).a(new LikeResponse());
     }
 
@@ -3582,6 +3655,51 @@ public final class VideoDetailActivity extends BaseActivity
         aft.a.a(this, this.u, page);
     }
 
+    private void showInteractionButtons() {
+        if (expandBtn != null) {
+            expandBtn.setVisibility(View.GONE);
+        }
+        View likeBtn = findViewById(R.id.video_detail_like);
+        View coinBtn = findViewById(R.id.video_detail_coin);
+        View favoriteBtn = findViewById(R.id.video_detail_favorite);
+        View watchLaterBtn = findViewById(R.id.video_detail_watch_later);
+        View infoBtn = findViewById(R.id.video_detail_info);
+        if (likeBtn != null) likeBtn.setVisibility(View.VISIBLE);
+        if (coinBtn != null) coinBtn.setVisibility(View.VISIBLE);
+        if (favoriteBtn != null) favoriteBtn.setVisibility(View.VISIBLE);
+        if (watchLaterBtn != null) watchLaterBtn.setVisibility(View.VISIBLE);
+        if (infoBtn != null) infoBtn.setVisibility(View.VISIBLE);
+    }
+
+    private void hideInteractionButtons() {
+        View likeBtn = findViewById(R.id.video_detail_like);
+        View coinBtn = findViewById(R.id.video_detail_coin);
+        View favoriteBtn = findViewById(R.id.video_detail_favorite);
+        View watchLaterBtn = findViewById(R.id.video_detail_watch_later);
+        View infoBtn = findViewById(R.id.video_detail_info);
+        if (likeBtn != null) likeBtn.setVisibility(View.GONE);
+        if (coinBtn != null) coinBtn.setVisibility(View.GONE);
+        if (favoriteBtn != null) favoriteBtn.setVisibility(View.GONE);
+        if (watchLaterBtn != null) watchLaterBtn.setVisibility(View.GONE);
+        if (infoBtn != null) infoBtn.setVisibility(View.GONE);
+        if (expandBtn != null) {
+            expandBtn.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private boolean isAnyInteractionButtonFocused() {
+        View likeBtn = findViewById(R.id.video_detail_like);
+        View coinBtn = findViewById(R.id.video_detail_coin);
+        View favoriteBtn = findViewById(R.id.video_detail_favorite);
+        View watchLaterBtn = findViewById(R.id.video_detail_watch_later);
+        View infoBtn = findViewById(R.id.video_detail_info);
+        return (likeBtn != null && likeBtn.hasFocus())
+                || (coinBtn != null && coinBtn.hasFocus())
+                || (favoriteBtn != null && favoriteBtn.hasFocus())
+                || (watchLaterBtn != null && watchLaterBtn.hasFocus())
+                || (infoBtn != null && infoBtn.hasFocus());
+    }
+
     /* compiled from: BL */
     /* loaded from: classes.dex */
     static final class d implements View.OnFocusChangeListener {
@@ -3600,7 +3718,9 @@ public final class VideoDetailActivity extends BaseActivity
             }
             int viewId = view.getId();
             if (viewId == R.id.video_detail_like || viewId == R.id.video_detail_coin 
-                    || viewId == R.id.video_detail_favorite || viewId == R.id.video_detail_watch_later) {
+                    || viewId == R.id.video_detail_favorite || viewId == R.id.video_detail_watch_later
+                    || viewId == R.id.video_re_play_btn_layout
+                    || viewId == R.id.video_detail_info) {
                 TextView textView = null;
                 if (viewId == R.id.video_detail_like) {
                     textView = (TextView) view.findViewById(R.id.video_detail_like_text);
@@ -3610,9 +3730,27 @@ public final class VideoDetailActivity extends BaseActivity
                     textView = (TextView) view.findViewById(R.id.video_detail_favorite_text);
                 } else if (viewId == R.id.video_detail_watch_later) {
                     textView = (TextView) view.findViewById(R.id.video_detail_watch_later_text);
+                } else if (viewId == R.id.video_re_play_btn_layout) {
+                    textView = (TextView) view.findViewById(R.id.video_re_play_btn);
+                } else if (viewId == R.id.video_detail_info) {
+                    textView = (TextView) view.findViewById(R.id.video_detail_info_text);
                 }
                 if (textView != null) {
                     textView.setVisibility(z ? View.VISIBLE : View.GONE);
+                }
+                if (!z) {
+                    view.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Context context = view.getContext();
+                            if (context instanceof VideoDetailActivity) {
+                                VideoDetailActivity activity = (VideoDetailActivity) context;
+                                if (!activity.isFinishing() && !activity.isAnyInteractionButtonFocused()) {
+                                    activity.hideInteractionButtons();
+                                }
+                            }
+                        }
+                    }, 100);
                 }
             }
         }
@@ -4367,13 +4505,13 @@ public final class VideoDetailActivity extends BaseActivity
             }
             
             if (mEntryType == EntryType.UGC_BY_AVID && VideoDetailActivity.this.isPgcVideo(biliVideoDetail)) {
-                Log.i("VideoDetailActivity", "UGC入口检测到PGC视频，加载PGC信息");
+                // Log.i("VideoDetailActivity", "UGC入口检测到PGC视频，加载PGC信息");
                 VideoDetailActivity.this.u = biliVideoDetail;
                 VideoDetailActivity.this.loadPgcInfo(biliVideoDetail);
                 return;
             }
             
-            Log.i("VideoDetailActivity", "Pure UGC video, using parallel history loading");
+            // Log.i("VideoDetailActivity", "Pure UGC video, using parallel history loading");
             VideoDetailActivity.this.requestHistoryForUgc(biliVideoDetail, new Runnable() {
                 @Override
                 public void run() {
@@ -4559,6 +4697,12 @@ public final class VideoDetailActivity extends BaseActivity
             staffView.setMaxEms(16);
             staffView.setText(name);
             
+            final boolean isFirstStaff = (index == 0);
+            final boolean hasMultipleStaff = (totalCount > 1);
+            if (hasMultipleStaff && !isFirstStaff) {
+                staffView.setVisibility(View.GONE);
+            }
+            
             LinearLayout.LayoutParams textLp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -4576,6 +4720,9 @@ public final class VideoDetailActivity extends BaseActivity
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     wrapper.setUpEnabled(hasFocus);
+                    if (hasMultipleStaff && !isFirstStaff) {
+                        staffView.setVisibility(hasFocus ? View.VISIBLE : View.GONE);
+                    }
                 }
             });
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
@@ -4746,7 +4893,13 @@ public final class VideoDetailActivity extends BaseActivity
             section.setSectionId(sectionId);
 
             int totalEpisodes = sectionInfo.episodes.size();
-            section.setTitle(sectionInfo.title, totalEpisodes);
+            String displayTitle;
+            if (totalSections == 1 && !TextUtils.isEmpty(biliVideoDetail.season_title)) {
+                displayTitle = biliVideoDetail.season_title;
+            } else {
+                displayTitle = sectionInfo.title;
+            }
+            section.setTitle(displayTitle, totalEpisodes);
 
             List<Object> list = new ArrayList<Object>();
             for (int i = 0; i < sectionInfo.episodes.size(); i++) {

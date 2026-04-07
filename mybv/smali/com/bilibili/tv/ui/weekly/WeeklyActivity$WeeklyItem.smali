@@ -27,7 +27,7 @@
     .locals 0
 
     .prologue
-    .line 202
+    .line 208
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -39,7 +39,7 @@
     .locals 1
 
     .prologue
-    .line 212
+    .line 218
     iget v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$WeeklyItem;->number:I
 
     return v0
@@ -49,7 +49,7 @@
     .locals 2
 
     .prologue
-    .line 208
+    .line 214
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$WeeklyItem;->name:Ljava/lang/String;
 
     if-eqz v0, :cond_7

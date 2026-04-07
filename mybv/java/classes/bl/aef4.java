@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mybl.MyBiliApiService;
+import mybl.CookieUtil;
+import bl.mg;
 import com.alibaba.fastjson.*;
 import com.bilibili.tv.MainApplication;
 
@@ -85,7 +87,10 @@ public class aef4 extends ady {
         i();
         MyBiliApiService api = (MyBiliApiService) vo.a(MyBiliApiService.class);
         if (api != null) {
-            api.getPopularPrecious().a(this.d);
+            mg biliAccount = mg.a(MainApplication.a());
+            String cookie = CookieUtil.getFullCookieWithDevice(biliAccount);
+            
+            api.getPopularPrecious(100, 1, cookie).a(this.d);
         }
     }
 

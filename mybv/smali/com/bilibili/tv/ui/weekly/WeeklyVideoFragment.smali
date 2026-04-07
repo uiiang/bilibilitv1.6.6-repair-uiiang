@@ -46,10 +46,10 @@
     .locals 1
 
     .prologue
-    .line 46
+    .line 48
     invoke-direct {p0}, Lbl/ady;-><init>()V
 
-    .line 50
+    .line 52
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->g:Z
@@ -61,7 +61,7 @@
     .locals 1
 
     .prologue
-    .line 46
+    .line 48
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->e:Z
 
     return v0
@@ -71,7 +71,7 @@
     .locals 0
 
     .prologue
-    .line 46
+    .line 48
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->e:Z
 
     return p1
@@ -81,7 +81,7 @@
     .locals 1
 
     .prologue
-    .line 46
+    .line 48
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->h:Z
 
     return v0
@@ -91,7 +91,7 @@
     .locals 0
 
     .prologue
-    .line 46
+    .line 48
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->h:Z
 
     return p1
@@ -101,7 +101,7 @@
     .locals 1
 
     .prologue
-    .line 46
+    .line 48
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->g:Z
 
     return v0
@@ -111,7 +111,7 @@
     .locals 0
 
     .prologue
-    .line 46
+    .line 48
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->g:Z
 
     return p1
@@ -121,7 +121,7 @@
     .locals 1
 
     .prologue
-    .line 46
+    .line 48
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->c:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$c;
 
     return-object v0
@@ -131,7 +131,7 @@
     .locals 1
 
     .prologue
-    .line 46
+    .line 48
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->name:Ljava/lang/String;
 
     return-object v0
@@ -141,15 +141,15 @@
     .locals 1
 
     .prologue
-    .line 205
+    .line 207
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->h:Z
 
-    .line 206
+    .line 208
     invoke-direct {p0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->loadWeeklyVideos()V
 
-    .line 207
+    .line 209
     return-void
 .end method
 
@@ -157,15 +157,15 @@
     .locals 4
 
     .prologue
-    .line 210
+    .line 212
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 211
-    if-eqz v0, :cond_1f
+    .line 213
+    if-eqz v0, :cond_2b
 
-    .line 212
+    .line 214
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -174,15 +174,29 @@
 
     check-cast v0, Lmybl/MyBiliApiService;
 
-    .line 213
-    if-eqz v0, :cond_1f
+    .line 215
+    if-eqz v0, :cond_2b
 
-    .line 214
-    iget v1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->number:I
+    .line 216
+    invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
-    int-to-long v2, v1
+    move-result-object v1
 
-    invoke-interface {v0, v2, v3}, Lmybl/MyBiliApiService;->getWeeklyPrecious(J)Lbl/vp;
+    invoke-static {v1}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
+
+    move-result-object v1
+
+    .line 217
+    invoke-static {v1}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
+
+    move-result-object v1
+
+    .line 219
+    iget v2, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->number:I
+
+    int-to-long v2, v2
+
+    invoke-interface {v0, v2, v3, v1}, Lmybl/MyBiliApiService;->getWeeklyPrecious(JLjava/lang/String;)Lbl/vp;
 
     move-result-object v0
 
@@ -190,11 +204,11 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$1;-><init>(Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;)V
 
-    .line 215
+    .line 220
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 260
-    :cond_1f
+    .line 265
+    :cond_2b
     return-void
 .end method
 
@@ -202,21 +216,21 @@
     .locals 1
 
     .prologue
-    .line 62
+    .line 64
     new-instance v0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;
 
     invoke-direct {v0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;-><init>()V
 
-    .line 63
+    .line 65
     iput p0, v0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->number:I
 
-    .line 64
+    .line 66
     iput-object p1, v0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->name:Ljava/lang/String;
 
-    .line 65
+    .line 67
     iput-object p2, v0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->subject:Ljava/lang/String;
 
-    .line 66
+    .line 68
     return-object v0
 .end method
 
@@ -226,15 +240,15 @@
     .locals 4
 
     .prologue
-    .line 91
+    .line 93
     const-string v0, "recyclerView"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 92
+    .line 94
     invoke-super {p0, p1, p2}, Lbl/ady;->a(Landroid/support/v7/widget/RecyclerView;Landroid/os/Bundle;)V
 
-    .line 93
+    .line 95
     new-instance v1, Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;
 
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -245,15 +259,15 @@
 
     invoke-direct {v1, v0, v2}, Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;-><init>(Landroid/content/Context;I)V
 
-    .line 94
+    .line 96
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 95
+    .line 97
     if-nez v0, :cond_20
 
-    .line 96
+    .line 98
     new-instance v0, Lkotlin/TypeCastException;
 
     const-string v1, "null cannot be cast to non-null type com.bilibili.tv.ui.weekly.WeeklyActivity"
@@ -262,7 +276,7 @@
 
     throw v0
 
-    .line 98
+    .line 100
     :cond_20
     new-instance v2, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$e;
 
@@ -272,71 +286,71 @@
 
     invoke-virtual {v1, v2}, Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;->a(Lcom/bilibili/tv/widget/border/BorderGridLayoutManager$a;)V
 
-    .line 99
+    .line 101
     const/4 v0, 0x1
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->setHasFixedSize(Z)V
 
-    .line 100
+    .line 102
     invoke-virtual {p1, v1}, Landroid/support/v7/widget/RecyclerView;->setLayoutManager(Landroid/support/v7/widget/RecyclerView$h;)V
 
-    .line 101
+    .line 103
     const v0, 0x7f0601bb
 
     invoke-static {v0}, Lbl/adl;->b(I)I
 
     move-result v0
 
-    .line 102
+    .line 104
     const v2, 0x7f06006e
 
     invoke-static {v2}, Lbl/adl;->b(I)I
 
     move-result v2
 
-    .line 103
+    .line 105
     const v3, 0x7f06014d
 
     invoke-static {v3}, Lbl/adl;->b(I)I
 
     move-result v3
 
-    .line 104
+    .line 106
     invoke-virtual {p1, v3, v3, v3, v3}, Landroid/support/v7/widget/RecyclerView;->setPadding(IIII)V
 
-    .line 105
+    .line 107
     new-instance v3, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$f;
 
     invoke-direct {v3, v2, v0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$f;-><init>(II)V
 
     invoke-virtual {p1, v3}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$g;)V
 
-    .line 106
+    .line 108
     new-instance v0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$g;
 
     invoke-direct {v0, p0, v1}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$g;-><init>(Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;)V
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$m;)V
 
-    .line 107
+    .line 109
     new-instance v0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$c;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$c;-><init>(Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->c:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$c;
 
-    .line 108
+    .line 110
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->c:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$c;
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->setAdapter(Landroid/support/v7/widget/RecyclerView$a;)V
 
-    .line 109
+    .line 111
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->i()V
 
-    .line 110
+    .line 112
     invoke-direct {p0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->b()V
 
-    .line 111
+    .line 113
     return-void
 .end method
 
@@ -344,7 +358,7 @@
     .locals 1
 
     .prologue
-    .line 180
+    .line 182
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->isVisible()Z
 
     move-result v0
@@ -355,16 +369,16 @@
 
     if-eqz v0, :cond_19
 
-    .line 181
+    .line 183
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->c:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$c;
 
-    .line 182
+    .line 184
     if-nez v0, :cond_11
 
-    .line 183
+    .line 185
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 185
+    .line 187
     :cond_11
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$c;->a()I
 
@@ -372,10 +386,10 @@
 
     if-lez v0, :cond_19
 
-    .line 186
+    .line 188
     const/4 v0, 0x1
 
-    .line 189
+    .line 191
     :goto_18
     return v0
 
@@ -389,13 +403,13 @@
     .locals 0
 
     .prologue
-    .line 200
+    .line 202
     invoke-super {p0}, Lbl/ady;->d_()V
 
-    .line 201
+    .line 203
     invoke-direct {p0}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->b()V
 
-    .line 202
+    .line 204
     return-void
 .end method
 
@@ -403,7 +417,7 @@
     .locals 1
 
     .prologue
-    .line 263
+    .line 268
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->h:Z
 
     return v0
@@ -413,7 +427,7 @@
     .locals 2
 
     .prologue
-    .line 71
+    .line 73
     const v0, 0x7f0a0094
 
     const/4 v1, 0x0
@@ -422,7 +436,7 @@
 
     move-result-object v1
 
-    .line 72
+    .line 74
     const v0, 0x7f08019e
 
     invoke-virtual {v1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -433,7 +447,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->headerLayout:Landroid/widget/LinearLayout;
 
-    .line 73
+    .line 75
     const v0, 0x7f08019f
 
     invoke-virtual {v1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -444,7 +458,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->headerTitle:Landroid/widget/TextView;
 
-    .line 74
+    .line 76
     const v0, 0x7f0801a0
 
     invoke-virtual {v1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -455,7 +469,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->headerCount:Landroid/widget/TextView;
 
-    .line 75
+    .line 77
     const v0, 0x7f0800eb
 
     invoke-virtual {v1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -464,10 +478,10 @@
 
     check-cast v0, Landroid/support/v7/widget/RecyclerView;
 
-    .line 76
+    .line 78
     invoke-virtual {p0, v0, p3}, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->a(Landroid/support/v7/widget/RecyclerView;Landroid/os/Bundle;)V
 
-    .line 77
+    .line 79
     return-object v1
 .end method
 
@@ -475,17 +489,17 @@
     .locals 1
 
     .prologue
-    .line 194
+    .line 196
     const/4 v0, 0x0
 
     check-cast v0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$c;
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->c:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$c;
 
-    .line 195
+    .line 197
     invoke-super {p0}, Lbl/ady;->onDestroyView()V
 
-    .line 196
+    .line 198
     return-void
 .end method
 
@@ -493,19 +507,19 @@
     .locals 3
 
     .prologue
-    .line 81
+    .line 83
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->headerTitle:Landroid/widget/TextView;
 
     if-eqz v0, :cond_b
 
     if-eqz p1, :cond_b
 
-    .line 82
+    .line 84
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->headerTitle:Landroid/widget/TextView;
 
     invoke-virtual {v0, p1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 84
+    .line 86
     :cond_b
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->headerCount:Landroid/widget/TextView;
 
@@ -513,7 +527,7 @@
 
     if-lez p2, :cond_29
 
-    .line 85
+    .line 87
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->headerCount:Landroid/widget/TextView;
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -536,7 +550,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 87
+    .line 89
     :cond_29
     return-void
 .end method

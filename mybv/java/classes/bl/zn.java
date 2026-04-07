@@ -2,6 +2,8 @@ package bl;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
+import mybl.CookieUtil;
 import com.bilibili.tv.player.basic.context.PlayerParams;
 import com.bilibili.tv.player.basic.context.ResolveResourceParams;
 import com.bilibili.tv.player.basic.context.VideoViewParams;
@@ -46,7 +48,38 @@ public final class zn {
                     zoVar.i();
                 }
             }
-            ((HeartbeatApiService) vo.a(HeartbeatApiService.class)).a(new HeartbeatApiService.ParamsV2(zoVar.a(), zoVar.b(), d, i3, i4, str, j, str2, i5, qualityInt, zoVar.c(), zoVar.d(), zoVar.e(), j2, str3, i6, z ? 0 : zoVar.f(), z ? 0 : zoVar.f(), "1", null, null)).a();
+            mg biliAccount = mg.a(context);
+            String cookie = CookieUtil.getFullCookieWithDevice(biliAccount);
+            String csrf = CookieUtil.getBiliJct(biliAccount);
+            long sid = 0;
+            if (!TextUtils.isEmpty(str)) {
+                try {
+                    sid = Long.parseLong(str);
+                } catch (NumberFormatException e) {
+                    Log.e("Heartbeat", "Failed to parse season_id: " + str);
+                }
+            }
+            int typeInt = str != null ? 4 : 3;
+            int subTypeInt = 0;
+            if (str != null) {
+                subTypeInt = 1;
+            }
+            long playedTime = i2 / 1000;
+            ((HeartbeatApiService) vo.a(HeartbeatApiService.class)).webHeartbeat(
+                i3,
+                i4,
+                sid,
+                j,
+                playedTime,
+                zoVar.c(),
+                zoVar.a(),
+                typeInt,
+                subTypeInt,
+                qualityInt,
+                j2,
+                csrf,
+                cookie
+            ).a();
         }
     }
 

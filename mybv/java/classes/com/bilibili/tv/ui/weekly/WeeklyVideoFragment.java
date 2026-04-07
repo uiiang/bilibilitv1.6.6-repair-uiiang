@@ -37,6 +37,8 @@ import com.bilibili.tv.widget.ScalableImageView;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
 import com.bilibili.tv.widget.side.SideRightGridLayoutManger;
 import mybl.MyBiliApiService;
+import mybl.CookieUtil;
+import bl.mg;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONArray;
 import java.util.ArrayList;
@@ -211,7 +213,10 @@ public final class WeeklyVideoFragment extends ady {
         if (activity != null) {
             MyBiliApiService api = (MyBiliApiService) vo.a(MyBiliApiService.class);
             if (api != null) {
-                api.getWeeklyPrecious(number)
+                mg biliAccount = mg.a(MainApplication.a());
+                String cookie = CookieUtil.getFullCookieWithDevice(biliAccount);
+                
+                api.getWeeklyPrecious(number, cookie)
                         .a(new vn<JSONObject>() {
                             @Override
                             public void a(JSONObject data) {

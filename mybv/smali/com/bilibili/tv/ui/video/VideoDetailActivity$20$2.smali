@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 2061
+    .line 2063
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,23 @@
     .locals 3
 
     .prologue
-    .line 2064
+    .line 2066
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;
+
+    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isFinishing()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_b
+
+    .line 2070
+    :goto_a
+    return-void
+
+    .line 2069
+    :cond_b
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -58,8 +74,7 @@
     move-result-object v2
 
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->fallbackLoadHistory(Lcom/bilibili/tv/api/video/BiliVideoDetail;Ljava/lang/String;)V
-    invoke-static {v0, v1, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2300(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;Ljava/lang/String;)V
+    invoke-static {v0, v1, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;Ljava/lang/String;)V
 
-    .line 2065
-    return-void
+    goto :goto_a
 .end method

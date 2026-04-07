@@ -25,15 +25,15 @@
     .locals 0
 
     .prologue
-    .line 164
+    .line 166
     iput-object p1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$g;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;
 
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$m;-><init>()V
 
-    .line 165
+    .line 167
     iput-object p2, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$g;->b:Lcom/bilibili/tv/widget/side/SideRightGridLayoutManger;
 
-    .line 166
+    .line 168
     return-void
 .end method
 
@@ -43,10 +43,10 @@
     .locals 2
 
     .prologue
-    .line 170
+    .line 172
     invoke-super {p0, p1, p2}, Landroid/support/v7/widget/RecyclerView$m;->a(Landroid/support/v7/widget/RecyclerView;I)V
 
-    .line 171
+    .line 173
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$g;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;->h:Z
@@ -74,12 +74,12 @@
 
     if-nez v0, :cond_1c
 
-    .line 175
+    .line 177
     :cond_1b
     :goto_1b
     return-void
 
-    .line 174
+    .line 176
     :cond_1c
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$g;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment;
 

@@ -1,9 +1,6 @@
 .class Lcom/bilibili/tv/ui/video/VideoDetailActivity$2;
-.super Ljava/lang/Object;
+.super Lcom/bilibili/tv/widget/FixLinearLayoutManager;
 .source "VideoDetailActivity.java"
-
-# interfaces
-.implements Landroid/view/View$OnFocusChangeListener;
 
 
 # annotations
@@ -22,56 +19,102 @@
 
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Landroid/content/Context;IZ)V
     .locals 0
 
     .prologue
-    .line 381
+    .line 379
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$2;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0, p2, p3, p4}, Lcom/bilibili/tv/widget/FixLinearLayoutManager;-><init>(Landroid/content/Context;IZ)V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public onFocusChange(Landroid/view/View;Z)V
-    .locals 3
+.method public d(Landroid/view/View;I)Landroid/view/View;
+    .locals 2
 
     .prologue
+    .line 383
+    if-eqz p1, :cond_35
+
     .line 384
-    if-eqz p2, :cond_19
+    invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$2;->d(Landroid/view/View;)I
+
+    move-result v0
 
     .line 385
+    const/16 v1, 0x11
+
+    if-eq p2, v1, :cond_32
+
+    .line 386
+    const/16 v1, 0x21
+
+    if-eq p2, v1, :cond_2d
+
+    .line 387
+    const/16 v1, 0x42
+
+    if-eq p2, v1, :cond_25
+
+    .line 388
+    const/16 v0, 0x82
+
+    if-ne p2, v0, :cond_2d
+
+    .line 389
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$2;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$2;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+    const v1, 0x7f080167
 
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->n:Landroid/support/v7/widget/RecyclerView;
-    invoke-static {v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$100(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/support/v7/widget/RecyclerView;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$2;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->tagViewFocusPosition:I
-    invoke-static {v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$200(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)I
-
-    move-result v2
-
-    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->restoreFocusPosition(Landroid/support/v7/widget/RecyclerView;I)Landroid/view/View;
-    invoke-static {v0, v1, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$300(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Landroid/support/v7/widget/RecyclerView;I)Landroid/view/View;
+    .line 390
+    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->d(I)Landroid/view/View;
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$100(Lcom/bilibili/tv/ui/video/VideoDetailActivity;I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 386
-    if-eqz v0, :cond_19
+    check-cast v0, Lcom/bilibili/tv/widget/DrawLinearLayout;
 
-    .line 387
-    invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
+    .line 391
+    if-eqz v0, :cond_24
 
-    .line 390
-    :cond_19
-    return-void
+    move-object p1, v0
+
+    .line 405
+    :cond_24
+    :goto_24
+    return-object p1
+
+    .line 396
+    :cond_25
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$2;->H()I
+
+    move-result v1
+
+    add-int/lit8 v1, v1, -0x1
+
+    if-eq v0, v1, :cond_24
+
+    .line 403
+    :cond_2d
+    invoke-super {p0, p1, p2}, Lcom/bilibili/tv/widget/FixLinearLayoutManager;->d(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object p1
+
+    goto :goto_24
+
+    .line 400
+    :cond_32
+    if-nez v0, :cond_2d
+
+    goto :goto_24
+
+    .line 405
+    :cond_35
+    const/4 p1, 0x0
+
+    goto :goto_24
 .end method

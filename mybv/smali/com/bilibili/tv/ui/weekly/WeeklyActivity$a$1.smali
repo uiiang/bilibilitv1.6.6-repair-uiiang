@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 252
+    .line 258
     iput-object p1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a$1;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
@@ -52,7 +52,7 @@
 
     const/4 v6, 0x1
 
-    .line 255
+    .line 261
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a$1;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;
 
     # getter for: Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;->a:Ljava/lang/ref/WeakReference;
@@ -66,15 +66,15 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;
 
-    .line 256
+    .line 262
     if-nez p2, :cond_2f
 
-    .line 257
+    .line 263
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a$1;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;
 
     invoke-virtual {p1, v0}, Landroid/view/View;->removeCallbacks(Ljava/lang/Runnable;)Z
 
-    .line 258
+    .line 264
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a$1;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;
 
     # getter for: Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;->e:Z
@@ -84,12 +84,12 @@
 
     if-eqz v0, :cond_1f
 
-    .line 281
+    .line 287
     :cond_1e
     :goto_1e
     return-void
 
-    .line 261
+    .line 267
     :cond_1f
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
@@ -99,7 +99,7 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setSelected(Z)V
 
-    .line 262
+    .line 268
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a$1;->val$holder:Lbl/agf;
 
     iget-object v0, v0, Lbl/agf;->n:Landroid/widget/TextView;
@@ -108,7 +108,7 @@
 
     goto :goto_1e
 
-    .line 265
+    .line 271
     :cond_2f
     if-eqz v0, :cond_1e
 
@@ -118,14 +118,14 @@
 
     if-nez v1, :cond_1e
 
-    .line 268
+    .line 274
     iget-object v1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     invoke-virtual {v1}, Landroid/support/v7/widget/RecyclerView$v;->f()I
 
     move-result v1
 
-    .line 269
+    .line 275
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v2
@@ -143,19 +143,19 @@
 
     if-gez v2, :cond_51
 
-    .line 270
+    .line 276
     iget-object v2, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a$1;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;
 
     invoke-virtual {p1, v2}, Landroid/view/View;->removeCallbacks(Ljava/lang/Runnable;)Z
 
-    .line 272
+    .line 278
     :cond_51
     iget-object v2, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a$1;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;
 
     # setter for: Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;->c:I
     invoke-static {v2, v1}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;->access$602(Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;I)I
 
-    .line 273
+    .line 279
     iget-object v1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a$1;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;
 
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
@@ -165,14 +165,14 @@
     # setter for: Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;->d:J
     invoke-static {v1, v2, v3}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;->access$502(Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;J)J
 
-    .line 274
+    .line 280
     iget-object v1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     iget-object v1, v1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
 
     invoke-virtual {v1, v6}, Landroid/view/View;->setSelected(Z)V
 
-    .line 275
+    .line 281
     iget-object v1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     iget-object v1, v1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
@@ -181,7 +181,7 @@
 
     if-eqz v1, :cond_77
 
-    .line 276
+    .line 282
     iget-object v1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     iget-object v1, v1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
@@ -190,7 +190,7 @@
 
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->a()V
 
-    .line 278
+    .line 284
     :cond_77
     iget-object v1, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a$1;->val$holder:Lbl/agf;
 
@@ -200,12 +200,12 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setMaxLines(I)V
 
-    .line 279
+    .line 285
     const/4 v1, 0x4
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->b(I)V
 
-    .line 280
+    .line 286
     iget-object v0, p0, Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a$1;->this$0:Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;
 
     invoke-virtual {p1, v0, v8, v9}, Landroid/view/View;->postDelayed(Ljava/lang/Runnable;J)Z
