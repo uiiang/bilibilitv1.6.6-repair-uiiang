@@ -361,7 +361,7 @@
     move-result-object v1
 
     .line 324
-    if-eqz v1, :cond_5a
+    if-eqz v1, :cond_5c
 
     .line 325
     invoke-virtual {p1}, Landroid/view/View;->getTag()Ljava/lang/Object;
@@ -371,30 +371,33 @@
     .line 326
     instance-of v2, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
-    if-eqz v2, :cond_2c
+    if-eqz v2, :cond_2e
 
     .line 327
-    sget-object v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
-
     check-cast v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;
+
+    .line 328
+    sget-object v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
 
     iget-wide v4, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mAvid:J
 
-    invoke-virtual {v2, v1, v4, v5}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;J)Landroid/content/Intent;
+    iget-object v0, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mCover:Ljava/lang/String;
+
+    invoke-virtual {v2, v1, v4, v5, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;JLjava/lang/String;)Landroid/content/Intent;
 
     move-result-object v0
 
     invoke-virtual {v1, v0}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
 
-    .line 329
-    :cond_2c
+    .line 330
+    :cond_2e
     invoke-virtual {p1, v6}, Landroid/view/View;->getTag(I)Ljava/lang/Object;
 
     move-result-object v0
 
-    if-eqz v0, :cond_5a
+    if-eqz v0, :cond_5c
 
-    .line 330
+    .line 331
     const-string v1, "tv_myfavourite_video_click"
 
     const/4 v0, 0x2
@@ -439,7 +442,7 @@
 
     invoke-static {v1, v2}, Lbl/ok;->a(Ljava/lang/String;[Ljava/lang/String;)V
 
-    .line 333
-    :cond_5a
+    .line 334
+    :cond_5c
     return-void
 .end method

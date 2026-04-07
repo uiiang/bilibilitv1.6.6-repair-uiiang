@@ -197,7 +197,7 @@
     .line 545
     invoke-static {v0}, Lbl/adl;->a(Landroid/content/Context;)Landroid/app/Activity;
 
-    move-result-object v1
+    move-result-object v2
 
     .line 546
     invoke-virtual {p1}, Landroid/view/View;->getTag()Ljava/lang/Object;
@@ -205,15 +205,15 @@
     move-result-object v0
 
     .line 547
-    if-eqz v1, :cond_1e
+    if-eqz v2, :cond_1e
 
     if-eqz v0, :cond_1e
 
-    instance-of v2, v0, Lcom/alibaba/fastjson/JSONObject;
+    instance-of v1, v0, Lcom/alibaba/fastjson/JSONObject;
 
-    if-nez v2, :cond_1f
+    if-nez v1, :cond_1f
 
-    .line 559
+    .line 563
     :cond_1e
     :goto_1e
     return-void
@@ -223,33 +223,75 @@
     check-cast v0, Lcom/alibaba/fastjson/JSONObject;
 
     .line 551
-    sget-object v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
+    const-string v1, "cover"
 
-    const-string v3, "season_id"
+    invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
-    invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v1
+
+    .line 552
+    invoke-static {v1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v3
+
+    if-nez v3, :cond_48
+
+    const-string v3, "http"
+
+    invoke-virtual {v1, v3}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v3
+
+    if-nez v3, :cond_48
+
+    .line 553
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "https:"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v3
 
-    invoke-virtual {v2, v1, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;Ljava/lang/String;)Landroid/content/Intent;
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v2
+    move-result-object v1
 
-    invoke-virtual {v1, v2}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    .line 552
+    move-result-object v1
+
+    .line 555
+    :cond_48
+    sget-object v3, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
+
+    const-string v4, "season_id"
+
+    invoke-virtual {v0, v4}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-virtual {v3, v2, v4, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
+
+    move-result-object v1
+
+    invoke-virtual {v2, v1}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
+
+    .line 556
     const v1, 0x7f0800d8
 
     invoke-virtual {p1, v1}, Landroid/view/View;->getTag(I)Ljava/lang/Object;
 
     move-result-object v1
 
-    .line 553
+    .line 557
     instance-of v2, v1, Ljava/lang/Integer;
 
     if-eqz v2, :cond_1e
 
-    .line 554
+    .line 558
     const-string v2, "tv_home_bangumi_recommend"
 
     const/4 v3, 0x4
@@ -288,12 +330,12 @@
 
     invoke-static {v2, v3}, Lbl/ok;->a(Ljava/lang/String;[Ljava/lang/String;)V
 
-    .line 555
+    .line 559
     new-instance v0, Ljava/util/HashMap;
 
     invoke-direct {v0}, Ljava/util/HashMap;-><init>()V
 
-    .line 556
+    .line 560
     const-string v2, "location"
 
     invoke-virtual {v1}, Ljava/lang/Object;->toString()Ljava/lang/String;
@@ -302,7 +344,7 @@
 
     invoke-virtual {v0, v2, v1}, Ljava/util/HashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 557
+    .line 561
     sget-object v1, Lbl/abl;->a:Lbl/abl;
 
     const-string v2, "ott-platform.animation.animation.0.click"
@@ -316,12 +358,12 @@
     .locals 2
 
     .prologue
-    .line 563
+    .line 567
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 564
+    .line 568
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainPgcFragment$e;->r:Ljava/lang/ref/WeakReference;
 
     invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
@@ -330,24 +372,24 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/main/content/MainPgcFragment;
 
-    .line 565
+    .line 569
     const v1, 0x7f0800d8
 
     invoke-virtual {p1, v1}, Landroid/view/View;->getTag(I)Ljava/lang/Object;
 
     move-result-object v1
 
-    .line 566
+    .line 570
     if-eqz v0, :cond_18
 
     if-nez v1, :cond_19
 
-    .line 573
+    .line 577
     :cond_18
     :goto_18
     return-void
 
-    .line 569
+    .line 573
     :cond_19
     check-cast v1, Ljava/lang/Integer;
 
@@ -358,15 +400,15 @@
     # setter for: Lcom/bilibili/tv/ui/main/content/MainPgcFragment;->d:I
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/main/content/MainPgcFragment;->access$102(Lcom/bilibili/tv/ui/main/content/MainPgcFragment;I)I
 
-    .line 570
+    .line 574
     invoke-static {p1, p2}, Lbl/adj;->a(Landroid/view/View;Z)V
 
-    .line 571
+    .line 575
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainPgcFragment$e;->q:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpEnabled(Z)V
 
-    .line 572
+    .line 576
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainPgcFragment$e;->n:Landroid/widget/TextView;
 
     invoke-virtual {v0, p2}, Landroid/widget/TextView;->setSelected(Z)V

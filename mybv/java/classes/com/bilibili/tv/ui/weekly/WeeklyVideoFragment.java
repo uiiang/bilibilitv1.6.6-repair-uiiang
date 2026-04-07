@@ -346,7 +346,11 @@ public final class WeeklyVideoFragment extends ady {
                 if (tag instanceof JSONObject) {
                     JSONObject item = (JSONObject) tag;
                     long id = item.getLongValue("aid");
-                    activityA.startActivity(VideoDetailActivity.Companion.a((Context) activityA, id));
+                    String coverUrl = item.getString("pic");
+                    if (!TextUtils.isEmpty(coverUrl) && !coverUrl.startsWith("http")) {
+                        coverUrl = "https:" + coverUrl;
+                    }
+                    activityA.startActivity(VideoDetailActivity.Companion.a((Context) activityA, id, coverUrl));
                 }
             }
         }

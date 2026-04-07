@@ -367,4 +367,5 @@
     <item type="id" name="badge" />
     <item type="id" name="other_normal_button" />
     <item type="id" name="other_compact_button" />
+    <item type="id" name="gradient_mask" />
 </resources>

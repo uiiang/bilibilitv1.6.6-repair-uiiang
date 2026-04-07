@@ -556,7 +556,7 @@
 .end method
 
 .method public onClick(Landroid/view/View;)V
-    .locals 4
+    .locals 6
 
     .prologue
     .line 340
@@ -580,7 +580,7 @@
     move-result-object v1
 
     .line 344
-    if-eqz v1, :cond_2d
+    if-eqz v1, :cond_54
 
     .line 345
     invoke-virtual {p1}, Landroid/view/View;->getTag()Ljava/lang/Object;
@@ -590,7 +590,7 @@
     .line 346
     instance-of v2, v0, Lcom/alibaba/fastjson/JSONObject;
 
-    if-eqz v2, :cond_2d
+    if-eqz v2, :cond_54
 
     .line 347
     check-cast v0, Lcom/alibaba/fastjson/JSONObject;
@@ -603,15 +603,57 @@
     move-result-wide v2
 
     .line 349
-    sget-object v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
+    const-string v4, "pic"
 
-    invoke-virtual {v0, v1, v2, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;J)Landroid/content/Intent;
+    invoke-virtual {v0, v4}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 350
+    invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v4
+
+    if-nez v4, :cond_4b
+
+    const-string v4, "http"
+
+    invoke-virtual {v0, v4}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v4
+
+    if-nez v4, :cond_4b
+
+    .line 351
+    new-instance v4, Ljava/lang/StringBuilder;
+
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v5, "https:"
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    invoke-virtual {v4, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 353
+    :cond_4b
+    sget-object v4, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
+
+    invoke-virtual {v4, v1, v2, v3, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;JLjava/lang/String;)Landroid/content/Intent;
 
     move-result-object v0
 
     invoke-virtual {v1, v0}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
 
-    .line 352
-    :cond_2d
+    .line 356
+    :cond_54
     return-void
 .end method

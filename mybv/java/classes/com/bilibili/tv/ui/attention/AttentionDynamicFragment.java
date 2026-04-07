@@ -675,13 +675,15 @@ public final class AttentionDynamicFragment extends ady {
             if (tag instanceof JSONObject) {
                 // 全部动态模式
                 JSONObject feedItem = (JSONObject) tag;
-                long aid = feedItem.getJSONObject("module_dynamic").getJSONObject("major").getJSONObject("archive").getLongValue("aid");
-                a2.startActivity(VideoDetailActivity.Companion.a(a2, aid));
+                JSONObject feedArchiveItem = feedItem.getJSONObject("module_dynamic").getJSONObject("major").getJSONObject("archive");
+                long aid = feedArchiveItem.getLongValue("aid");
+                String cover = feedArchiveItem.getString("cover");
+                a2.startActivity(VideoDetailActivity.Companion.a(a2, aid, cover));
             } else if (tag instanceof BiliSpaceVideo) {
                 // UP主视频模式
                 BiliSpaceVideo video = (BiliSpaceVideo) tag;
                 long aid = Long.parseLong(video.param);
-                a2.startActivity(VideoDetailActivity.Companion.a(a2, aid));
+                a2.startActivity(VideoDetailActivity.Companion.a(a2, aid, video.cover));
             }
         }
 

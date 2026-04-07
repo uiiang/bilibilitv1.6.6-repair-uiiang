@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 2925
+    .line 2940
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$26;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -37,18 +37,18 @@
 
 # virtual methods
 .method public onVideoClicked(Ljava/lang/Object;I)V
-    .locals 4
+    .locals 5
 
     .prologue
-    .line 2928
+    .line 2943
     instance-of v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
 
-    if-eqz v0, :cond_15
+    if-eqz v0, :cond_1d
 
-    .line 2929
+    .line 2944
     check-cast p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
 
-    .line 2930
+    .line 2945
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$26;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     sget-object v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
@@ -57,13 +57,21 @@
 
     iget v3, p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;->seasonId:I
 
-    invoke-virtual {v1, v2, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->aForSeason(Landroid/content/Context;I)Landroid/content/Intent;
+    invoke-static {v3}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {p1}, Lcom/bilibili/tv/api/video/PgcInfo$Season;->getBestCover()Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-virtual {v1, v2, v3, v4}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 
     move-result-object v1
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->startActivity(Landroid/content/Intent;)V
 
-    .line 2932
-    :cond_15
+    .line 2947
+    :cond_1d
     return-void
 .end method

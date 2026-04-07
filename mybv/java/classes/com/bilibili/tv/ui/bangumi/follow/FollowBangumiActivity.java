@@ -432,7 +432,7 @@ public final class FollowBangumiActivity extends BaseReloadActivity implements w
                 return;
             }
             BiliBangumiSeason biliBangumiSeason = (BiliBangumiSeason) tag;
-            a2.startActivity(VideoDetailActivity.Companion.a(a2, biliBangumiSeason.mSeasonId));
+            a2.startActivity(VideoDetailActivity.Companion.a(a2, biliBangumiSeason.mSeasonId, biliBangumiSeason.mCover));
             ok.a("tv_mybangumi_click", "title", biliBangumiSeason.mTitle, "bangumiid", biliBangumiSeason.mBangumiId, "row", String.valueOf(((int) Math.floor(((Number) tag2).intValue() / FollowBangumiActivity.h)) + 1));
         }
 

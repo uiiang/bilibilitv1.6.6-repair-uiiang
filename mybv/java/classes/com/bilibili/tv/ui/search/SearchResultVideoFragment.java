@@ -1249,11 +1249,19 @@ public final class SearchResultVideoFragment extends ady {
                 VideoItem video = (VideoItem) tag;
                 try {
                     long avid = Long.parseLong(video.param);
-                    a.startActivity(VideoDetailActivity.Companion.a(a, avid));
+                    String coverUrl = video.cover;
+                    if (!TextUtils.isEmpty(coverUrl) && !coverUrl.startsWith("http")) {
+                        coverUrl = "https:" + coverUrl;
+                    }
+                    a.startActivity(VideoDetailActivity.Companion.a(a, avid, coverUrl));
                 } catch (NumberFormatException ignored) {}
             } else if (tag instanceof BangumiItem) {
                 BangumiItem bangumi = (BangumiItem) tag;
-                a.startActivity(VideoDetailActivity.Companion.a(a, bangumi.param));
+                String coverUrl = bangumi.cover;
+                if (!TextUtils.isEmpty(coverUrl) && !coverUrl.startsWith("http")) {
+                    coverUrl = "https:" + coverUrl;
+                }
+                a.startActivity(VideoDetailActivity.Companion.a(a, bangumi.param, coverUrl));
             } else if (tag instanceof BiliSearchResultUper) {
                 BiliSearchResultUper user = (BiliSearchResultUper) tag;
                 AuthSpaceSideActivity.start(a, user.mid, user.uname);

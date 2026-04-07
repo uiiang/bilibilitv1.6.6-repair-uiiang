@@ -238,7 +238,7 @@
 
     cmp-long v4, v2, v4
 
-    if-lez v4, :cond_3e
+    if-lez v4, :cond_40
 
     .line 543
     sget-object v4, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
@@ -247,14 +247,16 @@
 
     move-result-object v2
 
-    invoke-virtual {v4, v1, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;Ljava/lang/String;)Landroid/content/Intent;
+    iget-object v3, v0, Lcom/bilibili/bangumi/api/BangumiMainEx$Content;->cover:Ljava/lang/String;
+
+    invoke-virtual {v4, v1, v2, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 
     move-result-object v2
 
     invoke-virtual {v1, v2}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
 
     .line 545
-    :cond_3e
+    :cond_40
     const v1, 0x7f0800d8
 
     invoke-virtual {p1, v1}, Landroid/view/View;->getTag(I)Ljava/lang/Object;

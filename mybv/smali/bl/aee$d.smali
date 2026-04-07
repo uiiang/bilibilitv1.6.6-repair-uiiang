@@ -42,7 +42,7 @@
     .locals 2
 
     .prologue
-    .line 338
+    .line 339
     new-instance v0, Lbl/aee$d$a;
 
     const/4 v1, 0x0
@@ -58,15 +58,15 @@
     .locals 1
 
     .prologue
-    .line 346
+    .line 347
     invoke-direct {p0, p1}, Lbl/adv;-><init>(Landroid/view/View;)V
 
-    .line 347
+    .line 348
     const-string v0, "itemView"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 348
+    .line 349
     const v0, 0x7f0800a1
 
     invoke-virtual {p0, p1, v0}, Lbl/aee$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -77,7 +77,7 @@
 
     iput-object v0, p0, Lbl/aee$d;->n:Lcom/bilibili/tv/widget/ScalableImageView;
 
-    .line 349
+    .line 350
     const v0, 0x7f080132
 
     invoke-virtual {p0, p1, v0}, Lbl/aee$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -88,7 +88,7 @@
 
     iput-object v0, p0, Lbl/aee$d;->o:Landroid/widget/TextView;
 
-    .line 350
+    .line 351
     const v0, 0x7f08011c
 
     invoke-virtual {p0, p1, v0}, Lbl/aee$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -99,7 +99,7 @@
 
     iput-object v0, p0, Lbl/aee$d;->p:Landroid/widget/TextView;
 
-    .line 351
+    .line 352
     const v0, 0x7f080074
 
     invoke-virtual {p0, p1, v0}, Lbl/aee$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -110,10 +110,10 @@
 
     iput-object v0, p0, Lbl/aee$d;->q:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
-    .line 352
+    .line 353
     invoke-virtual {p1, p0}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 353
+    .line 354
     return-void
 .end method
 
@@ -123,7 +123,7 @@
     .locals 1
 
     .prologue
-    .line 362
+    .line 363
     iget-object v0, p0, Lbl/aee$d;->o:Landroid/widget/TextView;
 
     return-object v0
@@ -133,7 +133,7 @@
     .locals 1
 
     .prologue
-    .line 367
+    .line 368
     iget-object v0, p0, Lbl/aee$d;->p:Landroid/widget/TextView;
 
     return-object v0
@@ -143,17 +143,17 @@
     .locals 1
 
     .prologue
-    .line 372
+    .line 373
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 373
+    .line 374
     iget-object v0, p0, Lbl/aee$d;->q:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawRelativeLayout;->setUpEnabled(Z)V
 
-    .line 374
+    .line 375
     return-void
 .end method
 
@@ -161,7 +161,7 @@
     .locals 1
 
     .prologue
-    .line 357
+    .line 358
     iget-object v0, p0, Lbl/aee$d;->n:Lcom/bilibili/tv/widget/ScalableImageView;
 
     return-object v0

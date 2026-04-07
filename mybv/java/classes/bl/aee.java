@@ -324,7 +324,8 @@ public final class aee extends ady {
             if (activityA != null) {
                 Object tag = view.getTag();
                 if (tag instanceof BiliVideoDetail) {
-                    activityA.startActivity(VideoDetailActivity.Companion.a((Context) activityA, ((BiliVideoDetail) tag).mAvid));
+                    BiliVideoDetail detail = (BiliVideoDetail) tag;
+                    activityA.startActivity(VideoDetailActivity.Companion.a((Context) activityA, detail.mAvid, detail.mCover));
                 }
                 if (view.getTag(R.id.position) != null) {
                     ok.a("tv_myfavourite_video_click", "row", String.valueOf(((int) Math.floor(((Integer) view.getTag(R.id.position)).intValue() / aee.j)) + 1));

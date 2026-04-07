@@ -548,7 +548,11 @@ public final class MainPgcFragment extends adu implements aez, wf {
                 return;
             }
             JSONObject content = (JSONObject) tag;
-            a2.startActivity(VideoDetailActivity.Companion.a(a2, content.getString("season_id")));
+            String coverUrl = content.getString("cover");
+            if (!TextUtils.isEmpty(coverUrl) && !coverUrl.startsWith("http")) {
+                coverUrl = "https:" + coverUrl;
+            }
+            a2.startActivity(VideoDetailActivity.Companion.a(a2, content.getString("season_id"), coverUrl));
             Object tag2 = view.getTag(R.id.position);
             if (tag2 instanceof Integer) {
                 ok.a("tv_home_bangumi_recommend", "position", tag2.toString(), PluginApk.PROP_NAME, content.getString("title"));

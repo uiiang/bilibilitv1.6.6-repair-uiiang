@@ -788,8 +788,9 @@ public final class FavoriteVideoFragment extends ady {
             if (activityA != null) {
                 Object tag = view.getTag();
                 if (tag instanceof BiliVideoDetail) {
+                    BiliVideoDetail detail = (BiliVideoDetail) tag;
                     activityA.startActivity(
-                            VideoDetailActivity.Companion.a((Context) activityA, ((BiliVideoDetail) tag).mAvid));
+                            VideoDetailActivity.Companion.a((Context) activityA, detail.mAvid, detail.mCover));
                 } else if (tag instanceof JSONObject) {
                     JSONObject item = (JSONObject) tag;
                     if (isFavoriteVideoMode) {
@@ -797,6 +798,7 @@ public final class FavoriteVideoFragment extends ady {
                         JSONObject ogv = item.getJSONObject("ogv");
                         long id = item.getLongValue("id");
                         String title = item.getString("title");
+                        String cover = item.getString("cover");
                         Log.i("FavoriteClick", "=== Favorite Item Click ===");
                         Log.i("FavoriteClick", "id=" + id + ", type=" + type + ", title=" + title);
                         Log.i("FavoriteClick", "ogv=" + (ogv != null ? ogv.toJSONString() : "null"));
@@ -813,10 +815,10 @@ public final class FavoriteVideoFragment extends ady {
                         if (isPgc) {
                             String seasonId = ogv != null ? ogv.getString("season_id") : null;
                             Log.i("FavoriteClick", "Starting PGC with seasonId=" + seasonId);
-                            activityA.startActivity(VideoDetailActivity.Companion.a((Context) activityA, seasonId));
+                            activityA.startActivity(VideoDetailActivity.Companion.a((Context) activityA, seasonId, cover));
                         } else {
                             Log.i("FavoriteClick", "Starting UGC with avid=" + id);
-                            activityA.startActivity(VideoDetailActivity.Companion.a((Context) activityA, id));
+                            activityA.startActivity(VideoDetailActivity.Companion.a((Context) activityA, id, cover));
                         }
                     } else {
                         xg.playCheese2(context, this.cheeseInfo, item);

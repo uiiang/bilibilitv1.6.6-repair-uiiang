@@ -484,12 +484,12 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements Vie
                     String seasonId = detail.getSeasonId();
                     if (!"0".equals(seasonId) && Integer.parseInt(seasonId) > 0) {
                         android.util.Log.i("ToviewClick", "PGC video detected, seasonId=" + seasonId);
-                        a2.startActivity(VideoDetailActivity.Companion.a(a2, seasonId));
+                        a2.startActivity(VideoDetailActivity.Companion.a(a2, seasonId, detail.mCover));
                     } else if (detail.mRedirectUrl != null && detail.mRedirectUrl.contains("bangumi/play/ep")) {
                         android.util.Log.i("ToviewClick", "PGC video via redirect_url, use avid=" + detail.mAvid);
-                        a2.startActivity(VideoDetailActivity.Companion.a(a2, detail.mAvid));
+                        a2.startActivity(VideoDetailActivity.Companion.a(a2, detail.mAvid, detail.mCover));
                     } else {
-                        a2.startActivity(VideoDetailActivity.Companion.a(a2, detail.mAvid));
+                        a2.startActivity(VideoDetailActivity.Companion.a(a2, detail.mAvid, detail.mCover));
                     }
                 }
             }

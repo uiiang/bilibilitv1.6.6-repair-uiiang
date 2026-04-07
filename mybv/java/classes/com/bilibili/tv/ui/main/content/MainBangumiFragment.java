@@ -540,7 +540,7 @@ public final class MainBangumiFragment extends adu implements aez, wf {
             BangumiMainEx.Content content = (BangumiMainEx.Content) tag;
             long parseId = ContentUris.parseId(Uri.parse(content.uri));
             if (parseId > 0) {
-                a2.startActivity(VideoDetailActivity.Companion.a(a2, String.valueOf(parseId)));
+                a2.startActivity(VideoDetailActivity.Companion.a(a2, String.valueOf(parseId), content.cover));
             }
             Object tag2 = view.getTag(R.id.position);
             if (tag2 instanceof Integer) {

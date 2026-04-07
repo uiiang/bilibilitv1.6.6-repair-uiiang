@@ -1206,7 +1206,7 @@
 .end method
 
 .method public onClick(Landroid/view/View;)V
-    .locals 4
+    .locals 6
 
     .prologue
     .line 1243
@@ -1222,126 +1222,202 @@
     .line 1245
     invoke-static {v1}, Lbl/adl;->a(Landroid/content/Context;)Landroid/app/Activity;
 
-    move-result-object v1
+    move-result-object v2
 
     .line 1246
-    if-nez v1, :cond_f
+    if-nez v2, :cond_f
 
-    .line 1267
+    .line 1275
     :cond_e
     :goto_e
     return-void
 
     .line 1248
     :cond_f
-    instance-of v2, v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoItem;
+    instance-of v1, v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoItem;
 
-    if-eqz v2, :cond_27
+    if-eqz v1, :cond_4a
 
     .line 1249
     check-cast v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoItem;
 
     .line 1251
     :try_start_15
-    iget-object v0, v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoItem;->param:Ljava/lang/String;
+    iget-object v1, v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoItem;->param:Ljava/lang/String;
 
-    invoke-static {v0}, Ljava/lang/Long;->parseLong(Ljava/lang/String;)J
+    invoke-static {v1}, Ljava/lang/Long;->parseLong(Ljava/lang/String;)J
 
-    move-result-wide v2
+    move-result-wide v4
 
     .line 1252
-    sget-object v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
-
-    invoke-virtual {v0, v1, v2, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;J)Landroid/content/Intent;
-
-    move-result-object v0
-
-    invoke-virtual {v1, v0}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
-    :try_end_24
-    .catch Ljava/lang/NumberFormatException; {:try_start_15 .. :try_end_24} :catch_25
-
-    goto :goto_e
+    iget-object v0, v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoItem;->cover:Ljava/lang/String;
 
     .line 1253
-    :catch_25
-    move-exception v0
+    invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
-    goto :goto_e
+    move-result v1
+
+    if-nez v1, :cond_3e
+
+    const-string v1, "http"
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v1
+
+    if-nez v1, :cond_3e
 
     .line 1254
-    :cond_27
-    instance-of v2, v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiItem;
+    new-instance v1, Ljava/lang/StringBuilder;
 
-    if-eqz v2, :cond_39
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 1255
-    check-cast v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiItem;
+    const-string v3, "https:"
 
-    .line 1256
-    sget-object v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
+    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    iget-object v0, v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiItem;->param:Ljava/lang/String;
+    move-result-object v1
 
-    invoke-virtual {v2, v1, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;Ljava/lang/String;)Landroid/content/Intent;
+    invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
-    invoke-virtual {v1, v0}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 1256
+    :cond_3e
+    sget-object v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
+
+    invoke-virtual {v1, v2, v4, v5, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;JLjava/lang/String;)Landroid/content/Intent;
+
+    move-result-object v0
+
+    invoke-virtual {v2, v0}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
+    :try_end_47
+    .catch Ljava/lang/NumberFormatException; {:try_start_15 .. :try_end_47} :catch_48
 
     goto :goto_e
 
     .line 1257
-    :cond_39
-    instance-of v2, v0, Lcom/bilibili/tv/api/search/BiliSearchResultUper;
-
-    if-eqz v2, :cond_47
-
-    .line 1258
-    check-cast v0, Lcom/bilibili/tv/api/search/BiliSearchResultUper;
-
-    .line 1259
-    iget-wide v2, v0, Lcom/bilibili/tv/api/search/BiliSearchResultUper;->mid:J
-
-    iget-object v0, v0, Lcom/bilibili/tv/api/search/BiliSearchResultUper;->uname:Ljava/lang/String;
-
-    invoke-static {v1, v2, v3, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->start(Landroid/content/Context;JLjava/lang/String;)V
+    :catch_48
+    move-exception v0
 
     goto :goto_e
 
-    .line 1260
-    :cond_47
-    instance-of v2, v0, Lmybl/BiliLiveContent;
+    .line 1258
+    :cond_4a
+    instance-of v1, v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiItem;
 
-    if-eqz v2, :cond_e
+    if-eqz v1, :cond_7f
+
+    .line 1259
+    check-cast v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiItem;
+
+    .line 1260
+    iget-object v1, v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiItem;->cover:Ljava/lang/String;
 
     .line 1261
-    check-cast v0, Lmybl/BiliLiveContent;
+    invoke-static {v1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v3
+
+    if-nez v3, :cond_73
+
+    const-string v3, "http"
+
+    invoke-virtual {v1, v3}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v3
+
+    if-nez v3, :cond_73
 
     .line 1262
-    new-instance v2, Ljava/util/ArrayList;
+    new-instance v3, Ljava/lang/StringBuilder;
 
-    invoke-direct {v2}, Ljava/util/ArrayList;-><init>()V
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    sput-object v2, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->lives:Ljava/util/List;
+    const-string v4, "https:"
 
-    .line 1263
-    sget-object v2, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->lives:Ljava/util/List;
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-interface {v2, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    move-result-object v3
+
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
 
     .line 1264
-    const/4 v2, 0x0
+    :cond_73
+    sget-object v3, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
 
-    sput v2, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->live_index:I
+    iget-object v0, v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiItem;->param:Ljava/lang/String;
 
-    .line 1265
-    invoke-static {v1, v0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->a(Landroid/content/Context;Lmybl/BiliLiveContent;)Landroid/content/Intent;
+    invoke-virtual {v3, v2, v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 
     move-result-object v0
 
-    invoke-virtual {v1, v0}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
+    invoke-virtual {v2, v0}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
 
     goto :goto_e
+
+    .line 1265
+    :cond_7f
+    instance-of v1, v0, Lcom/bilibili/tv/api/search/BiliSearchResultUper;
+
+    if-eqz v1, :cond_8d
+
+    .line 1266
+    check-cast v0, Lcom/bilibili/tv/api/search/BiliSearchResultUper;
+
+    .line 1267
+    iget-wide v4, v0, Lcom/bilibili/tv/api/search/BiliSearchResultUper;->mid:J
+
+    iget-object v0, v0, Lcom/bilibili/tv/api/search/BiliSearchResultUper;->uname:Ljava/lang/String;
+
+    invoke-static {v2, v4, v5, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->start(Landroid/content/Context;JLjava/lang/String;)V
+
+    goto :goto_e
+
+    .line 1268
+    :cond_8d
+    instance-of v1, v0, Lmybl/BiliLiveContent;
+
+    if-eqz v1, :cond_e
+
+    .line 1269
+    check-cast v0, Lmybl/BiliLiveContent;
+
+    .line 1270
+    new-instance v1, Ljava/util/ArrayList;
+
+    invoke-direct {v1}, Ljava/util/ArrayList;-><init>()V
+
+    sput-object v1, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->lives:Ljava/util/List;
+
+    .line 1271
+    sget-object v1, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->lives:Ljava/util/List;
+
+    invoke-interface {v1, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    .line 1272
+    const/4 v1, 0x0
+
+    sput v1, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->live_index:I
+
+    .line 1273
+    invoke-static {v2, v0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->a(Landroid/content/Context;Lmybl/BiliLiveContent;)Landroid/content/Intent;
+
+    move-result-object v0
+
+    invoke-virtual {v2, v0}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
+
+    goto/16 :goto_e
 .end method
 
 .method public setBangumis(Ljava/util/List;)V

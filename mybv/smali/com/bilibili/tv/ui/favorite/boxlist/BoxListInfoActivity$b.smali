@@ -360,26 +360,29 @@
     move-result-object v0
 
     .line 367
-    if-eqz v1, :cond_31
+    if-eqz v1, :cond_33
 
     instance-of v2, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
-    if-eqz v2, :cond_31
+    if-eqz v2, :cond_33
 
     .line 368
-    sget-object v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
-
     check-cast v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;
+
+    .line 369
+    sget-object v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
 
     iget-wide v4, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mAvid:J
 
-    invoke-virtual {v2, v1, v4, v5}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;J)Landroid/content/Intent;
+    iget-object v0, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mCover:Ljava/lang/String;
+
+    invoke-virtual {v2, v1, v4, v5, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;JLjava/lang/String;)Landroid/content/Intent;
 
     move-result-object v0
 
     invoke-virtual {v1, v0}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
 
-    .line 369
+    .line 370
     const-string v0, "tv_myfavourite_fold_video_click"
 
     const/4 v1, 0x0
@@ -388,7 +391,7 @@
 
     invoke-static {v0, v1}, Lbl/ok;->a(Ljava/lang/String;[Ljava/lang/String;)V
 
-    .line 371
-    :cond_31
+    .line 372
+    :cond_33
     return-void
 .end method

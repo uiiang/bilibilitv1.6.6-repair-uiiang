@@ -17,7 +17,8 @@
         android:layout_height="fill_parent" /> -->
 
     <!-- 渐变遮罩层，从上到下渐变，使顶部内容更清晰可见 -->
-    <View android:background="@drawable/video_detail_gradient_mask"
+    <View android:id="@id/gradient_mask"
+        android:background="@drawable/video_detail_gradient_mask"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
 

@@ -2568,6 +2568,7 @@ public final class R {
         public static final int badge = 0x7f0801d8;
         public static final int other_normal_button = 0x7f0801d9;
         public static final int other_compact_button = 0x7f0801da;
+        public static final int gradient_mask = 0x7f0801db;
     }
 
     public static final class integer {

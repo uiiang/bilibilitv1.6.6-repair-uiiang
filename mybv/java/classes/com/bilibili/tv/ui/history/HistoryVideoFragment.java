@@ -629,14 +629,15 @@ public final class HistoryVideoFragment extends ady {
                         }
                     } else {
                         String business = history.getString("business");
+                        String cover = item.getString("cover");
                         if ("pgc".equals(business)) {
                             long seasonId = item.getLongValue("kid");
-                            Log.i("HistoryVideoFragment", "PGC video: seasonId=" + seasonId);
-                            activity.startActivity(VideoDetailActivity.Companion.a(context, String.valueOf(seasonId)));
+                            Log.i("HistoryVideoFragment", "PGC video: seasonId=" + seasonId + ", cover=" + cover);
+                            activity.startActivity(VideoDetailActivity.Companion.a(context, String.valueOf(seasonId), cover));
                         } else {
                             long avid = history.getLongValue("oid");
-                            Log.i("HistoryVideoFragment", "UGC video: avid=" + avid);
-                            activity.startActivity(VideoDetailActivity.Companion.a(context, avid));
+                            Log.i("HistoryVideoFragment", "UGC video: avid=" + avid + ", cover=" + cover);
+                            activity.startActivity(VideoDetailActivity.Companion.a(context, avid, cover));
                         }
                     }
                 }

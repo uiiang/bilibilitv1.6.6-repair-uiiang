@@ -381,10 +381,10 @@
 .end method
 
 .method public onClick(Landroid/view/View;)V
-    .locals 7
+    .locals 8
 
     .prologue
-    const/4 v6, 0x0
+    const/4 v7, 0x0
 
     .line 698
     const-string v0, "v"
@@ -411,7 +411,7 @@
     .line 702
     invoke-static {v0}, Lbl/adl;->a(Landroid/content/Context;)Landroid/app/Activity;
 
-    move-result-object v1
+    move-result-object v3
 
     .line 703
     invoke-virtual {p1}, Landroid/view/View;->getTag()Ljava/lang/Object;
@@ -419,43 +419,41 @@
     move-result-object v0
 
     .line 704
-    if-nez v1, :cond_21
+    if-nez v3, :cond_21
 
-    .line 718
+    .line 734
     :cond_20
     :goto_20
     return-void
 
     .line 707
     :cond_21
-    instance-of v2, v0, Ljava/lang/String;
+    instance-of v1, v0, Ljava/lang/String;
 
-    if-eqz v2, :cond_48
+    if-eqz v1, :cond_86
 
     .line 708
     check-cast v0, Ljava/lang/String;
 
     .line 709
-    const-string v2, "bilibili_yst://video"
+    const-string v1, "bilibili_yst://video"
 
-    invoke-static {v0, v2, v6}, Lbl/bcl;->b(Ljava/lang/String;Ljava/lang/String;Z)Z
+    invoke-static {v0, v1, v7}, Lbl/bcl;->b(Ljava/lang/String;Ljava/lang/String;Z)Z
 
-    move-result v2
+    move-result v1
 
-    if-nez v2, :cond_37
+    if-nez v1, :cond_37
 
-    const-string v2, "bilibili://video"
+    const-string v1, "bilibili://video"
 
-    invoke-static {v0, v2, v6}, Lbl/bcl;->b(Ljava/lang/String;Ljava/lang/String;Z)Z
+    invoke-static {v0, v1, v7}, Lbl/bcl;->b(Ljava/lang/String;Ljava/lang/String;Z)Z
 
-    move-result v2
+    move-result v1
 
-    if-eqz v2, :cond_20
+    if-eqz v1, :cond_20
 
     .line 712
     :cond_37
-    sget-object v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
-
     invoke-static {v0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v0
@@ -464,26 +462,105 @@
 
     move-result-wide v4
 
-    invoke-virtual {v2, v1, v4, v5}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;J)Landroid/content/Intent;
+    .line 713
+    const/4 v2, 0x0
+
+    .line 714
+    const v0, 0x7f0800d8
+
+    invoke-virtual {p1, v0}, Landroid/view/View;->getTag(I)Ljava/lang/Object;
+
+    move-result-object v1
+
+    .line 715
+    iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$e;->t:Ljava/lang/ref/WeakReference;
+
+    invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
 
     move-result-object v0
 
-    invoke-virtual {v1, v0}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
+    check-cast v0, Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
-    .line 714
-    :cond_48
+    .line 716
+    instance-of v6, v1, Ljava/lang/Integer;
+
+    if-eqz v6, :cond_b0
+
+    if-eqz v0, :cond_b0
+
+    # getter for: Lcom/bilibili/tv/ui/main/content/MainHotFragment;->a:Lcom/bilibili/tv/ui/main/content/MainHotFragment$c;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->access$200(Lcom/bilibili/tv/ui/main/content/MainHotFragment;)Lcom/bilibili/tv/ui/main/content/MainHotFragment$c;
+
+    move-result-object v6
+
+    if-eqz v6, :cond_b0
+
+    .line 717
+    # getter for: Lcom/bilibili/tv/ui/main/content/MainHotFragment;->a:Lcom/bilibili/tv/ui/main/content/MainHotFragment$c;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->access$200(Lcom/bilibili/tv/ui/main/content/MainHotFragment;)Lcom/bilibili/tv/ui/main/content/MainHotFragment$c;
+
+    sget-object v6, Lcom/bilibili/tv/ui/main/content/MainHotFragment$c;->ugcList:Ljava/util/List;
+
+    .line 718
+    if-eqz v6, :cond_b0
+
+    move-object v0, v1
+
+    .line 719
+    check-cast v0, Ljava/lang/Integer;
+
+    invoke-virtual {v0}, Ljava/lang/Integer;->intValue()I
+
+    move-result v0
+
+    .line 720
+    if-ltz v0, :cond_b0
+
+    invoke-interface {v6}, Ljava/util/List;->size()I
+
+    move-result v1
+
+    if-ge v0, v1, :cond_b0
+
+    .line 721
+    invoke-interface {v6, v0}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;
+
+    .line 722
+    if-eqz v0, :cond_b0
+
+    .line 723
+    invoke-virtual {v0}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->getCover()Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 728
+    :goto_7d
+    sget-object v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
+
+    invoke-virtual {v1, v3, v4, v5, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;JLjava/lang/String;)Landroid/content/Intent;
+
+    move-result-object v0
+
+    invoke-virtual {v3, v0}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
+
+    .line 730
+    :cond_86
     const v0, 0x7f0800ec
 
     invoke-virtual {p1, v0}, Landroid/view/View;->getTag(I)Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 715
+    .line 731
     instance-of v1, v0, Ljava/lang/Integer;
 
     if-eqz v1, :cond_20
 
-    .line 716
+    .line 732
     const-string v1, "tv_home_hot_click"
 
     const/4 v2, 0x4
@@ -492,7 +569,7 @@
 
     const-string v3, "type"
 
-    aput-object v3, v2, v6
+    aput-object v3, v2, v7
 
     const/4 v3, 0x1
 
@@ -516,14 +593,19 @@
 
     invoke-static {v1, v2}, Lbl/ok;->a(Ljava/lang/String;[Ljava/lang/String;)V
 
-    goto :goto_20
+    goto/16 :goto_20
+
+    :cond_b0
+    move-object v0, v2
+
+    goto :goto_7d
 .end method
 
 .method public onFocusChange(Landroid/view/View;Z)V
     .locals 2
 
     .prologue
-    .line 722
+    .line 738
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$e;->t:Ljava/lang/ref/WeakReference;
 
     invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
@@ -532,14 +614,14 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
-    .line 723
+    .line 739
     if-nez v0, :cond_b
 
-    .line 737
+    .line 753
     :goto_a
     return-void
 
-    .line 726
+    .line 742
     :cond_b
     const v1, 0x7f0800d8
 
@@ -547,10 +629,10 @@
 
     move-result-object v1
 
-    .line 727
+    .line 743
     if-eqz v1, :cond_1d
 
-    .line 728
+    .line 744
     check-cast v1, Ljava/lang/Integer;
 
     invoke-virtual {v1}, Ljava/lang/Integer;->intValue()I
@@ -560,25 +642,25 @@
     # setter for: Lcom/bilibili/tv/ui/main/content/MainHotFragment;->c:I
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->access$402(Lcom/bilibili/tv/ui/main/content/MainHotFragment;I)I
 
-    .line 730
+    .line 746
     :cond_1d
     invoke-static {p1, p2}, Lbl/adj;->a(Landroid/view/View;Z)V
 
-    .line 731
+    .line 747
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$e;->s:Landroid/view/View;
 
     instance-of v0, v0, Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     if-eqz v0, :cond_33
 
-    .line 732
+    .line 748
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$e;->s:Landroid/view/View;
 
     check-cast v0, Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawRelativeLayout;->setUpEnabled(Z)V
 
-    .line 736
+    .line 752
     :cond_2d
     :goto_2d
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$e;->n:Landroid/widget/TextView;
@@ -587,7 +669,7 @@
 
     goto :goto_a
 
-    .line 733
+    .line 749
     :cond_33
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$e;->s:Landroid/view/View;
 
@@ -595,7 +677,7 @@
 
     if-eqz v0, :cond_2d
 
-    .line 734
+    .line 750
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$e;->s:Landroid/view/View;
 
     check-cast v0, Lcom/bilibili/tv/widget/DrawLinearLayout;

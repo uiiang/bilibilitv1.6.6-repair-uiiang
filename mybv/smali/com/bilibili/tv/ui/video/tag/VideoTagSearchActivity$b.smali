@@ -511,20 +511,23 @@
 
     if-nez v1, :cond_1d
 
-    .line 527
+    .line 528
     :cond_1c
     :goto_1c
     return-void
 
     .line 526
     :cond_1d
-    sget-object v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
-
     check-cast v0, Lcom/bilibili/tv/api/video/tag/TagVideoDetail;
+
+    .line 527
+    sget-object v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
 
     iget-wide v4, v0, Lcom/bilibili/tv/api/video/tag/TagVideoDetail;->mAvid:J
 
-    invoke-virtual {v2, v1, v4, v5}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;J)Landroid/content/Intent;
+    iget-object v0, v0, Lcom/bilibili/tv/api/video/tag/TagVideoDetail;->mCover:Ljava/lang/String;
+
+    invoke-virtual {v2, v1, v4, v5, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;JLjava/lang/String;)Landroid/content/Intent;
 
     move-result-object v0
 

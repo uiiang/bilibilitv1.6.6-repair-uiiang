@@ -523,7 +523,8 @@ public final class VideoTagSearchActivity extends BaseReloadActivity {
             if (!(tag instanceof TagVideoDetail) || a == null) {
                 return;
             }
-            a.startActivity(VideoDetailActivity.Companion.a((Context) a, ((TagVideoDetail) tag).mAvid));
+            TagVideoDetail detail = (TagVideoDetail) tag;
+            a.startActivity(VideoDetailActivity.Companion.a((Context) a, detail.mAvid, detail.mCover));
         }
     }
 

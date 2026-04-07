@@ -157,6 +157,8 @@ public final class VideoDetailActivity extends BaseActivity
     public static boolean sNoHistoryPlayMode = false;
     private long s;
     private String mSeasonId;
+    private String preloadCoverUrl;
+    private View gradientMaskView;
     private boolean mIsPgcMode = false;
     private PgcInfo mPgcInfo;
     private List<BiliVideoDetail.Page> t;
@@ -270,6 +272,14 @@ public final class VideoDetailActivity extends BaseActivity
     private final void k() {
         d dVar = new d();
         this.b = (ImageView) d(R.id.blur);
+        this.gradientMaskView = d(R.id.gradient_mask);
+        if (!TextUtils.isEmpty(preloadCoverUrl) && this.b != null) {
+            Log.i(C, "k() preload cover: " + preloadCoverUrl);
+            nv.a().a(preloadCoverUrl, this.b);
+            if (this.gradientMaskView != null) {
+                this.gradientMaskView.setVisibility(View.INVISIBLE);
+            }
+        }
         this.cc = (TextView) d(R.id.video_detail_title);
         this.uperContainer = (LinearLayout) d(R.id.video_uper_container);
         this.staffContainer = (LinearLayout) d(R.id.video_detail_staff_container);
@@ -434,7 +444,7 @@ public final class VideoDetailActivity extends BaseActivity
                     relateVideoFocusPosition = position;
                     if (data instanceof BiliVideoDetail) {
                         BiliVideoDetail detail = (BiliVideoDetail) data;
-                        VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.a(VideoDetailActivity.this, detail.mAvid));
+                        VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.a(VideoDetailActivity.this, detail.mAvid, detail.mCover));
                     }
                 }
             });
@@ -772,6 +782,7 @@ public final class VideoDetailActivity extends BaseActivity
         }
         this.mSeasonId = extras.getString(SEASON_ID_KEY);
         this.s = extras.getLong(D);
+        this.preloadCoverUrl = extras.getString("preload_cover");
         // Log.i("VideoDetailActivity", "m() mSeasonId=" + this.mSeasonId + ", s=" + this.s);
         if (!TextUtils.isEmpty(this.mSeasonId)) {
             mEntryType = EntryType.PGC_BY_SEASON_ID;
@@ -2368,6 +2379,10 @@ public final class VideoDetailActivity extends BaseActivity
                             loadingView.b();
                         }
                         
+                        if (VideoDetailActivity.this.gradientMaskView != null) {
+                            VideoDetailActivity.this.gradientMaskView.setVisibility(View.VISIBLE);
+                        }
+                        
                         VideoDetailActivity.this.a(biliVideoDetail.mCover);
                         TextView titleView = VideoDetailActivity.this.cc;
                         if (titleView != null) {
@@ -2760,7 +2775,7 @@ public final class VideoDetailActivity extends BaseActivity
                         }
                         xg.a(VideoDetailActivity.this, VideoDetailActivity.this.u, targetPage, new Bundle(), REQUEST_CODE_PLAY_VIDEO, -1);
                     } else {
-                        VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.a(VideoDetailActivity.this, detail.mAvid));
+                        VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.a(VideoDetailActivity.this, detail.mAvid, detail.mCover));
                     }
                 }
             }
@@ -2927,7 +2942,7 @@ public final class VideoDetailActivity extends BaseActivity
             public void onVideoClicked(Object data, int position) {
                 if (data instanceof PgcInfo.Season) {
                     PgcInfo.Season season = (PgcInfo.Season) data;
-                    VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.aForSeason(VideoDetailActivity.this, season.seasonId));
+                    VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.a(VideoDetailActivity.this, String.valueOf(season.seasonId), season.getBestCover()));
                 }
             }
         });
@@ -2983,7 +2998,7 @@ public final class VideoDetailActivity extends BaseActivity
             public void onVideoClicked(Object data, int position) {
                 if (data instanceof BiliVideoDetail) {
                     BiliVideoDetail detail = (BiliVideoDetail) data;
-                    VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.a(VideoDetailActivity.this, detail.mAvid));
+                    VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.a(VideoDetailActivity.this, detail.mAvid, detail.mCover));
                 }
             }
         });
@@ -4068,10 +4083,10 @@ public final class VideoDetailActivity extends BaseActivity
                         return;
                     }
                 }
-                a2.startActivity(VideoDetailActivity.Companion.a(a2, clickedVideo.mAvid));
+                a2.startActivity(VideoDetailActivity.Companion.a(a2, clickedVideo.mAvid, clickedVideo.mCover));
             } else if ((tag instanceof PgcInfo.Season) && a2 != null) {
                 PgcInfo.Season season = (PgcInfo.Season) tag;
-                a2.startActivity(VideoDetailActivity.Companion.aForSeason(a2, season.seasonId));
+                a2.startActivity(VideoDetailActivity.Companion.a(a2, String.valueOf(season.seasonId), season.getBestCover()));
             }
             ok.a("tv_video_view_click_relate", new String[0]);
         }
@@ -4377,6 +4392,9 @@ public final class VideoDetailActivity extends BaseActivity
             LoadingImageView loadingImageView3 = VideoDetailActivity.this.p;
             if (loadingImageView3 != null) {
                 loadingImageView3.b();
+            }
+            if (VideoDetailActivity.this.gradientMaskView != null) {
+                VideoDetailActivity.this.gradientMaskView.setVisibility(View.VISIBLE);
             }
             VideoDetailActivity.this.a(biliVideoDetail.mCover);
             VideoDetailActivity.this.o();
@@ -4766,7 +4784,7 @@ public final class VideoDetailActivity extends BaseActivity
                             }
                             xg.a(VideoDetailActivity.this, VideoDetailActivity.this.u, detail.sourcePage, new Bundle(), REQUEST_CODE_PLAY_VIDEO, -1);
                         } else {
-                            VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.a(VideoDetailActivity.this, detail.mAvid));
+                            VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.a(VideoDetailActivity.this, detail.mAvid, detail.mCover));
                         }
                     }
                 }
@@ -4834,7 +4852,7 @@ public final class VideoDetailActivity extends BaseActivity
                     relateVideoFocusPosition = position;
                     if (data instanceof BiliVideoDetail) {
                         BiliVideoDetail detail = (BiliVideoDetail) data;
-                        VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.a(VideoDetailActivity.this, detail.mAvid));
+                        VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.a(VideoDetailActivity.this, detail.mAvid, detail.mCover));
                     }
                 }
             });
@@ -4938,7 +4956,7 @@ public final class VideoDetailActivity extends BaseActivity
                             }
                             xg.a(VideoDetailActivity.this, VideoDetailActivity.this.u, detail.sourcePage, new Bundle(), REQUEST_CODE_PLAY_VIDEO, -1);
                         } else {
-                            VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.a(VideoDetailActivity.this, detail.mAvid));
+                            VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.a(VideoDetailActivity.this, detail.mAvid, detail.mCover));
                         }
                     }
                 }
@@ -5035,11 +5053,36 @@ public final class VideoDetailActivity extends BaseActivity
             return intent;
         }
 
+        public final Intent a(Context context, String seasonId, String coverUrl) {
+            bbi.b(context, "context");
+            bbi.b(seasonId, "seasonId");
+            Intent intent = new Intent(context, VideoDetailActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(VideoDetailActivity.SEASON_ID_KEY, seasonId);
+            if (coverUrl != null) {
+                bundle.putString("preload_cover", coverUrl);
+            }
+            intent.putExtras(bundle);
+            return intent;
+        }
+
         public final Intent aForSeason(Context context, int seasonId) {
             bbi.b(context, "context");
             Intent intent = new Intent(context, VideoDetailActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString(VideoDetailActivity.SEASON_ID_KEY, String.valueOf(seasonId));
+            intent.putExtras(bundle);
+            return intent;
+        }
+
+        public final Intent a(Context context, long avid, String coverUrl) {
+            bbi.b(context, "context");
+            Intent intent = new Intent(context, VideoDetailActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putLong(a(), avid);
+            if (coverUrl != null) {
+                bundle.putString("preload_cover", coverUrl);
+            }
             intent.putExtras(bundle);
             return intent;
         }

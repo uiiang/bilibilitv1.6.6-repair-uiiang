@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 2839
+    .line 2854
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->val$listSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -44,20 +44,20 @@
     .locals 3
 
     .prologue
-    .line 2842
+    .line 2857
     if-gez p2, :cond_3
 
-    .line 2856
+    .line 2871
     :cond_2
     :goto_2
     return-void
 
-    .line 2846
+    .line 2861
     :cond_3
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonSectionNavTagFocusPositions:Ljava/util/Map;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3400(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Ljava/util/Map;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Ljava/util/Map;
 
     move-result-object v0
 
@@ -71,29 +71,29 @@
 
     invoke-interface {v0, v1, v2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 2848
+    .line 2863
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->val$listSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->getFocusPosition()I
 
     move-result v0
 
-    .line 2850
+    .line 2865
     add-int/lit8 v1, p3, 0x9
 
-    .line 2852
+    .line 2867
     if-lt v0, p3, :cond_20
 
     if-le v0, v1, :cond_2
 
-    .line 2854
+    .line 2869
     :cond_20
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->val$listSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->scrollVideoListToPosition(Lcom/bilibili/tv/ui/video/widget/VideoListSection;I)V
-    invoke-static {v0, v1, p3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/ui/video/widget/VideoListSection;I)V
+    invoke-static {v0, v1, p3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/ui/video/widget/VideoListSection;I)V
 
     goto :goto_2
 .end method

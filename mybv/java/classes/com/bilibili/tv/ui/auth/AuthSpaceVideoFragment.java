@@ -842,7 +842,8 @@ public final class AuthSpaceVideoFragment extends ady {
         if (jo.getJSONObject("module_dynamic") != null)
           archive = jo.getJSONObject("module_dynamic").getJSONObject("major").getJSONObject("archive");
         long aid = archive.getLongValue("aid");
-        a.startActivity(com.bilibili.tv.ui.video.VideoDetailActivity.Companion.a(a, aid));
+        String cover = archive.getString("cover");
+        a.startActivity(com.bilibili.tv.ui.video.VideoDetailActivity.Companion.a(a, aid, cover));
       } else if (tag instanceof BiliSpaceVideo) {
         BiliSpaceVideo vdo = (BiliSpaceVideo) tag;
         long aid = 0;
@@ -850,7 +851,7 @@ public final class AuthSpaceVideoFragment extends ady {
           aid = Long.parseLong(vdo.param);
         } catch (Exception ignored) {
         }
-        a.startActivity(com.bilibili.tv.ui.video.VideoDetailActivity.Companion.a(a, aid));
+        a.startActivity(com.bilibili.tv.ui.video.VideoDetailActivity.Companion.a(a, aid, vdo.cover));
       }
     }
 

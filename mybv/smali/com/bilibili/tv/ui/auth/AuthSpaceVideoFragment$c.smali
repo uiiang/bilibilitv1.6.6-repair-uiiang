@@ -1065,130 +1065,137 @@
 
     invoke-static {v1}, Lbl/adl;->a(Landroid/content/Context;)Landroid/app/Activity;
 
-    move-result-object v4
+    move-result-object v1
 
     .line 837
-    if-nez v4, :cond_f
+    if-nez v1, :cond_f
 
-    .line 855
+    .line 856
     :cond_e
     :goto_e
     return-void
 
     .line 839
     :cond_f
-    instance-of v1, v0, Lcom/alibaba/fastjson/JSONObject;
+    instance-of v2, v0, Lcom/alibaba/fastjson/JSONObject;
 
-    if-eqz v1, :cond_3f
+    if-eqz v2, :cond_45
 
     .line 840
     check-cast v0, Lcom/alibaba/fastjson/JSONObject;
 
     .line 842
-    const-string v1, "module_dynamic"
+    const-string v2, "module_dynamic"
 
-    invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
+    invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
-    move-result-object v1
+    move-result-object v2
 
-    if-eqz v1, :cond_2f
+    if-eqz v2, :cond_2f
 
     .line 843
-    const-string v1, "module_dynamic"
+    const-string v2, "module_dynamic"
 
-    invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
-
-    move-result-object v0
-
-    const-string v1, "major"
-
-    invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
+    invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    const-string v1, "archive"
+    const-string v2, "major"
 
-    invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
+    invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
+
+    move-result-object v0
+
+    const-string v2, "archive"
+
+    invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
     .line 844
     :cond_2f
-    const-string v1, "aid"
+    const-string v2, "aid"
 
-    invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
+    invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
 
-    move-result-wide v0
+    move-result-wide v2
 
     .line 845
-    sget-object v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
+    const-string v4, "cover"
 
-    invoke-virtual {v2, v4, v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;J)Landroid/content/Intent;
+    invoke-virtual {v0, v4}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v0
-
-    invoke-virtual {v4, v0}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
-
-    goto :goto_e
 
     .line 846
-    :cond_3f
-    instance-of v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;
+    sget-object v4, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
 
-    if-eqz v1, :cond_e
-
-    .line 847
-    check-cast v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;
-
-    .line 848
-    const-wide/16 v2, 0x0
-
-    .line 850
-    :try_start_47
-    iget-object v0, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->param:Ljava/lang/String;
-
-    invoke-static {v0}, Ljava/lang/Long;->parseLong(Ljava/lang/String;)J
-    :try_end_4c
-    .catch Ljava/lang/Exception; {:try_start_47 .. :try_end_4c} :catch_57
-
-    move-result-wide v0
-
-    .line 853
-    :goto_4d
-    sget-object v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
-
-    invoke-virtual {v2, v4, v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;J)Landroid/content/Intent;
+    invoke-virtual {v4, v1, v2, v3, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;JLjava/lang/String;)Landroid/content/Intent;
 
     move-result-object v0
 
-    invoke-virtual {v4, v0}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
+    invoke-virtual {v1, v0}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
 
     goto :goto_e
 
+    .line 847
+    :cond_45
+    instance-of v2, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;
+
+    if-eqz v2, :cond_e
+
+    .line 848
+    check-cast v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;
+
+    .line 849
+    const-wide/16 v2, 0x0
+
     .line 851
-    :catch_57
-    move-exception v0
+    :try_start_4d
+    iget-object v4, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->param:Ljava/lang/String;
 
-    move-wide v0, v2
+    invoke-static {v4}, Ljava/lang/Long;->parseLong(Ljava/lang/String;)J
+    :try_end_52
+    .catch Ljava/lang/Exception; {:try_start_4d .. :try_end_52} :catch_5f
 
-    goto :goto_4d
+    move-result-wide v2
+
+    .line 854
+    :goto_53
+    sget-object v4, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
+
+    iget-object v0, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->cover:Ljava/lang/String;
+
+    invoke-virtual {v4, v1, v2, v3, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;JLjava/lang/String;)Landroid/content/Intent;
+
+    move-result-object v0
+
+    invoke-virtual {v1, v0}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
+
+    goto :goto_e
+
+    .line 852
+    :catch_5f
+    move-exception v4
+
+    goto :goto_53
 .end method
 
 .method public onFocusChange(Landroid/view/View;Z)V
     .locals 1
 
     .prologue
-    .line 859
+    .line 860
     instance-of v0, p1, Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     if-eqz v0, :cond_9
 
-    .line 860
+    .line 861
     check-cast p1, Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     invoke-virtual {p1, p2}, Lcom/bilibili/tv/widget/DrawRelativeLayout;->setUpEnabled(Z)V
 
-    .line 861
+    .line 862
     :cond_9
     return-void
 .end method

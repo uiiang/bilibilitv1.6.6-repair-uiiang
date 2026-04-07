@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 4557
+    .line 4575
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$5;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$5;->val$wrapper:Lcom/bilibili/tv/widget/DrawLinearLayout;
@@ -44,11 +44,11 @@
     .locals 1
 
     .prologue
-    .line 4560
+    .line 4578
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$5;->val$wrapper:Lcom/bilibili/tv/widget/DrawLinearLayout;
 
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawLinearLayout;->setUpEnabled(Z)V
 
-    .line 4561
+    .line 4579
     return-void
 .end method

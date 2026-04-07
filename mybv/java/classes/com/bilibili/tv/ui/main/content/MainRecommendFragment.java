@@ -693,7 +693,22 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                 if (parseId <= 0) {
                     return;
                 }
-                a.startActivity(VideoDetailActivity.Companion.a(a, String.valueOf(parseId)));
+                String coverUrl = null;
+                Object posTag = view.getTag(R.id.position);
+                MainRecommendFragment fragment = this.r.get();
+                if (posTag instanceof Integer && fragment != null && fragment.a != null) {
+                    List<MainRecommendEx.Content> ogvList = fragment.a.ogvList;
+                    if (ogvList != null) {
+                        int pos = (Integer) posTag;
+                        if (pos >= 0 && pos < ogvList.size()) {
+                            MainRecommendEx.Content content = ogvList.get(pos);
+                            if (content != null) {
+                                coverUrl = content.getCover();
+                            }
+                        }
+                    }
+                }
+                a.startActivity(VideoDetailActivity.Companion.a(a, String.valueOf(parseId), coverUrl));
             }
             Object tag2 = view.getTag(R.id.report_position);
             if (tag2 instanceof Integer) {
@@ -829,7 +844,23 @@ public final class MainRecommendFragment extends adu implements aez, wf {
                 if (!bcl.b(str, "bilibili_yst://video", false) && !bcl.b(str, "bilibili://video", false)) {
                     return;
                 }
-                a2.startActivity(VideoDetailActivity.Companion.a(a2, ContentUris.parseId(Uri.parse(str))));
+                long avid = ContentUris.parseId(Uri.parse(str));
+                String coverUrl = null;
+                Object posTag = view.getTag(R.id.position);
+                MainRecommendFragment fragment = this.t.get();
+                if (posTag instanceof Integer && fragment != null && fragment.a != null) {
+                    List<MainRecommendEx.Content> ugcList = fragment.a.ugcList;
+                    if (ugcList != null) {
+                        int pos = (Integer) posTag;
+                        if (pos >= 0 && pos < ugcList.size()) {
+                            MainRecommendEx.Content content = ugcList.get(pos);
+                            if (content != null) {
+                                coverUrl = content.getCover();
+                            }
+                        }
+                    }
+                }
+                a2.startActivity(VideoDetailActivity.Companion.a(a2, avid, coverUrl));
             }
             Object tag2 = view.getTag(R.id.report_position);
             if (tag2 instanceof Integer) {

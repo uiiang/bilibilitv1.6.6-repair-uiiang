@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1539
+    .line 1550
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 3
 
     .prologue
-    .line 1574
+    .line 1585
     const-string v0, "VideoDetailApi"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -63,7 +63,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1575
+    .line 1586
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     new-instance v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12$3;
@@ -72,7 +72,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->runOnUiThread(Ljava/lang/Runnable;)V
 
-    .line 1585
+    .line 1596
     return-void
 .end method
 
@@ -80,7 +80,7 @@
     .locals 4
 
     .prologue
-    .line 1542
+    .line 1553
     if-eqz p1, :cond_e
 
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo;->episodes:Ljava/util/List;
@@ -95,7 +95,7 @@
 
     if-eqz v0, :cond_19
 
-    .line 1543
+    .line 1554
     :cond_e
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
@@ -105,18 +105,18 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->runOnUiThread(Ljava/lang/Runnable;)V
 
-    .line 1570
+    .line 1581
     :goto_18
     return-void
 
-    .line 1555
+    .line 1566
     :cond_19
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->mPgcInfo:Lcom/bilibili/tv/api/video/PgcInfo;
     invoke-static {v0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1402(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/PgcInfo;)Lcom/bilibili/tv/api/video/PgcInfo;
 
-    .line 1556
+    .line 1567
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->convertPgcToBiliVideoDetail(Lcom/bilibili/tv/api/video/PgcInfo;)Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -124,7 +124,7 @@
 
     move-result-object v0
 
-    .line 1557
+    .line 1568
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iget-wide v2, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mAvid:J
@@ -132,7 +132,7 @@
     # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->s:J
     invoke-static {v1, v2, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1602(Lcom/bilibili/tv/ui/video/VideoDetailActivity;J)J
 
-    .line 1558
+    .line 1569
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     new-instance v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12$2;

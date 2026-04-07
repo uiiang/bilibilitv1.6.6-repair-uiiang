@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 4111
+    .line 4126
     new-instance v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c$a;
 
     const/4 v1, 0x0
@@ -56,32 +56,32 @@
     .locals 2
 
     .prologue
-    .line 4117
+    .line 4132
     invoke-direct {p0, p1}, Lbl/adc$a;-><init>(Landroid/view/View;)V
 
-    .line 4118
+    .line 4133
     const-string v0, "itemView"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
     move-object v0, p1
 
-    .line 4119
+    .line 4134
     check-cast v0, Landroid/widget/FrameLayout;
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;->rootView:Landroid/widget/FrameLayout;
 
-    .line 4120
+    .line 4135
     const v0, 0x7f08014c
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 4121
+    .line 4136
     if-nez v0, :cond_1e
 
-    .line 4122
+    .line 4137
     new-instance v0, Lkotlin/TypeCastException;
 
     const-string v1, "null cannot be cast to non-null type com.bilibili.tv.widget.DrawTextView"
@@ -90,20 +90,20 @@
 
     throw v0
 
-    .line 4124
+    .line 4139
     :cond_1e
     check-cast v0, Lcom/bilibili/tv/widget/DrawTextView;
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;->n:Lcom/bilibili/tv/widget/DrawTextView;
 
-    .line 4125
+    .line 4140
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;->n:Lcom/bilibili/tv/widget/DrawTextView;
 
     const v1, 0x7f0700e7
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawTextView;->setUpDrawable(I)V
 
-    .line 4126
+    .line 4141
     const v0, 0x7f0801a8
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -114,15 +114,15 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;->pageBadge:Landroid/widget/TextView;
 
-    .line 4127
+    .line 4142
     return-void
 .end method
 
-.method static synthetic access$3700(Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;)Lcom/bilibili/tv/widget/DrawTextView;
+.method static synthetic access$3800(Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;)Lcom/bilibili/tv/widget/DrawTextView;
     .locals 1
 
     .prologue
-    .line 4110
+    .line 4125
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;->n:Lcom/bilibili/tv/widget/DrawTextView;
 
     return-object v0
@@ -134,17 +134,17 @@
     .locals 4
 
     .prologue
-    .line 4156
+    .line 4171
     instance-of v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;
 
     if-eqz v0, :cond_48
 
     move-object v0, p1
 
-    .line 4157
+    .line 4172
     check-cast v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;
 
-    .line 4158
+    .line 4173
     iget-object v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->mTitle:Ljava/lang/String;
 
     invoke-static {v1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
@@ -155,18 +155,18 @@
 
     const-string v1, "\u70b9\u51fb\u64ad\u653e"
 
-    .line 4159
+    .line 4174
     :goto_11
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;->n:Lcom/bilibili/tv/widget/DrawTextView;
 
     invoke-virtual {v2, v1}, Lcom/bilibili/tv/widget/DrawTextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 4160
+    .line 4175
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;->pageBadge:Landroid/widget/TextView;
 
     if-eqz v1, :cond_34
 
-    .line 4161
+    .line 4176
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;->pageBadge:Landroid/widget/TextView;
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -191,18 +191,18 @@
 
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 4163
+    .line 4178
     :cond_34
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;->a:Landroid/view/View;
 
     invoke-virtual {v0, p1}, Landroid/view/View;->setTag(Ljava/lang/Object;)V
 
-    .line 4164
+    .line 4179
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;->a:Landroid/view/View;
 
     invoke-virtual {v0, p0}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 4165
+    .line 4180
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;->a:Landroid/view/View;
 
     new-instance v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c$1;
@@ -211,11 +211,11 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 4184
+    .line 4199
     :cond_48
     return-void
 
-    .line 4158
+    .line 4173
     :cond_49
     iget-object v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->mTitle:Ljava/lang/String;
 
@@ -226,20 +226,20 @@
     .locals 6
 
     .prologue
-    .line 4131
+    .line 4146
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 4132
+    .line 4147
     invoke-virtual {p1}, Landroid/view/View;->getTag()Ljava/lang/Object;
 
     move-result-object v2
 
-    .line 4133
+    .line 4148
     if-nez v2, :cond_13
 
-    .line 4134
+    .line 4149
     new-instance v0, Lkotlin/TypeCastException;
 
     const-string v1, "null cannot be cast to non-null type com.bilibili.tv.api.video.BiliVideoDetail.Page"
@@ -248,41 +248,41 @@
 
     throw v0
 
-    .line 4137
+    .line 4152
     :cond_13
     check-cast v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;
 
-    .line 4138
+    .line 4153
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    .line 4139
+    .line 4154
     const-string v1, "v.context"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 4140
+    .line 4155
     invoke-static {v0}, Lbl/adl;->a(Landroid/content/Context;)Landroid/app/Activity;
 
     move-result-object v0
 
-    .line 4141
+    .line 4156
     instance-of v1, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     if-nez v1, :cond_27
 
-    .line 4142
+    .line 4157
     const/4 v0, 0x0
 
-    .line 4144
+    .line 4159
     :cond_27
     check-cast v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    .line 4145
+    .line 4160
     if-eqz v0, :cond_51
 
-    .line 4146
+    .line 4161
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1100(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
@@ -299,7 +299,7 @@
 
     if-eqz v1, :cond_42
 
-    .line 4147
+    .line 4162
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1100(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
@@ -309,7 +309,7 @@
 
     invoke-static {v0, v1}, Lbl/abd;->prefetchCoverToMemoryCache(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 4149
+    .line 4164
     :cond_42
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1100(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -326,7 +326,7 @@
 
     invoke-static/range {v0 .. v5}, Lbl/xg;->a(Landroid/app/Activity;Lcom/bilibili/tv/api/video/BiliVideoDetail;Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;Landroid/os/Bundle;II)V
 
-    .line 4151
+    .line 4166
     :cond_51
     const-string v0, "tv_video_view_click_part"
 
@@ -336,6 +336,6 @@
 
     invoke-static {v0, v1}, Lbl/ok;->a(Ljava/lang/String;[Ljava/lang/String;)V
 
-    .line 4152
+    .line 4167
     return-void
 .end method

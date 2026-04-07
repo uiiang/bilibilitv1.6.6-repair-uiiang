@@ -365,7 +365,8 @@ public final class BoxListInfoActivity extends BaseReloadActivity implements wf 
             Activity a = adl.a(context);
             Object tag = view.getTag();
             if (a != null && (tag instanceof BiliVideoDetail)) {
-                a.startActivity(VideoDetailActivity.Companion.a((Context) a, ((BiliVideoDetail) tag).mAvid));
+                BiliVideoDetail detail = (BiliVideoDetail) tag;
+                a.startActivity(VideoDetailActivity.Companion.a((Context) a, detail.mAvid, detail.mCover));
                 ok.a("tv_myfavourite_fold_video_click", new String[0]);
             }
         }
