@@ -52,6 +52,8 @@ public final class yt {
         if (handler == null) {
             return;
         }
+        long ytStart = System.currentTimeMillis();
+        android.util.Log.i("PlaySpeed", "[YT_START] yt.a() start, cid=" + (yhVar != null && yhVar.a != null && yhVar.a.mVideoParams != null ? yhVar.a.mVideoParams.mResolveParams.mCid : "null"));
         this.c = context.getApplicationContext();
         this.a = new WeakReference<>(handler);
         this.b = yhVar;
@@ -108,6 +110,7 @@ public final class yt {
                 blw.a(this.f);
             }
             handler.sendEmptyMessage(10204);
+            android.util.Log.i("PlaySpeed", "[YT_RESOLVE_DONE] sending 10201, total elapsed=" + (System.currentTimeMillis() - ytStart) + "ms");
             handler.sendEmptyMessage(10201);
             handler.sendEmptyMessage(10301);
         } catch (ResolveException e) {
@@ -124,7 +127,10 @@ public final class yt {
             throw new ResolveException("MediaResource resoler is null");
         }
         try {
+            long resolveStart = System.currentTimeMillis();
+            android.util.Log.i("PlaySpeed", "[ZE_RESOLVE_START] ze.a() resolveMediaResource start");
             MediaResource a2 = this.i.a(context, playerParams, 3);
+            android.util.Log.i("PlaySpeed", "[ZE_RESOLVE_END] ze.a() done, elapsed=" + (System.currentTimeMillis() - resolveStart) + "ms, hasDash=" + (a2 != null && a2.dash != null) + ", isVaild=" + (a2 != null && a2.c()));
             if (a2 != null && a2.c()) {
                 playerParams.mVideoParams.mMediaResource = a2;
                 handler.sendEmptyMessage(IMediaPlayer.MEDIA_INFO_MEDIA_START_PREPARE);

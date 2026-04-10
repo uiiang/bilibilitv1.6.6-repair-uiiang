@@ -641,6 +641,9 @@ public class yd implements Handler.Callback, IMediaPlayer.OnCompletionListener, 
             return null;
         }
         
+        long selectStart = System.currentTimeMillis();
+        Log.i("PlaySpeed", "[YD_CDN_SELECT_START] selectBestCdnUrl(), primaryUrl=" + segment.a.substring(0, Math.min(80, segment.a.length())) + "..., backupCount=" + (segment.e != null ? segment.e.size() : 0));
+        
         List<String> allUrls = new ArrayList<>();
         allUrls.add(segment.a);
         
@@ -663,6 +666,8 @@ public class yd implements Handler.Callback, IMediaPlayer.OnCompletionListener, 
         }
         
         CdnSelector.RaceResult result = CdnSelector.selectBestUrl(this.a, VideoViewParams.currentVideoId, urlInfos);
+        
+        Log.i("PlaySpeed", "[YD_CDN_SELECT_END] selectBestCdnUrl() done, winner=" + (result != null ? result.winningCdn : "null") + ", raceTime=" + (result != null ? result.raceTime + "ms" : "null") + ", total elapsed=" + (System.currentTimeMillis() - selectStart) + "ms");
         
         if (result != null && result.winningUrl != null) {
             VideoViewParams.currentCdn = result.winningCdn;

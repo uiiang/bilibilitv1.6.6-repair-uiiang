@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 87
+    .line 91
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -44,7 +44,7 @@
     .locals 1
 
     .prologue
-    .line 87
+    .line 91
     check-cast p1, Lmybl/CdnSelector$CdnUrlInfo;
 
     check-cast p2, Lmybl/CdnSelector$CdnUrlInfo;
@@ -60,7 +60,7 @@
     .locals 2
 
     .prologue
-    .line 90
+    .line 94
     iget v0, p2, Lmybl/CdnSelector$CdnUrlInfo;->score:I
 
     iget v1, p1, Lmybl/CdnSelector$CdnUrlInfo;->score:I

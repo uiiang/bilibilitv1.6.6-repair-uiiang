@@ -2,6 +2,7 @@ package mybl;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 import java.util.*;
 import android.net.Uri;
@@ -67,9 +68,13 @@ public class VideoViewParams {
     }
 
     public static Bundle toBundleData(JSONObject dash) {
+        long toBundleStart = System.currentTimeMillis();
+        Log.i("PlaySpeed", "[TO_BUNDLE_START] toBundleData() start, video_count=" + (dash != null && dash.optJSONArray("video") != null ? dash.optJSONArray("video").length() : 0) + ", audio_count=" + (dash != null && dash.optJSONArray("audio") != null ? dash.optJSONArray("audio").length() : 0));
         Bundle bundle = new Bundle();
         
         selectedBestCdn = raceAndFindBestCdn(dash);
+        
+        Log.i("PlaySpeed", "[TO_BUNDLE_RACE_DONE] selectedBestCdn=" + selectedBestCdn + ", race elapsed=" + (System.currentTimeMillis() - toBundleStart) + "ms");
         
         JSONArray audios=dash.optJSONArray("audio");
         if(dash.optJSONObject("dolby")!=null&&dash.optJSONObject("dolby").optJSONObject("audio")!=null)audios.put(dash.optJSONObject("dolby").optJSONObject("audio"));
@@ -86,10 +91,12 @@ public class VideoViewParams {
             codecId = 13;
         }
         bundle.putBundle(IjkMediaMeta.IJKM_DASH_KEY_VIDEO_264, filterData(codecId, true, dash.optJSONArray("video")));
+        Log.i("PlaySpeed", "[TO_BUNDLE_END] toBundleData() done, total elapsed=" + (System.currentTimeMillis() - toBundleStart) + "ms, selectedCdn=" + selectedBestCdn);
         return bundle;
     }
     
     private static String raceAndFindBestCdn(JSONObject dash) {
+        long raceStart = System.currentTimeMillis();
         Map<String, String> cdnToUrl = new HashMap<>();
         Map<String, Integer> cdnScore = new HashMap<>();
         
@@ -103,7 +110,10 @@ public class VideoViewParams {
             collectAllCdns(audios, cdnToUrl, cdnScore);
         }
         
+        Log.i("PlaySpeed", "[CDN_RACE] cdnToUrl.size=" + cdnToUrl.size() + ", cdns=" + cdnToUrl.keySet());
+        
         if (cdnToUrl.isEmpty()) {
+            Log.i("PlaySpeed", "[CDN_RACE] No CDN found, using default");
             return "upos-sz-mirror08c.bilivideo.com";
         }
         
@@ -119,12 +129,15 @@ public class VideoViewParams {
         
         CdnSelector.RaceResult result = CdnSelector.selectBestUrl(appContext, currentVideoId, urlInfos);
         
+        Log.i("PlaySpeed", "[CDN_RACE_DONE] winner=" + (result != null ? result.winningCdn : "null") + ", raceTime=" + (result != null ? result.raceTime + "ms" : "null") + ", fromCache=" + (result != null ? result.fromCache : "null") + ", total elapsed=" + (System.currentTimeMillis() - raceStart) + "ms");
+        
         if (result != null && result.winningCdn != null) {
             hasCommonCdn = true;
             return result.winningCdn;
         }
         
         String bestCdn = selectCdnByScore(cdnScore);
+        Log.i("PlaySpeed", "[CDN_RACE_FALLBACK] No race winner, using bestCdnByScore=" + bestCdn);
         return bestCdn != null ? bestCdn : "upos-sz-mirror08c.bilivideo.com";
     }
     

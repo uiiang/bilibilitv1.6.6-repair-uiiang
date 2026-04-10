@@ -3,6 +3,7 @@ package bl;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.SparseArray;
 import bl.qa;
 import com.bilibili.lib.media.resolver.exception.ResolveException;
@@ -37,13 +38,17 @@ public class ql implements IMediaResolver {
 
     @Override // com.bilibili.lib.media.resolver.resolve.IMediaResolver
     public MediaResource resolveMediaResource(Context context, ResolveMediaResourceParams resolveMediaResourceParams, ps psVar, pu puVar, ResolveResourceExtra resolveResourceExtra) throws ResolveException {
+        long resolveStart = System.currentTimeMillis();
+        Log.i("PlaySpeed", "[UGC_RESOLVE_START] ql.resolveMediaResource(), cid=" + resolveMediaResourceParams.c() + ", avid=" + resolveMediaResourceParams.a());
         if (resolveMediaResourceParams == null || resolveMediaResourceParams.c() <= 0 || psVar == null) {
             throw new ResolveMediaSourceException("invalid resolve params", -1);
         }
         this.b = new qx(psVar.b(), resolveMediaResourceParams.b(), resolveMediaResourceParams.c());
         this.b.a();
         this.b.b();
-        return a(context, resolveMediaResourceParams.i(), psVar, puVar, resolveResourceExtra, false);
+        MediaResource result = a(context, resolveMediaResourceParams.i(), psVar, puVar, resolveResourceExtra, false);
+        Log.i("PlaySpeed", "[UGC_RESOLVE_END] ql.resolveMediaResource() done, elapsed=" + (System.currentTimeMillis() - resolveStart) + "ms, hasDash=" + (result != null && result.dash != null));
+        return result;
     }
 
     @Override // com.bilibili.lib.media.resolver.resolve.IMediaResolver
@@ -53,8 +58,11 @@ public class ql implements IMediaResolver {
 
     @NonNull
     private MediaResource a(Context context, ResolveMediaResourceParams resolveMediaResourceParams, ps psVar, pu puVar, ResolveResourceExtra resolveResourceExtra, boolean z) throws ResolveException {
+        long ugcApiStart = System.currentTimeMillis();
         a(resolveMediaResourceParams);
         int a2 = a(resolveMediaResourceParams, psVar);
+        
+        Log.i("PlaySpeed", "[UGC_API_REQUEST_START] cid=" + resolveMediaResourceParams.c() + ", avid=" + resolveMediaResourceParams.a() + ", qn=" + a2);
         
         qa a3 = new qa.a(qm.class).a("https://api.bilibili.com/x/player/playurl").b("").a(true)
             .b("cid", String.valueOf(resolveMediaResourceParams.c()))
@@ -79,6 +87,7 @@ public class ql implements IMediaResolver {
             .b("try_look", (puVar==null||puVar.c==null||puVar.c.isEmpty())?"1":null)
             .a(new qd()).a();
         this.b.a(a3.g());
+        Log.i("PlaySpeed", "[UGC_API_REQUEST_END] API request done, elapsed=" + (System.currentTimeMillis() - ugcApiStart) + "ms");
         
         qm qmVar = (qm) pz.a(a3);
         

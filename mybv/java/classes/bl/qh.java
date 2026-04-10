@@ -41,13 +41,17 @@ public class qh implements IMediaResolver {
 
     @Override // com.bilibili.lib.media.resolver.resolve.IMediaResolver
     public MediaResource resolveMediaResource(Context context, ResolveMediaResourceParams resolveMediaResourceParams, ps psVar, pu puVar, ResolveResourceExtra resolveResourceExtra) throws ResolveException {
+        long resolveStart = System.currentTimeMillis();
+        Log.i("PlaySpeed", "[PGC_RESOLVE_START] qh.resolveMediaResource(), cid=" + resolveMediaResourceParams.c() + ", avid=" + resolveMediaResourceParams.a());
         if (resolveMediaResourceParams == null || resolveMediaResourceParams.c() <= 0 || psVar == null) {
             throw new ResolveMediaSourceException("invalid resolve params", -1);
         }
         this.b = new qx(psVar.b(), resolveMediaResourceParams.b(), resolveMediaResourceParams.c());
         this.b.a();
         this.b.b();
-        return a(context, resolveMediaResourceParams.i(), psVar, puVar, resolveResourceExtra, false);
+        MediaResource result = a(context, resolveMediaResourceParams.i(), psVar, puVar, resolveResourceExtra, false);
+        Log.i("PlaySpeed", "[PGC_RESOLVE_END] qh.resolveMediaResource() done, elapsed=" + (System.currentTimeMillis() - resolveStart) + "ms, hasDash=" + (result != null && result.dash != null));
+        return result;
     }
 
     @Override // com.bilibili.lib.media.resolver.resolve.IMediaResolver
@@ -57,6 +61,7 @@ public class qh implements IMediaResolver {
 
     @NonNull
     private MediaResource a(Context context, ResolveMediaResourceParams resolveMediaResourceParams, ps psVar, pu puVar, ResolveResourceExtra resolveResourceExtra, boolean z) throws ResolveException {
+        long pgcApiStart = System.currentTimeMillis();
         a(resolveMediaResourceParams);
         int a2 = a(resolveMediaResourceParams, psVar);
         
@@ -69,6 +74,7 @@ public class qh implements IMediaResolver {
         Log.i("PgcPlayUrl", "cid=" + cid + ", avid=" + avid + ", epId=" + epId + ", qn=" + a2);
         Log.i("PgcPlayUrl", "access_key=" + (accessKey != null ? "exists(" + accessKey.length() + "chars)" : "null"));
         Log.i("PgcPlayUrl", "season_type=" + resolveResourceExtra.g());
+        Log.i("PlaySpeed", "[PGC_API_REQUEST_START] cid=" + cid + ", avid=" + avid + ", epId=" + epId + ", qn=" + a2);
         
         qa.a requestBuilder = new qa.a(qi.class).a("https://api.bilibili.com/pgc/player/web/playurl").b("Bilibili Freedoooooom/MarkII").a(true).b("cid", String.valueOf(resolveMediaResourceParams.c())).b("qn", String.valueOf(a2)).b("appkey", qy.a(3, "fSDRQgpusmIbrzyc")).b("otype", "json").b("platform", "android_tv_yst").b("mobi_app", psVar.d()).b("build", psVar.a()).b("buvid", psVar.b()).b("device", psVar.c()).b("type", resolveMediaResourceParams.g()).b("access_key", puVar != null ? puVar.c : null).b("mid", puVar != null ? String.valueOf(puVar.b) : null).b("expire", puVar != null ? String.valueOf(puVar.a) : null).b("npcybs", resolveMediaResourceParams.d() ? "1" : "0").b("module", resolveMediaResourceParams.b()).b("track_path", resolveResourceExtra.e()).b("model", a2 == 0 ? psVar.e() : null).b("resolution", a2 == 0 ? psVar.f() : null).b("unicom_free", resolveResourceExtra.f() ? "1" : null).b("season_type", resolveResourceExtra.g()).b("fnval", String.valueOf(0b011111010000));
         
@@ -78,6 +84,8 @@ public class qh implements IMediaResolver {
         
         qa a3 = requestBuilder.a(new qd()).a();
         this.b.a(a3.g());
+        long apiRequestTime = System.currentTimeMillis();
+        Log.i("PlaySpeed", "[PGC_API_REQUEST_END] API request done, elapsed=" + (System.currentTimeMillis() - pgcApiStart) + "ms");
         
         Log.i("PgcPlayUrl", "Response URL: " + a3.g());
         

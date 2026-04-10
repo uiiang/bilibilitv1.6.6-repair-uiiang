@@ -23,6 +23,7 @@ import com.bilibili.tv.player.widget.PlayerSeekBar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import tv.danmaku.android.log.BLog;
+import android.util.Log;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaMetadataRetriever;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
@@ -305,6 +306,7 @@ public class xi extends xh implements bbb<Message, Boolean> {
                 }
                 break;
             case 10201:
+                Log.i("PlaySpeed", "[XI_10201] RESOLVE_PREPARED received, calling c(message)");
                 c(message);
                 break;
             case 10202:
@@ -681,6 +683,7 @@ public class xi extends xh implements bbb<Message, Boolean> {
 
     @Override // bl.xh, tv.danmaku.ijk.media.player.IMediaPlayer.OnPreparedListener
     public void onPrepared(IMediaPlayer iMediaPlayer) {
+        Log.i("PlaySpeed", "[XI_ON_PREPARED] onPrepared() called, video ready to play");
         mybl.VideoViewParams.reportPlaybackSuccess();
         
         if (n() != null) {

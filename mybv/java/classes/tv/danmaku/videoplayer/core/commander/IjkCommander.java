@@ -40,6 +40,7 @@ class IjkCommander extends AbsPlayerCommander {
 
     @Override // tv.danmaku.videoplayer.core.commander.AbsPlayerCommander, tv.danmaku.videoplayer.core.commander.IPlayerCommander
     public void openVideo(Context context, IVideoParams iVideoParams, Uri uri) throws IOException {
+        long openStart = System.currentTimeMillis();
         String applyUriHookForIjkPlayer;
         BLog.i(TAG, "preparing video -> " + uri + ", with " + this.mMediaPlayer);
         if (logEnabled(context)) {
@@ -89,6 +90,7 @@ class IjkCommander extends AbsPlayerCommander {
             
             if(hasDash){
                 Log.i(TAG, "[openVideo] DASH stream detected, video count=" + videoViewParams.mMediaResource.dash.optJSONArray("video").length());
+                Log.i("PlaySpeed", "[IJK_DASH_START] openVideo DASH, video_count=" + videoViewParams.mMediaResource.dash.optJSONArray("video").length() + ", quality=" + videoViewParams.mMediaResource.quality);
                 if(videoViewParams.mMediaResource.dash.optJSONArray("video").optJSONObject(0).optString("base_url").indexOf("platform=pc")>=0){this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "headers", "Referer: https://www.bilibili.com\r\n");}
                 this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "user_agent", "Bilibili Freedoooooom/MarkII");
                 this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec-all-videos", 1);
@@ -109,9 +111,14 @@ class IjkCommander extends AbsPlayerCommander {
                 }
 
                 this.mIjkMediaPlayer.setDataSource("ijkdash");
-                this.mIjkMediaPlayer.setDashDataSource(VideoViewParams.toBundleData(videoViewParams.mMediaResource.dash),-1,videoViewParams.mMediaResource.quality);
+                long toBundleStart = System.currentTimeMillis();
+                Bundle dashBundle = VideoViewParams.toBundleData(videoViewParams.mMediaResource.dash);
+                Log.i("PlaySpeed", "[IJK_DASH_TOBUNDLE] toBundleData() done, elapsed=" + (System.currentTimeMillis() - toBundleStart) + "ms");
+                this.mIjkMediaPlayer.setDashDataSource(dashBundle,-1,videoViewParams.mMediaResource.quality);
+                Log.i("PlaySpeed", "[IJK_DASH_SET] setDashDataSource() done, elapsed from openStart=" + (System.currentTimeMillis() - openStart) + "ms");
             }
             else{
+                Log.i("PlaySpeed", "[IJK_NON_DASH] openVideo non-DASH, url=" + applyUriHookForIjkPlayer + ", elapsed from openStart=" + (System.currentTimeMillis() - openStart) + "ms");
                 Log.i(TAG, "[openVideo] Non-DASH stream, url=" + applyUriHookForIjkPlayer);
                 this.mIjkMediaPlayer.setDataSource(applyUriHookForIjkPlayer);
             }

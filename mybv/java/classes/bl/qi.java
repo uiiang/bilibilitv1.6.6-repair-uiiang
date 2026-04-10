@@ -29,8 +29,11 @@ public class qi extends py {
         int a;
         int i2 = i;
         JSONObject jSONObject2 = new JSONObject();
+        long qiStart = System.currentTimeMillis();
+        Log.i("PlaySpeed", "[QI_PARSE_START] qi.a() start, cid=" + resolveMediaResourceParams.c());
         try {
             if (a()) {
+                long parseStart = System.currentTimeMillis();
                 String responseStr = new String(this.b);
                 Log.i("PgcPlayUrl", "========== PGC PlayUrl Response ==========");
                 Log.i("PgcPlayUrl", "Response length: " + responseStr.length());
@@ -66,6 +69,7 @@ public class qi extends py {
                 JSONArray optJSONArray2 = dashObj != null ? dashObj.optJSONArray("video") : null;
                 Log.i("PgcPlayUrl", "dash object=" + (dashObj != null ? "exists" : "null"));
                 Log.i("PgcPlayUrl", "dash.video=" + (optJSONArray2 != null ? optJSONArray2.length() + " items" : "null"));
+                Log.i("PlaySpeed", "[QI_PARSE] dash=" + (dashObj != null ? "YES" : "NO") + ", parseResponse elapsed=" + (System.currentTimeMillis() - parseStart) + "ms");
                 
                 JSONArray optJSONArray3 = jSONObject3.optJSONArray("accept_description");
                 boolean optBoolean = jSONObject3.optBoolean("video_project", false);
@@ -174,12 +178,14 @@ public class qi extends py {
                         jSONObject2.put("dash", jSONObject3.optJSONObject("dash"));
                         jSONObject2.put("quality", optInt4);
 
+                        Log.i("PlaySpeed", "[QI_PARSE_DASH] DASH MediaResource built, elapsed=" + (System.currentTimeMillis() - qiStart) + "ms");
                         return a(jSONObject2);
                     }
                     
                     JSONArray durlArray = jSONObject3.optJSONArray("durl");
                     if (durlArray != null && durlArray.length() > 0) {
                         Log.i("PgcPlayUrl", "dash is null, trying durl fallback");
+                        Log.i("PlaySpeed", "[QI_PARSE_DURL] DURL fallback, elapsed=" + (System.currentTimeMillis() - qiStart) + "ms");
                         Log.i("PgcPlayUrl", "durlArray length=" + durlArray.length());
                         
                         JSONObject durlObj = durlArray.optJSONObject(0);
@@ -209,6 +215,8 @@ public class qi extends py {
                         JSONArray sortedBackupUrls = null;
                         
                         if (allDurlUrls.size() > 1) {
+                            long durlRaceStart = System.currentTimeMillis();
+                            Log.i("PlaySpeed", "[QI_DURL_RACE_START] CDN racing for durl, urls=" + allDurlUrls.size());
                             java.util.List<mybl.CdnSelector.CdnUrlInfo> cdnInfos = new java.util.ArrayList<>();
                             for (String url : allDurlUrls) {
                                 String cdnHost = android.net.Uri.parse(url).getHost();
@@ -222,6 +230,7 @@ public class qi extends py {
                                 String.valueOf(resolveMediaResourceParams.c()), 
                                 cdnInfos
                             );
+                            Log.i("PlaySpeed", "[QI_DURL_RACE_END] CDN race done, winner=" + (raceResult != null ? raceResult.winningCdn : "null") + ", raceTime=" + (raceResult != null ? raceResult.raceTime + "ms" : "null") + ", elapsed=" + (System.currentTimeMillis() - durlRaceStart) + "ms");
                             
                             if (raceResult != null && raceResult.winningCdn != null) {
                                 Log.i("PgcPlayUrl", "Race winner: " + raceResult.winningCdn);

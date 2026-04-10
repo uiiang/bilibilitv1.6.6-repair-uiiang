@@ -2155,7 +2155,7 @@ public final class VideoDetailActivity extends BaseActivity
 
     private final void playVideo(BiliVideoDetail biliVideoDetail, long cid, int progress) {
         long startTime = System.currentTimeMillis();
-        // Log.d("UI_TRANSITION", "[1_PLAY_CLICK] playVideo() called, cid=" + cid + ", progress=" + progress + ", time=" + startTime);
+        Log.i("PlaySpeed", "[1_PLAY_CLICK] playVideo() called, cid=" + cid + ", progress=" + progress + ", isPgcMode=" + mIsPgcMode + ", entryType=" + mEntryType);
         if (biliVideoDetail == null) {
             return;
         }
@@ -2173,9 +2173,9 @@ public final class VideoDetailActivity extends BaseActivity
         }
         if (targetPage != null) {
             abd.prefetchCoverToMemoryCache(this, biliVideoDetail.mCover);
-            // Log.d("UI_TRANSITION", "[2_BEFORE_XG_A] calling xg.a(), elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
+            Log.i("PlaySpeed", "[2_BEFORE_XG_A] calling xg.a(), page.mFrom=" + targetPage.mFrom + ", page.mEpisodeId=" + targetPage.mEpisodeId + ", mBangumiInfo=" + (biliVideoDetail.mBangumiInfo != null ? "seasonId=" + biliVideoDetail.mBangumiInfo.mSeasonId : "null") + ", elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
             xg.a(this, biliVideoDetail, targetPage, new Bundle(), REQUEST_CODE_PLAY_VIDEO, progress);
-            // Log.d("UI_TRANSITION", "[3_AFTER_XG_A] xg.a() returned, elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
+            Log.i("PlaySpeed", "[3_AFTER_XG_A] xg.a() returned, elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
         }
     }
 

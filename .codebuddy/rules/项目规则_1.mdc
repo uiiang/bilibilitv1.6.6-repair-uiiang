@@ -28,6 +28,7 @@ provider:
 ```bash
 bash ./build.sh -p uii.ang.bilitv
 ```
+本项目编译时间较长，请耐心等待
 
 ### 日志规范
 - 使用 `Log.i()` 或 `LogUtil.i()`，禁用 `BLog`

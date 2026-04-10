@@ -323,11 +323,12 @@ public class xg {
 
     public static void b(Activity activity, BiliVideoDetail biliVideoDetail, BiliVideoDetail.Page page, Bundle bundle, int i, int requestCode, int progress) {
         long startTime = System.currentTimeMillis();
-        Log.d("UI_TRANSITION", "[4_XG_B_START] b() method started, cid=" + page.mCid + ", time=" + startTime);
+        Log.i("PlaySpeed", "[4_XG_B_START] b() method started, cid=" + page.mCid + ", mFrom=" + page.mFrom + ", mEpisodeId=" + page.mEpisodeId + ", progress=" + progress);
         Log.d("CoverDebug", "========== xg.b() Cover Info ==========");
         Log.d("CoverDebug", "biliVideoDetail.mCover = " + biliVideoDetail.mCover);
         PlayerParams a = aaj.a(activity);
         Log.d("UI_TRANSITION", "[5_AFTER_AAJ] aaj.a() returned, elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
+        Log.i("PlaySpeed", "[5_AFTER_AAJ] aaj.a() returned, elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
         yr.a(a, biliVideoDetail.mCover);
         Log.d("CoverDebug", "After yr.a(), cover stored in PlayerParams");
         yr.c(a, biliVideoDetail.getAuthor());
@@ -368,6 +369,7 @@ public class xg {
             yr.b(a, page.mTitle);
         }
         Log.d("UI_TRANSITION", "[6_BEFORE_PAGELIST] checking pageList, elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
+        Log.i("PlaySpeed", "[6_BEFORE_PAGELIST] pageList=" + (biliVideoDetail.mPageList != null ? "size=" + biliVideoDetail.mPageList.size() : "null") + ", mFrom=" + page.mFrom + ", mEpisodeId=" + page.mEpisodeId + ", mBangumiInfo=" + (biliVideoDetail.mBangumiInfo != null ? "seasonId=" + biliVideoDetail.mBangumiInfo.mSeasonId : "null") + ", elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
         Log.i("xg", "b(Activity) | mPageList=" + (biliVideoDetail.mPageList != null ? "size=" + biliVideoDetail.mPageList.size() : "null") + " | page.mFrom=" + page.mFrom + " | page.mEpisodeId=" + page.mEpisodeId);
 
         if (biliVideoDetail.mPageList != null && biliVideoDetail.mPageList.size() > 1) {
@@ -533,6 +535,7 @@ public class xg {
     public static void a(Activity activity, PlayerParams playerParams, Bundle bundle, int requestCode) {
         long startTime = System.currentTimeMillis();
         Log.d("UI_TRANSITION", "[7_A_METHOD_START] a(Activity,PlayerParams,Bundle,int) started, time=" + startTime);
+        Log.i("PlaySpeed", "[7_A_METHOD_START] starting PlayerActivity, resolveParams: cid=" + (playerParams.mVideoParams != null && playerParams.mVideoParams.mResolveParams != null ? playerParams.mVideoParams.mResolveParams.mCid : "null") + ", seasonId=" + (playerParams.mVideoParams != null && playerParams.mVideoParams.mResolveParams != null ? playerParams.mVideoParams.mResolveParams.mSeasonId : "null") + ", episodeId=" + (playerParams.mVideoParams != null && playerParams.mVideoParams.mResolveParams != null ? playerParams.mVideoParams.mResolveParams.mEpisodeId : "null"));
         if (playerParams.mVideoParams.mResolveParamsArray == null) {
             playerParams.mVideoParams.mResolveParamsArray = playerParams.mVideoParams.obtainResolveParamsArray(1);
             playerParams.mVideoParams.mResolveParamsArray[0] = playerParams.mVideoParams.obtainResolveParams();

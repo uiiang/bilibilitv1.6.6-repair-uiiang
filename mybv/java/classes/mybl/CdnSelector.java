@@ -73,6 +73,7 @@ public class CdnSelector {
     
     public static RaceResult selectBestUrl(Context context, String videoId, List<CdnUrlInfo> urlInfos) {
         if (urlInfos == null || urlInfos.isEmpty()) {
+            Log.i(TAG, "selectBestUrl: urlInfos is empty, returning null");
             return null;
         }
         
@@ -80,8 +81,11 @@ public class CdnSelector {
             init(context);
         }
         
+        Log.i(TAG, "selectBestUrl: videoId=" + videoId + ", urlCount=" + urlInfos.size());
+        
         for (CdnUrlInfo info : urlInfos) {
             info.score = getCdnScore(info.cdnHost);
+            Log.i(TAG, "selectBestUrl: cdn=" + info.cdnHost + ", score=" + info.score);
         }
         
         Collections.sort(urlInfos, new Comparator<CdnUrlInfo>() {
@@ -135,6 +139,7 @@ public class CdnSelector {
     }
     
     private static RaceResult testUrl(CdnUrlInfo info) {
+        long testStart = System.currentTimeMillis();
         HttpURLConnection conn = null;
         InputStream is = null;
         try {
@@ -146,6 +151,8 @@ public class CdnSelector {
             conn.setRequestProperty("User-Agent", "Bilibili Freedoooooom/MarkII");
             
             int responseCode = conn.getResponseCode();
+            long connectTime = System.currentTimeMillis() - testStart;
+            Log.i(TAG, "testUrl: cdn=" + info.cdnHost + ", responseCode=" + responseCode + ", connectTime=" + connectTime + "ms");
             if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_PARTIAL) {
                 is = conn.getInputStream();
                 byte[] buffer = new byte[TEST_BYTES];
@@ -155,11 +162,15 @@ public class CdnSelector {
                     totalRead += read;
                 }
                 
+                long totalTime = System.currentTimeMillis() - testStart;
+                Log.i(TAG, "testUrl: cdn=" + info.cdnHost + ", read=" + totalRead + " bytes, totalTime=" + totalTime + "ms, cancelled=" + raceCancelled);
                 if (totalRead > 0 && !raceCancelled) {
                     return new RaceResult(info.url, info.cdnHost, 0, false);
                 }
             }
         } catch (Exception e) {
+            long failTime = System.currentTimeMillis() - testStart;
+            Log.i(TAG, "testUrl: cdn=" + info.cdnHost + ", FAILED in " + failTime + "ms, error=" + e.getMessage());
         } finally {
             if (is != null) try { is.close(); } catch (Exception e) {}
             if (conn != null) try { conn.disconnect(); } catch (Exception e) {}
