@@ -27,7 +27,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="bottom"
       android:orientation="horizontal"
-      android:background="@color/black_50"
+      android:background="@drawable/video_info_bottom_round_bg"
       android:paddingLeft="@dimen/px_6"
       android:paddingRight="@dimen/px_6"
       android:paddingTop="@dimen/px_2"

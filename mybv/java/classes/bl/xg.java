@@ -47,6 +47,18 @@ public class xg {
         obtainResolveParams.mFrom = bangumiEpisodeEx.from;
         obtainResolveParams.mRawVid = bangumiEpisodeEx.vid;
         obtainResolveParams.mEpCover = bangumiEpisodeEx.cover;
+        
+        String vtText = getVtText(bangumiEpisodeEx);
+        obtainResolveParams.mAuthor = vtText;
+        obtainResolveParams.mHideUpIcon = !TextUtils.isEmpty(vtText);
+        obtainResolveParams.mListType = 1;
+        if (bangumiEpisodeEx.stat != null) {
+            obtainResolveParams.mPlays = String.valueOf(bangumiEpisodeEx.stat.play);
+            obtainResolveParams.mDanmakus = String.valueOf(bangumiEpisodeEx.stat.danmakus);
+        }
+        if (bangumiEpisodeEx.badge != null && !bangumiEpisodeEx.badge.isEmpty()) {
+            obtainResolveParams.mBadgeText = bangumiEpisodeEx.badge;
+        }
 
         if(bangumiEpisodeEx.progress!=null && bangumiEpisodeEx.progress.lastEpId==obtainResolveParams.mEpisodeId)obtainResolveParams.mProgress=(int)bangumiEpisodeEx.progress.lastEpProgress;
 
@@ -71,8 +83,20 @@ public class xg {
                     resolveResourceParams.mCid = bangumiEpisodeEx2.cid;
                     resolveResourceParams.mPage = i3;
                     resolveResourceParams.mFrom = bangumiEpisodeEx.from;
-                    resolveResourceParams.mRawVid = bangumiEpisodeEx.vid;
-                    resolveResourceParams.mEpCover = bangumiEpisodeEx.cover;
+                    resolveResourceParams.mRawVid = bangumiEpisodeEx2.vid;
+                    resolveResourceParams.mEpCover = bangumiEpisodeEx2.cover;
+                    
+                    String vtText2 = getVtText(bangumiEpisodeEx2);
+                    resolveResourceParams.mAuthor = vtText2;
+                    resolveResourceParams.mHideUpIcon = !TextUtils.isEmpty(vtText2);
+                    resolveResourceParams.mListType = 1;
+                    if (bangumiEpisodeEx2.stat != null) {
+                        resolveResourceParams.mPlays = String.valueOf(bangumiEpisodeEx2.stat.play);
+                        resolveResourceParams.mDanmakus = String.valueOf(bangumiEpisodeEx2.stat.danmakus);
+                    }
+                    if (bangumiEpisodeEx2.badge != null && !bangumiEpisodeEx2.badge.isEmpty()) {
+                        resolveResourceParams.mBadgeText = bangumiEpisodeEx2.badge;
+                    }
                     resolveResourceParams.mExpectedQuality = obtainResolveParams.mExpectedQuality;
                     resolveResourceParams.mNoHistoryPlay = VideoDetailActivity.sNoHistoryPlayMode;
                     obtainResolveParamsArray[i3] = resolveResourceParams;
@@ -114,6 +138,7 @@ public class xg {
         obtainResolveParams.mWeb = page.mWebLink;
         obtainResolveParams.mHasAlias = page.mHasAlias;
         obtainResolveParams.mTid = biliVideoDetail.mTid;
+        obtainResolveParams.mDuration = page.duration;
 
         if (page.mBvid != null && !page.mBvid.isEmpty()) {
             obtainResolveParams.mBvid = page.mBvid;
@@ -130,15 +155,20 @@ public class xg {
         if (page.mEpisodeId > 0) {
             obtainResolveParams.mEpisodeId = page.mEpisodeId;
             obtainResolveParams.mSeasonId = page.mSeasonId;
-            obtainResolveParams.mEpCover = page.mEpCover;
+            obtainResolveParams.mEpCover = page.cover != null ? page.cover : page.mEpCover;
         }
         if (TextUtils.isEmpty(yr.a(a))) {
             yr.b(a, page.mTitle);
         }
 
         if (biliVideoDetail.mPageList != null && biliVideoDetail.mPageList.size() > 1) {
+            boolean isPgc = "bangumi".equals(page.mFrom) || "movie".equals(page.mFrom);
+            int pageListType = isPgc ? 1 : 2;
+            Log.i("xg", "mPageList分支 | isPgc=" + isPgc + " | page.mFrom=" + page.mFrom + " | pageListType=" + pageListType);
             int size = biliVideoDetail.mPageList.size();
             ResolveResourceParams[] obtainResolveParamsArray = a.mVideoParams.obtainResolveParamsArray(size);
+            String videoCover = biliVideoDetail.mCover;
+            long videoPubDate = biliVideoDetail.mCreatedTimestamp;
             for (int i3 = 0; i3 < size; i3++) {
                 BiliVideoDetail.Page page2 = biliVideoDetail.mPageList.get(i3);
                 ResolveResourceParams resolveResourceParams = new ResolveResourceParams();
@@ -155,7 +185,25 @@ public class xg {
                 resolveResourceParams.mPageTitle = page2.mTitle;
                 resolveResourceParams.mSeasonId = obtainResolveParams.mSeasonId;
                 resolveResourceParams.mEpisodeId = page2.mEpisodeId;
-                resolveResourceParams.mEpCover = page2.mEpCover;
+                String epCover = page2.firstFrame != null ? page2.firstFrame 
+                    : (page2.cover != null ? page2.cover 
+                    : (page2.mEpCover != null ? page2.mEpCover : videoCover));
+                resolveResourceParams.mEpCover = epCover;
+                resolveResourceParams.mDuration = page2.duration;
+                resolveResourceParams.mPubDate = page2.pubTime > 0 ? page2.pubTime : (page2.ctime > 0 ? page2.ctime : videoPubDate);
+                resolveResourceParams.mAuthor = page2.subtitle;
+                resolveResourceParams.mHideUpIcon = !TextUtils.isEmpty(page2.subtitle);
+                resolveResourceParams.mListType = pageListType;
+                if (page2.plays > 0) {
+                    resolveResourceParams.mPlays = String.valueOf(page2.plays);
+                }
+                if (page2.danmakus > 0) {
+                    resolveResourceParams.mDanmakus = String.valueOf(page2.danmakus);
+                }
+                if (page2.badgeText != null && !page2.badgeText.isEmpty()) {
+                    resolveResourceParams.mBadgeText = page2.badgeText;
+                    resolveResourceParams.mBadgeBgColor = page2.badgeBgColor;
+                }
                 if (page2.mBvid != null && !page2.mBvid.isEmpty()) {
                     resolveResourceParams.mBvid = page2.mBvid;
                 } else {
@@ -200,6 +248,29 @@ public class xg {
                 long episodeCid = episode.getLongValue("cid");
                 if (episodeCid == obtainResolveParams.mCid) {
                     a.mVideoParams.mResolveParams.mPage = i3;
+                    a.mVideoParams.mResolveParams.mListType = 3;
+                    JSONObject arc = episode.getJSONObject("arc");
+                    if (arc != null) {
+                        if (a.mVideoParams.mResolveParams.mEpCover == null || a.mVideoParams.mResolveParams.mEpCover.isEmpty()) {
+                            a.mVideoParams.mResolveParams.mEpCover = arc.getString("pic");
+                        }
+                        JSONObject author = arc.getJSONObject("author");
+                        if (author != null && (a.mVideoParams.mResolveParams.mAuthor == null || a.mVideoParams.mResolveParams.mAuthor.isEmpty())) {
+                            a.mVideoParams.mResolveParams.mAuthor = author.getString("name");
+                        }
+                        JSONObject stat = arc.getJSONObject("stat");
+                        if (stat != null) {
+                            if (a.mVideoParams.mResolveParams.mPlays == null || a.mVideoParams.mResolveParams.mPlays.isEmpty()) {
+                                a.mVideoParams.mResolveParams.mPlays = String.valueOf(stat.getIntValue("view"));
+                            }
+                            if (a.mVideoParams.mResolveParams.mDanmakus == null || a.mVideoParams.mResolveParams.mDanmakus.isEmpty()) {
+                                a.mVideoParams.mResolveParams.mDanmakus = String.valueOf(stat.getIntValue("danmaku"));
+                            }
+                        }
+                        if (a.mVideoParams.mResolveParams.mPubDate == 0) {
+                            a.mVideoParams.mResolveParams.mPubDate = arc.getLongValue("pubdate");
+                        }
+                    }
                     obtainResolveParamsArray[i3] = a.mVideoParams.mResolveParams;
                 } else {
                     ResolveResourceParams resolveResourceParams = new ResolveResourceParams();
@@ -211,7 +282,30 @@ public class xg {
                     resolveResourceParams.mCid = episodeCid;
                     resolveResourceParams.mWeb = episode.getJSONObject("page").getString("weblink");
                     resolveResourceParams.mPageTitle = episode.getString("title");
+                    resolveResourceParams.mDuration = episode.getJSONObject("page").getIntValue("duration");
                     resolveResourceParams.mSeasonId = obtainResolveParams.mSeasonId;
+                    JSONObject arc = episode.getJSONObject("arc");
+                    if (arc != null) {
+                        resolveResourceParams.mEpCover = arc.getString("pic");
+                        JSONObject author = arc.getJSONObject("author");
+                        Log.i("xg", "UGC合集转换 | cid=" + episodeCid + " | arc.author=" + (author != null ? author.toJSONString() : "null"));
+                        if (author != null) {
+                            resolveResourceParams.mAuthor = author.getString("name");
+                        }
+                        JSONObject stat = arc.getJSONObject("stat");
+                        if (stat != null) {
+                            resolveResourceParams.mPlays = String.valueOf(stat.getIntValue("view"));
+                            resolveResourceParams.mDanmakus = String.valueOf(stat.getIntValue("danmaku"));
+                        }
+                        resolveResourceParams.mPubDate = arc.getLongValue("pubdate");
+                    }
+                    Log.i("xg", "UGC合集转换 | mAuthor=" + resolveResourceParams.mAuthor + " | mListType=" + resolveResourceParams.mListType);
+                    JSONObject badgeInfo = episode.getJSONObject("badge_info");
+                    if (badgeInfo != null) {
+                        resolveResourceParams.mBadgeText = badgeInfo.getString("text");
+                        resolveResourceParams.mBadgeBgColor = badgeInfo.getString("bg_color");
+                    }
+                    resolveResourceParams.mListType = 3;
                     if (i > 0) {
                         resolveResourceParams.mExpectedQuality = i;
                     } else {
@@ -253,6 +347,7 @@ public class xg {
         obtainResolveParams.mWeb = page.mWebLink;
         obtainResolveParams.mHasAlias = page.mHasAlias;
         obtainResolveParams.mTid = biliVideoDetail.mTid;
+        obtainResolveParams.mDuration = page.duration;
 
         obtainResolveParams.mBvid = biliVideoDetail.mBvid;
         obtainResolveParams.mProgress = progress;
@@ -267,16 +362,22 @@ public class xg {
         if (page.mEpisodeId > 0) {
             obtainResolveParams.mEpisodeId = page.mEpisodeId;
             obtainResolveParams.mSeasonId = page.mSeasonId;
-            obtainResolveParams.mEpCover = page.mEpCover;
+            obtainResolveParams.mEpCover = page.cover != null ? page.cover : page.mEpCover;
         }
         if (TextUtils.isEmpty(yr.a(a))) {
             yr.b(a, page.mTitle);
         }
         Log.d("UI_TRANSITION", "[6_BEFORE_PAGELIST] checking pageList, elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
+        Log.i("xg", "b(Activity) | mPageList=" + (biliVideoDetail.mPageList != null ? "size=" + biliVideoDetail.mPageList.size() : "null") + " | page.mFrom=" + page.mFrom + " | page.mEpisodeId=" + page.mEpisodeId);
 
         if (biliVideoDetail.mPageList != null && biliVideoDetail.mPageList.size() > 1) {
+            boolean isPgc = "bangumi".equals(page.mFrom) || "movie".equals(page.mFrom);
+            int pageListType = isPgc ? 1 : 2;
+            Log.i("xg", "b(Activity) mPageList分支 | isPgc=" + isPgc + " | page.mFrom=" + page.mFrom + " | pageListType=" + pageListType);
             int size = biliVideoDetail.mPageList.size();
             ResolveResourceParams[] obtainResolveParamsArray = a.mVideoParams.obtainResolveParamsArray(size);
+            String videoCover = biliVideoDetail.mCover;
+            long videoPubDate = biliVideoDetail.mCreatedTimestamp;
             for (int i3 = 0; i3 < size; i3++) {
                 BiliVideoDetail.Page page2 = biliVideoDetail.mPageList.get(i3);
                 ResolveResourceParams resolveResourceParams = new ResolveResourceParams();
@@ -293,7 +394,24 @@ public class xg {
                 resolveResourceParams.mPageTitle = page2.mTitle;
                 resolveResourceParams.mSeasonId = obtainResolveParams.mSeasonId;
                 resolveResourceParams.mEpisodeId = page2.mEpisodeId;
-                resolveResourceParams.mEpCover = page2.mEpCover;
+                resolveResourceParams.mEpCover = page2.firstFrame != null ? page2.firstFrame 
+                    : (page2.cover != null ? page2.cover 
+                    : (page2.mEpCover != null ? page2.mEpCover : videoCover));
+                resolveResourceParams.mDuration = page2.duration;
+                resolveResourceParams.mPubDate = page2.pubTime > 0 ? page2.pubTime : (page2.ctime > 0 ? page2.ctime : videoPubDate);
+                resolveResourceParams.mAuthor = page2.subtitle;
+                resolveResourceParams.mHideUpIcon = !TextUtils.isEmpty(page2.subtitle);
+                resolveResourceParams.mListType = pageListType;
+                if (page2.plays > 0) {
+                    resolveResourceParams.mPlays = String.valueOf(page2.plays);
+                }
+                if (page2.danmakus > 0) {
+                    resolveResourceParams.mDanmakus = String.valueOf(page2.danmakus);
+                }
+                if (page2.badgeText != null && !page2.badgeText.isEmpty()) {
+                    resolveResourceParams.mBadgeText = page2.badgeText;
+                    resolveResourceParams.mBadgeBgColor = page2.badgeBgColor;
+                }
                 if (i > 0) {
                     resolveResourceParams.mExpectedQuality = i;
                 } else {
@@ -333,6 +451,29 @@ public class xg {
                 long episodeCid = episode.getLongValue("cid");
                 if (episodeCid == obtainResolveParams.mCid) {
                     a.mVideoParams.mResolveParams.mPage = i3;
+                    a.mVideoParams.mResolveParams.mListType = 3;
+                    JSONObject arc = episode.getJSONObject("arc");
+                    if (arc != null) {
+                        if (a.mVideoParams.mResolveParams.mEpCover == null || a.mVideoParams.mResolveParams.mEpCover.isEmpty()) {
+                            a.mVideoParams.mResolveParams.mEpCover = arc.getString("pic");
+                        }
+                        JSONObject author = arc.getJSONObject("author");
+                        if (author != null && (a.mVideoParams.mResolveParams.mAuthor == null || a.mVideoParams.mResolveParams.mAuthor.isEmpty())) {
+                            a.mVideoParams.mResolveParams.mAuthor = author.getString("name");
+                        }
+                        JSONObject stat = arc.getJSONObject("stat");
+                        if (stat != null) {
+                            if (a.mVideoParams.mResolveParams.mPlays == null || a.mVideoParams.mResolveParams.mPlays.isEmpty()) {
+                                a.mVideoParams.mResolveParams.mPlays = String.valueOf(stat.getIntValue("view"));
+                            }
+                            if (a.mVideoParams.mResolveParams.mDanmakus == null || a.mVideoParams.mResolveParams.mDanmakus.isEmpty()) {
+                                a.mVideoParams.mResolveParams.mDanmakus = String.valueOf(stat.getIntValue("danmaku"));
+                            }
+                        }
+                        if (a.mVideoParams.mResolveParams.mPubDate == 0) {
+                            a.mVideoParams.mResolveParams.mPubDate = arc.getLongValue("pubdate");
+                        }
+                    }
                     obtainResolveParamsArray[i3] = a.mVideoParams.mResolveParams;
                 } else {
                     ResolveResourceParams resolveResourceParams = new ResolveResourceParams();
@@ -344,7 +485,28 @@ public class xg {
                     resolveResourceParams.mCid = episodeCid;
                     resolveResourceParams.mWeb = episode.getJSONObject("page").getString("weblink");
                     resolveResourceParams.mPageTitle = episode.getString("title");
+                    resolveResourceParams.mDuration = episode.getJSONObject("page").getIntValue("duration");
                     resolveResourceParams.mSeasonId = obtainResolveParams.mSeasonId;
+                    JSONObject arc = episode.getJSONObject("arc");
+                    if (arc != null) {
+                        resolveResourceParams.mEpCover = arc.getString("pic");
+                        JSONObject author = arc.getJSONObject("author");
+                        if (author != null) {
+                            resolveResourceParams.mAuthor = author.getString("name");
+                        }
+                        JSONObject stat = arc.getJSONObject("stat");
+                        if (stat != null) {
+                            resolveResourceParams.mPlays = String.valueOf(stat.getIntValue("view"));
+                            resolveResourceParams.mDanmakus = String.valueOf(stat.getIntValue("danmaku"));
+                        }
+                        resolveResourceParams.mPubDate = arc.getLongValue("pubdate");
+                    }
+                    JSONObject badgeInfo = episode.getJSONObject("badge_info");
+                    if (badgeInfo != null) {
+                        resolveResourceParams.mBadgeText = badgeInfo.getString("text");
+                        resolveResourceParams.mBadgeBgColor = badgeInfo.getString("bg_color");
+                    }
+                    resolveResourceParams.mListType = 3;
                     if (i > 0) {
                         resolveResourceParams.mExpectedQuality = i;
                     } else {
@@ -403,6 +565,7 @@ public class xg {
         obtainResolveParams.mWeb = page.mWebLink;
         obtainResolveParams.mHasAlias = page.mHasAlias;
         obtainResolveParams.mTid = biliVideoDetail.mTid;
+        obtainResolveParams.mDuration = page.duration;
 
         obtainResolveParams.mSeasonId = biliVideoDetail.mCheeseInfo.getString("season_id");
         obtainResolveParams.mEpisodeId = Long.parseLong(biliVideoDetail.mRedirectLink.split("ep")[1]);
@@ -433,6 +596,7 @@ public class xg {
         obtainResolveParams.mFrom = "cheese";
         obtainResolveParams.mPageTitle = episodeInfo.getString("title");
         obtainResolveParams.mCid = episodeInfo.getLongValue("cid");
+        obtainResolveParams.mDuration = episodeInfo.getIntValue("duration");
 
         obtainResolveParams.mSeasonId = cheeseInfo.getString("season_id");
         obtainResolveParams.mEpisodeId = episodeInfo.getLongValue("id");
@@ -448,6 +612,7 @@ public class xg {
                 resolveResourceParams.mFrom = "cheese";
                 resolveResourceParams.mCid = episode.getLongValue("cid");
                 resolveResourceParams.mPageTitle = episode.getString("title");
+                resolveResourceParams.mDuration = episode.getIntValue("duration");
                 resolveResourceParams.mSeasonId = obtainResolveParams.mSeasonId;
                 resolveResourceParams.mEpisodeId = episode.getLongValue("id");
                 resolveResourceParams.mExpectedQuality = obtainResolveParams.mExpectedQuality;
@@ -456,6 +621,27 @@ public class xg {
         }
 
         context.startActivity(PlayerActivity.a(context, a));
+    }
+
+    private static String getVtText(BangumiEpisodeEx episode) {
+        String vtText = "";
+        Log.i("xg", "getVtText | epid=" + episode.epid + " | statForUnity=" + (episode.statForUnity != null ? episode.statForUnity.toJSONString() : "null"));
+        if (episode.statForUnity != null && episode.statForUnity.containsKey("vt")) {
+            JSONObject vtObj = episode.statForUnity.getJSONObject("vt");
+            if (vtObj != null) {
+                String pureText = vtObj.getString("pure_text");
+                if (!TextUtils.isEmpty(pureText)) {
+                    vtText = pureText;
+                } else {
+                    String text = vtObj.getString("text");
+                    if (!TextUtils.isEmpty(text)) {
+                        vtText = text;
+                    }
+                }
+            }
+        }
+        Log.i("xg", "getVtText | vtText=" + vtText);
+        return vtText;
     }
 
 }

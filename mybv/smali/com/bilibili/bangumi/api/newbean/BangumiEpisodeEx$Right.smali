@@ -32,11 +32,11 @@
     .locals 0
 
     .prologue
-    .line 150
+    .line 158
     iput-object p1, p0, Lcom/bilibili/bangumi/api/newbean/BangumiEpisodeEx$Right;->this$0:Lcom/bilibili/bangumi/api/newbean/BangumiEpisodeEx;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 151
+    .line 159
     return-void
 .end method

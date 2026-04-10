@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Keep;
 import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.JSONObject;
 
 import com.bilibili.bangumi.api.uniform.BangumiUserStatus;
 
@@ -67,6 +68,8 @@ public class BangumiEpisodeEx implements Parcelable {
     public int status;
     @JSONField(name = "subtitle")
     public String subTitle;
+    @JSONField(name = "stat_for_unity")
+    public JSONObject statForUnity;
     @JSONField(name = "vid")
     public String vid;
 
@@ -100,6 +103,10 @@ public class BangumiEpisodeEx implements Parcelable {
         //this.subTitle = parcel.readString();
         this.index = parcel.readString();
         this.vid = parcel.readString();
+        String statForUnityStr = parcel.readString();
+        if (statForUnityStr != null && !statForUnityStr.isEmpty()) {
+            this.statForUnity = JSONObject.parseObject(statForUnityStr);
+        }
     }
 
     @Override // android.os.Parcelable
@@ -123,6 +130,7 @@ public class BangumiEpisodeEx implements Parcelable {
         //parcel.writeString(this.subTitle);
         parcel.writeString(this.index);
         parcel.writeString(this.vid);
+        parcel.writeString(this.statForUnity != null ? this.statForUnity.toJSONString() : "");
     }
 
     /* compiled from: BL */
@@ -154,7 +162,7 @@ public class BangumiEpisodeEx implements Parcelable {
     /* compiled from: BL */
     @Keep
     /* loaded from: classes.dex */
-    class Stat {
+    public static class Stat {
         @JSONField(name = "coin")
         public int coin;
         @JSONField(name = "danmakus")

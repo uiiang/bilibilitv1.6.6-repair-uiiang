@@ -44,11 +44,11 @@
     .locals 0
 
     .prologue
-    .line 139
+    .line 147
     iput-object p1, p0, Lcom/bilibili/bangumi/api/newbean/BangumiEpisodeEx$Dimension;->this$0:Lcom/bilibili/bangumi/api/newbean/BangumiEpisodeEx;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 140
+    .line 148
     return-void
 .end method

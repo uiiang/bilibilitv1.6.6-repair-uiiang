@@ -621,6 +621,13 @@ public class BiliVideoDetail implements Parcelable {
         @JSONField(name = "ctime")
         public long ctime;
 
+        public long plays;
+        public long danmakus;
+        public String subtitle;
+        public String badgeText;
+        public String badgeBgColor;
+        public long pubTime;
+
         @Override // android.os.Parcelable
         public int describeContents() {
             return 0;
@@ -668,6 +675,16 @@ public class BiliVideoDetail implements Parcelable {
             parcel.writeString(this.mSeasonId);
             parcel.writeString(this.mEpCover);
             parcel.writeString(this.mBvid);
+            parcel.writeString(this.firstFrame);
+            parcel.writeString(this.cover);
+            parcel.writeInt(this.duration);
+            parcel.writeLong(this.ctime);
+            parcel.writeLong(this.plays);
+            parcel.writeLong(this.danmakus);
+            parcel.writeString(this.subtitle);
+            parcel.writeString(this.badgeText);
+            parcel.writeString(this.badgeBgColor);
+            parcel.writeLong(this.pubTime);
         }
 
         protected Page(Parcel parcel) {
@@ -686,6 +703,16 @@ public class BiliVideoDetail implements Parcelable {
             this.mSeasonId = parcel.readString();
             this.mEpCover = parcel.readString();
             this.mBvid = parcel.readString();
+            this.firstFrame = parcel.readString();
+            this.cover = parcel.readString();
+            this.duration = parcel.readInt();
+            this.ctime = parcel.readLong();
+            this.plays = parcel.readLong();
+            this.danmakus = parcel.readLong();
+            this.subtitle = parcel.readString();
+            this.badgeText = parcel.readString();
+            this.badgeBgColor = parcel.readString();
+            this.pubTime = parcel.readLong();
         }
     }
 

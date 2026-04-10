@@ -107,6 +107,7 @@ public class PageVideoDetailBinder implements VideoCardBinder {
         } else {
             holder.getUpView().setVisibility(View.GONE);
         }
+        holder.getUpView().setCompoundDrawables(null, null, null, null);
 
         if (isPgcMode) {
             String plays = detail.getPlays();

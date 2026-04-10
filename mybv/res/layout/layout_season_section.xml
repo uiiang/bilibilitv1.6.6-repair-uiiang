@@ -14,7 +14,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/season_section_recycler"
         android:paddingTop="@dimen/px_24"
-        android:paddingBottom="@dimen/px_24"
+        android:paddingBottom="@dimen/px_8"
         android:paddingLeft="@dimen/px_10"
         android:focusable="true"
         android:nextFocusLeft="@+id/season_section_recycler"

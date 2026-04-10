@@ -2573,6 +2573,10 @@ public final class R {
         public static final int video_detail_info_img = 0x7f0801dd;
         public static final int video_detail_info_text = 0x7f0801de;
         public static final int video_detail_expand_btn = 0x7f0801df;
+        public static final int player_episode_menu = 0x7f0801e0;
+        public static final int episode_list_section = 0x7f0801e1;
+        public static final int playlist_title = 0x7f0801e2;
+        public static final int bottom_episode_menu_root = 0x7f0801e3;
     }
 
     public static final class integer {
@@ -2749,6 +2753,7 @@ public final class R {
         public static final int item_sort_menu_multi = 0x7f0a009e;
         public static final int item_nav_tag = 0x7f0a009f;
         public static final int recycler_view_item_video_info_compact = 0x7f0a00a0;
+        public static final int player_episode_menu = 0x7f0a00a1;
     }
 
     public static final class mipmap {

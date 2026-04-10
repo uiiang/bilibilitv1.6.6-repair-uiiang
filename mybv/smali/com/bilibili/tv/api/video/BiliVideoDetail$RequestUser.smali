@@ -64,7 +64,7 @@
     .locals 1
 
     .prologue
-    .line 800
+    .line 827
     new-instance v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser$1;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser$1;-><init>()V
@@ -78,10 +78,10 @@
     .locals 0
 
     .prologue
-    .line 841
+    .line 868
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 842
+    .line 869
     return-void
 .end method
 
@@ -93,17 +93,17 @@
 
     const/4 v2, 0x0
 
-    .line 844
+    .line 871
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 845
+    .line 872
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;->mAttention:I
 
-    .line 846
+    .line 873
     invoke-virtual {p1}, Landroid/os/Parcel;->readByte()B
 
     move-result v0
@@ -115,7 +115,7 @@
     :goto_12
     iput-boolean v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;->mFavorite:Z
 
-    .line 847
+    .line 874
     invoke-virtual {p1}, Landroid/os/Parcel;->readByte()B
 
     move-result v0
@@ -127,7 +127,7 @@
     :goto_1b
     iput-boolean v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;->mLike:Z
 
-    .line 848
+    .line 875
     invoke-virtual {p1}, Landroid/os/Parcel;->readByte()B
 
     move-result v0
@@ -137,25 +137,25 @@
     :goto_23
     iput-boolean v1, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;->mCoin:Z
 
-    .line 849
+    .line 876
     return-void
 
     :cond_26
     move v0, v2
 
-    .line 846
+    .line 873
     goto :goto_12
 
     :cond_28
     move v0, v2
 
-    .line 847
+    .line 874
     goto :goto_1b
 
     :cond_2a
     move v1, v2
 
-    .line 848
+    .line 875
     goto :goto_23
 .end method
 
@@ -165,7 +165,7 @@
     .locals 1
 
     .prologue
-    .line 826
+    .line 853
     const/4 v0, 0x0
 
     return v0
@@ -175,7 +175,7 @@
     .locals 2
 
     .prologue
-    .line 830
+    .line 857
     iget v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;->mAttention:I
 
     const/16 v1, -0x3e7
@@ -201,12 +201,12 @@
 
     const/4 v2, 0x0
 
-    .line 835
+    .line 862
     iget v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;->mAttention:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 836
+    .line 863
     iget-boolean v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;->mFavorite:Z
 
     if-eqz v0, :cond_1f
@@ -216,7 +216,7 @@
     :goto_c
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeByte(B)V
 
-    .line 837
+    .line 864
     iget-boolean v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;->mLike:Z
 
     if-eqz v0, :cond_21
@@ -226,7 +226,7 @@
     :goto_14
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeByte(B)V
 
-    .line 838
+    .line 865
     iget-boolean v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;->mCoin:Z
 
     if-eqz v0, :cond_23
@@ -234,24 +234,24 @@
     :goto_1b
     invoke-virtual {p1, v1}, Landroid/os/Parcel;->writeByte(B)V
 
-    .line 839
+    .line 866
     return-void
 
     :cond_1f
     move v0, v2
 
-    .line 836
+    .line 863
     goto :goto_c
 
     :cond_21
     move v0, v2
 
-    .line 837
+    .line 864
     goto :goto_14
 
     :cond_23
     move v1, v2
 
-    .line 838
+    .line 865
     goto :goto_1b
 .end method

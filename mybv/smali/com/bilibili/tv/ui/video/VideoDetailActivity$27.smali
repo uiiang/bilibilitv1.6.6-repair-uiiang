@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 3001
+    .line 2918
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$27;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,15 +40,15 @@
     .locals 5
 
     .prologue
-    .line 3004
+    .line 2921
     instance-of v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
 
     if-eqz v0, :cond_1d
 
-    .line 3005
+    .line 2922
     check-cast p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
 
-    .line 3006
+    .line 2923
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$27;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     sget-object v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
@@ -71,7 +71,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->startActivity(Landroid/content/Intent;)V
 
-    .line 3008
+    .line 2925
     :cond_1d
     return-void
 .end method

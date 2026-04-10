@@ -372,4 +372,8 @@
     <item type="id" name="video_detail_info_img" />
     <item type="id" name="video_detail_info_text" />
     <item type="id" name="video_detail_expand_btn" />
+    <item type="id" name="player_episode_menu" />
+    <item type="id" name="episode_list_section" />
+    <item type="id" name="playlist_title" />
+    <item type="id" name="bottom_episode_menu_root" />
 </resources>

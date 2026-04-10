@@ -3,12 +3,12 @@
 .source "VideoListSection.java"
 
 # interfaces
-.implements Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$FocusBoundaryHandler;
+.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/widget/VideoListSection;->initViews()V
+    value = Lcom/bilibili/tv/ui/video/widget/VideoListSection;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,14 +20,18 @@
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
+.field final synthetic val$finalTagIndex:I
+
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/widget/VideoListSection;I)V
     .locals 0
 
     .prologue
-    .line 73
+    .line 124
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$1;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+
+    iput p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$1;->val$finalTagIndex:I
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -36,80 +40,64 @@
 
 
 # virtual methods
-.method public setupFocusBoundary(Landroid/view/View;II)V
-    .locals 5
+.method public run()V
+    .locals 3
 
     .prologue
-    const/4 v0, 0x1
+    .line 127
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$1;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
-    const/4 v1, 0x0
+    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagAdapter:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$000(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
-    const/4 v4, -0x1
+    move-result-object v0
 
-    .line 76
-    if-nez p1, :cond_6
+    iget v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$1;->val$finalTagIndex:I
 
-    .line 97
-    :goto_5
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->findViewByPosition(I)Landroid/view/View;
+
+    move-result-object v0
+
+    .line 128
+    if-eqz v0, :cond_31
+
+    .line 129
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$1;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+
+    const/4 v2, 0x1
+
+    # setter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusRedirecting:Z
+    invoke-static {v1, v2}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$102(Lcom/bilibili/tv/ui/video/widget/VideoListSection;Z)Z
+
+    .line 130
+    invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
+
+    .line 131
+    const-string v0, "ListSection"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "dispatchKeyEvent | DOWN -> delayed focus to tagIndex="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    iget v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$1;->val$finalTagIndex:I
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 133
+    :cond_31
     return-void
-
-    .line 80
-    :cond_6
-    if-nez p2, :cond_20
-
-    move v2, v0
-
-    .line 81
-    :goto_9
-    add-int/lit8 v3, p3, -0x1
-
-    if-ne p2, v3, :cond_22
-
-    .line 83
-    :goto_d
-    if-eqz v2, :cond_24
-
-    .line 84
-    invoke-virtual {p1}, Landroid/view/View;->getId()I
-
-    move-result v1
-
-    invoke-virtual {p1, v1}, Landroid/view/View;->setNextFocusLeftId(I)V
-
-    .line 88
-    :goto_16
-    if-eqz v0, :cond_28
-
-    .line 89
-    invoke-virtual {p1}, Landroid/view/View;->getId()I
-
-    move-result v0
-
-    invoke-virtual {p1, v0}, Landroid/view/View;->setNextFocusRightId(I)V
-
-    goto :goto_5
-
-    :cond_20
-    move v2, v1
-
-    .line 80
-    goto :goto_9
-
-    :cond_22
-    move v0, v1
-
-    .line 81
-    goto :goto_d
-
-    .line 86
-    :cond_24
-    invoke-virtual {p1, v4}, Landroid/view/View;->setNextFocusLeftId(I)V
-
-    goto :goto_16
-
-    .line 91
-    :cond_28
-    invoke-virtual {p1, v4}, Landroid/view/View;->setNextFocusRightId(I)V
-
-    goto :goto_5
 .end method

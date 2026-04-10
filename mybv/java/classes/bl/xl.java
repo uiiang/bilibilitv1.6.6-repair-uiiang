@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.FocusFinder;
 import android.view.KeyEvent;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import bl.aaw;
 import bl.aax;
@@ -48,6 +50,7 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
     private boolean m = false;
     private long lastCompletionTime = 0;
     private static final long COMPLETION_DEBOUNCE_MS = 1000;
+    private BottomEpisodeMenu bottomEpisodeMenu;
 
     /* JADX INFO: Access modifiers changed from: package-private */
     public static final /* synthetic */ boolean a(View view, View view2, int i, int i2, KeyEvent keyEvent) {
@@ -83,37 +86,44 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
 
     @Override // bl.xh
     public boolean f(int i, KeyEvent keyEvent) {
-        W();
         return P();
     }
 
     @Override // bl.xh
     public boolean g(int i, KeyEvent keyEvent) {
+        Log.i("xl", "g() | keyCode=" + i + " | isShowing=" + P() + " | hasEpisodes=" + X());
         if (!X()) {
             return false;
         }
-        if (i != 4) {
-            if (i == 19) {
-                if (!S()) {
-                    R();
-                }
-                if (P()) {
-                    return true;
-                }
-                v();
-                U();
+        
+        if (i == 4) {
+            Log.i("xl", "g() | 返回键 | isShowing=" + P());
+            if (P()) {
+                V();
                 return true;
-            } else if (i != 21) {
-                return P();
             }
-        }
-        if (P()) {
-            V();
-            return true;
-        }
-        else {
             return false;
         }
+        
+        if (i == 19) {
+            Log.i("xl", "g() | 上键 | isShowing=" + P());
+            if (!S()) {
+                R();
+            }
+            if (P()) {
+                return true;
+            }
+            v();
+            U();
+            return true;
+        }
+        
+        if (P()) {
+            Log.i("xl", "g() | 其他按键(" + i + ") | 菜单显示中，不关闭");
+            return true;
+        }
+        
+        return false;
     }
 
     private void e(int i) {
@@ -392,6 +402,13 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
     }
 
     public boolean P() {
+        if (this.g && bottomEpisodeMenu != null && bottomEpisodeMenu.isShowing()) {
+            return true;
+        }
+        if (this.g && (bottomEpisodeMenu == null || !bottomEpisodeMenu.isShowing())) {
+            Log.i("xl", "P() | 状态不一致，同步this.g=false");
+            this.g = false;
+        }
         return this.g;
     }
 
@@ -404,67 +421,70 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
     }
 
     private void U() {
-        if (this.c == null || P()) {
+        if (P()) {
             return;
         }
-        if (this.e == null) {
-            this.e = AnimationUtils.loadAnimation(p(), R.anim.in_from_left);
-            this.e.setAnimationListener(new Animation.AnimationListener() { // from class: bl.xl.2
-                @Override // android.view.animation.Animation.AnimationListener
-                public void onAnimationRepeat(Animation animation) {
-                }
+        showBottomEpisodeMenu();
+    }
 
-                @Override // android.view.animation.Animation.AnimationListener
-                public void onAnimationStart(Animation animation) {
-                    xl.this.c.setVisibility(0);
-                }
-
-                @Override // android.view.animation.Animation.AnimationListener
-                public void onAnimationEnd(Animation animation) {
-                    xl.this.f(0);
-                    if (xl.this.i < xl.this.k.n()) {
-                        xl.this.k.d(xl.this.i);
-                        xl.this.f(0);
-                    } else if (xl.this.i > xl.this.k.p()) {
-                        xl.this.k.d(xl.this.i);
-                        xl.this.f(xl.this.h.getChildCount() - 1);
-                    } else {
-                        int focusPos = xl.this.i - xl.this.k.n();
-                        xl.this.f(focusPos);
-                    }
-                    xl.this.W();
+    private BottomEpisodeMenu getBottomEpisodeMenu() {
+        if (bottomEpisodeMenu == null) {
+            bottomEpisodeMenu = new BottomEpisodeMenu(p());
+            bottomEpisodeMenu.setOnEpisodeClickListener(new BottomEpisodeMenu.OnEpisodeClickListener() {
+                @Override
+                public void onEpisodeClicked(ResolveResourceParams params, int position) {
+                    e(position);
                 }
             });
+            Activity activity = o();
+            if (activity != null) {
+                View rootView = activity.getWindow().getDecorView().findViewById(android.R.id.content);
+                if (rootView instanceof ViewGroup) {
+                    FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
+                        FrameLayout.LayoutParams.MATCH_PARENT,
+                        FrameLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    lp.gravity = android.view.Gravity.BOTTOM;
+                    bottomEpisodeMenu.setLayoutParams(lp);
+                    ((ViewGroup) rootView).addView(bottomEpisodeMenu);
+                }
+            }
         }
-        this.c.startAnimation(this.e);
+        return bottomEpisodeMenu;
+    }
+
+    private void showBottomEpisodeMenu() {
+        if (this.j == null) {
+            T();
+        }
+        
+        if (this.j == null || this.j.length <= 1) {
+            return;
+        }
+        
+        long currentCid = b().mVideoParams.obtainResolveParams().mCid;
+        
+        String title = "选集";
+        int count = this.j.length;
+        
+        BottomEpisodeMenu menu = getBottomEpisodeMenu();
+        menu.show(this.j, currentCid, title, count);
+        
         this.g = true;
     }
 
     /* JADX INFO: Access modifiers changed from: private */
     public void V() {
-        if (this.c == null || !P()) {
+        if (!P()) {
             return;
         }
-        if (this.f == null) {
-            this.f = AnimationUtils.loadAnimation(p(), R.anim.out_to_left);
-            this.f.setAnimationListener(new Animation.AnimationListener() { // from class: bl.xl.3
-                @Override // android.view.animation.Animation.AnimationListener
-                public void onAnimationRepeat(Animation animation) {
-                }
-
-                @Override // android.view.animation.Animation.AnimationListener
-                public void onAnimationStart(Animation animation) {
-                }
-
-                @Override // android.view.animation.Animation.AnimationListener
-                public void onAnimationEnd(Animation animation) {
-                    xl.this.c.setVisibility(4);
-                    xl.this.g = false;
-                }
-            });
+        if (this.l != null) {
+            a(this.l);
         }
-        aap.b(this.h);
-        this.c.startAnimation(this.f);
+        if (bottomEpisodeMenu != null) {
+            bottomEpisodeMenu.hide();
+        }
+        this.g = false;
     }
 
     /* JADX INFO: Access modifiers changed from: private */
@@ -484,5 +504,12 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
     private boolean X() {
         yh c = c();
         return (c == null || c.a == null || c.a.mVideoParams.mResolveParamsArray == null || c.a.mVideoParams.mResolveParamsArray.length <= 1) ? false : true;
+    }
+
+    public void cleanupBottomEpisodeMenu() {
+        if (bottomEpisodeMenu != null) {
+            bottomEpisodeMenu.cleanup();
+            bottomEpisodeMenu = null;
+        }
     }
 }

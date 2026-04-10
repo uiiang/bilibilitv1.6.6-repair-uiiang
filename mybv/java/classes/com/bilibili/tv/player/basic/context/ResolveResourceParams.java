@@ -76,8 +76,18 @@ public class ResolveResourceParams implements Parcelable, Serializable {
     public String mWeb;
 
     public int mProgress;
+    public int mDuration;
     public boolean mNoHistoryPlay;
     public String mBvid;
+    
+    public long mPubDate;
+    public String mAuthor;
+    public String mPlays;
+    public String mDanmakus;
+    public String mBadgeText;
+    public String mBadgeBgColor;
+    public boolean mHideUpIcon;
+    public int mListType;
 
     public JSONArray skips;
     public JSONObject subtitle_info;
@@ -321,8 +331,16 @@ public class ResolveResourceParams implements Parcelable, Serializable {
         parcel.writeInt(this.mProgress);
         parcel.writeString(this.mBvid);
         parcel.writeByte(this.mNoHistoryPlay ? (byte) 1 : (byte) 0);
+        parcel.writeInt(this.mDuration);
         
-        // 写入章节列表信息
+        parcel.writeLong(this.mPubDate);
+        parcel.writeString(this.mAuthor);
+        parcel.writeString(this.mPlays);
+        parcel.writeString(this.mDanmakus);
+        parcel.writeString(this.mBadgeText);
+        parcel.writeString(this.mBadgeBgColor);
+        parcel.writeByte(this.mHideUpIcon ? (byte) 1 : (byte) 0);
+        
         if (this.view_points != null) {
             parcel.writeString(this.view_points.toString());
         } else {
@@ -362,8 +380,16 @@ public class ResolveResourceParams implements Parcelable, Serializable {
         this.mProgress = parcel.readInt();
         this.mBvid = parcel.readString();
         this.mNoHistoryPlay = parcel.readByte() != 0;
+        this.mDuration = parcel.readInt();
         
-        // 读取章节列表信息
+        this.mPubDate = parcel.readLong();
+        this.mAuthor = parcel.readString();
+        this.mPlays = parcel.readString();
+        this.mDanmakus = parcel.readString();
+        this.mBadgeText = parcel.readString();
+        this.mBadgeBgColor = parcel.readString();
+        this.mHideUpIcon = parcel.readByte() != 0;
+        
         String viewPointsStr = parcel.readString();
         if (!TextUtils.isEmpty(viewPointsStr)) {
             try {

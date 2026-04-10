@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 14
+    .line 15
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -44,7 +44,7 @@
     .locals 1
 
     .prologue
-    .line 18
+    .line 19
     new-instance v0, Lcom/bilibili/bangumi/api/newbean/BangumiEpisodeEx;
 
     invoke-direct {v0, p1}, Lcom/bilibili/bangumi/api/newbean/BangumiEpisodeEx;-><init>(Landroid/os/Parcel;)V
@@ -56,7 +56,7 @@
     .locals 1
 
     .prologue
-    .line 14
+    .line 15
     invoke-virtual {p0, p1}, Lcom/bilibili/bangumi/api/newbean/BangumiEpisodeEx$1;->createFromParcel(Landroid/os/Parcel;)Lcom/bilibili/bangumi/api/newbean/BangumiEpisodeEx;
 
     move-result-object v0
@@ -68,7 +68,7 @@
     .locals 1
 
     .prologue
-    .line 24
+    .line 25
     new-array v0, p1, [Lcom/bilibili/bangumi/api/newbean/BangumiEpisodeEx;
 
     return-object v0
@@ -78,7 +78,7 @@
     .locals 1
 
     .prologue
-    .line 14
+    .line 15
     invoke-virtual {p0, p1}, Lcom/bilibili/bangumi/api/newbean/BangumiEpisodeEx$1;->newArray(I)[Lcom/bilibili/bangumi/api/newbean/BangumiEpisodeEx;
 
     move-result-object v0

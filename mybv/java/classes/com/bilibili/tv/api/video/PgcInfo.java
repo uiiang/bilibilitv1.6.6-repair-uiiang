@@ -800,7 +800,7 @@ public class PgcInfo implements Parcelable {
         @JSONField(name = "subtitle")
         public String subtitle;
 
-        @JSONField(name = "statFor_unity")
+        @JSONField(name = "stat_for_unity")
         public JSONObject statForUnity;
 
         @JSONField(name = "badge_info")
@@ -822,6 +822,10 @@ public class PgcInfo implements Parcelable {
             this.pubTime = parcel.readLong();
             this.stat = parcel.readParcelable(EpisodeStat.class.getClassLoader());
             this.subtitle = parcel.readString();
+            String statForUnityStr = parcel.readString();
+            if (statForUnityStr != null && !statForUnityStr.isEmpty()) {
+                this.statForUnity = JSONObject.parseObject(statForUnityStr);
+            }
             this.badgeInfo = parcel.readParcelable(BadgeInfo.class.getClassLoader());
         }
 
@@ -845,6 +849,7 @@ public class PgcInfo implements Parcelable {
             parcel.writeLong(this.pubTime);
             parcel.writeParcelable(this.stat, i);
             parcel.writeString(this.subtitle);
+            parcel.writeString(this.statForUnity != null ? this.statForUnity.toJSONString() : "");
             parcel.writeParcelable(this.badgeInfo, i);
         }
     }

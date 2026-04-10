@@ -1,0 +1,63 @@
+---
+description: 
+alwaysApply: true
+enabled: true
+updatedAt: 2026-04-10T08:06:46.047Z
+provider: 
+---
+
+# Android逆向工程&二次开发规则
+
+## 核心原则
+1. **复用优先**：分析现有代码（Java+Smali），必须复用已有逻辑，禁止重复造轮子
+2. **混合兼容**：反编译项目含Java+Smali，新增功能需兼容混合代码结构
+3. **系统兼容**：最低支持Android 4.x，使用兼容API，避免高版本API和反射风险
+4. **代码质量**：轻量、稳定、无崩溃、无内存泄漏、无权限问题
+
+## 修改规范
+
+### 资源ID（ids.xml/public.xml/R.java）
+- **禁止在中间插入**，必须在文件末尾追加
+- 新增ID后检查Java中的硬编码ID（如`0x7f0801c1`）并更新
+
+### 代码修改
+- **优先改Java**（`mybv/java/classes/`），无Java文件才改Smali
+- 修改需说明：位置、原因、是否复用、如何兼容、如何保证稳定
+
+### 编译命令
+```bash
+bash ./build.sh -p uii.ang.bilitv
+```
+
+### 日志规范
+- 使用 `Log.i()` 或 `LogUtil.i()`，禁用 `BLog`
+- 打印JSON用 `LogUtil.json("TAG", jsonObject)`
+- BUG修复完成后注释日志而非删除
+- 添加日志后输出日志命令
+
+### Activity声明
+新Activity必须在 `AndroidManifest.xml` 添加声明
+
+## BUG修复流程
+**日志插桩 → 还原操作 → 复现步骤 → 明确现象 → 分析根因 → 从源头修复**
+
+禁止打补丁式修复，调试时在所有关键点打日志
+
+## Android 4.x 兼容性
+
+### 版本判断
+```java
+if (android.os.Build.VERSION.SDK_INT >= 21) {
+    // API 21+ 专属代码
+} else {
+    // Android 4.x 兼容处理
+}
+```
+
+### 常见不兼容项
+| 项目 | Android 4.x 处理方案 |
+|------|---------------------|
+| Vector Drawable | 使用PNG图片替代 |
+| `getDrawable(int id, Theme theme)` | 使用`getDrawable(int id)`或`ResourcesCompat.getDrawable()` |
+| View.Elevation | 仅API 21+有效，需降级处理 |
+| DocumentFile | API 19+，需判断或使用替代方案 |

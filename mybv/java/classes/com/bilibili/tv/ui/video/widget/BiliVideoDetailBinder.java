@@ -1,15 +1,19 @@
 package com.bilibili.tv.ui.video.widget;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.graphics.PorterDuff;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import com.bilibili.tv.MainApplication;
+import com.bilibili.tv.R;
 import com.bilibili.tv.api.video.BiliVideoDetail;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
 import com.bilibili.tv.util.DateHelper;
 import com.bilibili.tv.widget.ScalableImageView;
 import bl.adh;
+import bl.adl;
 import bl.abd;
 import bl.nv;
 
@@ -26,10 +30,19 @@ public class BiliVideoDetailBinder implements VideoCardBinder {
         holder.getTitleView().setText(detail.mTitle);
 
         String author = detail.getAuthor();
-        if (author != null) {
+        if (author != null && !author.isEmpty()) {
             holder.getUpView().setText(author);
-        }
-        if (detail.hideUpIcon) {
+            if (!detail.hideUpIcon) {
+                Drawable upIcon = adl.a.c(R.drawable.ic_video_info_up);
+                int iconSize = adl.b(R.dimen.px_26);
+                upIcon.setBounds(0, 0, iconSize, iconSize);
+                int color = adl.d(R.color.white);
+                upIcon.setColorFilter(color, PorterDuff.Mode.MULTIPLY);
+                holder.getUpView().setCompoundDrawables(upIcon, null, null, null);
+            } else {
+                holder.getUpView().setCompoundDrawables(null, null, null, null);
+            }
+        } else {
             holder.getUpView().setCompoundDrawables(null, null, null, null);
         }
 
@@ -80,13 +93,21 @@ public class BiliVideoDetailBinder implements VideoCardBinder {
         holder.getTitleView().setText(detail.mTitle);
 
         String author = detail.getAuthor();
-        if (author != null) {
+        if (author != null && !author.isEmpty()) {
             holder.getUpView().setText(author);
             holder.getUpView().setVisibility(View.VISIBLE);
+            if (!detail.hideUpIcon) {
+                Drawable upIcon = adl.a.c(R.drawable.ic_video_info_up);
+                int iconSize = adl.b(R.dimen.px_26);
+                upIcon.setBounds(0, 0, iconSize, iconSize);
+                int color = adl.d(R.color.white);
+                upIcon.setColorFilter(color, PorterDuff.Mode.MULTIPLY);
+                holder.getUpView().setCompoundDrawables(upIcon, null, null, null);
+            } else {
+                holder.getUpView().setCompoundDrawables(null, null, null, null);
+            }
         } else {
             holder.getUpView().setVisibility(View.GONE);
-        }
-        if (detail.hideUpIcon) {
             holder.getUpView().setCompoundDrawables(null, null, null, null);
         }
 
