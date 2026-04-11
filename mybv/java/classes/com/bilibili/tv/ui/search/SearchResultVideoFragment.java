@@ -864,6 +864,9 @@ public final class SearchResultVideoFragment extends ady {
             if (TextUtils.isEmpty(room.mCover)) {
                 room.mCover = item.getString("cover");
             }
+            if (!TextUtils.isEmpty(room.mCover) && !room.mCover.startsWith("http")) {
+                room.mCover = "https:" + room.mCover;
+            }
             room.mOnline = item.getIntValue("online");
             room.mRoomId = item.getIntValue("roomid");
             rooms.add(room);

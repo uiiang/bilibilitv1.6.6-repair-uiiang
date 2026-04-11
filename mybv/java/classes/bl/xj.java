@@ -36,11 +36,27 @@ public class xj extends xh {
     private int g = 0;
     private String h = "";
     private boolean l = false;
+    // 是否已首次真正播放（画面渲染），用于延迟定时器启动
+    private boolean hasFirstPlayed = false;
 
     public JSONArray skips;
 
     @Override // tv.danmaku.ijk.media.player.IMediaPlayer.OnInfoListener
     public boolean onInfo2(IMediaPlayer iMediaPlayer, int i, int i2, long j) {
+        return false;
+    }
+
+    @Override // bl.xh, tv.danmaku.ijk.media.player.IMediaPlayer.OnInfoListener
+    public boolean onInfo(IMediaPlayer iMediaPlayer, int i, int i2) {
+        super.onInfo(iMediaPlayer, i, i2);
+        // 缓冲结束=画面正式播放，启动延迟的定时器
+        if (i == IMediaPlayer.MEDIA_INFO_BUFFERING_END /* 702 */) {
+            if (!this.hasFirstPlayed) {
+                this.hasFirstPlayed = true;
+                Log.i("xj", "[BUFFERING_END] first play detected, start history report timer (30s)");
+                a(IjkMediaPlayer.FFP_PROP_INT64_ASYNC_STATISTIC_BUF_FORWARDS, (Object) null, 30000L);
+            }
+        }
         return false;
     }
 
@@ -205,7 +221,10 @@ public class xj extends xh {
             }
             this.e.b(String.valueOf(resolveParams.mCid));
         }
-        a(IjkMediaPlayer.FFP_PROP_INT64_ASYNC_STATISTIC_BUF_FORWARDS, (Object) null, 30000L);
+        // 定时器启动延迟到首次播放（BUFFERING_END），不再在onPrepared时启动
+        // 原逻辑：a(IjkMediaPlayer.FFP_PROP_INT64_ASYNC_STATISTIC_BUF_FORWARDS, (Object) null, 30000L);
+        this.hasFirstPlayed = false;
+        Log.i("xj", "[onPrepared] prepared but delay timer start, wait for first BUFFERING_END");
         this.g++;
     }
 

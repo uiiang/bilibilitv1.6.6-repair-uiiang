@@ -14,6 +14,7 @@ import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 import tv.danmaku.videoplayer.core.commander.Commands;
 import tv.danmaku.videoplayer.core.videoview.IVideoView;
+import android.util.Log;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
@@ -26,6 +27,10 @@ public class yb extends xh {
     private zm e = new zm();
     private zl f = new zl();
     private zo h = new zo();
+    // 是否已首次真正播放（画面渲染），用于延迟上报到播放开始而非loading阶段
+    private boolean hasFirstPlayed = false;
+    // RESOLVE_SUCCESS时暂存参数，延迟到首次播放时上报
+    private PlayerParams pendingResolveParams = null;
 
     @Override // tv.danmaku.ijk.media.player.IMediaPlayer.OnInfoListener
     public boolean onInfo2(IMediaPlayer iMediaPlayer, int i, int i2, long j) {
@@ -43,7 +48,12 @@ public class yb extends xh {
                 PlayerParams playerParams = (PlayerParams) objArr[0];
                 this.e.a();
                 this.e.a(playerParams, "");
-                zk.a(p(), playerParams.mVideoParams.obtainResolveParams(), this.e);
+                // 延迟上报：暂存参数，等首次播放时再上报历史记录
+                // 原逻辑直接调用 zk.a() 会在loading阶段就上报，不符合业务要求
+                this.pendingResolveParams = playerParams;
+                // 首次播放标识重置（切P场景）
+                this.hasFirstPlayed = false;
+                Log.i("yb", "[RESOLVE_SUCCESS] delay report until first play, reset hasFirstPlayed=false");
                 return;
             case SEEK:
                 if (objArr != null && objArr.length >= 3) {
@@ -126,6 +136,22 @@ public class yb extends xh {
             case IMediaPlayer.MEDIA_INFO_BUFFERING_END /* 702 */:
                 this.h.i();
                 this.g = true;
+                // 缓冲结束=画面正式播放，触发延迟的首次上报
+                if (!this.hasFirstPlayed) {
+                    this.hasFirstPlayed = true;
+                    Log.i("yb", "[BUFFERING_END] first play detected, trigger delayed report");
+                    // 执行延迟的RESOLVE_SUCCESS上报（历史记录初始化）
+                    if (this.pendingResolveParams != null) {
+                        zk.a(p(), this.pendingResolveParams.mVideoParams.obtainResolveParams(), this.e);
+                        this.pendingResolveParams = null;
+                    }
+                    // 执行延迟的onPrepared上报（播放点击+首次心跳）
+                    P();
+                    if (this.i || !this.j) {
+                        this.h.g();
+                        c(true);
+                    }
+                }
                 break;
         }
         return false;
@@ -157,15 +183,17 @@ public class yb extends xh {
     @Override // bl.xh, tv.danmaku.ijk.media.player.IMediaPlayer.OnPreparedListener
     public void onPrepared(IMediaPlayer iMediaPlayer) {
         super.onPrepared(iMediaPlayer);
-        P();
+        // onPrepared时播放器只准备好了，但画面可能还在缓冲(loading)，
+        // 不应在此上报。上报延迟到首次BUFFERING_END（画面正式播放）时。
+        // 保留Q()来设置g=true和累加播放时间，但不执行P()（播放点击上报）和c(true)（首次心跳）
         Q();
-        if (this.i || !this.j) {
-            this.h.g();
-            c(true);
-        }
+        // 首次播放标识重置（切P/切画质场景）
+        this.hasFirstPlayed = false;
+        // 切换画质和播放完成的标志位仍在此处理
         this.j = false;
         this.i = false;
         T();
+        Log.i("yb", "[onPrepared] prepared but skip report, wait for first BUFFERING_END");
     }
 
     @Override // bl.xh, tv.danmaku.ijk.media.player.IMediaPlayer.OnCompletionListener

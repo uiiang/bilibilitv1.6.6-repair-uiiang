@@ -50,6 +50,9 @@ public abstract class xh implements Handler.Callback, IEventCenter, IMediaPlayer
     @Override // tv.danmaku.ijk.media.player.IMediaPlayer.OnInfoListener
     @CallSuper
     public boolean onInfo(IMediaPlayer iMediaPlayer, int i, int i2) {
+        if (this.c != null) {
+            this.c.onInfo(iMediaPlayer, i, i2);
+        }
         return false;
     }
 
