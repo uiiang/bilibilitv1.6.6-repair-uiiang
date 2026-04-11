@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 413
+    .line 368
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$7;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -46,114 +46,70 @@
 
     const/4 v4, -0x1
 
-    .line 416
+    .line 371
     if-nez p1, :cond_6
 
-    .line 437
+    .line 389
     :goto_5
     return-void
 
-    .line 419
+    .line 374
     :cond_6
-    if-nez p2, :cond_4c
+    if-nez p2, :cond_20
 
     move v2, v0
 
-    .line 420
+    .line 375
     :goto_9
     add-int/lit8 v3, p3, -0x1
 
-    if-ne p2, v3, :cond_4e
+    if-ne p2, v3, :cond_22
 
-    .line 422
+    .line 377
     :goto_d
-    if-eqz v2, :cond_50
+    if-eqz v2, :cond_24
 
-    .line 423
+    .line 378
     invoke-virtual {p1}, Landroid/view/View;->getId()I
 
     move-result v1
 
     invoke-virtual {p1, v1}, Landroid/view/View;->setNextFocusLeftId(I)V
 
-    .line 427
+    .line 382
     :goto_16
-    if-eqz v0, :cond_54
+    if-eqz v0, :cond_28
 
-    .line 428
+    .line 383
     invoke-virtual {p1}, Landroid/view/View;->getId()I
 
-    move-result v1
+    move-result v0
 
-    invoke-virtual {p1, v1}, Landroid/view/View;->setNextFocusRightId(I)V
-
-    .line 435
-    :goto_1f
-    const-string v1, "ListSection"
-
-    new-instance v3, Ljava/lang/StringBuilder;
-
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v4, "setupNavTagFocusBoundary | position="
-
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-virtual {v3, p2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    const-string v4, " | isFirst="
-
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-virtual {v3, v2}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    const-string v3, " | isLast="
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-virtual {p1, v0}, Landroid/view/View;->setNextFocusRightId(I)V
 
     goto :goto_5
 
-    :cond_4c
+    :cond_20
     move v2, v1
 
-    .line 419
+    .line 374
     goto :goto_9
 
-    :cond_4e
+    :cond_22
     move v0, v1
 
-    .line 420
+    .line 375
     goto :goto_d
 
-    .line 425
-    :cond_50
+    .line 380
+    :cond_24
     invoke-virtual {p1, v4}, Landroid/view/View;->setNextFocusLeftId(I)V
 
     goto :goto_16
 
-    .line 430
-    :cond_54
+    .line 385
+    :cond_28
     invoke-virtual {p1, v4}, Landroid/view/View;->setNextFocusRightId(I)V
 
-    goto :goto_1f
+    goto :goto_5
 .end method

@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 1494
+    .line 1457
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12$2;->val$detail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -48,7 +48,7 @@
     .locals 2
 
     .prologue
-    .line 1497
+    .line 1460
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -59,11 +59,11 @@
 
     if-eqz v0, :cond_b
 
-    .line 1504
+    .line 1467
     :goto_a
     return-void
 
-    .line 1500
+    .line 1463
     :cond_b
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;
 
@@ -76,7 +76,7 @@
 
     if-eqz v0, :cond_22
 
-    .line 1501
+    .line 1464
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -90,7 +90,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->a(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
 
-    .line 1503
+    .line 1466
     :cond_22
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;
 

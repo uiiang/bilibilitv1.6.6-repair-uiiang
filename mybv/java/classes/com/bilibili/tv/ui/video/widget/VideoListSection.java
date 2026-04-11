@@ -3,7 +3,6 @@ package com.bilibili.tv.ui.video.widget;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import java.util.List;
 
 public class VideoListSection extends LinearLayout {
     private static final String TAG = "ListSection";
-    private static final String CODE_VERSION = "v4.0-self-managed";
 
     // 焦点来源区域常量
     private static final int FOCUS_AREA_NONE = 0;
@@ -103,7 +101,6 @@ public class VideoListSection extends LinearLayout {
         if (hasNavigationTags()) {
             // 视频卡片区域 → 按DOWN → 移到正确的导航标签
             if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN && currentFocusArea == FOCUS_AREA_VIDEO) {
-                Log.i(TAG, "dispatchKeyEvent | DOWN from video area | focusPosition=" + focusPosition);
                 int tagIndex = focusPosition / 10;
                 if (tagIndex >= navTagAdapter.getTagCount()) {
                     tagIndex = navTagAdapter.getTagCount() - 1;
@@ -119,7 +116,6 @@ public class VideoListSection extends LinearLayout {
                 View tagView = navTagAdapter.findViewByPosition(finalTagIndex);
                 if (tagView != null) {
                     tagView.requestFocus();
-                    Log.i(TAG, "dispatchKeyEvent | DOWN -> direct focus to tagIndex=" + finalTagIndex);
                 } else {
                     navTagRecyclerView.post(new Runnable() {
                         @Override
@@ -128,7 +124,6 @@ public class VideoListSection extends LinearLayout {
                             if (tagView != null) {
                                 focusRedirecting = true;
                                 tagView.requestFocus();
-                                Log.i(TAG, "dispatchKeyEvent | DOWN -> delayed focus to tagIndex=" + finalTagIndex);
                             }
                         }
                     });
@@ -138,7 +133,6 @@ public class VideoListSection extends LinearLayout {
 
             // 导航标签区域 → 按UP → 移到正确的视频卡片
             if (keyCode == KeyEvent.KEYCODE_DPAD_UP && currentFocusArea == FOCUS_AREA_NAV_TAG) {
-                Log.i(TAG, "dispatchKeyEvent | UP from nav tag | focusPosition=" + focusPosition);
                 int targetPosition = focusPosition;
                 int dataSize = (dataList == null) ? 0 : dataList.size();
                 if (dataSize > 0) {
@@ -151,7 +145,6 @@ public class VideoListSection extends LinearLayout {
                 if (targetView != null) {
                     focusRedirecting = true;
                     targetView.requestFocus();
-                    Log.i(TAG, "dispatchKeyEvent | UP -> direct focus to position=" + targetPosition);
                 } else {
                     final int finalPos = targetPosition;
                     recyclerView.post(new Runnable() {
@@ -175,7 +168,6 @@ public class VideoListSection extends LinearLayout {
                                     if (targetView != null) {
                                         focusRedirecting = true;
                                         targetView.requestFocus();
-                                        Log.i(TAG, "dispatchKeyEvent | UP -> delayed focus to position=" + finalPos);
                                     }
                                 }
                             }, 100);
@@ -188,7 +180,6 @@ public class VideoListSection extends LinearLayout {
             // 视频卡片区域 → 按UP → 焦点离开组件（通知外部）
             if (keyCode == KeyEvent.KEYCODE_DPAD_UP && currentFocusArea == FOCUS_AREA_VIDEO) {
                 if (focusExitListener != null) {
-                    Log.i(TAG, "dispatchKeyEvent | FOCUS EXIT UP | sectionId=" + sectionId + " | focusPosition=" + focusPosition);
                     focusExitListener.onFocusExitUp(sectionId, focusPosition);
                 }
                 return true;
@@ -197,7 +188,6 @@ public class VideoListSection extends LinearLayout {
             // 导航标签区域 → 按DOWN → 焦点离开组件（通知外部）
             if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN && currentFocusArea == FOCUS_AREA_NAV_TAG) {
                 if (focusExitListener != null) {
-                    Log.i(TAG, "dispatchKeyEvent | FOCUS EXIT DOWN | sectionId=" + sectionId + " | selectedTagIndex=" + navTagAdapter.getSelectedPosition());
                     focusExitListener.onFocusExitDown(sectionId, navTagAdapter.getSelectedPosition());
                 }
                 return true;
@@ -208,14 +198,12 @@ public class VideoListSection extends LinearLayout {
             if (currentFocusArea == FOCUS_AREA_VIDEO) {
                 if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
                     if (focusExitListener != null) {
-                        Log.i(TAG, "dispatchKeyEvent | FOCUS EXIT UP (no tags) | sectionId=" + sectionId + " | focusPosition=" + focusPosition);
                         focusExitListener.onFocusExitUp(sectionId, focusPosition);
                     }
                     return true;
                 }
                 if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
                     if (focusExitListener != null) {
-                        Log.i(TAG, "dispatchKeyEvent | FOCUS EXIT DOWN (no tags) | sectionId=" + sectionId + " | focusPosition=" + focusPosition);
                         focusExitListener.onFocusExitDown(sectionId, -1);
                     }
                     return true;
@@ -228,11 +216,8 @@ public class VideoListSection extends LinearLayout {
 
     public VideoListSection(Context context) {
         super(context);
-        // Log.i(TAG, "构造 | 创建VideoListSection实例 | hashCode=" + this.hashCode() + " | CODE_VERSION=" + CODE_VERSION);
         LayoutInflater.from(context).inflate(R.layout.layout_season_section, this, true);
         initViews();
-        // Log.i(TAG, "构造 | 初始化完成 | titleView=" + (titleView != null ? "OK" : "NULL")
-        //         + " | recyclerView=" + (recyclerView != null ? "OK" : "NULL"));
     }
 
     public VideoListSection(Context context, AttributeSet attrs) {
@@ -251,10 +236,8 @@ public class VideoListSection extends LinearLayout {
         titleView = (TextView) findViewById(R.id.season_section_title);
         recyclerView = (RecyclerView) findViewById(R.id.season_section_recycler);
         if (recyclerView == null) {
-            // Log.e(TAG, "initViews | recyclerView为null! 请检查layout_season_section.xml中是否有season_section_recycler");
             return;
         }
-        // Log.d(TAG, "initViews | 开始初始化RecyclerView");
 
         recyclerView.setFocusable(true);
         // 左右焦点边界：防止焦点横向移出列表
@@ -268,7 +251,6 @@ public class VideoListSection extends LinearLayout {
             @Override
             public void setupFocusBoundary(View itemView, int position, int size) {
                 if (itemView == null) {
-                    // Log.w(TAG, "setupFocusBoundary | position=" + position + " | itemView为null");
                     return;
                 }
                 boolean isFirst = (position == 0);
@@ -284,51 +266,34 @@ public class VideoListSection extends LinearLayout {
                 } else {
                     itemView.setNextFocusRightId(View.NO_ID);
                 }
-
-                // Log.d(TAG, "setupFocusBoundary | position=" + position + "/" + (size - 1)
-                //         + " | isFirst=" + isFirst + " | isLast=" + isLast
-                //         + " | itemId=" + itemView.getId());
             }
         });
 
         adapter.setOnItemClickListener(new VideoCardAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Object data, int position) {
-                // Log.i(TAG, "onItemClick | sectionId=" + sectionId
-                //         + " | position=" + position
-                //         + " | dataClass=" + (data != null ? data.getClass().getSimpleName() : "null")
-                //         + " | currentVideoId=" + currentVideoId
-                //         + " | currentCid=" + currentCid);
-
                 boolean isCurrentVideo = false;
                 boolean hasCidCheck = false;
                 if (currentCid > 0 && adapter.getBinder() != null && data != null) {
                     isCurrentVideo = adapter.getBinder().isCurrentVideoByCid(data, currentCid);
                     hasCidCheck = true;
-                    // Log.i(TAG, "onItemClick | isCurrentVideo(by cid)=" + isCurrentVideo);
                 }
 
                 if (!hasCidCheck && currentVideoId > 0 && adapter.getBinder() != null && data != null) {
                     isCurrentVideo = adapter.getBinder().isCurrentVideo(data, currentVideoId);
-                    // Log.i(TAG, "onItemClick | isCurrentVideo(by avid)=" + isCurrentVideo);
                 }
 
                 if (!isCurrentVideo && currentSeasonId > 0 && adapter.getBinder() != null && data != null) {
                     isCurrentVideo = adapter.getBinder().isCurrentSeason(data, currentSeasonId);
-                    // Log.i(TAG, "onItemClick | isCurrentVideo(by seasonId)=" + isCurrentVideo);
                 }
                 
                 if (interceptCurrentVideoClick && isCurrentVideo) {
-                    // Log.i(TAG, "onItemClick | 点击的是当前正在播放的视频，忽略跳转");
                     return;
                 }
                 
-                // Log.i(TAG, "onItemClick | 保存焦点位置: " + position);
                 saveFocusPositionByIndex(position);
                 if (videoClickListener != null) {
                     videoClickListener.onVideoClicked(data, position);
-                } else {
-                    // Log.w(TAG, "onItemClick | videoClickListener为null! 点击事件未传递");
                 }
             }
         });
@@ -336,8 +301,6 @@ public class VideoListSection extends LinearLayout {
         adapter.setOnItemFocusListener(new VideoCardAdapter.OnItemFocusListener() {
             @Override
             public void onItemFocus(int position, boolean hasFocus) {
-                Log.i(TAG, "onItemFocus | sectionId=" + sectionId + " | position=" + position + " | hasFocus=" + hasFocus
-                        + " | focusRedirecting=" + focusRedirecting);
                 if (hasFocus) {
                     if (focusRedirecting) {
                         // 焦点由dispatchKeyEvent控制，只更新状态，不做额外处理
@@ -363,18 +326,10 @@ public class VideoListSection extends LinearLayout {
 
         recyclerView.setLayoutManager(new FixLinearLayoutManager(getContext(), 0, false));
         recyclerView.setAdapter(adapter);
-        // Log.d(TAG, "initViews | RecyclerView配置完成 | layoutManager=FixLinearLayoutManager(HORIZONTAL)");
 
         recyclerView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                Log.i(TAG, "onVideoFocusChange | sectionId=" + sectionId
-                        + " | hasFocus=" + hasFocus
-                        + " | currentFocusArea=" + currentFocusArea
-                        + " | focusRedirecting=" + focusRedirecting
-                        + " | manualFocusRequested=" + manualFocusRequested
-                        + " | focusPosition=" + focusPosition);
-
                 if (hasFocus) {
                     if (focusRedirecting || manualFocusRequested) {
                         // 焦点由dispatchKeyEvent或手动请求控制，不需要自动恢复
@@ -390,6 +345,7 @@ public class VideoListSection extends LinearLayout {
                 } else {
                     focusRedirecting = false;
                     manualFocusRequested = false;
+                    currentFocusArea = FOCUS_AREA_NONE;
                     saveCurrentFocusFromRecyclerView();
                 }
             }
@@ -401,7 +357,6 @@ public class VideoListSection extends LinearLayout {
     private void initNavigationTags() {
         navTagRecyclerView = (RecyclerView) findViewById(R.id.season_section_nav_tags);
         if (navTagRecyclerView == null) {
-            Log.w(TAG, "initNavigationTags | navTagRecyclerView为null");
             return;
         }
         
@@ -431,20 +386,12 @@ public class VideoListSection extends LinearLayout {
                 }
 
                 // 导航标签item按UP键：由dispatchKeyEvent统一管理，不再设置nextFocusUpId
-                
-                Log.i(TAG, "setupNavTagFocusBoundary | position=" + position 
-                        + " | isFirst=" + isFirst + " | isLast=" + isLast);
             }
         });
         
         navTagAdapter.setOnTagFocusListener(new NavigationTagAdapter.OnTagFocusListener() {
             @Override
             public void onTagFocus(int tagIndex, int videoStartPosition) {
-                Log.i(TAG, "onTagFocus | sectionId=" + sectionId + " | tagIndex=" + tagIndex 
-                        + " | videoStartPosition=" + videoStartPosition
-                        + " | prevFocusArea=" + currentFocusArea
-                        + " | focusRedirecting=" + focusRedirecting);
-
                 // 焦点由dispatchKeyEvent控制时，只更新基本状态
                 if (focusRedirecting) {
                     focusRedirecting = false;
@@ -460,8 +407,6 @@ public class VideoListSection extends LinearLayout {
                 if (currentFocusArea == FOCUS_AREA_VIDEO && !manualFocusRequested) {
                     int expectedTagIndex = focusPosition / 10;
                     if (expectedTagIndex != tagIndex && expectedTagIndex >= 0 && expectedTagIndex < navTagAdapter.getTagCount()) {
-                        Log.i(TAG, "onTagFocus | 焦点重定向 | tagIndex=" + tagIndex 
-                                + " -> expectedTagIndex=" + expectedTagIndex);
                         // 先更新currentFocusArea避免重定向时再次触发此逻辑
                         currentFocusArea = FOCUS_AREA_NAV_TAG;
                         lastNavTagVideoStart = expectedTagIndex * 10;
@@ -475,7 +420,6 @@ public class VideoListSection extends LinearLayout {
                                 View tagView = navTagAdapter.findViewByPosition(finalTagIndex);
                                 if (tagView != null) {
                                     tagView.requestFocus();
-                                    Log.i(TAG, "onTagFocus | 焦点重定向完成 | tagIndex=" + finalTagIndex);
                                 }
                             }
                         }, 50);
@@ -508,9 +452,6 @@ public class VideoListSection extends LinearLayout {
         navTagAdapter.setOnTagClickListener(new NavigationTagAdapter.OnTagClickListener() {
             @Override
             public void onTagClick(int tagIndex, int videoStartPosition) {
-                Log.i(TAG, "onTagClick | sectionId=" + sectionId + " | tagIndex=" + tagIndex 
-                        + " | videoStartPosition=" + videoStartPosition);
-                
                 if (tagIndex >= 0) {
                     int currentVideoPosition = focusPosition;
                     int rangeStart = videoStartPosition;
@@ -530,11 +471,6 @@ public class VideoListSection extends LinearLayout {
         navTagRecyclerView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                Log.i(TAG, "onNavTagRecyclerViewFocus | hasFocus=" + hasFocus
-                        + " | currentFocusArea=" + currentFocusArea
-                        + " | focusRedirecting=" + focusRedirecting
-                        + " | focusPosition=" + focusPosition);
-
                 if (hasFocus) {
                     if (focusRedirecting) {
                         focusRedirecting = false;
@@ -542,11 +478,11 @@ public class VideoListSection extends LinearLayout {
                         // 从视频列表来到导航标签：定位到当前focusPosition对应的导航标签
                         restoreNavTagFromVideo();
                     }
+                } else {
+                    currentFocusArea = FOCUS_AREA_NONE;
                 }
             }
         });
-        
-        Log.i(TAG, "initNavigationTags | 导航标签初始化完成");
     }
 
     private int getViewPosition(View view) {
@@ -572,25 +508,17 @@ public class VideoListSection extends LinearLayout {
         int viewRight = viewLocation[0] + view.getWidth();
         
         boolean fullyVisible = (viewLeft >= rvLeft) && (viewRight <= rvRight);
-        // Log.d(TAG, "isViewFullyVisible | rvLeft=" + rvLeft + " rvRight=" + rvRight
-        //         + " | viewLeft=" + viewLeft + " viewRight=" + viewRight
-        //         + " | result=" + fullyVisible);
         return fullyVisible;
     }
 
     public void setTitle(String title, int count) {
         String fullTitle = title + "(" + count + ")";
-        // Log.i(TAG, "setTitle | sectionId=" + sectionId + " | title=" + fullTitle);
         if (titleView != null && title != null) {
             titleView.setText(fullTitle);
-        } else {
-            // Log.w(TAG, "setTitle | titleView或title为null | titleView=" + (titleView != null ? "OK" : "NULL")
-            //         + " | title=" + title);
         }
     }
 
     public void setTitle(String title) {
-        // Log.i(TAG, "setTitle(纯文字) | sectionId=" + sectionId + " | title=" + title);
         if (titleView != null && title != null) {
             titleView.setText(title);
         }
@@ -603,28 +531,18 @@ public class VideoListSection extends LinearLayout {
     }
 
     public void setData(List<?> data, VideoCardBinder b) {
-        // Log.i(TAG, "setData | sectionId=" + sectionId
-        //         + " | dataSize=" + (data == null ? 0 : data.size())
-        //         + " | binderClass=" + (b != null ? b.getClass().getSimpleName() : "null")
-        //         + " | 原dataSize=" + (this.dataList == null ? 0 : this.dataList.size()));
         this.dataList = data;
         this.binder = b;
         if (adapter != null) {
             adapter.setData(data, b);
-        } else {
-            // Log.e(TAG, "setData | adapter为null! 数据未设置!");
         }
     }
 
     public void setCurrentVideoId(long videoId) {
-        // Log.i(TAG, "setCurrentVideoId | sectionId=" + sectionId + " | oldVideoId=" + currentVideoId
-        //         + " | newVideoId=" + videoId);
         this.currentVideoId = videoId;
     }
 
     public void setCurrentCid(long cid) {
-        // Log.i(TAG, "setCurrentCid | sectionId=" + sectionId + " | oldCid=" + currentCid
-        //         + " | newCid=" + cid);
         this.currentCid = cid;
     }
 
@@ -633,13 +551,10 @@ public class VideoListSection extends LinearLayout {
     }
 
     public void setInterceptCurrentVideoClick(boolean intercept) {
-        // Log.i(TAG, "setInterceptCurrentVideoClick | sectionId=" + sectionId + " | " + intercept);
         this.interceptCurrentVideoClick = intercept;
     }
 
     public void setCurrentSeasonId(int seasonId) {
-        // Log.i(TAG, "setCurrentSeasonId | sectionId=" + sectionId + " | oldSeasonId=" + currentSeasonId
-        //         + " | newSeasonId=" + seasonId);
         this.currentSeasonId = seasonId;
     }
 
@@ -648,21 +563,13 @@ public class VideoListSection extends LinearLayout {
     }
 
     public void scrollToCurrentVideo() {
-        // Log.i(TAG, "scrollToCurrentVideo | sectionId=" + sectionId
-        //         + " | currentVideoId=" + currentVideoId
-        //         + " | dataSize=" + (dataList == null ? 0 : dataList.size())
-        //         + " | binder=" + (binder != null ? binder.getClass().getSimpleName() : "null"));
-
         if (recyclerView == null) {
-            // Log.w(TAG, "scrollToCurrentVideo | recyclerView为null，跳过");
             return;
         }
         if (dataList == null || dataList.isEmpty()) {
-            // Log.w(TAG, "scrollToCurrentVideo | 数据为空，跳过");
             return;
         }
         if (binder == null) {
-            // Log.e(TAG, "scrollToCurrentVideo | binder为null，无法判断当前视频!");
             return;
         }
 
@@ -674,21 +581,12 @@ public class VideoListSection extends LinearLayout {
             if (currentCid > 0) {
                 isCur = binder.isCurrentVideoByCid(item, currentCid);
                 hasCidCheck = true;
-                // Log.d(TAG, "scrollToCurrentVideo | 遍历 | index=" + i
-                //         + " | itemClass=" + (item != null ? item.getClass().getSimpleName() : "null")
-                //         + " | isCurrent(by cid)=" + isCur
-                //         + " | currentCid=" + currentCid);
             }
             if (!hasCidCheck && currentVideoId > 0) {
                 isCur = binder.isCurrentVideo(item, currentVideoId);
-                // Log.d(TAG, "scrollToCurrentVideo | 遍历 | index=" + i
-                //         + " | itemClass=" + (item != null ? item.getClass().getSimpleName() : "null")
-                //         + " | isCurrent(by avid)=" + isCur);
             }
             if (!isCur && currentSeasonId > 0) {
                 isCur = binder.isCurrentSeason(item, currentSeasonId);
-                // Log.d(TAG, "scrollToCurrentVideo | 遍历 | index=" + i
-                //         + " | isCurrent(by seasonId)=" + isCur);
             }
             if (isCur) {
                 currentPosition = i;
@@ -697,15 +595,8 @@ public class VideoListSection extends LinearLayout {
         }
 
         if (currentPosition < 0) {
-            // Log.i(TAG, "scrollToCurrentVideo | 未找到匹配的当前视频 | currentVideoId=" + currentVideoId
-            //         + " | currentSeasonId=" + currentSeasonId
-            //         + " | 遍历了" + dataList.size() + "项均不匹配");
             return;
         }
-
-        // Log.i(TAG, "scrollToCurrentVideo | 找到当前位置: " + currentPosition
-        //         + " | 总数据量: " + dataList.size()
-        //         + " | 准备post滚动");
 
         final int finalPos = currentPosition;
         recyclerView.post(new Runnable() {
@@ -733,16 +624,12 @@ public class VideoListSection extends LinearLayout {
     }
 
     public void scrollToDataPosition(int position) {
-        Log.i(TAG, "scrollToDataPosition | sectionId=" + sectionId + " | position=" + position);
-        
         if (recyclerView == null) {
-            Log.w(TAG, "scrollToDataPosition | recyclerView为null");
             return;
         }
         
         int dataSize = (dataList == null ? 0 : dataList.size());
         if (position < 0 || position >= dataSize) {
-            Log.w(TAG, "scrollToDataPosition | position越界 | position=" + position + " | dataSize=" + dataSize);
             return;
         }
         
@@ -751,7 +638,6 @@ public class VideoListSection extends LinearLayout {
             @Override
             public void run() {
                 if (!recyclerView.isAttachedToWindow()) {
-                    Log.w(TAG, "scrollToDataPosition.post | RecyclerView已脱离窗口");
                     return;
                 }
                 
@@ -762,16 +648,12 @@ public class VideoListSection extends LinearLayout {
                     if (layoutManager != null) {
                         java.lang.reflect.Method scrollToWithOffset = layoutManager.getClass().getMethod("b", int.class, int.class);
                         scrollToWithOffset.invoke(layoutManager, finalPos, 0);
-                        Log.i(TAG, "scrollToDataPosition.post | b(int,int)成功 | position=" + finalPos);
                     }
                 } catch (Exception e) {
-                    Log.w(TAG, "scrollToDataPosition.post | b(int,int)失败: " + e.getMessage() + "，回退到a(int)");
                     try {
                         java.lang.reflect.Method scrollToMethod = recyclerView.getClass().getMethod("a", int.class);
                         scrollToMethod.invoke(recyclerView, finalPos);
-                        Log.i(TAG, "scrollToDataPosition.post | a(int)成功 | position=" + finalPos);
                     } catch (Exception e2) {
-                        Log.w(TAG, "scrollToDataPosition.post | a(int)失败: " + e2.getMessage());
                     }
                 }
                 focusPosition = finalPos;
@@ -785,30 +667,24 @@ public class VideoListSection extends LinearLayout {
      * 同时更新focusPosition为对应导航标签范围的起始位置
      */
     private void scrollToDataPositionOnly(int position) {
-        Log.i(TAG, "scrollToDataPositionOnly | sectionId=" + sectionId + " | position=" + position);
-
         if (recyclerView == null) {
-            Log.w(TAG, "scrollToDataPositionOnly | recyclerView为null");
             return;
         }
 
         int dataSize = (dataList == null ? 0 : dataList.size());
         if (position < 0 || position >= dataSize) {
-            Log.w(TAG, "scrollToDataPositionOnly | position越界 | position=" + position + " | dataSize=" + dataSize);
             return;
         }
 
         // 更新focusPosition为导航标签对应的范围起始位置
         // 这样从导航标签按UP回到视频列表时，焦点定位到当前导航标签对应的视频范围
         focusPosition = position;
-        Log.i(TAG, "scrollToDataPositionOnly | focusPosition已更新为=" + focusPosition);
 
         final int finalPos = position;
         recyclerView.post(new Runnable() {
             @Override
             public void run() {
                 if (!recyclerView.isAttachedToWindow()) {
-                    Log.w(TAG, "scrollToDataPositionOnly.post | RecyclerView已脱离窗口");
                     return;
                 }
 
@@ -819,16 +695,12 @@ public class VideoListSection extends LinearLayout {
                     if (layoutManager != null) {
                         java.lang.reflect.Method scrollToWithOffset = layoutManager.getClass().getMethod("b", int.class, int.class);
                         scrollToWithOffset.invoke(layoutManager, finalPos, 0);
-                        Log.i(TAG, "scrollToDataPositionOnly.post | b(int,int)成功 | position=" + finalPos);
                     }
                 } catch (Exception e) {
-                    Log.w(TAG, "scrollToDataPositionOnly.post | b(int,int)失败: " + e.getMessage() + "，回退到a(int)");
                     try {
                         java.lang.reflect.Method scrollToMethod = recyclerView.getClass().getMethod("a", int.class);
                         scrollToMethod.invoke(recyclerView, finalPos);
-                        Log.i(TAG, "scrollToDataPositionOnly.post | a(int)成功 | position=" + finalPos);
                     } catch (Exception e2) {
-                        Log.w(TAG, "scrollToDataPositionOnly.post | a(int)失败: " + e2.getMessage());
                     }
                 }
             }
@@ -857,11 +729,6 @@ public class VideoListSection extends LinearLayout {
         if (dataSize == 0) return;
         targetPosition = Math.max(0, Math.min(targetPosition, dataSize - 1));
 
-        Log.i(TAG, "restoreFocusFromNavTag | lastNavTagVideoStart=" + lastNavTagVideoStart
-                + " | focusPosition=" + focusPosition
-                + " | rangeStart=" + rangeStart + " | rangeEnd=" + rangeEnd
-                + " | targetPosition=" + targetPosition);
-
         focusPosition = targetPosition;
         focusRestoreRetryCount = 0;
         restoreFocusWithRetry(targetPosition);
@@ -874,14 +741,11 @@ public class VideoListSection extends LinearLayout {
         View focusView = restoreFocusPositionInternal();
         if (focusView != null) {
             manualFocusRequested = true;
-            boolean success = focusView.requestFocus();
-            Log.i(TAG, "restoreFocusFromExternal | requestFocus=" + success
-                    + " | position=" + focusPosition);
+            focusView.requestFocus();
         } else if (recyclerView.getChildCount() > 0) {
             View fallbackView = recyclerView.getChildAt(0);
             manualFocusRequested = true;
             fallbackView.requestFocus();
-            Log.i(TAG, "restoreFocusFromExternal | fallback到第1个child");
         }
     }
 
@@ -898,15 +762,10 @@ public class VideoListSection extends LinearLayout {
             navTagAdapter.setSelectedPosition(tagIndex);
             navTagAdapter.scrollToPositionWithOffset(tagIndex);
 
-            Log.i(TAG, "restoreNavTagFromVideo | focusPosition=" + focusPosition
-                    + " | tagIndex=" + tagIndex);
-
-            // 先尝试直接定位到目标标签
             final int finalTagIndex = tagIndex;
             View tagView = navTagAdapter.findViewByPosition(finalTagIndex);
             if (tagView != null) {
                 tagView.requestFocus();
-                Log.i(TAG, "restoreNavTagFromVideo | 直接焦点恢复到tagIndex=" + finalTagIndex);
             } else {
                 // 目标标签尚未布局完成，延迟恢复
                 navTagRecyclerView.postDelayed(new Runnable() {
@@ -915,7 +774,6 @@ public class VideoListSection extends LinearLayout {
                         View tagView = navTagAdapter.findViewByPosition(finalTagIndex);
                         if (tagView != null) {
                             tagView.requestFocus();
-                            Log.i(TAG, "restoreNavTagFromVideo | 延迟焦点恢复到tagIndex=" + finalTagIndex);
                         }
                     }
                 }, 100);
@@ -929,7 +787,6 @@ public class VideoListSection extends LinearLayout {
      */
     private void restoreFocusWithRetry(final int targetPosition) {
         if (focusRestoreRetryCount > MAX_FOCUS_RESTORE_RETRY) {
-            Log.w(TAG, "restoreFocusWithRetry | 超过最大重试次数 | position=" + targetPosition);
             // fallback到第一个可见子View
             if (recyclerView != null && recyclerView.getChildCount() > 0) {
                 View fallbackView = recyclerView.getChildAt(0);
@@ -943,10 +800,7 @@ public class VideoListSection extends LinearLayout {
         View targetView = findViewByDataPosition(targetPosition);
         if (targetView != null) {
             manualFocusRequested = true;
-            boolean success = targetView.requestFocus();
-            Log.i(TAG, "restoreFocusWithRetry | requestFocus=" + success
-                    + " | position=" + targetPosition
-                    + " | retryCount=" + focusRestoreRetryCount);
+            targetView.requestFocus();
             focusRestoreRetryCount = 0;
         } else {
             // 目标view不可见（滚动可能未完成），延迟重试
@@ -965,89 +819,47 @@ public class VideoListSection extends LinearLayout {
     }
 
     public boolean requestFocusOnSavedPosition() {
-        // Log.i(TAG, "========== requestFocusOnSavedPosition START ==========");
-        // Log.i(TAG, "requestFocusOnSavedPosition | sectionId=" + sectionId
-        //         + " | focusPosition=" + focusPosition
-        //         + " | dataSize=" + (dataList == null ? 0 : dataList.size()));
-        
         manualFocusRequested = true;
         currentFocusArea = FOCUS_AREA_VIDEO;
-        // Log.d(TAG, "requestFocusOnSavedPosition | 设置manualFocusRequested=true");
         
         View focusView = restoreFocusPositionInternal();
         if (focusView != null) {
-            int actualPosition = getViewPosition(focusView);
-            // Log.i(TAG, "requestFocusOnSavedPosition | 找到目标view"
-            //         + " | 预期position=" + focusPosition
-            //         + " | 实际position=" + actualPosition);
-            
-            boolean success = focusView.requestFocus();
-            // Log.i(TAG, "requestFocusOnSavedPosition | <<< requestFocus返回 " + success
-            //         + " | 最终聚焦到position=" + actualPosition);
-            // Log.i(TAG, "========== requestFocusOnSavedPosition END ==========");
-            return success;
+            return focusView.requestFocus();
         }
         
-        // Log.w(TAG, "requestFocusOnSavedPosition | restoreFocus返回null，尝试fallback");
         if (recyclerView != null && recyclerView.getChildCount() > 0) {
             View fallbackView = recyclerView.getChildAt(0);
-            boolean success = fallbackView.requestFocus();
-            // Log.w(TAG, "requestFocusOnSavedPosition | fallback到第1个child | success=" + success);
-            // Log.i(TAG, "========== requestFocusOnSavedPosition END ==========");
-            return success;
+            return fallbackView.requestFocus();
         }
         
-        // Log.e(TAG, "requestFocusOnSavedPosition | 无法聚焦!");
-        // Log.i(TAG, "========== requestFocusOnSavedPosition END ==========");
         return false;
     }
 
     private View restoreFocusPositionInternal() {
-        // Log.i(TAG, "restoreFocusPosition | sectionId=" + sectionId
-        //         + " | savedFocusPosition=" + focusPosition);
-
         if (recyclerView == null) {
-            // Log.w(TAG, "restoreFocusPosition | recyclerView为null");
             return null;
         }
 
         int dataSize = (dataList == null ? 0 : dataList.size());
-        // Log.d(TAG, "restoreFocusPosition | dataSize=" + dataSize
-        //         + " | focusPosition=" + focusPosition);
-
         if (dataSize == 0) {
-            // Log.w(TAG, "restoreFocusPosition | 数据为空");
             return null;
         }
 
         int dataPosition = Math.min(focusPosition, dataSize - 1);
         dataPosition = Math.max(0, dataPosition);
-        // Log.d(TAG, "restoreFocusPosition | 边界修正后dataPosition=" + dataPosition
-        //         + " (原始focusPosition=" + focusPosition + ", maxSize=" + (dataSize - 1) + ")");
 
         int childCount = recyclerView.getChildCount();
-        // Log.d(TAG, "restoreFocusPosition | childCount=" + childCount);
-
         if (childCount == 0) {
-            // Log.w(TAG, "restoreFocusPosition | 无可见子view");
             return null;
         }
 
         View targetView = findViewByDataPosition(dataPosition);
         if (targetView != null) {
-            // Log.i(TAG, "restoreFocusPosition | ★ 找到目标view (已在可视区内)"
-            //         + " | dataPosition=" + dataPosition
-            //         + " | requestFocus不会触发滚动");
             return targetView;
         }
-
-        // Log.w(TAG, "restoreFocusPosition | 目标view不可见，使用最近可见项"
-        //         + " | dataPosition=" + dataPosition
-        //         + " | childCount=" + childCount);
         
         View firstChild = recyclerView.getChildAt(0);
         if (firstChild != null) {
-            // Log.w(TAG, "restoreFocusPosition | fallback到第1个可见子view");
             return firstChild;
         }
         
@@ -1058,7 +870,6 @@ public class VideoListSection extends LinearLayout {
         try {
             Object layoutManager = recyclerView.getLayoutManager();
             if (layoutManager == null) {
-                // Log.w(TAG, "findViewByDataPosition | layoutManager为null");
                 return null;
             }
             
@@ -1066,9 +877,6 @@ public class VideoListSection extends LinearLayout {
             View view = (View) method.invoke(layoutManager, dataPosition);
             
             if (view != null) {
-                // Log.i(TAG, "findViewByDataPosition | layoutManager.c(" + dataPosition + ") 返回有效view"
-                //         + " | 该view已附加到RecyclerView");
-                
                 boolean isAttachedToRV = false;
                 for (int i = 0; i < recyclerView.getChildCount(); i++) {
                     if (recyclerView.getChildAt(i) == view) {
@@ -1076,50 +884,32 @@ public class VideoListSection extends LinearLayout {
                         break;
                     }
                 }
-                // Log.d(TAG, "findViewByDataPosition | isAttachedToRV=" + isAttachedToRV);
                 return view;
-            } else {
-                // Log.d(TAG, "findViewByDataPosition | layoutManager.c(" + dataPosition + ") 返回null (view未附加/已回收)");
             }
-        } catch (NoSuchMethodException e) {
-            // Log.e(TAG, "findViewByDataPosition | c方法不存在: " + e.getMessage());
         } catch (Exception e) {
-            // Log.e(TAG, "findViewByDataPosition | 异常: " + e.getMessage());
         }
         return null;
     }
 
     public void saveFocusPosition(View focusedChild) {
         if (recyclerView == null || focusedChild == null) {
-            // Log.w(TAG, "saveFocusPosition(byView) | 参数异常 | rv=" + (recyclerView != null)
-            //         + " | child=" + (focusedChild != null));
             return;
         }
         for (int i = 0; i < recyclerView.getChildCount(); i++) {
             if (recyclerView.getChildAt(i) == focusedChild) {
                 int dataPos = getDataPositionForView(focusedChild);
-                int oldPos = focusPosition;
                 if (dataPos >= 0) {
                     focusPosition = dataPos;
-                    // Log.i(TAG, "saveFocusPosition(byView) | sectionId=" + sectionId
-                    //         + " | " + oldPos + " -> " + dataPos + " (数据索引, 可见索引=" + i + ")");
                 } else {
                     focusPosition = i;
-                    // Log.w(TAG, "saveFocusPosition(byView) | getDataPositionForView失败，使用可见索引fallback"
-                    //         + " | sectionId=" + sectionId
-                    //         + " | " + oldPos + " -> " + i);
                 }
                 return;
             }
         }
-        // Log.w(TAG, "saveFocusPosition(byView) | 未在children中找到目标view");
     }
 
     private void saveFocusPositionByIndex(int index) {
-        int oldPos = focusPosition;
         focusPosition = index;
-        // Log.d(TAG, "saveFocusPosition(byIndex) | sectionId=" + sectionId
-        //         + " | " + oldPos + " -> " + index);
     }
 
     private void saveCurrentFocusFromRecyclerView() {
@@ -1128,22 +918,14 @@ public class VideoListSection extends LinearLayout {
             View child = recyclerView.getChildAt(i);
             if (child != null && child.hasFocus()) {
                 int dataPos = getDataPositionForView(child);
-                int oldPos = focusPosition;
                 if (dataPos >= 0) {
                     focusPosition = dataPos;
-                    // Log.d(TAG, "saveCurrentFocusFromRecyclerView | sectionId=" + sectionId
-                    //         + " | " + oldPos + " -> " + dataPos + " (数据索引, 可见索引=" + i + ")");
                 } else {
                     focusPosition = i;
-                    // Log.w(TAG, "saveCurrentFocusFromRecyclerView | getDataPositionForView失败，使用可见索引fallback"
-                    //         + " | sectionId=" + sectionId
-                    //         + " | " + oldPos + " -> " + i);
                 }
                 return;
             }
         }
-        // Log.d(TAG, "saveCurrentFocusFromRecyclerView | sectionId=" + sectionId
-        //         + " | 未找到有焦点的child，保持原focusPosition=" + focusPosition);
     }
 
     public int getFocusPosition() {
@@ -1152,24 +934,20 @@ public class VideoListSection extends LinearLayout {
 
     public int getDataPositionForView(View view) {
         if (view == null || dataList == null || adapter == null) {
-            // Log.w(TAG, "getDataPositionForView | 参数异常，返回-1");
             return -1;
         }
         
         Object tagData = view.getTag();
         if (tagData == null) {
-            // Log.w(TAG, "getDataPositionForView | tag为null，尝试遍历查找");
             return findPositionByTraversal(view);
         }
         
         for (int i = 0; i < dataList.size(); i++) {
             if (dataList.get(i) == tagData) {
-                // Log.d(TAG, "getDataPositionForView | 通过tag匹配找到 dataPosition=" + i);
                 return i;
             }
         }
         
-        // Log.w(TAG, "getDataPositionForView | tag未匹配，尝试遍历查找");
         return findPositionByTraversal(view);
     }
     
@@ -1177,7 +955,6 @@ public class VideoListSection extends LinearLayout {
         if (recyclerView == null) return -1;
         for (int i = 0; i < recyclerView.getChildCount(); i++) {
             if (recyclerView.getChildAt(i) == view) {
-                // Log.d(TAG, "findPositionByTraversal | 找到可见索引=" + i + " (这不是数据索引!)");
                 return -1;
             }
         }
@@ -1189,7 +966,6 @@ public class VideoListSection extends LinearLayout {
     }
 
     public void setFocusPosition(int pos) {
-        // Log.d(TAG, "setFocusPosition | sectionId=" + sectionId + " | " + focusPosition + " -> " + pos);
         this.focusPosition = pos;
     }
 
@@ -1198,7 +974,6 @@ public class VideoListSection extends LinearLayout {
     }
 
     public void setSectionId(int id) {
-        // Log.d(TAG, "setSectionId | " + sectionId + " -> " + id);
         this.sectionId = id;
     }
 
@@ -1240,9 +1015,7 @@ public class VideoListSection extends LinearLayout {
     }
 
     public void setupNavigationTags(int totalCount) {
-        Log.i(TAG, "setupNavigationTags | sectionId=" + sectionId + " | totalCount=" + totalCount);
         if (navTagRecyclerView == null || navTagAdapter == null) {
-            Log.w(TAG, "setupNavigationTags | navTagRecyclerView或navTagAdapter为null");
             return;
         }
         
@@ -1252,11 +1025,8 @@ public class VideoListSection extends LinearLayout {
             navTagRecyclerView.requestLayout();
             
             // 焦点边界由dispatchKeyEvent统一管理，不再需要设置nextFocusDownId/nextFocusUpId
-            
-            Log.i(TAG, "setupNavigationTags | 导航标签已显示 | tagCount=" + navTagAdapter.getTagCount());
         } else {
             navTagRecyclerView.setVisibility(View.GONE);
-            Log.i(TAG, "setupNavigationTags | 视频数量<=10，不显示导航标签");
         }
     }
 
@@ -1271,9 +1041,6 @@ public class VideoListSection extends LinearLayout {
         if (tagIndex >= 0 && tagIndex < navTagAdapter.getTagCount()) {
             navTagAdapter.setSelectedPosition(tagIndex);
             navTagAdapter.scrollToPositionWithOffset(tagIndex);
-            Log.i(TAG, "updateNavTagSelection | videoPosition=" + videoPosition 
-                    + " | visiblePosition=" + visiblePosition 
-                    + " | tagIndex=" + tagIndex);
         }
     }
 
@@ -1312,10 +1079,7 @@ public class VideoListSection extends LinearLayout {
     }
 
     public void scrollToCurrentVideoAtFirstPosition() {
-        Log.i(TAG, "scrollToCurrentVideoAtFirstPosition | START");
-        
         if (recyclerView == null || dataList == null || dataList.isEmpty() || binder == null) {
-            Log.w(TAG, "scrollToCurrentVideoAtFirstPosition | 条件不满足");
             return;
         }
         
@@ -1339,11 +1103,8 @@ public class VideoListSection extends LinearLayout {
         }
         
         if (currentPosition < 0) {
-            Log.w(TAG, "scrollToCurrentVideoAtFirstPosition | 未找到当前播放项");
             return;
         }
-        
-        Log.i(TAG, "scrollToCurrentVideoAtFirstPosition | currentPosition=" + currentPosition);
         
         final int finalPos = currentPosition;
         recyclerView.post(new Runnable() {
@@ -1377,8 +1138,6 @@ public class VideoListSection extends LinearLayout {
     }
 
     public void setupBottomMenuFocusBoundary() {
-        Log.i(TAG, "setupBottomMenuFocusBoundary | 设置底部菜单焦点边界");
-
         recyclerView.setSoundEffectsEnabled(false);
         recyclerView.setItemAnimator(null);
         recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -1395,12 +1154,10 @@ public class VideoListSection extends LinearLayout {
 
     public void saveVideoFocusPosition(int position) {
         this.savedVideoFocusPosition = position;
-        Log.i(TAG, "saveVideoFocusPosition | position=" + position);
     }
 
     public void saveTagFocusPosition(int position) {
         this.savedTagFocusPosition = position;
-        Log.i(TAG, "saveTagFocusPosition | position=" + position);
     }
 
     public boolean isDataLoaded() {
@@ -1423,7 +1180,6 @@ public class VideoListSection extends LinearLayout {
     }
 
     public void onVideoCardClicked(long cid, com.bilibili.tv.player.basic.context.ResolveResourceParams params) {
-        Log.i(TAG, "onVideoCardClicked | cid=" + cid);
         if (videoCardClickListener != null) {
             videoCardClickListener.onVideoCardClicked(cid, params);
         }

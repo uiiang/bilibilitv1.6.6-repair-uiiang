@@ -13,6 +13,12 @@
 
 
 # static fields
+.field public static final CDN_TYPE_BILIVIDEO:I = 0x1
+
+.field public static final CDN_TYPE_MCDN:I = 0x2
+
+.field public static final CDN_TYPE_OTHER:I = 0x0
+
 .field private static final DEFAULT_SCORE:I = 0x46
 
 .field private static final KEY_CDN_SCORES:Ljava/lang/String; = "cdn_scores"
@@ -177,6 +183,59 @@
     goto :goto_6
 .end method
 
+.method public static getCdnType(Ljava/lang/String;)I
+    .locals 3
+
+    .prologue
+    const/4 v0, 0x0
+
+    .line 273
+    if-eqz p0, :cond_9
+
+    invoke-virtual {p0}, Ljava/lang/String;->isEmpty()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_a
+
+    .line 278
+    :cond_9
+    :goto_9
+    return v0
+
+    .line 274
+    :cond_a
+    const-string v1, "bilivideo"
+
+    invoke-virtual {p0, v1}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+
+    move-result v1
+
+    .line 275
+    const-string v2, "mcdn"
+
+    invoke-virtual {p0, v2}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+
+    move-result v2
+
+    .line 276
+    if-eqz v1, :cond_1c
+
+    if-eqz v2, :cond_1c
+
+    const/4 v0, 0x2
+
+    goto :goto_9
+
+    .line 277
+    :cond_1c
+    if-eqz v1, :cond_9
+
+    const/4 v0, 0x1
+
+    goto :goto_9
+.end method
+
 .method public static init(Landroid/content/Context;)V
     .locals 3
 
@@ -198,6 +257,52 @@
 
     .line 41
     return-void
+.end method
+
+.method public static isBilivideo(Ljava/lang/String;)Z
+    .locals 2
+
+    .prologue
+    const/4 v0, 0x1
+
+    .line 286
+    invoke-static {p0}, Lmybl/CdnSelector;->getCdnType(Ljava/lang/String;)I
+
+    move-result v1
+
+    if-ne v1, v0, :cond_8
+
+    :goto_7
+    return v0
+
+    :cond_8
+    const/4 v0, 0x0
+
+    goto :goto_7
+.end method
+
+.method public static isMcdn(Ljava/lang/String;)Z
+    .locals 2
+
+    .prologue
+    .line 282
+    invoke-static {p0}, Lmybl/CdnSelector;->getCdnType(Ljava/lang/String;)I
+
+    move-result v0
+
+    const/4 v1, 0x2
+
+    if-ne v0, v1, :cond_9
+
+    const/4 v0, 0x1
+
+    :goto_8
+    return v0
+
+    :cond_9
+    const/4 v0, 0x0
+
+    goto :goto_8
 .end method
 
 .method public static reportPlaybackResult(Ljava/lang/String;ZZ)V

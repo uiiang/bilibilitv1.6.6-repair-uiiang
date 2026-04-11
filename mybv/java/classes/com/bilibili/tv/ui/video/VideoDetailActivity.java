@@ -92,7 +92,6 @@ import kotlin.TypeCastException;
 import retrofit2.HttpException;
 import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
 import tv.danmaku.videoplayer.core.pluginapk.PluginApk;
-import mybl.LogUtil;
 import mybl.MyBiliApiService;
 import android.app.AlertDialog;
 import com.alibaba.fastjson.JSON;
@@ -100,7 +99,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.bilibili.okretro.GeneralResponse;
 import android.content.DialogInterface;
 import com.bilibili.tv.api.favorite.BiliFavoriteBox;
-import android.util.Log;
 import com.bilibili.nativelibrary.LibBili;
 import com.bilibili.nativelibrary.SignedQuery;
 import com.bilibili.api.BiliConfig;
@@ -110,7 +108,6 @@ import com.bilibili.api.BiliConfig;
 public final class VideoDetailActivity extends BaseActivity
         implements View.OnClickListener, View.OnLongClickListener, wf {
     private static final String C = "VideoDetailActivity";
-    private static final String CODE_VERSION = "v2.5-fixDataIndex";
     private static final String D = "bundle_ac_id";
     private static final String SEASON_ID_KEY = "bundle_season_id";
     private static final boolean ENABLE_BANGUMI_JUMP = false;
@@ -276,7 +273,6 @@ public final class VideoDetailActivity extends BaseActivity
         this.b = (ImageView) d(R.id.blur);
         this.gradientMaskView = d(R.id.gradient_mask);
         if (!TextUtils.isEmpty(preloadCoverUrl) && this.b != null) {
-            // Log.i(C, "k() preload cover: " + preloadCoverUrl);
             nv.a().a(preloadCoverUrl, this.b);
             if (this.gradientMaskView != null) {
                 this.gradientMaskView.setVisibility(View.INVISIBLE);
@@ -625,12 +621,9 @@ public final class VideoDetailActivity extends BaseActivity
     private com.bilibili.tv.ui.video.widget.VideoListSection findVideoListSection(int sectionId) {
         for (com.bilibili.tv.ui.video.widget.VideoListSection vls : ugcSeasonSections) {
             if (vls.getSectionId() == sectionId) {
-                // Log.d(C, "findVideoListSection | 找到section | sectionId=" + sectionId);
                 return vls;
             }
         }
-        // Log.w(C, "findVideoListSection | 未找到section | sectionId=" + sectionId
-        //         + " | ugcSeasonSections.size=" + ugcSeasonSections.size());
         return null;
     }
 
@@ -830,12 +823,10 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private final void m() {
-        // Log.i(C, "========== VideoDetailActivity INIT | CODE_VERSION=" + CODE_VERSION + " ==========");
         Intent intent = getIntent();
         bbi.a((Object) intent, "intent");
         Bundle extras = intent.getExtras();
         if (extras == null) {
-            // Log.i("VideoDetailActivity", "m() extras is null");
             lr.a(this, (int) R.string.video_not_exist);
             finish();
             return;
@@ -843,17 +834,13 @@ public final class VideoDetailActivity extends BaseActivity
         this.mSeasonId = extras.getString(SEASON_ID_KEY);
         this.s = extras.getLong(D);
         this.preloadCoverUrl = extras.getString("preload_cover");
-        // Log.i("VideoDetailActivity", "m() mSeasonId=" + this.mSeasonId + ", s=" + this.s);
         if (!TextUtils.isEmpty(this.mSeasonId)) {
             mEntryType = EntryType.PGC_BY_SEASON_ID;
             mIsPgcMode = true;
-            // Log.i("VideoDetailActivity", "m() EntryType=PGC_BY_SEASON_ID, seasonId=" + mSeasonId);
         } else if (this.s > 0) {
             mEntryType = EntryType.UGC_BY_AVID;
             mIsPgcMode = false;
-            // Log.i("VideoDetailActivity", "m() EntryType=UGC_BY_AVID, avid=" + s);
         } else {
-            // Log.i("VideoDetailActivity", "m() no valid params");
             lr.a(this, (int) R.string.video_not_exist);
             finish();
         }
@@ -881,9 +868,6 @@ public final class VideoDetailActivity extends BaseActivity
         }
         Integer valueOf = keyEvent != null ? Integer.valueOf(keyEvent.getAction()) : null;
         Integer valueOf2 = keyEvent != null ? Integer.valueOf(keyEvent.getKeyCode()) : null;
-        
-        String actionName = (valueOf != null && valueOf.intValue() == 0) ? "DOWN" : (valueOf != null && valueOf.intValue() == 1) ? "UP" : "UNKNOWN";
-        String keyName = getKeyName(valueOf2 != null ? valueOf2.intValue() : 0);
         
         if (valueOf != null && valueOf.intValue() == 0) {
             View currentFocus = getCurrentFocus();
@@ -998,18 +982,6 @@ public final class VideoDetailActivity extends BaseActivity
         return super.dispatchKeyEvent(keyEvent);
     }
 
-    private String getKeyName(int keyCode) {
-        switch (keyCode) {
-            case 19: return "DPAD_UP";
-            case 20: return "DPAD_DOWN";
-            case 21: return "DPAD_LEFT";
-            case 22: return "DPAD_RIGHT";
-            case 23: return "DPAD_CENTER";
-            case 66: return "ENTER";
-            default: return "KEY_" + keyCode;
-        }
-    }
-
     private boolean handleListFocusNavigation(View currentFocus, int direction) {
         int currentListType = getCurrentListType(currentFocus);
         if (currentListType < 0) {
@@ -1087,6 +1059,12 @@ public final class VideoDetailActivity extends BaseActivity
                 } else if (this.o != null && this.o.getVisibility() == View.VISIBLE) {
                     targetRecyclerView = this.o;
                     savedPosition = epLayoutFocusPosition;
+                } else if (historyPlayBtnLayout != null && historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
+                    historyPlayBtnLayout.requestFocus();
+                    return true;
+                } else if (rePlayBtnLayout != null && rePlayBtnLayout.getVisibility() == View.VISIBLE) {
+                    rePlayBtnLayout.requestFocus();
+                    return true;
                 }
             } else if (currentListType == LIST_TYPE_TAG) {
                 if (this.r != null && this.r.getVisibility() == View.VISIBLE) {
@@ -1334,7 +1312,6 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private final void n() {
-        // Log.i("VideoDetailActivity", "n() called, mEntryType=" + mEntryType + ", mSeasonId=" + mSeasonId + ", avid=" + s);
         switch (mEntryType) {
             case PGC_BY_SEASON_ID:
                 loadPgcBySeasonId();
@@ -1354,16 +1331,11 @@ public final class VideoDetailActivity extends BaseActivity
         if (loadingImageView != null) {
             loadingImageView.a();
         }
-        Log.i("VideoDetailApi", "========== UGC_BY_AVID Request ==========");
-        Log.i("VideoDetailApi", "https://api.bilibili.com/x/web-interface/view?aid=" + this.s);
         ((MyBiliApiService) vo.a(MyBiliApiService.class)).getVideoInfo(this.s).a(new VideoApiParser3()).a(this.A);
     }
     
     private void requestHistoryForUgc(final BiliVideoDetail biliVideoDetail, final Runnable callback) {
-        // Log.i("HistoryLoad", "requestHistoryForUgc: starting parallel history request");
-        
         if (biliVideoDetail.mHistory != null) {
-            // Log.i("HistoryLoad", "History already set, callback directly");
             if (callback != null) {
                 callback.run();
             }
@@ -1384,10 +1356,7 @@ public final class VideoDetailActivity extends BaseActivity
             }
         }
         
-        // Log.i("HistoryLoad", "requestHistoryForUgc: cid=" + cid + ", episodeId=" + episodeId + ", bvid=" + bvid);
-        
         if (cid == 0) {
-            // Log.i("HistoryLoad", "requestHistoryForUgc: cid is 0, callback directly");
             if (callback != null) {
                 callback.run();
             }
@@ -1412,7 +1381,6 @@ public final class VideoDetailActivity extends BaseActivity
                     
                     String signedQuery = mybl.WbiSigner.getInstance().encWbiAndGetQuery(params);
                     String fullUrl = "https://api.bilibili.com/x/player/wbi/v2?" + signedQuery;
-                    Log.i("HistoryApi", "Parallel History Request URL: " + fullUrl);
                     
                     bl.qa request = new bl.qa.a(BiliVideoDetail.JsonResponse.class)
                         .a(fullUrl)
@@ -1431,19 +1399,16 @@ public final class VideoDetailActivity extends BaseActivity
                             long lastPlayCid = data.getLongValue("last_play_cid");
                             int lastPlayTime = data.getIntValue("last_play_time") / 1000;
                             
-                            // Log.i("HistoryApi", "Parallel History: last_play_cid=" + lastPlayCid + ", last_play_time=" + lastPlayTime + "s");
-                            
                             if (lastPlayCid > 0) {
                                 final BiliVideoDetail.History history = new BiliVideoDetail.History();
                                 history.mCid = lastPlayCid;
                                 history.mProgress = lastPlayTime;
                                 biliVideoDetail.mHistory = history;
-                                // Log.i("HistoryApi", "Set history to biliVideoDetail: cid=" + lastPlayCid + ", progress=" + lastPlayTime + "s");
                             }
                         }
                     }
                 } catch (Exception e) {
-                    Log.e("HistoryApi", "requestHistoryForUgc error: " + e.getMessage());
+                    // requestHistoryForUgc error
                 }
                 
                 runOnUiThread(new Runnable() {
@@ -1462,9 +1427,7 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private void loadPgcBySeasonId() {
-        // Log.i("VideoDetailActivity", "loadPgcBySeasonId() EntryType=PGC_BY_SEASON_ID, mSeasonId=" + mSeasonId);
         if (TextUtils.isEmpty(mSeasonId)) {
-            // Log.i("VideoDetailActivity", "loadPgcBySeasonId() mSeasonId is empty, return");
             return;
         }
         LoadingImageView loadingImageView = this.p;
@@ -1507,7 +1470,6 @@ public final class VideoDetailActivity extends BaseActivity
 
         @Override
         public void onError(String message) {
-            Log.i("VideoDetailApi", "loadPgcBySeasonId error: " + message);
             VideoDetailActivity.this.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -1547,8 +1509,6 @@ public final class VideoDetailActivity extends BaseActivity
                     com.bilibili.nativelibrary.SignedQuery signedQuery = com.bilibili.nativelibrary.LibBili.a(params);
                     String signedUrl = "http://api.bilibili.com/pgc/view/app/season?" + signedQuery.toString();
                     
-                    Log.i("PgcSeasonApi", "Request URL: " + signedUrl);
-                    
                     retrofit2.Call<JSONObject> call = ((MyBiliApiService) vo.a(MyBiliApiService.class)).getPgcSeasonInfo(signedUrl);
                     retrofit2.Response<JSONObject> response = call.execute();
                     
@@ -1562,8 +1522,6 @@ public final class VideoDetailActivity extends BaseActivity
                         callback.onError("Response body is null");
                         return;
                     }
-                    
-                    // Log.i("PgcSeasonApi", "Response: " + jsonObj.toJSONString());
                     
                     int code = jsonObj.getIntValue("code");
                     if (code != 0) {
@@ -1581,7 +1539,6 @@ public final class VideoDetailActivity extends BaseActivity
                     callback.onSuccess(pgcInfo);
                     
                 } catch (Exception e) {
-                    Log.e("PgcSeasonApi", "loadPgcSeasonInfo error: " + e.getMessage(), e);
                     callback.onError(e.getMessage());
                 }
             }
@@ -1618,7 +1575,6 @@ public final class VideoDetailActivity extends BaseActivity
             detail.mOwner.mid = detail.mStaffList.get(0).mid;
             detail.mOwner.name = detail.mStaffList.get(0).name;
             detail.mOwner.face = detail.mStaffList.get(0).face;
-            // Log.i("PgcInfo", "Using producer list: " + detail.mStaffList.size() + " producers");
         } else if (pgcInfo.upInfo != null) {
             detail.mOwner.mid = pgcInfo.upInfo.mid;
             detail.mOwner.name = pgcInfo.upInfo.name;
@@ -1628,12 +1584,10 @@ public final class VideoDetailActivity extends BaseActivity
             staff.name = pgcInfo.upInfo.name;
             staff.face = pgcInfo.upInfo.face;
             detail.mStaffList.add(staff);
-            // Log.i("PgcInfo", "Using up_info: " + pgcInfo.upInfo.name);
         } else {
             detail.mOwner.mid = 0;
             detail.mOwner.name = "";
             detail.mOwner.face = "";
-            Log.i("PgcInfo", "No producer or up_info, hiding staff area");
         }
         
         detail.mStat = new BiliVideoDetail.Stat();
@@ -1656,8 +1610,6 @@ public final class VideoDetailActivity extends BaseActivity
             long lastEpId = progress.lastEpId;
             int lastTime = progress.lastTime;
             
-            // Log.i("PgcInfo", "Found user progress: last_ep_id=" + lastEpId + ", last_time=" + lastTime + "s");
-            
             long historyCid = 0;
             for (PgcInfo.Episode ep : pgcInfo.episodes) {
                 if (ep.id == lastEpId) {
@@ -1671,7 +1623,6 @@ public final class VideoDetailActivity extends BaseActivity
                 history.mCid = historyCid;
                 history.mProgress = lastTime;
                 detail.mHistory = history;
-                // Log.i("PgcInfo", "Set history: cid=" + historyCid + ", progress=" + lastTime + "s (允许progress=0)");
             }
         }
         
@@ -1679,10 +1630,7 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private final void initDefaultPlayButtons(BiliVideoDetail biliVideoDetail) {
-        // android.util.Log.i("HistoryDisplay", "========== initDefaultPlayButtons START ==========");
-        // android.util.Log.i("HistoryDisplay", "historyContainer=" + historyContainer + ", historyPlayBtn=" + historyPlayBtn);
         if (historyContainer == null || historyPlayBtn == null) {
-            // android.util.Log.e("HistoryDisplay", "EARLY RETURN: some views are null");
             return;
         }
         historyPlayBtn.setText("开始播放");
@@ -1692,10 +1640,8 @@ public final class VideoDetailActivity extends BaseActivity
         historyTitle.setVisibility(View.GONE);
         historyProgress.setVisibility(View.GONE);
         historyContainer.setVisibility(View.GONE);
-        // android.util.Log.i("HistoryDisplay", "historyContainer.setVisibility(GONE)");
         if (noHistoryPlayBtnLayout != null) {
             noHistoryPlayBtnLayout.setVisibility(View.VISIBLE);
-            // android.util.Log.i("HistoryDisplay", "noHistoryPlayBtnLayout.setVisibility(VISIBLE)");
             if (historyPlayBtnLayout != null) {
                 historyPlayBtnLayout.setNextFocusRightId(R.id.video_no_history_play_btn_layout);
             }
@@ -1706,9 +1652,7 @@ public final class VideoDetailActivity extends BaseActivity
         }
         if (rePlayBtnLayout != null) {
             rePlayBtnLayout.setVisibility(View.GONE);
-            // android.util.Log.i("HistoryDisplay", "rePlayBtnLayout.setVisibility(GONE)");
         }
-        // android.util.Log.i("HistoryDisplay", "========== initDefaultPlayButtons END ==========");
         final BiliVideoDetail finalBiliVideoDetail = biliVideoDetail;
         if (historyPlayBtnLayout != null) {
             historyPlayBtnLayout.setOnClickListener(new View.OnClickListener() {
@@ -1823,7 +1767,6 @@ public final class VideoDetailActivity extends BaseActivity
         bbi.a((Object) a2, "BiliAccount.get(this)");
         
         if (biliVideoDetail.mHistory != null) {
-            // Log.i("HistoryLoad", "History already set from PGC progress, updating display directly");
             updateHistoryDisplay(biliVideoDetail);
             if (VideoDetailActivity.this.historyPlayBtnLayout != null &&
                     VideoDetailActivity.this.historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
@@ -1842,8 +1785,6 @@ public final class VideoDetailActivity extends BaseActivity
                 bvid = biliVideoDetail.mPageList.get(0).mBvid;
             }
         }
-        
-        // Log.i("HistoryLoad", "loadHistory: mEntryType=" + mEntryType + ", isPgc=" + isPgcVideo(biliVideoDetail) + ", cid=" + cid + ", episodeId=" + episodeId + ", bvid=" + bvid);
         
         if (cid == 0) {
             fallbackLoadHistory(biliVideoDetail, a2.e());
@@ -1872,9 +1813,6 @@ public final class VideoDetailActivity extends BaseActivity
                     
                     String signedQuery = mybl.WbiSigner.getInstance().encWbiAndGetQuery(params);
                     String fullUrl = "https://api.bilibili.com/x/player/wbi/v2?" + signedQuery;
-                    Log.i("HistoryApi", "========== History API Request ==========");
-                    Log.i("HistoryApi", "URL: " + fullUrl);
-                    // Log.i("HistoryApi", "bvid=" + finalBvid + ", cid=" + finalCid + ", ep_id=" + finalEpisodeId);
                     
                     bl.qa request = new bl.qa.a(BiliVideoDetail.JsonResponse.class)
                         .a(fullUrl)
@@ -1887,15 +1825,11 @@ public final class VideoDetailActivity extends BaseActivity
                     com.alibaba.fastjson.JSONObject playerData = ((BiliVideoDetail.JsonResponse) bl.pz.a(
                         request, "GET")).result();
                     
-                    // Log.i("HistoryApi", "Response: " + (playerData != null ? playerData.toJSONString() : "null"));
-                    
                     if (playerData != null && playerData.getIntValue("code") == 0) {
                         com.alibaba.fastjson.JSONObject data = playerData.getJSONObject("data");
                         if (data != null) {
                             long lastPlayCid = data.getLongValue("last_play_cid");
                             int lastPlayTime = data.getIntValue("last_play_time") / 1000;
-                            
-                            // Log.i("HistoryApi", "last_play_cid=" + lastPlayCid + ", last_play_time=" + lastPlayTime + "s");
                             
                             if (lastPlayCid > 0) {
                                 playurlSuccess = true;
@@ -1921,7 +1855,7 @@ public final class VideoDetailActivity extends BaseActivity
                         }
                     }
                 } catch (Exception e) {
-                    android.util.Log.e("HistoryApi", "loadHistory error: " + e.getMessage());
+                    // loadHistory error
                 }
                 
                 if (!playurlSuccess) {
@@ -1940,9 +1874,6 @@ public final class VideoDetailActivity extends BaseActivity
     }
     
     private final void fallbackLoadHistory(BiliVideoDetail biliVideoDetail, String accessKey) {
-        // Log.i("HistoryApi", "========== Fallback History API Request ==========");
-        // Log.i("HistoryApi", "avid=" + this.s);
-                
         VideoApiService.VideoParamsMapV2 params = new VideoApiService.VideoParamsMapV2.Builder(this.s).setAutoPlay("0").build();
         StringBuilder urlBuilder = new StringBuilder();
         urlBuilder.append("https://app.bilibili.com/x/v2/view?");
@@ -1951,7 +1882,6 @@ public final class VideoDetailActivity extends BaseActivity
         if (!TextUtils.isEmpty(accessKey)) {
             urlBuilder.append("&access_key=").append(accessKey);
         }
-        Log.i("HistoryApi", "Request URL: " + urlBuilder.toString());
         
         ((VideoApiService) vo.a(VideoApiService.class)).getVideoDetails(
             params,
@@ -1960,8 +1890,6 @@ public final class VideoDetailActivity extends BaseActivity
             @Override
             public GeneralResponse<JSONObject> convert(okhttp3.ResponseBody responseBody) throws java.io.IOException {
                 String rawResponse = responseBody.string();
-                // Log.i("HistoryApi", "Fallback Response: " + rawResponse);
-                LogUtil.json("HistoryApi", rawResponse);
                 com.alibaba.fastjson.JSONObject jSONObject = com.alibaba.fastjson.JSON.parseObject(rawResponse);
                 GeneralResponse<JSONObject> response = new GeneralResponse<>();
                 response.code = jSONObject.getIntValue("code");
@@ -1980,7 +1908,6 @@ public final class VideoDetailActivity extends BaseActivity
             }
             @Override
             public void onError(Throwable th) {
-                Log.e("HistoryApi", "Fallback error: " + th.getMessage());
             }
             @Override
             public void onSuccess(GeneralResponse<JSONObject> result) {
@@ -1992,11 +1919,8 @@ public final class VideoDetailActivity extends BaseActivity
                             BiliVideoDetail.History history = new BiliVideoDetail.History();
                             history.mCid = historyObj.getLongValue("cid");
                             history.mProgress = historyObj.getIntValue("progress");
-                            Log.i("HistoryApi", "Fallback history: cid=" + history.mCid + ", progress=" + history.mProgress + "s");
                             biliVideoDetail.mHistory = history;
                         }
-                    } else {
-                        Log.i("HistoryApi", "Fallback: no history data found");
                     }
                 }
                 updateHistoryDisplay(biliVideoDetail);
@@ -2051,15 +1975,10 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private final void updateHistoryDisplay(BiliVideoDetail biliVideoDetail) {
-        // android.util.Log.i("HistoryDisplay", "========== updateHistoryDisplay START ==========");
-        // android.util.Log.i("HistoryDisplay", "historyContainer=" + historyContainer + ", historyTitle=" + historyTitle + ", historyProgress=" + historyProgress + ", historyPlayBtn=" + historyPlayBtn);
         if (historyContainer == null || historyTitle == null || historyProgress == null || historyPlayBtn == null) {
-            // android.util.Log.e("HistoryDisplay", "EARLY RETURN: some views are null");
             return;
         }
-        // android.util.Log.i("HistoryDisplay", "biliVideoDetail=" + biliVideoDetail + ", mHistory=" + (biliVideoDetail != null ? biliVideoDetail.mHistory : null));
         if (biliVideoDetail == null || biliVideoDetail.mHistory == null) {
-            // android.util.Log.e("HistoryDisplay", "EARLY RETURN: biliVideoDetail or mHistory is null");
             return;
         }
         
@@ -2074,23 +1993,17 @@ public final class VideoDetailActivity extends BaseActivity
         int progress = biliVideoDetail.mHistory.mProgress;
         String title = findTitleByCid(cid, biliVideoDetail);
         
-        // android.util.Log.i("HistoryDisplay", "episodeCount=" + episodeCount + ", cid=" + cid + ", progress=" + progress + ", title=" + title);
-        // android.util.Log.i("HistoryDisplay", "rePlayBtnLayout=" + rePlayBtnLayout + ", historyLabel=" + historyLabel);
-        
         historyPlayBtn.setText("继续播放");
         rePlayBtn.setText("重播");
         
         if (historyContainer != null) {
             historyContainer.setVisibility(View.VISIBLE);
-            // android.util.Log.i("HistoryDisplay", "historyContainer.setVisibility(VISIBLE)");
         }
         if (noHistoryPlayBtnLayout != null) {
             noHistoryPlayBtnLayout.setVisibility(View.GONE);
-            // android.util.Log.i("HistoryDisplay", "noHistoryPlayBtnLayout.setVisibility(GONE)");
         }
         if (rePlayBtnLayout != null) {
             rePlayBtnLayout.setVisibility(View.VISIBLE);
-            // android.util.Log.i("HistoryDisplay", "rePlayBtnLayout.setVisibility(VISIBLE), current visibility=" + rePlayBtnLayout.getVisibility());
         }
         
         boolean hasHistory = cid > 0;
@@ -2098,10 +2011,7 @@ public final class VideoDetailActivity extends BaseActivity
         boolean hasProgress = progress > 0;
         boolean hasTitle = title != null && !title.isEmpty();
         
-        // android.util.Log.i("HistoryDisplay", "hasHistory=" + hasHistory + ", isFinished=" + isFinished + ", hasProgress=" + hasProgress + ", hasTitle=" + hasTitle);
-        
         if (!hasHistory) {
-            // android.util.Log.i("HistoryDisplay", "no history, hiding label/title/progress");
             if (historyLabel != null) {
                 historyLabel.setVisibility(View.GONE);
             }
@@ -2112,35 +2022,24 @@ public final class VideoDetailActivity extends BaseActivity
             if (historyLabel != null) {
                 historyLabel.setVisibility(View.VISIBLE);
                 historyLabel.setText("上次播放到");
-                // android.util.Log.i("HistoryDisplay", "historyLabel.setVisibility(VISIBLE)");
             }
             if (hasTitle && hasMultipleEpisodes) {
-                // android.util.Log.i("HistoryDisplay", "showing title: " + title);
                 historyTitle.setText(title);
                 historyTitle.setVisibility(View.VISIBLE);
             } else {
-                // android.util.Log.i("HistoryDisplay", "no title or single episode, hiding historyTitle");
                 historyTitle.setVisibility(View.GONE);
             }
             if (isFinished) {
-                // android.util.Log.i("HistoryDisplay", "showing 已看完");
                 historyProgress.setText("已看完");
                 historyProgress.setVisibility(View.VISIBLE);
             } else if (hasProgress) {
-                // android.util.Log.i("HistoryDisplay", "showing progress: " + formatProgressTime(progress));
                 historyProgress.setText(formatProgressTime(progress));
                 historyProgress.setVisibility(View.VISIBLE);
             } else {
-                // android.util.Log.i("HistoryDisplay", "no progress, showing 00:00");
                 historyProgress.setText("00:00");
                 historyProgress.setVisibility(View.VISIBLE);
             }
         }
-        
-        // android.util.Log.i("HistoryDisplay", "historyContainer visibility=" + (historyContainer != null ? historyContainer.getVisibility() : "null"));
-        // android.util.Log.i("HistoryDisplay", "rePlayBtnLayout visibility=" + (rePlayBtnLayout != null ? rePlayBtnLayout.getVisibility() : "null"));
-        // android.util.Log.i("HistoryDisplay", "historyPlayBtnLayout visibility=" + (historyPlayBtnLayout != null ? historyPlayBtnLayout.getVisibility() : "null"));
-        // android.util.Log.i("HistoryDisplay", "========== updateHistoryDisplay END ==========");
         
         if (historyPlayBtnLayout != null) {
             historyPlayBtnLayout.setNextFocusRightId(R.id.video_re_play_btn_layout);
@@ -2154,8 +2053,6 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private final void playVideo(BiliVideoDetail biliVideoDetail, long cid, int progress) {
-        long startTime = System.currentTimeMillis();
-        Log.i("PlaySpeed", "[1_PLAY_CLICK] playVideo() called, cid=" + cid + ", progress=" + progress + ", isPgcMode=" + mIsPgcMode + ", entryType=" + mEntryType);
         if (biliVideoDetail == null) {
             return;
         }
@@ -2173,9 +2070,7 @@ public final class VideoDetailActivity extends BaseActivity
         }
         if (targetPage != null) {
             abd.prefetchCoverToMemoryCache(this, biliVideoDetail.mCover);
-            Log.i("PlaySpeed", "[2_BEFORE_XG_A] calling xg.a(), page.mFrom=" + targetPage.mFrom + ", page.mEpisodeId=" + targetPage.mEpisodeId + ", mBangumiInfo=" + (biliVideoDetail.mBangumiInfo != null ? "seasonId=" + biliVideoDetail.mBangumiInfo.mSeasonId : "null") + ", elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
             xg.a(this, biliVideoDetail, targetPage, new Bundle(), REQUEST_CODE_PLAY_VIDEO, progress);
-            Log.i("PlaySpeed", "[3_AFTER_XG_A] xg.a() returned, elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
         }
     }
 
@@ -2188,19 +2083,14 @@ public final class VideoDetailActivity extends BaseActivity
 
     public final void a(Activity activity, BiliVideoDetail biliVideoDetail) {
         bbi.b(biliVideoDetail, "video");
-        android.util.Log.i("BangumiJump", "a() called, checking jump condition...");
         if (!a(biliVideoDetail)) {
-            android.util.Log.i("BangumiJump", "a() returned false, not jumping");
             return;
         }
         if (activity == null) {
-            android.util.Log.i("BangumiJump", "activity is null, not jumping");
             return;
         }
         String seasonId = b(biliVideoDetail);
-        android.util.Log.i("BangumiJump", "seasonId extracted: " + seasonId);
         if (TextUtils.isEmpty(seasonId)) {
-            android.util.Log.i("BangumiJump", "seasonId is empty, not jumping");
             return;
         }
         activity.finish();
@@ -2596,8 +2486,6 @@ public final class VideoDetailActivity extends BaseActivity
                 page.mFrom = "bangumi";
             }
         }
-        
-        // Log.i("PgcPlayUrl", "convertEpisodeToPage: cid=" + episode.cid + ", epId=" + episode.id + ", mFrom=" + page.mFrom + ", pgcType=" + (mPgcInfo != null ? mPgcInfo.type : "null"));
         
         return page;
     }
@@ -3194,13 +3082,11 @@ public final class VideoDetailActivity extends BaseActivity
 
     @Override
     public void onPause() {
-        // Log.d("UI_TRANSITION", "[VIDEO_DETAIL_PAUSE] VideoDetailActivity onPause called");
         super.onPause();
     }
 
     @Override
     public void onStop() {
-        // Log.d("UI_TRANSITION", "[VIDEO_DETAIL_STOP] VideoDetailActivity onStop called");
         super.onStop();
     }
 
@@ -3236,47 +3122,37 @@ public final class VideoDetailActivity extends BaseActivity
 
     /* JADX INFO: Access modifiers changed from: private */
     public final void o() {
-        // android.util.Log.i("ArchiveRelation", "=== o() called ===");
         BiliVideoDetail biliVideoDetail = this.u;
-        // android.util.Log.i("ArchiveRelation", "o(): biliVideoDetail=" + biliVideoDetail);
         if (biliVideoDetail != null) {
-            // android.util.Log.i("ArchiveRelation", "o(): isLikeVideo=" + biliVideoDetail.isLikeVideo() + ", isCoinVideo=" + biliVideoDetail.isCoinVideo() + ", isFavoriteVideo=" + biliVideoDetail.isFavoriteVideo());
             ImageView imageView = (ImageView) d(R.id.video_detail_like_img);
             if (imageView != null) {
                 imageView.setBackgroundResource(
                         biliVideoDetail.isLikeVideo() ? R.drawable.ic_like_hightlight : R.drawable.ic_like);
-                // android.util.Log.i("ArchiveRelation", "o(): Updated like image to " + (biliVideoDetail.isLikeVideo() ? "highlight" : "normal"));
             }
             TextView textView = (TextView) d(R.id.video_detail_like_text);
             if (textView != null) {
                 textView.setText(biliVideoDetail.isLikeVideo() ? "已点赞" : "点赞");
-                // android.util.Log.i("ArchiveRelation", "o(): Updated like text to " + (biliVideoDetail.isLikeVideo() ? "已点赞" : "点赞"));
             }
             imageView = (ImageView) d(R.id.video_detail_coin_img);
             if (imageView != null) {
                 imageView.setBackgroundResource(
                         biliVideoDetail.isCoinVideo() ? R.drawable.ic_coin_hightlight : R.drawable.ic_coin);
-                // android.util.Log.i("ArchiveRelation", "o(): Updated coin image to " + (biliVideoDetail.isCoinVideo() ? "highlight" : "normal"));
             }
             textView = (TextView) d(R.id.video_detail_coin_text);
             if (textView != null) {
                 textView.setText(biliVideoDetail.isCoinVideo() ? "已投币" : "投币");
-                // android.util.Log.i("ArchiveRelation", "o(): Updated coin text to " + (biliVideoDetail.isCoinVideo() ? "已投币" : "投币"));
             }
             imageView = this.k;
             if (imageView != null) {
                 imageView.setBackgroundResource(
                         biliVideoDetail.isFavoriteVideo() ? R.drawable.ic_favorite_hightlight : R.drawable.ic_favorite);
-                // android.util.Log.i("ArchiveRelation", "o(): Updated favorite image to " + (biliVideoDetail.isFavoriteVideo() ? "highlight" : "normal"));
             }
             textView = this.l;
             if (textView != null) {
                 textView.setText(
                         biliVideoDetail.isFavoriteVideo() ? R.string.video_favorited : R.string.video_favorite);
-                // android.util.Log.i("ArchiveRelation", "o(): Updated favorite text");
             }
         }
-        // android.util.Log.i("ArchiveRelation", "=== o() END ===");
     }
 
     private void showFavoriteMenu() {
@@ -3395,9 +3271,6 @@ public final class VideoDetailActivity extends BaseActivity
         String cookie = CookieUtil.getFullCookieWithDevice(a2);
         String csrf = CookieUtil.getBiliJct(a2);
         int webLike = z + 1;
-        // Log.i("LikeVideo", "aid=" + this.s + ", appLike=" + z + ", webLike=" + webLike);
-        // Log.i("LikeVideo", "csrf=" + csrf);
-        // Log.i("LikeVideo", "cookie=" + cookie);
         ((MyBiliApiService) vo.a(MyBiliApiService.class)).likeVideo(this.s, webLike, csrf, cookie).a(new LikeResponse());
     }
 
@@ -4429,13 +4302,11 @@ public final class VideoDetailActivity extends BaseActivity
             }
             
             if (mEntryType == EntryType.UGC_BY_AVID && VideoDetailActivity.this.isPgcVideo(biliVideoDetail)) {
-                // Log.i("VideoDetailActivity", "UGC入口检测到PGC视频，加载PGC信息");
                 VideoDetailActivity.this.u = biliVideoDetail;
                 VideoDetailActivity.this.loadPgcInfo(biliVideoDetail);
                 return;
             }
             
-            // Log.i("VideoDetailActivity", "Pure UGC video, using parallel history loading");
             VideoDetailActivity.this.requestHistoryForUgc(biliVideoDetail, new Runnable() {
                 @Override
                 public void run() {
@@ -4531,7 +4402,6 @@ public final class VideoDetailActivity extends BaseActivity
                 
                 @Override
                 public void onError(Throwable th) {
-                    Log.i("VideoDetailApi", "loadRelatedVideos error: " + th.getMessage());
                     TextView textView = VideoDetailActivity.this.i;
                     if (textView != null) {
                         textView.setVisibility(8);
@@ -4566,7 +4436,6 @@ public final class VideoDetailActivity extends BaseActivity
                 
                 @Override
                 public void onError(Throwable th) {
-                    Log.i("VideoDetailApi", "loadVideoTags error: " + th.getMessage());
                 }
                 
                 @Override
@@ -4938,6 +4807,63 @@ public final class VideoDetailActivity extends BaseActivity
                     if (data instanceof BiliVideoDetail) {
                         BiliVideoDetail detail = (BiliVideoDetail) data;
                         VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.a(VideoDetailActivity.this, detail.mAvid, detail.mCover));
+                    }
+                }
+            });
+
+            // 设置焦点离开组件的回调，与setupNavigationTagsForSection中的逻辑一致
+            listSection.setOnFocusExitListener(new com.bilibili.tv.ui.video.widget.VideoListSection.OnFocusExitListener() {
+                @Override
+                public void onFocusExitUp(int sectionId, int focusPosition) {
+                    seasonSectionFocusPositions.put(sectionId, focusPosition);
+                    // 向上导航：先找同容器中的上一个section，否则导航到播放按钮或上方列表
+                    int currentSectionIndex = -1;
+                    for (int i = 0; i < seasonSectionViews.size(); i++) {
+                        if (seasonSectionViews.get(i).sectionId == sectionId) {
+                            currentSectionIndex = i;
+                            break;
+                        }
+                    }
+                    if (currentSectionIndex > 0) {
+                        SeasonSectionView prevSection = seasonSectionViews.get(currentSectionIndex - 1);
+                        com.bilibili.tv.ui.video.widget.VideoListSection prevVls = findVideoListSection(prevSection.sectionId);
+                        if (prevVls != null) {
+                            prevVls.setFocusPosition(getSeasonSectionFocusPosition(prevSection.sectionId));
+                            prevVls.requestFocusOnSavedPosition();
+                        } else if (prevSection.recyclerView != null) {
+                            prevSection.recyclerView.requestFocus();
+                        }
+                    } else if (historyPlayBtnLayout != null && historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
+                        historyPlayBtnLayout.requestFocus();
+                    } else if (rePlayBtnLayout != null && rePlayBtnLayout.getVisibility() == View.VISIBLE) {
+                        rePlayBtnLayout.requestFocus();
+                    } else if (o != null && o.getVisibility() == View.VISIBLE) {
+                        o.requestFocus();
+                    }
+                }
+
+                @Override
+                public void onFocusExitDown(int sectionId, int selectedTagIndex) {
+                    seasonSectionNavTagFocusPositions.put(sectionId, selectedTagIndex);
+                    // 向下导航：先找同容器中的下一个section，否则导航到标签列表
+                    int currentSectionIndex = -1;
+                    for (int i = 0; i < seasonSectionViews.size(); i++) {
+                        if (seasonSectionViews.get(i).sectionId == sectionId) {
+                            currentSectionIndex = i;
+                            break;
+                        }
+                    }
+                    if (currentSectionIndex >= 0 && currentSectionIndex < seasonSectionViews.size() - 1) {
+                        SeasonSectionView nextSection = seasonSectionViews.get(currentSectionIndex + 1);
+                        com.bilibili.tv.ui.video.widget.VideoListSection nextVls = findVideoListSection(nextSection.sectionId);
+                        if (nextVls != null) {
+                            nextVls.setFocusPosition(getSeasonSectionFocusPosition(nextSection.sectionId));
+                            nextVls.requestFocusOnSavedPosition();
+                        } else if (nextSection.recyclerView != null) {
+                            nextSection.recyclerView.requestFocus();
+                        }
+                    } else if (n != null && n.getVisibility() == View.VISIBLE) {
+                        n.requestFocus();
                     }
                 }
             });

@@ -14,6 +14,7 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:nextFocusRight="@id/experiment_folder_open"
+            android:nextFocusDown="@id/cdn_pref_auto"
             android:layout_width="@dimen/px_350"
             android:layout_height="@dimen/px_96"
             android:layout_marginLeft="@dimen/px_30"
@@ -33,6 +34,7 @@
             android:enabled="false"
             android:focusable="true"
             android:focusableInTouchMode="true"
+            android:nextFocusDown="@id/cdn_pref_auto"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/px_100"
@@ -75,11 +77,100 @@
             </com.bilibili.tv.widget.DrawLinearLayout>
         </FrameLayout>
     </LinearLayout>
+    <!-- CDN线路偏好选择 -->
     <LinearLayout
         android:gravity="center"
         android:orientation="horizontal"
         android:focusable="false"
         android:clipChildren="false"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_150">
+        <com.bilibili.tv.widget.ShadowTextView
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:focusable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cdn_preference_label"
+            android:textColor="@color/white"
+            android:textSize="@dimen/px_44"
+            android:layout_marginLeft="@dimen/px_30"
+            android:layout_marginRight="@dimen/px_30" />
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@id/cdn_preference_group"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@id/cdn_pref_auto"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:nextFocusLeft="@id/cdn_pref_auto"
+                android:nextFocusRight="@id/cdn_pref_bilivideo"
+                android:nextFocusUp="@id/filter_button"
+                android:paddingLeft="@dimen/px_30"
+                android:paddingRight="@dimen/px_30"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/px_96"
+                android:buttonTint="@color/white_50"
+                android:text="@string/cdn_pref_auto"
+                android:textColor="@color/white"
+                android:textSize="@dimen/px_44" />
+            <RadioButton
+                android:id="@id/cdn_pref_bilivideo"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:nextFocusLeft="@id/cdn_pref_auto"
+                android:nextFocusRight="@id/cdn_pref_mcdn"
+                android:nextFocusUp="@id/filter_button"
+                android:paddingLeft="@dimen/px_30"
+                android:paddingRight="@dimen/px_30"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/px_96"
+                android:buttonTint="@color/white_50"
+                android:text="@string/cdn_pref_bilivideo"
+                android:textColor="@color/white"
+                android:textSize="@dimen/px_44" />
+            <RadioButton
+                android:id="@id/cdn_pref_mcdn"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:nextFocusLeft="@id/cdn_pref_bilivideo"
+                android:nextFocusRight="@id/cdn_pref_manual"
+                android:nextFocusUp="@id/filter_button"
+                android:paddingLeft="@dimen/px_30"
+                android:paddingRight="@dimen/px_30"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/px_96"
+                android:buttonTint="@color/white_50"
+                android:text="@string/cdn_pref_mcdn"
+                android:textColor="@color/white"
+                android:textSize="@dimen/px_44" />
+            <RadioButton
+                android:id="@id/cdn_pref_manual"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:nextFocusLeft="@id/cdn_pref_mcdn"
+                android:nextFocusRight="@id/cdn_pref_manual"
+                android:nextFocusUp="@id/filter_button"
+                android:paddingLeft="@dimen/px_30"
+                android:paddingRight="@dimen/px_30"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/px_96"
+                android:buttonTint="@color/white_50"
+                android:text="@string/cdn_pref_manual"
+                android:textColor="@color/white"
+                android:textSize="@dimen/px_44" />
+        </RadioGroup>
+    </LinearLayout>
+    <!-- 自定义CDN（手动指定时显示） -->
+    <LinearLayout
+        android:id="@id/cdn_custom_layout"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:focusable="false"
+        android:clipChildren="false"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_150">
         <com.bilibili.tv.widget.ShadowTextView
@@ -99,6 +190,7 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:nextFocusRight="@id/cdn_value"
+            android:nextFocusDown="@id/skip_checkbox0"
             android:paddingLeft="@dimen/px_30"
             android:paddingRight="@dimen/px_30"
             android:layout_width="wrap_content"
@@ -118,6 +210,7 @@
             android:enabled="true"
             android:focusable="true"
             android:focusableInTouchMode="true"
+            android:nextFocusDown="@id/skip_checkbox0"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/px_100"
             android:background="@drawable/ic_login_edit_background"
@@ -156,6 +249,7 @@
             android:focusableInTouchMode="true"
             android:nextFocusLeft="@id/skip_checkbox0"
             android:nextFocusRight="@id/skip_checkbox1"
+            android:nextFocusUp="@id/cdn_pref_auto"
             android:paddingLeft="@dimen/px_30"
             android:paddingRight="@dimen/px_30"
             android:layout_width="wrap_content"

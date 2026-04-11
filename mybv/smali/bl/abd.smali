@@ -4,6 +4,14 @@
 
 
 # static fields
+.field public static final CDN_PREF_AUTO:I = 0x0
+
+.field public static final CDN_PREF_BILIVIDEO:I = 0x1
+
+.field public static final CDN_PREF_MANUAL:I = 0x3
+
+.field public static final CDN_PREF_MCDN:I = 0x2
+
 .field public static final OTHER_COLUMN_COMPACT:I = 0x1
 
 .field public static final OTHER_COLUMN_NORMAL:I = 0x0
@@ -27,6 +35,8 @@
 .field private static c:Lbl/abd;
 
 .field private static cacheLimitType:I
+
+.field private static cdnPreference:I
 
 .field private static danmaku_type:I
 
@@ -77,14 +87,14 @@
     .line 15
     new-array v0, v2, [F
 
-    fill-array-data v0, :array_2c
+    fill-array-data v0, :array_2e
 
     sput-object v0, Lbl/abd;->a:[F
 
     .line 16
     new-array v0, v2, [F
 
-    fill-array-data v0, :array_40
+    fill-array-data v0, :array_42
 
     sput-object v0, Lbl/abd;->b:[F
 
@@ -96,7 +106,7 @@
 
     new-array v0, v0, [F
 
-    fill-array-data v0, :array_54
+    fill-array-data v0, :array_56
 
     sput-object v0, Lbl/abd;->speeds:[F
 
@@ -124,10 +134,13 @@
     .line 395
     sput v1, Lbl/abd;->topTabConfig:I
 
+    .line 426
+    sput v1, Lbl/abd;->cdnPreference:I
+
     return-void
 
     .line 15
-    :array_2c
+    :array_2e
     .array-data 4
         0x3f000000    # 0.5f
         0x3f19999a    # 0.6f
@@ -140,7 +153,7 @@
     .end array-data
 
     .line 16
-    :array_40
+    :array_42
     .array-data 4
         0x3e99999a    # 0.3f
         0x3ecccccd    # 0.4f
@@ -153,7 +166,7 @@
     .end array-data
 
     .line 28
-    :array_54
+    :array_56
     .array-data 4
         0x40000000    # 2.0f
         0x3fc00000    # 1.5f
@@ -931,6 +944,43 @@
     .end packed-switch
 .end method
 
+.method public static get_cdn_preference(Landroid/content/Context;)I
+    .locals 3
+
+    .prologue
+    .line 434
+    sget v0, Lbl/abd;->cdnPreference:I
+
+    const/4 v1, -0x1
+
+    if-ne v0, v1, :cond_16
+
+    .line 435
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    const-string v1, "cdn_preference"
+
+    const/4 v2, 0x0
+
+    invoke-interface {v0, v1, v2}, Landroid/content/SharedPreferences;->getInt(Ljava/lang/String;I)I
+
+    move-result v0
+
+    sput v0, Lbl/abd;->cdnPreference:I
+
+    .line 437
+    :cond_16
+    sget v0, Lbl/abd;->cdnPreference:I
+
+    return v0
+.end method
+
 .method public static get_danmaku_type(Landroid/content/Context;)I
     .locals 3
 
@@ -1636,6 +1686,30 @@
     return-object v0
 .end method
 
+.method public static is_cdn_manual(Landroid/content/Context;)Z
+    .locals 2
+
+    .prologue
+    .line 441
+    invoke-static {p0}, Lbl/abd;->get_cdn_preference(Landroid/content/Context;)I
+
+    move-result v0
+
+    const/4 v1, 0x3
+
+    if-ne v0, v1, :cond_9
+
+    const/4 v0, 0x1
+
+    :goto_8
+    return v0
+
+    :cond_9
+    const/4 v0, 0x0
+
+    goto :goto_8
+.end method
+
 .method public static is_hd_image(Landroid/content/Context;)Z
     .locals 1
 
@@ -1749,7 +1823,7 @@
     .locals 3
 
     .prologue
-    .line 422
+    .line 445
     if-eqz p1, :cond_8
 
     invoke-virtual {p1}, Ljava/lang/String;->isEmpty()Z
@@ -1758,45 +1832,45 @@
 
     if-eqz v0, :cond_9
 
-    .line 438
+    .line 461
     :cond_8
     :goto_8
     return-void
 
-    .line 426
+    .line 449
     :cond_9
     :try_start_9
     invoke-static {p1}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v0
 
-    .line 427
+    .line 450
     invoke-static {v0}, Lcom/facebook/imagepipeline/request/ImageRequestBuilder;->a(Landroid/net/Uri;)Lcom/facebook/imagepipeline/request/ImageRequestBuilder;
 
     move-result-object v0
 
-    .line 428
+    .line 451
     invoke-virtual {v0}, Lcom/facebook/imagepipeline/request/ImageRequestBuilder;->o()Lcom/facebook/imagepipeline/request/ImageRequest;
 
     move-result-object v0
 
-    .line 429
+    .line 452
     invoke-static {}, Lbl/ajq;->b()Lbl/aoy;
 
     move-result-object v1
 
-    .line 430
+    .line 453
     if-eqz v1, :cond_8
 
-    .line 431
+    .line 454
     invoke-virtual {v1}, Lbl/aoy;->h()Lbl/aov;
 
     move-result-object v1
 
-    .line 432
+    .line 455
     if-eqz v1, :cond_8
 
-    .line 433
+    .line 456
     const/4 v2, 0x0
 
     invoke-virtual {v1, v0, v2}, Lbl/aov;->b(Lcom/facebook/imagepipeline/request/ImageRequest;Ljava/lang/Object;)Lbl/aji;
@@ -1805,7 +1879,7 @@
 
     goto :goto_8
 
-    .line 436
+    .line 459
     :catch_26
     move-exception v0
 
@@ -1841,6 +1915,38 @@
     sput p1, Lbl/abd;->cacheLimitType:I
 
     .line 375
+    return-void
+.end method
+
+.method public static set_cdn_preference(Landroid/content/Context;I)V
+    .locals 2
+
+    .prologue
+    .line 429
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    const-string v1, "cdn_preference"
+
+    invoke-interface {v0, v1, p1}, Landroid/content/SharedPreferences$Editor;->putInt(Ljava/lang/String;I)Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
+
+    .line 430
+    sput p1, Lbl/abd;->cdnPreference:I
+
+    .line 431
     return-void
 .end method
 

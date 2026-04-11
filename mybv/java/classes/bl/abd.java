@@ -418,6 +418,29 @@ public class abd {
         return (get_top_tab_config(context) & tabFlag) != 0;
     }
 
+    // CDN preference: 0=auto, 1=bilivideo, 2=mcdn, 3=manual
+    public static final int CDN_PREF_AUTO = 0;
+    public static final int CDN_PREF_BILIVIDEO = 1;
+    public static final int CDN_PREF_MCDN = 2;
+    public static final int CDN_PREF_MANUAL = 3;
+    private static int cdnPreference = -1;
+
+    public static void set_cdn_preference(Context context, int pref) {
+        a(context).a().edit().putInt("cdn_preference", pref).apply();
+        cdnPreference = pref;
+    }
+
+    public static int get_cdn_preference(Context context) {
+        if (cdnPreference == -1) {
+            cdnPreference = a(context).a().getInt("cdn_preference", CDN_PREF_AUTO);
+        }
+        return cdnPreference;
+    }
+
+    public static boolean is_cdn_manual(Context context) {
+        return get_cdn_preference(context) == CDN_PREF_MANUAL;
+    }
+
     public static void prefetchCoverToMemoryCache(Context context, String coverUrl) {
         if (coverUrl == null || coverUrl.isEmpty()) {
             return;

@@ -2577,6 +2577,12 @@ public final class R {
         public static final int episode_list_section = 0x7f0801e1;
         public static final int playlist_title = 0x7f0801e2;
         public static final int bottom_episode_menu_root = 0x7f0801e3;
+        public static final int cdn_preference_group = 0x7f0801e4;
+        public static final int cdn_pref_auto = 0x7f0801e5;
+        public static final int cdn_pref_bilivideo = 0x7f0801e6;
+        public static final int cdn_pref_mcdn = 0x7f0801e7;
+        public static final int cdn_pref_manual = 0x7f0801e8;
+        public static final int cdn_custom_layout = 0x7f0801e9;
     }
 
     public static final class integer {

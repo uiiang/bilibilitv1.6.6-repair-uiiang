@@ -42,6 +42,12 @@ public final class afm3 extends adw implements View.OnFocusChangeListener, View.
     private RadioButton view_radiobutton1;
     private RadioButton view_radiobutton2;
     private RadioGroup view_radiogroup;
+    private RadioGroup cdn_preference_group;
+    private RadioButton cdn_pref_auto;
+    private RadioButton cdn_pref_bilivideo;
+    private RadioButton cdn_pref_mcdn;
+    private RadioButton cdn_pref_manual;
+    private View cdn_custom_layout;
 
     @Override // bl.adw
     public boolean c() {
@@ -70,6 +76,12 @@ public final class afm3 extends adw implements View.OnFocusChangeListener, View.
         this.view_radiobutton1 = (RadioButton)inflate.findViewById(R.id.view_radiobutton1);
         this.view_radiobutton2 = (RadioButton)inflate.findViewById(R.id.view_radiobutton2);
         this.view_radiogroup = (RadioGroup)inflate.findViewById(R.id.view_radiogroup);
+        this.cdn_preference_group = (RadioGroup)inflate.findViewById(R.id.cdn_preference_group);
+        this.cdn_pref_auto = (RadioButton)inflate.findViewById(R.id.cdn_pref_auto);
+        this.cdn_pref_bilivideo = (RadioButton)inflate.findViewById(R.id.cdn_pref_bilivideo);
+        this.cdn_pref_mcdn = (RadioButton)inflate.findViewById(R.id.cdn_pref_mcdn);
+        this.cdn_pref_manual = (RadioButton)inflate.findViewById(R.id.cdn_pref_manual);
+        this.cdn_custom_layout = inflate.findViewById(R.id.cdn_custom_layout);
 
         this.filter_button.setUpDrawable(R.drawable.shadow_white_rect);
         this.filter_button.setOnFocusChangeListener(this);
@@ -121,6 +133,40 @@ public final class afm3 extends adw implements View.OnFocusChangeListener, View.
                 abd.set_personal_config(MainApplication.a(), "prefer_videoview", BiliFilter.prefer_videoview);
             }
         });
+        
+        // CDN preference initialization
+        int cdnPref = abd.get_cdn_preference(MainApplication.a());
+        RadioButton[] cdnPrefButtons = {this.cdn_pref_auto, this.cdn_pref_bilivideo, this.cdn_pref_mcdn, this.cdn_pref_manual};
+        if (cdnPref >= 0 && cdnPref < cdnPrefButtons.length) {
+            cdnPrefButtons[cdnPref].setChecked(true);
+        } else {
+            this.cdn_pref_auto.setChecked(true);
+        }
+        updateCdnCustomLayoutVisibility(cdnPref);
+        
+        this.cdn_preference_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int pref = 0;
+                if (checkedId == R.id.cdn_pref_auto) pref = abd.CDN_PREF_AUTO;
+                else if (checkedId == R.id.cdn_pref_bilivideo) pref = abd.CDN_PREF_BILIVIDEO;
+                else if (checkedId == R.id.cdn_pref_mcdn) pref = abd.CDN_PREF_MCDN;
+                else if (checkedId == R.id.cdn_pref_manual) pref = abd.CDN_PREF_MANUAL;
+                
+                abd.set_cdn_preference(MainApplication.a(), pref);
+                updateCdnCustomLayoutVisibility(pref);
+                
+                if (pref == abd.CDN_PREF_BILIVIDEO) {
+                    lr.b(afm3.this.getActivity(), "CDN偏好：bilivideo线路优先");
+                } else if (pref == abd.CDN_PREF_MCDN) {
+                    lr.b(afm3.this.getActivity(), "CDN偏好：mcdn线路优先");
+                } else if (pref == abd.CDN_PREF_MANUAL) {
+                    lr.b(afm3.this.getActivity(), "CDN偏好：手动指定");
+                } else {
+                    lr.b(afm3.this.getActivity(), "CDN偏好：自动竞速");
+                }
+            }
+        });
         return inflate;
     }
 
@@ -168,6 +214,11 @@ public final class afm3 extends adw implements View.OnFocusChangeListener, View.
             }
         }
         if(view == this.cdn_button){
+            // Only allow CDN selection in manual mode
+            if(abd.get_cdn_preference(MainApplication.a()) != abd.CDN_PREF_MANUAL) {
+                lr.a(getActivity(), "请先选择\"手动指定\"模式");
+                return;
+            }
             afm3.tmp_cdns = VideoViewParams.cdn_history;
             List<String> show_cdns = VideoViewParams.cdn_history;
             if(afm3.tmp_cdns.size()==0){
@@ -307,11 +358,48 @@ public final class afm3 extends adw implements View.OnFocusChangeListener, View.
         }
     }
 
+    private void updateCdnCustomLayoutVisibility(int cdnPref) {
+        if (this.cdn_custom_layout != null) {
+            if (cdnPref == abd.CDN_PREF_MANUAL) {
+                this.cdn_custom_layout.setVisibility(View.VISIBLE);
+                this.cdn_button.setEnabled(true);
+                this.cdn_value.setEnabled(true);
+                this.cdn_value.setFocusable(true);
+                this.cdn_value.setFocusableInTouchMode(true);
+                this.cdn_value.setClickable(true);
+                // CDN偏好RadioButton下键→自定义CDN按钮
+                this.cdn_pref_auto.setNextFocusDownId(R.id.cdn_button);
+                this.cdn_pref_bilivideo.setNextFocusDownId(R.id.cdn_button);
+                this.cdn_pref_mcdn.setNextFocusDownId(R.id.cdn_button);
+                this.cdn_pref_manual.setNextFocusDownId(R.id.cdn_button);
+                // CDN按钮上键→CDN偏好RadioButton
+                this.cdn_button.setNextFocusUpId(R.id.cdn_pref_auto);
+                this.cdn_value.setNextFocusUpId(R.id.cdn_pref_auto);
+            } else {
+                this.cdn_custom_layout.setVisibility(View.GONE);
+                this.cdn_button.setEnabled(false);
+                this.cdn_value.setEnabled(false);
+                this.cdn_value.setFocusable(false);
+                this.cdn_value.setFocusableInTouchMode(false);
+                this.cdn_value.setClickable(false);
+                // CDN偏好RadioButton下键→视频空降（跳过隐藏的自定义CDN行）
+                this.cdn_pref_auto.setNextFocusDownId(R.id.skip_checkbox0);
+                this.cdn_pref_bilivideo.setNextFocusDownId(R.id.skip_checkbox0);
+                this.cdn_pref_mcdn.setNextFocusDownId(R.id.skip_checkbox0);
+                this.cdn_pref_manual.setNextFocusDownId(R.id.skip_checkbox0);
+            }
+        }
+    }
+
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (actionId == EditorInfo.IME_ACTION_DONE) {
             if(v==this.filter_path)updateFilterPath(v.getText().toString());
             if(v==this.cdn_value){
+                if(abd.get_cdn_preference(MainApplication.a()) != abd.CDN_PREF_MANUAL) {
+                    lr.a(getActivity(), "请先选择\"手动指定\"模式");
+                    return false;
+                }
                 if(v.getText().toString().isEmpty()||v.getText().toString().endsWith(".bilivideo.com")){
                     VideoViewParams.prefect_cdn=v.getText().toString();
                     abd.set_personal_config(MainApplication.a(), "prefect_cdn", VideoViewParams.prefect_cdn);
@@ -335,6 +423,10 @@ public final class afm3 extends adw implements View.OnFocusChangeListener, View.
         if (this.filter_button == null || this.filter_button.hasFocus()) return false;
         if (this.folder_open_button == null || this.folder_open_button.hasFocus()) return false;
         if (this.filter_path == null || this.filter_path.hasFocus()) return false;
+        if (this.cdn_pref_auto == null || this.cdn_pref_auto.hasFocus()) return false;
+        if (this.cdn_pref_bilivideo == null || this.cdn_pref_bilivideo.hasFocus()) return false;
+        if (this.cdn_pref_mcdn == null || this.cdn_pref_mcdn.hasFocus()) return false;
+        if (this.cdn_pref_manual == null || this.cdn_pref_manual.hasFocus()) return false;
         if (this.cdn_button == null || this.cdn_button.hasFocus()) return false;
         if (this.cdn_value == null || this.cdn_value.hasFocus()) return false;
         if (this.skip_checkbox0 == null || this.skip_checkbox0.hasFocus()) return false;

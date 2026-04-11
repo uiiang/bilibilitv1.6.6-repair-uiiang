@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 912
+    .line 771
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$14;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     iput p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$14;->val$finalTagIndex:I
@@ -41,10 +41,10 @@
 
 # virtual methods
 .method public run()V
-    .locals 3
+    .locals 2
 
     .prologue
-    .line 915
+    .line 774
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$14;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagAdapter:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
@@ -58,38 +58,13 @@
 
     move-result-object v0
 
-    .line 916
-    if-eqz v0, :cond_2b
+    .line 775
+    if-eqz v0, :cond_11
 
-    .line 917
+    .line 776
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 918
-    const-string v0, "ListSection"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "restoreNavTagFromVideo | \u5ef6\u8fdf\u7126\u70b9\u6062\u590d\u5230tagIndex="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$14;->val$finalTagIndex:I
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 920
-    :cond_2b
+    .line 778
+    :cond_11
     return-void
 .end method

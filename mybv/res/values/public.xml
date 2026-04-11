@@ -2553,6 +2553,12 @@
     <public type="id" name="episode_list_section" id="0x7f0801e1" />
     <public type="id" name="playlist_title" id="0x7f0801e2" />
     <public type="id" name="bottom_episode_menu_root" id="0x7f0801e3" />
+    <public type="id" name="cdn_preference_group" id="0x7f0801e4" />
+    <public type="id" name="cdn_pref_auto" id="0x7f0801e5" />
+    <public type="id" name="cdn_pref_bilivideo" id="0x7f0801e6" />
+    <public type="id" name="cdn_pref_mcdn" id="0x7f0801e7" />
+    <public type="id" name="cdn_pref_manual" id="0x7f0801e8" />
+    <public type="id" name="cdn_custom_layout" id="0x7f0801e9" />
 
 
     <public type="integer" name="config_danmaku_fly_duration" id="0x7f090003" />

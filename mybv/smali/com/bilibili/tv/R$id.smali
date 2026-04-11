@@ -201,6 +201,18 @@
 
 .field public static final cdn_button:I = 0x7f080174
 
+.field public static final cdn_custom_layout:I = 0x7f0801e9
+
+.field public static final cdn_pref_auto:I = 0x7f0801e5
+
+.field public static final cdn_pref_bilivideo:I = 0x7f0801e6
+
+.field public static final cdn_pref_manual:I = 0x7f0801e8
+
+.field public static final cdn_pref_mcdn:I = 0x7f0801e7
+
+.field public static final cdn_preference_group:I = 0x7f0801e4
+
 .field public static final cdn_value:I = 0x7f080175
 
 .field public static final center:I = 0x7f080054

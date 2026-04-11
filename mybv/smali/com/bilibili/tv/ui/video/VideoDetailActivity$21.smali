@@ -38,7 +38,7 @@
     .locals 0
 
     .prologue
-    .line 1959
+    .line 1889
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$21;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -69,27 +69,22 @@
     .end annotation
 
     .prologue
-    .line 1962
+    .line 1892
     invoke-virtual {p1}, Lokhttp3/ResponseBody;->string()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 1964
-    const-string v1, "HistoryApi"
-
-    invoke-static {v1, v0}, Lmybl/LogUtil;->json(Ljava/lang/String;Ljava/lang/String;)V
-
-    .line 1965
+    .line 1893
     invoke-static {v0}, Lcom/alibaba/fastjson/JSON;->parseObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 1966
+    .line 1894
     new-instance v1, Lcom/bilibili/okretro/GeneralResponse;
 
     invoke-direct {v1}, Lcom/bilibili/okretro/GeneralResponse;-><init>()V
 
-    .line 1967
+    .line 1895
     const-string v2, "code"
 
     invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -98,26 +93,26 @@
 
     iput v2, v1, Lcom/bilibili/okretro/GeneralResponse;->code:I
 
-    .line 1968
+    .line 1896
     iget v2, v1, Lcom/bilibili/okretro/GeneralResponse;->code:I
 
-    if-nez v2, :cond_28
+    if-nez v2, :cond_23
 
-    .line 1969
+    .line 1897
     const-string v2, "data"
 
     invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 1970
-    if-eqz v0, :cond_28
+    .line 1898
+    if-eqz v0, :cond_23
 
-    .line 1971
+    .line 1899
     iput-object v0, v1, Lcom/bilibili/okretro/GeneralResponse;->data:Ljava/lang/Object;
 
-    .line 1974
-    :cond_28
+    .line 1902
+    :cond_23
     return-object v1
 .end method
 
@@ -130,7 +125,7 @@
     .end annotation
 
     .prologue
-    .line 1959
+    .line 1889
     check-cast p1, Lokhttp3/ResponseBody;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$21;->convert(Lokhttp3/ResponseBody;)Lcom/bilibili/okretro/GeneralResponse;

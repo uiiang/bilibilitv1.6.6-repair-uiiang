@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 143
+    .line 140
     iput-object p1, p0, Lbl/BottomEpisodeMenu$3;->this$0:Lbl/BottomEpisodeMenu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,11 +40,11 @@
     .locals 1
 
     .prologue
-    .line 146
+    .line 143
     iget-object v0, p0, Lbl/BottomEpisodeMenu$3;->this$0:Lbl/BottomEpisodeMenu;
 
     invoke-virtual {v0}, Lbl/BottomEpisodeMenu;->hide()V
 
-    .line 147
+    .line 144
     return-void
 .end method

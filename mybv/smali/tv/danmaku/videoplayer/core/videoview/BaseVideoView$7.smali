@@ -39,6 +39,9 @@
     .locals 5
 
     .line 1153
+    # Log player prepared - record buffering time
+    invoke-static {}, Lmybl/VideoViewParams;->onPlayerPrepared()V
+
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/videoview/BaseVideoView$7;->this$0:Ltv/danmaku/videoplayer/core/videoview/BaseVideoView;
 
     const/4 v1, 0x2

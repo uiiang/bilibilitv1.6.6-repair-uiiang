@@ -257,4 +257,32 @@ public class CdnSelector {
             return "";
         }
     }
+
+    /** CDN type constants */
+    public static final int CDN_TYPE_OTHER = 0;
+    public static final int CDN_TYPE_BILIVIDEO = 1;
+    public static final int CDN_TYPE_MCDN = 2;
+
+    /**
+     * Determine CDN type from host.
+     * mcdn: host contains both "mcdn" and "bilivideo" (e.g. cn-mcdnc01.bilivideo.com)
+     * bilivideo: host contains "bilivideo" but not mcdn (e.g. cn-gotcha01.bilivideo.com, upos-sz-mirrorcos.bilivideo.com)
+     * other: everything else
+     */
+    public static int getCdnType(String host) {
+        if (host == null || host.isEmpty()) return CDN_TYPE_OTHER;
+        boolean hasBilivideo = host.contains("bilivideo");
+        boolean hasMcdn = host.contains("mcdn");
+        if (hasBilivideo && hasMcdn) return CDN_TYPE_MCDN;
+        if (hasBilivideo) return CDN_TYPE_BILIVIDEO;
+        return CDN_TYPE_OTHER;
+    }
+
+    public static boolean isMcdn(String host) {
+        return getCdnType(host) == CDN_TYPE_MCDN;
+    }
+
+    public static boolean isBilivideo(String host) {
+        return getCdnType(host) == CDN_TYPE_BILIVIDEO;
+    }
 }

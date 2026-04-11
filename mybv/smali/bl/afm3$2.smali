@@ -3,12 +3,12 @@
 .source "afm3.java"
 
 # interfaces
-.implements Landroid/content/DialogInterface$OnClickListener;
+.implements Landroid/widget/RadioGroup$OnCheckedChangeListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/afm3;->onClick(Landroid/view/View;)V
+    value = Lbl/afm3;->onCreateView(Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View;
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 187
+    .line 147
     iput-object p1, p0, Lbl/afm3$2;->this$0:Lbl/afm3;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,44 +36,132 @@
 
 
 # virtual methods
-.method public onClick(Landroid/content/DialogInterface;I)V
-    .locals 3
+.method public onCheckedChanged(Landroid/widget/RadioGroup;I)V
+    .locals 5
 
     .prologue
-    .line 190
-    sget-object v0, Lbl/afm3;->tmp_cdns:Ljava/util/List;
+    const/4 v3, 0x3
 
-    invoke-interface {v0, p2}, Ljava/util/List;->get(I)Ljava/lang/Object;
+    const/4 v2, 0x2
 
-    move-result-object v0
+    const/4 v1, 0x1
 
-    check-cast v0, Ljava/lang/String;
+    const/4 v0, 0x0
 
-    sput-object v0, Lmybl/VideoViewParams;->prefect_cdn:Ljava/lang/String;
+    .line 150
+    .line 151
+    const v4, 0x7f0801e5
 
-    .line 191
+    if-ne p2, v4, :cond_23
+
+    .line 156
+    :cond_9
+    :goto_9
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
-    move-result-object v0
+    move-result-object v4
 
-    const-string v1, "prefect_cdn"
+    invoke-static {v4, v0}, Lbl/abd;->set_cdn_preference(Landroid/content/Context;I)V
 
-    sget-object v2, Lmybl/VideoViewParams;->prefect_cdn:Ljava/lang/String;
+    .line 157
+    iget-object v4, p0, Lbl/afm3$2;->this$0:Lbl/afm3;
 
-    invoke-static {v0, v1, v2}, Lbl/abd;->set_personal_config(Landroid/content/Context;Ljava/lang/String;Ljava/lang/Object;)V
+    # invokes: Lbl/afm3;->updateCdnCustomLayoutVisibility(I)V
+    invoke-static {v4, v0}, Lbl/afm3;->access$000(Lbl/afm3;I)V
 
-    .line 192
+    .line 159
+    if-ne v0, v1, :cond_38
+
+    .line 160
     iget-object v0, p0, Lbl/afm3$2;->this$0:Lbl/afm3;
 
-    # getter for: Lbl/afm3;->cdn_value:Lcom/bilibili/tv/widget/DrawEditText;
-    invoke-static {v0}, Lbl/afm3;->access$000(Lbl/afm3;)Lcom/bilibili/tv/widget/DrawEditText;
+    invoke-virtual {v0}, Lbl/afm3;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    sget-object v1, Lmybl/VideoViewParams;->prefect_cdn:Ljava/lang/String;
+    const-string v1, "CDN\u504f\u597d\uff1abilivideo\u7ebf\u8def\u4f18\u5148"
 
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawEditText;->setText(Ljava/lang/CharSequence;)V
+    invoke-static {v0, v1}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 193
+    .line 168
+    :goto_22
     return-void
+
+    .line 152
+    :cond_23
+    const v4, 0x7f0801e6
+
+    if-ne p2, v4, :cond_2a
+
+    move v0, v1
+
+    goto :goto_9
+
+    .line 153
+    :cond_2a
+    const v4, 0x7f0801e7
+
+    if-ne p2, v4, :cond_31
+
+    move v0, v2
+
+    goto :goto_9
+
+    .line 154
+    :cond_31
+    const v4, 0x7f0801e8
+
+    if-ne p2, v4, :cond_9
+
+    move v0, v3
+
+    goto :goto_9
+
+    .line 161
+    :cond_38
+    if-ne v0, v2, :cond_46
+
+    .line 162
+    iget-object v0, p0, Lbl/afm3$2;->this$0:Lbl/afm3;
+
+    invoke-virtual {v0}, Lbl/afm3;->getActivity()Landroid/support/v4/app/FragmentActivity;
+
+    move-result-object v0
+
+    const-string v1, "CDN\u504f\u597d\uff1amcdn\u7ebf\u8def\u4f18\u5148"
+
+    invoke-static {v0, v1}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
+
+    goto :goto_22
+
+    .line 163
+    :cond_46
+    if-ne v0, v3, :cond_54
+
+    .line 164
+    iget-object v0, p0, Lbl/afm3$2;->this$0:Lbl/afm3;
+
+    invoke-virtual {v0}, Lbl/afm3;->getActivity()Landroid/support/v4/app/FragmentActivity;
+
+    move-result-object v0
+
+    const-string v1, "CDN\u504f\u597d\uff1a\u624b\u52a8\u6307\u5b9a"
+
+    invoke-static {v0, v1}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
+
+    goto :goto_22
+
+    .line 166
+    :cond_54
+    iget-object v0, p0, Lbl/afm3$2;->this$0:Lbl/afm3;
+
+    invoke-virtual {v0}, Lbl/afm3;->getActivity()Landroid/support/v4/app/FragmentActivity;
+
+    move-result-object v0
+
+    const-string v1, "CDN\u504f\u597d\uff1a\u81ea\u52a8\u7ade\u901f"
+
+    invoke-static {v0, v1}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
+
+    goto :goto_22
 .end method

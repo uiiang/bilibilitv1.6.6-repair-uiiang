@@ -2,7 +2,6 @@ package bl;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -62,7 +61,6 @@ public class BottomEpisodeMenu extends FrameLayout {
     }
     
     public void setData(ResolveResourceParams[] paramsArray, long currentCid, String title, int count) {
-        Log.i(TAG, "setData | paramsArray.length=" + (paramsArray != null ? paramsArray.length : 0) + " | currentCid=" + currentCid);
         if (paramsArray == null || paramsArray.length == 0) {
             return;
         }
@@ -80,7 +78,6 @@ public class BottomEpisodeMenu extends FrameLayout {
             }
         }
         
-        Log.i(TAG, "setData | 使用 UnifiedVideoCardBinder | listType=" + listType);
         UnifiedVideoCardBinder binder = new UnifiedVideoCardBinder(listType);
         
         videoListSection.setCurrentCid(currentCid);

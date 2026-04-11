@@ -376,4 +376,10 @@
     <item type="id" name="episode_list_section" />
     <item type="id" name="playlist_title" />
     <item type="id" name="bottom_episode_menu_root" />
+    <item type="id" name="cdn_preference_group" />
+    <item type="id" name="cdn_pref_auto" />
+    <item type="id" name="cdn_pref_bilivideo" />
+    <item type="id" name="cdn_pref_mcdn" />
+    <item type="id" name="cdn_pref_manual" />
+    <item type="id" name="cdn_custom_layout" />
 </resources>

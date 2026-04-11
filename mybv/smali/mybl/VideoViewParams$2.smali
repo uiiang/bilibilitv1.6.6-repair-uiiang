@@ -1,6 +1,6 @@
-.class Lbl/qi$1;
+.class final Lmybl/VideoViewParams$2;
 .super Ljava/lang/Object;
-.source "qi.java"
+.source "VideoViewParams.java"
 
 # interfaces
 .implements Ljava/util/Comparator;
@@ -8,11 +8,11 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/qi;->a(Landroid/content/Context;Lcom/bilibili/lib/media/resolver/params/ResolveMediaResourceParams;ILandroid/util/SparseArray;[I)Lcom/bilibili/lib/media/resource/MediaResource;
+    value = Lmybl/VideoViewParams;->sortUrlsByPreference(Ljava/util/List;I)Ljava/util/List;
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
-    accessFlags = 0x0
+    accessFlags = 0x8
     name = null
 .end annotation
 
@@ -28,20 +28,16 @@
 
 
 # instance fields
-.field final synthetic this$0:Lbl/qi;
-
 .field final synthetic val$targetType:I
 
 
 # direct methods
-.method constructor <init>(Lbl/qi;I)V
+.method constructor <init>(I)V
     .locals 0
 
     .prologue
-    .line 224
-    iput-object p1, p0, Lbl/qi$1;->this$0:Lbl/qi;
-
-    iput p2, p0, Lbl/qi$1;->val$targetType:I
+    .line 455
+    iput p1, p0, Lmybl/VideoViewParams$2;->val$targetType:I
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -54,12 +50,12 @@
     .locals 1
 
     .prologue
-    .line 224
+    .line 455
     check-cast p1, Ljava/lang/String;
 
     check-cast p2, Ljava/lang/String;
 
-    invoke-virtual {p0, p1, p2}, Lbl/qi$1;->compare(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-virtual {p0, p1, p2}, Lmybl/VideoViewParams$2;->compare(Ljava/lang/String;Ljava/lang/String;)I
 
     move-result v0
 
@@ -74,7 +70,7 @@
 
     const/4 v1, 0x1
 
-    .line 227
+    .line 458
     invoke-static {p1}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v0
@@ -83,7 +79,7 @@
 
     move-result-object v3
 
-    .line 228
+    .line 459
     invoke-static {p2}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v0
@@ -92,32 +88,32 @@
 
     move-result-object v4
 
-    .line 229
+    .line 460
     invoke-static {v3}, Lmybl/CdnSelector;->getCdnType(Ljava/lang/String;)I
 
     move-result v0
 
-    .line 230
+    .line 461
     invoke-static {v4}, Lmybl/CdnSelector;->getCdnType(Ljava/lang/String;)I
 
     move-result v5
 
-    .line 231
-    iget v6, p0, Lbl/qi$1;->val$targetType:I
+    .line 464
+    iget v6, p0, Lmybl/VideoViewParams$2;->val$targetType:I
 
     if-ne v0, v6, :cond_2a
 
     move v0, v1
 
-    .line 232
+    .line 465
     :goto_1f
-    iget v6, p0, Lbl/qi$1;->val$targetType:I
+    iget v6, p0, Lmybl/VideoViewParams$2;->val$targetType:I
 
     if-ne v5, v6, :cond_24
 
     move v2, v1
 
-    .line 233
+    .line 466
     :cond_24
     if-eqz v0, :cond_2c
 
@@ -125,7 +121,7 @@
 
     const/4 v1, -0x1
 
-    .line 237
+    .line 472
     :cond_29
     :goto_29
     return v1
@@ -133,27 +129,27 @@
     :cond_2a
     move v0, v2
 
-    .line 231
+    .line 464
     goto :goto_1f
 
-    .line 234
+    .line 467
     :cond_2c
     if-nez v0, :cond_30
 
     if-nez v2, :cond_29
 
-    .line 235
+    .line 470
     :cond_30
     invoke-static {v3}, Lmybl/CdnSelector;->getCdnScore(Ljava/lang/String;)I
 
     move-result v0
 
-    .line 236
+    .line 471
     invoke-static {v4}, Lmybl/CdnSelector;->getCdnScore(Ljava/lang/String;)I
 
     move-result v1
 
-    .line 237
+    .line 472
     invoke-static {v1, v0}, Ljava/lang/Integer;->compare(II)I
 
     move-result v1

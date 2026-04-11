@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 472
+    .line 417
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$8$1;->this$1:Lcom/bilibili/tv/ui/video/widget/VideoListSection$8;
 
     iput p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$8$1;->val$finalTagIndex:I
@@ -41,10 +41,10 @@
 
 # virtual methods
 .method public run()V
-    .locals 3
+    .locals 2
 
     .prologue
-    .line 475
+    .line 420
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$8$1;->this$1:Lcom/bilibili/tv/ui/video/widget/VideoListSection$8;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$8;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -60,38 +60,13 @@
 
     move-result-object v0
 
-    .line 476
-    if-eqz v0, :cond_2d
+    .line 421
+    if-eqz v0, :cond_13
 
-    .line 477
+    .line 422
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 478
-    const-string v0, "ListSection"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "onTagFocus | \u7126\u70b9\u91cd\u5b9a\u5411\u5b8c\u6210 | tagIndex="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$8$1;->val$finalTagIndex:I
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 480
-    :cond_2d
+    .line 424
+    :cond_13
     return-void
 .end method

@@ -397,4 +397,9 @@ Jungly   农业银行"</string>
     <string name="area_movie">电影</string>
     <string name="area_tv">电视剧</string>
     <string name="area_doc">纪录片</string>
+    <string name="cdn_pref_auto">自动</string>
+    <string name="cdn_pref_bilivideo">bilivideo</string>
+    <string name="cdn_pref_mcdn">mcdn</string>
+    <string name="cdn_pref_manual">手动指定</string>
+    <string name="cdn_preference_label">CDN线路偏好：</string>
 </resources>

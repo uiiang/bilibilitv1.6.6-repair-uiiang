@@ -215,8 +215,44 @@ public class qi extends py {
                         JSONArray sortedBackupUrls = null;
                         
                         if (allDurlUrls.size() > 1) {
-                            long durlRaceStart = System.currentTimeMillis();
-                            Log.i("PlaySpeed", "[QI_DURL_RACE_START] CDN racing for durl, urls=" + allDurlUrls.size());
+                            int cdnPref = abd.get_cdn_preference(context);
+                            Log.i("PlaySpeed", "[QI_DURL] cdnPreference=" + cdnPref);
+                            
+                            if (cdnPref == abd.CDN_PREF_BILIVIDEO || cdnPref == abd.CDN_PREF_MCDN) {
+                                // Sort by CDN type preference, skip race
+                                final int targetType = (cdnPref == abd.CDN_PREF_MCDN) ? mybl.CdnSelector.CDN_TYPE_MCDN : mybl.CdnSelector.CDN_TYPE_BILIVIDEO;
+                                java.util.Collections.sort(allDurlUrls, new java.util.Comparator<String>() {
+                                    @Override
+                                    public int compare(String url1, String url2) {
+                                        String cdn1 = android.net.Uri.parse(url1).getHost();
+                                        String cdn2 = android.net.Uri.parse(url2).getHost();
+                                        int type1 = mybl.CdnSelector.getCdnType(cdn1);
+                                        int type2 = mybl.CdnSelector.getCdnType(cdn2);
+                                        boolean pref1 = (type1 == targetType);
+                                        boolean pref2 = (type2 == targetType);
+                                        if (pref1 && !pref2) return -1;
+                                        if (!pref1 && pref2) return 1;
+                                        int score1 = mybl.CdnSelector.getCdnScore(cdn1);
+                                        int score2 = mybl.CdnSelector.getCdnScore(cdn2);
+                                        return Integer.compare(score2, score1);
+                                    }
+                                });
+                                selectedDurlUrl = allDurlUrls.get(0);
+                                Log.i("PlaySpeed", "[QI_DURL_TYPE] Selected by type pref=" + cdnPref + ", cdn=" + android.net.Uri.parse(selectedDurlUrl).getHost());
+                            } else if (cdnPref == abd.CDN_PREF_MANUAL && mybl.VideoViewParams.prefect_cdn != null && !mybl.VideoViewParams.prefect_cdn.isEmpty()) {
+                                // Manual mode: find URL matching prefect_cdn
+                                String manualCdn = mybl.VideoViewParams.prefect_cdn;
+                                for (String url : allDurlUrls) {
+                                    if (android.net.Uri.parse(url).getHost().equals(manualCdn)) {
+                                        selectedDurlUrl = url;
+                                        break;
+                                    }
+                                }
+                                Log.i("PlaySpeed", "[QI_DURL_MANUAL] Using prefect_cdn=" + manualCdn + ", found=" + android.net.Uri.parse(selectedDurlUrl).getHost());
+                            } else {
+                                // Auto mode: CDN race
+                                long durlRaceStart = System.currentTimeMillis();
+                                Log.i("PlaySpeed", "[QI_DURL_RACE_START] CDN racing for durl, urls=" + allDurlUrls.size());
                             java.util.List<mybl.CdnSelector.CdnUrlInfo> cdnInfos = new java.util.ArrayList<>();
                             for (String url : allDurlUrls) {
                                 String cdnHost = android.net.Uri.parse(url).getHost();
@@ -250,6 +286,7 @@ public class qi extends py {
                                 selectedDurlUrl = cdnInfos.get(0).url;
                                 Log.i("PgcPlayUrl", "No race winner, using highest score CDN: " + cdnInfos.get(0).cdnHost);
                             }
+                            } // end of auto mode (CDN race)
                             
                             sortedBackupUrls = new JSONArray();
                             for (String url : allDurlUrls) {
@@ -259,6 +296,16 @@ public class qi extends py {
                             }
                             Log.i("PgcPlayUrl", "Selected URL: " + (selectedDurlUrl.length() > 100 ? selectedDurlUrl.substring(0, 100) + "..." : selectedDurlUrl));
                             Log.i("PgcPlayUrl", "Sorted backup_urls count: " + (sortedBackupUrls != null ? sortedBackupUrls.length() : 0));
+                            
+                            // CDN selection summary for DURL
+                            String durlCdn = android.net.Uri.parse(selectedDurlUrl).getHost();
+                            int durlCdnType = mybl.CdnSelector.getCdnType(durlCdn);
+                            String durlCdnTypeName = durlCdnType == mybl.CdnSelector.CDN_TYPE_BILIVIDEO ? "bilivideo" : (durlCdnType == mybl.CdnSelector.CDN_TYPE_MCDN ? "mcdn" : "other");
+                            String durlPrefName = "AUTO";
+                            if (cdnPref == abd.CDN_PREF_BILIVIDEO) durlPrefName = "BILIVIDEO";
+                            else if (cdnPref == abd.CDN_PREF_MCDN) durlPrefName = "MCDN";
+                            else if (cdnPref == abd.CDN_PREF_MANUAL) durlPrefName = "MANUAL";
+                            Log.i("PlaySpeed", "[CDN_SUMMARY_DURL] mode=" + durlPrefName + ", selectedCdn=" + durlCdn + ", cdnType=" + durlCdnTypeName + ", score=" + mybl.CdnSelector.getCdnScore(durlCdn) + ", qi elapsed=" + (System.currentTimeMillis() - qiStart) + "ms");
                         }
                         
                         if (!TextUtils.isEmpty(selectedDurlUrl)) {

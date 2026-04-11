@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 750
+    .line 637
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$12;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     iput p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$12;->val$finalPos:I
@@ -44,7 +44,7 @@
     .locals 6
 
     .prologue
-    .line 753
+    .line 640
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$12;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
@@ -56,22 +56,15 @@
 
     move-result v0
 
-    if-nez v0, :cond_14
+    if-nez v0, :cond_d
 
-    .line 754
-    const-string v0, "ListSection"
-
-    const-string v1, "scrollToDataPosition.post | RecyclerView\u5df2\u8131\u79bb\u7a97\u53e3"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 778
-    :goto_13
+    .line 660
+    :goto_c
     return-void
 
-    .line 761
-    :cond_14
-    :try_start_14
+    .line 647
+    :cond_d
+    :try_start_d
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$12;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
@@ -83,10 +76,10 @@
 
     move-result-object v0
 
-    .line 762
-    if-eqz v0, :cond_68
+    .line 648
+    if-eqz v0, :cond_47
 
-    .line 763
+    .line 649
     invoke-virtual {v0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
     move-result-object v1
@@ -113,7 +106,7 @@
 
     move-result-object v1
 
-    .line 764
+    .line 650
     const/4 v2, 0x2
 
     new-array v2, v2, [Ljava/lang/Object;
@@ -139,37 +132,12 @@
     aput-object v4, v2, v3
 
     invoke-virtual {v1, v0, v2}, Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+    :try_end_47
+    .catch Ljava/lang/Exception; {:try_start_d .. :try_end_47} :catch_4f
 
-    .line 765
-    const-string v0, "ListSection"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "scrollToDataPosition.post | b(int,int)\u6210\u529f | position="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$12;->val$finalPos:I
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_68
-    .catch Ljava/lang/Exception; {:try_start_14 .. :try_end_68} :catch_70
-
-    .line 777
-    :cond_68
-    :goto_68
+    .line 659
+    :cond_47
+    :goto_47
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$12;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     iget v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$12;->val$finalPos:I
@@ -177,47 +145,14 @@
     # setter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusPosition:I
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$302(Lcom/bilibili/tv/ui/video/widget/VideoListSection;I)I
 
-    goto :goto_13
+    goto :goto_c
 
-    .line 767
-    :catch_70
+    .line 652
+    :catch_4f
     move-exception v0
 
-    .line 768
-    const-string v1, "ListSection"
-
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "scrollToDataPosition.post | b(int,int)\u5931\u8d25: "
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v0}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    const-string v2, "\uff0c\u56de\u9000\u5230a(int)"
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {v1, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 770
-    :try_start_93
+    .line 654
+    :try_start_50
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$12;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
@@ -245,7 +180,7 @@
 
     move-result-object v0
 
-    .line 771
+    .line 655
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$12;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
@@ -268,66 +203,14 @@
     aput-object v4, v2, v3
 
     invoke-virtual {v0, v1, v2}, Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+    :try_end_7d
+    .catch Ljava/lang/Exception; {:try_start_50 .. :try_end_7d} :catch_7e
 
-    .line 772
-    const-string v0, "ListSection"
+    goto :goto_47
 
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "scrollToDataPosition.post | a(int)\u6210\u529f | position="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$12;->val$finalPos:I
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_da
-    .catch Ljava/lang/Exception; {:try_start_93 .. :try_end_da} :catch_db
-
-    goto :goto_68
-
-    .line 773
-    :catch_db
+    .line 656
+    :catch_7e
     move-exception v0
 
-    .line 774
-    const-string v1, "ListSection"
-
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "scrollToDataPosition.post | a(int)\u5931\u8d25: "
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v0}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {v1, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
-
-    goto/16 :goto_68
+    goto :goto_47
 .end method
