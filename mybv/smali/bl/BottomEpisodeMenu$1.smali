@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 87
+    .line 89
     iput-object p1, p0, Lbl/BottomEpisodeMenu$1;->this$0:Lbl/BottomEpisodeMenu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,20 +40,20 @@
     .locals 1
 
     .prologue
-    .line 90
+    .line 92
     instance-of v0, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     if-eqz v0, :cond_21
 
-    .line 91
+    .line 93
     check-cast p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
-    .line 93
+    .line 95
     iget-object v0, p0, Lbl/BottomEpisodeMenu$1;->this$0:Lbl/BottomEpisodeMenu;
 
     invoke-virtual {v0}, Lbl/BottomEpisodeMenu;->resetAutoHideTimer()V
 
-    .line 95
+    .line 97
     iget-object v0, p0, Lbl/BottomEpisodeMenu$1;->this$0:Lbl/BottomEpisodeMenu;
 
     # getter for: Lbl/BottomEpisodeMenu;->episodeClickListener:Lbl/BottomEpisodeMenu$OnEpisodeClickListener;
@@ -63,7 +63,7 @@
 
     if-eqz v0, :cond_1c
 
-    .line 96
+    .line 98
     iget-object v0, p0, Lbl/BottomEpisodeMenu$1;->this$0:Lbl/BottomEpisodeMenu;
 
     # getter for: Lbl/BottomEpisodeMenu;->episodeClickListener:Lbl/BottomEpisodeMenu$OnEpisodeClickListener;
@@ -73,13 +73,13 @@
 
     invoke-interface {v0, p1, p2}, Lbl/BottomEpisodeMenu$OnEpisodeClickListener;->onEpisodeClicked(Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;I)V
 
-    .line 99
+    .line 101
     :cond_1c
     iget-object v0, p0, Lbl/BottomEpisodeMenu$1;->this$0:Lbl/BottomEpisodeMenu;
 
     invoke-virtual {v0}, Lbl/BottomEpisodeMenu;->hide()V
 
-    .line 101
+    .line 103
     :cond_21
     return-void
 .end method

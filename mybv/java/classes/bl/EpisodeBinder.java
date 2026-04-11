@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import com.bilibili.tv.MainApplication;
@@ -18,7 +17,6 @@ import com.bilibili.tv.widget.ScalableImageView;
 import com.bilibili.tv.player.basic.context.ResolveResourceParams;
 
 public class EpisodeBinder implements VideoCardBinder {
-    private static final String TAG = "EpisodeBinder";
     private VideoListSection videoListSection;
     private BottomEpisodeMenu bottomEpisodeMenu;
     
@@ -60,8 +58,6 @@ public class EpisodeBinder implements VideoCardBinder {
                         if (bottomEpisodeMenu != null) {
                             bottomEpisodeMenu.resetAutoHideTimer();
                         }
-                        
-                        Log.i(TAG, "onFocusChange | position=" + adapterPosition);
                     }
                 }
             });
@@ -78,12 +74,6 @@ public class EpisodeBinder implements VideoCardBinder {
                     if (videoListSection != null) {
                         videoListSection.onVideoCardClicked(params.mCid, params);
                     }
-                    
-                    if (bottomEpisodeMenu != null) {
-                        bottomEpisodeMenu.hide();
-                    }
-                    
-                    Log.i(TAG, "onClick | position=" + adapterPosition + " | cid=" + params.mCid);
                 }
             });
         }

@@ -22,6 +22,7 @@ public class BottomEpisodeMenu extends FrameLayout {
     private Runnable autoHideRunnable;
     private static final int AUTO_HIDE_DELAY = 5000;
     private OnEpisodeClickListener episodeClickListener;
+    private boolean isHiding = false;
     
     public interface OnEpisodeClickListener {
         void onEpisodeClicked(ResolveResourceParams params, int position);
@@ -48,6 +49,7 @@ public class BottomEpisodeMenu extends FrameLayout {
         titleTextView = findViewById(R.id.playlist_title);
         
         videoListSection.hideTitle();
+        videoListSection.setShowIndexBadge(true);
         
         videoListSection.setupBottomMenuFocusBoundary();
         
@@ -105,6 +107,8 @@ public class BottomEpisodeMenu extends FrameLayout {
     public void show(ResolveResourceParams[] paramsArray, long currentCid, String title, int count) {
         setData(paramsArray, currentCid, title, count);
         
+        isHiding = false;
+        clearAnimation();
         setVisibility(View.VISIBLE);
         startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.in_from_bottom));
         
@@ -123,17 +127,30 @@ public class BottomEpisodeMenu extends FrameLayout {
     }
     
     public void hide() {
-        if (getVisibility() != View.VISIBLE) {
+        if (getVisibility() != View.VISIBLE || isHiding) {
             return;
         }
         cancelAutoHideTimer();
+        isHiding = true;
         Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.out_to_bottom);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                setVisibility(View.GONE);
+                isHiding = false;
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
         startAnimation(animation);
-        setVisibility(View.GONE);
     }
     
     public boolean isShowing() {
-        return getVisibility() == View.VISIBLE;
+        return getVisibility() == View.VISIBLE || isHiding;
     }
     
     private void initAutoHideTimer() {

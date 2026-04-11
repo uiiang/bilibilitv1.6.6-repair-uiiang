@@ -2053,6 +2053,16 @@ public final class VideoDetailActivity extends BaseActivity
         }
     }
 
+    /**
+     * 计算分P播放进度：如果点击的分P cid与历史进度cid一致，返回历史进度；否则返回0（从头播放）
+     */
+    private int calcPageProgress(BiliVideoDetail videoDetail, long clickCid) {
+        if (videoDetail != null && videoDetail.mHistory != null && videoDetail.mHistory.mCid == clickCid) {
+            return videoDetail.mHistory.mProgress;
+        }
+        return 0;
+    }
+
     private final void playVideo(BiliVideoDetail biliVideoDetail, long cid, int progress) {
         if (biliVideoDetail == null) {
             return;
@@ -2618,7 +2628,8 @@ public final class VideoDetailActivity extends BaseActivity
                         if (VideoDetailActivity.this.u.mCover != null) {
                             abd.prefetchCoverToMemoryCache(VideoDetailActivity.this, VideoDetailActivity.this.u.mCover);
                         }
-                        xg.a(VideoDetailActivity.this, VideoDetailActivity.this.u, targetPage, new Bundle(), REQUEST_CODE_PLAY_VIDEO, -1);
+                        int progress = calcPageProgress(VideoDetailActivity.this.u, targetPage.mCid);
+                        xg.a(VideoDetailActivity.this, VideoDetailActivity.this.u, targetPage, new Bundle(), REQUEST_CODE_PLAY_VIDEO, progress);
                     } else {
                         VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.a(VideoDetailActivity.this, detail.mAvid, detail.mCover));
                     }
@@ -4120,7 +4131,8 @@ public final class VideoDetailActivity extends BaseActivity
                 if (videoDetailActivity.u != null && videoDetailActivity.u.mCover != null) {
                     abd.prefetchCoverToMemoryCache(videoDetailActivity, videoDetailActivity.u.mCover);
                 }
-                xg.a(videoDetailActivity, videoDetailActivity.u, page, new Bundle(), VideoDetailActivity.REQUEST_CODE_PLAY_VIDEO, -1);
+                int progress = videoDetailActivity.calcPageProgress(videoDetailActivity.u, page.mCid);
+                xg.a(videoDetailActivity, videoDetailActivity.u, page, new Bundle(), VideoDetailActivity.REQUEST_CODE_PLAY_VIDEO, progress);
             }
             ok.a("tv_video_view_click_part", new String[0]);
         }
@@ -4761,7 +4773,8 @@ public final class VideoDetailActivity extends BaseActivity
                             if (VideoDetailActivity.this.u.mCover != null) {
                                 abd.prefetchCoverToMemoryCache(VideoDetailActivity.this, VideoDetailActivity.this.u.mCover);
                             }
-                            xg.a(VideoDetailActivity.this, VideoDetailActivity.this.u, detail.sourcePage, new Bundle(), REQUEST_CODE_PLAY_VIDEO, -1);
+                            int progress = calcPageProgress(VideoDetailActivity.this.u, detail.sourcePage.mCid);
+                            xg.a(VideoDetailActivity.this, VideoDetailActivity.this.u, detail.sourcePage, new Bundle(), REQUEST_CODE_PLAY_VIDEO, progress);
                         } else {
                             VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.a(VideoDetailActivity.this, detail.mAvid, detail.mCover));
                         }
@@ -5010,7 +5023,8 @@ public final class VideoDetailActivity extends BaseActivity
                             if (VideoDetailActivity.this.u.mCover != null) {
                                 abd.prefetchCoverToMemoryCache(VideoDetailActivity.this, VideoDetailActivity.this.u.mCover);
                             }
-                            xg.a(VideoDetailActivity.this, VideoDetailActivity.this.u, detail.sourcePage, new Bundle(), REQUEST_CODE_PLAY_VIDEO, -1);
+                            int progress = calcPageProgress(VideoDetailActivity.this.u, detail.sourcePage.mCid);
+                            xg.a(VideoDetailActivity.this, VideoDetailActivity.this.u, detail.sourcePage, new Bundle(), REQUEST_CODE_PLAY_VIDEO, progress);
                         } else {
                             VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.a(VideoDetailActivity.this, detail.mAvid, detail.mCover));
                         }

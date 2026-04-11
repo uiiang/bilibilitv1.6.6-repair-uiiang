@@ -22,6 +22,8 @@
 
 .field private episodeClickListener:Lbl/BottomEpisodeMenu$OnEpisodeClickListener;
 
+.field private isHiding:Z
+
 .field private titleTextView:Landroid/widget/TextView;
 
 .field private videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -29,44 +31,59 @@
 
 # direct methods
 .method public constructor <init>(Landroid/content/Context;)V
-    .locals 0
+    .locals 1
 
     .prologue
-    .line 31
+    .line 32
     invoke-direct {p0, p1}, Landroid/widget/FrameLayout;-><init>(Landroid/content/Context;)V
 
-    .line 32
-    invoke-direct {p0}, Lbl/BottomEpisodeMenu;->init()V
+    .line 25
+    const/4 v0, 0x0
+
+    iput-boolean v0, p0, Lbl/BottomEpisodeMenu;->isHiding:Z
 
     .line 33
+    invoke-direct {p0}, Lbl/BottomEpisodeMenu;->init()V
+
+    .line 34
     return-void
 .end method
 
 .method public constructor <init>(Landroid/content/Context;Landroid/util/AttributeSet;)V
-    .locals 0
+    .locals 1
 
     .prologue
-    .line 36
+    .line 37
     invoke-direct {p0, p1, p2}, Landroid/widget/FrameLayout;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;)V
 
-    .line 37
-    invoke-direct {p0}, Lbl/BottomEpisodeMenu;->init()V
+    .line 25
+    const/4 v0, 0x0
+
+    iput-boolean v0, p0, Lbl/BottomEpisodeMenu;->isHiding:Z
 
     .line 38
+    invoke-direct {p0}, Lbl/BottomEpisodeMenu;->init()V
+
+    .line 39
     return-void
 .end method
 
 .method public constructor <init>(Landroid/content/Context;Landroid/util/AttributeSet;I)V
-    .locals 0
+    .locals 1
 
     .prologue
-    .line 41
+    .line 42
     invoke-direct {p0, p1, p2, p3}, Landroid/widget/FrameLayout;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;I)V
 
-    .line 42
-    invoke-direct {p0}, Lbl/BottomEpisodeMenu;->init()V
+    .line 25
+    const/4 v0, 0x0
+
+    iput-boolean v0, p0, Lbl/BottomEpisodeMenu;->isHiding:Z
 
     .line 43
+    invoke-direct {p0}, Lbl/BottomEpisodeMenu;->init()V
+
+    .line 44
     return-void
 .end method
 
@@ -90,21 +107,31 @@
     return-object v0
 .end method
 
+.method static synthetic access$202(Lbl/BottomEpisodeMenu;Z)Z
+    .locals 0
+
+    .prologue
+    .line 18
+    iput-boolean p1, p0, Lbl/BottomEpisodeMenu;->isHiding:Z
+
+    return p1
+.end method
+
 .method private cancelAutoHideTimer()V
     .locals 1
 
     .prologue
-    .line 156
+    .line 173
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->autoHideRunnable:Ljava/lang/Runnable;
 
     if-eqz v0, :cond_9
 
-    .line 157
+    .line 174
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->autoHideRunnable:Ljava/lang/Runnable;
 
     invoke-virtual {p0, v0}, Lbl/BottomEpisodeMenu;->removeCallbacks(Ljava/lang/Runnable;)Z
 
-    .line 159
+    .line 176
     :cond_9
     return-void
 .end method
@@ -113,7 +140,7 @@
     .locals 2
 
     .prologue
-    .line 46
+    .line 47
     invoke-virtual {p0}, Lbl/BottomEpisodeMenu;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -122,7 +149,7 @@
 
     invoke-static {v0, v1, p0}, Lbl/BottomEpisodeMenu;->inflate(Landroid/content/Context;ILandroid/view/ViewGroup;)Landroid/view/View;
 
-    .line 47
+    .line 48
     const v0, 0x7f0801e1
 
     invoke-virtual {p0, v0}, Lbl/BottomEpisodeMenu;->findViewById(I)Landroid/view/View;
@@ -133,7 +160,7 @@
 
     iput-object v0, p0, Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
-    .line 48
+    .line 49
     const v0, 0x7f0801e2
 
     invoke-virtual {p0, v0}, Lbl/BottomEpisodeMenu;->findViewById(I)Landroid/view/View;
@@ -144,7 +171,7 @@
 
     iput-object v0, p0, Lbl/BottomEpisodeMenu;->titleTextView:Landroid/widget/TextView;
 
-    .line 50
+    .line 51
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->hideTitle()V
@@ -152,17 +179,24 @@
     .line 52
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setupBottomMenuFocusBoundary()V
+    const/4 v1, 0x1
+
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setShowIndexBadge(Z)V
 
     .line 54
-    invoke-direct {p0}, Lbl/BottomEpisodeMenu;->initAutoHideTimer()V
+    iget-object v0, p0, Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setupBottomMenuFocusBoundary()V
 
     .line 56
+    invoke-direct {p0}, Lbl/BottomEpisodeMenu;->initAutoHideTimer()V
+
+    .line 58
     const/16 v0, 0x8
 
     invoke-virtual {p0, v0}, Lbl/BottomEpisodeMenu;->setVisibility(I)V
 
-    .line 57
+    .line 59
     return-void
 .end method
 
@@ -170,14 +204,14 @@
     .locals 1
 
     .prologue
-    .line 140
-    new-instance v0, Lbl/BottomEpisodeMenu$3;
+    .line 157
+    new-instance v0, Lbl/BottomEpisodeMenu$4;
 
-    invoke-direct {v0, p0}, Lbl/BottomEpisodeMenu$3;-><init>(Lbl/BottomEpisodeMenu;)V
+    invoke-direct {v0, p0}, Lbl/BottomEpisodeMenu$4;-><init>(Lbl/BottomEpisodeMenu;)V
 
     iput-object v0, p0, Lbl/BottomEpisodeMenu;->autoHideRunnable:Ljava/lang/Runnable;
 
-    .line 146
+    .line 163
     return-void
 .end method
 
@@ -187,20 +221,20 @@
     .locals 1
 
     .prologue
-    .line 162
+    .line 179
     invoke-direct {p0}, Lbl/BottomEpisodeMenu;->cancelAutoHideTimer()V
 
-    .line 163
+    .line 180
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     if-eqz v0, :cond_c
 
-    .line 164
+    .line 181
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->cleanup()V
 
-    .line 166
+    .line 183
     :cond_c
     return-void
 .end method
@@ -209,7 +243,7 @@
     .locals 2
 
     .prologue
-    .line 170
+    .line 187
     invoke-virtual {p0}, Lbl/BottomEpisodeMenu;->isShowing()Z
 
     move-result v0
@@ -222,12 +256,12 @@
 
     if-nez v0, :cond_2b
 
-    .line 171
+    .line 188
     invoke-virtual {p1}, Landroid/view/KeyEvent;->getKeyCode()I
 
     move-result v0
 
-    .line 172
+    .line 189
     const/16 v1, 0x15
 
     if-eq v0, v1, :cond_28
@@ -252,11 +286,11 @@
 
     if-ne v0, v1, :cond_2b
 
-    .line 178
+    .line 195
     :cond_28
     invoke-virtual {p0}, Lbl/BottomEpisodeMenu;->resetAutoHideTimer()V
 
-    .line 181
+    .line 198
     :cond_2b
     invoke-super {p0, p1}, Landroid/widget/FrameLayout;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
 
@@ -269,22 +303,32 @@
     .locals 2
 
     .prologue
-    .line 126
+    .line 130
     invoke-virtual {p0}, Lbl/BottomEpisodeMenu;->getVisibility()I
 
     move-result v0
 
-    if-eqz v0, :cond_7
+    if-nez v0, :cond_a
 
-    .line 133
-    :goto_6
+    iget-boolean v0, p0, Lbl/BottomEpisodeMenu;->isHiding:Z
+
+    if-eqz v0, :cond_b
+
+    .line 150
+    :cond_a
+    :goto_a
     return-void
 
-    .line 129
-    :cond_7
+    .line 133
+    :cond_b
     invoke-direct {p0}, Lbl/BottomEpisodeMenu;->cancelAutoHideTimer()V
 
-    .line 130
+    .line 134
+    const/4 v0, 0x1
+
+    iput-boolean v0, p0, Lbl/BottomEpisodeMenu;->isHiding:Z
+
+    .line 135
     invoke-virtual {p0}, Lbl/BottomEpisodeMenu;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -295,50 +339,57 @@
 
     move-result-object v0
 
-    .line 131
+    .line 136
+    new-instance v1, Lbl/BottomEpisodeMenu$3;
+
+    invoke-direct {v1, p0}, Lbl/BottomEpisodeMenu$3;-><init>(Lbl/BottomEpisodeMenu;)V
+
+    invoke-virtual {v0, v1}, Landroid/view/animation/Animation;->setAnimationListener(Landroid/view/animation/Animation$AnimationListener;)V
+
+    .line 149
     invoke-virtual {p0, v0}, Lbl/BottomEpisodeMenu;->startAnimation(Landroid/view/animation/Animation;)V
 
-    .line 132
-    const/16 v0, 0x8
-
-    invoke-virtual {p0, v0}, Lbl/BottomEpisodeMenu;->setVisibility(I)V
-
-    goto :goto_6
+    goto :goto_a
 .end method
 
 .method public isShowing()Z
     .locals 1
 
     .prologue
-    .line 136
+    .line 153
     invoke-virtual {p0}, Lbl/BottomEpisodeMenu;->getVisibility()I
 
     move-result v0
 
-    if-nez v0, :cond_8
+    if-eqz v0, :cond_a
 
+    iget-boolean v0, p0, Lbl/BottomEpisodeMenu;->isHiding:Z
+
+    if-eqz v0, :cond_c
+
+    :cond_a
     const/4 v0, 0x1
 
-    :goto_7
+    :goto_b
     return v0
 
-    :cond_8
+    :cond_c
     const/4 v0, 0x0
 
-    goto :goto_7
+    goto :goto_b
 .end method
 
 .method protected onDetachedFromWindow()V
     .locals 0
 
     .prologue
-    .line 186
+    .line 203
     invoke-super {p0}, Landroid/widget/FrameLayout;->onDetachedFromWindow()V
 
-    .line 187
+    .line 204
     invoke-virtual {p0}, Lbl/BottomEpisodeMenu;->cleanup()V
 
-    .line 188
+    .line 205
     return-void
 .end method
 
@@ -346,24 +397,24 @@
     .locals 4
 
     .prologue
-    .line 149
+    .line 166
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->autoHideRunnable:Ljava/lang/Runnable;
 
     if-eqz v0, :cond_10
 
-    .line 150
+    .line 167
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->autoHideRunnable:Ljava/lang/Runnable;
 
     invoke-virtual {p0, v0}, Lbl/BottomEpisodeMenu;->removeCallbacks(Ljava/lang/Runnable;)Z
 
-    .line 151
+    .line 168
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->autoHideRunnable:Ljava/lang/Runnable;
 
     const-wide/16 v2, 0x1388
 
     invoke-virtual {p0, v0, v2, v3}, Lbl/BottomEpisodeMenu;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 153
+    .line 170
     :cond_10
     return-void
 .end method
@@ -372,25 +423,25 @@
     .locals 6
 
     .prologue
-    .line 64
+    .line 66
     if-eqz p1, :cond_5
 
     array-length v0, p1
 
     if-nez v0, :cond_6
 
-    .line 103
+    .line 105
     :cond_5
     :goto_5
     return-void
 
-    .line 68
+    .line 70
     :cond_6
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->titleTextView:Landroid/widget/TextView;
 
     if-eqz v0, :cond_2c
 
-    .line 69
+    .line 71
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->titleTextView:Landroid/widget/TextView;
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -423,16 +474,16 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 72
+    .line 74
     :cond_2c
     new-instance v2, Ljava/util/ArrayList;
 
     invoke-direct {v2}, Ljava/util/ArrayList;-><init>()V
 
-    .line 73
+    .line 75
     const/4 v0, 0x1
 
-    .line 74
+    .line 76
     array-length v3, p1
 
     const/4 v1, 0x0
@@ -442,45 +493,45 @@
 
     aget-object v4, p1, v1
 
-    .line 75
+    .line 77
     invoke-interface {v2, v4}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 76
+    .line 78
     iget v5, v4, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mListType:I
 
     if-lez v5, :cond_41
 
-    .line 77
+    .line 79
     iget v0, v4, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mListType:I
 
-    .line 74
+    .line 76
     :cond_41
     add-int/lit8 v1, v1, 0x1
 
     goto :goto_34
 
-    .line 81
+    .line 83
     :cond_44
     new-instance v1, Lcom/bilibili/tv/ui/video/widget/UnifiedVideoCardBinder;
 
     invoke-direct {v1, v0}, Lcom/bilibili/tv/ui/video/widget/UnifiedVideoCardBinder;-><init>(I)V
 
-    .line 83
+    .line 85
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     invoke-virtual {v0, p2, p3}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setCurrentCid(J)V
 
-    .line 84
+    .line 86
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     invoke-virtual {v0, v2, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setData(Ljava/util/List;Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;)V
 
-    .line 85
+    .line 87
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     invoke-virtual {v0, p5}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setupNavigationTags(I)V
 
-    .line 87
+    .line 89
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     new-instance v1, Lbl/BottomEpisodeMenu$1;
@@ -496,10 +547,10 @@
     .locals 0
 
     .prologue
-    .line 60
+    .line 62
     iput-object p1, p0, Lbl/BottomEpisodeMenu;->episodeClickListener:Lbl/BottomEpisodeMenu$OnEpisodeClickListener;
 
-    .line 61
+    .line 63
     return-void
 .end method
 
@@ -507,15 +558,21 @@
     .locals 2
 
     .prologue
-    .line 106
-    invoke-virtual/range {p0 .. p5}, Lbl/BottomEpisodeMenu;->setData([Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;JLjava/lang/String;I)V
-
-    .line 108
     const/4 v0, 0x0
 
+    .line 108
+    invoke-virtual/range {p0 .. p5}, Lbl/BottomEpisodeMenu;->setData([Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;JLjava/lang/String;I)V
+
+    .line 110
+    iput-boolean v0, p0, Lbl/BottomEpisodeMenu;->isHiding:Z
+
+    .line 111
+    invoke-virtual {p0}, Lbl/BottomEpisodeMenu;->clearAnimation()V
+
+    .line 112
     invoke-virtual {p0, v0}, Lbl/BottomEpisodeMenu;->setVisibility(I)V
 
-    .line 109
+    .line 113
     invoke-virtual {p0}, Lbl/BottomEpisodeMenu;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -528,7 +585,7 @@
 
     invoke-virtual {p0, v0}, Lbl/BottomEpisodeMenu;->startAnimation(Landroid/view/animation/Animation;)V
 
-    .line 111
+    .line 115
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     new-instance v1, Lbl/BottomEpisodeMenu$2;
@@ -537,9 +594,9 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->post(Ljava/lang/Runnable;)Z
 
-    .line 122
+    .line 126
     invoke-virtual {p0}, Lbl/BottomEpisodeMenu;->resetAutoHideTimer()V
 
-    .line 123
+    .line 127
     return-void
 .end method

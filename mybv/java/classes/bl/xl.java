@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.FocusFinder;
 import android.view.KeyEvent;
 import android.view.View;
@@ -91,13 +90,11 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
 
     @Override // bl.xh
     public boolean g(int i, KeyEvent keyEvent) {
-        Log.i("xl", "g() | keyCode=" + i + " | isShowing=" + P() + " | hasEpisodes=" + X());
         if (!X()) {
             return false;
         }
         
         if (i == 4) {
-            Log.i("xl", "g() | 返回键 | isShowing=" + P());
             if (P()) {
                 V();
                 return true;
@@ -106,7 +103,6 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         }
         
         if (i == 19) {
-            Log.i("xl", "g() | 上键 | isShowing=" + P());
             if (!S()) {
                 R();
             }
@@ -119,7 +115,6 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         }
         
         if (P()) {
-            Log.i("xl", "g() | 其他按键(" + i + ") | 菜单显示中，不关闭");
             return true;
         }
         
@@ -406,7 +401,6 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
             return true;
         }
         if (this.g && (bottomEpisodeMenu == null || !bottomEpisodeMenu.isShowing())) {
-            Log.i("xl", "P() | 状态不一致，同步this.g=false");
             this.g = false;
         }
         return this.g;

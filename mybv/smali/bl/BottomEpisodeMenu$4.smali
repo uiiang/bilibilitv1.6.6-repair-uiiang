@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/BottomEpisodeMenu;->show([Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;JLjava/lang/String;I)V
+    value = Lbl/BottomEpisodeMenu;->initAutoHideTimer()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 147
+    .line 157
     iput-object p1, p0, Lbl/BottomEpisodeMenu$4;->this$0:Lbl/BottomEpisodeMenu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -37,49 +37,14 @@
 
 # virtual methods
 .method public run()V
-    .locals 4
+    .locals 1
 
     .prologue
-    .line 150
+    .line 160
     iget-object v0, p0, Lbl/BottomEpisodeMenu$4;->this$0:Lbl/BottomEpisodeMenu;
 
-    # getter for: Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-    invoke-static {v0}, Lbl/BottomEpisodeMenu;->access$100(Lbl/BottomEpisodeMenu;)Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+    invoke-virtual {v0}, Lbl/BottomEpisodeMenu;->hide()V
 
-    move-result-object v0
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->isDataLoaded()Z
-
-    move-result v0
-
-    if-nez v0, :cond_18
-
-    .line 151
-    iget-object v0, p0, Lbl/BottomEpisodeMenu$4;->this$0:Lbl/BottomEpisodeMenu;
-
-    # getter for: Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-    invoke-static {v0}, Lbl/BottomEpisodeMenu;->access$100(Lbl/BottomEpisodeMenu;)Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-
-    move-result-object v0
-
-    const-wide/16 v2, 0x32
-
-    invoke-virtual {v0, p0, v2, v3}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->postDelayed(Ljava/lang/Runnable;J)Z
-
-    .line 155
-    :goto_17
+    .line 161
     return-void
-
-    .line 154
-    :cond_18
-    iget-object v0, p0, Lbl/BottomEpisodeMenu$4;->this$0:Lbl/BottomEpisodeMenu;
-
-    # getter for: Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-    invoke-static {v0}, Lbl/BottomEpisodeMenu;->access$100(Lbl/BottomEpisodeMenu;)Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->scrollToCurrentVideoAtFirstPosition()V
-
-    goto :goto_17
 .end method
