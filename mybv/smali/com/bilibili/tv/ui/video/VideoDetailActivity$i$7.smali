@@ -3,7 +3,7 @@
 .source "VideoDetailActivity.java"
 
 # interfaces
-.implements Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoClickListener;
+.implements Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagFocusListener;
 
 
 # annotations
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 4803
+    .line 4831
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$7;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,48 +36,37 @@
 
 
 # virtual methods
-.method public onVideoClicked(Ljava/lang/Object;I)V
-    .locals 6
+.method public onNavTagFocus(III)V
+    .locals 3
 
     .prologue
-    .line 4806
+    .line 4834
+    if-gez p2, :cond_3
+
+    .line 4838
+    :goto_2
+    return-void
+
+    .line 4837
+    :cond_3
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$7;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->relateVideoFocusPosition:I
-    invoke-static {v0, p2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$702(Lcom/bilibili/tv/ui/video/VideoDetailActivity;I)I
+    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonSectionNavTagFocusPositions:Ljava/util/Map;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$4000(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Ljava/util/Map;
 
-    .line 4807
-    instance-of v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;
+    move-result-object v0
 
-    if-eqz v0, :cond_22
-
-    .line 4808
-    check-cast p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;
-
-    .line 4809
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$7;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
-
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    sget-object v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
-
-    iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$7;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
-
-    iget-object v2, v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    iget-wide v4, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mAvid:J
-
-    iget-object v3, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mCover:Ljava/lang/String;
-
-    invoke-virtual {v1, v2, v4, v5, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;JLjava/lang/String;)Landroid/content/Intent;
+    invoke-static {p1}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
     move-result-object v1
 
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->startActivity(Landroid/content/Intent;)V
+    invoke-static {p2}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
-    .line 4811
-    :cond_22
-    return-void
+    move-result-object v2
+
+    invoke-interface {v0, v1, v2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    goto :goto_2
 .end method

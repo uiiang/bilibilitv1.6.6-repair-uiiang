@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 684
+    .line 690
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     iput p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;->val$finalPos:I
@@ -44,7 +44,7 @@
     .locals 6
 
     .prologue
-    .line 687
+    .line 693
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
@@ -58,12 +58,12 @@
 
     if-nez v0, :cond_d
 
-    .line 706
+    .line 712
     :cond_c
     :goto_c
     return-void
 
-    .line 694
+    .line 700
     :cond_d
     :try_start_d
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -77,10 +77,10 @@
 
     move-result-object v0
 
-    .line 695
+    .line 701
     if-eqz v0, :cond_c
 
-    .line 696
+    .line 702
     invoke-virtual {v0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
     move-result-object v1
@@ -107,7 +107,7 @@
 
     move-result-object v1
 
-    .line 697
+    .line 703
     const/4 v2, 0x2
 
     new-array v2, v2, [Ljava/lang/Object;
@@ -138,11 +138,11 @@
 
     goto :goto_c
 
-    .line 699
+    .line 705
     :catch_48
     move-exception v0
 
-    .line 701
+    .line 707
     :try_start_49
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
@@ -171,7 +171,7 @@
 
     move-result-object v0
 
-    .line 702
+    .line 708
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
@@ -199,7 +199,7 @@
 
     goto :goto_c
 
-    .line 703
+    .line 709
     :catch_77
     move-exception v0
 

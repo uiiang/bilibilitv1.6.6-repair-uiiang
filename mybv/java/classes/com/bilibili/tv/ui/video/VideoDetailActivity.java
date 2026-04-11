@@ -507,6 +507,7 @@ public final class VideoDetailActivity extends BaseActivity
         this.episodes_video = (RecyclerView) d(R.id.video_detail_episodes_video);
         this.episodes_video_adapter = new EpisodesVideoAdapter();
         episodesCardAdapter = new com.bilibili.tv.ui.video.widget.VideoCardAdapter(this);
+        episodesCardAdapter.setShowIndexBadge(true);
         if (this.episodes_video != null) {
             this.episodes_video.setLayoutManager(new FixLinearLayoutManager(this, 0, false));
             this.episodes_video.setAdapter(episodesCardAdapter);
@@ -2577,6 +2578,7 @@ public final class VideoDetailActivity extends BaseActivity
         com.bilibili.tv.ui.video.widget.VideoListSection listSection = new com.bilibili.tv.ui.video.widget.VideoListSection(this);
         final int sectionId = 200;
         listSection.setSectionId(sectionId);
+        listSection.setShowIndexBadge(true);
 
         int totalEpisodes = pgcInfo.episodes.size();
         listSection.setTitle("选集", totalEpisodes);
@@ -2783,6 +2785,7 @@ public final class VideoDetailActivity extends BaseActivity
         com.bilibili.tv.ui.video.widget.VideoListSection listSection = new com.bilibili.tv.ui.video.widget.VideoListSection(this);
         final int sectionId = sectionIndex;
         listSection.setSectionId(sectionId);
+        listSection.setShowIndexBadge(true);
 
         int totalSeasons = seasons.size();
         listSection.setTitle("多季列表", totalSeasons);
@@ -2841,6 +2844,7 @@ public final class VideoDetailActivity extends BaseActivity
         com.bilibili.tv.ui.video.widget.VideoListSection listSection = new com.bilibili.tv.ui.video.widget.VideoListSection(this);
         final int sectionId = sectionIndex;
         listSection.setSectionId(sectionId);
+        listSection.setShowIndexBadge(true);
 
         int totalEpisodes = section.episodes.size();
         listSection.setTitle(section.title, totalEpisodes);
@@ -3581,6 +3585,12 @@ public final class VideoDetailActivity extends BaseActivity
             if (cVar != null) {
                 List<BiliVideoDetail.Page> list = this.b;
                 cVar.b(list != null ? list.get(i) : null);
+                // 设置序号badge
+                TextView indexBadge = cVar.indexBadge;
+                if (indexBadge != null) {
+                    indexBadge.setText(String.valueOf(i + 1));
+                    indexBadge.setVisibility(View.VISIBLE);
+                }
                 View itemView = cVar.a;
                 if (itemView != null) {
                     int size = this.b != null ? this.b.size() : 0;
@@ -3688,6 +3698,12 @@ public final class VideoDetailActivity extends BaseActivity
             if (fVar != null) {
                 List<Object> list = this.data;
                 fVar.b(list != null ? list.get(position) : null);
+                // 设置序号badge
+                TextView indexBadge = fVar.getIndexBadgeView();
+                if (indexBadge != null) {
+                    indexBadge.setText(String.valueOf(position + 1));
+                    indexBadge.setVisibility(View.VISIBLE);
+                }
                 View itemView = fVar.a;
                 if (itemView != null) {
                     int size = this.data != null ? this.data.size() : 0;
@@ -3789,6 +3805,7 @@ public final class VideoDetailActivity extends BaseActivity
         private TextView duration;
         private TextView danmakuInImage;
         private TextView badge;
+        private TextView indexBadge;
         private DrawRelativeLayout s;
 
         /*
@@ -3806,6 +3823,7 @@ public final class VideoDetailActivity extends BaseActivity
             this.duration = (TextView) a(view, R.id.duration);
             this.danmakuInImage = (TextView) a(view, R.id.danmaku);
             this.badge = (TextView) a(view, R.id.badge);
+            this.indexBadge = (TextView) a(view, R.id.index_badge);
             Drawable c2 = adl.a.c(R.drawable.ic_video_info_play);
             Drawable c3 = adl.a.c(R.drawable.ic_video_info_danmaku);
             int b2 = adl.b(R.dimen.px_26);
@@ -3831,6 +3849,10 @@ public final class VideoDetailActivity extends BaseActivity
         
         public final TextView getBadgeView() {
             return this.badge;
+        }
+
+        public final TextView getIndexBadgeView() {
+            return this.indexBadge;
         }
 
         @Override // bl.adc.a
@@ -4061,6 +4083,7 @@ public final class VideoDetailActivity extends BaseActivity
         public static final a Companion = new a(null);
         private final DrawTextView n;
         private final TextView pageBadge;
+        private final TextView indexBadge;
         private final FrameLayout rootView;
 
         public c(View view) {
@@ -4074,6 +4097,7 @@ public final class VideoDetailActivity extends BaseActivity
             this.n = (DrawTextView) findViewById;
             this.n.setUpDrawable(R.drawable.shadow_red_rect);
             this.pageBadge = (TextView) view.findViewById(R.id.page_badge);
+            this.indexBadge = (TextView) view.findViewById(R.id.index_badge);
         }
 
         @Override // android.view.View.OnClickListener
@@ -4684,6 +4708,7 @@ public final class VideoDetailActivity extends BaseActivity
             com.bilibili.tv.ui.video.widget.VideoListSection section = new com.bilibili.tv.ui.video.widget.VideoListSection(VideoDetailActivity.this);
             final int sectionId = sectionInfo.id;
             section.setSectionId(sectionId);
+            section.setShowIndexBadge(true);
 
             int totalEpisodes = sectionInfo.episodes.size();
             String displayTitle;
@@ -4788,6 +4813,7 @@ public final class VideoDetailActivity extends BaseActivity
             com.bilibili.tv.ui.video.widget.VideoListSection listSection = new com.bilibili.tv.ui.video.widget.VideoListSection(VideoDetailActivity.this);
             final int sectionId = 100;
             listSection.setSectionId(sectionId);
+            listSection.setShowIndexBadge(true);
 
             int totalVideos = relatedList.size();
             listSection.setTitle("相关推荐", totalVideos);
@@ -4800,6 +4826,25 @@ public final class VideoDetailActivity extends BaseActivity
             com.bilibili.tv.ui.video.widget.UnifiedVideoCardBinder binder = new com.bilibili.tv.ui.video.widget.UnifiedVideoCardBinder(3);
             listSection.setData(list, binder);
 
+            listSection.setupNavigationTags(totalVideos);
+
+            listSection.setOnNavTagFocusListener(new com.bilibili.tv.ui.video.widget.VideoListSection.OnNavTagFocusListener() {
+                @Override
+                public void onNavTagFocus(int sectionId, int tagIndex, int videoStartPosition) {
+                    if (tagIndex < 0) {
+                        return;
+                    }
+                    seasonSectionNavTagFocusPositions.put(sectionId, tagIndex);
+                }
+            });
+
+            listSection.setOnNavTagClickListener(new com.bilibili.tv.ui.video.widget.VideoListSection.OnNavTagClickListener() {
+                @Override
+                public void onNavTagClick(int sectionId, int tagIndex, int videoStartPosition) {
+                    seasonSectionNavTagFocusPositions.put(sectionId, tagIndex);
+                }
+            });
+
             listSection.setOnVideoClickListener(new com.bilibili.tv.ui.video.widget.VideoListSection.OnVideoClickListener() {
                 @Override
                 public void onVideoClicked(Object data, int position) {
@@ -4811,7 +4856,6 @@ public final class VideoDetailActivity extends BaseActivity
                 }
             });
 
-            // 设置焦点离开组件的回调，与setupNavigationTagsForSection中的逻辑一致
             listSection.setOnFocusExitListener(new com.bilibili.tv.ui.video.widget.VideoListSection.OnFocusExitListener() {
                 @Override
                 public void onFocusExitUp(int sectionId, int focusPosition) {
@@ -4929,6 +4973,7 @@ public final class VideoDetailActivity extends BaseActivity
             com.bilibili.tv.ui.video.widget.VideoListSection listSection = new com.bilibili.tv.ui.video.widget.VideoListSection(VideoDetailActivity.this);
             final int sectionId = 300;
             listSection.setSectionId(sectionId);
+            listSection.setShowIndexBadge(true);
 
             int totalPages = biliVideoDetail.mPageList.size();
             listSection.setTitle("选集", totalPages);

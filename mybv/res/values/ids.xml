@@ -382,4 +382,5 @@
     <item type="id" name="cdn_pref_mcdn" />
     <item type="id" name="cdn_pref_manual" />
     <item type="id" name="cdn_custom_layout" />
+    <item type="id" name="index_badge" />
 </resources>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
 import bl.abd;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class VideoCardAdapter extends RecyclerView.a<RecyclerView.v> {
     private OnItemFocusListener focusListener;
     private int nextFocusDownId = View.NO_ID;
     private boolean useCompactLayout = false;
+    private boolean showIndexBadge = false;
 
     public VideoCardAdapter() {}
 
@@ -46,6 +48,14 @@ public class VideoCardAdapter extends RecyclerView.a<RecyclerView.v> {
 
     public boolean isUseCompactLayout() {
         return this.useCompactLayout;
+    }
+
+    public void setShowIndexBadge(boolean show) {
+        this.showIndexBadge = show;
+    }
+
+    public boolean isShowIndexBadge() {
+        return this.showIndexBadge;
     }
 
     @Override
@@ -79,6 +89,16 @@ public class VideoCardAdapter extends RecyclerView.a<RecyclerView.v> {
         if (binder != null) {
             binder.bind(fHolder, item, position);
         }
+        // 设置序号badge
+        TextView indexBadge = fHolder.getIndexBadgeView();
+        if (indexBadge != null) {
+            if (showIndexBadge) {
+                indexBadge.setText(String.valueOf(position + 1));
+                indexBadge.setVisibility(View.VISIBLE);
+            } else {
+                indexBadge.setVisibility(View.GONE);
+            }
+        }
         View itemView = fHolder.a;
         if (itemView != null) {
             setupFocusBoundary(itemView, position, size);
@@ -111,6 +131,16 @@ public class VideoCardAdapter extends RecyclerView.a<RecyclerView.v> {
     private void bindCompactHolder(final CompactVideoHolder compactHolder, final Object item, final int position, int size) {
         if (binder != null) {
             binder.bindCompact(compactHolder, item, position);
+        }
+        // 设置序号badge
+        TextView indexBadge = compactHolder.getIndexBadgeView();
+        if (indexBadge != null) {
+            if (showIndexBadge) {
+                indexBadge.setText(String.valueOf(position + 1));
+                indexBadge.setVisibility(View.VISIBLE);
+            } else {
+                indexBadge.setVisibility(View.GONE);
+            }
         }
         View itemView = compactHolder.a;
         if (itemView != null) {

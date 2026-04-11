@@ -538,6 +538,12 @@ public class VideoListSection extends LinearLayout {
         }
     }
 
+    public void setShowIndexBadge(boolean show) {
+        if (adapter != null) {
+            adapter.setShowIndexBadge(show);
+        }
+    }
+
     public void setCurrentVideoId(long videoId) {
         this.currentVideoId = videoId;
     }

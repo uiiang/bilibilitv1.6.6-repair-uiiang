@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 124
+    .line 154
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$3;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$3;->val$item:Ljava/lang/Object;
@@ -48,7 +48,7 @@
     .locals 3
 
     .prologue
-    .line 127
+    .line 157
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$3;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->clickListener:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemClickListener;
@@ -62,6 +62,6 @@
 
     invoke-interface {v0, v1, v2}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemClickListener;->onItemClick(Ljava/lang/Object;I)V
 
-    .line 128
+    .line 158
     return-void
 .end method

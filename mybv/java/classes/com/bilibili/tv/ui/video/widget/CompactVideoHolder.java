@@ -26,6 +26,7 @@ public class CompactVideoHolder extends android.support.v7.widget.RecyclerView.v
     private TextView pubdateView;
     private TextView durationView;
     private TextView badgeView;
+    private TextView indexBadgeView;
     private DrawLinearLayout rootLayout;
 
     public CompactVideoHolder(View itemView) {
@@ -39,6 +40,7 @@ public class CompactVideoHolder extends android.support.v7.widget.RecyclerView.v
         this.pubdateView = (TextView) itemView.findViewById(R.id.pubdate);
         this.durationView = (TextView) itemView.findViewById(R.id.duration);
         this.badgeView = (TextView) itemView.findViewById(R.id.badge);
+        this.indexBadgeView = (TextView) itemView.findViewById(R.id.index_badge);
         this.rootLayout = (DrawLinearLayout) itemView;
         this.rootLayout.setUpDrawable(R.drawable.shadow_white_rect);
         
@@ -92,6 +94,10 @@ public class CompactVideoHolder extends android.support.v7.widget.RecyclerView.v
 
     public TextView getBadgeView() {
         return this.badgeView;
+    }
+
+    public TextView getIndexBadgeView() {
+        return this.indexBadgeView;
     }
 
     public DrawLinearLayout getRootLayout() {
