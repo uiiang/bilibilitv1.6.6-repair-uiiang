@@ -57,10 +57,10 @@
       android:layout_height="wrap_content"
       android:layout_gravity="bottom"
       android:orientation="horizontal"
-      android:background="@color/black_50"
       android:paddingLeft="@dimen/px_8"
       android:paddingRight="@dimen/px_8"
       android:paddingTop="@dimen/px_4"
+      android:background="@drawable/video_info_bottom_round_bg"
       android:paddingBottom="@dimen/px_4">
       <LinearLayout
         android:layout_width="0dp"

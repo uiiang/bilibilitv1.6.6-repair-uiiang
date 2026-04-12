@@ -86,10 +86,10 @@ class IjkCommander extends AbsPlayerCommander {
         } else {
             com.bilibili.tv.player.basic.context.VideoViewParams videoViewParams = (com.bilibili.tv.player.basic.context.VideoViewParams)iVideoParams;
             boolean hasDash = videoViewParams.mMediaResource != null && videoViewParams.mMediaResource.dash != null;
-            Log.i(TAG, "[openVideo] mMediaResource=" + videoViewParams.mMediaResource + ", hasDash=" + hasDash);
+            //Log.i(TAG, "[openVideo] mMediaResource=" + videoViewParams.mMediaResource + ", hasDash=" + hasDash);
             
             if(hasDash){
-                Log.i(TAG, "[openVideo] DASH stream detected, video count=" + videoViewParams.mMediaResource.dash.optJSONArray("video").length());
+                //Log.i(TAG, "[openVideo] DASH stream detected, video count=" + videoViewParams.mMediaResource.dash.optJSONArray("video").length());
                 Log.i("PlaySpeed", "[IJK_DASH_START] openVideo DASH, video_count=" + videoViewParams.mMediaResource.dash.optJSONArray("video").length() + ", quality=" + videoViewParams.mMediaResource.quality);
                 if(videoViewParams.mMediaResource.dash.optJSONArray("video").optJSONObject(0).optString("base_url").indexOf("platform=pc")>=0){this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "headers", "Referer: https://www.bilibili.com\r\n");}
                 this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "user_agent", "Bilibili Freedoooooom/MarkII");
@@ -103,11 +103,11 @@ class IjkCommander extends AbsPlayerCommander {
                 this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "multipart", 1);
                 
                 int progressSec = videoViewParams.mResolveParams != null ? videoViewParams.mResolveParams.mProgress : 0;
-                Log.i(TAG, "[openVideo] mResolveParams=" + videoViewParams.mResolveParams + ", mProgress=" + progressSec);
+                //Log.i(TAG, "[openVideo] mResolveParams=" + videoViewParams.mResolveParams + ", mProgress=" + progressSec);
                 if (progressSec > 0) {
                     long progressMs = progressSec * 1000L;
                     this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "seek-at-start", progressMs);
-                    Log.i(TAG, "[seek-at-start] DASH stream, set seek-at-start: " + progressMs + "ms (" + progressSec + "s)");
+                    //Log.i(TAG, "[seek-at-start] DASH stream, set seek-at-start: " + progressMs + "ms (" + progressSec + "s)");
                 }
 
                 this.mIjkMediaPlayer.setDataSource("ijkdash");
@@ -118,8 +118,18 @@ class IjkCommander extends AbsPlayerCommander {
                 Log.i("PlaySpeed", "[IJK_DASH_SET] setDashDataSource() done, elapsed from openStart=" + (System.currentTimeMillis() - openStart) + "ms");
             }
             else{
-                Log.i("PlaySpeed", "[IJK_NON_DASH] openVideo non-DASH, url=" + applyUriHookForIjkPlayer + ", elapsed from openStart=" + (System.currentTimeMillis() - openStart) + "ms");
-                Log.i(TAG, "[openVideo] Non-DASH stream, url=" + applyUriHookForIjkPlayer);
+                Log.i("PlaySpeed", "[IJK_NON_DASH] openVideo non-DASH, elapsed from openStart=" + (System.currentTimeMillis() - openStart) + "ms");
+                //Log.i(TAG, "[openVideo] Non-DASH stream, url=" + applyUriHookForIjkPlayer);
+                // [FIX] 非DASH流也需要设置Referer和User-Agent，否则platform=pc的URL会403
+                if(applyUriHookForIjkPlayer.indexOf("platform=pc")>=0){
+                    this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "headers", "Referer: https://www.bilibili.com\r\n");
+                }
+                this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "user_agent", "Bilibili Freedoooooom/MarkII");
+                this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "timeout", 5000000);
+                this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "connect_timeout", 3000000);
+                this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "dns_cache_clear", 1);
+                this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "reconnect", 1);
+                this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "auto_reconnect", 1);
                 this.mIjkMediaPlayer.setDataSource(applyUriHookForIjkPlayer);
             }
         }

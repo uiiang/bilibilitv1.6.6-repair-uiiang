@@ -1382,7 +1382,7 @@ public final class VideoDetailActivity extends BaseActivity
                     
                     String signedQuery = mybl.WbiSigner.getInstance().encWbiAndGetQuery(params);
                     String fullUrl = "https://api.bilibili.com/x/player/wbi/v2?" + signedQuery;
-                    
+                    // android.util.Log.i("VideoDetailActivity", "fullUrl: " + fullUrl);
                     bl.qa request = new bl.qa.a(BiliVideoDetail.JsonResponse.class)
                         .a(fullUrl)
                         .a(true)
@@ -1814,7 +1814,7 @@ public final class VideoDetailActivity extends BaseActivity
                     
                     String signedQuery = mybl.WbiSigner.getInstance().encWbiAndGetQuery(params);
                     String fullUrl = "https://api.bilibili.com/x/player/wbi/v2?" + signedQuery;
-                    
+                    // android.util.Log.i("VideoDetailActivity", "fullUrl: " + fullUrl);
                     bl.qa request = new bl.qa.a(BiliVideoDetail.JsonResponse.class)
                         .a(fullUrl)
                         .a(true)
@@ -3474,6 +3474,16 @@ public final class VideoDetailActivity extends BaseActivity
         if (favoriteBtn != null) favoriteBtn.setVisibility(View.VISIBLE);
         if (watchLaterBtn != null) watchLaterBtn.setVisibility(View.VISIBLE);
         if (infoBtn != null) infoBtn.setVisibility(View.VISIBLE);
+        // 展开互动按钮后，expandBtn为GONE，点赞按钮左键需要指向当前可见的左边按钮(重播/无痕)
+        if (likeBtn != null) {
+            if (rePlayBtnLayout != null && rePlayBtnLayout.getVisibility() == View.VISIBLE) {
+                likeBtn.setNextFocusLeftId(R.id.video_re_play_btn_layout);
+            } else if (noHistoryPlayBtnLayout != null && noHistoryPlayBtnLayout.getVisibility() == View.VISIBLE) {
+                likeBtn.setNextFocusLeftId(R.id.video_no_history_play_btn_layout);
+            } else {
+                likeBtn.setNextFocusLeftId(R.id.video_history_play_btn_layout);
+            }
+        }
     }
 
     private void hideInteractionButtons() {
@@ -3489,6 +3499,10 @@ public final class VideoDetailActivity extends BaseActivity
         if (infoBtn != null) infoBtn.setVisibility(View.GONE);
         if (expandBtn != null) {
             expandBtn.setVisibility(View.VISIBLE);
+        }
+        // 收起互动按钮后，恢复点赞按钮左键指向expandBtn
+        if (likeBtn != null) {
+            likeBtn.setNextFocusLeftId(R.id.video_detail_expand_btn);
         }
     }
 

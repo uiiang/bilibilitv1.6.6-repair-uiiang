@@ -66,24 +66,24 @@
 
     const/4 v2, 0x0
 
-    .line 321
+    .line 331
     invoke-virtual {p0}, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->getCurrentPosition()J
 
     move-result-wide v0
 
     long-to-int v3, v0
 
-    .line 322
+    .line 332
     const/4 v1, 0x0
 
-    .line 323
+    .line 333
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mMediaPlayer:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     instance-of v0, v0, Ltv/danmaku/videoplayer/core/media/TextureMediaPlayer;
 
     if-eqz v0, :cond_39
 
-    .line 324
+    .line 334
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mMediaPlayer:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     check-cast v0, Ltv/danmaku/videoplayer/core/media/TextureMediaPlayer;
@@ -92,39 +92,39 @@
 
     move-result-object v0
 
-    .line 325
+    .line 335
     instance-of v4, v0, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
     if-eqz v4, :cond_4a
 
-    .line 326
+    .line 336
     check-cast v0, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
-    .line 331
+    .line 341
     :goto_1d
     if-eqz v0, :cond_48
 
-    .line 332
+    .line 342
     invoke-virtual {v0}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->getAsyncStatisticBufForwards()J
 
     move-result-wide v4
 
-    .line 333
+    .line 343
     cmp-long v1, v4, v6
 
     if-lez v1, :cond_46
 
-    .line 334
+    .line 344
     invoke-virtual {v0}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->getBitRate()J
 
     move-result-wide v0
 
-    .line 335
+    .line 345
     cmp-long v6, v0, v6
 
     if-lez v6, :cond_44
 
-    .line 336
+    .line 346
     const-wide/16 v6, 0x8
 
     mul-long/2addr v4, v6
@@ -137,11 +137,11 @@
 
     add-int/2addr v0, v3
 
-    .line 342
+    .line 352
     :goto_38
     return v0
 
-    .line 328
+    .line 338
     :cond_39
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mMediaPlayer:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
@@ -149,7 +149,7 @@
 
     if-eqz v0, :cond_4a
 
-    .line 329
+    .line 339
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mMediaPlayer:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     check-cast v0, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
@@ -159,19 +159,19 @@
     :cond_44
     move v0, v2
 
-    .line 338
+    .line 348
     goto :goto_38
 
     :cond_46
     move v0, v2
 
-    .line 340
+    .line 350
     goto :goto_38
 
     :cond_48
     move v0, v2
 
-    .line 342
+    .line 352
     goto :goto_38
 
     :cond_4a
@@ -184,7 +184,7 @@
     .locals 4
 
     .prologue
-    .line 317
+    .line 327
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
     invoke-virtual {v0}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->getAudioCachedDuration()J
@@ -208,7 +208,7 @@
     .locals 2
 
     .prologue
-    .line 288
+    .line 298
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
     const/high16 v1, 0x3f800000    # 1.0f
@@ -224,12 +224,12 @@
     .locals 1
 
     .prologue
-    .line 346
+    .line 356
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
     invoke-virtual {v0}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->httphookReconnect()V
 
-    .line 347
+    .line 357
     return-void
 .end method
 
@@ -239,14 +239,14 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 306
+    .line 316
     invoke-static {p1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v1
 
     if-eqz v1, :cond_16
 
-    .line 307
+    .line 317
     if-eqz p2, :cond_15
 
     iget-object v1, p2, Ltv/danmaku/videoplayer/core/media/resource/MediaSource;->mSegmentList:Ljava/util/ArrayList;
@@ -261,12 +261,12 @@
 
     if-eqz v1, :cond_2e
 
-    .line 313
+    .line 323
     :cond_15
     :goto_15
     return v0
 
-    .line 310
+    .line 320
     :cond_16
     const-string v1, "vsl://"
 
@@ -292,7 +292,7 @@
 
     if-eqz v1, :cond_15
 
-    .line 313
+    .line 323
     :cond_2e
     const/4 v0, 0x1
 
@@ -305,7 +305,7 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 350
+    .line 360
     invoke-virtual {p1}, Landroid/content/Context;->getApplicationContext()Landroid/content/Context;
 
     move-result-object v1
@@ -334,7 +334,7 @@
     .locals 1
 
     .prologue
-    .line 273
+    .line 283
     :try_start_0
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
@@ -344,15 +344,15 @@
 
     move-result v0
 
-    .line 275
+    .line 285
     :goto_6
     return v0
 
-    .line 274
+    .line 284
     :catch_7
     move-exception v0
 
-    .line 275
+    .line 285
     const/4 v0, -0x1
 
     goto :goto_6
@@ -362,12 +362,12 @@
     .locals 1
 
     .prologue
-    .line 284
+    .line 294
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setCacheShare(I)V
 
-    .line 285
+    .line 295
     return-void
 .end method
 
@@ -375,10 +375,10 @@
     .locals 2
 
     .prologue
-    .line 292
+    .line 302
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mOnExtraInfoListener:Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;
 
-    .line 293
+    .line 303
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
     new-instance v1, Ltv/danmaku/videoplayer/core/commander/IjkCommander$1;
@@ -387,7 +387,7 @@
 
     invoke-virtual {v0, v1}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOnNativeInvokeListener(Ltv/danmaku/ijk/media/player/IjkMediaPlayer$OnNativeInvokeListener;)V
 
-    .line 303
+    .line 313
     return-void
 .end method
 
@@ -395,12 +395,12 @@
     .locals 1
 
     .prologue
-    .line 280
+    .line 290
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setSpeed(F)V
 
-    .line 281
+    .line 291
     return-void
 .end method
 
@@ -420,25 +420,25 @@
 
     const/4 v1, 0x0
 
-    .line 180
+    .line 190
     invoke-virtual {p1}, Ljava/lang/String;->hashCode()I
 
     move-result v4
 
     sparse-switch v4, :sswitch_data_12e
 
-    .line 227
+    .line 237
     :cond_e
     :goto_e
     packed-switch v0, :pswitch_data_148
 
     move-object v0, v10
 
-    .line 261
+    .line 271
     :goto_12
     return-object v0
 
-    .line 182
+    .line 192
     :sswitch_13
     const-string v4, "resolveFd"
 
@@ -448,13 +448,13 @@
 
     if-eqz v4, :cond_e
 
-    .line 183
+    .line 193
     const/4 v0, 0x3
 
-    .line 184
+    .line 194
     goto :goto_e
 
-    .line 189
+    .line 199
     :sswitch_1d
     const-string v4, "SetOnExtraInfoListener"
 
@@ -466,10 +466,10 @@
 
     move v0, v2
 
-    .line 191
+    .line 201
     goto :goto_e
 
-    .line 196
+    .line 206
     :sswitch_27
     const-string v4, "SetPlaybackSpeed"
 
@@ -481,10 +481,10 @@
 
     move v0, v1
 
-    .line 198
+    .line 208
     goto :goto_e
 
-    .line 203
+    .line 213
     :sswitch_31
     const-string v4, "httphookReconnect"
 
@@ -494,13 +494,13 @@
 
     if-eqz v4, :cond_e
 
-    .line 204
+    .line 214
     const/4 v0, 0x4
 
-    .line 205
+    .line 215
     goto :goto_e
 
-    .line 210
+    .line 220
     :sswitch_3b
     const-string v4, "SetCacheShare"
 
@@ -512,10 +512,10 @@
 
     move v0, v3
 
-    .line 212
+    .line 222
     goto :goto_e
 
-    .line 217
+    .line 227
     :sswitch_45
     const-string v4, "initIjkTracker"
 
@@ -525,13 +525,13 @@
 
     if-eqz v4, :cond_e
 
-    .line 218
+    .line 228
     const/4 v0, 0x5
 
-    .line 219
+    .line 229
     goto :goto_e
 
-    .line 229
+    .line 239
     :pswitch_4f
     array-length v0, p2
 
@@ -546,10 +546,10 @@
     :cond_58
     move-object v0, v10
 
-    .line 230
+    .line 240
     goto :goto_12
 
-    .line 232
+    .line 242
     :cond_5a
     aget-object v0, p2, v1
 
@@ -563,10 +563,10 @@
 
     move-object v0, v10
 
-    .line 233
+    .line 243
     goto :goto_12
 
-    .line 235
+    .line 245
     :pswitch_67
     array-length v0, p2
 
@@ -581,10 +581,10 @@
     :cond_70
     move-object v0, v10
 
-    .line 236
+    .line 246
     goto :goto_12
 
-    .line 238
+    .line 248
     :cond_72
     aget-object v0, p2, v1
 
@@ -594,10 +594,10 @@
 
     move-object v0, v10
 
-    .line 239
+    .line 249
     goto :goto_12
 
-    .line 241
+    .line 251
     :pswitch_7b
     array-length v0, p2
 
@@ -612,10 +612,10 @@
     :cond_84
     move-object v0, v10
 
-    .line 242
+    .line 252
     goto :goto_12
 
-    .line 244
+    .line 254
     :cond_86
     aget-object v0, p2, v1
 
@@ -629,10 +629,10 @@
 
     move-object v0, v10
 
-    .line 245
+    .line 255
     goto :goto_12
 
-    .line 247
+    .line 257
     :pswitch_93
     array-length v0, p2
 
@@ -647,10 +647,10 @@
     :cond_9c
     move-object v0, v10
 
-    .line 248
+    .line 258
     goto/16 :goto_12
 
-    .line 250
+    .line 260
     :cond_9f
     aget-object v0, p2, v1
 
@@ -666,16 +666,16 @@
 
     goto/16 :goto_12
 
-    .line 252
+    .line 262
     :pswitch_ad
     invoke-direct {p0}, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->httpHookReconnect()V
 
     move-object v0, v10
 
-    .line 253
+    .line 263
     goto/16 :goto_12
 
-    .line 255
+    .line 265
     :pswitch_b3
     array-length v0, p2
 
@@ -741,7 +741,7 @@
 
     if-eqz v0, :cond_12a
 
-    .line 256
+    .line 266
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
     aget-object v1, p2, v1
@@ -806,16 +806,16 @@
 
     move-object v0, v10
 
-    .line 257
+    .line 267
     goto/16 :goto_12
 
     :cond_12a
     move-object v0, v10
 
-    .line 259
+    .line 269
     goto/16 :goto_12
 
-    .line 180
+    .line 190
     nop
 
     :sswitch_data_12e
@@ -828,7 +828,7 @@
         0x5bc0b99e -> :sswitch_45
     .end sparse-switch
 
-    .line 227
+    .line 237
     :pswitch_data_148
     .packed-switch 0x0
         :pswitch_4f
@@ -844,20 +844,20 @@
     .locals 1
 
     .prologue
-    .line 267
+    .line 277
     invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->onRelease()V
 
-    .line 268
+    .line 278
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkInfoStatistics:Ltv/danmaku/videoplayer/core/media/ijk/IjkInfoStatistics;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/media/ijk/IjkInfoStatistics;->stopUpdateInfoStatistics()V
 
-    .line 269
+    .line 279
     return-void
 .end method
 
 .method public openVideo(Landroid/content/Context;Ltv/danmaku/videoplayer/core/videoview/IVideoParams;Landroid/net/Uri;)V
-    .locals 12
+    .locals 10
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/io/IOException;
@@ -865,14 +865,6 @@
     .end annotation
 
     .prologue
-    const/4 v9, 0x4
-
-    const/4 v2, 0x0
-
-    const-wide/16 v10, 0x1
-
-    const/4 v3, 0x1
-
     .line 43
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
@@ -885,9 +877,9 @@
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v6, "preparing video -> "
+    const-string v2, "preparing video -> "
 
-    invoke-virtual {v1, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
@@ -895,15 +887,15 @@
 
     move-result-object v1
 
-    const-string v6, ", with "
+    const-string v2, ", with "
 
-    invoke-virtual {v1, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
-    iget-object v6, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mMediaPlayer:Ltv/danmaku/ijk/media/player/IMediaPlayer;
+    iget-object v2, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mMediaPlayer:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
-    invoke-virtual {v1, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
@@ -918,7 +910,7 @@
 
     move-result v0
 
-    if-eqz v0, :cond_3a
+    if-eqz v0, :cond_35
 
     .line 47
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkInfoStatistics:Ltv/danmaku/videoplayer/core/media/ijk/IjkInfoStatistics;
@@ -928,103 +920,106 @@
     invoke-virtual {v0, v1}, Ltv/danmaku/videoplayer/core/media/ijk/IjkInfoStatistics;->updateInfoStatistics(Ltv/danmaku/ijk/media/player/IjkMediaPlayer;)V
 
     .line 49
-    :cond_3a
+    :cond_35
     invoke-virtual {p3}, Landroid/net/Uri;->toString()Ljava/lang/String;
 
-    move-result-object v1
+    move-result-object v2
 
     .line 50
     invoke-interface {p2}, Ltv/danmaku/videoplayer/core/videoview/IVideoParams;->getMediaSource()Ltv/danmaku/videoplayer/core/media/resource/MediaSource;
 
-    move-result-object v0
+    move-result-object v1
+
+    .line 51
+    const/4 v0, 0x0
 
     .line 52
-    invoke-direct {p0, v1, v0}, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->isMultiSegmentVideo(Ljava/lang/String;Ltv/danmaku/videoplayer/core/media/resource/MediaSource;)Z
+    invoke-direct {p0, v2, v1}, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->isMultiSegmentVideo(Ljava/lang/String;Ltv/danmaku/videoplayer/core/media/resource/MediaSource;)Z
 
-    move-result v6
+    move-result v3
 
-    if-eqz v6, :cond_b7
+    if-eqz v3, :cond_b3
 
     .line 53
-    new-instance v6, Ljava/lang/StringBuilder;
+    new-instance v2, Ljava/lang/StringBuilder;
 
-    const-string v1, "ffconcat version 1.0\n"
+    const-string v3, "ffconcat version 1.0\n"
 
-    invoke-direct {v6, v1}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-direct {v2, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
 
     .line 54
-    iget-object v0, v0, Ltv/danmaku/videoplayer/core/media/resource/MediaSource;->mSegmentList:Ljava/util/ArrayList;
+    iget-object v1, v1, Ltv/danmaku/videoplayer/core/media/resource/MediaSource;->mSegmentList:Ljava/util/ArrayList;
 
-    invoke-virtual {v0}, Ljava/util/ArrayList;->iterator()Ljava/util/Iterator;
+    invoke-virtual {v1}, Ljava/util/ArrayList;->iterator()Ljava/util/Iterator;
 
-    move-result-object v7
+    move-result-object v3
 
-    move v1, v2
+    move v1, v0
 
     .line 55
-    :goto_56
-    invoke-interface {v7}, Ljava/util/Iterator;->hasNext()Z
+    :goto_52
+    invoke-interface {v3}, Ljava/util/Iterator;->hasNext()Z
 
     move-result v0
 
-    if-eqz v0, :cond_96
+    if-eqz v0, :cond_92
 
     .line 56
-    invoke-interface {v7}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+    invoke-interface {v3}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
     move-result-object v0
 
     check-cast v0, Ltv/danmaku/videoplayer/core/media/resource/SegmentSource;
 
     .line 57
-    const-string v8, "file ijksegment:"
+    const-string v6, "file ijksegment:"
 
-    invoke-virtual {v6, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     .line 58
-    invoke-virtual {v6, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
     .line 59
-    const-string v8, "\n"
+    const-string v6, "\n"
 
-    invoke-virtual {v6, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     .line 60
-    const-string v8, "duration "
+    const-string v6, "duration "
 
-    invoke-virtual {v6, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     .line 61
-    iget v8, v0, Ltv/danmaku/videoplayer/core/media/resource/SegmentSource;->mDuration:I
+    iget v6, v0, Ltv/danmaku/videoplayer/core/media/resource/SegmentSource;->mDuration:I
 
-    div-int/lit16 v8, v8, 0x3e8
+    div-int/lit16 v6, v6, 0x3e8
 
-    invoke-virtual {v6, v8}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v6}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
     .line 62
-    iget v8, v0, Ltv/danmaku/videoplayer/core/media/resource/SegmentSource;->mDuration:I
+    iget v6, v0, Ltv/danmaku/videoplayer/core/media/resource/SegmentSource;->mDuration:I
 
-    rem-int/lit16 v8, v8, 0x3e8
+    rem-int/lit16 v6, v6, 0x3e8
 
-    if-eqz v8, :cond_8d
+    if-eqz v6, :cond_89
 
     .line 63
-    const-string v8, "."
+    const-string v6, "."
 
-    invoke-virtual {v6, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     .line 64
     iget v0, v0, Ltv/danmaku/videoplayer/core/media/resource/SegmentSource;->mDuration:I
 
     rem-int/lit16 v0, v0, 0x3e8
 
-    invoke-virtual {v6, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
     .line 66
-    :cond_8d
+    :cond_89
     const-string v0, "\n"
 
-    invoke-virtual {v6, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     .line 67
     add-int/lit8 v0, v1, 0x1
@@ -1032,35 +1027,36 @@
     move v1, v0
 
     .line 68
-    goto :goto_56
+    goto :goto_52
 
     .line 69
-    :cond_96
-    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    :cond_92
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v1
 
-    move v0, v3
+    .line 70
+    const/4 v0, 0x1
 
     .line 84
-    :goto_9b
-    if-eqz v0, :cond_e7
+    :goto_97
+    if-eqz v0, :cond_e2
 
     .line 85
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
     invoke-virtual {v0, v1}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setDataSourceBase64(Ljava/lang/String;)V
 
-    .line 127
-    :goto_a2
+    .line 137
+    :goto_9e
     sget v0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->speed_id:I
 
-    if-ltz v0, :cond_2f7
+    if-ltz v0, :cond_2a4
 
     sget v0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->speed_id:I
 
-    .line 128
-    :goto_a8
+    .line 138
+    :goto_a4
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
     invoke-static {v0}, Lbl/abd;->get_speed(I)F
@@ -1069,161 +1065,87 @@
 
     invoke-virtual {v1, v0}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setSpeed(F)V
 
-    .line 130
+    .line 140
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mMediaPlayer:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     invoke-interface {v0}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->prepareAsync()V
 
-    .line 131
+    .line 141
     return-void
 
     .line 72
-    :cond_b7
-    iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mOnExtraInfoListener:Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;
+    :cond_b3
+    iget-object v1, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mOnExtraInfoListener:Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;
 
-    if-eqz v0, :cond_305
+    if-eqz v1, :cond_2b2
 
     .line 73
-    new-instance v0, Landroid/os/Bundle;
+    new-instance v1, Landroid/os/Bundle;
 
-    invoke-direct {v0}, Landroid/os/Bundle;-><init>()V
+    invoke-direct {v1}, Landroid/os/Bundle;-><init>()V
 
     .line 74
-    const-string v6, "url"
+    const-string v3, "url"
 
-    invoke-virtual {v0, v6, v1}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-virtual {v1, v3, v2}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
     .line 75
-    iget-object v6, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mOnExtraInfoListener:Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;
+    iget-object v3, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mOnExtraInfoListener:Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;
 
-    const v7, 0x10026
+    const v6, 0x10026
 
-    invoke-interface {v6, v7, v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;->onNativeInvoke(ILandroid/os/Bundle;)Z
+    invoke-interface {v3, v6, v1}, Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;->onNativeInvoke(ILandroid/os/Bundle;)Z
 
     .line 76
-    const-string v6, "url"
+    const-string v3, "url"
 
-    const-string v7, ""
+    const-string v6, ""
 
-    invoke-virtual {v0, v6, v7}, Landroid/os/Bundle;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v0
-
-    .line 77
-    invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
-
-    move-result v6
-
-    if-nez v6, :cond_305
-
-    invoke-static {v1, v0}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
-
-    move-result v6
-
-    if-nez v6, :cond_305
-
-    .line 81
-    :goto_e1
-    invoke-interface {p2, v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoParams;->applyUriHookForIjkPlayer(Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {v1, v3, v6}, Landroid/os/Bundle;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v1
 
-    move v0, v2
+    .line 77
+    invoke-static {v1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
-    goto :goto_9b
+    move-result v3
+
+    if-nez v3, :cond_2b2
+
+    invoke-static {v2, v1}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
+
+    move-result v3
+
+    if-nez v3, :cond_2b2
+
+    .line 81
+    :goto_dd
+    invoke-interface {p2, v1}, Ltv/danmaku/videoplayer/core/videoview/IVideoParams;->applyUriHookForIjkPlayer(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v1
+
+    goto :goto_97
 
     .line 87
-    :cond_e7
+    :cond_e2
     check-cast p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;
 
     .line 88
     iget-object v0, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mMediaResource:Lcom/bilibili/lib/media/resource/MediaResource;
 
-    if-eqz v0, :cond_2a7
+    if-eqz v0, :cond_224
 
     iget-object v0, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mMediaResource:Lcom/bilibili/lib/media/resource/MediaResource;
 
     iget-object v0, v0, Lcom/bilibili/lib/media/resource/MediaResource;->dash:Lorg/json/JSONObject;
 
-    if-eqz v0, :cond_2a7
+    if-eqz v0, :cond_224
 
-    move v0, v3
-
-    .line 89
-    :goto_f4
-    const-string v6, "IjkCommander"
-
-    new-instance v7, Ljava/lang/StringBuilder;
-
-    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v8, "[openVideo] mMediaResource="
-
-    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    iget-object v8, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mMediaResource:Lcom/bilibili/lib/media/resource/MediaResource;
-
-    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    const-string v8, ", hasDash="
-
-    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    invoke-virtual {v7, v0}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v7
-
-    invoke-static {v6, v7}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    const/4 v0, 0x1
 
     .line 91
-    if-eqz v0, :cond_2aa
-
-    .line 92
-    const-string v0, "IjkCommander"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v6, "[openVideo] DASH stream detected, video count="
-
-    invoke-virtual {v1, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v6, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mMediaResource:Lcom/bilibili/lib/media/resource/MediaResource;
-
-    iget-object v6, v6, Lcom/bilibili/lib/media/resource/MediaResource;->dash:Lorg/json/JSONObject;
-
-    const-string v7, "video"
-
-    invoke-virtual {v6, v7}, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
-
-    move-result-object v6
-
-    invoke-virtual {v6}, Lorg/json/JSONArray;->length()I
-
-    move-result v6
-
-    invoke-virtual {v1, v6}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    :goto_ef
+    if-eqz v0, :cond_229
 
     .line 93
     const-string v0, "PlaySpeed"
@@ -1232,41 +1154,41 @@
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v6, "[IJK_DASH_START] openVideo DASH, video_count="
+    const-string v2, "[IJK_DASH_START] openVideo DASH, video_count="
 
-    invoke-virtual {v1, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v6, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mMediaResource:Lcom/bilibili/lib/media/resource/MediaResource;
-
-    iget-object v6, v6, Lcom/bilibili/lib/media/resource/MediaResource;->dash:Lorg/json/JSONObject;
-
-    const-string v7, "video"
-
-    invoke-virtual {v6, v7}, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
-
-    move-result-object v6
-
-    invoke-virtual {v6}, Lorg/json/JSONArray;->length()I
-
-    move-result v6
-
-    invoke-virtual {v1, v6}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
-    const-string v6, ", quality="
+    iget-object v2, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mMediaResource:Lcom/bilibili/lib/media/resource/MediaResource;
 
-    invoke-virtual {v1, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    iget-object v2, v2, Lcom/bilibili/lib/media/resource/MediaResource;->dash:Lorg/json/JSONObject;
+
+    const-string v3, "video"
+
+    invoke-virtual {v2, v3}, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Lorg/json/JSONArray;->length()I
+
+    move-result v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
-    iget-object v6, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mMediaResource:Lcom/bilibili/lib/media/resource/MediaResource;
+    const-string v2, ", quality="
 
-    iget v6, v6, Lcom/bilibili/lib/media/resource/MediaResource;->quality:I
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v1, v6}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    move-result-object v1
+
+    iget-object v2, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mMediaResource:Lcom/bilibili/lib/media/resource/MediaResource;
+
+    iget v2, v2, Lcom/bilibili/lib/media/resource/MediaResource;->quality:I
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
@@ -1287,7 +1209,9 @@
 
     move-result-object v0
 
-    invoke-virtual {v0, v2}, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
+    const/4 v1, 0x0
+
+    invoke-virtual {v0, v1}, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
 
     move-result-object v0
 
@@ -1303,189 +1227,149 @@
 
     move-result v0
 
-    if-ltz v0, :cond_199
+    if-ltz v0, :cond_14c
 
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
-    const-string v1, "headers"
+    const/4 v1, 0x1
 
-    const-string v6, "Referer: https://www.bilibili.com\r\n"
+    const-string v2, "headers"
 
-    invoke-virtual {v0, v3, v1, v6}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;Ljava/lang/String;)V
+    const-string v3, "Referer: https://www.bilibili.com\r\n"
+
+    invoke-virtual {v0, v1, v2, v3}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;Ljava/lang/String;)V
 
     .line 95
-    :cond_199
+    :cond_14c
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
-    const-string v1, "user_agent"
+    const/4 v1, 0x1
 
-    const-string v6, "Bilibili Freedoooooom/MarkII"
+    const-string v2, "user_agent"
 
-    invoke-virtual {v0, v3, v1, v6}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;Ljava/lang/String;)V
+    const-string v3, "Bilibili Freedoooooom/MarkII"
+
+    invoke-virtual {v0, v1, v2, v3}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;Ljava/lang/String;)V
 
     .line 96
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
-    const-string v1, "mediacodec-all-videos"
+    const/4 v1, 0x4
 
-    invoke-virtual {v0, v9, v1, v10, v11}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
+    const-string v2, "mediacodec-all-videos"
+
+    const-wide/16 v6, 0x1
+
+    invoke-virtual {v0, v1, v2, v6, v7}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
 
     .line 97
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
-    const-string v1, "mediacodec-hevc"
+    const/4 v1, 0x4
 
-    invoke-virtual {v0, v9, v1, v10, v11}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
+    const-string v2, "mediacodec-hevc"
+
+    const-wide/16 v6, 0x1
+
+    invoke-virtual {v0, v1, v2, v6, v7}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
 
     .line 98
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
-    const-string v1, "timeout"
+    const/4 v1, 0x1
+
+    const-string v2, "timeout"
 
     const-wide/32 v6, 0x4c4b40
 
-    invoke-virtual {v0, v3, v1, v6, v7}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
+    invoke-virtual {v0, v1, v2, v6, v7}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
 
     .line 99
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
-    const-string v1, "connect_timeout"
+    const/4 v1, 0x1
+
+    const-string v2, "connect_timeout"
 
     const-wide/32 v6, 0x2dc6c0
 
-    invoke-virtual {v0, v3, v1, v6, v7}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
+    invoke-virtual {v0, v1, v2, v6, v7}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
 
     .line 100
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
-    const-string v1, "dns_cache_clear"
+    const/4 v1, 0x1
 
-    invoke-virtual {v0, v3, v1, v10, v11}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
+    const-string v2, "dns_cache_clear"
+
+    const-wide/16 v6, 0x1
+
+    invoke-virtual {v0, v1, v2, v6, v7}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
 
     .line 101
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
-    const-string v1, "reconnect"
+    const/4 v1, 0x1
 
-    invoke-virtual {v0, v3, v1, v10, v11}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
+    const-string v2, "reconnect"
+
+    const-wide/16 v6, 0x1
+
+    invoke-virtual {v0, v1, v2, v6, v7}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
 
     .line 102
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
-    const-string v1, "auto_reconnect"
+    const/4 v1, 0x1
 
-    invoke-virtual {v0, v3, v1, v10, v11}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
+    const-string v2, "auto_reconnect"
+
+    const-wide/16 v6, 0x1
+
+    invoke-virtual {v0, v1, v2, v6, v7}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
 
     .line 103
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
-    const-string v1, "multipart"
+    const/4 v1, 0x1
 
-    invoke-virtual {v0, v3, v1, v10, v11}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
+    const-string v2, "multipart"
+
+    const-wide/16 v6, 0x1
+
+    invoke-virtual {v0, v1, v2, v6, v7}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
 
     .line 105
     iget-object v0, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mResolveParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
-    if-eqz v0, :cond_1e8
+    if-eqz v0, :cond_227
 
     iget-object v0, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mResolveParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
-    iget v2, v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mProgress:I
-
-    .line 106
-    :cond_1e8
-    const-string v0, "IjkCommander"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "[openVideo] mResolveParams="
-
-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v3, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mResolveParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
-
-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v3, ", mProgress="
-
-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    iget v0, v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mProgress:I
 
     .line 107
-    if-lez v2, :cond_241
+    :goto_1b0
+    if-lez v0, :cond_1be
 
     .line 108
-    int-to-long v0, v2
+    int-to-long v0, v0
 
-    const-wide/16 v6, 0x3e8
+    const-wide/16 v2, 0x3e8
 
-    mul-long/2addr v0, v6
+    mul-long/2addr v0, v2
 
     .line 109
-    iget-object v3, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
+    iget-object v2, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
+
+    const/4 v3, 0x4
 
     const-string v6, "seek-at-start"
 
-    invoke-virtual {v3, v9, v6, v0, v1}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
-
-    .line 110
-    const-string v3, "IjkCommander"
-
-    new-instance v6, Ljava/lang/StringBuilder;
-
-    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v7, "[seek-at-start] DASH stream, set seek-at-start: "
-
-    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v6
-
-    invoke-virtual {v6, v0, v1}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    const-string v1, "ms ("
-
-    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    const-string v1, "s)"
-
-    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {v3, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-virtual {v2, v3, v6, v0, v1}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
 
     .line 113
-    :cond_241
+    :cond_1be
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
     const-string v1, "ijkdash"
@@ -1587,33 +1471,29 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto/16 :goto_a2
-
-    :cond_2a7
-    move v0, v2
+    goto/16 :goto_9e
 
     .line 88
-    goto/16 :goto_f4
+    :cond_224
+    const/4 v0, 0x0
+
+    goto/16 :goto_ef
+
+    .line 105
+    :cond_227
+    const/4 v0, 0x0
+
+    goto :goto_1b0
 
     .line 121
-    :cond_2aa
+    :cond_229
     const-string v0, "PlaySpeed"
 
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v3, "[IJK_NON_DASH] openVideo non-DASH, url="
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    const-string v3, ", elapsed from openStart="
+    const-string v3, "[IJK_NON_DASH] openVideo non-DASH, elapsed from openStart="
 
     invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -1641,38 +1521,102 @@
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 122
-    const-string v0, "IjkCommander"
+    .line 124
+    const-string v0, "platform=pc"
 
-    new-instance v2, Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v0}, Ljava/lang/String;->indexOf(Ljava/lang/String;)I
 
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+    move-result v0
 
-    const-string v3, "[openVideo] Non-DASH stream, url="
+    if-ltz v0, :cond_25f
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    .line 125
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
-    move-result-object v2
+    const/4 v2, 0x1
 
-    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    const-string v3, "headers"
 
-    move-result-object v2
+    const-string v4, "Referer: https://www.bilibili.com\r\n"
 
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v0, v2, v3, v4}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;Ljava/lang/String;)V
 
-    move-result-object v2
+    .line 127
+    :cond_25f
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
-    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    const/4 v2, 0x1
 
-    .line 123
+    const-string v3, "user_agent"
+
+    const-string v4, "Bilibili Freedoooooom/MarkII"
+
+    invoke-virtual {v0, v2, v3, v4}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;Ljava/lang/String;)V
+
+    .line 128
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
+
+    const/4 v2, 0x1
+
+    const-string v3, "timeout"
+
+    const-wide/32 v4, 0x4c4b40
+
+    invoke-virtual {v0, v2, v3, v4, v5}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
+
+    .line 129
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
+
+    const/4 v2, 0x1
+
+    const-string v3, "connect_timeout"
+
+    const-wide/32 v4, 0x2dc6c0
+
+    invoke-virtual {v0, v2, v3, v4, v5}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
+
+    .line 130
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
+
+    const/4 v2, 0x1
+
+    const-string v3, "dns_cache_clear"
+
+    const-wide/16 v4, 0x1
+
+    invoke-virtual {v0, v2, v3, v4, v5}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
+
+    .line 131
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
+
+    const/4 v2, 0x1
+
+    const-string v3, "reconnect"
+
+    const-wide/16 v4, 0x1
+
+    invoke-virtual {v0, v2, v3, v4, v5}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
+
+    .line 132
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
+
+    const/4 v2, 0x1
+
+    const-string v3, "auto_reconnect"
+
+    const-wide/16 v4, 0x1
+
+    invoke-virtual {v0, v2, v3, v4, v5}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
+
+    .line 133
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
     invoke-virtual {v0, v1}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setDataSource(Ljava/lang/String;)V
 
-    goto/16 :goto_a2
+    goto/16 :goto_9e
 
-    .line 127
-    :cond_2f7
+    .line 137
+    :cond_2a4
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v0
@@ -1685,12 +1629,12 @@
 
     move-result v0
 
-    goto/16 :goto_a8
+    goto/16 :goto_a4
 
-    :cond_305
-    move-object v0, v1
+    :cond_2b2
+    move-object v1, v2
 
-    goto/16 :goto_e1
+    goto/16 :goto_dd
 .end method
 
 .method public require(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
@@ -1708,17 +1652,17 @@
     .prologue
     const v2, 0xffff
 
-    .line 141
+    .line 151
     invoke-virtual {p1}, Ljava/lang/String;->hashCode()I
 
     move-result v0
 
-    .line 142
+    .line 152
     const v1, -0x2c46c472
 
     if-ne v0, v1, :cond_18
 
-    .line 143
+    .line 153
     const-string v0, "GetAsyncPos"
 
     invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -1727,22 +1671,22 @@
 
     if-eqz v0, :cond_14
 
-    .line 163
+    .line 173
     :cond_14
     :goto_14
     packed-switch v2, :pswitch_data_74
 
-    .line 173
+    .line 183
     :goto_17
     return-object p2
 
-    .line 147
+    .line 157
     :cond_18
     const v1, -0x1eca4254
 
     if-ne v0, v1, :cond_26
 
-    .line 148
+    .line 158
     const-string v0, "GetCachedDuration"
 
     invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -1753,13 +1697,13 @@
 
     goto :goto_14
 
-    .line 152
+    .line 162
     :cond_26
     const v1, 0x2700d5d
 
     if-eq v0, v1, :cond_39
 
-    .line 153
+    .line 163
     const v1, 0x53b0d356
 
     if-ne v0, v1, :cond_14
@@ -1774,7 +1718,7 @@
 
     goto :goto_14
 
-    .line 158
+    .line 168
     :cond_39
     const-string v0, "PlaybackSpeedAvailable"
 
@@ -1786,7 +1730,7 @@
 
     goto :goto_14
 
-    .line 165
+    .line 175
     :pswitch_42
     const/4 v0, 0x1
 
@@ -1800,7 +1744,7 @@
 
     goto :goto_17
 
-    .line 167
+    .line 177
     :pswitch_4c
     invoke-direct {p0}, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->getPlaybackSpeed()F
 
@@ -1816,7 +1760,7 @@
 
     goto :goto_17
 
-    .line 169
+    .line 179
     :pswitch_59
     invoke-direct {p0}, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->getCachedDuration()J
 
@@ -1832,7 +1776,7 @@
 
     goto :goto_17
 
-    .line 171
+    .line 181
     :pswitch_66
     invoke-direct {p0}, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->getAsyncPos()I
 
@@ -1848,7 +1792,7 @@
 
     goto :goto_17
 
-    .line 163
+    .line 173
     nop
 
     :pswitch_data_74
@@ -1869,11 +1813,11 @@
     .end annotation
 
     .prologue
-    .line 135
+    .line 145
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mMediaPlayer:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     invoke-interface {v0}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->start()V
 
-    .line 136
+    .line 146
     return-void
 .end method

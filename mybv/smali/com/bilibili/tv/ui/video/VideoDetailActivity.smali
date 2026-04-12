@@ -5105,85 +5105,94 @@
     .prologue
     const/16 v5, 0x8
 
-    .line 3480
+    .line 3490
     const v0, 0x7f080167
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 3481
+    .line 3491
     const v1, 0x7f08016a
 
     invoke-virtual {p0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v1
 
-    .line 3482
+    .line 3492
     const v2, 0x7f08014d
 
     invoke-virtual {p0, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v2
 
-    .line 3483
+    .line 3493
     const v3, 0x7f0801a1
 
     invoke-virtual {p0, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v3
 
-    .line 3484
+    .line 3494
     const v4, 0x7f0801dc
 
     invoke-virtual {p0, v4}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v4
 
-    .line 3485
+    .line 3495
     if-eqz v0, :cond_2a
 
     invoke-virtual {v0, v5}, Landroid/view/View;->setVisibility(I)V
 
-    .line 3486
+    .line 3496
     :cond_2a
     if-eqz v1, :cond_2f
 
     invoke-virtual {v1, v5}, Landroid/view/View;->setVisibility(I)V
 
-    .line 3487
+    .line 3497
     :cond_2f
     if-eqz v2, :cond_34
 
     invoke-virtual {v2, v5}, Landroid/view/View;->setVisibility(I)V
 
-    .line 3488
+    .line 3498
     :cond_34
     if-eqz v3, :cond_39
 
     invoke-virtual {v3, v5}, Landroid/view/View;->setVisibility(I)V
 
-    .line 3489
+    .line 3499
     :cond_39
     if-eqz v4, :cond_3e
 
     invoke-virtual {v4, v5}, Landroid/view/View;->setVisibility(I)V
 
-    .line 3490
+    .line 3500
     :cond_3e
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->expandBtn:Lcom/bilibili/tv/widget/DrawLinearLayout;
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->expandBtn:Lcom/bilibili/tv/widget/DrawLinearLayout;
 
-    if-eqz v0, :cond_48
+    if-eqz v1, :cond_48
 
-    .line 3491
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->expandBtn:Lcom/bilibili/tv/widget/DrawLinearLayout;
+    .line 3501
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->expandBtn:Lcom/bilibili/tv/widget/DrawLinearLayout;
 
-    const/4 v1, 0x0
+    const/4 v2, 0x0
 
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawLinearLayout;->setVisibility(I)V
+    invoke-virtual {v1, v2}, Lcom/bilibili/tv/widget/DrawLinearLayout;->setVisibility(I)V
 
-    .line 3493
+    .line 3504
     :cond_48
+    if-eqz v0, :cond_50
+
+    .line 3505
+    const v1, 0x7f0801df
+
+    invoke-virtual {v0, v1}, Landroid/view/View;->setNextFocusLeftId(I)V
+
+    .line 3507
+    :cond_50
     return-void
 .end method
 
@@ -5362,42 +5371,42 @@
     .locals 5
 
     .prologue
-    .line 3496
+    .line 3510
     const v0, 0x7f080167
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 3497
+    .line 3511
     const v1, 0x7f08016a
 
     invoke-virtual {p0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v1
 
-    .line 3498
+    .line 3512
     const v2, 0x7f08014d
 
     invoke-virtual {p0, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v2
 
-    .line 3499
+    .line 3513
     const v3, 0x7f0801a1
 
     invoke-virtual {p0, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v3
 
-    .line 3500
+    .line 3514
     const v4, 0x7f0801dc
 
     invoke-virtual {p0, v4}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v4
 
-    .line 3501
+    .line 3515
     if-eqz v0, :cond_2b
 
     invoke-virtual {v0}, Landroid/view/View;->hasFocus()Z
@@ -5409,7 +5418,7 @@
     :cond_2b
     if-eqz v1, :cond_33
 
-    .line 3502
+    .line 3516
     invoke-virtual {v1}, Landroid/view/View;->hasFocus()Z
 
     move-result v0
@@ -5419,7 +5428,7 @@
     :cond_33
     if-eqz v2, :cond_3b
 
-    .line 3503
+    .line 3517
     invoke-virtual {v2}, Landroid/view/View;->hasFocus()Z
 
     move-result v0
@@ -5429,7 +5438,7 @@
     :cond_3b
     if-eqz v3, :cond_43
 
-    .line 3504
+    .line 3518
     invoke-virtual {v3}, Landroid/view/View;->hasFocus()Z
 
     move-result v0
@@ -5439,7 +5448,7 @@
     :cond_43
     if-eqz v4, :cond_4d
 
-    .line 3505
+    .line 3519
     invoke-virtual {v4}, Landroid/view/View;->hasFocus()Z
 
     move-result v0
@@ -5449,11 +5458,11 @@
     :cond_4b
     const/4 v0, 0x1
 
-    .line 3501
+    .line 3515
     :goto_4c
     return v0
 
-    .line 3505
+    .line 3519
     :cond_4d
     const/4 v0, 0x0
 
@@ -8792,9 +8801,61 @@
 
     invoke-virtual {v4, v5}, Landroid/view/View;->setVisibility(I)V
 
-    .line 3477
+    .line 3478
     :cond_48
+    if-eqz v0, :cond_5c
+
+    .line 3479
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->rePlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
+
+    if-eqz v1, :cond_5d
+
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->rePlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
+
+    invoke-virtual {v1}, Lcom/bilibili/tv/widget/DrawLinearLayout;->getVisibility()I
+
+    move-result v1
+
+    if-nez v1, :cond_5d
+
+    .line 3480
+    const v1, 0x7f080195
+
+    invoke-virtual {v0, v1}, Landroid/view/View;->setNextFocusLeftId(I)V
+
+    .line 3487
+    :cond_5c
+    :goto_5c
     return-void
+
+    .line 3481
+    :cond_5d
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->noHistoryPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
+
+    if-eqz v1, :cond_70
+
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->noHistoryPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
+
+    invoke-virtual {v1}, Lcom/bilibili/tv/widget/DrawLinearLayout;->getVisibility()I
+
+    move-result v1
+
+    if-nez v1, :cond_70
+
+    .line 3482
+    const v1, 0x7f080196
+
+    invoke-virtual {v0, v1}, Landroid/view/View;->setNextFocusLeftId(I)V
+
+    goto :goto_5c
+
+    .line 3484
+    :cond_70
+    const v1, 0x7f080192
+
+    invoke-virtual {v0, v1}, Landroid/view/View;->setNextFocusLeftId(I)V
+
+    goto :goto_5c
 .end method
 
 .method private showPgcEpisodes(Lcom/bilibili/tv/api/video/PgcInfo;)V
