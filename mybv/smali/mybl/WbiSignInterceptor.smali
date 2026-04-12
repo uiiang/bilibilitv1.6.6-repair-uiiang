@@ -18,7 +18,7 @@
 
     .prologue
     .line 14
-    const/4 v0, 0x4
+    const/4 v0, 0x5
 
     new-array v0, v0, [Ljava/lang/String;
 
@@ -41,6 +41,12 @@
     aput-object v2, v0, v1
 
     const/4 v1, 0x3
+
+    const-string v2, "/x/space/wbi/arc/search"
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x4
 
     const-string v2, "/x/web-interface/wbi/view"
 

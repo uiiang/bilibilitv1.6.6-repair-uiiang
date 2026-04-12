@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import java.net.URLEncoder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,8 +43,10 @@ import java.util.List;
 import kotlin.TypeCastException;
 import mybl.BiliLiveContent;
 import mybl.BiliLiveContentEx2;
+import mybl.CookieUtil;
 import mybl.LogUtil;
 import mybl.WbiSigner;
+import bl.mg;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -56,7 +59,7 @@ public final class SearchResultVideoFragment extends ady {
     public static final String ARG_KEYWORD = "arg_keyword";
     public static final String ARG_TID = "arg_tid";
     private static final String TAG = "SearchResultVideoFrag";
-    private static final int PAGE_SIZE = 20;
+    private static final int PAGE_SIZE = 42;
     private static final int COLUMN_COUNT = 2;
     
     private VideoAdapter adapter;
@@ -322,13 +325,27 @@ public final class SearchResultVideoFragment extends ady {
             params.put("duration", duration);
         }
         params.put("page", String.valueOf(currentPage));
-        params.put("pagesize", "20");
+        params.put("page_size", "42");
+        params.put("platform", "pc");
+        params.put("web_location", "1430654");
+        params.put("highlight", "1");
+        params.put("single_column", "0");
+        params.put("ad_resource", "5654");
+        params.put("source_tag", "3");
         String signedQuery = wbi.encWbiAndGetQuery(params);
         String url = "https://api.bilibili.com/x/web-interface/wbi/search/type?" + signedQuery;
         LogUtil.d(TAG, "=== SearchVideo URL ===\n" + url);
 
+        String cookie = CookieUtil.getFullCookieWithDevice(mg.a(MainApplication.a()));
+        String encodedKeyword;
+        try { encodedKeyword = URLEncoder.encode(keyword, "UTF-8"); } catch (Exception e) { encodedKeyword = keyword; }
+        String referer = "https://search.bilibili.com/video?keyword=" + encodedKeyword + "&from_source=webtop_search&spm_id_from=333.1007&search_source=3";
         OkHttpClient client = vo.getOkHttpClient();
-        Request request = new Request.Builder().url(url).get().build();
+        Request request = new Request.Builder().url(url).get()
+            .addHeader("Cookie", cookie)
+            .addHeader("Referer", referer)
+            .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 9; Redmi 6 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.147 Mobile Safari/537.36")
+            .build();
         client.newCall(request).enqueue(new SearchVideoResponse());
     }
     
@@ -339,13 +356,22 @@ public final class SearchResultVideoFragment extends ady {
         params.put("keyword", keyword);
         params.put("order", order);
         params.put("page", String.valueOf(currentPage));
-        params.put("pagesize", "20");
+        params.put("page_size", "20");
+        params.put("platform", "pc");
         String signedQuery = wbi.encWbiAndGetQuery(params);
         String url = "https://api.bilibili.com/x/web-interface/wbi/search/type?" + signedQuery;
         LogUtil.d(TAG, "=== SearchBangumi URL ===\n" + url);
 
+        String cookie = CookieUtil.getFullCookieWithDevice(mg.a(MainApplication.a()));
+        String encodedKeyword;
+        try { encodedKeyword = URLEncoder.encode(keyword, "UTF-8"); } catch (Exception e) { encodedKeyword = keyword; }
+        String referer = "https://search.bilibili.com/bangumi?keyword=" + encodedKeyword + "&from_source=webtop_search&spm_id_from=333.1007&search_source=3";
         OkHttpClient client = vo.getOkHttpClient();
-        Request request = new Request.Builder().url(url).get().build();
+        Request request = new Request.Builder().url(url).get()
+            .addHeader("Cookie", cookie)
+            .addHeader("Referer", referer)
+            .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 9; Redmi 6 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.147 Mobile Safari/537.36")
+            .build();
         client.newCall(request).enqueue(new SearchBangumiResponse());
     }
     
@@ -356,13 +382,22 @@ public final class SearchResultVideoFragment extends ady {
         params.put("keyword", keyword);
         params.put("order", order);
         params.put("page", String.valueOf(currentPage));
-        params.put("pagesize", "20");
+        params.put("page_size", "20");
+        params.put("platform", "pc");
         String signedQuery = wbi.encWbiAndGetQuery(params);
         String url = "https://api.bilibili.com/x/web-interface/wbi/search/type?" + signedQuery;
         LogUtil.d(TAG, "=== SearchMediaFt URL ===\n" + url);
 
+        String cookie = CookieUtil.getFullCookieWithDevice(mg.a(MainApplication.a()));
+        String encodedKeyword;
+        try { encodedKeyword = URLEncoder.encode(keyword, "UTF-8"); } catch (Exception e) { encodedKeyword = keyword; }
+        String referer = "https://search.bilibili.com/movie?keyword=" + encodedKeyword + "&from_source=webtop_search&spm_id_from=333.1007&search_source=3";
         OkHttpClient client = vo.getOkHttpClient();
-        Request request = new Request.Builder().url(url).get().build();
+        Request request = new Request.Builder().url(url).get()
+            .addHeader("Cookie", cookie)
+            .addHeader("Referer", referer)
+            .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 9; Redmi 6 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.147 Mobile Safari/537.36")
+            .build();
         client.newCall(request).enqueue(new SearchBangumiResponse());
     }
     
@@ -373,13 +408,22 @@ public final class SearchResultVideoFragment extends ady {
         params.put("keyword", keyword);
         params.put("order", liveOrder);
         params.put("page", String.valueOf(currentPage));
-        params.put("pagesize", "20");
+        params.put("page_size", "20");
+        params.put("platform", "pc");
         String signedQuery = wbi.encWbiAndGetQuery(params);
         String url = "https://api.bilibili.com/x/web-interface/wbi/search/type?" + signedQuery;
         LogUtil.d(TAG, "=== SearchLiveRoom URL ===\n" + url);
 
+        String cookie = CookieUtil.getFullCookieWithDevice(mg.a(MainApplication.a()));
+        String encodedKeyword;
+        try { encodedKeyword = URLEncoder.encode(keyword, "UTF-8"); } catch (Exception e) { encodedKeyword = keyword; }
+        String referer = "https://search.bilibili.com/live?keyword=" + encodedKeyword + "&from_source=webtop_search&spm_id_from=333.1007&search_source=3";
         OkHttpClient client = vo.getOkHttpClient();
-        Request request = new Request.Builder().url(url).get().build();
+        Request request = new Request.Builder().url(url).get()
+            .addHeader("Cookie", cookie)
+            .addHeader("Referer", referer)
+            .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 9; Redmi 6 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.147 Mobile Safari/537.36")
+            .build();
         client.newCall(request).enqueue(new SearchLiveRoomResponse());
     }
     
@@ -393,13 +437,22 @@ public final class SearchResultVideoFragment extends ady {
             params.put("order_sort", String.valueOf(userOrderSort));
         }
         params.put("page", String.valueOf(currentPage));
-        params.put("pagesize", "20");
+        params.put("page_size", "20");
+        params.put("platform", "pc");
         String signedQuery = wbi.encWbiAndGetQuery(params);
         String url = "https://api.bilibili.com/x/web-interface/wbi/search/type?" + signedQuery;
         LogUtil.d(TAG, "=== SearchUser URL ===\n" + url);
 
+        String cookie = CookieUtil.getFullCookieWithDevice(mg.a(MainApplication.a()));
+        String encodedKeyword;
+        try { encodedKeyword = URLEncoder.encode(keyword, "UTF-8"); } catch (Exception e) { encodedKeyword = keyword; }
+        String referer = "https://search.bilibili.com/upuser?keyword=" + encodedKeyword + "&from_source=webtop_search&spm_id_from=333.1007&search_source=3";
         OkHttpClient client = vo.getOkHttpClient();
-        Request request = new Request.Builder().url(url).get().build();
+        Request request = new Request.Builder().url(url).get()
+            .addHeader("Cookie", cookie)
+            .addHeader("Referer", referer)
+            .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 9; Redmi 6 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.147 Mobile Safari/537.36")
+            .build();
         client.newCall(request).enqueue(new SearchUserResponse());
     }
 
@@ -660,7 +713,17 @@ public final class SearchResultVideoFragment extends ady {
                 video.pubdate = com.bilibili.tv.util.DateHelper.formatDate(pubdate);
             }
             if (item.containsKey("duration")) {
-                video.duration = item.getString("duration");
+                // duration 可能是秒数(整数)或 mm:ss 格式字符串，统一转为可读格式
+                String durationVal = item.getString("duration");
+                video.duration = com.bilibili.tv.util.DateHelper.formatDuration(durationVal);
+            }
+            video.isChargeVideo = item.getIntValue("is_charge_video") == 1;
+            if (i < 3) {
+                if (item.containsKey("is_charge_video")) {
+                    Log.i(TAG, "parseVideo[" + i + "] title=" + video.title + " is_charge_video=" + item.get("is_charge_video") + " isChargeVideo=" + video.isChargeVideo);
+                } else {
+                    Log.i(TAG, "parseVideo[" + i + "] title=" + video.title + " NO is_charge_video field! keys=" + item.keySet());
+                }
             }
             videos.add(video);
         }
@@ -773,7 +836,7 @@ public final class SearchResultVideoFragment extends ady {
             adapter.addBangumis(bangumis);
         }
         
-        if (items.size() < PAGE_SIZE) {
+        if (items.size() < 20) {
             hasMore = false;
         } else {
             currentPage++;
@@ -864,9 +927,6 @@ public final class SearchResultVideoFragment extends ady {
             if (TextUtils.isEmpty(room.mCover)) {
                 room.mCover = item.getString("cover");
             }
-            if (!TextUtils.isEmpty(room.mCover) && !room.mCover.startsWith("http")) {
-                room.mCover = "https:" + room.mCover;
-            }
             room.mOnline = item.getIntValue("online");
             room.mRoomId = item.getIntValue("roomid");
             rooms.add(room);
@@ -878,7 +938,7 @@ public final class SearchResultVideoFragment extends ady {
             adapter.addLiveRooms(rooms);
         }
         
-        if (items.size() < PAGE_SIZE) {
+        if (items.size() < 20) {
             hasMore = false;
         } else {
             currentPage++;
@@ -978,7 +1038,7 @@ public final class SearchResultVideoFragment extends ady {
             adapter.addUsers(upers);
         }
         
-        if (users.size() < PAGE_SIZE) {
+        if (users.size() < 20) {
             hasMore = false;
         } else {
             currentPage++;
@@ -996,6 +1056,7 @@ public final class SearchResultVideoFragment extends ady {
         public String param;
         public String pubdate;
         public String duration;
+        public boolean isChargeVideo;
     }
     
     public static class BangumiItem {
@@ -1149,6 +1210,14 @@ public final class SearchResultVideoFragment extends ady {
                 holder.duration.setVisibility(View.GONE);
             }
             
+            if (video.isChargeVideo) {
+                holder.badge.setText("充电专属");
+                holder.badge.setVisibility(View.VISIBLE);
+                Log.i(TAG, "bindVideo badge VISIBLE pos=" + position + " title=" + video.title + " badge=" + holder.badge + " parent=" + holder.badge.getParent());
+            } else {
+                holder.badge.setVisibility(View.GONE);
+            }
+            
             holder.root.setTag(video);
             holder.root.setTag(R.id.position, Integer.valueOf(position));
             holder.root.setOnClickListener(this);
@@ -1286,6 +1355,7 @@ public final class SearchResultVideoFragment extends ady {
         TextView danmaku;
         TextView pubdate;
         TextView duration;
+        TextView badge;
         DrawRelativeLayout root;
         
         VideoViewHolder(View itemView) {
@@ -1297,6 +1367,7 @@ public final class SearchResultVideoFragment extends ady {
             danmaku = (TextView) a(itemView, R.id.danmaku);
             pubdate = (TextView) a(itemView, R.id.pubdate);
             duration = (TextView) a(itemView, R.id.duration);
+            badge = (TextView) a(itemView, R.id.badge);
             root = (DrawRelativeLayout) itemView;
             root.setUpDrawable(R.drawable.shadow_white_rect);
             

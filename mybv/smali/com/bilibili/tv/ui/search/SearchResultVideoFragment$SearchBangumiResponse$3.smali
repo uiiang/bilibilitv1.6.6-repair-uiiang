@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 720
+    .line 783
     iput-object p1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchBangumiResponse$3;->this$1:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchBangumiResponse;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -42,7 +42,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 723
+    .line 786
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchBangumiResponse$3;->this$1:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchBangumiResponse;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchBangumiResponse;->this$0:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
@@ -50,7 +50,7 @@
     # setter for: Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->isLoading:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;->access$002(Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;Z)Z
 
-    .line 724
+    .line 787
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchBangumiResponse$3;->this$1:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchBangumiResponse;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchBangumiResponse;->this$0:Lcom/bilibili/tv/ui/search/SearchResultVideoFragment;
@@ -62,6 +62,6 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/base/LoadingImageView;->setRefreshError(Z)V
 
-    .line 725
+    .line 788
     return-void
 .end method

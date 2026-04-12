@@ -121,6 +121,16 @@ public interface MyBiliApiService {
     @GET("/x/web-interface/popular/precious")
     vp<GeneralResponse<JSONObject>> getPopularPrecious(@Query("page_size") int pageSize, @Query("page") int page, @Header("Cookie") String cookie);
 
+    // Auth space - user archive videos (Web API with WBI sign)
+    @Headers("Referer: https://space.bilibili.com")
+    @GET("/x/space/wbi/arc/search")
+    vp<GeneralResponse<JSONObject>> getSpaceArcSearch(@Query("mid") long mid,
+            @Query("pn") int pn, @Query("ps") int ps, @Query("tid") int tid,
+            @Query("order") String order, @Query("keyword") String keyword,
+            @Query("order_avoided") boolean orderAvoided, @Query("platform") String platform,
+            @Query("web_location") String webLocation,
+            @Header("Cookie") String cookie);
+
     // Auth space - seasons and series list
     @Headers("Referer: https://space.bilibili.com")
     @GET("/x/polymer/web-space/seasons_series_list")

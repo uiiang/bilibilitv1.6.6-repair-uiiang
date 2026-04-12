@@ -30,7 +30,7 @@ bash ./build.sh -p uii.ang.bilitv
 ```
 编译脚本完全可用，忽略"rm: cannot remove 'mybv/build': No such file or directory
 rm: cannot remove 'mybv/dist': No such file or directory"信息
-本项目编译时间较长，请耐心等待编译完成
+本项目编译时间较长，在AI对话中等待命令执行完成，命令执行完成前不需要做其它操作
 
 ### 日志规范
 - 使用 `Log.i()` 或 `LogUtil.i()`，禁用 `BLog`

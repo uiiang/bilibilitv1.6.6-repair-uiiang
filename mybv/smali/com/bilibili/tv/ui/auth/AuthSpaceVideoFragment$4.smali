@@ -17,7 +17,7 @@
     value = {
         "Lbl/vn",
         "<",
-        "Lcom/bilibili/tv/api/auth/BiliSpaceVideoList;",
+        "Lcom/alibaba/fastjson/JSONObject;",
         ">;"
     }
 .end annotation
@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 366
+    .line 362
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
@@ -42,39 +42,105 @@
 
 
 # virtual methods
-.method public a(Lcom/bilibili/tv/api/auth/BiliSpaceVideoList;)V
-    .locals 6
+.method public a(Lcom/alibaba/fastjson/JSONObject;)V
+    .locals 13
 
     .prologue
-    const/4 v1, 0x0
+    const/4 v0, 0x0
 
-    .line 383
-    const-string v2, "AuthSpaceVideo"
+    const v12, 0x7f0c00d8
 
-    new-instance v0, Ljava/lang/StringBuilder;
+    const/4 v1, 0x1
 
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+    const/4 v2, 0x0
 
-    const-string v3, "loadAllVideos result: count="
+    .line 379
+    iget-object v3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
-    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->adapter:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;
+    invoke-static {v3}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$100(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;
 
     move-result-object v3
 
-    if-eqz p1, :cond_2e
+    if-nez v3, :cond_f
 
-    iget-object v0, p1, Lcom/bilibili/tv/api/auth/BiliSpaceVideoList;->videos:Ljava/util/List;
+    .line 454
+    :cond_e
+    :goto_e
+    return-void
 
-    if-eqz v0, :cond_2e
+    .line 381
+    :cond_f
+    iget-object v3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
-    iget-object v0, p1, Lcom/bilibili/tv/api/auth/BiliSpaceVideoList;->videos:Ljava/util/List;
+    invoke-virtual {v3}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->j()V
 
-    invoke-interface {v0}, Ljava/util/List;->size()I
+    .line 382
+    iget-object v3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
+
+    # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->loading:Z
+    invoke-static {v3, v2}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$202(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)Z
+
+    .line 384
+    if-nez p1, :cond_6c
+
+    .line 385
+    :try_start_1b
+    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
+
+    const/4 v3, 0x0
+
+    # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->hasMore:Z
+    invoke-static {v0, v3}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$402(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)Z
+
+    .line 386
+    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
+
+    # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->page:I
+    invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$300(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)I
 
     move-result v0
 
-    :goto_1a
-    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    if-ne v0, v1, :cond_e
+
+    .line 387
+    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->k()V
+
+    .line 388
+    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
+
+    const v3, 0x7f0c00d8
+
+    invoke-virtual {v0, v3}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->a(I)V
+    :try_end_36
+    .catch Ljava/lang/Exception; {:try_start_1b .. :try_end_36} :catch_37
+
+    goto :goto_e
+
+    .line 446
+    :catch_37
+    move-exception v0
+
+    .line 447
+    const-string v3, "AuthSpaceVideo"
+
+    new-instance v4, Ljava/lang/StringBuilder;
+
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v5, "loadAllVideos parse error: "
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    invoke-virtual {v0}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {v4, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
@@ -82,181 +148,400 @@
 
     move-result-object v0
 
-    invoke-static {v2, v0}, Lmybl/LogUtil;->i(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-static {v3, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 384
+    .line 449
+    :cond_54
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
-    # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->adapter:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$100(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;
+    # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->hasMore:Z
+    invoke-static {v0, v2}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$402(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)Z
 
-    move-result-object v0
-
-    if-nez v0, :cond_30
-
-    .line 424
-    :cond_2d
-    :goto_2d
-    return-void
-
-    :cond_2e
-    move v0, v1
-
-    .line 383
-    goto :goto_1a
-
-    .line 386
-    :cond_30
+    .line 450
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->j()V
-
-    .line 387
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
-
-    # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->loading:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$202(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)Z
-
-    .line 388
-    if-eqz p1, :cond_e0
-
-    iget-object v0, p1, Lcom/bilibili/tv/api/auth/BiliSpaceVideoList;->videos:Ljava/util/List;
-
-    if-eqz v0, :cond_e0
-
-    iget-object v0, p1, Lcom/bilibili/tv/api/auth/BiliSpaceVideoList;->videos:Ljava/util/List;
-
-    invoke-interface {v0}, Ljava/util/List;->size()I
+    # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->page:I
+    invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$300(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)I
 
     move-result v0
 
-    if-lez v0, :cond_e0
+    if-ne v0, v1, :cond_e
 
-    .line 389
-    iget-object v0, p1, Lcom/bilibili/tv/api/auth/BiliSpaceVideoList;->videos:Ljava/util/List;
-
-    const-string v2, "\u4e2a\u4eba\u6295\u7a3f"
-
-    invoke-static {v0, v2}, Lmybl/BiliFilter;->filterBiliSpaceVideo(Ljava/util/List;Ljava/lang/String;)Ljava/util/List;
-
-    move-result-object v2
-
-    .line 390
+    .line 451
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
-    # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->cursor:Ljava/lang/Long;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$300(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Ljava/lang/Long;
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->k()V
 
-    move-result-object v0
-
-    if-nez v0, :cond_d1
-
-    .line 391
+    .line 452
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
-    # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->adapter:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$100(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;
+    invoke-virtual {v0, v12}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->a(I)V
 
-    move-result-object v0
-
-    invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;->setVideos(Ljava/util/List;)V
+    goto :goto_e
 
     .line 392
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
+    :cond_6c
+    :try_start_6c
+    const-string v3, "page"
 
-    const/4 v3, 0x0
+    invoke-virtual {p1, v3}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
-    iget v4, p1, Lcom/bilibili/tv/api/auth/BiliSpaceVideoList;->count:I
+    move-result-object v4
 
-    invoke-virtual {v0, v3, v4}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->updateHeaderInfo(Ljava/lang/String;I)V
+    .line 393
+    if-eqz v4, :cond_142
 
-    .line 396
-    :goto_69
-    iget-object v0, p1, Lcom/bilibili/tv/api/auth/BiliSpaceVideoList;->videos:Ljava/util/List;
+    const-string v3, "count"
 
-    invoke-interface {v0}, Ljava/util/List;->size()I
-
-    move-result v0
-
-    if-lez v0, :cond_94
-
-    .line 397
-    iget-object v0, p1, Lcom/bilibili/tv/api/auth/BiliSpaceVideoList;->videos:Ljava/util/List;
-
-    iget-object v3, p1, Lcom/bilibili/tv/api/auth/BiliSpaceVideoList;->videos:Ljava/util/List;
-
-    invoke-interface {v3}, Ljava/util/List;->size()I
+    invoke-virtual {v4, v3}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
     move-result v3
 
-    add-int/lit8 v3, v3, -0x1
+    move v6, v3
 
-    invoke-interface {v0, v3}, Ljava/util/List;->get(I)Ljava/lang/Object;
+    .line 394
+    :goto_7b
+    if-eqz v4, :cond_145
 
-    move-result-object v0
+    const-string v3, "pn"
 
-    check-cast v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;
+    invoke-virtual {v4, v3}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
+
+    move-result v3
+
+    move v5, v3
+
+    .line 395
+    :goto_84
+    if-eqz v4, :cond_148
+
+    const-string v3, "ps"
+
+    invoke-virtual {v4, v3}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
+
+    move-result v3
+
+    move v4, v3
+
+    .line 397
+    :goto_8d
+    const-string v3, "list"
+
+    invoke-virtual {p1, v3}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
+
+    move-result-object v3
 
     .line 398
-    iget-object v3, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->param:Ljava/lang/String;
+    if-eqz v3, :cond_14d
 
-    if-eqz v3, :cond_94
+    const-string v0, "vlist"
 
-    .line 400
-    :try_start_85
-    iget-object v3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
-
-    iget-object v0, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->param:Ljava/lang/String;
-
-    invoke-static {v0}, Ljava/lang/Long;->parseLong(Ljava/lang/String;)J
-
-    move-result-wide v4
-
-    invoke-static {v4, v5}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;
+    invoke-virtual {v3, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
 
     move-result-object v0
 
-    # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->cursor:Ljava/lang/Long;
-    invoke-static {v3, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$302(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Ljava/lang/Long;)Ljava/lang/Long;
-    :try_end_94
-    .catch Ljava/lang/NumberFormatException; {:try_start_85 .. :try_end_94} :catch_fc
+    move-object v3, v0
 
-    .line 405
-    :cond_94
-    :goto_94
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
+    .line 399
+    :goto_9c
+    if-eqz v3, :cond_54
 
-    iget-boolean v3, p1, Lcom/bilibili/tv/api/auth/BiliSpaceVideoList;->hasNext:Z
+    invoke-virtual {v3}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
-    if-eqz v3, :cond_a1
+    move-result v0
 
-    invoke-interface {v2}, Ljava/util/List;->size()I
+    if-lez v0, :cond_54
 
-    move-result v2
+    .line 400
+    new-instance v7, Ljava/util/ArrayList;
 
-    if-lez v2, :cond_a1
+    invoke-direct {v7}, Ljava/util/ArrayList;-><init>()V
 
-    const/4 v1, 0x1
+    move v0, v2
 
-    :cond_a1
-    # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->hasMore:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$402(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)Z
+    .line 401
+    :goto_aa
+    invoke-virtual {v3}, Lcom/alibaba/fastjson/JSONArray;->size()I
+
+    move-result v8
+
+    if-ge v0, v8, :cond_15d
+
+    .line 402
+    invoke-virtual {v3, v0}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
+
+    move-result-object v8
+
+    .line 403
+    new-instance v9, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;
+
+    invoke-direct {v9}, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;-><init>()V
+
+    .line 404
+    const-string v10, "pic"
+
+    invoke-virtual {v8, v10}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v10
+
+    iput-object v10, v9, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->cover:Ljava/lang/String;
 
     .line 406
+    const-string v10, "meta"
+
+    invoke-virtual {v8, v10}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
+
+    move-result-object v10
+
+    .line 407
+    if-eqz v10, :cond_150
+
+    const-string v11, "stat"
+
+    invoke-virtual {v10, v11}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
+
+    move-result-object v11
+
+    if-eqz v11, :cond_150
+
+    .line 408
+    const-string v11, "stat"
+
+    invoke-virtual {v10, v11}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
+
+    move-result-object v10
+
+    const-string v11, "danmaku"
+
+    invoke-virtual {v10, v11}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
+
+    move-result v10
+
+    invoke-static {v10}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
+
+    move-result-object v10
+
+    iput-object v10, v9, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->danmaku:Ljava/lang/String;
+
+    .line 412
+    :goto_e3
+    const-string v10, "aid"
+
+    invoke-virtual {v8, v10}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
+
+    move-result-wide v10
+
+    invoke-static {v10, v11}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
+
+    move-result-object v10
+
+    iput-object v10, v9, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->param:Ljava/lang/String;
+
+    .line 413
+    const-string v10, "play"
+
+    invoke-virtual {v8, v10}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
+
+    move-result v10
+
+    iput v10, v9, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->play:I
+
+    .line 414
+    const-string v10, "title"
+
+    invoke-virtual {v8, v10}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v10
+
+    iput-object v10, v9, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->title:Ljava/lang/String;
+
+    .line 415
+    const-string v10, "created"
+
+    invoke-virtual {v8, v10}, Lcom/alibaba/fastjson/JSONObject;->getLong(Ljava/lang/String;)Ljava/lang/Long;
+
+    move-result-object v10
+
+    iput-object v10, v9, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->ctime:Ljava/lang/Long;
+
+    .line 416
+    const-string v10, "length"
+
+    invoke-virtual {v8, v10}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v10
+
+    invoke-static {v10}, Lcom/bilibili/tv/util/DateHelper;->parseDurationStr(Ljava/lang/String;)I
+
+    move-result v10
+
+    iput v10, v9, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->duration:I
+
+    .line 417
+    const-string v10, "length"
+
+    invoke-virtual {v8, v10}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v10
+
+    iput-object v10, v9, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->durationStr:Ljava/lang/String;
+
+    .line 418
+    const-string v10, "elec_arc_type"
+
+    invoke-virtual {v8, v10}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
+
+    move-result v10
+
+    iput v10, v9, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->elecArcType:I
+
+    .line 419
+    const-string v10, "elec_arc_badge"
+
+    invoke-virtual {v8, v10}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v10
+
+    iput-object v10, v9, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->elecArcBadge:Ljava/lang/String;
+
+    .line 420
+    const-string v10, "is_union_video"
+
+    invoke-virtual {v8, v10}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
+
+    move-result v10
+
+    iput v10, v9, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->isUnionVideo:I
+
+    .line 421
+    const-string v10, "is_live_playback"
+
+    invoke-virtual {v8, v10}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
+
+    move-result v8
+
+    iput v8, v9, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->isLivePlayback:I
+
+    .line 422
+    invoke-interface {v7, v9}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    .line 401
+    add-int/lit8 v0, v0, 0x1
+
+    goto/16 :goto_aa
+
+    :cond_142
+    move v6, v2
+
+    .line 393
+    goto/16 :goto_7b
+
+    :cond_145
+    move v5, v1
+
+    .line 394
+    goto/16 :goto_84
+
+    .line 395
+    :cond_148
+    const/16 v3, 0x28
+
+    move v4, v3
+
+    goto/16 :goto_8d
+
+    :cond_14d
+    move-object v3, v0
+
+    .line 398
+    goto/16 :goto_9c
+
+    .line 410
+    :cond_150
+    const-string v10, "video_review"
+
+    invoke-virtual {v8, v10}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
+
+    move-result v10
+
+    invoke-static {v10}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
+
+    move-result-object v10
+
+    iput-object v10, v9, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->danmaku:Ljava/lang/String;
+
+    goto :goto_e3
+
+    .line 424
+    :cond_15d
+    const-string v0, "\u4e2a\u4eba\u6295\u7a3f"
+
+    invoke-static {v7, v0}, Lmybl/BiliFilter;->filterBiliSpaceVideo(Ljava/util/List;Ljava/lang/String;)Ljava/util/List;
+
+    move-result-object v0
+
+    .line 425
+    iget-object v3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
+
+    # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->page:I
+    invoke-static {v3}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$300(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)I
+
+    move-result v3
+
+    if-ne v3, v1, :cond_1bb
+
+    .line 426
+    iget-object v3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
+
+    # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->adapter:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;
+    invoke-static {v3}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$100(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;->setVideos(Ljava/util/List;)V
+
+    .line 427
+    iget-object v3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
+
+    const/4 v7, 0x0
+
+    invoke-virtual {v3, v7, v6}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->updateHeaderInfo(Ljava/lang/String;I)V
+
+    .line 431
+    :goto_17a
+    iget-object v3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
+
+    mul-int/2addr v4, v5
+
+    if-ge v4, v6, :cond_1c5
+
+    invoke-interface {v0}, Ljava/util/List;->size()I
+
+    move-result v0
+
+    if-lez v0, :cond_1c5
+
+    move v0, v1
+
+    :goto_186
+    # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->hasMore:Z
+    invoke-static {v3, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$402(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)Z
+
+    .line 432
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getView()Landroid/view/View;
 
     move-result-object v0
 
-    .line 407
-    if-eqz v0, :cond_af
+    .line 433
+    if-eqz v0, :cond_194
 
-    .line 408
+    .line 434
     invoke-virtual {v0}, Landroid/view/View;->requestLayout()V
 
-    .line 409
-    :cond_af
+    .line 435
+    :cond_194
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->hasMore:Z
@@ -264,7 +549,7 @@
 
     move-result v0
 
-    if-eqz v0, :cond_2d
+    if-eqz v0, :cond_e
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
@@ -277,95 +562,75 @@
 
     move-result v0
 
-    const/16 v1, 0x8
+    const/16 v3, 0x8
 
-    if-ge v0, v1, :cond_2d
+    if-ge v0, v3, :cond_e
 
-    .line 411
-    const-wide/16 v0, 0x3e8
+    .line 436
+    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
-    :try_start_c7
-    invoke-static {v0, v1}, Ljava/lang/Thread;->sleep(J)V
-    :try_end_ca
-    .catch Ljava/lang/Exception; {:try_start_c7 .. :try_end_ca} :catch_db
+    # operator++ for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->page:I
+    invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$308(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)I
+    :try_end_1af
+    .catch Ljava/lang/Exception; {:try_start_6c .. :try_end_1af} :catch_37
 
-    .line 415
-    :goto_ca
+    .line 438
+    const-wide/16 v4, 0x3e8
+
+    :try_start_1b1
+    invoke-static {v4, v5}, Ljava/lang/Thread;->sleep(J)V
+    :try_end_1b4
+    .catch Ljava/lang/Exception; {:try_start_1b1 .. :try_end_1b4} :catch_1c7
+
+    .line 442
+    :goto_1b4
+    :try_start_1b4
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     # invokes: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->b()V
     invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$500(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
 
-    goto/16 :goto_2d
+    goto/16 :goto_e
 
-    .line 394
-    :cond_d1
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
+    .line 429
+    :cond_1bb
+    iget-object v3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->adapter:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$100(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;
+    invoke-static {v3}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$100(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;
 
-    move-result-object v0
+    move-result-object v3
 
-    invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;->addVideos(Ljava/util/List;)V
+    invoke-virtual {v3, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;->addVideos(Ljava/util/List;)V
 
-    goto :goto_69
+    goto :goto_17a
 
-    .line 412
-    :catch_db
+    :cond_1c5
+    move v0, v2
+
+    .line 431
+    goto :goto_186
+
+    .line 439
+    :catch_1c7
     move-exception v0
 
-    .line 413
+    .line 440
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
+    :try_end_1cb
+    .catch Ljava/lang/Exception; {:try_start_1b4 .. :try_end_1cb} :catch_37
 
-    goto :goto_ca
-
-    .line 419
-    :cond_e0
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
-
-    # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->hasMore:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$402(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)Z
-
-    .line 420
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
-
-    # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->cursor:Ljava/lang/Long;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$300(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Ljava/lang/Long;
-
-    move-result-object v0
-
-    if-nez v0, :cond_2d
-
-    .line 421
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->k()V
-
-    .line 422
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
-
-    const v1, 0x7f0c00d8
-
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->a(I)V
-
-    goto/16 :goto_2d
-
-    .line 401
-    :catch_fc
-    move-exception v0
-
-    goto :goto_94
+    goto :goto_1b4
 .end method
 
 .method public bridge synthetic a(Ljava/lang/Object;)V
     .locals 0
 
     .prologue
-    .line 366
-    check-cast p1, Lcom/bilibili/tv/api/auth/BiliSpaceVideoList;
+    .line 362
+    check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
-    invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->a(Lcom/bilibili/tv/api/auth/BiliSpaceVideoList;)V
+    invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->a(Lcom/alibaba/fastjson/JSONObject;)V
 
     return-void
 .end method
@@ -374,7 +639,7 @@
     .locals 1
 
     .prologue
-    .line 369
+    .line 365
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -408,7 +673,7 @@
     .locals 3
 
     .prologue
-    .line 374
+    .line 370
     const-string v0, "AuthSpaceVideo"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -435,7 +700,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 375
+    .line 371
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
@@ -446,7 +711,7 @@
 
     invoke-virtual {v0, p1, v1}, Lbl/adl;->a(Ljava/lang/Throwable;Landroid/app/Activity;)V
 
-    .line 376
+    .line 372
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     const/4 v1, 0x0
@@ -454,22 +719,24 @@
     # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->loading:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$202(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)Z
 
-    .line 377
+    .line 373
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
-    # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->cursor:Ljava/lang/Long;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$300(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Ljava/lang/Long;
+    # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->page:I
+    invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$300(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)I
 
-    move-result-object v0
+    move-result v0
 
-    if-nez v0, :cond_3a
+    const/4 v1, 0x1
 
-    .line 378
+    if-ne v0, v1, :cond_3b
+
+    .line 374
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->k()V
 
-    .line 379
-    :cond_3a
+    .line 375
+    :cond_3b
     return-void
 .end method

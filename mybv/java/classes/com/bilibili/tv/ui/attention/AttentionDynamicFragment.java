@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.text.format.DateUtils;
+import android.text.TextUtils;
 
 import com.bilibili.tv.widget.CircleImageView;
 import com.bilibili.tv.widget.DrawTextView;
@@ -32,9 +32,7 @@ import bl.vn;
 import bl.lr;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
-import com.bilibili.tv.api.auth.BiliSpaceApiService;
 import com.bilibili.tv.api.auth.BiliSpaceVideo;
-import com.bilibili.tv.api.auth.BiliSpaceVideoList;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
 import com.bilibili.tv.util.DateHelper;
 import com.bilibili.tv.widget.DrawRelativeLayout;
@@ -44,6 +42,7 @@ import com.bilibili.tv.widget.side.SideRightGridLayoutManger;
 import mybl.BiliFilter;
 import mybl.MyBiliApiService;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONArray;
 import java.util.ArrayList;
 import java.util.List;
 import kotlin.TypeCastException;
@@ -58,6 +57,7 @@ public final class AttentionDynamicFragment extends ady {
     private boolean e;
     private int f = 1;
     private Long cursor = null;
+    private int uperPage = 1;
     private boolean g = true;
     private boolean h;
     private long mid;
@@ -88,7 +88,7 @@ public final class AttentionDynamicFragment extends ady {
 
     private String uperName = "";
 
-    public static AttentionDynamicFragment newInstance(long mid, String mode) {
+  public static AttentionDynamicFragment newInstance(long mid, String mode) {
         AttentionDynamicFragment fragment = new AttentionDynamicFragment();
         fragment.mid = mid;
         fragment.mode = mode;
@@ -374,6 +374,7 @@ public final class AttentionDynamicFragment extends ady {
         super.d_();
         this.f = 1;
         this.cursor = null;
+        this.uperPage = 1;
         this.offset = "";
         b();
     }
@@ -405,7 +406,7 @@ public final class AttentionDynamicFragment extends ady {
                 return;
             }
             h = false;
-            if (cursor == 0) {
+            if (f == 1) {
                 k();
             }
         }
@@ -482,52 +483,87 @@ public final class AttentionDynamicFragment extends ady {
     private void loadUperVideos() {
         Activity activity = getActivity();
         if (activity != null) {
-            BiliSpaceApiService api = (BiliSpaceApiService) vo.a(BiliSpaceApiService.class);
             mg account = mg.a(activity);
             if (account != null) {
-                api.loadArchiveVideos(account.e(), mid, cursor, 20, null)
-                .a(new vn<BiliSpaceVideoList>() {
+                String cookie = mybl.CookieUtil.getFullCookieWithDevice(account);
+                MyBiliApiService api = (MyBiliApiService) vo.a(MyBiliApiService.class);
+                api.getSpaceArcSearch(mid, uperPage, 40, 0, null, "", true, "web", "333.1387", cookie)
+                .a(new vn<JSONObject>() {
                     @Override
-                    public void a(BiliSpaceVideoList biliSpaceVideoList) {
+                    public void a(JSONObject data) {
                         if (c == null) {
                             return;
                         }
                         j();
                         h = false;
-                        if (biliSpaceVideoList != null && biliSpaceVideoList.videos != null && biliSpaceVideoList.videos.size() > 0) {
-                            List<BiliSpaceVideo> list = BiliFilter.filterBiliSpaceVideo(biliSpaceVideoList.videos, "个人投稿");
-                            if (cursor == null) {
-                                c.a(list);
-                                updateHeaderCount(biliSpaceVideoList.count);
-                            } else {
-                                c.b(list);
+                        try {
+                            if (data == null) {
+                                g = false;
+                                if (uperPage == 1) {
+                                    l();
+                                    AttentionDynamicFragment.this.a(R.string.nothing_show);
+                                }
+                                return;
                             }
-                            if (biliSpaceVideoList.videos.size() > 0) {
-                                BiliSpaceVideo lastVideo = biliSpaceVideoList.videos.get(biliSpaceVideoList.videos.size() - 1);
-                                if (lastVideo.param != null) {
-                                    try {
-                                        cursor = Long.parseLong(lastVideo.param);
-                                    } catch (NumberFormatException e) {
+                            JSONObject pageObj = data.getJSONObject("page");
+                            int totalCount = pageObj != null ? pageObj.getIntValue("count") : 0;
+                            int pn = pageObj != null ? pageObj.getIntValue("pn") : 1;
+                            int ps = pageObj != null ? pageObj.getIntValue("ps") : 40;
+
+                            JSONObject listObj = data.getJSONObject("list");
+                            JSONArray vlist = listObj != null ? listObj.getJSONArray("vlist") : null;
+                            if (vlist != null && vlist.size() > 0) {
+                                List<BiliSpaceVideo> videos = new ArrayList<>();
+                                for (int i = 0; i < vlist.size(); i++) {
+                                    JSONObject item = vlist.getJSONObject(i);
+                                    BiliSpaceVideo v = new BiliSpaceVideo();
+                                    v.cover = item.getString("pic");
+                                    JSONObject meta = item.getJSONObject("meta");
+                                    if (meta != null && meta.getJSONObject("stat") != null) {
+                                        v.danmaku = String.valueOf(meta.getJSONObject("stat").getIntValue("danmaku"));
+                                    } else {
+                                        v.danmaku = String.valueOf(item.getIntValue("video_review"));
                                     }
+                                    v.param = String.valueOf(item.getLongValue("aid"));
+                                    v.play = item.getIntValue("play");
+                                    v.title = item.getString("title");
+                                    v.ctime = item.getLong("created");
+                                    v.duration = DateHelper.parseDurationStr(item.getString("length"));
+                                    v.durationStr = item.getString("length");
+                                    v.elecArcType = item.getIntValue("elec_arc_type");
+                                    v.elecArcBadge = item.getString("elec_arc_badge");
+                                    v.isUnionVideo = item.getIntValue("is_union_video");
+                                    v.isLivePlayback = item.getIntValue("is_live_playback");
+                                    videos.add(v);
                                 }
-                            }
-                            g = biliSpaceVideoList.hasNext && list.size() > 0;
-                            View view = getView();
-                            if (view != null) {
-                                view.requestLayout();
-                            }
-                            if (g && c.a() < 8) {
-                                try {
-                                    Thread.sleep(1000);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
+                                List<BiliSpaceVideo> list = BiliFilter.filterBiliSpaceVideo(videos, "个人投稿");
+                                if (uperPage == 1) {
+                                    c.a(list);
+                                    updateHeaderCount(totalCount);
+                                } else {
+                                    c.b(list);
                                 }
-                                AttentionDynamicFragment.this.b();
+                                g = pn * ps < totalCount && list.size() > 0;
+                                View view = getView();
+                                if (view != null) {
+                                    view.requestLayout();
+                                }
+                                if (g && c.a() < 8) {
+                                    uperPage++;
+                                    try {
+                                        Thread.sleep(1000);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    AttentionDynamicFragment.this.b();
+                                }
+                                return;
                             }
-                            return;
+                        } catch (Exception e) {
+                            android.util.Log.i("AttentionDynamic", "loadUperVideos parse error: " + e.getMessage());
                         }
                         g = false;
-                        if (cursor == null) {
+                        if (uperPage == 1) {
                             l();
                             AttentionDynamicFragment.this.a(R.string.nothing_show);
                         }
@@ -545,7 +581,7 @@ public final class AttentionDynamicFragment extends ady {
                             return;
                         }
                         h = false;
-                        if (cursor == null) {
+                        if (uperPage == 1) {
                             k();
                         }
                     }
@@ -625,14 +661,25 @@ public final class AttentionDynamicFragment extends ady {
                     } else {
                         dVar.D().setVisibility(View.GONE);
                     }
-                    int durationVal = video.duration;
-                    if (durationVal >= 3600) {
-                        dVar.E().setText(String.format("%d:%02d:%02d", durationVal / 3600, (durationVal % 3600) / 60, durationVal % 60));
-                    } else {
-                        dVar.E().setText(String.format("%02d:%02d", durationVal / 60, durationVal % 60));
+                    if (video.duration > 0) {
+                        dVar.E().setText(DateHelper.formatDuration(video.duration));
+                    } else if (video.durationStr != null && !video.durationStr.isEmpty()) {
+                        dVar.E().setText(video.durationStr);
                     }
                     if (video.cover != null) {
                         nv.a().a(abd.get_thumb_url_c(MainApplication.a(), video.cover), dVar.z());
+                    }
+                    if (video.elecArcType == 1 && !TextUtils.isEmpty(video.elecArcBadge)) {
+                        dVar.G().setText(video.elecArcBadge);
+                        dVar.G().setVisibility(View.VISIBLE);
+                    } else if (video.isUnionVideo == 1) {
+                        dVar.G().setText("合作");
+                        dVar.G().setVisibility(View.VISIBLE);
+                    } else if (video.isLivePlayback == 1) {
+                        dVar.G().setText("直播回放");
+                        dVar.G().setVisibility(View.VISIBLE);
+                    } else {
+                        dVar.G().setVisibility(View.GONE);
                     }
                 }
                 View view = advVar.a;
@@ -705,6 +752,7 @@ public final class AttentionDynamicFragment extends ady {
         private TextView r;
         private TextView duration;
         private TextView danmakuInImage;
+        private TextView badge;
 
         /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
         public d(View view) {
@@ -717,6 +765,7 @@ public final class AttentionDynamicFragment extends ady {
             this.r = (TextView) a(view, R.id.pubdate);
             this.duration = (TextView) a(view, R.id.duration);
             this.danmakuInImage = (TextView) a(view, R.id.danmaku);
+            this.badge = (TextView) a(view, R.id.badge);
             android.graphics.drawable.Drawable c = bl.adl.a.c(R.drawable.ic_video_info_up);
             android.graphics.drawable.Drawable c2 = bl.adl.a.c(R.drawable.ic_video_info_play);
             android.graphics.drawable.Drawable c3 = bl.adl.a.c(R.drawable.ic_video_info_danmaku);
@@ -759,6 +808,10 @@ public final class AttentionDynamicFragment extends ady {
 
         public final TextView F() {
             return this.danmakuInImage;
+        }
+
+        public final TextView G() {
+            return this.badge;
         }
 
         /* compiled from: BL */

@@ -437,6 +437,8 @@
 
 .field public static final img_layout:I = 0x7f0800a4
 
+.field public static final index_badge:I = 0x7f0801ea
+
 .field public static final info:I = 0x7f0800a5
 
 .field public static final isNeedPx:I = 0x7f0800a6

@@ -37,10 +37,10 @@
 
     const/4 v3, 0x0
 
-    .line 1392
+    .line 1463
     invoke-direct {p0, p1}, Lbl/adv;-><init>(Landroid/view/View;)V
 
-    .line 1393
+    .line 1464
     const v0, 0x7f0800a1
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$LiveRoomViewHolder;->a(Landroid/view/View;I)Landroid/view/View;
@@ -51,7 +51,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$LiveRoomViewHolder;->img:Lcom/bilibili/tv/widget/ScalableImageView;
 
-    .line 1394
+    .line 1465
     const v0, 0x7f080132
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$LiveRoomViewHolder;->a(Landroid/view/View;I)Landroid/view/View;
@@ -62,7 +62,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$LiveRoomViewHolder;->title:Landroid/widget/TextView;
 
-    .line 1395
+    .line 1466
     const v0, 0x7f08013f
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$LiveRoomViewHolder;->a(Landroid/view/View;I)Landroid/view/View;
@@ -73,7 +73,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$LiveRoomViewHolder;->up:Landroid/widget/TextView;
 
-    .line 1396
+    .line 1467
     const v0, 0x7f0801af
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$LiveRoomViewHolder;->a(Landroid/view/View;I)Landroid/view/View;
@@ -86,19 +86,19 @@
 
     move-object v0, p1
 
-    .line 1397
+    .line 1468
     check-cast v0, Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$LiveRoomViewHolder;->root:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
-    .line 1398
+    .line 1469
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$LiveRoomViewHolder;->root:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     const v1, 0x7f0700e8
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawRelativeLayout;->setUpDrawable(I)V
 
-    .line 1400
+    .line 1471
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     const v1, 0x7f0700b2
@@ -107,34 +107,34 @@
 
     move-result-object v0
 
-    .line 1401
+    .line 1472
     const v1, 0x7f060179
 
     invoke-static {v1}, Lbl/adl;->b(I)I
 
     move-result v1
 
-    .line 1402
+    .line 1473
     invoke-virtual {v0, v3, v3, v1, v1}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
 
-    .line 1403
+    .line 1474
     const v1, 0x7f0500a7
 
     invoke-static {v1}, Lbl/adl;->d(I)I
 
     move-result v1
 
-    .line 1404
+    .line 1475
     sget-object v2, Landroid/graphics/PorterDuff$Mode;->MULTIPLY:Landroid/graphics/PorterDuff$Mode;
 
     invoke-virtual {v0, v1, v2}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
 
-    .line 1405
+    .line 1476
     iget-object v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$LiveRoomViewHolder;->up:Landroid/widget/TextView;
 
     invoke-virtual {v1, v0, v4, v4, v4}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
 
-    .line 1407
+    .line 1478
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$LiveRoomViewHolder;->img:Lcom/bilibili/tv/widget/ScalableImageView;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/ScalableImageView;->getParent()Landroid/view/ViewParent;
@@ -145,7 +145,7 @@
 
     if-eqz v0, :cond_9a
 
-    .line 1408
+    .line 1479
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$LiveRoomViewHolder;->img:Lcom/bilibili/tv/widget/ScalableImageView;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/ScalableImageView;->getParent()Landroid/view/ViewParent;
@@ -156,7 +156,7 @@
 
     move v2, v3
 
-    .line 1409
+    .line 1480
     :goto_75
     invoke-virtual {v0}, Landroid/view/ViewGroup;->getChildCount()I
 
@@ -164,20 +164,20 @@
 
     if-ge v2, v1, :cond_9a
 
-    .line 1410
+    .line 1481
     invoke-virtual {v0, v2}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
 
     move-result-object v1
 
-    .line 1411
+    .line 1482
     instance-of v4, v1, Landroid/widget/LinearLayout;
 
     if-eqz v4, :cond_a8
 
-    .line 1412
+    .line 1483
     check-cast v1, Landroid/widget/LinearLayout;
 
-    .line 1413
+    .line 1484
     invoke-virtual {v1}, Landroid/widget/LinearLayout;->getChildCount()I
 
     move-result v4
@@ -192,35 +192,35 @@
 
     if-eqz v4, :cond_a8
 
-    .line 1414
+    .line 1485
     iput-object v1, p0, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$LiveRoomViewHolder;->infoLayout:Landroid/widget/LinearLayout;
 
-    .line 1415
+    .line 1486
     const/16 v0, 0x8
 
     invoke-virtual {v1, v0}, Landroid/widget/LinearLayout;->setVisibility(I)V
 
-    .line 1422
+    .line 1493
     :cond_9a
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    .line 1423
+    .line 1494
     instance-of v1, v0, Landroid/view/View$OnLongClickListener;
 
     if-eqz v1, :cond_a7
 
-    .line 1424
+    .line 1495
     check-cast v0, Landroid/view/View$OnLongClickListener;
 
     invoke-virtual {p1, v0}, Landroid/view/View;->setOnLongClickListener(Landroid/view/View$OnLongClickListener;)V
 
-    .line 1426
+    .line 1497
     :cond_a7
     return-void
 
-    .line 1409
+    .line 1480
     :cond_a8
     add-int/lit8 v1, v2, 0x1
 
@@ -233,7 +233,7 @@
     .locals 3
 
     .prologue
-    .line 1429
+    .line 1500
     invoke-virtual {p0}, Landroid/view/ViewGroup;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -250,7 +250,7 @@
 
     move-result-object v0
 
-    .line 1430
+    .line 1501
     new-instance v1, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$LiveRoomViewHolder;
 
     invoke-direct {v1, v0}, Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$LiveRoomViewHolder;-><init>(Landroid/view/View;)V

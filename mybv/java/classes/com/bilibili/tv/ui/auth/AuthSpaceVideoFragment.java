@@ -35,9 +35,7 @@ import com.bilibili.tv.widget.side.SideRightGridLayoutManger;
 import mybl.CookieUtil;
 import mybl.LogUtil;
 import mybl.MyBiliApiService;
-import com.bilibili.tv.api.auth.BiliSpaceApiService;
 import com.bilibili.tv.api.auth.BiliSpaceVideo;
-import com.bilibili.tv.api.auth.BiliSpaceVideoList;
 import com.bilibili.tv.util.DateHelper;
 import java.util.ArrayList;
 import java.util.List;
@@ -352,18 +350,16 @@ public final class AuthSpaceVideoFragment extends ady {
     Activity activity = getActivity();
     if (activity == null)
       return;
-    BiliSpaceApiService api = (BiliSpaceApiService) vo.a(BiliSpaceApiService.class);
     mg account = mg.a(activity);
     if (account == null)
       return;
-    String url = "https://api.bilibili.com/x/space/wbi/arc/search?" +
-        "access_key=" + account.e() + "&mid=" + this.mid + "&ps=20" +
-        (this.cursor != null ? "&cursor=" + this.cursor : "") +
-        (this.allVideoOrder != null ? "&order=" + this.allVideoOrder : "");
-    LogUtil.i(TAG, "loadAllVideos URL: " + url);
-    
-    api.loadArchiveVideos(account.e(), this.mid, this.cursor, 20, this.allVideoOrder)
-    .a(new vn<BiliSpaceVideoList>() {
+    String cookie = CookieUtil.getFullCookieWithDevice(account);
+    MyBiliApiService api = (MyBiliApiService) vo.a(MyBiliApiService.class);
+    String order = this.allVideoOrder;
+    LogUtil.i(TAG, "loadAllVideos mid=" + this.mid + " page=" + this.page + " order=" + order);
+
+    api.getSpaceArcSearch(this.mid, this.page, 40, 0, order, "", true, "web", "333.1387", cookie)
+    .a(new vn<JSONObject>() {
       @Override
       public boolean isCancel() {
         return getActivity() == null || adapter == null;
@@ -374,50 +370,84 @@ public final class AuthSpaceVideoFragment extends ady {
         Log.i(TAG, "loadAllVideos error: " + th.getMessage());
         adl.a.a(th, getActivity());
         loading = false;
-        if (cursor == null)
+        if (page == 1)
           k();
       }
 
       @Override
-      public void a(BiliSpaceVideoList list) {
-        LogUtil.i(TAG, "loadAllVideos result: count=" + (list != null && list.videos != null ? list.videos.size() : 0));
+      public void a(JSONObject data) {
         if (adapter == null)
           return;
         j();
         loading = false;
-        if (list != null && list.videos != null && list.videos.size() > 0) {
-          List<BiliSpaceVideo> filtered = mybl.BiliFilter.filterBiliSpaceVideo(list.videos, "个人投稿");
-          if (cursor == null) {
-            adapter.setVideos(filtered);
-            updateHeaderInfo(null, list.count);
-          } else {
-            adapter.addVideos(filtered);
+        try {
+          if (data == null) {
+            hasMore = false;
+            if (page == 1) {
+              k();
+              AuthSpaceVideoFragment.this.a(R.string.nothing_show);
+            }
+            return;
           }
-          if (list.videos.size() > 0) {
-            BiliSpaceVideo lastVideo = list.videos.get(list.videos.size() - 1);
-            if (lastVideo.param != null) {
-              try {
-                cursor = Long.parseLong(lastVideo.param);
-              } catch (NumberFormatException e) {
+          JSONObject pageObj = data.getJSONObject("page");
+          int totalCount = pageObj != null ? pageObj.getIntValue("count") : 0;
+          int pn = pageObj != null ? pageObj.getIntValue("pn") : 1;
+          int ps = pageObj != null ? pageObj.getIntValue("ps") : 40;
+
+          JSONObject listObj = data.getJSONObject("list");
+          JSONArray vlist = listObj != null ? listObj.getJSONArray("vlist") : null;
+          if (vlist != null && vlist.size() > 0) {
+            List<BiliSpaceVideo> videos = new ArrayList<>();
+            for (int i = 0; i < vlist.size(); i++) {
+              JSONObject item = vlist.getJSONObject(i);
+              BiliSpaceVideo v = new BiliSpaceVideo();
+              v.cover = item.getString("pic");
+              // 弹幕：meta.stat.danmaku（meta非null时），否则用video_review
+              JSONObject meta = item.getJSONObject("meta");
+              if (meta != null && meta.getJSONObject("stat") != null) {
+                v.danmaku = String.valueOf(meta.getJSONObject("stat").getIntValue("danmaku"));
+              } else {
+                v.danmaku = String.valueOf(item.getIntValue("video_review"));
               }
+              v.param = String.valueOf(item.getLongValue("aid"));
+              v.play = item.getIntValue("play");
+              v.title = item.getString("title");
+              v.ctime = item.getLong("created");
+              v.duration = DateHelper.parseDurationStr(item.getString("length"));
+              v.durationStr = item.getString("length");
+              v.elecArcType = item.getIntValue("elec_arc_type");
+              v.elecArcBadge = item.getString("elec_arc_badge");
+              v.isUnionVideo = item.getIntValue("is_union_video");
+              v.isLivePlayback = item.getIntValue("is_live_playback");
+              videos.add(v);
             }
-          }
-          hasMore = list.hasNext && filtered.size() > 0;
-          View view = getView();
-          if (view != null)
-            view.requestLayout();
-          if (hasMore && adapter.a() < 8) {
-            try {
-              Thread.sleep(1000);
-            } catch (Exception e) {
-              e.printStackTrace();
+            List<BiliSpaceVideo> filtered = mybl.BiliFilter.filterBiliSpaceVideo(videos, "个人投稿");
+            if (page == 1) {
+              adapter.setVideos(filtered);
+              updateHeaderInfo(null, totalCount);
+            } else {
+              adapter.addVideos(filtered);
             }
-            b();
+            hasMore = pn * ps < totalCount && filtered.size() > 0;
+            View view = getView();
+            if (view != null)
+              view.requestLayout();
+            if (hasMore && adapter.a() < 8) {
+              page++;
+              try {
+                Thread.sleep(1000);
+              } catch (Exception e) {
+                e.printStackTrace();
+              }
+              b();
+            }
+            return;
           }
-          return;
+        } catch (Exception e) {
+          Log.i(TAG, "loadAllVideos parse error: " + e.getMessage());
         }
         hasMore = false;
-        if (cursor == null) {
+        if (page == 1) {
           k();
           AuthSpaceVideoFragment.this.a(R.string.nothing_show);
         }
@@ -720,11 +750,7 @@ public final class AuthSpaceVideoFragment extends ady {
               vh.D().setVisibility(View.GONE);
           }
           int durationVal = archive.getIntValue("duration");
-          if (durationVal >= 3600) {
-            vh.E().setText(String.format("%d:%02d:%02d", durationVal / 3600, (durationVal % 3600) / 60, durationVal % 60));
-          } else {
-            vh.E().setText(String.format("%02d:%02d", durationVal / 60, durationVal % 60));
-          }
+          vh.E().setText(DateHelper.formatDuration(durationVal));
           int iconSize = bl.adl.b(R.dimen.px_26);
           android.graphics.drawable.Drawable playIcon = bl.adl.a.c(R.drawable.ic_video_info_play);
           android.graphics.drawable.Drawable danmakuIcon = bl.adl.a.c(R.drawable.ic_video_info_danmaku);
@@ -741,6 +767,24 @@ public final class AuthSpaceVideoFragment extends ady {
           String coverUrl = archive.getString("pic") != null ? archive.getString("pic") : archive.getString("cover");
           if (coverUrl != null)
             nv.a().a(abd.get_thumb_url_c(com.bilibili.tv.MainApplication.a(), coverUrl), vh.z());
+          
+          int elecArcType = archive.getIntValue("elec_arc_type");
+          String elecArcBadge = archive.getString("elec_arc_badge");
+          int isUnionVideo = archive.getIntValue("is_union_video");
+          int isLivePlayback = archive.getIntValue("is_live_playback");
+          if (elecArcType == 1 && !TextUtils.isEmpty(elecArcBadge)) {
+            vh.F().setText(elecArcBadge);
+            vh.F().setVisibility(View.VISIBLE);
+          } else if (isUnionVideo == 1) {
+            vh.F().setText("合作");
+            vh.F().setVisibility(View.VISIBLE);
+          } else if (isLivePlayback == 1) {
+            vh.F().setText("直播回放");
+            vh.F().setVisibility(View.VISIBLE);
+          } else {
+            vh.F().setVisibility(View.GONE);
+          }
+          
           vh.a.setTag(jo);
         } else if (item instanceof BiliSpaceVideo) {
           BiliSpaceVideo v = (BiliSpaceVideo) item;
@@ -767,11 +811,10 @@ public final class AuthSpaceVideoFragment extends ady {
               vh.D().setVisibility(View.GONE);
           }
           
-          int durationVal = v.duration;
-          if (durationVal >= 3600) {
-            vh.E().setText(String.format("%d:%02d:%02d", durationVal / 3600, (durationVal % 3600) / 60, durationVal % 60));
-          } else {
-            vh.E().setText(String.format("%02d:%02d", durationVal / 60, durationVal % 60));
+          if (v.duration > 0) {
+            vh.E().setText(DateHelper.formatDuration(v.duration));
+          } else if (v.durationStr != null && !v.durationStr.isEmpty()) {
+            vh.E().setText(v.durationStr);
           }
           
           int iconSize = bl.adl.b(R.dimen.px_26);
@@ -790,6 +833,20 @@ public final class AuthSpaceVideoFragment extends ady {
           
           if (v.cover != null)
             nv.a().a(abd.get_thumb_url_c(com.bilibili.tv.MainApplication.a(), v.cover), vh.z());
+          
+          if (v.elecArcType == 1 && !TextUtils.isEmpty(v.elecArcBadge)) {
+            vh.F().setText(v.elecArcBadge);
+            vh.F().setVisibility(View.VISIBLE);
+          } else if (v.isUnionVideo == 1) {
+            vh.F().setText("合作");
+            vh.F().setVisibility(View.VISIBLE);
+          } else if (v.isLivePlayback == 1) {
+            vh.F().setText("直播回放");
+            vh.F().setVisibility(View.VISIBLE);
+          } else {
+            vh.F().setVisibility(View.GONE);
+          }
+          
           vh.a.setTag(v);
         }
         vh.a.setOnClickListener(this);
@@ -871,6 +928,7 @@ public final class AuthSpaceVideoFragment extends ady {
     private TextView r;
     private TextView duration;
     private TextView danmakuInImage;
+    private TextView badge;
 
     public d(View view) {
       super(view);
@@ -881,6 +939,7 @@ public final class AuthSpaceVideoFragment extends ady {
       this.r = (TextView) a(view, R.id.pubdate);
       this.duration = (TextView) a(view, R.id.duration);
       this.danmakuInImage = (TextView) a(view, R.id.danmaku);
+      this.badge = (TextView) a(view, R.id.badge);
     }
 
     public com.bilibili.tv.widget.ScalableImageView z() {
@@ -905,6 +964,10 @@ public final class AuthSpaceVideoFragment extends ady {
 
     public TextView E() {
       return this.duration;
+    }
+
+    public TextView F() {
+      return this.badge;
     }
 
     public static final class a {

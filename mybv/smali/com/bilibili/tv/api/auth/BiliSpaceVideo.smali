@@ -28,6 +28,32 @@
     .end annotation
 .end field
 
+.field public durationStr:Ljava/lang/String;
+
+.field public elecArcBadge:Ljava/lang/String;
+    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
+        name = "elec_arc_badge"
+    .end annotation
+.end field
+
+.field public elecArcType:I
+    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
+        name = "elec_arc_type"
+    .end annotation
+.end field
+
+.field public isLivePlayback:I
+    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
+        name = "is_live_playback"
+    .end annotation
+.end field
+
+.field public isUnionVideo:I
+    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
+        name = "is_union_video"
+    .end annotation
+.end field
+
 .field public param:Ljava/lang/String;
     .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
         name = "param"

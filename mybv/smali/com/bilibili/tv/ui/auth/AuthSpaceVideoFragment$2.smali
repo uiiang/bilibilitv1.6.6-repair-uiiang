@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 170
+    .line 168
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 8
 
     .prologue
-    .line 173
+    .line 171
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -51,25 +51,25 @@
 
     move-result-object v0
 
-    .line 174
+    .line 172
     if-nez v0, :cond_d
 
-    .line 200
+    .line 198
     :goto_c
     return-void
 
-    .line 175
+    .line 173
     :cond_d
     invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v7
 
-    .line 176
+    .line 174
     invoke-static {v0}, Lmybl/CookieUtil;->getBiliJct(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v6
 
-    .line 177
+    .line 175
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -80,7 +80,7 @@
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
-    .line 178
+    .line 176
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mid:J
     invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$000(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)J
 
@@ -90,7 +90,7 @@
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
-    .line 179
+    .line 177
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawTextView;->getText()Ljava/lang/CharSequence;
 
     move-result-object v0
@@ -108,7 +108,7 @@
     :goto_34
     const/16 v5, 0xb
 
-    .line 177
+    .line 175
     invoke-interface/range {v1 .. v7}, Lmybl/MyBiliApiService;->modifyRelation(JIILjava/lang/String;Ljava/lang/String;)Lbl/vp;
 
     move-result-object v0
@@ -117,12 +117,12 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2$1;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;)V
 
-    .line 181
+    .line 179
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
     goto :goto_c
 
-    .line 179
+    .line 177
     :cond_43
     const/4 v4, 0x1
 

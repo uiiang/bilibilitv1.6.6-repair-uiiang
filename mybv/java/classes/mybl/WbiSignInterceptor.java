@@ -16,7 +16,7 @@ public class WbiSignInterceptor implements Interceptor {
         "/x/web-interface/popular/series/list",
         "/x/web-interface/popular/precious",
         // "/x/web-interface/wbi/search/type",
-        // "/x/space/wbi/arc/search",
+        "/x/space/wbi/arc/search",
         "/x/web-interface/wbi/view"
     };
     

@@ -997,6 +997,87 @@
     .end annotation
 .end method
 
+.method public abstract getSpaceArcSearch(JIIILjava/lang/String;Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # J
+        .annotation runtime Lretrofit2/http/Query;
+            value = "mid"
+        .end annotation
+    .end param
+    .param p3    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "pn"
+        .end annotation
+    .end param
+    .param p4    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "ps"
+        .end annotation
+    .end param
+    .param p5    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "tid"
+        .end annotation
+    .end param
+    .param p6    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "order"
+        .end annotation
+    .end param
+    .param p7    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "keyword"
+        .end annotation
+    .end param
+    .param p8    # Z
+        .annotation runtime Lretrofit2/http/Query;
+            value = "order_avoided"
+        .end annotation
+    .end param
+    .param p9    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "platform"
+        .end annotation
+    .end param
+    .param p10    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "web_location"
+        .end annotation
+    .end param
+    .param p11    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(JIII",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            "Z",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            ")",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Lcom/alibaba/fastjson/JSONObject;",
+            ">;>;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/GET;
+        value = "/x/space/wbi/arc/search"
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/Headers;
+        value = {
+            "Referer: https://space.bilibili.com"
+        }
+    .end annotation
+.end method
+
 .method public abstract getThirdUpdateInfo()Lbl/vp;
     .annotation system Ldalvik/annotation/Signature;
         value = {
