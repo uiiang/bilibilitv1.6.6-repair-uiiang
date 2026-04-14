@@ -2560,6 +2560,8 @@
     <public type="id" name="cdn_pref_manual" id="0x7f0801e8" />
     <public type="id" name="cdn_custom_layout" id="0x7f0801e9" />
     <public type="id" name="index_badge" id="0x7f0801ea" />
+    <public type="id" name="space_dynamic_button" id="0x7f0801eb" />
+    <public type="id" name="space_all_button" id="0x7f0801ec" />
 
 
     <public type="integer" name="config_danmaku_fly_duration" id="0x7f090003" />

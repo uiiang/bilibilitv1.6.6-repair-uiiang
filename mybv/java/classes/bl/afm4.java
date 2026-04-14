@@ -34,6 +34,9 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
     private DrawFrameLayout tabBangumi;
     private DrawFrameLayout tabPgc;
 
+    private DrawFrameLayout spaceDynamicButton;
+    private DrawFrameLayout spaceAllButton;
+
     @Override // bl.adw
     public boolean c() {
         return true;
@@ -153,6 +156,24 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         updateTopTabButtonState(this.tabBangumi, (topTabConfig & abd.TAB_BANGUMI) != 0);
         updateTopTabButtonState(this.tabPgc, (topTabConfig & abd.TAB_PGC) != 0);
 
+        this.spaceDynamicButton = (DrawFrameLayout)inflate.findViewById(R.id.space_dynamic_button);
+        this.spaceAllButton = (DrawFrameLayout)inflate.findViewById(R.id.space_all_button);
+        this.spaceDynamicButton.setUpDrawable(R.drawable.shadow_white_rect);
+        this.spaceAllButton.setUpDrawable(R.drawable.shadow_white_rect);
+        this.spaceDynamicButton.setOnFocusChangeListener(this);
+        this.spaceAllButton.setOnFocusChangeListener(this);
+        this.spaceDynamicButton.setOnClickListener(this);
+        this.spaceAllButton.setOnClickListener(this);
+
+        int spaceMode = abd.get_space_dynamic_mode(getActivity());
+        if (spaceMode == abd.SPACE_MODE_DYNAMIC) {
+            this.spaceDynamicButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+            this.spaceAllButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+        } else {
+            this.spaceDynamicButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+            this.spaceAllButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+        }
+
         return inflate;
     }
 
@@ -250,6 +271,16 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
             abd.set_top_tab_config(getActivity(), newConfig);
             updateTopTabButtonState((DrawFrameLayout)view, !wasEnabled);
         }
+
+        if (view == this.spaceDynamicButton) {
+            abd.set_space_dynamic_mode(getActivity(), abd.SPACE_MODE_DYNAMIC);
+            this.spaceDynamicButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+            this.spaceAllButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+        } else if (view == this.spaceAllButton) {
+            abd.set_space_dynamic_mode(getActivity(), abd.SPACE_MODE_ALL);
+            this.spaceDynamicButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+            this.spaceAllButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+        }
     }
 
     @Override // android.view.View.OnFocusChangeListener
@@ -280,6 +311,9 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         if (this.tabPersonalRecommend != null && this.tabPersonalRecommend.hasFocus()) {
             return false;
         }
+        if (this.spaceDynamicButton != null && this.spaceDynamicButton.hasFocus()) {
+            return false;
+        }
         if (this.tab_buttons[0] != null && this.tab_buttons[0].hasFocus()) {
             return false;
         }
@@ -290,7 +324,7 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         if (this.progressbar_button == null) {
             return false;
         }
-        if (!this.progressbar_button.hasFocus() && !this.fastquit_button.hasFocus() && !this.column2Button.hasFocus() && !this.column3Button.hasFocus() && !this.column4Button.hasFocus() && !this.otherNormalButton.hasFocus() && !this.otherCompactButton.hasFocus()) {
+        if (!this.progressbar_button.hasFocus() && !this.fastquit_button.hasFocus() && !this.column2Button.hasFocus() && !this.column3Button.hasFocus() && !this.column4Button.hasFocus() && !this.otherNormalButton.hasFocus() && !this.otherCompactButton.hasFocus() && !this.spaceDynamicButton.hasFocus() && !this.spaceAllButton.hasFocus()) {
             boolean allTabsNoFocus = true;
             for(int i=0;i<5;i++){
                 if(this.tab_buttons[i] != null && this.tab_buttons[i].hasFocus()){

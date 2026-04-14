@@ -152,6 +152,16 @@ public interface MyBiliApiService {
             @Query("ps") int pageSize, @Query("pn") int pageNum, @Query("web_location") String webLocation,
             @Header("Referer") String referer, @Header("Cookie") String cookie);
 
+    // Space dynamic feed - video type
+    @Headers("Referer: https://space.bilibili.com")
+    @GET("/x/polymer/web-dynamic/v1/feed/space?type=video")
+    vp<GeneralResponse<JSONObject>> getSpaceDynamicFeed(
+            @Query("host_mid") long hostMid,
+            @Query("offset") String offset,
+            @Query("timezone_offset") int timezoneOffset,
+            @Query("platform") String platform,
+            @Header("Cookie") String cookie);
+
     @GET("https://github.com/qidian55/bilibilitv1.6.6-repair/raw/refs/heads/main/update.json")
     vp<com.bilibili.tv.ui.upgrade.BiliUpgradeInfo> getThirdUpdateInfo();
 

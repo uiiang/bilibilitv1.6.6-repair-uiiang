@@ -329,6 +329,22 @@ public class abd {
         return imageSizeType;
     }
 
+    private static int spaceDynamicMode = -1;
+    public static final int SPACE_MODE_DYNAMIC = 0;
+    public static final int SPACE_MODE_ALL = 1;
+
+    public static void set_space_dynamic_mode(Context context, int mode) {
+        a(context).a().edit().putInt("space_dynamic_mode", mode).apply();
+        spaceDynamicMode = mode;
+    }
+
+    public static int get_space_dynamic_mode(Context context) {
+        if (spaceDynamicMode == -1) {
+            spaceDynamicMode = a(context).a().getInt("space_dynamic_mode", SPACE_MODE_DYNAMIC);
+        }
+        return spaceDynamicMode;
+    }
+
     public static boolean is_hd_image(Context context) {
         return get_image_size(context) == 0;
     }

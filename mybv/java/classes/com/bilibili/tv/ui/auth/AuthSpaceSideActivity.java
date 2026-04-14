@@ -384,8 +384,9 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
     selectedItem = item;
     AuthSpaceVideoFragment frag;
     if (item.type == 0) {
-      // 全部视频模式，传递 UP 主名称
-      frag = AuthSpaceVideoFragment.newInstance("all", targetMid, -1, targetUname);
+      int spaceMode = bl.abd.get_space_dynamic_mode(AuthSpaceSideActivity.this);
+      String mode = (spaceMode == bl.abd.SPACE_MODE_DYNAMIC) ? "dynamic" : "all";
+      frag = AuthSpaceVideoFragment.newInstance(mode, targetMid, -1, targetUname);
     } else if (item.type == 1) {
       frag = AuthSpaceVideoFragment.newInstance("season", targetMid, item.id, item.name);
     } else {
@@ -453,6 +454,10 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
 
     AuthSpaceVideoFragment avf = (AuthSpaceVideoFragment) frag;
     if (!avf.canSort()) {
+      return;
+    }
+    
+    if (avf.getCurrentMode() == 3) {
       return;
     }
 

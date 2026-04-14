@@ -518,12 +518,7 @@ public final class AttentionDynamicFragment extends ady {
                                     JSONObject item = vlist.getJSONObject(i);
                                     BiliSpaceVideo v = new BiliSpaceVideo();
                                     v.cover = item.getString("pic");
-                                    JSONObject meta = item.getJSONObject("meta");
-                                    if (meta != null && meta.getJSONObject("stat") != null) {
-                                        v.danmaku = String.valueOf(meta.getJSONObject("stat").getIntValue("danmaku"));
-                                    } else {
-                                        v.danmaku = String.valueOf(item.getIntValue("video_review"));
-                                    }
+                                    v.danmaku = String.valueOf(item.getIntValue("video_review"));
                                     v.param = String.valueOf(item.getLongValue("aid"));
                                     v.play = item.getIntValue("play");
                                     v.title = item.getString("title");

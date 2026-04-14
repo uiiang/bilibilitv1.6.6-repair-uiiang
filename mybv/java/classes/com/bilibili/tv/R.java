@@ -2584,6 +2584,8 @@ public final class R {
         public static final int cdn_pref_manual = 0x7f0801e8;
         public static final int cdn_custom_layout = 0x7f0801e9;
         public static final int index_badge = 0x7f0801ea;
+        public static final int space_dynamic_button = 0x7f0801eb;
+        public static final int space_all_button = 0x7f0801ec;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;
