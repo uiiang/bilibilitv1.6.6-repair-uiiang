@@ -60,7 +60,7 @@
     .locals 3
 
     .prologue
-    .line 648
+    .line 654
     new-instance v0, Ljava/text/SimpleDateFormat;
 
     const-string v1, "yyyy-MM-dd HH:mm"
@@ -90,12 +90,12 @@
 
     const/4 v3, 0x0
 
-    .line 667
+    .line 673
     const/16 v0, 0xe10
 
     if-lt p1, v0, :cond_2b
 
-    .line 668
+    .line 674
     const-string v0, "%d:%02d:%02d"
 
     const/4 v1, 0x3
@@ -132,7 +132,7 @@
 
     move-result-object v0
 
-    .line 670
+    .line 676
     :goto_2a
     return-object v0
 
@@ -170,20 +170,20 @@
     .prologue
     const/4 v6, 0x1
 
-    .line 652
+    .line 658
     invoke-static {}, Ljava/util/Calendar;->getInstance()Ljava/util/Calendar;
 
     move-result-object v0
 
-    .line 653
+    .line 659
     invoke-static {}, Ljava/util/Calendar;->getInstance()Ljava/util/Calendar;
 
     move-result-object v1
 
-    .line 654
+    .line 660
     invoke-virtual {v1, p1, p2}, Ljava/util/Calendar;->setTimeInMillis(J)V
 
-    .line 656
+    .line 662
     new-instance v2, Ljava/text/SimpleDateFormat;
 
     const-string v3, "MM-dd HH:mm"
@@ -192,7 +192,7 @@
 
     invoke-direct {v2, v3, v4}, Ljava/text/SimpleDateFormat;-><init>(Ljava/lang/String;Ljava/util/Locale;)V
 
-    .line 657
+    .line 663
     new-instance v3, Ljava/text/SimpleDateFormat;
 
     const-string v4, "yyyy-MM-dd HH:mm"
@@ -201,7 +201,7 @@
 
     invoke-direct {v3, v4, v5}, Ljava/text/SimpleDateFormat;-><init>(Ljava/lang/String;Ljava/util/Locale;)V
 
-    .line 659
+    .line 665
     invoke-virtual {v0, v6}, Ljava/util/Calendar;->get(I)I
 
     move-result v0
@@ -212,7 +212,7 @@
 
     if-ne v0, v1, :cond_32
 
-    .line 660
+    .line 666
     new-instance v0, Ljava/util/Date;
 
     invoke-direct {v0, p1, p2}, Ljava/util/Date;-><init>(J)V
@@ -221,7 +221,7 @@
 
     move-result-object v0
 
-    .line 662
+    .line 668
     :goto_31
     return-object v0
 
@@ -243,7 +243,7 @@
     .locals 1
 
     .prologue
-    .line 560
+    .line 566
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->videos:Lcom/alibaba/fastjson/JSONArray;
 
     invoke-virtual {v0}, Lcom/alibaba/fastjson/JSONArray;->size()I
@@ -300,25 +300,25 @@
     .locals 1
 
     .prologue
-    .line 564
+    .line 570
     const-string v0, "list"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 565
+    .line 571
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->videos:Lcom/alibaba/fastjson/JSONArray;
 
     invoke-virtual {v0}, Lcom/alibaba/fastjson/JSONArray;->clear()V
 
-    .line 566
+    .line 572
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->videos:Lcom/alibaba/fastjson/JSONArray;
 
     invoke-virtual {v0, p1}, Lcom/alibaba/fastjson/JSONArray;->addAll(Ljava/util/Collection;)Z
 
-    .line 567
+    .line 573
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->d()V
 
-    .line 568
+    .line 574
     return-void
 .end method
 
@@ -326,11 +326,13 @@
     .locals 10
 
     .prologue
-    const/4 v9, 0x3
+    const v9, 0x7f060120
 
-    const/16 v8, 0x8
+    const/4 v8, 0x3
 
-    const/4 v7, 0x0
+    const/16 v7, 0x8
+
+    const/4 v5, 0x0
 
     const/4 v6, 0x0
 
@@ -347,14 +349,14 @@
     move-result-object v0
 
     .line 456
-    if-nez v0, :cond_13
+    if-nez v0, :cond_16
 
-    .line 556
-    :goto_12
+    .line 562
+    :goto_15
     return-void
 
     .line 458
-    :cond_13
+    :cond_16
     const-string v1, "cover"
 
     invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -366,7 +368,7 @@
 
     move-result v2
 
-    if-nez v2, :cond_32
+    if-nez v2, :cond_35
 
     .line 460
     invoke-static {}, Lbl/nv;->a()Lbl/nv;
@@ -388,7 +390,7 @@
     invoke-virtual {v2, v1, v3}, Lbl/nv;->a(Ljava/lang/String;Landroid/widget/ImageView;)V
 
     .line 463
-    :cond_32
+    :cond_35
     const-string v1, "title"
 
     invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -400,7 +402,7 @@
 
     move-result v2
 
-    if-nez v2, :cond_45
+    if-nez v2, :cond_48
 
     .line 465
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->A()Landroid/widget/TextView;
@@ -410,7 +412,7 @@
     invoke-virtual {v2, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
     .line 468
-    :cond_45
+    :cond_48
     const-string v1, "show_title"
 
     invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -429,78 +431,104 @@
 
     invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
-    move-result-object v3
-
     .line 471
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->B()Landroid/widget/TextView;
 
-    move-result-object v4
+    move-result-object v3
 
-    if-eqz v4, :cond_7b
+    if-eqz v3, :cond_96
 
     .line 472
-    const-string v4, "live"
+    const-string v3, "live"
 
-    iget-object v5, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->historyType:Ljava/lang/String;
+    iget-object v4, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->historyType:Ljava/lang/String;
 
-    invoke-virtual {v4, v5}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    invoke-virtual {v3, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
-    move-result v4
+    move-result v3
 
-    if-eqz v4, :cond_fc
+    if-eqz v3, :cond_117
 
     .line 473
-    invoke-static {v3}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+    invoke-static {v2}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v1
 
-    if-nez v1, :cond_f4
+    if-nez v1, :cond_10f
 
     .line 474
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->B()Landroid/widget/TextView;
 
     move-result-object v1
 
-    invoke-virtual {v1, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
     .line 475
+    sget-object v1, Lbl/adl;->a:Lbl/adl;
+
+    const v2, 0x7f0700b2
+
+    invoke-virtual {v1, v2}, Lbl/adl;->c(I)Landroid/graphics/drawable/Drawable;
+
+    move-result-object v1
+
+    .line 476
+    invoke-static {v9}, Lbl/adl;->b(I)I
+
+    move-result v2
+
+    .line 477
+    if-eqz v1, :cond_88
+
+    .line 478
+    invoke-virtual {v1, v6, v6, v2, v2}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
+
+    .line 480
+    :cond_88
+    invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->B()Landroid/widget/TextView;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v1, v5, v5, v5}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
+
+    .line 481
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->B()Landroid/widget/TextView;
 
     move-result-object v1
 
     invoke-virtual {v1, v6}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 504
-    :cond_7b
-    :goto_7b
+    .line 510
+    :cond_96
+    :goto_96
     const-string v1, "duration"
 
     invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
     move-result v1
 
-    .line 505
+    .line 511
     const-string v2, "progress"
 
     invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
     move-result v2
 
-    .line 506
+    .line 512
     const-string v3, "badge"
 
     invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v3
 
-    .line 507
+    .line 513
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->C()Landroid/widget/TextView;
 
     move-result-object v4
 
-    if-eqz v4, :cond_b1
+    if-eqz v4, :cond_cc
 
-    .line 508
+    .line 514
     const-string v4, "live"
 
     iget-object v5, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->historyType:Ljava/lang/String;
@@ -509,46 +537,46 @@
 
     move-result v4
 
-    if-eqz v4, :cond_177
+    if-eqz v4, :cond_18f
 
-    .line 509
+    .line 515
     invoke-static {v3}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v1
 
-    if-nez v1, :cond_16e
+    if-nez v1, :cond_186
 
-    .line 510
+    .line 516
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->C()Landroid/widget/TextView;
 
     move-result-object v1
 
     invoke-virtual {v1, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 511
+    .line 517
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->C()Landroid/widget/TextView;
 
     move-result-object v1
 
     invoke-virtual {v1, v6}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 528
-    :cond_b1
-    :goto_b1
+    .line 534
+    :cond_cc
+    :goto_cc
     const-string v1, "view_at"
 
     invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
 
     move-result-wide v2
 
-    .line 529
+    .line 535
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->D()Landroid/widget/TextView;
 
     move-result-object v1
 
-    if-eqz v1, :cond_d2
+    if-eqz v1, :cond_ed
 
-    .line 530
+    .line 536
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->D()Landroid/widget/TextView;
 
     move-result-object v1
@@ -563,20 +591,20 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 531
+    .line 537
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->D()Landroid/widget/TextView;
 
     move-result-object v1
 
     invoke-virtual {v1, v6}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 534
-    :cond_d2
+    .line 540
+    :cond_ed
     iget-object v1, p1, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->a:Landroid/view/View;
 
     invoke-virtual {v1, v0}, Landroid/view/View;->setTag(Ljava/lang/Object;)V
 
-    .line 535
+    .line 541
     iget-object v0, p1, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->a:Landroid/view/View;
 
     const v1, 0x7f0800d8
@@ -587,12 +615,12 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/view/View;->setTag(ILjava/lang/Object;)V
 
-    .line 536
+    .line 542
     iget-object v0, p1, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->a:Landroid/view/View;
 
     invoke-virtual {v0, p0}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 537
+    .line 543
     iget-object v0, p1, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->a:Landroid/view/View;
 
     new-instance v1, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c$1;
@@ -601,79 +629,79 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    goto/16 :goto_12
+    goto/16 :goto_15
 
-    .line 477
-    :cond_f4
+    .line 483
+    :cond_10f
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->B()Landroid/widget/TextView;
 
     move-result-object v1
 
-    invoke-virtual {v1, v8}, Landroid/widget/TextView;->setVisibility(I)V
+    invoke-virtual {v1, v7}, Landroid/widget/TextView;->setVisibility(I)V
 
-    goto :goto_7b
+    goto :goto_96
 
-    .line 480
-    :cond_fc
+    .line 486
+    :cond_117
     invoke-static {v1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v3
 
-    if-nez v3, :cond_120
+    if-nez v3, :cond_13b
 
-    .line 481
+    .line 487
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->A()Landroid/widget/TextView;
 
     move-result-object v2
 
-    invoke-virtual {v2, v9}, Landroid/widget/TextView;->setMaxLines(I)V
+    invoke-virtual {v2, v8}, Landroid/widget/TextView;->setMaxLines(I)V
 
-    .line 482
+    .line 488
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->B()Landroid/widget/TextView;
 
     move-result-object v2
 
     invoke-virtual {v2, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 483
+    .line 489
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->B()Landroid/widget/TextView;
 
     move-result-object v1
 
-    invoke-virtual {v1, v7, v7, v7, v7}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
+    invoke-virtual {v1, v5, v5, v5, v5}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
 
-    .line 484
+    .line 490
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->B()Landroid/widget/TextView;
 
     move-result-object v1
 
     invoke-virtual {v1, v6}, Landroid/widget/TextView;->setVisibility(I)V
 
-    goto/16 :goto_7b
+    goto/16 :goto_96
 
-    .line 486
-    :cond_120
+    .line 492
+    :cond_13b
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->A()Landroid/widget/TextView;
 
     move-result-object v1
 
-    invoke-virtual {v1, v9}, Landroid/widget/TextView;->setMaxLines(I)V
+    invoke-virtual {v1, v8}, Landroid/widget/TextView;->setMaxLines(I)V
 
-    .line 487
+    .line 493
     invoke-static {v2}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v1
 
-    if-nez v1, :cond_165
+    if-nez v1, :cond_17d
 
-    .line 488
+    .line 494
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->B()Landroid/widget/TextView;
 
     move-result-object v1
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 489
+    .line 495
     sget-object v1, Lbl/adl;->a:Lbl/adl;
 
     const v2, 0x7f0700b2
@@ -682,20 +710,18 @@
 
     move-result-object v1
 
-    .line 490
-    const v2, 0x7f060120
-
-    invoke-static {v2}, Lbl/adl;->b(I)I
+    .line 496
+    invoke-static {v9}, Lbl/adl;->b(I)I
 
     move-result v2
 
-    .line 491
-    if-eqz v1, :cond_155
+    .line 497
+    if-eqz v1, :cond_16d
 
-    .line 492
+    .line 498
     invoke-virtual {v1, v6, v6, v2, v2}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
 
-    .line 493
+    .line 499
     const v2, 0x7f0500a7
 
     invoke-static {v2}, Lbl/adl;->d(I)I
@@ -706,50 +732,50 @@
 
     invoke-virtual {v1, v2, v3}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
 
-    .line 495
-    :cond_155
+    .line 501
+    :cond_16d
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->B()Landroid/widget/TextView;
 
     move-result-object v2
 
-    invoke-virtual {v2, v1, v7, v7, v7}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
+    invoke-virtual {v2, v1, v5, v5, v5}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
 
-    .line 496
+    .line 502
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->B()Landroid/widget/TextView;
 
     move-result-object v1
 
     invoke-virtual {v1, v6}, Landroid/widget/TextView;->setVisibility(I)V
 
-    goto/16 :goto_7b
+    goto/16 :goto_96
 
-    .line 498
-    :cond_165
+    .line 504
+    :cond_17d
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->B()Landroid/widget/TextView;
 
     move-result-object v1
 
-    invoke-virtual {v1, v8}, Landroid/widget/TextView;->setVisibility(I)V
+    invoke-virtual {v1, v7}, Landroid/widget/TextView;->setVisibility(I)V
 
-    goto/16 :goto_7b
+    goto/16 :goto_96
 
-    .line 513
-    :cond_16e
+    .line 519
+    :cond_186
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->C()Landroid/widget/TextView;
 
     move-result-object v1
 
-    invoke-virtual {v1, v8}, Landroid/widget/TextView;->setVisibility(I)V
+    invoke-virtual {v1, v7}, Landroid/widget/TextView;->setVisibility(I)V
 
-    goto/16 :goto_b1
+    goto/16 :goto_cc
 
-    .line 516
-    :cond_177
+    .line 522
+    :cond_18f
     const/4 v3, -0x1
 
-    if-ne v2, v3, :cond_18c
+    if-ne v2, v3, :cond_1a4
 
-    .line 517
+    .line 523
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->C()Landroid/widget/TextView;
 
     move-result-object v1
@@ -758,27 +784,27 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 518
+    .line 524
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->C()Landroid/widget/TextView;
 
     move-result-object v1
 
     invoke-virtual {v1, v6}, Landroid/widget/TextView;->setVisibility(I)V
 
-    goto/16 :goto_b1
+    goto/16 :goto_cc
 
-    .line 520
-    :cond_18c
+    .line 526
+    :cond_1a4
     invoke-direct {p0, v1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->formatDuration(I)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 521
+    .line 527
     invoke-direct {p0, v2}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->formatDuration(I)Ljava/lang/String;
 
     move-result-object v2
 
-    .line 522
+    .line 528
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->C()Landroid/widget/TextView;
 
     move-result-object v3
@@ -807,41 +833,41 @@
 
     invoke-virtual {v3, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 523
+    .line 529
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;->C()Landroid/widget/TextView;
 
     move-result-object v1
 
     invoke-virtual {v1, v6}, Landroid/widget/TextView;->setVisibility(I)V
 
-    goto/16 :goto_b1
+    goto/16 :goto_cc
 .end method
 
 .method public final b(Lcom/alibaba/fastjson/JSONArray;)V
     .locals 2
 
     .prologue
-    .line 571
+    .line 577
     const-string v0, "list"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 572
+    .line 578
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->videos:Lcom/alibaba/fastjson/JSONArray;
 
     invoke-virtual {v0}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
     move-result v0
 
-    .line 573
+    .line 579
     iget-object v1, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->videos:Lcom/alibaba/fastjson/JSONArray;
 
     invoke-virtual {v1, p1}, Lcom/alibaba/fastjson/JSONArray;->addAll(Ljava/util/Collection;)Z
 
-    .line 574
+    .line 580
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->d(I)V
 
-    .line 575
+    .line 581
     return-void
 .end method
 
@@ -849,15 +875,15 @@
     .locals 1
 
     .prologue
-    .line 578
+    .line 584
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->videos:Lcom/alibaba/fastjson/JSONArray;
 
     invoke-virtual {v0}, Lcom/alibaba/fastjson/JSONArray;->clear()V
 
-    .line 579
+    .line 585
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->d()V
 
-    .line 580
+    .line 586
     return-void
 .end method
 
@@ -867,53 +893,53 @@
     .prologue
     const/4 v6, 0x0
 
-    .line 603
+    .line 609
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 604
+    .line 610
     invoke-virtual {p1}, Landroid/view/View;->getTag()Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 605
+    .line 611
     instance-of v1, v0, Lcom/alibaba/fastjson/JSONObject;
 
     if-eqz v1, :cond_22
 
-    .line 606
+    .line 612
     check-cast v0, Lcom/alibaba/fastjson/JSONObject;
 
-    .line 607
+    .line 613
     const-string v1, "history"
 
     invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v1
 
-    .line 608
+    .line 614
     if-eqz v1, :cond_22
 
-    .line 609
+    .line 615
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v2
 
-    .line 610
+    .line 616
     invoke-static {v2}, Lbl/adl;->a(Landroid/content/Context;)Landroid/app/Activity;
 
     move-result-object v3
 
-    .line 611
+    .line 617
     if-nez v3, :cond_23
 
-    .line 645
+    .line 651
     :cond_22
     :goto_22
     return-void
 
-    .line 613
+    .line 619
     :cond_23
     const-string v4, "live"
 
@@ -925,24 +951,24 @@
 
     if-eqz v4, :cond_84
 
-    .line 614
+    .line 620
     const-string v4, "live_status"
 
     invoke-virtual {v0, v4}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
     move-result v4
 
-    .line 615
+    .line 621
     const/4 v5, 0x1
 
     if-ne v4, v5, :cond_7a
 
-    .line 616
+    .line 622
     new-instance v2, Lmybl/BiliLiveContent;
 
     invoke-direct {v2}, Lmybl/BiliLiveContent;-><init>()V
 
-    .line 617
+    .line 623
     const-string v4, "cover"
 
     invoke-virtual {v0, v4}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -951,7 +977,7 @@
 
     iput-object v4, v2, Lmybl/BiliLiveContent;->mCover:Ljava/lang/String;
 
-    .line 618
+    .line 624
     const-string v4, "title"
 
     invoke-virtual {v0, v4}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -960,7 +986,7 @@
 
     iput-object v4, v2, Lmybl/BiliLiveContent;->mTitle:Ljava/lang/String;
 
-    .line 619
+    .line 625
     const-string v4, "mid"
 
     invoke-virtual {v0, v4}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
@@ -969,7 +995,7 @@
 
     iput-wide v4, v2, Lmybl/BiliLiveContent;->mUid:J
 
-    .line 620
+    .line 626
     const-string v4, "author_name"
 
     invoke-virtual {v0, v4}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -978,7 +1004,7 @@
 
     iput-object v0, v2, Lmybl/BiliLiveContent;->mUname:Ljava/lang/String;
 
-    .line 621
+    .line 627
     const-string v0, "oid"
 
     invoke-virtual {v1, v0}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
@@ -989,22 +1015,22 @@
 
     iput v0, v2, Lmybl/BiliLiveContent;->mRoomId:I
 
-    .line 623
+    .line 629
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
 
     sput-object v0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->lives:Ljava/util/List;
 
-    .line 624
+    .line 630
     sget-object v0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->lives:Ljava/util/List;
 
     invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 625
+    .line 631
     sput v6, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->live_index:I
 
-    .line 626
+    .line 632
     invoke-static {v3, v2}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->a(Landroid/content/Context;Lmybl/BiliLiveContent;)Landroid/content/Intent;
 
     move-result-object v0
@@ -1013,7 +1039,7 @@
 
     goto :goto_22
 
-    .line 628
+    .line 634
     :cond_7a
     const-string v0, "\u672a\u5f00\u64ad"
 
@@ -1025,7 +1051,7 @@
 
     goto :goto_22
 
-    .line 631
+    .line 637
     :cond_84
     const-string v4, "business"
 
@@ -1033,14 +1059,14 @@
 
     move-result-object v4
 
-    .line 632
+    .line 638
     const-string v5, "cover"
 
     invoke-virtual {v0, v5}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v5
 
-    .line 633
+    .line 639
     const-string v6, "pgc"
 
     invoke-virtual {v6, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -1049,14 +1075,14 @@
 
     if-eqz v4, :cond_cf
 
-    .line 634
+    .line 640
     const-string v1, "kid"
 
     invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
 
     move-result-wide v0
 
-    .line 635
+    .line 641
     const-string v4, "HistoryVideoFragment"
 
     new-instance v6, Ljava/lang/StringBuilder;
@@ -1089,7 +1115,7 @@
 
     invoke-static {v4, v6}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 636
+    .line 642
     sget-object v4, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
 
     invoke-static {v0, v1}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
@@ -1104,7 +1130,7 @@
 
     goto/16 :goto_22
 
-    .line 638
+    .line 644
     :cond_cf
     const-string v0, "oid"
 
@@ -1112,7 +1138,7 @@
 
     move-result-wide v0
 
-    .line 639
+    .line 645
     const-string v4, "HistoryVideoFragment"
 
     new-instance v6, Ljava/lang/StringBuilder;
@@ -1145,7 +1171,7 @@
 
     invoke-static {v4, v6}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 640
+    .line 646
     sget-object v4, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
 
     invoke-virtual {v4, v2, v0, v1, v5}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;JLjava/lang/String;)Landroid/content/Intent;
@@ -1161,15 +1187,15 @@
     .locals 6
 
     .prologue
-    .line 583
+    .line 589
     if-nez p1, :cond_3
 
-    .line 593
+    .line 599
     :cond_2
     :goto_2
     return-void
 
-    .line 584
+    .line 590
     :cond_3
     const/4 v0, 0x0
 
@@ -1182,21 +1208,21 @@
 
     if-ge v0, v1, :cond_2
 
-    .line 585
+    .line 591
     iget-object v1, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->videos:Lcom/alibaba/fastjson/JSONArray;
 
     invoke-virtual {v1, v0}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v1
 
-    .line 586
+    .line 592
     const-string v2, "history"
 
     invoke-virtual {v1, v2}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v1
 
-    .line 587
+    .line 593
     if-eqz v1, :cond_2f
 
     const-string v2, "oid"
@@ -1211,17 +1237,17 @@
 
     if-nez v1, :cond_2f
 
-    .line 588
+    .line 594
     iget-object v1, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->videos:Lcom/alibaba/fastjson/JSONArray;
 
     invoke-virtual {v1, v0}, Lcom/alibaba/fastjson/JSONArray;->remove(I)Ljava/lang/Object;
 
-    .line 589
+    .line 595
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->c(I)V
 
     goto :goto_2
 
-    .line 584
+    .line 590
     :cond_2f
     add-int/lit8 v0, v0, 0x1
 
@@ -1232,7 +1258,7 @@
     .locals 1
 
     .prologue
-    .line 596
+    .line 602
     if-ltz p1, :cond_a
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->videos:Lcom/alibaba/fastjson/JSONArray;
@@ -1243,18 +1269,18 @@
 
     if-lt p1, v0, :cond_b
 
-    .line 599
+    .line 605
     :cond_a
     :goto_a
     return-void
 
-    .line 597
+    .line 603
     :cond_b
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->videos:Lcom/alibaba/fastjson/JSONArray;
 
     invoke-virtual {v0, p1}, Lcom/alibaba/fastjson/JSONArray;->remove(I)Ljava/lang/Object;
 
-    .line 598
+    .line 604
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;->d()V
 
     goto :goto_a

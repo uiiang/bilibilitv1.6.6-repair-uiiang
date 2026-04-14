@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->initPlayInfo()V
+    value = Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->initPlayInfo(Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$PlayInfoCallback;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -36,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 213
+    .line 222
     iput-object p1, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$4;->this$0:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -55,7 +55,7 @@
     .end annotation
 
     .prologue
-    .line 213
+    .line 222
     invoke-virtual {p0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$4;->call()Lorg/json/JSONObject;
 
     move-result-object v0
@@ -67,7 +67,7 @@
     .locals 4
 
     .prologue
-    .line 216
+    .line 225
     new-instance v0, Lbl/qa$a;
 
     const-class v1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;

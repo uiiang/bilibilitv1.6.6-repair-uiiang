@@ -92,7 +92,12 @@ public class ResolveResourceParams implements Parcelable, Serializable {
     public JSONArray skips;
     public JSONObject subtitle_info;
     public JSONObject subtitle_data;
-    public JSONArray view_points;
+    public volatile JSONArray view_points;
+
+    public interface PlayInfoCallback {
+        void onPlayInfoReady(JSONArray view_points);
+        void onPlayInfoFailed(Exception e);
+    }
 
     public static class JsonResponse extends qe {
         public JSONObject result() {
@@ -206,6 +211,10 @@ public class ResolveResourceParams implements Parcelable, Serializable {
     }
 
     public void initPlayInfo() {
+        initPlayInfo(null);
+    }
+
+    public void initPlayInfo(final PlayInfoCallback callback) {
         this.getSkipInfo();
         
         try{
@@ -222,6 +231,9 @@ public class ResolveResourceParams implements Parcelable, Serializable {
             JSONArray viewPoints = playerData.optJSONObject("data").optJSONArray("view_points");
             if (viewPoints != null && viewPoints.length() > 0) {
                 this.view_points = viewPoints;
+                if (callback != null) {
+                    callback.onPlayInfoReady(viewPoints);
+                }
             }
             
             int subtitle_id = PlayerMenuRight.subtitle_id - 1;
@@ -235,6 +247,9 @@ public class ResolveResourceParams implements Parcelable, Serializable {
             }).get();
         }catch(Exception e){
             e.printStackTrace();
+            if (callback != null) {
+                callback.onPlayInfoFailed(e);
+            }
         }
     }
 

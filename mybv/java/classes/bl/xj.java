@@ -76,13 +76,30 @@ public class xj extends xh {
             this.e = new zu(p());
             this.f = true;
             
-            // 异步获取章节数据，不阻塞UI跳转
             final ResolveResourceParams finalParams = obtainResolveParams;
+            final Activity activity = o();
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        finalParams.initPlayInfo();
+                        finalParams.initPlayInfo(new ResolveResourceParams.PlayInfoCallback() {
+                            @Override
+                            public void onPlayInfoReady(final JSONArray view_points) {
+                                if (activity != null) {
+                                    activity.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            showChapterTip(view_points);
+                                        }
+                                    });
+                                }
+                            }
+                            
+                            @Override
+                            public void onPlayInfoFailed(Exception e) {
+                                Log.e("xj", "initPlayInfo failed: " + e.getMessage());
+                            }
+                        });
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -183,23 +200,33 @@ public class xj extends xh {
         return 1;
     }
 
+    private void showChapterTip(JSONArray view_points) {
+        if (view_points == null || view_points.length() <= 0) {
+            return;
+        }
+        if (this.c == null) Q();
+        if (this.c == null) return;
+        String chapterText = lp.a(o().getString(R.string.player_chapter_tip), String.valueOf(view_points.length()));
+        this.c.setText(chapterText);
+        this.c.clearAnimation();
+        if (this.k != null) this.k.reset();
+        this.l = true;
+        a(this.j, 5000L);
+        Log.i("xj", "[showChapterTip] chapter tip shown, count: " + view_points.length());
+    }
+
     @Override // bl.xh, tv.danmaku.ijk.media.player.IMediaPlayer.OnPreparedListener
     public void onPrepared(IMediaPlayer iMediaPlayer) {
         super.onPrepared(iMediaPlayer);
         this.i = I();
         yh c = c();
         
-        if (this.f && this.g == 0 && c != null) {
+        if (this.f && c != null) {
             ResolveResourceParams resolveParams = c.a.mVideoParams.obtainResolveParams();
-            JSONArray view_points = resolveParams.view_points;
             
-            if (view_points != null && view_points.length() > 0) {
-                if(this.c == null)Q();
-                if(this.c == null)return;
-                String chapterText = lp.a(o().getString(R.string.player_chapter_tip), String.valueOf(view_points.length()));
-                this.c.setText(chapterText);
-                this.l = true;
-                a(this.j, 5000L);
+            if (this.g == 0) {
+                JSONArray view_points = resolveParams.view_points;
+                showChapterTip(view_points);
             }
             
             long j = c.d;
@@ -221,8 +248,6 @@ public class xj extends xh {
             }
             this.e.b(String.valueOf(resolveParams.mCid));
         }
-        // 定时器启动延迟到首次播放（BUFFERING_END），不再在onPrepared时启动
-        // 原逻辑：a(IjkMediaPlayer.FFP_PROP_INT64_ASYNC_STATISTIC_BUF_FORWARDS, (Object) null, 30000L);
         this.hasFirstPlayed = false;
         Log.i("xj", "[onPrepared] prepared but delay timer start, wait for first BUFFERING_END");
         this.g++;

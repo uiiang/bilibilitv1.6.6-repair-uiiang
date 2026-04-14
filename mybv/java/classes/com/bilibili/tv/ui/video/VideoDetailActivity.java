@@ -4288,6 +4288,10 @@ public final class VideoDetailActivity extends BaseActivity
             adl.a.a(th, VideoDetailActivity.this);
             int i = 0;
             VideoDetailActivity.this.y = false;
+            ImageView blurView = VideoDetailActivity.this.b;
+            if (blurView != null) {
+                blurView.setVisibility(View.GONE);
+            }
             LoadingImageView loadingImageView2 = VideoDetailActivity.this.p;
             if (loadingImageView2 != null) {
                 loadingImageView2.setRefreshError(false);
@@ -4338,6 +4342,10 @@ public final class VideoDetailActivity extends BaseActivity
         public void a(BiliVideoDetail biliVideoDetail) {
             VideoDetailActivity.this.y = false;
             if (biliVideoDetail == null) {
+                ImageView blurView = VideoDetailActivity.this.b;
+                if (blurView != null) {
+                    blurView.setVisibility(View.GONE);
+                }
                 LoadingImageView loadingImageView = VideoDetailActivity.this.p;
                 if (loadingImageView != null) {
                     loadingImageView.c();

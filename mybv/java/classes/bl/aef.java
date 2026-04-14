@@ -264,6 +264,18 @@ public class aef extends ady {
             c cVar = (c) advVar;
             cVar.o.setText(biliLive.mTitle);
             cVar.p.setText("在线 " + adh.a(biliLive.mOnline));
+            if (cVar.showTitle != null && biliLive.mUname != null) {
+                cVar.showTitle.setText(biliLive.mUname);
+                android.graphics.drawable.Drawable upIcon = adl.a.c(R.drawable.ic_video_info_up);
+                int iconSize = adl.b(R.dimen.px_26);
+                if (upIcon != null) {
+                    upIcon.setBounds(0, 0, iconSize, iconSize);
+                }
+                cVar.showTitle.setCompoundDrawables(upIcon, null, null, null);
+            }
+            if (cVar.duration != null) {
+                cVar.duration.setVisibility(View.GONE);
+            }
             cVar.a.setTag(biliLive);
             cVar.a.setOnClickListener(this);
         }
@@ -307,6 +319,8 @@ public class aef extends ady {
         public ScalableImageView n;
         public TextView o;
         public TextView p;
+        public TextView showTitle;
+        public TextView duration;
         public DrawRelativeLayout q;
 
         public c(View view) {
@@ -314,6 +328,8 @@ public class aef extends ady {
             this.n = (ScalableImageView) a(view, R.id.img);
             this.o = (TextView) a(view, R.id.title);
             this.p = (TextView) a(view, R.id.sub_title);
+            this.showTitle = (TextView) a(view, R.id.show_title);
+            this.duration = (TextView) a(view, R.id.duration);
             this.q = (DrawRelativeLayout) a(view, R.id.draw);
             view.setOnFocusChangeListener(this);
         }

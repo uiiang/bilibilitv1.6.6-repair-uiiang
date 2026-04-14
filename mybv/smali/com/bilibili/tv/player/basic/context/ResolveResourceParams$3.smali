@@ -36,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 165
+    .line 170
     iput-object p1, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$3;->this$0:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -55,7 +55,7 @@
     .end annotation
 
     .prologue
-    .line 165
+    .line 170
     invoke-virtual {p0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$3;->call()Lorg/json/JSONArray;
 
     move-result-object v0
@@ -67,13 +67,13 @@
     .locals 5
 
     .prologue
-    .line 168
+    .line 173
     const-string v0, "https://bsbsb.top/api/skipSegments"
 
-    .line 169
+    .line 174
     const-string v1, "http://bsbsb.top/api/skipSegments"
 
-    .line 172
+    .line 177
     :try_start_4
     new-instance v2, Lbl/qa$a;
 
@@ -153,7 +153,7 @@
 
     move-result-object v0
 
-    .line 173
+    .line 178
     if-eqz v0, :cond_5e
 
     invoke-virtual {v0}, Lorg/json/JSONArray;->length()I
@@ -164,15 +164,15 @@
 
     if-lez v2, :cond_5e
 
-    .line 182
+    .line 187
     :goto_5c
     return-object v0
 
-    .line 176
+    .line 181
     :catch_5d
     move-exception v0
 
-    .line 180
+    .line 185
     :cond_5e
     :try_start_5e
     new-instance v0, Lbl/qa$a;
@@ -257,11 +257,11 @@
 
     goto :goto_5c
 
-    .line 181
+    .line 186
     :catch_af
     move-exception v0
 
-    .line 182
+    .line 187
     const/4 v0, 0x0
 
     goto :goto_5c

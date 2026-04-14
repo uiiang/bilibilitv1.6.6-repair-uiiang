@@ -470,8 +470,14 @@ public final class HistoryVideoFragment extends ady {
             String tagName = item.getString("tag_name");
             if (holder.B() != null) {
                 if ("live".equals(historyType)) {
-                    if (!TextUtils.isEmpty(tagName)) {
-                        holder.B().setText(tagName);
+                    if (!TextUtils.isEmpty(authorName)) {
+                        holder.B().setText(authorName);
+                        android.graphics.drawable.Drawable upIcon = bl.adl.a.c(R.drawable.ic_video_info_up);
+                        int iconSize = bl.adl.b(R.dimen.px_26);
+                        if (upIcon != null) {
+                            upIcon.setBounds(0, 0, iconSize, iconSize);
+                        }
+                        holder.B().setCompoundDrawables(upIcon, null, null, null);
                         holder.B().setVisibility(View.VISIBLE);
                     } else {
                         holder.B().setVisibility(View.GONE);

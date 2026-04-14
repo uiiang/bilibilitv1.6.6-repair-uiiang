@@ -894,7 +894,17 @@
     return p1
 .end method
 
-.method static synthetic access$5200(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
+.method static synthetic access$5200(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/ImageView;
+    .locals 1
+
+    .prologue
+    .line 108
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->b:Landroid/widget/ImageView;
+
+    return-object v0
+.end method
+
+.method static synthetic access$5300(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
     .locals 1
 
     .prologue
@@ -904,7 +914,7 @@
     return-object v0
 .end method
 
-.method static synthetic access$5300(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)Z
+.method static synthetic access$5400(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)Z
     .locals 1
 
     .prologue
@@ -916,7 +926,7 @@
     return v0
 .end method
 
-.method static synthetic access$5400(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
+.method static synthetic access$5500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
     .locals 0
 
     .prologue
@@ -926,7 +936,7 @@
     return-void
 .end method
 
-.method static synthetic access$5600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;Ljava/lang/Runnable;)V
+.method static synthetic access$5700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;Ljava/lang/Runnable;)V
     .locals 0
 
     .prologue
@@ -936,7 +946,7 @@
     return-void
 .end method
 
-.method static synthetic access$5700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/LinearLayout;
+.method static synthetic access$5800(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/LinearLayout;
     .locals 1
 
     .prologue
@@ -946,22 +956,12 @@
     return-object v0
 .end method
 
-.method static synthetic access$5800(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/TextView;
-    .locals 1
-
-    .prologue
-    .line 108
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->e:Landroid/widget/TextView;
-
-    return-object v0
-.end method
-
 .method static synthetic access$5900(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/TextView;
     .locals 1
 
     .prologue
     .line 108
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->ff:Landroid/widget/TextView;
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->e:Landroid/widget/TextView;
 
     return-object v0
 .end method
@@ -976,7 +976,17 @@
     return v0
 .end method
 
-.method static synthetic access$6000(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
+.method static synthetic access$6000(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/TextView;
+    .locals 1
+
+    .prologue
+    .line 108
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->ff:Landroid/widget/TextView;
+
+    return-object v0
+.end method
+
+.method static synthetic access$6100(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
     .locals 0
 
     .prologue
@@ -986,7 +996,7 @@
     return-void
 .end method
 
-.method static synthetic access$6200(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/ui/video/VideoDetailActivity$g;
+.method static synthetic access$6300(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/ui/video/VideoDetailActivity$g;
     .locals 1
 
     .prologue
@@ -996,7 +1006,7 @@
     return-object v0
 .end method
 
-.method static synthetic access$6300(Lcom/bilibili/tv/ui/video/VideoDetailActivity;I)Landroid/view/View;
+.method static synthetic access$6400(Lcom/bilibili/tv/ui/video/VideoDetailActivity;I)Landroid/view/View;
     .locals 1
 
     .prologue
@@ -1008,7 +1018,7 @@
     return-object v0
 .end method
 
-.method static synthetic access$6400(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/TextView;
+.method static synthetic access$6500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/TextView;
     .locals 1
 
     .prologue
@@ -1018,7 +1028,7 @@
     return-object v0
 .end method
 
-.method static synthetic access$6500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/ui/video/widget/VideoListNavigator;
+.method static synthetic access$6600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/ui/video/widget/VideoListNavigator;
     .locals 1
 
     .prologue
@@ -1028,7 +1038,7 @@
     return-object v0
 .end method
 
-.method static synthetic access$6600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Ljava/util/List;
+.method static synthetic access$6700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Ljava/util/List;
     .locals 1
 
     .prologue
@@ -1038,7 +1048,7 @@
     return-object v0
 .end method
 
-.method static synthetic access$6700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/ui/video/widget/VideoListSection;I)V
+.method static synthetic access$6800(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/ui/video/widget/VideoListSection;I)V
     .locals 0
 
     .prologue
@@ -1048,7 +1058,7 @@
     return-void
 .end method
 
-.method static synthetic access$6800(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/TextView;
+.method static synthetic access$6900(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/TextView;
     .locals 1
 
     .prologue

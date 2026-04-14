@@ -10,7 +10,8 @@
   xmlns:app="http://schemas.android.com/apk/res-auto">
   <FrameLayout android:id="@id/img_layout" android:focusable="false"
     android:layout_width="wrap_content" android:layout_height="wrap_content"
-    android:layout_centerVertical="true">
+    android:layout_centerVertical="true"
+    android:visibility="visible">
     <com.bilibili.tv.widget.ScalableImageView android:id="@id/img"
       android:background="@drawable/shape_default_loading_img" android:focusable="false"
       android:layout_width="@dimen/px_375" android:layout_height="@dimen/px_240"

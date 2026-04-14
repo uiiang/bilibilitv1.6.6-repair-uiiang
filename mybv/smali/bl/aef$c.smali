@@ -18,6 +18,8 @@
 
 
 # instance fields
+.field public duration:Landroid/widget/TextView;
+
 .field public n:Lcom/bilibili/tv/widget/ScalableImageView;
 
 .field public o:Landroid/widget/TextView;
@@ -26,16 +28,18 @@
 
 .field public q:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
+.field public showTitle:Landroid/widget/TextView;
+
 
 # direct methods
 .method public constructor <init>(Landroid/view/View;)V
     .locals 1
 
     .prologue
-    .line 313
+    .line 327
     invoke-direct {p0, p1}, Lbl/adv;-><init>(Landroid/view/View;)V
 
-    .line 314
+    .line 328
     const v0, 0x7f0800a1
 
     invoke-virtual {p0, p1, v0}, Lbl/aef$c;->a(Landroid/view/View;I)Landroid/view/View;
@@ -46,7 +50,7 @@
 
     iput-object v0, p0, Lbl/aef$c;->n:Lcom/bilibili/tv/widget/ScalableImageView;
 
-    .line 315
+    .line 329
     const v0, 0x7f080132
 
     invoke-virtual {p0, p1, v0}, Lbl/aef$c;->a(Landroid/view/View;I)Landroid/view/View;
@@ -57,7 +61,7 @@
 
     iput-object v0, p0, Lbl/aef$c;->o:Landroid/widget/TextView;
 
-    .line 316
+    .line 330
     const v0, 0x7f08011c
 
     invoke-virtual {p0, p1, v0}, Lbl/aef$c;->a(Landroid/view/View;I)Landroid/view/View;
@@ -68,7 +72,29 @@
 
     iput-object v0, p0, Lbl/aef$c;->p:Landroid/widget/TextView;
 
-    .line 317
+    .line 331
+    const v0, 0x7f0801a7
+
+    invoke-virtual {p0, p1, v0}, Lbl/aef$c;->a(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object v0
+
+    check-cast v0, Landroid/widget/TextView;
+
+    iput-object v0, p0, Lbl/aef$c;->showTitle:Landroid/widget/TextView;
+
+    .line 332
+    const v0, 0x7f0801a6
+
+    invoke-virtual {p0, p1, v0}, Lbl/aef$c;->a(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object v0
+
+    check-cast v0, Landroid/widget/TextView;
+
+    iput-object v0, p0, Lbl/aef$c;->duration:Landroid/widget/TextView;
+
+    .line 333
     const v0, 0x7f080074
 
     invoke-virtual {p0, p1, v0}, Lbl/aef$c;->a(Landroid/view/View;I)Landroid/view/View;
@@ -79,10 +105,10 @@
 
     iput-object v0, p0, Lbl/aef$c;->q:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
-    .line 318
+    .line 334
     invoke-virtual {p1, p0}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 319
+    .line 335
     return-void
 .end method
 
@@ -90,7 +116,7 @@
     .locals 4
 
     .prologue
-    .line 322
+    .line 338
     new-instance v0, Lbl/aef$c;
 
     invoke-virtual {p0}, Landroid/view/ViewGroup;->getContext()Landroid/content/Context;
@@ -120,11 +146,11 @@
     .locals 1
 
     .prologue
-    .line 327
+    .line 343
     iget-object v0, p0, Lbl/aef$c;->q:Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawRelativeLayout;->setUpEnabled(Z)V
 
-    .line 328
+    .line 344
     return-void
 .end method
