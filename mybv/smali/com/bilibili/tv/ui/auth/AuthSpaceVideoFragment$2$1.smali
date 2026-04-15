@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 216
+    .line 203
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2$1;->this$1:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
@@ -46,7 +46,7 @@
     .locals 3
 
     .prologue
-    .line 219
+    .line 206
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2$1;->this$1:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
@@ -63,7 +63,7 @@
 
     move-result v1
 
-    .line 220
+    .line 207
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2$1;->this$1:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
@@ -77,7 +77,7 @@
     :goto_1a
     invoke-virtual {v2, v0}, Lcom/bilibili/tv/widget/DrawTextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 221
+    .line 208
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2$1;->this$1:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
@@ -93,16 +93,16 @@
     :goto_29
     invoke-static {v2, v0}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 222
+    .line 209
     return-void
 
-    .line 220
+    .line 207
     :cond_2d
     const-string v0, "\u5df2\u5173\u6ce8"
 
     goto :goto_1a
 
-    .line 221
+    .line 208
     :cond_30
     const-string v0, "\u5173\u6ce8\u6210\u529f"
 
@@ -113,7 +113,7 @@
     .locals 0
 
     .prologue
-    .line 216
+    .line 203
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2$1;->a(Lcom/alibaba/fastjson/JSONObject;)V
@@ -125,7 +125,7 @@
     .locals 1
 
     .prologue
-    .line 232
+    .line 219
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2$1;->this$1:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
@@ -166,7 +166,7 @@
     .locals 2
 
     .prologue
-    .line 226
+    .line 213
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2$1;->this$1:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
@@ -183,7 +183,7 @@
 
     move-result v0
 
-    .line 227
+    .line 214
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2$1;->this$1:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;
 
     iget-object v1, v1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
@@ -199,10 +199,10 @@
     :goto_1c
     invoke-static {v1, v0}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 228
+    .line 215
     return-void
 
-    .line 227
+    .line 214
     :cond_20
     const-string v0, "\u5173\u6ce8\u5931\u8d25"
 

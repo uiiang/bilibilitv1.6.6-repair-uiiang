@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 182
+    .line 184
     iput-object p1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2$1;->this$1:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
@@ -46,7 +46,7 @@
     .locals 3
 
     .prologue
-    .line 185
+    .line 187
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2$1;->this$1:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
@@ -63,7 +63,7 @@
 
     move-result v1
 
-    .line 186
+    .line 188
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2$1;->this$1:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
@@ -77,7 +77,7 @@
     :goto_1a
     invoke-virtual {v2, v0}, Lcom/bilibili/tv/widget/DrawTextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 187
+    .line 189
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2$1;->this$1:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
@@ -93,16 +93,16 @@
     :goto_29
     invoke-static {v2, v0}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 188
+    .line 190
     return-void
 
-    .line 186
+    .line 188
     :cond_2d
     const-string v0, "\u5df2\u5173\u6ce8"
 
     goto :goto_1a
 
-    .line 187
+    .line 189
     :cond_30
     const-string v0, "\u5173\u6ce8\u6210\u529f"
 
@@ -113,7 +113,7 @@
     .locals 0
 
     .prologue
-    .line 182
+    .line 184
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2$1;->a(Lcom/alibaba/fastjson/JSONObject;)V
@@ -125,7 +125,7 @@
     .locals 1
 
     .prologue
-    .line 198
+    .line 200
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2$1;->this$1:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
@@ -166,7 +166,7 @@
     .locals 2
 
     .prologue
-    .line 192
+    .line 194
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2$1;->this$1:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
@@ -183,7 +183,7 @@
 
     move-result v0
 
-    .line 193
+    .line 195
     iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2$1;->this$1:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2;
 
     iget-object v1, v1, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
@@ -199,10 +199,10 @@
     :goto_1c
     invoke-static {v1, v0}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 194
+    .line 196
     return-void
 
-    .line 193
+    .line 195
     :cond_20
     const-string v0, "\u5173\u6ce8\u5931\u8d25"
 

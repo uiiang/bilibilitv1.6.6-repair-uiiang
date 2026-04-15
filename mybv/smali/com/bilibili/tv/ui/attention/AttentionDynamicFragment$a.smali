@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 77
+    .line 79
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 78
+    .line 80
     return-void
 .end method
 
@@ -30,10 +30,10 @@
     .locals 0
 
     .prologue
-    .line 81
+    .line 83
     invoke-direct {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$a;-><init>()V
 
-    .line 82
+    .line 84
     return-void
 .end method
 
@@ -43,7 +43,7 @@
     .locals 1
 
     .prologue
-    .line 85
+    .line 87
     new-instance v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     invoke-direct {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;-><init>()V
