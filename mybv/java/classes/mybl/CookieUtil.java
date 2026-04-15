@@ -124,6 +124,19 @@ public class CookieUtil {
         return getCookieValue(biliAccount, "sid");
     }
 
+    public static void clearCookies(mg biliAccount) {
+        if (biliAccount == null) {
+            Log.d(TAG, "clearCookies - biliAccount is null");
+            return;
+        }
+        try {
+            biliAccount.i();
+            Log.d(TAG, "clearCookies - cookies cleared successfully");
+        } catch (Exception e) {
+            Log.e(TAG, "clearCookies - exception: " + e.getMessage());
+        }
+    }
+
     private static String findCookieValue(List<ml.a> cookies, String name) {
         if (cookies == null || name == null) {
             return null;

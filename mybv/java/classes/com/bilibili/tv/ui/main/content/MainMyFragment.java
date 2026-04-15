@@ -28,6 +28,7 @@ import com.bilibili.tv.widget.FixGridLayoutManager;
 import kotlin.TypeCastException;
 
 import bl.*;
+import mybl.CookieUtil;
 import com.bilibili.tv.ui.history.VideoToviewActivity;
 import com.bilibili.tv.ui.history.HistorySideActivity;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
@@ -443,6 +444,7 @@ public final class MainMyFragment extends adu implements aez, wf {
                 abnVar.a(a).a(new ja<Void, Void>() { // from class: bl.MainMyFragment.b.a.1
                     @Override // bl.ja
                     public final Void a(jb<Void> jbVar) {
+                        CookieUtil.clearCookies(a);
                         b.this.e(0);
                         ((MainActivity) a.this.b).l();
                         ok.a("tv_my_signout_click", new String[0]);

@@ -67,7 +67,8 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
   public void a(Bundle bundle) {
     targetMid = getIntent().getLongExtra("mid", 0L);
     targetUname = getIntent().getStringExtra("uname");
-    if (targetUname == null) targetUname = "";
+    if (targetUname == null)
+      targetUname = "";
     String title = TextUtils.isEmpty(targetUname) ? "全部视频" : targetUname;
     ((TextView) d(R.id.content_name)).setText(title);
     b((RecyclerView) d(R.id.recycler_view));
@@ -115,7 +116,7 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
     }
     int action = keyEvent.getAction();
     int keyCode = keyEvent.getKeyCode();
-    
+
     if (action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_MENU) {
       View currentFocus = getCurrentFocus();
       Fragment frag = h();
@@ -126,18 +127,18 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
         }
       }
     }
-    
+
     if (action == 0) {
       View currentFocus = getCurrentFocus();
       if (currentFocus == null) {
         return super.dispatchKeyEvent(keyEvent);
       }
-      
+
       // 处理右侧面板 header 区域的焦点逻辑
       Fragment fragment = h();
       if (fragment instanceof AuthSpaceVideoFragment) {
         AuthSpaceVideoFragment avf = (AuthSpaceVideoFragment) fragment;
-        
+
         // 处理关注按钮的焦点逻辑
         if (avf.attentionButton != null && avf.attentionButton.isFocused()) {
           if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
@@ -154,7 +155,7 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
             return true;
           }
         }
-        
+
         // 处理视频列表第一行的上键焦点切换
         if (keyCode == KeyEvent.KEYCODE_DPAD_UP && avf.mRecyclerView != null) {
           View focusedView = avf.mRecyclerView.getFocusedChild();
@@ -171,7 +172,7 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
           }
         }
       }
-      
+
       switch (keyCode) {
         case 21:
           if (TextUtils.equals((CharSequence) ((View) currentFocus.getParent()).getTag(), adw.a)) {
@@ -193,10 +194,14 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
           break;
       }
       int dir = -1;
-      if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) dir = View.FOCUS_DOWN;
-      else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) dir = View.FOCUS_UP;
-      else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) dir = View.FOCUS_LEFT;
-      else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) dir = View.FOCUS_RIGHT;
+      if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN)
+        dir = View.FOCUS_DOWN;
+      else if (keyCode == KeyEvent.KEYCODE_DPAD_UP)
+        dir = View.FOCUS_UP;
+      else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT)
+        dir = View.FOCUS_LEFT;
+      else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT)
+        dir = View.FOCUS_RIGHT;
       if (dir != -1) {
         try {
           View predicted = currentFocus.focusSearch(dir);
@@ -220,12 +225,15 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
   }
 
   private boolean isDescendantOfView(View view, View parentView) {
-    if (view == null || parentView == null) return false;
+    if (view == null || parentView == null)
+      return false;
     View cur = view;
     while (cur != null) {
-      if (cur == parentView) return true;
+      if (cur == parentView)
+        return true;
       ViewParent parent = cur.getParent();
-      if (!(parent instanceof View)) break;
+      if (!(parent instanceof View))
+        break;
       cur = (View) parent;
     }
     return false;
@@ -262,7 +270,7 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
     String url = "https://api.bilibili.com/x/polymer/web-space/seasons_series_list?" +
         "mid=" + targetMid + "&page_size=20&page_num=" + pageNum + "&web_location=333.1387";
     LogUtil.i("AuthSpaceSide", "loadMenuPage URL: " + url);
-    
+
     ((MyBiliApiService) vo.a(MyBiliApiService.class)).getSeasonsSeriesList(targetMid, 20, pageNum, "333.1387", cookie)
         .a(new vn<JSONObject>() {
           @Override
@@ -384,8 +392,9 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
     selectedItem = item;
     AuthSpaceVideoFragment frag;
     if (item.type == 0) {
+      mg account = mg.a(this);
       int spaceMode = bl.abd.get_space_dynamic_mode(AuthSpaceSideActivity.this);
-      String mode = (spaceMode == bl.abd.SPACE_MODE_DYNAMIC) ? "dynamic" : "all";
+      String mode = (account != null && account.a() && spaceMode == bl.abd.SPACE_MODE_DYNAMIC) ? "dynamic" : "all";
       frag = AuthSpaceVideoFragment.newInstance(mode, targetMid, -1, targetUname);
     } else if (item.type == 1) {
       frag = AuthSpaceVideoFragment.newInstance("season", targetMid, item.id, item.name);
@@ -442,7 +451,8 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
   }
 
   public int getCurrentMode() {
-    if (selectedItem == null) return 0;
+    if (selectedItem == null)
+      return 0;
     return selectedItem.type;
   }
 
@@ -456,25 +466,25 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
     if (!avf.canSort()) {
       return;
     }
-    
+
     if (avf.getCurrentMode() == 3) {
       return;
     }
 
     bl.SortMenuDialog dialog = new bl.SortMenuDialog(this);
-    
+
     if (avf.getCurrentMode() == 0) {
       dialog.addGroup(null,
-        new String[]{"最新发布", "最多播放"},
-        new String[]{"pubdate", "click"},
-        getSortOrder());
+          new String[] { "最新发布", "最多播放" },
+          new String[] { "pubdate", "click" },
+          getSortOrder());
     } else {
       dialog.addGroup(null,
-        new String[]{"默认排序", "倒序排序"},
-        new String[]{"default", "reverse"},
-        getSortOrder());
+          new String[] { "默认排序", "倒序排序" },
+          new String[] { "default", "reverse" },
+          getSortOrder());
     }
-    
+
     dialog.setOnSortSelectedListener(new bl.SortMenuDialog.OnSortSelectedListener() {
       @Override
       public void onSortSelected(String sortOrder, String sortName) {
@@ -581,10 +591,13 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
     @Override
     public void run() {
       AuthSpaceSideActivity act = this.a.get();
-      if (act == null || act.isFinishing()) return;
-      if (menuItems == null || this.c >= menuItems.size()) return;
+      if (act == null || act.isFinishing())
+        return;
+      if (menuItems == null || this.c >= menuItems.size())
+        return;
       try {
-        if (this.e) return;
+        if (this.e)
+          return;
         RecyclerView left = act.j();
         View target = null;
         if (left != null) {

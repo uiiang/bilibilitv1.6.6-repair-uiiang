@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 618
+    .line 622
     iput-object p1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
@@ -46,7 +46,7 @@
     .locals 12
 
     .prologue
-    .line 635
+    .line 639
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->c:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$c;
@@ -56,18 +56,18 @@
 
     if-nez v0, :cond_9
 
-    .line 758
+    .line 762
     :cond_8
     :goto_8
     return-void
 
-    .line 637
+    .line 641
     :cond_9
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->j()V
 
-    .line 638
+    .line 642
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     const/4 v1, 0x0
@@ -75,34 +75,34 @@
     # setter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->h:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$202(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;Z)Z
 
-    .line 640
+    .line 644
     if-nez p1, :cond_6b
 
-    .line 641
+    .line 645
     :try_start_16
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     const/4 v1, 0x0
 
     # setter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->g:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$502(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;Z)Z
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$802(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;Z)Z
 
-    .line 642
+    .line 646
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperDynamicOffset:Ljava/lang/String;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$800(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;)Ljava/lang/String;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$1000(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;)Ljava/lang/String;
 
     move-result-object v0
 
     if-nez v0, :cond_8
 
-    .line 643
+    .line 647
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->k()V
 
-    .line 644
+    .line 648
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     const v1, 0x7f0c00d8
@@ -113,11 +113,11 @@
 
     goto :goto_8
 
-    .line 750
+    .line 754
     :catch_32
     move-exception v0
 
-    .line 751
+    .line 755
     const-string v1, "AttentionDynamic"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -144,30 +144,30 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 752
+    .line 756
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     const/4 v1, 0x0
 
     # setter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->g:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$502(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;Z)Z
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$802(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;Z)Z
 
-    .line 753
+    .line 757
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperDynamicOffset:Ljava/lang/String;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$800(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;)Ljava/lang/String;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$1000(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;)Ljava/lang/String;
 
     move-result-object v0
 
     if-nez v0, :cond_8
 
-    .line 754
+    .line 758
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->k()V
 
-    .line 755
+    .line 759
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     const v1, 0x7f0c00d8
@@ -176,7 +176,7 @@
 
     goto :goto_8
 
-    .line 649
+    .line 653
     :cond_6b
     :try_start_6b
     const-string v0, "has_more"
@@ -185,21 +185,21 @@
 
     move-result v1
 
-    .line 650
+    .line 654
     const-string v0, "offset"
 
     invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v2
 
-    .line 651
+    .line 655
     const-string v0, "items"
 
     invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
 
     move-result-object v3
 
-    .line 653
+    .line 657
     if-eqz v3, :cond_1f0
 
     invoke-virtual {v3}, Lcom/alibaba/fastjson/JSONArray;->size()I
@@ -208,12 +208,12 @@
 
     if-lez v0, :cond_1f0
 
-    .line 654
+    .line 658
     new-instance v4, Ljava/util/ArrayList;
 
     invoke-direct {v4}, Ljava/util/ArrayList;-><init>()V
 
-    .line 655
+    .line 659
     const/4 v0, 0x0
 
     :goto_8b
@@ -223,19 +223,19 @@
 
     if-ge v0, v5, :cond_1b8
 
-    .line 656
+    .line 660
     invoke-virtual {v3, v0}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v5
 
-    .line 657
+    .line 661
     const-string v6, "type"
 
     invoke-virtual {v5, v6}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v6
 
-    .line 658
+    .line 662
     const-string v7, "DYNAMIC_TYPE_AV"
 
     invoke-virtual {v7, v6}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -244,14 +244,14 @@
 
     if-nez v6, :cond_a6
 
-    .line 655
+    .line 659
     :cond_a3
     :goto_a3
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_8b
 
-    .line 661
+    .line 665
     :cond_a6
     const-string v6, "modules"
 
@@ -259,52 +259,52 @@
 
     move-result-object v5
 
-    .line 662
+    .line 666
     if-eqz v5, :cond_a3
 
-    .line 664
+    .line 668
     const-string v6, "module_dynamic"
 
     invoke-virtual {v5, v6}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v6
 
-    .line 665
+    .line 669
     if-eqz v6, :cond_a3
 
-    .line 667
+    .line 671
     const-string v7, "major"
 
     invoke-virtual {v6, v7}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v6
 
-    .line 668
+    .line 672
     if-eqz v6, :cond_a3
 
-    .line 670
+    .line 674
     const-string v7, "archive"
 
     invoke-virtual {v6, v7}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v6
 
-    .line 671
+    .line 675
     if-eqz v6, :cond_a3
 
-    .line 673
+    .line 677
     const-string v7, "module_author"
 
     invoke-virtual {v5, v7}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v5
 
-    .line 675
+    .line 679
     new-instance v7, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;
 
     invoke-direct {v7}, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;-><init>()V
 
-    .line 676
+    .line 680
     const-string v8, "aid"
 
     invoke-virtual {v6, v8}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
@@ -313,7 +313,7 @@
 
     iput-wide v8, v7, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->aid:J
 
-    .line 677
+    .line 681
     iget-wide v8, v7, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->aid:J
 
     invoke-static {v8, v9}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
@@ -322,7 +322,7 @@
 
     iput-object v8, v7, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->param:Ljava/lang/String;
 
-    .line 678
+    .line 682
     const-string v8, "bvid"
 
     invoke-virtual {v6, v8}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -331,7 +331,7 @@
 
     iput-object v8, v7, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->bvid:Ljava/lang/String;
 
-    .line 679
+    .line 683
     const-string v8, "title"
 
     invoke-virtual {v6, v8}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -340,7 +340,7 @@
 
     iput-object v8, v7, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->title:Ljava/lang/String;
 
-    .line 680
+    .line 684
     const-string v8, "cover"
 
     invoke-virtual {v6, v8}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -349,34 +349,34 @@
 
     iput-object v8, v7, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->cover:Ljava/lang/String;
 
-    .line 682
+    .line 686
     const-string v8, "stat"
 
     invoke-virtual {v6, v8}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v8
 
-    .line 683
+    .line 687
     if-eqz v8, :cond_124
 
-    .line 684
+    .line 688
     const-string v9, "play"
 
     invoke-virtual {v8, v9}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v9
 
-    .line 685
+    .line 689
     iput-object v9, v7, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->playStr:Ljava/lang/String;
 
-    .line 686
+    .line 690
     const/4 v10, 0x0
 
     iput v10, v7, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->play:I
     :try_end_10c
     .catch Ljava/lang/Exception; {:try_start_6b .. :try_end_10c} :catch_32
 
-    .line 688
+    .line 692
     if-eqz v9, :cond_11a
 
     :try_start_10e
@@ -386,7 +386,7 @@
 
     if-nez v10, :cond_11a
 
-    .line 689
+    .line 693
     invoke-static {v9}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
 
     move-result v9
@@ -395,7 +395,7 @@
     :try_end_11a
     .catch Ljava/lang/Exception; {:try_start_10e .. :try_end_11a} :catch_210
 
-    .line 692
+    .line 696
     :cond_11a
     :goto_11a
     :try_start_11a
@@ -405,24 +405,24 @@
 
     move-result-object v8
 
-    .line 693
+    .line 697
     iput-object v8, v7, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->danmakuStr:Ljava/lang/String;
 
-    .line 694
+    .line 698
     iput-object v8, v7, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->danmaku:Ljava/lang/String;
 
-    .line 697
+    .line 701
     :cond_124
     if-eqz v5, :cond_13e
 
-    .line 698
+    .line 702
     const-string v8, "pub_ts"
 
     invoke-virtual {v5, v8}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v5
 
-    .line 699
+    .line 703
     if-eqz v5, :cond_13e
 
     invoke-virtual {v5}, Ljava/lang/String;->isEmpty()Z
@@ -433,7 +433,7 @@
 
     if-nez v8, :cond_13e
 
-    .line 701
+    .line 705
     :try_start_134
     invoke-static {v5}, Ljava/lang/Long;->parseLong(Ljava/lang/String;)J
 
@@ -447,7 +447,7 @@
     :try_end_13e
     .catch Ljava/lang/Exception; {:try_start_134 .. :try_end_13e} :catch_20d
 
-    .line 705
+    .line 709
     :cond_13e
     :goto_13e
     :try_start_13e
@@ -467,7 +467,7 @@
 
     if-nez v5, :cond_15a
 
-    .line 706
+    .line 710
     :cond_14e
     const-string v5, "pubdate"
 
@@ -481,7 +481,7 @@
 
     iput-object v5, v7, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->ctime:Ljava/lang/Long;
 
-    .line 709
+    .line 713
     :cond_15a
     const-string v5, "duration"
 
@@ -491,14 +491,14 @@
 
     iput v5, v7, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->duration:I
 
-    .line 710
+    .line 714
     const-string v5, "duration_text"
 
     invoke-virtual {v6, v5}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v5
 
-    .line 711
+    .line 715
     if-eqz v5, :cond_1af
 
     invoke-virtual {v5}, Ljava/lang/String;->isEmpty()Z
@@ -507,10 +507,10 @@
 
     if-nez v8, :cond_1af
 
-    .line 712
+    .line 716
     iput-object v5, v7, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->durationStr:Ljava/lang/String;
 
-    .line 717
+    .line 721
     :goto_172
     const-string v5, "badge"
 
@@ -518,10 +518,10 @@
 
     move-result-object v5
 
-    .line 718
+    .line 722
     if-eqz v5, :cond_18a
 
-    .line 719
+    .line 723
     const-string v8, "text"
 
     invoke-virtual {v5, v8}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -530,7 +530,7 @@
 
     iput-object v8, v7, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->badgeText:Ljava/lang/String;
 
-    .line 720
+    .line 724
     const-string v8, "bg_color"
 
     invoke-virtual {v5, v8}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -539,7 +539,7 @@
 
     iput-object v5, v7, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->badgeBgColor:Ljava/lang/String;
 
-    .line 723
+    .line 727
     :cond_18a
     const-string v5, "elec_arc_type"
 
@@ -549,7 +549,7 @@
 
     iput v5, v7, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->elecArcType:I
 
-    .line 724
+    .line 728
     const-string v5, "elec_arc_badge"
 
     invoke-virtual {v6, v5}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -558,7 +558,7 @@
 
     iput-object v5, v7, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->elecArcBadge:Ljava/lang/String;
 
-    .line 725
+    .line 729
     const-string v5, "is_union_video"
 
     invoke-virtual {v6, v5}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -567,7 +567,7 @@
 
     iput v5, v7, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->isUnionVideo:I
 
-    .line 726
+    .line 730
     const-string v5, "is_live_playback"
 
     invoke-virtual {v6, v5}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -576,12 +576,12 @@
 
     iput v5, v7, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->isLivePlayback:I
 
-    .line 727
+    .line 731
     invoke-interface {v4, v7}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     goto/16 :goto_a3
 
-    .line 714
+    .line 718
     :cond_1af
     iget v5, v7, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->duration:I
 
@@ -593,7 +593,7 @@
 
     goto :goto_172
 
-    .line 730
+    .line 734
     :cond_1b8
     invoke-interface {v4}, Ljava/util/List;->size()I
 
@@ -601,17 +601,17 @@
 
     if-lez v0, :cond_1f0
 
-    .line 731
+    .line 735
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperDynamicOffset:Ljava/lang/String;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$800(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;)Ljava/lang/String;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$1000(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;)Ljava/lang/String;
 
     move-result-object v0
 
     if-nez v0, :cond_1e6
 
-    .line 732
+    .line 736
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->c:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$c;
@@ -621,35 +621,35 @@
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$c;->a(Ljava/util/List;)V
 
-    .line 736
+    .line 740
     :goto_1cf
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     # setter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperDynamicOffset:Ljava/lang/String;
-    invoke-static {v0, v2}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$802(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;Ljava/lang/String;)Ljava/lang/String;
+    invoke-static {v0, v2}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$1002(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;Ljava/lang/String;)Ljava/lang/String;
 
-    .line 737
+    .line 741
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     # setter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->g:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$502(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;Z)Z
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$802(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;Z)Z
 
-    .line 738
+    .line 742
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->getView()Landroid/view/View;
 
     move-result-object v0
 
-    .line 739
+    .line 743
     if-eqz v0, :cond_8
 
-    .line 740
+    .line 744
     invoke-virtual {v0}, Landroid/view/View;->requestLayout()V
 
     goto/16 :goto_8
 
-    .line 734
+    .line 738
     :cond_1e6
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
@@ -662,31 +662,31 @@
 
     goto :goto_1cf
 
-    .line 745
+    .line 749
     :cond_1f0
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     const/4 v1, 0x0
 
     # setter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->g:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$502(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;Z)Z
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$802(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;Z)Z
 
-    .line 746
+    .line 750
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperDynamicOffset:Ljava/lang/String;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$800(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;)Ljava/lang/String;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$1000(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;)Ljava/lang/String;
 
     move-result-object v0
 
     if-nez v0, :cond_8
 
-    .line 747
+    .line 751
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->k()V
 
-    .line 748
+    .line 752
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     const v1, 0x7f0c00d8
@@ -697,13 +697,13 @@
 
     goto/16 :goto_8
 
-    .line 702
+    .line 706
     :catch_20d
     move-exception v5
 
     goto/16 :goto_13e
 
-    .line 691
+    .line 695
     :catch_210
     move-exception v9
 
@@ -714,7 +714,7 @@
     .locals 0
 
     .prologue
-    .line 618
+    .line 622
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->a(Lcom/alibaba/fastjson/JSONObject;)V
@@ -726,7 +726,7 @@
     .locals 1
 
     .prologue
-    .line 621
+    .line 625
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -760,7 +760,7 @@
     .locals 3
 
     .prologue
-    .line 626
+    .line 630
     const-string v0, "AttentionDynamic"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -787,7 +787,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 627
+    .line 631
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
@@ -798,7 +798,7 @@
 
     invoke-virtual {v0, p1, v1}, Lbl/adl;->a(Ljava/lang/Throwable;Landroid/app/Activity;)V
 
-    .line 628
+    .line 632
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     const/4 v1, 0x0
@@ -806,22 +806,22 @@
     # setter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->h:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$202(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;Z)Z
 
-    .line 629
+    .line 633
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperDynamicOffset:Ljava/lang/String;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$800(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;)Ljava/lang/String;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->access$1000(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;)Ljava/lang/String;
 
     move-result-object v0
 
     if-nez v0, :cond_3a
 
-    .line 630
+    .line 634
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->k()V
 
-    .line 631
+    .line 635
     :cond_3a
     return-void
 .end method

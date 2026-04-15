@@ -352,6 +352,9 @@ public final class AttentionDynamicFragment extends ady {
             if (this.b.x() <= 0 || iP + 10 < this.b.H() - 1 || this.b.H() <= this.b.x()) {
                 return;
             }
+            if ("uper".equals(mode) && uperDynamicMode != abd.SPACE_MODE_DYNAMIC) {
+                uperPage++;
+            }
             AttentionDynamicFragment.this.b();
         }
     }
@@ -392,7 +395,8 @@ public final class AttentionDynamicFragment extends ady {
             if (uperDynamicMode == -1) {
                 uperDynamicMode = abd.get_space_dynamic_mode(getActivity());
             }
-            if (uperDynamicMode == abd.SPACE_MODE_DYNAMIC) {
+            mg account = mg.a(getActivity());
+            if (account != null && account.a() && uperDynamicMode == abd.SPACE_MODE_DYNAMIC) {
                 loadUperDynamicVideos();
             } else {
                 loadUperVideos();

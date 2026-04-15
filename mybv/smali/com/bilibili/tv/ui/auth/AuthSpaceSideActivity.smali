@@ -216,21 +216,21 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 399
+    .line 408
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v3
 
-    .line 400
+    .line 409
     if-nez v3, :cond_9
 
     move-object v0, v1
 
-    .line 409
+    .line 418
     :goto_8
     return-object v0
 
-    .line 403
+    .line 412
     :cond_9
     const/4 v0, 0x0
 
@@ -241,12 +241,12 @@
 
     if-ge v0, v2, :cond_1f
 
-    .line 404
+    .line 413
     invoke-virtual {v3, v0}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
 
     move-result-object v2
 
-    .line 405
+    .line 414
     invoke-virtual {v2}, Landroid/view/View;->isSelected()Z
 
     move-result v4
@@ -255,10 +255,10 @@
 
     move-object v0, v2
 
-    .line 406
+    .line 415
     goto :goto_8
 
-    .line 403
+    .line 412
     :cond_1c
     add-int/lit8 v0, v0, 0x1
 
@@ -267,7 +267,7 @@
     :cond_1f
     move-object v0, v1
 
-    .line 409
+    .line 418
     goto :goto_8
 .end method
 
@@ -277,7 +277,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 223
+    .line 228
     if-eqz p1, :cond_5
 
     if-nez p2, :cond_a
@@ -285,34 +285,35 @@
     :cond_5
     move v0, v1
 
-    .line 231
+    .line 239
     :goto_6
     return v0
 
-    .line 229
+    .line 237
     :cond_7
     check-cast v0, Landroid/view/View;
 
     move-object p1, v0
 
-    .line 225
+    .line 231
     :cond_a
     if-eqz p1, :cond_18
 
-    .line 226
+    .line 232
     if-ne p1, p2, :cond_10
 
+    .line 233
     const/4 v0, 0x1
 
     goto :goto_6
 
-    .line 227
+    .line 234
     :cond_10
     invoke-virtual {p1}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
 
     move-result-object v0
 
-    .line 228
+    .line 235
     instance-of v2, v0, Landroid/view/View;
 
     if-nez v2, :cond_7
@@ -320,7 +321,7 @@
     :cond_18
     move v0, v1
 
-    .line 231
+    .line 239
     goto :goto_6
 .end method
 
@@ -332,12 +333,12 @@
 
     const/4 v5, 0x1
 
-    .line 242
+    .line 250
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->menuItems:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->clear()V
 
-    .line 243
+    .line 251
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->menuItems:Ljava/util/List;
 
     new-instance v1, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$MenuItem;
@@ -350,19 +351,19 @@
 
     invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 244
+    .line 252
     iput v5, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->f:I
 
-    .line 245
+    .line 253
     iput-boolean v5, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->g:Z
 
-    .line 246
+    .line 254
     iput-boolean v6, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->h:Z
 
-    .line 247
+    .line 255
     invoke-direct {p0, v5}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->loadMenuPage(I)V
 
-    .line 248
+    .line 256
     return-void
 .end method
 
@@ -370,7 +371,7 @@
     .locals 8
 
     .prologue
-    .line 251
+    .line 259
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->h:Z
 
     if-nez v0, :cond_8
@@ -379,42 +380,42 @@
 
     if-nez v0, :cond_9
 
-    .line 338
+    .line 346
     :cond_8
     :goto_8
     return-void
 
-    .line 254
+    .line 262
     :cond_9
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->h:Z
 
-    .line 255
+    .line 263
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
 
-    .line 256
+    .line 264
     if-nez v0, :cond_19
 
-    .line 257
+    .line 265
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->h:Z
 
-    .line 258
+    .line 266
     invoke-direct {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->updateMenu()V
 
     goto :goto_8
 
-    .line 261
+    .line 269
     :cond_19
     invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v7
 
-    .line 262
+    .line 270
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -451,7 +452,7 @@
 
     move-result-object v0
 
-    .line 264
+    .line 272
     const-string v1, "AuthSpaceSide"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -474,7 +475,7 @@
 
     invoke-static {v1, v0}, Lmybl/LogUtil;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 266
+    .line 274
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -499,7 +500,7 @@
 
     invoke-direct {v1, p0, p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$2;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;I)V
 
-    .line 267
+    .line 275
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
     goto :goto_8
@@ -517,33 +518,33 @@
 
     const/4 v4, 0x0
 
-    .line 450
+    .line 460
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v0
 
-    .line 451
+    .line 461
     instance-of v1, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     if-nez v1, :cond_d
 
-    .line 485
+    .line 495
     :cond_c
     :goto_c
     return-void
 
-    .line 455
+    .line 465
     :cond_d
     check-cast v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
-    .line 456
+    .line 466
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->canSort()Z
 
     move-result v1
 
     if-eqz v1, :cond_c
 
-    .line 460
+    .line 470
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getCurrentMode()I
 
     move-result v1
@@ -552,19 +553,19 @@
 
     if-eq v1, v2, :cond_c
 
-    .line 464
+    .line 474
     new-instance v1, Lbl/SortMenuDialog;
 
     invoke-direct {v1, p0}, Lbl/SortMenuDialog;-><init>(Landroid/app/Activity;)V
 
-    .line 466
+    .line 476
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getCurrentMode()I
 
     move-result v0
 
     if-nez v0, :cond_4e
 
-    .line 467
+    .line 477
     new-array v0, v3, [Ljava/lang/String;
 
     const-string v2, "\u6700\u65b0\u53d1\u5e03"
@@ -585,15 +586,15 @@
 
     aput-object v3, v2, v5
 
-    .line 470
+    .line 480
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->getSortOrder()Ljava/lang/String;
 
     move-result-object v3
 
-    .line 467
+    .line 477
     invoke-virtual {v1, v6, v0, v2, v3}, Lbl/SortMenuDialog;->addGroup(Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 478
+    .line 488
     :goto_42
     new-instance v0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;
 
@@ -601,12 +602,12 @@
 
     invoke-virtual {v1, v0}, Lbl/SortMenuDialog;->setOnSortSelectedListener(Lbl/SortMenuDialog$OnSortSelectedListener;)V
 
-    .line 484
+    .line 494
     invoke-virtual {v1}, Lbl/SortMenuDialog;->show()V
 
     goto :goto_c
 
-    .line 472
+    .line 482
     :cond_4e
     new-array v0, v3, [Ljava/lang/String;
 
@@ -628,12 +629,12 @@
 
     aput-object v3, v2, v5
 
-    .line 475
+    .line 485
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->getSortOrder()Ljava/lang/String;
 
     move-result-object v3
 
-    .line 472
+    .line 482
     invoke-virtual {v1, v6, v0, v2, v3}, Lbl/SortMenuDialog;->addGroup(Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)V
 
     goto :goto_42
@@ -643,36 +644,47 @@
     .locals 7
 
     .prologue
-    .line 381
+    .line 389
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->selectedItem:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$MenuItem;
 
     if-ne v0, p1, :cond_5
 
-    .line 396
+    .line 405
     :goto_4
     return-void
 
-    .line 384
+    .line 392
     :cond_5
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->selectedItem:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$MenuItem;
 
-    .line 386
+    .line 394
     iget v0, p1, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$MenuItem;->type:I
 
-    if-nez v0, :cond_33
+    if-nez v0, :cond_3d
 
-    .line 387
+    .line 395
+    invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
+
+    move-result-object v0
+
+    .line 396
     invoke-static {p0}, Lbl/abd;->get_space_dynamic_mode(Landroid/content/Context;)I
+
+    move-result v1
+
+    .line 397
+    invoke-virtual {v0}, Lbl/mg;->a()Z
 
     move-result v0
 
-    .line 388
-    if-nez v0, :cond_30
+    if-eqz v0, :cond_3a
+
+    if-nez v1, :cond_3a
 
     const-string v1, "dynamic"
 
-    .line 389
-    :goto_13
+    .line 398
+    :goto_1d
     iget-wide v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->targetMid:J
 
     const-wide/16 v4, -0x1
@@ -683,8 +695,8 @@
 
     move-result-object v0
 
-    .line 395
-    :goto_1d
+    .line 404
+    :goto_27
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->getSupportFragmentManager()Landroid/support/v4/app/FragmentManager;
 
     move-result-object v1
@@ -703,21 +715,21 @@
 
     goto :goto_4
 
-    .line 388
-    :cond_30
+    .line 397
+    :cond_3a
     const-string v1, "all"
 
-    goto :goto_13
+    goto :goto_1d
 
-    .line 390
-    :cond_33
+    .line 399
+    :cond_3d
     iget v0, p1, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$MenuItem;->type:I
 
     const/4 v1, 0x1
 
-    if-ne v0, v1, :cond_45
+    if-ne v0, v1, :cond_4f
 
-    .line 391
+    .line 400
     const-string v1, "season"
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->targetMid:J
@@ -730,10 +742,10 @@
 
     move-result-object v0
 
-    goto :goto_1d
+    goto :goto_27
 
-    .line 393
-    :cond_45
+    .line 402
+    :cond_4f
     const-string v1, "series"
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->targetMid:J
@@ -746,7 +758,7 @@
 
     move-result-object v0
 
-    goto :goto_1d
+    goto :goto_27
 .end method
 
 .method public static start(Landroid/content/Context;JLjava/lang/String;)V
@@ -785,30 +797,30 @@
 
     const/4 v1, -0x1
 
-    .line 341
+    .line 349
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->c:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;
 
     if-eqz v0, :cond_31
 
-    .line 342
+    .line 350
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v2
 
-    .line 343
+    .line 351
     invoke-virtual {v2}, Landroid/support/v7/widget/RecyclerView;->getFocusedChild()Landroid/view/View;
 
     move-result-object v0
 
-    .line 345
+    .line 353
     if-eqz v0, :cond_49
 
-    .line 346
+    .line 354
     invoke-virtual {v2, v0}, Landroid/support/v7/widget/RecyclerView;->g(Landroid/view/View;)I
 
     move-result v0
 
-    .line 350
+    .line 358
     :goto_14
     iget-object v3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->c:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;
 
@@ -816,12 +828,12 @@
 
     invoke-virtual {v3, v4}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;->b(Z)V
 
-    .line 351
+    .line 359
     iget-object v3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->c:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;
 
     invoke-virtual {v3}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;->d()V
 
-    .line 352
+    .line 360
     if-eq v0, v1, :cond_4b
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->menuItems:Ljava/util/List;
@@ -832,14 +844,14 @@
 
     if-ge v0, v1, :cond_4b
 
-    .line 353
+    .line 361
     new-instance v1, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$3;
 
     invoke-direct {v1, p0, v2, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$3;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;Landroid/support/v7/widget/RecyclerView;I)V
 
     invoke-virtual {v2, v1}, Landroid/support/v7/widget/RecyclerView;->post(Ljava/lang/Runnable;)Z
 
-    .line 375
+    .line 383
     :cond_31
     :goto_31
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->menuItems:Ljava/util/List;
@@ -854,7 +866,7 @@
 
     if-nez v0, :cond_48
 
-    .line 376
+    .line 384
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->menuItems:Ljava/util/List;
 
     invoke-interface {v0, v5}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -865,17 +877,17 @@
 
     invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->showVideoList(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$MenuItem;)V
 
-    .line 378
+    .line 386
     :cond_48
     return-void
 
     :cond_49
     move v0, v1
 
-    .line 348
+    .line 356
     goto :goto_14
 
-    .line 372
+    .line 380
     :cond_4b
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->c:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;
 
@@ -923,11 +935,12 @@
 
     if-nez v0, :cond_22
 
+    .line 71
     const-string v0, ""
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->targetUname:Ljava/lang/String;
 
-    .line 71
+    .line 72
     :cond_22
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->targetUname:Ljava/lang/String;
 
@@ -941,7 +954,7 @@
 
     move-object v1, v0
 
-    .line 72
+    .line 73
     :goto_2d
     const v0, 0x7f080065
 
@@ -953,7 +966,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 73
+    .line 74
     const v0, 0x7f0800eb
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->d(I)Landroid/view/View;
@@ -964,13 +977,13 @@
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->b(Landroid/support/v7/widget/RecyclerView;)V
 
-    .line 74
+    .line 75
     invoke-direct {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->loadMenu()V
 
-    .line 75
+    .line 76
     return-void
 
-    .line 71
+    .line 72
     :cond_49
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->targetUname:Ljava/lang/String;
 
@@ -1001,49 +1014,49 @@
 
     const/4 v2, 0x1
 
-    .line 113
+    .line 114
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->c:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;
 
     if-nez v0, :cond_10
 
-    .line 114
+    .line 115
     invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseSideActivity;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
 
     move-result v0
 
-    .line 219
+    .line 224
     :goto_f
     return v0
 
-    .line 116
+    .line 117
     :cond_10
     invoke-virtual {p1}, Landroid/view/KeyEvent;->getAction()I
 
     move-result v0
 
-    .line 117
+    .line 118
     invoke-virtual {p1}, Landroid/view/KeyEvent;->getKeyCode()I
 
     move-result v4
 
-    .line 119
+    .line 120
     if-nez v0, :cond_3f
 
     const/16 v1, 0x52
 
     if-ne v4, v1, :cond_3f
 
-    .line 120
+    .line 121
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->getCurrentFocus()Landroid/view/View;
 
     move-result-object v1
 
-    .line 121
+    .line 122
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v5
 
-    .line 122
+    .line 123
     if-eqz v1, :cond_3f
 
     if-eqz v5, :cond_3f
@@ -1054,7 +1067,7 @@
 
     if-eqz v6, :cond_3f
 
-    .line 123
+    .line 124
     invoke-virtual {v5}, Landroid/support/v4/app/Fragment;->getView()Landroid/view/View;
 
     move-result-object v5
@@ -1065,48 +1078,48 @@
 
     if-eqz v1, :cond_3f
 
-    .line 124
+    .line 125
     invoke-direct {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->showSortMenu()V
 
     move v0, v2
 
-    .line 125
+    .line 126
     goto :goto_f
 
-    .line 130
+    .line 131
     :cond_3f
     if-nez v0, :cond_138
 
-    .line 131
+    .line 132
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->getCurrentFocus()Landroid/view/View;
 
     move-result-object v1
 
-    .line 132
+    .line 133
     if-nez v1, :cond_4c
 
-    .line 133
+    .line 134
     invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseSideActivity;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
 
     move-result v0
 
     goto :goto_f
 
-    .line 137
+    .line 138
     :cond_4c
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v0
 
-    .line 138
+    .line 139
     instance-of v5, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     if-eqz v5, :cond_b4
 
-    .line 139
+    .line 140
     check-cast v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
-    .line 142
+    .line 143
     iget-object v5, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
     if-eqz v5, :cond_87
@@ -1119,10 +1132,10 @@
 
     if-eqz v5, :cond_87
 
-    .line 143
+    .line 144
     if-ne v4, v9, :cond_7d
 
-    .line 145
+    .line 146
     iget-object v5, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     if-eqz v5, :cond_87
@@ -1135,25 +1148,25 @@
 
     if-lez v5, :cond_87
 
-    .line 146
+    .line 147
     iget-object v5, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v5, v7}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
 
     move-result-object v5
 
-    .line 147
+    .line 148
     if-eqz v5, :cond_87
 
-    .line 148
+    .line 149
     invoke-virtual {v5}, Landroid/view/View;->requestFocus()Z
 
     move v0, v2
 
-    .line 149
+    .line 150
     goto :goto_f
 
-    .line 152
+    .line 153
     :cond_7d
     const/16 v5, 0x15
 
@@ -1166,10 +1179,10 @@
     :cond_85
     move v0, v2
 
-    .line 154
+    .line 155
     goto :goto_f
 
-    .line 159
+    .line 160
     :cond_87
     if-ne v4, v8, :cond_b4
 
@@ -1177,31 +1190,31 @@
 
     if-eqz v5, :cond_b4
 
-    .line 160
+    .line 161
     iget-object v5, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v5}, Landroid/support/v7/widget/RecyclerView;->getFocusedChild()Landroid/view/View;
 
     move-result-object v5
 
-    .line 161
+    .line 162
     if-eqz v5, :cond_b4
 
-    .line 162
+    .line 163
     iget-object v6, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v6, v5}, Landroid/support/v7/widget/RecyclerView;->g(Landroid/view/View;)I
 
     move-result v5
 
-    .line 164
+    .line 165
     if-ltz v5, :cond_b4
 
     const/4 v6, 0x2
 
     if-ge v5, v6, :cond_b4
 
-    .line 166
+    .line 167
     iget-object v5, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
     if-eqz v5, :cond_b4
@@ -1214,46 +1227,47 @@
 
     if-nez v5, :cond_b4
 
-    .line 167
+    .line 168
     iget-object v0, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawTextView;->requestFocus()Z
 
     move v0, v2
 
-    .line 168
+    .line 169
     goto/16 :goto_f
 
-    .line 175
+    .line 176
     :cond_b4
     packed-switch v4, :pswitch_data_142
 
-    .line 196
+    .line 197
     :cond_b7
     :goto_b7
     if-ne v4, v9, :cond_124
 
+    .line 198
     const/16 v0, 0x82
 
-    .line 200
+    .line 205
     :goto_bb
     if-eq v0, v3, :cond_138
 
-    .line 202
+    .line 207
     :try_start_bd
     invoke-virtual {v1, v0}, Landroid/view/View;->focusSearch(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 203
+    .line 208
     if-eqz v0, :cond_138
 
-    .line 204
+    .line 209
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v1
 
-    .line 205
+    .line 210
     if-eqz v1, :cond_138
 
     invoke-direct {p0, v0, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->isDescendantOfView(Landroid/view/View;Landroid/view/View;)Z
@@ -1262,20 +1276,20 @@
 
     if-eqz v0, :cond_138
 
-    .line 206
+    .line 211
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v0
 
-    .line 207
+    .line 212
     instance-of v1, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     if-eqz v1, :cond_138
 
-    .line 208
+    .line 213
     check-cast v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
-    .line 209
+    .line 214
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->isLoading()Z
     :try_end_dc
     .catch Ljava/lang/Exception; {:try_start_bd .. :try_end_dc} :catch_137
@@ -1286,10 +1300,10 @@
 
     move v0, v2
 
-    .line 210
+    .line 215
     goto/16 :goto_f
 
-    .line 177
+    .line 178
     :pswitch_e2
     invoke-virtual {v1}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
 
@@ -1311,28 +1325,28 @@
 
     if-eqz v0, :cond_b7
 
-    .line 178
+    .line 179
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->c:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;
 
     invoke-virtual {v0, v7}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;->b(Z)V
 
     goto :goto_b7
 
-    .line 182
+    .line 183
     :pswitch_fc
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v0
 
-    .line 183
+    .line 184
     if-nez v0, :cond_105
 
     move v0, v2
 
-    .line 184
+    .line 185
     goto/16 :goto_f
 
-    .line 186
+    .line 187
     :cond_105
     instance-of v5, v0, Lbl/adw;
 
@@ -1348,10 +1362,10 @@
 
     move v0, v2
 
-    .line 187
+    .line 188
     goto/16 :goto_f
 
-    .line 189
+    .line 190
     :cond_114
     instance-of v0, v1, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;
 
@@ -1359,51 +1373,54 @@
 
     move-object v0, v1
 
-    .line 190
+    .line 191
     check-cast v0, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->c()V
 
-    .line 191
+    .line 192
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->c:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;->b(Z)V
 
     goto :goto_b7
 
-    .line 197
+    .line 199
     :cond_124
     if-ne v4, v8, :cond_129
 
+    .line 200
     const/16 v0, 0x21
 
     goto :goto_bb
 
-    .line 198
+    .line 201
     :cond_129
     const/16 v0, 0x15
 
     if-ne v4, v0, :cond_130
 
+    .line 202
     const/16 v0, 0x11
 
     goto :goto_bb
 
-    .line 199
+    .line 203
     :cond_130
     const/16 v0, 0x16
 
     if-ne v4, v0, :cond_13e
 
+    .line 204
     const/16 v0, 0x42
 
     goto :goto_bb
 
-    .line 215
+    .line 220
     :catch_137
     move-exception v0
 
-    .line 219
+    .line 224
     :cond_138
     invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseSideActivity;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
 
@@ -1416,7 +1433,7 @@
 
     goto/16 :goto_bb
 
-    .line 175
+    .line 176
     nop
 
     :pswitch_data_142
@@ -1440,14 +1457,15 @@
     .locals 1
 
     .prologue
-    .line 445
+    .line 454
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->selectedItem:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$MenuItem;
 
     if-nez v0, :cond_6
 
+    .line 455
     const/4 v0, 0x0
 
-    .line 446
+    .line 456
     :goto_5
     return v0
 
@@ -1463,24 +1481,24 @@
     .locals 2
 
     .prologue
-    .line 429
+    .line 438
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v0
 
-    .line 430
+    .line 439
     instance-of v1, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     if-eqz v1, :cond_f
 
-    .line 431
+    .line 440
     check-cast v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getSortOrder()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 433
+    .line 442
     :goto_e
     return-object v0
 
@@ -1494,17 +1512,17 @@
     .locals 2
 
     .prologue
-    .line 236
+    .line 244
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->getSupportFragmentManager()Landroid/support/v4/app/FragmentManager;
 
     move-result-object v0
 
     if-nez v0, :cond_8
 
-    .line 237
+    .line 245
     const/4 v0, 0x0
 
-    .line 238
+    .line 246
     :goto_7
     return-object v0
 
@@ -1526,24 +1544,24 @@
     .locals 2
 
     .prologue
-    .line 437
+    .line 446
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v0
 
-    .line 438
+    .line 447
     instance-of v1, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     if-eqz v1, :cond_f
 
-    .line 439
+    .line 448
     check-cast v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->isSeasonOrSeriesMode()Z
 
     move-result v0
 
-    .line 441
+    .line 450
     :goto_e
     return v0
 
@@ -1565,10 +1583,10 @@
 
     const/4 v2, 0x0
 
-    .line 79
+    .line 80
     invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseSideActivity;->onPostCreate(Landroid/os/Bundle;)V
 
-    .line 80
+    .line 81
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
@@ -1579,7 +1597,7 @@
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setLayoutManager(Landroid/support/v7/widget/RecyclerView$h;)V
 
-    .line 81
+    .line 82
     new-instance v0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->menuItems:Ljava/util/List;
@@ -1588,7 +1606,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->c:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;
 
-    .line 82
+    .line 83
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
@@ -1597,21 +1615,21 @@
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setAdapter(Landroid/support/v7/widget/RecyclerView$a;)V
 
-    .line 83
+    .line 84
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
 
     invoke-virtual {v0, v2}, Landroid/support/v7/widget/RecyclerView;->setFocusable(Z)V
 
-    .line 84
+    .line 85
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
 
     invoke-virtual {v0, v3}, Landroid/support/v7/widget/RecyclerView;->setHasFixedSize(Z)V
 
-    .line 85
+    .line 86
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
@@ -1622,7 +1640,7 @@
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$m;)V
 
-    .line 109
+    .line 110
     return-void
 .end method
 
@@ -1630,7 +1648,7 @@
     .locals 2
 
     .prologue
-    .line 413
+    .line 422
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->getSortOrder()Ljava/lang/String;
 
     move-result-object v0
@@ -1641,37 +1659,37 @@
 
     if-eqz v0, :cond_b
 
-    .line 426
+    .line 435
     :cond_a
     :goto_a
     return-void
 
-    .line 417
+    .line 426
     :cond_b
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v0
 
-    .line 418
+    .line 427
     instance-of v1, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     if-eqz v1, :cond_a
 
-    .line 419
+    .line 428
     check-cast v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
-    .line 420
+    .line 429
     invoke-direct {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->getSelectedView()Landroid/view/View;
 
     move-result-object v1
 
-    .line 421
+    .line 430
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->setSortOrder(Ljava/lang/String;)V
 
-    .line 422
+    .line 431
     if-eqz v1, :cond_a
 
-    .line 423
+    .line 432
     invoke-virtual {v1}, Landroid/view/View;->requestFocus()Z
 
     goto :goto_a

@@ -28,15 +28,15 @@
     .locals 0
 
     .prologue
-    .line 434
+    .line 435
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a;->this$0:Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 435
+    .line 436
     iput-object p2, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a;->b:Landroid/app/Activity;
 
-    .line 436
+    .line 437
     return-void
 .end method
 
@@ -46,10 +46,10 @@
     .locals 3
 
     .prologue
-    .line 440
+    .line 441
     sget-object v1, Lbl/abn;->a:Lbl/abn;
 
-    .line 441
+    .line 442
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a;->b:Landroid/app/Activity;
 
     check-cast v0, Lcom/bilibili/tv/ui/main/MainActivity;
@@ -62,24 +62,24 @@
 
     move-result-object v0
 
-    .line 442
+    .line 443
     const-string v2, "BiliAccount.get(activity.applicationContext)"
 
     invoke-static {v0, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 443
+    .line 444
     invoke-virtual {v1, v0}, Lbl/abn;->a(Lbl/mg;)Lbl/jb;
 
-    move-result-object v0
+    move-result-object v1
 
-    new-instance v1, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a$1;
+    new-instance v2, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a$1;
 
-    invoke-direct {v1, p0, p1}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a$1;-><init>(Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a;Lbl/agb;)V
+    invoke-direct {v2, p0, v0, p1}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a$1;-><init>(Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a;Lbl/mg;Lbl/agb;)V
 
-    sget-object v2, Lbl/jb;->b:Ljava/util/concurrent/Executor;
+    sget-object v0, Lbl/jb;->b:Ljava/util/concurrent/Executor;
 
-    invoke-virtual {v0, v1, v2}, Lbl/jb;->a(Lbl/ja;Ljava/util/concurrent/Executor;)Lbl/jb;
+    invoke-virtual {v1, v2, v0}, Lbl/jb;->a(Lbl/ja;Ljava/util/concurrent/Executor;)Lbl/jb;
 
-    .line 453
+    .line 455
     return-void
 .end method

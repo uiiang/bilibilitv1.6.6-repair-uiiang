@@ -477,10 +477,12 @@
         </com.bilibili.tv.widget.DrawFrameLayout>
     </LinearLayout>
     <LinearLayout
+        android:id="@id/space_dynamic_layout"
         android:gravity="center"
         android:orientation="horizontal"
         android:focusable="false"
         android:clipChildren="false"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_150">
         <com.bilibili.tv.widget.ShadowTextView

@@ -42,7 +42,7 @@
     .locals 2
 
     .prologue
-    .line 39
+    .line 40
     new-instance v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$a;
 
     const/4 v1, 0x0
@@ -51,7 +51,7 @@
 
     sput-object v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->Companion:Lcom/bilibili/tv/ui/main/content/MainMyFragment$a;
 
-    .line 46
+    .line 47
     const/4 v0, 0x5
 
     new-array v0, v0, [I
@@ -78,7 +78,7 @@
     .locals 0
 
     .prologue
-    .line 38
+    .line 39
     invoke-direct {p0}, Lbl/adu;-><init>()V
 
     return-void
@@ -88,7 +88,7 @@
     .locals 1
 
     .prologue
-    .line 38
+    .line 39
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->b:Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;
 
     return-object v0
@@ -98,7 +98,7 @@
     .locals 1
 
     .prologue
-    .line 38
+    .line 39
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->c:Z
 
     return v0
@@ -108,7 +108,7 @@
     .locals 0
 
     .prologue
-    .line 38
+    .line 39
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->c:Z
 
     return p1
@@ -118,7 +118,7 @@
     .locals 1
 
     .prologue
-    .line 38
+    .line 39
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->a:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     return-object v0
@@ -130,7 +130,7 @@
     .locals 1
 
     .prologue
-    .line 50
+    .line 51
     const-string v0, "ott-platform.me.0.0.pv"
 
     return-object v0
@@ -142,32 +142,32 @@
     .prologue
     const/4 v5, 0x0
 
-    .line 113
+    .line 114
     const-string v0, "recyclerView"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 114
+    .line 115
     invoke-super {p0, p1, p2}, Lbl/adu;->a(Landroid/support/v7/widget/RecyclerView;Landroid/os/Bundle;)V
 
-    .line 115
+    .line 116
     const v0, 0x7f060090
 
     invoke-static {v0}, Lbl/adl;->b(I)I
 
     move-result v6
 
-    .line 116
+    .line 117
     const v0, 0x7f06022b
 
     invoke-static {v0}, Lbl/adl;->b(I)I
 
     move-result v0
 
-    .line 117
+    .line 118
     invoke-virtual {p1, v0, v0, v0, v0}, Landroid/support/v7/widget/RecyclerView;->setPadding(IIII)V
 
-    .line 121
+    .line 122
     new-instance v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$1;
 
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -184,41 +184,41 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->a:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
-    .line 138
+    .line 139
     new-instance v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;
 
     invoke-direct {v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;-><init>()V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->b:Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;
 
-    .line 139
+    .line 140
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->a:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->setLayoutManager(Landroid/support/v7/widget/RecyclerView$h;)V
 
-    .line 140
+    .line 141
     new-instance v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$ItemDecoration;
 
     invoke-direct {v0, v6}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$ItemDecoration;-><init>(I)V
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$g;)V
 
-    .line 141
+    .line 142
     invoke-virtual {p1, v5}, Landroid/support/v7/widget/RecyclerView;->setFocusable(Z)V
 
-    .line 142
+    .line 143
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->b:Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->setAdapter(Landroid/support/v7/widget/RecyclerView$a;)V
 
-    .line 143
+    .line 144
     new-instance v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$e;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$e;-><init>(Lcom/bilibili/tv/ui/main/content/MainMyFragment;)V
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->addOnLayoutChangeListener(Landroid/view/View$OnLayoutChangeListener;)V
 
-    .line 144
+    .line 145
     return-void
 .end method
 
@@ -226,7 +226,7 @@
     .locals 1
 
     .prologue
-    .line 55
+    .line 56
     invoke-static {p0}, Lbl/wg;->a(Lbl/wf;)Z
 
     move-result v0
@@ -238,7 +238,7 @@
     .locals 1
 
     .prologue
-    .line 60
+    .line 61
     const/4 v0, 0x0
 
     return-object v0
@@ -250,7 +250,7 @@
     .prologue
     const/4 v3, 0x1
 
-    .line 252
+    .line 253
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->d()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
@@ -261,43 +261,43 @@
 
     if-nez v0, :cond_c
 
-    .line 266
+    .line 267
     :cond_b
     :goto_b
     return-void
 
-    .line 255
+    .line 256
     :cond_c
     iput-boolean v3, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->c:Z
 
-    .line 256
+    .line 257
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->b:Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;
 
-    .line 257
+    .line 258
     if-nez v0, :cond_15
 
-    .line 258
+    .line 259
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 260
+    .line 261
     :cond_15
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v1
 
-    .line 261
+    .line 262
     if-nez v1, :cond_1e
 
-    .line 262
+    .line 263
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 264
+    .line 265
     :cond_1e
     const-string v2, "activity!!"
 
     invoke-static {v1, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 265
+    .line 266
     invoke-virtual {v0, v1, v3}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->a(Landroid/app/Activity;Z)V
 
     goto :goto_b
@@ -309,21 +309,21 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 233
+    .line 234
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->b:Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;
 
     if-eqz v1, :cond_12
 
-    .line 234
+    .line 235
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->b:Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;
 
-    .line 235
+    .line 236
     if-nez v1, :cond_c
 
-    .line 236
+    .line 237
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 238
+    .line 239
     :cond_c
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->a()I
 
@@ -331,28 +331,28 @@
 
     if-nez v1, :cond_13
 
-    .line 248
+    .line 249
     :cond_12
     :goto_12
     return-object v0
 
-    .line 241
+    .line 242
     :cond_13
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->a:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
-    .line 242
+    .line 243
     if-nez v0, :cond_1a
 
-    .line 243
+    .line 244
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 245
+    .line 246
     :cond_1a
     invoke-virtual {v0}, Landroid/support/v7/widget/GridLayoutManager;->o()I
 
     move-result v1
 
-    .line 246
+    .line 247
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/GridLayoutManager;->c(I)Landroid/view/View;
 
     move-result-object v0
@@ -364,15 +364,15 @@
     .locals 1
 
     .prologue
-    .line 208
+    .line 209
     invoke-super {p0}, Lbl/adu;->onDestroyView()V
 
-    .line 209
+    .line 210
     const/4 v0, 0x0
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->b:Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;
 
-    .line 210
+    .line 211
     return-void
 .end method
 
@@ -380,10 +380,10 @@
     .locals 2
 
     .prologue
-    .line 562
+    .line 564
     invoke-super {p0, p1}, Lbl/adu;->onHiddenChanged(Z)V
 
-    .line 563
+    .line 565
     invoke-static {}, Lbl/wh;->a()Lbl/wh;
 
     move-result-object v1
@@ -395,10 +395,10 @@
     :goto_a
     invoke-virtual {v1, p0, v0}, Lbl/wh;->a(Landroid/support/v4/app/Fragment;Z)V
 
-    .line 564
+    .line 566
     return-void
 
-    .line 563
+    .line 565
     :cond_e
     const/4 v0, 0x0
 
@@ -409,10 +409,10 @@
     .locals 3
 
     .prologue
-    .line 214
+    .line 215
     invoke-super {p0, p1}, Lbl/adu;->setUserVisibleHint(Z)V
 
-    .line 215
+    .line 216
     if-eqz p1, :cond_f
 
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->d()Landroid/support/v7/widget/RecyclerView;
@@ -425,45 +425,45 @@
 
     if-nez v0, :cond_10
 
-    .line 229
+    .line 230
     :cond_f
     :goto_f
     return-void
 
-    .line 218
+    .line 219
     :cond_10
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->c:Z
 
-    .line 219
+    .line 220
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->b:Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;
 
-    .line 220
+    .line 221
     if-nez v0, :cond_1a
 
-    .line 221
+    .line 222
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 223
+    .line 224
     :cond_1a
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v1
 
-    .line 224
+    .line 225
     if-nez v1, :cond_23
 
-    .line 225
+    .line 226
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 227
+    .line 228
     :cond_23
     const-string v2, "activity!!"
 
     invoke-static {v1, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 228
+    .line 229
     const/4 v2, 0x0
 
     invoke-virtual {v0, v1, v2}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->a(Landroid/app/Activity;Z)V

@@ -19,8 +19,8 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
     private DrawFrameLayout progressbar_button;
     private DrawFrameLayout fastquit_button;
 
-    public static String[] tab_names = {"登录","动态","待看","收藏","历史"};
-    private DrawFrameLayout[] tab_buttons = {null,null,null,null,null};
+    public static String[] tab_names = { "登录", "动态", "待看", "收藏", "历史" };
+    private DrawFrameLayout[] tab_buttons = { null, null, null, null, null };
     private DrawFrameLayout column2Button;
     private DrawFrameLayout column3Button;
     private DrawFrameLayout column4Button;
@@ -36,6 +36,7 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
 
     private DrawFrameLayout spaceDynamicButton;
     private DrawFrameLayout spaceAllButton;
+    private LinearLayout spaceDynamicLayout;
 
     @Override // bl.adw
     public boolean c() {
@@ -50,38 +51,38 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle bundle) {
         bbi.b(inflater, "inflater");
         View inflate = inflater.inflate(R.layout.fragment_personalization, viewGroup, false);
-        this.progressbar_button = (DrawFrameLayout)inflate.findViewById(R.id.progressbar_button);
-        this.fastquit_button = (DrawFrameLayout)inflate.findViewById(R.id.fastquit_button);
-        this.tab_buttons[0] = (DrawFrameLayout)inflate.findViewById(R.id.tab_button0);
-        this.tab_buttons[1] = (DrawFrameLayout)inflate.findViewById(R.id.tab_button1);
-        this.tab_buttons[2] = (DrawFrameLayout)inflate.findViewById(R.id.tab_button2);
-        this.tab_buttons[3] = (DrawFrameLayout)inflate.findViewById(R.id.tab_button3);
-        this.tab_buttons[4] = (DrawFrameLayout)inflate.findViewById(R.id.tab_button4);
+        this.progressbar_button = (DrawFrameLayout) inflate.findViewById(R.id.progressbar_button);
+        this.fastquit_button = (DrawFrameLayout) inflate.findViewById(R.id.fastquit_button);
+        this.tab_buttons[0] = (DrawFrameLayout) inflate.findViewById(R.id.tab_button0);
+        this.tab_buttons[1] = (DrawFrameLayout) inflate.findViewById(R.id.tab_button1);
+        this.tab_buttons[2] = (DrawFrameLayout) inflate.findViewById(R.id.tab_button2);
+        this.tab_buttons[3] = (DrawFrameLayout) inflate.findViewById(R.id.tab_button3);
+        this.tab_buttons[4] = (DrawFrameLayout) inflate.findViewById(R.id.tab_button4);
 
         this.progressbar_button.setUpDrawable(R.drawable.shadow_white_rect);
         this.progressbar_button.setOnFocusChangeListener(this);
         this.fastquit_button.setUpDrawable(R.drawable.shadow_white_rect);
         this.fastquit_button.setOnFocusChangeListener(this);
-        if(BiliFilter.progressbar_on){
-            ((ShadowTextView)((ViewGroup)this.progressbar_button).getChildAt(0)).setText("开");
+        if (BiliFilter.progressbar_on) {
+            ((ShadowTextView) ((ViewGroup) this.progressbar_button).getChildAt(0)).setText("开");
             this.progressbar_button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
         }
-        if(BiliFilter.fastquit_on){
-            ((ShadowTextView)((ViewGroup)this.fastquit_button).getChildAt(0)).setText("开");
+        if (BiliFilter.fastquit_on) {
+            ((ShadowTextView) ((ViewGroup) this.fastquit_button).getChildAt(0)).setText("开");
             this.fastquit_button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
         }
         this.progressbar_button.setOnClickListener(this);
         this.fastquit_button.setOnClickListener(this);
-        for(int i=0;i<5;i++){
+        for (int i = 0; i < 5; i++) {
             this.tab_buttons[i].setUpDrawable(R.drawable.shadow_white_rect);
             this.tab_buttons[i].setOnFocusChangeListener(this);
             this.tab_buttons[i].setOnClickListener(this);
-            ((ShadowTextView)this.tab_buttons[i].getChildAt(0)).setText(afm4.tab_names[MainMyFragment.MyMap[i]]);
+            ((ShadowTextView) this.tab_buttons[i].getChildAt(0)).setText(afm4.tab_names[MainMyFragment.MyMap[i]]);
         }
 
-        this.column2Button = (DrawFrameLayout)inflate.findViewById(R.id.column_2_button);
-        this.column3Button = (DrawFrameLayout)inflate.findViewById(R.id.column_3_button);
-        this.column4Button = (DrawFrameLayout)inflate.findViewById(R.id.column_4_button);
+        this.column2Button = (DrawFrameLayout) inflate.findViewById(R.id.column_2_button);
+        this.column3Button = (DrawFrameLayout) inflate.findViewById(R.id.column_3_button);
+        this.column4Button = (DrawFrameLayout) inflate.findViewById(R.id.column_4_button);
         this.column2Button.setUpDrawable(R.drawable.shadow_white_rect);
         this.column3Button.setUpDrawable(R.drawable.shadow_white_rect);
         this.column4Button.setUpDrawable(R.drawable.shadow_white_rect);
@@ -107,8 +108,8 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
             this.column4Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
         }
 
-        this.otherNormalButton = (DrawFrameLayout)inflate.findViewById(R.id.other_normal_button);
-        this.otherCompactButton = (DrawFrameLayout)inflate.findViewById(R.id.other_compact_button);
+        this.otherNormalButton = (DrawFrameLayout) inflate.findViewById(R.id.other_normal_button);
+        this.otherCompactButton = (DrawFrameLayout) inflate.findViewById(R.id.other_compact_button);
         this.otherNormalButton.setUpDrawable(R.drawable.shadow_white_rect);
         this.otherCompactButton.setUpDrawable(R.drawable.shadow_white_rect);
         this.otherNormalButton.setOnFocusChangeListener(this);
@@ -125,11 +126,11 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
             this.otherCompactButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
         }
 
-        this.tabPersonalRecommend = (DrawFrameLayout)inflate.findViewById(R.id.tab_personal_recommend);
-        this.tabHotRecommend = (DrawFrameLayout)inflate.findViewById(R.id.tab_hot_recommend);
-        this.tabArea = (DrawFrameLayout)inflate.findViewById(R.id.tab_area);
-        this.tabBangumi = (DrawFrameLayout)inflate.findViewById(R.id.tab_bangumi);
-        this.tabPgc = (DrawFrameLayout)inflate.findViewById(R.id.tab_pgc);
+        this.tabPersonalRecommend = (DrawFrameLayout) inflate.findViewById(R.id.tab_personal_recommend);
+        this.tabHotRecommend = (DrawFrameLayout) inflate.findViewById(R.id.tab_hot_recommend);
+        this.tabArea = (DrawFrameLayout) inflate.findViewById(R.id.tab_area);
+        this.tabBangumi = (DrawFrameLayout) inflate.findViewById(R.id.tab_bangumi);
+        this.tabPgc = (DrawFrameLayout) inflate.findViewById(R.id.tab_pgc);
 
         this.tabPersonalRecommend.setUpDrawable(R.drawable.shadow_white_rect);
         this.tabHotRecommend.setUpDrawable(R.drawable.shadow_white_rect);
@@ -156,8 +157,9 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         updateTopTabButtonState(this.tabBangumi, (topTabConfig & abd.TAB_BANGUMI) != 0);
         updateTopTabButtonState(this.tabPgc, (topTabConfig & abd.TAB_PGC) != 0);
 
-        this.spaceDynamicButton = (DrawFrameLayout)inflate.findViewById(R.id.space_dynamic_button);
-        this.spaceAllButton = (DrawFrameLayout)inflate.findViewById(R.id.space_all_button);
+        this.spaceDynamicButton = (DrawFrameLayout) inflate.findViewById(R.id.space_dynamic_button);
+        this.spaceAllButton = (DrawFrameLayout) inflate.findViewById(R.id.space_all_button);
+        this.spaceDynamicLayout = (LinearLayout) inflate.findViewById(R.id.space_dynamic_layout);
         this.spaceDynamicButton.setUpDrawable(R.drawable.shadow_white_rect);
         this.spaceAllButton.setUpDrawable(R.drawable.shadow_white_rect);
         this.spaceDynamicButton.setOnFocusChangeListener(this);
@@ -165,13 +167,18 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         this.spaceDynamicButton.setOnClickListener(this);
         this.spaceAllButton.setOnClickListener(this);
 
-        int spaceMode = abd.get_space_dynamic_mode(getActivity());
-        if (spaceMode == abd.SPACE_MODE_DYNAMIC) {
-            this.spaceDynamicButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
-            this.spaceAllButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
-        } else {
-            this.spaceDynamicButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
-            this.spaceAllButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+        mg account = mg.a(getActivity());
+        boolean isLoggedIn = account != null && account.a();
+        if (isLoggedIn) {
+            this.spaceDynamicLayout.setVisibility(View.VISIBLE);
+            int spaceMode = abd.get_space_dynamic_mode(getActivity());
+            if (spaceMode == abd.SPACE_MODE_DYNAMIC) {
+                this.spaceDynamicButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+                this.spaceAllButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+            } else {
+                this.spaceDynamicButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+                this.spaceAllButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+            }
         }
 
         return inflate;
@@ -187,37 +194,39 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
 
     @Override // android.view.View.OnClickListener
     public final void onClick(View view) {
-        if(view == this.progressbar_button){
-            if(BiliFilter.progressbar_on){
-                ((ShadowTextView)((ViewGroup)view).getChildAt(0)).setText("关");
+        if (view == this.progressbar_button) {
+            if (BiliFilter.progressbar_on) {
+                ((ShadowTextView) ((ViewGroup) view).getChildAt(0)).setText("关");
                 view.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
-            }
-            else{
-                ((ShadowTextView)((ViewGroup)view).getChildAt(0)).setText("开");
+            } else {
+                ((ShadowTextView) ((ViewGroup) view).getChildAt(0)).setText("开");
                 view.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
             }
-            BiliFilter.progressbar_on=!BiliFilter.progressbar_on;
-            abd.set_personal_config(MainApplication.a().getApplicationContext(),"progressbar_on",BiliFilter.progressbar_on);
+            BiliFilter.progressbar_on = !BiliFilter.progressbar_on;
+            abd.set_personal_config(MainApplication.a().getApplicationContext(), "progressbar_on",
+                    BiliFilter.progressbar_on);
         }
-        if(view == this.fastquit_button){
-            if(BiliFilter.fastquit_on){
-                ((ShadowTextView)((ViewGroup)view).getChildAt(0)).setText("关");
+        if (view == this.fastquit_button) {
+            if (BiliFilter.fastquit_on) {
+                ((ShadowTextView) ((ViewGroup) view).getChildAt(0)).setText("关");
                 view.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
-            }
-            else{
-                ((ShadowTextView)((ViewGroup)view).getChildAt(0)).setText("开");
+            } else {
+                ((ShadowTextView) ((ViewGroup) view).getChildAt(0)).setText("开");
                 view.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
             }
-            BiliFilter.fastquit_on=!BiliFilter.fastquit_on;
-            abd.set_personal_config(MainApplication.a().getApplicationContext(),"fastquit_on",BiliFilter.fastquit_on);
+            BiliFilter.fastquit_on = !BiliFilter.fastquit_on;
+            abd.set_personal_config(MainApplication.a().getApplicationContext(), "fastquit_on", BiliFilter.fastquit_on);
         }
-        for(int i=0;i<5;i++){
-            if(this.tab_buttons[i]==view){
-                int t=MainMyFragment.MyMap[i];
-                for(int j=i-1;j>=0;j--)MainMyFragment.MyMap[j+1]=MainMyFragment.MyMap[j];
-                MainMyFragment.MyMap[0]=t;
-                abd.set_personal_config(MainApplication.a(),"myarea_map",JSON.toJSON(MainMyFragment.MyMap));
-                for(int j=0;j<5;j++)((ShadowTextView)this.tab_buttons[j].getChildAt(0)).setText((j==i?"≪ ":"")+afm4.tab_names[MainMyFragment.MyMap[j]]);
+        for (int i = 0; i < 5; i++) {
+            if (this.tab_buttons[i] == view) {
+                int t = MainMyFragment.MyMap[i];
+                for (int j = i - 1; j >= 0; j--)
+                    MainMyFragment.MyMap[j + 1] = MainMyFragment.MyMap[j];
+                MainMyFragment.MyMap[0] = t;
+                abd.set_personal_config(MainApplication.a(), "myarea_map", JSON.toJSON(MainMyFragment.MyMap));
+                for (int j = 0; j < 5; j++)
+                    ((ShadowTextView) this.tab_buttons[j].getChildAt(0))
+                            .setText((j == i ? "≪ " : "") + afm4.tab_names[MainMyFragment.MyMap[j]]);
             }
         }
 
@@ -248,15 +257,20 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
             this.otherCompactButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
         }
 
-        if (view == this.tabPersonalRecommend || view == this.tabHotRecommend || 
-            view == this.tabArea || view == this.tabBangumi || view == this.tabPgc) {
+        if (view == this.tabPersonalRecommend || view == this.tabHotRecommend ||
+                view == this.tabArea || view == this.tabBangumi || view == this.tabPgc) {
             int config = abd.get_top_tab_config(getActivity());
             int flag = 0;
-            if (view == this.tabPersonalRecommend) flag = abd.TAB_PERSONAL_RECOMMEND;
-            else if (view == this.tabHotRecommend) flag = abd.TAB_HOT_RECOMMEND;
-            else if (view == this.tabArea) flag = abd.TAB_AREA;
-            else if (view == this.tabBangumi) flag = abd.TAB_BANGUMI;
-            else if (view == this.tabPgc) flag = abd.TAB_PGC;
+            if (view == this.tabPersonalRecommend)
+                flag = abd.TAB_PERSONAL_RECOMMEND;
+            else if (view == this.tabHotRecommend)
+                flag = abd.TAB_HOT_RECOMMEND;
+            else if (view == this.tabArea)
+                flag = abd.TAB_AREA;
+            else if (view == this.tabBangumi)
+                flag = abd.TAB_BANGUMI;
+            else if (view == this.tabPgc)
+                flag = abd.TAB_PGC;
 
             boolean wasEnabled = (config & flag) != 0;
             int newConfig;
@@ -269,7 +283,7 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
                 newConfig = config | flag;
             }
             abd.set_top_tab_config(getActivity(), newConfig);
-            updateTopTabButtonState((DrawFrameLayout)view, !wasEnabled);
+            updateTopTabButtonState((DrawFrameLayout) view, !wasEnabled);
         }
 
         if (view == this.spaceDynamicButton) {
@@ -286,12 +300,14 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
     @Override // android.view.View.OnFocusChangeListener
     public final void onFocusChange(View view, boolean z) {
         if (z) {
-            ((DrawFrameLayout)view).setUpEnabled(true);
+            ((DrawFrameLayout) view).setUpEnabled(true);
         } else {
-            ((DrawFrameLayout)view).setUpEnabled(false);
+            ((DrawFrameLayout) view).setUpEnabled(false);
         }
-        for(int i=0;i<5;i++){
-            if(this.tab_buttons[i]==view && this.tab_buttons[i].getChildAt(0)!=null)((ShadowTextView)this.tab_buttons[i].getChildAt(0)).setText((z?"≪ ":"")+afm4.tab_names[MainMyFragment.MyMap[i]]);
+        for (int i = 0; i < 5; i++) {
+            if (this.tab_buttons[i] == view && this.tab_buttons[i].getChildAt(0) != null)
+                ((ShadowTextView) this.tab_buttons[i].getChildAt(0))
+                        .setText((z ? "≪ " : "") + afm4.tab_names[MainMyFragment.MyMap[i]]);
         }
     }
 
@@ -324,10 +340,13 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         if (this.progressbar_button == null) {
             return false;
         }
-        if (!this.progressbar_button.hasFocus() && !this.fastquit_button.hasFocus() && !this.column2Button.hasFocus() && !this.column3Button.hasFocus() && !this.column4Button.hasFocus() && !this.otherNormalButton.hasFocus() && !this.otherCompactButton.hasFocus() && !this.spaceDynamicButton.hasFocus() && !this.spaceAllButton.hasFocus()) {
+        if (!this.progressbar_button.hasFocus() && !this.fastquit_button.hasFocus() && !this.column2Button.hasFocus()
+                && !this.column3Button.hasFocus() && !this.column4Button.hasFocus()
+                && !this.otherNormalButton.hasFocus() && !this.otherCompactButton.hasFocus()
+                && !this.spaceDynamicButton.hasFocus() && !this.spaceAllButton.hasFocus()) {
             boolean allTabsNoFocus = true;
-            for(int i=0;i<5;i++){
-                if(this.tab_buttons[i] != null && this.tab_buttons[i].hasFocus()){
+            for (int i = 0; i < 5; i++) {
+                if (this.tab_buttons[i] != null && this.tab_buttons[i].hasFocus()) {
                     allTabsNoFocus = false;
                     break;
                 }

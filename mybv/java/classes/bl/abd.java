@@ -340,7 +340,7 @@ public class abd {
 
     public static int get_space_dynamic_mode(Context context) {
         if (spaceDynamicMode == -1) {
-            spaceDynamicMode = a(context).a().getInt("space_dynamic_mode", SPACE_MODE_DYNAMIC);
+            spaceDynamicMode = a(context).a().getInt("space_dynamic_mode", SPACE_MODE_ALL);
         }
         return spaceDynamicMode;
     }

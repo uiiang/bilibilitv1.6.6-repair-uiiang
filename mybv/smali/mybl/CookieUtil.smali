@@ -64,6 +64,74 @@
     return-void
 .end method
 
+.method public static clearCookies(Lbl/mg;)V
+    .locals 4
+
+    .prologue
+    .line 128
+    if-nez p0, :cond_a
+
+    .line 129
+    const-string v0, "CookieUtil"
+
+    const-string v1, "clearCookies - biliAccount is null"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 138
+    :goto_9
+    return-void
+
+    .line 133
+    :cond_a
+    :try_start_a
+    invoke-virtual {p0}, Lbl/mg;->i()V
+
+    .line 134
+    const-string v0, "CookieUtil"
+
+    const-string v1, "clearCookies - cookies cleared successfully"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    :try_end_14
+    .catch Ljava/lang/Exception; {:try_start_a .. :try_end_14} :catch_15
+
+    goto :goto_9
+
+    .line 135
+    :catch_15
+    move-exception v0
+
+    .line 136
+    const-string v1, "CookieUtil"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "clearCookies - exception: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v0}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v1, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_9
+.end method
+
 .method private static findCookieValue(Ljava/util/List;Ljava/lang/String;)Ljava/lang/String;
     .locals 4
     .annotation system Ldalvik/annotation/Signature;
@@ -82,7 +150,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 128
+    .line 141
     if-eqz p0, :cond_5
 
     if-nez p1, :cond_7
@@ -90,11 +158,11 @@
     :cond_5
     move-object v0, v1
 
-    .line 136
+    .line 149
     :goto_6
     return-object v0
 
-    .line 131
+    .line 144
     :cond_7
     invoke-interface {p0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
 
@@ -113,7 +181,7 @@
 
     check-cast v0, Lbl/ml$a;
 
-    .line 132
+    .line 145
     iget-object v3, v0, Lbl/ml$a;->a:Ljava/lang/String;
 
     invoke-virtual {p1, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -122,7 +190,7 @@
 
     if-eqz v3, :cond_b
 
-    .line 133
+    .line 146
     iget-object v0, v0, Lbl/ml$a;->b:Ljava/lang/String;
 
     goto :goto_6
@@ -130,7 +198,7 @@
     :cond_22
     move-object v0, v1
 
-    .line 136
+    .line 149
     goto :goto_6
 .end method
 

@@ -385,4 +385,5 @@
     <item type="id" name="index_badge" />
     <item type="id" name="space_dynamic_button" />
     <item type="id" name="space_all_button" />
+    <item type="id" name="space_dynamic_layout" />
 </resources>

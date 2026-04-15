@@ -2562,6 +2562,7 @@
     <public type="id" name="index_badge" id="0x7f0801ea" />
     <public type="id" name="space_dynamic_button" id="0x7f0801eb" />
     <public type="id" name="space_all_button" id="0x7f0801ec" />
+    <public type="id" name="space_dynamic_layout" id="0x7f0801ed" />
 
 
     <public type="integer" name="config_danmaku_fly_duration" id="0x7f090003" />
