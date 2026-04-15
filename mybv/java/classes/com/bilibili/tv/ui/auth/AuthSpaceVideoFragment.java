@@ -147,9 +147,8 @@ public final class AuthSpaceVideoFragment extends ady {
     return this.loading;
   }
   
-  // 初始化 header 区域
   private void initHeader() {
-    if ("all".equals(mode)) {
+    if ("all".equals(mode) || "dynamic".equals(mode)) {
       if (headerTitle != null) {
         if (upName != null && !upName.isEmpty()) {
           headerTitle.setText(upName);
@@ -157,80 +156,14 @@ public final class AuthSpaceVideoFragment extends ady {
           headerTitle.setText(String.valueOf(mid));
         }
       }
-      if (attentionButton != null) {
-        attentionButton.setVisibility(View.VISIBLE);
-        attentionButton.setUpDrawable(R.drawable.shadow_red_rect);
-        attentionButton.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-          @Override
-          public void onFocusChange(View view, boolean z) {
-            ((DrawTextView) view).setUpEnabled(z);
-          }
-        });
-        attentionButton.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            mg account = mg.a(getActivity());
-            if (account == null) return;
-            String cookie = CookieUtil.getFullCookieWithDevice(account);
-            String csrf = CookieUtil.getBiliJct(account);
-            ((MyBiliApiService) vo.a(MyBiliApiService.class)).modifyRelation(
-              mid, 
-              attentionButton.getText().equals("已关注") ? 2 : 1, 
-              11, csrf, cookie
-            ).a(new vn<JSONObject>() {
-              @Override
-              public void a(JSONObject response) {
-                boolean followed = attentionButton.getText().equals("已关注");
-                attentionButton.setText(followed ? "＋关注" : "已关注");
-                lr.b(getContext(), followed ? "取消关注成功" : "关注成功");
-              }
-
-              @Override
-              public void onError(Throwable th) {
-                boolean followed = attentionButton.getText().equals("已关注");
-                lr.b(getContext(), followed ? "取消关注失败" : "关注失败");
-              }
-
-              @Override
-              public boolean isCancel() {
-                return getActivity() == null || getActivity().isFinishing();
-              }
-            });
-          }
-        });
-        
-        // 查询关注状态
-        mg account = mg.a(getActivity());
-        if (account != null) {
-          String cookie = CookieUtil.getFullCookieWithDevice(account);
-          ((MyBiliApiService) vo.a(MyBiliApiService.class)).getRelation(mid, cookie)
-            .a(new vn<JSONObject>() {
-              @Override
-              public void a(JSONObject response) {
-                int attribute = response.getIntValue("attribute");
-                if (attribute == 2 || attribute == 6) {
-                  attentionButton.setText("已关注");
-                }
-              }
-
-              @Override
-              public void onError(Throwable th) {}
-
-              @Override
-              public boolean isCancel() {
-                return getActivity() == null || getActivity().isFinishing();
-              }
-            });
-        }
-      }
+      setupAttentionButton();
       if (headerCount != null) {
         headerCount.setText(totalCount > 0 ? totalCount + "条" : "");
       }
       if (hintSort != null) {
-        hintSort.setVisibility(View.VISIBLE);
+        hintSort.setVisibility("all".equals(mode) ? View.VISIBLE : View.GONE);
       }
     } else if ("season".equals(mode)) {
-      // 合集模式：显示合集标题和视频数
       if (headerTitle != null) {
         headerTitle.setText("加载中...");
       }
@@ -244,7 +177,6 @@ public final class AuthSpaceVideoFragment extends ady {
         hintSort.setVisibility(View.VISIBLE);
       }
     } else if ("series".equals(mode)) {
-      // 系列模式：显示系列标题和视频数
       if (headerTitle != null) {
         headerTitle.setText("加载中...");
       }
@@ -257,24 +189,73 @@ public final class AuthSpaceVideoFragment extends ady {
       if (hintSort != null) {
         hintSort.setVisibility(View.VISIBLE);
       }
-    } else if ("dynamic".equals(mode)) {
-      // 投稿视频模式（动态接口）
-      if (headerTitle != null) {
-        if (upName != null && !upName.isEmpty()) {
-          headerTitle.setText(upName);
-        } else {
-          headerTitle.setText(String.valueOf(mid));
-        }
+    }
+  }
+  
+  private void setupAttentionButton() {
+    if (attentionButton == null) return;
+    attentionButton.setVisibility(View.VISIBLE);
+    attentionButton.setUpDrawable(R.drawable.shadow_red_rect);
+    attentionButton.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+      @Override
+      public void onFocusChange(View view, boolean z) {
+        ((DrawTextView) view).setUpEnabled(z);
       }
-      if (attentionButton != null) {
-        attentionButton.setVisibility(View.GONE);
+    });
+    attentionButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        mg account = mg.a(getActivity());
+        if (account == null) return;
+        String cookie = CookieUtil.getFullCookieWithDevice(account);
+        String csrf = CookieUtil.getBiliJct(account);
+        ((MyBiliApiService) vo.a(MyBiliApiService.class)).modifyRelation(
+          mid, 
+          attentionButton.getText().equals("已关注") ? 2 : 1, 
+          11, csrf, cookie
+        ).a(new vn<JSONObject>() {
+          @Override
+          public void a(JSONObject response) {
+            boolean followed = attentionButton.getText().equals("已关注");
+            attentionButton.setText(followed ? "＋关注" : "已关注");
+            lr.b(getContext(), followed ? "取消关注成功" : "关注成功");
+          }
+
+          @Override
+          public void onError(Throwable th) {
+            boolean followed = attentionButton.getText().equals("已关注");
+            lr.b(getContext(), followed ? "取消关注失败" : "关注失败");
+          }
+
+          @Override
+          public boolean isCancel() {
+            return getActivity() == null || getActivity().isFinishing();
+          }
+        });
       }
-      if (headerCount != null) {
-        headerCount.setText("");
-      }
-      if (hintSort != null) {
-        hintSort.setVisibility(View.GONE);
-      }
+    });
+    
+    mg account = mg.a(getActivity());
+    if (account != null) {
+      String cookie = CookieUtil.getFullCookieWithDevice(account);
+      ((MyBiliApiService) vo.a(MyBiliApiService.class)).getRelation(mid, cookie)
+        .a(new vn<JSONObject>() {
+          @Override
+          public void a(JSONObject response) {
+            int attribute = response.getIntValue("attribute");
+            if (attribute == 2 || attribute == 6) {
+              attentionButton.setText("已关注");
+            }
+          }
+
+          @Override
+          public void onError(Throwable th) {}
+
+          @Override
+          public boolean isCancel() {
+            return getActivity() == null || getActivity().isFinishing();
+          }
+        });
     }
   }
   
@@ -425,10 +406,15 @@ public final class AuthSpaceVideoFragment extends ady {
               JSONObject item = vlist.getJSONObject(i);
               BiliSpaceVideo v = new BiliSpaceVideo();
               v.cover = item.getString("pic");
-              v.danmaku = String.valueOf(item.getIntValue("video_review"));
-              v.param = String.valueOf(item.getLongValue("aid"));
-              v.play = item.getIntValue("play");
+              v.aid = item.getLongValue("aid");
+              v.param = String.valueOf(v.aid);
+              v.bvid = item.getString("bvid");
               v.title = item.getString("title");
+              v.play = item.getIntValue("play");
+              v.playStr = bl.adh.a(v.play);
+              int danmakuVal = item.getIntValue("video_review");
+              v.danmaku = String.valueOf(danmakuVal);
+              v.danmakuStr = bl.adh.a(danmakuVal);
               v.ctime = item.getLong("created");
               v.duration = DateHelper.parseDurationStr(item.getString("length"));
               v.durationStr = item.getString("length");
@@ -511,7 +497,6 @@ public final class AuthSpaceVideoFragment extends ady {
               j();
               loading = false;
               if (resp != null) {
-                // 获取合集标题
                 String seasonTitle = "合集";
                 int totalCount = 0;
                 JSONObject meta = resp.getJSONObject("meta");
@@ -527,15 +512,46 @@ public final class AuthSpaceVideoFragment extends ady {
                 if (arr == null)
                   arr = resp.getJSONArray("list");
                 if (arr != null && arr.size() > 0) {
-                  List<JSONObject> items = new ArrayList<>();
-                  for (int i = 0; i < arr.size(); i++)
-                    items.add(arr.getJSONObject(i));
+                  List<BiliSpaceVideo> videos = new ArrayList<>();
+                  for (int i = 0; i < arr.size(); i++) {
+                    JSONObject item = arr.getJSONObject(i);
+                    BiliSpaceVideo v = new BiliSpaceVideo();
+                    v.aid = item.getLongValue("aid");
+                    v.param = String.valueOf(v.aid);
+                    v.bvid = item.getString("bvid");
+                    v.title = item.getString("title");
+                    v.cover = item.getString("pic");
+                    if (v.cover == null || v.cover.isEmpty()) {
+                      v.cover = item.getString("cover");
+                    }
+                    JSONObject stat = item.getJSONObject("stat");
+                    if (stat != null) {
+                      int viewCount = stat.getIntValue("view");
+                      v.play = viewCount;
+                      v.playStr = bl.adh.a(viewCount);
+                      int danmakuVal = stat.getIntValue("danmaku");
+                      v.danmaku = String.valueOf(danmakuVal);
+                      v.danmakuStr = bl.adh.a(danmakuVal);
+                    }
+                    v.ctime = item.getLong("pubdate");
+                    v.duration = item.getIntValue("duration");
+                    String durText = item.getString("duration_text");
+                    if (durText != null && !durText.isEmpty()) {
+                      v.durationStr = durText;
+                    } else {
+                      v.durationStr = DateHelper.formatDuration(v.duration);
+                    }
+                    v.elecArcType = item.getIntValue("elec_arc_type");
+                    v.elecArcBadge = item.getString("elec_arc_badge");
+                    v.isUnionVideo = item.getIntValue("is_union_video");
+                    v.isLivePlayback = item.getIntValue("is_live_playback");
+                    videos.add(v);
+                  }
                   if (page == 1) {
-                    adapter.setJsonItems(items);
-                    // 更新 header 显示
+                    adapter.setVideos(videos);
                     updateHeaderInfo(seasonTitle, totalCount);
                   } else {
-                    adapter.addJsonItems(items);
+                    adapter.addVideos(videos);
                   }
                   hasMore = arr.size() == 30;
                   View view = getView();
@@ -593,7 +609,6 @@ public final class AuthSpaceVideoFragment extends ady {
               j();
               loading = false;
               if (resp != null) {
-                // 获取系列标题
                 String seriesTitle = "系列";
                 int totalCount = 0;
                 JSONObject data = resp.getJSONObject("data");
@@ -610,15 +625,46 @@ public final class AuthSpaceVideoFragment extends ady {
                     arr = data.getJSONArray("list");
                 }
                 if (arr != null && arr.size() > 0) {
-                  List<JSONObject> items = new ArrayList<>();
-                  for (int i = 0; i < arr.size(); i++)
-                    items.add(arr.getJSONObject(i));
+                  List<BiliSpaceVideo> videos = new ArrayList<>();
+                  for (int i = 0; i < arr.size(); i++) {
+                    JSONObject item = arr.getJSONObject(i);
+                    BiliSpaceVideo v = new BiliSpaceVideo();
+                    v.aid = item.getLongValue("aid");
+                    v.param = String.valueOf(v.aid);
+                    v.bvid = item.getString("bvid");
+                    v.title = item.getString("title");
+                    v.cover = item.getString("pic");
+                    if (v.cover == null || v.cover.isEmpty()) {
+                      v.cover = item.getString("cover");
+                    }
+                    JSONObject stat = item.getJSONObject("stat");
+                    if (stat != null) {
+                      int viewCount = stat.getIntValue("view");
+                      v.play = viewCount;
+                      v.playStr = bl.adh.a(viewCount);
+                      int danmakuVal = stat.getIntValue("danmaku");
+                      v.danmaku = String.valueOf(danmakuVal);
+                      v.danmakuStr = bl.adh.a(danmakuVal);
+                    }
+                    v.ctime = item.getLong("pubdate");
+                    v.duration = item.getIntValue("duration");
+                    String durText = item.getString("duration_text");
+                    if (durText != null && !durText.isEmpty()) {
+                      v.durationStr = durText;
+                    } else {
+                      v.durationStr = DateHelper.formatDuration(v.duration);
+                    }
+                    v.elecArcType = item.getIntValue("elec_arc_type");
+                    v.elecArcBadge = item.getString("elec_arc_badge");
+                    v.isUnionVideo = item.getIntValue("is_union_video");
+                    v.isLivePlayback = item.getIntValue("is_live_playback");
+                    videos.add(v);
+                  }
                   if (page == 1) {
-                    adapter.setJsonItems(items);
-                    // 更新 header 显示
+                    adapter.setVideos(videos);
                     updateHeaderInfo(seriesTitle, totalCount);
                   } else {
-                    adapter.addJsonItems(items);
+                    adapter.addVideos(videos);
                   }
                   hasMore = arr.size() == 30;
                   View view = getView();
@@ -687,20 +733,87 @@ public final class AuthSpaceVideoFragment extends ady {
           JSONArray items = resp.getJSONArray("items");
           
           if (items != null && items.size() > 0) {
-            List<JSONObject> filteredItems = new ArrayList<>();
+            List<BiliSpaceVideo> videos = new ArrayList<>();
             for (int i = 0; i < items.size(); i++) {
               JSONObject item = items.getJSONObject(i);
               String type = item.getString("type");
-              if ("DYNAMIC_TYPE_AV".equals(type)) {
-                filteredItems.add(item);
+              if (!"DYNAMIC_TYPE_AV".equals(type)) {
+                continue;
               }
+              JSONObject modules = item.getJSONObject("modules");
+              if (modules == null)
+                continue;
+              JSONObject moduleDynamic = modules.getJSONObject("module_dynamic");
+              if (moduleDynamic == null)
+                continue;
+              JSONObject major = moduleDynamic.getJSONObject("major");
+              if (major == null)
+                continue;
+              JSONObject archive = major.getJSONObject("archive");
+              if (archive == null)
+                continue;
+              JSONObject moduleAuthor = modules.getJSONObject("module_author");
+              
+              BiliSpaceVideo v = new BiliSpaceVideo();
+              v.aid = archive.getLongValue("aid");
+              v.param = String.valueOf(v.aid);
+              v.bvid = archive.getString("bvid");
+              v.title = archive.getString("title");
+              v.cover = archive.getString("cover");
+              
+              JSONObject statObj = archive.getJSONObject("stat");
+              if (statObj != null) {
+                String playVal = statObj.getString("play");
+                v.playStr = playVal;
+                v.play = 0;
+                try {
+                  if (playVal != null && !playVal.isEmpty()) {
+                    v.play = Integer.parseInt(playVal);
+                  }
+                } catch (Exception e) {}
+                String danmakuVal = statObj.getString("danmaku");
+                v.danmakuStr = danmakuVal;
+                v.danmaku = danmakuVal;
+              }
+              
+              if (moduleAuthor != null) {
+                String pubTs = moduleAuthor.getString("pub_ts");
+                if (pubTs != null && !pubTs.isEmpty()) {
+                  try {
+                    v.ctime = Long.parseLong(pubTs);
+                  } catch (Exception e) {}
+                }
+              }
+              if (v.ctime == null || v.ctime == 0) {
+                v.ctime = archive.getLongValue("pubdate");
+              }
+              
+              v.duration = archive.getIntValue("duration");
+              String durText = archive.getString("duration_text");
+              if (durText != null && !durText.isEmpty()) {
+                v.durationStr = durText;
+              } else {
+                v.durationStr = DateHelper.formatDuration(v.duration);
+              }
+              
+              JSONObject badgeObj = archive.getJSONObject("badge");
+              if (badgeObj != null) {
+                v.badgeText = badgeObj.getString("text");
+                v.badgeBgColor = badgeObj.getString("bg_color");
+              }
+              
+              v.elecArcType = archive.getIntValue("elec_arc_type");
+              v.elecArcBadge = archive.getString("elec_arc_badge");
+              v.isUnionVideo = archive.getIntValue("is_union_video");
+              v.isLivePlayback = archive.getIntValue("is_live_playback");
+              videos.add(v);
             }
             
-            if (filteredItems.size() > 0) {
+            if (videos.size() > 0) {
               if (dynamicOffset == null) {
-                adapter.setDynamicItems(filteredItems);
+                adapter.setVideos(videos);
               } else {
-                adapter.addDynamicItems(filteredItems);
+                adapter.addVideos(videos);
               }
               dynamicOffset = nextOffset;
               hasMore = hasMoreFlag;
@@ -817,7 +930,7 @@ public final class AuthSpaceVideoFragment extends ady {
 
   /* adapter */
   static final class c extends RecyclerView.a<adv> implements View.OnClickListener, View.OnFocusChangeListener {
-    private List<Object> data = new ArrayList<>();
+    private List<BiliSpaceVideo> data = new ArrayList<>();
 
     @Override
     public adv a(ViewGroup parent, int viewType) {
@@ -828,191 +941,71 @@ public final class AuthSpaceVideoFragment extends ady {
     public void a(adv holder, int pos) {
       if (holder instanceof d) {
         d vh = (d) holder;
-        Object item = this.data.get(pos);
-        if (item instanceof JSONObject) {
-          JSONObject jo = (JSONObject) item;
-          JSONObject archive = jo;
-          JSONObject moduleAuthor = null;
-          JSONObject modules = jo.getJSONObject("modules");
-          if (modules != null && modules.getJSONObject("module_dynamic") != null) {
-            archive = modules.getJSONObject("module_dynamic").getJSONObject("major").getJSONObject("archive");
-            moduleAuthor = modules.getJSONObject("module_author");
-          } else if (jo.getJSONObject("module_dynamic") != null) {
-            archive = jo.getJSONObject("module_dynamic").getJSONObject("major").getJSONObject("archive");
-            moduleAuthor = jo.getJSONObject("module_author");
-          }
-          vh.A().setText(archive.getString("title"));
-          vh.B().setVisibility(View.GONE);
-          
-          long pubdate = 0;
-          if (moduleAuthor != null) {
-            String pubTs = moduleAuthor.getString("pub_ts");
-            if (pubTs != null && !pubTs.isEmpty()) {
-              try {
-                pubdate = Long.parseLong(pubTs);
-              } catch (Exception e) {}
-            }
-          }
-          if (pubdate == 0) {
-            pubdate = archive.getLongValue("pubdate");
-          }
-          
-          JSONObject statObj = archive.getJSONObject("stat");
-          if (statObj != null) {
-            String playVal = statObj.getString("play");
-            String danmakuVal = statObj.getString("danmaku");
-            vh.C().setText(playVal);
-            if (danmakuVal != null && !"0".equals(danmakuVal)) {
-              vh.danmakuInImage.setText(danmakuVal);
-              vh.danmakuInImage.setVisibility(View.VISIBLE);
-            } else {
-              vh.danmakuInImage.setVisibility(View.GONE);
-            }
-          } else {
-            String playStr = archive.getString("play");
-            String danmakuStr = archive.getString("danmaku");
-            vh.C().setText(bl.adh.a(playStr));
-            int danmaku = 0;
-            try {
-                danmaku = Integer.parseInt(danmakuStr);
-            } catch (Exception e) {}
-            if (danmaku > 0) {
-                vh.danmakuInImage.setText(bl.adh.a(danmaku));
-                vh.danmakuInImage.setVisibility(View.VISIBLE);
-            } else {
-                vh.danmakuInImage.setVisibility(View.GONE);
-            }
-          }
-          if (pubdate > 0) {
-              vh.D().setText(DateHelper.formatDate(pubdate));
-              vh.D().setVisibility(View.VISIBLE);
-          } else {
-              vh.D().setVisibility(View.GONE);
-          }
-          
-          String durationText = archive.getString("duration_text");
-          if (durationText != null && !durationText.isEmpty()) {
-            vh.E().setText(durationText);
-          } else {
-            int durationVal = archive.getIntValue("duration");
-            vh.E().setText(DateHelper.formatDuration(durationVal));
-          }
-          
-          int iconSize = bl.adl.b(R.dimen.px_26);
-          android.graphics.drawable.Drawable playIcon = bl.adl.a.c(R.drawable.ic_video_info_play);
-          android.graphics.drawable.Drawable danmakuIcon = bl.adl.a.c(R.drawable.ic_video_info_danmaku);
-          if (playIcon != null) {
-            playIcon.setBounds(0, 0, iconSize, iconSize);
-            playIcon.setColorFilter(bl.adl.d(R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
-          }
-          if (danmakuIcon != null) {
-            danmakuIcon.setBounds(0, 0, iconSize, iconSize);
-            danmakuIcon.setColorFilter(bl.adl.d(R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
-          }
-          vh.C().setCompoundDrawables(playIcon, null, null, null);
-          vh.danmakuInImage.setCompoundDrawables(danmakuIcon, null, null, null);
-          String coverUrl = archive.getString("pic") != null ? archive.getString("pic") : archive.getString("cover");
-          if (coverUrl != null)
-            nv.a().a(abd.get_thumb_url_c(com.bilibili.tv.MainApplication.a(), coverUrl), vh.z());
-          
-          int elecArcType = archive.getIntValue("elec_arc_type");
-          String elecArcBadge = archive.getString("elec_arc_badge");
-          int isUnionVideo = archive.getIntValue("is_union_video");
-          int isLivePlayback = archive.getIntValue("is_live_playback");
-          
-          JSONObject badgeObj = archive.getJSONObject("badge");
-          String badgeText = null;
-          String badgeBgColor = null;
-          if (badgeObj != null) {
-            badgeText = badgeObj.getString("text");
-            badgeBgColor = badgeObj.getString("bg_color");
-          }
-          
-          if (badgeText != null && !"投稿视频".equals(badgeText)) {
-            vh.F().setText(badgeText);
-            vh.F().setVisibility(View.VISIBLE);
-            if (badgeBgColor != null && !badgeBgColor.isEmpty()) {
-              try {
-                vh.F().setBackgroundColor(android.graphics.Color.parseColor(badgeBgColor));
-              } catch (Exception e) {}
-            }
-          } else if (elecArcType == 1 && !TextUtils.isEmpty(elecArcBadge)) {
-            vh.F().setText(elecArcBadge);
-            vh.F().setVisibility(View.VISIBLE);
-          } else if (isUnionVideo == 1) {
-            vh.F().setText("合作");
-            vh.F().setVisibility(View.VISIBLE);
-          } else if (isLivePlayback == 1) {
-            vh.F().setText("直播回放");
-            vh.F().setVisibility(View.VISIBLE);
-          } else {
-            vh.F().setVisibility(View.GONE);
-          }
-          
-          vh.a.setTag(jo);
-        } else if (item instanceof BiliSpaceVideo) {
-          BiliSpaceVideo v = (BiliSpaceVideo) item;
-          vh.A().setText(v.title);
-          vh.B().setVisibility(View.GONE);
-          
-          String playText = (v.play == 0) ? "0" : adh.a(v.play);
-          vh.C().setText(playText);
-          
-          int danmakuVal = 0;
-          try {
-              danmakuVal = Integer.parseInt(v.danmaku);
-          } catch (Exception e) {}
-          if (danmakuVal > 0) {
-              vh.danmakuInImage.setText(adh.a(danmakuVal));
-              vh.danmakuInImage.setVisibility(View.VISIBLE);
-          } else {
-              vh.danmakuInImage.setVisibility(View.GONE);
-          }
-           if (v.ctime != null && v.ctime > 0) {
-               vh.D().setText(DateHelper.formatDate(v.ctime));
-               vh.D().setVisibility(View.VISIBLE);
-           } else {
-              vh.D().setVisibility(View.GONE);
-          }
-          
-          if (v.duration > 0) {
-            vh.E().setText(DateHelper.formatDuration(v.duration));
-          } else if (v.durationStr != null && !v.durationStr.isEmpty()) {
-            vh.E().setText(v.durationStr);
-          }
-          
-          int iconSize = bl.adl.b(R.dimen.px_26);
-          android.graphics.drawable.Drawable playIcon = bl.adl.a.c(R.drawable.ic_video_info_play);
-          android.graphics.drawable.Drawable danmakuIcon = bl.adl.a.c(R.drawable.ic_video_info_danmaku);
-          if (playIcon != null) {
-            playIcon.setBounds(0, 0, iconSize, iconSize);
-            playIcon.setColorFilter(bl.adl.d(R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
-          }
-          if (danmakuIcon != null) {
-            danmakuIcon.setBounds(0, 0, iconSize, iconSize);
-            danmakuIcon.setColorFilter(bl.adl.d(R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
-          }
-          vh.C().setCompoundDrawables(playIcon, null, null, null);
-          vh.danmakuInImage.setCompoundDrawables(danmakuIcon, null, null, null);
-          
-          if (v.cover != null)
-            nv.a().a(abd.get_thumb_url_c(com.bilibili.tv.MainApplication.a(), v.cover), vh.z());
-          
-          if (v.elecArcType == 1 && !TextUtils.isEmpty(v.elecArcBadge)) {
-            vh.F().setText(v.elecArcBadge);
-            vh.F().setVisibility(View.VISIBLE);
-          } else if (v.isUnionVideo == 1) {
-            vh.F().setText("合作");
-            vh.F().setVisibility(View.VISIBLE);
-          } else if (v.isLivePlayback == 1) {
-            vh.F().setText("直播回放");
-            vh.F().setVisibility(View.VISIBLE);
-          } else {
-            vh.F().setVisibility(View.GONE);
-          }
-          
-          vh.a.setTag(v);
+        BiliSpaceVideo v = this.data.get(pos);
+        vh.A().setText(v.title);
+        vh.B().setVisibility(View.GONE);
+        
+        vh.C().setText(v.playStr != null ? v.playStr : "0");
+        
+        if (v.danmakuStr != null && !"0".equals(v.danmakuStr) && !v.danmakuStr.isEmpty()) {
+          vh.danmakuInImage.setText(v.danmakuStr);
+          vh.danmakuInImage.setVisibility(View.VISIBLE);
+        } else {
+          vh.danmakuInImage.setVisibility(View.GONE);
         }
+        
+        if (v.ctime != null && v.ctime > 0) {
+          vh.D().setText(DateHelper.formatDate(v.ctime));
+          vh.D().setVisibility(View.VISIBLE);
+        } else {
+          vh.D().setVisibility(View.GONE);
+        }
+        
+        if (v.durationStr != null && !v.durationStr.isEmpty()) {
+          vh.E().setText(v.durationStr);
+        } else if (v.duration > 0) {
+          vh.E().setText(DateHelper.formatDuration(v.duration));
+        }
+        
+        int iconSize = bl.adl.b(R.dimen.px_26);
+        android.graphics.drawable.Drawable playIcon = bl.adl.a.c(R.drawable.ic_video_info_play);
+        android.graphics.drawable.Drawable danmakuIcon = bl.adl.a.c(R.drawable.ic_video_info_danmaku);
+        if (playIcon != null) {
+          playIcon.setBounds(0, 0, iconSize, iconSize);
+          playIcon.setColorFilter(bl.adl.d(R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
+        }
+        if (danmakuIcon != null) {
+          danmakuIcon.setBounds(0, 0, iconSize, iconSize);
+          danmakuIcon.setColorFilter(bl.adl.d(R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
+        }
+        vh.C().setCompoundDrawables(playIcon, null, null, null);
+        vh.danmakuInImage.setCompoundDrawables(danmakuIcon, null, null, null);
+        
+        if (v.cover != null)
+          nv.a().a(abd.get_thumb_url_c(com.bilibili.tv.MainApplication.a(), v.cover), vh.z());
+        
+        if (v.badgeText != null && !"投稿视频".equals(v.badgeText)) {
+          vh.F().setText(v.badgeText);
+          vh.F().setVisibility(View.VISIBLE);
+          if (v.badgeBgColor != null && !v.badgeBgColor.isEmpty()) {
+            try {
+              vh.F().setBackgroundColor(android.graphics.Color.parseColor(v.badgeBgColor));
+            } catch (Exception e) {}
+          }
+        } else if (v.elecArcType == 1 && !TextUtils.isEmpty(v.elecArcBadge)) {
+          vh.F().setText(v.elecArcBadge);
+          vh.F().setVisibility(View.VISIBLE);
+        } else if (v.isUnionVideo == 1) {
+          vh.F().setText("合作");
+          vh.F().setVisibility(View.VISIBLE);
+        } else if (v.isLivePlayback == 1) {
+          vh.F().setText("直播回放");
+          vh.F().setVisibility(View.VISIBLE);
+        } else {
+          vh.F().setVisibility(View.GONE);
+        }
+        
+        vh.a.setTag(v);
         vh.a.setOnClickListener(this);
         vh.a.setOnFocusChangeListener(this);
         Object context = vh.a.getContext();
@@ -1027,37 +1020,13 @@ public final class AuthSpaceVideoFragment extends ady {
       return this.data.size();
     }
 
-    public void setVideos(List<? extends BiliSpaceVideo> list) {
+    public void setVideos(List<BiliSpaceVideo> list) {
       this.data.clear();
       this.data.addAll(list);
       d();
     }
 
-    public void setJsonItems(List<JSONObject> list) {
-      this.data.clear();
-      this.data.addAll(list);
-      d();
-    }
-
-    public void addVideos(List<? extends BiliSpaceVideo> list) {
-      int s = this.data.size();
-      this.data.addAll(list);
-      d(s);
-    }
-
-    public void addJsonItems(List<JSONObject> list) {
-      int s = this.data.size();
-      this.data.addAll(list);
-      d(s);
-    }
-
-    public void setDynamicItems(List<JSONObject> list) {
-      this.data.clear();
-      this.data.addAll(list);
-      d();
-    }
-
-    public void addDynamicItems(List<JSONObject> list) {
+    public void addVideos(List<BiliSpaceVideo> list) {
       int s = this.data.size();
       this.data.addAll(list);
       d(s);
@@ -1069,26 +1038,9 @@ public final class AuthSpaceVideoFragment extends ady {
       Activity a = bl.adl.a(v.getContext());
       if (a == null)
         return;
-      if (tag instanceof JSONObject) {
-        JSONObject jo = (JSONObject) tag;
-        JSONObject archive = jo;
-        JSONObject modules = jo.getJSONObject("modules");
-        if (modules != null && modules.getJSONObject("module_dynamic") != null) {
-          archive = modules.getJSONObject("module_dynamic").getJSONObject("major").getJSONObject("archive");
-        } else if (jo.getJSONObject("module_dynamic") != null) {
-          archive = jo.getJSONObject("module_dynamic").getJSONObject("major").getJSONObject("archive");
-        }
-        long aid = archive.getLongValue("aid");
-        String cover = archive.getString("cover");
-        a.startActivity(com.bilibili.tv.ui.video.VideoDetailActivity.Companion.a(a, aid, cover));
-      } else if (tag instanceof BiliSpaceVideo) {
+      if (tag instanceof BiliSpaceVideo) {
         BiliSpaceVideo vdo = (BiliSpaceVideo) tag;
-        long aid = 0;
-        try {
-          aid = Long.parseLong(vdo.param);
-        } catch (Exception ignored) {
-        }
-        a.startActivity(com.bilibili.tv.ui.video.VideoDetailActivity.Companion.a(a, aid, vdo.cover));
+        a.startActivity(com.bilibili.tv.ui.video.VideoDetailActivity.Companion.a(a, vdo.aid, vdo.cover));
       }
     }
 

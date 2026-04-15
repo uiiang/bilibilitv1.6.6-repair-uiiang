@@ -39,7 +39,17 @@ public class BiliSpaceVideo {
     @JSONField(name = "is_live_playback")
     public int isLivePlayback;
 
-    // Web端接口返回的时长字符串，如 "33:33"，直接显示
-    // 非null时优先使用此字段，null时走duration(int)格式化逻辑
     public String durationStr;
+
+    public String bvid;
+
+    public long aid;
+
+    public String playStr;
+
+    public String danmakuStr;
+
+    public String badgeText;
+
+    public String badgeBgColor;
 }

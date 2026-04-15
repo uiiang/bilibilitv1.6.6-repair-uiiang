@@ -265,12 +265,12 @@
     .locals 2
 
     .prologue
-    .line 358
+    .line 339
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->loading:Z
 
-    .line 359
+    .line 340
     const-string v0, "all"
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mode:Ljava/lang/String;
@@ -281,14 +281,14 @@
 
     if-eqz v0, :cond_11
 
-    .line 360
+    .line 341
     invoke-direct {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->loadAllVideos()V
 
-    .line 370
+    .line 351
     :goto_10
     return-void
 
-    .line 361
+    .line 342
     :cond_11
     const-string v0, "season"
 
@@ -300,12 +300,12 @@
 
     if-eqz v0, :cond_1f
 
-    .line 362
+    .line 343
     invoke-direct {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->loadSeasonVideos()V
 
     goto :goto_10
 
-    .line 363
+    .line 344
     :cond_1f
     const-string v0, "series"
 
@@ -317,12 +317,12 @@
 
     if-eqz v0, :cond_2d
 
-    .line 364
+    .line 345
     invoke-direct {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->loadSeriesVideos()V
 
     goto :goto_10
 
-    .line 365
+    .line 346
     :cond_2d
     const-string v0, "dynamic"
 
@@ -334,12 +334,12 @@
 
     if-eqz v0, :cond_3b
 
-    .line 366
+    .line 347
     invoke-direct {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->loadDynamicVideos()V
 
     goto :goto_10
 
-    .line 368
+    .line 349
     :cond_3b
     const/4 v0, 0x0
 
@@ -352,30 +352,41 @@
     .locals 6
 
     .prologue
-    const/16 v5, 0x8
+    const/16 v2, 0x8
 
-    const/4 v4, 0x0
+    const/4 v1, 0x0
 
-    .line 152
+    .line 151
     const-string v0, "all"
 
-    iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mode:Ljava/lang/String;
+    iget-object v3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mode:Ljava/lang/String;
 
-    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    invoke-virtual {v0, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
     move-result v0
 
-    if-eqz v0, :cond_a8
+    if-nez v0, :cond_17
 
-    .line 153
+    const-string v0, "dynamic"
+
+    iget-object v3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mode:Ljava/lang/String;
+
+    invoke-virtual {v0, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_79
+
+    .line 152
+    :cond_17
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerTitle:Landroid/widget/TextView;
 
-    if-eqz v0, :cond_24
+    if-eqz v0, :cond_2e
 
-    .line 154
+    .line 153
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->upName:Ljava/lang/String;
 
-    if-eqz v0, :cond_99
+    if-eqz v0, :cond_68
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->upName:Ljava/lang/String;
 
@@ -383,117 +394,45 @@
 
     move-result v0
 
-    if-nez v0, :cond_99
+    if-nez v0, :cond_68
 
-    .line 155
+    .line 154
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerTitle:Landroid/widget/TextView;
 
-    iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->upName:Ljava/lang/String;
+    iget-object v3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->upName:Ljava/lang/String;
 
-    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    invoke-virtual {v0, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    .line 159
+    :cond_2e
+    :goto_2e
+    invoke-direct {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->setupAttentionButton()V
 
     .line 160
-    :cond_24
-    :goto_24
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
-
-    if-eqz v0, :cond_6d
-
-    .line 161
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
-
-    invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawTextView;->setVisibility(I)V
-
-    .line 162
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
-
-    const v1, 0x7f0700e7
-
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawTextView;->setUpDrawable(I)V
-
-    .line 163
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
-
-    new-instance v1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$1;
-
-    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$1;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
-
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawTextView;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
-
-    .line 169
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
-
-    new-instance v1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;
-
-    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
-
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawTextView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
-
-    .line 203
-    invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
-
-    move-result-object v0
-
-    invoke-static {v0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
-
-    move-result-object v0
-
-    .line 204
-    if-eqz v0, :cond_6d
-
-    .line 205
-    invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
-
-    move-result-object v1
-
-    .line 206
-    const-class v0, Lmybl/MyBiliApiService;
-
-    invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
-
-    move-result-object v0
-
-    check-cast v0, Lmybl/MyBiliApiService;
-
-    iget-wide v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mid:J
-
-    invoke-interface {v0, v2, v3, v1}, Lmybl/MyBiliApiService;->getRelation(JLjava/lang/String;)Lbl/vp;
-
-    move-result-object v0
-
-    new-instance v1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$3;
-
-    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$3;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
-
-    .line 207
-    invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
-
-    .line 226
-    :cond_6d
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerCount:Landroid/widget/TextView;
 
-    if-eqz v0, :cond_8f
+    if-eqz v0, :cond_53
 
-    .line 227
-    iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerCount:Landroid/widget/TextView;
+    .line 161
+    iget-object v3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerCount:Landroid/widget/TextView;
 
     iget v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->totalCount:I
 
-    if-lez v0, :cond_a5
+    if-lez v0, :cond_74
 
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
 
-    iget v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->totalCount:I
+    iget v4, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->totalCount:I
 
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v4}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
-    const-string v2, "\u6761"
+    const-string v4, "\u6761"
 
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
@@ -501,106 +440,125 @@
 
     move-result-object v0
 
-    :goto_8c
-    invoke-virtual {v1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    :goto_50
+    invoke-virtual {v3, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 229
-    :cond_8f
+    .line 163
+    :cond_53
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->hintSort:Landroid/widget/TextView;
 
-    if-eqz v0, :cond_98
+    if-eqz v0, :cond_67
 
-    .line 230
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->hintSort:Landroid/widget/TextView;
+    .line 164
+    iget-object v3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->hintSort:Landroid/widget/TextView;
 
-    invoke-virtual {v0, v4}, Landroid/widget/TextView;->setVisibility(I)V
+    const-string v0, "all"
 
-    .line 279
-    :cond_98
-    :goto_98
-    return-void
+    iget-object v4, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mode:Ljava/lang/String;
 
-    .line 157
-    :cond_99
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerTitle:Landroid/widget/TextView;
-
-    iget-wide v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mid:J
-
-    invoke-static {v2, v3}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
-
-    goto :goto_24
-
-    .line 227
-    :cond_a5
-    const-string v0, ""
-
-    goto :goto_8c
-
-    .line 232
-    :cond_a8
-    const-string v0, "season"
-
-    iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mode:Ljava/lang/String;
-
-    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    invoke-virtual {v0, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
     move-result v0
 
-    if-eqz v0, :cond_f5
+    if-eqz v0, :cond_77
 
-    .line 234
+    move v0, v1
+
+    :goto_64
+    invoke-virtual {v3, v0}, Landroid/widget/TextView;->setVisibility(I)V
+
+    .line 193
+    :cond_67
+    :goto_67
+    return-void
+
+    .line 156
+    :cond_68
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerTitle:Landroid/widget/TextView;
 
-    if-eqz v0, :cond_bd
+    iget-wide v4, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mid:J
 
-    .line 235
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerTitle:Landroid/widget/TextView;
+    invoke-static {v4, v5}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
 
-    const-string v1, "\u52a0\u8f7d\u4e2d..."
+    move-result-object v3
 
-    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    invoke-virtual {v0, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 237
-    :cond_bd
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
+    goto :goto_2e
+
+    .line 161
+    :cond_74
+    const-string v0, ""
+
+    goto :goto_50
+
+    :cond_77
+    move v0, v2
+
+    .line 164
+    goto :goto_64
+
+    .line 166
+    :cond_79
+    const-string v0, "season"
+
+    iget-object v3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mode:Ljava/lang/String;
+
+    invoke-virtual {v0, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
 
     if-eqz v0, :cond_c6
 
-    .line 238
+    .line 167
+    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerTitle:Landroid/widget/TextView;
+
+    if-eqz v0, :cond_8e
+
+    .line 168
+    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerTitle:Landroid/widget/TextView;
+
+    const-string v3, "\u52a0\u8f7d\u4e2d..."
+
+    invoke-virtual {v0, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    .line 170
+    :cond_8e
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
-    invoke-virtual {v0, v5}, Lcom/bilibili/tv/widget/DrawTextView;->setVisibility(I)V
+    if-eqz v0, :cond_97
 
-    .line 240
-    :cond_c6
+    .line 171
+    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
+
+    invoke-virtual {v0, v2}, Lcom/bilibili/tv/widget/DrawTextView;->setVisibility(I)V
+
+    .line 173
+    :cond_97
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerCount:Landroid/widget/TextView;
 
-    if-eqz v0, :cond_e8
+    if-eqz v0, :cond_b9
 
-    .line 241
-    iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerCount:Landroid/widget/TextView;
+    .line 174
+    iget-object v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerCount:Landroid/widget/TextView;
 
     iget v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->totalCount:I
 
-    if-lez v0, :cond_f2
+    if-lez v0, :cond_c3
 
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
 
-    iget v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->totalCount:I
+    iget v3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->totalCount:I
 
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
-    const-string v2, "\u4e2a\u89c6\u9891"
+    const-string v3, "\u4e2a\u89c6\u9891"
 
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
@@ -608,89 +566,89 @@
 
     move-result-object v0
 
-    :goto_e5
-    invoke-virtual {v1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    :goto_b6
+    invoke-virtual {v2, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 243
-    :cond_e8
+    .line 176
+    :cond_b9
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->hintSort:Landroid/widget/TextView;
 
-    if-eqz v0, :cond_98
+    if-eqz v0, :cond_67
 
-    .line 244
+    .line 177
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->hintSort:Landroid/widget/TextView;
 
-    invoke-virtual {v0, v4}, Landroid/widget/TextView;->setVisibility(I)V
+    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
 
-    goto :goto_98
+    goto :goto_67
 
-    .line 241
-    :cond_f2
+    .line 174
+    :cond_c3
     const-string v0, ""
 
-    goto :goto_e5
+    goto :goto_b6
 
-    .line 246
-    :cond_f5
+    .line 179
+    :cond_c6
     const-string v0, "series"
 
-    iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mode:Ljava/lang/String;
+    iget-object v3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mode:Ljava/lang/String;
 
-    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    invoke-virtual {v0, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
     move-result v0
 
-    if-eqz v0, :cond_143
+    if-eqz v0, :cond_67
 
-    .line 248
+    .line 180
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerTitle:Landroid/widget/TextView;
 
-    if-eqz v0, :cond_10a
+    if-eqz v0, :cond_db
 
-    .line 249
+    .line 181
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerTitle:Landroid/widget/TextView;
 
-    const-string v1, "\u52a0\u8f7d\u4e2d..."
+    const-string v3, "\u52a0\u8f7d\u4e2d..."
 
-    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    invoke-virtual {v0, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 251
-    :cond_10a
+    .line 183
+    :cond_db
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
-    if-eqz v0, :cond_113
+    if-eqz v0, :cond_e4
 
-    .line 252
+    .line 184
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
-    invoke-virtual {v0, v5}, Lcom/bilibili/tv/widget/DrawTextView;->setVisibility(I)V
+    invoke-virtual {v0, v2}, Lcom/bilibili/tv/widget/DrawTextView;->setVisibility(I)V
 
-    .line 254
-    :cond_113
+    .line 186
+    :cond_e4
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerCount:Landroid/widget/TextView;
 
-    if-eqz v0, :cond_135
+    if-eqz v0, :cond_106
 
-    .line 255
-    iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerCount:Landroid/widget/TextView;
+    .line 187
+    iget-object v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerCount:Landroid/widget/TextView;
 
     iget v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->totalCount:I
 
-    if-lez v0, :cond_140
+    if-lez v0, :cond_111
 
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
 
-    iget v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->totalCount:I
+    iget v3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->totalCount:I
 
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
-    const-string v2, "\u4e2a\u89c6\u9891"
+    const-string v3, "\u4e2a\u89c6\u9891"
 
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
@@ -698,150 +656,61 @@
 
     move-result-object v0
 
-    :goto_132
-    invoke-virtual {v1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    :goto_103
+    invoke-virtual {v2, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 257
-    :cond_135
+    .line 189
+    :cond_106
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->hintSort:Landroid/widget/TextView;
 
-    if-eqz v0, :cond_98
+    if-eqz v0, :cond_67
 
-    .line 258
+    .line 190
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->hintSort:Landroid/widget/TextView;
 
-    invoke-virtual {v0, v4}, Landroid/widget/TextView;->setVisibility(I)V
+    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
 
-    goto/16 :goto_98
+    goto/16 :goto_67
 
-    .line 255
-    :cond_140
+    .line 187
+    :cond_111
     const-string v0, ""
 
-    goto :goto_132
-
-    .line 260
-    :cond_143
-    const-string v0, "dynamic"
-
-    iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mode:Ljava/lang/String;
-
-    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result v0
-
-    if-eqz v0, :cond_98
-
-    .line 262
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerTitle:Landroid/widget/TextView;
-
-    if-eqz v0, :cond_164
-
-    .line 263
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->upName:Ljava/lang/String;
-
-    if-eqz v0, :cond_183
-
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->upName:Ljava/lang/String;
-
-    invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
-
-    move-result v0
-
-    if-nez v0, :cond_183
-
-    .line 264
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerTitle:Landroid/widget/TextView;
-
-    iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->upName:Ljava/lang/String;
-
-    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
-
-    .line 269
-    :cond_164
-    :goto_164
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
-
-    if-eqz v0, :cond_16d
-
-    .line 270
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
-
-    invoke-virtual {v0, v5}, Lcom/bilibili/tv/widget/DrawTextView;->setVisibility(I)V
-
-    .line 272
-    :cond_16d
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerCount:Landroid/widget/TextView;
-
-    if-eqz v0, :cond_178
-
-    .line 273
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerCount:Landroid/widget/TextView;
-
-    const-string v1, ""
-
-    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
-
-    .line 275
-    :cond_178
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->hintSort:Landroid/widget/TextView;
-
-    if-eqz v0, :cond_98
-
-    .line 276
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->hintSort:Landroid/widget/TextView;
-
-    invoke-virtual {v0, v5}, Landroid/widget/TextView;->setVisibility(I)V
-
-    goto/16 :goto_98
-
-    .line 266
-    :cond_183
-    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerTitle:Landroid/widget/TextView;
-
-    iget-wide v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mid:J
-
-    invoke-static {v2, v3}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
-
-    goto :goto_164
+    goto :goto_103
 .end method
 
 .method private loadAllVideos()V
     .locals 13
 
     .prologue
-    .line 373
+    .line 354
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 374
+    .line 355
     if-nez v0, :cond_7
 
-    .line 473
+    .line 459
     :cond_6
     :goto_6
     return-void
 
-    .line 376
+    .line 357
     :cond_7
     invoke-static {v0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
 
-    .line 377
+    .line 358
     if-eqz v0, :cond_6
 
-    .line 379
+    .line 360
     invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v12
 
-    .line 380
+    .line 361
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -850,10 +719,10 @@
 
     check-cast v1, Lmybl/MyBiliApiService;
 
-    .line 381
+    .line 362
     iget-object v7, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->allVideoOrder:Ljava/lang/String;
 
-    .line 382
+    .line 363
     const-string v0, "AuthSpaceVideo"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -900,7 +769,7 @@
 
     invoke-static {v0, v2}, Lmybl/LogUtil;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 384
+    .line 365
     iget-wide v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mid:J
 
     iget v4, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->page:I
@@ -925,7 +794,7 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
 
-    .line 385
+    .line 366
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
     goto :goto_6
@@ -935,34 +804,34 @@
     .locals 10
 
     .prologue
-    .line 641
+    .line 687
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 642
+    .line 688
     if-nez v0, :cond_7
 
-    .line 729
+    .line 842
     :cond_6
     :goto_6
     return-void
 
-    .line 644
+    .line 690
     :cond_7
     invoke-static {v0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
 
-    .line 645
+    .line 691
     if-eqz v0, :cond_6
 
-    .line 647
+    .line 693
     invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v7
 
-    .line 648
+    .line 694
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -971,10 +840,10 @@
 
     check-cast v1, Lmybl/MyBiliApiService;
 
-    .line 649
+    .line 695
     iget-object v4, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->dynamicOffset:Ljava/lang/String;
 
-    .line 650
+    .line 696
     const-string v0, "AuthSpaceVideo"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -1009,7 +878,7 @@
 
     invoke-static {v0, v2}, Lmybl/LogUtil;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 652
+    .line 698
     iget-wide v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mid:J
 
     const/16 v5, -0x1e0
@@ -1024,7 +893,7 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$7;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
 
-    .line 653
+    .line 699
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
     goto :goto_6
@@ -1034,29 +903,29 @@
     .locals 12
 
     .prologue
-    .line 476
+    .line 462
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 477
+    .line 463
     if-nez v0, :cond_7
 
-    .line 555
+    .line 571
     :cond_6
     :goto_6
     return-void
 
-    .line 480
+    .line 466
     :cond_7
     invoke-static {v0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
 
-    .line 481
+    .line 467
     if-eqz v0, :cond_6
 
-    .line 482
+    .line 468
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -1119,7 +988,7 @@
 
     move-result-object v1
 
-    .line 485
+    .line 471
     const-string v2, "AuthSpaceVideo"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -1142,7 +1011,7 @@
 
     invoke-static {v2, v1}, Lmybl/LogUtil;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 487
+    .line 473
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -1181,12 +1050,12 @@
 
     move-result-object v10
 
-    .line 488
+    .line 474
     invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v11
 
-    .line 489
+    .line 475
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -1207,7 +1076,7 @@
 
     const-string v9, "333.1387"
 
-    .line 490
+    .line 476
     invoke-interface/range {v1 .. v11}, Lmybl/MyBiliApiService;->getSeasonsArchivesList(JJZIILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lbl/vp;
 
     move-result-object v0
@@ -1216,7 +1085,7 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$5;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
 
-    .line 491
+    .line 477
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
     goto/16 :goto_6
@@ -1226,29 +1095,29 @@
     .locals 15
 
     .prologue
-    .line 558
+    .line 574
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 559
+    .line 575
     if-nez v0, :cond_7
 
-    .line 638
+    .line 684
     :cond_6
     :goto_6
     return-void
 
-    .line 561
+    .line 577
     :cond_7
     invoke-static {v0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
 
-    .line 562
+    .line 578
     if-eqz v0, :cond_6
 
-    .line 563
+    .line 579
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -1271,7 +1140,7 @@
 
     move-result-object v1
 
-    .line 564
+    .line 580
     invoke-virtual {v0}, Lbl/mg;->d()J
 
     move-result-wide v2
@@ -1326,7 +1195,7 @@
 
     move-result-object v1
 
-    .line 567
+    .line 583
     const-string v2, "AuthSpaceVideo"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -1349,7 +1218,7 @@
 
     invoke-static {v2, v1}, Lmybl/LogUtil;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 569
+    .line 585
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -1388,12 +1257,12 @@
 
     move-result-object v13
 
-    .line 570
+    .line 586
     invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v14
 
-    .line 571
+    .line 587
     const-class v1, Lmybl/MyBiliApiService;
 
     invoke-static {v1}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -1404,7 +1273,7 @@
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mid:J
 
-    .line 572
+    .line 588
     invoke-virtual {v0}, Lbl/mg;->d()J
 
     move-result-wide v4
@@ -1429,7 +1298,7 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$6;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
 
-    .line 573
+    .line 589
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
     goto/16 :goto_6
@@ -1480,6 +1349,95 @@
 
     .line 95
     return-object v0
+.end method
+
+.method private setupAttentionButton()V
+    .locals 4
+
+    .prologue
+    .line 196
+    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
+
+    if-nez v0, :cond_5
+
+    .line 260
+    :cond_4
+    :goto_4
+    return-void
+
+    .line 197
+    :cond_5
+    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
+
+    const/4 v1, 0x0
+
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawTextView;->setVisibility(I)V
+
+    .line 198
+    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
+
+    const v1, 0x7f0700e7
+
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawTextView;->setUpDrawable(I)V
+
+    .line 199
+    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
+
+    new-instance v1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$1;
+
+    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$1;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
+
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawTextView;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
+
+    .line 205
+    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
+
+    new-instance v1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;
+
+    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$2;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
+
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawTextView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+
+    .line 238
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
+
+    move-result-object v0
+
+    .line 239
+    if-eqz v0, :cond_4
+
+    .line 240
+    invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
+
+    move-result-object v1
+
+    .line 241
+    const-class v0, Lmybl/MyBiliApiService;
+
+    invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lmybl/MyBiliApiService;
+
+    iget-wide v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mid:J
+
+    invoke-interface {v0, v2, v3, v1}, Lmybl/MyBiliApiService;->getRelation(JLjava/lang/String;)Lbl/vp;
+
+    move-result-object v0
+
+    new-instance v1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$3;
+
+    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$3;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
+
+    .line 242
+    invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
+
+    goto :goto_4
 .end method
 
 
@@ -1605,7 +1563,7 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 341
+    .line 322
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->isVisible()Z
 
     move-result v1
@@ -1616,7 +1574,7 @@
 
     if-eqz v1, :cond_14
 
-    .line 342
+    .line 323
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->adapter:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;
 
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;->a()I
@@ -1627,7 +1585,7 @@
 
     const/4 v0, 0x1
 
-    .line 344
+    .line 325
     :cond_14
     return v0
 .end method
@@ -1636,7 +1594,7 @@
     .locals 2
 
     .prologue
-    .line 301
+    .line 282
     const-string v0, "all"
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mode:Ljava/lang/String;
@@ -1687,25 +1645,25 @@
 
     const/4 v0, 0x1
 
-    .line 349
+    .line 330
     invoke-super {p0}, Lbl/ady;->d_()V
 
-    .line 350
+    .line 331
     iput-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->cursor:Ljava/lang/Long;
 
-    .line 351
+    .line 332
     iput v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->page:I
 
-    .line 352
+    .line 333
     iput-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->dynamicOffset:Ljava/lang/String;
 
-    .line 353
+    .line 334
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->hasMore:Z
 
-    .line 354
+    .line 335
     invoke-direct {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->b()V
 
-    .line 355
+    .line 336
     return-void
 .end method
 
@@ -1713,7 +1671,7 @@
     .locals 2
 
     .prologue
-    .line 305
+    .line 286
     const-string v0, "all"
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mode:Ljava/lang/String;
@@ -1726,11 +1684,11 @@
 
     const/4 v0, 0x0
 
-    .line 309
+    .line 290
     :goto_b
     return v0
 
-    .line 306
+    .line 287
     :cond_c
     const-string v0, "season"
 
@@ -1746,7 +1704,7 @@
 
     goto :goto_b
 
-    .line 307
+    .line 288
     :cond_18
     const-string v0, "series"
 
@@ -1762,7 +1720,7 @@
 
     goto :goto_b
 
-    .line 308
+    .line 289
     :cond_24
     const-string v0, "dynamic"
 
@@ -1778,7 +1736,7 @@
 
     goto :goto_b
 
-    .line 309
+    .line 290
     :cond_30
     const/4 v0, -0x1
 
@@ -1789,7 +1747,7 @@
     .locals 2
 
     .prologue
-    .line 313
+    .line 294
     const-string v0, "all"
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mode:Ljava/lang/String;
@@ -1800,14 +1758,14 @@
 
     if-eqz v0, :cond_d
 
-    .line 314
+    .line 295
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->allVideoOrder:Ljava/lang/String;
 
-    .line 320
+    .line 301
     :goto_c
     return-object v0
 
-    .line 315
+    .line 296
     :cond_d
     const-string v0, "season"
 
@@ -1819,7 +1777,7 @@
 
     if-eqz v0, :cond_21
 
-    .line 316
+    .line 297
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->sortReverse:Z
 
     if-eqz v0, :cond_1e
@@ -1833,7 +1791,7 @@
 
     goto :goto_c
 
-    .line 317
+    .line 298
     :cond_21
     const-string v0, "series"
 
@@ -1845,7 +1803,7 @@
 
     if-eqz v0, :cond_3b
 
-    .line 318
+    .line 299
     const-string v0, "desc"
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->sortDirection:Ljava/lang/String;
@@ -1865,7 +1823,7 @@
 
     goto :goto_c
 
-    .line 320
+    .line 301
     :cond_3b
     const-string v0, "default"
 
@@ -1886,7 +1844,7 @@
     .locals 2
 
     .prologue
-    .line 297
+    .line 278
     const-string v0, "season"
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mode:Ljava/lang/String;
@@ -2004,7 +1962,7 @@
     .locals 2
 
     .prologue
-    .line 324
+    .line 305
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getSortOrder()Ljava/lang/String;
 
     move-result-object v0
@@ -2015,12 +1973,12 @@
 
     if-eqz v0, :cond_b
 
-    .line 337
+    .line 318
     :cond_a
     :goto_a
     return-void
 
-    .line 327
+    .line 308
     :cond_b
     const-string v0, "all"
 
@@ -2032,22 +1990,22 @@
 
     if-eqz v0, :cond_1f
 
-    .line 328
+    .line 309
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->allVideoOrder:Ljava/lang/String;
 
-    .line 334
+    .line 315
     :cond_17
     :goto_17
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->adapter:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;
 
     if-eqz v0, :cond_a
 
-    .line 335
+    .line 316
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->d_()V
 
     goto :goto_a
 
-    .line 329
+    .line 310
     :cond_1f
     const-string v0, "season"
 
@@ -2059,7 +2017,7 @@
 
     if-eqz v0, :cond_32
 
-    .line 330
+    .line 311
     const-string v0, "default"
 
     invoke-virtual {v0, p1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -2070,7 +2028,7 @@
 
     goto :goto_17
 
-    .line 331
+    .line 312
     :cond_32
     const-string v0, "series"
 
@@ -2082,7 +2040,7 @@
 
     if-eqz v0, :cond_17
 
-    .line 332
+    .line 313
     const-string v0, "default"
 
     invoke-virtual {v0, p1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -2108,28 +2066,28 @@
     .locals 3
 
     .prologue
-    .line 283
+    .line 264
     iput p2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->totalCount:I
 
-    .line 284
+    .line 265
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerTitle:Landroid/widget/TextView;
 
     if-eqz v0, :cond_d
 
     if-eqz p1, :cond_d
 
-    .line 285
+    .line 266
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerTitle:Landroid/widget/TextView;
 
     invoke-virtual {v0, p1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 287
+    .line 268
     :cond_d
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerCount:Landroid/widget/TextView;
 
     if-eqz v0, :cond_46
 
-    .line 288
+    .line 269
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -2148,7 +2106,7 @@
 
     move-result-object v0
 
-    .line 289
+    .line 270
     const-string v1, "all"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mode:Ljava/lang/String;
@@ -2159,7 +2117,7 @@
 
     if-eqz v1, :cond_41
 
-    .line 290
+    .line 271
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -2178,13 +2136,13 @@
 
     move-result-object v0
 
-    .line 292
+    .line 273
     :cond_41
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->headerCount:Landroid/widget/TextView;
 
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 294
+    .line 275
     :cond_46
     return-void
 .end method

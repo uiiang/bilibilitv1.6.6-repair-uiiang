@@ -32,12 +32,12 @@
     .locals 0
 
     .prologue
-    .line 733
+    .line 846
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
 
-    .line 734
+    .line 847
     return-void
 .end method
 
@@ -47,7 +47,7 @@
     .locals 0
 
     .prologue
-    .line 751
+    .line 864
     return-void
 .end method
 
@@ -55,7 +55,7 @@
     .locals 1
 
     .prologue
-    .line 738
+    .line 851
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -89,7 +89,7 @@
     .locals 2
 
     .prologue
-    .line 743
+    .line 856
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
@@ -100,7 +100,7 @@
 
     invoke-virtual {v0, p1, v1}, Lbl/adl;->a(Ljava/lang/Throwable;Landroid/app/Activity;)V
 
-    .line 744
+    .line 857
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     const/4 v1, 0x0
@@ -108,7 +108,7 @@
     # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->loading:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$202(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)Z
 
-    .line 745
+    .line 858
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->page:I
@@ -120,12 +120,12 @@
 
     if-ne v0, v1, :cond_1f
 
-    .line 746
+    .line 859
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->k()V
 
-    .line 747
+    .line 860
     :cond_1f
     return-void
 .end method

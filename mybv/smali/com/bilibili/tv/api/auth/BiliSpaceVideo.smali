@@ -4,6 +4,14 @@
 
 
 # instance fields
+.field public aid:J
+
+.field public badgeBgColor:Ljava/lang/String;
+
+.field public badgeText:Ljava/lang/String;
+
+.field public bvid:Ljava/lang/String;
+
 .field public cover:Ljava/lang/String;
     .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
         name = "cover"
@@ -21,6 +29,8 @@
         name = "danmaku"
     .end annotation
 .end field
+
+.field public danmakuStr:Ljava/lang/String;
 
 .field public duration:I
     .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
@@ -65,6 +75,8 @@
         name = "play"
     .end annotation
 .end field
+
+.field public playStr:Ljava/lang/String;
 
 .field public title:Ljava/lang/String;
     .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
