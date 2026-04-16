@@ -51,6 +51,11 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
     private boolean h = false; // 是否正在加载
     private boolean g = true; // 是否有更多数据
     private int f = 1; // 当前页码
+    private List<TagItem> tagItems = new ArrayList<>();
+    private long currentTagid = -1;
+    private String currentTagName = "动态";
+    private boolean isLoadingTags = false;
+    private boolean needFocusFirstItem = false;
     
     @Override // com.bilibili.tv.ui.base.BaseUpViewActivity
     public void a(agd agdVar) {
@@ -180,6 +185,9 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
                         break;
                     }
                     break;
+                case KeyEvent.KEYCODE_MENU:
+                    showTagFilterMenu();
+                    return true;
             }
 
             // 预测 focusSearch 的目标：若系统会把焦点移到左侧而右侧仍在加载，则吞掉按键
@@ -247,15 +255,16 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
 
     
     private void loadUperList() {
-        // 添加"全部动态"项
+        loadTagList();
+        
+        this.currentTagid = -1;
+        this.f = 1;
+        this.g = true;
+        this.needFocusFirstItem = true;
+        
         uperItems.clear();
         uperItems.add(new UperItem(-1, "全部动态", "", true));
         
-        // 重置参数
-        this.f = 1;
-        this.g = true;
-        
-        // 加载关注的UP主列表
         loadFollowings();
     }
     
@@ -264,6 +273,14 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
             return;
         }
         
+        if (this.currentTagid == -1) {
+            loadAllFollowings();
+        } else {
+            loadFollowingsByTag();
+        }
+    }
+    
+    private void loadAllFollowings() {
         this.h = true;
         
         mg biliAccount = mg.a(this);
@@ -280,7 +297,6 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
                     
                     if (response == null || response.getJSONArray("list") == null || response.getJSONArray("list").size() == 0) {
                         if (AttentionDynamicSideActivity.this.f == 1) {
-                            // 第一页无数据
                         }
                         AttentionDynamicSideActivity.this.g = false;
                         AttentionDynamicSideActivity.this.updateUperList();
@@ -323,9 +339,146 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
         }
     }
     
+    private void loadTagList() {
+        if (this.isLoadingTags) {
+            return;
+        }
+        
+        this.isLoadingTags = true;
+        
+        mg biliAccount = mg.a(this);
+        if (biliAccount != null) {
+            String cookie = mybl.CookieUtil.getFullCookieWithDevice(biliAccount);
+            ((MyBiliApiService) vo.a(MyBiliApiService.class)).getRelationTags(true, "333.333", cookie).a(new vn<JSONArray>() {
+                @Override
+                public void a(JSONArray response) {
+                    AttentionDynamicSideActivity.this.isLoadingTags = false;
+                    
+                    if (response != null && response.size() > 0) {
+                        tagItems.clear();
+                        tagItems.add(new TagItem(-1, "全部关注", 0));
+                        
+                        for (int i = 0; i < response.size(); i++) {
+                            JSONObject item = response.getJSONObject(i);
+                            int count = item.getIntValue("count");
+                            if (count > 0) {
+                                tagItems.add(new TagItem(
+                                    item.getLongValue("tagid"),
+                                    item.getString("name"),
+                                    count
+                                ));
+                            }
+                        }
+                    }
+                }
+                
+                @Override
+                public boolean isCancel() {
+                    return isFinishing();
+                }
+                
+                @Override
+                public void onError(Throwable t) {
+                    adl.a.a(t, AttentionDynamicSideActivity.this);
+                    AttentionDynamicSideActivity.this.isLoadingTags = false;
+                }
+            });
+        } else {
+            this.isLoadingTags = false;
+        }
+    }
+    
+    private void loadFollowingsByTag() {
+        this.h = true;
+        
+        mg biliAccount = mg.a(this);
+        if (biliAccount != null) {
+            String cookie = mybl.CookieUtil.getFullCookieWithDevice(biliAccount);
+            ((MyBiliApiService) vo.a(MyBiliApiService.class)).getFollowingsByTag(this.currentTagid, this.f, 30, biliAccount.d(), "333.333", cookie).a(new vn<JSONArray>() {
+                @Override
+                public void a(JSONArray response) {
+                    if (AttentionDynamicSideActivity.this.c == null) {
+                        return;
+                    }
+                    
+                    AttentionDynamicSideActivity.this.h = false;
+                    
+                    if (response == null || response.size() == 0) {
+                        if (AttentionDynamicSideActivity.this.f == 1) {
+                        }
+                        AttentionDynamicSideActivity.this.g = false;
+                        AttentionDynamicSideActivity.this.updateUperList();
+                        return;
+                    }
+                    
+                    for (int i = 0; i < response.size(); i++) {
+                        JSONObject item = response.getJSONObject(i);
+                        uperItems.add(new UperItem(
+                            item.getLongValue("mid"),
+                            item.getString("uname"),
+                            item.getString("face"),
+                            false
+                        ));
+                    }
+                    
+                    AttentionDynamicSideActivity.this.g = response.size() == 30;
+                    AttentionDynamicSideActivity.this.updateUperList();
+                }
+                
+                @Override
+                public boolean isCancel() {
+                    return isFinishing();
+                }
+                
+                @Override
+                public void onError(Throwable t) {
+                    adl.a.a(t, AttentionDynamicSideActivity.this);
+                    if (AttentionDynamicSideActivity.this.c == null) {
+                        return;
+                    }
+                    AttentionDynamicSideActivity.this.h = false;
+                    AttentionDynamicSideActivity.this.updateUperList();
+                }
+            });
+        } else {
+            this.h = false;
+            this.updateUperList();
+        }
+    }
+    
+    private void showTagFilterMenu() {
+        if (tagItems.isEmpty()) {
+            return;
+        }
+        
+        TagFilterMenuDialog dialog = new TagFilterMenuDialog(this, tagItems, currentTagid);
+        dialog.setOnTagSelectedListener(new TagFilterMenuDialog.OnTagSelectedListener() {
+            @Override
+            public void onTagSelected(long tagid, String name) {
+                if (currentTagid == tagid) {
+                    return;
+                }
+                
+                currentTagid = tagid;
+                currentTagName = (tagid == -1) ? "动态" : name;
+                ((TextView) d(R.id.content_name)).setText(currentTagName);
+                f = 1;
+                g = true;
+                selectedItem = null;
+                needFocusFirstItem = true;
+                
+                uperItems.clear();
+                if (tagid == -1) {
+                    uperItems.add(new UperItem(-1, "全部动态", "", true));
+                }
+                loadFollowings();
+            }
+        });
+        dialog.show();
+    }
+    
     private void updateUperList() {
         if (c != null) {
-            // 保存当前焦点位置
             final RecyclerView recyclerView = j();
             View focusedView = recyclerView.getFocusedChild();
             final int focusedPosition;
@@ -335,40 +488,43 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
                 focusedPosition = -1;
             }
             
-            // 禁止 adapter 在数据更新期间触发其延迟 runnable 导致切换
             c.b(true);
-            // 更新数据
             c.d();
 
-            // 恢复焦点位置，并在恢复后允许 adapter 响应焦点事件
-            if (focusedPosition != -1 && focusedPosition < uperItems.size()) {
+            if (needFocusFirstItem) {
+                needFocusFirstItem = false;
+                recyclerView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (recyclerView.getChildCount() > 0) {
+                            recyclerView.getChildAt(0).requestFocus();
+                        }
+                        c.b(false);
+                    }
+                }, 100);
+            } else if (focusedPosition != -1 && focusedPosition < uperItems.size()) {
                 recyclerView.post(new Runnable() {
                     @Override
                     public void run() {
                         if (recyclerView.getChildCount() > 0) {
-                            // 尝试找到原来的位置或附近的位置
                             for (int i = 0; i < recyclerView.getChildCount(); i++) {
                                 View child = recyclerView.getChildAt(i);
                                 int childPosition = recyclerView.g(child);
                                 if (childPosition == focusedPosition) {
                                     child.requestFocus();
-                                    // 允许 adapter 响应
                                     c.b(false);
                                     return;
                                 }
                             }
-                            // 如果找不到原来的位置，焦点移动到第一个可见项
                             recyclerView.getChildAt(0).requestFocus();
                         }
                         c.b(false);
                     }
                 });
             } else {
-                // 没有原焦点，立即恢复 adapter 行为
                 c.b(false);
             }
         }
-        // 仅在未选择任何项时，才默认显示第一个视频列表，避免数据更新时强制切换
         if (!uperItems.isEmpty() && selectedItem == null) {
             showVideoList(uperItems.get(0));
         }
@@ -590,6 +746,30 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
         
         public boolean isAllDynamic() {
             return allDynamic;
+        }
+    }
+    
+    public static class TagItem {
+        private long tagid;
+        private String name;
+        private int count;
+        
+        public TagItem(long tagid, String name, int count) {
+            this.tagid = tagid;
+            this.name = name;
+            this.count = count;
+        }
+        
+        public long getTagid() {
+            return tagid;
+        }
+        
+        public String getName() {
+            return name;
+        }
+        
+        public int getCount() {
+            return count;
         }
     }
 }

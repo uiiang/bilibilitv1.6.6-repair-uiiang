@@ -25,16 +25,16 @@
     .locals 0
 
     .prologue
-    .line 312
+    .line 314
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$g;-><init>()V
 
-    .line 313
+    .line 315
     iput p1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$f;->a:I
 
-    .line 314
+    .line 316
     iput p2, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$f;->b:I
 
-    .line 315
+    .line 317
     return-void
 .end method
 
@@ -46,63 +46,63 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 321
+    .line 323
     const-string v0, "outRect"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 322
+    .line 324
     const-string v0, "view"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 323
+    .line 325
     const-string v0, "parent"
 
     invoke-static {p3, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 324
+    .line 326
     invoke-virtual {p3, p2}, Landroid/support/v7/widget/RecyclerView;->g(Landroid/view/View;)I
 
     move-result v2
 
-    .line 325
+    .line 327
     const/4 v0, 0x1
 
     if-le v2, v0, :cond_24
 
     iget v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$f;->a:I
 
-    .line 326
+    .line 328
     :goto_19
     rem-int/lit8 v2, v2, 0x2
 
     if-nez v2, :cond_26
 
-    .line 327
+    .line 329
     iget v2, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$f;->b:I
 
     move v3, v1
 
-    .line 333
+    .line 335
     :goto_20
     invoke-virtual {p1, v3, v0, v2, v1}, Landroid/graphics/Rect;->set(IIII)V
 
-    .line 334
+    .line 336
     return-void
 
     :cond_24
     move v0, v1
 
-    .line 325
+    .line 327
     goto :goto_19
 
-    .line 330
+    .line 332
     :cond_26
     iget v3, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$f;->b:I
 
     move v2, v1
 
-    .line 331
+    .line 333
     goto :goto_20
 .end method

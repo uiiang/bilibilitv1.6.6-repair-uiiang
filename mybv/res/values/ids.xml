@@ -386,4 +386,7 @@
     <item type="id" name="space_dynamic_button" />
     <item type="id" name="space_all_button" />
     <item type="id" name="space_dynamic_layout" />
+    <item type="id" name="tag_filter_list" />
+    <item type="id" name="tag_title" />
+    <item type="id" name="dynamic_header_hint" />
 </resources>

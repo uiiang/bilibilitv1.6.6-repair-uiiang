@@ -73,6 +73,21 @@
             android:layout_marginLeft="@dimen/px_24"
             android:visibility="gone" />
 
+        <Space
+            android:focusable="false"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <com.bilibili.tv.widget.ShadowTextView
+            android:id="@+id/dynamic_header_hint"
+            android:textSize="@dimen/px_36"
+            android:textColor="@color/focus_text_color_white_50"
+            android:focusable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="按[菜单]键筛选分组" />
+
     </LinearLayout>
 
     <!-- 视频列表 -->

@@ -1,14 +1,11 @@
 .class Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;
-.super Ljava/lang/Object;
+.super Lbl/vn;
 .source "AttentionDynamicSideActivity.java"
-
-# interfaces
-.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->updateUperList()V
+    value = Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->loadTagList()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -16,123 +13,192 @@
     name = null
 .end annotation
 
+.annotation system Ldalvik/annotation/Signature;
+    value = {
+        "Lbl/vn",
+        "<",
+        "Lcom/alibaba/fastjson/JSONArray;",
+        ">;"
+    }
+.end annotation
+
 
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
 
-.field final synthetic val$focusedPosition:I
-
-.field final synthetic val$recyclerView:Landroid/support/v7/widget/RecyclerView;
-
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;Landroid/support/v7/widget/RecyclerView;I)V
+.method constructor <init>(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;)V
     .locals 0
 
     .prologue
-    .line 345
+    .line 352
     iput-object p1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
 
-    iput-object p2, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
-
-    iput p3, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->val$focusedPosition:I
-
-    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Lbl/vn;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public run()V
-    .locals 5
+.method public a(Lcom/alibaba/fastjson/JSONArray;)V
+    .locals 8
 
     .prologue
-    const/4 v1, 0x0
+    const/4 v0, 0x0
 
-    .line 348
-    iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+    .line 355
+    iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
 
-    invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
+    # setter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->isLoadingTags:Z
+    invoke-static {v1, v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$702(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;Z)Z
 
-    move-result v0
+    .line 357
+    if-eqz p1, :cond_58
 
-    if-lez v0, :cond_3b
+    invoke-virtual {p1}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
-    move v0, v1
+    move-result v1
 
-    .line 350
-    :goto_a
-    iget-object v2, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+    if-lez v1, :cond_58
 
-    invoke-virtual {v2}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
+    .line 358
+    iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
+
+    # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->tagItems:Ljava/util/List;
+    invoke-static {v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$800(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;)Ljava/util/List;
+
+    move-result-object v1
+
+    invoke-interface {v1}, Ljava/util/List;->clear()V
+
+    .line 359
+    iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
+
+    # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->tagItems:Ljava/util/List;
+    invoke-static {v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$800(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;)Ljava/util/List;
+
+    move-result-object v1
+
+    new-instance v2, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$TagItem;
+
+    const-wide/16 v4, -0x1
+
+    const-string v3, "\u5168\u90e8\u5173\u6ce8"
+
+    invoke-direct {v2, v4, v5, v3, v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$TagItem;-><init>(JLjava/lang/String;I)V
+
+    invoke-interface {v1, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    .line 361
+    :goto_29
+    invoke-virtual {p1}, Lcom/alibaba/fastjson/JSONArray;->size()I
+
+    move-result v1
+
+    if-ge v0, v1, :cond_58
+
+    .line 362
+    invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
+
+    move-result-object v1
+
+    .line 363
+    const-string v2, "count"
+
+    invoke-virtual {v1, v2}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
     move-result v2
 
-    if-ge v0, v2, :cond_32
-
-    .line 351
-    iget-object v2, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
-
-    invoke-virtual {v2, v0}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
-
-    move-result-object v2
-
-    .line 352
-    iget-object v3, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
-
-    invoke-virtual {v3, v2}, Landroid/support/v7/widget/RecyclerView;->g(Landroid/view/View;)I
-
-    move-result v3
-
-    .line 353
-    iget v4, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->val$focusedPosition:I
-
-    if-ne v3, v4, :cond_2f
-
-    .line 354
-    invoke-virtual {v2}, Landroid/view/View;->requestFocus()Z
-
-    .line 356
-    iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->c:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$200(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;)Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;
-
-    move-result-object v0
-
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;->b(Z)V
-
     .line 364
-    :goto_2e
-    return-void
+    if-lez v2, :cond_55
 
-    .line 350
-    :cond_2f
-    add-int/lit8 v0, v0, 0x1
+    .line 365
+    iget-object v3, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
 
-    goto :goto_a
+    # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->tagItems:Ljava/util/List;
+    invoke-static {v3}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$800(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;)Ljava/util/List;
+
+    move-result-object v3
+
+    new-instance v4, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$TagItem;
+
+    const-string v5, "tagid"
+
+    .line 366
+    invoke-virtual {v1, v5}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
+
+    move-result-wide v6
+
+    const-string v5, "name"
+
+    .line 367
+    invoke-virtual {v1, v5}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-direct {v4, v6, v7, v1, v2}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$TagItem;-><init>(JLjava/lang/String;I)V
+
+    .line 365
+    invoke-interface {v3, v4}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 361
-    :cond_32
-    iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+    :cond_55
+    add-int/lit8 v0, v0, 0x1
 
-    invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
+    goto :goto_29
 
-    move-result-object v0
+    .line 373
+    :cond_58
+    return-void
+.end method
 
-    invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
+.method public bridge synthetic a(Ljava/lang/Object;)V
+    .locals 0
 
-    .line 363
-    :cond_3b
+    .prologue
+    .line 352
+    check-cast p1, Lcom/alibaba/fastjson/JSONArray;
+
+    invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->a(Lcom/alibaba/fastjson/JSONArray;)V
+
+    return-void
+.end method
+
+.method public isCancel()Z
+    .locals 1
+
+    .prologue
+    .line 377
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
 
-    # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->c:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$200(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;)Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->isFinishing()Z
 
-    move-result-object v0
+    move-result v0
 
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;->b(Z)V
+    return v0
+.end method
 
-    goto :goto_2e
+.method public onError(Ljava/lang/Throwable;)V
+    .locals 2
+
+    .prologue
+    .line 382
+    sget-object v0, Lbl/adl;->a:Lbl/adl;
+
+    iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
+
+    invoke-virtual {v0, p1, v1}, Lbl/adl;->a(Ljava/lang/Throwable;Landroid/app/Activity;)V
+
+    .line 383
+    iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$3;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
+
+    const/4 v1, 0x0
+
+    # setter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->isLoadingTags:Z
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$702(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;Z)Z
+
+    .line 384
+    return-void
 .end method

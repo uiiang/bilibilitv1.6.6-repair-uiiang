@@ -73,6 +73,7 @@ public final class AttentionDynamicFragment extends ady {
     private TextView headerTitle;
     public DrawTextView attentionButton;
     private TextView headerCount;
+    private TextView headerHint;
 
     /* compiled from: BL */
     public static final class a {
@@ -123,6 +124,7 @@ public final class AttentionDynamicFragment extends ady {
         this.headerTitle = (TextView) this.rootView.findViewById(R.id.dynamic_header_title);
         this.attentionButton = (DrawTextView) this.rootView.findViewById(R.id.dynamic_header_attention);
         this.headerCount = (TextView) this.rootView.findViewById(R.id.dynamic_header_count);
+        this.headerHint = (TextView) this.rootView.findViewById(R.id.dynamic_header_hint);
         initHeader();
         RecyclerView recyclerView = (RecyclerView) this.rootView.findViewById(R.id.recycler_view);
         a(recyclerView, bundle);
@@ -345,7 +347,7 @@ public final class AttentionDynamicFragment extends ady {
         @Override // android.support.v7.widget.RecyclerView.m
         public void a(RecyclerView recyclerView, int i) {
             super.a(recyclerView, i);
-            if (AttentionDynamicFragment.this.h || AttentionDynamicFragment.this.c == null) {
+            if (AttentionDynamicFragment.this.h || AttentionDynamicFragment.this.c == null || !AttentionDynamicFragment.this.g) {
                 return;
             }
             int iP = this.b.p();

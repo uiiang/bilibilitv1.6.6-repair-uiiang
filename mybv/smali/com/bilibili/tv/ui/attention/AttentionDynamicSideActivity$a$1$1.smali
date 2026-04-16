@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 483
+    .line 639
     iput-object p1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a$1$1;->this$1:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a$1;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,13 +40,13 @@
     .locals 2
 
     .prologue
-    .line 486
+    .line 642
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a$1$1;->this$1:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a$1;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a$1;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;
 
     # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;->a:Ljava/lang/ref/WeakReference;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;->access$700(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;)Ljava/lang/ref/WeakReference;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;->access$1400(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;)Ljava/lang/ref/WeakReference;
 
     move-result-object v0
 
@@ -56,7 +56,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
 
-    .line 487
+    .line 643
     if-eqz v0, :cond_16
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->isFinishing()Z
@@ -65,19 +65,19 @@
 
     if-eqz v1, :cond_17
 
-    .line 489
+    .line 645
     :cond_16
     :goto_16
     return-void
 
-    .line 488
+    .line 644
     :cond_17
     iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a$1$1;->this$1:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a$1;
 
     iget-object v1, v1, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a$1;->val$item:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$UperItem;
 
     # invokes: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->showVideoList(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$UperItem;)V
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$1100(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$UperItem;)V
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$1800(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$UperItem;)V
 
     goto :goto_16
 .end method

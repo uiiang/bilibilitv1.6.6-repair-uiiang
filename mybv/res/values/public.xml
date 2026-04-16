@@ -2563,6 +2563,9 @@
     <public type="id" name="space_dynamic_button" id="0x7f0801eb" />
     <public type="id" name="space_all_button" id="0x7f0801ec" />
     <public type="id" name="space_dynamic_layout" id="0x7f0801ed" />
+    <public type="id" name="tag_filter_list" id="0x7f0801ee" />
+    <public type="id" name="tag_title" id="0x7f0801ef" />
+    <public type="id" name="dynamic_header_hint" id="0x7f0801f0" />
 
 
     <public type="integer" name="config_danmaku_fly_duration" id="0x7f090003" />
@@ -2734,6 +2737,8 @@
     <public type="layout" name="item_nav_tag" id="0x7f0a009f" />
     <public type="layout" name="recycler_view_item_video_info_compact" id="0x7f0a00a0" />
     <public type="layout" name="player_episode_menu" id="0x7f0a00a1" />
+    <public type="layout" name="dialog_tag_filter_menu" id="0x7f0a00a2" />
+    <public type="layout" name="item_tag_filter" id="0x7f0a00a3" />
 
 
     <public type="mipmap" name="ic_launcher" id="0x7f0b0000" />

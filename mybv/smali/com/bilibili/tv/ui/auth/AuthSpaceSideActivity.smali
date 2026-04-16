@@ -660,7 +660,7 @@
     .line 394
     iget v0, p1, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$MenuItem;->type:I
 
-    if-nez v0, :cond_3d
+    if-nez v0, :cond_3f
 
     .line 395
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
@@ -673,18 +673,20 @@
     move-result v1
 
     .line 397
+    if-eqz v0, :cond_3c
+
     invoke-virtual {v0}, Lbl/mg;->a()Z
 
     move-result v0
 
-    if-eqz v0, :cond_3a
+    if-eqz v0, :cond_3c
 
-    if-nez v1, :cond_3a
+    if-nez v1, :cond_3c
 
     const-string v1, "dynamic"
 
     .line 398
-    :goto_1d
+    :goto_1f
     iget-wide v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->targetMid:J
 
     const-wide/16 v4, -0x1
@@ -696,7 +698,7 @@
     move-result-object v0
 
     .line 404
-    :goto_27
+    :goto_29
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->getSupportFragmentManager()Landroid/support/v4/app/FragmentManager;
 
     move-result-object v1
@@ -716,18 +718,18 @@
     goto :goto_4
 
     .line 397
-    :cond_3a
+    :cond_3c
     const-string v1, "all"
 
-    goto :goto_1d
+    goto :goto_1f
 
     .line 399
-    :cond_3d
+    :cond_3f
     iget v0, p1, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$MenuItem;->type:I
 
     const/4 v1, 0x1
 
-    if-ne v0, v1, :cond_4f
+    if-ne v0, v1, :cond_51
 
     .line 400
     const-string v1, "season"
@@ -742,10 +744,10 @@
 
     move-result-object v0
 
-    goto :goto_27
+    goto :goto_29
 
     .line 402
-    :cond_4f
+    :cond_51
     const-string v1, "series"
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->targetMid:J
@@ -758,7 +760,7 @@
 
     move-result-object v0
 
-    goto :goto_27
+    goto :goto_29
 .end method
 
 .method public static start(Landroid/content/Context;JLjava/lang/String;)V

@@ -603,6 +603,57 @@
     .end annotation
 .end method
 
+.method public abstract getFollowingsByTag(JIIJLjava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # J
+        .annotation runtime Lretrofit2/http/Query;
+            value = "tagid"
+        .end annotation
+    .end param
+    .param p3    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "pn"
+        .end annotation
+    .end param
+    .param p4    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "ps"
+        .end annotation
+    .end param
+    .param p5    # J
+        .annotation runtime Lretrofit2/http/Query;
+            value = "mid"
+        .end annotation
+    .end param
+    .param p7    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "web_location"
+        .end annotation
+    .end param
+    .param p8    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(JIIJ",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            ")",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Lcom/alibaba/fastjson/JSONArray;",
+            ">;>;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/GET;
+        value = "/x/relation/tag"
+    .end annotation
+.end method
+
 .method public abstract getPgcInfos()Lbl/vp;
     .annotation system Ldalvik/annotation/Signature;
         value = {
@@ -806,6 +857,42 @@
 
     .annotation runtime Lretrofit2/http/GET;
         value = "/x/relation"
+    .end annotation
+.end method
+
+.method public abstract getRelationTags(ZLjava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # Z
+        .annotation runtime Lretrofit2/http/Query;
+            value = "only_master"
+        .end annotation
+    .end param
+    .param p2    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "web_location"
+        .end annotation
+    .end param
+    .param p3    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(Z",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            ")",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Lcom/alibaba/fastjson/JSONArray;",
+            ">;>;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/GET;
+        value = "/x/relation/tags"
     .end annotation
 .end method
 

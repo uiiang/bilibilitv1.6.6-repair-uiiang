@@ -4,6 +4,7 @@ import bl.vp;
 import retrofit2.Call;
 import retrofit2.http.*;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONArray;
 import com.bilibili.okretro.GeneralResponse;
 import com.bilibili.tv.api.video.BiliVideoDetail;
 import com.bilibili.tv.api.video.PgcInfo;
@@ -206,5 +207,20 @@ public interface MyBiliApiService {
             @Field("type") int type,
             @Field("del_media_ids") long media_id,
             @Field("csrf") String csrf,
+            @Header("Cookie") String cookie);
+    
+    @GET("/x/relation/tags")
+    vp<GeneralResponse<JSONArray>> getRelationTags(
+            @Query("only_master") boolean onlyMaster,
+            @Query("web_location") String webLocation,
+            @Header("Cookie") String cookie);
+    
+    @GET("/x/relation/tag")
+    vp<GeneralResponse<JSONArray>> getFollowingsByTag(
+            @Query("tagid") long tagid,
+            @Query("pn") int pn,
+            @Query("ps") int ps,
+            @Query("mid") long mid,
+            @Query("web_location") String webLocation,
             @Header("Cookie") String cookie);
 }

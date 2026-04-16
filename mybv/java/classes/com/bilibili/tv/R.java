@@ -2587,6 +2587,9 @@ public final class R {
         public static final int space_dynamic_button = 0x7f0801eb;
         public static final int space_all_button = 0x7f0801ec;
         public static final int space_dynamic_layout = 0x7f0801ed;
+        public static final int tag_filter_list = 0x7f0801ee;
+        public static final int tag_title = 0x7f0801ef;
+        public static final int dynamic_header_hint = 0x7f0801f0;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;
@@ -2763,6 +2766,8 @@ public final class R {
         public static final int item_nav_tag = 0x7f0a009f;
         public static final int recycler_view_item_video_info_compact = 0x7f0a00a0;
         public static final int player_episode_menu = 0x7f0a00a1;
+        public static final int dialog_tag_filter_menu = 0x7f0a00a2;
+        public static final int item_tag_filter = 0x7f0a00a3;
     }
 
     public static final class mipmap {

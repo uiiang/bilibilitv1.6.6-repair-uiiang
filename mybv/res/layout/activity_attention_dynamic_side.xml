@@ -14,7 +14,8 @@
     <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_48"
       android:textColor="@color/white" android:id="@id/content_name" android:focusable="false"
       android:layout_width="fill_parent" android:layout_height="wrap_content"
-      android:layout_marginLeft="@dimen/px_50" android:layout_marginTop="@dimen/px_50" />
+      android:layout_marginLeft="@dimen/px_50" android:layout_marginTop="@dimen/px_50"
+      android:maxLines="2" android:ellipsize="end" />
     <android.support.v7.widget.RecyclerView android:id="@id/recycler_view" android:focusable="false"
       android:layout_width="fill_parent" android:layout_height="0.0dip"
       android:layout_marginTop="@dimen/px_24" android:layout_weight="1.0"
