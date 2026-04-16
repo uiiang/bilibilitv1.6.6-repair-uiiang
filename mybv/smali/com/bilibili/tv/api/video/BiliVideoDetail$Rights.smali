@@ -34,6 +34,12 @@
 
 
 # instance fields
+.field public isSteinGate:I
+    .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
+        name = "is_stein_gate"
+    .end annotation
+.end field
+
 .field public mCanBp:Z
     .annotation runtime Lcom/alibaba/fastjson/annotation/JSONField;
         name = "bp"
@@ -90,10 +96,10 @@
     .locals 0
 
     .prologue
-    .line 483
+    .line 486
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 484
+    .line 487
     return-void
 .end method
 
@@ -105,44 +111,8 @@
 
     const/4 v2, 0x0
 
-    .line 486
-    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
-
-    .line 487
-    invoke-virtual {p1}, Landroid/os/Parcel;->readByte()B
-
-    move-result v0
-
-    if-eqz v0, :cond_32
-
-    move v0, v1
-
-    :goto_c
-    iput-boolean v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Rights;->mCanBp:Z
-
-    .line 488
-    invoke-virtual {p1}, Landroid/os/Parcel;->readByte()B
-
-    move-result v0
-
-    if-eqz v0, :cond_34
-
-    move v0, v1
-
-    :goto_15
-    iput-boolean v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Rights;->mCanCharge:Z
-
     .line 489
-    invoke-virtual {p1}, Landroid/os/Parcel;->readByte()B
-
-    move-result v0
-
-    if-eqz v0, :cond_36
-
-    move v0, v1
-
-    :goto_1e
-    iput-boolean v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Rights;->mCanDownload:Z
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     .line 490
     invoke-virtual {p1}, Landroid/os/Parcel;->readByte()B
@@ -153,8 +123,8 @@
 
     move v0, v1
 
-    :goto_27
-    iput-boolean v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Rights;->mCanMovie:Z
+    :goto_c
+    iput-boolean v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Rights;->mCanBp:Z
 
     .line 491
     invoke-virtual {p1}, Landroid/os/Parcel;->readByte()B
@@ -163,40 +133,83 @@
 
     if-eqz v0, :cond_3a
 
+    move v0, v1
+
+    :goto_15
+    iput-boolean v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Rights;->mCanCharge:Z
+
+    .line 492
+    invoke-virtual {p1}, Landroid/os/Parcel;->readByte()B
+
+    move-result v0
+
+    if-eqz v0, :cond_3c
+
+    move v0, v1
+
+    :goto_1e
+    iput-boolean v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Rights;->mCanDownload:Z
+
+    .line 493
+    invoke-virtual {p1}, Landroid/os/Parcel;->readByte()B
+
+    move-result v0
+
+    if-eqz v0, :cond_3e
+
+    move v0, v1
+
+    :goto_27
+    iput-boolean v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Rights;->mCanMovie:Z
+
+    .line 494
+    invoke-virtual {p1}, Landroid/os/Parcel;->readByte()B
+
+    move-result v0
+
+    if-eqz v0, :cond_40
+
     :goto_2f
     iput-boolean v1, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Rights;->vipQuality:Z
 
-    .line 492
+    .line 495
+    invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
+
+    move-result v0
+
+    iput v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Rights;->isSteinGate:I
+
+    .line 496
     return-void
-
-    :cond_32
-    move v0, v2
-
-    .line 487
-    goto :goto_c
-
-    :cond_34
-    move v0, v2
-
-    .line 488
-    goto :goto_15
-
-    :cond_36
-    move v0, v2
-
-    .line 489
-    goto :goto_1e
 
     :cond_38
     move v0, v2
 
     .line 490
-    goto :goto_27
+    goto :goto_c
 
     :cond_3a
-    move v1, v2
+    move v0, v2
 
     .line 491
+    goto :goto_15
+
+    :cond_3c
+    move v0, v2
+
+    .line 492
+    goto :goto_1e
+
+    :cond_3e
+    move v0, v2
+
+    .line 493
+    goto :goto_27
+
+    :cond_40
+    move v1, v2
+
+    .line 494
     goto :goto_2f
 .end method
 
@@ -206,7 +219,7 @@
     .locals 1
 
     .prologue
-    .line 471
+    .line 473
     const/4 v0, 0x0
 
     return v0
@@ -220,84 +233,89 @@
 
     const/4 v2, 0x0
 
-    .line 476
+    .line 478
     iget-boolean v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Rights;->mCanBp:Z
 
-    if-eqz v0, :cond_2a
+    if-eqz v0, :cond_2f
 
     move v0, v1
 
     :goto_7
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeByte(B)V
 
-    .line 477
+    .line 479
     iget-boolean v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Rights;->mCanCharge:Z
 
-    if-eqz v0, :cond_2c
+    if-eqz v0, :cond_31
 
     move v0, v1
 
     :goto_f
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeByte(B)V
 
-    .line 478
+    .line 480
     iget-boolean v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Rights;->mCanDownload:Z
 
-    if-eqz v0, :cond_2e
+    if-eqz v0, :cond_33
 
     move v0, v1
 
     :goto_17
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeByte(B)V
 
-    .line 479
+    .line 481
     iget-boolean v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Rights;->mCanMovie:Z
 
-    if-eqz v0, :cond_30
+    if-eqz v0, :cond_35
 
     move v0, v1
 
     :goto_1f
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeByte(B)V
 
-    .line 480
+    .line 482
     iget-boolean v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Rights;->vipQuality:Z
 
-    if-eqz v0, :cond_32
+    if-eqz v0, :cond_37
 
     :goto_26
     invoke-virtual {p1, v1}, Landroid/os/Parcel;->writeByte(B)V
 
-    .line 481
+    .line 483
+    iget v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Rights;->isSteinGate:I
+
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
+
+    .line 484
     return-void
 
-    :cond_2a
-    move v0, v2
-
-    .line 476
-    goto :goto_7
-
-    :cond_2c
-    move v0, v2
-
-    .line 477
-    goto :goto_f
-
-    :cond_2e
+    :cond_2f
     move v0, v2
 
     .line 478
-    goto :goto_17
+    goto :goto_7
 
-    :cond_30
+    :cond_31
     move v0, v2
 
     .line 479
-    goto :goto_1f
+    goto :goto_f
 
-    :cond_32
-    move v1, v2
+    :cond_33
+    move v0, v2
 
     .line 480
+    goto :goto_17
+
+    :cond_35
+    move v0, v2
+
+    .line 481
+    goto :goto_1f
+
+    :cond_37
+    move v1, v2
+
+    .line 482
     goto :goto_26
 .end method

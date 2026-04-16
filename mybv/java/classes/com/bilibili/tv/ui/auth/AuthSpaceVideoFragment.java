@@ -390,26 +390,7 @@ public final class AuthSpaceVideoFragment extends ady {
           if (vlist != null && vlist.size() > 0) {
             List<BiliSpaceVideo> videos = new ArrayList<>();
             for (int i = 0; i < vlist.size(); i++) {
-              JSONObject item = vlist.getJSONObject(i);
-              BiliSpaceVideo v = new BiliSpaceVideo();
-              v.cover = item.getString("pic");
-              v.aid = item.getLongValue("aid");
-              v.param = String.valueOf(v.aid);
-              v.bvid = item.getString("bvid");
-              v.title = item.getString("title");
-              v.play = item.getIntValue("play");
-              v.playStr = bl.adh.a(v.play);
-              int danmakuVal = item.getIntValue("video_review");
-              v.danmaku = String.valueOf(danmakuVal);
-              v.danmakuStr = bl.adh.a(danmakuVal);
-              v.ctime = item.getLong("created");
-              v.duration = DateHelper.parseDurationStr(item.getString("length"));
-              v.durationStr = item.getString("length");
-              v.elecArcType = item.getIntValue("elec_arc_type");
-              v.elecArcBadge = item.getString("elec_arc_badge");
-              v.isUnionVideo = item.getIntValue("is_union_video");
-              v.isLivePlayback = item.getIntValue("is_live_playback");
-              videos.add(v);
+              videos.add(BiliSpaceVideo.fromVlist(vlist.getJSONObject(i)));
             }
             List<BiliSpaceVideo> filtered = mybl.BiliFilter.filterBiliSpaceVideo(videos, "个人投稿");
             if (page == 1) {
@@ -668,70 +649,10 @@ public final class AuthSpaceVideoFragment extends ady {
               JSONObject modules = item.getJSONObject("modules");
               if (modules == null)
                 continue;
-              JSONObject moduleDynamic = modules.getJSONObject("module_dynamic");
-              if (moduleDynamic == null)
-                continue;
-              JSONObject major = moduleDynamic.getJSONObject("major");
-              if (major == null)
-                continue;
-              JSONObject archive = major.getJSONObject("archive");
-              if (archive == null)
-                continue;
-              JSONObject moduleAuthor = modules.getJSONObject("module_author");
-              
-              BiliSpaceVideo v = new BiliSpaceVideo();
-              v.aid = archive.getLongValue("aid");
-              v.param = String.valueOf(v.aid);
-              v.bvid = archive.getString("bvid");
-              v.title = archive.getString("title");
-              v.cover = archive.getString("cover");
-              
-              JSONObject statObj = archive.getJSONObject("stat");
-              if (statObj != null) {
-                String playVal = statObj.getString("play");
-                v.playStr = playVal;
-                v.play = 0;
-                try {
-                  if (playVal != null && !playVal.isEmpty()) {
-                    v.play = Integer.parseInt(playVal);
-                  }
-                } catch (Exception e) {}
-                String danmakuVal = statObj.getString("danmaku");
-                v.danmakuStr = danmakuVal;
-                v.danmaku = danmakuVal;
+              BiliSpaceVideo v = BiliSpaceVideo.fromFeedDynamic(modules);
+              if (v != null) {
+                videos.add(v);
               }
-              
-              if (moduleAuthor != null) {
-                String pubTs = moduleAuthor.getString("pub_ts");
-                if (pubTs != null && !pubTs.isEmpty()) {
-                  try {
-                    v.ctime = Long.parseLong(pubTs);
-                  } catch (Exception e) {}
-                }
-              }
-              if (v.ctime == null || v.ctime == 0) {
-                v.ctime = archive.getLongValue("pubdate");
-              }
-              
-              v.duration = archive.getIntValue("duration");
-              String durText = archive.getString("duration_text");
-              if (durText != null && !durText.isEmpty()) {
-                v.durationStr = durText;
-              } else {
-                v.durationStr = DateHelper.formatDuration(v.duration);
-              }
-              
-              JSONObject badgeObj = archive.getJSONObject("badge");
-              if (badgeObj != null) {
-                v.badgeText = badgeObj.getString("text");
-                v.badgeBgColor = badgeObj.getString("bg_color");
-              }
-              
-              v.elecArcType = archive.getIntValue("elec_arc_type");
-              v.elecArcBadge = archive.getString("elec_arc_badge");
-              v.isUnionVideo = archive.getIntValue("is_union_video");
-              v.isLivePlayback = archive.getIntValue("is_live_playback");
-              videos.add(v);
             }
             
             if (videos.size() > 0) {
@@ -879,8 +800,8 @@ public final class AuthSpaceVideoFragment extends ady {
           vh.danmakuInImage.setVisibility(View.GONE);
         }
         
-        if (v.ctime != null && v.ctime > 0) {
-          vh.D().setText(DateHelper.formatDate(v.ctime));
+        if (v.pubTimeStr != null && !v.pubTimeStr.isEmpty()) {
+          vh.D().setText(v.pubTimeStr);
           vh.D().setVisibility(View.VISIBLE);
         } else {
           vh.D().setVisibility(View.GONE);
@@ -888,8 +809,6 @@ public final class AuthSpaceVideoFragment extends ady {
         
         if (v.durationStr != null && !v.durationStr.isEmpty()) {
           vh.E().setText(v.durationStr);
-        } else if (v.duration > 0) {
-          vh.E().setText(DateHelper.formatDuration(v.duration));
         }
         
         int iconSize = bl.adl.b(R.dimen.px_26);
@@ -909,7 +828,7 @@ public final class AuthSpaceVideoFragment extends ady {
         if (v.cover != null)
           nv.a().a(abd.get_thumb_url_c(com.bilibili.tv.MainApplication.a(), v.cover), vh.z());
         
-        if (v.badgeText != null && !"投稿视频".equals(v.badgeText)) {
+        if (v.badgeText != null && !v.badgeText.isEmpty()) {
           vh.F().setText(v.badgeText);
           vh.F().setVisibility(View.VISIBLE);
           if (v.badgeBgColor != null && !v.badgeBgColor.isEmpty()) {
@@ -917,15 +836,6 @@ public final class AuthSpaceVideoFragment extends ady {
               vh.F().setBackgroundColor(android.graphics.Color.parseColor(v.badgeBgColor));
             } catch (Exception e) {}
           }
-        } else if (v.elecArcType == 1 && !TextUtils.isEmpty(v.elecArcBadge)) {
-          vh.F().setText(v.elecArcBadge);
-          vh.F().setVisibility(View.VISIBLE);
-        } else if (v.isUnionVideo == 1) {
-          vh.F().setText("合作");
-          vh.F().setVisibility(View.VISIBLE);
-        } else if (v.isLivePlayback == 1) {
-          vh.F().setText("直播回放");
-          vh.F().setVisibility(View.VISIBLE);
         } else {
           vh.F().setVisibility(View.GONE);
         }

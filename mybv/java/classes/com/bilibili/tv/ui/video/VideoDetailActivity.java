@@ -167,6 +167,7 @@ public final class VideoDetailActivity extends BaseActivity
     private TextView pgcArea;
     private TextView pgcNewEp;
     private LinearLayout titleSection;
+    private TextView interactionVideoTag;
 
     /* renamed from: u reason: collision with root package name */
     private BiliVideoDetail u;
@@ -294,6 +295,7 @@ public final class VideoDetailActivity extends BaseActivity
         this.pgcArea = (TextView) d(R.id.pgc_area);
         this.pgcNewEp = (TextView) d(R.id.pgc_new_ep);
         this.titleSection = (LinearLayout) d(R.id.title_section);
+        this.interactionVideoTag = (TextView) d(R.id.interaction_video_tag);
         this.j = (DrawLinearLayout) d(R.id.video_detail_favorite);
         this.k = (ImageView) d(R.id.video_detail_favorite_img);
         this.l = (TextView) d(R.id.video_detail_favorite_text);
@@ -4393,6 +4395,14 @@ public final class VideoDetailActivity extends BaseActivity
                 if (textView != null) {
                     textView.setText(biliVideoDetail.mTitle);
                 }
+                
+                TextView interactionTag = VideoDetailActivity.this.interactionVideoTag;
+                if (interactionTag != null) {
+                    boolean isInteractionVideo = biliVideoDetail.mRights != null && 
+                                                  biliVideoDetail.mRights.isSteinGate == 1;
+                    interactionTag.setVisibility(isInteractionVideo ? View.VISIBLE : View.GONE);
+                }
+                
                 LinearLayout staffContainer = VideoDetailActivity.this.staffContainer;
             LinearLayout uperContainer = VideoDetailActivity.this.uperContainer;
             if (staffContainer != null) {

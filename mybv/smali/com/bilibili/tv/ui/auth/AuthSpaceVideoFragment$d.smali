@@ -47,7 +47,7 @@
     .locals 1
 
     .prologue
-    .line 980
+    .line 890
     new-instance v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d$a;
 
     invoke-direct {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d$a;-><init>()V
@@ -61,10 +61,10 @@
     .locals 1
 
     .prologue
-    .line 991
+    .line 901
     invoke-direct {p0, p1}, Lbl/adv;-><init>(Landroid/view/View;)V
 
-    .line 992
+    .line 902
     const v0, 0x7f0800a1
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -75,7 +75,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->n:Lcom/bilibili/tv/widget/ScalableImageView;
 
-    .line 993
+    .line 903
     const v0, 0x7f080132
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -86,7 +86,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->o:Landroid/widget/TextView;
 
-    .line 994
+    .line 904
     const v0, 0x7f08013f
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -97,7 +97,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->p:Landroid/widget/TextView;
 
-    .line 995
+    .line 905
     const v0, 0x7f0800d4
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -108,7 +108,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->q:Landroid/widget/TextView;
 
-    .line 996
+    .line 906
     const v0, 0x7f0801af
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -119,7 +119,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->r:Landroid/widget/TextView;
 
-    .line 997
+    .line 907
     const v0, 0x7f0801a6
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -130,7 +130,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->duration:Landroid/widget/TextView;
 
-    .line 998
+    .line 908
     const v0, 0x7f08006c
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -141,7 +141,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->danmakuInImage:Landroid/widget/TextView;
 
-    .line 999
+    .line 909
     const v0, 0x7f0801d8
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->a(Landroid/view/View;I)Landroid/view/View;
@@ -152,7 +152,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->badge:Landroid/widget/TextView;
 
-    .line 1000
+    .line 910
     return-void
 .end method
 
@@ -160,7 +160,7 @@
     .locals 1
 
     .prologue
-    .line 979
+    .line 889
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->danmakuInImage:Landroid/widget/TextView;
 
     return-object v0
@@ -172,7 +172,7 @@
     .locals 1
 
     .prologue
-    .line 1007
+    .line 917
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->o:Landroid/widget/TextView;
 
     return-object v0
@@ -182,7 +182,7 @@
     .locals 1
 
     .prologue
-    .line 1011
+    .line 921
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->p:Landroid/widget/TextView;
 
     return-object v0
@@ -192,7 +192,7 @@
     .locals 1
 
     .prologue
-    .line 1015
+    .line 925
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->q:Landroid/widget/TextView;
 
     return-object v0
@@ -202,7 +202,7 @@
     .locals 1
 
     .prologue
-    .line 1019
+    .line 929
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->r:Landroid/widget/TextView;
 
     return-object v0
@@ -212,7 +212,7 @@
     .locals 1
 
     .prologue
-    .line 1023
+    .line 933
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->duration:Landroid/widget/TextView;
 
     return-object v0
@@ -222,7 +222,7 @@
     .locals 1
 
     .prologue
-    .line 1027
+    .line 937
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->badge:Landroid/widget/TextView;
 
     return-object v0
@@ -232,7 +232,7 @@
     .locals 1
 
     .prologue
-    .line 1003
+    .line 913
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;->n:Lcom/bilibili/tv/widget/ScalableImageView;
 
     return-object v0

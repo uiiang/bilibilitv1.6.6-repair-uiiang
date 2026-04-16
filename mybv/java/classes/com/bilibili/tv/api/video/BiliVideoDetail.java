@@ -465,6 +465,8 @@ public class BiliVideoDetail implements Parcelable {
         public boolean noReprint;
         @JSONField(name = "hd5")
         public boolean vipQuality;
+        @JSONField(name = "is_stein_gate")
+        public int isSteinGate;
 
         @Override // android.os.Parcelable
         public int describeContents() {
@@ -478,6 +480,7 @@ public class BiliVideoDetail implements Parcelable {
             parcel.writeByte(this.mCanDownload ? (byte) 1 : (byte) 0);
             parcel.writeByte(this.mCanMovie ? (byte) 1 : (byte) 0);
             parcel.writeByte(this.vipQuality ? (byte) 1 : (byte) 0);
+            parcel.writeInt(this.isSteinGate);
         }
 
         public Rights() {
@@ -489,6 +492,7 @@ public class BiliVideoDetail implements Parcelable {
             this.mCanDownload = parcel.readByte() != 0;
             this.mCanMovie = parcel.readByte() != 0;
             this.vipQuality = parcel.readByte() != 0;
+            this.isSteinGate = parcel.readInt();
         }
     }
 

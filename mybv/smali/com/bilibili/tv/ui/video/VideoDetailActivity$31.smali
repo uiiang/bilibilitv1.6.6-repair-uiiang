@@ -23,7 +23,7 @@
     .locals 3
 
     .prologue
-    .line 1316
+    .line 1318
     invoke-static {}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;->values()[Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
 
     move-result-object v0

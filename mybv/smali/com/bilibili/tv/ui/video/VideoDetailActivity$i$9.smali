@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 4883
+    .line 4893
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$9;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 6
 
     .prologue
-    .line 4886
+    .line 4896
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$9;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -48,15 +48,15 @@
     # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->relateVideoFocusPosition:I
     invoke-static {v0, p2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$702(Lcom/bilibili/tv/ui/video/VideoDetailActivity;I)I
 
-    .line 4887
+    .line 4897
     instance-of v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     if-eqz v0, :cond_22
 
-    .line 4888
+    .line 4898
     check-cast p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
-    .line 4889
+    .line 4899
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$9;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -77,7 +77,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->startActivity(Landroid/content/Intent;)V
 
-    .line 4891
+    .line 4901
     :cond_22
     return-void
 .end method

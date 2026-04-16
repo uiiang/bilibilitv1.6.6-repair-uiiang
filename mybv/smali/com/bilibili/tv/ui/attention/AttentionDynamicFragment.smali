@@ -629,34 +629,34 @@
     .locals 8
 
     .prologue
-    .line 613
+    .line 599
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 614
+    .line 600
     if-nez v0, :cond_7
 
-    .line 766
+    .line 692
     :cond_6
     :goto_6
     return-void
 
-    .line 616
+    .line 602
     :cond_7
     invoke-static {v0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
 
-    .line 617
+    .line 603
     if-eqz v0, :cond_6
 
-    .line 619
+    .line 605
     invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v7
 
-    .line 620
+    .line 606
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -665,10 +665,10 @@
 
     check-cast v1, Lmybl/MyBiliApiService;
 
-    .line 621
+    .line 607
     iget-object v4, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->uperDynamicOffset:Ljava/lang/String;
 
-    .line 623
+    .line 609
     iget-wide v2, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->mid:J
 
     const/16 v5, -0x1e0
@@ -683,7 +683,7 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$6;-><init>(Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;)V
 
-    .line 624
+    .line 610
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
     goto :goto_6
@@ -753,7 +753,7 @@
     .line 515
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 610
+    .line 596
     :cond_33
     return-void
 .end method

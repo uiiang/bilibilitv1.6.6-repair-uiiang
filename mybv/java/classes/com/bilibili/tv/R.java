@@ -2590,6 +2590,7 @@ public final class R {
         public static final int tag_filter_list = 0x7f0801ee;
         public static final int tag_title = 0x7f0801ef;
         public static final int dynamic_header_hint = 0x7f0801f0;
+        public static final int interaction_video_tag = 0x7f0801f1;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;

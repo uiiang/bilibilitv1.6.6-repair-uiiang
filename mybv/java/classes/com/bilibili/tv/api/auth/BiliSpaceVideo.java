@@ -1,5 +1,7 @@
 package com.bilibili.tv.api.auth;
 
+import android.text.TextUtils;
+
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
 
@@ -40,6 +42,9 @@ public class BiliSpaceVideo {
     @JSONField(name = "is_live_playback")
     public int isLivePlayback;
 
+    @JSONField(name = "is_steins_gate")
+    public int isSteinsGate;
+
     public String durationStr;
 
     public String bvid;
@@ -57,6 +62,63 @@ public class BiliSpaceVideo {
     public String authorName;
 
     public String pubTimeStr;
+
+    public void resolveBadge() {
+        if (badgeText != null && "投稿视频".equals(badgeText)) {
+            badgeText = null;
+            badgeBgColor = null;
+        }
+        if (badgeText == null || badgeText.isEmpty()) {
+            if (elecArcType == 1 && !TextUtils.isEmpty(elecArcBadge)) {
+                badgeText = elecArcBadge;
+            } else if (isUnionVideo == 1) {
+                badgeText = "合作";
+            } else if (isLivePlayback == 1) {
+                badgeText = "直播回放";
+            } else if (isSteinsGate == 1) {
+                badgeText = "互动视频";
+                badgeBgColor = "#1296db";
+            }
+        }
+    }
+
+    public void resolvePlayStr() {
+        if (playStr == null || playStr.isEmpty()) {
+            playStr = bl.adh.a(play);
+        }
+    }
+
+    public void resolveDanmakuStr() {
+        if (danmakuStr == null || danmakuStr.isEmpty()) {
+            int danmakuVal = 0;
+            try {
+                if (danmaku != null && !danmaku.isEmpty()) {
+                    danmakuVal = Integer.parseInt(danmaku);
+                }
+            } catch (Exception e) {}
+            danmakuStr = bl.adh.a(danmakuVal);
+        }
+    }
+
+    public void resolveDurationStr() {
+        if ((durationStr == null || durationStr.isEmpty()) && duration > 0) {
+            durationStr = com.bilibili.tv.util.DateHelper.formatDuration(duration);
+        }
+    }
+
+    public void resolvePubTimeStr() {
+        if ((pubTimeStr == null || pubTimeStr.isEmpty()) && ctime != null && ctime > 0) {
+            pubTimeStr = com.bilibili.tv.util.DateHelper.formatDate(ctime);
+        }
+    }
+
+    public void resolveAll() {
+        resolvePlayStr();
+        resolveDanmakuStr();
+        resolveDurationStr();
+        resolvePubTimeStr();
+        resolveBadge();
+    }
 
     public static BiliSpaceVideo fromArchives(JSONObject item) {
         BiliSpaceVideo v = new BiliSpaceVideo();
@@ -89,6 +151,38 @@ public class BiliSpaceVideo {
         v.elecArcBadge = item.getString("elec_arc_badge");
         v.isUnionVideo = item.getIntValue("is_union_video");
         v.isLivePlayback = item.getIntValue("is_live_playback");
+        v.isSteinsGate = item.getIntValue("is_steins_gate");
+        
+        v.resolveBadge();
+        
+        return v;
+    }
+
+    public static BiliSpaceVideo fromVlist(JSONObject item) {
+        BiliSpaceVideo v = new BiliSpaceVideo();
+        v.cover = item.getString("pic");
+        v.aid = item.getLongValue("aid");
+        v.param = String.valueOf(v.aid);
+        v.bvid = item.getString("bvid");
+        v.title = item.getString("title");
+        v.play = item.getIntValue("play");
+        v.playStr = bl.adh.a(v.play);
+        int danmakuVal = item.getIntValue("video_review");
+        v.danmaku = String.valueOf(danmakuVal);
+        v.danmakuStr = bl.adh.a(danmakuVal);
+        v.ctime = item.getLong("created");
+        String lengthStr = item.getString("length");
+        v.durationStr = lengthStr;
+        v.duration = com.bilibili.tv.util.DateHelper.parseDurationStr(lengthStr);
+        v.elecArcType = item.getIntValue("elec_arc_type");
+        v.elecArcBadge = item.getString("elec_arc_badge");
+        v.isUnionVideo = item.getIntValue("is_union_video");
+        v.isLivePlayback = item.getIntValue("is_live_playback");
+        v.isSteinsGate = item.getIntValue("is_steins_gate");
+        
+        v.resolvePubTimeStr();
+        v.resolveBadge();
+        
         return v;
     }
 
@@ -155,6 +249,10 @@ public class BiliSpaceVideo {
         v.elecArcBadge = archive.getString("elec_arc_badge");
         v.isUnionVideo = archive.getIntValue("is_union_video");
         v.isLivePlayback = archive.getIntValue("is_live_playback");
+        v.isSteinsGate = archive.getIntValue("is_steins_gate");
+        
+        v.resolveAll();
+        
         return v;
     }
 }

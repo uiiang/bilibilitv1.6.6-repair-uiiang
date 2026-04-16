@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 4368
+    .line 4370
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$1;->val$biliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -44,7 +44,7 @@
     .locals 2
 
     .prologue
-    .line 4371
+    .line 4373
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$1;->val$biliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -52,6 +52,6 @@
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->updateAllUIForUgc(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->access$5600(Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
 
-    .line 4372
+    .line 4374
     return-void
 .end method

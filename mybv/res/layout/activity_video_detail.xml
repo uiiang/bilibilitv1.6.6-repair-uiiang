@@ -54,6 +54,20 @@
                     android:layout_width="fill_parent" android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/px_50">
 
+                    <!-- 互动视频标签 -->
+                    <TextView android:id="@+id/interaction_video_tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/px_10"
+                        android:background="@drawable/interaction_video_tag_bg"
+                        android:drawableLeft="@drawable/ic_interaction_video"
+                        android:drawablePadding="@dimen/px_8"
+                        android:focusable="false"
+                        android:text="互动视频"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/px_24"
+                        android:visibility="gone" />
+
                     <!-- 视频标题，最多显示4行 -->
                     <LinearLayout android:orientation="horizontal" android:focusable="false"
                         android:clipChildren="false" android:clipToPadding="false"

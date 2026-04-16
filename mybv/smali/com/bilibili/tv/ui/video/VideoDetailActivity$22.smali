@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 2180
+    .line 2182
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$22;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$22;->val$biliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -44,7 +44,7 @@
     .locals 3
 
     .prologue
-    .line 2257
+    .line 2259
     const-string v0, "PgcInfo"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -67,7 +67,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2258
+    .line 2260
     return-void
 .end method
 
@@ -75,28 +75,28 @@
     .locals 3
 
     .prologue
-    .line 2183
+    .line 2185
     const-string v0, "PgcInfo"
 
     const-string v1, "=== loadPgcInfo onSuccess ==="
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2184
+    .line 2186
     if-nez p1, :cond_11
 
-    .line 2185
+    .line 2187
     const-string v0, "PgcInfo"
 
     const-string v1, "pgcInfo is null"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2253
+    .line 2255
     :goto_10
     return-void
 
-    .line 2188
+    .line 2190
     :cond_11
     const-string v1, "PgcInfo"
 
@@ -143,13 +143,13 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2189
+    .line 2191
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$22;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->mPgcInfo:Lcom/bilibili/tv/api/video/PgcInfo;
     invoke-static {v0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1702(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/PgcInfo;)Lcom/bilibili/tv/api/video/PgcInfo;
 
-    .line 2190
+    .line 2192
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$22;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$22;->val$biliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -157,14 +157,14 @@
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateBiliVideoDetailWithPgcInfo(Lcom/bilibili/tv/api/video/BiliVideoDetail;Lcom/bilibili/tv/api/video/PgcInfo;)V
     invoke-static {v0, v1, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;Lcom/bilibili/tv/api/video/PgcInfo;)V
 
-    .line 2191
+    .line 2193
     const-string v0, "PgcInfo"
 
     const-string v1, "updateBiliVideoDetailWithPgcInfo done, posting to UI thread"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2192
+    .line 2194
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$22;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     new-instance v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$22$1;
@@ -175,7 +175,7 @@
 
     goto :goto_10
 
-    .line 2188
+    .line 2190
     :cond_5d
     const/4 v0, 0x0
 

@@ -539,21 +539,7 @@ public final class AttentionDynamicFragment extends ady {
                             if (vlist != null && vlist.size() > 0) {
                                 List<BiliSpaceVideo> videos = new ArrayList<>();
                                 for (int i = 0; i < vlist.size(); i++) {
-                                    JSONObject item = vlist.getJSONObject(i);
-                                    BiliSpaceVideo v = new BiliSpaceVideo();
-                                    v.cover = item.getString("pic");
-                                    v.danmaku = String.valueOf(item.getIntValue("video_review"));
-                                    v.param = String.valueOf(item.getLongValue("aid"));
-                                    v.play = item.getIntValue("play");
-                                    v.title = item.getString("title");
-                                    v.ctime = item.getLong("created");
-                                    v.duration = DateHelper.parseDurationStr(item.getString("length"));
-                                    v.durationStr = item.getString("length");
-                                    v.elecArcType = item.getIntValue("elec_arc_type");
-                                    v.elecArcBadge = item.getString("elec_arc_badge");
-                                    v.isUnionVideo = item.getIntValue("is_union_video");
-                                    v.isLivePlayback = item.getIntValue("is_live_playback");
-                                    videos.add(v);
+                                    videos.add(BiliSpaceVideo.fromVlist(vlist.getJSONObject(i)));
                                 }
                                 List<BiliSpaceVideo> list = BiliFilter.filterBiliSpaceVideo(videos, "个人投稿");
                                 if (uperPage == 1) {
@@ -667,70 +653,10 @@ public final class AttentionDynamicFragment extends ady {
                             JSONObject modules = item.getJSONObject("modules");
                             if (modules == null)
                                 continue;
-                            JSONObject moduleDynamic = modules.getJSONObject("module_dynamic");
-                            if (moduleDynamic == null)
-                                continue;
-                            JSONObject major = moduleDynamic.getJSONObject("major");
-                            if (major == null)
-                                continue;
-                            JSONObject archive = major.getJSONObject("archive");
-                            if (archive == null)
-                                continue;
-                            JSONObject moduleAuthor = modules.getJSONObject("module_author");
-                            
-                            BiliSpaceVideo v = new BiliSpaceVideo();
-                            v.aid = archive.getLongValue("aid");
-                            v.param = String.valueOf(v.aid);
-                            v.bvid = archive.getString("bvid");
-                            v.title = archive.getString("title");
-                            v.cover = archive.getString("cover");
-                            
-                            JSONObject statObj = archive.getJSONObject("stat");
-                            if (statObj != null) {
-                                String playVal = statObj.getString("play");
-                                v.playStr = playVal;
-                                v.play = 0;
-                                try {
-                                    if (playVal != null && !playVal.isEmpty()) {
-                                        v.play = Integer.parseInt(playVal);
-                                    }
-                                } catch (Exception e) {}
-                                String danmakuVal = statObj.getString("danmaku");
-                                v.danmakuStr = danmakuVal;
-                                v.danmaku = danmakuVal;
+                            BiliSpaceVideo v = BiliSpaceVideo.fromFeedDynamic(modules);
+                            if (v != null) {
+                                videos.add(v);
                             }
-                            
-                            if (moduleAuthor != null) {
-                                String pubTs = moduleAuthor.getString("pub_ts");
-                                if (pubTs != null && !pubTs.isEmpty()) {
-                                    try {
-                                        v.ctime = Long.parseLong(pubTs);
-                                    } catch (Exception e) {}
-                                }
-                            }
-                            if (v.ctime == null || v.ctime == 0) {
-                                v.ctime = archive.getLongValue("pubdate");
-                            }
-                            
-                            v.duration = archive.getIntValue("duration");
-                            String durText = archive.getString("duration_text");
-                            if (durText != null && !durText.isEmpty()) {
-                                v.durationStr = durText;
-                            } else {
-                                v.durationStr = DateHelper.formatDuration(v.duration);
-                            }
-                            
-                            JSONObject badgeObj = archive.getJSONObject("badge");
-                            if (badgeObj != null) {
-                                v.badgeText = badgeObj.getString("text");
-                                v.badgeBgColor = badgeObj.getString("bg_color");
-                            }
-                            
-                            v.elecArcType = archive.getIntValue("elec_arc_type");
-                            v.elecArcBadge = archive.getString("elec_arc_badge");
-                            v.isUnionVideo = archive.getIntValue("is_union_video");
-                            v.isLivePlayback = archive.getIntValue("is_live_playback");
-                            videos.add(v);
                         }
                         
                         if (videos.size() > 0) {
@@ -797,44 +723,27 @@ public final class AttentionDynamicFragment extends ady {
                 if (video.playStr != null && !video.playStr.isEmpty()) {
                     dVar.C().setText(video.playStr);
                 } else {
-                    dVar.C().setText(bl.adh.a(video.play));
+                    dVar.C().setText("0");
                 }
                 if (video.danmakuStr != null && !video.danmakuStr.isEmpty()) {
                     dVar.F().setText(video.danmakuStr);
                     dVar.F().setVisibility(View.VISIBLE);
                 } else {
-                    int danmaku = 0;
-                    try {
-                        danmaku = Integer.parseInt(video.danmaku);
-                    } catch (Exception e) {}
-                    if (danmaku > 0) {
-                        dVar.F().setText(bl.adh.a(danmaku));
-                        dVar.F().setVisibility(View.VISIBLE);
-                    } else {
-                        dVar.F().setVisibility(View.GONE);
-                    }
+                    dVar.F().setVisibility(View.GONE);
                 }
                 if (video.pubTimeStr != null && !video.pubTimeStr.isEmpty()) {
                     dVar.D().setText(video.pubTimeStr);
                     dVar.D().setVisibility(View.VISIBLE);
                 } else {
-                    long pubdate = video.ctime != null ? video.ctime : 0;
-                    if (pubdate > 0) {
-                        dVar.D().setText(DateHelper.formatDate(pubdate));
-                        dVar.D().setVisibility(View.VISIBLE);
-                    } else {
-                        dVar.D().setVisibility(View.GONE);
-                    }
+                    dVar.D().setVisibility(View.GONE);
                 }
                 if (video.durationStr != null && !video.durationStr.isEmpty()) {
                     dVar.E().setText(video.durationStr);
-                } else if (video.duration > 0) {
-                    dVar.E().setText(DateHelper.formatDuration(video.duration));
                 }
                 if (video.cover != null) {
                     nv.a().a(abd.get_thumb_url_c(MainApplication.a(), video.cover), dVar.z());
                 }
-                if (video.badgeText != null && !"投稿视频".equals(video.badgeText)) {
+                if (video.badgeText != null && !video.badgeText.isEmpty()) {
                     dVar.G().setText(video.badgeText);
                     dVar.G().setVisibility(View.VISIBLE);
                     if (video.badgeBgColor != null && !video.badgeBgColor.isEmpty()) {
@@ -842,15 +751,6 @@ public final class AttentionDynamicFragment extends ady {
                             dVar.G().setBackgroundColor(android.graphics.Color.parseColor(video.badgeBgColor));
                         } catch (Exception e) {}
                     }
-                } else if (video.elecArcType == 1 && !TextUtils.isEmpty(video.elecArcBadge)) {
-                    dVar.G().setText(video.elecArcBadge);
-                    dVar.G().setVisibility(View.VISIBLE);
-                } else if (video.isUnionVideo == 1) {
-                    dVar.G().setText("合作");
-                    dVar.G().setVisibility(View.VISIBLE);
-                } else if (video.isLivePlayback == 1) {
-                    dVar.G().setText("直播回放");
-                    dVar.G().setVisibility(View.VISIBLE);
                 } else {
                     dVar.G().setVisibility(View.GONE);
                 }
