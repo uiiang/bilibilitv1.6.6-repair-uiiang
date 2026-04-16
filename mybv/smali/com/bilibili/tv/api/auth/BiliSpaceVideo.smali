@@ -831,7 +831,11 @@
     move-result-object v1
 
     .line 175
-    iput-object v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->durationStr:Ljava/lang/String;
+    invoke-static {v1}, Lcom/bilibili/tv/util/DateHelper;->formatDuration(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v2
+
+    iput-object v2, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->durationStr:Ljava/lang/String;
 
     .line 176
     invoke-static {v1}, Lcom/bilibili/tv/util/DateHelper;->parseDurationStr(Ljava/lang/String;)I

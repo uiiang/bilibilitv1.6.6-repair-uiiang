@@ -172,7 +172,7 @@ public class BiliSpaceVideo {
         v.danmakuStr = bl.adh.a(danmakuVal);
         v.ctime = item.getLong("created");
         String lengthStr = item.getString("length");
-        v.durationStr = lengthStr;
+        v.durationStr = com.bilibili.tv.util.DateHelper.formatDuration(lengthStr);
         v.duration = com.bilibili.tv.util.DateHelper.parseDurationStr(lengthStr);
         v.elecArcType = item.getIntValue("elec_arc_type");
         v.elecArcBadge = item.getString("elec_arc_badge");
