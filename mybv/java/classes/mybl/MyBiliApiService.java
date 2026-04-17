@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.bilibili.okretro.GeneralResponse;
 import com.bilibili.tv.api.video.BiliVideoDetail;
 import com.bilibili.tv.api.video.PgcInfo;
+import com.bilibili.tv.api.video.VideoShot;
 import java.util.List;
 
 @BaseUrl("https://api.bilibili.com/")
@@ -222,5 +223,19 @@ public interface MyBiliApiService {
             @Query("ps") int ps,
             @Query("mid") long mid,
             @Query("web_location") String webLocation,
+            @Header("Cookie") String cookie);
+    
+    @GET("/x/player/videoshot")
+    vp<JSONObject> getVideoShot(
+            @Query("aid") long aid,
+            @Query("cid") long cid,
+            @Query("index") int index,
+            @Header("Cookie") String cookie);
+    
+    @GET("/x/player/videoshot")
+    vp<JSONObject> getVideoShotByBvid(
+            @Query("bvid") String bvid,
+            @Query("cid") long cid,
+            @Query("index") int index,
             @Header("Cookie") String cookie);
 }

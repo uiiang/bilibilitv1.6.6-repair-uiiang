@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="360dp"
+  android:background="#80000000" android:paddingLeft="@dimen/px_20"
+  android:paddingTop="@dimen/px_10" android:paddingRight="@dimen/px_10"
+  android:paddingBottom="@dimen/px_20" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  <ImageView android:id="@id/snapshot_preview" android:layout_width="320dp"
+    android:layout_height="180dp" android:layout_gravity="center_horizontal"
+    android:scaleType="fitCenter" android:visibility="gone" />
+  <LinearLayout android:orientation="horizontal" android:gravity="right"
+    android:layout_width="fill_parent" android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/px_10">
+    <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_36"
+      android:textColor="@color/white" android:gravity="center"
+      android:id="@id/preview_time_current" android:layout_width="wrap_content"
+      android:layout_height="wrap_content" android:text="@string/time_default" />
+    <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_36"
+      android:textColor="@color/white" android:gravity="center" android:id="@id/preview_divider"
+      android:layout_width="wrap_content" android:layout_height="wrap_content"
+      android:text="@string/video_timed_text_split_char" />
+    <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_36"
+      android:textColor="@color/white" android:gravity="center" android:id="@id/preview_time_total"
+      android:layout_width="wrap_content" android:layout_height="wrap_content"
+      android:text="@string/time_default" />
+  </LinearLayout>
+  <SeekBar android:id="@id/preview_seekbar" android:focusable="false" android:layout_width="320dp"
+    android:layout_height="@dimen/px_10" android:layout_gravity="center_horizontal"
+    android:layout_marginTop="@dimen/px_10" android:max="1000" android:progress="0"
+    style="@style/Seekbar" />
+</LinearLayout>

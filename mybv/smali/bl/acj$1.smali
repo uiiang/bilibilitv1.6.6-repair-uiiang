@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 74
+    .line 61
     iput-object p1, p0, Lbl/acj$1;->val$acuVar:Lbl/acu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,11 +40,11 @@
     .locals 1
 
     .prologue
-    .line 77
+    .line 64
     iget-object v0, p0, Lbl/acj$1;->val$acuVar:Lbl/acu;
 
     invoke-virtual {v0}, Lbl/acu;->a()V
 
-    .line 78
+    .line 65
     return-void
 .end method

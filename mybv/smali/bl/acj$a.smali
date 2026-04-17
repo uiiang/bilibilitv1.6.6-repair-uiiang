@@ -148,7 +148,7 @@
 
 # virtual methods
 .method public intercept(Lokhttp3/Interceptor$Chain;)Lokhttp3/Response;
-    .locals 4
+    .locals 3
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/io/IOException;
@@ -156,66 +156,15 @@
     .end annotation
 
     .prologue
-    .line 50
+    .line 49
     invoke-interface {p1}, Lokhttp3/Interceptor$Chain;->request()Lokhttp3/Request;
 
     move-result-object v0
 
+    .line 50
+    const-string v1, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0"
+
     .line 51
-    const-string v1, "User-Agent"
-
-    invoke-virtual {v0, v1}, Lokhttp3/Request;->header(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v1
-
-    .line 52
-    invoke-static {v1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
-
-    move-result v2
-
-    if-eqz v2, :cond_46
-
-    .line 53
-    sget-object v1, Lbl/acj$a;->a:Ljava/lang/String;
-
-    if-nez v1, :cond_2f
-
-    .line 54
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    sget-object v2, Lbl/blx;->b:Ljava/lang/String;
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, " BiliTV/1.6.6"
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v1}, Lbl/acj$a;->a(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v1
-
-    sput-object v1, Lbl/acj$a;->a:Ljava/lang/String;
-
-    .line 56
-    :cond_2f
-    sget-object v1, Lbl/acj$a;->a:Ljava/lang/String;
-
-    .line 62
-    :goto_31
-    if-eqz v1, :cond_41
-
-    .line 63
     invoke-virtual {v0}, Lokhttp3/Request;->newBuilder()Lokhttp3/Request$Builder;
 
     move-result-object v0
@@ -230,65 +179,10 @@
 
     move-result-object v0
 
-    .line 65
-    :cond_41
+    .line 52
     invoke-interface {p1, v0}, Lokhttp3/Interceptor$Chain;->proceed(Lokhttp3/Request;)Lokhttp3/Response;
 
     move-result-object v0
 
     return-object v0
-
-    .line 57
-    :cond_46
-    const-string v2, "apigame.bilibili.com"
-
-    invoke-virtual {v0}, Lokhttp3/Request;->url()Lokhttp3/HttpUrl;
-
-    move-result-object v3
-
-    invoke-virtual {v3}, Lokhttp3/HttpUrl;->host()Ljava/lang/String;
-
-    move-result-object v3
-
-    invoke-virtual {v2, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result v2
-
-    if-nez v2, :cond_5e
-
-    const-string v2, "BiliTV/1.6.6"
-
-    invoke-static {v1, v2}, Lbl/kt;->c(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
-
-    move-result v2
-
-    if-eqz v2, :cond_60
-
-    .line 58
-    :cond_5e
-    const/4 v1, 0x0
-
-    goto :goto_31
-
-    .line 60
-    :cond_60
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, " BiliTV/1.6.6"
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    goto :goto_31
 .end method

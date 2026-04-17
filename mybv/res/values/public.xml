@@ -2567,6 +2567,12 @@
     <public type="id" name="tag_title" id="0x7f0801ef" />
     <public type="id" name="dynamic_header_hint" id="0x7f0801f0" />
     <public type="id" name="interaction_video_tag" id="0x7f0801f1" />
+    <public type="id" name="snapshot_preview" id="0x7f0801f2" />
+    <public type="id" name="seek_preview_group" id="0x7f0801f3" />
+    <public type="id" name="preview_time_current" id="0x7f0801f4" />
+    <public type="id" name="preview_divider" id="0x7f0801f5" />
+    <public type="id" name="preview_time_total" id="0x7f0801f6" />
+    <public type="id" name="preview_seekbar" id="0x7f0801f7" />
 
 
     <public type="integer" name="config_danmaku_fly_duration" id="0x7f090003" />

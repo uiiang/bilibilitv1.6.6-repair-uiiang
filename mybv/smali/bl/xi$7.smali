@@ -1,4 +1,4 @@
-.class Lbl/xi$2;
+.class Lbl/xi$7;
 .super Ljava/lang/Object;
 .source "xi.java"
 
@@ -7,8 +7,8 @@
 
 
 # annotations
-.annotation system Ldalvik/annotation/EnclosingClass;
-    value = Lbl/xi;
+.annotation system Ldalvik/annotation/EnclosingMethod;
+    value = Lbl/xi;->onExtraInfo(I[Ljava/lang/Object;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,8 +26,8 @@
     .locals 0
 
     .prologue
-    .line 91
-    iput-object p1, p0, Lbl/xi$2;->this$0:Lbl/xi;
+    .line 1048
+    iput-object p1, p0, Lbl/xi$7;->this$0:Lbl/xi;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -40,11 +40,11 @@
     .locals 1
 
     .prologue
-    .line 94
-    iget-object v0, p0, Lbl/xi$2;->this$0:Lbl/xi;
+    .line 1051
+    iget-object v0, p0, Lbl/xi$7;->this$0:Lbl/xi;
 
-    invoke-virtual {v0}, Lbl/xi;->v()V
+    invoke-virtual {v0}, Lbl/xi;->M()V
 
-    .line 95
+    .line 1052
     return-void
 .end method

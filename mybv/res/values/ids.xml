@@ -390,4 +390,5 @@
     <item type="id" name="tag_title" />
     <item type="id" name="dynamic_header_hint" />
     <item type="id" name="interaction_video_tag" />
+    <item type="id" name="snapshot_preview" />
 </resources>

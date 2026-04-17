@@ -2591,6 +2591,12 @@ public final class R {
         public static final int tag_title = 0x7f0801ef;
         public static final int dynamic_header_hint = 0x7f0801f0;
         public static final int interaction_video_tag = 0x7f0801f1;
+        public static final int snapshot_preview = 0x7f0801f2;
+        public static final int seek_preview_group = 0x7f0801f3;
+        public static final int preview_time_current = 0x7f0801f4;
+        public static final int preview_divider = 0x7f0801f5;
+        public static final int preview_time_total = 0x7f0801f6;
+        public static final int preview_seekbar = 0x7f0801f7;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;

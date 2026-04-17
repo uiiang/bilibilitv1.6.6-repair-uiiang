@@ -46,22 +46,9 @@ public class acj {
         @Override // okhttp3.Interceptor
         /* renamed from: a */
         public Response intercept(Interceptor.Chain chain) throws IOException {
-            String str;
             Request request = chain.request();
-            String strHeader = request.header("User-Agent");
-            if (TextUtils.isEmpty(strHeader)) {
-                if (a == null) {
-                    a = a(blx.b + " BiliTV/1.6.6");
-                }
-                str = a;
-            } else if ("apigame.bilibili.com".equals(request.url().host()) || kt.c(strHeader, "BiliTV/1.6.6")) {
-                str = null;
-            } else {
-                str = strHeader + " BiliTV/1.6.6";
-            }
-            if (str != null) {
-                request = request.newBuilder().header("User-Agent", str).build();
-            }
+            String correctUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0";
+            request = request.newBuilder().header("User-Agent", correctUserAgent).build();
             return chain.proceed(request);
         }
     }

@@ -10,13 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
+import android.graphics.Bitmap;
 import bl.xh;
 import com.bilibili.bangumi.api.BiliBangumiSeason;
 import com.bilibili.lib.media.resource.MediaResource;
 import com.bilibili.lib.media.resource.PlayerCodecConfig;
 import com.bilibili.tv.R;
 import com.bilibili.tv.player.basic.context.PlayerParams;
+import com.bilibili.tv.player.basic.context.ResolveResourceParams;
 import com.bilibili.tv.player.interfaces.IEventCenter;
 import com.bilibili.tv.player.widget.PlayerBufferingView;
 import com.bilibili.tv.player.widget.PlayerSeekBar;
@@ -34,6 +38,18 @@ import tv.danmaku.videoplayer.core.videoview.AspectRatio;
 
 import tv.danmaku.videoplayer.core.context.PlayerEvents;
 import tv.danmaku.videoplayer.core.videoview.IVideoView;
+import com.bilibili.tv.api.video.VideoShot;
+import com.bilibili.okretro.GeneralResponse;
+import mybl.MyBiliApiService;
+import com.bilibili.tv.MainApplication;
+import bl.mg;
+import bl.pz;
+import bl.qa;
+import bl.qb;
+import bl.vo;
+import bl.we;
+import com.alibaba.fastjson.JSONObject;
+import mybl.LogUtil;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
@@ -53,8 +69,25 @@ public class xi extends xh implements bbb<Message, Boolean> {
     private TextView o;
     private volatile long p;
     private boolean isSliding = false;
+    private boolean isLongPress = false;
     private boolean r = false;
     private boolean s = false;
+    private VideoShot videoShot;
+    private long currentAid;
+    private long currentCid;
+    private String currentBvid;
+    private int currentPage;
+    private ViewGroup seekPreviewGroup;
+    private ImageView seekPreviewSnapshot;
+    private TextView seekPreviewTimeCurrent;
+    private TextView seekPreviewTimeTotal;
+    private SeekBar seekPreviewSeekbar;
+    private Runnable hideSeekPreviewRunnable = new Runnable() {
+        @Override
+        public void run() {
+            hideSeekPreview();
+        }
+    };
     private Runnable t = new Runnable() { // from class: bl.xi.1
         @Override // java.lang.Runnable
         public void run() {
@@ -92,8 +125,99 @@ public class xi extends xh implements bbb<Message, Boolean> {
         this.k = new aar();
         this.k.a((ViewGroup) a(R.id.preparing));
         this.k.b();
+        initSeekPreview(view);
         a(o().getIntent(), false);
         super.a(view, bundle);
+    }
+    
+    private void initSeekPreview(View view) {
+        ViewStub seekPreviewStub = (ViewStub) view.findViewById(R.id.seek_preview_group);
+        if (seekPreviewStub != null) {
+            this.seekPreviewGroup = (ViewGroup) seekPreviewStub.inflate();
+            this.seekPreviewSnapshot = (ImageView) this.seekPreviewGroup.findViewById(R.id.snapshot_preview);
+            this.seekPreviewTimeCurrent = (TextView) this.seekPreviewGroup.findViewById(R.id.preview_time_current);
+            this.seekPreviewTimeTotal = (TextView) this.seekPreviewGroup.findViewById(R.id.preview_time_total);
+            this.seekPreviewSeekbar = (SeekBar) this.seekPreviewGroup.findViewById(R.id.preview_seekbar);
+            this.seekPreviewGroup.setVisibility(View.GONE);
+            Log.i("SeekPreview", "initSeekPreview: initialized");
+        } else {
+            Log.i("SeekPreview", "initSeekPreview: seek_preview_group not found");
+        }
+    }
+    
+    private void showSeekPreview() {
+        if (this.seekPreviewGroup != null) {
+            this.seekPreviewGroup.setVisibility(View.VISIBLE);
+            this.seekPreviewGroup.bringToFront();
+            Log.i("SeekPreview", "showSeekPreview: visible");
+        }
+        removeHideSeekPreviewCallback();
+        this.e.postDelayed(this.hideSeekPreviewRunnable, 2000);
+    }
+    
+    private void hideSeekPreview() {
+        if (this.seekPreviewGroup != null) {
+            this.seekPreviewGroup.setVisibility(View.GONE);
+            Log.i("SeekPreview", "hideSeekPreview: gone");
+        }
+    }
+    
+    private void removeHideSeekPreviewCallback() {
+        if (this.e != null) {
+            this.e.removeCallbacks(this.hideSeekPreviewRunnable);
+        }
+    }
+    
+    private void updateSeekPreview(int progress, int max) {
+        updateSeekPreview(progress, max, true);
+    }
+    
+    private void updateSeekPreview(int progress, int max, boolean showSnapshot) {
+        if (this.seekPreviewSeekbar != null) {
+            this.seekPreviewSeekbar.setMax(max);
+            this.seekPreviewSeekbar.setProgress(progress);
+        }
+        if (this.seekPreviewTimeCurrent != null) {
+            this.seekPreviewTimeCurrent.setText(aan.a(progress));
+        }
+        if (this.seekPreviewTimeTotal != null) {
+            this.seekPreviewTimeTotal.setText(aan.a(max));
+        }
+        
+        if (!showSnapshot) {
+            if (this.seekPreviewSnapshot != null) {
+                this.seekPreviewSnapshot.setVisibility(View.GONE);
+                Log.i("SeekPreview", "updateSeekPreview: snapshot hidden (long press)");
+            }
+            return;
+        }
+        
+        if (this.l != null && this.seekPreviewSnapshot != null) {
+            int duration = this.l.getDuration();
+            if (duration > 0 && max > 0) {
+                int timeSeconds = (int) ((long) progress * duration / max);
+                Log.i("SeekPreview", "updateSeekPreview: timeSeconds=" + timeSeconds);
+                
+                this.l.loadSnapshotAsync(timeSeconds, new PlayerSeekBar.SnapshotLoadCallback() {
+                    @Override
+                    public void onLoadSuccess(Bitmap bitmap) {
+                        if (seekPreviewSnapshot != null) {
+                            seekPreviewSnapshot.setImageBitmap(bitmap);
+                            seekPreviewSnapshot.setVisibility(View.VISIBLE);
+                            Log.i("SeekPreview", "onLoadSuccess: snapshot visible");
+                        }
+                    }
+                    
+                    @Override
+                    public void onLoadFailed() {
+                        if (seekPreviewSnapshot != null) {
+                            seekPreviewSnapshot.setVisibility(View.GONE);
+                            Log.i("SeekPreview", "onLoadFailed: snapshot gone");
+                        }
+                    }
+                });
+            }
+        }
     }
 
     @Override // bl.xh
@@ -129,11 +253,16 @@ public class xi extends xh implements bbb<Message, Boolean> {
                 if (!this.isSliding) {
                     aal.a(x() / 1000);
                     this.isSliding = true;
+                    this.isLongPress = false;
+                }
+                if (event.getRepeatCount() > 0) {
+                    this.isLongPress = true;
                 }
                 int a = aal.a(keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) * 1000;
-                Math.min(a, I());
-                this.l.a(Math.min(a, I()), true);
-                t();
+                int targetProgress = Math.min(a, I());
+                this.l.a(targetProgress, true);
+                showSeekPreview();
+                updateSeekPreview(targetProgress, I(), !this.isLongPress);
                 return true;
             default:
                 return false;
@@ -267,6 +396,9 @@ public class xi extends xh implements bbb<Message, Boolean> {
         Activity o = o();
         if (o != null) {
             PlayerReleaseEventManager.getInstance().unregister(o.hashCode());
+        }
+        if (l != null) {
+            l.clearCache();
         }
         super.d();
         r();
@@ -696,7 +828,169 @@ public class xi extends xh implements bbb<Message, Boolean> {
             N();
         }
         this.b.sendEmptyMessage(5000200);
+        
+        PlayerParams params = b();
+        if (params != null && params.mVideoParams != null && params.mVideoParams.obtainResolveParams() != null) {
+            ResolveResourceParams resolveParams = params.mVideoParams.obtainResolveParams();
+            this.currentAid = resolveParams.mAvid;
+            this.currentCid = resolveParams.mCid;
+            this.currentBvid = resolveParams.mBvid;
+            this.currentPage = resolveParams.mPage;
+            
+            Log.i("VideoShot", "========== ResolveParams Details ==========");
+            Log.i("VideoShot", "mAvid=" + resolveParams.mAvid);
+            Log.i("VideoShot", "mCid=" + resolveParams.mCid);
+            Log.i("VideoShot", "mBvid=" + resolveParams.mBvid);
+            Log.i("VideoShot", "mEpisodeId=" + resolveParams.mEpisodeId);
+            Log.i("VideoShot", "mSeasonId=" + resolveParams.mSeasonId);
+            Log.i("VideoShot", "mType=" + resolveParams.mType);
+            Log.i("VideoShot", "mFrom=" + resolveParams.mFrom);
+            Log.i("VideoShot", "mVid=" + resolveParams.mVid);
+            Log.i("VideoShot", "mPage=" + resolveParams.mPage);
+            Log.i("VideoShot", "========== End ResolveParams ==========");
+            
+            loadVideoShot();
+        } else {
+            Log.i("VideoShot", "onPrepared: params is null or incomplete");
+        }
+        
         super.onPrepared(iMediaPlayer);
+    }
+    
+    private void loadVideoShot() {
+        Log.i("VideoShot", "loadVideoShot: aid=" + currentAid + ", cid=" + currentCid + ", bvid=" + currentBvid);
+        if (currentCid <= 0) {
+            Log.i("VideoShot", "loadVideoShot: invalid cid, return");
+            return;
+        }
+        
+        if (currentBvid == null || currentBvid.isEmpty()) {
+            if (currentAid <= 0) {
+                Log.i("VideoShot", "loadVideoShot: invalid aid and bvid, return");
+                return;
+            }
+        }
+        
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Log.i("VideoShot", "loadVideoShot: start loading");
+                    MyBiliApiService apiService = vo.a(MyBiliApiService.class);
+                    String cookie = mybl.CookieUtil.getFullCookieWithDevice(mg.a(MainApplication.a()));
+                    
+                    vp call;
+                    if (currentBvid != null && !currentBvid.isEmpty()) {
+                        Log.i("VideoShot", "loadVideoShot: using bvid=" + currentBvid + ", cid=" + currentCid + ", index=1");
+                        call = apiService.getVideoShotByBvid(currentBvid, currentCid, 1, cookie);
+                    } else {
+                        Log.i("VideoShot", "loadVideoShot: using aid=" + currentAid + ", cid=" + currentCid + ", index=1");
+                        call = apiService.getVideoShot(currentAid, currentCid, 1, cookie);
+                    }
+                    
+                    JSONObject jsonResponse = (JSONObject) we.a(call.d());
+                    Log.i("VideoShot", "loadVideoShot: jsonResponse=" + jsonResponse);
+                    
+                    if (jsonResponse == null) {
+                        Log.i("VideoShot", "loadVideoShot: jsonResponse is null");
+                        return;
+                    }
+                    
+                    Log.i("VideoShot_JSON", "========== Full JSON Response ==========");
+                    LogUtil.json("VideoShot_JSON", jsonResponse);
+                    Log.i("VideoShot_JSON", "========== End JSON Response ==========");
+                    
+                    int code = jsonResponse.getIntValue("code");
+                    Log.i("VideoShot", "loadVideoShot: code=" + code);
+                    if (code != 0) {
+                        Log.i("VideoShot", "loadVideoShot: code != 0, return");
+                        return;
+                    }
+                    
+                    JSONObject data = jsonResponse.getJSONObject("data");
+                    if (data == null) {
+                        Log.i("VideoShot", "loadVideoShot: data is null");
+                        return;
+                    }
+                    
+                    Log.i("VideoShot_DATA", "========== Data Object ==========");
+                    LogUtil.json("VideoShot_DATA", data);
+                    Log.i("VideoShot_DATA", "========== End Data Object ==========");
+                    
+                    VideoShot shot = new VideoShot();
+                    shot.setImgXLen(data.getIntValue("img_x_len"));
+                    shot.setImgYLen(data.getIntValue("img_y_len"));
+                    shot.setImgXSize(data.getIntValue("img_x_size"));
+                    shot.setImgYSize(data.getIntValue("img_y_size"));
+                    shot.setPvdata(data.getString("pvdata"));
+                    
+                    if (data.containsKey("image")) {
+                        com.alibaba.fastjson.JSONArray imageArray = data.getJSONArray("image");
+                        if (imageArray != null) {
+                            java.util.List<String> imageList = new java.util.ArrayList<>();
+                            for (int i = 0; i < imageArray.size(); i++) {
+                                imageList.add(imageArray.getString(i));
+                            }
+                            shot.setImage(imageList);
+                        }
+                    }
+                    
+                    if (data.containsKey("index")) {
+                        com.alibaba.fastjson.JSONArray indexArray = data.getJSONArray("index");
+                        if (indexArray != null) {
+                            java.util.List<Integer> indexList = new java.util.ArrayList<>();
+                            for (int i = 0; i < indexArray.size(); i++) {
+                                indexList.add(indexArray.getInteger(i));
+                            }
+                            shot.setIndex(indexList);
+                        }
+                    }
+                    
+                    Log.i("VideoShot", "loadVideoShot: shot=" + shot + ", image=" + shot.getImage() + ", index=" + shot.getIndex());
+                    Log.i("VideoShot", "loadVideoShot: imgXLen=" + shot.getImgXLen() + ", imgYLen=" + shot.getImgYLen() + ", imgXSize=" + shot.getImgXSize() + ", imgYSize=" + shot.getImgYSize());
+                    Log.i("VideoShot", "loadVideoShot: pvdata=" + shot.getPvdata());
+                    
+                    if (shot.getImage() == null || shot.getImage().isEmpty()) {
+                        Log.i("VideoShot", "loadVideoShot: shot.getImage() is null or empty");
+                        return;
+                    }
+                    
+                    if (shot.getIndex() == null || shot.getIndex().isEmpty()) {
+                        Log.i("VideoShot", "loadVideoShot: shot.getIndex() is null or empty");
+                        return;
+                    }
+                    
+                    Log.i("VideoShot", "loadVideoShot: data valid, setting to PlayerSeekBar");
+                    if (l != null) {
+                        l.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.i("VideoShot", "loadVideoShot: posting to main thread");
+                                if (l != null) {
+                                    l.setVideoShot(shot);
+                                    Log.i("VideoShot", "loadVideoShot: setVideoShot called");
+                                    IPlayerContext playerContext = n();
+                                    if (playerContext != null) {
+                                        int duration = (int) (playerContext.getDuration() / 1000);
+                                        l.setDuration(duration);
+                                        Log.i("VideoShot", "loadVideoShot: setDuration called, duration=" + duration);
+                                    } else {
+                                        Log.i("VideoShot", "loadVideoShot: playerContext is null");
+                                    }
+                                } else {
+                                    Log.i("VideoShot", "loadVideoShot: l is null in post");
+                                }
+                            }
+                        });
+                    } else {
+                        Log.i("VideoShot", "loadVideoShot: l is null");
+                    }
+                } catch (Exception e) {
+                    Log.i("VideoShot", "loadVideoShot error: " + e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     /* JADX INFO: Access modifiers changed from: protected */

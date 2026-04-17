@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xi;->onExtraInfo(I[Ljava/lang/Object;)V
+    value = Lbl/xi;->onInfo(Ltv/danmaku/ijk/media/player/IMediaPlayer;II)Z
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 765
+    .line 783
     iput-object p1, p0, Lbl/xi$5;->this$0:Lbl/xi;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -37,20 +37,21 @@
 
 # virtual methods
 .method public run()V
-    .locals 4
+    .locals 2
 
     .prologue
-    .line 768
+    .line 786
     iget-object v0, p0, Lbl/xi$5;->this$0:Lbl/xi;
 
-    const/4 v1, 0x0
+    # getter for: Lbl/xi;->m:Lcom/bilibili/tv/player/widget/PlayerBufferingView;
+    invoke-static {v0}, Lbl/xi;->access$300(Lbl/xi;)Lcom/bilibili/tv/player/widget/PlayerBufferingView;
 
-    const/16 v2, 0x2bd
+    move-result-object v0
 
-    const/4 v3, 0x0
+    const/16 v1, 0x8
 
-    invoke-virtual {v0, v1, v2, v3}, Lbl/xi;->onInfo(Ltv/danmaku/ijk/media/player/IMediaPlayer;II)Z
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/player/widget/PlayerBufferingView;->setVisibility(I)V
 
-    .line 769
+    .line 787
     return-void
 .end method
