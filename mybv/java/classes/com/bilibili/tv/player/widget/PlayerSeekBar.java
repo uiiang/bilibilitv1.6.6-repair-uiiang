@@ -86,7 +86,9 @@ public class PlayerSeekBar extends LinearLayout implements SeekBar.OnSeekBarChan
 
     private void a(int progress) {
         if (this.a != null) {
-            this.a.setText(aan.a((long) progress));
+            String timeText = aan.a((long) progress);
+            this.a.setText(timeText);
+            Log.i(TAG, "bottomSeekBar time: progress=" + progress + "ms, timeText=" + timeText);
         }
     }
 

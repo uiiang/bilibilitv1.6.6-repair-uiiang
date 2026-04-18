@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 267
+    .line 269
     iput-object p1, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar$3$1;->this$1:Lcom/bilibili/tv/player/widget/PlayerSeekBar$3;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,13 +40,13 @@
     .locals 1
 
     .prologue
-    .line 270
+    .line 272
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar$3$1;->this$1:Lcom/bilibili/tv/player/widget/PlayerSeekBar$3;
 
     iget-object v0, v0, Lcom/bilibili/tv/player/widget/PlayerSeekBar$3;->val$callback:Lcom/bilibili/tv/player/widget/PlayerSeekBar$SnapshotLoadCallback;
 
     invoke-interface {v0}, Lcom/bilibili/tv/player/widget/PlayerSeekBar$SnapshotLoadCallback;->onLoadFailed()V
 
-    .line 271
+    .line 273
     return-void
 .end method

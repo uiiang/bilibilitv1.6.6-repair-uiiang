@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 299
+    .line 301
     iput-object p1, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar$3$2;->this$1:Lcom/bilibili/tv/player/widget/PlayerSeekBar$3;
 
     iput-object p2, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar$3$2;->val$scaled:Landroid/graphics/Bitmap;
@@ -44,7 +44,7 @@
     .locals 2
 
     .prologue
-    .line 302
+    .line 304
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar$3$2;->this$1:Lcom/bilibili/tv/player/widget/PlayerSeekBar$3;
 
     iget-object v0, v0, Lcom/bilibili/tv/player/widget/PlayerSeekBar$3;->val$callback:Lcom/bilibili/tv/player/widget/PlayerSeekBar$SnapshotLoadCallback;
@@ -53,6 +53,6 @@
 
     invoke-interface {v0, v1}, Lcom/bilibili/tv/player/widget/PlayerSeekBar$SnapshotLoadCallback;->onLoadSuccess(Landroid/graphics/Bitmap;)V
 
-    .line 303
+    .line 305
     return-void
 .end method

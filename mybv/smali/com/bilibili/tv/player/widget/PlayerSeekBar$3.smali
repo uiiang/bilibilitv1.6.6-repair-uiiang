@@ -34,7 +34,7 @@
     .locals 0
 
     .prologue
-    .line 250
+    .line 252
     iput-object p1, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar$3;->this$0:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
 
     iput-object p2, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar$3;->val$imageUrl:Ljava/lang/String;
@@ -56,7 +56,7 @@
     .locals 6
 
     .prologue
-    .line 254
+    .line 256
     :try_start_0
     new-instance v0, Ljava/net/URL;
 
@@ -64,37 +64,37 @@
 
     invoke-direct {v0, v1}, Ljava/net/URL;-><init>(Ljava/lang/String;)V
 
-    .line 255
+    .line 257
     invoke-virtual {v0}, Ljava/net/URL;->openConnection()Ljava/net/URLConnection;
 
     move-result-object v0
 
     check-cast v0, Ljava/net/HttpURLConnection;
 
-    .line 256
+    .line 258
     const/16 v1, 0x2710
 
     invoke-virtual {v0, v1}, Ljava/net/HttpURLConnection;->setConnectTimeout(I)V
 
-    .line 257
+    .line 259
     const/16 v1, 0x2710
 
     invoke-virtual {v0, v1}, Ljava/net/HttpURLConnection;->setReadTimeout(I)V
 
-    .line 258
+    .line 260
     invoke-virtual {v0}, Ljava/net/HttpURLConnection;->connect()V
 
-    .line 260
+    .line 262
     new-instance v1, Landroid/graphics/BitmapFactory$Options;
 
     invoke-direct {v1}, Landroid/graphics/BitmapFactory$Options;-><init>()V
 
-    .line 261
+    .line 263
     const/4 v2, 0x2
 
     iput v2, v1, Landroid/graphics/BitmapFactory$Options;->inSampleSize:I
 
-    .line 263
+    .line 265
     invoke-virtual {v0}, Ljava/net/HttpURLConnection;->getInputStream()Ljava/io/InputStream;
 
     move-result-object v2
@@ -105,13 +105,13 @@
 
     move-result-object v1
 
-    .line 264
+    .line 266
     invoke-virtual {v0}, Ljava/net/HttpURLConnection;->disconnect()V
 
-    .line 266
+    .line 268
     if-nez v1, :cond_3b
 
-    .line 267
+    .line 269
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar$3;->this$0:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
 
     new-instance v1, Lcom/bilibili/tv/player/widget/PlayerSeekBar$3$1;
@@ -120,23 +120,23 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->post(Ljava/lang/Runnable;)Z
 
-    .line 318
+    .line 320
     :cond_3a
     :goto_3a
     return-void
 
-    .line 276
+    .line 278
     :cond_3b
     invoke-virtual {v1}, Landroid/graphics/Bitmap;->getWidth()I
 
     move-result v0
 
-    .line 277
+    .line 279
     invoke-virtual {v1}, Landroid/graphics/Bitmap;->getHeight()I
 
     move-result v2
 
-    .line 278
+    .line 280
     iget-object v3, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar$3;->this$0:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
 
     # getter for: Lcom/bilibili/tv/player/widget/PlayerSeekBar;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
@@ -150,7 +150,7 @@
 
     div-int/2addr v0, v3
 
-    .line 279
+    .line 281
     iget-object v3, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar$3;->this$0:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
 
     # getter for: Lcom/bilibili/tv/player/widget/PlayerSeekBar;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
@@ -164,7 +164,7 @@
 
     div-int/2addr v2, v3
 
-    .line 281
+    .line 283
     iget v3, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar$3;->val$snapshotIndex:I
 
     iget-object v4, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar$3;->this$0:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
@@ -193,7 +193,7 @@
 
     rem-int/2addr v3, v4
 
-    .line 282
+    .line 284
     iget-object v4, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar$3;->this$0:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
 
     # getter for: Lcom/bilibili/tv/player/widget/PlayerSeekBar;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
@@ -207,7 +207,7 @@
 
     rem-int v4, v3, v4
 
-    .line 283
+    .line 285
     iget-object v5, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar$3;->this$0:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
 
     # getter for: Lcom/bilibili/tv/player/widget/PlayerSeekBar;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
@@ -221,18 +221,18 @@
 
     div-int/2addr v3, v5
 
-    .line 285
+    .line 287
     mul-int/2addr v4, v0
 
-    .line 286
+    .line 288
     mul-int/2addr v3, v2
 
-    .line 288
+    .line 290
     invoke-static {v1, v4, v3, v0, v2}, Landroid/graphics/Bitmap;->createBitmap(Landroid/graphics/Bitmap;IIII)Landroid/graphics/Bitmap;
 
     move-result-object v0
 
-    .line 293
+    .line 295
     const/16 v1, 0x140
 
     const/16 v2, 0xb4
@@ -243,7 +243,7 @@
 
     move-result-object v1
 
-    .line 297
+    .line 299
     iget-object v2, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar$3;->this$0:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
 
     # getter for: Lcom/bilibili/tv/player/widget/PlayerSeekBar;->snapshotCache:Landroid/util/LruCache;
@@ -255,7 +255,7 @@
 
     invoke-virtual {v2, v3, v1}, Landroid/util/LruCache;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 299
+    .line 301
     iget-object v2, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar$3;->this$0:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
 
     new-instance v3, Lcom/bilibili/tv/player/widget/PlayerSeekBar$3$2;
@@ -264,21 +264,21 @@
 
     invoke-virtual {v2, v3}, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->post(Ljava/lang/Runnable;)Z
 
-    .line 306
+    .line 308
     if-eq v0, v1, :cond_3a
 
-    .line 307
+    .line 309
     invoke-virtual {v0}, Landroid/graphics/Bitmap;->recycle()V
     :try_end_b1
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_b1} :catch_b2
 
     goto :goto_3a
 
-    .line 309
+    .line 311
     :catch_b2
     move-exception v0
 
-    .line 310
+    .line 312
     const-string v1, "PlayerSeekBar_java"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -305,7 +305,7 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 311
+    .line 313
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar$3;->this$0:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
 
     new-instance v1, Lcom/bilibili/tv/player/widget/PlayerSeekBar$3$3;

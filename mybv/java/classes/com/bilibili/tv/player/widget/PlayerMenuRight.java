@@ -63,6 +63,7 @@ public class PlayerMenuRight extends aay<String> {
     public List<String> chapter_list;
     public static boolean danmaku_valid_list[] = {false,true,false,false,true,true,true,true,false,false};
     public static int danmaku_level=0;
+    private List<Integer> menuIndexMap;
 
     /* compiled from: BL */
     /* loaded from: classes.dex */
@@ -171,6 +172,17 @@ public class PlayerMenuRight extends aay<String> {
 
     public void setListener(a aVar) {
         this.d = aVar;
+    }
+    
+    public void setMenuIndexMap(List<Integer> map) {
+        this.menuIndexMap = map;
+    }
+    
+    private int getOriginalMenuIndex(int displayIndex) {
+        if (menuIndexMap != null && displayIndex >= 0 && displayIndex < menuIndexMap.size()) {
+            return menuIndexMap.get(displayIndex);
+        }
+        return displayIndex;
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
@@ -328,7 +340,8 @@ public class PlayerMenuRight extends aay<String> {
             if (d != null) {
                 d.setSelected(true);
             }
-            d(i2);
+            int originalIndex = getOriginalMenuIndex(i2);
+            d(originalIndex);
             return true;
         }
         if (this.d == null) {
@@ -462,7 +475,8 @@ public class PlayerMenuRight extends aay<String> {
     public boolean a(int i, int i2) {
         int i3;
         boolean a2 = super.a(i, i2);
-        switch (i2) {
+        int originalIndex = getOriginalMenuIndex(i2);
+        switch (originalIndex) {
             case 0:
                 i3 = this.quality_id;
                 break;
@@ -508,8 +522,9 @@ public class PlayerMenuRight extends aay<String> {
         if (i < 1) {
             return this.main_list;
         }
+        int originalIndex = getOriginalMenuIndex(i2);
         if (TextUtils.isEmpty(this.f)) {
-            switch (i2) {
+            switch (originalIndex) {
                 case 0:
                     list = this.quality_list;
                     break;
@@ -545,7 +560,7 @@ public class PlayerMenuRight extends aay<String> {
             }
             return list;
         }
-        switch (i2) {
+        switch (originalIndex) {
             case 0:
             default:
                 return null;

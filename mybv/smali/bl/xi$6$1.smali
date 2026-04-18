@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 965
+    .line 973
     iput-object p1, p0, Lbl/xi$6$1;->this$1:Lbl/xi$6;
 
     iput-object p2, p0, Lbl/xi$6$1;->val$shot:Lcom/bilibili/tv/api/video/VideoShot;
@@ -44,14 +44,14 @@
     .locals 4
 
     .prologue
-    .line 968
+    .line 976
     const-string v0, "VideoShot"
 
     const-string v1, "loadVideoShot: posting to main thread"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 969
+    .line 977
     iget-object v0, p0, Lbl/xi$6$1;->this$1:Lbl/xi$6;
 
     iget-object v0, v0, Lbl/xi$6;->this$0:Lbl/xi;
@@ -63,7 +63,7 @@
 
     if-eqz v0, :cond_61
 
-    .line 970
+    .line 978
     iget-object v0, p0, Lbl/xi$6$1;->this$1:Lbl/xi$6;
 
     iget-object v0, v0, Lbl/xi$6;->this$0:Lbl/xi;
@@ -77,14 +77,14 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->setVideoShot(Lcom/bilibili/tv/api/video/VideoShot;)V
 
-    .line 971
+    .line 979
     const-string v0, "VideoShot"
 
     const-string v1, "loadVideoShot: setVideoShot called"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 972
+    .line 980
     iget-object v0, p0, Lbl/xi$6$1;->this$1:Lbl/xi$6;
 
     iget-object v0, v0, Lbl/xi$6;->this$0:Lbl/xi;
@@ -93,17 +93,17 @@
 
     move-result-object v0
 
-    .line 973
+    .line 981
     if-eqz v0, :cond_59
 
-    .line 974
+    .line 982
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/context/IPlayerContext;->getDuration()I
 
     move-result v0
 
     div-int/lit16 v0, v0, 0x3e8
 
-    .line 975
+    .line 983
     iget-object v1, p0, Lbl/xi$6$1;->this$1:Lbl/xi$6;
 
     iget-object v1, v1, Lbl/xi$6;->this$0:Lbl/xi;
@@ -115,7 +115,7 @@
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->setDuration(I)V
 
-    .line 976
+    .line 984
     const-string v1, "VideoShot"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -138,11 +138,11 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 983
+    .line 991
     :goto_58
     return-void
 
-    .line 978
+    .line 986
     :cond_59
     const-string v0, "VideoShot"
 
@@ -152,7 +152,7 @@
 
     goto :goto_58
 
-    .line 981
+    .line 989
     :cond_61
     const-string v0, "VideoShot"
 

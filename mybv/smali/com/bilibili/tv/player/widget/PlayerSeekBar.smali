@@ -230,21 +230,55 @@
     .line 88
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->a:Landroid/widget/TextView;
 
-    if-eqz v0, :cond_e
+    if-eqz v0, :cond_30
 
     .line 89
-    iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->a:Landroid/widget/TextView;
+    int-to-long v0, p1
 
-    int-to-long v2, p1
+    invoke-static {v0, v1}, Lbl/aan;->a(J)Ljava/lang/String;
 
-    invoke-static {v2, v3}, Lbl/aan;->a(J)Ljava/lang/String;
+    move-result-object v0
 
-    move-result-object v1
+    .line 90
+    iget-object v1, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->a:Landroid/widget/TextView;
 
-    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    invoke-virtual {v1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
     .line 91
-    :cond_e
+    const-string v1, "PlayerSeekBar_java"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "bottomSeekBar time: progress="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, p1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, "ms, timeText="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 93
+    :cond_30
     return-void
 .end method
 
@@ -296,36 +330,36 @@
 
     const/4 v6, -0x2
 
-    .line 94
+    .line 96
     iget-boolean v1, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->c:Z
 
     if-nez v1, :cond_e
 
-    .line 95
+    .line 97
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->a:Landroid/widget/TextView;
 
     const/16 v1, 0x8
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 117
+    .line 119
     :goto_d
     return-void
 
-    .line 98
+    .line 100
     :cond_e
     iget-object v1, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->a:Landroid/widget/TextView;
 
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 99
+    .line 101
     iget-object v1, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->a:Landroid/widget/TextView;
 
     invoke-virtual {v1}, Landroid/widget/TextView;->getWidth()I
 
     move-result v1
 
-    .line 100
+    .line 102
     int-to-float v2, p1
 
     iget-object v3, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->b:Landroid/widget/SeekBar;
@@ -338,7 +372,7 @@
 
     div-float/2addr v2, v3
 
-    .line 101
+    .line 103
     iget-object v3, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->b:Landroid/widget/SeekBar;
 
     invoke-virtual {v3}, Landroid/widget/SeekBar;->getWidth()I
@@ -361,7 +395,7 @@
 
     sub-int/2addr v3, v4
 
-    .line 102
+    .line 104
     iget-object v4, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->b:Landroid/widget/SeekBar;
 
     invoke-virtual {v4}, Landroid/widget/SeekBar;->getLeft()I
@@ -390,7 +424,7 @@
 
     sub-float/2addr v2, v3
 
-    .line 103
+    .line 105
     invoke-virtual {p0}, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->getPaddingLeft()I
 
     move-result v3
@@ -399,10 +433,10 @@
 
     sub-float/2addr v2, v3
 
-    .line 104
+    .line 106
     float-to-int v2, v2
 
-    .line 105
+    .line 107
     invoke-virtual {p0}, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->getRight()I
 
     move-result v3
@@ -415,12 +449,12 @@
 
     sub-int v1, v3, v1
 
-    .line 106
+    .line 108
     if-gez v2, :cond_77
 
     move v1, v0
 
-    .line 111
+    .line 113
     :cond_60
     :goto_60
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->a:Landroid/widget/TextView;
@@ -431,26 +465,26 @@
 
     check-cast v0, Landroid/widget/LinearLayout$LayoutParams;
 
-    .line 112
+    .line 114
     if-nez v0, :cond_6f
 
-    .line 113
+    .line 115
     new-instance v0, Landroid/widget/LinearLayout$LayoutParams;
 
     invoke-direct {v0, v6, v6}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
 
-    .line 115
+    .line 117
     :cond_6f
     iput v1, v0, Landroid/widget/LinearLayout$LayoutParams;->leftMargin:I
 
-    .line 116
+    .line 118
     iget-object v1, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->a:Landroid/widget/TextView;
 
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
     goto :goto_d
 
-    .line 108
+    .line 110
     :cond_77
     if-gt v2, v1, :cond_60
 
@@ -482,23 +516,23 @@
     .locals 1
 
     .prologue
-    .line 166
+    .line 168
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->b:Landroid/widget/SeekBar;
 
     if-eqz v0, :cond_9
 
-    .line 167
+    .line 169
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->b:Landroid/widget/SeekBar;
 
     invoke-virtual {v0, p1}, Landroid/widget/SeekBar;->setProgress(I)V
 
-    .line 169
+    .line 171
     :cond_9
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->c:Z
 
-    .line 170
+    .line 172
     return-void
 .end method
 
@@ -506,17 +540,17 @@
     .locals 1
 
     .prologue
-    .line 328
+    .line 330
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->snapshotCache:Landroid/util/LruCache;
 
     if-eqz v0, :cond_9
 
-    .line 329
+    .line 331
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->snapshotCache:Landroid/util/LruCache;
 
     invoke-virtual {v0}, Landroid/util/LruCache;->evictAll()V
 
-    .line 331
+    .line 333
     :cond_9
     return-void
 .end method
@@ -525,7 +559,7 @@
     .locals 1
 
     .prologue
-    .line 202
+    .line 204
     iget v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->duration:I
 
     return v0
@@ -537,7 +571,7 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 206
+    .line 208
     iget-object v1, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
 
     if-eqz v1, :cond_21
@@ -570,12 +604,12 @@
 
     if-eqz v1, :cond_22
 
-    .line 221
+    .line 223
     :cond_21
     :goto_21
     return-object v0
 
-    .line 210
+    .line 212
     :cond_22
     iget-object v1, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
 
@@ -583,20 +617,20 @@
 
     move-result v1
 
-    .line 211
+    .line 213
     if-ltz v1, :cond_21
 
-    .line 215
+    .line 217
     iget-object v2, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
 
     invoke-virtual {v2, v1}, Lcom/bilibili/tv/api/video/VideoShot;->getImageUrl(I)Ljava/lang/String;
 
     move-result-object v2
 
-    .line 216
+    .line 218
     if-eqz v2, :cond_21
 
-    .line 220
+    .line 222
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -619,7 +653,7 @@
 
     move-result-object v0
 
-    .line 221
+    .line 223
     iget-object v1, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->snapshotCache:Landroid/util/LruCache;
 
     invoke-virtual {v1, v0}, Landroid/util/LruCache;->get(Ljava/lang/Object;)Ljava/lang/Object;
@@ -635,7 +669,7 @@
     .locals 1
 
     .prologue
-    .line 193
+    .line 195
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
 
     return-object v0
@@ -645,7 +679,7 @@
     .locals 7
 
     .prologue
-    .line 225
+    .line 227
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
 
     if-eqz v0, :cond_20
@@ -678,15 +712,15 @@
 
     if-eqz v0, :cond_24
 
-    .line 226
+    .line 228
     :cond_20
     invoke-interface {p2}, Lcom/bilibili/tv/player/widget/PlayerSeekBar$SnapshotLoadCallback;->onLoadFailed()V
 
-    .line 320
+    .line 322
     :goto_23
     return-void
 
-    .line 230
+    .line 232
     :cond_24
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
 
@@ -694,15 +728,15 @@
 
     move-result v4
 
-    .line 231
+    .line 233
     if-gez v4, :cond_30
 
-    .line 232
+    .line 234
     invoke-interface {p2}, Lcom/bilibili/tv/player/widget/PlayerSeekBar$SnapshotLoadCallback;->onLoadFailed()V
 
     goto :goto_23
 
-    .line 236
+    .line 238
     :cond_30
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
 
@@ -710,15 +744,15 @@
 
     move-result-object v2
 
-    .line 237
+    .line 239
     if-nez v2, :cond_3c
 
-    .line 238
+    .line 240
     invoke-interface {p2}, Lcom/bilibili/tv/player/widget/PlayerSeekBar$SnapshotLoadCallback;->onLoadFailed()V
 
     goto :goto_23
 
-    .line 242
+    .line 244
     :cond_3c
     new-instance v0, Ljava/lang/StringBuilder;
 
@@ -742,7 +776,7 @@
 
     move-result-object v5
 
-    .line 244
+    .line 246
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->snapshotCache:Landroid/util/LruCache;
 
     invoke-virtual {v0, v5}, Landroid/util/LruCache;->get(Ljava/lang/Object;)Ljava/lang/Object;
@@ -751,15 +785,15 @@
 
     check-cast v0, Landroid/graphics/Bitmap;
 
-    .line 245
+    .line 247
     if-eqz v0, :cond_61
 
-    .line 246
+    .line 248
     invoke-interface {p2, v0}, Lcom/bilibili/tv/player/widget/PlayerSeekBar$SnapshotLoadCallback;->onLoadSuccess(Landroid/graphics/Bitmap;)V
 
     goto :goto_23
 
-    .line 250
+    .line 252
     :cond_61
     new-instance v6, Ljava/lang/Thread;
 
@@ -773,7 +807,7 @@
 
     invoke-direct {v6, v0}, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;)V
 
-    .line 319
+    .line 321
     invoke-virtual {v6}, Ljava/lang/Thread;->start()V
 
     goto :goto_23
@@ -783,13 +817,13 @@
     .locals 0
 
     .prologue
-    .line 120
+    .line 122
     invoke-super {p0}, Landroid/widget/LinearLayout;->onFinishInflate()V
 
-    .line 121
+    .line 123
     invoke-direct {p0}, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->a()V
 
-    .line 122
+    .line 124
     return-void
 .end method
 
@@ -797,7 +831,7 @@
     .locals 3
 
     .prologue
-    .line 125
+    .line 127
     const-string v0, "PlayerSeekBar_java"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -830,32 +864,32 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 127
+    .line 129
     if-eqz p3, :cond_27
 
-    .line 128
+    .line 130
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->c:Z
 
-    .line 130
+    .line 132
     :cond_27
     invoke-direct {p0, p2}, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->a(I)V
 
-    .line 131
+    .line 133
     invoke-direct {p0, p2}, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->b(I)V
 
-    .line 133
+    .line 135
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->d:Landroid/widget/SeekBar$OnSeekBarChangeListener;
 
     if-eqz v0, :cond_36
 
-    .line 134
+    .line 136
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->d:Landroid/widget/SeekBar$OnSeekBarChangeListener;
 
     invoke-interface {v0, p1, p2, p3}, Landroid/widget/SeekBar$OnSeekBarChangeListener;->onProgressChanged(Landroid/widget/SeekBar;IZ)V
 
-    .line 136
+    .line 138
     :cond_36
     return-void
 .end method
@@ -864,17 +898,17 @@
     .locals 1
 
     .prologue
-    .line 139
+    .line 141
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->d:Landroid/widget/SeekBar$OnSeekBarChangeListener;
 
     if-eqz v0, :cond_9
 
-    .line 140
+    .line 142
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->d:Landroid/widget/SeekBar$OnSeekBarChangeListener;
 
     invoke-interface {v0, p1}, Landroid/widget/SeekBar$OnSeekBarChangeListener;->onStartTrackingTouch(Landroid/widget/SeekBar;)V
 
-    .line 142
+    .line 144
     :cond_9
     return-void
 .end method
@@ -883,17 +917,17 @@
     .locals 1
 
     .prologue
-    .line 145
+    .line 147
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->d:Landroid/widget/SeekBar$OnSeekBarChangeListener;
 
     if-eqz v0, :cond_9
 
-    .line 146
+    .line 148
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->d:Landroid/widget/SeekBar$OnSeekBarChangeListener;
 
     invoke-interface {v0, p1}, Landroid/widget/SeekBar$OnSeekBarChangeListener;->onStopTrackingTouch(Landroid/widget/SeekBar;)V
 
-    .line 148
+    .line 150
     :cond_9
     return-void
 .end method
@@ -902,7 +936,7 @@
     .locals 2
 
     .prologue
-    .line 151
+    .line 153
     iget-object v1, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->a:Landroid/widget/TextView;
 
     iget-boolean v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->c:Z
@@ -914,13 +948,13 @@
     :goto_7
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 152
+    .line 154
     invoke-super {p0, p1, p2}, Landroid/widget/LinearLayout;->onVisibilityChanged(Landroid/view/View;I)V
 
-    .line 153
+    .line 155
     return-void
 
-    .line 151
+    .line 153
     :cond_e
     const/16 v0, 0x8
 
@@ -931,7 +965,7 @@
     .locals 3
 
     .prologue
-    .line 197
+    .line 199
     const-string v0, "PlayerSeekBar_java"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -954,10 +988,10 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 198
+    .line 200
     iput p1, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->duration:I
 
-    .line 199
+    .line 201
     return-void
 .end method
 
@@ -965,17 +999,17 @@
     .locals 1
 
     .prologue
-    .line 160
+    .line 162
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->b:Landroid/widget/SeekBar;
 
     if-eqz v0, :cond_9
 
-    .line 161
+    .line 163
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->b:Landroid/widget/SeekBar;
 
     invoke-virtual {v0, p1}, Landroid/widget/SeekBar;->setMax(I)V
 
-    .line 163
+    .line 165
     :cond_9
     return-void
 .end method
@@ -984,10 +1018,10 @@
     .locals 0
 
     .prologue
-    .line 156
+    .line 158
     iput-object p1, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->d:Landroid/widget/SeekBar$OnSeekBarChangeListener;
 
-    .line 157
+    .line 159
     return-void
 .end method
 
@@ -995,7 +1029,7 @@
     .locals 3
 
     .prologue
-    .line 173
+    .line 175
     const-string v0, "PlayerSeekBar_java"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1018,12 +1052,12 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 174
+    .line 176
     const/4 v0, 0x0
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->a(IZ)V
 
-    .line 175
+    .line 177
     return-void
 .end method
 
@@ -1031,7 +1065,7 @@
     .locals 3
 
     .prologue
-    .line 178
+    .line 180
     const-string v0, "PlayerSeekBar_java"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1054,17 +1088,17 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 179
+    .line 181
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->b:Landroid/widget/SeekBar;
 
     if-eqz v0, :cond_21
 
-    .line 180
+    .line 182
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->b:Landroid/widget/SeekBar;
 
     invoke-virtual {v0, p1}, Landroid/widget/SeekBar;->setSecondaryProgress(I)V
 
-    .line 182
+    .line 184
     :cond_21
     return-void
 .end method
@@ -1073,7 +1107,7 @@
     .locals 3
 
     .prologue
-    .line 185
+    .line 187
     const-string v0, "PlayerSeekBar_java"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1096,13 +1130,13 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 186
+    .line 188
     iput-object p1, p0, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
 
-    .line 187
+    .line 189
     if-eqz p1, :cond_46
 
-    .line 188
+    .line 190
     const-string v0, "PlayerSeekBar_java"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1143,7 +1177,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 190
+    .line 192
     :cond_46
     return-void
 .end method

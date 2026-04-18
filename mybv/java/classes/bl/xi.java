@@ -173,6 +173,10 @@ public class xi extends xh implements bbb<Message, Boolean> {
     }
     
     private void updateSeekPreview(int progress, int max, boolean showSnapshot) {
+        Log.i("SeekPreview", "=== updateSeekPreview called ===");
+        Log.i("SeekPreview", "progress=" + progress + "ms, max=" + max + "ms");
+        Log.i("SeekPreview", "previewTimeCurrent=" + aan.a(progress) + ", previewTimeTotal=" + aan.a(max));
+        
         if (this.seekPreviewSeekbar != null) {
             this.seekPreviewSeekbar.setMax(max);
             this.seekPreviewSeekbar.setProgress(progress);
@@ -193,30 +197,27 @@ public class xi extends xh implements bbb<Message, Boolean> {
         }
         
         if (this.l != null && this.seekPreviewSnapshot != null) {
-            int duration = this.l.getDuration();
-            if (duration > 0 && max > 0) {
-                int timeSeconds = (int) ((long) progress * duration / max);
-                Log.i("SeekPreview", "updateSeekPreview: timeSeconds=" + timeSeconds);
+            int timeSeconds = progress / 1000;
+            Log.i("SeekPreview", "snapshot calculation: progress=" + progress + "ms, timeSeconds=" + timeSeconds + "s");
+            
+            this.l.loadSnapshotAsync(timeSeconds, new PlayerSeekBar.SnapshotLoadCallback() {
+                @Override
+                public void onLoadSuccess(Bitmap bitmap) {
+                    if (seekPreviewSnapshot != null) {
+                        seekPreviewSnapshot.setImageBitmap(bitmap);
+                        seekPreviewSnapshot.setVisibility(View.VISIBLE);
+                        Log.i("SeekPreview", "onLoadSuccess: snapshot visible");
+                    }
+                }
                 
-                this.l.loadSnapshotAsync(timeSeconds, new PlayerSeekBar.SnapshotLoadCallback() {
-                    @Override
-                    public void onLoadSuccess(Bitmap bitmap) {
-                        if (seekPreviewSnapshot != null) {
-                            seekPreviewSnapshot.setImageBitmap(bitmap);
-                            seekPreviewSnapshot.setVisibility(View.VISIBLE);
-                            Log.i("SeekPreview", "onLoadSuccess: snapshot visible");
-                        }
+                @Override
+                public void onLoadFailed() {
+                    if (seekPreviewSnapshot != null) {
+                        seekPreviewSnapshot.setVisibility(View.GONE);
+                        Log.i("SeekPreview", "onLoadFailed: snapshot gone");
                     }
-                    
-                    @Override
-                    public void onLoadFailed() {
-                        if (seekPreviewSnapshot != null) {
-                            seekPreviewSnapshot.setVisibility(View.GONE);
-                            Log.i("SeekPreview", "onLoadFailed: snapshot gone");
-                        }
-                    }
-                });
-            }
+                }
+            });
         }
     }
 
@@ -260,6 +261,13 @@ public class xi extends xh implements bbb<Message, Boolean> {
                 }
                 int a = aal.a(keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) * 1000;
                 int targetProgress = Math.min(a, I());
+                int maxProgress = I();
+                int videoDuration = this.l != null ? this.l.getDuration() : 0;
+                Log.i("SeekPreview", "=== f() called ===");
+                Log.i("SeekPreview", "targetProgress=" + targetProgress + "ms (" + aan.a(targetProgress) + ")");
+                Log.i("SeekPreview", "maxProgress=" + maxProgress + "ms (" + aan.a(maxProgress) + ")");
+                Log.i("SeekPreview", "videoDuration=" + videoDuration + "s");
+                Log.i("SeekPreview", "bottomSeekBar duration=" + (this.l != null ? this.l.getDuration() : "null"));
                 this.l.a(targetProgress, true);
                 showSeekPreview();
                 updateSeekPreview(targetProgress, I(), !this.isLongPress);

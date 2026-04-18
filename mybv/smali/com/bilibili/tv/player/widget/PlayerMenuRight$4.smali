@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 365
+    .line 378
     iput-object p1, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$4;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     iput-object p2, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$4;->val$viewGroup:Landroid/view/ViewGroup;
@@ -44,10 +44,10 @@
     .locals 3
 
     .prologue
-    .line 368
+    .line 381
     sput p2, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->danmaku_level:I
 
-    .line 369
+    .line 382
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$4;->val$viewGroup:Landroid/view/ViewGroup;
 
     const/4 v1, 0x1
@@ -80,7 +80,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 370
+    .line 383
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$4;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     # getter for: Lcom/bilibili/tv/player/widget/PlayerMenuRight;->d:Lcom/bilibili/tv/player/widget/PlayerMenuRight$a;
@@ -90,6 +90,6 @@
 
     invoke-interface {v0}, Lcom/bilibili/tv/player/widget/PlayerMenuRight$a;->refresh_subtitle()V
 
-    .line 371
+    .line 384
     return-void
 .end method

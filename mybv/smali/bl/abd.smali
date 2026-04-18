@@ -12,6 +12,28 @@
 
 .field public static final CDN_PREF_MCDN:I = 0x2
 
+.field public static final MENU_ADJUST:I = 0x8
+
+.field public static final MENU_ALL:I = 0x3ff
+
+.field public static final MENU_ALPHA:I = 0x20
+
+.field public static final MENU_CHAPTER:I = 0x200
+
+.field public static final MENU_DANMAKU:I = 0x2
+
+.field public static final MENU_MODE:I = 0x80
+
+.field public static final MENU_QUALITY:I = 0x1
+
+.field public static final MENU_RATIO:I = 0x4
+
+.field public static final MENU_SIZE:I = 0x10
+
+.field public static final MENU_SPEED:I = 0x40
+
+.field public static final MENU_SUBTITLE:I = 0x100
+
 .field public static final OTHER_COLUMN_COMPACT:I = 0x1
 
 .field public static final OTHER_COLUMN_NORMAL:I = 0x0
@@ -66,6 +88,8 @@
 
 .field private static otherColumnType:I
 
+.field private static playerMenuConfig:I
+
 .field private static spaceDynamicMode:I
 
 .field private static speed_id:I
@@ -93,14 +117,14 @@
     .line 15
     new-array v0, v2, [F
 
-    fill-array-data v0, :array_30
+    fill-array-data v0, :array_32
 
     sput-object v0, Lbl/abd;->a:[F
 
     .line 16
     new-array v0, v2, [F
 
-    fill-array-data v0, :array_44
+    fill-array-data v0, :array_46
 
     sput-object v0, Lbl/abd;->b:[F
 
@@ -112,7 +136,7 @@
 
     new-array v0, v0, [F
 
-    fill-array-data v0, :array_58
+    fill-array-data v0, :array_5a
 
     sput-object v0, Lbl/abd;->speeds:[F
 
@@ -143,13 +167,16 @@
     .line 411
     sput v1, Lbl/abd;->topTabConfig:I
 
-    .line 442
+    .line 450
+    sput v1, Lbl/abd;->playerMenuConfig:I
+
+    .line 475
     sput v1, Lbl/abd;->cdnPreference:I
 
     return-void
 
     .line 15
-    :array_30
+    :array_32
     .array-data 4
         0x3f000000    # 0.5f
         0x3f19999a    # 0.6f
@@ -162,7 +189,7 @@
     .end array-data
 
     .line 16
-    :array_44
+    :array_46
     .array-data 4
         0x3e99999a    # 0.3f
         0x3ecccccd    # 0.4f
@@ -175,7 +202,7 @@
     .end array-data
 
     .line 28
-    :array_58
+    :array_5a
     .array-data 4
         0x40000000    # 2.0f
         0x3fc00000    # 1.5f
@@ -957,14 +984,14 @@
     .locals 3
 
     .prologue
-    .line 450
+    .line 483
     sget v0, Lbl/abd;->cdnPreference:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_16
 
-    .line 451
+    .line 484
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -983,7 +1010,7 @@
 
     sput v0, Lbl/abd;->cdnPreference:I
 
-    .line 453
+    .line 486
     :cond_16
     sget v0, Lbl/abd;->cdnPreference:I
 
@@ -1280,6 +1307,53 @@
     invoke-virtual {v1}, Ljava/lang/Exception;->printStackTrace()V
 
     goto :goto_15
+.end method
+
+.method public static get_player_menu_config(Landroid/content/Context;)I
+    .locals 3
+
+    .prologue
+    .line 459
+    sget v0, Lbl/abd;->playerMenuConfig:I
+
+    const/4 v1, -0x1
+
+    if-ne v0, v1, :cond_17
+
+    .line 460
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    const-string v1, "player_menu_config"
+
+    const/16 v2, 0x3ff
+
+    invoke-interface {v0, v1, v2}, Landroid/content/SharedPreferences;->getInt(Ljava/lang/String;I)I
+
+    move-result v0
+
+    sput v0, Lbl/abd;->playerMenuConfig:I
+
+    .line 462
+    :cond_17
+    sget v0, Lbl/abd;->playerMenuConfig:I
+
+    if-nez v0, :cond_1e
+
+    const/4 v0, 0x1
+
+    sput v0, Lbl/abd;->playerMenuConfig:I
+
+    .line 463
+    :cond_1e
+    sget v0, Lbl/abd;->playerMenuConfig:I
+
+    return v0
 .end method
 
 .method public static get_skip_categories(Landroid/content/Context;)Ljava/util/Set;
@@ -1736,7 +1810,7 @@
     .locals 2
 
     .prologue
-    .line 457
+    .line 490
     invoke-static {p0}, Lbl/abd;->get_cdn_preference(Landroid/content/Context;)I
 
     move-result v0
@@ -1776,6 +1850,30 @@
     const/4 v0, 0x0
 
     goto :goto_7
+.end method
+
+.method public static is_menu_enabled(Landroid/content/Context;I)Z
+    .locals 1
+
+    .prologue
+    .line 467
+    invoke-static {p0}, Lbl/abd;->get_player_menu_config(Landroid/content/Context;)I
+
+    move-result v0
+
+    and-int/2addr v0, p1
+
+    if-eqz v0, :cond_9
+
+    const/4 v0, 0x1
+
+    :goto_8
+    return v0
+
+    :cond_9
+    const/4 v0, 0x0
+
+    goto :goto_8
 .end method
 
 .method public static is_tab_enabled(Landroid/content/Context;I)Z
@@ -1869,7 +1967,7 @@
     .locals 3
 
     .prologue
-    .line 461
+    .line 494
     if-eqz p1, :cond_8
 
     invoke-virtual {p1}, Ljava/lang/String;->isEmpty()Z
@@ -1878,45 +1976,45 @@
 
     if-eqz v0, :cond_9
 
-    .line 477
+    .line 510
     :cond_8
     :goto_8
     return-void
 
-    .line 465
+    .line 498
     :cond_9
     :try_start_9
     invoke-static {p1}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v0
 
-    .line 466
+    .line 499
     invoke-static {v0}, Lcom/facebook/imagepipeline/request/ImageRequestBuilder;->a(Landroid/net/Uri;)Lcom/facebook/imagepipeline/request/ImageRequestBuilder;
 
     move-result-object v0
 
-    .line 467
+    .line 500
     invoke-virtual {v0}, Lcom/facebook/imagepipeline/request/ImageRequestBuilder;->o()Lcom/facebook/imagepipeline/request/ImageRequest;
 
     move-result-object v0
 
-    .line 468
+    .line 501
     invoke-static {}, Lbl/ajq;->b()Lbl/aoy;
 
     move-result-object v1
 
-    .line 469
+    .line 502
     if-eqz v1, :cond_8
 
-    .line 470
+    .line 503
     invoke-virtual {v1}, Lbl/aoy;->h()Lbl/aov;
 
     move-result-object v1
 
-    .line 471
+    .line 504
     if-eqz v1, :cond_8
 
-    .line 472
+    .line 505
     const/4 v2, 0x0
 
     invoke-virtual {v1, v0, v2}, Lbl/aov;->b(Lcom/facebook/imagepipeline/request/ImageRequest;Ljava/lang/Object;)Lbl/aji;
@@ -1925,7 +2023,7 @@
 
     goto :goto_8
 
-    .line 475
+    .line 508
     :catch_26
     move-exception v0
 
@@ -1968,7 +2066,7 @@
     .locals 2
 
     .prologue
-    .line 445
+    .line 478
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1989,10 +2087,10 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 446
+    .line 479
     sput p1, Lbl/abd;->cdnPreference:I
 
-    .line 447
+    .line 480
     return-void
 .end method
 
@@ -2269,6 +2367,44 @@
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
     goto :goto_20
+.end method
+
+.method public static set_player_menu_config(Landroid/content/Context;I)V
+    .locals 2
+
+    .prologue
+    .line 453
+    if-nez p1, :cond_3
+
+    const/4 p1, 0x1
+
+    .line 454
+    :cond_3
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    const-string v1, "player_menu_config"
+
+    invoke-interface {v0, v1, p1}, Landroid/content/SharedPreferences$Editor;->putInt(Ljava/lang/String;I)Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
+
+    .line 455
+    sput p1, Lbl/abd;->playerMenuConfig:I
+
+    .line 456
+    return-void
 .end method
 
 .method public static set_skip_categories(Landroid/content/Context;Ljava/util/Set;)V

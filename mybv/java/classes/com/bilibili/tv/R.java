@@ -2597,6 +2597,17 @@ public final class R {
         public static final int preview_divider = 0x7f0801f5;
         public static final int preview_time_total = 0x7f0801f6;
         public static final int preview_seekbar = 0x7f0801f7;
+        public static final int menu_quality_btn = 0x7f0801f8;
+        public static final int menu_danmaku_btn = 0x7f0801f9;
+        public static final int menu_ratio_btn = 0x7f0801fa;
+        public static final int menu_adjust_btn = 0x7f0801fb;
+        public static final int menu_size_btn = 0x7f0801fc;
+        public static final int menu_alpha_btn = 0x7f0801fd;
+        public static final int menu_speed_btn = 0x7f0801fe;
+        public static final int menu_mode_btn = 0x7f0801ff;
+        public static final int menu_subtitle_btn = 0x7f080200;
+        public static final int menu_chapter_btn = 0x7f080201;
+        public static final int menu_scroll_view = 0x7f080202;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;

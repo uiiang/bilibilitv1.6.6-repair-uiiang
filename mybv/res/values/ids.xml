@@ -391,4 +391,15 @@
     <item type="id" name="dynamic_header_hint" />
     <item type="id" name="interaction_video_tag" />
     <item type="id" name="snapshot_preview" />
+    <item type="id" name="menu_quality_btn" />
+    <item type="id" name="menu_danmaku_btn" />
+    <item type="id" name="menu_ratio_btn" />
+    <item type="id" name="menu_adjust_btn" />
+    <item type="id" name="menu_size_btn" />
+    <item type="id" name="menu_alpha_btn" />
+    <item type="id" name="menu_speed_btn" />
+    <item type="id" name="menu_mode_btn" />
+    <item type="id" name="menu_subtitle_btn" />
+    <item type="id" name="menu_chapter_btn" />
+    <item type="id" name="menu_scroll_view" />
 </resources>

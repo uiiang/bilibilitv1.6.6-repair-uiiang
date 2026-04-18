@@ -2573,6 +2573,17 @@
     <public type="id" name="preview_divider" id="0x7f0801f5" />
     <public type="id" name="preview_time_total" id="0x7f0801f6" />
     <public type="id" name="preview_seekbar" id="0x7f0801f7" />
+    <public type="id" name="menu_quality_btn" id="0x7f0801f8" />
+    <public type="id" name="menu_danmaku_btn" id="0x7f0801f9" />
+    <public type="id" name="menu_ratio_btn" id="0x7f0801fa" />
+    <public type="id" name="menu_adjust_btn" id="0x7f0801fb" />
+    <public type="id" name="menu_size_btn" id="0x7f0801fc" />
+    <public type="id" name="menu_alpha_btn" id="0x7f0801fd" />
+    <public type="id" name="menu_speed_btn" id="0x7f0801fe" />
+    <public type="id" name="menu_mode_btn" id="0x7f0801ff" />
+    <public type="id" name="menu_subtitle_btn" id="0x7f080200" />
+    <public type="id" name="menu_chapter_btn" id="0x7f080201" />
+    <public type="id" name="menu_scroll_view" id="0x7f080202" />
 
 
     <public type="integer" name="config_danmaku_fly_duration" id="0x7f090003" />

@@ -434,6 +434,39 @@ public class abd {
         return (get_top_tab_config(context) & tabFlag) != 0;
     }
 
+    // Player right menu config
+    public static final int MENU_QUALITY = 1;
+    public static final int MENU_DANMAKU = 2;
+    public static final int MENU_RATIO = 4;
+    public static final int MENU_ADJUST = 8;
+    public static final int MENU_SIZE = 16;
+    public static final int MENU_ALPHA = 32;
+    public static final int MENU_SPEED = 64;
+    public static final int MENU_MODE = 128;
+    public static final int MENU_SUBTITLE = 256;
+    public static final int MENU_CHAPTER = 512;
+    public static final int MENU_ALL = MENU_QUALITY | MENU_DANMAKU | MENU_RATIO | MENU_ADJUST | MENU_SIZE | MENU_ALPHA | MENU_SPEED | MENU_MODE | MENU_SUBTITLE | MENU_CHAPTER;
+    
+    private static int playerMenuConfig = -1;
+    
+    public static void set_player_menu_config(Context context, int config) {
+        if (config == 0) config = MENU_QUALITY;
+        a(context).a().edit().putInt("player_menu_config", config).apply();
+        playerMenuConfig = config;
+    }
+    
+    public static int get_player_menu_config(Context context) {
+        if (playerMenuConfig == -1) {
+            playerMenuConfig = a(context).a().getInt("player_menu_config", MENU_ALL);
+        }
+        if (playerMenuConfig == 0) playerMenuConfig = MENU_QUALITY;
+        return playerMenuConfig;
+    }
+    
+    public static boolean is_menu_enabled(Context context, int menuFlag) {
+        return (get_player_menu_config(context) & menuFlag) != 0;
+    }
+
     // CDN preference: 0=auto, 1=bilivideo, 2=mcdn, 3=manual
     public static final int CDN_PREF_AUTO = 0;
     public static final int CDN_PREF_BILIVIDEO = 1;

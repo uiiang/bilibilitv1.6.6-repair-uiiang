@@ -36,7 +36,17 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
 
     private DrawFrameLayout spaceDynamicButton;
     private DrawFrameLayout spaceAllButton;
-    private LinearLayout spaceDynamicLayout;
+
+    private DrawFrameLayout menuQualityBtn;
+    private DrawFrameLayout menuDanmakuBtn;
+    private DrawFrameLayout menuRatioBtn;
+    private DrawFrameLayout menuAdjustBtn;
+    private DrawFrameLayout menuSizeBtn;
+    private DrawFrameLayout menuAlphaBtn;
+    private DrawFrameLayout menuSpeedBtn;
+    private DrawFrameLayout menuModeBtn;
+    private DrawFrameLayout menuSubtitleBtn;
+    private DrawFrameLayout menuChapterBtn;
 
     @Override // bl.adw
     public boolean c() {
@@ -159,7 +169,6 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
 
         this.spaceDynamicButton = (DrawFrameLayout) inflate.findViewById(R.id.space_dynamic_button);
         this.spaceAllButton = (DrawFrameLayout) inflate.findViewById(R.id.space_all_button);
-        this.spaceDynamicLayout = (LinearLayout) inflate.findViewById(R.id.space_dynamic_layout);
         this.spaceDynamicButton.setUpDrawable(R.drawable.shadow_white_rect);
         this.spaceAllButton.setUpDrawable(R.drawable.shadow_white_rect);
         this.spaceDynamicButton.setOnFocusChangeListener(this);
@@ -169,22 +178,83 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
 
         mg account = mg.a(getActivity());
         boolean isLoggedIn = account != null && account.a();
-        if (isLoggedIn) {
-            this.spaceDynamicLayout.setVisibility(View.VISIBLE);
-            int spaceMode = abd.get_space_dynamic_mode(getActivity());
-            if (spaceMode == abd.SPACE_MODE_DYNAMIC) {
-                this.spaceDynamicButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
-                this.spaceAllButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
-            } else {
-                this.spaceDynamicButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
-                this.spaceAllButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
-            }
+        int spaceMode = abd.get_space_dynamic_mode(getActivity());
+        if (spaceMode == abd.SPACE_MODE_DYNAMIC) {
+            this.spaceDynamicButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+            this.spaceAllButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+        } else {
+            this.spaceDynamicButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+            this.spaceAllButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
         }
+
+        this.menuQualityBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_quality_btn);
+        this.menuDanmakuBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_danmaku_btn);
+        this.menuRatioBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_ratio_btn);
+        this.menuAdjustBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_adjust_btn);
+        this.menuSizeBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_size_btn);
+        this.menuAlphaBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_alpha_btn);
+        this.menuSpeedBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_speed_btn);
+        this.menuModeBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_mode_btn);
+        this.menuSubtitleBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_subtitle_btn);
+        this.menuChapterBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_chapter_btn);
+
+        this.menuQualityBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        this.menuDanmakuBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        this.menuRatioBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        this.menuAdjustBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        this.menuSizeBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        this.menuAlphaBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        this.menuSpeedBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        this.menuModeBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        this.menuSubtitleBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        this.menuChapterBtn.setUpDrawable(R.drawable.shadow_white_rect);
+
+        this.menuQualityBtn.setOnFocusChangeListener(this);
+        this.menuDanmakuBtn.setOnFocusChangeListener(this);
+        this.menuRatioBtn.setOnFocusChangeListener(this);
+        this.menuAdjustBtn.setOnFocusChangeListener(this);
+        this.menuSizeBtn.setOnFocusChangeListener(this);
+        this.menuAlphaBtn.setOnFocusChangeListener(this);
+        this.menuSpeedBtn.setOnFocusChangeListener(this);
+        this.menuModeBtn.setOnFocusChangeListener(this);
+        this.menuSubtitleBtn.setOnFocusChangeListener(this);
+        this.menuChapterBtn.setOnFocusChangeListener(this);
+
+        this.menuQualityBtn.setOnClickListener(this);
+        this.menuDanmakuBtn.setOnClickListener(this);
+        this.menuRatioBtn.setOnClickListener(this);
+        this.menuAdjustBtn.setOnClickListener(this);
+        this.menuSizeBtn.setOnClickListener(this);
+        this.menuAlphaBtn.setOnClickListener(this);
+        this.menuSpeedBtn.setOnClickListener(this);
+        this.menuModeBtn.setOnClickListener(this);
+        this.menuSubtitleBtn.setOnClickListener(this);
+        this.menuChapterBtn.setOnClickListener(this);
+
+        int menuConfig = abd.get_player_menu_config(getActivity());
+        updateMenuButtonState(this.menuQualityBtn, (menuConfig & abd.MENU_QUALITY) != 0);
+        updateMenuButtonState(this.menuDanmakuBtn, (menuConfig & abd.MENU_DANMAKU) != 0);
+        updateMenuButtonState(this.menuRatioBtn, (menuConfig & abd.MENU_RATIO) != 0);
+        updateMenuButtonState(this.menuAdjustBtn, (menuConfig & abd.MENU_ADJUST) != 0);
+        updateMenuButtonState(this.menuSizeBtn, (menuConfig & abd.MENU_SIZE) != 0);
+        updateMenuButtonState(this.menuAlphaBtn, (menuConfig & abd.MENU_ALPHA) != 0);
+        updateMenuButtonState(this.menuSpeedBtn, (menuConfig & abd.MENU_SPEED) != 0);
+        updateMenuButtonState(this.menuModeBtn, (menuConfig & abd.MENU_MODE) != 0);
+        updateMenuButtonState(this.menuSubtitleBtn, (menuConfig & abd.MENU_SUBTITLE) != 0);
+        updateMenuButtonState(this.menuChapterBtn, (menuConfig & abd.MENU_CHAPTER) != 0);
 
         return inflate;
     }
 
     private void updateTopTabButtonState(DrawFrameLayout button, boolean enabled) {
+        if (enabled) {
+            button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+        } else {
+            button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+        }
+    }
+
+    private void updateMenuButtonState(DrawFrameLayout button, boolean enabled) {
         if (enabled) {
             button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
         } else {
@@ -295,6 +365,48 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
             this.spaceDynamicButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
             this.spaceAllButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
         }
+
+        if (view == this.menuQualityBtn || view == this.menuDanmakuBtn ||
+                view == this.menuRatioBtn || view == this.menuAdjustBtn ||
+                view == this.menuSizeBtn || view == this.menuAlphaBtn ||
+                view == this.menuSpeedBtn || view == this.menuModeBtn ||
+                view == this.menuSubtitleBtn || view == this.menuChapterBtn) {
+            int config = abd.get_player_menu_config(getActivity());
+            int flag = 0;
+            if (view == this.menuQualityBtn)
+                flag = abd.MENU_QUALITY;
+            else if (view == this.menuDanmakuBtn)
+                flag = abd.MENU_DANMAKU;
+            else if (view == this.menuRatioBtn)
+                flag = abd.MENU_RATIO;
+            else if (view == this.menuAdjustBtn)
+                flag = abd.MENU_ADJUST;
+            else if (view == this.menuSizeBtn)
+                flag = abd.MENU_SIZE;
+            else if (view == this.menuAlphaBtn)
+                flag = abd.MENU_ALPHA;
+            else if (view == this.menuSpeedBtn)
+                flag = abd.MENU_SPEED;
+            else if (view == this.menuModeBtn)
+                flag = abd.MENU_MODE;
+            else if (view == this.menuSubtitleBtn)
+                flag = abd.MENU_SUBTITLE;
+            else if (view == this.menuChapterBtn)
+                flag = abd.MENU_CHAPTER;
+
+            boolean wasEnabled = (config & flag) != 0;
+            int newConfig;
+            if (wasEnabled) {
+                newConfig = config & ~flag;
+                if (newConfig == 0) {
+                    newConfig = flag;
+                }
+            } else {
+                newConfig = config | flag;
+            }
+            abd.set_player_menu_config(getActivity(), newConfig);
+            updateMenuButtonState((DrawFrameLayout) view, !wasEnabled);
+        }
     }
 
     @Override // android.view.View.OnFocusChangeListener
@@ -333,6 +445,9 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         if (this.tab_buttons[0] != null && this.tab_buttons[0].hasFocus()) {
             return false;
         }
+        if (this.menuQualityBtn != null && this.menuQualityBtn.hasFocus()) {
+            return false;
+        }
         return true;
     }
 
@@ -364,6 +479,36 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
                 allTabsNoFocus = false;
             }
             if (allTabsNoFocus && this.tabPgc != null && this.tabPgc.hasFocus()) {
+                allTabsNoFocus = false;
+            }
+            if (allTabsNoFocus && this.menuQualityBtn != null && this.menuQualityBtn.hasFocus()) {
+                allTabsNoFocus = false;
+            }
+            if (allTabsNoFocus && this.menuDanmakuBtn != null && this.menuDanmakuBtn.hasFocus()) {
+                allTabsNoFocus = false;
+            }
+            if (allTabsNoFocus && this.menuRatioBtn != null && this.menuRatioBtn.hasFocus()) {
+                allTabsNoFocus = false;
+            }
+            if (allTabsNoFocus && this.menuAdjustBtn != null && this.menuAdjustBtn.hasFocus()) {
+                allTabsNoFocus = false;
+            }
+            if (allTabsNoFocus && this.menuSizeBtn != null && this.menuSizeBtn.hasFocus()) {
+                allTabsNoFocus = false;
+            }
+            if (allTabsNoFocus && this.menuAlphaBtn != null && this.menuAlphaBtn.hasFocus()) {
+                allTabsNoFocus = false;
+            }
+            if (allTabsNoFocus && this.menuSpeedBtn != null && this.menuSpeedBtn.hasFocus()) {
+                allTabsNoFocus = false;
+            }
+            if (allTabsNoFocus && this.menuModeBtn != null && this.menuModeBtn.hasFocus()) {
+                allTabsNoFocus = false;
+            }
+            if (allTabsNoFocus && this.menuSubtitleBtn != null && this.menuSubtitleBtn.hasFocus()) {
+                allTabsNoFocus = false;
+            }
+            if (allTabsNoFocus && this.menuChapterBtn != null && this.menuChapterBtn.hasFocus()) {
                 allTabsNoFocus = false;
             }
             if (allTabsNoFocus) {

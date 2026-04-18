@@ -232,7 +232,28 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         float[] fArr;
         Q();
         Resources resources = o().getResources();
-        this.c.b(Arrays.asList(resources.getStringArray(R.array.player_right_menu_level_1)), 0);
+        
+        int menuConfig = abd.get_player_menu_config(p());
+        String[] allMenus = resources.getStringArray(R.array.player_right_menu_level_1);
+        List<String> filteredMenus = new ArrayList<>();
+        List<Integer> menuIndexMap = new ArrayList<>();
+        
+        int[] menuFlags = {
+            abd.MENU_QUALITY, abd.MENU_DANMAKU, abd.MENU_RATIO, abd.MENU_ADJUST,
+            abd.MENU_SIZE, abd.MENU_ALPHA, abd.MENU_SPEED, abd.MENU_MODE,
+            abd.MENU_SUBTITLE, abd.MENU_CHAPTER
+        };
+        
+        for (int i = 0; i < allMenus.length && i < menuFlags.length; i++) {
+            if ((menuConfig & menuFlags[i]) != 0) {
+                filteredMenus.add(allMenus[i]);
+                menuIndexMap.add(i);
+            }
+        }
+        
+        this.c.b(filteredMenus, 0);
+        this.c.setMenuIndexMap(menuIndexMap);
+        
         if (this.d == null) {
             this.d = new ArrayList();
             this.d.add(resources.getString(R.string.quality_sd));
