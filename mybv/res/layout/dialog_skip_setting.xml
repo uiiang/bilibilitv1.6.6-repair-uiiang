@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/px_500"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/px_30"
+    android:background="@color/black_80">
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/skip_setting"
+        android:textSize="@dimen/px_40"
+        android:textColor="@color/white"
+        android:layout_marginBottom="@dimen/px_30" />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/px_20">
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/skip_intro"
+            android:textSize="@dimen/px_32"
+            android:textColor="@color/white_80" />
+        
+        <LinearLayout
+            android:id="@+id/intro_time"
+            android:layout_width="@dimen/px_320"
+            android:layout_height="@dimen/px_70"
+            android:layout_marginStart="@dimen/px_30"
+            android:background="@color/night_dark"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:orientation="vertical">
+            
+            <TextView
+                android:id="@+id/intro_time_display"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00:00"
+                android:textSize="@dimen/px_38"
+                android:textColor="@color/tv_pink_dark"
+                android:fontFamily="monospace" />
+        </LinearLayout>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/px_30">
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/skip_outro"
+            android:textSize="@dimen/px_32"
+            android:textColor="@color/white_80" />
+        
+        <LinearLayout
+            android:id="@+id/outro_time"
+            android:layout_width="@dimen/px_320"
+            android:layout_height="@dimen/px_70"
+            android:layout_marginStart="@dimen/px_30"
+            android:background="@color/night_dark"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:orientation="vertical">
+            
+            <TextView
+                android:id="@+id/outro_time_display"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00:00"
+                android:textSize="@dimen/px_38"
+                android:textColor="@color/tv_pink_dark"
+                android:fontFamily="monospace" />
+        </LinearLayout>
+    </LinearLayout>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/white_20"
+        android:layout_marginBottom="@dimen/px_25" />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:clipChildren="false" android:clipToPadding="false">
+
+        <com.bilibili.tv.widget.DrawLinearLayout
+            android:id="@+id/btn_save_skip_layout"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:background="@drawable/background_white_rect"
+            android:focusable="true" android:focusableInTouchMode="true"
+            android:clipToPadding="false"
+            android:layout_width="@dimen/px_200"
+            android:layout_height="@dimen/px_75"
+            android:nextFocusRight="@id/btn_cancel_skip_layout"
+            android:nextFocusDown="@id/btn_cancel_skip_layout"
+            android:nextFocusUp="@id/outro_time"
+            android:layout_marginEnd="@dimen/px_25">
+
+            <com.bilibili.tv.widget.DrawTextView
+                android:id="@+id/btn_save_skip"
+                android:text="@string/skip_save"
+                android:textSize="@dimen/px_32"
+                android:textColor="@color/tv_pink_dark"
+                android:gravity="center"
+                android:focusable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </com.bilibili.tv.widget.DrawLinearLayout>
+
+        <com.bilibili.tv.widget.DrawLinearLayout
+            android:id="@+id/btn_cancel_skip_layout"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:background="@drawable/background_white_rect"
+            android:focusable="true" android:focusableInTouchMode="true"
+            android:clipToPadding="false"
+            android:layout_width="@dimen/px_200"
+            android:layout_height="@dimen/px_75"
+            android:nextFocusLeft="@id/btn_save_skip_layout"
+            android:nextFocusDown="@id/btn_save_skip_layout"
+            android:nextFocusUp="@id/outro_time">
+
+            <com.bilibili.tv.widget.DrawTextView
+                android:id="@+id/btn_cancel_skip"
+                android:text="@string/skip_cancel"
+                android:textSize="@dimen/px_32"
+                android:textColor="@color/black_80"
+                android:gravity="center"
+                android:focusable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </com.bilibili.tv.widget.DrawLinearLayout>
+    </LinearLayout>
+</LinearLayout>

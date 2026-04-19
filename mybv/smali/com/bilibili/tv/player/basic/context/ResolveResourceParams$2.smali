@@ -36,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 131
+    .line 134
     iput-object p1, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$2;->this$0:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -55,7 +55,7 @@
     .end annotation
 
     .prologue
-    .line 131
+    .line 134
     invoke-virtual {p0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$2;->call()Lorg/json/JSONObject;
 
     move-result-object v0
@@ -67,7 +67,8 @@
     .locals 4
 
     .prologue
-    .line 134
+    .line 138
+    :try_start_0
     new-instance v0, Lbl/qa$a;
 
     const-class v1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;
@@ -121,8 +122,21 @@
     check-cast v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;->result()Lorg/json/JSONObject;
+    :try_end_38
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_38} :catch_3a
 
     move-result-object v0
 
+    .line 140
+    :goto_39
     return-object v0
+
+    .line 139
+    :catch_3a
+    move-exception v0
+
+    .line 140
+    const/4 v0, 0x0
+
+    goto :goto_39
 .end method

@@ -41,6 +41,11 @@ public class xj extends xh {
 
     public JSONArray skips;
 
+    private boolean introSkipped = false;
+    private boolean outroPromptShown = false;
+    private boolean userSeekedToIntro = false;
+    private java.util.Set<String> skippedSegments = new java.util.HashSet<>();
+
     @Override // tv.danmaku.ijk.media.player.IMediaPlayer.OnInfoListener
     public boolean onInfo2(IMediaPlayer iMediaPlayer, int i, int i2, long j) {
         return false;
@@ -137,18 +142,80 @@ public class xj extends xh {
             JSONObject skip_info = this.skips.optJSONObject(i);
             long start = skip_info.optLong("start");
             long end = skip_info.optLong("end");
-            if(t>=start && t<start+1000){
-                if(this.c==null)Q();
-                if(this.c==null)return;
-                this.c.setText("侦测到"+skip_info.optString("type")+"，已空降至"+aan.a(end));
-                this.c.clearAnimation();
-                if(this.k!=null)this.k.reset();
-                this.l = true;
-                a(this.j, 5000L);
-                c((int)end);
+            String type = skip_info.optString("type");
+
+            if ("片头".equals(type)) {
+                if (!introSkipped && !userSeekedToIntro && t >= start && t < end) {
+                    android.util.Log.i("SkipDebug", "EXEC INTRO: t=" + t);
+                    if(this.c==null)Q();
+                    if(this.c==null)return;
+                    this.c.setText("侦测到片头，已空降至"+aan.a(end));
+                    this.c.clearAnimation();
+                    if(this.k!=null)this.k.reset();
+                    this.l = true;
+                    a(this.j, 5000L);
+                    c((int)end);
+                    introSkipped = true;
+                    return;
+                }
+            } else if ("片尾".equals(type)) {
+                if (!outroPromptShown && t >= start) {
+                    android.util.Log.i("SkipDebug", "EXEC OUTRO: t=" + t);
+                    if(this.c==null)Q();
+                    if(this.c==null)return;
+                    this.c.setText("侦测到片尾，即将结束");
+                    this.c.clearAnimation();
+                    if(this.k!=null)this.k.reset();
+                    this.l = true;
+                    a(this.j, 5000L);
+                    outroPromptShown = true;
+                    c((int)end);
+                    return;
+                }
+            } else {
+                String segmentKey = type + "_" + start + "_" + end;
+                if (!skippedSegments.contains(segmentKey) && t >= start && t < end) {
+                    android.util.Log.i("SkipDebug", "EXEC " + type + ": t=" + t + ", start=" + start + ", end=" + end);
+                    if(this.c==null)Q();
+                    if(this.c==null)return;
+                    this.c.setText("侦测到" + type + "，已空降至"+aan.a(end));
+                    this.c.clearAnimation();
+                    if(this.k!=null)this.k.reset();
+                    this.l = true;
+                    a(this.j, 5000L);
+                    c((int)end);
+                    skippedSegments.add(segmentKey);
+                    return;
+                }
+            }
+        }
+    }
+
+    public void updateSkips(JSONArray newSkips) {
+        this.skips = newSkips;
+        this.introSkipped = false;
+        this.outroPromptShown = false;
+    }
+
+    public void onUserSeek(long seekToTime) {
+        if (this.skips == null) return;
+        for (int i = 0; i < this.skips.length(); i++) {
+            JSONObject skip_info = this.skips.optJSONObject(i);
+            long start = skip_info.optLong("start");
+            long end = skip_info.optLong("end");
+            String type = skip_info.optString("type");
+            if ("片头".equals(type) && seekToTime >= start && seekToTime < end) {
+                userSeekedToIntro = true;
                 return;
             }
         }
+    }
+
+    public void resetSkipFlags() {
+        this.introSkipped = false;
+        this.outroPromptShown = false;
+        this.userSeekedToIntro = false;
+        this.skippedSegments.clear();
     }
 
     private void P() {

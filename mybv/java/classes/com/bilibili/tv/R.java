@@ -2608,6 +2608,21 @@ public final class R {
         public static final int menu_subtitle_btn = 0x7f080200;
         public static final int menu_chapter_btn = 0x7f080201;
         public static final int menu_scroll_view = 0x7f080202;
+        public static final int intro_time = 0x7f080203;
+        public static final int outro_time = 0x7f080204;
+        public static final int scope_group = 0x7f080205;
+        public static final int scope_current_video = 0x7f080206;
+        public static final int scope_current_list = 0x7f080207;
+        public static final int scope_current_up = 0x7f080208;
+        public static final int btn_save_skip = 0x7f080209;
+        public static final int btn_cancel_skip = 0x7f08020a;
+        public static final int time_display = 0x7f08020b;
+        public static final int menu_skip_btn = 0x7f08020c;
+        public static final int intro_time_display = 0x7f08020d;
+        public static final int outro_time_display = 0x7f08020e;
+        public static final int btn_save_skip_layout = 0x7f08020f;
+        public static final int btn_cancel_skip_layout = 0x7f080210;
+        public static final int apply_to_up_checkbox = 0x7f080211;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;
@@ -2786,6 +2801,8 @@ public final class R {
         public static final int player_episode_menu = 0x7f0a00a1;
         public static final int dialog_tag_filter_menu = 0x7f0a00a2;
         public static final int item_tag_filter = 0x7f0a00a3;
+        public static final int dialog_skip_setting = 0x7f0a00a4;
+        public static final int item_skip_time_picker = 0x7f0a00a5;
     }
 
     public static final class mipmap {
@@ -3184,6 +3201,16 @@ public final class R {
         public static final int area_doc = 0x7f0c0181;
 
         public static final int player_chapter_tip = 0x7f0c0182;
+        public static final int skip_setting = 0x7f0c0183;
+        public static final int skip_intro = 0x7f0c0184;
+        public static final int skip_outro = 0x7f0c0185;
+        public static final int skip_scope_video = 0x7f0c0186;
+        public static final int skip_scope_list = 0x7f0c0187;
+        public static final int skip_scope_up = 0x7f0c0188;
+        public static final int skip_save = 0x7f0c0189;
+        public static final int skip_cancel = 0x7f0c018a;
+        public static final int skip_saved = 0x7f0c018b;
+        public static final int skip_cleared = 0x7f0c018c;
     }
 
     public static final class style {

@@ -402,4 +402,19 @@
     <item type="id" name="menu_subtitle_btn" />
     <item type="id" name="menu_chapter_btn" />
     <item type="id" name="menu_scroll_view" />
+    <item type="id" name="intro_time" />
+    <item type="id" name="outro_time" />
+    <item type="id" name="scope_group" />
+    <item type="id" name="scope_current_video" />
+    <item type="id" name="scope_current_list" />
+    <item type="id" name="scope_current_up" />
+    <item type="id" name="btn_save_skip" />
+    <item type="id" name="btn_cancel_skip" />
+    <item type="id" name="btn_save_skip_layout" />
+    <item type="id" name="btn_cancel_skip_layout" />
+    <item type="id" name="time_display" />
+    <item type="id" name="menu_skip_btn" />
+    <item type="id" name="intro_time_display" />
+    <item type="id" name="outro_time_display" />
+    <item type="id" name="apply_to_up_checkbox" />
 </resources>

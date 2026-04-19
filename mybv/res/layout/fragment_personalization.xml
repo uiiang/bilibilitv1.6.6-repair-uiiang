@@ -654,7 +654,7 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:nextFocusLeft="@id/menu_subtitle_btn"
-                    android:nextFocusRight="@id/menu_chapter_btn"
+                    android:nextFocusRight="@id/menu_skip_btn"
                     android:nextFocusUp="@id/menu_size_btn"
                     android:paddingLeft="@dimen/px_20"
                     android:paddingRight="@dimen/px_20"
@@ -668,6 +668,29 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="章节"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/px_36" />
+                </com.bilibili.tv.widget.DrawFrameLayout>
+                <com.bilibili.tv.widget.DrawFrameLayout
+                    android:id="@id/menu_skip_btn"
+                    android:background="@drawable/shape_rectangle_trans_with_12corner_white_10"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:nextFocusLeft="@id/menu_chapter_btn"
+                    android:nextFocusRight="@id/menu_skip_btn"
+                    android:nextFocusUp="@id/menu_size_btn"
+                    android:paddingLeft="@dimen/px_20"
+                    android:paddingRight="@dimen/px_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/px_96"
+                    android:layout_marginLeft="@dimen/px_20">
+                    <com.bilibili.tv.widget.ShadowTextView
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:focusable="false"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="跳过设置"
                         android:textColor="@color/white"
                         android:textSize="@dimen/px_36" />
                 </com.bilibili.tv.widget.DrawFrameLayout>

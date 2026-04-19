@@ -34,7 +34,7 @@
     .locals 0
 
     .prologue
-    .line 251
+    .line 253
     iput-object p1, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$3;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     iput p4, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$3;->val$i:I
@@ -50,7 +50,7 @@
     .locals 0
 
     .prologue
-    .line 251
+    .line 253
     check-cast p3, Ljava/lang/String;
 
     invoke-virtual {p0, p1, p2, p3}, Lcom/bilibili/tv/player/widget/PlayerMenuRight$3;->a(Lbl/aaz;ILjava/lang/String;)V
@@ -62,13 +62,13 @@
     .locals 2
 
     .prologue
-    .line 254
+    .line 256
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$3;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     iget v1, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$3;->val$i:I
 
     invoke-virtual {v0, v1, p2, p1, p3}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->a(IILbl/aaz;Ljava/lang/String;)V
 
-    .line 255
+    .line 257
     return-void
 .end method

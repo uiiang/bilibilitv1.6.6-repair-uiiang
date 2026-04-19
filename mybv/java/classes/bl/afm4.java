@@ -47,6 +47,7 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
     private DrawFrameLayout menuModeBtn;
     private DrawFrameLayout menuSubtitleBtn;
     private DrawFrameLayout menuChapterBtn;
+    private DrawFrameLayout menuSkipBtn;
 
     @Override // bl.adw
     public boolean c() {
@@ -197,6 +198,7 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         this.menuModeBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_mode_btn);
         this.menuSubtitleBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_subtitle_btn);
         this.menuChapterBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_chapter_btn);
+        this.menuSkipBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_skip_btn);
 
         this.menuQualityBtn.setUpDrawable(R.drawable.shadow_white_rect);
         this.menuDanmakuBtn.setUpDrawable(R.drawable.shadow_white_rect);
@@ -208,6 +210,7 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         this.menuModeBtn.setUpDrawable(R.drawable.shadow_white_rect);
         this.menuSubtitleBtn.setUpDrawable(R.drawable.shadow_white_rect);
         this.menuChapterBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        this.menuSkipBtn.setUpDrawable(R.drawable.shadow_white_rect);
 
         this.menuQualityBtn.setOnFocusChangeListener(this);
         this.menuDanmakuBtn.setOnFocusChangeListener(this);
@@ -219,6 +222,7 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         this.menuModeBtn.setOnFocusChangeListener(this);
         this.menuSubtitleBtn.setOnFocusChangeListener(this);
         this.menuChapterBtn.setOnFocusChangeListener(this);
+        this.menuSkipBtn.setOnFocusChangeListener(this);
 
         this.menuQualityBtn.setOnClickListener(this);
         this.menuDanmakuBtn.setOnClickListener(this);
@@ -230,6 +234,7 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         this.menuModeBtn.setOnClickListener(this);
         this.menuSubtitleBtn.setOnClickListener(this);
         this.menuChapterBtn.setOnClickListener(this);
+        this.menuSkipBtn.setOnClickListener(this);
 
         int menuConfig = abd.get_player_menu_config(getActivity());
         updateMenuButtonState(this.menuQualityBtn, (menuConfig & abd.MENU_QUALITY) != 0);
@@ -242,6 +247,7 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         updateMenuButtonState(this.menuModeBtn, (menuConfig & abd.MENU_MODE) != 0);
         updateMenuButtonState(this.menuSubtitleBtn, (menuConfig & abd.MENU_SUBTITLE) != 0);
         updateMenuButtonState(this.menuChapterBtn, (menuConfig & abd.MENU_CHAPTER) != 0);
+        updateMenuButtonState(this.menuSkipBtn, (menuConfig & abd.MENU_SKIP) != 0);
 
         return inflate;
     }
@@ -370,7 +376,8 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
                 view == this.menuRatioBtn || view == this.menuAdjustBtn ||
                 view == this.menuSizeBtn || view == this.menuAlphaBtn ||
                 view == this.menuSpeedBtn || view == this.menuModeBtn ||
-                view == this.menuSubtitleBtn || view == this.menuChapterBtn) {
+                view == this.menuSubtitleBtn || view == this.menuChapterBtn ||
+                view == this.menuSkipBtn) {
             int config = abd.get_player_menu_config(getActivity());
             int flag = 0;
             if (view == this.menuQualityBtn)
@@ -393,6 +400,8 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
                 flag = abd.MENU_SUBTITLE;
             else if (view == this.menuChapterBtn)
                 flag = abd.MENU_CHAPTER;
+            else if (view == this.menuSkipBtn)
+                flag = abd.MENU_SKIP;
 
             boolean wasEnabled = (config & flag) != 0;
             int newConfig;

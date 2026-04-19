@@ -402,4 +402,15 @@ Jungly   农业银行"</string>
     <string name="cdn_pref_mcdn">mcdn</string>
     <string name="cdn_pref_manual">手动指定</string>
     <string name="cdn_preference_label">CDN线路偏好：</string>
+
+    <string name="skip_setting">跳过设置</string>
+    <string name="skip_intro">片头跳过</string>
+    <string name="skip_outro">片尾跳过</string>
+    <string name="skip_scope_video">当前视频</string>
+    <string name="skip_scope_list">当前列表</string>
+    <string name="skip_scope_up">当前UP主</string>
+    <string name="skip_save">保存</string>
+    <string name="skip_cancel">清除</string>
+    <string name="skip_saved">跳过设置已保存</string>
+    <string name="skip_cleared">跳过设置已清除</string>
 </resources>

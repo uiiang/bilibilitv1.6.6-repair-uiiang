@@ -79,6 +79,8 @@ public class ResolveResourceParams implements Parcelable, Serializable {
     public int mDuration;
     public boolean mNoHistoryPlay;
     public String mBvid;
+
+    public long mMid;
     
     public long mPubDate;
     public String mAuthor;
@@ -88,6 +90,7 @@ public class ResolveResourceParams implements Parcelable, Serializable {
     public String mBadgeBgColor;
     public boolean mHideUpIcon;
     public int mListType;
+    public String mListKey;
 
     public JSONArray skips;
     public JSONObject subtitle_info;
@@ -131,7 +134,11 @@ public class ResolveResourceParams implements Parcelable, Serializable {
             Future<JSONObject> future = threadPool.submit(new Callable<JSONObject>() {
                 @Override
                 public JSONObject call() {
-                    return ((JsonResponse) pz.a(new qa.a(JsonResponse.class).a("https://api.bilibili.com/pgc/view/web/ep/list").a(true).b("ep_id", String.valueOf(ResolveResourceParams.this.mEpisodeId)).a(new qb()).a(), "GET")).result();
+                    try {
+                        return ((JsonResponse) pz.a(new qa.a(JsonResponse.class).a("https://api.bilibili.com/pgc/view/web/ep/list").a(true).b("ep_id", String.valueOf(ResolveResourceParams.this.mEpisodeId)).a(new qb()).a(), "GET")).result();
+                    } catch (Exception e) {
+                        return null;
+                    }
                 }
             });
             try{
@@ -172,9 +179,11 @@ public class ResolveResourceParams implements Parcelable, Serializable {
                 public JSONArray call() {
                     String httpsUrl = "https://bsbsb.top/api/skipSegments";
                     String httpUrl = "http://bsbsb.top/api/skipSegments";
+                    String videoID = String.valueOf(ResolveResourceParams.this.mBvid);
+                    String categories = new JSONArray(BiliFilter.skip_categories).toString();
                     
                     try {
-                        JSONArray result = ((JsonResponse) pz.a(new qa.a(JsonResponse.class).a(httpsUrl).a(true).b("videoID", String.valueOf(ResolveResourceParams.this.mBvid)).b("categories",new JSONArray(BiliFilter.skip_categories).toString()).b("actionType","skip").a(new qb()).a(), "GET")).result2();
+                        JSONArray result = ((JsonResponse) pz.a(new qa.a(JsonResponse.class).a(httpsUrl).a(true).b("videoID", videoID).b("categories", categories).b("actionType","skip").a(new qb()).a(), "GET")).result2();
                         if (result != null && result.length() > 0) {
                             return result;
                         }
@@ -182,7 +191,7 @@ public class ResolveResourceParams implements Parcelable, Serializable {
                     }
                     
                     try {
-                        return ((JsonResponse) pz.a(new qa.a(JsonResponse.class).a(httpUrl).a(true).b("videoID", String.valueOf(ResolveResourceParams.this.mBvid)).b("categories",new JSONArray(BiliFilter.skip_categories).toString()).b("actionType","skip").a(new qb()).a(), "GET")).result2();
+                        return ((JsonResponse) pz.a(new qa.a(JsonResponse.class).a(httpUrl).a(true).b("videoID", videoID).b("categories", categories).b("actionType","skip").a(new qb()).a(), "GET")).result2();
                     } catch (Exception e) {
                         return null;
                     }
@@ -348,6 +357,8 @@ public class ResolveResourceParams implements Parcelable, Serializable {
         parcel.writeByte(this.mNoHistoryPlay ? (byte) 1 : (byte) 0);
         parcel.writeInt(this.mDuration);
         
+        parcel.writeLong(this.mMid);
+        
         parcel.writeLong(this.mPubDate);
         parcel.writeString(this.mAuthor);
         parcel.writeString(this.mPlays);
@@ -355,6 +366,7 @@ public class ResolveResourceParams implements Parcelable, Serializable {
         parcel.writeString(this.mBadgeText);
         parcel.writeString(this.mBadgeBgColor);
         parcel.writeByte(this.mHideUpIcon ? (byte) 1 : (byte) 0);
+        parcel.writeString(this.mListKey);
         
         if (this.view_points != null) {
             parcel.writeString(this.view_points.toString());
@@ -397,6 +409,8 @@ public class ResolveResourceParams implements Parcelable, Serializable {
         this.mNoHistoryPlay = parcel.readByte() != 0;
         this.mDuration = parcel.readInt();
         
+        this.mMid = parcel.readLong();
+        
         this.mPubDate = parcel.readLong();
         this.mAuthor = parcel.readString();
         this.mPlays = parcel.readString();
@@ -404,6 +418,7 @@ public class ResolveResourceParams implements Parcelable, Serializable {
         this.mBadgeText = parcel.readString();
         this.mBadgeBgColor = parcel.readString();
         this.mHideUpIcon = parcel.readByte() != 0;
+        this.mListKey = parcel.readString();
         
         String viewPointsStr = parcel.readString();
         if (!TextUtils.isEmpty(viewPointsStr)) {

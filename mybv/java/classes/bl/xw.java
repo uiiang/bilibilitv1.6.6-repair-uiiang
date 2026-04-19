@@ -13,6 +13,7 @@ import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.player.interfaces.IEventCenter;
 import com.bilibili.tv.player.widget.PlayerMenuRight;
+import com.bilibili.tv.player.basic.context.ResolveResourceParams;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.ArrayList;
@@ -241,7 +242,7 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         int[] menuFlags = {
             abd.MENU_QUALITY, abd.MENU_DANMAKU, abd.MENU_RATIO, abd.MENU_ADJUST,
             abd.MENU_SIZE, abd.MENU_ALPHA, abd.MENU_SPEED, abd.MENU_MODE,
-            abd.MENU_SUBTITLE, abd.MENU_CHAPTER
+            abd.MENU_SUBTITLE, abd.MENU_CHAPTER, abd.MENU_SKIP
         };
         
         for (int i = 0; i < allMenus.length && i < menuFlags.length; i++) {
@@ -329,5 +330,91 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             }
         }
         return -1;
+    }
+
+    @Override
+    public void showSkipSettingDialog() {
+        if (c() == null || c().a.mVideoParams == null) {
+            return;
+        }
+        ResolveResourceParams params = c().a.mVideoParams.obtainResolveParams();
+        Log.i("SkipSetting", "showSkipSettingDialog: mAuthor=" + params.mAuthor + ", mMid=" + params.mMid);
+        com.bilibili.tv.player.widget.SkipSettingDialog dialog = new com.bilibili.tv.player.widget.SkipSettingDialog(o(), params, x());
+
+        dialog.setOnPositionProvider(new com.bilibili.tv.player.widget.SkipSettingDialog.OnPositionProvider() {
+            @Override
+            public long getCurrentPosition() {
+                return x();
+            }
+        });
+
+        dialog.setOnSaveListener(new com.bilibili.tv.player.widget.SkipSettingDialog.OnSaveListener() {
+            @Override
+            public void onSave(long intro, long outro) {
+                Log.i("SkipSetting", "onSave: intro=" + intro + ", outro=" + outro);
+
+                JSONArray newSkips = getEffectiveSkips(params);
+                xj skipHelper = getSkipHelper();
+                if (skipHelper != null) {
+                    skipHelper.updateSkips(newSkips);
+                    skipHelper.checkSkip(x());
+                }
+            }
+        });
+        dialog.show();
+    }
+
+    private xj getSkipHelper() {
+        yh playerContext = c();
+        if (playerContext == null) return null;
+
+        xh current = this;
+        while (current != null) {
+            if (current instanceof xj) {
+                return (xj) current;
+            }
+            current = current.next();
+        }
+        return null;
+    }
+
+    private JSONArray getEffectiveSkips(ResolveResourceParams params) {
+        JSONArray result = new JSONArray();
+        long[] localSkip = null;
+
+        Log.i("SkipSetting", "getEffectiveSkips: mAvid=" + params.mAvid + ", mListKey=" + params.mListKey);
+
+        if (!android.text.TextUtils.isEmpty(params.mListKey)) {
+            localSkip = abd.getSkipTime(p(), "skip_list_" + params.mListKey);
+            Log.i("SkipSetting", "list skip: " + (localSkip != null ? localSkip[0] + "," + localSkip[1] : "null"));
+        }
+        if (localSkip == null || (localSkip[0] == 0 && localSkip[1] == 0)) {
+            localSkip = abd.getSkipTime(p(), abd.getVideoSkipKey(params.mAvid));
+            Log.i("SkipSetting", "video skip: " + (localSkip != null ? localSkip[0] + "," + localSkip[1] : "null"));
+        }
+
+        if (localSkip == null || (localSkip[0] == 0 && localSkip[1] == 0)) {
+            return params.skips;
+        }
+
+        try {
+            if (localSkip[0] > 0) {
+                JSONObject intro = new JSONObject();
+                intro.put("type", "片头");
+                intro.put("start", 0);
+                intro.put("end", localSkip[0]);
+                result.put(intro);
+            }
+            if (localSkip[1] > 0 && params.mDuration > 0) {
+                JSONObject outro = new JSONObject();
+                long duration = params.mDuration * 1000L;
+                outro.put("type", "片尾");
+                outro.put("start", duration - localSkip[1]);
+                outro.put("end", duration);
+                result.put(outro);
+            }
+        } catch (Exception e) {}
+
+        return result;
     }
 }

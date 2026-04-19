@@ -242,9 +242,17 @@ public class abd {
                     for(int i=0;i<ja.size();i++)h.add(ja.getString(i));
                 }
             }
+            if (h.isEmpty()) {
+                h.add("intro");
+                h.add("outro");
+                h.add("sponsor");
+            }
         }
         catch(Exception e){
             e.printStackTrace();
+            h.add("intro");
+            h.add("outro");
+            h.add("sponsor");
         }
         return h;
     }
@@ -445,7 +453,8 @@ public class abd {
     public static final int MENU_MODE = 128;
     public static final int MENU_SUBTITLE = 256;
     public static final int MENU_CHAPTER = 512;
-    public static final int MENU_ALL = MENU_QUALITY | MENU_DANMAKU | MENU_RATIO | MENU_ADJUST | MENU_SIZE | MENU_ALPHA | MENU_SPEED | MENU_MODE | MENU_SUBTITLE | MENU_CHAPTER;
+    public static final int MENU_SKIP = 1024;
+    public static final int MENU_ALL = MENU_QUALITY | MENU_DANMAKU | MENU_RATIO | MENU_ADJUST | MENU_SIZE | MENU_ALPHA | MENU_SPEED | MENU_MODE | MENU_SUBTITLE | MENU_CHAPTER | MENU_SKIP;
     
     private static int playerMenuConfig = -1;
     
@@ -507,5 +516,36 @@ public class abd {
             }
         } catch (Exception e) {
         }
+    }
+
+    private static final String SKIP_PREFIX = "skip_time_";
+
+    public static String getVideoSkipKey(long avid) {
+        return SKIP_PREFIX + "video_" + avid;
+    }
+
+    public static String getListSkipKey(String seasonId) {
+        return SKIP_PREFIX + "list_" + seasonId;
+    }
+
+    public static String getUpSkipKey(long mid) {
+        return SKIP_PREFIX + "up_" + mid;
+    }
+
+    public static void setSkipTime(Context context, String key, long intro, long outro) {
+        a(context).a().edit().putLong(key + "_intro", intro).putLong(key + "_outro", outro).apply();
+    }
+
+    public static long[] getSkipTime(Context context, String key) {
+        long intro = a(context).a().getLong(key + "_intro", 0);
+        long outro = a(context).a().getLong(key + "_outro", 0);
+        if (intro == 0 && outro == 0) {
+            return null;
+        }
+        return new long[]{intro, outro};
+    }
+
+    public static void clearSkipTime(Context context, String key) {
+        a(context).a().edit().remove(key + "_intro").remove(key + "_outro").apply();
     }
 }

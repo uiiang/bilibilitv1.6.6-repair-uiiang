@@ -52,6 +52,7 @@ public class xg {
         obtainResolveParams.mAuthor = vtText;
         obtainResolveParams.mHideUpIcon = !TextUtils.isEmpty(vtText);
         obtainResolveParams.mListType = 1;
+        obtainResolveParams.mListKey = "season_" + str;
         if (bangumiEpisodeEx.stat != null) {
             obtainResolveParams.mPlays = String.valueOf(bangumiEpisodeEx.stat.play);
             obtainResolveParams.mDanmakus = String.valueOf(bangumiEpisodeEx.stat.danmakus);
@@ -90,6 +91,7 @@ public class xg {
                     resolveResourceParams.mAuthor = vtText2;
                     resolveResourceParams.mHideUpIcon = !TextUtils.isEmpty(vtText2);
                     resolveResourceParams.mListType = 1;
+                    resolveResourceParams.mListKey = "season_" + a.mVideoParams.mResolveParams.mSeasonId;
                     if (bangumiEpisodeEx2.stat != null) {
                         resolveResourceParams.mPlays = String.valueOf(bangumiEpisodeEx2.stat.play);
                         resolveResourceParams.mDanmakus = String.valueOf(bangumiEpisodeEx2.stat.danmakus);
@@ -119,6 +121,7 @@ public class xg {
     }
 
     public static void b(Context context, BiliVideoDetail biliVideoDetail, BiliVideoDetail.Page page, Bundle bundle, int i) {
+        Log.i("xg", "b() called: avid=" + biliVideoDetail.mAvid + ", getMid()=" + biliVideoDetail.getMid() + ", mOwner=" + (biliVideoDetail.mOwner != null ? biliVideoDetail.mOwner.mid : "null"));
         PlayerParams a = aaj.a(context);
         yr.a(a, biliVideoDetail.mCover);
         yr.c(a, biliVideoDetail.getAuthor());
@@ -129,6 +132,8 @@ public class xg {
         ResolveResourceParams obtainResolveParams = a.mVideoParams.obtainResolveParams();
         obtainResolveParams.mSpid = biliVideoDetail.getSpid();
         obtainResolveParams.mAvid = biliVideoDetail.mAvid;
+        obtainResolveParams.mMid = biliVideoDetail.getMid();
+        obtainResolveParams.mAuthor = biliVideoDetail.getAuthor();
         obtainResolveParams.mPage = page.mPage;
         obtainResolveParams.mFrom = page.mFrom;
         obtainResolveParams.mPageTitle = page.mTitle;
@@ -194,6 +199,11 @@ public class xg {
                 resolveResourceParams.mAuthor = page2.subtitle;
                 resolveResourceParams.mHideUpIcon = !TextUtils.isEmpty(page2.subtitle);
                 resolveResourceParams.mListType = pageListType;
+                if (pageListType == 1 && obtainResolveParams.mSeasonId != null) {
+                    resolveResourceParams.mListKey = "season_" + obtainResolveParams.mSeasonId;
+                } else if (pageListType == 2) {
+                    resolveResourceParams.mListKey = "avid_" + biliVideoDetail.mAvid;
+                }
                 if (page2.plays > 0) {
                     resolveResourceParams.mPlays = String.valueOf(page2.plays);
                 }
@@ -223,6 +233,7 @@ public class xg {
 
         if (biliVideoDetail.episodes != null && biliVideoDetail.episodes.size() > 0) {
             com.alibaba.fastjson.JSONArray currentSectionEpisodes = biliVideoDetail.episodes;
+            int currentSectionId = -1;
             
             if (biliVideoDetail.sectionInfoList != null && biliVideoDetail.sectionInfoList.size() > 1) {
                 for (com.bilibili.tv.api.video.BiliVideoDetail.SectionInfo sectionInfo : biliVideoDetail.sectionInfoList) {
@@ -231,6 +242,7 @@ public class xg {
                             com.alibaba.fastjson.JSONObject ep = sectionInfo.episodes.getJSONObject(ei);
                             if (ep.getLongValue("cid") == obtainResolveParams.mCid) {
                                 currentSectionEpisodes = sectionInfo.episodes;
+                                currentSectionId = sectionInfo.id;
                                 break;
                             }
                         }
@@ -240,6 +252,7 @@ public class xg {
                     }
                 }
             }
+            final int finalSectionId = currentSectionId;
             
             int size = currentSectionEpisodes.size();
             ResolveResourceParams[] obtainResolveParamsArray = a.mVideoParams.obtainResolveParamsArray(size);
@@ -249,6 +262,9 @@ public class xg {
                 if (episodeCid == obtainResolveParams.mCid) {
                     a.mVideoParams.mResolveParams.mPage = i3;
                     a.mVideoParams.mResolveParams.mListType = 3;
+                    if (finalSectionId > 0) {
+                        a.mVideoParams.mResolveParams.mListKey = "section_" + finalSectionId;
+                    }
                     JSONObject arc = episode.getJSONObject("arc");
                     if (arc != null) {
                         if (a.mVideoParams.mResolveParams.mEpCover == null || a.mVideoParams.mResolveParams.mEpCover.isEmpty()) {
@@ -306,6 +322,9 @@ public class xg {
                         resolveResourceParams.mBadgeBgColor = badgeInfo.getString("bg_color");
                     }
                     resolveResourceParams.mListType = 3;
+                    if (finalSectionId > 0) {
+                        resolveResourceParams.mListKey = "section_" + finalSectionId;
+                    }
                     if (i > 0) {
                         resolveResourceParams.mExpectedQuality = i;
                     } else {
@@ -324,6 +343,7 @@ public class xg {
     public static void b(Activity activity, BiliVideoDetail biliVideoDetail, BiliVideoDetail.Page page, Bundle bundle, int i, int requestCode, int progress) {
         long startTime = System.currentTimeMillis();
         Log.i("PlaySpeed", "[4_XG_B_START] b() method started, cid=" + page.mCid + ", mFrom=" + page.mFrom + ", mEpisodeId=" + page.mEpisodeId + ", progress=" + progress);
+        Log.i("xg", "b(Activity) called: avid=" + biliVideoDetail.mAvid + ", getMid()=" + biliVideoDetail.getMid() + ", mOwner=" + (biliVideoDetail.mOwner != null ? biliVideoDetail.mOwner.mid : "null"));
         Log.d("CoverDebug", "========== xg.b() Cover Info ==========");
         Log.d("CoverDebug", "biliVideoDetail.mCover = " + biliVideoDetail.mCover);
         PlayerParams a = aaj.a(activity);
@@ -339,6 +359,8 @@ public class xg {
         ResolveResourceParams obtainResolveParams = a.mVideoParams.obtainResolveParams();
         obtainResolveParams.mSpid = biliVideoDetail.getSpid();
         obtainResolveParams.mAvid = biliVideoDetail.mAvid;
+        obtainResolveParams.mMid = biliVideoDetail.getMid();
+        obtainResolveParams.mAuthor = biliVideoDetail.getAuthor();
         obtainResolveParams.mPage = page.mPage;
         obtainResolveParams.mFrom = page.mFrom;
         obtainResolveParams.mPageTitle = page.mTitle;
@@ -404,6 +426,11 @@ public class xg {
                 resolveResourceParams.mAuthor = page2.subtitle;
                 resolveResourceParams.mHideUpIcon = !TextUtils.isEmpty(page2.subtitle);
                 resolveResourceParams.mListType = pageListType;
+                if (pageListType == 1 && obtainResolveParams.mSeasonId != null) {
+                    resolveResourceParams.mListKey = "season_" + obtainResolveParams.mSeasonId;
+                } else if (pageListType == 2) {
+                    resolveResourceParams.mListKey = "avid_" + biliVideoDetail.mAvid;
+                }
                 if (page2.plays > 0) {
                     resolveResourceParams.mPlays = String.valueOf(page2.plays);
                 }
@@ -428,6 +455,7 @@ public class xg {
 
         if (biliVideoDetail.episodes != null && biliVideoDetail.episodes.size() > 0) {
             com.alibaba.fastjson.JSONArray currentSectionEpisodes = biliVideoDetail.episodes;
+            int currentSectionId = -1;
             
             if (biliVideoDetail.sectionInfoList != null && biliVideoDetail.sectionInfoList.size() > 1) {
                 for (com.bilibili.tv.api.video.BiliVideoDetail.SectionInfo sectionInfo : biliVideoDetail.sectionInfoList) {
@@ -436,6 +464,7 @@ public class xg {
                             com.alibaba.fastjson.JSONObject ep = sectionInfo.episodes.getJSONObject(ei);
                             if (ep.getLongValue("cid") == obtainResolveParams.mCid) {
                                 currentSectionEpisodes = sectionInfo.episodes;
+                                currentSectionId = sectionInfo.id;
                                 break;
                             }
                         }
@@ -445,6 +474,7 @@ public class xg {
                     }
                 }
             }
+            final int finalSectionId2 = currentSectionId;
             
             int size = currentSectionEpisodes.size();
             ResolveResourceParams[] obtainResolveParamsArray = a.mVideoParams.obtainResolveParamsArray(size);
@@ -454,6 +484,9 @@ public class xg {
                 if (episodeCid == obtainResolveParams.mCid) {
                     a.mVideoParams.mResolveParams.mPage = i3;
                     a.mVideoParams.mResolveParams.mListType = 3;
+                    if (finalSectionId2 > 0) {
+                        a.mVideoParams.mResolveParams.mListKey = "section_" + finalSectionId2;
+                    }
                     JSONObject arc = episode.getJSONObject("arc");
                     if (arc != null) {
                         if (a.mVideoParams.mResolveParams.mEpCover == null || a.mVideoParams.mResolveParams.mEpCover.isEmpty()) {
@@ -509,6 +542,9 @@ public class xg {
                         resolveResourceParams.mBadgeBgColor = badgeInfo.getString("bg_color");
                     }
                     resolveResourceParams.mListType = 3;
+                    if (finalSectionId2 > 0) {
+                        resolveResourceParams.mListKey = "section_" + finalSectionId2;
+                    }
                     if (i > 0) {
                         resolveResourceParams.mExpectedQuality = i;
                     } else {
@@ -559,6 +595,8 @@ public class xg {
         ResolveResourceParams obtainResolveParams = a.mVideoParams.obtainResolveParams();
         obtainResolveParams.mSpid = biliVideoDetail.getSpid();
         obtainResolveParams.mAvid = biliVideoDetail.mAvid;
+        obtainResolveParams.mMid = biliVideoDetail.getMid();
+        obtainResolveParams.mAuthor = biliVideoDetail.getAuthor();
         obtainResolveParams.mPage = page.mPage;
         obtainResolveParams.mFrom = "cheese";
         obtainResolveParams.mPageTitle = page.mTitle;
@@ -595,6 +633,8 @@ public class xg {
 
         ResolveResourceParams obtainResolveParams = a.mVideoParams.obtainResolveParams();
         obtainResolveParams.mAvid = episodeInfo.getLongValue("aid");
+        obtainResolveParams.mMid = cheeseInfo.getJSONObject("up_info").getLongValue("mid");
+        obtainResolveParams.mAuthor = cheeseInfo.getJSONObject("up_info").getString("uname");
         obtainResolveParams.mPage = episodeInfo.getIntValue("index");
         obtainResolveParams.mFrom = "cheese";
         obtainResolveParams.mPageTitle = episodeInfo.getString("title");

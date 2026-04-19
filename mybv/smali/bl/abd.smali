@@ -14,7 +14,7 @@
 
 .field public static final MENU_ADJUST:I = 0x8
 
-.field public static final MENU_ALL:I = 0x3ff
+.field public static final MENU_ALL:I = 0x7ff
 
 .field public static final MENU_ALPHA:I = 0x20
 
@@ -30,6 +30,8 @@
 
 .field public static final MENU_SIZE:I = 0x10
 
+.field public static final MENU_SKIP:I = 0x400
+
 .field public static final MENU_SPEED:I = 0x40
 
 .field public static final MENU_SUBTITLE:I = 0x100
@@ -37,6 +39,8 @@
 .field public static final OTHER_COLUMN_COMPACT:I = 0x1
 
 .field public static final OTHER_COLUMN_NORMAL:I = 0x0
+
+.field private static final SKIP_PREFIX:Ljava/lang/String; = "skip_time_"
 
 .field public static final SPACE_MODE_ALL:I = 0x1
 
@@ -146,31 +150,31 @@
     .line 30
     sput v1, Lbl/abd;->mode_id:I
 
-    .line 274
+    .line 282
     sput v1, Lbl/abd;->homeDefaultType:I
 
-    .line 288
+    .line 296
     sput v1, Lbl/abd;->homeColumnType:I
 
-    .line 302
+    .line 310
     sput v1, Lbl/abd;->otherColumnType:I
 
-    .line 318
+    .line 326
     sput v1, Lbl/abd;->imageSizeType:I
 
-    .line 332
+    .line 340
     sput v1, Lbl/abd;->spaceDynamicMode:I
 
-    .line 386
+    .line 394
     sput v1, Lbl/abd;->cacheLimitType:I
 
-    .line 411
+    .line 419
     sput v1, Lbl/abd;->topTabConfig:I
 
-    .line 450
+    .line 459
     sput v1, Lbl/abd;->playerMenuConfig:I
 
-    .line 475
+    .line 484
     sput v1, Lbl/abd;->cdnPreference:I
 
     return-void
@@ -722,6 +726,73 @@
     goto :goto_1f
 .end method
 
+.method public static clearSkipTime(Landroid/content/Context;Ljava/lang/String;)V
+    .locals 3
+
+    .prologue
+    .line 549
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, "_intro"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-interface {v0, v1}, Landroid/content/SharedPreferences$Editor;->remove(Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, "_outro"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-interface {v0, v1}, Landroid/content/SharedPreferences$Editor;->remove(Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
+
+    .line 550
+    return-void
+.end method
+
 .method public static d(Landroid/content/Context;)I
     .locals 3
 
@@ -894,18 +965,196 @@
     goto :goto_19
 .end method
 
+.method public static getListSkipKey(Ljava/lang/String;)Ljava/lang/String;
+    .locals 2
+
+    .prologue
+    .line 528
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v1, "skip_time_list_"
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public static getSkipTime(Landroid/content/Context;Ljava/lang/String;)[J
+    .locals 8
+
+    .prologue
+    const-wide/16 v6, 0x0
+
+    .line 540
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, "_intro"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-interface {v0, v1, v6, v7}, Landroid/content/SharedPreferences;->getLong(Ljava/lang/String;J)J
+
+    move-result-wide v2
+
+    .line 541
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v4, "_outro"
+
+    invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-interface {v0, v1, v6, v7}, Landroid/content/SharedPreferences;->getLong(Ljava/lang/String;J)J
+
+    move-result-wide v4
+
+    .line 542
+    cmp-long v0, v2, v6
+
+    if-nez v0, :cond_4a
+
+    cmp-long v0, v4, v6
+
+    if-nez v0, :cond_4a
+
+    .line 543
+    const/4 v0, 0x0
+
+    .line 545
+    :goto_49
+    return-object v0
+
+    :cond_4a
+    const/4 v0, 0x2
+
+    new-array v0, v0, [J
+
+    const/4 v1, 0x0
+
+    aput-wide v2, v0, v1
+
+    const/4 v1, 0x1
+
+    aput-wide v4, v0, v1
+
+    goto :goto_49
+.end method
+
+.method public static getUpSkipKey(J)Ljava/lang/String;
+    .locals 2
+
+    .prologue
+    .line 532
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v1, "skip_time_up_"
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p0, p1}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public static getVideoSkipKey(J)Ljava/lang/String;
+    .locals 2
+
+    .prologue
+    .line 524
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v1, "skip_time_video_"
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p0, p1}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
 .method public static get_cache_limit(Landroid/content/Context;)I
     .locals 3
 
     .prologue
-    .line 394
+    .line 402
     sget v0, Lbl/abd;->cacheLimitType:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_16
 
-    .line 395
+    .line 403
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -924,7 +1173,7 @@
 
     sput v0, Lbl/abd;->cacheLimitType:I
 
-    .line 397
+    .line 405
     :cond_16
     sget v0, Lbl/abd;->cacheLimitType:I
 
@@ -937,38 +1186,38 @@
     .prologue
     const/16 v0, 0x64
 
-    .line 401
+    .line 409
     invoke-static {p0}, Lbl/abd;->get_cache_limit(Landroid/content/Context;)I
 
     move-result v1
 
-    .line 402
+    .line 410
     packed-switch v1, :pswitch_data_14
 
-    .line 407
+    .line 415
     :goto_9
     :pswitch_9
     return v0
 
-    .line 403
+    .line 411
     :pswitch_a
     const/16 v0, 0x32
 
     goto :goto_9
 
-    .line 405
+    .line 413
     :pswitch_d
     const/16 v0, 0x12c
 
     goto :goto_9
 
-    .line 406
+    .line 414
     :pswitch_10
     const/16 v0, 0x1f4
 
     goto :goto_9
 
-    .line 402
+    .line 410
     nop
 
     :pswitch_data_14
@@ -984,14 +1233,14 @@
     .locals 3
 
     .prologue
-    .line 483
+    .line 492
     sget v0, Lbl/abd;->cdnPreference:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_16
 
-    .line 484
+    .line 493
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1010,7 +1259,7 @@
 
     sput v0, Lbl/abd;->cdnPreference:I
 
-    .line 486
+    .line 495
     :cond_16
     sget v0, Lbl/abd;->cdnPreference:I
 
@@ -1082,14 +1331,14 @@
     .locals 3
 
     .prologue
-    .line 296
+    .line 304
     sget v0, Lbl/abd;->homeColumnType:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_16
 
-    .line 297
+    .line 305
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1108,7 +1357,7 @@
 
     sput v0, Lbl/abd;->homeColumnType:I
 
-    .line 299
+    .line 307
     :cond_16
     sget v0, Lbl/abd;->homeColumnType:I
 
@@ -1119,14 +1368,14 @@
     .locals 3
 
     .prologue
-    .line 282
+    .line 290
     sget v0, Lbl/abd;->homeDefaultType:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_16
 
-    .line 283
+    .line 291
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1145,7 +1394,7 @@
 
     sput v0, Lbl/abd;->homeDefaultType:I
 
-    .line 285
+    .line 293
     :cond_16
     sget v0, Lbl/abd;->homeDefaultType:I
 
@@ -1156,14 +1405,14 @@
     .locals 3
 
     .prologue
-    .line 326
+    .line 334
     sget v0, Lbl/abd;->imageSizeType:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_16
 
-    .line 327
+    .line 335
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1182,7 +1431,7 @@
 
     sput v0, Lbl/abd;->imageSizeType:I
 
-    .line 329
+    .line 337
     :cond_16
     sget v0, Lbl/abd;->imageSizeType:I
 
@@ -1230,14 +1479,14 @@
     .locals 3
 
     .prologue
-    .line 312
+    .line 320
     sget v0, Lbl/abd;->otherColumnType:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_16
 
-    .line 313
+    .line 321
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1256,7 +1505,7 @@
 
     sput v0, Lbl/abd;->otherColumnType:I
 
-    .line 315
+    .line 323
     :cond_16
     sget v0, Lbl/abd;->otherColumnType:I
 
@@ -1267,13 +1516,13 @@
     .locals 4
 
     .prologue
-    .line 263
+    .line 271
     const/4 v0, 0x0
 
-    .line 264
+    .line 272
     const-string v1, "{\"filter_on\":false,\"progressbar_on\":false,\"fastquit_on\":false,\"auto_update\":false}"
 
-    .line 266
+    .line 274
     :try_start_3
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
@@ -1295,15 +1544,15 @@
 
     move-result-object v0
 
-    .line 271
+    .line 279
     :goto_15
     return-object v0
 
-    .line 268
+    .line 276
     :catch_16
     move-exception v1
 
-    .line 269
+    .line 277
     invoke-virtual {v1}, Ljava/lang/Exception;->printStackTrace()V
 
     goto :goto_15
@@ -1313,14 +1562,14 @@
     .locals 3
 
     .prologue
-    .line 459
+    .line 468
     sget v0, Lbl/abd;->playerMenuConfig:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_17
 
-    .line 460
+    .line 469
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1331,7 +1580,7 @@
 
     const-string v1, "player_menu_config"
 
-    const/16 v2, 0x3ff
+    const/16 v2, 0x7ff
 
     invoke-interface {v0, v1, v2}, Landroid/content/SharedPreferences;->getInt(Ljava/lang/String;I)I
 
@@ -1339,7 +1588,7 @@
 
     sput v0, Lbl/abd;->playerMenuConfig:I
 
-    .line 462
+    .line 471
     :cond_17
     sget v0, Lbl/abd;->playerMenuConfig:I
 
@@ -1349,7 +1598,7 @@
 
     sput v0, Lbl/abd;->playerMenuConfig:I
 
-    .line 463
+    .line 472
     :cond_1e
     sget v0, Lbl/abd;->playerMenuConfig:I
 
@@ -1395,13 +1644,13 @@
     move-result-object v0
 
     .line 239
-    if-eqz v0, :cond_38
+    if-eqz v0, :cond_34
 
     invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
 
     move-result v2
 
-    if-nez v2, :cond_38
+    if-nez v2, :cond_34
 
     .line 240
     invoke-static {v0}, Lcom/alibaba/fastjson/JSON;->parseArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
@@ -1409,7 +1658,7 @@
     move-result-object v2
 
     .line 241
-    if-eqz v2, :cond_38
+    if-eqz v2, :cond_34
 
     .line 242
     const/4 v0, 0x0
@@ -1419,44 +1668,85 @@
 
     move-result v3
 
-    if-ge v0, v3, :cond_38
+    if-ge v0, v3, :cond_34
 
     invoke-virtual {v2, v0}, Lcom/alibaba/fastjson/JSONArray;->getString(I)Ljava/lang/String;
 
     move-result-object v3
 
     invoke-virtual {v1, v3}, Ljava/util/HashSet;->add(Ljava/lang/Object;)Z
-    :try_end_31
-    .catch Ljava/lang/Exception; {:try_start_5 .. :try_end_31} :catch_34
 
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_24
 
+    .line 245
+    :cond_34
+    invoke-virtual {v1}, Ljava/util/HashSet;->isEmpty()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_49
+
     .line 246
-    :catch_34
-    move-exception v0
+    const-string v0, "intro"
+
+    invoke-virtual {v1, v0}, Ljava/util/HashSet;->add(Ljava/lang/Object;)Z
 
     .line 247
+    const-string v0, "outro"
+
+    invoke-virtual {v1, v0}, Ljava/util/HashSet;->add(Ljava/lang/Object;)Z
+
+    .line 248
+    const-string v0, "sponsor"
+
+    invoke-virtual {v1, v0}, Ljava/util/HashSet;->add(Ljava/lang/Object;)Z
+    :try_end_49
+    .catch Ljava/lang/Exception; {:try_start_5 .. :try_end_49} :catch_4a
+
+    .line 257
+    :cond_49
+    :goto_49
+    return-object v1
+
+    .line 251
+    :catch_4a
+    move-exception v0
+
+    .line 252
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
-    .line 249
-    :cond_38
-    return-object v1
+    .line 253
+    const-string v0, "intro"
+
+    invoke-virtual {v1, v0}, Ljava/util/HashSet;->add(Ljava/lang/Object;)Z
+
+    .line 254
+    const-string v0, "outro"
+
+    invoke-virtual {v1, v0}, Ljava/util/HashSet;->add(Ljava/lang/Object;)Z
+
+    .line 255
+    const-string v0, "sponsor"
+
+    invoke-virtual {v1, v0}, Ljava/util/HashSet;->add(Ljava/lang/Object;)Z
+
+    goto :goto_49
 .end method
 
 .method public static get_space_dynamic_mode(Landroid/content/Context;)I
     .locals 3
 
     .prologue
-    .line 342
+    .line 350
     sget v0, Lbl/abd;->spaceDynamicMode:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_16
 
-    .line 343
+    .line 351
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1475,7 +1765,7 @@
 
     sput v0, Lbl/abd;->spaceDynamicMode:I
 
-    .line 345
+    .line 353
     :cond_16
     sget v0, Lbl/abd;->spaceDynamicMode:I
 
@@ -1535,7 +1825,7 @@
     .locals 1
 
     .prologue
-    .line 353
+    .line 361
     if-eqz p1, :cond_8
 
     invoke-virtual {p1}, Ljava/lang/String;->isEmpty()Z
@@ -1544,12 +1834,12 @@
 
     if-eqz v0, :cond_9
 
-    .line 360
+    .line 368
     :cond_8
     :goto_8
     return-object p1
 
-    .line 354
+    .line 362
     :cond_9
     invoke-static {p0}, Lbl/abd;->is_hd_image(Landroid/content/Context;)Z
 
@@ -1557,12 +1847,12 @@
 
     if-nez v0, :cond_8
 
-    .line 355
+    .line 363
     packed-switch p2, :pswitch_data_28
 
     goto :goto_8
 
-    .line 356
+    .line 364
     :pswitch_13
     invoke-static {p0, p1}, Lbl/ach;->a(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
 
@@ -1570,7 +1860,7 @@
 
     goto :goto_8
 
-    .line 357
+    .line 365
     :pswitch_18
     invoke-static {p0, p1}, Lbl/ach;->b(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
 
@@ -1578,7 +1868,7 @@
 
     goto :goto_8
 
-    .line 358
+    .line 366
     :pswitch_1d
     invoke-static {p0, p1}, Lbl/ach;->c(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
 
@@ -1586,7 +1876,7 @@
 
     goto :goto_8
 
-    .line 359
+    .line 367
     :pswitch_22
     invoke-static {p0, p1}, Lbl/ach;->d(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
 
@@ -1594,7 +1884,7 @@
 
     goto :goto_8
 
-    .line 355
+    .line 363
     nop
 
     :pswitch_data_28
@@ -1610,7 +1900,7 @@
     .locals 1
 
     .prologue
-    .line 365
+    .line 373
     const/4 v0, 0x0
 
     invoke-static {p0, p1, v0}, Lbl/abd;->get_thumb_url(Landroid/content/Context;Ljava/lang/String;I)Ljava/lang/String;
@@ -1624,7 +1914,7 @@
     .locals 1
 
     .prologue
-    .line 369
+    .line 377
     const/4 v0, 0x1
 
     invoke-static {p0, p1, v0}, Lbl/abd;->get_thumb_url(Landroid/content/Context;Ljava/lang/String;I)Ljava/lang/String;
@@ -1638,7 +1928,7 @@
     .locals 1
 
     .prologue
-    .line 373
+    .line 381
     const/4 v0, 0x2
 
     invoke-static {p0, p1, v0}, Lbl/abd;->get_thumb_url(Landroid/content/Context;Ljava/lang/String;I)Ljava/lang/String;
@@ -1652,7 +1942,7 @@
     .locals 1
 
     .prologue
-    .line 377
+    .line 385
     const/4 v0, 0x3
 
     invoke-static {p0, p1, v0}, Lbl/abd;->get_thumb_url(Landroid/content/Context;Ljava/lang/String;I)Ljava/lang/String;
@@ -1666,7 +1956,7 @@
     .locals 1
 
     .prologue
-    .line 381
+    .line 389
     if-eqz p1, :cond_8
 
     invoke-virtual {p1}, Ljava/lang/String;->isEmpty()Z
@@ -1675,12 +1965,12 @@
 
     if-eqz v0, :cond_9
 
-    .line 383
+    .line 391
     :cond_8
     :goto_8
     return-object p1
 
-    .line 382
+    .line 390
     :cond_9
     invoke-static {p0}, Lbl/abd;->is_hd_image(Landroid/content/Context;)Z
 
@@ -1688,7 +1978,7 @@
 
     if-nez v0, :cond_8
 
-    .line 383
+    .line 391
     invoke-static {p0, p1, p2, p3}, Lbl/ach;->a(Landroid/content/Context;Ljava/lang/String;II)Ljava/lang/String;
 
     move-result-object p1
@@ -1700,14 +1990,14 @@
     .locals 3
 
     .prologue
-    .line 426
+    .line 434
     sget v0, Lbl/abd;->topTabConfig:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_17
 
-    .line 427
+    .line 435
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1726,7 +2016,7 @@
 
     sput v0, Lbl/abd;->topTabConfig:I
 
-    .line 429
+    .line 437
     :cond_17
     sget v0, Lbl/abd;->topTabConfig:I
 
@@ -1736,7 +2026,7 @@
 
     sput v0, Lbl/abd;->topTabConfig:I
 
-    .line 430
+    .line 438
     :cond_1e
     sget v0, Lbl/abd;->topTabConfig:I
 
@@ -1810,7 +2100,7 @@
     .locals 2
 
     .prologue
-    .line 490
+    .line 499
     invoke-static {p0}, Lbl/abd;->get_cdn_preference(Landroid/content/Context;)I
 
     move-result v0
@@ -1834,7 +2124,7 @@
     .locals 1
 
     .prologue
-    .line 349
+    .line 357
     invoke-static {p0}, Lbl/abd;->get_image_size(Landroid/content/Context;)I
 
     move-result v0
@@ -1856,7 +2146,7 @@
     .locals 1
 
     .prologue
-    .line 467
+    .line 476
     invoke-static {p0}, Lbl/abd;->get_player_menu_config(Landroid/content/Context;)I
 
     move-result v0
@@ -1880,7 +2170,7 @@
     .locals 1
 
     .prologue
-    .line 434
+    .line 442
     invoke-static {p0}, Lbl/abd;->get_top_tab_config(Landroid/content/Context;)I
 
     move-result v0
@@ -1967,7 +2257,7 @@
     .locals 3
 
     .prologue
-    .line 494
+    .line 503
     if-eqz p1, :cond_8
 
     invoke-virtual {p1}, Ljava/lang/String;->isEmpty()Z
@@ -1976,45 +2266,45 @@
 
     if-eqz v0, :cond_9
 
-    .line 510
+    .line 519
     :cond_8
     :goto_8
     return-void
 
-    .line 498
+    .line 507
     :cond_9
     :try_start_9
     invoke-static {p1}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v0
 
-    .line 499
+    .line 508
     invoke-static {v0}, Lcom/facebook/imagepipeline/request/ImageRequestBuilder;->a(Landroid/net/Uri;)Lcom/facebook/imagepipeline/request/ImageRequestBuilder;
 
     move-result-object v0
 
-    .line 500
+    .line 509
     invoke-virtual {v0}, Lcom/facebook/imagepipeline/request/ImageRequestBuilder;->o()Lcom/facebook/imagepipeline/request/ImageRequest;
 
     move-result-object v0
 
-    .line 501
+    .line 510
     invoke-static {}, Lbl/ajq;->b()Lbl/aoy;
 
     move-result-object v1
 
-    .line 502
+    .line 511
     if-eqz v1, :cond_8
 
-    .line 503
+    .line 512
     invoke-virtual {v1}, Lbl/aoy;->h()Lbl/aov;
 
     move-result-object v1
 
-    .line 504
+    .line 513
     if-eqz v1, :cond_8
 
-    .line 505
+    .line 514
     const/4 v2, 0x0
 
     invoke-virtual {v1, v0, v2}, Lbl/aov;->b(Lcom/facebook/imagepipeline/request/ImageRequest;Ljava/lang/Object;)Lbl/aji;
@@ -2023,18 +2313,85 @@
 
     goto :goto_8
 
-    .line 508
+    .line 517
     :catch_26
     move-exception v0
 
     goto :goto_8
 .end method
 
+.method public static setSkipTime(Landroid/content/Context;Ljava/lang/String;JJ)V
+    .locals 4
+
+    .prologue
+    .line 536
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, "_intro"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-interface {v0, v1, p2, p3}, Landroid/content/SharedPreferences$Editor;->putLong(Ljava/lang/String;J)Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, "_outro"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-interface {v0, v1, p4, p5}, Landroid/content/SharedPreferences$Editor;->putLong(Ljava/lang/String;J)Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
+
+    .line 537
+    return-void
+.end method
+
 .method public static set_cache_limit(Landroid/content/Context;I)V
     .locals 2
 
     .prologue
-    .line 389
+    .line 397
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -2055,10 +2412,10 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 390
+    .line 398
     sput p1, Lbl/abd;->cacheLimitType:I
 
-    .line 391
+    .line 399
     return-void
 .end method
 
@@ -2066,7 +2423,7 @@
     .locals 2
 
     .prologue
-    .line 478
+    .line 487
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -2087,10 +2444,10 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 479
+    .line 488
     sput p1, Lbl/abd;->cdnPreference:I
 
-    .line 480
+    .line 489
     return-void
 .end method
 
@@ -2159,7 +2516,7 @@
     .locals 2
 
     .prologue
-    .line 291
+    .line 299
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -2180,10 +2537,10 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 292
+    .line 300
     sput p1, Lbl/abd;->homeColumnType:I
 
-    .line 293
+    .line 301
     return-void
 .end method
 
@@ -2191,7 +2548,7 @@
     .locals 2
 
     .prologue
-    .line 277
+    .line 285
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -2212,10 +2569,10 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 278
+    .line 286
     sput p1, Lbl/abd;->homeDefaultType:I
 
-    .line 279
+    .line 287
     return-void
 .end method
 
@@ -2223,7 +2580,7 @@
     .locals 2
 
     .prologue
-    .line 321
+    .line 329
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -2244,10 +2601,10 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 322
+    .line 330
     sput p1, Lbl/abd;->imageSizeType:I
 
-    .line 323
+    .line 331
     return-void
 .end method
 
@@ -2287,7 +2644,7 @@
     .locals 2
 
     .prologue
-    .line 307
+    .line 315
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -2308,10 +2665,10 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 308
+    .line 316
     sput p1, Lbl/abd;->otherColumnType:I
 
-    .line 309
+    .line 317
     return-void
 .end method
 
@@ -2319,16 +2676,16 @@
     .locals 3
 
     .prologue
-    .line 254
+    .line 262
     :try_start_0
     invoke-static {p0}, Lbl/abd;->get_personal_config(Landroid/content/Context;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 255
+    .line 263
     invoke-virtual {v0, p1, p2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 256
+    .line 264
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v1
@@ -2355,15 +2712,15 @@
     :try_end_20
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_20} :catch_21
 
-    .line 260
+    .line 268
     :goto_20
     return-void
 
-    .line 257
+    .line 265
     :catch_21
     move-exception v0
 
-    .line 258
+    .line 266
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
     goto :goto_20
@@ -2373,12 +2730,12 @@
     .locals 2
 
     .prologue
-    .line 453
+    .line 462
     if-nez p1, :cond_3
 
     const/4 p1, 0x1
 
-    .line 454
+    .line 463
     :cond_3
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
@@ -2400,10 +2757,10 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 455
+    .line 464
     sput p1, Lbl/abd;->playerMenuConfig:I
 
-    .line 456
+    .line 465
     return-void
 .end method
 
@@ -2467,7 +2824,7 @@
     .locals 2
 
     .prologue
-    .line 337
+    .line 345
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -2488,10 +2845,10 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 338
+    .line 346
     sput p1, Lbl/abd;->spaceDynamicMode:I
 
-    .line 339
+    .line 347
     return-void
 .end method
 
@@ -2531,12 +2888,12 @@
     .locals 2
 
     .prologue
-    .line 420
+    .line 428
     if-nez p1, :cond_3
 
     const/4 p1, 0x1
 
-    .line 421
+    .line 429
     :cond_3
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
@@ -2558,10 +2915,10 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 422
+    .line 430
     sput p1, Lbl/abd;->topTabConfig:I
 
-    .line 423
+    .line 431
     return-void
 .end method
 

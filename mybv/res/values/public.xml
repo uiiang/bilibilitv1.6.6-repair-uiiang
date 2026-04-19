@@ -2757,6 +2757,8 @@
     <public type="layout" name="player_episode_menu" id="0x7f0a00a1" />
     <public type="layout" name="dialog_tag_filter_menu" id="0x7f0a00a2" />
     <public type="layout" name="item_tag_filter" id="0x7f0a00a3" />
+    <public type="layout" name="dialog_skip_setting" id="0x7f0a00a4" />
+    <public type="layout" name="item_skip_time_picker" id="0x7f0a00a5" />
 
 
     <public type="mipmap" name="ic_launcher" id="0x7f0b0000" />
@@ -3148,6 +3150,16 @@
     <public type="string" name="area_tv" id="0x7f0c0180" />
     <public type="string" name="area_doc" id="0x7f0c0181" />
     <public type="string" name="player_chapter_tip" id="0x7f0c0182" />
+    <public type="string" name="skip_setting" id="0x7f0c0183" />
+    <public type="string" name="skip_intro" id="0x7f0c0184" />
+    <public type="string" name="skip_outro" id="0x7f0c0185" />
+    <public type="string" name="skip_scope_video" id="0x7f0c0186" />
+    <public type="string" name="skip_scope_list" id="0x7f0c0187" />
+    <public type="string" name="skip_scope_up" id="0x7f0c0188" />
+    <public type="string" name="skip_save" id="0x7f0c0189" />
+    <public type="string" name="skip_cancel" id="0x7f0c018a" />
+    <public type="string" name="skip_saved" id="0x7f0c018b" />
+    <public type="string" name="skip_cleared" id="0x7f0c018c" />
 
 
     <public type="style" name="AlertDialog.AppCompat" id="0x7f0d0000" />
@@ -3533,4 +3545,18 @@
     <public type="xml" name="network_security_config" id="0x7f0f0003" />
     <public type="xml" name="provider_paths" id="0x7f0f0004" />
     <public type="drawable" name="video_info_bottom_round_bg" id="0x7f07010d" />
+    <public type="id" name="intro_time" id="0x7f080203" />
+    <public type="id" name="outro_time" id="0x7f080204" />
+    <public type="id" name="scope_group" id="0x7f080205" />
+    <public type="id" name="scope_current_video" id="0x7f080206" />
+    <public type="id" name="scope_current_list" id="0x7f080207" />
+    <public type="id" name="scope_current_up" id="0x7f080208" />
+    <public type="id" name="btn_save_skip" id="0x7f080209" />
+    <public type="id" name="btn_cancel_skip" id="0x7f08020a" />
+    <public type="id" name="time_display" id="0x7f08020b" />
+    <public type="id" name="menu_skip_btn" id="0x7f08020c" />
+    <public type="id" name="intro_time_display" id="0x7f08020d" />
+    <public type="id" name="outro_time_display" id="0x7f08020e" />
+    <public type="id" name="btn_save_skip_layout" id="0x7f08020f" />
+    <public type="id" name="btn_cancel_skip_layout" id="0x7f080210" />
 </resources>

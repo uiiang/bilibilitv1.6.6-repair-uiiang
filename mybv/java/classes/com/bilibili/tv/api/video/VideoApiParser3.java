@@ -45,6 +45,8 @@ public class VideoApiParser3 implements vu<GeneralResponse<BiliVideoDetail>> {
                 LogUtil.i("VideoInfoApi", "========== Parsed BiliVideoDetail ==========");
                 LogUtil.i("VideoInfoApi", "mCover = " + videoDetail.mCover);
                 LogUtil.i("VideoInfoApi", "mTitle = " + videoDetail.mTitle);
+                LogUtil.i("VideoInfoApi", "mOwner = " + (videoDetail.mOwner != null ? "mid=" + videoDetail.mOwner.mid + ",name=" + videoDetail.mOwner.name : "null"));
+                LogUtil.i("VideoInfoApi", "getMid() = " + videoDetail.getMid());
                 videoDetail.mTitle = unescapeHtml(videoDetail.mTitle);
                 videoDetail.mDescription = unescapeHtml(videoDetail.mDescription);
                 if (!videoDetail.canDownload()) {

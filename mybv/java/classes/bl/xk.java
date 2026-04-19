@@ -20,6 +20,9 @@ import tv.danmaku.videoplayer.core.danmaku.comment.DrawableItem;
 import tv.danmaku.videoplayer.core.context.BiliPlayerContext;
 import tv.danmaku.videoplayer.core.danmaku.DanmakuPlayerDFM;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 /* compiled from: BL */
 /* loaded from: classes.dex */
 public class xk extends xh implements bbb<Message, Boolean> {
@@ -73,15 +76,50 @@ public class xk extends xh implements bbb<Message, Boolean> {
         if (bc == null || bc.mDanmakuPlayerContext == null) return;
         final DanmakuPlayerDFM dp = (DanmakuPlayerDFM) bc.mDanmakuPlayerContext.mDanmakuPlayer;
         final xk self = this;
-        
+
+        xj _xj = (xj) self.next().next().next().next().next();
+        if (_xj != null) {
+            JSONArray localSkips = getLocalEffectiveSkips(resolveParams);
+            _xj.skips = localSkips;
+            _xj.resetSkipFlags();
+            if (dp != null && dp.mDanmakuView != null) {
+                ((bgy)dp.mDanmakuView)._xj = _xj;
+            }
+        }
+
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     resolveParams.initPlayInfo();
+                    
                     xj _xj = (xj) self.next().next().next().next().next();
                     if (_xj != null) {
-                        _xj.skips = resolveParams.skips;
+                        JSONArray localSkips = getLocalEffectiveSkips(resolveParams);
+                        JSONArray serverSkips = resolveParams.skips;
+                        
+                        JSONArray mergedSkips = new org.json.JSONArray();
+                        
+                        if (localSkips != null && localSkips.length() > 0) {
+                            for (int i = 0; i < localSkips.length(); i++) {
+                                mergedSkips.put(localSkips.optJSONObject(i));
+                            }
+                        }
+                        
+                        if (serverSkips != null && serverSkips.length() > 0) {
+                            for (int i = 0; i < serverSkips.length(); i++) {
+                                JSONObject skip = serverSkips.optJSONObject(i);
+                                String type = skip.optString("type");
+                                if (!"片头".equals(type) && !"片尾".equals(type)) {
+                                    mergedSkips.put(skip);
+                                }
+                            }
+                        }
+                        
+                        if (mergedSkips.length() > 0) {
+                            _xj.skips = mergedSkips;
+                        }
+                        _xj.resetSkipFlags();
                     }
                     if (dp != null && dp.mDanmakuView != null) {
                         ((bgy)dp.mDanmakuView)._xj = _xj;
@@ -92,6 +130,78 @@ public class xk extends xh implements bbb<Message, Boolean> {
                 }
             }
         }).start();
+    }
+
+    private JSONArray getLocalEffectiveSkips(ResolveResourceParams params) {
+        JSONArray result = new org.json.JSONArray();
+        long[] localSkip = null;
+
+        if (!android.text.TextUtils.isEmpty(params.mListKey)) {
+            localSkip = abd.getSkipTime(p(), "skip_list_" + params.mListKey);
+        }
+        if (localSkip == null || (localSkip[0] == 0 && localSkip[1] == 0)) {
+            localSkip = abd.getSkipTime(p(), abd.getVideoSkipKey(params.mAvid));
+        }
+
+        if (localSkip == null || (localSkip[0] == 0 && localSkip[1] == 0)) {
+            return null;
+        }
+
+        try {
+            if (localSkip[0] > 0) {
+                JSONObject intro = new JSONObject();
+                intro.put("type", "片头");
+                intro.put("start", 0);
+                intro.put("end", localSkip[0]);
+                result.put(intro);
+            }
+            if (localSkip[1] > 0 && params.mDuration > 0) {
+                JSONObject outro = new JSONObject();
+                long duration = params.mDuration * 1000L;
+                outro.put("type", "片尾");
+                outro.put("start", duration - localSkip[1]);
+                outro.put("end", duration);
+                result.put(outro);
+            }
+        } catch (Exception e) {}
+
+        return result;
+    }
+
+    private JSONArray getEffectiveSkips(ResolveResourceParams params) {
+        JSONArray result = new org.json.JSONArray();
+        long[] localSkip = null;
+
+        if (!android.text.TextUtils.isEmpty(params.mListKey)) {
+            localSkip = abd.getSkipTime(p(), "skip_list_" + params.mListKey);
+        }
+        if (localSkip == null || (localSkip[0] == 0 && localSkip[1] == 0)) {
+            localSkip = abd.getSkipTime(p(), abd.getVideoSkipKey(params.mAvid));
+        }
+
+        if (localSkip == null || (localSkip[0] == 0 && localSkip[1] == 0)) {
+            return params.skips;
+        }
+
+        try {
+            if (localSkip[0] > 0) {
+                JSONObject intro = new JSONObject();
+                intro.put("type", "片头");
+                intro.put("start", 0);
+                intro.put("end", localSkip[0]);
+                result.put(intro);
+            }
+            if (localSkip[1] > 0 && params.mDuration > 0) {
+                JSONObject outro = new JSONObject();
+                long duration = params.mDuration * 1000L;
+                outro.put("type", "片尾");
+                outro.put("start", duration - localSkip[1]);
+                outro.put("end", duration);
+                result.put(outro);
+            }
+        } catch (Exception e) {}
+
+        return result;
     }
 
 

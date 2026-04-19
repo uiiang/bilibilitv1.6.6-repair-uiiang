@@ -89,6 +89,8 @@ public class PlayerMenuRight extends aay<String> {
         void refresh_subtitle();
 
         void jumpToChapter(int chapterIndex);
+
+        void showSkipSettingDialog();
     }
 
     private void jumpToChapter(int chapterIndex) {
@@ -435,8 +437,12 @@ public class PlayerMenuRight extends aay<String> {
                 this.d.refresh_subtitle();
             }
             if (this.chapter_list != null && this.chapter_list.contains(str)) {
-                // 处理章节列表项点击
                 jumpToChapter(i2);
+                return true;
+            }
+            if (TextUtils.equals(str, "跳过设置")) {
+                a(false);
+                this.d.showSkipSettingDialog();
                 return true;
             }
         }
@@ -503,6 +509,9 @@ public class PlayerMenuRight extends aay<String> {
                 break;
             case 9:
                 i3 = 0; // 章节列表默认选中第一个
+                break;
+            case 10:
+                i3 = 0; // 跳过设置
                 break;
             default:
                 i3 = 0;
