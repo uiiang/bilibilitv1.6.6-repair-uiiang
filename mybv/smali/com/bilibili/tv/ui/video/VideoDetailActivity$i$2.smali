@@ -34,7 +34,7 @@
     .locals 0
 
     .prologue
-    .line 4465
+    .line 4649
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
@@ -48,7 +48,7 @@
     .locals 0
 
     .prologue
-    .line 4465
+    .line 4649
     check-cast p1, Ljava/util/List;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$2;->a(Ljava/util/List;)V
@@ -71,7 +71,7 @@
     .prologue
     const/16 v1, 0x8
 
-    .line 4485
+    .line 4669
     if-eqz p1, :cond_a
 
     invoke-interface {p1}, Ljava/util/List;->isEmpty()Z
@@ -80,7 +80,7 @@
 
     if-eqz v0, :cond_35
 
-    .line 4486
+    .line 4670
     :cond_a
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
@@ -93,7 +93,7 @@
 
     if-eqz v0, :cond_1f
 
-    .line 4487
+    .line 4671
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -105,7 +105,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 4489
+    .line 4673
     :cond_1f
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
@@ -118,7 +118,7 @@
 
     if-eqz v0, :cond_34
 
-    .line 4490
+    .line 4674
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -130,17 +130,17 @@
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
 
-    .line 4496
+    .line 4680
     :cond_34
     :goto_34
     return-void
 
-    .line 4495
+    .line 4679
     :cond_35
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->createRelateVideoSectionView(Ljava/util/List;)V
-    invoke-static {v0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->access$6300(Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;Ljava/util/List;)V
+    invoke-static {v0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->access$6400(Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;Ljava/util/List;)V
 
     goto :goto_34
 .end method
@@ -149,7 +149,7 @@
     .locals 1
 
     .prologue
-    .line 4468
+    .line 4652
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -167,7 +167,7 @@
     .prologue
     const/16 v1, 0x8
 
-    .line 4473
+    .line 4657
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -177,13 +177,13 @@
 
     move-result-object v0
 
-    .line 4474
+    .line 4658
     if-eqz v0, :cond_f
 
-    .line 4475
+    .line 4659
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 4477
+    .line 4661
     :cond_f
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
@@ -194,13 +194,13 @@
 
     move-result-object v0
 
-    .line 4478
+    .line 4662
     if-eqz v0, :cond_1c
 
-    .line 4479
+    .line 4663
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
 
-    .line 4481
+    .line 4665
     :cond_1c
     return-void
 .end method

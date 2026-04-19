@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 5128
+    .line 5312
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 5129
+    .line 5313
     return-void
 .end method
 
@@ -30,10 +30,10 @@
     .locals 0
 
     .prologue
-    .line 5132
+    .line 5316
     invoke-direct {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;-><init>()V
 
-    .line 5133
+    .line 5317
     return-void
 .end method
 
@@ -43,34 +43,34 @@
     .locals 4
 
     .prologue
-    .line 5140
+    .line 5324
     const-string v0, "context"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 5141
+    .line 5325
     new-instance v0, Landroid/content/Intent;
 
     const-class v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {v0, p1, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
 
-    .line 5142
+    .line 5326
     new-instance v1, Landroid/os/Bundle;
 
     invoke-direct {v1}, Landroid/os/Bundle;-><init>()V
 
-    .line 5143
+    .line 5327
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a()Ljava/lang/String;
 
     move-result-object v2
 
     invoke-virtual {v1, v2, p2, p3}, Landroid/os/Bundle;->putLong(Ljava/lang/String;J)V
 
-    .line 5144
+    .line 5328
     invoke-virtual {v0, v1}, Landroid/content/Intent;->putExtras(Landroid/os/Bundle;)Landroid/content/Intent;
 
-    .line 5145
+    .line 5329
     return-object v0
 .end method
 
@@ -78,43 +78,43 @@
     .locals 4
 
     .prologue
-    .line 5181
+    .line 5365
     const-string v0, "context"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 5182
+    .line 5366
     new-instance v0, Landroid/content/Intent;
 
     const-class v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {v0, p1, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
 
-    .line 5183
+    .line 5367
     new-instance v1, Landroid/os/Bundle;
 
     invoke-direct {v1}, Landroid/os/Bundle;-><init>()V
 
-    .line 5184
+    .line 5368
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a()Ljava/lang/String;
 
     move-result-object v2
 
     invoke-virtual {v1, v2, p2, p3}, Landroid/os/Bundle;->putLong(Ljava/lang/String;J)V
 
-    .line 5185
+    .line 5369
     if-eqz p4, :cond_1f
 
-    .line 5186
+    .line 5370
     const-string v2, "preload_cover"
 
     invoke-virtual {v1, v2, p4}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 5188
+    .line 5372
     :cond_1f
     invoke-virtual {v0, v1}, Landroid/content/Intent;->putExtras(Landroid/os/Bundle;)Landroid/content/Intent;
 
-    .line 5189
+    .line 5373
     return-object v0
 .end method
 
@@ -122,37 +122,37 @@
     .locals 3
 
     .prologue
-    .line 5149
+    .line 5333
     const-string v0, "context"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 5150
+    .line 5334
     const-string v0, "seasonId"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 5151
+    .line 5335
     new-instance v0, Landroid/content/Intent;
 
     const-class v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {v0, p1, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
 
-    .line 5152
+    .line 5336
     new-instance v1, Landroid/os/Bundle;
 
     invoke-direct {v1}, Landroid/os/Bundle;-><init>()V
 
-    .line 5153
+    .line 5337
     const-string v2, "bundle_season_id"
 
     invoke-virtual {v1, v2, p2}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 5154
+    .line 5338
     invoke-virtual {v0, v1}, Landroid/content/Intent;->putExtras(Landroid/os/Bundle;)Landroid/content/Intent;
 
-    .line 5155
+    .line 5339
     return-object v0
 .end method
 
@@ -160,46 +160,46 @@
     .locals 3
 
     .prologue
-    .line 5159
+    .line 5343
     const-string v0, "context"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 5160
+    .line 5344
     const-string v0, "seasonId"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 5161
+    .line 5345
     new-instance v0, Landroid/content/Intent;
 
     const-class v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {v0, p1, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
 
-    .line 5162
+    .line 5346
     new-instance v1, Landroid/os/Bundle;
 
     invoke-direct {v1}, Landroid/os/Bundle;-><init>()V
 
-    .line 5163
+    .line 5347
     const-string v2, "bundle_season_id"
 
     invoke-virtual {v1, v2, p2}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 5164
+    .line 5348
     if-eqz p3, :cond_22
 
-    .line 5165
+    .line 5349
     const-string v2, "preload_cover"
 
     invoke-virtual {v1, v2, p3}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 5167
+    .line 5351
     :cond_22
     invoke-virtual {v0, v1}, Landroid/content/Intent;->putExtras(Landroid/os/Bundle;)Landroid/content/Intent;
 
-    .line 5168
+    .line 5352
     return-object v0
 .end method
 
@@ -207,7 +207,7 @@
     .locals 1
 
     .prologue
-    .line 5136
+    .line 5320
     const-string v0, "bundle_ac_id"
 
     return-object v0
@@ -217,24 +217,24 @@
     .locals 4
 
     .prologue
-    .line 5172
+    .line 5356
     const-string v0, "context"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 5173
+    .line 5357
     new-instance v0, Landroid/content/Intent;
 
     const-class v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {v0, p1, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
 
-    .line 5174
+    .line 5358
     new-instance v1, Landroid/os/Bundle;
 
     invoke-direct {v1}, Landroid/os/Bundle;-><init>()V
 
-    .line 5175
+    .line 5359
     const-string v2, "bundle_season_id"
 
     invoke-static {p2}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
@@ -243,9 +243,9 @@
 
     invoke-virtual {v1, v2, v3}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 5176
+    .line 5360
     invoke-virtual {v0, v1}, Landroid/content/Intent;->putExtras(Landroid/os/Bundle;)Landroid/content/Intent;
 
-    .line 5177
+    .line 5361
     return-object v0
 .end method

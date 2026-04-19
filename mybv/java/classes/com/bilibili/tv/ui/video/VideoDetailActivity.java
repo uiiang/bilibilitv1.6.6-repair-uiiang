@@ -1441,6 +1441,7 @@ public final class VideoDetailActivity extends BaseActivity
         loadPgcSeasonInfo(mSeasonId, new PgcLoadCallback() {
             @Override
             public void onSuccess(PgcInfo pgcInfo) {
+                // android.util.Log.i("PgcLoad", "=== onSuccess === pgcInfo=" + (pgcInfo != null ? pgcInfo.title : "null"));
                 if (pgcInfo == null || pgcInfo.episodes == null || pgcInfo.episodes.isEmpty()) {
                     VideoDetailActivity.this.runOnUiThread(new Runnable() {
                     @Override
@@ -1456,10 +1457,12 @@ public final class VideoDetailActivity extends BaseActivity
             }
             mPgcInfo = pgcInfo;
             BiliVideoDetail detail = convertPgcToBiliVideoDetail(pgcInfo);
+            // android.util.Log.i("PgcLoad", "detail.hasStaff=" + detail.hasStaff() + ", detail.getAuthor=" + detail.getAuthor());
             s = detail.mAvid;
             VideoDetailActivity.this.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    // android.util.Log.i("PgcLoad", "runOnUiThread: A=" + A + ", mEntryType=" + mEntryType);
                     if (VideoDetailActivity.this.isFinishing()) {
                         return;
                     }
@@ -1566,6 +1569,17 @@ public final class VideoDetailActivity extends BaseActivity
         
         detail.mOwner = new BiliUser();
         detail.mStaffList = new ArrayList<>();
+        
+        // android.util.Log.i("PgcProducer", "producer=" + (pgcInfo.producer != null ? "not null" : "null"));
+        if (pgcInfo.producer != null) {
+            // android.util.Log.i("PgcProducer", "producer.list=" + (pgcInfo.producer.list != null ? "size=" + pgcInfo.producer.list.size() : "null"));
+            if (pgcInfo.producer.list != null) {
+                for (int i = 0; i < pgcInfo.producer.list.size(); i++) {
+                    PgcInfo.ProducerInfo pi = pgcInfo.producer.list.get(i);
+                    // android.util.Log.i("PgcProducer", "producer[" + i + "]: mid=" + pi.mid + ", name=" + pi.name + ", face=" + pi.face);
+                }
+            }
+        }
         
         if (pgcInfo.producer != null && pgcInfo.producer.list != null && !pgcInfo.producer.list.isEmpty()) {
             for (PgcInfo.ProducerInfo pi : pgcInfo.producer.list) {
@@ -2174,30 +2188,30 @@ public final class VideoDetailActivity extends BaseActivity
     private void loadPgcInfo(BiliVideoDetail biliVideoDetail) {
         String seasonId = extractSeasonId(biliVideoDetail);
         if (TextUtils.isEmpty(seasonId)) {
-            android.util.Log.i("PgcInfo", "seasonId is empty, skip loading PGC info");
+            // android.util.Log.i("PgcInfo", "seasonId is empty, skip loading PGC info");
             return;
         }
-        android.util.Log.i("PgcInfo", "loading PGC info for seasonId: " + seasonId);
+        // android.util.Log.i("PgcInfo", "loading PGC info for seasonId: " + seasonId);
         
         loadPgcSeasonInfo(seasonId, new PgcLoadCallback() {
             @Override
             public void onSuccess(PgcInfo pgcInfo) {
-                android.util.Log.i("PgcInfo", "=== loadPgcInfo onSuccess ===");
+                // android.util.Log.i("PgcInfo", "=== loadPgcInfo onSuccess ===");
                 if (pgcInfo == null) {
-                    android.util.Log.i("PgcInfo", "pgcInfo is null");
+                    // android.util.Log.i("PgcInfo", "pgcInfo is null");
                     return;
                 }
-                android.util.Log.i("PgcInfo", "got PGC info: " + pgcInfo.title + ", episodes=" + (pgcInfo.episodes != null ? pgcInfo.episodes.size() : 0));
+                // android.util.Log.i("PgcInfo", "got PGC info: " + pgcInfo.title + ", episodes=" + (pgcInfo.episodes != null ? pgcInfo.episodes.size() : 0));
                 mPgcInfo = pgcInfo;
                 updateBiliVideoDetailWithPgcInfo(biliVideoDetail, pgcInfo);
-                android.util.Log.i("PgcInfo", "updateBiliVideoDetailWithPgcInfo done, posting to UI thread");
+                // android.util.Log.i("PgcInfo", "updateBiliVideoDetailWithPgcInfo done, posting to UI thread");
                 VideoDetailActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         if (VideoDetailActivity.this.isFinishing()) {
                             return;
                         }
-                        android.util.Log.i("PgcInfo", "=== runOnUiThread: showPgcInfo ===");
+                        // android.util.Log.i("PgcInfo", "=== runOnUiThread: showPgcInfo ===");
                         
                         View contentView = VideoDetailActivity.this.m;
                         if (contentView != null) {
@@ -2228,26 +2242,29 @@ public final class VideoDetailActivity extends BaseActivity
                         }
                         
                         showPgcInfo(pgcInfo);
-                        android.util.Log.i("PgcInfo", "showPgcInfo done");
+                        // android.util.Log.i("PgcInfo", "showPgcInfo done");
+                        
+                        updateStaffDisplay(biliVideoDetail);
+                        // android.util.Log.i("PgcInfo", "updateStaffDisplay done");
                         
                         updateBasicVideoInfo(biliVideoDetail);
-                        android.util.Log.i("PgcInfo", "updateBasicVideoInfo done");
+                        // android.util.Log.i("PgcInfo", "updateBasicVideoInfo done");
                         
                         initDefaultPlayButtons(biliVideoDetail);
-                        android.util.Log.i("PgcInfo", "initDefaultPlayButtons done");
+                        // android.util.Log.i("PgcInfo", "initDefaultPlayButtons done");
                         
                         loadArchiveRelation(biliVideoDetail);
-                        android.util.Log.i("PgcInfo", "loadArchiveRelation done");
+                        // android.util.Log.i("PgcInfo", "loadArchiveRelation done");
                         
                         if (biliVideoDetail.mHistory != null) {
-                            android.util.Log.i("PgcInfo", "History already set from PGC progress, updating display");
+                            // android.util.Log.i("PgcInfo", "History already set from PGC progress, updating display");
                             updateHistoryDisplay(biliVideoDetail);
                             if (VideoDetailActivity.this.historyPlayBtnLayout != null &&
                                     VideoDetailActivity.this.historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
                                 VideoDetailActivity.this.historyPlayBtnLayout.requestFocus();
                             }
                         } else {
-                            android.util.Log.i("PgcInfo", "No history, calling loadHistory");
+                            // android.util.Log.i("PgcInfo", "No history, calling loadHistory");
                             loadHistory(biliVideoDetail);
                         }
                     }
@@ -2256,19 +2273,19 @@ public final class VideoDetailActivity extends BaseActivity
 
             @Override
             public void onError(String message) {
-                android.util.Log.e("PgcInfo", "loadPgcInfo error: " + message);
+                // android.util.Log.e("PgcInfo", "loadPgcInfo error: " + message);
             }
         });
     }
     
     private void updateBiliVideoDetailWithPgcInfo(BiliVideoDetail biliVideoDetail, PgcInfo pgcInfo) {
-        android.util.Log.i("PgcInfo", "=== updateBiliVideoDetailWithPgcInfo ===");
-        android.util.Log.i("PgcInfo", "biliVideoDetail=" + (biliVideoDetail != null ? "not null" : "null"));
-        android.util.Log.i("PgcInfo", "pgcInfo=" + (pgcInfo != null ? "not null, title=" + pgcInfo.title : "null"));
-        android.util.Log.i("PgcInfo", "pgcInfo.episodes=" + (pgcInfo != null && pgcInfo.episodes != null ? "size=" + pgcInfo.episodes.size() : "null"));
+        // android.util.Log.i("PgcInfo", "=== updateBiliVideoDetailWithPgcInfo ===");
+        // android.util.Log.i("PgcInfo", "biliVideoDetail=" + (biliVideoDetail != null ? "not null" : "null"));
+        // android.util.Log.i("PgcInfo", "pgcInfo=" + (pgcInfo != null ? "not null, title=" + pgcInfo.title : "null"));
+        // android.util.Log.i("PgcInfo", "pgcInfo.episodes=" + (pgcInfo != null && pgcInfo.episodes != null ? "size=" + pgcInfo.episodes.size() : "null"));
         
         if (biliVideoDetail == null || pgcInfo == null || pgcInfo.episodes == null) {
-            android.util.Log.i("PgcInfo", "Early return: null check failed");
+            // android.util.Log.i("PgcInfo", "Early return: null check failed");
             return;
         }
         
@@ -2277,25 +2294,25 @@ public final class VideoDetailActivity extends BaseActivity
         }
         biliVideoDetail.mBangumiInfo.mSeasonId = String.valueOf(pgcInfo.seasonId);
         biliVideoDetail.mBangumiInfo.mTitle = pgcInfo.title;
-        android.util.Log.i("PgcInfo", "Set mBangumiInfo.mSeasonId=" + biliVideoDetail.mBangumiInfo.mSeasonId);
+        // android.util.Log.i("PgcInfo", "Set mBangumiInfo.mSeasonId=" + biliVideoDetail.mBangumiInfo.mSeasonId);
         
         long originalCid = 0;
         if (biliVideoDetail.mPageList != null && !biliVideoDetail.mPageList.isEmpty()) {
             originalCid = biliVideoDetail.mPageList.get(0).mCid;
         }
-        android.util.Log.i("PgcInfo", "originalCid=" + originalCid);
+        // android.util.Log.i("PgcInfo", "originalCid=" + originalCid);
         
         boolean foundInEpisodes = false;
         for (PgcInfo.Episode ep : pgcInfo.episodes) {
             if (ep.cid == originalCid) {
                 foundInEpisodes = true;
-                android.util.Log.i("PgcInfo", "Found matching episode: ep_id=" + ep.id + ", cid=" + ep.cid);
+                // android.util.Log.i("PgcInfo", "Found matching episode: ep_id=" + ep.id + ", cid=" + ep.cid);
                 break;
             }
         }
         
         if (!foundInEpisodes && originalCid > 0) {
-            android.util.Log.i("PgcInfo", "Original cid " + originalCid + " not found in PGC episodes, keeping original mPageList");
+            // android.util.Log.i("PgcInfo", "Original cid " + originalCid + " not found in PGC episodes, keeping original mPageList");
             return;
         }
         
@@ -2308,7 +2325,7 @@ public final class VideoDetailActivity extends BaseActivity
             BiliVideoDetail.Page page = convertEpisodeToPage(ep, i + 1);
             biliVideoDetail.mPageList.add(page);
         }
-        android.util.Log.i("PgcInfo", "Updated mPageList with " + biliVideoDetail.mPageList.size() + " episodes");
+        // android.util.Log.i("PgcInfo", "Updated mPageList with " + biliVideoDetail.mPageList.size() + " episodes");
         
         if (pgcInfo.stat != null) {
             if (biliVideoDetail.mStat == null) {
@@ -2316,7 +2333,40 @@ public final class VideoDetailActivity extends BaseActivity
             }
             biliVideoDetail.mStat.mPlays = String.valueOf(pgcInfo.stat.views);
             biliVideoDetail.mStat.mDanmakus = String.valueOf(pgcInfo.stat.danmakus);
-            android.util.Log.i("PgcInfo", "Updated mStat: plays=" + pgcInfo.stat.views + ", danmakus=" + pgcInfo.stat.danmakus);
+            // android.util.Log.i("PgcInfo", "Updated mStat: plays=" + pgcInfo.stat.views + ", danmakus=" + pgcInfo.stat.danmakus);
+        }
+        
+        if (biliVideoDetail.mOwner == null) {
+            biliVideoDetail.mOwner = new BiliUser();
+        }
+        if (biliVideoDetail.mStaffList == null) {
+            biliVideoDetail.mStaffList = new ArrayList<>();
+        }
+        
+        if (pgcInfo.producer != null && pgcInfo.producer.list != null && !pgcInfo.producer.list.isEmpty()) {
+            biliVideoDetail.mStaffList.clear();
+            for (PgcInfo.ProducerInfo pi : pgcInfo.producer.list) {
+                BiliVideoDetail.Staff staff = new BiliVideoDetail.Staff();
+                staff.mid = pi.mid;
+                staff.name = pi.name;
+                staff.face = pi.face;
+                biliVideoDetail.mStaffList.add(staff);
+            }
+            biliVideoDetail.mOwner.mid = biliVideoDetail.mStaffList.get(0).mid;
+            biliVideoDetail.mOwner.name = biliVideoDetail.mStaffList.get(0).name;
+            biliVideoDetail.mOwner.face = biliVideoDetail.mStaffList.get(0).face;
+            // android.util.Log.i("PgcInfo", "Updated mStaffList from producer: size=" + biliVideoDetail.mStaffList.size());
+        } else if (pgcInfo.upInfo != null) {
+            biliVideoDetail.mOwner.mid = pgcInfo.upInfo.mid;
+            biliVideoDetail.mOwner.name = pgcInfo.upInfo.name;
+            biliVideoDetail.mOwner.face = pgcInfo.upInfo.face;
+            biliVideoDetail.mStaffList.clear();
+            BiliVideoDetail.Staff staff = new BiliVideoDetail.Staff();
+            staff.mid = pgcInfo.upInfo.mid;
+            staff.name = pgcInfo.upInfo.name;
+            staff.face = pgcInfo.upInfo.face;
+            biliVideoDetail.mStaffList.add(staff);
+            // android.util.Log.i("PgcInfo", "Updated mOwner from upInfo: name=" + pgcInfo.upInfo.name);
         }
         
         if (pgcInfo.userStatus != null && pgcInfo.userStatus.progress != null) {
@@ -2324,7 +2374,7 @@ public final class VideoDetailActivity extends BaseActivity
             long lastEpId = progress.lastEpId;
             int lastTime = progress.lastTime;
             
-            android.util.Log.i("PgcInfo", "Found user progress: last_ep_id=" + lastEpId + ", last_time=" + lastTime + "s");
+            // android.util.Log.i("PgcInfo", "Found user progress: last_ep_id=" + lastEpId + ", last_time=" + lastTime + "s");
             
             long historyCid = 0;
             for (PgcInfo.Episode ep : pgcInfo.episodes) {
@@ -2339,24 +2389,24 @@ public final class VideoDetailActivity extends BaseActivity
                 history.mCid = historyCid;
                 history.mProgress = lastTime;
                 biliVideoDetail.mHistory = history;
-                android.util.Log.i("PgcInfo", "Set history: cid=" + historyCid + ", progress=" + lastTime + "s (允许progress=0)");
+                // android.util.Log.i("PgcInfo", "Set history: cid=" + historyCid + ", progress=" + lastTime + "s (允许progress=0)");
             }
         }
     }
 
     private void updateBasicVideoInfo(BiliVideoDetail biliVideoDetail) {
-        android.util.Log.i("PgcInfo", "=== updateBasicVideoInfo ===");
+        // android.util.Log.i("PgcInfo", "=== updateBasicVideoInfo ===");
         
         TextView playCountView = this.e;
         if (playCountView != null) {
             playCountView.setText(adh.a(biliVideoDetail.getPlays()));
-            android.util.Log.i("PgcInfo", "Updated play count: " + biliVideoDetail.getPlays());
+            // android.util.Log.i("PgcInfo", "Updated play count: " + biliVideoDetail.getPlays());
         }
         
         TextView danmakuCountView = this.ff;
         if (danmakuCountView != null) {
             danmakuCountView.setText(adh.a(biliVideoDetail.getDanmakus()));
-            android.util.Log.i("PgcInfo", "Updated danmaku count: " + biliVideoDetail.getDanmakus());
+            // android.util.Log.i("PgcInfo", "Updated danmaku count: " + biliVideoDetail.getDanmakus());
         }
         
         TextView durationView = (TextView) d(R.id.video_detail_duration);
@@ -2371,7 +2421,7 @@ public final class VideoDetailActivity extends BaseActivity
                     biliVideoDetail.mDuration / 60, 
                     biliVideoDetail.mDuration % 60));
             }
-            android.util.Log.i("PgcInfo", "Updated duration: " + biliVideoDetail.mDuration);
+            // android.util.Log.i("PgcInfo", "Updated duration: " + biliVideoDetail.mDuration);
         }
         
         TextView pubDateView = this.g;
@@ -2381,7 +2431,137 @@ public final class VideoDetailActivity extends BaseActivity
             } else {
                 pubDateView.setVisibility(0);
                 pubDateView.setText(DateHelper.formatDate(biliVideoDetail.mCreatedTimestamp));
-                android.util.Log.i("PgcInfo", "Updated pub date: " + biliVideoDetail.mCreatedTimestamp);
+                // android.util.Log.i("PgcInfo", "Updated pub date: " + biliVideoDetail.mCreatedTimestamp);
+            }
+        }
+    }
+
+    private void updateStaffDisplay(BiliVideoDetail biliVideoDetail) {
+        // android.util.Log.i("StaffDisplay", "=== updateStaffDisplay ===");
+        LinearLayout staffContainer = this.staffContainer;
+        LinearLayout uperContainer = this.uperContainer;
+        if (staffContainer != null) {
+            staffContainer.removeAllViews();
+            List<BiliVideoDetail.Staff> staffList = biliVideoDetail.hasStaff() ? biliVideoDetail.getStaffList() : null;
+            // android.util.Log.i("StaffDisplay", "hasStaff=" + biliVideoDetail.hasStaff() + ", staffList=" + (staffList != null ? "size=" + staffList.size() : "null"));
+            // android.util.Log.i("StaffDisplay", "getAuthor=" + biliVideoDetail.getAuthor() + ", getMid=" + biliVideoDetail.getMid());
+            int totalCount;
+            if (staffList != null && !staffList.isEmpty()) {
+                totalCount = staffList.size();
+                for (int i = 0; i < staffList.size(); i++) {
+                    BiliVideoDetail.Staff staff = staffList.get(i);
+                    addStaffView(staffContainer, staff.name, staff.mid, staff.face, i, totalCount);
+                }
+                if (uperContainer != null) {
+                    uperContainer.setVisibility(View.VISIBLE);
+                }
+                // android.util.Log.i("StaffDisplay", "Displayed " + totalCount + " staff members");
+            } else {
+                String authorName = biliVideoDetail.getAuthor();
+                if (!TextUtils.isEmpty(authorName) && !"null".equals(authorName)) {
+                    String ownerFace = biliVideoDetail.mOwner != null ? biliVideoDetail.mOwner.face : null;
+                    addStaffView(staffContainer, authorName, biliVideoDetail.getMid(), ownerFace, 0, 1);
+                    if (uperContainer != null) {
+                        uperContainer.setVisibility(View.VISIBLE);
+                    }
+                    // android.util.Log.i("StaffDisplay", "Displayed single author: " + authorName);
+                } else {
+                    if (uperContainer != null) {
+                        uperContainer.setVisibility(View.GONE);
+                    }
+                    // android.util.Log.i("StaffDisplay", "No author to display");
+                }
+            }
+        } else {
+            // android.util.Log.i("StaffDisplay", "staffContainer is null");
+        }
+    }
+
+    private void addStaffView(LinearLayout container, String name, long mid, String faceUrl, int index, int totalCount) {
+        DrawLinearLayout wrapper = new DrawLinearLayout(this);
+        wrapper.setOrientation(LinearLayout.HORIZONTAL);
+        wrapper.setGravity(android.view.Gravity.CENTER_VERTICAL);
+        wrapper.setFocusable(true);
+        wrapper.setFocusableInTouchMode(true);
+        wrapper.setClipChildren(false);
+        wrapper.setClipToPadding(false);
+        wrapper.setUpDrawable(R.drawable.shadow_red_rect);
+        int contentPaddingH = getResources().getDimensionPixelSize(R.dimen.px_12);
+        int contentPaddingV = getResources().getDimensionPixelSize(R.dimen.px_8);
+        wrapper.setPadding(contentPaddingH, contentPaddingV, contentPaddingH, contentPaddingV);
+        
+        com.bilibili.tv.widget.CircleImageView avatarView = new com.bilibili.tv.widget.CircleImageView(this);
+        int avatarSize = getResources().getDimensionPixelSize(R.dimen.px_32);
+        LinearLayout.LayoutParams avatarLp = new LinearLayout.LayoutParams(avatarSize, avatarSize);
+        int avatarMargin = getResources().getDimensionPixelSize(R.dimen.px_6);
+        avatarLp.rightMargin = avatarMargin;
+        avatarView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        avatarView.setImageResource(R.mipmap.ic_launcher);
+        if (faceUrl != null && !faceUrl.isEmpty()) {
+            adl.a.a(faceUrl, avatarView);
+        }
+        wrapper.addView(avatarView, avatarLp);
+        
+        final DrawTextView staffView = new DrawTextView(this);
+        staffView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.px_28));
+        staffView.setTextColor(0xffffffff);
+        staffView.setGravity(android.view.Gravity.CENTER);
+        staffView.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        staffView.setFocusable(false);
+        staffView.setMaxLines(1);
+        staffView.setMaxEms(16);
+        staffView.setText(name);
+        
+        final boolean isFirstStaff = (index == 0);
+        final boolean hasMultipleStaff = (totalCount > 1);
+        if (hasMultipleStaff && !isFirstStaff) {
+            staffView.setVisibility(View.GONE);
+        }
+        
+        LinearLayout.LayoutParams textLp = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT);
+        wrapper.addView(staffView, textLp);
+        
+        final String staffName = name;
+        final long staffMid = mid;
+        wrapper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AuthSpaceSideActivity.start(VideoDetailActivity.this, staffMid, staffName);
+            }
+        });
+        wrapper.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                wrapper.setUpEnabled(hasFocus);
+                if (hasMultipleStaff && !isFirstStaff) {
+                    staffView.setVisibility(hasFocus ? View.VISIBLE : View.GONE);
+                }
+            }
+        });
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT);
+        int margin = getResources().getDimensionPixelSize(R.dimen.px_6);
+        lp.leftMargin = margin;
+        lp.rightMargin = margin;
+        lp.topMargin = margin;
+        lp.bottomMargin = margin;
+        wrapper.setId(View.generateViewId());
+        container.addView(wrapper, lp);
+        int childCount = container.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            DrawLinearLayout child = (DrawLinearLayout) container.getChildAt(i);
+            if (i == 0) {
+                child.setNextFocusLeftId(child.getId());
+            } else {
+                child.setNextFocusLeftId(container.getChildAt(i - 1).getId());
+            }
+            if (i == childCount - 1) {
+                child.setNextFocusRightId(child.getId());
+            } else {
+                child.setNextFocusRightId(container.getChildAt(i + 1).getId());
             }
         }
     }
@@ -4342,6 +4522,8 @@ public final class VideoDetailActivity extends BaseActivity
         /* JADX DEBUG: Method merged with bridge method */
         @Override // bl.vn
         public void a(BiliVideoDetail biliVideoDetail) {
+            // android.util.Log.i("PgcLoad", "A.a() called: biliVideoDetail=" + (biliVideoDetail != null ? biliVideoDetail.mTitle : "null"));
+            // android.util.Log.i("PgcLoad", "mEntryType=" + mEntryType + ", isPgcVideo=" + (biliVideoDetail != null && VideoDetailActivity.this.isPgcVideo(biliVideoDetail)));
             VideoDetailActivity.this.y = false;
             if (biliVideoDetail == null) {
                 ImageView blurView = VideoDetailActivity.this.b;
@@ -4408,6 +4590,8 @@ public final class VideoDetailActivity extends BaseActivity
             if (staffContainer != null) {
                 staffContainer.removeAllViews();
                 List<BiliVideoDetail.Staff> staffList = biliVideoDetail.hasStaff() ? biliVideoDetail.getStaffList() : null;
+                // android.util.Log.i("StaffDisplay", "hasStaff=" + biliVideoDetail.hasStaff() + ", staffList=" + (staffList != null ? "size=" + staffList.size() : "null"));
+                // android.util.Log.i("StaffDisplay", "getAuthor=" + biliVideoDetail.getAuthor() + ", getMid=" + biliVideoDetail.getMid());
                 int totalCount;
                 if (staffList != null && !staffList.isEmpty()) {
                     totalCount = staffList.size();
