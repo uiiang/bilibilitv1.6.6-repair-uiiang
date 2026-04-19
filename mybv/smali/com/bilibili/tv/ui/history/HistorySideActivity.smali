@@ -2,17 +2,13 @@
 .super Lcom/bilibili/tv/ui/base/BaseSideActivity;
 .source "HistorySideActivity.java"
 
-# interfaces
-.implements Landroid/view/View$OnLongClickListener;
-
 
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
         Lcom/bilibili/tv/ui/history/HistorySideActivity$a;,
         Lcom/bilibili/tv/ui/history/HistorySideActivity$DismissListener;,
-        Lcom/bilibili/tv/ui/history/HistorySideActivity$DeleteConfirmClickListener;,
-        Lcom/bilibili/tv/ui/history/HistorySideActivity$ClearConfirmClickListener;
+        Lcom/bilibili/tv/ui/history/HistorySideActivity$DeleteConfirmClickListener;
     }
 .end annotation
 
@@ -69,7 +65,7 @@
     return-void
 .end method
 
-.method static synthetic access$600(Lcom/bilibili/tv/ui/history/HistorySideActivity;Lbl/HistoryFolder;)V
+.method static synthetic access$500(Lcom/bilibili/tv/ui/history/HistorySideActivity;Lbl/HistoryFolder;)V
     .locals 0
 
     .prologue
@@ -79,7 +75,7 @@
     return-void
 .end method
 
-.method static synthetic access$700(Lcom/bilibili/tv/ui/history/HistorySideActivity;)Landroid/support/v7/widget/RecyclerView;
+.method static synthetic access$600(Lcom/bilibili/tv/ui/history/HistorySideActivity;)Landroid/support/v7/widget/RecyclerView;
     .locals 1
 
     .prologue
@@ -150,12 +146,12 @@
     .prologue
     const/4 v4, 0x0
 
-    .line 242
+    .line 207
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity;->folders:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->clear()V
 
-    .line 243
+    .line 208
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity;->folders:Ljava/util/List;
 
     new-instance v1, Lbl/HistoryFolder;
@@ -168,7 +164,7 @@
 
     invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 244
+    .line 209
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity;->folders:Ljava/util/List;
 
     new-instance v1, Lbl/HistoryFolder;
@@ -181,7 +177,7 @@
 
     invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 246
+    .line 211
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity;->folders:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->isEmpty()Z
@@ -190,7 +186,7 @@
 
     if-nez v0, :cond_35
 
-    .line 247
+    .line 212
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity;->folders:Ljava/util/List;
 
     invoke-interface {v0, v4}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -201,69 +197,8 @@
 
     invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/history/HistorySideActivity;->showHistoryList(Lbl/HistoryFolder;)V
 
-    .line 249
+    .line 214
     :cond_35
-    return-void
-.end method
-
-.method private showClearConfirmDialog()V
-    .locals 5
-
-    .prologue
-    .line 203
-    new-instance v0, Lbl/agb$a;
-
-    invoke-direct {v0, p0}, Lbl/agb$a;-><init>(Landroid/app/Activity;)V
-
-    .line 204
-    const/4 v1, 0x1
-
-    invoke-virtual {v0, v1}, Lbl/agb$a;->a(I)Lbl/agb$a;
-
-    move-result-object v1
-
-    const-string v2, "\u786e\u8ba4\u6e05\u7a7a\u6240\u6709\u5386\u53f2\u8bb0\u5f55\uff1f"
-
-    invoke-virtual {v1, v2}, Lbl/agb$a;->a(Ljava/lang/String;)Lbl/agb$a;
-
-    move-result-object v1
-
-    const v2, 0x7f0c0079
-
-    .line 205
-    invoke-virtual {p0, v2}, Lcom/bilibili/tv/ui/history/HistorySideActivity;->getString(I)Ljava/lang/String;
-
-    move-result-object v2
-
-    new-instance v3, Lcom/bilibili/tv/ui/history/HistorySideActivity$ClearConfirmClickListener;
-
-    const/4 v4, 0x0
-
-    invoke-direct {v3, p0, v4}, Lcom/bilibili/tv/ui/history/HistorySideActivity$ClearConfirmClickListener;-><init>(Lcom/bilibili/tv/ui/history/HistorySideActivity;Lcom/bilibili/tv/ui/history/HistorySideActivity$1;)V
-
-    invoke-virtual {v1, v2, v3}, Lbl/agb$a;->a(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
-
-    move-result-object v1
-
-    const v2, 0x7f0c0076
-
-    .line 206
-    invoke-virtual {p0, v2}, Lcom/bilibili/tv/ui/history/HistorySideActivity;->getString(I)Ljava/lang/String;
-
-    move-result-object v2
-
-    sget-object v3, Lcom/bilibili/tv/ui/history/HistorySideActivity$DismissListener;->INSTANCE:Lcom/bilibili/tv/ui/history/HistorySideActivity$DismissListener;
-
-    invoke-virtual {v1, v2, v3}, Lbl/agb$a;->b(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
-
-    .line 207
-    invoke-virtual {v0}, Lbl/agb$a;->a()Lbl/agb;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Lbl/agb;->show()V
-
-    .line 208
     return-void
 .end method
 
@@ -271,12 +206,12 @@
     .locals 5
 
     .prologue
-    .line 195
+    .line 179
     new-instance v0, Lbl/agb$a;
 
     invoke-direct {v0, p0}, Lbl/agb$a;-><init>(Landroid/app/Activity;)V
 
-    .line 196
+    .line 180
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Lbl/agb$a;->a(I)Lbl/agb$a;
@@ -291,7 +226,7 @@
 
     const v2, 0x7f0c0079
 
-    .line 197
+    .line 181
     invoke-virtual {p0, v2}, Lcom/bilibili/tv/ui/history/HistorySideActivity;->getString(I)Ljava/lang/String;
 
     move-result-object v2
@@ -308,7 +243,7 @@
 
     const v2, 0x7f0c0076
 
-    .line 198
+    .line 182
     invoke-virtual {p0, v2}, Lcom/bilibili/tv/ui/history/HistorySideActivity;->getString(I)Ljava/lang/String;
 
     move-result-object v2
@@ -317,14 +252,14 @@
 
     invoke-virtual {v1, v2, v3}, Lbl/agb$a;->b(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
 
-    .line 199
+    .line 183
     invoke-virtual {v0}, Lbl/agb$a;->a()Lbl/agb;
 
     move-result-object v0
 
     invoke-virtual {v0}, Lbl/agb;->show()V
 
-    .line 200
+    .line 184
     return-void
 .end method
 
@@ -332,20 +267,20 @@
     .locals 3
 
     .prologue
-    .line 252
+    .line 217
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity;->selectedFolder:Lbl/HistoryFolder;
 
     if-ne v0, p1, :cond_5
 
-    .line 265
+    .line 230
     :goto_4
     return-void
 
-    .line 256
+    .line 221
     :cond_5
     iput-object p1, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity;->selectedFolder:Lbl/HistoryFolder;
 
-    .line 259
+    .line 224
     invoke-virtual {p1}, Lbl/HistoryFolder;->getHistoryType()Ljava/lang/String;
 
     move-result-object v0
@@ -354,24 +289,24 @@
 
     move-result-object v0
 
-    .line 261
+    .line 226
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/history/HistorySideActivity;->getSupportFragmentManager()Landroid/support/v4/app/FragmentManager;
 
     move-result-object v1
 
-    .line 262
+    .line 227
     invoke-virtual {v1}, Landroid/support/v4/app/FragmentManager;->beginTransaction()Landroid/support/v4/app/FragmentTransaction;
 
     move-result-object v1
 
     const v2, 0x7f080091
 
-    .line 263
+    .line 228
     invoke-virtual {v1, v2, v0}, Landroid/support/v4/app/FragmentTransaction;->replace(ILandroid/support/v4/app/Fragment;)Landroid/support/v4/app/FragmentTransaction;
 
     move-result-object v0
 
-    .line 264
+    .line 229
     invoke-virtual {v0}, Landroid/support/v4/app/FragmentTransaction;->commit()I
 
     goto :goto_4
@@ -786,58 +721,6 @@
 
     .line 78
     return-void
-.end method
-
-.method public onLongClick(Landroid/view/View;)Z
-    .locals 3
-
-    .prologue
-    const/4 v0, 0x1
-
-    .line 180
-    invoke-virtual {p0}, Lcom/bilibili/tv/ui/history/HistorySideActivity;->h()Landroid/support/v4/app/Fragment;
-
-    move-result-object v1
-
-    .line 181
-    instance-of v2, v1, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
-
-    if-nez v2, :cond_a
-
-    .line 191
-    :goto_9
-    return v0
-
-    .line 185
-    :cond_a
-    invoke-virtual {p0}, Lcom/bilibili/tv/ui/history/HistorySideActivity;->getCurrentFocus()Landroid/view/View;
-
-    move-result-object v2
-
-    .line 186
-    invoke-virtual {v1}, Landroid/support/v4/app/Fragment;->getView()Landroid/view/View;
-
-    move-result-object v1
-
-    .line 187
-    if-eqz v1, :cond_1e
-
-    invoke-direct {p0, v1, v2}, Lcom/bilibili/tv/ui/history/HistorySideActivity;->isDescendantOf(Landroid/view/View;Landroid/view/View;)Z
-
-    move-result v1
-
-    if-eqz v1, :cond_1e
-
-    .line 188
-    invoke-direct {p0}, Lcom/bilibili/tv/ui/history/HistorySideActivity;->showClearConfirmDialog()V
-
-    goto :goto_9
-
-    .line 191
-    :cond_1e
-    const/4 v0, 0x0
-
-    goto :goto_9
 .end method
 
 .method public onPostCreate(Landroid/os/Bundle;)V

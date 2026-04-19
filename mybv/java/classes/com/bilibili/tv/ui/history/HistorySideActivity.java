@@ -36,7 +36,7 @@ import com.bilibili.tv.ui.live.LiveLeftLinearLayoutManger;
 import com.bilibili.tv.widget.side.SideLeftSelectLinearLayout;
 import com.alibaba.fastjson.JSONObject;
 
-public class HistorySideActivity extends BaseSideActivity implements View.OnLongClickListener {
+public class HistorySideActivity extends BaseSideActivity {
     private a c;
     private List<HistoryFolder> folders = new ArrayList<>();
     private HistoryFolder selectedFolder;
@@ -175,47 +175,12 @@ public class HistorySideActivity extends BaseSideActivity implements View.OnLong
         return false;
     }
 
-    @Override
-    public boolean onLongClick(View view) {
-        Fragment frag = h();
-        if (!(frag instanceof HistoryVideoFragment)) {
-            return true;
-        }
-
-        View currentFocus = getCurrentFocus();
-        View fragmentView = frag.getView();
-        if (fragmentView != null && isDescendantOf(fragmentView, currentFocus)) {
-            showClearConfirmDialog();
-            return true;
-        }
-        return false;
-    }
-
     private void showDeleteConfirmDialog() {
         agb.a dialogBuilder = new agb.a(this);
         dialogBuilder.a(1).a("确认删除该条历史记录？")
                 .a(getString(R.string.confirm), new DeleteConfirmClickListener())
                 .b(getString(R.string.cancel), DismissListener.INSTANCE);
         dialogBuilder.a().show();
-    }
-
-    private void showClearConfirmDialog() {
-        agb.a dialogBuilder = new agb.a(this);
-        dialogBuilder.a(1).a("确认清空所有历史记录？")
-                .a(getString(R.string.confirm), new ClearConfirmClickListener())
-                .b(getString(R.string.cancel), DismissListener.INSTANCE);
-        dialogBuilder.a().show();
-    }
-
-    private class ClearConfirmClickListener implements agb.b {
-        @Override
-        public void a(agb dialog, View view) {
-            Fragment frag = h();
-            if (frag instanceof HistoryVideoFragment) {
-                ((HistoryVideoFragment) frag).clearAllHistory();
-            }
-            dialog.dismiss();
-        }
     }
 
     private class DeleteConfirmClickListener implements agb.b {

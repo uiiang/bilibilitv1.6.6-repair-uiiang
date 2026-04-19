@@ -78,7 +78,7 @@
 
     move-result v0
 
-    const/16 v1, 0xa
+    const/16 v1, 0x32
 
     if-le v0, v1, :cond_0
 

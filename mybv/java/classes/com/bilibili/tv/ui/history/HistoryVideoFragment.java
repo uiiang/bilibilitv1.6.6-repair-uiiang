@@ -334,7 +334,7 @@ public final class HistoryVideoFragment extends ady {
             headerCount.setText(adapter.a() + "条记录");
         }
         if (hintSort != null) {
-            hintSort.setText("菜单键删除，长按[OK]键清空");
+            hintSort.setText("按[菜单键]删除历史记录");
             hintSort.setVisibility(View.VISIBLE);
         }
     }
@@ -698,10 +698,6 @@ public final class HistoryVideoFragment extends ady {
             this.s = (DrawRelativeLayout) a(view, R.id.draw);
             
             view.setOnFocusChangeListener(this);
-            Context context = view.getContext();
-            if (context instanceof View.OnLongClickListener) {
-                view.setOnLongClickListener((View.OnLongClickListener) context);
-            }
         }
         
         public final ScalableImageView z() {

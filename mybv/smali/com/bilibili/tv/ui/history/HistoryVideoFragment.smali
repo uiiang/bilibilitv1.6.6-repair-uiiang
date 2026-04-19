@@ -453,7 +453,7 @@
     .line 337
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->hintSort:Landroid/widget/TextView;
 
-    const-string v1, "\u83dc\u5355\u952e\u5220\u9664\uff0c\u957f\u6309[OK]\u952e\u6e05\u7a7a"
+    const-string v1, "\u6309[\u83dc\u5355\u952e]\u5220\u9664\u5386\u53f2\u8bb0\u5f55"
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 

@@ -221,7 +221,35 @@ public final class SearchActivity extends BaseActivity implements View.OnLongCli
     private final void b(String str) {
         BLog.i(j, "保存搜索历史: " + str);
         new SearchRecentSuggestions(this, "uii.ang.bilitv.provider.TvSearchSuggestionProvider", 1).saveRecentQuery(str, null);
+        truncateSearchHistory(50);
         BLog.i(j, "保存搜索历史成功");
+    }
+
+    private void truncateSearchHistory(int maxCount) {
+        android.net.Uri uri = android.net.Uri.parse("content://uii.ang.bilitv.provider.TvSearchSuggestionProvider/suggestions");
+        android.database.Cursor cursor = null;
+        try {
+            cursor = getContentResolver().query(uri, null, null, null, "_id ASC");
+            if (cursor != null) {
+                int count = cursor.getCount();
+                if (count > maxCount) {
+                    int toDelete = count - maxCount;
+                    cursor.moveToFirst();
+                    for (int i = 0; i < toDelete; i++) {
+                        String id = cursor.getString(cursor.getColumnIndex("_id"));
+                        android.net.Uri deleteUri = android.net.Uri.withAppendedPath(uri, id);
+                        getContentResolver().delete(deleteUri, null, null);
+                        cursor.moveToNext();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            BLog.e(j, "truncateSearchHistory error: " + e.getMessage());
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
     }
 
     public final boolean q() {

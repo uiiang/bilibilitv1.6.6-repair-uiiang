@@ -132,13 +132,18 @@
     invoke-virtual {v0, p1, v1}, Landroid/provider/SearchRecentSuggestions;->saveRecentQuery(Ljava/lang/String;Ljava/lang/String;)V
 
     .line 224
+    const/16 v0, 0x32
+
+    invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/search/SearchActivity;->truncateSearchHistory(I)V
+
+    .line 225
     const-string v0, "SearchActivity"
 
     const-string v1, "\u4fdd\u5b58\u641c\u7d22\u5386\u53f2\u6210\u529f"
 
     invoke-static {v0, v1}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 225
+    .line 226
     return-void
 .end method
 
@@ -146,18 +151,209 @@
     .locals 1
 
     .prologue
-    .line 264
+    .line 292
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->b:Lcom/bilibili/tv/ui/search/SearchKeyboardView;
 
-    .line 265
+    .line 293
     if-eqz v0, :cond_7
 
-    .line 266
+    .line 294
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/search/SearchKeyboardView;->B()V
 
-    .line 268
+    .line 296
     :cond_7
     return-void
+.end method
+
+.method private truncateSearchHistory(I)V
+    .locals 8
+
+    .prologue
+    const/4 v6, 0x0
+
+    .line 229
+    const-string v0, "content://uii.ang.bilitv.provider.TvSearchSuggestionProvider/suggestions"
+
+    invoke-static {v0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v1
+
+    .line 232
+    :try_start_7
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchActivity;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const/4 v2, 0x0
+
+    const/4 v3, 0x0
+
+    const/4 v4, 0x0
+
+    const-string v5, "_id ASC"
+
+    invoke-virtual/range {v0 .. v5}, Landroid/content/ContentResolver;->query(Landroid/net/Uri;[Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)Landroid/database/Cursor;
+    :try_end_13
+    .catch Ljava/lang/Exception; {:try_start_7 .. :try_end_13} :catch_47
+    .catchall {:try_start_7 .. :try_end_13} :catchall_6b
+
+    move-result-object v2
+
+    .line 233
+    if-eqz v2, :cond_41
+
+    .line 234
+    :try_start_16
+    invoke-interface {v2}, Landroid/database/Cursor;->getCount()I
+
+    move-result v0
+
+    .line 235
+    if-le v0, p1, :cond_41
+
+    .line 236
+    sub-int v3, v0, p1
+
+    .line 237
+    invoke-interface {v2}, Landroid/database/Cursor;->moveToFirst()Z
+
+    .line 238
+    const/4 v0, 0x0
+
+    :goto_22
+    if-ge v0, v3, :cond_41
+
+    .line 239
+    const-string v4, "_id"
+
+    invoke-interface {v2, v4}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
+
+    move-result v4
+
+    invoke-interface {v2, v4}, Landroid/database/Cursor;->getString(I)Ljava/lang/String;
+
+    move-result-object v4
+
+    .line 240
+    invoke-static {v1, v4}, Landroid/net/Uri;->withAppendedPath(Landroid/net/Uri;Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v4
+
+    .line 241
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchActivity;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v5
+
+    const/4 v6, 0x0
+
+    const/4 v7, 0x0
+
+    invoke-virtual {v5, v4, v6, v7}, Landroid/content/ContentResolver;->delete(Landroid/net/Uri;Ljava/lang/String;[Ljava/lang/String;)I
+
+    .line 242
+    invoke-interface {v2}, Landroid/database/Cursor;->moveToNext()Z
+    :try_end_3e
+    .catch Ljava/lang/Exception; {:try_start_16 .. :try_end_3e} :catch_78
+    .catchall {:try_start_16 .. :try_end_3e} :catchall_73
+
+    .line 238
+    add-int/lit8 v0, v0, 0x1
+
+    goto :goto_22
+
+    .line 249
+    :cond_41
+    if-eqz v2, :cond_46
+
+    .line 250
+    invoke-interface {v2}, Landroid/database/Cursor;->close()V
+
+    .line 253
+    :cond_46
+    :goto_46
+    return-void
+
+    .line 246
+    :catch_47
+    move-exception v0
+
+    move-object v1, v6
+
+    .line 247
+    :goto_49
+    :try_start_49
+    const-string v2, "SearchActivity"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "truncateSearchHistory error: "
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v0}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v2, v0}, Ltv/danmaku/android/log/BLog;->e(Ljava/lang/String;Ljava/lang/String;)V
+    :try_end_65
+    .catchall {:try_start_49 .. :try_end_65} :catchall_75
+
+    .line 249
+    if-eqz v1, :cond_46
+
+    .line 250
+    invoke-interface {v1}, Landroid/database/Cursor;->close()V
+
+    goto :goto_46
+
+    .line 249
+    :catchall_6b
+    move-exception v0
+
+    move-object v2, v6
+
+    :goto_6d
+    if-eqz v2, :cond_72
+
+    .line 250
+    invoke-interface {v2}, Landroid/database/Cursor;->close()V
+
+    .line 252
+    :cond_72
+    throw v0
+
+    .line 249
+    :catchall_73
+    move-exception v0
+
+    goto :goto_6d
+
+    :catchall_75
+    move-exception v0
+
+    move-object v2, v1
+
+    goto :goto_6d
+
+    .line 246
+    :catch_78
+    move-exception v0
+
+    move-object v1, v2
+
+    goto :goto_49
 .end method
 
 
@@ -460,21 +656,21 @@
 
     const/4 v2, 0x1
 
-    .line 272
+    .line 300
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->b:Lcom/bilibili/tv/ui/search/SearchKeyboardView;
 
     if-nez v0, :cond_d
 
-    .line 273
+    .line 301
     invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseActivity;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
 
     move-result v0
 
-    .line 378
+    .line 406
     :goto_c
     return v0
 
-    .line 275
+    .line 303
     :cond_d
     if-eqz p1, :cond_35
 
@@ -488,7 +684,7 @@
 
     move-object v3, v0
 
-    .line 276
+    .line 304
     :goto_18
     if-eqz p1, :cond_37
 
@@ -500,7 +696,7 @@
 
     move-result-object v0
 
-    .line 277
+    .line 305
     :goto_22
     if-eqz v3, :cond_147
 
@@ -510,15 +706,15 @@
 
     if-nez v3, :cond_147
 
-    .line 278
+    .line 306
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchActivity;->getCurrentFocus()Landroid/view/View;
 
     move-result-object v3
 
-    .line 279
+    .line 307
     if-nez v3, :cond_39
 
-    .line 280
+    .line 308
     invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseActivity;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
 
     move-result v0
@@ -528,16 +724,16 @@
     :cond_35
     move-object v3, v1
 
-    .line 275
+    .line 303
     goto :goto_18
 
     :cond_37
     move-object v0, v1
 
-    .line 276
+    .line 304
     goto :goto_22
 
-    .line 282
+    .line 310
     :cond_39
     if-eqz v0, :cond_50
 
@@ -549,27 +745,27 @@
 
     if-ne v4, v5, :cond_50
 
-    .line 283
+    .line 311
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->a:Landroid/view/View;
 
-    .line 284
+    .line 312
     if-nez v0, :cond_4c
 
-    .line 285
+    .line 313
     const-string v1, "focusHolder"
 
     invoke-static {v1}, Lbl/bbi;->b(Ljava/lang/String;)V
 
-    .line 287
+    .line 315
     :cond_4c
     if-ne v3, v0, :cond_147
 
     move v0, v2
 
-    .line 288
+    .line 316
     goto :goto_c
 
-    .line 290
+    .line 318
     :cond_50
     if-eqz v0, :cond_cb
 
@@ -581,64 +777,64 @@
 
     if-ne v4, v5, :cond_cb
 
-    .line 291
+    .line 319
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->a:Landroid/view/View;
 
-    .line 292
+    .line 320
     if-nez v0, :cond_63
 
-    .line 293
+    .line 321
     const-string v4, "focusHolder"
 
     invoke-static {v4}, Lbl/bbi;->b(Ljava/lang/String;)V
 
-    .line 295
+    .line 323
     :cond_63
     if-ne v3, v0, :cond_67
 
     move v0, v2
 
-    .line 296
+    .line 324
     goto :goto_c
 
-    .line 298
+    .line 326
     :cond_67
     invoke-virtual {v3}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
 
     move-result-object v0
 
-    .line 299
+    .line 327
     instance-of v4, v0, Landroid/view/View;
 
     if-nez v4, :cond_70
 
     move-object v0, v1
 
-    .line 302
+    .line 330
     :cond_70
     check-cast v0, Landroid/view/View;
 
-    .line 303
+    .line 331
     iget-object v4, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->b:Lcom/bilibili/tv/ui/search/SearchKeyboardView;
 
     if-ne v0, v4, :cond_9e
 
-    .line 304
+    .line 332
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->b:Lcom/bilibili/tv/ui/search/SearchKeyboardView;
 
-    .line 305
+    .line 333
     if-nez v0, :cond_7d
 
-    .line 306
+    .line 334
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 308
+    .line 336
     :cond_7d
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/ui/search/SearchKeyboardView;->g(Landroid/view/View;)I
 
     move-result v0
 
-    .line 309
+    .line 337
     if-eqz v0, :cond_89
 
     rem-int/lit8 v1, v0, 0x6
@@ -647,37 +843,37 @@
 
     if-ne v0, v6, :cond_147
 
-    .line 310
+    .line 338
     :cond_89
     iput v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->h:I
 
-    .line 311
+    .line 339
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchActivity;->q()Z
 
     move-result v0
 
     if-eqz v0, :cond_9b
 
-    .line 312
+    .line 340
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->f:Lbl/afh;
 
-    .line 313
+    .line 341
     if-nez v0, :cond_98
 
-    .line 314
+    .line 342
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 316
+    .line 344
     :cond_98
     invoke-virtual {v0}, Lbl/afh;->a()V
 
     :cond_9b
     move v0, v2
 
-    .line 318
+    .line 346
     goto/16 :goto_c
 
-    .line 321
+    .line 349
     :cond_9e
     if-eqz v0, :cond_c7
 
@@ -685,7 +881,7 @@
 
     move-result-object v0
 
-    .line 322
+    .line 350
     :goto_a4
     instance-of v3, v0, Ljava/lang/CharSequence;
 
@@ -704,45 +900,45 @@
 
     if-eqz v0, :cond_147
 
-    .line 323
+    .line 351
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->b:Lcom/bilibili/tv/ui/search/SearchKeyboardView;
 
-    .line 324
+    .line 352
     if-nez v0, :cond_bb
 
-    .line 325
+    .line 353
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 327
+    .line 355
     :cond_bb
     invoke-virtual {v0, v6}, Lcom/bilibili/tv/ui/search/SearchKeyboardView;->k(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 328
+    .line 356
     if-eqz v0, :cond_147
 
-    .line 329
+    .line 357
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
     move v0, v2
 
-    .line 330
+    .line 358
     goto/16 :goto_c
 
     :cond_c7
     move-object v0, v1
 
-    .line 321
+    .line 349
     goto :goto_a4
 
     :cond_c9
     move-object v0, v1
 
-    .line 322
+    .line 350
     goto :goto_a8
 
-    .line 334
+    .line 362
     :cond_cb
     if-eqz v0, :cond_e3
 
@@ -754,27 +950,27 @@
 
     if-ne v1, v4, :cond_e3
 
-    .line 335
+    .line 363
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->a:Landroid/view/View;
 
-    .line 336
+    .line 364
     if-nez v0, :cond_de
 
-    .line 337
+    .line 365
     const-string v1, "focusHolder"
 
     invoke-static {v1}, Lbl/bbi;->b(Ljava/lang/String;)V
 
-    .line 339
+    .line 367
     :cond_de
     if-ne v3, v0, :cond_147
 
     move v0, v2
 
-    .line 340
+    .line 368
     goto/16 :goto_c
 
-    .line 342
+    .line 370
     :cond_e3
     if-eqz v0, :cond_115
 
@@ -786,37 +982,37 @@
 
     if-ne v1, v4, :cond_115
 
-    .line 343
+    .line 371
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->a:Landroid/view/View;
 
-    .line 344
+    .line 372
     if-nez v0, :cond_f6
 
-    .line 345
+    .line 373
     const-string v1, "focusHolder"
 
     invoke-static {v1}, Lbl/bbi;->b(Ljava/lang/String;)V
 
-    .line 347
+    .line 375
     :cond_f6
     if-ne v3, v0, :cond_fb
 
     move v0, v2
 
-    .line 348
+    .line 376
     goto/16 :goto_c
 
-    .line 350
+    .line 378
     :cond_fb
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->b:Lcom/bilibili/tv/ui/search/SearchKeyboardView;
 
-    .line 351
+    .line 379
     if-nez v0, :cond_102
 
-    .line 352
+    .line 380
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 354
+    .line 382
     :cond_102
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/search/SearchKeyboardView;->getSearchText()Landroid/widget/EditText;
 
@@ -824,25 +1020,25 @@
 
     if-ne v3, v0, :cond_147
 
-    .line 355
+    .line 383
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->b:Lcom/bilibili/tv/ui/search/SearchKeyboardView;
 
-    .line 356
+    .line 384
     if-nez v0, :cond_10f
 
-    .line 357
+    .line 385
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 359
+    .line 387
     :cond_10f
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/search/SearchKeyboardView;->j(I)Z
 
     move v0, v2
 
-    .line 360
+    .line 388
     goto/16 :goto_c
 
-    .line 362
+    .line 390
     :cond_115
     if-eqz v0, :cond_147
 
@@ -854,16 +1050,16 @@
 
     if-ne v0, v1, :cond_147
 
-    .line 363
+    .line 391
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->b:Lcom/bilibili/tv/ui/search/SearchKeyboardView;
 
-    .line 364
+    .line 392
     if-nez v0, :cond_125
 
-    .line 365
+    .line 393
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 367
+    .line 395
     :cond_125
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/search/SearchKeyboardView;->getSearchText()Landroid/widget/EditText;
 
@@ -883,28 +1079,28 @@
 
     if-lez v0, :cond_147
 
-    .line 368
+    .line 396
     invoke-direct {p0}, Lcom/bilibili/tv/ui/search/SearchActivity;->s()V
 
-    .line 369
+    .line 397
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->b:Lcom/bilibili/tv/ui/search/SearchKeyboardView;
 
-    .line 370
+    .line 398
     if-nez v0, :cond_141
 
-    .line 371
+    .line 399
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 373
+    .line 401
     :cond_141
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/search/SearchKeyboardView;->j(I)Z
 
     move v0, v2
 
-    .line 374
+    .line 402
     goto/16 :goto_c
 
-    .line 378
+    .line 406
     :cond_147
     invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseActivity;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
 
@@ -977,16 +1173,16 @@
     .locals 3
 
     .prologue
-    .line 241
+    .line 269
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->b:Lcom/bilibili/tv/ui/search/SearchKeyboardView;
 
-    .line 242
+    .line 270
     if-nez v0, :cond_7
 
-    .line 243
+    .line 271
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 245
+    .line 273
     :cond_7
     iget v1, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->h:I
 
@@ -994,19 +1190,19 @@
 
     move-result-object v0
 
-    .line 246
+    .line 274
     if-nez v0, :cond_1c
 
-    .line 247
+    .line 275
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->b:Lcom/bilibili/tv/ui/search/SearchKeyboardView;
 
-    .line 248
+    .line 276
     if-nez v0, :cond_16
 
-    .line 249
+    .line 277
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 251
+    .line 279
     :cond_16
     const/4 v1, 0x6
 
@@ -1014,27 +1210,27 @@
 
     move-result-object v0
 
-    .line 260
+    .line 288
     :cond_1b
     :goto_1b
     return-object v0
 
-    .line 253
+    .line 281
     :cond_1c
     iget v1, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->h:I
 
     if-nez v1, :cond_1b
 
-    .line 254
+    .line 282
     iget-object v1, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->b:Lcom/bilibili/tv/ui/search/SearchKeyboardView;
 
-    .line 255
+    .line 283
     if-nez v1, :cond_27
 
-    .line 256
+    .line 284
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 258
+    .line 286
     :cond_27
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/search/SearchKeyboardView;->getSearchText()Landroid/widget/EditText;
 
@@ -1053,28 +1249,28 @@
     .prologue
     const/4 v4, 0x1
 
-    .line 405
+    .line 433
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 406
+    .line 434
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchActivity;->q()Z
 
     move-result v0
 
     if-eqz v0, :cond_4b
 
-    .line 407
+    .line 435
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->f:Lbl/afh;
 
-    .line 408
+    .line 436
     if-nez v0, :cond_13
 
-    .line 409
+    .line 437
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 411
+    .line 439
     :cond_13
     invoke-virtual {v0}, Lbl/afh;->c()Z
 
@@ -1082,12 +1278,12 @@
 
     if-eqz v0, :cond_4b
 
-    .line 412
+    .line 440
     new-instance v0, Lbl/agb$a;
 
     invoke-direct {v0, p0}, Lbl/agb$a;-><init>(Landroid/app/Activity;)V
 
-    .line 413
+    .line 441
     invoke-virtual {v0, v4}, Lbl/agb$a;->a(I)Lbl/agb$a;
 
     move-result-object v1
@@ -1122,14 +1318,14 @@
 
     invoke-virtual {v1, v2, v3}, Lbl/agb$a;->b(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
 
-    .line 414
+    .line 442
     invoke-virtual {v0}, Lbl/agb$a;->a()Lbl/agb;
 
     move-result-object v0
 
     invoke-virtual {v0}, Lbl/agb;->show()V
 
-    .line 418
+    .line 446
     :cond_4b
     return v4
 .end method
@@ -1152,21 +1348,21 @@
     .locals 1
 
     .prologue
-    .line 228
+    .line 256
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->f:Lbl/afh;
 
     if-eqz v0, :cond_13
 
-    .line 229
+    .line 257
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->f:Lbl/afh;
 
-    .line 230
+    .line 258
     if-nez v0, :cond_b
 
-    .line 231
+    .line 259
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 233
+    .line 261
     :cond_b
     invoke-virtual {v0}, Lbl/afh;->isVisible()Z
 
@@ -1174,10 +1370,10 @@
 
     if-eqz v0, :cond_13
 
-    .line 234
+    .line 262
     const/4 v0, 0x1
 
-    .line 237
+    .line 265
     :goto_12
     return v0
 
@@ -1207,12 +1403,12 @@
     .locals 4
 
     .prologue
-    .line 382
+    .line 410
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/search/SearchActivity;->getSupportFragmentManager()Landroid/support/v4/app/FragmentManager;
 
     move-result-object v1
 
-    .line 383
+    .line 411
     sget-object v0, Lbl/afh;->Companion:Lbl/afh$a;
 
     invoke-virtual {v0}, Lbl/afh$a;->a()Ljava/lang/String;
@@ -1223,26 +1419,26 @@
 
     move-result-object v0
 
-    .line 384
+    .line 412
     instance-of v2, v0, Lbl/afh;
 
     if-nez v2, :cond_13
 
-    .line 385
+    .line 413
     const/4 v0, 0x0
 
-    .line 387
+    .line 415
     :cond_13
     check-cast v0, Lbl/afh;
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->f:Lbl/afh;
 
-    .line 388
+    .line 416
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->f:Lbl/afh;
 
     if-nez v0, :cond_23
 
-    .line 389
+    .line 417
     sget-object v0, Lbl/afh;->Companion:Lbl/afh$a;
 
     invoke-virtual {v0}, Lbl/afh$a;->b()Lbl/afh;
@@ -1251,17 +1447,17 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->f:Lbl/afh;
 
-    .line 391
+    .line 419
     :cond_23
     iget-object v0, p0, Lcom/bilibili/tv/ui/search/SearchActivity;->f:Lbl/afh;
 
-    .line 392
+    .line 420
     if-nez v0, :cond_2a
 
-    .line 393
+    .line 421
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 395
+    .line 423
     :cond_2a
     invoke-virtual {v0}, Lbl/afh;->isAdded()Z
 
@@ -1269,7 +1465,7 @@
 
     if-nez v0, :cond_47
 
-    .line 396
+    .line 424
     invoke-virtual {v1}, Landroid/support/v4/app/FragmentManager;->beginTransaction()Landroid/support/v4/app/FragmentTransaction;
 
     move-result-object v0
@@ -1290,11 +1486,11 @@
 
     invoke-virtual {v0}, Landroid/support/v4/app/FragmentTransaction;->commitAllowingStateLoss()I
 
-    .line 401
+    .line 429
     :goto_46
     return-void
 
-    .line 399
+    .line 427
     :cond_47
     invoke-virtual {v1}, Landroid/support/v4/app/FragmentManager;->beginTransaction()Landroid/support/v4/app/FragmentTransaction;
 
@@ -1306,7 +1502,7 @@
 
     move-result-object v0
 
-    .line 400
+    .line 428
     sget-object v2, Lbl/adl;->a:Lbl/adl;
 
     invoke-virtual {v2, v1, v0}, Lbl/adl;->a(Landroid/support/v4/app/FragmentManager;Landroid/support/v4/app/FragmentTransaction;)V
