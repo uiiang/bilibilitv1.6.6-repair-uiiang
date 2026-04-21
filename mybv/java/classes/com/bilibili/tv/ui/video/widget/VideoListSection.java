@@ -65,10 +65,12 @@ public class VideoListSection extends LinearLayout {
     private NavigationTagAdapter navTagAdapter;
     private int sectionId = -1;
     private int focusPosition = 0;
+    private int groupSize = 10;
     private long currentVideoId = -1;
     private long currentCid = -1;
     private boolean interceptCurrentVideoClick = true;
     private int currentSeasonId = -1;
+    private CurrentItemMatcher currentItemMatcher;
     private VideoCardBinder binder;
     private OnVideoClickListener videoClickListener;
     private OnNavTagFocusListener navTagFocusListener;
@@ -101,14 +103,14 @@ public class VideoListSection extends LinearLayout {
         if (hasNavigationTags()) {
             // 视频卡片区域 → 按DOWN → 移到正确的导航标签
             if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN && currentFocusArea == FOCUS_AREA_VIDEO) {
-                int tagIndex = focusPosition / 10;
+                int tagIndex = navTagAdapter.getGroupIndexForVideoPosition(focusPosition);
                 if (tagIndex >= navTagAdapter.getTagCount()) {
                     tagIndex = navTagAdapter.getTagCount() - 1;
                 }
 
                 focusRedirecting = true;
                 currentFocusArea = FOCUS_AREA_NAV_TAG;
-                lastNavTagVideoStart = tagIndex * 10;
+                lastNavTagVideoStart = tagIndex * navTagAdapter.getGroupSize();
                 navTagAdapter.setSelectedPosition(tagIndex);
                 navTagAdapter.scrollToPositionWithOffset(tagIndex);
 
@@ -405,11 +407,11 @@ public class VideoListSection extends LinearLayout {
                 // 如果焦点从视频列表来到导航标签（非手动请求），且当前tagIndex不是focusPosition对应的标签，
                 // 需要重定向焦点到正确的标签
                 if (currentFocusArea == FOCUS_AREA_VIDEO && !manualFocusRequested) {
-                    int expectedTagIndex = focusPosition / 10;
+                    int expectedTagIndex = navTagAdapter.getGroupIndexForVideoPosition(focusPosition);
                     if (expectedTagIndex != tagIndex && expectedTagIndex >= 0 && expectedTagIndex < navTagAdapter.getTagCount()) {
                         // 先更新currentFocusArea避免重定向时再次触发此逻辑
                         currentFocusArea = FOCUS_AREA_NAV_TAG;
-                        lastNavTagVideoStart = expectedTagIndex * 10;
+                        lastNavTagVideoStart = expectedTagIndex * navTagAdapter.getGroupSize();
                         navTagAdapter.setSelectedPosition(expectedTagIndex);
                         navTagAdapter.scrollToPositionWithOffset(expectedTagIndex);
 
@@ -435,7 +437,7 @@ public class VideoListSection extends LinearLayout {
                 if (tagIndex >= 0) {
                     int currentVideoPosition = focusPosition;
                     int rangeStart = videoStartPosition;
-                    int rangeEnd = videoStartPosition + 9;
+                    int rangeEnd = videoStartPosition + navTagAdapter.getGroupSize() - 1;
                     
                     if (currentVideoPosition < rangeStart || currentVideoPosition > rangeEnd) {
                         // 只滚动，不更新focusPosition
@@ -455,7 +457,7 @@ public class VideoListSection extends LinearLayout {
                 if (tagIndex >= 0) {
                     int currentVideoPosition = focusPosition;
                     int rangeStart = videoStartPosition;
-                    int rangeEnd = videoStartPosition + 9;
+                    int rangeEnd = videoStartPosition + navTagAdapter.getGroupSize() - 1;
                     
                     if (currentVideoPosition < rangeStart || currentVideoPosition > rangeEnd) {
                         scrollToDataPosition(videoStartPosition);
@@ -568,6 +570,14 @@ public class VideoListSection extends LinearLayout {
         return currentSeasonId;
     }
 
+    public void setCurrentItemMatcher(CurrentItemMatcher matcher) {
+        this.currentItemMatcher = matcher;
+    }
+
+    public CurrentItemMatcher getCurrentItemMatcher() {
+        return currentItemMatcher;
+    }
+
     public void scrollToCurrentVideo() {
         if (recyclerView == null) {
             return;
@@ -611,6 +621,110 @@ public class VideoListSection extends LinearLayout {
                 if (!recyclerView.isAttachedToWindow()) {
                     return;
                 }
+                try {
+                    Object layoutManager = recyclerView.getLayoutManager();
+                    if (layoutManager != null) {
+                        java.lang.reflect.Method scrollToWithOffset = layoutManager.getClass().getMethod("b", int.class, int.class);
+                        scrollToWithOffset.invoke(layoutManager, finalPos, 0);
+                    }
+                } catch (Exception e) {
+                    try {
+                        java.lang.reflect.Method scrollToMethod = recyclerView.getClass().getMethod("a", int.class);
+                        scrollToMethod.invoke(recyclerView, finalPos);
+                    } catch (Exception e2) {
+                    }
+                }
+                focusPosition = finalPos;
+            }
+        });
+    }
+
+    public void scrollToCurrentItem() {
+        if (recyclerView == null || dataList == null || dataList.isEmpty()) {
+            return;
+        }
+        if (currentItemMatcher == null) {
+            return;
+        }
+
+        int currentPosition = -1;
+        for (int i = 0; i < dataList.size(); i++) {
+            if (currentItemMatcher.isCurrentItem(dataList.get(i), i)) {
+                currentPosition = i;
+                break;
+            }
+        }
+
+        if (currentPosition < 0) {
+            return;
+        }
+
+        final int finalPos = currentPosition;
+        recyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                if (!recyclerView.isAttachedToWindow()) {
+                    return;
+                }
+                try {
+                    Object layoutManager = recyclerView.getLayoutManager();
+                    if (layoutManager != null) {
+                        java.lang.reflect.Method scrollToWithOffset = layoutManager.getClass().getMethod("b", int.class, int.class);
+                        scrollToWithOffset.invoke(layoutManager, finalPos, 0);
+                    }
+                } catch (Exception e) {
+                    try {
+                        java.lang.reflect.Method scrollToMethod = recyclerView.getClass().getMethod("a", int.class);
+                        scrollToMethod.invoke(recyclerView, finalPos);
+                    } catch (Exception e2) {
+                    }
+                }
+                focusPosition = finalPos;
+            }
+        });
+    }
+
+    public void scrollToCurrentItemAtFirstPosition() {
+        if (recyclerView == null || dataList == null || dataList.isEmpty()) {
+            return;
+        }
+        if (currentItemMatcher == null) {
+            return;
+        }
+
+        int currentPosition = -1;
+        for (int i = 0; i < dataList.size(); i++) {
+            if (currentItemMatcher.isCurrentItem(dataList.get(i), i)) {
+                currentPosition = i;
+                break;
+            }
+        }
+
+        if (currentPosition < 0) {
+            return;
+        }
+
+        scrollToDataPositionAtFirstPosition(currentPosition);
+    }
+
+    private void scrollToDataPositionAtFirstPosition(int position) {
+        if (recyclerView == null || dataList == null) {
+            return;
+        }
+        
+        int dataSize = dataList.size();
+        if (position < 0 || position >= dataSize) {
+            return;
+        }
+        
+        final int finalPos = position;
+        recyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                if (!recyclerView.isAttachedToWindow()) {
+                    return;
+                }
+                
                 try {
                     Object layoutManager = recyclerView.getLayoutManager();
                     if (layoutManager != null) {
@@ -719,7 +833,7 @@ public class VideoListSection extends LinearLayout {
      */
     private void restoreFocusFromNavTag() {
         int rangeStart = lastNavTagVideoStart;
-        int rangeEnd = Math.min(lastNavTagVideoStart + 9, (dataList == null ? 0 : dataList.size()) - 1);
+        int rangeEnd = Math.min(lastNavTagVideoStart + navTagAdapter.getGroupSize() - 1, (dataList == null ? 0 : dataList.size()) - 1);
 
         int targetPosition;
         if (focusPosition >= rangeStart && focusPosition <= rangeEnd) {
@@ -761,8 +875,7 @@ public class VideoListSection extends LinearLayout {
     private void restoreNavTagFromVideo() {
         if (navTagAdapter == null || navTagAdapter.isEmpty()) return;
 
-        int visiblePosition = focusPosition + 1; // 1-based
-        int tagIndex = (visiblePosition - 1) / 10;
+        int tagIndex = navTagAdapter.getGroupIndexForVideoPosition(focusPosition);
 
         if (tagIndex >= 0 && tagIndex < navTagAdapter.getTagCount()) {
             navTagAdapter.setSelectedPosition(tagIndex);
@@ -1021,12 +1134,21 @@ public class VideoListSection extends LinearLayout {
     }
 
     public void setupNavigationTags(int totalCount) {
+        setupNavigationTags(totalCount, 10);
+    }
+
+    public void setupNavigationTags(int totalCount, int groupSize) {
+        setupNavigationTags(totalCount, groupSize, null);
+    }
+
+    public void setupNavigationTags(int totalCount, int groupSize, NavigationTagBinder binder) {
+        this.groupSize = groupSize;
         if (navTagRecyclerView == null || navTagAdapter == null) {
             return;
         }
         
-        if (totalCount > 10) {
-            navTagAdapter.setTags(totalCount);
+        if (totalCount > groupSize) {
+            navTagAdapter.setTags(totalCount, groupSize, binder);
             navTagRecyclerView.setVisibility(View.VISIBLE);
             navTagRecyclerView.requestLayout();
             
@@ -1036,13 +1158,16 @@ public class VideoListSection extends LinearLayout {
         }
     }
 
+    public int getGroupSize() {
+        return groupSize;
+    }
+
     public void updateNavTagSelection(int videoPosition) {
         if (navTagAdapter == null || navTagAdapter.isEmpty()) {
             return;
         }
         
-        int visiblePosition = videoPosition + 1;
-        int tagIndex = (visiblePosition - 1) / 10;
+        int tagIndex = navTagAdapter.getGroupIndexForVideoPosition(videoPosition);
         
         if (tagIndex >= 0 && tagIndex < navTagAdapter.getTagCount()) {
             navTagAdapter.setSelectedPosition(tagIndex);

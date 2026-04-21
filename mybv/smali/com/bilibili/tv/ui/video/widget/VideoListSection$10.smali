@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 471
+    .line 473
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$10;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -42,10 +42,10 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 474
+    .line 476
     if-eqz p2, :cond_20
 
-    .line 475
+    .line 477
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$10;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusRedirecting:Z
@@ -55,18 +55,18 @@
 
     if-eqz v0, :cond_11
 
-    .line 476
+    .line 478
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$10;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     # setter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusRedirecting:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$102(Lcom/bilibili/tv/ui/video/widget/VideoListSection;Z)Z
 
-    .line 484
+    .line 486
     :cond_10
     :goto_10
     return-void
 
-    .line 477
+    .line 479
     :cond_11
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$10;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
@@ -79,7 +79,7 @@
 
     if-ne v0, v1, :cond_10
 
-    .line 479
+    .line 481
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$10;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     # invokes: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->restoreNavTagFromVideo()V
@@ -87,7 +87,7 @@
 
     goto :goto_10
 
-    .line 482
+    .line 484
     :cond_20
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$10;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 

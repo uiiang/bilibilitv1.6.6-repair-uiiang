@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 368
+    .line 370
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$7;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -46,41 +46,41 @@
 
     const/4 v4, -0x1
 
-    .line 371
+    .line 373
     if-nez p1, :cond_6
 
-    .line 389
+    .line 391
     :goto_5
     return-void
 
-    .line 374
+    .line 376
     :cond_6
     if-nez p2, :cond_20
 
     move v2, v0
 
-    .line 375
+    .line 377
     :goto_9
     add-int/lit8 v3, p3, -0x1
 
     if-ne p2, v3, :cond_22
 
-    .line 377
+    .line 379
     :goto_d
     if-eqz v2, :cond_24
 
-    .line 378
+    .line 380
     invoke-virtual {p1}, Landroid/view/View;->getId()I
 
     move-result v1
 
     invoke-virtual {p1, v1}, Landroid/view/View;->setNextFocusLeftId(I)V
 
-    .line 382
+    .line 384
     :goto_16
     if-eqz v0, :cond_28
 
-    .line 383
+    .line 385
     invoke-virtual {p1}, Landroid/view/View;->getId()I
 
     move-result v0
@@ -92,22 +92,22 @@
     :cond_20
     move v2, v1
 
-    .line 374
+    .line 376
     goto :goto_9
 
     :cond_22
     move v0, v1
 
-    .line 375
+    .line 377
     goto :goto_d
 
-    .line 380
+    .line 382
     :cond_24
     invoke-virtual {p1, v4}, Landroid/view/View;->setNextFocusLeftId(I)V
 
     goto :goto_16
 
-    .line 385
+    .line 387
     :cond_28
     invoke-virtual {p1, v4}, Landroid/view/View;->setNextFocusRightId(I)V
 

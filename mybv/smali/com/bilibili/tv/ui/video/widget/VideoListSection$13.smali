@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/widget/VideoListSection;->scrollToDataPositionOnly(I)V
+    value = Lcom/bilibili/tv/ui/video/widget/VideoListSection;->scrollToDataPositionAtFirstPosition(I)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 690
+    .line 721
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     iput p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;->val$finalPos:I
@@ -44,7 +44,7 @@
     .locals 6
 
     .prologue
-    .line 693
+    .line 724
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
@@ -58,12 +58,11 @@
 
     if-nez v0, :cond_d
 
-    .line 712
-    :cond_c
+    .line 742
     :goto_c
     return-void
 
-    .line 700
+    .line 729
     :cond_d
     :try_start_d
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -77,10 +76,10 @@
 
     move-result-object v0
 
-    .line 701
-    if-eqz v0, :cond_c
+    .line 730
+    if-eqz v0, :cond_47
 
-    .line 702
+    .line 731
     invoke-virtual {v0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
     move-result-object v1
@@ -107,7 +106,7 @@
 
     move-result-object v1
 
-    .line 703
+    .line 732
     const/4 v2, 0x2
 
     new-array v2, v2, [Ljava/lang/Object;
@@ -134,16 +133,26 @@
 
     invoke-virtual {v1, v0, v2}, Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
     :try_end_47
-    .catch Ljava/lang/Exception; {:try_start_d .. :try_end_47} :catch_48
+    .catch Ljava/lang/Exception; {:try_start_d .. :try_end_47} :catch_4f
+
+    .line 741
+    :cond_47
+    :goto_47
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+
+    iget v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;->val$finalPos:I
+
+    # setter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusPosition:I
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$302(Lcom/bilibili/tv/ui/video/widget/VideoListSection;I)I
 
     goto :goto_c
 
-    .line 705
-    :catch_48
+    .line 734
+    :catch_4f
     move-exception v0
 
-    .line 707
-    :try_start_49
+    .line 736
+    :try_start_50
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
@@ -171,7 +180,7 @@
 
     move-result-object v0
 
-    .line 708
+    .line 737
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
@@ -194,14 +203,14 @@
     aput-object v4, v2, v3
 
     invoke-virtual {v0, v1, v2}, Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
-    :try_end_76
-    .catch Ljava/lang/Exception; {:try_start_49 .. :try_end_76} :catch_77
+    :try_end_7d
+    .catch Ljava/lang/Exception; {:try_start_50 .. :try_end_7d} :catch_7e
 
-    goto :goto_c
+    goto :goto_47
 
-    .line 709
-    :catch_77
+    .line 738
+    :catch_7e
     move-exception v0
 
-    goto :goto_c
+    goto :goto_47
 .end method

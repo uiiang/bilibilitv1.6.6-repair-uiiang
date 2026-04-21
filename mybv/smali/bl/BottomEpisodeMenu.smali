@@ -529,7 +529,9 @@
     .line 87
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
-    invoke-virtual {v0, p5}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setupNavigationTags(I)V
+    const/16 v1, 0x14
+
+    invoke-virtual {v0, p5, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setupNavigationTags(II)V
 
     .line 89
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;

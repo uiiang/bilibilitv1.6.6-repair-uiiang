@@ -84,7 +84,7 @@ public class BottomEpisodeMenu extends FrameLayout {
         
         videoListSection.setCurrentCid(currentCid);
         videoListSection.setData(dataList, binder);
-        videoListSection.setupNavigationTags(count);
+        videoListSection.setupNavigationTags(count,20);
         
         videoListSection.setOnVideoClickListener(new VideoListSection.OnVideoClickListener() {
             @Override

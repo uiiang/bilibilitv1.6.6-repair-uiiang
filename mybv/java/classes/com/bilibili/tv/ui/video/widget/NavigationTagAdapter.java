@@ -48,6 +48,8 @@ public class NavigationTagAdapter extends RecyclerView.a<NavigationTagAdapter.Ta
 
     private List<TagItem> tags = new ArrayList<>();
     private int selectedPosition = -1;
+    private int groupSize = 10;
+    private NavigationTagBinder tagBinder;
     private OnTagFocusListener listener;
     private OnTagClickListener clickListener;
     private FocusBoundaryHandler focusBoundaryHandler;
@@ -59,28 +61,45 @@ public class NavigationTagAdapter extends RecyclerView.a<NavigationTagAdapter.Ta
     }
 
     public void setTags(int totalCount) {
+        setTags(totalCount, 10, null);
+    }
+
+    public void setTags(int totalCount, int groupSize) {
+        setTags(totalCount, groupSize, null);
+    }
+
+    public void setTags(int totalCount, int groupSize, NavigationTagBinder binder) {
+        this.groupSize = groupSize;
+        this.tagBinder = binder;
         Log.i(TAG, "========== setTags START ==========");
         Log.i(TAG, "setTags | totalCount=" + totalCount
+                + " | groupSize=" + groupSize
+                + " | binder=" + (binder != null ? binder.getClass().getSimpleName() : "null")
                 + " | 旧tags数量=" + tags.size()
                 + " | 旧selectedPosition=" + selectedPosition);
 
         tags.clear();
-        if (totalCount <= 10) {
-            Log.i(TAG, "setTags | totalCount<=10，不生成导航标签");
+        if (totalCount <= groupSize) {
+            Log.i(TAG, "setTags | totalCount<=groupSize，不生成导航标签");
             d();
             Log.i(TAG, "========== setTags END (无标签) ==========");
             return;
         }
 
-        int groupCount = (totalCount + 9) / 10;
+        int groupCount = (totalCount + groupSize - 1) / groupSize;
         Log.i(TAG, "setTags | 计算分组数: groupCount=" + groupCount);
 
         StringBuilder sb = new StringBuilder("[");
         for (int i = 0; i < groupCount; i++) {
-            int start = i * 10 + 1;
-            int end = Math.min((i + 1) * 10, totalCount);
-            String label = start + "-" + end;
-            tags.add(new TagItem(label, i * 10));
+            int start = i * groupSize;
+            int end = Math.min((i + 1) * groupSize - 1, totalCount - 1);
+            String label;
+            if (tagBinder != null) {
+                label = tagBinder.generateLabel(i, start, end, totalCount);
+            } else {
+                label = (start + 1) + "-" + (end + 1);
+            }
+            tags.add(new TagItem(label, start));
             if (i > 0) sb.append(", ");
             sb.append(label);
         }
@@ -90,6 +109,14 @@ public class NavigationTagAdapter extends RecyclerView.a<NavigationTagAdapter.Ta
         selectedPosition = -1;
         d();
         Log.i(TAG, "========== setTags END | 标签数=" + tags.size() + " ==========");
+    }
+
+    public int getGroupIndexForVideoPosition(int videoPosition) {
+        return videoPosition / groupSize;
+    }
+
+    public int getGroupSize() {
+        return groupSize;
     }
 
     public void setSelectedPosition(int position) {
