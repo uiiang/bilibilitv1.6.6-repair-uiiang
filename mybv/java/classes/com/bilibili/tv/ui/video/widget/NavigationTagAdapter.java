@@ -16,10 +16,10 @@ public class NavigationTagAdapter extends RecyclerView.a<NavigationTagAdapter.Ta
     private static final String TAG = "NavigationTag";
 
     public static class TagItem {
-        String label;
-        int startIndex;
+        public String label;
+        public int startIndex;
 
-        TagItem(String label, int startIndex) {
+        public TagItem(String label, int startIndex) {
             this.label = label;
             this.startIndex = startIndex;
         }
@@ -55,6 +55,9 @@ public class NavigationTagAdapter extends RecyclerView.a<NavigationTagAdapter.Ta
     private FocusBoundaryHandler focusBoundaryHandler;
     private Context context;
     private RecyclerView attachedRecyclerView;
+    
+    // 滚动防抖：保存待执行的滚动请求，用于取消之前的请求
+    private Runnable pendingScrollRunnable = null;
 
     public NavigationTagAdapter() {
         Log.i(TAG, "构造 | 创建NavigationTagAdapter实例 | hashCode=" + this.hashCode());
@@ -109,6 +112,35 @@ public class NavigationTagAdapter extends RecyclerView.a<NavigationTagAdapter.Ta
         selectedPosition = -1;
         d();
         Log.i(TAG, "========== setTags END | 标签数=" + tags.size() + " ==========");
+    }
+
+    public void setCustomTags(java.util.List<TagItem> customTags, int groupSize) {
+        this.groupSize = groupSize;
+        Log.i(TAG, "========== setCustomTags START ==========");
+        Log.i(TAG, "setCustomTags | customTags数量=" + (customTags != null ? customTags.size() : 0)
+                + " | groupSize=" + groupSize);
+
+        tags.clear();
+        if (customTags == null || customTags.isEmpty()) {
+            Log.i(TAG, "setCustomTags | customTags为空，不生成导航标签");
+            d();
+            Log.i(TAG, "========== setCustomTags END (无标签) ==========");
+            return;
+        }
+
+        tags.addAll(customTags);
+        
+        StringBuilder sb = new StringBuilder("[");
+        for (int i = 0; i < tags.size(); i++) {
+            if (i > 0) sb.append(", ");
+            sb.append(tags.get(i).label);
+        }
+        sb.append("]");
+        Log.i(TAG, "setCustomTags | 标签列表: " + sb.toString());
+
+        selectedPosition = -1;
+        d();
+        Log.i(TAG, "========== setCustomTags END | 标签数=" + tags.size() + " ==========");
     }
 
     public int getGroupIndexForVideoPosition(int videoPosition) {
@@ -333,17 +365,40 @@ public class NavigationTagAdapter extends RecyclerView.a<NavigationTagAdapter.Ta
     public void scrollToPositionWithOffset(int position) {
         Log.i(TAG, "scrollToPositionWithOffset | position=" + position + " | tagsSize=" + tags.size());
         if (attachedRecyclerView != null && position >= 0 && position < tags.size()) {
-            try {
-                Object layoutManager = attachedRecyclerView.getLayoutManager();
-                if (layoutManager != null) {
-                    java.lang.reflect.Method scrollToWithOffset = layoutManager.getClass().getMethod("b", int.class, int.class);
-                    scrollToWithOffset.invoke(layoutManager, position, 0);
-                    Log.i(TAG, "scrollToPositionWithOffset | b(int,int)成功 | position=" + position);
-                }
-            } catch (Exception e) {
-                Log.w(TAG, "scrollToPositionWithOffset | b(int,int)失败: " + e.getMessage());
-                scrollToPosition(position);
+            // 取消之前待执行的滚动请求
+            if (pendingScrollRunnable != null) {
+                attachedRecyclerView.removeCallbacks(pendingScrollRunnable);
+                pendingScrollRunnable = null;
+                Log.i(TAG, "scrollToPositionWithOffset | 取消之前的滚动请求");
             }
+
+            final int finalPosition = position;
+            pendingScrollRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    if (attachedRecyclerView == null) {
+                        Log.i(TAG, "scrollToPositionWithOffset | attachedRecyclerView为null，返回");
+                        return;
+                    }
+                    try {
+                        Object layoutManager = attachedRecyclerView.getLayoutManager();
+                        if (layoutManager != null) {
+                            java.lang.reflect.Method scrollToWithOffset = layoutManager.getClass().getMethod("b", int.class, int.class);
+                            scrollToWithOffset.invoke(layoutManager, finalPosition, 0);
+                            Log.i(TAG, "scrollToPositionWithOffset | b(int,int)成功 | position=" + finalPosition);
+                        }
+                    } catch (Exception e) {
+                        Log.w(TAG, "scrollToPositionWithOffset | b(int,int)失败: " + e.getMessage());
+                        try {
+                            java.lang.reflect.Method scrollToMethod = attachedRecyclerView.getClass().getMethod("a", int.class);
+                            scrollToMethod.invoke(attachedRecyclerView, finalPosition);
+                        } catch (Exception e2) {
+                        }
+                    }
+                    pendingScrollRunnable = null;
+                }
+            };
+            attachedRecyclerView.post(pendingScrollRunnable);
         } else {
             Log.w(TAG, "scrollToPositionWithOffset | 无法滚动 | attachedRecyclerView=" 
                     + (attachedRecyclerView != null ? "OK" : "null")

@@ -220,11 +220,11 @@ public class SkipSettingDialog extends Dialog {
                         }
                         return true;
                     } else if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER) {
-                        if (onPositionProvider != null) {
-                            setOutroTime(onPositionProvider.getCurrentPosition());
-                        } else {
-                            setOutroTime(currentPosition);
-                        }
+                        long duration = getMaxTimeMs();
+                        long currentPos = onPositionProvider != null ? onPositionProvider.getCurrentPosition() : currentPosition;
+                        long outroTime = duration - currentPos;
+                        if (outroTime < 0) outroTime = 0;
+                        setOutroTime(outroTime);
                         return true;
                     }
                 } else if (event.getAction() == KeyEvent.ACTION_UP) {

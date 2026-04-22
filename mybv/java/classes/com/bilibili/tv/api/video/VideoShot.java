@@ -131,4 +131,24 @@ public class VideoShot {
             (row + 1) * getImgYSize()
         );
     }
+    
+    public java.util.List<VideoShotItem> getAllShots() {
+        java.util.List<VideoShotItem> items = new java.util.ArrayList<>();
+        if (index == null || index.isEmpty()) {
+            return items;
+        }
+        
+        for (int i = 0; i < index.size(); i++) {
+            items.add(new VideoShotItem(index.get(i), i));
+        }
+        
+        return items;
+    }
+    
+    public int getTotalDuration() {
+        if (index == null || index.isEmpty()) {
+            return 0;
+        }
+        return index.get(index.size() - 1);
+    }
 }

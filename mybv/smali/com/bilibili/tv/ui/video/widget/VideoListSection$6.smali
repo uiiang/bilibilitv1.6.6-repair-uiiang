@@ -3,7 +3,7 @@
 .source "VideoListSection.java"
 
 # interfaces
-.implements Landroid/view/View$OnFocusChangeListener;
+.implements Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemClickListener;
 
 
 # annotations
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 332
+    .line 375
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$6;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,105 +36,225 @@
 
 
 # virtual methods
-.method public onFocusChange(Landroid/view/View;Z)V
-    .locals 2
+.method public onItemClick(Ljava/lang/Object;I)V
+    .locals 6
 
     .prologue
-    const/4 v1, 0x0
+    const-wide/16 v4, 0x0
 
-    .line 335
-    if-eqz p2, :cond_33
+    const/4 v2, 0x0
 
-    .line 336
+    .line 378
+    .line 380
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$6;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
-    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusRedirecting:Z
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$100(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)Z
+    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->currentCid:J
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$700(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)J
+
+    move-result-wide v0
+
+    cmp-long v0, v0, v4
+
+    if-lez v0, :cond_ad
+
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$6;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+
+    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->adapter:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$800(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->getBinder()Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_ad
+
+    if-eqz p1, :cond_ad
+
+    .line 381
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$6;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+
+    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->adapter:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$800(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->getBinder()Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$6;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+
+    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->currentCid:J
+    invoke-static {v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$700(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)J
+
+    move-result-wide v2
+
+    invoke-interface {v0, p1, v2, v3}, Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;->isCurrentVideoByCid(Ljava/lang/Object;J)Z
+
+    move-result v2
+
+    .line 382
+    const/4 v1, 0x1
+
+    move v0, v2
+
+    .line 385
+    :goto_31
+    if-nez v1, :cond_5f
+
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$6;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+
+    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->currentVideoId:J
+    invoke-static {v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$900(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)J
+
+    move-result-wide v2
+
+    cmp-long v1, v2, v4
+
+    if-lez v1, :cond_5f
+
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$6;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+
+    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->adapter:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
+    invoke-static {v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$800(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->getBinder()Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;
+
+    move-result-object v1
+
+    if-eqz v1, :cond_5f
+
+    if-eqz p1, :cond_5f
+
+    .line 386
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$6;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+
+    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->adapter:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$800(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->getBinder()Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$6;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+
+    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->currentVideoId:J
+    invoke-static {v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$900(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)J
+
+    move-result-wide v2
+
+    invoke-interface {v0, p1, v2, v3}, Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;->isCurrentVideo(Ljava/lang/Object;J)Z
 
     move-result v0
 
-    if-nez v0, :cond_13
+    .line 389
+    :cond_5f
+    if-nez v0, :cond_8b
 
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$6;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+
+    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->currentSeasonId:I
+    invoke-static {v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$1000(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)I
+
+    move-result v1
+
+    if-lez v1, :cond_8b
+
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$6;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+
+    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->adapter:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
+    invoke-static {v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$800(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->getBinder()Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;
+
+    move-result-object v1
+
+    if-eqz v1, :cond_8b
+
+    if-eqz p1, :cond_8b
+
+    .line 390
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$6;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
-    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->manualFocusRequested:Z
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$1200(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)Z
+    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->adapter:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$800(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->getBinder()Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$6;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+
+    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->currentSeasonId:I
+    invoke-static {v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$1000(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)I
+
+    move-result v1
+
+    invoke-interface {v0, p1, v1}, Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;->isCurrentSeason(Ljava/lang/Object;I)Z
 
     move-result v0
 
-    if-eqz v0, :cond_1e
+    .line 393
+    :cond_8b
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$6;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
-    .line 338
-    :cond_13
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$6;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->interceptCurrentVideoClick:Z
+    invoke-static {v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$1100(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)Z
 
-    # setter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusRedirecting:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$102(Lcom/bilibili/tv/ui/video/widget/VideoListSection;Z)Z
+    move-result v1
 
-    .line 339
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$6;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+    if-eqz v1, :cond_96
 
-    # setter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->manualFocusRequested:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$1202(Lcom/bilibili/tv/ui/video/widget/VideoListSection;Z)Z
+    if-eqz v0, :cond_96
 
-    .line 353
-    :goto_1d
+    .line 401
+    :cond_95
+    :goto_95
     return-void
 
-    .line 340
-    :cond_1e
+    .line 397
+    :cond_96
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$6;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
-    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->currentFocusArea:I
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$1300(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)I
+    # invokes: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->saveFocusPositionByIndex(I)V
+    invoke-static {v0, p2}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$1200(Lcom/bilibili/tv/ui/video/widget/VideoListSection;I)V
 
-    move-result v0
-
-    const/4 v1, 0x2
-
-    if-ne v0, v1, :cond_2d
-
-    .line 342
+    .line 398
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$6;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
-    # invokes: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->restoreFocusFromNavTag()V
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$1700(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)V
+    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->videoClickListener:Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoClickListener;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$1300(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoClickListener;
 
-    goto :goto_1d
+    move-result-object v0
 
-    .line 345
-    :cond_2d
+    if-eqz v0, :cond_95
+
+    .line 399
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$6;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
-    # invokes: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->restoreFocusFromExternal()V
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$1800(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)V
+    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->videoClickListener:Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoClickListener;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$1300(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoClickListener;
 
-    goto :goto_1d
+    move-result-object v0
 
-    .line 348
-    :cond_33
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$6;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+    invoke-interface {v0, p1, p2}, Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoClickListener;->onVideoClicked(Ljava/lang/Object;I)V
 
-    # setter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusRedirecting:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$102(Lcom/bilibili/tv/ui/video/widget/VideoListSection;Z)Z
+    goto :goto_95
 
-    .line 349
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$6;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+    :cond_ad
+    move v1, v2
 
-    # setter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->manualFocusRequested:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$1202(Lcom/bilibili/tv/ui/video/widget/VideoListSection;Z)Z
+    move v0, v2
 
-    .line 350
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$6;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-
-    # setter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->currentFocusArea:I
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$1302(Lcom/bilibili/tv/ui/video/widget/VideoListSection;I)I
-
-    .line 351
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$6;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-
-    # invokes: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->saveCurrentFocusFromRecyclerView()V
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$1900(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)V
-
-    goto :goto_1d
+    goto :goto_31
 .end method

@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;->onFocusChange(Landroid/view/View;Z)V
+    value = Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;->run()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,18 +20,14 @@
 # instance fields
 .field final synthetic this$1:Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;
 
-.field final synthetic val$targetPos:I
-
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;I)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;)V
     .locals 0
 
     .prologue
-    .line 1043
+    .line 822
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13$1;->this$1:Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;
-
-    iput p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13$1;->val$targetPos:I
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -44,38 +40,22 @@
     .locals 3
 
     .prologue
-    .line 1046
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13$1;->this$1:Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;
-
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-
-    iget v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13$1;->val$targetPos:I
-
-    # invokes: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->findViewByDataPosition(I)Landroid/view/View;
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$2200(Lcom/bilibili/tv/ui/video/widget/VideoListSection;I)Landroid/view/View;
-
-    move-result-object v0
-
-    .line 1047
-    if-eqz v0, :cond_29
-
-    .line 1048
-    invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
-
-    .line 1049
-    const-string v0, "ListSection"
+    .line 825
+    const-string v0, "ShotMenuBug"
 
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v2, "recyclerView.onFocusChange | \u5ef6\u8fdfrequestFocus\u5230video position="
+    const-string v2, "VideoListSection.scrollToCurrentItem: requesting focus on position "
 
     invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
-    iget v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13$1;->val$targetPos:I
+    iget-object v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13$1;->this$1:Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;
+
+    iget v2, v2, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;->val$finalPos:I
 
     invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
@@ -87,17 +67,17 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1051
-    :cond_29
+    .line 826
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13$1;->this$1:Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
-    const/4 v1, 0x0
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13$1;->this$1:Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;
 
-    # setter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->isRestoringFocus:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$2002(Lcom/bilibili/tv/ui/video/widget/VideoListSection;Z)Z
+    iget v1, v1, Lcom/bilibili/tv/ui/video/widget/VideoListSection$13;->val$finalPos:I
 
-    .line 1052
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->requestFocusOnPosition(I)V
+
+    .line 827
     return-void
 .end method

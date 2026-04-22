@@ -66,12 +66,19 @@
 
     invoke-virtual {v0, p0, v2, v3}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 123
+    .line 124
     :goto_17
     return-void
 
     .line 122
     :cond_18
+    const-string v0, "ShotMenuBug"
+
+    const-string v1, "EpisodeMenu.show: calling scrollToCurrentVideoAtFirstPosition"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 123
     iget-object v0, p0, Lbl/BottomEpisodeMenu$2;->this$0:Lbl/BottomEpisodeMenu;
 
     # getter for: Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;

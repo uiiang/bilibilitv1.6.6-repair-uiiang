@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 419
+    .line 471
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$8$1;->this$1:Lcom/bilibili/tv/ui/video/widget/VideoListSection$8;
 
     iput p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$8$1;->val$finalTagIndex:I
@@ -44,7 +44,7 @@
     .locals 2
 
     .prologue
-    .line 422
+    .line 474
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$8$1;->this$1:Lcom/bilibili/tv/ui/video/widget/VideoListSection$8;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$8;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -60,13 +60,13 @@
 
     move-result-object v0
 
-    .line 423
+    .line 475
     if-eqz v0, :cond_13
 
-    .line 424
+    .line 476
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 426
+    .line 478
     :cond_13
     return-void
 .end method

@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 136
+    .line 137
     iput-object p1, p0, Lbl/BottomEpisodeMenu$3;->this$0:Lbl/BottomEpisodeMenu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,14 +40,14 @@
     .locals 2
 
     .prologue
-    .line 142
+    .line 143
     iget-object v0, p0, Lbl/BottomEpisodeMenu$3;->this$0:Lbl/BottomEpisodeMenu;
 
     const/16 v1, 0x8
 
     invoke-virtual {v0, v1}, Lbl/BottomEpisodeMenu;->setVisibility(I)V
 
-    .line 143
+    .line 144
     iget-object v0, p0, Lbl/BottomEpisodeMenu$3;->this$0:Lbl/BottomEpisodeMenu;
 
     const/4 v1, 0x0
@@ -55,7 +55,7 @@
     # setter for: Lbl/BottomEpisodeMenu;->isHiding:Z
     invoke-static {v0, v1}, Lbl/BottomEpisodeMenu;->access$202(Lbl/BottomEpisodeMenu;Z)Z
 
-    .line 144
+    .line 145
     return-void
 .end method
 
@@ -63,7 +63,7 @@
     .locals 0
 
     .prologue
-    .line 147
+    .line 148
     return-void
 .end method
 
@@ -71,6 +71,6 @@
     .locals 0
 
     .prologue
-    .line 139
+    .line 140
     return-void
 .end method

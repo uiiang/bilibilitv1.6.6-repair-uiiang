@@ -3,7 +3,7 @@
 .source "VideoListSection.java"
 
 # interfaces
-.implements Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$OnTagClickListener;
+.implements Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$FocusBoundaryHandler;
 
 
 # annotations
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 454
+    .line 516
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$9;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,77 +36,80 @@
 
 
 # virtual methods
-.method public onTagClick(II)V
-    .locals 2
+.method public setupFocusBoundary(Landroid/view/View;II)V
+    .locals 5
 
     .prologue
-    .line 457
-    if-ltz p1, :cond_1e
+    const/4 v0, 0x1
 
-    .line 458
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$9;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+    const/4 v1, 0x0
 
-    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusPosition:I
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$300(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)I
+    const/4 v4, -0x1
+
+    .line 519
+    if-nez p1, :cond_6
+
+    .line 537
+    :goto_5
+    return-void
+
+    .line 522
+    :cond_6
+    if-nez p2, :cond_20
+
+    move v2, v0
+
+    .line 523
+    :goto_9
+    add-int/lit8 v3, p3, -0x1
+
+    if-ne p2, v3, :cond_22
+
+    .line 525
+    :goto_d
+    if-eqz v2, :cond_24
+
+    .line 526
+    invoke-virtual {p1}, Landroid/view/View;->getId()I
+
+    move-result v1
+
+    invoke-virtual {p1, v1}, Landroid/view/View;->setNextFocusLeftId(I)V
+
+    .line 530
+    :goto_16
+    if-eqz v0, :cond_28
+
+    .line 531
+    invoke-virtual {p1}, Landroid/view/View;->getId()I
 
     move-result v0
 
-    .line 460
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$9;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+    invoke-virtual {p1, v0}, Landroid/view/View;->setNextFocusRightId(I)V
 
-    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagAdapter:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
-    invoke-static {v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$000(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
+    goto :goto_5
 
-    move-result-object v1
+    :cond_20
+    move v2, v1
 
-    invoke-virtual {v1}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->getGroupSize()I
+    .line 522
+    goto :goto_9
 
-    move-result v1
+    :cond_22
+    move v0, v1
 
-    add-int/2addr v1, p2
+    .line 523
+    goto :goto_d
 
-    add-int/lit8 v1, v1, -0x1
+    .line 528
+    :cond_24
+    invoke-virtual {p1, v4}, Landroid/view/View;->setNextFocusLeftId(I)V
 
-    .line 462
-    if-lt v0, p2, :cond_19
+    goto :goto_16
 
-    if-le v0, v1, :cond_1e
+    .line 533
+    :cond_28
+    invoke-virtual {p1, v4}, Landroid/view/View;->setNextFocusRightId(I)V
 
-    .line 463
-    :cond_19
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$9;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-
-    invoke-virtual {v0, p2}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->scrollToDataPosition(I)V
-
-    .line 467
-    :cond_1e
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$9;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-
-    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagClickListener:Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagClickListener;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$2300(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagClickListener;
-
-    move-result-object v0
-
-    if-eqz v0, :cond_35
-
-    .line 468
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$9;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-
-    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagClickListener:Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagClickListener;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$2300(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagClickListener;
-
-    move-result-object v0
-
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$9;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-
-    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->sectionId:I
-    invoke-static {v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$1600(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)I
-
-    move-result v1
-
-    invoke-interface {v0, v1, p1, p2}, Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagClickListener;->onNavTagClick(III)V
-
-    .line 470
-    :cond_35
-    return-void
+    goto :goto_5
 .end method

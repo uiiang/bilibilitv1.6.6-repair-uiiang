@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BottomEpisodeMenu extends FrameLayout {
-    private static final String TAG = "BottomEpisodeMenu";
+    private static final String TAG = "ShotMenuBug";
     private VideoListSection videoListSection;
     private TextView titleTextView;
     private Runnable autoHideRunnable;
@@ -119,6 +119,7 @@ public class BottomEpisodeMenu extends FrameLayout {
                     videoListSection.postDelayed(this, 50);
                     return;
                 }
+                android.util.Log.i(TAG, "EpisodeMenu.show: calling scrollToCurrentVideoAtFirstPosition");
                 videoListSection.scrollToCurrentVideoAtFirstPosition();
             }
         });
@@ -184,6 +185,7 @@ public class BottomEpisodeMenu extends FrameLayout {
     
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
+        android.util.Log.i(TAG, "EpisodeMenu.dispatchKeyEvent: keyCode=" + event.getKeyCode() + ", action=" + event.getAction() + ", isShowing=" + isShowing());
         if (isShowing() && event.getAction() == KeyEvent.ACTION_DOWN) {
             int keyCode = event.getKeyCode();
             if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT 
@@ -195,7 +197,9 @@ public class BottomEpisodeMenu extends FrameLayout {
                 resetAutoHideTimer();
             }
         }
-        return super.dispatchKeyEvent(event);
+        boolean result = super.dispatchKeyEvent(event);
+        android.util.Log.i(TAG, "EpisodeMenu.dispatchKeyEvent: super returned " + result);
+        return result;
     }
     
     @Override

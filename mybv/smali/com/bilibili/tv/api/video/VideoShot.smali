@@ -83,6 +83,92 @@
 
 
 # virtual methods
+.method public getAllShots()Ljava/util/List;
+    .locals 4
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()",
+            "Ljava/util/List",
+            "<",
+            "Lcom/bilibili/tv/api/video/VideoShotItem;",
+            ">;"
+        }
+    .end annotation
+
+    .prologue
+    .line 136
+    new-instance v2, Ljava/util/ArrayList;
+
+    invoke-direct {v2}, Ljava/util/ArrayList;-><init>()V
+
+    .line 137
+    iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoShot;->index:Ljava/util/List;
+
+    if-eqz v0, :cond_11
+
+    iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoShot;->index:Ljava/util/List;
+
+    invoke-interface {v0}, Ljava/util/List;->isEmpty()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_13
+
+    :cond_11
+    move-object v0, v2
+
+    .line 145
+    :goto_12
+    return-object v0
+
+    .line 141
+    :cond_13
+    const/4 v0, 0x0
+
+    move v1, v0
+
+    :goto_15
+    iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoShot;->index:Ljava/util/List;
+
+    invoke-interface {v0}, Ljava/util/List;->size()I
+
+    move-result v0
+
+    if-ge v1, v0, :cond_35
+
+    .line 142
+    new-instance v3, Lcom/bilibili/tv/api/video/VideoShotItem;
+
+    iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoShot;->index:Ljava/util/List;
+
+    invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/lang/Integer;
+
+    invoke-virtual {v0}, Ljava/lang/Integer;->intValue()I
+
+    move-result v0
+
+    invoke-direct {v3, v0, v1}, Lcom/bilibili/tv/api/video/VideoShotItem;-><init>(II)V
+
+    invoke-interface {v2, v3}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    .line 141
+    add-int/lit8 v0, v1, 0x1
+
+    move v1, v0
+
+    goto :goto_15
+
+    :cond_35
+    move-object v0, v2
+
+    .line 145
+    goto :goto_12
+.end method
+
 .method public getImage()Ljava/util/List;
     .locals 1
     .annotation system Ldalvik/annotation/Signature;
@@ -451,6 +537,55 @@
 
     .line 127
     return-object v2
+.end method
+
+.method public getTotalDuration()I
+    .locals 2
+
+    .prologue
+    .line 149
+    iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoShot;->index:Ljava/util/List;
+
+    if-eqz v0, :cond_c
+
+    iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoShot;->index:Ljava/util/List;
+
+    invoke-interface {v0}, Ljava/util/List;->isEmpty()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_e
+
+    .line 150
+    :cond_c
+    const/4 v0, 0x0
+
+    .line 152
+    :goto_d
+    return v0
+
+    :cond_e
+    iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoShot;->index:Ljava/util/List;
+
+    iget-object v1, p0, Lcom/bilibili/tv/api/video/VideoShot;->index:Ljava/util/List;
+
+    invoke-interface {v1}, Ljava/util/List;->size()I
+
+    move-result v1
+
+    add-int/lit8 v1, v1, -0x1
+
+    invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/lang/Integer;
+
+    invoke-virtual {v0}, Ljava/lang/Integer;->intValue()I
+
+    move-result v0
+
+    goto :goto_d
 .end method
 
 .method public setImage(Ljava/util/List;)V

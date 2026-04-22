@@ -31,6 +31,9 @@ import java.util.Random;
 import android.text.TextUtils;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.player.widget.PlayerMenuRight;
+import com.bilibili.tv.player.widget.PlayerSeekBar;
+import com.bilibili.tv.api.video.VideoShot;
+import com.bilibili.tv.ui.video.player.BottomShotMenu;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
@@ -50,6 +53,7 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
     private long lastCompletionTime = 0;
     private static final long COMPLETION_DEBOUNCE_MS = 1000;
     private BottomEpisodeMenu bottomEpisodeMenu;
+    private BottomShotMenu bottomShotMenu;
 
     /* JADX INFO: Access modifiers changed from: package-private */
     public static final /* synthetic */ boolean a(View view, View view2, int i, int i2, KeyEvent keyEvent) {
@@ -90,6 +94,8 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
 
     @Override // bl.xh
     public boolean g(int i, KeyEvent keyEvent) {
+        android.util.Log.i("ShotMenuBug", "xl.g: keyCode=" + i + ", P()=" + P() + ", isShotMenuShowing()=" + isShotMenuShowing());
+        
         if (!X()) {
             return false;
         }
@@ -99,10 +105,19 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
                 V();
                 return true;
             }
+            if (isShotMenuShowing()) {
+                hideShotMenu();
+                return true;
+            }
             return false;
         }
         
         if (i == 19) {
+            android.util.Log.i("ShotMenuBug", "xl.g: DPAD_UP pressed");
+            if (isShotMenuShowing()) {
+                android.util.Log.i("ShotMenuBug", "xl.g: shot menu showing, consuming UP key");
+                return true;
+            }
             if (!S()) {
                 R();
             }
@@ -114,7 +129,26 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
             return true;
         }
         
-        if (P()) {
+        if (i == 20) {
+            android.util.Log.i("ShotMenuBug", "xl.g: DPAD_DOWN pressed");
+            if (P()) {
+                return true;
+            }
+            if (isShotMenuShowing()) {
+                return true;
+            }
+            if (showShotMenu()) {
+                return true;
+            }
+            xh parentHandler = next();
+            if (parentHandler instanceof xi) {
+                ((xi) parentHandler).tt();
+            }
+            return true;
+        }
+        
+        if (P() || isShotMenuShowing()) {
+            android.util.Log.i("ShotMenuBug", "xl.g: menu showing, consuming key " + i);
             return true;
         }
         
@@ -505,5 +539,88 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
             bottomEpisodeMenu.cleanup();
             bottomEpisodeMenu = null;
         }
+    }
+    
+    public boolean isShotMenuShowing() {
+        return bottomShotMenu != null && bottomShotMenu.isShowing();
+    }
+    
+    private boolean showShotMenu() {
+        PlayerSeekBar playerSeekBar = getPlayerSeekBar();
+        if (playerSeekBar == null) {
+            android.util.Log.i("xl", "showShotMenu: playerSeekBar is null");
+            return false;
+        }
+        
+        VideoShot videoShot = playerSeekBar.getVideoShot();
+        if (videoShot == null || videoShot.getIndex() == null || videoShot.getIndex().isEmpty()) {
+            android.util.Log.i("xl", "showShotMenu: videoShot is null or empty");
+            return false;
+        }
+        
+        int duration = playerSeekBar.getDuration();
+        int currentPlayTimeSec = x() / 1000;
+        
+        String videoTitle = getVideoTitle();
+        
+        if (bottomShotMenu == null) {
+            bottomShotMenu = new BottomShotMenu(p());
+            bottomShotMenu.setOnShotClickListener(new BottomShotMenu.OnShotClickListener() {
+                @Override
+                public void onShotClicked(int timeSeconds) {
+                    seekTo(timeSeconds);
+                }
+            });
+            Activity activity = o();
+            if (activity != null) {
+                View rootView = activity.getWindow().getDecorView().findViewById(android.R.id.content);
+                if (rootView instanceof ViewGroup) {
+                    FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
+                        FrameLayout.LayoutParams.MATCH_PARENT,
+                        FrameLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    lp.gravity = android.view.Gravity.BOTTOM;
+                    bottomShotMenu.setLayoutParams(lp);
+                    ((ViewGroup) rootView).addView(bottomShotMenu);
+                }
+            }
+        }
+        
+        bottomShotMenu.show(videoShot, duration, videoTitle, currentPlayTimeSec);
+        return true;
+    }
+    
+    private void hideShotMenu() {
+        if (bottomShotMenu != null) {
+            bottomShotMenu.hide();
+        }
+    }
+    
+    private PlayerSeekBar getPlayerSeekBar() {
+        Activity activity = o();
+        if (activity == null) {
+            return null;
+        }
+        View rootView = activity.getWindow().getDecorView().findViewById(android.R.id.content);
+        if (rootView == null) {
+            return null;
+        }
+        return (PlayerSeekBar) rootView.findViewById(R.id.seekbar_group);
+    }
+    
+    private String getVideoTitle() {
+        PlayerParams playerParams = b();
+        if (playerParams == null || playerParams.mVideoParams == null) {
+            return "";
+        }
+        ResolveResourceParams resolveParams = playerParams.mVideoParams.obtainResolveParams();
+        if (resolveParams == null) {
+            return "";
+        }
+        return resolveParams.mPageTitle != null ? resolveParams.mPageTitle : "";
+    }
+    
+    private void seekTo(int timeSeconds) {
+        c(timeSeconds * 1000);
     }
 }

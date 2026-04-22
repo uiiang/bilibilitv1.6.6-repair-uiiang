@@ -417,4 +417,7 @@
     <item type="id" name="intro_time_display" />
     <item type="id" name="outro_time_display" />
     <item type="id" name="apply_to_up_checkbox" />
+    <item type="id" name="bottom_shot_menu_root" />
+    <item type="id" name="shot_title" />
+    <item type="id" name="shot_list_section" />
 </resources>

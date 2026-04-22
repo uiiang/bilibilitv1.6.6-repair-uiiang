@@ -2759,6 +2759,7 @@
     <public type="layout" name="item_tag_filter" id="0x7f0a00a3" />
     <public type="layout" name="dialog_skip_setting" id="0x7f0a00a4" />
     <public type="layout" name="item_skip_time_picker" id="0x7f0a00a5" />
+    <public type="layout" name="player_shot_menu" id="0x7f0a00a6" />
 
 
     <public type="mipmap" name="ic_launcher" id="0x7f0b0000" />
@@ -3559,4 +3560,7 @@
     <public type="id" name="outro_time_display" id="0x7f08020e" />
     <public type="id" name="btn_save_skip_layout" id="0x7f08020f" />
     <public type="id" name="btn_cancel_skip_layout" id="0x7f080210" />
+    <public type="id" name="bottom_shot_menu_root" id="0x7f080212" />
+    <public type="id" name="shot_title" id="0x7f080213" />
+    <public type="id" name="shot_list_section" id="0x7f080214" />
 </resources>

@@ -14,7 +14,7 @@
 # static fields
 .field private static final AUTO_HIDE_DELAY:I = 0x1388
 
-.field private static final TAG:Ljava/lang/String; = "BottomEpisodeMenu"
+.field private static final TAG:Ljava/lang/String; = "ShotMenuBug"
 
 
 # instance fields
@@ -121,17 +121,17 @@
     .locals 1
 
     .prologue
-    .line 173
+    .line 174
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->autoHideRunnable:Ljava/lang/Runnable;
 
     if-eqz v0, :cond_9
 
-    .line 174
+    .line 175
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->autoHideRunnable:Ljava/lang/Runnable;
 
     invoke-virtual {p0, v0}, Lbl/BottomEpisodeMenu;->removeCallbacks(Ljava/lang/Runnable;)Z
 
-    .line 176
+    .line 177
     :cond_9
     return-void
 .end method
@@ -204,14 +204,14 @@
     .locals 1
 
     .prologue
-    .line 157
+    .line 158
     new-instance v0, Lbl/BottomEpisodeMenu$4;
 
     invoke-direct {v0, p0}, Lbl/BottomEpisodeMenu$4;-><init>(Lbl/BottomEpisodeMenu;)V
 
     iput-object v0, p0, Lbl/BottomEpisodeMenu;->autoHideRunnable:Ljava/lang/Runnable;
 
-    .line 163
+    .line 164
     return-void
 .end method
 
@@ -221,81 +221,160 @@
     .locals 1
 
     .prologue
-    .line 179
-    invoke-direct {p0}, Lbl/BottomEpisodeMenu;->cancelAutoHideTimer()V
-
     .line 180
-    iget-object v0, p0, Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-
-    if-eqz v0, :cond_c
+    invoke-direct {p0}, Lbl/BottomEpisodeMenu;->cancelAutoHideTimer()V
 
     .line 181
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
+    if-eqz v0, :cond_c
+
+    .line 182
+    iget-object v0, p0, Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->cleanup()V
 
-    .line 183
+    .line 184
     :cond_c
     return-void
 .end method
 
 .method public dispatchKeyEvent(Landroid/view/KeyEvent;)Z
-    .locals 2
+    .locals 4
 
     .prologue
-    .line 187
+    .line 188
+    const-string v0, "ShotMenuBug"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "EpisodeMenu.dispatchKeyEvent: keyCode="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {p1}, Landroid/view/KeyEvent;->getKeyCode()I
+
+    move-result v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, ", action="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {p1}, Landroid/view/KeyEvent;->getAction()I
+
+    move-result v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, ", isShowing="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {p0}, Lbl/BottomEpisodeMenu;->isShowing()Z
+
+    move-result v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 189
     invoke-virtual {p0}, Lbl/BottomEpisodeMenu;->isShowing()Z
 
     move-result v0
 
-    if-eqz v0, :cond_2b
+    if-eqz v0, :cond_63
 
     invoke-virtual {p1}, Landroid/view/KeyEvent;->getAction()I
 
     move-result v0
 
-    if-nez v0, :cond_2b
+    if-nez v0, :cond_63
 
-    .line 188
+    .line 190
     invoke-virtual {p1}, Landroid/view/KeyEvent;->getKeyCode()I
 
     move-result v0
 
-    .line 189
+    .line 191
     const/16 v1, 0x15
 
-    if-eq v0, v1, :cond_28
+    if-eq v0, v1, :cond_60
 
     const/16 v1, 0x16
 
-    if-eq v0, v1, :cond_28
+    if-eq v0, v1, :cond_60
 
     const/16 v1, 0x13
 
-    if-eq v0, v1, :cond_28
+    if-eq v0, v1, :cond_60
 
     const/16 v1, 0x14
 
-    if-eq v0, v1, :cond_28
+    if-eq v0, v1, :cond_60
 
     const/16 v1, 0x17
 
-    if-eq v0, v1, :cond_28
+    if-eq v0, v1, :cond_60
 
     const/16 v1, 0x42
 
-    if-ne v0, v1, :cond_2b
+    if-ne v0, v1, :cond_63
 
-    .line 195
-    :cond_28
+    .line 197
+    :cond_60
     invoke-virtual {p0}, Lbl/BottomEpisodeMenu;->resetAutoHideTimer()V
 
-    .line 198
-    :cond_2b
+    .line 200
+    :cond_63
     invoke-super {p0, p1}, Landroid/widget/FrameLayout;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
 
     move-result v0
 
+    .line 201
+    const-string v1, "ShotMenuBug"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "EpisodeMenu.dispatchKeyEvent: super returned "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 202
     return v0
 .end method
 
@@ -303,7 +382,7 @@
     .locals 2
 
     .prologue
-    .line 130
+    .line 131
     invoke-virtual {p0}, Lbl/BottomEpisodeMenu;->getVisibility()I
 
     move-result v0
@@ -314,21 +393,21 @@
 
     if-eqz v0, :cond_b
 
-    .line 150
+    .line 151
     :cond_a
     :goto_a
     return-void
 
-    .line 133
+    .line 134
     :cond_b
     invoke-direct {p0}, Lbl/BottomEpisodeMenu;->cancelAutoHideTimer()V
 
-    .line 134
+    .line 135
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lbl/BottomEpisodeMenu;->isHiding:Z
 
-    .line 135
+    .line 136
     invoke-virtual {p0}, Lbl/BottomEpisodeMenu;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -339,14 +418,14 @@
 
     move-result-object v0
 
-    .line 136
+    .line 137
     new-instance v1, Lbl/BottomEpisodeMenu$3;
 
     invoke-direct {v1, p0}, Lbl/BottomEpisodeMenu$3;-><init>(Lbl/BottomEpisodeMenu;)V
 
     invoke-virtual {v0, v1}, Landroid/view/animation/Animation;->setAnimationListener(Landroid/view/animation/Animation$AnimationListener;)V
 
-    .line 149
+    .line 150
     invoke-virtual {p0, v0}, Lbl/BottomEpisodeMenu;->startAnimation(Landroid/view/animation/Animation;)V
 
     goto :goto_a
@@ -356,7 +435,7 @@
     .locals 1
 
     .prologue
-    .line 153
+    .line 154
     invoke-virtual {p0}, Lbl/BottomEpisodeMenu;->getVisibility()I
 
     move-result v0
@@ -383,13 +462,13 @@
     .locals 0
 
     .prologue
-    .line 203
+    .line 207
     invoke-super {p0}, Landroid/widget/FrameLayout;->onDetachedFromWindow()V
 
-    .line 204
+    .line 208
     invoke-virtual {p0}, Lbl/BottomEpisodeMenu;->cleanup()V
 
-    .line 205
+    .line 209
     return-void
 .end method
 
@@ -397,24 +476,24 @@
     .locals 4
 
     .prologue
-    .line 166
+    .line 167
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->autoHideRunnable:Ljava/lang/Runnable;
 
     if-eqz v0, :cond_10
 
-    .line 167
+    .line 168
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->autoHideRunnable:Ljava/lang/Runnable;
 
     invoke-virtual {p0, v0}, Lbl/BottomEpisodeMenu;->removeCallbacks(Ljava/lang/Runnable;)Z
 
-    .line 168
+    .line 169
     iget-object v0, p0, Lbl/BottomEpisodeMenu;->autoHideRunnable:Ljava/lang/Runnable;
 
     const-wide/16 v2, 0x1388
 
     invoke-virtual {p0, v0, v2, v3}, Lbl/BottomEpisodeMenu;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 170
+    .line 171
     :cond_10
     return-void
 .end method
@@ -596,9 +675,9 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->post(Ljava/lang/Runnable;)Z
 
-    .line 126
+    .line 127
     invoke-virtual {p0}, Lbl/BottomEpisodeMenu;->resetAutoHideTimer()V
 
-    .line 127
+    .line 128
     return-void
 .end method

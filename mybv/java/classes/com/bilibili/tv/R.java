@@ -2623,6 +2623,9 @@ public final class R {
         public static final int btn_save_skip_layout = 0x7f08020f;
         public static final int btn_cancel_skip_layout = 0x7f080210;
         public static final int apply_to_up_checkbox = 0x7f080211;
+        public static final int bottom_shot_menu_root = 0x7f080212;
+        public static final int shot_title = 0x7f080213;
+        public static final int shot_list_section = 0x7f080214;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;
@@ -2803,6 +2806,7 @@ public final class R {
         public static final int item_tag_filter = 0x7f0a00a3;
         public static final int dialog_skip_setting = 0x7f0a00a4;
         public static final int item_skip_time_picker = 0x7f0a00a5;
+        public static final int player_shot_menu = 0x7f0a00a6;
     }
 
     public static final class mipmap {

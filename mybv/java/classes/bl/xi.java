@@ -248,9 +248,25 @@ public class xi extends xh implements bbb<Message, Boolean> {
 
     @Override // bl.xh
     public boolean f(int keyCode, KeyEvent event) {
+        android.util.Log.i("ShotMenuBug", "xi.f: keyCode=" + keyCode + ", action=" + event.getAction());
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_LEFT:
             case KeyEvent.KEYCODE_DPAD_RIGHT:
+                xh handler = this;
+                while (handler != null) {
+                    handler = handler.next();
+                    if (handler instanceof xl) {
+                        xl xlInstance = (xl) handler;
+                        boolean isShowing = xlInstance.isShotMenuShowing();
+                        android.util.Log.i("ShotMenuBug", "xi.f: found xl, isShotMenuShowing=" + isShowing);
+                        if (isShowing) {
+                            android.util.Log.i("ShotMenuBug", "xi.f: shot menu showing, ignoring LEFT/RIGHT key");
+                            return false;
+                        }
+                        break;
+                    }
+                }
+                
                 if (!this.isSliding) {
                     aal.a(x() / 1000);
                     this.isSliding = true;

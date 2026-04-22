@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 136
+    .line 168
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$1;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     iput p2, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$1;->val$finalOldSelected:I
@@ -52,7 +52,7 @@
     .locals 3
 
     .prologue
-    .line 139
+    .line 171
     iget v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$1;->val$finalOldSelected:I
 
     if-ltz v0, :cond_2b
@@ -63,14 +63,14 @@
 
     if-ge v0, v1, :cond_2b
 
-    .line 140
+    .line 172
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$1;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     iget v1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$1;->val$finalOldSelected:I
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->c(I)V
 
-    .line 141
+    .line 173
     const-string v0, "NavigationTag"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -95,7 +95,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 143
+    .line 175
     :cond_2b
     iget v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$1;->val$finalPosition:I
 
@@ -107,14 +107,14 @@
 
     if-ge v0, v1, :cond_56
 
-    .line 144
+    .line 176
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$1;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     iget v1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$1;->val$finalPosition:I
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->c(I)V
 
-    .line 145
+    .line 177
     const-string v0, "NavigationTag"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -139,7 +139,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 147
+    .line 179
     :cond_56
     return-void
 .end method

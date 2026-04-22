@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 259
+    .line 291
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$2;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     iput p2, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$2;->val$tagPos:I
@@ -52,14 +52,14 @@
     .locals 3
 
     .prologue
-    .line 262
+    .line 294
     const-string v0, "NavigationTag"
 
     const-string v1, "========== Tag.onFocusChange START =========="
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 263
+    .line 295
     const-string v1, "NavigationTag"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -133,7 +133,7 @@
 
     move-result-object v0
 
-    .line 269
+    .line 301
     invoke-virtual {p1}, Landroid/view/View;->getId()I
 
     move-result v2
@@ -168,13 +168,13 @@
 
     move-result-object v0
 
-    .line 263
+    .line 295
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 272
+    .line 304
     if-eqz p2, :cond_119
 
-    .line 273
+    .line 305
     const-string v0, "NavigationTag"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -205,7 +205,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 274
+    .line 306
     const-string v0, "NavigationTag"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -248,7 +248,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 276
+    .line 308
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$2;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->listener:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$OnTagFocusListener;
@@ -258,7 +258,7 @@
 
     if-eqz v0, :cond_111
 
-    .line 277
+    .line 309
     const-string v0, "NavigationTag"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -295,7 +295,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 279
+    .line 311
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$2;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->listener:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$OnTagFocusListener;
@@ -309,14 +309,14 @@
 
     invoke-interface {v0, v1, v2}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$OnTagFocusListener;->onTagFocus(II)V
 
-    .line 280
+    .line 312
     const-string v0, "NavigationTag"
 
     const-string v1, "Tag.onFocusChange | <<< onTagFocus\u56de\u8c03\u5b8c\u6210"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 289
+    .line 321
     :goto_105
     const-string v0, "NavigationTag"
 
@@ -324,16 +324,16 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 290
+    .line 322
     return-void
 
-    .line 263
+    .line 295
     :cond_10d
     const-string v0, "\u79bb\u5f00\u8be5\u6807\u7b7e"
 
     goto/16 :goto_22
 
-    .line 282
+    .line 314
     :cond_111
     const-string v0, "NavigationTag"
 
@@ -343,7 +343,7 @@
 
     goto :goto_105
 
-    .line 285
+    .line 317
     :cond_119
     const-string v0, "NavigationTag"
 
@@ -371,7 +371,7 @@
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$2;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
-    .line 286
+    .line 318
     # getter for: Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->selectedPosition:I
     invoke-static {v2}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->access$100(Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;)I
 
@@ -385,7 +385,7 @@
 
     move-result-object v1
 
-    .line 285
+    .line 317
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     goto :goto_105

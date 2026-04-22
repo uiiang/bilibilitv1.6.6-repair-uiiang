@@ -15,13 +15,13 @@
 
 
 # instance fields
-.field label:Ljava/lang/String;
+.field public label:Ljava/lang/String;
 
-.field startIndex:I
+.field public startIndex:I
 
 
 # direct methods
-.method constructor <init>(Ljava/lang/String;I)V
+.method public constructor <init>(Ljava/lang/String;I)V
     .locals 0
 
     .prologue

@@ -128,7 +128,19 @@
     return-wide v0
 .end method
 
-.method static synthetic access$1200(Lcom/bilibili/tv/player/widget/SkipSettingDialog;J)V
+.method static synthetic access$1200(Lcom/bilibili/tv/player/widget/SkipSettingDialog;)J
+    .locals 2
+
+    .prologue
+    .line 21
+    invoke-direct {p0}, Lcom/bilibili/tv/player/widget/SkipSettingDialog;->getMaxTimeMs()J
+
+    move-result-wide v0
+
+    return-wide v0
+.end method
+
+.method static synthetic access$1300(Lcom/bilibili/tv/player/widget/SkipSettingDialog;J)V
     .locals 1
 
     .prologue
