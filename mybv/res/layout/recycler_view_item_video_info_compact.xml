@@ -108,7 +108,8 @@
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="@dimen/px_120"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/video_info_bottom_round_bg">
     <com.bilibili.tv.widget.ShadowTextView
       android:textSize="@dimen/px_28"
       android:textColor="@color/white"
