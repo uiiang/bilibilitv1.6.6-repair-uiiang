@@ -78,6 +78,9 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
 
     @Override // bl.xh
     protected boolean e(int i, KeyEvent keyEvent) {
+        if (i == KeyEvent.KEYCODE_DPAD_DOWN || i == KeyEvent.KEYCODE_DPAD_UP) {
+            return true;
+        }
         return P();
     }
 
@@ -95,19 +98,42 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
 
     @Override // bl.xh
     public boolean g(int i, KeyEvent keyEvent) {
-        if (!X()) {
-            return false;
-        }
+        android.util.Log.i("ShotMenuBug", "xl.g: keyCode=" + i);
         
         if (i == 4) {
-            if (P()) {
-                V();
-                return true;
-            }
             if (isShotMenuShowing()) {
                 hideShotMenu();
                 return true;
             }
+            if (P()) {
+                V();
+                return true;
+            }
+            return false;
+        }
+        
+        if (i == 20) {
+            android.util.Log.i("ShotMenuBug", "xl.g: DOWN key, P()=" + P() + ", isShotMenuShowing()=" + isShotMenuShowing());
+            if (P()) {
+                return true;
+            }
+            if (isShotMenuShowing()) {
+                return true;
+            }
+            android.util.Log.i("ShotMenuBug", "xl.g: calling showShotMenu()");
+            if (showShotMenu()) {
+                android.util.Log.i("ShotMenuBug", "xl.g: showShotMenu returned true");
+                return true;
+            }
+            android.util.Log.i("ShotMenuBug", "xl.g: showShotMenu returned false, calling xi.tt()");
+            xh parentHandler = next();
+            if (parentHandler instanceof xi) {
+                ((xi) parentHandler).tt();
+            }
+            return true;
+        }
+        
+        if (!X()) {
             return false;
         }
         
@@ -123,23 +149,6 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
             }
             v();
             U();
-            return true;
-        }
-        
-        if (i == 20) {
-            if (P()) {
-                return true;
-            }
-            if (isShotMenuShowing()) {
-                return true;
-            }
-            if (showShotMenu()) {
-                return true;
-            }
-            xh parentHandler = next();
-            if (parentHandler instanceof xi) {
-                ((xi) parentHandler).tt();
-            }
             return true;
         }
         
