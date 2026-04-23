@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 194
+    .line 206
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$5;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,14 +40,14 @@
     .locals 2
 
     .prologue
-    .line 200
+    .line 212
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$5;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     const/16 v1, 0x8
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->setVisibility(I)V
 
-    .line 201
+    .line 213
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$5;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     const/4 v1, 0x0
@@ -55,7 +55,7 @@
     # setter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->isHiding:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->access$202(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;Z)Z
 
-    .line 202
+    .line 214
     return-void
 .end method
 
@@ -63,7 +63,7 @@
     .locals 0
 
     .prologue
-    .line 205
+    .line 217
     return-void
 .end method
 
@@ -71,6 +71,6 @@
     .locals 0
 
     .prologue
-    .line 197
+    .line 209
     return-void
 .end method

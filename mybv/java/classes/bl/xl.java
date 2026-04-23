@@ -54,6 +54,7 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
     private static final long COMPLETION_DEBOUNCE_MS = 1000;
     private BottomEpisodeMenu bottomEpisodeMenu;
     private BottomShotMenu bottomShotMenu;
+    private android.os.Handler shotMenuHandler = new android.os.Handler();
 
     /* JADX INFO: Access modifiers changed from: package-private */
     public static final /* synthetic */ boolean a(View view, View view2, int i, int i2, KeyEvent keyEvent) {
@@ -94,8 +95,6 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
 
     @Override // bl.xh
     public boolean g(int i, KeyEvent keyEvent) {
-        android.util.Log.i("ShotMenuBug", "xl.g: keyCode=" + i + ", P()=" + P() + ", isShotMenuShowing()=" + isShotMenuShowing());
-        
         if (!X()) {
             return false;
         }
@@ -113,9 +112,7 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         }
         
         if (i == 19) {
-            android.util.Log.i("ShotMenuBug", "xl.g: DPAD_UP pressed");
             if (isShotMenuShowing()) {
-                android.util.Log.i("ShotMenuBug", "xl.g: shot menu showing, consuming UP key");
                 return true;
             }
             if (!S()) {
@@ -130,7 +127,6 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         }
         
         if (i == 20) {
-            android.util.Log.i("ShotMenuBug", "xl.g: DPAD_DOWN pressed");
             if (P()) {
                 return true;
             }
@@ -148,7 +144,6 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         }
         
         if (P() || isShotMenuShowing()) {
-            android.util.Log.i("ShotMenuBug", "xl.g: menu showing, consuming key " + i);
             return true;
         }
         
@@ -558,8 +553,8 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
             return false;
         }
         
-        int duration = playerSeekBar.getDuration();
-        int currentPlayTimeSec = x() / 1000;
+        int durationSec = playerSeekBar.getDuration();
+        int currentPlayTimeMs = x();
         
         String videoTitle = getVideoTitle();
         
@@ -586,11 +581,38 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
             }
         }
         
-        bottomShotMenu.show(videoShot, duration, videoTitle, currentPlayTimeSec);
+        bottomShotMenu.show(videoShot, durationSec * 1000, videoTitle, currentPlayTimeMs);
+        startShotMenuProgressUpdater();
         return true;
     }
     
+    private void startShotMenuProgressUpdater() {
+        shotMenuHandler.removeCallbacks(shotMenuProgressRunnable);
+        shotMenuHandler.post(shotMenuProgressRunnable);
+    }
+    
+    private void stopShotMenuProgressUpdater() {
+        shotMenuHandler.removeCallbacks(shotMenuProgressRunnable);
+    }
+    
+    private Runnable shotMenuProgressRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (bottomShotMenu == null || !bottomShotMenu.isShowing()) {
+                return;
+            }
+            
+            int currentMs = x();
+            int totalMs = I();
+            
+            bottomShotMenu.updateProgress(currentMs, totalMs);
+            
+            shotMenuHandler.postDelayed(this, 800L);
+        }
+    };
+    
     private void hideShotMenu() {
+        stopShotMenuProgressUpdater();
         if (bottomShotMenu != null) {
             bottomShotMenu.hide();
         }
@@ -617,7 +639,24 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         if (resolveParams == null) {
             return "";
         }
-        return resolveParams.mPageTitle != null ? resolveParams.mPageTitle : "";
+        String mainTitle = yr.a(playerParams);
+        String pageTitle = resolveParams.mPageTitle;
+        
+        if (playerParams.isBangumi()) {
+            String indexTitle = BiliBangumiSeason.getReadableIndexTitle(resolveParams.mPageIndex);
+            if (pageTitle != null && !pageTitle.isEmpty()) {
+                return indexTitle + " - " + pageTitle;
+            }
+            return indexTitle;
+        } else if (resolveParams != null && pageTitle != null && 
+                   playerParams.mVideoParams.mResolveParamsArray != null && 
+                   playerParams.mVideoParams.mResolveParamsArray.length > 1) {
+            if (mainTitle != null && !mainTitle.isEmpty()) {
+                return mainTitle + " - " + pageTitle;
+            }
+            return pageTitle;
+        }
+        return mainTitle != null ? mainTitle : "";
     }
     
     private void seekTo(int timeSeconds) {

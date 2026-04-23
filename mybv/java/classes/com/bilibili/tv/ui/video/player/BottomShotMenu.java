@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.video.VideoShot;
@@ -16,19 +17,24 @@ import com.bilibili.tv.ui.video.widget.NavigationTagAdapter;
 import com.bilibili.tv.ui.video.widget.ShotBinder;
 import com.bilibili.tv.ui.video.widget.VideoListSection;
 import com.bilibili.tv.util.TimeFormatUtil;
+import bl.aan;
 import java.util.List;
 
 public class BottomShotMenu extends FrameLayout {
     private static final String TAG = "ShotMenuBug";
     private VideoListSection videoListSection;
-    private TextView titleTextView;
     private Runnable autoHideRunnable;
     private static final int AUTO_HIDE_DELAY = 5000;
     private OnShotClickListener shotClickListener;
     private boolean isHiding = false;
     private VideoShot videoShot;
     private int totalDuration;
+    private int totalDurationMs;
     private List<VideoShotItem> allShots;
+    private SeekBar seekBar;
+    private TextView timeCurrent;
+    private TextView timeTotal;
+    private TextView seekbarTitle;
     
     public interface OnShotClickListener {
         void onShotClicked(int timeSeconds);
@@ -52,7 +58,10 @@ public class BottomShotMenu extends FrameLayout {
     private void init() {
         inflate(getContext(), R.layout.player_shot_menu, this);
         videoListSection = findViewById(R.id.shot_list_section);
-        titleTextView = findViewById(R.id.shot_title);
+        seekBar = findViewById(R.id.shot_seekbar);
+        timeCurrent = findViewById(R.id.shot_time_current);
+        timeTotal = findViewById(R.id.shot_time_total);
+        seekbarTitle = findViewById(R.id.shot_seekbar_title);
         
         videoListSection.hideTitle();
         videoListSection.setupBottomMenuFocusBoundary();
@@ -99,22 +108,25 @@ public class BottomShotMenu extends FrameLayout {
         videoListSection.setupCustomNavigationTags(customTags, groupSize);
     }
     
-    public void show(VideoShot shot, int duration, String videoTitle, int currentPlayTimeSec) {
+    public void show(VideoShot shot, int durationMs, String videoTitle, int currentPlayTimeMs) {
         this.videoShot = shot;
-        this.totalDuration = duration;
+        this.totalDurationMs = durationMs;
+        this.totalDuration = durationMs / 1000;
         
         if (videoShot == null || videoShot.getIndex() == null || videoShot.getIndex().isEmpty()) {
             android.util.Log.i(TAG, "show: videoShot is null or empty");
             return;
         }
         
-        if (titleTextView != null && videoTitle != null) {
-            titleTextView.setText(videoTitle);
+        if (seekbarTitle != null && videoTitle != null) {
+            seekbarTitle.setText(videoTitle);
         }
+        
+        updateProgress(currentPlayTimeMs, durationMs);
         
         allShots = videoShot.getAllShots();
         
-        final int currentPlayTime = currentPlayTimeSec;
+        final int currentPlayTimeSec = currentPlayTimeMs / 1000;
         final List<VideoShotItem> shots = allShots;
         
         videoListSection.setCurrentItemMatcher(new CurrentItemMatcher() {
@@ -122,8 +134,8 @@ public class BottomShotMenu extends FrameLayout {
             public boolean isCurrentItem(Object data, int position) {
                 if (data instanceof VideoShotItem) {
                     VideoShotItem shotItem = (VideoShotItem) data;
-                    return shotItem.time <= currentPlayTime && 
-                           (position + 1 >= shots.size() || shots.get(position + 1).time > currentPlayTime);
+                    return shotItem.time <= currentPlayTimeSec && 
+                           (position + 1 >= shots.size() || shots.get(position + 1).time > currentPlayTimeSec);
                 }
                 return false;
             }
@@ -230,6 +242,19 @@ public class BottomShotMenu extends FrameLayout {
     private void cancelAutoHideTimer() {
         if (autoHideRunnable != null) {
             removeCallbacks(autoHideRunnable);
+        }
+    }
+    
+    public void updateProgress(int currentMs, int totalMs) {
+        if (seekBar != null) {
+            seekBar.setMax(totalMs);
+            seekBar.setProgress(currentMs);
+        }
+        if (timeCurrent != null) {
+            timeCurrent.setText(aan.a((long) currentMs));
+        }
+        if (timeTotal != null) {
+            timeTotal.setText(aan.a((long) totalMs));
         }
     }
     

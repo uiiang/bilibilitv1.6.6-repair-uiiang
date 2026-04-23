@@ -2626,6 +2626,13 @@ public final class R {
         public static final int bottom_shot_menu_root = 0x7f080212;
         public static final int shot_title = 0x7f080213;
         public static final int shot_list_section = 0x7f080214;
+        public static final int shot_seekbar = 0x7f080215;
+        public static final int shot_time_current = 0x7f080216;
+        public static final int shot_time_total = 0x7f080217;
+        public static final int shot_seekbar_title = 0x7f080218;
+        public static final int shot_seekbar_group = 0x7f080219;
+        public static final int shot_seekbar_include = 0x7f08021a;
+        public static final int shot_divider = 0x7f08021b;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;
@@ -2807,6 +2814,7 @@ public final class R {
         public static final int dialog_skip_setting = 0x7f0a00a4;
         public static final int item_skip_time_picker = 0x7f0a00a5;
         public static final int player_shot_menu = 0x7f0a00a6;
+        public static final int player_seek_bar_simple = 0x7f0a00a7;
     }
 
     public static final class mipmap {

@@ -5,9 +5,65 @@
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
     android:orientation="vertical"
-    android:background="#CC000000"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp">
+    android:background="#CC000000">
+
+    <RelativeLayout
+        android:id="@+id/shot_seekbar_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/px_20"
+        android:paddingBottom="@dimen/px_10">
+
+        <TextView
+            android:id="@+id/shot_seekbar_title"
+            android:layout_width="@dimen/px_1000"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_60"
+            android:textSize="@dimen/px_44"
+            android:textColor="@color/white"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:marqueeRepeatLimit="marquee_forever" />
+
+        <com.bilibili.tv.widget.ShadowTextView
+            android:id="@+id/shot_time_current"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/shot_divider"
+            android:textSize="@dimen/px_36"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="@string/time_default" />
+
+        <com.bilibili.tv.widget.ShadowTextView
+            android:id="@+id/shot_divider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/shot_time_total"
+            android:textSize="@dimen/px_36"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="@string/video_timed_text_split_char" />
+
+        <com.bilibili.tv.widget.ShadowTextView
+            android:id="@+id/shot_time_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/px_60"
+            android:textSize="@dimen/px_36"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="@string/time_default" />
+
+        <include
+            android:id="@+id/shot_seekbar_include"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px_20"
+            android:layout_below="@id/shot_seekbar_title"
+            layout="@layout/player_seek_bar_simple" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/shot_title"
@@ -18,7 +74,8 @@
         android:layout_marginBottom="10dp"
         android:textColor="#FFFFFFFF"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <com.bilibili.tv.ui.video.widget.VideoListSection
         android:id="@+id/shot_list_section"

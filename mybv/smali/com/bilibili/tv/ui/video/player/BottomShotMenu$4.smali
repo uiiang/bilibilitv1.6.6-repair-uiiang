@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 172
+    .line 184
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 4
 
     .prologue
-    .line 175
+    .line 187
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     # getter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -54,7 +54,7 @@
 
     if-nez v0, :cond_18
 
-    .line 176
+    .line 188
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     # getter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -66,11 +66,11 @@
 
     invoke-virtual {v0, p0, v2, v3}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 181
+    .line 193
     :goto_17
     return-void
 
-    .line 179
+    .line 191
     :cond_18
     const-string v0, "ShotMenuBug"
 
@@ -78,7 +78,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 180
+    .line 192
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     # getter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;

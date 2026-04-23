@@ -20,7 +20,7 @@
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
-.field final synthetic val$currentPlayTime:I
+.field final synthetic val$currentPlayTimeSec:I
 
 .field final synthetic val$shots:Ljava/util/List;
 
@@ -30,10 +30,10 @@
     .locals 0
 
     .prologue
-    .line 120
+    .line 132
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$1;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
-    iput p2, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$1;->val$currentPlayTime:I
+    iput p2, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$1;->val$currentPlayTimeSec:I
 
     iput-object p3, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$1;->val$shots:Ljava/util/List;
 
@@ -50,18 +50,18 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 123
+    .line 135
     instance-of v0, p1, Lcom/bilibili/tv/api/video/VideoShotItem;
 
     if-eqz v0, :cond_2b
 
-    .line 124
+    .line 136
     check-cast p1, Lcom/bilibili/tv/api/video/VideoShotItem;
 
-    .line 125
+    .line 137
     iget v0, p1, Lcom/bilibili/tv/api/video/VideoShotItem;->time:I
 
-    iget v2, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$1;->val$currentPlayTime:I
+    iget v2, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$1;->val$currentPlayTimeSec:I
 
     if-gt v0, v2, :cond_29
 
@@ -69,7 +69,7 @@
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$1;->val$shots:Ljava/util/List;
 
-    .line 126
+    .line 138
     invoke-interface {v2}, Ljava/util/List;->size()I
 
     move-result v2
@@ -88,26 +88,26 @@
 
     iget v0, v0, Lcom/bilibili/tv/api/video/VideoShotItem;->time:I
 
-    iget v2, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$1;->val$currentPlayTime:I
+    iget v2, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$1;->val$currentPlayTimeSec:I
 
     if-le v0, v2, :cond_29
 
     :cond_27
     const/4 v0, 0x1
 
-    .line 128
+    .line 140
     :goto_28
     return v0
 
     :cond_29
     move v0, v1
 
-    .line 126
+    .line 138
     goto :goto_28
 
     :cond_2b
     move v0, v1
 
-    .line 128
+    .line 140
     goto :goto_28
 .end method

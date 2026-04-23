@@ -420,4 +420,11 @@
     <item type="id" name="bottom_shot_menu_root" />
     <item type="id" name="shot_title" />
     <item type="id" name="shot_list_section" />
+    <item type="id" name="shot_seekbar" />
+    <item type="id" name="shot_time_current" />
+    <item type="id" name="shot_time_total" />
+    <item type="id" name="shot_seekbar_title" />
+    <item type="id" name="shot_seekbar_group" />
+    <item type="id" name="shot_seekbar_include" />
+    <item type="id" name="shot_divider" />
 </resources>

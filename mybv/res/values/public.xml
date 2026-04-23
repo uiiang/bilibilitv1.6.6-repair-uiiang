@@ -2760,6 +2760,7 @@
     <public type="layout" name="dialog_skip_setting" id="0x7f0a00a4" />
     <public type="layout" name="item_skip_time_picker" id="0x7f0a00a5" />
     <public type="layout" name="player_shot_menu" id="0x7f0a00a6" />
+    <public type="layout" name="player_seek_bar_simple" id="0x7f0a00a7" />
 
 
     <public type="mipmap" name="ic_launcher" id="0x7f0b0000" />
@@ -3563,4 +3564,11 @@
     <public type="id" name="bottom_shot_menu_root" id="0x7f080212" />
     <public type="id" name="shot_title" id="0x7f080213" />
     <public type="id" name="shot_list_section" id="0x7f080214" />
+    <public type="id" name="shot_seekbar" id="0x7f080215" />
+    <public type="id" name="shot_time_current" id="0x7f080216" />
+    <public type="id" name="shot_time_total" id="0x7f080217" />
+    <public type="id" name="shot_seekbar_title" id="0x7f080218" />
+    <public type="id" name="shot_seekbar_group" id="0x7f080219" />
+    <public type="id" name="shot_seekbar_include" id="0x7f08021a" />
+    <public type="id" name="shot_divider" id="0x7f08021b" />
 </resources>
