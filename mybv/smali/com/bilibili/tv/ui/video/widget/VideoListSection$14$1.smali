@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 859
+    .line 863
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$14$1;->this$1:Lcom/bilibili/tv/ui/video/widget/VideoListSection$14;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 3
 
     .prologue
-    .line 862
+    .line 866
     const-string v0, "ShotMenuBug"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -67,7 +67,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 863
+    .line 867
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$14$1;->this$1:Lcom/bilibili/tv/ui/video/widget/VideoListSection$14;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$14;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -78,6 +78,6 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->requestFocusOnPosition(I)V
 
-    .line 864
+    .line 868
     return-void
 .end method

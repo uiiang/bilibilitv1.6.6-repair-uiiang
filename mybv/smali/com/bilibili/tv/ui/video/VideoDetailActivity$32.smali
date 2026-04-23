@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 3360
+    .line 3474
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$32;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 1
 
     .prologue
-    .line 3363
+    .line 3477
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$32;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -50,7 +50,7 @@
 
     if-eqz v0, :cond_11
 
-    .line 3364
+    .line 3478
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$32;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -60,12 +60,12 @@
 
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/api/video/BiliVideoDetail;->setFavoriteStatus(Z)V
 
-    .line 3366
+    .line 3480
     :cond_11
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$32;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->o()V
 
-    .line 3367
+    .line 3481
     return-void
 .end method

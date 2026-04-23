@@ -22,7 +22,7 @@
     .locals 0
 
     .prologue
-    .line 3706
+    .line 3820
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -44,15 +44,15 @@
 
     const v2, 0x7f08014d
 
-    .line 3710
+    .line 3824
     if-nez p1, :cond_12
 
-    .line 3757
+    .line 3871
     :cond_11
     :goto_11
     return-void
 
-    .line 3713
+    .line 3827
     :cond_12
     instance-of v0, p1, Lbl/afz;
 
@@ -60,19 +60,19 @@
 
     move-object v0, p1
 
-    .line 3714
+    .line 3828
     check-cast v0, Lbl/afz;
 
     invoke-interface {v0, p2}, Lbl/afz;->setUpEnabled(Z)V
 
-    .line 3720
+    .line 3834
     :cond_1c
     :goto_1c
     invoke-virtual {p1}, Landroid/view/View;->getId()I
 
     move-result v1
 
-    .line 3721
+    .line 3835
     if-eq v1, v3, :cond_2f
 
     if-eq v1, v4, :cond_2f
@@ -87,14 +87,14 @@
 
     if-ne v1, v0, :cond_11
 
-    .line 3725
+    .line 3839
     :cond_2f
     const/4 v0, 0x0
 
-    .line 3726
+    .line 3840
     if-ne v1, v3, :cond_69
 
-    .line 3727
+    .line 3841
     const v0, 0x7f080169
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -105,11 +105,11 @@
 
     move-object v1, v0
 
-    .line 3739
+    .line 3853
     :goto_3c
     if-eqz v1, :cond_44
 
-    .line 3740
+    .line 3854
     if-eqz p2, :cond_ad
 
     const/4 v0, 0x0
@@ -117,11 +117,11 @@
     :goto_41
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 3742
+    .line 3856
     :cond_44
     if-nez p2, :cond_11
 
-    .line 3743
+    .line 3857
     new-instance v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$d$1;
 
     invoke-direct {v0, p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$d$1;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$d;Landroid/view/View;)V
@@ -132,7 +132,7 @@
 
     goto :goto_11
 
-    .line 3715
+    .line 3829
     :cond_51
     invoke-virtual {p1}, Landroid/view/View;->getId()I
 
@@ -144,7 +144,7 @@
 
     const v0, 0x7f080127
 
-    .line 3716
+    .line 3830
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
@@ -153,16 +153,16 @@
 
     if-eqz v0, :cond_1c
 
-    .line 3718
+    .line 3832
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawTextView;->setUpEnabled(Z)V
 
     goto :goto_1c
 
-    .line 3728
+    .line 3842
     :cond_69
     if-ne v1, v4, :cond_76
 
-    .line 3729
+    .line 3843
     const v0, 0x7f08016c
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -175,11 +175,11 @@
 
     goto :goto_3c
 
-    .line 3730
+    .line 3844
     :cond_76
     if-ne v1, v2, :cond_83
 
-    .line 3731
+    .line 3845
     const v0, 0x7f08014f
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -192,11 +192,11 @@
 
     goto :goto_3c
 
-    .line 3732
+    .line 3846
     :cond_83
     if-ne v1, v6, :cond_90
 
-    .line 3733
+    .line 3847
     const v0, 0x7f0801c8
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -209,11 +209,11 @@
 
     goto :goto_3c
 
-    .line 3734
+    .line 3848
     :cond_90
     if-ne v1, v5, :cond_9d
 
-    .line 3735
+    .line 3849
     const v0, 0x7f080194
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -226,13 +226,13 @@
 
     goto :goto_3c
 
-    .line 3736
+    .line 3850
     :cond_9d
     const v2, 0x7f0801dc
 
     if-ne v1, v2, :cond_b0
 
-    .line 3737
+    .line 3851
     const v0, 0x7f0801de
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -245,7 +245,7 @@
 
     goto :goto_3c
 
-    .line 3740
+    .line 3854
     :cond_ad
     const/16 v0, 0x8
 

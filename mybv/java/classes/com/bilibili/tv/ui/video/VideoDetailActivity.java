@@ -108,6 +108,7 @@ import com.bilibili.api.BiliConfig;
 public final class VideoDetailActivity extends BaseActivity
         implements View.OnClickListener, View.OnLongClickListener, wf {
     private static final String C = "VideoDetailActivity";
+    private static final String FOCUS_TAG = "VideoDetailFocus";
     private static final String D = "bundle_ac_id";
     private static final String SEASON_ID_KEY = "bundle_season_id";
     private static final boolean ENABLE_BANGUMI_JUMP = false;
@@ -610,14 +611,21 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private int getSeasonSectionFocusPosition(int sectionId) {
+        // android.util.Log.i(FOCUS_TAG, "getSeasonSectionFocusPosition | sectionId=" + sectionId + " | ugcSeasonSections.size()=" + ugcSeasonSections.size());
         for (com.bilibili.tv.ui.video.widget.VideoListSection vls : ugcSeasonSections) {
+            // android.util.Log.i(FOCUS_TAG, "getSeasonSectionFocusPosition | 检查 vls.getSectionId()=" + vls.getSectionId() + " | vls.getFocusPosition()=" + vls.getFocusPosition());
             if (vls.getSectionId() == sectionId) {
-                return vls.getFocusPosition();
+                int pos = vls.getFocusPosition();
+                // android.util.Log.i(FOCUS_TAG, "getSeasonSectionFocusPosition | 找到匹配，返回 focusPosition=" + pos);
+                return pos;
             }
         }
         if (seasonSectionFocusPositions.containsKey(sectionId)) {
-            return seasonSectionFocusPositions.get(sectionId);
+            int pos = seasonSectionFocusPositions.get(sectionId);
+            // android.util.Log.i(FOCUS_TAG, "getSeasonSectionFocusPosition | 从Map获取 focusPosition=" + pos);
+            return pos;
         }
+        // android.util.Log.i(FOCUS_TAG, "getSeasonSectionFocusPosition | 未找到，返回0");
         return 0;
     }
 
@@ -879,6 +887,12 @@ public final class VideoDetailActivity extends BaseActivity
                 return super.dispatchKeyEvent(keyEvent);
             }
 
+            // android.util.Log.i(FOCUS_TAG, "========== dispatchKeyEvent START ==========");
+            // android.util.Log.i(FOCUS_TAG, "dispatchKeyEvent | keyCode=" + (valueOf2 != null ? valueOf2.intValue() : "null")
+            //         + " | currentFocus=" + currentFocus.getClass().getSimpleName()
+            //         + " | focusId=" + currentFocus.getId()
+            //         + " | focusIdHex=0x" + Integer.toHexString(currentFocus.getId()));
+
             saveCurrentFocusPosition(currentFocus);
 
             if (valueOf2 != null && valueOf2.intValue() == KeyEvent.KEYCODE_DPAD_UP) {
@@ -970,39 +984,53 @@ public final class VideoDetailActivity extends BaseActivity
                 // 当焦点在VideoListSection内部时，让组件自管理的dispatchKeyEvent处理
                 // 不在此处拦截，避免组件行为在不同页面不一致
                 int currentListType = getCurrentListType(currentFocus);
+                // android.util.Log.i(FOCUS_TAG, "dispatchKeyEvent | currentListType=" + currentListType
+                //         + " | isVideoListSection=" + (currentListType == LIST_TYPE_SEASON_SECTION || currentListType == LIST_TYPE_NAV_TAG));
                 if (currentListType == LIST_TYPE_SEASON_SECTION || currentListType == LIST_TYPE_NAV_TAG) {
                     // 焦点在VideoListSection内部，透传给组件处理
                     // 组件通过OnFocusExitListener回调通知焦点离开
+                    // android.util.Log.i(FOCUS_TAG, "dispatchKeyEvent | 透传给VideoListSection组件处理");
                     return super.dispatchKeyEvent(keyEvent);
                 }
                 
                 boolean handled = handleListFocusNavigation(currentFocus, valueOf2.intValue());
+                // android.util.Log.i(FOCUS_TAG, "dispatchKeyEvent | handleListFocusNavigation返回=" + handled);
                 if (handled) {
                     return true;
                 }
             }
         }
+        // android.util.Log.i(FOCUS_TAG, "========== dispatchKeyEvent END ==========");
         return super.dispatchKeyEvent(keyEvent);
     }
 
     private boolean handleListFocusNavigation(View currentFocus, int direction) {
         int currentListType = getCurrentListType(currentFocus);
+        // android.util.Log.i(FOCUS_TAG, "========== handleListFocusNavigation START ==========");
+        // android.util.Log.i(FOCUS_TAG, "handleListFocusNavigation | direction=" + (direction == KeyEvent.KEYCODE_DPAD_UP ? "UP" : "DOWN")
+        //         + " | currentListType=" + currentListType);
         if (currentListType < 0) {
+            // android.util.Log.i(FOCUS_TAG, "handleListFocusNavigation | currentListType < 0, 返回false");
             return false;
         }
 
         RecyclerView targetRecyclerView = null;
         int savedPosition = 0;
+        int targetSectionId = -1;
 
             if (direction == KeyEvent.KEYCODE_DPAD_DOWN) {
+            // android.util.Log.i(FOCUS_TAG, "handleListFocusNavigation | 方向DOWN");
             if (currentListType == LIST_TYPE_EP_LAYOUT) {
+                // android.util.Log.i(FOCUS_TAG, "handleListFocusNavigation | 从分P列表向下移动");
                 // 从分P列表向下移动
                 if (seasonsContainer != null && seasonsContainer.getVisibility() == View.VISIBLE 
                         && !seasonSectionViews.isEmpty()) {
                     // 移动到第一个合集列表
                     SeasonSectionView firstSection = seasonSectionViews.get(0);
+                    // android.util.Log.i(FOCUS_TAG, "handleListFocusNavigation | 移动到第一个合集列表 sectionId=" + firstSection.sectionId);
                     targetRecyclerView = firstSection.recyclerView;
                     savedPosition = getSeasonSectionFocusPosition(firstSection.sectionId);
+                    targetSectionId = firstSection.sectionId;
                 } else if (this.episodes_video != null && this.episodes_video.getVisibility() == View.VISIBLE) {
                     targetRecyclerView = this.episodes_video;
                     savedPosition = episodesVideoFocusPosition;
@@ -1031,8 +1059,10 @@ public final class VideoDetailActivity extends BaseActivity
             }
             // LIST_TYPE_SEASON_SECTION 和 LIST_TYPE_NAV_TAG 已由组件自管理，事件透传给组件处理
         } else if (direction == KeyEvent.KEYCODE_DPAD_UP) {
+            // android.util.Log.i(FOCUS_TAG, "handleListFocusNavigation | 方向UP");
             // 检查是否在最上面的列表，需要导航到播放按钮
             if (currentListType == LIST_TYPE_EP_LAYOUT) {
+                // android.util.Log.i(FOCUS_TAG, "handleListFocusNavigation | 从分P列表向上移动 -> 播放按钮");
                 if (historyPlayBtnLayout != null && historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
                     historyPlayBtnLayout.requestFocus();
                     return true;
@@ -1041,6 +1071,7 @@ public final class VideoDetailActivity extends BaseActivity
                     return true;
                 }
             } else if (currentListType == LIST_TYPE_EPISODES_VIDEO) {
+                // android.util.Log.i(FOCUS_TAG, "handleListFocusNavigation | 从episodes_video向上移动 -> 播放按钮");
                 if (historyPlayBtnLayout != null && historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
                     historyPlayBtnLayout.requestFocus();
                     return true;
@@ -1049,39 +1080,53 @@ public final class VideoDetailActivity extends BaseActivity
                     return true;
                 }
             } else if (currentListType == LIST_TYPE_RELATE_VIDEO) {
+                // android.util.Log.i(FOCUS_TAG, "handleListFocusNavigation | 从相关视频向上移动");
                 // 从相关视频向上移动
                 if (seasonsContainer != null && seasonsContainer.getVisibility() == View.VISIBLE 
                         && !seasonSectionViews.isEmpty()) {
                     // 移动到最后一个合集列表
                     SeasonSectionView lastSection = seasonSectionViews.get(seasonSectionViews.size() - 1);
+                    // android.util.Log.i(FOCUS_TAG, "handleListFocusNavigation | 移动到最后一个合集列表 sectionId=" + lastSection.sectionId
+                    //         + " | seasonSectionViews.size()=" + seasonSectionViews.size());
                     targetRecyclerView = lastSection.recyclerView;
                     savedPosition = getSeasonSectionFocusPosition(lastSection.sectionId);
+                    targetSectionId = lastSection.sectionId;
                 } else if (this.episodes_video != null && this.episodes_video.getVisibility() == View.VISIBLE) {
+                    // android.util.Log.i(FOCUS_TAG, "handleListFocusNavigation | 移动到episodes_video");
                     targetRecyclerView = this.episodes_video;
                     savedPosition = episodesVideoFocusPosition;
                 } else if (this.o != null && this.o.getVisibility() == View.VISIBLE) {
+                    // android.util.Log.i(FOCUS_TAG, "handleListFocusNavigation | 移动到分P列表");
                     targetRecyclerView = this.o;
                     savedPosition = epLayoutFocusPosition;
                 } else if (historyPlayBtnLayout != null && historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
+                    // android.util.Log.i(FOCUS_TAG, "handleListFocusNavigation | 移动到播放按钮");
                     historyPlayBtnLayout.requestFocus();
                     return true;
                 } else if (rePlayBtnLayout != null && rePlayBtnLayout.getVisibility() == View.VISIBLE) {
+                    // android.util.Log.i(FOCUS_TAG, "handleListFocusNavigation | 移动到重播按钮");
                     rePlayBtnLayout.requestFocus();
                     return true;
                 }
             } else if (currentListType == LIST_TYPE_TAG) {
+                // android.util.Log.i(FOCUS_TAG, "handleListFocusNavigation | 从标签列表向上移动");
                 if (this.r != null && this.r.getVisibility() == View.VISIBLE) {
+                    // android.util.Log.i(FOCUS_TAG, "handleListFocusNavigation | 移动到相关视频列表");
                     targetRecyclerView = this.r;
                     savedPosition = relateVideoFocusPosition;
                 } else if (seasonsContainer != null && seasonsContainer.getVisibility() == View.VISIBLE 
                         && !seasonSectionViews.isEmpty()) {
                     SeasonSectionView lastSection = seasonSectionViews.get(seasonSectionViews.size() - 1);
+                    // android.util.Log.i(FOCUS_TAG, "handleListFocusNavigation | 移动到最后一个合集列表 sectionId=" + lastSection.sectionId);
                     targetRecyclerView = lastSection.recyclerView;
                     savedPosition = getSeasonSectionFocusPosition(lastSection.sectionId);
+                    targetSectionId = lastSection.sectionId;
                 } else if (this.episodes_video != null && this.episodes_video.getVisibility() == View.VISIBLE) {
+                    // android.util.Log.i(FOCUS_TAG, "handleListFocusNavigation | 移动到episodes_video");
                     targetRecyclerView = this.episodes_video;
                     savedPosition = episodesVideoFocusPosition;
                 } else if (this.o != null && this.o.getVisibility() == View.VISIBLE) {
+                    // android.util.Log.i(FOCUS_TAG, "handleListFocusNavigation | 移动到分P列表");
                     targetRecyclerView = this.o;
                     savedPosition = epLayoutFocusPosition;
                 }
@@ -1089,28 +1134,47 @@ public final class VideoDetailActivity extends BaseActivity
             // LIST_TYPE_SEASON_SECTION 和 LIST_TYPE_NAV_TAG 已由组件自管理，事件透传给组件处理
         }
 
+        // 如果目标是一个VideoListSection，使用requestFocusOnPosition方法
+        // 不需要用childCount限制position，因为requestFocusOnPosition内部会处理滚动
+        if (targetSectionId > 0) {
+            com.bilibili.tv.ui.video.widget.VideoListSection targetSection = findVideoListSection(targetSectionId);
+            if (targetSection != null) {
+                // android.util.Log.i(FOCUS_TAG, "handleListFocusNavigation | 目标是VideoListSection，使用requestFocusOnPosition position=" + savedPosition);
+                targetSection.requestFocusOnPosition(savedPosition);
+                return true;
+            }
+        }
+
         if (targetRecyclerView != null && targetRecyclerView.getVisibility() == View.VISIBLE) {
+            // android.util.Log.i(FOCUS_TAG, "handleListFocusNavigation | targetRecyclerView不为空，请求焦点");
             int childCount = targetRecyclerView.getChildCount();
             if (childCount > 0) {
                 int position = Math.min(savedPosition, childCount - 1);
                 position = Math.max(0, position);
+                
                 View targetView = targetRecyclerView.getChildAt(position);
                 if (targetView != null) {
+                    // android.util.Log.i(FOCUS_TAG, "handleListFocusNavigation | 请求焦点 position=" + position);
                     targetView.requestFocus();
                     return true;
                 }
             }
         }
 
+        // android.util.Log.i(FOCUS_TAG, "handleListFocusNavigation | 返回false");
         return false;
     }
     
     private void refreshVisualOrder() {
+        // android.util.Log.i(FOCUS_TAG, "========== refreshVisualOrder START ==========");
         if (seasonsContainer == null || videoListNavigator == null) {
+            // android.util.Log.i(FOCUS_TAG, "refreshVisualOrder | seasonsContainer或videoListNavigator为空");
             return;
         }
         
         int childCount = seasonsContainer.getChildCount();
+        // android.util.Log.i(FOCUS_TAG, "refreshVisualOrder | seasonsContainer子视图数量=" + childCount
+        //         + " | seasonSectionViews.size()=" + seasonSectionViews.size());
         
         List<SeasonSectionView> visualSorted = new ArrayList<SeasonSectionView>();
         for (int i = 0; i < childCount; i++) {
@@ -1120,6 +1184,7 @@ public final class VideoDetailActivity extends BaseActivity
                         (com.bilibili.tv.ui.video.widget.VideoListSection) child;
                 int sectionId = section.getSectionId();
                 
+                // android.util.Log.i(FOCUS_TAG, "refreshVisualOrder | 视觉位置" + i + " -> sectionId=" + sectionId);
                 videoListNavigator.updateVisualOrder(sectionId, i);
                 
                 for (SeasonSectionView ssv : seasonSectionViews) {
@@ -1132,9 +1197,17 @@ public final class VideoDetailActivity extends BaseActivity
         }
         
         if (visualSorted.size() == seasonSectionViews.size()) {
+            // android.util.Log.i(FOCUS_TAG, "refreshVisualOrder | 重排seasonSectionViews");
             seasonSectionViews.clear();
             seasonSectionViews.addAll(visualSorted);
+            
+            // StringBuilder sb = new StringBuilder();
+            // for (int i = 0; i < seasonSectionViews.size(); i++) {
+            //     sb.append("[").append(i).append(":").append(seasonSectionViews.get(i).sectionId).append("]");
+            // }
+            // android.util.Log.i(FOCUS_TAG, "refreshVisualOrder | 重排后顺序: " + sb.toString());
         }
+        // android.util.Log.i(FOCUS_TAG, "========== refreshVisualOrder END ==========");
     }
 
 
@@ -2893,19 +2966,55 @@ public final class VideoDetailActivity extends BaseActivity
         listSection.setOnFocusExitListener(new com.bilibili.tv.ui.video.widget.VideoListSection.OnFocusExitListener() {
             @Override
             public void onFocusExitUp(int sectionId, int focusPosition) {
+                // android.util.Log.i(FOCUS_TAG, "========== onFocusExitUp START ==========");
+                // android.util.Log.i(FOCUS_TAG, "onFocusExitUp | sectionId=" + sectionId + " | focusPosition=" + focusPosition);
                 // 视频卡片区域按UP键离开组件 -> 导航到播放按钮或上方列表
                 seasonSectionFocusPositions.put(sectionId, focusPosition);
-                if (historyPlayBtnLayout != null && historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
+                
+                // android.util.Log.i(FOCUS_TAG, "onFocusExitUp | seasonSectionViews.size()=" + seasonSectionViews.size());
+                // StringBuilder sb = new StringBuilder();
+                // for (int i = 0; i < seasonSectionViews.size(); i++) {
+                //     sb.append("[").append(i).append(":").append(seasonSectionViews.get(i).sectionId).append("]");
+                // }
+                // android.util.Log.i(FOCUS_TAG, "onFocusExitUp | seasonSectionViews顺序: " + sb.toString());
+                
+                // 向上导航：先找同容器中的上一个section，否则导航到播放按钮
+                int currentSectionIndex = -1;
+                for (int i = 0; i < seasonSectionViews.size(); i++) {
+                    if (seasonSectionViews.get(i).sectionId == sectionId) {
+                        currentSectionIndex = i;
+                        break;
+                    }
+                }
+                // android.util.Log.i(FOCUS_TAG, "onFocusExitUp | currentSectionIndex=" + currentSectionIndex);
+                
+                if (currentSectionIndex > 0) {
+                    SeasonSectionView prevSection = seasonSectionViews.get(currentSectionIndex - 1);
+                    // android.util.Log.i(FOCUS_TAG, "onFocusExitUp | 移动到上一个section sectionId=" + prevSection.sectionId);
+                    com.bilibili.tv.ui.video.widget.VideoListSection prevVls = findVideoListSection(prevSection.sectionId);
+                    if (prevVls != null) {
+                        prevVls.setFocusPosition(getSeasonSectionFocusPosition(prevSection.sectionId));
+                        prevVls.requestFocusOnSavedPosition();
+                    } else if (prevSection.recyclerView != null) {
+                        prevSection.recyclerView.requestFocus();
+                    }
+                } else if (historyPlayBtnLayout != null && historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
+                    // android.util.Log.i(FOCUS_TAG, "onFocusExitUp | 请求播放按钮焦点");
                     historyPlayBtnLayout.requestFocus();
                 } else if (rePlayBtnLayout != null && rePlayBtnLayout.getVisibility() == View.VISIBLE) {
+                    // android.util.Log.i(FOCUS_TAG, "onFocusExitUp | 请求重播按钮焦点");
                     rePlayBtnLayout.requestFocus();
                 } else if (o != null && o.getVisibility() == View.VISIBLE) {
+                    // android.util.Log.i(FOCUS_TAG, "onFocusExitUp | 请求分P列表焦点");
                     o.requestFocus();
                 }
+                // android.util.Log.i(FOCUS_TAG, "========== onFocusExitUp END ==========");
             }
 
             @Override
             public void onFocusExitDown(int sectionId, int selectedTagIndex) {
+                // android.util.Log.i(FOCUS_TAG, "========== onFocusExitDown START ==========");
+                // android.util.Log.i(FOCUS_TAG, "onFocusExitDown | sectionId=" + sectionId + " | selectedTagIndex=" + selectedTagIndex);
                 // 导航标签区域按DOWN键离开组件 -> 导航到下一个合集或相关视频
                 seasonSectionNavTagFocusPositions.put(sectionId, selectedTagIndex);
                 int currentSectionIndex = -1;
@@ -2915,8 +3024,11 @@ public final class VideoDetailActivity extends BaseActivity
                         break;
                     }
                 }
+                // android.util.Log.i(FOCUS_TAG, "onFocusExitDown | currentSectionIndex=" + currentSectionIndex
+                //         + " | seasonSectionViews.size()=" + seasonSectionViews.size());
                 if (currentSectionIndex >= 0 && currentSectionIndex < seasonSectionViews.size() - 1) {
                     SeasonSectionView nextSection = seasonSectionViews.get(currentSectionIndex + 1);
+                    // android.util.Log.i(FOCUS_TAG, "onFocusExitDown | 移动到下一个section sectionId=" + nextSection.sectionId);
                     com.bilibili.tv.ui.video.widget.VideoListSection nextVls = findVideoListSection(nextSection.sectionId);
                     if (nextVls != null) {
                         nextVls.setFocusPosition(getSeasonSectionFocusPosition(nextSection.sectionId));
@@ -2925,6 +3037,7 @@ public final class VideoDetailActivity extends BaseActivity
                         nextSection.recyclerView.requestFocus();
                     }
                 } else {
+                    // android.util.Log.i(FOCUS_TAG, "onFocusExitDown | 没有下一个section，移动到标签列表");
                     if (r != null && r.getVisibility() == View.VISIBLE) {
                         int savedPosition = Math.min(relateVideoFocusPosition, r.getChildCount() - 1);
                         savedPosition = Math.max(0, savedPosition);
@@ -2935,6 +3048,7 @@ public final class VideoDetailActivity extends BaseActivity
                         n.requestFocus();
                     }
                 }
+                // android.util.Log.i(FOCUS_TAG, "========== onFocusExitDown END ==========");
             }
         });
         
@@ -5088,6 +5202,8 @@ public final class VideoDetailActivity extends BaseActivity
             listSection.setOnFocusExitListener(new com.bilibili.tv.ui.video.widget.VideoListSection.OnFocusExitListener() {
                 @Override
                 public void onFocusExitUp(int sectionId, int focusPosition) {
+                    // android.util.Log.i(FOCUS_TAG, "========== onFocusExitUp (相关推荐) START ==========");
+                    // android.util.Log.i(FOCUS_TAG, "onFocusExitUp | sectionId=" + sectionId + " | focusPosition=" + focusPosition);
                     seasonSectionFocusPositions.put(sectionId, focusPosition);
                     // 向上导航：先找同容器中的上一个section，否则导航到播放按钮或上方列表
                     int currentSectionIndex = -1;
@@ -5097,8 +5213,17 @@ public final class VideoDetailActivity extends BaseActivity
                             break;
                         }
                     }
+                    // android.util.Log.i(FOCUS_TAG, "onFocusExitUp | currentSectionIndex=" + currentSectionIndex
+                    //         + " | seasonSectionViews.size()=" + seasonSectionViews.size());
+                    // StringBuilder sb = new StringBuilder();
+                    // for (int i = 0; i < seasonSectionViews.size(); i++) {
+                    //     sb.append("[").append(i).append(":").append(seasonSectionViews.get(i).sectionId).append("]");
+                    // }
+                    // android.util.Log.i(FOCUS_TAG, "onFocusExitUp | seasonSectionViews顺序: " + sb.toString());
+                    
                     if (currentSectionIndex > 0) {
                         SeasonSectionView prevSection = seasonSectionViews.get(currentSectionIndex - 1);
+                        // android.util.Log.i(FOCUS_TAG, "onFocusExitUp | 移动到上一个section sectionId=" + prevSection.sectionId);
                         com.bilibili.tv.ui.video.widget.VideoListSection prevVls = findVideoListSection(prevSection.sectionId);
                         if (prevVls != null) {
                             prevVls.setFocusPosition(getSeasonSectionFocusPosition(prevSection.sectionId));
@@ -5107,16 +5232,22 @@ public final class VideoDetailActivity extends BaseActivity
                             prevSection.recyclerView.requestFocus();
                         }
                     } else if (historyPlayBtnLayout != null && historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
+                        // android.util.Log.i(FOCUS_TAG, "onFocusExitUp | 移动到播放按钮");
                         historyPlayBtnLayout.requestFocus();
                     } else if (rePlayBtnLayout != null && rePlayBtnLayout.getVisibility() == View.VISIBLE) {
+                        // android.util.Log.i(FOCUS_TAG, "onFocusExitUp | 移动到重播按钮");
                         rePlayBtnLayout.requestFocus();
                     } else if (o != null && o.getVisibility() == View.VISIBLE) {
+                        // android.util.Log.i(FOCUS_TAG, "onFocusExitUp | 移动到分P列表");
                         o.requestFocus();
                     }
+                    // android.util.Log.i(FOCUS_TAG, "========== onFocusExitUp (相关推荐) END ==========");
                 }
 
                 @Override
                 public void onFocusExitDown(int sectionId, int selectedTagIndex) {
+                    // android.util.Log.i(FOCUS_TAG, "========== onFocusExitDown (相关推荐) START ==========");
+                    // android.util.Log.i(FOCUS_TAG, "onFocusExitDown | sectionId=" + sectionId + " | selectedTagIndex=" + selectedTagIndex);
                     seasonSectionNavTagFocusPositions.put(sectionId, selectedTagIndex);
                     // 向下导航：先找同容器中的下一个section，否则导航到标签列表
                     int currentSectionIndex = -1;
@@ -5126,8 +5257,11 @@ public final class VideoDetailActivity extends BaseActivity
                             break;
                         }
                     }
+                    // android.util.Log.i(FOCUS_TAG, "onFocusExitDown | currentSectionIndex=" + currentSectionIndex
+                    //         + " | seasonSectionViews.size()=" + seasonSectionViews.size());
                     if (currentSectionIndex >= 0 && currentSectionIndex < seasonSectionViews.size() - 1) {
                         SeasonSectionView nextSection = seasonSectionViews.get(currentSectionIndex + 1);
+                        // android.util.Log.i(FOCUS_TAG, "onFocusExitDown | 移动到下一个section sectionId=" + nextSection.sectionId);
                         com.bilibili.tv.ui.video.widget.VideoListSection nextVls = findVideoListSection(nextSection.sectionId);
                         if (nextVls != null) {
                             nextVls.setFocusPosition(getSeasonSectionFocusPosition(nextSection.sectionId));
@@ -5136,8 +5270,10 @@ public final class VideoDetailActivity extends BaseActivity
                             nextSection.recyclerView.requestFocus();
                         }
                     } else if (n != null && n.getVisibility() == View.VISIBLE) {
+                        // android.util.Log.i(FOCUS_TAG, "onFocusExitDown | 移动到标签列表");
                         n.requestFocus();
                     }
+                    // android.util.Log.i(FOCUS_TAG, "========== onFocusExitDown (相关推荐) END ==========");
                 }
             });
 

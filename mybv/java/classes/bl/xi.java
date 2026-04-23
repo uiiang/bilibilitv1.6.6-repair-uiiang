@@ -304,9 +304,10 @@ public class xi extends xh implements bbb<Message, Boolean> {
                 }
                 return false;
             case KeyEvent.KEYCODE_DPAD_UP:
-            case KeyEvent.KEYCODE_DPAD_DOWN:
                 tt();
                 return true;
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+                return false;
             case KeyEvent.KEYCODE_DPAD_LEFT:
                 if (this.isSliding) {
                     int a = aal.a(false);

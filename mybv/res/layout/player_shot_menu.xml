@@ -16,14 +16,15 @@
 
         <TextView
             android:id="@+id/shot_seekbar_title"
-            android:layout_width="@dimen/px_1000"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@id/shot_time_current"
             android:layout_marginLeft="@dimen/px_60"
+            android:layout_marginRight="@dimen/px_40"
+            android:gravity="left"
             android:textSize="@dimen/px_44"
-            android:textColor="@color/white"
-            android:ellipsize="marquee"
-            android:singleLine="true"
-            android:marqueeRepeatLimit="marquee_forever" />
+            android:textColor="@color/white" />
 
         <com.bilibili.tv.widget.ShadowTextView
             android:id="@+id/shot_time_current"

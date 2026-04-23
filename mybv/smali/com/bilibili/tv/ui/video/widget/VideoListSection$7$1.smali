@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 422
+    .line 426
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$7$1;->this$1:Lcom/bilibili/tv/ui/video/widget/VideoListSection$7;
 
     iput p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$7$1;->val$currentTagIndex:I
@@ -41,10 +41,10 @@
 
 # virtual methods
 .method public run()V
-    .locals 4
+    .locals 2
 
     .prologue
-    .line 425
+    .line 429
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$7$1;->this$1:Lcom/bilibili/tv/ui/video/widget/VideoListSection$7;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$7;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -60,38 +60,13 @@
 
     move-result-object v0
 
-    .line 426
-    if-eqz v0, :cond_2d
+    .line 430
+    if-eqz v0, :cond_13
 
-    .line 427
-    const-string v1, "ListSection"
-
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "onItemFocus | \u91cd\u5b9a\u5411\u7126\u70b9\u5230\u5bfc\u822a\u6807\u7b7e position="
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    iget v3, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$7$1;->val$currentTagIndex:I
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v2
-
-    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 428
+    .line 432
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 430
-    :cond_2d
+    .line 434
+    :cond_13
     return-void
 .end method

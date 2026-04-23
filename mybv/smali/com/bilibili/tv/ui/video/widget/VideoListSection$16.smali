@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 940
+    .line 944
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$16;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     iput p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$16;->val$finalPos:I
@@ -44,7 +44,7 @@
     .locals 6
 
     .prologue
-    .line 943
+    .line 947
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$16;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
@@ -58,11 +58,11 @@
 
     if-nez v0, :cond_d
 
-    .line 963
+    .line 967
     :goto_c
     return-void
 
-    .line 950
+    .line 954
     :cond_d
     :try_start_d
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$16;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -76,10 +76,10 @@
 
     move-result-object v0
 
-    .line 951
+    .line 955
     if-eqz v0, :cond_47
 
-    .line 952
+    .line 956
     invoke-virtual {v0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
     move-result-object v1
@@ -106,7 +106,7 @@
 
     move-result-object v1
 
-    .line 953
+    .line 957
     const/4 v2, 0x2
 
     new-array v2, v2, [Ljava/lang/Object;
@@ -135,7 +135,7 @@
     :try_end_47
     .catch Ljava/lang/Exception; {:try_start_d .. :try_end_47} :catch_4f
 
-    .line 962
+    .line 966
     :cond_47
     :goto_47
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$16;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -147,11 +147,11 @@
 
     goto :goto_c
 
-    .line 955
+    .line 959
     :catch_4f
     move-exception v0
 
-    .line 957
+    .line 961
     :try_start_50
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$16;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
@@ -180,7 +180,7 @@
 
     move-result-object v0
 
-    .line 958
+    .line 962
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$16;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->recyclerView:Landroid/support/v7/widget/RecyclerView;
@@ -208,7 +208,7 @@
 
     goto :goto_47
 
-    .line 959
+    .line 963
     :catch_7e
     move-exception v0
 

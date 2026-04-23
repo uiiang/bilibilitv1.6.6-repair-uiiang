@@ -98,37 +98,49 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
 
     @Override // bl.xh
     public boolean g(int i, KeyEvent keyEvent) {
-        android.util.Log.i("ShotMenuBug", "xl.g: keyCode=" + i);
+        xh nextHandler = next();
+        boolean rightMenuShowing = (nextHandler instanceof xw) && nextHandler.e(i, keyEvent);
+        boolean shotMenuShowing = isShotMenuShowing();
+        boolean episodeMenuShowing = P();
+        boolean anyMenuShowing = rightMenuShowing || shotMenuShowing || episodeMenuShowing;
         
         if (i == 4) {
-            if (isShotMenuShowing()) {
+            if (shotMenuShowing) {
                 hideShotMenu();
                 return true;
             }
-            if (P()) {
+            if (episodeMenuShowing) {
                 V();
                 return true;
             }
             return false;
         }
         
+        if (anyMenuShowing) {
+            if (i == 19) {
+                if (shotMenuShowing) {
+                    return true;
+                }
+            }
+            if (i == 20) {
+                if (shotMenuShowing || episodeMenuShowing) {
+                    return true;
+                }
+            }
+            return true;
+        }
+        
         if (i == 20) {
-            android.util.Log.i("ShotMenuBug", "xl.g: DOWN key, P()=" + P() + ", isShotMenuShowing()=" + isShotMenuShowing());
-            if (P()) {
-                return true;
-            }
-            if (isShotMenuShowing()) {
-                return true;
-            }
-            android.util.Log.i("ShotMenuBug", "xl.g: calling showShotMenu()");
             if (showShotMenu()) {
-                android.util.Log.i("ShotMenuBug", "xl.g: showShotMenu returned true");
                 return true;
             }
-            android.util.Log.i("ShotMenuBug", "xl.g: showShotMenu returned false, calling xi.tt()");
-            xh parentHandler = next();
-            if (parentHandler instanceof xi) {
-                ((xi) parentHandler).tt();
+            xh parentHandler = a();
+            while (parentHandler != null) {
+                if (parentHandler instanceof xi) {
+                    ((xi) parentHandler).tt();
+                    break;
+                }
+                parentHandler = parentHandler.a();
             }
             return true;
         }
@@ -138,21 +150,11 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         }
         
         if (i == 19) {
-            if (isShotMenuShowing()) {
-                return true;
-            }
             if (!S()) {
                 R();
             }
-            if (P()) {
-                return true;
-            }
             v();
             U();
-            return true;
-        }
-        
-        if (P() || isShotMenuShowing()) {
             return true;
         }
         
@@ -552,13 +554,18 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
     private boolean showShotMenu() {
         PlayerSeekBar playerSeekBar = getPlayerSeekBar();
         if (playerSeekBar == null) {
-            android.util.Log.i("xl", "showShotMenu: playerSeekBar is null");
+            android.util.Log.i("ShotMenuBug", "showShotMenu: playerSeekBar is null");
             return false;
         }
         
         VideoShot videoShot = playerSeekBar.getVideoShot();
+        android.util.Log.i("ShotMenuBug", "showShotMenu: videoShot=" + videoShot);
+        if (videoShot != null) {
+            android.util.Log.i("ShotMenuBug", "showShotMenu: videoShot.index=" + videoShot.getIndex());
+        }
+        
         if (videoShot == null || videoShot.getIndex() == null || videoShot.getIndex().isEmpty()) {
-            android.util.Log.i("xl", "showShotMenu: videoShot is null or empty");
+            android.util.Log.i("ShotMenuBug", "showShotMenu: videoShot is null or empty, returning false");
             return false;
         }
         

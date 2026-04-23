@@ -40,13 +40,6 @@
     .locals 2
 
     .prologue
-    .line 283
-    const-string v0, "ListSection"
-
-    const-string v1, "navTagScrollEndRunnable | \u6eda\u52a8\u7ed3\u675f\uff0c\u901a\u77e5\u5916\u90e8"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
     .line 284
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$4;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
@@ -55,7 +48,7 @@
 
     move-result-object v0
 
-    if-eqz v0, :cond_18
+    if-eqz v0, :cond_11
 
     .line 285
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$4;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -68,7 +61,7 @@
     invoke-interface {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagScrollListener;->onNavTagScrollEnd()V
 
     .line 287
-    :cond_18
+    :cond_11
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$4;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     const/4 v1, 0x0

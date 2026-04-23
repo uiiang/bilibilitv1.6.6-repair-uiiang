@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 4347
+    .line 4461
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c$1;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 4350
+    .line 4464
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c$1;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;->n:Lcom/bilibili/tv/widget/DrawTextView;
@@ -50,10 +50,10 @@
 
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawTextView;->setUpEnabled(Z)V
 
-    .line 4351
+    .line 4465
     if-eqz p2, :cond_36
 
-    .line 4352
+    .line 4466
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -62,15 +62,15 @@
 
     move-result-object v0
 
-    .line 4353
+    .line 4467
     instance-of v1, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     if-eqz v1, :cond_36
 
-    .line 4354
+    .line 4468
     check-cast v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    .line 4355
+    .line 4469
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->blockEpisodeAutoFocus:Z
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$5100(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Z
 
@@ -78,7 +78,7 @@
 
     if-eqz v1, :cond_36
 
-    .line 4356
+    .line 4470
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
 
@@ -86,7 +86,7 @@
 
     if-eqz v1, :cond_36
 
-    .line 4357
+    .line 4471
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
 
@@ -98,7 +98,7 @@
 
     if-nez v1, :cond_36
 
-    .line 4358
+    .line 4472
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
 
@@ -106,7 +106,7 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawLinearLayout;->requestFocus()Z
 
-    .line 4363
+    .line 4477
     :cond_36
     return-void
 .end method
