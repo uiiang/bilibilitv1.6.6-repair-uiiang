@@ -16,7 +16,7 @@
       android:background="#80000000" android:padding="@dimen/px_20">
       <TextView android:textSize="@dimen/px_40" android:textColor="@color/white"
         android:gravity="left" android:id="@id/tv_loading" android:layout_width="fill_parent"
-        android:layout_height="wrap_content" android:maxLines="3"
+        android:layout_height="wrap_content"
         android:lineSpacingMultiplier="1.2" />
       <TextView android:textSize="@dimen/px_30" android:textColor="@color/white"
         android:gravity="left" android:id="@id/tv_loading_page" android:layout_width="fill_parent"

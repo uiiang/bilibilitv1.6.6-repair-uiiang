@@ -660,14 +660,14 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         
         if (playerParams.isBangumi()) {
             String indexTitle = BiliBangumiSeason.getReadableIndexTitle(resolveParams.mPageIndex);
-            if (pageTitle != null && !pageTitle.isEmpty()) {
+            if (pageTitle != null && !pageTitle.isEmpty() && !pageTitle.equals(indexTitle)) {
                 return indexTitle + " - " + pageTitle;
             }
             return indexTitle;
         } else if (resolveParams != null && pageTitle != null && 
                    playerParams.mVideoParams.mResolveParamsArray != null && 
                    playerParams.mVideoParams.mResolveParamsArray.length > 1) {
-            if (mainTitle != null && !mainTitle.isEmpty()) {
+            if (mainTitle != null && !mainTitle.isEmpty() && !mainTitle.equals(pageTitle)) {
                 return mainTitle + " - " + pageTitle;
             }
             return pageTitle;

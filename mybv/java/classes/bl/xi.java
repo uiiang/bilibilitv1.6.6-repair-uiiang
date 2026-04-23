@@ -685,13 +685,24 @@ public class xi extends xh implements bbb<Message, Boolean> {
                 pageTitle = b.mVideoParams.mResolveParams.mPageTitle;
             }
         }
+        android.util.Log.i("LoadingTitle", "mainTitle(a2)=" + a2 + " | pageTitle=" + pageTitle + " | isBangumi=" + b.isBangumi());
         if (b.isBangumi()) {
             if (TextUtils.isEmpty(a2)) {
                 a2 = BiliBangumiSeason.getReadableIndexTitle(b.mVideoParams.mResolveParams.mPageIndex);
             } else {
                 a2 = BiliBangumiSeason.getReadableIndexTitle(b.mVideoParams.mResolveParams.mPageIndex) + " - " + a2;
             }
+        } else if (pageTitle != null && !pageTitle.isEmpty() && 
+                   b.mVideoParams.mResolveParamsArray != null && 
+                   b.mVideoParams.mResolveParamsArray.length > 1) {
+            if (a2 != null && !a2.isEmpty() && a2.equals(pageTitle)) {
+                android.util.Log.i("LoadingTitle", "mainTitle equals pageTitle, hide tv_loading_page");
+                pageTitle = null;
+            } else {
+                android.util.Log.i("LoadingTitle", "mainTitle != pageTitle, show tv_loading_page: " + pageTitle);
+            }
         }
+        android.util.Log.i("LoadingTitle", "final mainTitle: " + a2 + " | final pageTitle: " + pageTitle);
         this.k.b(lp.a(o.getString(R.string.player_loading_title), a2));
         this.k.a(coverUrl, pageTitle);
     }

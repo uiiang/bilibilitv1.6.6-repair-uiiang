@@ -1046,7 +1046,7 @@
 
     move-result v4
 
-    if-eqz v4, :cond_4a
+    if-eqz v4, :cond_50
 
     .line 662
     iget-object v0, v3, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mPageIndex:Ljava/lang/String;
@@ -1059,6 +1059,12 @@
     if-eqz v1, :cond_c
 
     invoke-virtual {v1}, Ljava/lang/String;->isEmpty()Z
+
+    move-result v2
+
+    if-nez v2, :cond_c
+
+    invoke-virtual {v1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
     move-result v2
 
@@ -1090,16 +1096,16 @@
     goto :goto_c
 
     .line 667
-    :cond_4a
-    if-eqz v3, :cond_7e
+    :cond_50
+    if-eqz v3, :cond_8a
 
-    if-eqz v1, :cond_7e
+    if-eqz v1, :cond_8a
 
     iget-object v3, v2, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
 
     iget-object v3, v3, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mResolveParamsArray:[Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
-    if-eqz v3, :cond_7e
+    if-eqz v3, :cond_8a
 
     iget-object v2, v2, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
 
@@ -1109,16 +1115,22 @@
 
     const/4 v3, 0x1
 
-    if-le v2, v3, :cond_7e
+    if-le v2, v3, :cond_8a
 
     .line 670
-    if-eqz v0, :cond_7c
+    if-eqz v0, :cond_88
 
     invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
 
     move-result v2
 
-    if-nez v2, :cond_7c
+    if-nez v2, :cond_88
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v2
+
+    if-nez v2, :cond_88
 
     .line 671
     new-instance v2, Ljava/lang/StringBuilder;
@@ -1145,19 +1157,19 @@
 
     goto :goto_c
 
-    :cond_7c
+    :cond_88
     move-object v0, v1
 
     .line 673
     goto :goto_c
 
     .line 675
-    :cond_7e
+    :cond_8a
     if-nez v0, :cond_c
 
     const-string v0, ""
 
-    goto :goto_c
+    goto/16 :goto_c
 .end method
 
 .method private hideShotMenu()V
