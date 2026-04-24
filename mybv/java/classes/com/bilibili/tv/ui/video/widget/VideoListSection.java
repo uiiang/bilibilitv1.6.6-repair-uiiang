@@ -242,17 +242,14 @@ public class VideoListSection extends LinearLayout {
                     }
                     
                     if (targetTagIndex != currentTagIndex) {
-                        // 滚动开始时通知外部清空待加载的图片
                         if (navTagScrollListener != null) {
                             navTagScrollListener.onNavTagScrollStart();
                         }
                         
-                        // 取消之前的滚动结束回调
                         if (navTagScrollEndRunnable != null) {
                             removeCallbacks(navTagScrollEndRunnable);
                         }
                         
-                        // android.util.Log.i(TAG, "dispatchKeyEvent | 移动焦点从 " + currentTagIndex + " 到 " + targetTagIndex);
                         focusRedirecting = true;
                         navTagAdapter.setSelectedPosition(targetTagIndex);
                         
@@ -264,29 +261,27 @@ public class VideoListSection extends LinearLayout {
                         scrollToDataPositionOnly(videoStartPosition);
                         
                         final int finalTagIndex = targetTagIndex;
-                        // 滚动完成后再请求焦点，确保焦点边框位置正确
-                        navTagRecyclerView.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                navTagAdapter.scrollToPositionWithOffset(finalTagIndex);
-                                navTagRecyclerView.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        View tagView = navTagAdapter.findViewByPosition(finalTagIndex);
-                                        if (tagView != null) {
-                                            focusRedirecting = true;
-                                            tagView.requestFocus();
-                                        }
+                        View tagView = navTagAdapter.findViewByPosition(finalTagIndex);
+                        if (tagView != null) {
+                            focusRedirecting = true;
+                            tagView.requestFocus();
+                        } else {
+                            navTagAdapter.scrollToPosition(finalTagIndex);
+                            navTagRecyclerView.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    View tagView = navTagAdapter.findViewByPosition(finalTagIndex);
+                                    if (tagView != null) {
+                                        focusRedirecting = true;
+                                        tagView.requestFocus();
                                     }
-                                }, 50);
-                            }
-                        });
+                                }
+                            }, 100);
+                        }
                         
-                        // 设置滚动结束回调
                         navTagScrollEndRunnable = new Runnable() {
                             @Override
                             public void run() {
-                                // android.util.Log.i(TAG, "navTagScrollEndRunnable | 滚动结束，通知外部");
                                 if (navTagScrollListener != null) {
                                     navTagScrollListener.onNavTagScrollEnd();
                                 }

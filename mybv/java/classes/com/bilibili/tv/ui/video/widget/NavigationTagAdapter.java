@@ -415,7 +415,6 @@ public class NavigationTagAdapter extends RecyclerView.a<NavigationTagAdapter.Ta
     public void scrollToPositionWithOffset(int position) {
         Log.i(TAG, "scrollToPositionWithOffset | position=" + position + " | tagsSize=" + tags.size());
         if (attachedRecyclerView != null && position >= 0 && position < tags.size()) {
-            // 取消之前待执行的滚动请求
             if (pendingScrollRunnable != null) {
                 attachedRecyclerView.removeCallbacks(pendingScrollRunnable);
                 pendingScrollRunnable = null;
@@ -430,14 +429,23 @@ public class NavigationTagAdapter extends RecyclerView.a<NavigationTagAdapter.Ta
                         Log.i(TAG, "scrollToPositionWithOffset | attachedRecyclerView为null，返回");
                         return;
                     }
-                    // 使用scrollToPosition让RecyclerView自己决定滚动位置
-                    // 与视频卡片列表的滚动行为保持一致，焦点item会自然出现在屏幕右侧
-                    try {
-                        java.lang.reflect.Method scrollToMethod = attachedRecyclerView.getClass().getMethod("a", int.class);
-                        scrollToMethod.invoke(attachedRecyclerView, finalPosition);
-                        Log.i(TAG, "scrollToPositionWithOffset | a(int)成功 | position=" + finalPosition);
-                    } catch (Exception e) {
-                        Log.w(TAG, "scrollToPositionWithOffset | a(int)失败: " + e.getMessage());
+                    
+                    Object layoutManager = attachedRecyclerView.getLayoutManager();
+                    if (layoutManager != null) {
+                        try {
+                            java.lang.reflect.Method scrollToWithOffset = layoutManager.getClass().getMethod("b", int.class, int.class);
+                            scrollToWithOffset.invoke(layoutManager, finalPosition, 0);
+                            Log.i(TAG, "scrollToPositionWithOffset | layoutManager.b(int, int)成功 | position=" + finalPosition);
+                        } catch (Exception e) {
+                            Log.w(TAG, "scrollToPositionWithOffset | layoutManager.b失败: " + e.getMessage());
+                            try {
+                                java.lang.reflect.Method scrollToMethod = attachedRecyclerView.getClass().getMethod("a", int.class);
+                                scrollToMethod.invoke(attachedRecyclerView, finalPosition);
+                                Log.i(TAG, "scrollToPositionWithOffset | recyclerView.a(int)成功 | position=" + finalPosition);
+                            } catch (Exception e2) {
+                                Log.w(TAG, "scrollToPositionWithOffset | recyclerView.a失败: " + e2.getMessage());
+                            }
+                        }
                     }
                     pendingScrollRunnable = null;
                 }

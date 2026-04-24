@@ -700,6 +700,10 @@ public final class SearchResultVideoFragment extends ady {
         List<VideoItem> videos = new ArrayList<>();
         for (int i = 0; i < archives.size(); i++) {
             JSONObject item = archives.getJSONObject(i);
+            String type = item.getString("type");
+            if (!"video".equals(type)) {
+                continue;
+            }
             VideoItem video = new VideoItem();
             String title = item.getString("title");
             video.title = android.text.Html.fromHtml(title).toString();

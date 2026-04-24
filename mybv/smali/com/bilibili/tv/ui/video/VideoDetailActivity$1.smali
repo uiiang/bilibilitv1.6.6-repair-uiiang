@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 314
+    .line 315
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$1;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,23 +40,23 @@
     .locals 1
 
     .prologue
-    .line 317
+    .line 318
     if-eqz p2, :cond_f
 
-    .line 318
+    .line 319
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$1;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->showInteractionButtons()V
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$000(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
 
-    .line 319
+    .line 320
     new-instance v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$1$1;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$1$1;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$1;)V
 
     invoke-virtual {p1, v0}, Landroid/view/View;->post(Ljava/lang/Runnable;)Z
 
-    .line 329
+    .line 330
     :cond_f
     return-void
 .end method

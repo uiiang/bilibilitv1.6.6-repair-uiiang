@@ -76,6 +76,7 @@ import com.bilibili.tv.ui.bangumi.BangumiDetailActivity;
 import com.bilibili.tv.ui.base.BaseActivity;
 import com.bilibili.tv.ui.base.LoadingImageView;
 import com.bilibili.tv.ui.video.tag.VideoTagSearchActivity;
+import com.bilibili.tv.ui.search.SearchResultSideActivity;
 import com.bilibili.tv.util.DateHelper;
 import com.bilibili.tv.widget.DrawLinearLayout;
 import com.bilibili.tv.widget.DrawRelativeLayout;
@@ -4545,7 +4546,7 @@ public final class VideoDetailActivity extends BaseActivity
             if (!(a2 instanceof VideoDetailActivity) || str == null) {
                 return;
             }
-            VideoTagSearchActivity.Companion.a(a2, str, intValue);
+            SearchResultSideActivity.a(a2, str, 0);
             ok.a("tv_video_view_tag_click", PluginApk.PROP_NAME, str);
         }
 

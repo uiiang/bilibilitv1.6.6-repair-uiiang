@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 268
+    .line 270
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$3;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     iput p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$3;->val$finalTagIndex:I
@@ -41,10 +41,10 @@
 
 # virtual methods
 .method public run()V
-    .locals 4
+    .locals 3
 
     .prologue
-    .line 271
+    .line 273
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$3;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagAdapter:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
@@ -54,24 +54,25 @@
 
     iget v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$3;->val$finalTagIndex:I
 
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->scrollToPositionWithOffset(I)V
-
-    .line 272
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$3;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
-
-    # getter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagRecyclerView:Landroid/support/v7/widget/RecyclerView;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$500(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)Landroid/support/v7/widget/RecyclerView;
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->findViewByPosition(I)Landroid/view/View;
 
     move-result-object v0
 
-    new-instance v1, Lcom/bilibili/tv/ui/video/widget/VideoListSection$3$1;
+    .line 274
+    if-eqz v0, :cond_17
 
-    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection$3$1;-><init>(Lcom/bilibili/tv/ui/video/widget/VideoListSection$3;)V
+    .line 275
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$3;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
-    const-wide/16 v2, 0x32
+    const/4 v2, 0x1
 
-    invoke-virtual {v0, v1, v2, v3}, Landroid/support/v7/widget/RecyclerView;->postDelayed(Ljava/lang/Runnable;J)Z
+    # setter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusRedirecting:Z
+    invoke-static {v1, v2}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$102(Lcom/bilibili/tv/ui/video/widget/VideoListSection;Z)Z
 
-    .line 282
+    .line 276
+    invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
+
+    .line 278
+    :cond_17
     return-void
 .end method
