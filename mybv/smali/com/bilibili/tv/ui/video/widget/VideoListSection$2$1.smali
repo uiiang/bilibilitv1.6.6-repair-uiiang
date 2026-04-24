@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 190
+    .line 193
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$2$1;->this$1:Lcom/bilibili/tv/ui/video/widget/VideoListSection$2;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 3
 
     .prologue
-    .line 193
+    .line 196
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$2$1;->this$1:Lcom/bilibili/tv/ui/video/widget/VideoListSection$2;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$2;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -54,10 +54,10 @@
 
     move-result-object v0
 
-    .line 194
+    .line 197
     if-eqz v0, :cond_19
 
-    .line 195
+    .line 198
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection$2$1;->this$1:Lcom/bilibili/tv/ui/video/widget/VideoListSection$2;
 
     iget-object v1, v1, Lcom/bilibili/tv/ui/video/widget/VideoListSection$2;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -67,10 +67,10 @@
     # setter for: Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusRedirecting:Z
     invoke-static {v1, v2}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->access$102(Lcom/bilibili/tv/ui/video/widget/VideoListSection;Z)Z
 
-    .line 196
+    .line 199
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 198
+    .line 201
     :cond_19
     return-void
 .end method

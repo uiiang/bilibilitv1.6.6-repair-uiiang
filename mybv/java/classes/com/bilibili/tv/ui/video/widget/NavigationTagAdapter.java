@@ -144,11 +144,61 @@ public class NavigationTagAdapter extends RecyclerView.a<NavigationTagAdapter.Ta
     }
 
     public int getGroupIndexForVideoPosition(int videoPosition) {
-        return videoPosition / groupSize;
+        // 如果使用自定义标签（基于startIndex），需要遍历查找
+        // 自定义标签的startIndex可能不均匀（如基于时间段的分组）
+        if (tags.size() > 0) {
+            for (int i = 0; i < tags.size(); i++) {
+                int currentStart = tags.get(i).startIndex;
+                int nextStart = (i + 1 < tags.size()) ? tags.get(i + 1).startIndex : Integer.MAX_VALUE;
+                
+                if (videoPosition >= currentStart && videoPosition < nextStart) {
+                    Log.i(TAG, "getGroupIndexForVideoPosition | videoPosition=" + videoPosition 
+                            + " -> tagIndex=" + i + " (自定义标签范围: " + currentStart + "-" + (nextStart - 1) + ")");
+                    return i;
+                }
+            }
+            // 如果没找到，返回最后一个标签
+            int lastIndex = tags.size() - 1;
+            Log.i(TAG, "getGroupIndexForVideoPosition | videoPosition=" + videoPosition 
+                    + " -> tagIndex=" + lastIndex + " (fallback到最后一个标签)");
+            return lastIndex;
+        }
+        
+        // 默认：均匀分组（如选集菜单）
+        int result = videoPosition / groupSize;
+        Log.i(TAG, "getGroupIndexForVideoPosition | videoPosition=" + videoPosition 
+                + " -> tagIndex=" + result + " (均匀分组，groupSize=" + groupSize + ")");
+        return result;
     }
 
     public int getGroupSize() {
         return groupSize;
+    }
+    
+    /**
+     * 获取指定标签对应的视频/截图范围
+     * @param tagIndex 标签索引
+     * @return int[2]: [startIndex, endIndex] (inclusive)，如果无效返回null
+     */
+    public int[] getItemRange(int tagIndex) {
+        if (tagIndex < 0 || tagIndex >= tags.size()) {
+            return null;
+        }
+        
+        int startIndex = tags.get(tagIndex).startIndex;
+        int endIndex;
+        
+        if (tagIndex + 1 < tags.size()) {
+            // 有下一个标签，范围是当前标签startIndex到下一个标签startIndex-1
+            endIndex = tags.get(tagIndex + 1).startIndex - 1;
+        } else {
+            // 最后一个标签，范围到数据末尾
+            // 由于Adapter不知道数据总数，这里返回startIndex，由调用者处理
+            endIndex = Integer.MAX_VALUE;  // 表示到末尾
+        }
+        
+        Log.i(TAG, "getItemRange | tagIndex=" + tagIndex + " -> [" + startIndex + ", " + endIndex + "]");
+        return new int[]{startIndex, endIndex};
     }
 
     public void setSelectedPosition(int position) {
@@ -380,20 +430,14 @@ public class NavigationTagAdapter extends RecyclerView.a<NavigationTagAdapter.Ta
                         Log.i(TAG, "scrollToPositionWithOffset | attachedRecyclerView为null，返回");
                         return;
                     }
+                    // 使用scrollToPosition让RecyclerView自己决定滚动位置
+                    // 与视频卡片列表的滚动行为保持一致，焦点item会自然出现在屏幕右侧
                     try {
-                        Object layoutManager = attachedRecyclerView.getLayoutManager();
-                        if (layoutManager != null) {
-                            java.lang.reflect.Method scrollToWithOffset = layoutManager.getClass().getMethod("b", int.class, int.class);
-                            scrollToWithOffset.invoke(layoutManager, finalPosition, 0);
-                            Log.i(TAG, "scrollToPositionWithOffset | b(int,int)成功 | position=" + finalPosition);
-                        }
+                        java.lang.reflect.Method scrollToMethod = attachedRecyclerView.getClass().getMethod("a", int.class);
+                        scrollToMethod.invoke(attachedRecyclerView, finalPosition);
+                        Log.i(TAG, "scrollToPositionWithOffset | a(int)成功 | position=" + finalPosition);
                     } catch (Exception e) {
-                        Log.w(TAG, "scrollToPositionWithOffset | b(int,int)失败: " + e.getMessage());
-                        try {
-                            java.lang.reflect.Method scrollToMethod = attachedRecyclerView.getClass().getMethod("a", int.class);
-                            scrollToMethod.invoke(attachedRecyclerView, finalPosition);
-                        } catch (Exception e2) {
-                        }
+                        Log.w(TAG, "scrollToPositionWithOffset | a(int)失败: " + e.getMessage());
                     }
                     pendingScrollRunnable = null;
                 }
