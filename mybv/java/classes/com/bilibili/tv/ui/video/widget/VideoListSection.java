@@ -255,13 +255,12 @@ public class VideoListSection extends LinearLayout {
                         // android.util.Log.i(TAG, "dispatchKeyEvent | 移动焦点从 " + currentTagIndex + " 到 " + targetTagIndex);
                         focusRedirecting = true;
                         navTagAdapter.setSelectedPosition(targetTagIndex);
-                        // 使用getStartIndex获取正确的起始位置（支持不均匀分组）
-                        lastNavTagVideoStart = navTagAdapter.getStartIndex(targetTagIndex);
                         
                         int videoStartPosition = navTagAdapter.getStartIndex(targetTagIndex);
+                        lastNavTagVideoStart = videoStartPosition;
+                        
                         android.util.Log.i(TAG, "dispatchKeyEvent | NAV_TAG→LEFT/RIGHT | targetTagIndex=" + targetTagIndex 
                                 + " -> lastNavTagVideoStart=" + lastNavTagVideoStart);
-                        // android.util.Log.i(TAG, "dispatchKeyEvent | 同步滚动视频列表到 position=" + videoStartPosition);
                         scrollToDataPositionOnly(videoStartPosition);
                         
                         final int finalTagIndex = targetTagIndex;
@@ -1040,16 +1039,11 @@ public class VideoListSection extends LinearLayout {
     }
 
     private void restoreFocusFromNavTag() {
-        // android.util.Log.i(TAG, "========== restoreFocusFromNavTag START ==========");
-        // android.util.Log.i(TAG, "restoreFocusFromNavTag | lastNavTagVideoStart=" + lastNavTagVideoStart 
-        //         + " | focusPosition=" + focusPosition);
-        
         int dataSize = (dataList == null) ? 0 : dataList.size();
         if (dataSize == 0) {
             return;
         }
         
-        // 获取当前选中标签的范围（支持不均匀分组）
         int selectedTagIndex = navTagAdapter.getSelectedPosition();
         int[] range = navTagAdapter.getItemRange(selectedTagIndex);
         
@@ -1059,7 +1053,6 @@ public class VideoListSection extends LinearLayout {
             rangeStart = range[0];
             rangeEnd = (range[1] == Integer.MAX_VALUE) ? dataSize - 1 : Math.min(range[1], dataSize - 1);
         } else {
-            // fallback：使用旧的均匀分组逻辑
             rangeStart = lastNavTagVideoStart;
             rangeEnd = Math.min(lastNavTagVideoStart + navTagAdapter.getGroupSize() - 1, dataSize - 1);
         }
@@ -1067,25 +1060,15 @@ public class VideoListSection extends LinearLayout {
         android.util.Log.i(TAG, "restoreFocusFromNavTag | selectedTagIndex=" + selectedTagIndex 
                 + " | range=[" + rangeStart + ", " + rangeEnd + "] | focusPosition=" + focusPosition);
 
-        int targetPosition;
-        if (focusPosition >= rangeStart && focusPosition <= rangeEnd) {
-            // focusPosition在导航标签范围内，直接使用
-            targetPosition = focusPosition;
-            android.util.Log.i(TAG, "restoreFocusFromNavTag | focusPosition在范围内，使用focusPosition=" + targetPosition);
-        } else {
-            // focusPosition不在范围内（滚动到了新范围），使用导航标签起始位置
-            targetPosition = rangeStart;
-            android.util.Log.i(TAG, "restoreFocusFromNavTag | focusPosition不在范围内，使用rangeStart=" + targetPosition);
-        }
+        int targetPosition = (focusPosition >= rangeStart && focusPosition <= rangeEnd) 
+                ? focusPosition : rangeStart;
+        
+        android.util.Log.i(TAG, "restoreFocusFromNavTag | targetPosition=" + targetPosition);
 
-        // 边界检查
         targetPosition = Math.max(0, Math.min(targetPosition, dataSize - 1));
-
         focusPosition = targetPosition;
         focusRestoreRetryCount = 0;
-        // android.util.Log.i(TAG, "restoreFocusFromNavTag | 调用restoreFocusWithRetry(" + targetPosition + ")");
         restoreFocusWithRetry(targetPosition);
-        // android.util.Log.i(TAG, "========== restoreFocusFromNavTag END ==========");
     }
 
     private void restoreFocusFromExternal() {
