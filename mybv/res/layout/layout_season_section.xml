@@ -19,9 +19,10 @@
         android:focusable="true"
         android:nextFocusLeft="@+id/season_section_recycler"
         android:nextFocusRight="@+id/season_section_recycler"
-        android:clipChildren="false"
-        android:clipToPadding="false" android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:clipChildren="false" android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+    android:paddingRight="@dimen/px_600"
+    android:clipToPadding="false" />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/season_section_nav_tags"
         android:layout_width="fill_parent"
@@ -33,5 +34,6 @@
         android:focusable="false"
         android:descendantFocusability="afterDescendants"
         android:clipChildren="false"
-        android:clipToPadding="false" />
+    android:paddingRight="@dimen/px_600"
+    android:clipToPadding="false" />
 </LinearLayout>
