@@ -521,7 +521,7 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
                 allTabsNoFocus = false;
             }
             if (allTabsNoFocus) {
-                this.progressbar_button.requestFocus();
+                this.fastquit_button.requestFocus();
                 return true;
             }
         }

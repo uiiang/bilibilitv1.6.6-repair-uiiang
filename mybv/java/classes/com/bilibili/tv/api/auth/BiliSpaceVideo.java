@@ -153,6 +153,7 @@ public class BiliSpaceVideo {
         v.isLivePlayback = item.getIntValue("is_live_playback");
         v.isSteinsGate = item.getIntValue("is_steins_gate");
         
+        v.resolvePubTimeStr();
         v.resolveBadge();
         
         return v;

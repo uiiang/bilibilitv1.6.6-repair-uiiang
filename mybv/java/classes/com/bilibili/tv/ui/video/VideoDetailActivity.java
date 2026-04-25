@@ -159,6 +159,7 @@ public final class VideoDetailActivity extends BaseActivity
     private long s;
     private String mSeasonId;
     private String preloadCoverUrl;
+    private boolean isBlurLoaded = false;
     private View gradientMaskView;
     private boolean mIsPgcMode = false;
     private PgcInfo mPgcInfo;
@@ -277,6 +278,7 @@ public final class VideoDetailActivity extends BaseActivity
         this.gradientMaskView = d(R.id.gradient_mask);
         if (!TextUtils.isEmpty(preloadCoverUrl) && this.b != null) {
             nv.a().a(preloadCoverUrl, this.b);
+            this.isBlurLoaded = true;
             if (this.gradientMaskView != null) {
                 this.gradientMaskView.setVisibility(View.INVISIBLE);
             }
@@ -860,8 +862,9 @@ public final class VideoDetailActivity extends BaseActivity
 
     /* JADX INFO: Access modifiers changed from: private */
     public final void a(String str) {
-        if (str != null) {
+        if (str != null && !this.isBlurLoaded) {
             nv.a().a(str, this.b);
+            this.isBlurLoaded = true;
         }
     }
 

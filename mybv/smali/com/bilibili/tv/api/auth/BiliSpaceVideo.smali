@@ -265,13 +265,13 @@
     move-result-object v1
 
     .line 145
-    if-eqz v1, :cond_b5
+    if-eqz v1, :cond_b8
 
     invoke-virtual {v1}, Ljava/lang/String;->isEmpty()Z
 
     move-result v2
 
-    if-nez v2, :cond_b5
+    if-nez v2, :cond_b8
 
     .line 146
     iput-object v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->durationStr:Ljava/lang/String;
@@ -323,13 +323,16 @@
     iput v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->isSteinsGate:I
 
     .line 156
+    invoke-virtual {v0}, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->resolvePubTimeStr()V
+
+    .line 157
     invoke-virtual {v0}, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->resolveBadge()V
 
-    .line 158
+    .line 159
     return-object v0
 
     .line 148
-    :cond_b5
+    :cond_b8
     iget v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->duration:I
 
     invoke-static {v1}, Lcom/bilibili/tv/util/DateHelper;->formatDuration(I)Ljava/lang/String;
@@ -347,27 +350,27 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 190
+    .line 191
     new-instance v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;
 
     invoke-direct {v1}, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;-><init>()V
 
-    .line 191
+    .line 192
     const-string v2, "module_dynamic"
 
     invoke-virtual {p0, v2}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v2
 
-    .line 192
+    .line 193
     if-nez v2, :cond_f
 
-    .line 256
+    .line 257
     :cond_e
     :goto_e
     return-object v0
 
-    .line 193
+    .line 194
     :cond_f
     const-string v3, "major"
 
@@ -375,20 +378,20 @@
 
     move-result-object v2
 
-    .line 194
+    .line 195
     if-eqz v2, :cond_e
 
-    .line 195
+    .line 196
     const-string v3, "archive"
 
     invoke-virtual {v2, v3}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v2
 
-    .line 196
+    .line 197
     if-eqz v2, :cond_e
 
-    .line 198
+    .line 199
     const-string v0, "aid"
 
     invoke-virtual {v2, v0}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
@@ -397,7 +400,7 @@
 
     iput-wide v4, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->aid:J
 
-    .line 199
+    .line 200
     iget-wide v4, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->aid:J
 
     invoke-static {v4, v5}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
@@ -406,7 +409,7 @@
 
     iput-object v0, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->param:Ljava/lang/String;
 
-    .line 200
+    .line 201
     const-string v0, "bvid"
 
     invoke-virtual {v2, v0}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -415,7 +418,7 @@
 
     iput-object v0, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->bvid:Ljava/lang/String;
 
-    .line 201
+    .line 202
     const-string v0, "title"
 
     invoke-virtual {v2, v0}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -424,7 +427,7 @@
 
     iput-object v0, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->title:Ljava/lang/String;
 
-    .line 202
+    .line 203
     const-string v0, "cover"
 
     invoke-virtual {v2, v0}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -433,32 +436,32 @@
 
     iput-object v0, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->cover:Ljava/lang/String;
 
-    .line 204
+    .line 205
     const-string v0, "stat"
 
     invoke-virtual {v2, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 205
+    .line 206
     if-eqz v0, :cond_72
 
-    .line 206
+    .line 207
     const-string v3, "play"
 
     invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v3
 
-    .line 207
+    .line 208
     iput-object v3, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->playStr:Ljava/lang/String;
 
-    .line 208
+    .line 209
     const/4 v4, 0x0
 
     iput v4, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->play:I
 
-    .line 210
+    .line 211
     if-eqz v3, :cond_68
 
     :try_start_5c
@@ -468,7 +471,7 @@
 
     if-nez v4, :cond_68
 
-    .line 211
+    .line 212
     invoke-static {v3}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
 
     move-result v3
@@ -477,7 +480,7 @@
     :try_end_68
     .catch Ljava/lang/Exception; {:try_start_5c .. :try_end_68} :catch_128
 
-    .line 214
+    .line 215
     :cond_68
     :goto_68
     const-string v3, "danmaku"
@@ -486,13 +489,13 @@
 
     move-result-object v0
 
-    .line 215
+    .line 216
     iput-object v0, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->danmakuStr:Ljava/lang/String;
 
-    .line 216
+    .line 217
     iput-object v0, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->danmaku:Ljava/lang/String;
 
-    .line 219
+    .line 220
     :cond_72
     const-string v0, "module_author"
 
@@ -500,10 +503,10 @@
 
     move-result-object v0
 
-    .line 220
+    .line 221
     if-eqz v0, :cond_a2
 
-    .line 221
+    .line 222
     const-string v3, "name"
 
     invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -512,7 +515,7 @@
 
     iput-object v3, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->authorName:Ljava/lang/String;
 
-    .line 222
+    .line 223
     const-string v3, "pub_time"
 
     invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -521,14 +524,14 @@
 
     iput-object v3, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->pubTimeStr:Ljava/lang/String;
 
-    .line 223
+    .line 224
     const-string v3, "pub_ts"
 
     invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 224
+    .line 225
     if-eqz v0, :cond_a2
 
     invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
@@ -537,7 +540,7 @@
 
     if-nez v3, :cond_a2
 
-    .line 226
+    .line 227
     :try_start_98
     invoke-static {v0}, Ljava/lang/Long;->parseLong(Ljava/lang/String;)J
 
@@ -551,7 +554,7 @@
     :try_end_a2
     .catch Ljava/lang/Exception; {:try_start_98 .. :try_end_a2} :catch_125
 
-    .line 230
+    .line 231
     :cond_a2
     :goto_a2
     iget-object v0, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->ctime:Ljava/lang/Long;
@@ -570,7 +573,7 @@
 
     if-nez v0, :cond_be
 
-    .line 231
+    .line 232
     :cond_b2
     const-string v0, "pubdate"
 
@@ -584,7 +587,7 @@
 
     iput-object v0, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->ctime:Ljava/lang/Long;
 
-    .line 234
+    .line 235
     :cond_be
     const-string v0, "duration"
 
@@ -594,14 +597,14 @@
 
     iput v0, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->duration:I
 
-    .line 235
+    .line 236
     const-string v0, "duration_text"
 
     invoke-virtual {v2, v0}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 236
+    .line 237
     if-eqz v0, :cond_11c
 
     invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
@@ -610,10 +613,10 @@
 
     if-nez v3, :cond_11c
 
-    .line 237
+    .line 238
     iput-object v0, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->durationStr:Ljava/lang/String;
 
-    .line 242
+    .line 243
     :goto_d6
     const-string v0, "badge"
 
@@ -621,10 +624,10 @@
 
     move-result-object v0
 
-    .line 243
+    .line 244
     if-eqz v0, :cond_ee
 
-    .line 244
+    .line 245
     const-string v3, "text"
 
     invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -633,7 +636,7 @@
 
     iput-object v3, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->badgeText:Ljava/lang/String;
 
-    .line 245
+    .line 246
     const-string v3, "bg_color"
 
     invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -642,7 +645,7 @@
 
     iput-object v0, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->badgeBgColor:Ljava/lang/String;
 
-    .line 248
+    .line 249
     :cond_ee
     const-string v0, "elec_arc_type"
 
@@ -652,7 +655,7 @@
 
     iput v0, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->elecArcType:I
 
-    .line 249
+    .line 250
     const-string v0, "elec_arc_badge"
 
     invoke-virtual {v2, v0}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -661,7 +664,7 @@
 
     iput-object v0, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->elecArcBadge:Ljava/lang/String;
 
-    .line 250
+    .line 251
     const-string v0, "is_union_video"
 
     invoke-virtual {v2, v0}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -670,7 +673,7 @@
 
     iput v0, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->isUnionVideo:I
 
-    .line 251
+    .line 252
     const-string v0, "is_live_playback"
 
     invoke-virtual {v2, v0}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -679,7 +682,7 @@
 
     iput v0, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->isLivePlayback:I
 
-    .line 252
+    .line 253
     const-string v0, "is_steins_gate"
 
     invoke-virtual {v2, v0}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -688,15 +691,15 @@
 
     iput v0, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->isSteinsGate:I
 
-    .line 254
+    .line 255
     invoke-virtual {v1}, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->resolveAll()V
 
     move-object v0, v1
 
-    .line 256
+    .line 257
     goto/16 :goto_e
 
-    .line 239
+    .line 240
     :cond_11c
     iget v0, v1, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->duration:I
 
@@ -708,13 +711,13 @@
 
     goto :goto_d6
 
-    .line 227
+    .line 228
     :catch_125
     move-exception v0
 
     goto/16 :goto_a2
 
-    .line 213
+    .line 214
     :catch_128
     move-exception v3
 
@@ -725,12 +728,12 @@
     .locals 4
 
     .prologue
-    .line 162
+    .line 163
     new-instance v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;-><init>()V
 
-    .line 163
+    .line 164
     const-string v1, "pic"
 
     invoke-virtual {p0, v1}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -739,7 +742,7 @@
 
     iput-object v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->cover:Ljava/lang/String;
 
-    .line 164
+    .line 165
     const-string v1, "aid"
 
     invoke-virtual {p0, v1}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
@@ -748,7 +751,7 @@
 
     iput-wide v2, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->aid:J
 
-    .line 165
+    .line 166
     iget-wide v2, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->aid:J
 
     invoke-static {v2, v3}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
@@ -757,7 +760,7 @@
 
     iput-object v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->param:Ljava/lang/String;
 
-    .line 166
+    .line 167
     const-string v1, "bvid"
 
     invoke-virtual {p0, v1}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -766,7 +769,7 @@
 
     iput-object v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->bvid:Ljava/lang/String;
 
-    .line 167
+    .line 168
     const-string v1, "title"
 
     invoke-virtual {p0, v1}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -775,7 +778,7 @@
 
     iput-object v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->title:Ljava/lang/String;
 
-    .line 168
+    .line 169
     const-string v1, "play"
 
     invoke-virtual {p0, v1}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -784,7 +787,7 @@
 
     iput v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->play:I
 
-    .line 169
+    .line 170
     iget v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->play:I
 
     invoke-static {v1}, Lbl/adh;->a(I)Ljava/lang/String;
@@ -793,28 +796,28 @@
 
     iput-object v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->playStr:Ljava/lang/String;
 
-    .line 170
+    .line 171
     const-string v1, "video_review"
 
     invoke-virtual {p0, v1}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
     move-result v1
 
-    .line 171
+    .line 172
     invoke-static {v1}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
 
     move-result-object v2
 
     iput-object v2, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->danmaku:Ljava/lang/String;
 
-    .line 172
+    .line 173
     invoke-static {v1}, Lbl/adh;->a(I)Ljava/lang/String;
 
     move-result-object v1
 
     iput-object v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->danmakuStr:Ljava/lang/String;
 
-    .line 173
+    .line 174
     const-string v1, "created"
 
     invoke-virtual {p0, v1}, Lcom/alibaba/fastjson/JSONObject;->getLong(Ljava/lang/String;)Ljava/lang/Long;
@@ -823,28 +826,28 @@
 
     iput-object v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->ctime:Ljava/lang/Long;
 
-    .line 174
+    .line 175
     const-string v1, "length"
 
     invoke-virtual {p0, v1}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 175
+    .line 176
     invoke-static {v1}, Lcom/bilibili/tv/util/DateHelper;->formatDuration(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v2
 
     iput-object v2, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->durationStr:Ljava/lang/String;
 
-    .line 176
+    .line 177
     invoke-static {v1}, Lcom/bilibili/tv/util/DateHelper;->parseDurationStr(Ljava/lang/String;)I
 
     move-result v1
 
     iput v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->duration:I
 
-    .line 177
+    .line 178
     const-string v1, "elec_arc_type"
 
     invoke-virtual {p0, v1}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -853,7 +856,7 @@
 
     iput v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->elecArcType:I
 
-    .line 178
+    .line 179
     const-string v1, "elec_arc_badge"
 
     invoke-virtual {p0, v1}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -862,7 +865,7 @@
 
     iput-object v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->elecArcBadge:Ljava/lang/String;
 
-    .line 179
+    .line 180
     const-string v1, "is_union_video"
 
     invoke-virtual {p0, v1}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -871,7 +874,7 @@
 
     iput v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->isUnionVideo:I
 
-    .line 180
+    .line 181
     const-string v1, "is_live_playback"
 
     invoke-virtual {p0, v1}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -880,7 +883,7 @@
 
     iput v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->isLivePlayback:I
 
-    .line 181
+    .line 182
     const-string v1, "is_steins_gate"
 
     invoke-virtual {p0, v1}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -889,13 +892,13 @@
 
     iput v1, v0, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->isSteinsGate:I
 
-    .line 183
+    .line 184
     invoke-virtual {v0}, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->resolvePubTimeStr()V
 
-    .line 184
+    .line 185
     invoke-virtual {v0}, Lcom/bilibili/tv/api/auth/BiliSpaceVideo;->resolveBadge()V
 
-    .line 186
+    .line 187
     return-object v0
 .end method
 

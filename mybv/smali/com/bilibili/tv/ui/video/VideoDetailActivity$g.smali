@@ -55,26 +55,26 @@
     .locals 1
 
     .prologue
-    .line 4069
+    .line 4072
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$g;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$a;-><init>()V
 
-    .line 4065
+    .line 4068
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$g;->b:Ljava/util/ArrayList;
 
-    .line 4066
+    .line 4069
     new-instance v0, Ljava/util/HashMap;
 
     invoke-direct {v0}, Ljava/util/HashMap;-><init>()V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$g;->c:Ljava/util/HashMap;
 
-    .line 4070
+    .line 4073
     return-void
 .end method
 
@@ -84,7 +84,7 @@
     .locals 1
 
     .prologue
-    .line 4094
+    .line 4097
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$g;->b:Ljava/util/ArrayList;
 
     invoke-virtual {v0}, Ljava/util/ArrayList;->size()I
@@ -98,12 +98,12 @@
     .locals 1
 
     .prologue
-    .line 4074
+    .line 4077
     const-string v0, "parent"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 4075
+    .line 4078
     sget-object v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$h;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$h$a;
 
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$h$a;->a(Landroid/view/ViewGroup;)Lcom/bilibili/tv/ui/video/VideoDetailActivity$h;
@@ -117,17 +117,17 @@
     .locals 4
 
     .prologue
-    .line 4080
+    .line 4083
     const-string v0, "holder"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 4081
+    .line 4084
     instance-of v0, p1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$h;
 
     if-eqz v0, :cond_38
 
-    .line 4082
+    .line 4085
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$g;->b:Ljava/util/ArrayList;
 
     invoke-virtual {v0, p2}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
@@ -136,14 +136,14 @@
 
     check-cast v0, Ljava/lang/String;
 
-    .line 4083
+    .line 4086
     const-string v1, "mList[position]"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
     move-object v1, p1
 
-    .line 4084
+    .line 4087
     check-cast v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$h;
 
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$h;->z()Lcom/bilibili/tv/widget/DrawTextView;
@@ -152,18 +152,18 @@
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/widget/DrawTextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 4085
+    .line 4088
     iget-object v1, p1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
 
-    .line 4086
+    .line 4089
     const-string v2, "infoVH.itemView"
 
     invoke-static {v1, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 4087
+    .line 4090
     invoke-virtual {v1, v0}, Landroid/view/View;->setTag(Ljava/lang/Object;)V
 
-    .line 4088
+    .line 4091
     iget-object v1, p1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
 
     const v2, 0x7f08015d
@@ -176,7 +176,7 @@
 
     invoke-virtual {v1, v2, v0}, Landroid/view/View;->setTag(ILjava/lang/Object;)V
 
-    .line 4090
+    .line 4093
     :cond_38
     return-void
 .end method
@@ -195,39 +195,39 @@
     .end annotation
 
     .prologue
-    .line 4098
+    .line 4101
     const-string v0, "map"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 4099
+    .line 4102
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$g;->b:Ljava/util/ArrayList;
 
     invoke-virtual {v0}, Ljava/util/ArrayList;->clear()V
 
-    .line 4100
+    .line 4103
     new-instance v3, Landroid/text/TextPaint;
 
     invoke-direct {v3}, Landroid/text/TextPaint;-><init>()V
 
-    .line 4101
+    .line 4104
     const v0, 0x7f06022c
 
     invoke-static {v0}, Lbl/adl;->b(I)I
 
     move-result v4
 
-    .line 4102
+    .line 4105
     const v0, 0x7f0602f2
 
     invoke-static {v0}, Lbl/adl;->b(I)I
 
     move-result v5
 
-    .line 4103
+    .line 4106
     const/4 v0, 0x0
 
-    .line 4104
+    .line 4107
     invoke-virtual {p1}, Ljava/util/HashMap;->entrySet()Ljava/util/Set;
 
     move-result-object v1
@@ -251,14 +251,14 @@
 
     check-cast v0, Ljava/util/Map$Entry;
 
-    .line 4105
+    .line 4108
     invoke-interface {v0}, Ljava/util/Map$Entry;->getKey()Ljava/lang/Object;
 
     move-result-object v1
 
     check-cast v1, Ljava/lang/String;
 
-    .line 4106
+    .line 4109
     invoke-interface {v0}, Ljava/util/Map$Entry;->getValue()Ljava/lang/Object;
 
     move-result-object v0
@@ -269,7 +269,7 @@
 
     move-result v7
 
-    .line 4107
+    .line 4110
     invoke-virtual {v3, v1}, Landroid/text/TextPaint;->measureText(Ljava/lang/String;)F
 
     move-result v0
@@ -280,23 +280,23 @@
 
     add-int/2addr v0, v5
 
-    .line 4108
+    .line 4111
     if-lt v0, v4, :cond_50
 
-    .line 4114
+    .line 4117
     :cond_4c
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$g;->d()V
 
-    .line 4115
+    .line 4118
     return-void
 
-    .line 4111
+    .line 4114
     :cond_50
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$g;->b:Ljava/util/ArrayList;
 
     invoke-virtual {v2, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 4112
+    .line 4115
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$g;->c:Ljava/util/HashMap;
 
     invoke-static {v7}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
@@ -307,6 +307,6 @@
 
     move v2, v0
 
-    .line 4113
+    .line 4116
     goto :goto_27
 .end method
