@@ -686,15 +686,19 @@ DanmakuPlayerDFM.this.send_subtitle(DanmakuPlayerDFM.this.subtitle_data);
     @Override // tv.danmaku.videoplayer.core.danmaku.IDanmakuPlayer
     public void seek(long j, long j2) {
         seekToMsec(new SeekData(j, j2));
-        if (isNewDanmaku()) {
+        boolean newDanmaku = isNewDanmaku();
+        android.util.Log.i("DanmakuSeek", "[Seek触发] from=" + j + " to=" + j2 + " isNewDanmaku=" + newDanmaku);
+        if (newDanmaku) {
             long startTs = DanmakuDurationManager.getInstance().getStartTs(j2, this.mInfo.mCid);
-            long startTs2 = DanmakuDurationManager.getInstance().getStartTs(j2 + 36000, this.mInfo.mCid);
+            android.util.Log.i("DanmakuSeek", "[分段计算] startTs=" + startTs);
+            if (startTs == 0) {
+                startTs = j2;
+            }
             if (!DanmakuDurationManager.getInstance().illegal(this.mInfo.mCid, startTs)) {
                 this.mSeekPosForParser = j2;
                 parseDanamaku(startTs, 0L);
-            } else if (!DanmakuDurationManager.getInstance().illegal(this.mInfo.mCid, DanmakuDurationManager.getInstance().getStartTs(startTs2, this.mInfo.mCid))) {
-                parseDanamaku(startTs2, 0L);
             } else {
+                android.util.Log.i("DanmakuSeek", "[分段已加载] startTs=" + startTs);
                 this.mSeekPosForParser = -1L;
             }
         }

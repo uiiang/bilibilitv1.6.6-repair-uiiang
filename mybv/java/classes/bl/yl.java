@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import com.bilibili.tv.player.basic.context.PlayerParams;
 import java.io.*;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import tv.danmaku.videoplayer.core.danmaku.comment.CommentItemFactory;
 import tv.danmaku.videoplayer.core.danmaku.comment.CommentParseException;
 
 import com.bilibili.tv.player.widget.PlayerMenuRight;
+import mybl.DanmakuSegmentLoader;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
@@ -95,15 +97,20 @@ public class yl implements IDanmakuDocument, IDanmakuRecommendable {
     @Override // tv.danmaku.videoplayer.core.danmaku.IDanmakuRecommendable
     @Nullable
     public List<InputStream> getInputStreams(Context context, IDanmakuParams iDanmakuParams, long j) {
-        try {
-            if (!TextUtils.isEmpty(this.l) && !TextUtils.isEmpty(this.m)) {
-                ym.a(context, iDanmakuParams, Integer.parseInt(this.l), Integer.parseInt(this.m), j);
+        if (context != null && !TextUtils.isEmpty(this.l) && !TextUtils.isEmpty(this.m)) {
+            try {
+                int segmentIndex = DanmakuSegmentLoader.calculateSegmentIndex(j);
+                Log.i("DanmakuStream", "[计算索引] timeMs=" + j + " segmentIndex=" + segmentIndex + " aid=" + this.l + " cid=" + this.m);
+                InputStream is = DanmakuSegmentLoader.loadSegmentDanmakuStream(context, this.l, this.m, segmentIndex);
+                if (is != null) {
+                    addInputStream(is);
+                }
+            } catch (NumberFormatException | DanmakuLoadException e) {
+                BLog.e(a, " load segment danmaku error :" + e.getMessage());
+                Log.e("DanmakuStream", "[加载失败] error=" + e.getMessage());
             }
-            return this.j;
-        } catch (NumberFormatException | DanmakuLoadException e) {
-            BLog.e(a, " load new danmaku error :" + e.getMessage());
-            return null;
         }
+        return this.j;
     }
 
     @Override // tv.danmaku.videoplayer.core.danmaku.IDanmakuRecommendable
@@ -112,6 +119,10 @@ public class yl implements IDanmakuDocument, IDanmakuRecommendable {
             return;
         }
         this.j.add(inputStream);
+    }
+
+    public void clearInputStreams() {
+        this.j.clear();
     }
 
     @Override // tv.danmaku.videoplayer.core.danmaku.IDanmakuRecommendable

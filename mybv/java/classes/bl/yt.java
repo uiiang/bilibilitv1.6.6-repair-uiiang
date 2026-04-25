@@ -4,10 +4,12 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import com.bilibili.lib.media.resolver.exception.ResolveException;
 import com.bilibili.lib.media.resource.MediaResource;
 import com.bilibili.tv.player.basic.context.PlayerParams;
 import com.bilibili.tv.player.basic.context.ResolveResourceParams;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -16,6 +18,7 @@ import java.util.concurrent.TimeoutException;
 import tv.danmaku.android.log.BLog;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.videoplayer.core.danmaku.IDanmakuDocument;
+import tv.danmaku.videoplayer.core.danmaku.DanmakuPlayerDFM;
 
 import tv.danmaku.android.log.BLog;
 
@@ -193,8 +196,26 @@ public final class yt {
                 handler.sendEmptyMessage(10205);
             }
             yt.this.b.a.mDanmakuParams.setDanmakuDocument(a);
-            if (yt.this.b.a.mDanmakuParams.getDanmakuDocument() == null) {
-                yt.this.b.a.mDanmakuParams.setDanmakuDocument(new yl());
+            ResolveResourceParams resolveParams = yt.this.b.a.mVideoParams.obtainResolveParams();
+            String aid = String.valueOf(resolveParams.mAvid);
+            String cid = String.valueOf(resolveParams.mCid);
+            IDanmakuDocument doc = yt.this.b.a.mDanmakuParams.getDanmakuDocument();
+            if (doc instanceof yl) {
+                yl ylDoc = (yl) doc;
+                ylDoc.addAttribute(DanmakuPlayerDFM.DANMAKU_NEW, Boolean.TRUE);
+                ylDoc.setAidAndCid(aid, cid);
+                ylDoc.e = null;
+                ylDoc.clearInputStreams();
+                Log.i("DanmakuInit", "[设置标志] DANMAKU_NEW=true aid=" + aid + " cid=" + cid + " cleared old data");
+                try {
+                    InputStream firstSegment = mybl.DanmakuSegmentLoader.loadSegmentDanmakuStream(yt.this.c, aid, cid, 1);
+                    if (firstSegment != null) {
+                        ylDoc.addInputStream(firstSegment);
+                        Log.i("DanmakuInit", "[初始加载] segment=1 成功");
+                    }
+                } catch (Exception e) {
+                    Log.e("DanmakuInit", "[初始加载] segment=1 失败: " + e.getMessage());
+                }
             }
         }
     }

@@ -25,7 +25,7 @@
     .locals 0
 
     .prologue
-    .line 284
+    .line 305
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$2;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;
 
     iput-object p3, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$2;->val$inputStream:Ljava/io/InputStream;
@@ -41,12 +41,12 @@
     .locals 3
 
     .prologue
-    .line 287
+    .line 308
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$2;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;
 
     monitor-enter v1
 
-    .line 288
+    .line 309
     :try_start_3
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$2;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;
 
@@ -54,7 +54,7 @@
 
     invoke-virtual {v0, v2}, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;->parseXmlSync(Ljava/io/InputStream;)V
 
-    .line 289
+    .line 310
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$2;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;
 
     iget-object v0, v0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;->mDanmakuDocument:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuDocument;
@@ -63,7 +63,7 @@
 
     if-eqz v0, :cond_1d
 
-    .line 290
+    .line 311
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$2;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;
 
     iget-object v0, v0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;->mDanmakuDocument:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuDocument;
@@ -74,14 +74,14 @@
 
     invoke-interface {v0, v2}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuRecommendable;->removeInputStream(Ljava/io/InputStream;)V
 
-    .line 292
+    .line 313
     :cond_1d
     monitor-exit v1
 
-    .line 293
+    .line 314
     return-void
 
-    .line 292
+    .line 313
     :catchall_1f
     move-exception v0
 

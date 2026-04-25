@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import bl.bfk;
 import bl.bfn;
 import bl.bft;
@@ -16,8 +17,11 @@ import bl.bgu;
 import bl.bgv;
 import bl.bgw;
 import bl.cc;
+import com.bilibili.api.danmaku.protobuf.DanmakuElem;
+import com.bilibili.api.danmaku.protobuf.DmSegMobileReply;
 import com.bilibili.tv.player.basic.context.PlayerParams;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -39,6 +43,7 @@ import tv.danmaku.android.log.BLog;
 import tv.danmaku.videoplayer.core.danmaku.BiliDanmukuParser;
 import tv.danmaku.videoplayer.core.danmaku.comment.AbsoluteCommentItem;
 import tv.danmaku.videoplayer.core.danmaku.comment.CommentItem;
+import tv.danmaku.videoplayer.core.danmaku.comment.CommentItemFactory;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
@@ -130,6 +135,16 @@ public class DanmakuParser extends BiliDanmukuParser {
     @Override // tv.danmaku.videoplayer.core.danmaku.BiliDanmukuParser, bl.bgn
     public bgc parse() {
         try {
+            if (isNewDanmaku() && this.mDanmakuDocument instanceof IDanmakuRecommendable) {
+                List<InputStream> inputStreams = ((IDanmakuRecommendable) this.mDanmakuDocument).getInputStreams(null, null, 0);
+                if (inputStreams != null && inputStreams.size() > 0) {
+                    Log.i("DanmakuParse", "[初始解析] 使用分段数据 size=" + inputStreams.size());
+                    for (int i = 0; i < inputStreams.size(); i++) {
+                        parseProtobufToDocument(inputStreams.get(i));
+                    }
+                    return parseDanmakusCompat();
+                }
+            }
             InputStream inputStream = this.mDanmakuDocument.getInputStream();
             StringBuilder sb = new StringBuilder();
             sb.append("parse input size:");
@@ -165,6 +180,7 @@ public class DanmakuParser extends BiliDanmukuParser {
                 return;
             }
             synchronized (this) {
+                Log.i("DanmakuParse", "[分段加载] positionMs=" + j + " cid=" + i);
                 List<InputStream> inputStreams = ((IDanmakuRecommendable) this.mDanmakuDocument).getInputStreams(context, iDanmakuParams, j);
                 StringBuilder sb = new StringBuilder();
                 sb.append("get stream async inputstream size is:");
@@ -172,7 +188,12 @@ public class DanmakuParser extends BiliDanmukuParser {
                 BLog.i(TAG, sb.toString());
                 if (inputStreams != null && inputStreams.size() > 0) {
                     for (int size = inputStreams.size() - 1; size < inputStreams.size() && size >= 0; size--) {
-                        parseXmlSync(inputStreams.get(size));
+                        InputStream is = inputStreams.get(size);
+                        if (isNewDanmaku()) {
+                            parseProtobufSync(is);
+                        } else {
+                            parseXmlSync(is);
+                        }
                     }
                     inputStreams.clear();
                 }
@@ -600,5 +621,114 @@ public class DanmakuParser extends BiliDanmukuParser {
     /* JADX INFO: Access modifiers changed from: package-private */
     public void setParseFinishListener(OnParseListener onParseListener) {
         this.mOnParseListener = onParseListener;
+    }
+
+    private static final String TAG_PROTOBUF = "DanmakuProto";
+
+    private void parseProtobufToDocument(InputStream inputStream) {
+        if (inputStream == null) {
+            Log.e(TAG_PROTOBUF, "[解析失败] inputStream is null");
+            return;
+        }
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] buffer = new byte[4096];
+            int len;
+            while ((len = inputStream.read(buffer)) != -1) {
+                baos.write(buffer, 0, len);
+            }
+            byte[] data = baos.toByteArray();
+            
+            DmSegMobileReply reply = DmSegMobileReply.parseFrom(data);
+            int count = 0;
+            int minTime = Integer.MAX_VALUE;
+            int maxTime = 0;
+            
+            for (DanmakuElem elem : reply.getElems()) {
+                CommentItem item = convertProtobufToCommentItem(elem);
+                if (item != null) {
+                    this.mDanmakuDocument.appendDanmaku(item);
+                    count++;
+                    if (elem.getProgress() < minTime) minTime = elem.getProgress();
+                    if (elem.getProgress() > maxTime) maxTime = elem.getProgress();
+                }
+            }
+            
+            Log.i(TAG_PROTOBUF, "[解析到文档] count=" + count + " timeRange=" + minTime + "-" + maxTime + "ms");
+            
+        } catch (Exception e) {
+            Log.e(TAG_PROTOBUF, "[解析失败] error=" + e.getMessage());
+        } finally {
+            try {
+                inputStream.close();
+            } catch (IOException ignored) {
+            }
+        }
+    }
+
+    private void parseProtobufSync(InputStream inputStream) {
+        if (inputStream == null) {
+            Log.e(TAG_PROTOBUF, "[解析失败] inputStream is null");
+            return;
+        }
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] buffer = new byte[4096];
+            int len;
+            while ((len = inputStream.read(buffer)) != -1) {
+                baos.write(buffer, 0, len);
+            }
+            byte[] data = baos.toByteArray();
+            
+            DmSegMobileReply reply = DmSegMobileReply.parseFrom(data);
+            int count = 0;
+            int minTime = Integer.MAX_VALUE;
+            int maxTime = 0;
+            
+            for (DanmakuElem elem : reply.getElems()) {
+                CommentItem item = convertProtobufToCommentItem(elem);
+                if (item != null) {
+                    this.mDanmakuDocument.appendDanmaku(item);
+                    bfk parseItem = parseItem(item, count);
+                    if (parseItem != null) {
+                        parseItem.G = this.mContext.r;
+                        this.mDanmakus.a(parseItem);
+                    }
+                    count++;
+                    if (elem.getProgress() < minTime) minTime = elem.getProgress();
+                    if (elem.getProgress() > maxTime) maxTime = elem.getProgress();
+                }
+            }
+            
+            Log.i(TAG_PROTOBUF, "[解析完成] count=" + count + " timeRange=" + minTime + "-" + maxTime + "ms");
+            
+        } catch (Exception e) {
+            Log.e(TAG_PROTOBUF, "[解析失败] error=" + e.getMessage());
+        } finally {
+            try {
+                inputStream.close();
+            } catch (IOException ignored) {
+            }
+        }
+    }
+
+    private CommentItem convertProtobufToCommentItem(DanmakuElem elem) {
+        String modeStr = String.valueOf(elem.getMode());
+        CommentItem item = CommentItemFactory.createComment(modeStr);
+        if (item == null) return null;
+        
+        try {
+            item.mTimeMilli = elem.getProgress();
+            item.mSize = elem.getFontsize();
+            item.setTextColor(elem.getColor());
+            item.mPublisherId = elem.getMidHash();
+            item.mPublisherLevel = elem.getWeight();
+            item.setBody(elem.getContent());
+        } catch (Exception e) {
+            Log.e(TAG_PROTOBUF, "convert error: " + e.getMessage());
+            return null;
+        }
+        
+        return item;
     }
 }
