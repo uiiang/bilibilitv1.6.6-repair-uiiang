@@ -3,7 +3,7 @@
     "apkUrl":"https://github.com/qidian55/bilibilitv1.6.6-repair/raw/refs/heads/main/mybv.apk",
     "fileSize":8609787,
     "id":"",
-    "newFeature":"",
+    "newFeature":"1, 视频播放页截图预览\n2, 切换up主视频列表接口\n3, 动态页关注列表支持分组筛选\n4, 视频播放快进支持截图预览\n5, 视频播放页自定义菜单\n6, 本地设置片头片尾跳过时间\n7, 修复一些bug",
     "publishTime":0,
     "title":"New",
     "upgradeType":1,
