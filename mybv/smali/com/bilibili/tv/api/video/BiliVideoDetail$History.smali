@@ -49,7 +49,7 @@
     .locals 1
 
     .prologue
-    .line 1007
+    .line 1015
     new-instance v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$History$1;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/video/BiliVideoDetail$History$1;-><init>()V
@@ -63,10 +63,10 @@
     .locals 0
 
     .prologue
-    .line 1034
+    .line 1042
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 1035
+    .line 1043
     return-void
 .end method
 
@@ -74,24 +74,24 @@
     .locals 2
 
     .prologue
-    .line 1037
+    .line 1045
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 1038
+    .line 1046
     invoke-virtual {p1}, Landroid/os/Parcel;->readLong()J
 
     move-result-wide v0
 
     iput-wide v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mCid:J
 
-    .line 1039
+    .line 1047
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mProgress:I
 
-    .line 1040
+    .line 1048
     return-void
 .end method
 
@@ -101,7 +101,7 @@
     .locals 1
 
     .prologue
-    .line 1025
+    .line 1033
     const/4 v0, 0x0
 
     return v0
@@ -111,16 +111,16 @@
     .locals 2
 
     .prologue
-    .line 1030
+    .line 1038
     iget-wide v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mCid:J
 
     invoke-virtual {p1, v0, v1}, Landroid/os/Parcel;->writeLong(J)V
 
-    .line 1031
+    .line 1039
     iget v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mProgress:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 1032
+    .line 1040
     return-void
 .end method

@@ -94,6 +94,8 @@ import retrofit2.HttpException;
 import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
 import tv.danmaku.videoplayer.core.pluginapk.PluginApk;
 import mybl.MyBiliApiService;
+import com.bilibili.tv.api.video.PgcRelatedParser;
+import com.bilibili.tv.api.video.PgcRelatedSeason;
 import android.app.AlertDialog;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -477,7 +479,11 @@ public final class VideoDetailActivity extends BaseActivity
                     relateVideoFocusPosition = position;
                     if (data instanceof BiliVideoDetail) {
                         BiliVideoDetail detail = (BiliVideoDetail) data;
-                        VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.a(VideoDetailActivity.this, detail.mAvid, detail.mCover));
+                        if (detail.mAvid > 0) {
+                            VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.a(VideoDetailActivity.this, detail.mAvid, detail.mCover));
+                        } else if (detail.mSeasonOId > 0) {
+                            VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.a(VideoDetailActivity.this, String.valueOf(detail.mSeasonOId), detail.mCover));
+                        }
                     }
                 }
             });
@@ -1547,6 +1553,7 @@ public final class VideoDetailActivity extends BaseActivity
                         A.a(detail);
                     }
                     showPgcInfo(pgcInfo);
+                    loadPgcRelatedVideos(pgcInfo.seasonId);
                 }
             });
         }
@@ -2026,6 +2033,58 @@ public final class VideoDetailActivity extends BaseActivity
         });
     }
 
+    private void loadPgcRelatedVideos(int seasonId) {
+        if (seasonId <= 0) {
+            return;
+        }
+        
+        ((MyBiliApiService) vo.a(MyBiliApiService.class)).getPgcRelatedRecommend(seasonId)
+            .a(new vn<JSONObject>() {
+                @Override
+                public boolean isCancel() {
+                    return VideoDetailActivity.this.isFinishing();
+                }
+                
+                @Override
+                public void onError(Throwable th) {
+                    android.util.Log.e("PgcRelated", "loadPgcRelatedVideos error: " + th.getMessage());
+                }
+                
+                @Override
+                public void a(JSONObject jsonObject) {
+                    if (jsonObject == null) {
+                        return;
+                    }
+                    
+                    com.alibaba.fastjson.JSONArray seasonArray = jsonObject.getJSONArray("season");
+                    if (seasonArray == null || seasonArray.isEmpty()) {
+                        return;
+                    }
+                    
+                    List<BiliVideoDetail> relatedList = new ArrayList<>();
+                    for (int i = 0; i < seasonArray.size(); i++) {
+                        JSONObject seasonObj = seasonArray.getJSONObject(i);
+                        PgcRelatedSeason season = seasonObj.toJavaObject(PgcRelatedSeason.class);
+                        if (season != null) {
+                            relatedList.add(season.toBiliVideoDetail());
+                        }
+                    }
+                    
+                    if (A != null) {
+                        VideoDetailActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (VideoDetailActivity.this.isFinishing()) {
+                                    return;
+                                }
+                                A.createRelateVideoSectionView(relatedList);
+                            }
+                        });
+                    }
+                }
+            });
+    }
+
     private final String formatProgressTime(int progress) {
         if (progress <= 0) {
             return "00:00";
@@ -2265,30 +2324,23 @@ public final class VideoDetailActivity extends BaseActivity
     private void loadPgcInfo(BiliVideoDetail biliVideoDetail) {
         String seasonId = extractSeasonId(biliVideoDetail);
         if (TextUtils.isEmpty(seasonId)) {
-            // android.util.Log.i("PgcInfo", "seasonId is empty, skip loading PGC info");
             return;
         }
-        // android.util.Log.i("PgcInfo", "loading PGC info for seasonId: " + seasonId);
         
         loadPgcSeasonInfo(seasonId, new PgcLoadCallback() {
             @Override
             public void onSuccess(PgcInfo pgcInfo) {
-                // android.util.Log.i("PgcInfo", "=== loadPgcInfo onSuccess ===");
                 if (pgcInfo == null) {
-                    // android.util.Log.i("PgcInfo", "pgcInfo is null");
                     return;
                 }
-                // android.util.Log.i("PgcInfo", "got PGC info: " + pgcInfo.title + ", episodes=" + (pgcInfo.episodes != null ? pgcInfo.episodes.size() : 0));
                 mPgcInfo = pgcInfo;
                 updateBiliVideoDetailWithPgcInfo(biliVideoDetail, pgcInfo);
-                // android.util.Log.i("PgcInfo", "updateBiliVideoDetailWithPgcInfo done, posting to UI thread");
                 VideoDetailActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         if (VideoDetailActivity.this.isFinishing()) {
                             return;
                         }
-                        // android.util.Log.i("PgcInfo", "=== runOnUiThread: showPgcInfo ===");
                         
                         View contentView = VideoDetailActivity.this.m;
                         if (contentView != null) {
@@ -2344,25 +2396,20 @@ public final class VideoDetailActivity extends BaseActivity
                             // android.util.Log.i("PgcInfo", "No history, calling loadHistory");
                             loadHistory(biliVideoDetail);
                         }
+                        
+                        loadPgcRelatedVideos(pgcInfo.seasonId);
                     }
                 });
             }
 
             @Override
             public void onError(String message) {
-                // android.util.Log.e("PgcInfo", "loadPgcInfo error: " + message);
             }
         });
     }
     
     private void updateBiliVideoDetailWithPgcInfo(BiliVideoDetail biliVideoDetail, PgcInfo pgcInfo) {
-        // android.util.Log.i("PgcInfo", "=== updateBiliVideoDetailWithPgcInfo ===");
-        // android.util.Log.i("PgcInfo", "biliVideoDetail=" + (biliVideoDetail != null ? "not null" : "null"));
-        // android.util.Log.i("PgcInfo", "pgcInfo=" + (pgcInfo != null ? "not null, title=" + pgcInfo.title : "null"));
-        // android.util.Log.i("PgcInfo", "pgcInfo.episodes=" + (pgcInfo != null && pgcInfo.episodes != null ? "size=" + pgcInfo.episodes.size() : "null"));
-        
         if (biliVideoDetail == null || pgcInfo == null || pgcInfo.episodes == null) {
-            // android.util.Log.i("PgcInfo", "Early return: null check failed");
             return;
         }
         
@@ -2371,7 +2418,6 @@ public final class VideoDetailActivity extends BaseActivity
         }
         biliVideoDetail.mBangumiInfo.mSeasonId = String.valueOf(pgcInfo.seasonId);
         biliVideoDetail.mBangumiInfo.mTitle = pgcInfo.title;
-        // android.util.Log.i("PgcInfo", "Set mBangumiInfo.mSeasonId=" + biliVideoDetail.mBangumiInfo.mSeasonId);
         
         long originalCid = 0;
         if (biliVideoDetail.mPageList != null && !biliVideoDetail.mPageList.isEmpty()) {
@@ -4640,8 +4686,6 @@ public final class VideoDetailActivity extends BaseActivity
         /* JADX DEBUG: Method merged with bridge method */
         @Override // bl.vn
         public void a(BiliVideoDetail biliVideoDetail) {
-            // android.util.Log.i("PgcLoad", "A.a() called: biliVideoDetail=" + (biliVideoDetail != null ? biliVideoDetail.mTitle : "null"));
-            // android.util.Log.i("PgcLoad", "mEntryType=" + mEntryType + ", isPgcVideo=" + (biliVideoDetail != null && VideoDetailActivity.this.isPgcVideo(biliVideoDetail)));
             VideoDetailActivity.this.y = false;
             if (biliVideoDetail == null) {
                 ImageView blurView = VideoDetailActivity.this.b;
@@ -4951,6 +4995,9 @@ public final class VideoDetailActivity extends BaseActivity
         }
 
         private final void showEpisodes(BiliVideoDetail biliVideoDetail) {
+            if (VideoDetailActivity.this.mIsPgcMode) {
+                return;
+            }
             biliVideoDetail.getUGCseason();
             
             // 隐藏旧的单一合集列表（使用新的多合集列表替代）
@@ -5148,7 +5195,7 @@ public final class VideoDetailActivity extends BaseActivity
             createRelateVideoSectionView(biliVideoDetail.mRelatedList);
         }
 
-        private void createRelateVideoSectionView(List<BiliVideoDetail> relatedList) {
+        public void createRelateVideoSectionView(List<BiliVideoDetail> relatedList) {
             if (seasonsContainer == null || relatedList == null || relatedList.isEmpty()) {
                 return;
             }
@@ -5198,7 +5245,11 @@ public final class VideoDetailActivity extends BaseActivity
                     relateVideoFocusPosition = position;
                     if (data instanceof BiliVideoDetail) {
                         BiliVideoDetail detail = (BiliVideoDetail) data;
-                        VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.a(VideoDetailActivity.this, detail.mAvid, detail.mCover));
+                        if (detail.mAvid > 0) {
+                            VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.a(VideoDetailActivity.this, detail.mAvid, detail.mCover));
+                        } else if (detail.mSeasonOId > 0) {
+                            VideoDetailActivity.this.startActivity(VideoDetailActivity.Companion.a(VideoDetailActivity.this, String.valueOf(detail.mSeasonOId), detail.mCover));
+                        }
                     }
                 }
             });

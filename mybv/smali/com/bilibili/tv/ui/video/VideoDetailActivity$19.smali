@@ -38,7 +38,7 @@
     .locals 1
 
     .prologue
-    .line 1896
+    .line 1903
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;->val$finalBvid:Ljava/lang/String;
@@ -68,23 +68,23 @@
 
     const-wide/16 v8, 0x0
 
-    .line 1899
+    .line 1906
     const/4 v2, 0x0
 
-    .line 1901
+    .line 1908
     :try_start_4
     new-instance v0, Ljava/util/TreeMap;
 
     invoke-direct {v0}, Ljava/util/TreeMap;-><init>()V
 
-    .line 1902
+    .line 1909
     const-string v3, "bvid"
 
     iget-object v4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;->val$finalBvid:Ljava/lang/String;
 
     invoke-virtual {v0, v3, v4}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 1903
+    .line 1910
     const-string v3, "cid"
 
     iget-wide v4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;->val$finalCid:J
@@ -95,14 +95,14 @@
 
     invoke-virtual {v0, v3, v4}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 1904
+    .line 1911
     iget-wide v4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;->val$finalEpisodeId:J
 
     cmp-long v3, v4, v8
 
     if-lez v3, :cond_2c
 
-    .line 1905
+    .line 1912
     const-string v3, "ep_id"
 
     iget-wide v4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;->val$finalEpisodeId:J
@@ -113,7 +113,7 @@
 
     invoke-virtual {v0, v3, v4}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 1908
+    .line 1915
     :cond_2c
     invoke-static {}, Lmybl/WbiSigner;->getInstance()Lmybl/WbiSigner;
 
@@ -123,7 +123,7 @@
 
     move-result-object v0
 
-    .line 1909
+    .line 1916
     new-instance v3, Ljava/lang/StringBuilder;
 
     invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
@@ -142,21 +142,21 @@
 
     move-result-object v0
 
-    .line 1911
+    .line 1918
     new-instance v3, Lbl/qa$a;
 
     const-class v4, Lcom/bilibili/tv/api/video/BiliVideoDetail$JsonResponse;
 
     invoke-direct {v3, v4}, Lbl/qa$a;-><init>(Ljava/lang/Class;)V
 
-    .line 1912
+    .line 1919
     invoke-virtual {v3, v0}, Lbl/qa$a;->a(Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
 
     const/4 v3, 0x1
 
-    .line 1913
+    .line 1920
     invoke-virtual {v0, v3}, Lbl/qa$a;->a(Z)Lbl/qa$a;
 
     move-result-object v0
@@ -183,14 +183,14 @@
 
     move-result-object v4
 
-    .line 1914
+    .line 1921
     invoke-virtual {v0, v3, v4}, Lbl/qa$a;->a(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
 
     const-string v3, ""
 
-    .line 1915
+    .line 1922
     invoke-virtual {v0, v3}, Lbl/qa$a;->b(Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
@@ -199,17 +199,17 @@
 
     invoke-direct {v3}, Lbl/qb;-><init>()V
 
-    .line 1916
+    .line 1923
     invoke-virtual {v0, v3}, Lbl/qa$a;->a(Lbl/qf;)Lbl/qa$a;
 
     move-result-object v0
 
-    .line 1917
+    .line 1924
     invoke-virtual {v0}, Lbl/qa$a;->a()Lbl/qa;
 
     move-result-object v0
 
-    .line 1919
+    .line 1926
     const-string v3, "GET"
 
     invoke-static {v0, v3}, Lbl/pz;->a(Lbl/qa;Ljava/lang/String;)Lbl/qe;
@@ -218,12 +218,12 @@
 
     check-cast v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$JsonResponse;
 
-    .line 1920
+    .line 1927
     invoke-virtual {v0}, Lcom/bilibili/tv/api/video/BiliVideoDetail$JsonResponse;->result()Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 1922
+    .line 1929
     if-eqz v0, :cond_e4
 
     const-string v3, "code"
@@ -234,24 +234,24 @@
 
     if-nez v3, :cond_e4
 
-    .line 1923
+    .line 1930
     const-string v3, "data"
 
     invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 1924
+    .line 1931
     if-eqz v0, :cond_e4
 
-    .line 1925
+    .line 1932
     const-string v3, "last_play_cid"
 
     invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
 
     move-result-wide v4
 
-    .line 1926
+    .line 1933
     const-string v3, "last_play_time"
 
     invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -262,18 +262,18 @@
     :try_end_b1
     .catch Ljava/lang/Exception; {:try_start_4 .. :try_end_b1} :catch_de
 
-    .line 1928
+    .line 1935
     cmp-long v3, v4, v8
 
     if-lez v3, :cond_e4
 
-    .line 1930
+    .line 1937
     :try_start_b5
     new-instance v6, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
 
     invoke-direct {v6}, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;-><init>()V
 
-    .line 1931
+    .line 1938
     cmp-long v2, v4, v8
 
     if-lez v2, :cond_db
@@ -283,10 +283,10 @@
     :goto_bf
     iput-wide v2, v6, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mCid:J
 
-    .line 1932
+    .line 1939
     iput v0, v6, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mProgress:I
 
-    .line 1934
+    .line 1941
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     new-instance v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19$1;
@@ -299,11 +299,11 @@
 
     move v0, v1
 
-    .line 1955
+    .line 1962
     :goto_ce
     if-nez v0, :cond_da
 
-    .line 1956
+    .line 1963
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     new-instance v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19$2;
@@ -312,11 +312,11 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->runOnUiThread(Ljava/lang/Runnable;)V
 
-    .line 1966
+    .line 1973
     :cond_da
     return-void
 
-    .line 1931
+    .line 1938
     :cond_db
     :try_start_db
     iget-wide v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;->val$finalCid:J
@@ -325,7 +325,7 @@
 
     goto :goto_bf
 
-    .line 1951
+    .line 1958
     :catch_de
     move-exception v0
 

@@ -7,6 +7,13 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.bilibili.bangumi.api.BangumiSponsorRankList;
+import com.bilibili.tv.api.video.BiliVideoDetail.BangumiInfo;
+import com.bilibili.tv.api.video.BiliVideoDetail.History;
+import com.bilibili.tv.api.video.BiliVideoDetail.MovieRecommend;
+import com.bilibili.tv.api.video.BiliVideoDetail.Page;
+import com.bilibili.tv.api.video.BiliVideoDetail.RequestUser;
+import com.bilibili.tv.api.video.BiliVideoDetail.Rights;
+
 import java.util.*;
 
 import bl.pz;
@@ -47,6 +54,7 @@ public class BiliVideoDetail implements Parcelable {
     public String mCover;
     @JSONField(name = "pubdate")
     public long mCreatedTimestamp;
+    public String mPubDateText;
     @JSONField(name = "desc")
     public String mDescription;
     @JSONField(name = "downloadable_detail")

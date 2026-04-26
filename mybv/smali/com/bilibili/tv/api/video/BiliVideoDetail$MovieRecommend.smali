@@ -82,7 +82,7 @@
     .locals 1
 
     .prologue
-    .line 887
+    .line 895
     new-instance v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$MovieRecommend$1;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/video/BiliVideoDetail$MovieRecommend$1;-><init>()V
@@ -96,10 +96,10 @@
     .locals 0
 
     .prologue
-    .line 922
+    .line 930
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 923
+    .line 931
     return-void
 .end method
 
@@ -107,59 +107,59 @@
     .locals 2
 
     .prologue
-    .line 925
+    .line 933
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 926
+    .line 934
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$MovieRecommend;->mTitle:Ljava/lang/String;
 
-    .line 927
+    .line 935
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$MovieRecommend;->coverUrl:Ljava/lang/String;
 
-    .line 928
+    .line 936
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$MovieRecommend;->jumpUri:Ljava/lang/String;
 
-    .line 929
+    .line 937
     invoke-virtual {p1}, Landroid/os/Parcel;->readLong()J
 
     move-result-wide v0
 
     iput-wide v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$MovieRecommend;->jumpParam:J
 
-    .line 930
+    .line 938
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$MovieRecommend;->jumpTo:Ljava/lang/String;
 
-    .line 931
+    .line 939
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$MovieRecommend;->movieStatus:I
 
-    .line 932
+    .line 940
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$MovieRecommend;->coverMark:Ljava/lang/String;
 
-    .line 933
+    .line 941
     return-void
 .end method
 
@@ -169,7 +169,7 @@
     .locals 1
 
     .prologue
-    .line 919
+    .line 927
     const/4 v0, 0x0
 
     return v0
@@ -179,41 +179,41 @@
     .locals 2
 
     .prologue
-    .line 937
+    .line 945
     iget-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$MovieRecommend;->mTitle:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 938
+    .line 946
     iget-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$MovieRecommend;->coverUrl:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 939
+    .line 947
     iget-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$MovieRecommend;->jumpUri:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 940
+    .line 948
     iget-wide v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$MovieRecommend;->jumpParam:J
 
     invoke-virtual {p1, v0, v1}, Landroid/os/Parcel;->writeLong(J)V
 
-    .line 941
+    .line 949
     iget-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$MovieRecommend;->jumpTo:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 942
+    .line 950
     iget v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$MovieRecommend;->movieStatus:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 943
+    .line 951
     iget-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$MovieRecommend;->coverMark:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 944
+    .line 952
     return-void
 .end method

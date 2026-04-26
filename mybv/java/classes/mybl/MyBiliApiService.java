@@ -54,6 +54,9 @@ public interface MyBiliApiService {
     @GET("/x/web-interface/archive/related")
     vp<GeneralResponse<List<BiliVideoDetail>>> getRelatedVideos(@Query("aid") long aid);
 
+    @GET("/pgc/season/web/related/recommend")
+    vp<GeneralResponse<JSONObject>> getPgcRelatedRecommend(@Query("season_id") int season_id);
+
     @GET("/x/web-interface/view/detail/tag")
     vp<GeneralResponse<List<BiliVideoDetail.Tag>>> getVideoTags(@Query("aid") long aid);
 
@@ -164,7 +167,7 @@ public interface MyBiliApiService {
             @Query("platform") String platform,
             @Header("Cookie") String cookie);
 
-    @GET("https://github.com/qidian55/bilibilitv1.6.6-repair/raw/refs/heads/main/update.json")
+    @GET("https://raw.githubusercontent.com/uiiang/bilibilitv1.6.6-repair-uiiang/refs/heads/main/update.json")
     vp<com.bilibili.tv.ui.upgrade.BiliUpgradeInfo> getThirdUpdateInfo();
 
     @GET("/x/v3/fav/resource/list")

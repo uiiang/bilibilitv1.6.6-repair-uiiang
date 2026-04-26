@@ -29,21 +29,21 @@
     .locals 0
 
     .prologue
-    .line 163
+    .line 171
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 164
+    .line 172
     iput-object p1, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$SectionInfo;->title:Ljava/lang/String;
 
-    .line 165
+    .line 173
     iput-object p2, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$SectionInfo;->episodes:Lcom/alibaba/fastjson/JSONArray;
 
-    .line 166
+    .line 174
     iput p3, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$SectionInfo;->id:I
 
-    .line 167
+    .line 175
     iput p4, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$SectionInfo;->type:I
 
-    .line 168
+    .line 176
     return-void
 .end method

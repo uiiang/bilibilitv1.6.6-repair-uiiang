@@ -200,6 +200,11 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             this.c.setListener(this);
             S();
             this.c.a(false);
+        } else {
+            if (z && c() != null && c().a.mVideoParams.obtainResolveParams().view_points != null) {
+                JSONArray view_points = c().a.mVideoParams.obtainResolveParams().view_points;
+                this.c.init_chapter(view_points);
+            }
         }
         if (this.c.isShown() != z) {
             this.c.a(z);

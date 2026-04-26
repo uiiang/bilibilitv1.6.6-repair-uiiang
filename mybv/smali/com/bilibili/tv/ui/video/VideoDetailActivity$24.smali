@@ -3,7 +3,7 @@
 .source "VideoDetailActivity.java"
 
 # interfaces
-.implements Landroid/view/View$OnFocusChangeListener;
+.implements Landroid/view/View$OnClickListener;
 
 
 # annotations
@@ -20,30 +20,22 @@
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-.field final synthetic val$hasMultipleStaff:Z
+.field final synthetic val$staffMid:J
 
-.field final synthetic val$isFirstStaff:Z
-
-.field final synthetic val$staffView:Lcom/bilibili/tv/widget/DrawTextView;
-
-.field final synthetic val$wrapper:Lcom/bilibili/tv/widget/DrawLinearLayout;
+.field final synthetic val$staffName:Ljava/lang/String;
 
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/widget/DrawLinearLayout;ZZLcom/bilibili/tv/widget/DrawTextView;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;JLjava/lang/String;)V
     .locals 0
 
     .prologue
-    .line 2611
+    .line 2651
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->val$wrapper:Lcom/bilibili/tv/widget/DrawLinearLayout;
+    iput-wide p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->val$staffMid:J
 
-    iput-boolean p3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->val$hasMultipleStaff:Z
-
-    iput-boolean p4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->val$isFirstStaff:Z
-
-    iput-object p5, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->val$staffView:Lcom/bilibili/tv/widget/DrawTextView;
+    iput-object p4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->val$staffName:Ljava/lang/String;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -52,41 +44,19 @@
 
 
 # virtual methods
-.method public onFocusChange(Landroid/view/View;Z)V
-    .locals 2
+.method public onClick(Landroid/view/View;)V
+    .locals 4
 
     .prologue
-    .line 2614
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->val$wrapper:Lcom/bilibili/tv/widget/DrawLinearLayout;
+    .line 2654
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawLinearLayout;->setUpEnabled(Z)V
+    iget-wide v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->val$staffMid:J
 
-    .line 2615
-    iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->val$hasMultipleStaff:Z
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->val$staffName:Ljava/lang/String;
 
-    if-eqz v0, :cond_15
+    invoke-static {v0, v2, v3, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->start(Landroid/content/Context;JLjava/lang/String;)V
 
-    iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->val$isFirstStaff:Z
-
-    if-nez v0, :cond_15
-
-    .line 2616
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->val$staffView:Lcom/bilibili/tv/widget/DrawTextView;
-
-    if-eqz p2, :cond_16
-
-    const/4 v0, 0x0
-
-    :goto_12
-    invoke-virtual {v1, v0}, Lcom/bilibili/tv/widget/DrawTextView;->setVisibility(I)V
-
-    .line 2618
-    :cond_15
+    .line 2655
     return-void
-
-    .line 2616
-    :cond_16
-    const/16 v0, 0x8
-
-    goto :goto_12
 .end method

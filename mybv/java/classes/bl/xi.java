@@ -276,7 +276,7 @@ public class xi extends xh implements bbb<Message, Boolean> {
                     this.isLongPress = true;
                 }
                 int a = aal.a(keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) * 1000;
-                int targetProgress = Math.min(a, I());
+                int targetProgress = Math.max(0, Math.min(a, I()));
                 int maxProgress = I();
                 int videoDuration = this.l != null ? this.l.getDuration() : 0;
                 Log.i("SeekPreview", "=== f() called ===");
@@ -312,7 +312,7 @@ public class xi extends xh implements bbb<Message, Boolean> {
                 if (this.isSliding) {
                     int a = aal.a(false);
                     long x = x();
-                    int min = Math.min(Math.min(a * 1000, x() + IjkMediaMetadataRetriever.IJK_ONERROR), I());
+                    int min = Math.max(0, Math.min(Math.min(a * 1000, x() + IjkMediaMetadataRetriever.IJK_ONERROR), I()));
                     c(min);
                     aal.a();
                     this.isSliding = false;
