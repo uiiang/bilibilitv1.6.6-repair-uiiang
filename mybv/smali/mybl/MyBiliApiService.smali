@@ -670,6 +670,29 @@
     .end annotation
 .end method
 
+.method public abstract getPgcRelatedRecommend(I)Lbl/vp;
+    .param p1    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "season_id"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(I)",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Lcom/alibaba/fastjson/JSONObject;",
+            ">;>;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/GET;
+        value = "/pgc/season/web/related/recommend"
+    .end annotation
+.end method
+
 .method public abstract getPgcSeasonInfo(Ljava/lang/String;)Lretrofit2/Call;
     .param p1    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Url;
@@ -1231,7 +1254,7 @@
     .end annotation
 
     .annotation runtime Lretrofit2/http/GET;
-        value = "https://github.com/qidian55/bilibilitv1.6.6-repair/raw/refs/heads/main/update.json"
+        value = "https://raw.githubusercontent.com/uiiang/bilibilitv1.6.6-repair-uiiang/refs/heads/main/update.json"
     .end annotation
 .end method
 

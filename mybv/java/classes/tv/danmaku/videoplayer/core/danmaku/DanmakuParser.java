@@ -53,6 +53,7 @@ public class DanmakuParser extends BiliDanmukuParser {
     private BiliDanmukuParser.XmlContentHandler mContentHandler;
     private int mDanmakuCountPerScreen;
     private bgc mDanmakus;
+    private int mProcessedCount = 0;
     private String mFlag = "2";
     private boolean mIsInitVertical;
     private boolean mIsPortrait;
@@ -175,8 +176,8 @@ public class DanmakuParser extends BiliDanmukuParser {
     /* JADX INFO: Access modifiers changed from: package-private */
     public final /* synthetic */ void lambda$parseInputStreamsAsync$0$DanmakuParser(int i, long j, Context context, IDanmakuParams iDanmakuParams) {
         if (this.mDanmakuDocument instanceof IDanmakuRecommendable) {
-            if (DanmakuDurationManager.getInstance().illegal(i, j) && this.mInfoCid != i) {
-                BLog.i(TAG, "illegal request for cid :" + i + " to :" + j);
+            if (DanmakuDurationManager.getInstance().illegal(i, j)) {
+                BLog.i(TAG, "[跳过已加载分段] cid=" + i + " positionMs=" + j);
                 return;
             }
             synchronized (this) {
@@ -207,18 +208,32 @@ public class DanmakuParser extends BiliDanmukuParser {
         }
         SortedMap<Long, Collection<CommentItem>> commentStorage = this.mDanmakuDocument.getCommentStorage();
         synchronized (commentStorage) {
+            if (commentStorage.isEmpty()) {
+                mProcessedCount = 0;
+                this.mDanmakus = new bgc();
+                Log.i("DanmakuParse", "[重置计数] commentStorage为空，清空mDanmakus");
+            }
             Iterator<Collection<CommentItem>> it = commentStorage.values().iterator();
             int i = -1;
+            int addedCount = 0;
             while (it.hasNext()) {
                 Iterator<CommentItem> it2 = it.next().iterator();
                 while (it2.hasNext()) {
                     i++;
+                    if (i < mProcessedCount) {
+                        continue;
+                    }
                     bfk parseItem = parseItem(it2.next(), i);
                     if (parseItem != null) {
                         parseItem.G = this.mContext.r;
                         this.mDanmakus.a(parseItem);
+                        addedCount++;
                     }
                 }
+            }
+            mProcessedCount = i + 1;
+            if (addedCount > 0) {
+                Log.i("DanmakuParse", "[新增弹幕] addedCount=" + addedCount + " totalProcessed=" + mProcessedCount);
             }
         }
         return this.mDanmakus;
@@ -671,6 +686,18 @@ public class DanmakuParser extends BiliDanmukuParser {
             Log.e(TAG_PROTOBUF, "[解析失败] inputStream is null");
             return;
         }
+        
+        String docAid = "";
+        String docCid = "";
+        int docStorageSize = 0;
+        if (this.mDanmakuDocument instanceof bl.yl) {
+            bl.yl ylDoc = (bl.yl) this.mDanmakuDocument;
+            docAid = ylDoc.getAid();
+            docCid = ylDoc.getCid();
+            docStorageSize = ylDoc.getCommentStorageSize();
+        }
+        Log.i(TAG_PROTOBUF, "[开始解析] docAid=" + docAid + " docCid=" + docCid + " docStorageSize=" + docStorageSize);
+        
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             byte[] buffer = new byte[4096];
@@ -684,23 +711,53 @@ public class DanmakuParser extends BiliDanmukuParser {
             int count = 0;
             int minTime = Integer.MAX_VALUE;
             int maxTime = 0;
+            StringBuilder sampleDanmaku = new StringBuilder();
+            int sampleCount = 0;
             
             for (DanmakuElem elem : reply.getElems()) {
                 CommentItem item = convertProtobufToCommentItem(elem);
                 if (item != null) {
                     this.mDanmakuDocument.appendDanmaku(item);
-                    bfk parseItem = parseItem(item, count);
-                    if (parseItem != null) {
-                        parseItem.G = this.mContext.r;
-                        this.mDanmakus.a(parseItem);
-                    }
                     count++;
                     if (elem.getProgress() < minTime) minTime = elem.getProgress();
                     if (elem.getProgress() > maxTime) maxTime = elem.getProgress();
+                    
+                    if (sampleCount < 5) {
+                        sampleDanmaku.append("\n  [").append(elem.getProgress()).append("ms] ")
+                            .append("mode=").append(elem.getMode()).append(" ")
+                            .append("color=").append(Integer.toHexString(elem.getColor())).append(" ")
+                            .append("content=").append(elem.getContent());
+                        sampleCount++;
+                    }
                 }
             }
             
-            Log.i(TAG_PROTOBUF, "[解析完成] count=" + count + " timeRange=" + minTime + "-" + maxTime + "ms");
+            if (count > 0) {
+                parseDanmakusCompat();
+            }
+            
+            if (count > 0) {
+                Log.i(TAG_PROTOBUF, "[弹幕样例] segment=" + ((minTime / (6 * 60 * 1000)) + 1) + " count=" + count + sampleDanmaku.toString());
+            }
+            
+            if (count > 0 && !TextUtils.isEmpty(docCid)) {
+                try {
+                    int cidInt = Integer.parseInt(docCid);
+                    int segmentIndex = (minTime / (6 * 60 * 1000)) + 1;
+                    int segmentStart = (segmentIndex - 1) * 6 * 60 * 1000;
+                    int segmentEnd = segmentIndex * 6 * 60 * 1000;
+                    DanmakuDurationManager.getInstance().add(cidInt, segmentStart, segmentEnd);
+                    Log.i(TAG_PROTOBUF, "[记录分段] cid=" + cidInt + " segment=" + segmentIndex + " range=" + segmentStart + "-" + segmentEnd);
+                } catch (NumberFormatException e) {
+                    Log.e(TAG_PROTOBUF, "[记录分段失败] cid parse error: " + docCid);
+                }
+            }
+            
+            int newStorageSize = 0;
+            if (this.mDanmakuDocument instanceof bl.yl) {
+                newStorageSize = ((bl.yl) this.mDanmakuDocument).getCommentStorageSize();
+            }
+            Log.i(TAG_PROTOBUF, "[解析完成] count=" + count + " timeRange=" + minTime + "-" + maxTime + "ms docAid=" + docAid + " docCid=" + docCid + " newStorageSize=" + newStorageSize);
             
         } catch (Exception e) {
             Log.e(TAG_PROTOBUF, "[解析失败] error=" + e.getMessage());

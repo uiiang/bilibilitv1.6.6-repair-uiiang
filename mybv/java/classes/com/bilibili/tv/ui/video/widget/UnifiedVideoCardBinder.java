@@ -58,7 +58,7 @@ public class UnifiedVideoCardBinder implements VideoCardBinder {
         String danmakus = detail.getDanmakus();
         bindPlayAndDanmaku(holder.getPlayCountView(), holder.getDanmakuInImageView(), plays, danmakus);
         
-        bindPubDate(holder.getPubdateView(), detail.mCreatedTimestamp);
+        bindPubDate(holder.getPubdateView(), detail.mCreatedTimestamp, detail.mPubDateText);
         bindDuration(holder.getDurationView(), detail.mDuration);
         bindBadge(holder.getBadgeView(), detail.badgeText, detail.badgeBgColor);
         bindCover(holder.getCoverImageView(), detail.mCover);
@@ -75,7 +75,7 @@ public class UnifiedVideoCardBinder implements VideoCardBinder {
         String danmakus = detail.getDanmakus();
         bindPlayAndDanmakuCompact(holder.getPlayCountView(), holder.getDanmakuView(), plays, danmakus);
         
-        bindPubDate(holder.getPubdateView(), detail.mCreatedTimestamp);
+        bindPubDate(holder.getPubdateView(), detail.mCreatedTimestamp, detail.mPubDateText);
         bindDuration(holder.getDurationView(), detail.mDuration);
         bindBadge(holder.getBadgeView(), detail.badgeText, detail.badgeBgColor);
         bindCover(holder.getCoverImageView(), detail.mCover);
@@ -86,7 +86,7 @@ public class UnifiedVideoCardBinder implements VideoCardBinder {
         
         bindUpView(holder.getUpView(), params.mAuthor, params.mHideUpIcon);
         bindPlayAndDanmaku(holder.getPlayCountView(), holder.getDanmakuInImageView(), params.mPlays, params.mDanmakus);
-        bindPubDate(holder.getPubdateView(), params.mPubDate);
+        bindPubDate(holder.getPubdateView(), params.mPubDate, null);
         bindDuration(holder.getDurationView(), params.mDuration);
         bindBadge(holder.getBadgeView(), params.mBadgeText, params.mBadgeBgColor);
         bindCover(holder.getCoverImageView(), params.mEpCover);
@@ -98,14 +98,14 @@ public class UnifiedVideoCardBinder implements VideoCardBinder {
         
         bindUpView(holder.getUpView(), params.mAuthor, params.mHideUpIcon);
         bindPlayAndDanmakuCompact(holder.getPlayCountView(), holder.getDanmakuView(), params.mPlays, params.mDanmakus);
-        bindPubDate(holder.getPubdateView(), params.mPubDate);
+        bindPubDate(holder.getPubdateView(), params.mPubDate, null);
         bindDuration(holder.getDurationView(), params.mDuration);
         bindBadge(holder.getBadgeView(), params.mBadgeText, params.mBadgeBgColor);
         bindCover(holder.getCoverImageView(), params.mEpCover);
     }
 
     private String getAuthorFromBiliVideoDetail(BiliVideoDetail detail) {
-        if (listType == 1) {
+        if (!TextUtils.isEmpty(detail.vtText)) {
             return detail.vtText;
         }
         return detail.getAuthor();
@@ -190,8 +190,11 @@ public class UnifiedVideoCardBinder implements VideoCardBinder {
         }
     }
 
-    private void bindPubDate(TextView pubdateView, long pubDate) {
-        if (pubDate > 0) {
+    private void bindPubDate(TextView pubdateView, long pubDate, String pubDateText) {
+        if (pubDateText != null && !pubDateText.isEmpty()) {
+            pubdateView.setText(pubDateText);
+            pubdateView.setVisibility(View.VISIBLE);
+        } else if (pubDate > 0) {
             pubdateView.setText(DateHelper.formatDate(pubDate));
             pubdateView.setVisibility(View.VISIBLE);
         } else {

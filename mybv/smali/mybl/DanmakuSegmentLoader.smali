@@ -203,7 +203,7 @@
 .end method
 
 .method public static loadSegmentDanmakuBytes(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;I)[B
-    .locals 6
+    .locals 7
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ltv/danmaku/videoplayer/core/danmaku/DanmakuLoadException;
@@ -356,52 +356,79 @@
     move-result-object v2
 
     .line 68
-    invoke-virtual {v2}, Lokhttp3/Response;->isSuccessful()Z
-
-    move-result v0
-
-    if-nez v0, :cond_da
-
-    .line 69
-    new-instance v0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuLoadException;
-
-    new-instance v1, Ljava/io/IOException;
-
-    new-instance v3, Ljava/lang/StringBuilder;
-
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v4, "Unexpected response code: "
-
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
     invoke-virtual {v2}, Lokhttp3/Response;->code()I
 
-    move-result v2
+    move-result v3
 
-    invoke-virtual {v3, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    .line 70
+    invoke-virtual {v2}, Lokhttp3/Response;->body()Lokhttp3/ResponseBody;
 
-    move-result-object v2
+    move-result-object v0
 
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v0}, Lokhttp3/ResponseBody;->byteStream()Ljava/io/InputStream;
 
-    move-result-object v2
+    move-result-object v1
 
-    invoke-direct {v1, v2}, Ljava/io/IOException;-><init>(Ljava/lang/String;)V
+    .line 71
+    const-string v0, "Content-Encoding"
 
-    invoke-direct {v0, v1}, Ltv/danmaku/videoplayer/core/danmaku/DanmakuLoadException;-><init>(Ljava/lang/Throwable;)V
+    const-string v4, ""
 
-    throw v0
-    :try_end_ad
-    .catch Ljava/lang/Exception; {:try_start_3a .. :try_end_ad} :catch_ad
+    invoke-virtual {v2, v0, v4}, Lokhttp3/Response;->header(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
-    .line 93
-    :catch_ad
+    move-result-object v0
+
+    .line 72
+    const-string v4, "gzip"
+
+    invoke-virtual {v4, v0}, Ljava/lang/String;->equalsIgnoreCase(Ljava/lang/String;)Z
+
+    move-result v4
+
+    if-eqz v4, :cond_ea
+
+    .line 73
+    new-instance v0, Ljava/util/zip/GZIPInputStream;
+
+    const/16 v4, 0x400
+
+    invoke-direct {v0, v1, v4}, Ljava/util/zip/GZIPInputStream;-><init>(Ljava/io/InputStream;I)V
+
+    .line 78
+    :goto_a8
+    new-instance v1, Ljava/io/ByteArrayOutputStream;
+
+    invoke-direct {v1}, Ljava/io/ByteArrayOutputStream;-><init>()V
+
+    .line 79
+    const/16 v4, 0x1000
+
+    new-array v4, v4, [B
+
+    .line 81
+    :goto_b1
+    invoke-virtual {v0, v4}, Ljava/io/InputStream;->read([B)I
+
+    move-result v5
+
+    const/4 v6, -0x1
+
+    if-eq v5, v6, :cond_100
+
+    .line 82
+    const/4 v6, 0x0
+
+    invoke-virtual {v1, v4, v6, v5}, Ljava/io/ByteArrayOutputStream;->write([BII)V
+    :try_end_bc
+    .catch Ljava/lang/Exception; {:try_start_3a .. :try_end_bc} :catch_bd
+
+    goto :goto_b1
+
+    .line 110
+    :catch_bd
     move-exception v0
 
-    .line 94
+    .line 111
     const-string v1, "DanmakuLoad"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -438,115 +465,239 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 95
+    .line 112
     new-instance v1, Ltv/danmaku/videoplayer/core/danmaku/DanmakuLoadException;
 
     invoke-direct {v1, v0}, Ltv/danmaku/videoplayer/core/danmaku/DanmakuLoadException;-><init>(Ljava/lang/Throwable;)V
 
     throw v1
 
-    .line 72
-    :cond_da
-    :try_start_da
-    invoke-virtual {v2}, Lokhttp3/Response;->body()Lokhttp3/ResponseBody;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Lokhttp3/ResponseBody;->byteStream()Ljava/io/InputStream;
-
-    move-result-object v1
-
-    .line 73
-    const-string v0, "Content-Encoding"
-
-    const-string v3, ""
-
-    invoke-virtual {v2, v0, v3}, Lokhttp3/Response;->header(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v0
-
     .line 74
-    const-string v3, "gzip"
+    :cond_ea
+    :try_start_ea
+    const-string v4, "deflate"
 
-    invoke-virtual {v3, v0}, Ljava/lang/String;->equalsIgnoreCase(Ljava/lang/String;)Z
-
-    move-result v3
-
-    if-eqz v3, :cond_10e
-
-    .line 75
-    new-instance v0, Ljava/util/zip/GZIPInputStream;
-
-    const/16 v3, 0x400
-
-    invoke-direct {v0, v1, v3}, Ljava/util/zip/GZIPInputStream;-><init>(Ljava/io/InputStream;I)V
-
-    .line 80
-    :goto_f9
-    new-instance v1, Ljava/io/ByteArrayOutputStream;
-
-    invoke-direct {v1}, Ljava/io/ByteArrayOutputStream;-><init>()V
-
-    .line 81
-    const/16 v3, 0x1000
-
-    new-array v3, v3, [B
-
-    .line 83
-    :goto_102
-    invoke-virtual {v0, v3}, Ljava/io/InputStream;->read([B)I
-
-    move-result v4
-
-    const/4 v5, -0x1
-
-    if-eq v4, v5, :cond_124
-
-    .line 84
-    const/4 v5, 0x0
-
-    invoke-virtual {v1, v3, v5, v4}, Ljava/io/ByteArrayOutputStream;->write([BII)V
-
-    goto :goto_102
-
-    .line 76
-    :cond_10e
-    const-string v3, "deflate"
-
-    invoke-virtual {v3, v0}, Ljava/lang/String;->equalsIgnoreCase(Ljava/lang/String;)Z
+    invoke-virtual {v4, v0}, Ljava/lang/String;->equalsIgnoreCase(Ljava/lang/String;)Z
 
     move-result v0
 
-    if-eqz v0, :cond_152
+    if-eqz v0, :cond_1db
 
-    .line 77
+    .line 75
     new-instance v0, Ljava/util/zip/InflaterInputStream;
 
-    new-instance v3, Ljava/util/zip/Inflater;
+    new-instance v4, Ljava/util/zip/Inflater;
 
-    const/4 v4, 0x1
+    const/4 v5, 0x1
 
-    invoke-direct {v3, v4}, Ljava/util/zip/Inflater;-><init>(Z)V
+    invoke-direct {v4, v5}, Ljava/util/zip/Inflater;-><init>(Z)V
 
-    const/16 v4, 0x400
+    const/16 v5, 0x400
 
-    invoke-direct {v0, v1, v3, v4}, Ljava/util/zip/InflaterInputStream;-><init>(Ljava/io/InputStream;Ljava/util/zip/Inflater;I)V
+    invoke-direct {v0, v1, v4, v5}, Ljava/util/zip/InflaterInputStream;-><init>(Ljava/io/InputStream;Ljava/util/zip/Inflater;I)V
 
-    goto :goto_f9
+    goto :goto_a8
 
-    .line 86
-    :cond_124
+    .line 84
+    :cond_100
     invoke-virtual {v0}, Ljava/io/InputStream;->close()V
 
-    .line 87
+    .line 85
     invoke-virtual {v2}, Lokhttp3/Response;->close()V
 
-    .line 89
+    .line 87
     invoke-virtual {v1}, Ljava/io/ByteArrayOutputStream;->toByteArray()[B
 
     move-result-object v0
 
+    .line 89
+    const/16 v1, 0x130
+
+    if-ne v3, v1, :cond_15b
+
     .line 90
+    array-length v1, v0
+
+    if-lez v1, :cond_13b
+
+    .line 91
+    const-string v1, "DanmakuLoad"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "[\u8bf7\u6c42304\u4f46\u6709\u6570\u636e] segment="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, p3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, " bytes="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    array-length v3, v0
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, " \u4f7f\u7528\u54cd\u5e94\u4f53"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 108
+    :goto_13a
+    return-object v0
+
+    .line 94
+    :cond_13b
+    const-string v0, "DanmakuLoad"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "[\u8bf7\u6c42304\u65e0\u6570\u636e] segment="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, p3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, " \u6570\u636e\u672a\u4fee\u6539\uff0c\u8df3\u8fc7\u52a0\u8f7d"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 95
+    const/4 v0, 0x0
+
+    goto :goto_13a
+
+    .line 99
+    :cond_15b
+    invoke-virtual {v2}, Lokhttp3/Response;->isSuccessful()Z
+
+    move-result v1
+
+    if-nez v1, :cond_1b6
+
+    .line 100
+    array-length v1, v0
+
+    if-lez v1, :cond_198
+
+    .line 101
+    const-string v1, "DanmakuLoad"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "[\u975e2xx\u4f46\u6709\u6570\u636e] code="
+
+    invoke-virtual {v2, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, " segment="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, p3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, " bytes="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    array-length v3, v0
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, " \u4f7f\u7528\u54cd\u5e94\u4f53"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_13a
+
+    .line 104
+    :cond_198
+    new-instance v0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuLoadException;
+
+    new-instance v1, Ljava/io/IOException;
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "Unexpected response code: "
+
+    invoke-virtual {v2, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-direct {v1, v2}, Ljava/io/IOException;-><init>(Ljava/lang/String;)V
+
+    invoke-direct {v0, v1}, Ltv/danmaku/videoplayer/core/danmaku/DanmakuLoadException;-><init>(Ljava/lang/Throwable;)V
+
+    throw v0
+
+    .line 107
+    :cond_1b6
     const-string v1, "DanmakuLoad"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -580,16 +731,15 @@
     move-result-object v2
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_151
-    .catch Ljava/lang/Exception; {:try_start_da .. :try_end_151} :catch_ad
+    :try_end_1d9
+    .catch Ljava/lang/Exception; {:try_start_ea .. :try_end_1d9} :catch_bd
 
-    .line 91
-    return-object v0
+    goto/16 :goto_13a
 
-    :cond_152
+    :cond_1db
     move-object v0, v1
 
-    goto :goto_f9
+    goto/16 :goto_a8
 .end method
 
 .method public static loadSegmentDanmakuStream(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;I)Ljava/io/InputStream;
@@ -603,20 +753,60 @@
     .prologue
     const v2, 0x57e40
 
-    .line 100
+    .line 117
     invoke-static {p0, p1, p2, p3}, Lmybl/DanmakuSegmentLoader;->loadSegmentDanmakuBytes(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;I)[B
 
-    move-result-object v0
+    move-result-object v1
 
-    .line 102
-    add-int/lit8 v1, p3, -0x1
+    .line 119
+    if-nez v1, :cond_29
 
-    mul-int/2addr v1, v2
+    .line 120
+    const-string v0, "DanmakuLoad"
 
-    .line 103
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "[\u6570\u636e\u4e3a\u7a7a] segment="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, p3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, " 304\u54cd\u5e94\uff0c\u65e0\u9700\u91cd\u65b0\u52a0\u8f7d"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 121
+    const/4 v0, 0x0
+
+    .line 129
+    :goto_28
+    return-object v0
+
+    .line 124
+    :cond_29
+    add-int/lit8 v0, p3, -0x1
+
+    mul-int/2addr v0, v2
+
+    .line 125
     mul-int/2addr v2, p3
 
-    .line 104
+    .line 126
     const-string v3, "DanmakuLoad"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -639,7 +829,7 @@
 
     move-result-object v4
 
-    array-length v5, v0
+    array-length v5, v1
 
     invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
@@ -651,36 +841,36 @@
 
     move-result-object v4
 
-    invoke-virtual {v4, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v4, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    move-result-object v1
+    move-result-object v0
 
     const-string v4, "-"
 
-    invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v1
+    move-result-object v0
 
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    move-result-object v1
+    move-result-object v0
 
     const-string v2, "ms"
 
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v1
+    move-result-object v0
 
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v1
+    move-result-object v0
 
-    invoke-static {v3, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v3, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 107
-    new-instance v1, Ljava/io/ByteArrayInputStream;
+    .line 129
+    new-instance v0, Ljava/io/ByteArrayInputStream;
 
-    invoke-direct {v1, v0}, Ljava/io/ByteArrayInputStream;-><init>([B)V
+    invoke-direct {v0, v1}, Ljava/io/ByteArrayInputStream;-><init>([B)V
 
-    return-object v1
+    goto :goto_28
 .end method

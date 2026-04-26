@@ -32,12 +32,12 @@
     .locals 0
 
     .prologue
-    .line 3730
+    .line 3776
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$AddToViewResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Lbl/vm;-><init>()V
 
-    .line 3731
+    .line 3777
     return-void
 .end method
 
@@ -47,7 +47,7 @@
     .locals 1
 
     .prologue
-    .line 3754
+    .line 3800
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$AddToViewResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->o:Landroid/support/v7/widget/RecyclerView;
@@ -72,14 +72,14 @@
     .locals 2
 
     .prologue
-    .line 3749
+    .line 3795
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$AddToViewResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     const-string v1, "\u6dfb\u52a0\u7a0d\u540e\u518d\u770b\u5931\u8d25"
 
     invoke-static {v0, v1}, Lbl/lr;->a(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 3750
+    .line 3796
     return-void
 .end method
 
@@ -87,17 +87,17 @@
     .locals 2
 
     .prologue
-    .line 3735
+    .line 3781
     if-eqz p1, :cond_20
 
-    .line 3736
+    .line 3782
     const-string v0, "message"
 
     invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 3737
+    .line 3783
     const-string v1, "OK"
 
     invoke-virtual {v1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -106,18 +106,18 @@
 
     if-eqz v0, :cond_18
 
-    .line 3738
+    .line 3784
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$AddToViewResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     const-string v1, "\u5df2\u5c06\u89c6\u9891\u6dfb\u52a0\u5230\u7a0d\u540e\u518d\u770b"
 
     invoke-static {v0, v1}, Lbl/lr;->a(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 3745
+    .line 3791
     :goto_17
     return-void
 
-    .line 3740
+    .line 3786
     :cond_18
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$AddToViewResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
@@ -127,7 +127,7 @@
 
     goto :goto_17
 
-    .line 3743
+    .line 3789
     :cond_20
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$AddToViewResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
@@ -142,7 +142,7 @@
     .locals 0
 
     .prologue
-    .line 3729
+    .line 3775
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$AddToViewResponse;->onSuccess(Lcom/alibaba/fastjson/JSONObject;)V

@@ -36,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 1998
+    .line 2005
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->val$biliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -52,7 +52,7 @@
     .locals 1
 
     .prologue
-    .line 2001
+    .line 2008
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isFinishing()Z
@@ -66,7 +66,7 @@
     .locals 0
 
     .prologue
-    .line 2005
+    .line 2012
     return-void
 .end method
 
@@ -83,19 +83,19 @@
     .end annotation
 
     .prologue
-    .line 2008
+    .line 2015
     if-eqz p1, :cond_33
 
     iget-object v0, p1, Lcom/bilibili/okretro/GeneralResponse;->data:Ljava/lang/Object;
 
     if-eqz v0, :cond_33
 
-    .line 2009
+    .line 2016
     iget-object v0, p1, Lcom/bilibili/okretro/GeneralResponse;->data:Ljava/lang/Object;
 
     check-cast v0, Lcom/alibaba/fastjson/JSONObject;
 
-    .line 2010
+    .line 2017
     const-string v1, "history"
 
     invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->containsKey(Ljava/lang/Object;)Z
@@ -104,22 +104,22 @@
 
     if-eqz v1, :cond_33
 
-    .line 2011
+    .line 2018
     const-string v1, "history"
 
     invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 2012
+    .line 2019
     if-eqz v0, :cond_33
 
-    .line 2013
+    .line 2020
     new-instance v1, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
 
     invoke-direct {v1}, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;-><init>()V
 
-    .line 2014
+    .line 2021
     const-string v2, "cid"
 
     invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
@@ -128,7 +128,7 @@
 
     iput-wide v2, v1, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mCid:J
 
-    .line 2015
+    .line 2022
     const-string v2, "progress"
 
     invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -137,25 +137,25 @@
 
     iput v0, v1, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mProgress:I
 
-    .line 2016
+    .line 2023
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->val$biliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     iput-object v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mHistory:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
 
-    .line 2020
+    .line 2027
     :cond_33
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->val$biliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateHistoryDisplay(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2400(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
 
-    .line 2021
+    .line 2028
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
 
     move-result-object v0
 
@@ -163,9 +163,9 @@
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    .line 2022
+    .line 2029
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
 
     move-result-object v0
 
@@ -175,17 +175,17 @@
 
     if-nez v0, :cond_57
 
-    .line 2023
+    .line 2030
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
 
     move-result-object v0
 
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawLinearLayout;->requestFocus()Z
 
-    .line 2025
+    .line 2032
     :cond_57
     return-void
 .end method
@@ -194,7 +194,7 @@
     .locals 0
 
     .prologue
-    .line 1998
+    .line 2005
     check-cast p1, Lcom/bilibili/okretro/GeneralResponse;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->onSuccess(Lcom/bilibili/okretro/GeneralResponse;)V

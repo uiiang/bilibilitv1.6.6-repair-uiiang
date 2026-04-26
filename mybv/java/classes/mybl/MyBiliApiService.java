@@ -54,6 +54,9 @@ public interface MyBiliApiService {
     @GET("/x/web-interface/archive/related")
     vp<GeneralResponse<List<BiliVideoDetail>>> getRelatedVideos(@Query("aid") long aid);
 
+    @GET("/pgc/season/web/related/recommend")
+    vp<GeneralResponse<JSONObject>> getPgcRelatedRecommend(@Query("season_id") int season_id);
+
     @GET("/x/web-interface/view/detail/tag")
     vp<GeneralResponse<List<BiliVideoDetail.Tag>>> getVideoTags(@Query("aid") long aid);
 

@@ -88,7 +88,7 @@
     .locals 1
 
     .prologue
-    .line 727
+    .line 728
     new-instance v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$BangumiInfo$1;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/video/BiliVideoDetail$BangumiInfo$1;-><init>()V
@@ -102,10 +102,10 @@
     .locals 0
 
     .prologue
-    .line 770
+    .line 771
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 771
+    .line 772
     return-void
 .end method
 
@@ -113,24 +113,24 @@
     .locals 1
 
     .prologue
-    .line 773
-    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
-
     .line 774
-    invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
-
-    move-result-object v0
-
-    iput-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$BangumiInfo;->mSeasonId:Ljava/lang/String;
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     .line 775
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
-    iput-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$BangumiInfo;->mTitle:Ljava/lang/String;
+    iput-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$BangumiInfo;->mSeasonId:Ljava/lang/String;
 
     .line 776
+    invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
+
+    move-result-object v0
+
+    iput-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$BangumiInfo;->mTitle:Ljava/lang/String;
+
+    .line 777
     return-void
 .end method
 
@@ -140,7 +140,7 @@
     .locals 1
 
     .prologue
-    .line 761
+    .line 762
     const/4 v0, 0x0
 
     return v0
@@ -152,7 +152,7 @@
     .prologue
     const/4 v0, 0x1
 
-    .line 779
+    .line 780
     iget v1, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$BangumiInfo;->mIsFinish:I
 
     if-ne v1, v0, :cond_6
@@ -170,16 +170,16 @@
     .locals 1
 
     .prologue
-    .line 766
+    .line 767
     iget-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$BangumiInfo;->mSeasonId:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 767
+    .line 768
     iget-object v0, p0, Lcom/bilibili/tv/api/video/BiliVideoDetail$BangumiInfo;->mTitle:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 768
+    .line 769
     return-void
 .end method

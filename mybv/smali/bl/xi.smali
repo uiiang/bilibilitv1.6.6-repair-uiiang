@@ -3163,7 +3163,7 @@
     invoke-static {v0, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 252
-    packed-switch p1, :pswitch_data_15e
+    packed-switch p1, :pswitch_data_162
 
     .line 292
     :goto_2b
@@ -3265,7 +3265,7 @@
     :cond_78
     const/16 v0, 0x16
 
-    if-ne p1, v0, :cond_155
+    if-ne p1, v0, :cond_159
 
     move v0, v1
 
@@ -3283,6 +3283,10 @@
 
     invoke-static {v0, v3}, Ljava/lang/Math;->min(II)I
 
+    move-result v0
+
+    invoke-static {v2, v0}, Ljava/lang/Math;->max(II)I
+
     move-result v3
 
     .line 280
@@ -3293,7 +3297,7 @@
     .line 281
     iget-object v0, p0, Lbl/xi;->l:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
 
-    if-eqz v0, :cond_158
+    if-eqz v0, :cond_15c
 
     iget-object v0, p0, Lbl/xi;->l:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
 
@@ -3302,7 +3306,7 @@
     move-result v0
 
     .line 282
-    :goto_99
+    :goto_9d
     const-string v5, "SeekPreview"
 
     const-string v6, "=== f() called ==="
@@ -3443,7 +3447,7 @@
 
     iget-object v0, p0, Lbl/xi;->l:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
 
-    if-eqz v0, :cond_15b
+    if-eqz v0, :cond_15f
 
     iget-object v0, p0, Lbl/xi;->l:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
 
@@ -3455,7 +3459,7 @@
 
     move-result-object v0
 
-    :goto_133
+    :goto_137
     invoke-virtual {v5, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
 
     move-result-object v0
@@ -3481,11 +3485,11 @@
 
     iget-boolean v4, p0, Lbl/xi;->isLongPress:Z
 
-    if-nez v4, :cond_14f
+    if-nez v4, :cond_153
 
     move v2, v1
 
-    :cond_14f
+    :cond_153
     invoke-direct {p0, v3, v0, v2}, Lbl/xi;->updateSeekPreview(IIZ)V
 
     move v2, v1
@@ -3493,26 +3497,26 @@
     .line 290
     goto/16 :goto_2b
 
-    :cond_155
+    :cond_159
     move v0, v2
 
     .line 278
     goto/16 :goto_7d
 
-    :cond_158
+    :cond_15c
     move v0, v2
 
     .line 281
-    goto/16 :goto_99
+    goto/16 :goto_9d
 
     .line 286
-    :cond_15b
+    :cond_15f
     const-string v0, "null"
 
-    goto :goto_133
+    goto :goto_137
 
     .line 252
-    :pswitch_data_15e
+    :pswitch_data_162
     .packed-switch 0x15
         :pswitch_2c
         :pswitch_2c
@@ -3532,7 +3536,7 @@
     const/4 v1, 0x0
 
     .line 299
-    sparse-switch p1, :sswitch_data_ac
+    sparse-switch p1, :sswitch_data_b0
 
     move v0, v1
 
@@ -3575,7 +3579,7 @@
     :sswitch_1b
     iget-boolean v2, p0, Lbl/xi;->isSliding:Z
 
-    if-eqz v2, :cond_5e
+    if-eqz v2, :cond_62
 
     .line 313
     invoke-static {v1}, Lbl/aal;->a(Z)I
@@ -3607,6 +3611,10 @@
     move-result v3
 
     invoke-static {v2, v3}, Ljava/lang/Math;->min(II)I
+
+    move-result v2
+
+    invoke-static {v1, v2}, Ljava/lang/Math;->max(II)I
 
     move-result v2
 
@@ -3646,17 +3654,17 @@
 
     invoke-virtual {p0, v3, v6}, Lbl/xi;->a(Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;[Ljava/lang/Object;)V
 
-    :cond_5e
+    :cond_62
     move v0, v1
 
     .line 321
     goto :goto_8
 
     .line 323
-    :sswitch_60
+    :sswitch_64
     iget-boolean v2, p0, Lbl/xi;->isSliding:Z
 
-    if-eqz v2, :cond_a3
+    if-eqz v2, :cond_a7
 
     .line 324
     invoke-static {v0}, Lbl/aal;->a(Z)I
@@ -3727,14 +3735,14 @@
 
     invoke-virtual {p0, v3, v6}, Lbl/xi;->a(Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;[Ljava/lang/Object;)V
 
-    :cond_a3
+    :cond_a7
     move v0, v1
 
     .line 332
     goto/16 :goto_8
 
     .line 336
-    :sswitch_a6
+    :sswitch_aa
     invoke-direct {p0}, Lbl/xi;->T()V
 
     goto/16 :goto_8
@@ -3742,16 +3750,16 @@
     .line 299
     nop
 
-    :sswitch_data_ac
+    :sswitch_data_b0
     .sparse-switch
         0x4 -> :sswitch_9
         0x13 -> :sswitch_15
         0x14 -> :sswitch_19
         0x15 -> :sswitch_1b
-        0x16 -> :sswitch_60
-        0x17 -> :sswitch_a6
-        0x42 -> :sswitch_a6
-        0xa0 -> :sswitch_a6
+        0x16 -> :sswitch_64
+        0x17 -> :sswitch_aa
+        0x42 -> :sswitch_aa
+        0xa0 -> :sswitch_aa
     .end sparse-switch
 .end method
 

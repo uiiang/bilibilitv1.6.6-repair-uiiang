@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 41
     iput-object p1, p0, Lbl/yl$1;->this$0:Lbl/yl;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 43
+    .line 44
     sget v0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->danmaku_level:I
 
     iget v1, p1, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;->mPublisherLevel:I
@@ -73,7 +73,7 @@
     .locals 1
 
     .prologue
-    .line 56
+    .line 57
     const/4 v0, 0x0
 
     return v0
@@ -95,7 +95,7 @@
     .end annotation
 
     .prologue
-    .line 47
+    .line 48
     iget-object v0, p0, Lbl/yl$1;->this$0:Lbl/yl;
 
     iget-object v0, v0, Lbl/yl;->mCommentStorage:Ljava/util/SortedMap;
@@ -107,7 +107,7 @@
     .locals 0
 
     .prologue
-    .line 50
+    .line 51
     return-void
 .end method
 
@@ -115,6 +115,6 @@
     .locals 0
 
     .prologue
-    .line 53
+    .line 54
     return-void
 .end method

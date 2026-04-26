@@ -65,9 +65,7 @@ public class DanmakuSegmentLoader {
                 .build();
             
             Response response = getOkHttpClient().newCall(request).execute();
-            if (!response.isSuccessful()) {
-                throw new DanmakuLoadException(new IOException("Unexpected response code: " + response.code()));
-            }
+            int responseCode = response.code();
             
             InputStream inputStream = response.body().byteStream();
             String encoding = response.header("Content-Encoding", "");
@@ -87,6 +85,25 @@ public class DanmakuSegmentLoader {
             response.close();
             
             byte[] data = baos.toByteArray();
+            
+            if (responseCode == 304) {
+                if (data.length > 0) {
+                    Log.i(TAG, "[请求304但有数据] segment=" + segmentIndex + " bytes=" + data.length + " 使用响应体");
+                    return data;
+                } else {
+                    Log.i(TAG, "[请求304无数据] segment=" + segmentIndex + " 数据未修改，跳过加载");
+                    return null;
+                }
+            }
+            
+            if (!response.isSuccessful()) {
+                if (data.length > 0) {
+                    Log.i(TAG, "[非2xx但有数据] code=" + responseCode + " segment=" + segmentIndex + " bytes=" + data.length + " 使用响应体");
+                    return data;
+                }
+                throw new DanmakuLoadException(new IOException("Unexpected response code: " + responseCode));
+            }
+            
             Log.i(TAG, "[请求成功] segment=" + segmentIndex + " bytes=" + data.length);
             return data;
             
@@ -98,6 +115,11 @@ public class DanmakuSegmentLoader {
 
     public static InputStream loadSegmentDanmakuStream(Context context, String aid, String cid, int segmentIndex) throws DanmakuLoadException {
         byte[] data = loadSegmentDanmakuBytes(context, aid, cid, segmentIndex);
+        
+        if (data == null) {
+            Log.i(TAG, "[数据为空] segment=" + segmentIndex + " 304响应，无需重新加载");
+            return null;
+        }
         
         int minTime = (segmentIndex - 1) * SEGMENT_SIZE_MS;
         int maxTime = segmentIndex * SEGMENT_SIZE_MS;

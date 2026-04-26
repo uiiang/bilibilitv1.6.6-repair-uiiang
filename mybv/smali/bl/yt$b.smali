@@ -26,12 +26,12 @@
     .locals 0
 
     .prologue
-    .line 224
+    .line 244
     iput-object p1, p0, Lbl/yt$b;->this$0:Lbl/yt;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 225
+    .line 245
     return-void
 .end method
 
@@ -41,7 +41,7 @@
     .locals 4
 
     .prologue
-    .line 229
+    .line 249
     iget-object v0, p0, Lbl/yt$b;->this$0:Lbl/yt;
 
     iget-object v0, v0, Lbl/yt;->a:Ljava/lang/ref/WeakReference;
@@ -52,12 +52,12 @@
 
     check-cast v0, Landroid/os/Handler;
 
-    .line 230
+    .line 250
     const/16 v1, 0x27e2
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->sendEmptyMessage(I)Z
 
-    .line 232
+    .line 252
     :try_start_f
     iget-object v1, p0, Lbl/yt$b;->this$0:Lbl/yt;
 
@@ -83,22 +83,22 @@
 
     invoke-interface {v1, v2, v3}, Lbl/yj;->a(Landroid/content/Context;Lcom/bilibili/tv/player/basic/context/VideoViewParams;)V
 
-    .line 233
+    .line 253
     const/16 v1, 0x27e3
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->sendEmptyMessage(I)Z
     :try_end_2b
     .catch Lcom/bilibili/lib/media/resolver/exception/ResolveException; {:try_start_f .. :try_end_2b} :catch_2c
 
-    .line 237
+    .line 257
     :goto_2b
     return-void
 
-    .line 234
+    .line 254
     :catch_2c
     move-exception v1
 
-    .line 235
+    .line 255
     const/16 v1, 0x27e4
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->sendEmptyMessage(I)Z

@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 1934
+    .line 1941
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19$1;->val$history:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
@@ -44,7 +44,7 @@
     .locals 2
 
     .prologue
-    .line 1937
+    .line 1944
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -55,12 +55,12 @@
 
     if-eqz v0, :cond_b
 
-    .line 1946
+    .line 1953
     :cond_a
     :goto_a
     return-void
 
-    .line 1940
+    .line 1947
     :cond_b
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;
 
@@ -70,7 +70,7 @@
 
     iput-object v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mHistory:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
 
-    .line 1941
+    .line 1948
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -80,15 +80,15 @@
     iget-object v1, v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;->val$finalBiliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateHistoryDisplay(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2400(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
 
-    .line 1942
+    .line 1949
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
 
     move-result-object v0
 
@@ -98,9 +98,9 @@
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    .line 1943
+    .line 1950
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
 
     move-result-object v0
 
@@ -110,13 +110,13 @@
 
     if-nez v0, :cond_a
 
-    .line 1944
+    .line 1951
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$19;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/DrawLinearLayout;
 
     move-result-object v0
 

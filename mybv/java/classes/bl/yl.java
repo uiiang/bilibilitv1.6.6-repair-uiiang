@@ -22,6 +22,7 @@ import tv.danmaku.android.log.BLog;
 import tv.danmaku.videoplayer.core.danmaku.DanmakuLoadException;
 import tv.danmaku.videoplayer.core.danmaku.DanmakuParser;
 import tv.danmaku.videoplayer.core.danmaku.DanmakuPlayerDFM;
+import tv.danmaku.videoplayer.core.danmaku.DanmakuDurationManager;
 import tv.danmaku.videoplayer.core.danmaku.IDanmakuDocument;
 import tv.danmaku.videoplayer.core.danmaku.IDanmakuParams;
 import tv.danmaku.videoplayer.core.danmaku.IDanmakuRecommendable;
@@ -100,10 +101,18 @@ public class yl implements IDanmakuDocument, IDanmakuRecommendable {
         if (context != null && !TextUtils.isEmpty(this.l) && !TextUtils.isEmpty(this.m)) {
             try {
                 int segmentIndex = DanmakuSegmentLoader.calculateSegmentIndex(j);
+                long segmentStartTs = (long)(segmentIndex - 1) * 6 * 60 * 1000;
+                long segmentEndTs = (long)segmentIndex * 6 * 60 * 1000;
+                
+                long cidLong = Long.parseLong(this.m);
+                
                 Log.i("DanmakuStream", "[计算索引] timeMs=" + j + " segmentIndex=" + segmentIndex + " aid=" + this.l + " cid=" + this.m);
                 InputStream is = DanmakuSegmentLoader.loadSegmentDanmakuStream(context, this.l, this.m, segmentIndex);
                 if (is != null) {
                     addInputStream(is);
+                } else {
+                    Log.i("DanmakuStream", "[304响应] segment=" + segmentIndex + " 标记为已加载");
+                    DanmakuDurationManager.getInstance().add((int)cidLong, (int)segmentStartTs, (int)segmentEndTs);
                 }
             } catch (NumberFormatException | DanmakuLoadException e) {
                 BLog.e(a, " load segment danmaku error :" + e.getMessage());
@@ -376,8 +385,31 @@ try{
 
     @Override // tv.danmaku.videoplayer.core.danmaku.IDanmakuRecommendable
     public void setAidAndCid(String str, String str2) {
+        Log.i("DanmakuDoc", "[setAidAndCid] oldAid=" + this.l + " oldCid=" + this.m + " newAid=" + str + " newCid=" + str2);
         this.l = str;
         this.m = str2;
+    }
+    
+    public String getAid() {
+        return this.l;
+    }
+    
+    public String getCid() {
+        return this.m;
+    }
+    
+    public int getCommentStorageSize() {
+        return this.mCommentStorage.size();
+    }
+    
+    public int getInputStreamCount() {
+        return this.j.size();
+    }
+    
+    public void clearCommentStorage() {
+        int size = this.mCommentStorage.size();
+        this.mCommentStorage.clear();
+        Log.i("DanmakuDoc", "[clearCommentStorage] cleared=" + size + " items");
     }
 
     @Override // tv.danmaku.videoplayer.core.danmaku.IDanmakuRecommendable

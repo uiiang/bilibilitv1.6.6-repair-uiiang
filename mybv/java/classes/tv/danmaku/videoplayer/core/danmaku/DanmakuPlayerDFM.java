@@ -54,6 +54,9 @@ public class DanmakuPlayerDFM implements IDanmakuPlayer {
     public static final String DANMAKU_NEW = "new_danmaku";
     private static final float PORTRAIT_TEXT_FACTOR = 0.83f;
     public static final String TAG = "DanmakuPlayerDFM";
+    private static final long DANMAKU_PREFETCH_INTERVAL_MS = 1000;
+    private static final int DANMAKU_PREFETCH_SEGMENTS = 2;
+    private static final int DANMAKU_SEGMENT_SIZE_MS = 360000;
     private DanmakuAnimationTicker mAnimationTicker;
     private IDanmakuDocument mDanmakuDocument;
     private IDanmakuListener mDanmakuListener;
@@ -81,6 +84,9 @@ public class DanmakuPlayerDFM implements IDanmakuPlayer {
     private long mResumePosition = 0;
     private int mPaddingBottom = -1;
     private int mDanmakuShownCount = 0;
+    private long mLastPrefetchTime = 0;
+    private android.os.Handler mPrefetchHandler;
+    private Runnable mPrefetchRunnable;
     private bez.a<Integer> mFlagFilter = new bez.a<Integer>() { // from class: tv.danmaku.videoplayer.core.danmaku.DanmakuPlayerDFM.4
         private static final int FILTER_TYPE_TEMP = 65536;
         public Integer mFlag = 0;
@@ -562,6 +568,8 @@ DanmakuPlayerDFM.this.send_subtitle(DanmakuPlayerDFM.this.subtitle_data);
 
     @Override // tv.danmaku.videoplayer.core.danmaku.IDanmakuPlayer
     public void start(IDanmakuParams iDanmakuParams, IDanmakuDocument iDanmakuDocument, DanmakuAnimationTicker danmakuAnimationTicker, long i) {
+        android.util.Log.i("DanmakuStart", "[start] cid=" + i + " docAid=" + (iDanmakuDocument instanceof bl.yl ? ((bl.yl)iDanmakuDocument).getAid() : "null") + " docCid=" + (iDanmakuDocument instanceof bl.yl ? ((bl.yl)iDanmakuDocument).getCid() : "null"));
+        
         this.mPaused = false;
         this.mDanmakuParams = iDanmakuParams;
         if (this.mInfo == null) {
@@ -573,7 +581,44 @@ DanmakuPlayerDFM.this.send_subtitle(DanmakuPlayerDFM.this.subtitle_data);
         DanmakuConfig.sDanmakuStrokenWidthScaled = DanmakuConfig.sDanmakuStrokenWidth * iDanmakuParams.getDanmakuStorkeWidthScaling();
         this.mDanmakuDocument = iDanmakuDocument;
         this.mAnimationTicker = danmakuAnimationTicker;
-        DanmakuDurationManager.getInstance().clear(i);
+        
+        if (this.mPrefetchHandler == null) {
+            this.mPrefetchHandler = new android.os.Handler();
+        }
+        if (this.mPrefetchRunnable == null) {
+            this.mPrefetchRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    if (mAnimationTicker != null && !mPaused && mParser != null && mParser.isNewDanmaku()) {
+                        long currentPosition = mAnimationTicker.currentOffsetTickMillis();
+                        long now = System.currentTimeMillis();
+                        
+                        if (now - mLastPrefetchTime >= DANMAKU_PREFETCH_INTERVAL_MS) {
+                            mLastPrefetchTime = now;
+                            
+                            int currentSegment = (int)(currentPosition / DANMAKU_SEGMENT_SIZE_MS) + 1;
+                            
+                            for (int i = 0; i <= DANMAKU_PREFETCH_SEGMENTS; i++) {
+                                int targetSegment = currentSegment + i;
+                                long segmentStartTs = (long)(targetSegment - 1) * DANMAKU_SEGMENT_SIZE_MS;
+                                
+                                if (!DanmakuDurationManager.getInstance().illegal(mInfo.mCid, segmentStartTs)) {
+                                    android.util.Log.i("DanmakuPrefetch", "[自动预加载] position=" + currentPosition + " segment=" + targetSegment + " cid=" + mInfo.mCid);
+                                    parseDanamaku(segmentStartTs, 0L);
+                                }
+                            }
+                        }
+                    }
+                    
+                    if (mPrefetchHandler != null) {
+                        mPrefetchHandler.postDelayed(this, DANMAKU_PREFETCH_INTERVAL_MS);
+                    }
+                }
+            };
+        }
+        
+        this.mPrefetchHandler.postDelayed(this.mPrefetchRunnable, DANMAKU_PREFETCH_INTERVAL_MS);
+        
         prepareAndStart();
     }
 
@@ -614,11 +659,22 @@ DanmakuPlayerDFM.this.send_subtitle(DanmakuPlayerDFM.this.subtitle_data);
 
     @Override // tv.danmaku.videoplayer.core.danmaku.IDanmakuPlayer
     public void release() {
+        android.util.Log.i("DanmakuRelease", "[release] cid=" + (this.mInfo != null ? this.mInfo.mCid : "null"));
+        
         this.mResumePosition = 0L;
         this.mPaused = true;
         this.mPrepared = false;
         this.subtitle_data = null;
+        
+        if (this.mPrefetchHandler != null && this.mPrefetchRunnable != null) {
+            this.mPrefetchHandler.removeCallbacks(this.mPrefetchRunnable);
+        }
+        this.mPrefetchHandler = null;
+        this.mPrefetchRunnable = null;
+        this.mLastPrefetchTime = 0;
+        
         if (this.mInfo != null) {
+            android.util.Log.i("DanmakuRelease", "[clearDurationManager] cid=" + this.mInfo.mCid);
             DanmakuDurationManager.getInstance().clear(this.mInfo.mCid);
         }
         ViewGroup viewGroup = this.mRootView;
@@ -673,6 +729,9 @@ DanmakuPlayerDFM.this.send_subtitle(DanmakuPlayerDFM.this.subtitle_data);
         if (this.mDanmakuView != null) {
             this.mDanmakuView.c();
         }
+        if (this.mPrefetchHandler != null && this.mPrefetchRunnable != null) {
+            this.mPrefetchHandler.removeCallbacks(this.mPrefetchRunnable);
+        }
     }
 
     @Override // tv.danmaku.videoplayer.core.danmaku.IDanmakuPlayer
@@ -680,6 +739,9 @@ DanmakuPlayerDFM.this.send_subtitle(DanmakuPlayerDFM.this.subtitle_data);
         this.mPaused = false;
         if (this.mDanmakuView != null) {
             this.mDanmakuView.d();
+        }
+        if (this.mPrefetchHandler != null && this.mPrefetchRunnable != null) {
+            this.mPrefetchHandler.postDelayed(this.mPrefetchRunnable, DANMAKU_PREFETCH_INTERVAL_MS);
         }
     }
 

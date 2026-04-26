@@ -47,6 +47,7 @@ public class BiliVideoDetail implements Parcelable {
     public String mCover;
     @JSONField(name = "pubdate")
     public long mCreatedTimestamp;
+    public String mPubDateText;
     @JSONField(name = "desc")
     public String mDescription;
     @JSONField(name = "downloadable_detail")

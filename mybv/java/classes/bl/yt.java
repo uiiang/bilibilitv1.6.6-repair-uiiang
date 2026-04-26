@@ -17,6 +17,7 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeoutException;
 import tv.danmaku.android.log.BLog;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
+import tv.danmaku.videoplayer.core.danmaku.DanmakuDurationManager;
 import tv.danmaku.videoplayer.core.danmaku.IDanmakuDocument;
 import tv.danmaku.videoplayer.core.danmaku.DanmakuPlayerDFM;
 
@@ -202,16 +203,35 @@ public final class yt {
             IDanmakuDocument doc = yt.this.b.a.mDanmakuParams.getDanmakuDocument();
             if (doc instanceof yl) {
                 yl ylDoc = (yl) doc;
+                String oldAid = ylDoc.getAid();
+                String oldCid = ylDoc.getCid();
+                int oldStorageSize = ylDoc.getCommentStorageSize();
+                int oldStreamCount = ylDoc.getInputStreamCount();
+                
+                Log.i("DanmakuInit", "[分P切换] oldAid=" + oldAid + " oldCid=" + oldCid + 
+                      " newAid=" + aid + " newCid=" + cid + 
+                      " oldStorageSize=" + oldStorageSize + " oldStreamCount=" + oldStreamCount);
+                
                 ylDoc.addAttribute(DanmakuPlayerDFM.DANMAKU_NEW, Boolean.TRUE);
                 ylDoc.setAidAndCid(aid, cid);
                 ylDoc.e = null;
                 ylDoc.clearInputStreams();
-                Log.i("DanmakuInit", "[设置标志] DANMAKU_NEW=true aid=" + aid + " cid=" + cid + " cleared old data");
+                ylDoc.clearCommentStorage();
+                
+                Log.i("DanmakuInit", "[清理完成] storageCleared=true streamsCleared=true");
+                
                 try {
                     InputStream firstSegment = mybl.DanmakuSegmentLoader.loadSegmentDanmakuStream(yt.this.c, aid, cid, 1);
                     if (firstSegment != null) {
                         ylDoc.addInputStream(firstSegment);
-                        Log.i("DanmakuInit", "[初始加载] segment=1 成功");
+                        Log.i("DanmakuInit", "[初始加载] segment=1 成功 aid=" + aid + " cid=" + cid);
+                    }
+                    try {
+                        int cidInt = Integer.parseInt(cid);
+                        DanmakuDurationManager.getInstance().add(cidInt, 0, 6 * 60 * 1000);
+                        Log.i("DanmakuInit", "[记录初始分段] cid=" + cidInt + " segment=1 range=0-360000");
+                    } catch (NumberFormatException e) {
+                        Log.e("DanmakuInit", "[记录初始分段失败] cid parse error: " + cid);
                     }
                 } catch (Exception e) {
                     Log.e("DanmakuInit", "[初始加载] segment=1 失败: " + e.getMessage());
