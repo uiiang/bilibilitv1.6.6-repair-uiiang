@@ -194,6 +194,8 @@ public final class VideoDetailActivity extends BaseActivity
     private Map<Integer, Integer> seasonSectionNavTagFocusPositions = new HashMap<>();
     // 阻止分集列表在初始化时被适配器/绑定逻辑自动抢焦
     private boolean blockEpisodeAutoFocus = true;
+    // 菜单键隐藏内容状态
+    private boolean isContentHidden = false;
     public static final a Companion = new a(null);
     private static final int E = 6;
     private static final int F = E * 2;
@@ -891,6 +893,11 @@ public final class VideoDetailActivity extends BaseActivity
         Integer valueOf2 = keyEvent != null ? Integer.valueOf(keyEvent.getKeyCode()) : null;
         
         if (valueOf != null && valueOf.intValue() == 0) {
+            if (valueOf2 != null && valueOf2.intValue() == KeyEvent.KEYCODE_MENU) {
+                toggleContentVisibility();
+                return true;
+            }
+            
             View currentFocus = getCurrentFocus();
 
             if (currentFocus == null) {
@@ -1012,6 +1019,34 @@ public final class VideoDetailActivity extends BaseActivity
         }
         // android.util.Log.i(FOCUS_TAG, "========== dispatchKeyEvent END ==========");
         return super.dispatchKeyEvent(keyEvent);
+    }
+
+    private void toggleContentVisibility() {
+        isContentHidden = !isContentHidden;
+        
+        View contentLayout = this.m;
+        View gradientMask = this.gradientMaskView;
+        
+        if (isContentHidden) {
+            if (contentLayout != null) {
+                contentLayout.setVisibility(View.GONE);
+            }
+            if (gradientMask != null) {
+                gradientMask.setVisibility(View.GONE);
+            }
+        } else {
+            if (contentLayout != null) {
+                contentLayout.setVisibility(View.VISIBLE);
+            }
+            if (gradientMask != null) {
+                gradientMask.setVisibility(View.VISIBLE);
+            }
+            if (historyPlayBtnLayout != null && historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
+                historyPlayBtnLayout.requestFocus();
+            } else if (rePlayBtnLayout != null && rePlayBtnLayout.getVisibility() == View.VISIBLE) {
+                rePlayBtnLayout.requestFocus();
+            }
+        }
     }
 
     private boolean handleListFocusNavigation(View currentFocus, int direction) {
