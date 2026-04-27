@@ -30,6 +30,8 @@ public class CdnSelector {
     private static final int MIN_SCORE = 0;
     private static final int RACE_TIMEOUT_MS = 5000;
     private static final int SINGLE_TIMEOUT_MS = 2000;
+    private static final int LIVE_RACE_TIMEOUT_MS = 3000;
+    private static final int LIVE_SINGLE_TIMEOUT_MS = 1000;
     private static final int TEST_BYTES = 1024;
     
     private static SharedPreferences prefs;
@@ -72,6 +74,10 @@ public class CdnSelector {
     }
     
     public static RaceResult selectBestUrl(Context context, String videoId, List<CdnUrlInfo> urlInfos) {
+        return selectBestUrl(context, videoId, urlInfos, false);
+    }
+    
+    public static RaceResult selectBestUrl(Context context, String videoId, List<CdnUrlInfo> urlInfos, boolean isLive) {
         if (urlInfos == null || urlInfos.isEmpty()) {
             Log.i(TAG, "selectBestUrl: urlInfos is empty, returning null");
             return null;
@@ -81,7 +87,8 @@ public class CdnSelector {
             init(context);
         }
         
-        Log.i(TAG, "selectBestUrl: videoId=" + videoId + ", urlCount=" + urlInfos.size());
+        int raceTimeout = isLive ? LIVE_RACE_TIMEOUT_MS : RACE_TIMEOUT_MS;
+        Log.i(TAG, "selectBestUrl: videoId=" + videoId + ", urlCount=" + urlInfos.size() + ", isLive=" + isLive + ", raceTimeout=" + raceTimeout + "ms");
         
         for (CdnUrlInfo info : urlInfos) {
             info.score = getCdnScore(info.cdnHost);
@@ -103,13 +110,17 @@ public class CdnSelector {
             tasks.add(new Callable<RaceResult>() {
                 @Override
                 public RaceResult call() throws Exception {
-                    return testUrl(info);
+                    if (isLive) {
+                        return testLiveUrl(info);
+                    } else {
+                        return testUrl(info);
+                    }
                 }
             });
         }
         
         try {
-            List<Future<RaceResult>> futures = executor.invokeAll(tasks, RACE_TIMEOUT_MS, TimeUnit.MILLISECONDS);
+            List<Future<RaceResult>> futures = executor.invokeAll(tasks, raceTimeout, TimeUnit.MILLISECONDS);
             
             for (Future<RaceResult> future : futures) {
                 if (future.isDone() && !future.isCancelled()) {
@@ -122,10 +133,11 @@ public class CdnSelector {
                             
                             updateCdnScore(result.winningCdn, true, false);
                             
-                            Log.d(TAG, "竞速完成 cdn=" + result.winningCdn + " time=" + raceTime + "ms");
+                            Log.i(TAG, "竞速完成 cdn=" + result.winningCdn + " time=" + raceTime + "ms");
                             return result;
                         }
                     } catch (Exception e) {
+                        Log.e(TAG, "竞速任务异常: " + e.getMessage());
                     }
                 }
             }
@@ -134,7 +146,7 @@ public class CdnSelector {
         }
         
         CdnUrlInfo best = urlInfos.get(0);
-        Log.d(TAG, "竞速失败，使用最高分CDN: " + best.cdnHost);
+        Log.w(TAG, "竞速失败，使用最高分CDN: " + best.cdnHost);
         return new RaceResult(best.url, best.cdnHost, 0, false);
     }
     
@@ -171,6 +183,46 @@ public class CdnSelector {
         } catch (Exception e) {
             long failTime = System.currentTimeMillis() - testStart;
             Log.i(TAG, "testUrl: cdn=" + info.cdnHost + ", FAILED in " + failTime + "ms, error=" + e.getMessage());
+        } finally {
+            if (is != null) try { is.close(); } catch (Exception e) {}
+            if (conn != null) try { conn.disconnect(); } catch (Exception e) {}
+        }
+        return null;
+    }
+    
+    private static RaceResult testLiveUrl(CdnUrlInfo info) {
+        long testStart = System.currentTimeMillis();
+        HttpURLConnection conn = null;
+        InputStream is = null;
+        try {
+            URL url = new URL(info.url);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(LIVE_SINGLE_TIMEOUT_MS);
+            conn.setReadTimeout(LIVE_SINGLE_TIMEOUT_MS);
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("User-Agent", "Bilibili Freedoooooom/MarkII");
+            conn.setRequestProperty("Referer", "https://live.bilibili.com/");
+            
+            int responseCode = conn.getResponseCode();
+            long connectTime = System.currentTimeMillis() - testStart;
+            Log.i(TAG, "testLiveUrl: cdn=" + info.cdnHost + ", responseCode=" + responseCode + ", connectTime=" + connectTime + "ms");
+            
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                is = conn.getInputStream();
+                byte[] buffer = new byte[256];
+                int read = is.read(buffer);
+                
+                long totalTime = System.currentTimeMillis() - testStart;
+                Log.i(TAG, "testLiveUrl: cdn=" + info.cdnHost + ", read=" + read + " bytes, totalTime=" + totalTime + "ms, cancelled=" + raceCancelled);
+                if (read > 0 && !raceCancelled) {
+                    return new RaceResult(info.url, info.cdnHost, 0, false);
+                }
+            } else {
+                Log.w(TAG, "testLiveUrl: cdn=" + info.cdnHost + ", 非200响应: " + responseCode);
+            }
+        } catch (Exception e) {
+            long failTime = System.currentTimeMillis() - testStart;
+            Log.w(TAG, "testLiveUrl: cdn=" + info.cdnHost + ", FAILED in " + failTime + "ms, error=" + e.getMessage());
         } finally {
             if (is != null) try { is.close(); } catch (Exception e) {}
             if (conn != null) try { conn.disconnect(); } catch (Exception e) {}

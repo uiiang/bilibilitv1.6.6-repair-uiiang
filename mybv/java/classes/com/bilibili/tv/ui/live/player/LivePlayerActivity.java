@@ -3,7 +3,10 @@ package com.bilibili.tv.ui.live.player;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -22,16 +25,21 @@ import com.bilibili.tv.newplayer.video.LiveVideoPlayer;
 import com.bilibili.tv.newplayer.widget.LivePlayerController;
 import com.bilibili.tv.ui.base.BaseActivity;
 import mybl.CookieUtil;
+import mybl.CdnSelector;
 import bl.mg;
 import u.aly.j;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import mybl.DanmakuClient;
 import mybl.BiliLiveContent;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
 public class LivePlayerActivity extends BaseActivity implements View.OnClickListener, wr {
+    private static final String TAG = "LivePlayerActivity";
     private BiliLiveContent a;
     private String b;
     private String c;
@@ -40,6 +48,8 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
     private boolean f = false;
     private LiveVideoPlayer g;
     private LivePlayerController h;
+    private ExecutorService cdnExecutor;
+    private Handler mainHandler;
 
     public static LivePlayerActivity _this = null;
     public static List<BiliLiveContent> lives = null;
@@ -66,6 +76,9 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
 
     @Override // com.bilibili.tv.ui.base.BaseActivity
     public void a(Bundle bundle) {
+        cdnExecutor = Executors.newSingleThreadExecutor();
+        mainHandler = new Handler(Looper.getMainLooper());
+        
         Intent intent = getIntent();
         if (intent != null) {
             this.a = (BiliLiveContent) intent.getParcelableExtra("bili_live");
@@ -86,8 +99,6 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
         this.g = (LiveVideoPlayer) d(R.id.video_view);
         this.g.setLoadingCover(this.a.mCover);
         this.g.setTitle(this.c);
-        this.g.a(this.b, this.c, Integer.valueOf(this.d));
-        this.g.m();
         this.g.setOnClickListener(this);
         this.g.requestFocus();
         this.h = (LivePlayerController) d(R.id.play_controller);
@@ -103,7 +114,58 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
         this.g.danmakuClient = new DanmakuClient(this.d);
         LivePlayerActivity._this = this;
 
+        startPlaybackWithCdnRace();
         reportLiveHistory();
+    }
+    
+    private void startPlaybackWithCdnRace() {
+        Log.i(TAG, "startPlaybackWithCdnRace: 开始播放流程");
+        
+        if (this.a.mPlayUrls != null && this.a.mPlayUrls.size() > 1) {
+            Log.i(TAG, "startPlaybackWithCdnRace: 有多个URL, 开始CDN竞速, 数量=" + this.a.mPlayUrls.size());
+            cdnExecutor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    long cdnStart = System.currentTimeMillis();
+                    List<CdnSelector.CdnUrlInfo> urlInfos = new ArrayList<>();
+                    for (String url : a.mPlayUrls) {
+                        String cdn = Uri.parse(url).getHost();
+                        int score = CdnSelector.getCdnScore(cdn);
+                        urlInfos.add(new CdnSelector.CdnUrlInfo(url, cdn, score));
+                        Log.i(TAG, "CDN候选: " + cdn + ", score=" + score);
+                    }
+                    CdnSelector.RaceResult result = CdnSelector.selectBestUrl(
+                        LivePlayerActivity.this,
+                        String.valueOf(d),
+                        urlInfos,
+                        true
+                    );
+                    Log.i(TAG, "CDN竞速完成, 耗时=" + (System.currentTimeMillis() - cdnStart) + "ms");
+                    
+                    final String playUrl;
+                    if (result != null && result.winningUrl != null) {
+                        playUrl = result.winningUrl;
+                        Log.i(TAG, "CDN竞速胜出: cdn=" + result.winningCdn + ", raceTime=" + result.raceTime + "ms");
+                    } else {
+                        playUrl = a.mPlayUrls.get(0);
+                        Log.w(TAG, "CDN竞速无结果, 使用第一个URL");
+                    }
+                    
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            b = playUrl;
+                            g.a(b, c, Integer.valueOf(d));
+                            g.m();
+                        }
+                    });
+                }
+            });
+        } else {
+            Log.i(TAG, "startPlaybackWithCdnRace: 只有1个URL, 直接播放");
+            this.g.a(this.b, this.c, Integer.valueOf(this.d));
+            this.g.m();
+        }
     }
 
     @Override // android.app.Activity, android.view.ContextThemeWrapper, android.content.ContextWrapper
@@ -230,6 +292,7 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
     @Override // com.bilibili.tv.ui.base.BaseActivity, android.support.v7.app.AppCompatActivity, android.support.v4.app.FragmentActivity, android.app.Activity
     public void onDestroy() {
         if(this.g != null){this.g.i();}
+        if(cdnExecutor != null){cdnExecutor.shutdownNow();}
         this.e = null;
         super.onDestroy();
     }

@@ -44,25 +44,25 @@
     .locals 1
 
     .prologue
-    .line 52
+    .line 54
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 53
+    .line 55
     iput-object p1, p0, Lmybl/CdnSelector$CdnUrlInfo;->url:Ljava/lang/String;
 
-    .line 54
+    .line 56
     iput-object p2, p0, Lmybl/CdnSelector$CdnUrlInfo;->cdnHost:Ljava/lang/String;
 
-    .line 55
+    .line 57
     iput p3, p0, Lmybl/CdnSelector$CdnUrlInfo;->score:I
 
-    .line 56
+    .line 58
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
 
     iput-object v0, p0, Lmybl/CdnSelector$CdnUrlInfo;->backupUrls:Ljava/util/List;
 
-    .line 57
+    .line 59
     return-void
 .end method

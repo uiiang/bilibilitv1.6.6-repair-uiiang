@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 23
+    .line 25
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -44,7 +44,7 @@
     .locals 1
 
     .prologue
-    .line 23
+    .line 25
     invoke-virtual {p0, p1}, Lmybl/BiliLiveContent$1;->createFromParcel(Landroid/os/Parcel;)Lmybl/BiliLiveContent;
 
     move-result-object v0
@@ -56,7 +56,7 @@
     .locals 1
 
     .prologue
-    .line 27
+    .line 29
     new-instance v0, Lmybl/BiliLiveContent;
 
     invoke-direct {v0, p1}, Lmybl/BiliLiveContent;-><init>(Landroid/os/Parcel;)V
@@ -68,7 +68,7 @@
     .locals 1
 
     .prologue
-    .line 23
+    .line 25
     invoke-virtual {p0, p1}, Lmybl/BiliLiveContent$1;->newArray(I)[Lmybl/BiliLiveContent;
 
     move-result-object v0
@@ -80,7 +80,7 @@
     .locals 1
 
     .prologue
-    .line 33
+    .line 35
     new-array v0, p1, [Lmybl/BiliLiveContent;
 
     return-object v0

@@ -36,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 87
+    .line 91
     iput-object p1, p0, Lmybl/BiliLiveContent$2;->this$0:Lmybl/BiliLiveContent;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -47,10 +47,22 @@
 
 # virtual methods
 .method public call()Ljava/lang/Integer;
-    .locals 3
+    .locals 8
 
     .prologue
-    .line 91
+    .line 94
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+
+    move-result-wide v2
+
+    .line 95
+    const-string v0, "BiliLiveContent"
+
+    const-string v1, "getPlayUrl: \u5f00\u59cbAPI\u8bf7\u6c42"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 96
     new-instance v0, Lbl/qa$a;
 
     const-class v1, Lmybl/BiliLiveContent$playUrlResponse;
@@ -73,9 +85,9 @@
 
     invoke-static {}, Lcom/bilibili/api/BiliConfig;->a()Ljava/lang/String;
 
-    move-result-object v2
+    move-result-object v4
 
-    invoke-virtual {v0, v1, v2}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
+    invoke-virtual {v0, v1, v4}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
 
@@ -83,69 +95,69 @@
 
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
-    move-result-object v2
+    move-result-object v4
 
-    invoke-static {v2}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
+    invoke-static {v4}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
-    move-result-object v2
+    move-result-object v4
 
-    invoke-virtual {v2}, Lbl/mg;->e()Ljava/lang/String;
+    invoke-virtual {v4}, Lbl/mg;->e()Ljava/lang/String;
 
-    move-result-object v2
+    move-result-object v4
 
-    invoke-virtual {v0, v1, v2}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
+    invoke-virtual {v0, v1, v4}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
 
     const-string v1, "room_id"
 
-    iget-object v2, p0, Lmybl/BiliLiveContent$2;->this$0:Lmybl/BiliLiveContent;
+    iget-object v4, p0, Lmybl/BiliLiveContent$2;->this$0:Lmybl/BiliLiveContent;
 
-    iget v2, v2, Lmybl/BiliLiveContent;->mRoomId:I
+    iget v4, v4, Lmybl/BiliLiveContent;->mRoomId:I
 
-    invoke-static {v2}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
+    invoke-static {v4}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
 
-    move-result-object v2
+    move-result-object v4
 
-    invoke-virtual {v0, v1, v2}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
+    invoke-virtual {v0, v1, v4}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
 
     const-string v1, "qn"
 
-    iget-object v2, p0, Lmybl/BiliLiveContent$2;->this$0:Lmybl/BiliLiveContent;
+    iget-object v4, p0, Lmybl/BiliLiveContent$2;->this$0:Lmybl/BiliLiveContent;
 
-    iget v2, v2, Lmybl/BiliLiveContent;->mCurrentQuality:I
+    iget v4, v4, Lmybl/BiliLiveContent;->mCurrentQuality:I
 
-    invoke-static {v2}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
+    invoke-static {v4}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
 
-    move-result-object v2
+    move-result-object v4
 
-    invoke-virtual {v0, v1, v2}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
+    invoke-virtual {v0, v1, v4}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
 
     const-string v1, "protocol"
 
-    const-string v2, "1"
+    const-string v4, "1"
 
-    invoke-virtual {v0, v1, v2}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
+    invoke-virtual {v0, v1, v4}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
 
     const-string v1, "format"
 
-    const-string v2, "1,2"
+    const-string v4, "1,2"
 
-    invoke-virtual {v0, v1, v2}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
+    invoke-virtual {v0, v1, v4}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
 
     const-string v1, "codec"
 
-    const-string v2, "0"
+    const-string v4, "0"
 
-    invoke-virtual {v0, v1, v2}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
+    invoke-virtual {v0, v1, v4}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
 
@@ -175,6 +187,46 @@
 
     move-result v0
 
+    .line 97
+    const-string v1, "BiliLiveContent"
+
+    new-instance v4, Ljava/lang/StringBuilder;
+
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v5, "getPlayUrl: API\u8bf7\u6c42\u5b8c\u6210, \u8017\u65f6="
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+
+    move-result-wide v6
+
+    sub-long v2, v6, v2
+
+    invoke-virtual {v4, v2, v3}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, "ms, result="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 98
     invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
     move-result-object v0
@@ -191,7 +243,7 @@
     .end annotation
 
     .prologue
-    .line 87
+    .line 91
     invoke-virtual {p0}, Lmybl/BiliLiveContent$2;->call()Ljava/lang/Integer;
 
     move-result-object v0

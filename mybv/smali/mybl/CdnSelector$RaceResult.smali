@@ -29,21 +29,21 @@
     .locals 1
 
     .prologue
-    .line 66
+    .line 68
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 67
+    .line 69
     iput-object p1, p0, Lmybl/CdnSelector$RaceResult;->winningUrl:Ljava/lang/String;
 
-    .line 68
+    .line 70
     iput-object p2, p0, Lmybl/CdnSelector$RaceResult;->winningCdn:Ljava/lang/String;
 
-    .line 69
+    .line 71
     iput-wide p3, p0, Lmybl/CdnSelector$RaceResult;->raceTime:J
 
-    .line 70
+    .line 72
     iput-boolean p5, p0, Lmybl/CdnSelector$RaceResult;->fromCache:Z
 
-    .line 71
+    .line 73
     return-void
 .end method

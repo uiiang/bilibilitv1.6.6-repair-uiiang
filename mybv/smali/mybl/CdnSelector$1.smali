@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lmybl/CdnSelector;->selectBestUrl(Landroid/content/Context;Ljava/lang/String;Ljava/util/List;)Lmybl/CdnSelector$RaceResult;
+    value = Lmybl/CdnSelector;->selectBestUrl(Landroid/content/Context;Ljava/lang/String;Ljava/util/List;Z)Lmybl/CdnSelector$RaceResult;
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 91
+    .line 98
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -44,7 +44,7 @@
     .locals 1
 
     .prologue
-    .line 91
+    .line 98
     check-cast p1, Lmybl/CdnSelector$CdnUrlInfo;
 
     check-cast p2, Lmybl/CdnSelector$CdnUrlInfo;
@@ -60,7 +60,7 @@
     .locals 2
 
     .prologue
-    .line 94
+    .line 101
     iget v0, p2, Lmybl/CdnSelector$CdnUrlInfo;->score:I
 
     iget v1, p1, Lmybl/CdnSelector$CdnUrlInfo;->score:I
