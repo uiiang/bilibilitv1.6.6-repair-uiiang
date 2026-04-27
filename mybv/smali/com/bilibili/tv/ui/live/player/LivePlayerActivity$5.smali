@@ -34,7 +34,7 @@
     .locals 0
 
     .prologue
-    .line 308
+    .line 314
     iput-object p1, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$5;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     invoke-direct {p0}, Lbl/vm;-><init>()V
@@ -48,7 +48,7 @@
     .locals 3
 
     .prologue
-    .line 316
+    .line 322
     const-string v0, "LivePlayerActivity"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -75,7 +75,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 317
+    .line 323
     return-void
 .end method
 
@@ -92,14 +92,14 @@
     .end annotation
 
     .prologue
-    .line 311
+    .line 317
     const-string v0, "LivePlayerActivity"
 
     const-string v1, "reportLiveHistory success"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 312
+    .line 318
     return-void
 .end method
 
@@ -107,7 +107,7 @@
     .locals 0
 
     .prologue
-    .line 308
+    .line 314
     check-cast p1, Lcom/bilibili/okretro/GeneralResponse;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$5;->onSuccess(Lcom/bilibili/okretro/GeneralResponse;)V

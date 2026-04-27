@@ -82,6 +82,7 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
         Intent intent = getIntent();
         if (intent != null) {
             this.a = (BiliLiveContent) intent.getParcelableExtra("bili_live");
+            Log.i(TAG, "a(Bundle): hasPlayUrl=" + this.a.hasPlayUrl() + ", mPlayUrl=" + (this.a.mPlayUrl != null ? this.a.mPlayUrl.substring(0, Math.min(50, this.a.mPlayUrl.length())) : "null"));
             if(this.a.hasPlayUrl()){
                 this.a.getPlayUrl();
             }
@@ -154,9 +155,11 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
                     mainHandler.post(new Runnable() {
                         @Override
                         public void run() {
+                            Log.i(TAG, "开始播放: url=" + playUrl.substring(0, Math.min(80, playUrl.length())));
                             b = playUrl;
                             g.a(b, c, Integer.valueOf(d));
                             g.m();
+                            Log.i(TAG, "播放命令已发送");
                         }
                     });
                 }
@@ -227,6 +230,8 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
     }
 
     public void refresh() {
+        Log.i(TAG, "refresh: 被调用, live_index=" + live_index);
+        Log.i(TAG, "refresh: 调用堆栈: " + android.util.Log.getStackTraceString(new Throwable()));
         finish();
         startActivity(LivePlayerActivity.a(this, LivePlayerActivity.lives.get(LivePlayerActivity.live_index)));
     }
@@ -291,6 +296,7 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
     /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.bilibili.tv.ui.base.BaseActivity, android.support.v7.app.AppCompatActivity, android.support.v4.app.FragmentActivity, android.app.Activity
     public void onDestroy() {
+        Log.i(TAG, "onDestroy: 被调用");
         if(this.g != null){this.g.i();}
         if(cdnExecutor != null){cdnExecutor.shutdownNow();}
         this.e = null;

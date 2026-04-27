@@ -210,7 +210,7 @@ public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.
 
     @Override // tv.danmaku.ijk.media.player.IjkMediaPlayer.OnNativeInvokeListener
     public boolean onNativeInvoke(int what, Bundle args) {
-        BLog.i("IjkCommander", "onNativeInvoke,what:" + what + ", args size:" + args.size());
+        android.util.Log.i("IjkCommander", "onNativeInvoke,what:" + what + ", args size:" + args.size());
         switch (what) {
             case IVideoView.OnExtraInfoListener.CTRL_WILL_CONCAT_RESOLVE_SEGMENT_SYS /* 65573 */:
             case IVideoView.OnExtraInfoListener.CTRL_WILL_CONCAT_RESOLVE_SEGMENT /* 131079 */:
@@ -222,19 +222,20 @@ public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.
                 try{
                     String url = args.getString("url", "");
                     String expiresStr = Uri.parse(url).getQueryParameter("expires");
-                    BLog.i("IjkCommander", "url=" + url + ", expires=" + expiresStr);
+                    android.util.Log.i("IjkCommander", "url=" + url + ", expires=" + expiresStr);
                     if (expiresStr != null && !expiresStr.isEmpty()) {
-                        Long expires = Long.valueOf(expiresStr);
+                        long expires = Long.parseLong(expiresStr);
                         int http_code = args.getInt("http_code", 0);
-                        BLog.i("IjkCommander", "http_code=" + http_code + ", expires=" + expires + ", currentTime=" + System.currentTimeMillis());
-                        if(http_code==403 && System.currentTimeMillis()>expires){
-                            BLog.i("IjkCommander", "触发refresh");
+                        long currentTimeSeconds = System.currentTimeMillis() / 1000;
+                        android.util.Log.i("IjkCommander", "http_code=" + http_code + ", expires=" + expires + ", currentTime=" + currentTimeSeconds);
+                        if(http_code==403 && currentTimeSeconds > expires){
+                            android.util.Log.i("IjkCommander", "触发refresh");
                             LivePlayerActivity._this.refresh();
                         }
                     }
                 }
                 catch(Exception e){
-                    BLog.e("IjkCommander", "onNativeInvoke error: " + e.getMessage());
+                    android.util.Log.e("IjkCommander", "onNativeInvoke error: " + e.getMessage());
                     e.printStackTrace();
                 }
                 return true;
@@ -261,10 +262,10 @@ public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.
         ((IjkMediaPlayer) this.h).setOnNativeInvokeListener(this);
 
 
-        //((IjkMediaPlayer) this.h).setOption(1, "user_agent", "Bilibili Freedoooooom/MarkII");
-        //if(((wo) message.obj).a().indexOf("platform=web")>=0){
-        //    ((IjkMediaPlayer) this.h).setOption(1, "headers", "Referer: https://www.bilibili.com\r\n");
-        //}
+        ((IjkMediaPlayer) this.h).setOption(1, "user_agent", "Bilibili Freedoooooom/MarkII");
+        if(((wo) message.obj).a().indexOf("platform=web")>=0){
+            ((IjkMediaPlayer) this.h).setOption(1, "headers", "Referer: https://www.bilibili.com\r\n");
+        }
         try{
             ((IjkMediaPlayer) this.h).setDataSource(((wo) message.obj).a(), ((wo) message.obj).b());
         }catch(Exception e){}
