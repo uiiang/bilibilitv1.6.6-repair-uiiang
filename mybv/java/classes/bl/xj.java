@@ -45,6 +45,7 @@ public class xj extends xh {
     private boolean outroPromptShown = false;
     private boolean userSeekedToIntro = false;
     private java.util.Set<String> skippedSegments = new java.util.HashSet<>();
+    private boolean chapterTipShown = false;
 
     @Override // tv.danmaku.ijk.media.player.IMediaPlayer.OnInfoListener
     public boolean onInfo2(IMediaPlayer iMediaPlayer, int i, int i2, long j) {
@@ -149,6 +150,7 @@ public class xj extends xh {
                     android.util.Log.i("SkipDebug", "EXEC INTRO: t=" + t);
                     if(this.c==null)Q();
                     if(this.c==null)return;
+                    a(this.j);
                     this.c.setText("侦测到片头，已空降至"+aan.a(end));
                     this.c.clearAnimation();
                     if(this.k!=null)this.k.reset();
@@ -163,6 +165,7 @@ public class xj extends xh {
                     android.util.Log.i("SkipDebug", "EXEC OUTRO: t=" + t);
                     if(this.c==null)Q();
                     if(this.c==null)return;
+                    a(this.j);
                     this.c.setText("侦测到片尾，即将结束");
                     this.c.clearAnimation();
                     if(this.k!=null)this.k.reset();
@@ -178,6 +181,7 @@ public class xj extends xh {
                     android.util.Log.i("SkipDebug", "EXEC " + type + ": t=" + t + ", start=" + start + ", end=" + end);
                     if(this.c==null)Q();
                     if(this.c==null)return;
+                    a(this.j);
                     this.c.setText("侦测到" + type + "，已空降至"+aan.a(end));
                     this.c.clearAnimation();
                     if(this.k!=null)this.k.reset();
@@ -216,6 +220,7 @@ public class xj extends xh {
         this.outroPromptShown = false;
         this.userSeekedToIntro = false;
         this.skippedSegments.clear();
+        this.chapterTipShown = false;
     }
 
     private void P() {
@@ -271,8 +276,14 @@ public class xj extends xh {
         if (view_points == null || view_points.length() <= 0) {
             return;
         }
+        if (this.chapterTipShown) {
+            Log.i("xj", "[showChapterTip] already shown, skip duplicate call");
+            return;
+        }
+        this.chapterTipShown = true;
         if (this.c == null) Q();
         if (this.c == null) return;
+        a(this.j);
         String chapterText = lp.a(o().getString(R.string.player_chapter_tip), String.valueOf(view_points.length()));
         this.c.setText(chapterText);
         this.c.clearAnimation();
