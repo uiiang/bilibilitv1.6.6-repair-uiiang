@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 90
+    .line 91
     iput-object p1, p0, Lbl/xj$1$1;->this$1:Lbl/xj$1;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 3
 
     .prologue
-    .line 105
+    .line 106
     const-string v0, "xj"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -67,7 +67,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 106
+    .line 107
     return-void
 .end method
 
@@ -75,14 +75,14 @@
     .locals 2
 
     .prologue
-    .line 93
+    .line 94
     iget-object v0, p0, Lbl/xj$1$1;->this$1:Lbl/xj$1;
 
     iget-object v0, v0, Lbl/xj$1;->val$activity:Landroid/app/Activity;
 
     if-eqz v0, :cond_12
 
-    .line 94
+    .line 95
     iget-object v0, p0, Lbl/xj$1$1;->this$1:Lbl/xj$1;
 
     iget-object v0, v0, Lbl/xj$1;->val$activity:Landroid/app/Activity;
@@ -93,7 +93,7 @@
 
     invoke-virtual {v0, v1}, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
 
-    .line 101
+    .line 102
     :cond_12
     return-void
 .end method

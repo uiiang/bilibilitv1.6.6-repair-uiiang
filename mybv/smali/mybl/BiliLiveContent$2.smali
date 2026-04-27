@@ -139,7 +139,7 @@
 
     const-string v1, "protocol"
 
-    const-string v4, "1"
+    const-string v4, "0,1"
 
     invoke-virtual {v0, v1, v4}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
 
@@ -147,7 +147,7 @@
 
     const-string v1, "format"
 
-    const-string v4, "1,2"
+    const-string v4, "0,1,2"
 
     invoke-virtual {v0, v1, v4}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
 
@@ -155,7 +155,7 @@
 
     const-string v1, "codec"
 
-    const-string v4, "0"
+    const-string v4, "0,1"
 
     invoke-virtual {v0, v1, v4}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
 

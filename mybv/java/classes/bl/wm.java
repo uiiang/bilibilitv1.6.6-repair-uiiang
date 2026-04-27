@@ -210,7 +210,7 @@ public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.
 
     @Override // tv.danmaku.ijk.media.player.IjkMediaPlayer.OnNativeInvokeListener
     public boolean onNativeInvoke(int what, Bundle args) {
-        BLog.i("IjkCommander", "onNativeInvoke,what:" + i + ", args size:" + args.size());
+        BLog.i("IjkCommander", "onNativeInvoke,what:" + what + ", args size:" + args.size());
         switch (what) {
             case IVideoView.OnExtraInfoListener.CTRL_WILL_CONCAT_RESOLVE_SEGMENT_SYS /* 65573 */:
             case IVideoView.OnExtraInfoListener.CTRL_WILL_CONCAT_RESOLVE_SEGMENT /* 131079 */:
@@ -221,13 +221,20 @@ public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.
             default:
                 try{
                     String url = args.getString("url", "");
-                    Long expires = Long.valueOf(Uri.parse(url).getQueryParameter("expires"));
-                    int http_code = args.getInt("http_code", 0);
-                    if(http_code==403 && System.currentTimeMillis()>expires){
-                        LivePlayerActivity._this.refresh();
+                    String expiresStr = Uri.parse(url).getQueryParameter("expires");
+                    BLog.i("IjkCommander", "url=" + url + ", expires=" + expiresStr);
+                    if (expiresStr != null && !expiresStr.isEmpty()) {
+                        Long expires = Long.valueOf(expiresStr);
+                        int http_code = args.getInt("http_code", 0);
+                        BLog.i("IjkCommander", "http_code=" + http_code + ", expires=" + expires + ", currentTime=" + System.currentTimeMillis());
+                        if(http_code==403 && System.currentTimeMillis()>expires){
+                            BLog.i("IjkCommander", "触发refresh");
+                            LivePlayerActivity._this.refresh();
+                        }
                     }
                 }
                 catch(Exception e){
+                    BLog.e("IjkCommander", "onNativeInvoke error: " + e.getMessage());
                     e.printStackTrace();
                 }
                 return true;

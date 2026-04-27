@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 94
+    .line 95
     iput-object p1, p0, Lbl/xj$1$1$1;->this$2:Lbl/xj$1$1;
 
     iput-object p2, p0, Lbl/xj$1$1$1;->val$view_points:Lorg/json/JSONArray;
@@ -44,7 +44,7 @@
     .locals 2
 
     .prologue
-    .line 97
+    .line 98
     iget-object v0, p0, Lbl/xj$1$1$1;->this$2:Lbl/xj$1$1;
 
     iget-object v0, v0, Lbl/xj$1$1;->this$1:Lbl/xj$1;
@@ -56,6 +56,6 @@
     # invokes: Lbl/xj;->showChapterTip(Lorg/json/JSONArray;)V
     invoke-static {v0, v1}, Lbl/xj;->access$000(Lbl/xj;Lorg/json/JSONArray;)V
 
-    .line 98
+    .line 99
     return-void
 .end method
