@@ -2633,6 +2633,8 @@ public final class R {
         public static final int shot_seekbar_group = 0x7f080219;
         public static final int shot_seekbar_include = 0x7f08021a;
         public static final int shot_divider = 0x7f08021b;
+        public static final int tab_live = 0x7f08021c;
+        public static final int bottom_info_layout = 0x7f08021d;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;

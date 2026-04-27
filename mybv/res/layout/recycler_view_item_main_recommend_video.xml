@@ -20,10 +20,15 @@
       app:placeholderImageScaleType="centerInside" app:roundedCornerRadius="@dimen/px_12" />
     <ImageView android:id="@id/tag" android:focusable="false" android:layout_width="@dimen/px_60"
       android:layout_height="@dimen/px_60" />
-    <TextView android:textSize="@dimen/px_40" android:textColor="@color/white"
+    <TextView android:textSize="@dimen/px_24" android:textColor="@color/white"
       android:gravity="center" android:id="@id/tag_text" android:focusable="false"
-      android:layout_width="@dimen/px_60" android:layout_height="@dimen/px_60" />
+      android:layout_width="wrap_content" android:layout_height="wrap_content"
+      android:layout_gravity="top|right"
+      android:paddingLeft="@dimen/px_10" android:paddingRight="@dimen/px_10"
+      android:paddingTop="@dimen/px_4" android:paddingBottom="@dimen/px_4"
+      android:background="@drawable/badge_round_bg" />
     <LinearLayout
+      android:id="@+id/bottom_info_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="bottom"

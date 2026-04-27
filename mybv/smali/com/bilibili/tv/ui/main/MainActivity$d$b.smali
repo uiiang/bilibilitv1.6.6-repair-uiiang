@@ -28,15 +28,15 @@
     .locals 0
 
     .prologue
-    .line 675
+    .line 681
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/MainActivity$d$b;->this$0:Lcom/bilibili/tv/ui/main/MainActivity$d;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 676
+    .line 682
     iput p2, p0, Lcom/bilibili/tv/ui/main/MainActivity$d$b;->b:I
 
-    .line 677
+    .line 683
     return-void
 .end method
 
@@ -46,40 +46,40 @@
     .locals 4
 
     .prologue
-    .line 681
+    .line 687
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 682
+    .line 688
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    .line 683
+    .line 689
     const-string v1, "v.context"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 684
+    .line 690
     invoke-static {v0}, Lbl/adl;->a(Landroid/content/Context;)Landroid/app/Activity;
 
     move-result-object v0
 
-    .line 685
+    .line 691
     if-eqz v0, :cond_32
 
-    .line 686
+    .line 692
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/MainActivity$d$b;->this$0:Lcom/bilibili/tv/ui/main/MainActivity$d;
 
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/main/MainActivity$d;->a()I
 
     move-result v1
 
-    .line 687
+    .line 693
     add-int/lit8 v1, v1, -0x1
 
-    .line 688
+    .line 694
     iget-object v2, p0, Lcom/bilibili/tv/ui/main/MainActivity$d$b;->this$0:Lcom/bilibili/tv/ui/main/MainActivity$d;
 
     iget v3, p0, Lcom/bilibili/tv/ui/main/MainActivity$d$b;->b:I
@@ -88,12 +88,12 @@
 
     move-result v2
 
-    .line 689
+    .line 695
     iget v3, p0, Lcom/bilibili/tv/ui/main/MainActivity$d$b;->b:I
 
     if-nez v3, :cond_33
 
-    .line 690
+    .line 696
     sget-object v1, Lcom/bilibili/tv/ui/search/SearchActivity;->Companion:Lcom/bilibili/tv/ui/search/SearchActivity$a;
 
     const/4 v2, 0x0
@@ -104,18 +104,18 @@
 
     invoke-virtual {v1, v0, v2}, Lcom/bilibili/tv/ui/search/SearchActivity$a;->a(Landroid/content/Context;Ljava/lang/Integer;)V
 
-    .line 703
+    .line 713
     :cond_32
     :goto_32
     return-void
 
-    .line 691
+    .line 697
     :cond_33
     iget v3, p0, Lcom/bilibili/tv/ui/main/MainActivity$d$b;->b:I
 
     if-ne v3, v1, :cond_43
 
-    .line 692
+    .line 698
     sget-object v1, Lcom/bilibili/tv/ui/setting/SettingActivity;->Companion:Lcom/bilibili/tv/ui/setting/SettingActivity$a;
 
     sget-object v2, Lcom/bilibili/tv/ui/setting/SettingActivity;->Companion:Lcom/bilibili/tv/ui/setting/SettingActivity$a;
@@ -128,39 +128,57 @@
 
     goto :goto_32
 
-    .line 693
+    .line 699
     :cond_43
     const/4 v0, 0x1
 
     if-ne v2, v0, :cond_50
 
-    .line 694
+    .line 700
     sget-object v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->_this:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     if-eqz v0, :cond_32
 
-    .line 695
+    .line 701
     sget-object v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->_this:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->getRecommendVideos()V
 
     goto :goto_32
 
-    .line 697
+    .line 703
     :cond_50
     const/4 v0, 0x2
 
-    if-ne v2, v0, :cond_32
+    if-ne v2, v0, :cond_5d
 
-    .line 698
+    .line 704
     sget-object v0, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->_this:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     if-eqz v0, :cond_32
 
-    .line 699
+    .line 705
     sget-object v0, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->_this:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->getHotVideos()V
+
+    goto :goto_32
+
+    .line 707
+    :cond_5d
+    const/4 v0, 0x3
+
+    if-ne v2, v0, :cond_32
+
+    .line 708
+    sget-object v0, Lcom/bilibili/tv/ui/main/content/MainLiveFragment;->_this:Lcom/bilibili/tv/ui/main/content/MainLiveFragment;
+
+    if-eqz v0, :cond_32
+
+    .line 709
+    sget-object v0, Lcom/bilibili/tv/ui/main/content/MainLiveFragment;->_this:Lcom/bilibili/tv/ui/main/content/MainLiveFragment;
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainLiveFragment;->getLiveVideos()V
 
     goto :goto_32
 .end method

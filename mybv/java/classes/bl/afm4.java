@@ -30,6 +30,7 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
 
     private DrawFrameLayout tabPersonalRecommend;
     private DrawFrameLayout tabHotRecommend;
+    private DrawFrameLayout tabLive;
     private DrawFrameLayout tabArea;
     private DrawFrameLayout tabBangumi;
     private DrawFrameLayout tabPgc;
@@ -139,24 +140,28 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
 
         this.tabPersonalRecommend = (DrawFrameLayout) inflate.findViewById(R.id.tab_personal_recommend);
         this.tabHotRecommend = (DrawFrameLayout) inflate.findViewById(R.id.tab_hot_recommend);
+        this.tabLive = (DrawFrameLayout) inflate.findViewById(R.id.tab_live);
         this.tabArea = (DrawFrameLayout) inflate.findViewById(R.id.tab_area);
         this.tabBangumi = (DrawFrameLayout) inflate.findViewById(R.id.tab_bangumi);
         this.tabPgc = (DrawFrameLayout) inflate.findViewById(R.id.tab_pgc);
 
         this.tabPersonalRecommend.setUpDrawable(R.drawable.shadow_white_rect);
         this.tabHotRecommend.setUpDrawable(R.drawable.shadow_white_rect);
+        this.tabLive.setUpDrawable(R.drawable.shadow_white_rect);
         this.tabArea.setUpDrawable(R.drawable.shadow_white_rect);
         this.tabBangumi.setUpDrawable(R.drawable.shadow_white_rect);
         this.tabPgc.setUpDrawable(R.drawable.shadow_white_rect);
 
         this.tabPersonalRecommend.setOnFocusChangeListener(this);
         this.tabHotRecommend.setOnFocusChangeListener(this);
+        this.tabLive.setOnFocusChangeListener(this);
         this.tabArea.setOnFocusChangeListener(this);
         this.tabBangumi.setOnFocusChangeListener(this);
         this.tabPgc.setOnFocusChangeListener(this);
 
         this.tabPersonalRecommend.setOnClickListener(this);
         this.tabHotRecommend.setOnClickListener(this);
+        this.tabLive.setOnClickListener(this);
         this.tabArea.setOnClickListener(this);
         this.tabBangumi.setOnClickListener(this);
         this.tabPgc.setOnClickListener(this);
@@ -164,6 +169,7 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         int topTabConfig = abd.get_top_tab_config(getActivity());
         updateTopTabButtonState(this.tabPersonalRecommend, (topTabConfig & abd.TAB_PERSONAL_RECOMMEND) != 0);
         updateTopTabButtonState(this.tabHotRecommend, (topTabConfig & abd.TAB_HOT_RECOMMEND) != 0);
+        updateTopTabButtonState(this.tabLive, (topTabConfig & abd.TAB_LIVE) != 0);
         updateTopTabButtonState(this.tabArea, (topTabConfig & abd.TAB_AREA) != 0);
         updateTopTabButtonState(this.tabBangumi, (topTabConfig & abd.TAB_BANGUMI) != 0);
         updateTopTabButtonState(this.tabPgc, (topTabConfig & abd.TAB_PGC) != 0);
@@ -334,13 +340,16 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         }
 
         if (view == this.tabPersonalRecommend || view == this.tabHotRecommend ||
-                view == this.tabArea || view == this.tabBangumi || view == this.tabPgc) {
+                view == this.tabLive || view == this.tabArea || 
+                view == this.tabBangumi || view == this.tabPgc) {
             int config = abd.get_top_tab_config(getActivity());
             int flag = 0;
             if (view == this.tabPersonalRecommend)
                 flag = abd.TAB_PERSONAL_RECOMMEND;
             else if (view == this.tabHotRecommend)
                 flag = abd.TAB_HOT_RECOMMEND;
+            else if (view == this.tabLive)
+                flag = abd.TAB_LIVE;
             else if (view == this.tabArea)
                 flag = abd.TAB_AREA;
             else if (view == this.tabBangumi)
@@ -479,6 +488,9 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
                 allTabsNoFocus = false;
             }
             if (allTabsNoFocus && this.tabHotRecommend != null && this.tabHotRecommend.hasFocus()) {
+                allTabsNoFocus = false;
+            }
+            if (allTabsNoFocus && this.tabLive != null && this.tabLive.hasFocus()) {
                 allTabsNoFocus = false;
             }
             if (allTabsNoFocus && this.tabArea != null && this.tabArea.hasFocus()) {

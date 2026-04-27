@@ -18,7 +18,7 @@
 
     .prologue
     .line 14
-    const/4 v0, 0x5
+    const/4 v0, 0x6
 
     new-array v0, v0, [Ljava/lang/String;
 
@@ -49,6 +49,12 @@
     const/4 v1, 0x4
 
     const-string v2, "/x/web-interface/wbi/view"
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x5
+
+    const-string v2, "/xlive/web-interface/v1/index/getList"
 
     aput-object v2, v0, v1
 
@@ -83,12 +89,12 @@
     .end annotation
 
     .prologue
-    .line 60
+    .line 61
     new-instance v1, Ljava/util/TreeMap;
 
     invoke-direct {v1}, Ljava/util/TreeMap;-><init>()V
 
-    .line 61
+    .line 62
     invoke-virtual {p1}, Lokhttp3/HttpUrl;->queryParameterNames()Ljava/util/Set;
 
     move-result-object v0
@@ -111,20 +117,20 @@
 
     check-cast v0, Ljava/lang/String;
 
-    .line 62
+    .line 63
     invoke-virtual {p1, v0}, Lokhttp3/HttpUrl;->queryParameter(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v3
 
-    .line 63
+    .line 64
     if-eqz v3, :cond_d
 
-    .line 64
+    .line 65
     invoke-virtual {v1, v0, v3}, Ljava/util/TreeMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
     goto :goto_d
 
-    .line 67
+    .line 68
     :cond_23
     return-object v1
 .end method
@@ -135,7 +141,7 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 51
+    .line 52
     sget-object v2, Lmybl/WbiSignInterceptor;->WBI_PATHS:[Ljava/lang/String;
 
     array-length v3, v2
@@ -147,21 +153,21 @@
 
     aget-object v4, v2, v1
 
-    .line 52
+    .line 53
     invoke-virtual {p1, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
     move-result v4
 
     if-eqz v4, :cond_11
 
-    .line 53
+    .line 54
     const/4 v0, 0x1
 
-    .line 56
+    .line 57
     :cond_10
     return v0
 
-    .line 51
+    .line 52
     :cond_11
     add-int/lit8 v1, v1, 0x1
 
@@ -179,34 +185,34 @@
     .end annotation
 
     .prologue
-    .line 25
+    .line 26
     invoke-interface {p1}, Lokhttp3/Interceptor$Chain;->request()Lokhttp3/Request;
 
     move-result-object v0
 
-    .line 26
+    .line 27
     invoke-virtual {v0}, Lokhttp3/Request;->url()Lokhttp3/HttpUrl;
 
     move-result-object v1
 
-    .line 27
+    .line 28
     invoke-virtual {v1}, Lokhttp3/HttpUrl;->encodedPath()Ljava/lang/String;
 
     move-result-object v2
 
-    .line 29
+    .line 30
     invoke-direct {p0, v2}, Lmybl/WbiSignInterceptor;->needsWbiSign(Ljava/lang/String;)Z
 
     move-result v2
 
     if-eqz v2, :cond_59
 
-    .line 30
+    .line 31
     invoke-direct {p0, v1}, Lmybl/WbiSignInterceptor;->extractParams(Lokhttp3/HttpUrl;)Ljava/util/TreeMap;
 
     move-result-object v2
 
-    .line 31
+    .line 32
     invoke-static {}, Lmybl/WbiSigner;->getInstance()Lmybl/WbiSigner;
 
     move-result-object v3
@@ -215,40 +221,40 @@
 
     move-result-object v2
 
-    .line 33
+    .line 34
     if-eqz v2, :cond_59
 
-    .line 34
+    .line 35
     invoke-virtual {v1}, Lokhttp3/HttpUrl;->newBuilder()Lokhttp3/HttpUrl$Builder;
 
     move-result-object v1
 
-    .line 35
+    .line 36
     invoke-virtual {v1, v2}, Lokhttp3/HttpUrl$Builder;->query(Ljava/lang/String;)Lokhttp3/HttpUrl$Builder;
 
     move-result-object v1
 
-    .line 36
+    .line 37
     invoke-virtual {v1}, Lokhttp3/HttpUrl$Builder;->build()Lokhttp3/HttpUrl;
 
     move-result-object v1
 
-    .line 38
+    .line 39
     invoke-virtual {v0}, Lokhttp3/Request;->newBuilder()Lokhttp3/Request$Builder;
 
     move-result-object v0
 
-    .line 39
+    .line 40
     invoke-virtual {v0, v1}, Lokhttp3/Request$Builder;->url(Lokhttp3/HttpUrl;)Lokhttp3/Request$Builder;
 
     move-result-object v0
 
-    .line 40
+    .line 41
     invoke-virtual {v0}, Lokhttp3/Request$Builder;->build()Lokhttp3/Request;
 
     move-result-object v0
 
-    .line 42
+    .line 43
     const-string v2, "WbiSignInterceptor"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -275,12 +281,12 @@
 
     invoke-static {v2, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 43
+    .line 44
     invoke-interface {p1, v0}, Lokhttp3/Interceptor$Chain;->proceed(Lokhttp3/Request;)Lokhttp3/Response;
 
     move-result-object v0
 
-    .line 47
+    .line 48
     :goto_58
     return-object v0
 

@@ -654,6 +654,37 @@
     .end annotation
 .end method
 
+.method public abstract getLiveList(Ljava/lang/String;)Lbl/vp;
+    .param p1    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            ")",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Lcom/alibaba/fastjson/JSONObject;",
+            ">;>;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/GET;
+        value = "https://api.live.bilibili.com/xlive/web-interface/v1/index/getList"
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/Headers;
+        value = {
+            "Referer: https://live.bilibili.com/"
+        }
+    .end annotation
+.end method
+
 .method public abstract getPgcInfos()Lbl/vp;
     .annotation system Ldalvik/annotation/Signature;
         value = {

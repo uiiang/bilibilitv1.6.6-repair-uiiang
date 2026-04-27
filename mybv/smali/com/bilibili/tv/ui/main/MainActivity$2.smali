@@ -23,7 +23,7 @@
     .locals 3
 
     .prologue
-    .line 934
+    .line 944
     invoke-static {}, Lcom/bilibili/lib/account/subscribe/Topic;->values()[Lcom/bilibili/lib/account/subscribe/Topic;
 
     move-result-object v0

@@ -68,6 +68,7 @@ import kotlin.TypeCastException;
 
 import com.bilibili.tv.ui.main.content.MainRecommendFragment;
 import com.bilibili.tv.ui.main.content.MainHotFragment;
+import com.bilibili.tv.ui.main.content.MainLiveFragment;
 import com.bilibili.tv.ui.main.content.MainMyFragment;
 
 /* compiled from: BL */
@@ -598,27 +599,32 @@ public final class MainActivity extends BaseActivity {
                 this.tabMapping[position] = 2;
                 position++;
             }
+            if ((topTabConfig & abd.TAB_LIVE) != 0) {
+                this.b.put(position, new MainTitle(e, R.string.live));
+                this.tabMapping[position] = 3;
+                position++;
+            }
             if ((topTabConfig & abd.TAB_AREA) != 0) {
                 this.b.put(position, new MainTitle(e, R.string.area));
-                this.tabMapping[position] = 3;
+                this.tabMapping[position] = 4;
                 position++;
             }
             if ((topTabConfig & abd.TAB_BANGUMI) != 0) {
                 this.b.put(position, new MainTitle(e, R.string.bangumi));
-                this.tabMapping[position] = 4;
+                this.tabMapping[position] = 5;
                 position++;
             }
             if ((topTabConfig & abd.TAB_PGC) != 0) {
                 this.b.put(position, new MainTitle(e, R.string.pgc));
-                this.tabMapping[position] = 5;
+                this.tabMapping[position] = 6;
                 position++;
             }
             
             this.b.put(position, new MainTitle(e, R.string.my));
-            this.tabMapping[position] = 6;
+            this.tabMapping[position] = 7;
             position++;
             this.b.put(position, new MainTitle(f, R.drawable.selector_main_setting));
-            this.tabMapping[position] = 7;
+            this.tabMapping[position] = 8;
         }
 
         public final int getTabType(int position) {
@@ -697,6 +703,10 @@ public final class MainActivity extends BaseActivity {
                     } else if (tabType == 2) {
                         if (MainHotFragment._this != null) {
                             MainHotFragment._this.getHotVideos();
+                        }
+                    } else if (tabType == 3) {
+                        if (MainLiveFragment._this != null) {
+                            MainLiveFragment._this.getLiveVideos();
                         }
                     }
                 }

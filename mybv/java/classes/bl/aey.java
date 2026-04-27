@@ -36,24 +36,29 @@ public final class aey extends FragmentPagerAdapter {
             this.fragmentTypes[position] = 2;
             position++;
         }
+        if ((topTabConfig & abd.TAB_LIVE) != 0) {
+            this.mFragments.put(position, MainLiveFragment.Companion.a());
+            this.fragmentTypes[position] = 3;
+            position++;
+        }
         if ((topTabConfig & abd.TAB_AREA) != 0) {
             this.mFragments.put(position, afa.Companion.a());
-            this.fragmentTypes[position] = 3;
+            this.fragmentTypes[position] = 4;
             position++;
         }
         if ((topTabConfig & abd.TAB_BANGUMI) != 0) {
             this.mFragments.put(position, MainBangumiFragment.Companion.a());
-            this.fragmentTypes[position] = 4;
+            this.fragmentTypes[position] = 5;
             position++;
         }
         if ((topTabConfig & abd.TAB_PGC) != 0) {
             this.mFragments.put(position, MainPgcFragment.Companion.a());
-            this.fragmentTypes[position] = 5;
+            this.fragmentTypes[position] = 6;
             position++;
         }
         
         this.mFragments.put(position, MainMyFragment.Companion.a());
-        this.fragmentTypes[position] = 6;
+        this.fragmentTypes[position] = 7;
     }
 
     public final Fragment a() {
@@ -79,10 +84,11 @@ public final class aey extends FragmentPagerAdapter {
             switch (type) {
                 case 1: return "推荐";
                 case 2: return "热门";
-                case 3: return "分区";
-                case 4: return "番剧";
-                case 5: return "影视";
-                case 6: return "我的";
+                case 3: return "直播";
+                case 4: return "分区";
+                case 5: return "番剧";
+                case 6: return "影视";
+                case 7: return "我的";
             }
         }
         return "";

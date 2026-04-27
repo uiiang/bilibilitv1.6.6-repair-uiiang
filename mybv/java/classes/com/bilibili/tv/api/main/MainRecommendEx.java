@@ -57,6 +57,9 @@ public final class MainRecommendEx {
         @JSONField(name = "pubdate")
         private long pubdate;
 
+        @JSONField(name = "badge")
+        private String badge;
+
         public final String getCardType() {
             return this.cardType;
         }
@@ -143,6 +146,14 @@ public final class MainRecommendEx {
 
         public final void setPubdate(long j) {
             this.pubdate = j;
+        }
+
+        public final String getBadge() {
+            return this.badge;
+        }
+
+        public final void setBadge(String str) {
+            this.badge = str;
         }
     }
 }

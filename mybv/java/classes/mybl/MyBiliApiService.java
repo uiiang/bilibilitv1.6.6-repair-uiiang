@@ -241,4 +241,8 @@ public interface MyBiliApiService {
             @Query("cid") long cid,
             @Query("index") int index,
             @Header("Cookie") String cookie);
+    
+    @Headers("Referer: https://live.bilibili.com/")
+    @GET("https://api.live.bilibili.com/xlive/web-interface/v1/index/getList")
+    vp<GeneralResponse<JSONObject>> getLiveList(@Header("Cookie") String cookie);
 }

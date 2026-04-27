@@ -46,17 +46,19 @@
 
 .field public static final SPACE_MODE_DYNAMIC:I = 0x0
 
-.field public static final TAB_ALL:I = 0x1f
+.field public static final TAB_ALL:I = 0x3f
 
-.field public static final TAB_AREA:I = 0x4
+.field public static final TAB_AREA:I = 0x8
 
-.field public static final TAB_BANGUMI:I = 0x8
+.field public static final TAB_BANGUMI:I = 0x10
 
 .field public static final TAB_HOT_RECOMMEND:I = 0x2
 
+.field public static final TAB_LIVE:I = 0x4
+
 .field public static final TAB_PERSONAL_RECOMMEND:I = 0x1
 
-.field public static final TAB_PGC:I = 0x10
+.field public static final TAB_PGC:I = 0x20
 
 .field public static final a:[F
 
@@ -171,10 +173,10 @@
     .line 419
     sput v1, Lbl/abd;->topTabConfig:I
 
-    .line 459
+    .line 460
     sput v1, Lbl/abd;->playerMenuConfig:I
 
-    .line 484
+    .line 485
     sput v1, Lbl/abd;->cdnPreference:I
 
     return-void
@@ -730,7 +732,7 @@
     .locals 3
 
     .prologue
-    .line 549
+    .line 550
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -789,7 +791,7 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 550
+    .line 551
     return-void
 .end method
 
@@ -969,7 +971,7 @@
     .locals 2
 
     .prologue
-    .line 528
+    .line 529
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -997,7 +999,7 @@
     .prologue
     const-wide/16 v6, 0x0
 
-    .line 540
+    .line 541
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1028,7 +1030,7 @@
 
     move-result-wide v2
 
-    .line 541
+    .line 542
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1059,7 +1061,7 @@
 
     move-result-wide v4
 
-    .line 542
+    .line 543
     cmp-long v0, v2, v6
 
     if-nez v0, :cond_4a
@@ -1068,10 +1070,10 @@
 
     if-nez v0, :cond_4a
 
-    .line 543
+    .line 544
     const/4 v0, 0x0
 
-    .line 545
+    .line 546
     :goto_49
     return-object v0
 
@@ -1095,7 +1097,7 @@
     .locals 2
 
     .prologue
-    .line 532
+    .line 533
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -1121,7 +1123,7 @@
     .locals 2
 
     .prologue
-    .line 524
+    .line 525
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -1233,14 +1235,14 @@
     .locals 3
 
     .prologue
-    .line 492
+    .line 493
     sget v0, Lbl/abd;->cdnPreference:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_16
 
-    .line 493
+    .line 494
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1259,7 +1261,7 @@
 
     sput v0, Lbl/abd;->cdnPreference:I
 
-    .line 495
+    .line 496
     :cond_16
     sget v0, Lbl/abd;->cdnPreference:I
 
@@ -1562,14 +1564,14 @@
     .locals 3
 
     .prologue
-    .line 468
+    .line 469
     sget v0, Lbl/abd;->playerMenuConfig:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_17
 
-    .line 469
+    .line 470
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1588,7 +1590,7 @@
 
     sput v0, Lbl/abd;->playerMenuConfig:I
 
-    .line 471
+    .line 472
     :cond_17
     sget v0, Lbl/abd;->playerMenuConfig:I
 
@@ -1598,7 +1600,7 @@
 
     sput v0, Lbl/abd;->playerMenuConfig:I
 
-    .line 472
+    .line 473
     :cond_1e
     sget v0, Lbl/abd;->playerMenuConfig:I
 
@@ -1990,14 +1992,14 @@
     .locals 3
 
     .prologue
-    .line 434
+    .line 435
     sget v0, Lbl/abd;->topTabConfig:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_17
 
-    .line 435
+    .line 436
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -2008,7 +2010,7 @@
 
     const-string v1, "top_tab_config"
 
-    const/16 v2, 0x1f
+    const/16 v2, 0x3f
 
     invoke-interface {v0, v1, v2}, Landroid/content/SharedPreferences;->getInt(Ljava/lang/String;I)I
 
@@ -2016,7 +2018,7 @@
 
     sput v0, Lbl/abd;->topTabConfig:I
 
-    .line 437
+    .line 438
     :cond_17
     sget v0, Lbl/abd;->topTabConfig:I
 
@@ -2026,7 +2028,7 @@
 
     sput v0, Lbl/abd;->topTabConfig:I
 
-    .line 438
+    .line 439
     :cond_1e
     sget v0, Lbl/abd;->topTabConfig:I
 
@@ -2100,7 +2102,7 @@
     .locals 2
 
     .prologue
-    .line 499
+    .line 500
     invoke-static {p0}, Lbl/abd;->get_cdn_preference(Landroid/content/Context;)I
 
     move-result v0
@@ -2146,7 +2148,7 @@
     .locals 1
 
     .prologue
-    .line 476
+    .line 477
     invoke-static {p0}, Lbl/abd;->get_player_menu_config(Landroid/content/Context;)I
 
     move-result v0
@@ -2170,7 +2172,7 @@
     .locals 1
 
     .prologue
-    .line 442
+    .line 443
     invoke-static {p0}, Lbl/abd;->get_top_tab_config(Landroid/content/Context;)I
 
     move-result v0
@@ -2257,7 +2259,7 @@
     .locals 3
 
     .prologue
-    .line 503
+    .line 504
     if-eqz p1, :cond_8
 
     invoke-virtual {p1}, Ljava/lang/String;->isEmpty()Z
@@ -2266,45 +2268,45 @@
 
     if-eqz v0, :cond_9
 
-    .line 519
+    .line 520
     :cond_8
     :goto_8
     return-void
 
-    .line 507
+    .line 508
     :cond_9
     :try_start_9
     invoke-static {p1}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v0
 
-    .line 508
+    .line 509
     invoke-static {v0}, Lcom/facebook/imagepipeline/request/ImageRequestBuilder;->a(Landroid/net/Uri;)Lcom/facebook/imagepipeline/request/ImageRequestBuilder;
 
     move-result-object v0
 
-    .line 509
+    .line 510
     invoke-virtual {v0}, Lcom/facebook/imagepipeline/request/ImageRequestBuilder;->o()Lcom/facebook/imagepipeline/request/ImageRequest;
 
     move-result-object v0
 
-    .line 510
+    .line 511
     invoke-static {}, Lbl/ajq;->b()Lbl/aoy;
 
     move-result-object v1
 
-    .line 511
+    .line 512
     if-eqz v1, :cond_8
 
-    .line 512
+    .line 513
     invoke-virtual {v1}, Lbl/aoy;->h()Lbl/aov;
 
     move-result-object v1
 
-    .line 513
+    .line 514
     if-eqz v1, :cond_8
 
-    .line 514
+    .line 515
     const/4 v2, 0x0
 
     invoke-virtual {v1, v0, v2}, Lbl/aov;->b(Lcom/facebook/imagepipeline/request/ImageRequest;Ljava/lang/Object;)Lbl/aji;
@@ -2313,7 +2315,7 @@
 
     goto :goto_8
 
-    .line 517
+    .line 518
     :catch_26
     move-exception v0
 
@@ -2324,7 +2326,7 @@
     .locals 4
 
     .prologue
-    .line 536
+    .line 537
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -2383,7 +2385,7 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 537
+    .line 538
     return-void
 .end method
 
@@ -2423,7 +2425,7 @@
     .locals 2
 
     .prologue
-    .line 487
+    .line 488
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -2444,10 +2446,10 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 488
+    .line 489
     sput p1, Lbl/abd;->cdnPreference:I
 
-    .line 489
+    .line 490
     return-void
 .end method
 
@@ -2730,12 +2732,12 @@
     .locals 2
 
     .prologue
-    .line 462
+    .line 463
     if-nez p1, :cond_3
 
     const/4 p1, 0x1
 
-    .line 463
+    .line 464
     :cond_3
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
@@ -2757,10 +2759,10 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 464
+    .line 465
     sput p1, Lbl/abd;->playerMenuConfig:I
 
-    .line 465
+    .line 466
     return-void
 .end method
 
@@ -2888,12 +2890,12 @@
     .locals 2
 
     .prologue
-    .line 428
+    .line 429
     if-nez p1, :cond_3
 
     const/4 p1, 0x1
 
-    .line 429
+    .line 430
     :cond_3
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
@@ -2915,10 +2917,10 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 430
+    .line 431
     sput p1, Lbl/abd;->topTabConfig:I
 
-    .line 431
+    .line 432
     return-void
 .end method
 

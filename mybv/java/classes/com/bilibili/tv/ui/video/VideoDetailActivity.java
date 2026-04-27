@@ -897,6 +897,10 @@ public final class VideoDetailActivity extends BaseActivity
                 toggleContentVisibility();
                 return true;
             }
+            if (valueOf2 != null && valueOf2.intValue() == KeyEvent.KEYCODE_BACK && isContentHidden) {
+                toggleContentVisibility();
+                return true;
+            }
             
             View currentFocus = getCurrentFocus();
 

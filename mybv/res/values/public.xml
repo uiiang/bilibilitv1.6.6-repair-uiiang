@@ -3571,4 +3571,6 @@
     <public type="id" name="shot_seekbar_group" id="0x7f080219" />
     <public type="id" name="shot_seekbar_include" id="0x7f08021a" />
     <public type="id" name="shot_divider" id="0x7f08021b" />
+    <public type="id" name="tab_live" id="0x7f08021c" />
+    <public type="id" name="bottom_info_layout" id="0x7f08021d" />
 </resources>
