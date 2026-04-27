@@ -3,8 +3,9 @@
 - fork于bilibilitv1.6.6-repair 感谢大佬的付出 [https://github.com/qidian55/bilibilitv1.6.6-repair]
 - 根据自己使用习惯做了一些修改
 
-v260422
+v260427
 - 视频播放页截图预览
+- 菜单键切换隐藏显示详情页信息
 
 v260419
 - 切换up主视频列表接口（up主空间接口，投稿视频接口）
