@@ -222,7 +222,7 @@ public class xj extends xh {
         this.userSeekedToIntro = false;
         this.skippedSegments.clear();
         this.chapterTipShown = false;
-        this.initialPlayPosition = 0;
+        checkInitialPositionSkippedIntro();
     }
 
     private void checkInitialPositionSkippedIntro() {
@@ -338,7 +338,6 @@ public class xj extends xh {
             }
             
             this.initialPlayPosition = j;
-            checkInitialPositionSkippedIntro();
             
             boolean isDashStream = c.a.mVideoParams.mMediaResource != null && c.a.mVideoParams.mMediaResource.dash != null;
             if (j > 0 && zt.a(j, this.i)) {
