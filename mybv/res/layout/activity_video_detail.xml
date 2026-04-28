@@ -39,6 +39,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+            android:paddingTop="@dimen/px_150"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/px_50"
                 android:paddingRight="@dimen/px_70">
@@ -244,10 +245,9 @@
                         android:layout_width="fill_parent" android:layout_height="wrap_content">
 
                         <!-- ===== 继续播放按钮（有历史记录时显示） ===== -->
-                        <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
+                        <com.bilibili.tv.widget.ProgressPlayButton android:gravity="center_vertical"
                             android:orientation="horizontal"
                             android:id="@+id/video_history_play_btn_layout"
-                            android:background="@drawable/background_white_rect"
                             android:focusable="true" android:focusableInTouchMode="true"
                             android:nextFocusLeft="@id/video_history_play_btn_layout"
                             android:nextFocusRight="@id/video_re_play_btn_layout"
@@ -270,7 +270,17 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginRight="@dimen/px_26" />
-                        </com.bilibili.tv.widget.DrawLinearLayout>
+                            <!-- 播放进度时间 -->
+                            <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_28"
+                                android:textColor="@color/white"
+                                android:id="@+id/video_history_btn_progress"
+                                android:focusable="false"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:layout_marginLeft="@dimen/px_10"
+                                android:layout_marginRight="@dimen/px_26" />
+                        </com.bilibili.tv.widget.ProgressPlayButton>
 
                         <!-- ===== 无痕播放按钮（可选功能，默认隐藏） ===== -->
                         <com.bilibili.tv.widget.DrawLinearLayout android:gravity="center_vertical"
@@ -524,41 +534,6 @@
                                     android:layout_marginRight="@dimen/px_18" android:text="简介" />
                             </com.bilibili.tv.widget.DrawLinearLayout>
                         </LinearLayout>
-                    </LinearLayout>
-
-                    <!-- ===== 历史记录信息区域（显示上次播放进度） ===== -->
-                    <LinearLayout android:id="@+id/video_history_container"
-                        android:orientation="horizontal"
-                        android:focusable="false"
-                        android:gravity="center_vertical"
-                        android:layout_marginTop="@dimen/px_16"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content">
-                        <!-- 历史记录标签 -->
-                        <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_28"
-                            android:textColor="@color/white_50"
-                            android:id="@+id/video_history_label"
-                            android:focusable="false"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                        <!-- 历史记录标题（如：上次播放到） -->
-                        <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_28"
-                            android:textColor="@color/white" android:id="@+id/video_history_title"
-                            android:focusable="false"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/px_10"
-                            android:maxEms="10"
-                            android:ellipsize="middle"
-                            android:maxLines="1" />
-                        <!-- 历史记录进度（如：05:30） -->
-                        <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_28"
-                            android:textColor="@color/pink"
-                            android:id="@+id/video_history_progress"
-                            android:focusable="false"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/px_10" />
                     </LinearLayout>
                 </LinearLayout>
 

@@ -580,6 +580,8 @@ public final class R {
         public static final int white_70 = 0x7f0500a9;
         public static final int white_80 = 0x7f0500aa;
         public static final int white_90 = 0x7f0500ab;
+        public static final int play_progress_pink = 0x7f0500ac;
+        public static final int play_btn_bg = 0x7f0500ad;
     }
 
     public static final class dimen {
@@ -2635,6 +2637,7 @@ public final class R {
         public static final int shot_divider = 0x7f08021b;
         public static final int tab_live = 0x7f08021c;
         public static final int bottom_info_layout = 0x7f08021d;
+        public static final int video_history_btn_progress = 0x7f08021e;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;

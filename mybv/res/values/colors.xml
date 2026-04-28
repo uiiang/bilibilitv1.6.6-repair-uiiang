@@ -149,4 +149,6 @@
     <color name="white_70">#b3ffffff</color>
     <color name="white_80">#ccffffff</color>
     <color name="white_90">#e6ffffff</color>
+    <color name="play_progress_pink">#80fb7299</color>
+    <color name="play_btn_bg">#4d000000</color>
 </resources>

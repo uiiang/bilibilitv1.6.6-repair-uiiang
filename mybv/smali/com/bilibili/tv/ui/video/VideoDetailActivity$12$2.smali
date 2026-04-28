@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 1584
+    .line 1579
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12$2;->val$detail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -48,7 +48,7 @@
     .locals 2
 
     .prologue
-    .line 1588
+    .line 1583
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -59,11 +59,11 @@
 
     if-eqz v0, :cond_b
 
-    .line 1596
+    .line 1591
     :goto_a
     return-void
 
-    .line 1591
+    .line 1586
     :cond_b
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;
 
@@ -76,7 +76,7 @@
 
     if-eqz v0, :cond_22
 
-    .line 1592
+    .line 1587
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -90,7 +90,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->a(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
 
-    .line 1594
+    .line 1589
     :cond_22
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;
 
@@ -101,7 +101,7 @@
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->showPgcInfo(Lcom/bilibili/tv/api/video/PgcInfo;)V
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2100(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/PgcInfo;)V
 
-    .line 1595
+    .line 1590
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$12;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;

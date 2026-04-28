@@ -566,6 +566,8 @@
     <public type="color" name="white_80" id="0x7f0500aa" />
     <public type="color" name="white_90" id="0x7f0500ab" />
     <public type="color" name="abc_color_highlight_material" id="0x7f050004" />
+    <public type="color" name="play_progress_pink" id="0x7f0500ac" />
+    <public type="color" name="play_btn_bg" id="0x7f0500ad" />
     <public type="dimen" name="px_1" id="0x7f06006d" />
     <public type="dimen" name="px_10" id="0x7f06006e" />
     <public type="dimen" name="px_100" id="0x7f06006f" />
@@ -3573,4 +3575,5 @@
     <public type="id" name="shot_divider" id="0x7f08021b" />
     <public type="id" name="tab_live" id="0x7f08021c" />
     <public type="id" name="bottom_info_layout" id="0x7f08021d" />
+    <public type="id" name="video_history_btn_progress" id="0x7f08021e" />
 </resources>

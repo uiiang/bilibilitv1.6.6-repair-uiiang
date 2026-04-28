@@ -83,6 +83,7 @@ import com.bilibili.tv.widget.DrawRelativeLayout;
 import com.bilibili.tv.widget.DrawTextView;
 import com.bilibili.tv.widget.FixGridLayoutManager;
 import com.bilibili.tv.widget.FixLinearLayoutManager;
+import com.bilibili.tv.widget.ProgressPlayButton;
 import com.bilibili.tv.widget.ScalableImageView;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -146,17 +147,14 @@ public final class VideoDetailActivity extends BaseActivity
     private FrameLayout q;
     private RecyclerView r;
     private ScrollView scrollView;
-    private LinearLayout historyContainer;
-    private DrawLinearLayout historyPlayBtnLayout;
+    private ProgressPlayButton historyPlayBtnLayout;
     private DrawLinearLayout rePlayBtnLayout;
     private DrawTextView historyPlayBtn;
     private DrawTextView rePlayBtn;
     private DrawLinearLayout noHistoryPlayBtnLayout;
     private CheckBox noHistoryPlayCheckBox;
     private DrawTextView noHistoryPlayBtn;
-    private TextView historyTitle;
-    private TextView historyProgress;
-    private TextView historyLabel;
+    private TextView historyBtnProgress;
     public static boolean sNoHistoryPlayMode = false;
     private long s;
     private String mSeasonId;
@@ -548,8 +546,7 @@ public final class VideoDetailActivity extends BaseActivity
         this.seasonsContainer = (LinearLayout) d(R.id.video_detail_seasons_container);
         videoListNavigator = new com.bilibili.tv.ui.video.widget.VideoListNavigator();
         videoListNavigator.setUpTarget(historyPlayBtnLayout);
-        this.historyContainer = (LinearLayout) d(R.id.video_history_container);
-        this.historyPlayBtnLayout = (DrawLinearLayout) d(R.id.video_history_play_btn_layout);
+        this.historyPlayBtnLayout = (ProgressPlayButton) d(R.id.video_history_play_btn_layout);
         if (this.historyPlayBtnLayout != null) {
             this.historyPlayBtnLayout.setOnFocusChangeListener(new d());
             this.historyPlayBtnLayout.setUpDrawable(R.drawable.shadow_red_rect);
@@ -560,6 +557,7 @@ public final class VideoDetailActivity extends BaseActivity
             this.rePlayBtnLayout.setUpDrawable(R.drawable.shadow_red_rect);
         }
         this.historyPlayBtn = (DrawTextView) d(R.id.video_history_play_btn);
+        this.historyBtnProgress = (TextView) d(R.id.video_history_btn_progress);
         this.rePlayBtn = (DrawTextView) d(R.id.video_re_play_btn);
         this.noHistoryPlayBtnLayout = (DrawLinearLayout) d(R.id.video_no_history_play_btn_layout);
         this.noHistoryPlayCheckBox = (CheckBox) d(R.id.video_no_history_play_checkbox);
@@ -571,9 +569,6 @@ public final class VideoDetailActivity extends BaseActivity
         if (this.noHistoryPlayBtn != null) {
             this.noHistoryPlayBtn.setText("无痕");
         }
-        this.historyTitle = (TextView) d(R.id.video_history_title);
-        this.historyProgress = (TextView) d(R.id.video_history_progress);
-        this.historyLabel = (TextView) d(R.id.video_history_label);
         this.scrollView = (ScrollView) d(R.id.scrollView);
         setupGlobalFocusChangeListener();
     }
@@ -1770,16 +1765,16 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private final void initDefaultPlayButtons(BiliVideoDetail biliVideoDetail) {
-        if (historyContainer == null || historyPlayBtn == null) {
+        if (historyPlayBtn == null) {
             return;
         }
         historyPlayBtn.setText("开始播放");
-        if (historyLabel != null) {
-            historyLabel.setVisibility(View.GONE);
+        if (historyBtnProgress != null) {
+            historyBtnProgress.setVisibility(View.GONE);
         }
-        historyTitle.setVisibility(View.GONE);
-        historyProgress.setVisibility(View.GONE);
-        historyContainer.setVisibility(View.GONE);
+        if (historyPlayBtnLayout != null) {
+            historyPlayBtnLayout.setProgress(0, 1);
+        }
         if (noHistoryPlayBtnLayout != null) {
             noHistoryPlayBtnLayout.setVisibility(View.VISIBLE);
             if (historyPlayBtnLayout != null) {
@@ -2141,6 +2136,26 @@ public final class VideoDetailActivity extends BaseActivity
         }
     }
 
+    private final String formatProgressTimeShort(int progress, int duration) {
+        if (progress <= 0) {
+            if (duration >= 3600) {
+                return "00:00:00";
+            }
+            return "00:00";
+        } else if (duration >= 3600) {
+            int hours = progress / 3600;
+            int minutes = (progress % 3600) / 60;
+            int seconds = progress % 60;
+            return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        } else if (progress < 60) {
+            return String.format("00:%02d", progress);
+        } else {
+            int minutes = progress / 60;
+            int seconds = progress % 60;
+            return String.format("%02d:%02d", minutes, seconds);
+        }
+    }
+
     private final String findTitleByCid(long cid, BiliVideoDetail biliVideoDetail) {
         if (biliVideoDetail == null) {
             return null;
@@ -2167,7 +2182,7 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private final void updateHistoryDisplay(BiliVideoDetail biliVideoDetail) {
-        if (historyContainer == null || historyTitle == null || historyProgress == null || historyPlayBtn == null) {
+        if (historyPlayBtn == null) {
             return;
         }
         if (biliVideoDetail == null || biliVideoDetail.mHistory == null) {
@@ -2185,12 +2200,28 @@ public final class VideoDetailActivity extends BaseActivity
         int progress = biliVideoDetail.mHistory.mProgress;
         String title = findTitleByCid(cid, biliVideoDetail);
         
+        int totalDuration = 0;
+        int pageIndex = 0;
+        boolean hasMultipleEpisodes = biliVideoDetail.mPageList != null && biliVideoDetail.mPageList.size() > 1;
+        if (hasMultipleEpisodes && biliVideoDetail.mPageList != null) {
+            for (int i = 0; i < biliVideoDetail.mPageList.size(); i++) {
+                BiliVideoDetail.Page page = biliVideoDetail.mPageList.get(i);
+                if (page.mCid == cid) {
+                    totalDuration = page.duration;
+                    pageIndex = i + 1;
+                    break;
+                }
+            }
+        } else {
+            totalDuration = biliVideoDetail.mDuration;
+        }
+        if (totalDuration <= 0 && biliVideoDetail.mPageList != null && !biliVideoDetail.mPageList.isEmpty()) {
+            totalDuration = biliVideoDetail.mPageList.get(0).duration;
+        }
+        
         historyPlayBtn.setText("继续播放");
         rePlayBtn.setText("重播");
         
-        if (historyContainer != null) {
-            historyContainer.setVisibility(View.VISIBLE);
-        }
         if (noHistoryPlayBtnLayout != null) {
             noHistoryPlayBtnLayout.setVisibility(View.GONE);
         }
@@ -2201,35 +2232,44 @@ public final class VideoDetailActivity extends BaseActivity
         boolean hasHistory = cid > 0;
         boolean isFinished = progress == -1;
         boolean hasProgress = progress > 0;
-        boolean hasTitle = title != null && !title.isEmpty();
         
         if (!hasHistory) {
-            if (historyLabel != null) {
-                historyLabel.setVisibility(View.GONE);
+            if (historyBtnProgress != null) {
+                historyBtnProgress.setVisibility(View.GONE);
             }
-            historyTitle.setVisibility(View.GONE);
-            historyProgress.setVisibility(View.GONE);
+            if (historyPlayBtnLayout != null) {
+                historyPlayBtnLayout.setProgress(0, 1);
+            }
         } else {
-            boolean hasMultipleEpisodes = biliVideoDetail.mPageList!=null && biliVideoDetail.mPageList.size() > 1;
-            if (historyLabel != null) {
-                historyLabel.setVisibility(View.VISIBLE);
-                historyLabel.setText("上次播放到");
-            }
-            if (hasTitle && hasMultipleEpisodes) {
-                historyTitle.setText(title);
-                historyTitle.setVisibility(View.VISIBLE);
-            } else {
-                historyTitle.setVisibility(View.GONE);
-            }
             if (isFinished) {
-                historyProgress.setText("已看完");
-                historyProgress.setVisibility(View.VISIBLE);
+                if (historyBtnProgress != null) {
+                    historyBtnProgress.setText("已看完");
+                    historyBtnProgress.setVisibility(View.VISIBLE);
+                }
+                if (historyPlayBtnLayout != null) {
+                    historyPlayBtnLayout.setProgress(1, 1);
+                }
             } else if (hasProgress) {
-                historyProgress.setText(formatProgressTime(progress));
-                historyProgress.setVisibility(View.VISIBLE);
+                if (historyBtnProgress != null) {
+                    if (hasMultipleEpisodes && pageIndex > 0) {
+                        String timeStr = formatProgressTimeShort(progress, totalDuration);
+                        historyBtnProgress.setText("P" + pageIndex + " " + timeStr);
+                    } else {
+                        historyBtnProgress.setText(formatProgressTimeShort(progress, totalDuration));
+                    }
+                    historyBtnProgress.setVisibility(View.VISIBLE);
+                }
+                if (historyPlayBtnLayout != null && totalDuration > 0) {
+                    historyPlayBtnLayout.setProgress(progress, totalDuration);
+                }
             } else {
-                historyProgress.setText("00:00");
-                historyProgress.setVisibility(View.VISIBLE);
+                if (historyBtnProgress != null) {
+                    historyBtnProgress.setText("00:00");
+                    historyBtnProgress.setVisibility(View.VISIBLE);
+                }
+                if (historyPlayBtnLayout != null) {
+                    historyPlayBtnLayout.setProgress(0, 1);
+                }
             }
         }
         

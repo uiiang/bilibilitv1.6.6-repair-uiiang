@@ -429,4 +429,5 @@
     <item type="id" name="shot_divider" />
     <item type="id" name="tab_live" />
     <item type="id" name="bottom_info_layout" />
+    <item type="id" name="video_history_btn_progress" />
 </resources>
