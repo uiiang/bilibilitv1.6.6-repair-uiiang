@@ -1560,6 +1560,13 @@ public class VideoListSection extends LinearLayout {
             dataList.clear();
         }
     }
+    
+    public void refreshVisibleItems() {
+        if (adapter != null) {
+            android.util.Log.i(TAG, "refreshVisibleItems: 刷新可见项");
+            adapter.d();
+        }
+    }
 
     public void onVideoCardClicked(long cid, com.bilibili.tv.player.basic.context.ResolveResourceParams params) {
         if (videoCardClickListener != null) {

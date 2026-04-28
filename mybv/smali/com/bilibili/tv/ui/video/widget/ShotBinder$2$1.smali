@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 189
+    .line 224
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$2$1;->this$1:Lcom/bilibili/tv/ui/video/widget/ShotBinder$2;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$2$1;->val$cropped:Landroid/graphics/Bitmap;
@@ -44,7 +44,7 @@
     .locals 4
 
     .prologue
-    .line 192
+    .line 227
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$2$1;->this$1:Lcom/bilibili/tv/ui/video/widget/ShotBinder$2;
 
     iget-wide v0, v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$2;->val$currentVersion:J
@@ -62,7 +62,7 @@
 
     if-eqz v0, :cond_2d
 
-    .line 193
+    .line 228
     const-string v0, "ShotBinder"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -89,12 +89,60 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 197
+    .line 233
     :goto_2c
     return-void
 
-    .line 196
+    .line 231
     :cond_2d
+    const-string v0, "ShotBinder"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "loadShotImage: \u56fe\u7247\u663e\u793a | time="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$2$1;->this$1:Lcom/bilibili/tv/ui/video/widget/ShotBinder$2;
+
+    iget v2, v2, Lcom/bilibili/tv/ui/video/widget/ShotBinder$2;->val$shotTime:I
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, "s | elapsed="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    # invokes: Lcom/bilibili/tv/ui/video/widget/ShotBinder;->getElapsedTime()J
+    invoke-static {}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->access$400()J
+
+    move-result-wide v2
+
+    invoke-virtual {v1, v2, v3}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, "ms"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 232
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$2$1;->this$1:Lcom/bilibili/tv/ui/video/widget/ShotBinder$2;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$2;->val$holder:Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;

@@ -22,6 +22,7 @@ import java.util.List;
 
 public class BottomShotMenu extends FrameLayout {
     private static final String TAG = "ShotMenuBug";
+    private static long showStartTime = 0;
     private VideoListSection videoListSection;
     private Runnable autoHideRunnable;
     private static final int AUTO_HIDE_DELAY = 5000;
@@ -109,6 +110,10 @@ public class BottomShotMenu extends FrameLayout {
     }
     
     public void show(VideoShot shot, int durationMs, String videoTitle, int currentPlayTimeMs) {
+        showStartTime = System.currentTimeMillis();
+        ShotBinder.setShowStartTime(showStartTime);
+        android.util.Log.i(TAG, "show: 开始 | currentPlayTimeMs=" + currentPlayTimeMs + " | currentPlayTimeSec=" + (currentPlayTimeMs/1000) + "s");
+        
         this.videoShot = shot;
         this.totalDurationMs = durationMs;
         this.totalDuration = durationMs / 1000;
@@ -140,6 +145,10 @@ public class BottomShotMenu extends FrameLayout {
                 return false;
             }
         });
+        
+        ShotBinder.clearPendingLoads();
+        ShotBinder.setDeferLoading(true);
+        android.util.Log.i(TAG, "show: setData前清空加载队列，开启延迟加载");
         
         ShotBinder shotBinder = new ShotBinder(videoShot, totalDuration);
         videoListSection.setData(allShots, shotBinder);
@@ -188,8 +197,20 @@ public class BottomShotMenu extends FrameLayout {
                     videoListSection.postDelayed(this, 50);
                     return;
                 }
-                android.util.Log.i(TAG, "ShotMenu.show: calling scrollToCurrentItem");
+                long elapsed = System.currentTimeMillis() - showStartTime;
+                android.util.Log.i(TAG, "scrollToCurrentItem: 数据加载完成 | 耗时=" + elapsed + "ms");
+                ShotBinder.clearPendingLoads();
+                android.util.Log.i(TAG, "scrollToCurrentItem: 清空加载队列，开始滚动");
                 videoListSection.scrollToCurrentItem();
+                
+                videoListSection.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        android.util.Log.i(TAG, "scrollToCurrentItem: 关闭延迟加载，刷新可见项");
+                        ShotBinder.setDeferLoading(false);
+                        videoListSection.refreshVisibleItems();
+                    }
+                }, 150);
             }
         });
         
@@ -201,6 +222,7 @@ public class BottomShotMenu extends FrameLayout {
             return;
         }
         cancelAutoHideTimer();
+        ShotBinder.setDeferLoading(true);
         isHiding = true;
         Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.out_to_bottom);
         animation.setAnimationListener(new Animation.AnimationListener() {

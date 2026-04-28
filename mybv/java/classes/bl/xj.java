@@ -46,6 +46,7 @@ public class xj extends xh {
     private boolean userSeekedToIntro = false;
     private java.util.Set<String> skippedSegments = new java.util.HashSet<>();
     private boolean chapterTipShown = false;
+    private long initialPlayPosition = 0;
 
     @Override // tv.danmaku.ijk.media.player.IMediaPlayer.OnInfoListener
     public boolean onInfo2(IMediaPlayer iMediaPlayer, int i, int i2, long j) {
@@ -221,6 +222,26 @@ public class xj extends xh {
         this.userSeekedToIntro = false;
         this.skippedSegments.clear();
         this.chapterTipShown = false;
+        this.initialPlayPosition = 0;
+    }
+
+    private void checkInitialPositionSkippedIntro() {
+        if (this.skips == null || this.skips.length() == 0) {
+            return;
+        }
+        if (this.initialPlayPosition <= 0) {
+            return;
+        }
+        for (int i = 0; i < this.skips.length(); i++) {
+            JSONObject skip_info = this.skips.optJSONObject(i);
+            long end = skip_info.optLong("end");
+            String type = skip_info.optString("type");
+            if ("片头".equals(type) && this.initialPlayPosition >= end) {
+                Log.i("xj", "[checkInitialPositionSkippedIntro] initial position " + this.initialPlayPosition + " >= intro end " + end + ", skip intro prompt");
+                this.introSkipped = true;
+                return;
+            }
+        }
     }
 
     private void P() {
@@ -315,6 +336,9 @@ public class xj extends xh {
                     j = b;
                 }
             }
+            
+            this.initialPlayPosition = j;
+            checkInitialPositionSkippedIntro();
             
             boolean isDashStream = c.a.mVideoParams.mMediaResource != null && c.a.mVideoParams.mMediaResource.dash != null;
             if (j > 0 && zt.a(j, this.i)) {

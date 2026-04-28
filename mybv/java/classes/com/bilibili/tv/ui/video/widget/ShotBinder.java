@@ -20,6 +20,9 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class ShotBinder implements VideoCardBinder {
     private static final String TAG = "ShotBinder";
+    private static long showStartTime = 0;
+    private static boolean deferLoading = true;
+    private static Runnable onDeferClearedCallback = null;
     private VideoShot videoShot;
     private int totalDuration;
     private static final LruCache<String, Bitmap> snapshotCache = new LruCache<String, Bitmap>(50 * 1024 * 1024) {
@@ -54,6 +57,32 @@ public class ShotBinder implements VideoCardBinder {
             cancelledUrls.clear();
         }
         loadVersion.incrementAndGet();
+    }
+    
+    public static void setShowStartTime(long time) {
+        showStartTime = time;
+    }
+    
+    private static long getElapsedTime() {
+        if (showStartTime == 0) return 0;
+        return System.currentTimeMillis() - showStartTime;
+    }
+    
+    public static void setDeferLoading(boolean defer) {
+        deferLoading = defer;
+        android.util.Log.i(TAG, "setDeferLoading: " + defer + " | elapsed=" + getElapsedTime() + "ms");
+        if (!defer && onDeferClearedCallback != null) {
+            onDeferClearedCallback.run();
+            onDeferClearedCallback = null;
+        }
+    }
+    
+    public static void setOnDeferClearedCallback(Runnable callback) {
+        onDeferClearedCallback = callback;
+    }
+    
+    public static boolean isDeferLoading() {
+        return deferLoading;
     }
     
     @Override
@@ -95,6 +124,11 @@ public class ShotBinder implements VideoCardBinder {
             return;
         }
         
+        if (deferLoading) {
+            android.util.Log.i(TAG, "loadShotImage: 延迟加载中，跳过 | time=" + shot.time + "s | elapsed=" + getElapsedTime() + "ms");
+            return;
+        }
+        
         final String imageUrl = videoShot.getImageUrl(shot.imageIndex);
         if (imageUrl == null) {
             android.util.Log.i(TAG, "loadShotImage: imageUrl is null for index " + shot.imageIndex);
@@ -102,11 +136,12 @@ public class ShotBinder implements VideoCardBinder {
         }
         
         final int snapshotIndex = shot.imageIndex;
+        final int shotTime = shot.time;
         final String cacheKey = imageUrl + "_" + snapshotIndex;
         
         Bitmap cached = snapshotCache.get(cacheKey);
         if (cached != null) {
-            android.util.Log.i(TAG, "loadShotImage: using cached bitmap for " + cacheKey);
+            android.util.Log.i(TAG, "loadShotImage: using cached bitmap for time=" + shotTime + "s | elapsed=" + getElapsedTime() + "ms");
             holder.getCoverImageView().setImageBitmap(cached);
             return;
         }
@@ -120,7 +155,7 @@ public class ShotBinder implements VideoCardBinder {
         }
         
         final long currentVersion = loadVersion.get();
-        android.util.Log.i(TAG, "loadShotImage: loading bitmap for " + cacheKey + " | version=" + currentVersion + " | queueSize=" + workQueue.size());
+        android.util.Log.i(TAG, "loadShotImage: 入队 | time=" + shotTime + "s | queueSize=" + workQueue.size() + " | elapsed=" + getElapsedTime() + "ms");
         
         imageLoadExecutor.execute(new Runnable() {
             @Override
@@ -193,6 +228,7 @@ public class ShotBinder implements VideoCardBinder {
                                 android.util.Log.i(TAG, "loadShotImage: cancelled before set image " + cacheKey);
                                 return;
                             }
+                            android.util.Log.i(TAG, "loadShotImage: 图片显示 | time=" + shotTime + "s | elapsed=" + getElapsedTime() + "ms");
                             holder.getCoverImageView().setImageBitmap(cropped);
                         }
                     });

@@ -2940,18 +2940,44 @@
     .locals 1
 
     .prologue
-    .line 1565
+    .line 1572
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->videoCardClickListener:Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoCardClickListener;
 
     if-eqz v0, :cond_9
 
-    .line 1566
+    .line 1573
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->videoCardClickListener:Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoCardClickListener;
 
     invoke-interface {v0, p1, p2, p3}, Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoCardClickListener;->onVideoCardClicked(JLcom/bilibili/tv/player/basic/context/ResolveResourceParams;)V
 
-    .line 1568
+    .line 1575
     :cond_9
+    return-void
+.end method
+
+.method public refreshVisibleItems()V
+    .locals 2
+
+    .prologue
+    .line 1565
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->adapter:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
+
+    if-eqz v0, :cond_10
+
+    .line 1566
+    const-string v0, "VideoDetailFocus"
+
+    const-string v1, "refreshVisibleItems: \u5237\u65b0\u53ef\u89c1\u9879"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 1567
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->adapter:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->d()V
+
+    .line 1569
+    :cond_10
     return-void
 .end method
 
@@ -3801,10 +3827,10 @@
     .locals 0
 
     .prologue
-    .line 1575
+    .line 1582
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusExitListener:Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnFocusExitListener;
 
-    .line 1576
+    .line 1583
     return-void
 .end method
 
@@ -3834,10 +3860,10 @@
     .locals 0
 
     .prologue
-    .line 1579
+    .line 1586
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->navTagScrollListener:Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagScrollListener;
 
-    .line 1580
+    .line 1587
     return-void
 .end method
 
@@ -3845,10 +3871,10 @@
     .locals 0
 
     .prologue
-    .line 1571
+    .line 1578
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->videoCardClickListener:Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoCardClickListener;
 
-    .line 1572
+    .line 1579
     return-void
 .end method
 
