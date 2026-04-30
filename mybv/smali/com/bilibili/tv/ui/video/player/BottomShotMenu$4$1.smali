@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 206
+    .line 198
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4$1;->this$1:Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -37,22 +37,15 @@
 
 # virtual methods
 .method public run()V
-    .locals 2
+    .locals 4
 
     .prologue
-    .line 209
-    const-string v0, "ShotMenuBug"
-
-    const-string v1, "scrollToCurrentItem: \u5173\u95ed\u5ef6\u8fdf\u52a0\u8f7d\uff0c\u5237\u65b0\u53ef\u89c1\u9879"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 210
+    .line 201
     const/4 v0, 0x0
 
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->setDeferLoading(Z)V
 
-    .line 211
+    .line 202
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4$1;->this$1:Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
@@ -64,6 +57,24 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->refreshVisibleItems()V
 
-    .line 212
+    .line 204
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4$1;->this$1:Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4;
+
+    iget-object v0, v0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
+
+    # getter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->access$100(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)Lcom/bilibili/tv/ui/video/widget/VideoListSection;
+
+    move-result-object v0
+
+    new-instance v1, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4$1$1;
+
+    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4$1$1;-><init>(Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4$1;)V
+
+    const-wide/16 v2, 0x32
+
+    invoke-virtual {v0, v1, v2, v3}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->postDelayed(Ljava/lang/Runnable;J)Z
+
+    .line 210
     return-void
 .end method

@@ -96,6 +96,7 @@ public class VideoListSection extends LinearLayout {
     private static final int MAX_FOCUS_RESTORE_RETRY = 5;
     // 焦点由dispatchKeyEvent控制标志，防止onItemFocus/onTagFocus/onFocusChange中的恢复逻辑干扰
     private boolean focusRedirecting = false;
+    private boolean lockFocusPosition = false;
     
     // 滚动防抖：保存待执行的滚动请求，用于取消之前的请求
     private Runnable pendingVideoScrollRunnable = null;
@@ -112,19 +113,11 @@ public class VideoListSection extends LinearLayout {
         }
         
         int keyCode = event.getKeyCode();
-        // android.util.Log.i(TAG, "========== dispatchKeyEvent START ==========");
-        // android.util.Log.i(TAG, "dispatchKeyEvent | keyCode=" + keyCode 
-        //         + " | currentFocusArea=" + currentFocusArea 
-        //         + " | focusPosition=" + focusPosition
-        //         + " | hasNavTags=" + hasNavigationTags()
-        //         + " | focusRedirecting=" + focusRedirecting
-        //         + " | manualFocusRequested=" + manualFocusRequested);
         
         // ==================== 有导航标签时的焦点管理 ====================
         if (hasNavigationTags()) {
             // 视频卡片区域 → 按DOWN → 移到正确的导航标签
             if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN && currentFocusArea == FOCUS_AREA_VIDEO) {
-                // android.util.Log.i(TAG, "dispatchKeyEvent | VIDEO→DOWN → 移到导航标签");
                 int tagIndex = navTagAdapter.getGroupIndexForVideoPosition(focusPosition);
                 if (tagIndex >= navTagAdapter.getTagCount()) {
                     tagIndex = navTagAdapter.getTagCount() - 1;
@@ -134,8 +127,6 @@ public class VideoListSection extends LinearLayout {
                 currentFocusArea = FOCUS_AREA_NAV_TAG;
                 // 使用getStartIndex获取正确的起始位置（支持不均匀分组）
                 lastNavTagVideoStart = navTagAdapter.getStartIndex(tagIndex);
-                android.util.Log.i(TAG, "dispatchKeyEvent | VIDEO→DOWN | focusPosition=" + focusPosition 
-                        + " -> tagIndex=" + tagIndex + " -> lastNavTagVideoStart=" + lastNavTagVideoStart);
                 navTagAdapter.setSelectedPosition(tagIndex);
                 navTagAdapter.scrollToPositionWithOffset(tagIndex);
 
@@ -409,14 +400,11 @@ public class VideoListSection extends LinearLayout {
         adapter.setOnItemFocusListener(new VideoCardAdapter.OnItemFocusListener() {
             @Override
             public void onItemFocus(int position, boolean hasFocus) {
-                // android.util.Log.i(TAG, "========== onItemFocus START ==========");
-                // android.util.Log.i(TAG, "onItemFocus | position=" + position 
-                //         + " | hasFocus=" + hasFocus
-                //         + " | focusRedirecting=" + focusRedirecting
-                //         + " | manualFocusRequested=" + manualFocusRequested
-                //         + " | currentFocusArea=" + currentFocusArea);
-                
                 if (hasFocus) {
+                    if (lockFocusPosition) {
+                        updateNavTagSelection(focusPosition);
+                        return;
+                    }
                     // 关键修复：如果当前焦点区域是导航标签，但视频卡片获得了焦点，说明焦点意外跳转
                     // 需要将焦点重定向回导航标签
                     if (currentFocusArea == FOCUS_AREA_NAV_TAG && !focusRedirecting && !manualFocusRequested) {
@@ -864,7 +852,6 @@ public class VideoListSection extends LinearLayout {
                 recyclerView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        android.util.Log.i("ShotMenuBug", "VideoListSection.scrollToCurrentItem: requesting focus on position " + finalPos);
                         requestFocusOnPosition(finalPos);
                     }
                 }, 100);
@@ -1166,24 +1153,23 @@ public class VideoListSection extends LinearLayout {
     }
 
     public boolean requestFocusOnSavedPosition() {
-        // android.util.Log.i(TAG, "========== requestFocusOnSavedPosition START ==========");
-        // android.util.Log.i(TAG, "requestFocusOnSavedPosition | sectionId=" + sectionId + " | focusPosition=" + focusPosition);
         manualFocusRequested = true;
         currentFocusArea = FOCUS_AREA_VIDEO;
         
         View focusView = restoreFocusPositionInternal();
         if (focusView != null) {
-            // android.util.Log.i(TAG, "requestFocusOnSavedPosition | 找到focusView，请求焦点");
             return focusView.requestFocus();
         }
         
+        if (lockFocusPosition) {
+            return false;
+        }
+        
         if (recyclerView != null && recyclerView.getChildCount() > 0) {
-            // android.util.Log.i(TAG, "requestFocusOnSavedPosition | 未找到focusView，使用第一个子view");
             View fallbackView = recyclerView.getChildAt(0);
             return fallbackView.requestFocus();
         }
         
-        // android.util.Log.i(TAG, "requestFocusOnSavedPosition | 返回false");
         return false;
     }
 
@@ -1229,14 +1215,11 @@ public class VideoListSection extends LinearLayout {
             View view = (View) method.invoke(layoutManager, dataPosition);
             
             if (view != null) {
-                boolean isAttachedToRV = false;
                 for (int i = 0; i < recyclerView.getChildCount(); i++) {
                     if (recyclerView.getChildAt(i) == view) {
-                        isAttachedToRV = true;
-                        break;
+                        return view;
                     }
                 }
-                return view;
             }
         } catch (Exception e) {
         }
@@ -1526,9 +1509,6 @@ public class VideoListSection extends LinearLayout {
             navTagRecyclerView.setItemAnimator(null);
             navTagRecyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         }
-
-        // 焦点边界由dispatchKeyEvent统一管理，不再使用nextFocusUpId/nextFocusDownId锁定
-        // dispatchKeyEvent会在焦点需要离开组件时通过OnFocusExitListener回调通知外部
     }
 
     public void saveVideoFocusPosition(int position) {
@@ -1542,17 +1522,51 @@ public class VideoListSection extends LinearLayout {
     public boolean isDataLoaded() {
         return dataList != null && !dataList.isEmpty() && adapter != null && adapter.a() > 0;
     }
+    
+    public int getNavTagIndexForPosition(int videoPosition) {
+        if (navTagAdapter == null) {
+            return -1;
+        }
+        return navTagAdapter.getGroupIndexForVideoPosition(videoPosition);
+    }
+    
+    public void focusNavTag(int tagIndex) {
+        if (navTagAdapter == null || navTagRecyclerView == null) {
+            return;
+        }
+        if (tagIndex < 0 || tagIndex >= navTagAdapter.getTagCount()) {
+            return;
+        }
+        
+        currentFocusArea = FOCUS_AREA_NAV_TAG;
+        lastNavTagVideoStart = navTagAdapter.getStartIndex(tagIndex);
+        navTagAdapter.setSelectedPosition(tagIndex);
+        navTagAdapter.scrollToPositionWithOffset(tagIndex);
+        
+        View tagView = navTagAdapter.findViewByPosition(tagIndex);
+        if (tagView != null) {
+            tagView.requestFocus();
+        }
+    }
 
     public void requestFocusOnPosition(int position) {
-        // android.util.Log.i(TAG, "========== requestFocusOnPosition START ==========");
-        // android.util.Log.i(TAG, "requestFocusOnPosition | position=" + position);
         if (position < 0) {
             return;
         }
         this.focusPosition = position;
+        requestFocusOnCurrentPosition();
+    }
+    
+    public void requestFocusOnCurrentPosition() {
         currentFocusArea = FOCUS_AREA_VIDEO;
+        lockFocusPosition = true;
         requestFocusOnSavedPosition();
-        // android.util.Log.i(TAG, "========== requestFocusOnPosition END ==========");
+        recyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                lockFocusPosition = false;
+            }
+        }, 100);
     }
 
     public void cleanup() {
@@ -1563,7 +1577,6 @@ public class VideoListSection extends LinearLayout {
     
     public void refreshVisibleItems() {
         if (adapter != null) {
-            android.util.Log.i(TAG, "refreshVisibleItems: 刷新可见项");
             adapter.d();
         }
     }

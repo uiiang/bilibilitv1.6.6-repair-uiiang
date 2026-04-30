@@ -21,7 +21,6 @@ import bl.aan;
 import java.util.List;
 
 public class BottomShotMenu extends FrameLayout {
-    private static final String TAG = "ShotMenuBug";
     private static long showStartTime = 0;
     private VideoListSection videoListSection;
     private Runnable autoHideRunnable;
@@ -65,7 +64,6 @@ public class BottomShotMenu extends FrameLayout {
         seekbarTitle = findViewById(R.id.shot_seekbar_title);
         
         videoListSection.hideTitle();
-        videoListSection.setupBottomMenuFocusBoundary();
         
         initAutoHideTimer();
         
@@ -112,14 +110,12 @@ public class BottomShotMenu extends FrameLayout {
     public void show(VideoShot shot, int durationMs, String videoTitle, int currentPlayTimeMs) {
         showStartTime = System.currentTimeMillis();
         ShotBinder.setShowStartTime(showStartTime);
-        android.util.Log.i(TAG, "show: 开始 | currentPlayTimeMs=" + currentPlayTimeMs + " | currentPlayTimeSec=" + (currentPlayTimeMs/1000) + "s");
         
         this.videoShot = shot;
         this.totalDurationMs = durationMs;
         this.totalDuration = durationMs / 1000;
         
         if (videoShot == null || videoShot.getIndex() == null || videoShot.getIndex().isEmpty()) {
-            android.util.Log.i(TAG, "show: videoShot is null or empty");
             return;
         }
         
@@ -148,23 +144,22 @@ public class BottomShotMenu extends FrameLayout {
         
         ShotBinder.clearPendingLoads();
         ShotBinder.setDeferLoading(true);
-        android.util.Log.i(TAG, "show: setData前清空加载队列，开启延迟加载");
         
         ShotBinder shotBinder = new ShotBinder(videoShot, totalDuration);
         videoListSection.setData(allShots, shotBinder);
+        
+        videoListSection.setupBottomMenuFocusBoundary();
         
         setupTimeBasedNavigationTags(shots, totalDuration);
         
         videoListSection.setOnNavTagScrollListener(new VideoListSection.OnNavTagScrollListener() {
             @Override
             public void onNavTagScrollStart() {
-                android.util.Log.i(TAG, "onNavTagScrollStart | 清空待加载图片");
                 ShotBinder.clearPendingLoads();
             }
             
             @Override
             public void onNavTagScrollEnd() {
-                android.util.Log.i(TAG, "onNavTagScrollEnd | 滚动结束");
             }
         });
         
@@ -197,18 +192,21 @@ public class BottomShotMenu extends FrameLayout {
                     videoListSection.postDelayed(this, 50);
                     return;
                 }
-                long elapsed = System.currentTimeMillis() - showStartTime;
-                android.util.Log.i(TAG, "scrollToCurrentItem: 数据加载完成 | 耗时=" + elapsed + "ms");
                 ShotBinder.clearPendingLoads();
-                android.util.Log.i(TAG, "scrollToCurrentItem: 清空加载队列，开始滚动");
                 videoListSection.scrollToCurrentItem();
                 
                 videoListSection.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        android.util.Log.i(TAG, "scrollToCurrentItem: 关闭延迟加载，刷新可见项");
                         ShotBinder.setDeferLoading(false);
                         videoListSection.refreshVisibleItems();
+                        
+                        videoListSection.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                videoListSection.requestFocusOnCurrentPosition();
+                            }
+                        }, 50);
                     }
                 }, 150);
             }
@@ -289,7 +287,6 @@ public class BottomShotMenu extends FrameLayout {
     
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        android.util.Log.i(TAG, "dispatchKeyEvent: keyCode=" + event.getKeyCode() + ", action=" + event.getAction() + ", isShowing=" + isShowing());
         if (isShowing() && event.getAction() == KeyEvent.ACTION_DOWN) {
             int keyCode = event.getKeyCode();
             if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT 
@@ -300,10 +297,17 @@ public class BottomShotMenu extends FrameLayout {
                 || keyCode == KeyEvent.KEYCODE_ENTER) {
                 resetAutoHideTimer();
             }
+            
+            if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN && videoListSection.hasNavigationTags()) {
+                int focusPosition = videoListSection.getFocusPosition();
+                int tagIndex = videoListSection.getNavTagIndexForPosition(focusPosition);
+                if (tagIndex >= 0) {
+                    videoListSection.focusNavTag(tagIndex);
+                    return true;
+                }
+            }
         }
-        boolean result = super.dispatchKeyEvent(event);
-        android.util.Log.i(TAG, "dispatchKeyEvent: super returned " + result);
-        return result;
+        return super.dispatchKeyEvent(event);
     }
     
     @Override

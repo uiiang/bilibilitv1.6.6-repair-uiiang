@@ -257,7 +257,7 @@ public final class MainLiveFragment extends BaseVideoListFragment {
                         if (holder instanceof SmallCardViewHolder) {
                             SmallCardViewHolder vh = (SmallCardViewHolder) holder;
                             vh.getTitleView().setText(content.getTitle());
-                            vh.getCoverView().setImageResource(R.drawable.ic_live_tv_180);
+                            vh.getCoverView().setImageResource(R.drawable.ic_tv);
                             vh.getUpView().setVisibility(View.GONE);
                             if (vh.getBottomInfoLayout() != null) {
                                 vh.getBottomInfoLayout().setVisibility(View.GONE);

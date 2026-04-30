@@ -157,7 +157,7 @@
 
     move-result-object v0
 
-    const v2, 0x7f070103
+    const v2, 0x7f0700a7
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/widget/ScalableImageView;->setImageResource(I)V
 

@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 425
+    .line 299
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$3;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     iput p2, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$3;->val$finalPosition:I
@@ -44,33 +44,26 @@
     .locals 6
 
     .prologue
-    .line 428
+    .line 302
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$3;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->attachedRecyclerView:Landroid/support/v7/widget/RecyclerView;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->access$200(Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;)Landroid/support/v7/widget/RecyclerView;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->access$100(Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;)Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
 
-    if-nez v0, :cond_10
+    if-nez v0, :cond_9
 
-    .line 429
-    const-string v0, "NavigationTag"
-
-    const-string v1, "scrollToPositionWithOffset | attachedRecyclerView\u4e3anull\uff0c\u8fd4\u56de"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 451
-    :goto_f
+    .line 320
+    :goto_8
     return-void
 
-    .line 433
-    :cond_10
+    .line 306
+    :cond_9
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$3;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->attachedRecyclerView:Landroid/support/v7/widget/RecyclerView;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->access$200(Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;)Landroid/support/v7/widget/RecyclerView;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->access$100(Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;)Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
 
@@ -78,11 +71,11 @@
 
     move-result-object v0
 
-    .line 434
-    if-eqz v0, :cond_64
+    .line 307
+    if-eqz v0, :cond_43
 
-    .line 436
-    :try_start_1c
+    .line 309
+    :try_start_15
     invoke-virtual {v0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
     move-result-object v1
@@ -109,7 +102,7 @@
 
     move-result-object v1
 
-    .line 437
+    .line 310
     const/4 v2, 0x2
 
     new-array v2, v2, [Ljava/lang/Object;
@@ -135,83 +128,31 @@
     aput-object v4, v2, v3
 
     invoke-virtual {v1, v0, v2}, Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+    :try_end_43
+    .catch Ljava/lang/Exception; {:try_start_15 .. :try_end_43} :catch_4a
 
-    .line 438
-    const-string v0, "NavigationTag"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "scrollToPositionWithOffset | layoutManager.b(int, int)\u6210\u529f | position="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget v2, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$3;->val$finalPosition:I
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_64
-    .catch Ljava/lang/Exception; {:try_start_1c .. :try_end_64} :catch_6b
-
-    .line 450
-    :cond_64
-    :goto_64
+    .line 319
+    :cond_43
+    :goto_43
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$3;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     const/4 v1, 0x0
 
     # setter for: Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->pendingScrollRunnable:Ljava/lang/Runnable;
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->access$302(Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;Ljava/lang/Runnable;)Ljava/lang/Runnable;
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->access$202(Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;Ljava/lang/Runnable;)Ljava/lang/Runnable;
 
-    goto :goto_f
+    goto :goto_8
 
-    .line 439
-    :catch_6b
+    .line 311
+    :catch_4a
     move-exception v0
 
-    .line 440
-    const-string v1, "NavigationTag"
-
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "scrollToPositionWithOffset | layoutManager.b\u5931\u8d25: "
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v0}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {v1, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 442
-    :try_start_88
+    .line 313
+    :try_start_4b
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$3;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->attachedRecyclerView:Landroid/support/v7/widget/RecyclerView;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->access$200(Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;)Landroid/support/v7/widget/RecyclerView;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->access$100(Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;)Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
 
@@ -235,11 +176,11 @@
 
     move-result-object v0
 
-    .line 443
+    .line 314
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$3;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->attachedRecyclerView:Landroid/support/v7/widget/RecyclerView;
-    invoke-static {v1}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->access$200(Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;)Landroid/support/v7/widget/RecyclerView;
+    invoke-static {v1}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->access$100(Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;)Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v1
 
@@ -258,66 +199,14 @@
     aput-object v4, v2, v3
 
     invoke-virtual {v0, v1, v2}, Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+    :try_end_78
+    .catch Ljava/lang/Exception; {:try_start_4b .. :try_end_78} :catch_79
 
-    .line 444
-    const-string v0, "NavigationTag"
+    goto :goto_43
 
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "scrollToPositionWithOffset | recyclerView.a(int)\u6210\u529f | position="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget v2, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$3;->val$finalPosition:I
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_cf
-    .catch Ljava/lang/Exception; {:try_start_88 .. :try_end_cf} :catch_d0
-
-    goto :goto_64
-
-    .line 445
-    :catch_d0
+    .line 315
+    :catch_79
     move-exception v0
 
-    .line 446
-    const-string v1, "NavigationTag"
-
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "scrollToPositionWithOffset | recyclerView.a\u5931\u8d25: "
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v0}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {v1, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
-
-    goto/16 :goto_64
+    goto :goto_43
 .end method

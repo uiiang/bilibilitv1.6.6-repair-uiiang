@@ -1,12 +1,12 @@
 {
-    "apkMd5":"c85c66dc2ba260656b6fc92b148b6f5a",
+    "apkMd5":"7bc10b7fc5f4d310d0e4ab09307b0caa",
     "apkUrl":"https://github.com/uiiang/bilibilitv1.6.6-repair-uiiang/raw/refs/heads/main/mybv.apk",
-    "fileSize":8622075,
+    "fileSize":8617979,
     "id":"",
-    "newFeature":"1. 直播缓存加速\n2. 首页增加直播入口\n3. 优化详情页播放按钮\n4. 优化进度预览菜单",
+    "newFeature":"",
     "publishTime":0,
     "title":"New",
     "upgradeType":1,
-    "versionCode":260429,
-    "versionName":"1.6.6.20260429"
+    "versionCode":20260430,
+    "versionName":"1.6.6.20260430"
 }

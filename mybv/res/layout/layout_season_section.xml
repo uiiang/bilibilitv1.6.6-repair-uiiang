@@ -31,7 +31,7 @@
         android:paddingLeft="@dimen/px_10"
         android:paddingTop="@dimen/px_8"
         android:paddingBottom="@dimen/px_8"
-        android:focusable="false"
+        android:focusable="true"
         android:descendantFocusability="afterDescendants"
         android:clipChildren="false"
     android:paddingRight="@dimen/px_600"
