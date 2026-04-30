@@ -83,4 +83,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <LinearLayout
+        android:id="@+id/chapter_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:paddingLeft="@dimen/px_10"
+        android:paddingTop="@dimen/px_8"
+        android:paddingBottom="@dimen/px_8">
+        
+        <TextView
+            android:id="@+id/chapter_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="章节"
+            android:textColor="@color/white"
+            android:textSize="@dimen/px_28"
+            android:paddingLeft="@dimen/px_16"
+            android:paddingRight="@dimen/px_16"
+            android:paddingTop="@dimen/px_8"
+            android:paddingBottom="@dimen/px_8"
+            android:layout_gravity="center_vertical" />
+        
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/chapter_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:clipChildren="false"
+            android:clipToPadding="false" />
+    </LinearLayout>
+
 </LinearLayout>

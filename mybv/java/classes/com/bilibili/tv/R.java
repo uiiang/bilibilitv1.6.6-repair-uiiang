@@ -2638,6 +2638,11 @@ public final class R {
         public static final int tab_live = 0x7f08021c;
         public static final int bottom_info_layout = 0x7f08021d;
         public static final int video_history_btn_progress = 0x7f08021e;
+        public static final int chapter_section = 0x7f08021f;
+        public static final int chapter_title = 0x7f080220;
+        public static final int chapter_list = 0x7f080221;
+        public static final int chapter_play_icon = 0x7f080222;
+        public static final int chapter_text = 0x7f080223;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;
@@ -2820,6 +2825,7 @@ public final class R {
         public static final int item_skip_time_picker = 0x7f0a00a5;
         public static final int player_shot_menu = 0x7f0a00a6;
         public static final int player_seek_bar_simple = 0x7f0a00a7;
+        public static final int item_chapter = 0x7f0a00a8;
     }
 
     public static final class mipmap {

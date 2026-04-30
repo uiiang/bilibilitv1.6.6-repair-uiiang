@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:focusable="true"
+    android:clickable="true"
+        android:layout_marginRight="@dimen/px_8"
+    android:background="@drawable/chapter_item_selector">
+    
+    <ImageView
+        android:id="@+id/chapter_play_icon"
+        android:layout_width="@dimen/px_24"
+        android:layout_height="@dimen/px_24"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/px_20"
+        android:src="@drawable/ic_player_play_icon_small"
+        android:visibility="gone" />
+    
+    <TextView
+        android:id="@+id/chapter_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/px_120"
+        android:maxWidth="@dimen/px_300"
+        android:paddingLeft="@dimen/px_8"
+        android:paddingRight="@dimen/px_16"
+        android:paddingTop="@dimen/px_8"
+        android:paddingBottom="@dimen/px_8"
+        android:layout_marginRight="@dimen/px_8"
+        android:gravity="center"
+        android:textSize="@dimen/px_28"
+        android:textColor="@color/white"
+        android:ellipsize="middle"
+        android:singleLine="true"
+        android:maxEms="10" />
+</LinearLayout>

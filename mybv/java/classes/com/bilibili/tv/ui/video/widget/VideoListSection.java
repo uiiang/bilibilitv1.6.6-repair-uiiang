@@ -114,6 +114,11 @@ public class VideoListSection extends LinearLayout {
         
         int keyCode = event.getKeyCode();
         
+        // 调试日志
+        if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN || keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+            android.util.Log.i(TAG, "dispatchKeyEvent | keyCode=" + keyCode + ", hasNavTags=" + hasNavigationTags() + ", focusArea=" + currentFocusArea);
+        }
+        
         // ==================== 有导航标签时的焦点管理 ====================
         if (hasNavigationTags()) {
             // 视频卡片区域 → 按DOWN → 移到正确的导航标签
@@ -210,7 +215,7 @@ public class VideoListSection extends LinearLayout {
 
             // 导航标签区域 → 按DOWN → 焦点离开组件（通知外部）
             if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN && currentFocusArea == FOCUS_AREA_NAV_TAG) {
-                // android.util.Log.i(TAG, "dispatchKeyEvent | NAV_TAG→DOWN → 焦点离开组件");
+                android.util.Log.i(TAG, "dispatchKeyEvent | NAV_TAG→DOWN → 焦点离开组件, focusExitListener=" + focusExitListener);
                 if (focusExitListener != null) {
                     focusExitListener.onFocusExitDown(sectionId, navTagAdapter.getSelectedPosition());
                 }
@@ -1411,6 +1416,10 @@ public class VideoListSection extends LinearLayout {
             return -1;
         }
         return navTagAdapter.getSelectedPosition();
+    }
+    
+    public boolean isNavTagFocused() {
+        return currentFocusArea == FOCUS_AREA_NAV_TAG;
     }
 
     public void scrollNavTagToPosition(int position) {

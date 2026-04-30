@@ -3,12 +3,12 @@
 .source "BottomShotMenu.java"
 
 # interfaces
-.implements Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagScrollListener;
+.implements Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter$FocusBoundaryHandler;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->show(Lcom/bilibili/tv/api/video/VideoShot;ILjava/lang/String;I)V
+    value = Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->initChapterList()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 155
+    .line 126
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$2;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,21 +36,34 @@
 
 
 # virtual methods
-.method public onNavTagScrollEnd()V
-    .locals 0
+.method public setupFocusBoundary(Landroid/view/View;II)V
+    .locals 1
 
     .prologue
-    .line 163
-    return-void
-.end method
+    .line 129
+    if-nez p2, :cond_9
 
-.method public onNavTagScrollStart()V
-    .locals 0
+    .line 130
+    invoke-virtual {p1}, Landroid/view/View;->getId()I
 
-    .prologue
-    .line 158
-    invoke-static {}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->clearPendingLoads()V
+    move-result v0
 
-    .line 159
+    invoke-virtual {p1, v0}, Landroid/view/View;->setNextFocusLeftId(I)V
+
+    .line 132
+    :cond_9
+    add-int/lit8 v0, p3, -0x1
+
+    if-ne p2, v0, :cond_14
+
+    .line 133
+    invoke-virtual {p1}, Landroid/view/View;->getId()I
+
+    move-result v0
+
+    invoke-virtual {p1, v0}, Landroid/view/View;->setNextFocusRightId(I)V
+
+    .line 135
+    :cond_14
     return-void
 .end method

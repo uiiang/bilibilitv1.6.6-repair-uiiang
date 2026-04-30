@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 614
+    .line 628
     iput-object p1, p0, Lbl/xl$7;->this$0:Lbl/xl;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 4
 
     .prologue
-    .line 617
+    .line 631
     iget-object v0, p0, Lbl/xl$7;->this$0:Lbl/xl;
 
     # getter for: Lbl/xl;->bottomShotMenu:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
@@ -63,12 +63,12 @@
 
     if-nez v0, :cond_15
 
-    .line 627
+    .line 641
     :cond_14
     :goto_14
     return-void
 
-    .line 621
+    .line 635
     :cond_15
     iget-object v0, p0, Lbl/xl$7;->this$0:Lbl/xl;
 
@@ -76,14 +76,14 @@
 
     move-result v0
 
-    .line 622
+    .line 636
     iget-object v1, p0, Lbl/xl$7;->this$0:Lbl/xl;
 
     invoke-virtual {v1}, Lbl/xl;->I()I
 
     move-result v1
 
-    .line 624
+    .line 638
     iget-object v2, p0, Lbl/xl$7;->this$0:Lbl/xl;
 
     # getter for: Lbl/xl;->bottomShotMenu:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
@@ -93,7 +93,7 @@
 
     invoke-virtual {v2, v0, v1}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->updateProgress(II)V
 
-    .line 626
+    .line 640
     iget-object v0, p0, Lbl/xl$7;->this$0:Lbl/xl;
 
     # getter for: Lbl/xl;->shotMenuHandler:Landroid/os/Handler;

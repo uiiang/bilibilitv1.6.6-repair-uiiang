@@ -3,12 +3,12 @@
 .source "BottomShotMenu.java"
 
 # interfaces
-.implements Landroid/view/animation/Animation$AnimationListener;
+.implements Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagScrollListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->hide()V
+    value = Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->show(Lcom/bilibili/tv/api/video/VideoShot;ILjava/lang/String;ILorg/json/JSONArray;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 226
+    .line 248
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$5;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,41 +36,21 @@
 
 
 # virtual methods
-.method public onAnimationEnd(Landroid/view/animation/Animation;)V
-    .locals 2
-
-    .prologue
-    .line 232
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$5;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
-
-    const/16 v1, 0x8
-
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->setVisibility(I)V
-
-    .line 233
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$5;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
-
-    const/4 v1, 0x0
-
-    # setter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->isHiding:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->access$202(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;Z)Z
-
-    .line 234
-    return-void
-.end method
-
-.method public onAnimationRepeat(Landroid/view/animation/Animation;)V
+.method public onNavTagScrollEnd()V
     .locals 0
 
     .prologue
-    .line 237
+    .line 256
     return-void
 .end method
 
-.method public onAnimationStart(Landroid/view/animation/Animation;)V
+.method public onNavTagScrollStart()V
     .locals 0
 
     .prologue
-    .line 229
+    .line 251
+    invoke-static {}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->clearPendingLoads()V
+
+    .line 252
     return-void
 .end method

@@ -430,4 +430,9 @@
     <item type="id" name="tab_live" />
     <item type="id" name="bottom_info_layout" />
     <item type="id" name="video_history_btn_progress" />
+    <item type="id" name="chapter_section" />
+    <item type="id" name="chapter_title" />
+    <item type="id" name="chapter_list" />
+    <item type="id" name="chapter_play_icon" />
+    <item type="id" name="chapter_text" />
 </resources>

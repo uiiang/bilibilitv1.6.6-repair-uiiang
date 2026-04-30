@@ -564,8 +564,22 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
             android.util.Log.i("ShotMenuBug", "showShotMenu: videoShot.index=" + videoShot.getIndex());
         }
         
-        if (videoShot == null || videoShot.getIndex() == null || videoShot.getIndex().isEmpty()) {
-            android.util.Log.i("ShotMenuBug", "showShotMenu: videoShot is null or empty, returning false");
+        boolean hasVideoShot = videoShot != null && videoShot.getIndex() != null && !videoShot.getIndex().isEmpty();
+        
+        org.json.JSONArray viewPoints = null;
+        PlayerParams playerParams = b();
+        if (playerParams != null && playerParams.mVideoParams != null) {
+            ResolveResourceParams resolveParams = playerParams.mVideoParams.obtainResolveParams();
+            if (resolveParams != null) {
+                viewPoints = resolveParams.view_points;
+            }
+        }
+        android.util.Log.i("ShotMenuBug", "showShotMenu: viewPoints=" + viewPoints);
+        
+        boolean hasChapters = viewPoints != null && viewPoints.length() > 0;
+        
+        if (!hasVideoShot && !hasChapters) {
+            android.util.Log.i("ShotMenuBug", "showShotMenu: no videoShot and no chapters, returning false");
             return false;
         }
         
@@ -597,7 +611,7 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
             }
         }
         
-        bottomShotMenu.show(videoShot, durationSec * 1000, videoTitle, currentPlayTimeMs);
+        bottomShotMenu.show(videoShot, durationSec * 1000, videoTitle, currentPlayTimeMs, viewPoints);
         startShotMenuProgressUpdater();
         return true;
     }

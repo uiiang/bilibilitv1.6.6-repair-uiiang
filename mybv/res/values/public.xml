@@ -2763,6 +2763,7 @@
     <public type="layout" name="item_skip_time_picker" id="0x7f0a00a5" />
     <public type="layout" name="player_shot_menu" id="0x7f0a00a6" />
     <public type="layout" name="player_seek_bar_simple" id="0x7f0a00a7" />
+    <public type="layout" name="item_chapter" id="0x7f0a00a8" />
 
 
     <public type="mipmap" name="ic_launcher" id="0x7f0b0000" />
@@ -3576,4 +3577,9 @@
     <public type="id" name="tab_live" id="0x7f08021c" />
     <public type="id" name="bottom_info_layout" id="0x7f08021d" />
     <public type="id" name="video_history_btn_progress" id="0x7f08021e" />
+    <public type="id" name="chapter_section" id="0x7f08021f" />
+    <public type="id" name="chapter_title" id="0x7f080220" />
+    <public type="id" name="chapter_list" id="0x7f080221" />
+    <public type="id" name="chapter_play_icon" id="0x7f080222" />
+    <public type="id" name="chapter_text" id="0x7f080223" />
 </resources>
