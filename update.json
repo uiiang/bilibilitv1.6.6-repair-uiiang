@@ -3,10 +3,10 @@
     "apkUrl":"https://github.com/uiiang/bilibilitv1.6.6-repair-uiiang/raw/refs/heads/main/mybv.apk",
     "fileSize":8622232,
     "id":"",
-    "newFeature":"",
+    "newFeature":"1.进度预览菜单增加章节跳转\n2.修复了一些bug",
     "publishTime":0,
     "title":"New",
     "upgradeType":1,
-    "versionCode":20260430,
-    "versionName":"1.6.6.20260430"
+    "versionCode":20260501,
+    "versionName":"1.6.6.20260501"
 }
