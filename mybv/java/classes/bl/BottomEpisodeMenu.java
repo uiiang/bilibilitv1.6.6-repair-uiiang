@@ -83,7 +83,9 @@ public class BottomEpisodeMenu extends FrameLayout {
         UnifiedVideoCardBinder binder = new UnifiedVideoCardBinder(listType);
         
         videoListSection.setCurrentCid(currentCid);
+        videoListSection.setCurrentPlayingCid(currentCid);
         videoListSection.setData(dataList, binder);
+        videoListSection.syncAdapterCurrentState();
         videoListSection.setupNavigationTags(count,10);
         
         videoListSection.setOnVideoClickListener(new VideoListSection.OnVideoClickListener() {

@@ -33,13 +33,11 @@
         <!-- ==================== 可滚动内容区 ==================== -->
         <ScrollView
             android:id="@+id/scrollView"
-            android:paddingTop="@dimen/px_50"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-            android:paddingTop="@dimen/px_150"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/px_50"
                 android:paddingRight="@dimen/px_70">
@@ -55,74 +53,88 @@
                     android:layout_width="fill_parent" android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/px_50">
 
-                    <!-- 互动视频标签 -->
-                    <TextView android:id="@+id/interaction_video_tag"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/px_10"
-                        android:background="@drawable/interaction_video_tag_bg"
-                        android:drawableLeft="@drawable/ic_interaction_video"
-                        android:drawablePadding="@dimen/px_8"
+                    <!-- 标题区域：固定高度，标题底部对齐，多行时向上扩展 -->
+                    <FrameLayout
                         android:focusable="false"
-                        android:text="互动视频"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/px_24"
-                        android:visibility="gone" />
-
-                    <!-- 视频标题，最多显示4行 -->
-                    <LinearLayout android:orientation="horizontal" android:focusable="false"
                         android:clipChildren="false" android:clipToPadding="false"
-                        android:layout_width="fill_parent" android:layout_height="wrap_content">
-                        <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_42"
-                            android:textColor="@color/white" android:ellipsize="end"
-                            android:id="@id/video_detail_title" android:focusable="false"
-                            android:layout_width="0dp" android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:maxLines="4" android:textStyle="bold" />
-                        <View android:layout_width="0dp" android:layout_height="0dp"
-                            android:layout_weight="1" />
-                    </LinearLayout>
+                        android:layout_width="fill_parent"
+                        android:layout_height="@dimen/px_300">
+                        <LinearLayout android:orientation="horizontal" android:focusable="false"
+                            android:layout_gravity="bottom"
+                            android:clipChildren="false" android:clipToPadding="false"
+                            android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_42"
+                                android:textColor="@color/white" android:ellipsize="end"
+                                android:id="@id/video_detail_title" android:focusable="false"
+                                android:layout_width="0dp" android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textStyle="bold" />
+                            <View android:layout_width="0dp" android:layout_height="0dp"
+                                android:layout_weight="1" />
+                        </LinearLayout>
+                    </FrameLayout>
 
-                    <!-- PGC信息容器（番剧评分、类型、地区、更新信息），仅PGC视频显示 -->
-                    <LinearLayout android:id="@+id/pgc_info_container"
+                    <!-- 底部元素：PGC信息容器 + 互动视频标签 -->
+                    <LinearLayout
                         android:orientation="horizontal"
+                        android:gravity="center_vertical"
                         android:focusable="false"
-                        android:visibility="gone"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/px_16">
-                        <!-- PGC评分 -->
-                        <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_28"
-                            android:textColor="@color/pink"
-                            android:id="@+id/pgc_rating"
+                        <!-- PGC信息容器（番剧评分、类型、地区、更新信息），仅PGC视频显示 -->
+                        <LinearLayout android:id="@+id/pgc_info_container"
+                            android:orientation="horizontal"
                             android:focusable="false"
+                            android:visibility="gone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <!-- PGC评分 -->
+                            <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_28"
+                                android:textColor="@color/pink"
+                                android:id="@+id/pgc_rating"
+                                android:focusable="false"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="@dimen/px_8" />
+                            <!-- PGC类型 -->
+                            <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_28"
+                                android:textColor="@color/white_50"
+                                android:id="@+id/pgc_type"
+                                android:focusable="false"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/px_30" />
+                            <!-- PGC地区 -->
+                            <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_28"
+                                android:textColor="@color/white_50"
+                                android:id="@+id/pgc_area"
+                                android:focusable="false"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/px_30" />
+                            <!-- PGC更新信息 -->
+                            <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_28"
+                                android:textColor="@color/white_50"
+                                android:id="@+id/pgc_new_ep"
+                                android:focusable="false"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/px_30" />
+                        </LinearLayout>
+                        <!-- 互动视频标签（移到PGC信息容器右侧） -->
+                        <TextView android:id="@+id/interaction_video_tag"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawablePadding="@dimen/px_8" />
-                        <!-- PGC类型 -->
-                        <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_28"
-                            android:textColor="@color/white_50"
-                            android:id="@+id/pgc_type"
+                            android:layout_marginLeft="@dimen/px_30"
+                            android:background="@drawable/interaction_video_tag_bg"
+                            android:drawableLeft="@drawable/ic_interaction_video"
+                            android:drawablePadding="@dimen/px_8"
                             android:focusable="false"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/px_30" />
-                        <!-- PGC地区 -->
-                        <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_28"
-                            android:textColor="@color/white_50"
-                            android:id="@+id/pgc_area"
-                            android:focusable="false"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/px_30" />
-                        <!-- PGC更新信息 -->
-                        <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_28"
-                            android:textColor="@color/white_50"
-                            android:id="@+id/pgc_new_ep"
-                            android:focusable="false"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/px_30" />
+                            android:text="互动视频"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/px_24"
+                            android:visibility="gone" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -131,7 +143,7 @@
                 <LinearLayout android:orientation="vertical" android:focusable="false"
                     android:clipChildren="true" android:clipToPadding="false"
                     android:layout_width="fill_parent" android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/px_20">
+                    >
 
                     <!-- 视频统计数据行 -->
                     <LinearLayout android:gravity="left|center_vertical"

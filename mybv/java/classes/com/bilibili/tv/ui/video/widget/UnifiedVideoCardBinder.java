@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import com.bilibili.tv.MainApplication;
@@ -20,12 +19,10 @@ import bl.abd;
 import bl.nv;
 
 public class UnifiedVideoCardBinder implements VideoCardBinder {
-    private static final String TAG = "UnifiedVideoCardBinder";
     private int listType;
 
     public UnifiedVideoCardBinder(int listType) {
         this.listType = listType;
-        Log.i(TAG, "构造函数 | listType=" + listType);
     }
 
     @Override
@@ -39,7 +36,6 @@ public class UnifiedVideoCardBinder implements VideoCardBinder {
 
     @Override
     public void bindCompact(CompactVideoHolder holder, Object data, int position) {
-        Log.i(TAG, "bindCompact | position=" + position + " | dataType=" + (data != null ? data.getClass().getSimpleName() : "null") + " | listType=" + listType);
         if (data instanceof BiliVideoDetail) {
             bindFromBiliVideoDetailCompact(holder, (BiliVideoDetail) data);
         } else if (data instanceof ResolveResourceParams) {
@@ -93,7 +89,6 @@ public class UnifiedVideoCardBinder implements VideoCardBinder {
     }
 
     private void bindFromResolveParamsCompact(CompactVideoHolder holder, ResolveResourceParams params) {
-        Log.i(TAG, "bindFromResolveParamsCompact | title=" + params.mPageTitle + " | author=" + params.mAuthor + " | mListType=" + params.mListType + " | listType=" + listType);
         holder.getTitleView().setText(params.mPageTitle);
         
         bindUpView(holder.getUpView(), params.mAuthor, params.mHideUpIcon);
@@ -279,7 +274,15 @@ public class UnifiedVideoCardBinder implements VideoCardBinder {
     @Override
     public boolean isCurrentVideoByCid(Object data, long currentCid) {
         if (data instanceof BiliVideoDetail) {
-            return ((BiliVideoDetail) data).mCid == currentCid;
+            BiliVideoDetail detail = (BiliVideoDetail) data;
+            if (detail.sourcePage != null) {
+                return detail.sourcePage.mCid == currentCid;
+            } else if (detail.sourceEpisode != null) {
+                com.bilibili.tv.api.video.PgcInfo.Episode episode = (com.bilibili.tv.api.video.PgcInfo.Episode) detail.sourceEpisode;
+                return episode.cid == currentCid;
+            } else {
+                return detail.mCid == currentCid;
+            }
         } else if (data instanceof ResolveResourceParams) {
             return ((ResolveResourceParams) data).mCid == currentCid;
         }
@@ -289,5 +292,10 @@ public class UnifiedVideoCardBinder implements VideoCardBinder {
     @Override
     public boolean isCurrentSeason(Object data, int currentSeasonId) {
         return false;
+    }
+
+    @Override
+    public boolean hasPlayProgress(Object data, long currentCid) {
+        return isCurrentVideoByCid(data, currentCid);
     }
 }

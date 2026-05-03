@@ -170,4 +170,9 @@ public class PgcSeasonBinder implements VideoCardBinder {
         }
         return isCurrent;
     }
+
+    @Override
+    public boolean hasPlayProgress(Object data, long currentCid) {
+        return false;
+    }
 }

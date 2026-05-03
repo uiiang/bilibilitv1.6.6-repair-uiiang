@@ -35,6 +35,10 @@ public class VideoCardAdapter extends RecyclerView.a<RecyclerView.v> {
     private int nextFocusDownId = View.NO_ID;
     private boolean useCompactLayout = false;
     private boolean showIndexBadge = false;
+    private long currentPlayingCid = -1;
+    private long currentVideoId = -1;
+    private long currentCid = -1;
+    private int currentSeasonId = -1;
 
     public VideoCardAdapter() {}
 
@@ -56,6 +60,38 @@ public class VideoCardAdapter extends RecyclerView.a<RecyclerView.v> {
 
     public boolean isShowIndexBadge() {
         return this.showIndexBadge;
+    }
+
+    public void setCurrentPlayingCid(long cid) {
+        this.currentPlayingCid = cid;
+    }
+
+    public long getCurrentPlayingCid() {
+        return this.currentPlayingCid;
+    }
+
+    public void setCurrentVideoId(long videoId) {
+        this.currentVideoId = videoId;
+    }
+
+    public long getCurrentVideoId() {
+        return this.currentVideoId;
+    }
+
+    public void setCurrentCid(long cid) {
+        this.currentCid = cid;
+    }
+
+    public long getCurrentCid() {
+        return this.currentCid;
+    }
+
+    public void setCurrentSeasonId(int seasonId) {
+        this.currentSeasonId = seasonId;
+    }
+
+    public int getCurrentSeasonId() {
+        return this.currentSeasonId;
     }
 
     @Override
@@ -89,11 +125,11 @@ public class VideoCardAdapter extends RecyclerView.a<RecyclerView.v> {
         if (binder != null) {
             binder.bind(fHolder, item, position);
         }
-        // 设置序号badge
         TextView indexBadge = fHolder.getIndexBadgeView();
         if (indexBadge != null) {
             if (showIndexBadge) {
-                indexBadge.setText(String.valueOf(position + 1));
+                String badgeText = getIndexBadgeText(item, position);
+                indexBadge.setText(badgeText);
                 indexBadge.setVisibility(View.VISIBLE);
             } else {
                 indexBadge.setVisibility(View.GONE);
@@ -132,11 +168,11 @@ public class VideoCardAdapter extends RecyclerView.a<RecyclerView.v> {
         if (binder != null) {
             binder.bindCompact(compactHolder, item, position);
         }
-        // 设置序号badge
         TextView indexBadge = compactHolder.getIndexBadgeView();
         if (indexBadge != null) {
             if (showIndexBadge) {
-                indexBadge.setText(String.valueOf(position + 1));
+                String badgeText = getIndexBadgeText(item, position);
+                indexBadge.setText(badgeText);
                 indexBadge.setVisibility(View.VISIBLE);
             } else {
                 indexBadge.setVisibility(View.GONE);
@@ -169,6 +205,26 @@ public class VideoCardAdapter extends RecyclerView.a<RecyclerView.v> {
                 }
             }
         });
+    }
+
+    private String getIndexBadgeText(Object item, int position) {
+        if (binder == null) {
+            return String.valueOf(position + 1);
+        }
+        
+        if (currentPlayingCid > 0 && binder.isCurrentVideoByCid(item, currentPlayingCid)) {
+            return "当前播放";
+        }
+        
+        if (currentVideoId > 0 && binder.isCurrentVideo(item, currentVideoId)) {
+            return "当前视频";
+        }
+        
+        if (currentSeasonId > 0 && binder.isCurrentSeason(item, currentSeasonId)) {
+            return "当前视频";
+        }
+        
+        return String.valueOf(position + 1);
     }
 
     private void setupFocusBoundary(View itemView, int position, int size) {

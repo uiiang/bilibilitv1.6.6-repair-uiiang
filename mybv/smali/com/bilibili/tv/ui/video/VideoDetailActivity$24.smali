@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 2730
+    .line 2734
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput-wide p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->val$staffMid:J
@@ -48,7 +48,7 @@
     .locals 4
 
     .prologue
-    .line 2733
+    .line 2737
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$24;->val$staffMid:J
@@ -57,6 +57,6 @@
 
     invoke-static {v0, v2, v3, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->start(Landroid/content/Context;JLjava/lang/String;)V
 
-    .line 2734
+    .line 2738
     return-void
 .end method

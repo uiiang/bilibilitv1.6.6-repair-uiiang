@@ -8,4 +8,6 @@ public interface VideoCardBinder {
     boolean isCurrentVideo(Object data, long currentVideoId);
     boolean isCurrentVideoByCid(Object data, long currentCid);
     boolean isCurrentSeason(Object data, int currentSeasonId);
+    
+    boolean hasPlayProgress(Object data, long currentCid);
 }

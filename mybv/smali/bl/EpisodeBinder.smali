@@ -758,6 +758,18 @@
     goto :goto_8
 .end method
 
+.method public hasPlayProgress(Ljava/lang/Object;J)Z
+    .locals 2
+
+    .prologue
+    .line 235
+    invoke-virtual {p0, p1, p2, p3}, Lbl/EpisodeBinder;->isCurrentVideoByCid(Ljava/lang/Object;J)Z
+
+    move-result v0
+
+    return v0
+.end method
+
 .method public isCurrentSeason(Ljava/lang/Object;I)Z
     .locals 1
 

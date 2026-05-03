@@ -16,6 +16,9 @@
 .method public abstract getVideoId(Ljava/lang/Object;)J
 .end method
 
+.method public abstract hasPlayProgress(Ljava/lang/Object;J)Z
+.end method
+
 .method public abstract isCurrentSeason(Ljava/lang/Object;I)Z
 .end method
 

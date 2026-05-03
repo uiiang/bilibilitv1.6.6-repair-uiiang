@@ -229,4 +229,9 @@ public class EpisodeBinder implements VideoCardBinder {
     public boolean isCurrentSeason(Object data, int currentSeasonId) {
         return false;
     }
+
+    @Override
+    public boolean hasPlayProgress(Object data, long currentCid) {
+        return isCurrentVideoByCid(data, currentCid);
+    }
 }

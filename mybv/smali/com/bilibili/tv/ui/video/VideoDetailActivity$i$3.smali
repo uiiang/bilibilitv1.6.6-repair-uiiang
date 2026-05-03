@@ -34,7 +34,7 @@
     .locals 0
 
     .prologue
-    .line 4924
+    .line 4928
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$3;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
@@ -48,7 +48,7 @@
     .locals 0
 
     .prologue
-    .line 4924
+    .line 4928
     check-cast p1, Ljava/util/List;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$3;->a(Ljava/util/List;)V
@@ -69,7 +69,7 @@
     .end annotation
 
     .prologue
-    .line 4936
+    .line 4940
     if-eqz p1, :cond_8
 
     invoke-interface {p1}, Ljava/util/List;->isEmpty()Z
@@ -78,12 +78,12 @@
 
     if-eqz v0, :cond_9
 
-    .line 4947
+    .line 4951
     :cond_8
     :goto_8
     return-void
 
-    .line 4939
+    .line 4943
     :cond_9
     new-instance v1, Ljava/util/HashMap;
 
@@ -93,7 +93,7 @@
 
     invoke-direct {v1, v0}, Ljava/util/HashMap;-><init>(I)V
 
-    .line 4940
+    .line 4944
     invoke-interface {p1}, Ljava/util/List;->iterator()Ljava/util/Iterator;
 
     move-result-object v2
@@ -111,7 +111,7 @@
 
     check-cast v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Tag;
 
-    .line 4941
+    .line 4945
     iget-object v3, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Tag;->name:Ljava/lang/String;
 
     iget v0, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Tag;->id:I
@@ -124,7 +124,7 @@
 
     goto :goto_16
 
-    .line 4943
+    .line 4947
     :cond_2e
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$3;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
@@ -135,10 +135,10 @@
 
     move-result-object v0
 
-    .line 4944
+    .line 4948
     if-eqz v0, :cond_8
 
-    .line 4945
+    .line 4949
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$g;->a(Ljava/util/HashMap;)V
 
     goto :goto_8
@@ -148,7 +148,7 @@
     .locals 1
 
     .prologue
-    .line 4927
+    .line 4931
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$3;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -164,6 +164,6 @@
     .locals 0
 
     .prologue
-    .line 4932
+    .line 4936
     return-void
 .end method

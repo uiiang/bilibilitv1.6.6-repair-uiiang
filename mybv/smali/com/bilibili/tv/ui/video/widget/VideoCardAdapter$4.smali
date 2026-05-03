@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 161
+    .line 197
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$4;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$4;->val$compactHolder:Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;
@@ -48,7 +48,7 @@
     .locals 2
 
     .prologue
-    .line 164
+    .line 200
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$4;->val$compactHolder:Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getRootLayout()Lcom/bilibili/tv/widget/DrawLinearLayout;
@@ -57,7 +57,7 @@
 
     if-eqz v0, :cond_11
 
-    .line 165
+    .line 201
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$4;->val$compactHolder:Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getRootLayout()Lcom/bilibili/tv/widget/DrawLinearLayout;
@@ -66,7 +66,7 @@
 
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawLinearLayout;->setUpEnabled(Z)V
 
-    .line 167
+    .line 203
     :cond_11
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$4;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 
@@ -77,7 +77,7 @@
 
     if-eqz v0, :cond_24
 
-    .line 168
+    .line 204
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$4;->this$0:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->focusListener:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemFocusListener;
@@ -89,7 +89,7 @@
 
     invoke-interface {v0, v1, p2}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemFocusListener;->onItemFocus(IZ)V
 
-    .line 170
+    .line 206
     :cond_24
     return-void
 .end method

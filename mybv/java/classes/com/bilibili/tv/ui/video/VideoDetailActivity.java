@@ -2264,7 +2264,11 @@ public final class VideoDetailActivity extends BaseActivity
                 }
             } else {
                 if (historyBtnProgress != null) {
-                    historyBtnProgress.setText("00:00");
+                    if (hasMultipleEpisodes && pageIndex > 0) {
+                        historyBtnProgress.setText("P" + pageIndex + " 00:00");
+                    } else {
+                        historyBtnProgress.setText("00:00");
+                    }
                     historyBtnProgress.setVisibility(View.VISIBLE);
                 }
                 if (historyPlayBtnLayout != null) {
@@ -2988,17 +2992,15 @@ public final class VideoDetailActivity extends BaseActivity
         com.bilibili.tv.ui.video.widget.UnifiedVideoCardBinder binder = new com.bilibili.tv.ui.video.widget.UnifiedVideoCardBinder(1);
         listSection.setData(list, binder);
 
-        if (this.s > 0) {
-            listSection.setCurrentVideoId(this.s);
-        }
-
         long pgcHistoryCid = 0;
         if (this.u != null && this.u.mHistory != null && this.u.mHistory.mCid > 0) {
             pgcHistoryCid = this.u.mHistory.mCid;
         }
         if (pgcHistoryCid > 0) {
             listSection.setCurrentCid(pgcHistoryCid);
+            listSection.setCurrentPlayingCid(pgcHistoryCid);
         }
+        listSection.syncAdapterCurrentState();
         listSection.setInterceptCurrentVideoClick(false);
 
         listSection.setOnVideoClickListener(new com.bilibili.tv.ui.video.widget.VideoListSection.OnVideoClickListener() {
@@ -3241,6 +3243,7 @@ public final class VideoDetailActivity extends BaseActivity
             } catch (NumberFormatException e) {
             }
         }
+        listSection.syncAdapterCurrentState();
 
         listSection.setOnVideoClickListener(new com.bilibili.tv.ui.video.widget.VideoListSection.OnVideoClickListener() {
             @Override
@@ -3298,6 +3301,7 @@ public final class VideoDetailActivity extends BaseActivity
         if (this.s > 0) {
             listSection.setCurrentVideoId(this.s);
         }
+        listSection.syncAdapterCurrentState();
 
         listSection.setOnVideoClickListener(new com.bilibili.tv.ui.video.widget.VideoListSection.OnVideoClickListener() {
             @Override
@@ -5223,6 +5227,7 @@ public final class VideoDetailActivity extends BaseActivity
             com.bilibili.tv.ui.video.widget.UnifiedVideoCardBinder binder = new com.bilibili.tv.ui.video.widget.UnifiedVideoCardBinder(3);
             section.setData(list, binder);
             section.setCurrentVideoId(VideoDetailActivity.this.s);
+            section.syncAdapterCurrentState();
 
             section.setOnVideoClickListener(new com.bilibili.tv.ui.video.widget.VideoListSection.OnVideoClickListener() {
                 @Override
@@ -5487,17 +5492,15 @@ public final class VideoDetailActivity extends BaseActivity
             com.bilibili.tv.ui.video.widget.UnifiedVideoCardBinder binder = new com.bilibili.tv.ui.video.widget.UnifiedVideoCardBinder(2);
             listSection.setData(list, binder);
 
-            if (VideoDetailActivity.this.s > 0) {
-                listSection.setCurrentVideoId(VideoDetailActivity.this.s);
-            }
-
             long historyCid = 0;
             if (biliVideoDetail.mHistory != null && biliVideoDetail.mHistory.mCid > 0) {
                 historyCid = biliVideoDetail.mHistory.mCid;
             }
             if (historyCid > 0) {
                 listSection.setCurrentCid(historyCid);
+                listSection.setCurrentPlayingCid(historyCid);
             }
+            listSection.syncAdapterCurrentState();
             listSection.setInterceptCurrentVideoClick(false);
 
             listSection.setOnVideoClickListener(new com.bilibili.tv.ui.video.widget.VideoListSection.OnVideoClickListener() {

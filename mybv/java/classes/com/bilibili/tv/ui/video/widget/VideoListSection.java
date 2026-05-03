@@ -73,6 +73,7 @@ public class VideoListSection extends LinearLayout {
     private int groupSize = 10;
     private long currentVideoId = -1;
     private long currentCid = -1;
+    private long currentPlayingCid = -1;
     private boolean interceptCurrentVideoClick = true;
     private int currentSeasonId = -1;
     private CurrentItemMatcher currentItemMatcher;
@@ -716,6 +717,26 @@ public class VideoListSection extends LinearLayout {
     public void setShowIndexBadge(boolean show) {
         if (adapter != null) {
             adapter.setShowIndexBadge(show);
+        }
+    }
+
+    public void setCurrentPlayingCid(long cid) {
+        this.currentPlayingCid = cid;
+        if (adapter != null) {
+            adapter.setCurrentPlayingCid(cid);
+        }
+    }
+
+    public long getCurrentPlayingCid() {
+        return this.currentPlayingCid;
+    }
+
+    public void syncAdapterCurrentState() {
+        if (adapter != null) {
+            adapter.setCurrentVideoId(this.currentVideoId);
+            adapter.setCurrentCid(this.currentCid);
+            adapter.setCurrentSeasonId(this.currentSeasonId);
+            adapter.setCurrentPlayingCid(this.currentPlayingCid);
         }
     }
 
