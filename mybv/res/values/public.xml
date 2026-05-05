@@ -28,6 +28,7 @@
 
     <public type="array" name="player_mode" id="0x7f020005" />
     <public type="array" name="screen_adjust" id="0x7f020006" />
+    <public type="array" name="audio_balance_options" id="0x7f020007" />
 
     <public type="attr" name="actionBarDivider" id="0x7f030000" />
     <public type="attr" name="actionBarItemBackground" id="0x7f030001" />
@@ -3165,6 +3166,11 @@
     <public type="string" name="skip_cancel" id="0x7f0c018a" />
     <public type="string" name="skip_saved" id="0x7f0c018b" />
     <public type="string" name="skip_cleared" id="0x7f0c018c" />
+    <public type="string" name="audio_balance" id="0x7f0c018d" />
+    <public type="string" name="audio_balance_off" id="0x7f0c018e" />
+    <public type="string" name="audio_balance_low" id="0x7f0c018f" />
+    <public type="string" name="audio_balance_medium" id="0x7f0c0190" />
+    <public type="string" name="audio_balance_high" id="0x7f0c0191" />
 
 
     <public type="style" name="AlertDialog.AppCompat" id="0x7f0d0000" />

@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.videoplayer.core.videoview.AspectRatio;
+import tv.danmaku.videoplayer.core.media.exo.AudioBalanceLevel;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
@@ -247,10 +248,16 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         int[] menuFlags = {
             abd.MENU_QUALITY, abd.MENU_DANMAKU, abd.MENU_RATIO, abd.MENU_ADJUST,
             abd.MENU_SIZE, abd.MENU_ALPHA, abd.MENU_SPEED, abd.MENU_MODE,
-            abd.MENU_SUBTITLE, abd.MENU_CHAPTER, abd.MENU_SKIP
+            abd.MENU_SUBTITLE, abd.MENU_CHAPTER, abd.MENU_SKIP, abd.MENU_AUDIO_BALANCE
         };
         
+        boolean isExoPlayer = abd.is_exo_player_selected(p());
+        
         for (int i = 0; i < allMenus.length && i < menuFlags.length; i++) {
+            // 音频平衡菜单仅在ExoPlayer模式下显示
+            if (menuFlags[i] == abd.MENU_AUDIO_BALANCE && !isExoPlayer) {
+                continue;
+            }
             if ((menuConfig & menuFlags[i]) != 0) {
                 filteredMenus.add(allMenus[i]);
                 menuIndexMap.add(i);
@@ -290,6 +297,21 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         // 初始化章节列表
         JSONArray view_points = c().a.mVideoParams.obtainResolveParams().view_points;
         this.c.init_chapter(view_points);
+        
+        // 初始化音频平衡菜单（仅在ExoPlayer模式下显示）
+        if (abd.is_exo_player_selected(p())) {
+            String[] audioBalanceOptions = resources.getStringArray(R.array.audio_balance_options);
+            String currentLevel = abd.get_audio_balance_level(p());
+            int currentIndex = 0;
+            if ("low".equals(currentLevel)) {
+                currentIndex = 1;
+            } else if ("medium".equals(currentLevel)) {
+                currentIndex = 2;
+            } else if ("high".equals(currentLevel)) {
+                currentIndex = 3;
+            }
+            this.c.init_audio_balance(Arrays.asList(audioBalanceOptions), currentIndex);
+        }
     }
 
     @Override // com.bilibili.tv.player.widget.PlayerMenuRight.a
@@ -367,6 +389,43 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             }
         });
         dialog.show();
+    }
+
+    @Override
+    public void set_audio_balance_level(int level) {
+        Log.i("xw", "set_audio_balance_level: level=" + level);
+        String levelStr = "off";
+        AudioBalanceLevel audioLevel = AudioBalanceLevel.OFF;
+        switch (level) {
+            case 0:
+                levelStr = "off";
+                audioLevel = AudioBalanceLevel.OFF;
+                break;
+            case 1:
+                levelStr = "low";
+                audioLevel = AudioBalanceLevel.LOW;
+                break;
+            case 2:
+                levelStr = "medium";
+                audioLevel = AudioBalanceLevel.MEDIUM;
+                break;
+            case 3:
+                levelStr = "high";
+                audioLevel = AudioBalanceLevel.HIGH;
+                break;
+        }
+        abd.set_audio_balance_level(p(), levelStr);
+        Log.i("xw", "set_audio_balance_level: saved levelStr=" + levelStr + ", audioLevel=" + audioLevel);
+        
+        if (n() != null) {
+            Log.i("xw", "set_audio_balance_level: playerContext=" + n() + ", class=" + n().getClass().getName());
+            Object result = n().act("SetAudioBalanceLevel", audioLevel);
+            Log.i("xw", "set_audio_balance_level: act result=" + result);
+        } else {
+            Log.w("xw", "set_audio_balance_level: playerContext is null");
+        }
+        
+        android.widget.Toast.makeText(o(), "音频平衡: " + o().getResources().getStringArray(R.array.audio_balance_options)[level], android.widget.Toast.LENGTH_SHORT).show();
     }
 
     private xj getSkipHelper() {

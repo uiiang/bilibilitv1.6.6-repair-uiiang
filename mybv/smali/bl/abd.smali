@@ -12,11 +12,15 @@
 
 .field public static final CDN_PREF_MCDN:I = 0x2
 
+.field private static final KEY_AUDIO_BALANCE_LEVEL:Ljava/lang/String; = "audio_balance_level"
+
 .field public static final MENU_ADJUST:I = 0x8
 
-.field public static final MENU_ALL:I = 0x7ff
+.field public static final MENU_ALL:I = 0xfff
 
 .field public static final MENU_ALPHA:I = 0x20
+
+.field public static final MENU_AUDIO_BALANCE:I = 0x800
 
 .field public static final MENU_CHAPTER:I = 0x200
 
@@ -61,6 +65,8 @@
 .field public static final TAB_PGC:I = 0x20
 
 .field public static final a:[F
+
+.field private static audioBalanceLevel:Ljava/lang/String;
 
 .field public static final b:[F
 
@@ -125,14 +131,14 @@
     .line 16
     new-array v0, v2, [F
 
-    fill-array-data v0, :array_34
+    fill-array-data v0, :array_38
 
     sput-object v0, Lbl/abd;->a:[F
 
     .line 17
     new-array v0, v2, [F
 
-    fill-array-data v0, :array_48
+    fill-array-data v0, :array_4c
 
     sput-object v0, Lbl/abd;->b:[F
 
@@ -144,7 +150,7 @@
 
     new-array v0, v0, [F
 
-    fill-array-data v0, :array_5c
+    fill-array-data v0, :array_60
 
     sput-object v0, Lbl/abd;->speeds:[F
 
@@ -175,19 +181,26 @@
     .line 420
     sput v1, Lbl/abd;->topTabConfig:I
 
-    .line 461
+    .line 462
     sput v1, Lbl/abd;->playerMenuConfig:I
 
-    .line 486
+    .line 487
     sput v1, Lbl/abd;->cdnPreference:I
 
-    .line 554
+    .line 555
     sput v1, Lbl/abd;->playerType:I
+
+    .line 575
+    const/4 v0, 0x0
+
+    sput-object v0, Lbl/abd;->audioBalanceLevel:Ljava/lang/String;
 
     return-void
 
     .line 16
-    :array_34
+    nop
+
+    :array_38
     .array-data 4
         0x3f000000    # 0.5f
         0x3f19999a    # 0.6f
@@ -200,7 +213,7 @@
     .end array-data
 
     .line 17
-    :array_48
+    :array_4c
     .array-data 4
         0x3e99999a    # 0.3f
         0x3ecccccd    # 0.4f
@@ -213,7 +226,7 @@
     .end array-data
 
     .line 29
-    :array_5c
+    :array_60
     .array-data 4
         0x40000000    # 2.0f
         0x3fc00000    # 1.5f
@@ -737,7 +750,7 @@
     .locals 3
 
     .prologue
-    .line 551
+    .line 552
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -796,7 +809,7 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 552
+    .line 553
     return-void
 .end method
 
@@ -976,7 +989,7 @@
     .locals 2
 
     .prologue
-    .line 530
+    .line 531
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -1004,7 +1017,7 @@
     .prologue
     const-wide/16 v6, 0x0
 
-    .line 542
+    .line 543
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1035,7 +1048,7 @@
 
     move-result-wide v2
 
-    .line 543
+    .line 544
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1066,7 +1079,7 @@
 
     move-result-wide v4
 
-    .line 544
+    .line 545
     cmp-long v0, v2, v6
 
     if-nez v0, :cond_4a
@@ -1075,10 +1088,10 @@
 
     if-nez v0, :cond_4a
 
-    .line 545
+    .line 546
     const/4 v0, 0x0
 
-    .line 547
+    .line 548
     :goto_49
     return-object v0
 
@@ -1102,7 +1115,7 @@
     .locals 2
 
     .prologue
-    .line 534
+    .line 535
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -1128,7 +1141,7 @@
     .locals 2
 
     .prologue
-    .line 526
+    .line 527
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -1146,6 +1159,41 @@
     invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v0
+
+    return-object v0
+.end method
+
+.method public static get_audio_balance_level(Landroid/content/Context;)Ljava/lang/String;
+    .locals 3
+
+    .prologue
+    .line 578
+    sget-object v0, Lbl/abd;->audioBalanceLevel:Ljava/lang/String;
+
+    if-nez v0, :cond_16
+
+    .line 579
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    const-string v1, "audio_balance_level"
+
+    const-string v2, "off"
+
+    invoke-interface {v0, v1, v2}, Landroid/content/SharedPreferences;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    sput-object v0, Lbl/abd;->audioBalanceLevel:Ljava/lang/String;
+
+    .line 581
+    :cond_16
+    sget-object v0, Lbl/abd;->audioBalanceLevel:Ljava/lang/String;
 
     return-object v0
 .end method
@@ -1240,14 +1288,14 @@
     .locals 3
 
     .prologue
-    .line 494
+    .line 495
     sget v0, Lbl/abd;->cdnPreference:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_16
 
-    .line 495
+    .line 496
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1266,7 +1314,7 @@
 
     sput v0, Lbl/abd;->cdnPreference:I
 
-    .line 497
+    .line 498
     :cond_16
     sget v0, Lbl/abd;->cdnPreference:I
 
@@ -1569,14 +1617,14 @@
     .locals 3
 
     .prologue
-    .line 470
+    .line 471
     sget v0, Lbl/abd;->playerMenuConfig:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_17
 
-    .line 471
+    .line 472
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1587,7 +1635,7 @@
 
     const-string v1, "player_menu_config"
 
-    const/16 v2, 0x7ff
+    const/16 v2, 0xfff
 
     invoke-interface {v0, v1, v2}, Landroid/content/SharedPreferences;->getInt(Ljava/lang/String;I)I
 
@@ -1595,7 +1643,7 @@
 
     sput v0, Lbl/abd;->playerMenuConfig:I
 
-    .line 473
+    .line 474
     :cond_17
     sget v0, Lbl/abd;->playerMenuConfig:I
 
@@ -1605,7 +1653,7 @@
 
     sput v0, Lbl/abd;->playerMenuConfig:I
 
-    .line 474
+    .line 475
     :cond_1e
     sget v0, Lbl/abd;->playerMenuConfig:I
 
@@ -1616,14 +1664,14 @@
     .locals 3
 
     .prologue
-    .line 562
+    .line 563
     sget v0, Lbl/abd;->playerType:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_16
 
-    .line 563
+    .line 564
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1642,7 +1690,7 @@
 
     sput v0, Lbl/abd;->playerType:I
 
-    .line 566
+    .line 567
     :cond_16
     sget v0, Lbl/abd;->playerType:I
 
@@ -2144,7 +2192,7 @@
     .locals 2
 
     .prologue
-    .line 501
+    .line 502
     invoke-static {p0}, Lbl/abd;->get_cdn_preference(Landroid/content/Context;)I
 
     move-result v0
@@ -2168,7 +2216,7 @@
     .locals 2
 
     .prologue
-    .line 570
+    .line 571
     invoke-static {p0}, Lbl/abd;->get_player_type(Landroid/content/Context;)I
 
     move-result v0
@@ -2214,7 +2262,7 @@
     .locals 1
 
     .prologue
-    .line 478
+    .line 479
     invoke-static {p0}, Lbl/abd;->get_player_menu_config(Landroid/content/Context;)I
 
     move-result v0
@@ -2325,7 +2373,7 @@
     .locals 3
 
     .prologue
-    .line 505
+    .line 506
     if-eqz p1, :cond_8
 
     invoke-virtual {p1}, Ljava/lang/String;->isEmpty()Z
@@ -2334,45 +2382,45 @@
 
     if-eqz v0, :cond_9
 
-    .line 521
+    .line 522
     :cond_8
     :goto_8
     return-void
 
-    .line 509
+    .line 510
     :cond_9
     :try_start_9
     invoke-static {p1}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v0
 
-    .line 510
+    .line 511
     invoke-static {v0}, Lcom/facebook/imagepipeline/request/ImageRequestBuilder;->a(Landroid/net/Uri;)Lcom/facebook/imagepipeline/request/ImageRequestBuilder;
 
     move-result-object v0
 
-    .line 511
+    .line 512
     invoke-virtual {v0}, Lcom/facebook/imagepipeline/request/ImageRequestBuilder;->o()Lcom/facebook/imagepipeline/request/ImageRequest;
 
     move-result-object v0
 
-    .line 512
+    .line 513
     invoke-static {}, Lbl/ajq;->b()Lbl/aoy;
 
     move-result-object v1
 
-    .line 513
+    .line 514
     if-eqz v1, :cond_8
 
-    .line 514
+    .line 515
     invoke-virtual {v1}, Lbl/aoy;->h()Lbl/aov;
 
     move-result-object v1
 
-    .line 515
+    .line 516
     if-eqz v1, :cond_8
 
-    .line 516
+    .line 517
     const/4 v2, 0x0
 
     invoke-virtual {v1, v0, v2}, Lbl/aov;->b(Lcom/facebook/imagepipeline/request/ImageRequest;Ljava/lang/Object;)Lbl/aji;
@@ -2381,7 +2429,7 @@
 
     goto :goto_8
 
-    .line 519
+    .line 520
     :catch_26
     move-exception v0
 
@@ -2392,7 +2440,7 @@
     .locals 4
 
     .prologue
-    .line 538
+    .line 539
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -2451,7 +2499,39 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 539
+    .line 540
+    return-void
+.end method
+
+.method public static set_audio_balance_level(Landroid/content/Context;Ljava/lang/String;)V
+    .locals 2
+
+    .prologue
+    .line 585
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    const-string v1, "audio_balance_level"
+
+    invoke-interface {v0, v1, p1}, Landroid/content/SharedPreferences$Editor;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
+
+    .line 586
+    sput-object p1, Lbl/abd;->audioBalanceLevel:Ljava/lang/String;
+
+    .line 587
     return-void
 .end method
 
@@ -2491,7 +2571,7 @@
     .locals 2
 
     .prologue
-    .line 489
+    .line 490
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -2512,10 +2592,10 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 490
+    .line 491
     sput p1, Lbl/abd;->cdnPreference:I
 
-    .line 491
+    .line 492
     return-void
 .end method
 
@@ -2798,12 +2878,12 @@
     .locals 2
 
     .prologue
-    .line 464
+    .line 465
     if-nez p1, :cond_3
 
     const/4 p1, 0x1
 
-    .line 465
+    .line 466
     :cond_3
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
@@ -2825,10 +2905,10 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 466
+    .line 467
     sput p1, Lbl/abd;->playerMenuConfig:I
 
-    .line 467
+    .line 468
     return-void
 .end method
 
@@ -2836,7 +2916,7 @@
     .locals 2
 
     .prologue
-    .line 557
+    .line 558
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -2857,10 +2937,10 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 558
+    .line 559
     sput p1, Lbl/abd;->playerType:I
 
-    .line 559
+    .line 560
     return-void
 .end method
 

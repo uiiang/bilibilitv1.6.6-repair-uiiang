@@ -456,7 +456,8 @@ public class abd {
     public static final int MENU_SUBTITLE = 256;
     public static final int MENU_CHAPTER = 512;
     public static final int MENU_SKIP = 1024;
-    public static final int MENU_ALL = MENU_QUALITY | MENU_DANMAKU | MENU_RATIO | MENU_ADJUST | MENU_SIZE | MENU_ALPHA | MENU_SPEED | MENU_MODE | MENU_SUBTITLE | MENU_CHAPTER | MENU_SKIP;
+    public static final int MENU_AUDIO_BALANCE = 2048;
+    public static final int MENU_ALL = MENU_QUALITY | MENU_DANMAKU | MENU_RATIO | MENU_ADJUST | MENU_SIZE | MENU_ALPHA | MENU_SPEED | MENU_MODE | MENU_SUBTITLE | MENU_CHAPTER | MENU_SKIP | MENU_AUDIO_BALANCE;
     
     private static int playerMenuConfig = -1;
     
@@ -568,5 +569,20 @@ public class abd {
 
     public static boolean is_exo_player_selected(Context context) {
         return get_player_type(context) == PlayerSelector.PLAYER_EXO;
+    }
+
+    private static final String KEY_AUDIO_BALANCE_LEVEL = "audio_balance_level";
+    private static String audioBalanceLevel = null;
+
+    public static String get_audio_balance_level(Context context) {
+        if (audioBalanceLevel == null) {
+            audioBalanceLevel = a(context).a().getString(KEY_AUDIO_BALANCE_LEVEL, "off");
+        }
+        return audioBalanceLevel;
+    }
+
+    public static void set_audio_balance_level(Context context, String level) {
+        a(context).a().edit().putString(KEY_AUDIO_BALANCE_LEVEL, level).apply();
+        audioBalanceLevel = level;
     }
 }

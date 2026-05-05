@@ -34,6 +34,8 @@ public final class R {
         public static final int player_screen_ratio = 0x7f020004;
 
         public static final int player_mode = 0x7f020005;
+        public static final int screen_adjust = 0x7f020006;
+        public static final int audio_balance_options = 0x7f020007;
     }
 
     public static final class attr {
@@ -3236,6 +3238,11 @@ public final class R {
         public static final int skip_cancel = 0x7f0c018a;
         public static final int skip_saved = 0x7f0c018b;
         public static final int skip_cleared = 0x7f0c018c;
+        public static final int audio_balance = 0x7f0c018d;
+        public static final int audio_balance_off = 0x7f0c018e;
+        public static final int audio_balance_low = 0x7f0c018f;
+        public static final int audio_balance_medium = 0x7f0c0190;
+        public static final int audio_balance_high = 0x7f0c0191;
     }
 
     public static final class style {

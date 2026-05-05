@@ -23,6 +23,7 @@ public interface IEventCenter {
         SWITCH_QUALITY_REMOTE,
         DANMAKU_TOGGLE_REMOTE,
         SWITCH_SPEED,
-        SCREEN_ADJUST
+        SCREEN_ADJUST,
+        AUDIO_BALANCE
     }
 }

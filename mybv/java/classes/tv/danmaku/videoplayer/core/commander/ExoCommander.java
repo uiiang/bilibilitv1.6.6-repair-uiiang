@@ -25,6 +25,7 @@ import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
 import tv.danmaku.videoplayer.core.media.PlayerProxyUtils;
 import tv.danmaku.videoplayer.core.media.PlayerSelector;
 import tv.danmaku.videoplayer.core.media.exo.ExoPlayerImpl;
+import tv.danmaku.videoplayer.core.media.exo.AudioBalanceLevel;
 import tv.danmaku.videoplayer.core.media.resource.SegmentSource;
 import tv.danmaku.videoplayer.core.videoview.IVideoParams;
 import tv.danmaku.videoplayer.core.videoview.IVideoView;
@@ -252,6 +253,7 @@ public class ExoCommander extends AbsPlayerCommander {
 
     @Override
     public Object act(String str, Object... objArr) {
+        Log.i(TAG, "act called: str=" + str + ", hashCode=" + str.hashCode());
         char c;
         switch (str.hashCode()) {
             case -1103207439:
@@ -264,6 +266,13 @@ public class ExoCommander extends AbsPlayerCommander {
             case -427345462:
                 if (str.equals(Commands.CMD_SET_PLAYBACK_SPEED)) {
                     c = 1;
+                    break;
+                }
+                c = 65535;
+                break;
+            case 1995754716:
+                if (str.equals("SetAudioBalanceLevel")) {
+                    c = 2;
                     break;
                 }
                 c = 65535;
@@ -285,6 +294,12 @@ public class ExoCommander extends AbsPlayerCommander {
                 }
                 setPlaybackSpeed(((Float) objArr[0]).floatValue());
                 return null;
+            case 2:
+                if (objArr.length < 1 || !(objArr[0] instanceof AudioBalanceLevel)) {
+                    return null;
+                }
+                setAudioBalanceLevel((AudioBalanceLevel) objArr[0]);
+                return null;
             default:
                 return null;
         }
@@ -297,6 +312,15 @@ public class ExoCommander extends AbsPlayerCommander {
 
     private void setPlaybackSpeed(float f) {
         this.mExoPlayer.setSpeed(f);
+    }
+
+    public void setAudioBalanceLevel(AudioBalanceLevel level) {
+        Log.i(TAG, "setAudioBalanceLevel: " + level + ", mExoPlayer=" + (mExoPlayer != null));
+        if (this.mExoPlayer != null) {
+            this.mExoPlayer.setAudioBalanceLevel(level);
+        } else {
+            Log.w(TAG, "setAudioBalanceLevel: mExoPlayer is null");
+        }
     }
 
     private float getPlaybackSpeed() {

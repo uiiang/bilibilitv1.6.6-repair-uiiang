@@ -413,4 +413,9 @@ Jungly   农业银行"</string>
     <string name="skip_cancel">清除</string>
     <string name="skip_saved">跳过设置已保存</string>
     <string name="skip_cleared">跳过设置已清除</string>
+    <string name="audio_balance">音频平衡</string>
+    <string name="audio_balance_off">关闭</string>
+    <string name="audio_balance_low">低</string>
+    <string name="audio_balance_medium">中</string>
+    <string name="audio_balance_high">高</string>
 </resources>

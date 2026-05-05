@@ -90,6 +90,7 @@ public class ExoPlayerImpl implements IMediaPlayer {
     private void ensurePlayer() {
         if (exoPlayer == null) {
             Log.i(TAG, "ensurePlayer: creating new ExoPlayer instance");
+            
             exoPlayer = new ExoPlayer.Builder(appContext).build();
             exoPlayer.setPlayWhenReady(playWhenReadyOnPrepare);
 
@@ -631,6 +632,32 @@ public class ExoPlayerImpl implements IMediaPlayer {
     @Override
     public void setOnTimedTextListener(OnTimedTextListener listener) {
         this.onTimedTextListener = listener;
+    }
+
+    public void setAudioBalanceLevel(AudioBalanceLevel level) {
+        Log.i(TAG, "setAudioBalanceLevel: " + level + ", exoPlayer=" + (exoPlayer != null));
+        if (exoPlayer != null) {
+            float oldVolume = exoPlayer.getVolume();
+            float volume = 1.0f;
+            switch (level) {
+                case OFF:
+                    volume = 1.0f;
+                    break;
+                case LOW:
+                    volume = 0.7f;
+                    break;
+                case MEDIUM:
+                    volume = 0.5f;
+                    break;
+                case HIGH:
+                    volume = 0.3f;
+                    break;
+            }
+            exoPlayer.setVolume(volume);
+            Log.i(TAG, "setAudioBalanceLevel: volume changed from " + oldVolume + " to " + volume);
+        } else {
+            Log.w(TAG, "setAudioBalanceLevel: exoPlayer is null, cannot set volume");
+        }
     }
 
     public ExoPlayer getExoPlayer() {

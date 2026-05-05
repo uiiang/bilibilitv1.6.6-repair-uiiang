@@ -57,10 +57,12 @@ public class PlayerMenuRight extends aay<String> {
     public static int speed_id = -1;
     public static int mode_id = -1;
     public static int subtitle_id = -1;
+    public static int audio_balance_id = 0;
     public List<String> speed_list;
     public List<String> mode_list;
     public List<String> subtitle_list;
     public List<String> chapter_list;
+    public List<String> audio_balance_list;
     public static boolean danmaku_valid_list[] = {false,true,false,false,true,true,true,true,false,false};
     public static int danmaku_level=0;
     private List<Integer> menuIndexMap;
@@ -91,6 +93,8 @@ public class PlayerMenuRight extends aay<String> {
         void jumpToChapter(int chapterIndex);
 
         void showSkipSettingDialog();
+
+        void set_audio_balance_level(int level);
     }
 
     private void jumpToChapter(int chapterIndex) {
@@ -122,6 +126,11 @@ public class PlayerMenuRight extends aay<String> {
                 }
             }
         }
+    }
+
+    public void init_audio_balance(List<String> options, int currentId) {
+        this.audio_balance_list = options;
+        this.audio_balance_id = currentId;
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
@@ -216,7 +225,7 @@ public class PlayerMenuRight extends aay<String> {
         }
         if (i == 2) {
             try {
-                if (!this.quality_list.get(this.quality_id).equals(str) && !this.ratio_list.get(this.ratio_id).equals(str) && !this.size_list.get(this.size_id).equals(str) && !this.alpha_list.get(this.alpha_id).equals(str) && !this.speed_list.get(this.speed_id).equals(str) && !this.mode_list.get(this.mode_id).equals(str) && !this.subtitle_list.get(this.subtitle_id).equals(str)) {
+                if (!this.quality_list.get(this.quality_id).equals(str) && !this.ratio_list.get(this.ratio_id).equals(str) && !this.size_list.get(this.size_id).equals(str) && !this.alpha_list.get(this.alpha_id).equals(str) && !this.speed_list.get(this.speed_id).equals(str) && !this.mode_list.get(this.mode_id).equals(str) && !this.subtitle_list.get(this.subtitle_id).equals(str) && !this.audio_balance_list.get(this.audio_balance_id).equals(str)) {
                     textView.getCompoundDrawables()[0].setAlpha(0);
                 }
                 else {
@@ -445,6 +454,11 @@ public class PlayerMenuRight extends aay<String> {
                 this.d.showSkipSettingDialog();
                 return true;
             }
+            if (this.audio_balance_list != null && this.audio_balance_list.contains(str)) {
+                i3 = this.audio_balance_id;
+                this.audio_balance_id = i2;
+                this.d.set_audio_balance_level(i2);
+            }
         }
         TextView textView = (TextView) viewGroup.getChildAt(i3);
         if (textView != null) {
@@ -513,6 +527,9 @@ public class PlayerMenuRight extends aay<String> {
             case 10:
                 i3 = 0; // 跳过设置
                 break;
+            case 11:
+                i3 = this.audio_balance_id; // 音频平衡
+                break;
             default:
                 i3 = 0;
                 break;
@@ -563,6 +580,9 @@ public class PlayerMenuRight extends aay<String> {
                     break;
                 case 9:
                     list = this.chapter_list;
+                    break;
+                case 11:
+                    list = this.audio_balance_list;
                     break;
                 default:
                     return null;
