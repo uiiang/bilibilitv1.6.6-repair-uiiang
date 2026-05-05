@@ -121,6 +121,13 @@
     invoke-direct {p0, v0}, Ltv/danmaku/videoplayer/core/media/MediaPlayerFactory;->add3rdPartyPlayer(Ltv/danmaku/videoplayer/core/videoview/IVideoViewPlayerAdapter;)V
 
     .line 195
+    new-instance v0, Ltv/danmaku/videoplayer/core/media/exo/ExoMediaPlayerAdapter;
+
+    invoke-direct {v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoMediaPlayerAdapter;-><init>()V
+
+    invoke-direct {p0, v0}, Ltv/danmaku/videoplayer/core/media/MediaPlayerFactory;->add3rdPartyPlayer(Ltv/danmaku/videoplayer/core/videoview/IVideoViewPlayerAdapter;)V
+
+    .line 196
     new-instance v0, Ltv/danmaku/videoplayer/core/media/android/AndroidMediaPlayerAdapter;
 
     invoke-direct {v0}, Ltv/danmaku/videoplayer/core/media/android/AndroidMediaPlayerAdapter;-><init>()V

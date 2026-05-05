@@ -60,8 +60,23 @@
 
     return-object v0
 
-    .line 28
+    .line 27
     :cond_2
+    invoke-static {p0}, Ltv/danmaku/videoplayer/core/commander/PlayerCommander;->isExo(Ltv/danmaku/ijk/media/player/IMediaPlayer;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_3
+
+    .line 28
+    new-instance v0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;
+
+    invoke-direct {v0, p0}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;-><init>(Ltv/danmaku/ijk/media/player/IMediaPlayer;)V
+
+    return-object v0
+
+    .line 30
+    :cond_3
     new-instance v0, Ltv/danmaku/videoplayer/core/commander/SimpleMediaPlayer2Commander;
 
     invoke-direct {v0, p0}, Ltv/danmaku/videoplayer/core/commander/SimpleMediaPlayer2Commander;-><init>(Ltv/danmaku/ijk/media/player/IMediaPlayer;)V
@@ -106,6 +121,19 @@
     move-result-object p0
 
     instance-of p0, p0, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
+
+    return p0
+.end method
+
+.method private static isExo(Ltv/danmaku/ijk/media/player/IMediaPlayer;)Z
+    .locals 0
+
+    .line 37
+    invoke-static {p0}, Ltv/danmaku/videoplayer/core/media/PlayerProxyUtils;->getActualPlayer(Ltv/danmaku/ijk/media/player/IMediaPlayer;)Ltv/danmaku/ijk/media/player/IMediaPlayer;
+
+    move-result-object p0
+
+    instance-of p0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     return p0
 .end method

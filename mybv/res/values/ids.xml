@@ -435,4 +435,6 @@
     <item type="id" name="chapter_list" />
     <item type="id" name="chapter_play_icon" />
     <item type="id" name="chapter_text" />
+    <item type="id" name="ijk_player" />
+    <item type="id" name="exo_player" />
 </resources>

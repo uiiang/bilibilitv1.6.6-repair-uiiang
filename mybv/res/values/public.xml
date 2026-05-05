@@ -3582,4 +3582,6 @@
     <public type="id" name="chapter_list" id="0x7f080221" />
     <public type="id" name="chapter_play_icon" id="0x7f080222" />
     <public type="id" name="chapter_text" id="0x7f080223" />
+    <public type="id" name="ijk_player" id="0x7f080224" />
+    <public type="id" name="exo_player" id="0x7f080225" />
 </resources>

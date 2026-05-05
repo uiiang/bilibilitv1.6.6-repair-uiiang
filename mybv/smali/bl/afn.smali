@@ -10,6 +10,8 @@
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
         Lbl/afn$a;,
+        Lbl/afn$g;,
+        Lbl/afn$f;,
         Lbl/afn$e;,
         Lbl/afn$d;,
         Lbl/afn$c;,
@@ -31,13 +33,17 @@
 
 .field public e:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
+.field private exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+.field private ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
 
 # direct methods
 .method static constructor <clinit>()V
     .locals 2
 
     .prologue
-    .line 14
+    .line 16
     new-instance v0, Lbl/afn$a;
 
     const/4 v1, 0x0
@@ -53,7 +59,7 @@
     .locals 0
 
     .prologue
-    .line 13
+    .line 15
     invoke-direct {p0}, Lbl/adw;-><init>()V
 
     return-void
@@ -63,8 +69,8 @@
     .locals 1
 
     .prologue
-    .line 13
-    iget-object v0, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
+    .line 15
+    iget-object v0, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     return-object v0
 .end method
@@ -73,8 +79,8 @@
     .locals 1
 
     .prologue
-    .line 13
-    iget-object v0, p0, Lbl/afn;->c:Lcom/bilibili/tv/widget/DrawFrameLayout;
+    .line 15
+    iget-object v0, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     return-object v0
 .end method
@@ -83,10 +89,168 @@
     .locals 1
 
     .prologue
-    .line 13
+    .line 15
+    iget-object v0, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    return-object v0
+.end method
+
+.method static synthetic access$300(Lbl/afn;)Lcom/bilibili/tv/widget/DrawFrameLayout;
+    .locals 1
+
+    .prologue
+    .line 15
+    iget-object v0, p0, Lbl/afn;->c:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    return-object v0
+.end method
+
+.method static synthetic access$400(Lbl/afn;)Lcom/bilibili/tv/widget/DrawFrameLayout;
+    .locals 1
+
+    .prologue
+    .line 15
     iget-object v0, p0, Lbl/afn;->d:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     return-object v0
+.end method
+
+.method static synthetic access$500(Lbl/afn;)V
+    .locals 0
+
+    .prologue
+    .line 15
+    invoke-direct {p0}, Lbl/afn;->updatePlayerSelection()V
+
+    return-void
+.end method
+
+.method private updatePlayerSelection()V
+    .locals 6
+
+    .prologue
+    const v5, 0x7f0700f0
+
+    const v4, 0x7f0700ef
+
+    .line 134
+    iget-object v0, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    if-eqz v0, :cond_e
+
+    iget-object v0, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    if-nez v0, :cond_f
+
+    .line 149
+    :cond_e
+    :goto_e
+    return-void
+
+    .line 136
+    :cond_f
+    invoke-virtual {p0}, Lbl/afn;->getActivity()Landroid/support/v4/app/FragmentActivity;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lbl/abd;->get_player_type(Landroid/content/Context;)I
+
+    move-result v0
+
+    .line 137
+    const-string v1, "afn"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "updatePlayerSelection: playerType="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, ", ijkVisibility="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    iget-object v3, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    .line 138
+    invoke-virtual {v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->getVisibility()I
+
+    move-result v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, ", exoVisibility="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    iget-object v3, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    .line 139
+    invoke-virtual {v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->getVisibility()I
+
+    move-result v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    .line 137
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 141
+    const/4 v1, 0x3
+
+    if-ne v0, v1, :cond_63
+
+    .line 142
+    invoke-static {}, Ltv/danmaku/videoplayer/core/media/PlayerSelector;->isExoPlayerSupported()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_63
+
+    .line 143
+    iget-object v0, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
+
+    .line 144
+    iget-object v0, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, v5}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
+
+    goto :goto_e
+
+    .line 146
+    :cond_63
+    iget-object v0, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, v5}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
+
+    .line 147
+    iget-object v0, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
+
+    goto :goto_e
 .end method
 
 
@@ -97,27 +261,27 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 204
+    .line 302
     iget-object v1, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-nez v1, :cond_6
 
-    .line 231
+    .line 329
     :cond_5
     :goto_5
     return v0
 
-    .line 207
+    .line 305
     :cond_6
     iget-object v1, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 208
+    .line 306
     if-nez v1, :cond_d
 
-    .line 209
+    .line 307
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 211
+    .line 309
     :cond_d
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->hasFocus()Z
 
@@ -125,16 +289,16 @@
 
     if-nez v1, :cond_5
 
-    .line 212
+    .line 310
     iget-object v1, p0, Lbl/afn;->c:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 213
+    .line 311
     if-nez v1, :cond_1a
 
-    .line 214
+    .line 312
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 216
+    .line 314
     :cond_1a
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->hasFocus()Z
 
@@ -142,16 +306,16 @@
 
     if-nez v1, :cond_5
 
-    .line 217
+    .line 315
     iget-object v1, p0, Lbl/afn;->d:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 218
+    .line 316
     if-nez v1, :cond_27
 
-    .line 219
+    .line 317
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 221
+    .line 319
     :cond_27
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->hasFocus()Z
 
@@ -159,20 +323,20 @@
 
     if-nez v1, :cond_5
 
-    .line 222
+    .line 320
     iget-object v0, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 223
+    .line 321
     if-nez v0, :cond_34
 
-    .line 224
+    .line 322
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 226
+    .line 324
     :cond_34
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->requestFocus()Z
 
-    .line 227
+    .line 325
     const/4 v0, 0x1
 
     goto :goto_5
@@ -184,12 +348,12 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 235
+    .line 333
     iget-object v1, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-nez v1, :cond_6
 
-    .line 238
+    .line 336
     :cond_5
     :goto_5
     return v0
@@ -212,7 +376,7 @@
     .locals 1
 
     .prologue
-    .line 23
+    .line 28
     const/4 v0, 0x1
 
     return v0
@@ -222,24 +386,24 @@
     .locals 0
 
     .prologue
-    .line 28
+    .line 33
     return-void
 .end method
 
 .method public onCreateView(Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View;
-    .locals 4
+    .locals 5
 
     .prologue
     const v3, 0x7f0700f0
 
-    const v2, 0x7f0700e8
+    const v4, 0x7f0700e8
 
-    .line 32
+    .line 37
     const-string v0, "inflater"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 33
+    .line 38
     const v0, 0x7f0a003a
 
     const/4 v1, 0x0
@@ -248,12 +412,12 @@
 
     move-result-object v1
 
-    .line 34
+    .line 39
     const-string v0, "view"
 
     invoke-static {v1, v0}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 35
+    .line 40
     const v0, 0x7f0800bb
 
     invoke-virtual {p0, v1, v0}, Lbl/afn;->a(Landroid/view/View;I)Landroid/view/View;
@@ -264,7 +428,7 @@
 
     iput-object v0, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 36
+    .line 41
     const v0, 0x7f08016f
 
     invoke-virtual {p0, v1, v0}, Lbl/afn;->a(Landroid/view/View;I)Landroid/view/View;
@@ -275,7 +439,7 @@
 
     iput-object v0, p0, Lbl/afn;->c:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 37
+    .line 42
     const v0, 0x7f080096
 
     invoke-virtual {p0, v1, v0}, Lbl/afn;->a(Landroid/view/View;I)Landroid/view/View;
@@ -286,7 +450,7 @@
 
     iput-object v0, p0, Lbl/afn;->d:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 38
+    .line 43
     const v0, 0x7f080120
 
     invoke-virtual {p0, v1, v0}, Lbl/afn;->a(Landroid/view/View;I)Landroid/view/View;
@@ -297,83 +461,83 @@
 
     iput-object v0, p0, Lbl/afn;->e:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 39
+    .line 44
     iget-object v0, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-nez v0, :cond_4b
 
-    .line 40
+    .line 45
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 42
+    .line 47
     :cond_4b
     iget-object v0, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    invoke-virtual {v0, v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
+    invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
 
-    .line 43
+    .line 48
     iget-object v0, p0, Lbl/afn;->c:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-nez v0, :cond_57
 
-    .line 44
+    .line 49
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 46
+    .line 51
     :cond_57
     iget-object v0, p0, Lbl/afn;->c:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    invoke-virtual {v0, v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
+    invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
 
-    .line 47
+    .line 52
     iget-object v0, p0, Lbl/afn;->d:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-nez v0, :cond_63
 
-    .line 48
+    .line 53
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 50
+    .line 55
     :cond_63
     iget-object v0, p0, Lbl/afn;->d:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    invoke-virtual {v0, v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
+    invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
 
-    .line 51
+    .line 56
     iget-object v0, p0, Lbl/afn;->e:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-nez v0, :cond_6f
 
-    .line 52
+    .line 57
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 54
+    .line 59
     :cond_6f
     iget-object v0, p0, Lbl/afn;->e:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    invoke-virtual {v0, v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
+    invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
 
-    .line 56
+    .line 61
     iget-object v0, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 57
+    .line 62
     iget-object v0, p0, Lbl/afn;->c:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 58
+    .line 63
     iget-object v0, p0, Lbl/afn;->d:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 59
+    .line 64
     iget-object v0, p0, Lbl/afn;->e:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 60
+    .line 65
     invoke-virtual {p0}, Lbl/afn;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
@@ -382,17 +546,17 @@
 
     move-result v0
 
-    .line 61
+    .line 66
     const/16 v2, 0x10
 
-    if-ne v0, v2, :cond_c2
+    if-ne v0, v2, :cond_17f
 
-    .line 62
+    .line 67
     iget-object v0, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 70
+    .line 75
     :cond_99
     :goto_99
     iget-object v0, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
@@ -403,7 +567,7 @@
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 71
+    .line 76
     iget-object v0, p0, Lbl/afn;->c:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     new-instance v2, Lbl/afn$c;
@@ -412,7 +576,7 @@
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 72
+    .line 77
     iget-object v0, p0, Lbl/afn;->d:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     new-instance v2, Lbl/afn$d;
@@ -421,7 +585,7 @@
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 73
+    .line 78
     iget-object v0, p0, Lbl/afn;->e:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     new-instance v2, Lbl/afn$e;
@@ -430,69 +594,327 @@
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 74
+    .line 80
+    const v0, 0x7f080224
+
+    invoke-virtual {p0, v1, v0}, Lbl/afn;->a(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    iput-object v0, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    .line 81
+    const v0, 0x7f080225
+
+    invoke-virtual {p0, v1, v0}, Lbl/afn;->a(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    iput-object v0, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    .line 83
+    const-string v0, "afn"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "ijkPlayerBtn="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    iget-object v3, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, ", exoPlayerBtn="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    iget-object v3, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 84
+    const-string v0, "afn"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "isExoPlayerSupported="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-static {}, Ltv/danmaku/videoplayer/core/media/PlayerSelector;->isExoPlayerSupported()Z
+
+    move-result v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, ", isExoPlayerAvailable="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    .line 85
+    invoke-static {}, Ltv/danmaku/videoplayer/core/media/PlayerSelector;->isExoPlayerAvailable()Z
+
+    move-result v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    .line 84
+    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 87
+    iget-object v0, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    if-eqz v0, :cond_13f
+
+    .line 88
+    iget-object v0, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
+
+    .line 89
+    iget-object v0, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
+
+    .line 90
+    iget-object v0, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    new-instance v2, Lbl/afn$f;
+
+    invoke-direct {v2, p0}, Lbl/afn$f;-><init>(Lbl/afn;)V
+
+    invoke-virtual {v0, v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+
+    .line 92
+    :cond_13f
+    iget-object v0, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    if-eqz v0, :cond_171
+
+    .line 93
+    iget-object v0, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
+
+    .line 94
+    iget-object v0, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
+
+    .line 95
+    iget-object v0, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    new-instance v2, Lbl/afn$g;
+
+    invoke-direct {v2, p0}, Lbl/afn$g;-><init>(Lbl/afn;)V
+
+    invoke-virtual {v0, v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+
+    .line 97
+    invoke-static {}, Ltv/danmaku/videoplayer/core/media/PlayerSelector;->isExoPlayerSupported()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_163
+
+    invoke-static {}, Ltv/danmaku/videoplayer/core/media/PlayerSelector;->isExoPlayerAvailable()Z
+
+    move-result v0
+
+    if-nez v0, :cond_1a0
+
+    .line 98
+    :cond_163
+    const-string v0, "afn"
+
+    const-string v2, "Hiding exoPlayerBtn - ExoPlayer not supported/available"
+
+    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 99
+    iget-object v0, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    const/16 v2, 0x8
+
+    invoke-virtual {v0, v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setVisibility(I)V
+
+    .line 105
+    :cond_171
+    :goto_171
+    invoke-direct {p0}, Lbl/afn;->updatePlayerSelection()V
+
+    .line 107
+    iget-object v0, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    new-instance v2, Lbl/afn$1;
+
+    invoke-direct {v2, p0}, Lbl/afn$1;-><init>(Lbl/afn;)V
+
+    invoke-virtual {v0, v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->post(Ljava/lang/Runnable;)Z
+
+    .line 130
     return-object v1
 
-    .line 63
-    :cond_c2
+    .line 68
+    :cond_17f
     const/16 v2, 0x20
 
-    if-ne v0, v2, :cond_cc
+    if-ne v0, v2, :cond_18a
 
-    .line 64
+    .line 69
     iget-object v0, p0, Lbl/afn;->c:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    goto :goto_99
+    goto/16 :goto_99
 
-    .line 65
-    :cond_cc
+    .line 70
+    :cond_18a
     const/16 v2, 0x50
 
-    if-ne v0, v2, :cond_d6
+    if-ne v0, v2, :cond_195
 
-    .line 66
+    .line 71
     iget-object v0, p0, Lbl/afn;->d:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    goto :goto_99
+    goto/16 :goto_99
 
-    .line 67
-    :cond_d6
+    .line 72
+    :cond_195
     const/16 v2, 0x78
 
     if-ne v0, v2, :cond_99
 
-    .line 68
+    .line 73
     iget-object v0, p0, Lbl/afn;->e:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    goto :goto_99
+    goto/16 :goto_99
+
+    .line 101
+    :cond_1a0
+    const-string v0, "afn"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "exoPlayerBtn is visible, focusable="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    iget-object v3, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->isFocusable()Z
+
+    move-result v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_171
 .end method
 
 .method public onFocusChange(Landroid/view/View;Z)V
-    .locals 1
+    .locals 3
 
     .prologue
-    .line 243
+    .line 341
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 244
+    .line 342
+    const-string v0, "afn"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "onFocusChange: view="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, ", hasFocus="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, p2}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 343
     instance-of v0, p1, Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    if-eqz v0, :cond_e
+    if-eqz v0, :cond_30
 
-    .line 245
+    .line 344
     check-cast p1, Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {p1, p2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpEnabled(Z)V
 
-    .line 247
-    :cond_e
+    .line 346
+    :cond_30
     return-void
 .end method
