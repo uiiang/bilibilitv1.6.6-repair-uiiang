@@ -3582,4 +3582,6 @@
     <public type="id" name="chapter_list" id="0x7f080221" />
     <public type="id" name="chapter_play_icon" id="0x7f080222" />
     <public type="id" name="chapter_text" id="0x7f080223" />
+    <public type="id" name="menu_subtitle_size_btn" id="0x7f080224" />
+    <public type="string" name="subtitle_size" id="0x7f0c018d" />
 </resources>

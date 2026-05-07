@@ -127,6 +127,7 @@
     <string name="danmaku">弹幕</string>
     <string name="danmaku_alpha">弹幕透明</string>
     <string name="danmaku_size">弹幕大小</string>
+    <string name="subtitle_size">字幕大小</string>
     <string name="danmaku_toggle">弹幕开关</string>
     <string name="day">日</string>
     <string name="day_yesterday">昨天</string>

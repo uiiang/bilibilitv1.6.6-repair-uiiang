@@ -3,6 +3,7 @@ package bl;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.alibaba.fastjson.*;
 import java.util.*;
@@ -150,6 +151,20 @@ public class abd {
             return f2;
         }
         return j;
+    }
+
+    private static float subtitleSize = 0.0f;
+
+    public static void set_subtitle_size(Context context, float f2) {
+        a(context).a().edit().putFloat("subtitle_text_size", f2).apply();
+        subtitleSize = f2;
+    }
+
+    public static float get_subtitle_size(Context context) {
+        if (subtitleSize == 0.0f) {
+            subtitleSize = a(context).a().getFloat("subtitle_text_size", 0.7f);
+        }
+        return subtitleSize;
     }
 
     public static void b(Context context, float f2) {
@@ -455,7 +470,8 @@ public class abd {
     public static final int MENU_SUBTITLE = 256;
     public static final int MENU_CHAPTER = 512;
     public static final int MENU_SKIP = 1024;
-    public static final int MENU_ALL = MENU_QUALITY | MENU_DANMAKU | MENU_RATIO | MENU_ADJUST | MENU_SIZE | MENU_ALPHA | MENU_SPEED | MENU_MODE | MENU_SUBTITLE | MENU_CHAPTER | MENU_SKIP;
+    public static final int MENU_SUBTITLE_SIZE = 2048;
+    public static final int MENU_ALL = MENU_QUALITY | MENU_DANMAKU | MENU_RATIO | MENU_ADJUST | MENU_SIZE | MENU_ALPHA | MENU_SPEED | MENU_MODE | MENU_SUBTITLE | MENU_CHAPTER | MENU_SKIP | MENU_SUBTITLE_SIZE;
     
     private static int playerMenuConfig = -1;
     

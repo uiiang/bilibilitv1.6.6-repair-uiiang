@@ -188,6 +188,11 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         abd.b(MainApplication.a().getApplicationContext(), f);
     }
 
+    @Override // com.bilibili.tv.player.widget.PlayerMenuRight.a
+    public void set_subtitle_size(float f) {
+        abd.set_subtitle_size(MainApplication.a().getApplicationContext(), f);
+    }
+
     private boolean R() {
         return this.c != null && this.c.isShown();
     }
@@ -201,9 +206,11 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             S();
             this.c.a(false);
         } else {
-            if (z && c() != null && c().a.mVideoParams.obtainResolveParams().view_points != null) {
+            if (z && c() != null) {
                 JSONArray view_points = c().a.mVideoParams.obtainResolveParams().view_points;
                 this.c.init_chapter(view_points);
+                JSONObject subtitle_info = c().a.mVideoParams.obtainResolveParams().subtitle_info;
+                this.c.init_subtitle(subtitle_info);
             }
         }
         if (this.c.isShown() != z) {
@@ -247,7 +254,7 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         int[] menuFlags = {
             abd.MENU_QUALITY, abd.MENU_DANMAKU, abd.MENU_RATIO, abd.MENU_ADJUST,
             abd.MENU_SIZE, abd.MENU_ALPHA, abd.MENU_SPEED, abd.MENU_MODE,
-            abd.MENU_SUBTITLE, abd.MENU_CHAPTER, abd.MENU_SKIP
+            abd.MENU_SUBTITLE, abd.MENU_CHAPTER, abd.MENU_SKIP, abd.MENU_SUBTITLE_SIZE
         };
         
         for (int i = 0; i < allMenus.length && i < menuFlags.length; i++) {
@@ -286,6 +293,12 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         this.c.init_speed(arrayList3, abd.get_speed_id(p()));
         this.c.init_mode(Arrays.asList(resources.getStringArray(R.array.player_mode)), abd.get_mode_id(p()));
         this.c.init_subtitle(c().a.mVideoParams.obtainResolveParams().subtitle_info);
+        
+        ArrayList arrayList4 = new ArrayList(abd.a.length);
+        for (float f4 : abd.a) {
+            arrayList4.add(String.valueOf(f4));
+        }
+        this.c.init_subtitle_size(arrayList4, arrayList4.indexOf(String.valueOf(abd.get_subtitle_size(p()))));
         
         // 初始化章节列表
         JSONArray view_points = c().a.mVideoParams.obtainResolveParams().view_points;

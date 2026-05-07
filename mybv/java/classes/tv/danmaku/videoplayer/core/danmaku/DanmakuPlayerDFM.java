@@ -327,7 +327,7 @@ public class DanmakuPlayerDFM implements IDanmakuPlayer {
         Context c = MainApplication.a().getApplicationContext();
         DisplayMetrics dm = c.getResources().getDisplayMetrics();
         float baseScreenScale = dm.heightPixels / 15.0f / 25.0f;
-        float mScale = abd.f(c);
+        float mScale = abd.get_subtitle_size(c);
         JSONArray body = data.optJSONArray("body");
         double font_size = 0.4;
         int font_color = 0xffffff;

@@ -45,6 +45,9 @@
 .method public abstract set_danmaku_type(I)V
 .end method
 
+.method public abstract set_subtitle_size(F)V
+.end method
+
 .method public abstract showSkipSettingDialog()V
 .end method
 

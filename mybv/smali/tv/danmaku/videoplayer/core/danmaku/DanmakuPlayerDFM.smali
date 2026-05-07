@@ -3184,7 +3184,7 @@
     div-float v10, v5, v6
 
     .line 330
-    invoke-static {v4}, Lbl/abd;->f(Landroid/content/Context;)F
+    invoke-static {v4}, Lbl/abd;->get_subtitle_size(Landroid/content/Context;)F
 
     move-result v11
 

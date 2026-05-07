@@ -28,6 +28,7 @@ import bl.aav;
 import bl.abd;
 import org.json.*;
 import android.app.AlertDialog;
+import android.util.Log;
 import android.content.DialogInterface;
 import com.bilibili.tv.MainApplication;
 
@@ -57,9 +58,11 @@ public class PlayerMenuRight extends aay<String> {
     public static int speed_id = -1;
     public static int mode_id = -1;
     public static int subtitle_id = -1;
+    public static int subtitle_size_id = -1;
     public List<String> speed_list;
     public List<String> mode_list;
     public List<String> subtitle_list;
+    public List<String> subtitle_size_list;
     public List<String> chapter_list;
     public static boolean danmaku_valid_list[] = {false,true,false,false,true,true,true,true,false,false};
     public static int danmaku_level=0;
@@ -91,6 +94,8 @@ public class PlayerMenuRight extends aay<String> {
         void jumpToChapter(int chapterIndex);
 
         void showSkipSettingDialog();
+
+        void set_subtitle_size(float f);
     }
 
     private void jumpToChapter(int chapterIndex) {
@@ -142,6 +147,7 @@ public class PlayerMenuRight extends aay<String> {
         this.speed_id = -1;
         this.mode_id = -1;
         this.subtitle_id = -1;
+        this.subtitle_size_id = -1;
     }
 
     public PlayerMenuRight(Context context, AttributeSet attributeSet) {
@@ -156,6 +162,7 @@ public class PlayerMenuRight extends aay<String> {
         this.speed_id = -1;
         this.mode_id = -1;
         this.subtitle_id = -1;
+        this.subtitle_size_id = -1;
     }
 
     public PlayerMenuRight(Context context, AttributeSet attributeSet, int i) {
@@ -170,6 +177,7 @@ public class PlayerMenuRight extends aay<String> {
         this.speed_id = -1;
         this.mode_id = -1;
         this.subtitle_id = -1;
+        this.subtitle_size_id = -1;
     }
 
     public void setListener(a aVar) {
@@ -216,7 +224,15 @@ public class PlayerMenuRight extends aay<String> {
         }
         if (i == 2) {
             try {
-                if (!this.quality_list.get(this.quality_id).equals(str) && !this.ratio_list.get(this.ratio_id).equals(str) && !this.size_list.get(this.size_id).equals(str) && !this.alpha_list.get(this.alpha_id).equals(str) && !this.speed_list.get(this.speed_id).equals(str) && !this.mode_list.get(this.mode_id).equals(str) && !this.subtitle_list.get(this.subtitle_id).equals(str)) {
+                int currentMenuIndex = getOriginalMenuIndex(this.q);
+                boolean isCurrentSize = false;
+                if (currentMenuIndex == 4 && this.size_list.get(this.size_id).equals(str)) {
+                    isCurrentSize = true;
+                }
+                if (currentMenuIndex == 11 && this.subtitle_size_list != null && this.subtitle_size_id >= 0 && this.subtitle_size_id < this.subtitle_size_list.size() && this.subtitle_size_list.get(this.subtitle_size_id).equals(str)) {
+                    isCurrentSize = true;
+                }
+                if (!this.quality_list.get(this.quality_id).equals(str) && !this.ratio_list.get(this.ratio_id).equals(str) && !isCurrentSize && !this.alpha_list.get(this.alpha_id).equals(str) && !this.speed_list.get(this.speed_id).equals(str) && !this.mode_list.get(this.mode_id).equals(str) && !this.subtitle_list.get(this.subtitle_id).equals(str)) {
                     textView.getCompoundDrawables()[0].setAlpha(0);
                 }
                 else {
@@ -412,7 +428,8 @@ public class PlayerMenuRight extends aay<String> {
                 this.d.adjust_screen(i2);
                 return true;
             }
-            if (this.size_list.indexOf(str) != -1) {
+            int currentMenuIndex = getOriginalMenuIndex(this.q);
+            if (this.size_list.indexOf(str) != -1 && currentMenuIndex == 4) {
                 this.d.a(Float.valueOf(this.size_list.get(i2)).floatValue());
                 i3 = this.size_id;
                 this.size_id = i2;
@@ -434,6 +451,12 @@ public class PlayerMenuRight extends aay<String> {
             if (this.subtitle_list.indexOf(str) != -1) {
                 i3 = this.subtitle_id;
                 this.subtitle_id = i2;
+                this.d.refresh_subtitle();
+            }
+            if (this.subtitle_size_list != null && this.subtitle_size_list.indexOf(str) != -1 && currentMenuIndex == 11) {
+                this.d.set_subtitle_size(Float.valueOf(this.subtitle_size_list.get(i2)).floatValue());
+                i3 = this.subtitle_size_id;
+                this.subtitle_size_id = i2;
                 this.d.refresh_subtitle();
             }
             if (this.chapter_list != null && this.chapter_list.contains(str)) {
@@ -513,6 +536,9 @@ public class PlayerMenuRight extends aay<String> {
             case 10:
                 i3 = 0; // 跳过设置
                 break;
+            case 11:
+                i3 = this.subtitle_size_id; // 字幕大小
+                break;
             default:
                 i3 = 0;
                 break;
@@ -563,6 +589,9 @@ public class PlayerMenuRight extends aay<String> {
                     break;
                 case 9:
                     list = this.chapter_list;
+                    break;
+                case 11:
+                    list = this.subtitle_size_list;
                     break;
                 default:
                     return null;
@@ -697,11 +726,22 @@ public class PlayerMenuRight extends aay<String> {
     public void init_subtitle(JSONObject subtitle_info) {
         this.subtitle_list = new ArrayList<>();
         this.subtitle_list.add("关闭字幕");
-        if(subtitle_info==null){this.subtitle_id = 0;return;}
+        if(subtitle_info==null){
+            this.subtitle_id = 0;
+            return;
+        }
         JSONArray subtitles = subtitle_info.optJSONArray("subtitles");
         for(int i=0;i<subtitles.length();i++)this.subtitle_list.add(subtitles.optJSONObject(i).optString("lan_doc"));
-        if(subtitles.length()>0 && !subtitles.optJSONObject(0).optString("lan").startsWith("ai-"))this.subtitle_id = 1;
-        else this.subtitle_id = 0;
+        if(this.subtitle_id == -1 || this.subtitle_id >= this.subtitle_list.size()){
+            if(subtitles.length()>0 && !subtitles.optJSONObject(0).optString("lan").startsWith("ai-"))this.subtitle_id = 1;
+            else this.subtitle_id = 0;
+        }
+    }
+
+    public void init_subtitle_size(List<String> list, int i) {
+        this.subtitle_size_list = list;
+        if(i == -1) i = 2;
+        this.subtitle_size_id = i;
     }
 
     public void a(int i, int i2, long j) {

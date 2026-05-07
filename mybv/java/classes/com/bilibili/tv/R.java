@@ -2643,6 +2643,7 @@ public final class R {
         public static final int chapter_list = 0x7f080221;
         public static final int chapter_play_icon = 0x7f080222;
         public static final int chapter_text = 0x7f080223;
+        public static final int menu_subtitle_size_btn = 0x7f080224;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;
@@ -3234,6 +3235,7 @@ public final class R {
         public static final int skip_cancel = 0x7f0c018a;
         public static final int skip_saved = 0x7f0c018b;
         public static final int skip_cleared = 0x7f0c018c;
+        public static final int subtitle_size = 0x7f0c018d;
     }
 
     public static final class style {

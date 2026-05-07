@@ -1,4 +1,4 @@
-.class Lbl/xw$3;
+.class Lbl/xw$4;
 .super Ljava/lang/Object;
 .source "xw.java"
 
@@ -28,10 +28,10 @@
     .locals 0
 
     .prologue
-    .line 369
-    iput-object p1, p0, Lbl/xw$3;->this$0:Lbl/xw;
+    .line 445
+    iput-object p1, p0, Lbl/xw$4;->this$0:Lbl/xw;
 
-    iput-object p2, p0, Lbl/xw$3;->val$params:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
+    iput-object p2, p0, Lbl/xw$4;->val$params:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -44,7 +44,7 @@
     .locals 5
 
     .prologue
-    .line 372
+    .line 448
     const-string v0, "SkipSetting"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -77,32 +77,32 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 374
-    iget-object v0, p0, Lbl/xw$3;->this$0:Lbl/xw;
+    .line 450
+    iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
 
-    iget-object v1, p0, Lbl/xw$3;->val$params:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
+    iget-object v1, p0, Lbl/xw$4;->val$params:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     # invokes: Lbl/xw;->getEffectiveSkips(Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;)Lorg/json/JSONArray;
     invoke-static {v0, v1}, Lbl/xw;->access$000(Lbl/xw;Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;)Lorg/json/JSONArray;
 
     move-result-object v0
 
-    .line 375
-    iget-object v1, p0, Lbl/xw$3;->this$0:Lbl/xw;
+    .line 451
+    iget-object v1, p0, Lbl/xw$4;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->getSkipHelper()Lbl/xj;
     invoke-static {v1}, Lbl/xw;->access$100(Lbl/xw;)Lbl/xj;
 
     move-result-object v1
 
-    .line 376
+    .line 452
     if-eqz v1, :cond_3f
 
-    .line 377
+    .line 453
     invoke-virtual {v1, v0}, Lbl/xj;->updateSkips(Lorg/json/JSONArray;)V
 
-    .line 378
-    iget-object v0, p0, Lbl/xw$3;->this$0:Lbl/xw;
+    .line 454
+    iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
 
     invoke-virtual {v0}, Lbl/xw;->x()I
 
@@ -112,7 +112,7 @@
 
     invoke-virtual {v1, v2, v3}, Lbl/xj;->checkSkip(J)V
 
-    .line 380
+    .line 456
     :cond_3f
     return-void
 .end method
