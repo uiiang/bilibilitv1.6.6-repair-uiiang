@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 105
+    .line 114
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 0
 
     .prologue
-    .line 188
+    .line 197
     return-void
 .end method
 
@@ -48,7 +48,7 @@
     .locals 0
 
     .prologue
-    .line 192
+    .line 201
     return-void
 .end method
 
@@ -56,7 +56,7 @@
     .locals 0
 
     .prologue
-    .line 196
+    .line 205
     return-void
 .end method
 
@@ -64,7 +64,7 @@
     .locals 0
 
     .prologue
-    .line 200
+    .line 209
     return-void
 .end method
 
@@ -81,7 +81,7 @@
     .end annotation
 
     .prologue
-    .line 204
+    .line 213
     return-void
 .end method
 
@@ -89,7 +89,7 @@
     .locals 0
 
     .prologue
-    .line 208
+    .line 217
     return-void
 .end method
 
@@ -97,7 +97,7 @@
     .locals 0
 
     .prologue
-    .line 212
+    .line 221
     return-void
 .end method
 
@@ -105,7 +105,7 @@
     .locals 0
 
     .prologue
-    .line 216
+    .line 225
     return-void
 .end method
 
@@ -113,7 +113,7 @@
     .locals 0
 
     .prologue
-    .line 220
+    .line 229
     return-void
 .end method
 
@@ -125,7 +125,7 @@
 
     const/4 v3, 0x0
 
-    .line 165
+    .line 174
     if-eqz p1, :cond_24
 
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
@@ -137,7 +137,7 @@
 
     if-eqz v0, :cond_24
 
-    .line 166
+    .line 175
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onInfoListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;
@@ -149,7 +149,7 @@
 
     invoke-interface {v0, v1, v2, v3}, Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;->onInfo(Ltv/danmaku/ijk/media/player/IMediaPlayer;II)Z
 
-    .line 168
+    .line 177
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onInfoListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;
@@ -163,7 +163,7 @@
 
     invoke-interface/range {v0 .. v5}, Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;->onInfo2(Ltv/danmaku/ijk/media/player/IMediaPlayer;IIJ)Z
 
-    .line 171
+    .line 180
     :cond_24
     return-void
 .end method
@@ -172,7 +172,7 @@
     .locals 0
 
     .prologue
-    .line 224
+    .line 233
     return-void
 .end method
 
@@ -180,7 +180,7 @@
     .locals 0
 
     .prologue
-    .line 228
+    .line 237
     return-void
 .end method
 
@@ -188,7 +188,7 @@
     .locals 0
 
     .prologue
-    .line 232
+    .line 241
     return-void
 .end method
 
@@ -196,7 +196,7 @@
     .locals 0
 
     .prologue
-    .line 236
+    .line 245
     return-void
 .end method
 
@@ -204,7 +204,7 @@
     .locals 0
 
     .prologue
-    .line 240
+    .line 249
     return-void
 .end method
 
@@ -212,7 +212,7 @@
     .locals 0
 
     .prologue
-    .line 244
+    .line 253
     return-void
 .end method
 
@@ -220,7 +220,7 @@
     .locals 0
 
     .prologue
-    .line 248
+    .line 257
     return-void
 .end method
 
@@ -234,15 +234,15 @@
 
     const/4 v3, 0x0
 
-    .line 108
+    .line 117
     packed-switch p1, :pswitch_data_b0
 
-    .line 138
+    .line 147
     :cond_8
     :goto_8
     return-void
 
-    .line 110
+    .line 119
     :pswitch_9
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
@@ -255,7 +255,7 @@
 
     if-lez v0, :cond_29
 
-    .line 111
+    .line 120
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->exoPlayer:Lcom/google/android/exoplayer2/ExoPlayer;
@@ -272,7 +272,7 @@
 
     invoke-interface {v0, v2, v3}, Lcom/google/android/exoplayer2/ExoPlayer;->seekTo(J)V
 
-    .line 112
+    .line 121
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     const-wide/16 v2, -0x1
@@ -280,7 +280,7 @@
     # setter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->seekOnPrepare:J
     invoke-static {v0, v2, v3}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$502(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;J)J
 
-    .line 114
+    .line 123
     :cond_29
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
@@ -298,7 +298,7 @@
     # setter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->cachedDuration:J
     invoke-static {v0, v2, v3}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$202(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;J)J
 
-    .line 115
+    .line 124
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onPreparedListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnPreparedListener;
@@ -308,7 +308,7 @@
 
     if-eqz v0, :cond_4b
 
-    .line 116
+    .line 125
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onPreparedListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnPreparedListener;
@@ -320,7 +320,7 @@
 
     invoke-interface {v0, v1}, Ltv/danmaku/ijk/media/player/IMediaPlayer$OnPreparedListener;->onPrepared(Ltv/danmaku/ijk/media/player/IMediaPlayer;)V
 
-    .line 118
+    .line 127
     :cond_4b
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
@@ -340,7 +340,7 @@
 
     goto :goto_8
 
-    .line 121
+    .line 130
     :pswitch_5b
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
@@ -358,7 +358,7 @@
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->removeCallbacks(Ljava/lang/Runnable;)V
 
-    .line 122
+    .line 131
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onCompletionListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnCompletionListener;
@@ -368,7 +368,7 @@
 
     if-eqz v0, :cond_8
 
-    .line 123
+    .line 132
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onCompletionListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnCompletionListener;
@@ -382,7 +382,7 @@
 
     goto :goto_8
 
-    .line 127
+    .line 136
     :pswitch_7e
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
@@ -393,7 +393,7 @@
 
     if-eqz v0, :cond_8
 
-    .line 128
+    .line 137
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onInfoListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;
@@ -405,7 +405,7 @@
 
     invoke-interface {v0, v1, v2, v3}, Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;->onInfo(Ltv/danmaku/ijk/media/player/IMediaPlayer;II)Z
 
-    .line 130
+    .line 139
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onInfoListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;
@@ -419,7 +419,7 @@
 
     goto/16 :goto_8
 
-    .line 135
+    .line 144
     :pswitch_9e
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
@@ -439,7 +439,7 @@
 
     goto/16 :goto_8
 
-    .line 108
+    .line 117
     nop
 
     :pswitch_data_b0
@@ -455,7 +455,7 @@
     .locals 0
 
     .prologue
-    .line 252
+    .line 261
     return-void
 .end method
 
@@ -463,7 +463,7 @@
     .locals 4
 
     .prologue
-    .line 142
+    .line 151
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -490,7 +490,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 143
+    .line 152
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onErrorListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnErrorListener;
@@ -500,7 +500,7 @@
 
     if-eqz v0, :cond_32
 
-    .line 144
+    .line 153
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onErrorListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnErrorListener;
@@ -516,7 +516,7 @@
 
     invoke-interface {v0, v1, v2, v3}, Ltv/danmaku/ijk/media/player/IMediaPlayer$OnErrorListener;->onError(Ltv/danmaku/ijk/media/player/IMediaPlayer;II)Z
 
-    .line 147
+    .line 156
     :cond_32
     return-void
 .end method
@@ -525,7 +525,7 @@
     .locals 0
 
     .prologue
-    .line 256
+    .line 265
     return-void
 .end method
 
@@ -533,7 +533,7 @@
     .locals 0
 
     .prologue
-    .line 260
+    .line 269
     return-void
 .end method
 
@@ -541,7 +541,7 @@
     .locals 0
 
     .prologue
-    .line 264
+    .line 273
     return-void
 .end method
 
@@ -549,7 +549,7 @@
     .locals 0
 
     .prologue
-    .line 268
+    .line 277
     return-void
 .end method
 
@@ -557,12 +557,12 @@
     .locals 2
 
     .prologue
-    .line 175
+    .line 184
     const/4 v0, 0x1
 
     if-ne p3, v0, :cond_16
 
-    .line 176
+    .line 185
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onSeekCompleteListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnSeekCompleteListener;
@@ -572,7 +572,7 @@
 
     if-eqz v0, :cond_16
 
-    .line 177
+    .line 186
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onSeekCompleteListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnSeekCompleteListener;
@@ -584,7 +584,7 @@
 
     invoke-interface {v0, v1}, Ltv/danmaku/ijk/media/player/IMediaPlayer$OnSeekCompleteListener;->onSeekComplete(Ltv/danmaku/ijk/media/player/IMediaPlayer;)V
 
-    .line 180
+    .line 189
     :cond_16
     return-void
 .end method
@@ -593,7 +593,7 @@
     .locals 0
 
     .prologue
-    .line 272
+    .line 281
     return-void
 .end method
 
@@ -601,7 +601,7 @@
     .locals 0
 
     .prologue
-    .line 276
+    .line 285
     return-void
 .end method
 
@@ -609,7 +609,7 @@
     .locals 0
 
     .prologue
-    .line 280
+    .line 289
     return-void
 .end method
 
@@ -617,7 +617,7 @@
     .locals 0
 
     .prologue
-    .line 284
+    .line 293
     return-void
 .end method
 
@@ -625,7 +625,7 @@
     .locals 0
 
     .prologue
-    .line 288
+    .line 297
     return-void
 .end method
 
@@ -633,7 +633,7 @@
     .locals 0
 
     .prologue
-    .line 292
+    .line 301
     return-void
 .end method
 
@@ -641,7 +641,7 @@
     .locals 0
 
     .prologue
-    .line 296
+    .line 305
     return-void
 .end method
 
@@ -649,7 +649,7 @@
     .locals 0
 
     .prologue
-    .line 184
+    .line 193
     return-void
 .end method
 
@@ -657,7 +657,7 @@
     .locals 0
 
     .prologue
-    .line 300
+    .line 309
     return-void
 .end method
 
@@ -665,7 +665,7 @@
     .locals 0
 
     .prologue
-    .line 304
+    .line 313
     return-void
 .end method
 
@@ -673,7 +673,7 @@
     .locals 6
 
     .prologue
-    .line 151
+    .line 160
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onVideoSizeChangedListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnVideoSizeChangedListener;
@@ -683,7 +683,7 @@
 
     if-eqz v0, :cond_26
 
-    .line 152
+    .line 161
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onVideoSizeChangedListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnVideoSizeChangedListener;
@@ -718,11 +718,11 @@
 
     invoke-interface/range {v0 .. v5}, Ltv/danmaku/ijk/media/player/IMediaPlayer$OnVideoSizeChangedListener;->onVideoSizeChanged(Ltv/danmaku/ijk/media/player/IMediaPlayer;IIII)V
 
-    .line 161
+    .line 170
     :cond_26
     return-void
 
-    .line 152
+    .line 161
     :cond_27
     const/4 v4, 0x1
 
@@ -733,6 +733,6 @@
     .locals 0
 
     .prologue
-    .line 308
+    .line 317
     return-void
 .end method

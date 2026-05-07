@@ -23,7 +23,7 @@
     .locals 3
 
     .prologue
-    .line 51
+    .line 48
     invoke-static {}, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->values()[Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
     move-result-object v0
@@ -47,13 +47,13 @@
 
     aput v2, v0, v1
     :try_end_14
-    .catch Ljava/lang/NoSuchFieldError; {:try_start_9 .. :try_end_14} :catch_3c
+    .catch Ljava/lang/NoSuchFieldError; {:try_start_9 .. :try_end_14} :catch_2f
 
     :goto_14
     :try_start_14
     sget-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel$1;->$SwitchMap$tv$danmaku$videoplayer$core$media$exo$AudioBalanceLevel:[I
 
-    sget-object v1, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->LOW:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+    sget-object v1, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->STANDARD:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
     invoke-virtual {v1}, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->ordinal()I
 
@@ -63,13 +63,13 @@
 
     aput v2, v0, v1
     :try_end_1f
-    .catch Ljava/lang/NoSuchFieldError; {:try_start_14 .. :try_end_1f} :catch_3a
+    .catch Ljava/lang/NoSuchFieldError; {:try_start_14 .. :try_end_1f} :catch_2d
 
     :goto_1f
     :try_start_1f
     sget-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel$1;->$SwitchMap$tv$danmaku$videoplayer$core$media$exo$AudioBalanceLevel:[I
 
-    sget-object v1, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->MEDIUM:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+    sget-object v1, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->HIGH_DYNAMIC:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
     invoke-virtual {v1}, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->ordinal()I
 
@@ -79,43 +79,22 @@
 
     aput v2, v0, v1
     :try_end_2a
-    .catch Ljava/lang/NoSuchFieldError; {:try_start_1f .. :try_end_2a} :catch_38
+    .catch Ljava/lang/NoSuchFieldError; {:try_start_1f .. :try_end_2a} :catch_2b
 
     :goto_2a
-    :try_start_2a
-    sget-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel$1;->$SwitchMap$tv$danmaku$videoplayer$core$media$exo$AudioBalanceLevel:[I
-
-    sget-object v1, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->HIGH:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
-
-    invoke-virtual {v1}, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->ordinal()I
-
-    move-result v1
-
-    const/4 v2, 0x4
-
-    aput v2, v0, v1
-    :try_end_35
-    .catch Ljava/lang/NoSuchFieldError; {:try_start_2a .. :try_end_35} :catch_36
-
-    :goto_35
     return-void
 
-    :catch_36
-    move-exception v0
-
-    goto :goto_35
-
-    :catch_38
+    :catch_2b
     move-exception v0
 
     goto :goto_2a
 
-    :catch_3a
+    :catch_2d
     move-exception v0
 
     goto :goto_1f
 
-    :catch_3c
+    :catch_2f
     move-exception v0
 
     goto :goto_14

@@ -1,5 +1,6 @@
 package tv.danmaku.videoplayer.core.media.exo;
 
+import android.util.Log;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.audio.AudioProcessor;
 import com.google.android.exoplayer2.audio.BaseAudioProcessor;
@@ -8,8 +9,12 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 public class VolumeBalanceAudioProcessor extends BaseAudioProcessor {
+    private static final String TAG = "VolumeBalanceAP";
     private volatile AudioBalanceLevel level = AudioBalanceLevel.OFF;
     private volatile Params params = paramsFor(AudioBalanceLevel.OFF);
+    private int logCounter = 0;
+    private static int videoSequence = 0;
+    private int currentVideoId = 0;
 
     private int sampleRateHz = 48000;
     private int channelCount = 2;
@@ -20,7 +25,7 @@ public class VolumeBalanceAudioProcessor extends BaseAudioProcessor {
     private Double programMeanSquare = null;
     private float currentGain = 1.0f;
 
-    private static final double TARGET_RMS_DB = -20.0;
+    private static final double TARGET_RMS_DB = -14.0;
     private static final float LIMITER_CEILING = 0.98f;
     private static final double MIN_MEAN_SQUARE = 1.0e-12;
 
@@ -39,6 +44,7 @@ public class VolumeBalanceAudioProcessor extends BaseAudioProcessor {
         this.level = level;
         this.params = paramsFor(level);
         resetAdaptiveState();
+        Log.i(TAG, "Level: " + level);
     }
 
     public AudioBalanceLevel getLevel() {
@@ -54,7 +60,9 @@ public class VolumeBalanceAudioProcessor extends BaseAudioProcessor {
         out.order(ByteOrder.nativeOrder());
 
         AudioBalanceLevel currentLevel = level;
-        if (currentLevel == AudioBalanceLevel.OFF || !isActive()) {
+        boolean active = isActive();
+        
+        if (currentLevel == AudioBalanceLevel.OFF || !active) {
             out.put(inputBuffer);
             out.flip();
             return;
@@ -149,6 +157,17 @@ public class VolumeBalanceAudioProcessor extends BaseAudioProcessor {
             currentGain = peakSafeGain;
         }
 
+        logCounter++;
+        if (logCounter % 500 == 0) {
+            double currentGainDb = 20.0 * Math.log10(currentGain);
+            double programDb = programMeanSquare != null ? 20.0 * Math.log10(Math.sqrt(programMeanSquare)) : -120.0;
+            double outputDb = programDb + currentGainDb;
+            Log.i(TAG, "[Video-" + currentVideoId + "] " + currentLevel + 
+                " | Program: " + String.format("%.1f", programDb) + "dB" +
+                " | Gain: " + String.format("%.1f", currentGainDb) + "dB" +
+                " | Output: " + String.format("%.1f", outputDb) + "dB");
+        }
+
         float appliedGain = currentGain;
         inBuf.position(startPos);
 
@@ -179,8 +198,16 @@ public class VolumeBalanceAudioProcessor extends BaseAudioProcessor {
             sampleRateHz = inputAudioFormat.sampleRate > 0 ? inputAudioFormat.sampleRate : 48000;
             channelCount = inputAudioFormat.channelCount > 0 ? inputAudioFormat.channelCount : 2;
             resetAdaptiveState();
+            
+            if (inputAudioFormat.sampleRate > 0) {
+                videoSequence++;
+                currentVideoId = videoSequence;
+                Log.i(TAG, "New Video [" + currentVideoId + "] " + sampleRateHz + "Hz " + channelCount + "ch");
+            }
+            
             return inputAudioFormat;
         }
+        Log.w(TAG, "Unsupported encoding: " + encoding);
         return AudioFormat.NOT_SET;
     }
 
@@ -243,35 +270,25 @@ public class VolumeBalanceAudioProcessor extends BaseAudioProcessor {
         double releaseSec;
 
         switch (level) {
-            case HIGH:
-                startupGainDb = -3.0;
-                maxGainDb = 2.5;
-                minGainDb = -16.0;
+            case STANDARD:
+                startupGainDb = 0.0;
+                maxGainDb = 24.0;
+                minGainDb = -24.0;
+                silenceGateDb = -60.0;
+                calibrationSignalSec = 0.5;
+                programIntegrationSec = 2.0;
+                attackSec = 0.3;
+                releaseSec = 0.5;
+                break;
+            case HIGH_DYNAMIC:
+                startupGainDb = 0.0;
+                maxGainDb = 18.0;
+                minGainDb = -18.0;
                 silenceGateDb = -55.0;
-                calibrationSignalSec = 1.5;
-                programIntegrationSec = 6.0;
-                attackSec = 1.5;
-                releaseSec = 5.0;
-                break;
-            case MEDIUM:
-                startupGainDb = -1.5;
-                maxGainDb = 2.0;
-                minGainDb = -12.0;
-                silenceGateDb = -53.0;
-                calibrationSignalSec = 2.0;
-                programIntegrationSec = 8.0;
-                attackSec = 2.0;
-                releaseSec = 6.0;
-                break;
-            case LOW:
-                startupGainDb = -0.5;
-                maxGainDb = 1.0;
-                minGainDb = -8.0;
-                silenceGateDb = -50.0;
-                calibrationSignalSec = 2.5;
-                programIntegrationSec = 10.0;
-                attackSec = 3.0;
-                releaseSec = 8.0;
+                calibrationSignalSec = 1.0;
+                programIntegrationSec = 4.0;
+                attackSec = 1.0;
+                releaseSec = 2.0;
                 break;
             case OFF:
             default:
@@ -282,7 +299,7 @@ public class VolumeBalanceAudioProcessor extends BaseAudioProcessor {
                 calibrationSignalSec = 0.0;
                 programIntegrationSec = 0.0;
                 attackSec = 0.05;
-                releaseSec = 1.20;
+                releaseSec = 0.1;
                 break;
         }
 

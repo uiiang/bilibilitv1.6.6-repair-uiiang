@@ -515,7 +515,7 @@
     .locals 1
 
     .prologue
-    .line 327
+    .line 323
     const/high16 v0, 0x3f800000    # 1.0f
 
     return v0
@@ -574,14 +574,14 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 331
+    .line 327
     invoke-static {p1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v1
 
     if-eqz v1, :cond_16
 
-    .line 332
+    .line 328
     if-eqz p2, :cond_15
 
     iget-object v1, p2, Ltv/danmaku/videoplayer/core/media/resource/MediaSource;->mSegmentList:Ljava/util/ArrayList;
@@ -590,19 +590,19 @@
 
     iget-object v1, p2, Ltv/danmaku/videoplayer/core/media/resource/MediaSource;->mSegmentList:Ljava/util/ArrayList;
 
-    .line 333
+    .line 329
     invoke-virtual {v1}, Ljava/util/ArrayList;->isEmpty()Z
 
     move-result v1
 
     if-eqz v1, :cond_2e
 
-    .line 340
+    .line 336
     :cond_15
     :goto_15
     return v0
 
-    .line 336
+    .line 332
     :cond_16
     const-string v1, "vsl://"
 
@@ -622,14 +622,14 @@
 
     const-string v1, "vsindex://"
 
-    .line 337
+    .line 333
     invoke-virtual {p1, v1}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
 
     move-result v1
 
     if-eqz v1, :cond_15
 
-    .line 340
+    .line 336
     :cond_2e
     const/4 v0, 0x1
 
@@ -687,163 +687,126 @@
     .locals 1
 
     .prologue
-    .line 314
+    .line 313
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mExoPlayer:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->setSpeed(F)V
 
-    .line 315
+    .line 314
     return-void
 .end method
 
 
 # virtual methods
 .method public varargs act(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;
-    .locals 7
+    .locals 5
 
     .prologue
     const v0, 0xffff
 
     const/4 v2, 0x1
 
-    const/4 v6, 0x0
+    const/4 v4, 0x0
 
     const/4 v1, 0x0
 
-    .line 256
-    const-string v3, "ExoCommander"
-
-    new-instance v4, Ljava/lang/StringBuilder;
-
-    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v5, "act called: str="
-
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    invoke-virtual {v4, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    const-string v5, ", hashCode="
-
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    invoke-virtual {p1}, Ljava/lang/String;->hashCode()I
-
-    move-result v5
-
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v4
-
-    invoke-static {v3, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 258
+    .line 257
     invoke-virtual {p1}, Ljava/lang/String;->hashCode()I
 
     move-result v3
 
-    sparse-switch v3, :sswitch_data_8c
+    sparse-switch v3, :sswitch_data_66
 
-    .line 284
-    :cond_33
-    :goto_33
-    packed-switch v0, :pswitch_data_9a
+    .line 283
+    :cond_d
+    :goto_d
+    packed-switch v0, :pswitch_data_74
 
-    .line 304
-    :cond_36
-    :goto_36
-    return-object v6
+    .line 303
+    :cond_10
+    :goto_10
+    return-object v4
 
-    .line 260
-    :sswitch_37
+    .line 259
+    :sswitch_11
     const-string v3, "SetOnExtraInfoListener"
 
     invoke-virtual {p1, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
     move-result v3
 
-    if-eqz v3, :cond_33
+    if-eqz v3, :cond_d
 
     move v0, v1
 
-    .line 262
-    goto :goto_33
+    .line 261
+    goto :goto_d
 
-    .line 267
-    :sswitch_41
+    .line 266
+    :sswitch_1b
     const-string v3, "SetPlaybackSpeed"
 
     invoke-virtual {p1, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
     move-result v3
 
-    if-eqz v3, :cond_33
+    if-eqz v3, :cond_d
 
     move v0, v2
 
-    .line 269
-    goto :goto_33
+    .line 268
+    goto :goto_d
 
-    .line 274
-    :sswitch_4b
+    .line 273
+    :sswitch_25
     const-string v3, "SetAudioBalanceLevel"
 
     invoke-virtual {p1, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
     move-result v3
 
-    if-eqz v3, :cond_33
+    if-eqz v3, :cond_d
 
-    .line 275
+    .line 274
     const/4 v0, 0x2
 
-    .line 276
-    goto :goto_33
+    .line 275
+    goto :goto_d
 
-    .line 286
-    :pswitch_55
+    .line 285
+    :pswitch_2f
     array-length v0, p2
 
-    if-lt v0, v2, :cond_36
+    if-lt v0, v2, :cond_10
 
     aget-object v0, p2, v1
 
     instance-of v0, v0, Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;
 
-    if-eqz v0, :cond_36
+    if-eqz v0, :cond_10
 
-    .line 289
+    .line 288
     aget-object v0, p2, v1
 
     check-cast v0, Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;
 
     iput-object v0, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mOnExtraInfoListener:Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;
 
-    goto :goto_36
+    goto :goto_10
 
-    .line 292
-    :pswitch_65
+    .line 291
+    :pswitch_3f
     array-length v0, p2
 
-    if-lt v0, v2, :cond_36
+    if-lt v0, v2, :cond_10
 
     aget-object v0, p2, v1
 
     instance-of v0, v0, Ljava/lang/Float;
 
-    if-eqz v0, :cond_36
+    if-eqz v0, :cond_10
 
-    .line 295
+    .line 294
     aget-object v0, p2, v1
 
     check-cast v0, Ljava/lang/Float;
@@ -854,45 +817,45 @@
 
     invoke-direct {p0, v0}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->setPlaybackSpeed(F)V
 
-    goto :goto_36
+    goto :goto_10
 
-    .line 298
-    :pswitch_7a
+    .line 297
+    :pswitch_54
     array-length v0, p2
 
-    if-lt v0, v2, :cond_36
+    if-lt v0, v2, :cond_10
 
     aget-object v0, p2, v1
 
     instance-of v0, v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
-    if-eqz v0, :cond_36
+    if-eqz v0, :cond_10
 
-    .line 301
+    .line 300
     aget-object v0, p2, v1
 
     check-cast v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
     invoke-virtual {p0, v0}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->setAudioBalanceLevel(Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;)V
 
-    goto :goto_36
+    goto :goto_10
 
-    .line 258
+    .line 257
     nop
 
-    :sswitch_data_8c
+    :sswitch_data_66
     .sparse-switch
-        -0x41c19c0f -> :sswitch_37
-        -0x1978c636 -> :sswitch_41
-        0x76f4ccdc -> :sswitch_4b
+        -0x41c19c0f -> :sswitch_11
+        -0x1978c636 -> :sswitch_1b
+        0x76f4ccdc -> :sswitch_25
     .end sparse-switch
 
-    .line 284
-    :pswitch_data_9a
+    .line 283
+    :pswitch_data_74
     .packed-switch 0x0
-        :pswitch_55
-        :pswitch_65
-        :pswitch_7a
+        :pswitch_2f
+        :pswitch_3f
+        :pswitch_54
     .end packed-switch
 .end method
 
@@ -1068,10 +1031,10 @@
     .locals 0
 
     .prologue
-    .line 310
+    .line 309
     invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->onRelease()V
 
-    .line 311
+    .line 310
     return-void
 .end method
 
@@ -1749,78 +1712,22 @@
 .end method
 
 .method public setAudioBalanceLevel(Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;)V
-    .locals 3
+    .locals 1
 
     .prologue
+    .line 317
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mExoPlayer:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+
+    if-eqz v0, :cond_9
+
     .line 318
-    const-string v1, "ExoCommander"
-
-    new-instance v0, Ljava/lang/StringBuilder;
-
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "setAudioBalanceLevel: "
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    const-string v2, ", mExoPlayer="
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mExoPlayer:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
-
-    if-eqz v0, :cond_31
-
-    const/4 v0, 0x1
-
-    :goto_1c
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 319
-    iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mExoPlayer:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
-
-    if-eqz v0, :cond_33
-
-    .line 320
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mExoPlayer:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->setAudioBalanceLevel(Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;)V
 
-    .line 324
-    :goto_30
+    .line 320
+    :cond_9
     return-void
-
-    .line 318
-    :cond_31
-    const/4 v0, 0x0
-
-    goto :goto_1c
-
-    .line 322
-    :cond_33
-    const-string v0, "ExoCommander"
-
-    const-string v1, "setAudioBalanceLevel: mExoPlayer is null"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
-
-    goto :goto_30
 .end method
 
 .method public bridge synthetic setAudioStreamType(I)V

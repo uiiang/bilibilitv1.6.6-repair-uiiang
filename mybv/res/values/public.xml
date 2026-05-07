@@ -3168,9 +3168,8 @@
     <public type="string" name="skip_cleared" id="0x7f0c018c" />
     <public type="string" name="audio_balance" id="0x7f0c018d" />
     <public type="string" name="audio_balance_off" id="0x7f0c018e" />
-    <public type="string" name="audio_balance_low" id="0x7f0c018f" />
-    <public type="string" name="audio_balance_medium" id="0x7f0c0190" />
-    <public type="string" name="audio_balance_high" id="0x7f0c0191" />
+    <public type="string" name="audio_balance_standard" id="0x7f0c018f" />
+    <public type="string" name="audio_balance_high_dynamic" id="0x7f0c0190" />
 
 
     <public type="style" name="AlertDialog.AppCompat" id="0x7f0d0000" />

@@ -253,7 +253,6 @@ public class ExoCommander extends AbsPlayerCommander {
 
     @Override
     public Object act(String str, Object... objArr) {
-        Log.i(TAG, "act called: str=" + str + ", hashCode=" + str.hashCode());
         char c;
         switch (str.hashCode()) {
             case -1103207439:
@@ -315,11 +314,8 @@ public class ExoCommander extends AbsPlayerCommander {
     }
 
     public void setAudioBalanceLevel(AudioBalanceLevel level) {
-        Log.i(TAG, "setAudioBalanceLevel: " + level + ", mExoPlayer=" + (mExoPlayer != null));
         if (this.mExoPlayer != null) {
             this.mExoPlayer.setAudioBalanceLevel(level);
-        } else {
-            Log.w(TAG, "setAudioBalanceLevel: mExoPlayer is null");
         }
     }
 

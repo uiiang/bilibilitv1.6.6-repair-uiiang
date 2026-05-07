@@ -89,11 +89,9 @@
 .end method
 
 .method private S()V
-    .locals 12
+    .locals 11
 
     .prologue
-    const/4 v2, 0x3
-
     const/4 v1, 0x0
 
     .line 240
@@ -106,7 +104,7 @@
 
     invoke-virtual {v0}, Landroid/app/Activity;->getResources()Landroid/content/res/Resources;
 
-    move-result-object v3
+    move-result-object v2
 
     .line 243
     invoke-virtual {p0}, Lbl/xw;->p()Landroid/content/Context;
@@ -115,31 +113,31 @@
 
     invoke-static {v0}, Lbl/abd;->get_player_menu_config(Landroid/content/Context;)I
 
-    move-result v4
+    move-result v3
 
     .line 244
     const v0, 0x7f020002
 
-    invoke-virtual {v3, v0}, Landroid/content/res/Resources;->getStringArray(I)[Ljava/lang/String;
+    invoke-virtual {v2, v0}, Landroid/content/res/Resources;->getStringArray(I)[Ljava/lang/String;
 
-    move-result-object v5
+    move-result-object v4
 
     .line 245
+    new-instance v5, Ljava/util/ArrayList;
+
+    invoke-direct {v5}, Ljava/util/ArrayList;-><init>()V
+
+    .line 246
     new-instance v6, Ljava/util/ArrayList;
 
     invoke-direct {v6}, Ljava/util/ArrayList;-><init>()V
 
-    .line 246
-    new-instance v7, Ljava/util/ArrayList;
-
-    invoke-direct {v7}, Ljava/util/ArrayList;-><init>()V
-
     .line 248
     const/16 v0, 0xc
 
-    new-array v8, v0, [I
+    new-array v7, v0, [I
 
-    fill-array-data v8, :array_1ec
+    fill-array-data v7, :array_1e2
 
     .line 254
     invoke-virtual {p0}, Lbl/xw;->p()Landroid/content/Context;
@@ -148,73 +146,73 @@
 
     invoke-static {v0}, Lbl/abd;->is_exo_player_selected(Landroid/content/Context;)Z
 
-    move-result v9
+    move-result v8
 
     move v0, v1
 
     .line 256
-    :goto_36
-    array-length v10, v5
+    :goto_35
+    array-length v9, v4
 
-    if-ge v0, v10, :cond_59
+    if-ge v0, v9, :cond_58
 
-    array-length v10, v8
+    array-length v9, v7
 
-    if-ge v0, v10, :cond_59
+    if-ge v0, v9, :cond_58
 
     .line 258
-    aget v10, v8, v0
+    aget v9, v7, v0
 
-    const/16 v11, 0x800
+    const/16 v10, 0x800
 
-    if-ne v10, v11, :cond_47
+    if-ne v9, v10, :cond_46
 
-    if-nez v9, :cond_47
+    if-nez v8, :cond_46
 
     .line 256
-    :cond_44
-    :goto_44
+    :cond_43
+    :goto_43
     add-int/lit8 v0, v0, 0x1
 
-    goto :goto_36
+    goto :goto_35
 
     .line 261
-    :cond_47
-    aget v10, v8, v0
+    :cond_46
+    aget v9, v7, v0
 
-    and-int/2addr v10, v4
+    and-int/2addr v9, v3
 
-    if-eqz v10, :cond_44
+    if-eqz v9, :cond_43
 
     .line 262
-    aget-object v10, v5, v0
+    aget-object v9, v4, v0
 
-    invoke-interface {v6, v10}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v5, v9}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 263
     invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
-    move-result-object v10
+    move-result-object v9
 
-    invoke-interface {v7, v10}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v6, v9}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    goto :goto_44
+    goto :goto_43
 
     .line 267
-    :cond_59
+    :cond_58
     iget-object v0, p0, Lbl/xw;->c:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
-    invoke-virtual {v0, v6, v1}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->b(Ljava/util/List;I)V
+    invoke-virtual {v0, v5, v1}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->b(Ljava/util/List;I)V
 
     .line 268
     iget-object v0, p0, Lbl/xw;->c:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
-    invoke-virtual {v0, v7}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->setMenuIndexMap(Ljava/util/List;)V
+    invoke-virtual {v0, v6}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->setMenuIndexMap(Ljava/util/List;)V
 
     .line 270
     iget-object v0, p0, Lbl/xw;->d:Ljava/util/List;
 
-    if-nez v0, :cond_7c
+    if-nez v0, :cond_7b
 
     .line 271
     new-instance v0, Ljava/util/ArrayList;
@@ -226,162 +224,162 @@
     .line 272
     iget-object v0, p0, Lbl/xw;->d:Ljava/util/List;
 
-    const v4, 0x7f0c00f3
+    const v3, 0x7f0c00f3
 
-    invoke-virtual {v3, v4}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
+    invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v3
 
-    invoke-interface {v0, v4}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v3}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 273
     iput v1, p0, Lbl/xw;->e:I
 
     .line 275
-    :cond_7c
+    :cond_7b
     iget-object v0, p0, Lbl/xw;->c:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
-    iget-object v4, p0, Lbl/xw;->d:Ljava/util/List;
+    iget-object v3, p0, Lbl/xw;->d:Ljava/util/List;
 
-    iget v5, p0, Lbl/xw;->e:I
+    iget v4, p0, Lbl/xw;->e:I
 
-    invoke-virtual {v0, v4, v5}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->init_quality(Ljava/util/List;I)V
+    invoke-virtual {v0, v3, v4}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->init_quality(Ljava/util/List;I)V
 
     .line 276
     iget-object v0, p0, Lbl/xw;->c:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
-    const/high16 v4, 0x7f020000
+    const/high16 v3, 0x7f020000
 
-    invoke-virtual {v3, v4}, Landroid/content/res/Resources;->getStringArray(I)[Ljava/lang/String;
+    invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getStringArray(I)[Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v3
 
-    invoke-static {v4}, Ljava/util/Arrays;->asList([Ljava/lang/Object;)Ljava/util/List;
+    invoke-static {v3}, Ljava/util/Arrays;->asList([Ljava/lang/Object;)Ljava/util/List;
 
-    move-result-object v4
+    move-result-object v3
 
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
-    move-result-object v5
+    move-result-object v4
 
-    invoke-virtual {v5}, Lcom/bilibili/tv/MainApplication;->getApplicationContext()Landroid/content/Context;
+    invoke-virtual {v4}, Lcom/bilibili/tv/MainApplication;->getApplicationContext()Landroid/content/Context;
 
-    move-result-object v5
+    move-result-object v4
 
-    invoke-static {v5}, Lbl/abd;->get_danmaku_type(Landroid/content/Context;)I
+    invoke-static {v4}, Lbl/abd;->get_danmaku_type(Landroid/content/Context;)I
 
-    move-result v5
+    move-result v4
 
-    invoke-virtual {v0, v4, v5}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->init_danmaku(Ljava/util/List;I)V
+    invoke-virtual {v0, v3, v4}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->init_danmaku(Ljava/util/List;I)V
 
     .line 277
-    new-instance v4, Ljava/util/ArrayList;
+    new-instance v3, Ljava/util/ArrayList;
 
     sget-object v0, Lbl/abd;->a:[F
 
     array-length v0, v0
 
-    invoke-direct {v4, v0}, Ljava/util/ArrayList;-><init>(I)V
+    invoke-direct {v3, v0}, Ljava/util/ArrayList;-><init>(I)V
 
     .line 278
-    sget-object v5, Lbl/abd;->a:[F
+    sget-object v4, Lbl/abd;->a:[F
 
-    array-length v6, v5
+    array-length v5, v4
 
     move v0, v1
 
-    :goto_ac
-    if-ge v0, v6, :cond_ba
+    :goto_ab
+    if-ge v0, v5, :cond_b9
 
-    aget v7, v5, v0
+    aget v6, v4, v0
 
     .line 279
-    invoke-static {v7}, Ljava/lang/String;->valueOf(F)Ljava/lang/String;
+    invoke-static {v6}, Ljava/lang/String;->valueOf(F)Ljava/lang/String;
 
-    move-result-object v7
+    move-result-object v6
 
-    invoke-virtual {v4, v7}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+    invoke-virtual {v3, v6}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
     .line 278
     add-int/lit8 v0, v0, 0x1
 
-    goto :goto_ac
+    goto :goto_ab
 
     .line 281
-    :cond_ba
+    :cond_b9
     iget-object v0, p0, Lbl/xw;->c:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     invoke-virtual {p0}, Lbl/xw;->p()Landroid/content/Context;
 
-    move-result-object v5
+    move-result-object v4
 
-    invoke-static {v5}, Lbl/abd;->f(Landroid/content/Context;)F
+    invoke-static {v4}, Lbl/abd;->f(Landroid/content/Context;)F
 
-    move-result v5
+    move-result v4
 
-    invoke-static {v5}, Ljava/lang/String;->valueOf(F)Ljava/lang/String;
+    invoke-static {v4}, Ljava/lang/String;->valueOf(F)Ljava/lang/String;
 
-    move-result-object v5
+    move-result-object v4
 
-    invoke-virtual {v4, v5}, Ljava/util/ArrayList;->indexOf(Ljava/lang/Object;)I
+    invoke-virtual {v3, v4}, Ljava/util/ArrayList;->indexOf(Ljava/lang/Object;)I
 
-    move-result v5
+    move-result v4
 
-    invoke-virtual {v0, v4, v5}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->init_size(Ljava/util/List;I)V
+    invoke-virtual {v0, v3, v4}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->init_size(Ljava/util/List;I)V
 
     .line 282
-    new-instance v4, Ljava/util/ArrayList;
+    new-instance v3, Ljava/util/ArrayList;
 
     sget-object v0, Lbl/abd;->b:[F
 
     array-length v0, v0
 
-    invoke-direct {v4, v0}, Ljava/util/ArrayList;-><init>(I)V
+    invoke-direct {v3, v0}, Ljava/util/ArrayList;-><init>(I)V
 
     .line 283
-    sget-object v5, Lbl/abd;->b:[F
+    sget-object v4, Lbl/abd;->b:[F
 
-    array-length v6, v5
+    array-length v5, v4
 
     move v0, v1
 
-    :goto_db
-    if-ge v0, v6, :cond_fc
+    :goto_da
+    if-ge v0, v5, :cond_fb
 
-    aget v7, v5, v0
+    aget v6, v4, v0
 
     .line 284
-    new-instance v8, Ljava/lang/StringBuilder;
+    new-instance v7, Ljava/lang/StringBuilder;
 
-    invoke-direct {v8}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-static {v7}, Ljava/lang/String;->valueOf(F)Ljava/lang/String;
+    invoke-static {v6}, Ljava/lang/String;->valueOf(F)Ljava/lang/String;
 
-    move-result-object v7
+    move-result-object v6
 
-    invoke-virtual {v8, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v7, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v7
+    move-result-object v6
 
-    const-string v8, "f"
+    const-string v7, "f"
 
-    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v7
+    move-result-object v6
 
-    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v7
+    move-result-object v6
 
-    invoke-virtual {v4, v7}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+    invoke-virtual {v3, v6}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
     .line 283
     add-int/lit8 v0, v0, 0x1
 
-    goto :goto_db
+    goto :goto_da
 
     .line 286
-    :cond_fc
+    :cond_fb
     invoke-virtual {p0}, Lbl/xw;->p()Landroid/content/Context;
 
     move-result-object v0
@@ -391,23 +389,23 @@
     move-result v0
 
     .line 287
-    iget-object v5, p0, Lbl/xw;->c:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
+    iget-object v4, p0, Lbl/xw;->c:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
-    new-instance v6, Ljava/lang/StringBuilder;
+    new-instance v5, Ljava/lang/StringBuilder;
 
-    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
 
     invoke-static {v0}, Ljava/lang/String;->valueOf(F)Ljava/lang/String;
 
     move-result-object v0
 
-    invoke-virtual {v6, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v5, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
-    const-string v6, "f"
+    const-string v5, "f"
 
-    invoke-virtual {v0, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
@@ -415,72 +413,74 @@
 
     move-result-object v0
 
-    invoke-virtual {v4, v0}, Ljava/util/ArrayList;->indexOf(Ljava/lang/Object;)I
+    invoke-virtual {v3, v0}, Ljava/util/ArrayList;->indexOf(Ljava/lang/Object;)I
 
     move-result v0
 
-    invoke-virtual {v5, v4, v0}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->init_alpha(Ljava/util/List;I)V
+    invoke-virtual {v4, v3, v0}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->init_alpha(Ljava/util/List;I)V
 
     .line 288
     iget-object v0, p0, Lbl/xw;->c:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
-    const v4, 0x7f020004
+    const v3, 0x7f020004
 
-    invoke-virtual {v3, v4}, Landroid/content/res/Resources;->getStringArray(I)[Ljava/lang/String;
+    invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getStringArray(I)[Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v3
 
-    invoke-static {v4}, Ljava/util/Arrays;->asList([Ljava/lang/Object;)Ljava/util/List;
+    invoke-static {v3}, Ljava/util/Arrays;->asList([Ljava/lang/Object;)Ljava/util/List;
 
-    move-result-object v4
+    move-result-object v3
 
-    invoke-virtual {v0, v4, v2}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->init_ratio(Ljava/util/List;I)V
+    const/4 v4, 0x3
+
+    invoke-virtual {v0, v3, v4}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->init_ratio(Ljava/util/List;I)V
 
     .line 289
-    new-instance v4, Ljava/util/ArrayList;
+    new-instance v3, Ljava/util/ArrayList;
 
     sget-object v0, Lbl/abd;->speeds:[F
 
     array-length v0, v0
 
-    invoke-direct {v4, v0}, Ljava/util/ArrayList;-><init>(I)V
+    invoke-direct {v3, v0}, Ljava/util/ArrayList;-><init>(I)V
 
     .line 290
-    sget-object v5, Lbl/abd;->speeds:[F
+    sget-object v4, Lbl/abd;->speeds:[F
 
-    array-length v6, v5
+    array-length v5, v4
 
     move v0, v1
 
     :goto_140
-    if-ge v0, v6, :cond_161
+    if-ge v0, v5, :cond_161
 
-    aget v7, v5, v0
+    aget v6, v4, v0
 
     .line 291
-    new-instance v8, Ljava/lang/StringBuilder;
+    new-instance v7, Ljava/lang/StringBuilder;
 
-    invoke-direct {v8}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-static {v7}, Ljava/lang/String;->valueOf(F)Ljava/lang/String;
+    invoke-static {v6}, Ljava/lang/String;->valueOf(F)Ljava/lang/String;
 
-    move-result-object v7
+    move-result-object v6
 
-    invoke-virtual {v8, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v7, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v7
+    move-result-object v6
 
-    const-string v8, "x"
+    const-string v7, "x"
 
-    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v7
+    move-result-object v6
 
-    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v7
+    move-result-object v6
 
-    invoke-virtual {v4, v7}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+    invoke-virtual {v3, v6}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
     .line 290
     add-int/lit8 v0, v0, 0x1
@@ -493,55 +493,55 @@
 
     invoke-virtual {p0}, Lbl/xw;->p()Landroid/content/Context;
 
-    move-result-object v5
+    move-result-object v4
 
-    invoke-static {v5}, Lbl/abd;->get_speed_id(Landroid/content/Context;)I
+    invoke-static {v4}, Lbl/abd;->get_speed_id(Landroid/content/Context;)I
 
-    move-result v5
+    move-result v4
 
-    invoke-virtual {v0, v4, v5}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->init_speed(Ljava/util/List;I)V
+    invoke-virtual {v0, v3, v4}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->init_speed(Ljava/util/List;I)V
 
     .line 294
     iget-object v0, p0, Lbl/xw;->c:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
-    const v4, 0x7f020005
+    const v3, 0x7f020005
 
-    invoke-virtual {v3, v4}, Landroid/content/res/Resources;->getStringArray(I)[Ljava/lang/String;
+    invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getStringArray(I)[Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v3
 
-    invoke-static {v4}, Ljava/util/Arrays;->asList([Ljava/lang/Object;)Ljava/util/List;
+    invoke-static {v3}, Ljava/util/Arrays;->asList([Ljava/lang/Object;)Ljava/util/List;
 
-    move-result-object v4
+    move-result-object v3
 
     invoke-virtual {p0}, Lbl/xw;->p()Landroid/content/Context;
 
-    move-result-object v5
+    move-result-object v4
 
-    invoke-static {v5}, Lbl/abd;->get_mode_id(Landroid/content/Context;)I
+    invoke-static {v4}, Lbl/abd;->get_mode_id(Landroid/content/Context;)I
 
-    move-result v5
+    move-result v4
 
-    invoke-virtual {v0, v4, v5}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->init_mode(Ljava/util/List;I)V
+    invoke-virtual {v0, v3, v4}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->init_mode(Ljava/util/List;I)V
 
     .line 295
     iget-object v0, p0, Lbl/xw;->c:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     invoke-virtual {p0}, Lbl/xw;->c()Lbl/yh;
 
-    move-result-object v4
+    move-result-object v3
 
-    iget-object v4, v4, Lbl/yh;->a:Lcom/bilibili/tv/player/basic/context/PlayerParams;
+    iget-object v3, v3, Lbl/yh;->a:Lcom/bilibili/tv/player/basic/context/PlayerParams;
 
-    iget-object v4, v4, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
+    iget-object v3, v3, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
 
-    invoke-virtual {v4}, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->obtainResolveParams()Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
+    invoke-virtual {v3}, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->obtainResolveParams()Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
-    move-result-object v4
+    move-result-object v3
 
-    iget-object v4, v4, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->subtitle_info:Lorg/json/JSONObject;
+    iget-object v3, v3, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->subtitle_info:Lorg/json/JSONObject;
 
-    invoke-virtual {v0, v4}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->init_subtitle(Lorg/json/JSONObject;)V
+    invoke-virtual {v0, v3}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->init_subtitle(Lorg/json/JSONObject;)V
 
     .line 298
     invoke-virtual {p0}, Lbl/xw;->c()Lbl/yh;
@@ -559,9 +559,9 @@
     iget-object v0, v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->view_points:Lorg/json/JSONArray;
 
     .line 299
-    iget-object v4, p0, Lbl/xw;->c:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
+    iget-object v3, p0, Lbl/xw;->c:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
-    invoke-virtual {v4, v0}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->init_chapter(Lorg/json/JSONArray;)V
+    invoke-virtual {v3, v0}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->init_chapter(Lorg/json/JSONArray;)V
 
     .line 302
     invoke-virtual {p0}, Lbl/xw;->p()Landroid/content/Context;
@@ -577,32 +577,32 @@
     .line 303
     const v0, 0x7f020007
 
-    invoke-virtual {v3, v0}, Landroid/content/res/Resources;->getStringArray(I)[Ljava/lang/String;
+    invoke-virtual {v2, v0}, Landroid/content/res/Resources;->getStringArray(I)[Ljava/lang/String;
 
     move-result-object v0
 
     .line 304
     invoke-virtual {p0}, Lbl/xw;->p()Landroid/content/Context;
 
-    move-result-object v3
+    move-result-object v2
 
-    invoke-static {v3}, Lbl/abd;->get_audio_balance_level(Landroid/content/Context;)Ljava/lang/String;
+    invoke-static {v2}, Lbl/abd;->get_audio_balance_level(Landroid/content/Context;)Ljava/lang/String;
 
-    move-result-object v3
+    move-result-object v2
 
     .line 306
-    const-string v4, "low"
+    const-string v3, "standard"
 
-    invoke-virtual {v4, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    invoke-virtual {v3, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
-    move-result v4
+    move-result v3
 
-    if-eqz v4, :cond_1d8
+    if-eqz v3, :cond_1d8
 
     .line 307
     const/4 v1, 0x1
 
-    .line 313
+    .line 311
     :cond_1ce
     :goto_1ce
     iget-object v2, p0, Lbl/xw;->c:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
@@ -613,42 +613,27 @@
 
     invoke-virtual {v2, v0, v1}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->init_audio_balance(Ljava/util/List;I)V
 
-    .line 315
+    .line 313
     :cond_1d7
     return-void
 
     .line 308
     :cond_1d8
-    const-string v4, "medium"
+    const-string v3, "high_dynamic"
 
-    invoke-virtual {v4, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    invoke-virtual {v3, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
-    move-result v4
+    move-result v2
 
-    if-eqz v4, :cond_1e2
+    if-eqz v2, :cond_1ce
 
     .line 309
     const/4 v1, 0x2
 
     goto :goto_1ce
 
-    .line 310
-    :cond_1e2
-    const-string v4, "high"
-
-    invoke-virtual {v4, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result v3
-
-    if-eqz v3, :cond_1ce
-
-    move v1, v2
-
-    .line 311
-    goto :goto_1ce
-
     .line 248
-    :array_1ec
+    :array_1e2
     .array-data 4
         0x1
         0x2
@@ -671,7 +656,7 @@
     .prologue
     const/4 v2, -0x1
 
-    .line 345
+    .line 343
     invoke-virtual {p0}, Lbl/xw;->b()Lcom/bilibili/tv/player/basic/context/PlayerParams;
 
     move-result-object v0
@@ -680,7 +665,7 @@
 
     iget-object v0, v0, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mMediaResource:Lcom/bilibili/lib/media/resource/MediaResource;
 
-    .line 346
+    .line 344
     if-eqz v0, :cond_f
 
     iget-object v1, v0, Lcom/bilibili/lib/media/resource/MediaResource;->a:Lcom/bilibili/lib/media/resource/VodIndex;
@@ -690,23 +675,23 @@
     :cond_f
     move v1, v2
 
-    .line 359
+    .line 357
     :cond_10
     :goto_10
     return v1
 
-    .line 349
+    .line 347
     :cond_11
     iget-object v1, v0, Lcom/bilibili/lib/media/resource/MediaResource;->a:Lcom/bilibili/lib/media/resource/VodIndex;
 
     iget-object v3, v1, Lcom/bilibili/lib/media/resource/VodIndex;->a:Ljava/util/ArrayList;
 
-    .line 350
+    .line 348
     invoke-virtual {v0}, Lcom/bilibili/lib/media/resource/MediaResource;->d()Lcom/bilibili/lib/media/resource/PlayIndex;
 
     move-result-object v4
 
-    .line 351
+    .line 349
     if-eqz v3, :cond_23
 
     invoke-virtual {v3}, Ljava/util/ArrayList;->size()I
@@ -720,10 +705,10 @@
     :cond_23
     move v1, v2
 
-    .line 352
+    .line 350
     goto :goto_10
 
-    .line 354
+    .line 352
     :cond_25
     const/4 v0, 0x0
 
@@ -736,7 +721,7 @@
 
     if-ge v1, v0, :cond_49
 
-    .line 355
+    .line 353
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     iget-object v5, v4, Lcom/bilibili/lib/media/resource/PlayIndex;->b:Ljava/lang/String;
@@ -761,7 +746,7 @@
 
     if-eq v5, v0, :cond_10
 
-    .line 354
+    .line 352
     add-int/lit8 v0, v1, 0x1
 
     move v1, v0
@@ -771,7 +756,7 @@
     :cond_49
     move v1, v2
 
-    .line 359
+    .line 357
     goto :goto_10
 .end method
 
@@ -843,15 +828,15 @@
 
     const/4 v8, 0x0
 
-    .line 446
+    .line 434
     new-instance v1, Lorg/json/JSONArray;
 
     invoke-direct {v1}, Lorg/json/JSONArray;-><init>()V
 
-    .line 447
+    .line 435
     const/4 v0, 0x0
 
-    .line 449
+    .line 437
     const-string v2, "SkipSetting"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -888,7 +873,7 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 451
+    .line 439
     iget-object v2, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mListKey:Ljava/lang/String;
 
     invoke-static {v2}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
@@ -897,7 +882,7 @@
 
     if-nez v2, :cond_8b
 
-    .line 452
+    .line 440
     invoke-virtual {p0}, Lbl/xw;->p()Landroid/content/Context;
 
     move-result-object v0
@@ -926,7 +911,7 @@
 
     move-result-object v2
 
-    .line 453
+    .line 441
     const-string v3, "SkipSetting"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -980,7 +965,7 @@
 
     move-object v0, v2
 
-    .line 455
+    .line 443
     :cond_8b
     if-eqz v0, :cond_99
 
@@ -996,7 +981,7 @@
 
     if-nez v2, :cond_dd
 
-    .line 456
+    .line 444
     :cond_99
     invoke-virtual {p0}, Lbl/xw;->p()Landroid/content/Context;
 
@@ -1012,7 +997,7 @@
 
     move-result-object v2
 
-    .line 457
+    .line 445
     const-string v3, "SkipSetting"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -1066,7 +1051,7 @@
 
     move-object v0, v2
 
-    .line 460
+    .line 448
     :cond_dd
     if-eqz v0, :cond_eb
 
@@ -1082,27 +1067,27 @@
 
     if-nez v2, :cond_f4
 
-    .line 461
+    .line 449
     :cond_eb
     iget-object v0, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->skips:Lorg/json/JSONArray;
 
-    .line 482
+    .line 470
     :goto_ed
     return-object v0
 
-    .line 453
+    .line 441
     :cond_ee
     const-string v0, "null"
 
     goto :goto_7f
 
-    .line 457
+    .line 445
     :cond_f1
     const-string v0, "null"
 
     goto :goto_d1
 
-    .line 465
+    .line 453
     :cond_f4
     const/4 v2, 0x0
 
@@ -1113,26 +1098,26 @@
 
     if-lez v2, :cond_118
 
-    .line 466
+    .line 454
     new-instance v2, Lorg/json/JSONObject;
 
     invoke-direct {v2}, Lorg/json/JSONObject;-><init>()V
 
-    .line 467
+    .line 455
     const-string v3, "type"
 
     const-string v4, "\u7247\u5934"
 
     invoke-virtual {v2, v3, v4}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
 
-    .line 468
+    .line 456
     const-string v3, "start"
 
     const/4 v4, 0x0
 
     invoke-virtual {v2, v3, v4}, Lorg/json/JSONObject;->put(Ljava/lang/String;I)Lorg/json/JSONObject;
 
-    .line 469
+    .line 457
     const-string v3, "end"
 
     const/4 v4, 0x0
@@ -1141,10 +1126,10 @@
 
     invoke-virtual {v2, v3, v4, v5}, Lorg/json/JSONObject;->put(Ljava/lang/String;J)Lorg/json/JSONObject;
 
-    .line 470
+    .line 458
     invoke-virtual {v1, v2}, Lorg/json/JSONArray;->put(Ljava/lang/Object;)Lorg/json/JSONArray;
 
-    .line 472
+    .line 460
     :cond_118
     const/4 v2, 0x1
 
@@ -1158,12 +1143,12 @@
 
     if-lez v2, :cond_147
 
-    .line 473
+    .line 461
     new-instance v2, Lorg/json/JSONObject;
 
     invoke-direct {v2}, Lorg/json/JSONObject;-><init>()V
 
-    .line 474
+    .line 462
     iget v3, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mDuration:I
 
     int-to-long v4, v3
@@ -1172,14 +1157,14 @@
 
     mul-long/2addr v4, v6
 
-    .line 475
+    .line 463
     const-string v3, "type"
 
     const-string v6, "\u7247\u5c3e"
 
     invoke-virtual {v2, v3, v6}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
 
-    .line 476
+    .line 464
     const-string v3, "start"
 
     const/4 v6, 0x1
@@ -1190,12 +1175,12 @@
 
     invoke-virtual {v2, v3, v6, v7}, Lorg/json/JSONObject;->put(Ljava/lang/String;J)Lorg/json/JSONObject;
 
-    .line 477
+    .line 465
     const-string v0, "end"
 
     invoke-virtual {v2, v0, v4, v5}, Lorg/json/JSONObject;->put(Ljava/lang/String;J)Lorg/json/JSONObject;
 
-    .line 478
+    .line 466
     invoke-virtual {v1, v2}, Lorg/json/JSONArray;->put(Ljava/lang/Object;)Lorg/json/JSONArray;
     :try_end_147
     .catch Ljava/lang/Exception; {:try_start_f5 .. :try_end_147} :catch_149
@@ -1204,10 +1189,10 @@
     :goto_147
     move-object v0, v1
 
-    .line 482
+    .line 470
     goto :goto_ed
 
-    .line 480
+    .line 468
     :catch_149
     move-exception v0
 
@@ -1220,38 +1205,38 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 432
+    .line 420
     invoke-virtual {p0}, Lbl/xw;->c()Lbl/yh;
 
     move-result-object v0
 
-    .line 433
+    .line 421
     if-nez v0, :cond_9
 
     move-object v0, v1
 
-    .line 442
+    .line 430
     :goto_8
     return-object v0
 
     :cond_9
     move-object v0, p0
 
-    .line 436
+    .line 424
     :goto_a
     if-eqz v0, :cond_18
 
-    .line 437
+    .line 425
     instance-of v2, v0, Lbl/xj;
 
     if-eqz v2, :cond_13
 
-    .line 438
+    .line 426
     check-cast v0, Lbl/xj;
 
     goto :goto_8
 
-    .line 440
+    .line 428
     :cond_13
     invoke-virtual {v0}, Lbl/xh;->next()Lbl/xh;
 
@@ -1262,7 +1247,7 @@
     :cond_18
     move-object v0, v1
 
-    .line 442
+    .line 430
     goto :goto_8
 .end method
 
@@ -2016,7 +2001,7 @@
 
     const/4 v2, 0x0
 
-    .line 320
+    .line 318
     invoke-virtual {p0}, Lbl/xw;->c()Lbl/yh;
 
     move-result-object v0
@@ -2039,12 +2024,12 @@
 
     if-nez v0, :cond_19
 
-    .line 342
+    .line 340
     :cond_18
     :goto_18
     return-void
 
-    .line 324
+    .line 322
     :cond_19
     invoke-virtual {p0}, Lbl/xw;->c()Lbl/yh;
 
@@ -2060,7 +2045,7 @@
 
     iget-object v0, v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->view_points:Lorg/json/JSONArray;
 
-    .line 327
+    .line 325
     if-ltz p1, :cond_18
 
     invoke-virtual {v0}, Lorg/json/JSONArray;->length()I
@@ -2069,35 +2054,35 @@
 
     if-ge p1, v3, :cond_18
 
-    .line 331
+    .line 329
     invoke-virtual {v0, p1}, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
 
     move-result-object v0
 
-    .line 332
+    .line 330
     if-eqz v0, :cond_18
 
-    .line 333
+    .line 331
     const-string v3, "from"
 
     invoke-virtual {v0, v3, v2}, Lorg/json/JSONObject;->optInt(Ljava/lang/String;I)I
 
     move-result v0
 
-    .line 334
+    .line 332
     mul-int/lit16 v3, v0, 0x3e8
 
-    .line 335
+    .line 333
     invoke-virtual {p0}, Lbl/xw;->x()I
 
     move-result v4
 
-    .line 339
+    .line 337
     if-le v3, v4, :cond_62
 
     move v0, v1
 
-    .line 340
+    .line 338
     :goto_44
     sget-object v5, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->SEEK:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
@@ -2136,7 +2121,7 @@
     :cond_62
     move v0, v2
 
-    .line 339
+    .line 337
     goto :goto_44
 .end method
 
@@ -2168,141 +2153,36 @@
 .end method
 
 .method public set_audio_balance_level(I)V
-    .locals 6
+    .locals 5
 
     .prologue
-    const/4 v5, 0x0
+    const/4 v4, 0x0
 
-    .line 396
-    const-string v0, "xw"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "set_audio_balance_level: level="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 397
+    .line 394
     const-string v1, "off"
 
-    .line 398
+    .line 395
     sget-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->OFF:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
-    .line 399
-    packed-switch p1, :pswitch_data_f8
+    .line 396
+    packed-switch p1, :pswitch_data_62
 
-    .line 417
-    :goto_20
+    .line 410
+    :goto_8
     invoke-virtual {p0}, Lbl/xw;->p()Landroid/content/Context;
 
     move-result-object v2
 
     invoke-static {v2, v1}, Lbl/abd;->set_audio_balance_level(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 418
-    const-string v2, "xw"
-
-    new-instance v3, Ljava/lang/StringBuilder;
-
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v4, "set_audio_balance_level: saved levelStr="
-
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v3, ", audioLevel="
-
-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v2, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 420
+    .line 412
     invoke-virtual {p0}, Lbl/xw;->n()Ltv/danmaku/videoplayer/core/context/IPlayerContext;
 
     move-result-object v1
 
-    if-eqz v1, :cond_f0
+    if-eqz v1, :cond_23
 
-    .line 421
-    const-string v1, "xw"
-
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "set_audio_balance_level: playerContext="
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {p0}, Lbl/xw;->n()Ltv/danmaku/videoplayer/core/context/IPlayerContext;
-
-    move-result-object v3
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    const-string v3, ", class="
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {p0}, Lbl/xw;->n()Ltv/danmaku/videoplayer/core/context/IPlayerContext;
-
-    move-result-object v3
-
-    invoke-virtual {v3}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
-
-    move-result-object v3
-
-    invoke-virtual {v3}, Ljava/lang/Class;->getName()Ljava/lang/String;
-
-    move-result-object v3
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v2
-
-    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 422
+    .line 413
     invoke-virtual {p0}, Lbl/xw;->n()Ltv/danmaku/videoplayer/core/context/IPlayerContext;
 
     move-result-object v1
@@ -2313,37 +2193,12 @@
 
     new-array v3, v3, [Ljava/lang/Object;
 
-    aput-object v0, v3, v5
+    aput-object v0, v3, v4
 
     invoke-interface {v1, v2, v3}, Ltv/danmaku/videoplayer/core/context/IPlayerContext;->act(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;
 
-    move-result-object v0
-
-    .line 423
-    const-string v1, "xw"
-
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "set_audio_balance_level: act result="
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 428
-    :goto_a8
+    .line 416
+    :cond_23
     invoke-virtual {p0}, Lbl/xw;->o()Landroid/app/Activity;
 
     move-result-object v0
@@ -2382,68 +2237,48 @@
 
     move-result-object v1
 
-    invoke-static {v0, v1, v5}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+    invoke-static {v0, v1, v4}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
 
     move-result-object v0
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    .line 429
+    .line 417
     return-void
 
-    .line 401
-    :pswitch_d8
+    .line 398
+    :pswitch_53
     const-string v1, "off"
 
-    .line 402
+    .line 399
     sget-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->OFF:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
-    goto/16 :goto_20
+    goto :goto_8
 
-    .line 405
-    :pswitch_de
-    const-string v1, "low"
+    .line 402
+    :pswitch_58
+    const-string v1, "standard"
+
+    .line 403
+    sget-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->STANDARD:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+
+    goto :goto_8
 
     .line 406
-    sget-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->LOW:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+    :pswitch_5d
+    const-string v1, "high_dynamic"
 
-    goto/16 :goto_20
+    .line 407
+    sget-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->HIGH_DYNAMIC:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
-    .line 409
-    :pswitch_e4
-    const-string v1, "medium"
+    goto :goto_8
 
-    .line 410
-    sget-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->MEDIUM:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
-
-    goto/16 :goto_20
-
-    .line 413
-    :pswitch_ea
-    const-string v1, "high"
-
-    .line 414
-    sget-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->HIGH:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
-
-    goto/16 :goto_20
-
-    .line 425
-    :cond_f0
-    const-string v0, "xw"
-
-    const-string v1, "set_audio_balance_level: playerContext is null"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
-
-    goto :goto_a8
-
-    .line 399
-    :pswitch_data_f8
+    .line 396
+    :pswitch_data_62
     .packed-switch 0x0
-        :pswitch_d8
-        :pswitch_de
-        :pswitch_e4
-        :pswitch_ea
+        :pswitch_53
+        :pswitch_58
+        :pswitch_5d
     .end packed-switch
 .end method
 
@@ -2492,7 +2327,7 @@
     .locals 6
 
     .prologue
-    .line 364
+    .line 362
     invoke-virtual {p0}, Lbl/xw;->c()Lbl/yh;
 
     move-result-object v0
@@ -2509,12 +2344,12 @@
 
     if-nez v0, :cond_11
 
-    .line 392
+    .line 390
     :cond_10
     :goto_10
     return-void
 
-    .line 367
+    .line 365
     :cond_11
     invoke-virtual {p0}, Lbl/xw;->c()Lbl/yh;
 
@@ -2528,7 +2363,7 @@
 
     move-result-object v0
 
-    .line 368
+    .line 366
     const-string v1, "SkipSetting"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -2565,7 +2400,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 369
+    .line 367
     new-instance v1, Lcom/bilibili/tv/player/widget/SkipSettingDialog;
 
     invoke-virtual {p0}, Lbl/xw;->o()Landroid/app/Activity;
@@ -2580,21 +2415,21 @@
 
     invoke-direct {v1, v2, v0, v4, v5}, Lcom/bilibili/tv/player/widget/SkipSettingDialog;-><init>(Landroid/content/Context;Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;J)V
 
-    .line 371
+    .line 369
     new-instance v2, Lbl/xw$2;
 
     invoke-direct {v2, p0}, Lbl/xw$2;-><init>(Lbl/xw;)V
 
     invoke-virtual {v1, v2}, Lcom/bilibili/tv/player/widget/SkipSettingDialog;->setOnPositionProvider(Lcom/bilibili/tv/player/widget/SkipSettingDialog$OnPositionProvider;)V
 
-    .line 378
+    .line 376
     new-instance v2, Lbl/xw$3;
 
     invoke-direct {v2, p0, v0}, Lbl/xw$3;-><init>(Lbl/xw;Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;)V
 
     invoke-virtual {v1, v2}, Lcom/bilibili/tv/player/widget/SkipSettingDialog;->setOnSaveListener(Lcom/bilibili/tv/player/widget/SkipSettingDialog$OnSaveListener;)V
 
-    .line 391
+    .line 389
     invoke-virtual {v1}, Lcom/bilibili/tv/player/widget/SkipSettingDialog;->show()V
 
     goto :goto_10

@@ -1,6 +1,7 @@
 package tv.danmaku.videoplayer.core.media.exo;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
@@ -43,12 +44,15 @@ import org.json.JSONObject;
 public class ExoPlayerImpl implements IMediaPlayer {
 
     private static final String TAG = "ExoPlayerImpl";
+    private static final String PREFS_NAME = "bili_preference";
+    private static final String KEY_AUDIO_BALANCE_LEVEL = "audio_balance_level";
 
     private ExoPlayer exoPlayer;
     private Context appContext;
     private float currentSpeed = 1.0f;
     private long seekOnPrepare = -1;
     private boolean mLooping = false;
+    private CustomRenderersFactory customRenderersFactory;
 
     private Surface pendingSurface;
     private SurfaceHolder pendingSurfaceHolder;
@@ -91,8 +95,13 @@ public class ExoPlayerImpl implements IMediaPlayer {
         if (exoPlayer == null) {
             Log.i(TAG, "ensurePlayer: creating new ExoPlayer instance");
             
-            exoPlayer = new ExoPlayer.Builder(appContext).build();
+            customRenderersFactory = new CustomRenderersFactory(appContext);
+            exoPlayer = new ExoPlayer.Builder(appContext)
+                    .setRenderersFactory(customRenderersFactory)
+                    .build();
             exoPlayer.setPlayWhenReady(playWhenReadyOnPrepare);
+
+            applySavedAudioBalanceLevel();
 
             if (pendingSurface != null) {
                 Log.i(TAG, "ensurePlayer: setting pendingSurface=" + pendingSurface);
@@ -634,29 +643,25 @@ public class ExoPlayerImpl implements IMediaPlayer {
         this.onTimedTextListener = listener;
     }
 
+    private void applySavedAudioBalanceLevel() {
+        if (customRenderersFactory == null) return;
+        
+        VolumeBalanceAudioProcessor processor = customRenderersFactory.getVolumeBalanceAudioProcessor();
+        if (processor == null) return;
+        
+        SharedPreferences prefs = appContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String savedLevel = prefs.getString(KEY_AUDIO_BALANCE_LEVEL, "off");
+        AudioBalanceLevel level = AudioBalanceLevel.fromPrefValue(savedLevel);
+        processor.setLevel(level);
+        Log.i(TAG, "Audio balance: " + level);
+    }
+
     public void setAudioBalanceLevel(AudioBalanceLevel level) {
-        Log.i(TAG, "setAudioBalanceLevel: " + level + ", exoPlayer=" + (exoPlayer != null));
-        if (exoPlayer != null) {
-            float oldVolume = exoPlayer.getVolume();
-            float volume = 1.0f;
-            switch (level) {
-                case OFF:
-                    volume = 1.0f;
-                    break;
-                case LOW:
-                    volume = 0.7f;
-                    break;
-                case MEDIUM:
-                    volume = 0.5f;
-                    break;
-                case HIGH:
-                    volume = 0.3f;
-                    break;
+        if (customRenderersFactory != null) {
+            VolumeBalanceAudioProcessor processor = customRenderersFactory.getVolumeBalanceAudioProcessor();
+            if (processor != null) {
+                processor.setLevel(level);
             }
-            exoPlayer.setVolume(volume);
-            Log.i(TAG, "setAudioBalanceLevel: volume changed from " + oldVolume + " to " + volume);
-        } else {
-            Log.w(TAG, "setAudioBalanceLevel: exoPlayer is null, cannot set volume");
         }
     }
 

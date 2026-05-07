@@ -17,15 +17,13 @@
 # static fields
 .field private static final synthetic $VALUES:[Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
-.field public static final enum HIGH:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
-
-.field public static final enum LOW:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
-
-.field public static final enum MEDIUM:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+.field public static final enum HIGH_DYNAMIC:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
 .field public static final enum OFF:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
 .field public static final ORDERED:[Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+
+.field public static final enum STANDARD:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
 
 # instance fields
@@ -36,11 +34,9 @@
 
 # direct methods
 .method static constructor <clinit>()V
-    .locals 9
+    .locals 8
 
     .prologue
-    const/4 v8, 0x4
-
     const/4 v7, 0x3
 
     const/4 v6, 0x2
@@ -65,81 +61,60 @@
     .line 5
     new-instance v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
-    const-string v1, "LOW"
+    const-string v1, "STANDARD"
 
-    const-string v2, "low"
+    const-string v2, "standard"
 
-    const-string v3, "\u4f4e"
+    const-string v3, "\u6807\u51c6"
 
     invoke-direct {v0, v1, v5, v2, v3}, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;-><init>(Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;)V
 
-    sput-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->LOW:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+    sput-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->STANDARD:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
     .line 6
     new-instance v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
-    const-string v1, "MEDIUM"
+    const-string v1, "HIGH_DYNAMIC"
 
-    const-string v2, "medium"
+    const-string v2, "high_dynamic"
 
-    const-string v3, "\u4e2d"
+    const-string v3, "\u9ad8\u52a8\u6001"
 
     invoke-direct {v0, v1, v6, v2, v3}, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;-><init>(Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;)V
 
-    sput-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->MEDIUM:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
-
-    .line 7
-    new-instance v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
-
-    const-string v1, "HIGH"
-
-    const-string v2, "high"
-
-    const-string v3, "\u9ad8"
-
-    invoke-direct {v0, v1, v7, v2, v3}, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;-><init>(Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;)V
-
-    sput-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->HIGH:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+    sput-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->HIGH_DYNAMIC:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
     .line 3
-    new-array v0, v8, [Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+    new-array v0, v7, [Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
     sget-object v1, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->OFF:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
     aput-object v1, v0, v4
 
-    sget-object v1, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->LOW:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+    sget-object v1, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->STANDARD:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
     aput-object v1, v0, v5
 
-    sget-object v1, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->MEDIUM:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+    sget-object v1, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->HIGH_DYNAMIC:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
     aput-object v1, v0, v6
-
-    sget-object v1, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->HIGH:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
-
-    aput-object v1, v0, v7
 
     sput-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->$VALUES:[Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
-    .line 65
-    new-array v0, v8, [Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+    .line 60
+    new-array v0, v7, [Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
     sget-object v1, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->OFF:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
     aput-object v1, v0, v4
 
-    sget-object v1, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->LOW:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+    sget-object v1, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->STANDARD:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
     aput-object v1, v0, v5
 
-    sget-object v1, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->MEDIUM:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+    sget-object v1, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->HIGH_DYNAMIC:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
     aput-object v1, v0, v6
-
-    sget-object v1, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->HIGH:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
-
-    aput-object v1, v0, v7
 
     sput-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->ORDERED:[Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
@@ -158,16 +133,16 @@
     .end annotation
 
     .prologue
-    .line 12
+    .line 11
     invoke-direct {p0, p1, p2}, Ljava/lang/Enum;-><init>(Ljava/lang/String;I)V
 
-    .line 13
+    .line 12
     iput-object p3, p0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->prefValue:Ljava/lang/String;
 
-    .line 14
+    .line 13
     iput-object p4, p0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->label:Ljava/lang/String;
 
-    .line 15
+    .line 14
     return-void
 .end method
 
@@ -175,46 +150,41 @@
     .locals 1
 
     .prologue
-    .line 36
-    packed-switch p0, :pswitch_data_12
+    .line 35
+    packed-switch p0, :pswitch_data_10
 
-    .line 46
+    .line 43
     sget-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->OFF:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
     :goto_5
     return-object v0
 
-    .line 38
+    .line 37
     :pswitch_6
     sget-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->OFF:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
     goto :goto_5
 
-    .line 40
+    .line 39
     :pswitch_9
-    sget-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->LOW:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+    sget-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->STANDARD:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
     goto :goto_5
 
-    .line 42
+    .line 41
     :pswitch_c
-    sget-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->MEDIUM:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+    sget-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->HIGH_DYNAMIC:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
     goto :goto_5
 
-    .line 44
-    :pswitch_f
-    sget-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->HIGH:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+    .line 35
+    nop
 
-    goto :goto_5
-
-    .line 36
-    :pswitch_data_12
+    :pswitch_data_10
     .packed-switch 0x0
         :pswitch_6
         :pswitch_9
         :pswitch_c
-        :pswitch_f
     .end packed-switch
 .end method
 
@@ -222,17 +192,17 @@
     .locals 5
 
     .prologue
-    .line 26
+    .line 25
     if-nez p0, :cond_5
 
     sget-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->OFF:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
-    .line 32
+    .line 31
     :cond_4
     :goto_4
     return-object v0
 
-    .line 27
+    .line 26
     :cond_5
     invoke-static {}, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->values()[Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
@@ -249,7 +219,7 @@
 
     aget-object v0, v2, v1
 
-    .line 28
+    .line 27
     iget-object v4, v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->prefValue:Ljava/lang/String;
 
     invoke-virtual {v4, p0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -258,14 +228,14 @@
 
     if-nez v4, :cond_4
 
-    .line 27
+    .line 26
     add-int/lit8 v0, v1, 0x1
 
     move v1, v0
 
     goto :goto_c
 
-    .line 32
+    .line 31
     :cond_1c
     sget-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->OFF:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
@@ -312,7 +282,7 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 51
+    .line 48
     sget-object v1, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel$1;->$SwitchMap$tv$danmaku$videoplayer$core$media$exo$AudioBalanceLevel:[I
 
     invoke-virtual {p0}, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->ordinal()I
@@ -321,40 +291,33 @@
 
     aget v1, v1, v2
 
-    packed-switch v1, :pswitch_data_14
+    packed-switch v1, :pswitch_data_12
 
-    .line 61
+    .line 56
     :goto_c
     :pswitch_c
     return v0
 
-    .line 55
+    .line 52
     :pswitch_d
     const/4 v0, 0x1
 
     goto :goto_c
 
-    .line 57
+    .line 54
     :pswitch_f
     const/4 v0, 0x2
 
     goto :goto_c
 
-    .line 59
-    :pswitch_11
-    const/4 v0, 0x3
-
-    goto :goto_c
-
-    .line 51
+    .line 48
     nop
 
-    :pswitch_data_14
+    :pswitch_data_12
     .packed-switch 0x1
         :pswitch_c
         :pswitch_d
         :pswitch_f
-        :pswitch_11
     .end packed-switch
 .end method
 
@@ -362,7 +325,7 @@
     .locals 1
 
     .prologue
-    .line 22
+    .line 21
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->label:Ljava/lang/String;
 
     return-object v0
@@ -372,7 +335,7 @@
     .locals 1
 
     .prologue
-    .line 18
+    .line 17
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->prefValue:Ljava/lang/String;
 
     return-object v0

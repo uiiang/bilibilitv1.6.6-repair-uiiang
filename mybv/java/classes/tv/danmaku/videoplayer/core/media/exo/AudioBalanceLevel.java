@@ -2,9 +2,8 @@ package tv.danmaku.videoplayer.core.media.exo;
 
 public enum AudioBalanceLevel {
     OFF("off", "关闭"),
-    LOW("low", "低"),
-    MEDIUM("medium", "中"),
-    HIGH("high", "高");
+    STANDARD("standard", "标准"),
+    HIGH_DYNAMIC("high_dynamic", "高动态");
 
     private final String prefValue;
     private final String label;
@@ -37,11 +36,9 @@ public enum AudioBalanceLevel {
             case 0:
                 return OFF;
             case 1:
-                return LOW;
+                return STANDARD;
             case 2:
-                return MEDIUM;
-            case 3:
-                return HIGH;
+                return HIGH_DYNAMIC;
             default:
                 return OFF;
         }
@@ -51,16 +48,14 @@ public enum AudioBalanceLevel {
         switch (this) {
             case OFF:
                 return 0;
-            case LOW:
+            case STANDARD:
                 return 1;
-            case MEDIUM:
+            case HIGH_DYNAMIC:
                 return 2;
-            case HIGH:
-                return 3;
             default:
                 return 0;
         }
     }
 
-    public static final AudioBalanceLevel[] ORDERED = {OFF, LOW, MEDIUM, HIGH};
+    public static final AudioBalanceLevel[] ORDERED = {OFF, STANDARD, HIGH_DYNAMIC};
 }

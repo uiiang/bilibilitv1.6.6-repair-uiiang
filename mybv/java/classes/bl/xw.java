@@ -303,12 +303,10 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             String[] audioBalanceOptions = resources.getStringArray(R.array.audio_balance_options);
             String currentLevel = abd.get_audio_balance_level(p());
             int currentIndex = 0;
-            if ("low".equals(currentLevel)) {
+            if ("standard".equals(currentLevel)) {
                 currentIndex = 1;
-            } else if ("medium".equals(currentLevel)) {
+            } else if ("high_dynamic".equals(currentLevel)) {
                 currentIndex = 2;
-            } else if ("high".equals(currentLevel)) {
-                currentIndex = 3;
             }
             this.c.init_audio_balance(Arrays.asList(audioBalanceOptions), currentIndex);
         }
@@ -393,7 +391,6 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
     @Override
     public void set_audio_balance_level(int level) {
-        Log.i("xw", "set_audio_balance_level: level=" + level);
         String levelStr = "off";
         AudioBalanceLevel audioLevel = AudioBalanceLevel.OFF;
         switch (level) {
@@ -402,27 +399,18 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                 audioLevel = AudioBalanceLevel.OFF;
                 break;
             case 1:
-                levelStr = "low";
-                audioLevel = AudioBalanceLevel.LOW;
+                levelStr = "standard";
+                audioLevel = AudioBalanceLevel.STANDARD;
                 break;
             case 2:
-                levelStr = "medium";
-                audioLevel = AudioBalanceLevel.MEDIUM;
-                break;
-            case 3:
-                levelStr = "high";
-                audioLevel = AudioBalanceLevel.HIGH;
+                levelStr = "high_dynamic";
+                audioLevel = AudioBalanceLevel.HIGH_DYNAMIC;
                 break;
         }
         abd.set_audio_balance_level(p(), levelStr);
-        Log.i("xw", "set_audio_balance_level: saved levelStr=" + levelStr + ", audioLevel=" + audioLevel);
         
         if (n() != null) {
-            Log.i("xw", "set_audio_balance_level: playerContext=" + n() + ", class=" + n().getClass().getName());
-            Object result = n().act("SetAudioBalanceLevel", audioLevel);
-            Log.i("xw", "set_audio_balance_level: act result=" + result);
-        } else {
-            Log.w("xw", "set_audio_balance_level: playerContext is null");
+            n().act("SetAudioBalanceLevel", audioLevel);
         }
         
         android.widget.Toast.makeText(o(), "音频平衡: " + o().getResources().getStringArray(R.array.audio_balance_options)[level], android.widget.Toast.LENGTH_SHORT).show();
