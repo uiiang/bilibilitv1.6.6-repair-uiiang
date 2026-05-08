@@ -98,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/px_30"
             android:layout_marginRight="@dimen/px_30"
-            android:text="播放器解码设置" />
+            android:text="解码设置" />
         <com.bilibili.tv.widget.DrawFrameLayout
             android:id="@id/decode_system"
             android:background="@drawable/shape_rectangle_trans_with_12corner_white_10"
@@ -225,7 +225,7 @@
             android:focusable="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="偏好视频解码器："
+            android:text="视频解码器"
             android:textColor="@color/white"
             android:textSize="@dimen/px_44"
             android:layout_marginLeft="@dimen/px_30"
