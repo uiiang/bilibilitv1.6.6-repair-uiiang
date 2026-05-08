@@ -3589,4 +3589,8 @@
     <public type="id" name="chapter_text" id="0x7f080223" />
     <public type="id" name="ijk_player" id="0x7f080224" />
     <public type="id" name="exo_player" id="0x7f080225" />
+    <public type="id" name="network_info" id="0x7f080226" />
+    <public type="id" name="decode_system" id="0x7f080227" />
+    <public type="id" name="decode_ijk_hard" id="0x7f080228" />
+    <public type="id" name="decode_ijk_soft" id="0x7f080229" />
 </resources>

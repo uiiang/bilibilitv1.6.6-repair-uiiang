@@ -17,7 +17,6 @@ import bl.adw;
 import bl.adz;
 import bl.afk;
 import bl.afn;
-import bl.afo;
 import bl.afp;
 import bl.afq;
 import bl.agb;
@@ -174,9 +173,6 @@ public final class SettingActivity extends BaseUpViewActivity {
                 if ((d instanceof afn) && ((afn) d).b()) {
                     return false;
                 }
-                if ((d instanceof afo) && ((afo) d).b()) {
-                    return false;
-                }
                 if ((d instanceof afm3) && ((afm3) d).b()) {
                     return false;
                 }
@@ -225,9 +221,6 @@ public final class SettingActivity extends BaseUpViewActivity {
                     }
                     if (d2 instanceof afn) {
                         return ((afn) d2).a();
-                    }
-                    if (d2 instanceof afo) {
-                        return ((afo) d2).a();
                     }
                     if (d2 instanceof afm3) {
                         return ((afm3) d2).a();

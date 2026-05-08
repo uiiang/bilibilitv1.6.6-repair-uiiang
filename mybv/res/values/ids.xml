@@ -437,4 +437,8 @@
     <item type="id" name="chapter_text" />
     <item type="id" name="ijk_player" />
     <item type="id" name="exo_player" />
+    <item type="id" name="network_info" />
+    <item type="id" name="decode_system" />
+    <item type="id" name="decode_ijk_hard" />
+    <item type="id" name="decode_ijk_soft" />
 </resources>

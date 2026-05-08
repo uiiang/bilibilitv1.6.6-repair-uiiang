@@ -3,12 +3,12 @@
 .source "afn.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Landroid/content/DialogInterface$OnClickListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/afn;->onCreateView(Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View;
+    value = Lbl/afn;->onClick(Landroid/view/View;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,14 +20,22 @@
 # instance fields
 .field final synthetic this$0:Lbl/afn;
 
+.field final synthetic val$show_decoders:Ljava/util/List;
+
+.field final synthetic val$tmp_codecs:Ljava/util/List;
+
 
 # direct methods
-.method constructor <init>(Lbl/afn;)V
+.method constructor <init>(Lbl/afn;Ljava/util/List;Ljava/util/List;)V
     .locals 0
 
     .prologue
-    .line 107
+    .line 256
     iput-object p1, p0, Lbl/afn$1;->this$0:Lbl/afn;
+
+    iput-object p2, p0, Lbl/afn$1;->val$tmp_codecs:Ljava/util/List;
+
+    iput-object p3, p0, Lbl/afn$1;->val$show_decoders:Ljava/util/List;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -36,344 +44,156 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 3
+.method public onClick(Landroid/content/DialogInterface;I)V
+    .locals 5
 
     .prologue
-    .line 110
+    const/4 v4, 0x0
+
+    const/16 v3, 0x3e8
+
+    .line 259
+    invoke-static {}, Ltv/danmaku/videoplayer/core/media/ijk/IjkMediaCodecInfo;->getKnownCodecList()Ljava/util/Map;
+
+    move-result-object v1
+
+    .line 260
+    invoke-interface {v1}, Ljava/util/Map;->entrySet()Ljava/util/Set;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
+
+    move-result-object v2
+
+    .line 261
+    :cond_f
+    :goto_f
+    invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_2b
+
+    .line 262
+    invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/util/Map$Entry;
+
+    .line 263
+    invoke-interface {v0}, Ljava/util/Map$Entry;->getValue()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/lang/Integer;
+
+    invoke-virtual {v0}, Ljava/lang/Integer;->intValue()I
+
+    move-result v0
+
+    if-ne v0, v3, :cond_f
+
+    invoke-interface {v2}, Ljava/util/Iterator;->remove()V
+
+    goto :goto_f
+
+    .line 265
+    :cond_2b
+    const/4 v0, 0x1
+
+    if-le p2, v0, :cond_7a
+
+    .line 266
+    iget-object v0, p0, Lbl/afn$1;->val$tmp_codecs:Ljava/util/List;
+
+    invoke-interface {v0, p2}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/lang/String;
+
+    sput-object v0, Lbl/afn;->prefect_codec:Ljava/lang/String;
+
+    .line 267
+    iget-object v0, p0, Lbl/afn$1;->val$show_decoders:Ljava/util/List;
+
+    invoke-interface {v0, p2}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/lang/String;
+
+    sput-object v0, Lbl/afn;->prefect_decoder:Ljava/lang/String;
+
+    .line 268
+    sget-object v0, Lbl/afn;->prefect_decoder:Ljava/lang/String;
+
+    invoke-static {v3}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object v2
+
+    invoke-interface {v1, v0, v2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    .line 273
+    :goto_4b
+    invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
+
+    move-result-object v0
+
+    const-string v1, "prefect_codec"
+
+    sget-object v2, Lbl/afn;->prefect_codec:Ljava/lang/String;
+
+    invoke-static {v0, v1, v2}, Lbl/abd;->set_personal_config(Landroid/content/Context;Ljava/lang/String;Ljava/lang/Object;)V
+
+    .line 274
+    invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
+
+    move-result-object v0
+
+    const-string v1, "prefect_decoder"
+
+    sget-object v2, Lbl/afn;->prefect_decoder:Ljava/lang/String;
+
+    invoke-static {v0, v1, v2}, Lbl/abd;->set_personal_config(Landroid/content/Context;Ljava/lang/String;Ljava/lang/Object;)V
+
+    .line 275
     iget-object v0, p0, Lbl/afn$1;->this$0:Lbl/afn;
 
-    # getter for: Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+    # getter for: Lbl/afn;->codecButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
     invoke-static {v0}, Lbl/afn;->access$000(Lbl/afn;)Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     move-result-object v0
 
-    if-eqz v0, :cond_a2
+    const/4 v1, 0x0
 
-    .line 111
-    const-string v0, "afn"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "exoPlayerBtn after layout: width="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lbl/afn$1;->this$0:Lbl/afn;
-
-    # getter for: Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
-    invoke-static {v2}, Lbl/afn;->access$000(Lbl/afn;)Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->getWidth()I
-
-    move-result v2
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, ", height="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lbl/afn$1;->this$0:Lbl/afn;
-
-    .line 112
-    # getter for: Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
-    invoke-static {v2}, Lbl/afn;->access$000(Lbl/afn;)Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->getHeight()I
-
-    move-result v2
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, ", visibility="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lbl/afn$1;->this$0:Lbl/afn;
-
-    .line 113
-    # getter for: Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
-    invoke-static {v2}, Lbl/afn;->access$000(Lbl/afn;)Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->getVisibility()I
-
-    move-result v2
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, ", left="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lbl/afn$1;->this$0:Lbl/afn;
-
-    .line 114
-    # getter for: Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
-    invoke-static {v2}, Lbl/afn;->access$000(Lbl/afn;)Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->getLeft()I
-
-    move-result v2
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, ", top="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lbl/afn$1;->this$0:Lbl/afn;
-
-    .line 115
-    # getter for: Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
-    invoke-static {v2}, Lbl/afn;->access$000(Lbl/afn;)Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->getTop()I
-
-    move-result v2
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, ", right="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lbl/afn$1;->this$0:Lbl/afn;
-
-    .line 116
-    # getter for: Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
-    invoke-static {v2}, Lbl/afn;->access$000(Lbl/afn;)Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->getRight()I
-
-    move-result v2
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, ", bottom="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lbl/afn$1;->this$0:Lbl/afn;
-
-    .line 117
-    # getter for: Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
-    invoke-static {v2}, Lbl/afn;->access$000(Lbl/afn;)Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->getBottom()I
-
-    move-result v2
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    .line 111
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 119
-    :cond_a2
-    iget-object v0, p0, Lbl/afn$1;->this$0:Lbl/afn;
-
-    # getter for: Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
-    invoke-static {v0}, Lbl/afn;->access$100(Lbl/afn;)Lcom/bilibili/tv/widget/DrawFrameLayout;
+    invoke-virtual {v0, v1}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
 
     move-result-object v0
 
-    if-eqz v0, :cond_130
+    check-cast v0, Lcom/bilibili/tv/widget/ShadowTextView;
 
-    .line 120
-    const-string v0, "afn"
+    iget-object v1, p0, Lbl/afn$1;->val$show_decoders:Ljava/util/List;
 
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "ijkPlayerBtn after layout: width="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-interface {v1, p2}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v1
 
-    iget-object v2, p0, Lbl/afn$1;->this$0:Lbl/afn;
+    check-cast v1, Ljava/lang/CharSequence;
 
-    # getter for: Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
-    invoke-static {v2}, Lbl/afn;->access$100(Lbl/afn;)Lcom/bilibili/tv/widget/DrawFrameLayout;
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/ShadowTextView;->setText(Ljava/lang/CharSequence;)V
 
-    move-result-object v2
-
-    invoke-virtual {v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->getWidth()I
-
-    move-result v2
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, ", height="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lbl/afn$1;->this$0:Lbl/afn;
-
-    .line 121
-    # getter for: Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
-    invoke-static {v2}, Lbl/afn;->access$100(Lbl/afn;)Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->getHeight()I
-
-    move-result v2
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, ", left="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lbl/afn$1;->this$0:Lbl/afn;
-
-    .line 122
-    # getter for: Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
-    invoke-static {v2}, Lbl/afn;->access$100(Lbl/afn;)Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->getLeft()I
-
-    move-result v2
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, ", top="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lbl/afn$1;->this$0:Lbl/afn;
-
-    .line 123
-    # getter for: Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
-    invoke-static {v2}, Lbl/afn;->access$100(Lbl/afn;)Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->getTop()I
-
-    move-result v2
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, ", right="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lbl/afn$1;->this$0:Lbl/afn;
-
-    .line 124
-    # getter for: Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
-    invoke-static {v2}, Lbl/afn;->access$100(Lbl/afn;)Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->getRight()I
-
-    move-result v2
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, ", bottom="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lbl/afn$1;->this$0:Lbl/afn;
-
-    .line 125
-    # getter for: Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
-    invoke-static {v2}, Lbl/afn;->access$100(Lbl/afn;)Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->getBottom()I
-
-    move-result v2
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    .line 120
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 127
-    :cond_130
+    .line 276
     return-void
+
+    .line 270
+    :cond_7a
+    sput-object v4, Lbl/afn;->prefect_codec:Ljava/lang/String;
+
+    .line 271
+    sput-object v4, Lbl/afn;->prefect_decoder:Ljava/lang/String;
+
+    goto :goto_4b
 .end method

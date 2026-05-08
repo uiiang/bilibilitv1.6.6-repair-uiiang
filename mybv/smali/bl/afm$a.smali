@@ -1,6 +1,6 @@
 .class public final Lbl/afm$a;
 .super Ljava/lang/Object;
-.source "BL"
+.source "afm.java"
 
 
 # annotations
@@ -18,18 +18,22 @@
 .method private constructor <init>()V
     .locals 0
 
-    .line 149
+    .prologue
+    .line 192
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
+    .line 193
     return-void
 .end method
 
-.method public synthetic constructor <init>(Lbl/bbg;)V
+.method public constructor <init>(Lbl/bbg;)V
     .locals 0
 
-    .line 149
+    .prologue
+    .line 196
     invoke-direct {p0}, Lbl/afm$a;-><init>()V
 
+    .line 197
     return-void
 .end method
 
@@ -38,7 +42,8 @@
 .method public final a()Lbl/afm;
     .locals 1
 
-    .line 152
+    .prologue
+    .line 200
     new-instance v0, Lbl/afm;
 
     invoke-direct {v0}, Lbl/afm;-><init>()V

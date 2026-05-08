@@ -27,7 +27,7 @@
 
     .prologue
     .line 12
-    const/16 v0, 0x9
+    const/4 v0, 0x6
 
     return v0
 .end method
@@ -37,9 +37,9 @@
 
     .prologue
     .line 23
-    packed-switch p1, :pswitch_data_44
+    packed-switch p1, :pswitch_data_30
 
-    .line 43
+    .line 37
     const/4 v0, 0x0
 
     :goto_4
@@ -77,16 +77,6 @@
 
     .line 31
     :pswitch_1a
-    sget-object v0, Lbl/afl;->Companion:Lbl/afl$a;
-
-    invoke-virtual {v0}, Lbl/afl$a;->a()Lbl/afl;
-
-    move-result-object v0
-
-    goto :goto_4
-
-    .line 33
-    :pswitch_21
     sget-object v0, Lbl/afm;->Companion:Lbl/afm$a;
 
     invoke-virtual {v0}, Lbl/afm$a;->a()Lbl/afm;
@@ -95,28 +85,8 @@
 
     goto :goto_4
 
-    .line 35
-    :pswitch_28
-    sget-object v0, Lbl/afm2;->Companion:Lbl/afm2$a;
-
-    invoke-virtual {v0}, Lbl/afm2$a;->a()Lbl/afm2;
-
-    move-result-object v0
-
-    goto :goto_4
-
-    .line 37
-    :pswitch_2f
-    sget-object v0, Lbl/afo;->Companion:Lbl/afo$a;
-
-    invoke-virtual {v0}, Lbl/afo$a;->a()Lbl/afo;
-
-    move-result-object v0
-
-    goto :goto_4
-
-    .line 39
-    :pswitch_36
+    .line 33
+    :pswitch_21
     sget-object v0, Lbl/afm3;->Companion:Lbl/afm3$a;
 
     invoke-virtual {v0}, Lbl/afm3$a;->a()Lbl/afm3;
@@ -125,8 +95,8 @@
 
     goto :goto_4
 
-    .line 41
-    :pswitch_3d
+    .line 35
+    :pswitch_28
     sget-object v0, Lbl/afm4;->Companion:Lbl/afm4$a;
 
     invoke-virtual {v0}, Lbl/afm4$a;->a()Lbl/afm4;
@@ -136,7 +106,9 @@
     goto :goto_4
 
     .line 23
-    :pswitch_data_44
+    nop
+
+    :pswitch_data_30
     .packed-switch 0x0
         :pswitch_5
         :pswitch_c
@@ -144,9 +116,6 @@
         :pswitch_1a
         :pswitch_21
         :pswitch_28
-        :pswitch_2f
-        :pswitch_36
-        :pswitch_3d
     .end packed-switch
 .end method
 
@@ -154,16 +123,16 @@
     .locals 1
 
     .prologue
-    .line 48
-    packed-switch p1, :pswitch_data_30
+    .line 42
+    packed-switch p1, :pswitch_data_22
 
-    .line 68
+    .line 56
     const-string v0, ""
 
     :goto_5
     return-object v0
 
-    .line 50
+    .line 44
     :pswitch_6
     const v0, 0x7f0c0122
 
@@ -173,30 +142,20 @@
 
     goto :goto_5
 
-    .line 52
+    .line 46
     :pswitch_e
     const-string v0, "\u64ad\u653e\u8bbe\u7f6e"
 
     goto :goto_5
 
-    .line 54
+    .line 48
     :pswitch_11
     const-string v0, "\u7f13\u5b58\u8bbe\u7f6e"
 
     goto :goto_5
 
-    .line 56
+    .line 50
     :pswitch_14
-    const v0, 0x7f0c0116
-
-    invoke-static {v0}, Lbl/adl;->e(I)Ljava/lang/String;
-
-    move-result-object v0
-
-    goto :goto_5
-
-    .line 58
-    :pswitch_1c
     const v0, 0x7f0c0119
 
     invoke-static {v0}, Lbl/adl;->e(I)Ljava/lang/String;
@@ -205,41 +164,26 @@
 
     goto :goto_5
 
-    .line 60
-    :pswitch_24
-    const-string v0, "\u7f51\u7edc\u4fe1\u606f"
-
-    goto :goto_5
-
-    .line 62
-    :pswitch_27
-    const-string v0, "\u64ad\u653e\u89e3\u7801"
-
-    goto :goto_5
-
-    .line 64
-    :pswitch_2a
+    .line 52
+    :pswitch_1c
     const-string v0, "\u5b9e\u9a8c\u5ba4"
 
     goto :goto_5
 
-    .line 66
-    :pswitch_2d
+    .line 54
+    :pswitch_1f
     const-string v0, "\u4e2a\u6027\u5316"
 
     goto :goto_5
 
-    .line 48
-    :pswitch_data_30
+    .line 42
+    :pswitch_data_22
     .packed-switch 0x0
         :pswitch_6
         :pswitch_e
         :pswitch_11
         :pswitch_14
         :pswitch_1c
-        :pswitch_24
-        :pswitch_27
-        :pswitch_2a
-        :pswitch_2d
+        :pswitch_1f
     .end packed-switch
 .end method

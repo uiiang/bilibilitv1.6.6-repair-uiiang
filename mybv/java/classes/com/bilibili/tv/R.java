@@ -2647,6 +2647,10 @@ public final class R {
         public static final int chapter_text = 0x7f080223;
         public static final int ijk_player = 0x7f080224;
         public static final int exo_player = 0x7f080225;
+        public static final int network_info = 0x7f080226;
+        public static final int decode_system = 0x7f080227;
+        public static final int decode_ijk_hard = 0x7f080228;
+        public static final int decode_ijk_soft = 0x7f080229;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;
