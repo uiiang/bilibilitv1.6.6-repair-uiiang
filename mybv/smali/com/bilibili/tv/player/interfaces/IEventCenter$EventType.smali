@@ -26,6 +26,8 @@
 # static fields
 .field private static final synthetic $VALUES:[Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
+.field public static final enum AUDIO_BALANCE:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
 .field public static final enum CODEC_CONFIG_CHANGED:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
 .field public static final enum DANMAKU_ALPHA:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
@@ -253,8 +255,19 @@
 
     sput-object v0, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->SCREEN_ADJUST:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
+    .line 27
+    new-instance v0, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
+    const-string v1, "AUDIO_BALANCE"
+
+    const/16 v2, 0x11
+
+    invoke-direct {v0, v1, v2}, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;-><init>(Ljava/lang/String;I)V
+
+    sput-object v0, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->AUDIO_BALANCE:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
     .line 9
-    const/16 v0, 0x11
+    const/16 v0, 0x12
 
     new-array v0, v0, [Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
@@ -347,6 +360,12 @@
     const/16 v1, 0x10
 
     sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->SCREEN_ADJUST:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
+    aput-object v2, v0, v1
+
+    const/16 v1, 0x11
+
+    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->AUDIO_BALANCE:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
     aput-object v2, v0, v1
 

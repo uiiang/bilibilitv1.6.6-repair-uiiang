@@ -6,6 +6,8 @@
 # static fields
 .field public static final PLAYER_ANDROID:I = 0x1
 
+.field public static final PLAYER_EXO:I = 0x3
+
 .field public static final PLAYER_IJK:I = 0x2
 
 .field public static final PLAYER_NONE:I

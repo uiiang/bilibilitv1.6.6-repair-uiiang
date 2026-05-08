@@ -9,7 +9,7 @@ import com.bilibili.tv.R;
 public final class afp extends adx {
     @Override // bl.adx
     public int a() {
-        return 9;
+        return 6;
     }
 
     /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
@@ -28,16 +28,10 @@ public final class afp extends adx {
             case 2:
                 return afk.Companion.a();
             case 3:
-                return afl.Companion.a();
-            case 4:
                 return afm.Companion.a();
-            case 5:
-                return afm2.Companion.a();
-            case 6:
-                return afo.Companion.a();
-            case 7:
+            case 4:
                 return afm3.Companion.a();
-            case 8:
+            case 5:
                 return afm4.Companion.a();
             default:
                 return null;
@@ -53,16 +47,10 @@ public final class afp extends adx {
             case 2:
                 return "缓存设置";
             case 3:
-                return adl.e(R.string.setting_feedback);
-            case 4:
                 return adl.e(R.string.setting_machine_info);
-            case 5:
-                return "网络信息";
-            case 6:
-                return "播放解码";
-            case 7:
+            case 4:
                 return "实验室";
-            case 8:
+            case 5:
                 return "个性化";
             default:
                 return "";

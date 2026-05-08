@@ -1333,18 +1333,18 @@
 .end method
 
 .method public isThisPlayerAvailable(Landroid/content/Context;Ltv/danmaku/videoplayer/core/media/resource/PlayerConfig;)Z
-    .locals 0
+    .locals 2
     .param p2    # Ltv/danmaku/videoplayer/core/media/resource/PlayerConfig;
         .annotation build Landroid/support/annotation/NonNull;
         .end annotation
     .end param
 
     .line 91
-    iget p1, p2, Ltv/danmaku/videoplayer/core/media/resource/PlayerConfig;->mPlayer:I
+    invoke-static {p1}, Ltv/danmaku/videoplayer/core/media/PlayerSelector;->shouldUseExoPlayer(Landroid/content/Context;)Z
 
-    const/4 p2, 0x2
+    move-result v0
 
-    if-ne p2, p1, :cond_0
+    if-nez v0, :cond_0
 
     const/4 p1, 0x1
 

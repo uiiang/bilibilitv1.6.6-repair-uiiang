@@ -28,7 +28,11 @@
     .locals 0
 
     .prologue
+<<<<<<< HEAD
     .line 369
+=======
+    .line 376
+>>>>>>> exoplayer
     iput-object p1, p0, Lbl/xw$3;->this$0:Lbl/xw;
 
     iput-object p2, p0, Lbl/xw$3;->val$params:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
@@ -44,7 +48,11 @@
     .locals 5
 
     .prologue
+<<<<<<< HEAD
     .line 372
+=======
+    .line 379
+>>>>>>> exoplayer
     const-string v0, "SkipSetting"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -77,7 +85,11 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
+<<<<<<< HEAD
     .line 374
+=======
+    .line 381
+>>>>>>> exoplayer
     iget-object v0, p0, Lbl/xw$3;->this$0:Lbl/xw;
 
     iget-object v1, p0, Lbl/xw$3;->val$params:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
@@ -87,7 +99,11 @@
 
     move-result-object v0
 
+<<<<<<< HEAD
     .line 375
+=======
+    .line 382
+>>>>>>> exoplayer
     iget-object v1, p0, Lbl/xw$3;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->getSkipHelper()Lbl/xj;
@@ -95,6 +111,7 @@
 
     move-result-object v1
 
+<<<<<<< HEAD
     .line 376
     if-eqz v1, :cond_3f
 
@@ -102,6 +119,15 @@
     invoke-virtual {v1, v0}, Lbl/xj;->updateSkips(Lorg/json/JSONArray;)V
 
     .line 378
+=======
+    .line 383
+    if-eqz v1, :cond_3f
+
+    .line 384
+    invoke-virtual {v1, v0}, Lbl/xj;->updateSkips(Lorg/json/JSONArray;)V
+
+    .line 385
+>>>>>>> exoplayer
     iget-object v0, p0, Lbl/xw$3;->this$0:Lbl/xw;
 
     invoke-virtual {v0}, Lbl/xw;->x()I
@@ -112,7 +138,11 @@
 
     invoke-virtual {v1, v2, v3}, Lbl/xj;->checkSkip(J)V
 
+<<<<<<< HEAD
     .line 380
+=======
+    .line 387
+>>>>>>> exoplayer
     :cond_3f
     return-void
 .end method

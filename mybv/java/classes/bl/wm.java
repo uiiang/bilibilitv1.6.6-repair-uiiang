@@ -20,6 +20,8 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 import android.os.Bundle;
 import tv.danmaku.android.log.BLog;
+import tv.danmaku.videoplayer.core.media.PlayerSelector;
+import tv.danmaku.videoplayer.core.media.exo.ExoPlayerImpl;
 import tv.danmaku.videoplayer.core.videoview.IVideoView;
 import com.bilibili.tv.ui.live.player.LivePlayerActivity;
 
@@ -244,6 +246,9 @@ public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.
     }
 
     private void a(Message message, boolean z) {
+        if (PlayerSelector.shouldUseExoPlayer(this.l)) {
+            android.util.Log.i("wm", "ExoPlayer selected but not supported in wm fallback path, using IjkPlayer");
+        }
         this.h = new IjkMediaPlayer(this.l);
         this.h.setAudioStreamType(3);
         if (z) {

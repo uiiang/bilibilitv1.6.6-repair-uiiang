@@ -26,7 +26,11 @@
         <item>CC字幕</item>
         <item>章节</item>
         <item>跳过设置</item>
+<<<<<<< HEAD
         <item>@string/subtitle_size</item>
+=======
+        <item>@string/audio_balance</item>
+>>>>>>> exoplayer
     </string-array>
     <string-array name="player_right_menu_level_1_1">
         <item>@string/episode</item>
@@ -51,5 +55,10 @@
     <string-array name="screen_adjust">
         <item>旋转</item>
         <item>镜像</item>
+    </string-array>
+    <string-array name="audio_balance_options">
+        <item>@string/audio_balance_off</item>
+        <item>@string/audio_balance_standard</item>
+        <item>@string/audio_balance_high_dynamic</item>
     </string-array>
 </resources>

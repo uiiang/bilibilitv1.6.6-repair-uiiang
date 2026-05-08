@@ -32,7 +32,11 @@
     .locals 0
 
     .prologue
+<<<<<<< HEAD
     .line 216
+=======
+    .line 217
+>>>>>>> exoplayer
     iput-object p1, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$2;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     iput p2, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$2;->val$i2:I
@@ -52,7 +56,11 @@
     .locals 6
 
     .prologue
+<<<<<<< HEAD
     .line 219
+=======
+    .line 220
+>>>>>>> exoplayer
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v0
@@ -65,7 +73,11 @@
 
     invoke-static {v0, v1}, Lbl/abd;->set_mode_id(Landroid/content/Context;I)V
 
+<<<<<<< HEAD
     .line 220
+=======
+    .line 221
+>>>>>>> exoplayer
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$2;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     iget v1, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$2;->val$i:I
@@ -84,7 +96,11 @@
 
     invoke-virtual/range {v0 .. v5}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->a(IILandroid/view/View;Landroid/view/ViewGroup;Ljava/lang/String;)Z
 
+<<<<<<< HEAD
     .line 221
+=======
+    .line 222
+>>>>>>> exoplayer
     const/4 v0, 0x1
 
     return v0

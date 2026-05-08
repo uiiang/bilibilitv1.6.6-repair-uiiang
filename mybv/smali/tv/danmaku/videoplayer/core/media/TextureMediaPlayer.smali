@@ -202,12 +202,24 @@
 .end method
 
 .method public setSurfaceTexture(Landroid/graphics/SurfaceTexture;)V
-    .locals 1
+    .locals 2
+
+    const-string v0, "TextureMediaPlayer"
+
+    const-string v1, "setSurfaceTexture called"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 81
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/TextureMediaPlayer;->mSurfaceTexture:Landroid/graphics/SurfaceTexture;
 
     if-ne v0, p1, :cond_0
+
+    const-string v0, "TextureMediaPlayer"
+
+    const-string v1, "setSurfaceTexture: same surface, returning"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     return-void
 
@@ -220,6 +232,12 @@
 
     if-nez p1, :cond_1
 
+    const-string v0, "TextureMediaPlayer"
+
+    const-string v1, "setSurfaceTexture: surface is null"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
     const/4 p1, 0x0
 
     .line 87
@@ -229,6 +247,12 @@
 
     .line 89
     :cond_1
+    const-string v0, "TextureMediaPlayer"
+
+    const-string v1, "setSurfaceTexture: creating Surface and calling super.setSurface"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
     new-instance v0, Landroid/view/Surface;
 
     invoke-direct {v0, p1}, Landroid/view/Surface;-><init>(Landroid/graphics/SurfaceTexture;)V

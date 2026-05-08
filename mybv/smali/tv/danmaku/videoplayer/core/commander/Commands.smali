@@ -26,6 +26,8 @@
 
 .field public static final CMD_SET_PLAYBACK_SPEED:Ljava/lang/String; = "SetPlaybackSpeed"
 
+.field public static final CMD_SET_AUDIO_BALANCE_LEVEL:Ljava/lang/String; = "SetAudioBalanceLevel"
+
 
 # direct methods
 .method public constructor <init>()V
