@@ -27,6 +27,7 @@ import tv.danmaku.videoplayer.core.media.PlayerSelector;
 import tv.danmaku.videoplayer.core.media.exo.ExoPlayerImpl;
 import tv.danmaku.videoplayer.core.media.exo.AudioBalanceLevel;
 import tv.danmaku.videoplayer.core.media.resource.SegmentSource;
+import tv.danmaku.videoplayer.core.media.resource.UrlExpirationChecker;
 import tv.danmaku.videoplayer.core.videoview.IVideoParams;
 import tv.danmaku.videoplayer.core.videoview.IVideoView;
 
@@ -184,6 +185,8 @@ public class ExoCommander extends AbsPlayerCommander {
             String videoUrl = selectedVideo.optString("base_url");
             int videoId = selectedVideo.optInt("id");
             Log.i(TAG, "[DASH_BILI] Selected video: id=" + videoId + ", url=" + videoUrl);
+            
+            checkUrlExpiration(videoUrl, "video");
 
             MediaSource videoSource = new ProgressiveMediaSource.Factory(dataSourceFactory)
                 .createMediaSource(MediaItem.fromUri(videoUrl));
@@ -192,6 +195,9 @@ public class ExoCommander extends AbsPlayerCommander {
                 String audioUrl = selectedAudio.optString("base_url");
                 int audioId = selectedAudio.optInt("id");
                 Log.i(TAG, "[DASH_BILI] Selected audio: id=" + audioId + ", url=" + audioUrl);
+                
+                checkUrlExpiration(audioUrl, "audio");
+                
                 MediaSource audioSource = new ProgressiveMediaSource.Factory(dataSourceFactory)
                     .createMediaSource(MediaItem.fromUri(audioUrl));
                 Log.i(TAG, "[DASH_BILI] Merging video and audio sources");
@@ -204,6 +210,10 @@ public class ExoCommander extends AbsPlayerCommander {
             Log.e(TAG, "[DASH_BILI] Failed to build DASH source", e);
             throw new IOException("DASH source error", e);
         }
+    }
+    
+    private void checkUrlExpiration(String url, String type) {
+        UrlExpirationChecker.checkUrlExpiration(url, type);
     }
 
     private JSONObject findMediaByQuality(JSONArray mediaArray, int quality) {

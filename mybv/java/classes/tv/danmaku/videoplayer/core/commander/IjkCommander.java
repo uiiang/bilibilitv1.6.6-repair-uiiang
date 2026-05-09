@@ -17,6 +17,7 @@ import tv.danmaku.videoplayer.core.media.TextureMediaPlayer;
 import tv.danmaku.videoplayer.core.media.ijk.IjkInfoStatistics;
 import tv.danmaku.videoplayer.core.media.resource.MediaSource;
 import tv.danmaku.videoplayer.core.media.resource.SegmentSource;
+import tv.danmaku.videoplayer.core.media.resource.UrlExpirationChecker;
 import tv.danmaku.videoplayer.core.videoview.IVideoParams;
 import tv.danmaku.videoplayer.core.videoview.IVideoView;
 
@@ -91,6 +92,17 @@ class IjkCommander extends AbsPlayerCommander {
             if(hasDash){
                 //Log.i(TAG, "[openVideo] DASH stream detected, video count=" + videoViewParams.mMediaResource.dash.optJSONArray("video").length());
                 Log.i("PlaySpeed", "[IJK_DASH_START] openVideo DASH, video_count=" + videoViewParams.mMediaResource.dash.optJSONArray("video").length() + ", quality=" + videoViewParams.mMediaResource.quality);
+                
+                // Check URL expiration
+                try {
+                    String videoUrl = videoViewParams.mMediaResource.dash.optJSONArray("video").optJSONObject(0).optString("base_url");
+                    String audioUrl = videoViewParams.mMediaResource.dash.optJSONArray("audio").optJSONObject(0).optString("base_url");
+                    UrlExpirationChecker.checkUrlExpiration(videoUrl, "IJK_VIDEO");
+                    UrlExpirationChecker.checkUrlExpiration(audioUrl, "IJK_AUDIO");
+                } catch (Exception e) {
+                    Log.w(TAG, "Failed to check URL expiration: " + e.getMessage());
+                }
+                
                 if(videoViewParams.mMediaResource.dash.optJSONArray("video").optJSONObject(0).optString("base_url").indexOf("platform=pc")>=0){this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "headers", "Referer: https://www.bilibili.com\r\n");}
                 this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "user_agent", "Bilibili Freedoooooom/MarkII");
                 this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec-all-videos", 1);

@@ -62,6 +62,7 @@ public class ExoPlayerImpl implements IMediaPlayer {
     private static final long POSITION_CACHE_VALIDITY_MS = 500;
     private Handler mainHandler;
     private Runnable positionUpdateRunnable;
+    private Runnable bufferMonitorRunnable;
 
     private OnPreparedListener onPreparedListener;
     private OnCompletionListener onCompletionListener;
@@ -85,6 +86,34 @@ public class ExoPlayerImpl implements IMediaPlayer {
                     cachedDuration = exoPlayer.getDuration();
                     lastPositionUpdateTime.set(System.currentTimeMillis());
                     mainHandler.postDelayed(this, 200);
+                }
+            }
+        };
+        
+        this.bufferMonitorRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (exoPlayer != null) {
+                    long position = exoPlayer.getCurrentPosition();
+                    long duration = exoPlayer.getDuration();
+                    int bufferedPercent = exoPlayer.getBufferedPercentage();
+                    long bufferedPosition = exoPlayer.getBufferedPosition();
+                    boolean isPlaying = exoPlayer.isPlaying();
+                    int playbackState = exoPlayer.getPlaybackState();
+                    
+                    String stateStr = "";
+                    switch (playbackState) {
+                        case Player.STATE_IDLE: stateStr = "IDLE"; break;
+                        case Player.STATE_BUFFERING: stateStr = "BUFFERING"; break;
+                        case Player.STATE_READY: stateStr = "READY"; break;
+                        case Player.STATE_ENDED: stateStr = "ENDED"; break;
+                    }
+                    
+                    Log.i(TAG, "[MONITOR] pos=" + position + "ms/" + duration + "ms, buffered=" 
+                        + bufferedPercent + "% (" + bufferedPosition + "ms), playing=" + isPlaying 
+                        + ", state=" + stateStr);
+                    
+                    mainHandler.postDelayed(this, 10000);
                 }
             }
         };
@@ -113,21 +142,27 @@ public class ExoPlayerImpl implements IMediaPlayer {
             exoPlayer.addListener(new Player.Listener() {
                 @Override
                 public void onPlaybackStateChanged(int playbackState) {
+                    String stateName = "";
                     switch (playbackState) {
                         case Player.STATE_READY:
+                            stateName = "READY";
                             cachedDuration = exoPlayer.getDuration();
+                            Log.i(TAG, "[STATE] READY - duration=" + cachedDuration + "ms, buffered=" + exoPlayer.getBufferedPercentage() + "%");
                             if (onPreparedListener != null) {
                                 onPreparedListener.onPrepared(ExoPlayerImpl.this);
                             }
                             mainHandler.post(positionUpdateRunnable);
                             break;
                         case Player.STATE_ENDED:
+                            stateName = "ENDED";
                             mainHandler.removeCallbacks(positionUpdateRunnable);
                             if (onCompletionListener != null) {
                                 onCompletionListener.onCompletion(ExoPlayerImpl.this);
                             }
                             break;
                         case Player.STATE_BUFFERING:
+                            stateName = "BUFFERING";
+                            Log.w(TAG, "[STATE] BUFFERING - position=" + exoPlayer.getCurrentPosition() + "ms, buffered=" + exoPlayer.getBufferedPercentage() + "%");
                             if (onInfoListener != null) {
                                 onInfoListener.onInfo(ExoPlayerImpl.this,
                                     MEDIA_INFO_BUFFERING_START, 0);
@@ -136,14 +171,23 @@ public class ExoPlayerImpl implements IMediaPlayer {
                             }
                             break;
                         case Player.STATE_IDLE:
+                            stateName = "IDLE";
                             mainHandler.removeCallbacks(positionUpdateRunnable);
                             break;
                     }
+                    Log.i(TAG, "[STATE] " + stateName + " (playbackState=" + playbackState + ")");
                 }
 
                 @Override
                 public void onPlayerError(PlaybackException error) {
-                    Log.e(TAG, "Player error: " + error.getMessage());
+                    Log.e(TAG, "[ERROR] Player error occurred!");
+                    Log.e(TAG, "[ERROR] Error code: " + error.errorCode);
+                    Log.e(TAG, "[ERROR] Error message: " + error.getMessage());
+                    Log.e(TAG, "[ERROR] Error type: " + error.getClass().getSimpleName());
+                    if (error.getCause() != null) {
+                        Log.e(TAG, "[ERROR] Cause: " + error.getCause().getMessage());
+                    }
+                    
                     if (onErrorListener != null) {
                         onErrorListener.onError(ExoPlayerImpl.this,
                             error.errorCode, 0);
@@ -166,6 +210,7 @@ public class ExoPlayerImpl implements IMediaPlayer {
 
                 @Override
                 public void onIsPlayingChanged(boolean isPlaying) {
+                    Log.i(TAG, "[PLAY] isPlaying=" + isPlaying + ", position=" + exoPlayer.getCurrentPosition() + "ms");
                     if (isPlaying && onInfoListener != null) {
                         onInfoListener.onInfo(ExoPlayerImpl.this,
                             MEDIA_INFO_VIDEO_RENDERING_START, 0);
@@ -176,6 +221,18 @@ public class ExoPlayerImpl implements IMediaPlayer {
 
                 @Override
                 public void onPositionDiscontinuity(Player.PositionInfo oldPosition, Player.PositionInfo newPosition, int reason) {
+                    String reasonStr = "";
+                    switch (reason) {
+                        case Player.DISCONTINUITY_REASON_SEEK: reasonStr = "SEEK"; break;
+                        case Player.DISCONTINUITY_REASON_SEEK_ADJUSTMENT: reasonStr = "SEEK_ADJUSTMENT"; break;
+                        case Player.DISCONTINUITY_REASON_AUTO_TRANSITION: reasonStr = "AUTO_TRANSITION"; break;
+                        case Player.DISCONTINUITY_REASON_REMOVE: reasonStr = "REMOVE"; break;
+                        case Player.DISCONTINUITY_REASON_SKIP: reasonStr = "SKIP"; break;
+                        case Player.DISCONTINUITY_REASON_INTERNAL: reasonStr = "INTERNAL"; break;
+                        default: reasonStr = "UNKNOWN(" + reason + ")"; break;
+                    }
+                    Log.w(TAG, "[DISCONTINUITY] reason=" + reasonStr + ", oldPos=" + oldPosition.positionMs + "ms, newPos=" + newPosition.positionMs + "ms");
+                    
                     if (reason == Player.DISCONTINUITY_REASON_SEEK) {
                         if (onSeekCompleteListener != null) {
                             onSeekCompleteListener.onSeekComplete(ExoPlayerImpl.this);
@@ -185,18 +242,22 @@ public class ExoPlayerImpl implements IMediaPlayer {
 
                 @Override
                 public void onTimelineChanged(Timeline timeline, int reason) {
+                    Log.i(TAG, "[TIMELINE] reason=" + reason + ", windowCount=" + timeline.getWindowCount());
                 }
 
                 @Override
                 public void onAudioAttributesChanged(AudioAttributes audioAttributes) {
+                    Log.i(TAG, "[AUDIO] attributes changed");
                 }
 
                 @Override
                 public void onAudioSessionIdChanged(int audioSessionId) {
+                    Log.i(TAG, "[AUDIO] sessionId=" + audioSessionId);
                 }
 
                 @Override
                 public void onAvailableCommandsChanged(Player.Commands availableCommands) {
+                    Log.d(TAG, "[COMMANDS] available commands changed");
                 }
 
                 @Override
@@ -209,10 +270,12 @@ public class ExoPlayerImpl implements IMediaPlayer {
 
                 @Override
                 public void onDeviceInfoChanged(DeviceInfo deviceInfo) {
+                    Log.d(TAG, "[DEVICE] info changed");
                 }
 
                 @Override
                 public void onDeviceVolumeChanged(int volume, boolean muted) {
+                    Log.i(TAG, "[VOLUME] volume=" + volume + ", muted=" + muted);
                 }
 
                 @Override
@@ -221,10 +284,12 @@ public class ExoPlayerImpl implements IMediaPlayer {
 
                 @Override
                 public void onIsLoadingChanged(boolean isLoading) {
+                    Log.i(TAG, "[LOADING] isLoading=" + isLoading + ", position=" + exoPlayer.getCurrentPosition() + "ms");
                 }
 
                 @Override
                 public void onLoadingChanged(boolean isLoading) {
+                    Log.i(TAG, "[LOADING] onLoadingChanged=" + isLoading);
                 }
 
                 @Override
@@ -233,50 +298,83 @@ public class ExoPlayerImpl implements IMediaPlayer {
 
                 @Override
                 public void onMediaItemTransition(MediaItem mediaItem, int reason) {
+                    Log.i(TAG, "[MEDIA_ITEM] transition, reason=" + reason);
+                    if (mediaItem != null && mediaItem.localConfiguration != null) {
+                        Log.i(TAG, "[MEDIA_ITEM] URI: " + mediaItem.localConfiguration.uri);
+                    }
                 }
 
                 @Override
                 public void onMediaMetadataChanged(MediaMetadata mediaMetadata) {
+                    Log.d(TAG, "[METADATA] changed");
                 }
 
                 @Override
                 public void onMetadata(Metadata metadata) {
+                    Log.d(TAG, "[METADATA] received");
                 }
 
                 @Override
                 public void onPlayWhenReadyChanged(boolean playWhenReady, int reason) {
+                    String reasonStr = "";
+                    switch (reason) {
+                        case Player.PLAY_WHEN_READY_CHANGE_REASON_USER_REQUEST: reasonStr = "USER_REQUEST"; break;
+                        case Player.PLAY_WHEN_READY_CHANGE_REASON_AUDIO_BECOMING_NOISY: reasonStr = "AUDIO_NOISY"; break;
+                        case Player.PLAY_WHEN_READY_CHANGE_REASON_AUDIO_FOCUS_LOSS: reasonStr = "AUDIO_FOCUS_LOSS"; break;
+                        case Player.PLAY_WHEN_READY_CHANGE_REASON_REMOTE: reasonStr = "REMOTE"; break;
+                        case Player.PLAY_WHEN_READY_CHANGE_REASON_END_OF_MEDIA_ITEM: reasonStr = "END_OF_MEDIA"; break;
+                        default: reasonStr = "UNKNOWN(" + reason + ")"; break;
+                    }
+                    Log.w(TAG, "[PLAY_WHEN_READY] playWhenReady=" + playWhenReady + ", reason=" + reasonStr);
                 }
 
                 @Override
                 public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+                    Log.i(TAG, "[PLAYBACK] speed=" + playbackParameters.speed + ", pitch=" + playbackParameters.pitch);
                 }
 
                 @Override
                 public void onPlaybackSuppressionReasonChanged(int playbackSuppressionReason) {
+                    Log.w(TAG, "[SUPPRESSION] reason=" + playbackSuppressionReason);
                 }
 
                 @Override
                 public void onPlayerErrorChanged(PlaybackException error) {
+                    if (error != null) {
+                        Log.e(TAG, "[ERROR_CHANGED] Error changed to: " + error.getMessage());
+                    }
                 }
 
                 @Override
                 public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+                    String stateStr = "";
+                    switch (playbackState) {
+                        case Player.STATE_IDLE: stateStr = "IDLE"; break;
+                        case Player.STATE_BUFFERING: stateStr = "BUFFERING"; break;
+                        case Player.STATE_READY: stateStr = "READY"; break;
+                        case Player.STATE_ENDED: stateStr = "ENDED"; break;
+                    }
+                    Log.i(TAG, "[PLAYER_STATE] playWhenReady=" + playWhenReady + ", state=" + stateStr);
                 }
 
                 @Override
                 public void onPlaylistMetadataChanged(MediaMetadata mediaMetadata) {
+                    Log.d(TAG, "[PLAYLIST] metadata changed");
                 }
 
                 @Override
                 public void onPositionDiscontinuity(int reason) {
+                    Log.w(TAG, "[DISCONTINUITY_OLD] reason=" + reason);
                 }
 
                 @Override
                 public void onRenderedFirstFrame() {
+                    Log.i(TAG, "[RENDER] First frame rendered");
                 }
 
                 @Override
                 public void onRepeatModeChanged(int repeatMode) {
+                    Log.i(TAG, "[REPEAT] mode=" + repeatMode);
                 }
 
                 @Override
@@ -289,26 +387,32 @@ public class ExoPlayerImpl implements IMediaPlayer {
 
                 @Override
                 public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+                    Log.i(TAG, "[SHUFFLE] enabled=" + shuffleModeEnabled);
                 }
 
                 @Override
                 public void onSkipSilenceEnabledChanged(boolean skipSilenceEnabled) {
+                    Log.i(TAG, "[SILENCE] skip=" + skipSilenceEnabled);
                 }
 
                 @Override
                 public void onSurfaceSizeChanged(int width, int height) {
+                    Log.d(TAG, "[SURFACE] size=" + width + "x" + height);
                 }
 
                 @Override
                 public void onTrackSelectionParametersChanged(TrackSelectionParameters parameters) {
+                    Log.d(TAG, "[TRACK_SELECTION] parameters changed");
                 }
 
                 @Override
                 public void onTracksChanged(Tracks tracks) {
+                    Log.i(TAG, "[TRACKS] changed");
                 }
 
                 @Override
                 public void onVolumeChanged(float volume) {
+                    Log.i(TAG, "[VOLUME] volume=" + volume);
                 }
             });
         }
@@ -382,6 +486,7 @@ public class ExoPlayerImpl implements IMediaPlayer {
         Log.i(TAG, "prepareAsync");
         ensurePlayer();
         exoPlayer.prepare();
+        mainHandler.postDelayed(bufferMonitorRunnable, 10000);
     }
 
     @Override
@@ -407,12 +512,14 @@ public class ExoPlayerImpl implements IMediaPlayer {
             exoPlayer.stop();
         }
         mainHandler.removeCallbacks(positionUpdateRunnable);
+        mainHandler.removeCallbacks(bufferMonitorRunnable);
     }
 
     @Override
     public void release() {
         Log.i(TAG, "release");
         mainHandler.removeCallbacks(positionUpdateRunnable);
+        mainHandler.removeCallbacks(bufferMonitorRunnable);
         if (exoPlayer != null) {
             exoPlayer.release();
             exoPlayer = null;
@@ -427,6 +534,7 @@ public class ExoPlayerImpl implements IMediaPlayer {
             exoPlayer.clearMediaItems();
         }
         mainHandler.removeCallbacks(positionUpdateRunnable);
+        mainHandler.removeCallbacks(bufferMonitorRunnable);
     }
 
     @Override
