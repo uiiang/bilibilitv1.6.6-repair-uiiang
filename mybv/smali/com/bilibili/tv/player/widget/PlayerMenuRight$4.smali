@@ -28,11 +28,7 @@
     .locals 0
 
     .prologue
-<<<<<<< HEAD
-    .line 396
-=======
-    .line 389
->>>>>>> exoplayer
+    .line 404
     iput-object p1, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$4;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     iput-object p2, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$4;->val$viewGroup:Landroid/view/ViewGroup;
@@ -48,17 +44,10 @@
     .locals 3
 
     .prologue
-<<<<<<< HEAD
-    .line 399
+    .line 407
     sput p2, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->danmaku_level:I
 
-    .line 400
-=======
-    .line 392
-    sput p2, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->danmaku_level:I
-
-    .line 393
->>>>>>> exoplayer
+    .line 408
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$4;->val$viewGroup:Landroid/view/ViewGroup;
 
     const/4 v1, 0x1
@@ -91,11 +80,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-<<<<<<< HEAD
-    .line 401
-=======
-    .line 394
->>>>>>> exoplayer
+    .line 409
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$4;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     # getter for: Lcom/bilibili/tv/player/widget/PlayerMenuRight;->d:Lcom/bilibili/tv/player/widget/PlayerMenuRight$a;
@@ -105,10 +90,6 @@
 
     invoke-interface {v0}, Lcom/bilibili/tv/player/widget/PlayerMenuRight$a;->refresh_subtitle()V
 
-<<<<<<< HEAD
-    .line 402
-=======
-    .line 395
->>>>>>> exoplayer
+    .line 410
     return-void
 .end method

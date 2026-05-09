@@ -1741,7 +1741,7 @@
     if-ne p1, v0, :cond_2d9
 
     .line 421
-    const/16 v0, 0x800
+    const/16 v0, 0x1000
 
     goto/16 :goto_1c5
 
@@ -2675,7 +2675,7 @@
     iput-object v0, p0, Lbl/afm4;->menuSkipBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     .line 209
-    const v0, 0x7f080224
+    const v0, 0x7f08022a
 
     invoke-virtual {v4, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -3009,7 +3009,7 @@
     .line 262
     iget-object v0, p0, Lbl/afm4;->menuSubtitleSizeBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    and-int/lit16 v3, v3, 0x800
+    and-int/lit16 v3, v3, 0x1000
 
     if-eqz v3, :cond_4fc
 

@@ -3170,6 +3170,7 @@
     <public type="string" name="audio_balance_off" id="0x7f0c018e" />
     <public type="string" name="audio_balance_standard" id="0x7f0c018f" />
     <public type="string" name="audio_balance_high_dynamic" id="0x7f0c0190" />
+    <public type="string" name="subtitle_size" id="0x7f0c0191" />
 
 
     <public type="style" name="AlertDialog.AppCompat" id="0x7f0d0000" />
@@ -3587,15 +3588,11 @@
     <public type="id" name="chapter_list" id="0x7f080221" />
     <public type="id" name="chapter_play_icon" id="0x7f080222" />
     <public type="id" name="chapter_text" id="0x7f080223" />
-<<<<<<< HEAD
-    <public type="id" name="menu_subtitle_size_btn" id="0x7f080224" />
-    <public type="string" name="subtitle_size" id="0x7f0c018d" />
-=======
     <public type="id" name="ijk_player" id="0x7f080224" />
     <public type="id" name="exo_player" id="0x7f080225" />
     <public type="id" name="network_info" id="0x7f080226" />
     <public type="id" name="decode_system" id="0x7f080227" />
     <public type="id" name="decode_ijk_hard" id="0x7f080228" />
     <public type="id" name="decode_ijk_soft" id="0x7f080229" />
->>>>>>> exoplayer
+    <public type="id" name="menu_subtitle_size_btn" id="0x7f08022a" />
 </resources>

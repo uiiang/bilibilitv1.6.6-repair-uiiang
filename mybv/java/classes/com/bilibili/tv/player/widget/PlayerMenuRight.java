@@ -58,11 +58,8 @@ public class PlayerMenuRight extends aay<String> {
     public static int speed_id = -1;
     public static int mode_id = -1;
     public static int subtitle_id = -1;
-<<<<<<< HEAD
     public static int subtitle_size_id = -1;
-=======
     public static int audio_balance_id = 0;
->>>>>>> exoplayer
     public List<String> speed_list;
     public List<String> mode_list;
     public List<String> subtitle_list;
@@ -100,11 +97,8 @@ public class PlayerMenuRight extends aay<String> {
 
         void showSkipSettingDialog();
 
-<<<<<<< HEAD
-        void set_subtitle_size(float f);
-=======
         void set_audio_balance_level(int level);
->>>>>>> exoplayer
+        void set_subtitle_size(float f);
     }
 
     private void jumpToChapter(int chapterIndex) {
@@ -238,7 +232,6 @@ public class PlayerMenuRight extends aay<String> {
         }
         if (i == 2) {
             try {
-<<<<<<< HEAD
                 int currentMenuIndex = getOriginalMenuIndex(this.q);
                 boolean isCurrentSize = false;
                 if (currentMenuIndex == 4 && this.size_list.get(this.size_id).equals(str)) {
@@ -247,10 +240,7 @@ public class PlayerMenuRight extends aay<String> {
                 if (currentMenuIndex == 11 && this.subtitle_size_list != null && this.subtitle_size_id >= 0 && this.subtitle_size_id < this.subtitle_size_list.size() && this.subtitle_size_list.get(this.subtitle_size_id).equals(str)) {
                     isCurrentSize = true;
                 }
-                if (!this.quality_list.get(this.quality_id).equals(str) && !this.ratio_list.get(this.ratio_id).equals(str) && !isCurrentSize && !this.alpha_list.get(this.alpha_id).equals(str) && !this.speed_list.get(this.speed_id).equals(str) && !this.mode_list.get(this.mode_id).equals(str) && !this.subtitle_list.get(this.subtitle_id).equals(str)) {
-=======
-                if (!this.quality_list.get(this.quality_id).equals(str) && !this.ratio_list.get(this.ratio_id).equals(str) && !this.size_list.get(this.size_id).equals(str) && !this.alpha_list.get(this.alpha_id).equals(str) && !this.speed_list.get(this.speed_id).equals(str) && !this.mode_list.get(this.mode_id).equals(str) && !this.subtitle_list.get(this.subtitle_id).equals(str) && !this.audio_balance_list.get(this.audio_balance_id).equals(str)) {
->>>>>>> exoplayer
+                if (!this.quality_list.get(this.quality_id).equals(str) && !this.ratio_list.get(this.ratio_id).equals(str) && !isCurrentSize && !this.alpha_list.get(this.alpha_id).equals(str) && !this.speed_list.get(this.speed_id).equals(str) && !this.mode_list.get(this.mode_id).equals(str) && !this.subtitle_list.get(this.subtitle_id).equals(str) && !this.audio_balance_list.get(this.audio_balance_id).equals(str)) {
                     textView.getCompoundDrawables()[0].setAlpha(0);
                 }
                 else {
@@ -560,11 +550,10 @@ public class PlayerMenuRight extends aay<String> {
                 i3 = 0; // 跳过设置
                 break;
             case 11:
-<<<<<<< HEAD
-                i3 = this.subtitle_size_id; // 字幕大小
-=======
                 i3 = this.audio_balance_id; // 音频平衡
->>>>>>> exoplayer
+                break;
+            case 12:
+                i3 = this.subtitle_size_id; // 字幕大小
                 break;
             default:
                 i3 = 0;
@@ -618,11 +607,10 @@ public class PlayerMenuRight extends aay<String> {
                     list = this.chapter_list;
                     break;
                 case 11:
-<<<<<<< HEAD
-                    list = this.subtitle_size_list;
-=======
                     list = this.audio_balance_list;
->>>>>>> exoplayer
+                    break;
+                case 12:
+                    list = this.subtitle_size_list;
                     break;
                 default:
                     return null;

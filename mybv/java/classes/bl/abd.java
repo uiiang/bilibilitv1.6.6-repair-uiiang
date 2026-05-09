@@ -472,7 +472,8 @@ public class abd {
     public static final int MENU_CHAPTER = 512;
     public static final int MENU_SKIP = 1024;
     public static final int MENU_AUDIO_BALANCE = 2048;
-    public static final int MENU_ALL = MENU_QUALITY | MENU_DANMAKU | MENU_RATIO | MENU_ADJUST | MENU_SIZE | MENU_ALPHA | MENU_SPEED | MENU_MODE | MENU_SUBTITLE | MENU_CHAPTER | MENU_SKIP | MENU_AUDIO_BALANCE;
+    public static final int MENU_SUBTITLE_SIZE = 4096;
+    public static final int MENU_ALL = MENU_QUALITY | MENU_DANMAKU | MENU_RATIO | MENU_ADJUST | MENU_SIZE | MENU_ALPHA | MENU_SPEED | MENU_MODE | MENU_SUBTITLE | MENU_CHAPTER | MENU_SKIP | MENU_AUDIO_BALANCE | MENU_SUBTITLE_SIZE;
     
     private static int playerMenuConfig = -1;
     

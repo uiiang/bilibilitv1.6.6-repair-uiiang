@@ -255,11 +255,8 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         int[] menuFlags = {
             abd.MENU_QUALITY, abd.MENU_DANMAKU, abd.MENU_RATIO, abd.MENU_ADJUST,
             abd.MENU_SIZE, abd.MENU_ALPHA, abd.MENU_SPEED, abd.MENU_MODE,
-<<<<<<< HEAD
-            abd.MENU_SUBTITLE, abd.MENU_CHAPTER, abd.MENU_SKIP, abd.MENU_SUBTITLE_SIZE
-=======
-            abd.MENU_SUBTITLE, abd.MENU_CHAPTER, abd.MENU_SKIP, abd.MENU_AUDIO_BALANCE
->>>>>>> exoplayer
+            abd.MENU_SUBTITLE, abd.MENU_CHAPTER, abd.MENU_SKIP, abd.MENU_AUDIO_BALANCE,
+            abd.MENU_SUBTITLE_SIZE
         };
         
         boolean isExoPlayer = abd.is_exo_player_selected(p());

@@ -2645,16 +2645,13 @@ public final class R {
         public static final int chapter_list = 0x7f080221;
         public static final int chapter_play_icon = 0x7f080222;
         public static final int chapter_text = 0x7f080223;
-<<<<<<< HEAD
-        public static final int menu_subtitle_size_btn = 0x7f080224;
-=======
         public static final int ijk_player = 0x7f080224;
         public static final int exo_player = 0x7f080225;
         public static final int network_info = 0x7f080226;
         public static final int decode_system = 0x7f080227;
         public static final int decode_ijk_hard = 0x7f080228;
         public static final int decode_ijk_soft = 0x7f080229;
->>>>>>> exoplayer
+        public static final int menu_subtitle_size_btn = 0x7f08022a;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;
@@ -3246,15 +3243,12 @@ public final class R {
         public static final int skip_cancel = 0x7f0c018a;
         public static final int skip_saved = 0x7f0c018b;
         public static final int skip_cleared = 0x7f0c018c;
-<<<<<<< HEAD
-        public static final int subtitle_size = 0x7f0c018d;
-=======
         public static final int audio_balance = 0x7f0c018d;
         public static final int audio_balance_off = 0x7f0c018e;
         public static final int audio_balance_low = 0x7f0c018f;
         public static final int audio_balance_medium = 0x7f0c0190;
         public static final int audio_balance_high = 0x7f0c0191;
->>>>>>> exoplayer
+        public static final int subtitle_size = 0x7f0c0192;
     }
 
     public static final class style {

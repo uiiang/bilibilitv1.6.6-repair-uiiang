@@ -26,11 +26,7 @@
     .locals 0
 
     .prologue
-<<<<<<< HEAD
-    .line 630
-=======
-    .line 621
->>>>>>> exoplayer
+    .line 649
     iput-object p1, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$5;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -44,20 +40,12 @@
     .locals 1
 
     .prologue
-<<<<<<< HEAD
-    .line 642
-=======
-    .line 633
->>>>>>> exoplayer
+    .line 661
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$5;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->e()V
 
-<<<<<<< HEAD
-    .line 643
-=======
-    .line 634
->>>>>>> exoplayer
+    .line 662
     return-void
 .end method
 
@@ -65,11 +53,7 @@
     .locals 0
 
     .prologue
-<<<<<<< HEAD
-    .line 633
-=======
-    .line 624
->>>>>>> exoplayer
+    .line 652
     return-void
 .end method
 
@@ -77,21 +61,13 @@
     .locals 2
 
     .prologue
-<<<<<<< HEAD
-    .line 637
-=======
-    .line 628
->>>>>>> exoplayer
+    .line 656
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$5;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->setVisibility(I)V
 
-<<<<<<< HEAD
-    .line 638
-=======
-    .line 629
->>>>>>> exoplayer
+    .line 657
     return-void
 .end method

@@ -26,11 +26,8 @@
         <item>CC字幕</item>
         <item>章节</item>
         <item>跳过设置</item>
-<<<<<<< HEAD
-        <item>@string/subtitle_size</item>
-=======
         <item>@string/audio_balance</item>
->>>>>>> exoplayer
+        <item>@string/subtitle_size</item>
     </string-array>
     <string-array name="player_right_menu_level_1_1">
         <item>@string/episode</item>
