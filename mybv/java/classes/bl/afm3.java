@@ -302,11 +302,12 @@ public final class afm3 extends adw implements View.OnFocusChangeListener, View.
             OutputStream outputStream = null;
             try {
                 inputStream = Runtime.getRuntime().exec("logcat -t 10000").getInputStream();
-                outputStream = new FileOutputStream("/sdcard/bilibilitv.log");
+                File logFile = new File(MainApplication.a().getExternalFilesDir(null), "bilibilitv.log");
+                outputStream = new FileOutputStream(logFile);
                 kz.a(inputStream, outputStream);
                 kz.a(inputStream);
                 kz.a(outputStream);
-                lr.a(afm3.this.getActivity(), "日志导出至：/sdcard/bilibilitv.log");
+                lr.a(afm3.this.getActivity(), "日志导出至：" + logFile.getAbsolutePath());
             } catch (Exception e) {
                 kz.a(inputStream);
                 kz.a(outputStream);
