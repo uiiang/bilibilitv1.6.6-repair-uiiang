@@ -50,7 +50,6 @@ public class ExoPlayerImpl implements IMediaPlayer {
     private ExoPlayer exoPlayer;
     private Context appContext;
     private float currentSpeed = 1.0f;
-    private long seekOnPrepare = -1;
     private boolean mLooping = false;
     private CustomRenderersFactory customRenderersFactory;
 
@@ -116,10 +115,6 @@ public class ExoPlayerImpl implements IMediaPlayer {
                 public void onPlaybackStateChanged(int playbackState) {
                     switch (playbackState) {
                         case Player.STATE_READY:
-                            if (seekOnPrepare > 0) {
-                                exoPlayer.seekTo(seekOnPrepare);
-                                seekOnPrepare = -1;
-                            }
                             cachedDuration = exoPlayer.getDuration();
                             if (onPreparedListener != null) {
                                 onPreparedListener.onPrepared(ExoPlayerImpl.this);
@@ -373,8 +368,9 @@ public class ExoPlayerImpl implements IMediaPlayer {
     }
 
     public void setDataSourceWithSeek(MediaSource mediaSource, long seekMs) {
-        this.seekOnPrepare = seekMs;
-        setDataSource(mediaSource);
+        Log.i(TAG, "setDataSourceWithSeek(MediaSource, " + seekMs + ")");
+        ensurePlayer();
+        exoPlayer.setMediaSource(mediaSource, seekMs);
     }
 
     public void setPlayWhenReadyOnPrepare(boolean playWhenReady) {
