@@ -119,6 +119,21 @@ public class MediaPlayerContext implements AudioManager.OnAudioFocusChangeListen
             mVideoView.setScaleY(k);
         }
     }
+    
+    public IMediaPlayer getMediaPlayer() {
+        if (this.mVideoView != null) {
+            try {
+                java.lang.reflect.Method getMediaPlayerMethod = this.mVideoView.getClass().getMethod("getMediaPlayer");
+                Object mediaPlayer = getMediaPlayerMethod.invoke(this.mVideoView);
+                if (mediaPlayer instanceof IMediaPlayer) {
+                    return (IMediaPlayer) mediaPlayer;
+                }
+            } catch (Exception e) {
+                BLog.e(TAG, "Failed to get MediaPlayer: " + e.getMessage());
+            }
+        }
+        return null;
+    }
 
     /* JADX INFO: Access modifiers changed from: package-private */
     public MediaPlayerContext(Context context, IVideoParams iVideoParams, int i) {

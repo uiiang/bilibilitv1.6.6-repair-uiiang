@@ -371,4 +371,8 @@ class IjkCommander extends AbsPlayerCommander {
     private boolean logEnabled(Context context) {
         return context.getApplicationContext().getSharedPreferences("LogConfig", 0).getInt("logEnable", 0) > 0;
     }
+    
+    public IjkMediaPlayer getMediaPlayer() {
+        return this.mIjkMediaPlayer;
+    }
 }

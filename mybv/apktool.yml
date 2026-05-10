@@ -22,7 +22,7 @@ usesFramework:
   ids:
   - 1
   tag: null
-version: 2.5.0-dirty
+version: 2.9.3
 versionInfo:
   versionCode: '1606'
   versionName: 1.6.6

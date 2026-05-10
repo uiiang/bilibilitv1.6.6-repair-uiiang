@@ -2822,6 +2822,44 @@
     return-object v0
 .end method
 
+.method public getMediaPlayer()Ltv/danmaku/ijk/media/player/IMediaPlayer;
+    .locals 2
+
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/videoview/BaseVideoView;->mPlayer:Ltv/danmaku/videoplayer/core/commander/IPlayerCommander;
+
+    if-eqz v0, :cond_0
+
+    instance-of v1, v0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;
+
+    if-eqz v1, :cond_1
+
+    check-cast v0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;
+
+    invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->getMediaPlayer()Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+
+    move-result-object v0
+
+    return-object v0
+
+    :cond_1
+    instance-of v1, v0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;
+
+    if-eqz v1, :cond_0
+
+    check-cast v0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;
+
+    invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->getMediaPlayer()Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
+
+    move-result-object v0
+
+    return-object v0
+
+    :cond_0
+    const/4 v0, 0x0
+
+    return-object v0
+.end method
+
 .method public getState()I
     .locals 1
 

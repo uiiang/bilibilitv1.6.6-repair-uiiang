@@ -840,6 +840,16 @@
     .end packed-switch
 .end method
 
+.method public getMediaPlayer()Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
+    .locals 1
+
+    .prologue
+    .line 376
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
+
+    return-object v0
+.end method
+
 .method public onRelease()V
     .locals 1
 

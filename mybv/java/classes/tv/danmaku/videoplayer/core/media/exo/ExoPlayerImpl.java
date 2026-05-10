@@ -72,12 +72,32 @@ public class ExoPlayerImpl implements IMediaPlayer {
     private OnVideoSizeChangedListener onVideoSizeChangedListener;
     private OnBufferingUpdateListener onBufferingUpdateListener;
     private OnTimedTextListener onTimedTextListener;
+    private PlayerErrorListener errorListener;
+    
+    private static final boolean TEST_ERROR_REFRESH = false;
+    private static final long TEST_ERROR_INTERVAL_MS = 2 * 60 * 1000L;
+    private Runnable testErrorRunnable;
+    private int testErrorCount = 0;
+    
+    public interface PlayerErrorListener {
+        void onPlayerError(int errorCode, String errorMessage, Integer httpCode);
+    }
+    
+    public void setErrorListener(PlayerErrorListener listener) {
+        this.errorListener = listener;
+        Log.i(TAG, "Error listener set: " + (listener != null ? "not null" : "null"));
+    }
+    
+    public PlayerErrorListener getErrorListener() {
+        return this.errorListener;
+    }
 
     private boolean playWhenReadyOnPrepare = true;
 
     public ExoPlayerImpl(Context context) {
         this.appContext = context.getApplicationContext();
         this.mainHandler = new Handler(Looper.getMainLooper());
+        
         this.positionUpdateRunnable = new Runnable() {
             @Override
             public void run() {
@@ -114,6 +134,21 @@ public class ExoPlayerImpl implements IMediaPlayer {
                         + ", state=" + stateStr);
                     
                     mainHandler.postDelayed(this, 10000);
+                }
+            }
+        };
+        
+        this.testErrorRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (TEST_ERROR_REFRESH && errorListener != null && exoPlayer != null) {
+                    testErrorCount++;
+                    Log.i(TAG, "[TEST_ERROR] Simulating HTTP 403 error, count=" + testErrorCount + 
+                          ", position=" + exoPlayer.getCurrentPosition() + "ms");
+                    errorListener.onPlayerError(403, "Test HTTP 403 Forbidden", 403);
+                }
+                if (TEST_ERROR_REFRESH) {
+                    mainHandler.postDelayed(this, TEST_ERROR_INTERVAL_MS);
                 }
             }
         };
@@ -188,9 +223,18 @@ public class ExoPlayerImpl implements IMediaPlayer {
                         Log.e(TAG, "[ERROR] Cause: " + error.getCause().getMessage());
                     }
                     
+                    Integer httpCode = findHttpResponseCode(error);
+                    if (httpCode != null) {
+                        Log.e(TAG, "[ERROR] HTTP status code: " + httpCode);
+                    }
+                    
                     if (onErrorListener != null) {
                         onErrorListener.onError(ExoPlayerImpl.this,
                             error.errorCode, 0);
+                    }
+                    
+                    if (errorListener != null) {
+                        errorListener.onPlayerError(error.errorCode, error.getMessage(), httpCode);
                     }
                 }
 
@@ -495,6 +539,13 @@ public class ExoPlayerImpl implements IMediaPlayer {
         if (exoPlayer != null) {
             exoPlayer.play();
         }
+        
+        if (TEST_ERROR_REFRESH) {
+            Log.i(TAG, "[TEST_ERROR] Starting test error simulation, interval=" + TEST_ERROR_INTERVAL_MS + "ms");
+            testErrorCount = 0;
+            mainHandler.removeCallbacks(testErrorRunnable);
+            mainHandler.postDelayed(testErrorRunnable, TEST_ERROR_INTERVAL_MS);
+        }
     }
 
     @Override
@@ -513,6 +564,7 @@ public class ExoPlayerImpl implements IMediaPlayer {
         }
         mainHandler.removeCallbacks(positionUpdateRunnable);
         mainHandler.removeCallbacks(bufferMonitorRunnable);
+        mainHandler.removeCallbacks(testErrorRunnable);
     }
 
     @Override
@@ -520,6 +572,7 @@ public class ExoPlayerImpl implements IMediaPlayer {
         Log.i(TAG, "release");
         mainHandler.removeCallbacks(positionUpdateRunnable);
         mainHandler.removeCallbacks(bufferMonitorRunnable);
+        mainHandler.removeCallbacks(testErrorRunnable);
         if (exoPlayer != null) {
             exoPlayer.release();
             exoPlayer = null;
@@ -745,6 +798,39 @@ public class ExoPlayerImpl implements IMediaPlayer {
     @Override
     public void setOnTimedTextListener(OnTimedTextListener listener) {
         this.onTimedTextListener = listener;
+    }
+    
+    public void setPlayerErrorListener(PlayerErrorListener listener) {
+        this.errorListener = listener;
+        Log.i(TAG, "PlayerErrorListener set: " + (listener != null ? "not null" : "null"));
+    }
+    
+    private Integer findHttpResponseCode(Throwable t) {
+        if (t == null) return null;
+        
+        Throwable cur = t;
+        for (int i = 0; i < 12; i++) {
+            if (cur instanceof com.google.android.exoplayer2.source.UnrecognizedInputFormatException) {
+                return null;
+            }
+            
+            try {
+                if (cur.getClass().getName().contains("InvalidResponseCodeException")) {
+                    java.lang.reflect.Method getResponseCodeMethod = cur.getClass().getMethod("getResponseCode");
+                    Object code = getResponseCodeMethod.invoke(cur);
+                    if (code instanceof Integer) {
+                        return (Integer) code;
+                    }
+                }
+            } catch (Exception e) {
+                // Ignore reflection errors
+            }
+            
+            cur = cur.getCause();
+            if (cur == null) break;
+        }
+        
+        return null;
     }
 
     private void applySavedAudioBalanceLevel() {

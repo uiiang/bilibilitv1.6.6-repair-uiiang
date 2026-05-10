@@ -107,7 +107,7 @@
 
     const/4 v2, -0x1
 
-    .line 124
+    .line 139
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     .line 32
@@ -177,20 +177,20 @@
 
     iput-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mPlayerFactory:Ltv/danmaku/videoplayer/core/media/IMediaPlayerFactory;
 
-    .line 125
+    .line 140
     iput p3, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mSession:I
 
-    .line 126
+    .line 141
     invoke-virtual {p1}, Landroid/content/Context;->getApplicationContext()Landroid/content/Context;
 
     move-result-object v0
 
     iput-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mContext:Landroid/content/Context;
 
-    .line 127
+    .line 142
     iput-object p2, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoParams:Ltv/danmaku/videoplayer/core/videoview/IVideoParams;
 
-    .line 128
+    .line 143
     const-string v0, "audio"
 
     invoke-virtual {p1, v0}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
@@ -201,7 +201,7 @@
 
     iput-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mAudioManager:Landroid/media/AudioManager;
 
-    .line 129
+    .line 144
     return-void
 .end method
 
@@ -229,19 +229,19 @@
     .locals 2
 
     .prologue
-    .line 648
+    .line 663
     iget v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mAudioFocus:I
 
     if-nez v0, :cond_1e
 
-    .line 649
+    .line 664
     invoke-virtual {p0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->isPlaying()Z
 
     move-result v0
 
     iput-boolean v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mIsPlayingBeforeAudioFocusChange:Z
 
-    .line 650
+    .line 665
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->isPaused()Z
@@ -250,12 +250,12 @@
 
     if-eqz v0, :cond_13
 
-    .line 664
+    .line 679
     :cond_12
     :goto_12
     return-void
 
-    .line 653
+    .line 668
     :cond_13
     const-string v0, "MediaPlayerContext"
 
@@ -263,18 +263,18 @@
 
     invoke-static {v0, v1}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 654
+    .line 669
     invoke-virtual {p0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->pauseWithNotifyListener()V
 
     goto :goto_12
 
-    .line 657
+    .line 672
     :cond_1e
     iget-boolean v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mPlayOnFocusGain:Z
 
     if-eqz v0, :cond_12
 
-    .line 658
+    .line 673
     invoke-virtual {p0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->isPlaying()Z
 
     move-result v0
@@ -285,17 +285,17 @@
 
     if-eqz v0, :cond_36
 
-    .line 659
+    .line 674
     const-string v0, "MediaPlayerContext"
 
     const-string v1, "resume playback when audio focus changed"
 
     invoke-static {v0, v1}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 660
+    .line 675
     invoke-direct {p0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->startWithNotifyListener()V
 
-    .line 662
+    .line 677
     :cond_36
     const/4 v0, 0x0
 
@@ -314,22 +314,22 @@
 
     const/4 v8, 0x1
 
-    .line 506
+    .line 521
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_3a
 
-    .line 507
+    .line 522
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
-    .line 512
+    .line 527
     :goto_9
     invoke-direct {p0, v0, v8}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->setVideoViewListeners(Ltv/danmaku/videoplayer/core/videoview/IVideoView;Z)V
 
-    .line 513
+    .line 528
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoParams:Ltv/danmaku/videoplayer/core/videoview/IVideoParams;
 
-    .line 514
+    .line 529
     sget v1, Lmybl/BiliFilter;->prefer_videoview:I
 
     if-eq v1, v9, :cond_57
@@ -338,10 +338,10 @@
 
     if-nez v1, :cond_57
 
-    .line 516
+    .line 531
     sget v1, Lmybl/BiliFilter;->prefer_videoview:I
 
-    .line 517
+    .line 532
     iget-object v2, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mContext:Landroid/content/Context;
 
     if-eq v1, v8, :cond_55
@@ -361,10 +361,10 @@
 
     move-result-object v1
 
-    .line 518
+    .line 533
     if-eqz v1, :cond_34
 
-    .line 519
+    .line 534
     iget-object v2, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoViewParent:Landroid/view/ViewGroup;
 
     invoke-virtual {p0, v2}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->getLayoutParams(Landroid/view/ViewGroup;)Landroid/view/ViewGroup$LayoutParams;
@@ -373,17 +373,17 @@
 
     invoke-virtual {v1, v2}, Landroid/view/View;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 521
+    .line 536
     :cond_34
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoSizeChangedListener:Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnVideoSizeChangedListener;
 
     invoke-interface {v0, v1}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setOnVideoSizeChangedListener(Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnVideoSizeChangedListener;)V
 
-    .line 527
+    .line 542
     :goto_39
     return-object v0
 
-    .line 509
+    .line 524
     :cond_3a
     new-instance v0, Ltv/danmaku/videoplayer/core/videoview/BaseVideoView;
 
@@ -403,7 +403,7 @@
 
     invoke-direct/range {v0 .. v6}, Ltv/danmaku/videoplayer/core/videoview/BaseVideoView;-><init>(Ltv/danmaku/videoplayer/core/videoview/IVideoParams;Ltv/danmaku/videoplayer/core/media/IMediaPlayerFactory;IILtv/danmaku/videoplayer/core/videoview/AspectRatio;I)V
 
-    .line 510
+    .line 525
     invoke-virtual {p0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->getPlayerConfig()Ltv/danmaku/videoplayer/core/media/resource/PlayerConfig;
 
     move-result-object v1
@@ -415,10 +415,10 @@
     :cond_55
     move v1, v8
 
-    .line 517
+    .line 532
     goto :goto_25
 
-    .line 523
+    .line 538
     :cond_57
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mContext:Landroid/content/Context;
 
@@ -428,7 +428,7 @@
 
     if-eqz v1, :cond_5f
 
-    .line 525
+    .line 540
     :cond_5f
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoSizeChangedListener:Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnVideoSizeChangedListener;
 
@@ -441,7 +441,7 @@
     .locals 2
 
     .prologue
-    .line 623
+    .line 638
     iget v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mAudioFocus:I
 
     const/4 v1, 0x2
@@ -458,12 +458,12 @@
 
     if-ne v0, v1, :cond_11
 
-    .line 624
+    .line 639
     const/4 v0, 0x0
 
     iput v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mAudioFocus:I
 
-    .line 626
+    .line 641
     :cond_11
     return-void
 .end method
@@ -472,7 +472,7 @@
     .locals 1
 
     .prologue
-    .line 667
+    .line 682
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_c
@@ -501,16 +501,16 @@
     .locals 3
 
     .prologue
-    .line 629
+    .line 644
     iget-boolean v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mAudioNoisyReceiverRegistered:Z
 
     if-eqz v0, :cond_5
 
-    .line 634
+    .line 649
     :goto_4
     return-void
 
-    .line 632
+    .line 647
     :cond_5
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mContext:Landroid/content/Context;
 
@@ -520,7 +520,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/content/Context;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
 
-    .line 633
+    .line 648
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mAudioNoisyReceiverRegistered:Z
@@ -532,7 +532,7 @@
     .locals 3
 
     .prologue
-    .line 581
+    .line 596
     iget-boolean v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mDestroyed:Z
 
     if-nez v0, :cond_10
@@ -549,16 +549,16 @@
 
     if-nez v0, :cond_11
 
-    .line 587
+    .line 602
     :cond_10
     :goto_10
     return-void
 
-    .line 584
+    .line 599
     :cond_11
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mUrl:Ljava/lang/String;
 
-    .line 585
+    .line 600
     const-string v0, "MediaPlayerContext"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -581,7 +581,7 @@
 
     invoke-static {v0, v1}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 586
+    .line 601
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->getView()Landroid/view/View;
@@ -605,15 +605,15 @@
 
     const/4 v5, -0x1
 
-    .line 533
+    .line 548
     const/4 v0, 0x0
 
-    .line 534
+    .line 549
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v1, :cond_40
 
-    .line 535
+    .line 550
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v1}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->getView()Landroid/view/View;
@@ -622,7 +622,7 @@
 
     if-eqz v1, :cond_37
 
-    .line 536
+    .line 551
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->getView()Landroid/view/View;
@@ -633,7 +633,7 @@
 
     move-result-object v1
 
-    .line 537
+    .line 552
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->getView()Landroid/view/View;
@@ -648,7 +648,7 @@
 
     iput-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoViewParent:Landroid/view/ViewGroup;
 
-    .line 538
+    .line 553
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoViewParent:Landroid/view/ViewGroup;
 
     iget-object v4, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
@@ -665,18 +665,18 @@
 
     move-object v0, v1
 
-    .line 541
+    .line 556
     :cond_37
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eq v1, p1, :cond_40
 
-    .line 542
+    .line 557
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v1}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->stopPlayback()V
 
-    .line 545
+    .line 560
     :cond_40
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoViewParent:Landroid/view/ViewGroup;
 
@@ -700,17 +700,17 @@
 
     if-ne v1, v5, :cond_65
 
-    .line 546
+    .line 561
     if-nez v0, :cond_5e
 
-    .line 547
+    .line 562
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoViewParent:Landroid/view/ViewGroup;
 
     invoke-virtual {p0, v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->getLayoutParams(Landroid/view/ViewGroup;)Landroid/view/ViewGroup$LayoutParams;
 
     move-result-object v0
 
-    .line 549
+    .line 564
     :cond_5e
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoViewParent:Landroid/view/ViewGroup;
 
@@ -721,17 +721,17 @@
     :cond_65
     move-object v1, v0
 
-    .line 551
+    .line 566
     if-eqz p1, :cond_6f
 
-    .line 552
+    .line 567
     invoke-virtual {p0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->getPlayerConfig()Ltv/danmaku/videoplayer/core/media/resource/PlayerConfig;
 
     move-result-object v0
 
     invoke-interface {p1, v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setCodecConfig(Ltv/danmaku/videoplayer/core/media/resource/PlayerConfig;)V
 
-    .line 554
+    .line 569
     :cond_6f
     if-eqz p1, :cond_81
 
@@ -754,7 +754,7 @@
     :cond_81
     move-object v0, v1
 
-    .line 557
+    .line 572
     :cond_82
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
@@ -764,21 +764,21 @@
 
     if-eq v1, p1, :cond_94
 
-    .line 558
+    .line 573
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v1}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->stopPlayback()V
 
-    .line 559
+    .line 574
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-direct {p0, v1, v3}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->setVideoViewListeners(Ltv/danmaku/videoplayer/core/videoview/IVideoView;Z)V
 
-    .line 561
+    .line 576
     :cond_94
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
-    .line 562
+    .line 577
     if-eqz p1, :cond_9e
 
     invoke-interface {p1}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->getView()Landroid/view/View;
@@ -790,20 +790,20 @@
     :cond_9e
     move v0, v3
 
-    .line 569
+    .line 584
     :goto_9f
     return v0
 
-    .line 565
+    .line 580
     :cond_a0
     if-nez v0, :cond_a4
 
     move v0, v2
 
-    .line 566
+    .line 581
     goto :goto_9f
 
-    .line 568
+    .line 583
     :cond_a4
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
@@ -815,7 +815,7 @@
 
     move v0, v2
 
-    .line 569
+    .line 584
     goto :goto_9f
 .end method
 
@@ -825,90 +825,90 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 590
+    .line 605
     if-eqz p2, :cond_31
 
-    .line 591
+    .line 606
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mOnPreparedListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnPreparedListener;
 
     invoke-interface {p1, v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setOnPreparedListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnPreparedListener;)V
 
-    .line 592
+    .line 607
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mOnInfoListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;
 
     invoke-interface {p1, v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setOnInfoListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;)V
 
-    .line 593
+    .line 608
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mOnCompletionListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnCompletionListener;
 
     invoke-interface {p1, v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setOnCompletionListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnCompletionListener;)V
 
-    .line 594
+    .line 609
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mOnErrorListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnErrorListener;
 
     invoke-interface {p1, v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setOnErrorListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnErrorListener;)V
 
-    .line 595
+    .line 610
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mOnVideoDefnChangedListener:Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnVideoDefnChangedListener;
 
     invoke-interface {p1, v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setOnVideoDefnChangedListener(Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnVideoDefnChangedListener;)V
 
-    .line 596
+    .line 611
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mOnExtraInfoListener:Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;
 
     invoke-interface {p1, v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setOnExtraInfoListener(Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;)V
 
-    .line 597
+    .line 612
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mOnPreparedStepListener:Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnPreparedStepListener;
 
     invoke-interface {p1, v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setOnPreparedStepListener(Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnPreparedStepListener;)V
 
-    .line 598
+    .line 613
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mSeekCompleteListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnSeekCompleteListener;
 
     invoke-interface {p1, v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setOnSeekComplete(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnSeekCompleteListener;)V
 
-    .line 599
+    .line 614
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoSizeChangedListener:Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnVideoSizeChangedListener;
 
     invoke-interface {p1, v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setOnVideoSizeChangedListener(Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnVideoSizeChangedListener;)V
 
-    .line 613
+    .line 628
     :goto_30
     return-void
 
-    .line 602
+    .line 617
     :cond_31
     invoke-interface {p1, v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setOnPreparedListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnPreparedListener;)V
 
-    .line 603
+    .line 618
     invoke-interface {p1, v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setOnInfoListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;)V
 
-    .line 604
+    .line 619
     invoke-interface {p1, v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setOnCompletionListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnCompletionListener;)V
 
-    .line 605
+    .line 620
     invoke-interface {p1, v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setOnKeyListener(Landroid/view/View$OnKeyListener;)V
 
-    .line 606
+    .line 621
     invoke-interface {p1, v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setOnErrorListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnErrorListener;)V
 
-    .line 607
+    .line 622
     invoke-interface {p1, v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setOnVideoDefnChangedListener(Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnVideoDefnChangedListener;)V
 
-    .line 608
+    .line 623
     invoke-interface {p1, v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setOnExtraInfoListener(Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;)V
 
-    .line 609
+    .line 624
     invoke-interface {p1, v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setOnPreparedStepListener(Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnPreparedStepListener;)V
 
-    .line 610
+    .line 625
     invoke-interface {p1, v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setOnSeekComplete(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnSeekCompleteListener;)V
 
-    .line 611
+    .line 626
     invoke-interface {p1, v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setOnVideoSizeChangedListener(Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnVideoSizeChangedListener;)V
 
-    .line 612
+    .line 627
     const-string v0, "MediaPlayerContext"
 
     const-string v1, "release videoview listeners"
@@ -922,7 +922,7 @@
     .locals 4
 
     .prologue
-    .line 190
+    .line 205
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mAudioFocusPlayHandler:Ltv/danmaku/videoplayer/core/context/AudioFocusPlayHandler;
 
     if-eqz v0, :cond_c
@@ -938,7 +938,7 @@
     :cond_c
     const/4 v0, 0x1
 
-    .line 191
+    .line 206
     :goto_d
     const-string v1, "MediaPlayerContext"
 
@@ -962,17 +962,17 @@
 
     invoke-static {v1, v2}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 192
+    .line 207
     if-eqz v0, :cond_2a
 
-    .line 193
+    .line 208
     invoke-virtual {p0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->start()V
 
-    .line 195
+    .line 210
     :cond_2a
     return-void
 
-    .line 190
+    .line 205
     :cond_2b
     const/4 v0, 0x0
 
@@ -983,7 +983,7 @@
     .locals 2
 
     .prologue
-    .line 573
+    .line 588
     iget-boolean v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mDestroyed:Z
 
     if-nez v0, :cond_10
@@ -1000,16 +1000,16 @@
 
     if-nez v0, :cond_11
 
-    .line 578
+    .line 593
     :cond_10
     :goto_10
     return-void
 
-    .line 576
+    .line 591
     :cond_11
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mUrl:Ljava/lang/String;
 
-    .line 577
+    .line 592
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->getView()Landroid/view/View;
@@ -1031,7 +1031,7 @@
 
     const/4 v2, 0x1
 
-    .line 616
+    .line 631
     iget v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mAudioFocus:I
 
     if-eq v0, v3, :cond_f
@@ -1046,12 +1046,12 @@
 
     if-eq v0, v2, :cond_10
 
-    .line 620
+    .line 635
     :cond_f
     :goto_f
     return-void
 
-    .line 619
+    .line 634
     :cond_10
     iput v3, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mAudioFocus:I
 
@@ -1062,12 +1062,12 @@
     .locals 2
 
     .prologue
-    .line 637
+    .line 652
     iget-boolean v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mAudioNoisyReceiverRegistered:Z
 
     if-eqz v0, :cond_e
 
-    .line 639
+    .line 654
     :try_start_4
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mContext:Landroid/content/Context;
 
@@ -1077,21 +1077,21 @@
     :try_end_b
     .catch Ljava/lang/IllegalArgumentException; {:try_start_4 .. :try_end_b} :catch_f
 
-    .line 643
+    .line 658
     :goto_b
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mAudioNoisyReceiverRegistered:Z
 
-    .line 645
+    .line 660
     :cond_e
     return-void
 
-    .line 640
+    .line 655
     :catch_f
     move-exception v0
 
-    .line 641
+    .line 656
     const-string v1, "MediaPlayerContext"
 
     invoke-static {v1, v0}, Ltv/danmaku/android/log/BLog;->w(Ljava/lang/String;Ljava/lang/Throwable;)V
@@ -1105,19 +1105,19 @@
     .locals 1
 
     .prologue
-    .line 236
+    .line 251
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_b
 
-    .line 237
+    .line 252
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v0, p1, p2}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->act(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 239
+    .line 254
     :goto_a
     return-object v0
 
@@ -1274,14 +1274,14 @@
     .locals 3
 
     .prologue
-    .line 292
+    .line 307
     if-nez p1, :cond_3
 
-    .line 312
+    .line 327
     :goto_2
     return-void
 
-    .line 295
+    .line 310
     :cond_3
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
@@ -1303,12 +1303,12 @@
 
     if-le v0, v1, :cond_1a
 
-    .line 296
+    .line 311
     invoke-virtual {p1}, Landroid/view/ViewGroup;->requestLayout()V
 
     goto :goto_2
 
-    .line 299
+    .line 314
     :cond_1a
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mPlayerConfig:Ltv/danmaku/videoplayer/core/media/resource/PlayerConfig;
 
@@ -1316,18 +1316,18 @@
 
     if-nez v0, :cond_23
 
-    .line 300
+    .line 315
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoViewParent:Landroid/view/ViewGroup;
 
     goto :goto_2
 
-    .line 303
+    .line 318
     :cond_23
     invoke-direct {p0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->getVideoViewInstance()Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     move-result-object v1
 
-    .line 304
+    .line 319
     const/4 v0, 0x0
 
     invoke-virtual {p0, p1}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->getLayoutParams(Landroid/view/ViewGroup;)Landroid/view/ViewGroup$LayoutParams;
@@ -1336,14 +1336,14 @@
 
     invoke-interface {v1, p1, v0, v2}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->attachTo(Landroid/view/ViewGroup;ILandroid/view/ViewGroup$LayoutParams;)V
 
-    .line 305
+    .line 320
     invoke-interface {v1}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->getView()Landroid/view/View;
 
     move-result-object v0
 
     if-eqz v0, :cond_41
 
-    .line 306
+    .line 321
     invoke-interface {v1}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->getView()Landroid/view/View;
 
     move-result-object v0
@@ -1356,13 +1356,13 @@
 
     iput-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoViewParent:Landroid/view/ViewGroup;
 
-    .line 308
+    .line 323
     :cond_41
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoViewParent:Landroid/view/ViewGroup;
 
     if-eqz v0, :cond_51
 
-    .line 309
+    .line 324
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoViewParent:Landroid/view/ViewGroup;
 
     invoke-interface {v1}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->getView()Landroid/view/View;
@@ -1375,7 +1375,7 @@
 
     iput v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoViewIndex:I
 
-    .line 311
+    .line 326
     :cond_51
     invoke-direct {p0, v1}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->setVideoView(Ltv/danmaku/videoplayer/core/videoview/IVideoView;)Z
 
@@ -1386,7 +1386,7 @@
     .locals 1
 
     .prologue
-    .line 316
+    .line 331
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_c
@@ -1399,23 +1399,23 @@
 
     if-nez v0, :cond_d
 
-    .line 322
+    .line 337
     :cond_c
     :goto_c
     return-void
 
-    .line 319
+    .line 334
     :cond_d
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->detachVideoView()V
 
-    .line 320
+    .line 335
     const/4 v0, 0x0
 
     iput-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoViewParent:Landroid/view/ViewGroup;
 
-    .line 321
+    .line 336
     const/4 v0, -0x1
 
     iput v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoViewIndex:I
@@ -1427,19 +1427,19 @@
     .locals 1
 
     .prologue
-    .line 267
+    .line 282
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_b
 
-    .line 268
+    .line 283
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->getAspectRatio()Ltv/danmaku/videoplayer/core/videoview/AspectRatio;
 
     move-result-object v0
 
-    .line 270
+    .line 285
     :goto_a
     return-object v0
 
@@ -1453,19 +1453,19 @@
     .locals 1
 
     .prologue
-    .line 411
+    .line 426
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_b
 
-    .line 412
+    .line 427
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->getBufferPercentage()I
 
     move-result v0
 
-    .line 414
+    .line 429
     :goto_a
     return v0
 
@@ -1479,19 +1479,19 @@
     .locals 1
 
     .prologue
-    .line 352
+    .line 367
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_b
 
-    .line 353
+    .line 368
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->getCurrentPosition()I
 
     move-result v0
 
-    .line 355
+    .line 370
     :goto_a
     return v0
 
@@ -1505,19 +1505,19 @@
     .locals 1
 
     .prologue
-    .line 360
+    .line 375
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_b
 
-    .line 361
+    .line 376
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->getDuration()I
 
     move-result v0
 
-    .line 363
+    .line 378
     :goto_a
     return v0
 
@@ -1533,32 +1533,32 @@
     .prologue
     const/4 v1, -0x1
 
-    .line 486
+    .line 501
     instance-of v0, p1, Landroid/widget/RelativeLayout;
 
     if-eqz v0, :cond_10
 
-    .line 487
+    .line 502
     new-instance v0, Landroid/widget/RelativeLayout$LayoutParams;
 
     invoke-direct {v0, v1, v1}, Landroid/widget/RelativeLayout$LayoutParams;-><init>(II)V
 
-    .line 488
+    .line 503
     const/16 v1, 0xd
 
     invoke-virtual {v0, v1}, Landroid/widget/RelativeLayout$LayoutParams;->addRule(I)V
 
-    .line 493
+    .line 508
     :goto_f
     return-object v0
 
-    .line 491
+    .line 506
     :cond_10
     new-instance v0, Landroid/widget/FrameLayout$LayoutParams;
 
     invoke-direct {v0, v1, v1}, Landroid/widget/FrameLayout$LayoutParams;-><init>(II)V
 
-    .line 492
+    .line 507
     const/16 v1, 0x11
 
     iput v1, v0, Landroid/widget/FrameLayout$LayoutParams;->gravity:I
@@ -1570,19 +1570,19 @@
     .locals 1
 
     .prologue
-    .line 344
+    .line 359
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_b
 
-    .line 345
+    .line 360
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->getMediaInfo()Ltv/danmaku/videoplayer/core/media/MediaInfoHolder;
 
     move-result-object v0
 
-    .line 347
+    .line 362
     :goto_a
     return-object v0
 
@@ -1592,11 +1592,101 @@
     goto :goto_a
 .end method
 
+.method public getMediaPlayer()Ltv/danmaku/ijk/media/player/IMediaPlayer;
+    .locals 4
+
+    .prologue
+    .line 124
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
+
+    if-eqz v0, :cond_40
+
+    .line 126
+    :try_start_4
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
+
+    invoke-virtual {v0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+
+    move-result-object v0
+
+    const-string v1, "getMediaPlayer"
+
+    const/4 v2, 0x0
+
+    new-array v2, v2, [Ljava/lang/Class;
+
+    invoke-virtual {v0, v1, v2}, Ljava/lang/Class;->getMethod(Ljava/lang/String;[Ljava/lang/Class;)Ljava/lang/reflect/Method;
+
+    move-result-object v0
+
+    .line 127
+    iget-object v1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
+
+    const/4 v2, 0x0
+
+    new-array v2, v2, [Ljava/lang/Object;
+
+    invoke-virtual {v0, v1, v2}, Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object v0
+
+    .line 128
+    instance-of v1, v0, Ltv/danmaku/ijk/media/player/IMediaPlayer;
+
+    if-eqz v1, :cond_40
+
+    .line 129
+    check-cast v0, Ltv/danmaku/ijk/media/player/IMediaPlayer;
+    :try_end_22
+    .catch Ljava/lang/Exception; {:try_start_4 .. :try_end_22} :catch_23
+
+    .line 135
+    :goto_22
+    return-object v0
+
+    .line 131
+    :catch_23
+    move-exception v0
+
+    .line 132
+    const-string v1, "MediaPlayerContext"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "Failed to get MediaPlayer: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v0}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v1, v0}, Ltv/danmaku/android/log/BLog;->e(Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 135
+    :cond_40
+    const/4 v0, 0x0
+
+    goto :goto_22
+.end method
+
 .method public getPlayerConfig()Ltv/danmaku/videoplayer/core/media/resource/PlayerConfig;
     .locals 1
 
     .prologue
-    .line 251
+    .line 266
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mPlayerConfig:Ltv/danmaku/videoplayer/core/media/resource/PlayerConfig;
 
     return-object v0
@@ -1606,19 +1696,19 @@
     .locals 1
 
     .prologue
-    .line 368
+    .line 383
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_b
 
-    .line 369
+    .line 384
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->getState()I
 
     move-result v0
 
-    .line 371
+    .line 386
     :goto_a
     return v0
 
@@ -1632,7 +1722,7 @@
     .locals 1
 
     .prologue
-    .line 275
+    .line 290
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     return-object v0
@@ -1642,15 +1732,15 @@
     .locals 1
 
     .prologue
-    .line 336
+    .line 351
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-nez v0, :cond_6
 
-    .line 337
+    .line 352
     const/4 v0, 0x0
 
-    .line 339
+    .line 354
     :goto_5
     return v0
 
@@ -1668,7 +1758,7 @@
     .locals 2
 
     .prologue
-    .line 419
+    .line 434
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_19
@@ -1711,7 +1801,7 @@
     .locals 1
 
     .prologue
-    .line 406
+    .line 421
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_e
@@ -1739,7 +1829,7 @@
     .locals 1
 
     .prologue
-    .line 247
+    .line 262
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_e
@@ -1767,7 +1857,7 @@
     .locals 1
 
     .prologue
-    .line 326
+    .line 341
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_10
@@ -1797,7 +1887,7 @@
     .locals 1
 
     .prologue
-    .line 331
+    .line 346
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_12
@@ -1829,22 +1919,22 @@
     .locals 1
 
     .prologue
-    .line 469
+    .line 484
     iput-boolean p1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mDestroyed:Z
 
-    .line 470
+    .line 485
     if-eqz p1, :cond_8
 
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-nez v0, :cond_9
 
-    .line 474
+    .line 489
     :cond_8
     :goto_8
     return-void
 
-    .line 473
+    .line 488
     :cond_9
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
@@ -1861,29 +1951,29 @@
 
     const/4 v1, 0x1
 
-    .line 133
+    .line 148
     if-ne p1, v1, :cond_f
 
-    .line 134
+    .line 149
     const/4 v0, 0x2
 
     iput v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mAudioFocus:I
 
-    .line 142
+    .line 157
     :cond_7
     :goto_7
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_e
 
-    .line 143
+    .line 158
     invoke-direct {p0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->configAudioStateChanged()V
 
-    .line 145
+    .line 160
     :cond_e
     return-void
 
-    .line 135
+    .line 150
     :cond_f
     const/4 v0, -0x1
 
@@ -1895,17 +1985,17 @@
 
     if-ne p1, v2, :cond_7
 
-    .line 136
+    .line 151
     :cond_17
     if-ne p1, v2, :cond_27
 
     move v0, v1
 
-    .line 137
+    .line 152
     :goto_1a
     iput v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mAudioFocus:I
 
-    .line 138
+    .line 153
     invoke-virtual {p0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->isPlaying()Z
 
     move-result v2
@@ -1914,12 +2004,12 @@
 
     if-nez v0, :cond_7
 
-    .line 139
+    .line 154
     iput-boolean v1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mPlayOnFocusGain:Z
 
     goto :goto_7
 
-    .line 136
+    .line 151
     :cond_27
     const/4 v0, 0x0
 
@@ -1930,24 +2020,24 @@
     .locals 1
 
     .prologue
-    .line 166
+    .line 181
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_9
 
-    .line 167
+    .line 182
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->pause()V
 
-    .line 169
+    .line 184
     :cond_9
     invoke-direct {p0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->giveUpAudioFocus()V
 
-    .line 170
+    .line 185
     invoke-direct {p0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->unregisterAudioNoisyReceiver()V
 
-    .line 171
+    .line 186
     return-void
 .end method
 
@@ -1955,7 +2045,7 @@
     .locals 1
 
     .prologue
-    .line 175
+    .line 190
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mAudioFocusPlayHandler:Ltv/danmaku/videoplayer/core/context/AudioFocusPlayHandler;
 
     if-eqz v0, :cond_c
@@ -1968,11 +2058,11 @@
 
     if-eqz v0, :cond_f
 
-    .line 176
+    .line 191
     :cond_c
     invoke-virtual {p0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->pause()V
 
-    .line 178
+    .line 193
     :cond_f
     return-void
 .end method
@@ -1981,52 +2071,52 @@
     .locals 5
 
     .prologue
-    .line 198
+    .line 213
     invoke-direct {p0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->isNeedRecreateVideoViewWhenPlay()Z
 
     move-result v0
 
     if-eqz v0, :cond_e
 
-    .line 199
+    .line 214
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->stopPlayback()V
 
-    .line 200
+    .line 215
     invoke-virtual {p0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->resetVideoView()V
 
-    .line 202
+    .line 217
     :cond_e
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoViewParent:Landroid/view/ViewGroup;
 
     invoke-virtual {p0, v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->attachVideoView(Landroid/view/ViewGroup;)V
 
-    .line 203
+    .line 218
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-nez v0, :cond_22
 
-    .line 204
+    .line 219
     const-string v0, "MediaPlayerContext"
 
     const-string v1, "release when mVideoView = null!"
 
     invoke-static {v0, v1}, Ltv/danmaku/android/log/BLog;->e(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 205
+    .line 220
     invoke-virtual {p0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->release()V
 
-    .line 233
+    .line 248
     :cond_21
     :goto_21
     return-void
 
-    .line 208
+    .line 223
     :cond_22
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoParams:Ltv/danmaku/videoplayer/core/videoview/IVideoParams;
 
-    .line 209
+    .line 224
     if-eqz v1, :cond_21
 
     invoke-interface {v1}, Ltv/danmaku/videoplayer/core/videoview/IVideoParams;->getMediaSource()Ltv/danmaku/videoplayer/core/media/resource/MediaSource;
@@ -2035,7 +2125,7 @@
 
     if-eqz v0, :cond_21
 
-    .line 212
+    .line 227
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mPlayerFactory:Ltv/danmaku/videoplayer/core/media/IMediaPlayerFactory;
 
     invoke-virtual {p0}, Ljava/lang/Object;->hashCode()I
@@ -2044,51 +2134,51 @@
 
     invoke-interface {v0, v2}, Ltv/danmaku/videoplayer/core/media/IMediaPlayerFactory;->register(I)V
 
-    .line 213
+    .line 228
     invoke-interface {v1}, Ltv/danmaku/videoplayer/core/videoview/IVideoParams;->getMediaSource()Ltv/danmaku/videoplayer/core/media/resource/MediaSource;
 
     move-result-object v2
 
-    .line 214
+    .line 229
     invoke-virtual {p0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->getPlayerConfig()Ltv/danmaku/videoplayer/core/media/resource/PlayerConfig;
 
     move-result-object v3
 
-    .line 215
+    .line 230
     iget-object v0, v2, Ltv/danmaku/videoplayer/core/media/resource/MediaSource;->mUrl:Ljava/lang/String;
 
-    .line 216
+    .line 231
     invoke-virtual {v2}, Ltv/danmaku/videoplayer/core/media/resource/MediaSource;->hasNormalMrl()Z
 
     move-result v4
 
     if-eqz v4, :cond_58
 
-    .line 217
+    .line 232
     const/4 v2, 0x0
 
     iput-boolean v2, v3, Ltv/danmaku/videoplayer/core/media/resource/PlayerConfig;->mUseListPlayer:Z
 
-    .line 226
+    .line 241
     :goto_48
     iget-object v2, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v2, v3}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setCodecConfig(Ltv/danmaku/videoplayer/core/media/resource/PlayerConfig;)V
 
-    .line 227
+    .line 242
     iget-object v2, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v2, v1}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setPlayParams(Ltv/danmaku/videoplayer/core/videoview/IVideoParams;)V
 
-    .line 228
+    .line 243
     if-eqz p1, :cond_75
 
-    .line 229
+    .line 244
     invoke-direct {p0, v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->switchQuality(Ljava/lang/String;)V
 
     goto :goto_21
 
-    .line 218
+    .line 233
     :cond_58
     iget-object v0, v2, Ltv/danmaku/videoplayer/core/media/resource/MediaSource;->mSegmentList:Ljava/util/ArrayList;
 
@@ -2102,17 +2192,17 @@
 
     if-nez v0, :cond_6a
 
-    .line 219
+    .line 234
     const/4 v0, 0x1
 
     iput-boolean v0, v3, Ltv/danmaku/videoplayer/core/media/resource/PlayerConfig;->mUseListPlayer:Z
 
-    .line 220
+    .line 235
     const-string v0, ""
 
     goto :goto_48
 
-    .line 222
+    .line 237
     :cond_6a
     const-string v0, "MediaPlayerContext"
 
@@ -2120,12 +2210,12 @@
 
     invoke-static {v0, v1}, Ltv/danmaku/android/log/BLog;->e(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 223
+    .line 238
     invoke-virtual {p0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->release()V
 
     goto :goto_21
 
-    .line 231
+    .line 246
     :cond_75
     invoke-direct {p0, v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->setVideoPath(Ljava/lang/String;)V
 
@@ -2138,20 +2228,20 @@
     .prologue
     const/4 v3, 0x0
 
-    .line 148
+    .line 163
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
-    .line 149
+    .line 164
     if-eqz v0, :cond_29
 
-    .line 150
+    .line 165
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->getView()Landroid/view/View;
 
     move-result-object v1
 
     if-eqz v1, :cond_1d
 
-    .line 151
+    .line 166
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->getView()Landroid/view/View;
 
     move-result-object v1
@@ -2160,7 +2250,7 @@
 
     invoke-virtual {v1, v2}, Landroid/view/View;->removeCallbacks(Ljava/lang/Runnable;)Z
 
-    .line 152
+    .line 167
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->getView()Landroid/view/View;
 
     move-result-object v1
@@ -2169,23 +2259,23 @@
 
     invoke-virtual {v1, v2}, Landroid/view/View;->removeCallbacks(Ljava/lang/Runnable;)Z
 
-    .line 154
+    .line 169
     :cond_1d
     iput-object v3, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mUrl:Ljava/lang/String;
 
-    .line 155
+    .line 170
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->stopPlayback()V
 
-    .line 156
+    .line 171
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->detachVideoView()V
 
-    .line 157
+    .line 172
     iput-object v3, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
-    .line 158
+    .line 173
     iput-object v3, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoViewParent:Landroid/view/ViewGroup;
 
-    .line 160
+    .line 175
     :cond_29
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mPlayerFactory:Ltv/danmaku/videoplayer/core/media/IMediaPlayerFactory;
 
@@ -2195,13 +2285,13 @@
 
     invoke-interface {v0, v1}, Ltv/danmaku/videoplayer/core/media/IMediaPlayerFactory;->unregister(I)V
 
-    .line 161
+    .line 176
     invoke-direct {p0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->giveUpAudioFocus()V
 
-    .line 162
+    .line 177
     invoke-direct {p0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->unregisterAudioNoisyReceiver()V
 
-    .line 163
+    .line 178
     return-void
 .end method
 
@@ -2218,7 +2308,7 @@
     .end annotation
 
     .prologue
-    .line 243
+    .line 258
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-nez v0, :cond_5
@@ -2240,17 +2330,17 @@
     .locals 1
 
     .prologue
-    .line 383
+    .line 398
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_9
 
-    .line 384
+    .line 399
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v0, p1, p2}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->resetAspectRatio(II)V
 
-    .line 386
+    .line 401
     :cond_9
     return-void
 .end method
@@ -2259,17 +2349,17 @@
     .locals 1
 
     .prologue
-    .line 390
+    .line 405
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_9
 
-    .line 391
+    .line 406
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v0, p1, p2, p3}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->resetAspectRatio(IIZ)V
 
-    .line 393
+    .line 408
     :cond_9
     return-void
 .end method
@@ -2278,24 +2368,24 @@
     .locals 1
 
     .prologue
-    .line 397
+    .line 412
     const/4 v0, 0x0
 
     invoke-direct {p0, v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->setVideoView(Ltv/danmaku/videoplayer/core/videoview/IVideoView;)Z
 
-    .line 399
+    .line 414
     const/4 v0, 0x0
 
     sput-boolean v0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->first_created:Z
 
-    .line 401
+    .line 416
     invoke-direct {p0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->getVideoViewInstance()Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     move-result-object v0
 
     invoke-direct {p0, v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->setVideoView(Ltv/danmaku/videoplayer/core/videoview/IVideoView;)Z
 
-    .line 402
+    .line 417
     return-void
 .end method
 
@@ -2303,17 +2393,17 @@
     .locals 1
 
     .prologue
-    .line 376
+    .line 391
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_9
 
-    .line 377
+    .line 392
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v0, p1}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->seekTo(I)V
 
-    .line 379
+    .line 394
     :cond_9
     return-void
 .end method
@@ -2322,17 +2412,17 @@
     .locals 1
 
     .prologue
-    .line 255
+    .line 270
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_9
 
-    .line 256
+    .line 271
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v0, p1}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setAspectRatio(Ltv/danmaku/videoplayer/core/videoview/AspectRatio;)V
 
-    .line 258
+    .line 273
     :cond_9
     return-void
 .end method
@@ -2341,10 +2431,10 @@
     .locals 0
 
     .prologue
-    .line 464
+    .line 479
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mAudioFocusPlayHandler:Ltv/danmaku/videoplayer/core/context/AudioFocusPlayHandler;
 
-    .line 465
+    .line 480
     return-void
 .end method
 
@@ -2352,10 +2442,10 @@
     .locals 0
 
     .prologue
-    .line 431
+    .line 446
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mOnCompletionListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnCompletionListener;
 
-    .line 432
+    .line 447
     return-void
 .end method
 
@@ -2363,10 +2453,10 @@
     .locals 0
 
     .prologue
-    .line 435
+    .line 450
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mOnErrorListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnErrorListener;
 
-    .line 436
+    .line 451
     return-void
 .end method
 
@@ -2374,10 +2464,10 @@
     .locals 0
 
     .prologue
-    .line 443
+    .line 458
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mOnExtraInfoListener:Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;
 
-    .line 444
+    .line 459
     return-void
 .end method
 
@@ -2385,10 +2475,10 @@
     .locals 0
 
     .prologue
-    .line 427
+    .line 442
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mOnInfoListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;
 
-    .line 428
+    .line 443
     return-void
 .end method
 
@@ -2396,10 +2486,10 @@
     .locals 0
 
     .prologue
-    .line 423
+    .line 438
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mOnPreparedListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnPreparedListener;
 
-    .line 424
+    .line 439
     return-void
 .end method
 
@@ -2407,10 +2497,10 @@
     .locals 0
 
     .prologue
-    .line 447
+    .line 462
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mOnPreparedStepListener:Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnPreparedStepListener;
 
-    .line 448
+    .line 463
     return-void
 .end method
 
@@ -2418,10 +2508,10 @@
     .locals 0
 
     .prologue
-    .line 459
+    .line 474
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mSeekCompleteListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnSeekCompleteListener;
 
-    .line 460
+    .line 475
     return-void
 .end method
 
@@ -2429,10 +2519,10 @@
     .locals 0
 
     .prologue
-    .line 439
+    .line 454
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mOnVideoDefnChangedListener:Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnVideoDefnChangedListener;
 
-    .line 440
+    .line 455
     return-void
 .end method
 
@@ -2440,22 +2530,22 @@
     .locals 2
 
     .prologue
-    .line 452
+    .line 467
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoSizeChangedListener:Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnVideoSizeChangedListener;
 
-    .line 453
+    .line 468
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_d
 
-    .line 454
+    .line 469
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoSizeChangedListener:Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnVideoSizeChangedListener;
 
     invoke-interface {v0, v1}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setOnVideoSizeChangedListener(Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnVideoSizeChangedListener;)V
 
-    .line 456
+    .line 471
     :cond_d
     return-void
 .end method
@@ -2464,10 +2554,10 @@
     .locals 0
 
     .prologue
-    .line 286
+    .line 301
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mPlayerConfig:Ltv/danmaku/videoplayer/core/media/resource/PlayerConfig;
 
-    .line 287
+    .line 302
     return-void
 .end method
 
@@ -2494,13 +2584,13 @@
     .locals 0
 
     .prologue
-    .line 280
+    .line 295
     iput p1, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoViewWidth:I
 
-    .line 281
+    .line 296
     iput p2, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoViewHeight:I
 
-    .line 282
+    .line 297
     return-void
 .end method
 
@@ -2508,17 +2598,17 @@
     .locals 1
 
     .prologue
-    .line 261
+    .line 276
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_9
 
-    .line 262
+    .line 277
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v0, p1, p2}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->setVolume(FF)V
 
-    .line 264
+    .line 279
     :cond_9
     return-void
 .end method
@@ -2527,29 +2617,29 @@
     .locals 1
 
     .prologue
-    .line 181
+    .line 196
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_9
 
-    .line 182
+    .line 197
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->start()V
 
-    .line 184
+    .line 199
     :cond_9
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mPlayOnFocusGain:Z
 
-    .line 185
+    .line 200
     invoke-direct {p0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->tryToGetAudioFocus()V
 
-    .line 186
+    .line 201
     invoke-direct {p0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->registerAudioNoisyReceiver()V
 
-    .line 187
+    .line 202
     return-void
 .end method
 
@@ -2557,17 +2647,17 @@
     .locals 1
 
     .prologue
-    .line 478
+    .line 493
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     if-eqz v0, :cond_20
 
-    .line 479
+    .line 494
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mVideoView:Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->stopPlayback()V
 
-    .line 480
+    .line 495
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->mPlayerFactory:Ltv/danmaku/videoplayer/core/media/IMediaPlayerFactory;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/media/IMediaPlayerFactory;->getSupportPlayers()Ljava/util/List;
@@ -2586,12 +2676,12 @@
 
     invoke-virtual {p0, v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->setPlayerConfig(Ltv/danmaku/videoplayer/core/media/resource/PlayerConfig;)V
 
-    .line 481
+    .line 496
     const/4 v0, 0x0
 
     invoke-virtual {p0, v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->play(Z)V
 
-    .line 483
+    .line 498
     :cond_20
     return-void
 .end method

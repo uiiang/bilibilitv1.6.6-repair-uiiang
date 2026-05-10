@@ -81,6 +81,8 @@ public interface IPlayerContext {
     int getState();
 
     View getVideoView();
+    
+    tv.danmaku.videoplayer.core.videoview.IVideoView getIVideoView();
 
     int getVideoViewType();
 
@@ -207,4 +209,6 @@ public interface IPlayerContext {
 
 
     void adjustScreen(int type);
+    
+    IMediaPlayer getMediaPlayer();
 }

@@ -536,7 +536,7 @@
     .locals 1
 
     .prologue
-    .line 333
+    .line 337
     const/high16 v0, 0x3f800000    # 1.0f
 
     return v0
@@ -595,14 +595,14 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 337
+    .line 341
     invoke-static {p1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v1
 
     if-eqz v1, :cond_16
 
-    .line 338
+    .line 342
     if-eqz p2, :cond_15
 
     iget-object v1, p2, Ltv/danmaku/videoplayer/core/media/resource/MediaSource;->mSegmentList:Ljava/util/ArrayList;
@@ -611,19 +611,19 @@
 
     iget-object v1, p2, Ltv/danmaku/videoplayer/core/media/resource/MediaSource;->mSegmentList:Ljava/util/ArrayList;
 
-    .line 339
+    .line 343
     invoke-virtual {v1}, Ljava/util/ArrayList;->isEmpty()Z
 
     move-result v1
 
     if-eqz v1, :cond_2e
 
-    .line 346
+    .line 350
     :cond_15
     :goto_15
     return v0
 
-    .line 342
+    .line 346
     :cond_16
     const-string v1, "vsl://"
 
@@ -643,14 +643,14 @@
 
     const-string v1, "vsindex://"
 
-    .line 343
+    .line 347
     invoke-virtual {p1, v1}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
 
     move-result v1
 
     if-eqz v1, :cond_15
 
-    .line 346
+    .line 350
     :cond_2e
     const/4 v0, 0x1
 
@@ -936,6 +936,16 @@
     invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->getMediaInfo()Ltv/danmaku/ijk/media/player/MediaInfo;
 
     move-result-object v0
+
+    return-object v0
+.end method
+
+.method public getMediaPlayer()Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+    .locals 1
+
+    .prologue
+    .line 333
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mExoPlayer:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     return-object v0
 .end method

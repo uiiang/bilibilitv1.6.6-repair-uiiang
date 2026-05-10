@@ -106,7 +106,13 @@
 .method public abstract getDuration()I
 .end method
 
+.method public abstract getIVideoView()Ltv/danmaku/videoplayer/core/videoview/IVideoView;
+.end method
+
 .method public abstract getMediaInfo()Ltv/danmaku/videoplayer/core/media/MediaInfoHolder;
+.end method
+
+.method public abstract getMediaPlayer()Ltv/danmaku/ijk/media/player/IMediaPlayer;
 .end method
 
 .method public abstract getPlaybackSpeed()F

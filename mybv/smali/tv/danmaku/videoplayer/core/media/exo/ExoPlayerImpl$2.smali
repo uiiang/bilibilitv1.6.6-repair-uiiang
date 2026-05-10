@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 93
+    .line 113
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 12
 
     .prologue
-    .line 96
+    .line 116
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->exoPlayer:Lcom/google/android/exoplayer2/ExoPlayer;
@@ -50,7 +50,7 @@
 
     if-eqz v0, :cond_9e
 
-    .line 97
+    .line 117
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->exoPlayer:Lcom/google/android/exoplayer2/ExoPlayer;
@@ -62,7 +62,7 @@
 
     move-result-wide v2
 
-    .line 98
+    .line 118
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->exoPlayer:Lcom/google/android/exoplayer2/ExoPlayer;
@@ -74,7 +74,7 @@
 
     move-result-wide v4
 
-    .line 99
+    .line 119
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->exoPlayer:Lcom/google/android/exoplayer2/ExoPlayer;
@@ -86,7 +86,7 @@
 
     move-result v1
 
-    .line 100
+    .line 120
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->exoPlayer:Lcom/google/android/exoplayer2/ExoPlayer;
@@ -98,7 +98,7 @@
 
     move-result-wide v6
 
-    .line 101
+    .line 121
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->exoPlayer:Lcom/google/android/exoplayer2/ExoPlayer;
@@ -110,7 +110,7 @@
 
     move-result v8
 
-    .line 102
+    .line 122
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->exoPlayer:Lcom/google/android/exoplayer2/ExoPlayer;
@@ -122,13 +122,13 @@
 
     move-result v9
 
-    .line 104
+    .line 124
     const-string v0, ""
 
-    .line 105
+    .line 125
     packed-switch v9, :pswitch_data_ac
 
-    .line 112
+    .line 132
     :goto_49
     const-string v9, "ExoPlayerImpl"
 
@@ -202,7 +202,7 @@
 
     invoke-static {v9, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 116
+    .line 136
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$2;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->mainHandler:Landroid/os/Handler;
@@ -214,35 +214,35 @@
 
     invoke-virtual {v0, p0, v2, v3}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 118
+    .line 138
     :cond_9e
     return-void
 
-    .line 106
+    .line 126
     :pswitch_9f
     const-string v0, "IDLE"
 
     goto :goto_49
 
-    .line 107
+    .line 127
     :pswitch_a2
     const-string v0, "BUFFERING"
 
     goto :goto_49
 
-    .line 108
+    .line 128
     :pswitch_a5
     const-string v0, "READY"
 
     goto :goto_49
 
-    .line 109
+    .line 129
     :pswitch_a8
     const-string v0, "ENDED"
 
     goto :goto_49
 
-    .line 105
+    .line 125
     nop
 
     :pswitch_data_ac

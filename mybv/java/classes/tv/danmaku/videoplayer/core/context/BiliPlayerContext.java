@@ -79,6 +79,14 @@ public class BiliPlayerContext implements IPlayerContext {
             this.mMediaPlayerContext.adjustScreen(type);
         }
     }
+    
+    @Override // tv.danmaku.videoplayer.core.context.IPlayerContext
+    public IMediaPlayer getMediaPlayer() {
+        if (this.mMediaPlayerContext != null) {
+            return this.mMediaPlayerContext.getMediaPlayer();
+        }
+        return null;
+    }
 
     public BiliPlayerContext() {
     }
@@ -198,6 +206,14 @@ public class BiliPlayerContext implements IPlayerContext {
             return null;
         }
         return this.mMediaPlayerContext.getVideoView().getView();
+    }
+    
+    @Override // tv.danmaku.videoplayer.core.context.IPlayerContext
+    public tv.danmaku.videoplayer.core.videoview.IVideoView getIVideoView() {
+        if (this.mMediaPlayerContext == null) {
+            return null;
+        }
+        return this.mMediaPlayerContext.getVideoView();
     }
 
     @Override // tv.danmaku.videoplayer.core.context.IPlayerContext

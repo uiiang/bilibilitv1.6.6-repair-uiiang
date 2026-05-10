@@ -38,6 +38,7 @@ import tv.danmaku.videoplayer.core.videoview.AspectRatio;
 
 import tv.danmaku.videoplayer.core.context.PlayerEvents;
 import tv.danmaku.videoplayer.core.videoview.IVideoView;
+import tv.danmaku.videoplayer.core.media.exo.ExoPlayerImpl;
 import com.bilibili.tv.api.video.VideoShot;
 import com.bilibili.okretro.GeneralResponse;
 import mybl.MyBiliApiService;
@@ -82,6 +83,8 @@ public class xi extends xh implements bbb<Message, Boolean> {
     private TextView seekPreviewTimeCurrent;
     private TextView seekPreviewTimeTotal;
     private SeekBar seekPreviewSeekbar;
+    
+    private com.bilibili.tv.player.BufferingOverlayController bufferingOverlayController;
     private Runnable hideSeekPreviewRunnable = new Runnable() {
         @Override
         public void run() {
@@ -863,6 +866,40 @@ public class xi extends xh implements bbb<Message, Boolean> {
         if (O()) {
             N();
         }
+        
+        try {
+            IPlayerContext playerContext = n();
+            if (playerContext != null) {
+                IVideoView videoView = playerContext.getIVideoView();
+                if (videoView != null) {
+                    IMediaPlayer mediaPlayer = videoView.getMediaPlayer();
+                    if (mediaPlayer != null && mediaPlayer instanceof ExoPlayerImpl) {
+                        ExoPlayerImpl exoPlayer = (ExoPlayerImpl) mediaPlayer;
+                        
+                        exoPlayer.setErrorListener(new ExoPlayerImpl.PlayerErrorListener() {
+                            @Override
+                            public void onPlayerError(int errorCode, String errorMessage, Integer httpCode) {
+                                Log.i("xi", "[ERROR_LISTENER_CALLBACK] Received player error: code=" + errorCode + 
+                                      ", http=" + (httpCode != null ? httpCode : "null") + ", message=" + errorMessage);
+                                
+                                int effectiveErrorCode = (httpCode != null) ? httpCode : errorCode;
+                                if (effectiveErrorCode == 403 || effectiveErrorCode == 404 || effectiveErrorCode == 410) {
+                                    Log.i("xi", "[ERROR_LISTENER_CALLBACK] HTTP error detected: " + effectiveErrorCode);
+                                    
+                                    Log.i("xi", "[ERROR_LISTENER_CALLBACK] Triggering error refresh via static method");
+                                    com.bilibili.tv.player.PlayerActivityUrlRefreshHelper.triggerErrorRefresh(effectiveErrorCode, errorMessage);
+                                }
+                            }
+                        });
+                        
+                        Log.i("xi", "[ERROR_LISTENER] Error listener setup successfully in onPrepared");
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.e("xi", "[ERROR_LISTENER] Failed to setup error listener in onPrepared: " + e.getMessage());
+        }
+        
         this.b.sendEmptyMessage(5000200);
         
         PlayerParams params = b();
@@ -1032,10 +1069,19 @@ public class xi extends xh implements bbb<Message, Boolean> {
     /* JADX INFO: Access modifiers changed from: protected */
     @Override // bl.xh
     public void M() {
-        if (this.m != null) {
-            this.m.setText(R.string.buffering);
-            this.m.setVisibility(View.VISIBLE);
+        if (bufferingOverlayController == null) {
+            bufferingOverlayController = new com.bilibili.tv.player.BufferingOverlayController();
+            bufferingOverlayController.setBufferingView(this.m);
+            com.bilibili.tv.player.PlayerActivityUrlRefreshHelper.setBufferingOverlayController(bufferingOverlayController);
+            Log.i("xi", "[M] BufferingOverlayController initialized");
         }
+        
+        if (com.bilibili.tv.player.PlayerActivityUrlRefreshHelper.shouldSuppressBufferingOverlay()) {
+            Log.i("xi", "[M] Buffering overlay is suppressed, skip showing");
+            return;
+        }
+        
+        bufferingOverlayController.onBufferingStarted();
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
@@ -1050,7 +1096,9 @@ public class xi extends xh implements bbb<Message, Boolean> {
     /* JADX INFO: Access modifiers changed from: protected */
     @Override // bl.xh
     public void N() {
-        if (this.m == null || !this.m.isShown()) {
+        if (bufferingOverlayController != null) {
+            bufferingOverlayController.onBufferingEnded();
+        } else if (this.m == null || !this.m.isShown()) {
             return;
         }
         this.m.setVisibility(View.GONE);

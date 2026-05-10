@@ -48,7 +48,7 @@
     .locals 1
 
     .prologue
-    .line 83
+    .line 91
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     .line 34
@@ -58,7 +58,7 @@
 
     iput-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mAudioFocusPlayHandlerWrapper:Ltv/danmaku/videoplayer/core/context/AudioFocusPlayHandler;
 
-    .line 84
+    .line 92
     return-void
 .end method
 
@@ -78,7 +78,7 @@
     .end param
 
     .prologue
-    .line 86
+    .line 94
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     .line 34
@@ -88,13 +88,13 @@
 
     iput-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mAudioFocusPlayHandlerWrapper:Ltv/danmaku/videoplayer/core/context/AudioFocusPlayHandler;
 
-    .line 87
+    .line 95
     invoke-virtual {p0, p1, p2, p4}, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->initMediaPlayer(Landroid/content/Context;Ltv/danmaku/videoplayer/core/videoview/IVideoParams;I)Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;
 
-    .line 88
+    .line 96
     invoke-virtual {p0, p3}, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->initDanmakuPlayer(Ltv/danmaku/videoplayer/core/danmaku/IDanmakuParams;)Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;
 
-    .line 89
+    .line 97
     return-void
 .end method
 
@@ -124,19 +124,19 @@
     .locals 1
 
     .prologue
-    .line 497
+    .line 513
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_b
 
-    .line 498
+    .line 514
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0, p1, p2}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->act(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 500
+    .line 516
     :goto_a
     return-object v0
 
@@ -160,19 +160,19 @@
     .locals 1
 
     .prologue
-    .line 449
+    .line 465
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mPlayerEventListeners:Ljava/util/ArrayList;
 
     if-nez v0, :cond_b
 
-    .line 450
+    .line 466
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
 
     iput-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mPlayerEventListeners:Ljava/util/ArrayList;
 
-    .line 452
+    .line 468
     :cond_b
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mPlayerEventListeners:Ljava/util/ArrayList;
 
@@ -182,11 +182,11 @@
 
     if-eqz v0, :cond_14
 
-    .line 456
+    .line 472
     :goto_13
     return-void
 
-    .line 455
+    .line 471
     :cond_14
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mPlayerEventListeners:Ljava/util/ArrayList;
 
@@ -218,17 +218,17 @@
     .locals 1
 
     .prologue
-    .line 510
+    .line 526
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 511
+    .line 527
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0, p1, p2, p3}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->attachDanmakuView(Landroid/view/ViewGroup;ZI)V
 
-    .line 513
+    .line 529
     :cond_9
     return-void
 .end method
@@ -239,13 +239,13 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 151
+    .line 159
     iput-boolean v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mAttachToServiceAlone:Z
 
-    .line 152
+    .line 160
     iput-boolean v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mAttachToService:Z
 
-    .line 153
+    .line 161
     return-void
 .end method
 
@@ -253,17 +253,17 @@
     .locals 1
 
     .prologue
-    .line 162
+    .line 170
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mAttachToService:Z
 
-    .line 163
+    .line 171
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->fromService:Z
 
-    .line 164
+    .line 172
     return-void
 .end method
 
@@ -271,17 +271,17 @@
     .locals 1
 
     .prologue
-    .line 126
+    .line 134
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 127
+    .line 135
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->attachVideoView(Landroid/view/ViewGroup;)V
 
-    .line 129
+    .line 137
     :cond_9
     return-void
 .end method
@@ -290,22 +290,22 @@
     .locals 1
 
     .prologue
-    .line 143
+    .line 151
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mAttachToServiceAlone:Z
 
-    .line 144
+    .line 152
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_c
 
-    .line 145
+    .line 153
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->detachVideoView()V
 
-    .line 147
+    .line 155
     :cond_c
     return-void
 .end method
@@ -323,17 +323,17 @@
     .end annotation
 
     .prologue
-    .line 649
+    .line 665
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 650
+    .line 666
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->deleteComments(Ljava/util/List;)V
 
-    .line 652
+    .line 668
     :cond_9
     return-void
 .end method
@@ -351,19 +351,19 @@
     .end annotation
 
     .prologue
-    .line 641
+    .line 657
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_b
 
-    .line 642
+    .line 658
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->getAllActivedItems()Ljava/util/List;
 
     move-result-object v0
 
-    .line 644
+    .line 660
     :goto_a
     return-object v0
 
@@ -379,19 +379,19 @@
     .locals 1
 
     .prologue
-    .line 327
+    .line 343
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_b
 
-    .line 328
+    .line 344
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->getAspectRatio()Ltv/danmaku/videoplayer/core/videoview/AspectRatio;
 
     move-result-object v0
 
-    .line 330
+    .line 346
     :goto_a
     return-object v0
 
@@ -407,7 +407,7 @@
     .end annotation
 
     .prologue
-    .line 492
+    .line 508
     const-string v0, "GetAsyncPos"
 
     const/4 v1, 0x0
@@ -433,19 +433,19 @@
     .locals 1
 
     .prologue
-    .line 434
+    .line 450
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_b
 
-    .line 435
+    .line 451
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->getBufferPercentage()I
 
     move-result v0
 
-    .line 437
+    .line 453
     :goto_a
     return v0
 
@@ -461,7 +461,7 @@
     .end annotation
 
     .prologue
-    .line 486
+    .line 502
     const-string v0, "GetCachedDuration"
 
     const-wide/16 v2, 0x0
@@ -496,19 +496,19 @@
     .end annotation
 
     .prologue
-    .line 633
+    .line 649
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_b
 
-    .line 634
+    .line 650
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->getCurrentActivedItems()Ljava/util/List;
 
     move-result-object v0
 
-    .line 636
+    .line 652
     :goto_a
     return-object v0
 
@@ -524,19 +524,19 @@
     .locals 1
 
     .prologue
-    .line 369
+    .line 385
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_b
 
-    .line 370
+    .line 386
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->getCurrentPosition()I
 
     move-result v0
 
-    .line 372
+    .line 388
     :goto_a
     return v0
 
@@ -550,19 +550,19 @@
     .locals 1
 
     .prologue
-    .line 656
+    .line 672
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_b
 
-    .line 657
+    .line 673
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->getDanmakuCurrentTime()I
 
     move-result v0
 
-    .line 659
+    .line 675
     :goto_a
     return v0
 
@@ -576,19 +576,19 @@
     .locals 1
 
     .prologue
-    .line 583
+    .line 599
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_b
 
-    .line 584
+    .line 600
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->getInfo()Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerInfo;
 
     move-result-object v0
 
-    .line 586
+    .line 602
     :goto_a
     return-object v0
 
@@ -602,13 +602,65 @@
     .locals 1
 
     .prologue
-    .line 671
+    .line 687
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     return-object v0
 .end method
 
 .method public getDuration()I
+    .locals 1
+
+    .prologue
+    .line 393
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
+
+    if-eqz v0, :cond_b
+
+    .line 394
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
+
+    invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->getDuration()I
+
+    move-result v0
+
+    .line 396
+    :goto_a
+    return v0
+
+    :cond_b
+    const/4 v0, 0x0
+
+    goto :goto_a
+.end method
+
+.method public getIVideoView()Ltv/danmaku/videoplayer/core/videoview/IVideoView;
+    .locals 1
+
+    .prologue
+    .line 213
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
+
+    if-nez v0, :cond_6
+
+    .line 214
+    const/4 v0, 0x0
+
+    .line 216
+    :goto_5
+    return-object v0
+
+    :cond_6
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
+
+    invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->getVideoView()Ltv/danmaku/videoplayer/core/videoview/IVideoView;
+
+    move-result-object v0
+
+    goto :goto_5
+.end method
+
+.method public getMediaInfo()Ltv/danmaku/videoplayer/core/media/MediaInfoHolder;
     .locals 1
 
     .prologue
@@ -620,13 +672,13 @@
     .line 378
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
-    invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->getDuration()I
+    invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->getMediaInfo()Ltv/danmaku/videoplayer/core/media/MediaInfoHolder;
 
-    move-result v0
+    move-result-object v0
 
     .line 380
     :goto_a
-    return v0
+    return-object v0
 
     :cond_b
     const/4 v0, 0x0
@@ -634,23 +686,23 @@
     goto :goto_a
 .end method
 
-.method public getMediaInfo()Ltv/danmaku/videoplayer/core/media/MediaInfoHolder;
+.method public getMediaPlayer()Ltv/danmaku/ijk/media/player/IMediaPlayer;
     .locals 1
 
     .prologue
-    .line 361
+    .line 85
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_b
 
-    .line 362
+    .line 86
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
-    invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->getMediaInfo()Ltv/danmaku/videoplayer/core/media/MediaInfoHolder;
+    invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->getMediaPlayer()Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     move-result-object v0
 
-    .line 364
+    .line 88
     :goto_a
     return-object v0
 
@@ -666,7 +718,7 @@
     .end annotation
 
     .prologue
-    .line 480
+    .line 496
     const-string v0, "GetPlaybackSpeed"
 
     const/high16 v1, 0x3f800000    # 1.0f
@@ -692,29 +744,29 @@
     .locals 2
 
     .prologue
-    .line 180
+    .line 188
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_b
 
-    .line 181
+    .line 189
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->getPlayerConfig()Ltv/danmaku/videoplayer/core/media/resource/PlayerConfig;
 
     move-result-object v0
 
-    .line 185
+    .line 193
     :goto_a
     return-object v0
 
-    .line 183
+    .line 191
     :cond_b
     new-instance v0, Ltv/danmaku/videoplayer/core/media/resource/PlayerConfig;
 
     invoke-direct {v0}, Ltv/danmaku/videoplayer/core/media/resource/PlayerConfig;-><init>()V
 
-    .line 184
+    .line 192
     const/4 v1, 0x0
 
     iput v1, v0, Ltv/danmaku/videoplayer/core/media/resource/PlayerConfig;->mPlayer:I
@@ -726,19 +778,19 @@
     .locals 1
 
     .prologue
-    .line 385
+    .line 401
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_b
 
-    .line 386
+    .line 402
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->getState()I
 
     move-result v0
 
-    .line 388
+    .line 404
     :goto_a
     return v0
 
@@ -752,7 +804,7 @@
     .locals 1
 
     .prologue
-    .line 197
+    .line 205
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_c
@@ -765,11 +817,11 @@
 
     if-nez v0, :cond_e
 
-    .line 198
+    .line 206
     :cond_c
     const/4 v0, 0x0
 
-    .line 200
+    .line 208
     :goto_d
     return-object v0
 
@@ -791,15 +843,15 @@
     .locals 1
 
     .prologue
-    .line 400
+    .line 416
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-nez v0, :cond_6
 
-    .line 401
+    .line 417
     const/4 v0, 0x0
 
-    .line 403
+    .line 419
     :goto_5
     return v0
 
@@ -817,17 +869,17 @@
     .locals 1
 
     .prologue
-    .line 571
+    .line 587
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 572
+    .line 588
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->hide()V
 
-    .line 574
+    .line 590
     :cond_9
     return-void
 .end method
@@ -840,12 +892,12 @@
     .end param
 
     .prologue
-    .line 100
+    .line 108
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_10
 
-    .line 101
+    .line 109
     new-instance v0, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     new-instance v1, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext$MediaTicker;
@@ -856,7 +908,7 @@
 
     iput-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
-    .line 103
+    .line 111
     :cond_10
     return-object p0
 .end method
@@ -889,21 +941,21 @@
     .end param
 
     .prologue
-    .line 93
+    .line 101
     new-instance v0, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-direct {v0, p1, p2, p3}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;-><init>(Landroid/content/Context;Ltv/danmaku/videoplayer/core/videoview/IVideoParams;I)V
 
     iput-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
-    .line 94
+    .line 102
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mAudioFocusPlayHandlerWrapper:Ltv/danmaku/videoplayer/core/context/AudioFocusPlayHandler;
 
     invoke-virtual {v0, v1}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->setAudioFocusPlayHandler(Ltv/danmaku/videoplayer/core/context/AudioFocusPlayHandler;)V
 
-    .line 95
+    .line 103
     return-object p0
 .end method
 
@@ -931,7 +983,7 @@
     .locals 1
 
     .prologue
-    .line 168
+    .line 176
     iget-boolean v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mAttachToService:Z
 
     return v0
@@ -941,7 +993,7 @@
     .locals 1
 
     .prologue
-    .line 157
+    .line 165
     iget-boolean v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mAttachToServiceAlone:Z
 
     return v0
@@ -951,7 +1003,7 @@
     .locals 1
 
     .prologue
-    .line 315
+    .line 331
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_e
@@ -979,7 +1031,7 @@
     .locals 1
 
     .prologue
-    .line 559
+    .line 575
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_e
@@ -1007,7 +1059,7 @@
     .locals 1
 
     .prologue
-    .line 578
+    .line 594
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_e
@@ -1035,7 +1087,7 @@
     .locals 1
 
     .prologue
-    .line 303
+    .line 319
     iget-boolean v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->fromService:Z
 
     return v0
@@ -1045,7 +1097,7 @@
     .locals 1
 
     .prologue
-    .line 293
+    .line 309
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_e
@@ -1073,7 +1125,7 @@
     .locals 1
 
     .prologue
-    .line 288
+    .line 304
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_e
@@ -1101,7 +1153,7 @@
     .locals 1
 
     .prologue
-    .line 356
+    .line 372
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_e
@@ -1129,7 +1181,7 @@
     .locals 1
 
     .prologue
-    .line 468
+    .line 484
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_e
@@ -1157,7 +1209,7 @@
     .locals 1
 
     .prologue
-    .line 422
+    .line 438
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_c
@@ -1186,7 +1238,7 @@
     .locals 2
 
     .prologue
-    .line 676
+    .line 692
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mPlayerEventListeners:Ljava/util/ArrayList;
 
     if-eqz v0, :cond_c
@@ -1199,11 +1251,11 @@
 
     if-eqz v0, :cond_d
 
-    .line 683
+    .line 699
     :cond_c
     return-void
 
-    .line 679
+    .line 695
     :cond_d
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mPlayerEventListeners:Ljava/util/ArrayList;
 
@@ -1211,7 +1263,7 @@
 
     move-result-object v1
 
-    .line 680
+    .line 696
     :goto_13
     invoke-interface {v1}, Ljava/util/Iterator;->hasNext()Z
 
@@ -1219,7 +1271,7 @@
 
     if-eqz v0, :cond_c
 
-    .line 681
+    .line 697
     invoke-interface {v1}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
     move-result-object v0
@@ -1235,17 +1287,17 @@
     .locals 1
 
     .prologue
-    .line 308
+    .line 324
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 309
+    .line 325
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->onActivityDestroyed(Z)V
 
-    .line 311
+    .line 327
     :cond_9
     return-void
 .end method
@@ -1254,17 +1306,17 @@
     .locals 1
 
     .prologue
-    .line 598
+    .line 614
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 599
+    .line 615
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->onDanmakuAppended(Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;)V
 
-    .line 601
+    .line 617
     :cond_9
     return-void
 .end method
@@ -1273,17 +1325,17 @@
     .locals 1
 
     .prologue
-    .line 605
+    .line 621
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 606
+    .line 622
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->onDanmakuAppended(Ltv/danmaku/videoplayer/core/danmaku/comment/DrawableItem;)V
 
-    .line 608
+    .line 624
     :cond_9
     return-void
 .end method
@@ -1292,17 +1344,17 @@
     .locals 1
 
     .prologue
-    .line 591
+    .line 607
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 592
+    .line 608
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0, p1, p2}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->onScreenOrientationChanged(ZI)V
 
-    .line 594
+    .line 610
     :cond_9
     return-void
 .end method
@@ -1311,28 +1363,28 @@
     .locals 2
 
     .prologue
-    .line 266
+    .line 282
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 267
+    .line 283
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->pause()V
 
-    .line 269
+    .line 285
     :cond_9
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_12
 
-    .line 270
+    .line 286
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->pause()V
 
-    .line 272
+    .line 288
     :cond_12
     const/16 v0, 0xea
 
@@ -1342,7 +1394,7 @@
 
     invoke-virtual {p0, v0, v1}, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->notifyPlayerEvent(I[Ljava/lang/Object;)V
 
-    .line 273
+    .line 289
     return-void
 .end method
 
@@ -1350,17 +1402,17 @@
     .locals 1
 
     .prologue
-    .line 545
+    .line 561
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 546
+    .line 562
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->pause()V
 
-    .line 548
+    .line 564
     :cond_9
     return-void
 .end method
@@ -1369,17 +1421,17 @@
     .locals 1
 
     .prologue
-    .line 173
+    .line 181
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 174
+    .line 182
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->play(Z)V
 
-    .line 176
+    .line 184
     :cond_9
     return-void
 .end method
@@ -1390,7 +1442,7 @@
     .end annotation
 
     .prologue
-    .line 474
+    .line 490
     const-string v0, "PlaybackSpeedAvailable"
 
     const/4 v1, 0x0
@@ -1416,17 +1468,17 @@
     .locals 1
 
     .prologue
-    .line 517
+    .line 533
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 518
+    .line 534
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0, p1, p2}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->prepareAndStart(J)V
 
-    .line 520
+    .line 536
     :cond_9
     return-void
 .end method
@@ -1435,28 +1487,28 @@
     .locals 2
 
     .prologue
-    .line 108
+    .line 116
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 109
+    .line 117
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->release()V
 
-    .line 111
+    .line 119
     :cond_9
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_12
 
-    .line 112
+    .line 120
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->release()V
 
-    .line 114
+    .line 122
     :cond_12
     const/16 v0, 0xeb
 
@@ -1466,7 +1518,7 @@
 
     invoke-virtual {p0, v0, v1}, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->notifyPlayerEvent(I[Ljava/lang/Object;)V
 
-    .line 115
+    .line 123
     return-void
 .end method
 
@@ -1474,17 +1526,17 @@
     .locals 1
 
     .prologue
-    .line 119
+    .line 127
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 120
+    .line 128
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->release()V
 
-    .line 122
+    .line 130
     :cond_9
     return-void
 .end method
@@ -1493,7 +1545,7 @@
     .locals 1
 
     .prologue
-    .line 460
+    .line 476
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mPlayerEventListeners:Ljava/util/ArrayList;
 
     if-eqz v0, :cond_c
@@ -1506,12 +1558,12 @@
 
     if-nez v0, :cond_d
 
-    .line 464
+    .line 480
     :cond_c
     :goto_c
     return-void
 
-    .line 463
+    .line 479
     :cond_d
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mPlayerEventListeners:Ljava/util/ArrayList;
 
@@ -1533,7 +1585,7 @@
     .end annotation
 
     .prologue
-    .line 505
+    .line 521
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-nez v0, :cond_5
@@ -1555,17 +1607,17 @@
     .locals 1
 
     .prologue
-    .line 408
+    .line 424
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 409
+    .line 425
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0, p1, p2}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->resetAspectRatio(II)V
 
-    .line 411
+    .line 427
     :cond_9
     return-void
 .end method
@@ -1574,17 +1626,17 @@
     .locals 1
 
     .prologue
-    .line 415
+    .line 431
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 416
+    .line 432
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0, p1, p2, p3}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->resetAspectRatio(IIZ)V
 
-    .line 418
+    .line 434
     :cond_9
     return-void
 .end method
@@ -1593,17 +1645,17 @@
     .locals 1
 
     .prologue
-    .line 427
+    .line 443
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 428
+    .line 444
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->resetVideoView()V
 
-    .line 430
+    .line 446
     :cond_9
     return-void
 .end method
@@ -1612,17 +1664,17 @@
     .locals 1
 
     .prologue
-    .line 538
+    .line 554
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 539
+    .line 555
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->resume()V
 
-    .line 541
+    .line 557
     :cond_9
     return-void
 .end method
@@ -1631,17 +1683,17 @@
     .locals 1
 
     .prologue
-    .line 552
+    .line 568
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 553
+    .line 569
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0, p1, p2, p3, p4}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->seek(JJ)V
 
-    .line 555
+    .line 571
     :cond_9
     return-void
 .end method
@@ -1650,17 +1702,17 @@
     .locals 1
 
     .prologue
-    .line 393
+    .line 409
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 394
+    .line 410
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->seekTo(I)V
 
-    .line 396
+    .line 412
     :cond_9
     return-void
 .end method
@@ -1669,17 +1721,17 @@
     .locals 1
 
     .prologue
-    .line 335
+    .line 351
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 336
+    .line 352
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->setAspectRatio(Ltv/danmaku/videoplayer/core/videoview/AspectRatio;)V
 
-    .line 338
+    .line 354
     :cond_9
     return-void
 .end method
@@ -1688,10 +1740,10 @@
     .locals 0
 
     .prologue
-    .line 261
+    .line 277
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mAudioFocusPlayHandler:Ltv/danmaku/videoplayer/core/context/AudioFocusPlayHandler;
 
-    .line 262
+    .line 278
     return-void
 .end method
 
@@ -1708,17 +1760,17 @@
     .end annotation
 
     .prologue
-    .line 626
+    .line 642
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 627
+    .line 643
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0, p1, p2}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->setDanmakuOption(Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;[Ljava/lang/Object;)V
 
-    .line 629
+    .line 645
     :cond_9
     return-void
 .end method
@@ -1727,17 +1779,17 @@
     .locals 1
 
     .prologue
-    .line 619
+    .line 635
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 620
+    .line 636
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0, p1, p2, p3, p4}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->setPadding(IIII)V
 
-    .line 622
+    .line 638
     :cond_9
     return-void
 .end method
@@ -1746,10 +1798,10 @@
     .locals 0
 
     .prologue
-    .line 298
+    .line 314
     iput-boolean p1, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->fromService:Z
 
-    .line 299
+    .line 315
     return-void
 .end method
 
@@ -1757,17 +1809,17 @@
     .locals 1
 
     .prologue
-    .line 219
+    .line 235
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 220
+    .line 236
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->setOnCompletionListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnCompletionListener;)V
 
-    .line 222
+    .line 238
     :cond_9
     return-void
 .end method
@@ -1776,17 +1828,17 @@
     .locals 1
 
     .prologue
-    .line 664
+    .line 680
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 665
+    .line 681
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0, p1, p2, p3}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->setOnDanmakuClickListener(Lbl/bfd$a;FF)V
 
-    .line 667
+    .line 683
     :cond_9
     return-void
 .end method
@@ -1795,17 +1847,17 @@
     .locals 1
 
     .prologue
-    .line 226
+    .line 242
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 227
+    .line 243
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->setOnErrorListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnErrorListener;)V
 
-    .line 229
+    .line 245
     :cond_9
     return-void
 .end method
@@ -1814,17 +1866,17 @@
     .locals 1
 
     .prologue
-    .line 240
+    .line 256
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 241
+    .line 257
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->setOnExtraInfoListener(Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;)V
 
-    .line 243
+    .line 259
     :cond_9
     return-void
 .end method
@@ -1833,17 +1885,17 @@
     .locals 1
 
     .prologue
-    .line 212
+    .line 228
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 213
+    .line 229
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->setOnInfoListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;)V
 
-    .line 215
+    .line 231
     :cond_9
     return-void
 .end method
@@ -1852,17 +1904,17 @@
     .locals 1
 
     .prologue
-    .line 205
+    .line 221
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 206
+    .line 222
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->setOnPreparedListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnPreparedListener;)V
 
-    .line 208
+    .line 224
     :cond_9
     return-void
 .end method
@@ -1871,17 +1923,17 @@
     .locals 1
 
     .prologue
-    .line 247
+    .line 263
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 248
+    .line 264
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->setOnPreparedStepListener(Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnPreparedStepListener;)V
 
-    .line 250
+    .line 266
     :cond_9
     return-void
 .end method
@@ -1890,17 +1942,17 @@
     .locals 1
 
     .prologue
-    .line 254
+    .line 270
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 255
+    .line 271
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->setOnSeekComplete(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnSeekCompleteListener;)V
 
-    .line 257
+    .line 273
     :cond_9
     return-void
 .end method
@@ -1909,17 +1961,17 @@
     .locals 1
 
     .prologue
-    .line 233
+    .line 249
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 234
+    .line 250
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->setOnVideoDefnChangedListener(Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnVideoDefnChangedListener;)V
 
-    .line 236
+    .line 252
     :cond_9
     return-void
 .end method
@@ -1928,17 +1980,17 @@
     .locals 1
 
     .prologue
-    .line 349
+    .line 365
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 350
+    .line 366
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->setOnVideoSizeChangedListener(Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnVideoSizeChangedListener;)V
 
-    .line 352
+    .line 368
     :cond_9
     return-void
 .end method
@@ -1947,17 +1999,17 @@
     .locals 1
 
     .prologue
-    .line 190
+    .line 198
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 191
+    .line 199
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->setPlayerConfig(Ltv/danmaku/videoplayer/core/media/resource/PlayerConfig;)V
 
-    .line 193
+    .line 201
     :cond_9
     return-void
 .end method
@@ -1985,17 +2037,17 @@
     .locals 1
 
     .prologue
-    .line 320
+    .line 336
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 321
+    .line 337
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0, p1, p2}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->setVideoViewSize(II)V
 
-    .line 323
+    .line 339
     :cond_9
     return-void
 .end method
@@ -2004,17 +2056,17 @@
     .locals 1
 
     .prologue
-    .line 342
+    .line 358
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 343
+    .line 359
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0, p1, p2}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->setVolume(FF)V
 
-    .line 345
+    .line 361
     :cond_9
     return-void
 .end method
@@ -2023,17 +2075,17 @@
     .locals 1
 
     .prologue
-    .line 564
+    .line 580
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 565
+    .line 581
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->show()V
 
-    .line 567
+    .line 583
     :cond_9
     return-void
 .end method
@@ -2042,17 +2094,17 @@
     .locals 1
 
     .prologue
-    .line 612
+    .line 628
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 613
+    .line 629
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->stackFromBottom(Z)V
 
-    .line 615
+    .line 631
     :cond_9
     return-void
 .end method
@@ -2061,28 +2113,28 @@
     .locals 2
 
     .prologue
-    .line 277
+    .line 293
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 278
+    .line 294
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->start()V
 
-    .line 280
+    .line 296
     :cond_9
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_12
 
-    .line 281
+    .line 297
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->resume()V
 
-    .line 283
+    .line 299
     :cond_12
     const/16 v0, 0xe9
 
@@ -2092,7 +2144,7 @@
 
     invoke-virtual {p0, v0, v1}, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->notifyPlayerEvent(I[Ljava/lang/Object;)V
 
-    .line 284
+    .line 300
     return-void
 .end method
 
@@ -2100,17 +2152,17 @@
     .locals 1
 
     .prologue
-    .line 531
+    .line 547
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 532
+    .line 548
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->start()V
 
-    .line 534
+    .line 550
     :cond_9
     return-void
 .end method
@@ -2119,17 +2171,17 @@
     .locals 1
 
     .prologue
-    .line 524
+    .line 540
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 525
+    .line 541
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->stop()V
 
-    .line 527
+    .line 543
     :cond_9
     return-void
 .end method
@@ -2138,17 +2190,17 @@
     .locals 1
 
     .prologue
-    .line 442
+    .line 458
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     if-eqz v0, :cond_9
 
-    .line 443
+    .line 459
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;->switchPlayer(I)V
 
-    .line 445
+    .line 461
     :cond_9
     return-void
 .end method
@@ -2157,10 +2209,10 @@
     .locals 0
 
     .prologue
-    .line 133
+    .line 141
     iput-boolean p1, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mWillAttachToService:Z
 
-    .line 134
+    .line 142
     return-void
 .end method
 
@@ -2168,7 +2220,7 @@
     .locals 1
 
     .prologue
-    .line 138
+    .line 146
     iget-boolean v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mWillAttachToService:Z
 
     return v0

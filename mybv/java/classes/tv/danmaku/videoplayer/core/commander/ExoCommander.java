@@ -328,6 +328,10 @@ public class ExoCommander extends AbsPlayerCommander {
             this.mExoPlayer.setAudioBalanceLevel(level);
         }
     }
+    
+    public ExoPlayerImpl getMediaPlayer() {
+        return this.mExoPlayer;
+    }
 
     private float getPlaybackSpeed() {
         return 1.0f;

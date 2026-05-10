@@ -106,6 +106,8 @@ public interface IVideoView {
     int getDuration();
 
     MediaInfoHolder getMediaInfo();
+    
+    IMediaPlayer getMediaPlayer();
 
     int getState();
 

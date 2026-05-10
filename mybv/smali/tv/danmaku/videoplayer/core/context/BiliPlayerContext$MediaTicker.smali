@@ -26,12 +26,12 @@
     .locals 0
 
     .prologue
-    .line 693
+    .line 709
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext$MediaTicker;->this$0:Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 694
+    .line 710
     return-void
 .end method
 
@@ -41,7 +41,7 @@
     .locals 2
 
     .prologue
-    .line 699
+    .line 715
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext$MediaTicker;->this$0:Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->isVideoViewReleased()Z
@@ -58,10 +58,10 @@
 
     if-ltz v0, :cond_12
 
-    .line 700
+    .line 716
     int-to-long v0, v0
 
-    .line 702
+    .line 718
     :goto_11
     return-wide v0
 
@@ -75,7 +75,7 @@
     .locals 2
 
     .prologue
-    .line 712
+    .line 728
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext$MediaTicker;->this$0:Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;
 
     # getter for: Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
@@ -85,7 +85,7 @@
 
     if-eqz v0, :cond_14
 
-    .line 713
+    .line 729
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext$MediaTicker;->this$0:Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;
 
     # getter for: Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mMediaPlayerContext:Ltv/danmaku/videoplayer/core/context/MediaPlayerContext;
@@ -99,7 +99,7 @@
 
     int-to-long v0, v0
 
-    .line 715
+    .line 731
     :goto_13
     return-wide v0
 
@@ -113,7 +113,7 @@
     .locals 1
 
     .prologue
-    .line 707
+    .line 723
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext$MediaTicker;->this$0:Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->getVideoView()Landroid/view/View;
@@ -146,6 +146,6 @@
     .locals 0
 
     .prologue
-    .line 691
+    .line 707
     return-void
 .end method

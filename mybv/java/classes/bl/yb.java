@@ -54,6 +54,46 @@ public class yb extends xh {
                 // 首次播放标识重置（切P场景）
                 this.hasFirstPlayed = false;
                 Log.i("yb", "[RESOLVE_SUCCESS] delay report until first play, reset hasFirstPlayed=false");
+                
+                // 调度URL自动刷新
+                Log.i("PlayerUrlRefresh", "[RESOLVE_SUCCESS] Trying to schedule auto refresh after MediaResource loaded");
+                try {
+                    Log.i("PlayerUrlRefresh", "[RESOLVE_SUCCESS] Step 1: Checking if activity is PlayerActivity");
+                    android.app.Activity activity = o();
+                    Log.i("PlayerUrlRefresh", "[RESOLVE_SUCCESS] Step 1: activity=" + (activity != null ? activity.getClass().getName() : "null"));
+                    
+                    if (activity instanceof com.bilibili.tv.player.PlayerActivity) {
+                        Log.i("PlayerUrlRefresh", "[RESOLVE_SUCCESS] Step 2: Activity is PlayerActivity, casting...");
+                        com.bilibili.tv.player.PlayerActivity playerActivity = (com.bilibili.tv.player.PlayerActivity) activity;
+                        
+                        Log.i("PlayerUrlRefresh", "[RESOLVE_SUCCESS] Step 3: Getting urlRefreshHelper field via reflection...");
+                        java.lang.reflect.Field field = playerActivity.getClass().getField("urlRefreshHelper");
+                        Log.i("PlayerUrlRefresh", "[RESOLVE_SUCCESS] Step 3: Field obtained: " + field.getName());
+                        
+                        Log.i("PlayerUrlRefresh", "[RESOLVE_SUCCESS] Step 4: Getting field value...");
+                        Object helper = field.get(playerActivity);
+                        Log.i("PlayerUrlRefresh", "[RESOLVE_SUCCESS] Step 4: Field value: " + (helper != null ? helper.getClass().getName() : "null"));
+                        
+                        if (helper instanceof com.bilibili.tv.player.PlayerActivityUrlRefreshHelper) {
+                            Log.i("PlayerUrlRefresh", "[RESOLVE_SUCCESS] Step 5: Helper is correct type, calling tryScheduleAutoRefresh()...");
+                            ((com.bilibili.tv.player.PlayerActivityUrlRefreshHelper) helper).tryScheduleAutoRefresh();
+                            Log.i("PlayerUrlRefresh", "[RESOLVE_SUCCESS] Step 5: tryScheduleAutoRefresh() called successfully");
+                        } else {
+                            Log.w("PlayerUrlRefresh", "[RESOLVE_SUCCESS] Step 5: Helper is not correct type or null");
+                        }
+                    } else {
+                        Log.w("PlayerUrlRefresh", "[RESOLVE_SUCCESS] Step 2: Activity is not PlayerActivity or null, type=" + (activity != null ? activity.getClass().getName() : "null"));
+                    }
+                } catch (NoSuchFieldException e) {
+                    Log.e("PlayerUrlRefresh", "[RESOLVE_SUCCESS] NoSuchFieldException: " + e.getMessage());
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    Log.e("PlayerUrlRefresh", "[RESOLVE_SUCCESS] IllegalAccessException: " + e.getMessage());
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    Log.e("PlayerUrlRefresh", "[RESOLVE_SUCCESS] Exception: " + e.getClass().getName() + " - " + e.getMessage());
+                    e.printStackTrace();
+                }
                 return;
             case SEEK:
                 if (objArr != null && objArr.length >= 3) {

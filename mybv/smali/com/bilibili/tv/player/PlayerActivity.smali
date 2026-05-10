@@ -8,6 +8,7 @@
 
 # instance fields
 .field private a:Lbl/xh;
+.field public urlRefreshHelper:Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;
 
 
 # direct methods
@@ -286,6 +287,25 @@
     const-string v3, "[12a_AFTER_SUPER_ONCREATE] super.onCreate() done"
     invoke-static {v2, v3}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
+    const-string v2, "PlayerUrlRefresh"
+    const-string v3, "[INIT] Creating UrlRefreshHelper"
+    invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    new-instance v2, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;
+    invoke-direct {v2}, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;-><init>()V
+    iput-object v2, p0, Lcom/bilibili/tv/player/PlayerActivity;->urlRefreshHelper:Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;
+
+    const-string v2, "PlayerUrlRefresh"
+    const-string v3, "[INIT] UrlRefreshHelper created successfully"
+    invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    iget-object v2, p0, Lcom/bilibili/tv/player/PlayerActivity;->urlRefreshHelper:Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;
+    invoke-virtual {v2, p0}, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->setContext(Landroid/content/Context;)V
+
+    const-string v2, "PlayerUrlRefresh"
+    const-string v3, "[INIT] Context set to helper"
+    invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
     .line 39
     invoke-static {p0}, Lbl/xe;->a(Landroid/app/Activity;)Lbl/xh;
 
@@ -356,7 +376,7 @@
 .end method
 
 .method protected onDestroy()V
-    .locals 1
+    .locals 2
 
     .line 83
     invoke-super {p0}, Landroid/support/v7/app/AppCompatActivity;->onDestroy()V
@@ -366,6 +386,20 @@
 
     invoke-virtual {v0}, Lbl/xh;->d()V
 
+    const-string v0, "PlayerUrlRefresh"
+    const-string v1, "[ONDESTROY] Cancelling URL auto refresh"
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    iget-object v0, p0, Lcom/bilibili/tv/player/PlayerActivity;->urlRefreshHelper:Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;
+    if-eqz v0, :cond_skip_cancel
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->destroy()V
+
+    const-string v0, "PlayerUrlRefresh"
+    const-string v1, "[ONDESTROY] URL auto refresh helper destroyed"
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    :cond_skip_cancel
     return-void
 .end method
 
@@ -464,7 +498,7 @@
 .end method
 
 .method protected onPause()V
-    .locals 1
+    .locals 2
 
     .line 59
     invoke-super {p0}, Landroid/support/v7/app/AppCompatActivity;->onPause()V
@@ -474,11 +508,25 @@
 
     invoke-virtual {v0}, Lbl/xh;->e()V
 
+    const-string v0, "PlayerUrlRefresh"
+    const-string v1, "[ONPAUSE] Cancelling URL auto refresh"
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    iget-object v0, p0, Lcom/bilibili/tv/player/PlayerActivity;->urlRefreshHelper:Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;
+    if-eqz v0, :cond_skip_cancel
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->cancelAutoRefresh()V
+
+    const-string v0, "PlayerUrlRefresh"
+    const-string v1, "[ONPAUSE] URL auto refresh cancelled"
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    :cond_skip_cancel
     return-void
 .end method
 
 .method protected onResume()V
-    .locals 2
+    .locals 3
 
     const-string v0, "UI_TRANSITION"
     const-string v1, "[15_PLAYER_ONRESUME] PlayerActivity onResume started"
@@ -492,6 +540,55 @@
 
     invoke-virtual {v0}, Lbl/xh;->f()V
 
+    const-string v0, "PlayerUrlRefresh"
+    const-string v1, "[ONRESUME] Scheduling URL auto refresh"
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    iget-object v0, p0, Lcom/bilibili/tv/player/PlayerActivity;->urlRefreshHelper:Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;
+    if-eqz v0, :cond_skip_schedule
+
+    iget-object v1, p0, Lcom/bilibili/tv/player/PlayerActivity;->a:Lbl/xh;
+    if-eqz v1, :cond_skip_schedule
+
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->setPlayerController(Lbl/xh;)V
+
+    const-string v0, "PlayerUrlRefresh"
+    const-string v1, "[ONRESUME] PlayerController set to helper"
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    iget-object v0, p0, Lcom/bilibili/tv/player/PlayerActivity;->urlRefreshHelper:Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;
+    iget-object v1, p0, Lcom/bilibili/tv/player/PlayerActivity;->a:Lbl/xh;
+    invoke-virtual {v1}, Lbl/xh;->b()Lcom/bilibili/tv/player/basic/context/PlayerParams;
+    move-result-object v1
+
+    if-eqz v1, :cond_skip_schedule
+
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->setPlayerParams(Lcom/bilibili/tv/player/basic/context/PlayerParams;)V
+
+    iget-object v0, p0, Lcom/bilibili/tv/player/PlayerActivity;->urlRefreshHelper:Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;
+    invoke-virtual {v0}, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->getScheduler()Ltv/danmaku/videoplayer/core/media/resource/UrlAutoRefreshScheduler;
+    move-result-object v0
+
+    if-eqz v0, :cond_skip_schedule
+
+    new-instance v2, Lcom/bilibili/tv/player/PlayerActivity$1;
+    invoke-direct {v2, p0}, Lcom/bilibili/tv/player/PlayerActivity$1;-><init>(Lcom/bilibili/tv/player/PlayerActivity;)V
+
+    iget-object v1, p0, Lcom/bilibili/tv/player/PlayerActivity;->urlRefreshHelper:Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;
+    invoke-virtual {v1, v0, v2}, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->setRefreshCallback(Ltv/danmaku/videoplayer/core/media/resource/UrlAutoRefreshScheduler;Ljava/lang/Runnable;)V
+
+    const-string v0, "PlayerUrlRefresh"
+    const-string v1, "[ONRESUME] Refresh callback set"
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    iget-object v0, p0, Lcom/bilibili/tv/player/PlayerActivity;->urlRefreshHelper:Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;
+    invoke-virtual {v0}, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->scheduleAutoRefresh()V
+
+    const-string v0, "PlayerUrlRefresh"
+    const-string v1, "[ONRESUME] URL auto refresh scheduled"
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    :cond_skip_schedule
     return-void
 .end method
 
