@@ -4,13 +4,14 @@
     android:layout_width="fill_parent" android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
-        android:gravity="left|center_vertical"
+        android:gravity="left"
         android:orientation="horizontal"
         android:focusable="false"
         android:clipChildren="false"
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_150"
-        android:layout_marginLeft="@dimen/px_30">
+        android:layout_marginLeft="@dimen/px_30"
+        android:layout_marginTop="@dimen/px_50">
         <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_44"
             android:textColor="@color/white" android:focusable="false"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -20,7 +21,7 @@
         <com.bilibili.tv.widget.DrawFrameLayout android:id="@id/low_quality"
             android:background="@drawable/shape_rectangle_trans_with_12corner_white_10"
             android:focusable="true" android:nextFocusRight="@id/medium_quality"
-            android:nextFocusUp="@id/low_quality" android:nextFocusDown="@id/decode_system"
+            android:nextFocusUp="@id/low_quality" android:nextFocusDown="@id/ijk_player"
             android:paddingLeft="@dimen/px_30"
             android:paddingRight="@dimen/px_30"
             android:layout_width="wrap_content"
@@ -36,7 +37,7 @@
             android:background="@drawable/shape_rectangle_trans_with_12corner_white_10"
             android:focusable="true" android:nextFocusLeft="@id/low_quality"
             android:nextFocusRight="@id/high_quality" android:nextFocusUp="@id/medium_quality"
-            android:nextFocusDown="@id/decode_system"
+            android:nextFocusDown="@id/ijk_player"
             android:paddingLeft="@dimen/px_30"
             android:paddingRight="@dimen/px_30"
             android:layout_width="wrap_content"
@@ -52,7 +53,7 @@
             android:background="@drawable/shape_rectangle_trans_with_12corner_white_10"
             android:focusable="true" android:nextFocusLeft="@id/medium_quality"
             android:nextFocusRight="@id/super_quality" android:nextFocusUp="@id/high_quality"
-            android:nextFocusDown="@id/decode_system"
+            android:nextFocusDown="@id/ijk_player"
             android:paddingLeft="@dimen/px_30"
             android:paddingRight="@dimen/px_30"
             android:layout_width="wrap_content"
@@ -90,6 +91,56 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_150"
         android:layout_marginLeft="@dimen/px_30">
+        <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_44"
+            android:textColor="@color/white" android:focusable="false"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_30"
+            android:layout_marginRight="@dimen/px_30"
+            android:text="播放器选择" />
+        <com.bilibili.tv.widget.DrawFrameLayout android:id="@id/ijk_player"
+            android:background="@drawable/shape_rectangle_trans_with_12corner_white_10"
+            android:focusable="true"
+            android:nextFocusUp="@id/low_quality" android:nextFocusDown="@id/decode_system"
+            android:nextFocusLeft="@id/ijk_player" android:nextFocusRight="@id/exo_player"
+            android:layout_width="@dimen/px_330"
+            android:paddingLeft="@dimen/px_30"
+            android:paddingRight="@dimen/px_30"
+            android:layout_height="@dimen/px_96"
+            android:layout_marginLeft="@dimen/px_40">
+            <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_44"
+                android:textColor="@color/white" android:gravity="center"
+                android:layout_gravity="center" android:focusable="false"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="ijkplayer" />
+        </com.bilibili.tv.widget.DrawFrameLayout>
+
+        <com.bilibili.tv.widget.DrawFrameLayout android:id="@id/exo_player"
+            android:background="@drawable/shape_rectangle_trans_with_12corner_white_10"
+            android:focusable="true" android:nextFocusUp="@id/low_quality"
+            android:nextFocusDown="@id/decode_system" android:nextFocusLeft="@id/ijk_player"
+            android:nextFocusRight="@id/exo_player"
+            android:layout_width="@dimen/px_330"
+            android:paddingLeft="@dimen/px_30"
+            android:paddingRight="@dimen/px_30"
+            android:layout_height="@dimen/px_96"
+            android:layout_marginLeft="@dimen/px_40">
+            <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_44"
+                android:textColor="@color/white" android:gravity="center"
+                android:layout_gravity="center" android:focusable="false"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="exoplayer" />
+        </com.bilibili.tv.widget.DrawFrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@id/decode_settings_layout"
+        android:gravity="left|center_vertical"
+        android:orientation="horizontal"
+        android:focusable="false"
+        android:clipChildren="false"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_150"
+        android:layout_marginLeft="@dimen/px_30">
         <com.bilibili.tv.widget.ShadowTextView
             android:textSize="@dimen/px_44"
             android:textColor="@color/white"
@@ -104,8 +155,8 @@
             android:background="@drawable/shape_rectangle_trans_with_12corner_white_10"
             android:focusable="true"
             android:nextFocusRight="@id/decode_ijk_hard"
-            android:nextFocusUp="@id/low_quality"
-            android:nextFocusDown="@id/ijk_player"
+            android:nextFocusUp="@id/ijk_player"
+            android:nextFocusDown="@id/codec_button"
             android:layout_width="@dimen/px_330"
             android:layout_height="@dimen/px_96"
             android:layout_marginLeft="@dimen/px_40">
@@ -125,8 +176,8 @@
             android:focusable="true"
             android:nextFocusLeft="@id/decode_system"
             android:nextFocusRight="@id/decode_ijk_soft"
-            android:nextFocusUp="@id/low_quality"
-            android:nextFocusDown="@id/ijk_player"
+            android:nextFocusUp="@id/ijk_player"
+            android:nextFocusDown="@id/codec_button"
             android:layout_width="@dimen/px_330"
             android:layout_height="@dimen/px_96"
             android:layout_marginLeft="@dimen/px_40">
@@ -146,8 +197,8 @@
             android:focusable="true"
             android:nextFocusLeft="@id/decode_ijk_hard"
             android:nextFocusRight="@id/decode_ijk_soft"
-            android:nextFocusUp="@id/low_quality"
-            android:nextFocusDown="@id/ijk_player"
+            android:nextFocusUp="@id/ijk_player"
+            android:nextFocusDown="@id/codec_button"
             android:layout_width="@dimen/px_330"
             android:layout_height="@dimen/px_96"
             android:layout_marginLeft="@dimen/px_40">
@@ -164,54 +215,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:gravity="left|center_vertical"
-        android:orientation="horizontal"
-        android:focusable="false"
-        android:clipChildren="false"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/px_150"
-        android:layout_marginLeft="@dimen/px_30">
-        <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_44"
-            android:textColor="@color/white" android:focusable="false"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px_30"
-            android:layout_marginRight="@dimen/px_30"
-            android:text="播放器选择" />
-        <com.bilibili.tv.widget.DrawFrameLayout android:id="@id/ijk_player"
-            android:background="@drawable/shape_rectangle_trans_with_12corner_white_10"
-            android:focusable="true"
-            android:nextFocusUp="@id/decode_system" android:nextFocusDown="@id/codec_button"
-            android:nextFocusLeft="@id/ijk_player" android:nextFocusRight="@id/exo_player"
-            android:layout_width="@dimen/px_330"
-            android:paddingLeft="@dimen/px_30"
-            android:paddingRight="@dimen/px_30"
-            android:layout_height="@dimen/px_96"
-            android:layout_marginLeft="@dimen/px_40">
-            <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_44"
-                android:textColor="@color/white" android:gravity="center"
-                android:layout_gravity="center" android:focusable="false"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="ijkplayer" />
-        </com.bilibili.tv.widget.DrawFrameLayout>
-
-        <com.bilibili.tv.widget.DrawFrameLayout android:id="@id/exo_player"
-            android:background="@drawable/shape_rectangle_trans_with_12corner_white_10"
-            android:focusable="true" android:nextFocusUp="@id/decode_system"
-            android:nextFocusDown="@id/codec_button" android:nextFocusLeft="@id/ijk_player"
-            android:nextFocusRight="@id/exo_player"
-            android:layout_width="@dimen/px_330"
-            android:paddingLeft="@dimen/px_30"
-            android:paddingRight="@dimen/px_30"
-            android:layout_height="@dimen/px_96"
-            android:layout_marginLeft="@dimen/px_40">
-            <com.bilibili.tv.widget.ShadowTextView android:textSize="@dimen/px_44"
-                android:textColor="@color/white" android:gravity="center"
-                android:layout_gravity="center" android:focusable="false"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="exoplayer" />
-        </com.bilibili.tv.widget.DrawFrameLayout>
-    </LinearLayout>
-    <LinearLayout
+        android:id="@id/codec_settings_layout"
         android:gravity="left|center_vertical"
         android:orientation="horizontal"
         android:focusable="false"
@@ -236,7 +240,7 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:nextFocusRight="@id/codec_button"
-            android:nextFocusUp="@id/ijk_player"
+            android:nextFocusUp="@id/decode_system"
             android:nextFocusDown="@id/codec_button"
             android:paddingLeft="@dimen/px_30"
             android:paddingRight="@dimen/px_30"

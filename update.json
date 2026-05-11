@@ -1,12 +1,12 @@
 {
-    "apkMd5":"0462eef33e2e102330f21c07f3c82c09",
+    "apkMd5":"ee4874589833fae29890dcf6810e4805",
     "apkUrl":"https://github.com/uiiang/bilibilitv1.6.6-repair-uiiang/raw/refs/heads/main/mybv.apk",
-    "fileSize":10772748,
+    "fileSize":10767551,
     "id":"",
-    "newFeature":"",
+    "newFeature":"1. 新增exoplayer播放内核\n2. 支持音量平衡",
     "publishTime":0,
     "title":"New",
     "upgradeType":1,
-    "versionCode":20260510,
-    "versionName":"1.6.6.20260510"
+    "versionCode":20260511,
+    "versionName":"1.6.6.20260511"
 }

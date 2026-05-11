@@ -44,6 +44,9 @@ public final class afn extends adw implements View.OnFocusChangeListener, View.O
     private DrawFrameLayout decodeIjkSoftBtn;
     private DrawFrameLayout codecButton;
 
+    private ViewGroup decodeSettingsLayout;
+    private ViewGroup codecSettingsLayout;
+
     @Override
     public boolean c() {
         return true;
@@ -120,6 +123,9 @@ public final class afn extends adw implements View.OnFocusChangeListener, View.O
             this.codecButton.setOnClickListener(this);
         }
 
+        this.decodeSettingsLayout = (ViewGroup) a(inflate, R.id.decode_settings_layout);
+        this.codecSettingsLayout = (ViewGroup) a(inflate, R.id.codec_settings_layout);
+
         switch (abd.h(getActivity())) {
             case 1:
                 if (this.decodeSystemBtn != null)
@@ -181,9 +187,21 @@ public final class afn extends adw implements View.OnFocusChangeListener, View.O
             && PlayerSelector.isExoPlayerSupported()) {
             this.ijkPlayerBtn.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
             this.exoPlayerBtn.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+            if (this.decodeSettingsLayout != null) {
+                this.decodeSettingsLayout.setVisibility(View.GONE);
+            }
+            if (this.codecSettingsLayout != null) {
+                this.codecSettingsLayout.setVisibility(View.GONE);
+            }
         } else {
             this.ijkPlayerBtn.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
             this.exoPlayerBtn.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+            if (this.decodeSettingsLayout != null) {
+                this.decodeSettingsLayout.setVisibility(View.VISIBLE);
+            }
+            if (this.codecSettingsLayout != null) {
+                this.codecSettingsLayout.setVisibility(View.VISIBLE);
+            }
         }
     }
 

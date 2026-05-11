@@ -30,11 +30,15 @@
 
 .field private codecButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
+.field private codecSettingsLayout:Landroid/view/ViewGroup;
+
 .field private d:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
 .field private decodeIjkHardBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
 .field private decodeIjkSoftBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+.field private decodeSettingsLayout:Landroid/view/ViewGroup;
 
 .field private decodeSystemBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
@@ -133,29 +137,33 @@
 .end method
 
 .method private updatePlayerSelection()V
-    .locals 6
+    .locals 8
 
     .prologue
-    const v5, 0x7f0700f0
+    const v7, 0x7f0700f0
 
-    const v4, 0x7f0700ef
+    const v6, 0x7f0700ef
 
-    .line 173
+    const/16 v5, 0x8
+
+    const/4 v4, 0x0
+
+    .line 179
     iget-object v0, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    if-eqz v0, :cond_e
+    if-eqz v0, :cond_11
 
     iget-object v0, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    if-nez v0, :cond_f
+    if-nez v0, :cond_12
 
-    .line 188
-    :cond_e
-    :goto_e
+    .line 206
+    :cond_11
+    :goto_11
     return-void
 
-    .line 175
-    :cond_f
+    .line 181
+    :cond_12
     invoke-virtual {p0}, Lbl/afn;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
@@ -164,7 +172,7 @@
 
     move-result v0
 
-    .line 176
+    .line 182
     const-string v1, "afn"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -189,7 +197,7 @@
 
     iget-object v3, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 177
+    .line 183
     invoke-virtual {v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->getVisibility()I
 
     move-result v3
@@ -206,7 +214,7 @@
 
     iget-object v3, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 178
+    .line 184
     invoke-virtual {v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->getVisibility()I
 
     move-result v3
@@ -219,45 +227,87 @@
 
     move-result-object v2
 
-    .line 176
+    .line 182
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 180
+    .line 186
     const/4 v1, 0x3
 
-    if-ne v0, v1, :cond_63
+    if-ne v0, v1, :cond_78
 
-    .line 181
+    .line 187
     invoke-static {}, Ltv/danmaku/videoplayer/core/media/PlayerSelector;->isExoPlayerSupported()Z
 
     move-result v0
 
-    if-eqz v0, :cond_63
+    if-eqz v0, :cond_78
 
-    .line 182
+    .line 188
     iget-object v0, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
+    invoke-virtual {v0, v6}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 183
+    .line 189
     iget-object v0, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    invoke-virtual {v0, v5}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
+    invoke-virtual {v0, v7}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    goto :goto_e
+    .line 190
+    iget-object v0, p0, Lbl/afn;->decodeSettingsLayout:Landroid/view/ViewGroup;
 
-    .line 185
-    :cond_63
+    if-eqz v0, :cond_6e
+
+    .line 191
+    iget-object v0, p0, Lbl/afn;->decodeSettingsLayout:Landroid/view/ViewGroup;
+
+    invoke-virtual {v0, v5}, Landroid/view/ViewGroup;->setVisibility(I)V
+
+    .line 193
+    :cond_6e
+    iget-object v0, p0, Lbl/afn;->codecSettingsLayout:Landroid/view/ViewGroup;
+
+    if-eqz v0, :cond_11
+
+    .line 194
+    iget-object v0, p0, Lbl/afn;->codecSettingsLayout:Landroid/view/ViewGroup;
+
+    invoke-virtual {v0, v5}, Landroid/view/ViewGroup;->setVisibility(I)V
+
+    goto :goto_11
+
+    .line 197
+    :cond_78
     iget-object v0, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    invoke-virtual {v0, v5}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
+    invoke-virtual {v0, v7}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 186
+    .line 198
     iget-object v0, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
+    invoke-virtual {v0, v6}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    goto :goto_e
+    .line 199
+    iget-object v0, p0, Lbl/afn;->decodeSettingsLayout:Landroid/view/ViewGroup;
+
+    if-eqz v0, :cond_8b
+
+    .line 200
+    iget-object v0, p0, Lbl/afn;->decodeSettingsLayout:Landroid/view/ViewGroup;
+
+    invoke-virtual {v0, v4}, Landroid/view/ViewGroup;->setVisibility(I)V
+
+    .line 202
+    :cond_8b
+    iget-object v0, p0, Lbl/afn;->codecSettingsLayout:Landroid/view/ViewGroup;
+
+    if-eqz v0, :cond_11
+
+    .line 203
+    iget-object v0, p0, Lbl/afn;->codecSettingsLayout:Landroid/view/ViewGroup;
+
+    invoke-virtual {v0, v4}, Landroid/view/ViewGroup;->setVisibility(I)V
+
+    goto/16 :goto_11
 .end method
 
 
@@ -268,17 +318,17 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 292
+    .line 310
     iget-object v1, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-nez v1, :cond_6
 
-    .line 317
+    .line 335
     :cond_5
     :goto_5
     return v0
 
-    .line 295
+    .line 313
     :cond_6
     iget-object v1, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
@@ -312,7 +362,7 @@
 
     if-nez v1, :cond_5
 
-    .line 298
+    .line 316
     iget-object v1, p0, Lbl/afn;->decodeSystemBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-eqz v1, :cond_32
@@ -325,7 +375,7 @@
 
     if-nez v1, :cond_5
 
-    .line 301
+    .line 319
     :cond_32
     iget-object v1, p0, Lbl/afn;->decodeIjkHardBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
@@ -339,7 +389,7 @@
 
     if-nez v1, :cond_5
 
-    .line 304
+    .line 322
     :cond_3e
     iget-object v1, p0, Lbl/afn;->decodeIjkSoftBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
@@ -353,7 +403,7 @@
 
     if-nez v1, :cond_5
 
-    .line 307
+    .line 325
     :cond_4a
     iget-object v1, p0, Lbl/afn;->codecButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
@@ -367,7 +417,7 @@
 
     if-nez v1, :cond_5
 
-    .line 310
+    .line 328
     :cond_56
     iget-object v1, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
@@ -381,7 +431,7 @@
 
     if-nez v1, :cond_5
 
-    .line 313
+    .line 331
     :cond_62
     iget-object v1, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
@@ -395,13 +445,13 @@
 
     if-nez v1, :cond_5
 
-    .line 316
+    .line 334
     :cond_6e
     iget-object v0, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->requestFocus()Z
 
-    .line 317
+    .line 335
     const/4 v0, 0x1
 
     goto :goto_5
@@ -415,17 +465,17 @@
 
     const/4 v1, 0x1
 
-    .line 321
+    .line 339
     iget-object v2, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-nez v2, :cond_7
 
-    .line 345
+    .line 363
     :cond_6
     :goto_6
     return v0
 
-    .line 324
+    .line 342
     :cond_7
     iget-object v2, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
@@ -462,10 +512,10 @@
     :cond_27
     move v0, v1
 
-    .line 325
+    .line 343
     goto :goto_6
 
-    .line 327
+    .line 345
     :cond_29
     iget-object v2, p0, Lbl/afn;->decodeSystemBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
@@ -481,10 +531,10 @@
 
     move v0, v1
 
-    .line 328
+    .line 346
     goto :goto_6
 
-    .line 330
+    .line 348
     :cond_37
     iget-object v2, p0, Lbl/afn;->decodeIjkHardBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
@@ -500,10 +550,10 @@
 
     move v0, v1
 
-    .line 331
+    .line 349
     goto :goto_6
 
-    .line 333
+    .line 351
     :cond_45
     iget-object v2, p0, Lbl/afn;->decodeIjkSoftBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
@@ -519,10 +569,10 @@
 
     move v0, v1
 
-    .line 334
+    .line 352
     goto :goto_6
 
-    .line 336
+    .line 354
     :cond_53
     iget-object v2, p0, Lbl/afn;->codecButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
@@ -538,10 +588,10 @@
 
     move v0, v1
 
-    .line 337
+    .line 355
     goto :goto_6
 
-    .line 339
+    .line 357
     :cond_61
     iget-object v2, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
@@ -557,10 +607,10 @@
 
     move v0, v1
 
-    .line 340
+    .line 358
     goto :goto_6
 
-    .line 342
+    .line 360
     :cond_6f
     iget-object v2, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
@@ -576,7 +626,7 @@
 
     move v0, v1
 
-    .line 343
+    .line 361
     goto :goto_6
 .end method
 
@@ -584,7 +634,7 @@
     .locals 1
 
     .prologue
-    .line 49
+    .line 52
     const/4 v0, 0x1
 
     return v0
@@ -594,7 +644,7 @@
     .locals 0
 
     .prologue
-    .line 54
+    .line 57
     return-void
 .end method
 
@@ -612,12 +662,12 @@
 
     const v3, 0x7f0700ef
 
-    .line 192
+    .line 210
     iget-object v0, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-ne p1, v0, :cond_2a
 
-    .line 193
+    .line 211
     invoke-virtual {p0}, Lbl/afn;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
@@ -626,33 +676,33 @@
 
     invoke-static {v0, v2}, Lbl/abd;->a(Landroid/content/Context;I)V
 
-    .line 194
+    .line 212
     iget-object v0, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 195
+    .line 213
     iget-object v0, p0, Lbl/afn;->c:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 196
+    .line 214
     iget-object v0, p0, Lbl/afn;->d:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 197
+    .line 215
     iget-object v0, p0, Lbl/afn;->e:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 199
+    .line 217
     :cond_2a
     iget-object v0, p0, Lbl/afn;->c:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-ne p1, v0, :cond_4b
 
-    .line 200
+    .line 218
     invoke-virtual {p0}, Lbl/afn;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
@@ -661,33 +711,33 @@
 
     invoke-static {v0, v2}, Lbl/abd;->a(Landroid/content/Context;I)V
 
-    .line 201
+    .line 219
     iget-object v0, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 202
+    .line 220
     iget-object v0, p0, Lbl/afn;->c:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 203
+    .line 221
     iget-object v0, p0, Lbl/afn;->d:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 204
+    .line 222
     iget-object v0, p0, Lbl/afn;->e:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 206
+    .line 224
     :cond_4b
     iget-object v0, p0, Lbl/afn;->d:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-ne p1, v0, :cond_6c
 
-    .line 207
+    .line 225
     invoke-virtual {p0}, Lbl/afn;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
@@ -696,33 +746,33 @@
 
     invoke-static {v0, v2}, Lbl/abd;->a(Landroid/content/Context;I)V
 
-    .line 208
+    .line 226
     iget-object v0, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 209
+    .line 227
     iget-object v0, p0, Lbl/afn;->c:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 210
+    .line 228
     iget-object v0, p0, Lbl/afn;->d:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 211
+    .line 229
     iget-object v0, p0, Lbl/afn;->e:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 213
+    .line 231
     :cond_6c
     iget-object v0, p0, Lbl/afn;->e:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-ne p1, v0, :cond_8d
 
-    .line 214
+    .line 232
     invoke-virtual {p0}, Lbl/afn;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
@@ -731,33 +781,33 @@
 
     invoke-static {v0, v2}, Lbl/abd;->a(Landroid/content/Context;I)V
 
-    .line 215
+    .line 233
     iget-object v0, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 216
+    .line 234
     iget-object v0, p0, Lbl/afn;->c:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 217
+    .line 235
     iget-object v0, p0, Lbl/afn;->d:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 218
+    .line 236
     iget-object v0, p0, Lbl/afn;->e:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 221
+    .line 239
     :cond_8d
     iget-object v0, p0, Lbl/afn;->decodeSystemBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-ne p1, v0, :cond_a8
 
-    .line 222
+    .line 240
     invoke-virtual {p0}, Lbl/afn;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
@@ -766,106 +816,106 @@
 
     invoke-static {v0, v2}, Lbl/abd;->b(Landroid/content/Context;I)V
 
-    .line 223
+    .line 241
     iget-object v0, p0, Lbl/afn;->decodeSystemBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 224
+    .line 242
     iget-object v0, p0, Lbl/afn;->decodeIjkHardBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 225
+    .line 243
     iget-object v0, p0, Lbl/afn;->decodeIjkSoftBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 227
+    .line 245
     :cond_a8
     iget-object v0, p0, Lbl/afn;->decodeIjkHardBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-ne p1, v0, :cond_c2
 
-    .line 228
+    .line 246
     invoke-virtual {p0}, Lbl/afn;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
     invoke-static {v0, v9}, Lbl/abd;->b(Landroid/content/Context;I)V
 
-    .line 229
+    .line 247
     iget-object v0, p0, Lbl/afn;->decodeSystemBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 230
+    .line 248
     iget-object v0, p0, Lbl/afn;->decodeIjkHardBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 231
+    .line 249
     iget-object v0, p0, Lbl/afn;->decodeIjkSoftBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 233
+    .line 251
     :cond_c2
     iget-object v0, p0, Lbl/afn;->decodeIjkSoftBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-ne p1, v0, :cond_dc
 
-    .line 234
+    .line 252
     invoke-virtual {p0}, Lbl/afn;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
     invoke-static {v0, v10}, Lbl/abd;->b(Landroid/content/Context;I)V
 
-    .line 235
+    .line 253
     iget-object v0, p0, Lbl/afn;->decodeSystemBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 236
+    .line 254
     iget-object v0, p0, Lbl/afn;->decodeIjkHardBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 237
+    .line 255
     iget-object v0, p0, Lbl/afn;->decodeIjkSoftBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 239
+    .line 257
     :cond_dc
     iget-object v0, p0, Lbl/afn;->codecButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-ne p1, v0, :cond_14a
 
-    .line 240
+    .line 258
     new-instance v3, Ljava/util/ArrayList;
 
     invoke-direct {v3}, Ljava/util/ArrayList;-><init>()V
 
-    .line 241
+    .line 259
     const-string v0, "\u65e0"
 
     invoke-interface {v3, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 242
+    .line 260
     new-instance v4, Ljava/util/ArrayList;
 
     invoke-direct {v4}, Ljava/util/ArrayList;-><init>()V
 
-    .line 243
+    .line 261
     const-string v0, "\u65e0"
 
     invoke-interface {v4, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     move v0, v1
 
-    .line 244
+    .line 262
     :goto_f5
     invoke-static {}, Landroid/media/MediaCodecList;->getCodecCount()I
 
@@ -873,32 +923,32 @@
 
     if-ge v0, v2, :cond_129
 
-    .line 245
+    .line 263
     invoke-static {v0}, Landroid/media/MediaCodecList;->getCodecInfoAt(I)Landroid/media/MediaCodecInfo;
 
     move-result-object v5
 
-    .line 246
+    .line 264
     invoke-virtual {v5}, Landroid/media/MediaCodecInfo;->isEncoder()Z
 
     move-result v2
 
     if-nez v2, :cond_126
 
-    .line 247
+    .line 265
     invoke-virtual {v5}, Landroid/media/MediaCodecInfo;->getSupportedTypes()[Ljava/lang/String;
 
     move-result-object v6
 
     move v2, v1
 
-    .line 248
+    .line 266
     :goto_10a
     array-length v7, v6
 
     if-ge v2, v7, :cond_126
 
-    .line 249
+    .line 267
     iget-object v7, p0, Lbl/afn;->supported_codecs:Ljava/util/List;
 
     aget-object v8, v6, v2
@@ -909,31 +959,31 @@
 
     if-eqz v7, :cond_123
 
-    .line 250
+    .line 268
     aget-object v7, v6, v2
 
     invoke-interface {v3, v7}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 251
+    .line 269
     invoke-virtual {v5}, Landroid/media/MediaCodecInfo;->getName()Ljava/lang/String;
 
     move-result-object v7
 
     invoke-interface {v4, v7}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 248
+    .line 266
     :cond_123
     add-int/lit8 v2, v2, 0x1
 
     goto :goto_10a
 
-    .line 244
+    .line 262
     :cond_126
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_f5
 
-    .line 255
+    .line 273
     :cond_129
     new-instance v2, Landroid/app/AlertDialog$Builder;
 
@@ -945,7 +995,7 @@
 
     new-array v0, v1, [Ljava/lang/String;
 
-    .line 256
+    .line 274
     invoke-interface {v4, v0}, Ljava/util/List;->toArray([Ljava/lang/Object;)[Ljava/lang/Object;
 
     move-result-object v0
@@ -960,47 +1010,47 @@
 
     move-result-object v0
 
-    .line 277
+    .line 295
     invoke-virtual {v0}, Landroid/app/AlertDialog$Builder;->create()Landroid/app/AlertDialog;
 
     move-result-object v0
 
-    .line 278
+    .line 296
     invoke-virtual {v0}, Landroid/app/AlertDialog;->show()V
 
-    .line 281
+    .line 299
     :cond_14a
     iget-object v0, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-ne p1, v0, :cond_158
 
-    .line 282
+    .line 300
     invoke-virtual {p0}, Lbl/afn;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
     invoke-static {v0, v9}, Lbl/abd;->set_player_type(Landroid/content/Context;I)V
 
-    .line 283
+    .line 301
     invoke-direct {p0}, Lbl/afn;->updatePlayerSelection()V
 
-    .line 285
+    .line 303
     :cond_158
     iget-object v0, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-ne p1, v0, :cond_166
 
-    .line 286
+    .line 304
     invoke-virtual {p0}, Lbl/afn;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
     invoke-static {v0, v10}, Lbl/abd;->set_player_type(Landroid/content/Context;I)V
 
-    .line 287
+    .line 305
     invoke-direct {p0}, Lbl/afn;->updatePlayerSelection()V
 
-    .line 289
+    .line 307
     :cond_166
     return-void
 .end method
@@ -1015,24 +1065,24 @@
 
     const v4, 0x7f0700e8
 
-    .line 58
+    .line 61
     const-string v0, "inflater"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 59
+    .line 62
     const v0, 0x7f0a003a
 
     invoke-virtual {p1, v0, p2, v5}, Landroid/view/LayoutInflater;->inflate(ILandroid/view/ViewGroup;Z)Landroid/view/View;
 
     move-result-object v1
 
-    .line 60
+    .line 63
     const-string v0, "view"
 
     invoke-static {v1, v0}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 62
+    .line 65
     const v0, 0x7f0800bb
 
     invoke-virtual {p0, v1, v0}, Lbl/afn;->a(Landroid/view/View;I)Landroid/view/View;
@@ -1043,7 +1093,7 @@
 
     iput-object v0, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 63
+    .line 66
     const v0, 0x7f08016f
 
     invoke-virtual {p0, v1, v0}, Lbl/afn;->a(Landroid/view/View;I)Landroid/view/View;
@@ -1054,7 +1104,7 @@
 
     iput-object v0, p0, Lbl/afn;->c:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 64
+    .line 67
     const v0, 0x7f080096
 
     invoke-virtual {p0, v1, v0}, Lbl/afn;->a(Landroid/view/View;I)Landroid/view/View;
@@ -1065,7 +1115,7 @@
 
     iput-object v0, p0, Lbl/afn;->d:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 65
+    .line 68
     const v0, 0x7f080120
 
     invoke-virtual {p0, v1, v0}, Lbl/afn;->a(Landroid/view/View;I)Landroid/view/View;
@@ -1076,79 +1126,79 @@
 
     iput-object v0, p0, Lbl/afn;->e:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 67
+    .line 70
     iget-object v0, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-nez v0, :cond_4b
 
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 68
+    .line 71
     :cond_4b
     iget-object v0, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
 
-    .line 69
+    .line 72
     iget-object v0, p0, Lbl/afn;->c:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-nez v0, :cond_57
 
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 70
+    .line 73
     :cond_57
     iget-object v0, p0, Lbl/afn;->c:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
 
-    .line 71
+    .line 74
     iget-object v0, p0, Lbl/afn;->d:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-nez v0, :cond_63
 
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 72
+    .line 75
     :cond_63
     iget-object v0, p0, Lbl/afn;->d:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
 
-    .line 73
+    .line 76
     iget-object v0, p0, Lbl/afn;->e:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-nez v0, :cond_6f
 
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 74
+    .line 77
     :cond_6f
     iget-object v0, p0, Lbl/afn;->e:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
 
-    .line 76
+    .line 79
     iget-object v0, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 77
+    .line 80
     iget-object v0, p0, Lbl/afn;->c:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 78
+    .line 81
     iget-object v0, p0, Lbl/afn;->d:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 79
+    .line 82
     iget-object v0, p0, Lbl/afn;->e:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 81
+    .line 84
     invoke-virtual {p0}, Lbl/afn;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
@@ -1157,39 +1207,39 @@
 
     move-result v0
 
-    .line 82
+    .line 85
     const/16 v2, 0x10
 
-    if-ne v0, v2, :cond_1ef
+    if-ne v0, v2, :cond_205
 
-    .line 83
+    .line 86
     iget-object v0, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 92
+    .line 95
     :cond_99
     :goto_99
     iget-object v0, p0, Lbl/afn;->b:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 93
+    .line 96
     iget-object v0, p0, Lbl/afn;->c:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 94
+    .line 97
     iget-object v0, p0, Lbl/afn;->d:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 95
+    .line 98
     iget-object v0, p0, Lbl/afn;->e:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 97
+    .line 100
     const v0, 0x7f080227
 
     invoke-virtual {p0, v1, v0}, Lbl/afn;->a(Landroid/view/View;I)Landroid/view/View;
@@ -1200,7 +1250,7 @@
 
     iput-object v0, p0, Lbl/afn;->decodeSystemBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 98
+    .line 101
     const v0, 0x7f080228
 
     invoke-virtual {p0, v1, v0}, Lbl/afn;->a(Landroid/view/View;I)Landroid/view/View;
@@ -1211,7 +1261,7 @@
 
     iput-object v0, p0, Lbl/afn;->decodeIjkHardBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 99
+    .line 102
     const v0, 0x7f080229
 
     invoke-virtual {p0, v1, v0}, Lbl/afn;->a(Landroid/view/View;I)Landroid/view/View;
@@ -1222,7 +1272,7 @@
 
     iput-object v0, p0, Lbl/afn;->decodeIjkSoftBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 100
+    .line 103
     const v0, 0x7f080184
 
     invoke-virtual {p0, v1, v0}, Lbl/afn;->a(Landroid/view/View;I)Landroid/view/View;
@@ -1233,91 +1283,113 @@
 
     iput-object v0, p0, Lbl/afn;->codecButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 102
+    .line 105
     iget-object v0, p0, Lbl/afn;->decodeSystemBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-eqz v0, :cond_ec
 
-    .line 103
+    .line 106
     iget-object v0, p0, Lbl/afn;->decodeSystemBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
 
-    .line 104
+    .line 107
     iget-object v0, p0, Lbl/afn;->decodeSystemBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 105
+    .line 108
     iget-object v0, p0, Lbl/afn;->decodeSystemBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 107
+    .line 110
     :cond_ec
     iget-object v0, p0, Lbl/afn;->decodeIjkHardBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-eqz v0, :cond_ff
 
-    .line 108
+    .line 111
     iget-object v0, p0, Lbl/afn;->decodeIjkHardBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
 
-    .line 109
+    .line 112
     iget-object v0, p0, Lbl/afn;->decodeIjkHardBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 110
+    .line 113
     iget-object v0, p0, Lbl/afn;->decodeIjkHardBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 112
+    .line 115
     :cond_ff
     iget-object v0, p0, Lbl/afn;->decodeIjkSoftBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-eqz v0, :cond_112
 
-    .line 113
+    .line 116
     iget-object v0, p0, Lbl/afn;->decodeIjkSoftBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
 
-    .line 114
+    .line 117
     iget-object v0, p0, Lbl/afn;->decodeIjkSoftBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 115
+    .line 118
     iget-object v0, p0, Lbl/afn;->decodeIjkSoftBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 117
+    .line 120
     :cond_112
     iget-object v0, p0, Lbl/afn;->codecButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-eqz v0, :cond_125
 
-    .line 118
+    .line 121
     iget-object v0, p0, Lbl/afn;->codecButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
 
-    .line 119
+    .line 122
     iget-object v0, p0, Lbl/afn;->codecButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 120
+    .line 123
     iget-object v0, p0, Lbl/afn;->codecButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 123
+    .line 126
     :cond_125
+    const v0, 0x7f08022b
+
+    invoke-virtual {p0, v1, v0}, Lbl/afn;->a(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object v0
+
+    check-cast v0, Landroid/view/ViewGroup;
+
+    iput-object v0, p0, Lbl/afn;->decodeSettingsLayout:Landroid/view/ViewGroup;
+
+    .line 127
+    const v0, 0x7f08022c
+
+    invoke-virtual {p0, v1, v0}, Lbl/afn;->a(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object v0
+
+    check-cast v0, Landroid/view/ViewGroup;
+
+    iput-object v0, p0, Lbl/afn;->codecSettingsLayout:Landroid/view/ViewGroup;
+
+    .line 129
     invoke-virtual {p0}, Lbl/afn;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
@@ -1326,20 +1398,20 @@
 
     move-result v0
 
-    packed-switch v0, :pswitch_data_250
+    packed-switch v0, :pswitch_data_266
 
-    .line 138
-    :cond_130
-    :goto_130
+    .line 144
+    :cond_146
+    :goto_146
     sget-object v0, Lbl/afn;->prefect_decoder:Ljava/lang/String;
 
-    if-eqz v0, :cond_145
+    if-eqz v0, :cond_15b
 
     iget-object v0, p0, Lbl/afn;->codecButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    if-eqz v0, :cond_145
+    if-eqz v0, :cond_15b
 
-    .line 139
+    .line 145
     iget-object v0, p0, Lbl/afn;->codecButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v5}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
@@ -1352,8 +1424,8 @@
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/widget/ShadowTextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 142
-    :cond_145
+    .line 148
+    :cond_15b
     const v0, 0x7f080224
 
     invoke-virtual {p0, v1, v0}, Lbl/afn;->a(Landroid/view/View;I)Landroid/view/View;
@@ -1364,7 +1436,7 @@
 
     iput-object v0, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 143
+    .line 149
     const v0, 0x7f080225
 
     invoke-virtual {p0, v1, v0}, Lbl/afn;->a(Landroid/view/View;I)Landroid/view/View;
@@ -1375,7 +1447,7 @@
 
     iput-object v0, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 145
+    .line 151
     const-string v0, "afn"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -1412,7 +1484,7 @@
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 146
+    .line 152
     const-string v0, "afn"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -1439,7 +1511,7 @@
 
     move-result-object v2
 
-    .line 147
+    .line 153
     invoke-static {}, Ltv/danmaku/videoplayer/core/media/PlayerSelector;->isExoPlayerAvailable()Z
 
     move-result v3
@@ -1452,166 +1524,166 @@
 
     move-result-object v2
 
-    .line 146
+    .line 152
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 149
-    iget-object v0, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    if-eqz v0, :cond_1be
-
-    .line 150
-    iget-object v0, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
-
-    .line 151
-    iget-object v0, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
-
-    .line 152
-    iget-object v0, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
-
-    .line 154
-    :cond_1be
-    iget-object v0, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    if-eqz v0, :cond_1eb
-
     .line 155
-    iget-object v0, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+    iget-object v0, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
+    if-eqz v0, :cond_1d4
 
     .line 156
+    iget-object v0, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
+
+    .line 157
+    iget-object v0, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
+
+    .line 158
+    iget-object v0, p0, Lbl/afn;->ijkPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+
+    .line 160
+    :cond_1d4
+    iget-object v0, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    if-eqz v0, :cond_201
+
+    .line 161
+    iget-object v0, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
+
+    .line 162
     iget-object v0, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 157
+    .line 163
     iget-object v0, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 159
+    .line 165
     invoke-static {}, Ltv/danmaku/videoplayer/core/media/PlayerSelector;->isExoPlayerSupported()Z
 
     move-result v0
 
-    if-eqz v0, :cond_1dd
+    if-eqz v0, :cond_1f3
 
     invoke-static {}, Ltv/danmaku/videoplayer/core/media/PlayerSelector;->isExoPlayerAvailable()Z
 
     move-result v0
 
-    if-nez v0, :cond_231
+    if-nez v0, :cond_247
 
-    .line 160
-    :cond_1dd
+    .line 166
+    :cond_1f3
     const-string v0, "afn"
 
     const-string v2, "Hiding exoPlayerBtn - ExoPlayer not supported/available"
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 161
+    .line 167
     iget-object v0, p0, Lbl/afn;->exoPlayerBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     const/16 v2, 0x8
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setVisibility(I)V
 
-    .line 167
-    :cond_1eb
-    :goto_1eb
+    .line 173
+    :cond_201
+    :goto_201
     invoke-direct {p0}, Lbl/afn;->updatePlayerSelection()V
 
-    .line 169
+    .line 175
     return-object v1
 
-    .line 84
-    :cond_1ef
+    .line 87
+    :cond_205
     const/16 v2, 0x20
 
-    if-ne v0, v2, :cond_1fa
+    if-ne v0, v2, :cond_210
 
-    .line 85
+    .line 88
     iget-object v0, p0, Lbl/afn;->c:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
     goto/16 :goto_99
 
-    .line 86
-    :cond_1fa
+    .line 89
+    :cond_210
     const/16 v2, 0x50
 
-    if-ne v0, v2, :cond_205
+    if-ne v0, v2, :cond_21b
 
-    .line 87
+    .line 90
     iget-object v0, p0, Lbl/afn;->d:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
     goto/16 :goto_99
 
-    .line 88
-    :cond_205
+    .line 91
+    :cond_21b
     const/16 v2, 0x78
 
     if-ne v0, v2, :cond_99
 
-    .line 89
+    .line 92
     iget-object v0, p0, Lbl/afn;->e:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
     goto/16 :goto_99
 
-    .line 125
-    :pswitch_210
-    iget-object v0, p0, Lbl/afn;->decodeSystemBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    if-eqz v0, :cond_130
-
-    .line 126
-    iget-object v0, p0, Lbl/afn;->decodeSystemBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
-
-    goto/16 :goto_130
-
-    .line 129
-    :pswitch_21b
-    iget-object v0, p0, Lbl/afn;->decodeIjkHardBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    if-eqz v0, :cond_130
-
-    .line 130
-    iget-object v0, p0, Lbl/afn;->decodeIjkHardBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
-
-    invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
-
-    goto/16 :goto_130
-
-    .line 133
+    .line 131
     :pswitch_226
+    iget-object v0, p0, Lbl/afn;->decodeSystemBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    if-eqz v0, :cond_146
+
+    .line 132
+    iget-object v0, p0, Lbl/afn;->decodeSystemBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
+
+    goto/16 :goto_146
+
+    .line 135
+    :pswitch_231
+    iget-object v0, p0, Lbl/afn;->decodeIjkHardBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    if-eqz v0, :cond_146
+
+    .line 136
+    iget-object v0, p0, Lbl/afn;->decodeIjkHardBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
+
+    goto/16 :goto_146
+
+    .line 139
+    :pswitch_23c
     iget-object v0, p0, Lbl/afn;->decodeIjkSoftBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    if-eqz v0, :cond_130
+    if-eqz v0, :cond_146
 
-    .line 134
+    .line 140
     iget-object v0, p0, Lbl/afn;->decodeIjkSoftBtn:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    goto/16 :goto_130
+    goto/16 :goto_146
 
-    .line 163
-    :cond_231
+    .line 169
+    :cond_247
     const-string v0, "afn"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -1640,14 +1712,14 @@
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto :goto_1eb
+    goto :goto_201
 
-    .line 123
-    :pswitch_data_250
+    .line 129
+    :pswitch_data_266
     .packed-switch 0x1
-        :pswitch_210
-        :pswitch_21b
         :pswitch_226
+        :pswitch_231
+        :pswitch_23c
     .end packed-switch
 .end method
 
@@ -1655,12 +1727,12 @@
     .locals 3
 
     .prologue
-    .line 350
+    .line 368
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 351
+    .line 369
     const-string v0, "afn"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1693,17 +1765,17 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 352
+    .line 370
     instance-of v0, p1, Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-eqz v0, :cond_30
 
-    .line 353
+    .line 371
     check-cast p1, Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {p1, p2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpEnabled(Z)V
 
-    .line 355
+    .line 373
     :cond_30
     return-void
 .end method

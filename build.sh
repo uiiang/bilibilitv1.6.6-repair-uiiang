@@ -109,7 +109,7 @@ case "$1" in
         echo ""
         echo "Building APK with apktool..."
         echo "This may take a few minutes..."
-        apktool b --use-aapt2 mybv
+        java -jar mybv/apktool.jar b --use-aapt2 mybv
         if [ $? -ne 0 ]; then
             echo "✗ APK build failed!"
             exit 1
