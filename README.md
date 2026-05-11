@@ -3,6 +3,10 @@
 - fork于bilibilitv1.6.6-repair 感谢大佬的付出 [https://github.com/qidian55/bilibilitv1.6.6-repair]
 - 根据自己使用习惯做了一些修改
 
+v260511
+- 支持exoplayer播放内核
+- 支持音量平衡
+
 v260503
 - 首页增加直播入口，直播加速
 - 检查更新
