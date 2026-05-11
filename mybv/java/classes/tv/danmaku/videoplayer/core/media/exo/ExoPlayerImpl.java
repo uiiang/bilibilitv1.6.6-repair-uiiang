@@ -63,6 +63,7 @@ public class ExoPlayerImpl implements IMediaPlayer {
     private Handler mainHandler;
     private Runnable positionUpdateRunnable;
     private Runnable bufferMonitorRunnable;
+    private int lastPlaybackState = Player.STATE_IDLE;
 
     private OnPreparedListener onPreparedListener;
     private OnCompletionListener onCompletionListener;
@@ -78,6 +79,11 @@ public class ExoPlayerImpl implements IMediaPlayer {
     private static final long TEST_ERROR_INTERVAL_MS = 2 * 60 * 1000L;
     private Runnable testErrorRunnable;
     private int testErrorCount = 0;
+    
+    private static final int MAX_NETWORK_ERROR_RETRY = 3;
+    private static final long NETWORK_ERROR_RETRY_DELAY_MS = 3000;
+    private int networkErrorRetryCount = 0;
+    private Runnable networkErrorRetryRunnable;
     
     public interface PlayerErrorListener {
         void onPlayerError(int errorCode, String errorMessage, Integer httpCode);
@@ -183,6 +189,17 @@ public class ExoPlayerImpl implements IMediaPlayer {
                             stateName = "READY";
                             cachedDuration = exoPlayer.getDuration();
                             Log.i(TAG, "[STATE] READY - duration=" + cachedDuration + "ms, buffered=" + exoPlayer.getBufferedPercentage() + "%");
+                            if (lastPlaybackState == Player.STATE_BUFFERING && onInfoListener != null) {
+                                Log.i(TAG, "[STATE] Transition from BUFFERING to READY, sending BUFFERING_END");
+                                onInfoListener.onInfo(ExoPlayerImpl.this,
+                                    MEDIA_INFO_BUFFERING_END, 0);
+                                onInfoListener.onInfo2(ExoPlayerImpl.this,
+                                    MEDIA_INFO_BUFFERING_END, 0, 0);
+                            }
+                            if (networkErrorRetryCount > 0) {
+                                Log.i(TAG, "[STATE] Network error retry succeeded, resetting retry count");
+                                networkErrorRetryCount = 0;
+                            }
                             if (onPreparedListener != null) {
                                 onPreparedListener.onPrepared(ExoPlayerImpl.this);
                             }
@@ -211,6 +228,7 @@ public class ExoPlayerImpl implements IMediaPlayer {
                             break;
                     }
                     Log.i(TAG, "[STATE] " + stateName + " (playbackState=" + playbackState + ")");
+                    lastPlaybackState = playbackState;
                 }
 
                 @Override
@@ -226,6 +244,28 @@ public class ExoPlayerImpl implements IMediaPlayer {
                     Integer httpCode = findHttpResponseCode(error);
                     if (httpCode != null) {
                         Log.e(TAG, "[ERROR] HTTP status code: " + httpCode);
+                    }
+                    
+                    boolean isNetworkError = isNetworkError(error);
+                    if (isNetworkError && networkErrorRetryCount < MAX_NETWORK_ERROR_RETRY) {
+                        networkErrorRetryCount++;
+                        Log.w(TAG, "[ERROR] Network error detected, retrying (" + networkErrorRetryCount + "/" + MAX_NETWORK_ERROR_RETRY + ") in " + NETWORK_ERROR_RETRY_DELAY_MS + "ms");
+                        
+                        if (networkErrorRetryRunnable != null) {
+                            mainHandler.removeCallbacks(networkErrorRetryRunnable);
+                        }
+                        
+                        networkErrorRetryRunnable = new Runnable() {
+                            @Override
+                            public void run() {
+                                if (exoPlayer != null) {
+                                    Log.i(TAG, "[ERROR] Retrying playback after network error");
+                                    exoPlayer.prepare();
+                                }
+                            }
+                        };
+                        mainHandler.postDelayed(networkErrorRetryRunnable, NETWORK_ERROR_RETRY_DELAY_MS);
+                        return;
                     }
                     
                     if (onErrorListener != null) {
@@ -573,6 +613,8 @@ public class ExoPlayerImpl implements IMediaPlayer {
         mainHandler.removeCallbacks(positionUpdateRunnable);
         mainHandler.removeCallbacks(bufferMonitorRunnable);
         mainHandler.removeCallbacks(testErrorRunnable);
+        mainHandler.removeCallbacks(networkErrorRetryRunnable);
+        networkErrorRetryCount = 0;
         if (exoPlayer != null) {
             exoPlayer.release();
             exoPlayer = null;
@@ -803,6 +845,40 @@ public class ExoPlayerImpl implements IMediaPlayer {
     public void setPlayerErrorListener(PlayerErrorListener listener) {
         this.errorListener = listener;
         Log.i(TAG, "PlayerErrorListener set: " + (listener != null ? "not null" : "null"));
+    }
+    
+    private boolean isNetworkError(Throwable t) {
+        if (t == null) return false;
+        
+        Throwable cur = t;
+        for (int i = 0; i < 12; i++) {
+            String className = cur.getClass().getName();
+            String message = cur.getMessage();
+            
+            if (className.contains("UnknownHostException") ||
+                className.contains("SocketTimeoutException") ||
+                className.contains("ConnectException") ||
+                className.contains("NoRouteToHostException") ||
+                className.contains("PortUnreachableException")) {
+                return true;
+            }
+            
+            if (message != null) {
+                String lowerMessage = message.toLowerCase();
+                if (lowerMessage.contains("network") ||
+                    lowerMessage.contains("connection") ||
+                    lowerMessage.contains("timeout") ||
+                    lowerMessage.contains("unreachable") ||
+                    lowerMessage.contains("no address")) {
+                    return true;
+                }
+            }
+            
+            cur = cur.getCause();
+            if (cur == null) break;
+        }
+        
+        return false;
     }
     
     private Integer findHttpResponseCode(Throwable t) {

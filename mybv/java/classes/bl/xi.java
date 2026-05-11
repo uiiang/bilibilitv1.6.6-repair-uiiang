@@ -818,15 +818,7 @@ public class xi extends xh implements bbb<Message, Boolean> {
                     if (this.b != null) {
                         this.b.removeMessages(IjkMediaPlayer.FFP_PROP_INT64_BIT_RATE);
                     }
-                    if (this.m != null) {
-                        this.m.post(new Runnable() { // from class: bl.xi.3
-                            @Override // java.lang.Runnable
-                            public void run() {
-                                xi.this.m.setVisibility(8);
-                            }
-                        });
-                        break;
-                    }
+                    N();
                     break;
                 default:
                     break;
@@ -896,6 +888,8 @@ public class xi extends xh implements bbb<Message, Boolean> {
                     }
                 }
             }
+        } catch (IllegalAccessError e) {
+            Log.w("xi", "[ERROR_LISTENER] IllegalAccessError when accessing player (likely IjkPlayer), skipping error listener setup");
         } catch (Exception e) {
             Log.e("xi", "[ERROR_LISTENER] Failed to setup error listener in onPrepared: " + e.getMessage());
         }
@@ -1147,6 +1141,33 @@ public class xi extends xh implements bbb<Message, Boolean> {
                 }
             });
         }
+    }
+    
+    @Override // bl.xh, tv.danmaku.videoplayer.core.videoview.IVideoView.OnExtraInfoListener
+    public boolean onNativeInvoke(int what, android.os.Bundle args) {
+        Log.i("xi", "[IJK_NATIVE_INVOKE] what=" + what + ", args=" + (args != null ? args.toString() : "null"));
+        
+        if (args != null) {
+            String url = args.getString("url", "");
+            int httpCode = args.getInt("http_code", 0);
+            int errorCode = args.getInt("error", 0);
+            
+            Log.i("xi", "[IJK_NATIVE_INVOKE] url=" + url + ", http_code=" + httpCode + ", error=" + errorCode);
+            
+            if (httpCode == 403 || httpCode == 404 || httpCode == 410) {
+                Log.i("xi", "[IJK_NATIVE_INVOKE] HTTP error detected: " + httpCode);
+                com.bilibili.tv.player.PlayerActivityUrlRefreshHelper.triggerErrorRefresh(httpCode, "HTTP " + httpCode);
+                return true;
+            }
+            
+            if (errorCode != 0 || httpCode == 0) {
+                Log.i("xi", "[IJK_NATIVE_INVOKE] Network error detected, triggering URL refresh");
+                com.bilibili.tv.player.PlayerActivityUrlRefreshHelper.triggerErrorRefresh(errorCode, "Network error");
+                return true;
+            }
+        }
+        
+        return super.onNativeInvoke(what, args);
     }
 
     @Override // bl.xh
