@@ -90,11 +90,9 @@
 .end method
 
 .method public constructor <init>(Landroid/support/v4/view/ViewPager;Landroid/content/Context;)V
-    .locals 9
+    .locals 8
 
     .prologue
-    const/16 v8, 0x8
-
     const/4 v7, 0x4
 
     const/4 v5, 0x0
@@ -137,7 +135,9 @@
     move-result v3
 
     .line 589
-    new-array v0, v8, [I
+    const/16 v0, 0x9
+
+    new-array v0, v0, [I
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->tabMapping:[I
 
@@ -151,7 +151,7 @@
     .line 592
     and-int/lit8 v0, v3, 0x1
 
-    if-eqz v0, :cond_e3
+    if-eqz v0, :cond_e5
 
     .line 593
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->b:Landroid/util/SparseArray;
@@ -338,12 +338,14 @@
     .line 627
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/MainActivity$d;->tabMapping:[I
 
-    aput v8, v1, v0
+    const/16 v2, 0x8
+
+    aput v2, v1, v0
 
     .line 628
     return-void
 
-    :cond_e3
+    :cond_e5
     move v0, v2
 
     goto/16 :goto_47

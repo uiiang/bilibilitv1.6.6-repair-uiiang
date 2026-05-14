@@ -586,7 +586,7 @@ public final class MainActivity extends BaseActivity {
             
             int topTabConfig = abd.get_top_tab_config(context);
             int position = 1;
-            this.tabMapping = new int[8];
+            this.tabMapping = new int[9];
             this.tabMapping[0] = -1;
             
             if ((topTabConfig & abd.TAB_PERSONAL_RECOMMEND) != 0) {
