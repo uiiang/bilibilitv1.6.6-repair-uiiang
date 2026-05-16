@@ -150,7 +150,7 @@
     sput v1, Lbl/abd;->danmaku_type:I
 
     .line 30
-    const/4 v0, 0x6
+    const/4 v0, 0x7
 
     new-array v0, v0, [F
 
@@ -241,6 +241,7 @@
         0x3f800000    # 1.0f
         0x3f400000    # 0.75f
         0x3f000000    # 0.5f
+        0x3fe00000    # 1.75f
     .end array-data
 .end method
 

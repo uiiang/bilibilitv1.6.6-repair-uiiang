@@ -27,7 +27,7 @@ public class abd {
     private SharedPreferences d;
     private SharedPreferences e;
 
-    public static final float[] speeds = {2.0f,1.5f,1.25f,1.0f,0.75f,0.5f};
+    public static final float[] speeds = {2.0f,1.5f,1.25f,1.0f,0.75f,0.5f,1.75f};
     private static int speed_id = -1;
     private static int mode_id = -1;
 
