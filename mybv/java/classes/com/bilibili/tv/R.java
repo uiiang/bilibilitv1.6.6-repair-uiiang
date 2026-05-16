@@ -2654,6 +2654,7 @@ public final class R {
         public static final int menu_subtitle_size_btn = 0x7f08022a;
         public static final int decode_settings_layout = 0x7f08022b;
         public static final int codec_settings_layout = 0x7f08022c;
+        public static final int tab_button6 = 0x7f08022d;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;

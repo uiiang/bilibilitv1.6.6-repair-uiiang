@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 560
+    .line 562
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 561
+    .line 563
     return-void
 .end method
 
@@ -30,10 +30,10 @@
     .locals 0
 
     .prologue
-    .line 564
+    .line 566
     invoke-direct {p0}, Lbl/afm4$a;-><init>()V
 
-    .line 565
+    .line 567
     return-void
 .end method
 
@@ -43,7 +43,7 @@
     .locals 1
 
     .prologue
-    .line 568
+    .line 570
     new-instance v0, Lbl/afm4;
 
     invoke-direct {v0}, Lbl/afm4;-><init>()V
