@@ -178,3 +178,25 @@
     .line 35
     return-void
 .end method
+
+.method public getWrappedMetadataBytes()[B
+    .locals 1
+
+    const/4 v0, 0x0
+
+    return-object v0
+.end method
+
+.method public getWrappedMetadataFormat()Lcom/google/android/exoplayer2/Format;
+    .locals 1
+
+    const/4 v0, 0x0
+
+    return-object v0
+.end method
+
+.method public populateMediaMetadata(Lcom/google/android/exoplayer2/MediaMetadata$Builder;)V
+    .locals 0
+
+    return-void
+.end method

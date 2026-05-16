@@ -236,12 +236,12 @@
     :array_62
     .array-data 4
         0x40000000    # 2.0f
+        0x3fe00000    # 1.75f
         0x3fc00000    # 1.5f
         0x3fa00000    # 1.25f
         0x3f800000    # 1.0f
         0x3f400000    # 0.75f
         0x3f000000    # 0.5f
-        0x3fe00000    # 1.75f
     .end array-data
 .end method
 
@@ -1906,7 +1906,7 @@
 
     const-string v1, "video_speed_id"
 
-    const/4 v2, 0x3
+    const/4 v2, 0x4
 
     invoke-interface {v0, v1, v2}, Landroid/content/SharedPreferences;->getInt(Ljava/lang/String;I)I
 

@@ -1,5 +1,7 @@
 package com.google.android.exoplayer2.container;
 
+import com.google.android.exoplayer2.Format;
+import com.google.android.exoplayer2.MediaMetadata;
 import com.google.android.exoplayer2.metadata.Metadata;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -32,6 +34,20 @@ public final class CreationTime implements Metadata.Entry {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(unixTimestampMs);
+    }
+
+    @Override
+    public byte[] getWrappedMetadataBytes() {
+        return null;
+    }
+
+    @Override
+    public Format getWrappedMetadataFormat() {
+        return null;
+    }
+
+    @Override
+    public void populateMediaMetadata(MediaMetadata.Builder builder) {
     }
 
     @Override
