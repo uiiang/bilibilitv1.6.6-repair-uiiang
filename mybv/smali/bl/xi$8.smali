@@ -45,7 +45,7 @@
 
     const/4 v1, 0x0
 
-    const/16 v2, 0x2bd
+    const/16 v2, 0x2be
 
     const/4 v3, 0x0
 

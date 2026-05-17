@@ -1130,14 +1130,14 @@ public class xi extends xh implements bbb<Message, Boolean> {
                     }
                 });
             }
-        } else {
-            if (i != IVideoView.OnExtraInfoListener.ON_MEDIA_TRY_RECONNECT_END || this.m == null) {
+        } else if (i == IVideoView.OnExtraInfoListener.ON_MEDIA_TRY_RECONNECT_END) {
+            if (this.m == null) {
                 return;
             }
             this.m.post(new Runnable() { // from class: bl.xi.5
                 @Override // java.lang.Runnable
                 public void run() {
-                    xi.this.onInfo(null, IMediaPlayer.MEDIA_INFO_BUFFERING_START, 0);
+                    xi.this.onInfo(null, IMediaPlayer.MEDIA_INFO_BUFFERING_END, 0);
                 }
             });
         }

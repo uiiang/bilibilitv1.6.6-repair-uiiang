@@ -4222,12 +4222,13 @@
     :goto_16
     return-void
 
-    .line 1134
+    .line 1133
     :cond_17
     const v0, 0x10019
 
     if-ne p1, v0, :cond_16
 
+    .line 1134
     iget-object v0, p0, Lbl/xi;->m:Lcom/bilibili/tv/player/widget/PlayerBufferingView;
 
     if-eqz v0, :cond_16
