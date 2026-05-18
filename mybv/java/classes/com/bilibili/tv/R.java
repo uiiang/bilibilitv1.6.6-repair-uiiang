@@ -2655,6 +2655,8 @@ public final class R {
         public static final int decode_settings_layout = 0x7f08022b;
         public static final int codec_settings_layout = 0x7f08022c;
         public static final int tab_button6 = 0x7f08022d;
+        public static final int relation_tag_list = 0x7f08022e;
+        public static final int tag_name = 0x7f08022f;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;
@@ -2838,6 +2840,8 @@ public final class R {
         public static final int player_shot_menu = 0x7f0a00a6;
         public static final int player_seek_bar_simple = 0x7f0a00a7;
         public static final int item_chapter = 0x7f0a00a8;
+        public static final int dialog_relation_tag_menu = 0x7f0a00a9;
+        public static final int item_relation_tag_menu = 0x7f0a00aa;
     }
 
     public static final class mipmap {

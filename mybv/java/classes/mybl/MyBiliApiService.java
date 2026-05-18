@@ -45,6 +45,11 @@ public interface MyBiliApiService {
     vp<GeneralResponse<JSONObject>> modifyRelation(@Field("fid") long fid,
             @Field("act") int act, @Field("re_src") int re_src, @Field("csrf") String csrf, @Header("Cookie") String cookie);
 
+    @FormUrlEncoded
+    @POST("/x/relation/tags/addUsers")
+    vp<GeneralResponse<JSONObject>> setRelationTags(@Field("fids") long fid,
+            @Field("tagids") String tagids, @Field("csrf") String csrf, @Header("Cookie") String cookie);
+
     @GET("/x/web-interface/view/detail")
     vp<GeneralResponse<BiliVideoDetail>> getVideoDetail(@Query("aid") long aid);
 

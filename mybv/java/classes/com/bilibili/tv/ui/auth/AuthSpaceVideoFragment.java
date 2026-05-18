@@ -192,33 +192,7 @@ public final class AuthSpaceVideoFragment extends ady {
     attentionButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        mg account = mg.a(getActivity());
-        if (account == null) return;
-        String cookie = CookieUtil.getFullCookieWithDevice(account);
-        String csrf = CookieUtil.getBiliJct(account);
-        ((MyBiliApiService) vo.a(MyBiliApiService.class)).modifyRelation(
-          mid, 
-          attentionButton.getText().equals("已关注") ? 2 : 1, 
-          11, csrf, cookie
-        ).a(new vn<JSONObject>() {
-          @Override
-          public void a(JSONObject response) {
-            boolean followed = attentionButton.getText().equals("已关注");
-            attentionButton.setText(followed ? "＋关注" : "已关注");
-            lr.b(getContext(), followed ? "取消关注成功" : "关注成功");
-          }
-
-          @Override
-          public void onError(Throwable th) {
-            boolean followed = attentionButton.getText().equals("已关注");
-            lr.b(getContext(), followed ? "取消关注失败" : "关注失败");
-          }
-
-          @Override
-          public boolean isCancel() {
-            return getActivity() == null || getActivity().isFinishing();
-          }
-        });
+        showRelationTagMenu();
       }
     });
     
@@ -243,6 +217,32 @@ public final class AuthSpaceVideoFragment extends ady {
             return getActivity() == null || getActivity().isFinishing();
           }
         });
+    }
+  }
+  
+  private void showRelationTagMenu() {
+    Activity activity = getActivity();
+    if (activity == null) return;
+    mg account = mg.a(activity);
+    if (account == null || !account.a()) {
+      lr.b(getContext(), "账号未登录");
+      return;
+    }
+    RelationTagMenuDialog dialog = new RelationTagMenuDialog(activity, mid);
+    dialog.setOnTagsChangedListener(new RelationTagMenuDialog.OnTagsChangedListener() {
+      @Override
+      public void onTagsChanged(List<Long> selectedTagIds, boolean isFollowed) {
+        Log.i(TAG, "Selected tags: " + selectedTagIds + ", isFollowed: " + isFollowed);
+        updateAttentionButton(isFollowed);
+      }
+    });
+    dialog.show();
+  }
+
+  private void updateAttentionButton(boolean isFollowed) {
+    if (attentionButton != null) {
+      attentionButton.setText(isFollowed ? "已关注" : "＋关注");
+      attentionButton.setUpDrawable(R.drawable.shadow_red_rect);
     }
   }
   

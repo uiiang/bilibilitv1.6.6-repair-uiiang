@@ -1758,6 +1758,51 @@
     .end annotation
 .end method
 
+.method public abstract setRelationTags(JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # J
+        .annotation runtime Lretrofit2/http/Field;
+            value = "fids"
+        .end annotation
+    .end param
+    .param p3    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Field;
+            value = "tagids"
+        .end annotation
+    .end param
+    .param p4    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Field;
+            value = "csrf"
+        .end annotation
+    .end param
+    .param p5    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(J",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            ")",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Lcom/alibaba/fastjson/JSONObject;",
+            ">;>;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/FormUrlEncoded;
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/POST;
+        value = "/x/relation/tags/addUsers"
+    .end annotation
+.end method
+
 .method public abstract tripleVideo(JLjava/lang/String;Ljava/lang/String;)Lbl/vp;
     .param p1    # J
         .annotation runtime Lretrofit2/http/Field;

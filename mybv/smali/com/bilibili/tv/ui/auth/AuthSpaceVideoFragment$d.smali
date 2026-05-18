@@ -156,7 +156,7 @@
     return-void
 .end method
 
-.method static synthetic access$900(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;)Landroid/widget/TextView;
+.method static synthetic access$1000(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;)Landroid/widget/TextView;
     .locals 1
 
     .prologue

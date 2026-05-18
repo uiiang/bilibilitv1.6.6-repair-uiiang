@@ -2765,6 +2765,8 @@
     <public type="layout" name="player_shot_menu" id="0x7f0a00a6" />
     <public type="layout" name="player_seek_bar_simple" id="0x7f0a00a7" />
     <public type="layout" name="item_chapter" id="0x7f0a00a8" />
+    <public type="layout" name="dialog_relation_tag_menu" id="0x7f0a00a9" />
+    <public type="layout" name="item_relation_tag_menu" id="0x7f0a00aa" />
 
 
     <public type="mipmap" name="ic_launcher" id="0x7f0b0000" />
@@ -3598,4 +3600,6 @@
     <public type="id" name="decode_settings_layout" id="0x7f08022b" />
     <public type="id" name="codec_settings_layout" id="0x7f08022c" />
     <public type="id" name="tab_button6" id="0x7f08022d" />
+    <public type="id" name="relation_tag_list" id="0x7f08022e" />
+    <public type="id" name="tag_name" id="0x7f08022f" />
 </resources>

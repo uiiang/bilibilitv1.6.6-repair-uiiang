@@ -117,17 +117,27 @@
     return-void
 .end method
 
-.method static synthetic access$000(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)J
-    .locals 2
+.method static synthetic access$000(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
+    .locals 0
 
     .prologue
     .line 47
-    iget-wide v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mid:J
+    invoke-direct {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->showRelationTagMenu()V
 
-    return-wide v0
+    return-void
 .end method
 
-.method static synthetic access$100(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;
+.method static synthetic access$100(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)V
+    .locals 0
+
+    .prologue
+    .line 47
+    invoke-direct {p0, p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->updateAttentionButton(Z)V
+
+    return-void
+.end method
+
+.method static synthetic access$200(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;
     .locals 1
 
     .prologue
@@ -137,7 +147,7 @@
     return-object v0
 .end method
 
-.method static synthetic access$200(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Z
+.method static synthetic access$300(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Z
     .locals 1
 
     .prologue
@@ -147,7 +157,7 @@
     return v0
 .end method
 
-.method static synthetic access$202(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)Z
+.method static synthetic access$302(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)Z
     .locals 0
 
     .prologue
@@ -157,7 +167,7 @@
     return p1
 .end method
 
-.method static synthetic access$300(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)I
+.method static synthetic access$400(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)I
     .locals 1
 
     .prologue
@@ -167,7 +177,7 @@
     return v0
 .end method
 
-.method static synthetic access$308(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)I
+.method static synthetic access$408(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)I
     .locals 2
 
     .prologue
@@ -181,7 +191,7 @@
     return v0
 .end method
 
-.method static synthetic access$400(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Z
+.method static synthetic access$500(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Z
     .locals 1
 
     .prologue
@@ -191,7 +201,7 @@
     return v0
 .end method
 
-.method static synthetic access$402(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)Z
+.method static synthetic access$502(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)Z
     .locals 0
 
     .prologue
@@ -201,7 +211,7 @@
     return p1
 .end method
 
-.method static synthetic access$500(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
+.method static synthetic access$600(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
     .locals 0
 
     .prologue
@@ -211,7 +221,7 @@
     return-void
 .end method
 
-.method static synthetic access$600(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Ljava/lang/String;
+.method static synthetic access$700(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Ljava/lang/String;
     .locals 1
 
     .prologue
@@ -221,7 +231,7 @@
     return-object v0
 .end method
 
-.method static synthetic access$602(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Ljava/lang/String;)Ljava/lang/String;
+.method static synthetic access$702(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Ljava/lang/String;)Ljava/lang/String;
     .locals 0
 
     .prologue
@@ -231,7 +241,7 @@
     return-object p1
 .end method
 
-.method static synthetic access$700(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Z
+.method static synthetic access$800(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Z
     .locals 1
 
     .prologue
@@ -241,7 +251,7 @@
     return v0
 .end method
 
-.method static synthetic access$702(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)Z
+.method static synthetic access$802(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)Z
     .locals 0
 
     .prologue
@@ -251,7 +261,7 @@
     return p1
 .end method
 
-.method static synthetic access$800(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Ljava/lang/String;
+.method static synthetic access$900(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Ljava/lang/String;
     .locals 1
 
     .prologue
@@ -696,9 +706,9 @@
 
     move-result-object v0
 
-    new-instance v1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;
+    new-instance v1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$5;
 
-    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
+    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$5;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
 
     .line 353
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
@@ -795,9 +805,9 @@
 
     move-result-object v0
 
-    new-instance v1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$7;
+    new-instance v1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$8;
 
-    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$7;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
+    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$8;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
 
     .line 605
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
@@ -987,9 +997,9 @@
 
     move-result-object v0
 
-    new-instance v1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$5;
+    new-instance v1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$6;
 
-    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$5;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
+    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$6;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
 
     .line 445
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
@@ -1200,9 +1210,9 @@
 
     move-result-object v0
 
-    new-instance v1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$6;
+    new-instance v1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$7;
 
-    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$6;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
+    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$7;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
 
     .line 526
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
@@ -1266,7 +1276,7 @@
 
     if-nez v0, :cond_5
 
-    .line 247
+    .line 221
     :cond_4
     :goto_4
     return-void
@@ -1304,7 +1314,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawTextView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 225
+    .line 199
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
@@ -1313,15 +1323,15 @@
 
     move-result-object v0
 
-    .line 226
+    .line 200
     if-eqz v0, :cond_4
 
-    .line 227
+    .line 201
     invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 228
+    .line 202
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -1340,10 +1350,111 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$3;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
 
-    .line 229
+    .line 203
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
     goto :goto_4
+.end method
+
+.method private showRelationTagMenu()V
+    .locals 4
+
+    .prologue
+    .line 224
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
+
+    move-result-object v0
+
+    .line 225
+    if-nez v0, :cond_7
+
+    .line 240
+    :goto_6
+    return-void
+
+    .line 226
+    :cond_7
+    invoke-static {v0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
+
+    move-result-object v1
+
+    .line 227
+    if-eqz v1, :cond_13
+
+    invoke-virtual {v1}, Lbl/mg;->a()Z
+
+    move-result v1
+
+    if-nez v1, :cond_1d
+
+    .line 228
+    :cond_13
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    const-string v1, "\u8d26\u53f7\u672a\u767b\u5f55"
+
+    invoke-static {v0, v1}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
+
+    goto :goto_6
+
+    .line 231
+    :cond_1d
+    new-instance v1, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;
+
+    iget-wide v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->mid:J
+
+    invoke-direct {v1, v0, v2, v3}, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;-><init>(Landroid/app/Activity;J)V
+
+    .line 232
+    new-instance v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;
+
+    invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;-><init>(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
+
+    invoke-virtual {v1, v0}, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;->setOnTagsChangedListener(Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$OnTagsChangedListener;)V
+
+    .line 239
+    invoke-virtual {v1}, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;->show()V
+
+    goto :goto_6
+.end method
+
+.method private updateAttentionButton(Z)V
+    .locals 2
+
+    .prologue
+    .line 243
+    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
+
+    if-eqz v0, :cond_15
+
+    .line 244
+    iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
+
+    if-eqz p1, :cond_16
+
+    const-string v0, "\u5df2\u5173\u6ce8"
+
+    :goto_a
+    invoke-virtual {v1, v0}, Lcom/bilibili/tv/widget/DrawTextView;->setText(Ljava/lang/CharSequence;)V
+
+    .line 245
+    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
+
+    const v1, 0x7f0700e7
+
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawTextView;->setUpDrawable(I)V
+
+    .line 247
+    :cond_15
+    return-void
+
+    .line 244
+    :cond_16
+    const-string v0, "\uff0b\u5173\u6ce8"
+
+    goto :goto_a
 .end method
 
 

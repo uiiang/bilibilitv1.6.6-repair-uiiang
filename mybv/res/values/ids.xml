@@ -444,4 +444,6 @@
     <item type="id" name="menu_subtitle_size_btn" />
     <item type="id" name="decode_settings_layout" />
     <item type="id" name="codec_settings_layout" />
+    <item type="id" name="relation_tag_list" />
+    <item type="id" name="tag_name" />
 </resources>

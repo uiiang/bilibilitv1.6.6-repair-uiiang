@@ -79,7 +79,7 @@
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$e;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->firstLoad:Z
-    invoke-static {v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$700(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Z
+    invoke-static {v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$800(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Z
 
     move-result v1
 
@@ -91,7 +91,7 @@
     const/4 v1, 0x0
 
     # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->firstLoad:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$702(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)Z
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$802(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)Z
 
     goto :goto_a
 .end method
