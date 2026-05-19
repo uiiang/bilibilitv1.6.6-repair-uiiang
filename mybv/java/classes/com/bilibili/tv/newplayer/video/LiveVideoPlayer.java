@@ -297,9 +297,11 @@ public class LiveVideoPlayer extends wy {
             this.F.release();
             this.F = null;
 
-            this.danmakuClient.release();
-            this.danmakuClient.player = null;
-            this.danmakuClient = null;
+            if (this.danmakuClient != null) {
+                this.danmakuClient.release();
+                this.danmakuClient.player = null;
+                this.danmakuClient = null;
+            }
         }
         if (this.aj != null) {
             this.aj.a((IDanmakuPlayer) null);

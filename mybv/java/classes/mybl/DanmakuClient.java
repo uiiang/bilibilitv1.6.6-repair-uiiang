@@ -114,6 +114,7 @@ public class DanmakuClient {
                 + ", \"protover\": 2, \"platform\": \"web\", \"type\": 2, \"key\": \"" + token + "\"}";
         try {
             client = new DanmakuWebSocketClient(new URI(url));
+            client.setConnectionLostTimeout(0);
             client.connectBlocking();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             DataOutputStream outToServer = new DataOutputStream(baos);
@@ -135,6 +136,8 @@ public class DanmakuClient {
                 client.send(baos.toByteArray());
                 Thread.sleep(10000);
             }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -193,7 +196,9 @@ public class DanmakuClient {
                         spannableStringBuilder.setSpan(new ImageSpan(scaledBitmap),0,content.length(),Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
                     drawableItem.mSpannableString=spannableStringBuilder;
-                    player.onDanmakuAppended(drawableItem);
+                    if(player != null){
+                        player.onDanmakuAppended(drawableItem);
+                    }
                     Thread.sleep(100);
 
                 }
@@ -218,9 +223,15 @@ public class DanmakuClient {
 
     public void release(){
         if(client!=null && !client.isClosed()){
-            try{client.close();client_thread.interrupt();}
-            catch(Exception e){e.printStackTrace();}
+            try{
+                client.close();
+                client_thread.interrupt();
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
         }
+        player = null;
     }
 
     public static class Response extends qe {

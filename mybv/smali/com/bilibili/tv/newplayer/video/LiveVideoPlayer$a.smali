@@ -26,12 +26,12 @@
     .locals 0
 
     .prologue
-    .line 437
+    .line 458
     iput-object p1, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer$a;->this$0:Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 438
+    .line 459
     return-void
 .end method
 
@@ -41,6 +41,6 @@
     .locals 0
 
     .prologue
-    .line 435
+    .line 456
     return-void
 .end method
