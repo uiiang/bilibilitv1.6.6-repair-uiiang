@@ -3,6 +3,15 @@
 - fork于bilibilitv1.6.6-repair 感谢大佬的付出 [https://github.com/qidian55/bilibilitv1.6.6-repair]
 - 根据自己使用习惯做了一些修改
 
+v260519
+- 解决直播时弹幕显示问题
+- up主空间页支持修改关注分组
+
+v260517
+- 增加1.75倍速播放
+- 我的页面增加追番追剧
+- 单独调整字幕大小
+
 v260511
 - 支持exoplayer播放内核
 - 支持音量平衡
