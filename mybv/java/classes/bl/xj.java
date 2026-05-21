@@ -19,6 +19,7 @@ import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 import tv.danmaku.videoplayer.core.danmaku.IDanmakuDocument;
+import tv.danmaku.videoplayer.core.media.PlayerSelector;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -340,9 +341,12 @@ public class xj extends xh {
             this.initialPlayPosition = j;
             
             boolean isDashStream = c.a.mVideoParams.mMediaResource != null && c.a.mVideoParams.mMediaResource.dash != null;
+            boolean isExoPlayer = PlayerSelector.shouldUseExoPlayer(o());
             if (j > 0 && zt.a(j, this.i)) {
                 if (isDashStream) {
                     Log.i("xj", "[seek-at-start] DASH stream, skip seekTo in onPrepared, seek-at-start will handle it");
+                } else if (isExoPlayer) {
+                    Log.i("xj", "[seek-at-start] ExoPlayer Progressive stream, skip seekTo in onPrepared, setDataSourceWithSeek will handle it");
                 } else {
                     c((int)j);
                 }

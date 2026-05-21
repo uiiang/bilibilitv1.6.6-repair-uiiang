@@ -1,12 +1,12 @@
 {
-    "apkMd5":"2f88432e2029e8e93e478e6ca5018de8",
+    "apkMd5":"fb783429e3971291f2be0139465c0913",
     "apkUrl":"https://github.com/uiiang/bilibilitv1.6.6-repair-uiiang/raw/refs/heads/main/mybv.apk",
-    "fileSize":10775911,
+    "fileSize":10780007,
     "id":"",
-    "newFeature":"1. 关注up主支持修改分组\n2. 解决直播时弹幕显示问题",
+    "newFeature":"",
     "publishTime":0,
     "title":"New",
     "upgradeType":1,
-    "versionCode":20260519,
-    "versionName":"1.6.6.20260519"
+    "versionCode":20260521,
+    "versionName":"1.6.6.20260521"
 }

@@ -35,12 +35,14 @@ import bl.abd;
 import com.bilibili.tv.MainApplication;
 import mybl.VideoViewParams;
 import com.bilibili.tv.player.widget.PlayerMenuRight;
+import mybl.ProgressiveLocalHttpProxy;
 
 public class ExoCommander extends AbsPlayerCommander {
 
     private static final String TAG = "ExoCommander";
     private ExoPlayerImpl mExoPlayer;
     private IVideoView.OnExtraInfoListener mOnExtraInfoListener;
+    private ProgressiveLocalHttpProxy mProxy;
 
     public ExoCommander(IMediaPlayer iMediaPlayer) {
         super(iMediaPlayer);
@@ -119,9 +121,41 @@ public class ExoCommander extends AbsPlayerCommander {
                 this.mExoPlayer.setDataSource(hlsSource);
             } else {
                 Log.i(TAG, "[PROGRESSIVE] Progressive format: " + uriStr);
+                
+                int progressSec = videoViewParams.mResolveParams != null
+                    ? videoViewParams.mResolveParams.mProgress : 0;
+                long progressMs = 0;
+                if (progressSec > 0) {
+                    progressMs = progressSec * 1000L;
+                    Log.i(TAG, "[PROGRESSIVE] Will seek to " + progressMs + "ms on start");
+                }
+                
+                String videoUrl = uriStr;
+                if (uriStr.startsWith("http://") || uriStr.startsWith("https://")) {
+                    try {
+                        if (mProxy == null) {
+                            mProxy = new ProgressiveLocalHttpProxy();
+                            Log.i(TAG, "[PROXY] Created local HTTP proxy on port " + mProxy.getPort());
+                        }
+                        
+                        java.util.List<String> urlCandidates = getUrlCandidates(videoViewParams, uriStr);
+                        Log.i(TAG, "[PROXY] Found " + urlCandidates.size() + " URL candidates");
+                        
+                        videoUrl = mProxy.registerWithBackup(urlCandidates);
+                        Log.i(TAG, "[PROXY] Using proxy URL: " + videoUrl);
+                    } catch (Exception e) {
+                        Log.e(TAG, "[PROXY] Failed to create proxy: " + e.getMessage());
+                    }
+                }
+                
                 MediaSource progressiveSource = new ProgressiveMediaSource.Factory(dataSourceFactory)
-                    .createMediaSource(MediaItem.fromUri(uriStr));
-                this.mExoPlayer.setDataSource(progressiveSource);
+                    .createMediaSource(MediaItem.fromUri(videoUrl));
+                
+                if (progressMs > 0) {
+                    this.mExoPlayer.setDataSourceWithSeek(progressiveSource, progressMs);
+                } else {
+                    this.mExoPlayer.setDataSource(progressiveSource);
+                }
             }
         }
 
@@ -133,15 +167,16 @@ public class ExoCommander extends AbsPlayerCommander {
     }
 
     private DataSource.Factory createDataSourceFactory() {
+        Log.i(TAG, "[DATASOURCE] Creating DefaultHttpDataSource factory");
+        
         DefaultHttpDataSource.Factory httpFactory = new DefaultHttpDataSource.Factory()
             .setUserAgent("Bilibili Freedoooooom/MarkII")
             .setConnectTimeoutMs(10000)
-            .setReadTimeoutMs(30000);
+            .setReadTimeoutMs(30000)
+            .setAllowCrossProtocolRedirects(true);
 
-        Map<String, String> headers = new HashMap<String, String>();
-        headers.put("Referer", "https://www.bilibili.com");
-        httpFactory.setDefaultRequestProperties(headers);
-
+        Log.i(TAG, "[DATASOURCE] DefaultHttpDataSource factory created (headers will be set by local proxy)");
+        
         return httpFactory;
     }
 
@@ -188,8 +223,18 @@ public class ExoCommander extends AbsPlayerCommander {
             
             checkUrlExpiration(videoUrl, "video");
 
+            if (mProxy == null) {
+                mProxy = new ProgressiveLocalHttpProxy();
+                Log.i(TAG, "[PROXY] Created local HTTP proxy on port " + mProxy.getPort());
+            }
+
+            java.util.List<String> videoCandidates = getDashUrlCandidates(selectedVideo, videoUrl);
+            Log.i(TAG, "[DASH_PROXY] Video URL candidates: " + videoCandidates.size());
+            String proxyVideoUrl = mProxy.registerWithBackup(videoCandidates);
+            Log.i(TAG, "[DASH_PROXY] Video proxy URL: " + proxyVideoUrl);
+
             MediaSource videoSource = new ProgressiveMediaSource.Factory(dataSourceFactory)
-                .createMediaSource(MediaItem.fromUri(videoUrl));
+                .createMediaSource(MediaItem.fromUri(proxyVideoUrl));
 
             if (selectedAudio != null) {
                 String audioUrl = selectedAudio.optString("base_url");
@@ -197,9 +242,14 @@ public class ExoCommander extends AbsPlayerCommander {
                 Log.i(TAG, "[DASH_BILI] Selected audio: id=" + audioId + ", url=" + audioUrl);
                 
                 checkUrlExpiration(audioUrl, "audio");
+
+                java.util.List<String> audioCandidates = getDashUrlCandidates(selectedAudio, audioUrl);
+                Log.i(TAG, "[DASH_PROXY] Audio URL candidates: " + audioCandidates.size());
+                String proxyAudioUrl = mProxy.registerWithBackup(audioCandidates);
+                Log.i(TAG, "[DASH_PROXY] Audio proxy URL: " + proxyAudioUrl);
                 
                 MediaSource audioSource = new ProgressiveMediaSource.Factory(dataSourceFactory)
-                    .createMediaSource(MediaItem.fromUri(audioUrl));
+                    .createMediaSource(MediaItem.fromUri(proxyAudioUrl));
                 Log.i(TAG, "[DASH_BILI] Merging video and audio sources");
                 return new MergingMediaSource(true, true, videoSource, audioSource);
             }
@@ -210,6 +260,31 @@ public class ExoCommander extends AbsPlayerCommander {
             Log.e(TAG, "[DASH_BILI] Failed to build DASH source", e);
             throw new IOException("DASH source error", e);
         }
+    }
+    
+    private java.util.List<String> getDashUrlCandidates(JSONObject mediaObj, String baseUrl) {
+        java.util.List<String> candidates = new java.util.ArrayList<>();
+        candidates.add(baseUrl);
+        
+        if (mediaObj == null) {
+            return candidates;
+        }
+        
+        JSONArray backupUrls = mediaObj.optJSONArray("backup_url");
+        if (backupUrls != null && backupUrls.length() > 0) {
+            Log.i(TAG, "[DASH_BACKUP] Found " + backupUrls.length() + " backup URLs");
+            for (int i = 0; i < backupUrls.length(); i++) {
+                String backupUrl = backupUrls.optString(i);
+                if (!TextUtils.isEmpty(backupUrl) && !candidates.contains(backupUrl)) {
+                    candidates.add(backupUrl);
+                    Log.i(TAG, "[DASH_BACKUP] Added backup URL: " + (backupUrl.length() > 80 ? backupUrl.substring(0, 80) + "..." : backupUrl));
+                }
+            }
+        } else {
+            Log.i(TAG, "[DASH_BACKUP] No backup URLs found");
+        }
+        
+        return candidates;
     }
     
     private void checkUrlExpiration(String url, String type) {
@@ -348,5 +423,87 @@ public class ExoCommander extends AbsPlayerCommander {
             return false;
         }
         return true;
+    }
+    
+    private java.util.List<String> getUrlCandidates(com.bilibili.tv.player.basic.context.VideoViewParams videoViewParams, String primaryUrl) {
+        java.util.List<String> candidates = new java.util.ArrayList<>();
+        candidates.add(primaryUrl);
+        
+        if (videoViewParams == null || videoViewParams.mMediaResource == null) {
+            Log.i(TAG, "[BACKUP_URLS] No MediaResource available");
+            return candidates;
+        }
+        
+        com.bilibili.lib.media.resource.MediaResource mediaResource = videoViewParams.mMediaResource;
+        
+        if (mediaResource.a == null || mediaResource.a.a == null || mediaResource.a.a.isEmpty()) {
+            Log.i(TAG, "[BACKUP_URLS] No VodIndex or PlayIndex list available");
+            return candidates;
+        }
+        
+        int resolvedIndex = mediaResource.e();
+        if (resolvedIndex < 0 || resolvedIndex >= mediaResource.a.a.size()) {
+            Log.i(TAG, "[BACKUP_URLS] Invalid resolved index: " + resolvedIndex);
+            return candidates;
+        }
+        
+        Object playIndexObj = mediaResource.a.a.get(resolvedIndex);
+        if (playIndexObj == null) {
+            Log.i(TAG, "[BACKUP_URLS] PlayIndex is null at index " + resolvedIndex);
+            return candidates;
+        }
+        
+        try {
+            Class<?> playIndexClass = playIndexObj.getClass();
+            java.lang.reflect.Field segmentListField = playIndexClass.getField("f");
+            Object segmentListObj = segmentListField.get(playIndexObj);
+            
+            if (segmentListObj == null) {
+                Log.i(TAG, "[BACKUP_URLS] Segment list is null");
+                return candidates;
+            }
+            
+            java.util.ArrayList<?> segmentList = (java.util.ArrayList<?>) segmentListObj;
+            if (segmentList.isEmpty()) {
+                Log.i(TAG, "[BACKUP_URLS] Segment list is empty");
+                return candidates;
+            }
+            
+            Object segmentObj = segmentList.get(0);
+            Class<?> segmentClass = segmentObj.getClass();
+            
+            java.lang.reflect.Field backupUrlsField = segmentClass.getField("e");
+            Object backupUrlsObj = backupUrlsField.get(segmentObj);
+            
+            if (backupUrlsObj != null) {
+                java.util.ArrayList<String> backupUrls = (java.util.ArrayList<String>) backupUrlsObj;
+                Log.i(TAG, "[BACKUP_URLS] Found " + backupUrls.size() + " backup URLs");
+                
+                for (String backupUrl : backupUrls) {
+                    if (!TextUtils.isEmpty(backupUrl) && !candidates.contains(backupUrl)) {
+                        candidates.add(backupUrl);
+                        Log.i(TAG, "[BACKUP_URLS] Added backup URL: " + (backupUrl.length() > 80 ? backupUrl.substring(0, 80) + "..." : backupUrl));
+                    }
+                }
+            } else {
+                Log.i(TAG, "[BACKUP_URLS] No backup URLs field");
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "[BACKUP_URLS] Error getting backup URLs: " + e.getMessage());
+        }
+        
+        return candidates;
+    }
+    
+    public void release() {
+        if (mProxy != null) {
+            try {
+                mProxy.close();
+                Log.i(TAG, "[PROXY] Local HTTP proxy closed");
+            } catch (Exception e) {
+                Log.e(TAG, "[PROXY] Error closing proxy: " + e.getMessage());
+            }
+            mProxy = null;
+        }
     }
 }

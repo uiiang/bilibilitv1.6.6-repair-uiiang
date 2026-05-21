@@ -64,6 +64,7 @@ public class ExoPlayerImpl implements IMediaPlayer {
     private Runnable positionUpdateRunnable;
     private Runnable bufferMonitorRunnable;
     private int lastPlaybackState = Player.STATE_IDLE;
+    private boolean hasPrepared = false;
 
     private OnPreparedListener onPreparedListener;
     private OnCompletionListener onCompletionListener;
@@ -200,7 +201,9 @@ public class ExoPlayerImpl implements IMediaPlayer {
                                 Log.i(TAG, "[STATE] Network error retry succeeded, resetting retry count");
                                 networkErrorRetryCount = 0;
                             }
-                            if (onPreparedListener != null) {
+                            if (onPreparedListener != null && !hasPrepared) {
+                                hasPrepared = true;
+                                Log.i(TAG, "[STATE] First READY, calling onPrepared");
                                 onPreparedListener.onPrepared(ExoPlayerImpl.this);
                             }
                             mainHandler.post(positionUpdateRunnable);
@@ -624,6 +627,7 @@ public class ExoPlayerImpl implements IMediaPlayer {
     @Override
     public void reset() {
         Log.i(TAG, "reset");
+        hasPrepared = false;
         if (exoPlayer != null) {
             exoPlayer.stop();
             exoPlayer.clearMediaItems();
