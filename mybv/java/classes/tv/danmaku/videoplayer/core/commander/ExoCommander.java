@@ -32,17 +32,19 @@ import tv.danmaku.videoplayer.core.videoview.IVideoParams;
 import tv.danmaku.videoplayer.core.videoview.IVideoView;
 
 import bl.abd;
+import bl.mg;
 import com.bilibili.tv.MainApplication;
 import mybl.VideoViewParams;
+import mybl.CookieUtil;
 import com.bilibili.tv.player.widget.PlayerMenuRight;
-import mybl.ProgressiveLocalHttpProxy;
+import mybl.CdnFailoverDataSource;
+import mybl.CdnFailoverDataSourceFactory;
 
 public class ExoCommander extends AbsPlayerCommander {
 
     private static final String TAG = "ExoCommander";
     private ExoPlayerImpl mExoPlayer;
     private IVideoView.OnExtraInfoListener mOnExtraInfoListener;
-    private ProgressiveLocalHttpProxy mProxy;
 
     public ExoCommander(IMediaPlayer iMediaPlayer) {
         super(iMediaPlayer);
@@ -53,12 +55,13 @@ public class ExoCommander extends AbsPlayerCommander {
     @Override
     public void openVideo(Context context, IVideoParams iVideoParams, Uri uri) throws IOException {
         long openStart = System.currentTimeMillis();
-        Log.i(TAG, "preparing video -> " + uri);
+        Log.i(TAG, "[OPEN_VIDEO] preparing video -> " + uri);
 
         String uriStr = uri.toString();
         tv.danmaku.videoplayer.core.media.resource.MediaSource mediaSource = iVideoParams.getMediaSource();
 
         if (isMultiSegmentVideo(uriStr, mediaSource)) {
+            Log.i(TAG, "[OPEN_VIDEO] Multi-segment video detected");
             StringBuilder sb = new StringBuilder("ffconcat version 1.0\n");
             Iterator<SegmentSource> it = mediaSource.mSegmentList.iterator();
             int index = 0;
@@ -83,6 +86,8 @@ public class ExoCommander extends AbsPlayerCommander {
                 (com.bilibili.tv.player.basic.context.VideoViewParams) iVideoParams;
             boolean hasDash = videoViewParams.mMediaResource != null
                 && videoViewParams.mMediaResource.dash != null;
+
+            Log.i(TAG, "[OPEN_VIDEO] hasDash=" + hasDash);
 
             DataSource.Factory dataSourceFactory = createDataSourceFactory();
 
@@ -130,26 +135,26 @@ public class ExoCommander extends AbsPlayerCommander {
                     Log.i(TAG, "[PROGRESSIVE] Will seek to " + progressMs + "ms on start");
                 }
                 
-                String videoUrl = uriStr;
+                DataSource.Factory factory = dataSourceFactory;
+                
                 if (uriStr.startsWith("http://") || uriStr.startsWith("https://")) {
-                    try {
-                        if (mProxy == null) {
-                            mProxy = new ProgressiveLocalHttpProxy();
-                            Log.i(TAG, "[PROXY] Created local HTTP proxy on port " + mProxy.getPort());
+                    java.util.List<String> urlCandidates = getUrlCandidates(videoViewParams, uriStr);
+                    Log.i(TAG, "[CDN_FAILOVER] Found " + urlCandidates.size() + " URL candidates");
+                    
+                    if (urlCandidates.size() > 1) {
+                        java.util.List<Uri> uris = new java.util.ArrayList<>();
+                        for (String url : urlCandidates) {
+                            uris.add(Uri.parse(url));
                         }
-                        
-                        java.util.List<String> urlCandidates = getUrlCandidates(videoViewParams, uriStr);
-                        Log.i(TAG, "[PROXY] Found " + urlCandidates.size() + " URL candidates");
-                        
-                        videoUrl = mProxy.registerWithBackup(urlCandidates);
-                        Log.i(TAG, "[PROXY] Using proxy URL: " + videoUrl);
-                    } catch (Exception e) {
-                        Log.e(TAG, "[PROXY] Failed to create proxy: " + e.getMessage());
+                        factory = new CdnFailoverDataSourceFactory(dataSourceFactory, uris, "PROGRESSIVE");
+                        Log.i(TAG, "[CDN_FAILOVER] Using CdnFailoverDataSource with " + uris.size() + " candidates");
+                    } else {
+                        Log.i(TAG, "[CDN_FAILOVER] Only one URL candidate, using default DataSource");
                     }
                 }
                 
-                MediaSource progressiveSource = new ProgressiveMediaSource.Factory(dataSourceFactory)
-                    .createMediaSource(MediaItem.fromUri(videoUrl));
+                MediaSource progressiveSource = new ProgressiveMediaSource.Factory(factory)
+                    .createMediaSource(MediaItem.fromUri(uriStr));
                 
                 if (progressMs > 0) {
                     this.mExoPlayer.setDataSourceWithSeek(progressiveSource, progressMs);
@@ -169,13 +174,29 @@ public class ExoCommander extends AbsPlayerCommander {
     private DataSource.Factory createDataSourceFactory() {
         Log.i(TAG, "[DATASOURCE] Creating DefaultHttpDataSource factory");
         
+        String pcUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36";
+        
         DefaultHttpDataSource.Factory httpFactory = new DefaultHttpDataSource.Factory()
-            .setUserAgent("Bilibili Freedoooooom/MarkII")
+            .setUserAgent(pcUserAgent)
             .setConnectTimeoutMs(10000)
             .setReadTimeoutMs(30000)
             .setAllowCrossProtocolRedirects(true);
 
-        Log.i(TAG, "[DATASOURCE] DefaultHttpDataSource factory created (headers will be set by local proxy)");
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        headers.put("Referer", "https://www.bilibili.com/");
+        
+        mg biliAccount = mg.a(MainApplication.a());
+        String cookie = CookieUtil.getFullCookieWithDevice(biliAccount);
+        if (cookie != null && !cookie.isEmpty()) {
+            headers.put("Cookie", cookie);
+            Log.i(TAG, "[DATASOURCE] Added Cookie header, length=" + cookie.length());
+        } else {
+            Log.w(TAG, "[DATASOURCE] No Cookie available");
+        }
+        
+        httpFactory.setDefaultRequestProperties(headers);
+        
+        Log.i(TAG, "[DATASOURCE] DefaultHttpDataSource factory created with PC User-Agent, Referer and Cookie headers");
         
         return httpFactory;
     }
@@ -203,6 +224,26 @@ public class ExoCommander extends AbsPlayerCommander {
         HlsMediaSource.Factory hlsFactory = new HlsMediaSource.Factory(dataSourceFactory);
         return hlsFactory.createMediaSource(MediaItem.fromUri(m3u8Url));
     }
+    
+    private String fixPlatformInUrl(String url) {
+        if (TextUtils.isEmpty(url)) return url;
+        
+        String fixedUrl = url;
+        if (url.contains("platform=android_tv")) {
+            fixedUrl = url.replace("platform=android_tv", "platform=pc");
+            Log.i(TAG, "[URL_FIX] Fixed platform parameter: android_tv -> pc");
+        } else if (url.contains("platform=android")) {
+            fixedUrl = url.replace("platform=android", "platform=pc");
+            Log.i(TAG, "[URL_FIX] Fixed platform parameter: android -> pc");
+        }
+        
+        if (!fixedUrl.equals(url)) {
+            Log.i(TAG, "[URL_FIX] Original URL: " + (url.length() > 100 ? url.substring(0, 100) + "..." : url));
+            Log.i(TAG, "[URL_FIX] Fixed URL: " + (fixedUrl.length() > 100 ? fixedUrl.substring(0, 100) + "..." : fixedUrl));
+        }
+        
+        return fixedUrl;
+    }
 
     private MediaSource buildBiliDashMediaSource(JSONObject dashJson, int quality, DataSource.Factory dataSourceFactory) throws IOException {
         try {
@@ -218,38 +259,53 @@ public class ExoCommander extends AbsPlayerCommander {
             }
 
             String videoUrl = selectedVideo.optString("base_url");
+            videoUrl = fixPlatformInUrl(videoUrl);
             int videoId = selectedVideo.optInt("id");
             Log.i(TAG, "[DASH_BILI] Selected video: id=" + videoId + ", url=" + videoUrl);
             
             checkUrlExpiration(videoUrl, "video");
 
-            if (mProxy == null) {
-                mProxy = new ProgressiveLocalHttpProxy();
-                Log.i(TAG, "[PROXY] Created local HTTP proxy on port " + mProxy.getPort());
+            java.util.List<String> videoCandidates = getDashUrlCandidates(selectedVideo, videoUrl);
+            Log.i(TAG, "[DASH_CDN] Video URL candidates: " + videoCandidates.size());
+            
+            DataSource.Factory videoFactory = dataSourceFactory;
+            if (videoCandidates.size() > 1) {
+                java.util.List<Uri> videoUris = new java.util.ArrayList<>();
+                for (String url : videoCandidates) {
+                    String fixedUrl = fixPlatformInUrl(url);
+                    videoUris.add(Uri.parse(fixedUrl));
+                }
+                videoFactory = new CdnFailoverDataSourceFactory(dataSourceFactory, videoUris, "DASH_VIDEO");
+                Log.i(TAG, "[DASH_CDN] Using CdnFailoverDataSource for video with " + videoUris.size() + " candidates");
             }
 
-            java.util.List<String> videoCandidates = getDashUrlCandidates(selectedVideo, videoUrl);
-            Log.i(TAG, "[DASH_PROXY] Video URL candidates: " + videoCandidates.size());
-            String proxyVideoUrl = mProxy.registerWithBackup(videoCandidates);
-            Log.i(TAG, "[DASH_PROXY] Video proxy URL: " + proxyVideoUrl);
-
-            MediaSource videoSource = new ProgressiveMediaSource.Factory(dataSourceFactory)
-                .createMediaSource(MediaItem.fromUri(proxyVideoUrl));
+            MediaSource videoSource = new ProgressiveMediaSource.Factory(videoFactory)
+                .createMediaSource(MediaItem.fromUri(videoUrl));
 
             if (selectedAudio != null) {
                 String audioUrl = selectedAudio.optString("base_url");
+                audioUrl = fixPlatformInUrl(audioUrl);
                 int audioId = selectedAudio.optInt("id");
                 Log.i(TAG, "[DASH_BILI] Selected audio: id=" + audioId + ", url=" + audioUrl);
                 
                 checkUrlExpiration(audioUrl, "audio");
 
                 java.util.List<String> audioCandidates = getDashUrlCandidates(selectedAudio, audioUrl);
-                Log.i(TAG, "[DASH_PROXY] Audio URL candidates: " + audioCandidates.size());
-                String proxyAudioUrl = mProxy.registerWithBackup(audioCandidates);
-                Log.i(TAG, "[DASH_PROXY] Audio proxy URL: " + proxyAudioUrl);
+                Log.i(TAG, "[DASH_CDN] Audio URL candidates: " + audioCandidates.size());
                 
-                MediaSource audioSource = new ProgressiveMediaSource.Factory(dataSourceFactory)
-                    .createMediaSource(MediaItem.fromUri(proxyAudioUrl));
+                DataSource.Factory audioFactory = dataSourceFactory;
+                if (audioCandidates.size() > 1) {
+                    java.util.List<Uri> audioUris = new java.util.ArrayList<>();
+                    for (String url : audioCandidates) {
+                        String fixedUrl = fixPlatformInUrl(url);
+                        audioUris.add(Uri.parse(fixedUrl));
+                    }
+                    audioFactory = new CdnFailoverDataSourceFactory(dataSourceFactory, audioUris, "DASH_AUDIO");
+                    Log.i(TAG, "[DASH_CDN] Using CdnFailoverDataSource for audio with " + audioUris.size() + " candidates");
+                }
+                
+                MediaSource audioSource = new ProgressiveMediaSource.Factory(audioFactory)
+                    .createMediaSource(MediaItem.fromUri(audioUrl));
                 Log.i(TAG, "[DASH_BILI] Merging video and audio sources");
                 return new MergingMediaSource(true, true, videoSource, audioSource);
             }
@@ -493,17 +549,5 @@ public class ExoCommander extends AbsPlayerCommander {
         }
         
         return candidates;
-    }
-    
-    public void release() {
-        if (mProxy != null) {
-            try {
-                mProxy.close();
-                Log.i(TAG, "[PROXY] Local HTTP proxy closed");
-            } catch (Exception e) {
-                Log.e(TAG, "[PROXY] Error closing proxy: " + e.getMessage());
-            }
-            mProxy = null;
-        }
     }
 }

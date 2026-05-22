@@ -86,6 +86,11 @@ public class ExoPlayerImpl implements IMediaPlayer {
     private int networkErrorRetryCount = 0;
     private Runnable networkErrorRetryRunnable;
     
+    private static final int MAX_NAL_ERROR_RETRY = 3;
+    private int nalErrorRetryCount = 0;
+    private MediaSource savedMediaSource = null;
+    private long savedSeekPosition = 0;
+    
     public interface PlayerErrorListener {
         void onPlayerError(int errorCode, String errorMessage, Integer httpCode);
     }
@@ -244,9 +249,49 @@ public class ExoPlayerImpl implements IMediaPlayer {
                         Log.e(TAG, "[ERROR] Cause: " + error.getCause().getMessage());
                     }
                     
+                    if (exoPlayer != null) {
+                        Log.e(TAG, "[ERROR] Position when error: " + exoPlayer.getCurrentPosition() + "ms / " + exoPlayer.getDuration() + "ms");
+                        Log.e(TAG, "[ERROR] Buffered position: " + exoPlayer.getBufferedPosition() + "ms");
+                        Log.e(TAG, "[ERROR] Playback state: " + exoPlayer.getPlaybackState());
+                    }
+                    
                     Integer httpCode = findHttpResponseCode(error);
                     if (httpCode != null) {
                         Log.e(TAG, "[ERROR] HTTP status code: " + httpCode);
+                    }
+                    
+                    boolean isNalError = error.getCause() != null && 
+                        error.getCause().getMessage() != null &&
+                        error.getCause().getMessage().contains("Invalid NAL length");
+                    
+                    if (isNalError && savedMediaSource != null) {
+                        long errorPosition = exoPlayer != null ? exoPlayer.getCurrentPosition() : savedSeekPosition;
+                        long duration = exoPlayer != null ? exoPlayer.getDuration() : 0;
+                        long skipPosition = errorPosition + 10000;
+                        
+                        if (duration > 0 && skipPosition < duration - 10000) {
+                            Log.w(TAG, "[ERROR] NAL unit error detected, trying to skip 10 seconds from " + errorPosition + "ms to " + skipPosition + "ms");
+                            
+                            if (nalErrorRetryCount < MAX_NAL_ERROR_RETRY) {
+                                nalErrorRetryCount++;
+                                Log.w(TAG, "[ERROR] NAL error skip attempt " + nalErrorRetryCount + "/" + MAX_NAL_ERROR_RETRY);
+                                
+                                if (exoPlayer != null) {
+                                    exoPlayer.release();
+                                    exoPlayer = null;
+                                }
+                                
+                                savedSeekPosition = skipPosition;
+                                ensurePlayer();
+                                exoPlayer.setMediaSource(savedMediaSource, skipPosition);
+                                exoPlayer.prepare();
+                                return;
+                            } else {
+                                Log.e(TAG, "[ERROR] Max NAL error retries reached, giving up");
+                            }
+                        } else {
+                            Log.e(TAG, "[ERROR] NAL error near end of video, cannot skip");
+                        }
                     }
                     
                     boolean isNetworkError = isNetworkError(error);
@@ -560,6 +605,8 @@ public class ExoPlayerImpl implements IMediaPlayer {
 
     public void setDataSourceWithSeek(MediaSource mediaSource, long seekMs) {
         Log.i(TAG, "setDataSourceWithSeek(MediaSource, " + seekMs + ")");
+        this.savedMediaSource = mediaSource;
+        this.savedSeekPosition = seekMs;
         ensurePlayer();
         exoPlayer.setMediaSource(mediaSource, seekMs);
     }
@@ -628,6 +675,8 @@ public class ExoPlayerImpl implements IMediaPlayer {
     public void reset() {
         Log.i(TAG, "reset");
         hasPrepared = false;
+        nalErrorRetryCount = 0;
+        networkErrorRetryCount = 0;
         if (exoPlayer != null) {
             exoPlayer.stop();
             exoPlayer.clearMediaItems();

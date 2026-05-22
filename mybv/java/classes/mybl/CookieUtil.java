@@ -148,4 +148,22 @@ public class CookieUtil {
         }
         return null;
     }
+
+    public static String getCookieValue(String cookieString, String name) {
+        if (cookieString == null || name == null || cookieString.isEmpty()) {
+            return null;
+        }
+        String[] cookies = cookieString.split(";");
+        for (String cookie : cookies) {
+            String trimmed = cookie.trim();
+            int eqIndex = trimmed.indexOf('=');
+            if (eqIndex > 0) {
+                String cookieName = trimmed.substring(0, eqIndex).trim();
+                if (name.equals(cookieName)) {
+                    return trimmed.substring(eqIndex + 1).trim();
+                }
+            }
+        }
+        return null;
+    }
 }

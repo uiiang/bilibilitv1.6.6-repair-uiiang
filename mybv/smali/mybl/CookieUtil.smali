@@ -275,6 +275,99 @@
     goto :goto_6
 .end method
 
+.method public static getCookieValue(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    .locals 8
+
+    .prologue
+    const/4 v0, 0x0
+
+    const/4 v2, 0x0
+
+    .line 153
+    if-eqz p0, :cond_c
+
+    if-eqz p1, :cond_c
+
+    invoke-virtual {p0}, Ljava/lang/String;->isEmpty()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_d
+
+    .line 167
+    :cond_c
+    :goto_c
+    return-object v0
+
+    .line 156
+    :cond_d
+    const-string v1, ";"
+
+    invoke-virtual {p0, v1}, Ljava/lang/String;->split(Ljava/lang/String;)[Ljava/lang/String;
+
+    move-result-object v3
+
+    .line 157
+    array-length v4, v3
+
+    move v1, v2
+
+    :goto_15
+    if-ge v1, v4, :cond_c
+
+    aget-object v5, v3, v1
+
+    .line 158
+    invoke-virtual {v5}, Ljava/lang/String;->trim()Ljava/lang/String;
+
+    move-result-object v5
+
+    .line 159
+    const/16 v6, 0x3d
+
+    invoke-virtual {v5, v6}, Ljava/lang/String;->indexOf(I)I
+
+    move-result v6
+
+    .line 160
+    if-lez v6, :cond_3e
+
+    .line 161
+    invoke-virtual {v5, v2, v6}, Ljava/lang/String;->substring(II)Ljava/lang/String;
+
+    move-result-object v7
+
+    invoke-virtual {v7}, Ljava/lang/String;->trim()Ljava/lang/String;
+
+    move-result-object v7
+
+    .line 162
+    invoke-virtual {p1, v7}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v7
+
+    if-eqz v7, :cond_3e
+
+    .line 163
+    add-int/lit8 v0, v6, 0x1
+
+    invoke-virtual {v5, v0}, Ljava/lang/String;->substring(I)Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/String;->trim()Ljava/lang/String;
+
+    move-result-object v0
+
+    goto :goto_c
+
+    .line 157
+    :cond_3e
+    add-int/lit8 v1, v1, 0x1
+
+    goto :goto_15
+.end method
+
 .method public static getDedeUserID(Lbl/mg;)Ljava/lang/String;
     .locals 1
 

@@ -12,33 +12,31 @@
 
 .field private mOnExtraInfoListener:Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;
 
-.field private mProxy:Lmybl/ProgressiveLocalHttpProxy;
-
 
 # direct methods
 .method public constructor <init>(Ltv/danmaku/ijk/media/player/IMediaPlayer;)V
     .locals 1
 
     .prologue
-    .line 48
+    .line 50
     invoke-direct {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;-><init>(Ltv/danmaku/ijk/media/player/IMediaPlayer;)V
 
-    .line 49
+    .line 51
     invoke-static {p1}, Ltv/danmaku/videoplayer/core/media/PlayerProxyUtils;->getActualPlayer(Ltv/danmaku/ijk/media/player/IMediaPlayer;)Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     move-result-object v0
 
-    .line 50
+    .line 52
     check-cast v0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     iput-object v0, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mExoPlayer:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
-    .line 51
+    .line 53
     return-void
 .end method
 
 .method private buildBiliDashMediaSource(Lorg/json/JSONObject;ILcom/google/android/exoplayer2/upstream/DataSource$Factory;)Lcom/google/android/exoplayer2/source/MediaSource;
-    .locals 7
+    .locals 8
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/io/IOException;
@@ -46,47 +44,51 @@
     .end annotation
 
     .prologue
-    .line 209
-    :try_start_0
+    const/4 v7, 0x1
+
+    .line 250
+    :try_start_1
     const-string v0, "video"
 
     invoke-virtual {p1, v0}, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
 
     move-result-object v0
 
-    .line 210
+    .line 251
     const-string v1, "audio"
 
     invoke-virtual {p1, v1}, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
 
     move-result-object v1
 
-    .line 212
+    .line 253
     invoke-direct {p0, v0, p2}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->findMediaByQuality(Lorg/json/JSONArray;I)Lorg/json/JSONObject;
 
-    move-result-object v2
+    move-result-object v3
 
-    .line 213
-    if-eqz v1, :cond_48
+    .line 254
+    if-eqz v1, :cond_4a
 
     invoke-virtual {v1}, Lorg/json/JSONArray;->length()I
 
     move-result v0
 
-    if-lez v0, :cond_48
+    if-lez v0, :cond_4a
 
     const/4 v0, 0x0
 
-    .line 214
+    .line 255
     invoke-virtual {v1, v0}, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
 
     move-result-object v0
 
-    .line 216
-    :goto_1d
-    if-nez v2, :cond_4a
+    move-object v2, v0
 
-    .line 217
+    .line 257
+    :goto_1f
+    if-nez v3, :cond_4d
+
+    .line 258
     new-instance v0, Ljava/io/IOException;
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -110,21 +112,21 @@
     invoke-direct {v0, v1}, Ljava/io/IOException;-><init>(Ljava/lang/String;)V
 
     throw v0
-    :try_end_38
-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_38} :catch_38
+    :try_end_3a
+    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_3a} :catch_3a
 
-    .line 259
-    :catch_38
+    .line 315
+    :catch_3a
     move-exception v0
 
-    .line 260
+    .line 316
     const-string v1, "ExoCommander"
 
     const-string v2, "[DASH_BILI] Failed to build DASH source"
 
     invoke-static {v1, v2, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    .line 261
+    .line 317
     new-instance v1, Ljava/io/IOException;
 
     const-string v2, "DASH source error"
@@ -133,29 +135,36 @@
 
     throw v1
 
-    .line 214
-    :cond_48
+    .line 255
+    :cond_4a
     const/4 v0, 0x0
 
-    goto :goto_1d
+    move-object v2, v0
 
-    .line 220
-    :cond_4a
-    :try_start_4a
-    const-string v1, "base_url"
+    goto :goto_1f
 
-    invoke-virtual {v2, v1}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+    .line 261
+    :cond_4d
+    :try_start_4d
+    const-string v0, "base_url"
+
+    invoke-virtual {v3, v0}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 262
+    invoke-direct {p0, v0}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->fixPlatformInUrl(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 221
-    const-string v3, "id"
+    .line 263
+    const-string v0, "id"
 
-    invoke-virtual {v2, v3}, Lorg/json/JSONObject;->optInt(Ljava/lang/String;)I
+    invoke-virtual {v3, v0}, Lorg/json/JSONObject;->optInt(Ljava/lang/String;)I
 
-    move-result v3
+    move-result v0
 
-    .line 222
+    .line 264
     const-string v4, "ExoCommander"
 
     new-instance v5, Ljava/lang/StringBuilder;
@@ -168,59 +177,50 @@
 
     move-result-object v5
 
-    invoke-virtual {v5, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v5, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    move-result-object v3
+    move-result-object v0
 
     const-string v5, ", url="
 
-    invoke-virtual {v3, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v3
+    move-result-object v0
 
-    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v3
+    move-result-object v0
 
-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v3
+    move-result-object v0
 
-    invoke-static {v4, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v4, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 224
-    const-string v3, "video"
+    .line 266
+    const-string v0, "video"
 
-    invoke-direct {p0, v1, v3}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->checkUrlExpiration(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-direct {p0, v1, v0}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->checkUrlExpiration(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 226
-    iget-object v3, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mProxy:Lmybl/ProgressiveLocalHttpProxy;
+    .line 268
+    invoke-direct {p0, v3, v1}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->getDashUrlCandidates(Lorg/json/JSONObject;Ljava/lang/String;)Ljava/util/List;
 
-    if-nez v3, :cond_a6
+    move-result-object v0
 
-    .line 227
-    new-instance v3, Lmybl/ProgressiveLocalHttpProxy;
-
-    invoke-direct {v3}, Lmybl/ProgressiveLocalHttpProxy;-><init>()V
-
-    iput-object v3, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mProxy:Lmybl/ProgressiveLocalHttpProxy;
-
-    .line 228
+    .line 269
     const-string v3, "ExoCommander"
 
     new-instance v4, Ljava/lang/StringBuilder;
 
     invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v5, "[PROXY] Created local HTTP proxy on port "
+    const-string v5, "[DASH_CDN] Video URL candidates: "
 
     invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v4
 
-    iget-object v5, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mProxy:Lmybl/ProgressiveLocalHttpProxy;
-
-    invoke-virtual {v5}, Lmybl/ProgressiveLocalHttpProxy;->getPort()I
+    invoke-interface {v0}, Ljava/util/List;->size()I
 
     move-result v5
 
@@ -234,101 +234,129 @@
 
     invoke-static {v3, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 231
-    :cond_a6
-    invoke-direct {p0, v2, v1}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->getDashUrlCandidates(Lorg/json/JSONObject;Ljava/lang/String;)Ljava/util/List;
-
-    move-result-object v1
-
-    .line 232
-    const-string v2, "ExoCommander"
-
-    new-instance v3, Ljava/lang/StringBuilder;
-
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v4, "[DASH_PROXY] Video URL candidates: "
-
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-interface {v1}, Ljava/util/List;->size()I
-
-    move-result v4
-
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v3
-
-    invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 233
-    iget-object v2, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mProxy:Lmybl/ProgressiveLocalHttpProxy;
-
-    invoke-virtual {v2, v1}, Lmybl/ProgressiveLocalHttpProxy;->registerWithBackup(Ljava/util/List;)Ljava/lang/String;
-
-    move-result-object v1
-
-    .line 234
-    const-string v2, "ExoCommander"
-
-    new-instance v3, Ljava/lang/StringBuilder;
-
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v4, "[DASH_PROXY] Video proxy URL: "
-
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v3
-
-    invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 236
-    new-instance v2, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;
-
-    invoke-direct {v2, p3}, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;-><init>(Lcom/google/android/exoplayer2/upstream/DataSource$Factory;)V
-
-    .line 237
-    invoke-static {v1}, Lcom/google/android/exoplayer2/MediaItem;->fromUri(Ljava/lang/String;)Lcom/google/android/exoplayer2/MediaItem;
-
-    move-result-object v1
-
-    invoke-virtual {v2, v1}, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;->createMediaSource(Lcom/google/android/exoplayer2/MediaItem;)Lcom/google/android/exoplayer2/source/ProgressiveMediaSource;
-
-    move-result-object v1
-
-    .line 239
-    if-eqz v0, :cond_189
-
-    .line 240
-    const-string v2, "base_url"
-
-    invoke-virtual {v0, v2}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v2
-
-    .line 241
-    const-string v3, "id"
-
-    invoke-virtual {v0, v3}, Lorg/json/JSONObject;->optInt(Ljava/lang/String;)I
+    .line 272
+    invoke-interface {v0}, Ljava/util/List;->size()I
 
     move-result v3
 
-    .line 242
+    if-le v3, v7, :cond_1d9
+
+    .line 273
+    new-instance v3, Ljava/util/ArrayList;
+
+    invoke-direct {v3}, Ljava/util/ArrayList;-><init>()V
+
+    .line 274
+    invoke-interface {v0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
+
+    move-result-object v4
+
+    :goto_b3
+    invoke-interface {v4}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_cb
+
+    invoke-interface {v4}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/lang/String;
+
+    .line 275
+    invoke-direct {p0, v0}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->fixPlatformInUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 276
+    invoke-static {v0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v0
+
+    invoke-interface {v3, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    goto :goto_b3
+
+    .line 278
+    :cond_cb
+    new-instance v0, Lmybl/CdnFailoverDataSourceFactory;
+
+    const-string v4, "DASH_VIDEO"
+
+    invoke-direct {v0, p3, v3, v4}, Lmybl/CdnFailoverDataSourceFactory;-><init>(Lcom/google/android/exoplayer2/upstream/DataSource$Factory;Ljava/util/List;Ljava/lang/String;)V
+
+    .line 279
+    const-string v4, "ExoCommander"
+
+    new-instance v5, Ljava/lang/StringBuilder;
+
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v6, "[DASH_CDN] Using CdnFailoverDataSource for video with "
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    invoke-interface {v3}, Ljava/util/List;->size()I
+
+    move-result v3
+
+    invoke-virtual {v5, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    const-string v5, " candidates"
+
+    invoke-virtual {v3, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-static {v4, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 282
+    :goto_f4
+    new-instance v3, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;
+
+    invoke-direct {v3, v0}, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;-><init>(Lcom/google/android/exoplayer2/upstream/DataSource$Factory;)V
+
+    .line 283
+    invoke-static {v1}, Lcom/google/android/exoplayer2/MediaItem;->fromUri(Ljava/lang/String;)Lcom/google/android/exoplayer2/MediaItem;
+
+    move-result-object v0
+
+    invoke-virtual {v3, v0}, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;->createMediaSource(Lcom/google/android/exoplayer2/MediaItem;)Lcom/google/android/exoplayer2/source/ProgressiveMediaSource;
+
+    move-result-object v1
+
+    .line 285
+    if-eqz v2, :cond_1d0
+
+    .line 286
+    const-string v0, "base_url"
+
+    invoke-virtual {v2, v0}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 287
+    invoke-direct {p0, v0}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->fixPlatformInUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v3
+
+    .line 288
+    const-string v0, "id"
+
+    invoke-virtual {v2, v0}, Lorg/json/JSONObject;->optInt(Ljava/lang/String;)I
+
+    move-result v0
+
+    .line 289
     const-string v4, "ExoCommander"
 
     new-instance v5, Ljava/lang/StringBuilder;
@@ -341,115 +369,173 @@
 
     move-result-object v5
 
-    invoke-virtual {v5, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v5, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    move-result-object v3
+    move-result-object v0
 
     const-string v5, ", url="
 
-    invoke-virtual {v3, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-virtual {v3, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v3
-
-    invoke-static {v4, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 244
-    const-string v3, "audio"
-
-    invoke-direct {p0, v2, v3}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->checkUrlExpiration(Ljava/lang/String;Ljava/lang/String;)V
-
-    .line 246
-    invoke-direct {p0, v0, v2}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->getDashUrlCandidates(Lorg/json/JSONObject;Ljava/lang/String;)Ljava/util/List;
+    invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
-    .line 247
+    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v4, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 291
+    const-string v0, "audio"
+
+    invoke-direct {p0, v3, v0}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->checkUrlExpiration(Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 293
+    invoke-direct {p0, v2, v3}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->getDashUrlCandidates(Lorg/json/JSONObject;Ljava/lang/String;)Ljava/util/List;
+
+    move-result-object v0
+
+    .line 294
     const-string v2, "ExoCommander"
 
-    new-instance v3, Ljava/lang/StringBuilder;
+    new-instance v4, Ljava/lang/StringBuilder;
 
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v4, "[DASH_PROXY] Audio URL candidates: "
+    const-string v5, "[DASH_CDN] Audio URL candidates: "
 
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v3
+    move-result-object v4
 
     invoke-interface {v0}, Ljava/util/List;->size()I
 
-    move-result v4
+    move-result v5
 
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    move-result-object v3
+    move-result-object v4
 
-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v3
+    move-result-object v4
 
-    invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v2, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 248
-    iget-object v2, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mProxy:Lmybl/ProgressiveLocalHttpProxy;
+    .line 297
+    invoke-interface {v0}, Ljava/util/List;->size()I
 
-    invoke-virtual {v2, v0}, Lmybl/ProgressiveLocalHttpProxy;->registerWithBackup(Ljava/util/List;)Ljava/lang/String;
+    move-result v2
 
-    move-result-object v0
+    if-le v2, v7, :cond_1ab
 
-    .line 249
-    const-string v2, "ExoCommander"
+    .line 298
+    new-instance v2, Ljava/util/ArrayList;
 
-    new-instance v3, Ljava/lang/StringBuilder;
+    invoke-direct {v2}, Ljava/util/ArrayList;-><init>()V
 
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+    .line 299
+    invoke-interface {v0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
 
-    const-string v4, "[DASH_PROXY] Audio proxy URL: "
+    move-result-object v4
 
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    :goto_169
+    invoke-interface {v4}, Ljava/util/Iterator;->hasNext()Z
 
-    move-result-object v3
+    move-result v0
 
-    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    if-eqz v0, :cond_181
 
-    move-result-object v3
-
-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v3
-
-    invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 251
-    new-instance v2, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;
-
-    invoke-direct {v2, p3}, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;-><init>(Lcom/google/android/exoplayer2/upstream/DataSource$Factory;)V
-
-    .line 252
-    invoke-static {v0}, Lcom/google/android/exoplayer2/MediaItem;->fromUri(Ljava/lang/String;)Lcom/google/android/exoplayer2/MediaItem;
+    invoke-interface {v4}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
     move-result-object v0
 
-    invoke-virtual {v2, v0}, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;->createMediaSource(Lcom/google/android/exoplayer2/MediaItem;)Lcom/google/android/exoplayer2/source/ProgressiveMediaSource;
+    check-cast v0, Ljava/lang/String;
+
+    .line 300
+    invoke-direct {p0, v0}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->fixPlatformInUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 301
+    invoke-static {v0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v0
+
+    invoke-interface {v2, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    goto :goto_169
+
+    .line 303
+    :cond_181
+    new-instance v0, Lmybl/CdnFailoverDataSourceFactory;
+
+    const-string v4, "DASH_AUDIO"
+
+    invoke-direct {v0, p3, v2, v4}, Lmybl/CdnFailoverDataSourceFactory;-><init>(Lcom/google/android/exoplayer2/upstream/DataSource$Factory;Ljava/util/List;Ljava/lang/String;)V
+
+    .line 304
+    const-string v4, "ExoCommander"
+
+    new-instance v5, Ljava/lang/StringBuilder;
+
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v6, "[DASH_CDN] Using CdnFailoverDataSource for audio with "
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    invoke-interface {v2}, Ljava/util/List;->size()I
+
+    move-result v2
+
+    invoke-virtual {v5, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
     move-result-object v2
 
-    .line 253
+    const-string v5, " candidates"
+
+    invoke-virtual {v2, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v4, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    move-object p3, v0
+
+    .line 307
+    :cond_1ab
+    new-instance v0, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;
+
+    invoke-direct {v0, p3}, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;-><init>(Lcom/google/android/exoplayer2/upstream/DataSource$Factory;)V
+
+    .line 308
+    invoke-static {v3}, Lcom/google/android/exoplayer2/MediaItem;->fromUri(Ljava/lang/String;)Lcom/google/android/exoplayer2/MediaItem;
+
+    move-result-object v2
+
+    invoke-virtual {v0, v2}, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;->createMediaSource(Lcom/google/android/exoplayer2/MediaItem;)Lcom/google/android/exoplayer2/source/ProgressiveMediaSource;
+
+    move-result-object v2
+
+    .line 309
     const-string v0, "ExoCommander"
 
     const-string v3, "[DASH_BILI] Merging video and audio sources"
 
     invoke-static {v0, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 254
+    .line 310
     new-instance v0, Lcom/google/android/exoplayer2/source/MergingMediaSource;
 
     const/4 v3, 0x1
@@ -470,31 +556,36 @@
 
     invoke-direct {v0, v3, v4, v5}, Lcom/google/android/exoplayer2/source/MergingMediaSource;-><init>(ZZ[Lcom/google/android/exoplayer2/source/MediaSource;)V
 
-    .line 258
-    :goto_188
+    .line 314
+    :goto_1cf
     return-object v0
 
-    .line 257
-    :cond_189
+    .line 313
+    :cond_1d0
     const-string v0, "ExoCommander"
 
     const-string v2, "[DASH_BILI] Video only (no audio track)"
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_190
-    .catch Ljava/lang/Exception; {:try_start_4a .. :try_end_190} :catch_38
+    :try_end_1d7
+    .catch Ljava/lang/Exception; {:try_start_4d .. :try_end_1d7} :catch_3a
 
     move-object v0, v1
 
-    .line 258
-    goto :goto_188
+    .line 314
+    goto :goto_1cf
+
+    :cond_1d9
+    move-object v0, p3
+
+    goto/16 :goto_f4
 .end method
 
 .method private buildHlsSource(Ljava/lang/String;Lcom/google/android/exoplayer2/upstream/DataSource$Factory;)Lcom/google/android/exoplayer2/source/MediaSource;
     .locals 3
 
     .prologue
-    .line 202
+    .line 223
     const-string v0, "ExoCommander"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -517,12 +608,12 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 203
+    .line 224
     new-instance v0, Lcom/google/android/exoplayer2/source/hls/HlsMediaSource$Factory;
 
     invoke-direct {v0, p2}, Lcom/google/android/exoplayer2/source/hls/HlsMediaSource$Factory;-><init>(Lcom/google/android/exoplayer2/upstream/DataSource$Factory;)V
 
-    .line 204
+    .line 225
     invoke-static {p1}, Lcom/google/android/exoplayer2/MediaItem;->fromUri(Ljava/lang/String;)Lcom/google/android/exoplayer2/MediaItem;
 
     move-result-object v1
@@ -538,7 +629,7 @@
     .locals 3
 
     .prologue
-    .line 196
+    .line 217
     const-string v0, "ExoCommander"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -561,12 +652,12 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 197
+    .line 218
     new-instance v0, Lcom/google/android/exoplayer2/source/dash/DashMediaSource$Factory;
 
     invoke-direct {v0, p2}, Lcom/google/android/exoplayer2/source/dash/DashMediaSource$Factory;-><init>(Lcom/google/android/exoplayer2/upstream/DataSource$Factory;)V
 
-    .line 198
+    .line 219
     invoke-static {p1}, Lcom/google/android/exoplayer2/MediaItem;->fromUri(Ljava/lang/String;)Lcom/google/android/exoplayer2/MediaItem;
 
     move-result-object v1
@@ -582,66 +673,148 @@
     .locals 0
 
     .prologue
-    .line 291
+    .line 347
     invoke-static {p1, p2}, Ltv/danmaku/videoplayer/core/media/resource/UrlExpirationChecker;->checkUrlExpiration(Ljava/lang/String;Ljava/lang/String;)Ltv/danmaku/videoplayer/core/media/resource/UrlExpirationChecker$ExpirationInfo;
 
-    .line 292
+    .line 348
     return-void
 .end method
 
 .method private createDataSourceFactory()Lcom/google/android/exoplayer2/upstream/DataSource$Factory;
-    .locals 3
+    .locals 6
 
     .prologue
-    .line 170
+    .line 175
     const-string v0, "ExoCommander"
 
     const-string v1, "[DATASOURCE] Creating DefaultHttpDataSource factory"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 172
-    new-instance v0, Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;
+    .line 177
+    const-string v0, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
 
-    invoke-direct {v0}, Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;-><init>()V
+    .line 179
+    new-instance v1, Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;
 
-    const-string v1, "Bilibili Freedoooooom/MarkII"
+    invoke-direct {v1}, Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;-><init>()V
 
-    .line 173
-    invoke-virtual {v0, v1}, Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;->setUserAgent(Ljava/lang/String;)Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;
+    .line 180
+    invoke-virtual {v1, v0}, Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;->setUserAgent(Ljava/lang/String;)Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;
 
     move-result-object v0
 
     const/16 v1, 0x2710
 
-    .line 174
+    .line 181
     invoke-virtual {v0, v1}, Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;->setConnectTimeoutMs(I)Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;
 
     move-result-object v0
 
     const/16 v1, 0x7530
 
-    .line 175
+    .line 182
     invoke-virtual {v0, v1}, Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;->setReadTimeoutMs(I)Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;
 
     move-result-object v0
 
     const/4 v1, 0x1
 
-    .line 176
+    .line 183
     invoke-virtual {v0, v1}, Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;->setAllowCrossProtocolRedirects(Z)Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;
 
     move-result-object v0
 
-    .line 178
+    .line 185
+    new-instance v1, Ljava/util/HashMap;
+
+    invoke-direct {v1}, Ljava/util/HashMap;-><init>()V
+
+    .line 186
+    const-string v2, "Referer"
+
+    const-string v3, "https://www.bilibili.com/"
+
+    invoke-interface {v1, v2, v3}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    .line 188
+    invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
+
+    move-result-object v2
+
+    invoke-static {v2}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
+
+    move-result-object v2
+
+    .line 189
+    invoke-static {v2}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
+
+    move-result-object v2
+
+    .line 190
+    if-eqz v2, :cond_6f
+
+    invoke-virtual {v2}, Ljava/lang/String;->isEmpty()Z
+
+    move-result v3
+
+    if-nez v3, :cond_6f
+
+    .line 191
+    const-string v3, "Cookie"
+
+    invoke-interface {v1, v3, v2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    .line 192
+    const-string v3, "ExoCommander"
+
+    new-instance v4, Ljava/lang/StringBuilder;
+
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v5, "[DATASOURCE] Added Cookie header, length="
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    invoke-virtual {v2}, Ljava/lang/String;->length()I
+
+    move-result v2
+
+    invoke-virtual {v4, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v3, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 197
+    :goto_64
+    invoke-virtual {v0, v1}, Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;->setDefaultRequestProperties(Ljava/util/Map;)Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;
+
+    .line 199
     const-string v1, "ExoCommander"
 
-    const-string v2, "[DATASOURCE] DefaultHttpDataSource factory created (headers will be set by local proxy)"
+    const-string v2, "[DATASOURCE] DefaultHttpDataSource factory created with PC User-Agent, Referer and Cookie headers"
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 180
+    .line 201
     return-object v0
+
+    .line 194
+    :cond_6f
+    const-string v2, "ExoCommander"
+
+    const-string v3, "[DATASOURCE] No Cookie available"
+
+    invoke-static {v2, v3}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_64
 .end method
 
 .method private findMediaByQuality(Lorg/json/JSONArray;I)Lorg/json/JSONObject;
@@ -650,19 +823,19 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 295
+    .line 351
     if-nez p1, :cond_5
 
     const/4 v0, 0x0
 
-    .line 304
+    .line 360
     :goto_4
     return-object v0
 
     :cond_5
     move v0, v1
 
-    .line 297
+    .line 353
     :goto_6
     invoke-virtual {p1}, Lorg/json/JSONArray;->length()I
 
@@ -670,12 +843,12 @@
 
     if-ge v0, v2, :cond_1f
 
-    .line 298
+    .line 354
     invoke-virtual {p1, v0}, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
 
     move-result-object v2
 
-    .line 299
+    .line 355
     if-eqz v2, :cond_1c
 
     const-string v3, "id"
@@ -688,22 +861,225 @@
 
     move-object v0, v2
 
-    .line 300
+    .line 356
     goto :goto_4
 
-    .line 297
+    .line 353
     :cond_1c
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_6
 
-    .line 304
+    .line 360
     :cond_1f
     invoke-virtual {p1, v1}, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
 
     move-result-object v0
 
     goto :goto_4
+.end method
+
+.method private fixPlatformInUrl(Ljava/lang/String;)Ljava/lang/String;
+    .locals 7
+
+    .prologue
+    const/4 v6, 0x0
+
+    const/16 v5, 0x64
+
+    .line 229
+    invoke-static {p1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_a
+
+    .line 245
+    :goto_9
+    return-object p1
+
+    .line 232
+    :cond_a
+    const-string v0, "platform=android_tv"
+
+    invoke-virtual {p1, v0}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_94
+
+    .line 233
+    const-string v0, "platform=android_tv"
+
+    const-string v1, "platform=pc"
+
+    invoke-virtual {p1, v0, v1}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 234
+    const-string v1, "ExoCommander"
+
+    const-string v2, "[URL_FIX] Fixed platform parameter: android_tv -> pc"
+
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 240
+    :goto_21
+    invoke-virtual {v0, p1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v1
+
+    if-nez v1, :cond_91
+
+    .line 241
+    const-string v1, "ExoCommander"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "[URL_FIX] Original URL: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {p1}, Ljava/lang/String;->length()I
+
+    move-result v3
+
+    if-le v3, v5, :cond_51
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {p1, v6, v5}, Ljava/lang/String;->substring(II)Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    const-string v4, "..."
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    :cond_51
+    invoke-virtual {v2, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 242
+    const-string v2, "ExoCommander"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "[URL_FIX] Fixed URL: "
+
+    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v0}, Ljava/lang/String;->length()I
+
+    move-result v1
+
+    if-le v1, v5, :cond_ad
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v0, v6, v5}, Ljava/lang/String;->substring(II)Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v4, "..."
+
+    invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    :goto_86
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v2, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    :cond_91
+    move-object p1, v0
+
+    .line 245
+    goto/16 :goto_9
+
+    .line 235
+    :cond_94
+    const-string v0, "platform=android"
+
+    invoke-virtual {p1, v0}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_af
+
+    .line 236
+    const-string v0, "platform=android"
+
+    const-string v1, "platform=pc"
+
+    invoke-virtual {p1, v0, v1}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 237
+    const-string v1, "ExoCommander"
+
+    const-string v2, "[URL_FIX] Fixed platform parameter: android -> pc"
+
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto/16 :goto_21
+
+    :cond_ad
+    move-object v1, v0
+
+    .line 242
+    goto :goto_86
+
+    :cond_af
+    move-object v0, p1
+
+    goto/16 :goto_21
 .end method
 
 .method private getDashUrlCandidates(Lorg/json/JSONObject;Ljava/lang/String;)Ljava/util/List;
@@ -726,24 +1102,24 @@
 
     const/4 v1, 0x0
 
-    .line 266
+    .line 322
     new-instance v3, Ljava/util/ArrayList;
 
     invoke-direct {v3}, Ljava/util/ArrayList;-><init>()V
 
-    .line 267
+    .line 323
     invoke-interface {v3, p2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 269
+    .line 325
     if-nez p1, :cond_f
 
     move-object v0, v3
 
-    .line 287
+    .line 343
     :goto_e
     return-object v0
 
-    .line 273
+    .line 329
     :cond_f
     const-string v0, "backup_url"
 
@@ -751,7 +1127,7 @@
 
     move-result-object v4
 
-    .line 274
+    .line 330
     if-eqz v4, :cond_91
 
     invoke-virtual {v4}, Lorg/json/JSONArray;->length()I
@@ -760,7 +1136,7 @@
 
     if-lez v0, :cond_91
 
-    .line 275
+    .line 331
     const-string v0, "ExoCommander"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -795,7 +1171,7 @@
 
     move v0, v1
 
-    .line 276
+    .line 332
     :goto_40
     invoke-virtual {v4}, Lorg/json/JSONArray;->length()I
 
@@ -803,12 +1179,12 @@
 
     if-ge v0, v2, :cond_98
 
-    .line 277
+    .line 333
     invoke-virtual {v4, v0}, Lorg/json/JSONArray;->optString(I)Ljava/lang/String;
 
     move-result-object v2
 
-    .line 278
+    .line 334
     invoke-static {v2}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v5
@@ -821,10 +1197,10 @@
 
     if-nez v5, :cond_8e
 
-    .line 279
+    .line 335
     invoke-interface {v3, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 280
+    .line 336
     const-string v5, "ExoCommander"
 
     new-instance v6, Ljava/lang/StringBuilder;
@@ -876,13 +1252,13 @@
 
     invoke-static {v5, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 276
+    .line 332
     :cond_8e
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_40
 
-    .line 284
+    .line 340
     :cond_91
     const-string v0, "ExoCommander"
 
@@ -893,7 +1269,7 @@
     :cond_98
     move-object v0, v3
 
-    .line 287
+    .line 343
     goto/16 :goto_e
 .end method
 
@@ -901,7 +1277,7 @@
     .locals 1
 
     .prologue
-    .line 412
+    .line 468
     const/high16 v0, 0x3f800000    # 1.0f
 
     return v0
@@ -925,22 +1301,22 @@
     .prologue
     const/16 v8, 0x50
 
-    .line 429
+    .line 485
     new-instance v1, Ljava/util/ArrayList;
 
     invoke-direct {v1}, Ljava/util/ArrayList;-><init>()V
 
-    .line 430
+    .line 486
     invoke-interface {v1, p2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 432
+    .line 488
     if-eqz p1, :cond_10
 
     iget-object v0, p1, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mMediaResource:Lcom/bilibili/lib/media/resource/MediaResource;
 
     if-nez v0, :cond_19
 
-    .line 433
+    .line 489
     :cond_10
     const-string v0, "ExoCommander"
 
@@ -950,15 +1326,15 @@
 
     move-object v0, v1
 
-    .line 495
+    .line 551
     :goto_18
     return-object v0
 
-    .line 437
+    .line 493
     :cond_19
     iget-object v0, p1, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mMediaResource:Lcom/bilibili/lib/media/resource/MediaResource;
 
-    .line 439
+    .line 495
     iget-object v2, v0, Lcom/bilibili/lib/media/resource/MediaResource;->a:Lcom/bilibili/lib/media/resource/VodIndex;
 
     if-eqz v2, :cond_2f
@@ -979,7 +1355,7 @@
 
     if-eqz v2, :cond_38
 
-    .line 440
+    .line 496
     :cond_2f
     const-string v0, "ExoCommander"
 
@@ -989,16 +1365,16 @@
 
     move-object v0, v1
 
-    .line 441
+    .line 497
     goto :goto_18
 
-    .line 444
+    .line 500
     :cond_38
     invoke-virtual {v0}, Lcom/bilibili/lib/media/resource/MediaResource;->e()I
 
     move-result v2
 
-    .line 445
+    .line 501
     if-ltz v2, :cond_48
 
     iget-object v3, v0, Lcom/bilibili/lib/media/resource/MediaResource;->a:Lcom/bilibili/lib/media/resource/VodIndex;
@@ -1011,7 +1387,7 @@
 
     if-lt v2, v3, :cond_62
 
-    .line 446
+    .line 502
     :cond_48
     const-string v0, "ExoCommander"
 
@@ -1037,10 +1413,10 @@
 
     move-object v0, v1
 
-    .line 447
+    .line 503
     goto :goto_18
 
-    .line 450
+    .line 506
     :cond_62
     iget-object v0, v0, Lcom/bilibili/lib/media/resource/MediaResource;->a:Lcom/bilibili/lib/media/resource/VodIndex;
 
@@ -1050,10 +1426,10 @@
 
     move-result-object v0
 
-    .line 451
+    .line 507
     if-nez v0, :cond_86
 
-    .line 452
+    .line 508
     const-string v0, "ExoCommander"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -1078,32 +1454,32 @@
 
     move-object v0, v1
 
-    .line 453
+    .line 509
     goto :goto_18
 
-    .line 457
+    .line 513
     :cond_86
     :try_start_86
     invoke-virtual {v0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
     move-result-object v2
 
-    .line 458
+    .line 514
     const-string v3, "f"
 
     invoke-virtual {v2, v3}, Ljava/lang/Class;->getField(Ljava/lang/String;)Ljava/lang/reflect/Field;
 
     move-result-object v2
 
-    .line 459
+    .line 515
     invoke-virtual {v2, v0}, Ljava/lang/reflect/Field;->get(Ljava/lang/Object;)Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 461
+    .line 517
     if-nez v0, :cond_a0
 
-    .line 462
+    .line 518
     const-string v0, "ExoCommander"
 
     const-string v2, "[BACKUP_URLS] Segment list is null"
@@ -1112,21 +1488,21 @@
 
     move-object v0, v1
 
-    .line 463
+    .line 519
     goto/16 :goto_18
 
-    .line 466
+    .line 522
     :cond_a0
     check-cast v0, Ljava/util/ArrayList;
 
-    .line 467
+    .line 523
     invoke-virtual {v0}, Ljava/util/ArrayList;->isEmpty()Z
 
     move-result v2
 
     if-eqz v2, :cond_b2
 
-    .line 468
+    .line 524
     const-string v0, "ExoCommander"
 
     const-string v2, "[BACKUP_URLS] Segment list is empty"
@@ -1135,10 +1511,10 @@
 
     move-object v0, v1
 
-    .line 469
+    .line 525
     goto/16 :goto_18
 
-    .line 472
+    .line 528
     :cond_b2
     const/4 v2, 0x0
 
@@ -1146,30 +1522,30 @@
 
     move-result-object v0
 
-    .line 473
+    .line 529
     invoke-virtual {v0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
     move-result-object v2
 
-    .line 475
+    .line 531
     const-string v3, "e"
 
     invoke-virtual {v2, v3}, Ljava/lang/Class;->getField(Ljava/lang/String;)Ljava/lang/reflect/Field;
 
     move-result-object v2
 
-    .line 476
+    .line 532
     invoke-virtual {v2, v0}, Ljava/lang/reflect/Field;->get(Ljava/lang/Object;)Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 478
+    .line 534
     if-eqz v0, :cond_163
 
-    .line 479
+    .line 535
     check-cast v0, Ljava/util/ArrayList;
 
-    .line 480
+    .line 536
     const-string v2, "ExoCommander"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -1202,7 +1578,7 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 482
+    .line 538
     invoke-virtual {v0}, Ljava/util/ArrayList;->iterator()Ljava/util/Iterator;
 
     move-result-object v2
@@ -1221,7 +1597,7 @@
 
     check-cast v0, Ljava/lang/String;
 
-    .line 483
+    .line 539
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v3
@@ -1234,10 +1610,10 @@
 
     if-nez v3, :cond_ef
 
-    .line 484
+    .line 540
     invoke-interface {v1, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 485
+    .line 541
     const-string v3, "ExoCommander"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -1297,11 +1673,11 @@
 
     goto :goto_ef
 
-    .line 491
+    .line 547
     :catch_143
     move-exception v0
 
-    .line 492
+    .line 548
     const-string v2, "ExoCommander"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -1332,10 +1708,10 @@
     :goto_160
     move-object v0, v1
 
-    .line 495
+    .line 551
     goto/16 :goto_18
 
-    .line 489
+    .line 545
     :cond_163
     :try_start_163
     const-string v0, "ExoCommander"
@@ -1355,25 +1731,25 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 190
+    .line 211
     invoke-static {p1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v1
 
     if-eqz v1, :cond_8
 
-    .line 192
+    .line 213
     :cond_7
     :goto_7
     return v0
 
-    .line 191
+    .line 212
     :cond_8
     invoke-virtual {p1}, Ljava/lang/String;->toLowerCase()Ljava/lang/String;
 
     move-result-object v1
 
-    .line 192
+    .line 213
     const-string v2, ".m3u8"
 
     invoke-virtual {v1, v2}, Ljava/lang/String;->endsWith(Ljava/lang/String;)Z
@@ -1402,14 +1778,14 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 416
+    .line 472
     invoke-static {p1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v1
 
     if-eqz v1, :cond_16
 
-    .line 417
+    .line 473
     if-eqz p2, :cond_15
 
     iget-object v1, p2, Ltv/danmaku/videoplayer/core/media/resource/MediaSource;->mSegmentList:Ljava/util/ArrayList;
@@ -1418,19 +1794,19 @@
 
     iget-object v1, p2, Ltv/danmaku/videoplayer/core/media/resource/MediaSource;->mSegmentList:Ljava/util/ArrayList;
 
-    .line 418
+    .line 474
     invoke-virtual {v1}, Ljava/util/ArrayList;->isEmpty()Z
 
     move-result v1
 
     if-eqz v1, :cond_2e
 
-    .line 425
+    .line 481
     :cond_15
     :goto_15
     return v0
 
-    .line 421
+    .line 477
     :cond_16
     const-string v1, "vsl://"
 
@@ -1450,14 +1826,14 @@
 
     const-string v1, "vsindex://"
 
-    .line 422
+    .line 478
     invoke-virtual {p1, v1}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
 
     move-result v1
 
     if-eqz v1, :cond_15
 
-    .line 425
+    .line 481
     :cond_2e
     const/4 v0, 0x1
 
@@ -1470,25 +1846,25 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 184
+    .line 205
     invoke-static {p1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v1
 
     if-eqz v1, :cond_8
 
-    .line 186
+    .line 207
     :cond_7
     :goto_7
     return v0
 
-    .line 185
+    .line 206
     :cond_8
     invoke-virtual {p1}, Ljava/lang/String;->toLowerCase()Ljava/lang/String;
 
     move-result-object v1
 
-    .line 186
+    .line 207
     const-string v2, ".mpd"
 
     invoke-virtual {v1, v2}, Ljava/lang/String;->endsWith(Ljava/lang/String;)Z
@@ -1515,12 +1891,12 @@
     .locals 1
 
     .prologue
-    .line 398
+    .line 454
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mExoPlayer:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->setSpeed(F)V
 
-    .line 399
+    .line 455
     return-void
 .end method
 
@@ -1538,24 +1914,24 @@
 
     const/4 v1, 0x0
 
-    .line 342
+    .line 398
     invoke-virtual {p1}, Ljava/lang/String;->hashCode()I
 
     move-result v3
 
     sparse-switch v3, :sswitch_data_66
 
-    .line 368
+    .line 424
     :cond_d
     :goto_d
     packed-switch v0, :pswitch_data_74
 
-    .line 388
+    .line 444
     :cond_10
     :goto_10
     return-object v4
 
-    .line 344
+    .line 400
     :sswitch_11
     const-string v3, "SetOnExtraInfoListener"
 
@@ -1567,10 +1943,10 @@
 
     move v0, v1
 
-    .line 346
+    .line 402
     goto :goto_d
 
-    .line 351
+    .line 407
     :sswitch_1b
     const-string v3, "SetPlaybackSpeed"
 
@@ -1582,10 +1958,10 @@
 
     move v0, v2
 
-    .line 353
+    .line 409
     goto :goto_d
 
-    .line 358
+    .line 414
     :sswitch_25
     const-string v3, "SetAudioBalanceLevel"
 
@@ -1595,13 +1971,13 @@
 
     if-eqz v3, :cond_d
 
-    .line 359
+    .line 415
     const/4 v0, 0x2
 
-    .line 360
+    .line 416
     goto :goto_d
 
-    .line 370
+    .line 426
     :pswitch_2f
     array-length v0, p2
 
@@ -1613,7 +1989,7 @@
 
     if-eqz v0, :cond_10
 
-    .line 373
+    .line 429
     aget-object v0, p2, v1
 
     check-cast v0, Ltv/danmaku/videoplayer/core/videoview/IVideoView$OnExtraInfoListener;
@@ -1622,7 +1998,7 @@
 
     goto :goto_10
 
-    .line 376
+    .line 432
     :pswitch_3f
     array-length v0, p2
 
@@ -1634,7 +2010,7 @@
 
     if-eqz v0, :cond_10
 
-    .line 379
+    .line 435
     aget-object v0, p2, v1
 
     check-cast v0, Ljava/lang/Float;
@@ -1647,7 +2023,7 @@
 
     goto :goto_10
 
-    .line 382
+    .line 438
     :pswitch_54
     array-length v0, p2
 
@@ -1659,7 +2035,7 @@
 
     if-eqz v0, :cond_10
 
-    .line 385
+    .line 441
     aget-object v0, p2, v1
 
     check-cast v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
@@ -1668,7 +2044,7 @@
 
     goto :goto_10
 
-    .line 342
+    .line 398
     nop
 
     :sswitch_data_66
@@ -1678,7 +2054,7 @@
         0x76f4ccdc -> :sswitch_25
     .end sparse-switch
 
-    .line 368
+    .line 424
     :pswitch_data_74
     .packed-switch 0x0
         :pswitch_2f
@@ -1691,7 +2067,7 @@
     .locals 1
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->getAudioSessionId()I
 
     move-result v0
@@ -1703,7 +2079,7 @@
     .locals 2
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->getCurrentPosition()J
 
     move-result-wide v0
@@ -1715,7 +2091,7 @@
     .locals 1
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->getDataSource()Ljava/lang/String;
 
     move-result-object v0
@@ -1727,7 +2103,7 @@
     .locals 2
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->getDuration()J
 
     move-result-wide v0
@@ -1739,7 +2115,7 @@
     .locals 1
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->getMediaInfo()Ltv/danmaku/ijk/media/player/MediaInfo;
 
     move-result-object v0
@@ -1751,7 +2127,7 @@
     .locals 1
 
     .prologue
-    .line 408
+    .line 464
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mExoPlayer:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     return-object v0
@@ -1761,7 +2137,7 @@
     .locals 1
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->getPlayer()Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     move-result-object v0
@@ -1773,7 +2149,7 @@
     .locals 1
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->getTrackInfo()[Ltv/danmaku/ijk/media/player/misc/ITrackInfo;
 
     move-result-object v0
@@ -1785,7 +2161,7 @@
     .locals 1
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->getVideoHeight()I
 
     move-result v0
@@ -1797,7 +2173,7 @@
     .locals 1
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->getVideoSarDen()I
 
     move-result v0
@@ -1809,7 +2185,7 @@
     .locals 1
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->getVideoSarNum()I
 
     move-result v0
@@ -1821,7 +2197,7 @@
     .locals 1
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->getVideoWidth()I
 
     move-result v0
@@ -1833,7 +2209,7 @@
     .locals 1
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->isLooping()Z
 
     move-result v0
@@ -1845,7 +2221,7 @@
     .locals 1
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->isPlayable()Z
 
     move-result v0
@@ -1857,7 +2233,7 @@
     .locals 1
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->isPlaying()Z
 
     move-result v0
@@ -1869,15 +2245,15 @@
     .locals 0
 
     .prologue
-    .line 394
+    .line 450
     invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->onRelease()V
 
-    .line 395
+    .line 451
     return-void
 .end method
 
 .method public openVideo(Landroid/content/Context;Ltv/danmaku/videoplayer/core/videoview/IVideoParams;Landroid/net/Uri;)V
-    .locals 10
+    .locals 12
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/io/IOException;
@@ -1885,63 +2261,72 @@
     .end annotation
 
     .prologue
-    const-wide/16 v8, 0x3e8
+    const-wide/16 v10, 0x3e8
 
-    const-wide/16 v2, 0x0
+    const/4 v2, 0x1
+
+    const-wide/16 v4, 0x0
 
     const/4 v0, 0x0
 
-    .line 55
+    .line 57
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
-    .line 56
+    .line 58
     const-string v1, "ExoCommander"
 
-    new-instance v4, Ljava/lang/StringBuilder;
+    new-instance v3, Ljava/lang/StringBuilder;
 
-    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v5, "preparing video -> "
+    const-string v6, "[OPEN_VIDEO] preparing video -> "
 
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v3
 
-    invoke-virtual {v4, p3}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, p3}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v3
 
-    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v3
 
-    invoke-static {v1, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v1, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 58
+    .line 60
     invoke-virtual {p3}, Landroid/net/Uri;->toString()Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v8
 
-    .line 59
+    .line 61
     invoke-interface {p2}, Ltv/danmaku/videoplayer/core/videoview/IVideoParams;->getMediaSource()Ltv/danmaku/videoplayer/core/media/resource/MediaSource;
 
     move-result-object v1
 
-    .line 61
-    invoke-direct {p0, v4, v1}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->isMultiSegmentVideo(Ljava/lang/String;Ltv/danmaku/videoplayer/core/media/resource/MediaSource;)Z
+    .line 63
+    invoke-direct {p0, v8, v1}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->isMultiSegmentVideo(Ljava/lang/String;Ltv/danmaku/videoplayer/core/media/resource/MediaSource;)Z
 
-    move-result v5
+    move-result v3
 
-    if-eqz v5, :cond_9a
+    if-eqz v3, :cond_a2
 
-    .line 62
+    .line 64
+    const-string v2, "ExoCommander"
+
+    const-string v3, "[OPEN_VIDEO] Multi-segment video detected"
+
+    invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 65
     new-instance v2, Ljava/lang/StringBuilder;
 
     const-string v3, "ffconcat version 1.0\n"
 
     invoke-direct {v2, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
 
-    .line 63
+    .line 66
     iget-object v1, v1, Ltv/danmaku/videoplayer/core/media/resource/MediaSource;->mSegmentList:Ljava/util/ArrayList;
 
     invoke-virtual {v1}, Ljava/util/ArrayList;->iterator()Ljava/util/Iterator;
@@ -1950,100 +2335,100 @@
 
     move v1, v0
 
-    .line 65
-    :goto_3c
+    .line 68
+    :goto_44
     invoke-interface {v3}, Ljava/util/Iterator;->hasNext()Z
 
     move-result v0
 
-    if-eqz v0, :cond_7c
+    if-eqz v0, :cond_84
 
-    .line 66
+    .line 69
     invoke-interface {v3}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
     move-result-object v0
 
     check-cast v0, Ltv/danmaku/videoplayer/core/media/resource/SegmentSource;
 
-    .line 67
+    .line 70
     const-string v4, "file ijksegment:"
 
     invoke-virtual {v2, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 68
+    .line 71
     invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    .line 69
+    .line 72
     const-string v4, "\n"
 
     invoke-virtual {v2, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 70
+    .line 73
     const-string v4, "duration "
 
     invoke-virtual {v2, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 71
+    .line 74
     iget v4, v0, Ltv/danmaku/videoplayer/core/media/resource/SegmentSource;->mDuration:I
 
     div-int/lit16 v4, v4, 0x3e8
 
     invoke-virtual {v2, v4}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    .line 72
+    .line 75
     iget v4, v0, Ltv/danmaku/videoplayer/core/media/resource/SegmentSource;->mDuration:I
 
     rem-int/lit16 v4, v4, 0x3e8
 
-    if-eqz v4, :cond_73
+    if-eqz v4, :cond_7b
 
-    .line 73
+    .line 76
     const-string v4, "."
 
     invoke-virtual {v2, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 74
+    .line 77
     iget v0, v0, Ltv/danmaku/videoplayer/core/media/resource/SegmentSource;->mDuration:I
 
     rem-int/lit16 v0, v0, 0x3e8
 
     invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    .line 76
-    :cond_73
+    .line 79
+    :cond_7b
     const-string v0, "\n"
 
     invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 77
+    .line 80
     add-int/lit8 v0, v1, 0x1
 
     move v1, v0
 
-    .line 78
-    goto :goto_3c
+    .line 81
+    goto :goto_44
 
-    .line 79
-    :cond_7c
+    .line 82
+    :cond_84
     invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 80
+    .line 83
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mExoPlayer:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     invoke-virtual {v1, v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->setDataSource(Ljava/lang/String;)V
 
-    .line 162
-    :goto_85
+    .line 167
+    :goto_8d
     sget v0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->speed_id:I
 
-    if-ltz v0, :cond_277
+    if-ltz v0, :cond_289
 
     sget v0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->speed_id:I
 
-    .line 164
-    :goto_8b
+    .line 169
+    :goto_93
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mExoPlayer:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     invoke-static {v0}, Lbl/abd;->get_speed(I)F
@@ -2052,176 +2437,199 @@
 
     invoke-virtual {v1, v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->setSpeed(F)V
 
-    .line 166
+    .line 171
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mMediaPlayer:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     invoke-interface {v0}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->prepareAsync()V
 
-    .line 167
+    .line 172
     return-void
 
-    .line 82
-    :cond_9a
+    .line 85
+    :cond_a2
     check-cast p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;
 
-    .line 84
+    .line 87
     iget-object v1, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mMediaResource:Lcom/bilibili/lib/media/resource/MediaResource;
 
-    if-eqz v1, :cond_112
+    if-eqz v1, :cond_132
 
     iget-object v1, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mMediaResource:Lcom/bilibili/lib/media/resource/MediaResource;
 
     iget-object v1, v1, Lcom/bilibili/lib/media/resource/MediaResource;->dash:Lorg/json/JSONObject;
 
-    if-eqz v1, :cond_112
+    if-eqz v1, :cond_132
 
-    const/4 v1, 0x1
+    move v1, v2
 
-    .line 87
-    :goto_a7
-    invoke-direct {p0}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->createDataSourceFactory()Lcom/google/android/exoplayer2/upstream/DataSource$Factory;
+    .line 90
+    :goto_af
+    const-string v3, "ExoCommander"
+
+    new-instance v6, Ljava/lang/StringBuilder;
+
+    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v7, "[OPEN_VIDEO] hasDash="
+
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v6
 
-    .line 89
-    if-eqz v1, :cond_11b
+    invoke-virtual {v6, v1}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
 
-    .line 90
+    move-result-object v6
+
+    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v6
+
+    invoke-static {v3, v6}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 92
+    invoke-direct {p0}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->createDataSourceFactory()Lcom/google/android/exoplayer2/upstream/DataSource$Factory;
+
+    move-result-object v3
+
+    .line 94
+    if-eqz v1, :cond_13c
+
+    .line 95
     const-string v1, "ExoCommander"
 
-    const-string v4, "[DASH_BILI] Bilibili DASH JSON format detected"
+    const-string v2, "[DASH_BILI] Bilibili DASH JSON format detected"
 
-    invoke-static {v1, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 91
+    .line 96
     const-string v1, "ExoCommander"
 
-    new-instance v4, Ljava/lang/StringBuilder;
+    new-instance v2, Ljava/lang/StringBuilder;
 
-    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v5, "[DASH_BILI] video_count="
+    const-string v6, "[DASH_BILI] video_count="
 
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v2
 
-    iget-object v5, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mMediaResource:Lcom/bilibili/lib/media/resource/MediaResource;
+    iget-object v6, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mMediaResource:Lcom/bilibili/lib/media/resource/MediaResource;
 
-    iget-object v5, v5, Lcom/bilibili/lib/media/resource/MediaResource;->dash:Lorg/json/JSONObject;
+    iget-object v6, v6, Lcom/bilibili/lib/media/resource/MediaResource;->dash:Lorg/json/JSONObject;
 
     const-string v7, "video"
 
-    .line 92
-    invoke-virtual {v5, v7}, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
+    .line 97
+    invoke-virtual {v6, v7}, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
 
-    move-result-object v5
+    move-result-object v6
 
-    invoke-virtual {v5}, Lorg/json/JSONArray;->length()I
+    invoke-virtual {v6}, Lorg/json/JSONArray;->length()I
 
-    move-result v5
+    move-result v6
 
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v6}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v2
 
-    const-string v5, ", quality="
+    const-string v6, ", quality="
 
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v2
 
-    iget-object v5, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mMediaResource:Lcom/bilibili/lib/media/resource/MediaResource;
+    iget-object v6, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mMediaResource:Lcom/bilibili/lib/media/resource/MediaResource;
 
-    iget v5, v5, Lcom/bilibili/lib/media/resource/MediaResource;->quality:I
+    iget v6, v6, Lcom/bilibili/lib/media/resource/MediaResource;->quality:I
 
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v6}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v2
 
-    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v4
-
-    .line 91
-    invoke-static {v1, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 95
-    iget-object v1, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mMediaResource:Lcom/bilibili/lib/media/resource/MediaResource;
-
-    iget-object v4, v1, Lcom/bilibili/lib/media/resource/MediaResource;->dash:Lorg/json/JSONObject;
+    move-result-object v2
 
     .line 96
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 100
     iget-object v1, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mMediaResource:Lcom/bilibili/lib/media/resource/MediaResource;
 
-    iget v5, v1, Lcom/bilibili/lib/media/resource/MediaResource;->quality:I
+    iget-object v2, v1, Lcom/bilibili/lib/media/resource/MediaResource;->dash:Lorg/json/JSONObject;
 
-    .line 98
+    .line 101
+    iget-object v1, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mMediaResource:Lcom/bilibili/lib/media/resource/MediaResource;
+
+    iget v6, v1, Lcom/bilibili/lib/media/resource/MediaResource;->quality:I
+
+    .line 103
     iget-object v1, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mResolveParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
-    if-eqz v1, :cond_f8
+    if-eqz v1, :cond_118
 
     iget-object v0, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mResolveParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     iget v0, v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mProgress:I
 
-    .line 101
-    :cond_f8
-    if-lez v0, :cond_288
+    .line 106
+    :cond_118
+    if-lez v0, :cond_29a
 
-    .line 102
+    .line 107
     int-to-long v0, v0
 
-    mul-long/2addr v0, v8
+    mul-long/2addr v0, v10
 
-    .line 105
-    :goto_fc
-    invoke-direct {p0, v4, v5, v6}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->buildBiliDashMediaSource(Lorg/json/JSONObject;ILcom/google/android/exoplayer2/upstream/DataSource$Factory;)Lcom/google/android/exoplayer2/source/MediaSource;
+    .line 110
+    :goto_11c
+    invoke-direct {p0, v2, v6, v3}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->buildBiliDashMediaSource(Lorg/json/JSONObject;ILcom/google/android/exoplayer2/upstream/DataSource$Factory;)Lcom/google/android/exoplayer2/source/MediaSource;
 
-    move-result-object v4
+    move-result-object v2
 
-    .line 106
-    const-string v5, "ExoCommander"
+    .line 111
+    const-string v3, "ExoCommander"
 
     const-string v6, "[DASH_BILI] Using MergingMediaSource for Bilibili DASH"
 
-    invoke-static {v5, v6}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 107
-    cmp-long v2, v0, v2
-
-    if-lez v2, :cond_114
-
-    .line 108
-    iget-object v2, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mExoPlayer:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
-
-    invoke-virtual {v2, v4, v0, v1}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->setDataSourceWithSeek(Lcom/google/android/exoplayer2/source/MediaSource;J)V
-
-    goto/16 :goto_85
-
-    :cond_112
-    move v1, v0
-
-    .line 84
-    goto :goto_a7
-
-    .line 110
-    :cond_114
-    iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mExoPlayer:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
-
-    invoke-virtual {v0, v4}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->setDataSource(Lcom/google/android/exoplayer2/source/MediaSource;)V
-
-    goto/16 :goto_85
+    invoke-static {v3, v6}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 112
-    :cond_11b
-    invoke-direct {p0, v4}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->isStandardDash(Ljava/lang/String;)Z
+    cmp-long v3, v0, v4
+
+    if-lez v3, :cond_135
+
+    .line 113
+    iget-object v3, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mExoPlayer:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+
+    invoke-virtual {v3, v2, v0, v1}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->setDataSourceWithSeek(Lcom/google/android/exoplayer2/source/MediaSource;J)V
+
+    goto/16 :goto_8d
+
+    :cond_132
+    move v1, v0
+
+    .line 87
+    goto/16 :goto_af
+
+    .line 115
+    :cond_135
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mExoPlayer:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+
+    invoke-virtual {v0, v2}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->setDataSource(Lcom/google/android/exoplayer2/source/MediaSource;)V
+
+    goto/16 :goto_8d
+
+    .line 117
+    :cond_13c
+    invoke-direct {p0, v8}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->isStandardDash(Ljava/lang/String;)Z
 
     move-result v1
 
-    if-eqz v1, :cond_14b
+    if-eqz v1, :cond_16c
 
-    .line 113
+    .line 118
     const-string v0, "ExoCommander"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -2234,7 +2642,7 @@
 
     move-result-object v1
 
-    invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
@@ -2244,34 +2652,34 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 114
-    invoke-direct {p0, v4, v6}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->buildStandardDashSource(Ljava/lang/String;Lcom/google/android/exoplayer2/upstream/DataSource$Factory;)Lcom/google/android/exoplayer2/source/MediaSource;
+    .line 119
+    invoke-direct {p0, v8, v3}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->buildStandardDashSource(Ljava/lang/String;Lcom/google/android/exoplayer2/upstream/DataSource$Factory;)Lcom/google/android/exoplayer2/source/MediaSource;
 
     move-result-object v0
 
-    .line 115
+    .line 120
     const-string v1, "ExoCommander"
 
     const-string v2, "[DASH_NATIVE] Using DashMediaSource for standard DASH"
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 116
+    .line 121
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mExoPlayer:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     invoke-virtual {v1, v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->setDataSource(Lcom/google/android/exoplayer2/source/MediaSource;)V
 
-    goto/16 :goto_85
+    goto/16 :goto_8d
 
-    .line 117
-    :cond_14b
-    invoke-direct {p0, v4}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->isHls(Ljava/lang/String;)Z
+    .line 122
+    :cond_16c
+    invoke-direct {p0, v8}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->isHls(Ljava/lang/String;)Z
 
     move-result v1
 
-    if-eqz v1, :cond_17b
+    if-eqz v1, :cond_19c
 
-    .line 118
+    .line 123
     const-string v0, "ExoCommander"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -2284,7 +2692,7 @@
 
     move-result-object v1
 
-    invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
@@ -2294,77 +2702,77 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 119
-    invoke-direct {p0, v4, v6}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->buildHlsSource(Ljava/lang/String;Lcom/google/android/exoplayer2/upstream/DataSource$Factory;)Lcom/google/android/exoplayer2/source/MediaSource;
+    .line 124
+    invoke-direct {p0, v8, v3}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->buildHlsSource(Ljava/lang/String;Lcom/google/android/exoplayer2/upstream/DataSource$Factory;)Lcom/google/android/exoplayer2/source/MediaSource;
 
     move-result-object v0
 
-    .line 120
+    .line 125
     const-string v1, "ExoCommander"
 
     const-string v2, "[HLS_NATIVE] Using HlsMediaSource for HLS"
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 121
+    .line 126
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mExoPlayer:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     invoke-virtual {v1, v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->setDataSource(Lcom/google/android/exoplayer2/source/MediaSource;)V
 
-    goto/16 :goto_85
+    goto/16 :goto_8d
 
-    .line 123
-    :cond_17b
+    .line 128
+    :cond_19c
     const-string v1, "ExoCommander"
 
-    new-instance v5, Ljava/lang/StringBuilder;
+    new-instance v6, Ljava/lang/StringBuilder;
 
-    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
 
     const-string v7, "[PROGRESSIVE] Progressive format: "
 
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v5
+    move-result-object v6
 
-    invoke-virtual {v5, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v6, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v5
+    move-result-object v6
 
-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v5
+    move-result-object v6
 
-    invoke-static {v1, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v1, v6}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 125
+    .line 130
     iget-object v1, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mResolveParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
-    if-eqz v1, :cond_19b
+    if-eqz v1, :cond_1bc
 
     iget-object v0, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mResolveParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     iget v0, v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mProgress:I
 
-    .line 128
-    :cond_19b
-    if-lez v0, :cond_285
+    .line 133
+    :cond_1bc
+    if-lez v0, :cond_297
 
-    .line 129
+    .line 134
     int-to-long v0, v0
 
-    mul-long/2addr v0, v8
+    mul-long/2addr v0, v10
 
-    .line 130
-    const-string v5, "ExoCommander"
+    .line 135
+    const-string v6, "ExoCommander"
 
     new-instance v7, Ljava/lang/StringBuilder;
 
     invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v8, "[PROGRESSIVE] Will seek to "
+    const-string v9, "[PROGRESSIVE] Will seek to "
 
-    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v7, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v7
 
@@ -2372,70 +2780,9 @@
 
     move-result-object v7
 
-    const-string v8, "ms on start"
+    const-string v9, "ms on start"
 
-    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v7
-
-    invoke-static {v5, v7}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 134
-    :goto_1bd
-    const-string v5, "http://"
-
-    invoke-virtual {v4, v5}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
-
-    move-result v5
-
-    if-nez v5, :cond_1cd
-
-    const-string v5, "https://"
-
-    invoke-virtual {v4, v5}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
-
-    move-result v5
-
-    if-eqz v5, :cond_23a
-
-    .line 136
-    :cond_1cd
-    :try_start_1cd
-    iget-object v5, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mProxy:Lmybl/ProgressiveLocalHttpProxy;
-
-    if-nez v5, :cond_1f6
-
-    .line 137
-    new-instance v5, Lmybl/ProgressiveLocalHttpProxy;
-
-    invoke-direct {v5}, Lmybl/ProgressiveLocalHttpProxy;-><init>()V
-
-    iput-object v5, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mProxy:Lmybl/ProgressiveLocalHttpProxy;
-
-    .line 138
-    const-string v5, "ExoCommander"
-
-    new-instance v7, Ljava/lang/StringBuilder;
-
-    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v8, "[PROXY] Created local HTTP proxy on port "
-
-    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    iget-object v8, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mProxy:Lmybl/ProgressiveLocalHttpProxy;
-
-    invoke-virtual {v8}, Lmybl/ProgressiveLocalHttpProxy;->getPort()I
-
-    move-result v8
-
-    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v7, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v7
 
@@ -2443,150 +2790,197 @@
 
     move-result-object v7
 
-    invoke-static {v5, v7}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v6, v7}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    move-wide v6, v0
+
+    .line 140
+    :goto_1df
+    const-string v0, "http://"
+
+    invoke-virtual {v8, v0}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_1ef
+
+    const-string v0, "https://"
+
+    invoke-virtual {v8, v0}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_280
 
     .line 141
-    :cond_1f6
-    invoke-direct {p0, p2, v4}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->getUrlCandidates(Lcom/bilibili/tv/player/basic/context/VideoViewParams;Ljava/lang/String;)Ljava/util/List;
+    :cond_1ef
+    invoke-direct {p0, p2, v8}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->getUrlCandidates(Lcom/bilibili/tv/player/basic/context/VideoViewParams;Ljava/lang/String;)Ljava/util/List;
 
-    move-result-object v5
+    move-result-object v0
 
     .line 142
-    const-string v7, "ExoCommander"
+    const-string v1, "ExoCommander"
 
-    new-instance v8, Ljava/lang/StringBuilder;
+    new-instance v9, Ljava/lang/StringBuilder;
 
-    invoke-direct {v8}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v9}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v9, "[PROXY] Found "
+    const-string v10, "[CDN_FAILOVER] Found "
 
-    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v9, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v8
+    move-result-object v9
 
-    invoke-interface {v5}, Ljava/util/List;->size()I
+    invoke-interface {v0}, Ljava/util/List;->size()I
 
-    move-result v9
+    move-result v10
 
-    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v9, v10}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    move-result-object v8
+    move-result-object v9
 
-    const-string v9, " URL candidates"
+    const-string v10, " URL candidates"
 
-    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v9, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v8
+    move-result-object v9
 
-    invoke-virtual {v8}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v9}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v8
+    move-result-object v9
 
-    invoke-static {v7, v8}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v1, v9}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 144
-    iget-object v7, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mProxy:Lmybl/ProgressiveLocalHttpProxy;
+    invoke-interface {v0}, Ljava/util/List;->size()I
 
-    invoke-virtual {v7, v5}, Lmybl/ProgressiveLocalHttpProxy;->registerWithBackup(Ljava/util/List;)Ljava/lang/String;
+    move-result v1
 
-    move-result-object v4
+    if-le v1, v2, :cond_279
 
     .line 145
-    const-string v5, "ExoCommander"
+    new-instance v1, Ljava/util/ArrayList;
 
-    new-instance v7, Ljava/lang/StringBuilder;
-
-    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v8, "[PROXY] Using proxy URL: "
-
-    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    invoke-virtual {v7, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v7
-
-    invoke-static {v5, v7}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_23a
-    .catch Ljava/lang/Exception; {:try_start_1cd .. :try_end_23a} :catch_252
-
-    .line 151
-    :cond_23a
-    :goto_23a
-    new-instance v5, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;
-
-    invoke-direct {v5, v6}, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;-><init>(Lcom/google/android/exoplayer2/upstream/DataSource$Factory;)V
-
-    .line 152
-    invoke-static {v4}, Lcom/google/android/exoplayer2/MediaItem;->fromUri(Ljava/lang/String;)Lcom/google/android/exoplayer2/MediaItem;
-
-    move-result-object v4
-
-    invoke-virtual {v5, v4}, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;->createMediaSource(Lcom/google/android/exoplayer2/MediaItem;)Lcom/google/android/exoplayer2/source/ProgressiveMediaSource;
-
-    move-result-object v4
-
-    .line 154
-    cmp-long v2, v0, v2
-
-    if-lez v2, :cond_270
-
-    .line 155
-    iget-object v2, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mExoPlayer:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
-
-    invoke-virtual {v2, v4, v0, v1}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->setDataSourceWithSeek(Lcom/google/android/exoplayer2/source/MediaSource;J)V
-
-    goto/16 :goto_85
+    invoke-direct {v1}, Ljava/util/ArrayList;-><init>()V
 
     .line 146
-    :catch_252
-    move-exception v5
+    invoke-interface {v0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
+
+    move-result-object v2
+
+    :goto_224
+    invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_238
+
+    invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/lang/String;
 
     .line 147
-    const-string v7, "ExoCommander"
+    invoke-static {v0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
-    new-instance v8, Ljava/lang/StringBuilder;
+    move-result-object v0
 
-    invoke-direct {v8}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-interface {v1, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    const-string v9, "[PROXY] Failed to create proxy: "
+    goto :goto_224
 
-    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    .line 149
+    :cond_238
+    new-instance v0, Lmybl/CdnFailoverDataSourceFactory;
 
-    move-result-object v8
+    const-string v2, "PROGRESSIVE"
 
-    invoke-virtual {v5}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
+    invoke-direct {v0, v3, v1, v2}, Lmybl/CdnFailoverDataSourceFactory;-><init>(Lcom/google/android/exoplayer2/upstream/DataSource$Factory;Ljava/util/List;Ljava/lang/String;)V
 
-    move-result-object v5
+    .line 150
+    const-string v2, "ExoCommander"
 
-    invoke-virtual {v8, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    new-instance v3, Ljava/lang/StringBuilder;
 
-    move-result-object v5
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    const-string v9, "[CDN_FAILOVER] Using CdnFailoverDataSource with "
 
-    move-result-object v5
+    invoke-virtual {v3, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-static {v7, v5}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+    move-result-object v3
 
-    goto :goto_23a
+    invoke-interface {v1}, Ljava/util/List;->size()I
+
+    move-result v1
+
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v3, " candidates"
+
+    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v2, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 156
+    :goto_261
+    new-instance v1, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;
+
+    invoke-direct {v1, v0}, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;-><init>(Lcom/google/android/exoplayer2/upstream/DataSource$Factory;)V
 
     .line 157
-    :cond_270
-    iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mExoPlayer:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+    invoke-static {v8}, Lcom/google/android/exoplayer2/MediaItem;->fromUri(Ljava/lang/String;)Lcom/google/android/exoplayer2/MediaItem;
 
-    invoke-virtual {v0, v4}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->setDataSource(Lcom/google/android/exoplayer2/source/MediaSource;)V
+    move-result-object v0
 
-    goto/16 :goto_85
+    invoke-virtual {v1, v0}, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;->createMediaSource(Lcom/google/android/exoplayer2/MediaItem;)Lcom/google/android/exoplayer2/source/ProgressiveMediaSource;
 
-    .line 163
-    :cond_277
+    move-result-object v0
+
+    .line 159
+    cmp-long v1, v6, v4
+
+    if-lez v1, :cond_282
+
+    .line 160
+    iget-object v1, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mExoPlayer:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+
+    invoke-virtual {v1, v0, v6, v7}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->setDataSourceWithSeek(Lcom/google/android/exoplayer2/source/MediaSource;J)V
+
+    goto/16 :goto_8d
+
+    .line 152
+    :cond_279
+    const-string v0, "ExoCommander"
+
+    const-string v1, "[CDN_FAILOVER] Only one URL candidate, using default DataSource"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    :cond_280
+    move-object v0, v3
+
+    goto :goto_261
+
+    .line 162
+    :cond_282
+    iget-object v1, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mExoPlayer:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+
+    invoke-virtual {v1, v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->setDataSource(Lcom/google/android/exoplayer2/source/MediaSource;)V
+
+    goto/16 :goto_8d
+
+    .line 168
+    :cond_289
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v0
@@ -2599,17 +2993,17 @@
 
     move-result v0
 
-    goto/16 :goto_8b
+    goto/16 :goto_93
 
-    :cond_285
-    move-wide v0, v2
+    :cond_297
+    move-wide v6, v4
 
-    goto/16 :goto_1bd
+    goto/16 :goto_1df
 
-    :cond_288
-    move-wide v0, v2
+    :cond_29a
+    move-wide v0, v4
 
-    goto/16 :goto_fc
+    goto/16 :goto_11c
 .end method
 
 .method public bridge synthetic pause()V
@@ -2621,7 +3015,7 @@
     .end annotation
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->pause()V
 
     return-void
@@ -2636,78 +3030,20 @@
     .end annotation
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->prepareAsync()V
 
     return-void
 .end method
 
-.method public release()V
-    .locals 4
+.method public bridge synthetic release()V
+    .locals 0
 
     .prologue
-    .line 499
-    iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mProxy:Lmybl/ProgressiveLocalHttpProxy;
+    .line 43
+    invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->release()V
 
-    if-eqz v0, :cond_13
-
-    .line 501
-    :try_start_4
-    iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mProxy:Lmybl/ProgressiveLocalHttpProxy;
-
-    invoke-virtual {v0}, Lmybl/ProgressiveLocalHttpProxy;->close()V
-
-    .line 502
-    const-string v0, "ExoCommander"
-
-    const-string v1, "[PROXY] Local HTTP proxy closed"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_10
-    .catch Ljava/lang/Exception; {:try_start_4 .. :try_end_10} :catch_14
-
-    .line 506
-    :goto_10
-    const/4 v0, 0x0
-
-    iput-object v0, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mProxy:Lmybl/ProgressiveLocalHttpProxy;
-
-    .line 508
-    :cond_13
     return-void
-
-    .line 503
-    :catch_14
-    move-exception v0
-
-    .line 504
-    const-string v1, "ExoCommander"
-
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "[PROXY] Error closing proxy: "
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v0}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {v1, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
-
-    goto :goto_10
 .end method
 
 .method public require(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
@@ -2725,17 +3061,17 @@
     .prologue
     const v2, 0xffff
 
-    .line 315
+    .line 371
     invoke-virtual {p1}, Ljava/lang/String;->hashCode()I
 
     move-result v0
 
-    .line 316
+    .line 372
     const v1, -0x2c46c472
 
     if-ne v0, v1, :cond_18
 
-    .line 317
+    .line 373
     const-string v0, "GetAsyncPos"
 
     invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -2744,22 +3080,22 @@
 
     if-eqz v0, :cond_14
 
-    .line 329
+    .line 385
     :cond_14
     :goto_14
     packed-switch v2, :pswitch_data_42
 
-    .line 335
+    .line 391
     :goto_17
     return-object p2
 
-    .line 321
+    .line 377
     :cond_18
     const v1, 0x53b0d356
 
     if-ne v0, v1, :cond_14
 
-    .line 322
+    .line 378
     const-string v0, "GetPlaybackSpeed"
 
     invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -2770,7 +3106,7 @@
 
     goto :goto_14
 
-    .line 331
+    .line 387
     :pswitch_26
     invoke-direct {p0}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->getPlaybackSpeed()F
 
@@ -2786,7 +3122,7 @@
 
     goto :goto_17
 
-    .line 333
+    .line 389
     :pswitch_33
     invoke-virtual {p0}, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->getCurrentPosition()J
 
@@ -2804,7 +3140,7 @@
 
     goto :goto_17
 
-    .line 329
+    .line 385
     nop
 
     :pswitch_data_42
@@ -2818,7 +3154,7 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->reset()V
 
     return-void
@@ -2833,7 +3169,7 @@
     .end annotation
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1, p2}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->seekTo(J)V
 
     return-void
@@ -2843,17 +3179,17 @@
     .locals 1
 
     .prologue
-    .line 402
+    .line 458
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mExoPlayer:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     if-eqz v0, :cond_9
 
-    .line 403
+    .line 459
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mExoPlayer:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->setAudioBalanceLevel(Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;)V
 
-    .line 405
+    .line 461
     :cond_9
     return-void
 .end method
@@ -2862,7 +3198,7 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setAudioStreamType(I)V
 
     return-void
@@ -2880,7 +3216,7 @@
     .end annotation
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1, p2}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setDataSource(Landroid/content/Context;Landroid/net/Uri;)V
 
     return-void
@@ -2902,7 +3238,7 @@
     .end annotation
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1, p2, p3}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setDataSource(Landroid/content/Context;Landroid/net/Uri;Ljava/util/Map;)V
 
     return-void
@@ -2919,7 +3255,7 @@
     .end annotation
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setDataSource(Ljava/io/FileDescriptor;)V
 
     return-void
@@ -2937,7 +3273,7 @@
     .end annotation
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setDataSource(Ljava/lang/String;)V
 
     return-void
@@ -2947,7 +3283,7 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setDataSource(Ltv/danmaku/ijk/media/player/misc/IMediaDataSource;)V
 
     return-void
@@ -2957,7 +3293,7 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setDisplay(Landroid/view/SurfaceHolder;)V
 
     return-void
@@ -2967,7 +3303,7 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setKeepInBackground(Z)V
 
     return-void
@@ -2977,7 +3313,7 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setLogEnabled(Z)V
 
     return-void
@@ -2987,7 +3323,7 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setLooping(Z)V
 
     return-void
@@ -2997,7 +3333,7 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setOnBufferingUpdateListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnBufferingUpdateListener;)V
 
     return-void
@@ -3007,7 +3343,7 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setOnCompletionListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnCompletionListener;)V
 
     return-void
@@ -3017,7 +3353,7 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setOnErrorListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnErrorListener;)V
 
     return-void
@@ -3027,7 +3363,7 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setOnInfoListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;)V
 
     return-void
@@ -3037,7 +3373,7 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setOnPreparedListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnPreparedListener;)V
 
     return-void
@@ -3047,7 +3383,7 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setOnSeekCompleteListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnSeekCompleteListener;)V
 
     return-void
@@ -3057,7 +3393,7 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setOnTimedTextListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnTimedTextListener;)V
 
     return-void
@@ -3067,7 +3403,7 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setOnVideoSizeChangedListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnVideoSizeChangedListener;)V
 
     return-void
@@ -3077,7 +3413,7 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setScreenOnWhilePlaying(Z)V
 
     return-void
@@ -3087,7 +3423,7 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setSpeed(F)V
 
     return-void
@@ -3100,7 +3436,7 @@
     .end annotation
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setSurface(Landroid/view/Surface;)V
 
     return-void
@@ -3110,7 +3446,7 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1, p2}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setVolume(FF)V
 
     return-void
@@ -3120,7 +3456,7 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0, p1, p2}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->setWakeMode(Landroid/content/Context;I)V
 
     return-void
@@ -3135,12 +3471,12 @@
     .end annotation
 
     .prologue
-    .line 309
+    .line 365
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/commander/ExoCommander;->mMediaPlayer:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     invoke-interface {v0}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->start()V
 
-    .line 310
+    .line 366
     return-void
 .end method
 
@@ -3153,7 +3489,7 @@
     .end annotation
 
     .prologue
-    .line 40
+    .line 43
     invoke-super {p0}, Ltv/danmaku/videoplayer/core/commander/AbsPlayerCommander;->stop()V
 
     return-void
