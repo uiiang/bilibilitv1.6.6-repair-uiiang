@@ -33,6 +33,7 @@ public class MediaResource implements Parcelable, qr {
 
     public JSONObject dash;
     public int quality;
+    public org.json.JSONArray clip_info_list;
 
     @Override // android.os.Parcelable
     public int describeContents() {
@@ -81,11 +82,24 @@ public class MediaResource implements Parcelable, qr {
             this.dash = jSONObject.optJSONObject("dash");
             this.quality = jSONObject.optInt("quality");
         }
+        
+        this.clip_info_list = jSONObject.optJSONArray("clip_info_list");
     }
 
     @Override // bl.qr
     public JSONObject b() throws JSONException {
-        return new JSONObject().put("resolved_index", this.d).put("vod_index", qt.a(this.a)).put("network_state", this.c).put("dash", this.dash).put("quality", this.quality);
+        JSONObject result = new JSONObject()
+            .put("resolved_index", this.d)
+            .put("vod_index", qt.a(this.a))
+            .put("network_state", this.c)
+            .put("dash", this.dash)
+            .put("quality", this.quality);
+        
+        if (this.clip_info_list != null && this.clip_info_list.length() > 0) {
+            result.put("clip_info_list", this.clip_info_list);
+        }
+        
+        return result;
     }
 
     @Override // android.os.Parcelable
@@ -94,8 +108,9 @@ public class MediaResource implements Parcelable, qr {
         parcel.writeParcelable(this.a, i);
         parcel.writeInt(this.c);
 
-        parcel.writeString(this.dash.toString());
+        parcel.writeString(this.dash != null ? this.dash.toString() : "");
         parcel.writeInt(this.quality);
+        parcel.writeString(this.clip_info_list != null ? this.clip_info_list.toString() : "");
     }
 
     protected MediaResource(Parcel parcel) {
@@ -105,8 +120,18 @@ public class MediaResource implements Parcelable, qr {
         this.c = parcel.readInt();
 
         try{
-            this.dash = new JSONObject(parcel.readString());
+            String dashStr = parcel.readString();
+            if(dashStr != null && !dashStr.isEmpty()){
+                this.dash = new JSONObject(dashStr);
+            }
             this.quality = parcel.readInt();
+        }catch(Exception e){}
+        
+        try{
+            String clipInfoStr = parcel.readString();
+            if(clipInfoStr != null && !clipInfoStr.isEmpty()){
+                this.clip_info_list = new org.json.JSONArray(clipInfoStr);
+            }
         }catch(Exception e){}
     }
 }

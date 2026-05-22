@@ -149,7 +149,7 @@ public class xj extends xh {
 
             if ("片头".equals(type)) {
                 if (!introSkipped && !userSeekedToIntro && t >= start && t < end) {
-                    android.util.Log.i("SkipDebug", "EXEC INTRO: t=" + t);
+                    // android.util.Log.i("SkipDebug", "EXEC INTRO: t=" + t);
                     if(this.c==null)Q();
                     if(this.c==null)return;
                     a(this.j);
@@ -164,7 +164,7 @@ public class xj extends xh {
                 }
             } else if ("片尾".equals(type)) {
                 if (!outroPromptShown && t >= start) {
-                    android.util.Log.i("SkipDebug", "EXEC OUTRO: t=" + t);
+                    // android.util.Log.i("SkipDebug", "EXEC OUTRO: t=" + t);
                     if(this.c==null)Q();
                     if(this.c==null)return;
                     a(this.j);
@@ -174,13 +174,40 @@ public class xj extends xh {
                     this.l = true;
                     a(this.j, 5000L);
                     outroPromptShown = true;
-                    c((int)end);
+                    
+                    int duration = I();
+                    long seekTarget = end;
+                    if (duration > 0 && end >= duration - 1000) {
+                        seekTarget = duration - 500;
+                        if (seekTarget < 0) seekTarget = 0;
+                        // android.util.Log.i("SkipDebug", "Outro end near duration, seek to " + seekTarget + " (duration=" + duration + ")");
+                    }
+                    c((int)seekTarget);
+                    
+                    Activity activity = o();
+                    xl xlInstance = null;
+                    if (activity != null) {
+                        xh chainHead = bl.xe.a(activity);
+                        xh current = chainHead;
+                        while (current != null) {
+                            if (current instanceof xl) {
+                                xlInstance = (xl) current;
+                                break;
+                            }
+                            current = current.next();
+                        }
+                    }
+                    
+                    if (xlInstance != null) {
+                        // android.util.Log.i("SkipDebug", "Found xl instance from chain head, calling onCompletion");
+                        xlInstance.onCompletion(null);
+                    }
                     return;
                 }
             } else {
                 String segmentKey = type + "_" + start + "_" + end;
                 if (!skippedSegments.contains(segmentKey) && t >= start && t < end) {
-                    android.util.Log.i("SkipDebug", "EXEC " + type + ": t=" + t + ", start=" + start + ", end=" + end);
+                    // android.util.Log.i("SkipDebug", "EXEC " + type + ": t=" + t + ", start=" + start + ", end=" + end);
                     if(this.c==null)Q();
                     if(this.c==null)return;
                     a(this.j);

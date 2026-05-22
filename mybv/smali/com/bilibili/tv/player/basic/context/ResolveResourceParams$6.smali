@@ -1,4 +1,4 @@
-.class Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$2;
+.class Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$6;
 .super Ljava/lang/Object;
 .source "ResolveResourceParams.java"
 
@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->fetchSponsorBlockSegments()Lorg/json/JSONArray;
+    value = Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->initPlayInfo(Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$PlayInfoCallback;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -36,8 +36,8 @@
     .locals 0
 
     .prologue
-    .line 205
-    iput-object p1, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$2;->this$0:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
+    .line 433
+    iput-object p1, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$6;->this$0:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -55,8 +55,8 @@
     .end annotation
 
     .prologue
-    .line 205
-    invoke-virtual {p0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$2;->call()Lorg/json/JSONObject;
+    .line 433
+    invoke-virtual {p0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$6;->call()Lorg/json/JSONObject;
 
     move-result-object v0
 
@@ -67,35 +67,87 @@
     .locals 4
 
     .prologue
-    .line 209
-    :try_start_0
+    .line 436
     new-instance v0, Lbl/qa$a;
 
     const-class v1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;
 
     invoke-direct {v0, v1}, Lbl/qa$a;-><init>(Ljava/lang/Class;)V
 
-    const-string v1, "https://api.bilibili.com/pgc/view/web/ep/list"
+    const-string v1, "https://api.bilibili.com/x/player/wbi/v2"
 
-    .line 210
     invoke-virtual {v0, v1}, Lbl/qa$a;->a(Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
 
     const/4 v1, 0x1
 
-    .line 211
     invoke-virtual {v0, v1}, Lbl/qa$a;->a(Z)Lbl/qa$a;
 
     move-result-object v0
 
-    const-string v1, "ep_id"
+    const-string v1, "Cookie"
 
-    iget-object v2, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$2;->this$0:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
+    new-instance v2, Ljava/lang/StringBuilder;
 
-    iget-wide v2, v2, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mEpisodeId:J
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 212
+    const-string v3, "SESSDATA="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
+
+    move-result-object v3
+
+    invoke-static {v3}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Lbl/mg;->getSESSDATA()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v0, v1, v2}, Lbl/qa$a;->a(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
+
+    move-result-object v0
+
+    const-string v1, ""
+
+    invoke-virtual {v0, v1}, Lbl/qa$a;->b(Ljava/lang/String;)Lbl/qa$a;
+
+    move-result-object v0
+
+    const-string v1, "aid"
+
+    iget-object v2, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$6;->this$0:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
+
+    iget-wide v2, v2, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAvid:J
+
+    invoke-static {v2, v3}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v0, v1, v2}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
+
+    move-result-object v0
+
+    const-string v1, "cid"
+
+    iget-object v2, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$6;->this$0:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
+
+    iget-wide v2, v2, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mCid:J
+
     invoke-static {v2, v3}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
 
     move-result-object v2
@@ -108,7 +160,6 @@
 
     invoke-direct {v1}, Lbl/qb;-><init>()V
 
-    .line 213
     invoke-virtual {v0, v1}, Lbl/qa$a;->a(Lbl/qf;)Lbl/qa$a;
 
     move-result-object v0
@@ -119,30 +170,15 @@
 
     const-string v1, "GET"
 
-    .line 209
     invoke-static {v0, v1}, Lbl/pz;->a(Lbl/qa;Ljava/lang/String;)Lbl/qe;
 
     move-result-object v0
 
     check-cast v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;
 
-    .line 213
     invoke-virtual {v0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;->result()Lorg/json/JSONObject;
-    :try_end_38
-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_38} :catch_3a
 
     move-result-object v0
 
-    .line 215
-    :goto_39
     return-object v0
-
-    .line 214
-    :catch_3a
-    move-exception v0
-
-    .line 215
-    const/4 v0, 0x0
-
-    goto :goto_39
 .end method

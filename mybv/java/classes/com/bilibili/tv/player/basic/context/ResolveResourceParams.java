@@ -5,6 +5,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Keep;
 import android.text.TextUtils;
+import android.util.Log;
 import com.bilibili.lib.media.resolver.params.ResolveMediaResourceParams;
 import com.bilibili.lib.media.resolver.params.ResolveResourceExtra;
 import java.io.Serializable;
@@ -93,6 +94,7 @@ public class ResolveResourceParams implements Parcelable, Serializable {
     public String mListKey;
 
     public JSONArray skips;
+    public JSONArray clip_info_list;
     public JSONObject subtitle_info;
     public JSONObject subtitle_data;
     public volatile JSONArray view_points;
@@ -129,51 +131,132 @@ public class ResolveResourceParams implements Parcelable, Serializable {
     public void getSkipInfo() {
         this.skips = new JSONArray();
         if(BiliFilter.skip_categories.size()==0)return;
-        if(isBangumi()){
-            ExecutorService threadPool  = Executors.newSingleThreadExecutor();
+        
+        JSONArray clipSegments = extractSkipInfoFromClipInfoList();
+        JSONArray sponsorBlockSegments = fetchSponsorBlockSegments();
+        
+        this.skips = mergeSkipSegments(clipSegments, sponsorBlockSegments);
+    }
+    
+    private JSONArray extractSkipInfoFromClipInfoList() {
+        JSONArray result = new JSONArray();
+        if (this.clip_info_list == null || this.clip_info_list.length() == 0) {
+            return result;
+        }
+        
+        Log.i("SkipInfo", "Extracting from clip_info_list, count=" + this.clip_info_list.length());
+        
+        for (int i = 0; i < this.clip_info_list.length(); i++) {
+            JSONObject clipObj = this.clip_info_list.optJSONObject(i);
+            if (clipObj == null) continue;
+            
+            String clipType = clipObj.optString("clipType", clipObj.optString("clip_type", "")).trim();
+            String category;
+            
+            if ("CLIP_TYPE_OP".equals(clipType)) {
+                if (!BiliFilter.skip_categories.contains("intro")) continue;
+                category = "片头";
+            } else if ("CLIP_TYPE_ED".equals(clipType)) {
+                if (!BiliFilter.skip_categories.contains("outro")) continue;
+                category = "片尾";
+            } else {
+                continue;
+            }
+            
+            double startRaw = clipObj.optDouble("start", Double.NaN);
+            double endRaw = clipObj.optDouble("end", Double.NaN);
+            
+            if (!Double.isFinite(startRaw) || !Double.isFinite(endRaw)) continue;
+            
+            long startMs = normalizeClipTimeToMs(startRaw);
+            long endMs = normalizeClipTimeToMs(endRaw);
+            
+            if (endMs <= startMs) continue;
+            
+            try {
+                JSONObject skipInfo = new JSONObject();
+                skipInfo.put("type", category);
+                skipInfo.put("start", startMs);
+                skipInfo.put("end", endMs);
+                skipInfo.put("source", "pgc_clip");
+                result.put(skipInfo);
+                Log.i("SkipInfo", "Added clip segment: " + category + " " + startMs + "-" + endMs);
+            } catch (Exception e) {
+                Log.e("SkipInfo", "Failed to create skip info: " + e.getMessage());
+            }
+        }
+        
+        return result;
+    }
+    
+    private long normalizeClipTimeToMs(double time) {
+        if (time >= 10000) {
+            return (long) time;
+        } else {
+            return (long) (time * 1000);
+        }
+    }
+    
+    private JSONArray fetchSponsorBlockSegments() {
+        JSONArray result = new JSONArray();
+        
+        if (isBangumi()) {
+            ExecutorService threadPool = Executors.newSingleThreadExecutor();
             Future<JSONObject> future = threadPool.submit(new Callable<JSONObject>() {
                 @Override
                 public JSONObject call() {
                     try {
-                        return ((JsonResponse) pz.a(new qa.a(JsonResponse.class).a("https://api.bilibili.com/pgc/view/web/ep/list").a(true).b("ep_id", String.valueOf(ResolveResourceParams.this.mEpisodeId)).a(new qb()).a(), "GET")).result();
+                        return ((JsonResponse) pz.a(new qa.a(JsonResponse.class)
+                            .a("https://api.bilibili.com/pgc/view/web/ep/list")
+                            .a(true)
+                            .b("ep_id", String.valueOf(ResolveResourceParams.this.mEpisodeId))
+                            .a(new qb()).a(), "GET")).result();
                     } catch (Exception e) {
                         return null;
                     }
                 }
             });
-            try{
-                JSONArray tmp_episodes = future.get().optJSONObject("result").optJSONArray("episodes");
-                for(int i=0;i<tmp_episodes.length();i++){
-                    JSONObject tmp_ep = tmp_episodes.optJSONObject(i);
-                    if(tmp_ep.optInt("ep_id")!=this.mEpisodeId || tmp_ep.optJSONObject("skip")==null)continue;
-                    if(tmp_ep.optJSONObject("skip").optJSONObject("op")!=null && BiliFilter.skip_categories.contains("intro")){
-                        double start = tmp_ep.optJSONObject("skip").optJSONObject("op").optDouble("start");
-                        double end = tmp_ep.optJSONObject("skip").optJSONObject("op").optDouble("end");
-                        if(start<end){
-                            JSONObject skip_info = new JSONObject();
-                            skip_info.put("type","片头");
-                            skip_info.put("start",(long)start*1000);
-                            skip_info.put("end",(long)end*1000);
-                            this.skips.put(skip_info);
-                        }
-                    }
-                    if(tmp_ep.optJSONObject("skip").optJSONObject("ed")!=null && BiliFilter.skip_categories.contains("outro")){
-                        double start = tmp_ep.optJSONObject("skip").optJSONObject("ed").optDouble("start");
-                        double end = tmp_ep.optJSONObject("skip").optJSONObject("ed").optDouble("end");
-                        if(start<end){
-                            JSONObject skip_info = new JSONObject();
-                            skip_info.put("type","片尾");
-                            skip_info.put("start",(long)start*1000);
-                            skip_info.put("end",(long)end*1000);
-                            this.skips.put(skip_info);
+            try {
+                JSONObject response = future.get();
+                if (response != null) {
+                    JSONArray tmp_episodes = response.optJSONObject("result").optJSONArray("episodes");
+                    if (tmp_episodes != null) {
+                        for (int i = 0; i < tmp_episodes.length(); i++) {
+                            JSONObject tmp_ep = tmp_episodes.optJSONObject(i);
+                            if (tmp_ep.optInt("ep_id") != this.mEpisodeId || tmp_ep.optJSONObject("skip") == null)
+                                continue;
+                            if (tmp_ep.optJSONObject("skip").optJSONObject("op") != null && BiliFilter.skip_categories.contains("intro")) {
+                                double start = tmp_ep.optJSONObject("skip").optJSONObject("op").optDouble("start");
+                                double end = tmp_ep.optJSONObject("skip").optJSONObject("op").optDouble("end");
+                                if (start < end) {
+                                    JSONObject skip_info = new JSONObject();
+                                    skip_info.put("type", "片头");
+                                    skip_info.put("start", (long) start * 1000);
+                                    skip_info.put("end", (long) end * 1000);
+                                    skip_info.put("source", "pgc_ep_list");
+                                    result.put(skip_info);
+                                }
+                            }
+                            if (tmp_ep.optJSONObject("skip").optJSONObject("ed") != null && BiliFilter.skip_categories.contains("outro")) {
+                                double start = tmp_ep.optJSONObject("skip").optJSONObject("ed").optDouble("start");
+                                double end = tmp_ep.optJSONObject("skip").optJSONObject("ed").optDouble("end");
+                                if (start < end) {
+                                    JSONObject skip_info = new JSONObject();
+                                    skip_info.put("type", "片尾");
+                                    skip_info.put("start", (long) start * 1000);
+                                    skip_info.put("end", (long) end * 1000);
+                                    skip_info.put("source", "pgc_ep_list");
+                                    result.put(skip_info);
+                                }
+                            }
                         }
                     }
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else{
-            ExecutorService threadPool  = Executors.newSingleThreadExecutor();
+        } else {
+            ExecutorService threadPool = Executors.newSingleThreadExecutor();
             Future<JSONArray> future = threadPool.submit(new Callable<JSONArray>() {
                 @Override
                 public JSONArray call() {
@@ -181,42 +264,161 @@ public class ResolveResourceParams implements Parcelable, Serializable {
                     String httpUrl = "http://bsbsb.top/api/skipSegments";
                     String videoID = String.valueOf(ResolveResourceParams.this.mBvid);
                     String categories = new JSONArray(BiliFilter.skip_categories).toString();
-                    
+
                     try {
-                        JSONArray result = ((JsonResponse) pz.a(new qa.a(JsonResponse.class).a(httpsUrl).a(true).b("videoID", videoID).b("categories", categories).b("actionType","skip").a(new qb()).a(), "GET")).result2();
+                        JSONArray result = ((JsonResponse) pz.a(new qa.a(JsonResponse.class)
+                            .a(httpsUrl).a(true)
+                            .b("videoID", videoID)
+                            .b("categories", categories)
+                            .b("actionType", "skip")
+                            .a(new qb()).a(), "GET")).result2();
                         if (result != null && result.length() > 0) {
                             return result;
                         }
                     } catch (Exception e) {
                     }
-                    
+
                     try {
-                        return ((JsonResponse) pz.a(new qa.a(JsonResponse.class).a(httpUrl).a(true).b("videoID", videoID).b("categories", categories).b("actionType","skip").a(new qb()).a(), "GET")).result2();
+                        return ((JsonResponse) pz.a(new qa.a(JsonResponse.class)
+                            .a(httpUrl).a(true)
+                            .b("videoID", videoID)
+                            .b("categories", categories)
+                            .b("actionType", "skip")
+                            .a(new qb()).a(), "GET")).result2();
                     } catch (Exception e) {
                         return null;
                     }
                 }
             });
-            try{
+            try {
                 JSONArray datas = future.get();
-                if(datas != null){
-                    for(int i=0;i<datas.length();i++){
+                if (datas != null) {
+                    for (int i = 0; i < datas.length(); i++) {
                         JSONObject item = datas.optJSONObject(i);
                         JSONArray segment = item.optJSONArray("segment");
+                        if (segment == null || segment.length() < 2) continue;
+                        
                         JSONObject skip_info = new JSONObject();
                         String c = item.optString("category");
-                        if(c.equals("intro"))skip_info.put("type","片头");
-                        if(c.equals("outro"))skip_info.put("type","片尾");
-                        if(c.equals("sponsor"))skip_info.put("type","硬广");
-                        skip_info.put("start",(long)segment.optDouble(0)*1000);
-                        skip_info.put("end",(long)segment.optDouble(1)*1000);
-                        this.skips.put(skip_info);
+                        if (c.equals("intro")) skip_info.put("type", "片头");
+                        else if (c.equals("outro")) skip_info.put("type", "片尾");
+                        else if (c.equals("sponsor")) skip_info.put("type", "硬广");
+                        else continue;
+                        
+                        skip_info.put("start", (long) segment.optDouble(0) * 1000);
+                        skip_info.put("end", (long) segment.optDouble(1) * 1000);
+                        skip_info.put("source", "sponsorblock");
+                        result.put(skip_info);
                     }
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        
+        return result;
+    }
+    
+    private JSONArray mergeSkipSegments(JSONArray clipSegments, JSONArray sponsorBlockSegments) {
+        LinkedHashMap<String, JSONObject> merged = new LinkedHashMap<>();
+        
+        for (int i = 0; i < clipSegments.length(); i++) {
+            JSONObject seg = clipSegments.optJSONObject(i);
+            if (seg == null) continue;
+            String id = generateSegmentId(seg, "pgc");
+            if (!merged.containsKey(id)) {
+                merged.put(id, seg);
+            }
+        }
+        
+        for (int i = 0; i < sponsorBlockSegments.length(); i++) {
+            JSONObject seg = sponsorBlockSegments.optJSONObject(i);
+            if (seg == null) continue;
+            String id = generateSegmentId(seg, "sb");
+            if (!merged.containsKey(id)) {
+                merged.put(id, seg);
+            }
+        }
+        
+        JSONArray result = new JSONArray();
+        List<JSONObject> sortedList = new ArrayList<>(merged.values());
+        Collections.sort(sortedList, new Comparator<JSONObject>() {
+            @Override
+            public int compare(JSONObject o1, JSONObject o2) {
+                long s1 = o1.optLong("start", 0);
+                long s2 = o2.optLong("start", 0);
+                return Long.compare(s1, s2);
+            }
+        });
+        
+        for (JSONObject seg : sortedList) {
+            result.put(seg);
+        }
+        
+        Log.i("SkipInfo", "Merged segments: clip=" + clipSegments.length() + 
+              ", sponsorBlock=" + sponsorBlockSegments.length() + 
+              ", total=" + result.length());
+        
+        return result;
+    }
+    
+    private String generateSegmentId(JSONObject seg, String source) {
+        String type = seg.optString("type", "unknown");
+        long start = seg.optLong("start", 0);
+        long end = seg.optLong("end", 0);
+        return source + ":" + type + ":" + start + "-" + end;
+    }
+    
+    public void updateSkipInfoFromClipInfoList() {
+        if (this.clip_info_list == null || this.clip_info_list.length() == 0) {
+            return;
+        }
+        
+        Log.i("SkipInfo", "updateSkipInfoFromClipInfoList: clip_info_list count=" + this.clip_info_list.length());
+        
+        JSONArray clipSegments = extractSkipInfoFromClipInfoList();
+        
+        JSONArray existingSegments = this.skips != null ? this.skips : new JSONArray();
+        
+        LinkedHashMap<String, JSONObject> merged = new LinkedHashMap<>();
+        
+        for (int i = 0; i < clipSegments.length(); i++) {
+            JSONObject seg = clipSegments.optJSONObject(i);
+            if (seg == null) continue;
+            String id = generateSegmentId(seg, "pgc");
+            merged.put(id, seg);
+        }
+        
+        for (int i = 0; i < existingSegments.length(); i++) {
+            JSONObject seg = existingSegments.optJSONObject(i);
+            if (seg == null) continue;
+            String source = seg.optString("source", "unknown");
+            String id = generateSegmentId(seg, source.equals("pgc_clip") ? "pgc" : "sb");
+            if (!merged.containsKey(id)) {
+                merged.put(id, seg);
+            }
+        }
+        
+        JSONArray result = new JSONArray();
+        List<JSONObject> sortedList = new ArrayList<>(merged.values());
+        Collections.sort(sortedList, new Comparator<JSONObject>() {
+            @Override
+            public int compare(JSONObject o1, JSONObject o2) {
+                long s1 = o1.optLong("start", 0);
+                long s2 = o2.optLong("start", 0);
+                return Long.compare(s1, s2);
+            }
+        });
+        
+        for (JSONObject seg : sortedList) {
+            result.put(seg);
+        }
+        
+        this.skips = result;
+        
+        Log.i("SkipInfo", "Updated skips from clip_info_list: clip=" + clipSegments.length() + 
+              ", existing=" + existingSegments.length() + 
+              ", total=" + result.length());
     }
 
     public void initPlayInfo() {

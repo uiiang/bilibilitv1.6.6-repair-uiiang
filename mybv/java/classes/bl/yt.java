@@ -133,6 +133,15 @@ public final class yt {
             android.util.Log.i("PlaySpeed", "[ZE_RESOLVE_END] ze.a() done, elapsed=" + (System.currentTimeMillis() - resolveStart) + "ms, hasDash=" + (a2 != null && a2.dash != null) + ", isVaild=" + (a2 != null && a2.c()));
             if (a2 != null && a2.c()) {
                 playerParams.mVideoParams.mMediaResource = a2;
+                
+                if (a2.clip_info_list != null && a2.clip_info_list.length() > 0) {
+                    ResolveResourceParams resolveParams = playerParams.mVideoParams.obtainResolveParams();
+                    resolveParams.clip_info_list = a2.clip_info_list;
+                    android.util.Log.i("PlaySpeed", "[CLIP_INFO] Set clip_info_list to ResolveResourceParams, count=" + a2.clip_info_list.length());
+                    
+                    resolveParams.updateSkipInfoFromClipInfoList();
+                }
+                
                 handler.sendEmptyMessage(IMediaPlayer.MEDIA_INFO_MEDIA_START_PREPARE);
                 return;
             }

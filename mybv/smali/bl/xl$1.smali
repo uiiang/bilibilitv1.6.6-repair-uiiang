@@ -36,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 313
+    .line 321
     iput-object p1, p0, Lbl/xl$1;->this$0:Lbl/xl;
 
     iput p4, p0, Lbl/xl$1;->val$color:I
@@ -54,7 +54,7 @@
     .locals 0
 
     .prologue
-    .line 313
+    .line 321
     check-cast p3, Ljava/lang/String;
 
     invoke-virtual {p0, p1, p2, p3}, Lbl/xl$1;->a(Lbl/aaz;ILjava/lang/String;)V
@@ -70,46 +70,46 @@
 
     const/4 v3, 0x1
 
-    .line 316
+    .line 324
     invoke-virtual {p1}, Lbl/aaz;->z()Landroid/view/View;
 
     move-result-object v0
 
     check-cast v0, Landroid/view/ViewGroup;
 
-    .line 317
+    .line 325
     invoke-virtual {v0, v4}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
 
     move-result-object v1
 
-    .line 318
+    .line 326
     instance-of v2, v1, Landroid/widget/TextView;
 
     if-eqz v2, :cond_39
 
-    .line 319
+    .line 327
     check-cast v1, Landroid/widget/TextView;
 
-    .line 320
+    .line 328
     invoke-virtual {v1, p3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 321
+    .line 329
     invoke-virtual {v1, v3}, Landroid/widget/TextView;->setSingleLine(Z)V
 
-    .line 322
+    .line 330
     sget-object v2, Landroid/text/TextUtils$TruncateAt;->END:Landroid/text/TextUtils$TruncateAt;
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setEllipsize(Landroid/text/TextUtils$TruncateAt;)V
 
-    .line 323
+    .line 331
     invoke-virtual {v1, v3}, Landroid/widget/TextView;->setMaxLines(I)V
 
-    .line 324
+    .line 332
     iget-object v2, p0, Lbl/xl$1;->this$0:Lbl/xl;
 
     invoke-virtual {v0, v2}, Landroid/view/ViewGroup;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 325
+    .line 333
     iget-object v2, p0, Lbl/xl$1;->this$0:Lbl/xl;
 
     # getter for: Lbl/xl;->i:I
@@ -119,24 +119,24 @@
 
     if-ne p2, v2, :cond_3a
 
-    .line 326
+    .line 334
     invoke-virtual {v0, v3}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
 
     move-result-object v0
 
     invoke-virtual {v0, v4}, Landroid/view/View;->setVisibility(I)V
 
-    .line 327
+    .line 335
     iget v0, p0, Lbl/xl$1;->val$color:I
 
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 333
+    .line 341
     :cond_39
     :goto_39
     return-void
 
-    .line 330
+    .line 338
     :cond_3a
     invoke-virtual {v0, v3}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
 
@@ -146,7 +146,7 @@
 
     invoke-virtual {v0, v2}, Landroid/view/View;->setVisibility(I)V
 
-    .line 331
+    .line 339
     iget v0, p0, Lbl/xl$1;->val$color2:I
 
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setTextColor(I)V

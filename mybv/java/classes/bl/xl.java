@@ -233,8 +233,9 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         }
         lastCompletionTime = currentTime;
         
-        int i;
         int mode_id = PlayerMenuRight.mode_id>=0?PlayerMenuRight.mode_id:abd.get_mode_id(MainApplication.a().getApplicationContext());
+        
+        int i;
         switch(mode_id){
             case 1:
                 i=this.i-1;

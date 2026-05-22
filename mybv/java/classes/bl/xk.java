@@ -100,9 +100,16 @@ public class xk extends xh implements bbb<Message, Boolean> {
                         
                         JSONArray mergedSkips = new org.json.JSONArray();
                         
+                        boolean hasLocalIntro = false;
+                        boolean hasLocalOutro = false;
+                        
                         if (localSkips != null && localSkips.length() > 0) {
                             for (int i = 0; i < localSkips.length(); i++) {
-                                mergedSkips.put(localSkips.optJSONObject(i));
+                                JSONObject skip = localSkips.optJSONObject(i);
+                                mergedSkips.put(skip);
+                                String type = skip.optString("type");
+                                if ("片头".equals(type)) hasLocalIntro = true;
+                                if ("片尾".equals(type)) hasLocalOutro = true;
                             }
                         }
                         
@@ -110,7 +117,16 @@ public class xk extends xh implements bbb<Message, Boolean> {
                             for (int i = 0; i < serverSkips.length(); i++) {
                                 JSONObject skip = serverSkips.optJSONObject(i);
                                 String type = skip.optString("type");
-                                if (!"片头".equals(type) && !"片尾".equals(type)) {
+                                boolean shouldAdd = true;
+                                
+                                if ("片头".equals(type) && hasLocalIntro) {
+                                    shouldAdd = false;
+                                }
+                                if ("片尾".equals(type) && hasLocalOutro) {
+                                    shouldAdd = false;
+                                }
+                                
+                                if (shouldAdd) {
                                     mergedSkips.put(skip);
                                 }
                             }
@@ -118,6 +134,9 @@ public class xk extends xh implements bbb<Message, Boolean> {
                         
                         if (mergedSkips.length() > 0) {
                             _xj.skips = mergedSkips;
+                            android.util.Log.i("SkipMerge", "Merged skips: local=" + (localSkips != null ? localSkips.length() : 0) + 
+                                ", server=" + (serverSkips != null ? serverSkips.length() : 0) + 
+                                ", total=" + mergedSkips.length());
                         }
                         _xj.resetSkipFlags();
                     }

@@ -1,4 +1,4 @@
-.class Lbl/xj$3$1;
+.class Lbl/xj$4$1;
 .super Ljava/lang/Object;
 .source "xj.java"
 
@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xj$3;->run()V
+    value = Lbl/xj$4;->run()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -18,16 +18,16 @@
 
 
 # instance fields
-.field final synthetic this$1:Lbl/xj$3;
+.field final synthetic this$1:Lbl/xj$4;
 
 
 # direct methods
-.method constructor <init>(Lbl/xj$3;)V
+.method constructor <init>(Lbl/xj$4;)V
     .locals 0
 
     .prologue
-    .line 405
-    iput-object p1, p0, Lbl/xj$3$1;->this$1:Lbl/xj$3;
+    .line 420
+    iput-object p1, p0, Lbl/xj$4$1;->this$1:Lbl/xj$4;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -40,17 +40,17 @@
     .locals 2
 
     .prologue
-    .line 416
-    iget-object v0, p0, Lbl/xj$3$1;->this$1:Lbl/xj$3;
+    .line 431
+    iget-object v0, p0, Lbl/xj$4$1;->this$1:Lbl/xj$4;
 
-    iget-object v0, v0, Lbl/xj$3;->this$0:Lbl/xj;
+    iget-object v0, v0, Lbl/xj$4;->this$0:Lbl/xj;
 
     const/4 v1, 0x0
 
     # setter for: Lbl/xj;->l:Z
     invoke-static {v0, v1}, Lbl/xj;->access$202(Lbl/xj;Z)Z
 
-    .line 417
+    .line 432
     return-void
 .end method
 
@@ -58,7 +58,7 @@
     .locals 0
 
     .prologue
-    .line 408
+    .line 423
     return-void
 .end method
 
@@ -66,6 +66,6 @@
     .locals 0
 
     .prologue
-    .line 412
+    .line 427
     return-void
 .end method

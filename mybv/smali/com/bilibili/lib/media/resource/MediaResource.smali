@@ -27,6 +27,8 @@
 
 .field public c:I
 
+.field public clip_info_list:Lorg/json/JSONArray;
+
 .field private d:I
 
 .field public dash:Lorg/json/JSONObject;
@@ -53,20 +55,20 @@
     .locals 1
 
     .prologue
-    .line 42
+    .line 43
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 43
+    .line 44
     const/4 v0, -0x1
 
     iput v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->c:I
 
-    .line 44
+    .line 45
     const/4 v0, 0x0
 
     iput v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->d:I
 
-    .line 45
+    .line 46
     return-void
 .end method
 
@@ -74,22 +76,22 @@
     .locals 2
 
     .prologue
-    .line 101
+    .line 116
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 102
+    .line 117
     const/4 v0, -0x1
 
     iput v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->c:I
 
-    .line 103
+    .line 118
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->d:I
 
-    .line 104
+    .line 119
     const-class v0, Lcom/bilibili/lib/media/resource/VodIndex;
 
     invoke-virtual {v0}, Ljava/lang/Class;->getClassLoader()Ljava/lang/ClassLoader;
@@ -104,43 +106,86 @@
 
     iput-object v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->a:Lcom/bilibili/lib/media/resource/VodIndex;
 
-    .line 105
+    .line 120
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->c:I
 
-    .line 108
+    .line 123
     :try_start_20
-    new-instance v0, Lorg/json/JSONObject;
-
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
-    move-result-object v1
+    move-result-object v0
 
-    invoke-direct {v0, v1}, Lorg/json/JSONObject;-><init>(Ljava/lang/String;)V
+    .line 124
+    if-eqz v0, :cond_33
 
-    iput-object v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->dash:Lorg/json/JSONObject;
+    invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
 
-    .line 109
+    move-result v1
+
+    if-nez v1, :cond_33
+
+    .line 125
+    new-instance v1, Lorg/json/JSONObject;
+
+    invoke-direct {v1, v0}, Lorg/json/JSONObject;-><init>(Ljava/lang/String;)V
+
+    iput-object v1, p0, Lcom/bilibili/lib/media/resource/MediaResource;->dash:Lorg/json/JSONObject;
+
+    .line 127
+    :cond_33
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->quality:I
-    :try_end_31
-    .catch Ljava/lang/Exception; {:try_start_20 .. :try_end_31} :catch_32
+    :try_end_39
+    .catch Ljava/lang/Exception; {:try_start_20 .. :try_end_39} :catch_4f
 
-    .line 111
-    :goto_31
+    .line 131
+    :goto_39
+    :try_start_39
+    invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 132
+    if-eqz v0, :cond_4c
+
+    invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
+
+    move-result v1
+
+    if-nez v1, :cond_4c
+
+    .line 133
+    new-instance v1, Lorg/json/JSONArray;
+
+    invoke-direct {v1, v0}, Lorg/json/JSONArray;-><init>(Ljava/lang/String;)V
+
+    iput-object v1, p0, Lcom/bilibili/lib/media/resource/MediaResource;->clip_info_list:Lorg/json/JSONArray;
+    :try_end_4c
+    .catch Ljava/lang/Exception; {:try_start_39 .. :try_end_4c} :catch_4d
+
+    .line 136
+    :cond_4c
+    :goto_4c
     return-void
 
-    .line 110
-    :catch_32
+    .line 135
+    :catch_4d
     move-exception v0
 
-    goto :goto_31
+    goto :goto_4c
+
+    .line 128
+    :catch_4f
+    move-exception v0
+
+    goto :goto_39
 .end method
 
 
@@ -149,7 +194,7 @@
     .locals 1
 
     .prologue
-    .line 48
+    .line 49
     iget-object v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->a:Lcom/bilibili/lib/media/resource/VodIndex;
 
     if-eqz v0, :cond_a
@@ -160,11 +205,11 @@
 
     if-nez v0, :cond_c
 
-    .line 49
+    .line 50
     :cond_a
     const/4 v0, 0x0
 
-    .line 51
+    .line 52
     :goto_b
     return v0
 
@@ -184,10 +229,10 @@
     .locals 0
 
     .prologue
-    .line 67
+    .line 68
     iput p1, p0, Lcom/bilibili/lib/media/resource/MediaResource;->d:I
 
-    .line 68
+    .line 69
     return-void
 .end method
 
@@ -200,7 +245,7 @@
     .end annotation
 
     .prologue
-    .line 76
+    .line 77
     const-string v0, "resolved_index"
 
     invoke-virtual {p1, v0}, Lorg/json/JSONObject;->optInt(Ljava/lang/String;)I
@@ -209,7 +254,7 @@
 
     iput v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->d:I
 
-    .line 77
+    .line 78
     const-string v0, "vod_index"
 
     invoke-virtual {p1, v0}, Lorg/json/JSONObject;->optJSONObject(Ljava/lang/String;)Lorg/json/JSONObject;
@@ -226,7 +271,7 @@
 
     iput-object v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->a:Lcom/bilibili/lib/media/resource/VodIndex;
 
-    .line 78
+    .line 79
     const-string v0, "network_state"
 
     invoke-virtual {p1, v0}, Lorg/json/JSONObject;->optInt(Ljava/lang/String;)I
@@ -235,7 +280,7 @@
 
     iput v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->c:I
 
-    .line 80
+    .line 81
     const-string v0, "quality"
 
     invoke-virtual {p1, v0}, Lorg/json/JSONObject;->optInt(Ljava/lang/String;)I
@@ -244,7 +289,7 @@
 
     if-eqz v0, :cond_38
 
-    .line 81
+    .line 82
     const-string v0, "dash"
 
     invoke-virtual {p1, v0}, Lorg/json/JSONObject;->optJSONObject(Ljava/lang/String;)Lorg/json/JSONObject;
@@ -253,7 +298,7 @@
 
     iput-object v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->dash:Lorg/json/JSONObject;
 
-    .line 82
+    .line 83
     const-string v0, "quality"
 
     invoke-virtual {p1, v0}, Lorg/json/JSONObject;->optInt(Ljava/lang/String;)I
@@ -262,8 +307,17 @@
 
     iput v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->quality:I
 
-    .line 84
+    .line 86
     :cond_38
+    const-string v0, "clip_info_list"
+
+    invoke-virtual {p1, v0}, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
+
+    move-result-object v0
+
+    iput-object v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->clip_info_list:Lorg/json/JSONArray;
+
+    .line 87
     return-void
 .end method
 
@@ -276,7 +330,7 @@
     .end annotation
 
     .prologue
-    .line 88
+    .line 91
     new-instance v0, Lorg/json/JSONObject;
 
     invoke-direct {v0}, Lorg/json/JSONObject;-><init>()V
@@ -285,6 +339,7 @@
 
     iget v2, p0, Lcom/bilibili/lib/media/resource/MediaResource;->d:I
 
+    .line 92
     invoke-virtual {v0, v1, v2}, Lorg/json/JSONObject;->put(Ljava/lang/String;I)Lorg/json/JSONObject;
 
     move-result-object v0
@@ -293,6 +348,7 @@
 
     iget-object v2, p0, Lcom/bilibili/lib/media/resource/MediaResource;->a:Lcom/bilibili/lib/media/resource/VodIndex;
 
+    .line 93
     invoke-static {v2}, Lbl/qt;->a(Lbl/qr;)Lorg/json/JSONObject;
 
     move-result-object v2
@@ -305,6 +361,7 @@
 
     iget v2, p0, Lcom/bilibili/lib/media/resource/MediaResource;->c:I
 
+    .line 94
     invoke-virtual {v0, v1, v2}, Lorg/json/JSONObject;->put(Ljava/lang/String;I)Lorg/json/JSONObject;
 
     move-result-object v0
@@ -313,6 +370,7 @@
 
     iget-object v2, p0, Lcom/bilibili/lib/media/resource/MediaResource;->dash:Lorg/json/JSONObject;
 
+    .line 95
     invoke-virtual {v0, v1, v2}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
 
     move-result-object v0
@@ -321,10 +379,33 @@
 
     iget v2, p0, Lcom/bilibili/lib/media/resource/MediaResource;->quality:I
 
+    .line 96
     invoke-virtual {v0, v1, v2}, Lorg/json/JSONObject;->put(Ljava/lang/String;I)Lorg/json/JSONObject;
 
     move-result-object v0
 
+    .line 98
+    iget-object v1, p0, Lcom/bilibili/lib/media/resource/MediaResource;->clip_info_list:Lorg/json/JSONArray;
+
+    if-eqz v1, :cond_44
+
+    iget-object v1, p0, Lcom/bilibili/lib/media/resource/MediaResource;->clip_info_list:Lorg/json/JSONArray;
+
+    invoke-virtual {v1}, Lorg/json/JSONArray;->length()I
+
+    move-result v1
+
+    if-lez v1, :cond_44
+
+    .line 99
+    const-string v1, "clip_info_list"
+
+    iget-object v2, p0, Lcom/bilibili/lib/media/resource/MediaResource;->clip_info_list:Lorg/json/JSONArray;
+
+    invoke-virtual {v0, v1, v2}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+
+    .line 102
+    :cond_44
     return-object v0
 .end method
 
@@ -332,12 +413,12 @@
     .locals 1
 
     .prologue
-    .line 55
+    .line 56
     invoke-virtual {p0}, Lcom/bilibili/lib/media/resource/MediaResource;->d()Lcom/bilibili/lib/media/resource/PlayIndex;
 
     move-result-object v0
 
-    .line 56
+    .line 57
     if-eqz v0, :cond_e
 
     invoke-virtual {v0}, Lcom/bilibili/lib/media/resource/PlayIndex;->e()Z
@@ -361,7 +442,7 @@
     .locals 2
 
     .prologue
-    .line 60
+    .line 61
     iget-object v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->a:Lcom/bilibili/lib/media/resource/VodIndex;
 
     if-eqz v0, :cond_c
@@ -374,11 +455,11 @@
 
     if-eqz v0, :cond_e
 
-    .line 61
+    .line 62
     :cond_c
     const/4 v0, 0x0
 
-    .line 63
+    .line 64
     :goto_d
     return-object v0
 
@@ -402,7 +483,7 @@
     .locals 1
 
     .prologue
-    .line 39
+    .line 40
     const/4 v0, 0x0
 
     return v0
@@ -412,7 +493,7 @@
     .locals 1
 
     .prologue
-    .line 71
+    .line 72
     iget v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->d:I
 
     return v0
@@ -422,35 +503,66 @@
     .locals 1
 
     .prologue
-    .line 93
+    .line 107
     iget v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->d:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 94
+    .line 108
     iget-object v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->a:Lcom/bilibili/lib/media/resource/VodIndex;
 
     invoke-virtual {p1, v0, p2}, Landroid/os/Parcel;->writeParcelable(Landroid/os/Parcelable;I)V
 
-    .line 95
+    .line 109
     iget v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->c:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 97
+    .line 111
+    iget-object v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->dash:Lorg/json/JSONObject;
+
+    if-eqz v0, :cond_2f
+
     iget-object v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->dash:Lorg/json/JSONObject;
 
     invoke-virtual {v0}, Lorg/json/JSONObject;->toString()Ljava/lang/String;
 
     move-result-object v0
 
+    :goto_19
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 98
+    .line 112
     iget v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->quality:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 99
+    .line 113
+    iget-object v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->clip_info_list:Lorg/json/JSONArray;
+
+    if-eqz v0, :cond_32
+
+    iget-object v0, p0, Lcom/bilibili/lib/media/resource/MediaResource;->clip_info_list:Lorg/json/JSONArray;
+
+    invoke-virtual {v0}, Lorg/json/JSONArray;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    :goto_2b
+    invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+
+    .line 114
     return-void
+
+    .line 111
+    :cond_2f
+    const-string v0, ""
+
+    goto :goto_19
+
+    .line 113
+    :cond_32
+    const-string v0, ""
+
+    goto :goto_2b
 .end method

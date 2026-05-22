@@ -177,6 +177,12 @@ public class qi extends py {
 
                         jSONObject2.put("dash", jSONObject3.optJSONObject("dash"));
                         jSONObject2.put("quality", optInt4);
+                        
+                        JSONArray clipInfoList = jSONObject3.optJSONArray("clip_info_list");
+                        if (clipInfoList != null && clipInfoList.length() > 0) {
+                            jSONObject2.put("clip_info_list", clipInfoList);
+                            Log.i("PgcPlayUrl", "Found clip_info_list, count=" + clipInfoList.length());
+                        }
 
                         Log.i("PlaySpeed", "[QI_PARSE_DASH] DASH MediaResource built, elapsed=" + (System.currentTimeMillis() - qiStart) + "ms");
                         return a(jSONObject2);
@@ -353,6 +359,12 @@ public class qi extends py {
                             durlResult.put("vod_index", durlVodIndex);
                             durlResult.put("resolved_index", 0);
                             durlResult.put("quality", optInt4);
+                            
+                            JSONArray clipInfoList = jSONObject3.optJSONArray("clip_info_list");
+                            if (clipInfoList != null && clipInfoList.length() > 0) {
+                                durlResult.put("clip_info_list", clipInfoList);
+                                Log.i("PgcPlayUrl", "DURL: Found clip_info_list, count=" + clipInfoList.length());
+                            }
                             
                             Log.i("PgcPlayUrl", "Returning durl MediaResource");
                             return a(durlResult);
