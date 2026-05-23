@@ -13,6 +13,10 @@ public class UrlAutoRefreshManager {
     private static final long PLAYURL_AUTO_REFRESH_FALLBACK_MIN_DURATION_MS = 60 * 60 * 1000L;
     private static final long PLAYURL_AUTO_REFRESH_MIN_RELOAD_INTERVAL_MS = 30 * 1000L;
     
+    // 测试模式：设置为true时，刷新时间改为30秒
+    private static final boolean TEST_MODE = false;
+    private static final long TEST_REFRESH_DELAY_MS = 30 * 1000L; // 30秒
+    
     private long lastReloadTime = 0;
     private int refreshToken = 0;
     
@@ -65,6 +69,12 @@ public class UrlAutoRefreshManager {
     }
     
     public long calculateRefreshDelay(Long deadlineEpochSec, Long videoDurationMs) {
+        // 测试模式：直接返回30秒延迟
+        if (TEST_MODE) {
+            Log.i(TAG, "[TEST_MODE] Using test refresh delay: " + TEST_REFRESH_DELAY_MS + "ms");
+            return TEST_REFRESH_DELAY_MS;
+        }
+        
         long nowWallMs = System.currentTimeMillis();
         
         if (deadlineEpochSec != null && deadlineEpochSec > 0L) {

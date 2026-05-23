@@ -1468,30 +1468,30 @@
     .locals 2
 
     .prologue
-    .line 535
+    .line 544
     const-string v0, "PlayerUrlRefresh"
 
     const-string v1, "[DESTROY] Destroying helper"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 536
+    .line 545
     invoke-virtual {p0}, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->cancelAutoRefresh()V
 
-    .line 537
+    .line 546
     invoke-virtual {p0}, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->resetErrorRefreshCount()V
 
-    .line 538
+    .line 547
     iget-object v0, p0, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->executorService:Ljava/util/concurrent/ExecutorService;
 
     if-eqz v0, :cond_16
 
-    .line 539
+    .line 548
     iget-object v0, p0, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->executorService:Ljava/util/concurrent/ExecutorService;
 
     invoke-interface {v0}, Ljava/util/concurrent/ExecutorService;->shutdown()V
 
-    .line 541
+    .line 550
     :cond_16
     return-void
 .end method
@@ -2641,6 +2641,24 @@
 
     .line 287
     :cond_18
+    return-void
+.end method
+
+.method public triggerManualRefresh()V
+    .locals 2
+
+    .prologue
+    .line 539
+    const-string v0, "PlayerUrlRefresh"
+
+    const-string v1, "[MANUAL_REFRESH] Manual refresh triggered by user"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 540
+    invoke-virtual {p0}, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->reloadStreamWithPosition()V
+
+    .line 541
     return-void
 .end method
 

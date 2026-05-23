@@ -531,6 +531,15 @@ public class PlayerActivityUrlRefreshHelper {
         lastErrorRefreshTime = 0;
     }
     
+    /**
+     * 手动触发URL刷新（用于测试）
+     * 可以在播放过程中随时调用，测试URL刷新功能
+     */
+    public void triggerManualRefresh() {
+        Log.i(TAG, "[MANUAL_REFRESH] Manual refresh triggered by user");
+        reloadStreamWithPosition();
+    }
+    
     public void destroy() {
         Log.i(TAG, "[DESTROY] Destroying helper");
         cancelAutoRefresh();
