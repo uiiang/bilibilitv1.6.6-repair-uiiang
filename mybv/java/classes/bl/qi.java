@@ -74,6 +74,8 @@ public class qi extends py {
                 JSONArray optJSONArray3 = jSONObject3.optJSONArray("accept_description");
                 boolean optBoolean = jSONObject3.optBoolean("video_project", false);
                 JSONArray optJSONArray4 = jSONObject3.optJSONArray("accept_watermark");
+                int isPreview = jSONObject3.optInt("is_preview", 0);
+                
                 if (optJSONArray != null && a2 != null && optJSONArray.length() == a2.length && optJSONArray.length() != 0) {
                     Map<Integer, qn> a3 = a(resolveMediaResourceParams, optJSONArray, a2, optJSONArray3, optJSONArray4);
                     a(resolveMediaResourceParams, i2, a3, optInt);
@@ -374,6 +376,171 @@ public class qi extends py {
                     Log.e("PgcPlayUrl", "No dash or durl available, throwing exception");
                     throw new ResolveMediaSourceException(optString2, -7);
                 }
+                
+                if (isPreview == 1) {
+                    Log.i("PgcPlayUrl", "is_preview=1 (免费试看视频), accept_format与accept_quality数量不匹配");
+                    Log.i("PgcPlayUrl", "accept_format count=" + (a2 != null ? a2.length : 0) + ", accept_quality count=" + (optJSONArray != null ? optJSONArray.length() : 0));
+                    
+                    JSONArray durlArray = jSONObject3.optJSONArray("durl");
+                    if (durlArray != null && durlArray.length() > 0) {
+                        Log.i("PgcPlayUrl", "免费试看视频，使用durl数据");
+                        Log.i("PlaySpeed", "[QI_PARSE_PREVIEW] Preview video, using durl");
+                        
+                        JSONObject durlObj = durlArray.optJSONObject(0);
+                        String durlUrl = durlObj != null ? durlObj.optString("url", "") : "";
+                        Log.i("PgcPlayUrl", "preview durl url=" + (durlUrl.length() > 100 ? durlUrl.substring(0, 100) + "..." : durlUrl));
+                        
+                        JSONArray backupUrls = durlObj != null ? durlObj.optJSONArray("backup_url") : null;
+                        Log.i("PgcPlayUrl", "preview durl backup_url count=" + (backupUrls != null ? backupUrls.length() : 0));
+                        
+                        java.util.List<String> allDurlUrls = new java.util.ArrayList<>();
+                        if (!TextUtils.isEmpty(durlUrl)) {
+                            allDurlUrls.add(durlUrl);
+                        }
+                        if (backupUrls != null && backupUrls.length() > 0) {
+                            for (int bi = 0; bi < backupUrls.length(); bi++) {
+                                String backupUrl = backupUrls.optString(bi, "");
+                                if (!TextUtils.isEmpty(backupUrl) && !allDurlUrls.contains(backupUrl)) {
+                                    allDurlUrls.add(backupUrl);
+                                }
+                            }
+                        }
+                        
+                        Log.i("PgcPlayUrl", "Total preview durl urls: " + allDurlUrls.size());
+                        
+                        String selectedDurlUrl = durlUrl;
+                        JSONArray sortedBackupUrls = null;
+                        
+                        if (allDurlUrls.size() > 1) {
+                            int cdnPref = abd.get_cdn_preference(context);
+                            Log.i("PlaySpeed", "[QI_PREVIEW_DURL] cdnPreference=" + cdnPref);
+                            
+                            if (cdnPref == abd.CDN_PREF_BILIVIDEO || cdnPref == abd.CDN_PREF_MCDN) {
+                                final int targetType = (cdnPref == abd.CDN_PREF_MCDN) ? mybl.CdnSelector.CDN_TYPE_MCDN : mybl.CdnSelector.CDN_TYPE_BILIVIDEO;
+                                java.util.Collections.sort(allDurlUrls, new java.util.Comparator<String>() {
+                                    @Override
+                                    public int compare(String url1, String url2) {
+                                        String cdn1 = android.net.Uri.parse(url1).getHost();
+                                        String cdn2 = android.net.Uri.parse(url2).getHost();
+                                        int type1 = mybl.CdnSelector.getCdnType(cdn1);
+                                        int type2 = mybl.CdnSelector.getCdnType(cdn2);
+                                        boolean pref1 = (type1 == targetType);
+                                        boolean pref2 = (type2 == targetType);
+                                        if (pref1 && !pref2) return -1;
+                                        if (!pref1 && pref2) return 1;
+                                        int score1 = mybl.CdnSelector.getCdnScore(cdn1);
+                                        int score2 = mybl.CdnSelector.getCdnScore(cdn2);
+                                        return Integer.compare(score2, score1);
+                                    }
+                                });
+                                selectedDurlUrl = allDurlUrls.get(0);
+                                Log.i("PlaySpeed", "[QI_PREVIEW_DURL_TYPE] Selected by type pref=" + cdnPref);
+                            } else if (cdnPref == abd.CDN_PREF_MANUAL && mybl.VideoViewParams.prefect_cdn != null && !mybl.VideoViewParams.prefect_cdn.isEmpty()) {
+                                String manualCdn = mybl.VideoViewParams.prefect_cdn;
+                                for (String url : allDurlUrls) {
+                                    if (android.net.Uri.parse(url).getHost().equals(manualCdn)) {
+                                        selectedDurlUrl = url;
+                                        break;
+                                    }
+                                }
+                                Log.i("PlaySpeed", "[QI_PREVIEW_DURL_MANUAL] Using prefect_cdn=" + manualCdn);
+                            } else {
+                                long durlRaceStart = System.currentTimeMillis();
+                                Log.i("PlaySpeed", "[QI_PREVIEW_DURL_RACE_START] CDN racing for preview durl");
+                                java.util.List<mybl.CdnSelector.CdnUrlInfo> cdnInfos = new java.util.ArrayList<>();
+                                for (String url : allDurlUrls) {
+                                    String cdnHost = android.net.Uri.parse(url).getHost();
+                                    int score = mybl.CdnSelector.getCdnScore(cdnHost);
+                                    cdnInfos.add(new mybl.CdnSelector.CdnUrlInfo(url, cdnHost, score));
+                                }
+                                
+                                mybl.CdnSelector.RaceResult raceResult = mybl.CdnSelector.selectBestUrl(
+                                    context, 
+                                    String.valueOf(resolveMediaResourceParams.c()), 
+                                    cdnInfos
+                                );
+                                Log.i("PlaySpeed", "[QI_PREVIEW_DURL_RACE_END] CDN race done, elapsed=" + (System.currentTimeMillis() - durlRaceStart) + "ms");
+                                
+                                if (raceResult != null && raceResult.winningCdn != null) {
+                                    for (String url : allDurlUrls) {
+                                        if (android.net.Uri.parse(url).getHost().equals(raceResult.winningCdn)) {
+                                            selectedDurlUrl = url;
+                                            break;
+                                        }
+                                    }
+                                } else {
+                                    java.util.Collections.sort(cdnInfos, new java.util.Comparator<mybl.CdnSelector.CdnUrlInfo>() {
+                                        @Override
+                                        public int compare(mybl.CdnSelector.CdnUrlInfo o1, mybl.CdnSelector.CdnUrlInfo o2) {
+                                            return Integer.compare(o2.score, o1.score);
+                                        }
+                                    });
+                                    selectedDurlUrl = cdnInfos.get(0).url;
+                                }
+                            }
+                            
+                            sortedBackupUrls = new JSONArray();
+                            for (String url : allDurlUrls) {
+                                if (!url.equals(selectedDurlUrl)) {
+                                    sortedBackupUrls.put(url);
+                                }
+                            }
+                        }
+                        
+                        if (!TextUtils.isEmpty(selectedDurlUrl)) {
+                            JSONObject durlResult = new JSONObject();
+                            JSONArray durlSegmentList = new JSONArray();
+                            JSONObject durlSegment = new JSONObject();
+                            durlSegment.put("url", selectedDurlUrl);
+                            durlSegment.put("bytes", durlObj != null ? durlObj.optLong("size", -1) : -1);
+                            durlSegment.put("duration", optInt2);
+                            durlSegment.put("backup_urls", sortedBackupUrls);
+                            durlSegment.put("ahead", "");
+                            durlSegment.put("vhead", "");
+                            durlSegmentList.put(durlSegment);
+                            
+                            JSONObject durlVideoInfo = new JSONObject();
+                            durlVideoInfo.put("player_codec_config_list", a(optString, resolveMediaResourceParams));
+                            durlVideoInfo.put("type_tag", "mp4");
+                            durlVideoInfo.put("description", "高清 1080P");
+                            durlVideoInfo.put("from", resolveMediaResourceParams.b());
+                            durlVideoInfo.put("user_agent", "Bilibili Freedoooooom/MarkII");
+                            durlVideoInfo.put("parse_timestamp_milli", System.currentTimeMillis());
+                            durlVideoInfo.put("available_period_milli", 0L);
+                            durlVideoInfo.put("is_resolved", true);
+                            durlVideoInfo.put("order", 5);
+                            durlVideoInfo.put("time_length", optInt2);
+                            durlVideoInfo.put("marlin_token", optString3);
+                            durlVideoInfo.put("video_codec_id", optInt3);
+                            durlVideoInfo.put("video_project", optBoolean);
+                            durlVideoInfo.put("water_mark", true);
+                            durlVideoInfo.put("segment_list", durlSegmentList);
+                            
+                            JSONArray durlVideoList = new JSONArray();
+                            durlVideoList.put(durlVideoInfo);
+                            
+                            JSONObject durlVodIndex = new JSONObject();
+                            durlVodIndex.put("video_list", durlVideoList);
+                            durlResult.put("vod_index", durlVodIndex);
+                            durlResult.put("resolved_index", 0);
+                            durlResult.put("quality", optInt4);
+                            
+                            JSONArray clipInfoList = jSONObject3.optJSONArray("clip_info_list");
+                            if (clipInfoList != null && clipInfoList.length() > 0) {
+                                durlResult.put("clip_info_list", clipInfoList);
+                                Log.i("PgcPlayUrl", "Preview: Found clip_info_list, count=" + clipInfoList.length());
+                            }
+                            
+                            Log.i("PgcPlayUrl", "Returning preview durl MediaResource");
+                            Log.i("PlaySpeed", "[QI_PARSE_PREVIEW_END] Preview video resolved, elapsed=" + (System.currentTimeMillis() - qiStart) + "ms");
+                            return a(durlResult);
+                        }
+                    }
+                    
+                    Log.e("PgcPlayUrl", "免费试看视频但没有durl数据");
+                    throw new ResolveMediaSourceException("preview video without durl", -9);
+                }
+                
                 throw new ResolveMediaSourceException("accept_format not matched with accept_quality, the content is " + new String(this.b), -9);
             }
             return null;

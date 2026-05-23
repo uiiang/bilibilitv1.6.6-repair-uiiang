@@ -1,4 +1,4 @@
-.class Lbl/qi$2;
+.class Lbl/qi$4;
 .super Ljava/lang/Object;
 .source "qi.java"
 
@@ -36,8 +36,8 @@
     .locals 0
 
     .prologue
-    .line 288
-    iput-object p1, p0, Lbl/qi$2;->this$0:Lbl/qi;
+    .line 472
+    iput-object p1, p0, Lbl/qi$4;->this$0:Lbl/qi;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -50,12 +50,12 @@
     .locals 1
 
     .prologue
-    .line 288
+    .line 472
     check-cast p1, Lmybl/CdnSelector$CdnUrlInfo;
 
     check-cast p2, Lmybl/CdnSelector$CdnUrlInfo;
 
-    invoke-virtual {p0, p1, p2}, Lbl/qi$2;->compare(Lmybl/CdnSelector$CdnUrlInfo;Lmybl/CdnSelector$CdnUrlInfo;)I
+    invoke-virtual {p0, p1, p2}, Lbl/qi$4;->compare(Lmybl/CdnSelector$CdnUrlInfo;Lmybl/CdnSelector$CdnUrlInfo;)I
 
     move-result v0
 
@@ -66,7 +66,7 @@
     .locals 2
 
     .prologue
-    .line 291
+    .line 475
     iget v0, p2, Lmybl/CdnSelector$CdnUrlInfo;->score:I
 
     iget v1, p1, Lmybl/CdnSelector$CdnUrlInfo;->score:I
