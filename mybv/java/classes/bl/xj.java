@@ -184,22 +184,18 @@ public class xj extends xh {
                     }
                     c((int)seekTarget);
                     
-                    Activity activity = o();
+                    xh current = a();
                     xl xlInstance = null;
-                    if (activity != null) {
-                        xh chainHead = bl.xe.a(activity);
-                        xh current = chainHead;
-                        while (current != null) {
-                            if (current instanceof xl) {
-                                xlInstance = (xl) current;
-                                break;
-                            }
-                            current = current.next();
+                    while (current != null) {
+                        if (current instanceof xl) {
+                            xlInstance = (xl) current;
+                            break;
                         }
+                        current = current.a();
                     }
                     
                     if (xlInstance != null) {
-                        // android.util.Log.i("SkipDebug", "Found xl instance from chain head, calling onCompletion");
+                        // android.util.Log.i("SkipDebug", "Found xl instance, calling onCompletion");
                         xlInstance.onCompletion(null);
                     }
                     return;
