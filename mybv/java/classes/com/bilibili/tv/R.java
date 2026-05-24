@@ -2657,6 +2657,8 @@ public final class R {
         public static final int tab_button6 = 0x7f08022d;
         public static final int relation_tag_list = 0x7f08022e;
         public static final int tag_name = 0x7f08022f;
+        public static final int recommend_api_web_button = 0x7f080230;
+        public static final int recommend_api_app_button = 0x7f080231;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;

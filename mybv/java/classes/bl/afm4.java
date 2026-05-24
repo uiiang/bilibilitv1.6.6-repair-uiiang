@@ -25,6 +25,9 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
     private DrawFrameLayout column3Button;
     private DrawFrameLayout column4Button;
 
+    private DrawFrameLayout recommendApiWebButton;
+    private DrawFrameLayout recommendApiAppButton;
+
     private DrawFrameLayout otherNormalButton;
     private DrawFrameLayout otherCompactButton;
 
@@ -121,6 +124,27 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
             this.column2Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
             this.column3Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
             this.column4Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+        }
+
+        this.recommendApiWebButton = (DrawFrameLayout) inflate.findViewById(R.id.recommend_api_web_button);
+        this.recommendApiAppButton = (DrawFrameLayout) inflate.findViewById(R.id.recommend_api_app_button);
+
+        this.recommendApiWebButton.setUpDrawable(R.drawable.shadow_white_rect);
+        this.recommendApiAppButton.setUpDrawable(R.drawable.shadow_white_rect);
+
+        this.recommendApiWebButton.setOnFocusChangeListener(this);
+        this.recommendApiAppButton.setOnFocusChangeListener(this);
+
+        this.recommendApiWebButton.setOnClickListener(this);
+        this.recommendApiAppButton.setOnClickListener(this);
+
+        int recommendApiType = abd.get_recommend_api_type(getActivity());
+        if (recommendApiType == abd.RECOMMEND_API_WEB) {
+            this.recommendApiWebButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+            this.recommendApiAppButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+        } else {
+            this.recommendApiWebButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+            this.recommendApiAppButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
         }
 
         this.otherNormalButton = (DrawFrameLayout) inflate.findViewById(R.id.other_normal_button);
@@ -337,6 +361,16 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
             this.column4Button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
         }
 
+        if (view == this.recommendApiWebButton) {
+            abd.set_recommend_api_type(getActivity(), abd.RECOMMEND_API_WEB);
+            this.recommendApiWebButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+            this.recommendApiAppButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+        } else if (view == this.recommendApiAppButton) {
+            abd.set_recommend_api_type(getActivity(), abd.RECOMMEND_API_APP);
+            this.recommendApiWebButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+            this.recommendApiAppButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+        }
+
         if (view == this.otherNormalButton) {
             abd.set_other_column(getActivity(), abd.OTHER_COLUMN_NORMAL);
             this.otherNormalButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
@@ -458,9 +492,15 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         if (this.fastquit_button != null && this.fastquit_button.hasFocus()) {
             return false;
         }
-        if (this.column2Button != null && this.column2Button.hasFocus()) {
-            return false;
-        }
+        // if (this.column2Button != null && this.column2Button.hasFocus()) {
+        //     return false;
+        // }
+        // if (this.recommendApiWebButton != null && this.recommendApiWebButton.hasFocus()) {
+        //     return false;
+        // }
+        // if (this.recommendApiAppButton != null && this.recommendApiAppButton.hasFocus()) {
+        //     return false;
+        // }
         if (this.otherNormalButton != null && this.otherNormalButton.hasFocus()) {
             return false;
         }
@@ -485,6 +525,7 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         }
         if (!this.progressbar_button.hasFocus() && !this.fastquit_button.hasFocus() && !this.column2Button.hasFocus()
                 && !this.column3Button.hasFocus() && !this.column4Button.hasFocus()
+                && !this.recommendApiWebButton.hasFocus() && !this.recommendApiAppButton.hasFocus()
                 && !this.otherNormalButton.hasFocus() && !this.otherCompactButton.hasFocus()
                 && !this.spaceDynamicButton.hasFocus() && !this.spaceAllButton.hasFocus()) {
             boolean allTabsNoFocus = true;

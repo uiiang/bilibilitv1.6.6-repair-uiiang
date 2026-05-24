@@ -3602,4 +3602,6 @@
     <public type="id" name="tab_button6" id="0x7f08022d" />
     <public type="id" name="relation_tag_list" id="0x7f08022e" />
     <public type="id" name="tag_name" id="0x7f08022f" />
+    <public type="id" name="recommend_api_web_button" id="0x7f080230" />
+    <public type="id" name="recommend_api_app_button" id="0x7f080231" />
 </resources>

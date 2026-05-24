@@ -323,6 +323,22 @@ public class abd {
         return homeColumnType;
     }
 
+    private static int recommendApiType = -1;
+    public static final int RECOMMEND_API_WEB = 0;
+    public static final int RECOMMEND_API_APP = 1;
+
+    public static void set_recommend_api_type(Context context, int type) {
+        a(context).a().edit().putInt("recommend_api_type", type).apply();
+        recommendApiType = type;
+    }
+
+    public static int get_recommend_api_type(Context context) {
+        if (recommendApiType == -1) {
+            recommendApiType = a(context).a().getInt("recommend_api_type", RECOMMEND_API_WEB);
+        }
+        return recommendApiType;
+    }
+
     private static int otherColumnType = -1;
     public static final int OTHER_COLUMN_NORMAL = 0;
     public static final int OTHER_COLUMN_COMPACT = 1;

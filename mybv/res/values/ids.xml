@@ -446,4 +446,6 @@
     <item type="id" name="codec_settings_layout" />
     <item type="id" name="relation_tag_list" />
     <item type="id" name="tag_name" />
+    <item type="id" name="recommend_api_web_button" />
+    <item type="id" name="recommend_api_app_button" />
 </resources>
