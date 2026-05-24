@@ -22,7 +22,7 @@
 
 .field private static final TAG:Ljava/lang/String; = "UrlAutoRefreshManager"
 
-.field private static final TEST_MODE:Z = true
+.field private static final TEST_MODE:Z = false
 
 .field private static final TEST_REFRESH_DELAY_MS:J = 0x7530L
 
@@ -147,20 +147,140 @@
 
 # virtual methods
 .method public calculateRefreshDelay(Ljava/lang/Long;Ljava/lang/Long;)J
-    .locals 2
+    .locals 10
 
     .prologue
-    .line 74
+    const-wide/32 v8, 0x2bf20
+
+    const-wide/16 v6, 0x0
+
+    .line 78
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+
+    move-result-wide v0
+
+    .line 80
+    if-eqz p1, :cond_54
+
+    invoke-virtual {p1}, Ljava/lang/Long;->longValue()J
+
+    move-result-wide v2
+
+    cmp-long v2, v2, v6
+
+    if-lez v2, :cond_54
+
+    .line 81
+    invoke-virtual {p1}, Ljava/lang/Long;->longValue()J
+
+    move-result-wide v2
+
+    const-wide/16 v4, 0x3e8
+
+    mul-long/2addr v2, v4
+
+    .line 82
+    sub-long/2addr v2, v8
+
+    .line 83
+    sub-long v0, v2, v0
+
+    .line 84
+    const-string v2, "UrlAutoRefreshManager"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "calculateRefreshDelay: deadline="
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    const-string v4, ", refreshIn="
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v0, v1}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    const-string v4, "ms, lead="
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v8, v9}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    const-string v4, "ms"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 86
+    invoke-static {v0, v1, v6, v7}, Ljava/lang/Math;->max(JJ)J
+
+    move-result-wide v0
+
+    .line 93
+    :goto_53
+    return-wide v0
+
+    .line 88
+    :cond_54
+    if-eqz p2, :cond_6c
+
+    invoke-virtual {p2}, Ljava/lang/Long;->longValue()J
+
+    move-result-wide v0
+
+    const-wide/32 v2, 0x36ee80
+
+    cmp-long v0, v0, v2
+
+    if-ltz v0, :cond_6c
+
+    .line 89
     const-string v0, "UrlAutoRefreshManager"
 
-    const-string v1, "[TEST_MODE] Using test refresh delay: 30000ms"
+    const-string v1, "No deadline, using fallback delay: 3300000ms"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 75
-    const-wide/16 v0, 0x7530
+    .line 90
+    const-wide/32 v0, 0x325aa0
 
-    return-wide v0
+    goto :goto_53
+
+    .line 92
+    :cond_6c
+    const-string v0, "UrlAutoRefreshManager"
+
+    const-string v1, "Video too short or no deadline, skip auto refresh"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 93
+    const-wide/16 v0, -0x1
+
+    goto :goto_53
 .end method
 
 .method public getRefreshCallback()Ltv/danmaku/videoplayer/core/media/resource/UrlAutoRefreshManager$RefreshCallback;

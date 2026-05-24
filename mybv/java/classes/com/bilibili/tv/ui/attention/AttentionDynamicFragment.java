@@ -252,7 +252,8 @@ public final class AttentionDynamicFragment extends ady {
         int iB = adl.b(R.dimen.px_4);
         int iB2 = adl.b(R.dimen.px_10);
         int iB3 = adl.b(R.dimen.px_30);
-        recyclerView.setPadding(iB3, iB3, iB3, iB3);
+        int paddingBottom = adl.b(R.dimen.px_306);
+        recyclerView.setPadding(iB3, iB3, iB3, paddingBottom);
         recyclerView.a(new f(iB2, iB));
         recyclerView.a(new g(sideRightGridLayoutManger));
         this.c = new c(uperName);

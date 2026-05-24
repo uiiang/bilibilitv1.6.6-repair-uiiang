@@ -97,7 +97,8 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
         
         int spacing = adl.b(R.dimen.px_10);
         int padding = adl.b(R.dimen.px_50);
-        recyclerView.setPadding(padding, spacing, padding, spacing);
+        int paddingBottom = adl.b(R.dimen.px_306);
+        recyclerView.setPadding(padding, spacing, padding, paddingBottom);
         
         final int columnCount = getColumnCount();
         this.layoutManager = new BorderGridLayoutManager(getActivity(), columnCount, 1, false) {

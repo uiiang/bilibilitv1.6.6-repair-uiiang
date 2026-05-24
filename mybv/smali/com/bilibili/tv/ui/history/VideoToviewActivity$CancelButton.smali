@@ -26,7 +26,7 @@
     .locals 1
 
     .prologue
-    .line 308
+    .line 309
     new-instance v0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$CancelButton;
 
     invoke-direct {v0}, Lcom/bilibili/tv/ui/history/VideoToviewActivity$CancelButton;-><init>()V
@@ -40,7 +40,7 @@
     .locals 0
 
     .prologue
-    .line 307
+    .line 308
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -52,9 +52,9 @@
     .locals 0
 
     .prologue
-    .line 312
+    .line 313
     invoke-virtual {p1}, Lbl/agb;->dismiss()V
 
-    .line 313
+    .line 314
     return-void
 .end method

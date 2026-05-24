@@ -149,7 +149,8 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements Vie
         int b3 = adl.b(R.dimen.px_60);
         int b4 = adl.b(R.dimen.px_70);
         int b5 = adl.b(R.dimen.px_130);
-        recyclerView.setPadding(b5, b2, b5, b3);
+        int paddingBottom = adl.b(R.dimen.px_306);
+        recyclerView.setPadding(b5, b2, b5, paddingBottom);
         ViewGroup.LayoutParams layoutParams = recyclerView.getLayoutParams();
         if (layoutParams == null) {
             throw new TypeCastException("null cannot be cast to non-null type android.widget.LinearLayout.LayoutParams");

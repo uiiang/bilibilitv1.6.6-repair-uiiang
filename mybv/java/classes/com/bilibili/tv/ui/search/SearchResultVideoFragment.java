@@ -136,7 +136,8 @@ public final class SearchResultVideoFragment extends ady {
         int spacing = adl.b(R.dimen.px_4);
         int margin = adl.b(R.dimen.px_10);
         int padding = adl.b(R.dimen.px_30);
-        recyclerView.setPadding(padding, padding, padding, padding);
+        int paddingBottom = adl.b(R.dimen.px_306);
+        recyclerView.setPadding(padding, padding, padding, paddingBottom);
         recyclerView.a(new ItemDecoration(margin, spacing));
         recyclerView.a(new ScrollListener());
         
