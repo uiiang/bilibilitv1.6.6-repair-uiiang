@@ -24,6 +24,7 @@ import com.bilibili.tv.widget.ScalableImageView;
 import java.io.File;
 import tv.danmaku.ijk.media.player.AbstractMediaPlayer;
 import tv.danmaku.ijk.media.player.AndroidMediaPlayer;
+import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 import tv.danmaku.videoplayer.core.danmaku.DanmakuAnimationTicker;
 import tv.danmaku.videoplayer.core.danmaku.DanmakuPlayerCreator;
@@ -139,22 +140,26 @@ public class LiveVideoPlayer extends wy {
 
     @Override // bl.wy, bl.ws
     public void e() {
-        AbstractMediaPlayer i = wm.a().i();
-        if (i == null || !i.isPlaying()) {
+        IMediaPlayer i = wm.a().i();
+        if (i == null) {
+            android.util.Log.w("LiveVideoPlayer", "[LIVE_PAUSE] Player is null, skip pause");
             return;
         }
+        android.util.Log.i("LiveVideoPlayer", "[LIVE_PAUSE] Pausing live player, isPlaying=" + i.isPlaying());
         setStateAndUi(5);
         this.aa = System.currentTimeMillis();
         try {
             i.pause();
+            android.util.Log.i("LiveVideoPlayer", "[LIVE_PAUSE] Player paused successfully");
         } catch (Exception e) {
+            android.util.Log.e("LiveVideoPlayer", "[LIVE_PAUSE] Pause failed: " + e.getMessage());
             att.a(e);
         }
     }
 
     @Override // bl.wy, bl.ws
     public void f() {
-        AbstractMediaPlayer i;
+        IMediaPlayer i;
         this.aa = 0L;
         if (this.g != 5 || (i = wm.a().i()) == null || i.isPlaying()) {
             return;
@@ -168,6 +173,21 @@ public class LiveVideoPlayer extends wy {
             }
         } else if (i instanceof AndroidMediaPlayer) {
             m();
+        } else {
+            // ExoPlayerImpl 或其他IMediaPlayer实现
+            android.util.Log.i("LiveVideoPlayer", "[LIVE_EXO] LiveVideoPlayer.f() - ExoPlayerImpl resume");
+            try {
+                // 对于直播流，恢复时跳到最新位置
+                if (i instanceof tv.danmaku.videoplayer.core.media.exo.ExoPlayerImpl) {
+                    tv.danmaku.videoplayer.core.media.exo.ExoPlayerImpl exoImpl = 
+                        (tv.danmaku.videoplayer.core.media.exo.ExoPlayerImpl) i;
+                    exoImpl.seekToLivePosition();
+                    android.util.Log.i("LiveVideoPlayer", "[LIVE_EXO] seekToLivePosition called");
+                }
+                i.start();
+            } catch (Exception e) {
+                att.a(e);
+            }
         }
     }
 

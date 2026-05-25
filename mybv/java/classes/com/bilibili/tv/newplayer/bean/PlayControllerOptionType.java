@@ -8,5 +8,6 @@ public enum PlayControllerOptionType {
     DANMAKU_SIZE,
     DANMAKU_ALPHA,
     MIRROR_REVERSAL,
-    VIDEO_QUALITY
+    VIDEO_QUALITY,
+    AUDIO_BALANCE
 }

@@ -213,7 +213,7 @@
     .locals 1
 
     .prologue
-    .line 229
+    .line 239
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->e:Lbl/agb;
 
     if-eqz v0, :cond_e
@@ -243,31 +243,31 @@
     .prologue
     const/4 v3, 0x1
 
-    .line 240
+    .line 250
     sget-boolean v0, Lmybl/BiliFilter;->fastquit_on:Z
 
     if-eqz v0, :cond_c
 
-    .line 241
+    .line 251
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->f:Z
 
-    .line 242
+    .line 252
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->finish()V
 
-    .line 280
+    .line 290
     :cond_b
     :goto_b
     return-void
 
-    .line 245
+    .line 255
     :cond_c
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->e:Lbl/agb;
 
     if-nez v0, :cond_45
 
-    .line 246
+    .line 256
     new-instance v0, Lbl/agb$a;
 
     invoke-direct {v0, p0}, Lbl/agb$a;-><init>(Landroid/app/Activity;)V
@@ -298,19 +298,19 @@
 
     invoke-direct {v2, p0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$2;-><init>(Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;)V
 
-    .line 252
+    .line 262
     invoke-virtual {v0, v1, v2}, Lbl/agb$a;->b(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
 
     move-result-object v0
 
-    .line 259
+    .line 269
     invoke-virtual {v0}, Lbl/agb$a;->a()Lbl/agb;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->e:Lbl/agb;
 
-    .line 260
+    .line 270
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->e:Lbl/agb;
 
     new-instance v1, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$4;
@@ -319,7 +319,7 @@
 
     invoke-virtual {v0, v1}, Lbl/agb;->setOnDismissListener(Landroid/content/DialogInterface$OnDismissListener;)V
 
-    .line 271
+    .line 281
     :cond_45
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->e:Lbl/agb;
 
@@ -329,30 +329,30 @@
 
     if-eqz v0, :cond_53
 
-    .line 272
+    .line 282
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->e:Lbl/agb;
 
     invoke-virtual {v0}, Lbl/agb;->dismiss()V
 
     goto :goto_b
 
-    .line 275
+    .line 285
     :cond_53
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->e:Lbl/agb;
 
     invoke-virtual {v0}, Lbl/agb;->show()V
 
-    .line 276
+    .line 286
     invoke-static {}, Lbl/wm;->e()Z
 
     move-result v0
 
     if-eqz v0, :cond_b
 
-    .line 277
+    .line 287
     invoke-static {}, Lbl/wm;->f()V
 
-    .line 278
+    .line 288
     iput-boolean v3, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->f:Z
 
     goto :goto_b
@@ -362,12 +362,12 @@
     .locals 7
 
     .prologue
-    .line 307
+    .line 317
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
 
-    .line 308
+    .line 318
     if-eqz v0, :cond_46
 
     invoke-virtual {v0}, Lbl/mg;->a()Z
@@ -376,17 +376,17 @@
 
     if-eqz v1, :cond_46
 
-    .line 309
+    .line 319
     invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v6
 
-    .line 310
+    .line 320
     invoke-static {v0}, Lmybl/CookieUtil;->getBiliJct(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v4
 
-    .line 311
+    .line 321
     const-string v0, "LivePlayerActivity"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -411,7 +411,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 312
+    .line 322
     const-class v0, Lcom/bilibili/tv/api/history/BiliPlayerHistoryService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -426,7 +426,7 @@
 
     move-object v5, v4
 
-    .line 313
+    .line 323
     invoke-interface/range {v1 .. v6}, Lcom/bilibili/tv/api/history/BiliPlayerHistoryService;->reportLiveEntry(JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lbl/vp;
 
     move-result-object v0
@@ -435,10 +435,10 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$5;-><init>(Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;)V
 
-    .line 314
+    .line 324
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 326
+    .line 336
     :cond_46
     return-void
 .end method
@@ -456,12 +456,54 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 125
+    .line 126
+    iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->a:Lmybl/BiliLiveContent;
+
+    iget-object v0, v0, Lmybl/BiliLiveContent;->mPlayFormat:Ljava/lang/String;
+
+    if-eqz v0, :cond_6c
+
+    .line 127
+    iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->a:Lmybl/BiliLiveContent;
+
+    iget-object v0, v0, Lmybl/BiliLiveContent;->mPlayFormat:Ljava/lang/String;
+
+    invoke-static {v0}, Lbl/wm;->setLiveFormat(Ljava/lang/String;)V
+
+    .line 128
+    const-string v0, "LivePlayerActivity"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "startPlaybackWithCdnRace: \u8bbe\u7f6e\u76f4\u64ad\u683c\u5f0f="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->a:Lmybl/BiliLiveContent;
+
+    iget-object v2, v2, Lmybl/BiliLiveContent;->mPlayFormat:Ljava/lang/String;
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 133
+    :goto_31
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->a:Lmybl/BiliLiveContent;
 
     iget-object v0, v0, Lmybl/BiliLiveContent;->mPlayUrls:Ljava/util/List;
 
-    if-eqz v0, :cond_43
+    if-eqz v0, :cond_71
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->a:Lmybl/BiliLiveContent;
 
@@ -471,9 +513,9 @@
 
     move-result v0
 
-    if-le v0, v5, :cond_43
+    if-le v0, v5, :cond_71
 
-    .line 126
+    .line 134
     const-string v0, "LivePlayerActivity"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -504,7 +546,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 127
+    .line 135
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->cdnExecutor:Ljava/util/concurrent/ExecutorService;
 
     new-instance v1, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$1;
@@ -513,19 +555,27 @@
 
     invoke-interface {v0, v1}, Ljava/util/concurrent/ExecutorService;->execute(Ljava/lang/Runnable;)V
 
-    .line 172
-    :goto_42
+    .line 180
+    :goto_6b
     return-void
 
-    .line 168
-    :cond_43
+    .line 130
+    :cond_6c
+    const/4 v0, 0x0
+
+    invoke-static {v0}, Lbl/wm;->setLiveFormat(Ljava/lang/String;)V
+
+    goto :goto_31
+
+    .line 176
+    :cond_71
     const-string v0, "LivePlayerActivity"
 
     const-string v1, "startPlaybackWithCdnRace: \u53ea\u67091\u4e2aURL, \u76f4\u63a5\u64ad\u653e"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 169
+    .line 177
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->g:Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->b:Ljava/lang/String;
@@ -550,12 +600,12 @@
 
     invoke-virtual {v0, v1, v2}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->a(Ljava/lang/String;[Ljava/lang/Object;)Z
 
-    .line 170
+    .line 178
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->g:Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->m()V
 
-    goto :goto_42
+    goto :goto_6b
 .end method
 
 
@@ -915,14 +965,14 @@
     .locals 1
 
     .prologue
-    .line 176
+    .line 184
     invoke-static {p1}, Lbl/abt;->a(Landroid/content/Context;)Landroid/content/ContextWrapper;
 
     move-result-object v0
 
     invoke-super {p0, v0}, Lcom/bilibili/tv/ui/base/BaseActivity;->attachBaseContext(Landroid/content/Context;)V
 
-    .line 177
+    .line 185
     return-void
 .end method
 
@@ -977,40 +1027,40 @@
     .locals 2
 
     .prologue
-    .line 181
+    .line 189
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->h:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->getShow()Z
 
     move-result v0
 
-    .line 182
+    .line 190
     invoke-static {}, Lbl/wm;->e()Z
 
     move-result v1
 
-    .line 183
+    .line 191
     if-nez v0, :cond_15
 
     if-eqz v1, :cond_15
 
-    .line 184
+    .line 192
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->h:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
 
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->a(Z)V
 
-    .line 188
+    .line 196
     :cond_14
     :goto_14
     return-void
 
-    .line 185
+    .line 193
     :cond_15
     if-eqz v0, :cond_14
 
-    .line 186
+    .line 194
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->h:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
 
     const/4 v1, 0x0
@@ -1024,14 +1074,14 @@
     .locals 2
 
     .prologue
-    .line 299
+    .line 309
     const-string v0, "LivePlayerActivity"
 
     const-string v1, "onDestroy: \u88ab\u8c03\u7528"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 300
+    .line 310
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->g:Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;
 
     if-eqz v0, :cond_10
@@ -1040,7 +1090,7 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->i()V
 
-    .line 301
+    .line 311
     :cond_10
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->cdnExecutor:Ljava/util/concurrent/ExecutorService;
 
@@ -1050,107 +1100,155 @@
 
     invoke-interface {v0}, Ljava/util/concurrent/ExecutorService;->shutdownNow()Ljava/util/List;
 
-    .line 302
+    .line 312
     :cond_19
     const/4 v0, 0x0
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->e:Lbl/agb;
 
-    .line 303
+    .line 313
     invoke-super {p0}, Lcom/bilibili/tv/ui/base/BaseActivity;->onDestroy()V
 
-    .line 304
+    .line 314
     return-void
 .end method
 
 .method public onKeyUp(ILandroid/view/KeyEvent;)Z
-    .locals 6
+    .locals 8
 
     .prologue
-    const/16 v5, 0x52
+    const/16 v7, 0x52
 
-    const/4 v4, 0x1
+    const/4 v6, 0x1
 
-    const/4 v3, 0x0
+    const/4 v5, 0x0
 
-    .line 192
+    .line 200
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->h:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->getShow()Z
 
     move-result v0
 
-    .line 193
+    .line 201
     invoke-static {}, Lbl/wm;->e()Z
 
     move-result v1
 
-    .line 194
-    const/4 v2, 0x4
-
-    if-eq p1, v2, :cond_6e
-
-    .line 195
-    if-eq p1, v5, :cond_13
-
-    .line 199
-    :cond_13
-    if-eq p1, v5, :cond_1d
-
-    const/16 v2, 0x42
-
-    if-eq p1, v2, :cond_1d
-
-    const/16 v2, 0x17
-
-    if-ne p1, v2, :cond_26
-
-    :cond_1d
-    if-nez v0, :cond_26
-
-    if-eqz v1, :cond_26
-
-    .line 200
-    iget-object v1, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->h:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
-
-    invoke-virtual {v1, v4}, Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->a(Z)V
-
     .line 202
-    :cond_26
-    const/16 v1, 0x13
+    const-string v2, "LivePlayerActivity"
 
-    if-ne p1, v1, :cond_3b
+    new-instance v3, Ljava/lang/StringBuilder;
 
-    if-nez v0, :cond_3b
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "onKeyUp: keyCode="
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3, p1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    const-string v4, ", show="
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    const-string v4, ", isPlaying="
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v2, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 203
-    sget v1, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->live_index:I
+    const/4 v1, 0x4
 
-    if-lez v1, :cond_62
+    if-eq p1, v1, :cond_9f
 
     .line 204
+    if-eq p1, v7, :cond_3f
+
+    .line 208
+    :cond_3f
+    if-eq p1, v7, :cond_49
+
+    const/16 v1, 0x42
+
+    if-eq p1, v1, :cond_49
+
+    const/16 v1, 0x17
+
+    if-ne p1, v1, :cond_57
+
+    :cond_49
+    if-nez v0, :cond_57
+
+    .line 209
+    const-string v1, "LivePlayerActivity"
+
+    const-string v2, "onKeyUp: \u663e\u793a\u63a7\u5236\u5668\u83dc\u5355"
+
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 210
+    iget-object v1, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->h:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
+
+    invoke-virtual {v1, v6}, Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->a(Z)V
+
+    .line 212
+    :cond_57
+    const/16 v1, 0x13
+
+    if-ne p1, v1, :cond_6c
+
+    if-nez v0, :cond_6c
+
+    .line 213
+    sget v1, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->live_index:I
+
+    if-lez v1, :cond_93
+
+    .line 214
     sget v1, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->live_index:I
 
     add-int/lit8 v1, v1, -0x1
 
     sput v1, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->live_index:I
 
-    .line 205
-    iput-boolean v3, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->f:Z
+    .line 215
+    iput-boolean v5, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->f:Z
 
-    .line 206
+    .line 216
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->refresh()V
 
-    .line 210
-    :cond_3b
-    :goto_3b
+    .line 220
+    :cond_6c
+    :goto_6c
     const/16 v1, 0x14
 
-    if-ne p1, v1, :cond_58
+    if-ne p1, v1, :cond_89
 
-    if-nez v0, :cond_58
+    if-nez v0, :cond_89
 
-    .line 211
+    .line 221
     sget v0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->live_index:I
 
     sget-object v1, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->lives:Ljava/util/List;
@@ -1161,86 +1259,86 @@
 
     add-int/lit8 v1, v1, -0x1
 
-    if-ge v0, v1, :cond_68
+    if-ge v0, v1, :cond_99
 
-    .line 212
+    .line 222
     sget v0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->live_index:I
 
     add-int/lit8 v0, v0, 0x1
 
     sput v0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->live_index:I
 
-    .line 213
-    iput-boolean v3, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->f:Z
+    .line 223
+    iput-boolean v5, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->f:Z
 
-    .line 214
+    .line 224
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->refresh()V
 
-    .line 218
-    :cond_58
-    :goto_58
+    .line 228
+    :cond_89
+    :goto_89
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->h:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
 
     invoke-virtual {v0, p1, p2}, Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->a(ILandroid/view/KeyEvent;)V
 
-    .line 225
-    :goto_5d
+    .line 235
+    :goto_8e
     invoke-direct {p0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->h()Z
 
     move-result v0
 
     return v0
 
-    .line 208
-    :cond_62
+    .line 218
+    :cond_93
     const-string v1, "\u5df2\u7ecf\u5230\u9876\u4e86"
 
     invoke-static {p0, v1}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    goto :goto_3b
+    goto :goto_6c
 
-    .line 216
-    :cond_68
+    .line 226
+    :cond_99
     const-string v0, "\u5df2\u7ecf\u5230\u5e95\u4e86"
 
     invoke-static {p0, v0}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    goto :goto_58
+    goto :goto_89
 
-    .line 219
-    :cond_6e
-    if-eqz v0, :cond_76
+    .line 229
+    :cond_9f
+    if-eqz v0, :cond_a7
 
-    .line 220
+    .line 230
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->h:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->a()V
 
-    goto :goto_5d
+    goto :goto_8e
 
-    .line 222
-    :cond_76
+    .line 232
+    :cond_a7
     invoke-direct {p0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->i()V
 
-    .line 223
-    iput-boolean v4, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->f:Z
+    .line 233
+    iput-boolean v6, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->f:Z
 
-    goto :goto_5d
+    goto :goto_8e
 .end method
 
 .method public onPause()V
     .locals 1
 
     .prologue
-    .line 292
+    .line 302
     invoke-super {p0}, Lcom/bilibili/tv/ui/base/BaseActivity;->onPause()V
 
-    .line 293
+    .line 303
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->g:Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->e()V
 
-    .line 294
+    .line 304
     return-void
 .end method
 
@@ -1248,15 +1346,15 @@
     .locals 1
 
     .prologue
-    .line 285
+    .line 295
     invoke-super {p0}, Lcom/bilibili/tv/ui/base/BaseActivity;->onResume()V
 
-    .line 286
+    .line 296
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->g:Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->f()V
 
-    .line 287
+    .line 297
     return-void
 .end method
 
@@ -1264,7 +1362,7 @@
     .locals 3
 
     .prologue
-    .line 233
+    .line 243
     const-string v0, "LivePlayerActivity"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1289,7 +1387,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 234
+    .line 244
     const-string v0, "LivePlayerActivity"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1320,10 +1418,10 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 235
+    .line 245
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->finish()V
 
-    .line 236
+    .line 246
     sget-object v0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->lives:Ljava/util/List;
 
     sget v1, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->live_index:I
@@ -1340,6 +1438,6 @@
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->startActivity(Landroid/content/Intent;)V
 
-    .line 237
+    .line 247
     return-void
 .end method

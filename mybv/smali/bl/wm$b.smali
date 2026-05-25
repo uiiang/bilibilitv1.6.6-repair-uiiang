@@ -23,13 +23,13 @@
     .locals 0
 
     .prologue
-    .line 136
+    .line 155
     iput-object p1, p0, Lbl/wm$b;->this$0:Lbl/wm;
 
-    .line 137
+    .line 156
     invoke-direct {p0, p2}, Landroid/os/Handler;-><init>(Landroid/os/Looper;)V
 
-    .line 138
+    .line 157
     return-void
 .end method
 
@@ -41,19 +41,19 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 142
+    .line 161
     invoke-super {p0, p1}, Landroid/os/Handler;->handleMessage(Landroid/os/Message;)V
 
-    .line 143
+    .line 162
     iget v0, p1, Landroid/os/Message;->what:I
 
     packed-switch v0, :pswitch_data_46
 
-    .line 164
+    .line 183
     :goto_9
     return-void
 
-    .line 145
+    .line 164
     :pswitch_a
     iget-object v0, p0, Lbl/wm$b;->this$0:Lbl/wm;
 
@@ -61,7 +61,7 @@
 
     goto :goto_9
 
-    .line 148
+    .line 167
     :pswitch_10
     iget-object v0, p0, Lbl/wm$b;->this$0:Lbl/wm;
 
@@ -69,56 +69,56 @@
 
     goto :goto_9
 
-    .line 151
+    .line 170
     :pswitch_16
     iget-object v0, p0, Lbl/wm$b;->this$0:Lbl/wm;
 
-    # getter for: Lbl/wm;->h:Ltv/danmaku/ijk/media/player/AbstractMediaPlayer;
-    invoke-static {v0}, Lbl/wm;->access$200(Lbl/wm;)Ltv/danmaku/ijk/media/player/AbstractMediaPlayer;
+    # getter for: Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
+    invoke-static {v0}, Lbl/wm;->access$200(Lbl/wm;)Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     move-result-object v0
 
     if-eqz v0, :cond_36
 
-    .line 153
+    .line 172
     :try_start_1e
     iget-object v0, p0, Lbl/wm$b;->this$0:Lbl/wm;
 
-    # getter for: Lbl/wm;->h:Ltv/danmaku/ijk/media/player/AbstractMediaPlayer;
-    invoke-static {v0}, Lbl/wm;->access$200(Lbl/wm;)Ltv/danmaku/ijk/media/player/AbstractMediaPlayer;
+    # getter for: Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
+    invoke-static {v0}, Lbl/wm;->access$200(Lbl/wm;)Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     move-result-object v0
 
-    invoke-virtual {v0}, Ltv/danmaku/ijk/media/player/AbstractMediaPlayer;->reset()V
+    invoke-interface {v0}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->reset()V
 
-    .line 154
+    .line 173
     iget-object v0, p0, Lbl/wm$b;->this$0:Lbl/wm;
 
-    # getter for: Lbl/wm;->h:Ltv/danmaku/ijk/media/player/AbstractMediaPlayer;
-    invoke-static {v0}, Lbl/wm;->access$200(Lbl/wm;)Ltv/danmaku/ijk/media/player/AbstractMediaPlayer;
+    # getter for: Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
+    invoke-static {v0}, Lbl/wm;->access$200(Lbl/wm;)Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     move-result-object v0
 
-    invoke-virtual {v0}, Ltv/danmaku/ijk/media/player/AbstractMediaPlayer;->release()V
+    invoke-interface {v0}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->release()V
 
-    .line 155
+    .line 174
     iget-object v0, p0, Lbl/wm$b;->this$0:Lbl/wm;
 
     const/4 v1, 0x0
 
-    # setter for: Lbl/wm;->h:Ltv/danmaku/ijk/media/player/AbstractMediaPlayer;
-    invoke-static {v0, v1}, Lbl/wm;->access$202(Lbl/wm;Ltv/danmaku/ijk/media/player/AbstractMediaPlayer;)Ltv/danmaku/ijk/media/player/AbstractMediaPlayer;
+    # setter for: Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
+    invoke-static {v0, v1}, Lbl/wm;->access$202(Lbl/wm;Ltv/danmaku/ijk/media/player/IMediaPlayer;)Ltv/danmaku/ijk/media/player/IMediaPlayer;
     :try_end_36
     .catch Ljava/lang/Exception; {:try_start_1e .. :try_end_36} :catch_41
 
-    .line 160
+    .line 179
     :cond_36
     :goto_36
     iget-object v0, p0, Lbl/wm$b;->this$0:Lbl/wm;
 
     invoke-virtual {v0, v2}, Lbl/wm;->a(Z)V
 
-    .line 161
+    .line 180
     iget-object v0, p0, Lbl/wm$b;->this$0:Lbl/wm;
 
     # setter for: Lbl/wm;->v:I
@@ -126,16 +126,16 @@
 
     goto :goto_9
 
-    .line 156
+    .line 175
     :catch_41
     move-exception v0
 
-    .line 157
+    .line 176
     invoke-static {v0}, Lbl/att;->a(Ljava/lang/Throwable;)V
 
     goto :goto_36
 
-    .line 143
+    .line 162
     :pswitch_data_46
     .packed-switch 0x0
         :pswitch_a

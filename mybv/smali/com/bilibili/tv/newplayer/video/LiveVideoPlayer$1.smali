@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 67
+    .line 68
     iput-object p1, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer$1;->this$0:Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 4
 
     .prologue
-    .line 70
+    .line 71
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer$1;->this$0:Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;
 
     iget-object v0, v0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->F:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
@@ -80,17 +80,17 @@
 
     if-nez v0, :cond_2b
 
-    .line 71
+    .line 72
     :cond_25
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer$1;->this$0:Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->G()V
 
-    .line 75
+    .line 76
     :goto_2a
     return-void
 
-    .line 73
+    .line 74
     :cond_2b
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer$1;->this$0:Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;
 

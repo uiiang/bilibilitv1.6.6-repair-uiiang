@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 246
+    .line 256
     iput-object p1, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 1
 
     .prologue
-    .line 249
+    .line 259
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     # getter for: Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->e:Lbl/agb;
@@ -50,7 +50,7 @@
 
     invoke-virtual {v0}, Lbl/agb;->dismiss()V
 
-    .line 250
+    .line 260
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->getWindow()Landroid/view/Window;
@@ -63,6 +63,6 @@
 
     invoke-static {v0}, Lbl/adl;->a(Landroid/view/View;)V
 
-    .line 251
+    .line 261
     return-void
 .end method

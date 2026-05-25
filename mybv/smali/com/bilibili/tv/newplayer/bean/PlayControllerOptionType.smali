@@ -17,6 +17,8 @@
 # static fields
 .field private static final synthetic $VALUES:[Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
 
+.field public static final enum AUDIO_BALANCE:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
+
 .field public static final enum AVATAR:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
 
 .field public static final enum DANMAKU_ALPHA:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
@@ -101,8 +103,19 @@
 
     sput-object v0, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->VIDEO_QUALITY:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
 
+    .line 12
+    new-instance v0, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
+
+    const-string v1, "AUDIO_BALANCE"
+
+    const/4 v2, 0x6
+
+    invoke-direct {v0, v1, v2}, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;-><init>(Ljava/lang/String;I)V
+
+    sput-object v0, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->AUDIO_BALANCE:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
+
     .line 5
-    const/4 v0, 0x6
+    const/4 v0, 0x7
 
     new-array v0, v0, [Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
 
@@ -129,6 +142,12 @@
     const/4 v1, 0x5
 
     sget-object v2, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->VIDEO_QUALITY:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x6
+
+    sget-object v2, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->AUDIO_BALANCE:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
 
     aput-object v2, v0, v1
 

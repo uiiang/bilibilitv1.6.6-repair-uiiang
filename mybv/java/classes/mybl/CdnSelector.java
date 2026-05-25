@@ -30,8 +30,8 @@ public class CdnSelector {
     private static final int MIN_SCORE = 0;
     private static final int RACE_TIMEOUT_MS = 5000;
     private static final int SINGLE_TIMEOUT_MS = 2000;
-    private static final int LIVE_RACE_TIMEOUT_MS = 3000;
-    private static final int LIVE_SINGLE_TIMEOUT_MS = 1000;
+    private static final int LIVE_RACE_TIMEOUT_MS = 5000;
+    private static final int LIVE_SINGLE_TIMEOUT_MS = 2000;
     private static final int TEST_BYTES = 1024;
     
     private static SharedPreferences prefs;

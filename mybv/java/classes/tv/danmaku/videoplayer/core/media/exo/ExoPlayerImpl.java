@@ -17,6 +17,8 @@ import com.google.android.exoplayer2.video.VideoSize;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.MergingMediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
+import com.google.android.exoplayer2.source.hls.HlsMediaSource;
+import com.google.android.exoplayer2.source.BehindLiveWindowException;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.audio.AudioAttributes;
@@ -26,6 +28,7 @@ import com.google.android.exoplayer2.text.CueGroup;
 import com.google.android.exoplayer2.DeviceInfo;
 import com.google.android.exoplayer2.MediaMetadata;
 import com.google.android.exoplayer2.PlaybackParameters;
+import com.google.android.exoplayer2.DefaultLivePlaybackSpeedControl;
 import com.google.android.exoplayer2.trackselection.TrackSelectionParameters;
 import com.google.android.exoplayer2.Tracks;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
@@ -58,9 +61,13 @@ public class ExoPlayerImpl implements IMediaPlayer {
 
     private volatile long cachedCurrentPosition = 0;
     private volatile long cachedDuration = 0;
+    private volatile boolean cachedIsPlaying = false;
+    private volatile int cachedVideoWidth = 0;
+    private volatile int cachedVideoHeight = 0;
     private final AtomicLong lastPositionUpdateTime = new AtomicLong(0);
     private static final long POSITION_CACHE_VALIDITY_MS = 500;
     private Handler mainHandler;
+    private Handler playerHandler;
     private Runnable positionUpdateRunnable;
     private Runnable bufferMonitorRunnable;
     private int lastPlaybackState = Player.STATE_IDLE;
@@ -85,6 +92,13 @@ public class ExoPlayerImpl implements IMediaPlayer {
     private static final long NETWORK_ERROR_RETRY_DELAY_MS = 3000;
     private int networkErrorRetryCount = 0;
     private Runnable networkErrorRetryRunnable;
+    
+    private static final int MAX_LIVE_ERROR_RETRY = 5;
+    private static final long LIVE_ERROR_RETRY_DELAY_MS = 2000;
+    private static final long LIVE_BUFFERING_TIMEOUT_MS = 15000;
+    private int liveErrorRetryCount = 0;
+    private boolean isLiveStream = false;
+    private long bufferingStartTime = 0;
     
     private static final int MAX_NAL_ERROR_RETRY = 3;
     private int nalErrorRetryCount = 0;
@@ -117,7 +131,7 @@ public class ExoPlayerImpl implements IMediaPlayer {
                     cachedCurrentPosition = exoPlayer.getCurrentPosition();
                     cachedDuration = exoPlayer.getDuration();
                     lastPositionUpdateTime.set(System.currentTimeMillis());
-                    mainHandler.postDelayed(this, 200);
+                    playerHandler.postDelayed(this, 200);
                 }
             }
         };
@@ -133,6 +147,12 @@ public class ExoPlayerImpl implements IMediaPlayer {
                     boolean isPlaying = exoPlayer.isPlaying();
                     int playbackState = exoPlayer.getPlaybackState();
                     
+                    cachedIsPlaying = isPlaying;
+                    
+                    VideoSize videoSize = exoPlayer.getVideoSize();
+                    cachedVideoWidth = videoSize.width;
+                    cachedVideoHeight = videoSize.height;
+                    
                     String stateStr = "";
                     switch (playbackState) {
                         case Player.STATE_IDLE: stateStr = "IDLE"; break;
@@ -145,7 +165,34 @@ public class ExoPlayerImpl implements IMediaPlayer {
                         + bufferedPercent + "% (" + bufferedPosition + "ms), playing=" + isPlaying 
                         + ", state=" + stateStr);
                     
-                    mainHandler.postDelayed(this, 10000);
+                    if (isLiveStream && position < -2000 && playbackState == Player.STATE_READY) {
+                        Log.w(TAG, "[MONITOR] Live position too far behind (" + position + "ms), seeking to live edge");
+                        exoPlayer.seekToDefaultPosition();
+                    }
+                    
+                    if (isLiveStream && playbackState == Player.STATE_BUFFERING && position == 0) {
+                        if (bufferingStartTime == 0) {
+                            bufferingStartTime = System.currentTimeMillis();
+                            Log.w(TAG, "[MONITOR] Live stream buffering started at position 0");
+                        } else {
+                            long bufferingDuration = System.currentTimeMillis() - bufferingStartTime;
+                            Log.w(TAG, "[MONITOR] Live stream buffering duration: " + bufferingDuration + "ms");
+                            if (bufferingDuration > LIVE_BUFFERING_TIMEOUT_MS) {
+                                Log.e(TAG, "[MONITOR] Live stream buffering timeout (" + bufferingDuration + "ms > " + LIVE_BUFFERING_TIMEOUT_MS + "ms), need URL refresh");
+                                if (errorListener != null) {
+                                    errorListener.onPlayerError(1002, "LIVE_BUFFERING_TIMEOUT", null);
+                                }
+                                bufferingStartTime = 0;
+                            }
+                        }
+                    } else if (playbackState != Player.STATE_BUFFERING || position > 0) {
+                        if (bufferingStartTime > 0) {
+                            Log.i(TAG, "[MONITOR] Live stream buffering ended or position changed, resetting timer");
+                        }
+                        bufferingStartTime = 0;
+                    }
+                    
+                    playerHandler.postDelayed(this, 10000);
                 }
             }
         };
@@ -169,10 +216,36 @@ public class ExoPlayerImpl implements IMediaPlayer {
     private void ensurePlayer() {
         if (exoPlayer == null) {
             Log.i(TAG, "ensurePlayer: creating new ExoPlayer instance");
+            playerHandler = new Handler(Looper.myLooper());
             
             customRenderersFactory = new CustomRenderersFactory(appContext);
+            
+            com.google.android.exoplayer2.LoadControl loadControl = 
+                new com.google.android.exoplayer2.DefaultLoadControl.Builder()
+                    .setBufferDurationsMs(
+                        com.google.android.exoplayer2.DefaultLoadControl.DEFAULT_MIN_BUFFER_MS * 2,
+                        com.google.android.exoplayer2.DefaultLoadControl.DEFAULT_MAX_BUFFER_MS * 2,
+                        com.google.android.exoplayer2.DefaultLoadControl.DEFAULT_BUFFER_FOR_PLAYBACK_MS,
+                        com.google.android.exoplayer2.DefaultLoadControl.DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS
+                    )
+                    .build();
+            Log.i(TAG, "ensurePlayer: LoadControl configured with doubled buffer sizes for live streaming");
+            
+            com.google.android.exoplayer2.LivePlaybackSpeedControl livePlaybackSpeedControl =
+                new DefaultLivePlaybackSpeedControl.Builder()
+                    .setFallbackMinPlaybackSpeed(0.95f)
+                    .setFallbackMaxPlaybackSpeed(1.5f)
+                    .setMinUpdateIntervalMs(500)
+                    .setProportionalControlFactor(0.5f)
+                    .setMaxLiveOffsetErrorMsForUnitSpeed(1000)
+                    .setTargetLiveOffsetIncrementOnRebufferMs(500)
+                    .build();
+            Log.i(TAG, "ensurePlayer: LivePlaybackSpeedControl configured for live streaming (aggressive catch-up)");
+            
             exoPlayer = new ExoPlayer.Builder(appContext)
                     .setRenderersFactory(customRenderersFactory)
+                    .setLoadControl(loadControl)
+                    .setLivePlaybackSpeedControl(livePlaybackSpeedControl)
                     .build();
             exoPlayer.setPlayWhenReady(playWhenReadyOnPrepare);
 
@@ -211,11 +284,11 @@ public class ExoPlayerImpl implements IMediaPlayer {
                                 Log.i(TAG, "[STATE] First READY, calling onPrepared");
                                 onPreparedListener.onPrepared(ExoPlayerImpl.this);
                             }
-                            mainHandler.post(positionUpdateRunnable);
+                            playerHandler.post(positionUpdateRunnable);
                             break;
                         case Player.STATE_ENDED:
                             stateName = "ENDED";
-                            mainHandler.removeCallbacks(positionUpdateRunnable);
+                            playerHandler.removeCallbacks(positionUpdateRunnable);
                             if (onCompletionListener != null) {
                                 onCompletionListener.onCompletion(ExoPlayerImpl.this);
                             }
@@ -232,7 +305,7 @@ public class ExoPlayerImpl implements IMediaPlayer {
                             break;
                         case Player.STATE_IDLE:
                             stateName = "IDLE";
-                            mainHandler.removeCallbacks(positionUpdateRunnable);
+                            playerHandler.removeCallbacks(positionUpdateRunnable);
                             break;
                     }
                     Log.i(TAG, "[STATE] " + stateName + " (playbackState=" + playbackState + ")");
@@ -292,6 +365,48 @@ public class ExoPlayerImpl implements IMediaPlayer {
                         } else {
                             Log.e(TAG, "[ERROR] NAL error near end of video, cannot skip");
                         }
+                    }
+                    
+                    boolean isBehindLiveWindow = false;
+                    Throwable cause = error.getCause();
+                    while (cause != null) {
+                        if (cause instanceof BehindLiveWindowException) {
+                            isBehindLiveWindow = true;
+                            break;
+                        }
+                        cause = cause.getCause();
+                    }
+                    
+                    if (isBehindLiveWindow && isLiveStream && savedMediaSource != null) {
+                        if (liveErrorRetryCount < MAX_LIVE_ERROR_RETRY) {
+                            liveErrorRetryCount++;
+                            Log.w(TAG, "[ERROR] BehindLiveWindowException detected, reloading live stream (" + liveErrorRetryCount + "/" + MAX_LIVE_ERROR_RETRY + ")");
+                            
+                            if (exoPlayer != null) {
+                                exoPlayer.stop();
+                            }
+                            
+                            playerHandler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (exoPlayer != null && savedMediaSource != null) {
+                                        Log.i(TAG, "[ERROR] Reloading live stream after BehindLiveWindowException");
+                                        exoPlayer.setMediaSource(savedMediaSource, true);
+                                        exoPlayer.prepare();
+                                    }
+                                }
+                            }, LIVE_ERROR_RETRY_DELAY_MS);
+                            return;
+                        } else {
+                            Log.e(TAG, "[ERROR] Max live error retries reached for BehindLiveWindowException, need URL refresh");
+                            if (errorListener != null) {
+                                errorListener.onPlayerError(1001, "LIVE_STREAM_NEED_REFRESH", null);
+                            }
+                        }
+                    }
+                    
+                    if (httpCode != null && (httpCode == 404 || httpCode == 403) && isLiveStream) {
+                        Log.w(TAG, "[ERROR] Live stream HTTP " + httpCode + " error, notifying error listener for CDN switch");
                     }
                     
                     boolean isNetworkError = isNetworkError(error);
@@ -599,6 +714,9 @@ public class ExoPlayerImpl implements IMediaPlayer {
 
     public void setDataSource(MediaSource mediaSource) {
         Log.i(TAG, "setDataSource(MediaSource)");
+        this.savedMediaSource = mediaSource;
+        this.isLiveStream = mediaSource instanceof HlsMediaSource;
+        Log.i(TAG, "setDataSource: isLiveStream=" + isLiveStream);
         ensurePlayer();
         exoPlayer.setMediaSource(mediaSource);
     }
@@ -607,8 +725,15 @@ public class ExoPlayerImpl implements IMediaPlayer {
         Log.i(TAG, "setDataSourceWithSeek(MediaSource, " + seekMs + ")");
         this.savedMediaSource = mediaSource;
         this.savedSeekPosition = seekMs;
+        this.isLiveStream = mediaSource instanceof HlsMediaSource;
+        Log.i(TAG, "setDataSourceWithSeek: isLiveStream=" + isLiveStream);
         ensurePlayer();
         exoPlayer.setMediaSource(mediaSource, seekMs);
+    }
+    
+    public void setIsLiveStream(boolean isLive) {
+        this.isLiveStream = isLive;
+        Log.i(TAG, "setIsLiveStream: " + isLive);
     }
 
     public void setPlayWhenReadyOnPrepare(boolean playWhenReady) {
@@ -620,12 +745,21 @@ public class ExoPlayerImpl implements IMediaPlayer {
         Log.i(TAG, "prepareAsync");
         ensurePlayer();
         exoPlayer.prepare();
-        mainHandler.postDelayed(bufferMonitorRunnable, 10000);
+        playerHandler.postDelayed(bufferMonitorRunnable, 10000);
     }
 
     @Override
     public void start() throws IllegalStateException {
         Log.i(TAG, "start");
+        if (playerHandler != null && Looper.myLooper() != playerHandler.getLooper()) {
+            playerHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    start();
+                }
+            });
+            return;
+        }
         if (exoPlayer != null) {
             exoPlayer.play();
         }
@@ -641,6 +775,15 @@ public class ExoPlayerImpl implements IMediaPlayer {
     @Override
     public void pause() throws IllegalStateException {
         Log.i(TAG, "pause");
+        if (playerHandler != null && Looper.myLooper() != playerHandler.getLooper()) {
+            playerHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    pause();
+                }
+            });
+            return;
+        }
         if (exoPlayer != null) {
             exoPlayer.pause();
         }
@@ -649,19 +792,28 @@ public class ExoPlayerImpl implements IMediaPlayer {
     @Override
     public void stop() throws IllegalStateException {
         Log.i(TAG, "stop");
+        if (playerHandler != null && Looper.myLooper() != playerHandler.getLooper()) {
+            playerHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    stop();
+                }
+            });
+            return;
+        }
         if (exoPlayer != null) {
             exoPlayer.stop();
         }
-        mainHandler.removeCallbacks(positionUpdateRunnable);
-        mainHandler.removeCallbacks(bufferMonitorRunnable);
+        playerHandler.removeCallbacks(positionUpdateRunnable);
+        playerHandler.removeCallbacks(bufferMonitorRunnable);
         mainHandler.removeCallbacks(testErrorRunnable);
     }
 
     @Override
     public void release() {
         Log.i(TAG, "release");
-        mainHandler.removeCallbacks(positionUpdateRunnable);
-        mainHandler.removeCallbacks(bufferMonitorRunnable);
+        playerHandler.removeCallbacks(positionUpdateRunnable);
+        playerHandler.removeCallbacks(bufferMonitorRunnable);
         mainHandler.removeCallbacks(testErrorRunnable);
         mainHandler.removeCallbacks(networkErrorRetryRunnable);
         networkErrorRetryCount = 0;
@@ -677,58 +829,81 @@ public class ExoPlayerImpl implements IMediaPlayer {
         hasPrepared = false;
         nalErrorRetryCount = 0;
         networkErrorRetryCount = 0;
+        liveErrorRetryCount = 0;
+        isLiveStream = false;
         if (exoPlayer != null) {
             exoPlayer.stop();
             exoPlayer.clearMediaItems();
         }
-        mainHandler.removeCallbacks(positionUpdateRunnable);
-        mainHandler.removeCallbacks(bufferMonitorRunnable);
+        playerHandler.removeCallbacks(positionUpdateRunnable);
+        playerHandler.removeCallbacks(bufferMonitorRunnable);
     }
 
     @Override
     public void seekTo(long msec) throws IllegalStateException {
         Log.i(TAG, "seekTo: " + msec);
+        if (playerHandler != null && Looper.myLooper() != playerHandler.getLooper()) {
+            final long pos = msec;
+            playerHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    seekTo(pos);
+                }
+            });
+            return;
+        }
         if (exoPlayer != null) {
             exoPlayer.seekTo(msec);
             cachedCurrentPosition = msec;
         }
     }
 
+    public void seekToLivePosition() {
+        Log.i(TAG, "seekToLivePosition: seeking to live edge for live stream");
+        if (playerHandler != null && Looper.myLooper() != playerHandler.getLooper()) {
+            playerHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    seekToLivePosition();
+                }
+            });
+            return;
+        }
+        if (exoPlayer != null && isLiveStream) {
+            exoPlayer.seekToDefaultPosition();
+            Log.i(TAG, "seekToLivePosition: called seekToDefaultPosition()");
+        }
+    }
+
     @Override
     public long getCurrentPosition() {
-        if (Looper.myLooper() == Looper.getMainLooper()) {
-            if (exoPlayer != null) {
-                cachedCurrentPosition = exoPlayer.getCurrentPosition();
-                lastPositionUpdateTime.set(System.currentTimeMillis());
-            }
-            return cachedCurrentPosition;
-        }
         return cachedCurrentPosition;
     }
 
     @Override
     public long getDuration() {
-        if (Looper.myLooper() == Looper.getMainLooper()) {
-            if (exoPlayer != null) {
-                cachedDuration = exoPlayer.getDuration();
-            }
-            return cachedDuration >= 0 ? cachedDuration : 0;
-        }
         return cachedDuration >= 0 ? cachedDuration : 0;
     }
 
     @Override
     public boolean isPlaying() {
-        if (exoPlayer != null) {
-            return exoPlayer.isPlaying();
-        }
-        return false;
+        return cachedIsPlaying;
     }
 
     @Override
     public void setSpeed(float speed) {
         Log.i(TAG, "setSpeed: " + speed);
         this.currentSpeed = speed;
+        if (playerHandler != null && Looper.myLooper() != playerHandler.getLooper()) {
+            final float spd = speed;
+            playerHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    setSpeed(spd);
+                }
+            });
+            return;
+        }
         if (exoPlayer != null) {
             exoPlayer.setPlaybackSpeed(speed);
         }
@@ -766,20 +941,12 @@ public class ExoPlayerImpl implements IMediaPlayer {
 
     @Override
     public int getVideoWidth() {
-        if (exoPlayer != null) {
-            VideoSize size = exoPlayer.getVideoSize();
-            return size.width;
-        }
-        return 0;
+        return cachedVideoWidth;
     }
 
     @Override
     public int getVideoHeight() {
-        if (exoPlayer != null) {
-            VideoSize size = exoPlayer.getVideoSize();
-            return size.height;
-        }
-        return 0;
+        return cachedVideoHeight;
     }
 
     @Override
@@ -840,6 +1007,16 @@ public class ExoPlayerImpl implements IMediaPlayer {
     @Override
     public void setLooping(boolean looping) {
         this.mLooping = looping;
+        if (playerHandler != null && Looper.myLooper() != playerHandler.getLooper()) {
+            final boolean loop = looping;
+            playerHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    setLooping(loop);
+                }
+            });
+            return;
+        }
         if (exoPlayer != null) {
             exoPlayer.setRepeatMode(looping ?
                 Player.REPEAT_MODE_ALL : Player.REPEAT_MODE_OFF);

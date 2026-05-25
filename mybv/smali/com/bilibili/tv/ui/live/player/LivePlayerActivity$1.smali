@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 127
+    .line 135
     iput-object p1, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$1;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,17 +40,17 @@
     .locals 9
 
     .prologue
-    .line 130
+    .line 138
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v2
 
-    .line 131
+    .line 139
     new-instance v1, Ljava/util/ArrayList;
 
     invoke-direct {v1}, Ljava/util/ArrayList;-><init>()V
 
-    .line 132
+    .line 140
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$1;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     # getter for: Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->a:Lmybl/BiliLiveContent;
@@ -77,7 +77,7 @@
 
     check-cast v0, Ljava/lang/String;
 
-    .line 133
+    .line 141
     invoke-static {v0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v5
@@ -86,19 +86,19 @@
 
     move-result-object v5
 
-    .line 134
+    .line 142
     invoke-static {v5}, Lmybl/CdnSelector;->getCdnScore(Ljava/lang/String;)I
 
     move-result v6
 
-    .line 135
+    .line 143
     new-instance v7, Lmybl/CdnSelector$CdnUrlInfo;
 
     invoke-direct {v7, v0, v5, v6}, Lmybl/CdnSelector$CdnUrlInfo;-><init>(Ljava/lang/String;Ljava/lang/String;I)V
 
     invoke-interface {v1, v7}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 136
+    .line 144
     const-string v0, "LivePlayerActivity"
 
     new-instance v7, Ljava/lang/StringBuilder;
@@ -133,13 +133,13 @@
 
     goto :goto_15
 
-    .line 138
+    .line 146
     :cond_58
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$1;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     iget-object v4, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$1;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
-    .line 140
+    .line 148
     # getter for: Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->d:I
     invoke-static {v4}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->access$100(Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;)I
 
@@ -151,12 +151,12 @@
 
     const/4 v5, 0x1
 
-    .line 138
+    .line 146
     invoke-static {v0, v4, v1, v5}, Lmybl/CdnSelector;->selectBestUrl(Landroid/content/Context;Ljava/lang/String;Ljava/util/List;Z)Lmybl/CdnSelector$RaceResult;
 
     move-result-object v1
 
-    .line 144
+    .line 152
     const-string v0, "LivePlayerActivity"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -191,17 +191,17 @@
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 147
+    .line 155
     if-eqz v1, :cond_d0
 
     iget-object v0, v1, Lmybl/CdnSelector$RaceResult;->winningUrl:Ljava/lang/String;
 
     if-eqz v0, :cond_d0
 
-    .line 148
+    .line 156
     iget-object v0, v1, Lmybl/CdnSelector$RaceResult;->winningUrl:Ljava/lang/String;
 
-    .line 149
+    .line 157
     const-string v2, "LivePlayerActivity"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -244,7 +244,7 @@
 
     invoke-static {v2, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 155
+    .line 163
     :goto_c1
     iget-object v1, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$1;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
@@ -259,10 +259,10 @@
 
     invoke-virtual {v1, v2}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
 
-    .line 165
+    .line 173
     return-void
 
-    .line 151
+    .line 159
     :cond_d0
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$1;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
@@ -281,7 +281,7 @@
 
     check-cast v0, Ljava/lang/String;
 
-    .line 152
+    .line 160
     const-string v1, "LivePlayerActivity"
 
     const-string v2, "CDN\u7ade\u901f\u65e0\u7ed3\u679c, \u4f7f\u7528\u7b2c\u4e00\u4e2aURL"

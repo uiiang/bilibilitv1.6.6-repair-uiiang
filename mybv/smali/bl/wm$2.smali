@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/wm;->onCompletion(Ltv/danmaku/ijk/media/player/IMediaPlayer;)V
+    value = Lbl/wm;->onPrepared(Ltv/danmaku/ijk/media/player/IMediaPlayer;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 349
+    .line 470
     iput-object p1, p0, Lbl/wm$2;->this$0:Lbl/wm;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 1
 
     .prologue
-    .line 352
+    .line 473
     iget-object v0, p0, Lbl/wm$2;->this$0:Lbl/wm;
 
     # getter for: Lbl/wm;->p:Ljava/lang/ref/WeakReference;
@@ -50,16 +50,16 @@
 
     if-eqz v0, :cond_11
 
-    .line 353
+    .line 474
     iget-object v0, p0, Lbl/wm$2;->this$0:Lbl/wm;
 
     invoke-virtual {v0}, Lbl/wm;->b()Lbl/ws;
 
     move-result-object v0
 
-    invoke-interface {v0}, Lbl/ws;->b()V
+    invoke-interface {v0}, Lbl/ws;->a()V
 
-    .line 355
+    .line 476
     :cond_11
     return-void
 .end method

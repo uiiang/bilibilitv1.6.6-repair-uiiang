@@ -20,6 +20,7 @@ import java.util.concurrent.*;
 import com.bilibili.api.BiliConfig;
 import com.bilibili.tv.MainApplication;
 import com.alibaba.fastjson.annotation.JSONField;
+import tv.danmaku.videoplayer.core.media.PlayerSelector;
 
 public class BiliLiveContent implements Parcelable {
     public static final Parcelable.Creator<BiliLiveContent> CREATOR = new Parcelable.Creator<BiliLiveContent>() {
@@ -53,6 +54,7 @@ public class BiliLiveContent implements Parcelable {
     public String mFace;
     public long mParsedTime;
     public String mPlayUrl;
+    public String mPlayFormat;
     public List<String> mPlayUrls;
     public String mRealUrl;
     @JSONField(name = "roomid")
@@ -161,10 +163,18 @@ public class BiliLiveContent implements Parcelable {
                         return -1;
                     }
                     
-                    String[] protocolOrder = {"http_stream", "http_hls"};
-                    String[] formatOrderForStream = {"flv", "fmp4", "ts"};
+                    boolean useExoPlayer = PlayerSelector.shouldUseExoPlayer(MainApplication.a());
+                    String[] protocolOrder = useExoPlayer
+                        ? new String[]{"http_hls", "http_stream"}
+                        : new String[]{"http_stream", "http_hls"};
+                    String[] formatOrderForStream = useExoPlayer
+                        ? new String[]{"fmp4", "ts", "flv"}
+                        : new String[]{"flv", "fmp4", "ts"};
                     String[] formatOrderForHls = {"fmp4", "ts", "flv"};
                     String[] codecOrder = {"avc", "hevc"};
+
+                    Log.i("BiliLiveContent", "playUrlResponse.e: useExoPlayer=" + useExoPlayer
+                        + ", formatOrderForStream[0]=" + formatOrderForStream[0]);
                     
                     biliLiveContent.mPlayUrls = new ArrayList<String>();
                     JSONObject foundCodec = null;
@@ -262,7 +272,8 @@ public class BiliLiveContent implements Parcelable {
                         
                         if (biliLiveContent.mPlayUrls.size() > 0) {
                             biliLiveContent.mPlayUrl = biliLiveContent.mPlayUrls.get(0);
-                            Log.i("BiliLiveContent", "playUrlResponse.e: 设置默认URL: " + Uri.parse(biliLiveContent.mPlayUrl).getHost());
+                            biliLiveContent.mPlayFormat = foundFormat;
+                            Log.i("BiliLiveContent", "playUrlResponse.e: 设置默认URL: " + Uri.parse(biliLiveContent.mPlayUrl).getHost() + ", format=" + foundFormat);
                         } else {
                             Log.w("BiliLiveContent", "playUrlResponse.e: URL列表为空!");
                         }

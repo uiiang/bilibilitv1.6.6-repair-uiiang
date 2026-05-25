@@ -40,7 +40,7 @@
     .locals 1
 
     .prologue
-    .line 41
+    .line 51
     invoke-static {}, Ltv/danmaku/videoplayer/core/media/PlayerSelector;->isExoPlayerSupported()Z
 
     move-result v0
@@ -53,11 +53,11 @@
 
     if-nez v0, :cond_e
 
-    .line 42
+    .line 52
     :cond_c
     const/4 v0, 0x2
 
-    .line 44
+    .line 54
     :goto_d
     return v0
 
@@ -159,10 +159,10 @@
     .locals 0
 
     .prologue
-    .line 48
+    .line 58
     invoke-static {p0, p1}, Lbl/abd;->set_player_type(Landroid/content/Context;I)V
 
-    .line 49
+    .line 59
     return-void
 .end method
 
@@ -202,4 +202,38 @@
     const/4 v0, 0x1
 
     goto :goto_d
+.end method
+
+.method public static shouldUseExoPlayerForLive(Landroid/content/Context;Ljava/lang/String;)Z
+    .locals 2
+
+    .prologue
+    const/4 v0, 0x0
+
+    .line 41
+    invoke-static {p0}, Ltv/danmaku/videoplayer/core/media/PlayerSelector;->shouldUseExoPlayer(Landroid/content/Context;)Z
+
+    move-result v1
+
+    if-nez v1, :cond_8
+
+    .line 47
+    :cond_7
+    :goto_7
+    return v0
+
+    .line 44
+    :cond_8
+    const-string v1, "ts"
+
+    invoke-virtual {v1, p1}, Ljava/lang/String;->equalsIgnoreCase(Ljava/lang/String;)Z
+
+    move-result v1
+
+    if-nez v1, :cond_7
+
+    .line 47
+    const/4 v0, 0x1
+
+    goto :goto_7
 .end method

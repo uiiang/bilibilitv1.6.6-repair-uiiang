@@ -138,7 +138,7 @@ public class VolumeBalanceAudioProcessor extends BaseAudioProcessor {
         } else {
             double programRms = Math.sqrt(Math.max(programMeanSquare != null ? programMeanSquare : meanSquare, MIN_MEAN_SQUARE));
             double programRmsDb = 20.0 * Math.log10(programRms);
-            desiredGainDb = Math.max(Math.min(TARGET_RMS_DB - programRmsDb, p.maxGainDb), p.minGainDb);
+            desiredGainDb = Math.max(Math.min(p.targetRmsDb - programRmsDb, p.maxGainDb), p.minGainDb);
         }
 
         float desiredGainLinear = dbToLinear(desiredGainDb);
@@ -238,13 +238,14 @@ public class VolumeBalanceAudioProcessor extends BaseAudioProcessor {
         final double programIntegrationSec;
         final double gainAttackSec;
         final double gainReleaseSec;
+        final double targetRmsDb;
         final float startupGainLinear;
         final float maxGainLinear;
         final float minGainLinear;
 
         Params(double startupGainDb, double maxGainDb, double minGainDb, double silenceGateDb,
                double calibrationSignalSec, double programIntegrationSec,
-               double gainAttackSec, double gainReleaseSec) {
+               double gainAttackSec, double gainReleaseSec, double targetRmsDb) {
             this.startupGainDb = startupGainDb;
             this.maxGainDb = maxGainDb;
             this.minGainDb = minGainDb;
@@ -253,6 +254,7 @@ public class VolumeBalanceAudioProcessor extends BaseAudioProcessor {
             this.programIntegrationSec = programIntegrationSec;
             this.gainAttackSec = gainAttackSec;
             this.gainReleaseSec = gainReleaseSec;
+            this.targetRmsDb = targetRmsDb;
             this.startupGainLinear = dbToLinear(startupGainDb);
             this.maxGainLinear = dbToLinear(maxGainDb);
             this.minGainLinear = dbToLinear(minGainDb);
@@ -268,6 +270,7 @@ public class VolumeBalanceAudioProcessor extends BaseAudioProcessor {
         double programIntegrationSec;
         double attackSec;
         double releaseSec;
+        double targetRmsDb;
 
         switch (level) {
             case STANDARD:
@@ -279,16 +282,18 @@ public class VolumeBalanceAudioProcessor extends BaseAudioProcessor {
                 programIntegrationSec = 2.0;
                 attackSec = 0.3;
                 releaseSec = 0.5;
+                targetRmsDb = -14.0;
                 break;
             case HIGH_DYNAMIC:
                 startupGainDb = 0.0;
-                maxGainDb = 18.0;
-                minGainDb = -18.0;
+                maxGainDb = 30.0;
+                minGainDb = -12.0;
                 silenceGateDb = -55.0;
                 calibrationSignalSec = 1.0;
                 programIntegrationSec = 4.0;
                 attackSec = 1.0;
                 releaseSec = 2.0;
+                targetRmsDb = -10.0;
                 break;
             case OFF:
             default:
@@ -300,11 +305,12 @@ public class VolumeBalanceAudioProcessor extends BaseAudioProcessor {
                 programIntegrationSec = 0.0;
                 attackSec = 0.05;
                 releaseSec = 0.1;
+                targetRmsDb = -14.0;
                 break;
         }
 
         return new Params(startupGainDb, maxGainDb, minGainDb, silenceGateDb,
-                calibrationSignalSec, programIntegrationSec, attackSec, releaseSec);
+                calibrationSignalSec, programIntegrationSec, attackSec, releaseSec, targetRmsDb);
     }
 
     private static float dbToLinear(double db) {

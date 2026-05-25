@@ -37,44 +37,51 @@
 
 .field final startupGainLinear:F
 
+.field final targetRmsDb:D
+
 
 # direct methods
-.method constructor <init>(DDDDDDDD)V
+.method constructor <init>(DDDDDDDDD)V
     .locals 3
 
     .prologue
-    .line 247
+    .line 248
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 248
+    .line 249
     iput-wide p1, p0, Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor$Params;->startupGainDb:D
 
-    .line 249
+    .line 250
     iput-wide p3, p0, Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor$Params;->maxGainDb:D
 
-    .line 250
+    .line 251
     iput-wide p5, p0, Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor$Params;->minGainDb:D
 
-    .line 251
+    .line 252
     iput-wide p7, p0, Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor$Params;->silenceGateDb:D
 
-    .line 252
+    .line 253
     iput-wide p9, p0, Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor$Params;->calibrationSignalSec:D
 
-    .line 253
+    .line 254
     iput-wide p11, p0, Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor$Params;->programIntegrationSec:D
 
-    .line 254
+    .line 255
     move-wide/from16 v0, p13
 
     iput-wide v0, p0, Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor$Params;->gainAttackSec:D
 
-    .line 255
+    .line 256
     move-wide/from16 v0, p15
 
     iput-wide v0, p0, Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor$Params;->gainReleaseSec:D
 
-    .line 256
+    .line 257
+    move-wide/from16 v0, p17
+
+    iput-wide v0, p0, Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor$Params;->targetRmsDb:D
+
+    .line 258
     # invokes: Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor;->dbToLinear(D)F
     invoke-static {p1, p2}, Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor;->access$000(D)F
 
@@ -82,7 +89,7 @@
 
     iput v2, p0, Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor$Params;->startupGainLinear:F
 
-    .line 257
+    .line 259
     # invokes: Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor;->dbToLinear(D)F
     invoke-static {p3, p4}, Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor;->access$000(D)F
 
@@ -90,7 +97,7 @@
 
     iput v2, p0, Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor$Params;->maxGainLinear:F
 
-    .line 258
+    .line 260
     # invokes: Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor;->dbToLinear(D)F
     invoke-static {p5, p6}, Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor;->access$000(D)F
 
@@ -98,6 +105,6 @@
 
     iput v2, p0, Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor$Params;->minGainLinear:F
 
-    .line 259
+    .line 261
     return-void
 .end method

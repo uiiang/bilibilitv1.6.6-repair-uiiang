@@ -23,9 +23,9 @@
 
 .field private static final KEY_CDN_SCORES:Ljava/lang/String; = "cdn_scores"
 
-.field private static final LIVE_RACE_TIMEOUT_MS:I = 0xbb8
+.field private static final LIVE_RACE_TIMEOUT_MS:I = 0x1388
 
-.field private static final LIVE_SINGLE_TIMEOUT_MS:I = 0x3e8
+.field private static final LIVE_SINGLE_TIMEOUT_MS:I = 0x7d0
 
 .field private static final MAX_SCORE:I = 0x64
 
@@ -374,19 +374,21 @@
     .end annotation
 
     .prologue
+    const/16 v7, 0x1388
+
     const/4 v6, 0x0
 
     .line 81
-    if-eqz p2, :cond_9
+    if-eqz p2, :cond_b
 
     invoke-interface {p2}, Ljava/util/List;->isEmpty()Z
 
     move-result v0
 
-    if-eqz v0, :cond_12
+    if-eqz v0, :cond_14
 
     .line 82
-    :cond_9
+    :cond_b
     const-string v0, "CdnSelector"
 
     const-string v1, "selectBestUrl: urlInfos is empty, returning null"
@@ -397,145 +399,141 @@
     const/4 v0, 0x0
 
     .line 150
-    :goto_11
+    :goto_13
     return-object v0
 
     .line 86
-    :cond_12
+    :cond_14
     sget-object v0, Lmybl/CdnSelector;->prefs:Landroid/content/SharedPreferences;
 
-    if-nez v0, :cond_19
+    if-nez v0, :cond_1b
 
     .line 87
     invoke-static {p0}, Lmybl/CdnSelector;->init(Landroid/content/Context;)V
 
     .line 90
-    :cond_19
-    if-eqz p3, :cond_9d
-
-    const/16 v0, 0xbb8
-
-    move v1, v0
+    :cond_1b
+    if-eqz p3, :cond_1d
 
     .line 91
-    :goto_1e
+    :cond_1d
     const-string v0, "CdnSelector"
 
-    new-instance v2, Ljava/lang/StringBuilder;
+    new-instance v1, Ljava/lang/StringBuilder;
 
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v3, "selectBestUrl: videoId="
+    const-string v2, "selectBestUrl: videoId="
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v2
+    move-result-object v1
 
-    invoke-virtual {v2, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v2
+    move-result-object v1
 
-    const-string v3, ", urlCount="
+    const-string v2, ", urlCount="
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v2
+    move-result-object v1
 
     invoke-interface {p2}, Ljava/util/List;->size()I
 
-    move-result v3
+    move-result v2
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    move-result-object v2
+    move-result-object v1
 
-    const-string v3, ", isLive="
+    const-string v2, ", isLive="
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v2
+    move-result-object v1
 
-    invoke-virtual {v2, p3}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, p3}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
 
-    move-result-object v2
+    move-result-object v1
 
-    const-string v3, ", raceTimeout="
+    const-string v2, ", raceTimeout="
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v2
+    move-result-object v1
 
-    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v7}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    move-result-object v2
+    move-result-object v1
 
-    const-string v3, "ms"
+    const-string v2, "ms"
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v2
+    move-result-object v1
 
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v2
+    move-result-object v1
 
-    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 93
     invoke-interface {p2}, Ljava/util/List;->iterator()Ljava/util/Iterator;
 
-    move-result-object v2
+    move-result-object v1
 
-    :goto_62
-    invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
+    :goto_61
+    invoke-interface {v1}, Ljava/util/Iterator;->hasNext()Z
 
     move-result v0
 
-    if-eqz v0, :cond_a2
+    if-eqz v0, :cond_9c
 
-    invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+    invoke-interface {v1}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
     move-result-object v0
 
     check-cast v0, Lmybl/CdnSelector$CdnUrlInfo;
 
     .line 94
-    iget-object v3, v0, Lmybl/CdnSelector$CdnUrlInfo;->cdnHost:Ljava/lang/String;
+    iget-object v2, v0, Lmybl/CdnSelector$CdnUrlInfo;->cdnHost:Ljava/lang/String;
 
-    invoke-static {v3}, Lmybl/CdnSelector;->getCdnScore(Ljava/lang/String;)I
+    invoke-static {v2}, Lmybl/CdnSelector;->getCdnScore(Ljava/lang/String;)I
 
-    move-result v3
+    move-result v2
 
-    iput v3, v0, Lmybl/CdnSelector$CdnUrlInfo;->score:I
+    iput v2, v0, Lmybl/CdnSelector$CdnUrlInfo;->score:I
 
     .line 95
-    const-string v3, "CdnSelector"
+    const-string v2, "CdnSelector"
 
-    new-instance v4, Ljava/lang/StringBuilder;
+    new-instance v3, Ljava/lang/StringBuilder;
 
-    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v5, "selectBestUrl: cdn="
+    const-string v4, "selectBestUrl: cdn="
 
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v3
 
-    iget-object v5, v0, Lmybl/CdnSelector$CdnUrlInfo;->cdnHost:Ljava/lang/String;
+    iget-object v4, v0, Lmybl/CdnSelector$CdnUrlInfo;->cdnHost:Ljava/lang/String;
 
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v3
 
-    const-string v5, ", score="
+    const-string v4, ", score="
 
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v3
 
     iget v0, v0, Lmybl/CdnSelector$CdnUrlInfo;->score:I
 
-    invoke-virtual {v4, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
@@ -543,20 +541,12 @@
 
     move-result-object v0
 
-    invoke-static {v3, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v2, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto :goto_62
-
-    .line 90
-    :cond_9d
-    const/16 v0, 0x1388
-
-    move v1, v0
-
-    goto/16 :goto_1e
+    goto :goto_61
 
     .line 98
-    :cond_a2
+    :cond_9c
     new-instance v0, Lmybl/CdnSelector$1;
 
     invoke-direct {v0}, Lmybl/CdnSelector$1;-><init>()V
@@ -572,47 +562,47 @@
     sput-boolean v6, Lmybl/CdnSelector;->raceCancelled:Z
 
     .line 108
-    new-instance v4, Ljava/util/ArrayList;
+    new-instance v1, Ljava/util/ArrayList;
 
-    invoke-direct {v4}, Ljava/util/ArrayList;-><init>()V
+    invoke-direct {v1}, Ljava/util/ArrayList;-><init>()V
 
     .line 109
     invoke-interface {p2}, Ljava/util/List;->iterator()Ljava/util/Iterator;
 
-    move-result-object v5
+    move-result-object v4
 
-    :goto_b9
-    invoke-interface {v5}, Ljava/util/Iterator;->hasNext()Z
+    :goto_b3
+    invoke-interface {v4}, Ljava/util/Iterator;->hasNext()Z
 
     move-result v0
 
-    if-eqz v0, :cond_ce
+    if-eqz v0, :cond_c8
 
-    invoke-interface {v5}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+    invoke-interface {v4}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
     move-result-object v0
 
     check-cast v0, Lmybl/CdnSelector$CdnUrlInfo;
 
     .line 110
-    new-instance v7, Lmybl/CdnSelector$2;
+    new-instance v5, Lmybl/CdnSelector$2;
 
-    invoke-direct {v7, p3, v0}, Lmybl/CdnSelector$2;-><init>(ZLmybl/CdnSelector$CdnUrlInfo;)V
+    invoke-direct {v5, p3, v0}, Lmybl/CdnSelector$2;-><init>(ZLmybl/CdnSelector$CdnUrlInfo;)V
 
-    invoke-interface {v4, v7}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v1, v5}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    goto :goto_b9
+    goto :goto_b3
 
     .line 123
-    :cond_ce
-    :try_start_ce
+    :cond_c8
+    :try_start_c8
     sget-object v0, Lmybl/CdnSelector;->executor:Ljava/util/concurrent/ExecutorService;
 
-    int-to-long v8, v1
+    int-to-long v4, v7
 
-    sget-object v1, Ljava/util/concurrent/TimeUnit;->MILLISECONDS:Ljava/util/concurrent/TimeUnit;
+    sget-object v7, Ljava/util/concurrent/TimeUnit;->MILLISECONDS:Ljava/util/concurrent/TimeUnit;
 
-    invoke-interface {v0, v4, v8, v9, v1}, Ljava/util/concurrent/ExecutorService;->invokeAll(Ljava/util/Collection;JLjava/util/concurrent/TimeUnit;)Ljava/util/List;
+    invoke-interface {v0, v1, v4, v5, v7}, Ljava/util/concurrent/ExecutorService;->invokeAll(Ljava/util/Collection;JLjava/util/concurrent/TimeUnit;)Ljava/util/List;
 
     move-result-object v0
 
@@ -621,13 +611,13 @@
 
     move-result-object v1
 
-    :cond_db
-    :goto_db
+    :cond_d5
+    :goto_d5
     invoke-interface {v1}, Ljava/util/Iterator;->hasNext()Z
 
     move-result v0
 
-    if-eqz v0, :cond_177
+    if-eqz v0, :cond_171
 
     invoke-interface {v1}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
@@ -640,18 +630,18 @@
 
     move-result v4
 
-    if-eqz v4, :cond_db
+    if-eqz v4, :cond_d5
 
     invoke-interface {v0}, Ljava/util/concurrent/Future;->isCancelled()Z
-    :try_end_f0
-    .catch Ljava/lang/Exception; {:try_start_ce .. :try_end_f0} :catch_15a
+    :try_end_ea
+    .catch Ljava/lang/Exception; {:try_start_c8 .. :try_end_ea} :catch_154
 
     move-result v4
 
-    if-nez v4, :cond_db
+    if-nez v4, :cond_d5
 
     .line 128
-    :try_start_f3
+    :try_start_ed
     invoke-interface {v0}, Ljava/util/concurrent/Future;->get()Ljava/lang/Object;
 
     move-result-object v0
@@ -659,11 +649,11 @@
     check-cast v0, Lmybl/CdnSelector$RaceResult;
 
     .line 129
-    if-eqz v0, :cond_db
+    if-eqz v0, :cond_d5
 
     sget-boolean v4, Lmybl/CdnSelector;->raceCancelled:Z
 
-    if-nez v4, :cond_db
+    if-nez v4, :cond_d5
 
     .line 130
     const/4 v4, 0x1
@@ -729,17 +719,17 @@
     move-result-object v4
 
     invoke-static {v7, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_13a
-    .catch Ljava/lang/Exception; {:try_start_f3 .. :try_end_13a} :catch_13c
+    :try_end_134
+    .catch Ljava/lang/Exception; {:try_start_ed .. :try_end_134} :catch_136
 
-    goto/16 :goto_11
+    goto/16 :goto_13
 
     .line 139
-    :catch_13c
+    :catch_136
     move-exception v0
 
     .line 140
-    :try_start_13d
+    :try_start_137
     const-string v4, "CdnSelector"
 
     new-instance v5, Ljava/lang/StringBuilder;
@@ -765,13 +755,13 @@
     move-result-object v0
 
     invoke-static {v4, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_159
-    .catch Ljava/lang/Exception; {:try_start_13d .. :try_end_159} :catch_15a
+    :try_end_153
+    .catch Ljava/lang/Exception; {:try_start_137 .. :try_end_153} :catch_154
 
-    goto :goto_db
+    goto :goto_d5
 
     .line 144
-    :catch_15a
+    :catch_154
     move-exception v0
 
     .line 145
@@ -802,7 +792,7 @@
     invoke-static {v1, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 148
-    :cond_177
+    :cond_171
     invoke-interface {p2, v6}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v0
@@ -847,7 +837,7 @@
 
     move-object v0, v1
 
-    goto/16 :goto_11
+    goto/16 :goto_13
 .end method
 
 .method private static testLiveUrl(Lmybl/CdnSelector$CdnUrlInfo;)Lmybl/CdnSelector$RaceResult;
@@ -880,13 +870,13 @@
     .catchall {:try_start_5 .. :try_end_12} :catchall_151
 
     .line 200
-    const/16 v1, 0x3e8
+    const/16 v1, 0x7d0
 
     :try_start_14
     invoke-virtual {v0, v1}, Ljava/net/HttpURLConnection;->setConnectTimeout(I)V
 
     .line 201
-    const/16 v1, 0x3e8
+    const/16 v1, 0x7d0
 
     invoke-virtual {v0, v1}, Ljava/net/HttpURLConnection;->setReadTimeout(I)V
 

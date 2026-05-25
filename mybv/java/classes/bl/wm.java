@@ -22,12 +22,15 @@ import android.os.Bundle;
 import tv.danmaku.android.log.BLog;
 import tv.danmaku.videoplayer.core.media.PlayerSelector;
 import tv.danmaku.videoplayer.core.media.exo.ExoPlayerImpl;
+import tv.danmaku.videoplayer.core.media.exo.AudioBalanceLevel;
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
 import tv.danmaku.videoplayer.core.videoview.IVideoView;
 import com.bilibili.tv.ui.live.player.LivePlayerActivity;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
 public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.OnCompletionListener, IMediaPlayer.OnErrorListener, IMediaPlayer.OnInfoListener, IMediaPlayer.OnPreparedListener, IMediaPlayer.OnSeekCompleteListener, IMediaPlayer.OnVideoSizeChangedListener, IjkMediaPlayer.OnNativeInvokeListener {
+    private static String sLiveFormat = null;
     int a;
     int b;
     int c;
@@ -35,7 +38,7 @@ public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.
     int e;
     int f;
     int g;
-    private AbstractMediaPlayer h;
+    private IMediaPlayer h;
     private HandlerThread i;
     private b j;
     private Handler k;
@@ -60,6 +63,22 @@ public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.
 
     public static wm a() {
         return aa.a;
+    }
+
+    public static void setLiveFormat(String format) {
+        sLiveFormat = format;
+        android.util.Log.i("wm", "[LIVE_FORMAT] Set live format: " + format);
+    }
+
+    public static String getLiveFormat() {
+        return sLiveFormat;
+    }
+
+    public void setAudioBalanceLevel(AudioBalanceLevel level) {
+        if (this.h instanceof ExoPlayerImpl) {
+            ((ExoPlayerImpl) this.h).setAudioBalanceLevel(level);
+            android.util.Log.i("wm", "[AUDIO_BALANCE] Set audio balance level: " + level);
+        }
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
@@ -246,9 +265,121 @@ public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.
     }
 
     private void a(Message message, boolean z) {
+        String url = ((wo) message.obj).a();
+        android.util.Log.i("wm", "[LIVE] a(message,z) entered, url=" + url + ", m=" + this.m + ", z=" + z);
+
+        // === ExoPlayer 分支 ===
         if (PlayerSelector.shouldUseExoPlayer(this.l)) {
-            android.util.Log.i("wm", "ExoPlayer selected but not supported in wm fallback path, using IjkPlayer");
+            android.util.Log.i("wm", "[LIVE_EXO] PlayerSelector.shouldUseExoPlayer=true, checking format");
+
+            // FLV格式回退到IjkPlayer
+            boolean isFlv = url.toLowerCase().contains(".flv");
+            android.util.Log.i("wm", "[LIVE_EXO] URL FLV check: isFlv=" + isFlv + ", url=" + url);
+
+            // TS格式回退到IjkPlayer (ExoPlayer对TS格式的HLS兼容性不好)
+            boolean isTsFormat = "ts".equalsIgnoreCase(sLiveFormat);
+            android.util.Log.i("wm", "[LIVE_EXO] TS format check: isTsFormat=" + isTsFormat + ", sLiveFormat=" + sLiveFormat);
+
+            if (isFlv || isTsFormat) {
+                android.util.Log.i("wm", "[LIVE_EXO] FLV or TS format detected, falling back to IjkPlayer");
+            } else {
+                android.util.Log.i("wm", "[LIVE_EXO] Creating ExoPlayerImpl for live streaming");
+                try {
+                    ExoPlayerImpl exoImpl = new ExoPlayerImpl(this.l);
+                    this.h = exoImpl;
+                    android.util.Log.i("wm", "[LIVE_EXO] ExoPlayerImpl created, h=" + this.h.getClass().getSimpleName());
+                } catch (Exception e) {
+                    android.util.Log.e("wm", "[LIVE_EXO] Failed to create ExoPlayerImpl: " + e.getMessage());
+                    att.a(e);
+                    // 创建失败，回退到IjkPlayer
+                    android.util.Log.i("wm", "[LIVE_EXO] ExoPlayerImpl creation failed, falling back to IjkPlayer");
+                }
+
+                if (this.h instanceof ExoPlayerImpl) {
+                    this.h.setAudioStreamType(3);
+
+                    try {
+                        // 构建带请求头的 DataSource.Factory
+                        DefaultHttpDataSource.Factory httpFactory = new DefaultHttpDataSource.Factory()
+                            .setUserAgent("Bilibili Freedoooooom/MarkII")
+                            .setConnectTimeoutMs(DefaultHttpDataSource.DEFAULT_CONNECT_TIMEOUT_MILLIS)
+                            .setReadTimeoutMs(DefaultHttpDataSource.DEFAULT_READ_TIMEOUT_MILLIS);
+
+                        boolean hasReferer = url.contains("platform=web");
+                        android.util.Log.i("wm", "[LIVE_EXO] platform=web check: hasReferer=" + hasReferer);
+                        if (hasReferer) {
+                            httpFactory.setDefaultRequestProperties(
+                                java.util.Collections.singletonMap("Referer", "https://www.bilibili.com"));
+                            android.util.Log.i("wm", "[LIVE_EXO] Referer header injected");
+                        }
+
+                        // 根据URL选择MediaSource类型
+                        boolean isHls = url.toLowerCase().contains(".m3u8");
+                        android.util.Log.i("wm", "[LIVE_EXO] HLS check: isHls=" + isHls);
+
+                        com.google.android.exoplayer2.source.MediaSource mediaSource;
+                        com.google.android.exoplayer2.MediaItem mediaItem;
+                        
+                        if (isHls) {
+                            mediaItem = new com.google.android.exoplayer2.MediaItem.Builder()
+                                .setUri(Uri.parse(url))
+                                .setLiveTargetOffsetMs(1000)
+                                .setLiveMinOffsetMs(500)
+                                .setLiveMaxOffsetMs(5000)
+                                .setLiveMinPlaybackSpeed(0.95f)
+                                .setLiveMaxPlaybackSpeed(1.5f)
+                                .build();
+                            android.util.Log.i("wm", "[LIVE_EXO] Creating HlsMediaSource with live config: targetOffset=1000ms, minOffset=500ms, maxOffset=5000ms");
+                            mediaSource = new com.google.android.exoplayer2.source.hls.HlsMediaSource.Factory(httpFactory)
+                                .createMediaSource(mediaItem);
+                        } else {
+                            mediaItem = com.google.android.exoplayer2.MediaItem.fromUri(Uri.parse(url));
+                            android.util.Log.i("wm", "[LIVE_EXO] Creating ProgressiveMediaSource");
+                            mediaSource = new com.google.android.exoplayer2.source.ProgressiveMediaSource.Factory(httpFactory)
+                                .createMediaSource(mediaItem);
+                        }
+
+                        android.util.Log.i("wm", "[LIVE_EXO] Calling exoImpl.setDataSource(mediaSource)");
+                        ((ExoPlayerImpl) this.h).setDataSource(mediaSource);
+                        android.util.Log.i("wm", "[LIVE_EXO] setDataSource completed");
+                        
+                        ((ExoPlayerImpl) this.h).setErrorListener(new ExoPlayerImpl.PlayerErrorListener() {
+                            @Override
+                            public void onPlayerError(int errorCode, String errorMessage, Integer httpCode) {
+                                android.util.Log.e("wm", "[LIVE_EXO_ERROR] errorCode=" + errorCode + ", message=" + errorMessage + ", httpCode=" + httpCode);
+                                if ("LIVE_STREAM_NEED_REFRESH".equals(errorMessage) || "LIVE_BUFFERING_TIMEOUT".equals(errorMessage)) {
+                                    android.util.Log.i("wm", "[LIVE_EXO_ERROR] Live stream needs refresh, calling LivePlayerActivity.refresh()");
+                                    if (LivePlayerActivity._this != null) {
+                                        LivePlayerActivity._this.refresh();
+                                    }
+                                }
+                            }
+                        });
+                        android.util.Log.i("wm", "[LIVE_EXO] Error listener set");
+                    } catch (Exception e) {
+                        android.util.Log.e("wm", "[LIVE_EXO] setDataSource failed: " + e.getMessage());
+                        att.a(e);
+                    }
+
+                    // 设置循环和速度
+                    boolean looping = ((wo) message.obj).c();
+                    float speed = ((wo) message.obj).d();
+                    android.util.Log.i("wm", "[LIVE_EXO] looping=" + looping + ", speed=" + speed);
+                    this.h.setLooping(looping);
+                    if (speed != 1.0f && speed > 0.0f) {
+                        this.h.setSpeed(speed);
+                    }
+                    android.util.Log.i("wm", "[LIVE_EXO] ExoPlayer setup complete, returning");
+                    return;  // 跳过下方的 IjkPlayer 创建代码
+                }
+                // 如果 this.h 不是 ExoPlayerImpl（创建失败），继续走到IjkPlayer路径
+            }
+        } else {
+            android.util.Log.i("wm", "[LIVE_IJK] PlayerSelector.shouldUseExoPlayer=false, using IjkPlayer");
         }
+
+        // === 原有 IjkPlayer 路径 ===
+        android.util.Log.i("wm", "[LIVE_IJK] Creating IjkMediaPlayer");
         this.h = new IjkMediaPlayer(this.l);
         this.h.setAudioStreamType(3);
         if (z) {
@@ -257,6 +388,7 @@ public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.
                 ((IjkMediaPlayer) this.h).setOption(4, "mediacodec", 1L);
                 ((IjkMediaPlayer) this.h).setOption(4, "mediacodec-auto-rotate", 1L);
                 ((IjkMediaPlayer) this.h).setOption(4, "mediacodec-handle-resolution-change", 1L);
+                android.util.Log.i("wm", "[LIVE_IJK] mediaCodec enabled");
             } catch (Exception e) {
                 att.a(e);
                 return;
@@ -268,7 +400,7 @@ public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.
 
 
         ((IjkMediaPlayer) this.h).setOption(1, "user_agent", "Bilibili Freedoooooom/MarkII");
-        if(((wo) message.obj).a().indexOf("platform=web")>=0){
+        if(url.indexOf("platform=web")>=0){
             ((IjkMediaPlayer) this.h).setOption(1, "headers", "Referer: https://www.bilibili.com\r\n");
         }
         try{
@@ -279,6 +411,7 @@ public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.
             ((IjkMediaPlayer) this.h).setSpeed(((wo) message.obj).d());
         }
         a((IjkMediaPlayer) this.h);
+        android.util.Log.i("wm", "[LIVE_IJK] IjkMediaPlayer setup complete");
     }
 
     private void a(IjkMediaPlayer ijkMediaPlayer) {
@@ -425,7 +558,7 @@ public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.
     }
 
     public static boolean e() {
-        AbstractMediaPlayer i = a().i();
+        IMediaPlayer i = a().i();
         return i != null && i.isPlaying();
     }
 
@@ -450,7 +583,7 @@ public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.
         }
     }
 
-    public AbstractMediaPlayer i() {
+    public IMediaPlayer i() {
         return this.h;
     }
 

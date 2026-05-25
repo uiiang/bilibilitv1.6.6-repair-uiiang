@@ -236,7 +236,7 @@
 
     const-wide/16 v0, 0x0
 
-    .line 316
+    .line 322
     invoke-static {p0, p1}, Ljava/lang/Double;->isFinite(D)Z
 
     move-result v4
@@ -252,18 +252,18 @@
     :cond_10
     move-wide v0, v2
 
-    .line 320
+    .line 326
     :cond_11
     :goto_11
     return-wide v0
 
-    .line 317
+    .line 323
     :cond_12
     cmpg-double v4, p0, v0
 
     if-lez v4, :cond_11
 
-    .line 318
+    .line 324
     cmpg-double v4, p2, v0
 
     if-gtz v4, :cond_1c
@@ -272,7 +272,7 @@
 
     goto :goto_11
 
-    .line 319
+    .line 325
     :cond_1c
     neg-double v4, p0
 
@@ -284,7 +284,7 @@
 
     sub-double v4, v2, v4
 
-    .line 320
+    .line 326
     invoke-static {v4, v5, v2, v3}, Ljava/lang/Math;->min(DD)D
 
     move-result-wide v2
@@ -300,7 +300,7 @@
     .locals 4
 
     .prologue
-    .line 311
+    .line 317
     invoke-static {p0, p1}, Ljava/lang/Double;->isFinite(D)Z
 
     move-result v0
@@ -309,7 +309,7 @@
 
     const/high16 v0, 0x3f800000    # 1.0f
 
-    .line 312
+    .line 318
     :goto_8
     return v0
 
@@ -330,10 +330,10 @@
 .end method
 
 .method private static paramsFor(Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;)Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor$Params;
-    .locals 18
+    .locals 20
 
     .prologue
-    .line 272
+    .line 275
     sget-object v0, Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor$1;->$SwitchMap$tv$danmaku$videoplayer$core$media$exo$AudioBalanceLevel:[I
 
     invoke-virtual/range {p0 .. p0}, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->ordinal()I
@@ -342,103 +342,112 @@
 
     aget v0, v0, v1
 
-    packed-switch v0, :pswitch_data_50
-
-    .line 295
-    const-wide/16 v2, 0x0
-
-    .line 296
-    const-wide/16 v4, 0x0
-
-    .line 297
-    const-wide/16 v6, 0x0
-
-    .line 298
-    const-wide/high16 v8, -0x3fa2000000000000L    # -120.0
-
-    .line 299
-    const-wide/16 v10, 0x0
+    packed-switch v0, :pswitch_data_56
 
     .line 300
-    const-wide/16 v12, 0x0
+    const-wide/16 v2, 0x0
 
     .line 301
-    const-wide v14, 0x3fa999999999999aL    # 0.05
+    const-wide/16 v4, 0x0
 
     .line 302
-    const-wide v16, 0x3fb999999999999aL    # 0.1
+    const-wide/16 v6, 0x0
+
+    .line 303
+    const-wide/high16 v8, -0x3fa2000000000000L    # -120.0
+
+    .line 304
+    const-wide/16 v10, 0x0
+
+    .line 305
+    const-wide/16 v12, 0x0
 
     .line 306
-    :goto_21
+    const-wide v14, 0x3fa999999999999aL    # 0.05
+
+    .line 307
+    const-wide v16, 0x3fb999999999999aL    # 0.1
+
+    .line 308
+    const-wide/high16 v18, -0x3fd4000000000000L    # -14.0
+
+    .line 312
+    :goto_23
     new-instance v1, Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor$Params;
 
-    invoke-direct/range {v1 .. v17}, Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor$Params;-><init>(DDDDDDDD)V
+    invoke-direct/range {v1 .. v19}, Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor$Params;-><init>(DDDDDDDDD)V
 
     return-object v1
 
-    .line 274
-    :pswitch_27
-    const-wide/16 v2, 0x0
-
-    .line 275
-    const-wide/high16 v4, 0x4038000000000000L    # 24.0
-
-    .line 276
-    const-wide/high16 v6, -0x3fc8000000000000L    # -24.0
-
     .line 277
-    const-wide/high16 v8, -0x3fb2000000000000L    # -60.0
+    :pswitch_29
+    const-wide/16 v2, 0x0
 
     .line 278
-    const-wide/high16 v10, 0x3fe0000000000000L    # 0.5
+    const-wide/high16 v4, 0x4038000000000000L    # 24.0
 
     .line 279
-    const-wide/high16 v12, 0x4000000000000000L    # 2.0
+    const-wide/high16 v6, -0x3fc8000000000000L    # -24.0
 
     .line 280
-    const-wide v14, 0x3fd3333333333333L    # 0.3
+    const-wide/high16 v8, -0x3fb2000000000000L    # -60.0
 
     .line 281
-    const-wide/high16 v16, 0x3fe0000000000000L    # 0.5
+    const-wide/high16 v10, 0x3fe0000000000000L    # 0.5
 
     .line 282
-    goto :goto_21
+    const-wide/high16 v12, 0x4000000000000000L    # 2.0
+
+    .line 283
+    const-wide v14, 0x3fd3333333333333L    # 0.3
 
     .line 284
-    :pswitch_3b
-    const-wide/16 v2, 0x0
+    const-wide/high16 v16, 0x3fe0000000000000L    # 0.5
 
     .line 285
-    const-wide/high16 v4, 0x4032000000000000L    # 18.0
+    const-wide/high16 v18, -0x3fd4000000000000L    # -14.0
 
     .line 286
-    const-wide/high16 v6, -0x3fce000000000000L    # -18.0
-
-    .line 287
-    const-wide v8, -0x3fb4800000000000L    # -55.0
+    goto :goto_23
 
     .line 288
-    const-wide/high16 v10, 0x3ff0000000000000L    # 1.0
+    :pswitch_3f
+    const-wide/16 v2, 0x0
 
     .line 289
-    const-wide/high16 v12, 0x4010000000000000L    # 4.0
+    const-wide/high16 v4, 0x403e000000000000L    # 30.0
 
     .line 290
-    const-wide/high16 v14, 0x3ff0000000000000L    # 1.0
+    const-wide/high16 v6, -0x3fd8000000000000L    # -12.0
 
     .line 291
-    const-wide/high16 v16, 0x4000000000000000L    # 2.0
+    const-wide v8, -0x3fb4800000000000L    # -55.0
 
     .line 292
-    goto :goto_21
+    const-wide/high16 v10, 0x3ff0000000000000L    # 1.0
 
-    .line 272
+    .line 293
+    const-wide/high16 v12, 0x4010000000000000L    # 4.0
+
+    .line 294
+    const-wide/high16 v14, 0x3ff0000000000000L    # 1.0
+
+    .line 295
+    const-wide/high16 v16, 0x4000000000000000L    # 2.0
+
+    .line 296
+    const-wide/high16 v18, -0x3fdc000000000000L    # -10.0
+
+    .line 297
+    goto :goto_23
+
+    .line 275
     nop
 
-    :pswitch_data_50
+    :pswitch_data_56
     .packed-switch 0x1
-        :pswitch_27
-        :pswitch_3b
+        :pswitch_29
+        :pswitch_3f
     .end packed-switch
 .end method
 
@@ -1536,7 +1545,7 @@
     mul-double/2addr v4, v6
 
     .line 141
-    const-wide/high16 v6, -0x3fd4000000000000L    # -14.0
+    iget-wide v6, v12, Ltv/danmaku/videoplayer/core/media/exo/VolumeBalanceAudioProcessor$Params;->targetRmsDb:D
 
     sub-double v4, v6, v4
 

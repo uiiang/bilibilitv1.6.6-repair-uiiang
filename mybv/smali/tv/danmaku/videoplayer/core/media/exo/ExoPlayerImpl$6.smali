@@ -1,4 +1,4 @@
-.class Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$3;
+.class Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$6;
 .super Ljava/lang/Object;
 .source "ExoPlayerImpl.java"
 
@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;-><init>(Landroid/content/Context;)V
+    value = Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->pause()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,8 +26,8 @@
     .locals 0
 
     .prologue
-    .line 200
-    iput-object p1, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$3;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+    .line 779
+    iput-object p1, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$6;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -37,9 +37,14 @@
 
 # virtual methods
 .method public run()V
-    .locals 0
+    .locals 1
 
     .prologue
-    .line 212
+    .line 782
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$6;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+
+    invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->pause()V
+
+    .line 783
     return-void
 .end method

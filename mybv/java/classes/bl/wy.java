@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import com.bilibili.tv.R;
 import java.io.File;
 import tv.danmaku.ijk.media.player.AbstractMediaPlayer;
+import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 import tv.danmaku.videoplayer.core.videoview.GLVideoView;
@@ -203,7 +204,7 @@ public abstract class wy extends wx implements TextureView.SurfaceTextureListene
 
     @Override // bl.ws
     public void e() {
-        AbstractMediaPlayer i = wm.a().i();
+        IMediaPlayer i = wm.a().i();
         if (i == null || !i.isPlaying()) {
             return;
         }
@@ -221,7 +222,7 @@ public abstract class wy extends wx implements TextureView.SurfaceTextureListene
     public void f() {
         this.aa = 0L;
         if (this.g == 5) {
-            AbstractMediaPlayer i = wm.a().i();
+            IMediaPlayer i = wm.a().i();
             if (this.ab <= 0 || i == null) {
                 return;
             }
@@ -363,7 +364,7 @@ public abstract class wy extends wx implements TextureView.SurfaceTextureListene
 
     @Override // bl.ws
     public void a() {
-        AbstractMediaPlayer i;
+        IMediaPlayer i;
         if (this.g == 1 && (i = wm.a().i()) != null) {
             i.start();
             if (this.T != -1) {
@@ -569,7 +570,7 @@ public abstract class wy extends wx implements TextureView.SurfaceTextureListene
     }
 
     private long getNetSpeed() {
-        AbstractMediaPlayer i = wm.a().i();
+        IMediaPlayer i = wm.a().i();
         if (i == null || !(i instanceof IjkMediaPlayer)) {
             return -1L;
         }

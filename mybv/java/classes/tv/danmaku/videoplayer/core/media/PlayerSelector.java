@@ -37,6 +37,16 @@ public class PlayerSelector {
         return abd.get_player_type(context) == PLAYER_EXO;
     }
 
+    public static boolean shouldUseExoPlayerForLive(Context context, String format) {
+        if (!shouldUseExoPlayer(context)) {
+            return false;
+        }
+        if ("ts".equalsIgnoreCase(format)) {
+            return false;
+        }
+        return true;
+    }
+
     public static int getSelectedPlayerType(Context context) {
         if (!isExoPlayerSupported() || !isExoPlayerAvailable()) {
             return PLAYER_IJK;

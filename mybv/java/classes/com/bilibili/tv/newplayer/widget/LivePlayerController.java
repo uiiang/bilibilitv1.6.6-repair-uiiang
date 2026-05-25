@@ -39,6 +39,7 @@ import bl.lr;
 import java.util.*;
 import mybl.BiliLiveContent;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
+import tv.danmaku.videoplayer.core.media.exo.AudioBalanceLevel;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
@@ -62,6 +63,7 @@ public class LivePlayerController extends FrameLayout implements View.OnClickLis
     private Runnable q;
 
     public cj<wn> qualitys;
+    public cj<wn> audioBalanceList;
 
     public LivePlayerController(Context context) {
         this(context, null);
@@ -73,14 +75,34 @@ public class LivePlayerController extends FrameLayout implements View.OnClickLis
 
     public LivePlayerController(Context context, AttributeSet attributeSet, int i) {
         super(context, attributeSet, i);
-        this.n = new PlayControllerOptionType[]{PlayControllerOptionType.AVATAR, PlayControllerOptionType.DANMAKU_DISPLAY, PlayControllerOptionType.DANMAKU_SIZE, PlayControllerOptionType.DANMAKU_ALPHA, PlayControllerOptionType.MIRROR_REVERSAL, PlayControllerOptionType.VIDEO_QUALITY};
+        ArrayList<PlayControllerOptionType> menuList = new ArrayList<>();
+        menuList.add(PlayControllerOptionType.AVATAR);
+        menuList.add(PlayControllerOptionType.DANMAKU_DISPLAY);
+        menuList.add(PlayControllerOptionType.DANMAKU_SIZE);
+        menuList.add(PlayControllerOptionType.DANMAKU_ALPHA);
+        menuList.add(PlayControllerOptionType.MIRROR_REVERSAL);
+        menuList.add(PlayControllerOptionType.VIDEO_QUALITY);
+        if (abd.is_exo_player_selected(context)) {
+            menuList.add(PlayControllerOptionType.AUDIO_BALANCE);
+        }
+        this.n = menuList.toArray(new PlayControllerOptionType[0]);
         a(context);
     }
 
     @RequiresApi(api = 21)
     public LivePlayerController(Context context, AttributeSet attributeSet, int i, int i2) {
         super(context, attributeSet, i, i2);
-        this.n = new PlayControllerOptionType[]{PlayControllerOptionType.AVATAR, PlayControllerOptionType.DANMAKU_DISPLAY, PlayControllerOptionType.DANMAKU_SIZE, PlayControllerOptionType.DANMAKU_ALPHA, PlayControllerOptionType.MIRROR_REVERSAL, PlayControllerOptionType.VIDEO_QUALITY};
+        ArrayList<PlayControllerOptionType> menuList = new ArrayList<>();
+        menuList.add(PlayControllerOptionType.AVATAR);
+        menuList.add(PlayControllerOptionType.DANMAKU_DISPLAY);
+        menuList.add(PlayControllerOptionType.DANMAKU_SIZE);
+        menuList.add(PlayControllerOptionType.DANMAKU_ALPHA);
+        menuList.add(PlayControllerOptionType.MIRROR_REVERSAL);
+        menuList.add(PlayControllerOptionType.VIDEO_QUALITY);
+        if (abd.is_exo_player_selected(context)) {
+            menuList.add(PlayControllerOptionType.AUDIO_BALANCE);
+        }
+        this.n = menuList.toArray(new PlayControllerOptionType[0]);
         a(context);
     }
 
@@ -139,6 +161,17 @@ public class LivePlayerController extends FrameLayout implements View.OnClickLis
             wnVar2.a = String.valueOf(f2);
             wnVar2.b = Float.valueOf(f2);
             this.p.b(i2, wnVar2);
+        }
+        
+        // 初始化音频平衡菜单数据
+        this.audioBalanceList = new cj<>(3);
+        String[] audioBalanceLabels = new String[]{"关", "标准", "高动态"};
+        String[] audioBalanceValues = new String[]{"off", "standard", "high_dynamic"};
+        for (int i3 = 0; i3 < 3; i3++) {
+            wn wnVar3 = new wn();
+            wnVar3.a = audioBalanceLabels[i3];
+            wnVar3.b = audioBalanceValues[i3];
+            this.audioBalanceList.b(i3, wnVar3);
         }
     }
 
@@ -438,6 +471,32 @@ public class LivePlayerController extends FrameLayout implements View.OnClickLis
                     });
                     aVar3.a().show();
                     return;
+                case AUDIO_BALANCE:
+                    LivePlayerController.this.a(false);
+                    String currentLevel = abd.get_audio_balance_level(MainApplication.a().getApplicationContext());
+                    int audioBalancePosition = 0;
+                    if ("standard".equals(currentLevel)) {
+                        audioBalancePosition = 1;
+                    } else if ("high_dynamic".equals(currentLevel)) {
+                        audioBalancePosition = 2;
+                    }
+                    xa.a aVar4 = new xa.a(activity);
+                    aVar4.a(1).a("音频平衡").b(audioBalancePosition).a(LivePlayerController.this.audioBalanceList, new xa.c() {
+                        @Override
+                        public void a(xa xaVar, View view, int i6) {
+                            wn wnVar = (wn) LivePlayerController.this.audioBalanceList.a(i6);
+                            if (wnVar.b instanceof String) {
+                                String level = (String) wnVar.b;
+                                abd.set_audio_balance_level(MainApplication.a().getApplicationContext(), level);
+                                AudioBalanceLevel audioLevel = AudioBalanceLevel.fromPrefValue(level);
+                                wm.a().setAudioBalanceLevel(audioLevel);
+                                lr.b(activity.getApplicationContext(), "音频平衡：" + wnVar.a);
+                            }
+                            xaVar.dismiss();
+                        }
+                    });
+                    aVar4.a().show();
+                    return;
                 default:
                     return;
             }
@@ -475,6 +534,10 @@ public class LivePlayerController extends FrameLayout implements View.OnClickLis
                 case VIDEO_QUALITY:
                     imageView.setBackgroundResource(R.drawable.ic_round_hd_white_48dp);
                     textView.setText("画质");
+                    return;
+                case AUDIO_BALANCE:
+                    imageView.setBackgroundResource(R.drawable.ic_sort_by_alpha_white_48dp);
+                    textView.setText("音频平衡");
                     return;
                 default:
                     return;

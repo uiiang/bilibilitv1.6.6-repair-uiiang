@@ -122,6 +122,14 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
     private void startPlaybackWithCdnRace() {
         Log.i(TAG, "startPlaybackWithCdnRace: 开始播放流程");
         
+        // 设置直播格式，让播放器选择正确的播放引擎
+        if (this.a.mPlayFormat != null) {
+            wm.setLiveFormat(this.a.mPlayFormat);
+            Log.i(TAG, "startPlaybackWithCdnRace: 设置直播格式=" + this.a.mPlayFormat);
+        } else {
+            wm.setLiveFormat(null);
+        }
+        
         if (this.a.mPlayUrls != null && this.a.mPlayUrls.size() > 1) {
             Log.i(TAG, "startPlaybackWithCdnRace: 有多个URL, 开始CDN竞速, 数量=" + this.a.mPlayUrls.size());
             cdnExecutor.execute(new Runnable() {
@@ -191,12 +199,14 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
     public boolean onKeyUp(int i, KeyEvent keyEvent) {
         boolean show = this.h.getShow();
         boolean e = wm.e();
+        Log.i(TAG, "onKeyUp: keyCode=" + i + ", show=" + show + ", isPlaying=" + e);
         if (i != KeyEvent.KEYCODE_BACK) {
             if (i != KeyEvent.KEYCODE_MENU) {
                 switch (i) {
                 }
             }
-            if ((i==KeyEvent.KEYCODE_MENU||i==KeyEvent.KEYCODE_ENTER||i==KeyEvent.KEYCODE_DPAD_CENTER) && !show && e) {
+            if ((i==KeyEvent.KEYCODE_MENU||i==KeyEvent.KEYCODE_ENTER||i==KeyEvent.KEYCODE_DPAD_CENTER) && !show) {
+                Log.i(TAG, "onKeyUp: 显示控制器菜单");
                 this.h.a(true);
             }
             if(i==KeyEvent.KEYCODE_DPAD_UP && !show){
