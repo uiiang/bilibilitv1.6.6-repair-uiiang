@@ -81,6 +81,19 @@ public class ql implements IMediaResolver {
         
         boolean hasSessData = cookie != null && cookie.contains("SESSDATA=");
         
+        String midStr = CookieUtil.getCookieValue(cookie, "DedeUserID");
+        if (midStr != null && !midStr.isEmpty()) {
+            try {
+                long mid = Long.parseLong(midStr);
+                if (mid > 0) {
+                    Log.i("UgcPlayUrl", "Activating buvid for mid=" + mid);
+                    mybl.BuvidActivator.ensureBuvidActive(mid, cookie);
+                }
+            } catch (NumberFormatException e) {
+                Log.w("UgcPlayUrl", "Failed to parse DedeUserID: " + midStr);
+            }
+        }
+        
         TreeMap<String, String> params = new TreeMap<>();
         params.put("cid", String.valueOf(cid));
         params.put("avid", String.valueOf(avid));
@@ -89,7 +102,15 @@ public class ql implements IMediaResolver {
         params.put("fnval", String.valueOf(0b011111010000));
         params.put("fourk", "1");
         params.put("voice_balance", "1");
-        params.put("from_client", "BROWSER");
+        params.put("web_location", "1315873");
+        params.put("gaia_source", "pre-load");
+        params.put("isGaiaAvoided", "true");
+        
+        String gaiaVtoken = CookieUtil.getCookieValue(cookie, "x-bili-gaia-vtoken");
+        if (gaiaVtoken != null && !gaiaVtoken.trim().isEmpty()) {
+            params.put("gaia_vtoken", gaiaVtoken.trim());
+            Log.i("UgcPlayUrl", "Added gaia_vtoken parameter");
+        }
         
         if (!hasSessData) {
             params.put("try_look", "1");
@@ -114,7 +135,6 @@ public class ql implements IMediaResolver {
         requestBuilder.a("app-key", "android64");
         requestBuilder.a("x-bili-aurora-zone", "sh001");
         
-        String midStr = CookieUtil.getCookieValue(cookie, "DedeUserID");
         if (midStr != null && !midStr.isEmpty()) {
             try {
                 long mid = Long.parseLong(midStr);

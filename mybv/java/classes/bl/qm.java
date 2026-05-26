@@ -333,6 +333,14 @@ public class qm extends py {
                     //Log.i("UgcPlayUrl", "No dash or durl available, throwing -7");
                     throw new ResolveMediaSourceException(optString2, -7);
                 }
+                
+                // 检测v_voucher情况
+                String vVoucher = jSONObject3.optString("v_voucher");
+                if (!TextUtils.isEmpty(vVoucher)) {
+                    Log.e("UgcPlayUrl", "v_voucher detected: " + vVoucher + ", video may require VIP or region restricted");
+                    throw new ResolveMediaSourceException("该视频可能需要大会员权限或有地区限制", -10403);
+                }
+                
                 throw new ResolveMediaSourceException("accept_format not matched with accept_quality, the content is " + new String(this.b), -9);
             }
             return null;
