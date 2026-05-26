@@ -210,7 +210,7 @@ public class PlayerMenuRight extends aay<String> {
         if (f() || (textView = (TextView) aazVar.c(R.id.text)) == null) {
             return;
         }
-        if(this.speed_list.contains(str)){
+        if(this.speed_list != null && this.speed_list.contains(str)){
             textView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
@@ -220,7 +220,7 @@ public class PlayerMenuRight extends aay<String> {
                 }
             });
         }
-        if(this.mode_list.contains(str)){
+        if(this.mode_list != null && this.mode_list.contains(str)){
             textView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
@@ -234,13 +234,31 @@ public class PlayerMenuRight extends aay<String> {
             try {
                 int currentMenuIndex = getOriginalMenuIndex(this.q);
                 boolean isCurrentSize = false;
-                if (currentMenuIndex == 4 && this.size_list.get(this.size_id).equals(str)) {
+                if (this.size_list != null && this.size_id >= 0 && this.size_id < this.size_list.size() && currentMenuIndex == 4 && this.size_list.get(this.size_id).equals(str)) {
                     isCurrentSize = true;
                 }
-                if (currentMenuIndex == 11 && this.subtitle_size_list != null && this.subtitle_size_id >= 0 && this.subtitle_size_id < this.subtitle_size_list.size() && this.subtitle_size_list.get(this.subtitle_size_id).equals(str)) {
+                if (currentMenuIndex == 12 && this.subtitle_size_list != null && this.subtitle_size_id >= 0 && this.subtitle_size_id < this.subtitle_size_list.size() && this.subtitle_size_list.get(this.subtitle_size_id).equals(str)) {
                     isCurrentSize = true;
                 }
-                if (!this.quality_list.get(this.quality_id).equals(str) && !this.ratio_list.get(this.ratio_id).equals(str) && !isCurrentSize && !this.alpha_list.get(this.alpha_id).equals(str) && !this.speed_list.get(this.speed_id).equals(str) && !this.mode_list.get(this.mode_id).equals(str) && !this.subtitle_list.get(this.subtitle_id).equals(str) && !this.audio_balance_list.get(this.audio_balance_id).equals(str)) {
+                boolean isCurrentItem = false;
+                if (this.quality_list.get(this.quality_id).equals(str)) {
+                    isCurrentItem = true;
+                } else if (this.ratio_list.get(this.ratio_id).equals(str)) {
+                    isCurrentItem = true;
+                } else if (isCurrentSize) {
+                    isCurrentItem = true;
+                } else if (this.alpha_list != null && this.alpha_id >= 0 && this.alpha_id < this.alpha_list.size() && this.alpha_list.get(this.alpha_id).equals(str)) {
+                    isCurrentItem = true;
+                } else if (this.speed_list != null && this.speed_id >= 0 && this.speed_id < this.speed_list.size() && this.speed_list.get(this.speed_id).equals(str)) {
+                    isCurrentItem = true;
+                } else if (this.mode_list != null && this.mode_id >= 0 && this.mode_id < this.mode_list.size() && this.mode_list.get(this.mode_id).equals(str)) {
+                    isCurrentItem = true;
+                } else if (this.subtitle_list != null && this.subtitle_id >= 0 && this.subtitle_id < this.subtitle_list.size() && this.subtitle_list.get(this.subtitle_id).equals(str)) {
+                    isCurrentItem = true;
+                } else if (this.audio_balance_list != null && this.audio_balance_id >= 0 && this.audio_balance_id < this.audio_balance_list.size() && this.audio_balance_list.get(this.audio_balance_id).equals(str)) {
+                    isCurrentItem = true;
+                }
+                if (!isCurrentItem) {
                     textView.getCompoundDrawables()[0].setAlpha(0);
                 }
                 else {
@@ -437,31 +455,31 @@ public class PlayerMenuRight extends aay<String> {
                 return true;
             }
             int currentMenuIndex = getOriginalMenuIndex(this.q);
-            if (this.size_list.indexOf(str) != -1 && currentMenuIndex == 4) {
+            if (this.size_list != null && this.size_list.indexOf(str) != -1 && currentMenuIndex == 4) {
                 this.d.a(Float.valueOf(this.size_list.get(i2)).floatValue());
                 i3 = this.size_id;
                 this.size_id = i2;
             }
-            if (this.alpha_list.indexOf(str) != -1) {
+            if (this.alpha_list != null && this.alpha_list.indexOf(str) != -1) {
                 this.d.b(Float.valueOf(this.alpha_list.get(i2).replace("f", "")).floatValue());
                 i3 = this.alpha_id;
                 this.alpha_id = i2;
             }
-            if (this.speed_list.indexOf(str) != -1) {
+            if (this.speed_list != null && this.speed_list.indexOf(str) != -1) {
                 this.d.switch_speed(Float.valueOf(this.speed_list.get(i2).replace("x", "")).floatValue());
                 i3 = this.speed_id;
                 this.speed_id = i2;
             }
-            if (this.mode_list.indexOf(str) != -1) {
+            if (this.mode_list != null && this.mode_list.indexOf(str) != -1) {
                 i3 = this.mode_id;
                 this.mode_id = i2;
             }
-            if (this.subtitle_list.indexOf(str) != -1) {
+            if (this.subtitle_list != null && this.subtitle_list.indexOf(str) != -1) {
                 i3 = this.subtitle_id;
                 this.subtitle_id = i2;
                 this.d.refresh_subtitle();
             }
-            if (this.subtitle_size_list != null && this.subtitle_size_list.indexOf(str) != -1 && currentMenuIndex == 11) {
+            if (this.subtitle_size_list != null && this.subtitle_size_list.indexOf(str) != -1 && currentMenuIndex == 12) {
                 this.d.set_subtitle_size(Float.valueOf(this.subtitle_size_list.get(i2)).floatValue());
                 i3 = this.subtitle_size_id;
                 this.subtitle_size_id = i2;

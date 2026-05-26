@@ -34,7 +34,7 @@
     .locals 0
 
     .prologue
-    .line 905
+    .line 911
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     iput-object p2, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6;->val$commentItem:Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;
@@ -52,7 +52,7 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 908
+    .line 914
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6;->val$commentItem:Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;
 
     iget-object v0, v0, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;->mRemoteDmId:Ljava/lang/String;
@@ -69,35 +69,35 @@
 
     if-nez v0, :cond_12
 
-    .line 919
+    .line 925
     :cond_11
     :goto_11
     return v2
 
-    .line 911
+    .line 917
     :cond_12
     const-string v0, ""
 
     iput-object v0, p1, Lbl/bfk;->b:Ljava/lang/CharSequence;
 
-    .line 912
+    .line 918
     invoke-virtual {p1, v2}, Lbl/bfk;->a(Z)V
 
-    .line 913
+    .line 919
     iput v2, p1, Lbl/bfk;->j:I
 
-    .line 914
+    .line 920
     iput-byte v2, p1, Lbl/bfk;->n:B
 
-    .line 915
+    .line 921
     invoke-virtual {p1}, Lbl/bfk;->d()Lbl/bfu;
 
     move-result-object v0
 
-    .line 916
+    .line 922
     if-eqz v0, :cond_11
 
-    .line 917
+    .line 923
     invoke-interface {v0}, Lbl/bfu;->a()V
 
     goto :goto_11
@@ -107,7 +107,7 @@
     .locals 1
 
     .prologue
-    .line 905
+    .line 911
     check-cast p1, Lbl/bfk;
 
     invoke-virtual {p0, p1}, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6;->accept(Lbl/bfk;)I

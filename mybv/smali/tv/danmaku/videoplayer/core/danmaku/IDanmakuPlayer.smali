@@ -90,6 +90,9 @@
 .method public abstract pause()V
 .end method
 
+.method public abstract refreshSubtitle()V
+.end method
+
 .method public abstract release()V
 .end method
 

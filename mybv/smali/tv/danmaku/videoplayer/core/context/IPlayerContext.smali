@@ -215,6 +215,9 @@
 .method public abstract prepareAndStartDanmakuPlayer(J)V
 .end method
 
+.method public abstract refreshSubtitle()V
+.end method
+
 .method public abstract release()V
 .end method
 

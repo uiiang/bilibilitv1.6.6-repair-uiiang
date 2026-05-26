@@ -687,6 +687,12 @@ public class BiliPlayerContext implements IPlayerContext {
         return this.mDanmakuPlayerContext;
     }
 
+    public void refreshSubtitle() {
+        if (this.mDanmakuPlayerContext != null) {
+            this.mDanmakuPlayerContext.refreshSubtitle();
+        }
+    }
+
     /* JADX INFO: Access modifiers changed from: private */
     public void notifyPlayerEvent(int i, Object... objArr) {
         if (this.mPlayerEventListeners == null || this.mPlayerEventListeners.isEmpty()) {

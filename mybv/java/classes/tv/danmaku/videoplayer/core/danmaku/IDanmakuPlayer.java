@@ -89,4 +89,6 @@ public interface IDanmakuPlayer {
     void start(IDanmakuParams iDanmakuParams, IDanmakuDocument iDanmakuDocument, DanmakuAnimationTicker danmakuAnimationTicker, long i);
 
     void stop();
+
+    void refreshSubtitle();
 }

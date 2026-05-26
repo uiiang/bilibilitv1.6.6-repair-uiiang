@@ -211,4 +211,6 @@ public interface IPlayerContext {
     void adjustScreen(int type);
     
     IMediaPlayer getMediaPlayer();
+
+    void refreshSubtitle();
 }

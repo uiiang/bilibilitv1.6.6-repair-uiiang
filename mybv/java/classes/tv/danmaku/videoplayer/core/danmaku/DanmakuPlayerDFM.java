@@ -372,6 +372,12 @@ public class DanmakuPlayerDFM implements IDanmakuPlayer {
         }
     }
 
+    public void refreshSubtitle() {
+        if (this.subtitle_data != null && this.mDanmakuView != null) {
+            send_subtitle(this.subtitle_data);
+        }
+    }
+
     private void onDanmakuAppended(DrawableItem drawableItem, boolean z) {
         bfk a;
         if (drawableItem == null || this.mDanmakuView == null || !this.mDanmakuView.a() || !z || !this.mDanmakuView.isShown() || (a = this.mConfig.t.a(1)) == null) {

@@ -192,6 +192,9 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     @Override // com.bilibili.tv.player.widget.PlayerMenuRight.a
     public void set_subtitle_size(float f) {
         abd.set_subtitle_size(MainApplication.a().getApplicationContext(), f);
+        if (n() != null) {
+            n().refreshSubtitle();
+        }
     }
 
     private boolean R() {

@@ -1238,7 +1238,7 @@
     .locals 2
 
     .prologue
-    .line 692
+    .line 698
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mPlayerEventListeners:Ljava/util/ArrayList;
 
     if-eqz v0, :cond_c
@@ -1251,11 +1251,11 @@
 
     if-eqz v0, :cond_d
 
-    .line 699
+    .line 705
     :cond_c
     return-void
 
-    .line 695
+    .line 701
     :cond_d
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mPlayerEventListeners:Ljava/util/ArrayList;
 
@@ -1263,7 +1263,7 @@
 
     move-result-object v1
 
-    .line 696
+    .line 702
     :goto_13
     invoke-interface {v1}, Ljava/util/Iterator;->hasNext()Z
 
@@ -1271,7 +1271,7 @@
 
     if-eqz v0, :cond_c
 
-    .line 697
+    .line 703
     invoke-interface {v1}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
     move-result-object v0
@@ -1479,6 +1479,25 @@
     invoke-virtual {v0, p1, p2}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->prepareAndStart(J)V
 
     .line 536
+    :cond_9
+    return-void
+.end method
+
+.method public refreshSubtitle()V
+    .locals 1
+
+    .prologue
+    .line 691
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
+
+    if-eqz v0, :cond_9
+
+    .line 692
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/BiliPlayerContext;->mDanmakuPlayerContext:Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;
+
+    invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->refreshSubtitle()V
+
+    .line 694
     :cond_9
     return-void
 .end method

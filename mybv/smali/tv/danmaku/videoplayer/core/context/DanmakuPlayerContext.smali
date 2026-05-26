@@ -423,6 +423,25 @@
     return-void
 .end method
 
+.method public refreshSubtitle()V
+    .locals 1
+
+    .prologue
+    .line 179
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->mDanmakuPlayer:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
+
+    if-eqz v0, :cond_9
+
+    .line 180
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/context/DanmakuPlayerContext;->mDanmakuPlayer:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
+
+    invoke-interface {v0}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;->refreshSubtitle()V
+
+    .line 182
+    :cond_9
+    return-void
+.end method
+
 .method public release()V
     .locals 1
 

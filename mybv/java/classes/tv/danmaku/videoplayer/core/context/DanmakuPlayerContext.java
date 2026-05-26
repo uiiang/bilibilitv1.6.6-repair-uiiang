@@ -174,4 +174,10 @@ public class DanmakuPlayerContext {
     public IDanmakuPlayer getDanmakuPlayer() {
         return this.mDanmakuPlayer;
     }
+
+    public void refreshSubtitle() {
+        if (this.mDanmakuPlayer != null) {
+            this.mDanmakuPlayer.refreshSubtitle();
+        }
+    }
 }
