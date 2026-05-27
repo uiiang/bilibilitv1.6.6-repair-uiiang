@@ -138,8 +138,17 @@ public class VideoShot {
             return items;
         }
         
+        // 检测开头是否有两个连续的0，如果是则跳过第二个0的时间点
+        boolean hasDoubleZeroAtStart = index.size() >= 2 && index.get(0) == 0 && index.get(1) == 0;
+        
+        int imageIndex = 0; // 图片索引从0开始连续递增
         for (int i = 0; i < index.size(); i++) {
-            items.add(new VideoShotItem(index.get(i), i));
+            // 如果开头有两个0，跳过第二个0的时间点（i==1）
+            if (hasDoubleZeroAtStart && i == 1) {
+                continue;
+            }
+            items.add(new VideoShotItem(index.get(i), imageIndex));
+            imageIndex++;
         }
         
         return items;

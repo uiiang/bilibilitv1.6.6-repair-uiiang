@@ -84,7 +84,7 @@
 
 # virtual methods
 .method public getAllShots()Ljava/util/List;
-    .locals 4
+    .locals 7
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "()",
@@ -96,15 +96,19 @@
     .end annotation
 
     .prologue
-    .line 136
-    new-instance v2, Ljava/util/ArrayList;
+    const/4 v2, 0x1
 
-    invoke-direct {v2}, Ljava/util/ArrayList;-><init>()V
+    const/4 v3, 0x0
+
+    .line 136
+    new-instance v6, Ljava/util/ArrayList;
+
+    invoke-direct {v6}, Ljava/util/ArrayList;-><init>()V
 
     .line 137
     iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoShot;->index:Ljava/util/List;
 
-    if-eqz v0, :cond_11
+    if-eqz v0, :cond_13
 
     iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoShot;->index:Ljava/util/List;
 
@@ -112,36 +116,30 @@
 
     move-result v0
 
-    if-eqz v0, :cond_13
+    if-eqz v0, :cond_15
 
-    :cond_11
-    move-object v0, v2
+    :cond_13
+    move-object v0, v6
 
-    .line 145
-    :goto_12
+    .line 154
+    :goto_14
     return-object v0
 
-    .line 141
-    :cond_13
-    const/4 v0, 0x0
-
-    move v1, v0
-
-    :goto_15
+    .line 142
+    :cond_15
     iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoShot;->index:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->size()I
 
     move-result v0
 
-    if-ge v1, v0, :cond_35
+    const/4 v1, 0x2
 
-    .line 142
-    new-instance v3, Lcom/bilibili/tv/api/video/VideoShotItem;
+    if-lt v0, v1, :cond_4f
 
     iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoShot;->index:Ljava/util/List;
 
-    invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
+    invoke-interface {v0, v3}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v0
 
@@ -151,22 +149,92 @@
 
     move-result v0
 
-    invoke-direct {v3, v0, v1}, Lcom/bilibili/tv/api/video/VideoShotItem;-><init>(II)V
+    if-nez v0, :cond_4f
 
-    invoke-interface {v2, v3}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoShot;->index:Ljava/util/List;
 
-    .line 141
-    add-int/lit8 v0, v1, 0x1
+    invoke-interface {v0, v2}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
-    move v1, v0
+    move-result-object v0
 
-    goto :goto_15
+    check-cast v0, Ljava/lang/Integer;
 
-    :cond_35
-    move-object v0, v2
+    invoke-virtual {v0}, Ljava/lang/Integer;->intValue()I
+
+    move-result v0
+
+    if-nez v0, :cond_4f
+
+    move v1, v2
+
+    :goto_3b
+    move v4, v3
+
+    move v5, v3
 
     .line 145
-    goto :goto_12
+    :goto_3d
+    iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoShot;->index:Ljava/util/List;
+
+    invoke-interface {v0}, Ljava/util/List;->size()I
+
+    move-result v0
+
+    if-ge v4, v0, :cond_68
+
+    .line 147
+    if-eqz v1, :cond_51
+
+    if-ne v4, v2, :cond_51
+
+    move v0, v5
+
+    .line 145
+    :goto_4a
+    add-int/lit8 v3, v4, 0x1
+
+    move v4, v3
+
+    move v5, v0
+
+    goto :goto_3d
+
+    :cond_4f
+    move v1, v3
+
+    .line 142
+    goto :goto_3b
+
+    .line 150
+    :cond_51
+    new-instance v3, Lcom/bilibili/tv/api/video/VideoShotItem;
+
+    iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoShot;->index:Ljava/util/List;
+
+    invoke-interface {v0, v4}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/lang/Integer;
+
+    invoke-virtual {v0}, Ljava/lang/Integer;->intValue()I
+
+    move-result v0
+
+    invoke-direct {v3, v0, v5}, Lcom/bilibili/tv/api/video/VideoShotItem;-><init>(II)V
+
+    invoke-interface {v6, v3}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    .line 151
+    add-int/lit8 v0, v5, 0x1
+
+    goto :goto_4a
+
+    :cond_68
+    move-object v0, v6
+
+    .line 154
+    goto :goto_14
 .end method
 
 .method public getImage()Ljava/util/List;
@@ -543,7 +611,7 @@
     .locals 2
 
     .prologue
-    .line 149
+    .line 158
     iget-object v0, p0, Lcom/bilibili/tv/api/video/VideoShot;->index:Ljava/util/List;
 
     if-eqz v0, :cond_c
@@ -556,11 +624,11 @@
 
     if-eqz v0, :cond_e
 
-    .line 150
+    .line 159
     :cond_c
     const/4 v0, 0x0
 
-    .line 152
+    .line 161
     :goto_d
     return v0
 

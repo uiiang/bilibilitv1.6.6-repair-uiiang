@@ -584,6 +584,16 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
             return false;
         }
         
+        // 先隐藏普通进度条，避免覆盖截图进度条
+        xh parentHandler = a();
+        while (parentHandler != null) {
+            if (parentHandler instanceof xi) {
+                ((xi) parentHandler).v();
+                break;
+            }
+            parentHandler = parentHandler.a();
+        }
+        
         int durationSec = playerSeekBar.getDuration();
         int currentPlayTimeMs = x();
         
