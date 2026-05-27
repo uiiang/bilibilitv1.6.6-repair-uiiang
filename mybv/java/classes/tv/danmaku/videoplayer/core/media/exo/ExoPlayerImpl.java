@@ -70,6 +70,10 @@ public class ExoPlayerImpl implements IMediaPlayer {
     private Handler playerHandler;
     private Runnable positionUpdateRunnable;
     private Runnable bufferMonitorRunnable;
+    // Seek debounce: prevent rapid seeks from interrupting CDN connection establishment
+    private Runnable debouncedSeekRunnable;
+    private long pendingSeekPosition = -1;
+    private static final long SEEK_DEBOUNCE_DELAY_MS = 300;
     private int lastPlaybackState = Player.STATE_IDLE;
     private boolean hasPrepared = false;
 
@@ -96,9 +100,13 @@ public class ExoPlayerImpl implements IMediaPlayer {
     private static final int MAX_LIVE_ERROR_RETRY = 5;
     private static final long LIVE_ERROR_RETRY_DELAY_MS = 2000;
     private static final long LIVE_BUFFERING_TIMEOUT_MS = 15000;
+    private static final long VOD_BUFFERING_TIMEOUT_MS = 30000;
     private int liveErrorRetryCount = 0;
     private boolean isLiveStream = false;
     private long bufferingStartTime = 0;
+    private long vodBufferingStartTime = 0;
+    private int vodBufferingRetryCount = 0;
+    private static final int MAX_VOD_BUFFERING_RETRY = 2;
     
     private static final int MAX_NAL_ERROR_RETRY = 3;
     private int nalErrorRetryCount = 0;
@@ -161,9 +169,9 @@ public class ExoPlayerImpl implements IMediaPlayer {
                         case Player.STATE_ENDED: stateStr = "ENDED"; break;
                     }
                     
-                    Log.i(TAG, "[MONITOR] pos=" + position + "ms/" + duration + "ms, buffered=" 
-                        + bufferedPercent + "% (" + bufferedPosition + "ms), playing=" + isPlaying 
-                        + ", state=" + stateStr);
+                    //Log.i(TAG, "[MONITOR] pos=" + position + "ms/" + duration + "ms, buffered=" 
+                    //    + bufferedPercent + "% (" + bufferedPosition + "ms), playing=" + isPlaying 
+                    //    + ", state=" + stateStr);
                     
                     if (isLiveStream && position < -2000 && playbackState == Player.STATE_READY) {
                         Log.w(TAG, "[MONITOR] Live position too far behind (" + position + "ms), seeking to live edge");
@@ -187,9 +195,51 @@ public class ExoPlayerImpl implements IMediaPlayer {
                         }
                     } else if (playbackState != Player.STATE_BUFFERING || position > 0) {
                         if (bufferingStartTime > 0) {
-                            Log.i(TAG, "[MONITOR] Live stream buffering ended or position changed, resetting timer");
+                            //Log.i(TAG, "[MONITOR] Live stream buffering ended or position changed, resetting timer");
                         }
                         bufferingStartTime = 0;
+                    }
+                    
+                    if (!isLiveStream && playbackState == Player.STATE_BUFFERING) {
+                        if (vodBufferingStartTime == 0) {
+                            vodBufferingStartTime = System.currentTimeMillis();
+                            Log.w(TAG, "[MONITOR] VOD buffering started at position=" + position + "ms");
+                        } else {
+                            long bufferingDuration = System.currentTimeMillis() - vodBufferingStartTime;
+                            if (bufferingDuration > VOD_BUFFERING_TIMEOUT_MS) {
+                                Log.e(TAG, "[MONITOR] VOD buffering timeout (" + bufferingDuration + "ms > " + VOD_BUFFERING_TIMEOUT_MS + "ms)");
+                                Log.e(TAG, "[MONITOR] VOD buffering retry count: " + vodBufferingRetryCount + "/" + MAX_VOD_BUFFERING_RETRY);
+                                
+                                if (vodBufferingRetryCount < MAX_VOD_BUFFERING_RETRY) {
+                                    vodBufferingRetryCount++;
+                                    Log.w(TAG, "[MONITOR] Attempting VOD buffering recovery #" + vodBufferingRetryCount);
+                                    
+                                    if (errorListener != null) {
+                                        errorListener.onPlayerError(1003, "VOD_BUFFERING_TIMEOUT_RETRY", null);
+                                    }
+                                    
+                                    vodBufferingStartTime = 0;
+                                } else {
+                                    Log.e(TAG, "[MONITOR] Max VOD buffering retries reached, need URL refresh");
+                                    if (errorListener != null) {
+                                        errorListener.onPlayerError(1004, "VOD_BUFFERING_TIMEOUT_FINAL", null);
+                                    }
+                                    vodBufferingStartTime = 0;
+                                    vodBufferingRetryCount = 0;
+                                }
+                            } else {
+                                //Log.w(TAG, "[MONITOR] VOD buffering duration: " + bufferingDuration + "ms (timeout=" + VOD_BUFFERING_TIMEOUT_MS + "ms)");
+                            }
+                        }
+                    } else if (!isLiveStream && playbackState != Player.STATE_BUFFERING) {
+                        if (vodBufferingStartTime > 0) {
+                            //Log.i(TAG, "[MONITOR] VOD buffering ended, state=" + stateStr + ", resetting timer");
+                            if (playbackState == Player.STATE_READY) {
+                                vodBufferingRetryCount = 0;
+                                //Log.i(TAG, "[MONITOR] VOD buffering recovered successfully, resetting retry count");
+                            }
+                        }
+                        vodBufferingStartTime = 0;
                     }
                     
                     playerHandler.postDelayed(this, 10000);
@@ -263,11 +313,24 @@ public class ExoPlayerImpl implements IMediaPlayer {
                 @Override
                 public void onPlaybackStateChanged(int playbackState) {
                     String stateName = "";
+                    String lastStateName = "";
+                    switch (lastPlaybackState) {
+                        case Player.STATE_IDLE: lastStateName = "IDLE"; break;
+                        case Player.STATE_BUFFERING: lastStateName = "BUFFERING"; break;
+                        case Player.STATE_READY: lastStateName = "READY"; break;
+                        case Player.STATE_ENDED: lastStateName = "ENDED"; break;
+                    }
+                    
+                    //Log.i(TAG, "[STATE_CHANGE] State transition: " + lastStateName + " -> ???");
+                    //Log.i(TAG, "[STATE_CHANGE] Current position: " + exoPlayer.getCurrentPosition() + "ms, buffered: " + exoPlayer.getBufferedPercentage() + "%");
+                    //Log.i(TAG, "[STATE_CHANGE] isPlaying: " + exoPlayer.isPlaying() + ", playWhenReady: " + exoPlayer.getPlayWhenReady());
+                    
                     switch (playbackState) {
                         case Player.STATE_READY:
                             stateName = "READY";
                             cachedDuration = exoPlayer.getDuration();
-                            Log.i(TAG, "[STATE] READY - duration=" + cachedDuration + "ms, buffered=" + exoPlayer.getBufferedPercentage() + "%");
+                            //Log.i(TAG, "[STATE] READY - duration=" + cachedDuration + "ms, buffered=" + exoPlayer.getBufferedPercentage() + "%");
+                            //Log.i(TAG, "[STATE] READY - position=" + exoPlayer.getCurrentPosition() + "ms, speed=" + exoPlayer.getPlaybackParameters().speed);
                             if (lastPlaybackState == Player.STATE_BUFFERING && onInfoListener != null) {
                                 Log.i(TAG, "[STATE] Transition from BUFFERING to READY, sending BUFFERING_END");
                                 onInfoListener.onInfo(ExoPlayerImpl.this,
@@ -276,7 +339,7 @@ public class ExoPlayerImpl implements IMediaPlayer {
                                     MEDIA_INFO_BUFFERING_END, 0, 0);
                             }
                             if (networkErrorRetryCount > 0) {
-                                Log.i(TAG, "[STATE] Network error retry succeeded, resetting retry count");
+                                //Log.i(TAG, "[STATE] Network error retry succeeded, resetting retry count from " + networkErrorRetryCount + " to 0");
                                 networkErrorRetryCount = 0;
                             }
                             if (onPreparedListener != null && !hasPrepared) {
@@ -288,15 +351,20 @@ public class ExoPlayerImpl implements IMediaPlayer {
                             break;
                         case Player.STATE_ENDED:
                             stateName = "ENDED";
+                            //Log.i(TAG, "[STATE] ENDED - video playback completed at position=" + exoPlayer.getCurrentPosition() + "ms");
                             playerHandler.removeCallbacks(positionUpdateRunnable);
                             if (onCompletionListener != null) {
+                                //Log.i(TAG, "[STATE] Calling onCompletion");
                                 onCompletionListener.onCompletion(ExoPlayerImpl.this);
                             }
                             break;
                         case Player.STATE_BUFFERING:
                             stateName = "BUFFERING";
-                            Log.w(TAG, "[STATE] BUFFERING - position=" + exoPlayer.getCurrentPosition() + "ms, buffered=" + exoPlayer.getBufferedPercentage() + "%");
+                            Log.w(TAG, "[STATE] BUFFERING START - position=" + exoPlayer.getCurrentPosition() + "ms, buffered=" + exoPlayer.getBufferedPercentage() + "%");
+                            Log.w(TAG, "[STATE] BUFFERING - lastState=" + lastStateName + ", isPlaying=" + exoPlayer.isPlaying());
+                            Log.w(TAG, "[STATE] BUFFERING - networkErrorRetryCount=" + networkErrorRetryCount + ", nalErrorRetryCount=" + nalErrorRetryCount);
                             if (onInfoListener != null) {
+                                Log.i(TAG, "[STATE] Sending BUFFERING_START to listener");
                                 onInfoListener.onInfo(ExoPlayerImpl.this,
                                     MEDIA_INFO_BUFFERING_START, 0);
                                 onInfoListener.onInfo2(ExoPlayerImpl.this,
@@ -305,42 +373,63 @@ public class ExoPlayerImpl implements IMediaPlayer {
                             break;
                         case Player.STATE_IDLE:
                             stateName = "IDLE";
+                            //Log.i(TAG, "[STATE] IDLE - player stopped or reset");
                             playerHandler.removeCallbacks(positionUpdateRunnable);
                             break;
                     }
-                    Log.i(TAG, "[STATE] " + stateName + " (playbackState=" + playbackState + ")");
+                    //Log.i(TAG, "[STATE_CHANGE] State transition completed: " + lastStateName + " -> " + stateName);
                     lastPlaybackState = playbackState;
                 }
 
                 @Override
                 public void onPlayerError(PlaybackException error) {
-                    Log.e(TAG, "[ERROR] Player error occurred!");
+                    Log.e(TAG, "[ERROR] ========== PLAYER ERROR OCCURRED ==========");
                     Log.e(TAG, "[ERROR] Error code: " + error.errorCode);
                     Log.e(TAG, "[ERROR] Error message: " + error.getMessage());
                     Log.e(TAG, "[ERROR] Error type: " + error.getClass().getSimpleName());
                     if (error.getCause() != null) {
-                        Log.e(TAG, "[ERROR] Cause: " + error.getCause().getMessage());
+                        Log.e(TAG, "[ERROR] Cause class: " + error.getCause().getClass().getName());
+                        Log.e(TAG, "[ERROR] Cause message: " + error.getCause().getMessage());
+                        Throwable causeCause = error.getCause().getCause();
+                        if (causeCause != null) {
+                            Log.e(TAG, "[ERROR] Cause's cause: " + causeCause.getClass().getName() + " - " + causeCause.getMessage());
+                        }
                     }
                     
                     if (exoPlayer != null) {
                         Log.e(TAG, "[ERROR] Position when error: " + exoPlayer.getCurrentPosition() + "ms / " + exoPlayer.getDuration() + "ms");
                         Log.e(TAG, "[ERROR] Buffered position: " + exoPlayer.getBufferedPosition() + "ms");
+                        Log.e(TAG, "[ERROR] Buffered percentage: " + exoPlayer.getBufferedPercentage() + "%");
                         Log.e(TAG, "[ERROR] Playback state: " + exoPlayer.getPlaybackState());
+                        Log.e(TAG, "[ERROR] isPlaying: " + exoPlayer.isPlaying());
+                        Log.e(TAG, "[ERROR] playWhenReady: " + exoPlayer.getPlayWhenReady());
                     }
+                    
+                    Log.e(TAG, "[ERROR] Retry counters: network=" + networkErrorRetryCount + "/" + MAX_NETWORK_ERROR_RETRY + 
+                          ", nal=" + nalErrorRetryCount + "/" + MAX_NAL_ERROR_RETRY + 
+                          ", live=" + liveErrorRetryCount + "/" + MAX_LIVE_ERROR_RETRY);
+                    Log.e(TAG, "[ERROR] isLiveStream=" + isLiveStream + ", savedMediaSource=" + (savedMediaSource != null ? "exists" : "null"));
                     
                     Integer httpCode = findHttpResponseCode(error);
                     if (httpCode != null) {
                         Log.e(TAG, "[ERROR] HTTP status code: " + httpCode);
+                    } else {
+                        Log.e(TAG, "[ERROR] No HTTP status code found in error");
                     }
                     
                     boolean isNalError = error.getCause() != null && 
                         error.getCause().getMessage() != null &&
                         error.getCause().getMessage().contains("Invalid NAL length");
                     
+                    Log.i(TAG, "[ERROR] Checking error type: isNalError=" + isNalError);
+                    
                     if (isNalError && savedMediaSource != null) {
+                        Log.w(TAG, "[ERROR] NAL error branch entered");
                         long errorPosition = exoPlayer != null ? exoPlayer.getCurrentPosition() : savedSeekPosition;
                         long duration = exoPlayer != null ? exoPlayer.getDuration() : 0;
                         long skipPosition = errorPosition + 10000;
+                        
+                        Log.w(TAG, "[ERROR] NAL error details: errorPosition=" + errorPosition + "ms, duration=" + duration + "ms, skipPosition=" + skipPosition + "ms");
                         
                         if (duration > 0 && skipPosition < duration - 10000) {
                             Log.w(TAG, "[ERROR] NAL unit error detected, trying to skip 10 seconds from " + errorPosition + "ms to " + skipPosition + "ms");
@@ -349,96 +438,134 @@ public class ExoPlayerImpl implements IMediaPlayer {
                                 nalErrorRetryCount++;
                                 Log.w(TAG, "[ERROR] NAL error skip attempt " + nalErrorRetryCount + "/" + MAX_NAL_ERROR_RETRY);
                                 
+                                Log.w(TAG, "[ERROR] Releasing old player and creating new one");
                                 if (exoPlayer != null) {
                                     exoPlayer.release();
                                     exoPlayer = null;
                                 }
                                 
                                 savedSeekPosition = skipPosition;
+                                Log.i(TAG, "[ERROR] Creating new player with seek position " + skipPosition + "ms");
                                 ensurePlayer();
                                 exoPlayer.setMediaSource(savedMediaSource, skipPosition);
                                 exoPlayer.prepare();
+                                Log.i(TAG, "[ERROR] NAL error recovery: prepare() called");
                                 return;
                             } else {
-                                Log.e(TAG, "[ERROR] Max NAL error retries reached, giving up");
+                                Log.e(TAG, "[ERROR] Max NAL error retries reached (" + nalErrorRetryCount + "/" + MAX_NAL_ERROR_RETRY + "), giving up");
                             }
                         } else {
-                            Log.e(TAG, "[ERROR] NAL error near end of video, cannot skip");
+                            Log.e(TAG, "[ERROR] NAL error near end of video (skipPosition=" + skipPosition + " >= duration-10000=" + (duration - 10000) + "), cannot skip");
                         }
                     }
                     
                     boolean isBehindLiveWindow = false;
                     Throwable cause = error.getCause();
+                    int causeDepth = 0;
+                    Log.i(TAG, "[ERROR] Checking for BehindLiveWindowException in cause chain...");
                     while (cause != null) {
+                        causeDepth++;
+                        Log.i(TAG, "[ERROR] Cause depth " + causeDepth + ": " + cause.getClass().getName());
                         if (cause instanceof BehindLiveWindowException) {
                             isBehindLiveWindow = true;
+                            Log.w(TAG, "[ERROR] Found BehindLiveWindowException at depth " + causeDepth);
                             break;
                         }
                         cause = cause.getCause();
                     }
+                    Log.i(TAG, "[ERROR] BehindLiveWindowException check result: " + isBehindLiveWindow);
                     
                     if (isBehindLiveWindow && isLiveStream && savedMediaSource != null) {
+                        Log.w(TAG, "[ERROR] BehindLiveWindow branch entered, isLiveStream=" + isLiveStream);
                         if (liveErrorRetryCount < MAX_LIVE_ERROR_RETRY) {
                             liveErrorRetryCount++;
                             Log.w(TAG, "[ERROR] BehindLiveWindowException detected, reloading live stream (" + liveErrorRetryCount + "/" + MAX_LIVE_ERROR_RETRY + ")");
                             
                             if (exoPlayer != null) {
+                                Log.i(TAG, "[ERROR] Stopping player for live stream reload");
                                 exoPlayer.stop();
                             }
                             
+                            final int retryNum = liveErrorRetryCount;
                             playerHandler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
+                                    Log.i(TAG, "[ERROR] Executing delayed live stream reload, retry #" + retryNum);
                                     if (exoPlayer != null && savedMediaSource != null) {
                                         Log.i(TAG, "[ERROR] Reloading live stream after BehindLiveWindowException");
                                         exoPlayer.setMediaSource(savedMediaSource, true);
                                         exoPlayer.prepare();
+                                        Log.i(TAG, "[ERROR] Live stream reload: prepare() called");
+                                    } else {
+                                        Log.e(TAG, "[ERROR] Cannot reload: exoPlayer=" + (exoPlayer != null ? "exists" : "null") + 
+                                              ", savedMediaSource=" + (savedMediaSource != null ? "exists" : "null"));
                                     }
                                 }
                             }, LIVE_ERROR_RETRY_DELAY_MS);
                             return;
                         } else {
-                            Log.e(TAG, "[ERROR] Max live error retries reached for BehindLiveWindowException, need URL refresh");
+                            Log.e(TAG, "[ERROR] Max live error retries reached (" + liveErrorRetryCount + "/" + MAX_LIVE_ERROR_RETRY + "), need URL refresh");
                             if (errorListener != null) {
+                                Log.i(TAG, "[ERROR] Notifying error listener: LIVE_STREAM_NEED_REFRESH");
                                 errorListener.onPlayerError(1001, "LIVE_STREAM_NEED_REFRESH", null);
                             }
                         }
                     }
                     
                     if (httpCode != null && (httpCode == 404 || httpCode == 403) && isLiveStream) {
-                        Log.w(TAG, "[ERROR] Live stream HTTP " + httpCode + " error, notifying error listener for CDN switch");
+                        Log.w(TAG, "[ERROR] Live stream HTTP " + httpCode + " error branch entered");
+                        Log.w(TAG, "[ERROR] Notifying error listener for CDN switch");
                     }
                     
+                    Log.i(TAG, "[ERROR] Calling isNetworkError() to check error type...");
                     boolean isNetworkError = isNetworkError(error);
+                    Log.i(TAG, "[ERROR] isNetworkError result: " + isNetworkError);
+                    
                     if (isNetworkError && networkErrorRetryCount < MAX_NETWORK_ERROR_RETRY) {
                         networkErrorRetryCount++;
                         Log.w(TAG, "[ERROR] Network error detected, retrying (" + networkErrorRetryCount + "/" + MAX_NETWORK_ERROR_RETRY + ") in " + NETWORK_ERROR_RETRY_DELAY_MS + "ms");
+                        Log.w(TAG, "[ERROR] Network error retry scheduled on mainHandler");
                         
                         if (networkErrorRetryRunnable != null) {
+                            Log.i(TAG, "[ERROR] Removing previous retry runnable");
                             mainHandler.removeCallbacks(networkErrorRetryRunnable);
                         }
                         
+                        final int retryNum = networkErrorRetryCount;
                         networkErrorRetryRunnable = new Runnable() {
                             @Override
                             public void run() {
+                                Log.i(TAG, "[ERROR] ========== NETWORK ERROR RETRY #" + retryNum + " ========== ");
                                 if (exoPlayer != null) {
-                                    Log.i(TAG, "[ERROR] Retrying playback after network error");
+                                    Log.i(TAG, "[ERROR] Retrying playback after network error, calling prepare()");
+                                    Log.i(TAG, "[ERROR] Current state before retry: position=" + exoPlayer.getCurrentPosition() + "ms, state=" + exoPlayer.getPlaybackState());
                                     exoPlayer.prepare();
+                                    Log.i(TAG, "[ERROR] prepare() called, waiting for state change...");
+                                } else {
+                                    Log.e(TAG, "[ERROR] Cannot retry: exoPlayer is null!");
                                 }
                             }
                         };
                         mainHandler.postDelayed(networkErrorRetryRunnable, NETWORK_ERROR_RETRY_DELAY_MS);
+                        Log.i(TAG, "[ERROR] Network error retry runnable posted, returning from error handler");
                         return;
                     }
                     
+                    Log.e(TAG, "[ERROR] No recovery branch matched, forwarding to error listeners");
+                    Log.e(TAG, "[ERROR] isNetworkError=" + isNetworkError + ", networkErrorRetryCount=" + networkErrorRetryCount);
+                    
                     if (onErrorListener != null) {
+                        Log.i(TAG, "[ERROR] Calling onErrorListener.onError()");
                         onErrorListener.onError(ExoPlayerImpl.this,
                             error.errorCode, 0);
                     }
                     
                     if (errorListener != null) {
+                        Log.i(TAG, "[ERROR] Calling errorListener.onPlayerError()");
                         errorListener.onPlayerError(error.errorCode, error.getMessage(), httpCode);
                     }
+                    
+                    Log.e(TAG, "[ERROR] ========== ERROR HANDLING COMPLETED ==========");
                 }
 
                 @Override
@@ -457,7 +584,7 @@ public class ExoPlayerImpl implements IMediaPlayer {
 
                 @Override
                 public void onIsPlayingChanged(boolean isPlaying) {
-                    Log.i(TAG, "[PLAY] isPlaying=" + isPlaying + ", position=" + exoPlayer.getCurrentPosition() + "ms");
+                    //Log.i(TAG, "[PLAY] isPlaying=" + isPlaying + ", position=" + exoPlayer.getCurrentPosition() + "ms");
                     if (isPlaying && onInfoListener != null) {
                         onInfoListener.onInfo(ExoPlayerImpl.this,
                             MEDIA_INFO_VIDEO_RENDERING_START, 0);
@@ -478,7 +605,7 @@ public class ExoPlayerImpl implements IMediaPlayer {
                         case Player.DISCONTINUITY_REASON_INTERNAL: reasonStr = "INTERNAL"; break;
                         default: reasonStr = "UNKNOWN(" + reason + ")"; break;
                     }
-                    Log.w(TAG, "[DISCONTINUITY] reason=" + reasonStr + ", oldPos=" + oldPosition.positionMs + "ms, newPos=" + newPosition.positionMs + "ms");
+                    //Log.w(TAG, "[DISCONTINUITY] reason=" + reasonStr + ", oldPos=" + oldPosition.positionMs + "ms, newPos=" + newPosition.positionMs + "ms");
                     
                     if (reason == Player.DISCONTINUITY_REASON_SEEK) {
                         if (onSeekCompleteListener != null) {
@@ -588,7 +715,7 @@ public class ExoPlayerImpl implements IMediaPlayer {
                 @Override
                 public void onPlayerErrorChanged(PlaybackException error) {
                     if (error != null) {
-                        Log.e(TAG, "[ERROR_CHANGED] Error changed to: " + error.getMessage());
+                        //Log.e(TAG, "[ERROR_CHANGED] Error changed to: " + error.getMessage());
                     }
                 }
 
@@ -611,12 +738,12 @@ public class ExoPlayerImpl implements IMediaPlayer {
 
                 @Override
                 public void onPositionDiscontinuity(int reason) {
-                    Log.w(TAG, "[DISCONTINUITY_OLD] reason=" + reason);
+                    //Log.w(TAG, "[DISCONTINUITY_OLD] reason=" + reason);
                 }
 
                 @Override
                 public void onRenderedFirstFrame() {
-                    Log.i(TAG, "[RENDER] First frame rendered");
+                    //Log.i(TAG, "[RENDER] First frame rendered");
                 }
 
                 @Override
@@ -814,9 +941,12 @@ public class ExoPlayerImpl implements IMediaPlayer {
         Log.i(TAG, "release");
         playerHandler.removeCallbacks(positionUpdateRunnable);
         playerHandler.removeCallbacks(bufferMonitorRunnable);
+        playerHandler.removeCallbacks(debouncedSeekRunnable);
         mainHandler.removeCallbacks(testErrorRunnable);
         mainHandler.removeCallbacks(networkErrorRetryRunnable);
         networkErrorRetryCount = 0;
+        debouncedSeekRunnable = null;
+        pendingSeekPosition = -1;
         if (exoPlayer != null) {
             exoPlayer.release();
             exoPlayer = null;
@@ -830,6 +960,9 @@ public class ExoPlayerImpl implements IMediaPlayer {
         nalErrorRetryCount = 0;
         networkErrorRetryCount = 0;
         liveErrorRetryCount = 0;
+        vodBufferingRetryCount = 0;
+        vodBufferingStartTime = 0;
+        bufferingStartTime = 0;
         isLiveStream = false;
         if (exoPlayer != null) {
             exoPlayer.stop();
@@ -837,25 +970,71 @@ public class ExoPlayerImpl implements IMediaPlayer {
         }
         playerHandler.removeCallbacks(positionUpdateRunnable);
         playerHandler.removeCallbacks(bufferMonitorRunnable);
+        playerHandler.removeCallbacks(debouncedSeekRunnable);
+        debouncedSeekRunnable = null;
+        pendingSeekPosition = -1;
     }
 
     @Override
     public void seekTo(long msec) throws IllegalStateException {
-        Log.i(TAG, "seekTo: " + msec);
+        //Log.i(TAG, "[SEEK] seekTo called: target=" + msec + "ms");
+        //Log.i(TAG, "[SEEK] Current state: position=" + cachedCurrentPosition + "ms, duration=" + cachedDuration + "ms, isPlaying=" + cachedIsPlaying);
+        if (exoPlayer != null) {
+            //Log.i(TAG, "[SEEK] ExoPlayer state: playbackState=" + exoPlayer.getPlaybackState() + ", buffered=" + exoPlayer.getBufferedPercentage() + "%");
+        }
+        
         if (playerHandler != null && Looper.myLooper() != playerHandler.getLooper()) {
+            //Log.i(TAG, "[SEEK] Called from different thread, posting to playerHandler");
             final long pos = msec;
             playerHandler.post(new Runnable() {
                 @Override
                 public void run() {
+                    //Log.i(TAG, "[SEEK] Executing seekTo on playerHandler thread, target=" + pos + "ms");
                     seekTo(pos);
                 }
             });
             return;
         }
-        if (exoPlayer != null) {
-            exoPlayer.seekTo(msec);
-            cachedCurrentPosition = msec;
+        
+        if (exoPlayer == null) {
+            Log.e(TAG, "[SEEK] ERROR: exoPlayer is null, cannot seek!");
+            return;
         }
+        
+        // Debounce rapid seeks: if player is BUFFERING from a previous seek,
+        // delay the new seek to let CDN connections establish first
+        if (exoPlayer.getPlaybackState() == Player.STATE_BUFFERING) {
+            Log.i(TAG, "[SEEK] Player is BUFFERING, debouncing seek. Target=" + msec + "ms, delay=" + SEEK_DEBOUNCE_DELAY_MS + "ms");
+            pendingSeekPosition = msec;
+            
+            // Remove previous debounce callback
+            if (debouncedSeekRunnable != null) {
+                playerHandler.removeCallbacks(debouncedSeekRunnable);
+            }
+            
+            final long finalMsec = msec;
+            debouncedSeekRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    //Log.i(TAG, "[SEEK] Debounce timer fired, executing delayed seek to " + finalMsec + "ms");
+                    performSeek(finalMsec);
+                }
+            };
+            playerHandler.postDelayed(debouncedSeekRunnable, SEEK_DEBOUNCE_DELAY_MS);
+            // Update cached position immediately for UI responsiveness
+            cachedCurrentPosition = msec;
+            return;
+        }
+        
+        performSeek(msec);
+    }
+    
+    private void performSeek(long msec) {
+        if (exoPlayer == null) return;
+        //Log.i(TAG, "[SEEK] Calling exoPlayer.seekTo(" + msec + ")");
+        exoPlayer.seekTo(msec);
+        cachedCurrentPosition = msec;
+        //Log.i(TAG, "[SEEK] Seek completed, cachedCurrentPosition updated to " + msec + "ms");
     }
 
     public void seekToLivePosition() {
@@ -1089,7 +1268,9 @@ public class ExoPlayerImpl implements IMediaPlayer {
                 className.contains("SocketTimeoutException") ||
                 className.contains("ConnectException") ||
                 className.contains("NoRouteToHostException") ||
-                className.contains("PortUnreachableException")) {
+                className.contains("PortUnreachableException") ||
+                className.contains("InterruptedIOException")) {
+                Log.w(TAG, "[NETWORK_ERROR] Detected network error: " + className + ", message: " + message);
                 return true;
             }
             
@@ -1099,7 +1280,9 @@ public class ExoPlayerImpl implements IMediaPlayer {
                     lowerMessage.contains("connection") ||
                     lowerMessage.contains("timeout") ||
                     lowerMessage.contains("unreachable") ||
-                    lowerMessage.contains("no address")) {
+                    lowerMessage.contains("no address") ||
+                    lowerMessage.contains("interrupted")) {
+                    Log.w(TAG, "[NETWORK_ERROR] Detected network error by message: " + className + ", message: " + message);
                     return true;
                 }
             }
@@ -1108,6 +1291,7 @@ public class ExoPlayerImpl implements IMediaPlayer {
             if (cur == null) break;
         }
         
+        Log.w(TAG, "[NETWORK_ERROR] Not a network error: " + (t != null ? t.getClass().getName() : "null"));
         return false;
     }
     

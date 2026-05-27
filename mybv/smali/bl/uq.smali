@@ -32,11 +32,29 @@
     .end annotation
 
     .line 45
-    new-instance v0, Lcom/bilibili/lib/okhttp/huc/OkHttpsURLConnection;
-
     invoke-static {}, Lbl/us;->c()Lokhttp3/OkHttpClient;
 
     move-result-object v1
+
+    invoke-virtual {v1}, Lokhttp3/OkHttpClient;->newBuilder()Lokhttp3/OkHttpClient$Builder;
+
+    move-result-object v1
+
+    sget-object v2, Lokhttp3/Protocol;->HTTP_1_1:Lokhttp3/Protocol;
+
+    invoke-static {v2}, Ljava/util/Collections;->singletonList(Ljava/lang/Object;)Ljava/util/List;
+
+    move-result-object v2
+
+    invoke-virtual {v1, v2}, Lokhttp3/OkHttpClient$Builder;->protocols(Ljava/util/List;)Lokhttp3/OkHttpClient$Builder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lokhttp3/OkHttpClient$Builder;->build()Lokhttp3/OkHttpClient;
+
+    move-result-object v1
+
+    new-instance v0, Lcom/bilibili/lib/okhttp/huc/OkHttpsURLConnection;
 
     invoke-direct {v0, p1, v1}, Lcom/bilibili/lib/okhttp/huc/OkHttpsURLConnection;-><init>(Ljava/net/URL;Lokhttp3/OkHttpClient;)V
 
@@ -57,6 +75,16 @@
     move-result-object v0
 
     invoke-virtual {v0, p2}, Lokhttp3/OkHttpClient$Builder;->proxy(Ljava/net/Proxy;)Lokhttp3/OkHttpClient$Builder;
+
+    move-result-object p2
+
+    sget-object v1, Lokhttp3/Protocol;->HTTP_1_1:Lokhttp3/Protocol;
+
+    invoke-static {v1}, Ljava/util/Collections;->singletonList(Ljava/lang/Object;)Ljava/util/List;
+
+    move-result-object v1
+
+    invoke-virtual {p2, v1}, Lokhttp3/OkHttpClient$Builder;->protocols(Ljava/util/List;)Lokhttp3/OkHttpClient$Builder;
 
     move-result-object p2
 

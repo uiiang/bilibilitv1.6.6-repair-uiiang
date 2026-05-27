@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 755
+    .line 882
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$5;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,11 +40,11 @@
     .locals 1
 
     .prologue
-    .line 758
+    .line 885
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$5;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->start()V
 
-    .line 759
+    .line 886
     return-void
 .end method
