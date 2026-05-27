@@ -16,6 +16,7 @@ import bl.qa;
 import bl.qb;
 import bl.qe;
 import bl.mg;
+import bl.abd;
 import org.json.*;
 import java.util.*;
 import mybl.BiliFilter;
@@ -447,7 +448,8 @@ public class ResolveResourceParams implements Parcelable, Serializable {
                 }
             }
             
-            int subtitle_id = PlayerMenuRight.subtitle_id - 1;
+            int subtitle_id = getCachedSubtitleId() - 1;
+            // Log.i("SubtitleCache", "initPlayInfo: cached subtitle_id=" + (subtitle_id + 1) + ", adjusted=" + subtitle_id);
             if(subtitle_id==-1 || this.subtitle_info.optJSONArray("subtitles").length()==0){this.subtitle_data=null;return;}
             if(subtitle_id<-1 && this.subtitle_info.optJSONArray("subtitles").optJSONObject(0).optString("lan").startsWith("ai-"))return;
             if(this.subtitle_info != null)this.subtitle_data = threadPool.submit(new Callable<JSONObject>() {
@@ -462,6 +464,24 @@ public class ResolveResourceParams implements Parcelable, Serializable {
                 callback.onPlayInfoFailed(e);
             }
         }
+    }
+
+    private int getCachedSubtitleId() {
+        int[] settings = null;
+        
+        if (!android.text.TextUtils.isEmpty(this.mListKey)) {
+            String listKey = "subtitle_list_" + this.mListKey;
+            settings = abd.getSubtitleSettings(MainApplication.a(), listKey);
+            // Log.i("SubtitleCache", "getCachedSubtitleId: listKey=" + listKey + ", settings=" + (settings != null ? settings[0] : "null"));
+        }
+        
+        if (settings == null) {
+            String videoKey = abd.getVideoSubtitleKey(this.mAvid);
+            settings = abd.getSubtitleSettings(MainApplication.a(), videoKey);
+            // Log.i("SubtitleCache", "getCachedSubtitleId: videoKey=" + videoKey + ", settings=" + (settings != null ? settings[0] : "null"));
+        }
+        
+        return settings != null ? settings[0] : 0;
     }
 
     /* compiled from: BL */

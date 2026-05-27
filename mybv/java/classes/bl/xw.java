@@ -214,6 +214,8 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                 JSONArray view_points = c().a.mVideoParams.obtainResolveParams().view_points;
                 this.c.init_chapter(view_points);
                 JSONObject subtitle_info = c().a.mVideoParams.obtainResolveParams().subtitle_info;
+                ResolveResourceParams resolveParams = c().a.mVideoParams.obtainResolveParams();
+                this.c.setResolveParams(resolveParams);
                 this.c.init_subtitle(subtitle_info);
             }
         }
@@ -303,7 +305,10 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         }
         this.c.init_speed(arrayList3, abd.get_speed_id(p()));
         this.c.init_mode(Arrays.asList(resources.getStringArray(R.array.player_mode)), abd.get_mode_id(p()));
-        this.c.init_subtitle(c().a.mVideoParams.obtainResolveParams().subtitle_info);
+        
+        ResolveResourceParams resolveParams = c().a.mVideoParams.obtainResolveParams();
+        this.c.setResolveParams(resolveParams);
+        this.c.init_subtitle(resolveParams.subtitle_info);
         
         ArrayList arrayList4 = new ArrayList(abd.a.length);
         for (float f4 : abd.a) {

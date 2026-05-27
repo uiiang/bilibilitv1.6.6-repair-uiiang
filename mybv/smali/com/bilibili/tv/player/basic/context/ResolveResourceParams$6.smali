@@ -36,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 433
+    .line 434
     iput-object p1, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$6;->this$0:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -55,7 +55,7 @@
     .end annotation
 
     .prologue
-    .line 433
+    .line 434
     invoke-virtual {p0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$6;->call()Lorg/json/JSONObject;
 
     move-result-object v0
@@ -67,7 +67,7 @@
     .locals 4
 
     .prologue
-    .line 436
+    .line 437
     new-instance v0, Lbl/qa$a;
 
     const-class v1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;

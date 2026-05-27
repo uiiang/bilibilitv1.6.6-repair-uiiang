@@ -617,4 +617,40 @@ public class abd {
         a(context).a().edit().putString(KEY_AUDIO_BALANCE_LEVEL, level).apply();
         audioBalanceLevel = level;
     }
+
+    private static final String SUBTITLE_PREFIX = "subtitle_";
+
+    public static String getVideoSubtitleKey(long avid) {
+        return SUBTITLE_PREFIX + "video_" + avid;
+    }
+
+    public static String getListSubtitleKey(String listKey) {
+        return SUBTITLE_PREFIX + "list_" + listKey;
+    }
+
+    public static void setSubtitleSettings(Context context, String key, int subtitleId, float subtitleSize) {
+        // Log.i("SubtitleCache", "setSubtitleSettings: key=" + key + ", subtitleId=" + subtitleId + ", subtitleSize=" + subtitleSize);
+        a(context).a().edit()
+            .putInt(key + "_id", subtitleId)
+            .putFloat(key + "_size", subtitleSize)
+            .apply();
+    }
+
+    public static int[] getSubtitleSettings(Context context, String key) {
+        int id = a(context).a().getInt(key + "_id", -1);
+        float size = a(context).a().getFloat(key + "_size", -1.0f);
+        // Log.i("SubtitleCache", "getSubtitleSettings: key=" + key + ", id=" + id + ", size=" + size);
+        if (id == -1 && size == -1.0f) {
+            return null;
+        }
+        return new int[]{id, (int)(size * 100)};
+    }
+
+    public static void clearSubtitleSettings(Context context, String key) {
+        // Log.i("SubtitleCache", "clearSubtitleSettings: key=" + key);
+        a(context).a().edit()
+            .remove(key + "_id")
+            .remove(key + "_size")
+            .apply();
+    }
 }

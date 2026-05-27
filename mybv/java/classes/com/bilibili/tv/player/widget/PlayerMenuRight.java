@@ -31,6 +31,7 @@ import android.app.AlertDialog;
 import android.util.Log;
 import android.content.DialogInterface;
 import com.bilibili.tv.MainApplication;
+import com.bilibili.tv.player.basic.context.ResolveResourceParams;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
@@ -69,6 +70,7 @@ public class PlayerMenuRight extends aay<String> {
     public static boolean danmaku_valid_list[] = {false,true,false,false,true,true,true,true,false,false};
     public static int danmaku_level=0;
     private List<Integer> menuIndexMap;
+    private ResolveResourceParams params;
 
     /* compiled from: BL */
     /* loaded from: classes.dex */
@@ -194,6 +196,10 @@ public class PlayerMenuRight extends aay<String> {
     
     public void setMenuIndexMap(List<Integer> map) {
         this.menuIndexMap = map;
+    }
+    
+    public void setResolveParams(ResolveResourceParams params) {
+        this.params = params;
     }
     
     private int getOriginalMenuIndex(int displayIndex) {
@@ -478,12 +484,14 @@ public class PlayerMenuRight extends aay<String> {
                 i3 = this.subtitle_id;
                 this.subtitle_id = i2;
                 this.d.refresh_subtitle();
+                saveSubtitleSettings();
             }
             if (this.subtitle_size_list != null && this.subtitle_size_list.indexOf(str) != -1 && currentMenuIndex == 12) {
                 this.d.set_subtitle_size(Float.valueOf(this.subtitle_size_list.get(i2)).floatValue());
                 i3 = this.subtitle_size_id;
                 this.subtitle_size_id = i2;
                 this.d.refresh_subtitle();
+                saveSubtitleSettings();
             }
             if (this.chapter_list != null && this.chapter_list.contains(str)) {
                 jumpToChapter(i2);
@@ -765,20 +773,106 @@ public class PlayerMenuRight extends aay<String> {
         this.subtitle_list.add("关闭字幕");
         if(subtitle_info==null){
             this.subtitle_id = 0;
+            // Log.i("SubtitleCache", "init_subtitle: subtitle_info is null, subtitle_id=0");
             return;
         }
         JSONArray subtitles = subtitle_info.optJSONArray("subtitles");
         for(int i=0;i<subtitles.length();i++)this.subtitle_list.add(subtitles.optJSONObject(i).optString("lan_doc"));
-        if(this.subtitle_id == -1 || this.subtitle_id >= this.subtitle_list.size()){
+        
+        int cachedId = getSubtitleIdFromCache();
+        // Log.i("SubtitleCache", "init_subtitle: cachedId=" + cachedId + ", subtitle_list.size=" + this.subtitle_list.size());
+        if (cachedId >= 0 && cachedId < this.subtitle_list.size()) {
+            this.subtitle_id = cachedId;
+            // Log.i("SubtitleCache", "init_subtitle: using cached subtitle_id=" + this.subtitle_id);
+        } else {
             if(subtitles.length()>0 && !subtitles.optJSONObject(0).optString("lan").startsWith("ai-"))this.subtitle_id = 1;
             else this.subtitle_id = 0;
+            // Log.i("SubtitleCache", "init_subtitle: using default subtitle_id=" + this.subtitle_id);
         }
     }
 
     public void init_subtitle_size(List<String> list, int i) {
         this.subtitle_size_list = list;
-        if(i == -1) i = 2;
-        this.subtitle_size_id = i;
+        
+        float cachedSize = getSubtitleSizeFromCache();
+        if (cachedSize > 0) {
+            int sizeIndex = list.indexOf(String.valueOf(cachedSize));
+            if (sizeIndex >= 0) {
+                this.subtitle_size_id = sizeIndex;
+            } else {
+                this.subtitle_size_id = 2;
+            }
+        } else {
+            if(i == -1) i = 2;
+            this.subtitle_size_id = i;
+        }
+    }
+
+    private int getSubtitleIdFromCache() {
+        if (params == null) {
+            // Log.i("SubtitleCache", "getSubtitleIdFromCache: params is null");
+            return -1;
+        }
+        
+        // Log.i("SubtitleCache", "getSubtitleIdFromCache: mAvid=" + params.mAvid + ", mListKey=" + params.mListKey);
+        
+        int[] settings = null;
+        
+        if (!android.text.TextUtils.isEmpty(params.mListKey)) {
+            String key = "subtitle_list_" + params.mListKey;
+            settings = abd.getSubtitleSettings(getContext(), key);
+            // Log.i("SubtitleCache", "getSubtitleIdFromCache: list key=" + key + ", settings=" + (settings != null ? settings[0] + "," + settings[1] : "null"));
+        }
+        
+        if (settings == null) {
+            String key = abd.getVideoSubtitleKey(params.mAvid);
+            settings = abd.getSubtitleSettings(getContext(), key);
+            // Log.i("SubtitleCache", "getSubtitleIdFromCache: video key=" + key + ", settings=" + (settings != null ? settings[0] + "," + settings[1] : "null"));
+        }
+        
+        return settings != null ? settings[0] : -1;
+    }
+
+    private float getSubtitleSizeFromCache() {
+        if (params == null) return -1.0f;
+        
+        int[] settings = null;
+        
+        if (!android.text.TextUtils.isEmpty(params.mListKey)) {
+            settings = abd.getSubtitleSettings(getContext(), "subtitle_list_" + params.mListKey);
+        }
+        
+        if (settings == null) {
+            settings = abd.getSubtitleSettings(getContext(), abd.getVideoSubtitleKey(params.mAvid));
+        }
+        
+        return settings != null ? settings[1] / 100.0f : -1.0f;
+    }
+
+    private void saveSubtitleSettings() {
+        if (params == null) {
+            // Log.i("SubtitleCache", "saveSubtitleSettings: params is null, skip saving");
+            return;
+        }
+        
+        float subtitleSize = 0.7f;
+        if (this.subtitle_size_id >= 0 && this.subtitle_size_id < this.subtitle_size_list.size()) {
+            subtitleSize = Float.valueOf(this.subtitle_size_list.get(this.subtitle_size_id)).floatValue();
+        }
+        
+        // Log.i("SubtitleCache", "saveSubtitleSettings: mAvid=" + params.mAvid + ", mListKey=" + params.mListKey + ", subtitle_id=" + this.subtitle_id + ", subtitleSize=" + subtitleSize);
+        
+        if (!android.text.TextUtils.isEmpty(params.mListKey)) {
+            String listKey = "subtitle_list_" + params.mListKey;
+            String videoKey = abd.getVideoSubtitleKey(params.mAvid);
+            // Log.i("SubtitleCache", "saveSubtitleSettings: saving to list key=" + listKey + ", clearing video key=" + videoKey);
+            abd.setSubtitleSettings(getContext(), listKey, this.subtitle_id, subtitleSize);
+            abd.clearSubtitleSettings(getContext(), videoKey);
+        } else {
+            String videoKey = abd.getVideoSubtitleKey(params.mAvid);
+            // Log.i("SubtitleCache", "saveSubtitleSettings: saving to video key=" + videoKey);
+            abd.setSubtitleSettings(getContext(), videoKey, this.subtitle_id, subtitleSize);
+        }
     }
 
     public void a(int i, int i2, long j) {
