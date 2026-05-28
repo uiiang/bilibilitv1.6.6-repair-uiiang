@@ -939,7 +939,8 @@ public final class VideoDetailActivity extends BaseActivity
                         || currentFocus.getId() == R.id.video_detail_watch_later
                         || currentFocus.getId() == R.id.video_history_play_btn_layout 
                         || currentFocus.getId() == R.id.video_re_play_btn_layout 
-                        || currentFocus.getId() == R.id.video_no_history_play_btn_layout) {
+                        || currentFocus.getId() == R.id.video_no_history_play_btn_layout
+                        || currentFocus.getId() == R.id.video_detail_info) {
                     if (this.o != null && this.o.getVisibility() == View.VISIBLE && this.o.getChildCount() > 0) {
                         int savedPosition = Math.min(epLayoutFocusPosition, this.o.getChildCount() - 1);
                         savedPosition = Math.max(0, savedPosition);
