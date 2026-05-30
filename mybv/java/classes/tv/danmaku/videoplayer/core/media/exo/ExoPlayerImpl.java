@@ -417,22 +417,62 @@ public class ExoPlayerImpl implements IMediaPlayer {
                         Log.e(TAG, "[ERROR] No HTTP status code found in error");
                     }
                     
-                    boolean isNalError = error.getCause() != null && 
-                        error.getCause().getMessage() != null &&
-                        error.getCause().getMessage().contains("Invalid NAL length");
+                    String errorMessage = error.getCause() != null ? error.getCause().getMessage() : null;
+                    boolean isNalError = errorMessage != null && errorMessage.contains("Invalid NAL length");
+                    boolean isParserError = errorMessage != null && 
+                        (errorMessage.contains("Error parsing AVC config") || 
+                         errorMessage.contains("Error parsing HEVC config") ||
+                         errorMessage.contains("ArrayIndexOutOfBoundsException"));
                     
-                    Log.i(TAG, "[ERROR] Checking error type: isNalError=" + isNalError);
+                    Log.i(TAG, "[ERROR] Checking error type: isNalError=" + isNalError + ", isParserError=" + isParserError);
                     
-                    if (isNalError && savedMediaSource != null) {
-                        Log.w(TAG, "[ERROR] NAL error branch entered");
+                    if ((isNalError || isParserError) && savedMediaSource != null) {
+                        Log.w(TAG, "[ERROR] NAL/Parser error branch entered");
                         long errorPosition = exoPlayer != null ? exoPlayer.getCurrentPosition() : savedSeekPosition;
                         long duration = exoPlayer != null ? exoPlayer.getDuration() : 0;
                         long skipPosition = errorPosition + 10000;
                         
-                        Log.w(TAG, "[ERROR] NAL error details: errorPosition=" + errorPosition + "ms, duration=" + duration + "ms, skipPosition=" + skipPosition + "ms");
+                        Log.w(TAG, "[ERROR] NAL/Parser error details: errorPosition=" + errorPosition + "ms, duration=" + duration + "ms, skipPosition=" + skipPosition + "ms, isLiveStream=" + isLiveStream);
                         
-                        if (duration > 0 && skipPosition < duration - 10000) {
-                            Log.w(TAG, "[ERROR] NAL unit error detected, trying to skip 10 seconds from " + errorPosition + "ms to " + skipPosition + "ms");
+                        if (isLiveStream) {
+                            Log.w(TAG, "[ERROR] Parser error in live stream, reloading instead of skipping");
+                            if (liveErrorRetryCount < MAX_LIVE_ERROR_RETRY) {
+                                liveErrorRetryCount++;
+                                Log.w(TAG, "[ERROR] Live stream parser error reload attempt " + liveErrorRetryCount + "/" + MAX_LIVE_ERROR_RETRY);
+                                
+                                if (exoPlayer != null) {
+                                    Log.i(TAG, "[ERROR] Stopping player for live stream reload");
+                                    exoPlayer.stop();
+                                }
+                                
+                                final int retryNum = liveErrorRetryCount;
+                                playerHandler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Log.i(TAG, "[ERROR] Executing delayed live stream reload for parser error, retry #" + retryNum);
+                                        if (exoPlayer != null && savedMediaSource != null) {
+                                            Log.i(TAG, "[ERROR] Reloading live stream after parser error");
+                                            exoPlayer.setMediaSource(savedMediaSource, true);
+                                            exoPlayer.prepare();
+                                            Log.i(TAG, "[ERROR] Live stream reload: prepare() called");
+                                        } else {
+                                            Log.e(TAG, "[ERROR] Cannot reload: exoPlayer or savedMediaSource is null");
+                                        }
+                                    }
+                                }, 500);
+                                Log.i(TAG, "[ERROR] Scheduled live stream reload in 500ms");
+                                return;
+                            } else {
+                                Log.e(TAG, "[ERROR] Max live parser error retries reached (" + liveErrorRetryCount + "/" + MAX_LIVE_ERROR_RETRY + ")");
+                                Log.e(TAG, "[ERROR] Parser error indicates stream format incompatible with ExoPlayer, need to switch player");
+                                if (errorListener != null) {
+                                    Log.i(TAG, "[ERROR] Notifying error listener: EXO_PLAYER_FORMAT_INCOMPATIBLE");
+                                    errorListener.onPlayerError(1005, "EXO_PLAYER_FORMAT_INCOMPATIBLE", null);
+                                }
+                                return;
+                            }
+                        } else if (duration > 0 && skipPosition < duration - 10000) {
+                            Log.w(TAG, "[ERROR] NAL/Parser error in VOD stream, trying to skip 10 seconds from " + errorPosition + "ms to " + skipPosition + "ms");
                             
                             if (nalErrorRetryCount < MAX_NAL_ERROR_RETRY) {
                                 nalErrorRetryCount++;

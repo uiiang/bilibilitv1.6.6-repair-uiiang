@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 1191
+    .line 1231
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$12;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     iput-boolean p2, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$12;->val$loop:Z
@@ -44,13 +44,13 @@
     .locals 2
 
     .prologue
-    .line 1194
+    .line 1234
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$12;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     iget-boolean v1, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$12;->val$loop:Z
 
     invoke-virtual {v0, v1}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->setLooping(Z)V
 
-    .line 1195
+    .line 1235
     return-void
 .end method

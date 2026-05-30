@@ -352,6 +352,13 @@ public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.
                                     if (LivePlayerActivity._this != null) {
                                         LivePlayerActivity._this.refresh();
                                     }
+                                } else if ("EXO_PLAYER_FORMAT_INCOMPATIBLE".equals(errorMessage)) {
+                                    android.util.Log.w("wm", "[LIVE_EXO_ERROR] ExoPlayer format incompatible, switching to IjkPlayer");
+                                    PlayerSelector.setForceUseIjkPlayer(true);
+                                    if (LivePlayerActivity._this != null) {
+                                        android.util.Log.i("wm", "[LIVE_EXO_ERROR] Calling LivePlayerActivity.refresh() to switch player");
+                                        LivePlayerActivity._this.refresh();
+                                    }
                                 }
                             }
                         });

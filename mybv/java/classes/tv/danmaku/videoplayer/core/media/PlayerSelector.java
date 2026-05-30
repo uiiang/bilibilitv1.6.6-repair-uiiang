@@ -12,6 +12,19 @@ public class PlayerSelector {
     public static final int PLAYER_EXO = 3;
 
     private static Boolean exoPlayerAvailable = null;
+    private static boolean forceUseIjkPlayer = false;
+
+    public static void setForceUseIjkPlayer(boolean force) {
+        forceUseIjkPlayer = force;
+    }
+
+    public static boolean isForceUseIjkPlayer() {
+        return forceUseIjkPlayer;
+    }
+
+    public static void clearForceUseIjkPlayer() {
+        forceUseIjkPlayer = false;
+    }
 
     public static boolean isExoPlayerSupported() {
         return Build.VERSION.SDK_INT >= API_USE_EXOPLAYER;
@@ -31,6 +44,9 @@ public class PlayerSelector {
     }
 
     public static boolean shouldUseExoPlayer(Context context) {
+        if (forceUseIjkPlayer) {
+            return false;
+        }
         if (!isExoPlayerSupported() || !isExoPlayerAvailable()) {
             return false;
         }
@@ -38,6 +54,9 @@ public class PlayerSelector {
     }
 
     public static boolean shouldUseExoPlayerForLive(Context context, String format) {
+        if (forceUseIjkPlayer) {
+            return false;
+        }
         if (!shouldUseExoPlayer(context)) {
             return false;
         }

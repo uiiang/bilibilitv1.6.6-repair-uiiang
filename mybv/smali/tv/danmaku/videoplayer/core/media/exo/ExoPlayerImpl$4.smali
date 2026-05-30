@@ -40,14 +40,14 @@
     .locals 2
 
     .prologue
-    .line 624
+    .line 664
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[AUDIO] attributes changed"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 625
+    .line 665
     return-void
 .end method
 
@@ -55,7 +55,7 @@
     .locals 3
 
     .prologue
-    .line 629
+    .line 669
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -78,7 +78,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 630
+    .line 670
     return-void
 .end method
 
@@ -86,14 +86,14 @@
     .locals 2
 
     .prologue
-    .line 634
+    .line 674
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[COMMANDS] available commands changed"
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 635
+    .line 675
     return-void
 .end method
 
@@ -101,7 +101,7 @@
     .locals 0
 
     .prologue
-    .line 639
+    .line 679
     return-void
 .end method
 
@@ -118,7 +118,7 @@
     .end annotation
 
     .prologue
-    .line 643
+    .line 683
     return-void
 .end method
 
@@ -126,14 +126,14 @@
     .locals 2
 
     .prologue
-    .line 647
+    .line 687
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[DEVICE] info changed"
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 648
+    .line 688
     return-void
 .end method
 
@@ -141,7 +141,7 @@
     .locals 3
 
     .prologue
-    .line 652
+    .line 692
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -174,7 +174,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 653
+    .line 693
     return-void
 .end method
 
@@ -182,7 +182,7 @@
     .locals 0
 
     .prologue
-    .line 657
+    .line 697
     return-void
 .end method
 
@@ -190,7 +190,7 @@
     .locals 4
 
     .prologue
-    .line 661
+    .line 701
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -240,7 +240,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 662
+    .line 702
     return-void
 .end method
 
@@ -252,7 +252,7 @@
 
     const/4 v3, 0x0
 
-    .line 588
+    .line 628
     if-eqz p1, :cond_24
 
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
@@ -264,7 +264,7 @@
 
     if-eqz v0, :cond_24
 
-    .line 589
+    .line 629
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onInfoListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;
@@ -276,7 +276,7 @@
 
     invoke-interface {v0, v1, v2, v3}, Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;->onInfo(Ltv/danmaku/ijk/media/player/IMediaPlayer;II)Z
 
-    .line 591
+    .line 631
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onInfoListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;
@@ -290,7 +290,7 @@
 
     invoke-interface/range {v0 .. v5}, Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;->onInfo2(Ltv/danmaku/ijk/media/player/IMediaPlayer;IIJ)Z
 
-    .line 594
+    .line 634
     :cond_24
     return-void
 .end method
@@ -299,7 +299,7 @@
     .locals 3
 
     .prologue
-    .line 666
+    .line 706
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -322,7 +322,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 667
+    .line 707
     return-void
 .end method
 
@@ -330,7 +330,7 @@
     .locals 0
 
     .prologue
-    .line 671
+    .line 711
     return-void
 .end method
 
@@ -338,7 +338,7 @@
     .locals 3
 
     .prologue
-    .line 675
+    .line 715
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -361,14 +361,14 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 676
+    .line 716
     if-eqz p1, :cond_3a
 
     iget-object v0, p1, Lcom/google/android/exoplayer2/MediaItem;->localConfiguration:Lcom/google/android/exoplayer2/MediaItem$LocalConfiguration;
 
     if-eqz v0, :cond_3a
 
-    .line 677
+    .line 717
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -395,7 +395,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 679
+    .line 719
     :cond_3a
     return-void
 .end method
@@ -404,14 +404,14 @@
     .locals 2
 
     .prologue
-    .line 683
+    .line 723
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[METADATA] changed"
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 684
+    .line 724
     return-void
 .end method
 
@@ -419,14 +419,14 @@
     .locals 2
 
     .prologue
-    .line 688
+    .line 728
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[METADATA] received"
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 689
+    .line 729
     return-void
 .end method
 
@@ -434,13 +434,13 @@
     .locals 4
 
     .prologue
-    .line 693
+    .line 733
     const-string v0, ""
 
-    .line 694
+    .line 734
     packed-switch p2, :pswitch_data_50
 
-    .line 700
+    .line 740
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -465,7 +465,7 @@
 
     move-result-object v0
 
-    .line 702
+    .line 742
     :goto_1e
     const-string v1, "ExoPlayerImpl"
 
@@ -499,40 +499,40 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 703
+    .line 743
     return-void
 
-    .line 695
+    .line 735
     :pswitch_41
     const-string v0, "USER_REQUEST"
 
     goto :goto_1e
 
-    .line 696
+    .line 736
     :pswitch_44
     const-string v0, "AUDIO_NOISY"
 
     goto :goto_1e
 
-    .line 697
+    .line 737
     :pswitch_47
     const-string v0, "AUDIO_FOCUS_LOSS"
 
     goto :goto_1e
 
-    .line 698
+    .line 738
     :pswitch_4a
     const-string v0, "REMOTE"
 
     goto :goto_1e
 
-    .line 699
+    .line 739
     :pswitch_4d
     const-string v0, "END_OF_MEDIA"
 
     goto :goto_1e
 
-    .line 694
+    .line 734
     :pswitch_data_50
     .packed-switch 0x1
         :pswitch_41
@@ -547,7 +547,7 @@
     .locals 3
 
     .prologue
-    .line 707
+    .line 747
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -584,7 +584,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 708
+    .line 748
     return-void
 .end method
 
@@ -1106,7 +1106,7 @@
     .locals 3
 
     .prologue
-    .line 712
+    .line 752
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1129,7 +1129,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 713
+    .line 753
     return-void
 .end method
 
@@ -1752,7 +1752,7 @@
 
     move-result-object v0
 
-    if-eqz v0, :cond_400
+    if-eqz v0, :cond_3d4
 
     const-string v0, "exists"
 
@@ -1776,7 +1776,7 @@
     move-result-object v4
 
     .line 414
-    if-eqz v4, :cond_404
+    if-eqz v4, :cond_3d8
 
     .line 415
     const-string v0, "ExoPlayerImpl"
@@ -1807,65 +1807,108 @@
 
     move-result-object v0
 
-    if-eqz v0, :cond_40d
+    if-eqz v0, :cond_3e1
+
+    invoke-virtual {p1}, Lcom/google/android/exoplayer2/PlaybackException;->getCause()Ljava/lang/Throwable;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/Throwable;->getMessage()Ljava/lang/String;
+
+    move-result-object v0
+
+    move-object v2, v0
 
     .line 421
-    invoke-virtual {p1}, Lcom/google/android/exoplayer2/PlaybackException;->getCause()Ljava/lang/Throwable;
+    :goto_299
+    if-eqz v2, :cond_3e5
 
-    move-result-object v0
+    const-string v0, "Invalid NAL length"
 
-    invoke-virtual {v0}, Ljava/lang/Throwable;->getMessage()Ljava/lang/String;
-
-    move-result-object v0
-
-    if-eqz v0, :cond_40d
-
-    .line 422
-    invoke-virtual {p1}, Lcom/google/android/exoplayer2/PlaybackException;->getCause()Ljava/lang/Throwable;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/Throwable;->getMessage()Ljava/lang/String;
-
-    move-result-object v0
-
-    const-string v1, "Invalid NAL length"
-
-    invoke-virtual {v0, v1}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+    invoke-virtual {v2, v0}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
 
     move-result v0
 
-    if-eqz v0, :cond_40d
+    if-eqz v0, :cond_3e5
 
     const/4 v0, 0x1
 
+    move v1, v0
+
+    .line 422
+    :goto_2a5
+    if-eqz v2, :cond_3e9
+
+    const-string v0, "Error parsing AVC config"
+
+    .line 423
+    invoke-virtual {v2, v0}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_2bf
+
+    const-string v0, "Error parsing HEVC config"
+
     .line 424
-    :goto_2ab
-    const-string v1, "ExoPlayerImpl"
+    invoke-virtual {v2, v0}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
 
-    new-instance v2, Ljava/lang/StringBuilder;
+    move-result v0
 
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+    if-nez v0, :cond_2bf
 
-    const-string v3, "[ERROR] Checking error type: isNalError="
+    const-string v0, "ArrayIndexOutOfBoundsException"
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    .line 425
+    invoke-virtual {v2, v0}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
 
-    move-result-object v2
+    move-result v0
 
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+    if-eqz v0, :cond_3e9
 
-    move-result-object v2
+    :cond_2bf
+    const/4 v0, 0x1
 
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    .line 427
+    :goto_2c0
+    const-string v2, "ExoPlayerImpl"
 
-    move-result-object v2
+    new-instance v3, Ljava/lang/StringBuilder;
 
-    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 426
-    if-eqz v0, :cond_44b
+    const-string v5, "[ERROR] Checking error type: isNalError="
 
+    invoke-virtual {v3, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    const-string v5, ", isParserError="
+
+    invoke-virtual {v3, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 429
+    if-nez v1, :cond_2e6
+
+    if-eqz v0, :cond_54f
+
+    :cond_2e6
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->savedMediaSource:Lcom/google/android/exoplayer2/source/MediaSource;
@@ -1873,16 +1916,16 @@
 
     move-result-object v0
 
-    if-eqz v0, :cond_44b
+    if-eqz v0, :cond_54f
 
-    .line 427
+    .line 430
     const-string v0, "ExoPlayerImpl"
 
-    const-string v1, "[ERROR] NAL error branch entered"
+    const-string v1, "[ERROR] NAL/Parser error branch entered"
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 428
+    .line 431
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->exoPlayer:Lcom/google/android/exoplayer2/ExoPlayer;
@@ -1890,7 +1933,7 @@
 
     move-result-object v0
 
-    if-eqz v0, :cond_410
+    if-eqz v0, :cond_3ec
 
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
@@ -1903,8 +1946,8 @@
 
     move-result-wide v0
 
-    .line 429
-    :goto_2e6
+    .line 432
+    :goto_307
     iget-object v2, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->exoPlayer:Lcom/google/android/exoplayer2/ExoPlayer;
@@ -1912,7 +1955,7 @@
 
     move-result-object v2
 
-    if-eqz v2, :cond_418
+    if-eqz v2, :cond_3f4
 
     iget-object v2, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
@@ -1925,20 +1968,20 @@
 
     move-result-wide v2
 
-    .line 430
-    :goto_2f8
+    .line 433
+    :goto_319
     const-wide/16 v6, 0x2710
 
     add-long/2addr v6, v0
 
-    .line 432
+    .line 435
     const-string v5, "ExoPlayerImpl"
 
     new-instance v8, Ljava/lang/StringBuilder;
 
     invoke-direct {v8}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v9, "[ERROR] NAL error details: errorPosition="
+    const-string v9, "[ERROR] NAL/Parser error details: errorPosition="
 
     invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -1968,9 +2011,20 @@
 
     move-result-object v8
 
-    const-string v9, "ms"
+    const-string v9, "ms, isLiveStream="
 
     invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v8
+
+    iget-object v9, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+
+    # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->isLiveStream:Z
+    invoke-static {v9}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$800(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;)Z
+
+    move-result v9
+
+    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
 
     move-result-object v8
 
@@ -1980,12 +2034,300 @@
 
     invoke-static {v5, v8}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 434
+    .line 437
+    iget-object v5, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+
+    # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->isLiveStream:Z
+    invoke-static {v5}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$800(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;)Z
+
+    move-result v5
+
+    if-eqz v5, :cond_44c
+
+    .line 438
+    const-string v0, "ExoPlayerImpl"
+
+    const-string v1, "[ERROR] Parser error in live stream, reloading instead of skipping"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 439
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+
+    # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->liveErrorRetryCount:I
+    invoke-static {v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$2100(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;)I
+
+    move-result v0
+
+    const/4 v1, 0x5
+
+    if-ge v0, v1, :cond_3f8
+
+    .line 440
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+
+    # operator++ for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->liveErrorRetryCount:I
+    invoke-static {v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$2108(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;)I
+
+    .line 441
+    const-string v0, "ExoPlayerImpl"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "[ERROR] Live stream parser error reload attempt "
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    iget-object v2, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+
+    # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->liveErrorRetryCount:I
+    invoke-static {v2}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$2100(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;)I
+
+    move-result v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, "/"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const/4 v2, 0x5
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 443
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+
+    # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->exoPlayer:Lcom/google/android/exoplayer2/ExoPlayer;
+    invoke-static {v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$000(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;)Lcom/google/android/exoplayer2/ExoPlayer;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_3b6
+
+    .line 444
+    const-string v0, "ExoPlayerImpl"
+
+    const-string v1, "[ERROR] Stopping player for live stream reload"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 445
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+
+    # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->exoPlayer:Lcom/google/android/exoplayer2/ExoPlayer;
+    invoke-static {v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$000(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;)Lcom/google/android/exoplayer2/ExoPlayer;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Lcom/google/android/exoplayer2/ExoPlayer;->stop()V
+
+    .line 448
+    :cond_3b6
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+
+    # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->liveErrorRetryCount:I
+    invoke-static {v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$2100(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;)I
+
+    move-result v0
+
+    .line 449
+    iget-object v1, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+
+    # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->playerHandler:Landroid/os/Handler;
+    invoke-static {v1}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$400(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;)Landroid/os/Handler;
+
+    move-result-object v1
+
+    new-instance v2, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4$1;
+
+    invoke-direct {v2, p0, v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4$1;-><init>(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;I)V
+
+    const-wide/16 v4, 0x1f4
+
+    invoke-virtual {v1, v2, v4, v5}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
+
+    .line 463
+    const-string v0, "ExoPlayerImpl"
+
+    const-string v1, "[ERROR] Scheduled live stream reload in 500ms"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 609
+    :cond_3d3
+    :goto_3d3
+    return-void
+
+    .line 411
+    :cond_3d4
+    const-string v0, "null"
+
+    goto/16 :goto_25f
+
+    .line 417
+    :cond_3d8
+    const-string v0, "ExoPlayerImpl"
+
+    const-string v1, "[ERROR] No HTTP status code found in error"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto/16 :goto_28a
+
+    .line 420
+    :cond_3e1
+    const/4 v0, 0x0
+
+    move-object v2, v0
+
+    goto/16 :goto_299
+
+    .line 421
+    :cond_3e5
+    const/4 v0, 0x0
+
+    move v1, v0
+
+    goto/16 :goto_2a5
+
+    .line 425
+    :cond_3e9
+    const/4 v0, 0x0
+
+    goto/16 :goto_2c0
+
+    .line 431
+    :cond_3ec
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+
+    # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->savedSeekPosition:J
+    invoke-static {v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$2400(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;)J
+
+    move-result-wide v0
+
+    goto/16 :goto_307
+
+    .line 432
+    :cond_3f4
+    const-wide/16 v2, 0x0
+
+    goto/16 :goto_319
+
+    .line 466
+    :cond_3f8
+    const-string v0, "ExoPlayerImpl"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "[ERROR] Max live parser error retries reached ("
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    iget-object v2, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+
+    # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->liveErrorRetryCount:I
+    invoke-static {v2}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$2100(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;)I
+
+    move-result v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, "/"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const/4 v2, 0x5
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, ")"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 467
+    const-string v0, "ExoPlayerImpl"
+
+    const-string v1, "[ERROR] Parser error indicates stream format incompatible with ExoPlayer, need to switch player"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 468
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+
+    # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->errorListener:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$PlayerErrorListener;
+    invoke-static {v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$1000(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;)Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$PlayerErrorListener;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_3d3
+
+    .line 469
+    const-string v0, "ExoPlayerImpl"
+
+    const-string v1, "[ERROR] Notifying error listener: EXO_PLAYER_FORMAT_INCOMPATIBLE"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 470
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+
+    # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->errorListener:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$PlayerErrorListener;
+    invoke-static {v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$1000(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;)Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$PlayerErrorListener;
+
+    move-result-object v0
+
+    const/16 v1, 0x3ed
+
+    const-string v2, "EXO_PLAYER_FORMAT_INCOMPATIBLE"
+
+    const/4 v3, 0x0
+
+    invoke-interface {v0, v1, v2, v3}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$PlayerErrorListener;->onPlayerError(ILjava/lang/String;Ljava/lang/Integer;)V
+
+    goto :goto_3d3
+
+    .line 474
+    :cond_44c
     const-wide/16 v8, 0x0
 
     cmp-long v5, v2, v8
 
-    if-lez v5, :cond_558
+    if-lez v5, :cond_65c
 
     const-wide/16 v8, 0x2710
 
@@ -1993,16 +2335,16 @@
 
     cmp-long v5, v6, v8
 
-    if-gez v5, :cond_558
+    if-gez v5, :cond_65c
 
-    .line 435
+    .line 475
     const-string v2, "ExoPlayerImpl"
 
     new-instance v3, Ljava/lang/StringBuilder;
 
     invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v5, "[ERROR] NAL unit error detected, trying to skip 10 seconds from "
+    const-string v5, "[ERROR] NAL/Parser error in VOD stream, trying to skip 10 seconds from "
 
     invoke-virtual {v3, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -2034,7 +2376,7 @@
 
     invoke-static {v2, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 437
+    .line 477
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->nalErrorRetryCount:I
@@ -2044,15 +2386,15 @@
 
     const/4 v1, 0x3
 
-    if-ge v0, v1, :cond_41c
+    if-ge v0, v1, :cond_520
 
-    .line 438
+    .line 478
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # operator++ for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->nalErrorRetryCount:I
     invoke-static {v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$2008(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;)I
 
-    .line 439
+    .line 479
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -2094,14 +2436,14 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 441
+    .line 481
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[ERROR] Releasing old player and creating new one"
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 442
+    .line 482
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->exoPlayer:Lcom/google/android/exoplayer2/ExoPlayer;
@@ -2109,9 +2451,9 @@
 
     move-result-object v0
 
-    if-eqz v0, :cond_3b8
+    if-eqz v0, :cond_4d7
 
-    .line 443
+    .line 483
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->exoPlayer:Lcom/google/android/exoplayer2/ExoPlayer;
@@ -2121,7 +2463,7 @@
 
     invoke-interface {v0}, Lcom/google/android/exoplayer2/ExoPlayer;->release()V
 
-    .line 444
+    .line 484
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     const/4 v1, 0x0
@@ -2129,14 +2471,14 @@
     # setter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->exoPlayer:Lcom/google/android/exoplayer2/ExoPlayer;
     invoke-static {v0, v1}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$002(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;Lcom/google/android/exoplayer2/ExoPlayer;)Lcom/google/android/exoplayer2/ExoPlayer;
 
-    .line 447
-    :cond_3b8
+    .line 487
+    :cond_4d7
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # setter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->savedSeekPosition:J
     invoke-static {v0, v6, v7}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$2402(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;J)J
 
-    .line 448
+    .line 488
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -2165,13 +2507,13 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 449
+    .line 489
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # invokes: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->ensurePlayer()V
     invoke-static {v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$2500(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;)V
 
-    .line 450
+    .line 490
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->exoPlayer:Lcom/google/android/exoplayer2/ExoPlayer;
@@ -2188,7 +2530,7 @@
 
     invoke-interface {v0, v1, v6, v7}, Lcom/google/android/exoplayer2/ExoPlayer;->setMediaSource(Lcom/google/android/exoplayer2/source/MediaSource;J)V
 
-    .line 451
+    .line 491
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->exoPlayer:Lcom/google/android/exoplayer2/ExoPlayer;
@@ -2198,58 +2540,17 @@
 
     invoke-interface {v0}, Lcom/google/android/exoplayer2/ExoPlayer;->prepare()V
 
-    .line 452
+    .line 492
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[ERROR] NAL error recovery: prepare() called"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 569
-    :goto_3ff
-    return-void
+    goto/16 :goto_3d3
 
-    .line 411
-    :cond_400
-    const-string v0, "null"
-
-    goto/16 :goto_25f
-
-    .line 417
-    :cond_404
-    const-string v0, "ExoPlayerImpl"
-
-    const-string v1, "[ERROR] No HTTP status code found in error"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
-
-    goto/16 :goto_28a
-
-    .line 422
-    :cond_40d
-    const/4 v0, 0x0
-
-    goto/16 :goto_2ab
-
-    .line 428
-    :cond_410
-    iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
-
-    # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->savedSeekPosition:J
-    invoke-static {v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$2400(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;)J
-
-    move-result-wide v0
-
-    goto/16 :goto_2e6
-
-    .line 429
-    :cond_418
-    const-wide/16 v2, 0x0
-
-    goto/16 :goto_2f8
-
-    .line 455
-    :cond_41c
+    .line 495
+    :cond_520
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -2297,34 +2598,34 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 462
-    :cond_44b
-    :goto_44b
+    .line 502
+    :cond_54f
+    :goto_54f
     const/4 v0, 0x0
 
-    .line 463
+    .line 503
     invoke-virtual {p1}, Lcom/google/android/exoplayer2/PlaybackException;->getCause()Ljava/lang/Throwable;
 
     move-result-object v2
 
-    .line 464
+    .line 504
     const/4 v1, 0x0
 
-    .line 465
+    .line 505
     const-string v3, "ExoPlayerImpl"
 
     const-string v5, "[ERROR] Checking for BehindLiveWindowException in cause chain..."
 
     invoke-static {v3, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 466
-    :goto_458
-    if-eqz v2, :cond_4a3
+    .line 506
+    :goto_55c
+    if-eqz v2, :cond_5a7
 
-    .line 467
+    .line 507
     add-int/lit8 v1, v1, 0x1
 
-    .line 468
+    .line 508
     const-string v3, "ExoPlayerImpl"
 
     new-instance v5, Ljava/lang/StringBuilder;
@@ -2365,15 +2666,15 @@
 
     invoke-static {v3, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 469
+    .line 509
     instance-of v3, v2, Lcom/google/android/exoplayer2/source/BehindLiveWindowException;
 
-    if-eqz v3, :cond_585
+    if-eqz v3, :cond_689
 
-    .line 470
+    .line 510
     const/4 v0, 0x1
 
-    .line 471
+    .line 511
     const-string v2, "ExoPlayerImpl"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -2396,8 +2697,8 @@
 
     invoke-static {v2, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 476
-    :cond_4a3
+    .line 516
+    :cond_5a7
     const-string v1, "ExoPlayerImpl"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -2420,8 +2721,8 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 478
-    if-eqz v0, :cond_5d7
+    .line 518
+    if-eqz v0, :cond_6db
 
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
@@ -2430,7 +2731,7 @@
 
     move-result v0
 
-    if-eqz v0, :cond_5d7
+    if-eqz v0, :cond_6db
 
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
@@ -2439,9 +2740,9 @@
 
     move-result-object v0
 
-    if-eqz v0, :cond_5d7
+    if-eqz v0, :cond_6db
 
-    .line 479
+    .line 519
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -2471,7 +2772,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 480
+    .line 520
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->liveErrorRetryCount:I
@@ -2481,15 +2782,15 @@
 
     const/4 v1, 0x5
 
-    if-ge v0, v1, :cond_58b
+    if-ge v0, v1, :cond_68f
 
-    .line 481
+    .line 521
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # operator++ for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->liveErrorRetryCount:I
     invoke-static {v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$2108(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;)I
 
-    .line 482
+    .line 522
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -2537,7 +2838,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 484
+    .line 524
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->exoPlayer:Lcom/google/android/exoplayer2/ExoPlayer;
@@ -2545,16 +2846,16 @@
 
     move-result-object v0
 
-    if-eqz v0, :cond_540
+    if-eqz v0, :cond_644
 
-    .line 485
+    .line 525
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[ERROR] Stopping player for live stream reload"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 486
+    .line 526
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->exoPlayer:Lcom/google/android/exoplayer2/ExoPlayer;
@@ -2564,8 +2865,8 @@
 
     invoke-interface {v0}, Lcom/google/android/exoplayer2/ExoPlayer;->stop()V
 
-    .line 489
-    :cond_540
+    .line 529
+    :cond_644
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->liveErrorRetryCount:I
@@ -2573,7 +2874,7 @@
 
     move-result v0
 
-    .line 490
+    .line 530
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->playerHandler:Landroid/os/Handler;
@@ -2581,18 +2882,18 @@
 
     move-result-object v1
 
-    new-instance v2, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4$1;
+    new-instance v2, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4$2;
 
-    invoke-direct {v2, p0, v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4$1;-><init>(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;I)V
+    invoke-direct {v2, p0, v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4$2;-><init>(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;I)V
 
     const-wide/16 v4, 0x7d0
 
     invoke-virtual {v1, v2, v4, v5}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    goto/16 :goto_3ff
+    goto/16 :goto_3d3
 
-    .line 458
-    :cond_558
+    .line 498
+    :cond_65c
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -2635,18 +2936,18 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto/16 :goto_44b
+    goto/16 :goto_54f
 
-    .line 474
-    :cond_585
+    .line 514
+    :cond_689
     invoke-virtual {v2}, Ljava/lang/Throwable;->getCause()Ljava/lang/Throwable;
 
     move-result-object v2
 
-    goto/16 :goto_458
+    goto/16 :goto_55c
 
-    .line 507
-    :cond_58b
+    .line 547
+    :cond_68f
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -2694,7 +2995,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 508
+    .line 548
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->errorListener:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$PlayerErrorListener;
@@ -2702,16 +3003,16 @@
 
     move-result-object v0
 
-    if-eqz v0, :cond_5d7
+    if-eqz v0, :cond_6db
 
-    .line 509
+    .line 549
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[ERROR] Notifying error listener: LIVE_STREAM_NEED_REFRESH"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 510
+    .line 550
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->errorListener:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$PlayerErrorListener;
@@ -2727,9 +3028,9 @@
 
     invoke-interface {v0, v1, v2, v3}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$PlayerErrorListener;->onPlayerError(ILjava/lang/String;Ljava/lang/Integer;)V
 
-    .line 515
-    :cond_5d7
-    if-eqz v4, :cond_616
+    .line 555
+    :cond_6db
+    if-eqz v4, :cond_71a
 
     invoke-virtual {v4}, Ljava/lang/Integer;->intValue()I
 
@@ -2737,7 +3038,7 @@
 
     const/16 v1, 0x194
 
-    if-eq v0, v1, :cond_5e9
+    if-eq v0, v1, :cond_6ed
 
     invoke-virtual {v4}, Ljava/lang/Integer;->intValue()I
 
@@ -2745,9 +3046,9 @@
 
     const/16 v1, 0x193
 
-    if-ne v0, v1, :cond_616
+    if-ne v0, v1, :cond_71a
 
-    :cond_5e9
+    :cond_6ed
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->isLiveStream:Z
@@ -2755,9 +3056,9 @@
 
     move-result v0
 
-    if-eqz v0, :cond_616
+    if-eqz v0, :cond_71a
 
-    .line 516
+    .line 556
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -2786,22 +3087,22 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 517
+    .line 557
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[ERROR] Notifying error listener for CDN switch"
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 520
-    :cond_616
+    .line 560
+    :cond_71a
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[ERROR] Calling isNetworkError() to check error type..."
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 521
+    .line 561
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # invokes: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->isNetworkError(Ljava/lang/Throwable;)Z
@@ -2809,7 +3110,7 @@
 
     move-result v0
 
-    .line 522
+    .line 562
     const-string v1, "ExoPlayerImpl"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -2832,8 +3133,8 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 524
-    if-eqz v0, :cond_6d5
+    .line 564
+    if-eqz v0, :cond_7d9
 
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
@@ -2844,15 +3145,15 @@
 
     const/4 v2, 0x3
 
-    if-ge v1, v2, :cond_6d5
+    if-ge v1, v2, :cond_7d9
 
-    .line 525
+    .line 565
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # operator++ for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->networkErrorRetryCount:I
     invoke-static {v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$1508(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;)I
 
-    .line 526
+    .line 566
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -2912,14 +3213,14 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 527
+    .line 567
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[ERROR] Network error retry scheduled on mainHandler"
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 529
+    .line 569
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->networkErrorRetryRunnable:Ljava/lang/Runnable;
@@ -2927,16 +3228,16 @@
 
     move-result-object v0
 
-    if-eqz v0, :cond_6ab
+    if-eqz v0, :cond_7af
 
-    .line 530
+    .line 570
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[ERROR] Removing previous retry runnable"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 531
+    .line 571
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->mainHandler:Landroid/os/Handler;
@@ -2953,8 +3254,8 @@
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->removeCallbacks(Ljava/lang/Runnable;)V
 
-    .line 534
-    :cond_6ab
+    .line 574
+    :cond_7af
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->networkErrorRetryCount:I
@@ -2962,17 +3263,17 @@
 
     move-result v0
 
-    .line 535
+    .line 575
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
-    new-instance v2, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4$2;
+    new-instance v2, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4$3;
 
-    invoke-direct {v2, p0, v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4$2;-><init>(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;I)V
+    invoke-direct {v2, p0, v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4$3;-><init>(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;I)V
 
     # setter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->networkErrorRetryRunnable:Ljava/lang/Runnable;
     invoke-static {v1, v2}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$2702(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;Ljava/lang/Runnable;)Ljava/lang/Runnable;
 
-    .line 549
+    .line 589
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->mainHandler:Landroid/os/Handler;
@@ -2991,24 +3292,24 @@
 
     invoke-virtual {v0, v1, v2, v3}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 550
+    .line 590
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[ERROR] Network error retry runnable posted, returning from error handler"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto/16 :goto_3ff
+    goto/16 :goto_3d3
 
-    .line 554
-    :cond_6d5
+    .line 594
+    :cond_7d9
     const-string v1, "ExoPlayerImpl"
 
     const-string v2, "[ERROR] No recovery branch matched, forwarding to error listeners"
 
     invoke-static {v1, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 555
+    .line 595
     const-string v1, "ExoPlayerImpl"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -3048,7 +3349,7 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 557
+    .line 597
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onErrorListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnErrorListener;
@@ -3056,16 +3357,16 @@
 
     move-result-object v0
 
-    if-eqz v0, :cond_721
+    if-eqz v0, :cond_825
 
-    .line 558
+    .line 598
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[ERROR] Calling onErrorListener.onError()"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 559
+    .line 599
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onErrorListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnErrorListener;
@@ -3081,8 +3382,8 @@
 
     invoke-interface {v0, v1, v2, v3}, Ltv/danmaku/ijk/media/player/IMediaPlayer$OnErrorListener;->onError(Ltv/danmaku/ijk/media/player/IMediaPlayer;II)Z
 
-    .line 563
-    :cond_721
+    .line 603
+    :cond_825
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->errorListener:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$PlayerErrorListener;
@@ -3090,16 +3391,16 @@
 
     move-result-object v0
 
-    if-eqz v0, :cond_73f
+    if-eqz v0, :cond_843
 
-    .line 564
+    .line 604
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[ERROR] Calling errorListener.onPlayerError()"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 565
+    .line 605
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->errorListener:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$PlayerErrorListener;
@@ -3115,25 +3416,25 @@
 
     invoke-interface {v0, v1, v2, v4}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$PlayerErrorListener;->onPlayerError(ILjava/lang/String;Ljava/lang/Integer;)V
 
-    .line 568
-    :cond_73f
+    .line 608
+    :cond_843
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[ERROR] ========== ERROR HANDLING COMPLETED =========="
 
     invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto/16 :goto_3ff
+    goto/16 :goto_3d3
 .end method
 
 .method public onPlayerErrorChanged(Lcom/google/android/exoplayer2/PlaybackException;)V
     .locals 0
 
     .prologue
-    .line 717
+    .line 757
     if-eqz p1, :cond_2
 
-    .line 720
+    .line 760
     :cond_2
     return-void
 .end method
@@ -3142,13 +3443,13 @@
     .locals 4
 
     .prologue
-    .line 724
+    .line 764
     const-string v0, ""
 
-    .line 725
+    .line 765
     packed-switch p2, :pswitch_data_34
 
-    .line 731
+    .line 771
     :goto_5
     const-string v1, "ExoPlayerImpl"
 
@@ -3182,34 +3483,34 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 732
+    .line 772
     return-void
 
-    .line 726
+    .line 766
     :pswitch_28
     const-string v0, "IDLE"
 
     goto :goto_5
 
-    .line 727
+    .line 767
     :pswitch_2b
     const-string v0, "BUFFERING"
 
     goto :goto_5
 
-    .line 728
+    .line 768
     :pswitch_2e
     const-string v0, "READY"
 
     goto :goto_5
 
-    .line 729
+    .line 769
     :pswitch_31
     const-string v0, "ENDED"
 
     goto :goto_5
 
-    .line 725
+    .line 765
     :pswitch_data_34
     .packed-switch 0x1
         :pswitch_28
@@ -3223,14 +3524,14 @@
     .locals 2
 
     .prologue
-    .line 736
+    .line 776
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[PLAYLIST] metadata changed"
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 737
+    .line 777
     return-void
 .end method
 
@@ -3238,7 +3539,7 @@
     .locals 0
 
     .prologue
-    .line 742
+    .line 782
     return-void
 .end method
 
@@ -3246,13 +3547,13 @@
     .locals 2
 
     .prologue
-    .line 598
+    .line 638
     const-string v0, ""
 
-    .line 599
+    .line 639
     packed-switch p3, :pswitch_data_46
 
-    .line 606
+    .line 646
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -3275,13 +3576,13 @@
 
     invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    .line 610
+    .line 650
     :goto_1d
     const/4 v0, 0x1
 
     if-ne p3, v0, :cond_33
 
-    .line 611
+    .line 651
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onSeekCompleteListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnSeekCompleteListener;
@@ -3291,7 +3592,7 @@
 
     if-eqz v0, :cond_33
 
-    .line 612
+    .line 652
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onSeekCompleteListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnSeekCompleteListener;
@@ -3303,47 +3604,47 @@
 
     invoke-interface {v0, v1}, Ltv/danmaku/ijk/media/player/IMediaPlayer$OnSeekCompleteListener;->onSeekComplete(Ltv/danmaku/ijk/media/player/IMediaPlayer;)V
 
-    .line 615
+    .line 655
     :cond_33
     return-void
 
-    .line 600
+    .line 640
     :pswitch_34
     const-string v0, "SEEK"
 
     goto :goto_1d
 
-    .line 601
+    .line 641
     :pswitch_37
     const-string v0, "SEEK_ADJUSTMENT"
 
     goto :goto_1d
 
-    .line 602
+    .line 642
     :pswitch_3a
     const-string v0, "AUTO_TRANSITION"
 
     goto :goto_1d
 
-    .line 603
+    .line 643
     :pswitch_3d
     const-string v0, "REMOVE"
 
     goto :goto_1d
 
-    .line 604
+    .line 644
     :pswitch_40
     const-string v0, "SKIP"
 
     goto :goto_1d
 
-    .line 605
+    .line 645
     :pswitch_43
     const-string v0, "INTERNAL"
 
     goto :goto_1d
 
-    .line 599
+    .line 639
     :pswitch_data_46
     .packed-switch 0x0
         :pswitch_3a
@@ -3359,7 +3660,7 @@
     .locals 0
 
     .prologue
-    .line 747
+    .line 787
     return-void
 .end method
 
@@ -3367,7 +3668,7 @@
     .locals 3
 
     .prologue
-    .line 751
+    .line 791
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -3390,7 +3691,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 752
+    .line 792
     return-void
 .end method
 
@@ -3398,7 +3699,7 @@
     .locals 0
 
     .prologue
-    .line 756
+    .line 796
     return-void
 .end method
 
@@ -3406,7 +3707,7 @@
     .locals 0
 
     .prologue
-    .line 760
+    .line 800
     return-void
 .end method
 
@@ -3414,7 +3715,7 @@
     .locals 3
 
     .prologue
-    .line 764
+    .line 804
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -3437,7 +3738,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 765
+    .line 805
     return-void
 .end method
 
@@ -3445,7 +3746,7 @@
     .locals 3
 
     .prologue
-    .line 769
+    .line 809
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -3468,7 +3769,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 770
+    .line 810
     return-void
 .end method
 
@@ -3476,7 +3777,7 @@
     .locals 3
 
     .prologue
-    .line 774
+    .line 814
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -3509,7 +3810,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 775
+    .line 815
     return-void
 .end method
 
@@ -3517,7 +3818,7 @@
     .locals 3
 
     .prologue
-    .line 619
+    .line 659
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -3554,7 +3855,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 620
+    .line 660
     return-void
 .end method
 
@@ -3562,14 +3863,14 @@
     .locals 2
 
     .prologue
-    .line 779
+    .line 819
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[TRACK_SELECTION] parameters changed"
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 780
+    .line 820
     return-void
 .end method
 
@@ -3577,14 +3878,14 @@
     .locals 2
 
     .prologue
-    .line 784
+    .line 824
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[TRACKS] changed"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 785
+    .line 825
     return-void
 .end method
 
@@ -3592,7 +3893,7 @@
     .locals 6
 
     .prologue
-    .line 573
+    .line 613
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onVideoSizeChangedListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnVideoSizeChangedListener;
@@ -3602,7 +3903,7 @@
 
     if-eqz v0, :cond_26
 
-    .line 574
+    .line 614
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onVideoSizeChangedListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnVideoSizeChangedListener;
@@ -3637,11 +3938,11 @@
 
     invoke-interface/range {v0 .. v5}, Ltv/danmaku/ijk/media/player/IMediaPlayer$OnVideoSizeChangedListener;->onVideoSizeChanged(Ltv/danmaku/ijk/media/player/IMediaPlayer;IIII)V
 
-    .line 583
+    .line 623
     :cond_26
     return-void
 
-    .line 574
+    .line 614
     :cond_27
     const/4 v4, 0x1
 
@@ -3652,7 +3953,7 @@
     .locals 3
 
     .prologue
-    .line 789
+    .line 829
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -3675,6 +3976,6 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 790
+    .line 830
     return-void
 .end method
