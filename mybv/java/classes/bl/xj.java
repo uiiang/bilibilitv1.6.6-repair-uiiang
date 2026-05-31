@@ -123,6 +123,8 @@ public class xj extends xh {
         super.b(eventType, objArr);
     }
 
+    private static final int MSG_RESET_SKIP_FLAGS = 20203;
+
     @Override // bl.xh, android.os.Handler.Callback
     public boolean handleMessage(Message message) {
         if (message.what == 20202) {
@@ -132,6 +134,11 @@ public class xj extends xh {
                 return true;
             }
             a(IjkMediaPlayer.FFP_PROP_INT64_ASYNC_STATISTIC_BUF_FORWARDS, (Object) null, 31000L);
+            return true;
+        }
+        if (message.what == MSG_RESET_SKIP_FLAGS) {
+            Log.i("SkipInfo", "[RESET_FLAGS] Received MSG_RESET_SKIP_FLAGS, resetting skip flags");
+            resetSkipFlags();
             return true;
         }
         return super.handleMessage(message);
