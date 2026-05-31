@@ -38,6 +38,8 @@ public final class afn extends adw implements View.OnFocusChangeListener, View.O
     public DrawFrameLayout e;
     private DrawFrameLayout ijkPlayerBtn;
     private DrawFrameLayout exoPlayerBtn;
+    private DrawFrameLayout liveIjkPlayerBtn;
+    private DrawFrameLayout liveExoPlayerBtn;
 
     private DrawFrameLayout decodeSystemBtn;
     private DrawFrameLayout decodeIjkHardBtn;
@@ -172,6 +174,26 @@ public final class afn extends adw implements View.OnFocusChangeListener, View.O
 
         updatePlayerSelection();
 
+        this.liveIjkPlayerBtn = (DrawFrameLayout) a(inflate, R.id.live_ijk_player);
+        this.liveExoPlayerBtn = (DrawFrameLayout) a(inflate, R.id.live_exo_player);
+
+        if (this.liveIjkPlayerBtn != null) {
+            this.liveIjkPlayerBtn.setUpDrawable(R.drawable.shadow_white_rect);
+            this.liveIjkPlayerBtn.setOnFocusChangeListener(this);
+            this.liveIjkPlayerBtn.setOnClickListener(this);
+        }
+        if (this.liveExoPlayerBtn != null) {
+            this.liveExoPlayerBtn.setUpDrawable(R.drawable.shadow_white_rect);
+            this.liveExoPlayerBtn.setOnFocusChangeListener(this);
+            this.liveExoPlayerBtn.setOnClickListener(this);
+
+            if (!PlayerSelector.isExoPlayerSupported() || !PlayerSelector.isExoPlayerAvailable()) {
+                this.liveExoPlayerBtn.setVisibility(View.GONE);
+            }
+        }
+
+        updateLivePlayerSelection();
+
         return inflate;
     }
 
@@ -202,6 +224,21 @@ public final class afn extends adw implements View.OnFocusChangeListener, View.O
             if (this.codecSettingsLayout != null) {
                 this.codecSettingsLayout.setVisibility(View.VISIBLE);
             }
+        }
+    }
+
+    private void updateLivePlayerSelection() {
+        if (this.liveIjkPlayerBtn == null || this.liveExoPlayerBtn == null) return;
+
+        int playerType = abd.get_live_player_type(getActivity());
+
+        if (playerType == PlayerSelector.PLAYER_EXO
+            && PlayerSelector.isExoPlayerSupported()) {
+            this.liveIjkPlayerBtn.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+            this.liveExoPlayerBtn.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+        } else {
+            this.liveIjkPlayerBtn.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+            this.liveExoPlayerBtn.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
         }
     }
 
@@ -304,6 +341,14 @@ public final class afn extends adw implements View.OnFocusChangeListener, View.O
             abd.set_player_type((Context) afn.this.getActivity(), PlayerSelector.PLAYER_EXO);
             afn.this.updatePlayerSelection();
         }
+        if (view == this.liveIjkPlayerBtn) {
+            abd.set_live_player_type((Context) afn.this.getActivity(), PlayerSelector.PLAYER_IJK);
+            afn.this.updateLivePlayerSelection();
+        }
+        if (view == this.liveExoPlayerBtn) {
+            abd.set_live_player_type((Context) afn.this.getActivity(), PlayerSelector.PLAYER_EXO);
+            afn.this.updateLivePlayerSelection();
+        }
     }
 
     public final boolean a() {
@@ -329,6 +374,12 @@ public final class afn extends adw implements View.OnFocusChangeListener, View.O
             return false;
         }
         if (this.exoPlayerBtn != null && this.exoPlayerBtn.hasFocus()) {
+            return false;
+        }
+        if (this.liveIjkPlayerBtn != null && this.liveIjkPlayerBtn.hasFocus()) {
+            return false;
+        }
+        if (this.liveExoPlayerBtn != null && this.liveExoPlayerBtn.hasFocus()) {
             return false;
         }
         this.b.requestFocus();
@@ -358,6 +409,12 @@ public final class afn extends adw implements View.OnFocusChangeListener, View.O
             return true;
         }
         if (this.exoPlayerBtn != null && this.exoPlayerBtn.hasFocus()) {
+            return true;
+        }
+        if (this.liveIjkPlayerBtn != null && this.liveIjkPlayerBtn.hasFocus()) {
+            return true;
+        }
+        if (this.liveExoPlayerBtn != null && this.liveExoPlayerBtn.hasFocus()) {
             return true;
         }
         return false;

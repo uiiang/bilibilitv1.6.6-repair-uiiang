@@ -104,6 +104,8 @@
 
 .field private static l:I
 
+.field private static livePlayerType:I
+
 .field private static mode_id:I
 
 .field private static otherColumnType:I
@@ -143,14 +145,14 @@
     .line 17
     new-array v0, v2, [F
 
-    fill-array-data v0, :array_3c
+    fill-array-data v0, :array_3e
 
     sput-object v0, Lbl/abd;->a:[F
 
     .line 18
     new-array v0, v2, [F
 
-    fill-array-data v0, :array_50
+    fill-array-data v0, :array_52
 
     sput-object v0, Lbl/abd;->b:[F
 
@@ -162,7 +164,7 @@
 
     new-array v0, v0, [F
 
-    fill-array-data v0, :array_64
+    fill-array-data v0, :array_66
 
     sput-object v0, Lbl/abd;->speeds:[F
 
@@ -210,7 +212,10 @@
     .line 587
     sput v1, Lbl/abd;->playerType:I
 
-    .line 607
+    .line 606
+    sput v1, Lbl/abd;->livePlayerType:I
+
+    .line 626
     const/4 v0, 0x0
 
     sput-object v0, Lbl/abd;->audioBalanceLevel:Ljava/lang/String;
@@ -218,7 +223,7 @@
     return-void
 
     .line 17
-    :array_3c
+    :array_3e
     .array-data 4
         0x3f000000    # 0.5f
         0x3f19999a    # 0.6f
@@ -231,7 +236,7 @@
     .end array-data
 
     .line 18
-    :array_50
+    :array_52
     .array-data 4
         0x3e99999a    # 0.3f
         0x3ecccccd    # 0.4f
@@ -244,7 +249,7 @@
     .end array-data
 
     .line 30
-    :array_64
+    :array_66
     .array-data 4
         0x40000000    # 2.0f
         0x3fe00000    # 1.75f
@@ -836,7 +841,7 @@
     .locals 3
 
     .prologue
-    .line 651
+    .line 670
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -867,7 +872,7 @@
 
     move-result-object v1
 
-    .line 652
+    .line 671
     invoke-interface {v0, v1}, Landroid/content/SharedPreferences$Editor;->remove(Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
 
     move-result-object v0
@@ -890,15 +895,15 @@
 
     move-result-object v1
 
-    .line 653
+    .line 672
     invoke-interface {v0, v1}, Landroid/content/SharedPreferences$Editor;->remove(Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
 
     move-result-object v0
 
-    .line 654
+    .line 673
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 655
+    .line 674
     return-void
 .end method
 
@@ -1104,7 +1109,7 @@
     .locals 2
 
     .prologue
-    .line 628
+    .line 647
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -1234,7 +1239,7 @@
 
     const/high16 v4, -0x40800000    # -1.0f
 
-    .line 640
+    .line 659
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1265,7 +1270,7 @@
 
     move-result v1
 
-    .line 641
+    .line 660
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1296,17 +1301,17 @@
 
     move-result v2
 
-    .line 643
+    .line 662
     if-ne v1, v5, :cond_49
 
     cmpl-float v0, v2, v4
 
     if-nez v0, :cond_49
 
-    .line 644
+    .line 663
     const/4 v0, 0x0
 
-    .line 646
+    .line 665
     :goto_48
     return-object v0
 
@@ -1388,7 +1393,7 @@
     .locals 2
 
     .prologue
-    .line 624
+    .line 643
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -1414,12 +1419,12 @@
     .locals 3
 
     .prologue
-    .line 610
+    .line 629
     sget-object v0, Lbl/abd;->audioBalanceLevel:Ljava/lang/String;
 
     if-nez v0, :cond_16
 
-    .line 611
+    .line 630
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -1438,7 +1443,7 @@
 
     sput-object v0, Lbl/abd;->audioBalanceLevel:Ljava/lang/String;
 
-    .line 613
+    .line 632
     :cond_16
     sget-object v0, Lbl/abd;->audioBalanceLevel:Ljava/lang/String;
 
@@ -1736,6 +1741,43 @@
     .line 369
     :cond_16
     sget v0, Lbl/abd;->imageSizeType:I
+
+    return v0
+.end method
+
+.method public static get_live_player_type(Landroid/content/Context;)I
+    .locals 3
+
+    .prologue
+    .line 614
+    sget v0, Lbl/abd;->livePlayerType:I
+
+    const/4 v1, -0x1
+
+    if-ne v0, v1, :cond_16
+
+    .line 615
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    const-string v1, "live_player_type"
+
+    const/4 v2, 0x2
+
+    invoke-interface {v0, v1, v2}, Landroid/content/SharedPreferences;->getInt(Ljava/lang/String;I)I
+
+    move-result v0
+
+    sput v0, Lbl/abd;->livePlayerType:I
+
+    .line 618
+    :cond_16
+    sget v0, Lbl/abd;->livePlayerType:I
 
     return v0
 .end method
@@ -2535,6 +2577,30 @@
     goto :goto_8
 .end method
 
+.method public static is_exo_live_player_selected(Landroid/content/Context;)Z
+    .locals 2
+
+    .prologue
+    .line 622
+    invoke-static {p0}, Lbl/abd;->get_live_player_type(Landroid/content/Context;)I
+
+    move-result v0
+
+    const/4 v1, 0x3
+
+    if-ne v0, v1, :cond_9
+
+    const/4 v0, 0x1
+
+    :goto_8
+    return v0
+
+    :cond_9
+    const/4 v0, 0x0
+
+    goto :goto_8
+.end method
+
 .method public static is_exo_player_selected(Landroid/content/Context;)Z
     .locals 2
 
@@ -2830,7 +2896,7 @@
     .locals 3
 
     .prologue
-    .line 633
+    .line 652
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -2861,7 +2927,7 @@
 
     move-result-object v1
 
-    .line 634
+    .line 653
     invoke-interface {v0, v1, p2}, Landroid/content/SharedPreferences$Editor;->putInt(Ljava/lang/String;I)Landroid/content/SharedPreferences$Editor;
 
     move-result-object v0
@@ -2884,15 +2950,15 @@
 
     move-result-object v1
 
-    .line 635
+    .line 654
     invoke-interface {v0, v1, p3}, Landroid/content/SharedPreferences$Editor;->putFloat(Ljava/lang/String;F)Landroid/content/SharedPreferences$Editor;
 
     move-result-object v0
 
-    .line 636
+    .line 655
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 637
+    .line 656
     return-void
 .end method
 
@@ -2900,7 +2966,7 @@
     .locals 2
 
     .prologue
-    .line 617
+    .line 636
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v0
@@ -2921,10 +2987,10 @@
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 618
+    .line 637
     sput-object p1, Lbl/abd;->audioBalanceLevel:Ljava/lang/String;
 
-    .line 619
+    .line 638
     return-void
 .end method
 
@@ -3146,6 +3212,38 @@
     sput p1, Lbl/abd;->imageSizeType:I
 
     .line 363
+    return-void
+.end method
+
+.method public static set_live_player_type(Landroid/content/Context;I)V
+    .locals 2
+
+    .prologue
+    .line 609
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    const-string v1, "live_player_type"
+
+    invoke-interface {v0, v1, p1}, Landroid/content/SharedPreferences$Editor;->putInt(Ljava/lang/String;I)Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
+
+    .line 610
+    sput p1, Lbl/abd;->livePlayerType:I
+
+    .line 611
     return-void
 .end method
 

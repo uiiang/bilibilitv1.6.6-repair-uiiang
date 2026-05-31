@@ -145,34 +145,61 @@ public class ResolveResourceParams implements Parcelable, Serializable {
             return result;
         }
         
-        Log.i("SkipInfo", "Extracting from clip_info_list, count=" + this.clip_info_list.length());
+        Log.i("SkipInfo", "[CLIP_DEBUG] ========== extractSkipInfoFromClipInfoList START ==========");
+        Log.i("SkipInfo", "[CLIP_DEBUG] clip_info_list count=" + this.clip_info_list.length());
+        Log.i("SkipInfo", "[CLIP_DEBUG] clip_info_list raw: " + this.clip_info_list.toString());
+        Log.i("SkipInfo", "[CLIP_DEBUG] skip_categories: " + BiliFilter.skip_categories.toString());
         
         for (int i = 0; i < this.clip_info_list.length(); i++) {
             JSONObject clipObj = this.clip_info_list.optJSONObject(i);
-            if (clipObj == null) continue;
+            if (clipObj == null) {
+                Log.i("SkipInfo", "[CLIP_DEBUG] clip[" + i + "] is null, skip");
+                continue;
+            }
+            
+            Log.i("SkipInfo", "[CLIP_DEBUG] clip[" + i + "] raw: " + clipObj.toString());
             
             String clipType = clipObj.optString("clipType", clipObj.optString("clip_type", "")).trim();
             String category;
             
+            Log.i("SkipInfo", "[CLIP_DEBUG] clip[" + i + "] clipType=" + clipType);
+            
             if ("CLIP_TYPE_OP".equals(clipType)) {
-                if (!BiliFilter.skip_categories.contains("intro")) continue;
+                if (!BiliFilter.skip_categories.contains("intro")) {
+                    Log.i("SkipInfo", "[CLIP_DEBUG] clip[" + i + "] is intro but skip_categories not contains 'intro', skip");
+                    continue;
+                }
                 category = "片头";
             } else if ("CLIP_TYPE_ED".equals(clipType)) {
-                if (!BiliFilter.skip_categories.contains("outro")) continue;
+                if (!BiliFilter.skip_categories.contains("outro")) {
+                    Log.i("SkipInfo", "[CLIP_DEBUG] clip[" + i + "] is outro but skip_categories not contains 'outro', skip");
+                    continue;
+                }
                 category = "片尾";
             } else {
+                Log.i("SkipInfo", "[CLIP_DEBUG] clip[" + i + "] clipType=" + clipType + " not OP/ED, skip");
                 continue;
             }
             
             double startRaw = clipObj.optDouble("start", Double.NaN);
             double endRaw = clipObj.optDouble("end", Double.NaN);
             
-            if (!Double.isFinite(startRaw) || !Double.isFinite(endRaw)) continue;
+            Log.i("SkipInfo", "[CLIP_DEBUG] clip[" + i + "] " + category + " startRaw=" + startRaw + ", endRaw=" + endRaw);
+            
+            if (!Double.isFinite(startRaw) || !Double.isFinite(endRaw)) {
+                Log.i("SkipInfo", "[CLIP_DEBUG] clip[" + i + "] start or end is not finite, skip");
+                continue;
+            }
             
             long startMs = normalizeClipTimeToMs(startRaw);
             long endMs = normalizeClipTimeToMs(endRaw);
             
-            if (endMs <= startMs) continue;
+            Log.i("SkipInfo", "[CLIP_DEBUG] clip[" + i + "] " + category + " startMs=" + startMs + "ms (" + (startMs/1000) + "s), endMs=" + endMs + "ms (" + (endMs/1000) + "s)");
+            
+            if (endMs <= startMs) {
+                Log.i("SkipInfo", "[CLIP_DEBUG] clip[" + i + "] endMs <= startMs, skip");
+                continue;
+            }
             
             try {
                 JSONObject skipInfo = new JSONObject();
@@ -181,21 +208,28 @@ public class ResolveResourceParams implements Parcelable, Serializable {
                 skipInfo.put("end", endMs);
                 skipInfo.put("source", "pgc_clip");
                 result.put(skipInfo);
-                Log.i("SkipInfo", "Added clip segment: " + category + " " + startMs + "-" + endMs);
+                Log.i("SkipInfo", "[CLIP_DEBUG] Added clip segment: " + category + " " + startMs + "-" + endMs + "ms (" + (startMs/1000) + "-" + (endMs/1000) + "s)");
             } catch (Exception e) {
                 Log.e("SkipInfo", "Failed to create skip info: " + e.getMessage());
             }
         }
         
+        Log.i("SkipInfo", "[CLIP_DEBUG] extractSkipInfoFromClipInfoList END, result count=" + result.length());
         return result;
     }
     
     private long normalizeClipTimeToMs(double time) {
+        long result;
+        String unit;
         if (time >= 10000) {
-            return (long) time;
+            result = (long) time;
+            unit = "ms";
         } else {
-            return (long) (time * 1000);
+            result = (long) (time * 1000);
+            unit = "s->ms";
         }
+        Log.i("SkipInfo", "[CLIP_DEBUG] normalizeClipTimeToMs: input=" + time + ", unit=" + unit + ", result=" + result + "ms");
+        return result;
     }
     
     private JSONArray fetchSponsorBlockSegments() {
@@ -321,23 +355,45 @@ public class ResolveResourceParams implements Parcelable, Serializable {
     }
     
     private JSONArray mergeSkipSegments(JSONArray clipSegments, JSONArray sponsorBlockSegments) {
+        Log.i("SkipInfo", "[MERGE_DEBUG] ========== mergeSkipSegments START ==========");
+        Log.i("SkipInfo", "[MERGE_DEBUG] clipSegments count=" + clipSegments.length());
+        for (int i = 0; i < clipSegments.length(); i++) {
+            JSONObject seg = clipSegments.optJSONObject(i);
+            if (seg != null) {
+                Log.i("SkipInfo", "[MERGE_DEBUG] clipSegment[" + i + "]: " + seg.toString());
+            }
+        }
+        Log.i("SkipInfo", "[MERGE_DEBUG] sponsorBlockSegments count=" + sponsorBlockSegments.length());
+        for (int i = 0; i < sponsorBlockSegments.length(); i++) {
+            JSONObject seg = sponsorBlockSegments.optJSONObject(i);
+            if (seg != null) {
+                Log.i("SkipInfo", "[MERGE_DEBUG] sponsorBlockSegment[" + i + "]: " + seg.toString());
+            }
+        }
+        
         LinkedHashMap<String, JSONObject> merged = new LinkedHashMap<>();
         
         for (int i = 0; i < clipSegments.length(); i++) {
             JSONObject seg = clipSegments.optJSONObject(i);
             if (seg == null) continue;
-            String id = generateSegmentId(seg, "pgc");
+            String id = generateTimeBasedSegmentId(seg);
             if (!merged.containsKey(id)) {
                 merged.put(id, seg);
+                Log.i("SkipInfo", "[MERGE_DEBUG] added clip segment, id=" + id);
+            } else {
+                Log.i("SkipInfo", "[MERGE_DEBUG] skipped duplicate clip segment, id=" + id);
             }
         }
         
         for (int i = 0; i < sponsorBlockSegments.length(); i++) {
             JSONObject seg = sponsorBlockSegments.optJSONObject(i);
             if (seg == null) continue;
-            String id = generateSegmentId(seg, "sb");
+            String id = generateTimeBasedSegmentId(seg);
             if (!merged.containsKey(id)) {
                 merged.put(id, seg);
+                Log.i("SkipInfo", "[MERGE_DEBUG] added sponsorBlock segment, id=" + id);
+            } else {
+                Log.i("SkipInfo", "[MERGE_DEBUG] skipped duplicate sponsorBlock segment, id=" + id + ", existing source=" + merged.get(id).optString("source"));
             }
         }
         
@@ -354,20 +410,19 @@ public class ResolveResourceParams implements Parcelable, Serializable {
         
         for (JSONObject seg : sortedList) {
             result.put(seg);
+            Log.i("SkipInfo", "[MERGE_DEBUG] final segment: " + seg.optString("type") + " " + seg.optLong("start") + "-" + seg.optLong("end") + "ms source=" + seg.optString("source"));
         }
         
-        Log.i("SkipInfo", "Merged segments: clip=" + clipSegments.length() + 
-              ", sponsorBlock=" + sponsorBlockSegments.length() + 
-              ", total=" + result.length());
+        Log.i("SkipInfo", "[MERGE_DEBUG] mergeSkipSegments END, total=" + result.length());
         
         return result;
     }
     
-    private String generateSegmentId(JSONObject seg, String source) {
+    private String generateTimeBasedSegmentId(JSONObject seg) {
         String type = seg.optString("type", "unknown");
         long start = seg.optLong("start", 0);
         long end = seg.optLong("end", 0);
-        return source + ":" + type + ":" + start + "-" + end;
+        return type + ":" + start + "-" + end;
     }
     
     public void updateSkipInfoFromClipInfoList() {
@@ -375,51 +430,27 @@ public class ResolveResourceParams implements Parcelable, Serializable {
             return;
         }
         
-        Log.i("SkipInfo", "updateSkipInfoFromClipInfoList: clip_info_list count=" + this.clip_info_list.length());
+        Log.i("SkipInfo", "[UPDATE_DEBUG] ========== updateSkipInfoFromClipInfoList START ==========");
+        Log.i("SkipInfo", "[UPDATE_DEBUG] clip_info_list count=" + this.clip_info_list.length());
+        Log.i("SkipInfo", "[UPDATE_DEBUG] this.skips before update: " + (this.skips != null ? this.skips.toString() : "null"));
         
         JSONArray clipSegments = extractSkipInfoFromClipInfoList();
         
-        JSONArray existingSegments = this.skips != null ? this.skips : new JSONArray();
+        Log.i("SkipInfo", "[UPDATE_DEBUG] clipSegments extracted: " + clipSegments.toString());
         
-        LinkedHashMap<String, JSONObject> merged = new LinkedHashMap<>();
-        
+        JSONArray result = new JSONArray();
         for (int i = 0; i < clipSegments.length(); i++) {
             JSONObject seg = clipSegments.optJSONObject(i);
             if (seg == null) continue;
-            String id = generateSegmentId(seg, "pgc");
-            merged.put(id, seg);
-        }
-        
-        for (int i = 0; i < existingSegments.length(); i++) {
-            JSONObject seg = existingSegments.optJSONObject(i);
-            if (seg == null) continue;
-            String source = seg.optString("source", "unknown");
-            String id = generateSegmentId(seg, source.equals("pgc_clip") ? "pgc" : "sb");
-            if (!merged.containsKey(id)) {
-                merged.put(id, seg);
-            }
-        }
-        
-        JSONArray result = new JSONArray();
-        List<JSONObject> sortedList = new ArrayList<>(merged.values());
-        Collections.sort(sortedList, new Comparator<JSONObject>() {
-            @Override
-            public int compare(JSONObject o1, JSONObject o2) {
-                long s1 = o1.optLong("start", 0);
-                long s2 = o2.optLong("start", 0);
-                return Long.compare(s1, s2);
-            }
-        });
-        
-        for (JSONObject seg : sortedList) {
             result.put(seg);
         }
         
+        Log.i("SkipInfo", "[UPDATE_DEBUG] result after clip only: " + result.toString());
+        
         this.skips = result;
         
-        Log.i("SkipInfo", "Updated skips from clip_info_list: clip=" + clipSegments.length() + 
-              ", existing=" + existingSegments.length() + 
-              ", total=" + result.length());
+        Log.i("SkipInfo", "[UPDATE_DEBUG] this.skips after update: " + this.skips.toString());
+        Log.i("SkipInfo", "[UPDATE_DEBUG] updateSkipInfoFromClipInfoList END, total=" + result.length());
     }
 
     public void initPlayInfo() {

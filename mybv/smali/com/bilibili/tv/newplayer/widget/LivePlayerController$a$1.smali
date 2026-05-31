@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 405
+    .line 436
     iput-object p1, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a$1;->this$1:Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,13 +40,13 @@
     .locals 3
 
     .prologue
-    .line 408
+    .line 439
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a$1;->this$1:Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;
 
     iget-object v0, v0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
 
     # getter for: Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->o:Lbl/cj;
-    invoke-static {v0}, Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->access$400(Lcom/bilibili/tv/newplayer/widget/LivePlayerController;)Lbl/cj;
+    invoke-static {v0}, Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->access$500(Lcom/bilibili/tv/newplayer/widget/LivePlayerController;)Lbl/cj;
 
     move-result-object v0
 
@@ -56,25 +56,25 @@
 
     check-cast v0, Lbl/wn;
 
-    .line 409
+    .line 440
     iget-object v1, v0, Lbl/wn;->b:Ljava/lang/Object;
 
     instance-of v1, v1, Ljava/lang/Float;
 
     if-eqz v1, :cond_36
 
-    .line 410
+    .line 441
     iget-object v0, v0, Lbl/wn;->b:Ljava/lang/Object;
 
     check-cast v0, Ljava/lang/Float;
 
-    .line 411
+    .line 442
     iget-object v1, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a$1;->this$1:Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;
 
     iget-object v1, v1, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
 
     # getter for: Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->k:Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;
-    invoke-static {v1}, Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->access$200(Lcom/bilibili/tv/newplayer/widget/LivePlayerController;)Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;
+    invoke-static {v1}, Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->access$300(Lcom/bilibili/tv/newplayer/widget/LivePlayerController;)Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;
 
     move-result-object v1
 
@@ -84,7 +84,7 @@
 
     invoke-virtual {v1, v2}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->setDanmakuSize(F)V
 
-    .line 412
+    .line 443
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v1
@@ -99,10 +99,10 @@
 
     invoke-static {v1, v0}, Lbl/abd;->a(Landroid/content/Context;F)V
 
-    .line 414
+    .line 445
     :cond_36
     invoke-virtual {p1}, Lbl/xa;->dismiss()V
 
-    .line 415
+    .line 446
     return-void
 .end method

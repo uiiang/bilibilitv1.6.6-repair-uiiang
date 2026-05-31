@@ -82,9 +82,7 @@ public class LivePlayerController extends FrameLayout implements View.OnClickLis
         menuList.add(PlayControllerOptionType.DANMAKU_ALPHA);
         menuList.add(PlayControllerOptionType.MIRROR_REVERSAL);
         menuList.add(PlayControllerOptionType.VIDEO_QUALITY);
-        if (abd.is_exo_player_selected(context)) {
-            menuList.add(PlayControllerOptionType.AUDIO_BALANCE);
-        }
+        // 音频平衡菜单在构造时不添加，播放开始后根据实际播放器类型动态添加
         this.n = menuList.toArray(new PlayControllerOptionType[0]);
         a(context);
     }
@@ -99,9 +97,7 @@ public class LivePlayerController extends FrameLayout implements View.OnClickLis
         menuList.add(PlayControllerOptionType.DANMAKU_ALPHA);
         menuList.add(PlayControllerOptionType.MIRROR_REVERSAL);
         menuList.add(PlayControllerOptionType.VIDEO_QUALITY);
-        if (abd.is_exo_player_selected(context)) {
-            menuList.add(PlayControllerOptionType.AUDIO_BALANCE);
-        }
+        // 音频平衡菜单在构造时不添加，播放开始后根据实际播放器类型动态添加
         this.n = menuList.toArray(new PlayControllerOptionType[0]);
         a(context);
     }
@@ -210,6 +206,41 @@ public class LivePlayerController extends FrameLayout implements View.OnClickLis
             wnVar2.a = qualityTable.get(biliLive.mAcceptQuality[i]);
             wnVar2.b = biliLive.mAcceptQuality[i];
             this.qualitys.b(i, wnVar2);
+        }
+    }
+
+    public void updateAudioBalanceMenu() {
+        if (this.d == null || this.d.b == null || this.c == null) {
+            return;
+        }
+        
+        tv.danmaku.ijk.media.player.IMediaPlayer player = wm.a().i();
+        boolean isExoPlayer = player instanceof tv.danmaku.videoplayer.core.media.exo.ExoPlayerImpl;
+        
+        boolean hasAudioBalance = false;
+        for (PlayControllerOptionType type : this.d.b) {
+            if (type == PlayControllerOptionType.AUDIO_BALANCE) {
+                hasAudioBalance = true;
+                break;
+            }
+        }
+        
+        if (isExoPlayer && !hasAudioBalance) {
+            this.d.b.add(PlayControllerOptionType.AUDIO_BALANCE);
+            ArrayList arrayList = new ArrayList();
+            for (PlayControllerOptionType type : this.d.b) {
+                arrayList.add(type);
+            }
+            this.d = new a(arrayList);
+            this.c.setAdapter(this.d);
+        } else if (!isExoPlayer && hasAudioBalance) {
+            this.d.b.remove(PlayControllerOptionType.AUDIO_BALANCE);
+            ArrayList arrayList = new ArrayList();
+            for (PlayControllerOptionType type : this.d.b) {
+                arrayList.add(type);
+            }
+            this.d = new a(arrayList);
+            this.c.setAdapter(this.d);
         }
     }
 

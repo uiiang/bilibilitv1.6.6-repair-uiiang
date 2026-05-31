@@ -3604,4 +3604,6 @@
     <public type="id" name="tag_name" id="0x7f08022f" />
     <public type="id" name="recommend_api_web_button" id="0x7f080230" />
     <public type="id" name="recommend_api_app_button" id="0x7f080231" />
+    <public type="id" name="live_ijk_player" id="0x7f080232" />
+    <public type="id" name="live_exo_player" id="0x7f080233" />
 </resources>

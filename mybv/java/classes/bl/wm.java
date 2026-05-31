@@ -269,8 +269,12 @@ public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.
         android.util.Log.i("wm", "[LIVE] a(message,z) entered, url=" + url + ", m=" + this.m + ", z=" + z);
 
         // === ExoPlayer 分支 ===
-        if (PlayerSelector.shouldUseExoPlayer(this.l)) {
-            android.util.Log.i("wm", "[LIVE_EXO] PlayerSelector.shouldUseExoPlayer=true, checking format");
+        // 使用直播专用播放器选择方法
+        boolean useExoForLive = PlayerSelector.shouldUseExoPlayerForLive(this.l, sLiveFormat);
+        android.util.Log.i("wm", "[LIVE_EXO] PlayerSelector.shouldUseExoPlayerForLive=" + useExoForLive + ", sLiveFormat=" + sLiveFormat);
+
+        if (useExoForLive) {
+            android.util.Log.i("wm", "[LIVE_EXO] Checking format compatibility");
 
             // FLV格式回退到IjkPlayer
             boolean isFlv = url.toLowerCase().contains(".flv");

@@ -3,7 +3,7 @@
 .source "LivePlayerActivity.java"
 
 # interfaces
-.implements Landroid/content/DialogInterface$OnDismissListener;
+.implements Lbl/agb$b;
 
 
 # annotations
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 270
+    .line 278
     iput-object p1, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$4;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,42 +36,33 @@
 
 
 # virtual methods
-.method public onDismiss(Landroid/content/DialogInterface;)V
-    .locals 2
+.method public a(Lbl/agb;Landroid/view/View;)V
+    .locals 1
 
     .prologue
-    .line 273
-    invoke-static {}, Lbl/wm;->e()Z
-
-    move-result v0
-
-    if-nez v0, :cond_e
-
+    .line 281
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$4;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
-    # getter for: Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->f:Z
-    invoke-static {v0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->access$700(Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;)Z
+    # getter for: Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->e:Lbl/agb;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->access$700(Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;)Lbl/agb;
 
-    move-result v0
+    move-result-object v0
 
-    if-nez v0, :cond_f
+    invoke-virtual {v0}, Lbl/agb;->dismiss()V
 
-    .line 278
-    :cond_e
-    :goto_e
+    .line 282
+    iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$4;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->getWindow()Landroid/view/Window;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/view/Window;->getDecorView()Landroid/view/View;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lbl/adl;->a(Landroid/view/View;)V
+
+    .line 283
     return-void
-
-    .line 276
-    :cond_f
-    invoke-static {}, Lbl/wm;->g()V
-
-    .line 277
-    iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$4;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
-
-    const/4 v1, 0x0
-
-    # setter for: Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->f:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->access$702(Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;Z)Z
-
-    goto :goto_e
 .end method

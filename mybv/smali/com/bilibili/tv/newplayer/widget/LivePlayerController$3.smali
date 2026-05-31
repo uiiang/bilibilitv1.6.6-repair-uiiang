@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 256
+    .line 287
     iput-object p1, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$3;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,21 +40,21 @@
     .locals 2
 
     .prologue
-    .line 267
+    .line 298
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$3;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
 
     const/4 v1, 0x4
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->setVisibility(I)V
 
-    .line 268
+    .line 299
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$3;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
 
     const v1, 0x7f05009c
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->setBackgroundResource(I)V
 
-    .line 269
+    .line 300
     return-void
 .end method
 
@@ -62,7 +62,7 @@
     .locals 0
 
     .prologue
-    .line 259
+    .line 290
     return-void
 .end method
 
@@ -70,6 +70,6 @@
     .locals 0
 
     .prologue
-    .line 263
+    .line 294
     return-void
 .end method

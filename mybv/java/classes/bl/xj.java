@@ -141,15 +141,23 @@ public class xj extends xh {
         if (this.skips == null || this.skips.length() == 0) {
             return;
         }
+        Log.i("SkipInfo", "[SKIP_DEBUG] ========== checkSkip START ==========");
+        Log.i("SkipInfo", "[SKIP_DEBUG] current position t=" + t + "ms (" + (t/1000) + "s)");
+        Log.i("SkipInfo", "[SKIP_DEBUG] skips count=" + this.skips.length());
+        Log.i("SkipInfo", "[SKIP_DEBUG] introSkipped=" + introSkipped + ", outroPromptShown=" + outroPromptShown + ", userSeekedToIntro=" + userSeekedToIntro);
+        
         for(int i=0;i<this.skips.length();i++){
             JSONObject skip_info = this.skips.optJSONObject(i);
             long start = skip_info.optLong("start");
             long end = skip_info.optLong("end");
             String type = skip_info.optString("type");
+            String source = skip_info.optString("source", "unknown");
+            
+            Log.i("SkipInfo", "[SKIP_DEBUG] segment[" + i + "]: type=" + type + ", start=" + start + "ms (" + (start/1000) + "s), end=" + end + "ms (" + (end/1000) + "s), source=" + source);
 
             if ("片头".equals(type)) {
                 if (!introSkipped && !userSeekedToIntro && t >= start && t < end) {
-                    // android.util.Log.i("SkipDebug", "EXEC INTRO: t=" + t);
+                    Log.i("SkipInfo", "[SKIP_DEBUG] EXEC INTRO: t=" + t + "ms, start=" + start + "ms, end=" + end + "ms, will seek to " + end + "ms");
                     if(this.c==null)Q();
                     if(this.c==null)return;
                     a(this.j);
@@ -160,11 +168,19 @@ public class xj extends xh {
                     a(this.j, 5000L);
                     c((int)end);
                     introSkipped = true;
+                    Log.i("SkipInfo", "[SKIP_DEBUG] INTRO skipped, introSkipped set to true");
                     return;
+                } else {
+                    Log.i("SkipInfo", "[SKIP_DEBUG] INTRO not triggered: introSkipped=" + introSkipped + ", userSeekedToIntro=" + userSeekedToIntro + ", tInRange=" + (t >= start && t < end));
                 }
             } else if ("片尾".equals(type)) {
-                if (!outroPromptShown && t >= start) {
-                    // android.util.Log.i("SkipDebug", "EXEC OUTRO: t=" + t);
+                Log.i("SkipInfo", "[SKIP_DEBUG] OUTRO check: t=" + t + "ms >= start=" + start + "ms ? " + (t >= start) + ", t < end=" + end + "ms ? " + (t < end) + ", outroPromptShown=" + outroPromptShown);
+                if (!outroPromptShown && t >= start && t < end) {
+                    Log.i("SkipInfo", "[SKIP_DEBUG] EXEC OUTRO: t=" + t + "ms, start=" + start + "ms, end=" + end + "ms");
+                    int duration = I();
+                    Log.i("SkipInfo", "[SKIP_DEBUG] video duration=" + duration + "ms (" + (duration/1000) + "s)");
+                    Log.i("SkipInfo", "[SKIP_DEBUG] end=" + end + "ms, duration-1000=" + (duration - 1000) + "ms, end >= duration-1000 ? " + (end >= duration - 1000));
+                    
                     if(this.c==null)Q();
                     if(this.c==null)return;
                     a(this.j);
@@ -175,13 +191,13 @@ public class xj extends xh {
                     a(this.j, 5000L);
                     outroPromptShown = true;
                     
-                    int duration = I();
                     long seekTarget = end;
                     if (duration > 0 && end >= duration - 1000) {
                         seekTarget = duration - 500;
                         if (seekTarget < 0) seekTarget = 0;
-                        // android.util.Log.i("SkipDebug", "Outro end near duration, seek to " + seekTarget + " (duration=" + duration + ")");
+                        Log.i("SkipInfo", "[SKIP_DEBUG] OUTRO end near duration, adjust seekTarget from " + end + " to " + seekTarget + "ms");
                     }
+                    Log.i("SkipInfo", "[SKIP_DEBUG] OUTRO seek to " + seekTarget + "ms");
                     c((int)seekTarget);
                     
                     xh current = a();
@@ -195,15 +211,17 @@ public class xj extends xh {
                     }
                     
                     if (xlInstance != null) {
-                        // android.util.Log.i("SkipDebug", "Found xl instance, calling onCompletion");
+                        Log.i("SkipInfo", "[SKIP_DEBUG] Found xl instance, calling onCompletion");
                         xlInstance.onCompletion(null);
+                    } else {
+                        Log.i("SkipInfo", "[SKIP_DEBUG] xl instance not found");
                     }
                     return;
                 }
             } else {
                 String segmentKey = type + "_" + start + "_" + end;
                 if (!skippedSegments.contains(segmentKey) && t >= start && t < end) {
-                    // android.util.Log.i("SkipDebug", "EXEC " + type + ": t=" + t + ", start=" + start + ", end=" + end);
+                    Log.i("SkipInfo", "[SKIP_DEBUG] EXEC " + type + ": t=" + t + "ms, start=" + start + "ms, end=" + end + "ms, will seek to " + end + "ms");
                     if(this.c==null)Q();
                     if(this.c==null)return;
                     a(this.j);
@@ -214,10 +232,12 @@ public class xj extends xh {
                     a(this.j, 5000L);
                     c((int)end);
                     skippedSegments.add(segmentKey);
+                    Log.i("SkipInfo", "[SKIP_DEBUG] " + type + " skipped, added to skippedSegments");
                     return;
                 }
             }
         }
+        Log.i("SkipInfo", "[SKIP_DEBUG] checkSkip END, no action taken");
     }
 
     public void updateSkips(JSONArray newSkips) {

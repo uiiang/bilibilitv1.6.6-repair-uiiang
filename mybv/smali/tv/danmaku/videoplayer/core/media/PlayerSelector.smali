@@ -56,7 +56,7 @@
     return-void
 .end method
 
-.method public static getSelectedPlayerType(Landroid/content/Context;)I
+.method public static getSelectedLivePlayerType(Landroid/content/Context;)I
     .locals 1
 
     .prologue
@@ -78,6 +78,39 @@
     const/4 v0, 0x2
 
     .line 73
+    :goto_d
+    return v0
+
+    :cond_e
+    invoke-static {p0}, Lbl/abd;->get_live_player_type(Landroid/content/Context;)I
+
+    move-result v0
+
+    goto :goto_d
+.end method
+
+.method public static getSelectedPlayerType(Landroid/content/Context;)I
+    .locals 1
+
+    .prologue
+    .line 77
+    invoke-static {}, Ltv/danmaku/videoplayer/core/media/PlayerSelector;->isExoPlayerSupported()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_c
+
+    invoke-static {}, Ltv/danmaku/videoplayer/core/media/PlayerSelector;->isExoPlayerAvailable()Z
+
+    move-result v0
+
+    if-nez v0, :cond_e
+
+    .line 78
+    :cond_c
+    const/4 v0, 0x2
+
+    .line 80
     :goto_d
     return v0
 
@@ -200,10 +233,10 @@
     .locals 0
 
     .prologue
-    .line 77
+    .line 84
     invoke-static {p0, p1}, Lbl/abd;->set_player_type(Landroid/content/Context;I)V
 
-    .line 78
+    .line 85
     return-void
 .end method
 
@@ -252,7 +285,7 @@
 .end method
 
 .method public static shouldUseExoPlayerForLive(Landroid/content/Context;Ljava/lang/String;)Z
-    .locals 2
+    .locals 3
 
     .prologue
     const/4 v0, 0x0
@@ -269,7 +302,13 @@
 
     .line 60
     :cond_6
-    invoke-static {p0}, Ltv/danmaku/videoplayer/core/media/PlayerSelector;->shouldUseExoPlayer(Landroid/content/Context;)Z
+    invoke-static {}, Ltv/danmaku/videoplayer/core/media/PlayerSelector;->isExoPlayerSupported()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_5
+
+    invoke-static {}, Ltv/danmaku/videoplayer/core/media/PlayerSelector;->isExoPlayerAvailable()Z
 
     move-result v1
 
@@ -285,6 +324,14 @@
     if-nez v1, :cond_5
 
     .line 66
+    invoke-static {p0}, Lbl/abd;->get_live_player_type(Landroid/content/Context;)I
+
+    move-result v1
+
+    const/4 v2, 0x3
+
+    if-ne v1, v2, :cond_5
+
     const/4 v0, 0x1
 
     goto :goto_5

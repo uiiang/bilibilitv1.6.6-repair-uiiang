@@ -38,7 +38,7 @@
     .locals 0
 
     .prologue
-    .line 455
+    .line 506
     iput-object p1, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$7;->this$0:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     iput p2, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$7;->val$subtitle_id:I
@@ -59,7 +59,7 @@
     .end annotation
 
     .prologue
-    .line 455
+    .line 506
     invoke-virtual {p0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$7;->call()Lorg/json/JSONObject;
 
     move-result-object v0
@@ -71,7 +71,7 @@
     .locals 4
 
     .prologue
-    .line 458
+    .line 509
     new-instance v1, Lbl/qa$a;
 
     const-class v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;

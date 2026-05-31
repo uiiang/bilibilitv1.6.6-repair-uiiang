@@ -603,6 +603,25 @@ public class abd {
         return get_player_type(context) == PlayerSelector.PLAYER_EXO;
     }
 
+    private static int livePlayerType = -1;
+
+    public static void set_live_player_type(Context context, int type) {
+        a(context).a().edit().putInt("live_player_type", type).apply();
+        livePlayerType = type;
+    }
+
+    public static int get_live_player_type(Context context) {
+        if (livePlayerType == -1) {
+            livePlayerType = a(context).a().getInt("live_player_type",
+                PlayerSelector.PLAYER_IJK);
+        }
+        return livePlayerType;
+    }
+
+    public static boolean is_exo_live_player_selected(Context context) {
+        return get_live_player_type(context) == PlayerSelector.PLAYER_EXO;
+    }
+
     private static final String KEY_AUDIO_BALANCE_LEVEL = "audio_balance_level";
     private static String audioBalanceLevel = null;
 

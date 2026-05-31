@@ -57,13 +57,20 @@ public class PlayerSelector {
         if (forceUseIjkPlayer) {
             return false;
         }
-        if (!shouldUseExoPlayer(context)) {
+        if (!isExoPlayerSupported() || !isExoPlayerAvailable()) {
             return false;
         }
         if ("ts".equalsIgnoreCase(format)) {
             return false;
         }
-        return true;
+        return abd.get_live_player_type(context) == PLAYER_EXO;
+    }
+
+    public static int getSelectedLivePlayerType(Context context) {
+        if (!isExoPlayerSupported() || !isExoPlayerAvailable()) {
+            return PLAYER_IJK;
+        }
+        return abd.get_live_player_type(context);
     }
 
     public static int getSelectedPlayerType(Context context) {

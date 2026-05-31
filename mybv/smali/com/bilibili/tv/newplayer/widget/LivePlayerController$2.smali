@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 233
+    .line 264
     iput-object p1, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$2;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,12 +40,12 @@
     .locals 1
 
     .prologue
-    .line 244
+    .line 275
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$2;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->b()V
 
-    .line 245
+    .line 276
     return-void
 .end method
 
@@ -53,7 +53,7 @@
     .locals 0
 
     .prologue
-    .line 236
+    .line 267
     return-void
 .end method
 
@@ -61,6 +61,6 @@
     .locals 0
 
     .prologue
-    .line 240
+    .line 271
     return-void
 .end method

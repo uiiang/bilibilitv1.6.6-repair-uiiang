@@ -168,6 +168,17 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
                             g.a(b, c, Integer.valueOf(d));
                             g.m();
                             Log.i(TAG, "播放命令已发送");
+                            
+                            // 播放开始后更新音频平衡菜单（根据实际播放器类型）
+                            mainHandler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (h != null) {
+                                        h.updateAudioBalanceMenu();
+                                        Log.i(TAG, "音频平衡菜单已更新");
+                                    }
+                                }
+                            }, 500L);
                         }
                     });
                 }
@@ -176,6 +187,17 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
             Log.i(TAG, "startPlaybackWithCdnRace: 只有1个URL, 直接播放");
             this.g.a(this.b, this.c, Integer.valueOf(this.d));
             this.g.m();
+            
+            // 播放开始后更新音频平衡菜单（根据实际播放器类型）
+            mainHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (h != null) {
+                        h.updateAudioBalanceMenu();
+                        Log.i(TAG, "音频平衡菜单已更新");
+                    }
+                }
+            }, 500L);
         }
     }
 

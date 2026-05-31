@@ -249,7 +249,7 @@
     iget-object v1, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$1;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     # getter for: Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->mainHandler:Landroid/os/Handler;
-    invoke-static {v1}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->access$500(Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;)Landroid/os/Handler;
+    invoke-static {v1}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->access$600(Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;)Landroid/os/Handler;
 
     move-result-object v1
 
@@ -259,7 +259,7 @@
 
     invoke-virtual {v1, v2}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
 
-    .line 173
+    .line 184
     return-void
 
     .line 159
