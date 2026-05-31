@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 126
+    .line 127
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$2;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,30 +40,30 @@
     .locals 1
 
     .prologue
-    .line 129
+    .line 130
     if-nez p2, :cond_9
 
-    .line 130
+    .line 131
     invoke-virtual {p1}, Landroid/view/View;->getId()I
 
     move-result v0
 
     invoke-virtual {p1, v0}, Landroid/view/View;->setNextFocusLeftId(I)V
 
-    .line 132
+    .line 133
     :cond_9
     add-int/lit8 v0, p3, -0x1
 
     if-ne p2, v0, :cond_14
 
-    .line 133
+    .line 134
     invoke-virtual {p1}, Landroid/view/View;->getId()I
 
     move-result v0
 
     invoke-virtual {p1, v0}, Landroid/view/View;->setNextFocusRightId(I)V
 
-    .line 135
+    .line 136
     :cond_14
     return-void
 .end method

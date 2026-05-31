@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 357
+    .line 358
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$10;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 1
 
     .prologue
-    .line 360
+    .line 361
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$10;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     # getter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->chapterAdapter:Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter;
@@ -50,6 +50,6 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter;->scrollToCurrentChapter()V
 
-    .line 361
+    .line 362
     return-void
 .end method

@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 138
+    .line 139
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$3;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 141
+    .line 142
     invoke-virtual {p3}, Landroid/view/KeyEvent;->getAction()I
 
     move-result v0
@@ -51,7 +51,7 @@
 
     if-ne p2, v0, :cond_23
 
-    .line 142
+    .line 143
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$3;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     # getter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->lastNavTagFocusPosition:I
@@ -61,7 +61,7 @@
 
     if-ltz v0, :cond_23
 
-    .line 143
+    .line 144
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$3;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     # getter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -78,10 +78,10 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusNavTag(I)V
 
-    .line 144
+    .line 145
     const/4 v0, 0x1
 
-    .line 147
+    .line 148
     :goto_22
     return v0
 

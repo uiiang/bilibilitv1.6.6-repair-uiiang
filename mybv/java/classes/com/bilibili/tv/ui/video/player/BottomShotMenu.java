@@ -29,6 +29,7 @@ public class BottomShotMenu extends FrameLayout {
     private VideoListSection videoListSection;
     private Runnable autoHideRunnable;
     private static final int AUTO_HIDE_DELAY = 5000;
+    private static final boolean DEBUG_MODE = false;
     private OnShotClickListener shotClickListener;
     private boolean isHiding = false;
     private VideoShot videoShot;
@@ -426,6 +427,11 @@ public class BottomShotMenu extends FrameLayout {
     }
     
     public void updateProgress(int currentMs, int totalMs) {
+        if (DEBUG_MODE) {
+            String currentTimeStr = aan.a((long) currentMs);
+            String totalTimeStr = aan.a((long) totalMs);
+            android.util.Log.i("BottomShotMenu", "[TIME_DEBUG] updateProgress: currentMs=" + currentMs + "ms (" + (currentMs/1000) + "s), displayTime=" + currentTimeStr + ", totalMs=" + totalMs + "ms (" + (totalMs/1000) + "s), displayTotal=" + totalTimeStr);
+        }
         if (seekBar != null) {
             seekBar.setMax(totalMs);
             seekBar.setProgress(currentMs);

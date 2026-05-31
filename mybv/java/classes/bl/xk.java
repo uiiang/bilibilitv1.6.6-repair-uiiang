@@ -77,14 +77,8 @@ public class xk extends xh implements bbb<Message, Boolean> {
         final DanmakuPlayerDFM dp = (DanmakuPlayerDFM) bc.mDanmakuPlayerContext.mDanmakuPlayer;
         final xk self = this;
 
-        android.util.Log.i("SkipInfo", "[INIT_DEBUG] ========== initSubtitle START ==========");
-        android.util.Log.i("SkipInfo", "[INIT_DEBUG] mAvid=" + resolveParams.mAvid + ", mCid=" + resolveParams.mCid + ", mEpisodeId=" + resolveParams.mEpisodeId);
-        android.util.Log.i("SkipInfo", "[INIT_DEBUG] mListKey=" + resolveParams.mListKey + ", mDuration=" + resolveParams.mDuration);
-        android.util.Log.i("SkipInfo", "[INIT_DEBUG] clip_info_list=" + (resolveParams.clip_info_list != null ? resolveParams.clip_info_list.toString() : "null"));
-
         xj _xj = (xj) self.next().next().next().next().next();
         if (_xj != null) {
-            android.util.Log.i("SkipInfo", "[INIT_DEBUG] _xj found, will set skips in async thread");
             if (dp != null && dp.mDanmakuView != null) {
                 ((bgy)dp.mDanmakuView)._xj = _xj;
             }
@@ -94,18 +88,12 @@ public class xk extends xh implements bbb<Message, Boolean> {
             @Override
             public void run() {
                 try {
-                    android.util.Log.i("SkipInfo", "[INIT_DEBUG] Thread start: calling initPlayInfo");
                     resolveParams.initPlayInfo();
-                    
-                    android.util.Log.i("SkipInfo", "[INIT_DEBUG] initPlayInfo done, resolveParams.skips=" + (resolveParams.skips != null ? resolveParams.skips.toString() : "null"));
                     
                     xj _xj = (xj) self.next().next().next().next().next();
                     if (_xj != null) {
                         JSONArray localSkips = getLocalEffectiveSkips(resolveParams);
                         JSONArray serverSkips = resolveParams.skips;
-                        
-                        android.util.Log.i("SkipInfo", "[INIT_DEBUG] localSkips=" + (localSkips != null ? localSkips.toString() : "null"));
-                        android.util.Log.i("SkipInfo", "[INIT_DEBUG] serverSkips=" + (serverSkips != null ? serverSkips.toString() : "null"));
                         
                         JSONArray mergedSkips = new org.json.JSONArray();
                         
@@ -120,7 +108,6 @@ public class xk extends xh implements bbb<Message, Boolean> {
                                 if ("片头".equals(type)) hasLocalIntro = true;
                                 if ("片尾".equals(type)) hasLocalOutro = true;
                             }
-                            android.util.Log.i("SkipInfo", "[INIT_DEBUG] added localSkips to merged, hasLocalIntro=" + hasLocalIntro + ", hasLocalOutro=" + hasLocalOutro);
                         }
                         
                         if (serverSkips != null && serverSkips.length() > 0) {
@@ -131,28 +118,20 @@ public class xk extends xh implements bbb<Message, Boolean> {
                                 
                                 if ("片头".equals(type) && hasLocalIntro) {
                                     shouldAdd = false;
-                                    android.util.Log.i("SkipInfo", "[INIT_DEBUG] skip server intro because hasLocalIntro=true");
                                 }
                                 if ("片尾".equals(type) && hasLocalOutro) {
                                     shouldAdd = false;
-                                    android.util.Log.i("SkipInfo", "[INIT_DEBUG] skip server outro because hasLocalOutro=true");
                                 }
                                 
                                 if (shouldAdd) {
                                     mergedSkips.put(skip);
-                                    android.util.Log.i("SkipInfo", "[INIT_DEBUG] added server skip: " + type + " " + skip.optLong("start") + "-" + skip.optLong("end"));
                                 }
                             }
                         }
                         
-                        android.util.Log.i("SkipInfo", "[INIT_DEBUG] mergedSkips=" + mergedSkips.toString());
-                        
                         if (mergedSkips.length() > 0) {
                             _xj.skips = mergedSkips;
                             _xj.resetSkipFlags();
-                            android.util.Log.i("SkipInfo", "[INIT_DEBUG] set _xj.skips and resetSkipFlags, total=" + mergedSkips.length());
-                        } else {
-                            android.util.Log.i("SkipInfo", "[INIT_DEBUG] mergedSkips is empty, skip setting");
                         }
                     }
                     if (dp != null && dp.mDanmakuView != null) {
@@ -160,7 +139,7 @@ public class xk extends xh implements bbb<Message, Boolean> {
                         dp.setSubtitleData(resolveParams.subtitle_data);
                     }
                 } catch (Exception e) {
-                    android.util.Log.e("SkipInfo", "[INIT_DEBUG] Exception: " + e.getMessage());
+                    android.util.Log.e("SkipInfo", "Exception in initPlayInfo: " + e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -168,29 +147,21 @@ public class xk extends xh implements bbb<Message, Boolean> {
     }
 
     private JSONArray getLocalEffectiveSkips(ResolveResourceParams params) {
-        android.util.Log.i("SkipInfo", "[LOCAL_DEBUG] ========== getLocalEffectiveSkips START ==========");
-        android.util.Log.i("SkipInfo", "[LOCAL_DEBUG] mAvid=" + params.mAvid + ", mListKey=" + params.mListKey + ", mDuration=" + params.mDuration);
-        
         JSONArray result = new org.json.JSONArray();
         long[] localSkip = null;
 
         if (!android.text.TextUtils.isEmpty(params.mListKey)) {
             String listKey = "skip_list_" + params.mListKey;
             localSkip = abd.getSkipTime(p(), listKey);
-            android.util.Log.i("SkipInfo", "[LOCAL_DEBUG] try listKey=" + listKey + ", localSkip=" + (localSkip != null ? "[" + localSkip[0] + "," + localSkip[1] + "]" : "null"));
         }
         if (localSkip == null || (localSkip[0] == 0 && localSkip[1] == 0)) {
             String videoKey = abd.getVideoSkipKey(params.mAvid);
             localSkip = abd.getSkipTime(p(), videoKey);
-            android.util.Log.i("SkipInfo", "[LOCAL_DEBUG] try videoKey=" + videoKey + ", localSkip=" + (localSkip != null ? "[" + localSkip[0] + "," + localSkip[1] + "]" : "null"));
         }
 
         if (localSkip == null || (localSkip[0] == 0 && localSkip[1] == 0)) {
-            android.util.Log.i("SkipInfo", "[LOCAL_DEBUG] no local skip settings, return null");
             return null;
         }
-
-        android.util.Log.i("SkipInfo", "[LOCAL_DEBUG] localSkip=" + "[" + localSkip[0] + "," + localSkip[1] + "]ms");
 
         try {
             if (localSkip[0] > 0) {
@@ -200,7 +171,6 @@ public class xk extends xh implements bbb<Message, Boolean> {
                 intro.put("end", localSkip[0]);
                 intro.put("source", "local");
                 result.put(intro);
-                android.util.Log.i("SkipInfo", "[LOCAL_DEBUG] added local intro: start=0, end=" + localSkip[0] + "ms (" + (localSkip[0]/1000) + "s)");
             }
             if (localSkip[1] > 0 && params.mDuration > 0) {
                 JSONObject outro = new JSONObject();
@@ -210,11 +180,9 @@ public class xk extends xh implements bbb<Message, Boolean> {
                 outro.put("end", duration);
                 outro.put("source", "local");
                 result.put(outro);
-                android.util.Log.i("SkipInfo", "[LOCAL_DEBUG] added local outro: duration=" + duration + "ms, localSkip[1]=" + localSkip[1] + "ms");
-                android.util.Log.i("SkipInfo", "[LOCAL_DEBUG] local outro start=" + (duration - localSkip[1]) + "ms (" + ((duration - localSkip[1])/1000) + "s), end=" + duration + "ms (" + (duration/1000) + "s)");
             }
         } catch (Exception e) {
-            android.util.Log.e("SkipInfo", "[LOCAL_DEBUG] Exception: " + e.getMessage());
+            android.util.Log.e("SkipInfo", "Exception in getLocalEffectiveSkips: " + e.getMessage());
         }
 
         android.util.Log.i("SkipInfo", "[LOCAL_DEBUG] getLocalEffectiveSkips END, result=" + result.toString());

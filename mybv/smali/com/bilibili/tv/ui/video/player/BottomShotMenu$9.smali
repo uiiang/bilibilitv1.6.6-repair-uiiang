@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 328
+    .line 329
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$9;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 4
 
     .prologue
-    .line 331
+    .line 332
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$9;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     # getter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->chapterAdapter:Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter;
@@ -50,7 +50,7 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter;->scrollToCurrentChapter()V
 
-    .line 332
+    .line 333
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$9;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     # getter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->chapterList:Landroid/support/v7/widget/RecyclerView;
@@ -66,6 +66,6 @@
 
     invoke-virtual {v0, v1, v2, v3}, Landroid/support/v7/widget/RecyclerView;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 338
+    .line 339
     return-void
 .end method

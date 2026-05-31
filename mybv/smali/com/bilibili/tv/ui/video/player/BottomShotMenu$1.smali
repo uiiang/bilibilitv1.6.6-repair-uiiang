@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 115
+    .line 116
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$1;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,20 +40,10 @@
     .locals 1
 
     .prologue
-    .line 118
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$1;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->resetAutoHideTimer()V
-
     .line 119
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$1;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
-    # getter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->shotClickListener:Lcom/bilibili/tv/ui/video/player/BottomShotMenu$OnShotClickListener;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->access$000(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)Lcom/bilibili/tv/ui/video/player/BottomShotMenu$OnShotClickListener;
-
-    move-result-object v0
-
-    if-eqz v0, :cond_16
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->resetAutoHideTimer()V
 
     .line 120
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$1;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
@@ -63,14 +53,24 @@
 
     move-result-object v0
 
+    if-eqz v0, :cond_16
+
+    .line 121
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$1;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
+
+    # getter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->shotClickListener:Lcom/bilibili/tv/ui/video/player/BottomShotMenu$OnShotClickListener;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->access$000(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)Lcom/bilibili/tv/ui/video/player/BottomShotMenu$OnShotClickListener;
+
+    move-result-object v0
+
     invoke-interface {v0, p2}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$OnShotClickListener;->onShotClicked(I)V
 
-    .line 122
+    .line 123
     :cond_16
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$1;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->hide()V
 
-    .line 123
+    .line 124
     return-void
 .end method

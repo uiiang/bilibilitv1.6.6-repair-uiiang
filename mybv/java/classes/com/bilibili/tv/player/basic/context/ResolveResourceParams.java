@@ -430,13 +430,7 @@ public class ResolveResourceParams implements Parcelable, Serializable {
             return;
         }
         
-        Log.i("SkipInfo", "[UPDATE_DEBUG] ========== updateSkipInfoFromClipInfoList START ==========");
-        Log.i("SkipInfo", "[UPDATE_DEBUG] clip_info_list count=" + this.clip_info_list.length());
-        Log.i("SkipInfo", "[UPDATE_DEBUG] this.skips before update: " + (this.skips != null ? this.skips.toString() : "null"));
-        
         JSONArray clipSegments = extractSkipInfoFromClipInfoList();
-        
-        Log.i("SkipInfo", "[UPDATE_DEBUG] clipSegments extracted: " + clipSegments.toString());
         
         JSONArray result = new JSONArray();
         for (int i = 0; i < clipSegments.length(); i++) {
@@ -445,12 +439,7 @@ public class ResolveResourceParams implements Parcelable, Serializable {
             result.put(seg);
         }
         
-        Log.i("SkipInfo", "[UPDATE_DEBUG] result after clip only: " + result.toString());
-        
         this.skips = result;
-        
-        Log.i("SkipInfo", "[UPDATE_DEBUG] this.skips after update: " + this.skips.toString());
-        Log.i("SkipInfo", "[UPDATE_DEBUG] updateSkipInfoFromClipInfoList END, total=" + result.length());
     }
 
     public void initPlayInfo() {

@@ -160,17 +160,17 @@
     .locals 1
 
     .prologue
-    .line 529
+    .line 518
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 530
+    .line 519
     new-instance v0, Lcom/bilibili/tv/player/basic/context/BaseExtraParams;
 
     invoke-direct {v0}, Lcom/bilibili/tv/player/basic/context/BaseExtraParams;-><init>()V
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mExtraParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$ExtraParams;
 
-    .line 531
+    .line 520
     return-void
 .end method
 
@@ -182,66 +182,66 @@
 
     const/4 v2, 0x0
 
-    .line 631
+    .line 620
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 632
+    .line 621
     new-instance v0, Lcom/bilibili/tv/player/basic/context/BaseExtraParams;
 
     invoke-direct {v0}, Lcom/bilibili/tv/player/basic/context/BaseExtraParams;-><init>()V
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mExtraParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$ExtraParams;
 
-    .line 633
+    .line 622
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mFrom:Ljava/lang/String;
 
-    .line 634
+    .line 623
     invoke-virtual {p1}, Landroid/os/Parcel;->readLong()J
 
     move-result-wide v4
 
     iput-wide v4, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mCid:J
 
-    .line 635
+    .line 624
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mVid:Ljava/lang/String;
 
-    .line 636
+    .line 625
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mLink:Ljava/lang/String;
 
-    .line 637
+    .line 626
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mRawVid:Ljava/lang/String;
 
-    .line 638
+    .line 627
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mPageIndex:Ljava/lang/String;
 
-    .line 639
+    .line 628
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mPageTitle:Ljava/lang/String;
 
-    .line 640
+    .line 629
     invoke-virtual {p1}, Landroid/os/Parcel;->readByte()B
 
     move-result v0
@@ -253,35 +253,35 @@
     :goto_3d
     iput-boolean v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mHasAlias:Z
 
-    .line 641
+    .line 630
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mSpid:I
 
-    .line 642
+    .line 631
     invoke-virtual {p1}, Landroid/os/Parcel;->readLong()J
 
     move-result-wide v4
 
     iput-wide v4, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAvid:J
 
-    .line 643
+    .line 632
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mPage:I
 
-    .line 644
+    .line 633
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mTid:I
 
-    .line 645
+    .line 634
     invoke-virtual {p1}, Landroid/os/Parcel;->readByte()B
 
     move-result v0
@@ -293,28 +293,28 @@
     :goto_5e
     iput-boolean v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mRequestFromDownloader:Z
 
-    .line 646
+    .line 635
     invoke-virtual {p1}, Landroid/os/Parcel;->readLong()J
 
     move-result-wide v4
 
     iput-wide v4, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mEpisodeId:J
 
-    .line 647
+    .line 636
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mSeasonId:Ljava/lang/String;
 
-    .line 648
+    .line 637
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mEpCover:Ljava/lang/String;
 
-    .line 649
+    .line 638
     invoke-virtual {p1}, Landroid/os/Parcel;->readByte()B
 
     move-result v0
@@ -326,42 +326,42 @@
     :goto_79
     iput-boolean v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mResolveBiliCdnPlay:Z
 
-    .line 650
+    .line 639
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mExpectedQuality:I
 
-    .line 651
+    .line 640
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mExpectedTypeTag:Ljava/lang/String;
 
-    .line 652
+    .line 641
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mUserAgent:Ljava/lang/String;
 
-    .line 653
+    .line 642
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mWeb:Ljava/lang/String;
 
-    .line 654
+    .line 643
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mCodecMode:Ljava/lang/String;
 
-    .line 655
+    .line 644
     const-class v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$ExtraParams;
 
     invoke-virtual {v0}, Ljava/lang/Class;->getClassLoader()Ljava/lang/ClassLoader;
@@ -376,7 +376,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mExtraParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$ExtraParams;
 
-    .line 656
+    .line 645
     invoke-virtual {p1}, Landroid/os/Parcel;->readByte()B
 
     move-result v0
@@ -388,7 +388,7 @@
     :goto_ae
     iput-boolean v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mEnablePlayUrlHttps:Z
 
-    .line 657
+    .line 646
     const-class v0, Lcom/bilibili/tv/player/basic/context/AdParams;
 
     invoke-virtual {v0}, Ljava/lang/Class;->getClassLoader()Ljava/lang/ClassLoader;
@@ -403,28 +403,28 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAdParams:Lcom/bilibili/tv/player/basic/context/AdParams;
 
-    .line 658
+    .line 647
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mType:Ljava/lang/String;
 
-    .line 660
+    .line 649
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mProgress:I
 
-    .line 661
+    .line 650
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mBvid:Ljava/lang/String;
 
-    .line 662
+    .line 651
     invoke-virtual {p1}, Landroid/os/Parcel;->readByte()B
 
     move-result v0
@@ -436,63 +436,63 @@
     :goto_d7
     iput-boolean v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mNoHistoryPlay:Z
 
-    .line 663
+    .line 652
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
 
     iput v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mDuration:I
 
-    .line 665
+    .line 654
     invoke-virtual {p1}, Landroid/os/Parcel;->readLong()J
 
     move-result-wide v4
 
     iput-wide v4, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mMid:J
 
-    .line 667
+    .line 656
     invoke-virtual {p1}, Landroid/os/Parcel;->readLong()J
 
     move-result-wide v4
 
     iput-wide v4, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mPubDate:J
 
-    .line 668
+    .line 657
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAuthor:Ljava/lang/String;
 
-    .line 669
+    .line 658
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mPlays:Ljava/lang/String;
 
-    .line 670
+    .line 659
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mDanmakus:Ljava/lang/String;
 
-    .line 671
+    .line 660
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mBadgeText:Ljava/lang/String;
 
-    .line 672
+    .line 661
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mBadgeBgColor:Ljava/lang/String;
 
-    .line 673
+    .line 662
     invoke-virtual {p1}, Landroid/os/Parcel;->readByte()B
 
     move-result v0
@@ -502,26 +502,26 @@
     :goto_10f
     iput-boolean v1, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mHideUpIcon:Z
 
-    .line 674
+    .line 663
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mListKey:Ljava/lang/String;
 
-    .line 676
+    .line 665
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 677
+    .line 666
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v1
 
     if-nez v1, :cond_128
 
-    .line 679
+    .line 668
     :try_start_121
     new-instance v1, Lorg/json/JSONArray;
 
@@ -531,7 +531,7 @@
     :try_end_128
     .catch Lorg/json/JSONException; {:try_start_121 .. :try_end_128} :catch_139
 
-    .line 684
+    .line 673
     :cond_128
     :goto_128
     return-void
@@ -539,44 +539,44 @@
     :cond_129
     move v0, v2
 
-    .line 640
+    .line 629
     goto/16 :goto_3d
 
     :cond_12c
     move v0, v2
 
-    .line 645
+    .line 634
     goto/16 :goto_5e
 
     :cond_12f
     move v0, v2
 
-    .line 649
+    .line 638
     goto/16 :goto_79
 
     :cond_132
     move v0, v2
 
-    .line 656
+    .line 645
     goto/16 :goto_ae
 
     :cond_135
     move v0, v2
 
-    .line 662
+    .line 651
     goto :goto_d7
 
     :cond_137
     move v1, v2
 
-    .line 673
+    .line 662
     goto :goto_10f
 
-    .line 680
+    .line 669
     :catch_139
     move-exception v0
 
-    .line 681
+    .line 670
     const/4 v0, 0x0
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->view_points:Lorg/json/JSONArray;
@@ -588,50 +588,50 @@
     .locals 2
 
     .prologue
-    .line 533
+    .line 522
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 534
+    .line 523
     new-instance v0, Lcom/bilibili/tv/player/basic/context/BaseExtraParams;
 
     invoke-direct {v0}, Lcom/bilibili/tv/player/basic/context/BaseExtraParams;-><init>()V
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mExtraParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$ExtraParams;
 
-    .line 535
+    .line 524
     iput-object p1, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mFrom:Ljava/lang/String;
 
-    .line 536
+    .line 525
     iput-wide p2, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mCid:J
 
-    .line 537
+    .line 526
     iput-object p4, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mVid:Ljava/lang/String;
 
-    .line 538
+    .line 527
     iput-object p6, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mLink:Ljava/lang/String;
 
-    .line 539
+    .line 528
     iput-object p5, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mRawVid:Ljava/lang/String;
 
-    .line 540
+    .line 529
     iput-boolean p7, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mHasAlias:Z
 
-    .line 541
+    .line 530
     iput-wide p8, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAvid:J
 
-    .line 542
+    .line 531
     iput p10, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mPage:I
 
-    .line 543
+    .line 532
     iput-object p11, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mPageTitle:Ljava/lang/String;
 
-    .line 544
+    .line 533
     iput p12, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mTid:I
 
-    .line 545
+    .line 534
     iput-object p13, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mType:Ljava/lang/String;
 
-    .line 546
+    .line 535
     return-void
 .end method
 
@@ -2087,10 +2087,10 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 501
+    .line 490
     const/4 v1, 0x0
 
-    .line 503
+    .line 492
     iget-object v2, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mListKey:Ljava/lang/String;
 
     invoke-static {v2}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
@@ -2099,7 +2099,7 @@
 
     if-nez v2, :cond_27
 
-    .line 504
+    .line 493
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -2120,7 +2120,7 @@
 
     move-result-object v1
 
-    .line 505
+    .line 494
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v2
@@ -2129,18 +2129,18 @@
 
     move-result-object v1
 
-    .line 509
+    .line 498
     :cond_27
     if-nez v1, :cond_37
 
-    .line 510
+    .line 499
     iget-wide v2, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAvid:J
 
     invoke-static {v2, v3}, Lbl/abd;->getVideoSubtitleKey(J)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 511
+    .line 500
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v2
@@ -2149,7 +2149,7 @@
 
     move-result-object v1
 
-    .line 515
+    .line 504
     :cond_37
     if-eqz v1, :cond_3b
 
@@ -2163,26 +2163,26 @@
     .locals 2
 
     .prologue
-    .line 714
+    .line 703
     invoke-static {p0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v0
 
     if-nez v0, :cond_23
 
-    .line 715
+    .line 704
     const-string v0, "\\."
 
     invoke-virtual {p0, v0}, Ljava/lang/String;->split(Ljava/lang/String;)[Ljava/lang/String;
 
     move-result-object v0
 
-    .line 716
+    .line 705
     array-length v1, v0
 
     if-lez v1, :cond_23
 
-    .line 718
+    .line 707
     :try_start_f
     array-length v1, v0
 
@@ -2200,20 +2200,20 @@
 
     move-result v0
 
-    .line 724
+    .line 713
     :goto_1c
     return v0
 
-    .line 719
+    .line 708
     :catch_1d
     move-exception v0
 
-    .line 720
+    .line 709
     const-string v0, "unknown quality from type tag."
 
     invoke-static {v0}, Ltv/danmaku/android/log/BLog;->w(Ljava/lang/String;)V
 
-    .line 724
+    .line 713
     :cond_23
     const/4 v0, -0x1
 
@@ -2863,7 +2863,7 @@
     .locals 1
 
     .prologue
-    .line 526
+    .line 515
     const/4 v0, 0x0
 
     return v0
@@ -2873,19 +2873,19 @@
     .locals 2
 
     .prologue
-    .line 565
+    .line 554
     invoke-virtual {p0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->isRound()Z
 
     move-result v0
 
     if-eqz v0, :cond_a
 
-    .line 566
+    .line 555
     iget v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mRoomId:I
 
     int-to-long v0, v0
 
-    .line 568
+    .line 557
     :goto_9
     return-wide v0
 
@@ -2899,10 +2899,10 @@
     .locals 2
 
     .prologue
-    .line 709
+    .line 698
     iget v1, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mExpectedQuality:I
 
-    .line 710
+    .line 699
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mExpectedTypeTag:Ljava/lang/String;
 
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
@@ -2932,7 +2932,7 @@
     .prologue
     const-wide/16 v0, 0x0
 
-    .line 697
+    .line 686
     iget-object v2, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mSeasonId:Ljava/lang/String;
 
     invoke-static {v2}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
@@ -2941,11 +2941,11 @@
 
     if-eqz v2, :cond_b
 
-    .line 703
+    .line 692
     :goto_a
     return-wide v0
 
-    .line 701
+    .line 690
     :cond_b
     :try_start_b
     iget-object v2, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mSeasonId:Ljava/lang/String;
@@ -2958,7 +2958,7 @@
 
     goto :goto_a
 
-    .line 702
+    .line 691
     :catch_12
     move-exception v2
 
@@ -3014,12 +3014,12 @@
     .locals 1
 
     .prologue
-    .line 457
+    .line 446
     const/4 v0, 0x0
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->initPlayInfo(Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$PlayInfoCallback;)V
 
-    .line 458
+    .line 447
     return-void
 .end method
 
@@ -3029,16 +3029,16 @@
     .prologue
     const/4 v4, -0x1
 
-    .line 461
+    .line 450
     invoke-virtual {p0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->getSkipInfo()V
 
-    .line 464
+    .line 453
     :try_start_4
     invoke-static {}, Ljava/util/concurrent/Executors;->newSingleThreadExecutor()Ljava/util/concurrent/ExecutorService;
 
     move-result-object v1
 
-    .line 465
+    .line 454
     new-instance v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$5;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$5;-><init>(Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;)V
@@ -3047,14 +3047,14 @@
 
     move-result-object v0
 
-    .line 470
+    .line 459
     invoke-interface {v0}, Ljava/util/concurrent/Future;->get()Ljava/lang/Object;
 
     move-result-object v0
 
     check-cast v0, Lorg/json/JSONObject;
 
-    .line 472
+    .line 461
     const-string v2, "data"
 
     invoke-virtual {v0, v2}, Lorg/json/JSONObject;->optJSONObject(Ljava/lang/String;)Lorg/json/JSONObject;
@@ -3069,7 +3069,7 @@
 
     iput-object v2, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->subtitle_info:Lorg/json/JSONObject;
 
-    .line 474
+    .line 463
     const-string v2, "data"
 
     invoke-virtual {v0, v2}, Lorg/json/JSONObject;->optJSONObject(Ljava/lang/String;)Lorg/json/JSONObject;
@@ -3082,7 +3082,7 @@
 
     move-result-object v0
 
-    .line 475
+    .line 464
     if-eqz v0, :cond_40
 
     invoke-virtual {v0}, Lorg/json/JSONArray;->length()I
@@ -3091,16 +3091,16 @@
 
     if-lez v2, :cond_40
 
-    .line 476
+    .line 465
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->view_points:Lorg/json/JSONArray;
 
-    .line 477
+    .line 466
     if-eqz p1, :cond_40
 
-    .line 478
+    .line 467
     invoke-interface {p1, v0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$PlayInfoCallback;->onPlayInfoReady(Lorg/json/JSONArray;)V
 
-    .line 482
+    .line 471
     :cond_40
     invoke-direct {p0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->getCachedSubtitleId()I
 
@@ -3108,7 +3108,7 @@
 
     add-int/lit8 v0, v0, -0x1
 
-    .line 484
+    .line 473
     if-eq v0, v4, :cond_56
 
     iget-object v2, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->subtitle_info:Lorg/json/JSONObject;
@@ -3130,12 +3130,12 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->subtitle_data:Lorg/json/JSONObject;
 
-    .line 498
+    .line 487
     :cond_59
     :goto_59
     return-void
 
-    .line 485
+    .line 474
     :cond_5a
     if-ge v0, v4, :cond_77
 
@@ -3167,7 +3167,7 @@
 
     if-nez v2, :cond_59
 
-    .line 486
+    .line 475
     :cond_77
     iget-object v2, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->subtitle_info:Lorg/json/JSONObject;
 
@@ -3181,7 +3181,7 @@
 
     move-result-object v0
 
-    .line 491
+    .line 480
     invoke-interface {v0}, Ljava/util/concurrent/Future;->get()Ljava/lang/Object;
 
     move-result-object v0
@@ -3194,17 +3194,17 @@
 
     goto :goto_59
 
-    .line 492
+    .line 481
     :catch_8d
     move-exception v0
 
-    .line 493
+    .line 482
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
-    .line 494
+    .line 483
     if-eqz p1, :cond_59
 
-    .line 495
+    .line 484
     invoke-interface {p1, v0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$PlayInfoCallback;->onPlayInfoFailed(Ljava/lang/Exception;)V
 
     goto :goto_59
@@ -3214,7 +3214,7 @@
     .locals 4
 
     .prologue
-    .line 557
+    .line 546
     iget-wide v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mEpisodeId:J
 
     const-wide/16 v2, 0x0
@@ -3238,7 +3238,7 @@
     .locals 2
 
     .prologue
-    .line 561
+    .line 550
     const-string v0, "clip"
 
     iget-object v1, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mFrom:Ljava/lang/String;
@@ -3254,7 +3254,7 @@
     .locals 4
 
     .prologue
-    .line 549
+    .line 538
     iget-wide v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mCid:J
 
     const-wide/16 v2, 0x0
@@ -3278,7 +3278,7 @@
     .locals 2
 
     .prologue
-    .line 553
+    .line 542
     const-string v0, "live"
 
     iget-object v1, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mFrom:Ljava/lang/String;
@@ -3311,7 +3311,7 @@
     .locals 4
 
     .prologue
-    .line 576
+    .line 565
     iget-wide v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mCid:J
 
     const-wide/16 v2, 0x0
@@ -3343,7 +3343,7 @@
     .locals 1
 
     .prologue
-    .line 572
+    .line 561
     iget v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mRoomId:I
 
     if-lez v0, :cond_6
@@ -3363,7 +3363,7 @@
     .locals 11
 
     .prologue
-    .line 687
+    .line 676
     new-instance v1, Lcom/bilibili/lib/media/resolver/params/ResolveMediaResourceParams;
 
     iget-wide v2, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAvid:J
@@ -3389,7 +3389,7 @@
     .locals 13
 
     .prologue
-    .line 691
+    .line 680
     new-instance v0, Lcom/bilibili/lib/media/resolver/params/ResolveResourceExtra;
 
     iget-boolean v1, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mHasAlias:Z
@@ -3420,7 +3420,7 @@
 
     invoke-direct/range {v0 .. v10}, Lcom/bilibili/lib/media/resolver/params/ResolveResourceExtra;-><init>(ZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JJLjava/lang/String;)V
 
-    .line 692
+    .line 681
     iget-object v1, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mExtraParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$ExtraParams;
 
     const-string v2, "season_type"
@@ -3443,7 +3443,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/lib/media/resolver/params/ResolveResourceExtra;->b(I)V
 
-    .line 693
+    .line 682
     return-object v0
 .end method
 
@@ -3464,243 +3464,57 @@
 
     if-nez v0, :cond_d
 
-    .line 454
+    .line 443
     :cond_c
     :goto_c
     return-void
 
     .line 433
     :cond_d
-    const-string v0, "SkipInfo"
-
-    const-string v1, "[UPDATE_DEBUG] ========== updateSkipInfoFromClipInfoList START =========="
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 434
-    const-string v0, "SkipInfo"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "[UPDATE_DEBUG] clip_info_list count="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->clip_info_list:Lorg/json/JSONArray;
-
-    invoke-virtual {v2}, Lorg/json/JSONArray;->length()I
-
-    move-result v2
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 435
-    const-string v1, "SkipInfo"
-
-    new-instance v0, Ljava/lang/StringBuilder;
-
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "[UPDATE_DEBUG] this.skips before update: "
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->skips:Lorg/json/JSONArray;
-
-    if-eqz v0, :cond_89
-
-    iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->skips:Lorg/json/JSONArray;
-
-    invoke-virtual {v0}, Lorg/json/JSONArray;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    :goto_49
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 437
     invoke-direct {p0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->extractSkipInfoFromClipInfoList()Lorg/json/JSONArray;
 
     move-result-object v1
 
-    .line 439
-    const-string v0, "SkipInfo"
-
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "[UPDATE_DEBUG] clipSegments extracted: "
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v1}, Lorg/json/JSONArray;->toString()Ljava/lang/String;
-
-    move-result-object v3
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v2
-
-    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 441
+    .line 435
     new-instance v2, Lorg/json/JSONArray;
 
     invoke-direct {v2}, Lorg/json/JSONArray;-><init>()V
 
-    .line 442
+    .line 436
     const/4 v0, 0x0
 
-    :goto_7a
+    :goto_17
     invoke-virtual {v1}, Lorg/json/JSONArray;->length()I
 
     move-result v3
 
-    if-ge v0, v3, :cond_90
+    if-ge v0, v3, :cond_2a
 
-    .line 443
+    .line 437
     invoke-virtual {v1, v0}, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
 
     move-result-object v3
 
-    .line 444
-    if-nez v3, :cond_8c
+    .line 438
+    if-nez v3, :cond_26
 
-    .line 442
-    :goto_86
+    .line 436
+    :goto_23
     add-int/lit8 v0, v0, 0x1
 
-    goto :goto_7a
+    goto :goto_17
 
-    .line 435
-    :cond_89
-    const-string v0, "null"
-
-    goto :goto_49
-
-    .line 445
-    :cond_8c
+    .line 439
+    :cond_26
     invoke-virtual {v2, v3}, Lorg/json/JSONArray;->put(Ljava/lang/Object;)Lorg/json/JSONArray;
 
-    goto :goto_86
+    goto :goto_23
 
-    .line 448
-    :cond_90
-    const-string v0, "SkipInfo"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "[UPDATE_DEBUG] result after clip only: "
-
-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v2}, Lorg/json/JSONArray;->toString()Ljava/lang/String;
-
-    move-result-object v3
-
-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 450
+    .line 442
+    :cond_2a
     iput-object v2, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->skips:Lorg/json/JSONArray;
 
-    .line 452
-    const-string v0, "SkipInfo"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "[UPDATE_DEBUG] this.skips after update: "
-
-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v3, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->skips:Lorg/json/JSONArray;
-
-    invoke-virtual {v3}, Lorg/json/JSONArray;->toString()Ljava/lang/String;
-
-    move-result-object v3
-
-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 453
-    const-string v0, "SkipInfo"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "[UPDATE_DEBUG] updateSkipInfoFromClipInfoList END, total="
-
-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v2}, Lorg/json/JSONArray;->length()I
-
-    move-result v2
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    goto/16 :goto_c
+    goto :goto_c
 .end method
 
 .method public writeToParcel(Landroid/os/Parcel;I)V
@@ -3711,42 +3525,42 @@
 
     const/4 v2, 0x0
 
-    .line 581
+    .line 570
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mFrom:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 582
+    .line 571
     iget-wide v4, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mCid:J
 
     invoke-virtual {p1, v4, v5}, Landroid/os/Parcel;->writeLong(J)V
 
-    .line 583
+    .line 572
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mVid:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 584
+    .line 573
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mLink:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 585
+    .line 574
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mRawVid:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 586
+    .line 575
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mPageIndex:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 587
+    .line 576
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mPageTitle:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 588
+    .line 577
     iget-boolean v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mHasAlias:Z
 
     if-eqz v0, :cond_e4
@@ -3756,27 +3570,27 @@
     :goto_2a
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeByte(B)V
 
-    .line 589
+    .line 578
     iget v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mSpid:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 590
+    .line 579
     iget-wide v4, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAvid:J
 
     invoke-virtual {p1, v4, v5}, Landroid/os/Parcel;->writeLong(J)V
 
-    .line 591
+    .line 580
     iget v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mPage:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 592
+    .line 581
     iget v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mTid:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 593
+    .line 582
     iget-boolean v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mRequestFromDownloader:Z
 
     if-eqz v0, :cond_e7
@@ -3786,22 +3600,22 @@
     :goto_46
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeByte(B)V
 
-    .line 594
+    .line 583
     iget-wide v4, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mEpisodeId:J
 
     invoke-virtual {p1, v4, v5}, Landroid/os/Parcel;->writeLong(J)V
 
-    .line 595
+    .line 584
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mSeasonId:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 596
+    .line 585
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mEpCover:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 597
+    .line 586
     iget-boolean v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mResolveBiliCdnPlay:Z
 
     if-eqz v0, :cond_ea
@@ -3811,37 +3625,37 @@
     :goto_5d
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeByte(B)V
 
-    .line 598
+    .line 587
     iget v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mExpectedQuality:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 599
+    .line 588
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mExpectedTypeTag:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 600
+    .line 589
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mUserAgent:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 601
+    .line 590
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mWeb:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 602
+    .line 591
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mCodecMode:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 603
+    .line 592
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mExtraParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$ExtraParams;
 
     invoke-virtual {p1, v0, p2}, Landroid/os/Parcel;->writeParcelable(Landroid/os/Parcelable;I)V
 
-    .line 604
+    .line 593
     iget-boolean v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mEnablePlayUrlHttps:Z
 
     if-eqz v0, :cond_ed
@@ -3851,27 +3665,27 @@
     :goto_83
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeByte(B)V
 
-    .line 605
+    .line 594
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAdParams:Lcom/bilibili/tv/player/basic/context/AdParams;
 
     invoke-virtual {p1, v0, p2}, Landroid/os/Parcel;->writeParcelable(Landroid/os/Parcelable;I)V
 
-    .line 606
+    .line 595
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mType:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 608
+    .line 597
     iget v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mProgress:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 609
+    .line 598
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mBvid:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 610
+    .line 599
     iget-boolean v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mNoHistoryPlay:Z
 
     if-eqz v0, :cond_ef
@@ -3881,47 +3695,47 @@
     :goto_9f
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeByte(B)V
 
-    .line 611
+    .line 600
     iget v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mDuration:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 613
+    .line 602
     iget-wide v4, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mMid:J
 
     invoke-virtual {p1, v4, v5}, Landroid/os/Parcel;->writeLong(J)V
 
-    .line 615
+    .line 604
     iget-wide v4, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mPubDate:J
 
     invoke-virtual {p1, v4, v5}, Landroid/os/Parcel;->writeLong(J)V
 
-    .line 616
+    .line 605
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAuthor:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 617
+    .line 606
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mPlays:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 618
+    .line 607
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mDanmakus:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 619
+    .line 608
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mBadgeText:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 620
+    .line 609
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mBadgeBgColor:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 621
+    .line 610
     iget-boolean v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mHideUpIcon:Z
 
     if-eqz v0, :cond_f1
@@ -3929,17 +3743,17 @@
     :goto_ce
     invoke-virtual {p1, v1}, Landroid/os/Parcel;->writeByte(B)V
 
-    .line 622
+    .line 611
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mListKey:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 624
+    .line 613
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->view_points:Lorg/json/JSONArray;
 
     if-eqz v0, :cond_f3
 
-    .line 625
+    .line 614
     iget-object v0, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->view_points:Lorg/json/JSONArray;
 
     invoke-virtual {v0}, Lorg/json/JSONArray;->toString()Ljava/lang/String;
@@ -3948,47 +3762,47 @@
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 629
+    .line 618
     :goto_e3
     return-void
 
     :cond_e4
     move v0, v2
 
-    .line 588
+    .line 577
     goto/16 :goto_2a
 
     :cond_e7
     move v0, v2
 
-    .line 593
+    .line 582
     goto/16 :goto_46
 
     :cond_ea
     move v0, v2
 
-    .line 597
+    .line 586
     goto/16 :goto_5d
 
     :cond_ed
     move v0, v2
 
-    .line 604
+    .line 593
     goto :goto_83
 
     :cond_ef
     move v0, v2
 
-    .line 610
+    .line 599
     goto :goto_9f
 
     :cond_f1
     move v1, v2
 
-    .line 621
+    .line 610
     goto :goto_ce
 
-    .line 627
+    .line 616
     :cond_f3
     const-string v0, ""
 

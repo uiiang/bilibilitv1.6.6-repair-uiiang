@@ -21,7 +21,6 @@ import tv.danmaku.videoplayer.core.danmaku.IDanmakuDocument;
 import tv.danmaku.android.log.BLog;
 
 public final class yt {
-    private static final int MSG_RESET_SKIP_FLAGS = 20203;
     
     public WeakReference<Handler> a;
     public yh b;
@@ -143,9 +142,6 @@ public final class yt {
                     android.util.Log.i("PlaySpeed", "[CLIP_INFO] Set clip_info_list to ResolveResourceParams, count=" + a2.clip_info_list.length());
                     
                     resolveParams.updateSkipInfoFromClipInfoList();
-                    
-                    Log.i("SkipInfo", "[RESET_FLAGS] Sending MSG_RESET_SKIP_FLAGS after updateSkipInfoFromClipInfoList");
-                    handler.sendEmptyMessage(MSG_RESET_SKIP_FLAGS);
                 }
                 
                 handler.sendEmptyMessage(IMediaPlayer.MEDIA_INFO_MEDIA_START_PREPARE);
