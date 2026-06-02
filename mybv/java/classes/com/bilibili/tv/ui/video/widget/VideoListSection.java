@@ -124,15 +124,22 @@ public class VideoListSection extends LinearLayout {
         if (hasNavigationTags()) {
             // 视频卡片区域 → 按DOWN → 移到正确的导航标签
             if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN && currentFocusArea == FOCUS_AREA_VIDEO) {
+                android.util.Log.i("NavTagFocusBug", "[dispatchKeyEvent DOWN] focusPosition=" + focusPosition + " | navTagAdapter.getTagCount()=" + navTagAdapter.getTagCount());
+                
                 int tagIndex = navTagAdapter.getGroupIndexForVideoPosition(focusPosition);
+                android.util.Log.i("NavTagFocusBug", "[dispatchKeyEvent DOWN] calculated tagIndex=" + tagIndex);
+                
                 if (tagIndex >= navTagAdapter.getTagCount()) {
                     tagIndex = navTagAdapter.getTagCount() - 1;
+                    android.util.Log.i("NavTagFocusBug", "[dispatchKeyEvent DOWN] tagIndex capped to " + tagIndex);
                 }
 
                 focusRedirecting = true;
                 currentFocusArea = FOCUS_AREA_NAV_TAG;
                 // 使用getStartIndex获取正确的起始位置（支持不均匀分组）
                 lastNavTagVideoStart = navTagAdapter.getStartIndex(tagIndex);
+                android.util.Log.i("NavTagFocusBug", "[dispatchKeyEvent DOWN] lastNavTagVideoStart=" + lastNavTagVideoStart + " | will focus on tag[" + tagIndex + "]");
+                
                 navTagAdapter.setSelectedPosition(tagIndex);
                 navTagAdapter.scrollToPositionWithOffset(tagIndex);
 
@@ -853,6 +860,8 @@ public class VideoListSection extends LinearLayout {
             return;
         }
 
+        android.util.Log.i(TAG, "[scrollToCurrentItem] currentPosition=" + currentPosition + " | dataList.size()=" + dataList.size());
+
         final int finalPos = currentPosition;
         recyclerView.post(new Runnable() {
             @Override
@@ -874,6 +883,7 @@ public class VideoListSection extends LinearLayout {
                     }
                 }
                 focusPosition = finalPos;
+                android.util.Log.i(TAG, "[scrollToCurrentItem] focusPosition updated to " + focusPosition);
                 
                 recyclerView.postDelayed(new Runnable() {
                     @Override

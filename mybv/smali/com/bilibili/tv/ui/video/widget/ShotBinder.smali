@@ -371,17 +371,26 @@
 
     if-nez v0, :cond_5
 
-    .line 244
+    .line 246
     :goto_4
     return-void
 
     .line 127
     :cond_5
+    invoke-virtual {p2}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getCoverImageView()Lcom/bilibili/tv/widget/ScalableImageView;
+
+    move-result-object v0
+
+    const v1, 0x7f07005b
+
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/ScalableImageView;->setImageResource(I)V
+
+    .line 129
     sget-boolean v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->deferLoading:Z
 
-    if-eqz v0, :cond_38
+    if-eqz v0, :cond_42
 
-    .line 128
+    .line 130
     const-string v0, "ShotBinder"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -428,8 +437,8 @@
 
     goto :goto_4
 
-    .line 132
-    :cond_38
+    .line 134
+    :cond_42
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
 
     iget v1, p1, Lcom/bilibili/tv/api/video/VideoShotItem;->imageIndex:I
@@ -438,10 +447,10 @@
 
     move-result-object v5
 
-    .line 133
-    if-nez v5, :cond_5d
+    .line 135
+    if-nez v5, :cond_67
 
-    .line 134
+    .line 136
     const-string v0, "ShotBinder"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -468,14 +477,14 @@
 
     goto :goto_4
 
-    .line 138
-    :cond_5d
+    .line 140
+    :cond_67
     iget v6, p1, Lcom/bilibili/tv/api/video/VideoShotItem;->imageIndex:I
 
-    .line 139
+    .line 141
     iget v8, p1, Lcom/bilibili/tv/api/video/VideoShotItem;->time:I
 
-    .line 140
+    .line 142
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -498,7 +507,7 @@
 
     move-result-object v4
 
-    .line 142
+    .line 144
     sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->snapshotCache:Landroid/util/LruCache;
 
     invoke-virtual {v0, v4}, Landroid/util/LruCache;->get(Ljava/lang/Object;)Ljava/lang/Object;
@@ -507,10 +516,10 @@
 
     check-cast v0, Landroid/graphics/Bitmap;
 
-    .line 143
-    if-eqz v0, :cond_b7
+    .line 145
+    if-eqz v0, :cond_c1
 
-    .line 144
+    .line 146
     const-string v1, "ShotBinder"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -553,7 +562,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 145
+    .line 147
     invoke-virtual {p2}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getCoverImageView()Lcom/bilibili/tv/widget/ScalableImageView;
 
     move-result-object v1
@@ -562,23 +571,23 @@
 
     goto/16 :goto_4
 
-    .line 149
-    :cond_b7
+    .line 151
+    :cond_c1
     sget-object v1, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->loadingUrls:Ljava/util/Set;
 
     monitor-enter v1
 
-    .line 150
-    :try_start_ba
+    .line 152
+    :try_start_c4
     sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->loadingUrls:Ljava/util/Set;
 
     invoke-interface {v0, v4}, Ljava/util/Set;->contains(Ljava/lang/Object;)Z
 
     move-result v0
 
-    if-eqz v0, :cond_e0
+    if-eqz v0, :cond_ea
 
-    .line 151
+    .line 153
     const-string v0, "ShotBinder"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -601,41 +610,41 @@
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 152
+    .line 154
     monitor-exit v1
 
     goto/16 :goto_4
 
-    .line 155
-    :catchall_dd
+    .line 157
+    :catchall_e7
     move-exception v0
 
     monitor-exit v1
-    :try_end_df
-    .catchall {:try_start_ba .. :try_end_df} :catchall_dd
+    :try_end_e9
+    .catchall {:try_start_c4 .. :try_end_e9} :catchall_e7
 
     throw v0
 
-    .line 154
-    :cond_e0
-    :try_start_e0
+    .line 156
+    :cond_ea
+    :try_start_ea
     sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->loadingUrls:Ljava/util/Set;
 
     invoke-interface {v0, v4}, Ljava/util/Set;->add(Ljava/lang/Object;)Z
 
-    .line 155
-    monitor-exit v1
-    :try_end_e6
-    .catchall {:try_start_e0 .. :try_end_e6} :catchall_dd
-
     .line 157
+    monitor-exit v1
+    :try_end_f0
+    .catchall {:try_start_ea .. :try_end_f0} :catchall_e7
+
+    .line 159
     sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->loadVersion:Ljava/util/concurrent/atomic/AtomicLong;
 
     invoke-virtual {v0}, Ljava/util/concurrent/atomic/AtomicLong;->get()J
 
     move-result-wide v2
 
-    .line 158
+    .line 160
     const-string v0, "ShotBinder"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -694,7 +703,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 160
+    .line 162
     sget-object v9, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->imageLoadExecutor:Ljava/util/concurrent/ThreadPoolExecutor;
 
     new-instance v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$2;
@@ -935,7 +944,7 @@
     .locals 2
 
     .prologue
-    .line 253
+    .line 255
     instance-of v0, p1, Lcom/bilibili/tv/api/video/VideoShotItem;
 
     if-eqz v0, :cond_13
@@ -944,10 +953,10 @@
 
     if-eqz v0, :cond_13
 
-    .line 254
+    .line 256
     check-cast p1, Lcom/bilibili/tv/api/video/VideoShotItem;
 
-    .line 255
+    .line 257
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
 
     iget v1, p1, Lcom/bilibili/tv/api/video/VideoShotItem;->imageIndex:I
@@ -956,7 +965,7 @@
 
     move-result-object v0
 
-    .line 257
+    .line 259
     :goto_12
     return-object v0
 
@@ -970,7 +979,7 @@
     .locals 2
 
     .prologue
-    .line 248
+    .line 250
     const-wide/16 v0, 0x0
 
     return-wide v0
@@ -980,7 +989,7 @@
     .locals 1
 
     .prologue
-    .line 277
+    .line 279
     const/4 v0, 0x0
 
     return v0
@@ -990,7 +999,7 @@
     .locals 1
 
     .prologue
-    .line 272
+    .line 274
     const/4 v0, 0x0
 
     return v0
@@ -1000,7 +1009,7 @@
     .locals 1
 
     .prologue
-    .line 262
+    .line 264
     const/4 v0, 0x0
 
     return v0
@@ -1010,7 +1019,7 @@
     .locals 1
 
     .prologue
-    .line 267
+    .line 269
     const/4 v0, 0x0
 
     return v0

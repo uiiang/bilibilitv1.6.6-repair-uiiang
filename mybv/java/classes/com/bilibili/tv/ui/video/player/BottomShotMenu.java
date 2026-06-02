@@ -159,6 +159,8 @@ public class BottomShotMenu extends FrameLayout {
             return;
         }
         
+        android.util.Log.i("NavTagFocusBug", "[setupTimeBasedNavigationTags] shots.size()=" + shots.size() + ", totalDuration=" + totalDuration);
+        
         int segmentSeconds = 300;
         int totalSegments = totalDuration / segmentSeconds + 1;
         
@@ -175,13 +177,18 @@ public class BottomShotMenu extends FrameLayout {
                 }
             }
             
+            android.util.Log.i("NavTagFocusBug", "[setupTimeBasedNavigationTags] seg=" + seg + ", targetTime=" + targetTime + ", startIndex=" + startIndex);
+            
             if (startIndex == -1) {
                 continue;
             }
             
             String label = TimeFormatUtil.formatTime(targetTime, totalDuration);
+            android.util.Log.i("NavTagFocusBug", "[setupTimeBasedNavigationTags] adding tag: label=" + label + ", startIndex=" + startIndex);
             customTags.add(new NavigationTagAdapter.TagItem(label, startIndex));
         }
+        
+        android.util.Log.i("NavTagFocusBug", "[setupTimeBasedNavigationTags] total customTags=" + customTags.size());
         
         int groupSize = 60;
         videoListSection.setupCustomNavigationTags(customTags, groupSize);

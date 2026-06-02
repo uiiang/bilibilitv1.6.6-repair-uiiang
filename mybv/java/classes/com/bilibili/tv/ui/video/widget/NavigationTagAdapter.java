@@ -112,19 +112,27 @@ public class NavigationTagAdapter extends RecyclerView.a<NavigationTagAdapter.Ta
     }
 
     public int getGroupIndexForVideoPosition(int videoPosition) {
+        android.util.Log.i("NavTagFocusBug", "[getGroupIndexForVideoPosition] videoPosition=" + videoPosition + " | tags.size()=" + tags.size());
+        
         if (tags.size() > 0) {
             for (int i = 0; i < tags.size(); i++) {
                 int currentStart = tags.get(i).startIndex;
                 int nextStart = (i + 1 < tags.size()) ? tags.get(i + 1).startIndex : Integer.MAX_VALUE;
                 
+                android.util.Log.i("NavTagFocusBug", "[getGroupIndexForVideoPosition] checking tag[" + i + "]: currentStart=" + currentStart + ", nextStart=" + nextStart + ", condition=" + (videoPosition >= currentStart && videoPosition < nextStart));
+                
                 if (videoPosition >= currentStart && videoPosition < nextStart) {
+                    android.util.Log.i("NavTagFocusBug", "[getGroupIndexForVideoPosition] matched! returning tagIndex=" + i);
                     return i;
                 }
             }
+            android.util.Log.i("NavTagFocusBug", "[getGroupIndexForVideoPosition] no match, returning last tag=" + (tags.size() - 1));
             return tags.size() - 1;
         }
         
-        return videoPosition / groupSize;
+        int fallbackIndex = videoPosition / groupSize;
+        android.util.Log.i("NavTagFocusBug", "[getGroupIndexForVideoPosition] no tags, fallback to " + fallbackIndex);
+        return fallbackIndex;
     }
 
     public int getGroupSize() {

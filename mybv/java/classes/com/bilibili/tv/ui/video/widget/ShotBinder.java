@@ -124,6 +124,8 @@ public class ShotBinder implements VideoCardBinder {
             return;
         }
         
+        holder.getCoverImageView().setImageResource(com.bilibili.tv.R.drawable.default_img_loading);
+        
         if (deferLoading) {
             android.util.Log.i(TAG, "loadShotImage: 延迟加载中，跳过 | time=" + shot.time + "s | elapsed=" + getElapsedTime() + "ms");
             return;

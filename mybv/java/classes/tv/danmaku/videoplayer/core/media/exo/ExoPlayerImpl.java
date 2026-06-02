@@ -64,6 +64,7 @@ public class ExoPlayerImpl implements IMediaPlayer {
     private volatile boolean cachedIsPlaying = false;
     private volatile int cachedVideoWidth = 0;
     private volatile int cachedVideoHeight = 0;
+    private volatile float cachedPixelWidthHeightRatio = 1.0f;
     private final AtomicLong lastPositionUpdateTime = new AtomicLong(0);
     private static final long POSITION_CACHE_VALIDITY_MS = 500;
     private Handler mainHandler;
@@ -160,6 +161,7 @@ public class ExoPlayerImpl implements IMediaPlayer {
                     VideoSize videoSize = exoPlayer.getVideoSize();
                     cachedVideoWidth = videoSize.width;
                     cachedVideoHeight = videoSize.height;
+                    cachedPixelWidthHeightRatio = videoSize.pixelWidthHeightRatio > 0 ? videoSize.pixelWidthHeightRatio : 1.0f;
                     
                     String stateStr = "";
                     switch (playbackState) {
@@ -610,6 +612,10 @@ public class ExoPlayerImpl implements IMediaPlayer {
 
                 @Override
                 public void onVideoSizeChanged(VideoSize videoSize) {
+                    cachedVideoWidth = videoSize.width;
+                    cachedVideoHeight = videoSize.height;
+                    cachedPixelWidthHeightRatio = videoSize.pixelWidthHeightRatio > 0 ? videoSize.pixelWidthHeightRatio : 1.0f;
+                    Log.i(TAG, "[VIDEO_SIZE] width=" + videoSize.width + ", height=" + videoSize.height + ", pixelRatio=" + cachedPixelWidthHeightRatio);
                     if (onVideoSizeChangedListener != null) {
                         onVideoSizeChangedListener.onVideoSizeChanged(
                             ExoPlayerImpl.this,
@@ -1190,12 +1196,12 @@ public class ExoPlayerImpl implements IMediaPlayer {
 
     @Override
     public int getVideoSarDen() {
-        return 1;
+        return 1000;
     }
 
     @Override
     public int getVideoSarNum() {
-        return 1;
+        return (int)(cachedPixelWidthHeightRatio * 1000);
     }
 
     @Override

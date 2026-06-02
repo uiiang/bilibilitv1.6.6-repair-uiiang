@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 222
+    .line 229
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     iput p2, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4;->val$currentPlayTimeSec:I
@@ -50,15 +50,15 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 225
+    .line 232
     instance-of v0, p1, Lcom/bilibili/tv/api/video/VideoShotItem;
 
     if-eqz v0, :cond_2b
 
-    .line 226
+    .line 233
     check-cast p1, Lcom/bilibili/tv/api/video/VideoShotItem;
 
-    .line 227
+    .line 234
     iget v0, p1, Lcom/bilibili/tv/api/video/VideoShotItem;->time:I
 
     iget v2, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4;->val$currentPlayTimeSec:I
@@ -69,7 +69,7 @@
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4;->val$shots:Ljava/util/List;
 
-    .line 228
+    .line 235
     invoke-interface {v2}, Ljava/util/List;->size()I
 
     move-result v2
@@ -95,19 +95,19 @@
     :cond_27
     const/4 v0, 0x1
 
-    .line 230
+    .line 237
     :goto_28
     return v0
 
     :cond_29
     move v0, v1
 
-    .line 228
+    .line 235
     goto :goto_28
 
     :cond_2b
     move v0, v1
 
-    .line 230
+    .line 237
     goto :goto_28
 .end method

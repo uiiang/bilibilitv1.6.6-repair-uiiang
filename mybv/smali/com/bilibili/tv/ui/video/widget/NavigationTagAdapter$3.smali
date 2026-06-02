@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 299
+    .line 307
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$3;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     iput p2, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$3;->val$finalPosition:I
@@ -44,7 +44,7 @@
     .locals 6
 
     .prologue
-    .line 302
+    .line 310
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$3;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->attachedRecyclerView:Landroid/support/v7/widget/RecyclerView;
@@ -54,11 +54,11 @@
 
     if-nez v0, :cond_9
 
-    .line 320
+    .line 328
     :goto_8
     return-void
 
-    .line 306
+    .line 314
     :cond_9
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$3;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
@@ -71,10 +71,10 @@
 
     move-result-object v0
 
-    .line 307
+    .line 315
     if-eqz v0, :cond_43
 
-    .line 309
+    .line 317
     :try_start_15
     invoke-virtual {v0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
@@ -102,7 +102,7 @@
 
     move-result-object v1
 
-    .line 310
+    .line 318
     const/4 v2, 0x2
 
     new-array v2, v2, [Ljava/lang/Object;
@@ -131,7 +131,7 @@
     :try_end_43
     .catch Ljava/lang/Exception; {:try_start_15 .. :try_end_43} :catch_4a
 
-    .line 319
+    .line 327
     :cond_43
     :goto_43
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$3;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
@@ -143,11 +143,11 @@
 
     goto :goto_8
 
-    .line 311
+    .line 319
     :catch_4a
     move-exception v0
 
-    .line 313
+    .line 321
     :try_start_4b
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$3;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
@@ -176,7 +176,7 @@
 
     move-result-object v0
 
-    .line 314
+    .line 322
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$3;->this$0:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->attachedRecyclerView:Landroid/support/v7/widget/RecyclerView;
@@ -204,7 +204,7 @@
 
     goto :goto_43
 
-    .line 315
+    .line 323
     :catch_79
     move-exception v0
 

@@ -125,7 +125,7 @@
     .locals 1
 
     .prologue
-    .line 265
+    .line 273
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->size()I
@@ -151,19 +151,19 @@
     .locals 3
 
     .prologue
-    .line 225
+    .line 233
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->context:Landroid/content/Context;
 
     if-nez v0, :cond_a
 
-    .line 226
+    .line 234
     invoke-virtual {p1}, Landroid/view/ViewGroup;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->context:Landroid/content/Context;
 
-    .line 228
+    .line 236
     :cond_a
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->context:Landroid/content/Context;
 
@@ -179,7 +179,7 @@
 
     move-result-object v0
 
-    .line 229
+    .line 237
     new-instance v1, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$TagViewHolder;
 
     invoke-direct {v1, v0}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$TagViewHolder;-><init>(Landroid/view/View;)V
@@ -203,7 +203,7 @@
     .locals 4
 
     .prologue
-    .line 234
+    .line 242
     if-ltz p2, :cond_a
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
@@ -214,12 +214,12 @@
 
     if-lt p2, v0, :cond_b
 
-    .line 261
+    .line 269
     :cond_a
     :goto_a
     return-void
 
-    .line 238
+    .line 246
     :cond_b
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
 
@@ -229,14 +229,14 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$TagItem;
 
-    .line 239
+    .line 247
     iget v1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->selectedPosition:I
 
     if-ne p2, v1, :cond_42
 
     const/4 v1, 0x1
 
-    .line 241
+    .line 249
     :goto_18
     iget-object v2, p1, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$TagViewHolder;->textView:Landroid/widget/TextView;
 
@@ -244,17 +244,17 @@
 
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 242
+    .line 250
     iget-object v2, p1, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$TagViewHolder;->textView:Landroid/widget/TextView;
 
     invoke-virtual {v2, v1}, Landroid/widget/TextView;->setSelected(Z)V
 
-    .line 244
+    .line 252
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->focusBoundaryHandler:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$FocusBoundaryHandler;
 
     if-eqz v1, :cond_35
 
-    .line 245
+    .line 253
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->focusBoundaryHandler:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$FocusBoundaryHandler;
 
     iget-object v2, p1, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$TagViewHolder;->a:Landroid/view/View;
@@ -267,11 +267,11 @@
 
     invoke-interface {v1, v2, p2, v3}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$FocusBoundaryHandler;->setupFocusBoundary(Landroid/view/View;II)V
 
-    .line 249
+    .line 257
     :cond_35
     iget v0, v0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$TagItem;->startIndex:I
 
-    .line 251
+    .line 259
     iget-object v1, p1, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$TagViewHolder;->a:Landroid/view/View;
 
     new-instance v2, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$2;
@@ -282,7 +282,7 @@
 
     goto :goto_a
 
-    .line 239
+    .line 247
     :cond_42
     const/4 v1, 0x0
 
@@ -293,10 +293,10 @@
     .locals 0
 
     .prologue
-    .line 220
+    .line 228
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->attachedRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
-    .line 221
+    .line 229
     return-void
 .end method
 
@@ -304,7 +304,7 @@
     .locals 6
 
     .prologue
-    .line 327
+    .line 335
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->attachedRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     if-eqz v0, :cond_3a
@@ -319,7 +319,7 @@
 
     if-ge p1, v0, :cond_3a
 
-    .line 329
+    .line 337
     :try_start_e
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->attachedRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
@@ -327,10 +327,10 @@
 
     move-result-object v0
 
-    .line 330
+    .line 338
     if-eqz v0, :cond_3a
 
-    .line 331
+    .line 339
     invoke-virtual {v0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
     move-result-object v1
@@ -351,7 +351,7 @@
 
     move-result-object v1
 
-    .line 332
+    .line 340
     const/4 v2, 0x1
 
     new-array v2, v2, [Ljava/lang/Object;
@@ -372,15 +372,15 @@
     :try_end_38
     .catch Ljava/lang/Exception; {:try_start_e .. :try_end_38} :catch_39
 
-    .line 337
+    .line 345
     :goto_38
     return-object v0
 
-    .line 334
+    .line 342
     :catch_39
     move-exception v0
 
-    .line 337
+    .line 345
     :cond_3a
     const/4 v0, 0x0
 
@@ -388,33 +388,72 @@
 .end method
 
 .method public getGroupIndexForVideoPosition(I)I
-    .locals 4
+    .locals 7
 
     .prologue
+    const/4 v2, 0x0
+
     .line 115
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
+    const-string v0, "NavTagFocusBug"
 
-    invoke-interface {v0}, Ljava/util/List;->size()I
+    new-instance v1, Ljava/lang/StringBuilder;
 
-    move-result v0
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    if-lez v0, :cond_48
+    const-string v3, "[getGroupIndexForVideoPosition] videoPosition="
 
-    .line 116
-    const/4 v0, 0x0
+    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move v1, v0
+    move-result-object v1
 
-    :goto_a
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    invoke-interface {v0}, Ljava/util/List;->size()I
+    move-result-object v1
 
-    move-result v0
+    const-string v3, " | tags.size()="
 
-    if-ge v1, v0, :cond_3f
+    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    iget-object v3, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
+
+    invoke-interface {v3}, Ljava/util/List;->size()I
+
+    move-result v3
+
+    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 117
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
+
+    invoke-interface {v0}, Ljava/util/List;->size()I
+
+    move-result v0
+
+    if-lez v0, :cond_e6
+
+    move v1, v2
+
+    .line 118
+    :goto_32
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
+
+    invoke-interface {v0}, Ljava/util/List;->size()I
+
+    move-result v0
+
+    if-ge v1, v0, :cond_bd
+
+    .line 119
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
 
     invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -423,9 +462,9 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$TagItem;
 
-    iget v2, v0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$TagItem;->startIndex:I
+    iget v4, v0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$TagItem;->startIndex:I
 
-    .line 118
+    .line 120
     add-int/lit8 v0, v1, 0x1
 
     iget-object v3, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
@@ -434,7 +473,7 @@
 
     move-result v3
 
-    if-ge v0, v3, :cond_37
+    if-ge v0, v3, :cond_b2
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
 
@@ -448,32 +487,152 @@
 
     iget v0, v0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$TagItem;->startIndex:I
 
-    .line 120
-    :goto_32
-    if-lt p1, v2, :cond_3b
+    .line 122
+    :goto_5a
+    const-string v5, "NavTagFocusBug"
 
-    if-ge p1, v0, :cond_3b
+    new-instance v3, Ljava/lang/StringBuilder;
 
-    .line 127
-    :goto_36
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v6, "[getGroupIndexForVideoPosition] checking tag["
+
+    invoke-virtual {v3, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    const-string v6, "]: currentStart="
+
+    invoke-virtual {v3, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    const-string v6, ", nextStart="
+
+    invoke-virtual {v3, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    const-string v6, ", condition="
+
+    invoke-virtual {v3, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v6
+
+    if-lt p1, v4, :cond_b6
+
+    if-ge p1, v0, :cond_b6
+
+    const/4 v3, 0x1
+
+    :goto_8a
+    invoke-virtual {v6, v3}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-static {v5, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 124
+    if-lt p1, v4, :cond_b8
+
+    if-ge p1, v0, :cond_b8
+
+    .line 125
+    const-string v0, "NavTagFocusBug"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "[getGroupIndexForVideoPosition] matched! returning tagIndex="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 135
+    :goto_b1
     return v1
 
-    .line 118
-    :cond_37
+    .line 120
+    :cond_b2
     const v0, 0x7fffffff
 
-    goto :goto_32
+    goto :goto_5a
 
-    .line 116
-    :cond_3b
+    :cond_b6
+    move v3, v2
+
+    .line 122
+    goto :goto_8a
+
+    .line 118
+    :cond_b8
     add-int/lit8 v0, v1, 0x1
 
     move v1, v0
 
-    goto :goto_a
+    goto/16 :goto_32
 
-    .line 124
-    :cond_3f
+    .line 129
+    :cond_bd
+    const-string v0, "NavTagFocusBug"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "[getGroupIndexForVideoPosition] no match, returning last tag="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
+
+    invoke-interface {v2}, Ljava/util/List;->size()I
+
+    move-result v2
+
+    add-int/lit8 v2, v2, -0x1
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 130
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->size()I
@@ -482,22 +641,45 @@
 
     add-int/lit8 v1, v0, -0x1
 
-    goto :goto_36
+    goto :goto_b1
 
-    .line 127
-    :cond_48
+    .line 133
+    :cond_e6
     iget v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->groupSize:I
 
     div-int v1, p1, v0
 
-    goto :goto_36
+    .line 134
+    const-string v0, "NavTagFocusBug"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "[getGroupIndexForVideoPosition] no tags, fallback to "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_b1
 .end method
 
 .method public getGroupSize()I
     .locals 1
 
     .prologue
-    .line 131
+    .line 139
     iget v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->groupSize:I
 
     return v0
@@ -507,7 +689,7 @@
     .locals 4
 
     .prologue
-    .line 135
+    .line 143
     if-ltz p1, :cond_a
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
@@ -518,15 +700,15 @@
 
     if-lt p1, v0, :cond_c
 
-    .line 136
+    .line 144
     :cond_a
     const/4 v0, 0x0
 
-    .line 148
+    .line 156
     :goto_b
     return-object v0
 
-    .line 139
+    .line 147
     :cond_c
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
 
@@ -538,7 +720,7 @@
 
     iget v2, v0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$TagItem;->startIndex:I
 
-    .line 142
+    .line 150
     add-int/lit8 v0, p1, 0x1
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
@@ -549,7 +731,7 @@
 
     if-ge v0, v1, :cond_39
 
-    .line 143
+    .line 151
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
 
     add-int/lit8 v1, p1, 0x1
@@ -564,7 +746,7 @@
 
     add-int/lit8 v0, v0, -0x1
 
-    .line 148
+    .line 156
     :goto_2e
     const/4 v1, 0x2
 
@@ -582,7 +764,7 @@
 
     goto :goto_b
 
-    .line 145
+    .line 153
     :cond_39
     const v0, 0x7fffffff
 
@@ -593,7 +775,7 @@
     .locals 1
 
     .prologue
-    .line 201
+    .line 209
     if-ltz p1, :cond_15
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
@@ -604,7 +786,7 @@
 
     if-ge p1, v0, :cond_15
 
-    .line 202
+    .line 210
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
 
     invoke-interface {v0, p1}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -615,7 +797,7 @@
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$TagItem;->label:Ljava/lang/String;
 
-    .line 204
+    .line 212
     :goto_14
     return-object v0
 
@@ -629,7 +811,7 @@
     .locals 1
 
     .prologue
-    .line 190
+    .line 198
     iget v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->selectedPosition:I
 
     return v0
@@ -639,7 +821,7 @@
     .locals 1
 
     .prologue
-    .line 194
+    .line 202
     if-ltz p1, :cond_15
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
@@ -650,7 +832,7 @@
 
     if-ge p1, v0, :cond_15
 
-    .line 195
+    .line 203
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
 
     invoke-interface {v0, p1}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -661,7 +843,7 @@
 
     iget v0, v0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$TagItem;->startIndex:I
 
-    .line 197
+    .line 205
     :goto_14
     return v0
 
@@ -675,7 +857,7 @@
     .locals 1
 
     .prologue
-    .line 269
+    .line 277
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->size()I
@@ -698,7 +880,7 @@
     .end annotation
 
     .prologue
-    .line 341
+    .line 349
     new-instance v0, Ljava/util/ArrayList;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
@@ -712,7 +894,7 @@
     .locals 1
 
     .prologue
-    .line 273
+    .line 281
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->isEmpty()Z
@@ -726,7 +908,7 @@
     .locals 5
 
     .prologue
-    .line 277
+    .line 285
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->attachedRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     if-eqz v0, :cond_31
@@ -741,7 +923,7 @@
 
     if-ge p1, v0, :cond_31
 
-    .line 279
+    .line 287
     :try_start_e
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->attachedRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
@@ -765,7 +947,7 @@
 
     move-result-object v0
 
-    .line 280
+    .line 288
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->attachedRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     const/4 v2, 0x1
@@ -784,16 +966,16 @@
     :try_end_31
     .catch Ljava/lang/Exception; {:try_start_e .. :try_end_31} :catch_32
 
-    .line 289
+    .line 297
     :cond_31
     :goto_31
     return-void
 
-    .line 281
+    .line 289
     :catch_32
     move-exception v0
 
-    .line 283
+    .line 291
     :try_start_33
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->attachedRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
@@ -817,7 +999,7 @@
 
     move-result-object v0
 
-    .line 284
+    .line 292
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->attachedRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     const/4 v2, 0x1
@@ -838,7 +1020,7 @@
 
     goto :goto_31
 
-    .line 285
+    .line 293
     :catch_57
     move-exception v0
 
@@ -849,7 +1031,7 @@
     .locals 2
 
     .prologue
-    .line 292
+    .line 300
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->attachedRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     if-eqz v0, :cond_2a
@@ -864,24 +1046,24 @@
 
     if-ge p1, v0, :cond_2a
 
-    .line 293
+    .line 301
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->pendingScrollRunnable:Ljava/lang/Runnable;
 
     if-eqz v0, :cond_1c
 
-    .line 294
+    .line 302
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->attachedRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->pendingScrollRunnable:Ljava/lang/Runnable;
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->removeCallbacks(Ljava/lang/Runnable;)Z
 
-    .line 295
+    .line 303
     const/4 v0, 0x0
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->pendingScrollRunnable:Ljava/lang/Runnable;
 
-    .line 299
+    .line 307
     :cond_1c
     new-instance v0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$3;
 
@@ -889,14 +1071,14 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->pendingScrollRunnable:Ljava/lang/Runnable;
 
-    .line 322
+    .line 330
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->attachedRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->pendingScrollRunnable:Ljava/lang/Runnable;
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->post(Ljava/lang/Runnable;)Z
 
-    .line 324
+    .line 332
     :cond_2a
     return-void
 .end method
@@ -960,10 +1142,10 @@
     .locals 0
 
     .prologue
-    .line 216
+    .line 224
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->focusBoundaryHandler:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$FocusBoundaryHandler;
 
-    .line 217
+    .line 225
     return-void
 .end method
 
@@ -971,10 +1153,10 @@
     .locals 0
 
     .prologue
-    .line 212
+    .line 220
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->clickListener:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$OnTagClickListener;
 
-    .line 213
+    .line 221
     return-void
 .end method
 
@@ -982,10 +1164,10 @@
     .locals 0
 
     .prologue
-    .line 208
+    .line 216
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->listener:Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$OnTagFocusListener;
 
-    .line 209
+    .line 217
     return-void
 .end method
 
@@ -993,35 +1175,35 @@
     .locals 4
 
     .prologue
-    .line 152
+    .line 160
     iget v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->selectedPosition:I
 
     if-eq v0, p1, :cond_3c
 
-    .line 153
+    .line 161
     iget v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->selectedPosition:I
 
-    .line 154
+    .line 162
     iput p1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->selectedPosition:I
 
-    .line 156
+    .line 164
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->attachedRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     if-eqz v1, :cond_3c
 
-    .line 159
+    .line 167
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->tags:Ljava/util/List;
 
     invoke-interface {v1}, Ljava/util/List;->size()I
 
     move-result v1
 
-    .line 161
+    .line 169
     new-instance v2, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$1;
 
     invoke-direct {v2, p0, v0, v1, p1}, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$1;-><init>(Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;III)V
 
-    .line 174
+    .line 182
     :try_start_17
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->attachedRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
@@ -1039,7 +1221,7 @@
 
     move-result-object v0
 
-    .line 175
+    .line 183
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->attachedRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     const/4 v3, 0x0
@@ -1056,20 +1238,20 @@
 
     move-result v0
 
-    .line 177
+    .line 185
     if-eqz v0, :cond_3d
 
-    .line 178
+    .line 186
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->attachedRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v0, v2}, Landroid/support/v7/widget/RecyclerView;->post(Ljava/lang/Runnable;)Z
 
-    .line 187
+    .line 195
     :cond_3c
     :goto_3c
     return-void
 
-    .line 180
+    .line 188
     :cond_3d
     invoke-interface {v2}, Ljava/lang/Runnable;->run()V
     :try_end_40
@@ -1077,11 +1259,11 @@
 
     goto :goto_3c
 
-    .line 182
+    .line 190
     :catch_41
     move-exception v0
 
-    .line 183
+    .line 191
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter;->attachedRecyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v0, v2}, Landroid/support/v7/widget/RecyclerView;->post(Ljava/lang/Runnable;)Z
