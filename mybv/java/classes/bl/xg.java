@@ -22,24 +22,42 @@ import com.alibaba.fastjson.JSONObject;
 /* loaded from: classes.dex */
 public class xg {
     public static void a(int i, Context context, String str, BangumiEpisodeEx bangumiEpisodeEx, List<BangumiEpisodeEx> list) {
-        context.startActivity(b(context, str, bangumiEpisodeEx, list, -1, i));
+        context.startActivity(b(context, null, str, bangumiEpisodeEx, list, -1, i));
+    }
+
+    public static void a(int i, Context context, String seasonTitle, String seasonId, BangumiEpisodeEx bangumiEpisodeEx, List<BangumiEpisodeEx> list) {
+        context.startActivity(b(context, seasonTitle, seasonId, bangumiEpisodeEx, list, -1, i));
     }
 
     public static void a(Context context, String str, BangumiEpisodeEx bangumiEpisodeEx, List<BangumiEpisodeEx> list, int i, int i2) {
-        context.startActivity(b(context, str, bangumiEpisodeEx, list, i, i2));
+        context.startActivity(b(context, null, str, bangumiEpisodeEx, list, i, i2));
+    }
+
+    public static void a(Context context, String seasonTitle, String seasonId, BangumiEpisodeEx bangumiEpisodeEx, List<BangumiEpisodeEx> list, int i, int i2) {
+        context.startActivity(b(context, seasonTitle, seasonId, bangumiEpisodeEx, list, i, i2));
     }
 
     public static Intent b(Context context, @Nullable String str, @NonNull BangumiEpisodeEx bangumiEpisodeEx, @Nullable List<BangumiEpisodeEx> list, int i, int i2) {
+        return b(context, null, str, bangumiEpisodeEx, list, i, i2);
+    }
+
+    public static Intent b(Context context, @Nullable String seasonTitle, @Nullable String seasonId, @NonNull BangumiEpisodeEx bangumiEpisodeEx, @Nullable List<BangumiEpisodeEx> list, int i, int i2) {
         PlayerParams a = aaj.a(context);
         ResolveResourceParams obtainResolveParams = a.mVideoParams.obtainResolveParams();
-        yr.b(a, bangumiEpisodeEx.long_title);
+        
+        if (seasonTitle != null && !seasonTitle.isEmpty()) {
+            yr.b(a, seasonTitle);
+        } else {
+            yr.b(a, bangumiEpisodeEx.long_title);
+        }
+        
         yr.a(a, bangumiEpisodeEx.cover);
         yr.a(a, i2);
         obtainResolveParams.mAvid = bangumiEpisodeEx.aid;
-        if (str == null) {
-            str = Integer.toString(Integer.MIN_VALUE);
+        if (seasonId == null) {
+            seasonId = Integer.toString(Integer.MIN_VALUE);
         }
-        obtainResolveParams.mSeasonId = str;
+        obtainResolveParams.mSeasonId = seasonId;
         obtainResolveParams.mEpisodeId = bangumiEpisodeEx.epid;
         obtainResolveParams.mCid = bangumiEpisodeEx.cid;
         obtainResolveParams.mPageTitle = bangumiEpisodeEx.long_title;
@@ -52,7 +70,7 @@ public class xg {
         obtainResolveParams.mAuthor = vtText;
         obtainResolveParams.mHideUpIcon = !TextUtils.isEmpty(vtText);
         obtainResolveParams.mListType = 1;
-        obtainResolveParams.mListKey = "season_" + str;
+        obtainResolveParams.mListKey = "season_" + seasonId;
         if (bangumiEpisodeEx.stat != null) {
             obtainResolveParams.mPlays = String.valueOf(bangumiEpisodeEx.stat.play);
             obtainResolveParams.mDanmakus = String.valueOf(bangumiEpisodeEx.stat.danmakus);

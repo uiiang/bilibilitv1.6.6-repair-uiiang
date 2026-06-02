@@ -158,7 +158,7 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 1061
+    .line 1064
     const-wide/16 v0, 0x0
 
     cmp-long v0, p2, v0
@@ -174,18 +174,18 @@
     :cond_d
     move v0, v2
 
-    .line 1073
+    .line 1076
     :goto_e
     return v0
 
-    .line 1064
+    .line 1067
     :cond_f
     if-nez p1, :cond_14
 
-    .line 1065
+    .line 1068
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 1067
+    .line 1070
     :cond_14
     iget-object v0, p1, Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;->episodes:Ljava/util/List;
 
@@ -195,11 +195,11 @@
 
     move v1, v2
 
-    .line 1068
+    .line 1071
     :goto_1b
     if-ge v1, v3, :cond_30
 
-    .line 1069
+    .line 1072
     iget-object v0, p1, Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;->episodes:Ljava/util/List;
 
     invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -216,10 +216,10 @@
 
     move v0, v1
 
-    .line 1070
+    .line 1073
     goto :goto_e
 
-    .line 1068
+    .line 1071
     :cond_2d
     add-int/lit8 v1, v1, 0x1
 
@@ -228,7 +228,7 @@
     :cond_30
     move v0, v2
 
-    .line 1073
+    .line 1076
     goto :goto_e
 .end method
 
@@ -516,39 +516,39 @@
     .locals 2
 
     .prologue
-    .line 1077
+    .line 1080
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->s:Landroid/support/v4/view/ViewPager;
 
     if-nez v0, :cond_5
 
-    .line 1098
+    .line 1101
     :goto_4
     return-void
 
-    .line 1080
+    .line 1083
     :cond_5
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->s:Landroid/support/v4/view/ViewPager;
 
-    .line 1081
+    .line 1084
     if-nez v0, :cond_c
 
-    .line 1082
+    .line 1085
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 1084
+    .line 1087
     :cond_c
     invoke-virtual {v0, p1}, Landroid/support/v4/view/ViewPager;->setCurrentItem(I)V
 
-    .line 1085
+    .line 1088
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->t:Lcom/bilibili/tv/widget/PagerSlidingTabStrip;
 
-    .line 1086
+    .line 1089
     if-nez v0, :cond_16
 
-    .line 1087
+    .line 1090
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 1089
+    .line 1092
     :cond_16
     const/4 v1, 0x0
 
@@ -556,10 +556,10 @@
 
     move-result-object v0
 
-    .line 1090
+    .line 1093
     if-nez v0, :cond_25
 
-    .line 1091
+    .line 1094
     new-instance v0, Lkotlin/TypeCastException;
 
     const-string v1, "null cannot be cast to non-null type android.view.ViewGroup"
@@ -568,7 +568,7 @@
 
     throw v0
 
-    .line 1093
+    .line 1096
     :cond_25
     check-cast v0, Landroid/view/ViewGroup;
 
@@ -576,10 +576,10 @@
 
     move-result-object v0
 
-    .line 1094
+    .line 1097
     if-nez v0, :cond_35
 
-    .line 1095
+    .line 1098
     new-instance v0, Lkotlin/TypeCastException;
 
     const-string v1, "null cannot be cast to non-null type android.widget.TextView"
@@ -588,7 +588,7 @@
 
     throw v0
 
-    .line 1097
+    .line 1100
     :cond_35
     check-cast v0, Landroid/widget/TextView;
 
@@ -1354,7 +1354,7 @@
 .end method
 
 .method private final m()V
-    .locals 4
+    .locals 6
 
     .prologue
     .line 438
@@ -1381,75 +1381,80 @@
 
     invoke-static {p0, v0}, Lbl/lr;->a(Landroid/content/Context;I)V
 
-    .line 466
+    .line 467
     :goto_15
     return-void
 
     .line 446
     :cond_16
-    iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->A:Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;
+    iget-object v1, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->A:Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;
 
     .line 447
-    if-nez v0, :cond_1d
+    if-nez v1, :cond_1d
 
     .line 448
     invoke-static {}, Lbl/bbi;->a()V
 
     .line 450
     :cond_1d
-    iget v1, v0, Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;->seasonType:I
+    iget v0, v1, Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;->seasonType:I
 
     .line 452
-    iget-object v2, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->a:Ljava/lang/String;
+    iget-object v3, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->a:Ljava/lang/String;
 
     .line 453
-    iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->A:Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;
+    iget-object v2, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->A:Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;
 
     .line 454
-    if-nez v0, :cond_28
+    if-nez v2, :cond_28
 
     .line 455
     invoke-static {}, Lbl/bbi;->a()V
 
     .line 457
     :cond_28
-    iget-object v0, v0, Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;->episodes:Ljava/util/List;
+    iget-object v2, v2, Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;->episodes:Ljava/util/List;
 
-    iget v3, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->z:I
+    iget v4, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->z:I
 
-    invoke-interface {v0, v3}, Ljava/util/List;->get(I)Ljava/lang/Object;
+    invoke-interface {v2, v4}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
-    move-result-object v0
+    move-result-object v4
 
-    check-cast v0, Lcom/bilibili/bangumi/api/newbean/BangumiEpisodeEx;
+    check-cast v4, Lcom/bilibili/bangumi/api/newbean/BangumiEpisodeEx;
 
     .line 458
-    if-eqz v0, :cond_3d
+    if-eqz v4, :cond_3d
 
-    iget-object v3, v0, Lcom/bilibili/bangumi/api/newbean/BangumiEpisodeEx;->cover:Ljava/lang/String;
+    iget-object v2, v4, Lcom/bilibili/bangumi/api/newbean/BangumiEpisodeEx;->cover:Ljava/lang/String;
 
-    if-eqz v3, :cond_3d
+    if-eqz v2, :cond_3d
 
     .line 459
-    iget-object v3, v0, Lcom/bilibili/bangumi/api/newbean/BangumiEpisodeEx;->cover:Ljava/lang/String;
+    iget-object v2, v4, Lcom/bilibili/bangumi/api/newbean/BangumiEpisodeEx;->cover:Ljava/lang/String;
 
-    invoke-static {p0, v3}, Lbl/abd;->prefetchCoverToMemoryCache(Landroid/content/Context;Ljava/lang/String;)V
+    invoke-static {p0, v2}, Lbl/abd;->prefetchCoverToMemoryCache(Landroid/content/Context;Ljava/lang/String;)V
 
     .line 461
     :cond_3d
-    iget-object v3, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->A:Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;
+    iget-object v5, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->A:Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;
 
     .line 462
-    if-nez v3, :cond_44
+    if-nez v5, :cond_44
 
     .line 463
     invoke-static {}, Lbl/bbi;->a()V
 
     .line 465
     :cond_44
-    iget-object v3, v3, Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;->episodes:Ljava/util/List;
+    iget-object v2, v1, Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;->title:Ljava/lang/String;
 
-    invoke-static {v1, p0, v2, v0, v3}, Lbl/xg;->a(ILandroid/content/Context;Ljava/lang/String;Lcom/bilibili/bangumi/api/newbean/BangumiEpisodeEx;Ljava/util/List;)V
+    .line 466
+    iget-object v5, v5, Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;->episodes:Ljava/util/List;
+
+    move-object v1, p0
+
+    invoke-static/range {v0 .. v5}, Lbl/xg;->a(ILandroid/content/Context;Ljava/lang/String;Ljava/lang/String;Lcom/bilibili/bangumi/api/newbean/BangumiEpisodeEx;Ljava/util/List;)V
 
     goto :goto_15
 .end method
@@ -1464,25 +1469,25 @@
 
     const/4 v4, 0x1
 
-    .line 469
     .line 470
+    .line 471
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
 
-    .line 471
+    .line 472
     const-string v1, "BiliAccount.get(this)"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 472
+    .line 473
     invoke-virtual {v0}, Lbl/mg;->a()Z
 
     move-result v0
 
     if-nez v0, :cond_24
 
-    .line 473
+    .line 474
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->getApplicationContext()Landroid/content/Context;
 
     move-result-object v0
@@ -1491,33 +1496,33 @@
 
     invoke-static {v0, v1}, Lbl/lr;->a(Landroid/content/Context;I)V
 
-    .line 474
+    .line 475
     sget-object v0, Lcom/bilibili/tv/ui/account/LoginActivity;->Companion:Lcom/bilibili/tv/ui/account/LoginActivity$a;
 
     const/16 v1, 0x3036
 
     invoke-virtual {v0, p0, v1}, Lcom/bilibili/tv/ui/account/LoginActivity$a;->a(Landroid/app/Activity;I)V
 
-    .line 499
+    .line 500
     :cond_23
     :goto_23
     return-void
 
-    .line 477
+    .line 478
     :cond_24
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->w:Z
 
     if-nez v0, :cond_23
 
-    .line 480
+    .line 481
     iput-boolean v4, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->w:Z
 
-    .line 481
+    .line 482
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->v:Z
 
     if-eqz v0, :cond_63
 
-    .line 482
+    .line 483
     const-class v0, Lbl/kd;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -1526,20 +1531,20 @@
 
     check-cast v0, Lbl/kd;
 
-    .line 483
+    .line 484
     iget-object v1, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->a:Ljava/lang/String;
 
-    .line 484
+    .line 485
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v2
 
-    .line 485
+    .line 486
     const-string v3, "BiliAccount.get(this)"
 
     invoke-static {v2, v3}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 486
+    .line 487
     invoke-virtual {v2}, Lbl/mg;->e()Ljava/lang/String;
 
     move-result-object v2
@@ -1552,10 +1557,10 @@
 
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 487
+    .line 488
     iput-boolean v5, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->v:Z
 
-    .line 488
+    .line 489
     const-string v0, "tv_bangumi_view_click_follow"
 
     new-array v1, v6, [Ljava/lang/String;
@@ -1570,13 +1575,13 @@
 
     invoke-static {v0, v1}, Lbl/ok;->a(Ljava/lang/String;[Ljava/lang/String;)V
 
-    .line 498
+    .line 499
     :goto_5f
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->o()V
 
     goto :goto_23
 
-    .line 490
+    .line 491
     :cond_63
     const-class v0, Lbl/kd;
 
@@ -1586,20 +1591,20 @@
 
     check-cast v0, Lbl/kd;
 
-    .line 491
+    .line 492
     iget-object v1, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->a:Ljava/lang/String;
 
-    .line 492
+    .line 493
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v2
 
-    .line 493
+    .line 494
     const-string v3, "BiliAccount.get(this)"
 
     invoke-static {v2, v3}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 494
+    .line 495
     invoke-virtual {v2}, Lbl/mg;->e()Ljava/lang/String;
 
     move-result-object v2
@@ -1612,10 +1617,10 @@
 
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 495
+    .line 496
     iput-boolean v4, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->v:Z
 
-    .line 496
+    .line 497
     const-string v0, "tv_bangumi_view_click_follow"
 
     new-array v1, v6, [Ljava/lang/String;
@@ -1653,33 +1658,33 @@
 
     const/4 v4, 0x0
 
-    .line 510
+    .line 511
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->t:Lcom/bilibili/tv/widget/PagerSlidingTabStrip;
 
-    .line 511
+    .line 512
     if-nez v0, :cond_9
 
-    .line 512
+    .line 513
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 514
+    .line 515
     :cond_9
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/widget/PagerSlidingTabStrip;->getChildAt(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 515
+    .line 516
     instance-of v1, v0, Landroid/widget/LinearLayout;
 
     if-nez v1, :cond_12
 
     move-object v0, v2
 
-    .line 518
+    .line 519
     :cond_12
     check-cast v0, Landroid/widget/LinearLayout;
 
-    .line 519
+    .line 520
     if-eqz v0, :cond_3e
 
     invoke-virtual {v0}, Landroid/widget/LinearLayout;->getChildCount()I
@@ -1689,12 +1694,12 @@
     :goto_1a
     add-int/lit8 v5, v1, -0x1
 
-    .line 520
+    .line 521
     if-ltz v5, :cond_2e
 
     move v3, v4
 
-    .line 523
+    .line 524
     :goto_1f
     if-eqz v0, :cond_40
 
@@ -1702,19 +1707,19 @@
 
     move-result-object v1
 
-    .line 524
+    .line 525
     :goto_25
     if-eqz v1, :cond_46
 
-    .line 525
+    .line 526
     check-cast v1, Landroid/widget/TextView;
 
     invoke-virtual {p0, v1, v4}, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->a(Landroid/widget/TextView;Z)V
 
-    .line 526
+    .line 527
     if-ne v3, v5, :cond_42
 
-    .line 536
+    .line 537
     :cond_2e
     if-eqz v0, :cond_4e
 
@@ -1722,11 +1727,11 @@
 
     move-result-object v0
 
-    .line 537
+    .line 538
     :goto_34
     if-nez v0, :cond_50
 
-    .line 538
+    .line 539
     new-instance v0, Lkotlin/TypeCastException;
 
     const-string v1, "null cannot be cast to non-null type android.widget.TextView"
@@ -1738,25 +1743,25 @@
     :cond_3e
     move v1, v4
 
-    .line 519
+    .line 520
     goto :goto_1a
 
     :cond_40
     move-object v1, v2
 
-    .line 523
+    .line 524
     goto :goto_25
 
-    .line 529
+    .line 530
     :cond_42
     add-int/lit8 v1, v3, 0x1
 
     move v3, v1
 
-    .line 534
+    .line 535
     goto :goto_1f
 
-    .line 532
+    .line 533
     :cond_46
     new-instance v0, Lkotlin/TypeCastException;
 
@@ -1769,10 +1774,10 @@
     :cond_4e
     move-object v0, v2
 
-    .line 536
+    .line 537
     goto :goto_34
 
-    .line 540
+    .line 541
     :cond_50
     check-cast v0, Landroid/widget/TextView;
 
@@ -1780,7 +1785,7 @@
 
     invoke-virtual {p0, v0, v1}, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->a(Landroid/widget/TextView;Z)V
 
-    .line 541
+    .line 542
     return-void
 .end method
 
@@ -1875,18 +1880,18 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 545
+    .line 546
     if-nez p1, :cond_4
 
-    .line 555
+    .line 556
     :goto_3
     return-void
 
-    .line 548
+    .line 549
     :cond_4
     if-eqz p2, :cond_1b
 
-    .line 549
+    .line 550
     const v0, 0x7f0500a1
 
     invoke-static {v0}, Lbl/adl;->d(I)I
@@ -1895,7 +1900,7 @@
 
     invoke-virtual {p1, v0}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 550
+    .line 551
     const v0, 0x7f0601e8
 
     invoke-static {v0}, Lbl/adl;->a(I)F
@@ -1906,7 +1911,7 @@
 
     goto :goto_3
 
-    .line 552
+    .line 553
     :cond_1b
     const v0, 0x7f050049
 
@@ -1916,7 +1921,7 @@
 
     invoke-virtual {p1, v0}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 553
+    .line 554
     const v0, 0x7f06018f
 
     invoke-static {v0}, Lbl/adl;->a(I)F
@@ -1932,10 +1937,10 @@
     .locals 3
 
     .prologue
-    .line 599
+    .line 600
     if-eqz p1, :cond_1f
 
-    .line 600
+    .line 601
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->getApplication()Landroid/app/Application;
 
     move-result-object v0
@@ -1944,7 +1949,7 @@
 
     move-result-object v0
 
-    .line 601
+    .line 602
     invoke-static {}, Lbl/nv;->a()Lbl/nv;
 
     move-result-object v1
@@ -1953,20 +1958,20 @@
 
     invoke-virtual {v1, v0, v2}, Lbl/nv;->a(Ljava/lang/String;Landroid/widget/ImageView;)V
 
-    .line 602
+    .line 603
     sget-object v1, Lbl/adl;->a:Lbl/adl;
 
-    .line 603
+    .line 604
     const-string v2, "url"
 
     invoke-static {v0, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 604
+    .line 605
     iget-object v2, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->r:Landroid/widget/ImageView;
 
     invoke-virtual {v1, v0, v2}, Lbl/adl;->a(Ljava/lang/String;Landroid/widget/ImageView;)V
 
-    .line 606
+    .line 607
     :cond_1f
     return-void
 .end method
@@ -1984,7 +1989,7 @@
 
     const/4 v2, 0x0
 
-    .line 581
+    .line 582
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->j:Landroid/widget/TextView;
 
     if-eqz v0, :cond_f
@@ -1997,12 +2002,12 @@
 
     if-gtz v0, :cond_10
 
-    .line 595
+    .line 596
     :cond_f
     :goto_f
     return-void
 
-    .line 586
+    .line 587
     :cond_10
     if-eqz p1, :cond_3b
 
@@ -2010,7 +2015,7 @@
 
     move v3, v2
 
-    .line 590
+    .line 591
     :goto_14
     iget-object v1, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->j:Landroid/widget/TextView;
 
@@ -2032,24 +2037,24 @@
 
     move-result-object v0
 
-    .line 591
+    .line 592
     const-string v1, "alphaAnimator"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 592
+    .line 593
     new-instance v1, Landroid/view/animation/DecelerateInterpolator;
 
     invoke-direct {v1}, Landroid/view/animation/DecelerateInterpolator;-><init>()V
 
     invoke-virtual {v0, v1}, Landroid/animation/ObjectAnimator;->setInterpolator(Landroid/animation/TimeInterpolator;)V
 
-    .line 593
+    .line 594
     const-wide/16 v2, 0x219
 
     invoke-virtual {v0, v2, v3}, Landroid/animation/ObjectAnimator;->setDuration(J)Landroid/animation/ObjectAnimator;
 
-    .line 594
+    .line 595
     invoke-virtual {v0}, Landroid/animation/ObjectAnimator;->start()V
 
     goto :goto_f
@@ -2098,7 +2103,7 @@
     .prologue
     const-wide/16 v4, 0x0
 
-    .line 1003
+    .line 1006
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->A:Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;
 
     invoke-static {v0}, Lbl/ads;->b(Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;)Z
@@ -2107,24 +2112,24 @@
 
     if-eqz v0, :cond_b
 
-    .line 1058
+    .line 1061
     :goto_a
     return-void
 
-    .line 1007
+    .line 1010
     :cond_b
     :try_start_b
     invoke-static {p1}, Ljava/lang/Long;->valueOf(Ljava/lang/String;)Ljava/lang/Long;
 
     move-result-object v0
 
-    .line 1008
+    .line 1011
     if-nez v0, :cond_14
 
-    .line 1009
+    .line 1012
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 1011
+    .line 1014
     :cond_14
     invoke-virtual {v0}, Ljava/lang/Long;->longValue()J
     :try_end_17
@@ -2132,18 +2137,18 @@
 
     move-result-wide v2
 
-    .line 1015
+    .line 1018
     :goto_18
     cmp-long v0, v2, v4
 
     if-gtz v0, :cond_97
 
-    .line 1016
+    .line 1019
     const/4 v0, 0x0
 
     check-cast v0, Lbl/wl;
 
-    .line 1018
+    .line 1021
     :try_start_1f
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->getApplicationContext()Landroid/content/Context;
 
@@ -2155,16 +2160,16 @@
 
     move-result-object v6
 
-    .line 1019
+    .line 1022
     if-nez v6, :cond_2c
 
-    .line 1021
+    .line 1024
     :try_start_29
     invoke-static {}, Lbl/bbi;->a()V
     :try_end_2c
     .catch Ljava/lang/Throwable; {:try_start_29 .. :try_end_2c} :catch_8a
 
-    .line 1031
+    .line 1034
     :cond_2c
     :try_start_2c
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->a:Ljava/lang/String;
@@ -2173,16 +2178,16 @@
 
     move-result-wide v0
 
-    .line 1032
+    .line 1035
     invoke-virtual {v6}, Lbl/wl;->a()V
     :try_end_35
     .catch Ljava/lang/Throwable; {:try_start_2c .. :try_end_35} :catch_8e
 
-    .line 1039
+    .line 1042
     :goto_35
     iput-wide v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->y:J
 
-    .line 1040
+    .line 1043
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->A:Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->y:J
@@ -2191,7 +2196,7 @@
 
     move-result-object v0
 
-    .line 1041
+    .line 1044
     iget-object v2, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->A:Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;
 
     if-eqz v0, :cond_95
@@ -2205,7 +2210,7 @@
 
     iput v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->z:I
 
-    .line 1042
+    .line 1045
     iget v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->z:I
 
     iget v1, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->x:I
@@ -2218,21 +2223,21 @@
 
     move-result-object v1
 
-    .line 1043
+    .line 1046
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->p:Ljava/util/List;
 
     if-eqz v0, :cond_81
 
-    .line 1044
+    .line 1047
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->p:Ljava/util/List;
 
-    .line 1045
+    .line 1048
     if-nez v0, :cond_62
 
-    .line 1046
+    .line 1049
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 1048
+    .line 1051
     :cond_62
     invoke-interface {v0}, Ljava/util/List;->size()I
 
@@ -2242,16 +2247,16 @@
 
     if-le v0, v2, :cond_81
 
-    .line 1049
+    .line 1052
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->p:Ljava/util/List;
 
-    .line 1050
+    .line 1053
     if-nez v0, :cond_71
 
-    .line 1051
+    .line 1054
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 1053
+    .line 1056
     :cond_71
     iget v2, v1, Lbl/abx$a;->a:I
 
@@ -2263,12 +2268,12 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/bangumi/BangumiEpisodeFragment;->a(Lbl/abx$a;)V
 
-    .line 1054
+    .line 1057
     iget v0, v1, Lbl/abx$a;->a:I
 
     invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->e(I)V
 
-    .line 1057
+    .line 1060
     :cond_81
     iget v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->z:I
 
@@ -2276,40 +2281,40 @@
 
     goto :goto_a
 
-    .line 1012
+    .line 1015
     :catch_87
     move-exception v0
 
     move-wide v2, v4
 
-    .line 1013
+    .line 1016
     goto :goto_18
 
-    .line 1022
+    .line 1025
     :catch_8a
     move-exception v0
 
-    .line 1024
+    .line 1027
     if-nez v6, :cond_91
 
-    .line 1025
+    .line 1028
     :try_start_8d
     throw v0
 
-    .line 1034
+    .line 1037
     :catch_8e
     move-exception v0
 
     move-wide v0, v2
 
-    .line 1036
+    .line 1039
     goto :goto_35
 
-    .line 1027
+    .line 1030
     :cond_91
     invoke-virtual {v6}, Lbl/wl;->a()V
 
-    .line 1028
+    .line 1031
     throw v0
     :try_end_95
     .catch Ljava/lang/Throwable; {:try_start_8d .. :try_end_95} :catch_8e
@@ -2317,7 +2322,7 @@
     :cond_95
     move-wide v0, v4
 
-    .line 1041
+    .line 1044
     goto :goto_45
 
     :cond_97
@@ -2330,19 +2335,19 @@
     .locals 5
 
     .prologue
-    .line 559
+    .line 560
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->j:Landroid/widget/TextView;
 
     if-eqz v0, :cond_6
 
     if-gez p1, :cond_7
 
-    .line 576
+    .line 577
     :cond_6
     :goto_6
     return-void
 
-    .line 562
+    .line 563
     :cond_7
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->A:Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;
 
@@ -2352,16 +2357,16 @@
 
     if-eqz v0, :cond_38
 
-    .line 563
+    .line 564
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->A:Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;
 
-    .line 564
+    .line 565
     if-nez v0, :cond_16
 
-    .line 565
+    .line 566
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 567
+    .line 568
     :cond_16
     iget-object v0, v0, Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;->episodes:Ljava/util/List;
 
@@ -2373,17 +2378,17 @@
 
     iget-object v0, v0, Lcom/bilibili/bangumi/api/newbean/BangumiEpisodeEx;->index:Ljava/lang/String;
 
-    .line 571
+    .line 572
     :goto_20
     iget-object v1, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->j:Landroid/widget/TextView;
 
-    .line 572
+    .line 573
     if-nez v1, :cond_27
 
-    .line 573
+    .line 574
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 575
+    .line 576
     :cond_27
     const v2, 0x7f0c0066
 
@@ -2403,7 +2408,7 @@
 
     goto :goto_6
 
-    .line 569
+    .line 570
     :cond_38
     add-int/lit8 v0, p1, 0x1
 
@@ -2420,37 +2425,37 @@
     .prologue
     const/4 v0, 0x1
 
-    .line 1109
+    .line 1112
     if-nez p1, :cond_8
 
-    .line 1110
+    .line 1113
     invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseActivity;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
 
     move-result v0
 
-    .line 1146
+    .line 1149
     :cond_7
     :goto_7
     return v0
 
-    .line 1112
+    .line 1115
     :cond_8
     invoke-virtual {p1}, Landroid/view/KeyEvent;->getAction()I
 
     move-result v1
 
-    .line 1113
+    .line 1116
     invoke-virtual {p1}, Landroid/view/KeyEvent;->getKeyCode()I
 
     move-result v2
 
-    .line 1114
+    .line 1117
     if-nez v1, :cond_15
 
-    .line 1115
+    .line 1118
     packed-switch v2, :pswitch_data_6a
 
-    .line 1146
+    .line 1149
     :cond_15
     :goto_15
     invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseActivity;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
@@ -2459,27 +2464,8 @@
 
     goto :goto_7
 
-    .line 1117
-    :pswitch_1a
-    invoke-virtual {p0}, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->getCurrentFocus()Landroid/view/View;
-
-    move-result-object v1
-
-    .line 1118
-    const-string v2, "currentFocus"
-
-    invoke-static {v1, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
-
-    .line 1119
-    invoke-virtual {v1}, Landroid/view/View;->getId()I
-
-    move-result v1
-
-    const v2, 0x7f080033
-
-    if-eq v1, v2, :cond_48
-
     .line 1120
+    :pswitch_1a
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->getCurrentFocus()Landroid/view/View;
 
     move-result-object v1
@@ -2494,46 +2480,65 @@
 
     move-result v1
 
-    const v2, 0x7f080026
+    const v2, 0x7f080033
 
     if-eq v1, v2, :cond_48
 
     .line 1123
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->getCurrentFocus()Landroid/view/View;
 
-    move-result-object v0
+    move-result-object v1
 
     .line 1124
+    const-string v2, "currentFocus"
+
+    invoke-static {v1, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
+
+    .line 1125
+    invoke-virtual {v1}, Landroid/view/View;->getId()I
+
+    move-result v1
+
+    const v2, 0x7f080026
+
+    if-eq v1, v2, :cond_48
+
+    .line 1126
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->getCurrentFocus()Landroid/view/View;
+
+    move-result-object v0
+
+    .line 1127
     const-string v1, "currentFocus"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
     goto :goto_15
 
-    .line 1128
+    .line 1131
     :cond_48
     iget-object v1, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->H:Lcom/bilibili/tv/widget/DrawTextView;
 
-    .line 1129
+    .line 1132
     if-eqz v1, :cond_7
 
-    .line 1130
+    .line 1133
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/DrawTextView;->requestFocus()Z
 
     goto :goto_7
 
-    .line 1134
+    .line 1137
     :pswitch_50
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->getCurrentFocus()Landroid/view/View;
 
     move-result-object v1
 
-    .line 1135
+    .line 1138
     const-string v2, "currentFocus"
 
     invoke-static {v1, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 1136
+    .line 1139
     invoke-virtual {v1}, Landroid/view/View;->getId()I
 
     move-result v1
@@ -2542,18 +2547,18 @@
 
     if-ne v1, v2, :cond_15
 
-    .line 1137
+    .line 1140
     iget-object v1, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->C:Lcom/bilibili/tv/widget/DrawTextView;
 
-    .line 1138
+    .line 1141
     if-eqz v1, :cond_7
 
-    .line 1139
+    .line 1142
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/DrawTextView;->requestFocus()Z
 
     goto :goto_7
 
-    .line 1115
+    .line 1118
     :pswitch_data_6a
     .packed-switch 0x13
         :pswitch_1a
@@ -2617,16 +2622,16 @@
     .locals 2
 
     .prologue
-    .line 963
+    .line 966
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->m:Lcom/bilibili/tv/widget/DrawTextView;
 
     if-nez v0, :cond_5
 
-    .line 996
+    .line 999
     :goto_4
     return-void
 
-    .line 966
+    .line 969
     :cond_5
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->A:Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;
 
@@ -2634,24 +2639,24 @@
 
     move-result v0
 
-    .line 967
+    .line 970
     iget-boolean v1, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->v:Z
 
     if-eqz v1, :cond_2d
 
-    .line 968
+    .line 971
     if-eqz v0, :cond_1f
 
-    .line 969
+    .line 972
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->m:Lcom/bilibili/tv/widget/DrawTextView;
 
-    .line 970
+    .line 973
     if-nez v0, :cond_18
 
-    .line 971
+    .line 974
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 973
+    .line 976
     :cond_18
     const v1, 0x7f0c0059
 
@@ -2659,17 +2664,17 @@
 
     goto :goto_4
 
-    .line 976
+    .line 979
     :cond_1f
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->m:Lcom/bilibili/tv/widget/DrawTextView;
 
-    .line 977
+    .line 980
     if-nez v0, :cond_26
 
-    .line 978
+    .line 981
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 980
+    .line 983
     :cond_26
     const v1, 0x7f0c0070
 
@@ -2677,20 +2682,20 @@
 
     goto :goto_4
 
-    .line 983
+    .line 986
     :cond_2d
     if-eqz v0, :cond_3d
 
-    .line 984
+    .line 987
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->m:Lcom/bilibili/tv/widget/DrawTextView;
 
-    .line 985
+    .line 988
     if-nez v0, :cond_36
 
-    .line 986
+    .line 989
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 988
+    .line 991
     :cond_36
     const v1, 0x7f0c0058
 
@@ -2698,17 +2703,17 @@
 
     goto :goto_4
 
-    .line 991
+    .line 994
     :cond_3d
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->m:Lcom/bilibili/tv/widget/DrawTextView;
 
-    .line 992
+    .line 995
     if-nez v0, :cond_44
 
-    .line 993
+    .line 996
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 995
+    .line 998
     :cond_44
     const v1, 0x7f0c0056
 
@@ -2721,7 +2726,7 @@
     .locals 1
 
     .prologue
-    .line 504
+    .line 505
     const/4 v0, -0x1
 
     if-ne p2, v0, :cond_a
@@ -2732,11 +2737,11 @@
 
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->j()V
 
-    .line 505
+    .line 506
     :cond_a
     invoke-super {p0, p1, p2, p3}, Lcom/bilibili/tv/ui/base/BaseActivity;->onActivityResult(IILandroid/content/Intent;)V
 
-    .line 506
+    .line 507
     return-void
 .end method
 

@@ -844,9 +844,15 @@ public final class MainActivity extends BaseActivity {
         }
     }
 
+    private final void exitApp() {
+        finishAffinity();
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(0);
+    }
+
     private final void p() {
         if (mybl.BiliFilter.fastquit_on) {
-            MainActivity.this.onBackPressed();
+            exitApp();
             return;
         }
         agb.a aVar = new agb.a(this);
@@ -863,7 +869,7 @@ public final class MainActivity extends BaseActivity {
         @Override // bl.agb.b
         public final void a(agb agbVar, View view) {
             agbVar.dismiss();
-            MainActivity.this.onBackPressed();
+            MainActivity.this.exitApp();
         }
     }
 

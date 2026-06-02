@@ -47,24 +47,24 @@
     .end annotation
 
     .prologue
-    .line 1261
+    .line 1264
     iput-object p1, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$b;->this$0:Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;
 
-    .line 1262
+    .line 1265
     invoke-direct {p0, p3}, Landroid/support/v4/app/FragmentPagerAdapter;-><init>(Landroid/support/v4/app/FragmentManager;)V
 
-    .line 1263
+    .line 1266
     const-string v0, "fm"
 
     invoke-static {p3, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 1264
+    .line 1267
     iput-object p2, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$b;->a:Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;
 
-    .line 1265
+    .line 1268
     iput-object p4, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$b;->b:Ljava/util/List;
 
-    .line 1266
+    .line 1269
     return-void
 .end method
 
@@ -74,18 +74,18 @@
     .locals 1
 
     .prologue
-    .line 1279
+    .line 1282
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$b;->b:Ljava/util/List;
 
-    .line 1280
+    .line 1283
     if-eqz v0, :cond_9
 
-    .line 1281
+    .line 1284
     invoke-interface {v0}, Ljava/util/List;->size()I
 
     move-result v0
 
-    .line 1283
+    .line 1286
     :goto_8
     return v0
 
@@ -99,16 +99,16 @@
     .locals 1
 
     .prologue
-    .line 1270
+    .line 1273
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$b;->b:Ljava/util/List;
 
-    .line 1271
+    .line 1274
     if-nez v0, :cond_7
 
-    .line 1272
+    .line 1275
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 1274
+    .line 1277
     :cond_7
     invoke-interface {v0, p1}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
@@ -123,7 +123,7 @@
     .locals 4
 
     .prologue
-    .line 1288
+    .line 1291
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$b;->a:Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->A:Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;
@@ -137,7 +137,7 @@
 
     if-nez v0, :cond_e4
 
-    .line 1289
+    .line 1292
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$b;->a:Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->A:Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;
@@ -145,13 +145,13 @@
 
     move-result-object v0
 
-    .line 1290
+    .line 1293
     if-nez v0, :cond_17
 
-    .line 1291
+    .line 1294
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 1293
+    .line 1296
     :cond_17
     const/4 v1, 0x1
 
@@ -163,7 +163,7 @@
 
     if-eq v1, v0, :cond_d5
 
-    .line 1294
+    .line 1297
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$b;->a:Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->A:Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;
@@ -171,13 +171,13 @@
 
     move-result-object v0
 
-    .line 1295
+    .line 1298
     if-nez v0, :cond_2b
 
-    .line 1296
+    .line 1299
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 1298
+    .line 1301
     :cond_2b
     iget-object v0, v0, Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;->episodes:Ljava/util/List;
 
@@ -189,10 +189,10 @@
 
     move-result v0
 
-    .line 1299
+    .line 1302
     mul-int v2, p1, v0
 
-    .line 1300
+    .line 1303
     iget-object v1, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$b;->a:Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->A:Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;
@@ -200,13 +200,13 @@
 
     move-result-object v1
 
-    .line 1301
+    .line 1304
     if-nez v1, :cond_42
 
-    .line 1302
+    .line 1305
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 1304
+    .line 1307
     :cond_42
     iget-object v1, v1, Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;->episodes:Ljava/util/List;
 
@@ -216,14 +216,14 @@
 
     if-ge v2, v1, :cond_d2
 
-    .line 1305
+    .line 1308
     add-int/lit8 v1, p1, 0x1
 
     mul-int/2addr v0, v1
 
     add-int/lit8 v0, v0, -0x1
 
-    .line 1306
+    .line 1309
     iget-object v1, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$b;->a:Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->A:Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;
@@ -231,13 +231,13 @@
 
     move-result-object v1
 
-    .line 1307
+    .line 1310
     if-nez v1, :cond_5a
 
-    .line 1308
+    .line 1311
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 1310
+    .line 1313
     :cond_5a
     iget-object v1, v1, Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;->episodes:Ljava/util/List;
 
@@ -247,7 +247,7 @@
 
     if-lt v0, v1, :cond_e7
 
-    .line 1311
+    .line 1314
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$b;->a:Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->A:Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;
@@ -255,13 +255,13 @@
 
     move-result-object v0
 
-    .line 1312
+    .line 1315
     if-nez v0, :cond_6d
 
-    .line 1313
+    .line 1316
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 1315
+    .line 1318
     :cond_6d
     iget-object v0, v0, Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;->episodes:Ljava/util/List;
 
@@ -273,11 +273,11 @@
 
     move v1, v0
 
-    .line 1317
+    .line 1320
     :goto_76
     if-ne v2, v1, :cond_93
 
-    .line 1318
+    .line 1321
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$b;->a:Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->A:Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;
@@ -285,13 +285,13 @@
 
     move-result-object v0
 
-    .line 1319
+    .line 1322
     if-nez v0, :cond_83
 
-    .line 1320
+    .line 1323
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 1322
+    .line 1325
     :cond_83
     iget-object v0, v0, Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;->episodes:Ljava/util/List;
 
@@ -303,22 +303,22 @@
 
     iget-object v0, v0, Lcom/bilibili/bangumi/api/newbean/BangumiEpisodeEx;->index:Ljava/lang/String;
 
-    .line 1323
+    .line 1326
     const-string v1, "mSeason!!.episodes[start].index"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 1346
+    .line 1349
     :goto_92
     return-object v0
 
-    .line 1326
+    .line 1329
     :cond_93
     new-instance v3, Ljava/lang/StringBuilder;
 
     invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 1327
+    .line 1330
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$b;->a:Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->A:Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;
@@ -326,13 +326,13 @@
 
     move-result-object v0
 
-    .line 1328
+    .line 1331
     if-nez v0, :cond_a3
 
-    .line 1329
+    .line 1332
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 1331
+    .line 1334
     :cond_a3
     iget-object v0, v0, Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;->episodes:Ljava/util/List;
 
@@ -346,12 +346,12 @@
 
     invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1332
+    .line 1335
     const-string v0, "-"
 
     invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1333
+    .line 1336
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$b;->a:Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;->A:Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;
@@ -359,13 +359,13 @@
 
     move-result-object v0
 
-    .line 1334
+    .line 1337
     if-nez v0, :cond_c0
 
-    .line 1335
+    .line 1338
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 1337
+    .line 1340
     :cond_c0
     iget-object v0, v0, Lcom/bilibili/bangumi/api/uniform/BangumiUniformSeason;->episodes:Ljava/util/List;
 
@@ -379,20 +379,20 @@
 
     invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1338
+    .line 1341
     invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v0
 
     goto :goto_92
 
-    .line 1340
+    .line 1343
     :cond_d2
     const-string v0, ""
 
     goto :goto_92
 
-    .line 1342
+    .line 1345
     :cond_d5
     iget-object v0, p0, Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$b;->a:Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity;
 
@@ -402,14 +402,14 @@
 
     move-result-object v0
 
-    .line 1343
+    .line 1346
     const-string v1, "getString(R.string.bangumi_one_episode)"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
     goto :goto_92
 
-    .line 1346
+    .line 1349
     :cond_e4
     const-string v0, ""
 

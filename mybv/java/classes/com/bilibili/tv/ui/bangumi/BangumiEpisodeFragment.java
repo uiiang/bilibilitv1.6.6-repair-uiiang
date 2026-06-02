@@ -41,6 +41,7 @@ public final class BangumiEpisodeFragment extends adu {
     private static boolean h;
     private b a;
     private String b;
+    private String seasonTitle;
     private Integer c;
     private Integer d;
     private abx.a e;
@@ -59,11 +60,16 @@ public final class BangumiEpisodeFragment extends adu {
         }
 
         public final BangumiEpisodeFragment a(List<? extends BangumiEpisodeEx> episodes, String seasonId, int i, int i2, int i3, int i4, boolean z) {
+            return a(episodes, null, seasonId, i, i2, i3, i4, z);
+        }
+
+        public final BangumiEpisodeFragment a(List<? extends BangumiEpisodeEx> episodes, String seasonTitle, String seasonId, int i, int i2, int i3, int i4, boolean z) {
             bbi.b(episodes, "episodes");
             bbi.b(seasonId, "seasonId");
             Bundle bundle = new Bundle();
             bundle.putParcelableArrayList("bundle_episodes", new ArrayList<>(episodes));
             bundle.putString("bundle_season_id", seasonId);
+            bundle.putString("bundle_season_title", seasonTitle);
             bundle.putInt("bundle_pos", i);
             bundle.putInt("bundle_season_type", i2);
             bundle.putInt("bundle_start", i3);
@@ -82,6 +88,7 @@ public final class BangumiEpisodeFragment extends adu {
         Bundle arguments = getArguments();
         if (arguments != null) {
             this.b = arguments.getString("bundle_season_id");
+            this.seasonTitle = arguments.getString("bundle_season_title");
             this.f = arguments.getInt("bundle_pos", 0);
             this.c = Integer.valueOf(arguments.getInt("bundle_season_type", 1));
             this.d = Integer.valueOf(arguments.getInt("bundle_start", 0));
@@ -244,7 +251,7 @@ public final class BangumiEpisodeFragment extends adu {
             }
             if (BangumiEpisodeFragment.h) {
                 Integer num = BangumiEpisodeFragment.this.c;
-                xg.a(num != null ? num.intValue() : -1, activity, BangumiEpisodeFragment.this.b, bangumiEpisodeEx, BangumiEpisodeFragment.this.all_episodes);
+                xg.a(num != null ? num.intValue() : -1, activity, BangumiEpisodeFragment.this.seasonTitle, BangumiEpisodeFragment.this.b, bangumiEpisodeEx, BangumiEpisodeFragment.this.all_episodes);
                 return;
             }
             int i = bangumiEpisodeEx.status;
@@ -273,7 +280,7 @@ public final class BangumiEpisodeFragment extends adu {
                         return;
                     default:
                         Integer num2 = BangumiEpisodeFragment.this.c;
-                        xg.a(num2 != null ? num2.intValue() : -1, activity, BangumiEpisodeFragment.this.b, bangumiEpisodeEx, BangumiEpisodeFragment.this.all_episodes);
+                        xg.a(num2 != null ? num2.intValue() : -1, activity, BangumiEpisodeFragment.this.seasonTitle, BangumiEpisodeFragment.this.b, bangumiEpisodeEx, BangumiEpisodeFragment.this.all_episodes);
                         return;
                 }
             }

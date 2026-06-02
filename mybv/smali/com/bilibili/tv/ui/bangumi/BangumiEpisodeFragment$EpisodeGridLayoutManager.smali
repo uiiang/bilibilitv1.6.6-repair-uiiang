@@ -19,15 +19,15 @@
     .locals 1
 
     .prologue
-    .line 299
+    .line 306
     invoke-direct {p0, p1, p2, p3, p4}, Lcom/bilibili/tv/widget/FixGridLayoutManager;-><init>(Landroid/content/Context;IIZ)V
 
-    .line 300
+    .line 307
     const-string v0, "context"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 301
+    .line 308
     return-void
 .end method
 
@@ -37,18 +37,18 @@
     .locals 3
 
     .prologue
-    .line 305
+    .line 312
     const/16 v0, 0x82
 
     if-ne p2, v0, :cond_1b
 
-    .line 306
+    .line 313
     if-nez p1, :cond_9
 
-    .line 307
+    .line 314
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 309
+    .line 316
     :cond_9
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/bangumi/BangumiEpisodeFragment$EpisodeGridLayoutManager;->d(Landroid/view/View;)I
 
@@ -66,17 +66,17 @@
 
     if-lt v0, v1, :cond_19
 
-    .line 314
+    .line 321
     :goto_18
     return-object p1
 
-    .line 312
+    .line 319
     :cond_19
     const/4 p1, 0x0
 
     goto :goto_18
 
-    .line 314
+    .line 321
     :cond_1b
     invoke-super {p0, p1, p2}, Lcom/bilibili/tv/widget/FixGridLayoutManager;->d(Landroid/view/View;I)Landroid/view/View;
 

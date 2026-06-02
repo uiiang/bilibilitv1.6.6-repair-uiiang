@@ -1109,11 +1109,48 @@ public class xi extends xh implements bbb<Message, Boolean> {
             return;
         }
         PlayerParams playerParams = c.a;
-        String a = yr.a(playerParams);
+        String mainTitle = yr.a(playerParams);
+        String a = mainTitle;
+        
         if (playerParams.isBangumi()) {
-            a = BiliBangumiSeason.getReadableIndexTitle(playerParams.mVideoParams.mResolveParams.mPageIndex) + " - " + playerParams.mVideoParams.mResolveParams.mPageTitle;
+            String indexTitle = BiliBangumiSeason.getReadableIndexTitle(playerParams.mVideoParams.mResolveParams.mPageIndex);
+            String pageTitle = playerParams.mVideoParams.mResolveParams.mPageTitle;
+            boolean hasMainTitle = mainTitle != null && !mainTitle.isEmpty();
+            boolean hasIndexTitle = indexTitle != null && !indexTitle.isEmpty();
+            boolean hasPageTitle = pageTitle != null && !pageTitle.isEmpty();
+            
+            if (hasMainTitle) {
+                if (hasIndexTitle) {
+                    if (hasPageTitle && !pageTitle.equals(indexTitle)) {
+                        a = mainTitle + " - " + indexTitle + " - " + pageTitle;
+                    } else {
+                        a = mainTitle + " - " + indexTitle;
+                    }
+                } else {
+                    if (hasPageTitle) {
+                        a = mainTitle + " - " + pageTitle;
+                    }
+                }
+            } else {
+                if (hasIndexTitle) {
+                    if (hasPageTitle && !pageTitle.equals(indexTitle)) {
+                        a = indexTitle + " - " + pageTitle;
+                    } else {
+                        a = indexTitle;
+                    }
+                } else {
+                    if (hasPageTitle) {
+                        a = pageTitle;
+                    }
+                }
+            }
         } else if (playerParams.mVideoParams.mResolveParams != null && playerParams.mVideoParams.mResolveParams.mPageTitle != null && playerParams.mVideoParams.mResolveParamsArray != null && playerParams.mVideoParams.mResolveParamsArray.length > 1) {
-            a = yr.a(playerParams) + " - " + playerParams.mVideoParams.mResolveParams.mPageTitle;
+            String pageTitle = playerParams.mVideoParams.mResolveParams.mPageTitle;
+            if (mainTitle != null && !mainTitle.isEmpty() && !mainTitle.equals(pageTitle)) {
+                a = mainTitle + " - " + pageTitle;
+            } else {
+                a = pageTitle;
+            }
         }
         this.h.setText(a);
     }
