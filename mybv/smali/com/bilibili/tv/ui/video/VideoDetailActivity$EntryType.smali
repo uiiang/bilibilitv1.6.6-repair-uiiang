@@ -40,7 +40,7 @@
 
     const/4 v2, 0x0
 
-    .line 121
+    .line 122
     new-instance v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
 
     const-string v1, "UGC_BY_AVID"
@@ -49,7 +49,7 @@
 
     sput-object v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;->UGC_BY_AVID:Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
 
-    .line 122
+    .line 123
     new-instance v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
 
     const-string v1, "PGC_BY_SEASON_ID"
@@ -58,7 +58,7 @@
 
     sput-object v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;->PGC_BY_SEASON_ID:Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
 
-    .line 120
+    .line 121
     const/4 v0, 0x2
 
     new-array v0, v0, [Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
@@ -85,7 +85,7 @@
     .end annotation
 
     .prologue
-    .line 120
+    .line 121
     invoke-direct {p0, p1, p2}, Ljava/lang/Enum;-><init>(Ljava/lang/String;I)V
 
     return-void
@@ -95,7 +95,7 @@
     .locals 1
 
     .prologue
-    .line 120
+    .line 121
     const-class v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
 
     invoke-static {v0, p0}, Ljava/lang/Enum;->valueOf(Ljava/lang/Class;Ljava/lang/String;)Ljava/lang/Enum;
@@ -111,7 +111,7 @@
     .locals 1
 
     .prologue
-    .line 120
+    .line 121
     sget-object v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;->$VALUES:[Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
 
     invoke-virtual {v0}, [Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;->clone()Ljava/lang/Object;

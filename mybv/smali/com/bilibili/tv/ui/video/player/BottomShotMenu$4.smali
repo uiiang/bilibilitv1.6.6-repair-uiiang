@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 229
+    .line 235
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     iput p2, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4;->val$currentPlayTimeSec:I
@@ -45,31 +45,31 @@
 
 # virtual methods
 .method public isCurrentItem(Ljava/lang/Object;I)Z
-    .locals 3
+    .locals 4
 
     .prologue
     const/4 v1, 0x0
 
-    .line 232
+    .line 238
     instance-of v0, p1, Lcom/bilibili/tv/api/video/VideoShotItem;
 
-    if-eqz v0, :cond_2b
+    if-eqz v0, :cond_5d
 
-    .line 233
+    .line 239
     check-cast p1, Lcom/bilibili/tv/api/video/VideoShotItem;
 
-    .line 234
+    .line 240
     iget v0, p1, Lcom/bilibili/tv/api/video/VideoShotItem;->time:I
 
     iget v2, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4;->val$currentPlayTimeSec:I
 
-    if-gt v0, v2, :cond_29
+    if-gt v0, v2, :cond_5b
 
     add-int/lit8 v0, p2, 0x1
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4;->val$shots:Ljava/util/List;
 
-    .line 235
+    .line 241
     invoke-interface {v2}, Ljava/util/List;->size()I
 
     move-result v2
@@ -90,24 +90,76 @@
 
     iget v2, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4;->val$currentPlayTimeSec:I
 
-    if-le v0, v2, :cond_29
+    if-le v0, v2, :cond_5b
 
     :cond_27
     const/4 v0, 0x1
 
-    .line 237
+    .line 242
     :goto_28
+    if-eqz v0, :cond_5a
+
+    .line 243
+    const-string v1, "NavTagFocusBug"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "[isCurrentItem] matched at position="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, p2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, " | shotItem.time="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    iget v3, p1, Lcom/bilibili/tv/api/video/VideoShotItem;->time:I
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, " | currentPlayTimeSec="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    iget v3, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4;->val$currentPlayTimeSec:I
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 247
+    :cond_5a
+    :goto_5a
     return v0
 
-    :cond_29
+    :cond_5b
     move v0, v1
 
-    .line 235
+    .line 241
     goto :goto_28
 
-    :cond_2b
+    :cond_5d
     move v0, v1
 
-    .line 237
-    goto :goto_28
+    .line 247
+    goto :goto_5a
 .end method

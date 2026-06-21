@@ -841,10 +841,14 @@ public class VideoListSection extends LinearLayout {
     }
 
     public void scrollToCurrentItem() {
+        android.util.Log.i("NavTagFocusBug", "[scrollToCurrentItem] called | recyclerView=" + (recyclerView != null) + " | dataList=" + (dataList != null ? dataList.size() : "null") + " | currentItemMatcher=" + (currentItemMatcher != null));
+        
         if (recyclerView == null || dataList == null || dataList.isEmpty()) {
+            android.util.Log.i("NavTagFocusBug", "[scrollToCurrentItem] early return: recyclerView/dataList null or empty");
             return;
         }
         if (currentItemMatcher == null) {
+            android.util.Log.i("NavTagFocusBug", "[scrollToCurrentItem] early return: currentItemMatcher null");
             return;
         }
 
@@ -857,10 +861,11 @@ public class VideoListSection extends LinearLayout {
         }
 
         if (currentPosition < 0) {
+            android.util.Log.i("NavTagFocusBug", "[scrollToCurrentItem] currentPosition < 0, return");
             return;
         }
 
-        android.util.Log.i(TAG, "[scrollToCurrentItem] currentPosition=" + currentPosition + " | dataList.size()=" + dataList.size());
+        android.util.Log.i("NavTagFocusBug", "[scrollToCurrentItem] currentPosition=" + currentPosition + " | dataList.size()=" + dataList.size());
 
         final int finalPos = currentPosition;
         recyclerView.post(new Runnable() {
@@ -883,7 +888,7 @@ public class VideoListSection extends LinearLayout {
                     }
                 }
                 focusPosition = finalPos;
-                android.util.Log.i(TAG, "[scrollToCurrentItem] focusPosition updated to " + focusPosition);
+                android.util.Log.i("NavTagFocusBug", "[scrollToCurrentItem.run] focusPosition updated to " + focusPosition);
                 
                 recyclerView.postDelayed(new Runnable() {
                     @Override

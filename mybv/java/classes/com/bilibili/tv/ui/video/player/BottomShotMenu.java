@@ -220,10 +220,16 @@ public class BottomShotMenu extends FrameLayout {
         updateProgress(currentPlayTimeMs, durationMs);
         
         final int currentPlayTimeSec = currentPlayTimeMs / 1000;
+        android.util.Log.i("NavTagFocusBug", "[show] currentPlayTimeSec=" + currentPlayTimeSec + " | currentPlayTimeMs=" + currentPlayTimeMs);
         
         if (hasVideoShot) {
             allShots = shot.getAllShots();
             final List<VideoShotItem> shots = allShots;
+            
+            android.util.Log.i("NavTagFocusBug", "[show] shots.size()=" + shots.size());
+            for (int i = 0; i < Math.min(15, shots.size()); i++) {
+                android.util.Log.i("NavTagFocusBug", "[show] shot[" + i + "].time=" + shots.get(i).time);
+            }
             
             videoListSection.setVisibility(View.VISIBLE);
             videoListSection.setCurrentItemMatcher(new CurrentItemMatcher() {
@@ -231,8 +237,12 @@ public class BottomShotMenu extends FrameLayout {
                 public boolean isCurrentItem(Object data, int position) {
                     if (data instanceof VideoShotItem) {
                         VideoShotItem shotItem = (VideoShotItem) data;
-                        return shotItem.time <= currentPlayTimeSec && 
+                        boolean result = shotItem.time <= currentPlayTimeSec && 
                                (position + 1 >= shots.size() || shots.get(position + 1).time > currentPlayTimeSec);
+                        if (result) {
+                            android.util.Log.i("NavTagFocusBug", "[isCurrentItem] matched at position=" + position + " | shotItem.time=" + shotItem.time + " | currentPlayTimeSec=" + currentPlayTimeSec);
+                        }
+                        return result;
                     }
                     return false;
                 }

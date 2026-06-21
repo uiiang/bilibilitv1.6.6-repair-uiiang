@@ -7,6 +7,7 @@ import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.provider.SearchRecentSuggestions;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -3216,6 +3217,57 @@ public final class VideoDetailActivity extends BaseActivity
         listSection.updateNavTagSelection(videoPosition);
     }
 
+    /**
+     * 保存搜索历史
+     * @param keyword 搜索关键词
+     */
+    private void saveSearchHistory(String keyword) {
+        if (TextUtils.isEmpty(keyword)) {
+            return;
+        }
+        
+        android.util.Log.i(C, "保存搜索历史: " + keyword);
+        try {
+            new SearchRecentSuggestions(this, "uii.ang.bilitv.provider.TvSearchSuggestionProvider", 1)
+                .saveRecentQuery(keyword, null);
+            truncateSearchHistory(50);
+            android.util.Log.i(C, "保存搜索历史成功");
+        } catch (Exception e) {
+            android.util.Log.e(C, "保存搜索历史失败: " + e.getMessage());
+        }
+    }
+
+    /**
+     * 截断搜索历史，保持最多maxCount条记录
+     * @param maxCount 最大记录数
+     */
+    private void truncateSearchHistory(int maxCount) {
+        android.net.Uri uri = android.net.Uri.parse("content://uii.ang.bilitv.provider.TvSearchSuggestionProvider/suggestions");
+        android.database.Cursor cursor = null;
+        try {
+            cursor = getContentResolver().query(uri, null, null, null, "_id ASC");
+            if (cursor != null) {
+                int count = cursor.getCount();
+                if (count > maxCount) {
+                    int toDelete = count - maxCount;
+                    cursor.moveToFirst();
+                    for (int i = 0; i < toDelete; i++) {
+                        String id = cursor.getString(cursor.getColumnIndex("_id"));
+                        android.net.Uri deleteUri = android.net.Uri.withAppendedPath(uri, id);
+                        getContentResolver().delete(deleteUri, null, null);
+                        cursor.moveToNext();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            android.util.Log.e(C, "truncateSearchHistory error: " + e.getMessage());
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
+
     private void createSeasonsSectionView(List<PgcInfo.Season> seasons, int sectionIndex) {
         if (seasonsContainer == null || seasons == null || seasons.isEmpty()) {
             return;
@@ -4679,6 +4731,9 @@ public final class VideoDetailActivity extends BaseActivity
             if (!(a2 instanceof VideoDetailActivity) || str == null) {
                 return;
             }
+            // 保存搜索历史
+            VideoDetailActivity videoDetailActivity = (VideoDetailActivity) a2;
+            videoDetailActivity.saveSearchHistory(str);
             SearchResultSideActivity.a(a2, str, 0);
             ok.a("tv_video_view_tag_click", PluginApk.PROP_NAME, str);
         }
