@@ -298,7 +298,9 @@ public class LiveVideoPlayer extends wy {
         if (this.z == null || this.z.isRecycled()) {
             try {
                 //this.z = this.x.getBitmap(this.x.getSizeW(), this.x.getSizeH());
-                this.z = this.x.getBitmap(this.x.getWidth(), this.x.getHeight());
+                if (this.x instanceof android.view.TextureView) {
+                    this.z = ((android.view.TextureView)this.x).getBitmap(this.x.getWidth(), this.x.getHeight());
+                }
             } catch (Exception e) {
                 att.a(e);
                 this.z = null;

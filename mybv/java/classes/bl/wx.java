@@ -13,8 +13,6 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.view.TextureView;
-
 /* JADX INFO: compiled from: BL */
 /* JADX INFO: loaded from: classes.dex */
 public abstract class wx extends FrameLayout implements ws {
@@ -46,7 +44,7 @@ public abstract class wx extends FrameLayout implements ws {
     protected ViewGroup u;
     protected wt v;
     protected Map<String, String> w;
-    protected TextureView x;
+    protected View x;
     protected ImageView y;
     protected Bitmap z;
 

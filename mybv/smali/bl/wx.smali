@@ -71,7 +71,7 @@
     .end annotation
 .end field
 
-.field protected x:Landroid/view/TextureView;
+.field protected x:Landroid/view/View;
 
 .field protected y:Landroid/widget/ImageView;
 
@@ -87,78 +87,78 @@
 
     const/4 v1, 0x0
 
-    .line 64
+    .line 62
     invoke-direct {p0, p1}, Landroid/widget/FrameLayout;-><init>(Landroid/content/Context;)V
 
-    .line 65
+    .line 63
     iput-boolean v1, p0, Lbl/wx;->b:Z
 
-    .line 66
+    .line 64
     iput-boolean v1, p0, Lbl/wx;->c:Z
 
-    .line 67
+    .line 65
     iput-boolean v2, p0, Lbl/wx;->d:Z
 
-    .line 68
+    .line 66
     iput-boolean v1, p0, Lbl/wx;->e:Z
 
-    .line 69
+    .line 67
     iput-boolean v2, p0, Lbl/wx;->B:Z
 
-    .line 70
+    .line 68
     iput-boolean v2, p0, Lbl/wx;->f:Z
 
-    .line 71
+    .line 69
     const/4 v0, -0x1
 
     iput v0, p0, Lbl/wx;->g:I
 
-    .line 72
+    .line 70
     iput v1, p0, Lbl/wx;->h:I
 
-    .line 73
+    .line 71
     const/high16 v0, 0x3f800000    # 1.0f
 
     iput v0, p0, Lbl/wx;->i:F
 
-    .line 74
+    .line 72
     iput-boolean v2, p0, Lbl/wx;->j:Z
 
-    .line 75
+    .line 73
     iput-boolean v1, p0, Lbl/wx;->k:Z
 
-    .line 76
+    .line 74
     iput-boolean v1, p0, Lbl/wx;->l:Z
 
-    .line 77
+    .line 75
     iput-boolean v1, p0, Lbl/wx;->m:Z
 
-    .line 78
+    .line 76
     iput-boolean v1, p0, Lbl/wx;->n:Z
 
-    .line 79
+    .line 77
     iput-boolean v1, p0, Lbl/wx;->o:Z
 
-    .line 80
+    .line 78
     new-instance v0, Ljava/util/HashMap;
 
     invoke-direct {v0}, Ljava/util/HashMap;-><init>()V
 
     iput-object v0, p0, Lbl/wx;->w:Ljava/util/Map;
 
-    .line 81
+    .line 79
     const/4 v0, 0x0
 
     iput-object v0, p0, Lbl/wx;->z:Landroid/graphics/Bitmap;
 
-    .line 82
+    .line 80
     new-instance v0, Landroid/os/Handler;
 
     invoke-direct {v0}, Landroid/os/Handler;-><init>()V
 
     iput-object v0, p0, Lbl/wx;->C:Landroid/os/Handler;
 
-    .line 83
+    .line 81
     return-void
 .end method
 
@@ -170,78 +170,78 @@
 
     const/4 v1, 0x0
 
-    .line 109
+    .line 107
     invoke-direct {p0, p1, p2}, Landroid/widget/FrameLayout;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;)V
 
-    .line 110
+    .line 108
     iput-boolean v1, p0, Lbl/wx;->b:Z
 
-    .line 111
+    .line 109
     iput-boolean v1, p0, Lbl/wx;->c:Z
 
-    .line 112
+    .line 110
     iput-boolean v2, p0, Lbl/wx;->d:Z
 
-    .line 113
+    .line 111
     iput-boolean v1, p0, Lbl/wx;->e:Z
 
-    .line 114
+    .line 112
     iput-boolean v2, p0, Lbl/wx;->B:Z
 
-    .line 115
+    .line 113
     iput-boolean v2, p0, Lbl/wx;->f:Z
 
-    .line 116
+    .line 114
     const/4 v0, -0x1
 
     iput v0, p0, Lbl/wx;->g:I
 
-    .line 117
+    .line 115
     iput v1, p0, Lbl/wx;->h:I
 
-    .line 118
+    .line 116
     const/high16 v0, 0x3f800000    # 1.0f
 
     iput v0, p0, Lbl/wx;->i:F
 
-    .line 119
+    .line 117
     iput-boolean v2, p0, Lbl/wx;->j:Z
 
-    .line 120
+    .line 118
     iput-boolean v1, p0, Lbl/wx;->k:Z
 
-    .line 121
+    .line 119
     iput-boolean v1, p0, Lbl/wx;->l:Z
 
-    .line 122
+    .line 120
     iput-boolean v1, p0, Lbl/wx;->m:Z
 
-    .line 123
+    .line 121
     iput-boolean v1, p0, Lbl/wx;->n:Z
 
-    .line 124
+    .line 122
     iput-boolean v1, p0, Lbl/wx;->o:Z
 
-    .line 125
+    .line 123
     new-instance v0, Ljava/util/HashMap;
 
     invoke-direct {v0}, Ljava/util/HashMap;-><init>()V
 
     iput-object v0, p0, Lbl/wx;->w:Ljava/util/Map;
 
-    .line 126
+    .line 124
     const/4 v0, 0x0
 
     iput-object v0, p0, Lbl/wx;->z:Landroid/graphics/Bitmap;
 
-    .line 127
+    .line 125
     new-instance v0, Landroid/os/Handler;
 
     invoke-direct {v0}, Landroid/os/Handler;-><init>()V
 
     iput-object v0, p0, Lbl/wx;->C:Landroid/os/Handler;
 
-    .line 128
+    .line 126
     return-void
 .end method
 
@@ -253,78 +253,78 @@
 
     const/4 v1, 0x0
 
-    .line 131
+    .line 129
     invoke-direct {p0, p1, p2, p3}, Landroid/widget/FrameLayout;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;I)V
 
-    .line 132
+    .line 130
     iput-boolean v1, p0, Lbl/wx;->b:Z
 
-    .line 133
+    .line 131
     iput-boolean v1, p0, Lbl/wx;->c:Z
 
-    .line 134
+    .line 132
     iput-boolean v2, p0, Lbl/wx;->d:Z
 
-    .line 135
+    .line 133
     iput-boolean v1, p0, Lbl/wx;->e:Z
 
-    .line 136
+    .line 134
     iput-boolean v2, p0, Lbl/wx;->B:Z
 
-    .line 137
+    .line 135
     iput-boolean v2, p0, Lbl/wx;->f:Z
 
-    .line 138
+    .line 136
     const/4 v0, -0x1
 
     iput v0, p0, Lbl/wx;->g:I
 
-    .line 139
+    .line 137
     iput v1, p0, Lbl/wx;->h:I
 
-    .line 140
+    .line 138
     const/high16 v0, 0x3f800000    # 1.0f
 
     iput v0, p0, Lbl/wx;->i:F
 
-    .line 141
+    .line 139
     iput-boolean v2, p0, Lbl/wx;->j:Z
 
-    .line 142
+    .line 140
     iput-boolean v1, p0, Lbl/wx;->k:Z
 
-    .line 143
+    .line 141
     iput-boolean v1, p0, Lbl/wx;->l:Z
 
-    .line 144
+    .line 142
     iput-boolean v1, p0, Lbl/wx;->m:Z
 
-    .line 145
+    .line 143
     iput-boolean v1, p0, Lbl/wx;->n:Z
 
-    .line 146
+    .line 144
     iput-boolean v1, p0, Lbl/wx;->o:Z
 
-    .line 147
+    .line 145
     new-instance v0, Ljava/util/HashMap;
 
     invoke-direct {v0}, Ljava/util/HashMap;-><init>()V
 
     iput-object v0, p0, Lbl/wx;->w:Ljava/util/Map;
 
-    .line 148
+    .line 146
     const/4 v0, 0x0
 
     iput-object v0, p0, Lbl/wx;->z:Landroid/graphics/Bitmap;
 
-    .line 149
+    .line 147
     new-instance v0, Landroid/os/Handler;
 
     invoke-direct {v0}, Landroid/os/Handler;-><init>()V
 
     iput-object v0, p0, Lbl/wx;->C:Landroid/os/Handler;
 
-    .line 150
+    .line 148
     return-void
 .end method
 
@@ -336,85 +336,85 @@
 
     const/4 v1, 0x0
 
-    .line 86
+    .line 84
     invoke-direct {p0, p1}, Landroid/widget/FrameLayout;-><init>(Landroid/content/Context;)V
 
-    .line 87
+    .line 85
     iput-boolean v1, p0, Lbl/wx;->b:Z
 
-    .line 88
+    .line 86
     iput-boolean v1, p0, Lbl/wx;->c:Z
 
-    .line 89
+    .line 87
     iput-boolean v2, p0, Lbl/wx;->d:Z
 
-    .line 90
+    .line 88
     iput-boolean v1, p0, Lbl/wx;->e:Z
 
-    .line 91
+    .line 89
     iput-boolean v2, p0, Lbl/wx;->B:Z
 
-    .line 92
+    .line 90
     iput-boolean v2, p0, Lbl/wx;->f:Z
 
-    .line 93
+    .line 91
     const/4 v0, -0x1
 
     iput v0, p0, Lbl/wx;->g:I
 
-    .line 94
+    .line 92
     iput v1, p0, Lbl/wx;->h:I
 
-    .line 95
+    .line 93
     const/high16 v0, 0x3f800000    # 1.0f
 
     iput v0, p0, Lbl/wx;->i:F
 
-    .line 96
+    .line 94
     iput-boolean v2, p0, Lbl/wx;->j:Z
 
-    .line 97
+    .line 95
     iput-boolean v1, p0, Lbl/wx;->k:Z
 
-    .line 98
+    .line 96
     iput-boolean v1, p0, Lbl/wx;->l:Z
 
-    .line 99
+    .line 97
     iput-boolean v1, p0, Lbl/wx;->m:Z
 
-    .line 100
+    .line 98
     iput-boolean v1, p0, Lbl/wx;->n:Z
 
-    .line 101
+    .line 99
     iput-boolean v1, p0, Lbl/wx;->o:Z
 
-    .line 102
+    .line 100
     new-instance v0, Ljava/util/HashMap;
 
     invoke-direct {v0}, Ljava/util/HashMap;-><init>()V
 
     iput-object v0, p0, Lbl/wx;->w:Ljava/util/Map;
 
-    .line 103
+    .line 101
     const/4 v0, 0x0
 
     iput-object v0, p0, Lbl/wx;->z:Landroid/graphics/Bitmap;
 
-    .line 104
+    .line 102
     new-instance v0, Landroid/os/Handler;
 
     invoke-direct {v0}, Landroid/os/Handler;-><init>()V
 
     iput-object v0, p0, Lbl/wx;->C:Landroid/os/Handler;
 
-    .line 105
+    .line 103
     invoke-virtual {p2}, Ljava/lang/Boolean;->booleanValue()Z
 
     move-result v0
 
     iput-boolean v0, p0, Lbl/wx;->k:Z
 
-    .line 106
+    .line 104
     return-void
 .end method
 
@@ -422,7 +422,7 @@
     .locals 2
 
     .prologue
-    .line 153
+    .line 151
     invoke-virtual {p0}, Lbl/wx;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -463,7 +463,7 @@
     .end annotation
 
     .prologue
-    .line 54
+    .line 52
     const/4 v0, 0x0
 
     return v0
@@ -475,7 +475,7 @@
     .prologue
     const/4 v3, 0x0
 
-    .line 165
+    .line 163
     move-object v0, p0
 
     move-object v1, p1
@@ -497,7 +497,7 @@
     .locals 1
 
     .prologue
-    .line 161
+    .line 159
     const/4 v0, 0x0
 
     check-cast v0, Ljava/io/File;
@@ -513,7 +513,7 @@
     .locals 1
 
     .prologue
-    .line 157
+    .line 155
     const/4 v0, 0x0
 
     invoke-virtual {p0, p1, v0, p2}, Lbl/wx;->a(Ljava/lang/String;Z[Ljava/lang/Object;)Z
@@ -527,7 +527,7 @@
     .locals 1
 
     .prologue
-    .line 196
+    .line 194
     iget v0, p0, Lbl/wx;->i:F
 
     return v0
@@ -540,10 +540,10 @@
     .locals 0
 
     .prologue
-    .line 169
+    .line 167
     iput-boolean p1, p0, Lbl/wx;->k:Z
 
-    .line 170
+    .line 168
     return-void
 .end method
 
@@ -551,10 +551,10 @@
     .locals 0
 
     .prologue
-    .line 204
+    .line 202
     iput-boolean p1, p0, Lbl/wx;->d:Z
 
-    .line 205
+    .line 203
     return-void
 .end method
 
@@ -562,10 +562,10 @@
     .locals 0
 
     .prologue
-    .line 192
+    .line 190
     iput-boolean p1, p0, Lbl/wx;->l:Z
 
-    .line 193
+    .line 191
     return-void
 .end method
 
@@ -573,10 +573,10 @@
     .locals 0
 
     .prologue
-    .line 177
+    .line 175
     iput-boolean p1, p0, Lbl/wx;->m:Z
 
-    .line 178
+    .line 176
     return-void
 .end method
 
@@ -584,10 +584,10 @@
     .locals 0
 
     .prologue
-    .line 208
+    .line 206
     iput-boolean p1, p0, Lbl/wx;->f:Z
 
-    .line 209
+    .line 207
     return-void
 .end method
 
@@ -595,20 +595,20 @@
     .locals 1
 
     .prologue
-    .line 185
+    .line 183
     iput-boolean p1, p0, Lbl/wx;->j:Z
 
-    .line 186
+    .line 184
     iget-object v0, p0, Lbl/wx;->A:Lbl/wv;
 
     if-eqz v0, :cond_b
 
-    .line 187
+    .line 185
     iget-object v0, p0, Lbl/wx;->A:Lbl/wv;
 
     invoke-virtual {v0, p1}, Lbl/wv;->a(Z)V
 
-    .line 189
+    .line 187
     :cond_b
     return-void
 .end method
@@ -617,10 +617,10 @@
     .locals 0
 
     .prologue
-    .line 173
+    .line 171
     iput-boolean p1, p0, Lbl/wx;->B:Z
 
-    .line 174
+    .line 172
     return-void
 .end method
 
@@ -631,10 +631,10 @@
     .locals 0
 
     .prologue
-    .line 200
+    .line 198
     iput p1, p0, Lbl/wx;->i:F
 
-    .line 201
+    .line 199
     return-void
 .end method
 
@@ -645,9 +645,9 @@
     .locals 0
 
     .prologue
-    .line 181
+    .line 179
     iput-object p1, p0, Lbl/wx;->v:Lbl/wt;
 
-    .line 182
+    .line 180
     return-void
 .end method
