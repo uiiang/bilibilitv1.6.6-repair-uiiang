@@ -31,6 +31,16 @@
             android:layout_height="match_parent"
             android:scrollbars="vertical" />
 
+        <TextView
+            android:id="@+id/empty_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="暂无收藏夹"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
     </LinearLayout>
 
 </FrameLayout>

@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 95
+    .line 96
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$2;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 1
 
     .prologue
-    .line 98
+    .line 99
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$2;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
 
     # getter for: Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->isOperating:Z
@@ -50,13 +50,13 @@
 
     if-nez v0, :cond_d
 
-    .line 99
+    .line 100
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$2;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
 
     # invokes: Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->toggleFavorite(Lmybl/FavoriteFolder;ZI)V
     invoke-static {v0, p1, p2, p3}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->access$100(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;Lmybl/FavoriteFolder;ZI)V
 
-    .line 101
+    .line 102
     :cond_d
     return-void
 .end method

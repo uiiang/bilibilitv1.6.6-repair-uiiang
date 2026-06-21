@@ -31,16 +31,16 @@
     .locals 1
 
     .prologue
-    .line 99
+    .line 103
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$ViewHolder;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;
 
-    .line 100
+    .line 104
     invoke-direct {p0, p2}, Landroid/support/v7/widget/RecyclerView$v;-><init>(Landroid/view/View;)V
 
-    .line 101
+    .line 105
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$ViewHolder;->itemView:Landroid/view/View;
 
-    .line 102
+    .line 106
     const v0, 0x7f0801c6
 
     invoke-virtual {p2, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -51,7 +51,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$ViewHolder;->checkIcon:Landroid/widget/ImageView;
 
-    .line 103
+    .line 107
     const v0, 0x7f0801c9
 
     invoke-virtual {p2, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -62,11 +62,11 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$ViewHolder;->favoriteName:Landroid/widget/TextView;
 
-    .line 104
+    .line 108
     check-cast p2, Landroid/widget/LinearLayout;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$ViewHolder;->itemLayout:Landroid/widget/LinearLayout;
 
-    .line 105
+    .line 109
     return-void
 .end method

@@ -1,4 +1,4 @@
-.class Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$1;
+.class Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$2;
 .super Ljava/lang/Object;
 .source "FavoriteMenuDialog.java"
 
@@ -26,8 +26,8 @@
     .locals 0
 
     .prologue
-    .line 177
-    iput-object p1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$1;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
+    .line 199
+    iput-object p1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$2;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -40,8 +40,8 @@
     .locals 2
 
     .prologue
-    .line 180
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$1;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
+    .line 202
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$2;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
 
@@ -52,7 +52,7 @@
 
     if-eqz v0, :cond_18
 
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$1;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$2;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
 
@@ -67,36 +67,26 @@
 
     if-eqz v0, :cond_19
 
-    .line 191
+    .line 220
     :cond_18
     :goto_18
     return-void
 
-    .line 182
+    .line 204
     :cond_19
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$1;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$2;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
 
-    const v1, 0x7f080234
-
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->findViewById(I)Landroid/view/View;
+    # getter for: Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->adapter:Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->access$400(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;)Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;
 
     move-result-object v0
 
-    check-cast v0, Landroid/widget/TextView;
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;->notifyDataSetChanged()V
 
-    .line 183
-    if-eqz v0, :cond_2c
-
-    .line 184
-    const/4 v1, 0x0
-
-    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
-
-    .line 187
-    :cond_2c
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$1;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
+    .line 205
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$2;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
 
@@ -108,13 +98,15 @@
 
     check-cast v0, Landroid/support/v7/widget/RecyclerView;
 
-    .line 188
+    .line 206
     if-eqz v0, :cond_18
 
-    .line 189
-    const/16 v1, 0x8
+    .line 207
+    new-instance v1, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$2$1;
 
-    invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
+    invoke-direct {v1, p0, v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$2$1;-><init>(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$2;Landroid/support/v7/widget/RecyclerView;)V
+
+    invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->post(Ljava/lang/Runnable;)Z
 
     goto :goto_18
 .end method

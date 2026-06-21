@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 49
+    .line 53
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$1;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$1;->val$folder:Lmybl/FavoriteFolder;
@@ -48,7 +48,7 @@
     .locals 4
 
     .prologue
-    .line 52
+    .line 56
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$1;->val$folder:Lmybl/FavoriteFolder;
 
     invoke-virtual {v0}, Lmybl/FavoriteFolder;->isFavored()Z
@@ -59,7 +59,7 @@
 
     const/4 v0, 0x1
 
-    .line 53
+    .line 57
     :goto_9
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$1;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;
 
@@ -70,19 +70,19 @@
 
     if-eqz v1, :cond_25
 
-    .line 54
+    .line 58
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$1;->val$viewHolder:Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$ViewHolder;
 
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$ViewHolder;->d()I
 
     move-result v1
 
-    .line 55
+    .line 59
     const/4 v2, -0x1
 
     if-eq v1, v2, :cond_25
 
-    .line 56
+    .line 60
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$1;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;
 
     # getter for: Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;->listener:Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$OnItemCheckedChangeListener;
@@ -94,11 +94,11 @@
 
     invoke-interface {v2, v3, v0, v1}, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$OnItemCheckedChangeListener;->onItemCheckedChange(Lmybl/FavoriteFolder;ZI)V
 
-    .line 59
+    .line 63
     :cond_25
     return-void
 
-    .line 52
+    .line 56
     :cond_26
     const/4 v0, 0x0
 

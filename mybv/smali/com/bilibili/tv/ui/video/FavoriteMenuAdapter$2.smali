@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 62
+    .line 66
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$2;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$2;->val$viewHolder:Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$ViewHolder;
@@ -48,31 +48,31 @@
 
     const/4 v0, 0x0
 
-    .line 65
+    .line 69
     invoke-virtual {p3}, Landroid/view/KeyEvent;->getAction()I
 
     move-result v2
 
     if-nez v2, :cond_11
 
-    .line 66
+    .line 70
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$2;->val$viewHolder:Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$ViewHolder;
 
     invoke-virtual {v2}, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$ViewHolder;->d()I
 
     move-result v2
 
-    .line 67
+    .line 71
     const/4 v3, -0x1
 
     if-ne v2, v3, :cond_12
 
-    .line 75
+    .line 79
     :cond_11
     :goto_11
     return v0
 
-    .line 68
+    .line 72
     :cond_12
     const/16 v3, 0x13
 
@@ -82,10 +82,10 @@
 
     move v0, v1
 
-    .line 69
+    .line 73
     goto :goto_11
 
-    .line 71
+    .line 75
     :cond_1a
     const/16 v3, 0x14
 
@@ -108,6 +108,6 @@
 
     move v0, v1
 
-    .line 72
+    .line 76
     goto :goto_11
 .end method

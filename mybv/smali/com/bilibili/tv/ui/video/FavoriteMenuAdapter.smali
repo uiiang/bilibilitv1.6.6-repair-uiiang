@@ -91,7 +91,7 @@
     .locals 1
 
     .prologue
-    .line 82
+    .line 86
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;->folders:Ljava/util/List;
 
     if-eqz v0, :cond_b
@@ -145,9 +145,30 @@
 
     .prologue
     .line 39
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;->folders:Ljava/util/List;
+
+    if-eqz v0, :cond_e
+
+    if-ltz p2, :cond_e
+
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;->folders:Ljava/util/List;
+
+    invoke-interface {v0}, Ljava/util/List;->size()I
+
+    move-result v0
+
+    if-lt p2, v0, :cond_f
+
+    .line 82
+    :cond_e
+    :goto_e
+    return-void
+
+    .line 43
+    :cond_f
     check-cast p1, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$ViewHolder;
 
-    .line 40
+    .line 44
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;->folders:Ljava/util/List;
 
     invoke-interface {v0, p2}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -156,7 +177,7 @@
 
     check-cast v0, Lmybl/FavoriteFolder;
 
-    .line 41
+    .line 45
     iget-object v1, p1, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$ViewHolder;->favoriteName:Landroid/widget/TextView;
 
     invoke-virtual {v0}, Lmybl/FavoriteFolder;->getTitle()Ljava/lang/String;
@@ -165,22 +186,22 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 43
+    .line 47
     invoke-virtual {v0}, Lmybl/FavoriteFolder;->isFavored()Z
 
     move-result v1
 
-    if-eqz v1, :cond_34
+    if-eqz v1, :cond_43
 
-    .line 44
+    .line 48
     iget-object v1, p1, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$ViewHolder;->checkIcon:Landroid/widget/ImageView;
 
     const/4 v2, 0x0
 
     invoke-virtual {v1, v2}, Landroid/widget/ImageView;->setVisibility(I)V
 
-    .line 49
-    :goto_1f
+    .line 53
+    :goto_2e
     iget-object v1, p1, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$ViewHolder;->itemView:Landroid/view/View;
 
     new-instance v2, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$1;
@@ -189,7 +210,7 @@
 
     invoke-virtual {v1, v2}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 62
+    .line 66
     iget-object v0, p1, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$ViewHolder;->itemView:Landroid/view/View;
 
     new-instance v1, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$2;
@@ -198,28 +219,27 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setOnKeyListener(Landroid/view/View$OnKeyListener;)V
 
-    .line 78
-    return-void
+    goto :goto_e
 
-    .line 46
-    :cond_34
+    .line 50
+    :cond_43
     iget-object v1, p1, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$ViewHolder;->checkIcon:Landroid/widget/ImageView;
 
     const/4 v2, 0x4
 
     invoke-virtual {v1, v2}, Landroid/widget/ImageView;->setVisibility(I)V
 
-    goto :goto_1f
+    goto :goto_2e
 .end method
 
 .method public notifyDataSetChanged()V
     .locals 0
 
     .prologue
-    .line 86
+    .line 90
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;->d()V
 
-    .line 87
+    .line 91
     return-void
 .end method
 
@@ -227,9 +247,9 @@
     .locals 0
 
     .prologue
-    .line 90
+    .line 94
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;->c(I)V
 
-    .line 91
+    .line 95
     return-void
 .end method

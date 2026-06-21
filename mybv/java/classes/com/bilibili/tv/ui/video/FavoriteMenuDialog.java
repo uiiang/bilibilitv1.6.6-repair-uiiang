@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import bl.lr;
 import bl.mg;
 import bl.vo;
 import bl.vm;
@@ -132,12 +133,24 @@ public class FavoriteMenuDialog extends Dialog {
     }
 
     private void loadFavoriteFolders() {
+        if (activity == null || activity.isFinishing()) {
+            Log.e(TAG, "Activity is null or finishing");
+            return;
+        }
+        
         mg biliAccount = mg.a(activity);
+        if (biliAccount == null) {
+            Log.e(TAG, "BiliAccount is null");
+            lr.a(activity, "获取账号信息失败");
+            return;
+        }
+        
         long mid = biliAccount.d();
         String cookie = mybl.CookieUtil.getFullCookieWithDevice(biliAccount);
         
         if (mid <= 0) {
             Log.d(TAG, "User not logged in");
+            lr.a(activity, "账号未登录");
             return;
         }
         
@@ -158,32 +171,64 @@ public class FavoriteMenuDialog extends Dialog {
                         JSONObject data = body.getJSONObject("data");
                         if (data != null) {
                             List<FavoriteFolder> folders = JSON.parseArray(data.getString("list"), FavoriteFolder.class);
-                            if (folders != null) {
-                                favoriteFolders.clear();
-                                favoriteFolders.addAll(folders);
-                                
+                            
+                            if (folders == null || folders.isEmpty()) {
+                                // 显示空列表提示
                                 activity.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        adapter.notifyDataSetChanged();
-                                        final android.support.v7.widget.RecyclerView recyclerView = (android.support.v7.widget.RecyclerView) findViewById(R.id.favorite_list);
+                                        if (activity == null || activity.isFinishing()) return;
+                                        
+                                        TextView emptyText = (TextView) findViewById(R.id.empty_text);
+                                        if (emptyText != null) {
+                                            emptyText.setVisibility(View.VISIBLE);
+                                        }
+                                        
+                                        android.support.v7.widget.RecyclerView recyclerView = (android.support.v7.widget.RecyclerView) findViewById(R.id.favorite_list);
                                         if (recyclerView != null) {
-                                            recyclerView.post(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    View firstItem = recyclerView.getChildAt(0);
-                                                    if (firstItem != null) {
-                                                        firstItem.requestFocusFromTouch();
-                                                    }
-                                                }
-                                            });
+                                            recyclerView.setVisibility(View.GONE);
                                         }
                                     }
                                 });
+                                return;
                             }
+                            
+                            favoriteFolders.clear();
+                            favoriteFolders.addAll(folders);
+                            
+                            activity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (activity == null || activity.isFinishing()) return;
+                                    
+                                    adapter.notifyDataSetChanged();
+                                    final android.support.v7.widget.RecyclerView recyclerView = (android.support.v7.widget.RecyclerView) findViewById(R.id.favorite_list);
+                                    if (recyclerView != null) {
+                                        recyclerView.post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                if (activity == null || activity.isFinishing()) return;
+                                                if (adapter.a() == 0) return;
+                                                
+                                                View firstItem = recyclerView.getChildAt(0);
+                                                if (firstItem != null) {
+                                                    firstItem.requestFocusFromTouch();
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+                            });
                         }
                     } else {
                         Log.e(TAG, "API error: " + body.getString("message"));
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (activity == null || activity.isFinishing()) return;
+                                lr.a(activity, "获取收藏夹列表失败: " + body.getString("message"));
+                            }
+                        });
                     }
                 }
             }
@@ -196,6 +241,15 @@ public class FavoriteMenuDialog extends Dialog {
             @Override
             public void onError(Throwable th) {
                 Log.e(TAG, "Failed to load favorite folders", th);
+                if (activity != null && !activity.isFinishing()) {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (activity == null || activity.isFinishing()) return;
+                            lr.a(activity, "加载收藏夹失败");
+                        }
+                    });
+                }
             }
         });
     }
@@ -233,6 +287,15 @@ public class FavoriteMenuDialog extends Dialog {
                 public void onError(Throwable th) {
                     isOperating = false;
                     Log.e(TAG, "Failed to add video to favorite", th);
+                    if (activity != null && !activity.isFinishing()) {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (activity == null || activity.isFinishing()) return;
+                                lr.a(activity, "添加收藏失败");
+                            }
+                        });
+                    }
                 }
             });
         } else {
@@ -260,6 +323,15 @@ public class FavoriteMenuDialog extends Dialog {
                 public void onError(Throwable th) {
                     isOperating = false;
                     Log.e(TAG, "Failed to remove video from favorite", th);
+                    if (activity != null && !activity.isFinishing()) {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (activity == null || activity.isFinishing()) return;
+                                lr.a(activity, "取消收藏失败");
+                            }
+                        });
+                    }
                 }
             });
         }

@@ -36,6 +36,10 @@ public class FavoriteMenuAdapter extends RecyclerView.a<RecyclerView.v> {
 
     @Override
     public void a(RecyclerView.v holder, int position) {
+        if (folders == null || position < 0 || position >= folders.size()) {
+            return;
+        }
+        
         final ViewHolder viewHolder = (ViewHolder) holder;
         final FavoriteFolder folder = folders.get(position);
         viewHolder.favoriteName.setText(folder.getTitle());

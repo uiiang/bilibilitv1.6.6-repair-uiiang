@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 86
+    .line 87
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$1;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,11 +40,11 @@
     .locals 1
 
     .prologue
-    .line 89
+    .line 90
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$1;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->dismiss()V
 
-    .line 90
+    .line 91
     return-void
 .end method

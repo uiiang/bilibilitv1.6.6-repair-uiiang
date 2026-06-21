@@ -3606,4 +3606,5 @@
     <public type="id" name="recommend_api_app_button" id="0x7f080231" />
     <public type="id" name="live_ijk_player" id="0x7f080232" />
     <public type="id" name="live_exo_player" id="0x7f080233" />
+    <public type="id" name="empty_text" id="0x7f080234" />
 </resources>
