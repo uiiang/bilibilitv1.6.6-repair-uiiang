@@ -100,7 +100,7 @@
       android:layout_height="wrap_content"
       android:layout_marginLeft="@dimen/px_4"
       android:layout_marginRight="@dimen/px_4"
-      android:layout_marginTop="@dimen/px_10"
+      android:layout_marginTop="@dimen/px_6"
       android:layout_marginBottom="@dimen/px_4"
       android:orientation="horizontal">
       <com.bilibili.tv.widget.ShadowTextView

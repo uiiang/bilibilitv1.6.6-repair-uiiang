@@ -95,7 +95,7 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
         super.a(recyclerView, bundle);
         ok.a(getPageViewEvent(), new String[0]);
         
-        int spacing = adl.b(R.dimen.px_10);
+        int spacing = adl.b(R.dimen.px_6);
         int padding = adl.b(R.dimen.px_50);
         int paddingBottom = adl.b(R.dimen.px_306);
         recyclerView.setPadding(padding, spacing, padding, paddingBottom);

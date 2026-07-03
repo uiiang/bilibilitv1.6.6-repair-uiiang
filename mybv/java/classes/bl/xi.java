@@ -100,6 +100,9 @@ public class xi extends xh implements bbb<Message, Boolean> {
 
     public static String error_message;
 
+    // 控制进度条中是否显示截图预览
+    private static final boolean ENABLE_SEEK_PREVIEW_SNAPSHOT = false;
+
     @Override // tv.danmaku.ijk.media.player.IMediaPlayer.OnInfoListener
     public boolean onInfo2(IMediaPlayer iMediaPlayer, int i, int i2, long j) {
         return false;
@@ -189,6 +192,15 @@ public class xi extends xh implements bbb<Message, Boolean> {
         }
         if (this.seekPreviewTimeTotal != null) {
             this.seekPreviewTimeTotal.setText(aan.a(max));
+        }
+        
+        // 根据常量控制是否显示截图
+        if (!ENABLE_SEEK_PREVIEW_SNAPSHOT) {
+            if (this.seekPreviewSnapshot != null) {
+                this.seekPreviewSnapshot.setVisibility(View.GONE);
+                Log.i("SeekPreview", "updateSeekPreview: snapshot disabled by constant");
+            }
+            return;
         }
         
         if (!showSnapshot) {
