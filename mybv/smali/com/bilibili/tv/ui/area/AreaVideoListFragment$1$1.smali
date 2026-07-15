@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 128
+    .line 144
     iput-object p1, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1$1;->this$1:Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1$1;->val$videoList:Ljava/util/List;
@@ -46,7 +46,7 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 131
+    .line 147
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1$1;->val$videoList:Ljava/util/List;
 
     if-eqz v0, :cond_10a
@@ -59,7 +59,7 @@
 
     if-nez v0, :cond_10a
 
-    .line 133
+    .line 149
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1$1;->this$1:Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;->this$0:Lcom/bilibili/tv/ui/area/AreaVideoListFragment;
@@ -71,14 +71,14 @@
 
     move-result-object v0
 
-    .line 136
+    .line 152
     iget-object v1, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1$1;->this$1:Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;
 
     iget-boolean v1, v1, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;->val$isLoadMore:Z
 
     if-nez v1, :cond_33
 
-    .line 137
+    .line 153
     iget-object v1, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1$1;->this$1:Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;
 
     iget-object v1, v1, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;->this$0:Lcom/bilibili/tv/ui/area/AreaVideoListFragment;
@@ -90,7 +90,7 @@
 
     invoke-interface {v1}, Ljava/util/List;->clear()V
 
-    .line 138
+    .line 154
     iget-object v1, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1$1;->this$1:Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;
 
     iget-object v1, v1, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;->this$0:Lcom/bilibili/tv/ui/area/AreaVideoListFragment;
@@ -102,7 +102,7 @@
 
     invoke-interface {v1}, Ljava/util/List;->clear()V
 
-    .line 142
+    .line 158
     :cond_33
     iget-object v1, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1$1;->this$1:Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;
 
@@ -115,7 +115,7 @@
 
     invoke-interface {v1, v0}, Ljava/util/List;->addAll(Ljava/util/Collection;)Z
 
-    .line 145
+    .line 161
     iget-object v1, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1$1;->this$1:Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;
 
     iget-object v1, v1, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;->this$0:Lcom/bilibili/tv/ui/area/AreaVideoListFragment;
@@ -127,7 +127,7 @@
 
     if-eqz v1, :cond_53
 
-    .line 146
+    .line 162
     iget-object v1, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1$1;->this$1:Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;
 
     iget-object v1, v1, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;->this$0:Lcom/bilibili/tv/ui/area/AreaVideoListFragment;
@@ -139,7 +139,7 @@
 
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$VideoListAdapter;->d()V
 
-    .line 150
+    .line 166
     :cond_53
     iget-object v1, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1$1;->this$1:Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;
 
@@ -148,7 +148,7 @@
     # setter for: Lcom/bilibili/tv/ui/area/AreaVideoListFragment;->hasMoreData:Z
     invoke-static {v1, v2}, Lcom/bilibili/tv/ui/area/AreaVideoListFragment;->access$802(Lcom/bilibili/tv/ui/area/AreaVideoListFragment;Z)Z
 
-    .line 151
+    .line 167
     iget-object v1, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1$1;->this$1:Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;
 
     iget-object v1, v1, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;->this$0:Lcom/bilibili/tv/ui/area/AreaVideoListFragment;
@@ -156,7 +156,7 @@
     # setter for: Lcom/bilibili/tv/ui/area/AreaVideoListFragment;->isLoadingMore:Z
     invoke-static {v1, v2}, Lcom/bilibili/tv/ui/area/AreaVideoListFragment;->access$902(Lcom/bilibili/tv/ui/area/AreaVideoListFragment;Z)Z
 
-    .line 153
+    .line 169
     const-string v1, "AreaVideoListFragment"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -189,21 +189,21 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 156
+    .line 172
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1$1;->this$1:Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;
 
     iget-boolean v0, v0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;->val$isLoadMore:Z
 
     if-nez v0, :cond_103
 
-    .line 157
+    .line 173
     const-string v0, "AreaVideoListFragment"
 
     const-string v1, "========== Requesting focus for first video card =========="
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 158
+    .line 174
     const-string v1, "AreaVideoListFragment"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -255,7 +255,7 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 159
+    .line 175
     const-string v1, "AreaVideoListFragment"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -307,7 +307,7 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 162
+    .line 178
     new-instance v0, Landroid/os/Handler;
 
     invoke-direct {v0}, Landroid/os/Handler;-><init>()V
@@ -320,24 +320,24 @@
 
     invoke-virtual {v0, v1, v2, v3}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 192
+    .line 208
     :cond_103
     :goto_103
     return-void
 
-    .line 158
+    .line 174
     :cond_104
     const-string v0, "null"
 
     goto :goto_b7
 
-    .line 159
+    .line 175
     :cond_107
     const-string v0, "null"
 
     goto :goto_e9
 
-    .line 188
+    .line 204
     :cond_10a
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1$1;->this$1:Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;
 
@@ -346,7 +346,7 @@
     # setter for: Lcom/bilibili/tv/ui/area/AreaVideoListFragment;->hasMoreData:Z
     invoke-static {v0, v2}, Lcom/bilibili/tv/ui/area/AreaVideoListFragment;->access$1802(Lcom/bilibili/tv/ui/area/AreaVideoListFragment;Z)Z
 
-    .line 189
+    .line 205
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1$1;->this$1:Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;->this$0:Lcom/bilibili/tv/ui/area/AreaVideoListFragment;
@@ -354,7 +354,7 @@
     # setter for: Lcom/bilibili/tv/ui/area/AreaVideoListFragment;->isLoadingMore:Z
     invoke-static {v0, v2}, Lcom/bilibili/tv/ui/area/AreaVideoListFragment;->access$1902(Lcom/bilibili/tv/ui/area/AreaVideoListFragment;Z)Z
 
-    .line 190
+    .line 206
     const-string v0, "AreaVideoListFragment"
 
     const-string v1, "No videos loaded"

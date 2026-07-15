@@ -78,6 +78,7 @@ public final class CategoryManager {
     public static final int T2_SEARCH = 65637;
     public static final int T2_ELSE = 65639;
     public static final int T1_WEEKLY = 65640;
+    public static final int T2_PRECIOUS = 65641; // 入站必刷
     public static final int T_ROOT = 0;
     private static String sApiVersion;
     private static final Object sFileLock;
@@ -112,6 +113,7 @@ public final class CategoryManager {
         sIconsArray.append(T1_SPORTS, R.drawable.ic_sports_soccer_180);
         sIconsArray.append(T2_ELSE, R.drawable.ic_more_horiz_180);
         sIconsArray.append(T1_WEEKLY, R.drawable.ic_weekly);
+        sIconsArray.append(T2_PRECIOUS, R.drawable.ic_area_bishua);
 
         sFileLock = new Object();
     }

@@ -295,9 +295,9 @@
 
     new-instance v1, Lcom/bilibili/tv/api/category/CategoryMeta;
 
-    const v3, 0x10067
+    const v3, 0x10069
 
-    const-string v4, "\u5176\u5b83"
+    const-string v4, "\u5165\u7ad9\u5fc5\u5237"
 
     invoke-direct {v1, v3, v4, v2}, Lcom/bilibili/tv/api/category/CategoryMeta;-><init>(ILjava/lang/String;I)V
 
@@ -624,7 +624,7 @@
 
     if-nez v2, :cond_1d
 
-    .line 316
+    .line 317
     :cond_1c
     :goto_1c
     return-void
@@ -684,28 +684,30 @@
 
     .line 309
     :cond_4c
-    const v2, 0x10067
+    const v2, 0x10068
 
     if-ne v0, v2, :cond_55
 
     .line 310
-    invoke-static {v1}, Lcom/bilibili/tv/ui/ranking/ElseActivity;->a(Landroid/content/Context;)V
+    invoke-static {v1}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->a(Landroid/content/Context;)V
 
     goto :goto_1c
 
     .line 311
     :cond_55
-    const v2, 0x10068
+    const v2, 0x10069
 
-    if-ne v0, v2, :cond_5e
+    if-ne v0, v2, :cond_60
 
-    .line 312
-    invoke-static {v1}, Lcom/bilibili/tv/ui/weekly/WeeklyActivity;->a(Landroid/content/Context;)V
+    .line 313
+    sget-object v2, Lcom/bilibili/tv/ui/area/AreaActivity;->Companion:Lcom/bilibili/tv/ui/area/AreaActivity$Companion;
+
+    invoke-virtual {v2, v1, v0}, Lcom/bilibili/tv/ui/area/AreaActivity$Companion;->a(Landroid/content/Context;I)V
 
     goto :goto_1c
 
-    .line 314
-    :cond_5e
+    .line 315
+    :cond_60
     sget-object v2, Lcom/bilibili/tv/ui/area/AreaActivity;->Companion:Lcom/bilibili/tv/ui/area/AreaActivity$Companion;
 
     invoke-virtual {v2, v1, v0}, Lcom/bilibili/tv/ui/area/AreaActivity$Companion;->a(Landroid/content/Context;I)V
@@ -717,12 +719,12 @@
     .locals 2
 
     .prologue
-    .line 322
+    .line 323
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 323
+    .line 324
     iget-object v0, p0, Lbl/afa$c;->a:Ljava/lang/ref/WeakReference;
 
     invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
@@ -731,28 +733,28 @@
 
     check-cast v0, Lbl/afa;
 
-    .line 324
+    .line 325
     if-eqz v0, :cond_30
 
-    .line 325
+    .line 326
     const-string v1, "mMainAreaFragmentWeakReference.get() ?: return"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 326
+    .line 327
     const v1, 0x7f0800ac
 
     invoke-virtual {p1, v1}, Landroid/view/View;->getTag(I)Ljava/lang/Object;
 
     move-result-object v1
 
-    .line 327
+    .line 328
     if-eqz v1, :cond_30
 
-    .line 328
+    .line 329
     if-eqz v1, :cond_31
 
-    .line 329
+    .line 330
     check-cast v1, Ljava/lang/Integer;
 
     invoke-virtual {v1}, Ljava/lang/Integer;->intValue()I
@@ -762,19 +764,19 @@
     # setter for: Lbl/afa;->c:I
     invoke-static {v0, v1}, Lbl/afa;->access$002(Lbl/afa;I)I
 
-    .line 330
+    .line 331
     invoke-static {p1, p2}, Lbl/adj;->a(Landroid/view/View;Z)V
 
-    .line 331
+    .line 332
     check-cast p1, Lbl/afz;
 
     invoke-interface {p1, p2}, Lbl/afz;->setUpEnabled(Z)V
 
-    .line 337
+    .line 338
     :cond_30
     return-void
 
-    .line 334
+    .line 335
     :cond_31
     new-instance v0, Lkotlin/TypeCastException;
 

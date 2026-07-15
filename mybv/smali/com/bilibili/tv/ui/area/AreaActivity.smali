@@ -131,18 +131,18 @@
     .locals 1
 
     .prologue
-    .line 317
+    .line 321
     invoke-virtual {p1}, Lbl/adq;->b()Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;
 
     move-result-object v0
 
-    .line 318
+    .line 322
     if-nez v0, :cond_9
 
-    .line 319
+    .line 323
     const-string v0, "default"
 
-    .line 321
+    .line 325
     :goto_8
     return-object v0
 
@@ -160,21 +160,21 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 303
+    .line 307
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/area/AreaActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v3
 
-    .line 304
+    .line 308
     if-nez v3, :cond_9
 
     move-object v0, v1
 
-    .line 313
+    .line 317
     :goto_8
     return-object v0
 
-    .line 307
+    .line 311
     :cond_9
     const/4 v0, 0x0
 
@@ -185,12 +185,12 @@
 
     if-ge v0, v2, :cond_1f
 
-    .line 308
+    .line 312
     invoke-virtual {v3, v0}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
 
     move-result-object v2
 
-    .line 309
+    .line 313
     invoke-virtual {v2}, Landroid/view/View;->isSelected()Z
 
     move-result v4
@@ -199,10 +199,10 @@
 
     move-object v0, v2
 
-    .line 310
+    .line 314
     goto :goto_8
 
-    .line 307
+    .line 311
     :cond_1c
     add-int/lit8 v0, v0, 0x1
 
@@ -211,7 +211,7 @@
     :cond_1f
     move-object v0, v1
 
-    .line 313
+    .line 317
     goto :goto_8
 .end method
 
@@ -219,17 +219,17 @@
     .locals 2
 
     .prologue
-    .line 325
+    .line 329
     if-nez p1, :cond_5
 
-    .line 326
+    .line 330
     sget-object v0, Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;->DEFAULT:Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;
 
-    .line 340
+    .line 344
     :goto_4
     return-object v0
 
-    .line 328
+    .line 332
     :cond_5
     const/4 v0, -0x1
 
@@ -243,12 +243,12 @@
     :goto_d
     packed-switch v0, :pswitch_data_6a
 
-    .line 340
+    .line 344
     sget-object v0, Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;->DEFAULT:Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;
 
     goto :goto_4
 
-    .line 328
+    .line 332
     :sswitch_13
     const-string v1, "senddate"
 
@@ -314,37 +314,37 @@
 
     goto :goto_d
 
-    .line 330
+    .line 334
     :pswitch_45
     sget-object v0, Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;->SENDDATE:Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;
 
     goto :goto_4
 
-    .line 332
+    .line 336
     :pswitch_48
     sget-object v0, Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;->VIEW:Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;
 
     goto :goto_4
 
-    .line 334
+    .line 338
     :pswitch_4b
     sget-object v0, Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;->REPLY:Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;
 
     goto :goto_4
 
-    .line 336
+    .line 340
     :pswitch_4e
     sget-object v0, Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;->DANMAKU:Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;
 
     goto :goto_4
 
-    .line 338
+    .line 342
     :pswitch_51
     sget-object v0, Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;->FAVORITE:Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;
 
     goto :goto_4
 
-    .line 328
+    .line 332
     :sswitch_data_54
     .sparse-switch
         0x373aa5 -> :sswitch_1d
@@ -368,12 +368,12 @@
     .locals 3
 
     .prologue
-    .line 149
+    .line 148
     const v0, 0x7f0a00ad
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/area/AreaActivity;->setContentView(I)V
 
-    .line 152
+    .line 151
     const v0, 0x7f080065
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/area/AreaActivity;->findViewById(I)Landroid/view/View;
@@ -382,10 +382,51 @@
 
     check-cast v0, Landroid/widget/TextView;
 
-    .line 154
-    if-eqz v0, :cond_42
+    .line 153
+    if-eqz v0, :cond_4f
 
     .line 155
+    iget v1, p0, Lcom/bilibili/tv/ui/area/AreaActivity;->b:I
+
+    const v2, 0x10069
+
+    if-ne v1, v2, :cond_35
+
+    .line 156
+    const-string v1, "\u5165\u7ad9\u5fc5\u5237"
+
+    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    .line 173
+    :goto_1d
+    iget v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity;->b:I
+
+    invoke-static {v0}, Lcom/bilibili/tv/ui/area/AreaVideoListFragment;->newInstance(I)Lcom/bilibili/tv/ui/area/AreaVideoListFragment;
+
+    move-result-object v0
+
+    .line 176
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/area/AreaActivity;->getSupportFragmentManager()Landroid/support/v4/app/FragmentManager;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Landroid/support/v4/app/FragmentManager;->beginTransaction()Landroid/support/v4/app/FragmentTransaction;
+
+    move-result-object v1
+
+    .line 177
+    const v2, 0x7f080091
+
+    invoke-virtual {v1, v2, v0}, Landroid/support/v4/app/FragmentTransaction;->replace(ILandroid/support/v4/app/Fragment;)Landroid/support/v4/app/FragmentTransaction;
+
+    .line 178
+    invoke-virtual {v1}, Landroid/support/v4/app/FragmentTransaction;->commitNow()V
+
+    .line 180
+    return-void
+
+    .line 158
+    :cond_35
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/area/AreaActivity;->getApplicationContext()Landroid/content/Context;
 
     move-result-object v1
@@ -396,61 +437,35 @@
 
     move-result-object v1
 
-    .line 157
-    if-eqz v1, :cond_3a
+    .line 160
+    if-eqz v1, :cond_47
 
-    .line 159
+    .line 162
     iget-object v1, v1, Lcom/bilibili/tv/api/category/CategoryMeta;->mTypeName:Ljava/lang/String;
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 169
-    :goto_22
-    iget v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity;->b:I
+    goto :goto_1d
 
-    invoke-static {v0}, Lcom/bilibili/tv/ui/area/AreaVideoListFragment;->newInstance(I)Lcom/bilibili/tv/ui/area/AreaVideoListFragment;
-
-    move-result-object v0
-
-    .line 172
-    invoke-virtual {p0}, Lcom/bilibili/tv/ui/area/AreaActivity;->getSupportFragmentManager()Landroid/support/v4/app/FragmentManager;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Landroid/support/v4/app/FragmentManager;->beginTransaction()Landroid/support/v4/app/FragmentTransaction;
-
-    move-result-object v1
-
-    .line 173
-    const v2, 0x7f080091
-
-    invoke-virtual {v1, v2, v0}, Landroid/support/v4/app/FragmentTransaction;->replace(ILandroid/support/v4/app/Fragment;)Landroid/support/v4/app/FragmentTransaction;
-
-    .line 174
-    invoke-virtual {v1}, Landroid/support/v4/app/FragmentTransaction;->commitNow()V
-
-    .line 176
-    return-void
-
-    .line 161
-    :cond_3a
+    .line 164
+    :cond_47
     const-string v0, "AreaActivity"
 
     const-string v1, "categoryMeta is null!"
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto :goto_22
+    goto :goto_1d
 
-    .line 164
-    :cond_42
+    .line 168
+    :cond_4f
     const-string v0, "AreaActivity"
 
     const-string v1, "titleView is null!"
 
     invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto :goto_22
+    goto :goto_1d
 .end method
 
 .method private initSpecialCategory(Landroid/os/Bundle;)V
@@ -461,7 +476,7 @@
 
     const/4 v1, 0x0
 
-    .line 112
+    .line 111
     const v0, 0x7f0800eb
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/area/AreaActivity;->d(I)Landroid/view/View;
@@ -472,7 +487,7 @@
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/area/AreaActivity;->b(Landroid/support/v7/widget/RecyclerView;)V
 
-    .line 114
+    .line 113
     const v0, 0x7f080065
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/area/AreaActivity;->d(I)Landroid/view/View;
@@ -481,7 +496,7 @@
 
     check-cast v0, Landroid/widget/TextView;
 
-    .line 115
+    .line 114
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/area/AreaActivity;->getApplicationContext()Landroid/content/Context;
 
     move-result-object v2
@@ -492,15 +507,15 @@
 
     move-result-object v2
 
-    .line 116
+    .line 115
     if-eqz v2, :cond_38
 
-    .line 117
+    .line 116
     iget-object v3, v2, Lcom/bilibili/tv/api/category/CategoryMeta;->mTypeName:Ljava/lang/String;
 
     invoke-virtual {v0, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 118
+    .line 117
     const-string v0, "tv_channel_pageview"
 
     const/4 v3, 0x2
@@ -517,7 +532,7 @@
 
     invoke-static {v0, v3}, Lbl/ok;->a(Ljava/lang/String;[Ljava/lang/String;)V
 
-    .line 121
+    .line 120
     :cond_38
     new-instance v0, Lbl/adr;
 
@@ -531,24 +546,24 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity;->d:Lbl/adr;
 
-    .line 123
+    .line 122
     new-instance v0, Lcom/bilibili/tv/ui/area/AreaActivity$LeftLayoutManager;
 
     invoke-direct {v0, p0, p0, v5, v1}, Lcom/bilibili/tv/ui/area/AreaActivity$LeftLayoutManager;-><init>(Lcom/bilibili/tv/ui/area/AreaActivity;Landroid/content/Context;IZ)V
 
-    .line 124
+    .line 123
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/area/AreaActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v2
 
     invoke-virtual {v2, v0}, Landroid/support/v7/widget/RecyclerView;->setLayoutManager(Landroid/support/v7/widget/RecyclerView$h;)V
 
-    .line 126
+    .line 125
     new-instance v2, Lbl/cj;
 
     invoke-direct {v2}, Lbl/cj;-><init>()V
 
-    .line 127
+    .line 126
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity;->d:Lbl/adr;
 
     invoke-virtual {v0}, Lbl/adr;->a()I
@@ -557,11 +572,11 @@
 
     move v0, v1
 
-    .line 128
+    .line 127
     :goto_5e
     if-ge v0, v3, :cond_70
 
-    .line 129
+    .line 128
     iget-object v4, p0, Lcom/bilibili/tv/ui/area/AreaActivity;->d:Lbl/adr;
 
     invoke-virtual {v4, v0}, Lbl/adr;->b(I)Ljava/lang/CharSequence;
@@ -574,12 +589,12 @@
 
     invoke-virtual {v2, v0, v4}, Lbl/cj;->b(ILjava/lang/Object;)V
 
-    .line 128
+    .line 127
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_5e
 
-    .line 132
+    .line 131
     :cond_70
     new-instance v0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;
 
@@ -589,21 +604,21 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity;->c:Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;
 
-    .line 133
+    .line 132
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/area/AreaActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setFocusable(Z)V
 
-    .line 134
+    .line 133
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/area/AreaActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
 
     invoke-virtual {v0, v5}, Landroid/support/v7/widget/RecyclerView;->setHasFixedSize(Z)V
 
-    .line 135
+    .line 134
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/area/AreaActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
@@ -612,7 +627,7 @@
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setAdapter(Landroid/support/v7/widget/RecyclerView$a;)V
 
-    .line 137
+    .line 136
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/area/AreaActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
@@ -627,7 +642,7 @@
 
     invoke-virtual {v0, v1}, Landroid/view/ViewTreeObserver;->addOnGlobalFocusChangeListener(Landroid/view/ViewTreeObserver$OnGlobalFocusChangeListener;)V
 
-    .line 138
+    .line 137
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/area/AreaActivity;->j()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
@@ -642,7 +657,7 @@
 
     invoke-virtual {v0, v1}, Landroid/view/ViewTreeObserver;->addOnTouchModeChangeListener(Landroid/view/ViewTreeObserver$OnTouchModeChangeListener;)V
 
-    .line 139
+    .line 138
     return-void
 .end method
 
@@ -652,7 +667,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 345
+    .line 349
     if-eqz p1, :cond_5
 
     if-nez p2, :cond_7
@@ -660,31 +675,31 @@
     :cond_5
     move v0, v1
 
-    .line 355
+    .line 359
     :goto_6
     return v0
 
-    .line 348
+    .line 352
     :cond_7
     invoke-virtual {p2}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
 
     move-result-object v0
 
-    .line 349
+    .line 353
     :goto_b
     instance-of v2, v0, Landroid/view/View;
 
     if-eqz v2, :cond_18
 
-    .line 350
+    .line 354
     if-ne v0, p1, :cond_13
 
-    .line 351
+    .line 355
     const/4 v0, 0x1
 
     goto :goto_6
 
-    .line 353
+    .line 357
     :cond_13
     invoke-interface {v0}, Landroid/view/ViewParent;->getParent()Landroid/view/ViewParent;
 
@@ -695,7 +710,7 @@
     :cond_18
     move v0, v1
 
-    .line 355
+    .line 359
     goto :goto_6
 .end method
 
@@ -706,30 +721,26 @@
     .line 102
     const v0, 0x10066
 
-    if-eq p1, v0, :cond_14
+    if-eq p1, v0, :cond_f
 
     const v0, 0x10001
 
-    if-eq p1, v0, :cond_14
+    if-eq p1, v0, :cond_f
 
     const v0, 0x10068
 
-    if-eq p1, v0, :cond_14
+    if-ne p1, v0, :cond_11
 
-    const v0, 0x10067
-
-    if-ne p1, v0, :cond_16
-
-    :cond_14
+    :cond_f
     const/4 v0, 0x1
 
-    :goto_15
+    :goto_10
     return v0
 
-    :cond_16
+    :cond_11
     const/4 v0, 0x0
 
-    goto :goto_15
+    goto :goto_10
 .end method
 
 .method private showSortMenu()V
@@ -746,35 +757,35 @@
 
     const/4 v7, 0x0
 
-    .line 275
+    .line 279
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/area/AreaActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v0
 
-    .line 276
+    .line 280
     instance-of v1, v0, Lbl/adq;
 
     if-nez v1, :cond_e
 
-    .line 300
+    .line 304
     :goto_d
     return-void
 
-    .line 280
+    .line 284
     :cond_e
     check-cast v0, Lbl/adq;
 
-    .line 281
+    .line 285
     invoke-direct {p0}, Lcom/bilibili/tv/ui/area/AreaActivity;->getSelectedView()Landroid/view/View;
 
     move-result-object v1
 
-    .line 283
+    .line 287
     new-instance v2, Lbl/SortMenuDialog;
 
     invoke-direct {v2, p0}, Lbl/SortMenuDialog;-><init>(Landroid/app/Activity;)V
 
-    .line 284
+    .line 288
     const/4 v3, 0x0
 
     const/4 v4, 0x6
@@ -837,22 +848,22 @@
 
     aput-object v7, v5, v6
 
-    .line 287
+    .line 291
     invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/area/AreaActivity;->getCurrentSortValue(Lbl/adq;)Ljava/lang/String;
 
     move-result-object v6
 
-    .line 284
+    .line 288
     invoke-virtual {v2, v3, v4, v5, v6}, Lbl/SortMenuDialog;->addGroup(Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 288
+    .line 292
     new-instance v3, Lcom/bilibili/tv/ui/area/AreaActivity$1;
 
     invoke-direct {v3, p0, v0, v1}, Lcom/bilibili/tv/ui/area/AreaActivity$1;-><init>(Lcom/bilibili/tv/ui/area/AreaActivity;Lbl/adq;Landroid/view/View;)V
 
     invoke-virtual {v2, v3}, Lbl/SortMenuDialog;->setOnSortSelectedListener(Lbl/SortMenuDialog$OnSortSelectedListener;)V
 
-    .line 299
+    .line 303
     invoke-virtual {v2}, Lbl/SortMenuDialog;->show()V
 
     goto :goto_d
@@ -1006,7 +1017,7 @@
     .locals 1
 
     .prologue
-    .line 360
+    .line 364
     invoke-static {p0}, Lbl/wg;->a(Lbl/wf;)Z
 
     move-result v0
@@ -1018,12 +1029,12 @@
     .locals 3
 
     .prologue
-    .line 365
+    .line 369
     new-instance v0, Landroid/os/Bundle;
 
     invoke-direct {v0}, Landroid/os/Bundle;-><init>()V
 
-    .line 366
+    .line 370
     const-string v1, "page"
 
     iget v2, p0, Lcom/bilibili/tv/ui/area/AreaActivity;->b:I
@@ -1034,7 +1045,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 367
+    .line 371
     return-object v0
 .end method
 
@@ -1044,7 +1055,7 @@
     .prologue
     const/4 v2, 0x1
 
-    .line 181
+    .line 185
     iget v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity;->b:I
 
     invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/area/AreaActivity;->isSpecialCategory(I)Z
@@ -1053,16 +1064,16 @@
 
     if-nez v0, :cond_e
 
-    .line 182
+    .line 186
     invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseSideActivity;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
 
     move-result v0
 
-    .line 234
+    .line 238
     :goto_d
     return v0
 
-    .line 186
+    .line 190
     :cond_e
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity;->c:Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;
 
@@ -1072,7 +1083,7 @@
 
     if-nez v0, :cond_1b
 
-    .line 187
+    .line 191
     :cond_16
     invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseSideActivity;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
 
@@ -1080,35 +1091,35 @@
 
     goto :goto_d
 
-    .line 190
+    .line 194
     :cond_1b
     invoke-virtual {p1}, Landroid/view/KeyEvent;->getAction()I
 
     move-result v0
 
-    .line 191
+    .line 195
     invoke-virtual {p1}, Landroid/view/KeyEvent;->getKeyCode()I
 
     move-result v3
 
-    .line 193
+    .line 197
     if-nez v0, :cond_4a
 
     const/16 v1, 0x52
 
     if-ne v3, v1, :cond_4a
 
-    .line 194
+    .line 198
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/area/AreaActivity;->getCurrentFocus()Landroid/view/View;
 
     move-result-object v1
 
-    .line 195
+    .line 199
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/area/AreaActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v4
 
-    .line 196
+    .line 200
     if-eqz v1, :cond_4a
 
     if-eqz v4, :cond_4a
@@ -1119,7 +1130,7 @@
 
     if-eqz v5, :cond_4a
 
-    .line 197
+    .line 201
     invoke-virtual {v4}, Landroid/support/v4/app/Fragment;->getView()Landroid/view/View;
 
     move-result-object v4
@@ -1130,38 +1141,38 @@
 
     if-eqz v1, :cond_4a
 
-    .line 198
+    .line 202
     invoke-direct {p0}, Lcom/bilibili/tv/ui/area/AreaActivity;->showSortMenu()V
 
     move v0, v2
 
-    .line 199
+    .line 203
     goto :goto_d
 
-    .line 204
+    .line 208
     :cond_4a
     if-nez v0, :cond_5a
 
-    .line 205
+    .line 209
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/area/AreaActivity;->getCurrentFocus()Landroid/view/View;
 
     move-result-object v1
 
-    .line 206
+    .line 210
     if-nez v1, :cond_57
 
-    .line 207
+    .line 211
     invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseSideActivity;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
 
     move-result v0
 
     goto :goto_d
 
-    .line 210
+    .line 214
     :cond_57
     packed-switch v3, :pswitch_data_a2
 
-    .line 234
+    .line 238
     :cond_5a
     :goto_5a
     invoke-super {p0, p1}, Lcom/bilibili/tv/ui/base/BaseSideActivity;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
@@ -1170,7 +1181,7 @@
 
     goto :goto_d
 
-    .line 212
+    .line 216
     :pswitch_5f
     invoke-virtual {v1}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
 
@@ -1192,7 +1203,7 @@
 
     if-eqz v0, :cond_5a
 
-    .line 213
+    .line 217
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity;->c:Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;
 
     const/4 v1, 0x0
@@ -1201,21 +1212,21 @@
 
     goto :goto_5a
 
-    .line 218
+    .line 222
     :pswitch_7a
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/area/AreaActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v0
 
-    .line 219
+    .line 223
     if-nez v0, :cond_82
 
     move v0, v2
 
-    .line 220
+    .line 224
     goto :goto_d
 
-    .line 222
+    .line 226
     :cond_82
     instance-of v3, v0, Lbl/adw;
 
@@ -1231,10 +1242,10 @@
 
     move v0, v2
 
-    .line 223
+    .line 227
     goto/16 :goto_d
 
-    .line 225
+    .line 229
     :cond_91
     instance-of v0, v1, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;
 
@@ -1242,19 +1253,19 @@
 
     move-object v0, v1
 
-    .line 226
+    .line 230
     check-cast v0, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->c()V
 
-    .line 227
+    .line 231
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity;->c:Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;->b(Z)V
 
     goto :goto_5a
 
-    .line 210
+    .line 214
     nop
 
     :pswitch_data_a2
@@ -1278,7 +1289,7 @@
     .locals 2
 
     .prologue
-    .line 239
+    .line 243
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity;->d:Lbl/adr;
 
     if-eqz v0, :cond_8
@@ -1287,11 +1298,11 @@
 
     if-nez v0, :cond_a
 
-    .line 240
+    .line 244
     :cond_8
     const/4 v0, 0x0
 
-    .line 242
+    .line 246
     :goto_9
     return-object v0
 
@@ -1317,16 +1328,16 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 247
+    .line 251
     invoke-super {p0}, Lcom/bilibili/tv/ui/base/BaseSideActivity;->onDestroy()V
 
-    .line 248
+    .line 252
     iput-object v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity;->c:Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;
 
-    .line 249
+    .line 253
     iput-object v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity;->d:Lbl/adr;
 
-    .line 250
+    .line 254
     return-void
 .end method
 
@@ -1336,17 +1347,17 @@
     .prologue
     const/4 v3, 0x1
 
-    .line 254
+    .line 258
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 256
+    .line 260
     new-instance v0, Ljava/util/HashMap;
 
     invoke-direct {v0}, Ljava/util/HashMap;-><init>()V
 
-    .line 257
+    .line 261
     const-string v1, "page"
 
     iget v2, p0, Lcom/bilibili/tv/ui/area/AreaActivity;->b:I
@@ -1357,38 +1368,38 @@
 
     invoke-interface {v0, v1, v2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 258
+    .line 262
     sget-object v1, Lbl/abl;->a:Lbl/abl;
 
     const-string v2, "ott-platform.area.sort.0.click"
 
     invoke-virtual {v1, v2, v0}, Lbl/abl;->a(Ljava/lang/String;Ljava/util/Map;)V
 
-    .line 260
+    .line 264
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/area/AreaActivity;->getCurrentFocus()Landroid/view/View;
 
     move-result-object v0
 
-    .line 261
+    .line 265
     if-nez v0, :cond_24
 
-    .line 271
+    .line 275
     :cond_23
     :goto_23
     return v3
 
-    .line 265
+    .line 269
     :cond_24
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/area/AreaActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v0
 
-    .line 266
+    .line 270
     instance-of v0, v0, Lbl/adq;
 
     if-eqz v0, :cond_23
 
-    .line 270
+    .line 274
     invoke-direct {p0}, Lcom/bilibili/tv/ui/area/AreaActivity;->showSortMenu()V
 
     goto :goto_23

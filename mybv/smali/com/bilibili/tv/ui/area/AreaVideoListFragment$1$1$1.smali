@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 162
+    .line 178
     iput-object p1, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1$1$1;->this$2:Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1$1;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,14 +40,14 @@
     .locals 4
 
     .prologue
-    .line 165
+    .line 181
     const-string v0, "AreaVideoListFragment"
 
     const-string v1, "========== Delayed focus request =========="
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 166
+    .line 182
     const-string v1, "AreaVideoListFragment"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -103,7 +103,7 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 168
+    .line 184
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1$1$1;->this$2:Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1$1;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1$1;->this$1:Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;
@@ -117,7 +117,7 @@
 
     if-eqz v0, :cond_ae
 
-    .line 170
+    .line 186
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1$1$1;->this$2:Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1$1;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1$1;->this$1:Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;
@@ -135,7 +135,7 @@
 
     move-result-object v1
 
-    .line 171
+    .line 187
     const-string v2, "AreaVideoListFragment"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -169,15 +169,15 @@
 
     invoke-static {v2, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 173
+    .line 189
     if-eqz v1, :cond_a6
 
-    .line 174
+    .line 190
     invoke-virtual {v1}, Landroid/view/View;->requestFocus()Z
 
     move-result v0
 
-    .line 175
+    .line 191
     const-string v1, "AreaVideoListFragment"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -200,30 +200,30 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 176
+    .line 192
     const-string v0, "AreaVideoListFragment"
 
     const-string v1, "First video card focused"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 183
+    .line 199
     :goto_9f
     return-void
 
-    .line 166
+    .line 182
     :cond_a0
     const-string v0, "null"
 
     goto :goto_32
 
-    .line 171
+    .line 187
     :cond_a3
     const-string v0, "null"
 
     goto :goto_6f
 
-    .line 178
+    .line 194
     :cond_a6
     const-string v0, "AreaVideoListFragment"
 
@@ -233,7 +233,7 @@
 
     goto :goto_9f
 
-    .line 181
+    .line 197
     :cond_ae
     const-string v0, "AreaVideoListFragment"
 

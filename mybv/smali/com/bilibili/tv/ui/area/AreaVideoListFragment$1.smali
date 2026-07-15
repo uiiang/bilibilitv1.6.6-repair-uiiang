@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 115
+    .line 131
     iput-object p1, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;->this$0:Lcom/bilibili/tv/ui/area/AreaVideoListFragment;
 
     iput-boolean p2, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;->val$isLoadMore:Z
@@ -44,7 +44,7 @@
     .locals 4
 
     .prologue
-    .line 119
+    .line 135
     :try_start_0
     const-string v0, "AreaVideoListFragment"
 
@@ -92,7 +92,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 122
+    .line 138
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;->this$0:Lcom/bilibili/tv/ui/area/AreaVideoListFragment;
 
     # getter for: Lcom/bilibili/tv/ui/area/AreaVideoListFragment;->categoryTid:I
@@ -104,7 +104,7 @@
 
     move-result-object v0
 
-    .line 124
+    .line 140
     iget-object v1, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;->this$0:Lcom/bilibili/tv/ui/area/AreaVideoListFragment;
 
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/area/AreaVideoListFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -125,12 +125,12 @@
 
     if-eqz v1, :cond_4d
 
-    .line 209
+    .line 225
     :cond_4c
     :goto_4c
     return-void
 
-    .line 128
+    .line 144
     :cond_4d
     iget-object v1, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;->this$0:Lcom/bilibili/tv/ui/area/AreaVideoListFragment;
 
@@ -148,11 +148,11 @@
 
     goto :goto_4c
 
-    .line 195
+    .line 211
     :catch_5c
     move-exception v0
 
-    .line 196
+    .line 212
     const-string v1, "AreaVideoListFragment"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -179,10 +179,10 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 197
+    .line 213
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
-    .line 199
+    .line 215
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;->this$0:Lcom/bilibili/tv/ui/area/AreaVideoListFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/area/AreaVideoListFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -203,7 +203,7 @@
 
     if-nez v0, :cond_4c
 
-    .line 200
+    .line 216
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaVideoListFragment$1;->this$0:Lcom/bilibili/tv/ui/area/AreaVideoListFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/area/AreaVideoListFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;

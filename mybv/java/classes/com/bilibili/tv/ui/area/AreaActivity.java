@@ -101,8 +101,7 @@ public final class AreaActivity extends BaseSideActivity implements View.OnLongC
     private boolean isSpecialCategory(int tid) {
         return tid == CategoryManager.T2_RANKING ||
                tid == CategoryManager.T1_LIVE ||
-               tid == CategoryManager.T1_WEEKLY ||
-               tid == CategoryManager.T2_ELSE;
+               tid == CategoryManager.T1_WEEKLY;
     }
     
     /**
@@ -152,13 +151,18 @@ public final class AreaActivity extends BaseSideActivity implements View.OnLongC
         android.widget.TextView titleView = (android.widget.TextView) findViewById(R.id.content_name);
         // Log.i("AreaActivity", "titleView=" + titleView);
         if (titleView != null) {
-            CategoryMeta categoryMeta = CategoryManager.getPrimaryCategoryBy(getApplicationContext(), this.b);
-            // Log.i("AreaActivity", "categoryMeta=" + categoryMeta + ", tid=" + this.b);
-            if (categoryMeta != null) {
-                // Log.i("AreaActivity", "Setting title: " + categoryMeta.mTypeName);
-                titleView.setText(categoryMeta.mTypeName);
+            // 入站必刷：直接设置标题
+            if (this.b == CategoryManager.T2_PRECIOUS) {
+                titleView.setText("入站必刷");
             } else {
-                Log.w("AreaActivity", "categoryMeta is null!");
+                CategoryMeta categoryMeta = CategoryManager.getPrimaryCategoryBy(getApplicationContext(), this.b);
+                // Log.i("AreaActivity", "categoryMeta=" + categoryMeta + ", tid=" + this.b);
+                if (categoryMeta != null) {
+                    // Log.i("AreaActivity", "Setting title: " + categoryMeta.mTypeName);
+                    titleView.setText(categoryMeta.mTypeName);
+                } else {
+                    Log.w("AreaActivity", "categoryMeta is null!");
+                }
             }
         } else {
             Log.e("AreaActivity", "titleView is null!");

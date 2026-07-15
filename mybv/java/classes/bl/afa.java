@@ -244,7 +244,7 @@ public final class afa extends adu implements aez, wf {
                 } else {
                     this.d.add(1, new CategoryMeta(CategoryManager.T1_WEEKLY, "每周必看", 0));
                 }
-                this.d.add(new CategoryMeta(CategoryManager.T2_ELSE, "其它", 0));
+                this.d.add(new CategoryMeta(CategoryManager.T2_PRECIOUS, "入站必刷", 0));
             }
         }
 
@@ -306,10 +306,11 @@ public final class afa extends adu implements aez, wf {
                 LiveActivity.a((Context) a);
             } else if (i == 65638) {
                 RankingActivity.Companion.a(a);
-            } else if (i == 65639) {
-                ElseActivity.a((Context) a);
             } else if (i == 65640) {
                 com.bilibili.tv.ui.weekly.WeeklyActivity.a((Context) a);
+            } else if (i == 65641) {
+                // 入站必刷：跳转到AreaActivity，使用普通分区视频列表UI
+                AreaActivity.Companion.a(a, i);
             } else {
                 AreaActivity.Companion.a(a, i);
             }

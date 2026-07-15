@@ -36,13 +36,13 @@
     .locals 0
 
     .prologue
-    .line 313
+    .line 315
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 314
+    .line 316
     iput-object p1, p0, Lcom/bilibili/tv/api/category/CategoryManager$CategoryParser;->mContext:Landroid/content/Context;
 
-    .line 315
+    .line 317
     return-void
 .end method
 
@@ -50,7 +50,7 @@
     .locals 3
 
     .prologue
-    .line 329
+    .line 331
     # getter for: Lcom/bilibili/tv/api/category/CategoryManager;->sFileLock:Ljava/lang/Object;
     invoke-static {}, Lcom/bilibili/tv/api/category/CategoryManager;->access$100()Ljava/lang/Object;
 
@@ -58,7 +58,7 @@
 
     monitor-enter v1
 
-    .line 331
+    .line 333
     :try_start_5
     iget-object v0, p0, Lcom/bilibili/tv/api/category/CategoryManager$CategoryParser;->mContext:Landroid/content/Context;
 
@@ -75,26 +75,26 @@
     .catch Ljava/io/IOException; {:try_start_5 .. :try_end_12} :catch_14
     .catchall {:try_start_5 .. :try_end_12} :catchall_1b
 
-    .line 335
+    .line 337
     :goto_12
     :try_start_12
     monitor-exit v1
 
-    .line 336
+    .line 338
     return-void
 
-    .line 332
+    .line 334
     :catch_14
     move-exception v0
 
-    .line 333
+    .line 335
     const-string v2, "write region.json failed."
 
     invoke-static {v2, v0}, Ltv/danmaku/android/log/BLog;->e(Ljava/lang/String;Ljava/lang/Throwable;)V
 
     goto :goto_12
 
-    .line 335
+    .line 337
     :catchall_1b
     move-exception v0
 
@@ -119,17 +119,17 @@
     .end annotation
 
     .prologue
-    .line 320
+    .line 322
     invoke-virtual {p1}, Lokhttp3/ResponseBody;->string()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 321
+    .line 323
     invoke-static {v0}, Lcom/alibaba/fastjson/JSON;->parseObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v1
 
-    .line 322
+    .line 324
     const-string v2, "code"
 
     invoke-virtual {v1, v2}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -138,10 +138,10 @@
 
     if-nez v2, :cond_13
 
-    .line 323
+    .line 325
     invoke-direct {p0, v0}, Lcom/bilibili/tv/api/category/CategoryManager$CategoryParser;->saveToFile(Ljava/lang/String;)V
 
-    .line 325
+    .line 327
     :cond_13
     invoke-static {v1}, Lcom/bilibili/tv/api/category/CategoryManager;->getResult(Lcom/alibaba/fastjson/JSONObject;)Lcom/bilibili/tv/api/category/CategoryMeta;
 
@@ -162,7 +162,7 @@
     .end annotation
 
     .prologue
-    .line 310
+    .line 312
     check-cast p1, Lokhttp3/ResponseBody;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/api/category/CategoryManager$CategoryParser;->convert(Lokhttp3/ResponseBody;)Lcom/bilibili/tv/api/category/CategoryMeta;

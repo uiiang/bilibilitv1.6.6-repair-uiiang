@@ -2091,6 +2091,7 @@ public final class R {
         public static final int ic_check = 0x7f07010a;
         public static final int selector_favorite_item = 0x7f07010b;
         public static final int video_detail_gradient_mask = 0x7f07010c;
+        public static final int ic_area_bishua = 0x7f07010e;
     }
 
     public static final class id {

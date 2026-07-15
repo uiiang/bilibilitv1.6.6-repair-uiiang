@@ -17,7 +17,17 @@ import java.util.ArrayList;
 import java.util.List;
 import bl.abd;
 import bl.adl;
+import bl.mg;
 import mybl.RankingRequest;
+import mybl.MyBiliApiService;
+import mybl.CookieUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.bilibili.tv.api.video.BiliVideoDetail;
+import bl.vo;
+import bl.vn;
+import bl.vm;
 
 /**
  * 分区视频列表Fragment（新实现）
@@ -103,55 +113,61 @@ public class AreaVideoListFragment extends BaseVideoListFragment {
         if (this.isLoadingMore && isLoadMore) {
             return;
         }
-        
+
         if (!isLoadMore) {
             this.hasMoreData = true;
             this.currentPage = 1;
         } else {
             this.isLoadingMore = true;
         }
-        
+
+        // 入站必刷：使用特殊API加载
+        if (categoryTid == com.bilibili.tv.api.category.CategoryManager.T2_PRECIOUS) {
+            fetchPreciousData(isLoadMore);
+            return;
+        }
+
         // 使用独立线程加载数据
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     Log.i(TAG, "Loading videos for tid=" + categoryTid + ", page=" + currentPage);
-                    
+
                     // 使用RankingRequest加载数据
                     List<BiliVideoV2> videoList = RankingRequest.getRanking(categoryTid);
-                    
+
                     if (getActivity() == null || getActivity().isFinishing()) {
                         return;
                     }
-                    
+
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             if (videoList != null && !videoList.isEmpty()) {
                                 // 将BiliVideoV2转换为MainRecommendEx.Content
                                 List<MainRecommendEx.Content> contents = convertToContentList(videoList);
-                                
+
                                 // 清空旧数据（首次加载）
                                 if (!isLoadMore) {
                                     ugcList.clear();
                                     ogvList.clear();
                                 }
-                                
+
                                 // 添加新数据
                                 ugcList.addAll(contents);
-                                
+
                                 // 更新适配器（数据已经直接添加到ugcList）
                                 if (adapter != null) {
                                     adapter.d();  // 刷新适配器
                                 }
-                                
+
                                 // 设置是否有更多数据（暂时不支持分页）
                                 hasMoreData = false;
                                 isLoadingMore = false;
-                                
+
                                 Log.i(TAG, "Loaded " + contents.size() + " videos");
-                                
+
                                 // 首次加载后，让第一个视频卡片获得焦点
                                 if (!isLoadMore) {
                                     Log.i(TAG, "========== Requesting focus for first video card ==========");
@@ -191,11 +207,11 @@ public class AreaVideoListFragment extends BaseVideoListFragment {
                             }
                         }
                     });
-                    
+
                 } catch (Exception e) {
                     Log.e(TAG, "Error loading videos: " + e.getMessage());
                     e.printStackTrace();
-                    
+
                     if (getActivity() != null && !getActivity().isFinishing()) {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
@@ -208,6 +224,139 @@ public class AreaVideoListFragment extends BaseVideoListFragment {
                 }
             }
         }).start();
+    }
+
+    /**
+     * 加载入站必刷数据
+     */
+    private void fetchPreciousData(boolean isLoadMore) {
+        Log.i(TAG, "Loading precious videos (入站必刷)");
+
+        MyBiliApiService api = (MyBiliApiService) vo.a(MyBiliApiService.class);
+        if (api == null) {
+            Log.e(TAG, "MyBiliApiService is null");
+            hasMoreData = false;
+            isLoadingMore = false;
+            return;
+        }
+
+        mg biliAccount = mg.a(MainApplication.a());
+        String cookie = CookieUtil.getFullCookieWithDevice(biliAccount);
+
+        api.getPopularPrecious(100, 1, cookie).a(new vn<JSONObject>() {
+            @Override
+            public void a(JSONObject response) {
+                if (getActivity() == null || getActivity().isFinishing()) {
+                    return;
+                }
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (response != null && response.getJSONArray("list") != null) {
+                            JSONArray list = response.getJSONArray("list");
+                            List<BiliVideoDetail> detailList = JSON.parseArray(list.toString(), BiliVideoDetail.class);
+
+                            if (detailList != null && !detailList.isEmpty()) {
+                                // 转换为MainRecommendEx.Content
+                                List<MainRecommendEx.Content> contents = convertBiliVideoDetailToContentList(detailList);
+
+                                // 清空旧数据
+                                ugcList.clear();
+                                ogvList.clear();
+
+                                // 添加新数据
+                                ugcList.addAll(contents);
+
+                                // 更新适配器
+                                if (adapter != null) {
+                                    adapter.d();
+                                }
+
+                                hasMoreData = false;
+                                isLoadingMore = false;
+
+                                Log.i(TAG, "Loaded " + contents.size() + " precious videos");
+
+                                // 让第一个视频卡片获得焦点
+                                new android.os.Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (layoutManager != null) {
+                                            View firstItem = layoutManager.c(0);
+                                            if (firstItem != null) {
+                                                firstItem.requestFocus();
+                                                Log.i(TAG, "First precious video card focused");
+                                            }
+                                        }
+                                    }
+                                }, 100);
+                            } else {
+                                hasMoreData = false;
+                                isLoadingMore = false;
+                                Log.w(TAG, "No precious videos loaded");
+                            }
+                        } else {
+                            hasMoreData = false;
+                            isLoadingMore = false;
+                            Log.w(TAG, "Precious API response is invalid");
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public boolean isCancel() {
+                return !isAdded();
+            }
+
+            @Override
+            public void onError(Throwable th) {
+                Log.e(TAG, "Error loading precious videos: " + th.getMessage());
+                if (getActivity() != null && !getActivity().isFinishing()) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            hasMoreData = false;
+                            isLoadingMore = false;
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    /**
+     * 将BiliVideoDetail列表转换为MainRecommendEx.Content列表
+     */
+    private List<MainRecommendEx.Content> convertBiliVideoDetailToContentList(List<BiliVideoDetail> videoList) {
+        List<MainRecommendEx.Content> contents = new ArrayList<>();
+
+        for (BiliVideoDetail video : videoList) {
+            MainRecommendEx.Content content = new MainRecommendEx.Content();
+
+            content.setTitle(video.mTitle);
+            content.setCover(video.mCover);
+            content.setUri("bilibili://video/" + video.mAvid);
+
+            // 转换播放量和弹幕数（String -> int）
+            try {
+                content.setPlay(Integer.parseInt(video.getPlays()));
+            } catch (NumberFormatException e) {
+                content.setPlay(0);
+            }
+            try {
+                content.setDanmaku(Integer.parseInt(video.getDanmakus()));
+            } catch (NumberFormatException e) {
+                content.setDanmaku(0);
+            }
+            content.setOwnerName(video.getAuthor());
+            content.setDuration(video.mDuration);
+
+            contents.add(content);
+        }
+
+        return contents;
     }
     
     /**
