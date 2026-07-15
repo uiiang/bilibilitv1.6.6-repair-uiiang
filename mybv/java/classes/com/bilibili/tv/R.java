@@ -2662,6 +2662,7 @@ public final class R {
         public static final int live_ijk_player = 0x7f080232;
         public static final int live_exo_player = 0x7f080233;
         public static final int empty_text = 0x7f080234;
+        public static final int header_container = 0x7f080238;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;
@@ -2847,6 +2848,7 @@ public final class R {
         public static final int item_chapter = 0x7f0a00a8;
         public static final int dialog_relation_tag_menu = 0x7f0a00a9;
         public static final int item_relation_tag_menu = 0x7f0a00aa;
+        public static final int activity_area_normal = 0x7f0a00ad;
     }
 
     public static final class mipmap {

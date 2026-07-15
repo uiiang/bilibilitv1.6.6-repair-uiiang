@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 普通分区布局（包含顶部header和视频列表） -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_image">
+
+    <!-- 顶部Header -->
+    <LinearLayout
+        android:id="@+id/header_container"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/px_50"
+        android:layout_marginTop="@dimen/px_50"
+        android:layout_marginRight="@dimen/px_50"
+        android:gravity="center_vertical"
+        android:focusable="false">
+
+        <com.bilibili.tv.widget.ShadowTextView
+            android:id="@+id/content_name"
+            android:textSize="@dimen/px_48"
+            android:textColor="@color/white"
+            android:focusable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxEms="16"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever" />
+    </LinearLayout>
+
+    <!-- 视频列表容器 -->
+    <FrameLayout
+        android:id="@id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/px_10"
+        android:focusable="false" />
+</LinearLayout>

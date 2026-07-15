@@ -368,19 +368,80 @@ public final class adq extends ady {
     }
 
     private final void n() {
-        RegionApiManager regionApiManager = RegionApiManager.a;
-        mg a2 = mg.a(getActivity());
-        bbi.a((Object) a2, "BiliAccount.get(activity)");
-        //regionApiManager.a(a2.e(), this.h, 0, this.e);
-        //((MyBiliApiService) vo.a(MyBiliApiService.class)).getRegionHotVideo(this.h, 50).a(new RegionHotVideoResponse());
-        String url = "http://app.bilibili.com/x/v2/region/show/dynamic?rid=" + this.h + "&pn=1&ps=50&channel=" + BiliConfig.d();
-        Log.d("AreaFragment", "Request URL: " + url);
-        ((RegionService) vo.a(RegionService.class)).getDynamicVideo(this.h, 1, 50, BiliConfig.d()).a(new DynamicVideoResponse());
+        Log.i("AreaFragment", "========== Loading Start ==========");
+        Log.i("AreaFragment", "[n()] START: Loading dynamic videos for rid=" + this.h);
+        Log.i("AreaFragment", "[n()] Context: Activity=" + (getActivity() != null ? getActivity().getClass().getSimpleName() : "null"));
         
+        // 使用CategoryManager的方法获取主分区ID
+        int ridToUse = com.bilibili.tv.api.category.CategoryManager.getPrimaryCategoryIdBy(getActivity(), this.h);
+        
+        if (ridToUse == 0) {
+            // 如果找不到，使用原始ID
+            ridToUse = this.h;
+            Log.w("AreaFragment", "[n()] Cannot find parent rid for " + this.h + ", using original");
+        } else if (ridToUse != this.h) {
+            Log.i("AreaFragment", "[n()] Converted child rid=" + this.h + " to parent rid=" + ridToUse);
+        } else {
+            Log.i("AreaFragment", "[n()] Using primary rid=" + ridToUse);
+        }
+        
+        final int finalRid = ridToUse;
+        
+        // 使用独立的OkHttp请求，绕过拦截器
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Log.i("AreaFragment", "[n()] Thread started, finalRid=" + finalRid);
+                    List<BiliVideoV2> videos = mybl.RankingRequest.getRanking(finalRid);
+                    
+                    // 在主线程更新UI
+                    if (adq.this.getActivity() != null) {
+                        adq.this.getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (adq.this.a() == null) {
+                                    Log.w("AreaFragment", "[n()] adapter is null");
+                                    return;
+                                }
+                                
+                                adq.this.k = false;
+                                adq.this.h().setVisibility(View.VISIBLE);
+                                
+                                if (videos == null || videos.isEmpty()) {
+                                    Log.w("AreaFragment", "[n()] No videos loaded, hiding loading");
+                                    adq.this.k = false;
+                                    adq.this.k(); // 隐藏loading界面
+                                    return;
+                                }
+                                
+                                Log.i("AreaFragment", "[n()] Loaded " + videos.size() + " videos");
+                                adq.this.j();
+                                adq.this.a().a(videos);
+                            }
+                        });
+                    }
+                } catch (Exception e) {
+                    Log.e("AreaFragment", "[n()] Error: " + e.getMessage(), e);
+                    if (adq.this.getActivity() != null) {
+                        adq.this.getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                adq.this.k = false;
+                                adq.this.k();
+                            }
+                        });
+                    }
+                }
+            }
+        }).start();
+        
+        Log.i("AreaFragment", "[n()] Request thread started");
     }
 
     /* JADX INFO: Access modifiers changed from: private */
     public final void o() {
+        Log.i("AreaFragment", "[o()] START: Loading more videos, rid=" + this.h + ", page=" + this.i);
         this.k = true;
         RegionApiManager regionApiManager = RegionApiManager.a;
         int i2 = this.h;
@@ -388,8 +449,9 @@ public final class adq extends ady {
         RegionApiManager.ListOrder listOrder = this.m;
         String orderStr = listOrder != null ? listOrder.toString() : null;
         String url = "http://app.bilibili.com/x/v2/region/show/child/list?rid=" + i2 + "&pn=" + i3 + "&ps=30&order=" + orderStr + "&tag_id=0&channel=" + BiliConfig.d();
-        Log.d("AreaFragment", "Request URL: " + url);
+        Log.i("AreaFragment", "[o()] Request URL: " + url);
         regionApiManager.a(i2, i3, orderStr, 0, this.d);
+        Log.i("AreaFragment", "[o()] Request sent, waiting for response...");
     }
 
     public final void a(RegionApiManager.ListOrder listOrder) {
@@ -468,34 +530,46 @@ public final class adq extends ady {
     public final class DynamicVideoResponse extends vn<List<BiliVideoV2>> {
         @Override // bl.vn
         public void a(List<BiliVideoV2> list) {
+            Log.i("AreaFragment", "[DynamicVideoResponse] onSuccess START, list=" + (list != null ? list.size() : "null"));
+            if (list != null && list.size() > 0) {
+                Log.i("AreaFragment", "[DynamicVideoResponse] First video: title=" + list.get(0).title + ", param=" + list.get(0).param);
+            }
             if (adq.this.a() == null) {
+                Log.w("AreaFragment", "[DynamicVideoResponse] adapter is null, return");
                 return;
             }
             adq.this.k = false;
             adq.this.h().setVisibility(View.VISIBLE);
             if (list == null || list.size() == 0) {
+                Log.w("AreaFragment", "[DynamicVideoResponse] list is empty, j=false");
                 adq.this.j = false;
                 return;
             }
             adq.this.j();
             adq.this.a().a(list);
+            Log.i("AreaFragment", "[DynamicVideoResponse] onSuccess END, adapter updated");
         }
 
         @Override // bl.vm
         public void onError(Throwable th) {
+            Log.e("AreaFragment", "[DynamicVideoResponse] onError: " + th.getMessage(), th);
             bbi.b(th, "t");
             if (adq.this.a() == null) {
+                Log.w("AreaFragment", "[DynamicVideoResponse] onError: adapter is null");
                 return;
             }
             adq.this.k = false;
             adq.this.k();
+            Log.i("AreaFragment", "[DynamicVideoResponse] onError: loading hidden");
         }
     }
 
     public final class RegionHotVideoResponse extends vn<JSONObject> {
         @Override // bl.vn
         public void a(JSONObject result) {
+            Log.i("AreaFragment", "[RegionHotVideoResponse] onSuccess START, result=" + (result != null ? "exists" : "null"));
             if (adq.this.a() == null) {
+                Log.w("AreaFragment", "[RegionHotVideoResponse] adapter is null, return");
                 return;
             }
             adq.this.k = false;
@@ -503,6 +577,7 @@ public final class adq extends ady {
             adq.this.j();
             List<BiliVideoV2> list = new ArrayList<BiliVideoV2>();
             JSONArray archives = result.getJSONArray("archives");
+            Log.i("AreaFragment", "[RegionHotVideoResponse] archives count=" + (archives != null ? archives.size() : "null"));
             for(int i=0;i<archives.size();i++){
                 JSONObject s = archives.getJSONObject(i);
                 BiliVideoV2 t = new BiliVideoV2();
@@ -516,23 +591,30 @@ public final class adq extends ady {
                 t.title=s.getString("title");
                 list.add(t);
             }
-            if (list != null) {
+            if (list != null && list.size() > 0) {
+                Log.i("AreaFragment", "[RegionHotVideoResponse] First video: title=" + list.get(0).title + ", param=" + list.get(0).param);
                 j a = adq.this.a();
                 if (a == null) {
                     bbi.a();
                 }
                 a.a(list);
+                Log.i("AreaFragment", "[RegionHotVideoResponse] onSuccess END, adapter updated with " + list.size() + " videos");
+            } else {
+                Log.w("AreaFragment", "[RegionHotVideoResponse] list is empty after parsing");
             }
         }
 
         @Override // bl.vm
         public void onError(Throwable th) {
+            Log.e("AreaFragment", "[RegionHotVideoResponse] onError: " + th.getMessage(), th);
             bbi.b(th, "t");
             if (adq.this.a() == null) {
+                Log.w("AreaFragment", "[RegionHotVideoResponse] onError: adapter is null");
                 return;
             }
             adq.this.k = false;
             adq.this.k();
+            Log.i("AreaFragment", "[RegionHotVideoResponse] onError: loading hidden");
         }
     }
 
@@ -549,16 +631,20 @@ public final class adq extends ady {
             Code decompiled incorrectly, please refer to instructions dump.
         */
         public void a(List<BiliVideoV2> list) {
+            Log.i("AreaFragment", "[i.onSuccess] START, list=" + (list != null ? list.size() : "null"));
             j a;
             if (adq.this.a() == null) {
+                Log.w("AreaFragment", "[i.onSuccess] adapter is null, return");
                 return;
             }
             adq.this.k = false;
             adq.this.h().setVisibility(View.VISIBLE);
             if (list == null || list.size() == 0) {
+                Log.w("AreaFragment", "[i.onSuccess] list is empty, j=false");
                 adq.this.j = false;
                 return;
             }
+            Log.i("AreaFragment", "[i.onSuccess] First video: title=" + list.get(0).title + ", param=" + list.get(0).param);
             String e = adl.e(R.string.listOrder_new);
             if (adq.this.l) {
                 if (adq.this.b() == RegionApiManager.ListOrder.SENDDATE) {
@@ -594,12 +680,15 @@ public final class adq extends ady {
                 bbi.a();
             }
             a2.a(e, list);
+            Log.i("AreaFragment", "[i.onSuccess] END, adapter updated with title=" + e);
         }
 
         @Override // bl.vm
         public void onError(Throwable th) {
+            Log.e("AreaFragment", "[i.onError] " + th.getMessage(), th);
             bbi.b(th, "t");
             if (adq.this.a() == null) {
+                Log.w("AreaFragment", "[i.onError] adapter is null");
                 return;
             }
             adq.this.k = false;

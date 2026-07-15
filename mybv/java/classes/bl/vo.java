@@ -12,6 +12,7 @@ import retrofit2.Retrofit;
 
 import retrofit2.http.BaseUrl;
 import mybl.WbiSignInterceptor;
+import mybl.ApiLogInterceptor;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
@@ -22,6 +23,7 @@ public class vo {
     private static volatile Retrofit d;
 
     static {
+        b.d().add(new ApiLogInterceptor()); // 添加API日志拦截器
         b.d().add(new WbiSignInterceptor());
     }
 

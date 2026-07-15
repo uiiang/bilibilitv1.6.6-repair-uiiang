@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 219
+    .line 288
     iput-object p1, p0, Lcom/bilibili/tv/ui/area/AreaActivity$1;->this$0:Lcom/bilibili/tv/ui/area/AreaActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/area/AreaActivity$1;->val$areaFragment:Lbl/adq;
@@ -48,7 +48,7 @@
     .locals 2
 
     .prologue
-    .line 222
+    .line 291
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity$1;->this$0:Lcom/bilibili/tv/ui/area/AreaActivity;
 
     # invokes: Lcom/bilibili/tv/ui/area/AreaActivity;->getSortOrderFromString(Ljava/lang/String;)Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;
@@ -56,22 +56,22 @@
 
     move-result-object v0
 
-    .line 223
+    .line 292
     iget-object v1, p0, Lcom/bilibili/tv/ui/area/AreaActivity$1;->val$areaFragment:Lbl/adq;
 
     invoke-virtual {v1, v0}, Lbl/adq;->a(Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;)V
 
-    .line 225
+    .line 294
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity$1;->val$selectedView:Landroid/view/View;
 
     if-eqz v0, :cond_14
 
-    .line 226
+    .line 295
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity$1;->val$selectedView:Landroid/view/View;
 
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 228
+    .line 297
     :cond_14
     return-void
 .end method

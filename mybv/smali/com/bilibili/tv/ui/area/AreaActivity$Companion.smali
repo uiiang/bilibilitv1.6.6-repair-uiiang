@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 302
+    .line 371
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 303
+    .line 372
     return-void
 .end method
 
@@ -30,10 +30,10 @@
     .locals 0
 
     .prologue
-    .line 306
+    .line 375
     invoke-direct {p0}, Lcom/bilibili/tv/ui/area/AreaActivity$Companion;-><init>()V
 
-    .line 307
+    .line 376
     return-void
 .end method
 
@@ -43,9 +43,9 @@
     .locals 0
 
     .prologue
-    .line 310
+    .line 379
     invoke-static {p1, p2}, Lcom/bilibili/tv/ui/area/AreaActivity;->a(Landroid/content/Context;I)V
 
-    .line 311
+    .line 380
     return-void
 .end method

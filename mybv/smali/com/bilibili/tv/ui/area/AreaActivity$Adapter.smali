@@ -74,23 +74,23 @@
     .end annotation
 
     .prologue
-    .line 385
+    .line 454
     invoke-direct {p0}, Lbl/adz;-><init>()V
 
-    .line 386
+    .line 455
     new-instance v0, Ljava/lang/ref/WeakReference;
 
     invoke-direct {v0, p1}, Ljava/lang/ref/WeakReference;-><init>(Ljava/lang/Object;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;->activityRef:Ljava/lang/ref/WeakReference;
 
-    .line 387
+    .line 456
     iput-object p2, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;->items:Lbl/cj;
 
-    .line 388
+    .line 457
     iput p3, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;->subareaId:I
 
-    .line 389
+    .line 458
     return-void
 .end method
 
@@ -98,7 +98,7 @@
     .locals 1
 
     .prologue
-    .line 372
+    .line 441
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;->activityRef:Ljava/lang/ref/WeakReference;
 
     return-object v0
@@ -108,7 +108,7 @@
     .locals 1
 
     .prologue
-    .line 372
+    .line 441
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;->isFocused:Z
 
     return v0
@@ -118,7 +118,7 @@
     .locals 0
 
     .prologue
-    .line 372
+    .line 441
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;->isFocused:Z
 
     return p1
@@ -128,7 +128,7 @@
     .locals 2
 
     .prologue
-    .line 372
+    .line 441
     iget-wide v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;->lastFocusTime:J
 
     return-wide v0
@@ -138,7 +138,7 @@
     .locals 1
 
     .prologue
-    .line 372
+    .line 441
     iput-wide p1, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;->lastFocusTime:J
 
     return-wide p1
@@ -148,7 +148,7 @@
     .locals 0
 
     .prologue
-    .line 372
+    .line 441
     iput p1, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;->currentPosition:I
 
     return p1
@@ -160,15 +160,15 @@
     .locals 1
 
     .prologue
-    .line 443
+    .line 512
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;->items:Lbl/cj;
 
     if-nez v0, :cond_6
 
-    .line 444
+    .line 513
     const/4 v0, 0x0
 
-    .line 446
+    .line 515
     :goto_5
     return v0
 
@@ -186,7 +186,7 @@
     .locals 1
 
     .prologue
-    .line 393
+    .line 462
     invoke-static {p1}, Lbl/agf;->a(Landroid/view/ViewGroup;)Lbl/agf;
 
     move-result-object v0
@@ -198,19 +198,19 @@
     .locals 2
 
     .prologue
-    .line 398
+    .line 467
     instance-of v0, p1, Lbl/agf;
 
     if-eqz v0, :cond_22
 
-    .line 399
+    .line 468
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;->items:Lbl/cj;
 
     if-eqz v0, :cond_18
 
     move-object v0, p1
 
-    .line 400
+    .line 469
     check-cast v0, Lbl/agf;
 
     iget-object v1, v0, Lbl/agf;->n:Landroid/widget/TextView;
@@ -225,7 +225,7 @@
 
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 403
+    .line 472
     :cond_18
     iget-object v0, p1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
 
@@ -235,7 +235,7 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 439
+    .line 508
     :cond_22
     return-void
 .end method
@@ -244,10 +244,10 @@
     .locals 0
 
     .prologue
-    .line 450
+    .line 519
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;->isFocused:Z
 
-    .line 451
+    .line 520
     return-void
 .end method
 
@@ -255,7 +255,7 @@
     .locals 1
 
     .prologue
-    .line 382
+    .line 451
     const/4 v0, 0x0
 
     return v0
@@ -265,7 +265,7 @@
     .locals 1
 
     .prologue
-    .line 454
+    .line 523
     iget v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;->currentPosition:I
 
     return v0
@@ -275,7 +275,7 @@
     .locals 2
 
     .prologue
-    .line 459
+    .line 528
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;->activityRef:Ljava/lang/ref/WeakReference;
 
     invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
@@ -284,7 +284,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/area/AreaActivity;
 
-    .line 460
+    .line 529
     if-eqz v0, :cond_16
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/area/AreaActivity;->isFinishing()Z
@@ -300,12 +300,12 @@
 
     if-nez v1, :cond_17
 
-    .line 464
+    .line 533
     :cond_16
     :goto_16
     return-void
 
-    .line 463
+    .line 532
     :cond_17
     # getter for: Lcom/bilibili/tv/ui/area/AreaActivity;->d:Lbl/adr;
     invoke-static {v0}, Lcom/bilibili/tv/ui/area/AreaActivity;->access$500(Lcom/bilibili/tv/ui/area/AreaActivity;)Lbl/adr;

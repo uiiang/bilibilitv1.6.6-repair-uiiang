@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,10 +92,26 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
     
     @Override
     public void a(RecyclerView recyclerView, Bundle bundle) {
+        // android.util.Log.i("BaseVideoListFragment", "========== a(RecyclerView) START ==========");
+        // android.util.Log.i("BaseVideoListFragment", "Fragment: " + this.getClass().getSimpleName());
+        // android.util.Log.i("BaseVideoListFragment", "RecyclerView: " + (recyclerView != null ? recyclerView.getClass().getSimpleName() : "null"));
+        // if (recyclerView != null) {
+        //     android.util.Log.i("BaseVideoListFragment", "RecyclerView focusable: " + recyclerView.isFocusable());
+        //     android.util.Log.i("BaseVideoListFragment", "RecyclerView clickable: " + recyclerView.isClickable());
+        //     android.util.Log.i("BaseVideoListFragment", "RecyclerView focusableInTouchMode: " + recyclerView.isFocusableInTouchMode());
+
+        //     View parent = (View) recyclerView.getParent();
+        //     if (parent != null) {
+        //         android.util.Log.i("BaseVideoListFragment", "Parent: " + parent.getClass().getSimpleName());
+        //         android.util.Log.i("BaseVideoListFragment", "Parent focusable: " + parent.isFocusable());
+        //         android.util.Log.i("BaseVideoListFragment", "Parent clickable: " + parent.isClickable());
+        //     }
+        // }
+
         bbi.b(recyclerView, "recyclerView");
         super.a(recyclerView, bundle);
         ok.a(getPageViewEvent(), new String[0]);
-        
+
         int spacing = adl.b(R.dimen.px_6);
         int padding = adl.b(R.dimen.px_50);
         int paddingBottom = adl.b(R.dimen.px_306);
@@ -118,12 +135,19 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
                 if (direction == 33 && row == 0) {
                     FragmentActivity activity = BaseVideoListFragment.this.getActivity();
                     if (activity == null) {
-                        throw new TypeCastException("null cannot be cast to non-null type com.bilibili.tv.ui.main.MainActivity");
+                        return null;  // Activity不存在，返回null
                     }
-                    MainActivity mainActivity = (MainActivity) activity;
-                    mainActivity.a(false);
-                    mainActivity.b(false);
-                    return mainActivity.j();
+                    
+                    // 兼容不同类型的Activity
+                    if (activity instanceof MainActivity) {
+                        MainActivity mainActivity = (MainActivity) activity;
+                        mainActivity.a(false);
+                        mainActivity.b(false);
+                        return mainActivity.j();
+                    } else {
+                        // 非MainActivity，返回null（焦点保持原地）
+                        return null;
+                    }
                 }
                 
                 return super.d(view, direction);
@@ -140,8 +164,19 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
         if (this.ugcList.isEmpty()) {
             fetchData(false);
         }
-        
+
         recyclerView.a(new ScrollListener());
+
+        // 添加最终验证日志
+        // android.util.Log.i("BaseVideoListFragment", "========== a(RecyclerView) END ==========");
+        // android.util.Log.i("BaseVideoListFragment", "LayoutManager created: " + (this.layoutManager != null));
+        // android.util.Log.i("BaseVideoListFragment", "Adapter created: " + (this.adapter != null));
+        // if (this.layoutManager != null) {
+        //     android.util.Log.i("BaseVideoListFragment", "LayoutManager column count: " + this.layoutManager.c());
+        // }
+        // if (this.adapter != null) {
+        //     android.util.Log.i("BaseVideoListFragment", "Adapter item count: " + this.adapter.a());
+        // }
     }
     
     @Override
@@ -485,13 +520,18 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
             this.pubdateView = (TextView) view.findViewById(R.id.pubdate);
             this.badgeView = (TextView) view.findViewById(R.id.tag_text);
             this.bottomInfoLayout = view.findViewById(R.id.bottom_info_layout);
-            
+
+            android.util.Log.i("BaseVideoListFragment", "========== SmallCardViewHolder Created ==========");
+            android.util.Log.i("BaseVideoListFragment", "View: " + view.getClass().getSimpleName());
+            android.util.Log.i("BaseVideoListFragment", "View clickable: " + view.isClickable());
+            android.util.Log.i("BaseVideoListFragment", "View focusable: " + view.isFocusable());
+
             if (view instanceof DrawRelativeLayout) {
                 ((DrawRelativeLayout) view).setUpDrawable(R.drawable.shadow_white_rect);
             } else if (view instanceof DrawLinearLayout) {
                 ((DrawLinearLayout) view).setUpDrawable(R.drawable.shadow_white_rect);
             }
-            
+
             Context ctx = view.getContext();
             android.graphics.drawable.Drawable upIcon = ctx.getResources().getDrawable(R.drawable.ic_video_info_up);
             android.graphics.drawable.Drawable playIcon = ctx.getResources().getDrawable(R.drawable.ic_video_info_play);
@@ -507,9 +547,28 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
             this.upView.setCompoundDrawables(upIcon, null, null, null);
             this.playView.setCompoundDrawables(playIcon, null, null, null);
             this.danmakuView.setCompoundDrawables(danmakuIcon, null, null, null);
-            
+
             view.setOnClickListener(this);
             view.setOnFocusChangeListener(this);
+            
+            // Android TV: 添加KeyListener监听确认键
+            // 原因：BaseSideActivity的dispatchKeyEvent可能拦截KeyEvent，导致onClick无法自动触发
+            // 解决方案：手动监听KEYCODE_DPAD_CENTER，绕过Activity层的拦截
+            view.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER && event.getAction() == KeyEvent.ACTION_UP) {
+                        // android.util.Log.i("BaseVideoListFragment", "========== DPAD_CENTER KEY UP ==========");
+                        // android.util.Log.i("BaseVideoListFragment", "View: " + v.getClass().getSimpleName());
+                        // 直接调用onClick，绕过Activity的dispatchKeyEvent拦截
+                        onClick(v);
+                        return true;
+                    }
+                    return false;
+                }
+            });
+
+            // android.util.Log.i("BaseVideoListFragment", "After setting listener - View clickable: " + view.isClickable());
         }
         
         public final TextView getTitleView() { return this.titleView; }
@@ -536,21 +595,30 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
         
         @Override
         public void onClick(View v) {
+            // android.util.Log.i("BaseVideoListFragment", "========== onClick CALLED ==========");
             bbi.b(v, "v");
             BaseVideoListFragment fragment = this.fragmentRef.get();
+
+            // android.util.Log.i("BaseVideoListFragment", "Fragment: " + (fragment != null ? fragment.getClass().getSimpleName() : "null"));
+
             if (fragment != null) {
                 abl.a.a(fragment.getClickEventName());
             }
-            
+
             Object tag = v.getTag();
+            // android.util.Log.i("BaseVideoListFragment", "Tag: " + tag + " (type: " + (tag != null ? tag.getClass().getSimpleName() : "null") + ")");
+
             if (tag instanceof String) {
                 Object posTag = v.getTag(R.id.position);
                 int position = posTag instanceof Integer ? (Integer) posTag : -1;
+                // android.util.Log.i("BaseVideoListFragment", "Calling onSmallCardClick with uri=" + tag + ", position=" + position);
                 if (fragment != null) {
                     fragment.onSmallCardClick(v, (String) tag, position);
                 }
+            } else {
+                android.util.Log.w("BaseVideoListFragment", "Tag is not String, skipping onSmallCardClick");
             }
-            
+
             Object reportPos = v.getTag(R.id.report_position);
             if (reportPos instanceof Integer && fragment != null) {
                 ok.a(fragment.getPageViewEvent().replace("pageview", "click"), "type", "video", "position", reportPos.toString());
@@ -559,13 +627,18 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
         
         @Override
         public void onFocusChange(View v, boolean hasFocus) {
+            // android.util.Log.i("BaseVideoListFragment", "========== onFocusChange ==========");
+            // android.util.Log.i("BaseVideoListFragment", "View: " + v.getClass().getSimpleName() + ", hasFocus: " + hasFocus);
+
             BaseVideoListFragment fragment = this.fragmentRef.get();
             if (fragment == null) {
+                android.util.Log.w("BaseVideoListFragment", "Fragment is null in onFocusChange");
                 return;
             }
             Object tag = v.getTag(R.id.position);
             if (tag instanceof Integer) {
                 fragment.currentPosition = (Integer) tag;
+                android.util.Log.i("BaseVideoListFragment", "Current position: " + fragment.currentPosition);
             }
             adj.a(v, hasFocus);
             if (this.itemView instanceof DrawRelativeLayout) {

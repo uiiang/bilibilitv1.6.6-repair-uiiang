@@ -83,6 +83,32 @@ public final class AreaActivity extends BaseSideActivity implements View.OnLongC
             return;
         }
         
+        // 判断是否为特殊分区
+        if (isSpecialCategory(this.b)) {
+            // 特殊分区：保持原有实现（排行榜、直播、每周必看、其它）
+            Log.i("AreaActivity", "Special category: " + this.b + ", using old implementation");
+            initSpecialCategory(bundle);
+        } else {
+            // 普通分区：使用新的视频列表实现
+            Log.i("AreaActivity", "Normal category: " + this.b + ", using new implementation");
+            initNormalCategory(bundle);
+        }
+    }
+    
+    /**
+     * 判断是否为特殊分区
+     */
+    private boolean isSpecialCategory(int tid) {
+        return tid == CategoryManager.T2_RANKING ||
+               tid == CategoryManager.T1_LIVE ||
+               tid == CategoryManager.T1_WEEKLY ||
+               tid == CategoryManager.T2_ELSE;
+    }
+    
+    /**
+     * 初始化特殊分区（保持原有实现）
+     */
+    private void initSpecialCategory(Bundle bundle) {
         b((RecyclerView) d(R.id.recycler_view));
         
         TextView titleView = (TextView) d(R.id.content_name);
@@ -111,9 +137,52 @@ public final class AreaActivity extends BaseSideActivity implements View.OnLongC
         j().getViewTreeObserver().addOnGlobalFocusChangeListener(new AreaActivity.GlobalFocusChangeListener(this));
         j().getViewTreeObserver().addOnTouchModeChangeListener(new AreaActivity.TouchModeChangeListener(this));
     }
+    
+    /**
+     * 初始化普通分区（新实现）
+     */
+    private void initNormalCategory(Bundle bundle) {
+        // Log.i("AreaActivity", "========== initNormalCategory START ==========");
+        // Log.i("AreaActivity", "TID: " + this.b);
+
+        // 使用新的布局（包含顶部header和视频列表）
+        setContentView(R.layout.activity_area_normal);
+
+        // 设置分区标题
+        android.widget.TextView titleView = (android.widget.TextView) findViewById(R.id.content_name);
+        // Log.i("AreaActivity", "titleView=" + titleView);
+        if (titleView != null) {
+            CategoryMeta categoryMeta = CategoryManager.getPrimaryCategoryBy(getApplicationContext(), this.b);
+            // Log.i("AreaActivity", "categoryMeta=" + categoryMeta + ", tid=" + this.b);
+            if (categoryMeta != null) {
+                // Log.i("AreaActivity", "Setting title: " + categoryMeta.mTypeName);
+                titleView.setText(categoryMeta.mTypeName);
+            } else {
+                Log.w("AreaActivity", "categoryMeta is null!");
+            }
+        } else {
+            Log.e("AreaActivity", "titleView is null!");
+        }
+
+        // 加载Fragment到fragment_container
+        // Log.i("AreaActivity", "Creating AreaVideoListFragment");
+        AreaVideoListFragment fragment = AreaVideoListFragment.newInstance(this.b);
+        // Log.i("AreaActivity", "Fragment created: " + fragment.hashCode());
+
+        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.commitNow(); // 使用commitNow立即执行
+        // Log.i("AreaActivity", "========== initNormalCategory END ==========");
+    }
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent keyEvent) {
+        // 普通分区：不处理特殊按键（无左侧菜单，无排序功能）
+        if (!isSpecialCategory(this.b)) {
+            return super.dispatchKeyEvent(keyEvent);
+        }
+        
+        // 特殊分区：保持原有按键处理逻辑
         if (this.c == null || this.d == null) {
             return super.dispatchKeyEvent(keyEvent);
         }

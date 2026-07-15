@@ -34,12 +34,12 @@
     .locals 0
 
     .prologue
-    .line 543
+    .line 625
     iput-object p1, p0, Lbl/adq$i;->this$0:Lbl/adq;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
 
-    .line 544
+    .line 626
     return-void
 .end method
 
@@ -49,7 +49,7 @@
     .locals 0
 
     .prologue
-    .line 542
+    .line 624
     check-cast p1, Ljava/util/List;
 
     invoke-virtual {p0, p1}, Lbl/adq$i;->a(Ljava/util/List;)V
@@ -74,27 +74,74 @@
 
     const/4 v3, 0x0
 
-    .line 553
+    .line 634
+    const-string v1, "AreaFragment"
+
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "[i.onSuccess] START, list="
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    if-eqz p1, :cond_36
+
+    invoke-interface {p1}, Ljava/util/List;->size()I
+
+    move-result v0
+
+    invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object v0
+
+    :goto_1b
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 636
     iget-object v0, p0, Lbl/adq$i;->this$0:Lbl/adq;
 
     invoke-virtual {v0}, Lbl/adq;->a()Lbl/adq$j;
 
     move-result-object v0
 
-    if-nez v0, :cond_d
+    if-nez v0, :cond_39
 
-    .line 597
-    :goto_c
+    .line 637
+    const-string v0, "AreaFragment"
+
+    const-string v1, "[i.onSuccess] adapter is null, return"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 684
+    :goto_35
     return-void
 
-    .line 556
-    :cond_d
+    .line 634
+    :cond_36
+    const-string v0, "null"
+
+    goto :goto_1b
+
+    .line 640
+    :cond_39
     iget-object v0, p0, Lbl/adq$i;->this$0:Lbl/adq;
 
     # setter for: Lbl/adq;->k:Z
     invoke-static {v0, v3}, Lbl/adq;->access$202(Lbl/adq;Z)Z
 
-    .line 557
+    .line 641
     iget-object v0, p0, Lbl/adq$i;->this$0:Lbl/adq;
 
     invoke-virtual {v0}, Lbl/adq;->h()Landroid/support/v7/widget/RecyclerView;
@@ -103,31 +150,87 @@
 
     invoke-virtual {v0, v3}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
 
-    .line 558
-    if-eqz p1, :cond_23
+    .line 642
+    if-eqz p1, :cond_4f
 
     invoke-interface {p1}, Ljava/util/List;->size()I
 
     move-result v0
 
-    if-nez v0, :cond_29
+    if-nez v0, :cond_5c
 
-    .line 559
-    :cond_23
+    .line 643
+    :cond_4f
+    const-string v0, "AreaFragment"
+
+    const-string v1, "[i.onSuccess] list is empty, j=false"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 644
     iget-object v0, p0, Lbl/adq$i;->this$0:Lbl/adq;
 
     # setter for: Lbl/adq;->j:Z
     invoke-static {v0, v3}, Lbl/adq;->access$102(Lbl/adq;Z)Z
 
-    goto :goto_c
+    goto :goto_35
 
-    .line 562
-    :cond_29
+    .line 647
+    :cond_5c
+    const-string v1, "AreaFragment"
+
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "[i.onSuccess] First video: title="
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-interface {p1, v3}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/bilibili/tv/api/area/BiliVideoV2;
+
+    iget-object v0, v0, Lcom/bilibili/tv/api/area/BiliVideoV2;->title:Ljava/lang/String;
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    const-string v2, ", param="
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-interface {p1, v3}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/bilibili/tv/api/area/BiliVideoV2;
+
+    iget-object v0, v0, Lcom/bilibili/tv/api/area/BiliVideoV2;->param:Ljava/lang/String;
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 648
     invoke-static {v4}, Lbl/adl;->e(I)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 563
+    .line 649
     iget-object v1, p0, Lbl/adq$i;->this$0:Lbl/adq;
 
     # getter for: Lbl/adq;->l:Z
@@ -135,9 +238,9 @@
 
     move-result v1
 
-    if-eqz v1, :cond_58
+    if-eqz v1, :cond_bd
 
-    .line 564
+    .line 650
     iget-object v1, p0, Lbl/adq$i;->this$0:Lbl/adq;
 
     invoke-virtual {v1}, Lbl/adq;->b()Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;
@@ -146,66 +249,89 @@
 
     sget-object v2, Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;->SENDDATE:Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;
 
-    if-ne v1, v2, :cond_6c
+    if-ne v1, v2, :cond_ea
 
-    .line 565
+    .line 651
     invoke-static {v4}, Lbl/adl;->e(I)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 584
-    :goto_43
+    .line 670
+    :goto_a8
     iget-object v1, p0, Lbl/adq$i;->this$0:Lbl/adq;
 
     invoke-virtual {v1}, Lbl/adq;->m()V
 
-    .line 585
+    .line 671
     iget-object v1, p0, Lbl/adq$i;->this$0:Lbl/adq;
 
     invoke-virtual {v1}, Lbl/adq;->a()Lbl/adq$j;
 
     move-result-object v1
 
-    .line 586
-    if-nez v1, :cond_50
+    .line 672
+    if-nez v1, :cond_b5
 
-    .line 588
-    :cond_50
+    .line 674
+    :cond_b5
     invoke-virtual {v1}, Lbl/adq$j;->h()V
 
-    .line 589
+    .line 675
     iget-object v1, p0, Lbl/adq$i;->this$0:Lbl/adq;
 
     # setter for: Lbl/adq;->l:Z
     invoke-static {v1, v3}, Lbl/adq;->access$502(Lbl/adq;Z)Z
 
-    .line 591
-    :cond_58
+    .line 677
+    :cond_bd
     iget-object v1, p0, Lbl/adq$i;->this$0:Lbl/adq;
 
     invoke-virtual {v1}, Lbl/adq;->j()V
 
-    .line 592
+    .line 678
     iget-object v1, p0, Lbl/adq$i;->this$0:Lbl/adq;
 
     invoke-virtual {v1}, Lbl/adq;->a()Lbl/adq$j;
 
     move-result-object v1
 
-    .line 593
-    if-nez v1, :cond_68
+    .line 679
+    if-nez v1, :cond_cd
 
-    .line 594
+    .line 680
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 596
-    :cond_68
+    .line 682
+    :cond_cd
     invoke-virtual {v1, v0, p1}, Lbl/adq$j;->a(Ljava/lang/String;Ljava/util/List;)V
 
-    goto :goto_c
+    .line 683
+    const-string v1, "AreaFragment"
 
-    .line 566
-    :cond_6c
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "[i.onSuccess] END, adapter updated with title="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto/16 :goto_35
+
+    .line 652
+    :cond_ea
     iget-object v1, p0, Lbl/adq$i;->this$0:Lbl/adq;
 
     invoke-virtual {v1}, Lbl/adq;->b()Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;
@@ -214,19 +340,19 @@
 
     sget-object v2, Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;->VIEW:Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;
 
-    if-ne v1, v2, :cond_7e
+    if-ne v1, v2, :cond_fc
 
-    .line 567
+    .line 653
     const v0, 0x7f0c00b0
 
     invoke-static {v0}, Lbl/adl;->e(I)Ljava/lang/String;
 
     move-result-object v0
 
-    goto :goto_43
+    goto :goto_a8
 
-    .line 568
-    :cond_7e
+    .line 654
+    :cond_fc
     iget-object v1, p0, Lbl/adq$i;->this$0:Lbl/adq;
 
     invoke-virtual {v1}, Lbl/adq;->b()Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;
@@ -235,19 +361,19 @@
 
     sget-object v2, Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;->DANMAKU:Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;
 
-    if-ne v1, v2, :cond_90
+    if-ne v1, v2, :cond_10e
 
-    .line 569
+    .line 655
     const v0, 0x7f0c00af
 
     invoke-static {v0}, Lbl/adl;->e(I)Ljava/lang/String;
 
     move-result-object v0
 
-    goto :goto_43
+    goto :goto_a8
 
-    .line 570
-    :cond_90
+    .line 656
+    :cond_10e
     iget-object v1, p0, Lbl/adq$i;->this$0:Lbl/adq;
 
     invoke-virtual {v1}, Lbl/adq;->b()Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;
@@ -256,19 +382,19 @@
 
     sget-object v2, Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;->REPLY:Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;
 
-    if-ne v1, v2, :cond_a2
+    if-ne v1, v2, :cond_120
 
-    .line 571
+    .line 657
     const v0, 0x7f0c00b2
 
     invoke-static {v0}, Lbl/adl;->e(I)Ljava/lang/String;
 
     move-result-object v0
 
-    goto :goto_43
+    goto :goto_a8
 
-    .line 573
-    :cond_a2
+    .line 659
+    :cond_120
     iget-object v1, p0, Lbl/adq$i;->this$0:Lbl/adq;
 
     invoke-virtual {v1}, Lbl/adq;->b()Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;
@@ -277,71 +403,105 @@
 
     sget-object v2, Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;->FAVORITE:Lcom/bilibili/tv/ui/area/RegionApiManager$ListOrder;
 
-    if-ne v1, v2, :cond_b3
+    if-ne v1, v2, :cond_131
 
-    .line 574
+    .line 660
     const v0, 0x7f0c00b3
 
     invoke-static {v0}, Lbl/adl;->e(I)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 576
-    :cond_b3
+    .line 662
+    :cond_131
     iget-object v1, p0, Lbl/adq$i;->this$0:Lbl/adq;
 
     invoke-virtual {v1}, Lbl/adq;->m()V
 
-    .line 577
+    .line 663
     iget-object v1, p0, Lbl/adq$i;->this$0:Lbl/adq;
 
     invoke-virtual {v1}, Lbl/adq;->a()Lbl/adq$j;
 
     move-result-object v1
 
-    .line 578
-    if-nez v1, :cond_c3
+    .line 664
+    if-nez v1, :cond_141
 
-    .line 579
+    .line 665
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 581
-    :cond_c3
+    .line 667
+    :cond_141
     invoke-virtual {v1}, Lbl/adq$j;->h()V
 
-    .line 582
+    .line 668
     iget-object v1, p0, Lbl/adq$i;->this$0:Lbl/adq;
 
     # setter for: Lbl/adq;->l:Z
     invoke-static {v1, v3}, Lbl/adq;->access$502(Lbl/adq;Z)Z
 
-    goto/16 :goto_43
+    goto/16 :goto_a8
 .end method
 
 .method public onError(Ljava/lang/Throwable;)V
-    .locals 2
+    .locals 3
 
     .prologue
-    .line 601
+    .line 688
+    const-string v0, "AreaFragment"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "[i.onError] "
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {p1}, Ljava/lang/Throwable;->getMessage()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1, p1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+
+    .line 689
     const-string v0, "t"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 602
+    .line 690
     iget-object v0, p0, Lbl/adq$i;->this$0:Lbl/adq;
 
     invoke-virtual {v0}, Lbl/adq;->a()Lbl/adq$j;
 
     move-result-object v0
 
-    if-nez v0, :cond_e
+    if-nez v0, :cond_31
 
-    .line 606
-    :goto_d
+    .line 691
+    const-string v0, "AreaFragment"
+
+    const-string v1, "[i.onError] adapter is null"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 695
+    :goto_30
     return-void
 
-    .line 605
-    :cond_e
+    .line 694
+    :cond_31
     iget-object v0, p0, Lbl/adq$i;->this$0:Lbl/adq;
 
     const/4 v1, 0x0
@@ -349,5 +509,5 @@
     # setter for: Lbl/adq;->k:Z
     invoke-static {v0, v1}, Lbl/adq;->access$202(Lbl/adq;Z)Z
 
-    goto :goto_d
+    goto :goto_30
 .end method

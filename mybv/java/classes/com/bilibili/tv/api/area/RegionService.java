@@ -10,12 +10,13 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 /* compiled from: BL */
-@BaseUrl("http://app.bilibili.com")
+@BaseUrl("https://api.bilibili.com")
 /* loaded from: classes.dex */
 public interface RegionService {
-    @GET("/x/v2/region/show/dynamic")
+    // Web接口排行榜，不需要签名参数
+    @GET("/x/web-interface/ranking/v2")
     @CacheControl(10000)
-    vp<GeneralResponse<List<BiliVideoV2>>> getDynamicVideo(@Query("rid") int i, @Query("pn") int i2, @Query("ps") int i3, @Query("channel") String str);
+    vp<GeneralResponse<List<BiliVideoV2>>> getDynamicVideo(@Query("rid") int i, @Query("type") String type);
 
     @GET("/x/v2/region/show/child")
     @CacheControl(60000)

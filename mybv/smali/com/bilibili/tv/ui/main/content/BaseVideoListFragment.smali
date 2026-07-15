@@ -61,28 +61,28 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 36
+    .line 37
     invoke-direct {p0}, Lbl/adu;-><init>()V
 
-    .line 40
+    .line 41
     iput v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->currentPosition:I
 
-    .line 41
+    .line 42
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->isLoadingMore:Z
 
-    .line 42
+    .line 43
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->hasMoreData:Z
 
-    .line 44
+    .line 45
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->ugcList:Ljava/util/List;
 
-    .line 45
+    .line 46
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
@@ -96,7 +96,7 @@
     .locals 1
 
     .prologue
-    .line 36
+    .line 37
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->d()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
@@ -110,7 +110,7 @@
     .locals 1
 
     .prologue
-    .line 49
+    .line 50
     const-string v0, "ott-platform.home.0.0.pv"
 
     return-object v0
@@ -122,15 +122,15 @@
     .prologue
     const/4 v5, 0x0
 
-    .line 94
+    .line 111
     const-string v0, "recyclerView"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 95
+    .line 112
     invoke-super {p0, p1, p2}, Lbl/adu;->a(Landroid/support/v7/widget/RecyclerView;Landroid/os/Bundle;)V
 
-    .line 96
+    .line 113
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->getPageViewEvent()Ljava/lang/String;
 
     move-result-object v0
@@ -139,36 +139,36 @@
 
     invoke-static {v0, v1}, Lbl/ok;->a(Ljava/lang/String;[Ljava/lang/String;)V
 
-    .line 98
+    .line 115
     const v0, 0x7f060299
 
     invoke-static {v0}, Lbl/adl;->b(I)I
 
     move-result v7
 
-    .line 99
+    .line 116
     const v0, 0x7f06022b
 
     invoke-static {v0}, Lbl/adl;->b(I)I
 
     move-result v0
 
-    .line 100
+    .line 117
     const v1, 0x7f060154
 
     invoke-static {v1}, Lbl/adl;->b(I)I
 
     move-result v1
 
-    .line 101
+    .line 118
     invoke-virtual {p1, v0, v7, v0, v1}, Landroid/support/v7/widget/RecyclerView;->setPadding(IIII)V
 
-    .line 103
+    .line 120
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->getColumnCount()I
 
     move-result v3
 
-    .line 104
+    .line 121
     new-instance v0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$1;
 
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -185,19 +185,19 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->layoutManager:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
-    .line 133
+    .line 157
     new-instance v0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$VideoListAdapter;
 
     invoke-direct {v0, p0, p0}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$VideoListAdapter;-><init>(Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->adapter:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$VideoListAdapter;
 
-    .line 134
+    .line 158
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->layoutManager:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->setLayoutManager(Landroid/support/v7/widget/RecyclerView$h;)V
 
-    .line 135
+    .line 159
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->layoutManager:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     new-instance v1, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SpanSizeLookupImpl;
@@ -206,22 +206,22 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->a(Landroid/support/v7/widget/GridLayoutManager$c;)V
 
-    .line 136
+    .line 160
     new-instance v0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$ItemDecorationImpl;
 
     invoke-direct {v0, v7, v3}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$ItemDecorationImpl;-><init>(II)V
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$g;)V
 
-    .line 137
+    .line 161
     invoke-virtual {p1, v5}, Landroid/support/v7/widget/RecyclerView;->setFocusable(Z)V
 
-    .line 138
+    .line 162
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->adapter:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$VideoListAdapter;
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->setAdapter(Landroid/support/v7/widget/RecyclerView$a;)V
 
-    .line 140
+    .line 164
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->ugcList:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->isEmpty()Z
@@ -230,10 +230,10 @@
 
     if-eqz v0, :cond_6d
 
-    .line 141
+    .line 165
     invoke-virtual {p0, v5}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->fetchData(Z)V
 
-    .line 144
+    .line 168
     :cond_6d
     new-instance v0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$ScrollListener;
 
@@ -241,7 +241,7 @@
 
     invoke-virtual {p1, v0}, Landroid/support/v7/widget/RecyclerView;->a(Landroid/support/v7/widget/RecyclerView$m;)V
 
-    .line 145
+    .line 180
     return-void
 .end method
 
@@ -249,7 +249,7 @@
     .locals 1
 
     .prologue
-    .line 54
+    .line 55
     invoke-static {p0}, Lbl/wg;->a(Lbl/wf;)Z
 
     move-result v0
@@ -261,7 +261,7 @@
     .locals 1
 
     .prologue
-    .line 59
+    .line 60
     const/4 v0, 0x0
 
     return-object v0
@@ -273,12 +273,12 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 185
+    .line 220
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->adapter:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$VideoListAdapter;
 
     if-eqz v1, :cond_d
 
-    .line 186
+    .line 221
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->adapter:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$VideoListAdapter;
 
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$VideoListAdapter;->a()I
@@ -287,23 +287,23 @@
 
     if-nez v1, :cond_e
 
-    .line 200
+    .line 235
     :cond_d
     :goto_d
     return-object v0
 
-    .line 189
+    .line 224
     :cond_e
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->layoutManager:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     if-nez v1, :cond_16
 
-    .line 190
+    .line 225
     invoke-static {}, Lbl/bbi;->a()V
 
     goto :goto_d
 
-    .line 193
+    .line 228
     :cond_16
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->layoutManager:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
@@ -313,7 +313,7 @@
 
     move-result-object v0
 
-    .line 194
+    .line 229
     if-eqz v0, :cond_d
 
     invoke-virtual {v0}, Landroid/view/View;->isFocusable()Z
@@ -322,12 +322,12 @@
 
     if-nez v1, :cond_d
 
-    .line 195
+    .line 230
     const/4 v0, 0x1
 
     iput v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->currentPosition:I
 
-    .line 196
+    .line 231
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->layoutManager:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
     iget v1, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->currentPosition:I
@@ -354,7 +354,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 85
+    .line 86
     if-ltz p1, :cond_1c
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->ugcList:Ljava/util/List;
@@ -365,7 +365,7 @@
 
     if-ge p1, v0, :cond_1c
 
-    .line 86
+    .line 87
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->ugcList:Ljava/util/List;
 
     invoke-interface {v0, p1}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -374,27 +374,27 @@
 
     check-cast v0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;
 
-    .line 87
+    .line 88
     if-eqz v0, :cond_1a
 
     invoke-virtual {v0}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->getCover()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 89
+    .line 90
     :goto_19
     return-object v0
 
     :cond_1a
     move-object v0, v1
 
-    .line 87
+    .line 88
     goto :goto_19
 
     :cond_1c
     move-object v0, v1
 
-    .line 89
+    .line 90
     goto :goto_19
 .end method
 
@@ -408,7 +408,7 @@
     .locals 1
 
     .prologue
-    .line 69
+    .line 70
     const/4 v0, 0x0
 
     return v0
@@ -418,7 +418,7 @@
     .locals 1
 
     .prologue
-    .line 180
+    .line 215
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->isLoadingMore:Z
 
     return v0
@@ -428,7 +428,7 @@
     .locals 0
 
     .prologue
-    .line 72
+    .line 73
     return-void
 .end method
 
@@ -436,15 +436,15 @@
     .locals 1
 
     .prologue
-    .line 149
+    .line 184
     invoke-super {p0}, Lbl/adu;->onDestroyView()V
 
-    .line 150
+    .line 185
     const/4 v0, 0x0
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->adapter:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$VideoListAdapter;
 
-    .line 151
+    .line 186
     return-void
 .end method
 
@@ -452,10 +452,10 @@
     .locals 2
 
     .prologue
-    .line 205
+    .line 240
     invoke-super {p0, p1}, Lbl/adu;->onHiddenChanged(Z)V
 
-    .line 206
+    .line 241
     invoke-static {}, Lbl/wh;->a()Lbl/wh;
 
     move-result-object v1
@@ -467,10 +467,10 @@
     :goto_a
     invoke-virtual {v1, p0, v0}, Lbl/wh;->a(Landroid/support/v4/app/Fragment;Z)V
 
-    .line 207
+    .line 242
     return-void
 
-    .line 206
+    .line 241
     :cond_e
     const/4 v0, 0x0
 
@@ -481,7 +481,7 @@
     .locals 5
 
     .prologue
-    .line 75
+    .line 76
     const-string v0, "bilibili_yst://video"
 
     invoke-virtual {p2, v0}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
@@ -498,7 +498,7 @@
 
     if-eqz v0, :cond_2f
 
-    .line 76
+    .line 77
     :cond_10
     invoke-static {p2}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
@@ -508,7 +508,7 @@
 
     move-result-wide v0
 
-    .line 77
+    .line 78
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v2
@@ -517,10 +517,10 @@
 
     move-result-object v2
 
-    .line 78
+    .line 79
     if-eqz v2, :cond_2f
 
-    .line 79
+    .line 80
     sget-object v3, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
 
     invoke-virtual {p0, p3}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->getCoverUrl(I)Ljava/lang/String;
@@ -533,7 +533,7 @@
 
     invoke-virtual {v2, v0}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
 
-    .line 82
+    .line 83
     :cond_2f
     return-void
 .end method
@@ -542,10 +542,10 @@
     .locals 3
 
     .prologue
-    .line 155
+    .line 190
     invoke-super {p0, p1}, Lbl/adu;->setUserVisibleHint(Z)V
 
-    .line 156
+    .line 191
     if-eqz p1, :cond_b
 
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -554,49 +554,49 @@
 
     if-nez v0, :cond_c
 
-    .line 177
+    .line 212
     :cond_b
     :goto_b
     return-void
 
-    .line 159
+    .line 194
     :cond_c
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 160
+    .line 195
     if-eqz v0, :cond_b
 
-    .line 163
+    .line 198
     check-cast v0, Lcom/bilibili/tv/ui/main/MainActivity;
 
-    .line 164
+    .line 199
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->d()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v1
 
-    .line 165
+    .line 200
     if-eqz v1, :cond_1f
 
-    .line 166
+    .line 201
     iget v2, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->currentPosition:I
 
     invoke-virtual {v1, v2}, Landroid/support/v7/widget/RecyclerView;->a(I)V
 
-    .line 168
+    .line 203
     :cond_1f
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->d()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v1
 
-    .line 169
+    .line 204
     if-nez v1, :cond_28
 
-    .line 170
+    .line 205
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 172
+    .line 207
     :cond_28
     invoke-virtual {v1}, Landroid/support/v7/widget/RecyclerView;->getLayoutManager()Landroid/support/v7/widget/RecyclerView$h;
 
@@ -608,7 +608,7 @@
 
     move-result-object v1
 
-    .line 173
+    .line 208
     if-eqz v1, :cond_b
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/MainActivity;->h()Z
@@ -617,7 +617,7 @@
 
     if-eqz v0, :cond_b
 
-    .line 176
+    .line 211
     invoke-virtual {v1}, Landroid/view/View;->requestFocus()Z
 
     goto :goto_b

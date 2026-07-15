@@ -5,30 +5,20 @@
 
 # annotations
 .annotation runtime Lretrofit2/http/BaseUrl;
-    value = "http://app.bilibili.com"
+    value = "https://api.bilibili.com"
 .end annotation
 
 
 # virtual methods
-.method public abstract getDynamicVideo(IIILjava/lang/String;)Lbl/vp;
+.method public abstract getDynamicVideo(ILjava/lang/String;)Lbl/vp;
     .param p1    # I
         .annotation runtime Lretrofit2/http/Query;
             value = "rid"
         .end annotation
     .end param
-    .param p2    # I
+    .param p2    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Query;
-            value = "pn"
-        .end annotation
-    .end param
-    .param p3    # I
-        .annotation runtime Lretrofit2/http/Query;
-            value = "ps"
-        .end annotation
-    .end param
-    .param p4    # Ljava/lang/String;
-        .annotation runtime Lretrofit2/http/Query;
-            value = "channel"
+            value = "type"
         .end annotation
     .end param
     .annotation runtime Lcom/bilibili/okretro/anno/CacheControl;
@@ -37,7 +27,7 @@
 
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "(III",
+            "(I",
             "Ljava/lang/String;",
             ")",
             "Lbl/vp",
@@ -52,7 +42,7 @@
     .end annotation
 
     .annotation runtime Lretrofit2/http/GET;
-        value = "/x/v2/region/show/dynamic"
+        value = "/x/web-interface/ranking/v2"
     .end annotation
 .end method
 

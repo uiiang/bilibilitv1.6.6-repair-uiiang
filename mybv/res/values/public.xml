@@ -3607,4 +3607,6 @@
     <public type="id" name="live_ijk_player" id="0x7f080232" />
     <public type="id" name="live_exo_player" id="0x7f080233" />
     <public type="id" name="empty_text" id="0x7f080234" />
+    <public type="layout" name="activity_area_normal" id="0x7f0a00ad" />
+    <public type="id" name="header_container" id="0x7f080238" />
 </resources>

@@ -26,21 +26,34 @@
     .locals 2
 
     .prologue
-    .line 19
+    .line 20
     new-instance v0, Lbl/wd;
 
     invoke-direct {v0}, Lbl/wd;-><init>()V
 
     sput-object v0, Lbl/vo;->a:Lbl/wc$a;
 
-    .line 20
+    .line 21
     new-instance v0, Lbl/vo$a;
 
     invoke-direct {v0}, Lbl/vo$a;-><init>()V
 
     sput-object v0, Lbl/vo;->b:Lbl/vo$a;
 
-    .line 25
+    .line 26
+    sget-object v0, Lbl/vo;->b:Lbl/vo$a;
+
+    invoke-virtual {v0}, Lbl/vo$a;->d()Ljava/util/List;
+
+    move-result-object v0
+
+    new-instance v1, Lmybl/ApiLogInterceptor;
+
+    invoke-direct {v1}, Lmybl/ApiLogInterceptor;-><init>()V
+
+    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    .line 27
     sget-object v0, Lbl/vo;->b:Lbl/vo$a;
 
     invoke-virtual {v0}, Lbl/vo$a;->d()Ljava/util/List;
@@ -53,7 +66,7 @@
 
     invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 26
+    .line 28
     return-void
 .end method
 
@@ -61,7 +74,7 @@
     .locals 0
 
     .prologue
-    .line 18
+    .line 19
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -80,7 +93,7 @@
     .end annotation
 
     .prologue
-    .line 29
+    .line 31
     invoke-static {p0}, Lbl/vo;->b(Ljava/lang/Class;)Lretrofit2/Retrofit;
 
     move-result-object v0
@@ -96,28 +109,28 @@
     .locals 5
 
     .prologue
-    .line 49
+    .line 51
     sget-object v0, Lbl/vo;->c:Lokhttp3/OkHttpClient;
 
     if-nez v0, :cond_5a
 
-    .line 50
+    .line 52
     const-class v1, Lbl/vo;
 
     monitor-enter v1
 
-    .line 51
+    .line 53
     :try_start_7
     sget-object v0, Lbl/vo;->c:Lokhttp3/OkHttpClient;
 
     if-nez v0, :cond_59
 
-    .line 52
+    .line 54
     invoke-static {}, Lbl/us;->b()Lokhttp3/OkHttpClient$Builder;
 
     move-result-object v0
 
-    .line 53
+    .line 55
     sget-object v2, Lbl/vo;->b:Lbl/vo$a;
 
     invoke-virtual {v2}, Lbl/vo$a;->a()J
@@ -128,7 +141,7 @@
 
     invoke-virtual {v0, v2, v3, v4}, Lokhttp3/OkHttpClient$Builder;->connectTimeout(JLjava/util/concurrent/TimeUnit;)Lokhttp3/OkHttpClient$Builder;
 
-    .line 54
+    .line 56
     sget-object v2, Lbl/vo;->b:Lbl/vo$a;
 
     invoke-virtual {v2}, Lbl/vo$a;->b()J
@@ -139,7 +152,7 @@
 
     invoke-virtual {v0, v2, v3, v4}, Lokhttp3/OkHttpClient$Builder;->readTimeout(JLjava/util/concurrent/TimeUnit;)Lokhttp3/OkHttpClient$Builder;
 
-    .line 55
+    .line 57
     sget-object v2, Lbl/vo;->b:Lbl/vo$a;
 
     invoke-virtual {v2}, Lbl/vo$a;->c()J
@@ -150,7 +163,7 @@
 
     invoke-virtual {v0, v2, v3, v4}, Lokhttp3/OkHttpClient$Builder;->writeTimeout(JLjava/util/concurrent/TimeUnit;)Lokhttp3/OkHttpClient$Builder;
 
-    .line 56
+    .line 58
     invoke-virtual {v0}, Lokhttp3/OkHttpClient$Builder;->interceptors()Ljava/util/List;
 
     move-result-object v2
@@ -163,7 +176,7 @@
 
     invoke-interface {v2, v3}, Ljava/util/List;->addAll(Ljava/util/Collection;)Z
 
-    .line 57
+    .line 59
     invoke-virtual {v0}, Lokhttp3/OkHttpClient$Builder;->networkInterceptors()Ljava/util/List;
 
     move-result-object v2
@@ -176,7 +189,7 @@
 
     invoke-interface {v2, v3}, Ljava/util/List;->addAll(Ljava/util/Collection;)Z
 
-    .line 58
+    .line 60
     sget-object v2, Lokhttp3/Protocol;->HTTP_1_1:Lokhttp3/Protocol;
 
     invoke-static {v2}, Ljava/util/Collections;->singletonList(Ljava/lang/Object;)Ljava/util/List;
@@ -185,26 +198,26 @@
 
     invoke-virtual {v0, v2}, Lokhttp3/OkHttpClient$Builder;->protocols(Ljava/util/List;)Lokhttp3/OkHttpClient$Builder;
 
-    .line 59
+    .line 61
     invoke-virtual {v0}, Lokhttp3/OkHttpClient$Builder;->build()Lokhttp3/OkHttpClient;
 
     move-result-object v0
 
     sput-object v0, Lbl/vo;->c:Lokhttp3/OkHttpClient;
 
-    .line 61
+    .line 63
     :cond_59
     monitor-exit v1
     :try_end_5a
     .catchall {:try_start_7 .. :try_end_5a} :catchall_5d
 
-    .line 63
+    .line 65
     :cond_5a
     sget-object v0, Lbl/vo;->c:Lokhttp3/OkHttpClient;
 
     return-object v0
 
-    .line 61
+    .line 63
     :catchall_5d
     move-exception v0
 
@@ -228,18 +241,18 @@
     .end annotation
 
     .prologue
-    .line 38
+    .line 40
     const-class v1, Lbl/vo;
 
     monitor-enter v1
 
-    .line 40
+    .line 42
     :try_start_3
     invoke-static {}, Lbl/vo;->b()Lokhttp3/OkHttpClient;
 
     move-result-object v2
 
-    .line 41
+    .line 43
     new-instance v3, Lretrofit2/Retrofit$Builder;
 
     invoke-direct {v3}, Lretrofit2/Retrofit$Builder;-><init>()V
@@ -288,17 +301,17 @@
 
     sput-object v0, Lbl/vo;->d:Lretrofit2/Retrofit;
 
-    .line 43
+    .line 45
     monitor-exit v1
     :try_end_3a
     .catchall {:try_start_3 .. :try_end_3a} :catchall_3d
 
-    .line 45
+    .line 47
     sget-object v0, Lbl/vo;->d:Lretrofit2/Retrofit;
 
     return-object v0
 
-    .line 43
+    .line 45
     :catchall_3d
     move-exception v0
 
@@ -314,7 +327,7 @@
     .locals 1
 
     .prologue
-    .line 33
+    .line 35
     invoke-static {}, Lbl/vo;->b()Lokhttp3/OkHttpClient;
 
     move-result-object v0

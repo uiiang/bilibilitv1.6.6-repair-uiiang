@@ -19,7 +19,7 @@
     .locals 0
 
     .prologue
-    .line 603
+    .line 676
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -42,17 +42,17 @@
     .end annotation
 
     .prologue
-    .line 605
+    .line 678
     const-string v0, "parent"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 606
+    .line 679
     const-string v0, "fragmentRef"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 607
+    .line 680
     invoke-virtual {p1}, Landroid/view/ViewGroup;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -69,12 +69,12 @@
 
     move-result-object v0
 
-    .line 608
+    .line 681
     const-string v1, "view"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 609
+    .line 682
     new-instance v1, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$BigCardViewHolder;
 
     invoke-direct {v1, v0, p2}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$BigCardViewHolder;-><init>(Landroid/view/View;Ljava/lang/ref/WeakReference;)V

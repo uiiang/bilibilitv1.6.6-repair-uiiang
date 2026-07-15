@@ -25,7 +25,7 @@
     .locals 0
 
     .prologue
-    .line 104
+    .line 121
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$1;->this$0:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;
 
     iput p6, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$1;->val$columnCount:I
@@ -38,88 +38,97 @@
 
 # virtual methods
 .method public d(Landroid/view/View;I)Landroid/view/View;
-    .locals 3
+    .locals 4
 
     .prologue
-    const/4 v2, 0x0
+    const/4 v1, 0x0
 
-    .line 107
-    if-nez p1, :cond_6
+    const/4 v3, 0x0
 
-    .line 108
+    .line 124
+    if-nez p1, :cond_7
+
+    .line 125
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 111
-    :cond_6
+    .line 128
+    :cond_7
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$1;->this$0:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;
 
     iget-boolean v0, v0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->isLoadingMore:Z
 
-    if-eqz v0, :cond_d
+    if-eqz v0, :cond_e
 
-    .line 129
-    :goto_c
+    .line 153
+    :goto_d
     return-object p1
 
-    .line 115
-    :cond_d
+    .line 132
+    :cond_e
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$1;->d(Landroid/view/View;)I
 
     move-result v0
 
-    .line 116
-    iget v1, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$1;->val$columnCount:I
+    .line 133
+    iget v2, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$1;->val$columnCount:I
 
-    div-int/2addr v0, v1
+    div-int/2addr v0, v2
 
-    .line 118
-    const/16 v1, 0x21
+    .line 135
+    const/16 v2, 0x21
 
-    if-ne p2, v1, :cond_37
+    if-ne p2, v2, :cond_38
 
-    if-nez v0, :cond_37
+    if-nez v0, :cond_38
 
-    .line 119
+    .line 136
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$1;->this$0:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
-    .line 120
-    if-nez v0, :cond_2a
+    .line 137
+    if-nez v0, :cond_25
 
-    .line 121
-    new-instance v0, Lkotlin/TypeCastException;
+    move-object p1, v1
 
-    const-string v1, "null cannot be cast to non-null type com.bilibili.tv.ui.main.MainActivity"
+    .line 138
+    goto :goto_d
 
-    invoke-direct {v0, v1}, Lkotlin/TypeCastException;-><init>(Ljava/lang/String;)V
+    .line 142
+    :cond_25
+    instance-of v2, v0, Lcom/bilibili/tv/ui/main/MainActivity;
 
-    throw v0
+    if-eqz v2, :cond_36
 
-    .line 123
-    :cond_2a
+    .line 143
     check-cast v0, Lcom/bilibili/tv/ui/main/MainActivity;
 
-    .line 124
-    invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/main/MainActivity;->a(Z)V
+    .line 144
+    invoke-virtual {v0, v3}, Lcom/bilibili/tv/ui/main/MainActivity;->a(Z)V
 
-    .line 125
-    invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/main/MainActivity;->b(Z)V
+    .line 145
+    invoke-virtual {v0, v3}, Lcom/bilibili/tv/ui/main/MainActivity;->b(Z)V
 
-    .line 126
+    .line 146
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/MainActivity;->j()Landroid/view/View;
 
     move-result-object p1
 
-    goto :goto_c
+    goto :goto_d
 
-    .line 129
-    :cond_37
+    :cond_36
+    move-object p1, v1
+
+    .line 149
+    goto :goto_d
+
+    .line 153
+    :cond_38
     invoke-super {p0, p1, p2}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->d(Landroid/view/View;I)Landroid/view/View;
 
     move-result-object p1
 
-    goto :goto_c
+    goto :goto_d
 .end method

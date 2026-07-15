@@ -25,7 +25,7 @@
     .locals 0
 
     .prologue
-    .line 991
+    .line 1080
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -37,7 +37,7 @@
     .locals 1
 
     .prologue
-    .line 996
+    .line 1085
     iget-object v0, p0, Lbl/adq$f;->a:Ljava/lang/String;
 
     return-object v0
@@ -47,10 +47,10 @@
     .locals 0
 
     .prologue
-    .line 1000
+    .line 1089
     iput-object p1, p0, Lbl/adq$f;->a:Ljava/lang/String;
 
-    .line 1001
+    .line 1090
     return-void
 .end method
 
@@ -58,10 +58,10 @@
     .locals 0
 
     .prologue
-    .line 1004
+    .line 1093
     iput-boolean p1, p0, Lbl/adq$f;->b:Z
 
-    .line 1005
+    .line 1094
     return-void
 .end method
 
@@ -69,7 +69,7 @@
     .locals 1
 
     .prologue
-    .line 1008
+    .line 1097
     iget-boolean v0, p0, Lbl/adq$f;->b:Z
 
     return v0

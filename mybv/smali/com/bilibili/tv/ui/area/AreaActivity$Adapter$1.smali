@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 403
+    .line 472
     iput-object p1, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter$1;->this$0:Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
@@ -46,7 +46,7 @@
     .prologue
     const/4 v6, 0x0
 
-    .line 406
+    .line 475
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter$1;->this$0:Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;
 
     # getter for: Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;->activityRef:Ljava/lang/ref/WeakReference;
@@ -60,15 +60,15 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/area/AreaActivity;
 
-    .line 407
+    .line 476
     if-nez p2, :cond_25
 
-    .line 408
+    .line 477
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter$1;->this$0:Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;
 
     invoke-virtual {p1, v0}, Landroid/view/View;->removeCallbacks(Ljava/lang/Runnable;)Z
 
-    .line 409
+    .line 478
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter$1;->this$0:Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;
 
     # getter for: Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;->isFocused:Z
@@ -78,12 +78,12 @@
 
     if-eqz v0, :cond_1d
 
-    .line 436
+    .line 505
     :cond_1c
     :goto_1c
     return-void
 
-    .line 412
+    .line 481
     :cond_1d
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
@@ -93,7 +93,7 @@
 
     goto :goto_1c
 
-    .line 416
+    .line 485
     :cond_25
     if-eqz v0, :cond_1c
 
@@ -110,14 +110,14 @@
 
     if-eqz v1, :cond_1c
 
-    .line 420
+    .line 489
     iget-object v1, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     invoke-virtual {v1}, Landroid/support/v7/widget/RecyclerView$v;->f()I
 
     move-result v1
 
-    .line 421
+    .line 490
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v2
@@ -137,19 +137,19 @@
 
     if-gez v2, :cond_4f
 
-    .line 422
+    .line 491
     iget-object v2, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter$1;->this$0:Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;
 
     invoke-virtual {p1, v2}, Landroid/view/View;->removeCallbacks(Ljava/lang/Runnable;)Z
 
-    .line 425
+    .line 494
     :cond_4f
     iget-object v2, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter$1;->this$0:Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;
 
     # setter for: Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;->currentPosition:I
     invoke-static {v2, v1}, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;->access$702(Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;I)I
 
-    .line 426
+    .line 495
     iget-object v1, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter$1;->this$0:Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;
 
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
@@ -159,13 +159,13 @@
     # setter for: Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;->lastFocusTime:J
     invoke-static {v1, v2, v3}, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;->access$602(Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;J)J
 
-    .line 427
+    .line 496
     iget-object v1, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter$1;->this$0:Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;
 
     # setter for: Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;->isFocused:Z
     invoke-static {v1, v6}, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;->access$402(Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;Z)Z
 
-    .line 428
+    .line 497
     iget-object v1, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     iget-object v1, v1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
@@ -174,7 +174,7 @@
 
     invoke-virtual {v1, v2}, Landroid/view/View;->setSelected(Z)V
 
-    .line 430
+    .line 499
     iget-object v1, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     iget-object v1, v1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
@@ -183,7 +183,7 @@
 
     if-eqz v1, :cond_7b
 
-    .line 431
+    .line 500
     iget-object v1, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     iget-object v1, v1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
@@ -192,13 +192,13 @@
 
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->a()V
 
-    .line 434
+    .line 503
     :cond_7b
     const/4 v1, 0x4
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/area/AreaActivity;->b(I)V
 
-    .line 435
+    .line 504
     iget-object v0, p0, Lcom/bilibili/tv/ui/area/AreaActivity$Adapter$1;->this$0:Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;
 
     const-wide/16 v2, 0x12c

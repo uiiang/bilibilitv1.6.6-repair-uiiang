@@ -66,7 +66,7 @@
     .locals 1
 
     .prologue
-    .line 462
+    .line 497
     new-instance v0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder$Companion;
 
     invoke-direct {v0}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder$Companion;-><init>()V
@@ -90,22 +90,22 @@
     .end annotation
 
     .prologue
-    const v1, 0x7f0700e8
+    const v3, 0x7f0700e8
 
     const/4 v7, 0x0
 
     const/4 v6, 0x0
 
-    .line 476
+    .line 511
     invoke-direct {p0, p1}, Lbl/adv;-><init>(Landroid/view/View;)V
 
-    .line 477
+    .line 512
     iput-object p2, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->fragmentRef:Ljava/lang/ref/WeakReference;
 
-    .line 478
+    .line 513
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->itemView:Landroid/view/View;
 
-    .line 479
+    .line 514
     const v0, 0x7f080132
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -116,7 +116,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->titleView:Landroid/widget/TextView;
 
-    .line 480
+    .line 515
     const v0, 0x7f0800a1
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -127,7 +127,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->coverView:Lcom/bilibili/tv/widget/ScalableImageView;
 
-    .line 481
+    .line 516
     const v0, 0x7f08013f
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -138,7 +138,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->upView:Landroid/widget/TextView;
 
-    .line 482
+    .line 517
     const v0, 0x7f0800d4
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -149,7 +149,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->playView:Landroid/widget/TextView;
 
-    .line 483
+    .line 518
     const v0, 0x7f08006c
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -160,7 +160,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->danmakuView:Landroid/widget/TextView;
 
-    .line 484
+    .line 519
     const v0, 0x7f0801a6
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -171,7 +171,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->durationView:Landroid/widget/TextView;
 
-    .line 485
+    .line 520
     const v0, 0x7f0801af
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -182,7 +182,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->pubdateView:Landroid/widget/TextView;
 
-    .line 486
+    .line 521
     const v0, 0x7f080124
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -193,7 +193,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->badgeView:Landroid/widget/TextView;
 
-    .line 487
+    .line 522
     const v0, 0x7f08021d
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -202,26 +202,118 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->bottomInfoLayout:Landroid/view/View;
 
-    .line 489
+    .line 524
+    const-string v0, "BaseVideoListFragment"
+
+    const-string v1, "========== SmallCardViewHolder Created =========="
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 525
+    const-string v0, "BaseVideoListFragment"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "View: "
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {p1}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/Class;->getSimpleName()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 526
+    const-string v0, "BaseVideoListFragment"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "View clickable: "
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {p1}, Landroid/view/View;->isClickable()Z
+
+    move-result v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 527
+    const-string v0, "BaseVideoListFragment"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "View focusable: "
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {p1}, Landroid/view/View;->isFocusable()Z
+
+    move-result v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 529
     instance-of v0, p1, Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
-    if-eqz v0, :cond_e0
+    if-eqz v0, :cond_147
 
     move-object v0, p1
 
-    .line 490
+    .line 530
     check-cast v0, Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawRelativeLayout;->setUpDrawable(I)V
+    invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawRelativeLayout;->setUpDrawable(I)V
 
-    .line 495
-    :cond_77
-    :goto_77
+    .line 535
+    :cond_d6
+    :goto_d6
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    .line 496
+    .line 536
     invoke-virtual {v0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v1
@@ -232,7 +324,7 @@
 
     move-result-object v1
 
-    .line 497
+    .line 537
     invoke-virtual {v0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v2
@@ -243,7 +335,7 @@
 
     move-result-object v2
 
-    .line 498
+    .line 538
     invoke-virtual {v0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v3
@@ -254,7 +346,7 @@
 
     move-result-object v3
 
-    .line 499
+    .line 539
     invoke-virtual {v0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v4
@@ -265,16 +357,16 @@
 
     move-result v4
 
-    .line 500
+    .line 540
     invoke-virtual {v1, v7, v7, v4, v4}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
 
-    .line 501
+    .line 541
     invoke-virtual {v2, v7, v7, v4, v4}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
 
-    .line 502
+    .line 542
     invoke-virtual {v3, v7, v7, v4, v4}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
 
-    .line 503
+    .line 543
     invoke-virtual {v0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v0
@@ -285,59 +377,66 @@
 
     move-result v0
 
-    .line 504
+    .line 544
     sget-object v4, Landroid/graphics/PorterDuff$Mode;->MULTIPLY:Landroid/graphics/PorterDuff$Mode;
 
     invoke-virtual {v1, v0, v4}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
 
-    .line 505
+    .line 545
     sget-object v4, Landroid/graphics/PorterDuff$Mode;->MULTIPLY:Landroid/graphics/PorterDuff$Mode;
 
     invoke-virtual {v2, v0, v4}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
 
-    .line 506
+    .line 546
     sget-object v4, Landroid/graphics/PorterDuff$Mode;->MULTIPLY:Landroid/graphics/PorterDuff$Mode;
 
     invoke-virtual {v3, v0, v4}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
 
-    .line 507
+    .line 547
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->upView:Landroid/widget/TextView;
 
     invoke-virtual {v0, v1, v6, v6, v6}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
 
-    .line 508
+    .line 548
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->playView:Landroid/widget/TextView;
 
     invoke-virtual {v0, v2, v6, v6, v6}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
 
-    .line 509
+    .line 549
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->danmakuView:Landroid/widget/TextView;
 
     invoke-virtual {v0, v3, v6, v6, v6}, Landroid/widget/TextView;->setCompoundDrawables(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V
 
-    .line 511
+    .line 551
     invoke-virtual {p1, p0}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 512
+    .line 552
     invoke-virtual {p1, p0}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 513
+    .line 557
+    new-instance v0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder$1;
+
+    invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder$1;-><init>(Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;)V
+
+    invoke-virtual {p1, v0}, Landroid/view/View;->setOnKeyListener(Landroid/view/View$OnKeyListener;)V
+
+    .line 572
     return-void
 
-    .line 491
-    :cond_e0
+    .line 531
+    :cond_147
     instance-of v0, p1, Lcom/bilibili/tv/widget/DrawLinearLayout;
 
-    if-eqz v0, :cond_77
+    if-eqz v0, :cond_d6
 
     move-object v0, p1
 
-    .line 492
+    .line 532
     check-cast v0, Lcom/bilibili/tv/widget/DrawLinearLayout;
 
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawLinearLayout;->setUpDrawable(I)V
+    invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawLinearLayout;->setUpDrawable(I)V
 
-    goto :goto_77
+    goto :goto_d6
 .end method
 
 
@@ -346,7 +445,7 @@
     .locals 1
 
     .prologue
-    .line 523
+    .line 582
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->badgeView:Landroid/widget/TextView;
 
     return-object v0
@@ -356,7 +455,7 @@
     .locals 1
 
     .prologue
-    .line 525
+    .line 584
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->bottomInfoLayout:Landroid/view/View;
 
     return-object v0
@@ -366,7 +465,7 @@
     .locals 1
 
     .prologue
-    .line 516
+    .line 575
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->coverView:Lcom/bilibili/tv/widget/ScalableImageView;
 
     return-object v0
@@ -376,7 +475,7 @@
     .locals 1
 
     .prologue
-    .line 519
+    .line 578
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->danmakuView:Landroid/widget/TextView;
 
     return-object v0
@@ -386,7 +485,7 @@
     .locals 1
 
     .prologue
-    .line 520
+    .line 579
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->durationView:Landroid/widget/TextView;
 
     return-object v0
@@ -396,7 +495,7 @@
     .locals 1
 
     .prologue
-    .line 518
+    .line 577
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->playView:Landroid/widget/TextView;
 
     return-object v0
@@ -406,7 +505,7 @@
     .locals 1
 
     .prologue
-    .line 521
+    .line 580
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->pubdateView:Landroid/widget/TextView;
 
     return-object v0
@@ -416,7 +515,7 @@
     .locals 1
 
     .prologue
-    .line 515
+    .line 574
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->titleView:Landroid/widget/TextView;
 
     return-object v0
@@ -426,7 +525,7 @@
     .locals 1
 
     .prologue
-    .line 517
+    .line 576
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->upView:Landroid/widget/TextView;
 
     return-object v0
@@ -436,12 +535,12 @@
     .locals 5
 
     .prologue
-    .line 539
+    .line 599
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 540
+    .line 600
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->fragmentRef:Ljava/lang/ref/WeakReference;
 
     invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
@@ -450,10 +549,10 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;
 
-    .line 541
+    .line 604
     if-eqz v0, :cond_18
 
-    .line 542
+    .line 605
     sget-object v1, Lbl/abl;->a:Lbl/abl;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->getClickEventName()Ljava/lang/String;
@@ -462,25 +561,25 @@
 
     invoke-virtual {v1, v2}, Lbl/abl;->a(Ljava/lang/String;)V
 
-    .line 545
+    .line 608
     :cond_18
     invoke-virtual {p1}, Landroid/view/View;->getTag()Ljava/lang/Object;
 
     move-result-object v2
 
-    .line 546
+    .line 611
     instance-of v1, v2, Ljava/lang/String;
 
-    if-eqz v1, :cond_3a
+    if-eqz v1, :cond_73
 
-    .line 547
+    .line 612
     const v1, 0x7f0800d8
 
     invoke-virtual {p1, v1}, Landroid/view/View;->getTag(I)Ljava/lang/Object;
 
     move-result-object v1
 
-    .line 548
+    .line 613
     instance-of v3, v1, Ljava/lang/Integer;
 
     if-eqz v3, :cond_70
@@ -493,33 +592,34 @@
 
     move v3, v1
 
-    .line 549
+    .line 615
     :goto_32
     if-eqz v0, :cond_3a
 
     move-object v1, v2
 
-    .line 550
+    .line 616
     check-cast v1, Ljava/lang/String;
 
     invoke-virtual {v0, p1, v1, v3}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->onSmallCardClick(Landroid/view/View;Ljava/lang/String;I)V
 
-    .line 554
+    .line 622
     :cond_3a
+    :goto_3a
     const v1, 0x7f0800ec
 
     invoke-virtual {p1, v1}, Landroid/view/View;->getTag(I)Ljava/lang/Object;
 
     move-result-object v1
 
-    .line 555
+    .line 623
     instance-of v2, v1, Ljava/lang/Integer;
 
     if-eqz v2, :cond_6f
 
     if-eqz v0, :cond_6f
 
-    .line 556
+    .line 624
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->getPageViewEvent()Ljava/lang/String;
 
     move-result-object v0
@@ -564,24 +664,34 @@
 
     invoke-static {v0, v2}, Lbl/ok;->a(Ljava/lang/String;[Ljava/lang/String;)V
 
-    .line 558
+    .line 626
     :cond_6f
     return-void
 
-    .line 548
+    .line 613
     :cond_70
     const/4 v1, -0x1
 
     move v3, v1
 
     goto :goto_32
+
+    .line 619
+    :cond_73
+    const-string v1, "BaseVideoListFragment"
+
+    const-string v2, "Tag is not String, skipping onSmallCardClick"
+
+    invoke-static {v1, v2}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_3a
 .end method
 
 .method public onFocusChange(Landroid/view/View;Z)V
-    .locals 3
+    .locals 4
 
     .prologue
-    .line 562
+    .line 633
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->fragmentRef:Ljava/lang/ref/WeakReference;
 
     invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
@@ -590,27 +700,34 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;
 
-    .line 563
-    if-nez v0, :cond_b
+    .line 634
+    if-nez v0, :cond_12
 
-    .line 577
-    :goto_a
+    .line 635
+    const-string v0, "BaseVideoListFragment"
+
+    const-string v1, "Fragment is null in onFocusChange"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 650
+    :goto_11
     return-void
 
-    .line 566
-    :cond_b
+    .line 638
+    :cond_12
     const v1, 0x7f0800d8
 
     invoke-virtual {p1, v1}, Landroid/view/View;->getTag(I)Ljava/lang/Object;
 
     move-result-object v1
 
-    .line 567
+    .line 639
     instance-of v2, v1, Ljava/lang/Integer;
 
-    if-eqz v2, :cond_1e
+    if-eqz v2, :cond_3f
 
-    .line 568
+    .line 640
     check-cast v1, Ljava/lang/Integer;
 
     invoke-virtual {v1}, Ljava/lang/Integer;->intValue()I
@@ -619,47 +736,72 @@
 
     iput v1, v0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->currentPosition:I
 
-    .line 570
-    :cond_1e
+    .line 641
+    const-string v1, "BaseVideoListFragment"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "Current position: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    iget v0, v0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->currentPosition:I
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 643
+    :cond_3f
     invoke-static {p1, p2}, Lbl/adj;->a(Landroid/view/View;Z)V
 
-    .line 571
+    .line 644
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->itemView:Landroid/view/View;
 
     instance-of v0, v0, Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
-    if-eqz v0, :cond_34
+    if-eqz v0, :cond_55
 
-    .line 572
+    .line 645
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->itemView:Landroid/view/View;
 
     check-cast v0, Lcom/bilibili/tv/widget/DrawRelativeLayout;
 
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawRelativeLayout;->setUpEnabled(Z)V
 
-    .line 576
-    :cond_2e
-    :goto_2e
+    .line 649
+    :cond_4f
+    :goto_4f
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->titleView:Landroid/widget/TextView;
 
     invoke-virtual {v0, p2}, Landroid/widget/TextView;->setSelected(Z)V
 
-    goto :goto_a
+    goto :goto_11
 
-    .line 573
-    :cond_34
+    .line 646
+    :cond_55
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->itemView:Landroid/view/View;
 
     instance-of v0, v0, Lcom/bilibili/tv/widget/DrawLinearLayout;
 
-    if-eqz v0, :cond_2e
+    if-eqz v0, :cond_4f
 
-    .line 574
+    .line 647
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->itemView:Landroid/view/View;
 
     check-cast v0, Lcom/bilibili/tv/widget/DrawLinearLayout;
 
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawLinearLayout;->setUpEnabled(Z)V
 
-    goto :goto_2e
+    goto :goto_4f
 .end method

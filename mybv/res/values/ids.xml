@@ -451,4 +451,7 @@
     <item type="id" name="live_ijk_player" />
     <item type="id" name="live_exo_player" />
     <item type="id" name="empty_text" />
+    <item type="id" name="area_header_layout" />
+    <item type="id" name="area_header_title" />
+    <item type="id" name="area_video_container" />
 </resources>
