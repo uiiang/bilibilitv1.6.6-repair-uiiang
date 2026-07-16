@@ -4,6 +4,7 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.api.area.BiliVideoV2;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -12,6 +13,7 @@ import okhttp3.ResponseBody;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import bl.mg;
 
 /**
  * 分区排行榜请求工具类
@@ -43,6 +45,11 @@ public class RankingRequest {
      */
     public static List<BiliVideoV2> getRanking(int rid) {
         String url = "https://api.bilibili.com/x/web-interface/ranking/v2?rid=" + rid + "&type=all";
+        
+        // 获取Cookie（必须添加，否则Android 11会返回-352错误）
+        mg biliAccount = mg.a(MainApplication.a());
+        String cookie = CookieUtil.getFullCookieWithDevice(biliAccount);
+        
         Log.i(TAG, "========== Request Details ==========");
         Log.i(TAG, "Request URL: " + url);
         Log.i(TAG, "Request Method: GET");
@@ -51,15 +58,22 @@ public class RankingRequest {
         Log.i(TAG, "  Referer: https://www.bilibili.com");
         Log.i(TAG, "  Accept: application/json, text/plain, */*");
         Log.i(TAG, "  Accept-Language: zh-CN,zh;q=0.9,en;q=0.8");
+        Log.i(TAG, "  Cookie: " + (cookie != null ? "exists" : "null"));
 
-        Request request = new Request.Builder()
+        Request.Builder requestBuilder = new Request.Builder()
                 .url(url)
                 .get()
                 .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
                 .header("Referer", "https://www.bilibili.com")
                 .header("Accept", "application/json, text/plain, */*")
-                .header("Accept-Language", "zh-CN,zh;q=0.9,en;q=0.8")
-                .build();
+                .header("Accept-Language", "zh-CN,zh;q=0.9,en;q=0.8");
+        
+        // 添加Cookie（关键：解决Android 11返回-352的问题）
+        if (cookie != null && !cookie.isEmpty()) {
+            requestBuilder.header("Cookie", cookie);
+        }
+
+        Request request = requestBuilder.build();
 
         try (Response response = getClient().newCall(request).execute()) {
             if (!response.isSuccessful()) {
