@@ -370,8 +370,11 @@ public class LiveVideoPlayer extends wy {
             }
             return;
         }
-        this.ai.removeCallbacks(this.al);
-        this.ai.post(this.al);
+        // 修复：添加 null 检查，防止资源已清理时崩溃
+        if (this.ai != null) {
+            this.ai.removeCallbacks(this.al);
+            this.ai.post(this.al);
+        }
     }
 
     /* JADX INFO: Access modifiers changed from: private */

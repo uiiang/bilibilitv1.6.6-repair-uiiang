@@ -1,12 +1,12 @@
 {
-    "apkMd5":"296ff4f3b4401bb23b41391ebb74fe5d",
+    "apkMd5":"71afe744eea87dd1dcd708ad5598d99e",
     "apkUrl":"https://github.com/uiiang/bilibilitv1.6.6-repair-uiiang/raw/refs/heads/main/mybv.apk",
     "fileSize":10817045,
     "id":"",
-    "newFeature":"1. 调整分区视频列表",
+    "newFeature":"",
     "publishTime":0,
     "title":"New",
     "upgradeType":1,
-    "versionCode":20260715,
-    "versionName":"1.6.6.20260715"
+    "versionCode":20260721,
+    "versionName":"1.6.6.20260721"
 }
