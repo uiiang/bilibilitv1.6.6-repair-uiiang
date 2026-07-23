@@ -300,6 +300,18 @@
 
     invoke-static {p1, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
+    # 1. 先获取 SearchKeyboardView
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/search/SearchActivity;->h()Lcom/bilibili/tv/ui/search/SearchKeyboardView;
+
+    move-result-object v1
+
+    if-eqz v1, :cond_skip
+
+    # 2. 调用 setSearchText 填充关键词到输入框
+    invoke-virtual {v1, p1}, Lcom/bilibili/tv/ui/search/SearchKeyboardView;->setSearchText(Ljava/lang/String;)V
+
+    :cond_skip
+    # 3. 执行搜索
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/ui/search/SearchActivity;->a(Ljava/lang/String;)V
 
     :cond_1

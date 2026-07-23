@@ -218,6 +218,27 @@ public final class SearchActivity extends BaseActivity implements View.OnLongCli
         SearchResultSideActivity.a((Context) this, str, this.e);
     }
 
+    /**
+     * 填充搜索关键词到输入框，并执行搜索
+     * 用于点击"猜你想搜索"或"联想关键词"时，将关键词填充到输入框并搜索
+     * @param text 要填充的关键词
+     */
+    public final void fillSearchText(String text) {
+        android.util.Log.i("SearchActivity", "fillSearchText called with: " + text);
+        bbi.b(text, "text");
+        if (TextUtils.isEmpty(text)) {
+            return;
+        }
+        // 填充关键词到输入框
+        SearchKeyboardView keyboardView = this.b;
+        if (keyboardView == null) {
+            bbi.a();
+        }
+        keyboardView.setSearchText(text);
+        // // 执行搜索
+        // a(text);
+    }
+
     private final void b(String str) {
         BLog.i(j, "保存搜索历史: " + str);
         new SearchRecentSuggestions(this, "uii.ang.bilitv.provider.TvSearchSuggestionProvider", 1).saveRecentQuery(str, null);

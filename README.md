@@ -3,6 +3,11 @@
 - fork于bilibilitv1.6.6-repair 感谢大佬的付出 [https://github.com/qidian55/bilibilitv1.6.6-repair]
 - 根据自己使用习惯做了一些修改
 
+v260723
+- 调整分区视频列表
+- 优化搜索页面
+- 修复了一些bug
+
 v260621
 - 解决bug
 
