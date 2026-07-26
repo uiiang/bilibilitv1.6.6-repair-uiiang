@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_image">
+
+    <!-- 顶部路径显示 -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/px_20"
+        android:background="@color/black_50">
+
+        <TextView
+            android:id="@+id/current_path"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/px_36"
+            android:text="/sdcard/Download"
+            android:ellipsize="start"
+            android:singleLine="true" />
+
+        <TextView
+            android:id="@+id/btn_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white_80"
+            android:textSize="@dimen/px_36"
+            android:text="↑ 上级"
+            android:paddingLeft="@dimen/px_30"
+            android:paddingRight="@dimen/px_30"
+            android:focusable="true"
+            android:background="@drawable/shape_rectangle_trans_with_12corner_white_10" />
+    </LinearLayout>
+
+    <!-- 文件列表 -->
+    <ListView
+        android:id="@+id/file_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="vertical" />
+
+    <!-- 提示信息 -->
+    <TextView
+        android:id="@+id/empty_hint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textColor="@color/white_50"
+        android:textSize="@dimen/px_42"
+        android:text="没有找到电子书文件"
+        android:visibility="gone" />
+
+</LinearLayout>

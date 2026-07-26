@@ -42,6 +42,8 @@
 
 .field public static final enum NEW_RESOLVE_TASK:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
+.field public static final enum OPEN_EBOOK_READER:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
 .field public static final enum POST_DANMAKU:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
 .field public static final enum QUALITY_SWITCH_SUCCESS:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
@@ -266,8 +268,19 @@
 
     sput-object v0, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->AUDIO_BALANCE:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
+    .line 28
+    new-instance v0, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
+    const-string v1, "OPEN_EBOOK_READER"
+
+    const/16 v2, 0x12
+
+    invoke-direct {v0, v1, v2}, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;-><init>(Ljava/lang/String;I)V
+
+    sput-object v0, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->OPEN_EBOOK_READER:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
     .line 9
-    const/16 v0, 0x12
+    const/16 v0, 0x13
 
     new-array v0, v0, [Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
@@ -366,6 +379,12 @@
     const/16 v1, 0x11
 
     sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->AUDIO_BALANCE:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
+    aput-object v2, v0, v1
+
+    const/16 v1, 0x12
+
+    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->OPEN_EBOOK_READER:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
     aput-object v2, v0, v1
 

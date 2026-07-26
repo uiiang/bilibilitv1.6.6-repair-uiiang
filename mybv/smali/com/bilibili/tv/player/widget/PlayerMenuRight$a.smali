@@ -39,6 +39,12 @@
 .method public abstract jumpToChapter(I)V
 .end method
 
+.method public abstract openEbookFileChooser()V
+.end method
+
+.method public abstract openEbookReader()V
+.end method
+
 .method public abstract refresh_subtitle()V
 .end method
 

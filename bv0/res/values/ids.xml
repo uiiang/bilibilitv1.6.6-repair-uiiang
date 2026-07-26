@@ -294,4 +294,10 @@
     <item type="id" name="web_view" />
     <item type="id" name="week" />
     <item type="id" name="white_line" />
+    <item type="id" name="current_path" />
+    <item type="id" name="btn_up" />
+    <item type="id" name="file_list" />
+    <item type="id" name="empty_hint" />
+    <item type="id" name="file_icon" />
+    <item type="id" name="file_name" />
 </resources>

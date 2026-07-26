@@ -98,7 +98,19 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
 
     @Override // bl.xh
     public boolean g(int i, KeyEvent keyEvent) {
+        // 电子书模式：拦截所有按键（除了菜单键和返回键）
         xh nextHandler = next();
+        if (nextHandler instanceof xw) {
+            xw xwInstance = (xw) nextHandler;
+            if (xwInstance.isEbookMode() && !xwInstance.isMenuShown()) {
+                android.util.Log.i("EbookReader", "xl.g: 电子书模式，拦截按键 " + i);
+                // 菜单键和返回键由xw.g()处理
+                if (i != KeyEvent.KEYCODE_MENU && i != KeyEvent.KEYCODE_BACK) {
+                    return true; // 拦截其他按键
+                }
+            }
+        }
+
         boolean rightMenuShowing = (nextHandler instanceof xw) && nextHandler.e(i, keyEvent);
         boolean shotMenuShowing = isShotMenuShowing();
         boolean episodeMenuShowing = P();

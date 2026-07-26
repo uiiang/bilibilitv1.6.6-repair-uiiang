@@ -24,6 +24,7 @@ public interface IEventCenter {
         DANMAKU_TOGGLE_REMOTE,
         SWITCH_SPEED,
         SCREEN_ADJUST,
-        AUDIO_BALANCE
+        AUDIO_BALANCE,
+        OPEN_EBOOK_READER
     }
 }

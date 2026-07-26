@@ -61,6 +61,7 @@
         <activity android:name="com.bilibili.tv.ui.bangumi.tag.BangumiTagActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.bangumi.follow.NewFollowBangumiActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.vip.VipActivity" android:screenOrientation="landscape"/>
+        <activity android:name="com.bilibili.tv.ui.ebook.EbookFileChooserActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.favorite.FavoriteSideActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.weekly.WeeklyActivity" android:screenOrientation="landscape"/>
         <provider android:authorities="uii.ang.bilitv.provider.TvSearchSuggestionProvider" android:exported="false" android:name="com.bilibili.tv.provider.TvSearchSuggestionProvider"/>

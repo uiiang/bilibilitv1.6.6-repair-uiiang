@@ -264,14 +264,38 @@ public class xi extends xh implements bbb<Message, Boolean> {
     @Override // bl.xh
     public boolean f(int keyCode, KeyEvent event) {
         android.util.Log.i("ShotMenuBug", "xi.f: keyCode=" + keyCode + ", action=" + event.getAction());
+
+        // 电子书模式：拦截所有按键（除了菜单键和返回键）
+        // 查找xw handler，检查是否处于电子书模式
+        xh handler = this;
+        while (handler != null) {
+            if (handler instanceof xw) {
+                xw xwInstance = (xw) handler;
+                if (xwInstance.isEbookMode() && !xwInstance.isMenuShown()) {
+                    android.util.Log.i("ShotMenuBug", "xi.f: 电子书模式，拦截按键 " + keyCode);
+                    // 只拦截方向键和确定键
+                    if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT
+                        || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT
+                        || keyCode == KeyEvent.KEYCODE_DPAD_UP
+                        || keyCode == KeyEvent.KEYCODE_DPAD_DOWN
+                        || keyCode == KeyEvent.KEYCODE_DPAD_CENTER
+                        || keyCode == KeyEvent.KEYCODE_ENTER) {
+                        return true; // 拦截按键
+                    }
+                }
+                break;
+            }
+            handler = handler.next();
+        }
+
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_LEFT:
             case KeyEvent.KEYCODE_DPAD_RIGHT:
-                xh handler = this;
-                while (handler != null) {
-                    handler = handler.next();
-                    if (handler instanceof xl) {
-                        xl xlInstance = (xl) handler;
+                xh handler2 = this;
+                while (handler2 != null) {
+                    handler2 = handler2.next();
+                    if (handler2 instanceof xl) {
+                        xl xlInstance = (xl) handler2;
                         boolean isShowing = xlInstance.isShotMenuShowing();
                         android.util.Log.i("ShotMenuBug", "xi.f: found xl, isShotMenuShowing=" + isShowing);
                         if (isShowing) {
@@ -311,6 +335,24 @@ public class xi extends xh implements bbb<Message, Boolean> {
     /* JADX WARN: Can't fix incorrect switch cases order, some code will duplicate */
     @Override // bl.xh
     public boolean g(int keyCode, KeyEvent event) {
+        // 电子书模式：拦截所有按键（除了菜单键和返回键）
+        // 查找xw handler，检查是否处于电子书模式
+        xh handler = this;
+        while (handler != null) {
+            if (handler instanceof xw) {
+                xw xwInstance = (xw) handler;
+                if (xwInstance.isEbookMode() && !xwInstance.isMenuShown()) {
+                    android.util.Log.i("ShotMenuBug", "xi.g: 电子书模式，拦截按键 " + keyCode);
+                    // 菜单键和返回键由xw.g()处理
+                    if (keyCode != KeyEvent.KEYCODE_MENU && keyCode != KeyEvent.KEYCODE_BACK) {
+                        return true; // 拦截其他按键
+                    }
+                }
+                break;
+            }
+            handler = handler.next();
+        }
+
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK:
                 if (s()) {
@@ -372,6 +414,20 @@ public class xi extends xh implements bbb<Message, Boolean> {
     }
 
     public void tt() {
+        // 电子书模式：不显示进度预览菜单
+        xh handler = this;
+        while (handler != null) {
+            if (handler instanceof xw) {
+                xw xwInstance = (xw) handler;
+                if (xwInstance.isEbookMode() && !xwInstance.isMenuShown()) {
+                    android.util.Log.i("ShotMenuBug", "tt: 电子书模式，不显示进度预览菜单");
+                    return;
+                }
+                break;
+            }
+            handler = handler.next();
+        }
+
         if(mybl.BiliFilter.progressbar_on){
             if(s())v();
             else P();

@@ -100,7 +100,14 @@ public class PlayerMenuRight extends aay<String> {
         void showSkipSettingDialog();
 
         void set_audio_balance_level(int level);
+
         void set_subtitle_size(float f);
+
+        // 新增：打开电子书阅读器
+        void openEbookReader();
+
+        // 新增：打开电子书文件选择器
+        void openEbookFileChooser();
     }
 
     private void jumpToChapter(int chapterIndex) {
@@ -384,6 +391,40 @@ public class PlayerMenuRight extends aay<String> {
     public boolean a(int i, int i2, View view, ViewGroup viewGroup, String str) {
         int i3;
         e();
+
+        // 关键修复: 电子书专用菜单项处理必须在super.a()之前,避免触发二级菜单
+        if (TextUtils.equals(str, "章节列表")) {
+            a(false);  // 关闭菜单
+            android.util.Log.i("EbookReader", "章节列表菜单项被点击");
+            android.widget.Toast.makeText(getContext(), "章节列表功能开发中", android.widget.Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        if (TextUtils.equals(str, "字体大小")) {
+            a(false);  // 关闭菜单
+            android.util.Log.i("EbookReader", "字体大小菜单项被点击");
+            android.widget.Toast.makeText(getContext(), "字体大小功能开发中", android.widget.Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        if (TextUtils.equals(str, "选择文件")) {
+            a(false);  // 关闭菜单
+            android.util.Log.i("EbookReader", "选择文件菜单项被点击");
+            if (com.bilibili.tv.FeatureConfig.isEbookReaderEnabled() && this.d != null) {
+                this.d.openEbookFileChooser();
+            }
+            return true;
+        }
+
+        if (TextUtils.equals(str, "关闭电子书")) {
+            a(false);  // 关闭菜单
+            android.util.Log.i("EbookReader", "关闭电子书菜单项被点击");
+            if (com.bilibili.tv.FeatureConfig.isEbookReaderEnabled()) {
+                this.d.openEbookReader(); // 再次调用会关闭电子书面板
+            }
+            return true;
+        }
+
         if (super.a(i, i2, view, viewGroup, str)) {
             this.q = i2;
             View d = d(1, i2);
@@ -402,6 +443,13 @@ public class PlayerMenuRight extends aay<String> {
             if (TextUtils.equals(str, "分集")) {
                 a(false);
                 this.d.P();
+                return true;
+            }
+            // 新增：电子书菜单项点击处理
+            if (TextUtils.equals(str, "电子书") && com.bilibili.tv.FeatureConfig.isEbookReaderEnabled()) {
+                a(false);
+                this.d.openEbookReader();
+                android.util.Log.i("PlayerMenuRight", "电子书菜单项被点击");
                 return true;
             }
             if (this.quality_list.indexOf(str) == -1 || i2 == this.quality_id) {
