@@ -1,4 +1,4 @@
-.class Lbl/xw$7;
+.class Lbl/xw$15$2;
 .super Ljava/lang/Object;
 .source "xw.java"
 
@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw;->loadFileList(Landroid/widget/ListView;Landroid/widget/TextView;Ljava/io/File;)V
+    value = Lbl/xw$15;->run()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -18,16 +18,16 @@
 
 
 # instance fields
-.field final synthetic this$0:Lbl/xw;
+.field final synthetic this$1:Lbl/xw$15;
 
 
 # direct methods
-.method constructor <init>(Lbl/xw;)V
+.method constructor <init>(Lbl/xw$15;)V
     .locals 0
 
     .prologue
-    .line 959
-    iput-object p1, p0, Lbl/xw$7;->this$0:Lbl/xw;
+    .line 1443
+    iput-object p1, p0, Lbl/xw$15$2;->this$1:Lbl/xw$15;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -49,14 +49,14 @@
     .end annotation
 
     .prologue
-    .line 963
-    new-instance v0, Lbl/xw$7$1;
+    .line 1447
+    new-instance v0, Lbl/xw$15$2$1;
 
-    invoke-direct {v0, p0, p1}, Lbl/xw$7$1;-><init>(Lbl/xw$7;Landroid/widget/AdapterView;)V
+    invoke-direct {v0, p0, p1}, Lbl/xw$15$2$1;-><init>(Lbl/xw$15$2;Landroid/widget/AdapterView;)V
 
     invoke-virtual {p1, v0}, Landroid/widget/AdapterView;->post(Ljava/lang/Runnable;)Z
 
-    .line 969
+    .line 1453
     return-void
 .end method
 
@@ -71,6 +71,6 @@
     .end annotation
 
     .prologue
-    .line 973
+    .line 1457
     return-void
 .end method

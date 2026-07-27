@@ -161,7 +161,24 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             // 左右键：整页翻页（使用scrollBy代替pageUp/pageDown）
             if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
                 int height = ebookWebView.getHeight();
-                Log.i(TAG_EBOOK, "xw.f: 电子书阅读页面：向上翻页, height=" + height + ", scrollY=" + ebookWebView.getScrollY());
+                int scrollY = ebookWebView.getScrollY();
+                Log.i(TAG_EBOOK, "xw.f: 电子书阅读页面：向上翻页, height=" + height + ", scrollY=" + scrollY);
+
+                // 检查是否在章节顶部
+                if (scrollY == 0) {
+                    // 已经在章节顶部，检查是否有上一章节
+                    if (currentBook != null && currentChapterIndex > 0) {
+                        Log.i(TAG_EBOOK, "xw.f: 到达章节顶部，跳转到上一章节的底部");
+                        // 跳转到上一章节，并标记为显示底部
+                        displayBookContent(currentBook, currentChapterIndex - 1, true);
+                        return true;
+                    } else {
+                        Log.i(TAG_EBOOK, "xw.f: 已经在第一章，无法向前翻页");
+                        return true;
+                    }
+                }
+
+                // 正常翻页
                 if (height > 0) {
                     ebookWebView.scrollBy(0, -height);
                 } else {
@@ -174,7 +191,30 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
             if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
                 int height = ebookWebView.getHeight();
-                Log.i(TAG_EBOOK, "xw.f: 电子书阅读页面：向下翻页, height=" + height + ", scrollY=" + ebookWebView.getScrollY());
+                int scrollY = ebookWebView.getScrollY();
+                int contentHeight = ebookWebView.getContentHeight();
+                Log.i(TAG_EBOOK, "xw.f: 电子书阅读页面：向下翻页, height=" + height + ", scrollY=" + scrollY + ", contentHeight=" + contentHeight);
+
+                // 检查是否在章节底部（考虑WebView的缩放）
+                // contentHeight是HTML内容高度，需要乘以密度才能和scrollY比较
+                float density = o().getResources().getDisplayMetrics().density;
+                int contentHeightPx = (int) (contentHeight * density);
+                boolean isAtBottom = (scrollY + height >= contentHeightPx - 10); // -10像素容差
+
+                if (isAtBottom) {
+                    // 已经在章节底部，检查是否有下一章节
+                    if (currentBook != null && currentChapterIndex < currentBook.getChapters().size() - 1) {
+                        Log.i(TAG_EBOOK, "xw.f: 到达章节底部，跳转到下一章节的顶部");
+                        // 跳转到下一章节，默认显示顶部
+                        displayBookContent(currentBook, currentChapterIndex + 1, false);
+                        return true;
+                    } else {
+                        Log.i(TAG_EBOOK, "xw.f: 已经在最后一章，无法向后翻页");
+                        return true;
+                    }
+                }
+
+                // 正常翻页
                 if (height > 0) {
                     ebookWebView.scrollBy(0, height);
                 } else {
@@ -1161,6 +1201,16 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
      * 显示书籍内容（在WebView中显示指定章节）
      */
     private void displayBookContent(com.bilibili.tv.ebook.model.Book book, int chapterIndex) {
+        displayBookContent(book, chapterIndex, false); // 默认显示顶部
+    }
+
+    /**
+     * 显示书籍内容（在WebView中显示指定章节）
+     * @param book 书籍对象
+     * @param chapterIndex 章节索引
+     * @param scrollToBottom 是否滚动到章节底部（用于从上一章节跳转时）
+     */
+    private void displayBookContent(com.bilibili.tv.ebook.model.Book book, int chapterIndex, boolean scrollToBottom) {
         if (book == null || book.getChapters() == null || book.getChapters().isEmpty()) {
             Log.e(TAG_EBOOK, "书籍无章节内容");
             android.widget.Toast.makeText(o(),
@@ -1179,7 +1229,8 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         currentChapterIndex = chapterIndex;
 
         Log.i(TAG_EBOOK, "开始显示书籍内容: " + book.getTitle() +
-              ", 章节: " + (chapterIndex + 1) + "/" + book.getChapters().size());
+              ", 章节: " + (chapterIndex + 1) + "/" + book.getChapters().size() +
+              ", scrollToBottom=" + scrollToBottom);
 
         // 清空电子书面板（确保移除所有视图，包括文件选择器和章节列表）
         if (ebookPanel != null) {
@@ -1230,6 +1281,32 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">" +
             "<style>body { font-size: 18px; line-height: 1.6; padding: 20px; }</style>" +
             "</head><body>" + htmlContent + "</body></html>";
+
+        // 设置WebViewClient，用于监听页面加载完成（如果需要滚动到底部）
+        if (scrollToBottom) {
+            ebookWebView.setWebViewClient(new android.webkit.WebViewClient() {
+                @Override
+                public void onPageFinished(android.webkit.WebView view, String url) {
+                    super.onPageFinished(view, url);
+                    // 页面加载完成后，滚动到底部
+                    Log.i(TAG_EBOOK, "页面加载完成，滚动到章节底部");
+                    view.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            int contentHeight = view.getContentHeight();
+                            float density = o().getResources().getDisplayMetrics().density;
+                            int contentHeightPx = (int) (contentHeight * density);
+                            int viewHeight = view.getHeight();
+                            int scrollY = contentHeightPx - viewHeight;
+                            if (scrollY > 0) {
+                                view.scrollTo(0, scrollY);
+                                Log.i(TAG_EBOOK, "已滚动到章节底部: scrollY=" + scrollY);
+                            }
+                        }
+                    });
+                }
+            });
+        }
 
         // 加载内容到WebView
         ebookWebView.loadDataWithBaseURL(null, styledHtml, "text/html", "UTF-8", null);

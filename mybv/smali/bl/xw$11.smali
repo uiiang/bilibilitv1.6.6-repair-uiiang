@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1070
+    .line 1110
     iput-object p1, p0, Lbl/xw$11;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -42,7 +42,7 @@
     .prologue
     const/16 v1, 0x8
 
-    .line 1073
+    .line 1113
     iget-object v0, p0, Lbl/xw$11;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->loadingProgressBar:Landroid/widget/ProgressBar;
@@ -52,7 +52,7 @@
 
     if-eqz v0, :cond_13
 
-    .line 1074
+    .line 1114
     iget-object v0, p0, Lbl/xw$11;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->loadingProgressBar:Landroid/widget/ProgressBar;
@@ -62,7 +62,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/ProgressBar;->setVisibility(I)V
 
-    .line 1076
+    .line 1116
     :cond_13
     iget-object v0, p0, Lbl/xw$11;->this$0:Lbl/xw;
 
@@ -73,7 +73,7 @@
 
     if-eqz v0, :cond_24
 
-    .line 1077
+    .line 1117
     iget-object v0, p0, Lbl/xw$11;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->loadingTextView:Landroid/widget/TextView;
@@ -83,7 +83,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 1079
+    .line 1119
     :cond_24
     const-string v0, "EbookReader"
 
@@ -91,6 +91,6 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1080
+    .line 1120
     return-void
 .end method

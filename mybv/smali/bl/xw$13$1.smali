@@ -1,11 +1,14 @@
 .class Lbl/xw$13$1;
-.super Landroid/widget/ArrayAdapter;
+.super Ljava/lang/Object;
 .source "xw.java"
+
+# interfaces
+.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw$13;->run()V
+    value = Lbl/xw$13;->onPageFinished(Landroid/webkit/WebView;Ljava/lang/String;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -13,102 +16,111 @@
     name = null
 .end annotation
 
-.annotation system Ldalvik/annotation/Signature;
-    value = {
-        "Landroid/widget/ArrayAdapter",
-        "<",
-        "Ljava/lang/String;",
-        ">;"
-    }
-.end annotation
-
 
 # instance fields
 .field final synthetic this$1:Lbl/xw$13;
 
+.field final synthetic val$view:Landroid/webkit/WebView;
+
 
 # direct methods
-.method constructor <init>(Lbl/xw$13;Landroid/content/Context;ILjava/util/List;)V
+.method constructor <init>(Lbl/xw$13;Landroid/webkit/WebView;)V
     .locals 0
 
     .prologue
-    .line 1195
+    .line 1293
     iput-object p1, p0, Lbl/xw$13$1;->this$1:Lbl/xw$13;
 
-    invoke-direct {p0, p2, p3, p4}, Landroid/widget/ArrayAdapter;-><init>(Landroid/content/Context;ILjava/util/List;)V
+    iput-object p2, p0, Lbl/xw$13$1;->val$view:Landroid/webkit/WebView;
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public getView(ILandroid/view/View;Landroid/view/ViewGroup;)Landroid/view/View;
-    .locals 5
+.method public run()V
+    .locals 4
 
     .prologue
-    const/16 v4, 0x18
+    .line 1296
+    iget-object v0, p0, Lbl/xw$13$1;->val$view:Landroid/webkit/WebView;
 
-    const/16 v3, 0x14
+    invoke-virtual {v0}, Landroid/webkit/WebView;->getContentHeight()I
 
-    .line 1198
-    invoke-super {p0, p1, p2, p3}, Landroid/widget/ArrayAdapter;->getView(ILandroid/view/View;Landroid/view/ViewGroup;)Landroid/view/View;
+    move-result v0
+
+    .line 1297
+    iget-object v1, p0, Lbl/xw$13$1;->this$1:Lbl/xw$13;
+
+    iget-object v1, v1, Lbl/xw$13;->this$0:Lbl/xw;
+
+    invoke-virtual {v1}, Lbl/xw;->o()Landroid/app/Activity;
 
     move-result-object v1
 
-    .line 1199
-    instance-of v0, v1, Landroid/widget/TextView;
+    invoke-virtual {v1}, Landroid/app/Activity;->getResources()Landroid/content/res/Resources;
 
-    if-eqz v0, :cond_2e
+    move-result-object v1
 
-    move-object v0, v1
+    invoke-virtual {v1}, Landroid/content/res/Resources;->getDisplayMetrics()Landroid/util/DisplayMetrics;
 
-    .line 1200
-    check-cast v0, Landroid/widget/TextView;
+    move-result-object v1
 
-    .line 1201
-    const/4 v2, -0x1
+    iget v1, v1, Landroid/util/DisplayMetrics;->density:F
 
-    invoke-virtual {v0, v2}, Landroid/widget/TextView;->setTextColor(I)V
+    .line 1298
+    int-to-float v0, v0
 
-    .line 1202
-    const/high16 v2, 0x41800000    # 16.0f
+    mul-float/2addr v0, v1
 
-    invoke-virtual {v0, v2}, Landroid/widget/TextView;->setTextSize(F)V
+    float-to-int v0, v0
 
-    .line 1203
-    invoke-virtual {v0, v4, v3, v4, v3}, Landroid/widget/TextView;->setPadding(IIII)V
+    .line 1299
+    iget-object v1, p0, Lbl/xw$13$1;->val$view:Landroid/webkit/WebView;
 
-    .line 1206
-    iget-object v2, p0, Lbl/xw$13$1;->this$1:Lbl/xw$13;
+    invoke-virtual {v1}, Landroid/webkit/WebView;->getHeight()I
 
-    iget-object v2, v2, Lbl/xw$13;->this$0:Lbl/xw;
+    move-result v1
 
-    # getter for: Lbl/xw;->currentChapterIndex:I
-    invoke-static {v2}, Lbl/xw;->access$1100(Lbl/xw;)I
+    .line 1300
+    sub-int/2addr v0, v1
 
-    move-result v2
+    .line 1301
+    if-lez v0, :cond_42
 
-    if-ne p1, v2, :cond_2f
+    .line 1302
+    iget-object v1, p0, Lbl/xw$13$1;->val$view:Landroid/webkit/WebView;
 
-    .line 1207
-    const-string v2, "#1E90FF"
-
-    invoke-static {v2}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
-
-    move-result v2
-
-    invoke-virtual {v0, v2}, Landroid/widget/TextView;->setBackgroundColor(I)V
-
-    .line 1212
-    :cond_2e
-    :goto_2e
-    return-object v1
-
-    .line 1209
-    :cond_2f
     const/4 v2, 0x0
 
-    invoke-virtual {v0, v2}, Landroid/widget/TextView;->setBackgroundColor(I)V
+    invoke-virtual {v1, v2, v0}, Landroid/webkit/WebView;->scrollTo(II)V
 
-    goto :goto_2e
+    .line 1303
+    const-string v1, "EbookReader"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "\u5df2\u6eda\u52a8\u5230\u7ae0\u8282\u5e95\u90e8: scrollY="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 1305
+    :cond_42
+    return-void
 .end method
