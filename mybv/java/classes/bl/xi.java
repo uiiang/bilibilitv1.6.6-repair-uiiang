@@ -263,24 +263,42 @@ public class xi extends xh implements bbb<Message, Boolean> {
 
     @Override // bl.xh
     public boolean f(int keyCode, KeyEvent event) {
-        android.util.Log.i("ShotMenuBug", "xi.f: keyCode=" + keyCode + ", action=" + event.getAction());
+        android.util.Log.i("EbookReader", "xi.f: keyCode=" + keyCode + ", action=" + event.getAction());
 
-        // 电子书模式：拦截所有按键（除了菜单键和返回键）
+        // 电子书模式：拦截按键（除了菜单键、返回键、方向键）
         // 查找xw handler，检查是否处于电子书模式
         xh handler = this;
         while (handler != null) {
             if (handler instanceof xw) {
                 xw xwInstance = (xw) handler;
+                android.util.Log.i("EbookReader", "xi.f: 找到xw, isEbookMode=" + xwInstance.isEbookMode() + ", isMenuShown=" + xwInstance.isMenuShown());
+
                 if (xwInstance.isEbookMode() && !xwInstance.isMenuShown()) {
-                    android.util.Log.i("ShotMenuBug", "xi.f: 电子书模式，拦截按键 " + keyCode);
-                    // 只拦截方向键和确定键
-                    if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT
-                        || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT
-                        || keyCode == KeyEvent.KEYCODE_DPAD_UP
-                        || keyCode == KeyEvent.KEYCODE_DPAD_DOWN
-                        || keyCode == KeyEvent.KEYCODE_DPAD_CENTER
-                        || keyCode == KeyEvent.KEYCODE_ENTER) {
-                        return true; // 拦截按键
+                    android.util.Log.i("EbookReader", "xi.f: isEbookReadingContent=" + xwInstance.isEbookReadingContent());
+
+                    // 关键修改：如果在电子书阅读内容页面，让方向键传递到下一层处理
+                    if (xwInstance.isEbookReadingContent()) {
+                        android.util.Log.i("EbookReader", "xi.f: 电子书阅读内容页面，检查方向键 " + keyCode);
+                        // 方向键不拦截，传递到xl.g()和xw.g()处理
+                        if (keyCode == KeyEvent.KEYCODE_DPAD_UP ||
+                            keyCode == KeyEvent.KEYCODE_DPAD_DOWN ||
+                            keyCode == KeyEvent.KEYCODE_DPAD_LEFT ||
+                            keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                            android.util.Log.i("EbookReader", "xi.f: 方向键不拦截，传递到下一层");
+                            // 明确调用next().f()并返回结果，避免落入switch语句
+                            xh next = next();
+                            if (next != null) {
+                                boolean result = next.f(keyCode, event);
+                                android.util.Log.i("EbookReader", "xi.f: next().f() 返回 " + result);
+                                return result;
+                            }
+                        }
+                    }
+
+                    android.util.Log.i("EbookReader", "xi.f: 电子书模式，拦截按键 " + keyCode);
+                    // 只拦截确认键，菜单键和返回键由其他方法处理
+                    if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER) {
+                        return true; // 拦截确认键
                     }
                 }
                 break;
@@ -335,14 +353,39 @@ public class xi extends xh implements bbb<Message, Boolean> {
     /* JADX WARN: Can't fix incorrect switch cases order, some code will duplicate */
     @Override // bl.xh
     public boolean g(int keyCode, KeyEvent event) {
-        // 电子书模式：拦截所有按键（除了菜单键和返回键）
+        android.util.Log.i("EbookReader", "xi.g: 收到按键 " + keyCode);
+
+        // 电子书模式：拦截按键（除了菜单键、返回键、方向键）
         // 查找xw handler，检查是否处于电子书模式
         xh handler = this;
         while (handler != null) {
             if (handler instanceof xw) {
                 xw xwInstance = (xw) handler;
+                android.util.Log.i("EbookReader", "xi.g: 找到xw, isEbookMode=" + xwInstance.isEbookMode() + ", isMenuShown=" + xwInstance.isMenuShown());
+
                 if (xwInstance.isEbookMode() && !xwInstance.isMenuShown()) {
-                    android.util.Log.i("ShotMenuBug", "xi.g: 电子书模式，拦截按键 " + keyCode);
+                    android.util.Log.i("EbookReader", "xi.g: isEbookReadingContent=" + xwInstance.isEbookReadingContent());
+
+                    // 关键修改：如果在电子书阅读内容页面，让方向键传递到下一层处理
+                    if (xwInstance.isEbookReadingContent()) {
+                        android.util.Log.i("EbookReader", "xi.g: 电子书阅读内容页面，检查方向键 " + keyCode);
+                        // 方向键不拦截，传递到xl.g()和xw.g()处理
+                        if (keyCode == KeyEvent.KEYCODE_DPAD_UP ||
+                            keyCode == KeyEvent.KEYCODE_DPAD_DOWN ||
+                            keyCode == KeyEvent.KEYCODE_DPAD_LEFT ||
+                            keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                            android.util.Log.i("EbookReader", "xi.g: 方向键不拦截，传递到下一层");
+                            // 关键修复：明确调用next().g()并返回结果，避免落入switch触发视频快进
+                            xh next = next();
+                            if (next != null) {
+                                boolean result = next.g(keyCode, event);
+                                android.util.Log.i("EbookReader", "xi.g: next().g() 返回 " + result);
+                                return result;
+                            }
+                        }
+                    }
+
+                    android.util.Log.i("EbookReader", "xi.g: 电子书模式，拦截按键 " + keyCode);
                     // 菜单键和返回键由xw.g()处理
                     if (keyCode != KeyEvent.KEYCODE_MENU && keyCode != KeyEvent.KEYCODE_BACK) {
                         return true; // 拦截其他按键

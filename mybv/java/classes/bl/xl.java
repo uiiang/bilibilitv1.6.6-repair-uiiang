@@ -93,16 +93,68 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
 
     @Override // bl.xh
     public boolean f(int i, KeyEvent keyEvent) {
+        android.util.Log.i("EbookReader", "xl.f: 收到按键 " + i);
+
+        // 电子书模式：检查是否需要传递方向键到xw
+        xh nextHandler = next();
+        if (nextHandler instanceof xw) {
+            xw xwInstance = (xw) nextHandler;
+            android.util.Log.i("EbookReader", "xl.f: 找到xw, isEbookMode=" + xwInstance.isEbookMode() + ", isMenuShown=" + xwInstance.isMenuShown());
+
+            if (xwInstance.isEbookMode() && !xwInstance.isMenuShown()) {
+                android.util.Log.i("EbookReader", "xl.f: isEbookReadingContent=" + xwInstance.isEbookReadingContent());
+
+                // 如果在电子书阅读内容页面，传递方向键到xw.f()
+                if (xwInstance.isEbookReadingContent()) {
+                    android.util.Log.i("EbookReader", "xl.f: 电子书阅读内容页面，检查方向键 " + i);
+                    if (i == KeyEvent.KEYCODE_DPAD_UP ||
+                        i == KeyEvent.KEYCODE_DPAD_DOWN ||
+                        i == KeyEvent.KEYCODE_DPAD_LEFT ||
+                        i == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                        android.util.Log.i("EbookReader", "xl.f: 方向键传递到xw.f()");
+                        // 明确调用xw.f()并返回结果
+                        boolean result = xwInstance.f(i, keyEvent);
+                        android.util.Log.i("EbookReader", "xl.f: xw.f() 返回 " + result);
+                        return result;
+                    }
+                }
+
+                android.util.Log.i("EbookReader", "xl.f: 电子书模式，非阅读页面");
+            }
+        }
+
         return P();
     }
 
     @Override // bl.xh
     public boolean g(int i, KeyEvent keyEvent) {
-        // 电子书模式：拦截所有按键（除了菜单键和返回键）
+        // 电子书模式：拦截按键（除了菜单键、返回键、方向键）
         xh nextHandler = next();
+        android.util.Log.i("EbookReader", "xl.g: 收到按键 " + i + ", nextHandler=" + (nextHandler != null ? nextHandler.getClass().getSimpleName() : "null"));
+
         if (nextHandler instanceof xw) {
             xw xwInstance = (xw) nextHandler;
+            android.util.Log.i("EbookReader", "xl.g: isEbookMode=" + xwInstance.isEbookMode() + ", isMenuShown=" + xwInstance.isMenuShown());
+
             if (xwInstance.isEbookMode() && !xwInstance.isMenuShown()) {
+                android.util.Log.i("EbookReader", "xl.g: isEbookReadingContent=" + xwInstance.isEbookReadingContent());
+
+                // 关键修改：如果在电子书阅读内容页面，让方向键传递到xw.g()处理
+                if (xwInstance.isEbookReadingContent()) {
+                    android.util.Log.i("EbookReader", "xl.g: 电子书阅读内容页面，检查方向键 " + i);
+                    // 方向键不拦截，传递到xw.g()处理
+                    if (i == KeyEvent.KEYCODE_DPAD_UP ||
+                        i == KeyEvent.KEYCODE_DPAD_DOWN ||
+                        i == KeyEvent.KEYCODE_DPAD_LEFT ||
+                        i == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                        android.util.Log.i("EbookReader", "xl.g: 调用 xw.g() 处理方向键");
+                        // 明确调用xw.g()并返回结果
+                        boolean result = xwInstance.g(i, keyEvent);
+                        android.util.Log.i("EbookReader", "xl.g: xw.g() 返回 " + result);
+                        return result;
+                    }
+                }
+
                 android.util.Log.i("EbookReader", "xl.g: 电子书模式，拦截按键 " + i);
                 // 菜单键和返回键由xw.g()处理
                 if (i != KeyEvent.KEYCODE_MENU && i != KeyEvent.KEYCODE_BACK) {

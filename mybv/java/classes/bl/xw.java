@@ -45,11 +45,21 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     private static final String TAG_EBOOK = "EbookReader";
     private FrameLayout ebookPanel = null;
     private boolean isEbookPanelShown = false;
-    private ViewGroup.LayoutParams originalVideoParams = null; // 保存原始视频布局参数(使用ViewGroup.LayoutParams以兼容不同容器)
-    private ViewGroup.LayoutParams originalDanmakuParams = null; // 保存原始弹幕视图布局参数
+    private ViewGroup.LayoutParams originalVideoParams = null;
+    private ViewGroup.LayoutParams originalDanmakuParams = null;
     private boolean isFileChooserShown = false; // 文件选择器是否显示
     private long lastBackPressTime = 0; // 记录上次按返回键的时间
     private static final long DOUBLE_PRESS_INTERVAL = 2000; // 双击时间间隔（2秒）
+    private boolean isLoadingEbook = false; // 是否正在加载电子书
+    private android.widget.ProgressBar loadingProgressBar = null; // 加载进度条
+    private android.widget.TextView loadingTextView = null; // 加载文字提示
+
+    // 电子书章节导航相关
+    private com.bilibili.tv.ebook.model.Book currentBook = null; // 当前书籍
+    private int currentChapterIndex = 0; // 当前章节索引
+    private android.webkit.WebView ebookWebView = null; // 电子书WebView
+    private android.widget.ListView chapterListView = null; // 章节列表View（使用ListView替代RecyclerView）
+    private boolean isChapterListShown = false; // 章节列表是否显示
     private Runnable g = new Runnable() { // from class: bl.xw.1
         @Override // java.lang.Runnable
         public void run() {
@@ -122,6 +132,60 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
     @Override // bl.xh
     public boolean f(int keyCode, KeyEvent event) {
+        Log.i(TAG_EBOOK, "xw.f: 收到按键 " + keyCode + ", isEbookPanelShown=" + isEbookPanelShown + ", R()=" + R());
+
+        // 电子书阅读内容页面：处理方向键
+        if (isEbookReadingContent()) {
+            Log.i(TAG_EBOOK, "xw.f: 在电子书阅读内容页面");
+
+            // 关键调试：输出WebView状态
+            if (ebookWebView != null) {
+                Log.i(TAG_EBOOK, "xw.f: WebView height=" + ebookWebView.getHeight() + 
+                      ", scrollY=" + ebookWebView.getScrollY() + 
+                      ", contentHeight=" + ebookWebView.getContentHeight());
+            }
+
+            // 上下键：按距离滚动
+            if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+                Log.i(TAG_EBOOK, "xw.f: 电子书阅读页面：向上滚动");
+                ebookWebView.scrollBy(0, -200);
+                return true;
+            }
+
+            if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                Log.i(TAG_EBOOK, "xw.f: 电子书阅读页面：向下滚动");
+                ebookWebView.scrollBy(0, 200);
+                return true;
+            }
+
+            // 左右键：整页翻页（使用scrollBy代替pageUp/pageDown）
+            if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
+                int height = ebookWebView.getHeight();
+                Log.i(TAG_EBOOK, "xw.f: 电子书阅读页面：向上翻页, height=" + height + ", scrollY=" + ebookWebView.getScrollY());
+                if (height > 0) {
+                    ebookWebView.scrollBy(0, -height);
+                } else {
+                    // 如果height为0，使用默认值800
+                    Log.w(TAG_EBOOK, "xw.f: WebView height为0，使用默认值800");
+                    ebookWebView.scrollBy(0, -800);
+                }
+                return true;
+            }
+
+            if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                int height = ebookWebView.getHeight();
+                Log.i(TAG_EBOOK, "xw.f: 电子书阅读页面：向下翻页, height=" + height + ", scrollY=" + ebookWebView.getScrollY());
+                if (height > 0) {
+                    ebookWebView.scrollBy(0, height);
+                } else {
+                    // 如果height为0，使用默认值800
+                    Log.w(TAG_EBOOK, "xw.f: WebView height为0，使用默认值800");
+                    ebookWebView.scrollBy(0, 800);
+                }
+                return true;
+            }
+        }
+
         if ((keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) && !this.f) {
             this.f = true;
             a(this.g);
@@ -132,9 +196,49 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
     @Override // bl.xh
     public boolean g(int keyCode, KeyEvent event) {
-        // 电子书模式：拦截所有按键（除了菜单键和返回键）
+        Log.i(TAG_EBOOK, "xw.g: 收到按键 " + keyCode + ", isEbookPanelShown=" + isEbookPanelShown + ", R()=" + R());
+
+        // 电子书模式：拦截所有按键（除了菜单键、返回键、确认键）
         if (isEbookPanelShown && !R()) {
-            Log.d(TAG_EBOOK, "电子书模式拦截按键: " + keyCode);
+            Log.i(TAG_EBOOK, "xw.g: 电子书模式拦截按键: " + keyCode);
+
+            // 关键修复：章节列表显示时，确认键不拦截（让ListView处理点击）
+            if (chapterListView != null && chapterListView.isShown()) {
+                Log.i(TAG_EBOOK, "xw.g: 章节列表显示中");
+                if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER ||
+                    keyCode == KeyEvent.KEYCODE_ENTER ||
+                    keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER ||
+                    keyCode == KeyEvent.KEYCODE_DPAD_UP ||
+                    keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                    Log.i(TAG_EBOOK, "xw.g: 章节列表显示，不拦截方向键和确认键");
+                    return false; // 不拦截，让ListView处理
+                }
+            }
+
+            // 关键功能：电子书阅读内容页面的翻页功能
+            // 只在阅读内容页面生效（不在章节列表、文件选择器）
+            boolean isReadingContent = (chapterListView == null || !chapterListView.isShown()) &&
+                                       !isFileChooserShown &&
+                                       ebookWebView != null;
+
+            Log.i(TAG_EBOOK, "xw.g: isReadingContent=" + isReadingContent +
+                  ", chapterListView=" + (chapterListView != null ? "not null, shown=" + chapterListView.isShown() : "null") +
+                  ", isFileChooserShown=" + isFileChooserShown +
+                  ", ebookWebView=" + (ebookWebView != null ? "not null" : "null"));
+
+            if (isReadingContent) {
+                Log.i(TAG_EBOOK, "xw.g: 在阅读内容页面");
+
+                // 关键修复：方向键的导航逻辑已经在xw.f()中处理
+                // 在xw.g()中对方向键直接返回true，避免重复处理
+                if (keyCode == KeyEvent.KEYCODE_DPAD_UP ||
+                    keyCode == KeyEvent.KEYCODE_DPAD_DOWN ||
+                    keyCode == KeyEvent.KEYCODE_DPAD_LEFT ||
+                    keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                    Log.i(TAG_EBOOK, "xw.g: 方向键已由xw.f()处理，直接返回true");
+                    return true;
+                }
+            }
 
             // 菜单键：打开右侧菜单
             if (keyCode == KeyEvent.KEYCODE_MENU) {
@@ -143,9 +247,15 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                 return true;
             }
 
-            // 返回键：优先关闭文件选择器
+            // 返回键：优先关闭章节列表，再关闭文件选择器
             if (keyCode == KeyEvent.KEYCODE_BACK) {
-                if (isFileChooserShown) {
+                if (isChapterListShown) {
+                    // 优先关闭章节列表
+                    Log.i(TAG_EBOOK, "关闭章节列表");
+                    hideChapterList();
+                    return true;
+                } else if (isFileChooserShown) {
+                    // 关闭文件选择器
                     Log.i(TAG_EBOOK, "关闭文件选择器，回到电子书默认界面");
                     hideFileChooser();
                     return true;
@@ -283,6 +393,15 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
      */
     public boolean isMenuShown() {
         return R();
+    }
+
+    /**
+     * 检查是否在电子书阅读内容页面（不在章节列表或文件选择器）
+     */
+    public boolean isEbookReadingContent() {
+        return (chapterListView == null || !chapterListView.isShown()) &&
+               !isFileChooserShown &&
+               ebookWebView != null;
     }
 
     /* JADX INFO: Access modifiers changed from: private */
@@ -864,9 +983,482 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             return;
         }
 
-        // TODO: 这里应该打开电子书阅读器并加载文件
-        // 目前只是显示Toast提示
-        android.widget.Toast.makeText(o(), "已选择文件: " + filePath, android.widget.Toast.LENGTH_SHORT).show();
+        // 防止重复点击
+        if (isLoadingEbook) {
+            Log.w(TAG_EBOOK, "正在加载电子书，请稍候...");
+            android.widget.Toast.makeText(o(),
+                "正在加载，请稍候...",
+                android.widget.Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // 显示加载提示
+        showLoadingIndicator();
+
+        // 解析并显示电子书
+        parseAndDisplayEbook(filePath);
+    }
+
+    /**
+     * 显示加载进度提示
+     */
+    private void showLoadingIndicator() {
+        isLoadingEbook = true;
+        Log.i(TAG_EBOOK, "显示加载进度提示");
+
+        // 在主线程创建并显示加载提示
+        o().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (ebookPanel == null) return;
+
+                // 清空面板
+                ebookPanel.removeAllViews();
+
+                // 创建容器
+                android.widget.LinearLayout loadingContainer = new android.widget.LinearLayout(o());
+                loadingContainer.setOrientation(android.widget.LinearLayout.VERTICAL);
+                loadingContainer.setGravity(android.view.Gravity.CENTER);
+                loadingContainer.setBackgroundColor(Color.parseColor("#333333"));
+
+                android.widget.FrameLayout.LayoutParams containerParams = new android.widget.FrameLayout.LayoutParams(
+                    android.widget.FrameLayout.LayoutParams.MATCH_PARENT,
+                    android.widget.FrameLayout.LayoutParams.MATCH_PARENT
+                );
+                loadingContainer.setLayoutParams(containerParams);
+
+                // 创建进度条
+                loadingProgressBar = new android.widget.ProgressBar(o());
+                loadingProgressBar.setIndeterminate(true);
+                loadingProgressBar.setLayoutParams(new android.widget.LinearLayout.LayoutParams(
+                    android.widget.LinearLayout.LayoutParams.WRAP_CONTENT,
+                    android.widget.LinearLayout.LayoutParams.WRAP_CONTENT
+                ));
+
+                // 创建文字提示
+                loadingTextView = new android.widget.TextView(o());
+                loadingTextView.setText("正在加载电子书...");
+                loadingTextView.setTextColor(Color.WHITE);
+                loadingTextView.setTextSize(18);
+                loadingTextView.setGravity(android.view.Gravity.CENTER);
+                android.widget.LinearLayout.LayoutParams textParams = new android.widget.LinearLayout.LayoutParams(
+                    android.widget.LinearLayout.LayoutParams.WRAP_CONTENT,
+                    android.widget.LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+                textParams.setMargins(0, 20, 0, 0);
+                loadingTextView.setLayoutParams(textParams);
+
+                // 添加到容器
+                loadingContainer.addView(loadingProgressBar);
+                loadingContainer.addView(loadingTextView);
+
+                // 添加到电子书面板
+                ebookPanel.addView(loadingContainer);
+
+                Log.i(TAG_EBOOK, "加载进度提示已显示");
+            }
+        });
+    }
+
+    /**
+     * 隐藏加载进度提示
+     */
+    private void hideLoadingIndicator() {
+        Log.i(TAG_EBOOK, "隐藏加载进度提示");
+        isLoadingEbook = false;
+
+        o().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (loadingProgressBar != null) {
+                    loadingProgressBar.setVisibility(View.GONE);
+                }
+                if (loadingTextView != null) {
+                    loadingTextView.setVisibility(View.GONE);
+                }
+                Log.i(TAG_EBOOK, "加载进度提示已隐藏");
+            }
+        });
+    }
+
+    /**
+     * 解析并显示电子书内容
+     */
+    private void parseAndDisplayEbook(String filePath) {
+        Log.i(TAG_EBOOK, "开始解析电子书: " + filePath);
+
+        // 在后台线程解析电子书
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // 创建解析器工厂
+                    com.bilibili.tv.ebook.parser.EbookParserFactory factory =
+                        new com.bilibili.tv.ebook.parser.EbookParserFactory(o());
+
+                    // 生成书籍ID
+                    String bookId = com.bilibili.tv.ebook.parser.EbookParserFactory.generateBookId(filePath);
+
+                    // 解析电子书文件
+                    com.bilibili.tv.ebook.model.Book book = factory.parse(filePath, bookId);
+
+                    if (book == null) {
+                        Log.e(TAG_EBOOK, "电子书解析失败");
+                        hideLoadingIndicator();
+
+                        // 在主线程显示错误提示
+                        o().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                android.widget.Toast.makeText(o(),
+                                    "电子书解析失败，请检查文件格式",
+                                    android.widget.Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        return;
+                    }
+
+                    Log.i(TAG_EBOOK, "电子书解析成功: " + book.getTitle() +
+                          ", 章节数: " + book.getChapters().size());
+
+                    // 隐藏加载提示
+                    hideLoadingIndicator();
+
+                    // 在主线程显示书籍内容
+                    o().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            displayBookContent(book);
+                        }
+                    });
+
+                } catch (Exception e) {
+                    Log.e(TAG_EBOOK, "解析电子书异常", e);
+                    hideLoadingIndicator();
+
+                    // 在主线程显示错误提示
+                    o().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            android.widget.Toast.makeText(o(),
+                                "解析异常: " + e.getMessage(),
+                                android.widget.Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        }).start();
+    }
+
+    /**
+     * 显示书籍内容（在WebView中显示指定章节）
+     */
+    private void displayBookContent(com.bilibili.tv.ebook.model.Book book) {
+        displayBookContent(book, 0); // 默认显示第一章
+    }
+
+    /**
+     * 显示书籍内容（在WebView中显示指定章节）
+     */
+    private void displayBookContent(com.bilibili.tv.ebook.model.Book book, int chapterIndex) {
+        if (book == null || book.getChapters() == null || book.getChapters().isEmpty()) {
+            Log.e(TAG_EBOOK, "书籍无章节内容");
+            android.widget.Toast.makeText(o(),
+                "书籍内容为空",
+                android.widget.Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // 关键修复：重置所有状态标志
+        isFileChooserShown = false;
+        isChapterListShown = false;
+        Log.i(TAG_EBOOK, "重置状态标志: isFileChooserShown=false, isChapterListShown=false");
+
+        // 保存当前书籍和章节索引
+        currentBook = book;
+        currentChapterIndex = chapterIndex;
+
+        Log.i(TAG_EBOOK, "开始显示书籍内容: " + book.getTitle() +
+              ", 章节: " + (chapterIndex + 1) + "/" + book.getChapters().size());
+
+        // 清空电子书面板（确保移除所有视图，包括文件选择器和章节列表）
+        if (ebookPanel != null) {
+            ebookPanel.removeAllViews();
+            Log.i(TAG_EBOOK, "已清空电子书面板");
+        }
+
+        // 清空WebView引用（需要重新创建）
+        ebookWebView = null;
+
+        // 创建或复用WebView
+        if (ebookWebView == null) {
+            ebookWebView = new android.webkit.WebView(o());
+            android.widget.FrameLayout.LayoutParams params = new android.widget.FrameLayout.LayoutParams(
+                android.widget.FrameLayout.LayoutParams.MATCH_PARENT,
+                android.widget.FrameLayout.LayoutParams.MATCH_PARENT
+            );
+            ebookWebView.setLayoutParams(params);
+
+            // 配置WebView
+            android.webkit.WebSettings settings = ebookWebView.getSettings();
+            settings.setJavaScriptEnabled(true);
+            settings.setDomStorageEnabled(true);
+            settings.setSupportZoom(true);
+            settings.setBuiltInZoomControls(true);
+            settings.setTextSize(android.webkit.WebSettings.TextSize.NORMAL);
+
+            // 关键修复：设置为不可聚焦，避免Android焦点系统拦截方向键
+            ebookWebView.setFocusable(false);
+            ebookWebView.setFocusableInTouchMode(false);
+
+            // 添加到面板
+            if (ebookPanel != null) {
+                ebookPanel.addView(ebookWebView);
+            }
+        }
+
+        // 获取章节内容
+        com.bilibili.tv.ebook.model.Chapter chapter = book.getChapters().get(chapterIndex);
+        String htmlContent = chapter.getHtmlContent();
+
+        if (htmlContent == null || htmlContent.isEmpty()) {
+            htmlContent = "<html><body><h1>" + chapter.getTitle() + "</h1><p>章节内容为空</p></body></html>";
+        }
+
+        // 构建完整HTML（添加样式）
+        String styledHtml = "<html><head>" +
+            "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">" +
+            "<style>body { font-size: 18px; line-height: 1.6; padding: 20px; }</style>" +
+            "</head><body>" + htmlContent + "</body></html>";
+
+        // 加载内容到WebView
+        ebookWebView.loadDataWithBaseURL(null, styledHtml, "text/html", "UTF-8", null);
+
+        // 关键修复：设置WebView为不可聚焦，避免Android焦点系统拦截方向键
+        // scrollBy()是编程式滚动，不依赖焦点，所以WebView不需要焦点
+        ebookWebView.setFocusable(false);
+        ebookWebView.setFocusableInTouchMode(false);
+
+        Log.i(TAG_EBOOK, "WebView已显示章节: " + chapter.getTitle() + ", 设置为不可聚焦避免拦截方向键");
+    }
+
+    /**
+     * 显示章节列表
+     */
+    @Override
+    public void showChapterList() {
+        if (currentBook == null || currentBook.getChapters() == null) {
+            Log.w(TAG_EBOOK, "无书籍数据，无法显示章节列表");
+            android.widget.Toast.makeText(o(),
+                "无章节信息",
+                android.widget.Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Log.i(TAG_EBOOK, "显示章节列表，总数: " + currentBook.getChapters().size());
+        isChapterListShown = true;
+
+        // 添加延时，确保右侧菜单完全关闭后再显示章节列表
+        new android.os.Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                createChapterListView();
+            }
+        }, 200); // 延迟200毫秒
+    }
+
+    /**
+     * 创建章节列表视图（内部方法）
+     * 完全复制文件选择列表的实现方式
+     */
+    private void createChapterListView() {
+        // 在主线程创建章节列表
+        o().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (ebookPanel == null) {
+                    Log.e(TAG_EBOOK, "电子书面板为null，无法显示章节列表");
+                    return;
+                }
+
+                // 确保电子书面板可见
+                if (ebookPanel.getVisibility() != View.VISIBLE) {
+                    Log.w(TAG_EBOOK, "电子书面板不可见，设置为VISIBLE");
+                    ebookPanel.setVisibility(View.VISIBLE);
+                }
+
+                // 隐藏WebView
+                if (ebookWebView != null) {
+                    ebookWebView.setVisibility(View.GONE);
+                    Log.d(TAG_EBOOK, "隐藏WebView");
+                }
+
+                // 创建章节列表容器
+                android.widget.FrameLayout listContainer = new android.widget.FrameLayout(o());
+                listContainer.setBackgroundColor(Color.parseColor("#2A2A2A"));
+                android.widget.FrameLayout.LayoutParams containerParams = new android.widget.FrameLayout.LayoutParams(
+                    android.widget.FrameLayout.LayoutParams.MATCH_PARENT,
+                    android.widget.FrameLayout.LayoutParams.MATCH_PARENT
+                );
+                listContainer.setLayoutParams(containerParams);
+
+                // 创建标题
+                android.widget.TextView titleView = new android.widget.TextView(o());
+                titleView.setText("章节列表 (" + currentBook.getChapters().size() + "章)");
+                titleView.setTextColor(Color.WHITE);
+                titleView.setTextSize(20);
+                titleView.setGravity(android.view.Gravity.CENTER);
+                titleView.setPadding(20, 20, 20, 20);
+                titleView.setBackgroundColor(Color.parseColor("#333333"));
+                android.widget.FrameLayout.LayoutParams titleParams = new android.widget.FrameLayout.LayoutParams(
+                    android.widget.FrameLayout.LayoutParams.MATCH_PARENT,
+                    android.widget.FrameLayout.LayoutParams.WRAP_CONTENT
+                );
+                titleView.setLayoutParams(titleParams);
+                listContainer.addView(titleView);
+
+                // 准备章节标题列表
+                List<String> chapterTitles = new ArrayList<>();
+                for (com.bilibili.tv.ebook.model.Chapter chapter : currentBook.getChapters()) {
+                    chapterTitles.add(chapter.getTitle());
+                }
+
+                // 创建章节列表ListView
+                chapterListView = new android.widget.ListView(o());
+                chapterListView.setBackgroundColor(Color.parseColor("#2A2A2A"));
+                android.widget.FrameLayout.LayoutParams listParams = new android.widget.FrameLayout.LayoutParams(
+                    android.widget.FrameLayout.LayoutParams.MATCH_PARENT,
+                    android.widget.FrameLayout.LayoutParams.MATCH_PARENT
+                );
+                listParams.setMargins(0, 80, 0, 0); // 标题下方
+                chapterListView.setLayoutParams(listParams);
+
+                // 创建Adapter（完全复制文件选择列表的实现）
+                android.widget.ArrayAdapter<String> adapter = new android.widget.ArrayAdapter<String>(o(),
+                    android.R.layout.simple_list_item_1,
+                    chapterTitles
+                ) {
+                    @Override
+                    public View getView(int position, View convertView, ViewGroup parent) {
+                        View view = super.getView(position, convertView, parent);
+                        if (view instanceof android.widget.TextView) {
+                            android.widget.TextView textView = (android.widget.TextView) view;
+                            textView.setTextColor(Color.WHITE);
+                            textView.setTextSize(16);
+                            textView.setPadding(24, 20, 24, 20);
+                        }
+
+                        // 设置选中状态的背景色（完全复制文件选择列表）
+                        if (parent instanceof android.widget.ListView) {
+                            android.widget.ListView listView = (android.widget.ListView) parent;
+                            if (position == listView.getSelectedItemPosition()) {
+                                view.setBackgroundColor(Color.parseColor("#1E90FF")); // 蓝色背景（选中）
+                            } else {
+                                view.setBackgroundColor(Color.TRANSPARENT); // 透明背景（未选中）
+                            }
+                        }
+
+                        return view;
+                    }
+                };
+
+                // 设置选中项监听器，动态更新背景色（完全复制文件选择列表）
+                chapterListView.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
+                        // 重新绘制列表以更新背景色
+                        parent.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                ((android.widget.ListView) parent).invalidateViews();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onNothingSelected(android.widget.AdapterView<?> parent) {
+                    }
+                });
+
+                chapterListView.setAdapter(adapter);
+
+                // 自动请求焦点，确保遥控器可以直接操作（完全复制文件选择列表）
+                chapterListView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        chapterListView.requestFocus();
+                        Log.i(TAG_EBOOK, "章节列表已请求焦点");
+                    }
+                });
+
+                // 设置点击事件
+                chapterListView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(android.widget.AdapterView<?> parent, View view, int position, long id) {
+                        Log.i(TAG_EBOOK, "点击章节: " + position);
+                        
+                        // 跳转到指定章节
+                        if (currentBook != null) {
+                            displayBookContent(currentBook, position);
+                        }
+                        
+                        // 隐藏章节列表
+                        hideChapterList();
+                    }
+                });
+
+                listContainer.addView(chapterListView);
+
+                // 添加到电子书面板
+                ebookPanel.addView(listContainer);
+
+                // 添加详细日志
+                Log.i(TAG_EBOOK, "章节列表已添加到电子书面板，子视图数: " + ebookPanel.getChildCount());
+                Log.i(TAG_EBOOK, "章节列表已显示，当前章节: " + currentChapterIndex);
+            }
+        });
+    }
+
+    /**
+     * 隐藏章节列表
+     */
+    private void hideChapterList() {
+        Log.i(TAG_EBOOK, "隐藏章节列表");
+        isChapterListShown = false;
+
+        o().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // 移除章节列表容器（包含标题和ListView）
+                if (ebookPanel != null) {
+                    // 查找并移除章节列表容器
+                    for (int i = ebookPanel.getChildCount() - 1; i >= 0; i--) {
+                        android.view.View child = ebookPanel.getChildAt(i);
+                        if (child instanceof android.widget.FrameLayout) {
+                            // 检查是否是章节列表容器（包含标题）
+                            android.widget.FrameLayout container = (android.widget.FrameLayout) child;
+                            if (container.getChildCount() > 0 && container.getChildAt(0) instanceof android.widget.TextView) {
+                                android.widget.TextView firstChild = (android.widget.TextView) container.getChildAt(0);
+                                if (firstChild.getText() != null && firstChild.getText().toString().contains("章节列表")) {
+                                    Log.i(TAG_EBOOK, "找到章节列表容器，移除");
+                                    ebookPanel.removeViewAt(i);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    chapterListView = null;
+                }
+
+                // 恢复WebView显示
+                if (ebookWebView != null) {
+                    ebookWebView.setVisibility(View.VISIBLE);
+                }
+
+                Log.i(TAG_EBOOK, "章节列表已隐藏，电子书面板子视图数: " +
+                      (ebookPanel != null ? ebookPanel.getChildCount() : 0));
+            }
+        });
     }
 
     // 定义请求码
@@ -1046,8 +1638,20 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         // 2. 恢复视频全屏
         restoreVideoView(activity);
 
+        // 关键修复：清除所有电子书状态，避免影响后续视频播放
         isEbookPanelShown = false;
-        Log.i(TAG_EBOOK, "电子书面板已关闭");
+        isChapterListShown = false;
+        isFileChooserShown = false;
+        isLoadingEbook = false;
+        currentBook = null;
+        currentChapterIndex = 0;
+        ebookWebView = null;
+        chapterListView = null;
+        loadingProgressBar = null;
+        loadingTextView = null;
+        lastBackPressTime = 0;
+
+        Log.i(TAG_EBOOK, "电子书面板已关闭，所有状态已清除");
     }
 
     /**

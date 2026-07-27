@@ -57,6 +57,9 @@
 .method public abstract set_subtitle_size(F)V
 .end method
 
+.method public abstract showChapterList()V
+.end method
+
 .method public abstract showSkipSettingDialog()V
 .end method
 

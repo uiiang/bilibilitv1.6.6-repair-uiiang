@@ -108,6 +108,9 @@ public class PlayerMenuRight extends aay<String> {
 
         // 新增：打开电子书文件选择器
         void openEbookFileChooser();
+
+        // 新增：显示章节列表
+        void showChapterList();
     }
 
     private void jumpToChapter(int chapterIndex) {
@@ -396,7 +399,9 @@ public class PlayerMenuRight extends aay<String> {
         if (TextUtils.equals(str, "章节列表")) {
             a(false);  // 关闭菜单
             android.util.Log.i("EbookReader", "章节列表菜单项被点击");
-            android.widget.Toast.makeText(getContext(), "章节列表功能开发中", android.widget.Toast.LENGTH_SHORT).show();
+            if (com.bilibili.tv.FeatureConfig.isEbookReaderEnabled() && this.d != null) {
+                this.d.showChapterList();
+            }
             return true;
         }
 
