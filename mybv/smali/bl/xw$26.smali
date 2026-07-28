@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 2210
+    .line 2351
     iput-object p1, p0, Lbl/xw$26;->this$0:Lbl/xw;
 
     iput-object p2, p0, Lbl/xw$26;->val$activity:Landroid/app/Activity;
@@ -44,34 +44,34 @@
     .locals 3
 
     .prologue
-    .line 2214
+    .line 2355
     iget-object v0, p0, Lbl/xw$26;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->bookshelfManager:Lcom/bilibili/tv/ebook/util/BookshelfManager;
-    invoke-static {v0}, Lbl/xw;->access$2200(Lbl/xw;)Lcom/bilibili/tv/ebook/util/BookshelfManager;
+    invoke-static {v0}, Lbl/xw;->access$2600(Lbl/xw;)Lcom/bilibili/tv/ebook/util/BookshelfManager;
 
     move-result-object v0
 
     if-eqz v0, :cond_18
 
-    .line 2215
+    .line 2356
     iget-object v0, p0, Lbl/xw$26;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->bookshelfManager:Lcom/bilibili/tv/ebook/util/BookshelfManager;
-    invoke-static {v0}, Lbl/xw;->access$2200(Lbl/xw;)Lcom/bilibili/tv/ebook/util/BookshelfManager;
+    invoke-static {v0}, Lbl/xw;->access$2600(Lbl/xw;)Lcom/bilibili/tv/ebook/util/BookshelfManager;
 
     move-result-object v0
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/util/BookshelfManager;->clearBookshelf()V
 
-    .line 2216
+    .line 2357
     const-string v0, "EbookReader"
 
     const-string v1, "\u4e66\u67b6\u5df2\u6e05\u7a7a"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2220
+    .line 2361
     :cond_18
     iget-object v0, p0, Lbl/xw$26;->this$0:Lbl/xw;
 
@@ -82,7 +82,7 @@
 
     if-eqz v0, :cond_29
 
-    .line 2221
+    .line 2362
     iget-object v0, p0, Lbl/xw$26;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->bookshelfItems:Ljava/util/List;
@@ -92,14 +92,14 @@
 
     invoke-interface {v0}, Ljava/util/List;->clear()V
 
-    .line 2225
+    .line 2366
     :cond_29
     iget-object v0, p0, Lbl/xw$26;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->showBookshelfOrFileChooser()V
-    invoke-static {v0}, Lbl/xw;->access$2300(Lbl/xw;)V
+    invoke-static {v0}, Lbl/xw;->access$2700(Lbl/xw;)V
 
-    .line 2228
+    .line 2369
     iget-object v0, p0, Lbl/xw$26;->val$activity:Landroid/app/Activity;
 
     const-string v1, "\u4e66\u67b6\u5df2\u6e05\u7a7a"
@@ -112,9 +112,9 @@
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    .line 2230
+    .line 2371
     invoke-virtual {p1}, Lbl/agb;->dismiss()V
 
-    .line 2231
+    .line 2372
     return-void
 .end method

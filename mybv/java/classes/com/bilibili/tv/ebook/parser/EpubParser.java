@@ -197,8 +197,11 @@ public class EpubParser {
         File baseDir = opfFile.getParentFile();
         Log.i(TAG, "OPF文件所在目录: " + baseDir.getAbsolutePath());
 
-        // 5. 解析章节
-        List<Chapter> chapters = parseChapters(manifest, spineOrder, baseDir);
+        // 5. 尝试解析NCX文件（获取多级目录结构）
+        NcxParseResult ncxResult = parseNcxFile(manifest, baseDir, opfFile);
+
+        // 6. 解析章节（使用NCX层级信息和标题）
+        List<Chapter> chapters = parseChapters(manifest, spineOrder, baseDir, ncxResult);
         book.setChapters(chapters);
 
         return book;
@@ -365,24 +368,185 @@ public class EpubParser {
     private List<String> parseSpine(Document doc, Map<String, ManifestItem> manifest) {
         List<String> spineOrder = new ArrayList<>();
         Elements items = doc.select("spine itemref");
-        
+
         for (Element item : items) {
             String idref = item.attr("idref");
             if (manifest.containsKey(idref)) {
                 spineOrder.add(idref);
             }
         }
-        
+
         Log.i(TAG, "Spine项数: " + spineOrder.size());
         return spineOrder;
     }
-    
+
     /**
-     * 解析章节内容
+     * NCX解析结果类
+     */
+    private static class NcxParseResult {
+        Map<String, Integer> depthMap = new HashMap<>();
+        Map<String, String> titleMap = new HashMap<>(); // 文件路径 -> NCX标题
+    }
+
+    /**
+     * 解析NCX文件（获取多级目录结构）
+     * 参考自：参考/episteme/app/src/main/java/com/aryan/reader/epub/EpubParser.kt
+     * 
+     * 关键修复：使用XML解析器，避免HTML解析器扁平化嵌套的navPoint
+     */
+    private NcxParseResult parseNcxFile(Map<String, ManifestItem> manifest, File baseDir, File opfFile) {
+        NcxParseResult result = new NcxParseResult();
+
+        try {
+            // 查找NCX文件（通常在manifest中有ncx标记）
+            File ncxFile = null;
+
+            // 方法1: 从manifest中查找
+            for (ManifestItem item : manifest.values()) {
+                if (item.getMediaType().contains("application/x-dtbncx+xml") ||
+                    item.getId().toLowerCase().contains("ncx")) {
+                    ncxFile = new File(baseDir, item.getHref());
+                    break;
+                }
+            }
+
+            // 方法2: 如果manifest中没有，直接查找.ncx文件
+            if (ncxFile == null || !ncxFile.exists()) {
+                File[] ncxFiles = baseDir.listFiles(new FileFilter() {
+                    @Override
+                    public boolean accept(File file) {
+                        return file.getName().endsWith(".ncx");
+                    }
+                });
+
+                if (ncxFiles != null && ncxFiles.length > 0) {
+                    ncxFile = ncxFiles[0];
+                }
+            }
+
+            if (ncxFile == null || !ncxFile.exists()) {
+                Log.w(TAG, "未找到NCX文件，将使用扁平章节列表");
+                return result;
+            }
+
+            Log.i(TAG, "找到NCX文件: " + ncxFile.getAbsolutePath());
+
+            // 关键修复：使用XML解析器，避免HTML解析器扁平化嵌套的navPoint
+            Document ncxDoc = Jsoup.parse(ncxFile, "UTF-8", "", new org.jsoup.parser.Parser(new org.jsoup.parser.XmlTreeBuilder()));
+            Element navMap = ncxDoc.selectFirst("navMap");
+
+            if (navMap != null) {
+                Log.i(TAG, "找到navMap元素，子元素数: " + navMap.children().size());
+
+                // 递归解析navMap
+                parseNavMapRecursive(navMap, ncxFile.getParentFile(), opfFile.getParentFile(), 0, result);
+                Log.i(TAG, "NCX解析完成，depthMap大小: " + result.depthMap.size() + ", titleMap大小: " + result.titleMap.size());
+            } else {
+                Log.w(TAG, "NCX文件中没有找到navMap元素");
+            }
+
+        } catch (Exception e) {
+            Log.e(TAG, "解析NCX文件失败", e);
+        }
+
+        return result;
+    }
+
+    /**
+     * 递归解析navMap，获取章节层级信息
+     * 参考自：参考/episteme/app/src/main/java/com/aryan/reader/epub/EpubParser.kt
+     * 
+     * 关键修复：
+     * 1. 使用XML解析器，navPoint标签大小写保持原样
+     * 2. 同时提取depth和title，构建ncxTitleMap
+     * 3. 处理路径规范化，将NCX路径转换为相对于OPF目录的路径
+     */
+    private void parseNavMapRecursive(Element parent, File ncxFileParentDir, File opfFileParentDir, int depth,
+                                       NcxParseResult result) {
+        Elements children = parent.children();
+
+        Log.d(TAG, "parseNavMapRecursive: depth=" + depth + ", 子元素数=" + children.size());
+
+        for (Element child : children) {
+            // XML解析器保留原始大小写，但仍然使用equalsIgnoreCase以确保兼容性
+            if (!child.tagName().equalsIgnoreCase("navPoint")) {
+                continue;
+            }
+
+            // 获取章节标题（navLabel下的text元素）
+            Element navLabel = child.selectFirst("navLabel text");
+            String title = navLabel != null ? navLabel.text() : "未知章节";
+
+            // 获取章节路径
+            Element content = child.selectFirst("content");
+            String src = content != null ? content.attr("src") : "";
+
+            Log.d(TAG, "解析navPoint: id=" + child.attr("id") + 
+                  ", title=" + title + ", src=" + src + ", depth=" + depth);
+
+            if (!src.isEmpty()) {
+                // 关键修复：路径规范化（参考episteme实现）
+                // 1. 去掉fragment部分（#后面的内容）
+                String filePath = src.split("#")[0];
+
+                // 2. NCX中的路径是相对于NCX文件位置的
+                //    需要转换为相对于OPF目录的路径（用于与spine href匹配）
+                //    因为NCX和OPF通常在同一目录，直接使用相对路径即可
+                //    但需要处理路径中的./和../
+
+                // 使用File API规范化路径（兼容Android 4.x）
+                File fullPath = new File(ncxFileParentDir, filePath);
+                File canonicalPath;
+                try {
+                    canonicalPath = fullPath.getCanonicalFile();
+                } catch (Exception e) {
+                    canonicalPath = fullPath.getAbsoluteFile();
+                }
+
+                // 计算相对于OPF目录的路径
+                String normalizedPath;
+                if (ncxFileParentDir.equals(opfFileParentDir)) {
+                    // NCX和OPF在同一目录，直接使用filePath
+                    normalizedPath = filePath;
+                } else {
+                    // NCX和OPF在不同目录，需要计算相对路径
+                    String canonicalPathStr = canonicalPath.getAbsolutePath();
+                    String opfParentPath = opfFileParentDir.getAbsolutePath();
+
+                    if (canonicalPathStr.startsWith(opfParentPath)) {
+                        normalizedPath = canonicalPathStr.substring(opfParentPath.length() + 1);
+                    } else {
+                        // 降级：直接使用filePath
+                        normalizedPath = filePath;
+                    }
+                }
+
+                // 规范化路径分隔符（使用/）
+                normalizedPath = normalizedPath.replace("\\", "/");
+
+                // 避免重复添加同一个路径（参考episteme的实现）
+                if (!result.depthMap.containsKey(normalizedPath)) {
+                    result.depthMap.put(normalizedPath, depth);
+                    result.titleMap.put(normalizedPath, title);
+                    Log.i(TAG, "章节: " + title + ", depth=" + depth + ", path=" + normalizedPath +
+                          ", src=" + src + ", ncxDir=" + ncxFileParentDir.getName());
+                } else {
+                    Log.w(TAG, "跳过重复路径: " + normalizedPath + " (已存在depth=" + result.depthMap.get(normalizedPath) + ")");
+                }
+            }
+
+            // 递归解析嵌套的navPoint子元素
+            parseNavMapRecursive(child, ncxFileParentDir, opfFileParentDir, depth + 1, result);
+        }
+    }
+
+    /**
+     * 解析章节内容（使用NCX层级信息）
      */
     private List<Chapter> parseChapters(Map<String, ManifestItem> manifest,
                                          List<String> spineOrder,
-                                         File baseDir) {
+                                         File baseDir,
+                                         NcxParseResult ncxResult) {
         List<Chapter> chapters = new ArrayList<>();
         int chapterIndex = 0;
 
@@ -390,7 +554,7 @@ public class EpubParser {
             ManifestItem item = manifest.get(itemId);
             if (item != null && item.getMediaType().contains("html")) {
                 try {
-                    Chapter chapter = parseChapter(item, chapterIndex, baseDir);
+                    Chapter chapter = parseChapter(item, chapterIndex, baseDir, ncxResult);
                     chapters.add(chapter);
                     chapterIndex++;
                 } catch (Exception e) {
@@ -404,29 +568,67 @@ public class EpubParser {
     }
 
     /**
-     * 解析单个章节
+     * 解析单个章节（使用NCX层级信息）
      */
-    private Chapter parseChapter(ManifestItem item, int index, File baseDir)
+    private Chapter parseChapter(ManifestItem item, int index, File baseDir,
+                                  NcxParseResult ncxResult)
             throws IOException {
         File chapterFile = new File(baseDir, item.getHref());
-        Log.d(TAG, "解析章节文件: " + chapterFile.getAbsolutePath() + " (href=" + item.getHref() + ")");
+        String href = item.getHref();
+        Log.i(TAG, "解析章节文件: " + chapterFile.getAbsolutePath() + " (href=" + href + ")");
 
         Document doc = Jsoup.parse(chapterFile, "UTF-8");
 
         Chapter chapter = new Chapter();
         chapter.setChapterId(item.getId());
         chapter.setChapterIndex(index);
-        chapter.setHtmlFilePath(item.getHref());
+        chapter.setHtmlFilePath(href);
         chapter.setHtmlContent(doc.outerHtml());
         chapter.setPlainTextContent(doc.text());
 
-        // 提取标题
-        Element titleElement = doc.selectFirst("title");
-        if (titleElement != null && !titleElement.text().isEmpty()) {
-            chapter.setTitle(titleElement.text());
-        } else {
-            chapter.setTitle("Chapter " + (index + 1));
+        // 关键修复：优先从NCX的titleMap中提取标题
+        String title = null;
+        if (ncxResult != null && ncxResult.titleMap != null) {
+            title = ncxResult.titleMap.get(href);
+            if (title != null) {
+                Log.i(TAG, "从NCX获取标题: " + title + ", href=" + href);
+            } else {
+                Log.w(TAG, "NCX titleMap中未找到href=" + href + ", titleMap大小=" + ncxResult.titleMap.size());
+                // 调试：打印titleMap中的所有键
+                for (String key : ncxResult.titleMap.keySet()) {
+                    Log.d(TAG, "titleMap key: " + key + " -> " + ncxResult.titleMap.get(key));
+                }
+            }
         }
+
+        // 如果NCX中没有标题，从HTML的<title>标签提取
+        if (title == null || title.isEmpty()) {
+            Element titleElement = doc.selectFirst("title");
+            if (titleElement != null && !titleElement.text().isEmpty()) {
+                title = titleElement.text();
+                Log.i(TAG, "从HTML获取标题: " + title);
+            } else {
+                title = "Chapter " + (index + 1);
+                Log.w(TAG, "使用默认标题: " + title);
+            }
+        }
+
+        chapter.setTitle(title);
+
+        // 设置章节层级深度（从NCX depthMap中查找）
+        int depth = 0; // 默认为0级（顶级）
+        if (ncxResult != null && ncxResult.depthMap != null) {
+            Integer depthValue = ncxResult.depthMap.get(href);
+            if (depthValue != null) {
+                depth = depthValue;
+                Log.i(TAG, "从NCX获取depth: " + depth + ", href=" + href);
+            } else {
+                Log.w(TAG, "NCX depthMap中未找到href=" + href + ", depthMap大小=" + ncxResult.depthMap.size());
+            }
+        }
+        chapter.setDepth(depth);
+
+        Log.i(TAG, "章节解析完成: " + chapter.getTitle() + ", depth=" + depth + ", href=" + href);
 
         return chapter;
     }

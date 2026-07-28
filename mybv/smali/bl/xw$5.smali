@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 766
+    .line 804
     iput-object p1, p0, Lbl/xw$5;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,12 +40,12 @@
     .locals 1
 
     .prologue
-    .line 769
+    .line 807
     iget-object v0, p0, Lbl/xw$5;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->showEbookPanel()V
     invoke-static {v0}, Lbl/xw;->access$300(Lbl/xw;)V
 
-    .line 770
+    .line 808
     return-void
 .end method

@@ -66,6 +66,11 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     private android.widget.ListView bookshelfListView = null; // 书架列表View
     private List<com.bilibili.tv.ebook.model.BookshelfItem> bookshelfItems = null; // 书架数据
     private String currentBookFilePath = null; // 当前书籍文件路径
+
+    // 多级章节导航栈（方案1：电子书区域ListView显示）
+    private java.util.Stack<List<com.bilibili.tv.ebook.model.Chapter>> chapterNavigationStack = null; // 章节导航栈
+    private List<com.bilibili.tv.ebook.model.Chapter> currentChapterList = null; // 当前显示的章节列表
+    private String parentChapterTitle = null; // 父章节标题（用于显示在章节列表标题中）
     private Runnable g = new Runnable() { // from class: bl.xw.1
         @Override // java.lang.Runnable
         public void run() {
@@ -296,9 +301,42 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             // 返回键：优先关闭章节列表，再关闭文件选择器
             if (keyCode == KeyEvent.KEYCODE_BACK) {
                 if (isChapterListShown) {
-                    // 优先关闭章节列表
-                    Log.i(TAG_EBOOK, "关闭章节列表");
-                    hideChapterList();
+                    // 多级章节导航：检查导航栈是否为空
+                    if (chapterNavigationStack != null && !chapterNavigationStack.isEmpty()) {
+                        // 导航栈不为空：返回上一级章节列表
+                        Log.i(TAG_EBOOK, "返回上一级章节列表，栈大小: " + chapterNavigationStack.size());
+                        currentChapterList = chapterNavigationStack.pop();
+
+                        // 恢复父章节标题
+                        if (chapterNavigationStack.isEmpty()) {
+                            // 返回一级目录，父章节标题为null
+                            parentChapterTitle = null;
+                        } else {
+                            // 返回二级或更深层目录，需要从上一级找到父章节
+                            // 查找当前章节列表的父章节
+                            List<com.bilibili.tv.ebook.model.Chapter> parentChapterList = chapterNavigationStack.peek();
+                            if (parentChapterList != null && currentChapterList.size() > 0) {
+                                // 找到包含当前章节列表的父章节
+                                int firstChapterIndex = currentChapterList.get(0).getChapterIndex();
+                                for (com.bilibili.tv.ebook.model.Chapter parent : parentChapterList) {
+                                    if (parent.getChapterIndex() < firstChapterIndex) {
+                                        // 检查parent是否包含当前章节
+                                        List<com.bilibili.tv.ebook.model.Chapter> children = getChildChapters(parent);
+                                        if (children.size() > 0 && children.get(0).getChapterIndex() == firstChapterIndex) {
+                                            parentChapterTitle = parent.getTitle();
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        createChapterListView(currentChapterList);
+                    } else {
+                        // 导航栈为空：关闭章节列表
+                        Log.i(TAG_EBOOK, "关闭章节列表");
+                        hideChapterList();
+                    }
                     return true;
                 } else if (isFileChooserShown) {
                     // 关闭文件选择器
@@ -1759,7 +1797,7 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     }
 
     /**
-     * 显示章节列表
+     * 显示章节列表（支持多级目录）
      */
     @Override // com.bilibili.tv.player.widget.PlayerMenuRight.a
     public void showChapterList() {
@@ -1774,20 +1812,73 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         Log.i(TAG_EBOOK, "显示章节列表，总数: " + currentBook.getChapters().size());
         isChapterListShown = true;
 
+        // 初始化章节导航栈（多级目录支持）
+        chapterNavigationStack = new java.util.Stack<>();
+        parentChapterTitle = null; // 一级目录，父章节标题为null
+
+        // 显示一级目录（depth=0的章节）
+        List<com.bilibili.tv.ebook.model.Chapter> rootChapters = getRootChapters();
+        currentChapterList = rootChapters;
+
         // 添加延时，确保右侧菜单完全关闭后再显示章节列表
         new android.os.Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                createChapterListView();
+                createChapterListView(currentChapterList);
             }
         }, 200); // 延迟200毫秒
     }
 
     /**
-     * 创建章节列表视图（内部方法）
-     * 完全复制文件选择列表的实现方式
+     * 获取一级目录（depth=0的章节）
      */
-    private void createChapterListView() {
+    private List<com.bilibili.tv.ebook.model.Chapter> getRootChapters() {
+        List<com.bilibili.tv.ebook.model.Chapter> rootChapters = new ArrayList<>();
+        List<com.bilibili.tv.ebook.model.Chapter> allChapters = currentBook.getChapters();
+
+        for (com.bilibili.tv.ebook.model.Chapter chapter : allChapters) {
+            if (chapter.getDepth() == 0) {
+                rootChapters.add(chapter);
+            }
+        }
+
+        Log.i(TAG_EBOOK, "一级目录数量: " + rootChapters.size());
+        return rootChapters;
+    }
+
+    /**
+     * 获取指定章节的子章节
+     */
+    private List<com.bilibili.tv.ebook.model.Chapter> getChildChapters(com.bilibili.tv.ebook.model.Chapter parentChapter) {
+        List<com.bilibili.tv.ebook.model.Chapter> childChapters = new ArrayList<>();
+        List<com.bilibili.tv.ebook.model.Chapter> allChapters = currentBook.getChapters();
+
+        int parentIndex = parentChapter.getChapterIndex();
+        int parentDepth = parentChapter.getDepth();
+
+        // 查找紧跟在parent之后且depth大于parent的章节
+        for (int i = parentIndex + 1; i < allChapters.size(); i++) {
+            com.bilibili.tv.ebook.model.Chapter chapter = allChapters.get(i);
+            int chapterDepth = chapter.getDepth();
+
+            // 如果depth比parent大1，说明是直接子章节
+            if (chapterDepth == parentDepth + 1) {
+                childChapters.add(chapter);
+            }
+            // 如果depth等于parent，说明到达了同级章节，停止
+            else if (chapterDepth <= parentDepth) {
+                break;
+            }
+        }
+
+        Log.i(TAG_EBOOK, "章节 " + parentChapter.getTitle() + " 的子章节数量: " + childChapters.size());
+        return childChapters;
+    }
+
+    /**
+     * 创建章节列表视图（支持多级目录）
+     */
+    private void createChapterListView(final List<com.bilibili.tv.ebook.model.Chapter> chapters) {
         // 在主线程创建章节列表
         o().runOnUiThread(new Runnable() {
             @Override
@@ -1809,6 +1900,9 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                     Log.d(TAG_EBOOK, "隐藏WebView");
                 }
 
+                // 清空电子书面板
+                ebookPanel.removeAllViews();
+
                 // 创建章节列表容器
                 android.widget.FrameLayout listContainer = new android.widget.FrameLayout(o());
                 listContainer.setBackgroundColor(Color.parseColor("#2A2A2A"));
@@ -1818,9 +1912,13 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                 );
                 listContainer.setLayoutParams(containerParams);
 
-                // 创建标题
+                // 创建标题（显示层级信息）
                 android.widget.TextView titleView = new android.widget.TextView(o());
-                titleView.setText("章节列表 (" + currentBook.getChapters().size() + "章)");
+                String titleText = "章节列表";
+                if (parentChapterTitle != null && !parentChapterTitle.isEmpty()) {
+                    titleText = parentChapterTitle; // 下级目录显示父章节标题
+                }
+                titleView.setText(titleText);
                 titleView.setTextColor(Color.WHITE);
                 titleView.setTextSize(20);
                 titleView.setGravity(android.view.Gravity.CENTER);
@@ -1833,9 +1931,10 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                 titleView.setLayoutParams(titleParams);
                 listContainer.addView(titleView);
 
-                // 准备章节标题列表
+                // 准备章节标题列表（使用传入的chapters参数）
                 List<String> chapterTitles = new ArrayList<>();
-                for (com.bilibili.tv.ebook.model.Chapter chapter : currentBook.getChapters()) {
+                final List<com.bilibili.tv.ebook.model.Chapter> chapterList = chapters;
+                for (com.bilibili.tv.ebook.model.Chapter chapter : chapterList) {
                     chapterTitles.add(chapter.getTitle());
                 }
 
@@ -1849,7 +1948,7 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                 listParams.setMargins(0, 80, 0, 0); // 标题下方
                 chapterListView.setLayoutParams(listParams);
 
-                // 创建Adapter（完全复制文件选择列表的实现）
+                // 创建Adapter（支持多级目录显示）
                 android.widget.ArrayAdapter<String> adapter = new android.widget.ArrayAdapter<String>(o(),
                     android.R.layout.simple_list_item_1,
                     chapterTitles
@@ -1859,17 +1958,52 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                         View view = super.getView(position, convertView, parent);
                         if (view instanceof android.widget.TextView) {
                             android.widget.TextView textView = (android.widget.TextView) view;
-                            textView.setTextColor(Color.WHITE);
                             textView.setTextSize(16);
-                            textView.setPadding(24, 20, 24, 20);
+
+                            // 根据depth显示缩进
+                            com.bilibili.tv.ebook.model.Chapter chapter = chapterList.get(position);
+                            int depth = chapter.getDepth();
+                            int indent = depth * 30; // 每级缩进30像素
+                            textView.setPadding(24 + indent, 20, 24, 20);
+
+                            // 检查是否有子章节
+                            List<com.bilibili.tv.ebook.model.Chapter> children = getChildChapters(chapter);
+                            boolean hasChildren = !children.isEmpty();
+
+                            // 检查是否是当前阅读的章节
+                            boolean isCurrentChapter = (chapter.getChapterIndex() == currentChapterIndex);
+
+                            // 构建显示文本
+                            String displayText = chapter.getTitle();
+
+                            // 如果有子章节，添加小三角箭头标记
+                            if (hasChildren) {
+                                displayText = "▸ " + displayText;
+                            }
+
+                            textView.setText(displayText);
+
+                            // 设置文字颜色（当前阅读章节特殊处理）
+                            if (isCurrentChapter && parent instanceof android.widget.ListView) {
+                                android.widget.ListView listView = (android.widget.ListView) parent;
+                                boolean isSelected = (position == listView.getSelectedItemPosition());
+
+                                if (isSelected) {
+                                    // 当前阅读章节获得焦点：白色文字
+                                    textView.setTextColor(Color.WHITE);
+                                } else {
+                                    // 当前阅读章节失去焦点：蓝色文字
+                                    textView.setTextColor(Color.parseColor("#1E90FF"));
+                                }
+                            } else {
+                                // 普通章节：白色文字
+                                textView.setTextColor(Color.WHITE);
+                            }
                         }
 
-                        // 高亮当前阅读的章节（黄色背景）
-                        if (position == currentChapterIndex) {
-                            view.setBackgroundColor(Color.parseColor("#FF9800")); // 橙色背景（当前章节）
-                        }
                         // 设置选中状态的背景色（蓝色）
-                        else if (parent instanceof android.widget.ListView) {
+                        com.bilibili.tv.ebook.model.Chapter chapter = chapterList.get(position);
+                        if (parent instanceof android.widget.ListView) {
                             android.widget.ListView listView = (android.widget.ListView) parent;
                             if (position == listView.getSelectedItemPosition()) {
                                 view.setBackgroundColor(Color.parseColor("#1E90FF")); // 蓝色背景（选中）
@@ -1882,7 +2016,7 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                     }
                 };
 
-                // 设置选中项监听器，动态更新背景色（完全复制文件选择列表）
+                // 设置选中项监听器，动态更新背景色
                 chapterListView.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
@@ -1902,14 +2036,24 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
                 chapterListView.setAdapter(adapter);
 
-                // 自动滚动到当前章节并获取焦点
+                // 自动滚动高亮当前章节
                 chapterListView.post(new Runnable() {
                     @Override
                     public void run() {
+                        // 查找当前章节在当前列表中的位置
+                        int highlightPosition = -1;
+                        for (int i = 0; i < chapterList.size(); i++) {
+                            com.bilibili.tv.ebook.model.Chapter chapter = chapterList.get(i);
+                            if (chapter.getChapterIndex() == currentChapterIndex) {
+                                highlightPosition = i;
+                                break;
+                            }
+                        }
+
                         // 滚动到当前章节
-                        if (currentChapterIndex >= 0 && currentChapterIndex < chapterTitles.size()) {
-                            chapterListView.setSelection(currentChapterIndex);
-                            Log.i(TAG_EBOOK, "章节列表已滚动到当前章节: " + currentChapterIndex);
+                        if (highlightPosition >= 0) {
+                            chapterListView.setSelection(highlightPosition);
+                            Log.i(TAG_EBOOK, "章节列表已滚动到当前章节位置: " + highlightPosition);
                         }
 
                         // 请求焦点
@@ -1918,19 +2062,28 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                     }
                 });
 
-                // 设置点击事件
+                // 设置点击事件（支持多级目录导航）
                 chapterListView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(android.widget.AdapterView<?> parent, View view, int position, long id) {
-                        Log.i(TAG_EBOOK, "点击章节: " + position);
-                        
-                        // 跳转到指定章节
-                        if (currentBook != null) {
-                            displayBookContent(currentBook, position);
+                        com.bilibili.tv.ebook.model.Chapter clickedChapter = chapterList.get(position);
+                        Log.i(TAG_EBOOK, "点击章节: " + clickedChapter.getTitle() + ", depth=" + clickedChapter.getDepth());
+
+                        // 检查是否有子章节
+                        List<com.bilibili.tv.ebook.model.Chapter> children = getChildChapters(clickedChapter);
+                        if (!children.isEmpty()) {
+                            // 有子章节：压入导航栈，显示子章节
+                            Log.i(TAG_EBOOK, "章节有子章节，显示子章节列表");
+                            chapterNavigationStack.push(currentChapterList);
+                            currentChapterList = children;
+                            parentChapterTitle = clickedChapter.getTitle(); // 设置父章节标题
+                            createChapterListView(children);
+                        } else {
+                            // 没有子章节：跳转到该章节
+                            Log.i(TAG_EBOOK, "跳转到章节: " + clickedChapter.getChapterIndex());
+                            displayBookContent(currentBook, clickedChapter.getChapterIndex());
+                            hideChapterList();
                         }
-                        
-                        // 隐藏章节列表
-                        hideChapterList();
                     }
                 });
 
@@ -1941,7 +2094,7 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
                 // 添加详细日志
                 Log.i(TAG_EBOOK, "章节列表已添加到电子书面板，子视图数: " + ebookPanel.getChildCount());
-                Log.i(TAG_EBOOK, "章节列表已显示，当前章节: " + currentChapterIndex);
+                Log.i(TAG_EBOOK, "章节列表已显示，当前章节索引: " + currentChapterIndex);
             }
         });
     }
@@ -1956,29 +2109,17 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         o().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                // 移除章节列表容器（包含标题和ListView）
+                // 移除章节列表容器（直接清空电子书面板的所有子视图）
                 if (ebookPanel != null) {
-                    // 查找并移除章节列表容器
-                    for (int i = ebookPanel.getChildCount() - 1; i >= 0; i--) {
-                        android.view.View child = ebookPanel.getChildAt(i);
-                        if (child instanceof android.widget.FrameLayout) {
-                            // 检查是否是章节列表容器（包含标题）
-                            android.widget.FrameLayout container = (android.widget.FrameLayout) child;
-                            if (container.getChildCount() > 0 && container.getChildAt(0) instanceof android.widget.TextView) {
-                                android.widget.TextView firstChild = (android.widget.TextView) container.getChildAt(0);
-                                if (firstChild.getText() != null && firstChild.getText().toString().contains("章节列表")) {
-                                    Log.i(TAG_EBOOK, "找到章节列表容器，移除");
-                                    ebookPanel.removeViewAt(i);
-                                    break;
-                                }
-                            }
-                        }
-                    }
+                    Log.i(TAG_EBOOK, "清空电子书面板，当前子视图数: " + ebookPanel.getChildCount());
+                    ebookPanel.removeAllViews();
                     chapterListView = null;
                 }
 
                 // 恢复WebView显示
                 if (ebookWebView != null) {
+                    Log.i(TAG_EBOOK, "恢复WebView显示");
+                    ebookPanel.addView(ebookWebView);
                     ebookWebView.setVisibility(View.VISIBLE);
                 }
 

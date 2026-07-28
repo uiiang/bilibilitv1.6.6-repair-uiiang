@@ -27,19 +27,19 @@
     .locals 0
 
     .prologue
-    .line 442
+    .line 644
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 443
+    .line 645
     iput-object p1, p0, Lcom/bilibili/tv/ebook/parser/EpubParser$ManifestItem;->id:Ljava/lang/String;
 
-    .line 444
+    .line 646
     iput-object p2, p0, Lcom/bilibili/tv/ebook/parser/EpubParser$ManifestItem;->href:Ljava/lang/String;
 
-    .line 445
+    .line 647
     iput-object p3, p0, Lcom/bilibili/tv/ebook/parser/EpubParser$ManifestItem;->mediaType:Ljava/lang/String;
 
-    .line 446
+    .line 648
     return-void
 .end method
 
@@ -49,7 +49,7 @@
     .locals 1
 
     .prologue
-    .line 453
+    .line 655
     iget-object v0, p0, Lcom/bilibili/tv/ebook/parser/EpubParser$ManifestItem;->href:Ljava/lang/String;
 
     return-object v0
@@ -59,7 +59,7 @@
     .locals 1
 
     .prologue
-    .line 449
+    .line 651
     iget-object v0, p0, Lcom/bilibili/tv/ebook/parser/EpubParser$ManifestItem;->id:Ljava/lang/String;
 
     return-object v0
@@ -69,7 +69,7 @@
     .locals 1
 
     .prologue
-    .line 457
+    .line 659
     iget-object v0, p0, Lcom/bilibili/tv/ebook/parser/EpubParser$ManifestItem;->mediaType:Ljava/lang/String;
 
     return-object v0
