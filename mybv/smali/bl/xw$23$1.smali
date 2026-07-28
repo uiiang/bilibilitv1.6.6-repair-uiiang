@@ -34,7 +34,7 @@
     .locals 0
 
     .prologue
-    .line 1979
+    .line 2077
     iput-object p1, p0, Lbl/xw$23$1;->this$1:Lbl/xw$23;
 
     iput-object p5, p0, Lbl/xw$23$1;->val$chapterList:Ljava/util/List;
@@ -58,27 +58,27 @@
 
     const/4 v5, 0x0
 
-    .line 1982
+    .line 2080
     invoke-super {p0, p1, p2, p3}, Landroid/widget/ArrayAdapter;->getView(ILandroid/view/View;Landroid/view/ViewGroup;)Landroid/view/View;
 
     move-result-object v1
 
-    .line 1983
+    .line 2081
     instance-of v0, v1, Landroid/widget/TextView;
 
     if-eqz v0, :cond_78
 
     move-object v0, v1
 
-    .line 1984
+    .line 2082
     check-cast v0, Landroid/widget/TextView;
 
-    .line 1985
+    .line 2083
     const/high16 v2, 0x41800000    # 16.0f
 
     invoke-virtual {v0, v2}, Landroid/widget/TextView;->setTextSize(F)V
 
-    .line 1988
+    .line 2086
     iget-object v2, p0, Lbl/xw$23$1;->val$chapterList:Ljava/util/List;
 
     invoke-interface {v2, p1}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -87,32 +87,32 @@
 
     check-cast v2, Lcom/bilibili/tv/ebook/model/Chapter;
 
-    .line 1989
+    .line 2087
     invoke-virtual {v2}, Lcom/bilibili/tv/ebook/model/Chapter;->getDepth()I
 
     move-result v3
 
-    .line 1990
+    .line 2088
     mul-int/lit8 v3, v3, 0x1e
 
-    .line 1991
+    .line 2089
     add-int/lit8 v3, v3, 0x18
 
     const/16 v6, 0x18
 
     invoke-virtual {v0, v3, v7, v6, v7}, Landroid/widget/TextView;->setPadding(IIII)V
 
-    .line 1994
+    .line 2092
     iget-object v3, p0, Lbl/xw$23$1;->this$1:Lbl/xw$23;
 
     iget-object v3, v3, Lbl/xw$23;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->getChildChapters(Lcom/bilibili/tv/ebook/model/Chapter;)Ljava/util/List;
-    invoke-static {v3, v2}, Lbl/xw;->access$2000(Lbl/xw;Lcom/bilibili/tv/ebook/model/Chapter;)Ljava/util/List;
+    invoke-static {v3, v2}, Lbl/xw;->access$2100(Lbl/xw;Lcom/bilibili/tv/ebook/model/Chapter;)Ljava/util/List;
 
     move-result-object v3
 
-    .line 1995
+    .line 2093
     invoke-interface {v3}, Ljava/util/List;->isEmpty()Z
 
     move-result v3
@@ -121,7 +121,7 @@
 
     move v3, v4
 
-    .line 1998
+    .line 2096
     :goto_39
     invoke-virtual {v2}, Lcom/bilibili/tv/ebook/model/Chapter;->getChapterIndex()I
 
@@ -132,7 +132,7 @@
     iget-object v7, v7, Lbl/xw$23;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->currentChapterIndex:I
-    invoke-static {v7}, Lbl/xw;->access$2100(Lbl/xw;)I
+    invoke-static {v7}, Lbl/xw;->access$2200(Lbl/xw;)I
 
     move-result v7
 
@@ -140,16 +140,16 @@
 
     move v6, v4
 
-    .line 2001
+    .line 2099
     :goto_48
     invoke-virtual {v2}, Lcom/bilibili/tv/ebook/model/Chapter;->getTitle()Ljava/lang/String;
 
     move-result-object v2
 
-    .line 2004
+    .line 2102
     if-eqz v3, :cond_61
 
-    .line 2005
+    .line 2103
     new-instance v3, Ljava/lang/StringBuilder;
 
     invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
@@ -168,11 +168,11 @@
 
     move-result-object v2
 
-    .line 2008
+    .line 2106
     :cond_61
     invoke-virtual {v0, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 2011
+    .line 2109
     if-eqz v6, :cond_a6
 
     instance-of v2, p3, Landroid/widget/ListView;
@@ -181,24 +181,24 @@
 
     move-object v2, p3
 
-    .line 2012
+    .line 2110
     check-cast v2, Landroid/widget/ListView;
 
-    .line 2013
+    .line 2111
     invoke-virtual {v2}, Landroid/widget/ListView;->getSelectedItemPosition()I
 
     move-result v2
 
     if-ne p1, v2, :cond_9a
 
-    .line 2015
+    .line 2113
     :goto_73
     if-eqz v4, :cond_9c
 
-    .line 2017
+    .line 2115
     invoke-virtual {v0, v8}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 2029
+    .line 2127
     :cond_78
     :goto_78
     iget-object v0, p0, Lbl/xw$23$1;->val$chapterList:Ljava/util/List;
@@ -209,22 +209,22 @@
 
     check-cast v0, Lcom/bilibili/tv/ebook/model/Chapter;
 
-    .line 2030
+    .line 2128
     instance-of v0, p3, Landroid/widget/ListView;
 
     if-eqz v0, :cond_95
 
-    .line 2031
+    .line 2129
     check-cast p3, Landroid/widget/ListView;
 
-    .line 2032
+    .line 2130
     invoke-virtual {p3}, Landroid/widget/ListView;->getSelectedItemPosition()I
 
     move-result v0
 
     if-ne p1, v0, :cond_aa
 
-    .line 2033
+    .line 2131
     const-string v0, "#1E90FF"
 
     invoke-static {v0}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -233,7 +233,7 @@
 
     invoke-virtual {v1, v0}, Landroid/view/View;->setBackgroundColor(I)V
 
-    .line 2039
+    .line 2137
     :cond_95
     :goto_95
     return-object v1
@@ -241,22 +241,22 @@
     :cond_96
     move v3, v5
 
-    .line 1995
+    .line 2093
     goto :goto_39
 
     :cond_98
     move v6, v5
 
-    .line 1998
+    .line 2096
     goto :goto_48
 
     :cond_9a
     move v4, v5
 
-    .line 2013
+    .line 2111
     goto :goto_73
 
-    .line 2020
+    .line 2118
     :cond_9c
     const-string v2, "#1E90FF"
 
@@ -268,13 +268,13 @@
 
     goto :goto_78
 
-    .line 2024
+    .line 2122
     :cond_a6
     invoke-virtual {v0, v8}, Landroid/widget/TextView;->setTextColor(I)V
 
     goto :goto_78
 
-    .line 2035
+    .line 2133
     :cond_aa
     invoke-virtual {v1, v5}, Landroid/view/View;->setBackgroundColor(I)V
 

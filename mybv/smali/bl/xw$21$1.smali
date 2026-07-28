@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 1781
+    .line 1875
     iput-object p1, p0, Lbl/xw$21$1;->this$1:Lbl/xw$21;
 
     iput-object p2, p0, Lbl/xw$21$1;->val$view:Landroid/webkit/WebView;
@@ -46,28 +46,67 @@
     .prologue
     const/4 v3, 0x0
 
-    .line 1784
+    .line 1879
+    const-string v0, "EbookReader"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "\u9875\u9762\u52a0\u8f7d\u5b8c\u6210\uff0c\u5e94\u7528\u5b57\u4f53\u5927\u5c0f: "
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lbl/xw$21$1;->this$1:Lbl/xw$21;
+
+    iget v2, v2, Lbl/xw$21;->val$savedFontSize:F
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(F)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 1880
+    iget-object v0, p0, Lbl/xw$21$1;->this$1:Lbl/xw$21;
+
+    iget-object v0, v0, Lbl/xw$21;->this$0:Lbl/xw;
+
+    iget-object v1, p0, Lbl/xw$21$1;->this$1:Lbl/xw$21;
+
+    iget v1, v1, Lbl/xw$21;->val$savedFontSize:F
+
+    # invokes: Lbl/xw;->applyFontSizeToWebView(F)V
+    invoke-static {v0, v1}, Lbl/xw;->access$1500(Lbl/xw;F)V
+
+    .line 1883
     iget-object v0, p0, Lbl/xw$21$1;->this$1:Lbl/xw$21;
 
     iget-boolean v0, v0, Lbl/xw$21;->val$scrollToBottom:Z
 
-    if-eqz v0, :cond_50
+    if-eqz v0, :cond_77
 
-    .line 1786
+    .line 1885
     const-string v0, "EbookReader"
 
     const-string v1, "\u9875\u9762\u52a0\u8f7d\u5b8c\u6210\uff0c\u6eda\u52a8\u5230\u7ae0\u8282\u5e95\u90e8"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1787
+    .line 1886
     iget-object v0, p0, Lbl/xw$21$1;->val$view:Landroid/webkit/WebView;
 
     invoke-virtual {v0}, Landroid/webkit/WebView;->getContentHeight()I
 
     move-result v0
 
-    .line 1788
+    .line 1887
     iget-object v1, p0, Lbl/xw$21$1;->this$1:Lbl/xw$21;
 
     iget-object v1, v1, Lbl/xw$21;->this$0:Lbl/xw;
@@ -86,32 +125,32 @@
 
     iget v1, v1, Landroid/util/DisplayMetrics;->density:F
 
-    .line 1789
+    .line 1888
     int-to-float v0, v0
 
     mul-float/2addr v0, v1
 
     float-to-int v0, v0
 
-    .line 1790
+    .line 1889
     iget-object v1, p0, Lbl/xw$21$1;->val$view:Landroid/webkit/WebView;
 
     invoke-virtual {v1}, Landroid/webkit/WebView;->getHeight()I
 
     move-result v1
 
-    .line 1791
+    .line 1890
     sub-int/2addr v0, v1
 
-    .line 1792
-    if-lez v0, :cond_4f
+    .line 1891
+    if-lez v0, :cond_76
 
-    .line 1793
+    .line 1892
     iget-object v1, p0, Lbl/xw$21$1;->val$view:Landroid/webkit/WebView;
 
     invoke-virtual {v1, v3, v0}, Landroid/webkit/WebView;->scrollTo(II)V
 
-    .line 1794
+    .line 1893
     const-string v1, "EbookReader"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -134,20 +173,20 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1806
-    :cond_4f
-    :goto_4f
+    .line 1905
+    :cond_76
+    :goto_76
     return-void
 
-    .line 1796
-    :cond_50
+    .line 1895
+    :cond_77
     iget-object v0, p0, Lbl/xw$21$1;->this$1:Lbl/xw$21;
 
     iget v0, v0, Lbl/xw$21;->val$restorePage:I
 
-    if-ltz v0, :cond_4f
+    if-ltz v0, :cond_76
 
-    .line 1798
+    .line 1897
     const-string v0, "EbookReader"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -174,29 +213,29 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1799
+    .line 1898
     iget-object v0, p0, Lbl/xw$21$1;->val$view:Landroid/webkit/WebView;
 
     invoke-virtual {v0}, Landroid/webkit/WebView;->getHeight()I
 
     move-result v0
 
-    .line 1800
+    .line 1899
     iget-object v1, p0, Lbl/xw$21$1;->this$1:Lbl/xw$21;
 
     iget v1, v1, Lbl/xw$21;->val$restorePage:I
 
     mul-int/2addr v0, v1
 
-    .line 1801
-    if-lez v0, :cond_4f
+    .line 1900
+    if-lez v0, :cond_76
 
-    .line 1802
+    .line 1901
     iget-object v1, p0, Lbl/xw$21$1;->val$view:Landroid/webkit/WebView;
 
     invoke-virtual {v1, v3, v0}, Landroid/webkit/WebView;->scrollTo(II)V
 
-    .line 1803
+    .line 1902
     const-string v1, "EbookReader"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -233,5 +272,5 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto :goto_4f
+    goto :goto_76
 .end method

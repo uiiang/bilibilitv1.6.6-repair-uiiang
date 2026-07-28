@@ -20,18 +20,18 @@
 # instance fields
 .field final synthetic this$1:Lbl/xw$21;
 
-.field final synthetic val$chapterTitles:Ljava/util/List;
+.field final synthetic val$e:Ljava/lang/Exception;
 
 
 # direct methods
-.method constructor <init>(Lbl/xw$21;Ljava/util/List;)V
+.method constructor <init>(Lbl/xw$21;Ljava/lang/Exception;)V
     .locals 0
 
     .prologue
-    .line 1847
+    .line 1694
     iput-object p1, p0, Lbl/xw$21$3;->this$1:Lbl/xw$21;
 
-    iput-object p2, p0, Lbl/xw$21$3;->val$chapterTitles:Ljava/util/List;
+    iput-object p2, p0, Lbl/xw$21$3;->val$e:Ljava/lang/Exception;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -44,79 +44,33 @@
     .locals 3
 
     .prologue
-    .line 1851
+    .line 1697
     iget-object v0, p0, Lbl/xw$21$3;->this$1:Lbl/xw$21;
 
     iget-object v0, v0, Lbl/xw$21;->this$0:Lbl/xw;
 
-    # getter for: Lbl/xw;->currentChapterIndex:I
-    invoke-static {v0}, Lbl/xw;->access$1800(Lbl/xw;)I
-
-    move-result v0
-
-    if-ltz v0, :cond_4d
-
-    iget-object v0, p0, Lbl/xw$21$3;->this$1:Lbl/xw$21;
-
-    iget-object v0, v0, Lbl/xw$21;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->currentChapterIndex:I
-    invoke-static {v0}, Lbl/xw;->access$1800(Lbl/xw;)I
-
-    move-result v0
-
-    iget-object v1, p0, Lbl/xw$21$3;->val$chapterTitles:Ljava/util/List;
-
-    invoke-interface {v1}, Ljava/util/List;->size()I
-
-    move-result v1
-
-    if-ge v0, v1, :cond_4d
-
-    .line 1852
-    iget-object v0, p0, Lbl/xw$21$3;->this$1:Lbl/xw$21;
-
-    iget-object v0, v0, Lbl/xw$21;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->chapterListView:Landroid/widget/ListView;
-    invoke-static {v0}, Lbl/xw;->access$1700(Lbl/xw;)Landroid/widget/ListView;
+    invoke-virtual {v0}, Lbl/xw;->o()Landroid/app/Activity;
 
     move-result-object v0
-
-    iget-object v1, p0, Lbl/xw$21$3;->this$1:Lbl/xw$21;
-
-    iget-object v1, v1, Lbl/xw$21;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->currentChapterIndex:I
-    invoke-static {v1}, Lbl/xw;->access$1800(Lbl/xw;)I
-
-    move-result v1
-
-    invoke-virtual {v0, v1}, Landroid/widget/ListView;->setSelection(I)V
-
-    .line 1853
-    const-string v0, "EbookReader"
 
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v2, "\u7ae0\u8282\u5217\u8868\u5df2\u6eda\u52a8\u5230\u5f53\u524d\u7ae0\u8282: "
+    const-string v2, "\u89e3\u6790\u5f02\u5e38: "
 
     invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
-    iget-object v2, p0, Lbl/xw$21$3;->this$1:Lbl/xw$21;
+    iget-object v2, p0, Lbl/xw$21$3;->val$e:Ljava/lang/Exception;
 
-    iget-object v2, v2, Lbl/xw$21;->this$0:Lbl/xw;
+    .line 1698
+    invoke-virtual {v2}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
 
-    # getter for: Lbl/xw;->currentChapterIndex:I
-    invoke-static {v2}, Lbl/xw;->access$1800(Lbl/xw;)I
+    move-result-object v2
 
-    move-result v2
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
@@ -124,28 +78,16 @@
 
     move-result-object v1
 
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    const/4 v2, 0x0
 
-    .line 1857
-    :cond_4d
-    iget-object v0, p0, Lbl/xw$21$3;->this$1:Lbl/xw$21;
-
-    iget-object v0, v0, Lbl/xw$21;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->chapterListView:Landroid/widget/ListView;
-    invoke-static {v0}, Lbl/xw;->access$1700(Lbl/xw;)Landroid/widget/ListView;
+    .line 1697
+    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
 
     move-result-object v0
 
-    invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
+    .line 1699
+    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    .line 1858
-    const-string v0, "EbookReader"
-
-    const-string v1, "\u7ae0\u8282\u5217\u8868\u5df2\u8bf7\u6c42\u7126\u70b9"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 1859
+    .line 1700
     return-void
 .end method

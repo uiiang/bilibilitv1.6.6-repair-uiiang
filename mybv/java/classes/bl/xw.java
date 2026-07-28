@@ -302,6 +302,17 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
             // 菜单键：打开右侧菜单
             if (keyCode == KeyEvent.KEYCODE_MENU) {
+                // 关键修复：在章节列表和文件选择列表中，不响应菜单键
+                if (isChapterListShown) {
+                    Log.i(TAG_EBOOK, "章节列表显示中，不响应菜单键");
+                    return true;
+                }
+
+                if (isFileChooserShown) {
+                    Log.i(TAG_EBOOK, "文件选择列表显示中，不响应菜单键");
+                    return true;
+                }
+
                 Log.i(TAG_EBOOK, "电子书模式下打开右侧菜单");
                 d(true);
                 return true;
@@ -548,31 +559,16 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             }
         }
 
-        // 菜单打开时,临时隐藏电子书面板(避免被覆盖)
+        // 根本性修复：隐藏电子书面板避免被右侧菜单覆盖
+        // 原因：PlayerMenuRight和ebookPanel在不同父容器中，无法使用bringToFront调整z-order
+        // 解决方案：使用INVISIBLE隐藏，在PlayerMenuRight关闭时通过onMenuClosed回调恢复显示
         if (z && isEbookPanelShown && ebookPanel != null) {
-            Log.i(TAG_EBOOK, "菜单打开,临时隐藏电子书面板");
-            ebookPanel.setVisibility(View.INVISIBLE); // 使用INVISIBLE而不是GONE,保持布局位置
+            Log.i(TAG_EBOOK, "菜单打开，临时隐藏电子书面板");
+            ebookPanel.setVisibility(View.INVISIBLE); // 使用INVISIBLE而不是GONE，保持布局位置
         }
 
         if (this.c.isShown() != z) {
             this.c.a(z);
-        }
-
-        // 问题2修复：菜单关闭时,总是恢复显示电子书面板（不依赖于this.c.isShown()的判断）
-        if (!z && isEbookPanelShown && ebookPanel != null) {
-            Log.i(TAG_EBOOK, "菜单关闭,恢复显示电子书面板");
-            ebookPanel.setVisibility(View.VISIBLE);
-
-            // 关键修复：恢复焦点到书架列表（如果书架列表存在）
-            if (bookshelfListView != null && bookshelfListView.isShown()) {
-                bookshelfListView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        bookshelfListView.requestFocus();
-                        Log.i(TAG_EBOOK, "菜单关闭后恢复焦点到书架列表");
-                    }
-                });
-            }
         }
     }
 
@@ -606,9 +602,14 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
         // 关键修复：根据controlTarget判断打开哪个菜单（而不仅仅是isEbookPanelShown）
         if (isEbookPanelShown && controlTarget.equals("ebook") && com.bilibili.tv.FeatureConfig.isEbookReaderEnabled()) {
-            // 问题1修复：在文件列表页，不显示右侧菜单
+            // 问题1修复：在文件列表页和章节列表页，不显示右侧菜单
             if (isFileChooserShown) {
                 Log.i(TAG_EBOOK, "文件列表页，不显示右侧菜单");
+                return;
+            }
+
+            if (isChapterListShown) {
+                Log.i(TAG_EBOOK, "章节列表页，不显示右侧菜单");
                 return;
             }
 
@@ -628,11 +629,41 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                 // 阅读页面菜单
                 ebookMenus.add("控制视频"); // 最上方
                 ebookMenus.add("章节列表");
+                ebookMenus.add("字体大小"); // 新增：字体大小
                 ebookMenus.add("关闭书籍");
             }
 
             this.c.b(ebookMenus, 0);
             this.c.setMenuIndexMap(new ArrayList<>()); // 清空索引映射
+
+            // 初始化字体大小列表（阅读页面才需要）
+            if (isReadingBook) {
+                List<String> fontSizeList = new ArrayList<>();
+                fontSizeList.add("20");
+                fontSizeList.add("22");
+                fontSizeList.add("24");
+                fontSizeList.add("26");
+                fontSizeList.add("28");
+                fontSizeList.add("30");
+                fontSizeList.add("32");
+                fontSizeList.add("34");
+                fontSizeList.add("36");
+                fontSizeList.add("38");
+
+                // 读取保存的字体大小索引（默认为4，即28px）
+                android.content.SharedPreferences prefs = o().getSharedPreferences("ebook_settings", android.content.Context.MODE_PRIVATE);
+                float savedFontSize = prefs.getFloat("font_size", 28f);
+                int savedIndex = 4; // 默认索引
+                for (int i = 0; i < fontSizeList.size(); i++) {
+                    if (Float.valueOf(fontSizeList.get(i)).floatValue() == savedFontSize) {
+                        savedIndex = i;
+                        break;
+                    }
+                }
+
+                Log.i(TAG_EBOOK, "初始化字体大小列表，当前索引: " + savedIndex + ", 字体大小: " + savedFontSize);
+                this.c.init_size(fontSizeList, savedIndex); // 复用init_size方法设置字体大小列表
+            }
 
             // 不需要初始化其他菜单项(清晰度、弹幕等)
             return;
@@ -809,6 +840,65 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             }
         });
         dialog.show();
+    }
+
+    @Override // com.bilibili.tv.player.widget.PlayerMenuRight.a
+    public void onMenuClosed() {
+        // 关键修复：菜单关闭时恢复显示电子书面板
+        if (isEbookPanelShown && ebookPanel != null && ebookPanel.getVisibility() != View.VISIBLE) {
+            Log.i(TAG_EBOOK, "onMenuClosed: 恢复显示电子书面板");
+            ebookPanel.setVisibility(View.VISIBLE);
+
+            // 恢复焦点到书架列表（如果书架列表存在）
+            if (bookshelfListView != null && bookshelfListView.isShown()) {
+                bookshelfListView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        bookshelfListView.requestFocus();
+                        Log.i(TAG_EBOOK, "onMenuClosed: 恢复焦点到书架列表");
+                    }
+                });
+            }
+        }
+    }
+
+    @Override // com.bilibili.tv.player.widget.PlayerMenuRight.a
+    public void set_ebook_font_size(float fontSize) {
+        Log.i(TAG_EBOOK, "set_ebook_font_size: fontSize=" + fontSize);
+
+        // 保存字体大小到SharedPreferences
+        android.content.SharedPreferences prefs = o().getSharedPreferences("ebook_settings", android.content.Context.MODE_PRIVATE);
+        prefs.edit().putFloat("font_size", fontSize).apply();
+        Log.i(TAG_EBOOK, "字体大小已保存: " + fontSize);
+
+        // 应用字体大小到WebView（如果正在阅读）
+        if (ebookWebView != null && isReadingBook) {
+            applyFontSizeToWebView(fontSize);
+        }
+    }
+
+    /**
+     * 应用字体大小到WebView
+     */
+    private void applyFontSizeToWebView(float fontSize) {
+        if (ebookWebView == null) {
+            return;
+        }
+
+        Log.i(TAG_EBOOK, "应用字体大小到WebView: " + fontSize);
+
+        // 使用JavaScript修改字体大小
+        String js = String.format("document.body.style.fontSize='%dpx';", (int)fontSize);
+        ebookWebView.evaluateJavascript(js, null);
+
+        // 同时修改所有段落和div的字体大小
+        String jsAll = String.format(
+            "var elements = document.querySelectorAll('p, div, span');" +
+            "for (var i = 0; i < elements.length; i++) {" +
+            "  elements[i].style.fontSize = '%dpx';" +
+            "}", (int)fontSize
+        );
+        ebookWebView.evaluateJavascript(jsAll, null);
     }
 
     @Override // com.bilibili.tv.player.widget.PlayerMenuRight.a
@@ -1765,49 +1855,57 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             htmlContent = "<html><body><h1>" + chapter.getTitle() + "</h1><p>章节内容为空</p></body></html>";
         }
 
+        // 读取保存的字体大小（如果没有保存则使用默认值28）
+        android.content.SharedPreferences prefs = o().getSharedPreferences("ebook_settings", android.content.Context.MODE_PRIVATE);
+        float savedFontSize = prefs.getFloat("font_size", 28f);
+        Log.i(TAG_EBOOK, "读取保存的字体大小: " + savedFontSize);
+
         // 构建完整HTML（添加样式）
         String styledHtml = "<html><head>" +
             "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">" +
-            "<style>body { font-size: 18px; line-height: 1.6; padding: 20px; }</style>" +
+            "<style>body { font-size: " + (int)savedFontSize + "px; line-height: 1.6; padding: 20px; }</style>" +
             "</head><body>" + htmlContent + "</body></html>";
 
-        // 设置WebViewClient，用于监听页面加载完成（如果需要滚动到底部或恢复页码）
-        if (scrollToBottom || restorePage >= 0) {
-            ebookWebView.setWebViewClient(new android.webkit.WebViewClient() {
-                @Override
-                public void onPageFinished(android.webkit.WebView view, String url) {
-                    super.onPageFinished(view, url);
+        // 设置WebViewClient，用于监听页面加载完成（应用字体大小、滚动到底部或恢复页码）
+        ebookWebView.setWebViewClient(new android.webkit.WebViewClient() {
+            @Override
+            public void onPageFinished(android.webkit.WebView view, String url) {
+                super.onPageFinished(view, url);
 
-                    view.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (scrollToBottom) {
-                                // 滚动到章节底部
-                                Log.i(TAG_EBOOK, "页面加载完成，滚动到章节底部");
-                                int contentHeight = view.getContentHeight();
-                                float density = o().getResources().getDisplayMetrics().density;
-                                int contentHeightPx = (int) (contentHeight * density);
-                                int viewHeight = view.getHeight();
-                                int scrollY = contentHeightPx - viewHeight;
-                                if (scrollY > 0) {
-                                    view.scrollTo(0, scrollY);
-                                    Log.i(TAG_EBOOK, "已滚动到章节底部: scrollY=" + scrollY);
-                                }
-                            } else if (restorePage >= 0) {
-                                // 恢复到指定页码
-                                Log.i(TAG_EBOOK, "页面加载完成，恢复到页码: " + restorePage);
-                                int viewHeight = view.getHeight();
-                                int scrollY = restorePage * viewHeight;
-                                if (scrollY > 0) {
-                                    view.scrollTo(0, scrollY);
-                                    Log.i(TAG_EBOOK, "已滚动到页码 " + restorePage + ": scrollY=" + scrollY);
-                                }
+                view.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 应用保存的字体大小（通过JavaScript强制应用）
+                        Log.i(TAG_EBOOK, "页面加载完成，应用字体大小: " + savedFontSize);
+                        applyFontSizeToWebView(savedFontSize);
+
+                        // 滚动逻辑
+                        if (scrollToBottom) {
+                            // 滚动到章节底部
+                            Log.i(TAG_EBOOK, "页面加载完成，滚动到章节底部");
+                            int contentHeight = view.getContentHeight();
+                            float density = o().getResources().getDisplayMetrics().density;
+                            int contentHeightPx = (int) (contentHeight * density);
+                            int viewHeight = view.getHeight();
+                            int scrollY = contentHeightPx - viewHeight;
+                            if (scrollY > 0) {
+                                view.scrollTo(0, scrollY);
+                                Log.i(TAG_EBOOK, "已滚动到章节底部: scrollY=" + scrollY);
+                            }
+                        } else if (restorePage >= 0) {
+                            // 恢复到指定页码
+                            Log.i(TAG_EBOOK, "页面加载完成，恢复到页码: " + restorePage);
+                            int viewHeight = view.getHeight();
+                            int scrollY = restorePage * viewHeight;
+                            if (scrollY > 0) {
+                                view.scrollTo(0, scrollY);
+                                Log.i(TAG_EBOOK, "已滚动到页码 " + restorePage + ": scrollY=" + scrollY);
                             }
                         }
-                    });
-                }
-            });
-        }
+                    }
+                });
+            }
+        });
 
         // 加载内容到WebView
         ebookWebView.loadDataWithBaseURL(null, styledHtml, "text/html", "UTF-8", null);

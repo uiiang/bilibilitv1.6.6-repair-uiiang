@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw$16;->run()V
+    value = Lbl/xw$16;->onItemSelected(Landroid/widget/AdapterView;Landroid/view/View;IJ)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,14 +20,18 @@
 # instance fields
 .field final synthetic this$1:Lbl/xw$16;
 
+.field final synthetic val$parent:Landroid/widget/AdapterView;
+
 
 # direct methods
-.method constructor <init>(Lbl/xw$16;)V
+.method constructor <init>(Lbl/xw$16;Landroid/widget/AdapterView;)V
     .locals 0
 
     .prologue
-    .line 1365
+    .line 1471
     iput-object p1, p0, Lbl/xw$16$1;->this$1:Lbl/xw$16;
+
+    iput-object p2, p0, Lbl/xw$16$1;->val$parent:Landroid/widget/AdapterView;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -37,29 +41,16 @@
 
 # virtual methods
 .method public run()V
-    .locals 3
+    .locals 1
 
     .prologue
-    .line 1368
-    iget-object v0, p0, Lbl/xw$16$1;->this$1:Lbl/xw$16;
+    .line 1474
+    iget-object v0, p0, Lbl/xw$16$1;->val$parent:Landroid/widget/AdapterView;
 
-    iget-object v0, v0, Lbl/xw$16;->this$0:Lbl/xw;
+    check-cast v0, Landroid/widget/ListView;
 
-    invoke-virtual {v0}, Lbl/xw;->o()Landroid/app/Activity;
+    invoke-virtual {v0}, Landroid/widget/ListView;->invalidateViews()V
 
-    move-result-object v0
-
-    const-string v1, "\u7535\u5b50\u4e66\u89e3\u6790\u5931\u8d25\uff0c\u8bf7\u68c0\u67e5\u6587\u4ef6\u683c\u5f0f"
-
-    const/4 v2, 0x0
-
-    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
-
-    move-result-object v0
-
-    .line 1370
-    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
-
-    .line 1371
+    .line 1475
     return-void
 .end method

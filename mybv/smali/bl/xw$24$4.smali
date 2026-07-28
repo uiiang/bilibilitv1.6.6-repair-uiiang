@@ -1,4 +1,4 @@
-.class Lbl/xw$22$4;
+.class Lbl/xw$24$4;
 .super Ljava/lang/Object;
 .source "xw.java"
 
@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw$22;->run()V
+    value = Lbl/xw$24;->run()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -18,20 +18,20 @@
 
 
 # instance fields
-.field final synthetic this$1:Lbl/xw$22;
+.field final synthetic this$1:Lbl/xw$24;
 
 .field final synthetic val$chapterList:Ljava/util/List;
 
 
 # direct methods
-.method constructor <init>(Lbl/xw$22;Ljava/util/List;)V
+.method constructor <init>(Lbl/xw$24;Ljava/util/List;)V
     .locals 0
 
     .prologue
-    .line 2091
-    iput-object p1, p0, Lbl/xw$22$4;->this$1:Lbl/xw$22;
+    .line 2127
+    iput-object p1, p0, Lbl/xw$24$4;->this$1:Lbl/xw$24;
 
-    iput-object p2, p0, Lbl/xw$22$4;->val$chapterList:Ljava/util/List;
+    iput-object p2, p0, Lbl/xw$24$4;->val$chapterList:Ljava/util/List;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -53,8 +53,8 @@
     .end annotation
 
     .prologue
-    .line 2094
-    iget-object v0, p0, Lbl/xw$22$4;->val$chapterList:Ljava/util/List;
+    .line 2130
+    iget-object v0, p0, Lbl/xw$24$4;->val$chapterList:Ljava/util/List;
 
     invoke-interface {v0, p3}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
@@ -62,7 +62,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ebook/model/Chapter;
 
-    .line 2095
+    .line 2131
     const-string v1, "EbookReader"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -103,84 +103,84 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2098
-    iget-object v1, p0, Lbl/xw$22$4;->this$1:Lbl/xw$22;
+    .line 2134
+    iget-object v1, p0, Lbl/xw$24$4;->this$1:Lbl/xw$24;
 
-    iget-object v1, v1, Lbl/xw$22;->this$0:Lbl/xw;
+    iget-object v1, v1, Lbl/xw$24;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->getChildChapters(Lcom/bilibili/tv/ebook/model/Chapter;)Ljava/util/List;
-    invoke-static {v1, v0}, Lbl/xw;->access$2000(Lbl/xw;Lcom/bilibili/tv/ebook/model/Chapter;)Ljava/util/List;
+    invoke-static {v1, v0}, Lbl/xw;->access$2100(Lbl/xw;Lcom/bilibili/tv/ebook/model/Chapter;)Ljava/util/List;
 
     move-result-object v1
 
-    .line 2099
+    .line 2135
     invoke-interface {v1}, Ljava/util/List;->isEmpty()Z
 
     move-result v2
 
     if-nez v2, :cond_74
 
-    .line 2101
+    .line 2137
     const-string v2, "EbookReader"
 
     const-string v3, "\u7ae0\u8282\u6709\u5b50\u7ae0\u8282\uff0c\u663e\u793a\u5b50\u7ae0\u8282\u5217\u8868"
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2102
-    iget-object v2, p0, Lbl/xw$22$4;->this$1:Lbl/xw$22;
+    .line 2138
+    iget-object v2, p0, Lbl/xw$24$4;->this$1:Lbl/xw$24;
 
-    iget-object v2, v2, Lbl/xw$22;->this$0:Lbl/xw;
+    iget-object v2, v2, Lbl/xw$24;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->chapterNavigationStack:Ljava/util/Stack;
-    invoke-static {v2}, Lbl/xw;->access$2200(Lbl/xw;)Ljava/util/Stack;
+    invoke-static {v2}, Lbl/xw;->access$2300(Lbl/xw;)Ljava/util/Stack;
 
     move-result-object v2
 
-    iget-object v3, p0, Lbl/xw$22$4;->this$1:Lbl/xw$22;
+    iget-object v3, p0, Lbl/xw$24$4;->this$1:Lbl/xw$24;
 
-    iget-object v3, v3, Lbl/xw$22;->this$0:Lbl/xw;
+    iget-object v3, v3, Lbl/xw$24;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->currentChapterList:Ljava/util/List;
-    invoke-static {v3}, Lbl/xw;->access$1500(Lbl/xw;)Ljava/util/List;
+    invoke-static {v3}, Lbl/xw;->access$1600(Lbl/xw;)Ljava/util/List;
 
     move-result-object v3
 
     invoke-virtual {v2, v3}, Ljava/util/Stack;->push(Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 2103
-    iget-object v2, p0, Lbl/xw$22$4;->this$1:Lbl/xw$22;
+    .line 2139
+    iget-object v2, p0, Lbl/xw$24$4;->this$1:Lbl/xw$24;
 
-    iget-object v2, v2, Lbl/xw$22;->this$0:Lbl/xw;
+    iget-object v2, v2, Lbl/xw$24;->this$0:Lbl/xw;
 
     # setter for: Lbl/xw;->currentChapterList:Ljava/util/List;
-    invoke-static {v2, v1}, Lbl/xw;->access$1502(Lbl/xw;Ljava/util/List;)Ljava/util/List;
+    invoke-static {v2, v1}, Lbl/xw;->access$1602(Lbl/xw;Ljava/util/List;)Ljava/util/List;
 
-    .line 2104
-    iget-object v2, p0, Lbl/xw$22$4;->this$1:Lbl/xw$22;
+    .line 2140
+    iget-object v2, p0, Lbl/xw$24$4;->this$1:Lbl/xw$24;
 
-    iget-object v2, v2, Lbl/xw$22;->this$0:Lbl/xw;
+    iget-object v2, v2, Lbl/xw$24;->this$0:Lbl/xw;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/Chapter;->getTitle()Ljava/lang/String;
 
     move-result-object v0
 
     # setter for: Lbl/xw;->parentChapterTitle:Ljava/lang/String;
-    invoke-static {v2, v0}, Lbl/xw;->access$1802(Lbl/xw;Ljava/lang/String;)Ljava/lang/String;
+    invoke-static {v2, v0}, Lbl/xw;->access$1902(Lbl/xw;Ljava/lang/String;)Ljava/lang/String;
 
-    .line 2105
-    iget-object v0, p0, Lbl/xw$22$4;->this$1:Lbl/xw$22;
+    .line 2141
+    iget-object v0, p0, Lbl/xw$24$4;->this$1:Lbl/xw$24;
 
-    iget-object v0, v0, Lbl/xw$22;->this$0:Lbl/xw;
+    iget-object v0, v0, Lbl/xw$24;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->createChapterListView(Ljava/util/List;)V
-    invoke-static {v0, v1}, Lbl/xw;->access$1600(Lbl/xw;Ljava/util/List;)V
+    invoke-static {v0, v1}, Lbl/xw;->access$1700(Lbl/xw;Ljava/util/List;)V
 
-    .line 2112
+    .line 2148
     :goto_73
     return-void
 
-    .line 2108
+    .line 2144
     :cond_74
     const-string v1, "EbookReader"
 
@@ -208,17 +208,17 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2109
-    iget-object v1, p0, Lbl/xw$22$4;->this$1:Lbl/xw$22;
+    .line 2145
+    iget-object v1, p0, Lbl/xw$24$4;->this$1:Lbl/xw$24;
 
-    iget-object v1, v1, Lbl/xw$22;->this$0:Lbl/xw;
+    iget-object v1, v1, Lbl/xw$24;->this$0:Lbl/xw;
 
-    iget-object v2, p0, Lbl/xw$22$4;->this$1:Lbl/xw$22;
+    iget-object v2, p0, Lbl/xw$24$4;->this$1:Lbl/xw$24;
 
-    iget-object v2, v2, Lbl/xw$22;->this$0:Lbl/xw;
+    iget-object v2, v2, Lbl/xw$24;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->currentBook:Lcom/bilibili/tv/ebook/model/Book;
-    invoke-static {v2}, Lbl/xw;->access$2300(Lbl/xw;)Lcom/bilibili/tv/ebook/model/Book;
+    invoke-static {v2}, Lbl/xw;->access$2400(Lbl/xw;)Lcom/bilibili/tv/ebook/model/Book;
 
     move-result-object v2
 
@@ -227,15 +227,15 @@
     move-result v0
 
     # invokes: Lbl/xw;->displayBookContent(Lcom/bilibili/tv/ebook/model/Book;I)V
-    invoke-static {v1, v2, v0}, Lbl/xw;->access$2400(Lbl/xw;Lcom/bilibili/tv/ebook/model/Book;I)V
+    invoke-static {v1, v2, v0}, Lbl/xw;->access$2500(Lbl/xw;Lcom/bilibili/tv/ebook/model/Book;I)V
 
-    .line 2110
-    iget-object v0, p0, Lbl/xw$22$4;->this$1:Lbl/xw$22;
+    .line 2146
+    iget-object v0, p0, Lbl/xw$24$4;->this$1:Lbl/xw$24;
 
-    iget-object v0, v0, Lbl/xw$22;->this$0:Lbl/xw;
+    iget-object v0, v0, Lbl/xw$24;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->hideChapterList()V
-    invoke-static {v0}, Lbl/xw;->access$2500(Lbl/xw;)V
+    invoke-static {v0}, Lbl/xw;->access$2600(Lbl/xw;)V
 
     goto :goto_73
 .end method

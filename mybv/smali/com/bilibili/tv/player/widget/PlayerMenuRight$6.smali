@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 804
+    .line 913
     iput-object p1, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$6;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,19 +40,19 @@
     .locals 2
 
     .prologue
-    .line 815
+    .line 924
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$6;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->a()V
 
-    .line 816
+    .line 925
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$6;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     const/4 v1, 0x4
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->setVisibility(I)V
 
-    .line 817
+    .line 926
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$6;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     const/4 v1, 0x0
@@ -60,7 +60,28 @@
     # setter for: Lcom/bilibili/tv/player/widget/PlayerMenuRight;->c:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->access$102(Lcom/bilibili/tv/player/widget/PlayerMenuRight;Z)Z
 
-    .line 818
+    .line 929
+    iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$6;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
+
+    # getter for: Lcom/bilibili/tv/player/widget/PlayerMenuRight;->d:Lcom/bilibili/tv/player/widget/PlayerMenuRight$a;
+    invoke-static {v0}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->access$000(Lcom/bilibili/tv/player/widget/PlayerMenuRight;)Lcom/bilibili/tv/player/widget/PlayerMenuRight$a;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_22
+
+    .line 930
+    iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$6;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
+
+    # getter for: Lcom/bilibili/tv/player/widget/PlayerMenuRight;->d:Lcom/bilibili/tv/player/widget/PlayerMenuRight$a;
+    invoke-static {v0}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->access$000(Lcom/bilibili/tv/player/widget/PlayerMenuRight;)Lcom/bilibili/tv/player/widget/PlayerMenuRight$a;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Lcom/bilibili/tv/player/widget/PlayerMenuRight$a;->onMenuClosed()V
+
+    .line 932
+    :cond_22
     return-void
 .end method
 
@@ -68,7 +89,7 @@
     .locals 0
 
     .prologue
-    .line 807
+    .line 916
     return-void
 .end method
 
@@ -76,6 +97,6 @@
     .locals 0
 
     .prologue
-    .line 811
+    .line 920
     return-void
 .end method

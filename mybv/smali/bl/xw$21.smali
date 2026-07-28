@@ -19,20 +19,24 @@
 
 .field final synthetic val$restorePage:I
 
+.field final synthetic val$savedFontSize:F
+
 .field final synthetic val$scrollToBottom:Z
 
 
 # direct methods
-.method constructor <init>(Lbl/xw;ZI)V
+.method constructor <init>(Lbl/xw;FZI)V
     .locals 0
 
     .prologue
-    .line 1776
+    .line 1870
     iput-object p1, p0, Lbl/xw$21;->this$0:Lbl/xw;
 
-    iput-boolean p2, p0, Lbl/xw$21;->val$scrollToBottom:Z
+    iput p2, p0, Lbl/xw$21;->val$savedFontSize:F
 
-    iput p3, p0, Lbl/xw$21;->val$restorePage:I
+    iput-boolean p3, p0, Lbl/xw$21;->val$scrollToBottom:Z
+
+    iput p4, p0, Lbl/xw$21;->val$restorePage:I
 
     invoke-direct {p0}, Landroid/webkit/WebViewClient;-><init>()V
 
@@ -45,16 +49,16 @@
     .locals 1
 
     .prologue
-    .line 1779
+    .line 1873
     invoke-super {p0, p1, p2}, Landroid/webkit/WebViewClient;->onPageFinished(Landroid/webkit/WebView;Ljava/lang/String;)V
 
-    .line 1781
+    .line 1875
     new-instance v0, Lbl/xw$21$1;
 
     invoke-direct {v0, p0, p1}, Lbl/xw$21$1;-><init>(Lbl/xw$21;Landroid/webkit/WebView;)V
 
     invoke-virtual {p1, v0}, Landroid/webkit/WebView;->post(Ljava/lang/Runnable;)Z
 
-    .line 1808
+    .line 1907
     return-void
 .end method

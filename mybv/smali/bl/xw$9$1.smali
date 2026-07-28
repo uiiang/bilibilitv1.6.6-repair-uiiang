@@ -1,4 +1,4 @@
-.class Lbl/xw$14$1;
+.class Lbl/xw$9$1;
 .super Ljava/lang/Object;
 .source "xw.java"
 
@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw$14;->onItemSelected(Landroid/widget/AdapterView;Landroid/view/View;IJ)V
+    value = Lbl/xw$9;->onItemSelected(Landroid/widget/AdapterView;Landroid/view/View;IJ)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -18,20 +18,16 @@
 
 
 # instance fields
-.field final synthetic this$1:Lbl/xw$14;
-
-.field final synthetic val$parent:Landroid/widget/AdapterView;
+.field final synthetic this$1:Lbl/xw$9;
 
 
 # direct methods
-.method constructor <init>(Lbl/xw$14;Landroid/widget/AdapterView;)V
+.method constructor <init>(Lbl/xw$9;)V
     .locals 0
 
     .prologue
-    .line 1435
-    iput-object p1, p0, Lbl/xw$14$1;->this$1:Lbl/xw$14;
-
-    iput-object p2, p0, Lbl/xw$14$1;->val$parent:Landroid/widget/AdapterView;
+    .line 1139
+    iput-object p1, p0, Lbl/xw$9$1;->this$1:Lbl/xw$9;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -44,13 +40,18 @@
     .locals 1
 
     .prologue
-    .line 1438
-    iget-object v0, p0, Lbl/xw$14$1;->val$parent:Landroid/widget/AdapterView;
+    .line 1142
+    iget-object v0, p0, Lbl/xw$9$1;->this$1:Lbl/xw$9;
 
-    check-cast v0, Landroid/widget/ListView;
+    iget-object v0, v0, Lbl/xw$9;->this$0:Lbl/xw;
+
+    # getter for: Lbl/xw;->bookshelfListView:Landroid/widget/ListView;
+    invoke-static {v0}, Lbl/xw;->access$300(Lbl/xw;)Landroid/widget/ListView;
+
+    move-result-object v0
 
     invoke-virtual {v0}, Landroid/widget/ListView;->invalidateViews()V
 
-    .line 1439
+    .line 1143
     return-void
 .end method

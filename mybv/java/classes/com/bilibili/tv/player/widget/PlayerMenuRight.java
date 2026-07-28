@@ -61,12 +61,14 @@ public class PlayerMenuRight extends aay<String> {
     public static int subtitle_id = -1;
     public static int subtitle_size_id = -1;
     public static int audio_balance_id = 0;
+    public static int ebook_font_size_id = 4; // 默认字体大小索引（28px）
     public List<String> speed_list;
     public List<String> mode_list;
     public List<String> subtitle_list;
     public List<String> subtitle_size_list;
     public List<String> chapter_list;
     public List<String> audio_balance_list;
+    public List<String> ebook_font_size_list; // 电子书字体大小列表
     public static boolean danmaku_valid_list[] = {false,true,false,false,true,true,true,true,false,false};
     public static int danmaku_level=0;
     private List<Integer> menuIndexMap;
@@ -95,6 +97,9 @@ public class PlayerMenuRight extends aay<String> {
 
         void refresh_subtitle();
 
+        // 电子书功能：菜单关闭回调
+        void onMenuClosed();
+
         void jumpToChapter(int chapterIndex);
 
         void showSkipSettingDialog();
@@ -120,6 +125,9 @@ public class PlayerMenuRight extends aay<String> {
 
         // 新增：切换控制目标
         void switchControlTarget(String target);
+
+        // 新增：设置电子书字体大小
+        void set_ebook_font_size(float fontSize);
     }
 
     private void jumpToChapter(int chapterIndex) {
@@ -177,6 +185,19 @@ public class PlayerMenuRight extends aay<String> {
         this.mode_id = -1;
         this.subtitle_id = -1;
         this.subtitle_size_id = -1;
+
+        // 初始化电子书字体大小列表
+        this.ebook_font_size_list = new ArrayList<>();
+        this.ebook_font_size_list.add("20");
+        this.ebook_font_size_list.add("22");
+        this.ebook_font_size_list.add("24");
+        this.ebook_font_size_list.add("26");
+        this.ebook_font_size_list.add("28");
+        this.ebook_font_size_list.add("30");
+        this.ebook_font_size_list.add("32");
+        this.ebook_font_size_list.add("34");
+        this.ebook_font_size_list.add("36");
+        this.ebook_font_size_list.add("38");
     }
 
     public PlayerMenuRight(Context context, AttributeSet attributeSet) {
@@ -222,6 +243,24 @@ public class PlayerMenuRight extends aay<String> {
     }
     
     private int getOriginalMenuIndex(int displayIndex) {
+        // 电子书模式特殊处理
+        if (menuIndexMap == null || menuIndexMap.isEmpty()) {
+            // 电子书模式：将索引映射到父类能够识别的索引
+            switch (displayIndex) {
+                case 0: // 控制视频 - 没有二级菜单
+                    return -1;
+                case 1: // 章节列表 - 没有二级菜单（会单独显示）
+                    return -1;
+                case 2: // 字体大小 - 映射到索引4（父类会显示size_list）
+                    return 4; // 关键：映射到索引4，让父类显示size_list作为二级菜单
+                case 3: // 关闭书籍 - 没有二级菜单
+                    return -1;
+                default:
+                    return -1;
+            }
+        }
+
+        // 视频模式：使用正常映射
         if (menuIndexMap != null && displayIndex >= 0 && displayIndex < menuIndexMap.size()) {
             return menuIndexMap.get(displayIndex);
         }
@@ -263,6 +302,10 @@ public class PlayerMenuRight extends aay<String> {
                     isCurrentSize = true;
                 }
                 if (currentMenuIndex == 12 && this.subtitle_size_list != null && this.subtitle_size_id >= 0 && this.subtitle_size_id < this.subtitle_size_list.size() && this.subtitle_size_list.get(this.subtitle_size_id).equals(str)) {
+                    isCurrentSize = true;
+                }
+                // 新增：电子书字体大小圆点标注
+                if (currentMenuIndex == 2 && this.ebook_font_size_list != null && this.ebook_font_size_id >= 0 && this.ebook_font_size_id < this.ebook_font_size_list.size() && this.ebook_font_size_list.get(this.ebook_font_size_id).equals(str)) {
                     isCurrentSize = true;
                 }
                 boolean isCurrentItem = false;
@@ -415,10 +458,9 @@ public class PlayerMenuRight extends aay<String> {
         }
 
         if (TextUtils.equals(str, "字体大小")) {
-            a(false);  // 关闭菜单
             android.util.Log.i("EbookReader", "字体大小菜单项被点击");
-            android.widget.Toast.makeText(getContext(), "字体大小功能开发中", android.widget.Toast.LENGTH_SHORT).show();
-            return true;
+            // 关键修复：不要return false，让执行流继续到达super.a()以显示二级菜单
+            // size_list已在xw.S()中通过init_size设置为字体大小列表
         }
 
         if (TextUtils.equals(str, "选择文件")) {
@@ -598,6 +640,21 @@ public class PlayerMenuRight extends aay<String> {
                 this.d.refresh_subtitle();
                 saveSubtitleSettings();
             }
+            // 新增：电子书字体大小处理
+            // 电子书模式下，字体大小列表使用size_list（通过init_size设置）
+            // 判断条件：电子书模式（menuIndexMap为空）且currentMenuIndex==4（通过映射）
+            if ((menuIndexMap == null || menuIndexMap.isEmpty()) &&
+                this.size_list != null && this.size_list.indexOf(str) != -1 && currentMenuIndex == 4) {
+                // 电子书模式下的字体大小选择
+                this.d.set_ebook_font_size(Float.valueOf(this.size_list.get(i2)).floatValue());
+                i3 = this.ebook_font_size_id;
+                this.ebook_font_size_id = i2;
+            } else if (this.ebook_font_size_list != null && this.ebook_font_size_list.indexOf(str) != -1 && currentMenuIndex == 2) {
+                // 其他模式（暂未使用）
+                this.d.set_ebook_font_size(Float.valueOf(this.ebook_font_size_list.get(i2)).floatValue());
+                i3 = this.ebook_font_size_id;
+                this.ebook_font_size_id = i2;
+            }
             if (this.chapter_list != null && this.chapter_list.contains(str)) {
                 jumpToChapter(i2);
                 return true;
@@ -624,72 +681,124 @@ public class PlayerMenuRight extends aay<String> {
     }
 
     private boolean f() {
+        // 关键修复：电子书模式下不需要quality_list等，直接返回false
+        if (menuIndexMap == null || menuIndexMap.isEmpty()) {
+            return false;
+        }
         return this.main_list == null || this.quality_list == null || this.danmaku_list == null || this.ratio_list == null;
     }
 
     private void d(int i) {
-        switch (i) {
-            case 0:
-                aai.a(2);
-                return;
-            case 1:
-                aai.a(1);
-                return;
-            case 2:
-                aai.a(3);
-                return;
-            default:
-                return;
+        // 关键修复：电子书模式特殊处理
+        if (menuIndexMap == null || menuIndexMap.isEmpty()) {
+            // 电子书模式
+            switch (i) {
+                case 0:
+                    aai.a(2);
+                    return;
+                case 1:
+                    aai.a(1);
+                    return;
+                case 2:
+                    aai.a(3);
+                    return;
+                case 4: // 字体大小
+                    aai.a(3);
+                    return;
+                default:
+                    return;
+            }
+        } else {
+            // 视频模式：保持原有逻辑
+            switch (i) {
+                case 0:
+                    aai.a(2);
+                    return;
+                case 1:
+                    aai.a(1);
+                    return;
+                case 2:
+                    aai.a(3);
+                    return;
+                default:
+                    return;
+            }
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
+    /* JADX INFO: Access modifiers from: protected */
     @Override // bl.aay
     public boolean a(int i, int i2) {
         int i3;
         boolean a2 = super.a(i, i2);
         int originalIndex = getOriginalMenuIndex(i2);
-        switch (originalIndex) {
-            case 0:
-                i3 = this.quality_id;
-                break;
-            case 1:
-                i3 = 1;//i3 = this.danmaku_type;
-                break;
-            case 2:
-                i3 = this.ratio_id;
-                break;
-            case 4:
-                i3 = this.size_id;
-                break;
-            case 5:
-                i3 = this.alpha_id;
-                break;
-            case 6:
-                i3 = this.speed_id;
-                break;
-            case 7:
-                i3 = this.mode_id;
-                break;
-            case 8:
-                i3 = this.subtitle_id;
-                break;
-            case 9:
-                i3 = 0; // 章节列表默认选中第一个
-                break;
-            case 10:
-                i3 = 0; // 跳过设置
-                break;
-            case 11:
-                i3 = this.audio_balance_id; // 音频平衡
-                break;
-            case 12:
-                i3 = this.subtitle_size_id; // 字幕大小
-                break;
-            default:
-                i3 = 0;
-                break;
+
+        // 电子书模式特殊处理：索引2对应字体大小（size_id）
+        // 注意：电子书模式使用menuIndexMap为空列表，所以i2就是菜单项的实际索引
+        if (menuIndexMap == null || menuIndexMap.isEmpty()) {
+            // 电子书模式
+            switch (i2) {
+                case 0: // 控制视频
+                    i3 = 0;
+                    break;
+                case 1: // 章节列表
+                    i3 = 0;
+                    break;
+                case 2: // 字体大小 - 使用size_id
+                    i3 = this.ebook_font_size_id;
+                    break;
+                case 3: // 关闭书籍
+                    i3 = 0;
+                    break;
+                default:
+                    i3 = 0;
+                    break;
+            }
+        } else {
+            // 视频模式
+            switch (originalIndex) {
+                case 0:
+                    i3 = this.quality_id;
+                    break;
+                case 1:
+                    i3 = 1;//i3 = this.danmaku_type;
+                    break;
+                case 2:
+                    i3 = this.ratio_id;
+                    break;
+                case 4:
+                    i3 = this.size_id;
+                    break;
+                case 5:
+                    i3 = this.alpha_id;
+                    break;
+                case 6:
+                    i3 = this.speed_id;
+                    break;
+                case 7:
+                    i3 = this.mode_id;
+                    break;
+                case 8:
+                    i3 = this.subtitle_id;
+                    break;
+                case 9:
+                    i3 = 0; // 章节列表默认选中第一个
+                    break;
+                case 10:
+                    i3 = 0; // 跳过设置
+                    break;
+                case 11:
+                    i3 = this.audio_balance_id; // 音频平衡
+                    break;
+                case 12:
+                    i3 = this.subtitle_size_id; // 字幕大小
+                    break;
+                default:
+                    i3 = 0;
+                    break;
+            }
         }
+
         e(i + 1, i3);
         return a2;
     }
@@ -815,6 +924,11 @@ public class PlayerMenuRight extends aay<String> {
                     PlayerMenuRight.this.a();
                     PlayerMenuRight.this.setVisibility(4);
                     PlayerMenuRight.this.c = false;
+
+                    // 关键修复：菜单关闭时通知监听器（用于恢复电子书面板显示）
+                    if (PlayerMenuRight.this.d != null) {
+                        PlayerMenuRight.this.d.onMenuClosed();
+                    }
                 }
             });
         }

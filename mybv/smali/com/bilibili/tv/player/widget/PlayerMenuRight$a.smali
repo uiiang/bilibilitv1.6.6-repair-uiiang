@@ -45,6 +45,9 @@
 .method public abstract jumpToChapter(I)V
 .end method
 
+.method public abstract onMenuClosed()V
+.end method
+
 .method public abstract openEbookFileChooser()V
 .end method
 
@@ -58,6 +61,9 @@
 .end method
 
 .method public abstract set_danmaku_type(I)V
+.end method
+
+.method public abstract set_ebook_font_size(F)V
 .end method
 
 .method public abstract set_subtitle_size(F)V

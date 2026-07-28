@@ -1,4 +1,4 @@
-.class Lbl/xw$22$3;
+.class Lbl/xw$24$3;
 .super Ljava/lang/Object;
 .source "xw.java"
 
@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw$22;->run()V
+    value = Lbl/xw$24;->run()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -18,20 +18,20 @@
 
 
 # instance fields
-.field final synthetic this$1:Lbl/xw$22;
+.field final synthetic this$1:Lbl/xw$24;
 
 .field final synthetic val$chapterList:Ljava/util/List;
 
 
 # direct methods
-.method constructor <init>(Lbl/xw$22;Ljava/util/List;)V
+.method constructor <init>(Lbl/xw$24;Ljava/util/List;)V
     .locals 0
 
     .prologue
-    .line 2065
-    iput-object p1, p0, Lbl/xw$22$3;->this$1:Lbl/xw$22;
+    .line 2101
+    iput-object p1, p0, Lbl/xw$24$3;->this$1:Lbl/xw$24;
 
-    iput-object p2, p0, Lbl/xw$22$3;->val$chapterList:Ljava/util/List;
+    iput-object p2, p0, Lbl/xw$24$3;->val$chapterList:Ljava/util/List;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -44,16 +44,16 @@
     .locals 4
 
     .prologue
-    .line 2069
+    .line 2105
     const/4 v2, -0x1
 
-    .line 2070
+    .line 2106
     const/4 v0, 0x0
 
     move v1, v0
 
     :goto_3
-    iget-object v0, p0, Lbl/xw$22$3;->val$chapterList:Ljava/util/List;
+    iget-object v0, p0, Lbl/xw$24$3;->val$chapterList:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->size()I
 
@@ -61,8 +61,8 @@
 
     if-ge v1, v0, :cond_5d
 
-    .line 2071
-    iget-object v0, p0, Lbl/xw$22$3;->val$chapterList:Ljava/util/List;
+    .line 2107
+    iget-object v0, p0, Lbl/xw$24$3;->val$chapterList:Ljava/util/List;
 
     invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
@@ -70,39 +70,39 @@
 
     check-cast v0, Lcom/bilibili/tv/ebook/model/Chapter;
 
-    .line 2072
+    .line 2108
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/Chapter;->getChapterIndex()I
 
     move-result v0
 
-    iget-object v3, p0, Lbl/xw$22$3;->this$1:Lbl/xw$22;
+    iget-object v3, p0, Lbl/xw$24$3;->this$1:Lbl/xw$24;
 
-    iget-object v3, v3, Lbl/xw$22;->this$0:Lbl/xw;
+    iget-object v3, v3, Lbl/xw$24;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->currentChapterIndex:I
-    invoke-static {v3}, Lbl/xw;->access$2100(Lbl/xw;)I
+    invoke-static {v3}, Lbl/xw;->access$2200(Lbl/xw;)I
 
     move-result v3
 
     if-ne v0, v3, :cond_59
 
-    .line 2079
+    .line 2115
     :goto_21
     if-ltz v1, :cond_46
 
-    .line 2080
-    iget-object v0, p0, Lbl/xw$22$3;->this$1:Lbl/xw$22;
+    .line 2116
+    iget-object v0, p0, Lbl/xw$24$3;->this$1:Lbl/xw$24;
 
-    iget-object v0, v0, Lbl/xw$22;->this$0:Lbl/xw;
+    iget-object v0, v0, Lbl/xw$24;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->chapterListView:Landroid/widget/ListView;
-    invoke-static {v0}, Lbl/xw;->access$1900(Lbl/xw;)Landroid/widget/ListView;
+    invoke-static {v0}, Lbl/xw;->access$2000(Lbl/xw;)Landroid/widget/ListView;
 
     move-result-object v0
 
     invoke-virtual {v0, v1}, Landroid/widget/ListView;->setSelection(I)V
 
-    .line 2081
+    .line 2117
     const-string v0, "EbookReader"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -125,30 +125,30 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2085
+    .line 2121
     :cond_46
-    iget-object v0, p0, Lbl/xw$22$3;->this$1:Lbl/xw$22;
+    iget-object v0, p0, Lbl/xw$24$3;->this$1:Lbl/xw$24;
 
-    iget-object v0, v0, Lbl/xw$22;->this$0:Lbl/xw;
+    iget-object v0, v0, Lbl/xw$24;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->chapterListView:Landroid/widget/ListView;
-    invoke-static {v0}, Lbl/xw;->access$1900(Lbl/xw;)Landroid/widget/ListView;
+    invoke-static {v0}, Lbl/xw;->access$2000(Lbl/xw;)Landroid/widget/ListView;
 
     move-result-object v0
 
     invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
 
-    .line 2086
+    .line 2122
     const-string v0, "EbookReader"
 
     const-string v1, "\u7ae0\u8282\u5217\u8868\u5df2\u8bf7\u6c42\u7126\u70b9"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2087
+    .line 2123
     return-void
 
-    .line 2070
+    .line 2106
     :cond_59
     add-int/lit8 v0, v1, 0x1
 
