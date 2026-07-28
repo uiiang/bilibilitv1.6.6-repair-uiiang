@@ -14,13 +14,13 @@ public class FeatureConfig {
      * 注意: 此值由编译脚本控制,请勿手动修改!
      * 使用 ./build.sh --plus 编译时会自动设置为 true
      */
-    public static final boolean ENABLE_EBOOK_READER = true;
+    public static final boolean ENABLE_EBOOK_READER = false;
 
     /**
      * 功能版本标识
      * 用于区分不同功能版本
      */
-    public static final String FEATURE_VERSION = "plus";
+    public static final String FEATURE_VERSION = "standard";
 
     /**
      * 检查是否启用电子书阅读器

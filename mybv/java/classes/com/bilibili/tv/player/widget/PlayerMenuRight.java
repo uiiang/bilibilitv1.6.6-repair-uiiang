@@ -117,6 +117,9 @@ public class PlayerMenuRight extends aay<String> {
 
         // 新增：关闭当前书籍
         void closeCurrentBook();
+
+        // 新增：切换控制目标
+        void switchControlTarget(String target);
     }
 
     private void jumpToChapter(int chapterIndex) {
@@ -460,6 +463,22 @@ public class PlayerMenuRight extends aay<String> {
             if (com.bilibili.tv.FeatureConfig.isEbookReaderEnabled()) {
                 this.d.openEbookReader(); // 再次调用会关闭电子书面板
             }
+            return true;
+        }
+
+        // 新增：控制视频菜单项点击处理（必须在super.a()之前，避免触发二级菜单）
+        if (TextUtils.equals(str, "控制视频") && com.bilibili.tv.FeatureConfig.isEbookReaderEnabled()) {
+            a(false);
+            this.d.switchControlTarget("video");
+            android.util.Log.i("EbookReader", "控制视频菜单项被点击");
+            return true;
+        }
+
+        // 新增：控制电子书菜单项点击处理（必须在super.a()之前，避免触发二级菜单）
+        if (TextUtils.equals(str, "控制电子书") && com.bilibili.tv.FeatureConfig.isEbookReaderEnabled()) {
+            a(false);
+            this.d.switchControlTarget("ebook");
+            android.util.Log.i("EbookReader", "控制电子书菜单项被点击");
             return true;
         }
 

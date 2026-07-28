@@ -99,9 +99,10 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         xh nextHandler = next();
         if (nextHandler instanceof xw) {
             xw xwInstance = (xw) nextHandler;
-            android.util.Log.i("EbookReader", "xl.f: 找到xw, isEbookMode=" + xwInstance.isEbookMode() + ", isMenuShown=" + xwInstance.isMenuShown());
+            android.util.Log.i("EbookReader", "xl.f: 找到xw, isEbookMode=" + xwInstance.isEbookMode() + ", isControlEbook=" + xwInstance.isControlEbook() + ", isMenuShown=" + xwInstance.isMenuShown());
 
-            if (xwInstance.isEbookMode() && !xwInstance.isMenuShown()) {
+            // 关键修复：只在控制电子书时才传递方向键到xw
+            if (xwInstance.isControlEbook() && !xwInstance.isMenuShown()) {
                 android.util.Log.i("EbookReader", "xl.f: isEbookReadingContent=" + xwInstance.isEbookReadingContent());
 
                 // 如果在电子书阅读内容页面，传递方向键到xw.f()
@@ -134,9 +135,10 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
 
         if (nextHandler instanceof xw) {
             xw xwInstance = (xw) nextHandler;
-            android.util.Log.i("EbookReader", "xl.g: isEbookMode=" + xwInstance.isEbookMode() + ", isMenuShown=" + xwInstance.isMenuShown());
+            android.util.Log.i("EbookReader", "xl.g: isEbookMode=" + xwInstance.isEbookMode() + ", isControlEbook=" + xwInstance.isControlEbook() + ", isMenuShown=" + xwInstance.isMenuShown());
 
-            if (xwInstance.isEbookMode() && !xwInstance.isMenuShown()) {
+            // 关键修改：只在使用控制电子书时才拦截按键
+            if (xwInstance.isControlEbook() && !xwInstance.isMenuShown()) {
                 android.util.Log.i("EbookReader", "xl.g: isEbookReadingContent=" + xwInstance.isEbookReadingContent());
 
                 // 关键修改：如果在电子书阅读内容页面，让方向键传递到xw.g()处理

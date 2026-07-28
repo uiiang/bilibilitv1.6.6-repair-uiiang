@@ -271,9 +271,10 @@ public class xi extends xh implements bbb<Message, Boolean> {
         while (handler != null) {
             if (handler instanceof xw) {
                 xw xwInstance = (xw) handler;
-                android.util.Log.i("EbookReader", "xi.f: 找到xw, isEbookMode=" + xwInstance.isEbookMode() + ", isMenuShown=" + xwInstance.isMenuShown());
+                android.util.Log.i("EbookReader", "xi.f: 找到xw, isEbookMode=" + xwInstance.isEbookMode() + ", isControlEbook=" + xwInstance.isControlEbook() + ", isMenuShown=" + xwInstance.isMenuShown());
 
-                if (xwInstance.isEbookMode() && !xwInstance.isMenuShown()) {
+                // 关键修改：只在控制电子书时才拦截按键
+                if (xwInstance.isControlEbook() && !xwInstance.isMenuShown()) {
                     android.util.Log.i("EbookReader", "xi.f: isEbookReadingContent=" + xwInstance.isEbookReadingContent());
 
                     // 关键修改：如果在电子书阅读内容页面，让方向键传递到下一层处理
@@ -361,9 +362,10 @@ public class xi extends xh implements bbb<Message, Boolean> {
         while (handler != null) {
             if (handler instanceof xw) {
                 xw xwInstance = (xw) handler;
-                android.util.Log.i("EbookReader", "xi.g: 找到xw, isEbookMode=" + xwInstance.isEbookMode() + ", isMenuShown=" + xwInstance.isMenuShown());
+                android.util.Log.i("EbookReader", "xi.g: 找到xw, isEbookMode=" + xwInstance.isEbookMode() + ", isControlEbook=" + xwInstance.isControlEbook() + ", isMenuShown=" + xwInstance.isMenuShown());
 
-                if (xwInstance.isEbookMode() && !xwInstance.isMenuShown()) {
+                // 关键修改：只在控制电子书时才拦截按键
+                if (xwInstance.isControlEbook() && !xwInstance.isMenuShown()) {
                     android.util.Log.i("EbookReader", "xi.g: isEbookReadingContent=" + xwInstance.isEbookReadingContent());
 
                     // 关键修改：如果在电子书阅读内容页面，让方向键传递到下一层处理
@@ -462,7 +464,8 @@ public class xi extends xh implements bbb<Message, Boolean> {
         while (handler != null) {
             if (handler instanceof xw) {
                 xw xwInstance = (xw) handler;
-                if (xwInstance.isEbookMode() && !xwInstance.isMenuShown()) {
+                // 关键修改：只在控制电子书时才拦截
+                if (xwInstance.isControlEbook() && !xwInstance.isMenuShown()) {
                     android.util.Log.i("ShotMenuBug", "tt: 电子书模式，不显示进度预览菜单");
                     return;
                 }

@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1824
+    .line 1848
     iput-object p1, p0, Lbl/xw$22;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 1827
+    .line 1851
     iget-object v0, p0, Lbl/xw$22;->this$0:Lbl/xw;
 
     iget-object v1, p0, Lbl/xw$22;->this$0:Lbl/xw;
@@ -53,6 +53,6 @@
     # invokes: Lbl/xw;->createChapterListView(Ljava/util/List;)V
     invoke-static {v0, v1}, Lbl/xw;->access$1600(Lbl/xw;Ljava/util/List;)V
 
-    .line 1828
+    .line 1852
     return-void
 .end method

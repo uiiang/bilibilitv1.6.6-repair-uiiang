@@ -71,6 +71,9 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     private java.util.Stack<List<com.bilibili.tv.ebook.model.Chapter>> chapterNavigationStack = null; // 章节导航栈
     private List<com.bilibili.tv.ebook.model.Chapter> currentChapterList = null; // 当前显示的章节列表
     private String parentChapterTitle = null; // 父章节标题（用于显示在章节列表标题中）
+
+    // 遥控器控制目标（ebook 或 video）
+    private String controlTarget = "video"; // 默认控制视频（因为未打开电子书时视频全屏播放）
     private Runnable g = new Runnable() { // from class: bl.xw.1
         @Override // java.lang.Runnable
         public void run() {
@@ -143,7 +146,13 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
     @Override // bl.xh
     public boolean f(int keyCode, KeyEvent event) {
-        Log.i(TAG_EBOOK, "xw.f: 收到按键 " + keyCode + ", isEbookPanelShown=" + isEbookPanelShown + ", R()=" + R());
+        Log.i(TAG_EBOOK, "xw.f: 收到按键 " + keyCode + ", isEbookPanelShown=" + isEbookPanelShown + ", controlTarget=" + controlTarget + ", R()=" + R());
+
+        // 关键修复：只在控制电子书时才处理按键
+        if (!controlTarget.equals("ebook")) {
+            Log.i(TAG_EBOOK, "xw.f: 控制目标不是电子书，不处理按键");
+            return R(); // 如果菜单显示，返回true；否则返回false
+        }
 
         // 电子书阅读内容页面：处理方向键
         if (isEbookReadingContent()) {
@@ -247,10 +256,10 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
     @Override // bl.xh
     public boolean g(int keyCode, KeyEvent event) {
-        Log.i(TAG_EBOOK, "xw.g: 收到按键 " + keyCode + ", isEbookPanelShown=" + isEbookPanelShown + ", R()=" + R());
+        Log.i(TAG_EBOOK, "xw.g: 收到按键 " + keyCode + ", isEbookPanelShown=" + isEbookPanelShown + ", controlTarget=" + controlTarget + ", R()=" + R());
 
-        // 电子书模式：拦截所有按键（除了菜单键、返回键、确认键）
-        if (isEbookPanelShown && !R()) {
+        // 电子书模式：只在控制电子书时拦截按键（除了菜单键、返回键、确认键）
+        if (isEbookPanelShown && controlTarget.equals("ebook") && !R()) {
             Log.i(TAG_EBOOK, "xw.g: 电子书模式拦截按键: " + keyCode);
 
             // 关键修复：章节列表显示时，确认键不拦截（让ListView处理点击）
@@ -508,6 +517,13 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                ebookWebView != null;
     }
 
+    /**
+     * 检查是否控制电子书（电子书面板显示且控制目标为电子书）
+     */
+    public boolean isControlEbook() {
+        return isEbookPanelShown && controlTarget.equals("ebook");
+    }
+
     /* JADX INFO: Access modifiers changed from: private */
     public void d(boolean z) {
         v();
@@ -588,8 +604,8 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         Q();
         Resources resources = o().getResources();
 
-        // 检查是否在电子书模式
-        if (isEbookPanelShown && com.bilibili.tv.FeatureConfig.isEbookReaderEnabled()) {
+        // 关键修复：根据controlTarget判断打开哪个菜单（而不仅仅是isEbookPanelShown）
+        if (isEbookPanelShown && controlTarget.equals("ebook") && com.bilibili.tv.FeatureConfig.isEbookReaderEnabled()) {
             // 问题1修复：在文件列表页，不显示右侧菜单
             if (isFileChooserShown) {
                 Log.i(TAG_EBOOK, "文件列表页，不显示右侧菜单");
@@ -600,15 +616,17 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             Log.i(TAG_EBOOK, "电子书模式:设置专用菜单");
 
             List<String> ebookMenus = new ArrayList<>();
-            
+
             // 区分书架页面（首页）和阅读页面的菜单
             if (!isReadingBook) {
                 // 书架页面（首页）菜单
+                ebookMenus.add("控制视频"); // 最上方
                 ebookMenus.add("选择文件");
                 ebookMenus.add("清空书架");
                 ebookMenus.add("退出阅读");
             } else {
                 // 阅读页面菜单
+                ebookMenus.add("控制视频"); // 最上方
                 ebookMenus.add("章节列表");
                 ebookMenus.add("关闭书籍");
             }
@@ -646,11 +664,17 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             }
         }
 
-        // 新增：在菜单列表最下方添加"电子书"选项(仅当功能启用时)
+        // 新增：在菜单列表最下方添加"电子书"或"控制电子书"选项(仅当功能启用时)
         if (com.bilibili.tv.FeatureConfig.isEbookReaderEnabled()) {
-            filteredMenus.add("电子书");
+            if (isEbookPanelShown) {
+                // 已打开电子书模式：显示"控制电子书"
+                filteredMenus.add("控制电子书");
+            } else {
+                // 未打开电子书模式：显示"电子书"
+                filteredMenus.add("电子书");
+            }
             menuIndexMap.add(allMenus.length); // 使用一个不存在的索引,避免冲突
-            Log.i("EbookReader", "电子书菜单项已添加");
+            Log.i("EbookReader", "视频右侧菜单项已添加: " + (isEbookPanelShown ? "控制电子书" : "电子书"));
         }
 
         this.c.b(filteredMenus, 0);
@@ -2170,7 +2194,8 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         }
 
         isEbookPanelShown = true;
-        Log.i(TAG_EBOOK, "电子书面板已显示");
+        controlTarget = "ebook"; // 打开电子书时，默认控制电子书
+        Log.i(TAG_EBOOK, "电子书面板已显示，controlTarget设置为ebook");
 
         // 显示首页内容（书架列表或文件选择器）
         showBookshelfOrFileChooser();
@@ -2333,6 +2358,99 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     }
 
     /**
+     * 切换遥控器控制目标
+     * @param target 控制目标（"ebook" 或 "video"）
+     */
+    @Override // com.bilibili.tv.player.widget.PlayerMenuRight.a
+    public void switchControlTarget(String target) {
+        Log.i(TAG_EBOOK, "切换控制目标: " + target);
+
+        if (!isEbookPanelShown) {
+            Log.w(TAG_EBOOK, "电子书面板未显示，无法切换控制目标");
+            return;
+        }
+
+        controlTarget = target;
+
+        // 关键修复：切换控制目标时，彻底禁用/启用电子书区域的交互
+        if (target.equals("video")) {
+            // 切换到控制视频：禁用电子书区域的所有交互
+            if (bookshelfListView != null) {
+                bookshelfListView.setFocusable(false);
+                bookshelfListView.setFocusableInTouchMode(false);
+                bookshelfListView.setClickable(false);
+                bookshelfListView.setEnabled(false);
+                bookshelfListView.clearFocus();
+                Log.i(TAG_EBOOK, "禁用书架列表所有交互");
+            }
+            if (chapterListView != null) {
+                chapterListView.setFocusable(false);
+                chapterListView.setFocusableInTouchMode(false);
+                chapterListView.setClickable(false);
+                chapterListView.setEnabled(false);
+                chapterListView.clearFocus();
+                Log.i(TAG_EBOOK, "禁用章节列表所有交互");
+            }
+            if (ebookWebView != null) {
+                ebookWebView.setFocusable(false);
+                ebookWebView.setFocusableInTouchMode(false);
+                ebookWebView.setEnabled(false);
+                Log.i(TAG_EBOOK, "禁用WebView所有交互");
+            }
+            if (ebookPanel != null) {
+                ebookPanel.setFocusable(false);
+                ebookPanel.setFocusableInTouchMode(false);
+                ebookPanel.setClickable(false);
+                ebookPanel.setEnabled(false);
+                Log.i(TAG_EBOOK, "禁用电子书面板所有交互");
+            }
+        } else {
+            // 切换到控制电子书：恢复电子书区域的所有交互
+            if (ebookPanel != null) {
+                ebookPanel.setFocusable(true);
+                ebookPanel.setFocusableInTouchMode(true);
+                ebookPanel.setClickable(true);
+                ebookPanel.setEnabled(true);
+                Log.i(TAG_EBOOK, "启用电子书面板所有交互");
+            }
+            if (bookshelfListView != null) {
+                bookshelfListView.setFocusable(true);
+                bookshelfListView.setFocusableInTouchMode(true);
+                bookshelfListView.setClickable(true);
+                bookshelfListView.setEnabled(true);
+                bookshelfListView.requestFocus();
+                Log.i(TAG_EBOOK, "启用书架列表所有交互");
+            }
+            if (chapterListView != null) {
+                chapterListView.setFocusable(true);
+                chapterListView.setFocusableInTouchMode(true);
+                chapterListView.setClickable(true);
+                chapterListView.setEnabled(true);
+                chapterListView.requestFocus();
+                Log.i(TAG_EBOOK, "启用章节列表所有交互");
+            }
+            if (ebookWebView != null) {
+                ebookWebView.setFocusable(true);
+                ebookWebView.setFocusableInTouchMode(true);
+                ebookWebView.setEnabled(true);
+                Log.i(TAG_EBOOK, "启用WebView所有交互");
+            }
+        }
+
+        // 显示Toast提示
+        Activity activity = o();
+        if (activity != null) {
+            if (target.equals("video")) {
+                android.widget.Toast.makeText(activity, "遥控器操作已切换到视频", android.widget.Toast.LENGTH_SHORT).show();
+            } else {
+                android.widget.Toast.makeText(activity, "遥控器操作已切换到电子书", android.widget.Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        Log.i(TAG_EBOOK, "控制目标已切换为: " + target);
+    }
+
+    /**
      * 清空书架
      */
     @Override // com.bilibili.tv.player.widget.PlayerMenuRight.a
@@ -2415,8 +2533,9 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         loadingTextView = null;
         lastBackPressTime = 0;
         currentBookFilePath = null; // 清除文件路径
+        controlTarget = "video"; // 退出电子书时，重置为控制视频
 
-        Log.i(TAG_EBOOK, "电子书面板已关闭，所有状态已清除");
+        Log.i(TAG_EBOOK, "电子书面板已关闭，所有状态已清除，controlTarget重置为video");
     }
 
     /**
