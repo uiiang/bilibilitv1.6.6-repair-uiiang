@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw;->hideLoadingIndicator()V
+    value = Lbl/xw;->showBookshelfInPanel()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1110
+    .line 1108
     iput-object p1, p0, Lbl/xw$11;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,57 +40,23 @@
     .locals 2
 
     .prologue
-    const/16 v1, 0x8
-
-    .line 1113
+    .line 1111
     iget-object v0, p0, Lbl/xw$11;->this$0:Lbl/xw;
 
-    # getter for: Lbl/xw;->loadingProgressBar:Landroid/widget/ProgressBar;
-    invoke-static {v0}, Lbl/xw;->access$400(Lbl/xw;)Landroid/widget/ProgressBar;
+    # getter for: Lbl/xw;->bookshelfListView:Landroid/widget/ListView;
+    invoke-static {v0}, Lbl/xw;->access$000(Lbl/xw;)Landroid/widget/ListView;
 
     move-result-object v0
 
-    if-eqz v0, :cond_13
+    invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
 
-    .line 1114
-    iget-object v0, p0, Lbl/xw$11;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->loadingProgressBar:Landroid/widget/ProgressBar;
-    invoke-static {v0}, Lbl/xw;->access$400(Lbl/xw;)Landroid/widget/ProgressBar;
-
-    move-result-object v0
-
-    invoke-virtual {v0, v1}, Landroid/widget/ProgressBar;->setVisibility(I)V
-
-    .line 1116
-    :cond_13
-    iget-object v0, p0, Lbl/xw$11;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->loadingTextView:Landroid/widget/TextView;
-    invoke-static {v0}, Lbl/xw;->access$500(Lbl/xw;)Landroid/widget/TextView;
-
-    move-result-object v0
-
-    if-eqz v0, :cond_24
-
-    .line 1117
-    iget-object v0, p0, Lbl/xw$11;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->loadingTextView:Landroid/widget/TextView;
-    invoke-static {v0}, Lbl/xw;->access$500(Lbl/xw;)Landroid/widget/TextView;
-
-    move-result-object v0
-
-    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
-
-    .line 1119
-    :cond_24
+    .line 1112
     const-string v0, "EbookReader"
 
-    const-string v1, "\u52a0\u8f7d\u8fdb\u5ea6\u63d0\u793a\u5df2\u9690\u85cf"
+    const-string v1, "\u4e66\u67b6\u5217\u8868\u5df2\u8bf7\u6c42\u7126\u70b9"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1120
+    .line 1113
     return-void
 .end method

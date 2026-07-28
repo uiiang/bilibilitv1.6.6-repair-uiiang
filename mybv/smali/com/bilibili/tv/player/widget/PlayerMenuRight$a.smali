@@ -30,6 +30,12 @@
 .method public abstract c(Z)V
 .end method
 
+.method public abstract clearBookshelf()V
+.end method
+
+.method public abstract closeCurrentBook()V
+.end method
+
 .method public abstract e(I)V
 .end method
 

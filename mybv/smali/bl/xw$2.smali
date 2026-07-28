@@ -3,12 +3,12 @@
 .source "xw.java"
 
 # interfaces
-.implements Lcom/bilibili/tv/player/widget/SkipSettingDialog$OnPositionProvider;
+.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw;->showSkipSettingDialog()V
+    value = Lbl/xw;->d(Z)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 678
+    .line 514
     iput-object p1, p0, Lbl/xw$2;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,18 +36,27 @@
 
 
 # virtual methods
-.method public getCurrentPosition()J
+.method public run()V
     .locals 2
 
     .prologue
-    .line 681
+    .line 517
     iget-object v0, p0, Lbl/xw$2;->this$0:Lbl/xw;
 
-    invoke-virtual {v0}, Lbl/xw;->x()I
+    # getter for: Lbl/xw;->bookshelfListView:Landroid/widget/ListView;
+    invoke-static {v0}, Lbl/xw;->access$000(Lbl/xw;)Landroid/widget/ListView;
 
-    move-result v0
+    move-result-object v0
 
-    int-to-long v0, v0
+    invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
 
-    return-wide v0
+    .line 518
+    const-string v0, "EbookReader"
+
+    const-string v1, "\u83dc\u5355\u5173\u95ed\u540e\u6062\u590d\u7126\u70b9\u5230\u4e66\u67b6\u5217\u8868"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 519
+    return-void
 .end method

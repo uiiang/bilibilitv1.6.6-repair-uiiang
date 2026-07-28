@@ -20,18 +20,14 @@
 # instance fields
 .field final synthetic this$1:Lbl/xw$8;
 
-.field final synthetic val$parent:Landroid/widget/AdapterView;
-
 
 # direct methods
-.method constructor <init>(Lbl/xw$8;Landroid/widget/AdapterView;)V
+.method constructor <init>(Lbl/xw$8;)V
     .locals 0
 
     .prologue
-    .line 817
+    .line 1040
     iput-object p1, p0, Lbl/xw$8$1;->this$1:Lbl/xw$8;
-
-    iput-object p2, p0, Lbl/xw$8$1;->val$parent:Landroid/widget/AdapterView;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -44,13 +40,18 @@
     .locals 1
 
     .prologue
-    .line 820
-    iget-object v0, p0, Lbl/xw$8$1;->val$parent:Landroid/widget/AdapterView;
+    .line 1043
+    iget-object v0, p0, Lbl/xw$8$1;->this$1:Lbl/xw$8;
 
-    check-cast v0, Landroid/widget/ListView;
+    iget-object v0, v0, Lbl/xw$8;->this$0:Lbl/xw;
+
+    # getter for: Lbl/xw;->bookshelfListView:Landroid/widget/ListView;
+    invoke-static {v0}, Lbl/xw;->access$000(Lbl/xw;)Landroid/widget/ListView;
+
+    move-result-object v0
 
     invoke-virtual {v0}, Landroid/widget/ListView;->invalidateViews()V
 
-    .line 821
+    .line 1044
     return-void
 .end method

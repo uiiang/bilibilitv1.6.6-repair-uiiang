@@ -3,12 +3,12 @@
 .source "xw.java"
 
 # interfaces
-.implements Ljava/util/Comparator;
+.implements Lcom/bilibili/tv/player/widget/SkipSettingDialog$OnSaveListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw;->loadFileList(Landroid/widget/ListView;Landroid/widget/TextView;Ljava/io/File;)V
+    value = Lbl/xw;->showSkipSettingDialog()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -16,28 +16,22 @@
     name = null
 .end annotation
 
-.annotation system Ldalvik/annotation/Signature;
-    value = {
-        "Ljava/lang/Object;",
-        "Ljava/util/Comparator",
-        "<",
-        "Ljava/io/File;",
-        ">;"
-    }
-.end annotation
-
 
 # instance fields
 .field final synthetic this$0:Lbl/xw;
 
+.field final synthetic val$params:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
+
 
 # direct methods
-.method constructor <init>(Lbl/xw;)V
+.method constructor <init>(Lbl/xw;Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;)V
     .locals 0
 
     .prologue
-    .line 891
+    .line 736
     iput-object p1, p0, Lbl/xw$4;->this$0:Lbl/xw;
+
+    iput-object p2, p0, Lbl/xw$4;->val$params:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -46,38 +40,79 @@
 
 
 # virtual methods
-.method public compare(Ljava/io/File;Ljava/io/File;)I
-    .locals 2
+.method public onSave(JJ)V
+    .locals 5
 
     .prologue
-    .line 894
-    invoke-virtual {p1}, Ljava/io/File;->getName()Ljava/lang/String;
+    .line 739
+    const-string v0, "SkipSetting"
 
-    move-result-object v0
+    new-instance v1, Ljava/lang/StringBuilder;
 
-    invoke-virtual {p2}, Ljava/io/File;->getName()Ljava/lang/String;
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "onSave: intro="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
-    invoke-virtual {v0, v1}, Ljava/lang/String;->compareToIgnoreCase(Ljava/lang/String;)I
+    invoke-virtual {v1, p1, p2}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, ", outro="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, p3, p4}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 741
+    iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
+
+    iget-object v1, p0, Lbl/xw$4;->val$params:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
+
+    # invokes: Lbl/xw;->getEffectiveSkips(Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;)Lorg/json/JSONArray;
+    invoke-static {v0, v1}, Lbl/xw;->access$100(Lbl/xw;Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;)Lorg/json/JSONArray;
+
+    move-result-object v0
+
+    .line 742
+    iget-object v1, p0, Lbl/xw$4;->this$0:Lbl/xw;
+
+    # invokes: Lbl/xw;->getSkipHelper()Lbl/xj;
+    invoke-static {v1}, Lbl/xw;->access$200(Lbl/xw;)Lbl/xj;
+
+    move-result-object v1
+
+    .line 743
+    if-eqz v1, :cond_3f
+
+    .line 744
+    invoke-virtual {v1, v0}, Lbl/xj;->updateSkips(Lorg/json/JSONArray;)V
+
+    .line 745
+    iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
+
+    invoke-virtual {v0}, Lbl/xw;->x()I
 
     move-result v0
 
-    return v0
-.end method
+    int-to-long v2, v0
 
-.method public bridge synthetic compare(Ljava/lang/Object;Ljava/lang/Object;)I
-    .locals 1
+    invoke-virtual {v1, v2, v3}, Lbl/xj;->checkSkip(J)V
 
-    .prologue
-    .line 891
-    check-cast p1, Ljava/io/File;
-
-    check-cast p2, Ljava/io/File;
-
-    invoke-virtual {p0, p1, p2}, Lbl/xw$4;->compare(Ljava/io/File;Ljava/io/File;)I
-
-    move-result v0
-
-    return v0
+    .line 747
+    :cond_3f
+    return-void
 .end method

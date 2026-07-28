@@ -208,32 +208,136 @@ public class EpubParser {
      * 解析元数据
      */
     private void parseMetadata(Document doc, Book book) {
-        // 标题
-        Element titleElement = doc.selectFirst("metadata title");
+        // 调试：输出整个metadata部分的HTML结构
+        Element metadataElement = doc.selectFirst("metadata");
+        if (metadataElement != null) {
+            Log.d(TAG, "找到metadata元素，内容:\n" + metadataElement.html());
+        } else {
+            Log.w(TAG, "未找到metadata元素，尝试查找根元素下的所有元素");
+            Elements allElements = doc.children();
+            for (Element elem : allElements) {
+                Log.d(TAG, "根元素: " + elem.tagName() + ", 子元素数: " + elem.children().size());
+            }
+        }
+
+        // 标题 - 尝试多种选择器（EPUB使用Dublin Core命名空间）
+        Element titleElement = null;
+
+        // 方法1: 尝试Dublin Core命名空间选择器
+        titleElement = doc.selectFirst("metadata dc|title");
+        if (titleElement == null) {
+            // 方法2: 尝试无命名空间选择器
+            titleElement = doc.selectFirst("metadata title");
+        }
+        if (titleElement == null) {
+            // 方法3: 尝试全局Dublin Core选择器
+            titleElement = doc.selectFirst("dc|title");
+        }
+        if (titleElement == null) {
+            // 方法4: 遍历metadata下的所有子元素，查找title标签
+            if (metadataElement != null) {
+                for (Element child : metadataElement.children()) {
+                    String tagName = child.tagName().toLowerCase();
+                    if (tagName.equals("title") || tagName.endsWith(":title")) {
+                        titleElement = child;
+                        Log.d(TAG, "通过遍历找到title元素: " + child.tagName());
+                        break;
+                    }
+                }
+            }
+        }
+        if (titleElement == null) {
+            // 方法5: 使用属性选择器（可能title在某些属性中）
+            titleElement = doc.selectFirst("*[property~=title]");
+        }
+
         if (titleElement != null) {
-            book.setTitle(titleElement.text());
+            String titleText = titleElement.text().trim();
+            if (!titleText.isEmpty()) {
+                book.setTitle(titleText);
+                Log.i(TAG, "解析到书籍标题: " + titleText + " (使用选择器: " + titleElement.tagName() + ")");
+            } else {
+                Log.w(TAG, "title元素内容为空");
+                book.setTitle("Unknown Title");
+            }
         } else {
             book.setTitle("Unknown Title");
+            Log.w(TAG, "未找到书籍标题元数据");
         }
-        
-        // 作者
-        Element authorElement = doc.selectFirst("metadata creator");
+
+        // 作者 - 尝试多种选择器
+        Element authorElement = null;
+
+        // 方法1: 尝试Dublin Core命名空间选择器
+        authorElement = doc.selectFirst("metadata dc|creator");
+        if (authorElement == null) {
+            // 方法2: 尝试无命名空间选择器
+            authorElement = doc.selectFirst("metadata creator");
+        }
+        if (authorElement == null) {
+            // 方法3: 尝试全局Dublin Core选择器
+            authorElement = doc.selectFirst("dc|creator");
+        }
+        if (authorElement == null) {
+            // 方法4: 遍历metadata下的所有子元素，查找creator标签
+            if (metadataElement != null) {
+                for (Element child : metadataElement.children()) {
+                    String tagName = child.tagName().toLowerCase();
+                    if (tagName.equals("creator") || tagName.endsWith(":creator")) {
+                        authorElement = child;
+                        Log.d(TAG, "通过遍历找到creator元素: " + child.tagName());
+                        break;
+                    }
+                }
+            }
+        }
+        if (authorElement == null) {
+            // 方法5: 使用属性选择器
+            authorElement = doc.selectFirst("*[property~=creator]");
+        }
+
         if (authorElement != null) {
-            book.setAuthor(authorElement.text());
+            String authorText = authorElement.text().trim();
+            if (!authorText.isEmpty()) {
+                book.setAuthor(authorText);
+                Log.i(TAG, "解析到作者: " + authorText + " (使用选择器: " + authorElement.tagName() + ")");
+            } else {
+                Log.w(TAG, "creator元素内容为空");
+                book.setAuthor("Unknown Author");
+            }
         } else {
             book.setAuthor("Unknown Author");
+            Log.w(TAG, "未找到作者元数据");
         }
-        
+
         // 语言
-        Element languageElement = doc.selectFirst("metadata language");
+        Element languageElement = doc.selectFirst("metadata dc|language");
+        if (languageElement == null) {
+            languageElement = doc.selectFirst("metadata language");
+        }
+        if (languageElement == null) {
+            languageElement = doc.selectFirst("dc|language");
+        }
+        if (languageElement == null) {
+            // 遍历查找
+            if (metadataElement != null) {
+                for (Element child : metadataElement.children()) {
+                    String tagName = child.tagName().toLowerCase();
+                    if (tagName.equals("language") || tagName.endsWith(":language")) {
+                        languageElement = child;
+                        break;
+                    }
+                }
+            }
+        }
         if (languageElement != null) {
             book.setLanguage(languageElement.text());
         } else {
             book.setLanguage("en");
         }
-        
-        Log.i(TAG, "元数据解析: 标题=" + book.getTitle() + 
-              ", 作者=" + book.getAuthor());
+
+        Log.i(TAG, "元数据解析完成: 标题=" + book.getTitle() +
+              ", 作者=" + book.getAuthor() + ", 语言=" + book.getLanguage());
     }
     
     /**

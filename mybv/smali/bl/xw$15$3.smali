@@ -20,14 +20,18 @@
 # instance fields
 .field final synthetic this$1:Lbl/xw$15;
 
+.field final synthetic val$e:Ljava/lang/Exception;
+
 
 # direct methods
-.method constructor <init>(Lbl/xw$15;)V
+.method constructor <init>(Lbl/xw$15;Ljava/lang/Exception;)V
     .locals 0
 
     .prologue
-    .line 1463
+    .line 1381
     iput-object p1, p0, Lbl/xw$15$3;->this$1:Lbl/xw$15;
+
+    iput-object p2, p0, Lbl/xw$15$3;->val$e:Ljava/lang/Exception;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -37,28 +41,53 @@
 
 # virtual methods
 .method public run()V
-    .locals 2
+    .locals 3
 
     .prologue
-    .line 1466
+    .line 1384
     iget-object v0, p0, Lbl/xw$15$3;->this$1:Lbl/xw$15;
 
     iget-object v0, v0, Lbl/xw$15;->this$0:Lbl/xw;
 
-    # getter for: Lbl/xw;->chapterListView:Landroid/widget/ListView;
-    invoke-static {v0}, Lbl/xw;->access$1100(Lbl/xw;)Landroid/widget/ListView;
+    invoke-virtual {v0}, Lbl/xw;->o()Landroid/app/Activity;
 
     move-result-object v0
 
-    invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
+    new-instance v1, Ljava/lang/StringBuilder;
 
-    .line 1467
-    const-string v0, "EbookReader"
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v1, "\u7ae0\u8282\u5217\u8868\u5df2\u8bf7\u6c42\u7126\u70b9"
+    const-string v2, "\u89e3\u6790\u5f02\u5e38: "
 
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1468
+    move-result-object v1
+
+    iget-object v2, p0, Lbl/xw$15$3;->val$e:Ljava/lang/Exception;
+
+    .line 1385
+    invoke-virtual {v2}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    const/4 v2, 0x0
+
+    .line 1384
+    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+
+    move-result-object v0
+
+    .line 1386
+    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+
+    .line 1387
     return-void
 .end method

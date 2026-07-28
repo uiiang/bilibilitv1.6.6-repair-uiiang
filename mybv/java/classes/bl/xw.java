@@ -53,6 +53,7 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     private boolean isLoadingEbook = false; // 是否正在加载电子书
     private android.widget.ProgressBar loadingProgressBar = null; // 加载进度条
     private android.widget.TextView loadingTextView = null; // 加载文字提示
+    private boolean isReadingBook = false; // 是否在阅读书籍（区分首页和阅读页面）
 
     // 电子书章节导航相关
     private com.bilibili.tv.ebook.model.Book currentBook = null; // 当前书籍
@@ -60,6 +61,11 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     private android.webkit.WebView ebookWebView = null; // 电子书WebView
     private android.widget.ListView chapterListView = null; // 章节列表View（使用ListView替代RecyclerView）
     private boolean isChapterListShown = false; // 章节列表是否显示
+    private com.bilibili.tv.ebook.util.EbookCacheManager ebookCacheManager = null; // 电子书缓存管理器
+    private com.bilibili.tv.ebook.util.BookshelfManager bookshelfManager = null; // 书架管理器
+    private android.widget.ListView bookshelfListView = null; // 书架列表View
+    private List<com.bilibili.tv.ebook.model.BookshelfItem> bookshelfItems = null; // 书架数据
+    private String currentBookFilePath = null; // 当前书籍文件路径
     private Runnable g = new Runnable() { // from class: bl.xw.1
         @Override // java.lang.Runnable
         public void run() {
@@ -299,19 +305,39 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                     Log.i(TAG_EBOOK, "关闭文件选择器，回到电子书默认界面");
                     hideFileChooser();
                     return true;
+                } else if (isReadingBook) {
+                    // 在阅读页面：双击返回首页
+                    long currentTime = System.currentTimeMillis();
+                    if (currentTime - lastBackPressTime < DOUBLE_PRESS_INTERVAL) {
+                        // 第二次按返回键（在时间间隔内），关闭书籍，回到首页
+                        Log.i(TAG_EBOOK, "阅读页面双击返回，关闭当前书籍，回到电子书首页");
+                        lastBackPressTime = 0; // 重置时间戳
+                        closeCurrentBook(); // 关闭当前书籍
+                        return true;
+                    } else {
+                        // 第一次按返回键，或超过时间间隔，显示提示
+                        lastBackPressTime = currentTime;
+                        Log.i(TAG_EBOOK, "阅读页面第一次按返回键，显示提示");
+                        android.widget.Toast.makeText(
+                            o(),
+                            "再按一次关闭当前书籍",
+                            android.widget.Toast.LENGTH_SHORT
+                        ).show();
+                        return true;
+                    }
                 } else {
-                    // 双击退出逻辑
+                    // 在首页：双击退出电子书模式
                     long currentTime = System.currentTimeMillis();
                     if (currentTime - lastBackPressTime < DOUBLE_PRESS_INTERVAL) {
                         // 第二次按返回键（在时间间隔内），退出电子书模式
-                        Log.i(TAG_EBOOK, "电子书模式下关闭电子书");
+                        Log.i(TAG_EBOOK, "首页双击返回，退出电子书模式");
                         lastBackPressTime = 0; // 重置时间戳
                         openEbookReader(); // 切换电子书模式（关闭）
                         return true;
                     } else {
                         // 第一次按返回键，或超过时间间隔，显示提示
                         lastBackPressTime = currentTime;
-                        Log.i(TAG_EBOOK, "第一次按返回键，显示提示");
+                        Log.i(TAG_EBOOK, "首页第一次按返回键，显示提示");
                         android.widget.Toast.makeText(
                             o(),
                             "再按一次退出电子书模式",
@@ -478,10 +504,21 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             this.c.a(z);
         }
 
-        // 菜单关闭时,恢复显示电子书面板
+        // 问题2修复：菜单关闭时,总是恢复显示电子书面板（不依赖于this.c.isShown()的判断）
         if (!z && isEbookPanelShown && ebookPanel != null) {
             Log.i(TAG_EBOOK, "菜单关闭,恢复显示电子书面板");
             ebookPanel.setVisibility(View.VISIBLE);
+
+            // 关键修复：恢复焦点到书架列表（如果书架列表存在）
+            if (bookshelfListView != null && bookshelfListView.isShown()) {
+                bookshelfListView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        bookshelfListView.requestFocus();
+                        Log.i(TAG_EBOOK, "菜单关闭后恢复焦点到书架列表");
+                    }
+                });
+            }
         }
     }
 
@@ -515,14 +552,28 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
         // 检查是否在电子书模式
         if (isEbookPanelShown && com.bilibili.tv.FeatureConfig.isEbookReaderEnabled()) {
+            // 问题1修复：在文件列表页，不显示右侧菜单
+            if (isFileChooserShown) {
+                Log.i(TAG_EBOOK, "文件列表页，不显示右侧菜单");
+                return;
+            }
+
             // 电子书模式:显示专用菜单
             Log.i(TAG_EBOOK, "电子书模式:设置专用菜单");
 
             List<String> ebookMenus = new ArrayList<>();
-            ebookMenus.add("章节列表");
-            ebookMenus.add("字体大小");
-            ebookMenus.add("选择文件");
-            ebookMenus.add("关闭电子书");
+            
+            // 区分书架页面（首页）和阅读页面的菜单
+            if (!isReadingBook) {
+                // 书架页面（首页）菜单
+                ebookMenus.add("选择文件");
+                ebookMenus.add("清空书架");
+                ebookMenus.add("退出阅读");
+            } else {
+                // 阅读页面菜单
+                ebookMenus.add("章节列表");
+                ebookMenus.add("关闭书籍");
+            }
 
             this.c.b(ebookMenus, 0);
             this.c.setMenuIndexMap(new ArrayList<>()); // 清空索引映射
@@ -707,7 +758,21 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             closeEbookPanel();
         } else {
             // 否则打开
-            showEbookPanel();
+            // 关键修复：先关闭右侧菜单，确保电子书首页能够正确显示
+            if (R()) {
+                Log.i(TAG_EBOOK, "右侧菜单正在显示，先关闭菜单");
+                d(false); // 关闭右侧菜单
+                // 延迟200ms后显示电子书面板，确保菜单已完全关闭
+                new android.os.Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        showEbookPanel();
+                    }
+                }, 200);
+            } else {
+                // 菜单未显示，直接打开电子书面板
+                showEbookPanel();
+            }
         }
     }
 
@@ -721,8 +786,352 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             return;
         }
 
-        // 在电子书面板中显示文件选择器(不使用独立Activity)
-        showFileChooserInPanel();
+        // 关键修复：用户点击"选择文件"菜单项的意图是直接打开文件选择器
+        // 先关闭右侧菜单，确保文件选择器能够正确显示
+        if (R()) {
+            Log.i(TAG_EBOOK, "右侧菜单正在显示，先关闭菜单");
+            d(false); // 关闭右侧菜单
+            // 延迟200ms后显示文件选择器，确保菜单已完全关闭
+            new android.os.Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    showFileChooserInPanel();
+                }
+            }, 200);
+        } else {
+            // 菜单未显示，直接显示文件选择器
+            showFileChooserInPanel();
+        }
+    }
+
+    /**
+     * 显示书架列表，如果书架为空则显示文件选择器
+     */
+    private void showBookshelfOrFileChooser() {
+        if (bookshelfManager == null) {
+            bookshelfManager = new com.bilibili.tv.ebook.util.BookshelfManager(o());
+        }
+
+        bookshelfItems = bookshelfManager.getBookshelfItems();
+
+        // 始终显示书架列表（即使书架为空）
+        Log.i(TAG_EBOOK, "显示书架列表，共 " + bookshelfItems.size() + " 本书");
+        showBookshelfInPanel();
+    }
+
+    /**
+     * 在电子书面板中显示书架列表
+     */
+    private void showBookshelfInPanel() {
+        Activity activity = o();
+        if (activity == null || ebookPanel == null) {
+            Log.e(TAG_EBOOK, "Activity or ebookPanel is null");
+            return;
+        }
+
+        Log.i(TAG_EBOOK, "在电子书面板中显示书架列表");
+
+        // 关键修复：确保电子书面板可见
+        if (ebookPanel.getVisibility() != View.VISIBLE) {
+            Log.i(TAG_EBOOK, "电子书面板未显示，设置为VISIBLE");
+            ebookPanel.setVisibility(View.VISIBLE);
+        }
+
+        // 清空面板
+        ebookPanel.removeAllViews();
+
+        // 创建标题
+        android.widget.TextView titleView = new android.widget.TextView(activity);
+        titleView.setText("我的书架");
+        titleView.setTextColor(android.graphics.Color.WHITE);
+        titleView.setTextSize(20);
+        titleView.setPadding(24, 20, 24, 20);
+        titleView.setGravity(android.view.Gravity.CENTER);
+        ebookPanel.addView(titleView, new FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.MATCH_PARENT,
+            FrameLayout.LayoutParams.WRAP_CONTENT
+        ));
+
+        // 创建书架列表
+        bookshelfListView = new android.widget.ListView(activity);
+        bookshelfListView.setDivider(null);
+        bookshelfListView.setDividerHeight(0);
+
+        // 创建适配器（使用自定义布局）
+        android.widget.ArrayAdapter<com.bilibili.tv.ebook.model.BookshelfItem> adapter =
+            new android.widget.ArrayAdapter<com.bilibili.tv.ebook.model.BookshelfItem>(
+                activity,
+                android.R.layout.simple_list_item_1,
+                android.R.id.text1,
+                bookshelfItems
+            ) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // 使用自定义布局（而不是默认的TextView）
+                android.widget.LinearLayout itemLayout;
+                
+                if (convertView == null) {
+                    // 创建自定义布局
+                    itemLayout = new android.widget.LinearLayout(activity);
+                    itemLayout.setOrientation(android.widget.LinearLayout.VERTICAL);
+                    itemLayout.setPadding(24, 16, 24, 16);
+                    
+                    // 第1行：书籍名（左）+ 作者名（右）
+                    android.widget.FrameLayout row1 = new android.widget.FrameLayout(activity);
+                    row1.setLayoutParams(new android.widget.LinearLayout.LayoutParams(
+                        android.widget.LinearLayout.LayoutParams.MATCH_PARENT,
+                        android.widget.LinearLayout.LayoutParams.WRAP_CONTENT
+                    ));
+                    
+                    android.widget.TextView titleView = new android.widget.TextView(activity);
+                    titleView.setTextColor(android.graphics.Color.WHITE);
+                    titleView.setTextSize(16);
+                    titleView.setMaxLines(1);
+                    titleView.setEllipsize(android.text.TextUtils.TruncateAt.END);
+                    titleView.setId(android.R.id.text1); // 设置ID以便后续更新
+                    
+                    android.widget.TextView authorView = new android.widget.TextView(activity);
+                    authorView.setTextColor(android.graphics.Color.WHITE);
+                    authorView.setTextSize(16);
+                    authorView.setMaxLines(1);
+                    authorView.setGravity(android.view.Gravity.RIGHT);
+                    authorView.setId(android.R.id.text2); // 设置ID以便后续更新
+                    
+                    row1.addView(titleView, new android.widget.FrameLayout.LayoutParams(
+                        android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
+                        android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
+                        android.view.Gravity.LEFT | android.view.Gravity.CENTER_VERTICAL
+                    ));
+                    row1.addView(authorView, new android.widget.FrameLayout.LayoutParams(
+                        android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
+                        android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
+                        android.view.Gravity.RIGHT | android.view.Gravity.CENTER_VERTICAL
+                    ));
+                    
+                    // 第2行：阅读进度 + 章节名称
+                    android.widget.TextView row2 = new android.widget.TextView(activity);
+                    row2.setTextColor(android.graphics.Color.WHITE);
+                    row2.setTextSize(12);
+                    row2.setMaxLines(1);
+                    row2.setEllipsize(android.text.TextUtils.TruncateAt.END);
+                    row2.setId(android.R.id.summary); // 设置ID以便后续更新
+                    row2.setLayoutParams(new android.widget.LinearLayout.LayoutParams(
+                        android.widget.LinearLayout.LayoutParams.MATCH_PARENT,
+                        android.widget.LinearLayout.LayoutParams.WRAP_CONTENT
+                    ));
+                    
+                    // 第3行：电子书格式 + 上次阅读时间（右对齐）
+                    android.widget.TextView row3 = new android.widget.TextView(activity);
+                    row3.setTextColor(android.graphics.Color.WHITE);
+                    row3.setTextSize(12);
+                    row3.setGravity(android.view.Gravity.RIGHT);
+                    row3.setId(android.R.id.hint); // 设置ID以便后续更新
+                    row3.setLayoutParams(new android.widget.LinearLayout.LayoutParams(
+                        android.widget.LinearLayout.LayoutParams.MATCH_PARENT,
+                        android.widget.LinearLayout.LayoutParams.WRAP_CONTENT
+                    ));
+                    
+                    // 添加所有行到item布局
+                    itemLayout.addView(row1);
+                    itemLayout.addView(row2);
+                    itemLayout.addView(row3);
+                    
+                } else {
+                    itemLayout = (android.widget.LinearLayout) convertView;
+                }
+                
+                // 获取各个TextView
+                android.widget.TextView titleView = (android.widget.TextView) itemLayout.findViewById(android.R.id.text1);
+                android.widget.TextView authorView = (android.widget.TextView) itemLayout.findViewById(android.R.id.text2);
+                android.widget.TextView row2 = (android.widget.TextView) itemLayout.findViewById(android.R.id.summary);
+                android.widget.TextView row3 = (android.widget.TextView) itemLayout.findViewById(android.R.id.hint);
+                
+                com.bilibili.tv.ebook.model.BookshelfItem item = bookshelfItems.get(position);
+                
+                // 主标题：书籍名称（如果为空则显示文件名）
+                String displayTitle = item.getTitle();
+                if (displayTitle == null || displayTitle.isEmpty() || "Unknown Title".equals(displayTitle)) {
+                    // 使用文件名（去掉后缀）
+                    String filePath = item.getFilePath();
+                    if (filePath != null && !filePath.isEmpty()) {
+                        int lastSlash = filePath.lastIndexOf('/');
+                        int lastDot = filePath.lastIndexOf('.');
+                        if (lastSlash >= 0 && lastDot > lastSlash) {
+                            displayTitle = filePath.substring(lastSlash + 1, lastDot);
+                        } else if (lastSlash >= 0) {
+                            displayTitle = filePath.substring(lastSlash + 1);
+                        } else {
+                            displayTitle = filePath;
+                        }
+                    } else {
+                        displayTitle = "未知书籍";
+                    }
+                }
+                
+                // 作者（如果不为空）
+                String author = item.getAuthor();
+                if (author != null && !author.isEmpty() && !"未知".equals(author) && !"Unknown".equals(author) && !"Unknown Author".equals(author)) {
+                    // 有作者信息，直接显示作者名
+                } else {
+                    author = null; // 没有作者信息
+                }
+                
+                // 格式化最后阅读时间
+                String formattedTime = "";
+                if (item.getLastReadTime() > 0) {
+                    formattedTime = formatLastReadTime(item.getLastReadTime());
+                }
+                
+                // 第1行：书籍名称 + 作者名字（右对齐）
+                titleView.setText(displayTitle);
+                if (author != null) {
+                    authorView.setText(author);
+                    authorView.setVisibility(View.VISIBLE);
+                } else {
+                    authorView.setVisibility(View.GONE);
+                }
+                
+                // 第2行：阅读进度百分比 + 章节名称
+                StringBuilder row2Text = new StringBuilder();
+                row2Text.append(String.format("%.1f%%", item.getProgressPercentage()));
+                
+                if (item.getChapterTitle() != null && !item.getChapterTitle().isEmpty()) {
+                    row2Text.append(" | ").append(item.getChapterTitle());
+                }
+                
+                row2.setText(row2Text.toString());
+                
+                // 第3行：电子书格式 + 上次阅读时间（右对齐）
+                StringBuilder row3Text = new StringBuilder();
+                if (item.getFileExtension() != null && !item.getFileExtension().isEmpty()) {
+                    row3Text.append(item.getFileExtension());
+                }
+                
+                if (!formattedTime.isEmpty()) {
+                    if (row3Text.length() > 0) {
+                        row3Text.append(" | ");
+                    }
+                    row3Text.append(formattedTime);
+                }
+                
+                row3.setText(row3Text.toString());
+
+                // 设置选中状态的背景色
+                if (parent instanceof android.widget.ListView) {
+                    android.widget.ListView listView = (android.widget.ListView) parent;
+                    if (position == listView.getSelectedItemPosition()) {
+                        itemLayout.setBackgroundColor(android.graphics.Color.parseColor("#1E90FF")); // 蓝色背景（选中）
+                    } else {
+                        itemLayout.setBackgroundColor(android.graphics.Color.TRANSPARENT); // 透明背景（未选中）
+                    }
+                }
+
+                return itemLayout;
+            }
+        };
+
+        bookshelfListView.setAdapter(adapter);
+
+        // 关键修复：设置选中项监听器，动态更新背景色
+        bookshelfListView.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
+                // 重新绘制列表以更新背景色
+                parent.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        bookshelfListView.invalidateViews();
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(android.widget.AdapterView<?> parent) {
+            }
+        });
+
+        // 设置点击事件
+        bookshelfListView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(android.widget.AdapterView<?> parent, View view, int position, long id) {
+                com.bilibili.tv.ebook.model.BookshelfItem item = bookshelfItems.get(position);
+                Log.i(TAG_EBOOK, "点击书架项: " + item.getTitle() + ", 路径: " + item.getFilePath());
+
+                // 打开书籍文件
+                java.io.File file = new java.io.File(item.getFilePath());
+                if (file.exists()) {
+                    parseAndDisplayEbook(item.getFilePath());
+                } else {
+                    android.widget.Toast.makeText(activity,
+                        "文件不存在：" + item.getFilePath(),
+                        android.widget.Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        // 添加列表到面板
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.MATCH_PARENT,
+            FrameLayout.LayoutParams.MATCH_PARENT
+        );
+        params.topMargin = 70; // 给标题留出空间
+        ebookPanel.addView(bookshelfListView, params);
+
+        // 如果书架为空，添加提示文字
+        if (bookshelfItems.isEmpty()) {
+            android.widget.TextView emptyHint = new android.widget.TextView(activity);
+            emptyHint.setText("书架为空，请选择文件添加书籍");
+            emptyHint.setTextColor(android.graphics.Color.GRAY);
+            emptyHint.setTextSize(14);
+            emptyHint.setPadding(24, 10, 24, 10);
+            emptyHint.setGravity(android.view.Gravity.CENTER);
+            emptyHint.setId(android.R.id.empty); // 设置ID
+            ebookPanel.addView(emptyHint, new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                android.view.Gravity.CENTER
+            ));
+        }
+
+        // 问题2修复：延迟检查并确保ebookPanel可见（处理菜单自动关闭的情况）
+        ebookPanel.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (isEbookPanelShown && ebookPanel != null && ebookPanel.getVisibility() != View.VISIBLE) {
+                    Log.w(TAG_EBOOK, "检测到电子书面板未显示，强制恢复显示");
+                    ebookPanel.setVisibility(View.VISIBLE);
+                }
+            }
+        }, 6000); // 6秒后检查（菜单5秒超时，再加1秒）
+
+        // 自动请求焦点
+        bookshelfListView.post(new Runnable() {
+            @Override
+            public void run() {
+                bookshelfListView.requestFocus();
+                Log.i(TAG_EBOOK, "书架列表已请求焦点");
+            }
+        });
+    }
+
+    /**
+     * 格式化最后阅读时间（参考历史记录的时间显示策略）
+     */
+    private String formatLastReadTime(long timestamp) {
+        java.util.Calendar now = java.util.Calendar.getInstance();
+        java.util.Calendar date = java.util.Calendar.getInstance();
+        date.setTimeInMillis(timestamp);
+        
+        java.text.SimpleDateFormat formatThisYear = new java.text.SimpleDateFormat("MM-dd HH:mm", java.util.Locale.CHINA);
+        java.text.SimpleDateFormat formatFull = new java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.CHINA);
+        
+        if (now.get(java.util.Calendar.YEAR) == date.get(java.util.Calendar.YEAR)) {
+            // 今年：显示月-日 时:分
+            return formatThisYear.format(new java.util.Date(timestamp));
+        } else {
+            // 非今年：显示年-月-日
+            return formatFull.format(new java.util.Date(timestamp));
+        }
     }
 
     /**
@@ -843,10 +1252,10 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         ebookPanel.removeAllViews();
         isFileChooserShown = false;
 
-        Log.i(TAG_EBOOK, "文件选择器已隐藏，回到电子书默认界面");
+        Log.i(TAG_EBOOK, "文件选择器已隐藏，回到电子书首页");
 
-        // TODO: 显示电子书默认界面（比如欢迎文本或书架）
-        // 目前暂时显示空白灰色背景
+        // 关键修复：显示书架列表（电子书首页）
+        showBookshelfOrFileChooser();
     }
 
     /**
@@ -1127,6 +1536,12 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     private void parseAndDisplayEbook(String filePath) {
         Log.i(TAG_EBOOK, "开始解析电子书: " + filePath);
 
+        // 保存文件路径
+        currentBookFilePath = filePath;
+
+        // 关键修复：显示加载提示
+        showLoadingIndicator();
+
         // 在后台线程解析电子书
         new Thread(new Runnable() {
             @Override
@@ -1164,11 +1579,11 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                     // 隐藏加载提示
                     hideLoadingIndicator();
 
-                    // 在主线程显示书籍内容
+                    // 在主线程显示书籍内容（恢复阅读进度）
                     o().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            displayBookContent(book);
+                            restoreReadingProgress(book);
                         }
                     });
 
@@ -1201,7 +1616,7 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
      * 显示书籍内容（在WebView中显示指定章节）
      */
     private void displayBookContent(com.bilibili.tv.ebook.model.Book book, int chapterIndex) {
-        displayBookContent(book, chapterIndex, false); // 默认显示顶部
+        displayBookContent(book, chapterIndex, false, -1); // 默认显示顶部，不恢复页码
     }
 
     /**
@@ -1211,6 +1626,17 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
      * @param scrollToBottom 是否滚动到章节底部（用于从上一章节跳转时）
      */
     private void displayBookContent(com.bilibili.tv.ebook.model.Book book, int chapterIndex, boolean scrollToBottom) {
+        displayBookContent(book, chapterIndex, scrollToBottom, -1); // 不恢复页码
+    }
+
+    /**
+     * 显示书籍内容（在WebView中显示指定章节）
+     * @param book 书籍对象
+     * @param chapterIndex 章节索引
+     * @param scrollToBottom 是否滚动到章节底部（用于从上一章节跳转时）
+     * @param restorePage 恢复到指定页码（-1表示不恢复）
+     */
+    private void displayBookContent(com.bilibili.tv.ebook.model.Book book, int chapterIndex, boolean scrollToBottom, int restorePage) {
         if (book == null || book.getChapters() == null || book.getChapters().isEmpty()) {
             Log.e(TAG_EBOOK, "书籍无章节内容");
             android.widget.Toast.makeText(o(),
@@ -1227,6 +1653,7 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         // 保存当前书籍和章节索引
         currentBook = book;
         currentChapterIndex = chapterIndex;
+        isReadingBook = true; // 标记为阅读状态
 
         Log.i(TAG_EBOOK, "开始显示书籍内容: " + book.getTitle() +
               ", 章节: " + (chapterIndex + 1) + "/" + book.getChapters().size() +
@@ -1282,25 +1709,37 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             "<style>body { font-size: 18px; line-height: 1.6; padding: 20px; }</style>" +
             "</head><body>" + htmlContent + "</body></html>";
 
-        // 设置WebViewClient，用于监听页面加载完成（如果需要滚动到底部）
-        if (scrollToBottom) {
+        // 设置WebViewClient，用于监听页面加载完成（如果需要滚动到底部或恢复页码）
+        if (scrollToBottom || restorePage >= 0) {
             ebookWebView.setWebViewClient(new android.webkit.WebViewClient() {
                 @Override
                 public void onPageFinished(android.webkit.WebView view, String url) {
                     super.onPageFinished(view, url);
-                    // 页面加载完成后，滚动到底部
-                    Log.i(TAG_EBOOK, "页面加载完成，滚动到章节底部");
+
                     view.post(new Runnable() {
                         @Override
                         public void run() {
-                            int contentHeight = view.getContentHeight();
-                            float density = o().getResources().getDisplayMetrics().density;
-                            int contentHeightPx = (int) (contentHeight * density);
-                            int viewHeight = view.getHeight();
-                            int scrollY = contentHeightPx - viewHeight;
-                            if (scrollY > 0) {
-                                view.scrollTo(0, scrollY);
-                                Log.i(TAG_EBOOK, "已滚动到章节底部: scrollY=" + scrollY);
+                            if (scrollToBottom) {
+                                // 滚动到章节底部
+                                Log.i(TAG_EBOOK, "页面加载完成，滚动到章节底部");
+                                int contentHeight = view.getContentHeight();
+                                float density = o().getResources().getDisplayMetrics().density;
+                                int contentHeightPx = (int) (contentHeight * density);
+                                int viewHeight = view.getHeight();
+                                int scrollY = contentHeightPx - viewHeight;
+                                if (scrollY > 0) {
+                                    view.scrollTo(0, scrollY);
+                                    Log.i(TAG_EBOOK, "已滚动到章节底部: scrollY=" + scrollY);
+                                }
+                            } else if (restorePage >= 0) {
+                                // 恢复到指定页码
+                                Log.i(TAG_EBOOK, "页面加载完成，恢复到页码: " + restorePage);
+                                int viewHeight = view.getHeight();
+                                int scrollY = restorePage * viewHeight;
+                                if (scrollY > 0) {
+                                    view.scrollTo(0, scrollY);
+                                    Log.i(TAG_EBOOK, "已滚动到页码 " + restorePage + ": scrollY=" + scrollY);
+                                }
                             }
                         }
                     });
@@ -1322,7 +1761,7 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     /**
      * 显示章节列表
      */
-    @Override
+    @Override // com.bilibili.tv.player.widget.PlayerMenuRight.a
     public void showChapterList() {
         if (currentBook == null || currentBook.getChapters() == null) {
             Log.w(TAG_EBOOK, "无书籍数据，无法显示章节列表");
@@ -1425,8 +1864,12 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                             textView.setPadding(24, 20, 24, 20);
                         }
 
-                        // 设置选中状态的背景色（完全复制文件选择列表）
-                        if (parent instanceof android.widget.ListView) {
+                        // 高亮当前阅读的章节（黄色背景）
+                        if (position == currentChapterIndex) {
+                            view.setBackgroundColor(Color.parseColor("#FF9800")); // 橙色背景（当前章节）
+                        }
+                        // 设置选中状态的背景色（蓝色）
+                        else if (parent instanceof android.widget.ListView) {
                             android.widget.ListView listView = (android.widget.ListView) parent;
                             if (position == listView.getSelectedItemPosition()) {
                                 view.setBackgroundColor(Color.parseColor("#1E90FF")); // 蓝色背景（选中）
@@ -1459,10 +1902,17 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
                 chapterListView.setAdapter(adapter);
 
-                // 自动请求焦点，确保遥控器可以直接操作（完全复制文件选择列表）
+                // 自动滚动到当前章节并获取焦点
                 chapterListView.post(new Runnable() {
                     @Override
                     public void run() {
+                        // 滚动到当前章节
+                        if (currentChapterIndex >= 0 && currentChapterIndex < chapterTitles.size()) {
+                            chapterListView.setSelection(currentChapterIndex);
+                            Log.i(TAG_EBOOK, "章节列表已滚动到当前章节: " + currentChapterIndex);
+                        }
+
+                        // 请求焦点
                         chapterListView.requestFocus();
                         Log.i(TAG_EBOOK, "章节列表已请求焦点");
                     }
@@ -1570,8 +2020,19 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         // 3. 右侧1/3显示灰色背景面板
         showGrayBackgroundPanel(activity, screenWidth, screenHeight);
 
+        // 初始化电子书缓存管理器和书架管理器
+        if (ebookCacheManager == null) {
+            ebookCacheManager = new com.bilibili.tv.ebook.util.EbookCacheManager(activity);
+        }
+        if (bookshelfManager == null) {
+            bookshelfManager = new com.bilibili.tv.ebook.util.BookshelfManager(activity);
+        }
+
         isEbookPanelShown = true;
         Log.i(TAG_EBOOK, "电子书面板已显示");
+
+        // 显示首页内容（书架列表或文件选择器）
+        showBookshelfOrFileChooser();
     }
 
     /**
@@ -1697,6 +2158,87 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     /**
      * 关闭电子书面板(恢复视频全屏)
      */
+    /**
+     * 关闭当前书籍，回到电子书首页
+     */
+    /**
+     * 关闭当前书籍，回到电子书首页
+     */
+    @Override // com.bilibili.tv.player.widget.PlayerMenuRight.a
+    public void closeCurrentBook() {
+        Log.i(TAG_EBOOK, "开始关闭当前书籍，回到电子书首页");
+
+        // 保存当前阅读进度
+        saveReadingProgress();
+
+        // 清空电子书面板
+        if (ebookPanel != null) {
+            ebookPanel.removeAllViews();
+            Log.i(TAG_EBOOK, "电子书面板已清空");
+        }
+
+        // 重置书籍相关状态
+        currentBook = null;
+        currentChapterIndex = 0;
+        ebookWebView = null;
+        chapterListView = null;
+        isReadingBook = false; // 标记为首页状态
+        currentBookFilePath = null; // 清除文件路径
+
+        Log.i(TAG_EBOOK, "当前书籍已关闭，回到电子书首页");
+
+        // 显示首页（书架列表）
+        showBookshelfOrFileChooser();
+    }
+
+    /**
+     * 清空书架
+     */
+    @Override // com.bilibili.tv.player.widget.PlayerMenuRight.a
+    public void clearBookshelf() {
+        Log.i(TAG_EBOOK, "清空书架菜单项被点击");
+
+        Activity activity = o();
+        if (activity == null) {
+            Log.e(TAG_EBOOK, "Activity is null");
+            return;
+        }
+
+        // 显示确认对话框（样式参考历史记录的确认删除对话框）
+        agb.a dialogBuilder = new agb.a(activity);
+        dialogBuilder.a(1).a("确认清空书架？")
+            .a(activity.getString(R.string.confirm), new agb.b() {
+                @Override
+                public void a(agb dialog, View view) {
+                    // 清空所有阅读进度记录
+                    if (bookshelfManager != null) {
+                        bookshelfManager.clearBookshelf();
+                        Log.i(TAG_EBOOK, "书架已清空");
+                    }
+
+                    // 清空书架数据
+                    if (bookshelfItems != null) {
+                        bookshelfItems.clear();
+                    }
+
+                    // 刷新书架显示
+                    showBookshelfOrFileChooser();
+
+                    // 显示提示
+                    android.widget.Toast.makeText(activity, "书架已清空", android.widget.Toast.LENGTH_SHORT).show();
+
+                    dialog.dismiss();
+                }
+            })
+            .b(activity.getString(R.string.cancel), new agb.b() {
+                @Override
+                public void a(agb dialog, View view) {
+                    dialog.dismiss();
+                }
+            });
+        dialogBuilder.a().show();
+    }
+
     private void closeEbookPanel() {
         Activity activity = o();
         if (activity == null) {
@@ -1705,6 +2247,9 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         }
 
         Log.i(TAG_EBOOK, "开始关闭电子书面板");
+
+        // 保存当前阅读进度
+        saveReadingProgress();
 
         // 1. 隐藏灰色背景面板
         if (ebookPanel != null) {
@@ -1720,6 +2265,7 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         isChapterListShown = false;
         isFileChooserShown = false;
         isLoadingEbook = false;
+        isReadingBook = false; // 清除阅读状态
         currentBook = null;
         currentChapterIndex = 0;
         ebookWebView = null;
@@ -1727,6 +2273,7 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         loadingProgressBar = null;
         loadingTextView = null;
         lastBackPressTime = 0;
+        currentBookFilePath = null; // 清除文件路径
 
         Log.i(TAG_EBOOK, "电子书面板已关闭，所有状态已清除");
     }
@@ -2057,5 +2604,100 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         } catch (Exception e) {}
 
         return result;
+    }
+
+    /**
+     * 保存当前阅读进度
+     */
+    private void saveReadingProgress() {
+        if (currentBook == null || ebookCacheManager == null || ebookWebView == null) {
+            return;
+        }
+
+        try {
+            // 创建ReadingProgress对象
+            com.bilibili.tv.ebook.model.ReadingProgress progress =
+                new com.bilibili.tv.ebook.model.ReadingProgress(currentBook.getBookId());
+
+            progress.setCurrentChapterIndex(currentChapterIndex);
+            progress.setLastReadTimestamp(System.currentTimeMillis());
+
+            // 计算阅读进度百分比
+            if (currentBook.getChapters() != null && !currentBook.getChapters().isEmpty()) {
+                float percentage = (currentChapterIndex * 100.0f) / currentBook.getChapters().size();
+                progress.setProgressPercentage(percentage);
+            }
+
+            // 计算当前页码（基于滚动位置）
+            int scrollY = ebookWebView.getScrollY();
+            int height = ebookWebView.getHeight();
+            int page = scrollY / Math.max(height, 1);
+            progress.setCurrentPage(page);
+
+            // 保存字体大小（暂时使用默认值）
+            progress.setFontSize(16);
+
+            // 保存到缓存
+            ebookCacheManager.saveReadingProgress(progress);
+
+            Log.i(TAG_EBOOK, "阅读进度已保存: 章节=" + currentChapterIndex +
+                  ", 页码=" + page + ", 进度=" + progress.getProgressPercentage() + "%");
+        } catch (Exception e) {
+            Log.e(TAG_EBOOK, "保存阅读进度失败: " + e.getMessage());
+        }
+    }
+
+    /**
+     * 恢复上次阅读进度
+     */
+    private void restoreReadingProgress(com.bilibili.tv.ebook.model.Book book) {
+        if (book == null || ebookCacheManager == null) {
+            return;
+        }
+
+        try {
+            com.bilibili.tv.ebook.model.ReadingProgress progress =
+                ebookCacheManager.getReadingProgress(book.getBookId());
+
+            if (progress != null) {
+                int savedChapterIndex = progress.getCurrentChapterIndex();
+                int savedPage = progress.getCurrentPage();
+
+                // 验证章节索引是否有效
+                if (savedChapterIndex >= 0 && book.getChapters() != null &&
+                    savedChapterIndex < book.getChapters().size()) {
+                    Log.i(TAG_EBOOK, "恢复阅读进度: 章节=" + savedChapterIndex + ", 页码=" + savedPage);
+                    // 传递页码参数，恢复到具体位置
+                    displayBookContent(book, savedChapterIndex, false, savedPage);
+                } else {
+                    Log.w(TAG_EBOOK, "保存的章节索引无效: " + savedChapterIndex);
+                    displayBookContent(book, 0);
+                }
+
+                // 添加到书架（更新进度）
+                addToBookshelf(book, progress);
+            } else {
+                Log.i(TAG_EBOOK, "无保存的阅读进度，从第一章开始");
+                displayBookContent(book, 0);
+
+                // 添加到书架（新书籍）
+                addToBookshelf(book, null);
+            }
+        } catch (Exception e) {
+            Log.e(TAG_EBOOK, "恢复阅读进度失败: " + e.getMessage());
+            displayBookContent(book, 0);
+        }
+    }
+
+    /**
+     * 添加书籍到书架
+     */
+    private void addToBookshelf(com.bilibili.tv.ebook.model.Book book, com.bilibili.tv.ebook.model.ReadingProgress progress) {
+        if (book == null || bookshelfManager == null) {
+            return;
+        }
+
+        // 添加到书架（使用当前文件路径）
+        bookshelfManager.addToBookshelf(book, progress, currentBookFilePath);
     }
 }

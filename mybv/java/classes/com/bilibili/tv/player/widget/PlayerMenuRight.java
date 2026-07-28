@@ -111,6 +111,12 @@ public class PlayerMenuRight extends aay<String> {
 
         // 新增：显示章节列表
         void showChapterList();
+
+        // 新增：清空书架
+        void clearBookshelf();
+
+        // 新增：关闭当前书籍
+        void closeCurrentBook();
     }
 
     private void jumpToChapter(int chapterIndex) {
@@ -417,6 +423,33 @@ public class PlayerMenuRight extends aay<String> {
             android.util.Log.i("EbookReader", "选择文件菜单项被点击");
             if (com.bilibili.tv.FeatureConfig.isEbookReaderEnabled() && this.d != null) {
                 this.d.openEbookFileChooser();
+            }
+            return true;
+        }
+
+        if (TextUtils.equals(str, "清空书架")) {
+            a(false);  // 关闭菜单
+            android.util.Log.i("EbookReader", "清空书架菜单项被点击");
+            if (com.bilibili.tv.FeatureConfig.isEbookReaderEnabled() && this.d != null) {
+                this.d.clearBookshelf();
+            }
+            return true;
+        }
+
+        if (TextUtils.equals(str, "退出阅读")) {
+            a(false);  // 关闭菜单
+            android.util.Log.i("EbookReader", "退出阅读菜单项被点击");
+            if (com.bilibili.tv.FeatureConfig.isEbookReaderEnabled()) {
+                this.d.openEbookReader(); // 再次调用会关闭电子书面板
+            }
+            return true;
+        }
+
+        if (TextUtils.equals(str, "关闭书籍")) {
+            a(false);  // 关闭菜单
+            android.util.Log.i("EbookReader", "关闭书籍菜单项被点击");
+            if (com.bilibili.tv.FeatureConfig.isEbookReaderEnabled() && this.d != null) {
+                this.d.closeCurrentBook(); // 关闭当前书籍，返回书架页面
             }
             return true;
         }
