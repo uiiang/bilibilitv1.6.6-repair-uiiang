@@ -48,7 +48,7 @@
     iget-object v0, p0, Lbl/xw$30;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->ebookCacheManager:Lcom/bilibili/tv/ebook/util/EbookCacheManager;
-    invoke-static {v0}, Lbl/xw;->access$3200(Lbl/xw;)Lcom/bilibili/tv/ebook/util/EbookCacheManager;
+    invoke-static {v0}, Lbl/xw;->access$3300(Lbl/xw;)Lcom/bilibili/tv/ebook/util/EbookCacheManager;
 
     move-result-object v0
 
@@ -58,7 +58,7 @@
     iget-object v0, p0, Lbl/xw$30;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->ebookCacheManager:Lcom/bilibili/tv/ebook/util/EbookCacheManager;
-    invoke-static {v0}, Lbl/xw;->access$3200(Lbl/xw;)Lcom/bilibili/tv/ebook/util/EbookCacheManager;
+    invoke-static {v0}, Lbl/xw;->access$3300(Lbl/xw;)Lcom/bilibili/tv/ebook/util/EbookCacheManager;
 
     move-result-object v0
 
@@ -76,7 +76,7 @@
     iget-object v0, p0, Lbl/xw$30;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->bookshelfManager:Lcom/bilibili/tv/ebook/util/BookshelfManager;
-    invoke-static {v0}, Lbl/xw;->access$3300(Lbl/xw;)Lcom/bilibili/tv/ebook/util/BookshelfManager;
+    invoke-static {v0}, Lbl/xw;->access$3400(Lbl/xw;)Lcom/bilibili/tv/ebook/util/BookshelfManager;
 
     move-result-object v0
 
@@ -86,7 +86,7 @@
     iget-object v0, p0, Lbl/xw$30;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->bookshelfManager:Lcom/bilibili/tv/ebook/util/BookshelfManager;
-    invoke-static {v0}, Lbl/xw;->access$3300(Lbl/xw;)Lcom/bilibili/tv/ebook/util/BookshelfManager;
+    invoke-static {v0}, Lbl/xw;->access$3400(Lbl/xw;)Lcom/bilibili/tv/ebook/util/BookshelfManager;
 
     move-result-object v0
 
@@ -125,7 +125,7 @@
     iget-object v0, p0, Lbl/xw$30;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->showBookshelfOrFileChooser()V
-    invoke-static {v0}, Lbl/xw;->access$3400(Lbl/xw;)V
+    invoke-static {v0}, Lbl/xw;->access$3500(Lbl/xw;)V
 
     .line 3100
     iget-object v0, p0, Lbl/xw$30;->val$activity:Landroid/app/Activity;

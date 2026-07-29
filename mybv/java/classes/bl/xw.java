@@ -72,15 +72,14 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     private List<com.bilibili.tv.ebook.model.Chapter> currentChapterList = null; // 当前显示的章节列表
     private String parentChapterTitle = null; // 父章节标题（用于显示在章节列表标题中）
 
-    // 定时保存阅读进度（方案A：每30秒自动保存）
-    private static final long PROGRESS_SAVE_INTERVAL = 30 * 1000L; // 30秒
-    private android.os.Handler progressSaveHandler = null;
-    private Runnable progressSaveRunnable = null;
-    private boolean isProgressSaving = false; // 是否正在定时保存
-
     // 遥控器控制目标（ebook 或 video）
     private String controlTarget = "video"; // 默认控制视频（因为未打开电子书时视频全屏播放）
     private int ebookPanelPercent = 30; // 电子书屏幕占比，默认30%
+    
+    // 防抖保存阅读进度的Runnable
+    private Runnable saveProgressRunnable = null;
+    private android.os.Handler saveProgressHandler = null;
+    private static final int SAVE_PROGRESS_DELAY_MS = 300; // 防抖延迟300毫秒
     private Runnable g = new Runnable() { // from class: bl.xw.1
         @Override // java.lang.Runnable
         public void run() {
@@ -205,12 +204,14 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
                 Log.i(TAG_EBOOK, "xw.f: 电子书阅读页面：向上滚动");
                 ebookWebView.scrollBy(0, -200);
+                scheduleSaveReadingProgress(); // 防抖保存进度
                 return true;
             }
 
             if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
                 Log.i(TAG_EBOOK, "xw.f: 电子书阅读页面：向下滚动");
                 ebookWebView.scrollBy(0, 200);
+                scheduleSaveReadingProgress(); // 防抖保存进度
                 return true;
             }
 
@@ -242,6 +243,7 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                     Log.w(TAG_EBOOK, "xw.f: WebView height为0，使用默认值800");
                     ebookWebView.scrollBy(0, -800);
                 }
+                scheduleSaveReadingProgress(); // 防抖保存进度
                 return true;
             }
 
@@ -278,6 +280,7 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                     Log.w(TAG_EBOOK, "xw.f: WebView height为0，使用默认值800");
                     ebookWebView.scrollBy(0, 800);
                 }
+                scheduleSaveReadingProgress(); // 防抖保存进度
                 return true;
             }
         }
@@ -2268,6 +2271,9 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                                 Log.i(TAG_EBOOK, "已滚动到页码 " + restorePage + ": scrollY=" + scrollY);
                             }
                         }
+                        
+                        // 章节跳转后，防抖保存阅读进度
+                        scheduleSaveReadingProgress();
                     }
                 });
             }
@@ -2291,9 +2297,6 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         // scrollBy()是编程式滚动，不依赖焦点，所以WebView不需要焦点
         ebookWebView.setFocusable(false);
         ebookWebView.setFocusableInTouchMode(false);
-
-        // 启动定时保存阅读进度（方案A：每30秒自动保存）
-        startProgressSaveTimer();
 
         Log.i(TAG_EBOOK, "WebView已显示章节: " + chapter.getTitle() + ", 设置为不可聚焦避免拦截方向键");
     }
@@ -2938,11 +2941,8 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     public void closeCurrentBook() {
         Log.i(TAG_EBOOK, "开始关闭当前书籍，回到电子书首页");
 
-        // 停止定时保存阅读进度
-        stopProgressSaveTimer();
-
-        // 保存当前阅读进度
-        saveReadingProgress();
+        // 立即保存当前阅读进度（取消防抖等待）
+        saveReadingProgressImmediately();
 
         // 清空电子书面板
         if (ebookPanel != null) {
@@ -3171,11 +3171,8 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
         Log.i(TAG_EBOOK, "开始关闭电子书面板");
 
-        // 停止定时保存阅读进度
-        stopProgressSaveTimer();
-
-        // 保存当前阅读进度
-        saveReadingProgress();
+        // 立即保存当前阅读进度（取消防抖等待）
+        saveReadingProgressImmediately();
 
         // 1. 隐藏灰色背景面板
         if (ebookPanel != null) {
@@ -3617,48 +3614,46 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     }
 
     /**
-     * 启动定时保存阅读进度（方案A：每30秒自动保存）
+     * 防抖保存阅读进度（用于翻页和章节跳转后自动保存）
+     * 使用防抖机制，300ms内无新操作才真正保存，避免频繁写入
      */
-    private void startProgressSaveTimer() {
-        if (isProgressSaving) {
-            return; // 已经在运行
+    private void scheduleSaveReadingProgress() {
+        // 初始化Handler（懒加载）
+        if (saveProgressHandler == null) {
+            saveProgressHandler = new android.os.Handler();
         }
-
-        if (progressSaveHandler == null) {
-            progressSaveHandler = new android.os.Handler();
+        
+        // 取消之前的待保存任务（防抖）
+        if (saveProgressRunnable != null) {
+            saveProgressHandler.removeCallbacks(saveProgressRunnable);
         }
-
-        if (progressSaveRunnable == null) {
-            progressSaveRunnable = new Runnable() {
-                @Override
-                public void run() {
-                    if (isReadingBook && currentBook != null && ebookWebView != null) {
-                        saveReadingProgress();
-                        Log.d(TAG_EBOOK, "定时保存阅读进度完成");
-                    }
-                    // 继续下一次定时保存
-                    if (isProgressSaving && progressSaveHandler != null) {
-                        progressSaveHandler.postDelayed(this, PROGRESS_SAVE_INTERVAL);
-                    }
-                }
-            };
-        }
-
-        isProgressSaving = true;
-        progressSaveHandler.postDelayed(progressSaveRunnable, PROGRESS_SAVE_INTERVAL);
-        Log.i(TAG_EBOOK, "定时保存阅读进度已启动，间隔: " + (PROGRESS_SAVE_INTERVAL / 1000) + "秒");
+        
+        // 创建新的保存任务
+        saveProgressRunnable = new Runnable() {
+            @Override
+            public void run() {
+                saveReadingProgress();
+                saveProgressRunnable = null; // 清除引用
+            }
+        };
+        
+        // 延迟300ms后执行
+        saveProgressHandler.postDelayed(saveProgressRunnable, SAVE_PROGRESS_DELAY_MS);
+        Log.d(TAG_EBOOK, "已调度防抖保存阅读进度，延迟 " + SAVE_PROGRESS_DELAY_MS + "ms");
     }
 
     /**
-     * 停止定时保存阅读进度
+     * 立即保存阅读进度（取消防抖等待，直接保存）
      */
-    private void stopProgressSaveTimer() {
-        isProgressSaving = false;
-        
-        if (progressSaveHandler != null && progressSaveRunnable != null) {
-            progressSaveHandler.removeCallbacks(progressSaveRunnable);
-            Log.i(TAG_EBOOK, "定时保存阅读进度已停止");
+    private void saveReadingProgressImmediately() {
+        // 取消所有待保存任务
+        if (saveProgressHandler != null && saveProgressRunnable != null) {
+            saveProgressHandler.removeCallbacks(saveProgressRunnable);
+            saveProgressRunnable = null;
         }
+        
+        // 立即保存
+        saveReadingProgress();
     }
 
     /**

@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 153
+    .line 152
     iput-object p1, p0, Lbl/xw$2;->this$0:Lbl/xw;
 
     iput-object p2, p0, Lbl/xw$2;->val$activity:Landroid/app/Activity;
@@ -44,12 +44,12 @@
     .locals 4
 
     .prologue
-    .line 156
+    .line 155
     new-instance v0, Landroid/util/DisplayMetrics;
 
     invoke-direct {v0}, Landroid/util/DisplayMetrics;-><init>()V
 
-    .line 157
+    .line 156
     iget-object v1, p0, Lbl/xw$2;->val$activity:Landroid/app/Activity;
 
     invoke-virtual {v1}, Landroid/app/Activity;->getWindowManager()Landroid/view/WindowManager;
@@ -62,13 +62,13 @@
 
     invoke-virtual {v1, v0}, Landroid/view/Display;->getMetrics(Landroid/util/DisplayMetrics;)V
 
-    .line 158
+    .line 157
     iget v1, v0, Landroid/util/DisplayMetrics;->widthPixels:I
 
-    .line 159
+    .line 158
     iget v0, v0, Landroid/util/DisplayMetrics;->heightPixels:I
 
-    .line 161
+    .line 160
     iget-object v2, p0, Lbl/xw$2;->this$0:Lbl/xw;
 
     iget-object v3, p0, Lbl/xw$2;->val$activity:Landroid/app/Activity;
@@ -76,7 +76,7 @@
     # invokes: Lbl/xw;->shrinkVideoView(Landroid/app/Activity;II)V
     invoke-static {v2, v3, v1, v0}, Lbl/xw;->access$000(Lbl/xw;Landroid/app/Activity;II)V
 
-    .line 162
+    .line 161
     iget-object v2, p0, Lbl/xw$2;->this$0:Lbl/xw;
 
     iget-object v3, p0, Lbl/xw$2;->val$activity:Landroid/app/Activity;
@@ -84,6 +84,6 @@
     # invokes: Lbl/xw;->shrinkDanmakuView(Landroid/app/Activity;II)V
     invoke-static {v2, v3, v1, v0}, Lbl/xw;->access$100(Lbl/xw;Landroid/app/Activity;II)V
 
-    .line 163
+    .line 162
     return-void
 .end method

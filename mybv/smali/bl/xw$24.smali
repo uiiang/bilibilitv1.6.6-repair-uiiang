@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 2059
+    .line 2062
     iput-object p1, p0, Lbl/xw$24;->this$0:Lbl/xw;
 
     iput-object p2, p0, Lbl/xw$24;->val$filePath:Ljava/lang/String;
@@ -44,50 +44,50 @@
     .locals 4
 
     .prologue
-    .line 2064
+    .line 2067
     :try_start_0
     new-instance v0, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;
 
     iget-object v1, p0, Lbl/xw$24;->this$0:Lbl/xw;
 
-    .line 2065
+    .line 2068
     invoke-virtual {v1}, Lbl/xw;->o()Landroid/app/Activity;
 
     move-result-object v1
 
     invoke-direct {v0, v1}, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;-><init>(Landroid/content/Context;)V
 
-    .line 2068
+    .line 2071
     iget-object v1, p0, Lbl/xw$24;->val$filePath:Ljava/lang/String;
 
     invoke-static {v1}, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;->generateBookId(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 2071
+    .line 2074
     iget-object v2, p0, Lbl/xw$24;->val$filePath:Ljava/lang/String;
 
     invoke-virtual {v0, v2, v1}, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;->parse(Ljava/lang/String;Ljava/lang/String;)Lcom/bilibili/tv/ebook/model/Book;
 
     move-result-object v0
 
-    .line 2073
+    .line 2076
     if-nez v0, :cond_34
 
-    .line 2074
+    .line 2077
     const-string v0, "EbookReader"
 
     const-string v1, "\u7535\u5b50\u4e66\u89e3\u6790\u5931\u8d25"
 
     invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2075
+    .line 2078
     iget-object v0, p0, Lbl/xw$24;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->hideLoadingIndicator()V
     invoke-static {v0}, Lbl/xw;->access$1800(Lbl/xw;)V
 
-    .line 2078
+    .line 2081
     iget-object v0, p0, Lbl/xw$24;->this$0:Lbl/xw;
 
     invoke-virtual {v0}, Lbl/xw;->o()Landroid/app/Activity;
@@ -100,11 +100,11 @@
 
     invoke-virtual {v0, v1}, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
 
-    .line 2117
+    .line 2120
     :goto_33
     return-void
 
-    .line 2089
+    .line 2092
     :cond_34
     const-string v1, "EbookReader"
 
@@ -132,7 +132,7 @@
 
     move-result-object v2
 
-    .line 2090
+    .line 2093
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/Book;->getChapters()Ljava/util/List;
 
     move-result-object v3
@@ -149,16 +149,16 @@
 
     move-result-object v2
 
-    .line 2089
+    .line 2092
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2093
+    .line 2096
     iget-object v1, p0, Lbl/xw$24;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->hideLoadingIndicator()V
     invoke-static {v1}, Lbl/xw;->access$1800(Lbl/xw;)V
 
-    .line 2096
+    .line 2099
     iget-object v1, p0, Lbl/xw$24;->this$0:Lbl/xw;
 
     invoke-virtual {v1}, Lbl/xw;->o()Landroid/app/Activity;
@@ -175,24 +175,24 @@
 
     goto :goto_33
 
-    .line 2103
+    .line 2106
     :catch_76
     move-exception v0
 
-    .line 2104
+    .line 2107
     const-string v1, "EbookReader"
 
     const-string v2, "\u89e3\u6790\u7535\u5b50\u4e66\u5f02\u5e38"
 
     invoke-static {v1, v2, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    .line 2105
+    .line 2108
     iget-object v1, p0, Lbl/xw$24;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->hideLoadingIndicator()V
     invoke-static {v1}, Lbl/xw;->access$1800(Lbl/xw;)V
 
-    .line 2108
+    .line 2111
     iget-object v1, p0, Lbl/xw$24;->this$0:Lbl/xw;
 
     invoke-virtual {v1}, Lbl/xw;->o()Landroid/app/Activity;
