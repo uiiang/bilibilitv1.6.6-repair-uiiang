@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 2231
+    .line 2305
     iput-object p1, p0, Lbl/xw$24;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -42,7 +42,7 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 2235
+    .line 2309
     iget-object v1, p0, Lbl/xw$24;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
@@ -52,7 +52,7 @@
 
     if-eqz v1, :cond_3a
 
-    .line 2236
+    .line 2310
     const-string v1, "EbookReader"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -86,7 +86,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2237
+    .line 2311
     iget-object v1, p0, Lbl/xw$24;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
@@ -96,33 +96,33 @@
 
     invoke-virtual {v1}, Landroid/widget/FrameLayout;->removeAllViews()V
 
-    .line 2238
+    .line 2312
     iget-object v1, p0, Lbl/xw$24;->this$0:Lbl/xw;
 
     const/4 v2, 0x0
 
     # setter for: Lbl/xw;->chapterListView:Landroid/widget/ListView;
-    invoke-static {v1, v2}, Lbl/xw;->access$2002(Lbl/xw;Landroid/widget/ListView;)Landroid/widget/ListView;
+    invoke-static {v1, v2}, Lbl/xw;->access$2102(Lbl/xw;Landroid/widget/ListView;)Landroid/widget/ListView;
 
-    .line 2242
+    .line 2316
     :cond_3a
     iget-object v1, p0, Lbl/xw$24;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->ebookWebView:Landroid/webkit/WebView;
-    invoke-static {v1}, Lbl/xw;->access$1800(Lbl/xw;)Landroid/webkit/WebView;
+    invoke-static {v1}, Lbl/xw;->access$1900(Lbl/xw;)Landroid/webkit/WebView;
 
     move-result-object v1
 
     if-eqz v1, :cond_61
 
-    .line 2243
+    .line 2317
     const-string v1, "EbookReader"
 
     const-string v2, "\u6062\u590dWebView\u663e\u793a"
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2244
+    .line 2318
     iget-object v1, p0, Lbl/xw$24;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
@@ -133,23 +133,23 @@
     iget-object v2, p0, Lbl/xw$24;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->ebookWebView:Landroid/webkit/WebView;
-    invoke-static {v2}, Lbl/xw;->access$1800(Lbl/xw;)Landroid/webkit/WebView;
+    invoke-static {v2}, Lbl/xw;->access$1900(Lbl/xw;)Landroid/webkit/WebView;
 
     move-result-object v2
 
     invoke-virtual {v1, v2}, Landroid/widget/FrameLayout;->addView(Landroid/view/View;)V
 
-    .line 2245
+    .line 2319
     iget-object v1, p0, Lbl/xw$24;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->ebookWebView:Landroid/webkit/WebView;
-    invoke-static {v1}, Lbl/xw;->access$1800(Lbl/xw;)Landroid/webkit/WebView;
+    invoke-static {v1}, Lbl/xw;->access$1900(Lbl/xw;)Landroid/webkit/WebView;
 
     move-result-object v1
 
     invoke-virtual {v1, v0}, Landroid/webkit/WebView;->setVisibility(I)V
 
-    .line 2248
+    .line 2322
     :cond_61
     const-string v1, "EbookReader"
 
@@ -165,7 +165,7 @@
 
     iget-object v3, p0, Lbl/xw$24;->this$0:Lbl/xw;
 
-    .line 2249
+    .line 2323
     # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
     invoke-static {v3}, Lbl/xw;->access$900(Lbl/xw;)Landroid/widget/FrameLayout;
 
@@ -193,9 +193,9 @@
 
     move-result-object v0
 
-    .line 2248
+    .line 2322
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2250
+    .line 2324
     return-void
 .end method

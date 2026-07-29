@@ -62,6 +62,7 @@ public class PlayerMenuRight extends aay<String> {
     public static int subtitle_size_id = -1;
     public static int audio_balance_id = 0;
     public static int ebook_font_size_id = 4; // 默认字体大小索引（28px）
+    public static int ebook_color_theme_id = 0; // 默认配色方案索引（System）
     public List<String> speed_list;
     public List<String> mode_list;
     public List<String> subtitle_list;
@@ -69,6 +70,7 @@ public class PlayerMenuRight extends aay<String> {
     public List<String> chapter_list;
     public List<String> audio_balance_list;
     public List<String> ebook_font_size_list; // 电子书字体大小列表
+    public List<String> ebook_color_theme_list; // 电子书配色方案列表
     public static boolean danmaku_valid_list[] = {false,true,false,false,true,true,true,true,false,false};
     public static int danmaku_level=0;
     private List<Integer> menuIndexMap;
@@ -128,6 +130,9 @@ public class PlayerMenuRight extends aay<String> {
 
         // 新增：设置电子书字体大小
         void set_ebook_font_size(float fontSize);
+
+        // 新增：设置电子书配色方案
+        void set_ebook_color_theme(int themeIndex);
     }
 
     private void jumpToChapter(int chapterIndex) {
@@ -198,6 +203,15 @@ public class PlayerMenuRight extends aay<String> {
         this.ebook_font_size_list.add("34");
         this.ebook_font_size_list.add("36");
         this.ebook_font_size_list.add("38");
+
+        // 初始化电子书配色方案列表
+        this.ebook_color_theme_list = new ArrayList<>();
+        this.ebook_color_theme_list.add("System");
+        this.ebook_color_theme_list.add("Light");
+        this.ebook_color_theme_list.add("Dark");
+        this.ebook_color_theme_list.add("Sepia");
+        this.ebook_color_theme_list.add("Slate");
+        this.ebook_color_theme_list.add("OLED");
     }
 
     public PlayerMenuRight(Context context, AttributeSet attributeSet) {
@@ -253,7 +267,9 @@ public class PlayerMenuRight extends aay<String> {
                     return -1;
                 case 2: // 字体大小 - 映射到索引4（父类会显示size_list）
                     return 4; // 关键：映射到索引4，让父类显示size_list作为二级菜单
-                case 3: // 关闭书籍 - 没有二级菜单
+                case 3: // 配色方案 - 映射到索引5（父类会显示alpha_list）
+                    return 5; // 关键：映射到索引5，让父类显示alpha_list作为二级菜单
+                case 4: // 关闭书籍 - 没有二级菜单
                     return -1;
                 default:
                     return -1;
@@ -299,13 +315,27 @@ public class PlayerMenuRight extends aay<String> {
                 int currentMenuIndex = getOriginalMenuIndex(this.q);
                 boolean isCurrentSize = false;
                 if (this.size_list != null && this.size_id >= 0 && this.size_id < this.size_list.size() && currentMenuIndex == 4 && this.size_list.get(this.size_id).equals(str)) {
-                    isCurrentSize = true;
+                    // 关键修复：电子书模式下跳过size_list的视频弹幕大小圆点标注
+                    // 电子书模式下size_list用于字体大小，圆点标注在后面的ebook_font_size_id逻辑中处理
+                    if (menuIndexMap == null || menuIndexMap.isEmpty()) {
+                        // 电子书模式：不在这里设置圆点
+                    } else {
+                        // 视频模式：正常显示弹幕大小圆点
+                        isCurrentSize = true;
+                    }
                 }
                 if (currentMenuIndex == 12 && this.subtitle_size_list != null && this.subtitle_size_id >= 0 && this.subtitle_size_id < this.subtitle_size_list.size() && this.subtitle_size_list.get(this.subtitle_size_id).equals(str)) {
                     isCurrentSize = true;
                 }
                 // 新增：电子书字体大小圆点标注
-                if (currentMenuIndex == 2 && this.ebook_font_size_list != null && this.ebook_font_size_id >= 0 && this.ebook_font_size_id < this.ebook_font_size_list.size() && this.ebook_font_size_list.get(this.ebook_font_size_id).equals(str)) {
+                // 电子书模式下，字体大小映射到索引4，使用size_list（通过init_size设置）
+                if ((menuIndexMap == null || menuIndexMap.isEmpty()) &&
+                    currentMenuIndex == 4 && this.size_list != null &&
+                    this.ebook_font_size_id >= 0 && this.ebook_font_size_id < this.size_list.size() &&
+                    this.size_list.get(this.ebook_font_size_id).equals(str)) {
+                    isCurrentSize = true;
+                } else if (this.ebook_font_size_list != null && this.ebook_font_size_id >= 0 && this.ebook_font_size_id < this.ebook_font_size_list.size() && this.ebook_font_size_list.get(this.ebook_font_size_id).equals(str)) {
+                    // 其他模式（暂未使用）
                     isCurrentSize = true;
                 }
                 boolean isCurrentItem = false;
@@ -316,7 +346,14 @@ public class PlayerMenuRight extends aay<String> {
                 } else if (isCurrentSize) {
                     isCurrentItem = true;
                 } else if (this.alpha_list != null && this.alpha_id >= 0 && this.alpha_id < this.alpha_list.size() && this.alpha_list.get(this.alpha_id).equals(str)) {
-                    isCurrentItem = true;
+                    // 关键修复：电子书模式下跳过alpha_list的视频弹幕透明度圆点标注
+                    // 电子书模式下alpha_list用于配色方案，圆点标注在后面的ebook_color_theme_id逻辑中处理
+                    if (menuIndexMap == null || menuIndexMap.isEmpty()) {
+                        // 电子书模式：不在这里设置圆点
+                    } else {
+                        // 视频模式：正常显示弹幕透明度圆点
+                        isCurrentItem = true;
+                    }
                 } else if (this.speed_list != null && this.speed_id >= 0 && this.speed_id < this.speed_list.size() && this.speed_list.get(this.speed_id).equals(str)) {
                     isCurrentItem = true;
                 } else if (this.mode_list != null && this.mode_id >= 0 && this.mode_id < this.mode_list.size() && this.mode_list.get(this.mode_id).equals(str)) {
@@ -324,6 +361,12 @@ public class PlayerMenuRight extends aay<String> {
                 } else if (this.subtitle_list != null && this.subtitle_id >= 0 && this.subtitle_id < this.subtitle_list.size() && this.subtitle_list.get(this.subtitle_id).equals(str)) {
                     isCurrentItem = true;
                 } else if (this.audio_balance_list != null && this.audio_balance_id >= 0 && this.audio_balance_id < this.audio_balance_list.size() && this.audio_balance_list.get(this.audio_balance_id).equals(str)) {
+                    isCurrentItem = true;
+                } else if (menuIndexMap != null && menuIndexMap.isEmpty() &&
+                           currentMenuIndex == 5 && this.alpha_list != null &&
+                           this.ebook_color_theme_id >= 0 && this.ebook_color_theme_id < this.alpha_list.size() &&
+                           this.alpha_list.get(this.ebook_color_theme_id).equals(str)) {
+                    // 电子书模式下的配色方案圆点标注
                     isCurrentItem = true;
                 }
                 if (!isCurrentItem) {
@@ -614,9 +657,17 @@ public class PlayerMenuRight extends aay<String> {
                 this.size_id = i2;
             }
             if (this.alpha_list != null && this.alpha_list.indexOf(str) != -1) {
-                this.d.b(Float.valueOf(this.alpha_list.get(i2).replace("f", "")).floatValue());
-                i3 = this.alpha_id;
-                this.alpha_id = i2;
+                // 关键修复：电子书模式下跳过alpha_list的视频弹幕透明度处理
+                // 电子书模式下alpha_list用于配色方案，已在前面处理
+                if (menuIndexMap == null || menuIndexMap.isEmpty()) {
+                    // 电子书模式：不处理视频弹幕透明度
+                    // 配色方案的处理在前面的set_ebook_color_theme逻辑中
+                } else {
+                    // 视频模式：正常处理弹幕透明度
+                    this.d.b(Float.valueOf(this.alpha_list.get(i2).replace("f", "")).floatValue());
+                    i3 = this.alpha_id;
+                    this.alpha_id = i2;
+                }
             }
             if (this.speed_list != null && this.speed_list.indexOf(str) != -1) {
                 this.d.switch_speed(Float.valueOf(this.speed_list.get(i2).replace("x", "")).floatValue());
@@ -654,6 +705,22 @@ public class PlayerMenuRight extends aay<String> {
                 this.d.set_ebook_font_size(Float.valueOf(this.ebook_font_size_list.get(i2)).floatValue());
                 i3 = this.ebook_font_size_id;
                 this.ebook_font_size_id = i2;
+            }
+
+            // 新增：电子书配色方案处理
+            // 电子书模式下，配色方案列表使用alpha_list（通过init_alpha设置）
+            // 判断条件：电子书模式（menuIndexMap为空）且currentMenuIndex==5（通过映射）
+            if ((menuIndexMap == null || menuIndexMap.isEmpty()) &&
+                this.alpha_list != null && this.alpha_list.indexOf(str) != -1 && currentMenuIndex == 5) {
+                // 电子书模式下的配色方案选择
+                this.d.set_ebook_color_theme(i2);
+                i3 = this.ebook_color_theme_id;
+                this.ebook_color_theme_id = i2;
+            } else if (this.ebook_color_theme_list != null && this.ebook_color_theme_list.indexOf(str) != -1 && currentMenuIndex == 3) {
+                // 其他模式（暂未使用）
+                this.d.set_ebook_color_theme(i2);
+                i3 = this.ebook_color_theme_id;
+                this.ebook_color_theme_id = i2;
             }
             if (this.chapter_list != null && this.chapter_list.contains(str)) {
                 jumpToChapter(i2);
@@ -705,6 +772,9 @@ public class PlayerMenuRight extends aay<String> {
                 case 4: // 字体大小
                     aai.a(3);
                     return;
+                case 5: // 配色方案
+                    aai.a(3);
+                    return;
                 default:
                     return;
             }
@@ -747,7 +817,10 @@ public class PlayerMenuRight extends aay<String> {
                 case 2: // 字体大小 - 使用size_id
                     i3 = this.ebook_font_size_id;
                     break;
-                case 3: // 关闭书籍
+                case 3: // 配色方案 - 使用alpha_id
+                    i3 = this.ebook_color_theme_id;
+                    break;
+                case 4: // 关闭书籍
                     i3 = 0;
                     break;
                 default:

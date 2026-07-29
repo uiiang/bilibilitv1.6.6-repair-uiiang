@@ -630,6 +630,7 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                 ebookMenus.add("控制视频"); // 最上方
                 ebookMenus.add("章节列表");
                 ebookMenus.add("字体大小"); // 新增：字体大小
+                ebookMenus.add("配色方案"); // 新增：配色方案
                 ebookMenus.add("关闭书籍");
             }
 
@@ -663,6 +664,20 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
                 Log.i(TAG_EBOOK, "初始化字体大小列表，当前索引: " + savedIndex + ", 字体大小: " + savedFontSize);
                 this.c.init_size(fontSizeList, savedIndex); // 复用init_size方法设置字体大小列表
+
+                // 初始化配色方案列表
+                List<String> colorThemeList = new ArrayList<>();
+                colorThemeList.add("System");
+                colorThemeList.add("Light");
+                colorThemeList.add("Dark");
+                colorThemeList.add("Sepia");
+                colorThemeList.add("Slate");
+                colorThemeList.add("OLED");
+
+                // 读取保存的配色方案索引（默认为0，即System）
+                int savedThemeIndex = prefs.getInt("color_theme_index", 0);
+                Log.i(TAG_EBOOK, "初始化配色方案列表，当前索引: " + savedThemeIndex);
+                this.c.init_alpha(colorThemeList, savedThemeIndex); // 复用init_alpha方法设置配色方案列表
             }
 
             // 不需要初始化其他菜单项(清晰度、弹幕等)
@@ -878,28 +893,81 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     }
 
     /**
-     * 应用字体大小到WebView
-     */
-    private void applyFontSizeToWebView(float fontSize) {
-        if (ebookWebView == null) {
-            return;
+         * 应用字体大小到WebView
+         */
+        private void applyFontSizeToWebView(float fontSize) {
+            if (ebookWebView == null) {
+                return;
+            }
+            
+            Log.i(TAG_EBOOK, "应用字体大小到WebView: " + fontSize);
+            
+            // 使用JavaScript修改字体大小
+            String js = String.format("document.body.style.fontSize='%dpx';", (int)fontSize);
+            ebookWebView.evaluateJavascript(js, null);
+            
+            // 同时修改所有段落和div的字体大小
+            String jsAll = String.format(
+                "var elements = document.querySelectorAll('p, div, span');" +
+                "for (var i = 0; i < elements.length; i++) {" +
+                "  elements[i].style.fontSize = '%dpx';" +
+                "}", (int)fontSize
+            );
+            ebookWebView.evaluateJavascript(jsAll, null);
         }
 
-        Log.i(TAG_EBOOK, "应用字体大小到WebView: " + fontSize);
+        /**
+         * 应用配色方案到WebView
+         */
+        private void applyColorThemeToWebView(int themeIndex) {
+            if (ebookWebView == null) {
+                return;
+            }
 
-        // 使用JavaScript修改字体大小
-        String js = String.format("document.body.style.fontSize='%dpx';", (int)fontSize);
-        ebookWebView.evaluateJavascript(js, null);
+            // 获取配色方案
+            com.bilibili.tv.ebook.model.ReaderTheme theme = com.bilibili.tv.ebook.model.ReaderTheme.getBuiltInThemes()[themeIndex];
+            Log.i(TAG_EBOOK, "应用配色方案到WebView: " + theme.getName() + 
+                  ", 背景色: #" + Integer.toHexString(theme.getBackgroundColor()) +
+                  ", 文字色: #" + Integer.toHexString(theme.getTextColor()));
 
-        // 同时修改所有段落和div的字体大小
-        String jsAll = String.format(
-            "var elements = document.querySelectorAll('p, div, span');" +
-            "for (var i = 0; i < elements.length; i++) {" +
-            "  elements[i].style.fontSize = '%dpx';" +
-            "}", (int)fontSize
-        );
-        ebookWebView.evaluateJavascript(jsAll, null);
-    }
+            // 使用JavaScript修改背景色和文字颜色
+            String bgColor = String.format("#%06X", (0xFFFFFF & theme.getBackgroundColor()));
+            String textColor = String.format("#%06X", (0xFFFFFF & theme.getTextColor()));
+
+            // 修改body背景色和文字颜色
+            String js = String.format(
+                "document.body.style.backgroundColor='%s';" +
+                "document.body.style.color='%s';",
+                bgColor, textColor
+            );
+            ebookWebView.evaluateJavascript(js, null);
+
+            // 修改所有元素的颜色
+            String jsAll = String.format(
+                "var elements = document.querySelectorAll('*');" +
+                "for (var i = 0; i < elements.length; i++) {" +
+                "  elements[i].style.backgroundColor='%s';" +
+                "  elements[i].style.color='%s';" +
+                "}",
+                bgColor, textColor
+            );
+            ebookWebView.evaluateJavascript(jsAll, null);
+        }
+
+        @Override // com.bilibili.tv.player.widget.PlayerMenuRight.a
+        public void set_ebook_color_theme(int themeIndex) {
+            Log.i(TAG_EBOOK, "set_ebook_color_theme: themeIndex=" + themeIndex);
+
+            // 保存配色方案到SharedPreferences
+            android.content.SharedPreferences prefs = o().getSharedPreferences("ebook_settings", android.content.Context.MODE_PRIVATE);
+            prefs.edit().putInt("color_theme_index", themeIndex).apply();
+            Log.i(TAG_EBOOK, "配色方案已保存: " + themeIndex);
+
+            // 应用配色方案到WebView（如果正在阅读）
+            if (ebookWebView != null && isReadingBook) {
+                applyColorThemeToWebView(themeIndex);
+            }
+        }
 
     @Override // com.bilibili.tv.player.widget.PlayerMenuRight.a
     public void openEbookReader() {
@@ -1875,9 +1943,15 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                 view.post(new Runnable() {
                     @Override
                     public void run() {
-                        // 应用保存的字体大小（通过JavaScript强制应用）
+                        // 应用保存的字体大小和配色方案
+                        android.content.SharedPreferences prefs = o().getSharedPreferences("ebook_settings", android.content.Context.MODE_PRIVATE);
+                        float savedFontSize = prefs.getFloat("font_size", 28f);
                         Log.i(TAG_EBOOK, "页面加载完成，应用字体大小: " + savedFontSize);
                         applyFontSizeToWebView(savedFontSize);
+
+                        int savedThemeIndex = prefs.getInt("color_theme_index", 0);
+                        Log.i(TAG_EBOOK, "页面加载完成，应用配色方案: " + savedThemeIndex);
+                        applyColorThemeToWebView(savedThemeIndex);
 
                         // 滚动逻辑
                         if (scrollToBottom) {

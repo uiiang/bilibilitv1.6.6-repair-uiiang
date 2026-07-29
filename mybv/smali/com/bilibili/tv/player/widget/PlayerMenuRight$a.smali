@@ -63,6 +63,9 @@
 .method public abstract set_danmaku_type(I)V
 .end method
 
+.method public abstract set_ebook_color_theme(I)V
+.end method
+
 .method public abstract set_ebook_font_size(F)V
 .end method
 

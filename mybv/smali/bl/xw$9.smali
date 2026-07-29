@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 1206
+    .line 1274
     iput-object p1, p0, Lbl/xw$9;->this$0:Lbl/xw;
 
     iput-object p2, p0, Lbl/xw$9;->val$activity:Landroid/app/Activity;
@@ -53,7 +53,7 @@
     .end annotation
 
     .prologue
-    .line 1209
+    .line 1277
     iget-object v0, p0, Lbl/xw$9;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->bookshelfItems:Ljava/util/List;
@@ -67,7 +67,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ebook/model/BookshelfItem;
 
-    .line 1210
+    .line 1278
     const-string v1, "EbookReader"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -108,7 +108,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1213
+    .line 1281
     new-instance v1, Ljava/io/File;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getFilePath()Ljava/lang/String;
@@ -117,14 +117,14 @@
 
     invoke-direct {v1, v2}, Ljava/io/File;-><init>(Ljava/lang/String;)V
 
-    .line 1214
+    .line 1282
     invoke-virtual {v1}, Ljava/io/File;->exists()Z
 
     move-result v1
 
     if-eqz v1, :cond_4f
 
-    .line 1215
+    .line 1283
     iget-object v1, p0, Lbl/xw$9;->this$0:Lbl/xw;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getFilePath()Ljava/lang/String;
@@ -134,11 +134,11 @@
     # invokes: Lbl/xw;->parseAndDisplayEbook(Ljava/lang/String;)V
     invoke-static {v1, v0}, Lbl/xw;->access$700(Lbl/xw;Ljava/lang/String;)V
 
-    .line 1221
+    .line 1289
     :goto_4e
     return-void
 
-    .line 1217
+    .line 1285
     :cond_4f
     iget-object v1, p0, Lbl/xw$9;->val$activity:Landroid/app/Activity;
 
@@ -152,7 +152,7 @@
 
     move-result-object v2
 
-    .line 1218
+    .line 1286
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getFilePath()Ljava/lang/String;
 
     move-result-object v0
@@ -167,12 +167,12 @@
 
     const/4 v2, 0x0
 
-    .line 1217
+    .line 1285
     invoke-static {v1, v0, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
 
     move-result-object v0
 
-    .line 1219
+    .line 1287
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
     goto :goto_4e
