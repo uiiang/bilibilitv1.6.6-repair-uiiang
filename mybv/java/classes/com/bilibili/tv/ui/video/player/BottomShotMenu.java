@@ -249,6 +249,7 @@ public class BottomShotMenu extends FrameLayout {
             });
             
             ShotBinder.clearPendingLoads();
+            ShotBinder.clearAllCache();
             ShotBinder.setDeferLoading(true);
             
             ShotBinder shotBinder = new ShotBinder(shot, totalDuration);
@@ -399,6 +400,7 @@ public class BottomShotMenu extends FrameLayout {
         }
         cancelAutoHideTimer();
         ShotBinder.setDeferLoading(true);
+        ShotBinder.clearPendingLoads();
         isHiding = true;
         Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.out_to_bottom);
         animation.setAnimationListener(new Animation.AnimationListener() {
@@ -409,6 +411,7 @@ public class BottomShotMenu extends FrameLayout {
             public void onAnimationEnd(Animation animation) {
                 setVisibility(View.GONE);
                 isHiding = false;
+                ShotBinder.clearAllCache();
             }
             @Override
             public void onAnimationRepeat(Animation animation) {
@@ -463,6 +466,7 @@ public class BottomShotMenu extends FrameLayout {
     
     public void cleanup() {
         cancelAutoHideTimer();
+        ShotBinder.clearAllCache();
         if (videoListSection != null) {
             videoListSection.cleanup();
         }

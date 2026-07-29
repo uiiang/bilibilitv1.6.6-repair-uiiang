@@ -3,7 +3,7 @@
 .source "xw.java"
 
 # interfaces
-.implements Landroid/widget/AdapterView$OnItemSelectedListener;
+.implements Ljava/lang/Runnable;
 
 
 # annotations
@@ -20,14 +20,18 @@
 # instance fields
 .field final synthetic this$1:Lbl/xw$22;
 
+.field final synthetic val$book:Lcom/bilibili/tv/ebook/model/Book;
+
 
 # direct methods
-.method constructor <init>(Lbl/xw$22;)V
+.method constructor <init>(Lbl/xw$22;Lcom/bilibili/tv/ebook/model/Book;)V
     .locals 0
 
     .prologue
-    .line 2198
+    .line 1837
     iput-object p1, p0, Lbl/xw$22$2;->this$1:Lbl/xw$22;
+
+    iput-object p2, p0, Lbl/xw$22$2;->val$book:Lcom/bilibili/tv/ebook/model/Book;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -36,41 +40,20 @@
 
 
 # virtual methods
-.method public onItemSelected(Landroid/widget/AdapterView;Landroid/view/View;IJ)V
-    .locals 1
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "(",
-            "Landroid/widget/AdapterView",
-            "<*>;",
-            "Landroid/view/View;",
-            "IJ)V"
-        }
-    .end annotation
+.method public run()V
+    .locals 2
 
     .prologue
-    .line 2202
-    new-instance v0, Lbl/xw$22$2$1;
+    .line 1840
+    iget-object v0, p0, Lbl/xw$22$2;->this$1:Lbl/xw$22;
 
-    invoke-direct {v0, p0, p1}, Lbl/xw$22$2$1;-><init>(Lbl/xw$22$2;Landroid/widget/AdapterView;)V
+    iget-object v0, v0, Lbl/xw$22;->this$0:Lbl/xw;
 
-    invoke-virtual {p1, v0}, Landroid/widget/AdapterView;->post(Ljava/lang/Runnable;)Z
+    iget-object v1, p0, Lbl/xw$22$2;->val$book:Lcom/bilibili/tv/ebook/model/Book;
 
-    .line 2208
-    return-void
-.end method
+    # invokes: Lbl/xw;->restoreReadingProgress(Lcom/bilibili/tv/ebook/model/Book;)V
+    invoke-static {v0, v1}, Lbl/xw;->access$1700(Lbl/xw;Lcom/bilibili/tv/ebook/model/Book;)V
 
-.method public onNothingSelected(Landroid/widget/AdapterView;)V
-    .locals 0
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "(",
-            "Landroid/widget/AdapterView",
-            "<*>;)V"
-        }
-    .end annotation
-
-    .prologue
-    .line 2212
+    .line 1841
     return-void
 .end method

@@ -3,7 +3,7 @@
 .source "xw.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Landroid/widget/AdapterView$OnItemSelectedListener;
 
 
 # annotations
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1322
+    .line 1536
     iput-object p1, p0, Lbl/xw$11;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,62 +36,41 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 2
+.method public onItemSelected(Landroid/widget/AdapterView;Landroid/view/View;IJ)V
+    .locals 1
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Landroid/widget/AdapterView",
+            "<*>;",
+            "Landroid/view/View;",
+            "IJ)V"
+        }
+    .end annotation
 
     .prologue
-    .line 1325
-    iget-object v0, p0, Lbl/xw$11;->this$0:Lbl/xw;
+    .line 1540
+    new-instance v0, Lbl/xw$11$1;
 
-    # getter for: Lbl/xw;->isEbookPanelShown:Z
-    invoke-static {v0}, Lbl/xw;->access$900(Lbl/xw;)Z
+    invoke-direct {v0, p0}, Lbl/xw$11$1;-><init>(Lbl/xw$11;)V
 
-    move-result v0
+    invoke-virtual {p1, v0}, Landroid/widget/AdapterView;->post(Ljava/lang/Runnable;)Z
 
-    if-eqz v0, :cond_2d
+    .line 1546
+    return-void
+.end method
 
-    iget-object v0, p0, Lbl/xw$11;->this$0:Lbl/xw;
+.method public onNothingSelected(Landroid/widget/AdapterView;)V
+    .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Landroid/widget/AdapterView",
+            "<*>;)V"
+        }
+    .end annotation
 
-    # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
-    invoke-static {v0}, Lbl/xw;->access$1000(Lbl/xw;)Landroid/widget/FrameLayout;
-
-    move-result-object v0
-
-    if-eqz v0, :cond_2d
-
-    iget-object v0, p0, Lbl/xw$11;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
-    invoke-static {v0}, Lbl/xw;->access$1000(Lbl/xw;)Landroid/widget/FrameLayout;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Landroid/widget/FrameLayout;->getVisibility()I
-
-    move-result v0
-
-    if-eqz v0, :cond_2d
-
-    .line 1326
-    const-string v0, "EbookReader"
-
-    const-string v1, "\u68c0\u6d4b\u5230\u7535\u5b50\u4e66\u9762\u677f\u672a\u663e\u793a\uff0c\u5f3a\u5236\u6062\u590d\u663e\u793a"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 1327
-    iget-object v0, p0, Lbl/xw$11;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
-    invoke-static {v0}, Lbl/xw;->access$1000(Lbl/xw;)Landroid/widget/FrameLayout;
-
-    move-result-object v0
-
-    const/4 v1, 0x0
-
-    invoke-virtual {v0, v1}, Landroid/widget/FrameLayout;->setVisibility(I)V
-
-    .line 1329
-    :cond_2d
+    .prologue
+    .line 1550
     return-void
 .end method

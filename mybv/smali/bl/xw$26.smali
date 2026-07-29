@@ -3,12 +3,12 @@
 .source "xw.java"
 
 # interfaces
-.implements Lbl/agb$b;
+.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw;->clearBookshelf()V
+    value = Lbl/xw;->showChapterList()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 2787
+    .line 2326
     iput-object p1, p0, Lbl/xw$26;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,13 +36,23 @@
 
 
 # virtual methods
-.method public a(Lbl/agb;Landroid/view/View;)V
-    .locals 0
+.method public run()V
+    .locals 2
 
     .prologue
-    .line 2790
-    invoke-virtual {p1}, Lbl/agb;->dismiss()V
+    .line 2329
+    iget-object v0, p0, Lbl/xw$26;->this$0:Lbl/xw;
 
-    .line 2791
+    iget-object v1, p0, Lbl/xw$26;->this$0:Lbl/xw;
+
+    # getter for: Lbl/xw;->currentChapterList:Ljava/util/List;
+    invoke-static {v1}, Lbl/xw;->access$2200(Lbl/xw;)Ljava/util/List;
+
+    move-result-object v1
+
+    # invokes: Lbl/xw;->createChapterListView(Ljava/util/List;)V
+    invoke-static {v0, v1}, Lbl/xw;->access$2300(Lbl/xw;Ljava/util/List;)V
+
+    .line 2330
     return-void
 .end method

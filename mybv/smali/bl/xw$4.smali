@@ -3,12 +3,12 @@
 .source "xw.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Lcom/bilibili/tv/player/widget/SkipSettingDialog$OnSaveListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw;->onMenuClosed()V
+    value = Lbl/xw;->showSkipSettingDialog()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,14 +20,18 @@
 # instance fields
 .field final synthetic this$0:Lbl/xw;
 
+.field final synthetic val$params:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
+
 
 # direct methods
-.method constructor <init>(Lbl/xw;)V
+.method constructor <init>(Lbl/xw;Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;)V
     .locals 0
 
     .prologue
-    .line 865
+    .line 913
     iput-object p1, p0, Lbl/xw$4;->this$0:Lbl/xw;
+
+    iput-object p2, p0, Lbl/xw$4;->val$params:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -36,27 +40,79 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 2
+.method public onSave(JJ)V
+    .locals 5
 
     .prologue
-    .line 868
-    iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
+    .line 916
+    const-string v0, "SkipSetting"
 
-    # getter for: Lbl/xw;->ebookWebView:Landroid/webkit/WebView;
-    invoke-static {v0}, Lbl/xw;->access$200(Lbl/xw;)Landroid/webkit/WebView;
+    new-instance v1, Ljava/lang/StringBuilder;
 
-    move-result-object v0
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-virtual {v0}, Landroid/webkit/WebView;->requestFocus()Z
+    const-string v2, "onSave: intro="
 
-    .line 869
-    const-string v0, "EbookReader"
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    const-string v1, "onMenuClosed: \u7126\u70b9\u5df2\u6062\u590d\u5230WebView"
+    move-result-object v1
+
+    invoke-virtual {v1, p1, p2}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, ", outro="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, p3, p4}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 870
+    .line 918
+    iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
+
+    iget-object v1, p0, Lbl/xw$4;->val$params:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
+
+    # invokes: Lbl/xw;->getEffectiveSkips(Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;)Lorg/json/JSONArray;
+    invoke-static {v0, v1}, Lbl/xw;->access$200(Lbl/xw;Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;)Lorg/json/JSONArray;
+
+    move-result-object v0
+
+    .line 919
+    iget-object v1, p0, Lbl/xw$4;->this$0:Lbl/xw;
+
+    # invokes: Lbl/xw;->getSkipHelper()Lbl/xj;
+    invoke-static {v1}, Lbl/xw;->access$300(Lbl/xw;)Lbl/xj;
+
+    move-result-object v1
+
+    .line 920
+    if-eqz v1, :cond_3f
+
+    .line 921
+    invoke-virtual {v1, v0}, Lbl/xj;->updateSkips(Lorg/json/JSONArray;)V
+
+    .line 922
+    iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
+
+    invoke-virtual {v0}, Lbl/xw;->x()I
+
+    move-result v0
+
+    int-to-long v2, v0
+
+    invoke-virtual {v1, v2, v3}, Lbl/xj;->checkSkip(J)V
+
+    .line 924
+    :cond_3f
     return-void
 .end method

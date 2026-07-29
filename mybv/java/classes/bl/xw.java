@@ -72,8 +72,15 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     private List<com.bilibili.tv.ebook.model.Chapter> currentChapterList = null; // 当前显示的章节列表
     private String parentChapterTitle = null; // 父章节标题（用于显示在章节列表标题中）
 
+    // 定时保存阅读进度（方案A：每30秒自动保存）
+    private static final long PROGRESS_SAVE_INTERVAL = 30 * 1000L; // 30秒
+    private android.os.Handler progressSaveHandler = null;
+    private Runnable progressSaveRunnable = null;
+    private boolean isProgressSaving = false; // 是否正在定时保存
+
     // 遥控器控制目标（ebook 或 video）
     private String controlTarget = "video"; // 默认控制视频（因为未打开电子书时视频全屏播放）
+    private int ebookPanelPercent = 30; // 电子书屏幕占比，默认30%
     private Runnable g = new Runnable() { // from class: bl.xw.1
         @Override // java.lang.Runnable
         public void run() {
@@ -130,6 +137,35 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     @Override // bl.xh
     public void b(IEventCenter.EventType eventType, Object... objArr) {
         int T;
+
+        // 关键修复：监听视频切换事件，保持视频缩小状态
+        // 当电子书区域打开时，视频切换后需要重新应用缩小布局
+        if (eventType == IEventCenter.EventType.QUALITY_SWITCH_SUCCESS ||
+            eventType == IEventCenter.EventType.EPISODE_SWITCH_SUCCESS ||
+            eventType == IEventCenter.EventType.SWITCH_EPISODE) {
+
+            // 检查电子书区域是否打开
+            if (isEbookPanelShown) {
+                Log.i(TAG_EBOOK, "视频切换事件: " + eventType + ", 电子书区域已打开，重新应用视频缩小");
+                Activity activity = o();
+                if (activity != null) {
+                    // 延迟重新应用缩小布局，确保视频视图已更新
+                    new android.os.Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            android.util.DisplayMetrics metrics = new android.util.DisplayMetrics();
+                            activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+                            int screenWidth = metrics.widthPixels;
+                            int screenHeight = metrics.heightPixels;
+
+                            shrinkVideoView(activity, screenWidth, screenHeight);
+                            shrinkDanmakuView(activity, screenWidth, screenHeight);
+                        }
+                    }, 200); // 延迟200毫秒
+                }
+            }
+        }
+
         if (eventType == IEventCenter.EventType.QUALITY_SWITCH_SUCCESS && (T = T()) > 0 && this.c != null) {
             this.c.a(2, T, 0L);
             if (R()) {
@@ -620,6 +656,7 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                 ebookMenus.add("控制视频"); // 最上方
                 ebookMenus.add("选择文件");
                 ebookMenus.add("清空书架");
+                ebookMenus.add("屏幕占比");
                 ebookMenus.add("退出阅读");
             } else {
                 // 阅读页面菜单
@@ -627,11 +664,42 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                 ebookMenus.add("章节列表");
                 ebookMenus.add("字体大小"); // 新增：字体大小
                 ebookMenus.add("配色方案"); // 新增：配色方案
+                ebookMenus.add("屏幕占比");
                 ebookMenus.add("关闭书籍");
             }
 
             this.c.b(ebookMenus, 0);
             this.c.setMenuIndexMap(new ArrayList<>()); // 清空索引映射
+
+            // 初始化SharedPreferences读取保存的设置
+            android.content.SharedPreferences prefs = o().getSharedPreferences("ebook_settings", android.content.Context.MODE_PRIVATE);
+
+            // 初始化屏幕占比列表（书架页面和阅读页面都需要）
+            List<String> percentList = new ArrayList<>();
+            percentList.add("25%");
+            percentList.add("30%");
+            percentList.add("35%");
+            percentList.add("40%");
+            percentList.add("45%");
+            percentList.add("50%");
+
+            // 读取保存的屏幕占比索引（默认为1，即30%）
+            int savedPercentIndex = prefs.getInt("screen_percent", 1);
+            if (savedPercentIndex < 0 || savedPercentIndex >= percentList.size()) {
+                savedPercentIndex = 1; // 确保索引有效
+            }
+
+            // 同步PlayerMenuRight的静态字段
+            com.bilibili.tv.player.widget.PlayerMenuRight.ebook_percent_id = savedPercentIndex;
+            ebookPanelPercent = 25 + savedPercentIndex * 5; // 0=25%, 1=30%, ...
+
+            Log.i(TAG_EBOOK, "初始化屏幕占比列表，当前索引: " + savedPercentIndex + ", 占比: " + (25 + savedPercentIndex * 5) + "%");
+            this.c.init_percent(percentList, savedPercentIndex);
+
+            // 书架页面：清空不需要的列表，避免状态残留
+            if (!isReadingBook) {
+                this.c.clearEbookReadingPageLists();
+            }
 
             // 初始化字体大小列表（阅读页面才需要）
             if (isReadingBook) {
@@ -648,7 +716,6 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                 fontSizeList.add("38");
 
                 // 读取保存的字体大小索引（默认为4，即28px）
-                android.content.SharedPreferences prefs = o().getSharedPreferences("ebook_settings", android.content.Context.MODE_PRIVATE);
                 float savedFontSize = prefs.getFloat("font_size", 28f);
                 int savedIndex = 4; // 默认索引
                 for (int i = 0; i < fontSizeList.size(); i++) {
@@ -657,6 +724,9 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                         break;
                     }
                 }
+
+                // 同步PlayerMenuRight的静态字段
+                com.bilibili.tv.player.widget.PlayerMenuRight.ebook_font_size_id = savedIndex;
 
                 Log.i(TAG_EBOOK, "初始化字体大小列表，当前索引: " + savedIndex + ", 字体大小: " + savedFontSize);
                 this.c.init_size(fontSizeList, savedIndex); // 复用init_size方法设置字体大小列表
@@ -672,6 +742,9 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
                 // 读取保存的配色方案索引（默认为0，即System）
                 int savedThemeIndex = prefs.getInt("color_theme_index", 0);
+                // 同步PlayerMenuRight的静态字段
+                com.bilibili.tv.player.widget.PlayerMenuRight.ebook_color_theme_id = savedThemeIndex;
+
                 Log.i(TAG_EBOOK, "初始化配色方案列表，当前索引: " + savedThemeIndex);
                 this.c.init_alpha(colorThemeList, savedThemeIndex); // 复用init_alpha方法设置配色方案列表
             }
@@ -974,6 +1047,181 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             }
         }
 
+        @Override // com.bilibili.tv.player.widget.PlayerMenuRight.a
+        public void set_ebook_percent(int percentIndex) {
+            Log.i(TAG_EBOOK, "set_ebook_percent: percentIndex=" + percentIndex);
+
+            // 屏幕占比选项映射：0=25%, 1=30%, 2=35%, 3=40%, 4=45%, 5=50%
+            int[] percentValues = {25, 30, 35, 40, 45, 50};
+            if (percentIndex < 0 || percentIndex >= percentValues.length) {
+                return;
+            }
+
+            int percent = percentValues[percentIndex];
+            ebookPanelPercent = percent;
+
+            // 保存屏幕占比到SharedPreferences
+            android.content.SharedPreferences prefs = o().getSharedPreferences("ebook_settings", android.content.Context.MODE_PRIVATE);
+            prefs.edit().putInt("screen_percent", percentIndex).apply();
+            Log.i(TAG_EBOOK, "屏幕占比已保存: " + percent + "%");
+
+            // 应用新的屏幕占比（如果电子书面板正在显示）
+            if (isEbookPanelShown) {
+                new android.os.Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        applyEbookPanelPercent();
+                    }
+                });
+            }
+
+            // 显示Toast提示
+            Activity activity = o();
+            if (activity != null) {
+                android.widget.Toast.makeText(activity, "电子书占比已调整为 " + percent + "%", android.widget.Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        /**
+         * 应用电子书屏幕占比
+         */
+        private void applyEbookPanelPercent() {
+            Activity activity = o();
+            if (activity == null || !isEbookPanelShown) {
+                return;
+            }
+
+            android.util.DisplayMetrics metrics = new android.util.DisplayMetrics();
+            activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+            int screenWidth = metrics.widthPixels;
+            int screenHeight = metrics.heightPixels;
+
+            // 计算电子书区域宽度
+            int ebookWidth = screenWidth * ebookPanelPercent / 100;
+            int videoWidth = screenWidth - ebookWidth;
+
+            Log.i(TAG_EBOOK, "applyEbookPanelPercent: percent=" + ebookPanelPercent + 
+                  "%, ebookWidth=" + ebookWidth + ", videoWidth=" + videoWidth);
+
+            // 更新视频视图布局
+            updateVideoViewWidth(videoWidth);
+
+            // 更新弹幕视图布局
+            updateDanmakuViewWidth(videoWidth);
+
+            // 更新电子书面板布局
+            updateEbookPanelWidth(ebookWidth);
+        }
+
+        /**
+         * 更新视频视图宽度
+         */
+        private void updateVideoViewWidth(int videoWidth) {
+            IPlayerContext playerContext = n();
+            if (playerContext == null) return;
+
+            IVideoView videoViewInterface = playerContext.getIVideoView();
+            if (videoViewInterface == null) return;
+
+            View videoView = videoViewInterface.getView();
+            if (videoView == null) return;
+
+            ViewGroup parent = (ViewGroup) videoView.getParent();
+            if (parent == null) return;
+
+            ViewGroup.LayoutParams params;
+            if (parent instanceof FrameLayout) {
+                FrameLayout.LayoutParams flParams = new FrameLayout.LayoutParams(
+                    videoWidth, FrameLayout.LayoutParams.MATCH_PARENT);
+                flParams.gravity = android.view.Gravity.LEFT;
+                params = flParams;
+            } else if (parent instanceof RelativeLayout) {
+                RelativeLayout.LayoutParams rlParams = new RelativeLayout.LayoutParams(
+                    videoWidth, RelativeLayout.LayoutParams.MATCH_PARENT);
+                rlParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+                params = rlParams;
+            } else {
+                params = new ViewGroup.LayoutParams(videoWidth, ViewGroup.LayoutParams.MATCH_PARENT);
+            }
+            videoView.setLayoutParams(params);
+            Log.i(TAG_EBOOK, "视频视图宽度已更新: " + videoWidth);
+        }
+
+        /**
+         * 更新弹幕视图宽度
+         */
+        private void updateDanmakuViewWidth(int videoWidth) {
+            // 查找弹幕视图并更新宽度
+            // 简化处理：通过查找弹幕相关的View并更新布局参数
+            Activity activity = o();
+            if (activity == null) return;
+
+            ViewGroup rootView = (ViewGroup) activity.findViewById(android.R.id.content);
+            if (rootView == null) return;
+
+            // 查找弹幕容器（通常在播放器容器内）
+            findAndUpdateDanmakuView(rootView, videoWidth);
+        }
+
+        /**
+         * 查找并更新弹幕视图宽度
+         */
+        private void findAndUpdateDanmakuView(ViewGroup parent, int videoWidth) {
+            for (int i = 0; i < parent.getChildCount(); i++) {
+                View child = parent.getChildAt(i);
+                if (child instanceof ViewGroup) {
+                    // 检查是否是弹幕相关的容器
+                    String className = child.getClass().getSimpleName();
+                    if (className.contains("Danmaku") || className.contains("弹幕")) {
+                        ViewGroup.LayoutParams params = child.getLayoutParams();
+                        if (params != null) {
+                            if (parent instanceof FrameLayout) {
+                                FrameLayout.LayoutParams flParams = new FrameLayout.LayoutParams(
+                                    videoWidth, FrameLayout.LayoutParams.MATCH_PARENT);
+                                flParams.gravity = android.view.Gravity.LEFT;
+                                child.setLayoutParams(flParams);
+                            } else if (parent instanceof RelativeLayout) {
+                                RelativeLayout.LayoutParams rlParams = new RelativeLayout.LayoutParams(
+                                    videoWidth, RelativeLayout.LayoutParams.MATCH_PARENT);
+                                rlParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+                                child.setLayoutParams(rlParams);
+                            }
+                            Log.i(TAG_EBOOK, "弹幕视图宽度已更新: " + videoWidth);
+                        }
+                    }
+                    // 递归查找
+                    findAndUpdateDanmakuView((ViewGroup) child, videoWidth);
+                }
+            }
+        }
+
+        /**
+         * 更新电子书面板宽度
+         */
+        private void updateEbookPanelWidth(int ebookWidth) {
+            if (ebookPanel == null) return;
+
+            ViewGroup parent = (ViewGroup) ebookPanel.getParent();
+            if (parent == null) return;
+
+            ViewGroup.LayoutParams params;
+            if (parent instanceof FrameLayout) {
+                FrameLayout.LayoutParams flParams = new FrameLayout.LayoutParams(
+                    ebookWidth, FrameLayout.LayoutParams.MATCH_PARENT);
+                flParams.gravity = android.view.Gravity.RIGHT;
+                params = flParams;
+            } else if (parent instanceof RelativeLayout) {
+                RelativeLayout.LayoutParams rlParams = new RelativeLayout.LayoutParams(
+                    ebookWidth, RelativeLayout.LayoutParams.MATCH_PARENT);
+                rlParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                params = rlParams;
+            } else {
+                params = new ViewGroup.LayoutParams(ebookWidth, ViewGroup.LayoutParams.MATCH_PARENT);
+            }
+            ebookPanel.setLayoutParams(params);
+            Log.i(TAG_EBOOK, "电子书面板宽度已更新: " + ebookWidth);
+        }
+
     @Override // com.bilibili.tv.player.widget.PlayerMenuRight.a
     public void openEbookReader() {
         Log.i(TAG_EBOOK, "openEbookReader() called, isEbookPanelShown=" + isEbookPanelShown);
@@ -1101,13 +1349,15 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                     itemLayout.setOrientation(android.widget.LinearLayout.VERTICAL);
                     itemLayout.setPadding(24, 16, 24, 16);
                     
-                    // 第1行：书籍名（左）+ 作者名（右）
-                    android.widget.FrameLayout row1 = new android.widget.FrameLayout(activity);
+                    // 第1行：书籍名（左）+ 作者名（右）- 使用LinearLayout避免重叠
+                    android.widget.LinearLayout row1 = new android.widget.LinearLayout(activity);
+                    row1.setOrientation(android.widget.LinearLayout.HORIZONTAL);
                     row1.setLayoutParams(new android.widget.LinearLayout.LayoutParams(
                         android.widget.LinearLayout.LayoutParams.MATCH_PARENT,
                         android.widget.LinearLayout.LayoutParams.WRAP_CONTENT
                     ));
                     
+                    // 书籍名称：使用权重，超长时截取显示省略号
                     android.widget.TextView titleView = new android.widget.TextView(activity);
                     titleView.setTextColor(android.graphics.Color.WHITE);
                     titleView.setTextSize(16);
@@ -1115,34 +1365,58 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                     titleView.setEllipsize(android.text.TextUtils.TruncateAt.END);
                     titleView.setId(android.R.id.text1); // 设置ID以便后续更新
                     
+                    // 作者名：固定宽度，超长时截取显示省略号
                     android.widget.TextView authorView = new android.widget.TextView(activity);
                     authorView.setTextColor(android.graphics.Color.WHITE);
                     authorView.setTextSize(16);
                     authorView.setMaxLines(1);
+                    authorView.setEllipsize(android.text.TextUtils.TruncateAt.END);
                     authorView.setGravity(android.view.Gravity.RIGHT);
                     authorView.setId(android.R.id.text2); // 设置ID以便后续更新
                     
-                    row1.addView(titleView, new android.widget.FrameLayout.LayoutParams(
-                        android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
-                        android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
-                        android.view.Gravity.LEFT | android.view.Gravity.CENTER_VERTICAL
+                    // 书籍名称占大部分宽度（weight=1），作者名固定宽度（100dp）
+                    row1.addView(titleView, new android.widget.LinearLayout.LayoutParams(
+                        0, // 宽度为0，由weight决定
+                        android.widget.LinearLayout.LayoutParams.WRAP_CONTENT,
+                        1.0f // weight=1，占剩余空间
                     ));
-                    row1.addView(authorView, new android.widget.FrameLayout.LayoutParams(
-                        android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
-                        android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
-                        android.view.Gravity.RIGHT | android.view.Gravity.CENTER_VERTICAL
+                    row1.addView(authorView, new android.widget.LinearLayout.LayoutParams(
+                        activity.getResources().getDimensionPixelSize(android.R.dimen.app_icon_size) * 3, // 固定宽度约150dp
+                        android.widget.LinearLayout.LayoutParams.WRAP_CONTENT
                     ));
                     
-                    // 第2行：阅读进度 + 章节名称
-                    android.widget.TextView row2 = new android.widget.TextView(activity);
-                    row2.setTextColor(android.graphics.Color.WHITE);
-                    row2.setTextSize(12);
-                    row2.setMaxLines(1);
-                    row2.setEllipsize(android.text.TextUtils.TruncateAt.END);
-                    row2.setId(android.R.id.summary); // 设置ID以便后续更新
-                    row2.setLayoutParams(new android.widget.LinearLayout.LayoutParams(
+                    // 第2行：阅读进度 + 章节名称 - 使用LinearLayout分离显示
+                    android.widget.LinearLayout row2 = new android.widget.LinearLayout(activity);
+                    row2.setOrientation(android.widget.LinearLayout.HORIZONTAL);
+                    android.widget.LinearLayout.LayoutParams row2Params = new android.widget.LinearLayout.LayoutParams(
                         android.widget.LinearLayout.LayoutParams.MATCH_PARENT,
                         android.widget.LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    row2.setLayoutParams(row2Params);
+                    
+                    // 进度百分比：固定宽度
+                    android.widget.TextView progressView = new android.widget.TextView(activity);
+                    progressView.setTextColor(android.graphics.Color.WHITE);
+                    progressView.setTextSize(12);
+                    progressView.setId(android.R.id.progress); // 进度百分比
+                    
+                    // 章节名称：使用权重，超长时截取
+                    android.widget.TextView chapterView = new android.widget.TextView(activity);
+                    chapterView.setTextColor(android.graphics.Color.WHITE);
+                    chapterView.setTextSize(12);
+                    chapterView.setMaxLines(1);
+                    chapterView.setEllipsize(android.text.TextUtils.TruncateAt.END);
+                    chapterView.setId(android.R.id.summary); // 章节名称
+                    
+                    // 进度占固定宽度，章节名占剩余空间
+                    row2.addView(progressView, new android.widget.LinearLayout.LayoutParams(
+                        android.widget.LinearLayout.LayoutParams.WRAP_CONTENT,
+                        android.widget.LinearLayout.LayoutParams.WRAP_CONTENT
+                    ));
+                    row2.addView(chapterView, new android.widget.LinearLayout.LayoutParams(
+                        0, // 宽度为0，由weight决定
+                        android.widget.LinearLayout.LayoutParams.WRAP_CONTENT,
+                        1.0f // weight=1，占剩余空间
                     ));
                     
                     // 第3行：电子书格式 + 上次阅读时间（右对齐）
@@ -1168,7 +1442,8 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                 // 获取各个TextView
                 android.widget.TextView titleView = (android.widget.TextView) itemLayout.findViewById(android.R.id.text1);
                 android.widget.TextView authorView = (android.widget.TextView) itemLayout.findViewById(android.R.id.text2);
-                android.widget.TextView row2 = (android.widget.TextView) itemLayout.findViewById(android.R.id.summary);
+                android.widget.TextView progressView = (android.widget.TextView) itemLayout.findViewById(android.R.id.progress);
+                android.widget.TextView chapterView = (android.widget.TextView) itemLayout.findViewById(android.R.id.summary);
                 android.widget.TextView row3 = (android.widget.TextView) itemLayout.findViewById(android.R.id.hint);
                 
                 com.bilibili.tv.ebook.model.BookshelfItem item = bookshelfItems.get(position);
@@ -1216,15 +1491,15 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                     authorView.setVisibility(View.GONE);
                 }
                 
-                // 第2行：阅读进度百分比 + 章节名称
-                StringBuilder row2Text = new StringBuilder();
-                row2Text.append(String.format("%.1f%%", item.getProgressPercentage()));
+                // 第2行：进度百分比 + 章节名称（分离显示，避免重叠）
+                progressView.setText(String.format("%.1f%%", item.getProgressPercentage()));
                 
                 if (item.getChapterTitle() != null && !item.getChapterTitle().isEmpty()) {
-                    row2Text.append(" | ").append(item.getChapterTitle());
+                    chapterView.setText(" | " + item.getChapterTitle());
+                    chapterView.setVisibility(View.VISIBLE);
+                } else {
+                    chapterView.setVisibility(View.GONE);
                 }
-                
-                row2.setText(row2Text.toString());
                 
                 // 第3行：电子书格式 + 上次阅读时间（右对齐）
                 StringBuilder row3Text = new StringBuilder();
@@ -1291,6 +1566,19 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                         "文件不存在：" + item.getFilePath(),
                         android.widget.Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        // 设置长按事件（删除单本书籍）
+        bookshelfListView.setOnItemLongClickListener(new android.widget.AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(android.widget.AdapterView<?> parent, View view, int position, long id) {
+                final com.bilibili.tv.ebook.model.BookshelfItem item = bookshelfItems.get(position);
+                Log.i(TAG_EBOOK, "长按书架项: " + item.getTitle());
+
+                // 显示确认删除对话框
+                showRemoveBookDialog(item, position);
+                return true; // 消费事件，防止触发点击
             }
         });
 
@@ -1890,34 +2178,33 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             Log.i(TAG_EBOOK, "已清空电子书面板");
         }
 
-        // 清空WebView引用（需要重新创建）
-        ebookWebView = null;
+        // 关键修复：销毁旧的WebView，避免内存泄漏
+        // 每次显示新章节时，都需要销毁旧的WebView，因为WebView不能复用
+        destroyEbookWebView();
 
-        // 创建或复用WebView
-        if (ebookWebView == null) {
-            ebookWebView = new android.webkit.WebView(o());
-            android.widget.FrameLayout.LayoutParams params = new android.widget.FrameLayout.LayoutParams(
-                android.widget.FrameLayout.LayoutParams.MATCH_PARENT,
-                android.widget.FrameLayout.LayoutParams.MATCH_PARENT
-            );
-            ebookWebView.setLayoutParams(params);
+        // 创建新的WebView
+        ebookWebView = new android.webkit.WebView(o());
+        android.widget.FrameLayout.LayoutParams params = new android.widget.FrameLayout.LayoutParams(
+            android.widget.FrameLayout.LayoutParams.MATCH_PARENT,
+            android.widget.FrameLayout.LayoutParams.MATCH_PARENT
+        );
+        ebookWebView.setLayoutParams(params);
 
-            // 配置WebView
-            android.webkit.WebSettings settings = ebookWebView.getSettings();
-            settings.setJavaScriptEnabled(true);
-            settings.setDomStorageEnabled(true);
-            settings.setSupportZoom(true);
-            settings.setBuiltInZoomControls(true);
-            settings.setTextSize(android.webkit.WebSettings.TextSize.NORMAL);
+        // 配置WebView
+        android.webkit.WebSettings settings = ebookWebView.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setDomStorageEnabled(true);
+        settings.setSupportZoom(true);
+        settings.setBuiltInZoomControls(true);
+        settings.setTextSize(android.webkit.WebSettings.TextSize.NORMAL);
 
-            // 关键修复：设置为不可聚焦，避免Android焦点系统拦截方向键
-            ebookWebView.setFocusable(false);
-            ebookWebView.setFocusableInTouchMode(false);
+        // 关键修复：设置为不可聚焦，避免Android焦点系统拦截方向键
+        ebookWebView.setFocusable(false);
+        ebookWebView.setFocusableInTouchMode(false);
 
-            // 添加到面板
-            if (ebookPanel != null) {
-                ebookPanel.addView(ebookWebView);
-            }
+        // 添加到面板
+        if (ebookPanel != null) {
+            ebookPanel.addView(ebookWebView);
         }
 
         // 获取章节内容
@@ -2004,6 +2291,9 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         // scrollBy()是编程式滚动，不依赖焦点，所以WebView不需要焦点
         ebookWebView.setFocusable(false);
         ebookWebView.setFocusableInTouchMode(false);
+
+        // 启动定时保存阅读进度（方案A：每30秒自动保存）
+        startProgressSaveTimer();
 
         Log.i(TAG_EBOOK, "WebView已显示章节: " + chapter.getTitle() + ", 设置为不可聚焦避免拦截方向键");
     }
@@ -2362,15 +2652,25 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         int screenWidth = metrics.widthPixels;
         int screenHeight = metrics.heightPixels;
 
-        Log.i(TAG_EBOOK, "屏幕尺寸: " + screenWidth + "x" + screenHeight);
+        // 读取保存的屏幕占比
+        android.content.SharedPreferences prefs = activity.getSharedPreferences("ebook_settings", android.content.Context.MODE_PRIVATE);
+        int savedPercentIndex = prefs.getInt("screen_percent", 1);
+        int[] percentValues = {25, 30, 35, 40, 45, 50};
+        if (savedPercentIndex >= 0 && savedPercentIndex < percentValues.length) {
+            ebookPanelPercent = percentValues[savedPercentIndex];
+        } else {
+            ebookPanelPercent = 30; // 默认30%
+        }
 
-        // 1. 缩小视频画面到屏幕2/3,左对齐
+        Log.i(TAG_EBOOK, "屏幕尺寸: " + screenWidth + "x" + screenHeight + ", 电子书占比: " + ebookPanelPercent + "%");
+
+        // 1. 缩小视频画面到(100%-ebookPanelPercent)%,左对齐
         shrinkVideoView(activity, screenWidth, screenHeight);
 
-        // 2. 缩小弹幕视图到屏幕2/3,左对齐(与视频同步)
+        // 2. 缩小弹幕视图到(100%-ebookPanelPercent)%,左对齐(与视频同步)
         shrinkDanmakuView(activity, screenWidth, screenHeight);
 
-        // 3. 右侧1/3显示灰色背景面板
+        // 3. 右侧ebookPanelPercent%显示灰色背景面板
         showGrayBackgroundPanel(activity, screenWidth, screenHeight);
 
         // 初始化电子书缓存管理器和书架管理器
@@ -2391,6 +2691,8 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
     /**
      * 缩小视频视图到屏幕2/3,左对齐
+     *
+     * 兼容设计：支持视频切换后重新应用缩小布局
      */
     private void shrinkVideoView(Activity activity, int screenWidth, int screenHeight) {
         // 检查是否使用TextureView模式
@@ -2441,13 +2743,19 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         }
         Log.i(TAG_EBOOK, "视频视图父容器: " + parent.getClass().getSimpleName());
 
-        // 保存原始布局参数
-        ViewGroup.LayoutParams currentParams = videoView.getLayoutParams();
-        originalVideoParams = new ViewGroup.LayoutParams(currentParams.width, currentParams.height);
-        Log.i(TAG_EBOOK, "原始视频布局参数已保存: width=" + originalVideoParams.width + ", height=" + originalVideoParams.height);
+        // 关键修复：只在第一次保存原始布局参数
+        // 如果originalVideoParams为null，说明是第一次缩小，需要保存原始参数
+        // 如果originalVideoParams不为null，说明已经缩小过，不需要再次保存
+        if (originalVideoParams == null) {
+            ViewGroup.LayoutParams currentParams = videoView.getLayoutParams();
+            originalVideoParams = new ViewGroup.LayoutParams(currentParams.width, currentParams.height);
+            Log.i(TAG_EBOOK, "原始视频布局参数已保存: width=" + originalVideoParams.width + ", height=" + originalVideoParams.height);
+        } else {
+            Log.i(TAG_EBOOK, "视频已经缩小过，跳过保存原始参数");
+        }
 
-        // 缩小视频到2/3宽度,左对齐(使用与父容器匹配的LayoutParams)
-        int videoWidth = screenWidth * 2 / 3;
+        // 缩小视频到(100%-ebookPanelPercent)%宽度,左对齐
+        int videoWidth = screenWidth * (100 - ebookPanelPercent) / 100;
         ViewGroup.LayoutParams params;
 
         if (parent instanceof FrameLayout) {
@@ -2474,7 +2782,7 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
         videoView.setLayoutParams(params);
 
-        Log.i(TAG_EBOOK, "视频已缩小: " + videoWidth + "x" + screenHeight + ", 左对齐");
+        Log.i(TAG_EBOOK, "视频已缩小: " + videoWidth + "x" + screenHeight + ", 左对齐, 电子书占比: " + ebookPanelPercent + "%");
     }
 
     /**
@@ -2519,19 +2827,20 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             ebookPanel = new FrameLayout(activity);
             ebookPanel.setBackgroundColor(Color.parseColor("#333333")); // 灰色背景
 
-            // 设置布局参数(右侧1/3)
+            // 设置布局参数(右侧ebookPanelPercent%)
             // 使用与父容器匹配的LayoutParams
+            int ebookWidth = screenWidth * ebookPanelPercent / 100;
             ViewGroup.LayoutParams params;
             if (parent instanceof FrameLayout) {
                 FrameLayout.LayoutParams flParams = new FrameLayout.LayoutParams(
-                    screenWidth / 3,
+                    ebookWidth,
                     FrameLayout.LayoutParams.MATCH_PARENT
                 );
                 flParams.gravity = Gravity.RIGHT;
                 params = flParams;
             } else if (parent instanceof RelativeLayout) {
                 RelativeLayout.LayoutParams rlParams = new RelativeLayout.LayoutParams(
-                    screenWidth / 3,
+                    ebookWidth,
                     RelativeLayout.LayoutParams.MATCH_PARENT
                 );
                 rlParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
@@ -2539,7 +2848,7 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             } else {
                 // 其他容器类型，使用通用LayoutParams
                 params = new ViewGroup.LayoutParams(
-                    screenWidth / 3,
+                    ebookWidth,
                     ViewGroup.LayoutParams.MATCH_PARENT
                 );
             }
@@ -2628,6 +2937,9 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     @Override // com.bilibili.tv.player.widget.PlayerMenuRight.a
     public void closeCurrentBook() {
         Log.i(TAG_EBOOK, "开始关闭当前书籍，回到电子书首页");
+
+        // 停止定时保存阅读进度
+        stopProgressSaveTimer();
 
         // 保存当前阅读进度
         saveReadingProgress();
@@ -2764,7 +3076,13 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             .a(activity.getString(R.string.confirm), new agb.b() {
                 @Override
                 public void a(agb dialog, View view) {
-                    // 清空所有阅读进度记录
+                    // 清空所有阅读进度记录（保留设置类缓存）
+                    if (ebookCacheManager != null) {
+                        ebookCacheManager.clearAllReadingProgress();
+                        Log.i(TAG_EBOOK, "所有阅读进度已清除");
+                    }
+                    
+                    // 清空书架列表
                     if (bookshelfManager != null) {
                         bookshelfManager.clearBookshelf();
                         Log.i(TAG_EBOOK, "书架已清空");
@@ -2793,6 +3111,57 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         dialogBuilder.a().show();
     }
 
+    /**
+     * 显示删除单本书籍的确认对话框
+     */
+    private void showRemoveBookDialog(final com.bilibili.tv.ebook.model.BookshelfItem item, final int position) {
+        Activity activity = o();
+        if (activity == null) {
+            Log.e(TAG_EBOOK, "Activity is null");
+            return;
+        }
+
+        // 显示确认对话框（样式与清空书架一致）
+        agb.a dialogBuilder = new agb.a(activity);
+        dialogBuilder.a(1).a("确认删除此书？")
+            .a(activity.getString(R.string.confirm), new agb.b() {
+                @Override
+                public void a(agb dialog, View view) {
+                    // 清除该书籍的阅读进度
+                    if (ebookCacheManager != null && item.getBookId() != null) {
+                        ebookCacheManager.clearReadingProgress(item.getBookId());
+                        Log.i(TAG_EBOOK, "已清除阅读进度: " + item.getBookId());
+                    }
+                    
+                    // 从书架中移除
+                    if (bookshelfManager != null) {
+                        bookshelfManager.removeFromBookshelf(item.getBookId());
+                        Log.i(TAG_EBOOK, "已从书架移除: " + item.getTitle());
+                    }
+
+                    // 从列表中移除
+                    if (bookshelfItems != null && position >= 0 && position < bookshelfItems.size()) {
+                        bookshelfItems.remove(position);
+                    }
+
+                    // 刷新书架显示
+                    showBookshelfOrFileChooser();
+
+                    // 显示提示
+                    android.widget.Toast.makeText(activity, "已删除: " + item.getTitle(), android.widget.Toast.LENGTH_SHORT).show();
+
+                    dialog.dismiss();
+                }
+            })
+            .b(activity.getString(R.string.cancel), new agb.b() {
+                @Override
+                public void a(agb dialog, View view) {
+                    dialog.dismiss();
+                }
+            });
+        dialogBuilder.a().show();
+    }
+
     private void closeEbookPanel() {
         Activity activity = o();
         if (activity == null) {
@@ -2801,6 +3170,9 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         }
 
         Log.i(TAG_EBOOK, "开始关闭电子书面板");
+
+        // 停止定时保存阅读进度
+        stopProgressSaveTimer();
 
         // 保存当前阅读进度
         saveReadingProgress();
@@ -2813,6 +3185,9 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
         // 2. 恢复视频全屏
         restoreVideoView(activity);
+
+        // 关键修复：销毁WebView，避免内存泄漏
+        destroyEbookWebView();
 
         // 关键修复：清除所有电子书状态，避免影响后续视频播放
         isEbookPanelShown = false;
@@ -2831,6 +3206,45 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         controlTarget = "video"; // 退出电子书时，重置为控制视频
 
         Log.i(TAG_EBOOK, "电子书面板已关闭，所有状态已清除，controlTarget重置为video");
+    }
+
+    /**
+     * 销毁WebView，释放内存
+     * WebView是Android中著名的内存泄漏源，必须显式销毁
+     */
+    private void destroyEbookWebView() {
+        if (ebookWebView != null) {
+            Log.i(TAG_EBOOK, "开始销毁WebView，释放内存");
+
+            // 1. 从父容器中移除WebView（必须在destroy之前）
+            if (ebookPanel != null) {
+                ebookPanel.removeView(ebookWebView);
+                Log.i(TAG_EBOOK, "WebView已从父容器移除");
+            }
+
+            // 2. 清理WebView状态
+            try {
+                ebookWebView.stopLoading();
+                ebookWebView.loadUrl("about:blank");
+                ebookWebView.clearCache(true);
+                ebookWebView.clearHistory();
+                ebookWebView.removeAllViews();
+                Log.i(TAG_EBOOK, "WebView缓存和历史已清除");
+            } catch (Exception e) {
+                Log.e(TAG_EBOOK, "清理WebView时发生异常: " + e.getMessage());
+            }
+
+            // 3. 销毁WebView
+            try {
+                ebookWebView.destroy();
+                Log.i(TAG_EBOOK, "WebView已销毁");
+            } catch (Exception e) {
+                Log.e(TAG_EBOOK, "销毁WebView时发生异常: " + e.getMessage());
+            }
+
+            ebookWebView = null;
+            Log.i(TAG_EBOOK, "WebView引用已清除");
+        }
     }
 
     /**
@@ -2860,8 +3274,8 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
         Log.i(TAG_EBOOK, "弹幕视图父容器: " + parent.getClass().getSimpleName());
 
-        // 计算缩小后的宽度(屏幕2/3)
-        int danmakuWidth = screenWidth * 2 / 3;
+        // 计算缩小后的宽度(100%-ebookPanelPercent)%)
+        int danmakuWidth = screenWidth * (100 - ebookPanelPercent) / 100;
 
         // 根据父容器类型使用对应的LayoutParams
         ViewGroup.LayoutParams params;
@@ -3199,6 +3613,51 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                   ", 页码=" + page + ", 进度=" + progress.getProgressPercentage() + "%");
         } catch (Exception e) {
             Log.e(TAG_EBOOK, "保存阅读进度失败: " + e.getMessage());
+        }
+    }
+
+    /**
+     * 启动定时保存阅读进度（方案A：每30秒自动保存）
+     */
+    private void startProgressSaveTimer() {
+        if (isProgressSaving) {
+            return; // 已经在运行
+        }
+
+        if (progressSaveHandler == null) {
+            progressSaveHandler = new android.os.Handler();
+        }
+
+        if (progressSaveRunnable == null) {
+            progressSaveRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    if (isReadingBook && currentBook != null && ebookWebView != null) {
+                        saveReadingProgress();
+                        Log.d(TAG_EBOOK, "定时保存阅读进度完成");
+                    }
+                    // 继续下一次定时保存
+                    if (isProgressSaving && progressSaveHandler != null) {
+                        progressSaveHandler.postDelayed(this, PROGRESS_SAVE_INTERVAL);
+                    }
+                }
+            };
+        }
+
+        isProgressSaving = true;
+        progressSaveHandler.postDelayed(progressSaveRunnable, PROGRESS_SAVE_INTERVAL);
+        Log.i(TAG_EBOOK, "定时保存阅读进度已启动，间隔: " + (PROGRESS_SAVE_INTERVAL / 1000) + "秒");
+    }
+
+    /**
+     * 停止定时保存阅读进度
+     */
+    private void stopProgressSaveTimer() {
+        isProgressSaving = false;
+        
+        if (progressSaveHandler != null && progressSaveRunnable != null) {
+            progressSaveHandler.removeCallbacks(progressSaveRunnable);
+            Log.i(TAG_EBOOK, "定时保存阅读进度已停止");
         }
     }
 

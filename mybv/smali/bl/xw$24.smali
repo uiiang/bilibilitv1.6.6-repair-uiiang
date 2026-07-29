@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw;->createChapterListView(Ljava/util/List;)V
+    value = Lbl/xw;->parseAndDisplayEbook(Ljava/lang/String;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,18 +20,18 @@
 # instance fields
 .field final synthetic this$0:Lbl/xw;
 
-.field final synthetic val$chapters:Ljava/util/List;
+.field final synthetic val$filePath:Ljava/lang/String;
 
 
 # direct methods
-.method constructor <init>(Lbl/xw;Ljava/util/List;)V
+.method constructor <init>(Lbl/xw;Ljava/lang/String;)V
     .locals 0
 
     .prologue
-    .line 2095
+    .line 2059
     iput-object p1, p0, Lbl/xw$24;->this$0:Lbl/xw;
 
-    iput-object p2, p0, Lbl/xw$24;->val$chapters:Ljava/util/List;
+    iput-object p2, p0, Lbl/xw$24;->val$filePath:Ljava/lang/String;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -41,462 +41,169 @@
 
 # virtual methods
 .method public run()V
-    .locals 8
+    .locals 4
 
     .prologue
-    const/16 v4, 0x14
+    .line 2064
+    :try_start_0
+    new-instance v0, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;
 
-    const/4 v7, 0x0
+    iget-object v1, p0, Lbl/xw$24;->this$0:Lbl/xw;
 
-    const/4 v3, -0x1
+    .line 2065
+    invoke-virtual {v1}, Lbl/xw;->o()Landroid/app/Activity;
 
-    .line 2098
-    iget-object v0, p0, Lbl/xw$24;->this$0:Lbl/xw;
+    move-result-object v1
 
-    # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
-    invoke-static {v0}, Lbl/xw;->access$1000(Lbl/xw;)Landroid/widget/FrameLayout;
+    invoke-direct {v0, v1}, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;-><init>(Landroid/content/Context;)V
+
+    .line 2068
+    iget-object v1, p0, Lbl/xw$24;->val$filePath:Ljava/lang/String;
+
+    invoke-static {v1}, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;->generateBookId(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v1
+
+    .line 2071
+    iget-object v2, p0, Lbl/xw$24;->val$filePath:Ljava/lang/String;
+
+    invoke-virtual {v0, v2, v1}, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;->parse(Ljava/lang/String;Ljava/lang/String;)Lcom/bilibili/tv/ebook/model/Book;
 
     move-result-object v0
 
-    if-nez v0, :cond_14
+    .line 2073
+    if-nez v0, :cond_34
 
-    .line 2099
+    .line 2074
     const-string v0, "EbookReader"
 
-    const-string v1, "\u7535\u5b50\u4e66\u9762\u677f\u4e3anull\uff0c\u65e0\u6cd5\u663e\u793a\u7ae0\u8282\u5217\u8868"
+    const-string v1, "\u7535\u5b50\u4e66\u89e3\u6790\u5931\u8d25"
 
     invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2310
-    :goto_13
+    .line 2075
+    iget-object v0, p0, Lbl/xw$24;->this$0:Lbl/xw;
+
+    # invokes: Lbl/xw;->hideLoadingIndicator()V
+    invoke-static {v0}, Lbl/xw;->access$1800(Lbl/xw;)V
+
+    .line 2078
+    iget-object v0, p0, Lbl/xw$24;->this$0:Lbl/xw;
+
+    invoke-virtual {v0}, Lbl/xw;->o()Landroid/app/Activity;
+
+    move-result-object v0
+
+    new-instance v1, Lbl/xw$24$1;
+
+    invoke-direct {v1, p0}, Lbl/xw$24$1;-><init>(Lbl/xw$24;)V
+
+    invoke-virtual {v0, v1}, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
+
+    .line 2117
+    :goto_33
     return-void
 
-    .line 2104
-    :cond_14
-    iget-object v0, p0, Lbl/xw$24;->this$0:Lbl/xw;
+    .line 2089
+    :cond_34
+    const-string v1, "EbookReader"
 
-    # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
-    invoke-static {v0}, Lbl/xw;->access$1000(Lbl/xw;)Landroid/widget/FrameLayout;
+    new-instance v2, Ljava/lang/StringBuilder;
 
-    move-result-object v0
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-virtual {v0}, Landroid/widget/FrameLayout;->getVisibility()I
+    const-string v3, "\u7535\u5b50\u4e66\u89e3\u6790\u6210\u529f: "
 
-    move-result v0
-
-    if-eqz v0, :cond_30
-
-    .line 2105
-    const-string v0, "EbookReader"
-
-    const-string v1, "\u7535\u5b50\u4e66\u9762\u677f\u4e0d\u53ef\u89c1\uff0c\u8bbe\u7f6e\u4e3aVISIBLE"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 2106
-    iget-object v0, p0, Lbl/xw$24;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
-    invoke-static {v0}, Lbl/xw;->access$1000(Lbl/xw;)Landroid/widget/FrameLayout;
-
-    move-result-object v0
-
-    invoke-virtual {v0, v7}, Landroid/widget/FrameLayout;->setVisibility(I)V
-
-    .line 2110
-    :cond_30
-    iget-object v0, p0, Lbl/xw$24;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->ebookWebView:Landroid/webkit/WebView;
-    invoke-static {v0}, Lbl/xw;->access$200(Lbl/xw;)Landroid/webkit/WebView;
-
-    move-result-object v0
-
-    if-eqz v0, :cond_4a
-
-    .line 2111
-    iget-object v0, p0, Lbl/xw$24;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->ebookWebView:Landroid/webkit/WebView;
-    invoke-static {v0}, Lbl/xw;->access$200(Lbl/xw;)Landroid/webkit/WebView;
-
-    move-result-object v0
-
-    const/16 v1, 0x8
-
-    invoke-virtual {v0, v1}, Landroid/webkit/WebView;->setVisibility(I)V
-
-    .line 2112
-    const-string v0, "EbookReader"
-
-    const-string v1, "\u9690\u85cfWebView"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 2116
-    :cond_4a
-    iget-object v0, p0, Lbl/xw$24;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
-    invoke-static {v0}, Lbl/xw;->access$1000(Lbl/xw;)Landroid/widget/FrameLayout;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Landroid/widget/FrameLayout;->removeAllViews()V
-
-    .line 2119
-    new-instance v6, Landroid/widget/FrameLayout;
-
-    iget-object v0, p0, Lbl/xw$24;->this$0:Lbl/xw;
-
-    invoke-virtual {v0}, Lbl/xw;->o()Landroid/app/Activity;
-
-    move-result-object v0
-
-    invoke-direct {v6, v0}, Landroid/widget/FrameLayout;-><init>(Landroid/content/Context;)V
-
-    .line 2120
-    const-string v0, "#2A2A2A"
-
-    invoke-static {v0}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
-
-    move-result v0
-
-    invoke-virtual {v6, v0}, Landroid/widget/FrameLayout;->setBackgroundColor(I)V
-
-    .line 2121
-    new-instance v0, Landroid/widget/FrameLayout$LayoutParams;
-
-    invoke-direct {v0, v3, v3}, Landroid/widget/FrameLayout$LayoutParams;-><init>(II)V
-
-    .line 2125
-    invoke-virtual {v6, v0}, Landroid/widget/FrameLayout;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
-
-    .line 2128
-    new-instance v1, Landroid/widget/TextView;
-
-    iget-object v0, p0, Lbl/xw$24;->this$0:Lbl/xw;
-
-    invoke-virtual {v0}, Lbl/xw;->o()Landroid/app/Activity;
-
-    move-result-object v0
-
-    invoke-direct {v1, v0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
-
-    .line 2129
-    const-string v0, "\u7ae0\u8282\u5217\u8868"
-
-    .line 2130
-    iget-object v2, p0, Lbl/xw$24;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->parentChapterTitle:Ljava/lang/String;
-    invoke-static {v2}, Lbl/xw;->access$2000(Lbl/xw;)Ljava/lang/String;
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v2
 
-    if-eqz v2, :cond_96
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/Book;->getTitle()Ljava/lang/String;
 
-    iget-object v2, p0, Lbl/xw$24;->this$0:Lbl/xw;
+    move-result-object v3
 
-    # getter for: Lbl/xw;->parentChapterTitle:Ljava/lang/String;
-    invoke-static {v2}, Lbl/xw;->access$2000(Lbl/xw;)Ljava/lang/String;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Ljava/lang/String;->isEmpty()Z
-
-    move-result v2
-
-    if-nez v2, :cond_96
-
-    .line 2131
-    iget-object v0, p0, Lbl/xw$24;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->parentChapterTitle:Ljava/lang/String;
-    invoke-static {v0}, Lbl/xw;->access$2000(Lbl/xw;)Ljava/lang/String;
-
-    move-result-object v0
-
-    .line 2133
-    :cond_96
-    invoke-virtual {v1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
-
-    .line 2134
-    invoke-virtual {v1, v3}, Landroid/widget/TextView;->setTextColor(I)V
-
-    .line 2135
-    const/high16 v0, 0x41a00000    # 20.0f
-
-    invoke-virtual {v1, v0}, Landroid/widget/TextView;->setTextSize(F)V
-
-    .line 2136
-    const/16 v0, 0x11
-
-    invoke-virtual {v1, v0}, Landroid/widget/TextView;->setGravity(I)V
-
-    .line 2137
-    invoke-virtual {v1, v4, v4, v4, v4}, Landroid/widget/TextView;->setPadding(IIII)V
-
-    .line 2138
-    const-string v0, "#333333"
-
-    invoke-static {v0}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
-
-    move-result v0
-
-    invoke-virtual {v1, v0}, Landroid/widget/TextView;->setBackgroundColor(I)V
-
-    .line 2139
-    new-instance v0, Landroid/widget/FrameLayout$LayoutParams;
-
-    const/4 v2, -0x2
-
-    invoke-direct {v0, v3, v2}, Landroid/widget/FrameLayout$LayoutParams;-><init>(II)V
-
-    .line 2143
-    invoke-virtual {v1, v0}, Landroid/widget/TextView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
-
-    .line 2144
-    invoke-virtual {v6, v1}, Landroid/widget/FrameLayout;->addView(Landroid/view/View;)V
-
-    .line 2147
-    new-instance v4, Ljava/util/ArrayList;
-
-    invoke-direct {v4}, Ljava/util/ArrayList;-><init>()V
-
-    .line 2148
-    iget-object v5, p0, Lbl/xw$24;->val$chapters:Ljava/util/List;
-
-    .line 2149
-    invoke-interface {v5}, Ljava/util/List;->iterator()Ljava/util/Iterator;
-
-    move-result-object v1
-
-    :goto_c9
-    invoke-interface {v1}, Ljava/util/Iterator;->hasNext()Z
-
-    move-result v0
-
-    if-eqz v0, :cond_dd
-
-    invoke-interface {v1}, Ljava/util/Iterator;->next()Ljava/lang/Object;
-
-    move-result-object v0
-
-    check-cast v0, Lcom/bilibili/tv/ebook/model/Chapter;
-
-    .line 2150
-    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/Chapter;->getTitle()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-interface {v4, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
-
-    goto :goto_c9
-
-    .line 2154
-    :cond_dd
-    iget-object v0, p0, Lbl/xw$24;->this$0:Lbl/xw;
-
-    new-instance v1, Landroid/widget/ListView;
-
-    iget-object v2, p0, Lbl/xw$24;->this$0:Lbl/xw;
-
-    invoke-virtual {v2}, Lbl/xw;->o()Landroid/app/Activity;
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v2
 
-    invoke-direct {v1, v2}, Landroid/widget/ListView;-><init>(Landroid/content/Context;)V
+    const-string v3, ", \u7ae0\u8282\u6570: "
 
-    # setter for: Lbl/xw;->chapterListView:Landroid/widget/ListView;
-    invoke-static {v0, v1}, Lbl/xw;->access$2102(Lbl/xw;Landroid/widget/ListView;)Landroid/widget/ListView;
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 2155
-    iget-object v0, p0, Lbl/xw$24;->this$0:Lbl/xw;
+    move-result-object v2
 
-    # getter for: Lbl/xw;->chapterListView:Landroid/widget/ListView;
-    invoke-static {v0}, Lbl/xw;->access$2100(Lbl/xw;)Landroid/widget/ListView;
+    .line 2090
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/Book;->getChapters()Ljava/util/List;
 
-    move-result-object v0
+    move-result-object v3
 
-    const-string v1, "#2A2A2A"
+    invoke-interface {v3}, Ljava/util/List;->size()I
 
-    invoke-static {v1}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
+    move-result v3
 
-    move-result v1
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v0, v1}, Landroid/widget/ListView;->setBackgroundColor(I)V
+    move-result-object v2
 
-    .line 2156
-    new-instance v0, Landroid/widget/FrameLayout$LayoutParams;
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    invoke-direct {v0, v3, v3}, Landroid/widget/FrameLayout$LayoutParams;-><init>(II)V
+    move-result-object v2
 
-    .line 2160
-    const/16 v1, 0x50
+    .line 2089
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    invoke-virtual {v0, v7, v1, v7, v7}, Landroid/widget/FrameLayout$LayoutParams;->setMargins(IIII)V
-
-    .line 2161
+    .line 2093
     iget-object v1, p0, Lbl/xw$24;->this$0:Lbl/xw;
 
-    # getter for: Lbl/xw;->chapterListView:Landroid/widget/ListView;
-    invoke-static {v1}, Lbl/xw;->access$2100(Lbl/xw;)Landroid/widget/ListView;
+    # invokes: Lbl/xw;->hideLoadingIndicator()V
+    invoke-static {v1}, Lbl/xw;->access$1800(Lbl/xw;)V
 
-    move-result-object v1
-
-    invoke-virtual {v1, v0}, Landroid/widget/ListView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
-
-    .line 2164
-    new-instance v0, Lbl/xw$24$1;
-
+    .line 2096
     iget-object v1, p0, Lbl/xw$24;->this$0:Lbl/xw;
 
     invoke-virtual {v1}, Lbl/xw;->o()Landroid/app/Activity;
-
-    move-result-object v2
-
-    const v3, 0x1090003
-
-    move-object v1, p0
-
-    invoke-direct/range {v0 .. v5}, Lbl/xw$24$1;-><init>(Lbl/xw$24;Landroid/content/Context;ILjava/util/List;Ljava/util/List;)V
-
-    .line 2232
-    iget-object v1, p0, Lbl/xw$24;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->chapterListView:Landroid/widget/ListView;
-    invoke-static {v1}, Lbl/xw;->access$2100(Lbl/xw;)Landroid/widget/ListView;
 
     move-result-object v1
 
     new-instance v2, Lbl/xw$24$2;
 
-    invoke-direct {v2, p0}, Lbl/xw$24$2;-><init>(Lbl/xw$24;)V
+    invoke-direct {v2, p0, v0}, Lbl/xw$24$2;-><init>(Lbl/xw$24;Lcom/bilibili/tv/ebook/model/Book;)V
 
-    invoke-virtual {v1, v2}, Landroid/widget/ListView;->setOnItemSelectedListener(Landroid/widget/AdapterView$OnItemSelectedListener;)V
+    invoke-virtual {v1, v2}, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
+    :try_end_75
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_75} :catch_76
 
-    .line 2249
+    goto :goto_33
+
+    .line 2103
+    :catch_76
+    move-exception v0
+
+    .line 2104
+    const-string v1, "EbookReader"
+
+    const-string v2, "\u89e3\u6790\u7535\u5b50\u4e66\u5f02\u5e38"
+
+    invoke-static {v1, v2, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+
+    .line 2105
     iget-object v1, p0, Lbl/xw$24;->this$0:Lbl/xw;
 
-    # getter for: Lbl/xw;->chapterListView:Landroid/widget/ListView;
-    invoke-static {v1}, Lbl/xw;->access$2100(Lbl/xw;)Landroid/widget/ListView;
+    # invokes: Lbl/xw;->hideLoadingIndicator()V
+    invoke-static {v1}, Lbl/xw;->access$1800(Lbl/xw;)V
+
+    .line 2108
+    iget-object v1, p0, Lbl/xw$24;->this$0:Lbl/xw;
+
+    invoke-virtual {v1}, Lbl/xw;->o()Landroid/app/Activity;
 
     move-result-object v1
 
-    invoke-virtual {v1, v0}, Landroid/widget/ListView;->setAdapter(Landroid/widget/ListAdapter;)V
+    new-instance v2, Lbl/xw$24$3;
 
-    .line 2252
-    iget-object v0, p0, Lbl/xw$24;->this$0:Lbl/xw;
+    invoke-direct {v2, p0, v0}, Lbl/xw$24$3;-><init>(Lbl/xw$24;Ljava/lang/Exception;)V
 
-    # getter for: Lbl/xw;->chapterListView:Landroid/widget/ListView;
-    invoke-static {v0}, Lbl/xw;->access$2100(Lbl/xw;)Landroid/widget/ListView;
+    invoke-virtual {v1, v2}, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
 
-    move-result-object v0
-
-    new-instance v1, Lbl/xw$24$3;
-
-    invoke-direct {v1, p0, v5}, Lbl/xw$24$3;-><init>(Lbl/xw$24;Ljava/util/List;)V
-
-    invoke-virtual {v0, v1}, Landroid/widget/ListView;->post(Ljava/lang/Runnable;)Z
-
-    .line 2278
-    iget-object v0, p0, Lbl/xw$24;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->chapterListView:Landroid/widget/ListView;
-    invoke-static {v0}, Lbl/xw;->access$2100(Lbl/xw;)Landroid/widget/ListView;
-
-    move-result-object v0
-
-    new-instance v1, Lbl/xw$24$4;
-
-    invoke-direct {v1, p0, v5}, Lbl/xw$24$4;-><init>(Lbl/xw$24;Ljava/util/List;)V
-
-    invoke-virtual {v0, v1}, Landroid/widget/ListView;->setOnItemClickListener(Landroid/widget/AdapterView$OnItemClickListener;)V
-
-    .line 2302
-    iget-object v0, p0, Lbl/xw$24;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->chapterListView:Landroid/widget/ListView;
-    invoke-static {v0}, Lbl/xw;->access$2100(Lbl/xw;)Landroid/widget/ListView;
-
-    move-result-object v0
-
-    invoke-virtual {v6, v0}, Landroid/widget/FrameLayout;->addView(Landroid/view/View;)V
-
-    .line 2305
-    iget-object v0, p0, Lbl/xw$24;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
-    invoke-static {v0}, Lbl/xw;->access$1000(Lbl/xw;)Landroid/widget/FrameLayout;
-
-    move-result-object v0
-
-    invoke-virtual {v0, v6}, Landroid/widget/FrameLayout;->addView(Landroid/view/View;)V
-
-    .line 2308
-    const-string v0, "EbookReader"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "\u7ae0\u8282\u5217\u8868\u5df2\u6dfb\u52a0\u5230\u7535\u5b50\u4e66\u9762\u677f\uff0c\u5b50\u89c6\u56fe\u6570: "
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lbl/xw$24;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
-    invoke-static {v2}, Lbl/xw;->access$1000(Lbl/xw;)Landroid/widget/FrameLayout;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Landroid/widget/FrameLayout;->getChildCount()I
-
-    move-result v2
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 2309
-    const-string v0, "EbookReader"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "\u7ae0\u8282\u5217\u8868\u5df2\u663e\u793a\uff0c\u5f53\u524d\u7ae0\u8282\u7d22\u5f15: "
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lbl/xw$24;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->currentChapterIndex:I
-    invoke-static {v2}, Lbl/xw;->access$2300(Lbl/xw;)I
-
-    move-result v2
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    goto/16 :goto_13
+    goto :goto_33
 .end method

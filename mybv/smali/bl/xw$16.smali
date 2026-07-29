@@ -3,7 +3,7 @@
 .source "xw.java"
 
 # interfaces
-.implements Landroid/widget/AdapterView$OnItemSelectedListener;
+.implements Ljava/util/Comparator;
 
 
 # annotations
@@ -16,6 +16,16 @@
     name = null
 .end annotation
 
+.annotation system Ldalvik/annotation/Signature;
+    value = {
+        "Ljava/lang/Object;",
+        "Ljava/util/Comparator",
+        "<",
+        "Ljava/io/File;",
+        ">;"
+    }
+.end annotation
+
 
 # instance fields
 .field final synthetic this$0:Lbl/xw;
@@ -26,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 1593
+    .line 1813
     iput-object p1, p0, Lbl/xw$16;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,41 +46,38 @@
 
 
 # virtual methods
-.method public onItemSelected(Landroid/widget/AdapterView;Landroid/view/View;IJ)V
-    .locals 1
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "(",
-            "Landroid/widget/AdapterView",
-            "<*>;",
-            "Landroid/view/View;",
-            "IJ)V"
-        }
-    .end annotation
+.method public compare(Ljava/io/File;Ljava/io/File;)I
+    .locals 2
 
     .prologue
-    .line 1597
-    new-instance v0, Lbl/xw$16$1;
+    .line 1816
+    invoke-virtual {p1}, Ljava/io/File;->getName()Ljava/lang/String;
 
-    invoke-direct {v0, p0, p1}, Lbl/xw$16$1;-><init>(Lbl/xw$16;Landroid/widget/AdapterView;)V
+    move-result-object v0
 
-    invoke-virtual {p1, v0}, Landroid/widget/AdapterView;->post(Ljava/lang/Runnable;)Z
+    invoke-virtual {p2}, Ljava/io/File;->getName()Ljava/lang/String;
 
-    .line 1603
-    return-void
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->compareToIgnoreCase(Ljava/lang/String;)I
+
+    move-result v0
+
+    return v0
 .end method
 
-.method public onNothingSelected(Landroid/widget/AdapterView;)V
-    .locals 0
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "(",
-            "Landroid/widget/AdapterView",
-            "<*>;)V"
-        }
-    .end annotation
+.method public bridge synthetic compare(Ljava/lang/Object;Ljava/lang/Object;)I
+    .locals 1
 
     .prologue
-    .line 1607
-    return-void
+    .line 1813
+    check-cast p1, Ljava/io/File;
+
+    check-cast p2, Ljava/io/File;
+
+    invoke-virtual {p0, p1, p2}, Lbl/xw$16;->compare(Ljava/io/File;Ljava/io/File;)I
+
+    move-result v0
+
+    return v0
 .end method

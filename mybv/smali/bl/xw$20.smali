@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw;->hideLoadingIndicator()V
+    value = Lbl/xw;->loadFileList(Landroid/widget/ListView;Landroid/widget/TextView;Ljava/io/File;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,14 +20,18 @@
 # instance fields
 .field final synthetic this$0:Lbl/xw;
 
+.field final synthetic val$listView:Landroid/widget/ListView;
+
 
 # direct methods
-.method constructor <init>(Lbl/xw;)V
+.method constructor <init>(Lbl/xw;Landroid/widget/ListView;)V
     .locals 0
 
     .prologue
-    .line 1744
+    .line 1901
     iput-object p1, p0, Lbl/xw$20;->this$0:Lbl/xw;
+
+    iput-object p2, p0, Lbl/xw$20;->val$listView:Landroid/widget/ListView;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -40,57 +44,18 @@
     .locals 2
 
     .prologue
-    const/16 v1, 0x8
+    .line 1904
+    iget-object v0, p0, Lbl/xw$20;->val$listView:Landroid/widget/ListView;
 
-    .line 1747
-    iget-object v0, p0, Lbl/xw$20;->this$0:Lbl/xw;
+    invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
 
-    # getter for: Lbl/xw;->loadingProgressBar:Landroid/widget/ProgressBar;
-    invoke-static {v0}, Lbl/xw;->access$1200(Lbl/xw;)Landroid/widget/ProgressBar;
-
-    move-result-object v0
-
-    if-eqz v0, :cond_13
-
-    .line 1748
-    iget-object v0, p0, Lbl/xw$20;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->loadingProgressBar:Landroid/widget/ProgressBar;
-    invoke-static {v0}, Lbl/xw;->access$1200(Lbl/xw;)Landroid/widget/ProgressBar;
-
-    move-result-object v0
-
-    invoke-virtual {v0, v1}, Landroid/widget/ProgressBar;->setVisibility(I)V
-
-    .line 1750
-    :cond_13
-    iget-object v0, p0, Lbl/xw$20;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->loadingTextView:Landroid/widget/TextView;
-    invoke-static {v0}, Lbl/xw;->access$1300(Lbl/xw;)Landroid/widget/TextView;
-
-    move-result-object v0
-
-    if-eqz v0, :cond_24
-
-    .line 1751
-    iget-object v0, p0, Lbl/xw$20;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->loadingTextView:Landroid/widget/TextView;
-    invoke-static {v0}, Lbl/xw;->access$1300(Lbl/xw;)Landroid/widget/TextView;
-
-    move-result-object v0
-
-    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
-
-    .line 1753
-    :cond_24
+    .line 1905
     const-string v0, "EbookReader"
 
-    const-string v1, "\u52a0\u8f7d\u8fdb\u5ea6\u63d0\u793a\u5df2\u9690\u85cf"
+    const-string v1, "\u6587\u4ef6\u5217\u8868\u5df2\u8bf7\u6c42\u7126\u70b9"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1754
+    .line 1906
     return-void
 .end method

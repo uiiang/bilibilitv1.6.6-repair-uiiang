@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 986
+    .line 1049
     iput-object p1, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$6;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,19 +40,19 @@
     .locals 2
 
     .prologue
-    .line 997
+    .line 1060
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$6;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->a()V
 
-    .line 998
+    .line 1061
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$6;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     const/4 v1, 0x4
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->setVisibility(I)V
 
-    .line 999
+    .line 1062
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$6;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     const/4 v1, 0x0
@@ -60,7 +60,7 @@
     # setter for: Lcom/bilibili/tv/player/widget/PlayerMenuRight;->c:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->access$102(Lcom/bilibili/tv/player/widget/PlayerMenuRight;Z)Z
 
-    .line 1002
+    .line 1065
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$6;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     # getter for: Lcom/bilibili/tv/player/widget/PlayerMenuRight;->d:Lcom/bilibili/tv/player/widget/PlayerMenuRight$a;
@@ -70,7 +70,7 @@
 
     if-eqz v0, :cond_22
 
-    .line 1003
+    .line 1066
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight$6;->this$0:Lcom/bilibili/tv/player/widget/PlayerMenuRight;
 
     # getter for: Lcom/bilibili/tv/player/widget/PlayerMenuRight;->d:Lcom/bilibili/tv/player/widget/PlayerMenuRight$a;
@@ -80,7 +80,7 @@
 
     invoke-interface {v0}, Lcom/bilibili/tv/player/widget/PlayerMenuRight$a;->onMenuClosed()V
 
-    .line 1005
+    .line 1068
     :cond_22
     return-void
 .end method
@@ -89,7 +89,7 @@
     .locals 0
 
     .prologue
-    .line 989
+    .line 1052
     return-void
 .end method
 
@@ -97,6 +97,6 @@
     .locals 0
 
     .prologue
-    .line 993
+    .line 1056
     return-void
 .end method

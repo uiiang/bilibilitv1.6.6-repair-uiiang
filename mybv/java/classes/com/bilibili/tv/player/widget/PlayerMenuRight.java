@@ -63,6 +63,7 @@ public class PlayerMenuRight extends aay<String> {
     public static int audio_balance_id = 0;
     public static int ebook_font_size_id = 4; // 默认字体大小索引（28px）
     public static int ebook_color_theme_id = 0; // 默认配色方案索引（System）
+    public static int ebook_percent_id = 1; // 默认屏幕占比索引（30%）
     public List<String> speed_list;
     public List<String> mode_list;
     public List<String> subtitle_list;
@@ -71,6 +72,7 @@ public class PlayerMenuRight extends aay<String> {
     public List<String> audio_balance_list;
     public List<String> ebook_font_size_list; // 电子书字体大小列表
     public List<String> ebook_color_theme_list; // 电子书配色方案列表
+    public List<String> ebook_percent_list; // 电子书屏幕占比列表
     public static boolean danmaku_valid_list[] = {false,true,false,false,true,true,true,true,false,false};
     public static int danmaku_level=0;
     private List<Integer> menuIndexMap;
@@ -133,6 +135,9 @@ public class PlayerMenuRight extends aay<String> {
 
         // 新增：设置电子书配色方案
         void set_ebook_color_theme(int themeIndex);
+
+        // 新增：设置电子书屏幕占比
+        void set_ebook_percent(int percentIndex);
     }
 
     private void jumpToChapter(int chapterIndex) {
@@ -260,16 +265,42 @@ public class PlayerMenuRight extends aay<String> {
         // 电子书模式特殊处理
         if (menuIndexMap == null || menuIndexMap.isEmpty()) {
             // 电子书模式：将索引映射到父类能够识别的索引
+            // 书架页面菜单：[控制视频, 选择文件, 清空书架, 屏幕占比, 退出阅读]
+            // 阅读页面菜单：[控制视频, 章节列表, 字体大小, 配色方案, 屏幕占比, 关闭书籍]
+            
+            // 判断页面类型：通过alpha_list判断（只有阅读页面才有配色方案）
+            boolean isReadingPage = (alpha_list != null);
+            
             switch (displayIndex) {
                 case 0: // 控制视频 - 没有二级菜单
                     return -1;
-                case 1: // 章节列表 - 没有二级菜单（会单独显示）
+                case 1: // 章节列表/选择文件 - 没有二级菜单
                     return -1;
-                case 2: // 字体大小 - 映射到索引4（父类会显示size_list）
-                    return 4; // 关键：映射到索引4，让父类显示size_list作为二级菜单
-                case 3: // 配色方案 - 映射到索引5（父类会显示alpha_list）
-                    return 5; // 关键：映射到索引5，让父类显示alpha_list作为二级菜单
-                case 4: // 关闭书籍 - 没有二级菜单
+                case 2: 
+                    // 书架页面: 清空书架 → -1
+                    // 阅读页面: 字体大小 → 4 (size_list)
+                    if (isReadingPage && size_list != null) {
+                        return 4; // 阅读页面的字体大小
+                    }
+                    return -1; // 书架页面的清空书架
+                case 3: 
+                    // 书架页面: 屏幕占比 → 10 (ebook_percent_list)
+                    // 阅读页面: 配色方案 → 5 (alpha_list)
+                    if (isReadingPage && alpha_list != null) {
+                        return 5; // 阅读页面的配色方案
+                    }
+                    if (!isReadingPage && ebook_percent_list != null) {
+                        return 10; // 书架页面的屏幕占比
+                    }
+                    return -1;
+                case 4: 
+                    // 书架页面: 退出阅读 → -1
+                    // 阅读页面: 屏幕占比 → 10 (ebook_percent_list)
+                    if (isReadingPage && ebook_percent_list != null) {
+                        return 10; // 阅读页面的屏幕占比
+                    }
+                    return -1; // 书架页面的退出阅读
+                case 5: // 关闭书籍 - 没有二级菜单
                     return -1;
                 default:
                     return -1;
@@ -314,11 +345,12 @@ public class PlayerMenuRight extends aay<String> {
             try {
                 int currentMenuIndex = getOriginalMenuIndex(this.q);
                 boolean isCurrentSize = false;
+                boolean isEbookMode = (menuIndexMap == null || menuIndexMap.isEmpty());
+                
                 if (this.size_list != null && this.size_id >= 0 && this.size_id < this.size_list.size() && currentMenuIndex == 4 && this.size_list.get(this.size_id).equals(str)) {
                     // 关键修复：电子书模式下跳过size_list的视频弹幕大小圆点标注
-                    // 电子书模式下size_list用于字体大小，圆点标注在后面的ebook_font_size_id逻辑中处理
-                    if (menuIndexMap == null || menuIndexMap.isEmpty()) {
-                        // 电子书模式：不在这里设置圆点
+                    if (isEbookMode) {
+                        // 电子书模式：不在这里设置圆点，使用后面的逻辑
                     } else {
                         // 视频模式：正常显示弹幕大小圆点
                         isCurrentSize = true;
@@ -327,17 +359,22 @@ public class PlayerMenuRight extends aay<String> {
                 if (currentMenuIndex == 12 && this.subtitle_size_list != null && this.subtitle_size_id >= 0 && this.subtitle_size_id < this.subtitle_size_list.size() && this.subtitle_size_list.get(this.subtitle_size_id).equals(str)) {
                     isCurrentSize = true;
                 }
-                // 新增：电子书字体大小圆点标注
-                // 电子书模式下，字体大小映射到索引4，使用size_list（通过init_size设置）
-                if ((menuIndexMap == null || menuIndexMap.isEmpty()) &&
-                    currentMenuIndex == 4 && this.size_list != null &&
-                    this.ebook_font_size_id >= 0 && this.ebook_font_size_id < this.size_list.size() &&
-                    this.size_list.get(this.ebook_font_size_id).equals(str)) {
-                    isCurrentSize = true;
-                } else if (this.ebook_font_size_list != null && this.ebook_font_size_id >= 0 && this.ebook_font_size_id < this.ebook_font_size_list.size() && this.ebook_font_size_list.get(this.ebook_font_size_id).equals(str)) {
-                    // 其他模式（暂未使用）
-                    isCurrentSize = true;
+                // 电子书模式下的圆点标注
+                if (isEbookMode) {
+                    // 字体大小：使用size_list和ebook_font_size_id
+                    if (currentMenuIndex == 4 && this.size_list != null &&
+                        this.ebook_font_size_id >= 0 && this.ebook_font_size_id < this.size_list.size() &&
+                        this.size_list.get(this.ebook_font_size_id).equals(str)) {
+                        isCurrentSize = true;
+                    }
+                    // 屏幕占比：使用ebook_percent_list和ebook_percent_id
+                    if (currentMenuIndex == 10 && this.ebook_percent_list != null &&
+                        this.ebook_percent_id >= 0 && this.ebook_percent_id < this.ebook_percent_list.size() &&
+                        this.ebook_percent_list.get(this.ebook_percent_id).equals(str)) {
+                        isCurrentSize = true;
+                    }
                 }
+                
                 boolean isCurrentItem = false;
                 if (this.quality_list.get(this.quality_id).equals(str)) {
                     isCurrentItem = true;
@@ -345,15 +382,9 @@ public class PlayerMenuRight extends aay<String> {
                     isCurrentItem = true;
                 } else if (isCurrentSize) {
                     isCurrentItem = true;
-                } else if (this.alpha_list != null && this.alpha_id >= 0 && this.alpha_id < this.alpha_list.size() && this.alpha_list.get(this.alpha_id).equals(str)) {
-                    // 关键修复：电子书模式下跳过alpha_list的视频弹幕透明度圆点标注
-                    // 电子书模式下alpha_list用于配色方案，圆点标注在后面的ebook_color_theme_id逻辑中处理
-                    if (menuIndexMap == null || menuIndexMap.isEmpty()) {
-                        // 电子书模式：不在这里设置圆点
-                    } else {
-                        // 视频模式：正常显示弹幕透明度圆点
-                        isCurrentItem = true;
-                    }
+                } else if (!isEbookMode && this.alpha_list != null && this.alpha_id >= 0 && this.alpha_id < this.alpha_list.size() && this.alpha_list.get(this.alpha_id).equals(str)) {
+                    // 视频模式：正常显示弹幕透明度圆点（电子书模式跳过，使用后面的配色方案/屏幕占比逻辑）
+                    isCurrentItem = true;
                 } else if (this.speed_list != null && this.speed_id >= 0 && this.speed_id < this.speed_list.size() && this.speed_list.get(this.speed_id).equals(str)) {
                     isCurrentItem = true;
                 } else if (this.mode_list != null && this.mode_id >= 0 && this.mode_id < this.mode_list.size() && this.mode_list.get(this.mode_id).equals(str)) {
@@ -362,11 +393,15 @@ public class PlayerMenuRight extends aay<String> {
                     isCurrentItem = true;
                 } else if (this.audio_balance_list != null && this.audio_balance_id >= 0 && this.audio_balance_id < this.audio_balance_list.size() && this.audio_balance_list.get(this.audio_balance_id).equals(str)) {
                     isCurrentItem = true;
-                } else if (menuIndexMap != null && menuIndexMap.isEmpty() &&
-                           currentMenuIndex == 5 && this.alpha_list != null &&
+                } else if (isEbookMode && currentMenuIndex == 5 && this.alpha_list != null &&
                            this.ebook_color_theme_id >= 0 && this.ebook_color_theme_id < this.alpha_list.size() &&
                            this.alpha_list.get(this.ebook_color_theme_id).equals(str)) {
                     // 电子书模式下的配色方案圆点标注
+                    isCurrentItem = true;
+                } else if (isEbookMode && currentMenuIndex == 10 && this.ebook_percent_list != null &&
+                           this.ebook_percent_id >= 0 && this.ebook_percent_id < this.ebook_percent_list.size() &&
+                           this.ebook_percent_list.get(this.ebook_percent_id).equals(str)) {
+                    // 电子书模式下的屏幕占比圆点标注
                     isCurrentItem = true;
                 }
                 if (!isCurrentItem) {
@@ -504,6 +539,12 @@ public class PlayerMenuRight extends aay<String> {
             android.util.Log.i("EbookReader", "字体大小菜单项被点击");
             // 关键修复：不要return false，让执行流继续到达super.a()以显示二级菜单
             // size_list已在xw.S()中通过init_size设置为字体大小列表
+        }
+
+        if (TextUtils.equals(str, "屏幕占比")) {
+            android.util.Log.i("EbookReader", "屏幕占比菜单项被点击");
+            // 关键修复：不要return false，让执行流继续到达super.a()以显示二级菜单
+            // size_list已在xw.S()中通过init_percent设置为占比列表
         }
 
         if (TextUtils.equals(str, "选择文件")) {
@@ -651,7 +692,9 @@ public class PlayerMenuRight extends aay<String> {
                 return true;
             }
             int currentMenuIndex = getOriginalMenuIndex(this.q);
-            if (this.size_list != null && this.size_list.indexOf(str) != -1 && currentMenuIndex == 4) {
+            // 电子书模式下跳过父类的size_list处理（因为电子书有自己的字体大小/屏幕占比处理）
+            boolean isEbookMode = (menuIndexMap == null || menuIndexMap.isEmpty());
+            if (!isEbookMode && this.size_list != null && this.size_list.indexOf(str) != -1 && currentMenuIndex == 4) {
                 this.d.a(Float.valueOf(this.size_list.get(i2)).floatValue());
                 i3 = this.size_id;
                 this.size_id = i2;
@@ -693,35 +736,34 @@ public class PlayerMenuRight extends aay<String> {
             }
             // 新增：电子书字体大小处理
             // 电子书模式下，字体大小列表使用size_list（通过init_size设置）
-            // 判断条件：电子书模式（menuIndexMap为空）且currentMenuIndex==4（通过映射）
-            if ((menuIndexMap == null || menuIndexMap.isEmpty()) &&
+            if (isEbookMode &&
                 this.size_list != null && this.size_list.indexOf(str) != -1 && currentMenuIndex == 4) {
                 // 电子书模式下的字体大小选择
                 this.d.set_ebook_font_size(Float.valueOf(this.size_list.get(i2)).floatValue());
-                i3 = this.ebook_font_size_id;
-                this.ebook_font_size_id = i2;
-            } else if (this.ebook_font_size_list != null && this.ebook_font_size_list.indexOf(str) != -1 && currentMenuIndex == 2) {
-                // 其他模式（暂未使用）
-                this.d.set_ebook_font_size(Float.valueOf(this.ebook_font_size_list.get(i2)).floatValue());
                 i3 = this.ebook_font_size_id;
                 this.ebook_font_size_id = i2;
             }
 
             // 新增：电子书配色方案处理
             // 电子书模式下，配色方案列表使用alpha_list（通过init_alpha设置）
-            // 判断条件：电子书模式（menuIndexMap为空）且currentMenuIndex==5（通过映射）
-            if ((menuIndexMap == null || menuIndexMap.isEmpty()) &&
+            if (isEbookMode &&
                 this.alpha_list != null && this.alpha_list.indexOf(str) != -1 && currentMenuIndex == 5) {
                 // 电子书模式下的配色方案选择
                 this.d.set_ebook_color_theme(i2);
                 i3 = this.ebook_color_theme_id;
                 this.ebook_color_theme_id = i2;
-            } else if (this.ebook_color_theme_list != null && this.ebook_color_theme_list.indexOf(str) != -1 && currentMenuIndex == 3) {
-                // 其他模式（暂未使用）
-                this.d.set_ebook_color_theme(i2);
-                i3 = this.ebook_color_theme_id;
-                this.ebook_color_theme_id = i2;
             }
+
+            // 新增：电子书屏幕占比处理
+            // 电子书模式下，屏幕占比列表使用ebook_percent_list（独立列表）
+            if (isEbookMode &&
+                this.ebook_percent_list != null && this.ebook_percent_list.indexOf(str) != -1 && currentMenuIndex == 10) {
+                // 电子书模式下的屏幕占比选择
+                this.d.set_ebook_percent(i2);
+                i3 = this.ebook_percent_id;
+                this.ebook_percent_id = i2;
+            }
+
             if (this.chapter_list != null && this.chapter_list.contains(str)) {
                 jumpToChapter(i2);
                 return true;
@@ -739,10 +781,16 @@ public class PlayerMenuRight extends aay<String> {
         }
         TextView textView = (TextView) viewGroup.getChildAt(i3);
         if (textView != null) {
-            textView.getCompoundDrawables()[0].setAlpha(0);
+            android.graphics.drawable.Drawable[] drawables = textView.getCompoundDrawables();
+            if (drawables != null && drawables[0] != null) {
+                drawables[0].setAlpha(0);
+            }
         }
         if (view instanceof TextView) {
-            ((TextView) view).getCompoundDrawables()[0].setAlpha(DanmakuConfig.ALPHA_VALUE_MAX);
+            android.graphics.drawable.Drawable[] viewDrawables = ((TextView) view).getCompoundDrawables();
+            if (viewDrawables != null && viewDrawables[0] != null) {
+                viewDrawables[0].setAlpha(DanmakuConfig.ALPHA_VALUE_MAX);
+            }
         }
         return true;
     }
@@ -775,6 +823,9 @@ public class PlayerMenuRight extends aay<String> {
                 case 5: // 配色方案
                     aai.a(3);
                     return;
+                case 10: // 屏幕占比
+                    aai.a(3);
+                    return;
                 default:
                     return;
             }
@@ -803,25 +854,34 @@ public class PlayerMenuRight extends aay<String> {
         boolean a2 = super.a(i, i2);
         int originalIndex = getOriginalMenuIndex(i2);
 
-        // 电子书模式特殊处理：索引2对应字体大小（size_id）
+        // 电子书模式特殊处理
         // 注意：电子书模式使用menuIndexMap为空列表，所以i2就是菜单项的实际索引
         if (menuIndexMap == null || menuIndexMap.isEmpty()) {
             // 电子书模式
+            // 判断页面类型：通过alpha_list判断（只有阅读页面才有配色方案）
+            boolean isReadingPage = (alpha_list != null);
+            
             switch (i2) {
                 case 0: // 控制视频
                     i3 = 0;
                     break;
-                case 1: // 章节列表
+                case 1: // 章节列表/选择文件
                     i3 = 0;
                     break;
-                case 2: // 字体大小 - 使用size_id
-                    i3 = this.ebook_font_size_id;
+                case 2: 
+                    // 书架页面: 清空书架 → 0
+                    // 阅读页面: 字体大小 → ebook_font_size_id
+                    i3 = isReadingPage ? this.ebook_font_size_id : 0;
                     break;
-                case 3: // 配色方案 - 使用alpha_id
-                    i3 = this.ebook_color_theme_id;
+                case 3: 
+                    // 书架页面: 屏幕占比 → ebook_percent_id
+                    // 阅读页面: 配色方案 → ebook_color_theme_id
+                    i3 = isReadingPage ? this.ebook_color_theme_id : this.ebook_percent_id;
                     break;
-                case 4: // 关闭书籍
-                    i3 = 0;
+                case 4: 
+                    // 书架页面: 退出阅读 → 0
+                    // 阅读页面: 屏幕占比 → ebook_percent_id
+                    i3 = isReadingPage ? this.ebook_percent_id : 0;
                     break;
                 default:
                     i3 = 0;
@@ -918,6 +978,9 @@ public class PlayerMenuRight extends aay<String> {
                     break;
                 case 9:
                     list = this.chapter_list;
+                    break;
+                case 10:
+                    list = this.ebook_percent_list;
                     break;
                 case 11:
                     list = this.audio_balance_list;
@@ -1048,6 +1111,22 @@ public class PlayerMenuRight extends aay<String> {
     public void init_ratio(List<String> list, int i) {
         this.ratio_list = list;
         this.ratio_id = i;
+    }
+
+    public void init_percent(List<String> list, int i) {
+        // 使用独立列表存储屏幕占比选项，不覆盖size_list（字体大小）
+        this.ebook_percent_list = list;
+        this.ebook_percent_id = i;
+    }
+
+    public void clearEbookReadingPageLists() {
+        // 清空阅读页面专属的列表，避免状态残留
+        this.size_list = null;
+        this.size_id = 0;
+        this.alpha_list = null;
+        this.alpha_id = 0;
+        this.ebook_font_size_list = null;
+        this.ebook_color_theme_list = null;
     }
 
     public void init_speed(List<String> list, int i) {

@@ -161,6 +161,53 @@
     return-void
 .end method
 
+.method public clearAllReadingProgress()V
+    .locals 3
+
+    .prologue
+    .line 188
+    :try_start_0
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->preferences:Landroid/content/SharedPreferences;
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    .line 189
+    const-string v1, "reading_progress"
+
+    invoke-interface {v0, v1}, Landroid/content/SharedPreferences$Editor;->remove(Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
+
+    .line 190
+    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
+
+    .line 192
+    const-string v0, "EbookCacheManager"
+
+    const-string v1, "\u6240\u6709\u9605\u8bfb\u8fdb\u5ea6\u5df2\u6e05\u9664"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    :try_end_15
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_15} :catch_16
+
+    .line 197
+    :goto_15
+    return-void
+
+    .line 194
+    :catch_16
+    move-exception v0
+
+    .line 195
+    const-string v1, "EbookCacheManager"
+
+    const-string v2, "\u6e05\u9664\u6240\u6709\u9605\u8bfb\u8fdb\u5ea6\u5931\u8d25"
+
+    invoke-static {v1, v2, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+
+    goto :goto_15
+.end method
+
 .method public clearReadingProgress(Ljava/lang/String;)V
     .locals 3
 

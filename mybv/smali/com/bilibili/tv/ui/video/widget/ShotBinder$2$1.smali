@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 226
+    .line 237
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$2$1;->this$1:Lcom/bilibili/tv/ui/video/widget/ShotBinder$2;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$2$1;->val$cropped:Landroid/graphics/Bitmap;
@@ -44,7 +44,7 @@
     .locals 4
 
     .prologue
-    .line 229
+    .line 240
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$2$1;->this$1:Lcom/bilibili/tv/ui/video/widget/ShotBinder$2;
 
     iget-wide v0, v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$2;->val$currentVersion:J
@@ -62,7 +62,7 @@
 
     if-eqz v0, :cond_2d
 
-    .line 230
+    .line 241
     const-string v0, "ShotBinder"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -89,11 +89,11 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 235
+    .line 246
     :goto_2c
     return-void
 
-    .line 233
+    .line 244
     :cond_2d
     const-string v0, "ShotBinder"
 
@@ -142,7 +142,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 234
+    .line 245
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$2$1;->this$1:Lcom/bilibili/tv/ui/video/widget/ShotBinder$2;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$2;->val$holder:Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;

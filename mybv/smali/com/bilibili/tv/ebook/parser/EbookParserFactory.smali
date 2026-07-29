@@ -12,7 +12,7 @@
 
 .field private epubParser:Lcom/bilibili/tv/ebook/parser/EpubParser;
 
-.field private mobiParser:Lcom/aryan/reader/epub/parser/MobiParser;
+.field private mobiParser:Lcom/aryan/reader/epub/MobiParser;
 
 
 # direct methods
@@ -20,27 +20,27 @@
     .locals 1
 
     .prologue
-    .line 24
+    .line 25
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 25
+    .line 26
     iput-object p1, p0, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;->context:Landroid/content/Context;
 
-    .line 26
+    .line 27
     new-instance v0, Lcom/bilibili/tv/ebook/parser/EpubParser;
 
     invoke-direct {v0, p1}, Lcom/bilibili/tv/ebook/parser/EpubParser;-><init>(Landroid/content/Context;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;->epubParser:Lcom/bilibili/tv/ebook/parser/EpubParser;
 
-    .line 27
-    new-instance v0, Lcom/aryan/reader/epub/parser/MobiParser;
-
-    invoke-direct {v0}, Lcom/aryan/reader/epub/parser/MobiParser;-><init>()V
-
-    iput-object v0, p0, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;->mobiParser:Lcom/aryan/reader/epub/parser/MobiParser;
-
     .line 28
+    new-instance v0, Lcom/aryan/reader/epub/MobiParser;
+
+    invoke-direct {v0, p1}, Lcom/aryan/reader/epub/MobiParser;-><init>(Landroid/content/Context;)V
+
+    iput-object v0, p0, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;->mobiParser:Lcom/aryan/reader/epub/MobiParser;
+
+    .line 29
     return-void
 .end method
 
@@ -48,22 +48,22 @@
     .locals 4
 
     .prologue
-    .line 99
+    .line 100
     new-instance v0, Ljava/io/File;
 
     invoke-direct {v0, p0}, Ljava/io/File;-><init>(Ljava/lang/String;)V
 
-    .line 100
+    .line 101
     invoke-virtual {v0}, Ljava/io/File;->getName()Ljava/lang/String;
 
     move-result-object v1
 
-    .line 101
+    .line 102
     invoke-virtual {v0}, Ljava/io/File;->lastModified()J
 
     move-result-wide v2
 
-    .line 103
+    .line 104
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -95,7 +95,7 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 64
+    .line 65
     if-eqz p1, :cond_9
 
     invoke-virtual {p1}, Ljava/lang/String;->isEmpty()Z
@@ -104,12 +104,12 @@
 
     if-eqz v1, :cond_a
 
-    .line 73
+    .line 74
     :cond_9
     :goto_9
     return-object v0
 
-    .line 68
+    .line 69
     :cond_a
     const/16 v1, 0x2e
 
@@ -117,7 +117,7 @@
 
     move-result v1
 
-    .line 69
+    .line 70
     if-lez v1, :cond_9
 
     invoke-virtual {p1}, Ljava/lang/String;->length()I
@@ -128,7 +128,7 @@
 
     if-ge v1, v2, :cond_9
 
-    .line 70
+    .line 71
     add-int/lit8 v0, v1, 0x1
 
     invoke-virtual {p1, v0}, Ljava/lang/String;->substring(I)Ljava/lang/String;
@@ -148,19 +148,19 @@
 
     const/4 v0, 0x0
 
-    .line 80
+    .line 81
     invoke-direct {p0, p1}, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;->getFileExtension(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v2
 
-    .line 81
+    .line 82
     if-nez v2, :cond_9
 
-    .line 91
+    .line 92
     :goto_8
     return v0
 
-    .line 85
+    .line 86
     :cond_9
     invoke-virtual {v2}, Ljava/lang/String;->toLowerCase()Ljava/lang/String;
 
@@ -183,10 +183,10 @@
     :pswitch_19
     move v0, v1
 
-    .line 89
+    .line 90
     goto :goto_8
 
-    .line 85
+    .line 86
     :sswitch_1b
     const-string v4, "epub"
 
@@ -249,15 +249,15 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 37
+    .line 38
     invoke-direct {p0, p1}, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;->getFileExtension(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v2
 
-    .line 39
+    .line 40
     if-nez v2, :cond_20
 
-    .line 40
+    .line 41
     const-string v1, "EbookParserFactory"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -280,11 +280,11 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 56
+    .line 57
     :goto_1f
     return-object v0
 
-    .line 44
+    .line 45
     :cond_20
     invoke-virtual {v2}, Ljava/lang/String;->toLowerCase()Ljava/lang/String;
 
@@ -302,7 +302,7 @@
     :goto_2c
     packed-switch v1, :pswitch_data_90
 
-    .line 55
+    .line 56
     const-string v1, "EbookParserFactory"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -327,7 +327,7 @@
 
     goto :goto_1f
 
-    .line 44
+    .line 45
     :sswitch_48
     const-string v4, "epub"
 
@@ -367,7 +367,7 @@
 
     goto :goto_2c
 
-    .line 46
+    .line 47
     :pswitch_66
     const-string v0, "EbookParserFactory"
 
@@ -375,7 +375,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 47
+    .line 48
     iget-object v0, p0, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;->epubParser:Lcom/bilibili/tv/ebook/parser/EpubParser;
 
     invoke-virtual {v0, p1, p2}, Lcom/bilibili/tv/ebook/parser/EpubParser;->parse(Ljava/lang/String;Ljava/lang/String;)Lcom/bilibili/tv/ebook/model/Book;
@@ -384,7 +384,7 @@
 
     goto :goto_1f
 
-    .line 51
+    .line 52
     :pswitch_74
     const-string v0, "EbookParserFactory"
 
@@ -392,16 +392,16 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 52
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;->mobiParser:Lcom/aryan/reader/epub/parser/MobiParser;
+    .line 53
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;->mobiParser:Lcom/aryan/reader/epub/MobiParser;
 
-    invoke-virtual {v0, p1, p2}, Lcom/aryan/reader/epub/parser/MobiParser;->parse(Ljava/lang/String;Ljava/lang/String;)Lcom/bilibili/tv/ebook/model/Book;
+    invoke-virtual {v0, p1, p2}, Lcom/aryan/reader/epub/MobiParser;->parse(Ljava/lang/String;Ljava/lang/String;)Lcom/bilibili/tv/ebook/model/Book;
 
     move-result-object v0
 
     goto :goto_1f
 
-    .line 44
+    .line 45
     :sswitch_data_82
     .sparse-switch
         0x2df095 -> :sswitch_5c

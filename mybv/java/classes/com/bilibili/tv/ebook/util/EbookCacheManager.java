@@ -179,4 +179,20 @@ public class EbookCacheManager {
             Log.e(TAG, "清除阅读进度失败", e);
         }
     }
+    
+    /**
+     * 清除所有阅读进度（保留设置类缓存）
+     */
+    public void clearAllReadingProgress() {
+        try {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.remove(KEY_READING_PROGRESS);
+            editor.apply();
+            
+            Log.i(TAG, "所有阅读进度已清除");
+            
+        } catch (Exception e) {
+            Log.e(TAG, "清除所有阅读进度失败", e);
+        }
+    }
 }

@@ -12,19 +12,20 @@ import java.io.File;
  * 根据文件扩展名选择合适的解析器
  * 
  * 更新内容：
- * - 使用com.aryan.reader.epub.parser.MobiParser（JNI适配版本）
+ * - 使用com.aryan.reader.epub.MobiParser（JNI适配版本）
+ *   该类与参考项目的JNI方法签名一致
  */
 public class EbookParserFactory {
     private static final String TAG = "EbookParserFactory";
     
     private Context context;
     private EpubParser epubParser;
-    private com.aryan.reader.epub.parser.MobiParser mobiParser;
+    private com.aryan.reader.epub.MobiParser mobiParser;
     
     public EbookParserFactory(Context context) {
         this.context = context;
         this.epubParser = new EpubParser(context);
-        this.mobiParser = new com.aryan.reader.epub.parser.MobiParser();
+        this.mobiParser = new com.aryan.reader.epub.MobiParser(context);
     }
     
     /**

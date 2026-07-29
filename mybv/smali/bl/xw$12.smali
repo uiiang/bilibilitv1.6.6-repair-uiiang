@@ -3,7 +3,7 @@
 .source "xw.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Landroid/widget/AdapterView$OnItemClickListener;
 
 
 # annotations
@@ -20,14 +20,18 @@
 # instance fields
 .field final synthetic this$0:Lbl/xw;
 
+.field final synthetic val$activity:Landroid/app/Activity;
+
 
 # direct methods
-.method constructor <init>(Lbl/xw;)V
+.method constructor <init>(Lbl/xw;Landroid/app/Activity;)V
     .locals 0
 
     .prologue
-    .line 1333
+    .line 1554
     iput-object p1, p0, Lbl/xw$12;->this$0:Lbl/xw;
+
+    iput-object p2, p0, Lbl/xw$12;->val$activity:Landroid/app/Activity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -36,27 +40,140 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 2
+.method public onItemClick(Landroid/widget/AdapterView;Landroid/view/View;IJ)V
+    .locals 4
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Landroid/widget/AdapterView",
+            "<*>;",
+            "Landroid/view/View;",
+            "IJ)V"
+        }
+    .end annotation
 
     .prologue
-    .line 1336
+    .line 1557
     iget-object v0, p0, Lbl/xw$12;->this$0:Lbl/xw;
 
-    # getter for: Lbl/xw;->bookshelfListView:Landroid/widget/ListView;
-    invoke-static {v0}, Lbl/xw;->access$300(Lbl/xw;)Landroid/widget/ListView;
+    # getter for: Lbl/xw;->bookshelfItems:Ljava/util/List;
+    invoke-static {v0}, Lbl/xw;->access$900(Lbl/xw;)Ljava/util/List;
 
     move-result-object v0
 
-    invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
+    invoke-interface {v0, p3}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
-    .line 1337
-    const-string v0, "EbookReader"
+    move-result-object v0
 
-    const-string v1, "\u4e66\u67b6\u5217\u8868\u5df2\u8bf7\u6c42\u7126\u70b9"
+    check-cast v0, Lcom/bilibili/tv/ebook/model/BookshelfItem;
 
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    .line 1558
+    const-string v1, "EbookReader"
 
-    .line 1338
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "\u70b9\u51fb\u4e66\u67b6\u9879: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getTitle()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, ", \u8def\u5f84: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getFilePath()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 1561
+    new-instance v1, Ljava/io/File;
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getFilePath()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-direct {v1, v2}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+
+    .line 1562
+    invoke-virtual {v1}, Ljava/io/File;->exists()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_4f
+
+    .line 1563
+    iget-object v1, p0, Lbl/xw$12;->this$0:Lbl/xw;
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getFilePath()Ljava/lang/String;
+
+    move-result-object v0
+
+    # invokes: Lbl/xw;->parseAndDisplayEbook(Ljava/lang/String;)V
+    invoke-static {v1, v0}, Lbl/xw;->access$1100(Lbl/xw;Ljava/lang/String;)V
+
+    .line 1569
+    :goto_4e
     return-void
+
+    .line 1565
+    :cond_4f
+    iget-object v1, p0, Lbl/xw$12;->val$activity:Landroid/app/Activity;
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "\u6587\u4ef6\u4e0d\u5b58\u5728\uff1a"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    .line 1566
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getFilePath()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    const/4 v2, 0x0
+
+    .line 1565
+    invoke-static {v1, v0, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+
+    move-result-object v0
+
+    .line 1567
+    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+
+    goto :goto_4e
 .end method

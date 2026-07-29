@@ -3,12 +3,12 @@
 .source "xw.java"
 
 # interfaces
-.implements Landroid/widget/AdapterView$OnItemSelectedListener;
+.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw;->showBookshelfInPanel()V
+    value = Lbl/xw;->openEbookFileChooser()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1261
+    .line 1268
     iput-object p1, p0, Lbl/xw$9;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,41 +36,16 @@
 
 
 # virtual methods
-.method public onItemSelected(Landroid/widget/AdapterView;Landroid/view/View;IJ)V
+.method public run()V
     .locals 1
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "(",
-            "Landroid/widget/AdapterView",
-            "<*>;",
-            "Landroid/view/View;",
-            "IJ)V"
-        }
-    .end annotation
 
     .prologue
-    .line 1265
-    new-instance v0, Lbl/xw$9$1;
-
-    invoke-direct {v0, p0}, Lbl/xw$9$1;-><init>(Lbl/xw$9;)V
-
-    invoke-virtual {p1, v0}, Landroid/widget/AdapterView;->post(Ljava/lang/Runnable;)Z
-
     .line 1271
-    return-void
-.end method
+    iget-object v0, p0, Lbl/xw$9;->this$0:Lbl/xw;
 
-.method public onNothingSelected(Landroid/widget/AdapterView;)V
-    .locals 0
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "(",
-            "Landroid/widget/AdapterView",
-            "<*>;)V"
-        }
-    .end annotation
+    # invokes: Lbl/xw;->showFileChooserInPanel()V
+    invoke-static {v0}, Lbl/xw;->access$800(Lbl/xw;)V
 
-    .prologue
-    .line 1275
+    .line 1272
     return-void
 .end method

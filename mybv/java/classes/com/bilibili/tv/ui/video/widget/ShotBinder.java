@@ -59,6 +59,13 @@ public class ShotBinder implements VideoCardBinder {
         loadVersion.incrementAndGet();
     }
     
+    public static void clearAllCache() {
+        android.util.Log.i(TAG, "clearAllCache | 清理所有缓存 | cacheSize=" + snapshotCache.size() 
+            + " | memoryUsed=" + (snapshotCache.size() / 1024) + "KB");
+        snapshotCache.evictAll();
+        clearPendingLoads();
+    }
+    
     public static void setShowStartTime(long time) {
         showStartTime = time;
     }
@@ -218,6 +225,10 @@ public class ShotBinder implements VideoCardBinder {
                     );
                     
                     snapshotCache.put(cacheKey, cropped);
+                    
+                    if (!sheetBitmap.isRecycled()) {
+                        sheetBitmap.recycle();
+                    }
                     
                     synchronized (loadingUrls) {
                         loadingUrls.remove(cacheKey);

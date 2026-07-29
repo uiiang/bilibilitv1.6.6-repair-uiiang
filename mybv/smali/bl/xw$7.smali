@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw;->openEbookFileChooser()V
+    value = Lbl/xw;->set_ebook_percent(I)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1020
+    .line 1070
     iput-object p1, p0, Lbl/xw$7;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,12 +40,12 @@
     .locals 1
 
     .prologue
-    .line 1023
+    .line 1073
     iget-object v0, p0, Lbl/xw$7;->this$0:Lbl/xw;
 
-    # invokes: Lbl/xw;->showFileChooserInPanel()V
-    invoke-static {v0}, Lbl/xw;->access$500(Lbl/xw;)V
+    # invokes: Lbl/xw;->applyEbookPanelPercent()V
+    invoke-static {v0}, Lbl/xw;->access$600(Lbl/xw;)V
 
-    .line 1024
+    .line 1074
     return-void
 .end method

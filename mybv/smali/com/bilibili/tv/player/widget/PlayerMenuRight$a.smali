@@ -69,6 +69,9 @@
 .method public abstract set_ebook_font_size(F)V
 .end method
 
+.method public abstract set_ebook_percent(I)V
+.end method
+
 .method public abstract set_subtitle_size(F)V
 .end method
 

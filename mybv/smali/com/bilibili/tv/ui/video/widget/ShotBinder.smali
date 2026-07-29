@@ -222,6 +222,77 @@
     return-wide v0
 .end method
 
+.method public static clearAllCache()V
+    .locals 3
+
+    .prologue
+    .line 63
+    const-string v0, "ShotBinder"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "clearAllCache | \u6e05\u7406\u6240\u6709\u7f13\u5b58 | cacheSize="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    sget-object v2, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->snapshotCache:Landroid/util/LruCache;
+
+    invoke-virtual {v2}, Landroid/util/LruCache;->size()I
+
+    move-result v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, " | memoryUsed="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    sget-object v2, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->snapshotCache:Landroid/util/LruCache;
+
+    .line 64
+    invoke-virtual {v2}, Landroid/util/LruCache;->size()I
+
+    move-result v2
+
+    div-int/lit16 v2, v2, 0x400
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, "KB"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    .line 63
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 65
+    sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->snapshotCache:Landroid/util/LruCache;
+
+    invoke-virtual {v0}, Landroid/util/LruCache;->evictAll()V
+
+    .line 66
+    invoke-static {}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->clearPendingLoads()V
+
+    .line 67
+    return-void
+.end method
+
 .method public static clearPendingLoads()V
     .locals 3
 
@@ -329,14 +400,14 @@
     .prologue
     const-wide/16 v0, 0x0
 
-    .line 67
+    .line 74
     sget-wide v2, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->showStartTime:J
 
     cmp-long v2, v2, v0
 
     if-nez v2, :cond_9
 
-    .line 68
+    .line 75
     :goto_8
     return-wide v0
 
@@ -356,7 +427,7 @@
     .locals 1
 
     .prologue
-    .line 85
+    .line 92
     sget-boolean v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->deferLoading:Z
 
     return v0
@@ -366,16 +437,16 @@
     .locals 12
 
     .prologue
-    .line 123
+    .line 130
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
 
     if-nez v0, :cond_5
 
-    .line 246
+    .line 257
     :goto_4
     return-void
 
-    .line 127
+    .line 134
     :cond_5
     invoke-virtual {p2}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getCoverImageView()Lcom/bilibili/tv/widget/ScalableImageView;
 
@@ -385,12 +456,12 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/ScalableImageView;->setImageResource(I)V
 
-    .line 129
+    .line 136
     sget-boolean v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->deferLoading:Z
 
     if-eqz v0, :cond_42
 
-    .line 130
+    .line 137
     const-string v0, "ShotBinder"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -437,7 +508,7 @@
 
     goto :goto_4
 
-    .line 134
+    .line 141
     :cond_42
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
 
@@ -447,10 +518,10 @@
 
     move-result-object v5
 
-    .line 135
+    .line 142
     if-nez v5, :cond_67
 
-    .line 136
+    .line 143
     const-string v0, "ShotBinder"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -477,14 +548,14 @@
 
     goto :goto_4
 
-    .line 140
+    .line 147
     :cond_67
     iget v6, p1, Lcom/bilibili/tv/api/video/VideoShotItem;->imageIndex:I
 
-    .line 141
+    .line 148
     iget v8, p1, Lcom/bilibili/tv/api/video/VideoShotItem;->time:I
 
-    .line 142
+    .line 149
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -507,7 +578,7 @@
 
     move-result-object v4
 
-    .line 144
+    .line 151
     sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->snapshotCache:Landroid/util/LruCache;
 
     invoke-virtual {v0, v4}, Landroid/util/LruCache;->get(Ljava/lang/Object;)Ljava/lang/Object;
@@ -516,10 +587,10 @@
 
     check-cast v0, Landroid/graphics/Bitmap;
 
-    .line 145
+    .line 152
     if-eqz v0, :cond_c1
 
-    .line 146
+    .line 153
     const-string v1, "ShotBinder"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -562,7 +633,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 147
+    .line 154
     invoke-virtual {p2}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getCoverImageView()Lcom/bilibili/tv/widget/ScalableImageView;
 
     move-result-object v1
@@ -571,13 +642,13 @@
 
     goto/16 :goto_4
 
-    .line 151
+    .line 158
     :cond_c1
     sget-object v1, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->loadingUrls:Ljava/util/Set;
 
     monitor-enter v1
 
-    .line 152
+    .line 159
     :try_start_c4
     sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->loadingUrls:Ljava/util/Set;
 
@@ -587,7 +658,7 @@
 
     if-eqz v0, :cond_ea
 
-    .line 153
+    .line 160
     const-string v0, "ShotBinder"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -610,12 +681,12 @@
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 154
+    .line 161
     monitor-exit v1
 
     goto/16 :goto_4
 
-    .line 157
+    .line 164
     :catchall_e7
     move-exception v0
 
@@ -625,26 +696,26 @@
 
     throw v0
 
-    .line 156
+    .line 163
     :cond_ea
     :try_start_ea
     sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->loadingUrls:Ljava/util/Set;
 
     invoke-interface {v0, v4}, Ljava/util/Set;->add(Ljava/lang/Object;)Z
 
-    .line 157
+    .line 164
     monitor-exit v1
     :try_end_f0
     .catchall {:try_start_ea .. :try_end_f0} :catchall_e7
 
-    .line 159
+    .line 166
     sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->loadVersion:Ljava/util/concurrent/atomic/AtomicLong;
 
     invoke-virtual {v0}, Ljava/util/concurrent/atomic/AtomicLong;->get()J
 
     move-result-wide v2
 
-    .line 160
+    .line 167
     const-string v0, "ShotBinder"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -703,7 +774,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 162
+    .line 169
     sget-object v9, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->imageLoadExecutor:Ljava/util/concurrent/ThreadPoolExecutor;
 
     new-instance v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$2;
@@ -723,10 +794,10 @@
     .locals 4
 
     .prologue
-    .line 72
+    .line 79
     sput-boolean p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->deferLoading:Z
 
-    .line 73
+    .line 80
     const-string v0, "ShotBinder"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -769,24 +840,24 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 74
+    .line 81
     if-nez p0, :cond_3c
 
     sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->onDeferClearedCallback:Ljava/lang/Runnable;
 
     if-eqz v0, :cond_3c
 
-    .line 75
+    .line 82
     sget-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->onDeferClearedCallback:Ljava/lang/Runnable;
 
     invoke-interface {v0}, Ljava/lang/Runnable;->run()V
 
-    .line 76
+    .line 83
     const/4 v0, 0x0
 
     sput-object v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->onDeferClearedCallback:Ljava/lang/Runnable;
 
-    .line 78
+    .line 85
     :cond_3c
     return-void
 .end method
@@ -795,10 +866,10 @@
     .locals 0
 
     .prologue
-    .line 81
+    .line 88
     sput-object p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->onDeferClearedCallback:Ljava/lang/Runnable;
 
-    .line 82
+    .line 89
     return-void
 .end method
 
@@ -806,10 +877,10 @@
     .locals 0
 
     .prologue
-    .line 63
+    .line 70
     sput-wide p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->showStartTime:J
 
-    .line 64
+    .line 71
     return-void
 .end method
 
@@ -819,7 +890,7 @@
     .locals 0
 
     .prologue
-    .line 90
+    .line 97
     return-void
 .end method
 
@@ -829,32 +900,32 @@
     .prologue
     const/16 v3, 0x8
 
-    .line 94
+    .line 101
     instance-of v0, p2, Lcom/bilibili/tv/api/video/VideoShotItem;
 
     if-nez v0, :cond_7
 
-    .line 120
+    .line 127
     :cond_6
     :goto_6
     return-void
 
-    .line 98
+    .line 105
     :cond_7
     check-cast p2, Lcom/bilibili/tv/api/video/VideoShotItem;
 
-    .line 100
+    .line 107
     invoke-direct {p0, p2, p1}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->loadShotImage(Lcom/bilibili/tv/api/video/VideoShotItem;Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;)V
 
-    .line 102
+    .line 109
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getDurationView()Landroid/widget/TextView;
 
     move-result-object v0
 
-    .line 103
+    .line 110
     if-eqz v0, :cond_21
 
-    .line 104
+    .line 111
     iget v1, p2, Lcom/bilibili/tv/api/video/VideoShotItem;->time:I
 
     iget v2, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->totalDuration:I
@@ -865,12 +936,12 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 105
+    .line 112
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 108
+    .line 115
     :cond_21
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getTitleView()Landroid/widget/TextView;
 
@@ -878,49 +949,49 @@
 
     invoke-virtual {v0, v3}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 109
+    .line 116
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getUpView()Landroid/widget/TextView;
 
     move-result-object v0
 
     invoke-virtual {v0, v3}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 110
+    .line 117
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getPubdateView()Landroid/widget/TextView;
 
     move-result-object v0
 
     invoke-virtual {v0, v3}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 111
+    .line 118
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getPlayCountView()Landroid/widget/TextView;
 
     move-result-object v0
 
     invoke-virtual {v0, v3}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 112
+    .line 119
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getDanmakuView()Landroid/widget/TextView;
 
     move-result-object v0
 
     invoke-virtual {v0, v3}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 113
+    .line 120
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getBadgeView()Landroid/widget/TextView;
 
     move-result-object v0
 
     invoke-virtual {v0, v3}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 114
+    .line 121
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getIndexBadgeView()Landroid/widget/TextView;
 
     move-result-object v0
 
     invoke-virtual {v0, v3}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 116
+    .line 123
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getTitleView()Landroid/widget/TextView;
 
     move-result-object v0
@@ -931,10 +1002,10 @@
 
     check-cast v0, Landroid/view/View;
 
-    .line 117
+    .line 124
     if-eqz v0, :cond_6
 
-    .line 118
+    .line 125
     invoke-virtual {v0, v3}, Landroid/view/View;->setVisibility(I)V
 
     goto :goto_6
@@ -944,7 +1015,7 @@
     .locals 2
 
     .prologue
-    .line 255
+    .line 266
     instance-of v0, p1, Lcom/bilibili/tv/api/video/VideoShotItem;
 
     if-eqz v0, :cond_13
@@ -953,10 +1024,10 @@
 
     if-eqz v0, :cond_13
 
-    .line 256
+    .line 267
     check-cast p1, Lcom/bilibili/tv/api/video/VideoShotItem;
 
-    .line 257
+    .line 268
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
 
     iget v1, p1, Lcom/bilibili/tv/api/video/VideoShotItem;->imageIndex:I
@@ -965,7 +1036,7 @@
 
     move-result-object v0
 
-    .line 259
+    .line 270
     :goto_12
     return-object v0
 
@@ -979,7 +1050,7 @@
     .locals 2
 
     .prologue
-    .line 250
+    .line 261
     const-wide/16 v0, 0x0
 
     return-wide v0
@@ -989,7 +1060,7 @@
     .locals 1
 
     .prologue
-    .line 279
+    .line 290
     const/4 v0, 0x0
 
     return v0
@@ -999,7 +1070,7 @@
     .locals 1
 
     .prologue
-    .line 274
+    .line 285
     const/4 v0, 0x0
 
     return v0
@@ -1009,7 +1080,7 @@
     .locals 1
 
     .prologue
-    .line 264
+    .line 275
     const/4 v0, 0x0
 
     return v0
@@ -1019,7 +1090,7 @@
     .locals 1
 
     .prologue
-    .line 269
+    .line 280
     const/4 v0, 0x0
 
     return v0
