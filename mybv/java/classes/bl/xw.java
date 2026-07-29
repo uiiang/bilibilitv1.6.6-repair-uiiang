@@ -559,13 +559,9 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             }
         }
 
-        // 根本性修复：隐藏电子书面板避免被右侧菜单覆盖
-        // 原因：PlayerMenuRight和ebookPanel在不同父容器中，无法使用bringToFront调整z-order
-        // 解决方案：使用INVISIBLE隐藏，在PlayerMenuRight关闭时通过onMenuClosed回调恢复显示
-        if (z && isEbookPanelShown && ebookPanel != null) {
-            Log.i(TAG_EBOOK, "菜单打开，临时隐藏电子书面板");
-            ebookPanel.setVisibility(View.INVISIBLE); // 使用INVISIBLE而不是GONE，保持布局位置
-        }
+        // 关键修复：由于电子书面板现在添加到视频父容器，与视频视图处于同一层级
+        // overlay UI（右侧菜单、底部菜单、进度条）在更上层，不再需要隐藏电子书面板
+        // 右侧菜单会自动显示在电子书面板之上
 
         if (this.c.isShown() != z) {
             this.c.a(z);
@@ -859,18 +855,27 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
     @Override // com.bilibili.tv.player.widget.PlayerMenuRight.a
     public void onMenuClosed() {
-        // 关键修复：菜单关闭时恢复显示电子书面板
-        if (isEbookPanelShown && ebookPanel != null && ebookPanel.getVisibility() != View.VISIBLE) {
-            Log.i(TAG_EBOOK, "onMenuClosed: 恢复显示电子书面板");
-            ebookPanel.setVisibility(View.VISIBLE);
+        // 关键修复：菜单关闭后恢复焦点到电子书区域
+        if (isEbookPanelShown && ebookPanel != null && controlTarget.equals("ebook")) {
+            Log.i(TAG_EBOOK, "onMenuClosed: 恢复焦点到电子书区域");
 
-            // 恢复焦点到书架列表（如果书架列表存在）
-            if (bookshelfListView != null && bookshelfListView.isShown()) {
+            // 根据当前显示的内容恢复焦点
+            if (isReadingBook && ebookWebView != null) {
+                // 阅读页面：恢复焦点到WebView
+                ebookWebView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        ebookWebView.requestFocus();
+                        Log.i(TAG_EBOOK, "onMenuClosed: 焦点已恢复到WebView");
+                    }
+                });
+            } else if (bookshelfListView != null && bookshelfListView.isShown()) {
+                // 书架页面：恢复焦点到书架列表
                 bookshelfListView.post(new Runnable() {
                     @Override
                     public void run() {
                         bookshelfListView.requestFocus();
-                        Log.i(TAG_EBOOK, "onMenuClosed: 恢复焦点到书架列表");
+                        Log.i(TAG_EBOOK, "onMenuClosed: 焦点已恢复到书架列表");
                     }
                 });
             }
@@ -2463,13 +2468,40 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
     /**
      * 显示灰色背景面板
+     * 关键修复：将电子书面板添加到正确的位置，确保不覆盖overlay UI
      */
     private void showGrayBackgroundPanel(Activity activity, int screenWidth, int screenHeight) {
-        // 获取根布局
-        ViewGroup rootView = (ViewGroup) activity.findViewById(android.R.id.content);
-        if (rootView == null) {
-            rootView = (ViewGroup) activity.getWindow().getDecorView();
+        // 打印View层级结构（调试用）
+        dumpViewHierarchy(activity);
+
+        // 获取播放器上下文
+        IPlayerContext playerContext = n();
+        if (playerContext == null) {
+            Log.e(TAG_EBOOK, "播放器上下文为空，无法创建电子书面板");
+            return;
         }
+
+        // 获取视频视图
+        IVideoView videoViewInterface = playerContext.getIVideoView();
+        if (videoViewInterface == null) {
+            Log.e(TAG_EBOOK, "视频视图接口为空，无法创建电子书面板");
+            return;
+        }
+
+        View videoView = videoViewInterface.getView();
+        if (videoView == null) {
+            Log.e(TAG_EBOOK, "视频视图为空，无法创建电子书面板");
+            return;
+        }
+
+        // 关键修复：获取视频视图的父容器（RelativeLayout容器）
+        ViewGroup parent = (ViewGroup) videoView.getParent();
+        if (parent == null) {
+            Log.e(TAG_EBOOK, "视频视图的父容器为空，无法创建电子书面板");
+            return;
+        }
+
+        Log.i(TAG_EBOOK, "电子书面板将添加到父容器: " + parent.getClass().getSimpleName() + ", 子View数: " + parent.getChildCount());
 
         // 创建灰色背景面板
         if (ebookPanel == null) {
@@ -2477,19 +2509,99 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             ebookPanel.setBackgroundColor(Color.parseColor("#333333")); // 灰色背景
 
             // 设置布局参数(右侧1/3)
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                screenWidth / 3,
-                FrameLayout.LayoutParams.MATCH_PARENT
-            );
-            params.gravity = Gravity.RIGHT;
+            // 使用与父容器匹配的LayoutParams
+            ViewGroup.LayoutParams params;
+            if (parent instanceof FrameLayout) {
+                FrameLayout.LayoutParams flParams = new FrameLayout.LayoutParams(
+                    screenWidth / 3,
+                    FrameLayout.LayoutParams.MATCH_PARENT
+                );
+                flParams.gravity = Gravity.RIGHT;
+                params = flParams;
+            } else if (parent instanceof RelativeLayout) {
+                RelativeLayout.LayoutParams rlParams = new RelativeLayout.LayoutParams(
+                    screenWidth / 3,
+                    RelativeLayout.LayoutParams.MATCH_PARENT
+                );
+                rlParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                params = rlParams;
+            } else {
+                // 其他容器类型，使用通用LayoutParams
+                params = new ViewGroup.LayoutParams(
+                    screenWidth / 3,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                );
+            }
 
-            // 添加到根布局
-            rootView.addView(ebookPanel, params);
+            // 关键修复：添加到视频视图的父容器（RelativeLayout）的索引1
+            // 索引0是视频视图，索引1开始是overlay UI（弹幕、底部控制栏、进度条、右侧菜单等）
+            // 将电子书面板插入到索引1，确保：
+            // - 在视频之上（索引0）
+            // - 在overlay UI之下（索引2及以后：弹幕、菜单、进度条等）
+            int insertIndex = 1;
+            parent.addView(ebookPanel, insertIndex, params);
 
-            Log.i(TAG_EBOOK, "灰色背景面板已创建并添加到布局");
+            Log.i(TAG_EBOOK, "电子书面板已添加到父容器索引: " + insertIndex + ", 总子View数: " + parent.getChildCount());
+            Log.i(TAG_EBOOK, "View层级: [0]视频 -> [1]电子书面板 -> [2+]overlay UI");
         } else {
             ebookPanel.setVisibility(View.VISIBLE);
             Log.i(TAG_EBOOK, "灰色背景面板已显示");
+        }
+    }
+
+    /**
+     * 查找视频View在父容器中的索引
+     */
+    private int findVideoViewIndex(ViewGroup parent) {
+        for (int i = 0; i < parent.getChildCount(); i++) {
+            View child = parent.getChildAt(i);
+            if (child instanceof android.view.TextureView ||
+                child instanceof android.view.SurfaceView) {
+                Log.i(TAG_EBOOK, "找到视频View在索引: " + i + ", 类型: " + child.getClass().getSimpleName());
+                return i;
+            }
+            // 递归查找子容器中的视频View
+            if (child instanceof ViewGroup) {
+                int subIndex = findVideoViewIndex((ViewGroup) child);
+                if (subIndex >= 0) {
+                    Log.i(TAG_EBOOK, "在子容器中找到视频View，父容器索引: " + i);
+                    return i; // 返回包含视频View的容器索引
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 打印View层级结构（调试用）
+     */
+    private void dumpViewHierarchy(Activity activity) {
+        ViewGroup rootView = (ViewGroup) activity.findViewById(android.R.id.content);
+        if (rootView == null) {
+            rootView = (ViewGroup) activity.getWindow().getDecorView();
+        }
+        Log.i(TAG_EBOOK, "===== View层级结构 =====");
+        dumpViewHierarchyRecursive(rootView, 0);
+        Log.i(TAG_EBOOK, "===== View层级结构结束 =====");
+    }
+
+    /**
+     * 递归打印View层级
+     */
+    private void dumpViewHierarchyRecursive(ViewGroup parent, int level) {
+        String indent = "";
+        for (int i = 0; i < level; i++) {
+            indent += "  ";
+        }
+        for (int i = 0; i < parent.getChildCount(); i++) {
+            View child = parent.getChildAt(i);
+            String className = child.getClass().getSimpleName();
+            String idStr = child.getId() > 0 ? " id=" + child.getId() : "";
+            Log.i(TAG_EBOOK, indent + "[" + i + "] " + className + idStr + (child instanceof ViewGroup ? " (childCount=" + ((ViewGroup)child).getChildCount() + ")" : ""));
+
+            if (child instanceof ViewGroup) {
+                dumpViewHierarchyRecursive((ViewGroup) child, level + 1);
+            }
         }
     }
 

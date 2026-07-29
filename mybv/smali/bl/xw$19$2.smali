@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 1646
+    .line 1785
     iput-object p1, p0, Lbl/xw$19$2;->this$1:Lbl/xw$19;
 
     iput-object p2, p0, Lbl/xw$19$2;->val$book:Lcom/bilibili/tv/ebook/model/Book;
@@ -44,7 +44,7 @@
     .locals 2
 
     .prologue
-    .line 1649
+    .line 1788
     iget-object v0, p0, Lbl/xw$19$2;->this$1:Lbl/xw$19;
 
     iget-object v0, v0, Lbl/xw$19;->this$0:Lbl/xw;
@@ -54,6 +54,6 @@
     # invokes: Lbl/xw;->restoreReadingProgress(Lcom/bilibili/tv/ebook/model/Book;)V
     invoke-static {v0, v1}, Lbl/xw;->access$1400(Lbl/xw;Lcom/bilibili/tv/ebook/model/Book;)V
 
-    .line 1650
+    .line 1789
     return-void
 .end method

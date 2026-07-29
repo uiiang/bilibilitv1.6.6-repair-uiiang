@@ -3,7 +3,7 @@
 .source "xw.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Landroid/widget/AdapterView$OnItemSelectedListener;
 
 
 # annotations
@@ -20,18 +20,14 @@
 # instance fields
 .field final synthetic this$0:Lbl/xw;
 
-.field final synthetic val$listView:Landroid/widget/ListView;
-
 
 # direct methods
-.method constructor <init>(Lbl/xw;Landroid/widget/ListView;)V
+.method constructor <init>(Lbl/xw;)V
     .locals 0
 
     .prologue
-    .line 1608
+    .line 1593
     iput-object p1, p0, Lbl/xw$16;->this$0:Lbl/xw;
-
-    iput-object p2, p0, Lbl/xw$16;->val$listView:Landroid/widget/ListView;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -40,22 +36,41 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 2
+.method public onItemSelected(Landroid/widget/AdapterView;Landroid/view/View;IJ)V
+    .locals 1
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Landroid/widget/AdapterView",
+            "<*>;",
+            "Landroid/view/View;",
+            "IJ)V"
+        }
+    .end annotation
 
     .prologue
-    .line 1611
-    iget-object v0, p0, Lbl/xw$16;->val$listView:Landroid/widget/ListView;
+    .line 1597
+    new-instance v0, Lbl/xw$16$1;
 
-    invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
+    invoke-direct {v0, p0, p1}, Lbl/xw$16$1;-><init>(Lbl/xw$16;Landroid/widget/AdapterView;)V
 
-    .line 1612
-    const-string v0, "EbookReader"
+    invoke-virtual {p1, v0}, Landroid/widget/AdapterView;->post(Ljava/lang/Runnable;)Z
 
-    const-string v1, "\u6587\u4ef6\u5217\u8868\u5df2\u8bf7\u6c42\u7126\u70b9"
+    .line 1603
+    return-void
+.end method
 
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+.method public onNothingSelected(Landroid/widget/AdapterView;)V
+    .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Landroid/widget/AdapterView",
+            "<*>;)V"
+        }
+    .end annotation
 
-    .line 1613
+    .prologue
+    .line 1607
     return-void
 .end method

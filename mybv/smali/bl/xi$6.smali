@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1055
+    .line 1061
     iput-object p1, p0, Lbl/xi$6;->this$0:Lbl/xi;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -42,7 +42,7 @@
     .prologue
     const/4 v6, 0x0
 
-    .line 1059
+    .line 1065
     :try_start_1
     const-string v0, "VideoShot"
 
@@ -50,7 +50,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1060
+    .line 1066
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -59,7 +59,7 @@
 
     check-cast v0, Lmybl/MyBiliApiService;
 
-    .line 1061
+    .line 1067
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v1
@@ -72,7 +72,7 @@
 
     move-result-object v5
 
-    .line 1064
+    .line 1070
     iget-object v1, p0, Lbl/xi$6;->this$0:Lbl/xi;
 
     # getter for: Lbl/xi;->currentBvid:Ljava/lang/String;
@@ -95,7 +95,7 @@
 
     if-nez v1, :cond_a1
 
-    .line 1065
+    .line 1071
     const-string v1, "VideoShot"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -148,7 +148,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1066
+    .line 1072
     iget-object v1, p0, Lbl/xi$6;->this$0:Lbl/xi;
 
     # getter for: Lbl/xi;->currentBvid:Ljava/lang/String;
@@ -169,7 +169,7 @@
 
     move-result-object v0
 
-    .line 1072
+    .line 1078
     :goto_75
     invoke-virtual {v0}, Lbl/vp;->d()Lretrofit2/Response;
 
@@ -181,7 +181,7 @@
 
     check-cast v0, Lcom/alibaba/fastjson/JSONObject;
 
-    .line 1073
+    .line 1079
     const-string v1, "VideoShot"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -204,21 +204,21 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1075
+    .line 1081
     if-nez v0, :cond_e9
 
-    .line 1076
+    .line 1082
     const-string v0, "VideoShot"
 
     const-string v1, "loadVideoShot: jsonResponse is null"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1173
+    .line 1179
     :goto_a0
     return-void
 
-    .line 1068
+    .line 1074
     :cond_a1
     const-string v1, "VideoShot"
 
@@ -272,7 +272,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1069
+    .line 1075
     iget-object v1, p0, Lbl/xi$6;->this$0:Lbl/xi;
 
     # getter for: Lbl/xi;->currentAid:J
@@ -299,7 +299,7 @@
 
     goto :goto_75
 
-    .line 1080
+    .line 1086
     :cond_e9
     const-string v1, "VideoShot_JSON"
 
@@ -307,26 +307,26 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1081
+    .line 1087
     const-string v1, "VideoShot_JSON"
 
     invoke-static {v1, v0}, Lmybl/LogUtil;->json(Ljava/lang/String;Ljava/lang/Object;)V
 
-    .line 1082
+    .line 1088
     const-string v1, "VideoShot_JSON"
 
     const-string v2, "========== End JSON Response =========="
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1084
+    .line 1090
     const-string v1, "code"
 
     invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
     move-result v1
 
-    .line 1085
+    .line 1091
     const-string v2, "VideoShot"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -349,10 +349,10 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1086
+    .line 1092
     if-eqz v1, :cond_147
 
-    .line 1087
+    .line 1093
     const-string v0, "VideoShot"
 
     const-string v1, "loadVideoShot: code != 0, return"
@@ -363,11 +363,11 @@
 
     goto/16 :goto_a0
 
-    .line 1169
+    .line 1175
     :catch_125
     move-exception v0
 
-    .line 1170
+    .line 1176
     const-string v1, "VideoShot"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -394,12 +394,12 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1171
+    .line 1177
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
     goto/16 :goto_a0
 
-    .line 1091
+    .line 1097
     :cond_147
     :try_start_147
     const-string v1, "data"
@@ -408,10 +408,10 @@
 
     move-result-object v1
 
-    .line 1092
+    .line 1098
     if-nez v1, :cond_158
 
-    .line 1093
+    .line 1099
     const-string v0, "VideoShot"
 
     const-string v1, "loadVideoShot: data is null"
@@ -420,7 +420,7 @@
 
     goto/16 :goto_a0
 
-    .line 1097
+    .line 1103
     :cond_158
     const-string v0, "VideoShot_DATA"
 
@@ -428,24 +428,24 @@
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1098
+    .line 1104
     const-string v0, "VideoShot_DATA"
 
     invoke-static {v0, v1}, Lmybl/LogUtil;->json(Ljava/lang/String;Ljava/lang/Object;)V
 
-    .line 1099
+    .line 1105
     const-string v0, "VideoShot_DATA"
 
     const-string v2, "========== End Data Object =========="
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1101
+    .line 1107
     new-instance v2, Lcom/bilibili/tv/api/video/VideoShot;
 
     invoke-direct {v2}, Lcom/bilibili/tv/api/video/VideoShot;-><init>()V
 
-    .line 1102
+    .line 1108
     const-string v0, "img_x_len"
 
     invoke-virtual {v1, v0}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -454,7 +454,7 @@
 
     invoke-virtual {v2, v0}, Lcom/bilibili/tv/api/video/VideoShot;->setImgXLen(I)V
 
-    .line 1103
+    .line 1109
     const-string v0, "img_y_len"
 
     invoke-virtual {v1, v0}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -463,7 +463,7 @@
 
     invoke-virtual {v2, v0}, Lcom/bilibili/tv/api/video/VideoShot;->setImgYLen(I)V
 
-    .line 1104
+    .line 1110
     const-string v0, "img_x_size"
 
     invoke-virtual {v1, v0}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -472,7 +472,7 @@
 
     invoke-virtual {v2, v0}, Lcom/bilibili/tv/api/video/VideoShot;->setImgXSize(I)V
 
-    .line 1105
+    .line 1111
     const-string v0, "img_y_size"
 
     invoke-virtual {v1, v0}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -481,7 +481,7 @@
 
     invoke-virtual {v2, v0}, Lcom/bilibili/tv/api/video/VideoShot;->setImgYSize(I)V
 
-    .line 1106
+    .line 1112
     const-string v0, "pvdata"
 
     invoke-virtual {v1, v0}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -490,7 +490,7 @@
 
     invoke-virtual {v2, v0}, Lcom/bilibili/tv/api/video/VideoShot;->setPvdata(Ljava/lang/String;)V
 
-    .line 1108
+    .line 1114
     const-string v0, "image"
 
     invoke-virtual {v1, v0}, Lcom/alibaba/fastjson/JSONObject;->containsKey(Ljava/lang/Object;)Z
@@ -499,24 +499,24 @@
 
     if-eqz v0, :cond_1c6
 
-    .line 1109
+    .line 1115
     const-string v0, "image"
 
     invoke-virtual {v1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
 
     move-result-object v3
 
-    .line 1110
+    .line 1116
     if-eqz v3, :cond_1c6
 
-    .line 1111
+    .line 1117
     new-instance v4, Ljava/util/ArrayList;
 
     invoke-direct {v4}, Ljava/util/ArrayList;-><init>()V
 
     move v0, v6
 
-    .line 1112
+    .line 1118
     :goto_1b3
     invoke-virtual {v3}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
@@ -524,23 +524,23 @@
 
     if-ge v0, v5, :cond_1c3
 
-    .line 1113
+    .line 1119
     invoke-virtual {v3, v0}, Lcom/alibaba/fastjson/JSONArray;->getString(I)Ljava/lang/String;
 
     move-result-object v5
 
     invoke-interface {v4, v5}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 1112
+    .line 1118
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_1b3
 
-    .line 1115
+    .line 1121
     :cond_1c3
     invoke-virtual {v2, v4}, Lcom/bilibili/tv/api/video/VideoShot;->setImage(Ljava/util/List;)V
 
-    .line 1119
+    .line 1125
     :cond_1c6
     const-string v0, "index"
 
@@ -550,24 +550,24 @@
 
     if-eqz v0, :cond_1ef
 
-    .line 1120
+    .line 1126
     const-string v0, "index"
 
     invoke-virtual {v1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
 
     move-result-object v1
 
-    .line 1121
+    .line 1127
     if-eqz v1, :cond_1ef
 
-    .line 1122
+    .line 1128
     new-instance v3, Ljava/util/ArrayList;
 
     invoke-direct {v3}, Ljava/util/ArrayList;-><init>()V
 
     move v0, v6
 
-    .line 1123
+    .line 1129
     :goto_1dc
     invoke-virtual {v1}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
@@ -575,23 +575,23 @@
 
     if-ge v0, v4, :cond_1ec
 
-    .line 1124
+    .line 1130
     invoke-virtual {v1, v0}, Lcom/alibaba/fastjson/JSONArray;->getInteger(I)Ljava/lang/Integer;
 
     move-result-object v4
 
     invoke-interface {v3, v4}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 1123
+    .line 1129
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_1dc
 
-    .line 1126
+    .line 1132
     :cond_1ec
     invoke-virtual {v2, v3}, Lcom/bilibili/tv/api/video/VideoShot;->setIndex(Ljava/util/List;)V
 
-    .line 1130
+    .line 1136
     :cond_1ef
     const-string v0, "VideoShot"
 
@@ -643,7 +643,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1131
+    .line 1137
     const-string v0, "VideoShot"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -712,7 +712,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1132
+    .line 1138
     const-string v0, "VideoShot"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -739,7 +739,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1134
+    .line 1140
     invoke-virtual {v2}, Lcom/bilibili/tv/api/video/VideoShot;->getImage()Ljava/util/List;
 
     move-result-object v0
@@ -756,7 +756,7 @@
 
     if-eqz v0, :cond_29e
 
-    .line 1135
+    .line 1141
     :cond_295
     const-string v0, "VideoShot"
 
@@ -766,7 +766,7 @@
 
     goto/16 :goto_a0
 
-    .line 1139
+    .line 1145
     :cond_29e
     invoke-virtual {v2}, Lcom/bilibili/tv/api/video/VideoShot;->getIndex()Ljava/util/List;
 
@@ -784,7 +784,7 @@
 
     if-eqz v0, :cond_2b7
 
-    .line 1140
+    .line 1146
     :cond_2ae
     const-string v0, "VideoShot"
 
@@ -794,7 +794,7 @@
 
     goto/16 :goto_a0
 
-    .line 1144
+    .line 1150
     :cond_2b7
     const-string v0, "VideoShot"
 
@@ -802,7 +802,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1145
+    .line 1151
     iget-object v0, p0, Lbl/xi$6;->this$0:Lbl/xi;
 
     # getter for: Lbl/xi;->l:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
@@ -812,7 +812,7 @@
 
     if-eqz v0, :cond_2d6
 
-    .line 1146
+    .line 1152
     iget-object v0, p0, Lbl/xi$6;->this$0:Lbl/xi;
 
     # getter for: Lbl/xi;->l:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
@@ -828,7 +828,7 @@
 
     goto/16 :goto_a0
 
-    .line 1167
+    .line 1173
     :cond_2d6
     const-string v0, "VideoShot"
 

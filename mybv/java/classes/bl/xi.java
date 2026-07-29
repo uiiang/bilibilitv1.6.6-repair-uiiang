@@ -297,9 +297,15 @@ public class xi extends xh implements bbb<Message, Boolean> {
                     }
 
                     android.util.Log.i("EbookReader", "xi.f: 电子书模式，拦截按键 " + keyCode);
-                    // 只拦截确认键，菜单键和返回键由其他方法处理
-                    if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER) {
-                        return true; // 拦截确认键
+                    // 关键修复：拦截所有方向键和确认键，避免传递到视频逻辑
+                    if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER ||
+                        keyCode == KeyEvent.KEYCODE_ENTER ||
+                        keyCode == KeyEvent.KEYCODE_DPAD_UP ||
+                        keyCode == KeyEvent.KEYCODE_DPAD_DOWN ||
+                        keyCode == KeyEvent.KEYCODE_DPAD_LEFT ||
+                        keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                        android.util.Log.i("EbookReader", "xi.f: 拦截方向键/确认键，避免触发视频逻辑");
+                        return true; // 拦截所有方向键和确认键
                     }
                 }
                 break;
