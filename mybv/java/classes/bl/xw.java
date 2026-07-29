@@ -76,6 +76,14 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     private String controlTarget = "video"; // 默认控制视频（因为未打开电子书时视频全屏播放）
     private int ebookPanelPercent = 30; // 电子书屏幕占比，默认30%
     
+    // 视频位置（左上、左下、右上、右下）
+    private static final int VIDEO_POSITION_TOP_LEFT = 0;     // 左上：视频左上角对齐，电子书在右侧
+    private static final int VIDEO_POSITION_BOTTOM_LEFT = 1;  // 左下：视频左下角对齐，电子书在右侧
+    private static final int VIDEO_POSITION_TOP_RIGHT = 2;    // 右上：视频右上角对齐，电子书在左侧
+    private static final int VIDEO_POSITION_BOTTOM_RIGHT = 3; // 右下：视频右下角对齐，电子书在左侧
+    private int videoPosition = VIDEO_POSITION_TOP_LEFT; // 默认左上
+    private List<String> videoPositionList = null; // 视频位置选项列表
+    
     // 防抖保存阅读进度的Runnable
     private Runnable saveProgressRunnable = null;
     private android.os.Handler saveProgressHandler = null;
@@ -660,6 +668,7 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                 ebookMenus.add("选择文件");
                 ebookMenus.add("清空书架");
                 ebookMenus.add("屏幕占比");
+                ebookMenus.add("视频位置"); // 新增：视频位置
                 ebookMenus.add("退出阅读");
             } else {
                 // 阅读页面菜单
@@ -698,6 +707,25 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
             Log.i(TAG_EBOOK, "初始化屏幕占比列表，当前索引: " + savedPercentIndex + ", 占比: " + (25 + savedPercentIndex * 5) + "%");
             this.c.init_percent(percentList, savedPercentIndex);
+
+            // 初始化视频位置列表（书架页面才需要）
+            if (!isReadingBook) {
+                videoPositionList = new ArrayList<>();
+                videoPositionList.add("左上");
+                videoPositionList.add("左下");
+                videoPositionList.add("右上");
+                videoPositionList.add("右下");
+
+                // 读取保存的视频位置索引（默认为0，即左上）
+                int savedPositionIndex = prefs.getInt("video_position", VIDEO_POSITION_TOP_LEFT);
+                if (savedPositionIndex < 0 || savedPositionIndex >= videoPositionList.size()) {
+                    savedPositionIndex = VIDEO_POSITION_TOP_LEFT; // 确保索引有效
+                }
+                videoPosition = savedPositionIndex;
+
+                Log.i(TAG_EBOOK, "初始化视频位置列表，当前索引: " + savedPositionIndex + ", 位置: " + videoPositionList.get(savedPositionIndex));
+                this.c.init_video_position(videoPositionList, savedPositionIndex);
+            }
 
             // 书架页面：清空不需要的列表，避免状态残留
             if (!isReadingBook) {
@@ -1086,6 +1114,78 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         }
 
         /**
+         * 设置视频位置
+         */
+        public void set_video_position(int positionIndex) {
+            Log.i(TAG_EBOOK, "set_video_position: positionIndex=" + positionIndex);
+
+            if (positionIndex < 0 || positionIndex > 3) {
+                return;
+            }
+
+            videoPosition = positionIndex;
+
+            // 保存视频位置到SharedPreferences
+            android.content.SharedPreferences prefs = o().getSharedPreferences("ebook_settings", android.content.Context.MODE_PRIVATE);
+            prefs.edit().putInt("video_position", positionIndex).apply();
+            String positionName = (videoPositionList != null && positionIndex >= 0 && positionIndex < videoPositionList.size())
+                                 ? videoPositionList.get(positionIndex) : "左上";
+            Log.i(TAG_EBOOK, "视频位置已保存: " + positionName);
+
+            // 应用新的视频位置（如果电子书面板正在显示）
+            if (isEbookPanelShown) {
+                new android.os.Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        applyVideoPosition();
+                    }
+                });
+            }
+
+            // 显示Toast提示
+            Activity activity = o();
+            if (activity != null) {
+                String toastPositionName = (videoPositionList != null && positionIndex >= 0 && positionIndex < videoPositionList.size())
+                                     ? videoPositionList.get(positionIndex) : "左上";
+                android.widget.Toast.makeText(activity, 
+                    "视频位置已调整为 " + toastPositionName, 
+                    android.widget.Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        /**
+         * 应用视频位置
+         */
+        private void applyVideoPosition() {
+            Activity activity = o();
+            if (activity == null || !isEbookPanelShown) {
+                return;
+            }
+
+            android.util.DisplayMetrics metrics = new android.util.DisplayMetrics();
+            activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+            int screenWidth = metrics.widthPixels;
+            int screenHeight = metrics.heightPixels;
+
+            int ebookWidth = screenWidth * ebookPanelPercent / 100;
+            int videoWidth = screenWidth - ebookWidth;
+
+            String positionName = (videoPositionList != null && videoPosition >= 0 && videoPosition < videoPositionList.size())
+                                 ? videoPositionList.get(videoPosition) : "左上";
+            Log.i(TAG_EBOOK, "applyVideoPosition: 位置=" + positionName +
+                  ", ebookWidth=" + ebookWidth + ", videoWidth=" + videoWidth);
+
+            // 更新视频视图位置
+            updateVideoViewWidth(videoWidth);
+
+            // 更新弹幕视图位置
+            updateDanmakuViewWidth(videoWidth);
+
+            // 更新电子书面板位置
+            updateEbookPanelWidth(ebookWidth);
+        }
+
+        /**
          * 应用电子书屏幕占比
          */
         private void applyEbookPanelPercent() {
@@ -1132,22 +1232,55 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             ViewGroup parent = (ViewGroup) videoView.getParent();
             if (parent == null) return;
 
+            // 根据视频位置设置对齐方式
+            boolean isVideoOnLeft = (videoPosition == VIDEO_POSITION_TOP_LEFT || videoPosition == VIDEO_POSITION_BOTTOM_LEFT);
+            
             ViewGroup.LayoutParams params;
             if (parent instanceof FrameLayout) {
                 FrameLayout.LayoutParams flParams = new FrameLayout.LayoutParams(
                     videoWidth, FrameLayout.LayoutParams.MATCH_PARENT);
-                flParams.gravity = android.view.Gravity.LEFT;
+                
+                int gravity;
+                if (isVideoOnLeft) {
+                    gravity = android.view.Gravity.LEFT;
+                    if (videoPosition == VIDEO_POSITION_TOP_LEFT) {
+                        gravity |= android.view.Gravity.TOP;
+                    } else {
+                        gravity |= android.view.Gravity.BOTTOM;
+                    }
+                } else {
+                    gravity = android.view.Gravity.RIGHT;
+                    if (videoPosition == VIDEO_POSITION_TOP_RIGHT) {
+                        gravity |= android.view.Gravity.TOP;
+                    } else {
+                        gravity |= android.view.Gravity.BOTTOM;
+                    }
+                }
+                flParams.gravity = gravity;
                 params = flParams;
             } else if (parent instanceof RelativeLayout) {
                 RelativeLayout.LayoutParams rlParams = new RelativeLayout.LayoutParams(
                     videoWidth, RelativeLayout.LayoutParams.MATCH_PARENT);
-                rlParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+                
+                if (isVideoOnLeft) {
+                    rlParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+                } else {
+                    rlParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                }
+                
+                if (videoPosition == VIDEO_POSITION_TOP_LEFT || videoPosition == VIDEO_POSITION_TOP_RIGHT) {
+                    rlParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+                } else {
+                    rlParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                }
                 params = rlParams;
             } else {
                 params = new ViewGroup.LayoutParams(videoWidth, ViewGroup.LayoutParams.MATCH_PARENT);
             }
             videoView.setLayoutParams(params);
-            Log.i(TAG_EBOOK, "视频视图宽度已更新: " + videoWidth);
+            String positionName = (videoPositionList != null && videoPosition >= 0 && videoPosition < videoPositionList.size())
+                                 ? videoPositionList.get(videoPosition) : "左上";
+            Log.i(TAG_EBOOK, "视频视图宽度已更新: " + videoWidth + ", 位置: " + positionName);
         }
 
         /**
@@ -1207,22 +1340,30 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             ViewGroup parent = (ViewGroup) ebookPanel.getParent();
             if (parent == null) return;
 
+            // 根据视频位置决定电子书面板位置（与视频相反）
+            boolean isVideoOnLeft = (videoPosition == VIDEO_POSITION_TOP_LEFT || videoPosition == VIDEO_POSITION_BOTTOM_LEFT);
+            
             ViewGroup.LayoutParams params;
             if (parent instanceof FrameLayout) {
                 FrameLayout.LayoutParams flParams = new FrameLayout.LayoutParams(
                     ebookWidth, FrameLayout.LayoutParams.MATCH_PARENT);
-                flParams.gravity = android.view.Gravity.RIGHT;
+                flParams.gravity = isVideoOnLeft ? android.view.Gravity.RIGHT : android.view.Gravity.LEFT;
                 params = flParams;
             } else if (parent instanceof RelativeLayout) {
                 RelativeLayout.LayoutParams rlParams = new RelativeLayout.LayoutParams(
                     ebookWidth, RelativeLayout.LayoutParams.MATCH_PARENT);
-                rlParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                if (isVideoOnLeft) {
+                    rlParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                } else {
+                    rlParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+                }
                 params = rlParams;
             } else {
                 params = new ViewGroup.LayoutParams(ebookWidth, ViewGroup.LayoutParams.MATCH_PARENT);
             }
             ebookPanel.setLayoutParams(params);
-            Log.i(TAG_EBOOK, "电子书面板宽度已更新: " + ebookWidth);
+            Log.i(TAG_EBOOK, "电子书面板宽度已更新: " + ebookWidth + 
+                  ", 位置: " + (isVideoOnLeft ? "右侧" : "左侧"));
         }
 
     @Override // com.bilibili.tv.player.widget.PlayerMenuRight.a
@@ -2667,7 +2808,23 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
         Log.i(TAG_EBOOK, "屏幕尺寸: " + screenWidth + "x" + screenHeight + ", 电子书占比: " + ebookPanelPercent + "%");
 
-        // 1. 缩小视频画面到(100%-ebookPanelPercent)%,左对齐
+        // 读取保存的视频位置（如果 videoPositionList 未初始化，则初始化它）
+        if (videoPositionList == null) {
+            videoPositionList = new ArrayList<>();
+            videoPositionList.add("左上");
+            videoPositionList.add("左下");
+            videoPositionList.add("右上");
+            videoPositionList.add("右下");
+        }
+        int savedPositionIndex = prefs.getInt("video_position", VIDEO_POSITION_TOP_LEFT);
+        if (savedPositionIndex >= 0 && savedPositionIndex < videoPositionList.size()) {
+            videoPosition = savedPositionIndex;
+        } else {
+            videoPosition = VIDEO_POSITION_TOP_LEFT; // 默认左上
+        }
+        Log.i(TAG_EBOOK, "读取保存的视频位置: " + videoPositionList.get(videoPosition));
+
+        // 1. 缩小视频画面到(100%-ebookPanelPercent)%,根据视频位置对齐
         shrinkVideoView(activity, screenWidth, screenHeight);
 
         // 2. 缩小弹幕视图到(100%-ebookPanelPercent)%,左对齐(与视频同步)
@@ -2757,23 +2914,58 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             Log.i(TAG_EBOOK, "视频已经缩小过，跳过保存原始参数");
         }
 
-        // 缩小视频到(100%-ebookPanelPercent)%宽度,左对齐
+        // 缩小视频到(100%-ebookPanelPercent)%宽度，根据视频位置调整对齐方式
         int videoWidth = screenWidth * (100 - ebookPanelPercent) / 100;
         ViewGroup.LayoutParams params;
 
+        // 根据视频位置设置 gravity
+        int gravity;
+        boolean isVideoOnLeft = (videoPosition == VIDEO_POSITION_TOP_LEFT || videoPosition == VIDEO_POSITION_BOTTOM_LEFT);
+        
         if (parent instanceof FrameLayout) {
             FrameLayout.LayoutParams flParams = new FrameLayout.LayoutParams(
                 videoWidth,
                 FrameLayout.LayoutParams.MATCH_PARENT
             );
-            flParams.gravity = android.view.Gravity.LEFT;
+            
+            // 设置水平和垂直对齐方式
+            if (isVideoOnLeft) {
+                // 视频在左侧：左上或左下
+                gravity = android.view.Gravity.LEFT;
+                if (videoPosition == VIDEO_POSITION_TOP_LEFT) {
+                    gravity |= android.view.Gravity.TOP;
+                } else {
+                    gravity |= android.view.Gravity.BOTTOM;
+                }
+            } else {
+                // 视频在右侧：右上或右下
+                gravity = android.view.Gravity.RIGHT;
+                if (videoPosition == VIDEO_POSITION_TOP_RIGHT) {
+                    gravity |= android.view.Gravity.TOP;
+                } else {
+                    gravity |= android.view.Gravity.BOTTOM;
+                }
+            }
+            flParams.gravity = gravity;
             params = flParams;
         } else if (parent instanceof RelativeLayout) {
             RelativeLayout.LayoutParams rlParams = new RelativeLayout.LayoutParams(
                 videoWidth,
                 RelativeLayout.LayoutParams.MATCH_PARENT
             );
-            rlParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            
+            // RelativeLayout需要使用addRule设置对齐
+            if (isVideoOnLeft) {
+                rlParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            } else {
+                rlParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            }
+            
+            if (videoPosition == VIDEO_POSITION_TOP_LEFT || videoPosition == VIDEO_POSITION_TOP_RIGHT) {
+                rlParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+            } else {
+                rlParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            }
             params = rlParams;
         } else {
             // 其他容器类型,使用通用LayoutParams
@@ -2785,7 +2977,11 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
         videoView.setLayoutParams(params);
 
-        Log.i(TAG_EBOOK, "视频已缩小: " + videoWidth + "x" + screenHeight + ", 左对齐, 电子书占比: " + ebookPanelPercent + "%");
+        String positionName = (videoPositionList != null && videoPosition >= 0 && videoPosition < videoPositionList.size()) 
+                             ? videoPositionList.get(videoPosition) : "左上";
+        Log.i(TAG_EBOOK, "视频已缩小: " + videoWidth + "x" + screenHeight + 
+              ", 位置: " + positionName + 
+              ", 电子书占比: " + ebookPanelPercent + "%");
     }
 
     /**
@@ -2830,23 +3026,35 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             ebookPanel = new FrameLayout(activity);
             ebookPanel.setBackgroundColor(Color.parseColor("#333333")); // 灰色背景
 
-            // 设置布局参数(右侧ebookPanelPercent%)
+            // 设置布局参数（根据视频位置决定电子书面板位置）
             // 使用与父容器匹配的LayoutParams
             int ebookWidth = screenWidth * ebookPanelPercent / 100;
+            
+            // 根据视频位置决定电子书面板位置
+            // 视频在左侧 → 电子书在右侧
+            // 视频在右侧 → 电子书在左侧
+            boolean isVideoOnLeft = (videoPosition == VIDEO_POSITION_TOP_LEFT || videoPosition == VIDEO_POSITION_BOTTOM_LEFT);
+            
             ViewGroup.LayoutParams params;
             if (parent instanceof FrameLayout) {
                 FrameLayout.LayoutParams flParams = new FrameLayout.LayoutParams(
                     ebookWidth,
                     FrameLayout.LayoutParams.MATCH_PARENT
                 );
-                flParams.gravity = Gravity.RIGHT;
+                // 电子书面板位置与视频相反
+                flParams.gravity = isVideoOnLeft ? android.view.Gravity.RIGHT : android.view.Gravity.LEFT;
                 params = flParams;
             } else if (parent instanceof RelativeLayout) {
                 RelativeLayout.LayoutParams rlParams = new RelativeLayout.LayoutParams(
                     ebookWidth,
                     RelativeLayout.LayoutParams.MATCH_PARENT
                 );
-                rlParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                // 电子书面板位置与视频相反
+                if (isVideoOnLeft) {
+                    rlParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                } else {
+                    rlParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+                }
                 params = rlParams;
             } else {
                 // 其他容器类型，使用通用LayoutParams
@@ -3274,22 +3482,58 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         // 计算缩小后的宽度(100%-ebookPanelPercent)%)
         int danmakuWidth = screenWidth * (100 - ebookPanelPercent) / 100;
 
+        // 根据视频位置设置对齐方式（弹幕与视频位置一致）
+        boolean isVideoOnLeft = (videoPosition == VIDEO_POSITION_TOP_LEFT || videoPosition == VIDEO_POSITION_BOTTOM_LEFT);
+        
         // 根据父容器类型使用对应的LayoutParams
         ViewGroup.LayoutParams params;
         if (parent instanceof FrameLayout) {
             FrameLayout.LayoutParams flParams = new FrameLayout.LayoutParams(danmakuWidth, ViewGroup.LayoutParams.MATCH_PARENT);
-            flParams.gravity = Gravity.LEFT;
+            
+            // 设置对齐方式
+            int gravity;
+            if (isVideoOnLeft) {
+                gravity = android.view.Gravity.LEFT;
+                if (videoPosition == VIDEO_POSITION_TOP_LEFT) {
+                    gravity |= android.view.Gravity.TOP;
+                } else {
+                    gravity |= android.view.Gravity.BOTTOM;
+                }
+            } else {
+                gravity = android.view.Gravity.RIGHT;
+                if (videoPosition == VIDEO_POSITION_TOP_RIGHT) {
+                    gravity |= android.view.Gravity.TOP;
+                } else {
+                    gravity |= android.view.Gravity.BOTTOM;
+                }
+            }
+            flParams.gravity = gravity;
             params = flParams;
         } else if (parent instanceof RelativeLayout) {
             RelativeLayout.LayoutParams rlParams = new RelativeLayout.LayoutParams(danmakuWidth, ViewGroup.LayoutParams.MATCH_PARENT);
-            rlParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            
+            // 设置对齐规则
+            if (isVideoOnLeft) {
+                rlParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            } else {
+                rlParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            }
+            
+            if (videoPosition == VIDEO_POSITION_TOP_LEFT || videoPosition == VIDEO_POSITION_TOP_RIGHT) {
+                rlParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+            } else {
+                rlParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            }
             params = rlParams;
         } else {
             params = new ViewGroup.LayoutParams(danmakuWidth, ViewGroup.LayoutParams.MATCH_PARENT);
         }
 
         danmakuView.setLayoutParams(params);
-        Log.i(TAG_EBOOK, "弹幕已缩小: " + danmakuWidth + "x" + screenHeight + ", 左对齐");
+        String positionName = (videoPositionList != null && videoPosition >= 0 && videoPosition < videoPositionList.size())
+                             ? videoPositionList.get(videoPosition) : "左上";
+        Log.i(TAG_EBOOK, "弹幕已缩小: " + danmakuWidth + "x" + screenHeight + 
+              ", 位置: " + positionName);
     }
 
     /**

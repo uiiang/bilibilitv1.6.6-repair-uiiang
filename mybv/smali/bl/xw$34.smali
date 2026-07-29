@@ -1,4 +1,4 @@
-.class Lbl/xw$27;
+.class Lbl/xw$34;
 .super Ljava/lang/Object;
 .source "xw.java"
 
@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw;->showChapterList()V
+    value = Lbl/xw;->scheduleSaveReadingProgress()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,8 +26,8 @@
     .locals 0
 
     .prologue
-    .line 2470
-    iput-object p1, p0, Lbl/xw$27;->this$0:Lbl/xw;
+    .line 3895
+    iput-object p1, p0, Lbl/xw$34;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -40,19 +40,20 @@
     .locals 2
 
     .prologue
-    .line 2473
-    iget-object v0, p0, Lbl/xw$27;->this$0:Lbl/xw;
+    .line 3898
+    iget-object v0, p0, Lbl/xw$34;->this$0:Lbl/xw;
 
-    iget-object v1, p0, Lbl/xw$27;->this$0:Lbl/xw;
+    # invokes: Lbl/xw;->saveReadingProgress()V
+    invoke-static {v0}, Lbl/xw;->access$3700(Lbl/xw;)V
 
-    # getter for: Lbl/xw;->currentChapterList:Ljava/util/List;
-    invoke-static {v1}, Lbl/xw;->access$2400(Lbl/xw;)Ljava/util/List;
+    .line 3899
+    iget-object v0, p0, Lbl/xw$34;->this$0:Lbl/xw;
 
-    move-result-object v1
+    const/4 v1, 0x0
 
-    # invokes: Lbl/xw;->createChapterListView(Ljava/util/List;)V
-    invoke-static {v0, v1}, Lbl/xw;->access$2500(Lbl/xw;Ljava/util/List;)V
+    # setter for: Lbl/xw;->saveProgressRunnable:Ljava/lang/Runnable;
+    invoke-static {v0, v1}, Lbl/xw;->access$3802(Lbl/xw;Ljava/lang/Runnable;)Ljava/lang/Runnable;
 
-    .line 2474
+    .line 3900
     return-void
 .end method

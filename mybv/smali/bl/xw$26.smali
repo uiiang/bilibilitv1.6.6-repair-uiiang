@@ -1,14 +1,11 @@
 .class Lbl/xw$26;
-.super Ljava/lang/Object;
+.super Landroid/webkit/WebViewClient;
 .source "xw.java"
-
-# interfaces
-.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw;->showChapterList()V
+    value = Lbl/xw;->displayBookContent(Lcom/bilibili/tv/ebook/model/Book;IZI)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,39 +17,44 @@
 # instance fields
 .field final synthetic this$0:Lbl/xw;
 
+.field final synthetic val$restorePage:I
+
+.field final synthetic val$scrollToBottom:Z
+
 
 # direct methods
-.method constructor <init>(Lbl/xw;)V
+.method constructor <init>(Lbl/xw;ZI)V
     .locals 0
 
     .prologue
-    .line 2329
+    .line 2374
     iput-object p1, p0, Lbl/xw$26;->this$0:Lbl/xw;
 
-    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+    iput-boolean p2, p0, Lbl/xw$26;->val$scrollToBottom:Z
+
+    iput p3, p0, Lbl/xw$26;->val$restorePage:I
+
+    invoke-direct {p0}, Landroid/webkit/WebViewClient;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public run()V
-    .locals 2
+.method public onPageFinished(Landroid/webkit/WebView;Ljava/lang/String;)V
+    .locals 1
 
     .prologue
-    .line 2332
-    iget-object v0, p0, Lbl/xw$26;->this$0:Lbl/xw;
+    .line 2377
+    invoke-super {p0, p1, p2}, Landroid/webkit/WebViewClient;->onPageFinished(Landroid/webkit/WebView;Ljava/lang/String;)V
 
-    iget-object v1, p0, Lbl/xw$26;->this$0:Lbl/xw;
+    .line 2379
+    new-instance v0, Lbl/xw$26$1;
 
-    # getter for: Lbl/xw;->currentChapterList:Ljava/util/List;
-    invoke-static {v1}, Lbl/xw;->access$2300(Lbl/xw;)Ljava/util/List;
+    invoke-direct {v0, p0, p1}, Lbl/xw$26$1;-><init>(Lbl/xw$26;Landroid/webkit/WebView;)V
 
-    move-result-object v1
+    invoke-virtual {p1, v0}, Landroid/webkit/WebView;->post(Ljava/lang/Runnable;)Z
 
-    # invokes: Lbl/xw;->createChapterListView(Ljava/util/List;)V
-    invoke-static {v0, v1}, Lbl/xw;->access$2400(Lbl/xw;Ljava/util/List;)V
-
-    .line 2333
+    .line 2420
     return-void
 .end method

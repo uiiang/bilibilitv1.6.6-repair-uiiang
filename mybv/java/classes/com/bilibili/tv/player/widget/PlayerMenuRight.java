@@ -64,6 +64,7 @@ public class PlayerMenuRight extends aay<String> {
     public static int ebook_font_size_id = 4; // 默认字体大小索引（28px）
     public static int ebook_color_theme_id = 0; // 默认配色方案索引（System）
     public static int ebook_percent_id = 1; // 默认屏幕占比索引（30%）
+    public static int video_position_id = 0; // 默认视频位置索引（左上）
     public List<String> speed_list;
     public List<String> mode_list;
     public List<String> subtitle_list;
@@ -73,6 +74,7 @@ public class PlayerMenuRight extends aay<String> {
     public List<String> ebook_font_size_list; // 电子书字体大小列表
     public List<String> ebook_color_theme_list; // 电子书配色方案列表
     public List<String> ebook_percent_list; // 电子书屏幕占比列表
+    public List<String> video_position_list; // 视频位置列表
     public static boolean danmaku_valid_list[] = {false,true,false,false,true,true,true,true,false,false};
     public static int danmaku_level=0;
     private List<Integer> menuIndexMap;
@@ -138,6 +140,9 @@ public class PlayerMenuRight extends aay<String> {
 
         // 新增：设置电子书屏幕占比
         void set_ebook_percent(int percentIndex);
+
+        // 新增：设置视频位置
+        void set_video_position(int positionIndex);
     }
 
     private void jumpToChapter(int chapterIndex) {
@@ -265,7 +270,7 @@ public class PlayerMenuRight extends aay<String> {
         // 电子书模式特殊处理
         if (menuIndexMap == null || menuIndexMap.isEmpty()) {
             // 电子书模式：将索引映射到父类能够识别的索引
-            // 书架页面菜单：[控制视频, 选择文件, 清空书架, 屏幕占比, 退出阅读]
+            // 书架页面菜单：[控制视频, 选择文件, 清空书架, 屏幕占比, 视频位置, 退出阅读]
             // 阅读页面菜单：[控制视频, 章节列表, 字体大小, 配色方案, 屏幕占比, 关闭书籍]
             
             // 判断页面类型：通过alpha_list判断（只有阅读页面才有配色方案）
@@ -294,13 +299,18 @@ public class PlayerMenuRight extends aay<String> {
                     }
                     return -1;
                 case 4: 
-                    // 书架页面: 退出阅读 → -1
+                    // 书架页面: 视频位置 → 13 (video_position_list)
                     // 阅读页面: 屏幕占比 → 10 (ebook_percent_list)
                     if (isReadingPage && ebook_percent_list != null) {
                         return 10; // 阅读页面的屏幕占比
                     }
-                    return -1; // 书架页面的退出阅读
-                case 5: // 关闭书籍 - 没有二级菜单
+                    if (!isReadingPage && video_position_list != null) {
+                        return 13; // 书架页面的视频位置
+                    }
+                    return -1;
+                case 5: 
+                    // 书架页面: 退出阅读 → -1
+                    // 阅读页面: 关闭书籍 → -1
                     return -1;
                 default:
                     return -1;
@@ -402,6 +412,11 @@ public class PlayerMenuRight extends aay<String> {
                            this.ebook_percent_id >= 0 && this.ebook_percent_id < this.ebook_percent_list.size() &&
                            this.ebook_percent_list.get(this.ebook_percent_id).equals(str)) {
                     // 电子书模式下的屏幕占比圆点标注
+                    isCurrentItem = true;
+                } else if (isEbookMode && currentMenuIndex == 13 && this.video_position_list != null &&
+                           this.video_position_id >= 0 && this.video_position_id < this.video_position_list.size() &&
+                           this.video_position_list.get(this.video_position_id).equals(str)) {
+                    // 电子书模式下的视频位置圆点标注
                     isCurrentItem = true;
                 }
                 if (!isCurrentItem) {
@@ -764,6 +779,15 @@ public class PlayerMenuRight extends aay<String> {
                 this.ebook_percent_id = i2;
             }
 
+            // 电子书模式下，视频位置列表使用video_position_list（独立列表）
+            if (isEbookMode &&
+                this.video_position_list != null && this.video_position_list.indexOf(str) != -1 && currentMenuIndex == 13) {
+                // 电子书模式下的视频位置选择
+                this.d.set_video_position(i2);
+                i3 = this.video_position_id;
+                this.video_position_id = i2;
+            }
+
             if (this.chapter_list != null && this.chapter_list.contains(str)) {
                 jumpToChapter(i2);
                 return true;
@@ -824,6 +848,9 @@ public class PlayerMenuRight extends aay<String> {
                     aai.a(3);
                     return;
                 case 10: // 屏幕占比
+                    aai.a(3);
+                    return;
+                case 13: // 视频位置
                     aai.a(3);
                     return;
                 default:
@@ -926,6 +953,9 @@ public class PlayerMenuRight extends aay<String> {
                 case 12:
                     i3 = this.subtitle_size_id; // 字幕大小
                     break;
+                case 13:
+                    i3 = this.video_position_id; // 视频位置
+                    break;
                 default:
                     i3 = 0;
                     break;
@@ -987,6 +1017,9 @@ public class PlayerMenuRight extends aay<String> {
                     break;
                 case 12:
                     list = this.subtitle_size_list;
+                    break;
+                case 13:
+                    list = this.video_position_list;
                     break;
                 default:
                     return null;
@@ -1117,6 +1150,12 @@ public class PlayerMenuRight extends aay<String> {
         // 使用独立列表存储屏幕占比选项，不覆盖size_list（字体大小）
         this.ebook_percent_list = list;
         this.ebook_percent_id = i;
+    }
+
+    public void init_video_position(List<String> list, int i) {
+        // 存储视频位置选项
+        this.video_position_list = list;
+        this.video_position_id = i;
     }
 
     public void clearEbookReadingPageLists() {

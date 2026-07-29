@@ -75,6 +75,9 @@
 .method public abstract set_subtitle_size(F)V
 .end method
 
+.method public abstract set_video_position(I)V
+.end method
+
 .method public abstract showChapterList()V
 .end method
 

@@ -3,12 +3,12 @@
 .source "xw.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Lbl/agb$b;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw;->scheduleSaveReadingProgress()V
+    value = Lbl/xw;->showRemoveBookDialog(Lcom/bilibili/tv/ebook/model/BookshelfItem;I)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,14 +20,26 @@
 # instance fields
 .field final synthetic this$0:Lbl/xw;
 
+.field final synthetic val$activity:Landroid/app/Activity;
+
+.field final synthetic val$item:Lcom/bilibili/tv/ebook/model/BookshelfItem;
+
+.field final synthetic val$position:I
+
 
 # direct methods
-.method constructor <init>(Lbl/xw;)V
+.method constructor <init>(Lbl/xw;Lcom/bilibili/tv/ebook/model/BookshelfItem;ILandroid/app/Activity;)V
     .locals 0
 
     .prologue
-    .line 3632
+    .line 3335
     iput-object p1, p0, Lbl/xw$33;->this$0:Lbl/xw;
+
+    iput-object p2, p0, Lbl/xw$33;->val$item:Lcom/bilibili/tv/ebook/model/BookshelfItem;
+
+    iput p3, p0, Lbl/xw$33;->val$position:I
+
+    iput-object p4, p0, Lbl/xw$33;->val$activity:Landroid/app/Activity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -36,24 +48,216 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 2
+.method public a(Lbl/agb;Landroid/view/View;)V
+    .locals 3
 
     .prologue
-    .line 3635
+    .line 3339
     iget-object v0, p0, Lbl/xw$33;->this$0:Lbl/xw;
 
-    # invokes: Lbl/xw;->saveReadingProgress()V
+    # getter for: Lbl/xw;->ebookCacheManager:Lcom/bilibili/tv/ebook/util/EbookCacheManager;
+    invoke-static {v0}, Lbl/xw;->access$3400(Lbl/xw;)Lcom/bilibili/tv/ebook/util/EbookCacheManager;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_3d
+
+    iget-object v0, p0, Lbl/xw$33;->val$item:Lcom/bilibili/tv/ebook/model/BookshelfItem;
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getBookId()Ljava/lang/String;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_3d
+
+    .line 3340
+    iget-object v0, p0, Lbl/xw$33;->this$0:Lbl/xw;
+
+    # getter for: Lbl/xw;->ebookCacheManager:Lcom/bilibili/tv/ebook/util/EbookCacheManager;
+    invoke-static {v0}, Lbl/xw;->access$3400(Lbl/xw;)Lcom/bilibili/tv/ebook/util/EbookCacheManager;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lbl/xw$33;->val$item:Lcom/bilibili/tv/ebook/model/BookshelfItem;
+
+    invoke-virtual {v1}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getBookId()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->clearReadingProgress(Ljava/lang/String;)V
+
+    .line 3341
+    const-string v0, "EbookReader"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "\u5df2\u6e05\u9664\u9605\u8bfb\u8fdb\u5ea6: "
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lbl/xw$33;->val$item:Lcom/bilibili/tv/ebook/model/BookshelfItem;
+
+    invoke-virtual {v2}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getBookId()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 3345
+    :cond_3d
+    iget-object v0, p0, Lbl/xw$33;->this$0:Lbl/xw;
+
+    # getter for: Lbl/xw;->bookshelfManager:Lcom/bilibili/tv/ebook/util/BookshelfManager;
+    invoke-static {v0}, Lbl/xw;->access$3500(Lbl/xw;)Lcom/bilibili/tv/ebook/util/BookshelfManager;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_72
+
+    .line 3346
+    iget-object v0, p0, Lbl/xw$33;->this$0:Lbl/xw;
+
+    # getter for: Lbl/xw;->bookshelfManager:Lcom/bilibili/tv/ebook/util/BookshelfManager;
+    invoke-static {v0}, Lbl/xw;->access$3500(Lbl/xw;)Lcom/bilibili/tv/ebook/util/BookshelfManager;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lbl/xw$33;->val$item:Lcom/bilibili/tv/ebook/model/BookshelfItem;
+
+    invoke-virtual {v1}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getBookId()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ebook/util/BookshelfManager;->removeFromBookshelf(Ljava/lang/String;)V
+
+    .line 3347
+    const-string v0, "EbookReader"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "\u5df2\u4ece\u4e66\u67b6\u79fb\u9664: "
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lbl/xw$33;->val$item:Lcom/bilibili/tv/ebook/model/BookshelfItem;
+
+    invoke-virtual {v2}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getTitle()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 3351
+    :cond_72
+    iget-object v0, p0, Lbl/xw$33;->this$0:Lbl/xw;
+
+    # getter for: Lbl/xw;->bookshelfItems:Ljava/util/List;
+    invoke-static {v0}, Lbl/xw;->access$1000(Lbl/xw;)Ljava/util/List;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_97
+
+    iget v0, p0, Lbl/xw$33;->val$position:I
+
+    if-ltz v0, :cond_97
+
+    iget v0, p0, Lbl/xw$33;->val$position:I
+
+    iget-object v1, p0, Lbl/xw$33;->this$0:Lbl/xw;
+
+    # getter for: Lbl/xw;->bookshelfItems:Ljava/util/List;
+    invoke-static {v1}, Lbl/xw;->access$1000(Lbl/xw;)Ljava/util/List;
+
+    move-result-object v1
+
+    invoke-interface {v1}, Ljava/util/List;->size()I
+
+    move-result v1
+
+    if-ge v0, v1, :cond_97
+
+    .line 3352
+    iget-object v0, p0, Lbl/xw$33;->this$0:Lbl/xw;
+
+    # getter for: Lbl/xw;->bookshelfItems:Ljava/util/List;
+    invoke-static {v0}, Lbl/xw;->access$1000(Lbl/xw;)Ljava/util/List;
+
+    move-result-object v0
+
+    iget v1, p0, Lbl/xw$33;->val$position:I
+
+    invoke-interface {v0, v1}, Ljava/util/List;->remove(I)Ljava/lang/Object;
+
+    .line 3356
+    :cond_97
+    iget-object v0, p0, Lbl/xw$33;->this$0:Lbl/xw;
+
+    # invokes: Lbl/xw;->showBookshelfOrFileChooser()V
     invoke-static {v0}, Lbl/xw;->access$3600(Lbl/xw;)V
 
-    .line 3636
-    iget-object v0, p0, Lbl/xw$33;->this$0:Lbl/xw;
+    .line 3359
+    iget-object v0, p0, Lbl/xw$33;->val$activity:Landroid/app/Activity;
 
-    const/4 v1, 0x0
+    new-instance v1, Ljava/lang/StringBuilder;
 
-    # setter for: Lbl/xw;->saveProgressRunnable:Ljava/lang/Runnable;
-    invoke-static {v0, v1}, Lbl/xw;->access$3702(Lbl/xw;Ljava/lang/Runnable;)Ljava/lang/Runnable;
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 3637
+    const-string v2, "\u5df2\u5220\u9664: "
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lbl/xw$33;->val$item:Lcom/bilibili/tv/ebook/model/BookshelfItem;
+
+    invoke-virtual {v2}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getTitle()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    const/4 v2, 0x0
+
+    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+
+    .line 3361
+    invoke-virtual {p1}, Lbl/agb;->dismiss()V
+
+    .line 3362
     return-void
 .end method

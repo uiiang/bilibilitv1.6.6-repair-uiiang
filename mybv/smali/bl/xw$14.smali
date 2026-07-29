@@ -3,7 +3,7 @@
 .source "xw.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Landroid/widget/AdapterView$OnItemLongClickListener;
 
 
 # annotations
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1613
+    .line 1717
     iput-object p1, p0, Lbl/xw$14;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,62 +36,68 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 2
+.method public onItemLongClick(Landroid/widget/AdapterView;Landroid/view/View;IJ)Z
+    .locals 4
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Landroid/widget/AdapterView",
+            "<*>;",
+            "Landroid/view/View;",
+            "IJ)Z"
+        }
+    .end annotation
 
     .prologue
-    .line 1616
+    .line 1720
     iget-object v0, p0, Lbl/xw$14;->this$0:Lbl/xw;
 
-    # getter for: Lbl/xw;->isEbookPanelShown:Z
-    invoke-static {v0}, Lbl/xw;->access$1300(Lbl/xw;)Z
-
-    move-result v0
-
-    if-eqz v0, :cond_2d
-
-    iget-object v0, p0, Lbl/xw$14;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
-    invoke-static {v0}, Lbl/xw;->access$1400(Lbl/xw;)Landroid/widget/FrameLayout;
+    # getter for: Lbl/xw;->bookshelfItems:Ljava/util/List;
+    invoke-static {v0}, Lbl/xw;->access$1000(Lbl/xw;)Ljava/util/List;
 
     move-result-object v0
 
-    if-eqz v0, :cond_2d
-
-    iget-object v0, p0, Lbl/xw$14;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
-    invoke-static {v0}, Lbl/xw;->access$1400(Lbl/xw;)Landroid/widget/FrameLayout;
+    invoke-interface {v0, p3}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v0
 
-    invoke-virtual {v0}, Landroid/widget/FrameLayout;->getVisibility()I
+    check-cast v0, Lcom/bilibili/tv/ebook/model/BookshelfItem;
 
-    move-result v0
+    .line 1721
+    const-string v1, "EbookReader"
 
-    if-eqz v0, :cond_2d
+    new-instance v2, Ljava/lang/StringBuilder;
 
-    .line 1617
-    const-string v0, "EbookReader"
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v1, "\u68c0\u6d4b\u5230\u7535\u5b50\u4e66\u9762\u677f\u672a\u663e\u793a\uff0c\u5f3a\u5236\u6062\u590d\u663e\u793a"
+    const-string v3, "\u957f\u6309\u4e66\u67b6\u9879: "
 
-    invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1618
-    iget-object v0, p0, Lbl/xw$14;->this$0:Lbl/xw;
+    move-result-object v2
 
-    # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
-    invoke-static {v0}, Lbl/xw;->access$1400(Lbl/xw;)Landroid/widget/FrameLayout;
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getTitle()Ljava/lang/String;
 
-    move-result-object v0
+    move-result-object v3
 
-    const/4 v1, 0x0
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v0, v1}, Landroid/widget/FrameLayout;->setVisibility(I)V
+    move-result-object v2
 
-    .line 1620
-    :cond_2d
-    return-void
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 1724
+    iget-object v1, p0, Lbl/xw$14;->this$0:Lbl/xw;
+
+    # invokes: Lbl/xw;->showRemoveBookDialog(Lcom/bilibili/tv/ebook/model/BookshelfItem;I)V
+    invoke-static {v1, v0, p3}, Lbl/xw;->access$1300(Lbl/xw;Lcom/bilibili/tv/ebook/model/BookshelfItem;I)V
+
+    .line 1725
+    const/4 v0, 0x1
+
+    return v0
 .end method

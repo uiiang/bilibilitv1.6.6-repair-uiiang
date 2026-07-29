@@ -1,11 +1,14 @@
 .class Lbl/xw$25;
-.super Landroid/webkit/WebViewClient;
+.super Ljava/lang/Object;
 .source "xw.java"
+
+# interfaces
+.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw;->displayBookContent(Lcom/bilibili/tv/ebook/model/Book;IZI)V
+    value = Lbl/xw;->parseAndDisplayEbook(Ljava/lang/String;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -17,44 +20,190 @@
 # instance fields
 .field final synthetic this$0:Lbl/xw;
 
-.field final synthetic val$restorePage:I
-
-.field final synthetic val$scrollToBottom:Z
+.field final synthetic val$filePath:Ljava/lang/String;
 
 
 # direct methods
-.method constructor <init>(Lbl/xw;ZI)V
+.method constructor <init>(Lbl/xw;Ljava/lang/String;)V
     .locals 0
 
     .prologue
-    .line 2233
+    .line 2203
     iput-object p1, p0, Lbl/xw$25;->this$0:Lbl/xw;
 
-    iput-boolean p2, p0, Lbl/xw$25;->val$scrollToBottom:Z
+    iput-object p2, p0, Lbl/xw$25;->val$filePath:Ljava/lang/String;
 
-    iput p3, p0, Lbl/xw$25;->val$restorePage:I
-
-    invoke-direct {p0}, Landroid/webkit/WebViewClient;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public onPageFinished(Landroid/webkit/WebView;Ljava/lang/String;)V
-    .locals 1
+.method public run()V
+    .locals 4
 
     .prologue
-    .line 2236
-    invoke-super {p0, p1, p2}, Landroid/webkit/WebViewClient;->onPageFinished(Landroid/webkit/WebView;Ljava/lang/String;)V
+    .line 2208
+    :try_start_0
+    new-instance v0, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;
 
-    .line 2238
-    new-instance v0, Lbl/xw$25$1;
+    iget-object v1, p0, Lbl/xw$25;->this$0:Lbl/xw;
 
-    invoke-direct {v0, p0, p1}, Lbl/xw$25$1;-><init>(Lbl/xw$25;Landroid/webkit/WebView;)V
+    .line 2209
+    invoke-virtual {v1}, Lbl/xw;->o()Landroid/app/Activity;
 
-    invoke-virtual {p1, v0}, Landroid/webkit/WebView;->post(Ljava/lang/Runnable;)Z
+    move-result-object v1
 
-    .line 2279
+    invoke-direct {v0, v1}, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;-><init>(Landroid/content/Context;)V
+
+    .line 2212
+    iget-object v1, p0, Lbl/xw$25;->val$filePath:Ljava/lang/String;
+
+    invoke-static {v1}, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;->generateBookId(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v1
+
+    .line 2215
+    iget-object v2, p0, Lbl/xw$25;->val$filePath:Ljava/lang/String;
+
+    invoke-virtual {v0, v2, v1}, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;->parse(Ljava/lang/String;Ljava/lang/String;)Lcom/bilibili/tv/ebook/model/Book;
+
+    move-result-object v0
+
+    .line 2217
+    if-nez v0, :cond_34
+
+    .line 2218
+    const-string v0, "EbookReader"
+
+    const-string v1, "\u7535\u5b50\u4e66\u89e3\u6790\u5931\u8d25"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 2219
+    iget-object v0, p0, Lbl/xw$25;->this$0:Lbl/xw;
+
+    # invokes: Lbl/xw;->hideLoadingIndicator()V
+    invoke-static {v0}, Lbl/xw;->access$1900(Lbl/xw;)V
+
+    .line 2222
+    iget-object v0, p0, Lbl/xw$25;->this$0:Lbl/xw;
+
+    invoke-virtual {v0}, Lbl/xw;->o()Landroid/app/Activity;
+
+    move-result-object v0
+
+    new-instance v1, Lbl/xw$25$1;
+
+    invoke-direct {v1, p0}, Lbl/xw$25$1;-><init>(Lbl/xw$25;)V
+
+    invoke-virtual {v0, v1}, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
+
+    .line 2261
+    :goto_33
     return-void
+
+    .line 2233
+    :cond_34
+    const-string v1, "EbookReader"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "\u7535\u5b50\u4e66\u89e3\u6790\u6210\u529f: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/Book;->getTitle()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, ", \u7ae0\u8282\u6570: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    .line 2234
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/Book;->getChapters()Ljava/util/List;
+
+    move-result-object v3
+
+    invoke-interface {v3}, Ljava/util/List;->size()I
+
+    move-result v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    .line 2233
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 2237
+    iget-object v1, p0, Lbl/xw$25;->this$0:Lbl/xw;
+
+    # invokes: Lbl/xw;->hideLoadingIndicator()V
+    invoke-static {v1}, Lbl/xw;->access$1900(Lbl/xw;)V
+
+    .line 2240
+    iget-object v1, p0, Lbl/xw$25;->this$0:Lbl/xw;
+
+    invoke-virtual {v1}, Lbl/xw;->o()Landroid/app/Activity;
+
+    move-result-object v1
+
+    new-instance v2, Lbl/xw$25$2;
+
+    invoke-direct {v2, p0, v0}, Lbl/xw$25$2;-><init>(Lbl/xw$25;Lcom/bilibili/tv/ebook/model/Book;)V
+
+    invoke-virtual {v1, v2}, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
+    :try_end_75
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_75} :catch_76
+
+    goto :goto_33
+
+    .line 2247
+    :catch_76
+    move-exception v0
+
+    .line 2248
+    const-string v1, "EbookReader"
+
+    const-string v2, "\u89e3\u6790\u7535\u5b50\u4e66\u5f02\u5e38"
+
+    invoke-static {v1, v2, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+
+    .line 2249
+    iget-object v1, p0, Lbl/xw$25;->this$0:Lbl/xw;
+
+    # invokes: Lbl/xw;->hideLoadingIndicator()V
+    invoke-static {v1}, Lbl/xw;->access$1900(Lbl/xw;)V
+
+    .line 2252
+    iget-object v1, p0, Lbl/xw$25;->this$0:Lbl/xw;
+
+    invoke-virtual {v1}, Lbl/xw;->o()Landroid/app/Activity;
+
+    move-result-object v1
+
+    new-instance v2, Lbl/xw$25$3;
+
+    invoke-direct {v2, p0, v0}, Lbl/xw$25$3;-><init>(Lbl/xw$25;Ljava/lang/Exception;)V
+
+    invoke-virtual {v1, v2}, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
+
+    goto :goto_33
 .end method

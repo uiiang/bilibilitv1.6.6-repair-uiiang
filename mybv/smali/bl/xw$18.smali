@@ -1,6 +1,9 @@
 .class Lbl/xw$18;
-.super Landroid/widget/ArrayAdapter;
+.super Ljava/lang/Object;
 .source "xw.java"
+
+# interfaces
+.implements Ljava/util/Comparator;
 
 
 # annotations
@@ -15,9 +18,10 @@
 
 .annotation system Ldalvik/annotation/Signature;
     value = {
-        "Landroid/widget/ArrayAdapter",
+        "Ljava/lang/Object;",
+        "Ljava/util/Comparator",
         "<",
-        "Ljava/lang/String;",
+        "Ljava/io/File;",
         ">;"
     }
 .end annotation
@@ -28,89 +32,52 @@
 
 
 # direct methods
-.method constructor <init>(Lbl/xw;Landroid/content/Context;ILjava/util/List;)V
+.method constructor <init>(Lbl/xw;)V
     .locals 0
 
     .prologue
-    .line 1858
+    .line 1963
     iput-object p1, p0, Lbl/xw$18;->this$0:Lbl/xw;
 
-    invoke-direct {p0, p2, p3, p4}, Landroid/widget/ArrayAdapter;-><init>(Landroid/content/Context;ILjava/util/List;)V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public getView(ILandroid/view/View;Landroid/view/ViewGroup;)Landroid/view/View;
-    .locals 4
+.method public compare(Ljava/io/File;Ljava/io/File;)I
+    .locals 2
 
     .prologue
-    const/16 v3, 0x10
+    .line 1966
+    invoke-virtual {p1}, Ljava/io/File;->getName()Ljava/lang/String;
 
-    .line 1861
-    invoke-super {p0, p1, p2, p3}, Landroid/widget/ArrayAdapter;->getView(ILandroid/view/View;Landroid/view/ViewGroup;)Landroid/view/View;
+    move-result-object v0
+
+    invoke-virtual {p2}, Ljava/io/File;->getName()Ljava/lang/String;
 
     move-result-object v1
 
-    .line 1862
-    instance-of v0, v1, Landroid/widget/TextView;
-
-    if-eqz v0, :cond_19
-
-    move-object v0, v1
-
-    .line 1863
-    check-cast v0, Landroid/widget/TextView;
-
-    .line 1864
-    const/4 v2, -0x1
-
-    invoke-virtual {v0, v2}, Landroid/widget/TextView;->setTextColor(I)V
-
-    .line 1865
-    const/high16 v2, 0x41800000    # 16.0f
-
-    invoke-virtual {v0, v2}, Landroid/widget/TextView;->setTextSize(F)V
-
-    .line 1866
-    invoke-virtual {v0, v3, v3, v3, v3}, Landroid/widget/TextView;->setPadding(IIII)V
-
-    .line 1870
-    :cond_19
-    instance-of v0, p3, Landroid/widget/ListView;
-
-    if-eqz v0, :cond_2e
-
-    .line 1871
-    check-cast p3, Landroid/widget/ListView;
-
-    .line 1872
-    invoke-virtual {p3}, Landroid/widget/ListView;->getSelectedItemPosition()I
+    invoke-virtual {v0, v1}, Ljava/lang/String;->compareToIgnoreCase(Ljava/lang/String;)I
 
     move-result v0
 
-    if-ne p1, v0, :cond_2f
+    return v0
+.end method
 
-    .line 1873
-    const-string v0, "#1E90FF"
+.method public bridge synthetic compare(Ljava/lang/Object;Ljava/lang/Object;)I
+    .locals 1
 
-    invoke-static {v0}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
+    .prologue
+    .line 1963
+    check-cast p1, Ljava/io/File;
+
+    check-cast p2, Ljava/io/File;
+
+    invoke-virtual {p0, p1, p2}, Lbl/xw$18;->compare(Ljava/io/File;Ljava/io/File;)I
 
     move-result v0
 
-    invoke-virtual {v1, v0}, Landroid/view/View;->setBackgroundColor(I)V
-
-    .line 1879
-    :cond_2e
-    :goto_2e
-    return-object v1
-
-    .line 1875
-    :cond_2f
-    const/4 v0, 0x0
-
-    invoke-virtual {v1, v0}, Landroid/view/View;->setBackgroundColor(I)V
-
-    goto :goto_2e
+    return v0
 .end method
