@@ -569,6 +569,10 @@ public class EpubParser {
 
     /**
      * 解析单个章节（使用NCX层级信息）
+     *
+     * 兼容设计：设置baseUrl以支持图片和CSS资源加载
+     * - EPUB: file:///path/to/book/OEBPS/ (章节所在目录)
+     * - MOBI/AZW3: 转换后的HTML目录
      */
     private Chapter parseChapter(ManifestItem item, int index, File baseDir,
                                   NcxParseResult ncxResult)
@@ -585,6 +589,15 @@ public class EpubParser {
         chapter.setHtmlFilePath(href);
         chapter.setHtmlContent(doc.outerHtml());
         chapter.setPlainTextContent(doc.text());
+
+        // 关键修复：设置baseUrl，用于WebView正确解析相对路径
+        // baseUrl是章节HTML文件所在的目录路径（使用file://协议）
+        File chapterDir = chapterFile.getParentFile();
+        if (chapterDir != null) {
+            String baseUrl = "file://" + chapterDir.getAbsolutePath() + "/";
+            chapter.setBaseUrl(baseUrl);
+            Log.i(TAG, "设置baseUrl: " + baseUrl);
+        }
 
         // 关键修复：优先从NCX的titleMap中提取标题
         String title = null;

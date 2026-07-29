@@ -1987,7 +1987,18 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         });
 
         // 加载内容到WebView
-        ebookWebView.loadDataWithBaseURL(null, styledHtml, "text/html", "UTF-8", null);
+        // 关键修复：使用章节的baseUrl加载HTML内容
+        // baseUrl用于WebView正确解析HTML中的相对路径（图片、CSS等资源）
+        String baseUrl = chapter.getBaseUrl();
+        if (baseUrl == null || baseUrl.isEmpty()) {
+            // 兼容处理：如果章节没有baseUrl，使用null（保持原有行为）
+            baseUrl = null;
+            Log.w(TAG_EBOOK, "章节没有baseUrl，使用null作为baseUrl");
+        } else {
+            Log.i(TAG_EBOOK, "使用baseUrl: " + baseUrl);
+        }
+
+        ebookWebView.loadDataWithBaseURL(baseUrl, styledHtml, "text/html", "UTF-8", null);
 
         // 关键修复：设置WebView为不可聚焦，避免Android焦点系统拦截方向键
         // scrollBy()是编程式滚动，不依赖焦点，所以WebView不需要焦点

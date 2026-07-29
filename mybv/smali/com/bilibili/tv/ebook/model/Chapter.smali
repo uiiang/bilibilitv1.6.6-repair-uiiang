@@ -7,6 +7,8 @@
 
 
 # instance fields
+.field private baseUrl:Ljava/lang/String;
+
 .field private chapterId:Ljava/lang/String;
 
 .field private chapterIndex:I
@@ -27,10 +29,10 @@
     .locals 0
 
     .prologue
-    .line 19
+    .line 27
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 20
+    .line 28
     return-void
 .end method
 
@@ -38,29 +40,39 @@
     .locals 0
 
     .prologue
-    .line 22
+    .line 30
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 23
+    .line 31
     iput-object p1, p0, Lcom/bilibili/tv/ebook/model/Chapter;->chapterId:Ljava/lang/String;
 
-    .line 24
+    .line 32
     iput-object p2, p0, Lcom/bilibili/tv/ebook/model/Chapter;->title:Ljava/lang/String;
 
-    .line 25
+    .line 33
     iput p3, p0, Lcom/bilibili/tv/ebook/model/Chapter;->chapterIndex:I
 
-    .line 26
+    .line 34
     return-void
 .end method
 
 
 # virtual methods
+.method public getBaseUrl()Ljava/lang/String;
+    .locals 1
+
+    .prologue
+    .line 94
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/model/Chapter;->baseUrl:Ljava/lang/String;
+
+    return-object v0
+.end method
+
 .method public getChapterId()Ljava/lang/String;
     .locals 1
 
     .prologue
-    .line 30
+    .line 38
     iget-object v0, p0, Lcom/bilibili/tv/ebook/model/Chapter;->chapterId:Ljava/lang/String;
 
     return-object v0
@@ -70,7 +82,7 @@
     .locals 1
 
     .prologue
-    .line 70
+    .line 78
     iget v0, p0, Lcom/bilibili/tv/ebook/model/Chapter;->chapterIndex:I
 
     return v0
@@ -80,7 +92,7 @@
     .locals 1
 
     .prologue
-    .line 78
+    .line 86
     iget v0, p0, Lcom/bilibili/tv/ebook/model/Chapter;->depth:I
 
     return v0
@@ -90,7 +102,7 @@
     .locals 1
 
     .prologue
-    .line 54
+    .line 62
     iget-object v0, p0, Lcom/bilibili/tv/ebook/model/Chapter;->htmlContent:Ljava/lang/String;
 
     return-object v0
@@ -100,7 +112,7 @@
     .locals 1
 
     .prologue
-    .line 46
+    .line 54
     iget-object v0, p0, Lcom/bilibili/tv/ebook/model/Chapter;->htmlFilePath:Ljava/lang/String;
 
     return-object v0
@@ -110,7 +122,7 @@
     .locals 1
 
     .prologue
-    .line 62
+    .line 70
     iget-object v0, p0, Lcom/bilibili/tv/ebook/model/Chapter;->plainTextContent:Ljava/lang/String;
 
     return-object v0
@@ -120,20 +132,31 @@
     .locals 1
 
     .prologue
-    .line 38
+    .line 46
     iget-object v0, p0, Lcom/bilibili/tv/ebook/model/Chapter;->title:Ljava/lang/String;
 
     return-object v0
+.end method
+
+.method public setBaseUrl(Ljava/lang/String;)V
+    .locals 0
+
+    .prologue
+    .line 98
+    iput-object p1, p0, Lcom/bilibili/tv/ebook/model/Chapter;->baseUrl:Ljava/lang/String;
+
+    .line 99
+    return-void
 .end method
 
 .method public setChapterId(Ljava/lang/String;)V
     .locals 0
 
     .prologue
-    .line 34
+    .line 42
     iput-object p1, p0, Lcom/bilibili/tv/ebook/model/Chapter;->chapterId:Ljava/lang/String;
 
-    .line 35
+    .line 43
     return-void
 .end method
 
@@ -141,10 +164,10 @@
     .locals 0
 
     .prologue
-    .line 74
+    .line 82
     iput p1, p0, Lcom/bilibili/tv/ebook/model/Chapter;->chapterIndex:I
 
-    .line 75
+    .line 83
     return-void
 .end method
 
@@ -152,10 +175,10 @@
     .locals 0
 
     .prologue
-    .line 82
+    .line 90
     iput p1, p0, Lcom/bilibili/tv/ebook/model/Chapter;->depth:I
 
-    .line 83
+    .line 91
     return-void
 .end method
 
@@ -163,10 +186,10 @@
     .locals 0
 
     .prologue
-    .line 58
+    .line 66
     iput-object p1, p0, Lcom/bilibili/tv/ebook/model/Chapter;->htmlContent:Ljava/lang/String;
 
-    .line 59
+    .line 67
     return-void
 .end method
 
@@ -174,10 +197,10 @@
     .locals 0
 
     .prologue
-    .line 50
+    .line 58
     iput-object p1, p0, Lcom/bilibili/tv/ebook/model/Chapter;->htmlFilePath:Ljava/lang/String;
 
-    .line 51
+    .line 59
     return-void
 .end method
 
@@ -185,10 +208,10 @@
     .locals 0
 
     .prologue
-    .line 66
+    .line 74
     iput-object p1, p0, Lcom/bilibili/tv/ebook/model/Chapter;->plainTextContent:Ljava/lang/String;
 
-    .line 67
+    .line 75
     return-void
 .end method
 
@@ -196,10 +219,10 @@
     .locals 0
 
     .prologue
-    .line 42
+    .line 50
     iput-object p1, p0, Lcom/bilibili/tv/ebook/model/Chapter;->title:Ljava/lang/String;
 
-    .line 43
+    .line 51
     return-void
 .end method
 
@@ -209,7 +232,7 @@
     .prologue
     const/16 v2, 0x27
 
-    .line 87
+    .line 103
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -249,6 +272,22 @@
     move-result-object v0
 
     iget-object v1, p0, Lcom/bilibili/tv/ebook/model/Chapter;->htmlFilePath:Ljava/lang/String;
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    const-string v1, ", baseUrl=\'"
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lcom/bilibili/tv/ebook/model/Chapter;->baseUrl:Ljava/lang/String;
 
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
