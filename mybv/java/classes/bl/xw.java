@@ -760,7 +760,8 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                 com.bilibili.tv.player.widget.PlayerMenuRight.ebook_font_size_id = savedIndex;
 
                 Log.i(TAG_EBOOK, "初始化字体大小列表，当前索引: " + savedIndex + ", 字体大小: " + savedFontSize);
-                this.c.init_size(fontSizeList, savedIndex); // 复用init_size方法设置字体大小列表
+                // 关键修复：直接设置电子书专属的字体大小列表，而不是复用init_size方法
+                this.c.ebook_font_size_list = fontSizeList;
 
                 // 初始化配色方案列表
                 List<String> colorThemeList = new ArrayList<>();
@@ -777,7 +778,8 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                 com.bilibili.tv.player.widget.PlayerMenuRight.ebook_color_theme_id = savedThemeIndex;
 
                 Log.i(TAG_EBOOK, "初始化配色方案列表，当前索引: " + savedThemeIndex);
-                this.c.init_alpha(colorThemeList, savedThemeIndex); // 复用init_alpha方法设置配色方案列表
+                // 关键修复：直接设置电子书专属的配色方案列表，而不是复用init_alpha方法
+                this.c.ebook_color_theme_list = colorThemeList;
             }
 
             // 不需要初始化其他菜单项(清晰度、弹幕等)
@@ -785,6 +787,14 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         }
 
         // 正常模式:显示原有菜单
+        // 关键修复：清空电子书相关的列表，避免状态残留
+        if (this.c != null) {
+            this.c.clearEbookReadingPageLists();
+            // 同时清空电子书专属的列表
+            this.c.ebook_percent_list = null;
+            this.c.video_position_list = null;
+        }
+        
         int menuConfig = abd.get_player_menu_config(p());
         String[] allMenus = resources.getStringArray(R.array.player_right_menu_level_1);
         List<String> filteredMenus = new ArrayList<>();
