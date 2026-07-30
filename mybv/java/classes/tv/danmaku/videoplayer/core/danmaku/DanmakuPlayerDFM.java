@@ -3,7 +3,9 @@ package tv.danmaku.videoplayer.core.danmaku;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.text.Layout;
 import android.text.Spanned;
+import android.text.TextPaint;
 import android.view.View;
 import android.view.ViewGroup;
 import bl.bez;
@@ -342,6 +344,10 @@ public class DanmakuPlayerDFM implements IDanmakuPlayer {
             stroked = !data.optString("Stroke").equals("none");
         }
 
+        // 计算字体像素大小和最大宽度（只计算一次，提高性能）
+        float fontSizePixels = (float)(font_size * 60 * baseScreenScale * mScale);
+        int maxLineWidth = (int)(dm.widthPixels * 0.7); // 视频显示区域的70%
+
         for(int i=0;i<body.length();i++){
             JSONObject item = body.optJSONObject(i);
             long from = (long) (item.optDouble("from") * 1000);
@@ -349,13 +355,44 @@ public class DanmakuPlayerDFM implements IDanmakuPlayer {
             int location = item.optInt("location");
             String content = item.optString("content");
 
+            // 使用Android的文本测量API进行自动换行（更精确，性能更好）
+            if (content != null && content.length() > 0) {
+                TextPaint textPaint = new TextPaint();
+                textPaint.setTextSize(fontSizePixels);
+
+                // 使用StaticLayout测量文本并自动换行
+                StaticLayout staticLayout = new StaticLayout(
+                    content,
+                    textPaint,
+                    maxLineWidth,
+                    Layout.Alignment.ALIGN_CENTER,
+                    1.0f, // lineSpacingMultiplier
+                    0.0f, // lineSpacingExtra
+                    false // includePad
+                );
+
+                // 如果文本超过一行，使用换行后的文本
+                if (staticLayout.getLineCount() > 1) {
+                    StringBuilder sb = new StringBuilder();
+                    for (int line = 0; line < staticLayout.getLineCount(); line++) {
+                        int lineStart = staticLayout.getLineStart(line);
+                        int lineEnd = staticLayout.getLineEnd(line);
+                        sb.append(content.substring(lineStart, lineEnd));
+                        if (line < staticLayout.getLineCount() - 1) {
+                            sb.append("\n");
+                        }
+                    }
+                    content = sb.toString();
+                }
+            }
+
             DrawableItem drawableItem = new DrawableItem();
             SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(content);
             spannableStringBuilder.setSpan(new AbsoluteSizeSpan((int)(font_size*60*baseScreenScale*mScale)), 0, content.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             spannableStringBuilder.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, content.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             spannableStringBuilder.setSpan(new BackgroundColorSpan(background_color|(background_alpha << 24)), 0, content.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             //if(stroked)spannableStringBuilder.setSpan(new StrokedSpan(background_alpha, font_color|0xff000000, Color.BLACK), 0, content.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            //else 
+            //else
             spannableStringBuilder.setSpan(new ForegroundColorSpan(font_color|0xff000000), 0, content.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             drawableItem.mSpannableString=spannableStringBuilder;
 

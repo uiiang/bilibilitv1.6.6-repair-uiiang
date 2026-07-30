@@ -1191,6 +1191,9 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             // 更新弹幕视图位置
             updateDanmakuViewWidth(videoWidth);
 
+            // 更新CC字幕视图位置
+            updateSubtitleViewWidth(videoWidth);
+
             // 更新电子书面板位置
             updateEbookPanelWidth(ebookWidth);
         }
@@ -1221,6 +1224,9 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
             // 更新弹幕视图布局
             updateDanmakuViewWidth(videoWidth);
+
+            // 更新CC字幕视图布局
+            updateSubtitleViewWidth(videoWidth);
 
             // 更新电子书面板布局
             updateEbookPanelWidth(ebookWidth);
@@ -1315,28 +1321,152 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         private void findAndUpdateDanmakuView(ViewGroup parent, int videoWidth) {
             for (int i = 0; i < parent.getChildCount(); i++) {
                 View child = parent.getChildAt(i);
-                if (child instanceof ViewGroup) {
-                    // 检查是否是弹幕相关的容器
-                    String className = child.getClass().getSimpleName();
-                    if (className.contains("Danmaku") || className.contains("弹幕")) {
-                        ViewGroup.LayoutParams params = child.getLayoutParams();
-                        if (params != null) {
-                            if (parent instanceof FrameLayout) {
-                                FrameLayout.LayoutParams flParams = new FrameLayout.LayoutParams(
-                                    videoWidth, FrameLayout.LayoutParams.MATCH_PARENT);
-                                flParams.gravity = android.view.Gravity.LEFT;
-                                child.setLayoutParams(flParams);
-                            } else if (parent instanceof RelativeLayout) {
-                                RelativeLayout.LayoutParams rlParams = new RelativeLayout.LayoutParams(
-                                    videoWidth, RelativeLayout.LayoutParams.MATCH_PARENT);
-                                rlParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-                                child.setLayoutParams(rlParams);
+
+                // 检查是否是弹幕相关的容器（通过ID或类名）
+                String className = child.getClass().getSimpleName();
+                int childId = child.getId();
+                String resourceName = childId > 0 ? child.getResources().getResourceEntryName(childId) : "";
+
+                if (className.contains("Danmaku") || className.contains("弹幕") ||
+                    resourceName.contains("danmaku") || resourceName.contains("弹幕")) {
+
+                    ViewGroup.LayoutParams params = child.getLayoutParams();
+                    if (params != null) {
+                        // 根据视频位置设置弹幕位置
+                        boolean isVideoOnLeft = (videoPosition == VIDEO_POSITION_TOP_LEFT || videoPosition == VIDEO_POSITION_BOTTOM_LEFT);
+
+                        if (parent instanceof FrameLayout) {
+                            FrameLayout.LayoutParams flParams = new FrameLayout.LayoutParams(
+                                videoWidth, FrameLayout.LayoutParams.MATCH_PARENT);
+
+                            int gravity;
+                            if (isVideoOnLeft) {
+                                gravity = android.view.Gravity.LEFT;
+                                if (videoPosition == VIDEO_POSITION_TOP_LEFT) {
+                                    gravity |= android.view.Gravity.TOP;
+                                } else {
+                                    gravity |= android.view.Gravity.BOTTOM;
+                                }
+                            } else {
+                                gravity = android.view.Gravity.RIGHT;
+                                if (videoPosition == VIDEO_POSITION_TOP_RIGHT) {
+                                    gravity |= android.view.Gravity.TOP;
+                                } else {
+                                    gravity |= android.view.Gravity.BOTTOM;
+                                }
                             }
-                            Log.i(TAG_EBOOK, "弹幕视图宽度已更新: " + videoWidth);
+                            flParams.gravity = gravity;
+                            child.setLayoutParams(flParams);
+                        } else if (parent instanceof RelativeLayout) {
+                            RelativeLayout.LayoutParams rlParams = new RelativeLayout.LayoutParams(
+                                videoWidth, RelativeLayout.LayoutParams.MATCH_PARENT);
+
+                            if (isVideoOnLeft) {
+                                rlParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+                            } else {
+                                rlParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                            }
+
+                            if (videoPosition == VIDEO_POSITION_TOP_LEFT || videoPosition == VIDEO_POSITION_TOP_RIGHT) {
+                                rlParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+                            } else {
+                                rlParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                            }
+                            child.setLayoutParams(rlParams);
                         }
                     }
-                    // 递归查找
+                }
+
+                // 递归查找
+                if (child instanceof ViewGroup) {
                     findAndUpdateDanmakuView((ViewGroup) child, videoWidth);
+                }
+            }
+        }
+
+        /**
+         * 更新CC字幕视图宽度
+         */
+        private void updateSubtitleViewWidth(int videoWidth) {
+            // 查找CC字幕视图并更新宽度
+            Activity activity = o();
+            if (activity == null) return;
+
+            ViewGroup rootView = (ViewGroup) activity.findViewById(android.R.id.content);
+            if (rootView == null) return;
+
+            // 查找字幕容器
+            findAndUpdateSubtitleView(rootView, videoWidth);
+        }
+
+        /**
+         * 查找并更新CC字幕视图宽度
+         */
+        private void findAndUpdateSubtitleView(ViewGroup parent, int videoWidth) {
+            for (int i = 0; i < parent.getChildCount(); i++) {
+                View child = parent.getChildAt(i);
+
+                // 检查是否是字幕相关的容器（通过类名、完整类名或ID）
+                String className = child.getClass().getSimpleName();
+                String fullClassName = child.getClass().getName();
+                int childId = child.getId();
+                String resourceName = childId > 0 ? child.getResources().getResourceEntryName(childId) : "";
+
+                if (className.contains("Subtitle") || className.contains("字幕") ||
+                    fullClassName.contains("Subtitle") || fullClassName.contains("subtitle") ||
+                    resourceName.contains("subtitle") || resourceName.contains("字幕") ||
+                    resourceName.contains("exo_subtitles")) {
+
+                    ViewGroup.LayoutParams params = child.getLayoutParams();
+                    if (params != null) {
+                        // 根据视频位置设置字幕位置
+                        boolean isVideoOnLeft = (videoPosition == VIDEO_POSITION_TOP_LEFT || videoPosition == VIDEO_POSITION_BOTTOM_LEFT);
+
+                        if (parent instanceof FrameLayout) {
+                            FrameLayout.LayoutParams flParams = new FrameLayout.LayoutParams(
+                                videoWidth, FrameLayout.LayoutParams.MATCH_PARENT);
+
+                            int gravity;
+                            if (isVideoOnLeft) {
+                                gravity = android.view.Gravity.LEFT;
+                                if (videoPosition == VIDEO_POSITION_TOP_LEFT) {
+                                    gravity |= android.view.Gravity.TOP;
+                                } else {
+                                    gravity |= android.view.Gravity.BOTTOM;
+                                }
+                            } else {
+                                gravity = android.view.Gravity.RIGHT;
+                                if (videoPosition == VIDEO_POSITION_TOP_RIGHT) {
+                                    gravity |= android.view.Gravity.TOP;
+                                } else {
+                                    gravity |= android.view.Gravity.BOTTOM;
+                                }
+                            }
+                            flParams.gravity = gravity;
+                            child.setLayoutParams(flParams);
+                        } else if (parent instanceof RelativeLayout) {
+                            RelativeLayout.LayoutParams rlParams = new RelativeLayout.LayoutParams(
+                                videoWidth, RelativeLayout.LayoutParams.MATCH_PARENT);
+
+                            if (isVideoOnLeft) {
+                                rlParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+                            } else {
+                                rlParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                            }
+
+                            if (videoPosition == VIDEO_POSITION_TOP_LEFT || videoPosition == VIDEO_POSITION_TOP_RIGHT) {
+                                rlParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+                            } else {
+                                rlParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                            }
+                            child.setLayoutParams(rlParams);
+                        }
+                    }
+                }
+
+                // 递归查找
+                if (child instanceof ViewGroup) {
+                    findAndUpdateSubtitleView((ViewGroup) child, videoWidth);
                 }
             }
         }

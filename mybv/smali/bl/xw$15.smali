@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1764
+    .line 1894
     iput-object p1, p0, Lbl/xw$15;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 1767
+    .line 1897
     iget-object v0, p0, Lbl/xw$15;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->isEbookPanelShown:Z
@@ -72,14 +72,14 @@
 
     if-eqz v0, :cond_2d
 
-    .line 1768
+    .line 1898
     const-string v0, "EbookReader"
 
     const-string v1, "\u68c0\u6d4b\u5230\u7535\u5b50\u4e66\u9762\u677f\u672a\u663e\u793a\uff0c\u5f3a\u5236\u6062\u590d\u663e\u793a"
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1769
+    .line 1899
     iget-object v0, p0, Lbl/xw$15;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
@@ -91,7 +91,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/FrameLayout;->setVisibility(I)V
 
-    .line 1771
+    .line 1901
     :cond_2d
     return-void
 .end method

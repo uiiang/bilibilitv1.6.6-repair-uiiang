@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 2722
+    .line 2852
     iput-object p1, p0, Lbl/xw$28$4;->this$1:Lbl/xw$28;
 
     iput-object p2, p0, Lbl/xw$28$4;->val$chapterList:Ljava/util/List;
@@ -53,7 +53,7 @@
     .end annotation
 
     .prologue
-    .line 2725
+    .line 2855
     iget-object v0, p0, Lbl/xw$28$4;->val$chapterList:Ljava/util/List;
 
     invoke-interface {v0, p3}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -62,7 +62,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ebook/model/Chapter;
 
-    .line 2726
+    .line 2856
     const-string v1, "EbookReader"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -103,7 +103,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2729
+    .line 2859
     iget-object v1, p0, Lbl/xw$28$4;->this$1:Lbl/xw$28;
 
     iget-object v1, v1, Lbl/xw$28;->this$0:Lbl/xw;
@@ -113,21 +113,21 @@
 
     move-result-object v1
 
-    .line 2730
+    .line 2860
     invoke-interface {v1}, Ljava/util/List;->isEmpty()Z
 
     move-result v2
 
     if-nez v2, :cond_74
 
-    .line 2732
+    .line 2862
     const-string v2, "EbookReader"
 
     const-string v3, "\u7ae0\u8282\u6709\u5b50\u7ae0\u8282\uff0c\u663e\u793a\u5b50\u7ae0\u8282\u5217\u8868"
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2733
+    .line 2863
     iget-object v2, p0, Lbl/xw$28$4;->this$1:Lbl/xw$28;
 
     iget-object v2, v2, Lbl/xw$28;->this$0:Lbl/xw;
@@ -148,7 +148,7 @@
 
     invoke-virtual {v2, v3}, Ljava/util/Stack;->push(Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 2734
+    .line 2864
     iget-object v2, p0, Lbl/xw$28$4;->this$1:Lbl/xw$28;
 
     iget-object v2, v2, Lbl/xw$28;->this$0:Lbl/xw;
@@ -156,7 +156,7 @@
     # setter for: Lbl/xw;->currentChapterList:Ljava/util/List;
     invoke-static {v2, v1}, Lbl/xw;->access$2402(Lbl/xw;Ljava/util/List;)Ljava/util/List;
 
-    .line 2735
+    .line 2865
     iget-object v2, p0, Lbl/xw$28$4;->this$1:Lbl/xw$28;
 
     iget-object v2, v2, Lbl/xw$28;->this$0:Lbl/xw;
@@ -168,7 +168,7 @@
     # setter for: Lbl/xw;->parentChapterTitle:Ljava/lang/String;
     invoke-static {v2, v0}, Lbl/xw;->access$2602(Lbl/xw;Ljava/lang/String;)Ljava/lang/String;
 
-    .line 2736
+    .line 2866
     iget-object v0, p0, Lbl/xw$28$4;->this$1:Lbl/xw$28;
 
     iget-object v0, v0, Lbl/xw$28;->this$0:Lbl/xw;
@@ -176,11 +176,11 @@
     # invokes: Lbl/xw;->createChapterListView(Ljava/util/List;)V
     invoke-static {v0, v1}, Lbl/xw;->access$2500(Lbl/xw;Ljava/util/List;)V
 
-    .line 2743
+    .line 2873
     :goto_73
     return-void
 
-    .line 2739
+    .line 2869
     :cond_74
     const-string v1, "EbookReader"
 
@@ -208,7 +208,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2740
+    .line 2870
     iget-object v1, p0, Lbl/xw$28$4;->this$1:Lbl/xw$28;
 
     iget-object v1, v1, Lbl/xw$28;->this$0:Lbl/xw;
@@ -229,7 +229,7 @@
     # invokes: Lbl/xw;->displayBookContent(Lcom/bilibili/tv/ebook/model/Book;I)V
     invoke-static {v1, v2, v0}, Lbl/xw;->access$3200(Lbl/xw;Lcom/bilibili/tv/ebook/model/Book;I)V
 
-    .line 2741
+    .line 2871
     iget-object v0, p0, Lbl/xw$28$4;->this$1:Lbl/xw$28;
 
     iget-object v0, v0, Lbl/xw$28;->this$0:Lbl/xw;

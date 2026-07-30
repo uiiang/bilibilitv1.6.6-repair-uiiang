@@ -31,24 +31,24 @@
     .locals 2
 
     .prologue
-    .line 163
+    .line 165
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$SeekData;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 158
+    .line 160
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v0
 
     iput-wide v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$SeekData;->currst:J
 
-    .line 164
+    .line 166
     iput-wide p2, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$SeekData;->from:J
 
-    .line 165
+    .line 167
     iput-wide p4, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$SeekData;->to:J
 
-    .line 166
+    .line 168
     return-void
 .end method
