@@ -346,7 +346,16 @@ public class DanmakuPlayerDFM implements IDanmakuPlayer {
 
         // 计算字体像素大小和最大宽度（只计算一次，提高性能）
         float fontSizePixels = (float)(font_size * 60 * baseScreenScale * mScale);
-        int maxLineWidth = (int)(dm.widthPixels * 0.7); // 视频显示区域的70%
+
+        // 计算字幕最大宽度：视频显示区域的宽度减去左右边距
+        // 视频显示区域宽度：屏幕宽度的70%（电子书模式下可能是50%或30%）
+        // 左右边距：字体大小的2倍（左右各1倍），确保字幕不会紧贴边缘
+        int horizontalPadding = (int)(fontSizePixels * 2);
+        int videoWidth = (int)(dm.widthPixels * 0.7);
+        int maxLineWidth = videoWidth - horizontalPadding;
+
+        // 确保最大宽度至少为字体大小的10倍，避免过度换行
+        maxLineWidth = Math.max(maxLineWidth, (int)(fontSizePixels * 10));
 
         for(int i=0;i<body.length();i++){
             JSONObject item = body.optJSONObject(i);
