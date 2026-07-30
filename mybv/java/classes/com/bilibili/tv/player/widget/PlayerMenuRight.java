@@ -77,6 +77,13 @@ public class PlayerMenuRight extends aay<String> {
     public List<String> video_position_list; // 视频位置列表
     public static boolean danmaku_valid_list[] = {false,true,false,false,true,true,true,true,false,false};
     public static int danmaku_level=0;
+
+    // 弹幕开关状态缓存的key
+    private static final String DANMAKU_PREFS_NAME = "danmaku_settings";
+    private static final String DANMAKU_VALID_KEY = "danmaku_valid_list";
+
+    // 记录弹幕关闭前的状态（用于恢复）
+    private static boolean danmaku_last_valid_list[] = {false,true,false,false,true,true,true,true,false,false};
     private List<Integer> menuIndexMap;
     private ResolveResourceParams params;
 
@@ -222,6 +229,9 @@ public class PlayerMenuRight extends aay<String> {
         this.ebook_color_theme_list.add("Sepia");
         this.ebook_color_theme_list.add("Slate");
         this.ebook_color_theme_list.add("OLED");
+
+        // 读取缓存的弹幕开关状态
+        loadDanmakuValidList();
     }
 
     public PlayerMenuRight(Context context, AttributeSet attributeSet) {
@@ -237,6 +247,9 @@ public class PlayerMenuRight extends aay<String> {
         this.mode_id = -1;
         this.subtitle_id = -1;
         this.subtitle_size_id = -1;
+
+        // 读取缓存的弹幕开关状态
+        loadDanmakuValidList();
     }
 
     public PlayerMenuRight(Context context, AttributeSet attributeSet, int i) {
@@ -252,14 +265,55 @@ public class PlayerMenuRight extends aay<String> {
         this.mode_id = -1;
         this.subtitle_id = -1;
         this.subtitle_size_id = -1;
+
+        // 读取缓存的弹幕开关状态
+        loadDanmakuValidList();
     }
 
     public void setListener(a aVar) {
         this.d = aVar;
     }
-    
+
     public void setMenuIndexMap(List<Integer> map) {
         this.menuIndexMap = map;
+    }
+
+    // 缓存弹幕开关状态到SharedPreferences
+    private void saveDanmakuValidList() {
+        try {
+            android.content.SharedPreferences prefs = MainApplication.a().getSharedPreferences(DANMAKU_PREFS_NAME, 0);
+            android.content.SharedPreferences.Editor editor = prefs.edit();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < danmaku_valid_list.length; i++) {
+                sb.append(danmaku_valid_list[i] ? "1" : "0");
+                if (i < danmaku_valid_list.length - 1) {
+                    sb.append(",");
+                }
+            }
+            editor.putString(DANMAKU_VALID_KEY, sb.toString());
+            editor.apply();
+        } catch (Exception e) {
+            Log.i("PlayerMenuRight", "缓存弹幕开关状态失败: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    // 从SharedPreferences读取弹幕开关状态
+    public static void loadDanmakuValidList() {
+        try {
+            android.content.SharedPreferences prefs = MainApplication.a().getSharedPreferences(DANMAKU_PREFS_NAME, 0);
+            String saved = prefs.getString(DANMAKU_VALID_KEY, null);
+
+            if (saved != null && !saved.isEmpty()) {
+                String[] parts = saved.split(",");
+                for (int i = 0; i < parts.length && i < danmaku_valid_list.length; i++) {
+                    danmaku_valid_list[i] = parts[i].equals("1");
+                }
+            }
+        } catch (Exception e) {
+            Log.i("PlayerMenuRight", "读取弹幕开关状态失败: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
     
     public void setResolveParams(ResolveResourceParams params) {
@@ -267,10 +321,8 @@ public class PlayerMenuRight extends aay<String> {
     }
     
     private int getOriginalMenuIndex(int displayIndex) {
-        Log.i("PlayerMenuRight", "=== getOriginalMenuIndex()被调用: displayIndex=" + displayIndex);
         // 电子书模式特殊处理
         if (menuIndexMap == null || menuIndexMap.isEmpty()) {
-            Log.i("PlayerMenuRight", "getOriginalMenuIndex: 电子书模式");
             // 电子书模式：将索引映射到父类能够识别的索引
             // 书架页面菜单：[控制视频, 选择文件, 清空书架, 屏幕占比, 视频位置, 退出阅读]
             // 阅读页面菜单：[控制视频, 章节列表, 字体大小, 配色方案, 屏幕占比, 关闭书籍]
@@ -278,8 +330,6 @@ public class PlayerMenuRight extends aay<String> {
             // 关键修复：判断页面类型应该使用电子书专属的列表
             // 阅读页面才有ebook_font_size_list和ebook_color_theme_list
             boolean isReadingPage = (ebook_font_size_list != null || ebook_color_theme_list != null);
-
-            Log.i("PlayerMenuRight", "getOriginalMenuIndex: isReadingPage=" + isReadingPage + ", ebook_font_size_list=" + (ebook_font_size_list != null ? ebook_font_size_list.size() : "null") + ", ebook_color_theme_list=" + (ebook_color_theme_list != null ? ebook_color_theme_list.size() : "null"));
 
             int result = -1;
             switch (displayIndex) {
@@ -313,36 +363,28 @@ public class PlayerMenuRight extends aay<String> {
                     result = -1;
                     break;
             }
-            Log.i("PlayerMenuRight", "getOriginalMenuIndex: 电子书模式返回 result=" + result);
             return result;
         }
 
         // 视频模式：使用正常映射
-        Log.i("PlayerMenuRight", "getOriginalMenuIndex: 视频模式");
         if (menuIndexMap != null && displayIndex >= 0 && displayIndex < menuIndexMap.size()) {
             int result = menuIndexMap.get(displayIndex);
-            Log.i("PlayerMenuRight", "getOriginalMenuIndex: 视频模式返回 result=" + result);
             return result;
         }
-        Log.i("PlayerMenuRight", "getOriginalMenuIndex: 返回displayIndex=" + displayIndex);
         return displayIndex;
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
     @Override // bl.aay
     public void a(int i, int i2, aaz aazVar, String str) {
-        Log.i("PlayerMenuRight", "=== a()方法被调用: i=" + i + ", i2=" + i2 + ", str=" + str);
         TextView textView;
         if (f()) {
-            Log.i("PlayerMenuRight", "a()方法提前返回: f()=true");
             return;
         }
         textView = (TextView) aazVar.c(R.id.text);
         if (textView == null) {
-            Log.i("PlayerMenuRight", "a()方法提前返回: textView=null");
             return;
         }
-        Log.i("PlayerMenuRight", "a()方法继续执行: textView不为null");
         if(this.speed_list != null && this.speed_list.contains(str)){
             textView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -369,8 +411,6 @@ public class PlayerMenuRight extends aay<String> {
                 boolean isCurrentItem = false;
                 boolean isEbookMode = (menuIndexMap == null || menuIndexMap.isEmpty());
 
-                Log.i("PlayerMenuRight", "圆点标注: i=" + i + ", i2=" + i2 + ", currentMenuIndex=" + currentMenuIndex + ", this.q=" + this.q + ", str=" + str + ", isEbookMode=" + isEbookMode);
-
                 // 关键重构：统一圆点标注逻辑，避免重复和混乱
                 switch (currentMenuIndex) {
                     case 0: // 清晰度
@@ -379,34 +419,36 @@ public class PlayerMenuRight extends aay<String> {
                         }
                         break;
                     case 1: // 弹幕开关
-                        Log.i("PlayerMenuRight", "进入case 1: danmaku_list=" + (this.danmaku_list != null ? this.danmaku_list.size() : "null") + ", indexOf(str)=" + (this.danmaku_list != null ? this.danmaku_list.indexOf(str) : "null"));
                         if (this.danmaku_list != null) {
                             int w = this.danmaku_list.indexOf(str);
+
                             if (w != -1) {
                                 boolean f = false;
                                 for (int ii = 0; ii < 10; ii++) {
                                     if (danmaku_valid_list[ii]) f = true;
                                 }
+
                                 switch (w) {
                                     case 0:
                                         textView.getCompoundDrawables()[0].setAlpha(f ? DanmakuConfig.ALPHA_VALUE_MAX : 0);
                                         textView.setText(f ? "弹幕开" : "弹幕关");
-                                        Log.i("PlayerMenuRight", "弹幕大小case 0: 调用e(i=" + i + ", i2=" + i2 + ")");
-                                        e(i, i2); // RecyclerView索引直接使用i
+                                        e(i, i2);
                                         return;
                                     case 1:
                                         textView.getCompoundDrawables()[0].setAlpha(0);
-                                        break;
+                                        textView.setText(str);
+                                        return;
                                     case 2:
-                                        textView.getCompoundDrawables()[0].setAlpha(danmaku_valid_list[1] ? DanmakuConfig.ALPHA_VALUE_MAX : 0);
-                                        break;
+                                        boolean valid2 = danmaku_valid_list[1];
+                                        textView.getCompoundDrawables()[0].setAlpha(valid2 ? DanmakuConfig.ALPHA_VALUE_MAX : 0);
+                                        textView.setText(str);
+                                        return;
                                     default:
-                                        textView.getCompoundDrawables()[0].setAlpha(danmaku_valid_list[w + 1] ? DanmakuConfig.ALPHA_VALUE_MAX : 0);
-                                        break;
+                                        boolean validDefault = danmaku_valid_list[w + 1];
+                                        textView.getCompoundDrawables()[0].setAlpha(validDefault ? DanmakuConfig.ALPHA_VALUE_MAX : 0);
+                                        textView.setText(str);
+                                        return;
                                 }
-                                // RecyclerView索引直接使用i
-                                Log.i("PlayerMenuRight", "弹幕大小case " + w + ": 调用e(i=" + i + ", i2=" + i2 + ")");
-                                e(i, i2);
                             }
                         }
                         break;
@@ -418,20 +460,15 @@ public class PlayerMenuRight extends aay<String> {
                     case 3: // 画面调整
                         break;
                     case 4: // 弹幕大小（视频模式）或 字体大小（电子书模式）
-                        Log.i("PlayerMenuRight", "进入case 4: isEbookMode=" + isEbookMode);
                         if (isEbookMode) {
                             // 电子书模式：字体大小
-                            Log.i("PlayerMenuRight", "case 4 电子书模式: ebook_font_size_list=" + (this.ebook_font_size_list != null ? this.ebook_font_size_list.size() : "null") + ", ebook_font_size_id=" + this.ebook_font_size_id);
                             if (this.ebook_font_size_list != null && this.ebook_font_size_id >= 0 && this.ebook_font_size_id < this.ebook_font_size_list.size()) {
                                 isCurrentItem = this.ebook_font_size_list.get(this.ebook_font_size_id).equals(str);
-                                Log.i("PlayerMenuRight", "case 4 电子书模式: isCurrentItem=" + isCurrentItem);
                             }
                         } else {
                             // 视频模式：弹幕大小
-                            Log.i("PlayerMenuRight", "case 4 视频模式: size_list=" + (this.size_list != null ? this.size_list.size() : "null") + ", size_id=" + this.size_id);
                             if (this.size_list != null && this.size_id >= 0 && this.size_id < this.size_list.size()) {
                                 isCurrentItem = this.size_list.get(this.size_id).equals(str);
-                                Log.i("PlayerMenuRight", "case 4 视频模式: isCurrentItem=" + isCurrentItem + ", size_list.get(size_id)=" + this.size_list.get(this.size_id) + ", str=" + str);
                             }
                         }
                         break;
@@ -488,11 +525,9 @@ public class PlayerMenuRight extends aay<String> {
                 }
 
                 // 设置圆点显示
-                Log.i("PlayerMenuRight", "统一处理: isCurrentItem=" + isCurrentItem + ", i=" + i + ", i2=" + i2);
                 if (isCurrentItem) {
                     textView.getCompoundDrawables()[0].setAlpha(DanmakuConfig.ALPHA_VALUE_MAX);
                     // 关键：只对选中项调用焦点管理
-                    Log.i("PlayerMenuRight", "选中项焦点管理: 调用e(i=" + i + ", i2=" + i2 + ")");
                     e(i, i2);
                 } else {
                     textView.getCompoundDrawables()[0].setAlpha(0);
@@ -722,15 +757,27 @@ public class PlayerMenuRight extends aay<String> {
                     case 0:
                         boolean f = false;
                         for(int ii=0;ii<10;ii++){if(danmaku_valid_list[ii])f=true;}
-                        danmaku_valid_list[1]=danmaku_valid_list[4]=danmaku_valid_list[5]=danmaku_valid_list[6]=danmaku_valid_list[7]=!f;
+
+                        if (f) {
+                            // 当前弹幕开，记录当前状态并全部关闭
+                            for(int ii=0;ii<10;ii++){
+                                danmaku_last_valid_list[ii] = danmaku_valid_list[ii];
+                            }
+                            danmaku_valid_list[1]=danmaku_valid_list[4]=danmaku_valid_list[5]=danmaku_valid_list[6]=danmaku_valid_list[7]=false;
+                        } else {
+                            // 当前弹幕关，恢复之前的状态
+                            for(int ii=0;ii<10;ii++){
+                                danmaku_valid_list[ii] = danmaku_last_valid_list[ii];
+                            }
+                        }
                         break;
                     case 1:
                         String values[] = {"0","1","2","3","4","5","6","7","8","9","10"};
                         AlertDialog dialog = new AlertDialog.Builder(getContext())
                             .setTitle("弹幕屏蔽等级")
-                            .setItems(values, new DialogInterface.OnClickListener() { 
+                            .setItems(values, new DialogInterface.OnClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) { 
+                                public void onClick(DialogInterface dialog, int which) {
                                     PlayerMenuRight.danmaku_level=which;
                                     ((TextView) viewGroup.getChildAt(1)).setText("屏蔽等级："+PlayerMenuRight.danmaku_level);
                                     PlayerMenuRight.this.d.refresh_subtitle();
@@ -738,8 +785,13 @@ public class PlayerMenuRight extends aay<String> {
                             }).create();
                         dialog.show();
                         return true;
-                    case 2:danmaku_valid_list[1]=!danmaku_valid_list[1];break;
-                    default:danmaku_valid_list[i2+1]=!danmaku_valid_list[i2+1];((TextView) view).getCompoundDrawables()[0].setAlpha(danmaku_valid_list[i2+1]?DanmakuConfig.ALPHA_VALUE_MAX:0);break;
+                    case 2:
+                        danmaku_valid_list[1]=!danmaku_valid_list[1];
+                        break;
+                    default:
+                        danmaku_valid_list[i2+1]=!danmaku_valid_list[i2+1];
+                        ((TextView) view).getCompoundDrawables()[0].setAlpha(danmaku_valid_list[i2+1]?DanmakuConfig.ALPHA_VALUE_MAX:0);
+                        break;
                 }
                 boolean f = false;
                 this.danmaku_type=0;
@@ -752,6 +804,9 @@ public class PlayerMenuRight extends aay<String> {
                 for(int ii=4;ii<8;ii++)((TextView) viewGroup.getChildAt(ii-1)).getCompoundDrawables()[0].setAlpha(danmaku_valid_list[ii]?DanmakuConfig.ALPHA_VALUE_MAX:0);
                 this.d.refresh_subtitle();
                 this.d.set_danmaku_type(this.danmaku_type);
+
+                // 缓存弹幕开关状态
+                saveDanmakuValidList();
                 return true;
             }
             if (this.ratio_list.indexOf(str) != -1) {
@@ -1026,23 +1081,17 @@ public class PlayerMenuRight extends aay<String> {
     /* JADX INFO: Access modifiers changed from: protected */
     @Override // bl.aay
     public List<String> b(int i, int i2) {
-        Log.i("PlayerMenuRight", "=== b()方法被调用: i=" + i + ", i2=" + i2);
         List<String> list;
         if (i > 1) {
-            Log.i("PlayerMenuRight", "b()返回null: i > 1");
             return null;
         }
         if (i < 1) {
-            Log.i("PlayerMenuRight", "b()返回主菜单: i < 1");
             return this.main_list;
         }
         int originalIndex = getOriginalMenuIndex(i2);
         boolean isEbookMode = (menuIndexMap == null || menuIndexMap.isEmpty());
 
-        Log.i("PlayerMenuRight", "b()计算索引: originalIndex=" + originalIndex + ", isEbookMode=" + isEbookMode + ", menuIndexMap=" + (menuIndexMap != null ? menuIndexMap.size() : "null") + ", this.f=" + (TextUtils.isEmpty(this.f) ? "empty" : "not empty"));
-
         if (TextUtils.isEmpty(this.f)) {
-            Log.i("PlayerMenuRight", "b()进入第一个分支 (this.f为空)");
             switch (originalIndex) {
                 case 0:
                     list = this.quality_list;
@@ -1059,12 +1108,10 @@ public class PlayerMenuRight extends aay<String> {
                 case 4:
                     // 关键修复：电子书模式下返回电子书字体大小列表
                     list = isEbookMode ? this.ebook_font_size_list : this.size_list;
-                    // Log.i("PlayerMenuRight", "case 4: isEbookMode=" + isEbookMode + ", ebook_font_size_list=" + (this.ebook_font_size_list != null ? this.ebook_font_size_list.size() : "null") + ", size_list=" + (this.size_list != null ? this.size_list.size() : "null") + ", 返回=" + (list != null ? list.size() : "null"));
                     break;
                 case 5:
                     // 关键修复：电子书模式下返回电子书配色方案列表
                     list = isEbookMode ? this.ebook_color_theme_list : this.alpha_list;
-                    // Log.i("PlayerMenuRight", "case 5: isEbookMode=" + isEbookMode + ", ebook_color_theme_list=" + (this.ebook_color_theme_list != null ? this.ebook_color_theme_list.size() : "null") + ", alpha_list=" + (this.alpha_list != null ? this.alpha_list.size() : "null") + ", 返回=" + (list != null ? list.size() : "null"));
                     break;
                 case 6:
                     list = this.speed_list;
@@ -1080,7 +1127,6 @@ public class PlayerMenuRight extends aay<String> {
                     break;
                 case 10:
                     list = this.ebook_percent_list;
-                    // Log.i("PlayerMenuRight", "case 10: ebook_percent_list=" + (this.ebook_percent_list != null ? this.ebook_percent_list.size() : "null") + ", 返回=" + (list != null ? list.size() : "null"));
                     break;
                 case 11:
                     list = this.audio_balance_list;
@@ -1090,22 +1136,17 @@ public class PlayerMenuRight extends aay<String> {
                     break;
                 case 13:
                     list = this.video_position_list;
-                    // Log.i("PlayerMenuRight", "case 13: video_position_list=" + (this.video_position_list != null ? this.video_position_list.size() : "null") + ", 返回=" + (list != null ? list.size() : "null"));
                     break;
                 default:
-                    // Log.i("PlayerMenuRight", "default case: 返回null");
                     return null;
             }
-            // Log.i("PlayerMenuRight", "第一个分支返回: list=" + (list != null ? list.size() + " items" : "null"));
             return list;
         }
         // 关键修复：this.f 不为空时，也需要返回所有二级菜单列表
         // 第二个分支应该与第一个分支保持一致，避免焦点和菜单显示异常
-        // Log.i("PlayerMenuRight", "进入第二个分支 (this.f不为空)");
         switch (originalIndex) {
             case 0:
             default:
-                // Log.i("PlayerMenuRight", "第二个分支default case: 返回null");
                 return null;
             case 1:
                 list = this.quality_list;
@@ -1119,12 +1160,10 @@ public class PlayerMenuRight extends aay<String> {
             case 4:
                 // 关键修复：电子书模式下返回电子书字体大小列表
                 list = isEbookMode ? this.ebook_font_size_list : this.size_list;
-                // Log.i("PlayerMenuRight", "第二个分支case 4: isEbookMode=" + isEbookMode + ", 返回=" + (list != null ? list.size() : "null"));
                 break;
             case 5:
                 // 关键修复：电子书模式下返回电子书配色方案列表
                 list = isEbookMode ? this.ebook_color_theme_list : this.alpha_list;
-                // Log.i("PlayerMenuRight", "第二个分支case 5: isEbookMode=" + isEbookMode + ", 返回=" + (list != null ? list.size() : "null"));
                 break;
             case 6:
                 list = this.speed_list;
@@ -1140,7 +1179,6 @@ public class PlayerMenuRight extends aay<String> {
                 break;
             case 10:
                 list = this.ebook_percent_list;
-                // Log.i("PlayerMenuRight", "第二个分支case 10: 返回=" + (list != null ? list.size() : "null"));
                 break;
             case 11:
                 list = this.audio_balance_list;
@@ -1150,10 +1188,8 @@ public class PlayerMenuRight extends aay<String> {
                 break;
             case 13:
                 list = this.video_position_list;
-                // Log.i("PlayerMenuRight", "第二个分支case 13: 返回=" + (list != null ? list.size() : "null"));
                 break;
         }
-        // Log.i("PlayerMenuRight", "第二个分支返回: list=" + (list != null ? list.size() + " items" : "null"));
         return list;
     }
 
@@ -1301,21 +1337,17 @@ public class PlayerMenuRight extends aay<String> {
         this.subtitle_list.add("关闭字幕");
         if(subtitle_info==null){
             this.subtitle_id = 0;
-            // Log.i("SubtitleCache", "init_subtitle: subtitle_info is null, subtitle_id=0");
             return;
         }
         JSONArray subtitles = subtitle_info.optJSONArray("subtitles");
         for(int i=0;i<subtitles.length();i++)this.subtitle_list.add(subtitles.optJSONObject(i).optString("lan_doc"));
-        
+
         int cachedId = getSubtitleIdFromCache();
-        // Log.i("SubtitleCache", "init_subtitle: cachedId=" + cachedId + ", subtitle_list.size=" + this.subtitle_list.size());
         if (cachedId >= 0 && cachedId < this.subtitle_list.size()) {
             this.subtitle_id = cachedId;
-            // Log.i("SubtitleCache", "init_subtitle: using cached subtitle_id=" + this.subtitle_id);
         } else {
             if(subtitles.length()>0 && !subtitles.optJSONObject(0).optString("lan").startsWith("ai-"))this.subtitle_id = 1;
             else this.subtitle_id = 0;
-            // Log.i("SubtitleCache", "init_subtitle: using default subtitle_id=" + this.subtitle_id);
         }
     }
 
@@ -1338,26 +1370,21 @@ public class PlayerMenuRight extends aay<String> {
 
     private int getSubtitleIdFromCache() {
         if (params == null) {
-            // Log.i("SubtitleCache", "getSubtitleIdFromCache: params is null");
             return -1;
         }
-        
-        // Log.i("SubtitleCache", "getSubtitleIdFromCache: mAvid=" + params.mAvid + ", mListKey=" + params.mListKey);
-        
+
         int[] settings = null;
-        
+
         if (!android.text.TextUtils.isEmpty(params.mListKey)) {
             String key = "subtitle_list_" + params.mListKey;
             settings = abd.getSubtitleSettings(getContext(), key);
-            // Log.i("SubtitleCache", "getSubtitleIdFromCache: list key=" + key + ", settings=" + (settings != null ? settings[0] + "," + settings[1] : "null"));
         }
-        
+
         if (settings == null) {
             String key = abd.getVideoSubtitleKey(params.mAvid);
             settings = abd.getSubtitleSettings(getContext(), key);
-            // Log.i("SubtitleCache", "getSubtitleIdFromCache: video key=" + key + ", settings=" + (settings != null ? settings[0] + "," + settings[1] : "null"));
         }
-        
+
         return settings != null ? settings[0] : -1;
     }
 
@@ -1379,26 +1406,21 @@ public class PlayerMenuRight extends aay<String> {
 
     private void saveSubtitleSettings() {
         if (params == null) {
-            // Log.i("SubtitleCache", "saveSubtitleSettings: params is null, skip saving");
             return;
         }
-        
+
         float subtitleSize = 0.7f;
         if (this.subtitle_size_id >= 0 && this.subtitle_size_id < this.subtitle_size_list.size()) {
             subtitleSize = Float.valueOf(this.subtitle_size_list.get(this.subtitle_size_id)).floatValue();
         }
-        
-        // Log.i("SubtitleCache", "saveSubtitleSettings: mAvid=" + params.mAvid + ", mListKey=" + params.mListKey + ", subtitle_id=" + this.subtitle_id + ", subtitleSize=" + subtitleSize);
-        
+
         if (!android.text.TextUtils.isEmpty(params.mListKey)) {
             String listKey = "subtitle_list_" + params.mListKey;
             String videoKey = abd.getVideoSubtitleKey(params.mAvid);
-            // Log.i("SubtitleCache", "saveSubtitleSettings: saving to list key=" + listKey + ", clearing video key=" + videoKey);
             abd.setSubtitleSettings(getContext(), listKey, this.subtitle_id, subtitleSize);
             abd.clearSubtitleSettings(getContext(), videoKey);
         } else {
             String videoKey = abd.getVideoSubtitleKey(params.mAvid);
-            // Log.i("SubtitleCache", "saveSubtitleSettings: saving to video key=" + videoKey);
             abd.setSubtitleSettings(getContext(), videoKey, this.subtitle_id, subtitleSize);
         }
     }
