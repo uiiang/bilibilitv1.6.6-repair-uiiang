@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 147
+    .line 158
     iput-object p1, p0, Lbl/afm3$2;->this$0:Lbl/afm3;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -48,13 +48,13 @@
 
     const/4 v0, 0x0
 
-    .line 150
-    .line 151
+    .line 161
+    .line 162
     const v4, 0x7f0801e5
 
     if-ne p2, v4, :cond_23
 
-    .line 156
+    .line 167
     :cond_9
     :goto_9
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
@@ -63,16 +63,16 @@
 
     invoke-static {v4, v0}, Lbl/abd;->set_cdn_preference(Landroid/content/Context;I)V
 
-    .line 157
+    .line 168
     iget-object v4, p0, Lbl/afm3$2;->this$0:Lbl/afm3;
 
     # invokes: Lbl/afm3;->updateCdnCustomLayoutVisibility(I)V
     invoke-static {v4, v0}, Lbl/afm3;->access$000(Lbl/afm3;I)V
 
-    .line 159
+    .line 170
     if-ne v0, v1, :cond_38
 
-    .line 160
+    .line 171
     iget-object v0, p0, Lbl/afm3$2;->this$0:Lbl/afm3;
 
     invoke-virtual {v0}, Lbl/afm3;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -83,11 +83,11 @@
 
     invoke-static {v0, v1}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 168
+    .line 179
     :goto_22
     return-void
 
-    .line 152
+    .line 163
     :cond_23
     const v4, 0x7f0801e6
 
@@ -97,7 +97,7 @@
 
     goto :goto_9
 
-    .line 153
+    .line 164
     :cond_2a
     const v4, 0x7f0801e7
 
@@ -107,7 +107,7 @@
 
     goto :goto_9
 
-    .line 154
+    .line 165
     :cond_31
     const v4, 0x7f0801e8
 
@@ -117,11 +117,11 @@
 
     goto :goto_9
 
-    .line 161
+    .line 172
     :cond_38
     if-ne v0, v2, :cond_46
 
-    .line 162
+    .line 173
     iget-object v0, p0, Lbl/afm3$2;->this$0:Lbl/afm3;
 
     invoke-virtual {v0}, Lbl/afm3;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -134,11 +134,11 @@
 
     goto :goto_22
 
-    .line 163
+    .line 174
     :cond_46
     if-ne v0, v3, :cond_54
 
-    .line 164
+    .line 175
     iget-object v0, p0, Lbl/afm3$2;->this$0:Lbl/afm3;
 
     invoke-virtual {v0}, Lbl/afm3;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -151,7 +151,7 @@
 
     goto :goto_22
 
-    .line 166
+    .line 177
     :cond_54
     iget-object v0, p0, Lbl/afm3$2;->this$0:Lbl/afm3;
 

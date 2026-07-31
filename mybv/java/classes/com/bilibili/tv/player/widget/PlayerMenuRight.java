@@ -636,7 +636,7 @@ public class PlayerMenuRight extends aay<String> {
         if (TextUtils.equals(str, "章节列表")) {
             a(false);  // 关闭菜单
             android.util.Log.i("EbookReader", "章节列表菜单项被点击");
-            if (com.bilibili.tv.FeatureConfig.isEbookReaderEnabled() && this.d != null) {
+            if (this.d != null) {
                 this.d.showChapterList();
             }
             return true;
@@ -657,7 +657,7 @@ public class PlayerMenuRight extends aay<String> {
         if (TextUtils.equals(str, "选择文件")) {
             a(false);  // 关闭菜单
             android.util.Log.i("EbookReader", "选择文件菜单项被点击");
-            if (com.bilibili.tv.FeatureConfig.isEbookReaderEnabled() && this.d != null) {
+            if (this.d != null) {
                 this.d.openEbookFileChooser();
             }
             return true;
@@ -666,7 +666,7 @@ public class PlayerMenuRight extends aay<String> {
         if (TextUtils.equals(str, "清空书架")) {
             a(false);  // 关闭菜单
             android.util.Log.i("EbookReader", "清空书架菜单项被点击");
-            if (com.bilibili.tv.FeatureConfig.isEbookReaderEnabled() && this.d != null) {
+            if (this.d != null) {
                 this.d.clearBookshelf();
             }
             return true;
@@ -675,16 +675,14 @@ public class PlayerMenuRight extends aay<String> {
         if (TextUtils.equals(str, "退出阅读")) {
             a(false);  // 关闭菜单
             android.util.Log.i("EbookReader", "退出阅读菜单项被点击");
-            if (com.bilibili.tv.FeatureConfig.isEbookReaderEnabled()) {
-                this.d.openEbookReader(); // 再次调用会关闭电子书面板
-            }
+            this.d.openEbookReader(); // 再次调用会关闭电子书面板
             return true;
         }
 
         if (TextUtils.equals(str, "关闭书籍")) {
             a(false);  // 关闭菜单
             android.util.Log.i("EbookReader", "关闭书籍菜单项被点击");
-            if (com.bilibili.tv.FeatureConfig.isEbookReaderEnabled() && this.d != null) {
+            if (this.d != null) {
                 this.d.closeCurrentBook(); // 关闭当前书籍，返回书架页面
             }
             return true;
@@ -693,14 +691,12 @@ public class PlayerMenuRight extends aay<String> {
         if (TextUtils.equals(str, "关闭电子书")) {
             a(false);  // 关闭菜单
             android.util.Log.i("EbookReader", "关闭电子书菜单项被点击");
-            if (com.bilibili.tv.FeatureConfig.isEbookReaderEnabled()) {
-                this.d.openEbookReader(); // 再次调用会关闭电子书面板
-            }
+            this.d.openEbookReader(); // 再次调用会关闭电子书面板
             return true;
         }
 
         // 新增：控制视频菜单项点击处理（必须在super.a()之前，避免触发二级菜单）
-        if (TextUtils.equals(str, "控制视频") && com.bilibili.tv.FeatureConfig.isEbookReaderEnabled()) {
+        if (TextUtils.equals(str, "控制视频")) {
             a(false);
             this.d.switchControlTarget("video");
             android.util.Log.i("EbookReader", "控制视频菜单项被点击");
@@ -708,7 +704,7 @@ public class PlayerMenuRight extends aay<String> {
         }
 
         // 新增：控制电子书菜单项点击处理（必须在super.a()之前，避免触发二级菜单）
-        if (TextUtils.equals(str, "控制电子书") && com.bilibili.tv.FeatureConfig.isEbookReaderEnabled()) {
+        if (TextUtils.equals(str, "控制电子书")) {
             a(false);
             this.d.switchControlTarget("ebook");
             android.util.Log.i("EbookReader", "控制电子书菜单项被点击");
@@ -736,7 +732,7 @@ public class PlayerMenuRight extends aay<String> {
                 return true;
             }
             // 新增：电子书菜单项点击处理
-            if (TextUtils.equals(str, "电子书") && com.bilibili.tv.FeatureConfig.isEbookReaderEnabled()) {
+            if (TextUtils.equals(str, "电子书")) {
                 a(false);
                 this.d.openEbookReader();
                 android.util.Log.i("PlayerMenuRight", "电子书菜单项被点击");

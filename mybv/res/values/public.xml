@@ -3601,6 +3601,8 @@
     <public type="id" name="decode_ijk_hard" id="0x7f080228" />
     <public type="id" name="decode_ijk_soft" id="0x7f080229" />
     <public type="id" name="menu_subtitle_size_btn" id="0x7f08022a" />
+    <public type="id" name="menu_audio_balance_btn" id="0x7f080235" />
+    <public type="id" name="menu_ebook_btn" id="0x7f080236" />
     <public type="id" name="decode_settings_layout" id="0x7f08022b" />
     <public type="id" name="codec_settings_layout" id="0x7f08022c" />
     <public type="id" name="tab_button6" id="0x7f08022d" />

@@ -784,7 +784,7 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:nextFocusLeft="@id/menu_skip_btn"
-                    android:nextFocusRight="@id/menu_subtitle_size_btn"
+                    android:nextFocusRight="@id/menu_audio_balance_btn"
                     android:nextFocusUp="@id/menu_size_btn"
                     android:paddingLeft="@dimen/px_20"
                     android:paddingRight="@dimen/px_20"
@@ -798,6 +798,61 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/subtitle_size"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/px_36" />
+                </com.bilibili.tv.widget.DrawFrameLayout>
+            </LinearLayout>
+            <!-- 第三行：音频平衡、电子书 -->
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:focusable="false"
+                android:clipChildren="false"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/px_96"
+                android:layout_marginTop="@dimen/px_10">
+                <com.bilibili.tv.widget.DrawFrameLayout
+                    android:id="@id/menu_audio_balance_btn"
+                    android:background="@drawable/shape_rectangle_trans_with_12corner_white_10"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:nextFocusLeft="@id/menu_subtitle_size_btn"
+                    android:nextFocusRight="@id/menu_ebook_btn"
+                    android:nextFocusUp="@id/menu_speed_btn"
+                    android:paddingLeft="@dimen/px_20"
+                    android:paddingRight="@dimen/px_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/px_96">
+                    <com.bilibili.tv.widget.ShadowTextView
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:focusable="false"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="音频平衡"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/px_36" />
+                </com.bilibili.tv.widget.DrawFrameLayout>
+                <com.bilibili.tv.widget.DrawFrameLayout
+                    android:id="@id/menu_ebook_btn"
+                    android:background="@drawable/shape_rectangle_trans_with_12corner_white_10"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:nextFocusLeft="@id/menu_audio_balance_btn"
+                    android:nextFocusRight="@id/menu_ebook_btn"
+                    android:nextFocusUp="@id/menu_speed_btn"
+                    android:paddingLeft="@dimen/px_20"
+                    android:paddingRight="@dimen/px_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/px_96"
+                    android:layout_marginLeft="@dimen/px_20">
+                    <com.bilibili.tv.widget.ShadowTextView
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:focusable="false"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="电子书"
                         android:textColor="@color/white"
                         android:textSize="@dimen/px_36" />
                 </com.bilibili.tv.widget.DrawFrameLayout>

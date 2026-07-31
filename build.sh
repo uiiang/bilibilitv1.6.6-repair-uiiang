@@ -23,13 +23,11 @@ case "$1" in
         echo "  -i, --install          Install build environment"
         echo "  -d, --decompile        Decompile test.apk to mybv/"
         echo "  -p, --package [ID]     Build with package ID (default: com.bilibili.tv)"
-        echo "  --plus                 Build with E-book Reader feature enabled"
         echo "  -s, --special [ID]     Build with package ID (no update.json)"
         echo "  -h, --help             Show this help message"
         echo ""
         echo "Examples:"
         echo "  ./build.sh -p uii.ang.bilitv    # Build with package ID"
-        echo "  ./build.sh --plus               # Build with E-book Reader enabled"
         echo "  ./build.sh                      # Build without changing package ID"
         exit 0
     ;;
@@ -43,23 +41,6 @@ case "$1" in
         echo "========================================="
         echo "Building APK with package ID: $packageid"
         echo "========================================="
-
-        # Enable E-book Reader feature (check if --plus flag is present)
-        enable_ebook=false
-        for arg in "$@"; do
-            if [ "$arg" = "--plus" ]; then
-                enable_ebook=true
-                break
-            fi
-        done
-
-        if [ "$enable_ebook" = true ]; then
-            echo ""
-            echo "Enabling E-book Reader feature..."
-            sed -i 's/public static final boolean ENABLE_EBOOK_READER = false;/public static final boolean ENABLE_EBOOK_READER = true;/g' mybv/java/classes/com/bilibili/tv/FeatureConfig.java
-            sed -i 's/public static final String FEATURE_VERSION = "standard";/public static final String FEATURE_VERSION = "plus";/g' mybv/java/classes/com/bilibili/tv/FeatureConfig.java
-            echo "✓ E-book Reader feature enabled"
-        fi
         
         # Check MultiDex directories
         echo ""
@@ -179,119 +160,12 @@ EOF
         echo "APK file: mybv.apk"
         echo "APK size: $(du -h mybv.apk | cut -f1)"
         echo "Package ID: $packageid"
-        if [ "$enable_ebook" = true ]; then
-            echo "Feature: E-book Reader ENABLED (plus)"
-        else
-            echo "Feature: E-book Reader DISABLED (standard)"
-        fi
         echo "DEX files: $dex_count"
         echo "MD5: $(md5sum mybv.apk|awk '{print $1}')"
         echo ""
         echo "You can now install the APK with:"
         echo "  adb install mybv.apk"
         echo "========================================="
-
-        # Restore feature config to default
-        if [ "$enable_ebook" = true ]; then
-            echo ""
-            echo "Restoring FeatureConfig.java to default..."
-            sed -i 's/public static final boolean ENABLE_EBOOK_READER = true;/public static final boolean ENABLE_EBOOK_READER = false;/g' mybv/java/classes/com/bilibili/tv/FeatureConfig.java
-            sed -i 's/public static final String FEATURE_VERSION = "plus";/public static final String FEATURE_VERSION = "standard";/g' mybv/java/classes/com/bilibili/tv/FeatureConfig.java
-            echo "✓ FeatureConfig.java restored to default"
-        fi
-
-        exit 0
-    ;;
-    --plus)
-        # Build with E-book Reader feature enabled (without changing package ID)
-        echo "========================================="
-        echo "Building APK with E-book Reader (plus)"
-        echo "========================================="
-
-        # Enable E-book Reader feature
-        echo ""
-        echo "Enabling E-book Reader feature..."
-        sed -i 's/public static final boolean ENABLE_EBOOK_READER = false;/public static final boolean ENABLE_EBOOK_READER = true;/g' mybv/java/classes/com/bilibili/tv/FeatureConfig.java
-        sed -i 's/public static final String FEATURE_VERSION = "standard";/public static final String FEATURE_VERSION = "plus";/g' mybv/java/classes/com/bilibili/tv/FeatureConfig.java
-        echo "✓ E-book Reader feature enabled"
-
-        # Compile Java code
-        echo ""
-        echo "Compiling Java code..."
-        cd mybv/java
-        ./build.sh
-        cd ../..
-        echo "✓ Java code compiled"
-
-        # Build APK
-        echo ""
-        echo "Building APK..."
-        apktool b -c --use-aapt2 mybv
-        if [ $? -ne 0 ]; then
-            echo "✗ APK build failed!"
-            # Restore feature config before exiting
-            sed -i 's/public static final boolean ENABLE_EBOOK_READER = true;/public static final boolean ENABLE_EBOOK_READER = false;/g' mybv/java/classes/com/bilibili/tv/FeatureConfig.java
-            sed -i 's/public static final String FEATURE_VERSION = "plus";/public static final String FEATURE_VERSION = "standard";/g' mybv/java/classes/com/bilibili/tv/FeatureConfig.java
-            exit 1
-        fi
-        echo "✓ APK built successfully"
-
-        # Sign APK
-        echo ""
-        echo "Signing APK..."
-        java -jar /usr/bin/signapk platform.x509.pem platform.pk8 ./mybv/dist/mybv.apk mybv.apk
-        if [ $? -ne 0 ]; then
-            echo "✗ APK signing failed!"
-            # Restore feature config before exiting
-            sed -i 's/public static final boolean ENABLE_EBOOK_READER = true;/public static final boolean ENABLE_EBOOK_READER = false;/g' mybv/java/classes/com/bilibili/tv/FeatureConfig.java
-            sed -i 's/public static final String FEATURE_VERSION = "plus";/public static final String FEATURE_VERSION = "standard";/g' mybv/java/classes/com/bilibili/tv/FeatureConfig.java
-            exit 1
-        fi
-        echo "✓ APK signed successfully"
-
-        # Check DEX files
-        echo ""
-        echo "Checking DEX files..."
-        dex_count=$(unzip -l mybv.apk | grep -c "classes.*\.dex")
-        echo "✓ Found $dex_count DEX file(s)"
-
-        # Generate update.json
-        cat <<EOF > update.json
-{
-    "apkMd5":"$(md5sum mybv.apk|awk '{print $1}')",
-    "apkUrl":"https://github.com/uiiang/bilibilitv1.6.6-repair-uiiang/raw/refs/heads/main/mybv.apk",
-    "fileSize":$(stat -c %s mybv.apk),
-    "id":"",
-    "newFeature":"E-book Reader Enabled",
-    "publishTime":0,
-    "title":"Plus",
-    "upgradeType":1,
-    "versionCode":$(date '+%Y%m%d'),
-    "versionName":"1.6.6.$(date '+%Y%m%d')-plus"
-}
-EOF
-
-        # Final summary
-        echo ""
-        echo "========================================="
-        echo "Build completed successfully!"
-        echo "========================================="
-        echo "APK file: mybv.apk"
-        echo "APK size: $(du -h mybv.apk | cut -f1)"
-        echo "Feature: E-book Reader ENABLED (plus)"
-        echo "DEX files: $dex_count"
-        echo "MD5: $(md5sum mybv.apk|awk '{print $1}')"
-        echo ""
-        echo "You can now install the APK with:"
-        echo "  adb install mybv.apk"
-        echo "========================================="
-
-        # Restore feature config to default
-        echo ""
-        echo "Restoring FeatureConfig.java to default..."
-        sed -i 's/public static final boolean ENABLE_EBOOK_READER = true;/public static final boolean ENABLE_EBOOK_READER = false;/g' mybv/java/classes/com/bilibili/tv/FeatureConfig.java
-        sed -i 's/public static final String FEATURE_VERSION = "plus";/public static final String FEATURE_VERSION = "standard";/g' mybv/java/classes/com/bilibili/tv/FeatureConfig.java
-        echo "✓ FeatureConfig.java restored to default"
 
         exit 0
     ;;

@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 2239
+    .line 2242
     iput-object p1, p0, Lbl/xw$21;->this$0:Lbl/xw;
 
     iput-object p2, p0, Lbl/xw$21;->val$listView:Landroid/widget/ListView;
@@ -44,18 +44,18 @@
     .locals 2
 
     .prologue
-    .line 2242
+    .line 2245
     iget-object v0, p0, Lbl/xw$21;->val$listView:Landroid/widget/ListView;
 
     invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
 
-    .line 2243
+    .line 2246
     const-string v0, "EbookReader"
 
     const-string v1, "\u6587\u4ef6\u5217\u8868\u5df2\u8bf7\u6c42\u7126\u70b9"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2244
+    .line 2247
     return-void
 .end method

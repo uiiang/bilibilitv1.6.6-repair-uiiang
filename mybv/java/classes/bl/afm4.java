@@ -53,6 +53,8 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
     private DrawFrameLayout menuChapterBtn;
     private DrawFrameLayout menuSkipBtn;
     private DrawFrameLayout menuSubtitleSizeBtn;
+    private DrawFrameLayout menuAudioBalanceBtn;
+    private DrawFrameLayout menuEbookBtn;
 
     @Override // bl.adw
     public boolean c() {
@@ -233,6 +235,18 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         this.menuChapterBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_chapter_btn);
         this.menuSkipBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_skip_btn);
         this.menuSubtitleSizeBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_subtitle_size_btn);
+        this.menuAudioBalanceBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_audio_balance_btn);
+        this.menuEbookBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_ebook_btn);
+
+        // 根据渲染视图类型决定是否显示电子书选项
+        // 只有在设置-实验室中选择了TextureView，才显示电子书选项
+        boolean ebookEnabled = (mybl.BiliFilter.prefer_videoview == abd.RENDER_VIEW_TEXTURE);
+        if (!ebookEnabled) {
+            // 如果未选择TextureView，隐藏电子书按钮
+            this.menuEbookBtn.setVisibility(View.GONE);
+            // 设置音频平衡按钮的右键焦点为自身，避免焦点跳到页面顶部
+            this.menuAudioBalanceBtn.setNextFocusRightId(R.id.menu_audio_balance_btn);
+        }
 
         this.menuQualityBtn.setUpDrawable(R.drawable.shadow_white_rect);
         this.menuDanmakuBtn.setUpDrawable(R.drawable.shadow_white_rect);
@@ -246,6 +260,10 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         this.menuChapterBtn.setUpDrawable(R.drawable.shadow_white_rect);
         this.menuSkipBtn.setUpDrawable(R.drawable.shadow_white_rect);
         this.menuSubtitleSizeBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        this.menuAudioBalanceBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        if (ebookEnabled) {
+            this.menuEbookBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        }
 
         this.menuQualityBtn.setOnFocusChangeListener(this);
         this.menuDanmakuBtn.setOnFocusChangeListener(this);
@@ -259,6 +277,10 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         this.menuChapterBtn.setOnFocusChangeListener(this);
         this.menuSkipBtn.setOnFocusChangeListener(this);
         this.menuSubtitleSizeBtn.setOnFocusChangeListener(this);
+        this.menuAudioBalanceBtn.setOnFocusChangeListener(this);
+        if (ebookEnabled) {
+            this.menuEbookBtn.setOnFocusChangeListener(this);
+        }
 
         this.menuQualityBtn.setOnClickListener(this);
         this.menuDanmakuBtn.setOnClickListener(this);
@@ -272,6 +294,10 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         this.menuChapterBtn.setOnClickListener(this);
         this.menuSkipBtn.setOnClickListener(this);
         this.menuSubtitleSizeBtn.setOnClickListener(this);
+        this.menuAudioBalanceBtn.setOnClickListener(this);
+        if (ebookEnabled) {
+            this.menuEbookBtn.setOnClickListener(this);
+        }
 
         int menuConfig = abd.get_player_menu_config(getActivity());
         updateMenuButtonState(this.menuQualityBtn, (menuConfig & abd.MENU_QUALITY) != 0);
@@ -286,6 +312,10 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         updateMenuButtonState(this.menuChapterBtn, (menuConfig & abd.MENU_CHAPTER) != 0);
         updateMenuButtonState(this.menuSkipBtn, (menuConfig & abd.MENU_SKIP) != 0);
         updateMenuButtonState(this.menuSubtitleSizeBtn, (menuConfig & abd.MENU_SUBTITLE_SIZE) != 0);
+        updateMenuButtonState(this.menuAudioBalanceBtn, (menuConfig & abd.MENU_AUDIO_BALANCE) != 0);
+        if (ebookEnabled) {
+            updateMenuButtonState(this.menuEbookBtn, (menuConfig & abd.MENU_EBOOK) != 0);
+        }
 
         return inflate;
     }
@@ -428,7 +458,8 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
                 view == this.menuSizeBtn || view == this.menuAlphaBtn ||
                 view == this.menuSpeedBtn || view == this.menuModeBtn ||
                 view == this.menuSubtitleBtn || view == this.menuChapterBtn ||
-                view == this.menuSkipBtn || view == this.menuSubtitleSizeBtn) {
+                view == this.menuSkipBtn || view == this.menuSubtitleSizeBtn ||
+                view == this.menuAudioBalanceBtn || view == this.menuEbookBtn) {
             int config = abd.get_player_menu_config(getActivity());
             int flag = 0;
             if (view == this.menuQualityBtn)
@@ -455,6 +486,10 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
                 flag = abd.MENU_SKIP;
             else if (view == this.menuSubtitleSizeBtn)
                 flag = abd.MENU_SUBTITLE_SIZE;
+            else if (view == this.menuAudioBalanceBtn)
+                flag = abd.MENU_AUDIO_BALANCE;
+            else if (view == this.menuEbookBtn)
+                flag = abd.MENU_EBOOK;
 
             boolean wasEnabled = (config & flag) != 0;
             int newConfig;
@@ -589,6 +624,13 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
             if (allTabsNoFocus && this.menuSubtitleSizeBtn != null && this.menuSubtitleSizeBtn.hasFocus()) {
                 allTabsNoFocus = false;
             }
+            if (allTabsNoFocus && this.menuAudioBalanceBtn != null && this.menuAudioBalanceBtn.hasFocus()) {
+                allTabsNoFocus = false;
+            }
+            if (allTabsNoFocus && this.menuEbookBtn != null && this.menuEbookBtn.hasFocus()) {
+                allTabsNoFocus = false;
+            }
+
             if (allTabsNoFocus) {
                 this.fastquit_button.requestFocus();
                 return true;

@@ -698,7 +698,7 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         Resources resources = o().getResources();
 
         // 关键修复：根据controlTarget判断打开哪个菜单（而不仅仅是isEbookPanelShown）
-        if (isEbookPanelShown && controlTarget.equals("ebook") && com.bilibili.tv.FeatureConfig.isEbookReaderEnabled()) {
+        if (isEbookPanelShown && controlTarget.equals("ebook")) {
             // 问题1修复：在文件列表页和章节列表页，不显示右侧菜单
             if (isFileChooserShown) {
                 Log.i(TAG_EBOOK, "文件列表页，不显示右侧菜单");
@@ -864,9 +864,11 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         boolean isExoPlayer = abd.is_exo_player_selected(p());
 
         for (int i = 0; i < allMenus.length && i < menuFlags.length; i++) {
-            // 音频平衡菜单仅在ExoPlayer模式下显示
-            if (menuFlags[i] == abd.MENU_AUDIO_BALANCE && !isExoPlayer) {
-                continue;
+            // 音频平衡菜单：同时判断播放器内核和个性化设置
+            if (menuFlags[i] == abd.MENU_AUDIO_BALANCE) {
+                if (!isExoPlayer || (menuConfig & abd.MENU_AUDIO_BALANCE) == 0) {
+                    continue;
+                }
             }
             if ((menuConfig & menuFlags[i]) != 0) {
                 filteredMenus.add(allMenus[i]);
@@ -874,8 +876,9 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             }
         }
 
-        // 新增：在菜单列表最下方添加"电子书"或"控制电子书"选项(仅当功能启用时)
-        if (com.bilibili.tv.FeatureConfig.isEbookReaderEnabled()) {
+        // 新增：在菜单列表最下方添加"电子书"或"控制电子书"选项
+        // 只根据个性化设置中的选择判断
+        if ((menuConfig & abd.MENU_EBOOK) != 0) {
             if (isEbookPanelShown) {
                 // 已打开电子书模式：显示"控制电子书"
                 filteredMenus.add("控制电子书");

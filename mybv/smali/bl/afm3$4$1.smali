@@ -38,7 +38,7 @@
     .locals 0
 
     .prologue
-    .line 273
+    .line 284
     iput-object p1, p0, Lbl/afm3$4$1;->this$1:Lbl/afm3$4;
 
     iput p2, p0, Lbl/afm3$4$1;->val$which:I
@@ -54,7 +54,7 @@
     .locals 3
 
     .prologue
-    .line 276
+    .line 287
     new-instance v1, Lbl/qa$a;
 
     const-class v0, Lbl/afm3$Response;
@@ -97,7 +97,7 @@
 
     check-cast v0, Lbl/afm3$Response;
 
-    .line 277
+    .line 288
     invoke-virtual {v0}, Lbl/afm3$Response;->e()Landroid/graphics/Bitmap;
 
     move-result-object v0
@@ -114,7 +114,7 @@
     .end annotation
 
     .prologue
-    .line 273
+    .line 284
     invoke-virtual {p0}, Lbl/afm3$4$1;->call()Landroid/graphics/Bitmap;
 
     move-result-object v0

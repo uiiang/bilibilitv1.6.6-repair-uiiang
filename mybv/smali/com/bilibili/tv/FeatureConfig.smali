@@ -4,9 +4,9 @@
 
 
 # static fields
-.field public static final ENABLE_EBOOK_READER:Z = true
+.field public static final ENABLE_EBOOK_READER:Z = false
 
-.field public static final FEATURE_VERSION:Ljava/lang/String; = "plus"
+.field public static final FEATURE_VERSION:Ljava/lang/String; = "standard"
 
 
 # direct methods
@@ -24,8 +24,8 @@
     .locals 1
 
     .prologue
-    .line 30
-    const/4 v0, 0x1
+    .line 31
+    const/4 v0, 0x0
 
     return v0
 .end method

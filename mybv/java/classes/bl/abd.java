@@ -489,7 +489,8 @@ public class abd {
     public static final int MENU_SKIP = 1024;
     public static final int MENU_AUDIO_BALANCE = 2048;
     public static final int MENU_SUBTITLE_SIZE = 4096;
-    public static final int MENU_ALL = MENU_QUALITY | MENU_DANMAKU | MENU_RATIO | MENU_ADJUST | MENU_SIZE | MENU_ALPHA | MENU_SPEED | MENU_MODE | MENU_SUBTITLE | MENU_CHAPTER | MENU_SKIP | MENU_AUDIO_BALANCE | MENU_SUBTITLE_SIZE;
+    public static final int MENU_EBOOK = 8192; // 电子书菜单项
+    public static final int MENU_ALL = MENU_QUALITY | MENU_DANMAKU | MENU_RATIO | MENU_ADJUST | MENU_SIZE | MENU_ALPHA | MENU_SPEED | MENU_MODE | MENU_SUBTITLE | MENU_CHAPTER | MENU_SKIP | MENU_AUDIO_BALANCE | MENU_SUBTITLE_SIZE; // 注意：MENU_EBOOK默认不启用
     
     private static int playerMenuConfig = -1;
     
@@ -635,6 +636,31 @@ public class abd {
     public static void set_audio_balance_level(Context context, String level) {
         a(context).a().edit().putString(KEY_AUDIO_BALANCE_LEVEL, level).apply();
         audioBalanceLevel = level;
+    }
+
+    // 渲染视图类型常量
+    public static final int RENDER_VIEW_SURFACE = 1; // SurfaceView
+    public static final int RENDER_VIEW_TEXTURE = 2; // TextureView
+
+    private static final String KEY_RENDER_VIEW_TYPE = "render_view_type";
+    private static int renderViewType = -1;
+
+    public static int get_render_view_type(Context context) {
+        if (renderViewType == -1) {
+            renderViewType = a(context).a().getInt(KEY_RENDER_VIEW_TYPE, RENDER_VIEW_SURFACE);
+        }
+        return renderViewType;
+    }
+
+    public static void set_render_view_type(Context context, int type) {
+        a(context).a().edit().putInt(KEY_RENDER_VIEW_TYPE, type).apply();
+        renderViewType = type;
+        // 同步更新到BiliFilter
+        mybl.BiliFilter.prefer_videoview = type;
+    }
+
+    public static boolean is_texture_view_selected(Context context) {
+        return get_render_view_type(context) == RENDER_VIEW_TEXTURE;
     }
 
     private static final String SUBTITLE_PREFIX = "subtitle_";

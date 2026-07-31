@@ -131,6 +131,17 @@ public final class afm3 extends adw implements View.OnFocusChangeListener, View.
                 //if(index==3)lr.a(afm3.this.getActivity(), "注意：该模式不支持IJK软解");
                 BiliFilter.prefer_videoview=index;
                 abd.set_personal_config(MainApplication.a(), "prefer_videoview", BiliFilter.prefer_videoview);
+                
+                // 当切换到非TextureView时，自动取消电子书菜单项
+                if (index != abd.RENDER_VIEW_TEXTURE) {
+                    int menuConfig = abd.get_player_menu_config(afm3.this.getActivity());
+                    if ((menuConfig & abd.MENU_EBOOK) != 0) {
+                        // 取消电子书菜单项
+                        menuConfig = menuConfig & ~abd.MENU_EBOOK;
+                        abd.set_player_menu_config(afm3.this.getActivity(), menuConfig);
+                        android.util.Log.i("afm3", "渲染视图切换到非TextureView，自动取消电子书菜单项");
+                    }
+                }
             }
         });
         

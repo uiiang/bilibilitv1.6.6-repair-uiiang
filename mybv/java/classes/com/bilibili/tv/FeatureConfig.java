@@ -9,10 +9,11 @@ public class FeatureConfig {
     /**
      * 电子书阅读器功能开关
      * 默认值: false (不启用)
-     * 当值为 true 时启用阅读器功能
-     *
-     * 注意: 此值由编译脚本控制,请勿手动修改!
-     * 使用 ./build.sh --plus 编译时会自动设置为 true
+     * 
+     * 注意: 此功能现在完全由用户配置控制
+     * 1. 在设置-实验室中选择TextureView
+     * 2. 在个性化设置中勾选电子书选项
+     * 3. 视频播放右键菜单中才会显示电子书菜单项
      */
     public static final boolean ENABLE_EBOOK_READER = false;
 

@@ -2653,6 +2653,8 @@ public final class R {
         public static final int decode_ijk_hard = 0x7f080228;
         public static final int decode_ijk_soft = 0x7f080229;
         public static final int menu_subtitle_size_btn = 0x7f08022a;
+        public static final int menu_audio_balance_btn = 0x7f080235;
+        public static final int menu_ebook_btn = 0x7f080236;
         public static final int decode_settings_layout = 0x7f08022b;
         public static final int codec_settings_layout = 0x7f08022c;
         public static final int tab_button6 = 0x7f08022d;

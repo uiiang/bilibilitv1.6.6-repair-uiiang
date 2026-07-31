@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 2880
+    .line 2883
     iput-object p1, p0, Lbl/xw$28$3;->this$1:Lbl/xw$28;
 
     iput-object p2, p0, Lbl/xw$28$3;->val$chapterList:Ljava/util/List;
@@ -44,10 +44,10 @@
     .locals 4
 
     .prologue
-    .line 2884
+    .line 2887
     const/4 v2, -0x1
 
-    .line 2885
+    .line 2888
     const/4 v0, 0x0
 
     move v1, v0
@@ -61,7 +61,7 @@
 
     if-ge v1, v0, :cond_5d
 
-    .line 2886
+    .line 2889
     iget-object v0, p0, Lbl/xw$28$3;->val$chapterList:Ljava/util/List;
 
     invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -70,7 +70,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ebook/model/Chapter;
 
-    .line 2887
+    .line 2890
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/Chapter;->getChapterIndex()I
 
     move-result v0
@@ -86,11 +86,11 @@
 
     if-ne v0, v3, :cond_59
 
-    .line 2894
+    .line 2897
     :goto_21
     if-ltz v1, :cond_46
 
-    .line 2895
+    .line 2898
     iget-object v0, p0, Lbl/xw$28$3;->this$1:Lbl/xw$28;
 
     iget-object v0, v0, Lbl/xw$28;->this$0:Lbl/xw;
@@ -102,7 +102,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/ListView;->setSelection(I)V
 
-    .line 2896
+    .line 2899
     const-string v0, "EbookReader"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -125,7 +125,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2900
+    .line 2903
     :cond_46
     iget-object v0, p0, Lbl/xw$28$3;->this$1:Lbl/xw$28;
 
@@ -138,17 +138,17 @@
 
     invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
 
-    .line 2901
+    .line 2904
     const-string v0, "EbookReader"
 
     const-string v1, "\u7ae0\u8282\u5217\u8868\u5df2\u8bf7\u6c42\u7126\u70b9"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2902
+    .line 2905
     return-void
 
-    .line 2885
+    .line 2888
     :cond_59
     add-int/lit8 v0, v1, 0x1
 
