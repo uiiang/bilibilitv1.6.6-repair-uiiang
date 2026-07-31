@@ -88,6 +88,12 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     private Runnable saveProgressRunnable = null;
     private android.os.Handler saveProgressHandler = null;
     private static final int SAVE_PROGRESS_DELAY_MS = 300; // 防抖延迟300毫秒
+
+    // 连击三次确定键关闭电子书区域
+    private int confirmKeyClickCount = 0; // 确定键点击次数
+    private long lastConfirmKeyPressTime = 0; // 上次确定键点击时间
+    private static final int TRIPLE_CLICK_INTERVAL = 800; // 三次连击时间间隔（800毫秒）
+
     private Runnable g = new Runnable() { // from class: bl.xw.1
         @Override // java.lang.Runnable
         public void run() {
@@ -190,6 +196,35 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     @Override // bl.xh
     public boolean f(int keyCode, KeyEvent event) {
         Log.i(TAG_EBOOK, "xw.f: 收到按键 " + keyCode + ", isEbookPanelShown=" + isEbookPanelShown + ", controlTarget=" + controlTarget + ", R()=" + R());
+
+        // 连击三次确定键关闭电子书区域（不论焦点在视频还是电子书区域）
+        // 必须在检查controlTarget之前处理，确保在任何页面都能响应
+        if (isEbookPanelShown && (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER)) {
+            long currentTime = System.currentTimeMillis();
+            long timeSinceLastPress = currentTime - lastConfirmKeyPressTime;
+
+            Log.i(TAG_EBOOK, "确定键点击: count=" + confirmKeyClickCount + ", timeSinceLastPress=" + timeSinceLastPress + "ms");
+
+            // 如果距离上次点击超过时间间隔，重置计数
+            if (timeSinceLastPress > TRIPLE_CLICK_INTERVAL) {
+                confirmKeyClickCount = 0;
+            }
+
+            confirmKeyClickCount++;
+            lastConfirmKeyPressTime = currentTime;
+
+            // 如果连击三次，隐藏电子书区域（不清空书籍数据）
+            if (confirmKeyClickCount >= 3) {
+                Log.i(TAG_EBOOK, "连击三次确定键，隐藏电子书区域（不清空书籍数据）");
+                confirmKeyClickCount = 0; // 重置计数
+                hideEbookPanel(); // 只隐藏，不清空书籍数据
+                return true;
+            }
+
+            // 如果是第一次或第二次点击，等待可能的三连击
+            // 不立即处理，等待可能的三连击
+            return R();
+        }
 
         // 关键修复：只在控制电子书时才处理按键
         if (!controlTarget.equals("ebook")) {
@@ -302,10 +337,20 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             }
         }
 
+        // 长按确认键处理：只在电子书书架页面响应（用于删除书籍）
+        // 其他页面（视频播放、电子书阅读）不响应长按确认键
+        boolean isBookshelfPage = isEbookPanelShown && controlTarget.equals("ebook") &&
+                                   (ebookWebView == null || !ebookWebView.isShown()) &&
+                                   bookshelfListView != null && bookshelfListView.isShown();
+
         if ((keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) && !this.f) {
-            this.f = true;
-            a(this.g);
-            a(this.g, ViewConfiguration.getLongPressTimeout());
+            // 只有在书架页面才响应长按确认键
+            if (isBookshelfPage) {
+                this.f = true;
+                a(this.g);
+                a(this.g, ViewConfiguration.getLongPressTimeout());
+            }
+            // 其他页面不响应长按确认键，直接返回
         }
         return R();
     }
@@ -2994,8 +3039,16 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         controlTarget = "ebook"; // 打开电子书时，默认控制电子书
         Log.i(TAG_EBOOK, "电子书面板已显示，controlTarget设置为ebook");
 
-        // 显示首页内容（书架列表或文件选择器）
-        showBookshelfOrFileChooser();
+        // 智能显示：如果有正在阅读的书籍，直接显示书籍内容；否则显示首页内容
+        if (currentBook != null && currentBookFilePath != null) {
+            Log.i(TAG_EBOOK, "检测到正在阅读的书籍，直接显示书籍内容: " + currentBook.getTitle());
+            // 直接显示正在阅读的书籍
+            displayBookContent(currentBook, currentChapterIndex, false);
+        } else {
+            Log.i(TAG_EBOOK, "没有正在阅读的书籍，显示首页内容");
+            // 显示首页内容（书架列表或文件选择器）
+            showBookshelfOrFileChooser();
+        }
     }
 
     /**
@@ -3517,6 +3570,41 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                 }
             });
         dialogBuilder.a().show();
+    }
+
+    /**
+     * 隐藏电子书区域（不清空书籍数据）
+     * 用于连击三次确定键临时隐藏电子书区域，再次打开时直接显示正在阅读的书籍
+     */
+    private void hideEbookPanel() {
+        Activity activity = o();
+        if (activity == null) {
+            Log.e(TAG_EBOOK, "Activity is null, cannot hide ebook panel");
+            return;
+        }
+
+        Log.i(TAG_EBOOK, "开始隐藏电子书面板（不清空书籍数据）");
+
+        // 立即保存当前阅读进度（取消防抖等待）
+        saveReadingProgressImmediately();
+
+        // 1. 隐藏灰色背景面板
+        if (ebookPanel != null) {
+            ebookPanel.setVisibility(View.GONE);
+            Log.i(TAG_EBOOK, "灰色背景面板已隐藏");
+        }
+
+        // 2. 恢复视频全屏
+        restoreVideoView(activity);
+
+        // 关键：只更新状态，不清空书籍数据
+        isEbookPanelShown = false;
+        controlTarget = "video"; // 隐藏电子书时，重置为控制视频
+
+        // 不清空书籍数据：currentBook、currentChapterIndex、currentBookFilePath等保持不变
+        // 这样再次打开时可以直接显示正在阅读的书籍
+
+        Log.i(TAG_EBOOK, "电子书面板已隐藏，书籍数据保留，controlTarget重置为video");
     }
 
     private void closeEbookPanel() {

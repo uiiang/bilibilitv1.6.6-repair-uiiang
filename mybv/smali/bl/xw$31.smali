@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 3433
+    .line 3486
     iput-object p1, p0, Lbl/xw$31;->this$0:Lbl/xw;
 
     iput-object p2, p0, Lbl/xw$31;->val$activity:Landroid/app/Activity;
@@ -44,7 +44,7 @@
     .locals 3
 
     .prologue
-    .line 3437
+    .line 3490
     iget-object v0, p0, Lbl/xw$31;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->ebookCacheManager:Lcom/bilibili/tv/ebook/util/EbookCacheManager;
@@ -54,7 +54,7 @@
 
     if-eqz v0, :cond_18
 
-    .line 3438
+    .line 3491
     iget-object v0, p0, Lbl/xw$31;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->ebookCacheManager:Lcom/bilibili/tv/ebook/util/EbookCacheManager;
@@ -64,14 +64,14 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->clearAllReadingProgress()V
 
-    .line 3439
+    .line 3492
     const-string v0, "EbookReader"
 
     const-string v1, "\u6240\u6709\u9605\u8bfb\u8fdb\u5ea6\u5df2\u6e05\u9664"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 3443
+    .line 3496
     :cond_18
     iget-object v0, p0, Lbl/xw$31;->this$0:Lbl/xw;
 
@@ -82,7 +82,7 @@
 
     if-eqz v0, :cond_30
 
-    .line 3444
+    .line 3497
     iget-object v0, p0, Lbl/xw$31;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->bookshelfManager:Lcom/bilibili/tv/ebook/util/BookshelfManager;
@@ -92,14 +92,14 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/util/BookshelfManager;->clearBookshelf()V
 
-    .line 3445
+    .line 3498
     const-string v0, "EbookReader"
 
     const-string v1, "\u4e66\u67b6\u5df2\u6e05\u7a7a"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 3449
+    .line 3502
     :cond_30
     iget-object v0, p0, Lbl/xw$31;->this$0:Lbl/xw;
 
@@ -110,7 +110,7 @@
 
     if-eqz v0, :cond_41
 
-    .line 3450
+    .line 3503
     iget-object v0, p0, Lbl/xw$31;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->bookshelfItems:Ljava/util/List;
@@ -120,14 +120,14 @@
 
     invoke-interface {v0}, Ljava/util/List;->clear()V
 
-    .line 3454
+    .line 3507
     :cond_41
     iget-object v0, p0, Lbl/xw$31;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->showBookshelfOrFileChooser()V
     invoke-static {v0}, Lbl/xw;->access$3600(Lbl/xw;)V
 
-    .line 3457
+    .line 3510
     iget-object v0, p0, Lbl/xw$31;->val$activity:Landroid/app/Activity;
 
     const-string v1, "\u4e66\u67b6\u5df2\u6e05\u7a7a"
@@ -140,9 +140,9 @@
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    .line 3459
+    .line 3512
     invoke-virtual {p1}, Lbl/agb;->dismiss()V
 
-    .line 3460
+    .line 3513
     return-void
 .end method

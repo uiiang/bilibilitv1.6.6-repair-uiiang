@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1866
+    .line 1911
     iput-object p1, p0, Lbl/xw$14;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -49,7 +49,7 @@
     .end annotation
 
     .prologue
-    .line 1869
+    .line 1914
     iget-object v0, p0, Lbl/xw$14;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->bookshelfItems:Ljava/util/List;
@@ -63,7 +63,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ebook/model/BookshelfItem;
 
-    .line 1870
+    .line 1915
     const-string v1, "EbookReader"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -90,13 +90,13 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1873
+    .line 1918
     iget-object v1, p0, Lbl/xw$14;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->showRemoveBookDialog(Lcom/bilibili/tv/ebook/model/BookshelfItem;I)V
     invoke-static {v1, v0, p3}, Lbl/xw;->access$1300(Lbl/xw;Lcom/bilibili/tv/ebook/model/BookshelfItem;I)V
 
-    .line 1874
+    .line 1919
     const/4 v0, 0x1
 
     return v0

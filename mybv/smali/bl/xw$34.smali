@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 4025
+    .line 4113
     iput-object p1, p0, Lbl/xw$34;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,13 +40,13 @@
     .locals 2
 
     .prologue
-    .line 4028
+    .line 4116
     iget-object v0, p0, Lbl/xw$34;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->saveReadingProgress()V
     invoke-static {v0}, Lbl/xw;->access$3700(Lbl/xw;)V
 
-    .line 4029
+    .line 4117
     iget-object v0, p0, Lbl/xw$34;->this$0:Lbl/xw;
 
     const/4 v1, 0x0
@@ -54,6 +54,6 @@
     # setter for: Lbl/xw;->saveProgressRunnable:Ljava/lang/Runnable;
     invoke-static {v0, v1}, Lbl/xw;->access$3802(Lbl/xw;Ljava/lang/Runnable;)Ljava/lang/Runnable;
 
-    .line 4030
+    .line 4118
     return-void
 .end method
