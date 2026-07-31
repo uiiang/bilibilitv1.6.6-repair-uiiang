@@ -224,6 +224,7 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             }
 
             // 左右键：整页翻页（使用scrollBy代替pageUp/pageDown）
+            // 修改：实现重叠式翻页，保留一部分内容避免错过上下文
             if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
                 int height = ebookWebView.getHeight();
                 int scrollY = ebookWebView.getScrollY();
@@ -243,9 +244,12 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                     }
                 }
 
-                // 正常翻页
+                // 正常翻页：计算重叠高度（保留12.5%的内容，约2-3行）
                 if (height > 0) {
-                    ebookWebView.scrollBy(0, -height);
+                    int overlapHeight = (int)(height * 0.125);
+                    int pageHeight = height - overlapHeight;
+                    Log.i(TAG_EBOOK, "xw.f: 向上翻页: height=" + height + ", overlapHeight=" + overlapHeight + ", pageHeight=" + pageHeight);
+                    ebookWebView.scrollBy(0, -pageHeight);
                 } else {
                     // 如果height为0，使用默认值800
                     Log.w(TAG_EBOOK, "xw.f: WebView height为0，使用默认值800");
@@ -265,6 +269,10 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                 // contentHeight是HTML内容高度，需要乘以密度才能和scrollY比较
                 float density = o().getResources().getDisplayMetrics().density;
                 int contentHeightPx = (int) (contentHeight * density);
+
+                // 修改：计算重叠高度后，章节底部的判断也要相应调整
+                int overlapHeight = (int)(height * 0.125);
+                int pageHeight = height - overlapHeight;
                 boolean isAtBottom = (scrollY + height >= contentHeightPx - 10); // -10像素容差
 
                 if (isAtBottom) {
@@ -280,9 +288,10 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                     }
                 }
 
-                // 正常翻页
+                // 正常翻页：计算重叠高度（保留12.5%的内容，约2-3行）
                 if (height > 0) {
-                    ebookWebView.scrollBy(0, height);
+                    Log.i(TAG_EBOOK, "xw.f: 向下翻页: height=" + height + ", overlapHeight=" + overlapHeight + ", pageHeight=" + pageHeight);
+                    ebookWebView.scrollBy(0, pageHeight);
                 } else {
                     // 如果height为0，使用默认值800
                     Log.w(TAG_EBOOK, "xw.f: WebView height为0，使用默认值800");

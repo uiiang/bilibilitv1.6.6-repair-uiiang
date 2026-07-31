@@ -27,7 +27,7 @@
     .locals 0
 
     .prologue
-    .line 2514
+    .line 2523
     iput-object p1, p0, Lbl/xw$26;->this$0:Lbl/xw;
 
     iput-boolean p2, p0, Lbl/xw$26;->val$scrollToBottom:Z
@@ -45,16 +45,16 @@
     .locals 1
 
     .prologue
-    .line 2517
+    .line 2526
     invoke-super {p0, p1, p2}, Landroid/webkit/WebViewClient;->onPageFinished(Landroid/webkit/WebView;Ljava/lang/String;)V
 
-    .line 2519
+    .line 2528
     new-instance v0, Lbl/xw$26$1;
 
     invoke-direct {v0, p0, p1}, Lbl/xw$26$1;-><init>(Lbl/xw$26;Landroid/webkit/WebView;)V
 
     invoke-virtual {p1, v0}, Landroid/webkit/WebView;->post(Ljava/lang/Runnable;)Z
 
-    .line 2560
+    .line 2569
     return-void
 .end method
