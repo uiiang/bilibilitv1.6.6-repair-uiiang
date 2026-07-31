@@ -7647,14 +7647,14 @@
 
     new-array v5, v5, [I
 
-    fill-array-data v5, :array_146
+    fill-array-data v5, :array_144
 
     .line 2997
-    if-ltz v4, :cond_130
+    if-ltz v4, :cond_12e
 
     array-length v6, v5
 
-    if-ge v4, v6, :cond_130
+    if-ge v4, v6, :cond_12e
 
     .line 2998
     aget v4, v5, v4
@@ -7762,7 +7762,7 @@
     move-result v0
 
     .line 3014
-    if-ltz v0, :cond_136
+    if-ltz v0, :cond_134
 
     iget-object v4, p0, Lbl/xw;->videoPositionList:Ljava/util/List;
 
@@ -7770,7 +7770,7 @@
 
     move-result v4
 
-    if-ge v0, v4, :cond_136
+    if-ge v0, v4, :cond_134
 
     .line 3015
     iput v0, p0, Lbl/xw;->videoPosition:I
@@ -7862,11 +7862,11 @@
     .line 3043
     iget-object v0, p0, Lbl/xw;->currentBook:Lcom/bilibili/tv/ebook/model/Book;
 
-    if-eqz v0, :cond_13a
+    if-eqz v0, :cond_138
 
     iget-object v0, p0, Lbl/xw;->currentBookFilePath:Ljava/lang/String;
 
-    if-eqz v0, :cond_13a
+    if-eqz v0, :cond_138
 
     .line 3044
     const-string v0, "EbookReader"
@@ -7875,7 +7875,7 @@
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v2, "\u68c0\u6d4b\u5230\u6b63\u5728\u9605\u8bfb\u7684\u4e66\u7c4d\uff0c\u76f4\u63a5\u663e\u793a\u4e66\u7c4d\u5185\u5bb9: "
+    const-string v2, "\u68c0\u6d4b\u5230\u6b63\u5728\u9605\u8bfb\u7684\u4e66\u7c4d\uff0c\u6062\u590d\u9605\u8bfb\u8fdb\u5ea6: "
 
     invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -7900,14 +7900,12 @@
     .line 3046
     iget-object v0, p0, Lbl/xw;->currentBook:Lcom/bilibili/tv/ebook/model/Book;
 
-    iget v1, p0, Lbl/xw;->currentChapterIndex:I
-
-    invoke-direct {p0, v0, v1, v7}, Lbl/xw;->displayBookContent(Lcom/bilibili/tv/ebook/model/Book;IZ)V
+    invoke-direct {p0, v0}, Lbl/xw;->restoreReadingProgress(Lcom/bilibili/tv/ebook/model/Book;)V
 
     goto/16 :goto_f
 
     .line 3000
-    :cond_130
+    :cond_12e
     const/16 v4, 0x1e
 
     iput v4, p0, Lbl/xw;->ebookPanelPercent:I
@@ -7915,13 +7913,13 @@
     goto/16 :goto_46
 
     .line 3017
-    :cond_136
+    :cond_134
     iput v7, p0, Lbl/xw;->videoPosition:I
 
     goto/16 :goto_b3
 
     .line 3048
-    :cond_13a
+    :cond_138
     const-string v0, "EbookReader"
 
     const-string v1, "\u6ca1\u6709\u6b63\u5728\u9605\u8bfb\u7684\u4e66\u7c4d\uff0c\u663e\u793a\u9996\u9875\u5185\u5bb9"
@@ -7934,7 +7932,7 @@
     goto/16 :goto_f
 
     .line 2996
-    :array_146
+    :array_144
     .array-data 4
         0x19
         0x1e

@@ -3041,9 +3041,9 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
         // 智能显示：如果有正在阅读的书籍，直接显示书籍内容；否则显示首页内容
         if (currentBook != null && currentBookFilePath != null) {
-            Log.i(TAG_EBOOK, "检测到正在阅读的书籍，直接显示书籍内容: " + currentBook.getTitle());
-            // 直接显示正在阅读的书籍
-            displayBookContent(currentBook, currentChapterIndex, false);
+            Log.i(TAG_EBOOK, "检测到正在阅读的书籍，恢复阅读进度: " + currentBook.getTitle());
+            // 恢复阅读进度（会自动恢复到之前的章节和页码）
+            restoreReadingProgress(currentBook);
         } else {
             Log.i(TAG_EBOOK, "没有正在阅读的书籍，显示首页内容");
             // 显示首页内容（书架列表或文件选择器）
