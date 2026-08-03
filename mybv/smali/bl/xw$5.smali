@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1036
+    .line 997
     iput-object p1, p0, Lbl/xw$5;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,23 +40,23 @@
     .locals 2
 
     .prologue
-    .line 1039
+    .line 1000
     iget-object v0, p0, Lbl/xw$5;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->ebookWebView:Landroid/webkit/WebView;
-    invoke-static {v0}, Lbl/xw;->access$400(Lbl/xw;)Landroid/webkit/WebView;
+    invoke-static {v0}, Lbl/xw;->access$500(Lbl/xw;)Landroid/webkit/WebView;
 
     move-result-object v0
 
     invoke-virtual {v0}, Landroid/webkit/WebView;->requestFocus()Z
 
-    .line 1040
+    .line 1001
     const-string v0, "EbookReader"
 
     const-string v1, "onMenuClosed: \u7126\u70b9\u5df2\u6062\u590d\u5230WebView"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1041
+    .line 1002
     return-void
 .end method

@@ -34,7 +34,7 @@
     .locals 0
 
     .prologue
-    .line 1681
+    .line 1642
     iput-object p1, p0, Lbl/xw$11;->this$0:Lbl/xw;
 
     iput-object p6, p0, Lbl/xw$11;->val$activity:Landroid/app/Activity;
@@ -50,10 +50,10 @@
     .locals 16
 
     .prologue
-    .line 1687
+    .line 1648
     if-nez p2, :cond_29a
 
-    .line 1689
+    .line 1650
     new-instance p2, Landroid/widget/LinearLayout;
 
     move-object/from16 v0, p0
@@ -64,14 +64,14 @@
 
     invoke-direct {v0, v2}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
 
-    .line 1690
+    .line 1651
     const/4 v2, 0x1
 
     move-object/from16 v0, p2
 
     invoke-virtual {v0, v2}, Landroid/widget/LinearLayout;->setOrientation(I)V
 
-    .line 1691
+    .line 1652
     const/16 v2, 0x18
 
     const/16 v3, 0x10
@@ -84,7 +84,7 @@
 
     invoke-virtual {v0, v2, v3, v4, v5}, Landroid/widget/LinearLayout;->setPadding(IIII)V
 
-    .line 1694
+    .line 1655
     new-instance v2, Landroid/widget/LinearLayout;
 
     move-object/from16 v0, p0
@@ -93,12 +93,12 @@
 
     invoke-direct {v2, v3}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
 
-    .line 1695
+    .line 1656
     const/4 v3, 0x0
 
     invoke-virtual {v2, v3}, Landroid/widget/LinearLayout;->setOrientation(I)V
 
-    .line 1696
+    .line 1657
     new-instance v3, Landroid/widget/LinearLayout$LayoutParams;
 
     const/4 v4, -0x1
@@ -109,7 +109,7 @@
 
     invoke-virtual {v2, v3}, Landroid/widget/LinearLayout;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 1702
+    .line 1663
     new-instance v3, Landroid/widget/TextView;
 
     move-object/from16 v0, p0
@@ -118,32 +118,32 @@
 
     invoke-direct {v3, v4}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 1703
+    .line 1664
     const/4 v4, -0x1
 
     invoke-virtual {v3, v4}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 1704
+    .line 1665
     const/high16 v4, 0x41800000    # 16.0f
 
     invoke-virtual {v3, v4}, Landroid/widget/TextView;->setTextSize(F)V
 
-    .line 1705
+    .line 1666
     const/4 v4, 0x1
 
     invoke-virtual {v3, v4}, Landroid/widget/TextView;->setMaxLines(I)V
 
-    .line 1706
+    .line 1667
     sget-object v4, Landroid/text/TextUtils$TruncateAt;->END:Landroid/text/TextUtils$TruncateAt;
 
     invoke-virtual {v3, v4}, Landroid/widget/TextView;->setEllipsize(Landroid/text/TextUtils$TruncateAt;)V
 
-    .line 1707
+    .line 1668
     const v4, 0x1020014
 
     invoke-virtual {v3, v4}, Landroid/widget/TextView;->setId(I)V
 
-    .line 1710
+    .line 1671
     new-instance v4, Landroid/widget/TextView;
 
     move-object/from16 v0, p0
@@ -152,37 +152,37 @@
 
     invoke-direct {v4, v5}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 1711
+    .line 1672
     const/4 v5, -0x1
 
     invoke-virtual {v4, v5}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 1712
+    .line 1673
     const/high16 v5, 0x41800000    # 16.0f
 
     invoke-virtual {v4, v5}, Landroid/widget/TextView;->setTextSize(F)V
 
-    .line 1713
+    .line 1674
     const/4 v5, 0x1
 
     invoke-virtual {v4, v5}, Landroid/widget/TextView;->setMaxLines(I)V
 
-    .line 1714
+    .line 1675
     sget-object v5, Landroid/text/TextUtils$TruncateAt;->END:Landroid/text/TextUtils$TruncateAt;
 
     invoke-virtual {v4, v5}, Landroid/widget/TextView;->setEllipsize(Landroid/text/TextUtils$TruncateAt;)V
 
-    .line 1715
+    .line 1676
     const/4 v5, 0x5
 
     invoke-virtual {v4, v5}, Landroid/widget/TextView;->setGravity(I)V
 
-    .line 1716
+    .line 1677
     const v5, 0x1020015
 
     invoke-virtual {v4, v5}, Landroid/widget/TextView;->setId(I)V
 
-    .line 1719
+    .line 1680
     new-instance v5, Landroid/widget/LinearLayout$LayoutParams;
 
     const/4 v6, 0x0
@@ -195,14 +195,14 @@
 
     invoke-virtual {v2, v3, v5}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 1724
+    .line 1685
     new-instance v3, Landroid/widget/LinearLayout$LayoutParams;
 
     move-object/from16 v0, p0
 
     iget-object v5, v0, Lbl/xw$11;->val$activity:Landroid/app/Activity;
 
-    .line 1725
+    .line 1686
     invoke-virtual {v5}, Landroid/app/Activity;->getResources()Landroid/content/res/Resources;
 
     move-result-object v5
@@ -219,10 +219,10 @@
 
     invoke-direct {v3, v5, v6}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
 
-    .line 1724
+    .line 1685
     invoke-virtual {v2, v4, v3}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 1730
+    .line 1691
     new-instance v3, Landroid/widget/LinearLayout;
 
     move-object/from16 v0, p0
@@ -231,12 +231,12 @@
 
     invoke-direct {v3, v4}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
 
-    .line 1731
+    .line 1692
     const/4 v4, 0x0
 
     invoke-virtual {v3, v4}, Landroid/widget/LinearLayout;->setOrientation(I)V
 
-    .line 1732
+    .line 1693
     new-instance v4, Landroid/widget/LinearLayout$LayoutParams;
 
     const/4 v5, -0x1
@@ -245,10 +245,10 @@
 
     invoke-direct {v4, v5, v6}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
 
-    .line 1736
+    .line 1697
     invoke-virtual {v3, v4}, Landroid/widget/LinearLayout;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 1739
+    .line 1700
     new-instance v4, Landroid/widget/TextView;
 
     move-object/from16 v0, p0
@@ -257,22 +257,22 @@
 
     invoke-direct {v4, v5}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 1740
+    .line 1701
     const/4 v5, -0x1
 
     invoke-virtual {v4, v5}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 1741
+    .line 1702
     const/high16 v5, 0x41400000    # 12.0f
 
     invoke-virtual {v4, v5}, Landroid/widget/TextView;->setTextSize(F)V
 
-    .line 1742
+    .line 1703
     const v5, 0x102000d
 
     invoke-virtual {v4, v5}, Landroid/widget/TextView;->setId(I)V
 
-    .line 1745
+    .line 1706
     new-instance v5, Landroid/widget/TextView;
 
     move-object/from16 v0, p0
@@ -281,32 +281,32 @@
 
     invoke-direct {v5, v6}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 1746
+    .line 1707
     const/4 v6, -0x1
 
     invoke-virtual {v5, v6}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 1747
+    .line 1708
     const/high16 v6, 0x41400000    # 12.0f
 
     invoke-virtual {v5, v6}, Landroid/widget/TextView;->setTextSize(F)V
 
-    .line 1748
+    .line 1709
     const/4 v6, 0x1
 
     invoke-virtual {v5, v6}, Landroid/widget/TextView;->setMaxLines(I)V
 
-    .line 1749
+    .line 1710
     sget-object v6, Landroid/text/TextUtils$TruncateAt;->END:Landroid/text/TextUtils$TruncateAt;
 
     invoke-virtual {v5, v6}, Landroid/widget/TextView;->setEllipsize(Landroid/text/TextUtils$TruncateAt;)V
 
-    .line 1750
+    .line 1711
     const v6, 0x1020010
 
     invoke-virtual {v5, v6}, Landroid/widget/TextView;->setId(I)V
 
-    .line 1753
+    .line 1714
     new-instance v6, Landroid/widget/LinearLayout$LayoutParams;
 
     const/4 v7, -0x2
@@ -317,7 +317,7 @@
 
     invoke-virtual {v3, v4, v6}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 1757
+    .line 1718
     new-instance v4, Landroid/widget/LinearLayout$LayoutParams;
 
     const/4 v6, 0x0
@@ -330,7 +330,7 @@
 
     invoke-virtual {v3, v5, v4}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 1764
+    .line 1725
     new-instance v4, Landroid/widget/TextView;
 
     move-object/from16 v0, p0
@@ -339,27 +339,27 @@
 
     invoke-direct {v4, v5}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 1765
+    .line 1726
     const/4 v5, -0x1
 
     invoke-virtual {v4, v5}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 1766
+    .line 1727
     const/high16 v5, 0x41400000    # 12.0f
 
     invoke-virtual {v4, v5}, Landroid/widget/TextView;->setTextSize(F)V
 
-    .line 1767
+    .line 1728
     const/4 v5, 0x5
 
     invoke-virtual {v4, v5}, Landroid/widget/TextView;->setGravity(I)V
 
-    .line 1768
+    .line 1729
     const v5, 0x1020005
 
     invoke-virtual {v4, v5}, Landroid/widget/TextView;->setId(I)V
 
-    .line 1769
+    .line 1730
     new-instance v5, Landroid/widget/LinearLayout$LayoutParams;
 
     const/4 v6, -0x1
@@ -370,22 +370,22 @@
 
     invoke-virtual {v4, v5}, Landroid/widget/TextView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 1775
+    .line 1736
     move-object/from16 v0, p2
 
     invoke-virtual {v0, v2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 1776
+    .line 1737
     move-object/from16 v0, p2
 
     invoke-virtual {v0, v3}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 1777
+    .line 1738
     move-object/from16 v0, p2
 
     invoke-virtual {v0, v4}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 1784
+    .line 1745
     :goto_13d
     const v2, 0x1020014
 
@@ -397,7 +397,7 @@
 
     check-cast v2, Landroid/widget/TextView;
 
-    .line 1785
+    .line 1746
     const v3, 0x1020015
 
     move-object/from16 v0, p2
@@ -408,7 +408,7 @@
 
     check-cast v3, Landroid/widget/TextView;
 
-    .line 1786
+    .line 1747
     const v4, 0x102000d
 
     move-object/from16 v0, p2
@@ -419,7 +419,7 @@
 
     check-cast v4, Landroid/widget/TextView;
 
-    .line 1787
+    .line 1748
     const v5, 0x1020010
 
     move-object/from16 v0, p2
@@ -430,7 +430,7 @@
 
     check-cast v5, Landroid/widget/TextView;
 
-    .line 1788
+    .line 1749
     const v6, 0x1020005
 
     move-object/from16 v0, p2
@@ -441,13 +441,13 @@
 
     check-cast v6, Landroid/widget/TextView;
 
-    .line 1790
+    .line 1751
     move-object/from16 v0, p0
 
     iget-object v7, v0, Lbl/xw$11;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->bookshelfItems:Ljava/util/List;
-    invoke-static {v7}, Lbl/xw;->access$1000(Lbl/xw;)Ljava/util/List;
+    invoke-static {v7}, Lbl/xw;->access$1100(Lbl/xw;)Ljava/util/List;
 
     move-result-object v7
 
@@ -459,12 +459,12 @@
 
     check-cast v7, Lcom/bilibili/tv/ebook/model/BookshelfItem;
 
-    .line 1793
+    .line 1754
     invoke-virtual {v7}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getTitle()Ljava/lang/String;
 
     move-result-object v8
 
-    .line 1794
+    .line 1755
     if-eqz v8, :cond_198
 
     invoke-virtual {v8}, Ljava/lang/String;->isEmpty()Z
@@ -481,13 +481,13 @@
 
     if-eqz v9, :cond_1ba
 
-    .line 1796
+    .line 1757
     :cond_198
     invoke-virtual {v7}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getFilePath()Ljava/lang/String;
 
     move-result-object v8
 
-    .line 1797
+    .line 1758
     if-eqz v8, :cond_2a8
 
     invoke-virtual {v8}, Ljava/lang/String;->isEmpty()Z
@@ -496,40 +496,40 @@
 
     if-nez v9, :cond_2a8
 
-    .line 1798
+    .line 1759
     const/16 v9, 0x2f
 
     invoke-virtual {v8, v9}, Ljava/lang/String;->lastIndexOf(I)I
 
     move-result v9
 
-    .line 1799
+    .line 1760
     const/16 v10, 0x2e
 
     invoke-virtual {v8, v10}, Ljava/lang/String;->lastIndexOf(I)I
 
     move-result v10
 
-    .line 1800
+    .line 1761
     if-ltz v9, :cond_29e
 
     if-le v10, v9, :cond_29e
 
-    .line 1801
+    .line 1762
     add-int/lit8 v9, v9, 0x1
 
     invoke-virtual {v8, v9, v10}, Ljava/lang/String;->substring(II)Ljava/lang/String;
 
     move-result-object v8
 
-    .line 1813
+    .line 1774
     :cond_1ba
     :goto_1ba
     invoke-virtual {v7}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getAuthor()Ljava/lang/String;
 
     move-result-object v9
 
-    .line 1814
+    .line 1775
     if-eqz v9, :cond_2ac
 
     invoke-virtual {v9}, Ljava/lang/String;->isEmpty()Z
@@ -562,11 +562,11 @@
 
     if-nez v10, :cond_2ac
 
-    .line 1821
+    .line 1782
     :goto_1de
     const-string v10, ""
 
-    .line 1822
+    .line 1783
     invoke-virtual {v7}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getLastReadTime()J
 
     move-result-wide v12
@@ -577,7 +577,7 @@
 
     if-lez v11, :cond_1f6
 
-    .line 1823
+    .line 1784
     move-object/from16 v0, p0
 
     iget-object v10, v0, Lbl/xw$11;->this$0:Lbl/xw;
@@ -587,26 +587,26 @@
     move-result-wide v12
 
     # invokes: Lbl/xw;->formatLastReadTime(J)Ljava/lang/String;
-    invoke-static {v10, v12, v13}, Lbl/xw;->access$1100(Lbl/xw;J)Ljava/lang/String;
+    invoke-static {v10, v12, v13}, Lbl/xw;->access$1200(Lbl/xw;J)Ljava/lang/String;
 
     move-result-object v10
 
-    .line 1827
+    .line 1788
     :cond_1f6
     invoke-virtual {v2, v8}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 1828
+    .line 1789
     if-eqz v9, :cond_2af
 
-    .line 1829
+    .line 1790
     invoke-virtual {v3, v9}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 1830
+    .line 1791
     const/4 v2, 0x0
 
     invoke-virtual {v3, v2}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 1836
+    .line 1797
     :goto_202
     const-string v2, "%.1f%%"
 
@@ -632,7 +632,7 @@
 
     invoke-virtual {v4, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 1838
+    .line 1799
     invoke-virtual {v7}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getChapterTitle()Ljava/lang/String;
 
     move-result-object v2
@@ -649,7 +649,7 @@
 
     if-nez v2, :cond_2b6
 
-    .line 1839
+    .line 1800
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
@@ -674,18 +674,18 @@
 
     invoke-virtual {v5, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 1840
+    .line 1801
     const/4 v2, 0x0
 
     invoke-virtual {v5, v2}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 1846
+    .line 1807
     :goto_247
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 1847
+    .line 1808
     invoke-virtual {v7}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getFileExtension()Ljava/lang/String;
 
     move-result-object v3
@@ -702,14 +702,14 @@
 
     if-nez v3, :cond_263
 
-    .line 1848
+    .line 1809
     invoke-virtual {v7}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getFileExtension()Ljava/lang/String;
 
     move-result-object v3
 
     invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1851
+    .line 1812
     :cond_263
     invoke-virtual {v10}, Ljava/lang/String;->isEmpty()Z
 
@@ -717,23 +717,23 @@
 
     if-nez v3, :cond_277
 
-    .line 1852
+    .line 1813
     invoke-virtual {v2}, Ljava/lang/StringBuilder;->length()I
 
     move-result v3
 
     if-lez v3, :cond_274
 
-    .line 1853
+    .line 1814
     const-string v3, " | "
 
     invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1855
+    .line 1816
     :cond_274
     invoke-virtual {v2, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1858
+    .line 1819
     :cond_277
     invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
@@ -741,17 +741,17 @@
 
     invoke-virtual {v6, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 1861
+    .line 1822
     move-object/from16 v0, p3
 
     instance-of v2, v0, Landroid/widget/ListView;
 
     if-eqz v2, :cond_299
 
-    .line 1862
+    .line 1823
     check-cast p3, Landroid/widget/ListView;
 
-    .line 1863
+    .line 1824
     invoke-virtual/range {p3 .. p3}, Landroid/widget/ListView;->getSelectedItemPosition()I
 
     move-result v2
@@ -760,7 +760,7 @@
 
     if-ne v0, v2, :cond_2bc
 
-    .line 1864
+    .line 1825
     const-string v2, "#1E90FF"
 
     invoke-static {v2}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -771,22 +771,22 @@
 
     invoke-virtual {v0, v2}, Landroid/widget/LinearLayout;->setBackgroundColor(I)V
 
-    .line 1870
+    .line 1831
     :cond_299
     :goto_299
     return-object p2
 
-    .line 1780
+    .line 1741
     :cond_29a
     check-cast p2, Landroid/widget/LinearLayout;
 
     goto/16 :goto_13d
 
-    .line 1802
+    .line 1763
     :cond_29e
     if-ltz v9, :cond_1ba
 
-    .line 1803
+    .line 1764
     add-int/lit8 v9, v9, 0x1
 
     invoke-virtual {v8, v9}, Ljava/lang/String;->substring(I)Ljava/lang/String;
@@ -795,19 +795,19 @@
 
     goto/16 :goto_1ba
 
-    .line 1808
+    .line 1769
     :cond_2a8
     const-string v8, "\u672a\u77e5\u4e66\u7c4d"
 
     goto/16 :goto_1ba
 
-    .line 1817
+    .line 1778
     :cond_2ac
     const/4 v9, 0x0
 
     goto/16 :goto_1de
 
-    .line 1832
+    .line 1793
     :cond_2af
     const/16 v2, 0x8
 
@@ -815,7 +815,7 @@
 
     goto/16 :goto_202
 
-    .line 1842
+    .line 1803
     :cond_2b6
     const/16 v2, 0x8
 
@@ -823,7 +823,7 @@
 
     goto :goto_247
 
-    .line 1866
+    .line 1827
     :cond_2bc
     const/4 v2, 0x0
 

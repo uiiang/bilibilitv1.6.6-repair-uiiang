@@ -65,6 +65,92 @@
     return-void
 .end method
 
+.method private findFileRecursively(Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
+    .locals 6
+
+    .prologue
+    const/4 v0, 0x0
+
+    .line 786
+    invoke-virtual {p1}, Ljava/io/File;->isDirectory()Z
+
+    move-result v1
+
+    if-nez v1, :cond_8
+
+    .line 809
+    :cond_7
+    :goto_7
+    return-object v0
+
+    .line 791
+    :cond_8
+    new-instance v1, Ljava/io/File;
+
+    invoke-direct {v1, p1, p2}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+
+    .line 792
+    invoke-virtual {v1}, Ljava/io/File;->exists()Z
+
+    move-result v2
+
+    if-eqz v2, :cond_15
+
+    move-object v0, v1
+
+    .line 793
+    goto :goto_7
+
+    .line 797
+    :cond_15
+    invoke-virtual {p1}, Ljava/io/File;->listFiles()[Ljava/io/File;
+
+    move-result-object v3
+
+    .line 798
+    if-eqz v3, :cond_7
+
+    .line 799
+    array-length v4, v3
+
+    const/4 v1, 0x0
+
+    move v2, v1
+
+    :goto_1e
+    if-ge v2, v4, :cond_7
+
+    aget-object v1, v3, v2
+
+    .line 800
+    invoke-virtual {v1}, Ljava/io/File;->isDirectory()Z
+
+    move-result v5
+
+    if-eqz v5, :cond_30
+
+    .line 801
+    invoke-direct {p0, v1, p2}, Lcom/bilibili/tv/ebook/parser/EpubParser;->findFileRecursively(Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
+
+    move-result-object v1
+
+    .line 802
+    if-eqz v1, :cond_30
+
+    move-object v0, v1
+
+    .line 803
+    goto :goto_7
+
+    .line 799
+    :cond_30
+    add-int/lit8 v1, v2, 0x1
+
+    move v2, v1
+
+    goto :goto_1e
+.end method
+
 .method private findOpfFile(Ljava/io/File;)Ljava/io/File;
     .locals 5
     .annotation system Ldalvik/annotation/Throws;
@@ -76,57 +162,57 @@
     .prologue
     const/4 v4, 0x0
 
-    .line 147
+    .line 158
     new-instance v0, Ljava/io/File;
 
     const-string v1, "META-INF/container.xml"
 
     invoke-direct {v0, p1, v1}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 149
+    .line 160
     invoke-virtual {v0}, Ljava/io/File;->exists()Z
 
     move-result v1
 
     if-eqz v1, :cond_46
 
-    .line 150
+    .line 161
     const-string v1, "UTF-8"
 
     invoke-static {v0, v1}, Lorg/jsoup/Jsoup;->parse(Ljava/io/File;Ljava/lang/String;)Lorg/jsoup/nodes/Document;
 
     move-result-object v0
 
-    .line 151
+    .line 162
     const-string v1, "rootfile"
 
     invoke-virtual {v0, v1}, Lorg/jsoup/nodes/Document;->selectFirst(Ljava/lang/String;)Lorg/jsoup/nodes/Element;
 
     move-result-object v0
 
-    .line 153
+    .line 164
     if-eqz v0, :cond_46
 
-    .line 154
+    .line 165
     const-string v1, "full-path"
 
     invoke-virtual {v0, v1}, Lorg/jsoup/nodes/Element;->attr(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 155
+    .line 166
     new-instance v0, Ljava/io/File;
 
     invoke-direct {v0, p1, v1}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 156
+    .line 167
     invoke-virtual {v0}, Ljava/io/File;->exists()Z
 
     move-result v2
 
     if-eqz v2, :cond_46
 
-    .line 157
+    .line 168
     const-string v2, "EpubParser"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -149,11 +235,11 @@
 
     invoke-static {v2, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 173
+    .line 184
     :goto_45
     return-object v0
 
-    .line 164
+    .line 175
     :cond_46
     new-instance v0, Lcom/bilibili/tv/ebook/parser/EpubParser$1;
 
@@ -163,14 +249,14 @@
 
     move-result-object v0
 
-    .line 171
+    .line 182
     if-eqz v0, :cond_75
 
     array-length v1, v0
 
     if-lez v1, :cond_75
 
-    .line 172
+    .line 183
     const-string v1, "EpubParser"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -199,12 +285,12 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 173
+    .line 184
     aget-object v0, v0, v4
 
     goto :goto_45
 
-    .line 176
+    .line 187
     :cond_75
     new-instance v0, Ljava/lang/Exception;
 
@@ -213,6 +299,385 @@
     invoke-direct {v0, v1}, Ljava/lang/Exception;-><init>(Ljava/lang/String;)V
 
     throw v0
+.end method
+
+.method private loadMetadataFromCache(Ljava/io/File;)Lcom/bilibili/tv/ebook/model/Book;
+    .locals 8
+
+    .prologue
+    const/4 v0, 0x0
+
+    .line 666
+    :try_start_1
+    new-instance v1, Ljava/io/File;
+
+    const-string v2, "metadata.json"
+
+    invoke-direct {v1, p1, v2}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+
+    .line 667
+    invoke-virtual {v1}, Ljava/io/File;->exists()Z
+
+    move-result v2
+
+    if-nez v2, :cond_2b
+
+    .line 668
+    const-string v2, "EpubParser"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "\u7f13\u5b58\u6587\u4ef6\u4e0d\u5b58\u5728: "
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v1}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v2, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 726
+    :goto_2a
+    return-object v0
+
+    .line 672
+    :cond_2b
+    const-string v2, "EpubParser"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "\u5f00\u59cb\u52a0\u8f7d\u7f13\u5b58\u7684\u5143\u6570\u636e: "
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v1}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 675
+    new-instance v2, Ljava/io/FileInputStream;
+
+    invoke-direct {v2, v1}, Ljava/io/FileInputStream;-><init>(Ljava/io/File;)V
+
+    .line 676
+    new-instance v1, Ljava/io/BufferedReader;
+
+    new-instance v3, Ljava/io/InputStreamReader;
+
+    const-string v4, "UTF-8"
+
+    invoke-direct {v3, v2, v4}, Ljava/io/InputStreamReader;-><init>(Ljava/io/InputStream;Ljava/lang/String;)V
+
+    invoke-direct {v1, v3}, Ljava/io/BufferedReader;-><init>(Ljava/io/Reader;)V
+
+    .line 677
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    .line 679
+    :goto_5d
+    invoke-virtual {v1}, Ljava/io/BufferedReader;->readLine()Ljava/lang/String;
+
+    move-result-object v4
+
+    if-eqz v4, :cond_70
+
+    .line 680
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    :try_end_66
+    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_66} :catch_67
+
+    goto :goto_5d
+
+    .line 724
+    :catch_67
+    move-exception v1
+
+    .line 725
+    const-string v2, "EpubParser"
+
+    const-string v3, "\u52a0\u8f7d\u7f13\u5b58\u5143\u6570\u636e\u5931\u8d25"
+
+    invoke-static {v2, v3, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+
+    goto :goto_2a
+
+    .line 682
+    :cond_70
+    :try_start_70
+    invoke-virtual {v1}, Ljava/io/BufferedReader;->close()V
+
+    .line 683
+    invoke-virtual {v2}, Ljava/io/FileInputStream;->close()V
+
+    .line 685
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    .line 686
+    const-string v2, "EpubParser"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "\u8bfb\u53d6\u5230\u7684JSON\u957f\u5ea6: "
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v1}, Ljava/lang/String;->length()I
+
+    move-result v4
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-static {v2, v3}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 689
+    new-instance v2, Lorg/json/JSONObject;
+
+    invoke-direct {v2, v1}, Lorg/json/JSONObject;-><init>(Ljava/lang/String;)V
+
+    .line 691
+    new-instance v1, Lcom/bilibili/tv/ebook/model/Book;
+
+    invoke-direct {v1}, Lcom/bilibili/tv/ebook/model/Book;-><init>()V
+
+    .line 692
+    const-string v3, "bookId"
+
+    invoke-virtual {v2, v3}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v1, v3}, Lcom/bilibili/tv/ebook/model/Book;->setBookId(Ljava/lang/String;)V
+
+    .line 693
+    const-string v3, "title"
+
+    invoke-virtual {v2, v3}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v1, v3}, Lcom/bilibili/tv/ebook/model/Book;->setTitle(Ljava/lang/String;)V
+
+    .line 694
+    const-string v3, "author"
+
+    invoke-virtual {v2, v3}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v1, v3}, Lcom/bilibili/tv/ebook/model/Book;->setAuthor(Ljava/lang/String;)V
+
+    .line 695
+    const-string v3, "language"
+
+    invoke-virtual {v2, v3}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v1, v3}, Lcom/bilibili/tv/ebook/model/Book;->setLanguage(Ljava/lang/String;)V
+
+    .line 696
+    const-string v3, "extractionPath"
+
+    invoke-virtual {v2, v3}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v1, v3}, Lcom/bilibili/tv/ebook/model/Book;->setExtractionPath(Ljava/lang/String;)V
+
+    .line 699
+    const-string v3, "chapters"
+
+    invoke-virtual {v2, v3}, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
+
+    move-result-object v3
+
+    .line 700
+    if-eqz v3, :cond_129
+
+    .line 701
+    new-instance v4, Ljava/util/ArrayList;
+
+    invoke-direct {v4}, Ljava/util/ArrayList;-><init>()V
+
+    .line 702
+    const/4 v2, 0x0
+
+    :goto_db
+    invoke-virtual {v3}, Lorg/json/JSONArray;->length()I
+
+    move-result v5
+
+    if-ge v2, v5, :cond_126
+
+    .line 703
+    invoke-virtual {v3, v2}, Lorg/json/JSONArray;->getJSONObject(I)Lorg/json/JSONObject;
+
+    move-result-object v5
+
+    .line 704
+    new-instance v6, Lcom/bilibili/tv/ebook/model/Chapter;
+
+    invoke-direct {v6}, Lcom/bilibili/tv/ebook/model/Chapter;-><init>()V
+
+    .line 705
+    const-string v7, "chapterId"
+
+    invoke-virtual {v5, v7}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v7
+
+    invoke-virtual {v6, v7}, Lcom/bilibili/tv/ebook/model/Chapter;->setChapterId(Ljava/lang/String;)V
+
+    .line 706
+    const-string v7, "chapterIndex"
+
+    invoke-virtual {v5, v7}, Lorg/json/JSONObject;->optInt(Ljava/lang/String;)I
+
+    move-result v7
+
+    invoke-virtual {v6, v7}, Lcom/bilibili/tv/ebook/model/Chapter;->setChapterIndex(I)V
+
+    .line 707
+    const-string v7, "title"
+
+    invoke-virtual {v5, v7}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v7
+
+    invoke-virtual {v6, v7}, Lcom/bilibili/tv/ebook/model/Chapter;->setTitle(Ljava/lang/String;)V
+
+    .line 708
+    const-string v7, "htmlFilePath"
+
+    invoke-virtual {v5, v7}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v7
+
+    invoke-virtual {v6, v7}, Lcom/bilibili/tv/ebook/model/Chapter;->setHtmlFilePath(Ljava/lang/String;)V
+
+    .line 709
+    const-string v7, "baseUrl"
+
+    invoke-virtual {v5, v7}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v7
+
+    invoke-virtual {v6, v7}, Lcom/bilibili/tv/ebook/model/Chapter;->setBaseUrl(Ljava/lang/String;)V
+
+    .line 710
+    const-string v7, "depth"
+
+    invoke-virtual {v5, v7}, Lorg/json/JSONObject;->optInt(Ljava/lang/String;)I
+
+    move-result v5
+
+    invoke-virtual {v6, v5}, Lcom/bilibili/tv/ebook/model/Chapter;->setDepth(I)V
+
+    .line 716
+    invoke-interface {v4, v6}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    .line 702
+    add-int/lit8 v2, v2, 0x1
+
+    goto :goto_db
+
+    .line 718
+    :cond_126
+    invoke-virtual {v1, v4}, Lcom/bilibili/tv/ebook/model/Book;->setChapters(Ljava/util/List;)V
+
+    .line 721
+    :cond_129
+    const-string v2, "EpubParser"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "\u7f13\u5b58\u5143\u6570\u636e\u52a0\u8f7d\u6210\u529f: "
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v1}, Lcom/bilibili/tv/ebook/model/Book;->getTitle()Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    const-string v4, ", \u7ae0\u8282\u6570: "
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v1}, Lcom/bilibili/tv/ebook/model/Book;->getChapters()Ljava/util/List;
+
+    move-result-object v4
+
+    invoke-interface {v4}, Ljava/util/List;->size()I
+
+    move-result v4
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    :try_end_157
+    .catch Ljava/lang/Exception; {:try_start_70 .. :try_end_157} :catch_67
+
+    move-object v0, v1
+
+    .line 722
+    goto/16 :goto_2a
 .end method
 
 .method private parseChapter(Lcom/bilibili/tv/ebook/parser/EpubParser$ManifestItem;ILjava/io/File;Lcom/bilibili/tv/ebook/parser/EpubParser$NcxParseResult;)Lcom/bilibili/tv/ebook/model/Chapter;
@@ -224,7 +689,7 @@
     .end annotation
 
     .prologue
-    .line 580
+    .line 591
     new-instance v0, Ljava/io/File;
 
     invoke-virtual {p1}, Lcom/bilibili/tv/ebook/parser/EpubParser$ManifestItem;->getHref()Ljava/lang/String;
@@ -233,12 +698,12 @@
 
     invoke-direct {v0, p3, v1}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 581
+    .line 592
     invoke-virtual {p1}, Lcom/bilibili/tv/ebook/parser/EpubParser$ManifestItem;->getHref()Ljava/lang/String;
 
     move-result-object v2
 
-    .line 582
+    .line 593
     const-string v1, "EpubParser"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -281,54 +746,54 @@
 
     invoke-static {v1, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 584
+    .line 595
     const-string v1, "UTF-8"
 
     invoke-static {v0, v1}, Lorg/jsoup/Jsoup;->parse(Ljava/io/File;Ljava/lang/String;)Lorg/jsoup/nodes/Document;
 
     move-result-object v3
 
-    .line 586
+    .line 597
     new-instance v4, Lcom/bilibili/tv/ebook/model/Chapter;
 
     invoke-direct {v4}, Lcom/bilibili/tv/ebook/model/Chapter;-><init>()V
 
-    .line 587
+    .line 598
     invoke-virtual {p1}, Lcom/bilibili/tv/ebook/parser/EpubParser$ManifestItem;->getId()Ljava/lang/String;
 
     move-result-object v1
 
     invoke-virtual {v4, v1}, Lcom/bilibili/tv/ebook/model/Chapter;->setChapterId(Ljava/lang/String;)V
 
-    .line 588
+    .line 599
     invoke-virtual {v4, p2}, Lcom/bilibili/tv/ebook/model/Chapter;->setChapterIndex(I)V
 
-    .line 589
+    .line 600
     invoke-virtual {v4, v2}, Lcom/bilibili/tv/ebook/model/Chapter;->setHtmlFilePath(Ljava/lang/String;)V
 
-    .line 590
+    .line 601
     invoke-virtual {v3}, Lorg/jsoup/nodes/Document;->outerHtml()Ljava/lang/String;
 
     move-result-object v1
 
     invoke-virtual {v4, v1}, Lcom/bilibili/tv/ebook/model/Chapter;->setHtmlContent(Ljava/lang/String;)V
 
-    .line 591
+    .line 602
     invoke-virtual {v3}, Lorg/jsoup/nodes/Document;->text()Ljava/lang/String;
 
     move-result-object v1
 
     invoke-virtual {v4, v1}, Lcom/bilibili/tv/ebook/model/Chapter;->setPlainTextContent(Ljava/lang/String;)V
 
-    .line 595
+    .line 606
     invoke-virtual {v0}, Ljava/io/File;->getParentFile()Ljava/io/File;
 
     move-result-object v0
 
-    .line 596
+    .line 607
     if-eqz v0, :cond_9d
 
-    .line 597
+    .line 608
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -357,10 +822,10 @@
 
     move-result-object v0
 
-    .line 598
+    .line 609
     invoke-virtual {v4, v0}, Lcom/bilibili/tv/ebook/model/Chapter;->setBaseUrl(Ljava/lang/String;)V
 
-    .line 599
+    .line 610
     const-string v1, "EpubParser"
 
     new-instance v5, Ljava/lang/StringBuilder;
@@ -383,18 +848,18 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 603
+    .line 614
     :cond_9d
     const/4 v0, 0x0
 
-    .line 604
+    .line 615
     if-eqz p4, :cond_d0
 
     iget-object v1, p4, Lcom/bilibili/tv/ebook/parser/EpubParser$NcxParseResult;->titleMap:Ljava/util/Map;
 
     if-eqz v1, :cond_d0
 
-    .line 605
+    .line 616
     iget-object v0, p4, Lcom/bilibili/tv/ebook/parser/EpubParser$NcxParseResult;->titleMap:Ljava/util/Map;
 
     invoke-interface {v0, v2}, Ljava/util/Map;->get(Ljava/lang/Object;)Ljava/lang/Object;
@@ -403,10 +868,10 @@
 
     check-cast v0, Ljava/lang/String;
 
-    .line 606
+    .line 617
     if-eqz v0, :cond_174
 
-    .line 607
+    .line 618
     const-string v1, "EpubParser"
 
     new-instance v5, Ljava/lang/StringBuilder;
@@ -439,7 +904,7 @@
 
     invoke-static {v1, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 618
+    .line 629
     :cond_d0
     if-eqz v0, :cond_d8
 
@@ -449,7 +914,7 @@
 
     if-eqz v1, :cond_106
 
-    .line 619
+    .line 630
     :cond_d8
     const-string v0, "title"
 
@@ -457,7 +922,7 @@
 
     move-result-object v0
 
-    .line 620
+    .line 631
     if-eqz v0, :cond_1dd
 
     invoke-virtual {v0}, Lorg/jsoup/nodes/Element;->text()Ljava/lang/String;
@@ -470,12 +935,12 @@
 
     if-nez v1, :cond_1dd
 
-    .line 621
+    .line 632
     invoke-virtual {v0}, Lorg/jsoup/nodes/Element;->text()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 622
+    .line 633
     const-string v1, "EpubParser"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -498,22 +963,22 @@
 
     invoke-static {v1, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 629
+    .line 640
     :cond_106
     :goto_106
     invoke-virtual {v4, v0}, Lcom/bilibili/tv/ebook/model/Chapter;->setTitle(Ljava/lang/String;)V
 
-    .line 632
+    .line 643
     const/4 v1, 0x0
 
-    .line 633
+    .line 644
     if-eqz p4, :cond_234
 
     iget-object v0, p4, Lcom/bilibili/tv/ebook/parser/EpubParser$NcxParseResult;->depthMap:Ljava/util/Map;
 
     if-eqz v0, :cond_234
 
-    .line 634
+    .line 645
     iget-object v0, p4, Lcom/bilibili/tv/ebook/parser/EpubParser$NcxParseResult;->depthMap:Ljava/util/Map;
 
     invoke-interface {v0, v2}, Ljava/util/Map;->get(Ljava/lang/Object;)Ljava/lang/Object;
@@ -522,15 +987,15 @@
 
     check-cast v0, Ljava/lang/Integer;
 
-    .line 635
+    .line 646
     if-eqz v0, :cond_20c
 
-    .line 636
+    .line 647
     invoke-virtual {v0}, Ljava/lang/Integer;->intValue()I
 
     move-result v0
 
-    .line 637
+    .line 648
     const-string v1, "EpubParser"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -563,11 +1028,11 @@
 
     invoke-static {v1, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 642
+    .line 653
     :goto_140
     invoke-virtual {v4, v0}, Lcom/bilibili/tv/ebook/model/Chapter;->setDepth(I)V
 
-    .line 644
+    .line 655
     const-string v1, "EpubParser"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -614,10 +1079,10 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 646
+    .line 657
     return-object v4
 
-    .line 609
+    .line 620
     :cond_174
     const-string v1, "EpubParser"
 
@@ -657,7 +1122,7 @@
 
     invoke-static {v1, v5}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 611
+    .line 622
     iget-object v1, p4, Lcom/bilibili/tv/ebook/parser/EpubParser$NcxParseResult;->titleMap:Ljava/util/Map;
 
     invoke-interface {v1}, Ljava/util/Map;->keySet()Ljava/util/Set;
@@ -681,7 +1146,7 @@
 
     check-cast v1, Ljava/lang/String;
 
-    .line 612
+    .line 623
     const-string v6, "EpubParser"
 
     new-instance v7, Ljava/lang/StringBuilder;
@@ -724,7 +1189,7 @@
 
     goto :goto_1a6
 
-    .line 624
+    .line 635
     :cond_1dd
     new-instance v0, Ljava/lang/StringBuilder;
 
@@ -746,7 +1211,7 @@
 
     move-result-object v0
 
-    .line 625
+    .line 636
     const-string v1, "EpubParser"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -771,7 +1236,7 @@
 
     goto/16 :goto_106
 
-    .line 639
+    .line 650
     :cond_20c
     const-string v0, "EpubParser"
 
@@ -842,15 +1307,15 @@
     .end annotation
 
     .prologue
-    .line 550
+    .line 561
     new-instance v3, Ljava/util/ArrayList;
 
     invoke-direct {v3}, Ljava/util/ArrayList;-><init>()V
 
-    .line 551
+    .line 562
     const/4 v0, 0x0
 
-    .line 553
+    .line 564
     invoke-interface {p2}, Ljava/util/List;->iterator()Ljava/util/Iterator;
 
     move-result-object v4
@@ -870,14 +1335,14 @@
 
     check-cast v0, Ljava/lang/String;
 
-    .line 554
+    .line 565
     invoke-interface {p1, v0}, Ljava/util/Map;->get(Ljava/lang/Object;)Ljava/lang/Object;
 
     move-result-object v1
 
     check-cast v1, Lcom/bilibili/tv/ebook/parser/EpubParser$ManifestItem;
 
-    .line 555
+    .line 566
     if-eqz v1, :cond_50
 
     invoke-virtual {v1}, Lcom/bilibili/tv/ebook/parser/EpubParser$ManifestItem;->getMediaType()Ljava/lang/String;
@@ -892,18 +1357,18 @@
 
     if-eqz v5, :cond_50
 
-    .line 557
+    .line 568
     :try_start_2b
     invoke-direct {p0, v1, v2, p3, p4}, Lcom/bilibili/tv/ebook/parser/EpubParser;->parseChapter(Lcom/bilibili/tv/ebook/parser/EpubParser$ManifestItem;ILjava/io/File;Lcom/bilibili/tv/ebook/parser/EpubParser$NcxParseResult;)Lcom/bilibili/tv/ebook/model/Chapter;
 
     move-result-object v1
 
-    .line 558
+    .line 569
     invoke-interface {v3, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
     :try_end_32
     .catch Ljava/lang/Exception; {:try_start_2b .. :try_end_32} :catch_37
 
-    .line 559
+    .line 570
     add-int/lit8 v2, v2, 0x1
 
     move v0, v2
@@ -911,14 +1376,14 @@
     :goto_35
     move v2, v0
 
-    .line 564
+    .line 575
     goto :goto_b
 
-    .line 560
+    .line 571
     :catch_37
     move-exception v1
 
-    .line 561
+    .line 572
     const-string v5, "EpubParser"
 
     new-instance v6, Ljava/lang/StringBuilder;
@@ -946,7 +1411,7 @@
 
     goto :goto_35
 
-    .line 566
+    .line 577
     :cond_52
     const-string v0, "EpubParser"
 
@@ -974,7 +1439,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 567
+    .line 578
     return-object v3
 .end method
 
@@ -994,19 +1459,19 @@
     .end annotation
 
     .prologue
-    .line 350
+    .line 361
     new-instance v1, Ljava/util/HashMap;
 
     invoke-direct {v1}, Ljava/util/HashMap;-><init>()V
 
-    .line 351
+    .line 362
     const-string v0, "manifest item"
 
     invoke-virtual {p1, v0}, Lorg/jsoup/nodes/Document;->select(Ljava/lang/String;)Lorg/jsoup/select/Elements;
 
     move-result-object v0
 
-    .line 353
+    .line 364
     invoke-virtual {v0}, Lorg/jsoup/select/Elements;->iterator()Ljava/util/Iterator;
 
     move-result-object v2
@@ -1024,28 +1489,28 @@
 
     check-cast v0, Lorg/jsoup/nodes/Element;
 
-    .line 354
+    .line 365
     const-string v3, "id"
 
     invoke-virtual {v0, v3}, Lorg/jsoup/nodes/Element;->attr(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v3
 
-    .line 355
+    .line 366
     const-string v4, "href"
 
     invoke-virtual {v0, v4}, Lorg/jsoup/nodes/Element;->attr(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v4
 
-    .line 356
+    .line 367
     const-string v5, "media-type"
 
     invoke-virtual {v0, v5}, Lorg/jsoup/nodes/Element;->attr(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 358
+    .line 369
     new-instance v5, Lcom/bilibili/tv/ebook/parser/EpubParser$ManifestItem;
 
     invoke-direct {v5, v3, v4, v0}, Lcom/bilibili/tv/ebook/parser/EpubParser$ManifestItem;-><init>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
@@ -1054,7 +1519,7 @@
 
     goto :goto_f
 
-    .line 361
+    .line 372
     :cond_36
     const-string v0, "EpubParser"
 
@@ -1082,7 +1547,7 @@
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 362
+    .line 373
     return-object v1
 .end method
 
@@ -1090,17 +1555,17 @@
     .locals 6
 
     .prologue
-    .line 215
+    .line 226
     const-string v0, "metadata"
 
     invoke-virtual {p1, v0}, Lorg/jsoup/nodes/Document;->selectFirst(Ljava/lang/String;)Lorg/jsoup/nodes/Element;
 
     move-result-object v2
 
-    .line 216
+    .line 227
     if-eqz v2, :cond_1fe
 
-    .line 217
+    .line 228
     const-string v0, "EpubParser"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1127,7 +1592,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 230
+    .line 241
     :cond_24
     const-string v0, "metadata dc|title"
 
@@ -1135,35 +1600,35 @@
 
     move-result-object v1
 
-    .line 231
+    .line 242
     if-nez v1, :cond_32
 
-    .line 233
+    .line 244
     const-string v0, "metadata title"
 
     invoke-virtual {p1, v0}, Lorg/jsoup/nodes/Document;->selectFirst(Ljava/lang/String;)Lorg/jsoup/nodes/Element;
 
     move-result-object v1
 
-    .line 235
+    .line 246
     :cond_32
     if-nez v1, :cond_3a
 
-    .line 237
+    .line 248
     const-string v0, "dc|title"
 
     invoke-virtual {p1, v0}, Lorg/jsoup/nodes/Document;->selectFirst(Ljava/lang/String;)Lorg/jsoup/nodes/Element;
 
     move-result-object v1
 
-    .line 239
+    .line 250
     :cond_3a
     if-nez v1, :cond_28d
 
-    .line 241
+    .line 252
     if-eqz v2, :cond_28d
 
-    .line 242
+    .line 253
     invoke-virtual {v2}, Lorg/jsoup/nodes/Element;->children()Lorg/jsoup/select/Elements;
 
     move-result-object v0
@@ -1185,7 +1650,7 @@
 
     check-cast v0, Lorg/jsoup/nodes/Element;
 
-    .line 243
+    .line 254
     invoke-virtual {v0}, Lorg/jsoup/nodes/Element;->tagName()Ljava/lang/String;
 
     move-result-object v4
@@ -1194,7 +1659,7 @@
 
     move-result-object v4
 
-    .line 244
+    .line 255
     const-string v5, "title"
 
     invoke-virtual {v4, v5}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -1211,7 +1676,7 @@
 
     if-eqz v4, :cond_46
 
-    .line 246
+    .line 257
     :cond_6a
     const-string v1, "EpubParser"
 
@@ -1239,22 +1704,22 @@
 
     invoke-static {v1, v3}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 252
+    .line 263
     :goto_86
     if-nez v0, :cond_8e
 
-    .line 254
+    .line 265
     const-string v0, "*[property~=title]"
 
     invoke-virtual {p1, v0}, Lorg/jsoup/nodes/Document;->selectFirst(Ljava/lang/String;)Lorg/jsoup/nodes/Element;
 
     move-result-object v0
 
-    .line 257
+    .line 268
     :cond_8e
     if-eqz v0, :cond_256
 
-    .line 258
+    .line 269
     invoke-virtual {v0}, Lorg/jsoup/nodes/Element;->text()Ljava/lang/String;
 
     move-result-object v1
@@ -1263,17 +1728,17 @@
 
     move-result-object v1
 
-    .line 259
+    .line 270
     invoke-virtual {v1}, Ljava/lang/String;->isEmpty()Z
 
     move-result v3
 
     if-nez v3, :cond_248
 
-    .line 260
+    .line 271
     invoke-virtual {p2, v1}, Lcom/bilibili/tv/ebook/model/Book;->setTitle(Ljava/lang/String;)V
 
-    .line 261
+    .line 272
     const-string v3, "EpubParser"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -1316,7 +1781,7 @@
 
     invoke-static {v3, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 275
+    .line 286
     :goto_cd
     const-string v0, "metadata dc|creator"
 
@@ -1324,35 +1789,35 @@
 
     move-result-object v1
 
-    .line 276
+    .line 287
     if-nez v1, :cond_db
 
-    .line 278
+    .line 289
     const-string v0, "metadata creator"
 
     invoke-virtual {p1, v0}, Lorg/jsoup/nodes/Document;->selectFirst(Ljava/lang/String;)Lorg/jsoup/nodes/Element;
 
     move-result-object v1
 
-    .line 280
+    .line 291
     :cond_db
     if-nez v1, :cond_e3
 
-    .line 282
+    .line 293
     const-string v0, "dc|creator"
 
     invoke-virtual {p1, v0}, Lorg/jsoup/nodes/Document;->selectFirst(Ljava/lang/String;)Lorg/jsoup/nodes/Element;
 
     move-result-object v1
 
-    .line 284
+    .line 295
     :cond_e3
     if-nez v1, :cond_28a
 
-    .line 286
+    .line 297
     if-eqz v2, :cond_28a
 
-    .line 287
+    .line 298
     invoke-virtual {v2}, Lorg/jsoup/nodes/Element;->children()Lorg/jsoup/select/Elements;
 
     move-result-object v0
@@ -1374,7 +1839,7 @@
 
     check-cast v0, Lorg/jsoup/nodes/Element;
 
-    .line 288
+    .line 299
     invoke-virtual {v0}, Lorg/jsoup/nodes/Element;->tagName()Ljava/lang/String;
 
     move-result-object v4
@@ -1383,7 +1848,7 @@
 
     move-result-object v4
 
-    .line 289
+    .line 300
     const-string v5, "creator"
 
     invoke-virtual {v4, v5}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -1400,7 +1865,7 @@
 
     if-eqz v4, :cond_ef
 
-    .line 291
+    .line 302
     :cond_113
     const-string v1, "EpubParser"
 
@@ -1428,22 +1893,22 @@
 
     invoke-static {v1, v3}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 297
+    .line 308
     :goto_12f
     if-nez v0, :cond_137
 
-    .line 299
+    .line 310
     const-string v0, "*[property~=creator]"
 
     invoke-virtual {p1, v0}, Lorg/jsoup/nodes/Document;->selectFirst(Ljava/lang/String;)Lorg/jsoup/nodes/Element;
 
     move-result-object v0
 
-    .line 302
+    .line 313
     :cond_137
     if-eqz v0, :cond_272
 
-    .line 303
+    .line 314
     invoke-virtual {v0}, Lorg/jsoup/nodes/Element;->text()Ljava/lang/String;
 
     move-result-object v1
@@ -1452,17 +1917,17 @@
 
     move-result-object v1
 
-    .line 304
+    .line 315
     invoke-virtual {v1}, Ljava/lang/String;->isEmpty()Z
 
     move-result v3
 
     if-nez v3, :cond_264
 
-    .line 305
+    .line 316
     invoke-virtual {p2, v1}, Lcom/bilibili/tv/ebook/model/Book;->setAuthor(Ljava/lang/String;)V
 
-    .line 306
+    .line 317
     const-string v3, "EpubParser"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -1505,7 +1970,7 @@
 
     invoke-static {v3, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 317
+    .line 328
     :goto_176
     const-string v0, "metadata dc|language"
 
@@ -1513,35 +1978,35 @@
 
     move-result-object v1
 
-    .line 318
+    .line 329
     if-nez v1, :cond_184
 
-    .line 319
+    .line 330
     const-string v0, "metadata language"
 
     invoke-virtual {p1, v0}, Lorg/jsoup/nodes/Document;->selectFirst(Ljava/lang/String;)Lorg/jsoup/nodes/Element;
 
     move-result-object v1
 
-    .line 321
+    .line 332
     :cond_184
     if-nez v1, :cond_18c
 
-    .line 322
+    .line 333
     const-string v0, "dc|language"
 
     invoke-virtual {p1, v0}, Lorg/jsoup/nodes/Document;->selectFirst(Ljava/lang/String;)Lorg/jsoup/nodes/Element;
 
     move-result-object v1
 
-    .line 324
+    .line 335
     :cond_18c
     if-nez v1, :cond_287
 
-    .line 326
+    .line 337
     if-eqz v2, :cond_287
 
-    .line 327
+    .line 338
     invoke-virtual {v2}, Lorg/jsoup/nodes/Element;->children()Lorg/jsoup/select/Elements;
 
     move-result-object v0
@@ -1563,7 +2028,7 @@
 
     check-cast v0, Lorg/jsoup/nodes/Element;
 
-    .line 328
+    .line 339
     invoke-virtual {v0}, Lorg/jsoup/nodes/Element;->tagName()Ljava/lang/String;
 
     move-result-object v3
@@ -1572,7 +2037,7 @@
 
     move-result-object v3
 
-    .line 329
+    .line 340
     const-string v4, "language"
 
     invoke-virtual {v3, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -1589,19 +2054,19 @@
 
     if-eqz v3, :cond_198
 
-    .line 336
+    .line 347
     :cond_1bc
     :goto_1bc
     if-eqz v0, :cond_280
 
-    .line 337
+    .line 348
     invoke-virtual {v0}, Lorg/jsoup/nodes/Element;->text()Ljava/lang/String;
 
     move-result-object v0
 
     invoke-virtual {p2, v0}, Lcom/bilibili/tv/ebook/model/Book;->setLanguage(Ljava/lang/String;)V
 
-    .line 342
+    .line 353
     :goto_1c5
     const-string v0, "EpubParser"
 
@@ -1629,7 +2094,7 @@
 
     move-result-object v1
 
-    .line 343
+    .line 354
     invoke-virtual {p2}, Lcom/bilibili/tv/ebook/model/Book;->getAuthor()Ljava/lang/String;
 
     move-result-object v2
@@ -1656,13 +2121,13 @@
 
     move-result-object v1
 
-    .line 342
+    .line 353
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 344
+    .line 355
     return-void
 
-    .line 219
+    .line 230
     :cond_1fe
     const-string v0, "EpubParser"
 
@@ -1670,12 +2135,12 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 220
+    .line 231
     invoke-virtual {p1}, Lorg/jsoup/nodes/Document;->children()Lorg/jsoup/select/Elements;
 
     move-result-object v0
 
-    .line 221
+    .line 232
     invoke-virtual {v0}, Lorg/jsoup/select/Elements;->iterator()Ljava/util/Iterator;
 
     move-result-object v1
@@ -1693,7 +2158,7 @@
 
     check-cast v0, Lorg/jsoup/nodes/Element;
 
-    .line 222
+    .line 233
     const-string v3, "EpubParser"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -1740,7 +2205,7 @@
 
     goto :goto_20d
 
-    .line 263
+    .line 274
     :cond_248
     const-string v0, "EpubParser"
 
@@ -1748,20 +2213,20 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 264
+    .line 275
     const-string v0, "Unknown Title"
 
     invoke-virtual {p2, v0}, Lcom/bilibili/tv/ebook/model/Book;->setTitle(Ljava/lang/String;)V
 
     goto/16 :goto_cd
 
-    .line 267
+    .line 278
     :cond_256
     const-string v0, "Unknown Title"
 
     invoke-virtual {p2, v0}, Lcom/bilibili/tv/ebook/model/Book;->setTitle(Ljava/lang/String;)V
 
-    .line 268
+    .line 279
     const-string v0, "EpubParser"
 
     const-string v1, "\u672a\u627e\u5230\u4e66\u7c4d\u6807\u9898\u5143\u6570\u636e"
@@ -1770,7 +2235,7 @@
 
     goto/16 :goto_cd
 
-    .line 308
+    .line 319
     :cond_264
     const-string v0, "EpubParser"
 
@@ -1778,20 +2243,20 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 309
+    .line 320
     const-string v0, "Unknown Author"
 
     invoke-virtual {p2, v0}, Lcom/bilibili/tv/ebook/model/Book;->setAuthor(Ljava/lang/String;)V
 
     goto/16 :goto_176
 
-    .line 312
+    .line 323
     :cond_272
     const-string v0, "Unknown Author"
 
     invoke-virtual {p2, v0}, Lcom/bilibili/tv/ebook/model/Book;->setAuthor(Ljava/lang/String;)V
 
-    .line 313
+    .line 324
     const-string v0, "EpubParser"
 
     const-string v1, "\u672a\u627e\u5230\u4f5c\u8005\u5143\u6570\u636e"
@@ -1800,7 +2265,7 @@
 
     goto/16 :goto_176
 
-    .line 339
+    .line 350
     :cond_280
     const-string v0, "en"
 
@@ -1828,12 +2293,12 @@
     .locals 8
 
     .prologue
-    .line 466
+    .line 477
     invoke-virtual {p1}, Lorg/jsoup/nodes/Element;->children()Lorg/jsoup/select/Elements;
 
     move-result-object v0
 
-    .line 468
+    .line 479
     const-string v1, "EpubParser"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -1870,7 +2335,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 470
+    .line 481
     invoke-virtual {v0}, Lorg/jsoup/select/Elements;->iterator()Ljava/util/Iterator;
 
     move-result-object v6
@@ -1889,7 +2354,7 @@
 
     check-cast v1, Lorg/jsoup/nodes/Element;
 
-    .line 472
+    .line 483
     invoke-virtual {v1}, Lorg/jsoup/nodes/Element;->tagName()Ljava/lang/String;
 
     move-result-object v0
@@ -1902,21 +2367,21 @@
 
     if-eqz v0, :cond_2e
 
-    .line 477
+    .line 488
     const-string v0, "navLabel text"
 
     invoke-virtual {v1, v0}, Lorg/jsoup/nodes/Element;->selectFirst(Ljava/lang/String;)Lorg/jsoup/nodes/Element;
 
     move-result-object v0
 
-    .line 478
+    .line 489
     if-eqz v0, :cond_128
 
     invoke-virtual {v0}, Lorg/jsoup/nodes/Element;->text()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 481
+    .line 492
     :goto_52
     const-string v2, "content"
 
@@ -1924,7 +2389,7 @@
 
     move-result-object v2
 
-    .line 482
+    .line 493
     if-eqz v2, :cond_12c
 
     const-string v3, "src"
@@ -1933,7 +2398,7 @@
 
     move-result-object v2
 
-    .line 484
+    .line 495
     :goto_60
     const-string v3, "EpubParser"
 
@@ -1993,14 +2458,14 @@
 
     invoke-static {v3, v4}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 487
+    .line 498
     invoke-virtual {v2}, Ljava/lang/String;->isEmpty()Z
 
     move-result v3
 
     if-nez v3, :cond_11d
 
-    .line 490
+    .line 501
     const-string v3, "#"
 
     invoke-virtual {v2, v3}, Ljava/lang/String;->split(Ljava/lang/String;)[Ljava/lang/String;
@@ -2011,12 +2476,12 @@
 
     aget-object v4, v3, v4
 
-    .line 498
+    .line 509
     new-instance v3, Ljava/io/File;
 
     invoke-direct {v3, p2, v4}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 501
+    .line 512
     :try_start_b0
     invoke-virtual {v3}, Ljava/io/File;->getCanonicalFile()Ljava/io/File;
     :try_end_b3
@@ -2024,7 +2489,7 @@
 
     move-result-object v3
 
-    .line 508
+    .line 519
     :goto_b4
     invoke-virtual {p2, p3}, Ljava/io/File;->equals(Ljava/lang/Object;)Z
 
@@ -2034,7 +2499,7 @@
 
     move-object v3, v4
 
-    .line 525
+    .line 536
     :goto_bb
     const-string v4, "\\"
 
@@ -2044,7 +2509,7 @@
 
     move-result-object v3
 
-    .line 528
+    .line 539
     iget-object v4, p5, Lcom/bilibili/tv/ebook/parser/EpubParser$NcxParseResult;->depthMap:Ljava/util/Map;
 
     invoke-interface {v4, v3}, Ljava/util/Map;->containsKey(Ljava/lang/Object;)Z
@@ -2053,7 +2518,7 @@
 
     if-nez v4, :cond_154
 
-    .line 529
+    .line 540
     iget-object v4, p5, Lcom/bilibili/tv/ebook/parser/EpubParser$NcxParseResult;->depthMap:Ljava/util/Map;
 
     invoke-static {p4}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
@@ -2062,12 +2527,12 @@
 
     invoke-interface {v4, v3, v5}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 530
+    .line 541
     iget-object v4, p5, Lcom/bilibili/tv/ebook/parser/EpubParser$NcxParseResult;->titleMap:Ljava/util/Map;
 
     invoke-interface {v4, v3, v0}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 531
+    .line 542
     const-string v4, "EpubParser"
 
     new-instance v5, Ljava/lang/StringBuilder;
@@ -2120,7 +2585,7 @@
 
     move-result-object v0
 
-    .line 532
+    .line 543
     invoke-virtual {p2}, Ljava/io/File;->getName()Ljava/lang/String;
 
     move-result-object v2
@@ -2133,10 +2598,10 @@
 
     move-result-object v0
 
-    .line 531
+    .line 542
     invoke-static {v4, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 539
+    .line 550
     :cond_11d
     :goto_11d
     add-int/lit8 v4, p4, 0x1
@@ -2153,48 +2618,48 @@
 
     goto/16 :goto_2e
 
-    .line 478
+    .line 489
     :cond_128
     const-string v0, "\u672a\u77e5\u7ae0\u8282"
 
     goto/16 :goto_52
 
-    .line 482
+    .line 493
     :cond_12c
     const-string v2, ""
 
     goto/16 :goto_60
 
-    .line 502
+    .line 513
     :catch_130
     move-exception v5
 
-    .line 503
+    .line 514
     invoke-virtual {v3}, Ljava/io/File;->getAbsoluteFile()Ljava/io/File;
 
     move-result-object v3
 
     goto/16 :goto_b4
 
-    .line 513
+    .line 524
     :cond_137
     invoke-virtual {v3}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
 
     move-result-object v3
 
-    .line 514
+    .line 525
     invoke-virtual {p3}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
 
     move-result-object v5
 
-    .line 516
+    .line 527
     invoke-virtual {v3, v5}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
 
     move-result v7
 
     if-eqz v7, :cond_151
 
-    .line 517
+    .line 528
     invoke-virtual {v5}, Ljava/lang/String;->length()I
 
     move-result v4
@@ -2210,10 +2675,10 @@
     :cond_151
     move-object v3, v4
 
-    .line 520
+    .line 531
     goto/16 :goto_bb
 
-    .line 534
+    .line 545
     :cond_154
     const-string v0, "EpubParser"
 
@@ -2261,7 +2726,7 @@
 
     goto :goto_11d
 
-    .line 541
+    .line 552
     :cond_183
     return-void
 .end method
@@ -2286,12 +2751,12 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 398
+    .line 409
     new-instance v5, Lcom/bilibili/tv/ebook/parser/EpubParser$NcxParseResult;
 
     invoke-direct {v5, v1}, Lcom/bilibili/tv/ebook/parser/EpubParser$NcxParseResult;-><init>(Lcom/bilibili/tv/ebook/parser/EpubParser$1;)V
 
-    .line 405
+    .line 416
     :try_start_6
     invoke-interface {p1}, Ljava/util/Map;->values()Ljava/util/Collection;
 
@@ -2314,7 +2779,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ebook/parser/EpubParser$ManifestItem;
 
-    .line 406
+    .line 417
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/parser/EpubParser$ManifestItem;->getMediaType()Ljava/lang/String;
 
     move-result-object v3
@@ -2327,7 +2792,7 @@
 
     if-nez v3, :cond_36
 
-    .line 407
+    .line 418
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/parser/EpubParser$ManifestItem;->getId()Ljava/lang/String;
 
     move-result-object v3
@@ -2344,7 +2809,7 @@
 
     if-eqz v3, :cond_e
 
-    .line 408
+    .line 419
     :cond_36
     new-instance v1, Ljava/io/File;
 
@@ -2356,7 +2821,7 @@
 
     move-object v0, v1
 
-    .line 414
+    .line 425
     :goto_40
     if-eqz v0, :cond_48
 
@@ -2366,7 +2831,7 @@
 
     if-nez v1, :cond_59
 
-    .line 415
+    .line 426
     :cond_48
     new-instance v1, Lcom/bilibili/tv/ebook/parser/EpubParser$2;
 
@@ -2376,19 +2841,19 @@
 
     move-result-object v1
 
-    .line 422
+    .line 433
     if-eqz v1, :cond_59
 
     array-length v2, v1
 
     if-lez v2, :cond_59
 
-    .line 423
+    .line 434
     const/4 v0, 0x0
 
     aget-object v0, v1, v0
 
-    .line 427
+    .line 438
     :cond_59
     if-eqz v0, :cond_61
 
@@ -2398,7 +2863,7 @@
 
     if-nez v1, :cond_69
 
-    .line 428
+    .line 439
     :cond_61
     const-string v0, "EpubParser"
 
@@ -2406,11 +2871,11 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 452
+    .line 463
     :goto_68
     return-object v5
 
-    .line 432
+    .line 443
     :cond_69
     const-string v1, "EpubParser"
 
@@ -2438,7 +2903,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 435
+    .line 446
     const-string v1, "UTF-8"
 
     const-string v2, ""
@@ -2455,17 +2920,17 @@
 
     move-result-object v1
 
-    .line 436
+    .line 447
     const-string v2, "navMap"
 
     invoke-virtual {v1, v2}, Lorg/jsoup/nodes/Document;->selectFirst(Ljava/lang/String;)Lorg/jsoup/nodes/Element;
 
     move-result-object v1
 
-    .line 438
+    .line 449
     if-eqz v1, :cond_106
 
-    .line 439
+    .line 450
     const-string v2, "EpubParser"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -2496,7 +2961,7 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 442
+    .line 453
     invoke-virtual {v0}, Ljava/io/File;->getParentFile()Ljava/io/File;
 
     move-result-object v2
@@ -2511,7 +2976,7 @@
 
     invoke-direct/range {v0 .. v5}, Lcom/bilibili/tv/ebook/parser/EpubParser;->parseNavMapRecursive(Lorg/jsoup/nodes/Element;Ljava/io/File;Ljava/io/File;ILcom/bilibili/tv/ebook/parser/EpubParser$NcxParseResult;)V
 
-    .line 443
+    .line 454
     const-string v0, "EpubParser"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -2560,11 +3025,11 @@
 
     goto/16 :goto_68
 
-    .line 448
+    .line 459
     :catch_fc
     move-exception v0
 
-    .line 449
+    .line 460
     const-string v1, "EpubParser"
 
     const-string v2, "\u89e3\u6790NCX\u6587\u4ef6\u5931\u8d25"
@@ -2573,7 +3038,7 @@
 
     goto/16 :goto_68
 
-    .line 445
+    .line 456
     :cond_106
     :try_start_106
     const-string v0, "EpubParser"
@@ -2601,37 +3066,37 @@
     .end annotation
 
     .prologue
-    .line 183
+    .line 194
     const-string v0, "UTF-8"
 
     invoke-static {p1, v0}, Lorg/jsoup/Jsoup;->parse(Ljava/io/File;Ljava/lang/String;)Lorg/jsoup/nodes/Document;
 
     move-result-object v0
 
-    .line 185
+    .line 196
     new-instance v1, Lcom/bilibili/tv/ebook/model/Book;
 
     invoke-direct {v1}, Lcom/bilibili/tv/ebook/model/Book;-><init>()V
 
-    .line 188
+    .line 199
     invoke-direct {p0, v0, v1}, Lcom/bilibili/tv/ebook/parser/EpubParser;->parseMetadata(Lorg/jsoup/nodes/Document;Lcom/bilibili/tv/ebook/model/Book;)V
 
-    .line 191
+    .line 202
     invoke-direct {p0, v0}, Lcom/bilibili/tv/ebook/parser/EpubParser;->parseManifest(Lorg/jsoup/nodes/Document;)Ljava/util/Map;
 
     move-result-object v2
 
-    .line 194
+    .line 205
     invoke-direct {p0, v0, v2}, Lcom/bilibili/tv/ebook/parser/EpubParser;->parseSpine(Lorg/jsoup/nodes/Document;Ljava/util/Map;)Ljava/util/List;
 
     move-result-object v0
 
-    .line 197
+    .line 208
     invoke-virtual {p1}, Ljava/io/File;->getParentFile()Ljava/io/File;
 
     move-result-object v3
 
-    .line 198
+    .line 209
     const-string v4, "EpubParser"
 
     new-instance v5, Ljava/lang/StringBuilder;
@@ -2658,20 +3123,20 @@
 
     invoke-static {v4, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 201
+    .line 212
     invoke-direct {p0, v2, v3, p1}, Lcom/bilibili/tv/ebook/parser/EpubParser;->parseNcxFile(Ljava/util/Map;Ljava/io/File;Ljava/io/File;)Lcom/bilibili/tv/ebook/parser/EpubParser$NcxParseResult;
 
     move-result-object v4
 
-    .line 204
+    .line 215
     invoke-direct {p0, v2, v0, v3, v4}, Lcom/bilibili/tv/ebook/parser/EpubParser;->parseChapters(Ljava/util/Map;Ljava/util/List;Ljava/io/File;Lcom/bilibili/tv/ebook/parser/EpubParser$NcxParseResult;)Ljava/util/List;
 
     move-result-object v0
 
-    .line 205
+    .line 216
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/ebook/model/Book;->setChapters(Ljava/util/List;)V
 
-    .line 207
+    .line 218
     return-object v1
 .end method
 
@@ -2694,19 +3159,19 @@
     .end annotation
 
     .prologue
-    .line 369
+    .line 380
     new-instance v1, Ljava/util/ArrayList;
 
     invoke-direct {v1}, Ljava/util/ArrayList;-><init>()V
 
-    .line 370
+    .line 381
     const-string v0, "spine itemref"
 
     invoke-virtual {p1, v0}, Lorg/jsoup/nodes/Document;->select(Ljava/lang/String;)Lorg/jsoup/select/Elements;
 
     move-result-object v0
 
-    .line 372
+    .line 383
     invoke-virtual {v0}, Lorg/jsoup/select/Elements;->iterator()Ljava/util/Iterator;
 
     move-result-object v2
@@ -2725,26 +3190,26 @@
 
     check-cast v0, Lorg/jsoup/nodes/Element;
 
-    .line 373
+    .line 384
     const-string v3, "idref"
 
     invoke-virtual {v0, v3}, Lorg/jsoup/nodes/Element;->attr(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 374
+    .line 385
     invoke-interface {p2, v0}, Ljava/util/Map;->containsKey(Ljava/lang/Object;)Z
 
     move-result v3
 
     if-eqz v3, :cond_f
 
-    .line 375
+    .line 386
     invoke-interface {v1, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     goto :goto_f
 
-    .line 379
+    .line 390
     :cond_2b
     const-string v0, "EpubParser"
 
@@ -2772,8 +3237,301 @@
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 380
+    .line 391
     return-object v1
+.end method
+
+.method private saveMetadataToCache(Lcom/bilibili/tv/ebook/model/Book;Ljava/io/File;)V
+    .locals 8
+
+    .prologue
+    .line 736
+    :try_start_0
+    new-instance v1, Ljava/io/File;
+
+    const-string v0, "metadata.json"
+
+    invoke-direct {v1, p2, v0}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+
+    .line 738
+    const-string v0, "EpubParser"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "\u5f00\u59cb\u4fdd\u5b58\u5143\u6570\u636e\u5230\u7f13\u5b58: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v1}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 741
+    new-instance v2, Lorg/json/JSONObject;
+
+    invoke-direct {v2}, Lorg/json/JSONObject;-><init>()V
+
+    .line 742
+    const-string v0, "bookId"
+
+    invoke-virtual {p1}, Lcom/bilibili/tv/ebook/model/Book;->getBookId()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v2, v0, v3}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+
+    .line 743
+    const-string v0, "title"
+
+    invoke-virtual {p1}, Lcom/bilibili/tv/ebook/model/Book;->getTitle()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v2, v0, v3}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+
+    .line 744
+    const-string v0, "author"
+
+    invoke-virtual {p1}, Lcom/bilibili/tv/ebook/model/Book;->getAuthor()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v2, v0, v3}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+
+    .line 745
+    const-string v0, "language"
+
+    invoke-virtual {p1}, Lcom/bilibili/tv/ebook/model/Book;->getLanguage()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v2, v0, v3}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+
+    .line 746
+    const-string v0, "extractionPath"
+
+    invoke-virtual {p1}, Lcom/bilibili/tv/ebook/model/Book;->getExtractionPath()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v2, v0, v3}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+
+    .line 749
+    new-instance v3, Lorg/json/JSONArray;
+
+    invoke-direct {v3}, Lorg/json/JSONArray;-><init>()V
+
+    .line 750
+    invoke-virtual {p1}, Lcom/bilibili/tv/ebook/model/Book;->getChapters()Ljava/util/List;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_bc
+
+    .line 751
+    invoke-virtual {p1}, Lcom/bilibili/tv/ebook/model/Book;->getChapters()Ljava/util/List;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
+
+    move-result-object v4
+
+    :goto_68
+    invoke-interface {v4}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_bc
+
+    invoke-interface {v4}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/bilibili/tv/ebook/model/Chapter;
+
+    .line 752
+    new-instance v5, Lorg/json/JSONObject;
+
+    invoke-direct {v5}, Lorg/json/JSONObject;-><init>()V
+
+    .line 753
+    const-string v6, "chapterId"
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/Chapter;->getChapterId()Ljava/lang/String;
+
+    move-result-object v7
+
+    invoke-virtual {v5, v6, v7}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+
+    .line 754
+    const-string v6, "chapterIndex"
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/Chapter;->getChapterIndex()I
+
+    move-result v7
+
+    invoke-virtual {v5, v6, v7}, Lorg/json/JSONObject;->put(Ljava/lang/String;I)Lorg/json/JSONObject;
+
+    .line 755
+    const-string v6, "title"
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/Chapter;->getTitle()Ljava/lang/String;
+
+    move-result-object v7
+
+    invoke-virtual {v5, v6, v7}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+
+    .line 756
+    const-string v6, "htmlFilePath"
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/Chapter;->getHtmlFilePath()Ljava/lang/String;
+
+    move-result-object v7
+
+    invoke-virtual {v5, v6, v7}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+
+    .line 757
+    const-string v6, "baseUrl"
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/Chapter;->getBaseUrl()Ljava/lang/String;
+
+    move-result-object v7
+
+    invoke-virtual {v5, v6, v7}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+
+    .line 758
+    const-string v6, "depth"
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/Chapter;->getDepth()I
+
+    move-result v0
+
+    invoke-virtual {v5, v6, v0}, Lorg/json/JSONObject;->put(Ljava/lang/String;I)Lorg/json/JSONObject;
+
+    .line 760
+    invoke-virtual {v3, v5}, Lorg/json/JSONArray;->put(Ljava/lang/Object;)Lorg/json/JSONArray;
+    :try_end_b2
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_b2} :catch_b3
+
+    goto :goto_68
+
+    .line 776
+    :catch_b3
+    move-exception v0
+
+    .line 777
+    const-string v1, "EpubParser"
+
+    const-string v2, "\u4fdd\u5b58\u5143\u6570\u636e\u7f13\u5b58\u5931\u8d25"
+
+    invoke-static {v1, v2, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+
+    .line 779
+    :goto_bb
+    return-void
+
+    .line 763
+    :cond_bc
+    :try_start_bc
+    const-string v0, "chapters"
+
+    invoke-virtual {v2, v0, v3}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+
+    .line 766
+    new-instance v0, Ljava/io/FileOutputStream;
+
+    invoke-direct {v0, v1}, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V
+
+    .line 767
+    new-instance v3, Ljava/io/OutputStreamWriter;
+
+    const-string v4, "UTF-8"
+
+    invoke-direct {v3, v0, v4}, Ljava/io/OutputStreamWriter;-><init>(Ljava/io/OutputStream;Ljava/lang/String;)V
+
+    .line 768
+    invoke-virtual {v2}, Lorg/json/JSONObject;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v3, v2}, Ljava/io/OutputStreamWriter;->write(Ljava/lang/String;)V
+
+    .line 769
+    invoke-virtual {v3}, Ljava/io/OutputStreamWriter;->flush()V
+
+    .line 770
+    invoke-virtual {v3}, Ljava/io/OutputStreamWriter;->close()V
+
+    .line 771
+    invoke-virtual {v0}, Ljava/io/FileOutputStream;->close()V
+
+    .line 773
+    const-string v0, "EpubParser"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "\u5143\u6570\u636e\u7f13\u5b58\u4fdd\u5b58\u6210\u529f: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v1}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, ", \u5927\u5c0f: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    .line 774
+    invoke-virtual {v1}, Ljava/io/File;->length()J
+
+    move-result-wide v4
+
+    invoke-virtual {v2, v4, v5}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, " bytes"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    .line 773
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    :try_end_10d
+    .catch Ljava/lang/Exception; {:try_start_bc .. :try_end_10d} :catch_b3
+
+    goto :goto_bb
 .end method
 
 .method private unzipEpub(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;
@@ -2785,21 +3543,21 @@
     .end annotation
 
     .prologue
-    .line 92
+    .line 103
     new-instance v1, Ljava/io/File;
 
     iget-object v0, p0, Lcom/bilibili/tv/ebook/parser/EpubParser;->cacheDir:Ljava/io/File;
 
     invoke-direct {v1, v0, p2}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 95
+    .line 106
     invoke-virtual {v1}, Ljava/io/File;->exists()Z
 
     move-result v0
 
     if-eqz v0, :cond_2b
 
-    .line 96
+    .line 107
     const-string v0, "EpubParser"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -2828,18 +3586,18 @@
 
     move-object v0, v1
 
-    .line 133
+    .line 144
     :goto_2a
     return-object v0
 
-    .line 100
+    .line 111
     :cond_2b
     invoke-virtual {v1}, Ljava/io/File;->mkdirs()Z
 
-    .line 102
+    .line 113
     const/4 v3, 0x0
 
-    .line 104
+    .line 115
     :try_start_2f
     new-instance v2, Ljava/util/zip/ZipFile;
 
@@ -2847,13 +3605,13 @@
     :try_end_34
     .catchall {:try_start_2f .. :try_end_34} :catchall_a8
 
-    .line 105
+    .line 116
     :try_start_34
     invoke-virtual {v2}, Ljava/util/zip/ZipFile;->entries()Ljava/util/Enumeration;
 
     move-result-object v3
 
-    .line 107
+    .line 118
     :goto_38
     invoke-interface {v3}, Ljava/util/Enumeration;->hasMoreElements()Z
 
@@ -2861,14 +3619,14 @@
 
     if-eqz v0, :cond_85
 
-    .line 108
+    .line 119
     invoke-interface {v3}, Ljava/util/Enumeration;->nextElement()Ljava/lang/Object;
 
     move-result-object v0
 
     check-cast v0, Ljava/util/zip/ZipEntry;
 
-    .line 109
+    .line 120
     new-instance v4, Ljava/io/File;
 
     invoke-virtual {v0}, Ljava/util/zip/ZipEntry;->getName()Ljava/lang/String;
@@ -2877,21 +3635,21 @@
 
     invoke-direct {v4, v1, v5}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 111
+    .line 122
     invoke-virtual {v0}, Ljava/util/zip/ZipEntry;->isDirectory()Z
 
     move-result v5
 
     if-eqz v5, :cond_5f
 
-    .line 112
+    .line 123
     invoke-virtual {v4}, Ljava/io/File;->mkdirs()Z
     :try_end_56
     .catchall {:try_start_34 .. :try_end_56} :catchall_57
 
     goto :goto_38
 
-    .line 136
+    .line 147
     :catchall_57
     move-exception v0
 
@@ -2900,14 +3658,14 @@
     :goto_59
     if-eqz v1, :cond_5e
 
-    .line 137
+    .line 148
     invoke-virtual {v1}, Ljava/util/zip/ZipFile;->close()V
 
-    .line 139
+    .line 150
     :cond_5e
     throw v0
 
-    .line 115
+    .line 126
     :cond_5f
     :try_start_5f
     invoke-virtual {v4}, Ljava/io/File;->getParentFile()Ljava/io/File;
@@ -2916,22 +3674,22 @@
 
     invoke-virtual {v5}, Ljava/io/File;->mkdirs()Z
 
-    .line 118
+    .line 129
     invoke-virtual {v2, v0}, Ljava/util/zip/ZipFile;->getInputStream(Ljava/util/zip/ZipEntry;)Ljava/io/InputStream;
 
     move-result-object v0
 
-    .line 119
+    .line 130
     new-instance v5, Ljava/io/FileOutputStream;
 
     invoke-direct {v5, v4}, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V
 
-    .line 121
+    .line 132
     const/16 v4, 0x2000
 
     new-array v4, v4, [B
 
-    .line 123
+    .line 134
     :goto_73
     invoke-virtual {v0, v4}, Ljava/io/InputStream;->read([B)I
 
@@ -2939,23 +3697,23 @@
 
     if-lez v6, :cond_7e
 
-    .line 124
+    .line 135
     const/4 v7, 0x0
 
     invoke-virtual {v5, v4, v7, v6}, Ljava/io/FileOutputStream;->write([BII)V
 
     goto :goto_73
 
-    .line 127
+    .line 138
     :cond_7e
     invoke-virtual {v5}, Ljava/io/FileOutputStream;->close()V
 
-    .line 128
+    .line 139
     invoke-virtual {v0}, Ljava/io/InputStream;->close()V
 
     goto :goto_38
 
-    .line 132
+    .line 143
     :cond_85
     const-string v0, "EpubParser"
 
@@ -2985,19 +3743,19 @@
     :try_end_a1
     .catchall {:try_start_5f .. :try_end_a1} :catchall_57
 
-    .line 136
+    .line 147
     if-eqz v2, :cond_a6
 
-    .line 137
+    .line 148
     invoke-virtual {v2}, Ljava/util/zip/ZipFile;->close()V
 
     :cond_a6
     move-object v0, v1
 
-    .line 133
+    .line 144
     goto :goto_2a
 
-    .line 136
+    .line 147
     :catchall_a8
     move-exception v0
 
@@ -3053,35 +3811,96 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 84
+    .line 95
     :goto_26
     return-object v0
 
     .line 60
     :cond_27
-    invoke-direct {p0, v2}, Lcom/bilibili/tv/ebook/parser/EpubParser;->findOpfFile(Ljava/io/File;)Ljava/io/File;
+    invoke-direct {p0, v2}, Lcom/bilibili/tv/ebook/parser/EpubParser;->loadMetadataFromCache(Ljava/io/File;)Lcom/bilibili/tv/ebook/model/Book;
 
     move-result-object v1
 
     .line 61
-    if-nez v1, :cond_4f
+    if-eqz v1, :cond_5d
 
     .line 62
+    const-string v2, "EpubParser"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "\u4f7f\u7528\u7f13\u5b58\u7684\u5143\u6570\u636e\uff0c\u8df3\u8fc7HTML\u89e3\u6790: "
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v1}, Lcom/bilibili/tv/ebook/model/Book;->getTitle()Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    const-string v4, ", \u7ae0\u8282\u6570: "
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    .line 63
+    invoke-virtual {v1}, Lcom/bilibili/tv/ebook/model/Book;->getChapters()Ljava/util/List;
+
+    move-result-object v4
+
+    invoke-interface {v4}, Ljava/util/List;->size()I
+
+    move-result v4
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    .line 62
+    invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    move-object v0, v1
+
+    .line 64
+    goto :goto_26
+
+    .line 68
+    :cond_5d
+    invoke-direct {p0, v2}, Lcom/bilibili/tv/ebook/parser/EpubParser;->findOpfFile(Ljava/io/File;)Ljava/io/File;
+
+    move-result-object v1
+
+    .line 69
+    if-nez v1, :cond_85
+
+    .line 70
     const-string v1, "EpubParser"
 
     const-string v2, "\u672a\u627e\u5230OPF\u6587\u4ef6"
 
     invoke-static {v1, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_34
-    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_34} :catch_35
+    :try_end_6a
+    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_6a} :catch_6b
 
     goto :goto_26
 
-    .line 82
-    :catch_35
+    .line 93
+    :catch_6b
     move-exception v1
 
-    .line 83
+    .line 94
     const-string v2, "EpubParser"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -3106,17 +3925,17 @@
 
     goto :goto_26
 
-    .line 67
-    :cond_4f
-    :try_start_4f
+    .line 75
+    :cond_85
+    :try_start_85
     invoke-direct {p0, v1, v2}, Lcom/bilibili/tv/ebook/parser/EpubParser;->parseOpf(Ljava/io/File;Ljava/io/File;)Lcom/bilibili/tv/ebook/model/Book;
 
     move-result-object v1
 
-    .line 68
-    if-nez v1, :cond_5d
+    .line 76
+    if-nez v1, :cond_93
 
-    .line 69
+    .line 77
     const-string v1, "EpubParser"
 
     const-string v2, "\u89e3\u6790OPF\u6587\u4ef6\u5931\u8d25"
@@ -3125,18 +3944,21 @@
 
     goto :goto_26
 
-    .line 74
-    :cond_5d
+    .line 82
+    :cond_93
     invoke-virtual {v1, p2}, Lcom/bilibili/tv/ebook/model/Book;->setBookId(Ljava/lang/String;)V
 
-    .line 75
+    .line 83
     invoke-virtual {v2}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
 
-    move-result-object v2
+    move-result-object v3
 
-    invoke-virtual {v1, v2}, Lcom/bilibili/tv/ebook/model/Book;->setExtractionPath(Ljava/lang/String;)V
+    invoke-virtual {v1, v3}, Lcom/bilibili/tv/ebook/model/Book;->setExtractionPath(Ljava/lang/String;)V
 
-    .line 77
+    .line 86
+    invoke-direct {p0, v1, v2}, Lcom/bilibili/tv/ebook/parser/EpubParser;->saveMetadataToCache(Lcom/bilibili/tv/ebook/model/Book;Ljava/io/File;)V
+
+    .line 88
     const-string v2, "EpubParser"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -3163,7 +3985,7 @@
 
     move-result-object v3
 
-    .line 78
+    .line 89
     invoke-virtual {v1}, Lcom/bilibili/tv/ebook/model/Book;->getChapters()Ljava/util/List;
 
     move-result-object v4
@@ -3180,13 +4002,13 @@
 
     move-result-object v3
 
-    .line 77
+    .line 88
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_95
-    .catch Ljava/lang/Exception; {:try_start_4f .. :try_end_95} :catch_35
+    :try_end_ce
+    .catch Ljava/lang/Exception; {:try_start_85 .. :try_end_ce} :catch_6b
 
     move-object v0, v1
 
-    .line 80
-    goto :goto_26
+    .line 91
+    goto/16 :goto_26
 .end method

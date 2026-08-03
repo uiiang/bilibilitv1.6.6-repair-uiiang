@@ -48,37 +48,48 @@ public class EpubParser {
     public Book parse(String filePath, String bookId) {
         try {
             Log.i(TAG, "开始解析EPUB文件: " + filePath);
-            
+
             // 1. 解压EPUB文件
             File extractionDir = unzipEpub(filePath, bookId);
             if (extractionDir == null) {
                 Log.e(TAG, "解压EPUB文件失败");
                 return null;
             }
-            
+
+            // 关键优化：尝试从缓存加载元数据
+            Book cachedBook = loadMetadataFromCache(extractionDir);
+            if (cachedBook != null) {
+                Log.i(TAG, "使用缓存的元数据，跳过HTML解析: " + cachedBook.getTitle() +
+                      ", 章节数: " + cachedBook.getChapters().size());
+                return cachedBook;
+            }
+
             // 2. 查找OPF文件
             File opfFile = findOpfFile(extractionDir);
             if (opfFile == null) {
                 Log.e(TAG, "未找到OPF文件");
                 return null;
             }
-            
+
             // 3. 解析OPF文件
             Book book = parseOpf(opfFile, extractionDir);
             if (book == null) {
                 Log.e(TAG, "解析OPF文件失败");
                 return null;
             }
-            
+
             // 4. 设置书籍ID和路径
             book.setBookId(bookId);
             book.setExtractionPath(extractionDir.getAbsolutePath());
-            
-            Log.i(TAG, "EPUB解析成功: " + book.getTitle() + 
+
+            // 关键优化：保存元数据到缓存
+            saveMetadataToCache(book, extractionDir);
+
+            Log.i(TAG, "EPUB解析成功: " + book.getTitle() +
                   ", 章节数: " + book.getChapters().size());
-            
+
             return book;
-            
+
         } catch (Exception e) {
             Log.e(TAG, "解析EPUB文件失败: " + filePath, e);
             return null;
@@ -645,7 +656,159 @@ public class EpubParser {
 
         return chapter;
     }
-    
+
+    /**
+     * 从缓存加载元数据
+     * 关键优化：避免每次都解析HTML文件
+     */
+    private Book loadMetadataFromCache(File extractionDir) {
+        try {
+            File metadataFile = new File(extractionDir, "metadata.json");
+            if (!metadataFile.exists()) {
+                Log.d(TAG, "缓存文件不存在: " + metadataFile.getAbsolutePath());
+                return null;
+            }
+
+            Log.i(TAG, "开始加载缓存的元数据: " + metadataFile.getAbsolutePath());
+
+            // 读取JSON文件
+            java.io.FileInputStream fis = new java.io.FileInputStream(metadataFile);
+            java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(fis, "UTF-8"));
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+            reader.close();
+            fis.close();
+
+            String json = sb.toString();
+            Log.d(TAG, "读取到的JSON长度: " + json.length());
+
+            // 解析JSON
+            org.json.JSONObject jsonObj = new org.json.JSONObject(json);
+
+            Book book = new Book();
+            book.setBookId(jsonObj.optString("bookId"));
+            book.setTitle(jsonObj.optString("title"));
+            book.setAuthor(jsonObj.optString("author"));
+            book.setLanguage(jsonObj.optString("language"));
+            book.setExtractionPath(jsonObj.optString("extractionPath"));
+
+            // 解析章节列表
+            org.json.JSONArray chaptersArray = jsonObj.optJSONArray("chapters");
+            if (chaptersArray != null) {
+                java.util.List<Chapter> chapters = new java.util.ArrayList<>();
+                for (int i = 0; i < chaptersArray.length(); i++) {
+                    org.json.JSONObject chapterObj = chaptersArray.getJSONObject(i);
+                    Chapter chapter = new Chapter();
+                    chapter.setChapterId(chapterObj.optString("chapterId"));
+                    chapter.setChapterIndex(chapterObj.optInt("chapterIndex"));
+                    chapter.setTitle(chapterObj.optString("title"));
+                    chapter.setHtmlFilePath(chapterObj.optString("htmlFilePath"));
+                    chapter.setBaseUrl(chapterObj.optString("baseUrl"));
+                    chapter.setDepth(chapterObj.optInt("depth"));
+
+                    // 性能优化：延迟加载章节内容
+                    // 不在这里加载所有章节的HTML内容，而是在显示时加载
+                    // 这样可以大幅提升打开速度（从7-8秒降到几百毫秒）
+
+                    chapters.add(chapter);
+                }
+                book.setChapters(chapters);
+            }
+
+            Log.i(TAG, "缓存元数据加载成功: " + book.getTitle() + ", 章节数: " + book.getChapters().size());
+            return book;
+
+        } catch (Exception e) {
+            Log.e(TAG, "加载缓存元数据失败", e);
+            return null;
+        }
+    }
+
+    /**
+     * 保存元数据到缓存
+     * 关键优化：避免下次解析HTML文件
+     */
+    private void saveMetadataToCache(Book book, File extractionDir) {
+        try {
+            File metadataFile = new File(extractionDir, "metadata.json");
+
+            Log.i(TAG, "开始保存元数据到缓存: " + metadataFile.getAbsolutePath());
+
+            // 构建JSON对象
+            org.json.JSONObject jsonObj = new org.json.JSONObject();
+            jsonObj.put("bookId", book.getBookId());
+            jsonObj.put("title", book.getTitle());
+            jsonObj.put("author", book.getAuthor());
+            jsonObj.put("language", book.getLanguage());
+            jsonObj.put("extractionPath", book.getExtractionPath());
+
+            // 保存章节列表（不保存内容，只保存元数据）
+            org.json.JSONArray chaptersArray = new org.json.JSONArray();
+            if (book.getChapters() != null) {
+                for (Chapter chapter : book.getChapters()) {
+                    org.json.JSONObject chapterObj = new org.json.JSONObject();
+                    chapterObj.put("chapterId", chapter.getChapterId());
+                    chapterObj.put("chapterIndex", chapter.getChapterIndex());
+                    chapterObj.put("title", chapter.getTitle());
+                    chapterObj.put("htmlFilePath", chapter.getHtmlFilePath());
+                    chapterObj.put("baseUrl", chapter.getBaseUrl());
+                    chapterObj.put("depth", chapter.getDepth());
+                    // 注意：不保存htmlContent和plainTextContent，因为太大
+                    chaptersArray.put(chapterObj);
+                }
+            }
+            jsonObj.put("chapters", chaptersArray);
+
+            // 写入文件
+            java.io.FileOutputStream fos = new java.io.FileOutputStream(metadataFile);
+            java.io.OutputStreamWriter writer = new java.io.OutputStreamWriter(fos, "UTF-8");
+            writer.write(jsonObj.toString());
+            writer.flush();
+            writer.close();
+            fos.close();
+
+            Log.i(TAG, "元数据缓存保存成功: " + metadataFile.getAbsolutePath() +
+                  ", 大小: " + metadataFile.length() + " bytes");
+
+        } catch (Exception e) {
+            Log.e(TAG, "保存元数据缓存失败", e);
+        }
+    }
+
+    /**
+     * 递归查找文件
+     * 用于处理章节文件在不同子目录中的情况
+     */
+    private File findFileRecursively(File dir, String fileName) {
+        if (!dir.isDirectory()) {
+            return null;
+        }
+
+        // 先检查当前目录
+        File file = new File(dir, fileName);
+        if (file.exists()) {
+            return file;
+        }
+
+        // 递归搜索子目录
+        File[] children = dir.listFiles();
+        if (children != null) {
+            for (File child : children) {
+                if (child.isDirectory()) {
+                    File found = findFileRecursively(child, fileName);
+                    if (found != null) {
+                        return found;
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
     /**
      * Manifest项辅助类
      */
@@ -653,21 +816,21 @@ public class EpubParser {
         private String id;
         private String href;
         private String mediaType;
-        
+
         public ManifestItem(String id, String href, String mediaType) {
             this.id = id;
             this.href = href;
             this.mediaType = mediaType;
         }
-        
+
         public String getId() {
             return id;
         }
-        
+
         public String getHref() {
             return href;
         }
-        
+
         public String getMediaType() {
             return mediaType;
         }

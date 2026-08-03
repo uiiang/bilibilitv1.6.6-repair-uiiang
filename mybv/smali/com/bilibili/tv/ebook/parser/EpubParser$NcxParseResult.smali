@@ -45,17 +45,17 @@
     .locals 1
 
     .prologue
-    .line 386
+    .line 397
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 387
+    .line 398
     new-instance v0, Ljava/util/HashMap;
 
     invoke-direct {v0}, Ljava/util/HashMap;-><init>()V
 
     iput-object v0, p0, Lcom/bilibili/tv/ebook/parser/EpubParser$NcxParseResult;->depthMap:Ljava/util/Map;
 
-    .line 388
+    .line 399
     new-instance v0, Ljava/util/HashMap;
 
     invoke-direct {v0}, Ljava/util/HashMap;-><init>()V
@@ -69,7 +69,7 @@
     .locals 0
 
     .prologue
-    .line 386
+    .line 397
     invoke-direct {p0}, Lcom/bilibili/tv/ebook/parser/EpubParser$NcxParseResult;-><init>()V
 
     return-void

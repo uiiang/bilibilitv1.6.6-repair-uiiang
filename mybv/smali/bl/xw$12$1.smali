@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1881
+    .line 1842
     iput-object p1, p0, Lbl/xw$12$1;->this$1:Lbl/xw$12;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,18 +40,18 @@
     .locals 1
 
     .prologue
-    .line 1884
+    .line 1845
     iget-object v0, p0, Lbl/xw$12$1;->this$1:Lbl/xw$12;
 
     iget-object v0, v0, Lbl/xw$12;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->bookshelfListView:Landroid/widget/ListView;
-    invoke-static {v0}, Lbl/xw;->access$500(Lbl/xw;)Landroid/widget/ListView;
+    invoke-static {v0}, Lbl/xw;->access$600(Lbl/xw;)Landroid/widget/ListView;
 
     move-result-object v0
 
     invoke-virtual {v0}, Landroid/widget/ListView;->invalidateViews()V
 
-    .line 1885
+    .line 1846
     return-void
 .end method

@@ -1,4 +1,4 @@
-.class Lbl/xw$7;
+.class Lbl/xw$35;
 .super Ljava/lang/Object;
 .source "xw.java"
 
@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw;->set_ebook_percent(I)V
+    value = Lbl/xw;->scheduleSaveReadingProgress()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,8 +26,8 @@
     .locals 0
 
     .prologue
-    .line 1129
-    iput-object p1, p0, Lbl/xw$7;->this$0:Lbl/xw;
+    .line 4556
+    iput-object p1, p0, Lbl/xw$35;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -37,15 +37,23 @@
 
 # virtual methods
 .method public run()V
-    .locals 1
+    .locals 2
 
     .prologue
-    .line 1132
-    iget-object v0, p0, Lbl/xw$7;->this$0:Lbl/xw;
+    .line 4559
+    iget-object v0, p0, Lbl/xw$35;->this$0:Lbl/xw;
 
-    # invokes: Lbl/xw;->applyEbookPanelPercent()V
-    invoke-static {v0}, Lbl/xw;->access$700(Lbl/xw;)V
+    # invokes: Lbl/xw;->saveReadingProgress()V
+    invoke-static {v0}, Lbl/xw;->access$000(Lbl/xw;)V
 
-    .line 1133
+    .line 4560
+    iget-object v0, p0, Lbl/xw$35;->this$0:Lbl/xw;
+
+    const/4 v1, 0x0
+
+    # setter for: Lbl/xw;->saveProgressRunnable:Ljava/lang/Runnable;
+    invoke-static {v0, v1}, Lbl/xw;->access$4202(Lbl/xw;Ljava/lang/Runnable;)Ljava/lang/Runnable;
+
+    .line 4561
     return-void
 .end method

@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 1895
+    .line 1856
     iput-object p1, p0, Lbl/xw$13;->this$0:Lbl/xw;
 
     iput-object p2, p0, Lbl/xw$13;->val$activity:Landroid/app/Activity;
@@ -53,11 +53,11 @@
     .end annotation
 
     .prologue
-    .line 1898
+    .line 1859
     iget-object v0, p0, Lbl/xw$13;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->bookshelfItems:Ljava/util/List;
-    invoke-static {v0}, Lbl/xw;->access$1000(Lbl/xw;)Ljava/util/List;
+    invoke-static {v0}, Lbl/xw;->access$1100(Lbl/xw;)Ljava/util/List;
 
     move-result-object v0
 
@@ -67,7 +67,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ebook/model/BookshelfItem;
 
-    .line 1899
+    .line 1860
     const-string v1, "EbookReader"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -108,7 +108,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1902
+    .line 1863
     new-instance v1, Ljava/io/File;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getFilePath()Ljava/lang/String;
@@ -117,14 +117,14 @@
 
     invoke-direct {v1, v2}, Ljava/io/File;-><init>(Ljava/lang/String;)V
 
-    .line 1903
+    .line 1864
     invoke-virtual {v1}, Ljava/io/File;->exists()Z
 
     move-result v1
 
     if-eqz v1, :cond_4f
 
-    .line 1904
+    .line 1865
     iget-object v1, p0, Lbl/xw$13;->this$0:Lbl/xw;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getFilePath()Ljava/lang/String;
@@ -132,13 +132,13 @@
     move-result-object v0
 
     # invokes: Lbl/xw;->parseAndDisplayEbook(Ljava/lang/String;)V
-    invoke-static {v1, v0}, Lbl/xw;->access$1200(Lbl/xw;Ljava/lang/String;)V
+    invoke-static {v1, v0}, Lbl/xw;->access$1300(Lbl/xw;Ljava/lang/String;)V
 
-    .line 1910
+    .line 1871
     :goto_4e
     return-void
 
-    .line 1906
+    .line 1867
     :cond_4f
     iget-object v1, p0, Lbl/xw$13;->val$activity:Landroid/app/Activity;
 
@@ -152,7 +152,7 @@
 
     move-result-object v2
 
-    .line 1907
+    .line 1868
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getFilePath()Ljava/lang/String;
 
     move-result-object v0
@@ -167,12 +167,12 @@
 
     const/4 v2, 0x0
 
-    .line 1906
+    .line 1867
     invoke-static {v1, v0, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
 
     move-result-object v0
 
-    .line 1908
+    .line 1869
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
     goto :goto_4e

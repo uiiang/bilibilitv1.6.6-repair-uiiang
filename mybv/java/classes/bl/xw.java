@@ -67,6 +67,27 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     private List<com.bilibili.tv.ebook.model.BookshelfItem> bookshelfItems = null; // 书架数据
     private String currentBookFilePath = null; // 当前书籍文件路径
 
+    // 章节内容LRU缓存管理（避免内存占用随阅读进度增长）
+    private static final int MAX_CACHED_CHAPTERS = 5; // 最多缓存5个章节
+    private java.util.LinkedList<com.bilibili.tv.ebook.model.Chapter> cachedChapters = new java.util.LinkedList<>();
+
+    // 静态Handler内部类，避免内存泄漏
+    private static class SaveProgressHandler extends android.os.Handler {
+        private java.lang.ref.WeakReference<xw> fragmentRef;
+
+        SaveProgressHandler(xw fragment) {
+            fragmentRef = new java.lang.ref.WeakReference<>(fragment);
+        }
+
+        @Override
+        public void handleMessage(android.os.Message msg) {
+            xw fragment = fragmentRef.get();
+            if (fragment != null && fragment.o() != null) {
+                fragment.saveReadingProgress();
+            }
+        }
+    }
+
     // 多级章节导航栈（方案1：电子书区域ListView显示）
     private java.util.Stack<List<com.bilibili.tv.ebook.model.Chapter>> chapterNavigationStack = null; // 章节导航栈
     private List<com.bilibili.tv.ebook.model.Chapter> currentChapterList = null; // 当前显示的章节列表
@@ -86,8 +107,12 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     
     // 防抖保存阅读进度的Runnable
     private Runnable saveProgressRunnable = null;
-    private android.os.Handler saveProgressHandler = null;
+    private SaveProgressHandler saveProgressHandler = null; // 使用静态Handler，避免内存泄漏
     private static final int SAVE_PROGRESS_DELAY_MS = 300; // 防抖延迟300毫秒
+
+    // 后台线程管理（避免长时间持有Activity引用）
+    private volatile boolean isParsingCancelled = false;
+    private Thread parsingThread = null;
 
     // 连击三次确定键关闭电子书区域
     private int confirmKeyClickCount = 0; // 确定键点击次数
@@ -261,78 +286,14 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             // 左右键：整页翻页（使用scrollBy代替pageUp/pageDown）
             // 修改：实现重叠式翻页，保留一部分内容避免错过上下文
             if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
-                int height = ebookWebView.getHeight();
-                int scrollY = ebookWebView.getScrollY();
-                Log.i(TAG_EBOOK, "xw.f: 电子书阅读页面：向上翻页, height=" + height + ", scrollY=" + scrollY);
-
-                // 检查是否在章节顶部
-                if (scrollY == 0) {
-                    // 已经在章节顶部，检查是否有上一章节
-                    if (currentBook != null && currentChapterIndex > 0) {
-                        Log.i(TAG_EBOOK, "xw.f: 到达章节顶部，跳转到上一章节的底部");
-                        // 跳转到上一章节，并标记为显示底部
-                        displayBookContent(currentBook, currentChapterIndex - 1, true);
-                        return true;
-                    } else {
-                        Log.i(TAG_EBOOK, "xw.f: 已经在第一章，无法向前翻页");
-                        return true;
-                    }
-                }
-
-                // 正常翻页：计算重叠高度（保留12.5%的内容，约2-3行）
-                if (height > 0) {
-                    int overlapHeight = (int)(height * 0.125);
-                    int pageHeight = height - overlapHeight;
-                    Log.i(TAG_EBOOK, "xw.f: 向上翻页: height=" + height + ", overlapHeight=" + overlapHeight + ", pageHeight=" + pageHeight);
-                    ebookWebView.scrollBy(0, -pageHeight);
-                } else {
-                    // 如果height为0，使用默认值800
-                    Log.w(TAG_EBOOK, "xw.f: WebView height为0，使用默认值800");
-                    ebookWebView.scrollBy(0, -800);
-                }
-                scheduleSaveReadingProgress(); // 防抖保存进度
+                Log.i(TAG_EBOOK, "xw.f: 电子书阅读页面：向上翻页（左键）");
+                handlePageTurn(true); // true = 向前翻页
                 return true;
             }
 
             if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
-                int height = ebookWebView.getHeight();
-                int scrollY = ebookWebView.getScrollY();
-                int contentHeight = ebookWebView.getContentHeight();
-                Log.i(TAG_EBOOK, "xw.f: 电子书阅读页面：向下翻页, height=" + height + ", scrollY=" + scrollY + ", contentHeight=" + contentHeight);
-
-                // 检查是否在章节底部（考虑WebView的缩放）
-                // contentHeight是HTML内容高度，需要乘以密度才能和scrollY比较
-                float density = o().getResources().getDisplayMetrics().density;
-                int contentHeightPx = (int) (contentHeight * density);
-
-                // 修改：计算重叠高度后，章节底部的判断也要相应调整
-                int overlapHeight = (int)(height * 0.125);
-                int pageHeight = height - overlapHeight;
-                boolean isAtBottom = (scrollY + height >= contentHeightPx - 10); // -10像素容差
-
-                if (isAtBottom) {
-                    // 已经在章节底部，检查是否有下一章节
-                    if (currentBook != null && currentChapterIndex < currentBook.getChapters().size() - 1) {
-                        Log.i(TAG_EBOOK, "xw.f: 到达章节底部，跳转到下一章节的顶部");
-                        // 跳转到下一章节，默认显示顶部
-                        displayBookContent(currentBook, currentChapterIndex + 1, false);
-                        return true;
-                    } else {
-                        Log.i(TAG_EBOOK, "xw.f: 已经在最后一章，无法向后翻页");
-                        return true;
-                    }
-                }
-
-                // 正常翻页：计算重叠高度（保留12.5%的内容，约2-3行）
-                if (height > 0) {
-                    Log.i(TAG_EBOOK, "xw.f: 向下翻页: height=" + height + ", overlapHeight=" + overlapHeight + ", pageHeight=" + pageHeight);
-                    ebookWebView.scrollBy(0, pageHeight);
-                } else {
-                    // 如果height为0，使用默认值800
-                    Log.w(TAG_EBOOK, "xw.f: WebView height为0，使用默认值800");
-                    ebookWebView.scrollBy(0, 800);
-                }
-                scheduleSaveReadingProgress(); // 防抖保存进度
+                Log.i(TAG_EBOOK, "xw.f: 电子书阅读页面：向下翻页（右键）");
+                handlePageTurn(false); // false = 向后翻页
                 return true;
             }
         }
@@ -2390,20 +2351,40 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     private void parseAndDisplayEbook(String filePath) {
         Log.i(TAG_EBOOK, "开始解析电子书: " + filePath);
 
+        // 取消之前的解析任务
+        cancelParsingTask();
+
         // 保存文件路径
         currentBookFilePath = filePath;
+        isParsingCancelled = false;
+        isLoadingEbook = true;
 
         // 关键修复：显示加载提示
         showLoadingIndicator();
 
-        // 在后台线程解析电子书
-        new Thread(new Runnable() {
+        // 在后台线程解析电子书（使用WeakReference避免内存泄漏）
+        final java.lang.ref.WeakReference<xw> fragmentRef = new java.lang.ref.WeakReference<>(xw.this);
+
+        parsingThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    // 创建解析器工厂
+                    // 检查是否已取消
+                    if (isParsingCancelled) {
+                        Log.i(TAG_EBOOK, "解析任务已取消");
+                        return;
+                    }
+
+                    // 获取Fragment和Activity引用
+                    xw fragment = fragmentRef.get();
+                    if (fragment == null || fragment.o() == null) {
+                        Log.w(TAG_EBOOK, "Fragment或Activity已销毁，取消解析");
+                        return;
+                    }
+
+                    // 创建解析器工厂（使用Activity作为Context）
                     com.bilibili.tv.ebook.parser.EbookParserFactory factory =
-                        new com.bilibili.tv.ebook.parser.EbookParserFactory(o());
+                        new com.bilibili.tv.ebook.parser.EbookParserFactory(fragment.o());
 
                     // 生成书籍ID
                     String bookId = com.bilibili.tv.ebook.parser.EbookParserFactory.generateBookId(filePath);
@@ -2411,19 +2392,31 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                     // 解析电子书文件
                     com.bilibili.tv.ebook.model.Book book = factory.parse(filePath, bookId);
 
+                    // 再次检查是否已取消
+                    if (isParsingCancelled) {
+                        Log.i(TAG_EBOOK, "解析任务已取消，不显示内容");
+                        return;
+                    }
+
                     if (book == null) {
                         Log.e(TAG_EBOOK, "电子书解析失败");
                         hideLoadingIndicator();
 
                         // 在主线程显示错误提示
-                        o().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                android.widget.Toast.makeText(o(),
-                                    "电子书解析失败，请检查文件格式",
-                                    android.widget.Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        fragment = fragmentRef.get();
+                        if (fragment != null && fragment.o() != null) {
+                            final xw finalFragment = fragment;
+                            fragment.o().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (finalFragment.o() != null) {
+                                        android.widget.Toast.makeText(finalFragment.o(),
+                                            "电子书解析失败，请检查文件格式",
+                                            android.widget.Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        }
                         return;
                     }
 
@@ -2434,29 +2427,58 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                     hideLoadingIndicator();
 
                     // 在主线程显示书籍内容（恢复阅读进度）
-                    o().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            restoreReadingProgress(book);
-                        }
-                    });
+                    fragment = fragmentRef.get();
+                    if (fragment != null && fragment.o() != null) {
+                        final com.bilibili.tv.ebook.model.Book finalBook = book;
+                        final xw finalFragment = fragment;
+                        fragment.o().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (finalFragment.o() != null) {
+                                    finalFragment.restoreReadingProgress(finalBook);
+                                }
+                            }
+                        });
+                    }
 
                 } catch (Exception e) {
                     Log.e(TAG_EBOOK, "解析电子书异常", e);
                     hideLoadingIndicator();
 
                     // 在主线程显示错误提示
-                    o().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            android.widget.Toast.makeText(o(),
-                                "解析异常: " + e.getMessage(),
-                                android.widget.Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    xw fragment = fragmentRef.get();
+                    if (fragment != null && fragment.o() != null) {
+                        final Exception finalException = e;
+                        final xw finalFragment = fragment;
+                        fragment.o().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (finalFragment.o() != null) {
+                                    android.widget.Toast.makeText(finalFragment.o(),
+                                        "解析异常: " + finalException.getMessage(),
+                                        android.widget.Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                } finally {
+                    parsingThread = null;
                 }
             }
-        }).start();
+        });
+
+        parsingThread.start();
+    }
+
+    /**
+     * 取消解析任务
+     */
+    private void cancelParsingTask() {
+        isParsingCancelled = true;
+        if (parsingThread != null) {
+            parsingThread.interrupt();
+            parsingThread = null;
+        }
     }
 
     /**
@@ -2543,6 +2565,48 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         ebookWebView.setFocusable(false);
         ebookWebView.setFocusableInTouchMode(false);
 
+        // 使用OnTouchListener处理触摸和鼠标点击事件
+        // 直接监听ACTION_DOWN事件，不做事件源区分
+        ebookWebView.setOnTouchListener(new android.view.View.OnTouchListener() {
+            private long lastClickTime = 0;
+            
+            @Override
+            public boolean onTouch(View v, android.view.MotionEvent event) {
+                // 只处理按下事件
+                if (event.getAction() == android.view.MotionEvent.ACTION_DOWN) {
+                    // 防抖：避免短时间内重复触发
+                    long currentTime = System.currentTimeMillis();
+                    if (currentTime - lastClickTime < 300) {
+                        return false;
+                    }
+                    lastClickTime = currentTime;
+
+                    // 获取WebView的宽度
+                    int webViewWidth = v.getWidth();
+                    // 获取触摸点的X坐标
+                    float x = event.getX();
+
+                    Log.i(TAG_EBOOK, "触摸事件: x=" + x + ", webViewWidth=" + webViewWidth);
+
+                    // 判断触摸位置是在左半边还是右半边
+                    if (x < webViewWidth / 2) {
+                        // 左半边：向前翻页（左键逻辑）
+                        Log.i(TAG_EBOOK, "触摸左半边，向前翻页");
+                        handlePageTurn(true); // true = 向前翻页
+                        return true;
+                    } else {
+                        // 右半边：向后翻页（右键逻辑）
+                        Log.i(TAG_EBOOK, "触摸右半边，向后翻页");
+                        handlePageTurn(false); // false = 向后翻页
+                        return true;
+                    }
+                }
+
+                // 对于其他事件（包括滚轮事件），返回false让WebView正常处理
+                return false;
+            }
+        });
+
         // 添加到面板
         if (ebookPanel != null) {
             ebookPanel.addView(ebookWebView);
@@ -2551,6 +2615,13 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         // 获取章节内容
         com.bilibili.tv.ebook.model.Chapter chapter = book.getChapters().get(chapterIndex);
         String htmlContent = chapter.getHtmlContent();
+
+        // 性能优化：延迟加载章节内容
+        // 如果章节内容为空，从HTML文件加载
+        if (htmlContent == null || htmlContent.isEmpty()) {
+            Log.i(TAG_EBOOK, "章节内容为空，从HTML文件延迟加载: " + chapter.getTitle());
+            htmlContent = loadChapterContentFromFile(chapter, book.getExtractionPath());
+        }
 
         if (htmlContent == null || htmlContent.isEmpty()) {
             htmlContent = "<html><body><h1>" + chapter.getTitle() + "</h1><p>章节内容为空</p></body></html>";
@@ -3525,6 +3596,132 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     }
 
     /**
+     * 删除书籍的本地缓存文件
+     * 包括EPUB/MOBI解压目录和元数据缓存文件
+     */
+    private void deleteBookCacheFiles(String bookId) {
+        if (bookId == null || o() == null) {
+            Log.w(TAG_EBOOK, "bookId或Activity为空，无法删除缓存");
+            return;
+        }
+
+        try {
+            java.io.File cacheDir = o().getCacheDir();
+            int deletedFiles = 0;
+            long deletedSize = 0;
+
+            // 1. 删除EPUB缓存目录
+            java.io.File epubCacheDir = new java.io.File(cacheDir, "epub_cache/" + bookId);
+            if (epubCacheDir.exists()) {
+                long size = getDirectorySize(epubCacheDir);
+                if (deleteDirectory(epubCacheDir)) {
+                    deletedFiles++;
+                    deletedSize += size;
+                    Log.i(TAG_EBOOK, "已删除EPUB缓存目录: " + epubCacheDir.getAbsolutePath() +
+                          ", 大小: " + formatFileSize(size));
+                }
+            }
+
+            // 2. 删除MOBI缓存目录
+            java.io.File mobiCacheDir = new java.io.File(cacheDir, "mobi_resources/" + bookId);
+            if (mobiCacheDir.exists()) {
+                long size = getDirectorySize(mobiCacheDir);
+                if (deleteDirectory(mobiCacheDir)) {
+                    deletedFiles++;
+                    deletedSize += size;
+                    Log.i(TAG_EBOOK, "已删除MOBI缓存目录: " + mobiCacheDir.getAbsolutePath() +
+                          ", 大小: " + formatFileSize(size));
+                }
+            }
+
+            // 3. 删除EPUB元数据缓存文件
+            java.io.File epubMetadataFile = new java.io.File(cacheDir, "epub_cache/" + bookId + "/metadata.json");
+            if (epubMetadataFile.exists()) {
+                long size = epubMetadataFile.length();
+                if (epubMetadataFile.delete()) {
+                    deletedFiles++;
+                    deletedSize += size;
+                    Log.i(TAG_EBOOK, "已删除EPUB元数据缓存: " + epubMetadataFile.getAbsolutePath());
+                }
+            }
+
+            // 4. 删除MOBI元数据缓存文件
+            java.io.File mobiMetadataFile = new java.io.File(cacheDir, "mobi_resources/" + bookId + "/metadata.json");
+            if (mobiMetadataFile.exists()) {
+                long size = mobiMetadataFile.length();
+                if (mobiMetadataFile.delete()) {
+                    deletedFiles++;
+                    deletedSize += size;
+                    Log.i(TAG_EBOOK, "已删除MOBI元数据缓存: " + mobiMetadataFile.getAbsolutePath());
+                }
+            }
+
+            Log.i(TAG_EBOOK, "缓存文件删除完成: " + deletedFiles + " 个目录/文件, 共 " + formatFileSize(deletedSize));
+
+        } catch (Exception e) {
+            Log.e(TAG_EBOOK, "删除缓存文件失败: " + bookId, e);
+        }
+    }
+
+    /**
+     * 递归删除目录及其内容
+     */
+    private boolean deleteDirectory(java.io.File directory) {
+        if (directory == null || !directory.exists()) {
+            return false;
+        }
+
+        if (directory.isDirectory()) {
+            java.io.File[] files = directory.listFiles();
+            if (files != null) {
+                for (java.io.File file : files) {
+                    deleteDirectory(file);
+                }
+            }
+        }
+
+        return directory.delete();
+    }
+
+    /**
+     * 计算目录大小
+     */
+    private long getDirectorySize(java.io.File directory) {
+        if (directory == null || !directory.exists()) {
+            return 0;
+        }
+
+        long size = 0;
+        if (directory.isDirectory()) {
+            java.io.File[] files = directory.listFiles();
+            if (files != null) {
+                for (java.io.File file : files) {
+                    size += getDirectorySize(file);
+                }
+            }
+        } else {
+            size = directory.length();
+        }
+
+        return size;
+    }
+
+    /**
+     * 格式化文件大小
+     */
+    private String formatFileSize(long size) {
+        if (size < 1024) {
+            return size + " B";
+        } else if (size < 1024 * 1024) {
+            return String.format("%.2f KB", size / 1024.0);
+        } else if (size < 1024 * 1024 * 1024) {
+            return String.format("%.2f MB", size / (1024.0 * 1024));
+        } else {
+            return String.format("%.2f GB", size / (1024.0 * 1024 * 1024));
+        }
+    }
+
+    /**
      * 显示删除单本书籍的确认对话框
      */
     private void showRemoveBookDialog(final com.bilibili.tv.ebook.model.BookshelfItem item, final int position) {
@@ -3545,7 +3742,10 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                         ebookCacheManager.clearReadingProgress(item.getBookId());
                         Log.i(TAG_EBOOK, "已清除阅读进度: " + item.getBookId());
                     }
-                    
+
+                    // 删除本地缓存文件
+                    deleteBookCacheFiles(item.getBookId());
+
                     // 从书架中移除
                     if (bookshelfManager != null) {
                         bookshelfManager.removeFromBookshelf(item.getBookId());
@@ -3619,6 +3819,9 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
         Log.i(TAG_EBOOK, "开始关闭电子书面板");
 
+        // 关键优化：取消解析任务，避免后台线程持有Activity引用
+        cancelParsingTask();
+
         // 立即保存当前阅读进度（取消防抖等待）
         saveReadingProgressImmediately();
 
@@ -3634,6 +3837,18 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         // 关键修复：销毁WebView，避免内存泄漏
         destroyEbookWebView();
 
+        // 关键优化：清空章节缓存，释放内存
+        clearChapterCache();
+
+        // 关键修复：移除所有Handler回调，避免内存泄漏
+        if (saveProgressHandler != null) {
+            saveProgressHandler.removeCallbacksAndMessages(null);
+            saveProgressHandler = null;
+        }
+        if (saveProgressRunnable != null) {
+            saveProgressRunnable = null;
+        }
+
         // 关键修复：清除所有电子书状态，避免影响后续视频播放
         isEbookPanelShown = false;
         isChapterListShown = false;
@@ -3643,7 +3858,19 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         currentBook = null;
         currentChapterIndex = 0;
         ebookWebView = null;
-        chapterListView = null;
+
+        // 关键优化：显式移除监听器，避免内存泄漏
+        if (chapterListView != null) {
+            chapterListView.setOnItemSelectedListener(null);
+            chapterListView.setOnItemClickListener(null);
+            chapterListView = null;
+        }
+        if (bookshelfListView != null) {
+            bookshelfListView.setOnItemSelectedListener(null);
+            bookshelfListView.setOnItemClickListener(null);
+            bookshelfListView = null;
+        }
+
         loadingProgressBar = null;
         loadingTextView = null;
         lastBackPressTime = 0;
@@ -4098,20 +4325,233 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
     }
 
     /**
+     * 处理翻页操作（用于触摸事件和按键事件）
+     * @param turnForward true = 向前翻页（左键逻辑），false = 向后翻页（右键逻辑）
+     */
+    private void handlePageTurn(boolean turnForward) {
+        if (ebookWebView == null) {
+            Log.e(TAG_EBOOK, "handlePageTurn: WebView为空");
+            return;
+        }
+
+        int height = ebookWebView.getHeight();
+        int scrollY = ebookWebView.getScrollY();
+        int contentHeight = ebookWebView.getContentHeight();
+
+        if (turnForward) {
+            // 向前翻页（左键逻辑）
+            Log.i(TAG_EBOOK, "handlePageTurn: 向前翻页, height=" + height + ", scrollY=" + scrollY);
+
+            // 检查是否在章节顶部
+            if (scrollY == 0) {
+                // 已经在章节顶部，检查是否有上一章节
+                if (currentBook != null && currentChapterIndex > 0) {
+                    Log.i(TAG_EBOOK, "handlePageTurn: 到达章节顶部，跳转到上一章节的底部");
+                    displayBookContent(currentBook, currentChapterIndex - 1, true);
+                    return;
+                } else {
+                    Log.i(TAG_EBOOK, "handlePageTurn: 已经在第一章，无法向前翻页");
+                    return;
+                }
+            }
+
+            // 正常翻页：计算重叠高度（保留12.5%的内容，约2-3行）
+            if (height > 0) {
+                int overlapHeight = (int)(height * 0.125);
+                int pageHeight = height - overlapHeight;
+                Log.i(TAG_EBOOK, "handlePageTurn: 向前翻页: height=" + height + ", overlapHeight=" + overlapHeight + ", pageHeight=" + pageHeight);
+                ebookWebView.scrollBy(0, -pageHeight);
+            } else {
+                // 如果height为0，使用默认值800
+                Log.w(TAG_EBOOK, "handlePageTurn: WebView height为0，使用默认值800");
+                ebookWebView.scrollBy(0, -800);
+            }
+            scheduleSaveReadingProgress(); // 防抖保存进度
+        } else {
+            // 向后翻页（右键逻辑）
+            Log.i(TAG_EBOOK, "handlePageTurn: 向后翻页, height=" + height + ", scrollY=" + scrollY + ", contentHeight=" + contentHeight);
+
+            // 检查是否在章节底部（考虑WebView的缩放）
+            // contentHeight是HTML内容高度，需要乘以密度才能和scrollY比较
+            float density = o().getResources().getDisplayMetrics().density;
+            int contentHeightPx = (int) (contentHeight * density);
+
+            // 修改：计算重叠高度后，章节底部的判断也要相应调整
+            int overlapHeight = (int)(height * 0.125);
+            int pageHeight = height - overlapHeight;
+            boolean isAtBottom = (scrollY + height >= contentHeightPx - 10); // -10像素容差
+
+            if (isAtBottom) {
+                // 已经在章节底部，检查是否有下一章节
+                if (currentBook != null && currentChapterIndex < currentBook.getChapters().size() - 1) {
+                    Log.i(TAG_EBOOK, "handlePageTurn: 到达章节底部，跳转到下一章节的顶部");
+                    displayBookContent(currentBook, currentChapterIndex + 1, false);
+                    return;
+                } else {
+                    Log.i(TAG_EBOOK, "handlePageTurn: 已经在最后一章，无法向后翻页");
+                    return;
+                }
+            }
+
+            // 正常翻页：计算重叠高度（保留12.5%的内容，约2-3行）
+            if (height > 0) {
+                Log.i(TAG_EBOOK, "handlePageTurn: 向后翻页: height=" + height + ", overlapHeight=" + overlapHeight + ", pageHeight=" + pageHeight);
+                ebookWebView.scrollBy(0, pageHeight);
+            } else {
+                // 如果height为0，使用默认值800
+                Log.w(TAG_EBOOK, "handlePageTurn: WebView height为0，使用默认值800");
+                ebookWebView.scrollBy(0, 800);
+            }
+            scheduleSaveReadingProgress(); // 防抖保存进度
+        }
+    }
+
+    /**
+     * 管理章节缓存，释放早期章节内容
+     * 性能优化：限制缓存的章节数量，避免内存占用随阅读进度增长
+     */
+    private void manageChapterCache(com.bilibili.tv.ebook.model.Chapter newChapter) {
+        // 如果章节已在缓存中，移动到最前面（LRU策略）
+        if (cachedChapters.contains(newChapter)) {
+            cachedChapters.remove(newChapter);
+            cachedChapters.addFirst(newChapter);
+            return;
+        }
+
+        // 添加新章节到缓存列表
+        cachedChapters.addFirst(newChapter);
+        Log.i(TAG_EBOOK, "章节加入缓存: " + newChapter.getTitle() +
+              ", 当前缓存数: " + cachedChapters.size());
+
+        // 超出限制时释放最早章节
+        if (cachedChapters.size() > MAX_CACHED_CHAPTERS) {
+            com.bilibili.tv.ebook.model.Chapter oldest = cachedChapters.removeLast();
+            oldest.setHtmlContent(null); // 释放HTML内容
+            oldest.setPlainTextContent(null); // 释放纯文本内容
+            Log.i(TAG_EBOOK, "释放早期章节内容: " + oldest.getTitle());
+        }
+    }
+
+    /**
+     * 清空所有章节缓存
+     */
+    private void clearChapterCache() {
+        for (com.bilibili.tv.ebook.model.Chapter chapter : cachedChapters) {
+            chapter.setHtmlContent(null);
+            chapter.setPlainTextContent(null);
+        }
+        cachedChapters.clear();
+        Log.i(TAG_EBOOK, "所有章节缓存已清空");
+    }
+
+    /**
+     * 从HTML文件加载章节内容（延迟加载）
+     * 性能优化：只在需要时才加载章节内容，避免一次性加载所有章节
+     */
+    private String loadChapterContentFromFile(com.bilibili.tv.ebook.model.Chapter chapter, String extractionPath) {
+        try {
+            String htmlFilePath = chapter.getHtmlFilePath();
+            String baseUrl = chapter.getBaseUrl();
+
+            if (htmlFilePath == null || htmlFilePath.isEmpty()) {
+                Log.w(TAG_EBOOK, "章节HTML文件路径为空: " + chapter.getTitle());
+                return null;
+            }
+
+            // 从extractionPath和htmlFilePath构建文件路径
+            java.io.File extractionDir = new java.io.File(extractionPath);
+
+            // 尝试三种方式查找文件
+            java.io.File chapterFile = null;
+
+            // 方式1：从baseUrl提取目录路径
+            if (baseUrl != null && !baseUrl.isEmpty()) {
+                String dirPath = baseUrl.replace("file://", "").replaceAll("/$", "");
+                chapterFile = new java.io.File(dirPath, new java.io.File(htmlFilePath).getName());
+            }
+
+            // 方式2：在extractionDir下查找
+            if (chapterFile == null || !chapterFile.exists()) {
+                chapterFile = new java.io.File(extractionDir, htmlFilePath);
+            }
+
+            // 方式3：递归搜索（最慢，但最可靠）
+            if (!chapterFile.exists()) {
+                chapterFile = findFileRecursively(extractionDir, new java.io.File(htmlFilePath).getName());
+            }
+
+            if (chapterFile != null && chapterFile.exists()) {
+                // 使用Jsoup解析HTML文件
+                org.jsoup.nodes.Document doc = org.jsoup.Jsoup.parse(chapterFile, "UTF-8");
+                String htmlContent = doc.outerHtml();
+
+                // 缓存到章节对象中，避免下次重新加载
+                chapter.setHtmlContent(htmlContent);
+                chapter.setPlainTextContent(doc.text());
+
+                // 关键优化：管理章节缓存，释放早期章节内容
+                manageChapterCache(chapter);
+
+                Log.i(TAG_EBOOK, "延迟加载章节内容成功: " + chapter.getTitle() +
+                      ", html长度: " + htmlContent.length());
+                return htmlContent;
+            } else {
+                Log.w(TAG_EBOOK, "章节文件不存在: " + htmlFilePath +
+                      ", extractionPath: " + extractionPath);
+                return null;
+            }
+
+        } catch (Exception e) {
+            Log.e(TAG_EBOOK, "延迟加载章节内容失败: " + chapter.getTitle(), e);
+            return null;
+        }
+    }
+
+    /**
+     * 递归查找文件（用于处理章节文件在不同子目录中的情况）
+     */
+    private java.io.File findFileRecursively(java.io.File dir, String fileName) {
+        if (!dir.isDirectory()) {
+            return null;
+        }
+
+        // 先检查当前目录
+        java.io.File file = new java.io.File(dir, fileName);
+        if (file.exists()) {
+            return file;
+        }
+
+        // 递归搜索子目录
+        java.io.File[] children = dir.listFiles();
+        if (children != null) {
+            for (java.io.File child : children) {
+                if (child.isDirectory()) {
+                    java.io.File found = findFileRecursively(child, fileName);
+                    if (found != null) {
+                        return found;
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * 防抖保存阅读进度（用于翻页和章节跳转后自动保存）
      * 使用防抖机制，300ms内无新操作才真正保存，避免频繁写入
      */
     private void scheduleSaveReadingProgress() {
         // 初始化Handler（懒加载）
         if (saveProgressHandler == null) {
-            saveProgressHandler = new android.os.Handler();
+            saveProgressHandler = new SaveProgressHandler(this);
         }
-        
+
         // 取消之前的待保存任务（防抖）
         if (saveProgressRunnable != null) {
             saveProgressHandler.removeCallbacks(saveProgressRunnable);
         }
-        
+
         // 创建新的保存任务
         saveProgressRunnable = new Runnable() {
             @Override
@@ -4120,7 +4560,7 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                 saveProgressRunnable = null; // 清除引用
             }
         };
-        
+
         // 延迟300ms后执行
         saveProgressHandler.postDelayed(saveProgressRunnable, SAVE_PROGRESS_DELAY_MS);
         Log.d(TAG_EBOOK, "已调度防抖保存阅读进度，延迟 " + SAVE_PROGRESS_DELAY_MS + "ms");

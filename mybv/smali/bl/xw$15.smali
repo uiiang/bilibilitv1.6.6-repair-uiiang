@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1951
+    .line 1912
     iput-object p1, p0, Lbl/xw$15;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,11 +40,11 @@
     .locals 2
 
     .prologue
-    .line 1954
+    .line 1915
     iget-object v0, p0, Lbl/xw$15;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->isEbookPanelShown:Z
-    invoke-static {v0}, Lbl/xw;->access$1400(Lbl/xw;)Z
+    invoke-static {v0}, Lbl/xw;->access$1500(Lbl/xw;)Z
 
     move-result v0
 
@@ -53,7 +53,7 @@
     iget-object v0, p0, Lbl/xw$15;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
-    invoke-static {v0}, Lbl/xw;->access$1500(Lbl/xw;)Landroid/widget/FrameLayout;
+    invoke-static {v0}, Lbl/xw;->access$1600(Lbl/xw;)Landroid/widget/FrameLayout;
 
     move-result-object v0
 
@@ -62,7 +62,7 @@
     iget-object v0, p0, Lbl/xw$15;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
-    invoke-static {v0}, Lbl/xw;->access$1500(Lbl/xw;)Landroid/widget/FrameLayout;
+    invoke-static {v0}, Lbl/xw;->access$1600(Lbl/xw;)Landroid/widget/FrameLayout;
 
     move-result-object v0
 
@@ -72,18 +72,18 @@
 
     if-eqz v0, :cond_2d
 
-    .line 1955
+    .line 1916
     const-string v0, "EbookReader"
 
     const-string v1, "\u68c0\u6d4b\u5230\u7535\u5b50\u4e66\u9762\u677f\u672a\u663e\u793a\uff0c\u5f3a\u5236\u6062\u590d\u663e\u793a"
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1956
+    .line 1917
     iget-object v0, p0, Lbl/xw$15;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
-    invoke-static {v0}, Lbl/xw;->access$1500(Lbl/xw;)Landroid/widget/FrameLayout;
+    invoke-static {v0}, Lbl/xw;->access$1600(Lbl/xw;)Landroid/widget/FrameLayout;
 
     move-result-object v0
 
@@ -91,7 +91,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/FrameLayout;->setVisibility(I)V
 
-    .line 1958
+    .line 1919
     :cond_2d
     return-void
 .end method

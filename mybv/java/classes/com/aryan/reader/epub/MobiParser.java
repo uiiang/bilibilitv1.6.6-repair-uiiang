@@ -201,25 +201,35 @@ public class MobiParser {
     public Book parse(String filePath, String bookId) {
         try {
             Log.i(TAG, "开始解析MOBI文件: " + filePath);
-            
+
+            // 创建解压目录
+            File extractionDir = createExtractionDir(bookId);
+
+            // 关键优化：尝试从缓存加载元数据
+            Book cachedBook = loadMetadataFromCache(extractionDir);
+            if (cachedBook != null) {
+                Log.i(TAG, "使用缓存的元数据，跳过JNI解析: " + cachedBook.getTitle() +
+                      ", 章节数: " + cachedBook.getChapters().size());
+                return cachedBook;
+            }
+
             ParsedMobiData parsedData = parseMobiFile(filePath);
-            
+
             if (parsedData == null || parsedData.getRawHtmlContent() == null) {
                 Log.e(TAG, "JNI返回数据为空");
                 return null;
             }
-            
+
             Log.i(TAG, "MOBI解析成功: " + parsedData.getTitle() +
                   ", 资源数: " + parsedData.getResourceCount() +
                   ", TOC数: " + (parsedData.getToc() != null ? parsedData.getToc().length : 0));
-            
+
             Map<Integer, String> imageMap = buildImageMap(parsedData.getResources());
             Map<String, String> cssFlowMap = buildCssFlowMap(parsedData.getResources());
-            File extractionDir = createExtractionDir(bookId);
             saveResources(parsedData.getResources(), extractionDir);
-            
+
             List<Chapter> chapters = splitIntoChapters(parsedData.getRawHtmlContent(), parsedData.getToc(), imageMap, cssFlowMap);
-            
+
             Book book = new Book();
             book.setBookId(bookId);
             book.setTitle(parsedData.getTitle() != null ? parsedData.getTitle() : "Unknown Title");
@@ -228,11 +238,14 @@ public class MobiParser {
             book.setFileName(book.getTitle());
             book.setChapters(chapters);
             book.setExtractionPath(extractionDir.getAbsolutePath());
-            
+
+            // 关键优化：保存元数据到缓存
+            saveMetadataToCache(book, extractionDir);
+
             Log.i(TAG, "MOBI解析完成: " + book.getTitle() + ", 章节数: " + chapters.size());
-            
+
             return book;
-            
+
         } catch (UnsatisfiedLinkError e) {
             Log.e(TAG, "JNI方法调用失败", e);
             return null;
@@ -463,5 +476,128 @@ public class MobiParser {
     
     public static boolean isNativeLibLoaded() {
         return true;
+    }
+
+    /**
+     * 从缓存加载元数据
+     * 关键优化：避免每次都调用JNI解析
+     */
+    private Book loadMetadataFromCache(File extractionDir) {
+        try {
+            File metadataFile = new File(extractionDir, "metadata.json");
+            if (!metadataFile.exists()) {
+                Log.d(TAG, "缓存文件不存在: " + metadataFile.getAbsolutePath());
+                return null;
+            }
+
+            Log.i(TAG, "开始加载缓存的元数据: " + metadataFile.getAbsolutePath());
+
+            // 读取JSON文件
+            java.io.FileInputStream fis = new java.io.FileInputStream(metadataFile);
+            java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(fis, "UTF-8"));
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+            reader.close();
+            fis.close();
+
+            String json = sb.toString();
+            Log.d(TAG, "读取到的JSON长度: " + json.length());
+
+            // 解析JSON
+            org.json.JSONObject jsonObj = new org.json.JSONObject(json);
+
+            Book book = new Book();
+            book.setBookId(jsonObj.optString("bookId"));
+            book.setTitle(jsonObj.optString("title"));
+            book.setAuthor(jsonObj.optString("author"));
+            book.setLanguage(jsonObj.optString("language"));
+            book.setExtractionPath(jsonObj.optString("extractionPath"));
+
+            // 解析章节列表
+            org.json.JSONArray chaptersArray = jsonObj.optJSONArray("chapters");
+            if (chaptersArray != null) {
+                java.util.List<com.bilibili.tv.ebook.model.Chapter> chapters = new java.util.ArrayList<>();
+                for (int i = 0; i < chaptersArray.length(); i++) {
+                    org.json.JSONObject chapterObj = chaptersArray.getJSONObject(i);
+                    com.bilibili.tv.ebook.model.Chapter chapter = new com.bilibili.tv.ebook.model.Chapter();
+                    chapter.setChapterId(chapterObj.optString("chapterId"));
+                    chapter.setChapterIndex(chapterObj.optInt("chapterIndex"));
+                    chapter.setTitle(chapterObj.optString("title"));
+                    chapter.setHtmlFilePath(chapterObj.optString("htmlFilePath"));
+                    chapter.setDepth(chapterObj.optInt("depth"));
+
+                    // 关键修复：MOBI章节内容保存在JSON中
+                    String htmlContent = chapterObj.optString("htmlContent");
+                    if (htmlContent != null && !htmlContent.isEmpty()) {
+                        chapter.setHtmlContent(htmlContent);
+                        Log.d(TAG, "从缓存加载MOBI章节内容: " + chapter.getTitle() +
+                              ", html长度: " + htmlContent.length());
+                    }
+
+                    chapters.add(chapter);
+                }
+                book.setChapters(chapters);
+            }
+
+            Log.i(TAG, "缓存元数据加载成功: " + book.getTitle() + ", 章节数: " + book.getChapters().size());
+            return book;
+
+        } catch (Exception e) {
+            Log.e(TAG, "加载缓存元数据失败", e);
+            return null;
+        }
+    }
+
+    /**
+     * 保存元数据到缓存
+     * 关键优化：避免下次调用JNI解析
+     */
+    private void saveMetadataToCache(Book book, File extractionDir) {
+        try {
+            File metadataFile = new File(extractionDir, "metadata.json");
+
+            Log.i(TAG, "开始保存元数据到缓存: " + metadataFile.getAbsolutePath());
+
+            // 构建JSON对象
+            org.json.JSONObject jsonObj = new org.json.JSONObject();
+            jsonObj.put("bookId", book.getBookId());
+            jsonObj.put("title", book.getTitle());
+            jsonObj.put("author", book.getAuthor());
+            jsonObj.put("language", book.getLanguage());
+            jsonObj.put("extractionPath", book.getExtractionPath());
+
+            // 保存章节列表（MOBI需要保存HTML内容，因为没有单独的HTML文件）
+            org.json.JSONArray chaptersArray = new org.json.JSONArray();
+            if (book.getChapters() != null) {
+                for (com.bilibili.tv.ebook.model.Chapter chapter : book.getChapters()) {
+                    org.json.JSONObject chapterObj = new org.json.JSONObject();
+                    chapterObj.put("chapterId", chapter.getChapterId());
+                    chapterObj.put("chapterIndex", chapter.getChapterIndex());
+                    chapterObj.put("title", chapter.getTitle());
+                    chapterObj.put("htmlFilePath", chapter.getHtmlFilePath());
+                    chapterObj.put("depth", chapter.getDepth());
+                    chapterObj.put("htmlContent", chapter.getHtmlContent()); // 保存HTML内容
+                    chaptersArray.put(chapterObj);
+                }
+            }
+            jsonObj.put("chapters", chaptersArray);
+
+            // 写入文件
+            java.io.FileOutputStream fos = new java.io.FileOutputStream(metadataFile);
+            java.io.OutputStreamWriter writer = new java.io.OutputStreamWriter(fos, "UTF-8");
+            writer.write(jsonObj.toString());
+            writer.flush();
+            writer.close();
+            fos.close();
+
+            Log.i(TAG, "元数据缓存保存成功: " + metadataFile.getAbsolutePath() +
+                  ", 大小: " + metadataFile.length() + " bytes");
+
+        } catch (Exception e) {
+            Log.e(TAG, "保存元数据缓存失败", e);
+        }
     }
 }
