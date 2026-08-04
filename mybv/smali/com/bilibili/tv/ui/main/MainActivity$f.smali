@@ -31,24 +31,24 @@
     .locals 0
 
     .prologue
-    .line 244
+    .line 245
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->this$0:Lcom/bilibili/tv/ui/main/MainActivity;
 
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$g;-><init>()V
 
-    .line 245
+    .line 246
     iput p2, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->b:I
 
-    .line 246
+    .line 247
     iput p3, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->c:I
 
-    .line 247
+    .line 248
     iput p4, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->d:I
 
-    .line 248
+    .line 249
     iput p5, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->e:I
 
-    .line 249
+    .line 250
     return-void
 .end method
 
@@ -60,22 +60,22 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 253
+    .line 254
     const-string v0, "outRect"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 254
+    .line 255
     const-string v0, "view"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 255
+    .line 256
     const-string v0, "parent"
 
     invoke-static {p3, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 256
+    .line 257
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->this$0:Lcom/bilibili/tv/ui/main/MainActivity;
 
     # getter for: Lcom/bilibili/tv/ui/main/MainActivity;->d:Lcom/bilibili/tv/ui/main/MainActivity$d;
@@ -85,25 +85,25 @@
 
     if-nez v0, :cond_19
 
-    .line 265
+    .line 266
     :goto_18
     return-void
 
-    .line 259
+    .line 260
     :cond_19
     invoke-virtual {p3, p2}, Landroid/support/v7/widget/RecyclerView;->f(Landroid/view/View;)I
 
     move-result v0
 
-    .line 260
+    .line 261
     if-nez v0, :cond_23
 
-    .line 261
+    .line 262
     invoke-virtual {p1, v1, v1, v1, v1}, Landroid/graphics/Rect;->set(IIII)V
 
     goto :goto_18
 
-    .line 263
+    .line 264
     :cond_23
     iget v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$f;->b:I
 

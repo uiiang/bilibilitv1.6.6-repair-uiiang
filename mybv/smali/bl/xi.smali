@@ -900,13 +900,13 @@
     .locals 1
 
     .prologue
-    .line 1359
+    .line 1371
     if-nez p1, :cond_4
 
-    .line 1360
+    .line 1372
     sget-object p1, Ltv/danmaku/videoplayer/core/videoview/AspectRatio;->RATIO_ADJUST_SCREEN:Ltv/danmaku/videoplayer/core/videoview/AspectRatio;
 
-    .line 1362
+    .line 1374
     :cond_4
     invoke-virtual {p0}, Lbl/xi;->n()Ltv/danmaku/videoplayer/core/context/IPlayerContext;
 
@@ -914,18 +914,18 @@
 
     invoke-interface {v0, p1}, Ltv/danmaku/videoplayer/core/context/IPlayerContext;->setAspectRatio(Ltv/danmaku/videoplayer/core/videoview/AspectRatio;)V
 
-    .line 1363
+    .line 1375
     invoke-virtual {p0}, Lbl/xi;->n()Ltv/danmaku/videoplayer/core/context/IPlayerContext;
 
     move-result-object v0
 
-    .line 1364
+    .line 1376
     if-eqz v0, :cond_14
 
-    .line 1365
+    .line 1377
     invoke-interface {v0, p1}, Ltv/danmaku/videoplayer/core/context/IPlayerContext;->setAspectRatio(Ltv/danmaku/videoplayer/core/videoview/AspectRatio;)V
 
-    .line 1367
+    .line 1379
     :cond_14
     return-void
 .end method
@@ -1608,7 +1608,7 @@
     .prologue
     const-wide/16 v4, 0x0
 
-    .line 1048
+    .line 1060
     const-string v0, "VideoShot"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1657,25 +1657,25 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1049
+    .line 1061
     iget-wide v0, p0, Lbl/xi;->currentCid:J
 
     cmp-long v0, v0, v4
 
     if-gtz v0, :cond_42
 
-    .line 1050
+    .line 1062
     const-string v0, "VideoShot"
 
     const-string v1, "loadVideoShot: invalid cid, return"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1181
+    .line 1193
     :goto_41
     return-void
 
-    .line 1054
+    .line 1066
     :cond_42
     iget-object v0, p0, Lbl/xi;->currentBvid:Ljava/lang/String;
 
@@ -1689,7 +1689,7 @@
 
     if-eqz v0, :cond_5c
 
-    .line 1055
+    .line 1067
     :cond_4e
     iget-wide v0, p0, Lbl/xi;->currentAid:J
 
@@ -1697,7 +1697,7 @@
 
     if-gtz v0, :cond_5c
 
-    .line 1056
+    .line 1068
     const-string v0, "VideoShot"
 
     const-string v1, "loadVideoShot: invalid aid and bvid, return"
@@ -1706,7 +1706,7 @@
 
     goto :goto_41
 
-    .line 1061
+    .line 1073
     :cond_5c
     new-instance v0, Ljava/lang/Thread;
 
@@ -1716,7 +1716,7 @@
 
     invoke-direct {v0, v1}, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;)V
 
-    .line 1180
+    .line 1192
     invoke-virtual {v0}, Ljava/lang/Thread;->start()V
 
     goto :goto_41
@@ -2119,38 +2119,38 @@
     .locals 2
 
     .prologue
-    .line 1186
+    .line 1198
     iget-object v0, p0, Lbl/xi;->bufferingOverlayController:Lcom/bilibili/tv/player/BufferingOverlayController;
 
     if-nez v0, :cond_1e
 
-    .line 1187
+    .line 1199
     new-instance v0, Lcom/bilibili/tv/player/BufferingOverlayController;
 
     invoke-direct {v0}, Lcom/bilibili/tv/player/BufferingOverlayController;-><init>()V
 
     iput-object v0, p0, Lbl/xi;->bufferingOverlayController:Lcom/bilibili/tv/player/BufferingOverlayController;
 
-    .line 1188
+    .line 1200
     iget-object v0, p0, Lbl/xi;->bufferingOverlayController:Lcom/bilibili/tv/player/BufferingOverlayController;
 
     iget-object v1, p0, Lbl/xi;->m:Lcom/bilibili/tv/player/widget/PlayerBufferingView;
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/player/BufferingOverlayController;->setBufferingView(Lcom/bilibili/tv/player/widget/PlayerBufferingView;)V
 
-    .line 1189
+    .line 1201
     iget-object v0, p0, Lbl/xi;->bufferingOverlayController:Lcom/bilibili/tv/player/BufferingOverlayController;
 
     invoke-static {v0}, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->setBufferingOverlayController(Lcom/bilibili/tv/player/BufferingOverlayController;)V
 
-    .line 1190
+    .line 1202
     const-string v0, "xi"
 
     const-string v1, "[M] BufferingOverlayController initialized"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1193
+    .line 1205
     :cond_1e
     invoke-static {}, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->shouldSuppressBufferingOverlay()Z
 
@@ -2158,18 +2158,18 @@
 
     if-eqz v0, :cond_2c
 
-    .line 1194
+    .line 1206
     const-string v0, "xi"
 
     const-string v1, "[M] Buffering overlay is suppressed, skip showing"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1199
+    .line 1211
     :goto_2b
     return-void
 
-    .line 1198
+    .line 1210
     :cond_2c
     iget-object v0, p0, Lbl/xi;->bufferingOverlayController:Lcom/bilibili/tv/player/BufferingOverlayController;
 
@@ -2182,17 +2182,17 @@
     .locals 2
 
     .prologue
-    .line 1213
+    .line 1225
     iget-object v0, p0, Lbl/xi;->bufferingOverlayController:Lcom/bilibili/tv/player/BufferingOverlayController;
 
     if-eqz v0, :cond_11
 
-    .line 1214
+    .line 1226
     iget-object v0, p0, Lbl/xi;->bufferingOverlayController:Lcom/bilibili/tv/player/BufferingOverlayController;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/player/BufferingOverlayController;->onBufferingEnded()V
 
-    .line 1218
+    .line 1230
     :cond_9
     iget-object v0, p0, Lbl/xi;->m:Lcom/bilibili/tv/player/widget/PlayerBufferingView;
 
@@ -2200,12 +2200,12 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/player/widget/PlayerBufferingView;->setVisibility(I)V
 
-    .line 1219
+    .line 1231
     :cond_10
     :goto_10
     return-void
 
-    .line 1215
+    .line 1227
     :cond_11
     iget-object v0, p0, Lbl/xi;->m:Lcom/bilibili/tv/player/widget/PlayerBufferingView;
 
@@ -2226,7 +2226,7 @@
     .locals 1
 
     .prologue
-    .line 1223
+    .line 1235
     iget-object v0, p0, Lbl/xi;->m:Lcom/bilibili/tv/player/widget/PlayerBufferingView;
 
     if-eqz v0, :cond_e
@@ -2397,7 +2397,7 @@
 
     const/4 v3, 0x1
 
-    .line 1228
+    .line 1240
     iget-object v0, p0, Lbl/xi;->h:Landroid/widget/TextView;
 
     if-eqz v0, :cond_10
@@ -2412,28 +2412,28 @@
 
     if-nez v1, :cond_11
 
-    .line 1276
+    .line 1288
     :cond_10
     :goto_10
     return-void
 
-    .line 1231
+    .line 1243
     :cond_11
     iget-object v2, v0, Lbl/yh;->a:Lcom/bilibili/tv/player/basic/context/PlayerParams;
 
-    .line 1232
+    .line 1244
     invoke-static {v2}, Lbl/yr;->a(Lcom/bilibili/tv/player/basic/context/PlayerParams;)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 1235
+    .line 1247
     invoke-virtual {v2}, Lcom/bilibili/tv/player/basic/context/PlayerParams;->isBangumi()Z
 
     move-result v1
 
     if-eqz v1, :cond_da
 
-    .line 1236
+    .line 1248
     iget-object v1, v2, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
 
     iget-object v1, v1, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mResolveParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
@@ -2444,14 +2444,14 @@
 
     move-result-object v1
 
-    .line 1237
+    .line 1249
     iget-object v2, v2, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
 
     iget-object v2, v2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mResolveParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     iget-object v2, v2, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mPageTitle:Ljava/lang/String;
 
-    .line 1238
+    .line 1250
     if-eqz v0, :cond_7a
 
     invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
@@ -2462,7 +2462,7 @@
 
     move v6, v3
 
-    .line 1239
+    .line 1251
     :goto_36
     if-eqz v1, :cond_7c
 
@@ -2474,7 +2474,7 @@
 
     move v5, v3
 
-    .line 1240
+    .line 1252
     :goto_3f
     if-eqz v2, :cond_7e
 
@@ -2484,14 +2484,14 @@
 
     if-nez v7, :cond_7e
 
-    .line 1242
+    .line 1254
     :goto_47
     if-eqz v6, :cond_b2
 
-    .line 1243
+    .line 1255
     if-eqz v5, :cond_98
 
-    .line 1244
+    .line 1256
     if-eqz v3, :cond_80
 
     invoke-virtual {v2, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -2500,7 +2500,7 @@
 
     if-nez v3, :cond_80
 
-    .line 1245
+    .line 1257
     new-instance v3, Ljava/lang/StringBuilder;
 
     invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
@@ -2533,7 +2533,7 @@
 
     move-result-object v0
 
-    .line 1275
+    .line 1287
     :cond_74
     :goto_74
     iget-object v1, p0, Lbl/xi;->h:Landroid/widget/TextView;
@@ -2545,22 +2545,22 @@
     :cond_7a
     move v6, v4
 
-    .line 1238
+    .line 1250
     goto :goto_36
 
     :cond_7c
     move v5, v4
 
-    .line 1239
+    .line 1251
     goto :goto_3f
 
     :cond_7e
     move v3, v4
 
-    .line 1240
+    .line 1252
     goto :goto_47
 
-    .line 1247
+    .line 1259
     :cond_80
     new-instance v2, Ljava/lang/StringBuilder;
 
@@ -2586,11 +2586,11 @@
 
     goto :goto_74
 
-    .line 1250
+    .line 1262
     :cond_98
     if-eqz v3, :cond_74
 
-    .line 1251
+    .line 1263
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -2615,11 +2615,11 @@
 
     goto :goto_74
 
-    .line 1255
+    .line 1267
     :cond_b2
     if-eqz v5, :cond_d6
 
-    .line 1256
+    .line 1268
     if-eqz v3, :cond_d4
 
     invoke-virtual {v2, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -2628,7 +2628,7 @@
 
     if-nez v0, :cond_d4
 
-    .line 1257
+    .line 1269
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -2656,19 +2656,19 @@
     :cond_d4
     move-object v0, v1
 
-    .line 1259
+    .line 1271
     goto :goto_74
 
-    .line 1262
+    .line 1274
     :cond_d6
     if-eqz v3, :cond_74
 
     move-object v0, v2
 
-    .line 1263
+    .line 1275
     goto :goto_74
 
-    .line 1267
+    .line 1279
     :cond_da
     iget-object v1, v2, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
 
@@ -2698,14 +2698,14 @@
 
     if-le v1, v3, :cond_74
 
-    .line 1268
+    .line 1280
     iget-object v1, v2, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
 
     iget-object v1, v1, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mResolveParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     iget-object v1, v1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mPageTitle:Ljava/lang/String;
 
-    .line 1269
+    .line 1281
     if-eqz v0, :cond_122
 
     invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
@@ -2720,7 +2720,7 @@
 
     if-nez v2, :cond_122
 
-    .line 1270
+    .line 1282
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
@@ -2748,7 +2748,7 @@
     :cond_122
     move-object v0, v1
 
-    .line 1272
+    .line 1284
     goto/16 :goto_74
 .end method
 
@@ -2756,20 +2756,20 @@
     .locals 1
 
     .prologue
-    .line 1370
+    .line 1382
     invoke-virtual {p0}, Lbl/xi;->o()Landroid/app/Activity;
 
     move-result-object v0
 
-    .line 1371
+    .line 1383
     if-eqz v0, :cond_b
 
-    .line 1372
+    .line 1384
     invoke-virtual {v0}, Ljava/lang/Object;->hashCode()I
 
     move-result v0
 
-    .line 1374
+    .line 1386
     :goto_a
     return v0
 
@@ -2827,21 +2827,21 @@
     .locals 2
 
     .prologue
-    .line 1339
+    .line 1351
     iget v0, p1, Landroid/os/Message;->what:I
 
     const/4 v1, 0x4
 
     if-ne v0, v1, :cond_c
 
-    .line 1340
+    .line 1352
     iget-object v0, p1, Landroid/os/Message;->obj:Ljava/lang/Object;
 
     check-cast v0, Ltv/danmaku/videoplayer/core/videoview/AspectRatio;
 
     invoke-direct {p0, v0}, Lbl/xi;->a(Ltv/danmaku/videoplayer/core/videoview/AspectRatio;)V
 
-    .line 1342
+    .line 1354
     :cond_c
     sget-object v0, Ljava/lang/Boolean;->FALSE:Ljava/lang/Boolean;
 
@@ -2866,15 +2866,15 @@
     .locals 1
 
     .prologue
-    .line 1332
+    .line 1344
     invoke-super {p0, p1, p2}, Lbl/xh;->a(Landroid/app/Activity;Lbl/xf;)V
 
-    .line 1333
+    .line 1345
     const/4 v0, 0x4
 
     invoke-virtual {p2, v0, p0}, Lbl/xf;->a(ILbl/bbb;)V
 
-    .line 1334
+    .line 1346
     return-void
 .end method
 
@@ -3078,12 +3078,12 @@
     .locals 3
 
     .prologue
-    .line 1348
+    .line 1360
     sget-object v0, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->NEW_RESOLVE_TASK:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
     if-ne p1, v0, :cond_1a
 
-    .line 1349
+    .line 1361
     array-length v0, p2
 
     const/4 v1, 0x1
@@ -3094,7 +3094,7 @@
 
     if-eqz v0, :cond_16
 
-    .line 1350
+    .line 1362
     iget-object v1, p0, Lbl/xi;->c:Lbl/yd;
 
     const/4 v0, 0x0
@@ -3105,15 +3105,15 @@
 
     invoke-virtual {v1, v0}, Lbl/yd;->a(Ljava/lang/Runnable;)Ljava/util/concurrent/Future;
 
-    .line 1355
+    .line 1367
     :cond_16
     :goto_16
     invoke-super {p0, p1, p2}, Lbl/xh;->b(Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;[Ljava/lang/Object;)V
 
-    .line 1356
+    .line 1368
     return-void
 
-    .line 1352
+    .line 1364
     :cond_1a
     sget-object v0, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->CODEC_CONFIG_CHANGED:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
@@ -3135,7 +3135,7 @@
 
     if-eqz v0, :cond_16
 
-    .line 1353
+    .line 1365
     :cond_2e
     iget-object v0, p0, Lbl/xi;->k:Lbl/aar;
 
@@ -3222,24 +3222,24 @@
     .locals 2
 
     .prologue
-    .line 1204
+    .line 1216
     iget-object v0, p0, Lbl/xi;->m:Lcom/bilibili/tv/player/widget/PlayerBufferingView;
 
     if-eqz v0, :cond_f
 
-    .line 1205
+    .line 1217
     iget-object v0, p0, Lbl/xi;->m:Lcom/bilibili/tv/player/widget/PlayerBufferingView;
 
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/player/widget/PlayerBufferingView;->setText(I)V
 
-    .line 1206
+    .line 1218
     iget-object v0, p0, Lbl/xi;->m:Lcom/bilibili/tv/player/widget/PlayerBufferingView;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/player/widget/PlayerBufferingView;->setVisibility(I)V
 
-    .line 1208
+    .line 1220
     :cond_f
     return-void
 .end method
@@ -4884,20 +4884,20 @@
     .locals 2
 
     .prologue
-    .line 1280
+    .line 1292
     invoke-super {p0, p1, p2}, Lbl/xh;->onExtraInfo(I[Ljava/lang/Object;)V
 
-    .line 1281
+    .line 1293
     const v0, 0x10018
 
     if-ne p1, v0, :cond_17
 
-    .line 1282
+    .line 1294
     iget-object v0, p0, Lbl/xi;->m:Lcom/bilibili/tv/player/widget/PlayerBufferingView;
 
     if-eqz v0, :cond_16
 
-    .line 1283
+    .line 1295
     iget-object v0, p0, Lbl/xi;->m:Lcom/bilibili/tv/player/widget/PlayerBufferingView;
 
     new-instance v1, Lbl/xi$7;
@@ -4906,23 +4906,23 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/player/widget/PlayerBufferingView;->post(Ljava/lang/Runnable;)Z
 
-    .line 1301
+    .line 1313
     :cond_16
     :goto_16
     return-void
 
-    .line 1290
+    .line 1302
     :cond_17
     const v0, 0x10019
 
     if-ne p1, v0, :cond_16
 
-    .line 1291
+    .line 1303
     iget-object v0, p0, Lbl/xi;->m:Lcom/bilibili/tv/player/widget/PlayerBufferingView;
 
     if-eqz v0, :cond_16
 
-    .line 1294
+    .line 1306
     iget-object v0, p0, Lbl/xi;->m:Lcom/bilibili/tv/player/widget/PlayerBufferingView;
 
     new-instance v1, Lbl/xi$8;
@@ -5076,7 +5076,7 @@
 
     const/4 v4, 0x0
 
-    .line 1305
+    .line 1317
     const-string v2, "xi"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -5116,10 +5116,10 @@
 
     invoke-static {v2, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1307
+    .line 1319
     if-eqz p2, :cond_be
 
-    .line 1308
+    .line 1320
     const-string v0, "url"
 
     const-string v2, ""
@@ -5128,21 +5128,21 @@
 
     move-result-object v0
 
-    .line 1309
+    .line 1321
     const-string v2, "http_code"
 
     invoke-virtual {p2, v2, v4}, Landroid/os/Bundle;->getInt(Ljava/lang/String;I)I
 
     move-result v2
 
-    .line 1310
+    .line 1322
     const-string v3, "error"
 
     invoke-virtual {p2, v3, v4}, Landroid/os/Bundle;->getInt(Ljava/lang/String;I)I
 
     move-result v3
 
-    .line 1312
+    .line 1324
     const-string v4, "xi"
 
     new-instance v5, Ljava/lang/StringBuilder;
@@ -5185,7 +5185,7 @@
 
     invoke-static {v4, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1314
+    .line 1326
     const/16 v0, 0x193
 
     if-eq v2, v0, :cond_78
@@ -5198,7 +5198,7 @@
 
     if-ne v2, v0, :cond_ac
 
-    .line 1315
+    .line 1327
     :cond_78
     const-string v0, "xi"
 
@@ -5222,7 +5222,7 @@
 
     invoke-static {v0, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1316
+    .line 1328
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -5245,23 +5245,23 @@
 
     move v0, v1
 
-    .line 1327
+    .line 1339
     :goto_a7
     return v0
 
-    .line 1305
+    .line 1317
     :cond_a8
     const-string v0, "null"
 
     goto/16 :goto_1f
 
-    .line 1320
+    .line 1332
     :cond_ac
     if-nez v3, :cond_b0
 
     if-nez v2, :cond_be
 
-    .line 1321
+    .line 1333
     :cond_b0
     const-string v0, "xi"
 
@@ -5269,17 +5269,17 @@
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1322
+    .line 1334
     const-string v0, "Network error"
 
     invoke-static {v3, v0}, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->triggerErrorRefresh(ILjava/lang/String;)V
 
     move v0, v1
 
-    .line 1323
+    .line 1335
     goto :goto_a7
 
-    .line 1327
+    .line 1339
     :cond_be
     invoke-super {p0, p1, p2}, Lbl/xh;->onNativeInvoke(ILandroid/os/Bundle;)Z
 
@@ -5338,47 +5338,47 @@
     .line 979
     invoke-virtual {p0}, Lbl/xi;->N()V
 
-    .line 983
+    .line 995
     :cond_29
     :try_start_29
     invoke-virtual {p0}, Lbl/xi;->n()Ltv/danmaku/videoplayer/core/context/IPlayerContext;
 
     move-result-object v0
 
-    .line 984
+    .line 996
     if-eqz v0, :cond_50
 
-    .line 985
+    .line 997
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/context/IPlayerContext;->getIVideoView()Ltv/danmaku/videoplayer/core/videoview/IVideoView;
 
     move-result-object v0
 
-    .line 986
+    .line 998
     if-eqz v0, :cond_50
 
-    .line 987
+    .line 999
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/videoview/IVideoView;->getMediaPlayer()Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     move-result-object v0
 
-    .line 988
+    .line 1000
     if-eqz v0, :cond_50
 
     instance-of v1, v0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     if-eqz v1, :cond_50
 
-    .line 989
+    .line 1001
     check-cast v0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
-    .line 991
+    .line 1003
     new-instance v1, Lbl/xi$5;
 
     invoke-direct {v1, p0}, Lbl/xi$5;-><init>(Lbl/xi;)V
 
     invoke-virtual {v0, v1}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->setErrorListener(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$PlayerErrorListener;)V
 
-    .line 1007
+    .line 1019
     const-string v0, "xi"
 
     const-string v1, "[ERROR_LISTENER] Error listener setup successfully in onPrepared"
@@ -5388,7 +5388,7 @@
     .catch Ljava/lang/IllegalAccessError; {:try_start_29 .. :try_end_50} :catch_17f
     .catch Ljava/lang/Exception; {:try_start_29 .. :try_end_50} :catch_189
 
-    .line 1017
+    .line 1029
     :cond_50
     :goto_50
     iget-object v0, p0, Lbl/xi;->b:Lbl/aaq;
@@ -5397,12 +5397,12 @@
 
     invoke-virtual {v0, v1}, Lbl/aaq;->sendEmptyMessage(I)Z
 
-    .line 1019
+    .line 1031
     invoke-virtual {p0}, Lbl/xi;->b()Lcom/bilibili/tv/player/basic/context/PlayerParams;
 
     move-result-object v0
 
-    .line 1020
+    .line 1032
     if-eqz v0, :cond_1a8
 
     iget-object v1, v0, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
@@ -5417,41 +5417,41 @@
 
     if-eqz v1, :cond_1a8
 
-    .line 1021
+    .line 1033
     iget-object v0, v0, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->obtainResolveParams()Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     move-result-object v0
 
-    .line 1022
+    .line 1034
     iget-wide v2, v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAvid:J
 
     iput-wide v2, p0, Lbl/xi;->currentAid:J
 
-    .line 1023
+    .line 1035
     iget-wide v2, v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mCid:J
 
     iput-wide v2, p0, Lbl/xi;->currentCid:J
 
-    .line 1024
+    .line 1036
     iget-object v1, v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mBvid:Ljava/lang/String;
 
     iput-object v1, p0, Lbl/xi;->currentBvid:Ljava/lang/String;
 
-    .line 1025
+    .line 1037
     iget v1, v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mPage:I
 
     iput v1, p0, Lbl/xi;->currentPage:I
 
-    .line 1027
+    .line 1039
     const-string v1, "VideoShot"
 
     const-string v2, "========== ResolveParams Details =========="
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1028
+    .line 1040
     const-string v1, "VideoShot"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -5476,7 +5476,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1029
+    .line 1041
     const-string v1, "VideoShot"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -5501,7 +5501,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1030
+    .line 1042
     const-string v1, "VideoShot"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -5526,7 +5526,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1031
+    .line 1043
     const-string v1, "VideoShot"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -5551,7 +5551,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1032
+    .line 1044
     const-string v1, "VideoShot"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -5576,7 +5576,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1033
+    .line 1045
     const-string v1, "VideoShot"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -5601,7 +5601,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1034
+    .line 1046
     const-string v1, "VideoShot"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -5626,7 +5626,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1035
+    .line 1047
     const-string v1, "VideoShot"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -5651,7 +5651,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1036
+    .line 1048
     const-string v1, "VideoShot"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -5676,28 +5676,28 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1037
+    .line 1049
     const-string v0, "VideoShot"
 
     const-string v1, "========== End ResolveParams =========="
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1039
+    .line 1051
     invoke-direct {p0}, Lbl/xi;->loadVideoShot()V
 
-    .line 1044
+    .line 1056
     :goto_17b
     invoke-super {p0, p1}, Lbl/xh;->onPrepared(Ltv/danmaku/ijk/media/player/IMediaPlayer;)V
 
-    .line 1045
+    .line 1057
     return-void
 
-    .line 1011
+    .line 1023
     :catch_17f
     move-exception v0
 
-    .line 1012
+    .line 1024
     const-string v0, "xi"
 
     const-string v1, "[ERROR_LISTENER] IllegalAccessError when accessing player (likely IjkPlayer), skipping error listener setup"
@@ -5706,11 +5706,11 @@
 
     goto/16 :goto_50
 
-    .line 1013
+    .line 1025
     :catch_189
     move-exception v0
 
-    .line 1014
+    .line 1026
     const-string v1, "xi"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -5739,7 +5739,7 @@
 
     goto/16 :goto_50
 
-    .line 1041
+    .line 1053
     :cond_1a8
     const-string v0, "VideoShot"
 

@@ -267,6 +267,9 @@
     <string name="search_text_hint">输入关键字或av号</string>
     <string name="second">秒</string>
     <string name="seconds_ago">%1$d秒前</string>
+    <string name="download_manager">下载管理</string>
+    <string name="downloading">下载中</string>
+    <string name="downloaded">已下载</string>
     <string name="setting">设置</string>
     <string name="setting_about">"STAFF
 

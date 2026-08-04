@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->createPgcSectionView(Lcom/bilibili/tv/api/video/PgcInfo$Section;I)V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->createSeasonsSectionView(Ljava/util/List;I)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 3359
+    .line 3314
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$31;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -37,35 +37,41 @@
 
 # virtual methods
 .method public onVideoClicked(Ljava/lang/Object;I)V
-    .locals 6
+    .locals 5
 
     .prologue
-    .line 3362
-    instance-of v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;
+    .line 3317
+    instance-of v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
 
-    if-eqz v0, :cond_17
+    if-eqz v0, :cond_1d
 
-    .line 3363
-    check-cast p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;
+    .line 3318
+    check-cast p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;
 
-    .line 3364
+    .line 3319
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$31;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     sget-object v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$31;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    iget-wide v4, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mAvid:J
+    iget v3, p1, Lcom/bilibili/tv/api/video/PgcInfo$Season;->seasonId:I
 
-    iget-object v3, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mCover:Ljava/lang/String;
+    invoke-static {v3}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
 
-    invoke-virtual {v1, v2, v4, v5, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;JLjava/lang/String;)Landroid/content/Intent;
+    move-result-object v3
+
+    invoke-virtual {p1}, Lcom/bilibili/tv/api/video/PgcInfo$Season;->getBestCover()Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-virtual {v1, v2, v3, v4}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;->a(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 
     move-result-object v1
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->startActivity(Landroid/content/Intent;)V
 
-    .line 3366
-    :cond_17
+    .line 3321
+    :cond_1d
     return-void
 .end method

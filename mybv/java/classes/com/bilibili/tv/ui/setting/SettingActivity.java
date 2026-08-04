@@ -179,6 +179,9 @@ public final class SettingActivity extends BaseUpViewActivity {
                 if ((d instanceof afm4) && ((afm4) d).b()) {
                     return false;
                 }
+                if ((d instanceof afm5) && ((afm5) d).b()) { // 新增：支持下载设置
+                    return false;
+                }
                 if ((d instanceof afk) && ((afk) d).b()) {
                     return false;
                 }
@@ -227,6 +230,9 @@ public final class SettingActivity extends BaseUpViewActivity {
                     }
                     if (d2 instanceof afm4) {
                         return ((afm4) d2).a();
+                    }
+                    if (d2 instanceof afm5) { // 新增：支持下载设置
+                        return ((afm5) d2).a();
                     }
                     return true;
                 }

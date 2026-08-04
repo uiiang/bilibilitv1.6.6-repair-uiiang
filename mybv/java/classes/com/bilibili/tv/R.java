@@ -2092,6 +2092,8 @@ public final class R {
         public static final int selector_favorite_item = 0x7f07010b;
         public static final int video_detail_gradient_mask = 0x7f07010c;
         public static final int ic_area_bishua = 0x7f07010e;
+        public static final int selector_main_download_manager = 0x7f07010f;
+        public static final int selector_main_download = 0x7f070110;
     }
 
     public static final class id {
@@ -2431,6 +2433,9 @@ public final class R {
         public static final int video_detail_favorite = 0x7f08014d;
         public static final int video_detail_favorite_img = 0x7f08014e;
         public static final int video_detail_favorite_text = 0x7f08014f;
+        public static final int video_detail_download = 0x7f080241;
+        public static final int video_detail_download_img = 0x7f080242;
+        public static final int video_detail_download_text = 0x7f080243;
         public static final int video_detail_info_layout = 0x7f080150;
         public static final int video_detail_layout = 0x7f080151;
         public static final int video_detail_more_btn = 0x7f080152;
@@ -2666,6 +2671,14 @@ public final class R {
         public static final int live_exo_player = 0x7f080233;
         public static final int empty_text = 0x7f080234;
         public static final int header_container = 0x7f080238;
+        public static final int cover_image = 0x7f080239;
+        public static final int title_text = 0x7f08023a;
+        public static final int up_name_text = 0x7f08023b;
+        public static final int progress_bar = 0x7f08023c;
+        public static final int progress_text = 0x7f08023d;
+        public static final int file_size_text = 0x7f08023e;
+        public static final int speed_text = 0x7f08023f;
+        public static final int status_text = 0x7f080240;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;
@@ -2852,6 +2865,9 @@ public final class R {
         public static final int dialog_relation_tag_menu = 0x7f0a00a9;
         public static final int item_relation_tag_menu = 0x7f0a00aa;
         public static final int activity_area_normal = 0x7f0a00ad;
+        public static final int activity_download_manager = 0x7f0a00ae;
+        public static final int fragment_download_list = 0x7f0a00af;
+        public static final int item_download_task = 0x7f0a00b0;
     }
 
     public static final class mipmap {
@@ -3266,6 +3282,9 @@ public final class R {
         public static final int audio_balance_medium = 0x7f0c0190;
         public static final int audio_balance_high = 0x7f0c0191;
         public static final int subtitle_size = 0x7f0c0192;
+        public static final int download_manager = 0x7f0c0193;
+        public static final int downloading = 0x7f0c0194;
+        public static final int downloaded = 0x7f0c0195;
     }
 
     public static final class style {

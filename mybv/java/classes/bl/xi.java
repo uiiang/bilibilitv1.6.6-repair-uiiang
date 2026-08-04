@@ -980,42 +980,16 @@ public class xi extends xh implements bbb<Message, Boolean> {
         }
         
         // 关键修复：电子书模式下恢复播放时，重新应用视频缩小布局
+        // 注意：此功能暂时禁用，因为xi和xw是独立的类，需要重新设计检查方式
+        // TODO: 后续需要通过Activity或其他方式检查电子书模式
+        /*
         try {
-            // 检查当前Activity是否是xw类型（包含电子书功能）
-            android.app.Activity activity = o();
-            if (activity != null && activity instanceof xw) {
-                xw xwActivity = (xw) activity;
-                
-                // 使用Handler延迟200ms执行，确保视频视图已完全创建
-                new android.os.Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            // 检查电子书模式是否开启
-                            // 通过反射访问isEbookPanelShown字段
-                            java.lang.reflect.Field field = xw.class.getDeclaredField("isEbookPanelShown");
-                            field.setAccessible(true);
-                            boolean isEbookPanelShown = field.getBoolean(xwActivity);
-                            
-                            if (isEbookPanelShown) {
-                                Log.i("xi", "[ON_PREPARED] 电子书模式开启，重新应用视频缩小布局");
-                                
-                                // 调用applyEbookPanelPercent方法重新应用布局
-                                java.lang.reflect.Method method = xw.class.getDeclaredMethod("applyEbookPanelPercent");
-                                method.setAccessible(true);
-                                method.invoke(xwActivity);
-                                
-                                Log.i("xi", "[ON_PREPARED] 视频缩小布局已重新应用");
-                            }
-                        } catch (Exception e) {
-                            Log.w("xi", "[ON_PREPARED] 无法检查或应用电子书模式布局: " + e.getMessage());
-                        }
-                    }
-                }, 200);
-            }
+            // 原始逻辑：检查是否在电子书模式下播放视频
+            // 需要重新设计：通过Activity或其他方式获取xw实例
         } catch (Exception e) {
             Log.w("xi", "[ON_PREPARED] 检查电子书模式失败: " + e.getMessage());
         }
+        */
         
         try {
             IPlayerContext playerContext = n();

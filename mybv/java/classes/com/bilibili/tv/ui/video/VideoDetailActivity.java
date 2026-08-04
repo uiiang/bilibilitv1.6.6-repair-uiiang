@@ -314,6 +314,19 @@ public final class VideoDetailActivity extends BaseActivity
             drawLinearLayout.setOnLongClickListener(this);
         }
 
+        // 下载按钮初始化
+        DrawLinearLayout downloadBtn = (DrawLinearLayout) d(R.id.video_detail_download);
+        if (downloadBtn != null) {
+            downloadBtn.setOnFocusChangeListener(dVar);
+            downloadBtn.setUpDrawable(R.drawable.shadow_red_rect);
+            downloadBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onDownloadButtonClick();
+                }
+            });
+        }
+
         expandBtn = (DrawLinearLayout) d(R.id.video_detail_expand_btn);
         if (expandBtn != null) {
             expandBtn.setUpDrawable(R.drawable.shadow_red_rect);
@@ -3669,6 +3682,52 @@ public final class VideoDetailActivity extends BaseActivity
         dialog.show();
     }
 
+    /**
+     * 下载按钮点击事件
+     */
+    private void onDownloadButtonClick() {
+        // 检查视频信息是否已加载
+        if (this.u == null) {
+            android.widget.Toast.makeText(this, "视频信息加载中...", android.widget.Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // 获取视频信息（直接访问字段）
+        long avid = this.u.mAvid;
+        String bvid = this.u.mBvid;
+        long cid = this.u.mCid;
+        String title = this.u.mTitle;
+        String coverUrl = this.u.mCover;
+        String upName = (this.u.mOwner != null) ? this.u.mOwner.name : "未知";
+        long duration = this.u.mDuration;
+
+        // 检查是否已下载
+        if (com.bilibili.tv.ui.download.VideoDetailDownloadHelper.isTaskExists(this, bvid, cid)) {
+            String status = com.bilibili.tv.ui.download.VideoDetailDownloadHelper.getTaskStatus(this, bvid, cid);
+            android.widget.Toast.makeText(this, "该视频已在下载列表中：" + status, android.widget.Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // 获取可用的画质列表
+        java.util.List<String> qualityList = new java.util.ArrayList<>();
+        qualityList.add("1080P 高清");
+        qualityList.add("720P 高清");
+        qualityList.add("480P 清晰");
+
+        // 显示下载对话框
+        com.bilibili.tv.ui.download.VideoDetailDownloadHelper.showDownloadDialog(
+            this,
+            avid,
+            bvid,
+            cid,
+            title,
+            coverUrl,
+            upName,
+            duration,
+            qualityList
+        );
+    }
+
     private final void p(String fid) {
         if (this.B) {
             return;
@@ -3949,11 +4008,13 @@ public final class VideoDetailActivity extends BaseActivity
         View likeBtn = findViewById(R.id.video_detail_like);
         View coinBtn = findViewById(R.id.video_detail_coin);
         View favoriteBtn = findViewById(R.id.video_detail_favorite);
+        View downloadBtn = findViewById(R.id.video_detail_download);
         View watchLaterBtn = findViewById(R.id.video_detail_watch_later);
         View infoBtn = findViewById(R.id.video_detail_info);
         if (likeBtn != null) likeBtn.setVisibility(View.VISIBLE);
         if (coinBtn != null) coinBtn.setVisibility(View.VISIBLE);
         if (favoriteBtn != null) favoriteBtn.setVisibility(View.VISIBLE);
+        if (downloadBtn != null) downloadBtn.setVisibility(View.VISIBLE);
         if (watchLaterBtn != null) watchLaterBtn.setVisibility(View.VISIBLE);
         if (infoBtn != null) infoBtn.setVisibility(View.VISIBLE);
         // 展开互动按钮后，expandBtn为GONE，点赞按钮左键需要指向当前可见的左边按钮(重播/无痕)
@@ -3972,11 +4033,13 @@ public final class VideoDetailActivity extends BaseActivity
         View likeBtn = findViewById(R.id.video_detail_like);
         View coinBtn = findViewById(R.id.video_detail_coin);
         View favoriteBtn = findViewById(R.id.video_detail_favorite);
+        View downloadBtn = findViewById(R.id.video_detail_download);
         View watchLaterBtn = findViewById(R.id.video_detail_watch_later);
         View infoBtn = findViewById(R.id.video_detail_info);
         if (likeBtn != null) likeBtn.setVisibility(View.GONE);
         if (coinBtn != null) coinBtn.setVisibility(View.GONE);
         if (favoriteBtn != null) favoriteBtn.setVisibility(View.GONE);
+        if (downloadBtn != null) downloadBtn.setVisibility(View.GONE);
         if (watchLaterBtn != null) watchLaterBtn.setVisibility(View.GONE);
         if (infoBtn != null) infoBtn.setVisibility(View.GONE);
         if (expandBtn != null) {
@@ -3992,11 +4055,13 @@ public final class VideoDetailActivity extends BaseActivity
         View likeBtn = findViewById(R.id.video_detail_like);
         View coinBtn = findViewById(R.id.video_detail_coin);
         View favoriteBtn = findViewById(R.id.video_detail_favorite);
+        View downloadBtn = findViewById(R.id.video_detail_download);
         View watchLaterBtn = findViewById(R.id.video_detail_watch_later);
         View infoBtn = findViewById(R.id.video_detail_info);
         return (likeBtn != null && likeBtn.hasFocus())
                 || (coinBtn != null && coinBtn.hasFocus())
                 || (favoriteBtn != null && favoriteBtn.hasFocus())
+                || (downloadBtn != null && downloadBtn.hasFocus())
                 || (watchLaterBtn != null && watchLaterBtn.hasFocus())
                 || (infoBtn != null && infoBtn.hasFocus());
     }
@@ -4019,7 +4084,8 @@ public final class VideoDetailActivity extends BaseActivity
             }
             int viewId = view.getId();
             if (viewId == R.id.video_detail_like || viewId == R.id.video_detail_coin 
-                    || viewId == R.id.video_detail_favorite || viewId == R.id.video_detail_watch_later
+                    || viewId == R.id.video_detail_favorite || viewId == R.id.video_detail_download
+                    || viewId == R.id.video_detail_watch_later
                     || viewId == R.id.video_re_play_btn_layout
                     || viewId == R.id.video_detail_info) {
                 TextView textView = null;
@@ -4029,6 +4095,8 @@ public final class VideoDetailActivity extends BaseActivity
                     textView = (TextView) view.findViewById(R.id.video_detail_coin_text);
                 } else if (viewId == R.id.video_detail_favorite) {
                     textView = (TextView) view.findViewById(R.id.video_detail_favorite_text);
+                } else if (viewId == R.id.video_detail_download) {
+                    textView = (TextView) view.findViewById(R.id.video_detail_download_text);
                 } else if (viewId == R.id.video_detail_watch_later) {
                     textView = (TextView) view.findViewById(R.id.video_detail_watch_later_text);
                 } else if (viewId == R.id.video_re_play_btn_layout) {

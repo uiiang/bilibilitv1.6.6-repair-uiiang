@@ -26,12 +26,12 @@
     .locals 0
 
     .prologue
-    .line 779
+    .line 792
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$k;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 780
+    .line 793
     return-void
 .end method
 
@@ -41,45 +41,45 @@
     .locals 3
 
     .prologue
-    .line 784
+    .line 797
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 785
+    .line 798
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    .line 786
+    .line 799
     const-string v1, "v.context"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 787
+    .line 800
     invoke-static {v0}, Lbl/adl;->a(Landroid/content/Context;)Landroid/app/Activity;
 
     move-result-object v0
 
-    .line 788
+    .line 801
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$k;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
-    invoke-static {v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1400(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/api/video/BiliVideoDetail;
+    invoke-static {v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     move-result-object v1
 
-    .line 789
+    .line 802
     if-eqz v1, :cond_1c
 
     if-nez v0, :cond_1d
 
-    .line 793
+    .line 806
     :cond_1c
     :goto_1c
     return-void
 
-    .line 792
+    .line 805
     :cond_1d
     sget-object v2, Lcom/bilibili/tv/ui/video/VideoMoreEpisodeActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoMoreEpisodeActivity$a;
 

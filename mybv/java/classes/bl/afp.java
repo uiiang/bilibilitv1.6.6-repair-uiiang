@@ -9,7 +9,7 @@ import com.bilibili.tv.R;
 public final class afp extends adx {
     @Override // bl.adx
     public int a() {
-        return 6;
+        return 7; // 从6改为7，新增下载设置
     }
 
     /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
@@ -33,6 +33,8 @@ public final class afp extends adx {
                 return afm3.Companion.a();
             case 5:
                 return afm4.Companion.a();
+            case 6:
+                return afm5.Companion.a(); // 新增：下载设置
             default:
                 return null;
         }
@@ -52,6 +54,8 @@ public final class afp extends adx {
                 return "实验室";
             case 5:
                 return "个性化";
+            case 6:
+                return "下载设置"; // 新增：下载设置
             default:
                 return "";
         }

@@ -48,6 +48,7 @@ import bl.lv;
 import bl.mg;
 import bl.mn;
 import bl.ok;
+import com.bilibili.tv.ui.download.DownloadManagerActivity;
 import bl.wh;
 import com.bilibili.lib.account.AccountException;
 import com.bilibili.lib.account.subscribe.Topic;
@@ -623,6 +624,9 @@ public final class MainActivity extends BaseActivity {
             this.b.put(position, new MainTitle(e, R.string.my));
             this.tabMapping[position] = 7;
             position++;
+            this.b.put(position, new MainTitle(f, R.drawable.selector_main_download_manager));
+            this.tabMapping[position] = 9;
+            position++;
             this.b.put(position, new MainTitle(f, R.drawable.selector_main_setting));
             this.tabMapping[position] = 8;
         }
@@ -690,10 +694,14 @@ public final class MainActivity extends BaseActivity {
                 Activity a = adl.a(context);
                 if (a != null) {
                     int tabCount = d.this.a();
+                    int downloadManagerIndex = tabCount - 2;
                     int settingIndex = tabCount - 1;
                     int tabType = d.this.getTabType(this.b);
                     if (this.b == 0) {
                         SearchActivity.Companion.a(a, 0);
+                    } else if (this.b == downloadManagerIndex) {
+                        // 打开下载管理页面
+                        DownloadManagerActivity.Companion.a(a, 1);
                     } else if (this.b == settingIndex) {
                         SettingActivity.Companion.a(a, SettingActivity.Companion.b());
                     } else if (tabType == 1) {

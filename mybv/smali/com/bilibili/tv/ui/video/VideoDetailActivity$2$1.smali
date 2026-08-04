@@ -20,18 +20,14 @@
 # instance fields
 .field final synthetic this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$2;
 
-.field final synthetic val$scrollView:Landroid/widget/ScrollView;
-
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$2;Landroid/widget/ScrollView;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$2;)V
     .locals 0
 
     .prologue
-    .line 276
+    .line 338
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$2$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$2;
-
-    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$2$1;->val$scrollView:Landroid/widget/ScrollView;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -44,13 +40,24 @@
     .locals 2
 
     .prologue
-    .line 279
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$2$1;->val$scrollView:Landroid/widget/ScrollView;
+    .line 341
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$2$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$2;
 
-    const/16 v1, 0x82
+    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$2;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    invoke-virtual {v0, v1}, Landroid/widget/ScrollView;->fullScroll(I)Z
+    const v1, 0x7f080167
 
-    .line 280
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
+
+    move-result-object v0
+
+    .line 342
+    if-eqz v0, :cond_10
+
+    .line 343
+    invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
+
+    .line 345
+    :cond_10
     return-void
 .end method

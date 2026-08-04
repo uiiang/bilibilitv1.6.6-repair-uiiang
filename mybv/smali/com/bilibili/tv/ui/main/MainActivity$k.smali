@@ -34,15 +34,15 @@
     .locals 0
 
     .prologue
-    .line 386
+    .line 387
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/MainActivity$k;->this$0:Lcom/bilibili/tv/ui/main/MainActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 387
+    .line 388
     iput-object p2, p0, Lcom/bilibili/tv/ui/main/MainActivity$k;->b:Landroid/os/Handler;
 
-    .line 388
+    .line 389
     return-void
 .end method
 
@@ -52,20 +52,20 @@
     .locals 4
 
     .prologue
-    .line 392
+    .line 393
     new-instance v0, Lcom/bilibili/tv/ui/main/MainActivity$k$a;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/main/MainActivity$k$a;-><init>(Lcom/bilibili/tv/ui/main/MainActivity$k;)V
 
     invoke-static {v0}, Lbl/jb;->a(Ljava/util/concurrent/Callable;)Lbl/jb;
 
-    .line 393
+    .line 394
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$k;->b:Landroid/os/Handler;
 
     const-wide/32 v2, 0x1b7740
 
     invoke-virtual {v0, p0, v2, v3}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 394
+    .line 395
     return-void
 .end method

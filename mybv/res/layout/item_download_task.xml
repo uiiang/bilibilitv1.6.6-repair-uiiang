@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/background_item_main"
+    android:focusable="true"
+    android:padding="10dp">
+
+    <!-- 封面图 -->
+    <ImageView
+        android:id="@+id/cover_image"
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        android:layout_marginRight="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bili_default_image_tv" />
+
+    <!-- 信息区域 -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- 标题 -->
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:text="视频标题"
+            android:maxLines="2"
+            android:ellipsize="end" />
+
+        <!-- UP主 -->
+        <TextView
+            android:id="@+id/up_name_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="12sp"
+            android:textColor="@color/white_50"
+            android:text="UP主: xxx" />
+
+        <!-- 进度信息 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <!-- 进度条 -->
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:max="100"
+                android:progress="0" />
+
+            <!-- 进度百分比 -->
+            <TextView
+                android:id="@+id/progress_text"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textSize="12sp"
+                android:textColor="@color/white_50"
+                android:text="0%" />
+        </LinearLayout>
+
+        <!-- 状态信息 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+
+            <!-- 文件大小 -->
+            <TextView
+                android:id="@+id/file_size_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:textColor="@color/white_30"
+                android:text="0 MB" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textSize="11sp"
+                android:textColor="@color/white_30"
+                android:text="|" />
+
+            <!-- 下载速度 -->
+            <TextView
+                android:id="@+id/speed_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textSize="11sp"
+                android:textColor="@color/white_30"
+                android:text="0 KB/s" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textSize="11sp"
+                android:textColor="@color/white_30"
+                android:text="|" />
+
+            <!-- 状态文本 -->
+            <TextView
+                android:id="@+id/status_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textSize="11sp"
+                android:textColor="@color/color_5"
+                android:text="等待中" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
