@@ -65,6 +65,16 @@
     return-void
 .end method
 
+.method static synthetic access$100(Lcom/bilibili/tv/ui/download/DownloadManagerActivity;)Lcom/bilibili/tv/ui/download/DownloadPagerAdapter;
+    .locals 1
+
+    .prologue
+    .line 23
+    iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManagerActivity;->d:Lcom/bilibili/tv/ui/download/DownloadPagerAdapter;
+
+    return-object v0
+.end method
+
 
 # virtual methods
 .method public a(Landroid/os/Bundle;)V
@@ -156,22 +166,22 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 105
+    .line 108
     invoke-super {p0}, Lcom/bilibili/tv/ui/base/BaseUpViewActivity;->onDestroy()V
 
     move-object v0, v1
 
-    .line 106
+    .line 109
     check-cast v0, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b;
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManagerActivity;->b:Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b;
 
-    .line 107
+    .line 110
     check-cast v1, Lcom/bilibili/tv/ui/download/DownloadPagerAdapter;
 
     iput-object v1, p0, Lcom/bilibili/tv/ui/download/DownloadManagerActivity;->d:Lcom/bilibili/tv/ui/download/DownloadPagerAdapter;
 
-    .line 108
+    .line 111
     return-void
 .end method
 
@@ -256,7 +266,7 @@
     invoke-virtual {v2, v0, v4}, Lbl/cj;->b(ILjava/lang/Object;)V
 
     .line 71
-    if-ne v0, v3, :cond_78
+    if-ne v0, v3, :cond_7d
 
     .line 78
     :cond_41
@@ -321,15 +331,20 @@
 
     .line 99
     :cond_72
-    iget-object v1, p0, Lcom/bilibili/tv/ui/download/DownloadManagerActivity;->b:Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b;
+    iget-object v2, p0, Lcom/bilibili/tv/ui/download/DownloadManagerActivity;->b:Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b;
 
-    invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setAdapter(Landroid/support/v7/widget/RecyclerView$a;)V
+    invoke-virtual {v0, v2}, Landroid/support/v7/widget/RecyclerView;->setAdapter(Landroid/support/v7/widget/RecyclerView$a;)V
 
-    .line 100
+    .line 102
+    iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManagerActivity;->d:Lcom/bilibili/tv/ui/download/DownloadPagerAdapter;
+
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/download/DownloadPagerAdapter;->c(I)V
+
+    .line 103
     return-void
 
     .line 74
-    :cond_78
+    :cond_7d
     add-int/lit8 v0, v0, 0x1
 
     .line 76

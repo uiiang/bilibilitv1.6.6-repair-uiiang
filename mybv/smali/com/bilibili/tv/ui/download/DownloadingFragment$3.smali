@@ -23,7 +23,7 @@
     .locals 3
 
     .prologue
-    .line 111
+    .line 114
     invoke-static {}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->values()[Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
     move-result-object v0

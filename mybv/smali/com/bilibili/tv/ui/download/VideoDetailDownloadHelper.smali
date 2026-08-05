@@ -12,27 +12,17 @@
     .locals 0
 
     .prologue
-    .line 16
+    .line 14
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
 
-.method static synthetic access$000(Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;)V
+.method static synthetic access$000(Ljava/lang/String;)I
     .locals 1
 
     .prologue
-    .line 16
-    invoke-static/range {p0 .. p11}, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;->startDownload(Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;)V
-
-    return-void
-.end method
-
-.method static synthetic access$100(Ljava/lang/String;)I
-    .locals 1
-
-    .prologue
-    .line 16
+    .line 14
     invoke-static {p0}, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;->convertQualityToId(Ljava/lang/String;)I
 
     move-result v0
@@ -40,16 +30,63 @@
     return v0
 .end method
 
-.method static synthetic access$200(Landroid/content/Context;Ljava/lang/String;J)Ljava/lang/String;
+.method static synthetic access$100(Landroid/content/Context;Ljava/lang/String;J)Ljava/lang/String;
     .locals 2
 
     .prologue
-    .line 16
+    .line 14
     invoke-static {p0, p1, p2, p3}, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;->getDownloadPath(Landroid/content/Context;Ljava/lang/String;J)Ljava/lang/String;
 
     move-result-object v0
 
     return-object v0
+.end method
+
+.method private static convertQualityIdToString(I)Ljava/lang/String;
+    .locals 1
+
+    .prologue
+    .line 59
+    sparse-switch p0, :sswitch_data_12
+
+    .line 69
+    const-string v0, "1080P \u9ad8\u6e05"
+
+    :goto_5
+    return-object v0
+
+    .line 61
+    :sswitch_6
+    const-string v0, "1080P \u9ad8\u6e05"
+
+    goto :goto_5
+
+    .line 63
+    :sswitch_9
+    const-string v0, "720P \u9ad8\u6e05"
+
+    goto :goto_5
+
+    .line 65
+    :sswitch_c
+    const-string v0, "480P \u6e05\u6670"
+
+    goto :goto_5
+
+    .line 67
+    :sswitch_f
+    const-string v0, "360P \u6d41\u7545"
+
+    goto :goto_5
+
+    .line 59
+    :sswitch_data_12
+    .sparse-switch
+        0x10 -> :sswitch_f
+        0x20 -> :sswitch_c
+        0x40 -> :sswitch_9
+        0x50 -> :sswitch_6
+    .end sparse-switch
 .end method
 
 .method private static convertQualityToId(Ljava/lang/String;)I
@@ -58,15 +95,15 @@
     .prologue
     const/16 v0, 0x50
 
-    .line 213
+    .line 203
     if-nez p0, :cond_5
 
-    .line 227
+    .line 217
     :cond_4
     :goto_4
     return v0
 
-    .line 217
+    .line 207
     :cond_5
     const-string v1, "1080"
 
@@ -76,7 +113,7 @@
 
     if-nez v1, :cond_4
 
-    .line 219
+    .line 209
     const-string v1, "720"
 
     invoke-virtual {p0, v1}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
@@ -85,12 +122,12 @@
 
     if-eqz v1, :cond_18
 
-    .line 220
+    .line 210
     const/16 v0, 0x40
 
     goto :goto_4
 
-    .line 221
+    .line 211
     :cond_18
     const-string v1, "480"
 
@@ -100,12 +137,12 @@
 
     if-eqz v1, :cond_23
 
-    .line 222
+    .line 212
     const/16 v0, 0x20
 
     goto :goto_4
 
-    .line 223
+    .line 213
     :cond_23
     const-string v1, "360"
 
@@ -115,7 +152,7 @@
 
     if-eqz v1, :cond_4
 
-    .line 224
+    .line 214
     const/16 v0, 0x10
 
     goto :goto_4
@@ -125,21 +162,21 @@
     .locals 4
 
     .prologue
-    .line 253
+    .line 243
     const-wide/16 v0, 0x0
 
     cmp-long v0, p0, v0
 
     if-gtz v0, :cond_a
 
-    .line 254
+    .line 244
     const-wide/32 v0, 0x6400000
 
-    .line 260
+    .line 250
     :goto_9
     return-wide v0
 
-    .line 259
+    .line 249
     :cond_a
     const-wide/32 v0, 0x200000
 
@@ -157,7 +194,7 @@
 
     double-to-long v0, v0
 
-    .line 260
+    .line 250
     goto :goto_9
 .end method
 
@@ -169,14 +206,14 @@
 
     const/4 v6, 0x0
 
-    .line 267
+    .line 257
     const-wide/16 v0, 0x400
 
     cmp-long v0, p0, v0
 
     if-gez v0, :cond_1c
 
-    .line 268
+    .line 258
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -195,11 +232,11 @@
 
     move-result-object v0
 
-    .line 274
+    .line 264
     :goto_1b
     return-object v0
 
-    .line 269
+    .line 259
     :cond_1c
     const-wide/32 v0, 0x100000
 
@@ -207,7 +244,7 @@
 
     if-gez v0, :cond_36
 
-    .line 270
+    .line 260
     const-string v0, "%.1f KB"
 
     new-array v1, v2, [Ljava/lang/Object;
@@ -230,7 +267,7 @@
 
     goto :goto_1b
 
-    .line 271
+    .line 261
     :cond_36
     const-wide/32 v0, 0x40000000
 
@@ -238,7 +275,7 @@
 
     if-gez v0, :cond_50
 
-    .line 272
+    .line 262
     const-string v0, "%.1f MB"
 
     new-array v1, v2, [Ljava/lang/Object;
@@ -261,7 +298,7 @@
 
     goto :goto_1b
 
-    .line 274
+    .line 264
     :cond_50
     const-string v0, "%.2f GB"
 
@@ -290,7 +327,7 @@
     .locals 3
 
     .prologue
-    .line 283
+    .line 273
     const-string v0, "download_settings"
 
     const/4 v1, 0x0
@@ -299,7 +336,7 @@
 
     move-result-object v0
 
-    .line 284
+    .line 274
     const-string v1, "download_path"
 
     const-string v2, ""
@@ -308,7 +345,7 @@
 
     move-result-object v0
 
-    .line 286
+    .line 276
     if-eqz v0, :cond_17
 
     invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
@@ -317,11 +354,11 @@
 
     if-eqz v1, :cond_18
 
-    .line 288
+    .line 278
     :cond_17
     const/4 v0, 0x0
 
-    .line 291
+    .line 281
     :cond_18
     return-object v0
 .end method
@@ -330,7 +367,7 @@
     .locals 4
 
     .prologue
-    .line 299
+    .line 289
     const-string v0, "download_settings"
 
     const/4 v1, 0x0
@@ -339,7 +376,7 @@
 
     move-result-object v0
 
-    .line 300
+    .line 290
     const-string v1, "download_path"
 
     const-string v2, ""
@@ -348,7 +385,7 @@
 
     move-result-object v0
 
-    .line 302
+    .line 292
     if-eqz v0, :cond_17
 
     invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
@@ -357,11 +394,11 @@
 
     if-eqz v1, :cond_19
 
-    .line 304
+    .line 294
     :cond_17
     const/4 v0, 0x0
 
-    .line 308
+    .line 298
     :goto_18
     return-object v0
 
@@ -411,29 +448,29 @@
     .locals 4
 
     .prologue
-    .line 324
+    .line 314
     invoke-static {p0}, Lcom/bilibili/tv/ui/download/DownloadManager;->getInstance(Landroid/content/Context;)Lcom/bilibili/tv/ui/download/DownloadManager;
 
     move-result-object v0
 
-    .line 325
+    .line 315
     invoke-virtual {v0, p1, p2, p3}, Lcom/bilibili/tv/ui/download/DownloadManager;->getTaskByBvidAndCid(Ljava/lang/String;J)Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
     move-result-object v0
 
-    .line 327
+    .line 317
     if-nez v0, :cond_c
 
-    .line 328
+    .line 318
     const/4 v0, 0x0
 
-    .line 343
+    .line 333
     :goto_b
     return-object v0
 
-    .line 331
+    .line 321
     :cond_c
-    sget-object v1, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$5;->$SwitchMap$com$bilibili$tv$ui$download$model$DownloadTask$Status:[I
+    sget-object v1, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$3;->$SwitchMap$com$bilibili$tv$ui$download$model$DownloadTask$Status:[I
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getStatus()Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
@@ -447,18 +484,18 @@
 
     packed-switch v1, :pswitch_data_48
 
-    .line 343
+    .line 333
     const-string v0, "\u672a\u77e5\u72b6\u6001"
 
     goto :goto_b
 
-    .line 333
+    .line 323
     :pswitch_1e
     const-string v0, "\u7b49\u5f85\u4e2d"
 
     goto :goto_b
 
-    .line 335
+    .line 325
     :pswitch_21
     new-instance v1, Ljava/lang/StringBuilder;
 
@@ -490,25 +527,25 @@
 
     goto :goto_b
 
-    .line 337
+    .line 327
     :pswitch_3f
     const-string v0, "\u5df2\u6682\u505c"
 
     goto :goto_b
 
-    .line 339
+    .line 329
     :pswitch_42
     const-string v0, "\u5df2\u5b8c\u6210"
 
     goto :goto_b
 
-    .line 341
+    .line 331
     :pswitch_45
     const-string v0, "\u4e0b\u8f7d\u5931\u8d25"
 
     goto :goto_b
 
-    .line 331
+    .line 321
     :pswitch_data_48
     .packed-switch 0x1
         :pswitch_1e
@@ -523,17 +560,17 @@
     .locals 2
 
     .prologue
-    .line 315
+    .line 305
     invoke-static {p0}, Lcom/bilibili/tv/ui/download/DownloadManager;->getInstance(Landroid/content/Context;)Lcom/bilibili/tv/ui/download/DownloadManager;
 
     move-result-object v0
 
-    .line 316
+    .line 306
     invoke-virtual {v0, p1, p2, p3}, Lcom/bilibili/tv/ui/download/DownloadManager;->getTaskByBvidAndCid(Ljava/lang/String;J)Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
     move-result-object v0
 
-    .line 317
+    .line 307
     if-eqz v0, :cond_c
 
     const/4 v0, 0x1
@@ -547,8 +584,8 @@
     goto :goto_b
 .end method
 
-.method public static showDownloadDialog(Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/util/List;)V
-    .locals 19
+.method public static showDownloadDialog(Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/util/List;)V
+    .locals 16
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
@@ -556,6 +593,7 @@
             "J",
             "Ljava/lang/String;",
             "J",
+            "Ljava/lang/String;",
             "Ljava/lang/String;",
             "Ljava/lang/String;",
             "Ljava/lang/String;",
@@ -568,14 +606,14 @@
     .end annotation
 
     .prologue
-    .line 43
+    .line 44
     const-string v2, "VideoDetailDownloadHelper"
 
     new-instance v3, Ljava/lang/StringBuilder;
 
     invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v4, "\u663e\u793a\u4e0b\u8f7d\u5bf9\u8bdd\u6846: "
+    const-string v4, "\u76f4\u63a5\u5f00\u59cb\u4e0b\u8f7d(\u4f7f\u7528\u8bbe\u7f6e\u4e2d\u914d\u7f6e\u7684\u753b\u8d28): "
 
     invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -593,137 +631,53 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 46
-    if-eqz p11, :cond_22
+    .line 47
+    const-string v2, "download_settings"
 
-    invoke-interface/range {p11 .. p11}, Ljava/util/List;->isEmpty()Z
+    const/4 v3, 0x0
+
+    move-object/from16 v0, p0
+
+    invoke-virtual {v0, v2, v3}, Landroid/content/Context;->getSharedPreferences(Ljava/lang/String;I)Landroid/content/SharedPreferences;
+
+    move-result-object v2
+
+    .line 48
+    const-string v3, "quality"
+
+    const/16 v4, 0x50
+
+    invoke-interface {v2, v3, v4}, Landroid/content/SharedPreferences;->getInt(Ljava/lang/String;I)I
 
     move-result v2
 
-    if-eqz v2, :cond_38
-
-    .line 47
-    :cond_22
-    const/4 v2, 0x3
-
-    new-array v2, v2, [Ljava/lang/String;
-
-    const/4 v3, 0x0
-
-    const-string v4, "1080P"
-
-    aput-object v4, v2, v3
-
-    const/4 v3, 0x1
-
-    const-string v4, "720P"
-
-    aput-object v4, v2, v3
-
-    const/4 v3, 0x2
-
-    const-string v4, "480P"
-
-    aput-object v4, v2, v3
-
-    invoke-static {v2}, Ljava/util/Arrays;->asList([Ljava/lang/Object;)Ljava/util/List;
-
-    move-result-object p11
-
     .line 51
-    :cond_38
-    const/4 v2, 0x0
-
-    new-array v2, v2, [Ljava/lang/String;
-
-    move-object/from16 v0, p11
-
-    invoke-interface {v0, v2}, Ljava/util/List;->toArray([Ljava/lang/Object;)[Ljava/lang/Object;
+    invoke-static {v2}, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;->convertQualityIdToString(I)Ljava/lang/String;
 
     move-result-object v14
 
-    check-cast v14, [Ljava/lang/String;
+    move-object/from16 v2, p0
+
+    move-wide/from16 v3, p1
+
+    move-object/from16 v5, p3
+
+    move-wide/from16 v6, p4
+
+    move-object/from16 v8, p6
+
+    move-object/from16 v9, p7
+
+    move-object/from16 v10, p8
+
+    move-object/from16 v11, p9
+
+    move-wide/from16 v12, p10
 
     .line 52
-    const/4 v2, 0x1
+    invoke-static/range {v2 .. v14}, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;->startDownload(Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;)V
 
-    new-array v15, v2, [I
-
-    const/4 v2, 0x0
-
-    const/4 v3, 0x0
-
-    aput v3, v15, v2
-
-    .line 56
-    new-instance v16, Landroid/app/AlertDialog$Builder;
-
-    move-object/from16 v0, v16
-
-    move-object/from16 v1, p0
-
-    invoke-direct {v0, v1}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
-
-    .line 57
-    const-string v2, "\u9009\u62e9\u4e0b\u8f7d\u753b\u8d28"
-
-    move-object/from16 v0, v16
-
-    invoke-virtual {v0, v2}, Landroid/app/AlertDialog$Builder;->setTitle(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
-
-    .line 58
-    const/4 v2, 0x0
-
-    new-instance v3, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;
-
-    invoke-direct {v3, v15}, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;-><init>([I)V
-
-    move-object/from16 v0, v16
-
-    invoke-virtual {v0, v14, v2, v3}, Landroid/app/AlertDialog$Builder;->setSingleChoiceItems([Ljava/lang/CharSequence;ILandroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
-
-    .line 64
-    const-string v17, "\u5f00\u59cb\u4e0b\u8f7d"
-
-    new-instance v2, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;
-
-    move-object/from16 v3, p0
-
-    move-wide/from16 v4, p1
-
-    move-object/from16 v6, p3
-
-    move-wide/from16 v7, p4
-
-    move-object/from16 v9, p6
-
-    move-object/from16 v10, p7
-
-    move-object/from16 v11, p8
-
-    move-wide/from16 v12, p9
-
-    invoke-direct/range {v2 .. v15}, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;-><init>(Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;J[Ljava/lang/String;[I)V
-
-    move-object/from16 v0, v16
-
-    move-object/from16 v1, v17
-
-    invoke-virtual {v0, v1, v2}, Landroid/app/AlertDialog$Builder;->setPositiveButton(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
-
-    .line 81
-    const-string v2, "\u53d6\u6d88"
-
-    const/4 v3, 0x0
-
-    move-object/from16 v0, v16
-
-    invoke-virtual {v0, v2, v3}, Landroid/app/AlertDialog$Builder;->setNegativeButton(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
-
-    .line 82
-    invoke-virtual/range {v16 .. v16}, Landroid/app/AlertDialog$Builder;->show()Landroid/app/AlertDialog;
-
-    .line 83
+    .line 53
     return-void
 .end method
 
@@ -731,32 +685,32 @@
     .locals 2
 
     .prologue
-    .line 234
+    .line 224
     instance-of v0, p0, Landroid/app/Activity;
 
     if-eqz v0, :cond_f
 
     move-object v0, p0
 
-    .line 235
+    .line 225
     check-cast v0, Landroid/app/Activity;
 
-    new-instance v1, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$4;
+    new-instance v1, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;
 
-    invoke-direct {v1, p0, p1, p2}, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$4;-><init>(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)V
+    invoke-direct {v1, p0, p1, p2}, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;-><init>(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)V
 
     invoke-virtual {v0, v1}, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
 
-    .line 246
+    .line 236
     :cond_f
     return-void
 .end method
 
-.method private static startDownload(Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;)V
-    .locals 17
+.method private static startDownload(Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;)V
+    .locals 18
 
     .prologue
-    .line 99
+    .line 88
     const-string v2, "VideoDetailDownloadHelper"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -781,7 +735,7 @@
 
     move-result-object v3
 
-    move-object/from16 v0, p11
+    move-object/from16 v0, p12
 
     invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -793,12 +747,12 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 103
+    .line 92
     invoke-static/range {p0 .. p0}, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;->getDownloadBasePath(Landroid/content/Context;)Ljava/lang/String;
 
     move-result-object v2
 
-    .line 104
+    .line 93
     if-eqz v2, :cond_32
 
     invoke-virtual {v2}, Ljava/lang/String;->isEmpty()Z
@@ -807,7 +761,7 @@
 
     if-eqz v3, :cond_43
 
-    .line 105
+    .line 94
     :cond_32
     const-string v2, "VideoDetailDownloadHelper"
 
@@ -815,7 +769,7 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 106
+    .line 95
     const-string v2, "\u65e0\u6cd5\u4e0b\u8f7d"
 
     const-string v3, "\u8bf7\u5148\u5728\u8bbe\u7f6e\u4e2d\u914d\u7f6e\u4e0b\u8f7d\u4fdd\u5b58\u4f4d\u7f6e"
@@ -824,17 +778,17 @@
 
     invoke-static {v0, v2, v3}, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;->showErrorDialog(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 207
+    .line 197
     :goto_42
     return-void
 
-    .line 111
+    .line 100
     :cond_43
     new-instance v3, Ljava/io/File;
 
     invoke-direct {v3, v2}, Ljava/io/File;-><init>(Ljava/lang/String;)V
 
-    .line 112
+    .line 101
     invoke-virtual {v3}, Ljava/io/File;->exists()Z
 
     move-result v4
@@ -847,7 +801,7 @@
 
     if-nez v4, :cond_76
 
-    .line 113
+    .line 102
     :cond_54
     const-string v3, "VideoDetailDownloadHelper"
 
@@ -871,7 +825,7 @@
 
     invoke-static {v3, v2}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 114
+    .line 103
     const-string v2, "\u65e0\u6cd5\u4e0b\u8f7d"
 
     const-string v3, "\u5916\u63a5\u5b58\u50a8\u8bbe\u5907\u672a\u6302\u8f7d\u6216\u8def\u5f84\u65e0\u6548"
@@ -882,7 +836,7 @@
 
     goto :goto_42
 
-    .line 119
+    .line 108
     :cond_76
     invoke-virtual {v3}, Ljava/io/File;->canWrite()Z
 
@@ -890,7 +844,7 @@
 
     if-nez v4, :cond_9e
 
-    .line 120
+    .line 109
     const-string v3, "VideoDetailDownloadHelper"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -913,7 +867,7 @@
 
     invoke-static {v3, v2}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 121
+    .line 110
     const-string v2, "\u65e0\u6cd5\u4e0b\u8f7d"
 
     const-string v3, "\u5b58\u50a8\u8bbe\u5907\u4e0d\u53ef\u5199\uff0c\u8bf7\u68c0\u67e5\u6743\u9650"
@@ -924,23 +878,23 @@
 
     goto :goto_42
 
-    .line 126
+    .line 115
     :cond_9e
-    invoke-static/range {p9 .. p10}, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;->estimateFileSize(J)J
+    invoke-static/range {p10 .. p11}, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;->estimateFileSize(J)J
 
     move-result-wide v4
 
-    .line 127
+    .line 116
     invoke-virtual {v3}, Ljava/io/File;->getUsableSpace()J
 
     move-result-wide v6
 
-    .line 128
+    .line 117
     cmp-long v3, v6, v4
 
     if-gez v3, :cond_fa
 
-    .line 129
+    .line 118
     const-string v2, "VideoDetailDownloadHelper"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -973,7 +927,7 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 130
+    .line 119
     const-string v2, "\u5b58\u50a8\u7a7a\u95f4\u4e0d\u8db3"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -986,7 +940,7 @@
 
     move-result-object v3
 
-    .line 131
+    .line 120
     invoke-static {v4, v5}, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;->formatFileSize(J)Ljava/lang/String;
 
     move-result-object v4
@@ -1013,14 +967,14 @@
 
     move-result-object v3
 
-    .line 130
+    .line 119
     move-object/from16 v0, p0
 
     invoke-static {v0, v2, v3}, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;->showErrorDialog(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)V
 
     goto/16 :goto_42
 
-    .line 135
+    .line 124
     :cond_fa
     const-string v3, "VideoDetailDownloadHelper"
 
@@ -1058,35 +1012,39 @@
 
     invoke-static {v3, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 139
-    new-instance v2, Ljava/lang/Thread;
+    .line 128
+    new-instance v16, Ljava/lang/Thread;
 
-    new-instance v3, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$3;
+    new-instance v2, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;
 
-    move-object/from16 v4, p11
+    move-object/from16 v3, p12
 
-    move-object/from16 v5, p0
+    move-object/from16 v4, p0
 
-    move-wide/from16 v6, p1
+    move-wide/from16 v5, p1
 
-    move-object/from16 v8, p3
+    move-object/from16 v7, p3
 
-    move-wide/from16 v9, p4
+    move-wide/from16 v8, p4
 
-    move-object/from16 v11, p6
+    move-object/from16 v10, p6
 
-    move-object/from16 v12, p7
+    move-object/from16 v11, p7
 
-    move-object/from16 v13, p8
+    move-object/from16 v12, p8
 
-    move-wide/from16 v14, p9
+    move-object/from16 v13, p9
 
-    invoke-direct/range {v3 .. v15}, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$3;-><init>(Ljava/lang/String;Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;J)V
+    move-wide/from16 v14, p10
 
-    invoke-direct {v2, v3}, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;)V
+    invoke-direct/range {v2 .. v15}, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;-><init>(Ljava/lang/String;Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;J)V
 
-    .line 206
-    invoke-virtual {v2}, Ljava/lang/Thread;->start()V
+    move-object/from16 v0, v16
+
+    invoke-direct {v0, v2}, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;)V
+
+    .line 196
+    invoke-virtual/range {v16 .. v16}, Ljava/lang/Thread;->start()V
 
     goto/16 :goto_42
 .end method

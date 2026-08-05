@@ -2679,6 +2679,16 @@ public final class R {
         public static final int file_size_text = 0x7f08023e;
         public static final int speed_text = 0x7f08023f;
         public static final int status_text = 0x7f080240;
+        public static final int download_path_button = 0x7f080244;
+        public static final int download_path_text = 0x7f080245;
+        public static final int quality_1080p_button = 0x7f080246;
+        public static final int quality_720p_button = 0x7f080247;
+        public static final int quality_480p_button = 0x7f080248;
+        public static final int audio_high_button = 0x7f080249;
+        public static final int audio_normal_button = 0x7f08024a;
+        public static final int codec_avc_button = 0x7f08024b;
+        public static final int codec_hevc_button = 0x7f08024c;
+        public static final int download_path_detail = 0x7f08024d;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;
@@ -2868,6 +2878,7 @@ public final class R {
         public static final int activity_download_manager = 0x7f0a00ae;
         public static final int fragment_download_list = 0x7f0a00af;
         public static final int item_download_task = 0x7f0a00b0;
+        public static final int fragment_download_settings = 0x7f0a00b1;
     }
 
     public static final class mipmap {

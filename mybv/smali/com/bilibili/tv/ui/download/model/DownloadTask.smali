@@ -72,6 +72,8 @@
 
 .field private status:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
+.field private subTitle:Ljava/lang/String;
+
 .field private taskId:Ljava/lang/String;
 
 .field private title:Ljava/lang/String;
@@ -90,39 +92,39 @@
     .locals 2
 
     .prologue
-    .line 128
+    .line 129
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 129
+    .line 130
     sget-object v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->WAITING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->status:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
-    .line 130
+    .line 131
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->isManualPause:Z
 
-    .line 131
+    .line 132
     sget-object v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->NONE:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->pauseType:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
-
-    .line 132
-    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
-
-    move-result-wide v0
-
-    iput-wide v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->createTime:J
 
     .line 133
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v0
 
-    iput-wide v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->updateTime:J
+    iput-wide v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->createTime:J
 
     .line 134
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+
+    move-result-wide v0
+
+    iput-wide v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->updateTime:J
+
+    .line 135
     return-void
 .end method
 
@@ -132,28 +134,28 @@
     .prologue
     const-wide/16 v2, 0x3c
 
-    .line 430
+    .line 439
     const-wide/16 v0, 0x0
 
     cmp-long v0, p0, v0
 
     if-gtz v0, :cond_b
 
-    .line 431
+    .line 440
     const-string v0, "00:00"
 
-    .line 435
+    .line 444
     :goto_a
     return-object v0
 
-    .line 433
+    .line 442
     :cond_b
     div-long v0, p0, v2
 
-    .line 434
+    .line 443
     rem-long v2, p0, v2
 
-    .line 435
+    .line 444
     const-string v4, "%02d:%02d"
 
     const/4 v5, 0x2
@@ -191,14 +193,14 @@
 
     const/4 v6, 0x0
 
-    .line 408
+    .line 417
     const-wide/16 v0, 0x400
 
     cmp-long v0, p0, v0
 
     if-gez v0, :cond_1c
 
-    .line 409
+    .line 418
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -217,11 +219,11 @@
 
     move-result-object v0
 
-    .line 415
+    .line 424
     :goto_1b
     return-object v0
 
-    .line 410
+    .line 419
     :cond_1c
     const-wide/32 v0, 0x100000
 
@@ -229,7 +231,7 @@
 
     if-gez v0, :cond_36
 
-    .line 411
+    .line 420
     const-string v0, "%.1f KB"
 
     new-array v1, v2, [Ljava/lang/Object;
@@ -252,7 +254,7 @@
 
     goto :goto_1b
 
-    .line 412
+    .line 421
     :cond_36
     const-wide/32 v0, 0x40000000
 
@@ -260,7 +262,7 @@
 
     if-gez v0, :cond_50
 
-    .line 413
+    .line 422
     const-string v0, "%.1f MB"
 
     new-array v1, v2, [Ljava/lang/Object;
@@ -283,7 +285,7 @@
 
     goto :goto_1b
 
-    .line 415
+    .line 424
     :cond_50
     const-string v0, "%.2f GB"
 
@@ -316,12 +318,12 @@
 
     const/4 v4, -0x1
 
-    .line 476
+    .line 492
     new-instance v1, Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
     invoke-direct {v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;-><init>()V
 
-    .line 477
+    .line 493
     const-string v2, "task_id"
 
     invoke-interface {p0, v2}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -334,7 +336,7 @@
 
     invoke-virtual {v1, v2}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setTaskId(Ljava/lang/String;)V
 
-    .line 478
+    .line 494
     const-string v2, "bvid"
 
     invoke-interface {p0, v2}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -347,7 +349,7 @@
 
     invoke-virtual {v1, v2}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setBvid(Ljava/lang/String;)V
 
-    .line 479
+    .line 495
     const-string v2, "cid"
 
     invoke-interface {p0, v2}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -360,7 +362,7 @@
 
     invoke-virtual {v1, v2, v3}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setCid(J)V
 
-    .line 480
+    .line 496
     const-string v2, "title"
 
     invoke-interface {p0, v2}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -373,7 +375,7 @@
 
     invoke-virtual {v1, v2}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setTitle(Ljava/lang/String;)V
 
-    .line 481
+    .line 497
     const-string v2, "cover_url"
 
     invoke-interface {p0, v2}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -386,7 +388,31 @@
 
     invoke-virtual {v1, v2}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setCoverUrl(Ljava/lang/String;)V
 
-    .line 482
+    .line 500
+    const-string v2, "subtitle"
+
+    invoke-interface {p0, v2}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
+
+    move-result v2
+
+    .line 501
+    if-eq v2, v4, :cond_5d
+
+    invoke-interface {p0, v2}, Landroid/database/Cursor;->isNull(I)Z
+
+    move-result v3
+
+    if-nez v3, :cond_5d
+
+    .line 502
+    invoke-interface {p0, v2}, Landroid/database/Cursor;->getString(I)Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v1, v2}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setSubTitle(Ljava/lang/String;)V
+
+    .line 505
+    :cond_5d
     const-string v2, "up_name"
 
     invoke-interface {p0, v2}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -399,7 +425,7 @@
 
     invoke-virtual {v1, v2}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setUpName(Ljava/lang/String;)V
 
-    .line 483
+    .line 506
     const-string v2, "duration"
 
     invoke-interface {p0, v2}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -412,7 +438,7 @@
 
     invoke-virtual {v1, v2, v3}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setDuration(J)V
 
-    .line 484
+    .line 507
     const-string v2, "total_size"
 
     invoke-interface {p0, v2}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -425,7 +451,7 @@
 
     invoke-virtual {v1, v2, v3}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setTotalSize(J)V
 
-    .line 485
+    .line 508
     const-string v2, "downloaded_size"
 
     invoke-interface {p0, v2}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -438,7 +464,7 @@
 
     invoke-virtual {v1, v2, v3}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setDownloadedSize(J)V
 
-    .line 486
+    .line 509
     const-string v2, "progress"
 
     invoke-interface {p0, v2}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -451,7 +477,7 @@
 
     invoke-virtual {v1, v2}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setProgress(I)V
 
-    .line 487
+    .line 510
     const-string v2, "speed"
 
     invoke-interface {p0, v2}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -464,7 +490,7 @@
 
     invoke-virtual {v1, v2, v3}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setSpeed(J)V
 
-    .line 488
+    .line 511
     const-string v2, "download_path"
 
     invoke-interface {p0, v2}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -477,38 +503,14 @@
 
     invoke-virtual {v1, v2}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setDownloadPath(Ljava/lang/String;)V
 
-    .line 491
+    .line 514
     const-string v2, "video_url"
 
     invoke-interface {p0, v2}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
 
     move-result v2
 
-    .line 492
-    if-eq v2, v4, :cond_b8
-
-    invoke-interface {p0, v2}, Landroid/database/Cursor;->isNull(I)Z
-
-    move-result v3
-
-    if-nez v3, :cond_b8
-
-    .line 493
-    invoke-interface {p0, v2}, Landroid/database/Cursor;->getString(I)Ljava/lang/String;
-
-    move-result-object v2
-
-    invoke-virtual {v1, v2}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setVideoUrl(Ljava/lang/String;)V
-
-    .line 496
-    :cond_b8
-    const-string v2, "avid"
-
-    invoke-interface {p0, v2}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
-
-    move-result v2
-
-    .line 497
+    .line 515
     if-eq v2, v4, :cond_cd
 
     invoke-interface {p0, v2}, Landroid/database/Cursor;->isNull(I)Z
@@ -517,15 +519,39 @@
 
     if-nez v3, :cond_cd
 
-    .line 498
+    .line 516
+    invoke-interface {p0, v2}, Landroid/database/Cursor;->getString(I)Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v1, v2}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setVideoUrl(Ljava/lang/String;)V
+
+    .line 519
+    :cond_cd
+    const-string v2, "avid"
+
+    invoke-interface {p0, v2}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
+
+    move-result v2
+
+    .line 520
+    if-eq v2, v4, :cond_e2
+
+    invoke-interface {p0, v2}, Landroid/database/Cursor;->isNull(I)Z
+
+    move-result v3
+
+    if-nez v3, :cond_e2
+
+    .line 521
     invoke-interface {p0, v2}, Landroid/database/Cursor;->getLong(I)J
 
     move-result-wide v2
 
     invoke-virtual {v1, v2, v3}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setAvid(J)V
 
-    .line 501
-    :cond_cd
+    .line 524
+    :cond_e2
     const-string v2, "status"
 
     invoke-interface {p0, v2}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -542,7 +568,7 @@
 
     invoke-virtual {v1, v2}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setStatus(Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;)V
 
-    .line 502
+    .line 525
     const-string v2, "is_manual_pause"
 
     invoke-interface {p0, v2}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -553,12 +579,12 @@
 
     move-result v2
 
-    if-ne v2, v0, :cond_18e
+    if-ne v2, v0, :cond_1a3
 
-    :goto_ea
+    :goto_ff
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setManualPause(Z)V
 
-    .line 503
+    .line 526
     const-string v0, "pause_type"
 
     invoke-interface {p0, v0}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -575,7 +601,7 @@
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setPauseType(Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;)V
 
-    .line 504
+    .line 527
     const-string v0, "create_time"
 
     invoke-interface {p0, v0}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -588,7 +614,7 @@
 
     invoke-virtual {v1, v2, v3}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setCreateTime(J)V
 
-    .line 505
+    .line 528
     const-string v0, "update_time"
 
     invoke-interface {p0, v0}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -601,7 +627,7 @@
 
     invoke-virtual {v1, v2, v3}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setUpdateTime(J)V
 
-    .line 506
+    .line 529
     const-string v0, "start_time"
 
     invoke-interface {p0, v0}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -614,7 +640,7 @@
 
     invoke-virtual {v1, v2, v3}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setStartTime(J)V
 
-    .line 507
+    .line 530
     const-string v0, "end_time"
 
     invoke-interface {p0, v0}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -627,7 +653,7 @@
 
     invoke-virtual {v1, v2, v3}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setEndTime(J)V
 
-    .line 508
+    .line 531
     const-string v0, "quality"
 
     invoke-interface {p0, v0}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -640,7 +666,7 @@
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setQuality(I)V
 
-    .line 509
+    .line 532
     const-string v0, "quality_name"
 
     invoke-interface {p0, v0}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -653,7 +679,7 @@
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setQualityName(Ljava/lang/String;)V
 
-    .line 510
+    .line 533
     const-string v0, "audio_quality"
 
     invoke-interface {p0, v0}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -666,7 +692,7 @@
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setAudioQuality(I)V
 
-    .line 511
+    .line 534
     const-string v0, "audio_quality_name"
 
     invoke-interface {p0, v0}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -679,7 +705,7 @@
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setAudioQualityName(Ljava/lang/String;)V
 
-    .line 512
+    .line 535
     const-string v0, "codec"
 
     invoke-interface {p0, v0}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -692,7 +718,7 @@
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setCodec(Ljava/lang/String;)V
 
-    .line 513
+    .line 536
     const-string v0, "error_code"
 
     invoke-interface {p0, v0}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -705,7 +731,7 @@
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setErrorCode(I)V
 
-    .line 514
+    .line 537
     const-string v0, "error_message"
 
     invoke-interface {p0, v0}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -718,21 +744,21 @@
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setErrorMessage(Ljava/lang/String;)V
 
-    .line 515
+    .line 538
     return-object v1
 
-    .line 502
-    :cond_18e
+    .line 525
+    :cond_1a3
     const/4 v0, 0x0
 
-    goto/16 :goto_ea
+    goto/16 :goto_ff
 .end method
 
 .method public static generateTaskId(Ljava/lang/String;J)Ljava/lang/String;
     .locals 3
 
     .prologue
-    .line 380
+    .line 389
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -764,15 +790,15 @@
     .prologue
     const/16 v0, 0x64
 
-    .line 618
+    .line 643
     if-nez p1, :cond_5
 
-    .line 634
+    .line 659
     :goto_4
     :pswitch_4
     return v0
 
-    .line 622
+    .line 647
     :cond_5
     sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$1;->$SwitchMap$com$bilibili$tv$ui$download$model$DownloadTask$Status:[I
 
@@ -786,31 +812,31 @@
 
     goto :goto_4
 
-    .line 624
+    .line 649
     :pswitch_11
     const/4 v0, 0x1
 
     goto :goto_4
 
-    .line 626
+    .line 651
     :pswitch_13
     const/16 v0, 0x32
 
     goto :goto_4
 
-    .line 628
+    .line 653
     :pswitch_16
     const/16 v0, 0xa
 
     goto :goto_4
 
-    .line 630
+    .line 655
     :pswitch_19
     const/16 v0, 0x14
 
     goto :goto_4
 
-    .line 622
+    .line 647
     :pswitch_data_1c
     .packed-switch 0x1
         :pswitch_11
@@ -827,17 +853,17 @@
     .locals 4
 
     .prologue
-    .line 596
+    .line 621
     if-nez p1, :cond_4
 
-    .line 597
+    .line 622
     const/4 v0, 0x1
 
-    .line 610
+    .line 635
     :goto_3
     return v0
 
-    .line 601
+    .line 626
     :cond_4
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->status:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
@@ -845,22 +871,22 @@
 
     move-result v0
 
-    .line 602
+    .line 627
     iget-object v1, p1, Lcom/bilibili/tv/ui/download/model/DownloadTask;->status:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
     invoke-direct {p0, v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getStatusPriority(Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;)I
 
     move-result v1
 
-    .line 605
+    .line 630
     if-eq v0, v1, :cond_14
 
-    .line 606
+    .line 631
     sub-int/2addr v0, v1
 
     goto :goto_3
 
-    .line 610
+    .line 635
     :cond_14
     iget-wide v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->createTime:J
 
@@ -891,7 +917,7 @@
     .locals 1
 
     .prologue
-    .line 335
+    .line 344
     iget v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->audioQuality:I
 
     return v0
@@ -901,7 +927,7 @@
     .locals 1
 
     .prologue
-    .line 343
+    .line 352
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->audioQualityName:Ljava/lang/String;
 
     return-object v0
@@ -911,7 +937,7 @@
     .locals 2
 
     .prologue
-    .line 247
+    .line 256
     iget-wide v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->avid:J
 
     return-wide v0
@@ -921,7 +947,7 @@
     .locals 1
 
     .prologue
-    .line 147
+    .line 148
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->bvid:Ljava/lang/String;
 
     return-object v0
@@ -931,7 +957,7 @@
     .locals 2
 
     .prologue
-    .line 155
+    .line 156
     iget-wide v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->cid:J
 
     return-wide v0
@@ -941,7 +967,7 @@
     .locals 1
 
     .prologue
-    .line 351
+    .line 360
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->codec:Ljava/lang/String;
 
     return-object v0
@@ -951,7 +977,7 @@
     .locals 1
 
     .prologue
-    .line 171
+    .line 180
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->coverUrl:Ljava/lang/String;
 
     return-object v0
@@ -961,7 +987,7 @@
     .locals 2
 
     .prologue
-    .line 287
+    .line 296
     iget-wide v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->createTime:J
 
     return-wide v0
@@ -971,7 +997,7 @@
     .locals 1
 
     .prologue
-    .line 231
+    .line 240
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->downloadPath:Ljava/lang/String;
 
     return-object v0
@@ -981,7 +1007,7 @@
     .locals 2
 
     .prologue
-    .line 203
+    .line 212
     iget-wide v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->downloadedSize:J
 
     return-wide v0
@@ -991,7 +1017,7 @@
     .locals 2
 
     .prologue
-    .line 187
+    .line 196
     iget-wide v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->duration:J
 
     return-wide v0
@@ -1001,7 +1027,7 @@
     .locals 2
 
     .prologue
-    .line 311
+    .line 320
     iget-wide v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->endTime:J
 
     return-wide v0
@@ -1011,7 +1037,7 @@
     .locals 1
 
     .prologue
-    .line 359
+    .line 368
     iget v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->errorCode:I
 
     return v0
@@ -1021,7 +1047,7 @@
     .locals 1
 
     .prologue
-    .line 367
+    .line 376
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->errorMessage:Ljava/lang/String;
 
     return-object v0
@@ -1031,7 +1057,7 @@
     .locals 2
 
     .prologue
-    .line 394
+    .line 403
     iget-wide v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->downloadedSize:J
 
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->formatFileSize(J)Ljava/lang/String;
@@ -1045,7 +1071,7 @@
     .locals 2
 
     .prologue
-    .line 423
+    .line 432
     iget-wide v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->duration:J
 
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->formatDuration(J)Ljava/lang/String;
@@ -1056,53 +1082,66 @@
 .end method
 
 .method public getFormattedRemainingTime()Ljava/lang/String;
-    .locals 10
+    .locals 12
 
     .prologue
+    const-wide/16 v10, 0x0
+
     const/4 v9, 0x1
 
     const/4 v8, 0x0
 
     const-wide/16 v6, 0x3c
 
-    .line 453
+    .line 466
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getRemainingTime()J
 
     move-result-wide v0
 
-    .line 454
+    .line 467
     const-wide v2, 0x7fffffffffffffffL
 
     cmp-long v2, v0, v2
 
-    if-nez v2, :cond_14
+    if-nez v2, :cond_16
 
-    .line 455
+    .line 468
     const-string v0, "\u8ba1\u7b97\u4e2d..."
 
-    .line 466
-    :goto_13
+    .line 482
+    :goto_15
     return-object v0
 
-    .line 457
-    :cond_14
+    .line 470
+    :cond_16
+    cmp-long v2, v0, v10
+
+    if-gtz v2, :cond_1d
+
+    .line 471
+    const-string v0, "\u5373\u5c06\u5b8c\u6210"
+
+    goto :goto_15
+
+    .line 473
+    :cond_1d
     div-long v2, v0, v6
 
-    .line 458
+    .line 474
     rem-long/2addr v0, v6
 
-    .line 459
+    .line 475
     cmp-long v4, v2, v6
 
-    if-lez v4, :cond_34
+    if-lez v4, :cond_3d
 
-    .line 460
+    .line 476
     div-long v0, v2, v6
 
-    .line 461
+    .line 477
     rem-long/2addr v2, v6
 
-    .line 462
+    .line 478
     const-string v4, "%d\u5c0f\u65f6%d\u5206\u949f"
 
     const/4 v5, 0x2
@@ -1125,17 +1164,15 @@
 
     move-result-object v0
 
-    goto :goto_13
+    goto :goto_15
 
-    .line 463
-    :cond_34
-    const-wide/16 v4, 0x0
+    .line 479
+    :cond_3d
+    cmp-long v4, v2, v10
 
-    cmp-long v4, v2, v4
+    if-lez v4, :cond_50
 
-    if-lez v4, :cond_49
-
-    .line 464
+    .line 480
     const-string v0, "%d\u5206\u949f"
 
     new-array v1, v9, [Ljava/lang/Object;
@@ -1150,10 +1187,10 @@
 
     move-result-object v0
 
-    goto :goto_13
+    goto :goto_15
 
-    .line 466
-    :cond_49
+    .line 482
+    :cond_50
     const-string v2, "%d\u79d2"
 
     new-array v3, v9, [Ljava/lang/Object;
@@ -1168,14 +1205,14 @@
 
     move-result-object v0
 
-    goto :goto_13
+    goto :goto_15
 .end method
 
 .method public getFormattedSize()Ljava/lang/String;
     .locals 2
 
     .prologue
-    .line 387
+    .line 396
     iget-wide v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->totalSize:J
 
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->formatFileSize(J)Ljava/lang/String;
@@ -1189,7 +1226,7 @@
     .locals 4
 
     .prologue
-    .line 401
+    .line 410
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -1221,7 +1258,7 @@
     .locals 1
 
     .prologue
-    .line 279
+    .line 288
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->pauseType:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
 
     return-object v0
@@ -1231,7 +1268,7 @@
     .locals 1
 
     .prologue
-    .line 215
+    .line 224
     iget v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->progress:I
 
     return v0
@@ -1241,7 +1278,7 @@
     .locals 1
 
     .prologue
-    .line 319
+    .line 328
     iget v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->quality:I
 
     return v0
@@ -1251,44 +1288,50 @@
     .locals 1
 
     .prologue
-    .line 327
+    .line 336
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->qualityName:Ljava/lang/String;
 
     return-object v0
 .end method
 
 .method public getRemainingTime()J
-    .locals 4
+    .locals 6
 
     .prologue
-    .line 442
-    iget-wide v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->speed:J
+    const-wide/16 v0, 0x0
 
-    const-wide/16 v2, 0x0
+    .line 451
+    iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->speed:J
 
-    cmp-long v0, v0, v2
+    cmp-long v2, v2, v0
 
-    if-gtz v0, :cond_e
+    if-gtz v2, :cond_e
 
-    .line 443
+    .line 452
     const-wide v0, 0x7fffffffffffffffL
 
-    .line 446
+    .line 459
+    :cond_d
     :goto_d
     return-wide v0
 
-    .line 445
+    .line 454
     :cond_e
-    iget-wide v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->totalSize:J
+    iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->totalSize:J
 
-    iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->downloadedSize:J
+    iget-wide v4, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->downloadedSize:J
 
-    sub-long/2addr v0, v2
+    sub-long/2addr v2, v4
 
-    .line 446
-    iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->speed:J
+    .line 456
+    cmp-long v4, v2, v0
 
-    div-long/2addr v0, v2
+    if-lez v4, :cond_d
+
+    .line 459
+    iget-wide v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->speed:J
+
+    div-long v0, v2, v0
 
     goto :goto_d
 .end method
@@ -1297,7 +1340,7 @@
     .locals 1
 
     .prologue
-    .line 255
+    .line 264
     iget v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->segmentCount:I
 
     return v0
@@ -1307,7 +1350,7 @@
     .locals 2
 
     .prologue
-    .line 223
+    .line 232
     iget-wide v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->speed:J
 
     return-wide v0
@@ -1317,7 +1360,7 @@
     .locals 2
 
     .prologue
-    .line 303
+    .line 312
     iget-wide v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->startTime:J
 
     return-wide v0
@@ -1327,8 +1370,18 @@
     .locals 1
 
     .prologue
-    .line 263
+    .line 272
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->status:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+
+    return-object v0
+.end method
+
+.method public getSubTitle()Ljava/lang/String;
+    .locals 1
+
+    .prologue
+    .line 172
+    iget-object v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->subTitle:Ljava/lang/String;
 
     return-object v0
 .end method
@@ -1337,7 +1390,7 @@
     .locals 1
 
     .prologue
-    .line 139
+    .line 140
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->taskId:Ljava/lang/String;
 
     return-object v0
@@ -1347,7 +1400,7 @@
     .locals 1
 
     .prologue
-    .line 163
+    .line 164
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->title:Ljava/lang/String;
 
     return-object v0
@@ -1357,7 +1410,7 @@
     .locals 2
 
     .prologue
-    .line 195
+    .line 204
     iget-wide v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->totalSize:J
 
     return-wide v0
@@ -1367,7 +1420,7 @@
     .locals 1
 
     .prologue
-    .line 179
+    .line 188
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->upName:Ljava/lang/String;
 
     return-object v0
@@ -1377,7 +1430,7 @@
     .locals 2
 
     .prologue
-    .line 295
+    .line 304
     iget-wide v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->updateTime:J
 
     return-wide v0
@@ -1387,7 +1440,7 @@
     .locals 1
 
     .prologue
-    .line 239
+    .line 248
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->videoUrl:Ljava/lang/String;
 
     return-object v0
@@ -1397,7 +1450,7 @@
     .locals 1
 
     .prologue
-    .line 271
+    .line 280
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->isManualPause:Z
 
     return v0
@@ -1407,10 +1460,10 @@
     .locals 0
 
     .prologue
-    .line 339
+    .line 348
     iput p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->audioQuality:I
 
-    .line 340
+    .line 349
     return-void
 .end method
 
@@ -1418,10 +1471,10 @@
     .locals 0
 
     .prologue
-    .line 347
+    .line 356
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->audioQualityName:Ljava/lang/String;
 
-    .line 348
+    .line 357
     return-void
 .end method
 
@@ -1429,10 +1482,10 @@
     .locals 1
 
     .prologue
-    .line 251
+    .line 260
     iput-wide p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->avid:J
 
-    .line 252
+    .line 261
     return-void
 .end method
 
@@ -1440,10 +1493,10 @@
     .locals 0
 
     .prologue
-    .line 151
+    .line 152
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->bvid:Ljava/lang/String;
 
-    .line 152
+    .line 153
     return-void
 .end method
 
@@ -1451,10 +1504,10 @@
     .locals 1
 
     .prologue
-    .line 159
+    .line 160
     iput-wide p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->cid:J
 
-    .line 160
+    .line 161
     return-void
 .end method
 
@@ -1462,10 +1515,10 @@
     .locals 0
 
     .prologue
-    .line 355
+    .line 364
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->codec:Ljava/lang/String;
 
-    .line 356
+    .line 365
     return-void
 .end method
 
@@ -1473,10 +1526,10 @@
     .locals 0
 
     .prologue
-    .line 175
+    .line 184
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->coverUrl:Ljava/lang/String;
 
-    .line 176
+    .line 185
     return-void
 .end method
 
@@ -1484,10 +1537,10 @@
     .locals 1
 
     .prologue
-    .line 291
+    .line 300
     iput-wide p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->createTime:J
 
-    .line 292
+    .line 301
     return-void
 .end method
 
@@ -1495,10 +1548,10 @@
     .locals 0
 
     .prologue
-    .line 235
+    .line 244
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->downloadPath:Ljava/lang/String;
 
-    .line 236
+    .line 245
     return-void
 .end method
 
@@ -1506,10 +1559,10 @@
     .locals 5
 
     .prologue
-    .line 207
+    .line 216
     iput-wide p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->downloadedSize:J
 
-    .line 209
+    .line 218
     iget-wide v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->totalSize:J
 
     const-wide/16 v2, 0x0
@@ -1518,7 +1571,7 @@
 
     if-lez v0, :cond_13
 
-    .line 210
+    .line 219
     const-wide/16 v0, 0x64
 
     mul-long/2addr v0, p1
@@ -1531,7 +1584,7 @@
 
     iput v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->progress:I
 
-    .line 212
+    .line 221
     :cond_13
     return-void
 .end method
@@ -1540,10 +1593,10 @@
     .locals 1
 
     .prologue
-    .line 191
+    .line 200
     iput-wide p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->duration:J
 
-    .line 192
+    .line 201
     return-void
 .end method
 
@@ -1551,10 +1604,10 @@
     .locals 1
 
     .prologue
-    .line 315
+    .line 324
     iput-wide p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->endTime:J
 
-    .line 316
+    .line 325
     return-void
 .end method
 
@@ -1562,10 +1615,10 @@
     .locals 0
 
     .prologue
-    .line 363
+    .line 372
     iput p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->errorCode:I
 
-    .line 364
+    .line 373
     return-void
 .end method
 
@@ -1573,10 +1626,10 @@
     .locals 0
 
     .prologue
-    .line 371
+    .line 380
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->errorMessage:Ljava/lang/String;
 
-    .line 372
+    .line 381
     return-void
 .end method
 
@@ -1584,10 +1637,10 @@
     .locals 0
 
     .prologue
-    .line 275
+    .line 284
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->isManualPause:Z
 
-    .line 276
+    .line 285
     return-void
 .end method
 
@@ -1595,10 +1648,10 @@
     .locals 0
 
     .prologue
-    .line 283
+    .line 292
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->pauseType:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
 
-    .line 284
+    .line 293
     return-void
 .end method
 
@@ -1606,10 +1659,10 @@
     .locals 0
 
     .prologue
-    .line 219
+    .line 228
     iput p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->progress:I
 
-    .line 220
+    .line 229
     return-void
 .end method
 
@@ -1617,10 +1670,10 @@
     .locals 0
 
     .prologue
-    .line 323
+    .line 332
     iput p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->quality:I
 
-    .line 324
+    .line 333
     return-void
 .end method
 
@@ -1628,10 +1681,10 @@
     .locals 0
 
     .prologue
-    .line 331
+    .line 340
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->qualityName:Ljava/lang/String;
 
-    .line 332
+    .line 341
     return-void
 .end method
 
@@ -1639,10 +1692,10 @@
     .locals 0
 
     .prologue
-    .line 259
+    .line 268
     iput p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->segmentCount:I
 
-    .line 260
+    .line 269
     return-void
 .end method
 
@@ -1650,10 +1703,10 @@
     .locals 1
 
     .prologue
-    .line 227
+    .line 236
     iput-wide p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->speed:J
 
-    .line 228
+    .line 237
     return-void
 .end method
 
@@ -1661,10 +1714,10 @@
     .locals 1
 
     .prologue
-    .line 307
+    .line 316
     iput-wide p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->startTime:J
 
-    .line 308
+    .line 317
     return-void
 .end method
 
@@ -1672,10 +1725,21 @@
     .locals 0
 
     .prologue
-    .line 267
+    .line 276
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->status:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
-    .line 268
+    .line 277
+    return-void
+.end method
+
+.method public setSubTitle(Ljava/lang/String;)V
+    .locals 0
+
+    .prologue
+    .line 176
+    iput-object p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->subTitle:Ljava/lang/String;
+
+    .line 177
     return-void
 .end method
 
@@ -1683,10 +1747,10 @@
     .locals 0
 
     .prologue
-    .line 143
+    .line 144
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->taskId:Ljava/lang/String;
 
-    .line 144
+    .line 145
     return-void
 .end method
 
@@ -1694,10 +1758,10 @@
     .locals 0
 
     .prologue
-    .line 167
+    .line 168
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->title:Ljava/lang/String;
 
-    .line 168
+    .line 169
     return-void
 .end method
 
@@ -1705,10 +1769,10 @@
     .locals 1
 
     .prologue
-    .line 199
+    .line 208
     iput-wide p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->totalSize:J
 
-    .line 200
+    .line 209
     return-void
 .end method
 
@@ -1716,10 +1780,10 @@
     .locals 0
 
     .prologue
-    .line 183
+    .line 192
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->upName:Ljava/lang/String;
 
-    .line 184
+    .line 193
     return-void
 .end method
 
@@ -1727,10 +1791,10 @@
     .locals 1
 
     .prologue
-    .line 299
+    .line 308
     iput-wide p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->updateTime:J
 
-    .line 300
+    .line 309
     return-void
 .end method
 
@@ -1738,10 +1802,10 @@
     .locals 0
 
     .prologue
-    .line 243
+    .line 252
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->videoUrl:Ljava/lang/String;
 
-    .line 244
+    .line 253
     return-void
 .end method
 
@@ -1749,26 +1813,26 @@
     .locals 4
 
     .prologue
-    .line 522
+    .line 545
     new-instance v1, Landroid/content/ContentValues;
 
     invoke-direct {v1}, Landroid/content/ContentValues;-><init>()V
 
-    .line 523
+    .line 546
     const-string v0, "task_id"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->taskId:Ljava/lang/String;
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 524
+    .line 547
     const-string v0, "bvid"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->bvid:Ljava/lang/String;
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 525
+    .line 548
     const-string v0, "cid"
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->cid:J
@@ -1779,28 +1843,35 @@
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Long;)V
 
-    .line 526
+    .line 549
     const-string v0, "title"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->title:Ljava/lang/String;
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 527
+    .line 550
     const-string v0, "cover_url"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->coverUrl:Ljava/lang/String;
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 528
+    .line 551
+    const-string v0, "subtitle"
+
+    iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->subTitle:Ljava/lang/String;
+
+    invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 552
     const-string v0, "up_name"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->upName:Ljava/lang/String;
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 529
+    .line 553
     const-string v0, "duration"
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->duration:J
@@ -1811,7 +1882,7 @@
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Long;)V
 
-    .line 530
+    .line 554
     const-string v0, "total_size"
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->totalSize:J
@@ -1822,7 +1893,7 @@
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Long;)V
 
-    .line 531
+    .line 555
     const-string v0, "downloaded_size"
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->downloadedSize:J
@@ -1833,7 +1904,7 @@
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Long;)V
 
-    .line 532
+    .line 556
     const-string v0, "progress"
 
     iget v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->progress:I
@@ -1844,7 +1915,7 @@
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Integer;)V
 
-    .line 533
+    .line 557
     const-string v0, "speed"
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->speed:J
@@ -1855,21 +1926,21 @@
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Long;)V
 
-    .line 534
+    .line 558
     const-string v0, "download_path"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->downloadPath:Ljava/lang/String;
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 535
+    .line 559
     const-string v0, "video_url"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->videoUrl:Ljava/lang/String;
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 536
+    .line 560
     const-string v0, "avid"
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->avid:J
@@ -1880,7 +1951,7 @@
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Long;)V
 
-    .line 537
+    .line 561
     const-string v0, "status"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->status:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
@@ -1895,23 +1966,23 @@
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Integer;)V
 
-    .line 538
+    .line 562
     const-string v2, "is_manual_pause"
 
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->isManualPause:Z
 
-    if-eqz v0, :cond_119
+    if-eqz v0, :cond_120
 
     const/4 v0, 0x1
 
-    :goto_99
+    :goto_a0
     invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
     move-result-object v0
 
     invoke-virtual {v1, v2, v0}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Integer;)V
 
-    .line 539
+    .line 563
     const-string v0, "pause_type"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->pauseType:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
@@ -1926,7 +1997,7 @@
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Integer;)V
 
-    .line 540
+    .line 564
     const-string v0, "create_time"
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->createTime:J
@@ -1937,7 +2008,7 @@
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Long;)V
 
-    .line 541
+    .line 565
     const-string v0, "update_time"
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->updateTime:J
@@ -1948,7 +2019,7 @@
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Long;)V
 
-    .line 542
+    .line 566
     const-string v0, "start_time"
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->startTime:J
@@ -1959,7 +2030,7 @@
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Long;)V
 
-    .line 543
+    .line 567
     const-string v0, "end_time"
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->endTime:J
@@ -1970,7 +2041,7 @@
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Long;)V
 
-    .line 544
+    .line 568
     const-string v0, "quality"
 
     iget v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->quality:I
@@ -1981,14 +2052,14 @@
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Integer;)V
 
-    .line 545
+    .line 569
     const-string v0, "quality_name"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->qualityName:Ljava/lang/String;
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 546
+    .line 570
     const-string v0, "audio_quality"
 
     iget v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->audioQuality:I
@@ -1999,21 +2070,21 @@
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Integer;)V
 
-    .line 547
+    .line 571
     const-string v0, "audio_quality_name"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->audioQualityName:Ljava/lang/String;
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 548
+    .line 572
     const-string v0, "codec"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->codec:Ljava/lang/String;
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 549
+    .line 573
     const-string v0, "error_code"
 
     iget v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->errorCode:I
@@ -2024,47 +2095,47 @@
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Integer;)V
 
-    .line 550
+    .line 574
     const-string v0, "error_message"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->errorMessage:Ljava/lang/String;
 
     invoke-virtual {v1, v0, v2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 551
+    .line 575
     return-object v1
 
-    .line 538
-    :cond_119
+    .line 562
+    :cond_120
     const/4 v0, 0x0
 
-    goto/16 :goto_99
+    goto/16 :goto_a0
 .end method
 
 .method public toJson()Lcom/alibaba/fastjson/JSONObject;
     .locals 4
 
     .prologue
-    .line 558
+    .line 582
     new-instance v0, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-direct {v0}, Lcom/alibaba/fastjson/JSONObject;-><init>()V
 
-    .line 559
+    .line 583
     const-string v1, "taskId"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->taskId:Ljava/lang/String;
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 560
+    .line 584
     const-string v1, "bvid"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->bvid:Ljava/lang/String;
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 561
+    .line 585
     const-string v1, "cid"
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->cid:J
@@ -2075,28 +2146,35 @@
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 562
+    .line 586
     const-string v1, "title"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->title:Ljava/lang/String;
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 563
+    .line 587
+    const-string v1, "subTitle"
+
+    iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->subTitle:Ljava/lang/String;
+
+    invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
+
+    .line 588
     const-string v1, "coverUrl"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->coverUrl:Ljava/lang/String;
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 564
+    .line 589
     const-string v1, "upName"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->upName:Ljava/lang/String;
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 565
+    .line 590
     const-string v1, "duration"
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->duration:J
@@ -2107,7 +2185,7 @@
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 566
+    .line 591
     const-string v1, "totalSize"
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->totalSize:J
@@ -2118,7 +2196,7 @@
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 567
+    .line 592
     const-string v1, "downloadedSize"
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->downloadedSize:J
@@ -2129,7 +2207,7 @@
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 568
+    .line 593
     const-string v1, "progress"
 
     iget v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->progress:I
@@ -2140,7 +2218,7 @@
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 569
+    .line 594
     const-string v1, "speed"
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->speed:J
@@ -2151,14 +2229,14 @@
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 570
+    .line 595
     const-string v1, "downloadPath"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->downloadPath:Ljava/lang/String;
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 571
+    .line 596
     const-string v1, "status"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->status:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
@@ -2173,7 +2251,7 @@
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 572
+    .line 597
     const-string v1, "isManualPause"
 
     iget-boolean v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->isManualPause:Z
@@ -2184,7 +2262,7 @@
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 573
+    .line 598
     const-string v1, "pauseType"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->pauseType:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
@@ -2199,7 +2277,7 @@
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 574
+    .line 599
     const-string v1, "createTime"
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->createTime:J
@@ -2210,7 +2288,7 @@
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 575
+    .line 600
     const-string v1, "updateTime"
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->updateTime:J
@@ -2221,7 +2299,7 @@
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 576
+    .line 601
     const-string v1, "startTime"
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->startTime:J
@@ -2232,7 +2310,7 @@
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 577
+    .line 602
     const-string v1, "endTime"
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->endTime:J
@@ -2243,7 +2321,7 @@
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 578
+    .line 603
     const-string v1, "quality"
 
     iget v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->quality:I
@@ -2254,14 +2332,14 @@
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 579
+    .line 604
     const-string v1, "qualityName"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->qualityName:Ljava/lang/String;
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 580
+    .line 605
     const-string v1, "audioQuality"
 
     iget v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->audioQuality:I
@@ -2272,21 +2350,21 @@
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 581
+    .line 606
     const-string v1, "audioQualityName"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->audioQualityName:Ljava/lang/String;
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 582
+    .line 607
     const-string v1, "codec"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->codec:Ljava/lang/String;
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 583
+    .line 608
     const-string v1, "errorCode"
 
     iget v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->errorCode:I
@@ -2297,14 +2375,14 @@
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 584
+    .line 609
     const-string v1, "errorMessage"
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask;->errorMessage:Ljava/lang/String;
 
     invoke-virtual {v0, v1, v2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 585
+    .line 610
     return-object v0
 .end method
 
@@ -2314,7 +2392,7 @@
     .prologue
     const/16 v2, 0x27
 
-    .line 640
+    .line 665
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V

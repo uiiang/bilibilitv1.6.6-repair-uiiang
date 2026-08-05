@@ -24,7 +24,7 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 266
+    .line 256
     :try_start_1
     const-string v1, "accept_quality"
 
@@ -32,7 +32,7 @@
 
     move-result-object v1
 
-    .line 267
+    .line 257
     if-eqz v1, :cond_f
 
     invoke-virtual {v1}, Lorg/json/JSONArray;->length()I
@@ -41,7 +41,7 @@
 
     if-nez v2, :cond_17
 
-    .line 268
+    .line 258
     :cond_f
     const-string v0, "BilibiliDownloadApi"
 
@@ -49,17 +49,17 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 294
+    .line 284
     :goto_16
     return p1
 
-    .line 273
+    .line 263
     :cond_17
     new-instance v2, Ljava/util/ArrayList;
 
     invoke-direct {v2}, Ljava/util/ArrayList;-><init>()V
 
-    .line 274
+    .line 264
     :goto_1c
     invoke-virtual {v1}, Lorg/json/JSONArray;->length()I
 
@@ -67,7 +67,7 @@
 
     if-ge v0, v3, :cond_30
 
-    .line 275
+    .line 265
     invoke-virtual {v1, v0}, Lorg/json/JSONArray;->getInt(I)I
 
     move-result v3
@@ -78,12 +78,12 @@
 
     invoke-interface {v2, v3}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 274
+    .line 264
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_1c
 
-    .line 278
+    .line 268
     :cond_30
     const-string v0, "BilibiliDownloadApi"
 
@@ -111,7 +111,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 281
+    .line 271
     invoke-static {p1}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
     move-result-object v0
@@ -122,7 +122,7 @@
 
     if-eqz v0, :cond_93
 
-    .line 282
+    .line 272
     const-string v0, "BilibiliDownloadApi"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -155,11 +155,11 @@
 
     goto :goto_16
 
-    .line 292
+    .line 282
     :catch_75
     move-exception v0
 
-    .line 293
+    .line 283
     const-string v1, "BilibiliDownloadApi"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -188,7 +188,7 @@
 
     goto :goto_16
 
-    .line 287
+    .line 277
     :cond_93
     const/4 v0, 0x0
 
@@ -203,7 +203,7 @@
 
     move-result v0
 
-    .line 288
+    .line 278
     const-string v1, "BilibiliDownloadApi"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -240,7 +240,7 @@
 
     move p1, v0
 
-    .line 290
+    .line 280
     goto/16 :goto_16
 .end method
 
@@ -265,85 +265,57 @@
     .locals 7
 
     .prologue
-    const/4 v6, 0x1
+    const/4 v0, 0x0
 
-    const/4 v1, 0x0
+    .line 158
+    :try_start_1
+    invoke-virtual {p0}, Lbl/qm;->c()[B
 
-    .line 166
-    :try_start_2
-    invoke-virtual {p0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+    move-result-object v1
 
-    move-result-object v0
+    .line 160
+    if-eqz v1, :cond_a
 
-    invoke-virtual {v0}, Ljava/lang/Class;->getSuperclass()Ljava/lang/Class;
+    array-length v2, v1
 
-    move-result-object v0
+    if-nez v2, :cond_12
 
-    const-string v2, "b"
-
-    invoke-virtual {v0, v2}, Ljava/lang/Class;->getDeclaredField(Ljava/lang/String;)Ljava/lang/reflect/Field;
-
-    move-result-object v0
-
-    .line 167
-    const/4 v2, 0x1
-
-    invoke-virtual {v0, v2}, Ljava/lang/reflect/Field;->setAccessible(Z)V
-
-    .line 168
-    invoke-virtual {v0, p0}, Ljava/lang/reflect/Field;->get(Ljava/lang/Object;)Ljava/lang/Object;
-
-    move-result-object v0
-
-    check-cast v0, [B
-
-    check-cast v0, [B
-
-    .line 170
-    if-eqz v0, :cond_21
-
-    array-length v2, v0
-
-    if-nez v2, :cond_2a
-
-    .line 171
-    :cond_21
-    const-string v0, "BilibiliDownloadApi"
+    .line 161
+    :cond_a
+    const-string v1, "BilibiliDownloadApi"
 
     const-string v2, "\u54cd\u5e94\u6570\u636e\u4e3a\u7a7a"
 
-    invoke-static {v0, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v1, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    move-object v0, v1
-
-    .line 252
-    :goto_29
+    .line 242
+    :goto_11
     return-object v0
 
-    .line 175
-    :cond_2a
+    .line 165
+    :cond_12
     new-instance v2, Ljava/lang/String;
 
-    invoke-direct {v2, v0}, Ljava/lang/String;-><init>([B)V
+    invoke-direct {v2, v1}, Ljava/lang/String;-><init>([B)V
 
-    .line 176
-    new-instance v0, Lorg/json/JSONObject;
+    .line 166
+    new-instance v1, Lorg/json/JSONObject;
 
-    invoke-direct {v0, v2}, Lorg/json/JSONObject;-><init>(Ljava/lang/String;)V
+    invoke-direct {v1, v2}, Lorg/json/JSONObject;-><init>(Ljava/lang/String;)V
 
-    .line 178
+    .line 168
     const-string v2, "code"
 
     const/4 v3, -0x1
 
-    invoke-virtual {v0, v2, v3}, Lorg/json/JSONObject;->optInt(Ljava/lang/String;I)I
+    invoke-virtual {v1, v2, v3}, Lorg/json/JSONObject;->optInt(Ljava/lang/String;I)I
 
     move-result v2
 
-    .line 179
-    if-eqz v2, :cond_67
+    .line 169
+    if-eqz v2, :cond_6c
 
-    .line 180
+    .line 170
     const-string v3, "BilibiliDownloadApi"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -368,58 +340,88 @@
 
     const-string v4, "message"
 
-    invoke-virtual {v0, v4}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {v1, v4}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
 
-    move-result-object v0
+    move-result-object v1
 
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v0
+    move-result-object v1
 
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v0
+    move-result-object v1
 
-    invoke-static {v3, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v3, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+    :try_end_4d
+    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_4d} :catch_4e
 
-    move-object v0, v1
+    goto :goto_11
 
-    .line 181
-    goto :goto_29
+    .line 240
+    :catch_4e
+    move-exception v1
 
-    .line 184
-    :cond_67
+    .line 241
+    const-string v2, "BilibiliDownloadApi"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "\u89e3\u6790\u54cd\u5e94\u5931\u8d25: "
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v1}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-static {v2, v3, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+
+    goto :goto_11
+
+    .line 174
+    :cond_6c
+    :try_start_6c
     const-string v2, "data"
 
-    invoke-virtual {v0, v2}, Lorg/json/JSONObject;->optJSONObject(Ljava/lang/String;)Lorg/json/JSONObject;
+    invoke-virtual {v1, v2}, Lorg/json/JSONObject;->optJSONObject(Ljava/lang/String;)Lorg/json/JSONObject;
 
     move-result-object v2
 
-    .line 185
-    if-nez v2, :cond_78
+    .line 175
+    if-nez v2, :cond_7c
 
-    .line 186
-    const-string v0, "BilibiliDownloadApi"
+    .line 176
+    const-string v1, "BilibiliDownloadApi"
 
     const-string v2, "\u54cd\u5e94\u6570\u636e\u4e3a\u7a7a"
 
-    invoke-static {v0, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v1, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    move-object v0, v1
+    goto :goto_11
 
-    .line 187
-    goto :goto_29
-
-    .line 191
-    :cond_78
+    .line 181
+    :cond_7c
     invoke-static {v2, p1}, Lcom/bilibili/tv/ui/download/BilibiliDownloadApi;->checkAndAdjustQuality(Lorg/json/JSONObject;I)I
 
-    move-result v0
+    move-result v1
 
-    .line 192
-    if-eq v0, p1, :cond_a0
+    .line 182
+    if-eq v1, p1, :cond_a4
 
-    .line 193
+    .line 183
     const-string v3, "BilibiliDownloadApi"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -442,25 +444,25 @@
 
     move-result-object v4
 
-    invoke-virtual {v4, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v4, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    move-result-object v0
+    move-result-object v1
 
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v0
+    move-result-object v1
 
-    invoke-static {v3, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v3, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 197
-    :cond_a0
-    const-string v0, "quality"
+    .line 187
+    :cond_a4
+    const-string v1, "quality"
 
-    invoke-virtual {v2, v0, p1}, Lorg/json/JSONObject;->optInt(Ljava/lang/String;I)I
+    invoke-virtual {v2, v1, p1}, Lorg/json/JSONObject;->optInt(Ljava/lang/String;I)I
 
-    move-result v0
+    move-result v1
 
-    .line 198
+    .line 188
     const-string v3, "BilibiliDownloadApi"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -473,63 +475,65 @@
 
     move-result-object v4
 
-    invoke-virtual {v4, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v4, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    move-result-object v0
+    move-result-object v1
 
     const-string v4, " (\u8bf7\u6c42\u753b\u8d28: "
 
-    invoke-virtual {v0, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v0
+    move-result-object v1
 
-    invoke-virtual {v0, p1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    move-result-object v0
+    move-result-object v1
 
     const-string v4, ")"
 
-    invoke-virtual {v0, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v0
+    move-result-object v1
 
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v0
+    move-result-object v1
 
-    invoke-static {v3, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v3, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 202
-    const-string v0, "durl"
+    .line 192
+    const-string v1, "durl"
 
-    invoke-virtual {v2, v0}, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
+    invoke-virtual {v2, v1}, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
 
-    move-result-object v0
+    move-result-object v1
 
-    .line 203
-    if-eqz v0, :cond_168
+    .line 193
+    if-eqz v1, :cond_14e
 
-    invoke-virtual {v0}, Lorg/json/JSONArray;->length()I
+    invoke-virtual {v1}, Lorg/json/JSONArray;->length()I
 
     move-result v3
 
-    if-lez v3, :cond_168
+    if-lez v3, :cond_14e
 
-    .line 204
+    .line 194
     const-string v3, "BilibiliDownloadApi"
 
     const-string v4, "\u4f7f\u7528DURL\u683c\u5f0f\uff08MP4\u5355\u6587\u4ef6\uff09"
 
     invoke-static {v3, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 207
-    invoke-virtual {v0}, Lorg/json/JSONArray;->length()I
+    .line 197
+    invoke-virtual {v1}, Lorg/json/JSONArray;->length()I
 
     move-result v3
 
-    if-le v3, v6, :cond_10b
+    const/4 v4, 0x1
 
-    .line 208
+    if-le v3, v4, :cond_110
+
+    .line 198
     const-string v3, "BilibiliDownloadApi"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -542,7 +546,7 @@
 
     move-result-object v4
 
-    invoke-virtual {v0}, Lorg/json/JSONArray;->length()I
+    invoke-virtual {v1}, Lorg/json/JSONArray;->length()I
 
     move-result v5
 
@@ -562,29 +566,29 @@
 
     invoke-static {v3, v4}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 213
-    :cond_10b
+    .line 203
+    :cond_110
     const/4 v3, 0x0
 
-    invoke-virtual {v0, v3}, Lorg/json/JSONArray;->getJSONObject(I)Lorg/json/JSONObject;
+    invoke-virtual {v1, v3}, Lorg/json/JSONArray;->getJSONObject(I)Lorg/json/JSONObject;
 
     move-result-object v3
 
-    .line 214
-    const-string v0, "url"
+    .line 204
+    const-string v1, "url"
 
-    invoke-virtual {v3, v0}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {v3, v1}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
 
-    move-result-object v0
+    move-result-object v1
 
-    .line 215
-    invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
+    .line 205
+    invoke-virtual {v1}, Ljava/lang/String;->isEmpty()Z
 
     move-result v4
 
-    if-nez v4, :cond_168
+    if-nez v4, :cond_14e
 
-    .line 216
+    .line 206
     const-string v2, "size"
 
     const-wide/16 v4, 0x0
@@ -593,7 +597,7 @@
 
     move-result-wide v2
 
-    .line 217
+    .line 207
     const-string v4, "BilibiliDownloadApi"
 
     new-instance v5, Ljava/lang/StringBuilder;
@@ -606,7 +610,7 @@
 
     move-result-object v5
 
-    invoke-virtual {v5, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v5, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v5
 
@@ -625,106 +629,70 @@
     move-result-object v2
 
     invoke-static {v4, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_146
-    .catch Ljava/lang/Exception; {:try_start_2 .. :try_end_146} :catch_148
-
-    goto/16 :goto_29
-
-    .line 250
-    :catch_148
-    move-exception v0
-
-    .line 251
-    const-string v2, "BilibiliDownloadApi"
-
-    new-instance v3, Ljava/lang/StringBuilder;
-
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v4, "\u89e3\u6790\u54cd\u5e94\u5931\u8d25: "
-
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-virtual {v0}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
-
-    move-result-object v4
-
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v3
-
-    invoke-static {v2, v3, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
     move-object v0, v1
 
-    .line 252
-    goto/16 :goto_29
+    .line 208
+    goto/16 :goto_11
 
-    .line 223
-    :cond_168
-    :try_start_168
-    const-string v0, "dash"
+    .line 213
+    :cond_14e
+    const-string v1, "dash"
 
-    invoke-virtual {v2, v0}, Lorg/json/JSONObject;->optJSONObject(Ljava/lang/String;)Lorg/json/JSONObject;
+    invoke-virtual {v2, v1}, Lorg/json/JSONObject;->optJSONObject(Ljava/lang/String;)Lorg/json/JSONObject;
 
-    move-result-object v0
+    move-result-object v1
 
-    .line 224
-    if-eqz v0, :cond_1da
+    .line 214
+    if-eqz v1, :cond_1c2
 
-    .line 225
+    .line 215
     const-string v2, "BilibiliDownloadApi"
 
     const-string v3, "API\u8fd4\u56deDASH\u683c\u5f0f\uff0c\u4f46\u8bf7\u6c42\u7684\u662fMP4\u683c\u5f0f"
 
     invoke-static {v2, v3}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 227
+    .line 217
     const-string v2, "video"
 
-    invoke-virtual {v0, v2}, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
+    invoke-virtual {v1, v2}, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
 
-    move-result-object v0
+    move-result-object v1
 
-    .line 228
-    if-eqz v0, :cond_1da
+    .line 218
+    if-eqz v1, :cond_1c2
 
-    invoke-virtual {v0}, Lorg/json/JSONArray;->length()I
+    invoke-virtual {v1}, Lorg/json/JSONArray;->length()I
 
     move-result v2
 
-    if-lez v2, :cond_1da
+    if-lez v2, :cond_1c2
 
-    .line 229
+    .line 219
     const/4 v2, 0x0
 
-    invoke-virtual {v0, v2}, Lorg/json/JSONArray;->getJSONObject(I)Lorg/json/JSONObject;
+    invoke-virtual {v1, v2}, Lorg/json/JSONArray;->getJSONObject(I)Lorg/json/JSONObject;
 
     move-result-object v2
 
-    .line 232
-    const-string v0, "baseUrl"
+    .line 222
+    const-string v1, "baseUrl"
 
-    invoke-virtual {v2, v0}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {v2, v1}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
 
-    move-result-object v0
+    move-result-object v1
 
-    .line 233
-    if-eqz v0, :cond_1b2
+    .line 223
+    if-eqz v1, :cond_199
 
-    invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
+    invoke-virtual {v1}, Ljava/lang/String;->isEmpty()Z
 
     move-result v3
 
-    if-nez v3, :cond_1b2
+    if-nez v3, :cond_199
 
-    .line 234
+    .line 224
     const-string v2, "BilibiliDownloadApi"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -737,7 +705,7 @@
 
     move-result-object v3
 
-    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v3
 
@@ -747,26 +715,29 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto/16 :goto_29
+    move-object v0, v1
 
-    .line 239
-    :cond_1b2
-    const-string v0, "base_url"
+    .line 225
+    goto/16 :goto_11
 
-    invoke-virtual {v2, v0}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+    .line 229
+    :cond_199
+    const-string v1, "base_url"
 
-    move-result-object v0
+    invoke-virtual {v2, v1}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
 
-    .line 240
-    if-eqz v0, :cond_1da
+    move-result-object v1
 
-    invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
+    .line 230
+    if-eqz v1, :cond_1c2
+
+    invoke-virtual {v1}, Ljava/lang/String;->isEmpty()Z
 
     move-result v2
 
-    if-nez v2, :cond_1da
+    if-nez v2, :cond_1c2
 
-    .line 241
+    .line 231
     const-string v2, "BilibiliDownloadApi"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -779,7 +750,7 @@
 
     move-result-object v3
 
-    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v3
 
@@ -789,22 +760,22 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto/16 :goto_29
+    move-object v0, v1
 
-    .line 247
-    :cond_1da
-    const-string v0, "BilibiliDownloadApi"
+    .line 232
+    goto/16 :goto_11
+
+    .line 237
+    :cond_1c2
+    const-string v1, "BilibiliDownloadApi"
 
     const-string v2, "\u65e0\u6cd5\u4ece\u54cd\u5e94\u4e2d\u63d0\u53d6\u4e0b\u8f7dURL"
 
-    invoke-static {v0, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_1e1
-    .catch Ljava/lang/Exception; {:try_start_168 .. :try_end_1e1} :catch_148
+    invoke-static {v1, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+    :try_end_1c9
+    .catch Ljava/lang/Exception; {:try_start_6c .. :try_end_1c9} :catch_4e
 
-    move-object v0, v1
-
-    .line 248
-    goto/16 :goto_29
+    goto/16 :goto_11
 .end method
 
 .method public static getDownloadUrl(Landroid/content/Context;JLjava/lang/String;JI)Ljava/lang/String;

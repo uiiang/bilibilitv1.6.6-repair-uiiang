@@ -15,6 +15,7 @@ public class DownloadTask implements Comparable<DownloadTask> {
     private String bvid;            // 视频BV号
     private long cid;               // 视频CID
     private String title;           // 视频标题
+    private String subTitle;        // 分P标题（副标题）
     private String coverUrl;        // 封面URL
     private String upName;          // UP主名称
     private long duration;          // 视频时长（秒）
@@ -165,6 +166,14 @@ public class DownloadTask implements Comparable<DownloadTask> {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getSubTitle() {
+        return subTitle;
+    }
+
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
     }
 
     public String getCoverUrl() {
@@ -443,6 +452,10 @@ public class DownloadTask implements Comparable<DownloadTask> {
             return Long.MAX_VALUE;
         }
         long remainingSize = totalSize - downloadedSize;
+        // 已下载量超过总大小（大小数据竞态）时视为即将完成
+        if (remainingSize <= 0) {
+            return 0;
+        }
         return remainingSize / speed;
     }
 
@@ -453,6 +466,9 @@ public class DownloadTask implements Comparable<DownloadTask> {
         long remainingTime = getRemainingTime();
         if (remainingTime == Long.MAX_VALUE) {
             return "计算中...";
+        }
+        if (remainingTime <= 0) {
+            return "即将完成";
         }
         long minutes = remainingTime / 60;
         long seconds = remainingTime % 60;
@@ -479,6 +495,13 @@ public class DownloadTask implements Comparable<DownloadTask> {
         task.setCid(cursor.getLong(cursor.getColumnIndex("cid")));
         task.setTitle(cursor.getString(cursor.getColumnIndex("title")));
         task.setCoverUrl(cursor.getString(cursor.getColumnIndex("cover_url")));
+
+        // 读取分P标题（兼容旧版本数据库）
+        int subTitleIndex = cursor.getColumnIndex("subtitle");
+        if (subTitleIndex != -1 && !cursor.isNull(subTitleIndex)) {
+            task.setSubTitle(cursor.getString(subTitleIndex));
+        }
+
         task.setUpName(cursor.getString(cursor.getColumnIndex("up_name")));
         task.setDuration(cursor.getLong(cursor.getColumnIndex("duration")));
         task.setTotalSize(cursor.getLong(cursor.getColumnIndex("total_size")));
@@ -525,6 +548,7 @@ public class DownloadTask implements Comparable<DownloadTask> {
         values.put("cid", cid);
         values.put("title", title);
         values.put("cover_url", coverUrl);
+        values.put("subtitle", subTitle);
         values.put("up_name", upName);
         values.put("duration", duration);
         values.put("total_size", totalSize);
@@ -560,6 +584,7 @@ public class DownloadTask implements Comparable<DownloadTask> {
         json.put("bvid", bvid);
         json.put("cid", cid);
         json.put("title", title);
+        json.put("subTitle", subTitle);
         json.put("coverUrl", coverUrl);
         json.put("upName", upName);
         json.put("duration", duration);

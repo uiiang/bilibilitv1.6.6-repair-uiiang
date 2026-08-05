@@ -152,20 +152,16 @@ public class DownloadedFragment extends Fragment implements DownloadManager.Down
             return;
         }
 
-        // 跳转到视频详情页或直接播放
-        // 方案1：跳转到视频详情页
+        // 跳转到视频详情页并自动播放（VideoDetailActivity 通过 avid 加载视频）
+        // 注意：VideoDetailActivity 仅识别 bundle_ac_id(bundle_ac_id)/bundle_season_id/preload_cover，
+        // 之前传入的 bvid/cid 会被忽略导致直接 finish，这里改为传递 avid 并标记自动播放
         Intent intent = new Intent(getContext(), VideoDetailActivity.class);
-        intent.putExtra("bvid", task.getBvid());
-        intent.putExtra("cid", task.getCid());
-        intent.putExtra("title", task.getTitle());
-        intent.putExtra("isLocalPlay", true); // 标记为本地播放
-        intent.putExtra("localPath", task.getDownloadPath());
+        intent.putExtra("bundle_ac_id", task.getAvid());
+        if (task.getCoverUrl() != null && !task.getCoverUrl().isEmpty()) {
+            intent.putExtra("preload_cover", task.getCoverUrl());
+        }
+        intent.putExtra("download_auto_play", true); // 数据加载完成后自动播放
         startActivity(intent);
-
-        // 方案2：直接播放本地文件（如果播放器支持）
-        // Intent intent = new Intent(Intent.ACTION_VIEW);
-        // intent.setDataAndType(android.net.Uri.fromFile(file), "video/mp4");
-        // startActivity(intent);
     }
 
     /**

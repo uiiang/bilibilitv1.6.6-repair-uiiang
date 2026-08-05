@@ -27,7 +27,7 @@
 
     .prologue
     .line 12
-    const/4 v0, 0x6
+    const/4 v0, 0x7
 
     return v0
 .end method
@@ -37,9 +37,9 @@
 
     .prologue
     .line 23
-    packed-switch p1, :pswitch_data_30
+    packed-switch p1, :pswitch_data_36
 
-    .line 37
+    .line 39
     const/4 v0, 0x0
 
     :goto_4
@@ -105,10 +105,18 @@
 
     goto :goto_4
 
-    .line 23
-    nop
+    .line 37
+    :pswitch_2f
+    sget-object v0, Lbl/afm5;->Companion:Lbl/afm5$a;
 
-    :pswitch_data_30
+    invoke-virtual {v0}, Lbl/afm5$a;->a()Lbl/afm5;
+
+    move-result-object v0
+
+    goto :goto_4
+
+    .line 23
+    :pswitch_data_36
     .packed-switch 0x0
         :pswitch_5
         :pswitch_c
@@ -116,6 +124,7 @@
         :pswitch_1a
         :pswitch_21
         :pswitch_28
+        :pswitch_2f
     .end packed-switch
 .end method
 
@@ -123,16 +132,16 @@
     .locals 1
 
     .prologue
-    .line 42
-    packed-switch p1, :pswitch_data_22
+    .line 44
+    packed-switch p1, :pswitch_data_26
 
-    .line 56
+    .line 60
     const-string v0, ""
 
     :goto_5
     return-object v0
 
-    .line 44
+    .line 46
     :pswitch_6
     const v0, 0x7f0c0122
 
@@ -142,19 +151,19 @@
 
     goto :goto_5
 
-    .line 46
+    .line 48
     :pswitch_e
     const-string v0, "\u64ad\u653e\u8bbe\u7f6e"
 
     goto :goto_5
 
-    .line 48
+    .line 50
     :pswitch_11
     const-string v0, "\u7f13\u5b58\u8bbe\u7f6e"
 
     goto :goto_5
 
-    .line 50
+    .line 52
     :pswitch_14
     const v0, 0x7f0c0119
 
@@ -164,20 +173,28 @@
 
     goto :goto_5
 
-    .line 52
+    .line 54
     :pswitch_1c
     const-string v0, "\u5b9e\u9a8c\u5ba4"
 
     goto :goto_5
 
-    .line 54
+    .line 56
     :pswitch_1f
     const-string v0, "\u4e2a\u6027\u5316"
 
     goto :goto_5
 
-    .line 42
-    :pswitch_data_22
+    .line 58
+    :pswitch_22
+    const-string v0, "\u4e0b\u8f7d\u8bbe\u7f6e"
+
+    goto :goto_5
+
+    .line 44
+    nop
+
+    :pswitch_data_26
     .packed-switch 0x0
         :pswitch_6
         :pswitch_e
@@ -185,5 +202,6 @@
         :pswitch_14
         :pswitch_1c
         :pswitch_1f
+        :pswitch_22
     .end packed-switch
 .end method

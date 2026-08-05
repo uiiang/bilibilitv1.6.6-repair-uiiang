@@ -3626,4 +3626,23 @@
     <public type="layout" name="fragment_download_list" id="0x7f0a00af" />
     <public type="layout" name="item_download_task" id="0x7f0a00b0" />
     <public type="id" name="header_container" id="0x7f080238" />
+    <public type="id" name="download_path_button" id="0x7f080244" />
+    <public type="id" name="download_path_text" id="0x7f080245" />
+    <public type="id" name="quality_1080p_button" id="0x7f080246" />
+    <public type="id" name="quality_720p_button" id="0x7f080247" />
+    <public type="id" name="quality_480p_button" id="0x7f080248" />
+    <public type="id" name="audio_high_button" id="0x7f080249" />
+    <public type="id" name="audio_normal_button" id="0x7f08024a" />
+    <public type="id" name="codec_avc_button" id="0x7f08024b" />
+    <public type="id" name="codec_hevc_button" id="0x7f08024c" />
+    <public type="id" name="download_path_detail" id="0x7f08024d" />
+    <public type="id" name="cover_image" id="0x7f080239" />
+    <public type="id" name="title_text" id="0x7f08023a" />
+    <public type="id" name="up_name_text" id="0x7f08023b" />
+    <public type="id" name="progress_bar" id="0x7f08023c" />
+    <public type="id" name="progress_text" id="0x7f08023d" />
+    <public type="id" name="file_size_text" id="0x7f08023e" />
+    <public type="id" name="speed_text" id="0x7f08023f" />
+    <public type="id" name="status_text" id="0x7f080240" />
+    <public type="layout" name="fragment_download_settings" id="0x7f0a00b1" />
 </resources>

@@ -1,8 +1,6 @@
 package com.bilibili.tv.ui.download;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.util.Log;
 import android.widget.Toast;
 import com.bilibili.tv.R;
@@ -24,6 +22,7 @@ public class VideoDetailDownloadHelper {
      * @param bvid 视频BV号
      * @param cid 视频CID
      * @param title 视频标题
+     * @param subTitle 分P标题（无分P时为null）
      * @param coverUrl 封面URL
      * @param upName UP主名称
      * @param duration 视频时长（秒）
@@ -35,65 +34,22 @@ public class VideoDetailDownloadHelper {
             String bvid,
             long cid,
             String title,
+            String subTitle,
             String coverUrl,
             String upName,
             long duration,
             List<String> qualityList
     ) {
-        Log.i(TAG, "显示下载对话框: " + title);
-
-        // 如果没有画质列表，使用默认画质
-        if (qualityList == null || qualityList.isEmpty()) {
-            qualityList = java.util.Arrays.asList("1080P", "720P", "480P");
-        }
+        // 画质、音质、编码等参数已在设置页配置，点击下载按钮直接开始下载，不再弹出画质选择对话框
+        Log.i(TAG, "直接开始下载(使用设置中配置的画质): " + title);
 
         // 从SharedPreferences读取默认画质设置
         android.content.SharedPreferences prefs = context.getSharedPreferences("download_settings", Context.MODE_PRIVATE);
         int defaultQuality = prefs.getInt("quality", 80); // 默认1080P
 
-        // 找到默认画质在列表中的位置
-        int defaultQualityIndex = 0;
-        String defaultQualityStr = convertQualityIdToString(defaultQuality);
-        for (int i = 0; i < qualityList.size(); i++) {
-            if (qualityList.get(i).contains(defaultQualityStr)) {
-                defaultQualityIndex = i;
-                break;
-            }
-        }
-
-        // 转换为数组
-        final String[] qualities = qualityList.toArray(new String[0]);
-        final int[] selectedQuality = {defaultQualityIndex}; // 使用默认画质设置
-        final long finalAvid = avid;
-
-        // 创建对话框
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("选择下载画质");
-        builder.setSingleChoiceItems(qualities, 0, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                selectedQuality[0] = which;
-            }
-        });
-        builder.setPositiveButton("开始下载", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // 开始下载
-                startDownload(
-                    context,
-                    finalAvid,
-                    bvid,
-                    cid,
-                    title,
-                    coverUrl,
-                    upName,
-                    duration,
-                    qualities[selectedQuality[0]]
-                );
-            }
-        });
-        builder.setNegativeButton("取消", null);
-        builder.show();
+        // 转换为画质名称并直接开始下载
+        String qualityStr = convertQualityIdToString(defaultQuality);
+        startDownload(context, avid, bvid, cid, title, subTitle, coverUrl, upName, duration, qualityStr);
     }
 
     /**
@@ -102,15 +58,15 @@ public class VideoDetailDownloadHelper {
     private static String convertQualityIdToString(int qualityId) {
         switch (qualityId) {
             case 80:
-                return "1080";
+                return "1080P 高清";
             case 64:
-                return "720";
+                return "720P 高清";
             case 32:
-                return "480";
+                return "480P 清晰";
             case 16:
-                return "360";
+                return "360P 流畅";
             default:
-                return "1080";
+                return "1080P 高清";
         }
     }
 
@@ -123,6 +79,7 @@ public class VideoDetailDownloadHelper {
             String bvid,
             long cid,
             String title,
+            String subTitle,
             String coverUrl,
             String upName,
             long duration,
@@ -199,6 +156,7 @@ public class VideoDetailDownloadHelper {
                     task.setCid(cid);
                     task.setAvid(avid);
                     task.setTitle(title);
+                    task.setSubTitle(subTitle);
                     task.setCoverUrl(coverUrl);
                     task.setUpName(upName);
                     task.setDuration(duration);

@@ -151,21 +151,11 @@ public class BilibiliDownloadApi {
      * 从响应中提取下载URL
      * 优先提取MP4格式的视频URL（fnval=16时）
      * 包含画质可用性检查和自动降级
-     * 
-     * TODO: 优化反射方案
-     * 当前使用反射访问protected字段，违反项目规范"避免反射风险"
-     * 建议优化方案：
-     * 1. 将本类移到bl包下，可直接访问protected字段
-     * 2. 或创建一个工具类在bl包下专门处理响应解析
-     * 
-     * 当前作为临时方案，优先解决功能问题
      */
     private static String extractDownloadUrl(qm response, int targetQuality) {
         try {
-            // 使用反射获取响应数据（临时方案）
-            java.lang.reflect.Field fieldB = response.getClass().getSuperclass().getDeclaredField("b");
-            fieldB.setAccessible(true);
-            byte[] responseData = (byte[]) fieldB.get(response);
+            // 获取响应数据：qm 继承自 py -> qe，qe.c() 为公开方法返回响应体字节数组（避免反射）
+            byte[] responseData = response.c();
 
             if (responseData == null || responseData.length == 0) {
                 Log.e(TAG, "响应数据为空");

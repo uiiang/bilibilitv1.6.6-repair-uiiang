@@ -3,12 +3,12 @@
 .source "VideoDetailDownloadHelper.java"
 
 # interfaces
-.implements Landroid/content/DialogInterface$OnClickListener;
+.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;->showDownloadDialog(Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/util/List;)V
+    value = Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;->showErrorDialog(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -18,52 +18,24 @@
 
 
 # instance fields
-.field final synthetic val$bvid:Ljava/lang/String;
-
-.field final synthetic val$cid:J
-
 .field final synthetic val$context:Landroid/content/Context;
 
-.field final synthetic val$coverUrl:Ljava/lang/String;
-
-.field final synthetic val$duration:J
-
-.field final synthetic val$finalAvid:J
-
-.field final synthetic val$qualities:[Ljava/lang/String;
-
-.field final synthetic val$selectedQuality:[I
+.field final synthetic val$message:Ljava/lang/String;
 
 .field final synthetic val$title:Ljava/lang/String;
 
-.field final synthetic val$upName:Ljava/lang/String;
-
 
 # direct methods
-.method constructor <init>(Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;J[Ljava/lang/String;[I)V
+.method constructor <init>(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)V
     .locals 0
 
     .prologue
-    .line 64
+    .line 225
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$context:Landroid/content/Context;
 
-    iput-wide p2, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$finalAvid:J
+    iput-object p2, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$title:Ljava/lang/String;
 
-    iput-object p4, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$bvid:Ljava/lang/String;
-
-    iput-wide p5, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$cid:J
-
-    iput-object p7, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$title:Ljava/lang/String;
-
-    iput-object p8, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$coverUrl:Ljava/lang/String;
-
-    iput-object p9, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$upName:Ljava/lang/String;
-
-    iput-wide p10, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$duration:J
-
-    iput-object p12, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$qualities:[Ljava/lang/String;
-
-    iput-object p13, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$selectedQuality:[I
+    iput-object p3, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$message:Ljava/lang/String;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -72,40 +44,43 @@
 
 
 # virtual methods
-.method public onClick(Landroid/content/DialogInterface;I)V
-    .locals 14
+.method public run()V
+    .locals 3
 
     .prologue
-    .line 68
+    .line 228
+    new-instance v0, Landroid/app/AlertDialog$Builder;
+
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$context:Landroid/content/Context;
 
-    iget-wide v2, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$finalAvid:J
+    invoke-direct {v0, v1}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
 
-    iget-object v4, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$bvid:Ljava/lang/String;
+    iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$title:Ljava/lang/String;
 
-    iget-wide v5, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$cid:J
+    .line 229
+    invoke-virtual {v0, v1}, Landroid/app/AlertDialog$Builder;->setTitle(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
 
-    iget-object v7, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$title:Ljava/lang/String;
+    move-result-object v0
 
-    iget-object v8, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$coverUrl:Ljava/lang/String;
+    iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$message:Ljava/lang/String;
 
-    iget-object v9, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$upName:Ljava/lang/String;
+    .line 230
+    invoke-virtual {v0, v1}, Landroid/app/AlertDialog$Builder;->setMessage(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
 
-    iget-wide v10, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$duration:J
+    move-result-object v0
 
-    iget-object v0, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$qualities:[Ljava/lang/String;
+    const-string v1, "\u786e\u5b9a"
 
-    iget-object v12, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$selectedQuality:[I
+    const/4 v2, 0x0
 
-    const/4 v13, 0x0
+    .line 231
+    invoke-virtual {v0, v1, v2}, Landroid/app/AlertDialog$Builder;->setPositiveButton(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
-    aget v12, v12, v13
+    move-result-object v0
 
-    aget-object v12, v0, v12
+    .line 232
+    invoke-virtual {v0}, Landroid/app/AlertDialog$Builder;->show()Landroid/app/AlertDialog;
 
-    # invokes: Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;->startDownload(Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;)V
-    invoke-static/range {v1 .. v12}, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;->access$000(Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;)V
-
-    .line 79
+    .line 233
     return-void
 .end method

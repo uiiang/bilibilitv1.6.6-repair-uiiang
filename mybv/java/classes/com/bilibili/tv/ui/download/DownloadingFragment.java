@@ -63,6 +63,9 @@ public class DownloadingFragment extends Fragment implements DownloadManager.Dow
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
+        // 关闭item变化动画，避免高频进度刷新导致item闪烁
+        recyclerView.setItemAnimator(null);
+
         adapter = new DownloadTaskAdapter();
         recyclerView.setAdapter(adapter);
 
@@ -170,8 +173,11 @@ public class DownloadingFragment extends Fragment implements DownloadManager.Dow
 
     @Override
     public void onStatusChanged(DownloadTask task) {
-        // 状态变化，刷新列表
-        refreshList();
+        // 任务仍在下载中列表（等待中/下载中/已暂停）时仅更新单项，避免整个列表重建导致焦点跳到左侧菜单；
+        // 任务不在列表（已完成/失败/已删除）时才刷新整个列表
+        if (adapter == null || !adapter.updateTask(task)) {
+            refreshList();
+        }
     }
 
     @Override

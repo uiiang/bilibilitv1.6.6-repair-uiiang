@@ -2,36 +2,54 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
     android:orientation="horizontal"
-    android:background="@drawable/background_item_main"
+    android:background="@drawable/selector_download_task_item"
     android:focusable="true"
-    android:padding="10dp">
+    android:padding="16dp">
 
-    <!-- 封面图 -->
-    <ImageView
+    <!-- 封面图（Fresco加载网络图片） -->
+    <com.bilibili.tv.widget.ScalableImageView
         android:id="@+id/cover_image"
-        android:layout_width="160dp"
+        android:layout_width="170dp"
         android:layout_height="100dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="14dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/bili_default_image_tv" />
+        android:background="@drawable/shape_default_loading_img"
+        android:focusable="false" />
 
     <!-- 信息区域 -->
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:focusable="false">
 
-        <!-- 标题 -->
+        <!-- 视频标题 -->
         <TextView
             android:id="@+id/title_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="17sp"
             android:textColor="@color/white"
             android:text="视频标题"
             android:maxLines="2"
+            android:ellipsize="end" />
+
+        <!-- 分P副标题 -->
+        <TextView
+            android:id="@id/sub_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="13sp"
+            android:textColor="@color/white_70"
+            android:text="分P标题"
+            android:maxLines="1"
             android:ellipsize="end" />
 
         <!-- UP主 -->
@@ -39,7 +57,7 @@
             android:id="@+id/up_name_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="6dp"
             android:textSize="12sp"
             android:textColor="@color/white_50"
             android:text="UP主: xxx" />
@@ -48,7 +66,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <!-- 进度条 -->
@@ -65,11 +83,12 @@
             <!-- 进度百分比 -->
             <TextView
                 android:id="@+id/progress_text"
-                android:layout_width="50dp"
+                android:layout_width="48dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:textSize="12sp"
-                android:textColor="@color/white_50"
+                android:textColor="@color/white_70"
+                android:gravity="end"
                 android:text="0%" />
         </LinearLayout>
 
@@ -77,53 +96,37 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="6dp"
             android:orientation="horizontal">
 
-            <!-- 文件大小 -->
+            <!-- 下载状态 -->
             <TextView
-                android:id="@+id/file_size_text"
+                android:id="@+id/status_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="11sp"
-                android:textColor="@color/white_30"
-                android:text="0 MB" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:textSize="11sp"
-                android:textColor="@color/white_30"
-                android:text="|" />
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:text="等待中" />
 
             <!-- 下载速度 -->
             <TextView
                 android:id="@+id/speed_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:textSize="11sp"
-                android:textColor="@color/white_30"
-                android:text="0 KB/s" />
+                android:layout_marginLeft="16dp"
+                android:textSize="12sp"
+                android:textColor="@color/white_50"
+                android:text="" />
 
+            <!-- 文件大小 -->
             <TextView
+                android:id="@+id/file_size_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:textSize="11sp"
-                android:textColor="@color/white_30"
-                android:text="|" />
-
-            <!-- 状态文本 -->
-            <TextView
-                android:id="@+id/status_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:textSize="11sp"
-                android:textColor="@color/color_5"
-                android:text="等待中" />
+                android:layout_marginLeft="16dp"
+                android:textSize="12sp"
+                android:textColor="@color/white_50"
+                android:text="0 MB" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

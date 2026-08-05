@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 2091
+    .line 2095
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
@@ -46,15 +46,15 @@
     .locals 5
 
     .prologue
-    .line 2104
+    .line 2108
     if-nez p1, :cond_3
 
-    .line 2133
+    .line 2137
     :cond_2
     :goto_2
     return-void
 
-    .line 2108
+    .line 2112
     :cond_3
     const-string v0, "season"
 
@@ -62,7 +62,7 @@
 
     move-result-object v2
 
-    .line 2109
+    .line 2113
     if-eqz v2, :cond_2
 
     invoke-virtual {v2}, Lcom/alibaba/fastjson/JSONArray;->isEmpty()Z
@@ -71,12 +71,12 @@
 
     if-nez v0, :cond_2
 
-    .line 2113
+    .line 2117
     new-instance v3, Ljava/util/ArrayList;
 
     invoke-direct {v3}, Ljava/util/ArrayList;-><init>()V
 
-    .line 2114
+    .line 2118
     const/4 v0, 0x0
 
     move v1, v0
@@ -88,12 +88,12 @@
 
     if-ge v1, v0, :cond_37
 
-    .line 2115
+    .line 2119
     invoke-virtual {v2, v1}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 2116
+    .line 2120
     const-class v4, Lcom/bilibili/tv/api/video/PgcRelatedSeason;
 
     invoke-virtual {v0, v4}, Lcom/alibaba/fastjson/JSONObject;->toJavaObject(Ljava/lang/Class;)Ljava/lang/Object;
@@ -102,17 +102,17 @@
 
     check-cast v0, Lcom/bilibili/tv/api/video/PgcRelatedSeason;
 
-    .line 2117
+    .line 2121
     if-eqz v0, :cond_33
 
-    .line 2118
+    .line 2122
     invoke-virtual {v0}, Lcom/bilibili/tv/api/video/PgcRelatedSeason;->toBiliVideoDetail()Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     move-result-object v0
 
     invoke-interface {v3, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 2114
+    .line 2118
     :cond_33
     add-int/lit8 v0, v1, 0x1
 
@@ -120,7 +120,7 @@
 
     goto :goto_18
 
-    .line 2122
+    .line 2126
     :cond_37
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
@@ -131,7 +131,7 @@
 
     if-eqz v0, :cond_2
 
-    .line 2123
+    .line 2127
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     new-instance v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23$1;
@@ -147,7 +147,7 @@
     .locals 0
 
     .prologue
-    .line 2091
+    .line 2095
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;->a(Lcom/alibaba/fastjson/JSONObject;)V
@@ -159,7 +159,7 @@
     .locals 1
 
     .prologue
-    .line 2094
+    .line 2098
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$23;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isFinishing()Z
@@ -173,7 +173,7 @@
     .locals 3
 
     .prologue
-    .line 2099
+    .line 2103
     const-string v0, "PgcRelated"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -200,6 +200,6 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2100
+    .line 2104
     return-void
 .end method

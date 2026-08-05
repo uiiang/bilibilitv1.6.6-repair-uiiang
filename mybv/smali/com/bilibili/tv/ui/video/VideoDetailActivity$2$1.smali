@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 338
+    .line 341
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$2$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$2;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 341
+    .line 344
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$2$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$2;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$2;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -51,13 +51,13 @@
 
     move-result-object v0
 
-    .line 342
+    .line 345
     if-eqz v0, :cond_10
 
-    .line 343
+    .line 346
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 345
+    .line 348
     :cond_10
     return-void
 .end method

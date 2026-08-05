@@ -195,6 +195,9 @@ public final class VideoDetailActivity extends BaseActivity
     private boolean blockEpisodeAutoFocus = true;
     // 菜单键隐藏内容状态
     private boolean isContentHidden = false;
+    // 从下载管理点击已下载视频进入时，数据加载完成后自动播放
+    private boolean autoPlayAfterLoad = false;
+    private boolean autoPlayTriggered = false;
     public static final a Companion = new a(null);
     private static final int E = 6;
     private static final int F = E * 2;
@@ -865,6 +868,7 @@ public final class VideoDetailActivity extends BaseActivity
         this.mSeasonId = extras.getString(SEASON_ID_KEY);
         this.s = extras.getLong(D);
         this.preloadCoverUrl = extras.getString("preload_cover");
+        this.autoPlayAfterLoad = extras.getBoolean("download_auto_play", false);
         if (!TextUtils.isEmpty(this.mSeasonId)) {
             mEntryType = EntryType.PGC_BY_SEASON_ID;
             mIsPgcMode = true;
@@ -3695,11 +3699,31 @@ public final class VideoDetailActivity extends BaseActivity
         // 获取视频信息（直接访问字段）
         long avid = this.u.mAvid;
         String bvid = this.u.mBvid;
-        long cid = this.u.mCid;
+        // 注意：BiliVideoDetail.mCid 无 @JSONField 注解，API解析时不会被赋值（恒为0）
+        // 需从分P列表/单P/播放历史中获取真实cid（与播放逻辑一致）
+        long cid = 0;
+        if (this.u.mPageList != null && !this.u.mPageList.isEmpty()) {
+            cid = this.u.mPageList.get(0).mCid;
+        }
+        if (cid == 0 && this.u.mPage != null) {
+            cid = this.u.mPage.mCid;
+        }
+        if (cid == 0 && this.u.mHistory != null) {
+            cid = this.u.mHistory.mCid;
+        }
         String title = this.u.mTitle;
         String coverUrl = this.u.mCover;
         String upName = (this.u.mOwner != null) ? this.u.mOwner.name : "未知";
         long duration = this.u.mDuration;
+
+        // 分P标题（副标题）：多P视频显示当前分P的标题，单P视频为null
+        String subTitle = null;
+        if (this.u.mPageList != null && this.u.mPageList.size() > 1) {
+            BiliVideoDetail.Page firstPage = this.u.mPageList.get(0);
+            if (firstPage != null && !TextUtils.isEmpty(firstPage.mTitle)) {
+                subTitle = firstPage.mTitle;
+            }
+        }
 
         // 检查是否已下载
         if (com.bilibili.tv.ui.download.VideoDetailDownloadHelper.isTaskExists(this, bvid, cid)) {
@@ -3721,6 +3745,7 @@ public final class VideoDetailActivity extends BaseActivity
             bvid,
             cid,
             title,
+            subTitle,
             coverUrl,
             upName,
             duration,
@@ -5009,7 +5034,17 @@ public final class VideoDetailActivity extends BaseActivity
                     VideoDetailActivity.this.historyPlayBtnLayout.getVisibility() == View.VISIBLE) {
                 VideoDetailActivity.this.historyPlayBtnLayout.requestFocus();
             }
-            
+
+            // 从下载管理点击已下载视频进入：数据加载完成后自动播放
+            if (VideoDetailActivity.this.autoPlayAfterLoad && !VideoDetailActivity.this.autoPlayTriggered) {
+                VideoDetailActivity.this.autoPlayTriggered = true;
+                long autoCid = 0;
+                if (biliVideoDetail.mPageList != null && !biliVideoDetail.mPageList.isEmpty()) {
+                    autoCid = biliVideoDetail.mPageList.get(0).mCid;
+                }
+                VideoDetailActivity.this.playVideo(biliVideoDetail, autoCid, 0);
+            }
+
             loadRelatedVideosAndTags();
         }
         

@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 149
+    .line 152
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/DownloadingFragment$2;->this$0:Lcom/bilibili/tv/ui/download/DownloadingFragment;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/download/DownloadingFragment$2;->val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
@@ -44,7 +44,7 @@
     .locals 3
 
     .prologue
-    .line 152
+    .line 155
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadingFragment$2;->this$0:Lcom/bilibili/tv/ui/download/DownloadingFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/DownloadingFragment;->getContext()Landroid/content/Context;
@@ -63,7 +63,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/download/DownloadManager;->deleteTask(Ljava/lang/String;)V
 
-    .line 153
+    .line 156
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadingFragment$2;->this$0:Lcom/bilibili/tv/ui/download/DownloadingFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/DownloadingFragment;->getContext()Landroid/content/Context;
@@ -80,12 +80,12 @@
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    .line 154
+    .line 157
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadingFragment$2;->this$0:Lcom/bilibili/tv/ui/download/DownloadingFragment;
 
     # invokes: Lcom/bilibili/tv/ui/download/DownloadingFragment;->refreshList()V
     invoke-static {v0}, Lcom/bilibili/tv/ui/download/DownloadingFragment;->access$200(Lcom/bilibili/tv/ui/download/DownloadingFragment;)V
 
-    .line 155
+    .line 158
     return-void
 .end method

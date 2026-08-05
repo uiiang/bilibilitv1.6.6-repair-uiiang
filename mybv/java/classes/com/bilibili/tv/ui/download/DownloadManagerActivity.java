@@ -97,6 +97,9 @@ public final class DownloadManagerActivity extends BaseUpViewActivity {
             bbi.a();
         }
         recyclerView4.setAdapter(this.b);
+
+        // 默认显示第一个Fragment（下载中）
+        this.d.c(0);
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
@@ -160,7 +163,7 @@ public final class DownloadManagerActivity extends BaseUpViewActivity {
         /* renamed from: c */
         public c a(ViewGroup viewGroup, int i) {
             bbi.b(viewGroup, "parent");
-            View inflate = android.view.LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_view_item_main_title_text, viewGroup, false);
+            View inflate = android.view.LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_view_item_sider_left_title, viewGroup, false);
             bbi.a((Object) inflate, "view");
             return new c(inflate);
         }
@@ -180,6 +183,11 @@ public final class DownloadManagerActivity extends BaseUpViewActivity {
                     if (z) {
                         b.this.e(i);
                         view.setSelected(true);
+                        // 切换右侧对应的Fragment（下载中/已下载）
+                        DownloadManagerActivity activity = b.this.b.get();
+                        if (activity != null && activity.d != null) {
+                            activity.d.c(i);
+                        }
                     } else {
                         view.setSelected(false);
                     }
@@ -228,7 +236,7 @@ public final class DownloadManagerActivity extends BaseUpViewActivity {
 
             public final c a(ViewGroup viewGroup) {
                 bbi.b(viewGroup, "parent");
-                View inflate = android.view.LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_view_item_main_title_text, viewGroup, false);
+                View inflate = android.view.LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_view_item_sider_left_title, viewGroup, false);
                 bbi.a((Object) inflate, "view");
                 return new c(inflate);
             }
