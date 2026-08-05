@@ -33,7 +33,7 @@
     .locals 2
 
     .prologue
-    .line 213
+    .line 328
     new-instance v0, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$c$a;
 
     const/4 v1, 0x0
@@ -49,15 +49,15 @@
     .locals 1
 
     .prologue
-    .line 218
+    .line 333
     invoke-direct {p0, p1}, Lbl/adv;-><init>(Landroid/view/View;)V
 
-    .line 219
+    .line 334
     const-string v0, "itemView"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 220
+    .line 335
     const v0, 0x7f080132
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$c;->a(Landroid/view/View;I)Landroid/view/View;
@@ -68,7 +68,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$c;->n:Landroid/widget/TextView;
 
-    .line 221
+    .line 336
     return-void
 .end method
 
@@ -78,7 +78,7 @@
     .locals 1
 
     .prologue
-    .line 224
+    .line 339
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$c;->n:Landroid/widget/TextView;
 
     return-object v0

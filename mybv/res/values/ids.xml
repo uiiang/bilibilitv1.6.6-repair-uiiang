@@ -456,4 +456,17 @@
     <item type="id" name="area_header_layout" />
     <item type="id" name="area_header_title" />
     <item type="id" name="area_video_container" />
+    <item type="id" name="episode_list" />
+    <item type="id" name="selected_count" />
+    <item type="id" name="total_size" />
+    <item type="id" name="start_download_button" />
+    <item type="id" name="cancel_button" />
+    <item type="id" name="select_all_button" />
+    <item type="id" name="select_all_checkbox" />
+    <item type="id" name="video_title" />
+    <item type="id" name="up_name" />
+    <item type="id" name="total_count" />
+    <item type="id" name="episode_cover" />
+    <item type="id" name="episode_title" />
+    <item type="id" name="episode_size" />
 </resources>

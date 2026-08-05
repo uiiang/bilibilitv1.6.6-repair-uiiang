@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F5F5">
+
+    <!-- 标题栏 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#FB7299"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="选择下载的分P"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/video_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:maxLines="1"
+            android:ellipsize="end" />
+    </LinearLayout>
+
+    <!-- 视频信息 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:background="#FFFFFF">
+
+        <TextView
+            android:id="@+id/up_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#666666"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/total_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textColor="#999999"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- 全选按钮 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:background="#FFFFFF"
+        android:layout_marginTop="1dp">
+
+        <TextView
+            android:id="@+id/select_all_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:clickable="true"
+            android:background="@drawable/selector_episode_select_all"
+            android:text="✓ 全选/取消全选"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#FB7299"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp" />
+    </LinearLayout>
+
+    <!-- 分P列表 -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/episode_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:background="#FFFFFF" />
+
+    <!-- 底部信息栏和按钮 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="15dp"
+        android:background="#FFFFFF"
+        android:layout_marginTop="1dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/selected_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已选择: 0个"
+                android:textColor="#FB7299"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/total_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="总大小: 0B"
+                android:textColor="#999999"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:text="取消"
+            android:textSize="16sp"
+            android:background="@drawable/selector_download_button"
+            android:textColor="#FFFFFF"
+            android:layout_marginRight="15dp" />
+
+        <Button
+            android:id="@+id/start_download_button"
+            android:layout_width="120dp"
+            android:layout_height="45dp"
+            android:text="开始下载"
+            android:textSize="16sp"
+            android:background="@drawable/selector_download_button"
+            android:textColor="#FFFFFF"
+            android:enabled="false" />
+    </LinearLayout>
+
+</LinearLayout>

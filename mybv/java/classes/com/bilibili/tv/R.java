@@ -2094,6 +2094,8 @@ public final class R {
         public static final int ic_area_bishua = 0x7f07010e;
         public static final int selector_main_download_manager = 0x7f07010f;
         public static final int selector_main_download = 0x7f070110;
+        public static final int ic_checked = 0x7f070111;
+        public static final int ic_unchecked = 0x7f070112;
     }
 
     public static final class id {
@@ -2679,6 +2681,18 @@ public final class R {
         public static final int file_size_text = 0x7f08023e;
         public static final int speed_text = 0x7f08023f;
         public static final int status_text = 0x7f080240;
+        public static final int selected_count = 0x7f08024f;
+        public static final int total_size = 0x7f080250;
+        public static final int start_download_button = 0x7f080251;
+        public static final int cancel_button = 0x7f080252;
+        public static final int select_all_button = 0x7f080253;
+        public static final int video_title = 0x7f080254;
+        public static final int up_name = 0x7f080255;
+        public static final int total_count = 0x7f080256;
+        public static final int episode_title = 0x7f080258;
+        public static final int episode_size = 0x7f080259;
+        public static final int select_all_checkbox = 0x7f08025a;
+        public static final int episode_cover = 0x7f08025b;
         public static final int download_path_button = 0x7f080244;
         public static final int download_path_text = 0x7f080245;
         public static final int quality_1080p_button = 0x7f080246;
@@ -2879,6 +2893,8 @@ public final class R {
         public static final int fragment_download_list = 0x7f0a00af;
         public static final int item_download_task = 0x7f0a00b0;
         public static final int fragment_download_settings = 0x7f0a00b1;
+        public static final int activity_episode_select = 0x7f0a00b2;
+        public static final int item_episode_select = 0x7f0a00b3;
     }
 
     public static final class mipmap {

@@ -107,12 +107,30 @@ public class DownloadTaskAdapter extends RecyclerView.a<DownloadTaskAdapter.View
         // 标题
         holder.titleText.setText(task.getTitle());
 
-        // 分P副标题（无分P时隐藏）
-        if (task.getSubTitle() != null && !task.getSubTitle().isEmpty()) {
-            holder.subTitleText.setText(task.getSubTitle());
-            holder.subTitleText.setVisibility(View.VISIBLE);
+        // 副标题：已完成的任务显示文件名，其他显示分P标题
+        if (task.getStatus() == DownloadTask.Status.COMPLETED) {
+            // 已完成：显示本地文件名（右对齐）
+            String filePath = task.getDownloadPath();
+            if (filePath != null && !filePath.isEmpty()) {
+                // 提取文件名
+                String fileName = filePath.substring(filePath.lastIndexOf('/') + 1);
+                holder.subTitleText.setText(fileName);
+                holder.subTitleText.setVisibility(View.VISIBLE);
+                // 设置右对齐
+                holder.subTitleText.setGravity(android.view.Gravity.END);
+            } else {
+                holder.subTitleText.setVisibility(View.GONE);
+            }
         } else {
-            holder.subTitleText.setVisibility(View.GONE);
+            // 其他状态：显示分P标题（左对齐）
+            if (task.getSubTitle() != null && !task.getSubTitle().isEmpty()) {
+                holder.subTitleText.setText(task.getSubTitle());
+                holder.subTitleText.setVisibility(View.VISIBLE);
+                // 设置左对齐
+                holder.subTitleText.setGravity(android.view.Gravity.START);
+            } else {
+                holder.subTitleText.setVisibility(View.GONE);
+            }
         }
 
         // UP主

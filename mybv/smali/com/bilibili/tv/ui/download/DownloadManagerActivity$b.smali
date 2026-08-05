@@ -48,6 +48,8 @@
     .end annotation
 .end field
 
+.field private d:Z
+
 
 # direct methods
 .method public constructor <init>(Lcom/bilibili/tv/ui/download/DownloadManagerActivity;Lbl/cj;)V
@@ -64,41 +66,51 @@
     .end annotation
 
     .prologue
-    .line 147
+    .line 246
     invoke-direct {p0}, Lbl/adz;-><init>()V
 
-    .line 148
+    .line 247
     const-string v0, "activity"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 149
+    .line 248
     const-string v0, "titles"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 150
+    .line 249
     new-instance v0, Ljava/lang/ref/WeakReference;
 
     invoke-direct {v0, p1}, Ljava/lang/ref/WeakReference;-><init>(Ljava/lang/Object;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b;->b:Ljava/lang/ref/WeakReference;
 
-    .line 151
+    .line 250
     iput-object p2, p0, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b;->c:Lbl/cj;
 
-    .line 152
+    .line 251
     return-void
 .end method
 
-.method static synthetic access$000(Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b;)Ljava/lang/ref/WeakReference;
+.method static synthetic access$100(Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b;)Ljava/lang/ref/WeakReference;
     .locals 1
 
     .prologue
-    .line 137
+    .line 235
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b;->b:Ljava/lang/ref/WeakReference;
 
     return-object v0
+.end method
+
+.method static synthetic access$400(Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b;)Z
+    .locals 1
+
+    .prologue
+    .line 235
+    iget-boolean v0, p0, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b;->d:Z
+
+    return v0
 .end method
 
 
@@ -107,10 +119,10 @@
     .locals 1
 
     .prologue
-    .line 200
+    .line 311
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b;->c:Lbl/cj;
 
-    .line 201
+    .line 312
     if-eqz v0, :cond_9
 
     invoke-virtual {v0}, Lbl/cj;->b()I
@@ -130,7 +142,7 @@
     .locals 1
 
     .prologue
-    .line 206
+    .line 317
     const/4 v0, 0x1
 
     return v0
@@ -140,7 +152,7 @@
     .locals 1
 
     .prologue
-    .line 137
+    .line 235
     invoke-virtual {p0, p1, p2}, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b;->a(Landroid/view/ViewGroup;I)Lcom/bilibili/tv/ui/download/DownloadManagerActivity$c;
 
     move-result-object v0
@@ -152,12 +164,12 @@
     .locals 3
 
     .prologue
-    .line 165
+    .line 264
     const-string v0, "parent"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 166
+    .line 265
     invoke-virtual {p1}, Landroid/view/ViewGroup;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -174,12 +186,12 @@
 
     move-result-object v0
 
-    .line 167
+    .line 266
     const-string v1, "view"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 168
+    .line 267
     new-instance v1, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$c;
 
     invoke-direct {v1, v0}, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$c;-><init>(Landroid/view/View;)V
@@ -191,7 +203,7 @@
     .locals 0
 
     .prologue
-    .line 137
+    .line 235
     check-cast p1, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$c;
 
     invoke-virtual {p0, p1, p2}, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b;->a(Lcom/bilibili/tv/ui/download/DownloadManagerActivity$c;I)V
@@ -203,23 +215,23 @@
     .locals 2
 
     .prologue
-    .line 173
+    .line 272
     const-string v0, "viewHolder"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 174
+    .line 273
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$c;->z()Landroid/widget/TextView;
 
     move-result-object v1
 
-    .line 175
+    .line 274
     if-eqz v1, :cond_18
 
-    .line 176
+    .line 275
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b;->c:Lbl/cj;
 
-    .line 177
+    .line 276
     if-eqz v0, :cond_23
 
     invoke-virtual {v0, p2}, Lbl/cj;->a(I)Ljava/lang/Object;
@@ -231,31 +243,42 @@
     :goto_15
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 179
+    .line 278
     :cond_18
     iget-object v0, p1, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$c;->a:Landroid/view/View;
 
     new-instance v1, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b$1;
 
-    invoke-direct {v1, p0, p2}, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b$1;-><init>(Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b;I)V
+    invoke-direct {v1, p0, p2, p1}, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b$1;-><init>(Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b;ILcom/bilibili/tv/ui/download/DownloadManagerActivity$c;)V
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 196
+    .line 307
     return-void
 
-    .line 177
+    .line 276
     :cond_23
     const/4 v0, 0x0
 
     goto :goto_15
 .end method
 
+.method public final b(Z)V
+    .locals 0
+
+    .prologue
+    .line 321
+    iput-boolean p1, p0, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b;->d:Z
+
+    .line 322
+    return-void
+.end method
+
 .method public e()I
     .locals 1
 
     .prologue
-    .line 144
+    .line 243
     const/4 v0, 0x1
 
     return v0
@@ -265,10 +288,10 @@
     .locals 0
 
     .prologue
-    .line 155
+    .line 254
     iput p1, p0, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b;->a:I
 
-    .line 156
+    .line 255
     return-void
 .end method
 
@@ -276,7 +299,7 @@
     .locals 1
 
     .prologue
-    .line 159
+    .line 258
     iget v0, p0, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b;->a:I
 
     return v0

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="10dp"
+    android:background="#FFFFFF"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:clickable="true">
+
+    <!-- 勾选框（用文字符号表示勾选状态，兼容Android 4.x） -->
+    <TextView
+        android:id="@+id/checkbox"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:text="○"
+        android:textColor="#CCCCCC"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- 封面图片 -->
+    <com.bilibili.tv.widget.ScalableImageView
+        android:id="@+id/episode_cover"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginRight="10dp"
+        android:scaleType="centerCrop"
+        android:background="#EEEEEE" />
+
+    <!-- 分P标题 -->
+    <TextView
+        android:id="@+id/episode_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="P1 标题"
+        android:textColor="#333333"
+        android:textSize="16sp"
+        android:maxLines="2"
+        android:ellipsize="end" />
+
+    <!-- 预估大小 -->
+    <TextView
+        android:id="@+id/episode_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="预估: 500MB"
+        android:textColor="#999999"
+        android:textSize="14sp" />
+
+</LinearLayout>

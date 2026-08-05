@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 544
+    .line 553
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/DownloadManager$2;->this$0:Lcom/bilibili/tv/ui/download/DownloadManager;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/download/DownloadManager$2;->val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
@@ -44,7 +44,7 @@
     .locals 3
 
     .prologue
-    .line 547
+    .line 556
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager$2;->this$0:Lcom/bilibili/tv/ui/download/DownloadManager;
 
     # getter for: Lcom/bilibili/tv/ui/download/DownloadManager;->progressListeners:Ljava/util/List;
@@ -69,14 +69,14 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/download/DownloadManager$DownloadProgressListener;
 
-    .line 548
+    .line 557
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/DownloadManager$2;->val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
     invoke-interface {v0, v2}, Lcom/bilibili/tv/ui/download/DownloadManager$DownloadProgressListener;->onProgressUpdate(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 
     goto :goto_a
 
-    .line 550
+    .line 559
     :cond_1c
     return-void
 .end method

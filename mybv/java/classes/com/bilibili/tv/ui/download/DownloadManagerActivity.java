@@ -3,12 +3,15 @@ package com.bilibili.tv.ui.download;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import bl.adl;
+import bl.adw;
 import bl.adz;
 import bl.bbg;
 import bl.bbi;
@@ -16,17 +19,22 @@ import bl.cj;
 import com.bilibili.tv.R;
 import com.bilibili.tv.ui.base.BaseUpViewActivity;
 import com.bilibili.tv.ui.ranking.RankingLeftLinearLayoutManger;
+import com.bilibili.tv.widget.side.SideLeftSelectLinearLayout;
 import java.lang.ref.WeakReference;
+import kotlin.TypeCastException;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
 public final class DownloadManagerActivity extends BaseUpViewActivity {
     public static final a Companion = new a(null);
     private static final String e = "fromType";
+    private static final String EXTRA_FRAGMENT_INDEX = "fragment_index";
     private RecyclerView a;
     private b b;
     private Integer c = 0;
     private DownloadPagerAdapter d;
+    // 记忆当前显示的Fragment索引（0:下载中，1:已下载）
+    private int currentFragmentIndex = 0;
 
     @Override // com.bilibili.tv.ui.base.BaseUpViewActivity
     public void a(bl.agd agdVar) {
@@ -43,6 +51,20 @@ public final class DownloadManagerActivity extends BaseUpViewActivity {
         ((TextView) d(R.id.content_name)).setText(adl.e(R.string.download_manager));
         Intent intent = getIntent();
         this.c = intent != null ? Integer.valueOf(intent.getIntExtra(e, 0)) : null;
+
+        // 恢复Fragment索引（从Intent或savedInstanceState）
+        if (bundle != null) {
+            currentFragmentIndex = bundle.getInt(EXTRA_FRAGMENT_INDEX, 0);
+        } else if (intent != null) {
+            currentFragmentIndex = intent.getIntExtra(EXTRA_FRAGMENT_INDEX, 0);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // 保存当前Fragment索引
+        outState.putInt(EXTRA_FRAGMENT_INDEX, currentFragmentIndex);
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
@@ -98,8 +120,24 @@ public final class DownloadManagerActivity extends BaseUpViewActivity {
         }
         recyclerView4.setAdapter(this.b);
 
-        // 默认显示第一个Fragment（下载中）
-        this.d.c(0);
+        // 恢复上次显示的Fragment（或默认显示第一个）
+        this.d.c(currentFragmentIndex);
+
+        // 恢复左侧导航菜单的焦点位置和选中状态
+        if (currentFragmentIndex > 0) {
+            this.b.e(currentFragmentIndex);
+            // 延迟设置选中状态，确保Fragment已切换完成
+            final int fragmentIndex = currentFragmentIndex;
+            this.a.post(new Runnable() {
+                @Override
+                public void run() {
+                    RecyclerView.v holder = DownloadManagerActivity.this.a.c(fragmentIndex);
+                    if (holder != null && holder.a != null) {
+                        holder.a.setSelected(true);
+                    }
+                }
+            });
+        }
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
@@ -108,6 +146,66 @@ public final class DownloadManagerActivity extends BaseUpViewActivity {
         super.onDestroy();
         this.b = (b) null;
         this.d = (DownloadPagerAdapter) null;
+    }
+
+    @Override // com.bilibili.tv.ui.base.BaseActivity, android.support.v4.app.FragmentActivity, android.app.Activity
+    public boolean dispatchKeyEvent(KeyEvent keyEvent) {
+        if (this.b == null || this.d == null) {
+            return super.dispatchKeyEvent(keyEvent);
+        }
+        Integer action = keyEvent != null ? Integer.valueOf(keyEvent.getAction()) : null;
+        Integer keycode = keyEvent != null ? Integer.valueOf(keyEvent.getKeyCode()) : null;
+        if (action != null && action.intValue() == 0) {
+            View currentFocus = getCurrentFocus();
+            if (currentFocus == null || keycode == null || keycode.intValue() == KeyEvent.KEYCODE_DPAD_UP
+                    || keycode.intValue() == KeyEvent.KEYCODE_DPAD_DOWN) {
+                return super.dispatchKeyEvent(keyEvent);
+            }
+            if (keycode.intValue() == KeyEvent.KEYCODE_DPAD_LEFT) {
+                // 从右侧面板按左键返回左侧导航菜单
+                // 检查焦点是否在右侧面板（通过父View的tag判断）
+                if (currentFocus.getParent() instanceof View) {
+                    Object tag = ((View) currentFocus.getParent()).getTag();
+                    if (android.text.TextUtils.equals((CharSequence) tag, adw.a)) {
+                        // 找到selected的菜单项并请求焦点
+                        int childCount = this.a.getChildCount() - 1;
+                        if (childCount >= 0) {
+                            int i = 0;
+                            while (true) {
+                                View childAt = this.a.getChildAt(i);
+                                bbi.a((Object) childAt, "childView");
+                                if (childAt.isSelected()) {
+                                    childAt.requestFocus();
+                                }
+                                if (i == childCount) {
+                                    break;
+                                }
+                                i++;
+                            }
+                        }
+                        this.b.b(false);
+                    }
+                }
+            } else if (keycode.intValue() == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                // 从左侧导航菜单按右键进入右侧面板
+                // 必须先判断焦点在左侧导航菜单
+                if (currentFocus instanceof SideLeftSelectLinearLayout) {
+                    Fragment d2 = this.d.d(this.b.f());
+                    if (d2 == null) {
+                        return true;
+                    }
+                    // 检查右侧Fragment是否有内容
+                    if (d2 instanceof bl.adw) {
+                        if (!((bl.adw) d2).c()) {
+                            return true;
+                        }
+                    }
+                    ((SideLeftSelectLinearLayout) currentFocus).c();
+                    this.b.b(true);
+                }
+            }
+        }
+        return super.dispatchKeyEvent(keyEvent);
     }
 
     /* compiled from: BL */
@@ -138,6 +236,7 @@ public final class DownloadManagerActivity extends BaseUpViewActivity {
         private int a;
         private final WeakReference<DownloadManagerActivity> b;
         private final cj<String> c;
+        private boolean d; // 标记焦点是否在右侧面板
 
         @Override // bl.adz
         public int e() {
@@ -187,9 +286,21 @@ public final class DownloadManagerActivity extends BaseUpViewActivity {
                         DownloadManagerActivity activity = b.this.b.get();
                         if (activity != null && activity.d != null) {
                             activity.d.c(i);
+                            // 记忆当前Fragment索引
+                            activity.currentFragmentIndex = i;
                         }
+                        // 处理SideLeftSelectLinearLayout的焦点动画
+                        View view4 = cVar.a;
+                        if (view4 == null) {
+                            throw new TypeCastException(
+                                    "null cannot be cast to non-null type com.bilibili.tv.widget.side.SideLeftSelectLinearLayout");
+                        }
+                        ((SideLeftSelectLinearLayout) view4).a();
                     } else {
-                        view.setSelected(false);
+                        // 焦点离开时，如果焦点移动到右侧面板，保持背景色
+                        if (!b.this.d) {
+                            view.setSelected(false);
+                        }
                     }
                 }
             });
@@ -204,6 +315,10 @@ public final class DownloadManagerActivity extends BaseUpViewActivity {
         @Override // bl.adz, android.support.v7.widget.RecyclerView.a
         public int a(int i) {
             return 1;
+        }
+
+        public final void b(boolean z) {
+            this.d = z;
         }
     }
 

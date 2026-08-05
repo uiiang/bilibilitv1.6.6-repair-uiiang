@@ -26,6 +26,7 @@ public class VideoDetailDownloadHelper {
      * @param coverUrl 封面URL
      * @param upName UP主名称
      * @param duration 视频时长（秒）
+     * @param pageIndex 分P序号（从1开始，单P视频传1）
      * @param qualityList 可用的画质列表（如：["1080P", "720P", "480P"]）
      */
     public static void showDownloadDialog(
@@ -38,6 +39,7 @@ public class VideoDetailDownloadHelper {
             String coverUrl,
             String upName,
             long duration,
+            int pageIndex,
             List<String> qualityList
     ) {
         // 画质、音质、编码等参数已在设置页配置，点击下载按钮直接开始下载，不再弹出画质选择对话框
@@ -49,7 +51,7 @@ public class VideoDetailDownloadHelper {
 
         // 转换为画质名称并直接开始下载
         String qualityStr = convertQualityIdToString(defaultQuality);
-        startDownload(context, avid, bvid, cid, title, subTitle, coverUrl, upName, duration, qualityStr);
+        startDownload(context, avid, bvid, cid, title, subTitle, coverUrl, upName, duration, pageIndex, qualityStr);
     }
 
     /**
@@ -71,9 +73,11 @@ public class VideoDetailDownloadHelper {
     }
 
     /**
-     * 开始下载视频
+     * 开始下载视频（公开方法，供分P选择Activity调用）
+     *
+     * @param pageIndex 分P序号（从1开始，单P视频传1）
      */
-    private static void startDownload(
+    public static void startDownload(
             Context context,
             long avid,
             String bvid,
@@ -83,6 +87,7 @@ public class VideoDetailDownloadHelper {
             String coverUrl,
             String upName,
             long duration,
+            int pageIndex,
             String quality
     ) {
         Log.i(TAG, "开始下载: " + title + ", 画质: " + quality);
@@ -167,8 +172,8 @@ public class VideoDetailDownloadHelper {
                     task.setCreateTime(System.currentTimeMillis());
                     task.setUpdateTime(System.currentTimeMillis());
 
-                    // 设置下载路径（使用默认路径）
-                    String downloadPath = getDownloadPath(context, bvid, cid);
+                    // 设置下载路径（使用bvid作为文件夹名，同一视频的多个分P保存到同一文件夹）
+                    String downloadPath = getDownloadPath(context, bvid, cid, title, subTitle, pageIndex);
                     task.setDownloadPath(downloadPath);
 
                     // 添加到下载管理器
@@ -283,8 +288,12 @@ public class VideoDetailDownloadHelper {
 
     /**
      * 获取下载路径（带文件名）
+     * 使用bvid作为文件夹名，同一视频的多个分P保存到同一文件夹
+     * 文件名规则：
+     *   单P：BV号_视频标题(前10字).mp4
+     *   分P：BV号_分P标题(前10字)_分P序号.mp4
      */
-    private static String getDownloadPath(Context context, String bvid, long cid) {
+    private static String getDownloadPath(Context context, String bvid, long cid, String title, String subTitle, int pageIndex) {
         // 从SharedPreferences获取下载路径
         android.content.SharedPreferences prefs = context.getSharedPreferences("download_settings", android.content.Context.MODE_PRIVATE);
         String basePath = prefs.getString("download_path", "");
@@ -294,8 +303,49 @@ public class VideoDetailDownloadHelper {
             return null;
         }
 
-        // 构建完整路径
-        return basePath + "/" + bvid + "_" + cid + ".mp4";
+        // 构建完整路径：basePath/bvid/文件名.mp4
+        // 这样同一视频的多个分P会保存到同一文件夹中
+        String videoDir = basePath + "/" + bvid;
+
+        // 创建视频文件夹（如果不存在）
+        java.io.File dir = new java.io.File(videoDir);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        return videoDir + "/" + buildFileName(bvid, title, subTitle, pageIndex);
+    }
+
+    /**
+     * 构建下载文件名
+     * 单P：BV号_视频标题(前10字).mp4
+     * 分P：BV号_分P标题(前10字)_分P序号.mp4
+     */
+    private static String buildFileName(String bvid, String title, String subTitle, int pageIndex) {
+        boolean isMultiP = subTitle != null && !subTitle.isEmpty();
+        String namePart = isMultiP ? subTitle : title;
+        String safe = sanitizeFileName(namePart);
+        if (safe.length() > 10) {
+            safe = safe.substring(0, 10);
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append(bvid).append("_").append(safe);
+        if (isMultiP) {
+            sb.append("_").append(pageIndex);
+        }
+        sb.append(".mp4");
+        return sb.toString();
+    }
+
+    /**
+     * 清理文件名中的非法字符（删除无法作为文件名的特殊字符）
+     */
+    private static String sanitizeFileName(String name) {
+        if (name == null) {
+            return "";
+        }
+        // 删除非法字符：\/:*?"<>| 以及换行、制表符等控制字符
+        return name.replaceAll("[\\\\/:*?\"<>|\\r\\n\\t]", "");
     }
 
     /**

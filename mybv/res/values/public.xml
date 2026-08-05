@@ -3644,5 +3644,21 @@
     <public type="id" name="file_size_text" id="0x7f08023e" />
     <public type="id" name="speed_text" id="0x7f08023f" />
     <public type="id" name="status_text" id="0x7f080240" />
+    <public type="id" name="selected_count" id="0x7f08024f" />
+    <public type="id" name="total_size" id="0x7f080250" />
+    <public type="id" name="start_download_button" id="0x7f080251" />
+    <public type="id" name="cancel_button" id="0x7f080252" />
+    <public type="id" name="select_all_button" id="0x7f080253" />
+    <public type="id" name="video_title" id="0x7f080254" />
+    <public type="id" name="up_name" id="0x7f080255" />
+    <public type="id" name="total_count" id="0x7f080256" />
+    <public type="id" name="episode_cover" id="0x7f08025b" />
+    <public type="id" name="episode_title" id="0x7f080258" />
+    <public type="id" name="episode_size" id="0x7f080259" />
+    <public type="id" name="select_all_checkbox" id="0x7f08025a" />
     <public type="layout" name="fragment_download_settings" id="0x7f0a00b1" />
+    <public type="layout" name="activity_episode_select" id="0x7f0a00b2" />
+    <public type="layout" name="item_episode_select" id="0x7f0a00b3" />
+    <public type="drawable" name="ic_checked" id="0x7f070111" />
+    <public type="drawable" name="ic_unchecked" id="0x7f070112" />
 </resources>

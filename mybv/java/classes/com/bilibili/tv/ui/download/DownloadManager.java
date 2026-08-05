@@ -499,10 +499,19 @@ public class DownloadManager {
     }
 
     /**
-     * 根据bvid和cid获取任务
+     * 获取根据bvid和cid获取任务
      */
     public DownloadTask getTaskByBvidAndCid(String bvid, long cid) {
         return databaseHelper.getTaskByBvidAndCid(bvid, cid);
+    }
+
+    /**
+     * 更新下载任务（用于文件重命名等场景）
+     */
+    public void updateTask(DownloadTask task) {
+        Log.i(TAG, "更新下载任务: " + task.getTaskId());
+        task.setUpdateTime(System.currentTimeMillis());
+        databaseHelper.updateTask(task);
     }
 
     /**

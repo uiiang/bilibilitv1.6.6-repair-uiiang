@@ -3699,8 +3699,27 @@ public final class VideoDetailActivity extends BaseActivity
         // 获取视频信息（直接访问字段）
         long avid = this.u.mAvid;
         String bvid = this.u.mBvid;
-        // 注意：BiliVideoDetail.mCid 无 @JSONField 注解，API解析时不会被赋值（恒为0）
-        // 需从分P列表/单P/播放历史中获取真实cid（与播放逻辑一致）
+        String title = this.u.mTitle;
+        String coverUrl = this.u.mCover;
+        String upName = (this.u.mOwner != null) ? this.u.mOwner.name : "未知";
+
+        // 检查是否有分P列表（数量>1表示多P视频）
+        if (this.u.mPageList != null && this.u.mPageList.size() > 1) {
+            // 有分P，进入分P选择页面
+            android.util.Log.i("VideoDetail", "打开分P选择页面，分P数量=" + this.u.mPageList.size());
+            com.bilibili.tv.ui.download.EpisodeSelectActivity.start(
+                this,
+                avid,
+                bvid,
+                title,
+                coverUrl,
+                upName,
+                this.u.mPageList
+            );
+            return;
+        }
+
+        // 单P视频或无分P，直接下载
         long cid = 0;
         if (this.u.mPageList != null && !this.u.mPageList.isEmpty()) {
             cid = this.u.mPageList.get(0).mCid;
@@ -3711,9 +3730,6 @@ public final class VideoDetailActivity extends BaseActivity
         if (cid == 0 && this.u.mHistory != null) {
             cid = this.u.mHistory.mCid;
         }
-        String title = this.u.mTitle;
-        String coverUrl = this.u.mCover;
-        String upName = (this.u.mOwner != null) ? this.u.mOwner.name : "未知";
         long duration = this.u.mDuration;
 
         // 分P标题（副标题）：多P视频显示当前分P的标题，单P视频为null
@@ -3738,7 +3754,7 @@ public final class VideoDetailActivity extends BaseActivity
         qualityList.add("720P 高清");
         qualityList.add("480P 清晰");
 
-        // 显示下载对话框
+        // 显示下载对话框（单P视频，分P序号为1）
         com.bilibili.tv.ui.download.VideoDetailDownloadHelper.showDownloadDialog(
             this,
             avid,
@@ -3749,6 +3765,7 @@ public final class VideoDetailActivity extends BaseActivity
             coverUrl,
             upName,
             duration,
+            1,
             qualityList
         );
     }
