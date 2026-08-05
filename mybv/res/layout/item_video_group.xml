@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/selector_download_task_item"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:padding="16dp"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.bilibili.tv.widget.ScalableImageView
+        android:id="@id/group_cover"
+        android:layout_width="170dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/shape_default_loading_img"
+        android:focusable="false" />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_gravity="center_vertical">
+        <com.bilibili.tv.widget.ShadowTextView
+            android:id="@id/group_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:focusable="false" />
+        <TextView
+            android:id="@id/group_count_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:textColor="@color/white_70"
+            android:textSize="13sp"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:focusable="false" />
+        <TextView
+            android:id="@id/group_status_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/white_50"
+            android:textSize="12sp"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:focusable="false" />
+    </LinearLayout>
+</LinearLayout>

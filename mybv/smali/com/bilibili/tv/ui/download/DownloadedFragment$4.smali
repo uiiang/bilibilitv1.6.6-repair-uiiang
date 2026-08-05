@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/download/DownloadedFragment;->showRenameDialog(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
+    value = Lcom/bilibili/tv/ui/download/DownloadedFragment;->showTaskMenu(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,26 +20,18 @@
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/download/DownloadedFragment;
 
-.field final synthetic val$fileExtension:Ljava/lang/String;
-
-.field final synthetic val$input:Landroid/widget/EditText;
-
 .field final synthetic val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/download/DownloadedFragment;Landroid/widget/EditText;Lcom/bilibili/tv/ui/download/model/DownloadTask;Ljava/lang/String;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/download/DownloadedFragment;Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
     .locals 0
 
     .prologue
-    .line 218
+    .line 187
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$4;->this$0:Lcom/bilibili/tv/ui/download/DownloadedFragment;
 
-    iput-object p2, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$4;->val$input:Landroid/widget/EditText;
-
-    iput-object p3, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$4;->val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
-
-    iput-object p4, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$4;->val$fileExtension:Ljava/lang/String;
+    iput-object p2, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$4;->val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -52,171 +44,178 @@
     .locals 4
 
     .prologue
+    .line 191
+    iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$4;->this$0:Lcom/bilibili/tv/ui/download/DownloadedFragment;
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/DownloadedFragment;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/bilibili/tv/ui/download/DownloadManager;->getInstance(Landroid/content/Context;)Lcom/bilibili/tv/ui/download/DownloadManager;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$4;->val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
+
+    invoke-virtual {v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getTaskId()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/download/DownloadManager;->getTask(Ljava/lang/String;)Lcom/bilibili/tv/ui/download/model/DownloadTask;
+
+    move-result-object v0
+
+    .line 192
+    if-nez v0, :cond_27
+
+    .line 193
+    iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$4;->this$0:Lcom/bilibili/tv/ui/download/DownloadedFragment;
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/DownloadedFragment;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    const-string v1, "\u4efb\u52a1\u4e0d\u5b58\u5728"
+
     const/4 v2, 0x0
 
-    .line 221
-    iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$4;->val$input:Landroid/widget/EditText;
-
-    invoke-virtual {v0}, Landroid/widget/EditText;->getText()Landroid/text/Editable;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/Object;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/String;->trim()Ljava/lang/String;
-
-    move-result-object v0
-
-    .line 222
-    invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
-
-    move-result v1
-
-    if-eqz v1, :cond_25
-
-    .line 223
-    iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$4;->this$0:Lcom/bilibili/tv/ui/download/DownloadedFragment;
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/DownloadedFragment;->getContext()Landroid/content/Context;
-
-    move-result-object v0
-
-    const-string v1, "\u6587\u4ef6\u540d\u4e0d\u80fd\u4e3a\u7a7a"
-
     invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
 
     move-result-object v0
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    .line 239
-    :goto_24
+    .line 215
+    :goto_26
     return-void
 
-    .line 228
-    :cond_25
-    const-string v1, "/"
+    .line 197
+    :cond_27
+    const-string v1, "DownloadedFragment"
 
-    invoke-virtual {v0, v1}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+    new-instance v2, Ljava/lang/StringBuilder;
 
-    move-result v1
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    if-nez v1, :cond_6d
+    const-string v3, "showTaskMenu: onClick which="
 
-    const-string v1, "\\"
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v0, v1}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+    move-result-object v2
 
-    move-result v1
+    invoke-virtual {v2, p2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    if-nez v1, :cond_6d
+    move-result-object v2
 
-    const-string v1, ":"
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    .line 229
-    invoke-virtual {v0, v1}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+    move-result-object v2
 
-    move-result v1
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    if-nez v1, :cond_6d
+    .line 198
+    const-string v1, "DownloadedFragment"
 
-    const-string v1, "*"
+    new-instance v2, Ljava/lang/StringBuilder;
 
-    invoke-virtual {v0, v1}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    move-result v1
+    const-string v3, "showTaskMenu: onClick latestTask.downloadPath="
 
-    if-nez v1, :cond_6d
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    const-string v1, "?"
+    move-result-object v2
 
-    .line 230
-    invoke-virtual {v0, v1}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getDownloadPath()Ljava/lang/String;
 
-    move-result v1
+    move-result-object v3
 
-    if-nez v1, :cond_6d
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    const-string v1, "\""
+    move-result-object v2
 
-    invoke-virtual {v0, v1}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result v1
+    move-result-object v2
 
-    if-nez v1, :cond_6d
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    const-string v1, "<"
+    .line 200
+    packed-switch p2, :pswitch_data_94
 
-    .line 231
-    invoke-virtual {v0, v1}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+    goto :goto_26
 
-    move-result v1
+    .line 202
+    :pswitch_5f
+    const-string v1, "DownloadedFragment"
 
-    if-nez v1, :cond_6d
+    new-instance v2, Ljava/lang/StringBuilder;
 
-    const-string v1, ">"
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-virtual {v0, v1}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+    const-string v3, "showTaskMenu: onClick \u672c\u5730\u64ad\u653e, downloadPath="
 
-    move-result v1
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    if-nez v1, :cond_6d
+    move-result-object v2
 
-    const-string v1, "|"
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getDownloadPath()Ljava/lang/String;
 
-    .line 232
-    invoke-virtual {v0, v1}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+    move-result-object v3
 
-    move-result v1
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    if-eqz v1, :cond_7d
+    move-result-object v2
 
-    .line 233
-    :cond_6d
-    iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$4;->this$0:Lcom/bilibili/tv/ui/download/DownloadedFragment;
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/DownloadedFragment;->getContext()Landroid/content/Context;
+    move-result-object v2
 
-    move-result-object v0
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    const-string v1, "\u6587\u4ef6\u540d\u5305\u542b\u975e\u6cd5\u5b57\u7b26"
-
-    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
-
-    goto :goto_24
-
-    .line 238
-    :cond_7d
+    .line 203
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$4;->this$0:Lcom/bilibili/tv/ui/download/DownloadedFragment;
 
-    iget-object v2, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$4;->val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
+    # invokes: Lcom/bilibili/tv/ui/download/DownloadedFragment;->playLocalFile(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
+    invoke-static {v1, v0}, Lcom/bilibili/tv/ui/download/DownloadedFragment;->access$400(Lcom/bilibili/tv/ui/download/DownloadedFragment;Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 
-    new-instance v3, Ljava/lang/StringBuilder;
+    goto :goto_26
 
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+    .line 206
+    :pswitch_81
+    iget-object v1, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$4;->this$0:Lcom/bilibili/tv/ui/download/DownloadedFragment;
 
-    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    # invokes: Lcom/bilibili/tv/ui/download/DownloadedFragment;->playLocalFileWithChooser(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
+    invoke-static {v1, v0}, Lcom/bilibili/tv/ui/download/DownloadedFragment;->access$500(Lcom/bilibili/tv/ui/download/DownloadedFragment;Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 
-    move-result-object v0
+    goto :goto_26
 
-    iget-object v3, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$4;->val$fileExtension:Ljava/lang/String;
+    .line 209
+    :pswitch_87
+    iget-object v1, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$4;->this$0:Lcom/bilibili/tv/ui/download/DownloadedFragment;
 
-    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    # invokes: Lcom/bilibili/tv/ui/download/DownloadedFragment;->showRenameDialog(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
+    invoke-static {v1, v0}, Lcom/bilibili/tv/ui/download/DownloadedFragment;->access$600(Lcom/bilibili/tv/ui/download/DownloadedFragment;Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 
-    move-result-object v0
+    goto :goto_26
 
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    .line 212
+    :pswitch_8d
+    iget-object v1, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$4;->this$0:Lcom/bilibili/tv/ui/download/DownloadedFragment;
 
-    move-result-object v0
+    # invokes: Lcom/bilibili/tv/ui/download/DownloadedFragment;->handleTaskLongClick(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
+    invoke-static {v1, v0}, Lcom/bilibili/tv/ui/download/DownloadedFragment;->access$300(Lcom/bilibili/tv/ui/download/DownloadedFragment;Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 
-    # invokes: Lcom/bilibili/tv/ui/download/DownloadedFragment;->renameLocalFile(Lcom/bilibili/tv/ui/download/model/DownloadTask;Ljava/lang/String;)V
-    invoke-static {v1, v2, v0}, Lcom/bilibili/tv/ui/download/DownloadedFragment;->access$700(Lcom/bilibili/tv/ui/download/DownloadedFragment;Lcom/bilibili/tv/ui/download/model/DownloadTask;Ljava/lang/String;)V
+    goto :goto_26
 
-    goto :goto_24
+    .line 200
+    nop
+
+    :pswitch_data_94
+    .packed-switch 0x0
+        :pswitch_5f
+        :pswitch_81
+        :pswitch_87
+        :pswitch_8d
+    .end packed-switch
 .end method

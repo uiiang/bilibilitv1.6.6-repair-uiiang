@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:background="@drawable/background_image"
+    android:focusable="false"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.bilibili.tv.widget.ShadowTextView
+        android:textSize="@dimen/px_48"
+        android:textColor="@color/white"
+        android:id="@id/task_group_title"
+        android:focusable="false"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/px_50"
+        android:layout_marginTop="@dimen/px_50"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:ellipsize="end" />
+    <FrameLayout
+        android:id="@id/fragment_container"
+        android:focusable="false"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/px_24" />
+</LinearLayout>

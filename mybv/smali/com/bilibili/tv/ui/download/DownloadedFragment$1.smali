@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 64
+    .line 72
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$1;->this$0:Lcom/bilibili/tv/ui/download/DownloadedFragment;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 67
+    .line 75
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$1;->this$0:Lcom/bilibili/tv/ui/download/DownloadedFragment;
 
     # getter for: Lcom/bilibili/tv/ui/download/DownloadedFragment;->recyclerView:Landroid/support/v7/widget/RecyclerView;
@@ -59,19 +59,19 @@
 
     move-result-object v0
 
-    .line 68
+    .line 76
     if-eqz v0, :cond_1b
 
     iget-object v1, v0, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
 
     if-eqz v1, :cond_1b
 
-    .line 69
+    .line 77
     iget-object v0, v0, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
 
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 71
+    .line 79
     :cond_1b
     return-void
 .end method

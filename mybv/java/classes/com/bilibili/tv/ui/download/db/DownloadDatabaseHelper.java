@@ -19,14 +19,14 @@ public class DownloadDatabaseHelper extends SQLiteOpenHelper {
 
     // 数据库信息
     private static final String DATABASE_NAME = "download_tasks.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     // 表名
     private static final String TABLE_TASKS = "download_tasks";
 
     // 字段名
     private static final String[] COLUMNS = {
-        "task_id", "bvid", "cid", "title", "subtitle", "cover_url", "up_name", "duration",
+        "task_id", "bvid", "cid", "title", "subtitle", "page_index", "cover_url", "up_name", "duration",
         "total_size", "downloaded_size", "progress", "speed", "download_path",
         "video_url", "avid",
         "status", "is_manual_pause", "pause_type",
@@ -65,6 +65,7 @@ public class DownloadDatabaseHelper extends SQLiteOpenHelper {
             "cid INTEGER NOT NULL," +
             "title TEXT NOT NULL," +
             "subtitle TEXT," +
+            "page_index INTEGER DEFAULT 0," +
             "cover_url TEXT," +
             "up_name TEXT," +
             "duration INTEGER DEFAULT 0," +
@@ -117,6 +118,12 @@ public class DownloadDatabaseHelper extends SQLiteOpenHelper {
         if (oldVersion < 3) {
             Log.i(TAG, "添加subtitle列");
             db.execSQL("ALTER TABLE " + TABLE_TASKS + " ADD COLUMN subtitle TEXT");
+        }
+
+        // 版本3到版本4：添加page_index列（分P序号）
+        if (oldVersion < 4) {
+            Log.i(TAG, "添加page_index列");
+            db.execSQL("ALTER TABLE " + TABLE_TASKS + " ADD COLUMN page_index INTEGER DEFAULT 0");
         }
     }
 

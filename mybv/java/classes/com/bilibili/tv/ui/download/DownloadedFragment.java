@@ -22,15 +22,23 @@ import java.util.List;
  */
 public class DownloadedFragment extends Fragment implements DownloadManager.DownloadProgressListener {
 
+    /** 第二级分P明细页过滤参数：只显示该bvid的任务（null表示显示全部） */
+    public static final String ARG_BVID = "group_bvid";
+
     private RecyclerView recyclerView;
     private DownloadTaskAdapter adapter;
     private TextView emptyView;
+    private String filterBvid;
     // 焦点位置记忆
     private int focusPosition = 0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 读取bvid过滤参数（第二级分P明细页使用）
+        if (getArguments() != null) {
+            filterBvid = getArguments().getString(ARG_BVID);
+        }
         // 注册下载进度监听器
         DownloadManager.getInstance(getContext()).addProgressListener(this);
     }
@@ -81,6 +89,8 @@ public class DownloadedFragment extends Fragment implements DownloadManager.Down
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new DownloadTaskAdapter();
+        // 第二级分P明细页：标题后显示分P序号
+        adapter.setShowPageIndex(filterBvid != null && !filterBvid.isEmpty());
         recyclerView.setAdapter(adapter);
 
         // 设置点击监听器
@@ -109,6 +119,25 @@ public class DownloadedFragment extends Fragment implements DownloadManager.Down
     private void refreshList() {
         List<DownloadTask> completedTasks = DownloadManager.getInstance(getContext())
             .getCompletedTasks();
+
+        // 第二级分P明细页：按bvid过滤，只显示该视频的分P任务
+        if (filterBvid != null && !filterBvid.isEmpty()) {
+            List<DownloadTask> filtered = new java.util.ArrayList<DownloadTask>();
+            for (DownloadTask t : completedTasks) {
+                if (filterBvid.equals(t.getBvid())) {
+                    filtered.add(t);
+                }
+            }
+            // 按cid升序排列（分P顺序）
+            java.util.Collections.sort(filtered, new java.util.Comparator<DownloadTask>() {
+                @Override
+                public int compare(DownloadTask a, DownloadTask b) {
+                    long diff = a.getCid() - b.getCid();
+                    return diff > 0 ? 1 : (diff < 0 ? -1 : 0);
+                }
+            });
+            completedTasks = filtered;
+        }
 
         // 检查所有任务的路径是否有效
         for (DownloadTask task : completedTasks) {

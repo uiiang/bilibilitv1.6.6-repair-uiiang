@@ -16,6 +16,7 @@ public class DownloadTask implements Comparable<DownloadTask> {
     private long cid;               // 视频CID
     private String title;           // 视频标题
     private String subTitle;        // 分P标题（副标题）
+    private int pageIndex;          // 分P序号（从1开始，单P视频为0）
     private String coverUrl;        // 封面URL
     private String upName;          // UP主名称
     private long duration;          // 视频时长（秒）
@@ -174,6 +175,14 @@ public class DownloadTask implements Comparable<DownloadTask> {
 
     public void setSubTitle(String subTitle) {
         this.subTitle = subTitle;
+    }
+
+    public int getPageIndex() {
+        return pageIndex;
+    }
+
+    public void setPageIndex(int pageIndex) {
+        this.pageIndex = pageIndex;
     }
 
     public String getCoverUrl() {
@@ -502,6 +511,12 @@ public class DownloadTask implements Comparable<DownloadTask> {
             task.setSubTitle(cursor.getString(subTitleIndex));
         }
 
+        // 读取分P序号（兼容旧版本数据库）
+        int pageIndexIndex = cursor.getColumnIndex("page_index");
+        if (pageIndexIndex != -1 && !cursor.isNull(pageIndexIndex)) {
+            task.setPageIndex(cursor.getInt(pageIndexIndex));
+        }
+
         task.setUpName(cursor.getString(cursor.getColumnIndex("up_name")));
         task.setDuration(cursor.getLong(cursor.getColumnIndex("duration")));
         task.setTotalSize(cursor.getLong(cursor.getColumnIndex("total_size")));
@@ -549,6 +564,7 @@ public class DownloadTask implements Comparable<DownloadTask> {
         values.put("title", title);
         values.put("cover_url", coverUrl);
         values.put("subtitle", subTitle);
+        values.put("page_index", pageIndex);
         values.put("up_name", upName);
         values.put("duration", duration);
         values.put("total_size", totalSize);
@@ -585,6 +601,7 @@ public class DownloadTask implements Comparable<DownloadTask> {
         json.put("cid", cid);
         json.put("title", title);
         json.put("subTitle", subTitle);
+        json.put("pageIndex", pageIndex);
         json.put("coverUrl", coverUrl);
         json.put("upName", upName);
         json.put("duration", duration);

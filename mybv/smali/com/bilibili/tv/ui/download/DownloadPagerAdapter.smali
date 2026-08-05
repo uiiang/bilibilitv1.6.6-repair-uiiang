@@ -39,25 +39,29 @@
     .line 26
     packed-switch p1, :pswitch_data_12
 
-    .line 32
+    .line 34
     const/4 v0, 0x0
 
     :goto_4
     return-object v0
 
-    .line 28
+    .line 29
     :pswitch_5
-    new-instance v0, Lcom/bilibili/tv/ui/download/DownloadingFragment;
+    const/4 v0, 0x0
 
-    invoke-direct {v0}, Lcom/bilibili/tv/ui/download/DownloadingFragment;-><init>()V
+    invoke-static {v0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->newInstance(Z)Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;
+
+    move-result-object v0
 
     goto :goto_4
 
-    .line 30
+    .line 32
     :pswitch_b
-    new-instance v0, Lcom/bilibili/tv/ui/download/DownloadedFragment;
+    const/4 v0, 0x1
 
-    invoke-direct {v0}, Lcom/bilibili/tv/ui/download/DownloadedFragment;-><init>()V
+    invoke-static {v0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->newInstance(Z)Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;
+
+    move-result-object v0
 
     goto :goto_4
 
@@ -75,16 +79,16 @@
     .locals 1
 
     .prologue
-    .line 36
+    .line 38
     packed-switch p1, :pswitch_data_16
 
-    .line 42
+    .line 44
     const-string v0, ""
 
     :goto_5
     return-object v0
 
-    .line 38
+    .line 40
     :pswitch_6
     const v0, 0x7f0c0194
 
@@ -94,7 +98,7 @@
 
     goto :goto_5
 
-    .line 40
+    .line 42
     :pswitch_e
     const v0, 0x7f0c0195
 
@@ -104,7 +108,7 @@
 
     goto :goto_5
 
-    .line 36
+    .line 38
     :pswitch_data_16
     .packed-switch 0x0
         :pswitch_6

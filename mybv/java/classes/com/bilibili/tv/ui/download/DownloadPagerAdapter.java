@@ -25,9 +25,11 @@ public final class DownloadPagerAdapter extends adx {
     public Fragment a(int i) {
         switch (i) {
             case 0:
-                return new DownloadingFragment();
+                // 下载中：第一级视频分组列表
+                return GroupedDownloadFragment.newInstance(false);
             case 1:
-                return new DownloadedFragment();
+                // 已下载：第一级视频分组列表
+                return GroupedDownloadFragment.newInstance(true);
         }
         return null;
     }

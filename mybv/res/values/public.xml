@@ -3656,9 +3656,15 @@
     <public type="id" name="episode_title" id="0x7f080258" />
     <public type="id" name="episode_size" id="0x7f080259" />
     <public type="id" name="select_all_checkbox" id="0x7f08025a" />
+    <public type="id" name="group_cover" id="0x7f08025c" />
+    <public type="id" name="group_count_text" id="0x7f08025e" />
+    <public type="id" name="group_status_text" id="0x7f08025f" />
+    <public type="id" name="task_group_title" id="0x7f080260" />
     <public type="layout" name="fragment_download_settings" id="0x7f0a00b1" />
     <public type="layout" name="activity_episode_select" id="0x7f0a00b2" />
     <public type="layout" name="item_episode_select" id="0x7f0a00b3" />
+    <public type="layout" name="item_video_group" id="0x7f0a00b4" />
+    <public type="layout" name="activity_task_group_detail" id="0x7f0a00b5" />
     <public type="drawable" name="ic_checked" id="0x7f070111" />
     <public type="drawable" name="ic_unchecked" id="0x7f070112" />
 </resources>

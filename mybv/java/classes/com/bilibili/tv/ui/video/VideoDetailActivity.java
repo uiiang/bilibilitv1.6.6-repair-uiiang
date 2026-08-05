@@ -3754,7 +3754,7 @@ public final class VideoDetailActivity extends BaseActivity
         qualityList.add("720P 高清");
         qualityList.add("480P 清晰");
 
-        // 显示下载对话框（单P视频，分P序号为1）
+        // 显示下载对话框（单P视频，分P序号为0表示不显示序号）
         com.bilibili.tv.ui.download.VideoDetailDownloadHelper.showDownloadDialog(
             this,
             avid,
@@ -3765,7 +3765,7 @@ public final class VideoDetailActivity extends BaseActivity
             coverUrl,
             upName,
             duration,
-            1,
+            0,
             qualityList
         );
     }

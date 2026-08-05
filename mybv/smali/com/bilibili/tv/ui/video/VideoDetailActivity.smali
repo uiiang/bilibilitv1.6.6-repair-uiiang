@@ -8357,7 +8357,7 @@
     invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 3758
-    const/16 v22, 0x1
+    const/16 v22, 0x0
 
     move-object/from16 v10, p0
 

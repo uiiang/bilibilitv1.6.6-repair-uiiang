@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 210
+    .line 222
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$2;->this$0:Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$2;->val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
@@ -48,7 +48,7 @@
     .locals 3
 
     .prologue
-    .line 213
+    .line 225
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$2;->this$0:Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;
 
     # getter for: Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;->listener:Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$OnTaskClickListener;
@@ -58,7 +58,7 @@
 
     if-eqz v0, :cond_17
 
-    .line 214
+    .line 226
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$2;->this$0:Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;
 
     # getter for: Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;->listener:Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$OnTaskClickListener;
@@ -74,7 +74,7 @@
 
     move-result v0
 
-    .line 216
+    .line 228
     :goto_16
     return v0
 

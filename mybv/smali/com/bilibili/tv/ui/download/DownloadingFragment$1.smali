@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 73
+    .line 83
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/DownloadingFragment$1;->this$0:Lcom/bilibili/tv/ui/download/DownloadingFragment;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,13 +40,13 @@
     .locals 1
 
     .prologue
-    .line 76
+    .line 86
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadingFragment$1;->this$0:Lcom/bilibili/tv/ui/download/DownloadingFragment;
 
     # invokes: Lcom/bilibili/tv/ui/download/DownloadingFragment;->handleTaskClick(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
     invoke-static {v0, p1}, Lcom/bilibili/tv/ui/download/DownloadingFragment;->access$000(Lcom/bilibili/tv/ui/download/DownloadingFragment;Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 
-    .line 77
+    .line 87
     return-void
 .end method
 
@@ -54,13 +54,13 @@
     .locals 1
 
     .prologue
-    .line 81
+    .line 91
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadingFragment$1;->this$0:Lcom/bilibili/tv/ui/download/DownloadingFragment;
 
     # invokes: Lcom/bilibili/tv/ui/download/DownloadingFragment;->handleTaskLongClick(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
     invoke-static {v0, p1}, Lcom/bilibili/tv/ui/download/DownloadingFragment;->access$100(Lcom/bilibili/tv/ui/download/DownloadingFragment;Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 
-    .line 82
+    .line 92
     const/4 v0, 0x1
 
     return v0

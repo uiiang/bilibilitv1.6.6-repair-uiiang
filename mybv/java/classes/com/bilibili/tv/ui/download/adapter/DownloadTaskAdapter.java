@@ -19,6 +19,7 @@ public class DownloadTaskAdapter extends RecyclerView.a<DownloadTaskAdapter.View
 
     private List<DownloadTask> taskList = new ArrayList<>();
     private OnTaskClickListener listener;
+    private boolean showPageIndex; // 是否在标题后显示分P序号（第二级分P明细页使用）
 
     /**
      * 任务点击监听器接口
@@ -92,6 +93,13 @@ public class DownloadTaskAdapter extends RecyclerView.a<DownloadTaskAdapter.View
         this.listener = listener;
     }
 
+    /**
+     * 设置是否在标题后显示分P序号（第二级分P明细页开启）
+     */
+    public void setShowPageIndex(boolean showPageIndex) {
+        this.showPageIndex = showPageIndex;
+    }
+
     @Override
     public ViewHolder a(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext())
@@ -104,8 +112,12 @@ public class DownloadTaskAdapter extends RecyclerView.a<DownloadTaskAdapter.View
         final DownloadTask task = taskList.get(i);
         final int position = i;
 
-        // 标题
-        holder.titleText.setText(task.getTitle());
+        // 标题（第二级分P明细页在标题后显示分P序号，便于分辨第几个分P）
+        if (showPageIndex && task.getPageIndex() > 0) {
+            holder.titleText.setText(task.getTitle() + "  P" + task.getPageIndex());
+        } else {
+            holder.titleText.setText(task.getTitle());
+        }
 
         // 副标题：已完成的任务显示文件名，其他显示分P标题
         if (task.getStatus() == DownloadTask.Status.COMPLETED) {

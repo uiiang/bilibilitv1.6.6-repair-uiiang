@@ -162,6 +162,7 @@ public class VideoDetailDownloadHelper {
                     task.setAvid(avid);
                     task.setTitle(title);
                     task.setSubTitle(subTitle);
+                    task.setPageIndex(pageIndex);
                     task.setCoverUrl(coverUrl);
                     task.setUpName(upName);
                     task.setDuration(duration);

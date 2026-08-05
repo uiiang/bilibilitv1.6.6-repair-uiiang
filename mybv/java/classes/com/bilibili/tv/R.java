@@ -2703,6 +2703,10 @@ public final class R {
         public static final int codec_avc_button = 0x7f08024b;
         public static final int codec_hevc_button = 0x7f08024c;
         public static final int download_path_detail = 0x7f08024d;
+        public static final int group_cover = 0x7f08025c;
+        public static final int group_count_text = 0x7f08025e;
+        public static final int group_status_text = 0x7f08025f;
+        public static final int task_group_title = 0x7f080260;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;
@@ -2895,6 +2899,8 @@ public final class R {
         public static final int fragment_download_settings = 0x7f0a00b1;
         public static final int activity_episode_select = 0x7f0a00b2;
         public static final int item_episode_select = 0x7f0a00b3;
+        public static final int item_video_group = 0x7f0a00b4;
+        public static final int activity_task_group_detail = 0x7f0a00b5;
     }
 
     public static final class mipmap {

@@ -58,7 +58,7 @@
 
     const/4 v3, 0x0
 
-    .line 59
+    .line 60
     new-instance v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
     const-string v1, "WAITING"
@@ -69,7 +69,7 @@
 
     sput-object v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->WAITING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
-    .line 60
+    .line 61
     new-instance v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
     const-string v1, "DOWNLOADING"
@@ -80,7 +80,7 @@
 
     sput-object v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->DOWNLOADING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
-    .line 61
+    .line 62
     new-instance v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
     const-string v1, "PAUSED"
@@ -91,7 +91,7 @@
 
     sput-object v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->PAUSED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
-    .line 62
+    .line 63
     new-instance v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
     const-string v1, "COMPLETED"
@@ -102,7 +102,7 @@
 
     sput-object v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->COMPLETED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
-    .line 63
+    .line 64
     new-instance v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
     const-string v1, "FAILED"
@@ -113,7 +113,7 @@
 
     sput-object v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->FAILED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
-    .line 58
+    .line 59
     const/4 v0, 0x5
 
     new-array v0, v0, [Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
@@ -154,16 +154,16 @@
     .end annotation
 
     .prologue
-    .line 68
+    .line 69
     invoke-direct {p0, p1, p2}, Ljava/lang/Enum;-><init>(Ljava/lang/String;I)V
 
-    .line 69
+    .line 70
     iput p3, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->value:I
 
-    .line 70
+    .line 71
     iput-object p4, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->name:Ljava/lang/String;
 
-    .line 71
+    .line 72
     return-void
 .end method
 
@@ -171,7 +171,7 @@
     .locals 5
 
     .prologue
-    .line 82
+    .line 83
     invoke-static {}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->values()[Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
     move-result-object v2
@@ -187,16 +187,16 @@
 
     aget-object v0, v2, v1
 
-    .line 83
+    .line 84
     iget v4, v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->value:I
 
     if-ne v4, p0, :cond_10
 
-    .line 87
+    .line 88
     :goto_f
     return-object v0
 
-    .line 82
+    .line 83
     :cond_10
     add-int/lit8 v0, v1, 0x1
 
@@ -204,7 +204,7 @@
 
     goto :goto_7
 
-    .line 87
+    .line 88
     :cond_14
     sget-object v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->WAITING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
@@ -215,7 +215,7 @@
     .locals 1
 
     .prologue
-    .line 58
+    .line 59
     const-class v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
     invoke-static {v0, p0}, Ljava/lang/Enum;->valueOf(Ljava/lang/Class;Ljava/lang/String;)Ljava/lang/Enum;
@@ -231,7 +231,7 @@
     .locals 1
 
     .prologue
-    .line 58
+    .line 59
     sget-object v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->$VALUES:[Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
     invoke-virtual {v0}, [Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->clone()Ljava/lang/Object;
@@ -249,7 +249,7 @@
     .locals 1
 
     .prologue
-    .line 78
+    .line 79
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->name:Ljava/lang/String;
 
     return-object v0
@@ -259,7 +259,7 @@
     .locals 1
 
     .prologue
-    .line 74
+    .line 75
     iget v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->value:I
 
     return v0
