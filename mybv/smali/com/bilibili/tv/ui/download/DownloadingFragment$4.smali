@@ -1,122 +1,91 @@
-.class synthetic Lcom/bilibili/tv/ui/download/DownloadingFragment$4;
+.class Lcom/bilibili/tv/ui/download/DownloadingFragment$4;
 .super Ljava/lang/Object;
 .source "DownloadingFragment.java"
 
+# interfaces
+.implements Landroid/content/DialogInterface$OnClickListener;
+
 
 # annotations
-.annotation system Ldalvik/annotation/EnclosingClass;
-    value = Lcom/bilibili/tv/ui/download/DownloadingFragment;
+.annotation system Ldalvik/annotation/EnclosingMethod;
+    value = Lcom/bilibili/tv/ui/download/DownloadingFragment;->handleTaskLongClick(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
-    accessFlags = 0x1008
+    accessFlags = 0x0
     name = null
 .end annotation
 
 
-# static fields
-.field static final synthetic $SwitchMap$com$bilibili$tv$ui$download$model$DownloadTask$Status:[I
+# instance fields
+.field final synthetic this$0:Lcom/bilibili/tv/ui/download/DownloadingFragment;
+
+.field final synthetic val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
 
 # direct methods
-.method static constructor <clinit>()V
+.method constructor <init>(Lcom/bilibili/tv/ui/download/DownloadingFragment;Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
+    .locals 0
+
+    .prologue
+    .line 229
+    iput-object p1, p0, Lcom/bilibili/tv/ui/download/DownloadingFragment$4;->this$0:Lcom/bilibili/tv/ui/download/DownloadingFragment;
+
+    iput-object p2, p0, Lcom/bilibili/tv/ui/download/DownloadingFragment$4;->val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public onClick(Landroid/content/DialogInterface;I)V
     .locals 3
 
     .prologue
-    .line 143
-    invoke-static {}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->values()[Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+    .line 232
+    iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadingFragment$4;->this$0:Lcom/bilibili/tv/ui/download/DownloadingFragment;
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/DownloadingFragment;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    array-length v0, v0
+    invoke-static {v0}, Lcom/bilibili/tv/ui/download/DownloadManager;->getInstance(Landroid/content/Context;)Lcom/bilibili/tv/ui/download/DownloadManager;
 
-    new-array v0, v0, [I
+    move-result-object v0
 
-    sput-object v0, Lcom/bilibili/tv/ui/download/DownloadingFragment$4;->$SwitchMap$com$bilibili$tv$ui$download$model$DownloadTask$Status:[I
+    iget-object v1, p0, Lcom/bilibili/tv/ui/download/DownloadingFragment$4;->val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
-    :try_start_9
-    sget-object v0, Lcom/bilibili/tv/ui/download/DownloadingFragment$4;->$SwitchMap$com$bilibili$tv$ui$download$model$DownloadTask$Status:[I
+    invoke-virtual {v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getTaskId()Ljava/lang/String;
 
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->WAITING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+    move-result-object v1
 
-    invoke-virtual {v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->ordinal()I
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/download/DownloadManager;->deleteTask(Ljava/lang/String;)V
 
-    move-result v1
+    .line 233
+    iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadingFragment$4;->this$0:Lcom/bilibili/tv/ui/download/DownloadingFragment;
 
-    const/4 v2, 0x1
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/DownloadingFragment;->getContext()Landroid/content/Context;
 
-    aput v2, v0, v1
-    :try_end_14
-    .catch Ljava/lang/NoSuchFieldError; {:try_start_9 .. :try_end_14} :catch_3c
+    move-result-object v0
 
-    :goto_14
-    :try_start_14
-    sget-object v0, Lcom/bilibili/tv/ui/download/DownloadingFragment$4;->$SwitchMap$com$bilibili$tv$ui$download$model$DownloadTask$Status:[I
+    const-string v1, "\u5df2\u5220\u9664"
 
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->DOWNLOADING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+    const/4 v2, 0x0
 
-    invoke-virtual {v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->ordinal()I
+    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
 
-    move-result v1
+    move-result-object v0
 
-    const/4 v2, 0x2
+    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    aput v2, v0, v1
-    :try_end_1f
-    .catch Ljava/lang/NoSuchFieldError; {:try_start_14 .. :try_end_1f} :catch_3a
+    .line 234
+    iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadingFragment$4;->this$0:Lcom/bilibili/tv/ui/download/DownloadingFragment;
 
-    :goto_1f
-    :try_start_1f
-    sget-object v0, Lcom/bilibili/tv/ui/download/DownloadingFragment$4;->$SwitchMap$com$bilibili$tv$ui$download$model$DownloadTask$Status:[I
+    # invokes: Lcom/bilibili/tv/ui/download/DownloadingFragment;->refreshList()V
+    invoke-static {v0}, Lcom/bilibili/tv/ui/download/DownloadingFragment;->access$000(Lcom/bilibili/tv/ui/download/DownloadingFragment;)V
 
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->PAUSED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
-
-    invoke-virtual {v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->ordinal()I
-
-    move-result v1
-
-    const/4 v2, 0x3
-
-    aput v2, v0, v1
-    :try_end_2a
-    .catch Ljava/lang/NoSuchFieldError; {:try_start_1f .. :try_end_2a} :catch_38
-
-    :goto_2a
-    :try_start_2a
-    sget-object v0, Lcom/bilibili/tv/ui/download/DownloadingFragment$4;->$SwitchMap$com$bilibili$tv$ui$download$model$DownloadTask$Status:[I
-
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->FAILED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
-
-    invoke-virtual {v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->ordinal()I
-
-    move-result v1
-
-    const/4 v2, 0x4
-
-    aput v2, v0, v1
-    :try_end_35
-    .catch Ljava/lang/NoSuchFieldError; {:try_start_2a .. :try_end_35} :catch_36
-
-    :goto_35
+    .line 235
     return-void
-
-    :catch_36
-    move-exception v0
-
-    goto :goto_35
-
-    :catch_38
-    move-exception v0
-
-    goto :goto_2a
-
-    :catch_3a
-    move-exception v0
-
-    goto :goto_1f
-
-    :catch_3c
-    move-exception v0
-
-    goto :goto_14
 .end method

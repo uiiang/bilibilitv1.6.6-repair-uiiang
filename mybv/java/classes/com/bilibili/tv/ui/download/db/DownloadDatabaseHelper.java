@@ -19,14 +19,14 @@ public class DownloadDatabaseHelper extends SQLiteOpenHelper {
 
     // 数据库信息
     private static final String DATABASE_NAME = "download_tasks.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     // 表名
     private static final String TABLE_TASKS = "download_tasks";
 
     // 字段名
     private static final String[] COLUMNS = {
-        "task_id", "bvid", "cid", "title", "subtitle", "page_index", "cover_url", "up_name", "duration",
+        "task_id", "bvid", "cid", "title", "subtitle", "page_index", "total_page_count", "cover_url", "up_name", "duration",
         "total_size", "downloaded_size", "progress", "speed", "download_path",
         "video_url", "avid",
         "status", "is_manual_pause", "pause_type",
@@ -66,6 +66,7 @@ public class DownloadDatabaseHelper extends SQLiteOpenHelper {
             "title TEXT NOT NULL," +
             "subtitle TEXT," +
             "page_index INTEGER DEFAULT 0," +
+            "total_page_count INTEGER DEFAULT 0," +
             "cover_url TEXT," +
             "up_name TEXT," +
             "duration INTEGER DEFAULT 0," +
@@ -124,6 +125,12 @@ public class DownloadDatabaseHelper extends SQLiteOpenHelper {
         if (oldVersion < 4) {
             Log.i(TAG, "添加page_index列");
             db.execSQL("ALTER TABLE " + TABLE_TASKS + " ADD COLUMN page_index INTEGER DEFAULT 0");
+        }
+
+        // 版本4到版本5：添加total_page_count列（视频总P数）
+        if (oldVersion < 5) {
+            Log.i(TAG, "添加total_page_count列");
+            db.execSQL("ALTER TABLE " + TABLE_TASKS + " ADD COLUMN total_page_count INTEGER DEFAULT 0");
         }
     }
 
@@ -291,10 +298,26 @@ public class DownloadDatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * 查询已完成的任务
+     * 查询已完成的任务（按完成时间倒序排序）
      */
     public List<DownloadTask> getCompletedTasks() {
-        return getTasksByStatus(DownloadTask.Status.COMPLETED);
+        List<DownloadTask> tasks = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        String selection = "status = ?";
+        String[] selectionArgs = {String.valueOf(DownloadTask.Status.COMPLETED.getValue())};
+
+        Cursor cursor = db.query(TABLE_TASKS, COLUMNS, selection, selectionArgs,
+            null, null, "end_time DESC, create_time DESC");
+
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                tasks.add(DownloadTask.fromCursor(cursor));
+            }
+            cursor.close();
+        }
+
+        return tasks;
     }
 
     /**

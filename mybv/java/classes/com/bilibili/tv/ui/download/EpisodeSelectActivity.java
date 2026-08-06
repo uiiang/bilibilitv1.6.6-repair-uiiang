@@ -296,6 +296,7 @@ public class EpisodeSelectActivity extends Activity {
                     upName,
                     page.duration, // duration单位是秒
                     index + 1, // 分P序号（从1开始）
+                    episodeList.size(), // 视频总P数
                     null // qualityList参数为null，使用默认画质
             );
 

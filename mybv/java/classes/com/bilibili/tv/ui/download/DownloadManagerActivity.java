@@ -2,6 +2,7 @@ package com.bilibili.tv.ui.download;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.TextView;
 import bl.adl;
 import bl.adw;
@@ -35,6 +37,8 @@ public final class DownloadManagerActivity extends BaseUpViewActivity {
     private DownloadPagerAdapter d;
     // 记忆当前显示的Fragment索引（0:下载中，1:已下载）
     private int currentFragmentIndex = 0;
+    // 跳转其它页面期间左侧导航菜单焦点是否被禁用（防止返回时窗口焦点恢复误落左侧菜单触发Fragment误切换）
+    private boolean leftFocusBlocked = false;
 
     @Override // com.bilibili.tv.ui.base.BaseUpViewActivity
     public void a(bl.agd agdVar) {
@@ -123,21 +127,27 @@ public final class DownloadManagerActivity extends BaseUpViewActivity {
         // 恢复上次显示的Fragment（或默认显示第一个）
         this.d.c(currentFragmentIndex);
 
-        // 恢复左侧导航菜单的焦点位置和选中状态
-        if (currentFragmentIndex > 0) {
-            this.b.e(currentFragmentIndex);
-            // 延迟设置选中状态，确保Fragment已切换完成
-            final int fragmentIndex = currentFragmentIndex;
-            this.a.post(new Runnable() {
-                @Override
-                public void run() {
-                    RecyclerView.v holder = DownloadManagerActivity.this.a.c(fragmentIndex);
-                    if (holder != null && holder.a != null) {
-                        holder.a.setSelected(true);
-                    }
+        // 同步左侧导航菜单的焦点位置和选中状态（选中项始终跟随当前Fragment索引）
+        this.b.e(currentFragmentIndex);
+        final int fragmentIndex = currentFragmentIndex;
+        // 延迟设置选中状态：首次进入时左侧RecyclerView可能尚未布局完成（无子View），
+        // 需要等布局完成后设置，否则选中背景色不显示
+        this.a.post(new Runnable() {
+            @Override
+            public void run() {
+                DownloadManagerActivity.this.setLeftSelected(fragmentIndex);
+                // 若左侧列表仍未布局完成则延迟重试
+                if (DownloadManagerActivity.this.a != null
+                        && DownloadManagerActivity.this.a.getChildCount() == 0) {
+                    DownloadManagerActivity.this.a.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            DownloadManagerActivity.this.setLeftSelected(fragmentIndex);
+                        }
+                    }, 300L);
                 }
-            });
-        }
+            }
+        });
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
@@ -146,6 +156,50 @@ public final class DownloadManagerActivity extends BaseUpViewActivity {
         super.onDestroy();
         this.b = (b) null;
         this.d = (DownloadPagerAdapter) null;
+    }
+
+    @Override // android.app.Activity
+    public void onPause() {
+        super.onPause();
+        // 跳转其它页面（二级列表/视频详情）时，禁用左侧导航菜单的焦点能力：
+        // 返回页面时系统窗口焦点恢复会优先把焦点给第一个可聚焦view（左侧"下载中"菜单项），
+        // 触发其onFocusChange导致Fragment被误切换到下载中。禁用后窗口焦点只能落在右侧列表。
+        if (this.a != null) {
+            int childCount = this.a.getChildCount();
+            for (int i = 0; i < childCount; i++) {
+                View child = this.a.getChildAt(i);
+                if (child != null) {
+                    child.setFocusable(false);
+                }
+            }
+            this.leftFocusBlocked = true;
+        }
+    }
+
+    @Override // android.app.Activity
+    public void onResume() {
+        super.onResume();
+        // 延迟恢复左侧导航菜单的焦点能力：确保系统窗口焦点恢复（onResume后的首次布局）期间
+        // 左侧菜单仍不可聚焦，焦点保持在右侧列表；恢复后正常切换菜单不受影响
+        if (this.leftFocusBlocked && this.a != null) {
+            this.leftFocusBlocked = false;
+            final RecyclerView leftRecyclerView = this.a;
+            leftRecyclerView.postDelayed(new Runnable() {
+                @Override // java.lang.Runnable
+                public void run() {
+                    if (DownloadManagerActivity.this.a == null) {
+                        return;
+                    }
+                    int childCount = DownloadManagerActivity.this.a.getChildCount();
+                    for (int i = 0; i < childCount; i++) {
+                        View child = DownloadManagerActivity.this.a.getChildAt(i);
+                        if (child != null) {
+                            child.setFocusable(true);
+                        }
+                    }
+                }
+            }, 400L);
+        }
     }
 
     @Override // com.bilibili.tv.ui.base.BaseActivity, android.support.v4.app.FragmentActivity, android.app.Activity
@@ -157,8 +211,33 @@ public final class DownloadManagerActivity extends BaseUpViewActivity {
         Integer keycode = keyEvent != null ? Integer.valueOf(keyEvent.getKeyCode()) : null;
         if (action != null && action.intValue() == 0) {
             View currentFocus = getCurrentFocus();
-            if (currentFocus == null || keycode == null || keycode.intValue() == KeyEvent.KEYCODE_DPAD_UP
-                    || keycode.intValue() == KeyEvent.KEYCODE_DPAD_DOWN) {
+            if (currentFocus == null || keycode == null) {
+                return super.dispatchKeyEvent(keyEvent);
+            }
+            if (keycode.intValue() == KeyEvent.KEYCODE_DPAD_UP || keycode.intValue() == KeyEvent.KEYCODE_DPAD_DOWN) {
+                // 上下键：阻止右侧列表的焦点预测跳入左侧导航菜单（对齐收藏/历史页的防跳出逻辑）
+                try {
+                    View predicted = currentFocus.focusSearch(keycode.intValue() == KeyEvent.KEYCODE_DPAD_DOWN
+                            ? View.FOCUS_DOWN : View.FOCUS_UP);
+                    View leftLayoutView = this.a;
+                    View fragmentView = null;
+                    if (this.d != null && this.b != null) {
+                        Fragment rightFragment = this.d.d(this.b.f());
+                        if (rightFragment != null && rightFragment.getView() != null) {
+                            fragmentView = rightFragment.getView();
+                        }
+                    }
+                    boolean isPredictedInLeft = isDescendantOf(leftLayoutView, predicted);
+                    boolean isCurrentInFragment = isDescendantOf(fragmentView, currentFocus);
+                    boolean isPredictedSameAsCurrent = (predicted == currentFocus);
+                    if (predicted != null && isPredictedInLeft && isCurrentInFragment) {
+                        return true;
+                    }
+                    if (isPredictedSameAsCurrent && isCurrentInFragment) {
+                        return true;
+                    }
+                } catch (Exception ignored) {
+                }
                 return super.dispatchKeyEvent(keyEvent);
             }
             if (keycode.intValue() == KeyEvent.KEYCODE_DPAD_LEFT) {
@@ -167,21 +246,24 @@ public final class DownloadManagerActivity extends BaseUpViewActivity {
                 if (currentFocus.getParent() instanceof View) {
                     Object tag = ((View) currentFocus.getParent()).getTag();
                     if (android.text.TextUtils.equals((CharSequence) tag, adw.a)) {
-                        // 找到selected的菜单项并请求焦点
-                        int childCount = this.a.getChildCount() - 1;
-                        if (childCount >= 0) {
-                            int i = 0;
-                            while (true) {
+                        // 定位到当前Fragment索引对应的菜单项（右侧列表返回时定位到所属菜单项）
+                        View target = null;
+                        int childCount = this.a.getChildCount();
+                        if (currentFragmentIndex >= 0 && currentFragmentIndex < childCount) {
+                            target = this.a.getChildAt(currentFragmentIndex);
+                        }
+                        if (target == null) {
+                            // 兜底：查找当前选中的菜单项
+                            for (int i = 0; i < childCount; i++) {
                                 View childAt = this.a.getChildAt(i);
-                                bbi.a((Object) childAt, "childView");
-                                if (childAt.isSelected()) {
-                                    childAt.requestFocus();
-                                }
-                                if (i == childCount) {
+                                if (childAt != null && childAt.isSelected()) {
+                                    target = childAt;
                                     break;
                                 }
-                                i++;
                             }
+                        }
+                        if (target != null) {
+                            target.requestFocus();
                         }
                         this.b.b(false);
                     }
@@ -208,6 +290,53 @@ public final class DownloadManagerActivity extends BaseUpViewActivity {
         return super.dispatchKeyEvent(keyEvent);
     }
 
+    /**
+     * 判断child是否是指定parent的后代View（对齐收藏/历史页的焦点判定逻辑）
+     */
+    private boolean isDescendantOf(View parent, View child) {
+        if (parent == null || child == null) {
+            return false;
+        }
+        ViewParent p = child.getParent();
+        while (p instanceof View) {
+            if (p == parent) {
+                return true;
+            }
+            p = p.getParent();
+        }
+        return false;
+    }
+
+    /**
+     * 设置左侧导航菜单的选中项（与当前Fragment索引同步）：
+     * - 有焦点的项保持焦点高亮（粉色），由焦点监听器维护
+     * - 当前Fragment对应的菜单项无焦点时显示灰色背景（焦点在右侧列表时的显示效果）
+     * - 其余项清除背景
+     */
+    private void setLeftSelected(int index) {
+        if (this.a == null) {
+            return;
+        }
+        int childCount = this.a.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View child = this.a.getChildAt(i);
+            if (child == null) {
+                continue;
+            }
+            if (child.hasFocus()) {
+                // 有焦点的项保持焦点高亮（粉色），由焦点监听器维护
+                child.setSelected(true);
+            } else if (i == index) {
+                // 当前Fragment对应的菜单项无焦点时显示灰色背景
+                if (child instanceof SideLeftSelectLinearLayout) {
+                    ((SideLeftSelectLinearLayout) child).c();
+                }
+            } else {
+                child.setSelected(false);
+            }
+        }
+    }
+
     /* compiled from: BL */
     /* loaded from: classes.dex */
     public static final class a {
@@ -232,11 +361,12 @@ public final class DownloadManagerActivity extends BaseUpViewActivity {
 
     /* compiled from: BL */
     /* loaded from: classes.dex */
-    public static final class b extends adz<c> {
+    public static final class b extends adz<c> implements Runnable {
         private int a;
         private final WeakReference<DownloadManagerActivity> b;
         private final cj<String> c;
         private boolean d; // 标记焦点是否在右侧面板
+        private long g;    // 上次聚焦时间戳（防抖，对齐收藏/历史页）
 
         @Override // bl.adz
         public int e() {
@@ -277,31 +407,76 @@ public final class DownloadManagerActivity extends BaseUpViewActivity {
             }
             cVar.a.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override // android.view.View.OnFocusChangeListener
-                public final void onFocusChange(View view, boolean z) {
+                public final void onFocusChange(final View view, boolean z) {
                     bbi.b(view, "v");
-                    if (z) {
-                        b.this.e(i);
-                        view.setSelected(true);
-                        // 切换右侧对应的Fragment（下载中/已下载）
-                        DownloadManagerActivity activity = b.this.b.get();
-                        if (activity != null && activity.d != null) {
-                            activity.d.c(i);
-                            // 记忆当前Fragment索引
-                            activity.currentFragmentIndex = i;
+                    DownloadManagerActivity activity = b.this.b.get();
+                    if (!z) {
+                        // 失焦：取消未执行的延迟切换任务
+                        view.removeCallbacks(b.this);
+                        // 焦点移动到右侧面板时保持选中背景色（对齐收藏/历史页）
+                        if (b.this.d) {
+                            return;
                         }
-                        // 处理SideLeftSelectLinearLayout的焦点动画
-                        View view4 = cVar.a;
-                        if (view4 == null) {
-                            throw new TypeCastException(
-                                    "null cannot be cast to non-null type com.bilibili.tv.widget.side.SideLeftSelectLinearLayout");
+                        // 该项对应当前Fragment时（进入页面/返回时焦点短暂落在左侧菜单后跳转到右侧列表），
+                        // 显示"焦点进入右侧列表"的灰色背景（对齐收藏/历史页DPAD_RIGHT后的显示效果）
+                        if (activity != null && !activity.isFinishing()
+                                && i == activity.currentFragmentIndex) {
+                            if (cVar.a instanceof SideLeftSelectLinearLayout) {
+                                ((SideLeftSelectLinearLayout) cVar.a).c();
+                            }
+                            return;
                         }
-                        ((SideLeftSelectLinearLayout) view4).a();
-                    } else {
-                        // 焦点离开时，如果焦点移动到右侧面板，保持背景色
-                        if (!b.this.d) {
-                            view.setSelected(false);
+                        cVar.a.setSelected(false);
+                        TextView titleView = cVar.z();
+                        if (titleView != null) {
+                            titleView.setMaxLines(1);
                         }
+                        return;
                     }
+                    // 聚焦
+                    if (activity == null || activity.isFinishing()) {
+                        return;
+                    }
+                    // 重置"焦点在右侧面板"标记：菜单项获得焦点后允许自动切换右侧列表（对齐收藏/历史页）
+                    b.this.b(false);
+                    // 500ms内再次聚焦时取消上一次的延迟切换任务（防抖）
+                    if (System.currentTimeMillis() - b.this.g < 500L) {
+                        view.removeCallbacks(b.this);
+                    }
+                    b.this.e(i);
+                    b.this.g = System.currentTimeMillis();
+                    cVar.a.setSelected(true);
+                    // 处理SideLeftSelectLinearLayout的焦点动画
+                    View view4 = cVar.a;
+                    if (view4 == null) {
+                        throw new TypeCastException(
+                                "null cannot be cast to non-null type com.bilibili.tv.widget.side.SideLeftSelectLinearLayout");
+                    }
+                    ((SideLeftSelectLinearLayout) view4).a();
+                    TextView titleView2 = cVar.z();
+                    if (titleView2 != null) {
+                        titleView2.setMaxLines(3);
+                    }
+                    // 延迟500ms后二次校验（焦点仍在该菜单项才切换Fragment），防止返回页面时误切换
+                    view.postDelayed(b.this, 500L);
+                    // 点击菜单项立即切换Fragment
+                    final int itemIndex = i;
+                    cVar.a.setOnClickListener(new View.OnClickListener() {
+                        @Override // android.view.View.OnClickListener
+                        public void onClick(View v) {
+                            DownloadManagerActivity act = b.this.b.get();
+                            if (act == null || act.isFinishing() || act.d == null) {
+                                return;
+                            }
+                            if (act.currentFragmentIndex == itemIndex) {
+                                return;
+                            }
+                            act.d.c(itemIndex);
+                            act.currentFragmentIndex = itemIndex;
+                            // 同步左侧导航菜单选中状态（选中项跟随当前Fragment索引）
+                            act.setLeftSelected(itemIndex);
+                        }
+                    });
                 }
             });
         }
@@ -319,6 +494,61 @@ public final class DownloadManagerActivity extends BaseUpViewActivity {
 
         public final void b(boolean z) {
             this.d = z;
+        }
+
+        /**
+         * 延迟切换的二次校验（对齐收藏/历史页）：
+         * 只有左侧菜单项仍持有焦点且已附着窗口时才真正切换Fragment，
+         * 防止从其它页面返回时窗口焦点恢复短暂落在左侧菜单导致误切换
+         */
+        @Override // java.lang.Runnable
+        public void run() {
+            DownloadManagerActivity activity = this.b.get();
+            if (activity == null || activity.isFinishing() || activity.d == null) {
+                return;
+            }
+            if (this.c == null || this.a >= this.c.b()) {
+                return;
+            }
+            try {
+                // 焦点在右侧面板时跳过（防御性检查）
+                if (this.d) {
+                    return;
+                }
+                // 在左侧RecyclerView中找到对应position的item
+                RecyclerView leftRv = activity.a;
+                View targetChild = null;
+                if (leftRv != null) {
+                    for (int i = 0; i < leftRv.getChildCount(); i++) {
+                        View child = leftRv.getChildAt(i);
+                        if (leftRv.g(child) == this.a) {
+                            targetChild = child;
+                            break;
+                        }
+                    }
+                }
+                // 校验child仍存在、已附着并持有焦点
+                boolean isAttached = false;
+                if (targetChild != null) {
+                    if (Build.VERSION.SDK_INT >= 21) {
+                        isAttached = targetChild.isAttachedToWindow();
+                    } else {
+                        isAttached = targetChild.getParent() != null;
+                    }
+                }
+                if (targetChild == null || !isAttached || !targetChild.hasFocus()) {
+                    return;
+                }
+                // 已是当前Fragment则不重复切换
+                if (activity.currentFragmentIndex == this.a) {
+                    return;
+                }
+                activity.d.c(this.a);
+                activity.currentFragmentIndex = this.a;
+                // 同步左侧导航菜单选中状态（选中项跟随当前Fragment索引）
+                activity.setLeftSelected(this.a);
+            } catch (Exception ignored) {
+            }
         }
     }
 

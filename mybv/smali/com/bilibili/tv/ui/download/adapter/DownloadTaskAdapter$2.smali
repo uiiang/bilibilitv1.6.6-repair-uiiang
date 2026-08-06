@@ -3,7 +3,7 @@
 .source "DownloadTaskAdapter.java"
 
 # interfaces
-.implements Landroid/view/View$OnLongClickListener;
+.implements Landroid/view/View$OnFocusChangeListener;
 
 
 # annotations
@@ -22,20 +22,16 @@
 
 .field final synthetic val$position:I
 
-.field final synthetic val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
-
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;Lcom/bilibili/tv/ui/download/model/DownloadTask;I)V
+.method constructor <init>(Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;I)V
     .locals 0
 
     .prologue
-    .line 222
+    .line 232
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$2;->this$0:Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;
 
-    iput-object p2, p0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$2;->val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
-
-    iput p3, p0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$2;->val$position:I
+    iput p2, p0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$2;->val$position:I
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -44,42 +40,22 @@
 
 
 # virtual methods
-.method public onLongClick(Landroid/view/View;)Z
-    .locals 3
+.method public onFocusChange(Landroid/view/View;Z)V
+    .locals 2
 
     .prologue
-    .line 225
+    .line 235
+    if-eqz p2, :cond_9
+
+    .line 236
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$2;->this$0:Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;
 
-    # getter for: Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;->listener:Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$OnTaskClickListener;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;->access$000(Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;)Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$OnTaskClickListener;
+    iget v1, p0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$2;->val$position:I
 
-    move-result-object v0
+    # setter for: Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;->focusPosition:I
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;->access$102(Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;I)I
 
-    if-eqz v0, :cond_17
-
-    .line 226
-    iget-object v0, p0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$2;->this$0:Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;
-
-    # getter for: Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;->listener:Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$OnTaskClickListener;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;->access$000(Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;)Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$OnTaskClickListener;
-
-    move-result-object v0
-
-    iget-object v1, p0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$2;->val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
-
-    iget v2, p0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$2;->val$position:I
-
-    invoke-interface {v0, v1, v2}, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$OnTaskClickListener;->onTaskLongClick(Lcom/bilibili/tv/ui/download/model/DownloadTask;I)Z
-
-    move-result v0
-
-    .line 228
-    :goto_16
-    return v0
-
-    :cond_17
-    const/4 v0, 0x0
-
-    goto :goto_16
+    .line 238
+    :cond_9
+    return-void
 .end method

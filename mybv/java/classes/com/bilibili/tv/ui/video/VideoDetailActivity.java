@@ -3766,6 +3766,7 @@ public final class VideoDetailActivity extends BaseActivity
             upName,
             duration,
             0,
+            1,
             qualityList
         );
     }

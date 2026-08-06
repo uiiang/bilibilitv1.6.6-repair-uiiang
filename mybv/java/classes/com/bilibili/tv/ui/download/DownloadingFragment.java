@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import bl.adw;
 import com.bilibili.tv.R;
 import com.bilibili.tv.ui.download.adapter.DownloadTaskAdapter;
 import com.bilibili.tv.ui.download.model.DownloadTask;
@@ -51,6 +52,8 @@ public class DownloadingFragment extends Fragment implements DownloadManager.Dow
         View view = inflater.inflate(R.layout.fragment_download_list, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        // 标记右侧面板（对齐收藏/历史页的adw.a标记），左键从列表返回左侧导航时用于识别焦点所在面板
+        recyclerView.setTag(adw.a);
         emptyView = view.findViewById(R.id.empty_text);
 
         setupRecyclerView();
@@ -61,7 +64,52 @@ public class DownloadingFragment extends Fragment implements DownloadManager.Dow
     @Override
     public void onResume() {
         super.onResume();
-        refreshList();
+        // 延迟到FragmentManager事务结束后再刷新列表：
+        // onResume期间refreshList中列表为空时setVisibility(GONE)会使RecyclerView失去焦点，
+        // 焦点回落左侧导航菜单触发onFocusChange切换Fragment，此时FragmentManager正在执行
+        // resume事务，导致"FragmentManager is already executing transactions"崩溃
+        final View root = getView();
+        if (root != null) {
+            root.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (!isAdded()) {
+                        return;
+                    }
+                    refreshList();
+                    // notifyDataSetChanged后RecyclerView是异步布局，必须等布局完成、新holder创建后
+                    // 再恢复焦点，否则findViewHolderForAdapterPosition返回null导致焦点恢复失败
+                    final RecyclerView rv = recyclerView;
+                    if (rv != null) {
+                        rv.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (isAdded()) {
+                                    // 刷新后恢复焦点到之前的列表项（跳转其它页面返回场景）
+                                    restoreFocus();
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        } else {
+            refreshList();
+        }
+    }
+
+    /**
+     * 恢复焦点到记忆的列表项位置（跳转其它页面返回后使用）
+     */
+    private void restoreFocus() {
+        if (recyclerView == null || adapter == null) return;
+        int focusPosition = adapter.getFocusPosition();
+        if (focusPosition >= 0 && adapter.a() > focusPosition) {
+            RecyclerView.v holder = recyclerView.c(focusPosition);
+            if (holder != null && holder.a != null) {
+                holder.a.requestFocus();
+            }
+        }
     }
 
     /**

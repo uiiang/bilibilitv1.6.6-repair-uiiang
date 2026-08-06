@@ -3,12 +3,12 @@
 .source "DownloadingFragment.java"
 
 # interfaces
-.implements Landroid/content/DialogInterface$OnClickListener;
+.implements Ljava/util/Comparator;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/download/DownloadingFragment;->handleTaskLongClick(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
+    value = Lcom/bilibili/tv/ui/download/DownloadingFragment;->refreshList()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -16,22 +16,28 @@
     name = null
 .end annotation
 
+.annotation system Ldalvik/annotation/Signature;
+    value = {
+        "Ljava/lang/Object;",
+        "Ljava/util/Comparator",
+        "<",
+        "Lcom/bilibili/tv/ui/download/model/DownloadTask;",
+        ">;"
+    }
+.end annotation
+
 
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/download/DownloadingFragment;
 
-.field final synthetic val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
-
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/download/DownloadingFragment;Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/download/DownloadingFragment;)V
     .locals 0
 
     .prologue
-    .line 181
+    .line 164
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/DownloadingFragment$3;->this$0:Lcom/bilibili/tv/ui/download/DownloadingFragment;
-
-    iput-object p2, p0, Lcom/bilibili/tv/ui/download/DownloadingFragment$3;->val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -40,52 +46,60 @@
 
 
 # virtual methods
-.method public onClick(Landroid/content/DialogInterface;I)V
-    .locals 3
+.method public compare(Lcom/bilibili/tv/ui/download/model/DownloadTask;Lcom/bilibili/tv/ui/download/model/DownloadTask;)I
+    .locals 6
 
     .prologue
-    .line 184
-    iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadingFragment$3;->this$0:Lcom/bilibili/tv/ui/download/DownloadingFragment;
+    const-wide/16 v4, 0x0
 
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/DownloadingFragment;->getContext()Landroid/content/Context;
+    .line 167
+    invoke-virtual {p1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getCid()J
 
-    move-result-object v0
+    move-result-wide v0
 
-    invoke-static {v0}, Lcom/bilibili/tv/ui/download/DownloadManager;->getInstance(Landroid/content/Context;)Lcom/bilibili/tv/ui/download/DownloadManager;
+    invoke-virtual {p2}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getCid()J
 
-    move-result-object v0
+    move-result-wide v2
 
-    iget-object v1, p0, Lcom/bilibili/tv/ui/download/DownloadingFragment$3;->val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
+    sub-long/2addr v0, v2
 
-    invoke-virtual {v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getTaskId()Ljava/lang/String;
+    .line 168
+    cmp-long v2, v0, v4
 
-    move-result-object v1
+    if-lez v2, :cond_11
 
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/download/DownloadManager;->deleteTask(Ljava/lang/String;)V
+    const/4 v0, 0x1
 
-    .line 185
-    iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadingFragment$3;->this$0:Lcom/bilibili/tv/ui/download/DownloadingFragment;
+    :goto_10
+    return v0
 
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/DownloadingFragment;->getContext()Landroid/content/Context;
+    :cond_11
+    cmp-long v0, v0, v4
 
-    move-result-object v0
+    if-gez v0, :cond_17
 
-    const-string v1, "\u5df2\u5220\u9664"
+    const/4 v0, -0x1
 
-    const/4 v2, 0x0
+    goto :goto_10
 
-    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+    :cond_17
+    const/4 v0, 0x0
 
-    move-result-object v0
+    goto :goto_10
+.end method
 
-    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+.method public bridge synthetic compare(Ljava/lang/Object;Ljava/lang/Object;)I
+    .locals 1
 
-    .line 186
-    iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadingFragment$3;->this$0:Lcom/bilibili/tv/ui/download/DownloadingFragment;
+    .prologue
+    .line 164
+    check-cast p1, Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
-    # invokes: Lcom/bilibili/tv/ui/download/DownloadingFragment;->refreshList()V
-    invoke-static {v0}, Lcom/bilibili/tv/ui/download/DownloadingFragment;->access$200(Lcom/bilibili/tv/ui/download/DownloadingFragment;)V
+    check-cast p2, Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
-    .line 187
-    return-void
+    invoke-virtual {p0, p1, p2}, Lcom/bilibili/tv/ui/download/DownloadingFragment$3;->compare(Lcom/bilibili/tv/ui/download/model/DownloadTask;Lcom/bilibili/tv/ui/download/model/DownloadTask;)I
+
+    move-result v0
+
+    return v0
 .end method

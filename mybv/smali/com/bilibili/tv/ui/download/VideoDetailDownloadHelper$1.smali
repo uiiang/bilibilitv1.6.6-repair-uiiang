@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;->startDownload(Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JILjava/lang/String;)V
+    value = Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;->startDownload(Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JIILjava/lang/String;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -38,15 +38,17 @@
 
 .field final synthetic val$title:Ljava/lang/String;
 
+.field final synthetic val$totalPageCount:I
+
 .field final synthetic val$upName:Ljava/lang/String;
 
 
 # direct methods
-.method constructor <init>(Ljava/lang/String;Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;J)V
-    .locals 1
+.method constructor <init>(Ljava/lang/String;Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;IILjava/lang/String;Ljava/lang/String;J)V
+    .locals 0
 
     .prologue
-    .line 133
+    .line 137
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$quality:Ljava/lang/String;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$context:Landroid/content/Context;
@@ -63,11 +65,13 @@
 
     iput p10, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$pageIndex:I
 
-    iput-object p11, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$coverUrl:Ljava/lang/String;
+    iput p11, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$totalPageCount:I
 
-    iput-object p12, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$upName:Ljava/lang/String;
+    iput-object p12, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$coverUrl:Ljava/lang/String;
 
-    iput-wide p13, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$duration:J
+    iput-object p13, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$upName:Ljava/lang/String;
+
+    iput-wide p14, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$duration:J
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -80,7 +84,7 @@
     .locals 8
 
     .prologue
-    .line 138
+    .line 142
     :try_start_0
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$quality:Ljava/lang/String;
 
@@ -89,7 +93,7 @@
 
     move-result v6
 
-    .line 139
+    .line 143
     const-string v0, "VideoDetailDownloadHelper"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -112,7 +116,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 142
+    .line 146
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$context:Landroid/content/Context;
 
     iget-wide v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$avid:J
@@ -125,7 +129,7 @@
 
     move-result-object v0
 
-    .line 143
+    .line 147
     if-eqz v0, :cond_32
 
     invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
@@ -134,7 +138,7 @@
 
     if-eqz v1, :cond_46
 
-    .line 144
+    .line 148
     :cond_32
     const-string v0, "VideoDetailDownloadHelper"
 
@@ -142,7 +146,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 146
+    .line 150
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$context:Landroid/content/Context;
 
     check-cast v0, Landroid/app/Activity;
@@ -153,11 +157,11 @@
 
     invoke-virtual {v0, v1}, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
 
-    .line 201
+    .line 206
     :goto_45
     return-void
 
-    .line 155
+    .line 159
     :cond_46
     const-string v1, "VideoDetailDownloadHelper"
 
@@ -181,12 +185,12 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 158
+    .line 162
     new-instance v7, Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
     invoke-direct {v7}, Lcom/bilibili/tv/ui/download/model/DownloadTask;-><init>()V
 
-    .line 159
+    .line 163
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$bvid:Ljava/lang/String;
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$cid:J
@@ -197,82 +201,87 @@
 
     invoke-virtual {v7, v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setTaskId(Ljava/lang/String;)V
 
-    .line 160
+    .line 164
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$bvid:Ljava/lang/String;
 
     invoke-virtual {v7, v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setBvid(Ljava/lang/String;)V
 
-    .line 161
+    .line 165
     iget-wide v2, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$cid:J
 
     invoke-virtual {v7, v2, v3}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setCid(J)V
 
-    .line 162
+    .line 166
     iget-wide v2, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$avid:J
 
     invoke-virtual {v7, v2, v3}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setAvid(J)V
 
-    .line 163
+    .line 167
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$title:Ljava/lang/String;
 
     invoke-virtual {v7, v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setTitle(Ljava/lang/String;)V
 
-    .line 164
+    .line 168
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$subTitle:Ljava/lang/String;
 
     invoke-virtual {v7, v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setSubTitle(Ljava/lang/String;)V
 
-    .line 165
+    .line 169
     iget v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$pageIndex:I
 
     invoke-virtual {v7, v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setPageIndex(I)V
 
-    .line 166
+    .line 170
+    iget v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$totalPageCount:I
+
+    invoke-virtual {v7, v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setTotalPageCount(I)V
+
+    .line 171
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$coverUrl:Ljava/lang/String;
 
     invoke-virtual {v7, v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setCoverUrl(Ljava/lang/String;)V
 
-    .line 167
+    .line 172
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$upName:Ljava/lang/String;
 
     invoke-virtual {v7, v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setUpName(Ljava/lang/String;)V
 
-    .line 168
+    .line 173
     iget-wide v2, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$duration:J
 
     invoke-virtual {v7, v2, v3}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setDuration(J)V
 
-    .line 169
+    .line 174
     invoke-virtual {v7, v6}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setQuality(I)V
 
-    .line 170
+    .line 175
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$quality:Ljava/lang/String;
 
     invoke-virtual {v7, v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setQualityName(Ljava/lang/String;)V
 
-    .line 171
+    .line 176
     invoke-virtual {v7, v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setVideoUrl(Ljava/lang/String;)V
 
-    .line 172
+    .line 177
     sget-object v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->WAITING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
     invoke-virtual {v7, v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setStatus(Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;)V
 
-    .line 173
+    .line 178
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v0
 
     invoke-virtual {v7, v0, v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setCreateTime(J)V
 
-    .line 174
+    .line 179
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v0
 
     invoke-virtual {v7, v0, v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setUpdateTime(J)V
 
-    .line 177
+    .line 182
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$context:Landroid/content/Context;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$bvid:Ljava/lang/String;
@@ -290,10 +299,10 @@
 
     move-result-object v0
 
-    .line 178
+    .line 183
     invoke-virtual {v7, v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setDownloadPath(Ljava/lang/String;)V
 
-    .line 181
+    .line 186
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$context:Landroid/content/Context;
 
     invoke-static {v0}, Lcom/bilibili/tv/ui/download/DownloadManager;->getInstance(Landroid/content/Context;)Lcom/bilibili/tv/ui/download/DownloadManager;
@@ -302,7 +311,7 @@
 
     invoke-virtual {v0, v7}, Lcom/bilibili/tv/ui/download/DownloadManager;->addTask(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 
-    .line 184
+    .line 189
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$context:Landroid/content/Context;
 
     check-cast v0, Landroid/app/Activity;
@@ -312,18 +321,18 @@
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1$2;-><init>(Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;)V
 
     invoke-virtual {v0, v1}, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
-    :try_end_e1
-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_e1} :catch_e3
+    :try_end_e6
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_e6} :catch_e8
 
     goto/16 :goto_45
 
-    .line 191
-    :catch_e3
+    .line 196
+    :catch_e8
     move-exception v0
 
     move-object v1, v0
 
-    .line 192
+    .line 197
     const-string v0, "VideoDetailDownloadHelper"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -350,7 +359,7 @@
 
     invoke-static {v0, v2, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    .line 194
+    .line 199
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$context:Landroid/content/Context;
 
     check-cast v0, Landroid/app/Activity;

@@ -17,6 +17,7 @@ public class DownloadTask implements Comparable<DownloadTask> {
     private String title;           // 视频标题
     private String subTitle;        // 分P标题（副标题）
     private int pageIndex;          // 分P序号（从1开始，单P视频为0）
+    private int totalPageCount;     // 视频总P数（视频详情页分P总数，单P视频为1）
     private String coverUrl;        // 封面URL
     private String upName;          // UP主名称
     private long duration;          // 视频时长（秒）
@@ -183,6 +184,14 @@ public class DownloadTask implements Comparable<DownloadTask> {
 
     public void setPageIndex(int pageIndex) {
         this.pageIndex = pageIndex;
+    }
+
+    public int getTotalPageCount() {
+        return totalPageCount;
+    }
+
+    public void setTotalPageCount(int totalPageCount) {
+        this.totalPageCount = totalPageCount;
     }
 
     public String getCoverUrl() {
@@ -517,6 +526,12 @@ public class DownloadTask implements Comparable<DownloadTask> {
             task.setPageIndex(cursor.getInt(pageIndexIndex));
         }
 
+        // 读取视频总P数（兼容旧版本数据库）
+        int totalPageCountIndex = cursor.getColumnIndex("total_page_count");
+        if (totalPageCountIndex != -1 && !cursor.isNull(totalPageCountIndex)) {
+            task.setTotalPageCount(cursor.getInt(totalPageCountIndex));
+        }
+
         task.setUpName(cursor.getString(cursor.getColumnIndex("up_name")));
         task.setDuration(cursor.getLong(cursor.getColumnIndex("duration")));
         task.setTotalSize(cursor.getLong(cursor.getColumnIndex("total_size")));
@@ -565,6 +580,7 @@ public class DownloadTask implements Comparable<DownloadTask> {
         values.put("cover_url", coverUrl);
         values.put("subtitle", subTitle);
         values.put("page_index", pageIndex);
+        values.put("total_page_count", totalPageCount);
         values.put("up_name", upName);
         values.put("duration", duration);
         values.put("total_size", totalSize);
@@ -602,6 +618,7 @@ public class DownloadTask implements Comparable<DownloadTask> {
         json.put("title", title);
         json.put("subTitle", subTitle);
         json.put("pageIndex", pageIndex);
+        json.put("totalPageCount", totalPageCount);
         json.put("coverUrl", coverUrl);
         json.put("upName", upName);
         json.put("duration", duration);

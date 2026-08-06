@@ -27,6 +27,7 @@ public class VideoDetailDownloadHelper {
      * @param upName UP主名称
      * @param duration 视频时长（秒）
      * @param pageIndex 分P序号（从1开始，单P视频传1）
+     * @param totalPageCount 视频总P数（单P视频为1）
      * @param qualityList 可用的画质列表（如：["1080P", "720P", "480P"]）
      */
     public static void showDownloadDialog(
@@ -40,6 +41,7 @@ public class VideoDetailDownloadHelper {
             String upName,
             long duration,
             int pageIndex,
+            int totalPageCount,
             List<String> qualityList
     ) {
         // 画质、音质、编码等参数已在设置页配置，点击下载按钮直接开始下载，不再弹出画质选择对话框
@@ -51,7 +53,7 @@ public class VideoDetailDownloadHelper {
 
         // 转换为画质名称并直接开始下载
         String qualityStr = convertQualityIdToString(defaultQuality);
-        startDownload(context, avid, bvid, cid, title, subTitle, coverUrl, upName, duration, pageIndex, qualityStr);
+        startDownload(context, avid, bvid, cid, title, subTitle, coverUrl, upName, duration, pageIndex, totalPageCount, qualityStr);
     }
 
     /**
@@ -76,6 +78,7 @@ public class VideoDetailDownloadHelper {
      * 开始下载视频（公开方法，供分P选择Activity调用）
      *
      * @param pageIndex 分P序号（从1开始，单P视频传1）
+     * @param totalPageCount 视频总P数（单P视频为1）
      */
     public static void startDownload(
             Context context,
@@ -88,6 +91,7 @@ public class VideoDetailDownloadHelper {
             String upName,
             long duration,
             int pageIndex,
+            int totalPageCount,
             String quality
     ) {
         Log.i(TAG, "开始下载: " + title + ", 画质: " + quality);
@@ -163,6 +167,7 @@ public class VideoDetailDownloadHelper {
                     task.setTitle(title);
                     task.setSubTitle(subTitle);
                     task.setPageIndex(pageIndex);
+                    task.setTotalPageCount(totalPageCount);
                     task.setCoverUrl(coverUrl);
                     task.setUpName(upName);
                     task.setDuration(duration);

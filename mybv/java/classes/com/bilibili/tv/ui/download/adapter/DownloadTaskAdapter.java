@@ -20,6 +20,8 @@ public class DownloadTaskAdapter extends RecyclerView.a<DownloadTaskAdapter.View
     private List<DownloadTask> taskList = new ArrayList<>();
     private OnTaskClickListener listener;
     private boolean showPageIndex; // 是否在标题后显示分P序号（第二级分P明细页使用）
+    // 焦点位置记忆（跳转其它页面返回后恢复列表焦点）
+    private int focusPosition = 0;
 
     /**
      * 任务点击监听器接口
@@ -98,6 +100,13 @@ public class DownloadTaskAdapter extends RecyclerView.a<DownloadTaskAdapter.View
      */
     public void setShowPageIndex(boolean showPageIndex) {
         this.showPageIndex = showPageIndex;
+    }
+
+    /**
+     * 获取最近获得焦点的列表项position（返回页面后恢复焦点用）
+     */
+    public int getFocusPosition() {
+        return focusPosition;
     }
 
     @Override
@@ -215,6 +224,16 @@ public class DownloadTaskAdapter extends RecyclerView.a<DownloadTaskAdapter.View
             public void onClick(View v) {
                 if (listener != null) {
                     listener.onTaskClick(task, position);
+                }
+            }
+        });
+
+        // 记录焦点位置（返回页面后恢复焦点用）
+        holder.rootView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    focusPosition = position;
                 }
             }
         });

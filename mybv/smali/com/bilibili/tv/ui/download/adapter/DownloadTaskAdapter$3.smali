@@ -1,143 +1,85 @@
-.class synthetic Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$3;
+.class Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$3;
 .super Ljava/lang/Object;
 .source "DownloadTaskAdapter.java"
 
+# interfaces
+.implements Landroid/view/View$OnLongClickListener;
+
 
 # annotations
-.annotation system Ldalvik/annotation/EnclosingClass;
-    value = Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;
+.annotation system Ldalvik/annotation/EnclosingMethod;
+    value = Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;->a(Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$ViewHolder;I)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
-    accessFlags = 0x1008
+    accessFlags = 0x0
     name = null
 .end annotation
 
 
-# static fields
-.field static final synthetic $SwitchMap$com$bilibili$tv$ui$download$model$DownloadTask$Status:[I
+# instance fields
+.field final synthetic this$0:Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;
+
+.field final synthetic val$position:I
+
+.field final synthetic val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
 
 # direct methods
-.method static constructor <clinit>()V
+.method constructor <init>(Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;Lcom/bilibili/tv/ui/download/model/DownloadTask;I)V
+    .locals 0
+
+    .prologue
+    .line 241
+    iput-object p1, p0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$3;->this$0:Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;
+
+    iput-object p2, p0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$3;->val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
+
+    iput p3, p0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$3;->val$position:I
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public onLongClick(Landroid/view/View;)Z
     .locals 3
 
     .prologue
-    .line 172
-    invoke-static {}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->values()[Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+    .line 244
+    iget-object v0, p0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$3;->this$0:Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;
+
+    # getter for: Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;->listener:Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$OnTaskClickListener;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;->access$000(Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;)Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$OnTaskClickListener;
 
     move-result-object v0
 
-    array-length v0, v0
+    if-eqz v0, :cond_17
 
-    new-array v0, v0, [I
+    .line 245
+    iget-object v0, p0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$3;->this$0:Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;
 
-    sput-object v0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$3;->$SwitchMap$com$bilibili$tv$ui$download$model$DownloadTask$Status:[I
+    # getter for: Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;->listener:Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$OnTaskClickListener;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;->access$000(Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;)Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$OnTaskClickListener;
 
-    :try_start_9
-    sget-object v0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$3;->$SwitchMap$com$bilibili$tv$ui$download$model$DownloadTask$Status:[I
+    move-result-object v0
 
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->WAITING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+    iget-object v1, p0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$3;->val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
-    invoke-virtual {v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->ordinal()I
+    iget v2, p0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$3;->val$position:I
 
-    move-result v1
+    invoke-interface {v0, v1, v2}, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$OnTaskClickListener;->onTaskLongClick(Lcom/bilibili/tv/ui/download/model/DownloadTask;I)Z
 
-    const/4 v2, 0x1
+    move-result v0
 
-    aput v2, v0, v1
-    :try_end_14
-    .catch Ljava/lang/NoSuchFieldError; {:try_start_9 .. :try_end_14} :catch_49
+    .line 247
+    :goto_16
+    return v0
 
-    :goto_14
-    :try_start_14
-    sget-object v0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$3;->$SwitchMap$com$bilibili$tv$ui$download$model$DownloadTask$Status:[I
+    :cond_17
+    const/4 v0, 0x0
 
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->DOWNLOADING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
-
-    invoke-virtual {v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->ordinal()I
-
-    move-result v1
-
-    const/4 v2, 0x2
-
-    aput v2, v0, v1
-    :try_end_1f
-    .catch Ljava/lang/NoSuchFieldError; {:try_start_14 .. :try_end_1f} :catch_47
-
-    :goto_1f
-    :try_start_1f
-    sget-object v0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$3;->$SwitchMap$com$bilibili$tv$ui$download$model$DownloadTask$Status:[I
-
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->PAUSED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
-
-    invoke-virtual {v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->ordinal()I
-
-    move-result v1
-
-    const/4 v2, 0x3
-
-    aput v2, v0, v1
-    :try_end_2a
-    .catch Ljava/lang/NoSuchFieldError; {:try_start_1f .. :try_end_2a} :catch_45
-
-    :goto_2a
-    :try_start_2a
-    sget-object v0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$3;->$SwitchMap$com$bilibili$tv$ui$download$model$DownloadTask$Status:[I
-
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->COMPLETED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
-
-    invoke-virtual {v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->ordinal()I
-
-    move-result v1
-
-    const/4 v2, 0x4
-
-    aput v2, v0, v1
-    :try_end_35
-    .catch Ljava/lang/NoSuchFieldError; {:try_start_2a .. :try_end_35} :catch_43
-
-    :goto_35
-    :try_start_35
-    sget-object v0, Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$3;->$SwitchMap$com$bilibili$tv$ui$download$model$DownloadTask$Status:[I
-
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->FAILED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
-
-    invoke-virtual {v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->ordinal()I
-
-    move-result v1
-
-    const/4 v2, 0x5
-
-    aput v2, v0, v1
-    :try_end_40
-    .catch Ljava/lang/NoSuchFieldError; {:try_start_35 .. :try_end_40} :catch_41
-
-    :goto_40
-    return-void
-
-    :catch_41
-    move-exception v0
-
-    goto :goto_40
-
-    :catch_43
-    move-exception v0
-
-    goto :goto_35
-
-    :catch_45
-    move-exception v0
-
-    goto :goto_2a
-
-    :catch_47
-    move-exception v0
-
-    goto :goto_1f
-
-    :catch_49
-    move-exception v0
-
-    goto :goto_14
+    goto :goto_16
 .end method

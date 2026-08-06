@@ -58,7 +58,7 @@
 
     const/4 v3, 0x0
 
-    .line 96
+    .line 97
     new-instance v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
 
     const-string v1, "NONE"
@@ -69,7 +69,7 @@
 
     sput-object v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->NONE:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
 
-    .line 97
+    .line 98
     new-instance v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
 
     const-string v1, "MANUAL"
@@ -80,7 +80,7 @@
 
     sput-object v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->MANUAL:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
 
-    .line 98
+    .line 99
     new-instance v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
 
     const-string v1, "NETWORK_ERROR"
@@ -91,7 +91,7 @@
 
     sput-object v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->NETWORK_ERROR:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
 
-    .line 99
+    .line 100
     new-instance v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
 
     const-string v1, "STORAGE_ERROR"
@@ -102,7 +102,7 @@
 
     sput-object v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->STORAGE_ERROR:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
 
-    .line 100
+    .line 101
     new-instance v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
 
     const-string v1, "APP_EXIT"
@@ -113,7 +113,7 @@
 
     sput-object v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->APP_EXIT:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
 
-    .line 95
+    .line 96
     const/4 v0, 0x5
 
     new-array v0, v0, [Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
@@ -154,16 +154,16 @@
     .end annotation
 
     .prologue
-    .line 105
+    .line 106
     invoke-direct {p0, p1, p2}, Ljava/lang/Enum;-><init>(Ljava/lang/String;I)V
 
-    .line 106
+    .line 107
     iput p3, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->value:I
 
-    .line 107
+    .line 108
     iput-object p4, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->name:Ljava/lang/String;
 
-    .line 108
+    .line 109
     return-void
 .end method
 
@@ -171,7 +171,7 @@
     .locals 5
 
     .prologue
-    .line 119
+    .line 120
     invoke-static {}, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->values()[Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
 
     move-result-object v2
@@ -187,16 +187,16 @@
 
     aget-object v0, v2, v1
 
-    .line 120
+    .line 121
     iget v4, v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->value:I
 
     if-ne v4, p0, :cond_10
 
-    .line 124
+    .line 125
     :goto_f
     return-object v0
 
-    .line 119
+    .line 120
     :cond_10
     add-int/lit8 v0, v1, 0x1
 
@@ -204,7 +204,7 @@
 
     goto :goto_7
 
-    .line 124
+    .line 125
     :cond_14
     sget-object v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->NONE:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
 
@@ -215,7 +215,7 @@
     .locals 1
 
     .prologue
-    .line 95
+    .line 96
     const-class v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
 
     invoke-static {v0, p0}, Ljava/lang/Enum;->valueOf(Ljava/lang/Class;Ljava/lang/String;)Ljava/lang/Enum;
@@ -231,7 +231,7 @@
     .locals 1
 
     .prologue
-    .line 95
+    .line 96
     sget-object v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->$VALUES:[Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
 
     invoke-virtual {v0}, [Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->clone()Ljava/lang/Object;
@@ -249,7 +249,7 @@
     .locals 1
 
     .prologue
-    .line 115
+    .line 116
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->name:Ljava/lang/String;
 
     return-object v0
@@ -259,7 +259,7 @@
     .locals 1
 
     .prologue
-    .line 111
+    .line 112
     iget v0, p0, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->value:I
 
     return v0

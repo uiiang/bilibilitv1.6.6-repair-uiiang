@@ -3,12 +3,12 @@
 .source "GroupedDownloadFragment.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$OnTaskClickListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->onResume()V
+    value = Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->onCreateView(Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View;
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 81
+    .line 72
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$2;->this$0:Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,26 +36,16 @@
 
 
 # virtual methods
-.method public run()V
+.method public onTaskClick(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
     .locals 1
 
     .prologue
-    .line 84
+    .line 75
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$2;->this$0:Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;
 
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->isAdded()Z
+    # invokes: Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->showTaskMenu(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
+    invoke-static {v0, p1}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->access$100(Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 
-    move-result v0
-
-    if-eqz v0, :cond_d
-
-    .line 85
-    iget-object v0, p0, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$2;->this$0:Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;
-
-    # invokes: Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->refreshList()V
-    invoke-static {v0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->access$100(Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;)V
-
-    .line 87
-    :cond_d
+    .line 76
     return-void
 .end method

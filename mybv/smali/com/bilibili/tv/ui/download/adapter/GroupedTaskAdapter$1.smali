@@ -3,12 +3,12 @@
 .source "GroupedTaskAdapter.java"
 
 # interfaces
-.implements Landroid/view/View$OnClickListener;
+.implements Landroid/view/View$OnFocusChangeListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;->a(Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$GroupHolder;I)V
+    value = Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;->bindGroup(Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$GroupHolder;Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$VideoGroup;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,18 +20,18 @@
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;
 
-.field final synthetic val$group:Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$VideoGroup;
+.field final synthetic val$holder:Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$GroupHolder;
 
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$VideoGroup;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$GroupHolder;)V
     .locals 0
 
     .prologue
-    .line 195
+    .line 251
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$1;->this$0:Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;
 
-    iput-object p2, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$1;->val$group:Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$VideoGroup;
+    iput-object p2, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$1;->val$holder:Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$GroupHolder;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -40,33 +40,26 @@
 
 
 # virtual methods
-.method public onClick(Landroid/view/View;)V
+.method public onFocusChange(Landroid/view/View;Z)V
     .locals 2
 
     .prologue
-    .line 198
+    .line 254
+    if-eqz p2, :cond_d
+
+    .line 255
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$1;->this$0:Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;
 
-    # getter for: Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;->listener:Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$OnGroupClickListener;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;->access$000(Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;)Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$OnGroupClickListener;
+    iget-object v1, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$1;->val$holder:Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$GroupHolder;
 
-    move-result-object v0
+    invoke-virtual {v1}, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$GroupHolder;->f()I
 
-    if-eqz v0, :cond_13
+    move-result v1
 
-    .line 199
-    iget-object v0, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$1;->this$0:Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;
+    # setter for: Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;->focusPosition:I
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;->access$002(Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;I)I
 
-    # getter for: Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;->listener:Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$OnGroupClickListener;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;->access$000(Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;)Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$OnGroupClickListener;
-
-    move-result-object v0
-
-    iget-object v1, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$1;->val$group:Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$VideoGroup;
-
-    invoke-interface {v0, v1}, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$OnGroupClickListener;->onGroupClick(Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$VideoGroup;)V
-
-    .line 201
-    :cond_13
+    .line 257
+    :cond_d
     return-void
 .end method

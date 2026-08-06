@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 345
+    .line 575
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 346
+    .line 576
     return-void
 .end method
 
@@ -30,10 +30,10 @@
     .locals 0
 
     .prologue
-    .line 349
+    .line 579
     invoke-direct {p0}, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$c$a;-><init>()V
 
-    .line 350
+    .line 580
     return-void
 .end method
 
@@ -43,12 +43,12 @@
     .locals 3
 
     .prologue
-    .line 353
+    .line 583
     const-string v0, "parent"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 354
+    .line 584
     invoke-virtual {p1}, Landroid/view/ViewGroup;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -65,12 +65,12 @@
 
     move-result-object v0
 
-    .line 355
+    .line 585
     const-string v1, "view"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 356
+    .line 586
     new-instance v1, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$c;
 
     invoke-direct {v1, v0}, Lcom/bilibili/tv/ui/download/DownloadManagerActivity$c;-><init>(Landroid/view/View;)V

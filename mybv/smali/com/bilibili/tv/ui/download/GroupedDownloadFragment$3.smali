@@ -3,27 +3,17 @@
 .source "GroupedDownloadFragment.java"
 
 # interfaces
-.implements Ljava/util/Comparator;
+.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->groupTasks(Ljava/util/List;)Ljava/util/List;
+    value = Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->onResume()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
     accessFlags = 0x0
     name = null
-.end annotation
-
-.annotation system Ldalvik/annotation/Signature;
-    value = {
-        "Ljava/lang/Object;",
-        "Ljava/util/Comparator",
-        "<",
-        "Lcom/bilibili/tv/ui/download/model/DownloadTask;",
-        ">;"
-    }
 .end annotation
 
 
@@ -36,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 141
+    .line 91
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$3;->this$0:Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -46,60 +36,48 @@
 
 
 # virtual methods
-.method public compare(Lcom/bilibili/tv/ui/download/model/DownloadTask;Lcom/bilibili/tv/ui/download/model/DownloadTask;)I
-    .locals 6
+.method public run()V
+    .locals 2
 
     .prologue
-    const-wide/16 v4, 0x0
+    .line 94
+    iget-object v0, p0, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$3;->this$0:Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;
 
-    .line 144
-    invoke-virtual {p1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getCid()J
-
-    move-result-wide v0
-
-    invoke-virtual {p2}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getCid()J
-
-    move-result-wide v2
-
-    sub-long/2addr v0, v2
-
-    .line 145
-    cmp-long v2, v0, v4
-
-    if-lez v2, :cond_11
-
-    const/4 v0, 0x1
-
-    :goto_10
-    return v0
-
-    :cond_11
-    cmp-long v0, v0, v4
-
-    if-gez v0, :cond_17
-
-    const/4 v0, -0x1
-
-    goto :goto_10
-
-    :cond_17
-    const/4 v0, 0x0
-
-    goto :goto_10
-.end method
-
-.method public bridge synthetic compare(Ljava/lang/Object;Ljava/lang/Object;)I
-    .locals 1
-
-    .prologue
-    .line 141
-    check-cast p1, Lcom/bilibili/tv/ui/download/model/DownloadTask;
-
-    check-cast p2, Lcom/bilibili/tv/ui/download/model/DownloadTask;
-
-    invoke-virtual {p0, p1, p2}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$3;->compare(Lcom/bilibili/tv/ui/download/model/DownloadTask;Lcom/bilibili/tv/ui/download/model/DownloadTask;)I
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->isAdded()Z
 
     move-result v0
 
-    return v0
+    if-nez v0, :cond_9
+
+    .line 112
+    :cond_8
+    :goto_8
+    return-void
+
+    .line 97
+    :cond_9
+    iget-object v0, p0, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$3;->this$0:Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;
+
+    # invokes: Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->refreshList()V
+    invoke-static {v0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->access$200(Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;)V
+
+    .line 100
+    iget-object v0, p0, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$3;->this$0:Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;
+
+    # getter for: Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->recyclerView:Landroid/support/v7/widget/RecyclerView;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->access$300(Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;)Landroid/support/v7/widget/RecyclerView;
+
+    move-result-object v0
+
+    .line 101
+    if-eqz v0, :cond_8
+
+    .line 102
+    new-instance v1, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$3$1;
+
+    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$3$1;-><init>(Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$3;)V
+
+    invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->post(Ljava/lang/Runnable;)Z
+
+    goto :goto_8
 .end method

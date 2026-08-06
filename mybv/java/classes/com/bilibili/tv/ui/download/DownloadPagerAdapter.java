@@ -25,10 +25,10 @@ public final class DownloadPagerAdapter extends adx {
     public Fragment a(int i) {
         switch (i) {
             case 0:
-                // 下载中：第一级视频分组列表
-                return GroupedDownloadFragment.newInstance(false);
+                // 下载中：一级列表直接显示所有下载任务（不分P分组）
+                return new DownloadingFragment();
             case 1:
-                // 已下载：第一级视频分组列表
+                // 已下载：第一级视频分组列表（多P分组/单P直显）
                 return GroupedDownloadFragment.newInstance(true);
         }
         return null;

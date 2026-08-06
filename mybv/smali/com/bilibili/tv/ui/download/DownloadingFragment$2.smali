@@ -3,27 +3,17 @@
 .source "DownloadingFragment.java"
 
 # interfaces
-.implements Ljava/util/Comparator;
+.implements Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$OnTaskClickListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/download/DownloadingFragment;->refreshList()V
+    value = Lcom/bilibili/tv/ui/download/DownloadingFragment;->setupRecyclerView()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
     accessFlags = 0x0
     name = null
-.end annotation
-
-.annotation system Ldalvik/annotation/Signature;
-    value = {
-        "Ljava/lang/Object;",
-        "Ljava/util/Comparator",
-        "<",
-        "Lcom/bilibili/tv/ui/download/model/DownloadTask;",
-        ">;"
-    }
 .end annotation
 
 
@@ -36,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 116
+    .line 131
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/DownloadingFragment$2;->this$0:Lcom/bilibili/tv/ui/download/DownloadingFragment;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -46,60 +36,32 @@
 
 
 # virtual methods
-.method public compare(Lcom/bilibili/tv/ui/download/model/DownloadTask;Lcom/bilibili/tv/ui/download/model/DownloadTask;)I
-    .locals 6
-
-    .prologue
-    const-wide/16 v4, 0x0
-
-    .line 119
-    invoke-virtual {p1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getCid()J
-
-    move-result-wide v0
-
-    invoke-virtual {p2}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getCid()J
-
-    move-result-wide v2
-
-    sub-long/2addr v0, v2
-
-    .line 120
-    cmp-long v2, v0, v4
-
-    if-lez v2, :cond_11
-
-    const/4 v0, 0x1
-
-    :goto_10
-    return v0
-
-    :cond_11
-    cmp-long v0, v0, v4
-
-    if-gez v0, :cond_17
-
-    const/4 v0, -0x1
-
-    goto :goto_10
-
-    :cond_17
-    const/4 v0, 0x0
-
-    goto :goto_10
-.end method
-
-.method public bridge synthetic compare(Ljava/lang/Object;Ljava/lang/Object;)I
+.method public onTaskClick(Lcom/bilibili/tv/ui/download/model/DownloadTask;I)V
     .locals 1
 
     .prologue
-    .line 116
-    check-cast p1, Lcom/bilibili/tv/ui/download/model/DownloadTask;
+    .line 134
+    iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadingFragment$2;->this$0:Lcom/bilibili/tv/ui/download/DownloadingFragment;
 
-    check-cast p2, Lcom/bilibili/tv/ui/download/model/DownloadTask;
+    # invokes: Lcom/bilibili/tv/ui/download/DownloadingFragment;->handleTaskClick(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
+    invoke-static {v0, p1}, Lcom/bilibili/tv/ui/download/DownloadingFragment;->access$300(Lcom/bilibili/tv/ui/download/DownloadingFragment;Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 
-    invoke-virtual {p0, p1, p2}, Lcom/bilibili/tv/ui/download/DownloadingFragment$2;->compare(Lcom/bilibili/tv/ui/download/model/DownloadTask;Lcom/bilibili/tv/ui/download/model/DownloadTask;)I
+    .line 135
+    return-void
+.end method
 
-    move-result v0
+.method public onTaskLongClick(Lcom/bilibili/tv/ui/download/model/DownloadTask;I)Z
+    .locals 1
+
+    .prologue
+    .line 139
+    iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadingFragment$2;->this$0:Lcom/bilibili/tv/ui/download/DownloadingFragment;
+
+    # invokes: Lcom/bilibili/tv/ui/download/DownloadingFragment;->handleTaskLongClick(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
+    invoke-static {v0, p1}, Lcom/bilibili/tv/ui/download/DownloadingFragment;->access$400(Lcom/bilibili/tv/ui/download/DownloadingFragment;Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
+
+    .line 140
+    const/4 v0, 0x1
 
     return v0
 .end method

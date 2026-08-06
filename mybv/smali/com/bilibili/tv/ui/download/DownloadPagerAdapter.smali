@@ -47,11 +47,9 @@
 
     .line 29
     :pswitch_5
-    const/4 v0, 0x0
+    new-instance v0, Lcom/bilibili/tv/ui/download/DownloadingFragment;
 
-    invoke-static {v0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->newInstance(Z)Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;
-
-    move-result-object v0
+    invoke-direct {v0}, Lcom/bilibili/tv/ui/download/DownloadingFragment;-><init>()V
 
     goto :goto_4
 

@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 231
+    .line 236
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$context:Landroid/content/Context;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$title:Ljava/lang/String;
@@ -48,7 +48,7 @@
     .locals 3
 
     .prologue
-    .line 234
+    .line 239
     new-instance v0, Landroid/app/AlertDialog$Builder;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$context:Landroid/content/Context;
@@ -57,14 +57,14 @@
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$title:Ljava/lang/String;
 
-    .line 235
+    .line 240
     invoke-virtual {v0, v1}, Landroid/app/AlertDialog$Builder;->setTitle(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
 
     move-result-object v0
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$message:Ljava/lang/String;
 
-    .line 236
+    .line 241
     invoke-virtual {v0, v1}, Landroid/app/AlertDialog$Builder;->setMessage(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
 
     move-result-object v0
@@ -73,14 +73,14 @@
 
     const/4 v2, 0x0
 
-    .line 237
+    .line 242
     invoke-virtual {v0, v1, v2}, Landroid/app/AlertDialog$Builder;->setPositiveButton(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
     move-result-object v0
 
-    .line 238
+    .line 243
     invoke-virtual {v0}, Landroid/app/AlertDialog$Builder;->show()Landroid/app/AlertDialog;
 
-    .line 239
+    .line 244
     return-void
 .end method

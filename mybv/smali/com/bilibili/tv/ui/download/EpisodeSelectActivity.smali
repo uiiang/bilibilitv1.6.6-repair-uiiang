@@ -111,12 +111,12 @@
     .locals 4
 
     .prologue
-    .line 316
+    .line 317
     iget v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->duration:I
 
     if-lez v0, :cond_d
 
-    .line 317
+    .line 318
     iget v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->duration:I
 
     mul-int/lit16 v0, v0, 0x400
@@ -127,7 +127,7 @@
 
     mul-long/2addr v0, v2
 
-    .line 319
+    .line 320
     :goto_c
     return-wide v0
 
@@ -145,14 +145,14 @@
 
     const/4 v6, 0x0
 
-    .line 326
+    .line 327
     const-wide/16 v0, 0x400
 
     cmp-long v0, p1, v0
 
     if-gez v0, :cond_1c
 
-    .line 327
+    .line 328
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -171,11 +171,11 @@
 
     move-result-object v0
 
-    .line 333
+    .line 334
     :goto_1b
     return-object v0
 
-    .line 328
+    .line 329
     :cond_1c
     const-wide/32 v0, 0x100000
 
@@ -183,7 +183,7 @@
 
     if-gez v0, :cond_36
 
-    .line 329
+    .line 330
     const-string v0, "%.2fKB"
 
     new-array v1, v2, [Ljava/lang/Object;
@@ -206,7 +206,7 @@
 
     goto :goto_1b
 
-    .line 330
+    .line 331
     :cond_36
     const-wide/32 v0, 0x40000000
 
@@ -214,7 +214,7 @@
 
     if-gez v0, :cond_50
 
-    .line 331
+    .line 332
     const-string v0, "%.2fMB"
 
     new-array v1, v2, [Ljava/lang/Object;
@@ -237,7 +237,7 @@
 
     goto :goto_1b
 
-    .line 333
+    .line 334
     :cond_50
     const-string v0, "%.2fGB"
 
@@ -591,39 +591,39 @@
     .end annotation
 
     .prologue
-    .line 342
+    .line 343
     new-instance v0, Landroid/content/Intent;
 
     const-class v1, Lcom/bilibili/tv/ui/download/EpisodeSelectActivity;
 
     invoke-direct {v0, p0, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
 
-    .line 343
+    .line 344
     const-string v1, "avid"
 
     invoke-virtual {v0, v1, p1, p2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;J)Landroid/content/Intent;
 
-    .line 344
+    .line 345
     const-string v1, "bvid"
 
     invoke-virtual {v0, v1, p3}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 345
+    .line 346
     const-string v1, "title"
 
     invoke-virtual {v0, v1, p4}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 346
+    .line 347
     const-string v1, "cover"
 
     invoke-virtual {v0, v1, p5}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 347
+    .line 348
     const-string v1, "up_name"
 
     invoke-virtual {v0, v1, p6}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 348
+    .line 349
     const-string v1, "episodes"
 
     new-instance v2, Ljava/util/ArrayList;
@@ -632,15 +632,15 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/content/Intent;->putParcelableArrayListExtra(Ljava/lang/String;Ljava/util/ArrayList;)Landroid/content/Intent;
 
-    .line 349
+    .line 350
     invoke-virtual {p0, v0}, Landroid/content/Context;->startActivity(Landroid/content/Intent;)V
 
-    .line 350
+    .line 351
     return-void
 .end method
 
 .method private startDownload()V
-    .locals 18
+    .locals 19
 
     .prologue
     .line 266
@@ -650,7 +650,7 @@
 
     if-nez v2, :cond_7
 
-    .line 310
+    .line 311
     :goto_6
     return-void
 
@@ -720,18 +720,18 @@
     .line 280
     invoke-interface {v3}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
 
-    move-result-object v17
+    move-result-object v18
 
-    move/from16 v16, v2
+    move/from16 v17, v2
 
     :goto_45
-    invoke-interface/range {v17 .. v17}, Ljava/util/Iterator;->hasNext()Z
+    invoke-interface/range {v18 .. v18}, Ljava/util/Iterator;->hasNext()Z
 
     move-result v2
 
-    if-eqz v2, :cond_b3
+    if-eqz v2, :cond_bc
 
-    invoke-interface/range {v17 .. v17}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+    invoke-interface/range {v18 .. v18}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
     move-result-object v2
 
@@ -828,22 +828,32 @@
 
     add-int/lit8 v14, v14, 0x1
 
-    const/4 v15, 0x0
+    move-object/from16 v0, p0
+
+    iget-object v2, v0, Lcom/bilibili/tv/ui/download/EpisodeSelectActivity;->episodeList:Ljava/util/List;
+
+    .line 299
+    invoke-interface {v2}, Ljava/util/List;->size()I
+
+    move-result v15
+
+    const/16 v16, 0x0
 
     move-object/from16 v2, p0
 
-    invoke-static/range {v2 .. v15}, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;->startDownload(Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JILjava/lang/String;)V
-
-    .line 302
-    add-int/lit8 v2, v16, 0x1
-
-    move/from16 v16, v2
+    .line 288
+    invoke-static/range {v2 .. v16}, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;->startDownload(Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JIILjava/lang/String;)V
 
     .line 303
+    add-int/lit8 v2, v17, 0x1
+
+    move/from16 v17, v2
+
+    .line 304
     goto :goto_45
 
-    .line 306
-    :cond_b3
+    .line 307
+    :cond_bc
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
@@ -854,7 +864,7 @@
 
     move-result-object v2
 
-    move/from16 v0, v16
+    move/from16 v0, v17
 
     invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
@@ -880,7 +890,7 @@
 
     invoke-virtual {v2}, Landroid/widget/Toast;->show()V
 
-    .line 309
+    .line 310
     invoke-virtual/range {p0 .. p0}, Lcom/bilibili/tv/ui/download/EpisodeSelectActivity;->finish()V
 
     goto/16 :goto_6
