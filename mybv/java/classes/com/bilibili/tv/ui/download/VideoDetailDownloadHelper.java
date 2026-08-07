@@ -80,7 +80,7 @@ public class VideoDetailDownloadHelper {
      * @param pageIndex 分P序号（从1开始，单P视频传1）
      * @param totalPageCount 视频总P数（单P视频为1）
      */
-    public static void startDownload(
+    public static boolean startDownload(
             Context context,
             long avid,
             String bvid,
@@ -97,66 +97,53 @@ public class VideoDetailDownloadHelper {
         Log.i(TAG, "开始下载: " + title + ", 画质: " + quality);
 
         // ========== 关键修复：下载前存储检查 ==========
-        // 1. 检查下载路径是否已设置
-        String downloadBasePath = getDownloadBasePath(context);
-        if (downloadBasePath == null || downloadBasePath.isEmpty()) {
-            Log.w(TAG, "下载路径未设置");
-            showErrorDialog(context, "无法下载", "请先在设置中配置下载保存位置");
-            return;
+        android.content.SharedPreferences prefs = context.getSharedPreferences("download_settings", Context.MODE_PRIVATE);
+
+        // 画质参数为空时（如分P选择页传null），使用用户设置的默认画质，保证分P下载也遵循用户设置
+        final String effectiveQuality;
+        if (quality == null || quality.isEmpty()) {
+            int defaultQuality = prefs.getInt("quality", 80); // 默认1080P
+            effectiveQuality = convertQualityIdToString(defaultQuality);
+        } else {
+            effectiveQuality = quality;
         }
 
-        // 2. 检查存储设备是否挂载
-        java.io.File downloadDir = new java.io.File(downloadBasePath);
-        if (!downloadDir.exists() || !downloadDir.isDirectory()) {
-            Log.w(TAG, "存储设备未挂载或路径无效: " + downloadBasePath);
-            showErrorDialog(context, "无法下载", "外接存储设备未挂载或路径无效");
-            return;
+        // 基础存储检查（SAF目录可用 / 路径存在 / 可写），
+        // 失败时弹错误对话框并返回false，由调用方（如分P选择页）决定是否中断批量添加
+        String storageError = checkStorageAvailable(context);
+        if (storageError != null) {
+            Log.w(TAG, "存储检查失败: " + storageError);
+            showErrorDialog(context, "无法下载", storageError);
+            return false;
         }
 
-        // 3. 检查存储设备是否可写
-        if (!downloadDir.canWrite()) {
-            Log.w(TAG, "存储设备不可写: " + downloadBasePath);
-            showErrorDialog(context, "无法下载", "存储设备不可写，请检查权限");
-            return;
+        // 粗略检查存储空间（基于视频时长估算，仅File模式）
+        String downloadBasePath = prefs.getString("download_path", "");
+        String downloadUri = prefs.getString("download_uri", "");
+        boolean isSaf = downloadUri != null && !downloadUri.isEmpty();
+        if (!isSaf) {
+            java.io.File downloadDir = new java.io.File(downloadBasePath);
+            long estimatedSize = estimateFileSize(duration);
+            long availableSpace = downloadDir.getUsableSpace();
+            if (availableSpace < estimatedSize) {
+                Log.w(TAG, "存储空间不足: 需要 " + estimatedSize + "，可用 " + availableSpace);
+                showErrorDialog(context, "存储空间不足",
+                    "需要: " + formatFileSize(estimatedSize) + "\n可用: " + formatFileSize(availableSpace));
+                return false;
+            }
         }
 
-        // 4. 粗略检查存储空间（基于视频时长估算）
-        long estimatedSize = estimateFileSize(duration);
-        long availableSpace = downloadDir.getUsableSpace();
-        if (availableSpace < estimatedSize) {
-            Log.w(TAG, "存储空间不足: 需要 " + estimatedSize + "，可用 " + availableSpace);
-            showErrorDialog(context, "存储空间不足",
-                "需要: " + formatFileSize(estimatedSize) + "\n可用: " + formatFileSize(availableSpace));
-            return;
-        }
-
-        Log.i(TAG, "存储检查通过，路径: " + downloadBasePath + ", 可用空间: " + formatFileSize(availableSpace));
+        Log.i(TAG, "存储检查通过，路径: " + downloadBasePath);
         // ========== 存储检查结束 ==========
 
-        // 在后台线程中获取下载URL并添加任务
+        // 在后台线程中创建下载任务并添加到队列（URL获取延迟到任务真正开始下载时，见DownloadWorker）
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     // 画质字符串转换为ID
-                    int qualityId = convertQualityToId(quality);
+                    int qualityId = convertQualityToId(effectiveQuality);
                     Log.i(TAG, "画质ID: " + qualityId);
-
-                    // 调用API获取下载URL
-                    String videoUrl = BilibiliDownloadApi.getDownloadUrl(context, avid, bvid, cid, qualityId);
-                    if (videoUrl == null || videoUrl.isEmpty()) {
-                        Log.e(TAG, "获取下载URL失败");
-                        // 在主线程中显示错误提示
-                        ((android.app.Activity) context).runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(context, "获取下载URL失败", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        return;
-                    }
-
-                    Log.i(TAG, "获取到下载URL: " + videoUrl);
 
                     // 创建下载任务
                     DownloadTask task = new DownloadTask();
@@ -172,14 +159,25 @@ public class VideoDetailDownloadHelper {
                     task.setUpName(upName);
                     task.setDuration(duration);
                     task.setQuality(qualityId);
-                    task.setQualityName(quality);
-                    task.setVideoUrl(videoUrl);
+                    task.setQualityName(effectiveQuality);
+                    // 注意：此处不获取下载URL，由DownloadWorker在任务真正开始下载时获取，
+                    // 将URL获取分散开，避免批量添加多个分P时并发请求playurl接口触发风控
                     task.setStatus(DownloadTask.Status.WAITING);
                     task.setCreateTime(System.currentTimeMillis());
                     task.setUpdateTime(System.currentTimeMillis());
 
                     // 设置下载路径（使用bvid作为文件夹名，同一视频的多个分P保存到同一文件夹）
                     String downloadPath = getDownloadPath(context, bvid, cid, title, subTitle, pageIndex);
+                    if (downloadPath == null || downloadPath.isEmpty()) {
+                        Log.e(TAG, "创建下载文件失败，无法添加任务: " + title);
+                        ((android.app.Activity) context).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(context, "创建下载文件失败，请检查存储设备", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        return;
+                    }
                     task.setDownloadPath(downloadPath);
 
                     // 添加到下载管理器
@@ -205,6 +203,8 @@ public class VideoDetailDownloadHelper {
                 }
             }
         }).start();
+        // 已提交添加请求（后台线程完成实际添加）
+        return true;
     }
 
     /**
@@ -229,18 +229,67 @@ public class VideoDetailDownloadHelper {
     }
 
     /**
-     * 显示错误对话框
+     * 检查下载存储是否可用（同步，可在UI线程调用）
+     * 供分P选择页等批量添加入口在添加任务前统一预检查，
+     * 避免存储不可用时（如U盘已拔出）逐个添加失败并误提示"已添加"
+     *
+     * @param context 上下文
+     * @return 错误信息；null 表示检查通过
      */
-    private static void showErrorDialog(Context context, String title, String message) {
+    public static String checkStorageAvailable(Context context) {
+        android.content.SharedPreferences prefs = context.getSharedPreferences("download_settings", Context.MODE_PRIVATE);
+        String downloadBasePath = prefs.getString("download_path", "");
+        String downloadUri = prefs.getString("download_uri", "");
+        boolean isSaf = downloadUri != null && !downloadUri.isEmpty();
+
+        if (isSaf) {
+            // SAF模式（外接U盘/移动硬盘，Android 8.0+ 无法通过文件路径写入，必须使用系统授权URI）
+            if (!SafFileHelper.isDirectoryAvailable(context, downloadUri)) {
+                Log.w(TAG, "SAF目录不可访问或已失效: " + downloadUri);
+                return "存储设备不可访问或已失效，请重新在设置中授权目录";
+            }
+            return null;
+        }
+
+        // File模式（内部存储）
+        if (downloadBasePath == null || downloadBasePath.isEmpty()) {
+            return "请先在设置中配置下载保存位置";
+        }
+        java.io.File downloadDir = new java.io.File(downloadBasePath);
+        if (!downloadDir.exists() || !downloadDir.isDirectory()) {
+            Log.w(TAG, "存储设备未挂载或路径无效: " + downloadBasePath);
+            return "外接存储设备未挂载或路径无效";
+        }
+        if (!StorageManagerHelper.isStorageWritable(downloadBasePath)) {
+            Log.w(TAG, "存储设备不可写: " + downloadBasePath);
+            return "存储设备不可写，请检查权限";
+        }
+        return null;
+    }
+
+    /**
+     * 显示错误对话框
+     * 防御：Activity已销毁或对话框显示异常时避免崩溃
+     */
+    public static void showErrorDialog(Context context, String title, String message) {
         if (context instanceof android.app.Activity) {
-            ((android.app.Activity) context).runOnUiThread(new Runnable() {
+            final android.app.Activity activity = (android.app.Activity) context;
+            if (activity.isFinishing()) {
+                Log.w(TAG, "Activity正在销毁，跳过错误对话框: " + message);
+                return;
+            }
+            activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    new android.app.AlertDialog.Builder(context)
-                        .setTitle(title)
-                        .setMessage(message)
-                        .setPositiveButton("确定", null)
-                        .show();
+                    try {
+                        new android.app.AlertDialog.Builder(activity)
+                            .setTitle(title)
+                            .setMessage(message)
+                            .setPositiveButton("确定", null)
+                            .show();
+                    } catch (Exception e) {
+                        Log.w(TAG, "显示错误对话框失败: " + e.getMessage());
+                    }
                 }
             });
         }
@@ -277,40 +326,55 @@ public class VideoDetailDownloadHelper {
     }
 
     /**
-     * 获取下载基础路径（从SharedPreferences读取）
-     */
-    private static String getDownloadBasePath(Context context) {
-        // 从SharedPreferences获取下载路径
-        android.content.SharedPreferences prefs = context.getSharedPreferences("download_settings", android.content.Context.MODE_PRIVATE);
-        String basePath = prefs.getString("download_path", "");
-
-        if (basePath == null || basePath.isEmpty()) {
-            // 如果未设置，返回null（触发设置提示）
-            return null;
-        }
-
-        return basePath;
-    }
-
-    /**
-     * 获取下载路径（带文件名）
+     * 获取下载目标（带文件名）
      * 使用bvid作为文件夹名，同一视频的多个分P保存到同一文件夹
      * 文件名规则：
      *   单P：BV号_视频标题(前10字).mp4
      *   分P：BV号_分P标题(前10字)_分P序号.mp4
+     * 返回值：
+     *   SAF模式（download_uri非空）：文件对应的 content:// URI 字符串
+     *   File模式：文件绝对路径
      */
     private static String getDownloadPath(Context context, String bvid, long cid, String title, String subTitle, int pageIndex) {
         // 从SharedPreferences获取下载路径
         android.content.SharedPreferences prefs = context.getSharedPreferences("download_settings", android.content.Context.MODE_PRIVATE);
         String basePath = prefs.getString("download_path", "");
+        String downloadUri = prefs.getString("download_uri", "");
+        String fileName = buildFileName(bvid, title, subTitle, pageIndex);
+
+        if (downloadUri != null && !downloadUri.isEmpty()) {
+            // SAF模式：在授权目录下创建 bvid 子目录和文件，返回文件的 content:// URI
+            try {
+                if (!SafFileHelper.isDirectoryAvailable(context, downloadUri)) {
+                    Log.e(TAG, "SAF目录无效: " + downloadUri);
+                    return null;
+                }
+                android.net.Uri videoDirUri = SafFileHelper.findOrCreateDirectory(context, downloadUri, bvid);
+                if (videoDirUri == null) {
+                    Log.e(TAG, "创建视频目录失败: " + bvid);
+                    return null;
+                }
+                android.net.Uri fileUri = SafFileHelper.findOrCreateFile(context, downloadUri,
+                        videoDirUri.toString(), fileName, "video/mp4");
+                if (fileUri == null) {
+                    Log.e(TAG, "创建视频文件失败: " + fileName);
+                    return null;
+                }
+                String uri = fileUri.toString();
+                Log.i(TAG, "SAF下载目标: " + uri);
+                return uri;
+            } catch (Exception e) {
+                Log.e(TAG, "SAF创建下载文件失败: " + e.getMessage(), e);
+                return null;
+            }
+        }
 
         if (basePath == null || basePath.isEmpty()) {
             // 如果未设置，返回null
             return null;
         }
 
-        // 构建完整路径：basePath/bvid/文件名.mp4
-        // 这样同一视频的多个分P会保存到同一文件夹中
+        // File模式：构建完整路径 basePath/bvid/文件名.mp4
         String videoDir = basePath + "/" + bvid;
 
         // 创建视频文件夹（如果不存在）
@@ -319,7 +383,7 @@ public class VideoDetailDownloadHelper {
             dir.mkdirs();
         }
 
-        return videoDir + "/" + buildFileName(bvid, title, subTitle, pageIndex);
+        return videoDir + "/" + fileName;
     }
 
     /**

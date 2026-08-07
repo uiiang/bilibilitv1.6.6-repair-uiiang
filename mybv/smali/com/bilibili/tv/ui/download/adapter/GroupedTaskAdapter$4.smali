@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 366
+    .line 368
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$4;->this$0:Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$4;->val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
@@ -44,7 +44,7 @@
     .locals 2
 
     .prologue
-    .line 369
+    .line 371
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$4;->this$0:Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;
 
     # getter for: Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;->taskListener:Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$OnTaskClickListener;
@@ -54,7 +54,7 @@
 
     if-eqz v0, :cond_13
 
-    .line 370
+    .line 372
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$4;->this$0:Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;
 
     # getter for: Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;->taskListener:Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$OnTaskClickListener;
@@ -66,7 +66,7 @@
 
     invoke-interface {v0, v1}, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$OnTaskClickListener;->onTaskClick(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 
-    .line 372
+    .line 374
     :cond_13
     return-void
 .end method

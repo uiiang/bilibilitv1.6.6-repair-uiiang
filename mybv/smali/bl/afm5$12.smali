@@ -1,4 +1,4 @@
-.class Lbl/afm5$6;
+.class Lbl/afm5$12;
 .super Ljava/lang/Object;
 .source "afm5.java"
 
@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/afm5;->showFolderPicker()V
+    value = Lbl/afm5;->loadFolderList(Landroid/widget/ListView;Landroid/widget/TextView;Ljava/io/File;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,18 +20,14 @@
 # instance fields
 .field final synthetic this$0:Lbl/afm5;
 
-.field final synthetic val$safButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
-
 
 # direct methods
-.method constructor <init>(Lbl/afm5;Lcom/bilibili/tv/widget/DrawFrameLayout;)V
+.method constructor <init>(Lbl/afm5;)V
     .locals 0
 
     .prologue
-    .line 600
-    iput-object p1, p0, Lbl/afm5$6;->this$0:Lbl/afm5;
-
-    iput-object p2, p0, Lbl/afm5$6;->val$safButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+    .line 879
+    iput-object p1, p0, Lbl/afm5$12;->this$0:Lbl/afm5;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -41,14 +37,14 @@
 
 # virtual methods
 .method public onFocusChange(Landroid/view/View;Z)V
-    .locals 1
+    .locals 0
 
     .prologue
-    .line 603
-    iget-object v0, p0, Lbl/afm5$6;->val$safButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+    .line 882
+    check-cast p1, Landroid/widget/ListView;
 
-    invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpEnabled(Z)V
+    invoke-virtual {p1}, Landroid/widget/ListView;->invalidateViews()V
 
-    .line 604
+    .line 883
     return-void
 .end method

@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 378
+    .line 398
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$8;->this$0:Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$8;->val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
@@ -44,7 +44,7 @@
     .locals 3
 
     .prologue
-    .line 381
+    .line 401
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$8;->this$0:Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$8;->val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
@@ -52,7 +52,7 @@
     # invokes: Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->deleteLocalFile(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->access$1000(Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 
-    .line 382
+    .line 402
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$8;->this$0:Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
@@ -71,7 +71,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/download/DownloadManager;->deleteTask(Ljava/lang/String;)V
 
-    .line 383
+    .line 403
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$8;->this$0:Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
@@ -88,12 +88,12 @@
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    .line 384
+    .line 404
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$8;->this$0:Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;
 
     # invokes: Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->refreshList()V
     invoke-static {v0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->access$200(Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;)V
 
-    .line 385
+    .line 405
     return-void
 .end method

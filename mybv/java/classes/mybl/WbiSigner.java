@@ -11,9 +11,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.util.TreeMap;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class WbiSigner {
     private static final String TAG = "WbiSigner";
@@ -140,40 +137,18 @@ public class WbiSigner {
     }
 
     public String encWbiAndGetQuery(TreeMap<String, String> params) {
-        String currentMixinKey = this.mixinKey;
-
-        if (currentMixinKey == null || System.currentTimeMillis() - lastUpdateTime > CACHE_DURATION) {
-            final CountDownLatch latch = new CountDownLatch(1);
-            final AtomicBoolean success = new AtomicBoolean(false);
-
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    if (updateKeysBlocking()) {
-                        success.set(true);
-                    }
-                    latch.countDown();
-                }
-            }).start();
-
-            try {
-                boolean waited = latch.await(10, TimeUnit.SECONDS);
-                if (!waited) {
-                    Log.e(TAG, "Timeout waiting for WBI keys");
-                    return null;
-                }
-                if (!success.get()) {
+        // 单飞模式：多线程并发首次获取WBI密钥时，只允许一个线程执行拉取，
+        // 其余线程等待锁释放后直接复用缓存密钥，避免多分P并发下载时重复请求nav接口导致部分失败
+        synchronized (this) {
+            if (mixinKey == null || System.currentTimeMillis() - lastUpdateTime > CACHE_DURATION) {
+                if (!updateKeysBlocking()) {
                     Log.e(TAG, "Failed to get WBI keys");
                     return null;
                 }
-            } catch (InterruptedException e) {
-                Log.e(TAG, "Interrupted waiting for WBI keys", e);
-                Thread.currentThread().interrupt();
-                return null;
             }
         }
 
-        currentMixinKey = this.mixinKey;
+        String currentMixinKey = this.mixinKey;
         if (currentMixinKey == null) {
             Log.e(TAG, "mixinKey is still null");
             return null;

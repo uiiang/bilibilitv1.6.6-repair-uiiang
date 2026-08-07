@@ -19,8 +19,8 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
     private DrawFrameLayout progressbar_button;
     private DrawFrameLayout fastquit_button;
 
-    public static String[] tab_names = { "登录", "动态", "待看", "收藏", "历史", "追番", "追剧" };
-    private DrawFrameLayout[] tab_buttons = { null, null, null, null, null, null, null };
+    public static String[] tab_names = { "登录", "动态", "待看", "收藏", "历史", "追番", "追剧", "下载" };
+    private DrawFrameLayout[] tab_buttons = { null, null, null, null, null, null, null, null };
     private DrawFrameLayout column2Button;
     private DrawFrameLayout column3Button;
     private DrawFrameLayout column4Button;
@@ -78,6 +78,7 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         this.tab_buttons[4] = (DrawFrameLayout) inflate.findViewById(R.id.tab_button4);
         this.tab_buttons[5] = (DrawFrameLayout) inflate.findViewById(R.id.tab_button5);
         this.tab_buttons[6] = (DrawFrameLayout) inflate.findViewById(R.id.tab_button6);
+        this.tab_buttons[7] = (DrawFrameLayout) inflate.findViewById(R.id.tab_button7);
 
         this.progressbar_button.setUpDrawable(R.drawable.shadow_white_rect);
         this.progressbar_button.setOnFocusChangeListener(this);
@@ -93,7 +94,7 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         }
         this.progressbar_button.setOnClickListener(this);
         this.fastquit_button.setOnClickListener(this);
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 8; i++) {
             this.tab_buttons[i].setUpDrawable(R.drawable.shadow_white_rect);
             this.tab_buttons[i].setOnFocusChangeListener(this);
             this.tab_buttons[i].setOnClickListener(this);
@@ -361,14 +362,14 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
             BiliFilter.fastquit_on = !BiliFilter.fastquit_on;
             abd.set_personal_config(MainApplication.a().getApplicationContext(), "fastquit_on", BiliFilter.fastquit_on);
         }
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 8; i++) {
             if (this.tab_buttons[i] == view) {
                 int t = MainMyFragment.MyMap[i];
                 for (int j = i - 1; j >= 0; j--)
                     MainMyFragment.MyMap[j + 1] = MainMyFragment.MyMap[j];
                 MainMyFragment.MyMap[0] = t;
                 abd.set_personal_config(MainApplication.a(), "myarea_map", JSON.toJSON(MainMyFragment.MyMap));
-                for (int j = 0; j < 7; j++)
+                for (int j = 0; j < 8; j++)
                     ((ShadowTextView) this.tab_buttons[j].getChildAt(0))
                             .setText((j == i ? "≪ " : "") + afm4.tab_names[MainMyFragment.MyMap[j]]);
             }
@@ -513,7 +514,7 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         } else {
             ((DrawFrameLayout) view).setUpEnabled(false);
         }
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 8; i++) {
             if (this.tab_buttons[i] == view && this.tab_buttons[i].getChildAt(0) != null)
                 ((ShadowTextView) this.tab_buttons[i].getChildAt(0))
                         .setText((z ? "≪ " : "") + afm4.tab_names[MainMyFragment.MyMap[i]]);
@@ -564,7 +565,7 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
                 && !this.otherNormalButton.hasFocus() && !this.otherCompactButton.hasFocus()
                 && !this.spaceDynamicButton.hasFocus() && !this.spaceAllButton.hasFocus()) {
             boolean allTabsNoFocus = true;
-            for (int i = 0; i < 7; i++) {
+            for (int i = 0; i < 8; i++) {
                 if (this.tab_buttons[i] != null && this.tab_buttons[i].hasFocus()) {
                     allTabsNoFocus = false;
                     break;

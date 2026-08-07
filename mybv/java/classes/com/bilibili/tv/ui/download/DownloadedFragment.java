@@ -229,7 +229,8 @@ public class DownloadedFragment extends Fragment implements DownloadManager.Down
             return;
         }
 
-        String oldFileName = filePath.substring(filePath.lastIndexOf('/') + 1);
+        // 提取文件名（SAF content URI中文被URL编码，需解码；兼容普通文件路径）
+        String oldFileName = SafFileHelper.getFileNameFromPath(getContext(), filePath);
         final String fileExtension = oldFileName.contains(".") ? 
             oldFileName.substring(oldFileName.lastIndexOf('.')) : "";
         String fileNameWithoutExt = oldFileName.contains(".") ? 
@@ -278,7 +279,28 @@ public class DownloadedFragment extends Fragment implements DownloadManager.Down
         try {
             String oldFilePath = task.getDownloadPath();
             android.util.Log.i("DownloadedFragment", "renameLocalFile: oldFilePath=" + oldFilePath);
-            
+
+            if (oldFilePath != null && oldFilePath.startsWith("content://")) {
+                // SAF：通过SafFileHelper重命名
+                if (!SafFileHelper.exists(getContext(), oldFilePath)) {
+                    Toast.makeText(getContext(), "文件不存在", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                String newUri = SafFileHelper.rename(getContext(), oldFilePath, newFileName);
+                if (newUri != null) {
+                    // 更新数据库中的文件URI
+                    task.setDownloadPath(newUri);
+                    android.util.Log.i("DownloadedFragment", "renameLocalFile: SAF task.downloadPath updated to=" + task.getDownloadPath());
+
+                    DownloadManager.getInstance(getContext()).updateTask(task);
+                    Toast.makeText(getContext(), "重命名成功", Toast.LENGTH_SHORT).show();
+                    refreshList();
+                } else {
+                    Toast.makeText(getContext(), "重命名失败", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
             java.io.File oldFile = new java.io.File(oldFilePath);
             
             if (!oldFile.exists()) {
@@ -361,36 +383,47 @@ public class DownloadedFragment extends Fragment implements DownloadManager.Down
             return;
         }
 
-        // 检查文件是否存在
-        final java.io.File file = new java.io.File(downloadPath);
-        if (!file.exists()) {
-            Toast.makeText(getContext(), "文件不存在，请重新下载", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // 检查文件是否可读
-        if (!file.canRead()) {
-            Toast.makeText(getContext(), "文件无法读取，请检查权限", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // 检查文件大小
-        if (file.length() == 0) {
-            Toast.makeText(getContext(), "文件大小为0，可能下载未完成", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         // 使用Intent选择器播放本地文件
         try {
             android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_VIEW);
             android.net.Uri uri;
 
-            // 兼容Android 7.0+，使用FileProvider
-            if (android.os.Build.VERSION.SDK_INT >= 24) {
-                uri = android.support.v4.content.FileProvider.a(getContext(), getContext().getPackageName() + ".fileprovider", file);
+            if (downloadPath.startsWith("content://")) {
+                // SAF：外接U盘文件，直接使用content URI（系统播放器可读）
+                if (!SafFileHelper.exists(getContext(), downloadPath)
+                        || SafFileHelper.getFileSize(getContext(), downloadPath) == 0) {
+                    Toast.makeText(getContext(), "文件不存在或大小为0", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                uri = android.net.Uri.parse(downloadPath);
                 intent.addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION);
             } else {
-                uri = android.net.Uri.fromFile(file);
+                // 检查文件是否存在
+                final java.io.File file = new java.io.File(downloadPath);
+                if (!file.exists()) {
+                    Toast.makeText(getContext(), "文件不存在，请重新下载", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // 检查文件是否可读
+                if (!file.canRead()) {
+                    Toast.makeText(getContext(), "文件无法读取，请检查权限", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // 检查文件大小
+                if (file.length() == 0) {
+                    Toast.makeText(getContext(), "文件大小为0，可能下载未完成", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // 兼容Android 7.0+，使用FileProvider
+                if (android.os.Build.VERSION.SDK_INT >= 24) {
+                    uri = android.support.v4.content.FileProvider.a(getContext(), getContext().getPackageName() + ".fileprovider", file);
+                    intent.addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                } else {
+                    uri = android.net.Uri.fromFile(file);
+                }
             }
 
             intent.setDataAndType(uri, "video/*");
@@ -423,53 +456,69 @@ public class DownloadedFragment extends Fragment implements DownloadManager.Down
             return;
         }
 
-        // 检查文件是否存在
-        final java.io.File file = new java.io.File(downloadPath);
-        android.util.Log.i("DownloadedFragment", "playLocalFile: file path=" + file.getAbsolutePath());
-        android.util.Log.i("DownloadedFragment", "playLocalFile: file exists=" + file.exists());
-        android.util.Log.i("DownloadedFragment", "playLocalFile: file length=" + file.length());
-        android.util.Log.i("DownloadedFragment", "playLocalFile: file canRead=" + file.canRead());
-
-        if (!file.exists()) {
-            Toast.makeText(getContext(), "文件不存在，请重新下载", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // 检查文件是否可读
-        if (!file.canRead()) {
-            Toast.makeText(getContext(), "文件无法读取，请检查权限", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // 检查文件大小
-        if (file.length() == 0) {
-            Toast.makeText(getContext(), "文件大小为0，可能下载未完成", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         // 使用系统播放器直接播放本地文件
         try {
             android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_VIEW);
             android.net.Uri uri;
 
-            // 兼容Android 7.0+，使用FileProvider
-            if (android.os.Build.VERSION.SDK_INT >= 24) {
-                // Android 7.0+ 使用FileProvider.a()创建content:// URI
-                try {
-                    uri = android.support.v4.content.FileProvider.a(getContext(), getContext().getPackageName() + ".fileprovider", file);
-                    intent.addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    android.util.Log.i("DownloadedFragment", "playLocalFile: FileProvider URI=" + uri.toString());
-                } catch (Exception e) {
-                    // FileProvider异常，回退到在线播放
-                    android.util.Log.w("DownloadedFragment", "FileProvider error, fallback to online play", e);
-                    Toast.makeText(getContext(), "本地播放失败，尝试在线播放", Toast.LENGTH_SHORT).show();
-                    playOnlineVideo(task);
+            if (downloadPath.startsWith("content://")) {
+                // SAF：外接U盘文件，直接使用content URI（系统播放器可读）
+                long safSize = SafFileHelper.getFileSize(getContext(), downloadPath);
+                android.util.Log.i("DownloadedFragment", "playLocalFile: SAF file size=" + safSize);
+                if (safSize < 0) {
+                    Toast.makeText(getContext(), "文件不存在，请重新下载", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (safSize == 0) {
+                    Toast.makeText(getContext(), "文件大小为0，可能下载未完成", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                uri = android.net.Uri.parse(downloadPath);
+                intent.addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION);
             } else {
-                // Android 7.0以下，直接使用文件路径
-                uri = android.net.Uri.fromFile(file);
-                android.util.Log.i("DownloadedFragment", "playLocalFile: direct file URI=" + uri.toString());
+                // 检查文件是否存在
+                final java.io.File file = new java.io.File(downloadPath);
+                android.util.Log.i("DownloadedFragment", "playLocalFile: file path=" + file.getAbsolutePath());
+                android.util.Log.i("DownloadedFragment", "playLocalFile: file exists=" + file.exists());
+                android.util.Log.i("DownloadedFragment", "playLocalFile: file length=" + file.length());
+                android.util.Log.i("DownloadedFragment", "playLocalFile: file canRead=" + file.canRead());
+
+                if (!file.exists()) {
+                    Toast.makeText(getContext(), "文件不存在，请重新下载", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // 检查文件是否可读
+                if (!file.canRead()) {
+                    Toast.makeText(getContext(), "文件无法读取，请检查权限", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // 检查文件大小
+                if (file.length() == 0) {
+                    Toast.makeText(getContext(), "文件大小为0，可能下载未完成", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // 兼容Android 7.0+，使用FileProvider
+                if (android.os.Build.VERSION.SDK_INT >= 24) {
+                    // Android 7.0+ 使用FileProvider.a()创建content:// URI
+                    try {
+                        uri = android.support.v4.content.FileProvider.a(getContext(), getContext().getPackageName() + ".fileprovider", file);
+                        intent.addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        android.util.Log.i("DownloadedFragment", "playLocalFile: FileProvider URI=" + uri.toString());
+                    } catch (Exception e) {
+                        // FileProvider异常，回退到在线播放
+                        android.util.Log.w("DownloadedFragment", "FileProvider error, fallback to online play", e);
+                        Toast.makeText(getContext(), "本地播放失败，尝试在线播放", Toast.LENGTH_SHORT).show();
+                        playOnlineVideo(task);
+                        return;
+                    }
+                } else {
+                    // Android 7.0以下，直接使用文件路径
+                    uri = android.net.Uri.fromFile(file);
+                    android.util.Log.i("DownloadedFragment", "playLocalFile: direct file URI=" + uri.toString());
+                }
             }
 
             intent.setDataAndType(uri, "video/*");
@@ -510,6 +559,14 @@ public class DownloadedFragment extends Fragment implements DownloadManager.Down
      */
     private void deleteLocalFile(DownloadTask task) {
         try {
+            String path = task.getDownloadPath();
+            if (path != null && path.startsWith("content://")) {
+                // SAF：通过SafFileHelper删除
+                if (SafFileHelper.exists(getContext(), path)) {
+                    SafFileHelper.delete(getContext(), path);
+                }
+                return;
+            }
             java.io.File file = new java.io.File(task.getDownloadPath());
             if (file.exists()) {
                 file.delete();

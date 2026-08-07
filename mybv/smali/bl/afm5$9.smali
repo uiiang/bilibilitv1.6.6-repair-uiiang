@@ -3,7 +3,7 @@
 .source "afm5.java"
 
 # interfaces
-.implements Landroid/widget/AdapterView$OnItemClickListener;
+.implements Ljava/util/Comparator;
 
 
 # annotations
@@ -16,34 +16,28 @@
     name = null
 .end annotation
 
+.annotation system Ldalvik/annotation/Signature;
+    value = {
+        "Ljava/lang/Object;",
+        "Ljava/util/Comparator",
+        "<",
+        "Ljava/io/File;",
+        ">;"
+    }
+.end annotation
+
 
 # instance fields
 .field final synthetic this$0:Lbl/afm5;
 
-.field final synthetic val$allFiles:Ljava/util/List;
-
-.field final synthetic val$currentDir:Ljava/io/File;
-
-.field final synthetic val$listView:Landroid/widget/ListView;
-
-.field final synthetic val$pathView:Landroid/widget/TextView;
-
 
 # direct methods
-.method constructor <init>(Lbl/afm5;Ljava/util/List;Landroid/widget/ListView;Landroid/widget/TextView;Ljava/io/File;)V
+.method constructor <init>(Lbl/afm5;)V
     .locals 0
 
     .prologue
-    .line 610
+    .line 809
     iput-object p1, p0, Lbl/afm5$9;->this$0:Lbl/afm5;
-
-    iput-object p2, p0, Lbl/afm5$9;->val$allFiles:Ljava/util/List;
-
-    iput-object p3, p0, Lbl/afm5$9;->val$listView:Landroid/widget/ListView;
-
-    iput-object p4, p0, Lbl/afm5$9;->val$pathView:Landroid/widget/TextView;
-
-    iput-object p5, p0, Lbl/afm5$9;->val$currentDir:Ljava/io/File;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -52,61 +46,38 @@
 
 
 # virtual methods
-.method public onItemClick(Landroid/widget/AdapterView;Landroid/view/View;IJ)V
-    .locals 4
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "(",
-            "Landroid/widget/AdapterView",
-            "<*>;",
-            "Landroid/view/View;",
-            "IJ)V"
-        }
-    .end annotation
+.method public compare(Ljava/io/File;Ljava/io/File;)I
+    .locals 2
 
     .prologue
-    .line 613
-    iget-object v0, p0, Lbl/afm5$9;->val$allFiles:Ljava/util/List;
-
-    invoke-interface {v0, p3}, Ljava/util/List;->get(I)Ljava/lang/Object;
+    .line 812
+    invoke-virtual {p1}, Ljava/io/File;->getName()Ljava/lang/String;
 
     move-result-object v0
 
-    check-cast v0, Ljava/io/File;
+    invoke-virtual {p2}, Ljava/io/File;->getName()Ljava/lang/String;
 
-    .line 614
-    if-nez v0, :cond_1a
+    move-result-object v1
 
-    .line 616
-    iget-object v0, p0, Lbl/afm5$9;->this$0:Lbl/afm5;
+    invoke-virtual {v0, v1}, Ljava/lang/String;->compareToIgnoreCase(Ljava/lang/String;)I
 
-    iget-object v1, p0, Lbl/afm5$9;->val$listView:Landroid/widget/ListView;
+    move-result v0
 
-    iget-object v2, p0, Lbl/afm5$9;->val$pathView:Landroid/widget/TextView;
+    return v0
+.end method
 
-    iget-object v3, p0, Lbl/afm5$9;->val$currentDir:Ljava/io/File;
+.method public bridge synthetic compare(Ljava/lang/Object;Ljava/lang/Object;)I
+    .locals 1
 
-    invoke-virtual {v3}, Ljava/io/File;->getParentFile()Ljava/io/File;
+    .prologue
+    .line 809
+    check-cast p1, Ljava/io/File;
 
-    move-result-object v3
+    check-cast p2, Ljava/io/File;
 
-    # invokes: Lbl/afm5;->loadFolderList(Landroid/widget/ListView;Landroid/widget/TextView;Ljava/io/File;)V
-    invoke-static {v0, v1, v2, v3}, Lbl/afm5;->access$500(Lbl/afm5;Landroid/widget/ListView;Landroid/widget/TextView;Ljava/io/File;)V
+    invoke-virtual {p0, p1, p2}, Lbl/afm5$9;->compare(Ljava/io/File;Ljava/io/File;)I
 
-    .line 621
-    :goto_19
-    return-void
+    move-result v0
 
-    .line 619
-    :cond_1a
-    iget-object v1, p0, Lbl/afm5$9;->this$0:Lbl/afm5;
-
-    iget-object v2, p0, Lbl/afm5$9;->val$listView:Landroid/widget/ListView;
-
-    iget-object v3, p0, Lbl/afm5$9;->val$pathView:Landroid/widget/TextView;
-
-    # invokes: Lbl/afm5;->loadFolderList(Landroid/widget/ListView;Landroid/widget/TextView;Ljava/io/File;)V
-    invoke-static {v1, v2, v3, v0}, Lbl/afm5;->access$500(Lbl/afm5;Landroid/widget/ListView;Landroid/widget/TextView;Ljava/io/File;)V
-
-    goto :goto_19
+    return v0
 .end method

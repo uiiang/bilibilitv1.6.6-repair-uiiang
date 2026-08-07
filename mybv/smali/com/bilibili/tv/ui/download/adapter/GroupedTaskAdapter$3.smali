@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 356
+    .line 358
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$3;->this$0:Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$3;->val$holder:Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$TaskHolder;
@@ -44,10 +44,10 @@
     .locals 2
 
     .prologue
-    .line 359
+    .line 361
     if-eqz p2, :cond_d
 
-    .line 360
+    .line 362
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$3;->this$0:Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$3;->val$holder:Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$TaskHolder;
@@ -59,7 +59,7 @@
     # setter for: Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;->focusPosition:I
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;->access$002(Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;I)I
 
-    .line 362
+    .line 364
     :cond_d
     return-void
 .end method

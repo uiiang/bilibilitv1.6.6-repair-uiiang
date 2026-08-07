@@ -277,7 +277,9 @@ public class GroupedTaskAdapter extends RecyclerView.a<RecyclerView.v> {
         if (task.getStatus() == DownloadTask.Status.COMPLETED) {
             String filePath = task.getDownloadPath();
             if (filePath != null && !filePath.isEmpty()) {
-                String fileName = filePath.substring(filePath.lastIndexOf('/') + 1);
+                // 提取文件名（SAF content URI中文被URL编码，需解码；兼容普通文件路径）
+                String fileName = com.bilibili.tv.ui.download.SafFileHelper.getFileNameFromPath(
+                        holder.titleText.getContext(), filePath);
                 holder.subTitleText.setText(fileName);
                 holder.subTitleText.setVisibility(View.VISIBLE);
                 holder.subTitleText.setGravity(android.view.Gravity.END);

@@ -155,8 +155,48 @@
     .locals 2
 
     .prologue
-    .line 518
+    .line 565
     :try_start_0
+    invoke-virtual {p1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getDownloadPath()Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 566
+    if-eqz v0, :cond_20
+
+    const-string v1, "content://"
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_20
+
+    .line 568
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
+
+    move-result-object v1
+
+    invoke-static {v1, v0}, Lcom/bilibili/tv/ui/download/SafFileHelper;->exists(Landroid/content/Context;Ljava/lang/String;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_1f
+
+    .line 569
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
+
+    move-result-object v1
+
+    invoke-static {v1, v0}, Lcom/bilibili/tv/ui/download/SafFileHelper;->delete(Landroid/content/Context;Ljava/lang/String;)Z
+
+    .line 580
+    :cond_1f
+    :goto_1f
+    return-void
+
+    .line 573
+    :cond_20
     new-instance v0, Ljava/io/File;
 
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getDownloadPath()Ljava/lang/String;
@@ -165,31 +205,28 @@
 
     invoke-direct {v0, v1}, Ljava/io/File;-><init>(Ljava/lang/String;)V
 
-    .line 519
+    .line 574
     invoke-virtual {v0}, Ljava/io/File;->exists()Z
 
     move-result v1
 
-    if-eqz v1, :cond_12
+    if-eqz v1, :cond_1f
 
-    .line 520
+    .line 575
     invoke-virtual {v0}, Ljava/io/File;->delete()Z
-    :try_end_12
-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_12} :catch_13
+    :try_end_32
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_32} :catch_33
 
-    .line 525
-    :cond_12
-    :goto_12
-    return-void
+    goto :goto_1f
 
-    .line 522
-    :catch_13
+    .line 577
+    :catch_33
     move-exception v0
 
-    .line 523
+    .line 578
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
-    goto :goto_12
+    goto :goto_1f
 .end method
 
 .method private groupTasks(Ljava/util/List;)Ljava/util/List;
@@ -547,7 +584,7 @@
     .locals 3
 
     .prologue
-    .line 375
+    .line 395
     new-instance v0, Landroid/app/AlertDialog$Builder;
 
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
@@ -558,7 +595,7 @@
 
     const-string v1, "\u5220\u9664\u5df2\u4e0b\u8f7d\u89c6\u9891"
 
-    .line 376
+    .line 396
     invoke-virtual {v0, v1}, Landroid/app/AlertDialog$Builder;->setTitle(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
 
     move-result-object v0
@@ -573,7 +610,7 @@
 
     move-result-object v1
 
-    .line 377
+    .line 397
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getTitle()Ljava/lang/String;
 
     move-result-object v2
@@ -602,7 +639,7 @@
 
     invoke-direct {v2, p0, p1}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$8;-><init>(Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 
-    .line 378
+    .line 398
     invoke-virtual {v0, v1, v2}, Landroid/app/AlertDialog$Builder;->setPositiveButton(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
     move-result-object v0
@@ -611,15 +648,15 @@
 
     const/4 v2, 0x0
 
-    .line 387
+    .line 407
     invoke-virtual {v0, v1, v2}, Landroid/app/AlertDialog$Builder;->setNegativeButton(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
     move-result-object v0
 
-    .line 388
+    .line 408
     invoke-virtual {v0}, Landroid/app/AlertDialog$Builder;->show()Landroid/app/AlertDialog;
 
-    .line 389
+    .line 409
     return-void
 .end method
 
@@ -693,12 +730,14 @@
 .end method
 
 .method private playLocalFile(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
-    .locals 7
+    .locals 10
 
     .prologue
-    const/4 v6, 0x0
+    const-wide/16 v8, 0x0
 
-    .line 439
+    const/4 v7, 0x0
+
+    .line 470
     const-string v0, "GroupedDownloadFragment"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -725,7 +764,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 440
+    .line 471
     const-string v0, "GroupedDownloadFragment"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -752,244 +791,436 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 442
+    .line 473
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getDownloadPath()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 443
-    if-eqz v0, :cond_45
+    .line 474
+    if-eqz v0, :cond_47
 
     invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
 
     move-result v1
 
-    if-eqz v1, :cond_53
+    if-eqz v1, :cond_55
 
-    .line 444
-    :cond_45
+    .line 475
+    :cond_47
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
     const-string v1, "\u6587\u4ef6\u8def\u5f84\u4e3a\u7a7a"
 
-    invoke-static {v0, v1, v6}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+    invoke-static {v0, v1, v7}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
 
     move-result-object v0
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    .line 504
-    :goto_52
+    .line 551
+    :goto_54
     return-void
 
-    .line 448
-    :cond_53
-    new-instance v1, Ljava/io/File;
+    .line 480
+    :cond_55
+    :try_start_55
+    new-instance v1, Landroid/content/Intent;
 
-    invoke-direct {v1, v0}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+    const-string v2, "android.intent.action.VIEW"
 
-    .line 449
-    const-string v0, "GroupedDownloadFragment"
+    invoke-direct {v1, v2}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
 
-    new-instance v2, Ljava/lang/StringBuilder;
+    .line 483
+    const-string v2, "content://"
 
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-virtual {v0, v2}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
 
-    const-string v3, "playLocalFile: file path="
+    move-result v2
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    if-eqz v2, :cond_105
 
-    move-result-object v2
-
-    invoke-virtual {v1}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
-
-    move-result-object v3
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    .line 485
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
 
     move-result-object v2
 
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-static {v2, v0}, Lcom/bilibili/tv/ui/download/SafFileHelper;->getFileSize(Landroid/content/Context;Ljava/lang/String;)J
 
-    move-result-object v2
+    move-result-wide v2
 
-    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    .line 486
+    const-string v4, "GroupedDownloadFragment"
 
-    .line 450
-    const-string v0, "GroupedDownloadFragment"
+    new-instance v5, Ljava/lang/StringBuilder;
 
-    new-instance v2, Ljava/lang/StringBuilder;
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+    const-string v6, "playLocalFile: SAF file size="
 
-    const-string v3, "playLocalFile: file exists="
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    move-result-object v5
 
-    move-result-object v2
+    invoke-virtual {v5, v2, v3}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v1}, Ljava/io/File;->exists()Z
+    move-result-object v5
 
-    move-result v3
+    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+    move-result-object v5
 
-    move-result-object v2
+    invoke-static {v4, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    .line 487
+    cmp-long v4, v2, v8
 
-    move-result-object v2
+    if-gez v4, :cond_c5
 
-    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 451
-    const-string v0, "GroupedDownloadFragment"
-
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "playLocalFile: file length="
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v1}, Ljava/io/File;->length()J
-
-    move-result-wide v4
-
-    invoke-virtual {v2, v4, v5}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v2
-
-    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 452
-    const-string v0, "GroupedDownloadFragment"
-
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "playLocalFile: file canRead="
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v1}, Ljava/io/File;->canRead()Z
-
-    move-result v3
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v2
-
-    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 454
-    invoke-virtual {v1}, Ljava/io/File;->exists()Z
-
-    move-result v0
-
-    if-nez v0, :cond_dd
-
-    .line 455
+    .line 488
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
     const-string v1, "\u6587\u4ef6\u4e0d\u5b58\u5728\uff0c\u8bf7\u91cd\u65b0\u4e0b\u8f7d"
 
-    invoke-static {v0, v1, v6}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+    const/4 v2, 0x0
+
+    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
 
     move-result-object v0
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+    :try_end_96
+    .catch Ljava/lang/Exception; {:try_start_55 .. :try_end_96} :catch_97
 
-    goto/16 :goto_52
+    goto :goto_54
 
-    .line 459
-    :cond_dd
-    invoke-virtual {v1}, Ljava/io/File;->canRead()Z
+    .line 546
+    :catch_97
+    move-exception v0
 
-    move-result v0
+    .line 547
+    const-string v1, "GroupedDownloadFragment"
 
-    if-nez v0, :cond_f2
+    const-string v2, "playLocalFile error"
 
-    .line 460
+    invoke-static {v1, v2, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+
+    .line 548
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
 
+    move-result-object v1
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "\u64ad\u653e\u5931\u8d25\uff1a"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v0}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
+
     move-result-object v0
 
-    const-string v1, "\u6587\u4ef6\u65e0\u6cd5\u8bfb\u53d6\uff0c\u8bf7\u68c0\u67e5\u6743\u9650"
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-static {v0, v1, v6}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v1, v0, v7}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
 
     move-result-object v0
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    goto/16 :goto_52
+    .line 549
+    invoke-direct {p0, p1}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->playOnlineVideo(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 
-    .line 464
-    :cond_f2
-    invoke-virtual {v1}, Ljava/io/File;->length()J
+    goto :goto_54
 
-    move-result-wide v2
+    .line 491
+    :cond_c5
+    cmp-long v2, v2, v8
 
-    const-wide/16 v4, 0x0
+    if-nez v2, :cond_d9
 
-    cmp-long v0, v2, v4
-
-    if-nez v0, :cond_10b
-
-    .line 465
+    .line 492
+    :try_start_c9
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
     const-string v1, "\u6587\u4ef6\u5927\u5c0f\u4e3a0\uff0c\u53ef\u80fd\u4e0b\u8f7d\u672a\u5b8c\u6210"
 
-    invoke-static {v0, v1, v6}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+    const/4 v2, 0x0
+
+    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
 
     move-result-object v0
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    goto/16 :goto_52
+    goto/16 :goto_54
 
-    .line 470
-    :cond_10b
-    :try_start_10b
-    new-instance v2, Landroid/content/Intent;
+    .line 495
+    :cond_d9
+    invoke-static {v0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
-    const-string v0, "android.intent.action.VIEW"
+    move-result-object v0
 
-    invoke-direct {v2, v0}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
+    .line 496
+    const/4 v2, 0x1
 
-    .line 473
+    invoke-virtual {v1, v2}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
+
+    .line 536
+    :goto_e1
+    const-string v2, "video/*"
+
+    invoke-virtual {v1, v0, v2}, Landroid/content/Intent;->setDataAndType(Landroid/net/Uri;Ljava/lang/String;)Landroid/content/Intent;
+
+    .line 537
+    const/high16 v0, 0x10000000
+
+    invoke-virtual {v1, v0}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
+
+    .line 539
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/support/v4/app/FragmentActivity;->getPackageManager()Landroid/content/pm/PackageManager;
+
+    move-result-object v0
+
+    invoke-virtual {v1, v0}, Landroid/content/Intent;->resolveActivity(Landroid/content/pm/PackageManager;)Landroid/content/ComponentName;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_246
+
+    .line 540
+    const-string v0, "GroupedDownloadFragment"
+
+    const-string v2, "playLocalFile: starting player activity"
+
+    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 541
+    invoke-virtual {p0, v1}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->startActivity(Landroid/content/Intent;)V
+
+    goto/16 :goto_54
+
+    .line 498
+    :cond_105
+    new-instance v2, Ljava/io/File;
+
+    invoke-direct {v2, v0}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+
+    .line 499
+    const-string v0, "GroupedDownloadFragment"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "playLocalFile: file path="
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v2}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-static {v0, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 500
+    const-string v0, "GroupedDownloadFragment"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "playLocalFile: file exists="
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v2}, Ljava/io/File;->exists()Z
+
+    move-result v4
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-static {v0, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 501
+    const-string v0, "GroupedDownloadFragment"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "playLocalFile: file length="
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v2}, Ljava/io/File;->length()J
+
+    move-result-wide v4
+
+    invoke-virtual {v3, v4, v5}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-static {v0, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 502
+    const-string v0, "GroupedDownloadFragment"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "playLocalFile: file canRead="
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v2}, Ljava/io/File;->canRead()Z
+
+    move-result v4
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-static {v0, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 504
+    invoke-virtual {v2}, Ljava/io/File;->exists()Z
+
+    move-result v0
+
+    if-nez v0, :cond_190
+
+    .line 505
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    const-string v1, "\u6587\u4ef6\u4e0d\u5b58\u5728\uff0c\u8bf7\u91cd\u65b0\u4e0b\u8f7d"
+
+    const/4 v2, 0x0
+
+    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+
+    goto/16 :goto_54
+
+    .line 509
+    :cond_190
+    invoke-virtual {v2}, Ljava/io/File;->canRead()Z
+
+    move-result v0
+
+    if-nez v0, :cond_1a6
+
+    .line 510
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    const-string v1, "\u6587\u4ef6\u65e0\u6cd5\u8bfb\u53d6\uff0c\u8bf7\u68c0\u67e5\u6743\u9650"
+
+    const/4 v2, 0x0
+
+    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+
+    goto/16 :goto_54
+
+    .line 514
+    :cond_1a6
+    invoke-virtual {v2}, Ljava/io/File;->length()J
+
+    move-result-wide v4
+
+    cmp-long v0, v4, v8
+
+    if-nez v0, :cond_1be
+
+    .line 515
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    const-string v1, "\u6587\u4ef6\u5927\u5c0f\u4e3a0\uff0c\u53ef\u80fd\u4e0b\u8f7d\u672a\u5b8c\u6210"
+
+    const/4 v2, 0x0
+
+    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+
+    goto/16 :goto_54
+
+    .line 519
+    :cond_1be
     sget v0, Landroid/os/Build$VERSION;->SDK_INT:I
-    :try_end_114
-    .catch Ljava/lang/Exception; {:try_start_10b .. :try_end_114} :catch_17f
+    :try_end_1c0
+    .catch Ljava/lang/Exception; {:try_start_c9 .. :try_end_1c0} :catch_97
 
     const/16 v3, 0x18
 
-    if-lt v0, v3, :cond_1c9
+    if-lt v0, v3, :cond_224
 
-    .line 475
-    :try_start_118
+    .line 521
+    :try_start_1c4
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -1020,17 +1251,17 @@
 
     move-result-object v3
 
-    invoke-static {v0, v3, v1}, Landroid/support/v4/content/FileProvider;->a(Landroid/content/Context;Ljava/lang/String;Ljava/io/File;)Landroid/net/Uri;
+    invoke-static {v0, v3, v2}, Landroid/support/v4/content/FileProvider;->a(Landroid/content/Context;Ljava/lang/String;Ljava/io/File;)Landroid/net/Uri;
 
     move-result-object v0
 
-    .line 476
-    const/4 v1, 0x1
+    .line 522
+    const/4 v2, 0x1
 
-    invoke-virtual {v2, v1}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
+    invoke-virtual {v1, v2}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
 
-    .line 477
-    const-string v1, "GroupedDownloadFragment"
+    .line 523
+    const-string v2, "GroupedDownloadFragment"
 
     new-instance v3, Ljava/lang/StringBuilder;
 
@@ -1054,63 +1285,217 @@
 
     move-result-object v3
 
-    invoke-static {v1, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_15b
-    .catch Ljava/lang/Exception; {:try_start_118 .. :try_end_15b} :catch_1ae
+    invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    :try_end_207
+    .catch Ljava/lang/Exception; {:try_start_1c4 .. :try_end_207} :catch_209
 
-    .line 489
-    :goto_15b
-    :try_start_15b
-    const-string v1, "video/*"
+    goto/16 :goto_e1
 
-    invoke-virtual {v2, v0, v1}, Landroid/content/Intent;->setDataAndType(Landroid/net/Uri;Ljava/lang/String;)Landroid/content/Intent;
-
-    .line 490
-    const/high16 v0, 0x10000000
-
-    invoke-virtual {v2, v0}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
-
-    .line 492
-    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Landroid/support/v4/app/FragmentActivity;->getPackageManager()Landroid/content/pm/PackageManager;
-
-    move-result-object v0
-
-    invoke-virtual {v2, v0}, Landroid/content/Intent;->resolveActivity(Landroid/content/pm/PackageManager;)Landroid/content/ComponentName;
-
-    move-result-object v0
-
-    if-eqz v0, :cond_1eb
-
-    .line 493
-    const-string v0, "GroupedDownloadFragment"
-
-    const-string v1, "playLocalFile: starting player activity"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 494
-    invoke-virtual {p0, v2}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->startActivity(Landroid/content/Intent;)V
-    :try_end_17d
-    .catch Ljava/lang/Exception; {:try_start_15b .. :try_end_17d} :catch_17f
-
-    goto/16 :goto_52
-
-    .line 499
-    :catch_17f
+    .line 524
+    :catch_209
     move-exception v0
 
-    .line 500
+    .line 525
+    :try_start_20a
     const-string v1, "GroupedDownloadFragment"
 
-    const-string v2, "playLocalFile error"
+    const-string v2, "FileProvider error, fallback to online play"
+
+    invoke-static {v1, v2, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+
+    .line 526
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    const-string v1, "\u672c\u5730\u64ad\u653e\u5931\u8d25\uff0c\u5c1d\u8bd5\u5728\u7ebf\u64ad\u653e"
+
+    const/4 v2, 0x0
+
+    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+
+    .line 527
+    invoke-direct {p0, p1}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->playOnlineVideo(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
+
+    goto/16 :goto_54
+
+    .line 531
+    :cond_224
+    invoke-static {v2}, Landroid/net/Uri;->fromFile(Ljava/io/File;)Landroid/net/Uri;
+
+    move-result-object v0
+
+    .line 532
+    const-string v2, "GroupedDownloadFragment"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "playLocalFile: direct file URI="
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v0}, Landroid/net/Uri;->toString()Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto/16 :goto_e1
+
+    .line 543
+    :cond_246
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    const-string v1, "\u672a\u627e\u5230\u89c6\u9891\u64ad\u653e\u5668\uff0c\u5c1d\u8bd5\u5728\u7ebf\u64ad\u653e"
+
+    const/4 v2, 0x0
+
+    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+
+    .line 544
+    invoke-direct {p0, p1}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->playOnlineVideo(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
+    :try_end_257
+    .catch Ljava/lang/Exception; {:try_start_20a .. :try_end_257} :catch_97
+
+    goto/16 :goto_54
+.end method
+
+.method private playLocalFileWithChooser(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
+    .locals 10
+
+    .prologue
+    const-wide/16 v8, 0x0
+
+    const/4 v6, 0x0
+
+    .line 412
+    invoke-virtual {p1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getDownloadPath()Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 413
+    if-eqz v0, :cond_f
+
+    invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_1d
+
+    .line 414
+    :cond_f
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    const-string v1, "\u6587\u4ef6\u8def\u5f84\u4e3a\u7a7a"
+
+    invoke-static {v0, v1, v6}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+
+    .line 467
+    :goto_1c
+    return-void
+
+    .line 419
+    :cond_1d
+    :try_start_1d
+    new-instance v1, Landroid/content/Intent;
+
+    const-string v2, "android.intent.action.VIEW"
+
+    invoke-direct {v1, v2}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
+
+    .line 422
+    const-string v2, "content://"
+
+    invoke-virtual {v0, v2}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_9d
+
+    .line 424
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
+
+    move-result-object v2
+
+    invoke-static {v2, v0}, Lcom/bilibili/tv/ui/download/SafFileHelper;->exists(Landroid/content/Context;Ljava/lang/String;)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_42
+
+    .line 425
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
+
+    move-result-object v2
+
+    invoke-static {v2, v0}, Lcom/bilibili/tv/ui/download/SafFileHelper;->getFileSize(Landroid/content/Context;Ljava/lang/String;)J
+
+    move-result-wide v2
+
+    cmp-long v2, v2, v8
+
+    if-nez v2, :cond_7c
+
+    .line 426
+    :cond_42
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    const-string v1, "\u6587\u4ef6\u4e0d\u5b58\u5728\u6216\u5927\u5c0f\u4e3a0"
+
+    const/4 v2, 0x0
+
+    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+    :try_end_50
+    .catch Ljava/lang/Exception; {:try_start_1d .. :try_end_50} :catch_51
+
+    goto :goto_1c
+
+    .line 463
+    :catch_51
+    move-exception v0
+
+    .line 464
+    const-string v1, "GroupedDownloadFragment"
+
+    const-string v2, "playLocalFileWithChooser error"
 
     invoke-static {v1, v2, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    .line 501
+    .line 465
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
 
     move-result-object v1
@@ -1143,235 +1528,139 @@
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    .line 502
-    invoke-direct {p0, p1}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->playOnlineVideo(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
+    goto :goto_1c
 
-    goto/16 :goto_52
-
-    .line 478
-    :catch_1ae
-    move-exception v0
-
-    .line 479
-    :try_start_1af
-    const-string v1, "GroupedDownloadFragment"
-
-    const-string v2, "FileProvider error, fallback to online play"
-
-    invoke-static {v1, v2, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
-
-    .line 480
-    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
+    .line 429
+    :cond_7c
+    :try_start_7c
+    invoke-static {v0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v0
 
-    const-string v1, "\u672c\u5730\u64ad\u653e\u5931\u8d25\uff0c\u5c1d\u8bd5\u5728\u7ebf\u64ad\u653e"
+    .line 430
+    const/4 v2, 0x1
 
-    const/4 v2, 0x0
+    invoke-virtual {v1, v2}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
 
-    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+    .line 456
+    :goto_84
+    const-string v2, "video/*"
 
-    move-result-object v0
+    invoke-virtual {v1, v0, v2}, Landroid/content/Intent;->setDataAndType(Landroid/net/Uri;Ljava/lang/String;)Landroid/content/Intent;
 
-    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+    .line 457
+    const/high16 v0, 0x10000000
 
-    .line 481
-    invoke-direct {p0, p1}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->playOnlineVideo(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
+    invoke-virtual {v1, v0}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
 
-    goto/16 :goto_52
+    .line 459
+    const-string v0, "\u9009\u62e9\u64ad\u653e\u5668"
 
-    .line 485
-    :cond_1c9
-    invoke-static {v1}, Landroid/net/Uri;->fromFile(Ljava/io/File;)Landroid/net/Uri;
-
-    move-result-object v0
-
-    .line 486
-    const-string v1, "GroupedDownloadFragment"
-
-    new-instance v3, Ljava/lang/StringBuilder;
-
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v4, "playLocalFile: direct file URI="
-
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-virtual {v0}, Landroid/net/Uri;->toString()Ljava/lang/String;
-
-    move-result-object v4
-
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v3
-
-    invoke-static {v1, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    goto/16 :goto_15b
-
-    .line 496
-    :cond_1eb
-    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
+    invoke-static {v1, v0}, Landroid/content/Intent;->createChooser(Landroid/content/Intent;Ljava/lang/CharSequence;)Landroid/content/Intent;
 
     move-result-object v0
 
-    const-string v1, "\u672a\u627e\u5230\u89c6\u9891\u64ad\u653e\u5668\uff0c\u5c1d\u8bd5\u5728\u7ebf\u64ad\u653e"
+    .line 460
+    const/high16 v1, 0x10000000
 
-    const/4 v2, 0x0
+    invoke-virtual {v0, v1}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
 
-    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+    .line 462
+    invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->startActivity(Landroid/content/Intent;)V
 
-    move-result-object v0
+    goto :goto_1c
 
-    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+    .line 432
+    :cond_9d
+    new-instance v2, Ljava/io/File;
 
-    .line 497
-    invoke-direct {p0, p1}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->playOnlineVideo(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
-    :try_end_1fc
-    .catch Ljava/lang/Exception; {:try_start_1af .. :try_end_1fc} :catch_17f
+    invoke-direct {v2, v0}, Ljava/io/File;-><init>(Ljava/lang/String;)V
 
-    goto/16 :goto_52
-.end method
-
-.method private playLocalFileWithChooser(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
-    .locals 7
-
-    .prologue
-    const/4 v6, 0x0
-
-    .line 392
-    invoke-virtual {p1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getDownloadPath()Ljava/lang/String;
-
-    move-result-object v0
-
-    .line 393
-    if-eqz v0, :cond_d
-
-    invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
-
-    move-result v1
-
-    if-eqz v1, :cond_1b
-
-    .line 394
-    :cond_d
-    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
-
-    move-result-object v0
-
-    const-string v1, "\u6587\u4ef6\u8def\u5f84\u4e3a\u7a7a"
-
-    invoke-static {v0, v1, v6}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
-
-    .line 436
-    :goto_1a
-    return-void
-
-    .line 398
-    :cond_1b
-    new-instance v1, Ljava/io/File;
-
-    invoke-direct {v1, v0}, Ljava/io/File;-><init>(Ljava/lang/String;)V
-
-    .line 399
-    invoke-virtual {v1}, Ljava/io/File;->exists()Z
+    .line 433
+    invoke-virtual {v2}, Ljava/io/File;->exists()Z
 
     move-result v0
 
-    if-nez v0, :cond_34
+    if-nez v0, :cond_b8
 
-    .line 400
+    .line 434
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
     const-string v1, "\u6587\u4ef6\u4e0d\u5b58\u5728\uff0c\u8bf7\u91cd\u65b0\u4e0b\u8f7d"
 
-    invoke-static {v0, v1, v6}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+    const/4 v2, 0x0
+
+    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
 
     move-result-object v0
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    goto :goto_1a
+    goto/16 :goto_1c
 
-    .line 404
-    :cond_34
-    invoke-virtual {v1}, Ljava/io/File;->canRead()Z
+    .line 438
+    :cond_b8
+    invoke-virtual {v2}, Ljava/io/File;->canRead()Z
 
     move-result v0
 
-    if-nez v0, :cond_48
+    if-nez v0, :cond_ce
 
-    .line 405
+    .line 439
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
     const-string v1, "\u6587\u4ef6\u65e0\u6cd5\u8bfb\u53d6\uff0c\u8bf7\u68c0\u67e5\u6743\u9650"
 
-    invoke-static {v0, v1, v6}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+    const/4 v2, 0x0
+
+    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
 
     move-result-object v0
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    goto :goto_1a
+    goto/16 :goto_1c
 
-    .line 409
-    :cond_48
-    invoke-virtual {v1}, Ljava/io/File;->length()J
+    .line 443
+    :cond_ce
+    invoke-virtual {v2}, Ljava/io/File;->length()J
 
-    move-result-wide v2
+    move-result-wide v4
 
-    const-wide/16 v4, 0x0
+    cmp-long v0, v4, v8
 
-    cmp-long v0, v2, v4
+    if-nez v0, :cond_e6
 
-    if-nez v0, :cond_60
-
-    .line 410
+    .line 444
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
     const-string v1, "\u6587\u4ef6\u5927\u5c0f\u4e3a0\uff0c\u53ef\u80fd\u4e0b\u8f7d\u672a\u5b8c\u6210"
 
-    invoke-static {v0, v1, v6}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+    const/4 v2, 0x0
+
+    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
 
     move-result-object v0
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    goto :goto_1a
+    goto/16 :goto_1c
 
-    .line 415
-    :cond_60
-    :try_start_60
-    new-instance v2, Landroid/content/Intent;
-
-    const-string v0, "android.intent.action.VIEW"
-
-    invoke-direct {v2, v0}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
-
-    .line 418
+    .line 448
+    :cond_e6
     sget v0, Landroid/os/Build$VERSION;->SDK_INT:I
 
     const/16 v3, 0x18
 
-    if-lt v0, v3, :cond_da
+    if-lt v0, v3, :cond_115
 
-    .line 419
+    .line 449
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -1402,108 +1691,33 @@
 
     move-result-object v3
 
-    invoke-static {v0, v3, v1}, Landroid/support/v4/content/FileProvider;->a(Landroid/content/Context;Ljava/lang/String;Ljava/io/File;)Landroid/net/Uri;
+    invoke-static {v0, v3, v2}, Landroid/support/v4/content/FileProvider;->a(Landroid/content/Context;Ljava/lang/String;Ljava/io/File;)Landroid/net/Uri;
 
     move-result-object v0
 
-    .line 420
-    const/4 v1, 0x1
+    .line 450
+    const/4 v2, 0x1
 
-    invoke-virtual {v2, v1}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
+    invoke-virtual {v1, v2}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
 
-    .line 425
-    :goto_94
-    const-string v1, "video/*"
+    goto/16 :goto_84
 
-    invoke-virtual {v2, v0, v1}, Landroid/content/Intent;->setDataAndType(Landroid/net/Uri;Ljava/lang/String;)Landroid/content/Intent;
-
-    .line 426
-    const/high16 v0, 0x10000000
-
-    invoke-virtual {v2, v0}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
-
-    .line 428
-    const-string v0, "\u9009\u62e9\u64ad\u653e\u5668"
-
-    invoke-static {v2, v0}, Landroid/content/Intent;->createChooser(Landroid/content/Intent;Ljava/lang/CharSequence;)Landroid/content/Intent;
+    .line 452
+    :cond_115
+    invoke-static {v2}, Landroid/net/Uri;->fromFile(Ljava/io/File;)Landroid/net/Uri;
+    :try_end_118
+    .catch Ljava/lang/Exception; {:try_start_7c .. :try_end_118} :catch_51
 
     move-result-object v0
 
-    .line 429
-    const/high16 v1, 0x10000000
-
-    invoke-virtual {v0, v1}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
-
-    .line 431
-    invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->startActivity(Landroid/content/Intent;)V
-    :try_end_ac
-    .catch Ljava/lang/Exception; {:try_start_60 .. :try_end_ac} :catch_ae
-
-    goto/16 :goto_1a
-
-    .line 432
-    :catch_ae
-    move-exception v0
-
-    .line 433
-    const-string v1, "GroupedDownloadFragment"
-
-    const-string v2, "playLocalFileWithChooser error"
-
-    invoke-static {v1, v2, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
-
-    .line 434
-    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
-
-    move-result-object v1
-
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "\u64ad\u653e\u5931\u8d25\uff1a"
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v0}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {v1, v0, v6}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
-
-    goto/16 :goto_1a
-
-    .line 422
-    :cond_da
-    :try_start_da
-    invoke-static {v1}, Landroid/net/Uri;->fromFile(Ljava/io/File;)Landroid/net/Uri;
-    :try_end_dd
-    .catch Ljava/lang/Exception; {:try_start_da .. :try_end_dd} :catch_ae
-
-    move-result-object v0
-
-    goto :goto_94
+    goto/16 :goto_84
 .end method
 
 .method private playOnlineVideo(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
     .locals 4
 
     .prologue
-    .line 507
+    .line 554
     new-instance v0, Landroid/content/Intent;
 
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
@@ -1514,7 +1728,7 @@
 
     invoke-direct {v0, v1, v2}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
 
-    .line 508
+    .line 555
     const-string v1, "bundle_ac_id"
 
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getAvid()J
@@ -1523,7 +1737,7 @@
 
     invoke-virtual {v0, v1, v2, v3}, Landroid/content/Intent;->putExtra(Ljava/lang/String;J)Landroid/content/Intent;
 
-    .line 509
+    .line 556
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getCoverUrl()Ljava/lang/String;
 
     move-result-object v1
@@ -1540,7 +1754,7 @@
 
     if-nez v1, :cond_2d
 
-    .line 510
+    .line 557
     const-string v1, "preload_cover"
 
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getCoverUrl()Ljava/lang/String;
@@ -1549,7 +1763,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 512
+    .line 559
     :cond_2d
     const-string v1, "download_auto_play"
 
@@ -1557,10 +1771,10 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Z)Landroid/content/Intent;
 
-    .line 513
+    .line 560
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->startActivity(Landroid/content/Intent;)V
 
-    .line 514
+    .line 561
     return-void
 .end method
 
@@ -1689,13 +1903,13 @@
     .prologue
     const/4 v5, 0x0
 
-    .line 332
+    .line 333
     :try_start_1
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getDownloadPath()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 333
+    .line 334
     const-string v1, "GroupedDownloadFragment"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -1718,19 +1932,29 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 335
-    new-instance v1, Ljava/io/File;
+    .line 336
+    if-eqz v0, :cond_c0
 
-    invoke-direct {v1, v0}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+    const-string v1, "content://"
 
-    .line 337
-    invoke-virtual {v1}, Ljava/io/File;->exists()Z
+    invoke-virtual {v0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
 
-    move-result v2
+    move-result v1
 
-    if-nez v2, :cond_37
+    if-eqz v1, :cond_c0
 
     .line 338
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
+
+    move-result-object v1
+
+    invoke-static {v1, v0}, Lcom/bilibili/tv/ui/download/SafFileHelper;->exists(Landroid/content/Context;Ljava/lang/String;)Z
+
+    move-result v1
+
+    if-nez v1, :cond_40
+
+    .line 339
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -1745,88 +1969,70 @@
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    .line 372
-    :goto_36
+    .line 392
+    :goto_3f
     return-void
 
     .line 342
-    :cond_37
-    const/4 v2, 0x0
+    :cond_40
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
 
-    const/16 v3, 0x2f
+    move-result-object v1
 
-    invoke-virtual {v0, v3}, Ljava/lang/String;->lastIndexOf(I)I
-
-    move-result v3
-
-    invoke-virtual {v0, v2, v3}, Ljava/lang/String;->substring(II)Ljava/lang/String;
+    invoke-static {v1, v0, p2}, Lcom/bilibili/tv/ui/download/SafFileHelper;->rename(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v0
 
     .line 343
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    const-string v2, "/"
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0, p2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
+    if-eqz v0, :cond_b1
 
     .line 344
-    const-string v2, "GroupedDownloadFragment"
+    invoke-virtual {p1, v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setDownloadPath(Ljava/lang/String;)V
 
-    new-instance v3, Ljava/lang/StringBuilder;
+    .line 345
+    const-string v0, "GroupedDownloadFragment"
 
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+    new-instance v1, Ljava/lang/StringBuilder;
 
-    const-string v4, "renameLocalFile: newFilePath="
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    const-string v2, "renameLocalFile: SAF task.downloadPath updated to="
 
-    move-result-object v3
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    move-result-object v1
 
-    move-result-object v3
+    invoke-virtual {p1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getDownloadPath()Ljava/lang/String;
 
-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object v2
 
-    move-result-object v3
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 346
-    new-instance v2, Ljava/io/File;
-
-    invoke-direct {v2, v0}, Ljava/io/File;-><init>(Ljava/lang/String;)V
-
-    .line 348
-    invoke-virtual {v2}, Ljava/io/File;->exists()Z
-
-    move-result v3
-
-    if-eqz v3, :cond_b6
-
-    .line 349
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    const-string v1, "\u6587\u4ef6\u540d\u5df2\u5b58\u5728"
+    invoke-static {v0}, Lcom/bilibili/tv/ui/download/DownloadManager;->getInstance(Landroid/content/Context;)Lcom/bilibili/tv/ui/download/DownloadManager;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p1}, Lcom/bilibili/tv/ui/download/DownloadManager;->updateTask(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
+
+    .line 347
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    const-string v1, "\u91cd\u547d\u540d\u6210\u529f"
 
     const/4 v2, 0x0
 
@@ -1835,23 +2041,26 @@
     move-result-object v0
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
-    :try_end_8a
-    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_8a} :catch_8b
 
-    goto :goto_36
+    .line 348
+    invoke-direct {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->refreshList()V
+    :try_end_85
+    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_85} :catch_86
 
-    .line 368
-    :catch_8b
+    goto :goto_3f
+
+    .line 388
+    :catch_86
     move-exception v0
 
-    .line 369
+    .line 389
     const-string v1, "GroupedDownloadFragment"
 
     const-string v2, "renameLocalFile error"
 
     invoke-static {v1, v2, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    .line 370
+    .line 390
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
 
     move-result-object v1
@@ -1884,16 +2093,153 @@
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    goto :goto_36
+    goto :goto_3f
 
-    .line 353
-    :cond_b6
-    :try_start_b6
+    .line 350
+    :cond_b1
+    :try_start_b1
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    const-string v1, "\u91cd\u547d\u540d\u5931\u8d25"
+
+    const/4 v2, 0x0
+
+    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+
+    goto :goto_3f
+
+    .line 355
+    :cond_c0
+    new-instance v1, Ljava/io/File;
+
+    invoke-direct {v1, v0}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+
+    .line 357
+    invoke-virtual {v1}, Ljava/io/File;->exists()Z
+
+    move-result v2
+
+    if-nez v2, :cond_db
+
+    .line 358
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    const-string v1, "\u6587\u4ef6\u4e0d\u5b58\u5728"
+
+    const/4 v2, 0x0
+
+    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+
+    goto/16 :goto_3f
+
+    .line 362
+    :cond_db
+    const/4 v2, 0x0
+
+    const/16 v3, 0x2f
+
+    invoke-virtual {v0, v3}, Ljava/lang/String;->lastIndexOf(I)I
+
+    move-result v3
+
+    invoke-virtual {v0, v2, v3}, Ljava/lang/String;->substring(II)Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 363
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    const-string v2, "/"
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 364
+    const-string v2, "GroupedDownloadFragment"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "renameLocalFile: newFilePath="
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 366
+    new-instance v2, Ljava/io/File;
+
+    invoke-direct {v2, v0}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+
+    .line 368
+    invoke-virtual {v2}, Ljava/io/File;->exists()Z
+
+    move-result v3
+
+    if-eqz v3, :cond_130
+
+    .line 369
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    const-string v1, "\u6587\u4ef6\u540d\u5df2\u5b58\u5728"
+
+    const/4 v2, 0x0
+
+    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+
+    goto/16 :goto_3f
+
+    .line 373
+    :cond_130
     invoke-virtual {v1, v2}, Ljava/io/File;->renameTo(Ljava/io/File;)Z
 
     move-result v1
 
-    .line 354
+    .line 374
     const-string v2, "GroupedDownloadFragment"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -1916,13 +2262,13 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 356
-    if-eqz v1, :cond_118
+    .line 376
+    if-eqz v1, :cond_192
 
-    .line 357
+    .line 377
     invoke-virtual {p1, v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setDownloadPath(Ljava/lang/String;)V
 
-    .line 358
+    .line 378
     const-string v0, "GroupedDownloadFragment"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1949,7 +2295,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 360
+    .line 380
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -1960,14 +2306,14 @@
 
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/ui/download/DownloadManager;->updateTask(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 
-    .line 361
+    .line 381
     const-string v0, "GroupedDownloadFragment"
 
     const-string v1, "renameLocalFile: database updated"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 363
+    .line 383
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -1982,13 +2328,13 @@
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    .line 364
+    .line 384
     invoke-direct {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->refreshList()V
 
-    goto/16 :goto_36
+    goto/16 :goto_3f
 
-    .line 366
-    :cond_118
+    .line 386
+    :cond_192
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -2002,10 +2348,10 @@
     move-result-object v0
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
-    :try_end_126
-    .catch Ljava/lang/Exception; {:try_start_b6 .. :try_end_126} :catch_8b
+    :try_end_1a0
+    .catch Ljava/lang/Exception; {:try_start_b1 .. :try_end_1a0} :catch_86
 
-    goto/16 :goto_36
+    goto/16 :goto_3f
 .end method
 
 .method private restoreFocus()V
@@ -2103,34 +2449,30 @@
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    .line 328
+    .line 329
     :goto_1c
     return-void
 
-    .line 291
+    .line 292
     :cond_1d
-    const/16 v1, 0x2f
-
-    invoke-virtual {v0, v1}, Ljava/lang/String;->lastIndexOf(I)I
-
-    move-result v1
-
-    add-int/lit8 v1, v1, 0x1
-
-    invoke-virtual {v0, v1}, Ljava/lang/String;->substring(I)Ljava/lang/String;
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
 
     move-result-object v1
 
-    .line 292
+    invoke-static {v1, v0}, Lcom/bilibili/tv/ui/download/SafFileHelper;->getFileNameFromPath(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v1
+
+    .line 293
     const-string v0, "."
 
     invoke-virtual {v1, v0}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
 
     move-result v0
 
-    if-eqz v0, :cond_87
+    if-eqz v0, :cond_83
 
-    .line 293
+    .line 294
     invoke-virtual {v1, v4}, Ljava/lang/String;->lastIndexOf(I)I
 
     move-result v0
@@ -2139,17 +2481,17 @@
 
     move-result-object v0
 
-    .line 294
-    :goto_39
+    .line 295
+    :goto_35
     const-string v2, "."
 
     invoke-virtual {v1, v2}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
 
     move-result v2
 
-    if-eqz v2, :cond_49
+    if-eqz v2, :cond_45
 
-    .line 295
+    .line 296
     invoke-virtual {v1, v4}, Ljava/lang/String;->lastIndexOf(I)I
 
     move-result v2
@@ -2158,8 +2500,8 @@
 
     move-result-object v1
 
-    .line 297
-    :cond_49
+    .line 298
+    :cond_45
     new-instance v2, Landroid/widget/EditText;
 
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
@@ -2168,13 +2510,13 @@
 
     invoke-direct {v2, v3}, Landroid/widget/EditText;-><init>(Landroid/content/Context;)V
 
-    .line 298
+    .line 299
     invoke-virtual {v2, v1}, Landroid/widget/EditText;->setText(Ljava/lang/CharSequence;)V
 
-    .line 299
+    .line 300
     invoke-virtual {v2}, Landroid/widget/EditText;->selectAll()V
 
-    .line 301
+    .line 302
     new-instance v1, Landroid/app/AlertDialog$Builder;
 
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getContext()Landroid/content/Context;
@@ -2185,19 +2527,19 @@
 
     const-string v3, "\u91cd\u547d\u540d\u6587\u4ef6"
 
-    .line 302
+    .line 303
     invoke-virtual {v1, v3}, Landroid/app/AlertDialog$Builder;->setTitle(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
 
     move-result-object v1
 
     const-string v3, "\u8bf7\u8f93\u5165\u65b0\u7684\u6587\u4ef6\u540d\uff08\u4e0d\u542b\u6269\u5c55\u540d\uff09"
 
-    .line 303
+    .line 304
     invoke-virtual {v1, v3}, Landroid/app/AlertDialog$Builder;->setMessage(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
 
     move-result-object v1
 
-    .line 304
+    .line 305
     invoke-virtual {v1, v2}, Landroid/app/AlertDialog$Builder;->setView(Landroid/view/View;)Landroid/app/AlertDialog$Builder;
 
     move-result-object v1
@@ -2208,7 +2550,7 @@
 
     invoke-direct {v4, p0, v2, p1, v0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$7;-><init>(Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;Landroid/widget/EditText;Lcom/bilibili/tv/ui/download/model/DownloadTask;Ljava/lang/String;)V
 
-    .line 305
+    .line 306
     invoke-virtual {v1, v3, v4}, Landroid/app/AlertDialog$Builder;->setPositiveButton(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
     move-result-object v0
@@ -2217,21 +2559,21 @@
 
     const/4 v2, 0x0
 
-    .line 326
+    .line 327
     invoke-virtual {v0, v1, v2}, Landroid/app/AlertDialog$Builder;->setNegativeButton(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
     move-result-object v0
 
-    .line 327
+    .line 328
     invoke-virtual {v0}, Landroid/app/AlertDialog$Builder;->show()Landroid/app/AlertDialog;
 
     goto :goto_1c
 
-    .line 293
-    :cond_87
+    .line 294
+    :cond_83
     const-string v0, ""
 
-    goto :goto_39
+    goto :goto_35
 .end method
 
 .method private showTaskMenu(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
@@ -2564,18 +2906,18 @@
     .locals 2
 
     .prologue
-    .line 560
+    .line 615
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
     if-nez v0, :cond_7
 
-    .line 567
+    .line 622
     :goto_6
     return-void
 
-    .line 561
+    .line 616
     :cond_7
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
@@ -2616,18 +2958,18 @@
     .locals 2
 
     .prologue
-    .line 531
+    .line 586
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
     if-nez v0, :cond_7
 
-    .line 541
+    .line 596
     :goto_6
     return-void
 
-    .line 532
+    .line 587
     :cond_7
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
@@ -2690,18 +3032,18 @@
     .locals 2
 
     .prologue
-    .line 545
+    .line 600
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
 
     if-nez v0, :cond_7
 
-    .line 556
+    .line 611
     :goto_6
     return-void
 
-    .line 546
+    .line 601
     :cond_7
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 

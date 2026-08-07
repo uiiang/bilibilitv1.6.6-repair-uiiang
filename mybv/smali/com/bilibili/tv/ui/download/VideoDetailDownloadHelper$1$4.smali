@@ -1,4 +1,4 @@
-.class Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1$3;
+.class Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1$4;
 .super Ljava/lang/Object;
 .source "VideoDetailDownloadHelper.java"
 
@@ -28,10 +28,10 @@
     .locals 0
 
     .prologue
-    .line 197
-    iput-object p1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1$3;->this$0:Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;
+    .line 226
+    iput-object p1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1$4;->this$0:Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;
 
-    iput-object p2, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1$3;->val$e:Ljava/lang/Exception;
+    iput-object p2, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1$4;->val$e:Ljava/lang/Exception;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -44,8 +44,8 @@
     .locals 3
 
     .prologue
-    .line 200
-    iget-object v0, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1$3;->this$0:Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;
+    .line 229
+    iget-object v0, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1$4;->this$0:Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$context:Landroid/content/Context;
 
@@ -59,7 +59,7 @@
 
     move-result-object v1
 
-    iget-object v2, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1$3;->val$e:Ljava/lang/Exception;
+    iget-object v2, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1$4;->val$e:Ljava/lang/Exception;
 
     invoke-virtual {v2}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
 
@@ -81,6 +81,6 @@
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    .line 201
+    .line 230
     return-void
 .end method

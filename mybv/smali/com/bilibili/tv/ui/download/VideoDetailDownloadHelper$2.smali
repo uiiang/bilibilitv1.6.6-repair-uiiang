@@ -18,7 +18,7 @@
 
 
 # instance fields
-.field final synthetic val$context:Landroid/content/Context;
+.field final synthetic val$activity:Landroid/app/Activity;
 
 .field final synthetic val$message:Ljava/lang/String;
 
@@ -26,12 +26,12 @@
 
 
 # direct methods
-.method constructor <init>(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)V
+.method constructor <init>(Landroid/app/Activity;Ljava/lang/String;Ljava/lang/String;)V
     .locals 0
 
     .prologue
-    .line 236
-    iput-object p1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$context:Landroid/content/Context;
+    .line 281
+    iput-object p1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$activity:Landroid/app/Activity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$title:Ljava/lang/String;
 
@@ -45,26 +45,27 @@
 
 # virtual methods
 .method public run()V
-    .locals 3
+    .locals 4
 
     .prologue
-    .line 239
+    .line 285
+    :try_start_0
     new-instance v0, Landroid/app/AlertDialog$Builder;
 
-    iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$context:Landroid/content/Context;
+    iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$activity:Landroid/app/Activity;
 
     invoke-direct {v0, v1}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$title:Ljava/lang/String;
 
-    .line 240
+    .line 286
     invoke-virtual {v0, v1}, Landroid/app/AlertDialog$Builder;->setTitle(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
 
     move-result-object v0
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$message:Ljava/lang/String;
 
-    .line 241
+    .line 287
     invoke-virtual {v0, v1}, Landroid/app/AlertDialog$Builder;->setMessage(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
 
     move-result-object v0
@@ -73,14 +74,50 @@
 
     const/4 v2, 0x0
 
-    .line 242
+    .line 288
     invoke-virtual {v0, v1, v2}, Landroid/app/AlertDialog$Builder;->setPositiveButton(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
     move-result-object v0
 
-    .line 243
+    .line 289
     invoke-virtual {v0}, Landroid/app/AlertDialog$Builder;->show()Landroid/app/AlertDialog;
+    :try_end_1d
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_1d} :catch_1e
 
-    .line 244
+    .line 293
+    :goto_1d
     return-void
+
+    .line 290
+    :catch_1e
+    move-exception v0
+
+    .line 291
+    const-string v1, "VideoDetailDownloadHelper"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "\u663e\u793a\u9519\u8bef\u5bf9\u8bdd\u6846\u5931\u8d25: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v0}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v1, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_1d
 .end method

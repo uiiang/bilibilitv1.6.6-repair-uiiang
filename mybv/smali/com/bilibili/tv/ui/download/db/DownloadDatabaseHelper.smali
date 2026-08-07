@@ -287,12 +287,12 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 433
+    .line 451
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getWritableDatabase()Landroid/database/sqlite/SQLiteDatabase;
 
     move-result-object v0
 
-    .line 434
+    .line 452
     const-string v1, "download_tasks"
 
     invoke-virtual {v0, v1, v2, v2}, Landroid/database/sqlite/SQLiteDatabase;->delete(Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)I
@@ -306,15 +306,15 @@
     .locals 5
 
     .prologue
-    .line 511
+    .line 529
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getWritableDatabase()Landroid/database/sqlite/SQLiteDatabase;
 
     move-result-object v0
 
-    .line 513
+    .line 531
     const-string v1, "status = ?"
 
-    .line 514
+    .line 532
     const/4 v2, 0x1
 
     new-array v2, v2, [Ljava/lang/String;
@@ -333,7 +333,7 @@
 
     aput-object v4, v2, v3
 
-    .line 516
+    .line 534
     const-string v3, "download_tasks"
 
     invoke-virtual {v0, v3, v1, v2}, Landroid/database/sqlite/SQLiteDatabase;->delete(Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)I
@@ -347,15 +347,15 @@
     .locals 5
 
     .prologue
-    .line 523
+    .line 541
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getWritableDatabase()Landroid/database/sqlite/SQLiteDatabase;
 
     move-result-object v0
 
-    .line 525
+    .line 543
     const-string v1, "status = ?"
 
-    .line 526
+    .line 544
     const/4 v2, 0x1
 
     new-array v2, v2, [Ljava/lang/String;
@@ -374,7 +374,7 @@
 
     aput-object v4, v2, v3
 
-    .line 528
+    .line 546
     const-string v3, "download_tasks"
 
     invoke-virtual {v0, v3, v1, v2}, Landroid/database/sqlite/SQLiteDatabase;->delete(Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)I
@@ -388,15 +388,15 @@
     .locals 4
 
     .prologue
-    .line 184
+    .line 202
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getWritableDatabase()Landroid/database/sqlite/SQLiteDatabase;
 
     move-result-object v0
 
-    .line 186
+    .line 204
     const-string v1, "task_id = ?"
 
-    .line 187
+    .line 205
     const/4 v2, 0x1
 
     new-array v2, v2, [Ljava/lang/String;
@@ -405,17 +405,17 @@
 
     aput-object p1, v2, v3
 
-    .line 189
+    .line 207
     const-string v3, "download_tasks"
 
     invoke-virtual {v0, v3, v1, v2}, Landroid/database/sqlite/SQLiteDatabase;->delete(Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)I
 
     move-result v0
 
-    .line 190
+    .line 208
     if-lez v0, :cond_2d
 
-    .line 191
+    .line 209
     const-string v1, "DownloadDatabase"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -438,11 +438,11 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 196
+    .line 214
     :goto_2c
     return v0
 
-    .line 193
+    .line 211
     :cond_2d
     const-string v1, "DownloadDatabase"
 
@@ -484,17 +484,17 @@
     .prologue
     const/4 v3, 0x0
 
-    .line 234
+    .line 252
     new-instance v8, Ljava/util/ArrayList;
 
     invoke-direct {v8}, Ljava/util/ArrayList;-><init>()V
 
-    .line 235
+    .line 253
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getReadableDatabase()Landroid/database/sqlite/SQLiteDatabase;
 
     move-result-object v0
 
-    .line 237
+    .line 255
     const-string v1, "download_tasks"
 
     sget-object v2, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->COLUMNS:[Ljava/lang/String;
@@ -511,10 +511,10 @@
 
     move-result-object v0
 
-    .line 240
+    .line 258
     if-eqz v0, :cond_2a
 
-    .line 241
+    .line 259
     :goto_19
     invoke-interface {v0}, Landroid/database/Cursor;->moveToNext()Z
 
@@ -522,7 +522,7 @@
 
     if-eqz v1, :cond_27
 
-    .line 242
+    .line 260
     invoke-static {v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->fromCursor(Landroid/database/Cursor;)Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
     move-result-object v1
@@ -531,11 +531,11 @@
 
     goto :goto_19
 
-    .line 244
+    .line 262
     :cond_27
     invoke-interface {v0}, Landroid/database/Cursor;->close()V
 
-    .line 247
+    .line 265
     :cond_2a
     return-object v8
 .end method
@@ -546,15 +546,15 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 488
+    .line 506
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getReadableDatabase()Landroid/database/sqlite/SQLiteDatabase;
 
     move-result-object v1
 
-    .line 490
+    .line 508
     const-string v2, "SELECT COUNT(*) FROM download_tasks WHERE status = ?"
 
-    .line 492
+    .line 510
     const/4 v3, 0x1
 
     new-array v3, v3, [Ljava/lang/String;
@@ -571,31 +571,31 @@
 
     aput-object v4, v3, v0
 
-    .line 494
+    .line 512
     invoke-virtual {v1, v2, v3}, Landroid/database/sqlite/SQLiteDatabase;->rawQuery(Ljava/lang/String;[Ljava/lang/String;)Landroid/database/Cursor;
 
     move-result-object v1
 
-    .line 497
+    .line 515
     if-eqz v1, :cond_29
 
-    .line 498
+    .line 516
     invoke-interface {v1}, Landroid/database/Cursor;->moveToFirst()Z
 
     move-result v2
 
     if-eqz v2, :cond_26
 
-    .line 499
+    .line 517
     invoke-interface {v1, v0}, Landroid/database/Cursor;->getInt(I)I
 
     move-result v0
 
-    .line 501
+    .line 519
     :cond_26
     invoke-interface {v1}, Landroid/database/Cursor;->close()V
 
-    .line 504
+    .line 522
     :cond_29
     return v0
 .end method
@@ -615,20 +615,20 @@
     .prologue
     const/4 v5, 0x0
 
-    .line 304
+    .line 322
     new-instance v8, Ljava/util/ArrayList;
 
     invoke-direct {v8}, Ljava/util/ArrayList;-><init>()V
 
-    .line 305
+    .line 323
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getReadableDatabase()Landroid/database/sqlite/SQLiteDatabase;
 
     move-result-object v0
 
-    .line 307
+    .line 325
     const-string v3, "status = ?"
 
-    .line 308
+    .line 326
     const/4 v1, 0x1
 
     new-array v4, v1, [Ljava/lang/String;
@@ -647,7 +647,7 @@
 
     aput-object v2, v4, v1
 
-    .line 310
+    .line 328
     const-string v1, "download_tasks"
 
     sget-object v2, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->COLUMNS:[Ljava/lang/String;
@@ -660,10 +660,10 @@
 
     move-result-object v0
 
-    .line 313
+    .line 331
     if-eqz v0, :cond_3a
 
-    .line 314
+    .line 332
     :goto_29
     invoke-interface {v0}, Landroid/database/Cursor;->moveToNext()Z
 
@@ -671,7 +671,7 @@
 
     if-eqz v1, :cond_37
 
-    .line 315
+    .line 333
     invoke-static {v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->fromCursor(Landroid/database/Cursor;)Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
     move-result-object v1
@@ -680,11 +680,11 @@
 
     goto :goto_29
 
-    .line 317
+    .line 335
     :cond_37
     invoke-interface {v0}, Landroid/database/Cursor;->close()V
 
-    .line 320
+    .line 338
     :cond_3a
     return-object v8
 .end method
@@ -695,22 +695,22 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 461
+    .line 479
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getReadableDatabase()Landroid/database/sqlite/SQLiteDatabase;
 
     move-result-object v1
 
-    .line 463
+    .line 481
     const-string v2, "SELECT COUNT(*) FROM download_tasks WHERE status IN (?, ?, ?)"
 
-    .line 465
+    .line 483
     const/4 v3, 0x3
 
     new-array v3, v3, [Ljava/lang/String;
 
     sget-object v4, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->WAITING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
-    .line 466
+    .line 484
     invoke-virtual {v4}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->getValue()I
 
     move-result v4
@@ -725,7 +725,7 @@
 
     sget-object v5, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->DOWNLOADING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
-    .line 467
+    .line 485
     invoke-virtual {v5}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->getValue()I
 
     move-result v5
@@ -740,7 +740,7 @@
 
     sget-object v5, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->PAUSED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
-    .line 468
+    .line 486
     invoke-virtual {v5}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->getValue()I
 
     move-result v5
@@ -751,31 +751,31 @@
 
     aput-object v5, v3, v4
 
-    .line 471
+    .line 489
     invoke-virtual {v1, v2, v3}, Landroid/database/sqlite/SQLiteDatabase;->rawQuery(Ljava/lang/String;[Ljava/lang/String;)Landroid/database/Cursor;
 
     move-result-object v1
 
-    .line 474
+    .line 492
     if-eqz v1, :cond_43
 
-    .line 475
+    .line 493
     invoke-interface {v1}, Landroid/database/Cursor;->moveToFirst()Z
 
     move-result v2
 
     if-eqz v2, :cond_40
 
-    .line 476
+    .line 494
     invoke-interface {v1, v0}, Landroid/database/Cursor;->getInt(I)I
 
     move-result v0
 
-    .line 478
+    .line 496
     :cond_40
     invoke-interface {v1}, Landroid/database/Cursor;->close()V
 
-    .line 481
+    .line 499
     :cond_43
     return v0
 .end method
@@ -795,20 +795,20 @@
     .prologue
     const/4 v5, 0x0
 
-    .line 277
+    .line 295
     new-instance v8, Ljava/util/ArrayList;
 
     invoke-direct {v8}, Ljava/util/ArrayList;-><init>()V
 
-    .line 278
+    .line 296
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getReadableDatabase()Landroid/database/sqlite/SQLiteDatabase;
 
     move-result-object v0
 
-    .line 280
+    .line 298
     const-string v3, "status IN (?, ?, ?)"
 
-    .line 281
+    .line 299
     const/4 v1, 0x3
 
     new-array v4, v1, [Ljava/lang/String;
@@ -817,7 +817,7 @@
 
     sget-object v2, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->WAITING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
-    .line 282
+    .line 300
     invoke-virtual {v2}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->getValue()I
 
     move-result v2
@@ -832,7 +832,7 @@
 
     sget-object v2, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->DOWNLOADING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
-    .line 283
+    .line 301
     invoke-virtual {v2}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->getValue()I
 
     move-result v2
@@ -847,7 +847,7 @@
 
     sget-object v2, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->PAUSED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
-    .line 284
+    .line 302
     invoke-virtual {v2}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->getValue()I
 
     move-result v2
@@ -858,7 +858,7 @@
 
     aput-object v2, v4, v1
 
-    .line 287
+    .line 305
     const-string v1, "download_tasks"
 
     sget-object v2, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->COLUMNS:[Ljava/lang/String;
@@ -871,10 +871,10 @@
 
     move-result-object v0
 
-    .line 290
+    .line 308
     if-eqz v0, :cond_54
 
-    .line 291
+    .line 309
     :goto_43
     invoke-interface {v0}, Landroid/database/Cursor;->moveToNext()Z
 
@@ -882,7 +882,7 @@
 
     if-eqz v1, :cond_51
 
-    .line 292
+    .line 310
     invoke-static {v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->fromCursor(Landroid/database/Cursor;)Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
     move-result-object v1
@@ -891,11 +891,11 @@
 
     goto :goto_43
 
-    .line 294
+    .line 312
     :cond_51
     invoke-interface {v0}, Landroid/database/Cursor;->close()V
 
-    .line 297
+    .line 315
     :cond_54
     return-object v8
 .end method
@@ -913,7 +913,7 @@
     .end annotation
 
     .prologue
-    .line 327
+    .line 345
     sget-object v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->FAILED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getTasksByStatus(Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;)Ljava/util/List;
@@ -929,15 +929,15 @@
     .prologue
     const/4 v5, 0x0
 
-    .line 203
+    .line 221
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getReadableDatabase()Landroid/database/sqlite/SQLiteDatabase;
 
     move-result-object v0
 
-    .line 205
+    .line 223
     const-string v3, "task_id = ?"
 
-    .line 206
+    .line 224
     const/4 v1, 0x1
 
     new-array v4, v1, [Ljava/lang/String;
@@ -946,7 +946,7 @@
 
     aput-object p1, v4, v1
 
-    .line 208
+    .line 226
     const-string v1, "download_tasks"
 
     sget-object v2, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->COLUMNS:[Ljava/lang/String;
@@ -959,26 +959,26 @@
 
     move-result-object v0
 
-    .line 212
+    .line 230
     if-eqz v0, :cond_26
 
-    .line 213
+    .line 231
     invoke-interface {v0}, Landroid/database/Cursor;->moveToFirst()Z
 
     move-result v1
 
     if-eqz v1, :cond_23
 
-    .line 214
+    .line 232
     invoke-static {v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->fromCursor(Landroid/database/Cursor;)Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
     move-result-object v5
 
-    .line 216
+    .line 234
     :cond_23
     invoke-interface {v0}, Landroid/database/Cursor;->close()V
 
-    .line 219
+    .line 237
     :cond_26
     return-object v5
 .end method
@@ -987,12 +987,12 @@
     .locals 2
 
     .prologue
-    .line 226
+    .line 244
     invoke-static {p1, p2, p3}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->generateTaskId(Ljava/lang/String;J)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 227
+    .line 245
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getTask(Ljava/lang/String;)Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
     move-result-object v0
@@ -1006,41 +1006,41 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 441
+    .line 459
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getReadableDatabase()Landroid/database/sqlite/SQLiteDatabase;
 
     move-result-object v1
 
-    .line 443
+    .line 461
     const-string v2, "SELECT COUNT(*) FROM download_tasks"
 
-    .line 444
+    .line 462
     const/4 v3, 0x0
 
     invoke-virtual {v1, v2, v3}, Landroid/database/sqlite/SQLiteDatabase;->rawQuery(Ljava/lang/String;[Ljava/lang/String;)Landroid/database/Cursor;
 
     move-result-object v1
 
-    .line 447
+    .line 465
     if-eqz v1, :cond_1b
 
-    .line 448
+    .line 466
     invoke-interface {v1}, Landroid/database/Cursor;->moveToFirst()Z
 
     move-result v2
 
     if-eqz v2, :cond_18
 
-    .line 449
+    .line 467
     invoke-interface {v1, v0}, Landroid/database/Cursor;->getInt(I)I
 
     move-result v0
 
-    .line 451
+    .line 469
     :cond_18
     invoke-interface {v1}, Landroid/database/Cursor;->close()V
 
-    .line 454
+    .line 472
     :cond_1b
     return v0
 .end method
@@ -1062,27 +1062,27 @@
     .prologue
     const/4 v5, 0x0
 
-    .line 334
+    .line 352
     new-instance v8, Ljava/util/ArrayList;
 
     invoke-direct {v8}, Ljava/util/ArrayList;-><init>()V
 
-    .line 335
+    .line 353
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getReadableDatabase()Landroid/database/sqlite/SQLiteDatabase;
 
     move-result-object v0
 
-    .line 337
+    .line 355
     const-string v3, "pause_type = ? AND status = ?"
 
-    .line 338
+    .line 356
     const/4 v1, 0x2
 
     new-array v4, v1, [Ljava/lang/String;
 
     const/4 v1, 0x0
 
-    .line 339
+    .line 357
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->getValue()I
 
     move-result v2
@@ -1097,7 +1097,7 @@
 
     sget-object v2, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->PAUSED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
-    .line 340
+    .line 358
     invoke-virtual {v2}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->getValue()I
 
     move-result v2
@@ -1108,7 +1108,7 @@
 
     aput-object v2, v4, v1
 
-    .line 343
+    .line 361
     const-string v1, "download_tasks"
 
     sget-object v2, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->COLUMNS:[Ljava/lang/String;
@@ -1121,10 +1121,10 @@
 
     move-result-object v0
 
-    .line 346
+    .line 364
     if-eqz v0, :cond_45
 
-    .line 347
+    .line 365
     :goto_34
     invoke-interface {v0}, Landroid/database/Cursor;->moveToNext()Z
 
@@ -1132,7 +1132,7 @@
 
     if-eqz v1, :cond_42
 
-    .line 348
+    .line 366
     invoke-static {v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->fromCursor(Landroid/database/Cursor;)Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
     move-result-object v1
@@ -1141,11 +1141,11 @@
 
     goto :goto_34
 
-    .line 350
+    .line 368
     :cond_42
     invoke-interface {v0}, Landroid/database/Cursor;->close()V
 
-    .line 353
+    .line 371
     :cond_45
     return-object v8
 .end method
@@ -1167,20 +1167,20 @@
     .prologue
     const/4 v5, 0x0
 
-    .line 254
+    .line 272
     new-instance v8, Ljava/util/ArrayList;
 
     invoke-direct {v8}, Ljava/util/ArrayList;-><init>()V
 
-    .line 255
+    .line 273
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getReadableDatabase()Landroid/database/sqlite/SQLiteDatabase;
 
     move-result-object v0
 
-    .line 257
+    .line 275
     const-string v3, "status = ?"
 
-    .line 258
+    .line 276
     const/4 v1, 0x1
 
     new-array v4, v1, [Ljava/lang/String;
@@ -1197,7 +1197,7 @@
 
     aput-object v2, v4, v1
 
-    .line 260
+    .line 278
     const-string v1, "download_tasks"
 
     sget-object v2, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->COLUMNS:[Ljava/lang/String;
@@ -1210,10 +1210,10 @@
 
     move-result-object v0
 
-    .line 263
+    .line 281
     if-eqz v0, :cond_38
 
-    .line 264
+    .line 282
     :goto_27
     invoke-interface {v0}, Landroid/database/Cursor;->moveToNext()Z
 
@@ -1221,7 +1221,7 @@
 
     if-eqz v1, :cond_35
 
-    .line 265
+    .line 283
     invoke-static {v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->fromCursor(Landroid/database/Cursor;)Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
     move-result-object v1
@@ -1230,11 +1230,11 @@
 
     goto :goto_27
 
-    .line 267
+    .line 285
     :cond_35
     invoke-interface {v0}, Landroid/database/Cursor;->close()V
 
-    .line 270
+    .line 288
     :cond_38
     return-object v8
 .end method
@@ -1501,17 +1501,17 @@
     .locals 6
 
     .prologue
-    .line 414
+    .line 432
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getWritableDatabase()Landroid/database/sqlite/SQLiteDatabase;
 
     move-result-object v0
 
-    .line 416
+    .line 434
     new-instance v1, Landroid/content/ContentValues;
 
     invoke-direct {v1}, Landroid/content/ContentValues;-><init>()V
 
-    .line 417
+    .line 435
     const-string v2, "status"
 
     sget-object v3, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->FAILED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
@@ -1526,7 +1526,7 @@
 
     invoke-virtual {v1, v2, v3}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Integer;)V
 
-    .line 418
+    .line 436
     const-string v2, "error_code"
 
     invoke-static {p2}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
@@ -1535,12 +1535,12 @@
 
     invoke-virtual {v1, v2, v3}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Integer;)V
 
-    .line 419
+    .line 437
     const-string v2, "error_message"
 
     invoke-virtual {v1, v2, p3}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 420
+    .line 438
     const-string v2, "end_time"
 
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
@@ -1553,7 +1553,7 @@
 
     invoke-virtual {v1, v2, v3}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Long;)V
 
-    .line 421
+    .line 439
     const-string v2, "update_time"
 
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
@@ -1566,10 +1566,10 @@
 
     invoke-virtual {v1, v2, v3}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Long;)V
 
-    .line 423
+    .line 441
     const-string v2, "task_id = ?"
 
-    .line 424
+    .line 442
     const/4 v3, 0x1
 
     new-array v3, v3, [Ljava/lang/String;
@@ -1578,7 +1578,7 @@
 
     aput-object p1, v3, v4
 
-    .line 426
+    .line 444
     const-string v4, "download_tasks"
 
     invoke-virtual {v0, v4, v1, v2, v3}, Landroid/database/sqlite/SQLiteDatabase;->update(Ljava/lang/String;Landroid/content/ContentValues;Ljava/lang/String;[Ljava/lang/String;)I
@@ -1596,17 +1596,17 @@
 
     const/4 v2, 0x0
 
-    .line 394
+    .line 412
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getWritableDatabase()Landroid/database/sqlite/SQLiteDatabase;
 
     move-result-object v3
 
-    .line 396
+    .line 414
     new-instance v4, Landroid/content/ContentValues;
 
     invoke-direct {v4}, Landroid/content/ContentValues;-><init>()V
 
-    .line 397
+    .line 415
     const-string v5, "is_manual_pause"
 
     if-eqz p2, :cond_51
@@ -1620,7 +1620,7 @@
 
     invoke-virtual {v4, v5, v0}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Integer;)V
 
-    .line 398
+    .line 416
     const-string v0, "status"
 
     sget-object v5, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->PAUSED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
@@ -1635,10 +1635,10 @@
 
     invoke-virtual {v4, v0, v5}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Integer;)V
 
-    .line 399
+    .line 417
     if-eqz p2, :cond_37
 
-    .line 400
+    .line 418
     const-string v0, "pause_type"
 
     sget-object v5, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->MANUAL:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
@@ -1653,7 +1653,7 @@
 
     invoke-virtual {v4, v0, v5}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Integer;)V
 
-    .line 402
+    .line 420
     :cond_37
     const-string v0, "update_time"
 
@@ -1667,15 +1667,15 @@
 
     invoke-virtual {v4, v0, v5}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Long;)V
 
-    .line 404
+    .line 422
     const-string v0, "task_id = ?"
 
-    .line 405
+    .line 423
     new-array v1, v1, [Ljava/lang/String;
 
     aput-object p1, v1, v2
 
-    .line 407
+    .line 425
     const-string v2, "download_tasks"
 
     invoke-virtual {v3, v2, v4, v0, v1}, Landroid/database/sqlite/SQLiteDatabase;->update(Ljava/lang/String;Landroid/content/ContentValues;Ljava/lang/String;[Ljava/lang/String;)I
@@ -1687,87 +1687,11 @@
     :cond_51
     move v0, v2
 
-    .line 397
+    .line 415
     goto :goto_10
 .end method
 
 .method public updateProgress(Ljava/lang/String;JIJ)I
-    .locals 6
-
-    .prologue
-    .line 360
-    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getWritableDatabase()Landroid/database/sqlite/SQLiteDatabase;
-
-    move-result-object v0
-
-    .line 362
-    new-instance v1, Landroid/content/ContentValues;
-
-    invoke-direct {v1}, Landroid/content/ContentValues;-><init>()V
-
-    .line 363
-    const-string v2, "downloaded_size"
-
-    invoke-static {p2, p3}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;
-
-    move-result-object v3
-
-    invoke-virtual {v1, v2, v3}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Long;)V
-
-    .line 364
-    const-string v2, "progress"
-
-    invoke-static {p4}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
-
-    move-result-object v3
-
-    invoke-virtual {v1, v2, v3}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Integer;)V
-
-    .line 365
-    const-string v2, "speed"
-
-    invoke-static {p5, p6}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;
-
-    move-result-object v3
-
-    invoke-virtual {v1, v2, v3}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Long;)V
-
-    .line 366
-    const-string v2, "update_time"
-
-    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
-
-    move-result-wide v4
-
-    invoke-static {v4, v5}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;
-
-    move-result-object v3
-
-    invoke-virtual {v1, v2, v3}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Long;)V
-
-    .line 368
-    const-string v2, "task_id = ?"
-
-    .line 369
-    const/4 v3, 0x1
-
-    new-array v3, v3, [Ljava/lang/String;
-
-    const/4 v4, 0x0
-
-    aput-object p1, v3, v4
-
-    .line 371
-    const-string v4, "download_tasks"
-
-    invoke-virtual {v0, v4, v1, v2, v3}, Landroid/database/sqlite/SQLiteDatabase;->update(Ljava/lang/String;Landroid/content/ContentValues;Ljava/lang/String;[Ljava/lang/String;)I
-
-    move-result v0
-
-    return v0
-.end method
-
-.method public updateStatus(Ljava/lang/String;Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;)I
     .locals 6
 
     .prologue
@@ -1782,19 +1706,33 @@
     invoke-direct {v1}, Landroid/content/ContentValues;-><init>()V
 
     .line 381
-    const-string v2, "status"
+    const-string v2, "downloaded_size"
 
-    invoke-virtual {p2}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->getValue()I
+    invoke-static {p2, p3}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;
 
-    move-result v3
+    move-result-object v3
 
-    invoke-static {v3}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+    invoke-virtual {v1, v2, v3}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Long;)V
+
+    .line 382
+    const-string v2, "progress"
+
+    invoke-static {p4}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
     move-result-object v3
 
     invoke-virtual {v1, v2, v3}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Integer;)V
 
-    .line 382
+    .line 383
+    const-string v2, "speed"
+
+    invoke-static {p5, p6}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;
+
+    move-result-object v3
+
+    invoke-virtual {v1, v2, v3}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Long;)V
+
+    .line 384
     const-string v2, "update_time"
 
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
@@ -1807,10 +1745,10 @@
 
     invoke-virtual {v1, v2, v3}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Long;)V
 
-    .line 384
+    .line 386
     const-string v2, "task_id = ?"
 
-    .line 385
+    .line 387
     const/4 v3, 0x1
 
     new-array v3, v3, [Ljava/lang/String;
@@ -1819,7 +1757,69 @@
 
     aput-object p1, v3, v4
 
-    .line 387
+    .line 389
+    const-string v4, "download_tasks"
+
+    invoke-virtual {v0, v4, v1, v2, v3}, Landroid/database/sqlite/SQLiteDatabase;->update(Ljava/lang/String;Landroid/content/ContentValues;Ljava/lang/String;[Ljava/lang/String;)I
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public updateStatus(Ljava/lang/String;Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;)I
+    .locals 6
+
+    .prologue
+    .line 396
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getWritableDatabase()Landroid/database/sqlite/SQLiteDatabase;
+
+    move-result-object v0
+
+    .line 398
+    new-instance v1, Landroid/content/ContentValues;
+
+    invoke-direct {v1}, Landroid/content/ContentValues;-><init>()V
+
+    .line 399
+    const-string v2, "status"
+
+    invoke-virtual {p2}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->getValue()I
+
+    move-result v3
+
+    invoke-static {v3}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object v3
+
+    invoke-virtual {v1, v2, v3}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Integer;)V
+
+    .line 400
+    const-string v2, "update_time"
+
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+
+    move-result-wide v4
+
+    invoke-static {v4, v5}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;
+
+    move-result-object v3
+
+    invoke-virtual {v1, v2, v3}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/Long;)V
+
+    .line 402
+    const-string v2, "task_id = ?"
+
+    .line 403
+    const/4 v3, 0x1
+
+    new-array v3, v3, [Ljava/lang/String;
+
+    const/4 v4, 0x0
+
+    aput-object p1, v3, v4
+
+    .line 405
     const-string v4, "download_tasks"
 
     invoke-virtual {v0, v4, v1, v2, v3}, Landroid/database/sqlite/SQLiteDatabase;->update(Ljava/lang/String;Landroid/content/ContentValues;Ljava/lang/String;[Ljava/lang/String;)I
@@ -1949,4 +1949,97 @@
     invoke-static {v1, v2}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
     goto :goto_4c
+.end method
+
+.method public updateVideoUrl(Ljava/lang/String;Ljava/lang/String;)I
+    .locals 6
+
+    .prologue
+    .line 184
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getWritableDatabase()Landroid/database/sqlite/SQLiteDatabase;
+
+    move-result-object v0
+
+    .line 185
+    new-instance v1, Landroid/content/ContentValues;
+
+    invoke-direct {v1}, Landroid/content/ContentValues;-><init>()V
+
+    .line 186
+    const-string v2, "video_url"
+
+    invoke-virtual {v1, v2, p2}, Landroid/content/ContentValues;->put(Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 188
+    const-string v2, "download_tasks"
+
+    const-string v3, "task_id = ?"
+
+    const/4 v4, 0x1
+
+    new-array v4, v4, [Ljava/lang/String;
+
+    const/4 v5, 0x0
+
+    aput-object p1, v4, v5
+
+    invoke-virtual {v0, v2, v1, v3, v4}, Landroid/database/sqlite/SQLiteDatabase;->update(Ljava/lang/String;Landroid/content/ContentValues;Ljava/lang/String;[Ljava/lang/String;)I
+
+    move-result v0
+
+    .line 189
+    if-lez v0, :cond_37
+
+    .line 190
+    const-string v1, "DownloadDatabase"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "\u66f4\u65b0\u4e0b\u8f7dURL\u6210\u529f: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v1, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 195
+    :goto_36
+    return v0
+
+    .line 192
+    :cond_37
+    const-string v1, "DownloadDatabase"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "\u66f4\u65b0\u4e0b\u8f7dURL\u5931\u8d25: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v1, v2}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_36
 .end method

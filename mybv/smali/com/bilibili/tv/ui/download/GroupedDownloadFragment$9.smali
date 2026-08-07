@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 532
+    .line 587
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$9;->this$0:Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$9;->val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
@@ -44,7 +44,7 @@
     .locals 2
 
     .prologue
-    .line 535
+    .line 590
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$9;->this$0:Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;
 
     # getter for: Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->adapter:Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;
@@ -54,7 +54,7 @@
 
     if-eqz v0, :cond_13
 
-    .line 537
+    .line 592
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$9;->this$0:Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;
 
     # getter for: Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->adapter:Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;
@@ -66,7 +66,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter;->updateTask(Lcom/bilibili/tv/ui/download/model/DownloadTask;)Z
 
-    .line 539
+    .line 594
     :cond_13
     return-void
 .end method

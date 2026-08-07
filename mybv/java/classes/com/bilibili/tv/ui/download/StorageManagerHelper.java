@@ -58,6 +58,60 @@ public class StorageManagerHelper {
     }
 
     /**
+     * 获取所有已挂载的存储卷（含内部存储和外接U盘/移动硬盘）
+     *
+     * 用于文件夹选择器的存储设备列表：部分TV系统上 /storage 目录 listFiles()
+     * 返回null或不全，无法枚举外接U盘；且U盘可能挂载在 /storage 之外的路径
+     * （如 /mnt/usb_storage）。此方法通过 StorageManager.getVolumeList() 反射
+     * 获取所有存储卷的真实挂载路径。
+     *
+     * @param context 上下文
+     * @return 存储卷列表（可能为空）
+     */
+    public static List<StorageDevice> getAllMountedVolumes(Context context) {
+        List<StorageDevice> devices = new ArrayList<>();
+
+        // 方法1：StorageManager反射（Android 4.4+），获取所有卷（含U盘真实路径）
+        if (android.os.Build.VERSION.SDK_INT >= 19) {
+            try {
+                Object storageManager = context.getSystemService(Context.STORAGE_SERVICE);
+                if (storageManager != null) {
+                    java.lang.reflect.Method getVolumeList = storageManager.getClass()
+                            .getMethod("getVolumeList");
+                    Object[] volumeList = (Object[]) getVolumeList.invoke(storageManager);
+                    if (volumeList != null) {
+                        for (Object volume : volumeList) {
+                            try {
+                                StorageDevice device = parseStorageVolume(volume, context);
+                                if (device != null && device.getPath() != null
+                                        && !device.getPath().isEmpty()) {
+                                    devices.add(device);
+                                }
+                            } catch (Exception e) {
+                                Log.w(TAG, "解析存储卷失败: " + e.getMessage());
+                            }
+                        }
+                    }
+                }
+                if (!devices.isEmpty()) {
+                    Log.i(TAG, "通过反射获取到 " + devices.size() + " 个存储卷");
+                    return devices;
+                }
+            } catch (Exception e) {
+                Log.w(TAG, "反射获取存储卷失败: " + e.getMessage());
+            }
+        }
+
+        // 方法2：兜底（兼容Android 4.x）
+        StorageDevice primaryExternal = getPrimaryExternalStorage(context);
+        if (primaryExternal != null) {
+            devices.add(primaryExternal);
+            Log.i(TAG, "使用默认外接存储兜底: " + primaryExternal.getPath());
+        }
+        return devices;
+    }
+
+    /**
      * 通过反射获取存储设备列表（Android 4.4+）
      */
     private static List<StorageDevice> getStorageDevicesViaReflection(Context context) throws Exception {

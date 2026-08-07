@@ -28,15 +28,15 @@
     .locals 0
 
     .prologue
-    .line 305
+    .line 304
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/MainActivity$h;->this$0:Lcom/bilibili/tv/ui/main/MainActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 306
+    .line 305
     iput-object p2, p0, Lcom/bilibili/tv/ui/main/MainActivity$h;->b:Landroid/widget/TextView;
 
-    .line 307
+    .line 306
     return-void
 .end method
 
@@ -46,7 +46,7 @@
     .locals 4
 
     .prologue
-    .line 311
+    .line 310
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/MainActivity$h;->b:Landroid/widget/TextView;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/MainActivity$h;->this$0:Lcom/bilibili/tv/ui/main/MainActivity;
@@ -66,7 +66,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 312
+    .line 311
     const/4 v0, 0x0
 
     invoke-static {v0}, Lbl/lv;->a(I)Landroid/os/Handler;
@@ -77,6 +77,6 @@
 
     invoke-virtual {v0, p0, v2, v3}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 313
+    .line 312
     return-void
 .end method

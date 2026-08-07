@@ -3,12 +3,12 @@
 .source "afm5.java"
 
 # interfaces
-.implements Landroid/widget/AdapterView$OnItemSelectedListener;
+.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/afm5;->loadFolderList(Landroid/widget/ListView;Landroid/widget/TextView;Ljava/io/File;)V
+    value = Lbl/afm5;->showFolderPicker()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,14 +20,18 @@
 # instance fields
 .field final synthetic this$0:Lbl/afm5;
 
+.field final synthetic val$folderListView:Landroid/widget/ListView;
+
 
 # direct methods
-.method constructor <init>(Lbl/afm5;)V
+.method constructor <init>(Lbl/afm5;Landroid/widget/ListView;)V
     .locals 0
 
     .prologue
-    .line 591
+    .line 626
     iput-object p1, p0, Lbl/afm5$8;->this$0:Lbl/afm5;
+
+    iput-object p2, p0, Lbl/afm5$8;->val$folderListView:Landroid/widget/ListView;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -36,41 +40,15 @@
 
 
 # virtual methods
-.method public onItemSelected(Landroid/widget/AdapterView;Landroid/view/View;IJ)V
+.method public run()V
     .locals 1
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "(",
-            "Landroid/widget/AdapterView",
-            "<*>;",
-            "Landroid/view/View;",
-            "IJ)V"
-        }
-    .end annotation
 
     .prologue
-    .line 594
-    new-instance v0, Lbl/afm5$8$1;
+    .line 629
+    iget-object v0, p0, Lbl/afm5$8;->val$folderListView:Landroid/widget/ListView;
 
-    invoke-direct {v0, p0, p1}, Lbl/afm5$8$1;-><init>(Lbl/afm5$8;Landroid/widget/AdapterView;)V
+    invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
 
-    invoke-virtual {p1, v0}, Landroid/widget/AdapterView;->post(Ljava/lang/Runnable;)Z
-
-    .line 600
-    return-void
-.end method
-
-.method public onNothingSelected(Landroid/widget/AdapterView;)V
-    .locals 0
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "(",
-            "Landroid/widget/AdapterView",
-            "<*>;)V"
-        }
-    .end annotation
-
-    .prologue
-    .line 604
+    .line 630
     return-void
 .end method

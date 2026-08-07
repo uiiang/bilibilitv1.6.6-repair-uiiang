@@ -43,13 +43,13 @@
     .locals 1
 
     .prologue
-    .line 407
+    .line 409
     invoke-direct {p0, p1}, Landroid/support/v7/widget/RecyclerView$v;-><init>(Landroid/view/View;)V
 
-    .line 408
+    .line 410
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$TaskHolder;->rootView:Landroid/view/View;
 
-    .line 409
+    .line 411
     const v0, 0x7f080239
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -60,7 +60,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$TaskHolder;->coverImage:Lcom/bilibili/tv/widget/ScalableImageView;
 
-    .line 410
+    .line 412
     const v0, 0x7f08023a
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -71,7 +71,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$TaskHolder;->titleText:Landroid/widget/TextView;
 
-    .line 411
+    .line 413
     const v0, 0x7f08011c
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -82,7 +82,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$TaskHolder;->subTitleText:Landroid/widget/TextView;
 
-    .line 412
+    .line 414
     const v0, 0x7f08023b
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -93,7 +93,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$TaskHolder;->upNameText:Landroid/widget/TextView;
 
-    .line 413
+    .line 415
     const v0, 0x7f08023c
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -104,7 +104,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$TaskHolder;->progressBar:Landroid/widget/ProgressBar;
 
-    .line 414
+    .line 416
     const v0, 0x7f08023d
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -115,7 +115,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$TaskHolder;->progressText:Landroid/widget/TextView;
 
-    .line 415
+    .line 417
     const v0, 0x7f08023e
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -126,7 +126,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$TaskHolder;->fileSizeText:Landroid/widget/TextView;
 
-    .line 416
+    .line 418
     const v0, 0x7f08023f
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -137,7 +137,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$TaskHolder;->speedText:Landroid/widget/TextView;
 
-    .line 417
+    .line 419
     const v0, 0x7f080240
 
     invoke-virtual {p1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -148,6 +148,6 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$TaskHolder;->statusText:Landroid/widget/TextView;
 
-    .line 418
+    .line 420
     return-void
 .end method

@@ -39,12 +39,12 @@
     .locals 0
 
     .prologue
-    .line 354
+    .line 353
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/MainActivity$k$a;->this$1:Lcom/bilibili/tv/ui/main/MainActivity$k;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 355
+    .line 354
     return-void
 .end method
 
@@ -54,7 +54,7 @@
     .locals 2
 
     .prologue
-    .line 364
+    .line 363
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v0
@@ -63,20 +63,20 @@
 
     move-result-object v0
 
-    .line 365
+    .line 364
     const-string v1, "account"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 366
+    .line 365
     invoke-virtual {v0}, Lbl/mg;->e()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 367
+    .line 366
     if-eqz v0, :cond_1e
 
-    .line 369
+    .line 368
     :try_start_13
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
@@ -90,16 +90,16 @@
     :try_end_1e
     .catch Lcom/bilibili/lib/account/AccountException; {:try_start_13 .. :try_end_1e} :catch_1f
 
-    .line 384
+    .line 383
     :cond_1e
     :goto_1e
     return-void
 
-    .line 370
+    .line 369
     :catch_1f
     move-exception v0
 
-    .line 371
+    .line 370
     invoke-virtual {v0}, Lcom/bilibili/lib/account/AccountException;->a()I
 
     move-result v0
@@ -108,7 +108,7 @@
 
     if-ne v0, v1, :cond_1e
 
-    .line 372
+    .line 371
     const/4 v0, 0x0
 
     invoke-static {v0}, Lbl/lv;->a(I)Landroid/os/Handler;
@@ -133,10 +133,10 @@
     .end annotation
 
     .prologue
-    .line 359
+    .line 358
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/MainActivity$k$a;->a()V
 
-    .line 360
+    .line 359
     sget-object v0, Lbl/azy;->a:Lbl/azy;
 
     return-object v0

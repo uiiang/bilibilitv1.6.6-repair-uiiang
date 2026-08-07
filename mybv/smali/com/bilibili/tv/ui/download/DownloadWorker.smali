@@ -123,7 +123,7 @@
 .end method
 
 .method private downloadFile()V
-    .locals 26
+    .locals 28
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/io/IOException;
@@ -131,49 +131,214 @@
     .end annotation
 
     .prologue
-    .line 100
+    .line 102
     move-object/from16 v0, p0
 
     iget-object v4, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
     invoke-virtual {v4}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getVideoUrl()Ljava/lang/String;
 
-    move-result-object v6
+    move-result-object v4
 
-    .line 101
-    if-eqz v6, :cond_10
+    .line 103
+    if-eqz v4, :cond_10
 
-    invoke-virtual {v6}, Ljava/lang/String;->isEmpty()Z
+    invoke-virtual {v4}, Ljava/lang/String;->isEmpty()Z
 
-    move-result v4
+    move-result v5
 
-    if-eqz v4, :cond_18
+    if-eqz v5, :cond_7a
 
-    .line 102
+    .line 104
     :cond_10
+    move-object/from16 v0, p0
+
+    iget-object v4, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->context:Landroid/content/Context;
+
+    move-object/from16 v0, p0
+
+    iget-object v5, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
+
+    invoke-virtual {v5}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getAvid()J
+
+    move-result-wide v5
+
+    move-object/from16 v0, p0
+
+    iget-object v7, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
+
+    invoke-virtual {v7}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getBvid()Ljava/lang/String;
+
+    move-result-object v7
+
+    move-object/from16 v0, p0
+
+    iget-object v8, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
+
+    invoke-virtual {v8}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getCid()J
+
+    move-result-wide v8
+
+    move-object/from16 v0, p0
+
+    iget-object v10, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
+
+    invoke-virtual {v10}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getQuality()I
+
+    move-result v10
+
+    invoke-static/range {v4 .. v10}, Lcom/bilibili/tv/ui/download/BilibiliDownloadApi;->getDownloadUrl(Landroid/content/Context;JLjava/lang/String;JI)Ljava/lang/String;
+
+    move-result-object v4
+
+    .line 105
+    if-eqz v4, :cond_40
+
+    invoke-virtual {v4}, Ljava/lang/String;->isEmpty()Z
+
+    move-result v5
+
+    if-eqz v5, :cond_48
+
+    .line 106
+    :cond_40
     new-instance v4, Ljava/io/IOException;
 
-    const-string v5, "\u89c6\u9891URL\u4e3a\u7a7a\uff0c\u65e0\u6cd5\u4e0b\u8f7d"
+    const-string v5, "\u83b7\u53d6\u4e0b\u8f7dURL\u5931\u8d25"
 
     invoke-direct {v4, v5}, Ljava/io/IOException;-><init>(Ljava/lang/String;)V
 
     throw v4
 
-    .line 105
-    :cond_18
-    const-string v4, "DownloadWorker"
+    .line 108
+    :cond_48
+    move-object/from16 v0, p0
 
-    new-instance v5, Ljava/lang/StringBuilder;
+    iget-object v5, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
-    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-virtual {v5, v4}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setVideoUrl(Ljava/lang/String;)V
 
-    const-string v7, "\u4f7f\u7528\u4e0b\u8f7dURL: "
+    .line 111
+    :try_start_4f
+    move-object/from16 v0, p0
 
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    iget-object v5, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->context:Landroid/content/Context;
+
+    invoke-static {v5}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getInstance(Landroid/content/Context;)Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;
 
     move-result-object v5
 
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    move-object/from16 v0, p0
+
+    iget-object v6, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
+
+    .line 112
+    invoke-virtual {v6}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getTaskId()Ljava/lang/String;
+
+    move-result-object v6
+
+    invoke-virtual {v5, v6, v4}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->updateVideoUrl(Ljava/lang/String;Ljava/lang/String;)I
+    :try_end_62
+    .catch Ljava/lang/Exception; {:try_start_4f .. :try_end_62} :catch_aa
+
+    .line 116
+    :goto_62
+    const-string v5, "DownloadWorker"
+
+    new-instance v6, Ljava/lang/StringBuilder;
+
+    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v7, "\u83b7\u53d6\u4e0b\u8f7dURL\u6210\u529f: "
+
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v6
+
+    invoke-virtual {v6, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v6
+
+    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v6
+
+    invoke-static {v5, v6}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 119
+    :cond_7a
+    const-string v5, "DownloadWorker"
+
+    new-instance v6, Ljava/lang/StringBuilder;
+
+    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v7, "\u4f7f\u7528\u4e0b\u8f7dURL: "
+
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v6
+
+    invoke-virtual {v6, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v6
+
+    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v6
+
+    invoke-static {v5, v6}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 122
+    move-object/from16 v0, p0
+
+    iget-object v5, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
+
+    invoke-virtual {v5}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getDownloadPath()Ljava/lang/String;
+
+    move-result-object v15
+
+    .line 123
+    if-eqz v15, :cond_a2
+
+    invoke-virtual {v15}, Ljava/lang/String;->isEmpty()Z
+
+    move-result v5
+
+    if-eqz v5, :cond_c8
+
+    .line 124
+    :cond_a2
+    new-instance v4, Ljava/io/IOException;
+
+    const-string v5, "\u4e0b\u8f7d\u8def\u5f84\u4e3a\u7a7a"
+
+    invoke-direct {v4, v5}, Ljava/io/IOException;-><init>(Ljava/lang/String;)V
+
+    throw v4
+
+    .line 113
+    :catch_aa
+    move-exception v5
+
+    .line 114
+    const-string v6, "DownloadWorker"
+
+    new-instance v7, Ljava/lang/StringBuilder;
+
+    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v8, "\u56de\u5199\u4e0b\u8f7dURL\u5230\u6570\u636e\u5e93\u5931\u8d25: "
+
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-virtual {v5}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-virtual {v7, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v5
 
@@ -181,230 +346,222 @@
 
     move-result-object v5
 
-    invoke-static {v4, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v6, v5}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 108
-    new-instance v4, Ljava/io/File;
+    goto :goto_62
 
-    move-object/from16 v0, p0
+    .line 126
+    :cond_c8
+    const-string v5, "content://"
 
-    iget-object v5, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
+    invoke-virtual {v15, v5}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
 
-    invoke-virtual {v5}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getDownloadPath()Ljava/lang/String;
+    move-result v16
 
-    move-result-object v5
+    .line 127
+    const-string v6, "DownloadWorker"
 
-    invoke-direct {v4, v5}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+    new-instance v5, Ljava/lang/StringBuilder;
 
-    invoke-virtual {v4}, Ljava/io/File;->getParentFile()Ljava/io/File;
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
 
-    move-result-object v4
+    const-string v7, "\u4e0b\u8f7d\u76ee\u6807: "
 
-    .line 109
-    if-eqz v4, :cond_4c
-
-    invoke-virtual {v4}, Ljava/io/File;->exists()Z
-
-    move-result v5
-
-    if-nez v5, :cond_4c
-
-    .line 110
-    invoke-virtual {v4}, Ljava/io/File;->mkdirs()Z
-
-    .line 114
-    :cond_4c
-    new-instance v12, Ljava/io/File;
-
-    new-instance v4, Ljava/lang/StringBuilder;
-
-    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
-
-    move-object/from16 v0, p0
-
-    iget-object v5, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
-
-    invoke-virtual {v5}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getDownloadPath()Ljava/lang/String;
+    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v5
 
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v5, v15}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v7
 
-    const-string v5, ".tmp"
+    if-eqz v16, :cond_19e
 
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    const-string v5, " (SAF)"
 
-    move-result-object v4
+    :goto_e3
+    invoke-virtual {v7, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object v5
 
-    move-result-object v4
+    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    invoke-direct {v12, v4}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+    move-result-object v5
 
-    .line 115
-    new-instance v13, Ljava/io/File;
+    invoke-static {v6, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
+    .line 130
+    const-wide/16 v8, 0x0
+
+    .line 131
+    const/4 v11, 0x0
+
+    .line 132
+    const/4 v5, 0x0
+
+    .line 133
+    if-eqz v16, :cond_1c4
+
+    .line 136
+    :try_start_f4
     move-object/from16 v0, p0
 
-    iget-object v4, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
+    iget-object v6, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->context:Landroid/content/Context;
 
-    invoke-virtual {v4}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getDownloadPath()Ljava/lang/String;
+    invoke-static {v6, v15}, Lcom/bilibili/tv/ui/download/SafFileHelper;->getFileSize(Landroid/content/Context;Ljava/lang/String;)J
+    :try_end_fb
+    .catch Ljava/lang/Exception; {:try_start_f4 .. :try_end_fb} :catch_1a2
 
-    move-result-object v4
+    move-result-wide v6
 
-    invoke-direct {v13, v4}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+    .line 137
+    const-wide/16 v12, 0x0
 
-    .line 118
-    const-wide/16 v4, 0x0
+    cmp-long v10, v6, v12
 
-    .line 119
-    invoke-virtual {v12}, Ljava/io/File;->exists()Z
+    if-lez v10, :cond_4d0
 
-    move-result v7
+    .line 139
+    :try_start_102
+    const-string v8, "DownloadWorker"
 
-    if-eqz v7, :cond_a1
+    new-instance v9, Ljava/lang/StringBuilder;
 
-    .line 120
-    invoke-virtual {v12}, Ljava/io/File;->length()J
+    invoke-direct {v9}, Ljava/lang/StringBuilder;-><init>()V
 
-    move-result-wide v4
+    const-string v10, "SAF\u65ad\u70b9\u7eed\u4f20\uff0c\u5df2\u4e0b\u8f7d: "
 
-    .line 121
-    const-string v7, "DownloadWorker"
-
-    new-instance v8, Ljava/lang/StringBuilder;
-
-    invoke-direct {v8}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v9, "\u65ad\u70b9\u7eed\u4f20\uff0c\u5df2\u4e0b\u8f7d: "
-
-    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v8
-
-    invoke-static {v4, v5}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->formatFileSize(J)Ljava/lang/String;
+    invoke-virtual {v9, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v9
 
-    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-static {v6, v7}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->formatFileSize(J)Ljava/lang/String;
 
-    move-result-object v8
+    move-result-object v10
 
-    invoke-virtual {v8}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v9, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v8
+    move-result-object v9
 
-    invoke-static {v7, v8}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-virtual {v9}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    .line 125
-    :cond_a1
-    new-instance v7, Lokhttp3/Request$Builder;
+    move-result-object v9
 
-    invoke-direct {v7}, Lokhttp3/Request$Builder;-><init>()V
+    invoke-static {v8, v9}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    :try_end_11e
+    .catch Ljava/lang/Exception; {:try_start_102 .. :try_end_11e} :catch_4c9
 
-    .line 126
-    invoke-virtual {v7, v6}, Lokhttp3/Request$Builder;->url(Ljava/lang/String;)Lokhttp3/Request$Builder;
+    :goto_11e
+    move-object v10, v5
 
-    move-result-object v6
+    move-wide v8, v6
 
-    const-string v7, "User-Agent"
+    .line 159
+    :goto_120
+    new-instance v5, Lokhttp3/Request$Builder;
 
-    const-string v8, "BilibiliTV/1.0"
+    invoke-direct {v5}, Lokhttp3/Request$Builder;-><init>()V
 
-    .line 127
-    invoke-virtual {v6, v7, v8}, Lokhttp3/Request$Builder;->addHeader(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Request$Builder;
+    .line 160
+    invoke-virtual {v5, v4}, Lokhttp3/Request$Builder;->url(Ljava/lang/String;)Lokhttp3/Request$Builder;
 
-    move-result-object v6
+    move-result-object v4
 
-    const-string v7, "Referer"
+    const-string v5, "User-Agent"
 
-    const-string v8, "https://www.bilibili.com"
+    const-string v6, "BilibiliTV/1.0"
 
-    .line 128
-    invoke-virtual {v6, v7, v8}, Lokhttp3/Request$Builder;->addHeader(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Request$Builder;
+    .line 161
+    invoke-virtual {v4, v5, v6}, Lokhttp3/Request$Builder;->addHeader(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Request$Builder;
 
-    move-result-object v6
+    move-result-object v4
 
-    .line 131
-    const-wide/16 v8, 0x0
+    const-string v5, "Referer"
 
-    cmp-long v7, v4, v8
+    const-string v6, "https://www.bilibili.com"
 
-    if-lez v7, :cond_de
+    .line 162
+    invoke-virtual {v4, v5, v6}, Lokhttp3/Request$Builder;->addHeader(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Request$Builder;
 
-    .line 132
-    const-string v7, "Range"
+    move-result-object v4
 
-    new-instance v8, Ljava/lang/StringBuilder;
+    .line 165
+    const-wide/16 v6, 0x0
 
-    invoke-direct {v8}, Ljava/lang/StringBuilder;-><init>()V
+    cmp-long v5, v8, v6
 
-    const-string v9, "bytes="
+    if-lez v5, :cond_15d
 
-    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    .line 166
+    const-string v5, "Range"
 
-    move-result-object v8
+    new-instance v6, Ljava/lang/StringBuilder;
 
-    invoke-virtual {v8, v4, v5}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
 
-    move-result-object v8
+    const-string v7, "bytes="
 
-    const-string v9, "-"
-
-    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v8
-
-    invoke-virtual {v8}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v8
-
-    invoke-virtual {v6, v7, v8}, Lokhttp3/Request$Builder;->addHeader(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Request$Builder;
-
-    .line 135
-    :cond_de
-    invoke-virtual {v6}, Lokhttp3/Request$Builder;->build()Lokhttp3/Request;
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v6
 
-    .line 138
+    invoke-virtual {v6, v8, v9}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v6
+
+    const-string v7, "-"
+
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v6
+
+    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v6
+
+    invoke-virtual {v4, v5, v6}, Lokhttp3/Request$Builder;->addHeader(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Request$Builder;
+
+    .line 169
+    :cond_15d
+    invoke-virtual {v4}, Lokhttp3/Request$Builder;->build()Lokhttp3/Request;
+
+    move-result-object v4
+
+    .line 172
     move-object/from16 v0, p0
 
-    iget-object v7, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->httpClient:Lokhttp3/OkHttpClient;
+    iget-object v5, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->httpClient:Lokhttp3/OkHttpClient;
 
-    invoke-virtual {v7, v6}, Lokhttp3/OkHttpClient;->newCall(Lokhttp3/Request;)Lokhttp3/Call;
+    invoke-virtual {v5, v4}, Lokhttp3/OkHttpClient;->newCall(Lokhttp3/Request;)Lokhttp3/Call;
 
-    move-result-object v6
+    move-result-object v4
 
     move-object/from16 v0, p0
 
-    iput-object v6, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->downloadCall:Lokhttp3/Call;
+    iput-object v4, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->downloadCall:Lokhttp3/Call;
 
-    .line 139
+    .line 173
     move-object/from16 v0, p0
 
-    iget-object v6, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->downloadCall:Lokhttp3/Call;
+    iget-object v4, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->downloadCall:Lokhttp3/Call;
 
-    invoke-interface {v6}, Lokhttp3/Call;->execute()Lokhttp3/Response;
+    invoke-interface {v4}, Lokhttp3/Call;->execute()Lokhttp3/Response;
 
-    move-result-object v14
+    move-result-object v17
 
-    .line 142
-    invoke-virtual {v14}, Lokhttp3/Response;->isSuccessful()Z
+    .line 176
+    invoke-virtual/range {v17 .. v17}, Lokhttp3/Response;->isSuccessful()Z
 
-    move-result v6
+    move-result v4
 
-    if-nez v6, :cond_126
+    if-nez v4, :cond_227
 
-    .line 143
-    invoke-virtual {v14}, Lokhttp3/Response;->code()I
+    .line 177
+    invoke-virtual/range {v17 .. v17}, Lokhttp3/Response;->code()I
 
     move-result v5
 
-    .line 144
+    .line 178
     new-instance v4, Ljava/lang/StringBuilder;
 
     invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
@@ -423,186 +580,366 @@
 
     move-result-object v4
 
-    .line 146
+    .line 180
     const/16 v6, 0x194
 
-    if-ne v5, v6, :cond_11f
+    if-ne v5, v6, :cond_21f
 
-    .line 147
+    .line 181
     const-string v4, "\u8d44\u6e90\u4e0d\u5b58\u5728(404)"
 
-    .line 152
-    :cond_119
-    :goto_119
+    .line 186
+    :cond_198
+    :goto_198
     new-instance v5, Ljava/io/IOException;
 
     invoke-direct {v5, v4}, Ljava/io/IOException;-><init>(Ljava/lang/String;)V
 
     throw v5
 
+    .line 127
+    :cond_19e
+    const-string v5, " (File)"
+
+    goto/16 :goto_e3
+
+    .line 141
+    :catch_1a2
+    move-exception v10
+
+    move-wide v6, v8
+
+    .line 142
+    :goto_1a4
+    const-string v8, "DownloadWorker"
+
+    new-instance v9, Ljava/lang/StringBuilder;
+
+    invoke-direct {v9}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v12, "\u8bfb\u53d6SAF\u6587\u4ef6\u5927\u5c0f\u5931\u8d25: "
+
+    invoke-virtual {v9, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v9
+
+    invoke-virtual {v10}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
+
+    move-result-object v10
+
+    invoke-virtual {v9, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v9
+
+    invoke-virtual {v9}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v9
+
+    invoke-static {v8, v9}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    move-object v10, v5
+
+    move-wide v8, v6
+
+    .line 143
+    goto/16 :goto_120
+
+    .line 146
+    :cond_1c4
+    new-instance v5, Ljava/io/File;
+
+    invoke-direct {v5, v15}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+
+    invoke-virtual {v5}, Ljava/io/File;->getParentFile()Ljava/io/File;
+
+    move-result-object v5
+
+    .line 147
+    if-eqz v5, :cond_1d8
+
+    invoke-virtual {v5}, Ljava/io/File;->exists()Z
+
+    move-result v6
+
+    if-nez v6, :cond_1d8
+
     .line 148
-    :cond_11f
+    invoke-virtual {v5}, Ljava/io/File;->mkdirs()Z
+
+    .line 150
+    :cond_1d8
+    new-instance v6, Ljava/io/File;
+
+    new-instance v5, Ljava/lang/StringBuilder;
+
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v5, v15}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    const-string v7, ".tmp"
+
+    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-direct {v6, v5}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+
+    .line 151
+    new-instance v5, Ljava/io/File;
+
+    invoke-direct {v5, v15}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+
+    .line 152
+    invoke-virtual {v6}, Ljava/io/File;->exists()Z
+
+    move-result v7
+
+    if-eqz v7, :cond_21b
+
+    .line 153
+    invoke-virtual {v6}, Ljava/io/File;->length()J
+
+    move-result-wide v8
+
+    .line 154
+    const-string v7, "DownloadWorker"
+
+    new-instance v10, Ljava/lang/StringBuilder;
+
+    invoke-direct {v10}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v11, "\u65ad\u70b9\u7eed\u4f20\uff0c\u5df2\u4e0b\u8f7d: "
+
+    invoke-virtual {v10, v11}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v10
+
+    invoke-static {v8, v9}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->formatFileSize(J)Ljava/lang/String;
+
+    move-result-object v11
+
+    invoke-virtual {v10, v11}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v10
+
+    invoke-virtual {v10}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v10
+
+    invoke-static {v7, v10}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    :cond_21b
+    move-object v10, v5
+
+    move-object v11, v6
+
+    goto/16 :goto_120
+
+    .line 182
+    :cond_21f
     const/16 v6, 0x193
 
-    if-ne v5, v6, :cond_119
+    if-ne v5, v6, :cond_198
 
-    .line 149
+    .line 183
     const-string v4, "\u8bbf\u95ee\u88ab\u62d2\u7edd(403)"
 
-    goto :goto_119
+    goto/16 :goto_198
 
-    .line 156
-    :cond_126
-    invoke-virtual {v14}, Lokhttp3/Response;->body()Lokhttp3/ResponseBody;
+    .line 190
+    :cond_227
+    invoke-virtual/range {v17 .. v17}, Lokhttp3/Response;->body()Lokhttp3/ResponseBody;
 
-    move-result-object v6
+    move-result-object v4
 
-    invoke-virtual {v6}, Lokhttp3/ResponseBody;->contentLength()J
+    invoke-virtual {v4}, Lokhttp3/ResponseBody;->contentLength()J
 
-    move-result-wide v6
+    move-result-wide v4
 
-    .line 157
-    const-wide/16 v8, 0x0
+    .line 191
+    const-wide/16 v6, 0x0
 
-    cmp-long v8, v4, v8
+    cmp-long v6, v8, v6
 
-    if-lez v8, :cond_13d
+    if-lez v6, :cond_23e
 
-    invoke-virtual {v14}, Lokhttp3/Response;->code()I
+    invoke-virtual/range {v17 .. v17}, Lokhttp3/Response;->code()I
 
-    move-result v8
+    move-result v6
 
-    const/16 v9, 0xce
+    const/16 v7, 0xce
 
-    if-ne v8, v9, :cond_13d
+    if-ne v6, v7, :cond_23e
 
-    .line 159
-    add-long/2addr v6, v4
+    .line 193
+    add-long/2addr v4, v8
 
-    .line 162
-    :cond_13d
-    const-wide/16 v8, 0x0
-
-    cmp-long v8, v6, v8
-
-    if-gtz v8, :cond_332
-
-    .line 163
-    move-object/from16 v0, p0
-
-    iget-object v6, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
-
-    invoke-virtual {v6}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getTotalSize()J
-
-    move-result-wide v6
-
-    move-wide v10, v6
-
-    .line 166
-    :goto_14c
-    move-object/from16 v0, p0
-
-    iget-object v6, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
-
-    invoke-virtual {v6, v10, v11}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setTotalSize(J)V
-
-    .line 167
-    const-string v6, "DownloadWorker"
-
-    new-instance v7, Ljava/lang/StringBuilder;
-
-    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v8, "\u6587\u4ef6\u603b\u5927\u5c0f: "
-
-    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    invoke-static {v10, v11}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->formatFileSize(J)Ljava/lang/String;
-
-    move-result-object v8
-
-    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v7
-
-    invoke-static {v6, v7}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 170
-    invoke-virtual {v14}, Lokhttp3/Response;->body()Lokhttp3/ResponseBody;
-
-    move-result-object v6
-
-    invoke-virtual {v6}, Lokhttp3/ResponseBody;->byteStream()Ljava/io/InputStream;
-
-    move-result-object v15
-
-    .line 171
-    new-instance v16, Ljava/io/FileOutputStream;
-
+    .line 196
+    :cond_23e
     const-wide/16 v6, 0x0
 
     cmp-long v6, v4, v6
 
-    if-lez v6, :cond_1d5
+    if-gtz v6, :cond_4cd
 
-    const/4 v6, 0x1
+    .line 197
+    move-object/from16 v0, p0
 
-    :goto_180
-    move-object/from16 v0, v16
+    iget-object v4, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
-    invoke-direct {v0, v12, v6}, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;Z)V
+    invoke-virtual {v4}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getTotalSize()J
 
-    .line 173
-    const/16 v6, 0x2000
+    move-result-wide v4
 
-    new-array v0, v6, [B
+    move-wide v12, v4
 
-    move-object/from16 v17, v0
+    .line 200
+    :goto_24d
+    move-object/from16 v0, p0
 
-    .line 176
+    iget-object v4, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
+
+    invoke-virtual {v4, v12, v13}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setTotalSize(J)V
+
+    .line 201
+    const-string v4, "DownloadWorker"
+
+    new-instance v5, Ljava/lang/StringBuilder;
+
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v6, "\u6587\u4ef6\u603b\u5927\u5c0f: "
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    invoke-static {v12, v13}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->formatFileSize(J)Ljava/lang/String;
+
+    move-result-object v6
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-static {v4, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 204
+    invoke-virtual/range {v17 .. v17}, Lokhttp3/Response;->body()Lokhttp3/ResponseBody;
+
+    move-result-object v4
+
+    invoke-virtual {v4}, Lokhttp3/ResponseBody;->byteStream()Ljava/io/InputStream;
+
+    move-result-object v18
+
+    .line 206
+    if-eqz v16, :cond_2ee
+
+    .line 208
+    const-wide/16 v4, 0x0
+
+    cmp-long v4, v8, v4
+
+    if-lez v4, :cond_29c
+
+    const-string v4, "wa"
+
+    .line 209
+    :goto_282
+    move-object/from16 v0, p0
+
+    iget-object v5, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->context:Landroid/content/Context;
+
+    invoke-virtual {v5}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v5
+
+    .line 210
+    invoke-static {v15}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v6
+
+    .line 209
+    invoke-virtual {v5, v6, v4}, Landroid/content/ContentResolver;->openOutputStream(Landroid/net/Uri;Ljava/lang/String;)Ljava/io/OutputStream;
+
+    move-result-object v4
+
+    .line 211
+    if-nez v4, :cond_29f
+
+    .line 212
+    new-instance v4, Ljava/io/IOException;
+
+    const-string v5, "\u65e0\u6cd5\u6253\u5f00SAF\u8f93\u51fa\u6d41"
+
+    invoke-direct {v4, v5}, Ljava/io/IOException;-><init>(Ljava/lang/String;)V
+
+    throw v4
+
+    .line 208
+    :cond_29c
+    const-string v4, "w"
+
+    goto :goto_282
+
+    :cond_29f
+    move-object v14, v4
+
+    .line 218
+    :goto_2a0
+    const/16 v4, 0x2000
+
+    new-array v0, v4, [B
+
+    move-object/from16 v19, v0
+
+    .line 221
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
-    move-result-wide v18
+    move-result-wide v20
 
-    .line 179
-    move-wide/from16 v0, v18
+    .line 224
+    move-wide/from16 v0, v20
 
     move-object/from16 v2, p0
 
     iput-wide v0, v2, Lcom/bilibili/tv/ui/download/DownloadWorker;->lastSpeedCalcTime:J
 
-    .line 180
+    .line 225
     move-object/from16 v0, p0
 
-    iput-wide v4, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->lastDownloadedSize:J
+    iput-wide v8, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->lastDownloadedSize:J
 
-    .line 183
-    :goto_199
-    :try_start_199
-    move-object/from16 v0, v17
+    .line 228
+    :goto_2b4
+    :try_start_2b4
+    invoke-virtual/range {v18 .. v19}, Ljava/io/InputStream;->read([B)I
 
-    invoke-virtual {v15, v0}, Ljava/io/InputStream;->read([B)I
+    move-result v4
 
-    move-result v6
+    const/4 v5, -0x1
 
-    const/4 v7, -0x1
+    if-eq v4, v5, :cond_3ec
 
-    if-eq v6, v7, :cond_292
-
-    .line 185
+    .line 230
     move-object/from16 v0, p0
 
-    iget-boolean v7, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->isPaused:Z
+    iget-boolean v5, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->isPaused:Z
 
-    if-eqz v7, :cond_1e9
+    if-eqz v5, :cond_310
 
-    .line 186
+    .line 231
     const-string v4, "DownloadWorker"
 
     new-instance v5, Ljava/lang/StringBuilder;
@@ -633,74 +970,92 @@
 
     invoke-static {v4, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 187
-    invoke-virtual/range {v16 .. v16}, Ljava/io/FileOutputStream;->flush()V
-    :try_end_1cb
-    .catchall {:try_start_199 .. :try_end_1cb} :catchall_303
+    .line 232
+    invoke-virtual {v14}, Ljava/io/OutputStream;->flush()V
+    :try_end_2e4
+    .catchall {:try_start_2b4 .. :try_end_2e4} :catchall_36a
 
-    .line 250
-    :try_start_1cb
-    invoke-virtual/range {v16 .. v16}, Ljava/io/FileOutputStream;->close()V
-    :try_end_1ce
-    .catch Ljava/io/IOException; {:try_start_1cb .. :try_end_1ce} :catch_1d7
+    .line 314
+    :try_start_2e4
+    invoke-virtual {v14}, Ljava/io/OutputStream;->close()V
+    :try_end_2e7
+    .catch Ljava/io/IOException; {:try_start_2e4 .. :try_end_2e7} :catch_2fe
 
-    .line 256
-    :goto_1ce
-    :try_start_1ce
-    invoke-virtual {v15}, Ljava/io/InputStream;->close()V
-    :try_end_1d1
-    .catch Ljava/io/IOException; {:try_start_1ce .. :try_end_1d1} :catch_1e0
+    .line 320
+    :goto_2e7
+    :try_start_2e7
+    invoke-virtual/range {v18 .. v18}, Ljava/io/InputStream;->close()V
+    :try_end_2ea
+    .catch Ljava/io/IOException; {:try_start_2e7 .. :try_end_2ea} :catch_307
 
-    .line 262
-    :goto_1d1
-    invoke-virtual {v14}, Lokhttp3/Response;->close()V
+    .line 326
+    :goto_2ea
+    invoke-virtual/range {v17 .. v17}, Lokhttp3/Response;->close()V
 
-    .line 264
-    :goto_1d4
+    .line 328
+    :goto_2ed
     return-void
 
-    .line 171
-    :cond_1d5
-    const/4 v6, 0x0
+    .line 215
+    :cond_2ee
+    new-instance v5, Ljava/io/FileOutputStream;
 
-    goto :goto_180
+    const-wide/16 v6, 0x0
 
-    .line 251
-    :catch_1d7
+    cmp-long v4, v8, v6
+
+    if-lez v4, :cond_2fc
+
+    const/4 v4, 0x1
+
+    :goto_2f7
+    invoke-direct {v5, v11, v4}, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;Z)V
+
+    move-object v14, v5
+
+    goto :goto_2a0
+
+    :cond_2fc
+    const/4 v4, 0x0
+
+    goto :goto_2f7
+
+    .line 315
+    :catch_2fe
     move-exception v4
 
-    .line 252
+    .line 316
     const-string v5, "DownloadWorker"
 
     const-string v6, "\u5173\u95ed\u8f93\u51fa\u6d41\u5931\u8d25"
 
     invoke-static {v5, v6, v4}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    goto :goto_1ce
+    goto :goto_2e7
 
-    .line 257
-    :catch_1e0
+    .line 321
+    :catch_307
     move-exception v4
 
-    .line 258
+    .line 322
     const-string v5, "DownloadWorker"
 
     const-string v6, "\u5173\u95ed\u8f93\u5165\u6d41\u5931\u8d25"
 
     invoke-static {v5, v6, v4}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    goto :goto_1d1
+    goto :goto_2ea
 
-    .line 191
-    :cond_1e9
-    :try_start_1e9
+    .line 236
+    :cond_310
+    :try_start_310
     move-object/from16 v0, p0
 
-    iget-boolean v7, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->isCancelled:Z
+    iget-boolean v5, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->isCancelled:Z
 
-    if-eqz v7, :cond_231
+    if-eqz v5, :cond_38d
 
-    .line 192
+    .line 237
     const-string v4, "DownloadWorker"
 
     new-instance v5, Ljava/lang/StringBuilder;
@@ -731,161 +1086,244 @@
 
     invoke-static {v4, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 193
-    invoke-virtual/range {v16 .. v16}, Ljava/io/FileOutputStream;->close()V
+    .line 238
+    invoke-virtual {v14}, Ljava/io/OutputStream;->close()V
+    :try_end_339
+    .catchall {:try_start_310 .. :try_end_339} :catchall_36a
 
-    .line 194
-    invoke-virtual {v12}, Ljava/io/File;->delete()Z
-    :try_end_215
-    .catchall {:try_start_1e9 .. :try_end_215} :catchall_303
+    .line 239
+    if-eqz v16, :cond_375
 
-    .line 250
-    :try_start_215
-    invoke-virtual/range {v16 .. v16}, Ljava/io/FileOutputStream;->close()V
-    :try_end_218
-    .catch Ljava/io/IOException; {:try_start_215 .. :try_end_218} :catch_21f
+    .line 242
+    :try_start_33b
+    move-object/from16 v0, p0
 
-    .line 256
-    :goto_218
-    :try_start_218
-    invoke-virtual {v15}, Ljava/io/InputStream;->close()V
-    :try_end_21b
-    .catch Ljava/io/IOException; {:try_start_218 .. :try_end_21b} :catch_228
+    iget-object v4, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->context:Landroid/content/Context;
 
-    .line 262
-    :goto_21b
-    invoke-virtual {v14}, Lokhttp3/Response;->close()V
+    invoke-static {v4, v15}, Lcom/bilibili/tv/ui/download/SafFileHelper;->delete(Landroid/content/Context;Ljava/lang/String;)Z
+    :try_end_342
+    .catch Ljava/lang/Exception; {:try_start_33b .. :try_end_342} :catch_34c
+    .catchall {:try_start_33b .. :try_end_342} :catchall_36a
 
-    goto :goto_1d4
+    .line 314
+    :cond_342
+    :goto_342
+    :try_start_342
+    invoke-virtual {v14}, Ljava/io/OutputStream;->close()V
+    :try_end_345
+    .catch Ljava/io/IOException; {:try_start_342 .. :try_end_345} :catch_37b
 
-    .line 251
-    :catch_21f
+    .line 320
+    :goto_345
+    :try_start_345
+    invoke-virtual/range {v18 .. v18}, Ljava/io/InputStream;->close()V
+    :try_end_348
+    .catch Ljava/io/IOException; {:try_start_345 .. :try_end_348} :catch_384
+
+    .line 326
+    :goto_348
+    invoke-virtual/range {v17 .. v17}, Lokhttp3/Response;->close()V
+
+    goto :goto_2ed
+
+    .line 243
+    :catch_34c
     move-exception v4
 
-    .line 252
+    .line 244
+    :try_start_34d
+    const-string v5, "DownloadWorker"
+
+    new-instance v6, Ljava/lang/StringBuilder;
+
+    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v7, "SAF\u53d6\u6d88\u5220\u9664\u6587\u4ef6\u5931\u8d25: "
+
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v6
+
+    invoke-virtual {v4}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-virtual {v6, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-static {v5, v4}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+    :try_end_369
+    .catchall {:try_start_34d .. :try_end_369} :catchall_36a
+
+    goto :goto_342
+
+    .line 313
+    :catchall_36a
+    move-exception v4
+
+    .line 314
+    :try_start_36b
+    invoke-virtual {v14}, Ljava/io/OutputStream;->close()V
+    :try_end_36e
+    .catch Ljava/io/IOException; {:try_start_36b .. :try_end_36e} :catch_4b5
+
+    .line 320
+    :goto_36e
+    :try_start_36e
+    invoke-virtual/range {v18 .. v18}, Ljava/io/InputStream;->close()V
+    :try_end_371
+    .catch Ljava/io/IOException; {:try_start_36e .. :try_end_371} :catch_4bf
+
+    .line 326
+    :goto_371
+    invoke-virtual/range {v17 .. v17}, Lokhttp3/Response;->close()V
+
+    .line 327
+    throw v4
+
+    .line 246
+    :cond_375
+    if-eqz v11, :cond_342
+
+    .line 247
+    :try_start_377
+    invoke-virtual {v11}, Ljava/io/File;->delete()Z
+    :try_end_37a
+    .catchall {:try_start_377 .. :try_end_37a} :catchall_36a
+
+    goto :goto_342
+
+    .line 315
+    :catch_37b
+    move-exception v4
+
+    .line 316
     const-string v5, "DownloadWorker"
 
     const-string v6, "\u5173\u95ed\u8f93\u51fa\u6d41\u5931\u8d25"
 
     invoke-static {v5, v6, v4}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    goto :goto_218
+    goto :goto_345
 
-    .line 257
-    :catch_228
+    .line 321
+    :catch_384
     move-exception v4
 
-    .line 258
+    .line 322
     const-string v5, "DownloadWorker"
 
     const-string v6, "\u5173\u95ed\u8f93\u5165\u6d41\u5931\u8d25"
 
     invoke-static {v5, v6, v4}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    goto :goto_21b
+    goto :goto_348
 
-    .line 199
-    :cond_231
+    .line 253
+    :cond_38d
+    const/4 v5, 0x0
+
+    :try_start_38e
+    move-object/from16 v0, v19
+
+    invoke-virtual {v14, v0, v5, v4}, Ljava/io/OutputStream;->write([BII)V
+
+    .line 254
+    int-to-long v4, v4
+
+    add-long v5, v8, v4
+
+    .line 257
     const/4 v7, 0x0
 
-    :try_start_232
-    move-object/from16 v0, v16
-
-    move-object/from16 v1, v17
-
-    invoke-virtual {v0, v1, v7, v6}, Ljava/io/FileOutputStream;->write([BII)V
-
-    .line 200
-    int-to-long v6, v6
-
-    add-long v5, v4, v6
-
-    .line 203
-    const/4 v7, 0x0
-
-    .line 204
+    .line 258
     const-wide/16 v8, 0x0
 
-    cmp-long v4, v10, v8
+    cmp-long v4, v12, v8
 
-    if-lez v4, :cond_248
+    if-lez v4, :cond_3a2
 
-    .line 205
+    .line 259
     const-wide/16 v8, 0x64
 
     mul-long/2addr v8, v5
 
-    div-long/2addr v8, v10
+    div-long/2addr v8, v12
 
     long-to-int v7, v8
 
-    .line 209
-    :cond_248
+    .line 263
+    :cond_3a2
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
-    move-result-wide v20
+    move-result-wide v22
 
-    .line 210
+    .line 264
     move-object/from16 v0, p0
 
     iget-wide v8, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->lastSpeedCalcTime:J
 
-    sub-long v8, v20, v8
+    sub-long v8, v22, v8
 
-    .line 212
-    const-wide/16 v22, 0x3e8
+    .line 266
+    const-wide/16 v24, 0x3e8
 
-    cmp-long v4, v8, v22
+    cmp-long v4, v8, v24
 
-    if-ltz v4, :cond_274
+    if-ltz v4, :cond_3ce
 
-    .line 213
+    .line 267
     move-object/from16 v0, p0
 
     iget-wide v0, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->lastDownloadedSize:J
 
-    move-wide/from16 v22, v0
+    move-wide/from16 v24, v0
 
-    sub-long v22, v5, v22
+    sub-long v24, v5, v24
 
-    .line 214
-    const-wide/16 v24, 0x3e8
+    .line 268
+    const-wide/16 v26, 0x3e8
 
-    mul-long v22, v22, v24
+    mul-long v24, v24, v26
 
-    div-long v8, v22, v8
+    div-long v8, v24, v8
 
     move-object/from16 v0, p0
 
     iput-wide v8, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->currentSpeed:J
 
-    .line 216
-    move-wide/from16 v0, v20
+    .line 270
+    move-wide/from16 v0, v22
 
     move-object/from16 v2, p0
 
     iput-wide v0, v2, Lcom/bilibili/tv/ui/download/DownloadWorker;->lastSpeedCalcTime:J
 
-    .line 217
+    .line 271
     move-object/from16 v0, p0
 
     iput-wide v5, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->lastDownloadedSize:J
 
-    .line 221
-    :cond_274
+    .line 275
+    :cond_3ce
     move-object/from16 v0, p0
 
     iget-wide v8, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->lastProgressUpdateTime:J
 
-    sub-long v8, v20, v8
+    sub-long v8, v22, v8
 
-    const-wide/16 v22, 0x1f4
+    const-wide/16 v24, 0x1f4
 
-    cmp-long v4, v8, v22
+    cmp-long v4, v8, v24
 
-    if-ltz v4, :cond_28f
+    if-ltz v4, :cond_3e9
 
-    .line 222
+    .line 276
     move-object/from16 v0, p0
 
     iget-wide v8, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->currentSpeed:J
@@ -894,44 +1332,54 @@
 
     invoke-direct/range {v4 .. v9}, Lcom/bilibili/tv/ui/download/DownloadWorker;->notifyProgress(JIJ)V
 
-    .line 223
-    move-wide/from16 v0, v20
+    .line 277
+    move-wide/from16 v0, v22
 
     move-object/from16 v2, p0
 
     iput-wide v0, v2, Lcom/bilibili/tv/ui/download/DownloadWorker;->lastProgressUpdateTime:J
 
-    :cond_28f
-    move-wide v4, v5
+    :cond_3e9
+    move-wide v8, v5
 
-    .line 225
-    goto/16 :goto_199
+    .line 279
+    goto/16 :goto_2b4
 
-    .line 228
-    :cond_292
-    invoke-virtual/range {v16 .. v16}, Ljava/io/FileOutputStream;->flush()V
+    .line 282
+    :cond_3ec
+    invoke-virtual {v14}, Ljava/io/OutputStream;->flush()V
 
-    .line 229
-    invoke-virtual/range {v16 .. v16}, Ljava/io/FileOutputStream;->close()V
+    .line 283
+    invoke-virtual {v14}, Ljava/io/OutputStream;->close()V
 
-    .line 230
-    invoke-virtual {v15}, Ljava/io/InputStream;->close()V
+    .line 284
+    invoke-virtual/range {v18 .. v18}, Ljava/io/InputStream;->close()V
 
-    .line 233
-    invoke-virtual {v12, v13}, Ljava/io/File;->renameTo(Ljava/io/File;)Z
+    .line 286
+    if-eqz v16, :cond_444
 
-    move-result v6
+    .line 288
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
-    if-eqz v6, :cond_2fb
+    move-result-wide v4
 
-    .line 234
+    sub-long v4, v4, v20
+
+    .line 289
+    const-wide/16 v6, 0x3e8
+
+    mul-long/2addr v6, v8
+
+    div-long v4, v6, v4
+
+    .line 290
     const-string v6, "DownloadWorker"
 
     new-instance v7, Ljava/lang/StringBuilder;
 
     invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v8, "\u4e0b\u8f7d\u5b8c\u6210: "
+    const-string v8, "SAF\u4e0b\u8f7d\u5b8c\u6210: "
 
     invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -949,27 +1397,112 @@
 
     move-result-object v7
 
-    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    const-string v8, ", \u5e73\u5747\u901f\u5ea6: "
+
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v7
 
-    invoke-static {v6, v7}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v4, v5}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->formatFileSize(J)Ljava/lang/String;
 
-    .line 237
+    move-result-object v4
+
+    invoke-virtual {v7, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    const-string v5, "/s"
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-static {v6, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 293
+    invoke-direct/range {p0 .. p0}, Lcom/bilibili/tv/ui/download/DownloadWorker;->notifyComplete()V
+    :try_end_439
+    .catchall {:try_start_38e .. :try_end_439} :catchall_36a
+
+    .line 314
+    :goto_439
+    :try_start_439
+    invoke-virtual {v14}, Ljava/io/OutputStream;->close()V
+    :try_end_43c
+    .catch Ljava/io/IOException; {:try_start_439 .. :try_end_43c} :catch_4a3
+
+    .line 320
+    :goto_43c
+    :try_start_43c
+    invoke-virtual/range {v18 .. v18}, Ljava/io/InputStream;->close()V
+    :try_end_43f
+    .catch Ljava/io/IOException; {:try_start_43c .. :try_end_43f} :catch_4ac
+
+    .line 326
+    :goto_43f
+    invoke-virtual/range {v17 .. v17}, Lokhttp3/Response;->close()V
+
+    goto/16 :goto_2ed
+
+    .line 296
+    :cond_444
+    :try_start_444
+    invoke-virtual {v11, v10}, Ljava/io/File;->renameTo(Ljava/io/File;)Z
+
+    move-result v4
+
+    if-eqz v4, :cond_49b
+
+    .line 297
+    const-string v4, "DownloadWorker"
+
+    new-instance v5, Ljava/lang/StringBuilder;
+
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v6, "\u4e0b\u8f7d\u5b8c\u6210: "
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    move-object/from16 v0, p0
+
+    iget-object v6, v0, Lcom/bilibili/tv/ui/download/DownloadWorker;->task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
+
+    invoke-virtual {v6}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getTitle()Ljava/lang/String;
+
+    move-result-object v6
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-static {v4, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 300
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
-    move-result-wide v6
+    move-result-wide v4
 
-    sub-long v6, v6, v18
+    sub-long v4, v4, v20
 
-    .line 238
-    const-wide/16 v8, 0x3e8
+    .line 301
+    const-wide/16 v6, 0x3e8
 
-    mul-long/2addr v4, v8
+    mul-long/2addr v6, v8
 
-    div-long/2addr v4, v6
+    div-long v4, v6, v4
 
-    .line 239
+    .line 302
     const-string v6, "DownloadWorker"
 
     new-instance v7, Ljava/lang/StringBuilder;
@@ -1002,33 +1535,13 @@
 
     invoke-static {v6, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 242
+    .line 305
     invoke-direct/range {p0 .. p0}, Lcom/bilibili/tv/ui/download/DownloadWorker;->notifyComplete()V
-    :try_end_2f0
-    .catchall {:try_start_232 .. :try_end_2f0} :catchall_303
 
-    .line 250
-    :try_start_2f0
-    invoke-virtual/range {v16 .. v16}, Ljava/io/FileOutputStream;->close()V
-    :try_end_2f3
-    .catch Ljava/io/IOException; {:try_start_2f0 .. :try_end_2f3} :catch_30e
+    goto :goto_439
 
-    .line 256
-    :goto_2f3
-    :try_start_2f3
-    invoke-virtual {v15}, Ljava/io/InputStream;->close()V
-    :try_end_2f6
-    .catch Ljava/io/IOException; {:try_start_2f3 .. :try_end_2f6} :catch_317
-
-    .line 262
-    :goto_2f6
-    invoke-virtual {v14}, Lokhttp3/Response;->close()V
-
-    goto/16 :goto_1d4
-
-    .line 244
-    :cond_2fb
-    :try_start_2fb
+    .line 307
+    :cond_49b
     new-instance v4, Ljava/io/IOException;
 
     const-string v5, "\u91cd\u547d\u540d\u6587\u4ef6\u5931\u8d25"
@@ -1036,108 +1549,97 @@
     invoke-direct {v4, v5}, Ljava/io/IOException;-><init>(Ljava/lang/String;)V
 
     throw v4
-    :try_end_303
-    .catchall {:try_start_2fb .. :try_end_303} :catchall_303
+    :try_end_4a3
+    .catchall {:try_start_444 .. :try_end_4a3} :catchall_36a
 
-    .line 249
-    :catchall_303
+    .line 315
+    :catch_4a3
     move-exception v4
 
-    .line 250
-    :try_start_304
-    invoke-virtual/range {v16 .. v16}, Ljava/io/FileOutputStream;->close()V
-    :try_end_307
-    .catch Ljava/io/IOException; {:try_start_304 .. :try_end_307} :catch_320
-
-    .line 256
-    :goto_307
-    :try_start_307
-    invoke-virtual {v15}, Ljava/io/InputStream;->close()V
-    :try_end_30a
-    .catch Ljava/io/IOException; {:try_start_307 .. :try_end_30a} :catch_329
-
-    .line 262
-    :goto_30a
-    invoke-virtual {v14}, Lokhttp3/Response;->close()V
-
-    .line 263
-    throw v4
-
-    .line 251
-    :catch_30e
-    move-exception v4
-
-    .line 252
+    .line 316
     const-string v5, "DownloadWorker"
 
     const-string v6, "\u5173\u95ed\u8f93\u51fa\u6d41\u5931\u8d25"
 
     invoke-static {v5, v6, v4}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    goto :goto_2f3
+    goto :goto_43c
 
-    .line 257
-    :catch_317
+    .line 321
+    :catch_4ac
     move-exception v4
 
-    .line 258
+    .line 322
     const-string v5, "DownloadWorker"
 
     const-string v6, "\u5173\u95ed\u8f93\u5165\u6d41\u5931\u8d25"
 
     invoke-static {v5, v6, v4}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    goto :goto_2f6
+    goto :goto_43f
 
-    .line 251
-    :catch_320
+    .line 315
+    :catch_4b5
     move-exception v5
 
-    .line 252
+    .line 316
     const-string v6, "DownloadWorker"
 
     const-string v7, "\u5173\u95ed\u8f93\u51fa\u6d41\u5931\u8d25"
 
     invoke-static {v6, v7, v5}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    goto :goto_307
+    goto/16 :goto_36e
 
-    .line 257
-    :catch_329
+    .line 321
+    :catch_4bf
     move-exception v5
 
-    .line 258
+    .line 322
     const-string v6, "DownloadWorker"
 
     const-string v7, "\u5173\u95ed\u8f93\u5165\u6d41\u5931\u8d25"
 
     invoke-static {v6, v7, v5}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    goto :goto_30a
+    goto/16 :goto_371
 
-    :cond_332
-    move-wide v10, v6
+    .line 141
+    :catch_4c9
+    move-exception v8
 
-    goto/16 :goto_14c
+    move-object v10, v8
+
+    goto/16 :goto_1a4
+
+    :cond_4cd
+    move-wide v12, v4
+
+    goto/16 :goto_24d
+
+    :cond_4d0
+    move-wide v6, v8
+
+    goto/16 :goto_11e
 .end method
 
 .method private notifyComplete()V
     .locals 2
 
     .prologue
-    .line 307
+    .line 371
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadWorker;->callback:Lcom/bilibili/tv/ui/download/DownloadWorker$DownloadCallback;
 
     if-eqz v0, :cond_b
 
-    .line 308
+    .line 372
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadWorker;->callback:Lcom/bilibili/tv/ui/download/DownloadWorker$DownloadCallback;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/DownloadWorker;->task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
     invoke-interface {v0, v1}, Lcom/bilibili/tv/ui/download/DownloadWorker$DownloadCallback;->onComplete(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 
-    .line 310
+    .line 374
     :cond_b
     return-void
 .end method
@@ -1146,19 +1648,19 @@
     .locals 2
 
     .prologue
-    .line 316
+    .line 380
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadWorker;->callback:Lcom/bilibili/tv/ui/download/DownloadWorker$DownloadCallback;
 
     if-eqz v0, :cond_b
 
-    .line 317
+    .line 381
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadWorker;->callback:Lcom/bilibili/tv/ui/download/DownloadWorker$DownloadCallback;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/DownloadWorker;->task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
     invoke-interface {v0, v1, p1, p2}, Lcom/bilibili/tv/ui/download/DownloadWorker$DownloadCallback;->onError(Lcom/bilibili/tv/ui/download/model/DownloadTask;ILjava/lang/String;)V
 
-    .line 319
+    .line 383
     :cond_b
     return-void
 .end method
@@ -1167,12 +1669,12 @@
     .locals 7
 
     .prologue
-    .line 298
+    .line 362
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadWorker;->callback:Lcom/bilibili/tv/ui/download/DownloadWorker$DownloadCallback;
 
     if-eqz v0, :cond_e
 
-    .line 299
+    .line 363
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadWorker;->callback:Lcom/bilibili/tv/ui/download/DownloadWorker$DownloadCallback;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/DownloadWorker;->task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
@@ -1185,7 +1687,7 @@
 
     invoke-interface/range {v0 .. v6}, Lcom/bilibili/tv/ui/download/DownloadWorker$DownloadCallback;->onProgress(Lcom/bilibili/tv/ui/download/model/DownloadTask;JIJ)V
 
-    .line 301
+    .line 365
     :cond_e
     return-void
 .end method
@@ -1196,7 +1698,7 @@
     .locals 3
 
     .prologue
-    .line 283
+    .line 347
     const-string v0, "DownloadWorker"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1225,12 +1727,12 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 284
+    .line 348
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/download/DownloadWorker;->isCancelled:Z
 
-    .line 287
+    .line 351
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadWorker;->downloadCall:Lokhttp3/Call;
 
     if-eqz v0, :cond_32
@@ -1243,12 +1745,12 @@
 
     if-nez v0, :cond_32
 
-    .line 288
+    .line 352
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadWorker;->downloadCall:Lokhttp3/Call;
 
     invoke-interface {v0}, Lokhttp3/Call;->cancel()V
 
-    .line 290
+    .line 354
     :cond_32
     return-void
 .end method
@@ -1257,7 +1759,7 @@
     .locals 3
 
     .prologue
-    .line 270
+    .line 334
     const-string v0, "DownloadWorker"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1286,12 +1788,12 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 271
+    .line 335
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/download/DownloadWorker;->isPaused:Z
 
-    .line 274
+    .line 338
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadWorker;->downloadCall:Lokhttp3/Call;
 
     if-eqz v0, :cond_32
@@ -1304,12 +1806,12 @@
 
     if-nez v0, :cond_32
 
-    .line 275
+    .line 339
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadWorker;->downloadCall:Lokhttp3/Call;
 
     invoke-interface {v0}, Lokhttp3/Call;->cancel()V
 
-    .line 277
+    .line 341
     :cond_32
     return-void
 .end method

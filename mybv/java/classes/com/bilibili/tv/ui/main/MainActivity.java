@@ -48,7 +48,6 @@ import bl.lv;
 import bl.mg;
 import bl.mn;
 import bl.ok;
-import com.bilibili.tv.ui.download.DownloadManagerActivity;
 import bl.wh;
 import com.bilibili.lib.account.AccountException;
 import com.bilibili.lib.account.subscribe.Topic;
@@ -446,7 +445,28 @@ public final class MainActivity extends BaseActivity {
 
     public final View j() {
         RecyclerView recyclerView = this.c;
-        int childCount = recyclerView != null ? recyclerView.getChildCount() : 0;
+        if (recyclerView == null) {
+            return null;
+        }
+        // 根据ViewPager当前页反查对应tab（fragmentPosition + 1 = tabPosition）
+        // tab失焦后selected状态被复位，不能再依赖isSelected定位当前tab
+        FixedViewPager viewPager = this.f;
+        if (viewPager != null) {
+            // tab位置 = ViewPager当前页 + 1（position 0是搜索，fragmentPosition + 1 = tabPosition）
+            // 通过tag(main_title_position)匹配当前页对应的tab，避免依赖isSelected
+            int targetPosition = viewPager.getCurrentItem() + 1;
+            int childCount2 = recyclerView.getChildCount();
+            for (int i3 = 0; i3 < childCount2; i3++) {
+                View childAt = recyclerView.getChildAt(i3);
+                if (childAt != null) {
+                    Object tag = childAt.getTag(R.id.main_title_position);
+                    if (tag instanceof Integer && ((Integer) tag).intValue() == targetPosition) {
+                        return childAt;
+                    }
+                }
+            }
+        }
+        int childCount = recyclerView.getChildCount();
         int i2 = 0;
         while (true) {
             if (i2 < childCount) {
@@ -551,16 +571,18 @@ public final class MainActivity extends BaseActivity {
             return true;
         }
         switch (keyCode) {
-            case KeyEvent.KEYCODE_DPAD_DOWN:
-                d dVar = this.d;
-                if (dVar != null && currentFocus != null) {
-                    Object tag = currentFocus.getTag(R.id.main_title_position);
-                    if ((tag instanceof Integer) && (bbi.a(tag, (Object) 0) || bbi.a(tag, Integer.valueOf(dVar.a() - 1)))) {
-                        return true;
-                    }
+                    case KeyEvent.KEYCODE_DPAD_DOWN:
+                        d dVar = this.d;
+                        if (dVar != null && currentFocus != null) {
+                            Object tag = currentFocus.getTag(R.id.main_title_position);
+                            // 拦截 DOWN：position 0（搜索）、最后一个（设置）
+                            // 这些按钮按下键时焦点不移动，避免误触到下方视频列表
+                            if ((tag instanceof Integer) && (bbi.a(tag, (Object) 0) || bbi.a(tag, Integer.valueOf(dVar.a() - 1)))) {
+                                return true;
+                            }
+                        }
+                        break;
                 }
-                break;
-        }
         return super.onKeyDown(keyCode, event);
     }
 
@@ -587,6 +609,7 @@ public final class MainActivity extends BaseActivity {
             
             int topTabConfig = abd.get_top_tab_config(context);
             int position = 1;
+            // 数组容量：0搜索 + 6个文本tab + 我的 + 设置 = 9，最大下标8
             this.tabMapping = new int[9];
             this.tabMapping[0] = -1;
             
@@ -623,9 +646,6 @@ public final class MainActivity extends BaseActivity {
             
             this.b.put(position, new MainTitle(e, R.string.my));
             this.tabMapping[position] = 7;
-            position++;
-            this.b.put(position, new MainTitle(f, R.drawable.selector_main_download_manager));
-            this.tabMapping[position] = 9;
             position++;
             this.b.put(position, new MainTitle(f, R.drawable.selector_main_setting));
             this.tabMapping[position] = 8;
@@ -694,14 +714,10 @@ public final class MainActivity extends BaseActivity {
                 Activity a = adl.a(context);
                 if (a != null) {
                     int tabCount = d.this.a();
-                    int downloadManagerIndex = tabCount - 2;
                     int settingIndex = tabCount - 1;
                     int tabType = d.this.getTabType(this.b);
                     if (this.b == 0) {
                         SearchActivity.Companion.a(a, 0);
-                    } else if (this.b == downloadManagerIndex) {
-                        // 打开下载管理页面
-                        DownloadManagerActivity.Companion.a(a, 1);
                     } else if (this.b == settingIndex) {
                         SettingActivity.Companion.a(a, SettingActivity.Companion.b());
                     } else if (tabType == 1) {
@@ -755,6 +771,8 @@ public final class MainActivity extends BaseActivity {
                     }
                 } else if (this.d) {
                     this.d = false;
+                    // 必须复位selected状态，否则icon的duplicateParentState子View收不到状态刷新，高亮背景残留
+                    view.setSelected(false);
                     if (!(view instanceof MainTitleLayout)) {
                         view = null;
                     }

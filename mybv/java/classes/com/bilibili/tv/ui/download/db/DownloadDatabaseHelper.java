@@ -178,6 +178,24 @@ public class DownloadDatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * 更新任务的下载URL（DownloadWorker真正开始下载时获取URL后回写）
+     */
+    public int updateVideoUrl(String taskId, String videoUrl) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("video_url", videoUrl);
+
+        int rowsAffected = db.update(TABLE_TASKS, values, "task_id = ?", new String[]{taskId});
+        if (rowsAffected > 0) {
+            Log.d(TAG, "更新下载URL成功: " + taskId);
+        } else {
+            Log.w(TAG, "更新下载URL失败: " + taskId);
+        }
+
+        return rowsAffected;
+    }
+
+    /**
      * 删除下载任务
      */
     public int deleteTask(String taskId) {

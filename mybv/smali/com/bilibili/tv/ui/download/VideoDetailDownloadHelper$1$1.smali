@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 150
+    .line 173
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1$1;->this$0:Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,12 +40,12 @@
     .locals 3
 
     .prologue
-    .line 153
+    .line 176
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1$1;->this$0:Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;->val$context:Landroid/content/Context;
 
-    const-string v1, "\u83b7\u53d6\u4e0b\u8f7dURL\u5931\u8d25"
+    const-string v1, "\u521b\u5efa\u4e0b\u8f7d\u6587\u4ef6\u5931\u8d25\uff0c\u8bf7\u68c0\u67e5\u5b58\u50a8\u8bbe\u5907"
 
     const/4 v2, 0x0
 
@@ -55,6 +55,6 @@
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    .line 154
+    .line 177
     return-void
 .end method

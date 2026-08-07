@@ -133,8 +133,9 @@ public class DownloadTaskAdapter extends RecyclerView.a<DownloadTaskAdapter.View
             // 已完成：显示本地文件名（右对齐）
             String filePath = task.getDownloadPath();
             if (filePath != null && !filePath.isEmpty()) {
-                // 提取文件名
-                String fileName = filePath.substring(filePath.lastIndexOf('/') + 1);
+                // 提取文件名（SAF content URI中文被URL编码，需解码；兼容普通文件路径）
+                String fileName = com.bilibili.tv.ui.download.SafFileHelper.getFileNameFromPath(
+                        holder.titleText.getContext(), filePath);
                 holder.subTitleText.setText(fileName);
                 holder.subTitleText.setVisibility(View.VISIBLE);
                 // 设置右对齐

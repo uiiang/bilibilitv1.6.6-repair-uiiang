@@ -288,7 +288,8 @@ public class GroupedDownloadFragment extends Fragment implements DownloadManager
             return;
         }
 
-        String oldFileName = filePath.substring(filePath.lastIndexOf('/') + 1);
+        // 提取文件名（SAF content URI中文被URL编码，需解码；兼容普通文件路径）
+        String oldFileName = SafFileHelper.getFileNameFromPath(getContext(), filePath);
         final String fileExtension = oldFileName.contains(".") ?
             oldFileName.substring(oldFileName.lastIndexOf('.')) : "";
         String fileNameWithoutExt = oldFileName.contains(".") ?
@@ -331,6 +332,25 @@ public class GroupedDownloadFragment extends Fragment implements DownloadManager
         try {
             String oldFilePath = task.getDownloadPath();
             android.util.Log.i("GroupedDownloadFragment", "renameLocalFile: oldFilePath=" + oldFilePath);
+
+            if (oldFilePath != null && oldFilePath.startsWith("content://")) {
+                // SAF：通过SafFileHelper重命名
+                if (!SafFileHelper.exists(getContext(), oldFilePath)) {
+                    android.widget.Toast.makeText(getContext(), "文件不存在", android.widget.Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                String newUri = SafFileHelper.rename(getContext(), oldFilePath, newFileName);
+                if (newUri != null) {
+                    task.setDownloadPath(newUri);
+                    android.util.Log.i("GroupedDownloadFragment", "renameLocalFile: SAF task.downloadPath updated to=" + task.getDownloadPath());
+                    DownloadManager.getInstance(getContext()).updateTask(task);
+                    android.widget.Toast.makeText(getContext(), "重命名成功", android.widget.Toast.LENGTH_SHORT).show();
+                    refreshList();
+                } else {
+                    android.widget.Toast.makeText(getContext(), "重命名失败", android.widget.Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
 
             java.io.File oldFile = new java.io.File(oldFilePath);
 
@@ -395,31 +415,42 @@ public class GroupedDownloadFragment extends Fragment implements DownloadManager
             return;
         }
 
-        final java.io.File file = new java.io.File(downloadPath);
-        if (!file.exists()) {
-            android.widget.Toast.makeText(getContext(), "文件不存在，请重新下载", android.widget.Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (!file.canRead()) {
-            android.widget.Toast.makeText(getContext(), "文件无法读取，请检查权限", android.widget.Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (file.length() == 0) {
-            android.widget.Toast.makeText(getContext(), "文件大小为0，可能下载未完成", android.widget.Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         try {
             android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_VIEW);
             android.net.Uri uri;
 
-            if (android.os.Build.VERSION.SDK_INT >= 24) {
-                uri = android.support.v4.content.FileProvider.a(getContext(), getContext().getPackageName() + ".fileprovider", file);
+            if (downloadPath.startsWith("content://")) {
+                // SAF：外接U盘文件，直接使用content URI
+                if (!SafFileHelper.exists(getContext(), downloadPath)
+                        || SafFileHelper.getFileSize(getContext(), downloadPath) == 0) {
+                    android.widget.Toast.makeText(getContext(), "文件不存在或大小为0", android.widget.Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                uri = android.net.Uri.parse(downloadPath);
                 intent.addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION);
             } else {
-                uri = android.net.Uri.fromFile(file);
+                final java.io.File file = new java.io.File(downloadPath);
+                if (!file.exists()) {
+                    android.widget.Toast.makeText(getContext(), "文件不存在，请重新下载", android.widget.Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (!file.canRead()) {
+                    android.widget.Toast.makeText(getContext(), "文件无法读取，请检查权限", android.widget.Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (file.length() == 0) {
+                    android.widget.Toast.makeText(getContext(), "文件大小为0，可能下载未完成", android.widget.Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (android.os.Build.VERSION.SDK_INT >= 24) {
+                    uri = android.support.v4.content.FileProvider.a(getContext(), getContext().getPackageName() + ".fileprovider", file);
+                    intent.addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                } else {
+                    uri = android.net.Uri.fromFile(file);
+                }
             }
 
             intent.setDataAndType(uri, "video/*");
@@ -445,45 +476,61 @@ public class GroupedDownloadFragment extends Fragment implements DownloadManager
             return;
         }
 
-        final java.io.File file = new java.io.File(downloadPath);
-        android.util.Log.i("GroupedDownloadFragment", "playLocalFile: file path=" + file.getAbsolutePath());
-        android.util.Log.i("GroupedDownloadFragment", "playLocalFile: file exists=" + file.exists());
-        android.util.Log.i("GroupedDownloadFragment", "playLocalFile: file length=" + file.length());
-        android.util.Log.i("GroupedDownloadFragment", "playLocalFile: file canRead=" + file.canRead());
-
-        if (!file.exists()) {
-            android.widget.Toast.makeText(getContext(), "文件不存在，请重新下载", android.widget.Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (!file.canRead()) {
-            android.widget.Toast.makeText(getContext(), "文件无法读取，请检查权限", android.widget.Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (file.length() == 0) {
-            android.widget.Toast.makeText(getContext(), "文件大小为0，可能下载未完成", android.widget.Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         try {
             android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_VIEW);
             android.net.Uri uri;
 
-            if (android.os.Build.VERSION.SDK_INT >= 24) {
-                try {
-                    uri = android.support.v4.content.FileProvider.a(getContext(), getContext().getPackageName() + ".fileprovider", file);
-                    intent.addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    android.util.Log.i("GroupedDownloadFragment", "playLocalFile: FileProvider URI=" + uri.toString());
-                } catch (Exception e) {
-                    android.util.Log.w("GroupedDownloadFragment", "FileProvider error, fallback to online play", e);
-                    android.widget.Toast.makeText(getContext(), "本地播放失败，尝试在线播放", android.widget.Toast.LENGTH_SHORT).show();
-                    playOnlineVideo(task);
+            if (downloadPath.startsWith("content://")) {
+                // SAF：外接U盘文件，直接使用content URI
+                long safSize = SafFileHelper.getFileSize(getContext(), downloadPath);
+                android.util.Log.i("GroupedDownloadFragment", "playLocalFile: SAF file size=" + safSize);
+                if (safSize < 0) {
+                    android.widget.Toast.makeText(getContext(), "文件不存在，请重新下载", android.widget.Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (safSize == 0) {
+                    android.widget.Toast.makeText(getContext(), "文件大小为0，可能下载未完成", android.widget.Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                uri = android.net.Uri.parse(downloadPath);
+                intent.addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION);
             } else {
-                uri = android.net.Uri.fromFile(file);
-                android.util.Log.i("GroupedDownloadFragment", "playLocalFile: direct file URI=" + uri.toString());
+                final java.io.File file = new java.io.File(downloadPath);
+                android.util.Log.i("GroupedDownloadFragment", "playLocalFile: file path=" + file.getAbsolutePath());
+                android.util.Log.i("GroupedDownloadFragment", "playLocalFile: file exists=" + file.exists());
+                android.util.Log.i("GroupedDownloadFragment", "playLocalFile: file length=" + file.length());
+                android.util.Log.i("GroupedDownloadFragment", "playLocalFile: file canRead=" + file.canRead());
+
+                if (!file.exists()) {
+                    android.widget.Toast.makeText(getContext(), "文件不存在，请重新下载", android.widget.Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (!file.canRead()) {
+                    android.widget.Toast.makeText(getContext(), "文件无法读取，请检查权限", android.widget.Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (file.length() == 0) {
+                    android.widget.Toast.makeText(getContext(), "文件大小为0，可能下载未完成", android.widget.Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (android.os.Build.VERSION.SDK_INT >= 24) {
+                    try {
+                        uri = android.support.v4.content.FileProvider.a(getContext(), getContext().getPackageName() + ".fileprovider", file);
+                        intent.addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        android.util.Log.i("GroupedDownloadFragment", "playLocalFile: FileProvider URI=" + uri.toString());
+                    } catch (Exception e) {
+                        android.util.Log.w("GroupedDownloadFragment", "FileProvider error, fallback to online play", e);
+                        android.widget.Toast.makeText(getContext(), "本地播放失败，尝试在线播放", android.widget.Toast.LENGTH_SHORT).show();
+                        playOnlineVideo(task);
+                        return;
+                    }
+                } else {
+                    uri = android.net.Uri.fromFile(file);
+                    android.util.Log.i("GroupedDownloadFragment", "playLocalFile: direct file URI=" + uri.toString());
+                }
             }
 
             intent.setDataAndType(uri, "video/*");
@@ -515,6 +562,14 @@ public class GroupedDownloadFragment extends Fragment implements DownloadManager
 
     private void deleteLocalFile(DownloadTask task) {
         try {
+            String path = task.getDownloadPath();
+            if (path != null && path.startsWith("content://")) {
+                // SAF：通过SafFileHelper删除
+                if (SafFileHelper.exists(getContext(), path)) {
+                    SafFileHelper.delete(getContext(), path);
+                }
+                return;
+            }
             java.io.File file = new java.io.File(task.getDownloadPath());
             if (file.exists()) {
                 file.delete();

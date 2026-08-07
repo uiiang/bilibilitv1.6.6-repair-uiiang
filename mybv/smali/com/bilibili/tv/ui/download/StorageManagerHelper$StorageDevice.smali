@@ -35,31 +35,31 @@
     .locals 0
 
     .prologue
-    .line 261
+    .line 315
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 262
+    .line 316
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->name:Ljava/lang/String;
 
-    .line 263
+    .line 317
     iput-object p2, p0, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->path:Ljava/lang/String;
 
-    .line 264
+    .line 318
     iput-boolean p3, p0, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->removable:Z
 
-    .line 265
+    .line 319
     iput-boolean p4, p0, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->mounted:Z
 
-    .line 266
+    .line 320
     iput-boolean p5, p0, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->writable:Z
 
-    .line 267
+    .line 321
     iput-wide p6, p0, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->totalSpace:J
 
-    .line 268
+    .line 322
     iput-wide p8, p0, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->usableSpace:J
 
-    .line 269
+    .line 323
     return-void
 .end method
 
@@ -69,7 +69,7 @@
     .locals 2
 
     .prologue
-    .line 284
+    .line 338
     iget-wide v0, p0, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->totalSpace:J
 
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/download/StorageManagerHelper;->formatStorageSize(J)Ljava/lang/String;
@@ -83,7 +83,7 @@
     .locals 2
 
     .prologue
-    .line 291
+    .line 345
     iget-wide v0, p0, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->usableSpace:J
 
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/download/StorageManagerHelper;->formatStorageSize(J)Ljava/lang/String;
@@ -97,7 +97,7 @@
     .locals 1
 
     .prologue
-    .line 272
+    .line 326
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->name:Ljava/lang/String;
 
     return-object v0
@@ -107,7 +107,7 @@
     .locals 1
 
     .prologue
-    .line 273
+    .line 327
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->path:Ljava/lang/String;
 
     return-object v0
@@ -117,7 +117,7 @@
     .locals 2
 
     .prologue
-    .line 277
+    .line 331
     iget-wide v0, p0, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->totalSpace:J
 
     return-wide v0
@@ -127,7 +127,7 @@
     .locals 2
 
     .prologue
-    .line 278
+    .line 332
     iget-wide v0, p0, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->usableSpace:J
 
     return-wide v0
@@ -137,7 +137,7 @@
     .locals 4
 
     .prologue
-    .line 298
+    .line 352
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->mounted:Z
 
     if-eqz v0, :cond_12
@@ -169,7 +169,7 @@
     .locals 1
 
     .prologue
-    .line 275
+    .line 329
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->mounted:Z
 
     return v0
@@ -179,7 +179,7 @@
     .locals 1
 
     .prologue
-    .line 274
+    .line 328
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->removable:Z
 
     return v0
@@ -189,7 +189,7 @@
     .locals 1
 
     .prologue
-    .line 276
+    .line 330
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->writable:Z
 
     return v0
@@ -199,7 +199,7 @@
     .locals 4
 
     .prologue
-    .line 303
+    .line 357
     const-string v0, "%s (%s, \u53ef\u7528 %s)"
 
     const/4 v1, 0x3
@@ -214,7 +214,7 @@
 
     const/4 v2, 0x1
 
-    .line 304
+    .line 358
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->getFormattedTotalSpace()Ljava/lang/String;
 
     move-result-object v3
@@ -229,7 +229,7 @@
 
     aput-object v3, v1, v2
 
-    .line 303
+    .line 357
     invoke-static {v0, v1}, Ljava/lang/String;->format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
 
     move-result-object v0

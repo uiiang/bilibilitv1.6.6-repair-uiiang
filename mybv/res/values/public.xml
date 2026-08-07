@@ -3667,4 +3667,5 @@
     <public type="layout" name="activity_task_group_detail" id="0x7f0a00b5" />
     <public type="drawable" name="ic_checked" id="0x7f070111" />
     <public type="drawable" name="ic_unchecked" id="0x7f070112" />
+    <public type="id" name="tab_button7" id="0x7f080261" />
 </resources>

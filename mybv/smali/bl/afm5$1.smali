@@ -20,14 +20,18 @@
 # instance fields
 .field final synthetic this$0:Lbl/afm5;
 
+.field final synthetic val$activity:Landroid/app/Activity;
+
 
 # direct methods
-.method constructor <init>(Lbl/afm5;)V
+.method constructor <init>(Lbl/afm5;Landroid/app/Activity;)V
     .locals 0
 
     .prologue
-    .line 450
+    .line 477
     iput-object p1, p0, Lbl/afm5$1;->this$0:Lbl/afm5;
+
+    iput-object p2, p0, Lbl/afm5$1;->val$activity:Landroid/app/Activity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -37,88 +41,125 @@
 
 # virtual methods
 .method public onClick(Landroid/view/View;)V
-    .locals 3
+    .locals 5
 
     .prologue
-    .line 453
+    const/4 v4, 0x1
+
+    .line 480
     iget-object v0, p0, Lbl/afm5$1;->this$0:Lbl/afm5;
 
-    # getter for: Lbl/afm5;->folderPickerCurrentDir:Ljava/io/File;
-    invoke-static {v0}, Lbl/afm5;->access$000(Lbl/afm5;)Ljava/io/File;
+    # getter for: Lbl/afm5;->safAvailable:Z
+    invoke-static {v0}, Lbl/afm5;->access$000(Lbl/afm5;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_2e
+
+    .line 481
+    const-string v0, "afm5"
+
+    const-string v1, "\u7cfb\u7edf\u6587\u4ef6\u7ba1\u7406\u5668\u4e0d\u53ef\u7528\uff0c\u65e0\u6cd5\u6253\u5f00"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 482
+    sget v0, Landroid/os/Build$VERSION;->SDK_INT:I
+
+    const/16 v1, 0x1a
+
+    if-lt v0, v1, :cond_22
+
+    .line 483
+    iget-object v0, p0, Lbl/afm5$1;->val$activity:Landroid/app/Activity;
+
+    const-string v1, "\u6b64\u8bbe\u5907\u6ca1\u6709\u7cfb\u7edf\u6587\u4ef6\u7ba1\u7406\u5668\uff0c\u8bf7\u5728\u5217\u8868\u4e2d\u786e\u8ba4\u5916\u63a5U\u76d8\u53ef\u5199\u540e\u518d\u70b9\u786e\u5b9a"
+
+    invoke-static {v0, v1, v4}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
 
     move-result-object v0
 
-    if-nez v0, :cond_9
+    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    .line 461
-    :goto_8
+    .line 496
+    :goto_21
     return-void
 
-    .line 456
-    :cond_9
-    iget-object v0, p0, Lbl/afm5$1;->this$0:Lbl/afm5;
+    .line 485
+    :cond_22
+    iget-object v0, p0, Lbl/afm5$1;->val$activity:Landroid/app/Activity;
 
+    const-string v1, "\u6b64\u8bbe\u5907\u4e0d\u652f\u6301\u7cfb\u7edf\u6587\u4ef6\u9009\u62e9\u5668\uff0c\u53ef\u76f4\u63a5\u5728\u5217\u8868\u4e2d\u9009\u62e9\u5916\u63a5U\u76d8\u6587\u4ef6\u5939"
+
+    invoke-static {v0, v1, v4}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+
+    goto :goto_21
+
+    .line 490
+    :cond_2e
+    :try_start_2e
+    new-instance v0, Landroid/content/Intent;
+
+    const-string v1, "android.intent.action.OPEN_DOCUMENT_TREE"
+
+    invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
+
+    .line 491
     iget-object v1, p0, Lbl/afm5$1;->this$0:Lbl/afm5;
 
-    # getter for: Lbl/afm5;->folderPickerCurrentDir:Ljava/io/File;
-    invoke-static {v1}, Lbl/afm5;->access$000(Lbl/afm5;)Ljava/io/File;
+    const/16 v2, 0x3eb
 
-    move-result-object v1
+    invoke-virtual {v1, v0, v2}, Lbl/afm5;->startActivityForResult(Landroid/content/Intent;I)V
+    :try_end_3c
+    .catch Ljava/lang/Exception; {:try_start_2e .. :try_end_3c} :catch_3d
 
-    invoke-virtual {v1}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+    goto :goto_21
 
-    move-result-object v1
+    .line 492
+    :catch_3d
+    move-exception v0
 
-    # setter for: Lbl/afm5;->downloadPath:Ljava/lang/String;
-    invoke-static {v0, v1}, Lbl/afm5;->access$102(Lbl/afm5;Ljava/lang/String;)Ljava/lang/String;
+    .line 493
+    const-string v1, "afm5"
 
-    .line 457
-    const-string v0, "afm5"
+    new-instance v2, Ljava/lang/StringBuilder;
 
-    new-instance v1, Ljava/lang/StringBuilder;
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+    const-string v3, "\u6253\u5f00\u7cfb\u7edf\u6587\u4ef6\u9009\u62e9\u5668\u5931\u8d25: "
 
-    const-string v2, "\u786e\u8ba4\u9009\u62e9\u4e0b\u8f7d\u6587\u4ef6\u5939: "
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lbl/afm5$1;->this$0:Lbl/afm5;
-
-    # getter for: Lbl/afm5;->downloadPath:Ljava/lang/String;
-    invoke-static {v2}, Lbl/afm5;->access$100(Lbl/afm5;)Ljava/lang/String;
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v2
 
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
 
-    move-result-object v1
+    move-result-object v0
 
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v1
+    move-result-object v0
 
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    .line 458
-    iget-object v0, p0, Lbl/afm5$1;->this$0:Lbl/afm5;
+    move-result-object v0
 
-    # invokes: Lbl/afm5;->updateUI()V
-    invoke-static {v0}, Lbl/afm5;->access$200(Lbl/afm5;)V
+    invoke-static {v1, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 459
-    iget-object v0, p0, Lbl/afm5$1;->this$0:Lbl/afm5;
+    .line 494
+    iget-object v0, p0, Lbl/afm5$1;->val$activity:Landroid/app/Activity;
 
-    # invokes: Lbl/afm5;->saveSettings()V
-    invoke-static {v0}, Lbl/afm5;->access$300(Lbl/afm5;)V
+    const-string v1, "\u65e0\u6cd5\u6253\u5f00\u7cfb\u7edf\u6587\u4ef6\u9009\u62e9\u5668\uff0c\u8bf7\u5728\u5217\u8868\u4e2d\u9009\u62e9\u5916\u63a5U\u76d8\u6587\u4ef6\u5939"
 
-    .line 460
-    iget-object v0, p0, Lbl/afm5$1;->this$0:Lbl/afm5;
+    invoke-static {v0, v1, v4}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
 
-    # invokes: Lbl/afm5;->hideFolderPicker()V
-    invoke-static {v0}, Lbl/afm5;->access$400(Lbl/afm5;)V
+    move-result-object v0
 
-    goto :goto_8
+    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+
+    goto :goto_21
 .end method

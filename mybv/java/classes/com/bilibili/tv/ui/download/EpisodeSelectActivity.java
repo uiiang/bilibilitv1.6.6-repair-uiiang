@@ -275,6 +275,16 @@ public class EpisodeSelectActivity extends Activity {
 
         Log.i(TAG, "startDownload: selectedEpisodes count=" + selectedEpisodes.size());
 
+        // 修复：批量添加前先统一检查下载存储是否可用（如U盘已拔出）。
+        // 存储不可用时直接显示错误对话框并返回：不添加任务、不误提示"已添加"、
+        // 不finish()，保证错误对话框正常保留显示（此前finish()导致对话框瞬间被销毁）
+        String storageError = VideoDetailDownloadHelper.checkStorageAvailable(this);
+        if (storageError != null) {
+            Log.w(TAG, "startDownload: 存储检查失败: " + storageError);
+            VideoDetailDownloadHelper.showErrorDialog(this, "无法下载", storageError);
+            return;
+        }
+
         // 添加下载任务
         int taskCount = 0;
         for (int index : selectedEpisodes) {
@@ -285,7 +295,7 @@ public class EpisodeSelectActivity extends Activity {
             Log.i(TAG, "startDownload: adding task for index=" + index + ", cid=" + cid + ", partTitle=" + partTitle);
 
             // 调用VideoDetailDownloadHelper添加下载任务（分P序号从1开始）
-            VideoDetailDownloadHelper.startDownload(
+            boolean added = VideoDetailDownloadHelper.startDownload(
                     this,
                     avid,
                     bvid,
@@ -299,7 +309,12 @@ public class EpisodeSelectActivity extends Activity {
                     episodeList.size(), // 视频总P数
                     null // qualityList参数为null，使用默认画质
             );
-
+            if (!added) {
+                // 该分P因存储问题未添加（错误对话框已由startDownload内部显示），
+                // 中断整个批量流程：不Toast"已添加"、不finish()，保留错误对话框
+                Log.w(TAG, "startDownload: 分P添加失败，中断批量下载");
+                return;
+            }
             taskCount++;
         }
 

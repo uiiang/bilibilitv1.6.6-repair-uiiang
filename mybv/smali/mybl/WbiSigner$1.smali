@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 56
+    .line 53
     iput-object p1, p0, Lmybl/WbiSigner$1;->this$0:Lmybl/WbiSigner;
 
     iput-object p2, p0, Lmybl/WbiSigner$1;->val$callback:Lmybl/WbiSigner$WbiKeyCallback;
@@ -44,14 +44,14 @@
     .locals 2
 
     .prologue
-    .line 59
+    .line 56
     iget-object v0, p0, Lmybl/WbiSigner$1;->this$0:Lmybl/WbiSigner;
 
     invoke-virtual {v0}, Lmybl/WbiSigner;->updateKeysBlocking()Z
 
     move-result v0
 
-    .line 60
+    .line 57
     if-eqz v0, :cond_1f
 
     iget-object v0, p0, Lmybl/WbiSigner$1;->this$0:Lmybl/WbiSigner;
@@ -63,7 +63,7 @@
 
     if-eqz v0, :cond_1f
 
-    .line 61
+    .line 58
     iget-object v0, p0, Lmybl/WbiSigner$1;->this$0:Lmybl/WbiSigner;
 
     # getter for: Lmybl/WbiSigner;->mainHandler:Landroid/os/Handler;
@@ -77,11 +77,11 @@
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
 
-    .line 75
+    .line 72
     :goto_1e
     return-void
 
-    .line 68
+    .line 65
     :cond_1f
     iget-object v0, p0, Lmybl/WbiSigner$1;->this$0:Lmybl/WbiSigner;
 

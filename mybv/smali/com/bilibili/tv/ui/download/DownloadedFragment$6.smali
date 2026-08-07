@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 335
+    .line 357
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$6;->this$0:Lcom/bilibili/tv/ui/download/DownloadedFragment;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$6;->val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
@@ -44,7 +44,7 @@
     .locals 3
 
     .prologue
-    .line 339
+    .line 361
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$6;->this$0:Lcom/bilibili/tv/ui/download/DownloadedFragment;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$6;->val$task:Lcom/bilibili/tv/ui/download/model/DownloadTask;
@@ -52,7 +52,7 @@
     # invokes: Lcom/bilibili/tv/ui/download/DownloadedFragment;->deleteLocalFile(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/download/DownloadedFragment;->access$800(Lcom/bilibili/tv/ui/download/DownloadedFragment;Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 
-    .line 342
+    .line 364
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$6;->this$0:Lcom/bilibili/tv/ui/download/DownloadedFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/DownloadedFragment;->getContext()Landroid/content/Context;
@@ -71,7 +71,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/download/DownloadManager;->deleteTask(Ljava/lang/String;)V
 
-    .line 344
+    .line 366
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$6;->this$0:Lcom/bilibili/tv/ui/download/DownloadedFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/DownloadedFragment;->getContext()Landroid/content/Context;
@@ -88,12 +88,12 @@
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    .line 345
+    .line 367
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadedFragment$6;->this$0:Lcom/bilibili/tv/ui/download/DownloadedFragment;
 
     # invokes: Lcom/bilibili/tv/ui/download/DownloadedFragment;->refreshList()V
     invoke-static {v0}, Lcom/bilibili/tv/ui/download/DownloadedFragment;->access$900(Lcom/bilibili/tv/ui/download/DownloadedFragment;)V
 
-    .line 346
+    .line 368
     return-void
 .end method

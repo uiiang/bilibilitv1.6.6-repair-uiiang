@@ -33,6 +33,7 @@ import bl.*;
 import mybl.CookieUtil;
 import com.bilibili.tv.ui.history.VideoToviewActivity;
 import com.bilibili.tv.ui.history.HistorySideActivity;
+import com.bilibili.tv.ui.download.DownloadManagerActivity;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
 import com.bilibili.tv.widget.side.SideRightGridLayoutManger;
 
@@ -46,7 +47,7 @@ public final class MainMyFragment extends adu implements aez, wf {
     private b b;
     private boolean c;
 
-    public static int[] MyMap={0,1,2,3,4,5,6};
+    public static int[] MyMap={0,1,2,3,4,5,6,7};
 
     @Override // bl.wf
     public String a() {
@@ -271,9 +272,9 @@ public final class MainMyFragment extends adu implements aez, wf {
     /* compiled from: BL */
     /* loaded from: classes.dex */
     static final class b extends RecyclerView.a<adv> implements View.OnClickListener {
-        private final int[] titles = {R.string.login, R.string.my_attention, R.string.my_toview, R.string.my_favorite, R.string.my_history, R.string.bangumi_main_follow, R.string.pgc_main_follow};
-        private final int[] colors = {R.color.color_1, R.color.color_2, R.color.color_3, R.color.color_5, R.color.color_6, R.color.color_4, R.color.color_7};
-        private final int[] logos = {R.drawable.ic_user_center_default_avatar, R.drawable.ic_group_180, R.drawable.ic_toview_180, R.drawable.ic_user_center_star, R.drawable.ic_user_center_history, R.drawable.ic_bangumi_favourite, R.drawable.ic_bangumi_favourite};
+        private final int[] titles = {R.string.login, R.string.my_attention, R.string.my_toview, R.string.my_favorite, R.string.my_history, R.string.bangumi_main_follow, R.string.pgc_main_follow, R.string.download_manager};
+        private final int[] colors = {R.color.color_1, R.color.color_2, R.color.color_3, R.color.color_5, R.color.color_6, R.color.color_4, R.color.color_7, R.color.color_8};
+        private final int[] logos = {R.drawable.ic_user_center_default_avatar, R.drawable.ic_group_180, R.drawable.ic_toview_180, R.drawable.ic_user_center_star, R.drawable.ic_user_center_history, R.drawable.ic_bangumi_favourite, R.drawable.ic_bangumi_favourite, R.drawable.selector_main_download_manager};
         private AccountInfo d;
         private boolean e;
         private int f;
@@ -440,6 +441,10 @@ public final class MainMyFragment extends adu implements aez, wf {
                         }
                         FollowPgcActivity.Companion.a(a2);
                         ok.a("tv_my_pgc_follow_click", "action", "1");
+                        return;
+                    case 7:
+                        // 下载管理不需要登录，直接进入
+                        DownloadManagerActivity.Companion.a(a2, 1);
                         return;
                     default:
                         return;

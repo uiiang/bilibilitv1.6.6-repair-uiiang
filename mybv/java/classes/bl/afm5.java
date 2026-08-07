@@ -34,6 +34,7 @@ public final class afm5 extends adw implements View.OnFocusChangeListener, View.
 
     // 设置项
     private String downloadPath = "";
+    private String downloadUri = ""; // SAF授权目录URI（content://，空表示使用文件路径）
     private int quality = 80; // 默认1080P
     private int audioQuality = 30280; // 默认高品质
     private String codec = "avc"; // 默认AVC
@@ -41,6 +42,7 @@ public final class afm5 extends adw implements View.OnFocusChangeListener, View.
     // 文件夹选择器（右侧弹出菜单对话框，参考收藏夹页 FavoriteMenuDialog）
     private android.app.Dialog folderPickerDialog = null;
     private java.io.File folderPickerCurrentDir = null;
+    private boolean safAvailable = false; // 系统文件管理器（DocumentsUI）是否可用，部分TV系统裁剪了该组件
 
     @Override // bl.adw
     public boolean c() {
@@ -176,11 +178,12 @@ public final class afm5 extends adw implements View.OnFocusChangeListener, View.
 
         SharedPreferences prefs = activity.getSharedPreferences("download_settings", Context.MODE_PRIVATE);
         downloadPath = prefs.getString("download_path", "");
+        downloadUri = prefs.getString("download_uri", "");
         quality = prefs.getInt("quality", 80); // 默认1080P
         audioQuality = prefs.getInt("audio_quality", 30280); // 默认高品质
         codec = prefs.getString("codec", "avc"); // 默认AVC
 
-        Log.i("afm5", "加载设置: path=" + downloadPath + ", quality=" + quality + ", audio=" + audioQuality + ", codec=" + codec);
+        Log.i("afm5", "加载设置: path=" + downloadPath + ", uri=" + downloadUri + ", quality=" + quality + ", audio=" + audioQuality + ", codec=" + codec);
     }
 
     /**
@@ -195,12 +198,13 @@ public final class afm5 extends adw implements View.OnFocusChangeListener, View.
         SharedPreferences prefs = activity.getSharedPreferences("download_settings", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("download_path", downloadPath);
+        editor.putString("download_uri", downloadUri);
         editor.putInt("quality", quality);
         editor.putInt("audio_quality", audioQuality);
         editor.putString("codec", codec);
         editor.apply();
 
-        Log.i("afm5", "保存设置: path=" + downloadPath + ", quality=" + quality + ", audio=" + audioQuality + ", codec=" + codec);
+        Log.i("afm5", "保存设置: path=" + downloadPath + ", uri=" + downloadUri + ", quality=" + quality + ", audio=" + audioQuality + ", codec=" + codec);
     }
 
     /**
@@ -319,12 +323,16 @@ public final class afm5 extends adw implements View.OnFocusChangeListener, View.
         }
 
         // 检查存储权限（Android 6.0+）
+        // 注意：外接U盘/移动硬盘除了读权限还需要写权限，两者必须同时申请，否则外部卷 listFiles() 受限
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             if (activity.checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != android.content.pm.PackageManager.PERMISSION_GRANTED
+                    || activity.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     != android.content.pm.PackageManager.PERMISSION_GRANTED) {
-                Log.w("afm5", "没有存储权限，请求权限");
+                Log.w("afm5", "没有存储权限，请求读写权限");
                 activity.requestPermissions(
-                        new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE},
+                        new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         1002
                 );
                 Toast.makeText(activity, "请授予存储权限后再试", Toast.LENGTH_SHORT).show();
@@ -334,6 +342,21 @@ public final class afm5 extends adw implements View.OnFocusChangeListener, View.
 
         // 隐藏已存在的对话框
         hideFolderPicker();
+
+        // 检测系统文件管理器（SAF）是否可用：部分TV系统（如TCL）裁剪了DocumentsUI，
+        // ACTION_OPEN_DOCUMENT_TREE 无任何处理者，此时无法通过SAF授权外接U盘，
+        // 需要降级为直接使用文件路径（实测可写则允许）
+        safAvailable = false;
+        try {
+            android.content.Intent safProbe = new android.content.Intent(android.content.Intent.ACTION_OPEN_DOCUMENT_TREE);
+            java.util.List<android.content.pm.ResolveInfo> handlers =
+                    activity.getPackageManager().queryIntentActivities(safProbe, 0);
+            safAvailable = handlers != null && !handlers.isEmpty();
+        } catch (Throwable t) {
+            Log.w("afm5", "检测SAF可用性异常: " + t.getMessage());
+            safAvailable = false;
+        }
+        Log.i("afm5", "系统文件管理器可用: " + safAvailable);
 
         // 默认目录：系统下载文件夹，其次 /sdcard/Download，最后外部存储根目录
         java.io.File defaultDir = android.os.Environment.getExternalStoragePublicDirectory(
@@ -410,7 +433,7 @@ public final class afm5 extends adw implements View.OnFocusChangeListener, View.
         confirmButton.setFocusableInTouchMode(true);
         confirmButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
         confirmButton.setUpDrawable(R.drawable.shadow_white_rect);
-        android.widget.TextView confirmText = new android.widget.TextView(activity);
+        final android.widget.TextView confirmText = new android.widget.TextView(activity);
         confirmText.setText("确定");
         confirmText.setTextColor(android.graphics.Color.WHITE);
         confirmText.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 18);
@@ -426,6 +449,52 @@ public final class afm5 extends adw implements View.OnFocusChangeListener, View.
                 android.widget.LinearLayout.LayoutParams.MATCH_PARENT, confirmHeight);
         confirmLp.setMargins(24, 16, 24, 16);
         panel.addView(confirmButton, confirmLp);
+
+        // SAF授权按钮：Android 8.0+ 无法通过文件路径写入外接U盘，需使用系统文件选择器授权目录
+        final com.bilibili.tv.widget.DrawFrameLayout safButton = new com.bilibili.tv.widget.DrawFrameLayout(activity);
+        safButton.setFocusable(true);
+        safButton.setFocusableInTouchMode(true);
+        safButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+        safButton.setUpDrawable(R.drawable.shadow_white_rect);
+        android.widget.TextView safText = new android.widget.TextView(activity);
+        safText.setText("使用系统文件选择器（U盘/移动硬盘）");
+        safText.setTextColor(android.graphics.Color.WHITE);
+        safText.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 14);
+        safText.setGravity(android.view.Gravity.CENTER);
+        safButton.addView(safText, new android.widget.FrameLayout.LayoutParams(
+                android.widget.FrameLayout.LayoutParams.MATCH_PARENT,
+                android.widget.FrameLayout.LayoutParams.MATCH_PARENT
+        ));
+        int safHeight = (int) android.util.TypedValue.applyDimension(
+                android.util.TypedValue.COMPLEX_UNIT_DIP, 48,
+                activity.getResources().getDisplayMetrics());
+        android.widget.LinearLayout.LayoutParams safLp = new android.widget.LinearLayout.LayoutParams(
+                android.widget.LinearLayout.LayoutParams.MATCH_PARENT, safHeight);
+        safLp.setMargins(24, 8, 24, 16);
+        panel.addView(safButton, safLp);
+
+        // SAF按钮点击：打开系统文件选择器（ACTION_OPEN_DOCUMENT_TREE）
+        safButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!safAvailable) {
+                    Log.w("afm5", "系统文件管理器不可用，无法打开");
+                    if (android.os.Build.VERSION.SDK_INT >= 26) {
+                        Toast.makeText(activity, "此设备没有系统文件管理器，请在列表中确认外接U盘可写后再点确定", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(activity, "此设备不支持系统文件选择器，可直接在列表中选择外接U盘文件夹", Toast.LENGTH_LONG).show();
+                    }
+                    return;
+                }
+                try {
+                    android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_OPEN_DOCUMENT_TREE);
+                    afm5.this.startActivityForResult(intent, 1003);
+                } catch (Exception e) {
+                    Log.e("afm5", "打开系统文件选择器失败: " + e.getMessage());
+                    Toast.makeText(activity, "无法打开系统文件选择器，请在列表中选择外接U盘文件夹", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         // 创建对话框（独立窗口，不加入 Activity 视图层级，避免 BaseActivity 销毁时 removeAllViews 崩溃）
         // 参考收藏夹页 FavoriteMenuDialog：requestWindowFeature(1) + 透明背景 + setFlags(0x600, 0x600) + 全屏窗口
@@ -454,6 +523,24 @@ public final class afm5 extends adw implements View.OnFocusChangeListener, View.
                     return;
                 }
                 downloadPath = folderPickerCurrentDir.getAbsolutePath();
+                // 外接U盘/移动硬盘在 Android 8.0+ 通常无法通过文件路径写入，需SAF授权。
+                // 修复：部分TV系统（如TCL）没有系统文件管理器（DocumentsUI），SAF不可用，
+                // 此时实测目标路径是否可写（部分TV虽为Android 8+但USB卷实际允许直接写入），
+                // 可写则直接使用文件路径模式保存，不可写才明确提示无法使用。
+                if (android.os.Build.VERSION.SDK_INT >= 26 && isExternalVolume(downloadPath)) {
+                    if (safAvailable) {
+                        Log.w("afm5", "选择的是外接存储卷，引导使用系统文件选择器授权: " + downloadPath);
+                        Toast.makeText(activity, "外接U盘/移动硬盘请点击下方「使用系统文件选择器」授权", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    // SAF不可用：实测路径可写性决定是否允许直接使用
+                    if (!com.bilibili.tv.ui.download.StorageManagerHelper.isStorageWritable(downloadPath)) {
+                        Log.w("afm5", "SAF不可用且外接卷不可写: " + downloadPath);
+                        Toast.makeText(activity, "U盘为只读挂载，无法写入（常见原因：NTFS格式或电视只读策略）。请改用FAT32/exFAT格式的U盘", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    Log.i("afm5", "SAF不可用但路径可写，使用文件路径模式: " + downloadPath);
+                }
                 Log.i("afm5", "确认选择下载文件夹: " + downloadPath);
                 updateUI();
                 saveSettings();
@@ -478,24 +565,57 @@ public final class afm5 extends adw implements View.OnFocusChangeListener, View.
             }
         });
 
-        // 确定按钮按"上"键回到列表
+        // 确定按钮按"上"键回到列表，按"下"键到SAF按钮
         confirmButton.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, android.view.KeyEvent event) {
+                if (event.getAction() == android.view.KeyEvent.ACTION_DOWN) {
+                    if (keyCode == android.view.KeyEvent.KEYCODE_DPAD_UP) {
+                        folderListView.requestFocus();
+                        return true;
+                    }
+                    if (keyCode == android.view.KeyEvent.KEYCODE_DPAD_DOWN) {
+                        safButton.requestFocus();
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+        // SAF按钮按"上"键回到确定按钮
+        safButton.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, android.view.KeyEvent event) {
                 if (event.getAction() == android.view.KeyEvent.ACTION_DOWN
                         && keyCode == android.view.KeyEvent.KEYCODE_DPAD_UP) {
-                    folderListView.requestFocus();
+                    confirmButton.requestFocus();
                     return true;
                 }
                 return false;
             }
         });
 
-        // 确定按钮焦点高亮（与设置页其它按钮一致的白色描边）
+        // SAF按钮焦点高亮（与确定按钮一致）
+        safButton.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                safButton.setUpEnabled(hasFocus);
+            }
+        });
+
+        // 确定按钮焦点高亮：聚焦时纯白背景 + 粉色文字（高对比，视觉清晰），失焦恢复半透明白 + 白字
         confirmButton.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 confirmButton.setUpEnabled(hasFocus);
+                if (hasFocus) {
+                    confirmButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white);
+                    confirmText.setTextColor(android.graphics.Color.parseColor("#FB7299"));
+                } else {
+                    confirmButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+                    confirmText.setTextColor(android.graphics.Color.WHITE);
+                }
             }
         });
 
@@ -512,6 +632,87 @@ public final class afm5 extends adw implements View.OnFocusChangeListener, View.
     }
 
     /**
+     * 存储权限授权结果回调：授权成功后自动重新打开文件夹选择器
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1002) {
+            boolean granted = true;
+            if (grantResults != null) {
+                for (int result : grantResults) {
+                    if (result != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                        granted = false;
+                        break;
+                    }
+                }
+            } else {
+                granted = false;
+            }
+            if (granted) {
+                Log.i("afm5", "存储权限已授予，重新打开文件夹选择器");
+                showFolderPicker();
+            }
+        }
+    }
+
+    /**
+     * SAF系统文件选择器结果回调：授权目录后保存URI，用于访问外接U盘/移动硬盘
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, android.content.Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode != 1003) {
+            return;
+        }
+        if (resultCode != Activity.RESULT_OK || data == null || data.getData() == null) {
+            Log.i("afm5", "用户取消SAF目录选择");
+            return;
+        }
+        final android.net.Uri treeUri = data.getData();
+        Log.i("afm5", "SAF选择目录: " + treeUri.toString());
+
+        // 持久化URI授权，保证应用重启后仍可访问
+        try {
+            int flags = android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    | android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+            getActivity().getContentResolver().takePersistableUriPermission(treeUri, flags);
+            Log.i("afm5", "持久化SAF授权成功");
+        } catch (Exception e) {
+            Log.w("afm5", "持久化SAF授权失败: " + e.getMessage());
+        }
+
+        // 获取目录显示名
+        String displayName = "";
+        try {
+            displayName = com.bilibili.tv.ui.download.SafFileHelper.getDisplayName(getActivity(), treeUri.toString());
+        } catch (Exception e) {
+            Log.w("afm5", "获取目录名失败: " + e.getMessage());
+        }
+        if (displayName == null || displayName.isEmpty()) {
+            displayName = treeUri.getLastPathSegment();
+        }
+
+        downloadUri = treeUri.toString();
+        downloadPath = "外接存储/" + displayName;
+        Log.i("afm5", "下载目录已更新: path=" + downloadPath + ", uri=" + downloadUri);
+        updateUI();
+        saveSettings();
+        hideFolderPicker();
+    }
+
+    /**
+     * 判断路径是否为外接存储卷（/storage/XXXX-XXXX 形式），内部存储是 /storage/emulated/0
+     */
+    private static boolean isExternalVolume(String path) {
+        if (path == null) {
+            return false;
+        }
+        return (path.equals("/storage") || path.startsWith("/storage/"))
+                && !path.startsWith("/storage/emulated");
+    }
+
+    /**
      * 加载文件夹列表（只显示文件夹，文件夹优先，按名称排序）
      */
     private void loadFolderList(final android.widget.ListView listView, final android.widget.TextView pathView,
@@ -525,39 +726,106 @@ public final class afm5 extends adw implements View.OnFocusChangeListener, View.
         // 更新路径显示
         pathView.setText("当前: " + currentDir.getAbsolutePath());
 
-        // 获取子项
-        java.io.File[] files = currentDir.listFiles();
-        if (files == null) {
-            Log.e("afm5", "listFiles()返回null，可能没有权限或目录不存在");
-            Toast.makeText(activity, "无法访问目录", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // 只收集文件夹（跳过隐藏目录），按名称排序
-        java.util.List<java.io.File> folderList = new java.util.ArrayList<>();
-        for (java.io.File file : files) {
-            if (file.isDirectory() && !file.getName().startsWith(".")) {
-                folderList.add(file);
-            }
-        }
-        java.util.Collections.sort(folderList, new java.util.Comparator<java.io.File>() {
-            @Override
-            public int compare(java.io.File a, java.io.File b) {
-                return a.getName().compareToIgnoreCase(b.getName());
-            }
-        });
-
-        // 构建显示项：上级目录 + 文件夹
+        // 构建显示项：上级目录 + 文件夹（/storage 根目录特殊处理为存储卷列表）
         java.util.List<String> items = new java.util.ArrayList<>();
         final java.util.List<java.io.File> allFiles = new java.util.ArrayList<>();
 
-        if (currentDir.getParentFile() != null) {
-            items.add("↑ 上级");
-            allFiles.add(null);
-        }
-        for (java.io.File folder : folderList) {
-            items.add("📁 " + folder.getName());
-            allFiles.add(folder);
+        String currentPath = currentDir.getAbsolutePath();
+        if ("/storage".equals(currentPath)) {
+            // 特殊：/storage 是所有存储卷的挂载父目录，不可直接 listFiles，
+            // 显示虚拟卷列表：内部存储 + 外接U盘/移动硬盘
+            // 修复：部分TV系统上 /storage listFiles() 返回null或不全，且U盘可能挂载在
+            // /storage 之外的路径（如 /mnt/usb_storage），导致U盘不显示。
+            // 改用 StorageManager.getVolumeList() 反射枚举所有存储卷（含U盘真实挂载路径）
+            java.util.Set<String> addedPaths = new java.util.HashSet<>();
+            java.io.File internalStorage = android.os.Environment.getExternalStorageDirectory();
+            if (internalStorage != null && internalStorage.exists()) {
+                items.add("📁 内部存储");
+                allFiles.add(internalStorage);
+                addedPaths.add(internalStorage.getAbsolutePath());
+            }
+            try {
+                java.util.List<com.bilibili.tv.ui.download.StorageManagerHelper.StorageDevice> volumes =
+                        com.bilibili.tv.ui.download.StorageManagerHelper.getAllMountedVolumes(activity);
+                for (com.bilibili.tv.ui.download.StorageManagerHelper.StorageDevice dev : volumes) {
+                    if (dev == null || dev.getPath() == null) {
+                        continue;
+                    }
+                    String volPath = dev.getPath();
+                    // 跳过内部存储（已单独显示）与伪目录
+                    if (addedPaths.contains(volPath) || volPath.startsWith("/storage/emulated")) {
+                        continue;
+                    }
+                    java.io.File volFile = new java.io.File(volPath);
+                    if (!volFile.exists() && !dev.isRemovable()) {
+                        continue;
+                    }
+                    String volName = dev.getName();
+                    if (volName == null || volName.isEmpty() || "外接存储".equals(volName)) {
+                        int slash = volPath.lastIndexOf('/');
+                        volName = slash >= 0 && slash < volPath.length() - 1
+                                ? volPath.substring(slash + 1) : volPath;
+                    }
+                    items.add("📁 " + volName);
+                    allFiles.add(volFile);
+                    addedPaths.add(volPath);
+                    Log.i("afm5", "枚举到存储卷: " + volName + " -> " + volPath + ", 可移除=" + dev.isRemovable());
+                }
+            } catch (Throwable t) {
+                Log.w("afm5", "枚举存储卷失败，回退到 listFiles: " + t.getMessage());
+            }
+            // 兜底：反射失败或未枚举到时，再尝试 listFiles()
+            java.io.File[] children = currentDir.listFiles();
+            if (children != null) {
+                for (java.io.File f : children) {
+                    String name = f.getName();
+                    if (f.isDirectory() && !"emulated".equals(name) && !"self".equals(name)
+                            && !addedPaths.contains(f.getAbsolutePath())) {
+                        items.add("📁 " + name);
+                        allFiles.add(f);
+                    }
+                }
+            }
+            if (items.isEmpty()) {
+                items.add("（无可访问的存储设备）");
+            }
+            // /storage 之上是 / 根目录，不提供"↑ 上级"
+        } else {
+            // 获取子项
+            java.io.File[] files = currentDir.listFiles();
+            if (files == null) {
+                Log.e("afm5", "listFiles()返回null，可能没有权限或目录不存在: " + currentPath);
+                Toast.makeText(activity, "无法访问该目录，请检查存储权限", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // 只收集文件夹（跳过隐藏目录），按名称排序
+            java.util.List<java.io.File> folderList = new java.util.ArrayList<>();
+            for (java.io.File file : files) {
+                if (file.isDirectory() && !file.getName().startsWith(".")) {
+                    folderList.add(file);
+                }
+            }
+            java.util.Collections.sort(folderList, new java.util.Comparator<java.io.File>() {
+                @Override
+                public int compare(java.io.File a, java.io.File b) {
+                    return a.getName().compareToIgnoreCase(b.getName());
+                }
+            });
+
+            // 上级目录：跳过 scoped storage 下不可访问的 /storage/emulated，直接到 /storage 显示存储卷列表
+            java.io.File parent = currentDir.getParentFile();
+            if (parent != null && "/storage/emulated".equals(parent.getAbsolutePath())) {
+                parent = parent.getParentFile();
+            }
+            if (parent != null) {
+                items.add("↑ 上级");
+                allFiles.add(null);
+            }
+            for (java.io.File folder : folderList) {
+                items.add("📁 " + folder.getName());
+                allFiles.add(folder);
+            }
         }
 
         Log.i("afm5", "加载文件夹列表: " + currentDir.getAbsolutePath() + ", 共 " + items.size() + " 项");
@@ -577,7 +845,8 @@ public final class afm5 extends adw implements View.OnFocusChangeListener, View.
                 }
                 if (parent instanceof android.widget.ListView) {
                     android.widget.ListView lv = (android.widget.ListView) parent;
-                    if (position == lv.getSelectedItemPosition()) {
+                    // 只有列表自身持有焦点时才显示选中高亮，焦点移出后立即清除，避免残留
+                    if (position == lv.getSelectedItemPosition() && lv.hasFocus()) {
                         view.setBackgroundColor(android.graphics.Color.parseColor("#1E90FF"));
                     } else {
                         view.setBackgroundColor(android.graphics.Color.TRANSPARENT);
@@ -606,14 +875,26 @@ public final class afm5 extends adw implements View.OnFocusChangeListener, View.
 
         listView.setAdapter(adapter);
 
+        // 列表焦点变化时重绘：焦点移出到确定按钮后清除最后一项的选中高亮
+        listView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                ((android.widget.ListView) v).invalidateViews();
+            }
+        });
+
         // 点击：进入文件夹或返回上级
         listView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(android.widget.AdapterView<?> parent, android.view.View view, int position, long id) {
                 java.io.File selected = allFiles.get(position);
                 if (selected == null) {
-                    // 上级目录
-                    loadFolderList(listView, pathView, currentDir.getParentFile());
+                    // 上级目录（与列表构建时一致，跳过不可访问的 /storage/emulated）
+                    java.io.File upDir = currentDir.getParentFile();
+                    if (upDir != null && "/storage/emulated".equals(upDir.getAbsolutePath())) {
+                        upDir = upDir.getParentFile();
+                    }
+                    loadFolderList(listView, pathView, upDir);
                 } else {
                     // 进入文件夹
                     loadFolderList(listView, pathView, selected);

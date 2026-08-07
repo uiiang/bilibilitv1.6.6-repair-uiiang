@@ -97,28 +97,62 @@ public class DownloadWorker implements Runnable {
      */
     private void downloadFile() throws IOException {
         // 获取实际的视频下载URL
+        // 改造：任务添加时不再预取URL，真正开始下载时才请求获取（并发数由下载队列控制，最多3个同时请求），
+        // 将URL获取分散到各任务启动时，避免批量添加多个分P时并发请求playurl接口触发风控
         String videoUrl = task.getVideoUrl();
         if (videoUrl == null || videoUrl.isEmpty()) {
-            throw new IOException("视频URL为空，无法下载");
+            videoUrl = BilibiliDownloadApi.getDownloadUrl(context, task.getAvid(), task.getBvid(), task.getCid(), task.getQuality());
+            if (videoUrl == null || videoUrl.isEmpty()) {
+                throw new IOException("获取下载URL失败");
+            }
+            task.setVideoUrl(videoUrl);
+            // 回写数据库，避免重启/暂停恢复后URL丢失重复获取
+            try {
+                com.bilibili.tv.ui.download.db.DownloadDatabaseHelper.getInstance(context)
+                        .updateVideoUrl(task.getTaskId(), videoUrl);
+            } catch (Exception e) {
+                Log.w(TAG, "回写下载URL到数据库失败: " + e.getMessage());
+            }
+            Log.i(TAG, "获取下载URL成功: " + videoUrl);
         }
 
         Log.i(TAG, "使用下载URL: " + videoUrl);
 
-        // 确保下载目录存在
-        File downloadDir = new File(task.getDownloadPath()).getParentFile();
-        if (downloadDir != null && !downloadDir.exists()) {
-            downloadDir.mkdirs();
+        // 下载目标：可能是文件路径或SAF的content:// URI（外接U盘，Android 8.0+必须走SAF）
+        String downloadPath = task.getDownloadPath();
+        if (downloadPath == null || downloadPath.isEmpty()) {
+            throw new IOException("下载路径为空");
         }
-
-        // 创建临时文件（下载完成后重命名）
-        File tempFile = new File(task.getDownloadPath() + ".tmp");
-        File finalFile = new File(task.getDownloadPath());
+        boolean isSaf = downloadPath.startsWith("content://");
+        Log.i(TAG, "下载目标: " + downloadPath + (isSaf ? " (SAF)" : " (File)"));
 
         // 检查是否需要断点续传
         long startPos = 0;
-        if (tempFile.exists()) {
-            startPos = tempFile.length();
-            Log.i(TAG, "断点续传，已下载: " + DownloadTask.formatFileSize(startPos));
+        File tempFile = null;
+        File finalFile = null;
+        if (isSaf) {
+            // SAF：直接使用目标URI，断点续传按文件已写入大小
+            try {
+                long size = SafFileHelper.getFileSize(context, downloadPath);
+                if (size > 0) {
+                    startPos = size;
+                    Log.i(TAG, "SAF断点续传，已下载: " + DownloadTask.formatFileSize(startPos));
+                }
+            } catch (Exception e) {
+                Log.w(TAG, "读取SAF文件大小失败: " + e.getMessage());
+            }
+        } else {
+            // File：确保下载目录存在，使用临时文件
+            File downloadDir = new File(downloadPath).getParentFile();
+            if (downloadDir != null && !downloadDir.exists()) {
+                downloadDir.mkdirs();
+            }
+            tempFile = new File(downloadPath + ".tmp");
+            finalFile = new File(downloadPath);
+            if (tempFile.exists()) {
+                startPos = tempFile.length();
+                Log.i(TAG, "断点续传，已下载: " + DownloadTask.formatFileSize(startPos));
+            }
         }
 
         // 构建请求（使用实际的视频URL）
@@ -168,7 +202,18 @@ public class DownloadWorker implements Runnable {
 
         // 开始下载
         InputStream inputStream = response.body().byteStream();
-        FileOutputStream outputStream = new FileOutputStream(tempFile, startPos > 0);
+        java.io.OutputStream outputStream;
+        if (isSaf) {
+            // SAF：通过ContentResolver打开输出流，"wa"追加模式实现断点续传
+            String mode = startPos > 0 ? "wa" : "w";
+            outputStream = context.getContentResolver().openOutputStream(
+                    android.net.Uri.parse(downloadPath), mode);
+            if (outputStream == null) {
+                throw new IOException("无法打开SAF输出流");
+            }
+        } else {
+            outputStream = new FileOutputStream(tempFile, startPos > 0);
+        }
 
         byte[] buffer = new byte[8192]; // 8KB buffer
         int bytesRead;
@@ -191,7 +236,16 @@ public class DownloadWorker implements Runnable {
                 if (isCancelled) {
                     Log.i(TAG, "下载已取消: " + task.getTitle());
                     outputStream.close();
-                    tempFile.delete();
+                    if (isSaf) {
+                        // SAF：删除已创建的content URI文件
+                        try {
+                            SafFileHelper.delete(context, downloadPath);
+                        } catch (Exception e) {
+                            Log.w(TAG, "SAF取消删除文件失败: " + e.getMessage());
+                        }
+                    } else if (tempFile != null) {
+                        tempFile.delete();
+                    }
                     return;
                 }
 
@@ -229,19 +283,29 @@ public class DownloadWorker implements Runnable {
             outputStream.close();
             inputStream.close();
 
-            // 重命名临时文件
-            if (tempFile.renameTo(finalFile)) {
-                Log.i(TAG, "下载完成: " + task.getTitle());
-
-                // 计算总耗时
+            if (isSaf) {
+                // SAF：文件已直接写入目标URI，无需重命名
                 long totalTime = System.currentTimeMillis() - startTime;
                 long avgSpeed = (downloadedSize * 1000) / totalTime;
-                Log.i(TAG, "平均速度: " + DownloadTask.formatFileSize(avgSpeed) + "/s");
+                Log.i(TAG, "SAF下载完成: " + task.getTitle() + ", 平均速度: " + DownloadTask.formatFileSize(avgSpeed) + "/s");
 
                 // 通知完成
                 notifyComplete();
             } else {
-                throw new IOException("重命名文件失败");
+                // 重命名临时文件
+                if (tempFile.renameTo(finalFile)) {
+                    Log.i(TAG, "下载完成: " + task.getTitle());
+
+                    // 计算总耗时
+                    long totalTime = System.currentTimeMillis() - startTime;
+                    long avgSpeed = (downloadedSize * 1000) / totalTime;
+                    Log.i(TAG, "平均速度: " + DownloadTask.formatFileSize(avgSpeed) + "/s");
+
+                    // 通知完成
+                    notifyComplete();
+                } else {
+                    throw new IOException("重命名文件失败");
+                }
             }
 
         } finally {

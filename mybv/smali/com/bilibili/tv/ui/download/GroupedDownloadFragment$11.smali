@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 561
+    .line 616
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$11;->this$0:Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,12 +40,12 @@
     .locals 1
 
     .prologue
-    .line 564
+    .line 619
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment$11;->this$0:Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;
 
     # invokes: Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->refreshList()V
     invoke-static {v0}, Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;->access$200(Lcom/bilibili/tv/ui/download/GroupedDownloadFragment;)V
 
-    .line 565
+    .line 620
     return-void
 .end method

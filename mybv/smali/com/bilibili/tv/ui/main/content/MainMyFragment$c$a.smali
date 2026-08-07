@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 566
+    .line 571
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 567
+    .line 572
     return-void
 .end method
 
@@ -30,10 +30,10 @@
     .locals 0
 
     .prologue
-    .line 570
+    .line 575
     invoke-direct {p0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c$a;-><init>()V
 
-    .line 571
+    .line 576
     return-void
 .end method
 
@@ -43,12 +43,12 @@
     .locals 3
 
     .prologue
-    .line 574
+    .line 579
     const-string v0, "parent"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 575
+    .line 580
     invoke-virtual {p1}, Landroid/view/ViewGroup;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -65,12 +65,12 @@
 
     move-result-object v0
 
-    .line 576
+    .line 581
     const-string v1, "view"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 577
+    .line 582
     new-instance v1, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;
 
     invoke-direct {v1, v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;-><init>(Landroid/view/View;)V

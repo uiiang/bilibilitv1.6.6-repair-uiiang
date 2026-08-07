@@ -1,11 +1,14 @@
 .class Lbl/afm5$7;
-.super Landroid/widget/ArrayAdapter;
+.super Ljava/lang/Object;
 .source "afm5.java"
+
+# interfaces
+.implements Landroid/view/View$OnFocusChangeListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/afm5;->loadFolderList(Landroid/widget/ListView;Landroid/widget/TextView;Ljava/io/File;)V
+    value = Lbl/afm5;->showFolderPicker()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -13,106 +16,82 @@
     name = null
 .end annotation
 
-.annotation system Ldalvik/annotation/Signature;
-    value = {
-        "Landroid/widget/ArrayAdapter",
-        "<",
-        "Ljava/lang/String;",
-        ">;"
-    }
-.end annotation
-
 
 # instance fields
 .field final synthetic this$0:Lbl/afm5;
 
+.field final synthetic val$confirmButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+.field final synthetic val$confirmText:Landroid/widget/TextView;
+
 
 # direct methods
-.method constructor <init>(Lbl/afm5;Landroid/content/Context;ILjava/util/List;)V
+.method constructor <init>(Lbl/afm5;Lcom/bilibili/tv/widget/DrawFrameLayout;Landroid/widget/TextView;)V
     .locals 0
 
     .prologue
-    .line 568
+    .line 608
     iput-object p1, p0, Lbl/afm5$7;->this$0:Lbl/afm5;
 
-    invoke-direct {p0, p2, p3, p4}, Landroid/widget/ArrayAdapter;-><init>(Landroid/content/Context;ILjava/util/List;)V
+    iput-object p2, p0, Lbl/afm5$7;->val$confirmButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    iput-object p3, p0, Lbl/afm5$7;->val$confirmText:Landroid/widget/TextView;
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public getView(ILandroid/view/View;Landroid/view/ViewGroup;)Landroid/view/View;
-    .locals 5
+.method public onFocusChange(Landroid/view/View;Z)V
+    .locals 2
 
     .prologue
-    const/16 v4, 0x10
+    .line 611
+    iget-object v0, p0, Lbl/afm5$7;->val$confirmButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 571
-    invoke-super {p0, p1, p2, p3}, Landroid/widget/ArrayAdapter;->getView(ILandroid/view/View;Landroid/view/ViewGroup;)Landroid/view/View;
+    invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpEnabled(Z)V
 
-    move-result-object v1
+    .line 612
+    if-eqz p2, :cond_1b
 
-    .line 572
-    instance-of v0, v1, Landroid/widget/TextView;
+    .line 613
+    iget-object v0, p0, Lbl/afm5$7;->val$confirmButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    if-eqz v0, :cond_1a
+    const v1, 0x7f0700ee
 
-    move-object v0, v1
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 573
-    check-cast v0, Landroid/widget/TextView;
+    .line 614
+    iget-object v0, p0, Lbl/afm5$7;->val$confirmText:Landroid/widget/TextView;
 
-    .line 574
-    const/4 v2, -0x1
+    const-string v1, "#FB7299"
 
-    invoke-virtual {v0, v2}, Landroid/widget/TextView;->setTextColor(I)V
+    invoke-static {v1}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
 
-    .line 575
-    const/4 v2, 0x2
+    move-result v1
 
-    const/high16 v3, 0x41800000    # 16.0f
+    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setTextColor(I)V
 
-    invoke-virtual {v0, v2, v3}, Landroid/widget/TextView;->setTextSize(IF)V
+    .line 619
+    :goto_1a
+    return-void
 
-    .line 576
-    invoke-virtual {v0, v4, v4, v4, v4}, Landroid/widget/TextView;->setPadding(IIII)V
+    .line 616
+    :cond_1b
+    iget-object v0, p0, Lbl/afm5$7;->val$confirmButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .line 578
-    :cond_1a
-    instance-of v0, p3, Landroid/widget/ListView;
+    const v1, 0x7f0700f0
 
-    if-eqz v0, :cond_2f
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 579
-    check-cast p3, Landroid/widget/ListView;
+    .line 617
+    iget-object v0, p0, Lbl/afm5$7;->val$confirmText:Landroid/widget/TextView;
 
-    .line 580
-    invoke-virtual {p3}, Landroid/widget/ListView;->getSelectedItemPosition()I
+    const/4 v1, -0x1
 
-    move-result v0
+    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setTextColor(I)V
 
-    if-ne p1, v0, :cond_30
-
-    .line 581
-    const-string v0, "#1E90FF"
-
-    invoke-static {v0}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
-
-    move-result v0
-
-    invoke-virtual {v1, v0}, Landroid/view/View;->setBackgroundColor(I)V
-
-    .line 586
-    :cond_2f
-    :goto_2f
-    return-object v1
-
-    .line 583
-    :cond_30
-    const/4 v0, 0x0
-
-    invoke-virtual {v1, v0}, Landroid/view/View;->setBackgroundColor(I)V
-
-    goto :goto_2f
+    goto :goto_1a
 .end method
