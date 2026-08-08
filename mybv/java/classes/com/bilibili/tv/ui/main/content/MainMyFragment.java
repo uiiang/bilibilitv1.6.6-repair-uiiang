@@ -1,7 +1,9 @@
 package com.bilibili.tv.ui.main.content;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -9,12 +11,14 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.alibaba.fastjson.JSONObject;
 import com.bilibili.lib.account.model.AccountInfo;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
@@ -29,8 +33,17 @@ import com.bilibili.tv.widget.DrawLinearLayout;
 import com.bilibili.tv.widget.FixGridLayoutManager;
 import kotlin.TypeCastException;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import bl.*;
 import mybl.CookieUtil;
+import mybl.LoginCookieHelper;
 import com.bilibili.tv.ui.history.VideoToviewActivity;
 import com.bilibili.tv.ui.history.HistorySideActivity;
 import com.bilibili.tv.ui.download.DownloadManagerActivity;
@@ -271,7 +284,7 @@ public final class MainMyFragment extends adu implements aez, wf {
 
     /* compiled from: BL */
     /* loaded from: classes.dex */
-    static final class b extends RecyclerView.a<adv> implements View.OnClickListener {
+    static final class b extends RecyclerView.a<adv> implements View.OnClickListener, View.OnLongClickListener {
         private final int[] titles = {R.string.login, R.string.my_attention, R.string.my_toview, R.string.my_favorite, R.string.my_history, R.string.bangumi_main_follow, R.string.pgc_main_follow, R.string.download_manager};
         private final int[] colors = {R.color.color_1, R.color.color_2, R.color.color_3, R.color.color_5, R.color.color_6, R.color.color_4, R.color.color_7, R.color.color_8};
         private final int[] logos = {R.drawable.ic_user_center_default_avatar, R.drawable.ic_group_180, R.drawable.ic_toview_180, R.drawable.ic_user_center_star, R.drawable.ic_user_center_history, R.drawable.ic_bangumi_favourite, R.drawable.ic_bangumi_favourite, R.drawable.selector_main_download_manager};
@@ -285,6 +298,11 @@ public final class MainMyFragment extends adu implements aez, wf {
                 this.d = a2.c();
                 this.e = a2.a();
             }
+            StringBuilder sb = new StringBuilder("adapter init: loggedIn=").append(this.e).append(", MyMap=");
+            for (int m : MyMap) {
+                sb.append(m).append(",");
+            }
+            Log.i("MainMyAccount", sb.toString());
         }
 
         public final int e() {
@@ -308,6 +326,7 @@ public final class MainMyFragment extends adu implements aez, wf {
             if (advVar instanceof c) {
                 c cVar = (c) advVar;
                 int realIndex = effectiveIndex(i);
+                Log.i("MainMyAccount", "bind: pos=" + i + ", realIndex=" + realIndex + ", myMap=" + MyMap[realIndex] + ", setLongClick=" + (MyMap[realIndex] == 0));
                 cVar.z().setText(this.titles[MyMap[realIndex]]);
                 nv.a().a(this.logos[MyMap[realIndex]], cVar.A());
                 cVar.A().setVisibility(0);
@@ -320,6 +339,10 @@ public final class MainMyFragment extends adu implements aez, wf {
                 cVar.D().setVisibility(8);
                 advVar.a.setTag(R.id.position, Integer.valueOf(i));
                 advVar.a.setOnClickListener(this);
+                if (MyMap[realIndex] == 0) {
+                    // 长按头像弹出多账号切换列表
+                    advVar.a.setOnLongClickListener(this);
+                }
                 if (MyMap[realIndex] == 0 && this.d != null) {
                     AccountInfo accountInfo = this.d;
                     if (accountInfo == null) {
@@ -378,6 +401,7 @@ public final class MainMyFragment extends adu implements aez, wf {
                 mg a2 = mg.a(MainApplication.a());
                 bbi.a((Object) a2, "BiliAccount.get(MainApplication.getInstance())");
                 boolean a3 = a2.a();
+                Log.i("MainMyAccount", "refresh login state: old=" + this.e + ", new=" + a3 + ", force=" + z);
                 if (this.e != a3) {
                     this.e = a3;
                     mg a4 = mg.a(MainApplication.a());
@@ -406,6 +430,7 @@ public final class MainMyFragment extends adu implements aez, wf {
             if (a2 != null) {
                 Object tag = v.getTag(R.id.position);
                 int intValue = tag != null ? ((Integer) tag).intValue() : 0;
+                Log.i("MainMyAccount", "onClick: pos=" + intValue + ", myMap=" + MyMap[effectiveIndex(intValue)] + ", loggedIn=" + this.e);
                 switch (MyMap[effectiveIndex(intValue)]) {
                     case 0:
                         if (!this.e) {
@@ -483,6 +508,181 @@ public final class MainMyFragment extends adu implements aez, wf {
             }
         }
 
+        @Override // android.view.View.OnLongClickListener
+        public boolean onLongClick(View v) {
+            Context context = v.getContext();
+            Activity a2 = adl.a(context);
+            Object tag = v.getTag(R.id.position);
+            int position = tag != null ? ((Integer) tag).intValue() : -1;
+            int myMapValue = -1;
+            if (position >= 0) {
+                int realIndex = effectiveIndex(position);
+                if (realIndex >= 0 && realIndex < MyMap.length) {
+                    myMapValue = MyMap[realIndex];
+                }
+            }
+            Log.i("MainMyAccount", "onLongClick: position=" + position + ", myMapValue=" + myMapValue + ", loggedIn=" + this.e);
+            // 头像卡 = MyMap 中值为 0 的卡片（支持自定义排序后头像不在 position 0）
+            if (myMapValue != 0 || !this.e) {
+                return false;
+            }
+            try {
+                mg accountManager = mg.a(MainApplication.a());
+                File accountFile = new File(context.getFilesDir(), "bili.account.storage");
+                File passportFile = new File(context.getFilesDir(), "bili.passport.storage");
+                Log.i("MainMyAccount", "files exists: account=" + accountFile.exists() + ", passport=" + passportFile.exists());
+                // 读取当前账号凭证文件原文
+                String accountStorage = readFirstLine(accountFile);
+                String passportStorage = readFirstLine(passportFile);
+                Log.i("MainMyAccount", "read storage len: account=" + (accountStorage == null ? -1 : accountStorage.length()) + ", passport=" + (passportStorage == null ? -1 : passportStorage.length()));
+                AccountInfo accountInfo = accountManager.c();
+                if (accountInfo == null) {
+                    return false;
+                }
+                String mid = String.valueOf(accountInfo.mMid);
+                String username = accountInfo.mUserName;
+                Log.i("MainMyAccount", "save current account: mid=" + mid + ", username=" + username);
+                // 校验cookie文件中的DedeUserID是否与当前登录mid一致，
+                // 防止登录新账号后cookie文件仍是旧账号导致保存到错误的凭证快照
+                String cookieMid = extractDedeUserId(accountStorage);
+                Log.i("MainMyAccount", "verify cookie: fileDedeUserId=" + cookieMid + ", currentMid=" + mid);
+                if (cookieMid == null || !cookieMid.equals(mid)) {
+                    // cookie与当前账号不一致：在后台线程调用refreshToken获取当前账号的cookie后再保存
+                    Log.i("MainMyAccount", "cookie DedeUserID mismatch, refresh cookies in background");
+                    android.widget.Toast.makeText(context, "正在刷新账号凭证...", android.widget.Toast.LENGTH_SHORT).show();
+                    final Context ctx = context;
+                    final Activity act = a2;
+                    final String fMid = mid;
+                    final String fUsername = username;
+                    final File fPassportFile = passportFile;
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            final String refreshed = LoginCookieHelper.refreshCookiesAndReadAccountStorageSync(ctx);
+                            act.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (refreshed != null && !refreshed.isEmpty()) {
+                                        // 刷新成功：重新读取token文件，保存当前账号快照并弹窗
+                                        String newPassportStorage = readFirstLine(fPassportFile);
+                                        Log.i("MainMyAccount", "refresh success, account len=" + refreshed.length() + ", passport len=" + (newPassportStorage == null ? -1 : newPassportStorage.length()));
+                                        saveAccountAndShowDialog(ctx, act, fMid, fUsername, refreshed, newPassportStorage);
+                                    } else {
+                                        // 刷新失败：不保存可能错误的旧快照，避免把旧账号cookie当成当前账号凭证
+                                        Log.i("MainMyAccount", "refresh failed, skip saving current account");
+                                        android.widget.Toast.makeText(ctx, "刷新账号凭证失败，请稍后重试", android.widget.Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        }
+                    }).start();
+                    return true;
+                }
+                // cookie与当前账号一致，直接保存
+                saveAccountAndShowDialog(context, a2, mid, username, accountStorage, passportStorage);
+            } catch (Exception e) {
+                Log.i("MainMyAccount", "onLongClick error: " + e.toString());
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+
+        // 将当前账号保存进账号列表并弹出多账号切换对话框
+        private void saveAccountAndShowDialog(Context context, Activity activity, String mid, String username, String accountStorage, String passportStorage) {
+            try {
+                // 将当前账号保存进账号列表
+                abd.add_account(context, mid, username, accountStorage, passportStorage);
+
+                final List<String> mids = new ArrayList<String>();
+                List<String> names = new ArrayList<String>();
+                final JSONObject accounts = abd.get_accounts(context);
+                names.add("+");
+                for (Map.Entry<String, Object> entry : accounts.entrySet()) {
+                    mids.add(entry.getKey());
+                    names.add(((JSONObject) entry.getValue()).getString("username"));
+                }
+                final Activity activityFinal = activity;
+                final Context ctx = context;
+                Log.i("MainMyAccount", "show dialog, items=" + names.size());
+                new AlertDialog.Builder(context)
+                        .setItems(names.toArray(new CharSequence[0]), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (which == 0) {
+                                    // 添加新账号：进入登录页
+                                    LoginActivity.Companion.a(activityFinal, MainActivity.Companion.a());
+                                    return;
+                                }
+                                try {
+                                    // 切换账号：将目标账号凭证写回文件并重启
+                                    JSONObject account = accounts.getJSONObject(mids.get(which - 1));
+                                    Log.i("MainMyAccount", "switch to account: mid=" + mids.get(which - 1) + ", account_info_len=" + account.getString("account_info").length() + ", passport_info_len=" + account.getString("passport_info").length());
+                                    FileWriter accountWriter = new FileWriter(
+                                            new File(ctx.getFilesDir(), "bili.account.storage"));
+                                    accountWriter.write(account.getString("account_info"));
+                                    accountWriter.close();
+                                    FileWriter passportWriter = new FileWriter(
+                                            new File(ctx.getFilesDir(), "bili.passport.storage"));
+                                    passportWriter.write(account.getString("passport_info"));
+                                    passportWriter.close();
+                                    System.exit(0);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        })
+                        .create()
+                        .show();
+            } catch (Exception e) {
+                Log.i("MainMyAccount", "saveAccountAndShowDialog error: " + e.toString());
+                e.printStackTrace();
+            }
+        }
+
+        // 读取凭证文件的单行内容（文件为Base64单行格式）
+        private static String readFirstLine(File file) {
+            try {
+                if (file == null || !file.exists()) {
+                    return null;
+                }
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                String line = reader.readLine();
+                reader.close();
+                return line;
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
+        // 从账号cookie文件内容（Base64(JSON)）中提取DedeUserID
+        private static String extractDedeUserId(String accountStorage) {
+            try {
+                if (accountStorage == null || accountStorage.isEmpty()) {
+                    return null;
+                }
+                byte[] decoded = android.util.Base64.decode(accountStorage, android.util.Base64.NO_WRAP);
+                String json = new String(decoded, "UTF-8");
+                JSONObject obj = com.alibaba.fastjson.JSON.parseObject(json);
+                if (obj == null) {
+                    return null;
+                }
+                com.alibaba.fastjson.JSONArray cookies = obj.getJSONArray("cookies");
+                if (cookies == null) {
+                    return null;
+                }
+                for (int i = 0; i < cookies.size(); i++) {
+                    JSONObject cookie = cookies.getJSONObject(i);
+                    if (cookie != null && "DedeUserID".equals(cookie.getString("name"))) {
+                        return cookie.getString("value");
+                    }
+                }
+                return null;
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
         /* compiled from: BL */
         /* loaded from: classes.dex */
         final class a implements agb.b {
@@ -494,6 +694,13 @@ public final class MainMyFragment extends adu implements aez, wf {
 
             @Override // bl.agb.b
             public final void a(final agb agbVar, View view) {
+                // 退出登录前，先从多账号列表删除当前账号
+                Context ctx = ((MainActivity) this.b).getApplicationContext();
+                mg accountManager = mg.a(ctx);
+                AccountInfo accountInfo = accountManager.c();
+                if (accountInfo != null) {
+                    abd.del_account(ctx, String.valueOf(accountInfo.mMid));
+                }
                 abn abnVar = abn.a;
                 mg a = mg.a(((MainActivity) this.b).getApplicationContext());
                 bbi.a((Object) a, "BiliAccount.get(activity.applicationContext)");

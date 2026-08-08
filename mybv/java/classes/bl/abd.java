@@ -705,4 +705,41 @@ public class abd {
             .remove(key + "_size")
             .apply();
     }
+
+    // ============ 多账号切换 ============
+    // accounts_info 存储格式: {mid: {username, account_info, passport_info}}
+    // account_info/passport_info 分别为 bili.account.storage / bili.passport.storage 文件的原文
+
+    public static JSONObject get_accounts(Context context) {
+        try {
+            return JSON.parseObject(a(context).a().getString("accounts_info", "{}"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new JSONObject();
+        }
+    }
+
+    public static void add_account(Context context, String mid, String username, String accountStorage, String passportStorage) {
+        try {
+            JSONObject accounts = get_accounts(context);
+            JSONObject account = new JSONObject();
+            account.put("username", username);
+            account.put("account_info", accountStorage);
+            account.put("passport_info", passportStorage);
+            accounts.put(mid, account);
+            a(context).a().edit().putString("accounts_info", accounts.toString()).apply();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void del_account(Context context, String mid) {
+        try {
+            JSONObject accounts = get_accounts(context);
+            accounts.remove(mid);
+            a(context).a().edit().putString("accounts_info", accounts.toString()).apply();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

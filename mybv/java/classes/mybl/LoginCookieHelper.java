@@ -1,16 +1,18 @@
 package mybl;
 
+import android.content.Context;
 import android.util.Log;
 import bl.mg;
 import bl.mk;
 import bl.ml;
 import bl.vd;
-import bl.ve;
-import bl.vf;
 import bl.vo;
 import com.bilibili.lib.passport.BiliAuthService;
-import com.bilibili.lib.passport.BiliPassportException;
 import com.bilibili.tv.MainApplication;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 
 public class LoginCookieHelper {
     
@@ -22,50 +24,10 @@ public class LoginCookieHelper {
             public void run() {
                 try {
                     Thread.sleep(500);
-                    
-                    mg account = mg.a(MainApplication.a());
-                    if (account == null) {
-                        Log.e(TAG, "fetchCookiesAfterLogin - account is null");
-                        return;
-                    }
-                    
-                    ml cookiesData = account.h();
-                    if (cookiesData != null && cookiesData.a != null && !cookiesData.a.isEmpty()) {
-                        Log.d(TAG, "fetchCookiesAfterLogin - cookies already exist, count: " + cookiesData.a.size());
-                        return;
-                    }
-                    
-                    String accessToken = account.e();
-                    String refreshToken = account.getRefreshToken();
-                    
-                    if (accessToken == null || accessToken.isEmpty()) {
-                        Log.e(TAG, "fetchCookiesAfterLogin - accessToken is empty");
-                        return;
-                    }
-                    
-                    if (refreshToken == null || refreshToken.isEmpty()) {
-                        Log.e(TAG, "fetchCookiesAfterLogin - refreshToken is empty");
-                        return;
-                    }
-                    
-                    Log.d(TAG, "fetchCookiesAfterLogin - calling refreshToken API");
-                    
-                    BiliAuthService.CookieParamsMap cookieParams = new BiliAuthService.CookieParamsMap();
-                    mk result = callRefreshTokenInternal(accessToken, refreshToken, cookieParams);
-                    
-                    if (result != null && result.b != null && result.b.a != null) {
-                        Log.d(TAG, "fetchCookiesAfterLogin - got cookies, count: " + result.b.a.size());
-                        
-                        vd tokenInfo = result.a;
-                        ml cookieInfo = result.b;
-                        
-                        if (tokenInfo != null && tokenInfo.a()) {
-                            saveTokenAndCookies(tokenInfo, cookieInfo);
-                        }
-                    } else {
-                        Log.e(TAG, "fetchCookiesAfterLogin - result is null or empty");
-                    }
-                    
+                    Log.d(TAG, "fetchCookiesAfterLogin - refreshing cookies after login");
+                    // 多账号切换修复：登录新账号后必须调用refreshToken获取新账号cookie并覆盖保存，
+                    // 否则bili.account.storage仍残留旧账号cookie，导致历史/稍后再看/首页推荐使用旧账号身份
+                    refreshCookiesInternal(MainApplication.a(), "fetchCookiesAfterLogin");
                 } catch (Exception e) {
                     Log.e(TAG, "fetchCookiesAfterLogin - exception: " + e.getMessage());
                     e.printStackTrace();
@@ -74,6 +36,67 @@ public class LoginCookieHelper {
         }).start();
     }
     
+    /**
+     * 同步刷新当前账号的token和cookie并重新读取账号cookie文件内容。
+     * 用于多账号切换时校验cookie与当前登录账号是否一致（不一致说明cookie文件仍是旧账号的凭证）。
+     * @return 刷新后的 bili.account.storage 文件内容（Base64单行），失败返回null
+     */
+    public static String refreshCookiesAndReadAccountStorageSync(final Context context) {
+        try {
+            mk result = refreshCookiesInternal(context, "refreshSync");
+            if (result == null) {
+                return null;
+            }
+            File accountFile = new File(context.getFilesDir(), "bili.account.storage");
+            BufferedReader reader = new BufferedReader(new FileReader(accountFile));
+            String content = reader.readLine();
+            reader.close();
+            Log.d(TAG, "refreshSync - re-read account storage len: " + (content == null ? -1 : content.length()));
+            return content;
+        } catch (Exception e) {
+            Log.e(TAG, "refreshSync - exception: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // 公共刷新逻辑：调用refreshToken接口获取当前账号的token和cookie并保存
+    private static mk refreshCookiesInternal(Context context, String logPrefix) {
+        try {
+            mg account = mg.a(context);
+            if (account == null) {
+                Log.e(TAG, logPrefix + " - account is null");
+                return null;
+            }
+            String accessToken = account.e();
+            String refreshToken = account.getRefreshToken();
+            if (accessToken == null || accessToken.isEmpty() || refreshToken == null || refreshToken.isEmpty()) {
+                Log.e(TAG, logPrefix + " - accessToken or refreshToken is empty");
+                return null;
+            }
+            Log.d(TAG, logPrefix + " - calling refreshToken API");
+            BiliAuthService.CookieParamsMap cookieParams = new BiliAuthService.CookieParamsMap();
+            mk result = callRefreshTokenInternal(accessToken, refreshToken, cookieParams);
+            if (result == null || result.b == null || result.b.a == null || result.b.a.isEmpty()) {
+                Log.e(TAG, logPrefix + " - result is null or cookies empty");
+                return null;
+            }
+            vd tokenInfo = result.a;
+            ml cookieInfo = result.b;
+            if (tokenInfo == null || !tokenInfo.a()) {
+                Log.e(TAG, logPrefix + " - tokenInfo is invalid");
+                return null;
+            }
+            saveTokenAndCookies(tokenInfo, cookieInfo);
+            Log.d(TAG, logPrefix + " - saved token and cookies");
+            return result;
+        } catch (Exception e) {
+            Log.e(TAG, logPrefix + " - exception: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     private static mk callRefreshTokenInternal(String accessToken, String refreshToken, BiliAuthService.CookieParamsMap cookieParams) {
         try {
             BiliAuthService authService = (BiliAuthService) vo.a(BiliAuthService.class);
