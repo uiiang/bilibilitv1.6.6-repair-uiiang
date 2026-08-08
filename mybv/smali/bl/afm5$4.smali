@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 569
+    .line 570
     iput-object p1, p0, Lbl/afm5$4;->this$0:Lbl/afm5;
 
     iput-object p2, p0, Lbl/afm5$4;->val$folderListView:Landroid/widget/ListView;
@@ -50,42 +50,46 @@
     .prologue
     const/4 v0, 0x1
 
-    .line 572
+    .line 573
     invoke-virtual {p3}, Landroid/view/KeyEvent;->getAction()I
 
     move-result v1
 
-    if-nez v1, :cond_1b
+    if-nez v1, :cond_1f
 
-    .line 573
+    .line 574
     const/16 v1, 0x13
 
     if-ne p2, v1, :cond_11
 
-    .line 574
+    .line 575
     iget-object v1, p0, Lbl/afm5$4;->val$folderListView:Landroid/widget/ListView;
 
     invoke-virtual {v1}, Landroid/widget/ListView;->requestFocus()Z
 
-    .line 582
+    .line 583
     :goto_10
     return v0
 
-    .line 577
+    .line 578
     :cond_11
     const/16 v1, 0x14
 
-    if-ne p2, v1, :cond_1b
+    if-ne p2, v1, :cond_1f
 
-    .line 578
+    iget-object v1, p0, Lbl/afm5$4;->val$safButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    if-eqz v1, :cond_1f
+
+    .line 579
     iget-object v1, p0, Lbl/afm5$4;->val$safButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->requestFocus()Z
 
     goto :goto_10
 
-    .line 582
-    :cond_1b
+    .line 583
+    :cond_1f
     const/4 v0, 0x0
 
     goto :goto_10

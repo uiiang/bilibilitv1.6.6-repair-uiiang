@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 552
+    .line 553
     iput-object p1, p0, Lbl/afm5$3;->this$0:Lbl/afm5;
 
     iput-object p2, p0, Lbl/afm5$3;->val$folderListView:Landroid/widget/ListView;
@@ -48,7 +48,7 @@
     .locals 2
 
     .prologue
-    .line 555
+    .line 556
     invoke-virtual {p3}, Landroid/view/KeyEvent;->getAction()I
 
     move-result v0
@@ -59,14 +59,14 @@
 
     if-ne p2, v0, :cond_21
 
-    .line 557
+    .line 558
     iget-object v0, p0, Lbl/afm5$3;->val$folderListView:Landroid/widget/ListView;
 
     invoke-virtual {v0}, Landroid/widget/ListView;->getSelectedItemPosition()I
 
     move-result v0
 
-    .line 559
+    .line 560
     iget-object v1, p0, Lbl/afm5$3;->val$folderListView:Landroid/widget/ListView;
 
     invoke-virtual {v1}, Landroid/widget/ListView;->getCount()I
@@ -77,15 +77,15 @@
 
     if-lt v0, v1, :cond_21
 
-    .line 560
+    .line 561
     iget-object v0, p0, Lbl/afm5$3;->val$confirmButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->requestFocus()Z
 
-    .line 561
+    .line 562
     const/4 v0, 0x1
 
-    .line 564
+    .line 565
     :goto_20
     return v0
 

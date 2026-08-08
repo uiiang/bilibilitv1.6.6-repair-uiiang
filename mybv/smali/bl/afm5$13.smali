@@ -34,7 +34,7 @@
     .locals 0
 
     .prologue
-    .line 887
+    .line 896
     iput-object p1, p0, Lbl/afm5$13;->this$0:Lbl/afm5;
 
     iput-object p2, p0, Lbl/afm5$13;->val$allFiles:Ljava/util/List;
@@ -65,7 +65,7 @@
     .end annotation
 
     .prologue
-    .line 890
+    .line 899
     iget-object v0, p0, Lbl/afm5$13;->val$allFiles:Ljava/util/List;
 
     invoke-interface {v0, p3}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -74,17 +74,17 @@
 
     check-cast v0, Ljava/io/File;
 
-    .line 891
+    .line 900
     if-nez v0, :cond_2c
 
-    .line 893
+    .line 902
     iget-object v0, p0, Lbl/afm5$13;->val$currentDir:Ljava/io/File;
 
     invoke-virtual {v0}, Ljava/io/File;->getParentFile()Ljava/io/File;
 
     move-result-object v0
 
-    .line 894
+    .line 903
     if-eqz v0, :cond_22
 
     const-string v1, "/storage/emulated"
@@ -99,12 +99,12 @@
 
     if-eqz v1, :cond_22
 
-    .line 895
+    .line 904
     invoke-virtual {v0}, Ljava/io/File;->getParentFile()Ljava/io/File;
 
     move-result-object v0
 
-    .line 897
+    .line 906
     :cond_22
     iget-object v1, p0, Lbl/afm5$13;->this$0:Lbl/afm5;
 
@@ -115,11 +115,11 @@
     # invokes: Lbl/afm5;->loadFolderList(Landroid/widget/ListView;Landroid/widget/TextView;Ljava/io/File;)V
     invoke-static {v1, v2, v3, v0}, Lbl/afm5;->access$700(Lbl/afm5;Landroid/widget/ListView;Landroid/widget/TextView;Ljava/io/File;)V
 
-    .line 902
+    .line 911
     :goto_2b
     return-void
 
-    .line 900
+    .line 909
     :cond_2c
     iget-object v1, p0, Lbl/afm5$13;->this$0:Lbl/afm5;
 

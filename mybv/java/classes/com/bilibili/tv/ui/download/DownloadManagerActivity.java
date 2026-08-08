@@ -214,6 +214,17 @@ public final class DownloadManagerActivity extends BaseUpViewActivity {
             if (currentFocus == null || keycode == null) {
                 return super.dispatchKeyEvent(keyEvent);
             }
+            if (keycode.intValue() == KeyEvent.KEYCODE_MENU) {
+                // 下载中列表：按菜单键弹出右侧批量操作菜单（样式对齐收藏页右侧排序菜单）
+                if (currentFragmentIndex == 0) {
+                    Fragment rightFragment = this.d.d(currentFragmentIndex);
+                    View fragmentView = rightFragment != null ? rightFragment.getView() : null;
+                    if (fragmentView != null && isDescendantOf(fragmentView, currentFocus)) {
+                        showDownloadingMenu();
+                        return true;
+                    }
+                }
+            }
             if (keycode.intValue() == KeyEvent.KEYCODE_DPAD_UP || keycode.intValue() == KeyEvent.KEYCODE_DPAD_DOWN) {
                 // 上下键：阻止右侧列表的焦点预测跳入左侧导航菜单（对齐收藏/历史页的防跳出逻辑）
                 try {
@@ -288,6 +299,82 @@ public final class DownloadManagerActivity extends BaseUpViewActivity {
             }
         }
         return super.dispatchKeyEvent(keyEvent);
+    }
+
+    /**
+     * 弹出"下载中"列表的右侧批量操作菜单（样式对齐收藏页右侧排序菜单）
+     */
+    private void showDownloadingMenu() {
+        if (isFinishing()) {
+            return;
+        }
+        // 无下载任务时不弹出菜单
+        if (DownloadManager.getInstance(this).getDownloadingCount() == 0) {
+            return;
+        }
+        Fragment rightFragment = this.d.d(currentFragmentIndex);
+        if (!(rightFragment instanceof DownloadingFragment)) {
+            return;
+        }
+        final DownloadingFragment fragment = (DownloadingFragment) rightFragment;
+
+        // 至少1个任务正在下载/等待中 -> 显示"全部暂停"；所有任务都暂停中 -> 显示"全部开始"
+        final boolean hasActive = fragment.hasActiveDownloadingTasks();
+
+        final java.util.List<String> names = new java.util.ArrayList<String>();
+        if (hasActive) {
+            names.add("全部暂停");
+        } else {
+            names.add("全部开始");
+        }
+        names.add("全部删除");
+
+        DownloadingMenuDialog dialog = new DownloadingMenuDialog(this);
+        dialog.setItems(names);
+        dialog.setOnMenuItemClickListener(new DownloadingMenuDialog.OnMenuItemClickListener() {
+            @Override
+            public void onMenuItemClick(int index) {
+                if (index == 0) {
+                    if (hasActive) {
+                        DownloadManager.getInstance(DownloadManagerActivity.this).pauseAllTasks();
+                        android.widget.Toast.makeText(DownloadManagerActivity.this, "已全部暂停", android.widget.Toast.LENGTH_SHORT).show();
+                    } else {
+                        DownloadManager.getInstance(DownloadManagerActivity.this).resumeAllTasks();
+                        android.widget.Toast.makeText(DownloadManagerActivity.this, "已全部开始", android.widget.Toast.LENGTH_SHORT).show();
+                    }
+                } else if (index == 1) {
+                    // 全部删除：弹确认框后清空任务并清除本地临时文件
+                    showDeleteAllConfirmDialog();
+                }
+            }
+        });
+        dialog.show();
+    }
+
+    /**
+     * "全部删除"确认对话框
+     */
+    private void showDeleteAllConfirmDialog() {
+        if (isFinishing()) {
+            return;
+        }
+        new android.app.AlertDialog.Builder(this)
+            .setTitle("删除全部下载任务")
+            .setMessage("确定要删除所有下载中任务，并清除本地文件吗？")
+            .setPositiveButton("删除", new android.content.DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(android.content.DialogInterface dialog, int which) {
+                    DownloadManager.getInstance(DownloadManagerActivity.this).deleteAllDownloadingTasks();
+                    android.widget.Toast.makeText(DownloadManagerActivity.this, "已全部删除", android.widget.Toast.LENGTH_SHORT).show();
+                    // 删除不会自动移除列表项，需显式刷新"下载中"列表UI
+                    Fragment rightFragment = DownloadManagerActivity.this.d.d(DownloadManagerActivity.this.currentFragmentIndex);
+                    if (rightFragment instanceof DownloadingFragment) {
+                        ((DownloadingFragment) rightFragment).refreshDownloadingList();
+                    }
+                }
+            })
+            .setNegativeButton("取消", null)
+            .show();
     }
 
     /**

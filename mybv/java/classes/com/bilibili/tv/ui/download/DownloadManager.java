@@ -197,10 +197,15 @@ public class DownloadManager {
             activeWorkers.remove(taskId);
         }
 
-        // 从等待队列中移除
+        // 从等待队列中移除（按taskId匹配：DownloadTask未重写equals，引用比较无法移除DB查询出的对象）
         DownloadTask task = databaseHelper.getTask(taskId);
         if (task != null) {
-            waitingQueue.remove(task);
+            java.util.Iterator<DownloadTask> iterator = waitingQueue.iterator();
+            while (iterator.hasNext()) {
+                if (iterator.next().getTaskId().equals(taskId)) {
+                    iterator.remove();
+                }
+            }
         }
 
         // 从数据库中删除
@@ -241,6 +246,85 @@ public class DownloadManager {
 
         // 通知状态变化
         notifyStatusChanged(task);
+    }
+
+    // ============ 批量操作 ============
+
+    /**
+     * 暂停所有正在下载/等待中的任务
+     */
+    public void pauseAllTasks() {
+        Log.i(TAG, "全部暂停所有下载任务");
+        List<DownloadTask> tasks = getDownloadingTasks();
+        int count = 0;
+        for (DownloadTask task : tasks) {
+            if (task.getStatus() == DownloadTask.Status.WAITING
+                    || task.getStatus() == DownloadTask.Status.DOWNLOADING) {
+                pauseTask(task.getTaskId());
+                count++;
+            }
+        }
+        Log.i(TAG, "全部暂停完成，共暂停 " + count + " 个任务");
+    }
+
+    /**
+     * 恢复所有已暂停的任务
+     */
+    public void resumeAllTasks() {
+        Log.i(TAG, "全部开始恢复下载任务");
+        List<DownloadTask> tasks = getDownloadingTasks();
+        int count = 0;
+        for (DownloadTask task : tasks) {
+            if (task.getStatus() == DownloadTask.Status.PAUSED) {
+                resumeTask(task.getTaskId());
+                count++;
+            }
+        }
+        Log.i(TAG, "全部开始完成，共恢复 " + count + " 个任务");
+    }
+
+    /**
+     * 删除所有下载中任务，并清除本地文件（含断点续传的临时文件）
+     */
+    public void deleteAllDownloadingTasks() {
+        List<DownloadTask> tasks = getDownloadingTasks();
+        Log.i(TAG, "全部删除，共 " + tasks.size() + " 个下载中任务");
+        for (DownloadTask task : tasks) {
+            deleteTaskFiles(task);
+            deleteTask(task.getTaskId());
+        }
+        Log.i(TAG, "全部删除完成");
+    }
+
+    /**
+     * 删除任务对应的本地文件（含临时文件）
+     */
+    private void deleteTaskFiles(DownloadTask task) {
+        try {
+            String path = task.getDownloadPath();
+            if (path == null || path.isEmpty()) {
+                return;
+            }
+            if (path.startsWith("content://")) {
+                // SAF：删除已下载的content URI文件（SAF模式直接写入目标URI，无临时文件）
+                if (SafFileHelper.exists(context, path)) {
+                    SafFileHelper.delete(context, path);
+                }
+            } else {
+                // File：删除断点续传的临时文件与最终文件
+                java.io.File tmpFile = new java.io.File(path + ".tmp");
+                if (tmpFile.exists()) {
+                    tmpFile.delete();
+                    Log.i(TAG, "删除临时文件: " + tmpFile.getAbsolutePath());
+                }
+                java.io.File finalFile = new java.io.File(path);
+                if (finalFile.exists()) {
+                    finalFile.delete();
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "删除任务文件失败: " + task.getTaskId(), e);
+        }
     }
 
     /**

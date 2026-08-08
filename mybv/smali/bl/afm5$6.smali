@@ -22,16 +22,20 @@
 
 .field final synthetic val$safButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
+.field final synthetic val$safText:Landroid/widget/TextView;
+
 
 # direct methods
-.method constructor <init>(Lbl/afm5;Lcom/bilibili/tv/widget/DrawFrameLayout;)V
+.method constructor <init>(Lbl/afm5;Lcom/bilibili/tv/widget/DrawFrameLayout;Landroid/widget/TextView;)V
     .locals 0
 
     .prologue
-    .line 600
+    .line 601
     iput-object p1, p0, Lbl/afm5$6;->this$0:Lbl/afm5;
 
     iput-object p2, p0, Lbl/afm5$6;->val$safButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    iput-object p3, p0, Lbl/afm5$6;->val$safText:Landroid/widget/TextView;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -41,14 +45,53 @@
 
 # virtual methods
 .method public onFocusChange(Landroid/view/View;Z)V
-    .locals 1
+    .locals 2
 
     .prologue
-    .line 603
+    .line 604
     iget-object v0, p0, Lbl/afm5$6;->val$safButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpEnabled(Z)V
 
-    .line 604
+    .line 605
+    if-eqz p2, :cond_1b
+
+    .line 606
+    iget-object v0, p0, Lbl/afm5$6;->val$safButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    const v1, 0x7f0700ee
+
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
+
+    .line 607
+    iget-object v0, p0, Lbl/afm5$6;->val$safText:Landroid/widget/TextView;
+
+    const-string v1, "#FB7299"
+
+    invoke-static {v1}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
+
+    move-result v1
+
+    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setTextColor(I)V
+
+    .line 612
+    :goto_1a
     return-void
+
+    .line 609
+    :cond_1b
+    iget-object v0, p0, Lbl/afm5$6;->val$safButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    const v1, 0x7f0700f0
+
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
+
+    .line 610
+    iget-object v0, p0, Lbl/afm5$6;->val$safText:Landroid/widget/TextView;
+
+    const/4 v1, -0x1
+
+    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setTextColor(I)V
+
+    goto :goto_1a
 .end method

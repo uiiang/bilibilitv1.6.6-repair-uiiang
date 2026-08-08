@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 608
+    .line 617
     iput-object p1, p0, Lbl/afm5$7;->this$0:Lbl/afm5;
 
     iput-object p2, p0, Lbl/afm5$7;->val$confirmButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
@@ -48,22 +48,22 @@
     .locals 2
 
     .prologue
-    .line 611
+    .line 620
     iget-object v0, p0, Lbl/afm5$7;->val$confirmButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpEnabled(Z)V
 
-    .line 612
+    .line 621
     if-eqz p2, :cond_1b
 
-    .line 613
+    .line 622
     iget-object v0, p0, Lbl/afm5$7;->val$confirmButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     const v1, 0x7f0700ee
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 614
+    .line 623
     iget-object v0, p0, Lbl/afm5$7;->val$confirmText:Landroid/widget/TextView;
 
     const-string v1, "#FB7299"
@@ -74,11 +74,11 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 619
+    .line 628
     :goto_1a
     return-void
 
-    .line 616
+    .line 625
     :cond_1b
     iget-object v0, p0, Lbl/afm5$7;->val$confirmButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
@@ -86,7 +86,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 617
+    .line 626
     iget-object v0, p0, Lbl/afm5$7;->val$confirmText:Landroid/widget/TextView;
 
     const/4 v1, -0x1

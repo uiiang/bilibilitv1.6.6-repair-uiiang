@@ -2902,6 +2902,7 @@ public final class R {
         public static final int item_episode_select = 0x7f0a00b3;
         public static final int item_video_group = 0x7f0a00b4;
         public static final int activity_task_group_detail = 0x7f0a00b5;
+        public static final int dialog_downloading_menu = 0x7f0a00b6;
     }
 
     public static final class mipmap {

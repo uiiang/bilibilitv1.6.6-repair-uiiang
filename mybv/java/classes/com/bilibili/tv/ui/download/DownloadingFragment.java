@@ -185,6 +185,38 @@ public class DownloadingFragment extends Fragment implements DownloadManager.Dow
     }
 
     /**
+     * 判断下载中列表是否至少存在1个正在下载/等待中的任务
+     * （决定右侧菜单显示"全部暂停"还是"全部开始"）
+     */
+    public boolean hasActiveDownloadingTasks() {
+        List<DownloadTask> tasks = DownloadManager.getInstance(getContext()).getDownloadingTasks();
+        for (DownloadTask task : tasks) {
+            if (task.getStatus() == DownloadTask.Status.WAITING
+                    || task.getStatus() == DownloadTask.Status.DOWNLOADING) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 刷新下载中列表（供外部批量操作完成后显式调用，保证删除后UI同步）
+     */
+    public void refreshDownloadingList() {
+        if (getView() == null || !isAdded()) {
+            return;
+        }
+        getView().post(new Runnable() {
+            @Override
+            public void run() {
+                if (isAdded()) {
+                    refreshList();
+                }
+            }
+        });
+    }
+
+    /**
      * 处理任务点击
      */
     private void handleTaskClick(DownloadTask task) {

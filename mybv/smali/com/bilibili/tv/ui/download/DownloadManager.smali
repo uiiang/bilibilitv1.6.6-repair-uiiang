@@ -203,6 +203,174 @@
     return-object v0
 .end method
 
+.method private deleteTaskFiles(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
+    .locals 5
+
+    .prologue
+    .line 304
+    :try_start_0
+    invoke-virtual {p1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getDownloadPath()Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 305
+    if-eqz v0, :cond_c
+
+    invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_d
+
+    .line 328
+    :cond_c
+    :goto_c
+    return-void
+
+    .line 308
+    :cond_d
+    const-string v1, "content://"
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_41
+
+    .line 310
+    iget-object v1, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->context:Landroid/content/Context;
+
+    invoke-static {v1, v0}, Lcom/bilibili/tv/ui/download/SafFileHelper;->exists(Landroid/content/Context;Ljava/lang/String;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_c
+
+    .line 311
+    iget-object v1, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->context:Landroid/content/Context;
+
+    invoke-static {v1, v0}, Lcom/bilibili/tv/ui/download/SafFileHelper;->delete(Landroid/content/Context;Ljava/lang/String;)Z
+    :try_end_22
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_22} :catch_23
+
+    goto :goto_c
+
+    .line 325
+    :catch_23
+    move-exception v0
+
+    .line 326
+    const-string v1, "DownloadManager"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "\u5220\u9664\u4efb\u52a1\u6587\u4ef6\u5931\u8d25: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {p1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getTaskId()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v1, v2, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+
+    goto :goto_c
+
+    .line 315
+    :cond_41
+    :try_start_41
+    new-instance v1, Ljava/io/File;
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, ".tmp"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-direct {v1, v2}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+
+    .line 316
+    invoke-virtual {v1}, Ljava/io/File;->exists()Z
+
+    move-result v2
+
+    if-eqz v2, :cond_7e
+
+    .line 317
+    invoke-virtual {v1}, Ljava/io/File;->delete()Z
+
+    .line 318
+    const-string v2, "DownloadManager"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "\u5220\u9664\u4e34\u65f6\u6587\u4ef6: "
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v1}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v2, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 320
+    :cond_7e
+    new-instance v1, Ljava/io/File;
+
+    invoke-direct {v1, v0}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+
+    .line 321
+    invoke-virtual {v1}, Ljava/io/File;->exists()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_c
+
+    .line 322
+    invoke-virtual {v1}, Ljava/io/File;->delete()Z
+    :try_end_8c
+    .catch Ljava/lang/Exception; {:try_start_41 .. :try_end_8c} :catch_23
+
+    goto :goto_c
+.end method
+
 .method public static declared-synchronized getInstance(Landroid/content/Context;)Lcom/bilibili/tv/ui/download/DownloadManager;
     .locals 2
 
@@ -247,7 +415,7 @@
     .locals 2
 
     .prologue
-    .line 581
+    .line 665
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->mainHandler:Landroid/os/Handler;
 
     new-instance v1, Lcom/bilibili/tv/ui/download/DownloadManager$4;
@@ -256,7 +424,7 @@
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
 
-    .line 589
+    .line 673
     return-void
 .end method
 
@@ -264,7 +432,7 @@
     .locals 2
 
     .prologue
-    .line 553
+    .line 637
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->mainHandler:Landroid/os/Handler;
 
     new-instance v1, Lcom/bilibili/tv/ui/download/DownloadManager$2;
@@ -273,7 +441,7 @@
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
 
-    .line 561
+    .line 645
     return-void
 .end method
 
@@ -281,7 +449,7 @@
     .locals 2
 
     .prologue
-    .line 567
+    .line 651
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->mainHandler:Landroid/os/Handler;
 
     new-instance v1, Lcom/bilibili/tv/ui/download/DownloadManager$3;
@@ -290,7 +458,7 @@
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
 
-    .line 575
+    .line 659
     return-void
 .end method
 
@@ -298,21 +466,21 @@
     .locals 3
 
     .prologue
-    .line 336
+    .line 420
     const-string v0, "DownloadManager"
 
     const-string v1, "\u6062\u590d\u672a\u5b8c\u6210\u7684\u4e0b\u8f7d\u4efb\u52a1"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 339
+    .line 423
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->databaseHelper:Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getDownloadingTasks()Ljava/util/List;
 
     move-result-object v0
 
-    .line 341
+    .line 425
     invoke-interface {v0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
 
     move-result-object v1
@@ -331,35 +499,35 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
-    .line 343
+    .line 427
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->isManualPause()Z
 
     move-result v2
 
     if-nez v2, :cond_11
 
-    .line 345
+    .line 429
     sget-object v2, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->WAITING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setStatus(Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;)V
 
-    .line 346
+    .line 430
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->databaseHelper:Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;
 
     invoke-virtual {v2, v0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->updateTask(Lcom/bilibili/tv/ui/download/model/DownloadTask;)I
 
-    .line 347
+    .line 431
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->waitingQueue:Ljava/util/concurrent/PriorityBlockingQueue;
 
     invoke-virtual {v2, v0}, Ljava/util/concurrent/PriorityBlockingQueue;->offer(Ljava/lang/Object;)Z
 
     goto :goto_11
 
-    .line 352
+    .line 436
     :cond_33
     invoke-direct {p0}, Lcom/bilibili/tv/ui/download/DownloadManager;->scheduleNextTask()V
 
-    .line 353
+    .line 437
     return-void
 .end method
 
@@ -367,7 +535,7 @@
     .locals 3
 
     .prologue
-    .line 360
+    .line 444
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->activeWorkers:Ljava/util/concurrent/ConcurrentHashMap;
 
     invoke-virtual {v0}, Ljava/util/concurrent/ConcurrentHashMap;->size()I
@@ -378,12 +546,12 @@
 
     if-lt v0, v1, :cond_a
 
-    .line 379
+    .line 463
     :cond_9
     :goto_9
     return-void
 
-    .line 365
+    .line 449
     :cond_a
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->waitingQueue:Ljava/util/concurrent/PriorityBlockingQueue;
 
@@ -393,10 +561,10 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
-    .line 366
+    .line 450
     if-eqz v0, :cond_9
 
-    .line 371
+    .line 455
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getStatus()Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
     move-result-object v1
@@ -405,12 +573,12 @@
 
     if-eq v1, v2, :cond_20
 
-    .line 373
+    .line 457
     invoke-direct {p0}, Lcom/bilibili/tv/ui/download/DownloadManager;->scheduleNextTask()V
 
     goto :goto_9
 
-    .line 378
+    .line 462
     :cond_20
     invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/download/DownloadManager;->startDownload(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 
@@ -421,7 +589,7 @@
     .locals 3
 
     .prologue
-    .line 385
+    .line 469
     const-string v0, "DownloadManager"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -448,31 +616,31 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 388
+    .line 472
     sget-object v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->DOWNLOADING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
     invoke-virtual {p1, v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setStatus(Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;)V
 
-    .line 389
+    .line 473
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v0
 
     invoke-virtual {p1, v0, v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setStartTime(J)V
 
-    .line 390
+    .line 474
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v0
 
     invoke-virtual {p1, v0, v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setUpdateTime(J)V
 
-    .line 391
+    .line 475
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->databaseHelper:Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;
 
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->updateTask(Lcom/bilibili/tv/ui/download/model/DownloadTask;)I
 
-    .line 394
+    .line 478
     new-instance v0, Lcom/bilibili/tv/ui/download/DownloadWorker;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->context:Landroid/content/Context;
@@ -483,7 +651,7 @@
 
     invoke-direct {v0, v1, p1, v2}, Lcom/bilibili/tv/ui/download/DownloadWorker;-><init>(Landroid/content/Context;Lcom/bilibili/tv/ui/download/model/DownloadTask;Lcom/bilibili/tv/ui/download/DownloadWorker$DownloadCallback;)V
 
-    .line 455
+    .line 539
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->activeWorkers:Ljava/util/concurrent/ConcurrentHashMap;
 
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getTaskId()Ljava/lang/String;
@@ -492,15 +660,15 @@
 
     invoke-virtual {v1, v2, v0}, Ljava/util/concurrent/ConcurrentHashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 458
+    .line 542
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->downloadExecutor:Ljava/util/concurrent/ExecutorService;
 
     invoke-interface {v1, v0}, Ljava/util/concurrent/ExecutorService;->execute(Ljava/lang/Runnable;)V
 
-    .line 461
+    .line 545
     invoke-direct {p0, p1}, Lcom/bilibili/tv/ui/download/DownloadManager;->notifyStatusChanged(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 
-    .line 462
+    .line 546
     return-void
 .end method
 
@@ -510,7 +678,7 @@
     .locals 1
 
     .prologue
-    .line 537
+    .line 621
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->progressListeners:Ljava/util/List;
 
     invoke-interface {v0, p1}, Ljava/util/List;->contains(Ljava/lang/Object;)Z
@@ -519,12 +687,12 @@
 
     if-nez v0, :cond_d
 
-    .line 538
+    .line 622
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->progressListeners:Ljava/util/List;
 
     invoke-interface {v0, p1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 540
+    .line 624
     :cond_d
     return-void
 .end method
@@ -679,17 +847,17 @@
     .locals 2
 
     .prologue
-    .line 595
+    .line 679
     const-string v0, "DownloadManager"
 
     const-string v1, "\u6e05\u7406\u4e0b\u8f7d\u7ba1\u7406\u5668\u8d44\u6e90"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 598
+    .line 682
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/DownloadManager;->pauseAllOnAppExit()V
 
-    .line 601
+    .line 685
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->downloadExecutor:Ljava/util/concurrent/ExecutorService;
 
     if-eqz v0, :cond_1b
@@ -702,13 +870,97 @@
 
     if-nez v0, :cond_1b
 
-    .line 602
+    .line 686
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->downloadExecutor:Ljava/util/concurrent/ExecutorService;
 
     invoke-interface {v0}, Ljava/util/concurrent/ExecutorService;->shutdown()V
 
-    .line 604
+    .line 688
     :cond_1b
+    return-void
+.end method
+
+.method public deleteAllDownloadingTasks()V
+    .locals 4
+
+    .prologue
+    .line 290
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/DownloadManager;->getDownloadingTasks()Ljava/util/List;
+
+    move-result-object v0
+
+    .line 291
+    const-string v1, "DownloadManager"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "\u5168\u90e8\u5220\u9664\uff0c\u5171 "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-interface {v0}, Ljava/util/List;->size()I
+
+    move-result v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, " \u4e2a\u4e0b\u8f7d\u4e2d\u4efb\u52a1"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 292
+    invoke-interface {v0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
+
+    move-result-object v1
+
+    :goto_2a
+    invoke-interface {v1}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_41
+
+    invoke-interface {v1}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/bilibili/tv/ui/download/model/DownloadTask;
+
+    .line 293
+    invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/download/DownloadManager;->deleteTaskFiles(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
+
+    .line 294
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getTaskId()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/download/DownloadManager;->deleteTask(Ljava/lang/String;)V
+
+    goto :goto_2a
+
+    .line 296
+    :cond_41
+    const-string v0, "DownloadManager"
+
+    const-string v1, "\u5168\u90e8\u5220\u9664\u5b8c\u6210"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 297
     return-void
 .end method
 
@@ -765,30 +1017,63 @@
 
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getTask(Ljava/lang/String;)Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
-    move-result-object v0
+    move-result-object v1
 
     .line 202
-    if-eqz v0, :cond_37
+    if-eqz v1, :cond_52
 
     .line 203
-    iget-object v1, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->waitingQueue:Ljava/util/concurrent/PriorityBlockingQueue;
+    iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->waitingQueue:Ljava/util/concurrent/PriorityBlockingQueue;
 
-    invoke-virtual {v1, v0}, Ljava/util/concurrent/PriorityBlockingQueue;->remove(Ljava/lang/Object;)Z
+    invoke-virtual {v0}, Ljava/util/concurrent/PriorityBlockingQueue;->iterator()Ljava/util/Iterator;
 
-    .line 207
-    :cond_37
-    iget-object v1, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->databaseHelper:Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;
+    move-result-object v2
 
-    invoke-virtual {v1, p1}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->deleteTask(Ljava/lang/String;)I
+    .line 204
+    :cond_38
+    :goto_38
+    invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
 
-    .line 210
-    if-eqz v0, :cond_41
+    move-result v0
 
-    .line 211
-    invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/download/DownloadManager;->notifyStatusChanged(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
+    if-eqz v0, :cond_52
 
-    .line 213
-    :cond_41
+    .line 205
+    invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/bilibili/tv/ui/download/model/DownloadTask;
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getTaskId()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_38
+
+    .line 206
+    invoke-interface {v2}, Ljava/util/Iterator;->remove()V
+
+    goto :goto_38
+
+    .line 212
+    :cond_52
+    iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->databaseHelper:Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;
+
+    invoke-virtual {v0, p1}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->deleteTask(Ljava/lang/String;)I
+
+    .line 215
+    if-eqz v1, :cond_5c
+
+    .line 216
+    invoke-direct {p0, v1}, Lcom/bilibili/tv/ui/download/DownloadManager;->notifyStatusChanged(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
+
+    .line 218
+    :cond_5c
     return-void
 .end method
 
@@ -805,7 +1090,7 @@
     .end annotation
 
     .prologue
-    .line 470
+    .line 554
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->databaseHelper:Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getAllTasks()Ljava/util/List;
@@ -819,7 +1104,7 @@
     .locals 1
 
     .prologue
-    .line 528
+    .line 612
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->databaseHelper:Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getCompletedCount()I
@@ -842,7 +1127,7 @@
     .end annotation
 
     .prologue
-    .line 484
+    .line 568
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->databaseHelper:Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getCompletedTasks()Ljava/util/List;
@@ -856,7 +1141,7 @@
     .locals 1
 
     .prologue
-    .line 521
+    .line 605
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->databaseHelper:Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getDownloadingCount()I
@@ -879,7 +1164,7 @@
     .end annotation
 
     .prologue
-    .line 477
+    .line 561
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->databaseHelper:Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getDownloadingTasks()Ljava/util/List;
@@ -902,7 +1187,7 @@
     .end annotation
 
     .prologue
-    .line 491
+    .line 575
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->databaseHelper:Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getFailedTasks()Ljava/util/List;
@@ -916,7 +1201,7 @@
     .locals 1
 
     .prologue
-    .line 498
+    .line 582
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->databaseHelper:Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;
 
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getTask(Ljava/lang/String;)Lcom/bilibili/tv/ui/download/model/DownloadTask;
@@ -930,7 +1215,7 @@
     .locals 2
 
     .prologue
-    .line 505
+    .line 589
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->databaseHelper:Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;
 
     invoke-virtual {v0, p1, p2, p3}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getTaskByBvidAndCid(Ljava/lang/String;J)Lcom/bilibili/tv/ui/download/model/DownloadTask;
@@ -944,14 +1229,14 @@
     .locals 4
 
     .prologue
-    .line 250
+    .line 334
     const-string v0, "DownloadManager"
 
     const-string v1, "\u7f51\u7edc\u4e2d\u65ad\uff0c\u6682\u505c\u6240\u6709\u4e0b\u8f7d\u4efb\u52a1"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 253
+    .line 337
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->activeWorkers:Ljava/util/concurrent/ConcurrentHashMap;
 
     invoke-virtual {v0}, Ljava/util/concurrent/ConcurrentHashMap;->values()Ljava/util/Collection;
@@ -975,25 +1260,25 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/download/DownloadWorker;
 
-    .line 254
+    .line 338
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/DownloadWorker;->pause()V
 
     goto :goto_11
 
-    .line 256
+    .line 340
     :cond_21
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->activeWorkers:Ljava/util/concurrent/ConcurrentHashMap;
 
     invoke-virtual {v0}, Ljava/util/concurrent/ConcurrentHashMap;->clear()V
 
-    .line 259
+    .line 343
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->databaseHelper:Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getDownloadingTasks()Ljava/util/List;
 
     move-result-object v0
 
-    .line 260
+    .line 344
     invoke-interface {v0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
 
     move-result-object v1
@@ -1011,40 +1296,40 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
-    .line 261
+    .line 345
     sget-object v2, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->PAUSED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setStatus(Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;)V
 
-    .line 262
+    .line 346
     sget-object v2, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->NETWORK_ERROR:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setPauseType(Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;)V
 
-    .line 263
+    .line 347
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v2
 
     invoke-virtual {v0, v2, v3}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setUpdateTime(J)V
 
-    .line 264
+    .line 348
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->databaseHelper:Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;
 
     invoke-virtual {v2, v0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->updateTask(Lcom/bilibili/tv/ui/download/model/DownloadTask;)I
 
-    .line 265
+    .line 349
     invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/download/DownloadManager;->notifyStatusChanged(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 
     goto :goto_30
 
-    .line 269
+    .line 353
     :cond_56
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->waitingQueue:Ljava/util/concurrent/PriorityBlockingQueue;
 
     invoke-virtual {v0}, Ljava/util/concurrent/PriorityBlockingQueue;->clear()V
 
-    .line 270
+    .line 354
     return-void
 .end method
 
@@ -1052,14 +1337,14 @@
     .locals 4
 
     .prologue
-    .line 311
+    .line 395
     const-string v0, "DownloadManager"
 
     const-string v1, "\u5e94\u7528\u9000\u51fa\uff0c\u6682\u505c\u6240\u6709\u4e0b\u8f7d"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 314
+    .line 398
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->activeWorkers:Ljava/util/concurrent/ConcurrentHashMap;
 
     invoke-virtual {v0}, Ljava/util/concurrent/ConcurrentHashMap;->values()Ljava/util/Collection;
@@ -1083,25 +1368,25 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/download/DownloadWorker;
 
-    .line 315
+    .line 399
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/DownloadWorker;->pause()V
 
     goto :goto_11
 
-    .line 317
+    .line 401
     :cond_21
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->activeWorkers:Ljava/util/concurrent/ConcurrentHashMap;
 
     invoke-virtual {v0}, Ljava/util/concurrent/ConcurrentHashMap;->clear()V
 
-    .line 320
+    .line 404
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->databaseHelper:Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getDownloadingTasks()Ljava/util/List;
 
     move-result-object v0
 
-    .line 321
+    .line 405
     invoke-interface {v0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
 
     move-result-object v1
@@ -1119,38 +1404,151 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
-    .line 322
+    .line 406
     sget-object v2, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->PAUSED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setStatus(Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;)V
 
-    .line 323
+    .line 407
     sget-object v2, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->APP_EXIT:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setPauseType(Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;)V
 
-    .line 324
+    .line 408
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v2
 
     invoke-virtual {v0, v2, v3}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setUpdateTime(J)V
 
-    .line 325
+    .line 409
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->databaseHelper:Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;
 
     invoke-virtual {v2, v0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->updateTask(Lcom/bilibili/tv/ui/download/model/DownloadTask;)I
 
     goto :goto_30
 
-    .line 329
+    .line 413
     :cond_53
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->waitingQueue:Ljava/util/concurrent/PriorityBlockingQueue;
 
     invoke-virtual {v0}, Ljava/util/concurrent/PriorityBlockingQueue;->clear()V
 
-    .line 330
+    .line 414
     return-void
+.end method
+
+.method public pauseAllTasks()V
+    .locals 5
+
+    .prologue
+    .line 257
+    const-string v0, "DownloadManager"
+
+    const-string v1, "\u5168\u90e8\u6682\u505c\u6240\u6709\u4e0b\u8f7d\u4efb\u52a1"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 258
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/DownloadManager;->getDownloadingTasks()Ljava/util/List;
+
+    move-result-object v1
+
+    .line 259
+    const/4 v0, 0x0
+
+    .line 260
+    invoke-interface {v1}, Ljava/util/List;->iterator()Ljava/util/Iterator;
+
+    move-result-object v2
+
+    move v1, v0
+
+    :goto_11
+    invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_38
+
+    invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/bilibili/tv/ui/download/model/DownloadTask;
+
+    .line 261
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getStatus()Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+
+    move-result-object v3
+
+    sget-object v4, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->WAITING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+
+    if-eq v3, v4, :cond_2d
+
+    .line 262
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getStatus()Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+
+    move-result-object v3
+
+    sget-object v4, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->DOWNLOADING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+
+    if-ne v3, v4, :cond_57
+
+    .line 263
+    :cond_2d
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getTaskId()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/download/DownloadManager;->pauseTask(Ljava/lang/String;)V
+
+    .line 264
+    add-int/lit8 v0, v1, 0x1
+
+    :goto_36
+    move v1, v0
+
+    .line 266
+    goto :goto_11
+
+    .line 267
+    :cond_38
+    const-string v0, "DownloadManager"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "\u5168\u90e8\u6682\u505c\u5b8c\u6210\uff0c\u5171\u6682\u505c "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, " \u4e2a\u4efb\u52a1"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 268
+    return-void
+
+    :cond_57
+    move v0, v1
+
+    goto :goto_36
 .end method
 
 .method public pauseTask(Ljava/lang/String;)V
@@ -1281,27 +1679,130 @@
     .locals 1
 
     .prologue
-    .line 546
+    .line 630
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->progressListeners:Ljava/util/List;
 
     invoke-interface {v0, p1}, Ljava/util/List;->remove(Ljava/lang/Object;)Z
 
-    .line 547
+    .line 631
     return-void
+.end method
+
+.method public resumeAllTasks()V
+    .locals 5
+
+    .prologue
+    .line 274
+    const-string v0, "DownloadManager"
+
+    const-string v1, "\u5168\u90e8\u5f00\u59cb\u6062\u590d\u4e0b\u8f7d\u4efb\u52a1"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 275
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/download/DownloadManager;->getDownloadingTasks()Ljava/util/List;
+
+    move-result-object v1
+
+    .line 276
+    const/4 v0, 0x0
+
+    .line 277
+    invoke-interface {v1}, Ljava/util/List;->iterator()Ljava/util/Iterator;
+
+    move-result-object v2
+
+    move v1, v0
+
+    :goto_11
+    invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_30
+
+    invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/bilibili/tv/ui/download/model/DownloadTask;
+
+    .line 278
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getStatus()Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+
+    move-result-object v3
+
+    sget-object v4, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->PAUSED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+
+    if-ne v3, v4, :cond_4f
+
+    .line 279
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->getTaskId()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/download/DownloadManager;->resumeTask(Ljava/lang/String;)V
+
+    .line 280
+    add-int/lit8 v0, v1, 0x1
+
+    :goto_2e
+    move v1, v0
+
+    .line 282
+    goto :goto_11
+
+    .line 283
+    :cond_30
+    const-string v0, "DownloadManager"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "\u5168\u90e8\u5f00\u59cb\u5b8c\u6210\uff0c\u5171\u6062\u590d "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, " \u4e2a\u4efb\u52a1"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 284
+    return-void
+
+    :cond_4f
+    move v0, v1
+
+    goto :goto_2e
 .end method
 
 .method public resumeOnNetworkResumed()V
     .locals 5
 
     .prologue
-    .line 276
+    .line 360
     const-string v0, "DownloadManager"
 
     const-string v1, "\u7f51\u7edc\u6062\u590d\uff0c\u81ea\u52a8\u6062\u590d\u4e0b\u8f7d"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 279
+    .line 363
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->databaseHelper:Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;
 
     sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->NETWORK_ERROR:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
@@ -1310,7 +1811,7 @@
 
     move-result-object v0
 
-    .line 283
+    .line 367
     invoke-interface {v0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
 
     move-result-object v1
@@ -1328,14 +1829,14 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
-    .line 285
+    .line 369
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->isManualPause()Z
 
     move-result v2
 
     if-eqz v2, :cond_42
 
-    .line 286
+    .line 370
     const-string v2, "DownloadManager"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -1364,44 +1865,44 @@
 
     goto :goto_13
 
-    .line 291
+    .line 375
     :cond_42
     sget-object v2, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->WAITING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setStatus(Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;)V
 
-    .line 292
+    .line 376
     sget-object v2, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->NONE:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setPauseType(Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;)V
 
-    .line 293
+    .line 377
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v2
 
     invoke-virtual {v0, v2, v3}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setUpdateTime(J)V
 
-    .line 294
+    .line 378
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->databaseHelper:Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;
 
     invoke-virtual {v2, v0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->updateTask(Lcom/bilibili/tv/ui/download/model/DownloadTask;)I
 
-    .line 297
+    .line 381
     iget-object v2, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->waitingQueue:Ljava/util/concurrent/PriorityBlockingQueue;
 
     invoke-virtual {v2, v0}, Ljava/util/concurrent/PriorityBlockingQueue;->offer(Ljava/lang/Object;)Z
 
-    .line 300
+    .line 384
     invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/download/DownloadManager;->notifyStatusChanged(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 
     goto :goto_13
 
-    .line 304
+    .line 388
     :cond_61
     invoke-direct {p0}, Lcom/bilibili/tv/ui/download/DownloadManager;->scheduleNextTask()V
 
-    .line 305
+    .line 389
     return-void
 .end method
 
@@ -1522,7 +2023,7 @@
     .locals 4
 
     .prologue
-    .line 219
+    .line 224
     const-string v0, "DownloadManager"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1545,17 +2046,17 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 221
+    .line 226
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->databaseHelper:Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;
 
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->getTask(Ljava/lang/String;)Lcom/bilibili/tv/ui/download/model/DownloadTask;
 
     move-result-object v0
 
-    .line 222
+    .line 227
     if-nez v0, :cond_39
 
-    .line 223
+    .line 228
     const-string v0, "DownloadManager"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1578,47 +2079,47 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 244
+    .line 249
     :goto_38
     return-void
 
-    .line 228
+    .line 233
     :cond_39
     sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->WAITING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setStatus(Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;)V
 
-    .line 229
+    .line 234
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setErrorCode(I)V
 
-    .line 230
+    .line 235
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setErrorMessage(Ljava/lang/String;)V
 
-    .line 231
+    .line 236
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v2
 
     invoke-virtual {v0, v2, v3}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setUpdateTime(J)V
 
-    .line 234
+    .line 239
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->databaseHelper:Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->updateTask(Lcom/bilibili/tv/ui/download/model/DownloadTask;)I
 
-    .line 237
+    .line 242
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->waitingQueue:Ljava/util/concurrent/PriorityBlockingQueue;
 
     invoke-virtual {v1, v0}, Ljava/util/concurrent/PriorityBlockingQueue;->offer(Ljava/lang/Object;)Z
 
-    .line 240
+    .line 245
     invoke-direct {p0}, Lcom/bilibili/tv/ui/download/DownloadManager;->scheduleNextTask()V
 
-    .line 243
+    .line 248
     invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/download/DownloadManager;->notifyStatusChanged(Lcom/bilibili/tv/ui/download/model/DownloadTask;)V
 
     goto :goto_38
@@ -1628,7 +2129,7 @@
     .locals 3
 
     .prologue
-    .line 512
+    .line 596
     const-string v0, "DownloadManager"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1655,18 +2156,18 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 513
+    .line 597
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v0
 
     invoke-virtual {p1, v0, v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask;->setUpdateTime(J)V
 
-    .line 514
+    .line 598
     iget-object v0, p0, Lcom/bilibili/tv/ui/download/DownloadManager;->databaseHelper:Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;
 
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/ui/download/db/DownloadDatabaseHelper;->updateTask(Lcom/bilibili/tv/ui/download/model/DownloadTask;)I
 
-    .line 515
+    .line 599
     return-void
 .end method

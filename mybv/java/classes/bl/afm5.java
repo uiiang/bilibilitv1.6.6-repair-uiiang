@@ -450,51 +450,52 @@ public final class afm5 extends adw implements View.OnFocusChangeListener, View.
         confirmLp.setMargins(24, 16, 24, 16);
         panel.addView(confirmButton, confirmLp);
 
-        // SAF授权按钮：Android 8.0+ 无法通过文件路径写入外接U盘，需使用系统文件选择器授权目录
-        final com.bilibili.tv.widget.DrawFrameLayout safButton = new com.bilibili.tv.widget.DrawFrameLayout(activity);
-        safButton.setFocusable(true);
-        safButton.setFocusableInTouchMode(true);
-        safButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
-        safButton.setUpDrawable(R.drawable.shadow_white_rect);
-        android.widget.TextView safText = new android.widget.TextView(activity);
-        safText.setText("使用系统文件选择器（U盘/移动硬盘）");
-        safText.setTextColor(android.graphics.Color.WHITE);
-        safText.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 14);
-        safText.setGravity(android.view.Gravity.CENTER);
-        safButton.addView(safText, new android.widget.FrameLayout.LayoutParams(
-                android.widget.FrameLayout.LayoutParams.MATCH_PARENT,
-                android.widget.FrameLayout.LayoutParams.MATCH_PARENT
-        ));
-        int safHeight = (int) android.util.TypedValue.applyDimension(
-                android.util.TypedValue.COMPLEX_UNIT_DIP, 48,
-                activity.getResources().getDisplayMetrics());
-        android.widget.LinearLayout.LayoutParams safLp = new android.widget.LinearLayout.LayoutParams(
-                android.widget.LinearLayout.LayoutParams.MATCH_PARENT, safHeight);
-        safLp.setMargins(24, 8, 24, 16);
-        panel.addView(safButton, safLp);
+        // SAF授权按钮：Android 8.0+ 无法通过文件路径写入外接U盘，需使用系统文件选择器授权目录。
+        // 修复：部分TV系统没有系统文件管理器（DocumentsUI），SAF不可用，此时直接隐藏该按钮；
+        // 外接U盘通过确定按钮实测可写性判断是否可直接使用
+        final com.bilibili.tv.widget.DrawFrameLayout safButton;
+        final android.widget.TextView safText;
+        if (safAvailable) {
+            safButton = new com.bilibili.tv.widget.DrawFrameLayout(activity);
+            safButton.setFocusable(true);
+            safButton.setFocusableInTouchMode(true);
+            safButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+            safButton.setUpDrawable(R.drawable.shadow_white_rect);
+            safText = new android.widget.TextView(activity);
+            safText.setText("使用系统文件选择器（U盘/移动硬盘）");
+            safText.setTextColor(android.graphics.Color.WHITE);
+            safText.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 14);
+            safText.setGravity(android.view.Gravity.CENTER);
+            safButton.addView(safText, new android.widget.FrameLayout.LayoutParams(
+                    android.widget.FrameLayout.LayoutParams.MATCH_PARENT,
+                    android.widget.FrameLayout.LayoutParams.MATCH_PARENT
+            ));
+            int safHeight = (int) android.util.TypedValue.applyDimension(
+                    android.util.TypedValue.COMPLEX_UNIT_DIP, 48,
+                    activity.getResources().getDisplayMetrics());
+            android.widget.LinearLayout.LayoutParams safLp = new android.widget.LinearLayout.LayoutParams(
+                    android.widget.LinearLayout.LayoutParams.MATCH_PARENT, safHeight);
+            safLp.setMargins(24, 8, 24, 16);
+            panel.addView(safButton, safLp);
 
-        // SAF按钮点击：打开系统文件选择器（ACTION_OPEN_DOCUMENT_TREE）
-        safButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!safAvailable) {
-                    Log.w("afm5", "系统文件管理器不可用，无法打开");
-                    if (android.os.Build.VERSION.SDK_INT >= 26) {
-                        Toast.makeText(activity, "此设备没有系统文件管理器，请在列表中确认外接U盘可写后再点确定", Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(activity, "此设备不支持系统文件选择器，可直接在列表中选择外接U盘文件夹", Toast.LENGTH_LONG).show();
+            // SAF按钮点击：打开系统文件选择器（ACTION_OPEN_DOCUMENT_TREE）
+            safButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_OPEN_DOCUMENT_TREE);
+                        afm5.this.startActivityForResult(intent, 1003);
+                    } catch (Exception e) {
+                        Log.e("afm5", "打开系统文件选择器失败: " + e.getMessage());
+                        Toast.makeText(activity, "无法打开系统文件选择器，请在列表中选择外接U盘文件夹", Toast.LENGTH_LONG).show();
                     }
-                    return;
                 }
-                try {
-                    android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_OPEN_DOCUMENT_TREE);
-                    afm5.this.startActivityForResult(intent, 1003);
-                } catch (Exception e) {
-                    Log.e("afm5", "打开系统文件选择器失败: " + e.getMessage());
-                    Toast.makeText(activity, "无法打开系统文件选择器，请在列表中选择外接U盘文件夹", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+            });
+        } else {
+            safButton = null;
+            safText = null;
+            Log.i("afm5", "系统文件管理器不可用，隐藏系统文件选择器按钮");
+        }
 
         // 创建对话框（独立窗口，不加入 Activity 视图层级，避免 BaseActivity 销毁时 removeAllViews 崩溃）
         // 参考收藏夹页 FavoriteMenuDialog：requestWindowFeature(1) + 透明背景 + setFlags(0x600, 0x600) + 全屏窗口
@@ -574,7 +575,7 @@ public final class afm5 extends adw implements View.OnFocusChangeListener, View.
                         folderListView.requestFocus();
                         return true;
                     }
-                    if (keyCode == android.view.KeyEvent.KEYCODE_DPAD_DOWN) {
+                    if (keyCode == android.view.KeyEvent.KEYCODE_DPAD_DOWN && safButton != null) {
                         safButton.requestFocus();
                         return true;
                     }
@@ -583,26 +584,34 @@ public final class afm5 extends adw implements View.OnFocusChangeListener, View.
             }
         });
 
-        // SAF按钮按"上"键回到确定按钮
-        safButton.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, android.view.KeyEvent event) {
-                if (event.getAction() == android.view.KeyEvent.ACTION_DOWN
-                        && keyCode == android.view.KeyEvent.KEYCODE_DPAD_UP) {
-                    confirmButton.requestFocus();
-                    return true;
+        // SAF按钮按"上"键回到确定按钮；焦点高亮与确定按钮一致（聚焦时纯白背景+粉色文字，失焦恢复半透明白+白字）
+        if (safAvailable) {
+            safButton.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v, int keyCode, android.view.KeyEvent event) {
+                    if (event.getAction() == android.view.KeyEvent.ACTION_DOWN
+                            && keyCode == android.view.KeyEvent.KEYCODE_DPAD_UP) {
+                        confirmButton.requestFocus();
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
 
-        // SAF按钮焦点高亮（与确定按钮一致）
-        safButton.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                safButton.setUpEnabled(hasFocus);
-            }
-        });
+            safButton.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    safButton.setUpEnabled(hasFocus);
+                    if (hasFocus) {
+                        safButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white);
+                        safText.setTextColor(android.graphics.Color.parseColor("#FB7299"));
+                    } else {
+                        safButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+                        safText.setTextColor(android.graphics.Color.WHITE);
+                    }
+                }
+            });
+        }
 
         // 确定按钮焦点高亮：聚焦时纯白背景 + 粉色文字（高对比，视觉清晰），失焦恢复半透明白 + 白字
         confirmButton.setOnFocusChangeListener(new View.OnFocusChangeListener() {
