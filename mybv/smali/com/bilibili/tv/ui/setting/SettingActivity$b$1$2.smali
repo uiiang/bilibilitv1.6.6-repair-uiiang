@@ -44,16 +44,16 @@
     .locals 2
 
     .prologue
-    .line 315
+    .line 314
     iget-object v0, p0, Lcom/bilibili/tv/ui/setting/SettingActivity$b$1$2;->val$a:Landroid/app/Activity;
 
     const/4 v1, 0x1
 
     invoke-static {v0, v1}, Lbl/abd;->a(Landroid/content/Context;Z)V
 
-    .line 316
+    .line 315
     invoke-virtual {p1}, Lbl/agb;->dismiss()V
 
-    .line 317
+    .line 316
     return-void
 .end method

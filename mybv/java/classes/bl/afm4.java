@@ -101,6 +101,13 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
             ((ShadowTextView) this.tab_buttons[i].getChildAt(0)).setText(afm4.tab_names[MainMyFragment.MyMap[i]]);
         }
 
+        // 未启用隐藏功能时，隐藏"下载"排序按钮
+        if (!abd.b(getActivity())) {
+            this.tab_buttons[7].setVisibility(View.GONE);
+            // 将下载按钮的左邻居"追剧"按钮的右键焦点指向自身，避免焦点跳到页面顶部
+            this.tab_buttons[6].setNextFocusRightId(R.id.tab_button6);
+        }
+
         this.column2Button = (DrawFrameLayout) inflate.findViewById(R.id.column_2_button);
         this.column3Button = (DrawFrameLayout) inflate.findViewById(R.id.column_3_button);
         this.column4Button = (DrawFrameLayout) inflate.findViewById(R.id.column_4_button);
@@ -239,9 +246,9 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         this.menuAudioBalanceBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_audio_balance_btn);
         this.menuEbookBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_ebook_btn);
 
-        // 根据渲染视图类型决定是否显示电子书选项
-        // 只有在设置-实验室中选择了TextureView，才显示电子书选项
-        boolean ebookEnabled = (mybl.BiliFilter.prefer_videoview == abd.RENDER_VIEW_TEXTURE);
+        // 根据隐藏功能开关和渲染视图类型决定是否显示电子书选项
+        // 只有启用隐藏功能，并且在设置-实验室中选择了TextureView，才显示电子书选项
+        boolean ebookEnabled = abd.b(getActivity()) && (mybl.BiliFilter.prefer_videoview == abd.RENDER_VIEW_TEXTURE);
         if (!ebookEnabled) {
             // 如果未选择TextureView，隐藏电子书按钮
             this.menuEbookBtn.setVisibility(View.GONE);

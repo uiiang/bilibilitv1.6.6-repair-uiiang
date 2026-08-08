@@ -155,18 +155,18 @@
     .locals 1
 
     .prologue
-    .line 379
+    .line 378
     iget-object v0, p0, Lcom/bilibili/tv/ui/setting/SettingActivity$b;->c:Lbl/cj;
 
-    .line 380
+    .line 379
     if-eqz v0, :cond_9
 
-    .line 381
+    .line 380
     invoke-virtual {v0}, Lbl/cj;->b()I
 
     move-result v0
 
-    .line 383
+    .line 382
     :goto_8
     return v0
 
@@ -270,7 +270,7 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 330
+    .line 329
     :cond_3d
     return-void
 
@@ -285,10 +285,10 @@
     .locals 0
 
     .prologue
-    .line 387
+    .line 386
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/setting/SettingActivity$b;->d:Z
 
-    .line 388
+    .line 387
     return-void
 .end method
 

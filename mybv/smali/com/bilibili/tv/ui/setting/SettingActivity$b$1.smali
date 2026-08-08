@@ -44,22 +44,20 @@
     .locals 5
 
     .prologue
-    const/4 v4, 0x1
-
     .line 298
     iget v0, p0, Lcom/bilibili/tv/ui/setting/SettingActivity$b$1;->val$i:I
 
     const/4 v1, 0x4
 
-    if-eq v0, v1, :cond_7
+    if-eq v0, v1, :cond_6
 
-    .line 327
-    :cond_6
-    :goto_6
+    .line 326
+    :cond_5
+    :goto_5
     return-void
 
     .line 301
-    :cond_7
+    :cond_6
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
@@ -86,7 +84,7 @@
     invoke-static {v1}, Lcom/bilibili/tv/ui/setting/SettingActivity$b;->access$008(Lcom/bilibili/tv/ui/setting/SettingActivity$b;)I
 
     .line 306
-    if-eqz v0, :cond_6
+    if-eqz v0, :cond_5
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/setting/SettingActivity$b$1;->this$1:Lcom/bilibili/tv/ui/setting/SettingActivity$b;
 
@@ -97,7 +95,7 @@
 
     const/4 v2, 0x7
 
-    if-le v1, v2, :cond_6
+    if-le v1, v2, :cond_5
 
     .line 309
     new-instance v1, Lbl/agb$a;
@@ -105,25 +103,25 @@
     invoke-direct {v1, v0}, Lbl/agb$a;-><init>(Landroid/app/Activity;)V
 
     .line 310
-    invoke-virtual {v1, v4}, Lbl/agb$a;->a(I)Lbl/agb$a;
+    const/4 v2, 0x1
+
+    invoke-virtual {v1, v2}, Lbl/agb$a;->a(I)Lbl/agb$a;
 
     move-result-object v2
 
-    const-string v3, "Deep\u2642Dark\u2642Fantasy"
+    const-string v3, "\u542f\u7528\u9690\u85cf\u529f\u80fd"
 
     invoke-virtual {v2, v3}, Lbl/agb$a;->a(Ljava/lang/String;)Lbl/agb$a;
 
     move-result-object v2
 
-    invoke-virtual {v2, v4}, Lbl/agb$a;->a(Z)Lbl/agb$a;
+    const/4 v3, 0x0
+
+    invoke-virtual {v2, v3}, Lbl/agb$a;->a(Z)Lbl/agb$a;
 
     move-result-object v2
 
-    const v3, 0x7f0c0079
-
-    invoke-virtual {v0, v3}, Landroid/app/Activity;->getString(I)Ljava/lang/String;
-
-    move-result-object v3
+    const-string v3, "\u5f00\u542f"
 
     new-instance v4, Lcom/bilibili/tv/ui/setting/SettingActivity$b$1$2;
 
@@ -133,25 +131,21 @@
 
     move-result-object v2
 
-    const v3, 0x7f0c0076
-
-    .line 318
-    invoke-virtual {v0, v3}, Landroid/app/Activity;->getString(I)Ljava/lang/String;
-
-    move-result-object v3
+    const-string v3, "\u5173\u95ed"
 
     new-instance v4, Lcom/bilibili/tv/ui/setting/SettingActivity$b$1$1;
 
     invoke-direct {v4, p0, v0}, Lcom/bilibili/tv/ui/setting/SettingActivity$b$1$1;-><init>(Lcom/bilibili/tv/ui/setting/SettingActivity$b$1;Landroid/app/Activity;)V
 
+    .line 317
     invoke-virtual {v2, v3, v4}, Lbl/agb$a;->a(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
 
-    .line 326
+    .line 325
     invoke-virtual {v1}, Lbl/agb$a;->a()Lbl/agb;
 
     move-result-object v0
 
     invoke-virtual {v0}, Lbl/agb;->show()V
 
-    goto :goto_6
+    goto :goto_5
 .end method

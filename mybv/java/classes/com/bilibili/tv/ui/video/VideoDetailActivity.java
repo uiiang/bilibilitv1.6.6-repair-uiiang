@@ -4054,12 +4054,20 @@ public final class VideoDetailActivity extends BaseActivity
         View downloadBtn = findViewById(R.id.video_detail_download);
         View watchLaterBtn = findViewById(R.id.video_detail_watch_later);
         View infoBtn = findViewById(R.id.video_detail_info);
+        // 未启用隐藏功能时隐藏"下载"按钮
+        boolean downloadHidden = !abd.b(this);
         if (likeBtn != null) likeBtn.setVisibility(View.VISIBLE);
         if (coinBtn != null) coinBtn.setVisibility(View.VISIBLE);
         if (favoriteBtn != null) favoriteBtn.setVisibility(View.VISIBLE);
-        if (downloadBtn != null) downloadBtn.setVisibility(View.VISIBLE);
+        if (downloadBtn != null) {
+            downloadBtn.setVisibility(downloadHidden ? View.GONE : View.VISIBLE);
+        }
         if (watchLaterBtn != null) watchLaterBtn.setVisibility(View.VISIBLE);
         if (infoBtn != null) infoBtn.setVisibility(View.VISIBLE);
+        // 下载按钮隐藏时，收藏按钮的右键焦点指向稍后再看，避免焦点断裂
+        if (downloadHidden && favoriteBtn != null && watchLaterBtn != null) {
+            favoriteBtn.setNextFocusRightId(R.id.video_detail_watch_later);
+        }
         // 展开互动按钮后，expandBtn为GONE，点赞按钮左键需要指向当前可见的左边按钮(重播/无痕)
         if (likeBtn != null) {
             if (rePlayBtnLayout != null && rePlayBtnLayout.getVisibility() == View.VISIBLE) {

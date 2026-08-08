@@ -307,8 +307,9 @@ public final class MainMyFragment extends adu implements aez, wf {
             bbi.b(advVar, "viewHolder");
             if (advVar instanceof c) {
                 c cVar = (c) advVar;
-                cVar.z().setText(this.titles[MyMap[i]]);
-                nv.a().a(this.logos[MyMap[i]], cVar.A());
+                int realIndex = effectiveIndex(i);
+                cVar.z().setText(this.titles[MyMap[realIndex]]);
+                nv.a().a(this.logos[MyMap[realIndex]], cVar.A());
                 cVar.A().setVisibility(0);
                 Drawable c = adl.a.c(R.drawable.background_item_main);
                 c.setColorFilter(adl.d(this.colors[i]), PorterDuff.Mode.SRC_ATOP);
@@ -319,7 +320,7 @@ public final class MainMyFragment extends adu implements aez, wf {
                 cVar.D().setVisibility(8);
                 advVar.a.setTag(R.id.position, Integer.valueOf(i));
                 advVar.a.setOnClickListener(this);
-                if (MyMap[i] == 0 && this.d != null) {
+                if (MyMap[realIndex] == 0 && this.d != null) {
                     AccountInfo accountInfo = this.d;
                     if (accountInfo == null) {
                         bbi.a();
@@ -338,7 +339,37 @@ public final class MainMyFragment extends adu implements aez, wf {
 
         @Override // android.support.v7.widget.RecyclerView.a
         public int a() {
+            // 未启用隐藏功能时，隐藏"下载"入口
+            if (isDownloadHidden()) {
+                int count = 0;
+                for (int i = 0; i < MyMap.length; i++) {
+                    if (MyMap[i] != 7) {
+                        count++;
+                    }
+                }
+                return count;
+            }
             return this.titles.length;
+        }
+
+        // 是否隐藏下载入口（未启用隐藏功能时隐藏）
+        private boolean isDownloadHidden() {
+            return !abd.b(MainApplication.a().getApplicationContext());
+        }
+
+        // 将列表位置映射到 MyMap 实际索引（未启用隐藏功能时跳过"下载"项）
+        private int effectiveIndex(int position) {
+            int count = 0;
+            for (int i = 0; i < MyMap.length; i++) {
+                if (isDownloadHidden() && MyMap[i] == 7) {
+                    continue;
+                }
+                if (count == position) {
+                    return i;
+                }
+                count++;
+            }
+            return position;
         }
 
         public final void a(Activity activity, boolean z) {
@@ -375,7 +406,7 @@ public final class MainMyFragment extends adu implements aez, wf {
             if (a2 != null) {
                 Object tag = v.getTag(R.id.position);
                 int intValue = tag != null ? ((Integer) tag).intValue() : 0;
-                switch (MyMap[intValue]) {
+                switch (MyMap[effectiveIndex(intValue)]) {
                     case 0:
                         if (!this.e) {
                             LoginActivity.Companion.a(a2, MainActivity.Companion.a());

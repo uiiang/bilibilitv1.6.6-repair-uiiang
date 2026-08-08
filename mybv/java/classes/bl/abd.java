@@ -61,6 +61,13 @@ public class abd {
             f = 1;
         } else {
             f = 2;
+            // 关闭隐藏功能时，等同取消个性化右侧菜单中的电子书功能
+            int menuConfig = get_player_menu_config(context);
+            if ((menuConfig & MENU_EBOOK) != 0) {
+                menuConfig = menuConfig & ~MENU_EBOOK;
+                set_player_menu_config(context, menuConfig);
+                Log.i("abd", "关闭隐藏功能，自动取消电子书菜单项");
+            }
         }
     }
 

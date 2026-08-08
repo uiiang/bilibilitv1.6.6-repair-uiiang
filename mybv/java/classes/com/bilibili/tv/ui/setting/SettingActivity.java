@@ -307,16 +307,15 @@ public final class SettingActivity extends BaseUpViewActivity {
                             return;
                         }
                         agb.a aVar = new agb.a(a);
-                        aVar.a(1).a("Deep♂Dark♂Fantasy").a(true).b(a.getString(R.string.confirm), new agb.b() { // from
-                                                                                                                // class:
-                                                                                                                // com.bilibili.tv.ui.setting.SettingActivity.b.b.1
+                        aVar.a(1).a("启用隐藏功能").a(true).b("开启", new agb.b() { // from class:
+                                                                          // com.bilibili.tv.ui.setting.SettingActivity.b.b.1
                             @Override // bl.agb.b
                             public final void a(agb agbVar, View view2) {
                                 abd.a((Context) a, true);
                                 agbVar.dismiss();
                             }
-                        }).a(a.getString(R.string.cancel), new agb.b() { // from class:
-                                                                         // com.bilibili.tv.ui.setting.SettingActivity.b.b.2
+                        }).a("关闭", new agb.b() { // from class:
+                                                   // com.bilibili.tv.ui.setting.SettingActivity.b.b.2
                             @Override // bl.agb.b
                             public final void a(agb agbVar, View view2) {
                                 abd.a((Context) a, false);

@@ -3,13 +3,20 @@ package bl;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import com.bilibili.tv.R;
+import com.bilibili.tv.MainApplication;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
 public final class afp extends adx {
+    // 隐藏功能开关：启用后才显示"下载设置"页面
+    private boolean e() {
+        return abd.b(MainApplication.a().getApplicationContext());
+    }
+
     @Override // bl.adx
     public int a() {
-        return 7; // 从6改为7，新增下载设置
+        // 未启用隐藏功能时返回6（不含下载设置），启用后返回7
+        return e() ? 7 : 6;
     }
 
     /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
@@ -34,7 +41,7 @@ public final class afp extends adx {
             case 5:
                 return afm4.Companion.a();
             case 6:
-                return afm5.Companion.a(); // 新增：下载设置
+                return e() ? afm5.Companion.a() : null; // 下载设置，仅隐藏功能启用时显示
             default:
                 return null;
         }
@@ -55,7 +62,7 @@ public final class afp extends adx {
             case 5:
                 return "个性化";
             case 6:
-                return "下载设置"; // 新增：下载设置
+                return e() ? "下载设置" : ""; // 下载设置，仅隐藏功能启用时显示
             default:
                 return "";
         }
