@@ -523,11 +523,22 @@ public final class MainMyFragment extends adu implements aez, wf {
             }
             Log.i("MainMyAccount", "onLongClick: position=" + position + ", myMapValue=" + myMapValue + ", loggedIn=" + this.e);
             // 头像卡 = MyMap 中值为 0 的卡片（支持自定义排序后头像不在 position 0）
-            if (myMapValue != 0 || !this.e) {
+            if (myMapValue != 0) {
                 return false;
             }
             try {
                 mg accountManager = mg.a(MainApplication.a());
+                AccountInfo accountInfo = accountManager.c();
+                // 未登录：不保存当前账号，直接弹出已保存账号列表，可切换到其它已登录账号
+                if (accountInfo == null) {
+                    if (abd.get_accounts(context).isEmpty()) {
+                        Log.i("MainMyAccount", "not logged in and no saved accounts, skip dialog");
+                        return false;
+                    }
+                    Log.i("MainMyAccount", "not logged in, show saved accounts dialog only");
+                    showAccountSwitchDialog(context, a2);
+                    return true;
+                }
                 File accountFile = new File(context.getFilesDir(), "bili.account.storage");
                 File passportFile = new File(context.getFilesDir(), "bili.passport.storage");
                 Log.i("MainMyAccount", "files exists: account=" + accountFile.exists() + ", passport=" + passportFile.exists());
@@ -535,10 +546,6 @@ public final class MainMyFragment extends adu implements aez, wf {
                 String accountStorage = readFirstLine(accountFile);
                 String passportStorage = readFirstLine(passportFile);
                 Log.i("MainMyAccount", "read storage len: account=" + (accountStorage == null ? -1 : accountStorage.length()) + ", passport=" + (passportStorage == null ? -1 : passportStorage.length()));
-                AccountInfo accountInfo = accountManager.c();
-                if (accountInfo == null) {
-                    return false;
-                }
                 String mid = String.valueOf(accountInfo.mMid);
                 String username = accountInfo.mUserName;
                 Log.i("MainMyAccount", "save current account: mid=" + mid + ", username=" + username);
@@ -603,7 +610,17 @@ public final class MainMyFragment extends adu implements aez, wf {
                 }
                 // 将当前账号保存进账号列表
                 abd.add_account(context, mid, username, avatar, accountStorage, passportStorage);
+                // 弹出账号切换对话框
+                showAccountSwitchDialog(context, activity);
+            } catch (Exception e) {
+                Log.i("MainMyAccount", "saveAccountAndShowDialog error: " + e.toString());
+                e.printStackTrace();
+            }
+        }
 
+        // 弹出多账号切换对话框（账号横向排列，圆形头像+用户名，超出宽度可横向滚动）
+        private void showAccountSwitchDialog(final Context context, final Activity activity) {
+            try {
                 final JSONObject accounts = abd.get_accounts(context);
                 final List<String> mids = new ArrayList<String>();
                 for (Map.Entry<String, Object> entry : accounts.entrySet()) {
@@ -661,7 +678,7 @@ public final class MainMyFragment extends adu implements aez, wf {
                     }
                 });
             } catch (Exception e) {
-                Log.i("MainMyAccount", "saveAccountAndShowDialog error: " + e.toString());
+                Log.i("MainMyAccount", "showAccountSwitchDialog error: " + e.toString());
                 e.printStackTrace();
             }
         }

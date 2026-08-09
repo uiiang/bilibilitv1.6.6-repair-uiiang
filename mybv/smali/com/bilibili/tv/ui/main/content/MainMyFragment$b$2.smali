@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->saveAccountAndShowDialog(Landroid/content/Context;Landroid/app/Activity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+    value = Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->showAccountSwitchDialog(Landroid/content/Context;Landroid/app/Activity;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 655
+    .line 672
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$2;->this$0:Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$2;->val$container:Landroid/widget/LinearLayout;
@@ -44,7 +44,7 @@
     .locals 2
 
     .prologue
-    .line 658
+    .line 675
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$2;->val$container:Landroid/widget/LinearLayout;
 
     invoke-virtual {v0}, Landroid/widget/LinearLayout;->getChildCount()I
@@ -53,7 +53,7 @@
 
     if-lez v0, :cond_12
 
-    .line 659
+    .line 676
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$2;->val$container:Landroid/widget/LinearLayout;
 
     const/4 v1, 0x0
@@ -64,7 +64,7 @@
 
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 661
+    .line 678
     :cond_12
     return-void
 .end method

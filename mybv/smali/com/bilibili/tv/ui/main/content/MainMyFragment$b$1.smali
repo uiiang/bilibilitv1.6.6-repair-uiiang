@@ -36,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 558
+    .line 565
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$1;->this$0:Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$1;->val$ctx:Landroid/content/Context;
@@ -60,14 +60,14 @@
     .locals 3
 
     .prologue
-    .line 561
+    .line 568
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$1;->val$ctx:Landroid/content/Context;
 
     invoke-static {v0}, Lmybl/LoginCookieHelper;->refreshCookiesAndReadAccountStorageSync(Landroid/content/Context;)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 562
+    .line 569
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$1;->val$act:Landroid/app/Activity;
 
     new-instance v2, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$1$1;
@@ -76,6 +76,6 @@
 
     invoke-virtual {v1, v2}, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
 
-    .line 577
+    .line 584
     return-void
 .end method

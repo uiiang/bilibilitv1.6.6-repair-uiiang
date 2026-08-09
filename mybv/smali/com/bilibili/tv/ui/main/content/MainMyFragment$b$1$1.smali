@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 562
+    .line 569
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$1$1;->this$1:Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$1;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$1$1;->val$refreshed:Ljava/lang/String;
@@ -44,7 +44,7 @@
     .locals 7
 
     .prologue
-    .line 565
+    .line 572
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$1$1;->val$refreshed:Ljava/lang/String;
 
     if-eqz v0, :cond_5e
@@ -57,7 +57,7 @@
 
     if-nez v0, :cond_5e
 
-    .line 567
+    .line 574
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$1$1;->this$1:Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$1;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$1;->val$fPassportFile:Ljava/io/File;
@@ -67,7 +67,7 @@
 
     move-result-object v6
 
-    .line 568
+    .line 575
     const-string v1, "MainMyAccount"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -111,7 +111,7 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 569
+    .line 576
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$1$1;->this$1:Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$1;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$1;->this$0:Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;
@@ -137,11 +137,11 @@
     # invokes: Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->saveAccountAndShowDialog(Landroid/content/Context;Landroid/app/Activity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
     invoke-static/range {v0 .. v6}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->access$400(Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;Landroid/content/Context;Landroid/app/Activity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 575
+    .line 582
     :goto_58
     return-void
 
-    .line 568
+    .line 575
     :cond_59
     invoke-virtual {v6}, Ljava/lang/String;->length()I
 
@@ -149,7 +149,7 @@
 
     goto :goto_34
 
-    .line 572
+    .line 579
     :cond_5e
     const-string v0, "MainMyAccount"
 
@@ -157,7 +157,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 573
+    .line 580
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$1$1;->this$1:Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$1;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$1;->val$ctx:Landroid/content/Context;
