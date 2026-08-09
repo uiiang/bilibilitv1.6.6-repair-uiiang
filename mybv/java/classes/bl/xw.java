@@ -3465,36 +3465,34 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
         controlTarget = target;
 
-        // 关键修复：切换控制目标时，彻底禁用/启用电子书区域的交互
+        // 关键修复：鼠标操作按点击位置分发，不区分控制目标
+        // 点击电子书区域→控制电子书（翻页/列表），点击视频区域→控制视频
+        // 因此电子书区域组件保持enabled/clickable，仅禁用焦点
+        // 遥控器按键仍按controlTarget分发，不被电子书区域抢焦点
         if (target.equals("video")) {
-            // 切换到控制视频：禁用电子书区域的所有交互
+            // 切换到控制视频：仅禁用电子书区域的遥控器焦点
             if (bookshelfListView != null) {
                 bookshelfListView.setFocusable(false);
                 bookshelfListView.setFocusableInTouchMode(false);
-                bookshelfListView.setClickable(false);
-                bookshelfListView.setEnabled(false);
                 bookshelfListView.clearFocus();
                 Log.i(TAG_EBOOK, "禁用书架列表所有交互");
             }
             if (chapterListView != null) {
                 chapterListView.setFocusable(false);
                 chapterListView.setFocusableInTouchMode(false);
-                chapterListView.setClickable(false);
-                chapterListView.setEnabled(false);
                 chapterListView.clearFocus();
                 Log.i(TAG_EBOOK, "禁用章节列表所有交互");
             }
             if (ebookWebView != null) {
+                // 关键修复：保持WebView enabled，确保控制视频时鼠标点击阅读页面仍能翻页
+                // disabled状态下View的OnTouchListener不会被调用，导致鼠标左键无反应
                 ebookWebView.setFocusable(false);
                 ebookWebView.setFocusableInTouchMode(false);
-                ebookWebView.setEnabled(false);
-                Log.i(TAG_EBOOK, "禁用WebView所有交互");
+                Log.i(TAG_EBOOK, "WebView保持可用，仅禁用焦点");
             }
             if (ebookPanel != null) {
                 ebookPanel.setFocusable(false);
                 ebookPanel.setFocusableInTouchMode(false);
-                ebookPanel.setClickable(false);
-                ebookPanel.setEnabled(false);
                 Log.i(TAG_EBOOK, "禁用电子书面板所有交互");
             }
         } else {
