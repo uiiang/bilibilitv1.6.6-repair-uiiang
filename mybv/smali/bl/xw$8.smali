@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw;->set_video_position(I)V
+    value = Lbl/xw;->openEbookReader()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1165
+    .line 1537
     iput-object p1, p0, Lbl/xw$8;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,12 +40,12 @@
     .locals 1
 
     .prologue
-    .line 1168
+    .line 1540
     iget-object v0, p0, Lbl/xw$8;->this$0:Lbl/xw;
 
-    # invokes: Lbl/xw;->applyVideoPosition()V
+    # invokes: Lbl/xw;->showEbookPanel()V
     invoke-static {v0}, Lbl/xw;->access$800(Lbl/xw;)V
 
-    .line 1169
+    .line 1541
     return-void
 .end method

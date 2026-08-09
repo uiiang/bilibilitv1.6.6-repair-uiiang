@@ -993,14 +993,10 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
             // 根据当前显示的内容恢复焦点
             if (isReadingBook && ebookWebView != null) {
-                // 阅读页面：恢复焦点到WebView
-                ebookWebView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        ebookWebView.requestFocus();
-                        Log.i(TAG_EBOOK, "onMenuClosed: 焦点已恢复到WebView");
-                    }
-                });
+                // 关键修复：阅读页面不恢复焦点到WebView
+                // WebView保持不可聚焦，避免Android焦点系统拦截方向键
+                // 方向键由xw.f()统一处理（上下滚动、左右翻页）
+                Log.i(TAG_EBOOK, "onMenuClosed: 阅读页面，WebView保持不可聚焦，不恢复焦点");
             } else if (bookshelfListView != null && bookshelfListView.isShown()) {
                 // 书架页面：恢复焦点到书架列表
                 bookshelfListView.post(new Runnable() {
@@ -2559,6 +2555,9 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         settings.setDomStorageEnabled(true);
         settings.setSupportZoom(true);
         settings.setBuiltInZoomControls(true);
+        // 关键修复：禁用缩放控制条显示，否则鼠标滚轮滚动时右下角出现放大缩小按钮，
+        // 且按钮出现后 WebView 进入缩放控制状态，导致阅读页面不再响应鼠标左键点击
+        settings.setDisplayZoomControls(false);
         settings.setTextSize(android.webkit.WebSettings.TextSize.NORMAL);
 
         // 关键修复：设置为不可聚焦，避免Android焦点系统拦截方向键
@@ -3524,8 +3523,10 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                 Log.i(TAG_EBOOK, "启用章节列表所有交互");
             }
             if (ebookWebView != null) {
-                ebookWebView.setFocusable(true);
-                ebookWebView.setFocusableInTouchMode(true);
+                // 关键修复：保持WebView不可聚焦，防止Android焦点系统拦截方向键
+                // 方向键由xw.f()统一处理（上下滚动、左右翻页）
+                ebookWebView.setFocusable(false);
+                ebookWebView.setFocusableInTouchMode(false);
                 ebookWebView.setEnabled(true);
                 Log.i(TAG_EBOOK, "启用WebView所有交互");
             }

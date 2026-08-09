@@ -20,14 +20,18 @@
 # instance fields
 .field final synthetic this$1:Lbl/xw$24;
 
+.field final synthetic val$finalFragment:Lbl/xw;
+
 
 # direct methods
-.method constructor <init>(Lbl/xw$24;)V
+.method constructor <init>(Lbl/xw$24;Lbl/xw;)V
     .locals 0
 
     .prologue
-    .line 2081
+    .line 2405
     iput-object p1, p0, Lbl/xw$24$1;->this$1:Lbl/xw$24;
+
+    iput-object p2, p0, Lbl/xw$24$1;->val$finalFragment:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -40,10 +44,17 @@
     .locals 3
 
     .prologue
-    .line 2084
-    iget-object v0, p0, Lbl/xw$24$1;->this$1:Lbl/xw$24;
+    .line 2408
+    iget-object v0, p0, Lbl/xw$24$1;->val$finalFragment:Lbl/xw;
 
-    iget-object v0, v0, Lbl/xw$24;->this$0:Lbl/xw;
+    invoke-virtual {v0}, Lbl/xw;->o()Landroid/app/Activity;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_18
+
+    .line 2409
+    iget-object v0, p0, Lbl/xw$24$1;->val$finalFragment:Lbl/xw;
 
     invoke-virtual {v0}, Lbl/xw;->o()Landroid/app/Activity;
 
@@ -57,9 +68,10 @@
 
     move-result-object v0
 
-    .line 2086
+    .line 2411
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    .line 2087
+    .line 2413
+    :cond_18
     return-void
 .end method

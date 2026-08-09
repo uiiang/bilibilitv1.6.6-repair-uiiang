@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw;->set_ebook_percent(I)V
+    value = Lbl/xw;->set_video_position(I)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1129
+    .line 1161
     iput-object p1, p0, Lbl/xw$7;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,12 +40,12 @@
     .locals 1
 
     .prologue
-    .line 1132
+    .line 1164
     iget-object v0, p0, Lbl/xw$7;->this$0:Lbl/xw;
 
-    # invokes: Lbl/xw;->applyEbookPanelPercent()V
+    # invokes: Lbl/xw;->applyVideoPosition()V
     invoke-static {v0}, Lbl/xw;->access$700(Lbl/xw;)V
 
-    .line 1133
+    .line 1165
     return-void
 .end method

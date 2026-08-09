@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1912
+    .line 1919
     iput-object p1, p0, Lbl/xw$15;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,58 +40,23 @@
     .locals 2
 
     .prologue
-    .line 1915
+    .line 1922
     iget-object v0, p0, Lbl/xw$15;->this$0:Lbl/xw;
 
-    # getter for: Lbl/xw;->isEbookPanelShown:Z
-    invoke-static {v0}, Lbl/xw;->access$1500(Lbl/xw;)Z
-
-    move-result v0
-
-    if-eqz v0, :cond_2d
-
-    iget-object v0, p0, Lbl/xw$15;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
-    invoke-static {v0}, Lbl/xw;->access$1600(Lbl/xw;)Landroid/widget/FrameLayout;
+    # getter for: Lbl/xw;->bookshelfListView:Landroid/widget/ListView;
+    invoke-static {v0}, Lbl/xw;->access$500(Lbl/xw;)Landroid/widget/ListView;
 
     move-result-object v0
 
-    if-eqz v0, :cond_2d
+    invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
 
-    iget-object v0, p0, Lbl/xw$15;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
-    invoke-static {v0}, Lbl/xw;->access$1600(Lbl/xw;)Landroid/widget/FrameLayout;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Landroid/widget/FrameLayout;->getVisibility()I
-
-    move-result v0
-
-    if-eqz v0, :cond_2d
-
-    .line 1916
+    .line 1923
     const-string v0, "EbookReader"
 
-    const-string v1, "\u68c0\u6d4b\u5230\u7535\u5b50\u4e66\u9762\u677f\u672a\u663e\u793a\uff0c\u5f3a\u5236\u6062\u590d\u663e\u793a"
+    const-string v1, "\u4e66\u67b6\u5217\u8868\u5df2\u8bf7\u6c42\u7126\u70b9"
 
-    invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1917
-    iget-object v0, p0, Lbl/xw$15;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
-    invoke-static {v0}, Lbl/xw;->access$1600(Lbl/xw;)Landroid/widget/FrameLayout;
-
-    move-result-object v0
-
-    const/4 v1, 0x0
-
-    invoke-virtual {v0, v1}, Landroid/widget/FrameLayout;->setVisibility(I)V
-
-    .line 1919
-    :cond_2d
+    .line 1924
     return-void
 .end method

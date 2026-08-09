@@ -3,12 +3,12 @@
 .source "xw.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Landroid/view/View$OnTouchListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw;->parseAndDisplayEbook(Ljava/lang/String;)V
+    value = Lbl/xw;->displayBookContent(Lcom/bilibili/tv/ebook/model/Book;IZI)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -18,385 +18,157 @@
 
 
 # instance fields
+.field private lastClickTime:J
+
 .field final synthetic this$0:Lbl/xw;
-
-.field final synthetic val$filePath:Ljava/lang/String;
-
-.field final synthetic val$fragmentRef:Ljava/lang/ref/WeakReference;
 
 
 # direct methods
-.method constructor <init>(Lbl/xw;Ljava/lang/ref/WeakReference;Ljava/lang/String;)V
-    .locals 0
+.method constructor <init>(Lbl/xw;)V
+    .locals 2
 
     .prologue
-    .line 2368
+    .line 2569
     iput-object p1, p0, Lbl/xw$25;->this$0:Lbl/xw;
 
-    iput-object p2, p0, Lbl/xw$25;->val$fragmentRef:Ljava/lang/ref/WeakReference;
-
-    iput-object p3, p0, Lbl/xw$25;->val$filePath:Ljava/lang/String;
-
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 2570
+    const-wide/16 v0, 0x0
+
+    iput-wide v0, p0, Lbl/xw$25;->lastClickTime:J
 
     return-void
 .end method
 
 
 # virtual methods
-.method public run()V
-    .locals 5
+.method public onTouch(Landroid/view/View;Landroid/view/MotionEvent;)Z
+    .locals 8
 
     .prologue
-    const/4 v4, 0x0
+    const/4 v1, 0x1
 
-    .line 2373
-    :try_start_1
-    iget-object v0, p0, Lbl/xw$25;->this$0:Lbl/xw;
+    const/4 v0, 0x0
 
-    # getter for: Lbl/xw;->isParsingCancelled:Z
-    invoke-static {v0}, Lbl/xw;->access$2000(Lbl/xw;)Z
+    .line 2575
+    invoke-virtual {p2}, Landroid/view/MotionEvent;->getAction()I
 
-    move-result v0
+    move-result v2
 
-    if-eqz v0, :cond_16
+    if-nez v2, :cond_16
 
-    .line 2374
-    const-string v0, "EbookReader"
+    .line 2577
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
-    const-string v1, "\u89e3\u6790\u4efb\u52a1\u5df2\u53d6\u6d88"
+    move-result-wide v2
 
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_10
-    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_10} :catch_e3
-    .catchall {:try_start_1 .. :try_end_10} :catchall_114
+    .line 2578
+    iget-wide v4, p0, Lbl/xw$25;->lastClickTime:J
 
-    .line 2465
-    iget-object v0, p0, Lbl/xw$25;->this$0:Lbl/xw;
+    sub-long v4, v2, v4
 
-    # setter for: Lbl/xw;->parsingThread:Ljava/lang/Thread;
-    invoke-static {v0, v4}, Lbl/xw;->access$2302(Lbl/xw;Ljava/lang/Thread;)Ljava/lang/Thread;
+    const-wide/16 v6, 0x12c
 
-    .line 2467
-    :goto_15
-    return-void
+    cmp-long v4, v4, v6
 
-    .line 2379
+    if-gez v4, :cond_17
+
+    .line 2605
     :cond_16
-    :try_start_16
-    iget-object v0, p0, Lbl/xw$25;->val$fragmentRef:Ljava/lang/ref/WeakReference;
+    :goto_16
+    return v0
 
-    invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
+    .line 2581
+    :cond_17
+    iput-wide v2, p0, Lbl/xw$25;->lastClickTime:J
 
-    move-result-object v0
+    .line 2584
+    invoke-virtual {p1}, Landroid/view/View;->getWidth()I
 
-    check-cast v0, Lbl/xw;
+    move-result v2
 
-    .line 2380
-    if-eqz v0, :cond_26
-
-    invoke-virtual {v0}, Lbl/xw;->o()Landroid/app/Activity;
-
-    move-result-object v1
-
-    if-nez v1, :cond_33
-
-    .line 2381
-    :cond_26
-    const-string v0, "EbookReader"
-
-    const-string v1, "Fragment\u6216Activity\u5df2\u9500\u6bc1\uff0c\u53d6\u6d88\u89e3\u6790"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_2d
-    .catch Ljava/lang/Exception; {:try_start_16 .. :try_end_2d} :catch_e3
-    .catchall {:try_start_16 .. :try_end_2d} :catchall_114
-
-    .line 2465
-    iget-object v0, p0, Lbl/xw$25;->this$0:Lbl/xw;
-
-    # setter for: Lbl/xw;->parsingThread:Ljava/lang/Thread;
-    invoke-static {v0, v4}, Lbl/xw;->access$2302(Lbl/xw;Ljava/lang/Thread;)Ljava/lang/Thread;
-
-    goto :goto_15
-
-    .line 2386
-    :cond_33
-    :try_start_33
-    new-instance v1, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;
-
-    .line 2387
-    invoke-virtual {v0}, Lbl/xw;->o()Landroid/app/Activity;
-
-    move-result-object v0
-
-    invoke-direct {v1, v0}, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;-><init>(Landroid/content/Context;)V
-
-    .line 2390
-    iget-object v0, p0, Lbl/xw$25;->val$filePath:Ljava/lang/String;
-
-    invoke-static {v0}, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;->generateBookId(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v0
-
-    .line 2393
-    iget-object v2, p0, Lbl/xw$25;->val$filePath:Ljava/lang/String;
-
-    invoke-virtual {v1, v2, v0}, Lcom/bilibili/tv/ebook/parser/EbookParserFactory;->parse(Ljava/lang/String;Ljava/lang/String;)Lcom/bilibili/tv/ebook/model/Book;
-
-    move-result-object v1
-
-    .line 2396
-    iget-object v0, p0, Lbl/xw$25;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->isParsingCancelled:Z
-    invoke-static {v0}, Lbl/xw;->access$2000(Lbl/xw;)Z
-
-    move-result v0
-
-    if-eqz v0, :cond_5d
-
-    .line 2397
-    const-string v0, "EbookReader"
-
-    const-string v1, "\u89e3\u6790\u4efb\u52a1\u5df2\u53d6\u6d88\uff0c\u4e0d\u663e\u793a\u5185\u5bb9"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_57
-    .catch Ljava/lang/Exception; {:try_start_33 .. :try_end_57} :catch_e3
-    .catchall {:try_start_33 .. :try_end_57} :catchall_114
-
-    .line 2465
-    iget-object v0, p0, Lbl/xw$25;->this$0:Lbl/xw;
-
-    # setter for: Lbl/xw;->parsingThread:Ljava/lang/Thread;
-    invoke-static {v0, v4}, Lbl/xw;->access$2302(Lbl/xw;Ljava/lang/Thread;)Ljava/lang/Thread;
-
-    goto :goto_15
-
-    .line 2401
-    :cond_5d
-    if-nez v1, :cond_8d
-
-    .line 2402
-    :try_start_5f
-    const-string v0, "EbookReader"
-
-    const-string v1, "\u7535\u5b50\u4e66\u89e3\u6790\u5931\u8d25"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 2403
-    iget-object v0, p0, Lbl/xw$25;->this$0:Lbl/xw;
-
-    # invokes: Lbl/xw;->hideLoadingIndicator()V
-    invoke-static {v0}, Lbl/xw;->access$2100(Lbl/xw;)V
-
-    .line 2406
-    iget-object v0, p0, Lbl/xw$25;->val$fragmentRef:Ljava/lang/ref/WeakReference;
-
-    invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
-
-    move-result-object v0
-
-    check-cast v0, Lbl/xw;
-
-    .line 2407
-    if-eqz v0, :cond_87
-
-    invoke-virtual {v0}, Lbl/xw;->o()Landroid/app/Activity;
-
-    move-result-object v1
-
-    if-eqz v1, :cond_87
-
-    .line 2409
-    invoke-virtual {v0}, Lbl/xw;->o()Landroid/app/Activity;
-
-    move-result-object v1
-
-    new-instance v2, Lbl/xw$25$1;
-
-    invoke-direct {v2, p0, v0}, Lbl/xw$25$1;-><init>(Lbl/xw$25;Lbl/xw;)V
-
-    invoke-virtual {v1, v2}, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
-    :try_end_87
-    .catch Ljava/lang/Exception; {:try_start_5f .. :try_end_87} :catch_e3
-    .catchall {:try_start_5f .. :try_end_87} :catchall_114
-
-    .line 2465
-    :cond_87
-    iget-object v0, p0, Lbl/xw$25;->this$0:Lbl/xw;
-
-    # setter for: Lbl/xw;->parsingThread:Ljava/lang/Thread;
-    invoke-static {v0, v4}, Lbl/xw;->access$2302(Lbl/xw;Ljava/lang/Thread;)Ljava/lang/Thread;
-
-    goto :goto_15
-
-    .line 2423
-    :cond_8d
-    :try_start_8d
-    const-string v0, "EbookReader"
-
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "\u7535\u5b50\u4e66\u89e3\u6790\u6210\u529f: "
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v1}, Lcom/bilibili/tv/ebook/model/Book;->getTitle()Ljava/lang/String;
-
-    move-result-object v3
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    const-string v3, ", \u7ae0\u8282\u6570: "
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    .line 2424
-    invoke-virtual {v1}, Lcom/bilibili/tv/ebook/model/Book;->getChapters()Ljava/util/List;
-
-    move-result-object v3
-
-    invoke-interface {v3}, Ljava/util/List;->size()I
+    .line 2586
+    invoke-virtual {p2}, Landroid/view/MotionEvent;->getX()F
 
     move-result v3
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    .line 2588
+    const-string v4, "EbookReader"
 
-    move-result-object v2
+    new-instance v5, Ljava/lang/StringBuilder;
 
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
 
-    move-result-object v2
+    const-string v6, "\u89e6\u6478\u4e8b\u4ef6: x="
 
-    .line 2423
-    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 2427
-    iget-object v0, p0, Lbl/xw$25;->this$0:Lbl/xw;
+    move-result-object v5
 
-    # invokes: Lbl/xw;->hideLoadingIndicator()V
-    invoke-static {v0}, Lbl/xw;->access$2100(Lbl/xw;)V
+    invoke-virtual {v5, v3}, Ljava/lang/StringBuilder;->append(F)Ljava/lang/StringBuilder;
 
-    .line 2430
-    iget-object v0, p0, Lbl/xw$25;->val$fragmentRef:Ljava/lang/ref/WeakReference;
+    move-result-object v5
 
-    invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
+    const-string v6, ", webViewWidth="
 
-    move-result-object v0
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    check-cast v0, Lbl/xw;
+    move-result-object v5
 
-    .line 2431
-    if-eqz v0, :cond_dc
+    invoke-virtual {v5, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v0}, Lbl/xw;->o()Landroid/app/Activity;
+    move-result-object v5
 
-    move-result-object v2
+    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    if-eqz v2, :cond_dc
+    move-result-object v5
 
-    .line 2434
-    invoke-virtual {v0}, Lbl/xw;->o()Landroid/app/Activity;
+    invoke-static {v4, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    move-result-object v2
+    .line 2591
+    div-int/lit8 v2, v2, 0x2
 
-    new-instance v3, Lbl/xw$25$2;
+    int-to-float v2, v2
 
-    invoke-direct {v3, p0, v0, v1}, Lbl/xw$25$2;-><init>(Lbl/xw$25;Lbl/xw;Lcom/bilibili/tv/ebook/model/Book;)V
+    cmpg-float v2, v3, v2
 
-    invoke-virtual {v2, v3}, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
-    :try_end_dc
-    .catch Ljava/lang/Exception; {:try_start_8d .. :try_end_dc} :catch_e3
-    .catchall {:try_start_8d .. :try_end_dc} :catchall_114
+    if-gez v2, :cond_58
 
-    .line 2465
-    :cond_dc
-    iget-object v0, p0, Lbl/xw$25;->this$0:Lbl/xw;
-
-    # setter for: Lbl/xw;->parsingThread:Ljava/lang/Thread;
-    invoke-static {v0, v4}, Lbl/xw;->access$2302(Lbl/xw;Ljava/lang/Thread;)Ljava/lang/Thread;
-
-    goto/16 :goto_15
-
-    .line 2444
-    :catch_e3
-    move-exception v0
-
-    move-object v1, v0
-
-    .line 2445
-    :try_start_e5
+    .line 2593
     const-string v0, "EbookReader"
 
-    const-string v2, "\u89e3\u6790\u7535\u5b50\u4e66\u5f02\u5e38"
+    const-string v2, "\u89e6\u6478\u5de6\u534a\u8fb9\uff0c\u5411\u524d\u7ffb\u9875"
 
-    invoke-static {v0, v2, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2446
+    .line 2594
     iget-object v0, p0, Lbl/xw$25;->this$0:Lbl/xw;
 
-    # invokes: Lbl/xw;->hideLoadingIndicator()V
-    invoke-static {v0}, Lbl/xw;->access$2100(Lbl/xw;)V
+    # invokes: Lbl/xw;->handlePageTurn(Z)V
+    invoke-static {v0, v1}, Lbl/xw;->access$2300(Lbl/xw;Z)V
 
-    .line 2449
-    iget-object v0, p0, Lbl/xw$25;->val$fragmentRef:Ljava/lang/ref/WeakReference;
+    move v0, v1
 
-    invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
+    .line 2595
+    goto :goto_16
 
-    move-result-object v0
+    .line 2598
+    :cond_58
+    const-string v2, "EbookReader"
 
-    check-cast v0, Lbl/xw;
+    const-string v3, "\u89e6\u6478\u53f3\u534a\u8fb9\uff0c\u5411\u540e\u7ffb\u9875"
 
-    .line 2450
-    if-eqz v0, :cond_10d
+    invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    invoke-virtual {v0}, Lbl/xw;->o()Landroid/app/Activity;
+    .line 2599
+    iget-object v2, p0, Lbl/xw$25;->this$0:Lbl/xw;
 
-    move-result-object v2
+    # invokes: Lbl/xw;->handlePageTurn(Z)V
+    invoke-static {v2, v0}, Lbl/xw;->access$2300(Lbl/xw;Z)V
 
-    if-eqz v2, :cond_10d
+    move v0, v1
 
-    .line 2453
-    invoke-virtual {v0}, Lbl/xw;->o()Landroid/app/Activity;
-
-    move-result-object v2
-
-    new-instance v3, Lbl/xw$25$3;
-
-    invoke-direct {v3, p0, v0, v1}, Lbl/xw$25$3;-><init>(Lbl/xw$25;Lbl/xw;Ljava/lang/Exception;)V
-
-    invoke-virtual {v2, v3}, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
-    :try_end_10d
-    .catchall {:try_start_e5 .. :try_end_10d} :catchall_114
-
-    .line 2465
-    :cond_10d
-    iget-object v0, p0, Lbl/xw$25;->this$0:Lbl/xw;
-
-    # setter for: Lbl/xw;->parsingThread:Ljava/lang/Thread;
-    invoke-static {v0, v4}, Lbl/xw;->access$2302(Lbl/xw;Ljava/lang/Thread;)Ljava/lang/Thread;
-
-    goto/16 :goto_15
-
-    :catchall_114
-    move-exception v0
-
-    iget-object v1, p0, Lbl/xw$25;->this$0:Lbl/xw;
-
-    # setter for: Lbl/xw;->parsingThread:Ljava/lang/Thread;
-    invoke-static {v1, v4}, Lbl/xw;->access$2302(Lbl/xw;Ljava/lang/Thread;)Ljava/lang/Thread;
-
-    .line 2466
-    throw v0
+    .line 2600
+    goto :goto_16
 .end method

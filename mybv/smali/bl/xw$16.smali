@@ -3,17 +3,27 @@
 .source "xw.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Ljava/util/Comparator;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw;->showBookshelfInPanel()V
+    value = Lbl/xw;->loadFileList(Landroid/widget/ListView;Landroid/widget/TextView;Ljava/io/File;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
     accessFlags = 0x0
     name = null
+.end annotation
+
+.annotation system Ldalvik/annotation/Signature;
+    value = {
+        "Ljava/lang/Object;",
+        "Ljava/util/Comparator",
+        "<",
+        "Ljava/io/File;",
+        ">;"
+    }
 .end annotation
 
 
@@ -26,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 1923
+    .line 2111
     iput-object p1, p0, Lbl/xw$16;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,27 +46,38 @@
 
 
 # virtual methods
-.method public run()V
+.method public compare(Ljava/io/File;Ljava/io/File;)I
     .locals 2
 
     .prologue
-    .line 1926
-    iget-object v0, p0, Lbl/xw$16;->this$0:Lbl/xw;
-
-    # getter for: Lbl/xw;->bookshelfListView:Landroid/widget/ListView;
-    invoke-static {v0}, Lbl/xw;->access$600(Lbl/xw;)Landroid/widget/ListView;
+    .line 2114
+    invoke-virtual {p1}, Ljava/io/File;->getName()Ljava/lang/String;
 
     move-result-object v0
 
-    invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
+    invoke-virtual {p2}, Ljava/io/File;->getName()Ljava/lang/String;
 
-    .line 1927
-    const-string v0, "EbookReader"
+    move-result-object v1
 
-    const-string v1, "\u4e66\u67b6\u5217\u8868\u5df2\u8bf7\u6c42\u7126\u70b9"
+    invoke-virtual {v0, v1}, Ljava/lang/String;->compareToIgnoreCase(Ljava/lang/String;)I
 
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    move-result v0
 
-    .line 1928
-    return-void
+    return v0
+.end method
+
+.method public bridge synthetic compare(Ljava/lang/Object;Ljava/lang/Object;)I
+    .locals 1
+
+    .prologue
+    .line 2111
+    check-cast p1, Ljava/io/File;
+
+    check-cast p2, Ljava/io/File;
+
+    invoke-virtual {p0, p1, p2}, Lbl/xw$16;->compare(Ljava/io/File;Ljava/io/File;)I
+
+    move-result v0
+
+    return v0
 .end method

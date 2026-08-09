@@ -1,11 +1,14 @@
 .class Lbl/xw$27;
-.super Landroid/webkit/WebViewClient;
+.super Ljava/lang/Object;
 .source "xw.java"
+
+# interfaces
+.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw;->displayBookContent(Lcom/bilibili/tv/ebook/model/Book;IZI)V
+    value = Lbl/xw;->showChapterList()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -17,44 +20,39 @@
 # instance fields
 .field final synthetic this$0:Lbl/xw;
 
-.field final synthetic val$restorePage:I
-
-.field final synthetic val$scrollToBottom:Z
-
 
 # direct methods
-.method constructor <init>(Lbl/xw;ZI)V
+.method constructor <init>(Lbl/xw;)V
     .locals 0
 
     .prologue
-    .line 2642
+    .line 2737
     iput-object p1, p0, Lbl/xw$27;->this$0:Lbl/xw;
 
-    iput-boolean p2, p0, Lbl/xw$27;->val$scrollToBottom:Z
-
-    iput p3, p0, Lbl/xw$27;->val$restorePage:I
-
-    invoke-direct {p0}, Landroid/webkit/WebViewClient;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public onPageFinished(Landroid/webkit/WebView;Ljava/lang/String;)V
-    .locals 1
+.method public run()V
+    .locals 2
 
     .prologue
-    .line 2645
-    invoke-super {p0, p1, p2}, Landroid/webkit/WebViewClient;->onPageFinished(Landroid/webkit/WebView;Ljava/lang/String;)V
+    .line 2740
+    iget-object v0, p0, Lbl/xw$27;->this$0:Lbl/xw;
 
-    .line 2647
-    new-instance v0, Lbl/xw$27$1;
+    iget-object v1, p0, Lbl/xw$27;->this$0:Lbl/xw;
 
-    invoke-direct {v0, p0, p1}, Lbl/xw$27$1;-><init>(Lbl/xw$27;Landroid/webkit/WebView;)V
+    # getter for: Lbl/xw;->currentChapterList:Ljava/util/List;
+    invoke-static {v1}, Lbl/xw;->access$2700(Lbl/xw;)Ljava/util/List;
 
-    invoke-virtual {p1, v0}, Landroid/webkit/WebView;->post(Ljava/lang/Runnable;)Z
+    move-result-object v1
 
-    .line 2688
+    # invokes: Lbl/xw;->createChapterListView(Ljava/util/List;)V
+    invoke-static {v0, v1}, Lbl/xw;->access$2800(Lbl/xw;Ljava/util/List;)V
+
+    .line 2741
     return-void
 .end method

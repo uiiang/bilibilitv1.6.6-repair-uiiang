@@ -20,18 +20,22 @@
 # instance fields
 .field final synthetic this$1:Lbl/xw$24;
 
-.field final synthetic val$e:Ljava/lang/Exception;
+.field final synthetic val$finalException:Ljava/lang/Exception;
+
+.field final synthetic val$finalFragment:Lbl/xw;
 
 
 # direct methods
-.method constructor <init>(Lbl/xw$24;Ljava/lang/Exception;)V
+.method constructor <init>(Lbl/xw$24;Lbl/xw;Ljava/lang/Exception;)V
     .locals 0
 
     .prologue
-    .line 2111
+    .line 2449
     iput-object p1, p0, Lbl/xw$24$3;->this$1:Lbl/xw$24;
 
-    iput-object p2, p0, Lbl/xw$24$3;->val$e:Ljava/lang/Exception;
+    iput-object p2, p0, Lbl/xw$24$3;->val$finalFragment:Lbl/xw;
+
+    iput-object p3, p0, Lbl/xw$24$3;->val$finalException:Ljava/lang/Exception;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -44,10 +48,17 @@
     .locals 3
 
     .prologue
-    .line 2114
-    iget-object v0, p0, Lbl/xw$24$3;->this$1:Lbl/xw$24;
+    .line 2452
+    iget-object v0, p0, Lbl/xw$24$3;->val$finalFragment:Lbl/xw;
 
-    iget-object v0, v0, Lbl/xw$24;->this$0:Lbl/xw;
+    invoke-virtual {v0}, Lbl/xw;->o()Landroid/app/Activity;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_2f
+
+    .line 2453
+    iget-object v0, p0, Lbl/xw$24$3;->val$finalFragment:Lbl/xw;
 
     invoke-virtual {v0}, Lbl/xw;->o()Landroid/app/Activity;
 
@@ -63,9 +74,9 @@
 
     move-result-object v1
 
-    iget-object v2, p0, Lbl/xw$24$3;->val$e:Ljava/lang/Exception;
+    iget-object v2, p0, Lbl/xw$24$3;->val$finalException:Ljava/lang/Exception;
 
-    .line 2115
+    .line 2454
     invoke-virtual {v2}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
 
     move-result-object v2
@@ -80,14 +91,15 @@
 
     const/4 v2, 0x0
 
-    .line 2114
+    .line 2453
     invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
 
     move-result-object v0
 
-    .line 2116
+    .line 2455
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    .line 2117
+    .line 2457
+    :cond_2f
     return-void
 .end method

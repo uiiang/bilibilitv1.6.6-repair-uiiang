@@ -3,7 +3,7 @@
 .source "xw.java"
 
 # interfaces
-.implements Landroid/widget/AdapterView$OnItemSelectedListener;
+.implements Ljava/lang/Runnable;
 
 
 # annotations
@@ -20,14 +20,18 @@
 # instance fields
 .field final synthetic this$0:Lbl/xw;
 
+.field final synthetic val$listView:Landroid/widget/ListView;
+
 
 # direct methods
-.method constructor <init>(Lbl/xw;)V
+.method constructor <init>(Lbl/xw;Landroid/widget/ListView;)V
     .locals 0
 
     .prologue
-    .line 2183
+    .line 2199
     iput-object p1, p0, Lbl/xw$20;->this$0:Lbl/xw;
+
+    iput-object p2, p0, Lbl/xw$20;->val$listView:Landroid/widget/ListView;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -36,41 +40,22 @@
 
 
 # virtual methods
-.method public onItemSelected(Landroid/widget/AdapterView;Landroid/view/View;IJ)V
-    .locals 1
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "(",
-            "Landroid/widget/AdapterView",
-            "<*>;",
-            "Landroid/view/View;",
-            "IJ)V"
-        }
-    .end annotation
+.method public run()V
+    .locals 2
 
     .prologue
-    .line 2187
-    new-instance v0, Lbl/xw$20$1;
+    .line 2202
+    iget-object v0, p0, Lbl/xw$20;->val$listView:Landroid/widget/ListView;
 
-    invoke-direct {v0, p0, p1}, Lbl/xw$20$1;-><init>(Lbl/xw$20;Landroid/widget/AdapterView;)V
+    invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
 
-    invoke-virtual {p1, v0}, Landroid/widget/AdapterView;->post(Ljava/lang/Runnable;)Z
+    .line 2203
+    const-string v0, "EbookReader"
 
-    .line 2193
-    return-void
-.end method
+    const-string v1, "\u6587\u4ef6\u5217\u8868\u5df2\u8bf7\u6c42\u7126\u70b9"
 
-.method public onNothingSelected(Landroid/widget/AdapterView;)V
-    .locals 0
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "(",
-            "Landroid/widget/AdapterView",
-            "<*>;)V"
-        }
-    .end annotation
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .prologue
-    .line 2197
+    .line 2204
     return-void
 .end method

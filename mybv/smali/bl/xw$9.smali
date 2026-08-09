@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw;->openEbookReader()V
+    value = Lbl/xw;->openEbookFileChooser()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1541
+    .line 1566
     iput-object p1, p0, Lbl/xw$9;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,12 +40,12 @@
     .locals 1
 
     .prologue
-    .line 1544
+    .line 1569
     iget-object v0, p0, Lbl/xw$9;->this$0:Lbl/xw;
 
-    # invokes: Lbl/xw;->showEbookPanel()V
+    # invokes: Lbl/xw;->showFileChooserInPanel()V
     invoke-static {v0}, Lbl/xw;->access$900(Lbl/xw;)V
 
-    .line 1545
+    .line 1570
     return-void
 .end method
