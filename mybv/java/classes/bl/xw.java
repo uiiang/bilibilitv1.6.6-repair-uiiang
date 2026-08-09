@@ -3428,6 +3428,10 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         // 立即保存当前阅读进度（取消防抖等待）
         saveReadingProgressImmediately();
 
+        // 关键修复：销毁WebView，释放native内存（GL纹理/渲染进程），避免内存泄漏
+        // 之前只removeAllViews()并把引用置null，WebView.destroy()从未被调用
+        destroyEbookWebView();
+
         // 清空电子书面板
         if (ebookPanel != null) {
             ebookPanel.removeAllViews();
@@ -3437,7 +3441,6 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         // 重置书籍相关状态
         currentBook = null;
         currentChapterIndex = 0;
-        ebookWebView = null;
         chapterListView = null;
         isReadingBook = false; // 标记为首页状态
         currentBookFilePath = null; // 清除文件路径
@@ -3837,6 +3840,17 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         // 关键修复：销毁WebView，避免内存泄漏
         destroyEbookWebView();
 
+        // 关键修复：从父容器中移除电子书面板，彻底释放面板占用的View内存
+        // 之前只setVisibility(GONE)，面板及子View一直常驻视图层级
+        if (ebookPanel != null) {
+            ViewGroup panelParent = (ViewGroup) ebookPanel.getParent();
+            if (panelParent != null) {
+                panelParent.removeView(ebookPanel);
+                Log.i(TAG_EBOOK, "电子书面板已从父容器移除");
+            }
+            ebookPanel = null;
+        }
+
         // 关键优化：清空章节缓存，释放内存
         clearChapterCache();
 
@@ -3916,6 +3930,72 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
 
             ebookWebView = null;
             Log.i(TAG_EBOOK, "WebView引用已清除");
+        }
+    }
+
+    /**
+     * 覆写播放器销毁生命周期回调（Activity销毁时触发），兜底清理电子书资源
+     * 防止用户直接退出播放页时（未先关闭电子书）WebView和面板残留
+     */
+    @Override // bl.xh
+    public void d() {
+        super.d();
+
+        // 兜底清理：只要还有电子书资源未释放，就彻底清理
+        if (ebookWebView != null || ebookPanel != null || isEbookPanelShown) {
+            Log.i(TAG_EBOOK, "Activity销毁，兜底清理电子书资源");
+
+            // 取消解析任务，避免后台线程持有Activity引用
+            cancelParsingTask();
+
+            // 销毁WebView，释放native内存
+            destroyEbookWebView();
+
+            // 清空章节缓存
+            clearChapterCache();
+
+            // 从父容器中移除电子书面板
+            if (ebookPanel != null) {
+                ViewGroup panelParent = (ViewGroup) ebookPanel.getParent();
+                if (panelParent != null) {
+                    panelParent.removeView(ebookPanel);
+                }
+                ebookPanel = null;
+            }
+
+            // 移除所有Handler回调
+            if (saveProgressHandler != null) {
+                saveProgressHandler.removeCallbacksAndMessages(null);
+                saveProgressHandler = null;
+            }
+            saveProgressRunnable = null;
+
+            // 显式移除监听器
+            if (chapterListView != null) {
+                chapterListView.setOnItemSelectedListener(null);
+                chapterListView.setOnItemClickListener(null);
+                chapterListView = null;
+            }
+            if (bookshelfListView != null) {
+                bookshelfListView.setOnItemSelectedListener(null);
+                bookshelfListView.setOnItemClickListener(null);
+                bookshelfListView = null;
+            }
+
+            // 清除所有电子书状态
+            isEbookPanelShown = false;
+            isChapterListShown = false;
+            isFileChooserShown = false;
+            isLoadingEbook = false;
+            isReadingBook = false;
+            currentBook = null;
+            currentChapterIndex = 0;
+            currentBookFilePath = null;
+            loadingProgressBar = null;
+            loadingTextView = null;
+            controlTarget = "video";
+
+            Log.i(TAG_EBOOK, "Activity销毁，电子书资源已兜底清理完成");
         }
     }
 
