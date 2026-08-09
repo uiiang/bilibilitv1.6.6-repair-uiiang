@@ -28,15 +28,15 @@
     .locals 0
 
     .prologue
-    .line 691
+    .line 809
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a;->this$0:Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 692
+    .line 810
     iput-object p2, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a;->b:Landroid/app/Activity;
 
-    .line 693
+    .line 811
     return-void
 .end method
 
@@ -46,7 +46,7 @@
     .locals 4
 
     .prologue
-    .line 698
+    .line 816
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a;->b:Landroid/app/Activity;
 
     check-cast v0, Lcom/bilibili/tv/ui/main/MainActivity;
@@ -55,20 +55,20 @@
 
     move-result-object v0
 
-    .line 699
+    .line 817
     invoke-static {v0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v1
 
-    .line 700
+    .line 818
     invoke-virtual {v1}, Lbl/mg;->c()Lcom/bilibili/lib/account/model/AccountInfo;
 
     move-result-object v1
 
-    .line 701
+    .line 819
     if-eqz v1, :cond_1b
 
-    .line 702
+    .line 820
     iget-wide v2, v1, Lcom/bilibili/lib/account/model/AccountInfo;->mMid:J
 
     invoke-static {v2, v3}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
@@ -77,11 +77,11 @@
 
     invoke-static {v0, v1}, Lbl/abd;->del_account(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 704
+    .line 822
     :cond_1b
     sget-object v1, Lbl/abn;->a:Lbl/abn;
 
-    .line 705
+    .line 823
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a;->b:Landroid/app/Activity;
 
     check-cast v0, Lcom/bilibili/tv/ui/main/MainActivity;
@@ -94,12 +94,12 @@
 
     move-result-object v0
 
-    .line 706
+    .line 824
     const-string v2, "BiliAccount.get(activity.applicationContext)"
 
     invoke-static {v0, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 707
+    .line 825
     invoke-virtual {v1, v0}, Lbl/abn;->a(Lbl/mg;)Lbl/jb;
 
     move-result-object v1
@@ -112,6 +112,6 @@
 
     invoke-virtual {v1, v2, v0}, Lbl/jb;->a(Lbl/ja;Ljava/util/concurrent/Executor;)Lbl/jb;
 
-    .line 718
+    .line 836
     return-void
 .end method

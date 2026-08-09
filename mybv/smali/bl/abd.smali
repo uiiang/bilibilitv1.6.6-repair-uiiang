@@ -469,7 +469,7 @@
     goto :goto_1a
 .end method
 
-.method public static add_account(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+.method public static add_account(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
     .locals 3
 
     .prologue
@@ -490,19 +490,28 @@
     invoke-virtual {v1, v2, p2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
     .line 727
-    const-string v2, "account_info"
+    if-eqz p3, :cond_15
+
+    .line 728
+    const-string v2, "avatar"
 
     invoke-virtual {v1, v2, p3}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 728
-    const-string v2, "passport_info"
+    .line 730
+    :cond_15
+    const-string v2, "account_info"
 
     invoke-virtual {v1, v2, p4}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 729
+    .line 731
+    const-string v2, "passport_info"
+
+    invoke-virtual {v1, v2, p5}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
+
+    .line 732
     invoke-virtual {v0, p1, v1}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 730
+    .line 733
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v1
@@ -526,21 +535,21 @@
     move-result-object v0
 
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
-    :try_end_34
-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_34} :catch_35
+    :try_end_3b
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_3b} :catch_3c
 
-    .line 734
-    :goto_34
+    .line 737
+    :goto_3b
     return-void
 
-    .line 731
-    :catch_35
+    .line 734
+    :catch_3c
     move-exception v0
 
-    .line 732
+    .line 735
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
-    goto :goto_34
+    goto :goto_3b
 .end method
 
 .method public static b(Landroid/content/Context;F)V
@@ -1061,16 +1070,16 @@
     .locals 3
 
     .prologue
-    .line 738
+    .line 741
     :try_start_0
     invoke-static {p0}, Lbl/abd;->get_accounts(Landroid/content/Context;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 739
+    .line 742
     invoke-virtual {v0, p1}, Lcom/alibaba/fastjson/JSONObject;->remove(Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 740
+    .line 743
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v1
@@ -1097,15 +1106,15 @@
     :try_end_20
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_20} :catch_21
 
-    .line 744
+    .line 747
     :goto_20
     return-void
 
-    .line 741
+    .line 744
     :catch_21
     move-exception v0
 
-    .line 742
+    .line 745
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
     goto :goto_20

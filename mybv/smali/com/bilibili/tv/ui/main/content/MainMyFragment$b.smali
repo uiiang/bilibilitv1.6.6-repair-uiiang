@@ -230,6 +230,332 @@
     return-void
 .end method
 
+.method private buildAccountItem(Landroid/content/Context;Landroid/app/Activity;Landroid/content/Context;Lcom/alibaba/fastjson/JSONObject;Ljava/util/List;ILcom/alibaba/fastjson/JSONObject;Ljava/lang/String;[Landroid/app/AlertDialog;)Landroid/view/View;
+    .locals 10
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Landroid/content/Context;",
+            "Landroid/app/Activity;",
+            "Landroid/content/Context;",
+            "Lcom/alibaba/fastjson/JSONObject;",
+            "Ljava/util/List",
+            "<",
+            "Ljava/lang/String;",
+            ">;I",
+            "Lcom/alibaba/fastjson/JSONObject;",
+            "Ljava/lang/String;",
+            "[",
+            "Landroid/app/AlertDialog;",
+            ")",
+            "Landroid/view/View;"
+        }
+    .end annotation
+
+    .prologue
+    .line 671
+    new-instance v9, Landroid/widget/LinearLayout;
+
+    invoke-direct {v9, p1}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
+
+    .line 672
+    const/4 v1, 0x1
+
+    invoke-virtual {v9, v1}, Landroid/widget/LinearLayout;->setOrientation(I)V
+
+    .line 673
+    const/4 v1, 0x1
+
+    invoke-virtual {v9, v1}, Landroid/widget/LinearLayout;->setGravity(I)V
+
+    .line 674
+    const/4 v1, 0x1
+
+    invoke-virtual {v9, v1}, Landroid/widget/LinearLayout;->setFocusable(Z)V
+
+    .line 675
+    const/4 v1, 0x1
+
+    invoke-virtual {v9, v1}, Landroid/widget/LinearLayout;->setClickable(Z)V
+
+    .line 676
+    const/16 v1, 0xc
+
+    invoke-static {p1, v1}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->dp(Landroid/content/Context;I)I
+
+    move-result v1
+
+    .line 677
+    invoke-virtual {v9, v1, v1, v1, v1}, Landroid/widget/LinearLayout;->setPadding(IIII)V
+
+    .line 680
+    const/16 v1, 0x58
+
+    invoke-static {p1, v1}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->dp(Landroid/content/Context;I)I
+
+    move-result v1
+
+    .line 681
+    new-instance v2, Landroid/widget/LinearLayout$LayoutParams;
+
+    invoke-direct {v2, v1, v1}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
+
+    .line 682
+    const/4 v1, -0x1
+
+    move/from16 v0, p6
+
+    if-ne v0, v1, :cond_c5
+
+    .line 684
+    new-instance v1, Landroid/widget/TextView;
+
+    invoke-direct {v1, p1}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
+
+    .line 685
+    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
+
+    .line 686
+    new-instance v2, Landroid/graphics/drawable/GradientDrawable;
+
+    invoke-direct {v2}, Landroid/graphics/drawable/GradientDrawable;-><init>()V
+
+    .line 687
+    const/4 v3, 0x1
+
+    invoke-virtual {v2, v3}, Landroid/graphics/drawable/GradientDrawable;->setShape(I)V
+
+    .line 688
+    const v3, -0x99999a
+
+    invoke-virtual {v2, v3}, Landroid/graphics/drawable/GradientDrawable;->setColor(I)V
+
+    .line 689
+    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setBackground(Landroid/graphics/drawable/Drawable;)V
+
+    .line 690
+    const-string v2, "+"
+
+    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    .line 691
+    const/4 v2, -0x1
+
+    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setTextColor(I)V
+
+    .line 692
+    const/high16 v2, 0x42500000    # 52.0f
+
+    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setTextSize(F)V
+
+    .line 693
+    const/16 v2, 0x11
+
+    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setGravity(I)V
+
+    .line 694
+    invoke-virtual {v9, v1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
+
+    .line 708
+    :goto_5e
+    new-instance v1, Landroid/widget/TextView;
+
+    invoke-direct {v1, p1}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
+
+    .line 709
+    move-object/from16 v0, p8
+
+    invoke-virtual {v1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    .line 710
+    const/high16 v2, 0x41800000    # 16.0f
+
+    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setTextSize(F)V
+
+    .line 711
+    const/4 v2, -0x1
+
+    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setTextColor(I)V
+
+    .line 712
+    const/16 v2, 0x11
+
+    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setGravity(I)V
+
+    .line 713
+    new-instance v2, Landroid/widget/LinearLayout$LayoutParams;
+
+    const/4 v3, -0x2
+
+    const/4 v4, -0x2
+
+    invoke-direct {v2, v3, v4}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
+
+    .line 714
+    const/16 v3, 0x8
+
+    invoke-static {p1, v3}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->dp(Landroid/content/Context;I)I
+
+    move-result v3
+
+    iput v3, v2, Landroid/widget/LinearLayout$LayoutParams;->topMargin:I
+
+    .line 715
+    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
+
+    .line 716
+    invoke-virtual {v9, v1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
+
+    .line 719
+    new-instance v1, Landroid/graphics/drawable/StateListDrawable;
+
+    invoke-direct {v1}, Landroid/graphics/drawable/StateListDrawable;-><init>()V
+
+    .line 720
+    const/4 v2, 0x1
+
+    new-array v2, v2, [I
+
+    const/4 v3, 0x0
+
+    const v4, 0x101009c
+
+    aput v4, v2, v3
+
+    new-instance v3, Landroid/graphics/drawable/ColorDrawable;
+
+    const v4, -0x66000001
+
+    invoke-direct {v3, v4}, Landroid/graphics/drawable/ColorDrawable;-><init>(I)V
+
+    invoke-virtual {v1, v2, v3}, Landroid/graphics/drawable/StateListDrawable;->addState([ILandroid/graphics/drawable/Drawable;)V
+
+    .line 721
+    const/4 v2, 0x0
+
+    new-array v2, v2, [I
+
+    new-instance v3, Landroid/graphics/drawable/ColorDrawable;
+
+    const/4 v4, 0x0
+
+    invoke-direct {v3, v4}, Landroid/graphics/drawable/ColorDrawable;-><init>(I)V
+
+    invoke-virtual {v1, v2, v3}, Landroid/graphics/drawable/StateListDrawable;->addState([ILandroid/graphics/drawable/Drawable;)V
+
+    .line 722
+    invoke-virtual {v9, v1}, Landroid/widget/LinearLayout;->setBackground(Landroid/graphics/drawable/Drawable;)V
+
+    .line 724
+    new-instance v1, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$3;
+
+    move-object v2, p0
+
+    move/from16 v3, p6
+
+    move-object/from16 v4, p9
+
+    move-object v5, p2
+
+    move-object v6, p4
+
+    move-object v7, p5
+
+    move-object v8, p3
+
+    invoke-direct/range {v1 .. v8}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$3;-><init>(Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;I[Landroid/app/AlertDialog;Landroid/app/Activity;Lcom/alibaba/fastjson/JSONObject;Ljava/util/List;Landroid/content/Context;)V
+
+    invoke-virtual {v9, v1}, Landroid/widget/LinearLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+
+    .line 753
+    return-object v9
+
+    .line 696
+    :cond_c5
+    new-instance v3, Lcom/bilibili/tv/widget/CircleImageView;
+
+    invoke-direct {v3, p1}, Lcom/bilibili/tv/widget/CircleImageView;-><init>(Landroid/content/Context;)V
+
+    .line 697
+    invoke-virtual {v3, v2}, Lcom/bilibili/tv/widget/CircleImageView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
+
+    .line 698
+    if-eqz p7, :cond_eb
+
+    const-string v1, "avatar"
+
+    move-object/from16 v0, p7
+
+    invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v1
+
+    .line 699
+    :goto_d7
+    if-eqz v1, :cond_ed
+
+    invoke-virtual {v1}, Ljava/lang/String;->isEmpty()Z
+
+    move-result v2
+
+    if-nez v2, :cond_ed
+
+    .line 700
+    invoke-static {}, Lbl/nv;->a()Lbl/nv;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v1, v3}, Lbl/nv;->a(Ljava/lang/String;Landroid/widget/ImageView;)V
+
+    .line 704
+    :goto_e6
+    invoke-virtual {v9, v3}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
+
+    goto/16 :goto_5e
+
+    .line 698
+    :cond_eb
+    const/4 v1, 0x0
+
+    goto :goto_d7
+
+    .line 702
+    :cond_ed
+    const v1, 0x7f0700a9
+
+    invoke-virtual {v3, v1}, Lcom/bilibili/tv/widget/CircleImageView;->setImageResource(I)V
+
+    goto :goto_e6
+.end method
+
+.method private static dp(Landroid/content/Context;I)I
+    .locals 2
+
+    .prologue
+    .line 758
+    int-to-float v0, p1
+
+    invoke-virtual {p0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Landroid/content/res/Resources;->getDisplayMetrics()Landroid/util/DisplayMetrics;
+
+    move-result-object v1
+
+    iget v1, v1, Landroid/util/DisplayMetrics;->density:F
+
+    mul-float/2addr v0, v1
+
+    const/high16 v1, 0x3f000000    # 0.5f
+
+    add-float/2addr v0, v1
+
+    float-to-int v0, v0
+
+    return v0
+.end method
+
 .method private effectiveIndex(I)I
     .locals 4
 
@@ -301,7 +627,7 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 661
+    .line 779
     if-eqz p0, :cond_9
 
     :try_start_3
@@ -311,12 +637,12 @@
 
     if-eqz v1, :cond_a
 
-    .line 682
+    .line 800
     :cond_9
     :goto_9
     return-object v0
 
-    .line 664
+    .line 782
     :cond_a
     const/4 v1, 0x2
 
@@ -324,32 +650,32 @@
 
     move-result-object v1
 
-    .line 665
+    .line 783
     new-instance v2, Ljava/lang/String;
 
     const-string v3, "UTF-8"
 
     invoke-direct {v2, v1, v3}, Ljava/lang/String;-><init>([BLjava/lang/String;)V
 
-    .line 666
+    .line 784
     invoke-static {v2}, Lcom/alibaba/fastjson/JSON;->parseObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v1
 
-    .line 667
+    .line 785
     if-eqz v1, :cond_9
 
-    .line 670
+    .line 788
     const-string v2, "cookies"
 
     invoke-virtual {v1, v2}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
 
     move-result-object v2
 
-    .line 671
+    .line 789
     if-eqz v2, :cond_9
 
-    .line 674
+    .line 792
     const/4 v1, 0x0
 
     :goto_25
@@ -359,12 +685,12 @@
 
     if-ge v1, v3, :cond_9
 
-    .line 675
+    .line 793
     invoke-virtual {v2, v1}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v3
 
-    .line 676
+    .line 794
     if-eqz v3, :cond_46
 
     const-string v4, "DedeUserID"
@@ -381,7 +707,7 @@
 
     if-eqz v4, :cond_46
 
-    .line 677
+    .line 795
     const-string v1, "value"
 
     invoke-virtual {v3, v1}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -392,13 +718,13 @@
 
     goto :goto_9
 
-    .line 674
+    .line 792
     :cond_46
     add-int/lit8 v1, v1, 0x1
 
     goto :goto_25
 
-    .line 681
+    .line 799
     :catch_49
     move-exception v1
 
@@ -441,7 +767,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 646
+    .line 764
     if-eqz p0, :cond_9
 
     :try_start_3
@@ -454,11 +780,11 @@
     :cond_9
     move-object v0, v1
 
-    .line 654
+    .line 772
     :goto_a
     return-object v0
 
-    .line 649
+    .line 767
     :cond_b
     new-instance v2, Ljava/io/BufferedReader;
 
@@ -468,216 +794,429 @@
 
     invoke-direct {v2, v0}, Ljava/io/BufferedReader;-><init>(Ljava/io/Reader;)V
 
-    .line 650
+    .line 768
     invoke-virtual {v2}, Ljava/io/BufferedReader;->readLine()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 651
+    .line 769
     invoke-virtual {v2}, Ljava/io/BufferedReader;->close()V
     :try_end_1c
     .catch Ljava/lang/Exception; {:try_start_3 .. :try_end_1c} :catch_1d
 
     goto :goto_a
 
-    .line 653
+    .line 771
     :catch_1d
     move-exception v0
 
     move-object v0, v1
 
-    .line 654
+    .line 772
     goto :goto_a
 .end method
 
 .method private saveAccountAndShowDialog(Landroid/content/Context;Landroid/app/Activity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
-    .locals 9
+    .locals 11
 
     .prologue
     .line 595
-    :try_start_0
-    invoke-static {p1, p3, p4, p5, p6}, Lbl/abd;->add_account(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+    const/4 v0, 0x0
 
     .line 597
-    new-instance v5, Ljava/util/ArrayList;
+    :try_start_1
+    invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
-    invoke-direct {v5}, Ljava/util/ArrayList;-><init>()V
+    move-result-object v1
+
+    invoke-static {v1}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
+
+    move-result-object v1
 
     .line 598
-    new-instance v2, Ljava/util/ArrayList;
+    if-eqz v1, :cond_17
 
-    invoke-direct {v2}, Ljava/util/ArrayList;-><init>()V
+    invoke-virtual {v1}, Lbl/mg;->c()Lcom/bilibili/lib/account/model/AccountInfo;
+
+    move-result-object v2
+
+    if-eqz v2, :cond_17
 
     .line 599
+    invoke-virtual {v1}, Lbl/mg;->c()Lcom/bilibili/lib/account/model/AccountInfo;
+
+    move-result-object v1
+
+    iget-object v0, v1, Lcom/bilibili/lib/account/model/AccountInfo;->mAvatar:Ljava/lang/String;
+    :try_end_17
+    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_17} :catch_68
+
+    :cond_17
+    move-object v3, v0
+
+    :goto_18
+    move-object v0, p1
+
+    move-object v1, p3
+
+    move-object v2, p4
+
+    move-object/from16 v4, p5
+
+    move-object/from16 v5, p6
+
+    .line 605
+    :try_start_1f
+    invoke-static/range {v0 .. v5}, Lbl/abd;->add_account(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 607
     invoke-static {p1}, Lbl/abd;->get_accounts(Landroid/content/Context;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v4
 
-    .line 600
-    const-string v1, "+"
-
-    invoke-interface {v2, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
-
-    .line 601
-    invoke-virtual {v4}, Lcom/alibaba/fastjson/JSONObject;->entrySet()Ljava/util/Set;
-
-    move-result-object v1
-
-    invoke-interface {v1}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
-
-    move-result-object v3
-
-    :goto_1e
-    invoke-interface {v3}, Ljava/util/Iterator;->hasNext()Z
-
-    move-result v1
-
-    if-eqz v1, :cond_62
-
-    invoke-interface {v3}, Ljava/util/Iterator;->next()Ljava/lang/Object;
-
-    move-result-object v1
-
-    check-cast v1, Ljava/util/Map$Entry;
-
-    .line 602
-    invoke-interface {v1}, Ljava/util/Map$Entry;->getKey()Ljava/lang/Object;
-
-    move-result-object v6
-
-    invoke-interface {v5, v6}, Ljava/util/List;->add(Ljava/lang/Object;)Z
-
-    .line 603
-    invoke-interface {v1}, Ljava/util/Map$Entry;->getValue()Ljava/lang/Object;
-
-    move-result-object v1
-
-    check-cast v1, Lcom/alibaba/fastjson/JSONObject;
-
-    const-string v6, "username"
-
-    invoke-virtual {v1, v6}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-interface {v2, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
-    :try_end_40
-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_40} :catch_41
-
-    goto :goto_1e
-
-    .line 637
-    :catch_41
-    move-exception v1
-
-    .line 638
-    const-string v2, "MainMyAccount"
-
-    new-instance v3, Ljava/lang/StringBuilder;
-
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v4, "saveAccountAndShowDialog error: "
-
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-virtual {v1}, Ljava/lang/Exception;->toString()Ljava/lang/String;
-
-    move-result-object v4
-
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v3
-
-    invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 639
-    invoke-virtual {v1}, Ljava/lang/Exception;->printStackTrace()V
-
-    .line 641
-    :goto_61
-    return-void
-
-    .line 607
-    :cond_62
-    :try_start_62
-    const-string v1, "MainMyAccount"
-
-    new-instance v3, Ljava/lang/StringBuilder;
-
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v6, "show dialog, items="
-
-    invoke-virtual {v3, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-interface {v2}, Ljava/util/List;->size()I
-
-    move-result v6
-
-    invoke-virtual {v3, v6}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v3
-
-    invoke-static {v1, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
     .line 608
-    new-instance v8, Landroid/app/AlertDialog$Builder;
+    new-instance v5, Ljava/util/ArrayList;
 
-    invoke-direct {v8, p1}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
-
-    const/4 v1, 0x0
-
-    new-array v1, v1, [Ljava/lang/CharSequence;
+    invoke-direct {v5}, Ljava/util/ArrayList;-><init>()V
 
     .line 609
-    invoke-interface {v2, v1}, Ljava/util/List;->toArray([Ljava/lang/Object;)[Ljava/lang/Object;
+    invoke-virtual {v4}, Lcom/alibaba/fastjson/JSONObject;->entrySet()Ljava/util/Set;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
 
     move-result-object v1
 
-    move-object v0, v1
+    :goto_33
+    invoke-interface {v1}, Ljava/util/Iterator;->hasNext()Z
 
-    check-cast v0, [Ljava/lang/CharSequence;
+    move-result v0
 
-    move-object v7, v0
+    if-eqz v0, :cond_6e
 
-    new-instance v1, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$2;
+    invoke-interface {v1}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
-    move-object v2, p0
+    move-result-object v0
 
-    move-object v3, p2
+    check-cast v0, Ljava/util/Map$Entry;
 
-    move-object v6, p1
+    .line 610
+    invoke-interface {v0}, Ljava/util/Map$Entry;->getKey()Ljava/lang/Object;
 
-    invoke-direct/range {v1 .. v6}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$2;-><init>(Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;Landroid/app/Activity;Lcom/alibaba/fastjson/JSONObject;Ljava/util/List;Landroid/content/Context;)V
+    move-result-object v0
 
-    invoke-virtual {v8, v7, v1}, Landroid/app/AlertDialog$Builder;->setItems([Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
+    invoke-interface {v5, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    :try_end_46
+    .catch Ljava/lang/Exception; {:try_start_1f .. :try_end_46} :catch_47
+
+    goto :goto_33
+
+    .line 663
+    :catch_47
+    move-exception v0
+
+    .line 664
+    const-string v1, "MainMyAccount"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "saveAccountAndShowDialog error: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v0}, Ljava/lang/Exception;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 665
+    invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
+
+    .line 667
+    :goto_67
+    return-void
+
+    .line 601
+    :catch_68
+    move-exception v1
+
+    .line 602
+    :try_start_69
+    invoke-virtual {v1}, Ljava/lang/Exception;->printStackTrace()V
+
+    move-object v3, v0
+
+    goto :goto_18
+
+    .line 614
+    :cond_6e
+    const/4 v0, 0x1
+
+    new-array v9, v0, [Landroid/app/AlertDialog;
+
+    .line 615
+    const-string v0, "MainMyAccount"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "show dialog, items="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v1
+
+    invoke-interface {v5}, Ljava/util/List;->size()I
+
+    move-result v2
+
+    add-int/lit8 v2, v2, 0x1
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 618
+    new-instance v10, Landroid/widget/LinearLayout;
+
+    invoke-direct {v10, p1}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
+
+    .line 619
+    const/4 v0, 0x0
+
+    invoke-virtual {v10, v0}, Landroid/widget/LinearLayout;->setOrientation(I)V
+
+    .line 620
+    const/16 v0, 0x11
+
+    invoke-virtual {v10, v0}, Landroid/widget/LinearLayout;->setGravity(I)V
+
+    .line 621
+    const/16 v0, 0x18
+
+    invoke-static {p1, v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->dp(Landroid/content/Context;I)I
+
+    move-result v0
+
+    .line 622
+    invoke-virtual {v10, v0, v0, v0, v0}, Landroid/widget/LinearLayout;->setPadding(IIII)V
+
+    .line 623
+    const/4 v6, -0x1
+
+    const/4 v7, 0x0
+
+    const-string v8, "\u6dfb\u52a0\u8d26\u53f7"
+
+    move-object v0, p0
+
+    move-object v1, p1
+
+    move-object v2, p2
+
+    move-object v3, p1
+
+    invoke-direct/range {v0 .. v9}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->buildAccountItem(Landroid/content/Context;Landroid/app/Activity;Landroid/content/Context;Lcom/alibaba/fastjson/JSONObject;Ljava/util/List;ILcom/alibaba/fastjson/JSONObject;Ljava/lang/String;[Landroid/app/AlertDialog;)Landroid/view/View;
+
+    move-result-object v0
+
+    invoke-virtual {v10, v0}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
+
+    .line 624
+    const/4 v6, 0x0
+
+    :goto_b6
+    invoke-interface {v5}, Ljava/util/List;->size()I
+
+    move-result v0
+
+    if-ge v6, v0, :cond_da
+
+    .line 625
+    invoke-interface {v5, v6}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/lang/String;
+
+    invoke-virtual {v4, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
+
+    move-result-object v7
+
+    .line 626
+    const-string v0, "username"
+
+    invoke-virtual {v7, v0}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v8
+
+    move-object v0, p0
+
+    move-object v1, p1
+
+    move-object v2, p2
+
+    move-object v3, p1
+
+    invoke-direct/range {v0 .. v9}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->buildAccountItem(Landroid/content/Context;Landroid/app/Activity;Landroid/content/Context;Lcom/alibaba/fastjson/JSONObject;Ljava/util/List;ILcom/alibaba/fastjson/JSONObject;Ljava/lang/String;[Landroid/app/AlertDialog;)Landroid/view/View;
+
+    move-result-object v0
+
+    invoke-virtual {v10, v0}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
+
+    .line 624
+    add-int/lit8 v6, v6, 0x1
+
+    goto :goto_b6
+
+    .line 630
+    :cond_da
+    new-instance v0, Landroid/widget/HorizontalScrollView;
+
+    invoke-direct {v0, p1}, Landroid/widget/HorizontalScrollView;-><init>(Landroid/content/Context;)V
+
+    .line 631
+    const/4 v1, 0x0
+
+    invoke-virtual {v0, v1}, Landroid/widget/HorizontalScrollView;->setHorizontalScrollBarEnabled(Z)V
+
+    .line 632
+    const/4 v1, 0x1
+
+    invoke-virtual {v0, v1}, Landroid/widget/HorizontalScrollView;->setFillViewport(Z)V
+
+    .line 633
+    invoke-virtual {v0, v10}, Landroid/widget/HorizontalScrollView;->addView(Landroid/view/View;)V
 
     .line 635
-    invoke-virtual {v1}, Landroid/app/AlertDialog$Builder;->create()Landroid/app/AlertDialog;
+    new-instance v1, Landroid/app/AlertDialog$Builder;
+
+    invoke-direct {v1, p1}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
+
+    .line 636
+    invoke-virtual {v1, v0}, Landroid/app/AlertDialog$Builder;->setView(Landroid/view/View;)Landroid/app/AlertDialog$Builder;
+
+    move-result-object v0
+
+    .line 637
+    invoke-virtual {v0}, Landroid/app/AlertDialog$Builder;->create()Landroid/app/AlertDialog;
+
+    move-result-object v0
+
+    .line 639
+    new-instance v1, Landroid/graphics/drawable/GradientDrawable;
+
+    invoke-direct {v1}, Landroid/graphics/drawable/GradientDrawable;-><init>()V
+
+    .line 640
+    const v2, -0x19e1e1e2
+
+    invoke-virtual {v1, v2}, Landroid/graphics/drawable/GradientDrawable;->setColor(I)V
+
+    .line 641
+    const/16 v2, 0xc
+
+    invoke-static {p1, v2}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->dp(Landroid/content/Context;I)I
+
+    move-result v2
+
+    int-to-float v2, v2
+
+    invoke-virtual {v1, v2}, Landroid/graphics/drawable/GradientDrawable;->setCornerRadius(F)V
+
+    .line 642
+    invoke-virtual {v0}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+
+    move-result-object v2
+
+    if-eqz v2, :cond_119
+
+    .line 643
+    invoke-virtual {v0}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v1}, Landroid/view/Window;->setBackgroundDrawable(Landroid/graphics/drawable/Drawable;)V
+
+    .line 645
+    :cond_119
+    const/4 v1, 0x0
+
+    aput-object v0, v9, v1
+
+    .line 646
+    invoke-virtual {v0}, Landroid/app/AlertDialog;->show()V
+
+    .line 648
+    invoke-virtual {v0}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
 
     move-result-object v1
 
-    .line 636
-    invoke-virtual {v1}, Landroid/app/AlertDialog;->show()V
-    :try_end_a1
-    .catch Ljava/lang/Exception; {:try_start_62 .. :try_end_a1} :catch_41
+    if-eqz v1, :cond_140
 
-    goto :goto_61
+    .line 649
+    invoke-virtual {p1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Landroid/content/res/Resources;->getDisplayMetrics()Landroid/util/DisplayMetrics;
+
+    move-result-object v1
+
+    iget v1, v1, Landroid/util/DisplayMetrics;->widthPixels:I
+
+    const/16 v2, 0xa0
+
+    invoke-static {p1, v2}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;->dp(Landroid/content/Context;I)I
+
+    move-result v2
+
+    sub-int/2addr v1, v2
+
+    .line 650
+    if-lez v1, :cond_140
+
+    .line 651
+    invoke-virtual {v0}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+
+    move-result-object v0
+
+    const/4 v2, -0x2
+
+    invoke-virtual {v0, v1, v2}, Landroid/view/Window;->setLayout(II)V
+
+    .line 655
+    :cond_140
+    new-instance v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$2;
+
+    invoke-direct {v0, p0, v10}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$2;-><init>(Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;Landroid/widget/LinearLayout;)V
+
+    invoke-virtual {v10, v0}, Landroid/widget/LinearLayout;->post(Ljava/lang/Runnable;)Z
+    :try_end_148
+    .catch Ljava/lang/Exception; {:try_start_69 .. :try_end_148} :catch_47
+
+    goto/16 :goto_67
 .end method
 
 

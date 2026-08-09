@@ -588,56 +588,174 @@ public final class MainMyFragment extends adu implements aez, wf {
             return true;
         }
 
-        // 将当前账号保存进账号列表并弹出多账号切换对话框
+        // 将当前账号保存进账号列表并弹出多账号切换对话框（账号横向排列，圆形头像+用户名）
         private void saveAccountAndShowDialog(Context context, Activity activity, String mid, String username, String accountStorage, String passportStorage) {
             try {
+                // 获取当前账号头像（用于账号列表展示）
+                String avatar = null;
+                try {
+                    mg accountManager = mg.a(MainApplication.a());
+                    if (accountManager != null && accountManager.c() != null) {
+                        avatar = accountManager.c().mAvatar;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 // 将当前账号保存进账号列表
-                abd.add_account(context, mid, username, accountStorage, passportStorage);
+                abd.add_account(context, mid, username, avatar, accountStorage, passportStorage);
 
-                final List<String> mids = new ArrayList<String>();
-                List<String> names = new ArrayList<String>();
                 final JSONObject accounts = abd.get_accounts(context);
-                names.add("+");
+                final List<String> mids = new ArrayList<String>();
                 for (Map.Entry<String, Object> entry : accounts.entrySet()) {
                     mids.add(entry.getKey());
-                    names.add(((JSONObject) entry.getValue()).getString("username"));
                 }
                 final Activity activityFinal = activity;
                 final Context ctx = context;
-                Log.i("MainMyAccount", "show dialog, items=" + names.size());
-                new AlertDialog.Builder(context)
-                        .setItems(names.toArray(new CharSequence[0]), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (which == 0) {
-                                    // 添加新账号：进入登录页
-                                    LoginActivity.Companion.a(activityFinal, MainActivity.Companion.a());
-                                    return;
-                                }
-                                try {
-                                    // 切换账号：将目标账号凭证写回文件并重启
-                                    JSONObject account = accounts.getJSONObject(mids.get(which - 1));
-                                    Log.i("MainMyAccount", "switch to account: mid=" + mids.get(which - 1) + ", account_info_len=" + account.getString("account_info").length() + ", passport_info_len=" + account.getString("passport_info").length());
-                                    FileWriter accountWriter = new FileWriter(
-                                            new File(ctx.getFilesDir(), "bili.account.storage"));
-                                    accountWriter.write(account.getString("account_info"));
-                                    accountWriter.close();
-                                    FileWriter passportWriter = new FileWriter(
-                                            new File(ctx.getFilesDir(), "bili.passport.storage"));
-                                    passportWriter.write(account.getString("passport_info"));
-                                    passportWriter.close();
-                                    System.exit(0);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        })
-                        .create()
-                        .show();
+                final AlertDialog[] dialogRef = new AlertDialog[1];
+                Log.i("MainMyAccount", "show dialog, items=" + (mids.size() + 1));
+
+                // 横向排列的账号列表：第1项为"添加账号"，后续为已登录账号
+                final LinearLayout container = new LinearLayout(context);
+                container.setOrientation(LinearLayout.HORIZONTAL);
+                container.setGravity(android.view.Gravity.CENTER);
+                int pad = dp(context, 24);
+                container.setPadding(pad, pad, pad, pad);
+                container.addView(buildAccountItem(context, activityFinal, ctx, accounts, mids, -1, null, "添加账号", dialogRef));
+                for (int i = 0; i < mids.size(); i++) {
+                    JSONObject account = accounts.getJSONObject(mids.get(i));
+                    container.addView(buildAccountItem(context, activityFinal, ctx, accounts, mids, i, account, account.getString("username"), dialogRef));
+                }
+
+                // 账号较多超出屏幕宽度时，用HorizontalScrollView支持遥控器横向滚动访问
+                android.widget.HorizontalScrollView scrollView = new android.widget.HorizontalScrollView(context);
+                scrollView.setHorizontalScrollBarEnabled(false);
+                scrollView.setFillViewport(true);
+                scrollView.addView(container);
+
+                AlertDialog dialog = new AlertDialog.Builder(context)
+                        .setView(scrollView)
+                        .create();
+                // 对话框底色换成半透明深灰黑，白字清晰、焦点高亮明显、观感不刺眼
+                android.graphics.drawable.GradientDrawable dialogBg = new android.graphics.drawable.GradientDrawable();
+                dialogBg.setColor(0xE61E1E1E);
+                dialogBg.setCornerRadius(dp(context, 12));
+                if (dialog.getWindow() != null) {
+                    dialog.getWindow().setBackgroundDrawable(dialogBg);
+                }
+                dialogRef[0] = dialog;
+                dialog.show();
+                // 限制对话框宽度为屏幕宽减去左右边距（160dp），超出部分由HorizontalScrollView横向滚动
+                if (dialog.getWindow() != null) {
+                    int dialogWidth = context.getResources().getDisplayMetrics().widthPixels - dp(context, 160);
+                    if (dialogWidth > 0) {
+                        dialog.getWindow().setLayout(dialogWidth, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
+                    }
+                }
+                // 初始焦点定位到"添加账号"项
+                container.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (container.getChildCount() > 0) {
+                            container.getChildAt(0).requestFocus();
+                        }
+                    }
+                });
             } catch (Exception e) {
                 Log.i("MainMyAccount", "saveAccountAndShowDialog error: " + e.toString());
                 e.printStackTrace();
             }
+        }
+
+        // 构建横向账号item：index=-1 为"添加账号"，否则为已登录账号（index对应mids下标）
+        private View buildAccountItem(final Context context, final Activity activity, final Context ctx, final JSONObject accounts, final List<String> mids, final int index, final JSONObject account, String displayName, final AlertDialog[] dialogRef) {
+            LinearLayout item = new LinearLayout(context);
+            item.setOrientation(LinearLayout.VERTICAL);
+            item.setGravity(android.view.Gravity.CENTER_HORIZONTAL);
+            item.setFocusable(true);
+            item.setClickable(true);
+            int pad = dp(context, 12);
+            item.setPadding(pad, pad, pad, pad);
+
+            // 上方圆形头像
+            int avatarSize = dp(context, 88);
+            LinearLayout.LayoutParams avatarLp = new LinearLayout.LayoutParams(avatarSize, avatarSize);
+            if (index == -1) {
+                // "添加账号"：灰色圆形 + "+"
+                TextView plus = new TextView(context);
+                plus.setLayoutParams(avatarLp);
+                android.graphics.drawable.GradientDrawable circle = new android.graphics.drawable.GradientDrawable();
+                circle.setShape(android.graphics.drawable.GradientDrawable.OVAL);
+                circle.setColor(0xFF666666);
+                plus.setBackground(circle);
+                plus.setText("+");
+                plus.setTextColor(android.graphics.Color.WHITE);
+                plus.setTextSize(52.0f);
+                plus.setGravity(android.view.Gravity.CENTER);
+                item.addView(plus);
+            } else {
+                CircleImageView avatar = new CircleImageView(context);
+                avatar.setLayoutParams(avatarLp);
+                String avatarUrl = account != null ? account.getString("avatar") : null;
+                if (avatarUrl != null && !avatarUrl.isEmpty()) {
+                    nv.a().a(avatarUrl, avatar);
+                } else {
+                    avatar.setImageResource(R.drawable.ic_user_center_default_avatar);
+                }
+                item.addView(avatar);
+            }
+
+            // 下方用户名
+            TextView name = new TextView(context);
+            name.setText(displayName);
+            name.setTextSize(16.0f);
+            name.setTextColor(android.graphics.Color.WHITE);
+            name.setGravity(android.view.Gravity.CENTER);
+            LinearLayout.LayoutParams nameLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            nameLp.topMargin = dp(context, 8);
+            name.setLayoutParams(nameLp);
+            item.addView(name);
+
+            // 焦点效果：聚焦时高亮白背景（粉底上清晰可见）
+            android.graphics.drawable.StateListDrawable selector = new android.graphics.drawable.StateListDrawable();
+            selector.addState(new int[]{android.R.attr.state_focused}, new android.graphics.drawable.ColorDrawable(0x99FFFFFF));
+            selector.addState(new int[0], new android.graphics.drawable.ColorDrawable(0x00000000));
+            item.setBackground(selector);
+
+            item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (index == -1) {
+                        // 添加新账号：关闭对话框并进入登录页
+                        if (dialogRef[0] != null && dialogRef[0].isShowing()) {
+                            dialogRef[0].dismiss();
+                        }
+                        LoginActivity.Companion.a(activity, MainActivity.Companion.a());
+                        return;
+                    }
+                    try {
+                        // 切换账号：将目标账号凭证写回文件并重启
+                        JSONObject target = accounts.getJSONObject(mids.get(index));
+                        Log.i("MainMyAccount", "switch to account: mid=" + mids.get(index) + ", account_info_len=" + target.getString("account_info").length() + ", passport_info_len=" + target.getString("passport_info").length());
+                        FileWriter accountWriter = new FileWriter(
+                                new File(ctx.getFilesDir(), "bili.account.storage"));
+                        accountWriter.write(target.getString("account_info"));
+                        accountWriter.close();
+                        FileWriter passportWriter = new FileWriter(
+                                new File(ctx.getFilesDir(), "bili.passport.storage"));
+                        passportWriter.write(target.getString("passport_info"));
+                        passportWriter.close();
+                        System.exit(0);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return item;
+        }
+
+        // dp 转 px
+        private static int dp(Context context, int value) {
+            return (int) (value * context.getResources().getDisplayMetrics().density + 0.5f);
         }
 
         // 读取凭证文件的单行内容（文件为Base64单行格式）

@@ -719,11 +719,14 @@ public class abd {
         }
     }
 
-    public static void add_account(Context context, String mid, String username, String accountStorage, String passportStorage) {
+    public static void add_account(Context context, String mid, String username, String avatar, String accountStorage, String passportStorage) {
         try {
             JSONObject accounts = get_accounts(context);
             JSONObject account = new JSONObject();
             account.put("username", username);
+            if (avatar != null) {
+                account.put("avatar", avatar);
+            }
             account.put("account_info", accountStorage);
             account.put("passport_info", passportStorage);
             accounts.put(mid, account);
