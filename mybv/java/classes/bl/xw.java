@@ -3891,6 +3891,12 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         currentBookFilePath = null; // 清除文件路径
         controlTarget = "video"; // 退出电子书时，重置为控制视频
 
+        // 关键修复：释放管理器持有的Activity强引用，避免Activity无法回收
+        // BookshelfManager内部持有Context强引用（构造时传入的Activity）
+        bookshelfManager = null;
+        ebookCacheManager = null;
+        bookshelfItems = null;
+
         Log.i(TAG_EBOOK, "电子书面板已关闭，所有状态已清除，controlTarget重置为video");
     }
 
@@ -3994,6 +4000,12 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             loadingProgressBar = null;
             loadingTextView = null;
             controlTarget = "video";
+
+            // 关键修复：释放管理器持有的Activity强引用，避免Activity无法回收
+            // BookshelfManager内部持有Context强引用（构造时传入的Activity）
+            bookshelfManager = null;
+            ebookCacheManager = null;
+            bookshelfItems = null;
 
             Log.i(TAG_EBOOK, "Activity销毁，电子书资源已兜底清理完成");
         }

@@ -201,30 +201,33 @@ public class DownloadWorker implements Runnable {
         Log.i(TAG, "文件总大小: " + DownloadTask.formatFileSize(contentLength));
 
         // 开始下载
-        InputStream inputStream = response.body().byteStream();
-        java.io.OutputStream outputStream;
-        if (isSaf) {
-            // SAF：通过ContentResolver打开输出流，"wa"追加模式实现断点续传
-            String mode = startPos > 0 ? "wa" : "w";
-            outputStream = context.getContentResolver().openOutputStream(
-                    android.net.Uri.parse(downloadPath), mode);
-            if (outputStream == null) {
-                throw new IOException("无法打开SAF输出流");
-            }
-        } else {
-            outputStream = new FileOutputStream(tempFile, startPos > 0);
-        }
-
-        byte[] buffer = new byte[8192]; // 8KB buffer
-        int bytesRead;
-        long downloadedSize = startPos;
-        long startTime = System.currentTimeMillis();
-
-        // 初始化速度计算
-        lastSpeedCalcTime = startTime;
-        lastDownloadedSize = downloadedSize;
-
+        // 关键修复：inputStream/outputStream 的获取也纳入 try-finally 范围，
+        // 避免打开输出流失败（磁盘满/U盘拔出/权限问题）时 InputStream 与 Response 泄漏连接与文件描述符
+        InputStream inputStream = null;
+        java.io.OutputStream outputStream = null;
         try {
+            inputStream = response.body().byteStream();
+            if (isSaf) {
+                // SAF：通过ContentResolver打开输出流，"wa"追加模式实现断点续传
+                String mode = startPos > 0 ? "wa" : "w";
+                outputStream = context.getContentResolver().openOutputStream(
+                        android.net.Uri.parse(downloadPath), mode);
+                if (outputStream == null) {
+                    throw new IOException("无法打开SAF输出流");
+                }
+            } else {
+                outputStream = new FileOutputStream(tempFile, startPos > 0);
+            }
+
+            byte[] buffer = new byte[8192]; // 8KB buffer
+            int bytesRead;
+            long downloadedSize = startPos;
+            long startTime = System.currentTimeMillis();
+
+            // 初始化速度计算
+            lastSpeedCalcTime = startTime;
+            lastDownloadedSize = downloadedSize;
+
             while ((bytesRead = inputStream.read(buffer)) != -1) {
                 // 检查是否暂停或取消
                 if (isPaused) {
@@ -309,21 +312,29 @@ public class DownloadWorker implements Runnable {
             }
 
         } finally {
-            // 关闭资源
-            try {
-                outputStream.close();
-            } catch (IOException e) {
-                Log.w(TAG, "关闭输出流失败", e);
+            // 关闭资源（outputStream/inputStream 可能因打开失败为 null，需判空）
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    Log.w(TAG, "关闭输出流失败", e);
+                }
             }
 
-            try {
-                inputStream.close();
-            } catch (IOException e) {
-                Log.w(TAG, "关闭输入流失败", e);
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    Log.w(TAG, "关闭输入流失败", e);
+                }
             }
 
             // 关闭响应
-            response.close();
+            try {
+                response.close();
+            } catch (Exception e) {
+                Log.w(TAG, "关闭响应失败", e);
+            }
         }
     }
 

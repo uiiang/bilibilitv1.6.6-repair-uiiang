@@ -547,5 +547,20 @@ public class PlayerActivityUrlRefreshHelper {
         if (executorService != null) {
             executorService.shutdown();
         }
+        // 关键修复：清空静态引用，避免持有已销毁的播放器控制器和View树导致Activity泄漏
+        if (currentInstance == this) {
+            currentInstance = null;
+            Log.i(TAG, "[DESTROY] currentInstance static reference cleared");
+        }
+        if (bufferingOverlayController != null) {
+            bufferingOverlayController = null;
+            Log.i(TAG, "[DESTROY] bufferingOverlayController static reference cleared");
+        }
+        // 清空实例引用
+        playerController = null;
+        playerParams = null;
+        context = null;
+        mainHandler = null;
+        Log.i(TAG, "[DESTROY] All references cleared");
     }
 }

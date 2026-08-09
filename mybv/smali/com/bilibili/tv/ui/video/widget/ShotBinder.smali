@@ -442,7 +442,7 @@
 
     if-nez v0, :cond_5
 
-    .line 257
+    .line 279
     :goto_4
     return-void
 
@@ -516,10 +516,10 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/api/video/VideoShot;->getImageUrl(I)Ljava/lang/String;
 
-    move-result-object v5
+    move-result-object v6
 
     .line 142
-    if-nez v5, :cond_67
+    if-nez v6, :cond_67
 
     .line 143
     const-string v0, "ShotBinder"
@@ -550,7 +550,7 @@
 
     .line 147
     :cond_67
-    iget v6, p1, Lcom/bilibili/tv/api/video/VideoShotItem;->imageIndex:I
+    iget v7, p1, Lcom/bilibili/tv/api/video/VideoShotItem;->imageIndex:I
 
     .line 148
     iget v8, p1, Lcom/bilibili/tv/api/video/VideoShotItem;->time:I
@@ -560,7 +560,7 @@
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
@@ -570,7 +570,7 @@
 
     move-result-object v0
 
-    invoke-virtual {v0, v6}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v7}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
@@ -722,9 +722,9 @@
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v7, "loadShotImage: \u5165\u961f | time="
+    const-string v5, "loadShotImage: \u5165\u961f | time="
 
-    invoke-virtual {v1, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
@@ -732,25 +732,25 @@
 
     move-result-object v1
 
-    const-string v7, "s | queueSize="
+    const-string v5, "s | queueSize="
 
-    invoke-virtual {v1, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    sget-object v7, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->workQueue:Ljava/util/concurrent/LinkedBlockingQueue;
-
-    invoke-virtual {v7}, Ljava/util/concurrent/LinkedBlockingQueue;->size()I
-
-    move-result v7
-
-    invoke-virtual {v1, v7}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
-    const-string v7, " | elapsed="
+    sget-object v5, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->workQueue:Ljava/util/concurrent/LinkedBlockingQueue;
 
-    invoke-virtual {v1, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v5}, Ljava/util/concurrent/LinkedBlockingQueue;->size()I
+
+    move-result v5
+
+    invoke-virtual {v1, v5}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v5, " | elapsed="
+
+    invoke-virtual {v1, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
@@ -762,9 +762,9 @@
 
     move-result-object v1
 
-    const-string v7, "ms"
+    const-string v5, "ms"
 
-    invoke-virtual {v1, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
@@ -774,16 +774,19 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 169
+    .line 170
+    new-instance v5, Ljava/lang/ref/WeakReference;
+
+    invoke-direct {v5, p2}, Ljava/lang/ref/WeakReference;-><init>(Ljava/lang/Object;)V
+
+    .line 172
     sget-object v9, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->imageLoadExecutor:Ljava/util/concurrent/ThreadPoolExecutor;
 
     new-instance v0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$2;
 
     move-object v1, p0
 
-    move-object v7, p2
-
-    invoke-direct/range {v0 .. v8}, Lcom/bilibili/tv/ui/video/widget/ShotBinder$2;-><init>(Lcom/bilibili/tv/ui/video/widget/ShotBinder;JLjava/lang/String;Ljava/lang/String;ILcom/bilibili/tv/ui/video/widget/CompactVideoHolder;I)V
+    invoke-direct/range {v0 .. v8}, Lcom/bilibili/tv/ui/video/widget/ShotBinder$2;-><init>(Lcom/bilibili/tv/ui/video/widget/ShotBinder;JLjava/lang/String;Ljava/lang/ref/WeakReference;Ljava/lang/String;II)V
 
     invoke-virtual {v9, v0}, Ljava/util/concurrent/ThreadPoolExecutor;->execute(Ljava/lang/Runnable;)V
 
@@ -1015,7 +1018,7 @@
     .locals 2
 
     .prologue
-    .line 266
+    .line 288
     instance-of v0, p1, Lcom/bilibili/tv/api/video/VideoShotItem;
 
     if-eqz v0, :cond_13
@@ -1024,10 +1027,10 @@
 
     if-eqz v0, :cond_13
 
-    .line 267
+    .line 289
     check-cast p1, Lcom/bilibili/tv/api/video/VideoShotItem;
 
-    .line 268
+    .line 290
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->videoShot:Lcom/bilibili/tv/api/video/VideoShot;
 
     iget v1, p1, Lcom/bilibili/tv/api/video/VideoShotItem;->imageIndex:I
@@ -1036,7 +1039,7 @@
 
     move-result-object v0
 
-    .line 270
+    .line 292
     :goto_12
     return-object v0
 
@@ -1050,7 +1053,7 @@
     .locals 2
 
     .prologue
-    .line 261
+    .line 283
     const-wide/16 v0, 0x0
 
     return-wide v0
@@ -1060,7 +1063,7 @@
     .locals 1
 
     .prologue
-    .line 290
+    .line 312
     const/4 v0, 0x0
 
     return v0
@@ -1070,7 +1073,7 @@
     .locals 1
 
     .prologue
-    .line 285
+    .line 307
     const/4 v0, 0x0
 
     return v0
@@ -1080,7 +1083,7 @@
     .locals 1
 
     .prologue
-    .line 275
+    .line 297
     const/4 v0, 0x0
 
     return v0
@@ -1090,7 +1093,7 @@
     .locals 1
 
     .prologue
-    .line 280
+    .line 302
     const/4 v0, 0x0
 
     return v0

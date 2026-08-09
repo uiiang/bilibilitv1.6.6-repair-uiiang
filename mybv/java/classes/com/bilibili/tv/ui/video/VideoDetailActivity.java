@@ -3479,10 +3479,11 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private String fetchSeasonIdFromEpId(String epId) {
+        java.util.concurrent.ExecutorService threadPool = null;
         try {
             String apiUrl = "https://api.bilibili.com/pgc/view/web/season?ep_id=" + epId;
             android.util.Log.i("BangumiJump", "fetching seasonId from: " + apiUrl);
-            java.util.concurrent.ExecutorService threadPool = java.util.concurrent.Executors.newSingleThreadExecutor();
+            threadPool = java.util.concurrent.Executors.newSingleThreadExecutor();
             java.util.concurrent.Future<org.json.JSONObject> future = threadPool.submit(new java.util.concurrent.Callable<org.json.JSONObject>() {
                 @Override
                 public org.json.JSONObject call() {
@@ -3512,6 +3513,11 @@ public final class VideoDetailActivity extends BaseActivity
         } catch (Exception e) {
             android.util.Log.e("BangumiJump", "fetchSeasonIdFromEpId error: " + e.getMessage());
             e.printStackTrace();
+        } finally {
+            // 关键修复：使用后必须shutdown线程池，否则每次调用泄漏一个常驻线程
+            if (threadPool != null) {
+                threadPool.shutdown();
+            }
         }
         return "";
     }

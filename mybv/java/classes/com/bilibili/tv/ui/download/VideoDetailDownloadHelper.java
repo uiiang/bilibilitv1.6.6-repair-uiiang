@@ -133,6 +133,15 @@ public class VideoDetailDownloadHelper {
             }
         }
 
+        // 关键修复：分离应用上下文与Activity引用
+        // 后台线程只需ApplicationContext完成下载任务逻辑；UI更新通过WeakReference持有Activity，
+        // 避免批量下载时多个后台线程强持有已销毁的Activity导致内存泄漏
+        final Context appContext = context.getApplicationContext();
+        final java.lang.ref.WeakReference<android.app.Activity> activityRef =
+            (context instanceof android.app.Activity)
+                ? new java.lang.ref.WeakReference<>((android.app.Activity) context)
+                : null;
+
         Log.i(TAG, "存储检查通过，路径: " + downloadBasePath);
         // ========== 存储检查结束 ==========
 
@@ -167,44 +176,53 @@ public class VideoDetailDownloadHelper {
                     task.setUpdateTime(System.currentTimeMillis());
 
                     // 设置下载路径（使用bvid作为文件夹名，同一视频的多个分P保存到同一文件夹）
-                    String downloadPath = getDownloadPath(context, bvid, cid, title, subTitle, pageIndex);
+                    String downloadPath = getDownloadPath(appContext, bvid, cid, title, subTitle, pageIndex);
                     if (downloadPath == null || downloadPath.isEmpty()) {
                         Log.e(TAG, "创建下载文件失败，无法添加任务: " + title);
-                        ((android.app.Activity) context).runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(context, "创建下载文件失败，请检查存储设备", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        showToastOnActivity(activityRef, "创建下载文件失败，请检查存储设备");
                         return;
                     }
                     task.setDownloadPath(downloadPath);
 
                     // 添加到下载管理器
-                    DownloadManager.getInstance(context).addTask(task);
+                    DownloadManager.getInstance(appContext).addTask(task);
 
-                    // 在主线程中显示成功提示
-                    ((android.app.Activity) context).runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(context, "已添加到下载列表", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    // 在主线程中显示成功提示（Activity已销毁则跳过）
+                    showToastOnActivity(activityRef, "已添加到下载列表");
 
                 } catch (Exception e) {
                     Log.e(TAG, "添加下载任务失败: " + e.getMessage(), e);
-                    // 在主线程中显示错误提示
-                    ((android.app.Activity) context).runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(context, "添加下载任务失败: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    // 在主线程中显示错误提示（Activity已销毁则跳过）
+                    showToastOnActivity(activityRef, "添加下载任务失败: " + e.getMessage());
                 }
             }
         }).start();
         // 已提交添加请求（后台线程完成实际添加）
         return true;
+    }
+
+    /**
+     * 在Activity主线程显示Toast（Activity已销毁/未销毁时自动跳过，避免泄漏与崩溃）
+     */
+    private static void showToastOnActivity(java.lang.ref.WeakReference<android.app.Activity> activityRef, final String message) {
+        if (activityRef == null) {
+            return;
+        }
+        final android.app.Activity activity = activityRef.get();
+        if (activity == null || activity.isFinishing() || activity.isDestroyed()) {
+            Log.w(TAG, "Activity已销毁，跳过Toast: " + message);
+            return;
+        }
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Log.w(TAG, "显示Toast失败: " + e.getMessage());
+                }
+            }
+        });
     }
 
     /**

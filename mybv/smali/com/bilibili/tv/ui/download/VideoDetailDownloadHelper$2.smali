@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;->showErrorDialog(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)V
+    value = Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;->showToastOnActivity(Ljava/lang/ref/WeakReference;Ljava/lang/String;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -22,20 +22,16 @@
 
 .field final synthetic val$message:Ljava/lang/String;
 
-.field final synthetic val$title:Ljava/lang/String;
-
 
 # direct methods
-.method constructor <init>(Landroid/app/Activity;Ljava/lang/String;Ljava/lang/String;)V
+.method constructor <init>(Landroid/app/Activity;Ljava/lang/String;)V
     .locals 0
 
     .prologue
-    .line 281
+    .line 216
     iput-object p1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$activity:Landroid/app/Activity;
 
-    iput-object p2, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$title:Ljava/lang/String;
-
-    iput-object p3, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$message:Ljava/lang/String;
+    iput-object p2, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$message:Ljava/lang/String;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -48,58 +44,38 @@
     .locals 4
 
     .prologue
-    .line 285
+    .line 220
     :try_start_0
-    new-instance v0, Landroid/app/AlertDialog$Builder;
-
-    iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$activity:Landroid/app/Activity;
-
-    invoke-direct {v0, v1}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
-
-    iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$title:Ljava/lang/String;
-
-    .line 286
-    invoke-virtual {v0, v1}, Landroid/app/AlertDialog$Builder;->setTitle(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
-
-    move-result-object v0
+    iget-object v0, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$activity:Landroid/app/Activity;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$2;->val$message:Ljava/lang/String;
 
-    .line 287
-    invoke-virtual {v0, v1}, Landroid/app/AlertDialog$Builder;->setMessage(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
-
-    move-result-object v0
-
-    const-string v1, "\u786e\u5b9a"
-
     const/4 v2, 0x0
 
-    .line 288
-    invoke-virtual {v0, v1, v2}, Landroid/app/AlertDialog$Builder;->setPositiveButton(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
+    invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
 
     move-result-object v0
 
-    .line 289
-    invoke-virtual {v0}, Landroid/app/AlertDialog$Builder;->show()Landroid/app/AlertDialog;
-    :try_end_1d
-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_1d} :catch_1e
+    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+    :try_end_c
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_c} :catch_d
 
-    .line 293
-    :goto_1d
+    .line 224
+    :goto_c
     return-void
 
-    .line 290
-    :catch_1e
+    .line 221
+    :catch_d
     move-exception v0
 
-    .line 291
+    .line 222
     const-string v1, "VideoDetailDownloadHelper"
 
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v3, "\u663e\u793a\u9519\u8bef\u5bf9\u8bdd\u6846\u5931\u8d25: "
+    const-string v3, "\u663e\u793aToast\u5931\u8d25: "
 
     invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -119,5 +95,5 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto :goto_1d
+    goto :goto_c
 .end method

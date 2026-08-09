@@ -29,26 +29,35 @@ public class EbookUtils {
         
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
-            FileInputStream fis = new FileInputStream(file);
-            
-            byte[] buffer = new byte[8192];
-            int bytesRead;
-            
-            while ((bytesRead = fis.read(buffer)) != -1) {
-                md.update(buffer, 0, bytesRead);
+            FileInputStream fis = null;
+            try {
+                fis = new FileInputStream(file);
+
+                byte[] buffer = new byte[8192];
+                int bytesRead;
+
+                while ((bytesRead = fis.read(buffer)) != -1) {
+                    md.update(buffer, 0, bytesRead);
+                }
+            } finally {
+                if (fis != null) {
+                    try {
+                        fis.close();
+                    } catch (IOException e) {
+                        Log.e(TAG, "关闭文件输入流失败", e);
+                    }
+                }
             }
-            
-            fis.close();
-            
+
             // 转换为十六进制字符串
             byte[] hashBytes = md.digest();
             StringBuilder sb = new StringBuilder();
             for (byte b : hashBytes) {
                 sb.append(String.format("%02x", b));
             }
-            
+
             return sb.toString();
-            
+
         } catch (NoSuchAlgorithmException | IOException e) {
             Log.e(TAG, "生成文件哈希失败", e);
             return null;
@@ -74,22 +83,38 @@ public class EbookUtils {
         }
         
         try {
-            FileInputStream fis = new FileInputStream(sourceFile);
-            FileOutputStream fos = new FileOutputStream(destFile);
-            
-            byte[] buffer = new byte[8192];
-            int bytesRead;
-            
-            while ((bytesRead = fis.read(buffer)) != -1) {
-                fos.write(buffer, 0, bytesRead);
+            FileInputStream fis = null;
+            FileOutputStream fos = null;
+            try {
+                fis = new FileInputStream(sourceFile);
+                fos = new FileOutputStream(destFile);
+
+                byte[] buffer = new byte[8192];
+                int bytesRead;
+
+                while ((bytesRead = fis.read(buffer)) != -1) {
+                    fos.write(buffer, 0, bytesRead);
+                }
+            } finally {
+                if (fos != null) {
+                    try {
+                        fos.close();
+                    } catch (IOException e) {
+                        Log.e(TAG, "关闭文件输出流失败", e);
+                    }
+                }
+                if (fis != null) {
+                    try {
+                        fis.close();
+                    } catch (IOException e) {
+                        Log.e(TAG, "关闭文件输入流失败", e);
+                    }
+                }
             }
-            
-            fos.close();
-            fis.close();
-            
+
             Log.i(TAG, "文件复制成功: " + destPath);
             return true;
-            
+
         } catch (IOException e) {
             Log.e(TAG, "文件复制失败", e);
             return false;

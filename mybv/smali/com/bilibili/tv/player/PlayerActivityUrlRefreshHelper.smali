@@ -1465,9 +1465,11 @@
 .end method
 
 .method public destroy()V
-    .locals 2
+    .locals 3
 
     .prologue
+    const/4 v2, 0x0
+
     .line 544
     const-string v0, "PlayerUrlRefresh"
 
@@ -1484,15 +1486,66 @@
     .line 547
     iget-object v0, p0, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->executorService:Ljava/util/concurrent/ExecutorService;
 
-    if-eqz v0, :cond_16
+    if-eqz v0, :cond_17
 
     .line 548
     iget-object v0, p0, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->executorService:Ljava/util/concurrent/ExecutorService;
 
     invoke-interface {v0}, Ljava/util/concurrent/ExecutorService;->shutdown()V
 
-    .line 550
-    :cond_16
+    .line 551
+    :cond_17
+    sget-object v0, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->currentInstance:Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;
+
+    if-ne v0, p0, :cond_24
+
+    .line 552
+    sput-object v2, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->currentInstance:Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;
+
+    .line 553
+    const-string v0, "PlayerUrlRefresh"
+
+    const-string v1, "[DESTROY] currentInstance static reference cleared"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 555
+    :cond_24
+    sget-object v0, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->bufferingOverlayController:Lcom/bilibili/tv/player/BufferingOverlayController;
+
+    if-eqz v0, :cond_31
+
+    .line 556
+    sput-object v2, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->bufferingOverlayController:Lcom/bilibili/tv/player/BufferingOverlayController;
+
+    .line 557
+    const-string v0, "PlayerUrlRefresh"
+
+    const-string v1, "[DESTROY] bufferingOverlayController static reference cleared"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 560
+    :cond_31
+    iput-object v2, p0, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->playerController:Lbl/xh;
+
+    .line 561
+    iput-object v2, p0, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->playerParams:Lcom/bilibili/tv/player/basic/context/PlayerParams;
+
+    .line 562
+    iput-object v2, p0, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->context:Landroid/content/Context;
+
+    .line 563
+    iput-object v2, p0, Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;->mainHandler:Landroid/os/Handler;
+
+    .line 564
+    const-string v0, "PlayerUrlRefresh"
+
+    const-string v1, "[DESTROY] All references cleared"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 565
     return-void
 .end method
 

@@ -125,18 +125,34 @@ public class EpubParser {
                     // 确保父目录存在
                     file.getParentFile().mkdirs();
                     
-                    // 写入文件内容
-                    InputStream is = zipFile.getInputStream(entry);
-                    FileOutputStream fos = new FileOutputStream(file);
-                    
-                    byte[] buffer = new byte[8192];
-                    int len;
-                    while ((len = is.read(buffer)) > 0) {
-                        fos.write(buffer, 0, len);
+                    // 写入文件内容（使用try-finally确保异常时流也关闭，避免FD泄漏）
+                    InputStream is = null;
+                    FileOutputStream fos = null;
+                    try {
+                        is = zipFile.getInputStream(entry);
+                        fos = new FileOutputStream(file);
+                        
+                        byte[] buffer = new byte[8192];
+                        int len;
+                        while ((len = is.read(buffer)) > 0) {
+                            fos.write(buffer, 0, len);
+                        }
+                    } finally {
+                        if (fos != null) {
+                            try {
+                                fos.close();
+                            } catch (IOException e) {
+                                Log.e(TAG, "关闭输出流失败: " + e.getMessage());
+                            }
+                        }
+                        if (is != null) {
+                            try {
+                                is.close();
+                            } catch (IOException e) {
+                                Log.e(TAG, "关闭输入流失败: " + e.getMessage());
+                            }
+                        }
                     }
-                    
-                    fos.close();
-                    is.close();
                 }
             }
             
@@ -145,7 +161,11 @@ public class EpubParser {
             
         } finally {
             if (zipFile != null) {
-                zipFile.close();
+                try {
+                    zipFile.close();
+                } catch (IOException e) {
+                    Log.e(TAG, "关闭ZipFile失败: " + e.getMessage());
+                }
             }
         }
     }
@@ -671,20 +691,46 @@ public class EpubParser {
 
             Log.i(TAG, "开始加载缓存的元数据: " + metadataFile.getAbsolutePath());
 
-            // 读取JSON文件
-            java.io.FileInputStream fis = new java.io.FileInputStream(metadataFile);
-            java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(fis, "UTF-8"));
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
+            // 读取JSON文件（使用try-finally确保异常时流也关闭，避免FD泄漏）
+            java.io.FileInputStream fis = null;
+            java.io.BufferedReader reader = null;
+            try {
+                fis = new java.io.FileInputStream(metadataFile);
+                reader = new java.io.BufferedReader(new java.io.InputStreamReader(fis, "UTF-8"));
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line);
+                }
+                return parseMetadataJson(sb.toString());
+            } finally {
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (Exception e) {
+                        Log.e(TAG, "关闭reader失败: " + e.getMessage());
+                    }
+                }
+                if (fis != null) {
+                    try {
+                        fis.close();
+                    } catch (Exception e) {
+                        Log.e(TAG, "关闭fis失败: " + e.getMessage());
+                    }
+                }
             }
-            reader.close();
-            fis.close();
 
-            String json = sb.toString();
-            Log.d(TAG, "读取到的JSON长度: " + json.length());
+        } catch (Exception e) {
+            Log.e(TAG, "加载缓存元数据失败", e);
+            return null;
+        }
+    }
 
+    /**
+     * 解析元数据JSON（从缓存中读取）
+     */
+    private Book parseMetadataJson(String json) {
+        try {
             // 解析JSON
             org.json.JSONObject jsonObj = new org.json.JSONObject(json);
 
@@ -762,13 +808,30 @@ public class EpubParser {
             }
             jsonObj.put("chapters", chaptersArray);
 
-            // 写入文件
-            java.io.FileOutputStream fos = new java.io.FileOutputStream(metadataFile);
-            java.io.OutputStreamWriter writer = new java.io.OutputStreamWriter(fos, "UTF-8");
-            writer.write(jsonObj.toString());
-            writer.flush();
-            writer.close();
-            fos.close();
+            // 写入文件（使用try-finally确保异常时流也关闭，避免FD泄漏）
+            java.io.FileOutputStream fos = null;
+            java.io.OutputStreamWriter writer = null;
+            try {
+                fos = new java.io.FileOutputStream(metadataFile);
+                writer = new java.io.OutputStreamWriter(fos, "UTF-8");
+                writer.write(jsonObj.toString());
+                writer.flush();
+            } finally {
+                if (writer != null) {
+                    try {
+                        writer.close();
+                    } catch (Exception e) {
+                        Log.e(TAG, "关闭writer失败: " + e.getMessage());
+                    }
+                }
+                if (fos != null) {
+                    try {
+                        fos.close();
+                    } catch (Exception e) {
+                        Log.e(TAG, "关闭fos失败: " + e.getMessage());
+                    }
+                }
+            }
 
             Log.i(TAG, "元数据缓存保存成功: " + metadataFile.getAbsolutePath() +
                   ", 大小: " + metadataFile.length() + " bytes");

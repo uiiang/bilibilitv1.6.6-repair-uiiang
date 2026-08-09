@@ -613,6 +613,24 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
             bottomEpisodeMenu = null;
         }
     }
+
+    @Override // bl.xh
+    public void d() {
+        // 关键修复：兜底停止截图菜单进度刷新自循环并清理菜单引用，
+        // 避免Activity被非BACK路径销毁时shotMenuProgressRunnable 800ms自循环持续持有播放器链导致泄漏
+        stopShotMenuProgressUpdater();
+        if (shotMenuHandler != null) {
+            shotMenuHandler.removeCallbacksAndMessages(null);
+        }
+        if (bottomShotMenu != null) {
+            bottomShotMenu.hide();
+            bottomShotMenu.cleanup();
+            bottomShotMenu = null;
+        }
+        cleanupBottomEpisodeMenu();
+        super.d();
+        r();
+    }
     
     public boolean isShotMenuShowing() {
         return bottomShotMenu != null && bottomShotMenu.isShowing();

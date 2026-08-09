@@ -54,6 +54,15 @@ public final class MainHotFragment extends BaseVideoListFragment {
     }
     
     @Override
+    public void onDestroy() {
+        // 关键修复：清空静态引用，避免持有已销毁的Fragment/View树/Activity上下文导致内存泄漏
+        if (_this == this) {
+            _this = null;
+        }
+        super.onDestroy();
+    }
+    
+    @Override
     protected int getColumnCount() {
         return abd.get_home_column(getActivity());
     }

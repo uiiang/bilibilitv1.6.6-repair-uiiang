@@ -166,6 +166,9 @@ public class ShotBinder implements VideoCardBinder {
         final long currentVersion = loadVersion.get();
         android.util.Log.i(TAG, "loadShotImage: 入队 | time=" + shotTime + "s | queueSize=" + workQueue.size() + " | elapsed=" + getElapsedTime() + "ms");
         
+        // 关键修复：用WeakReference持有ViewHolder，避免排队/执行中的任务强持有View树导致Activity无法回收
+        final java.lang.ref.WeakReference<CompactVideoHolder> holderRef = new java.lang.ref.WeakReference<>(holder);
+        
         imageLoadExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -177,75 +180,94 @@ public class ShotBinder implements VideoCardBinder {
                     return;
                 }
                 
+                // 任务真正执行时若ViewHolder已被回收，直接放弃，避免操作已销毁的View
+                final CompactVideoHolder holder = holderRef.get();
+                if (holder == null) {
+                    android.util.Log.i(TAG, "loadShotImage: holder recycled, skip " + cacheKey);
+                    synchronized (loadingUrls) {
+                        loadingUrls.remove(cacheKey);
+                    }
+                    return;
+                }
+                final long versionAtStart = currentVersion;
+                
                 try {
                     java.net.URL url = new java.net.URL(imageUrl);
                     java.net.HttpURLConnection conn = (java.net.HttpURLConnection) url.openConnection();
                     conn.setConnectTimeout(10000);
                     conn.setReadTimeout(10000);
-                    conn.connect();
-                    
-                    android.graphics.BitmapFactory.Options options = new android.graphics.BitmapFactory.Options();
-                    options.inSampleSize = 2;
-                    
-                    Bitmap sheetBitmap = android.graphics.BitmapFactory.decodeStream(conn.getInputStream(), null, options);
-                    conn.disconnect();
-                    
-                    if (sheetBitmap == null) {
-                        android.util.Log.i(TAG, "loadShotImage: sheetBitmap is null");
-                        synchronized (loadingUrls) {
-                            loadingUrls.remove(cacheKey);
-                        }
-                        return;
-                    }
-                    
-                    if (currentVersion != loadVersion.get()) {
-                        android.util.Log.i(TAG, "loadShotImage: cancelled after download " + cacheKey);
-                        sheetBitmap.recycle();
-                        synchronized (loadingUrls) {
-                            loadingUrls.remove(cacheKey);
-                        }
-                        return;
-                    }
-                    
-                    int actualWidth = sheetBitmap.getWidth();
-                    int actualHeight = sheetBitmap.getHeight();
-                    int actualCellWidth = actualWidth / videoShot.getImgXLen();
-                    int actualCellHeight = actualHeight / videoShot.getImgYLen();
-                    
-                    int indexInImage = snapshotIndex % (videoShot.getImgXLen() * videoShot.getImgYLen());
-                    int col = indexInImage % videoShot.getImgXLen();
-                    int row = indexInImage / videoShot.getImgXLen();
-                    
-                    int actualLeft = col * actualCellWidth;
-                    int actualTop = row * actualCellHeight;
-                    
-                    final Bitmap cropped = Bitmap.createBitmap(
-                        sheetBitmap, actualLeft, actualTop, 
-                        actualCellWidth, actualCellHeight
-                    );
-                    
-                    snapshotCache.put(cacheKey, cropped);
-                    
-                    if (!sheetBitmap.isRecycled()) {
-                        sheetBitmap.recycle();
-                    }
-                    
-                    synchronized (loadingUrls) {
-                        loadingUrls.remove(cacheKey);
-                    }
-                    
-                    holder.getCoverImageView().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (currentVersion != loadVersion.get()) {
-                                android.util.Log.i(TAG, "loadShotImage: cancelled before set image " + cacheKey);
-                                return;
+                    try {
+                        conn.connect();
+                        
+                        android.graphics.BitmapFactory.Options options = new android.graphics.BitmapFactory.Options();
+                        options.inSampleSize = 2;
+                        
+                        Bitmap sheetBitmap = android.graphics.BitmapFactory.decodeStream(conn.getInputStream(), null, options);
+                        
+                        if (sheetBitmap == null) {
+                            android.util.Log.i(TAG, "loadShotImage: sheetBitmap is null");
+                            synchronized (loadingUrls) {
+                                loadingUrls.remove(cacheKey);
                             }
-                            android.util.Log.i(TAG, "loadShotImage: 图片显示 | time=" + shotTime + "s | elapsed=" + getElapsedTime() + "ms");
-                            holder.getCoverImageView().setImageBitmap(cropped);
+                            return;
                         }
-                    });
-                    
+                        
+                        if (versionAtStart != loadVersion.get()) {
+                            android.util.Log.i(TAG, "loadShotImage: cancelled after download " + cacheKey);
+                            sheetBitmap.recycle();
+                            synchronized (loadingUrls) {
+                                loadingUrls.remove(cacheKey);
+                            }
+                            return;
+                        }
+                        
+                        int actualWidth = sheetBitmap.getWidth();
+                        int actualHeight = sheetBitmap.getHeight();
+                        int actualCellWidth = actualWidth / videoShot.getImgXLen();
+                        int actualCellHeight = actualHeight / videoShot.getImgYLen();
+                        
+                        int indexInImage = snapshotIndex % (videoShot.getImgXLen() * videoShot.getImgYLen());
+                        int col = indexInImage % videoShot.getImgXLen();
+                        int row = indexInImage / videoShot.getImgXLen();
+                        
+                        int actualLeft = col * actualCellWidth;
+                        int actualTop = row * actualCellHeight;
+                        
+                        final Bitmap cropped = Bitmap.createBitmap(
+                            sheetBitmap, actualLeft, actualTop, 
+                            actualCellWidth, actualCellHeight
+                        );
+                        
+                        snapshotCache.put(cacheKey, cropped);
+                        
+                        if (!sheetBitmap.isRecycled()) {
+                            sheetBitmap.recycle();
+                        }
+                        
+                        synchronized (loadingUrls) {
+                            loadingUrls.remove(cacheKey);
+                        }
+                        
+                        // 显示图片前再次确认ViewHolder仍存活，且版本未变
+                        final CompactVideoHolder liveHolder = holderRef.get();
+                        if (liveHolder == null) {
+                            android.util.Log.i(TAG, "loadShotImage: holder recycled before set image " + cacheKey);
+                            return;
+                        }
+                        liveHolder.getCoverImageView().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (versionAtStart != loadVersion.get()) {
+                                    android.util.Log.i(TAG, "loadShotImage: cancelled before set image " + cacheKey);
+                                    return;
+                                }
+                                android.util.Log.i(TAG, "loadShotImage: 图片显示 | time=" + shotTime + "s | elapsed=" + getElapsedTime() + "ms");
+                                liveHolder.getCoverImageView().setImageBitmap(cropped);
+                            }
+                        });
+                    } finally {
+                        conn.disconnect();
+                    }
                 } catch (Exception e) {
                     android.util.Log.i(TAG, "loadShotImage error: " + e.getMessage());
                     synchronized (loadingUrls) {

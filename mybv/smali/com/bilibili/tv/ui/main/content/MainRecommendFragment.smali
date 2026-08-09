@@ -70,22 +70,22 @@
     .locals 4
 
     .prologue
-    .line 118
+    .line 127
     new-instance v0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;-><init>()V
 
-    .line 119
+    .line 128
     const-string v1, "small_popular_ugc"
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setCardType(Ljava/lang/String;)V
 
-    .line 120
+    .line 129
     const-string v1, "av"
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setCardGoto(Ljava/lang/String;)V
 
-    .line 121
+    .line 130
     const-string v1, "id"
 
     invoke-virtual {p1, v1}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
@@ -98,7 +98,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setJumpId(Ljava/lang/Long;)V
 
-    .line 122
+    .line 131
     const-string v1, "pic"
 
     invoke-virtual {p1, v1}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -107,7 +107,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setCover(Ljava/lang/String;)V
 
-    .line 123
+    .line 132
     const-string v1, "title"
 
     invoke-virtual {p1, v1}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -116,7 +116,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setTitle(Ljava/lang/String;)V
 
-    .line 124
+    .line 133
     const-string v1, "pubdate"
 
     invoke-virtual {p1, v1}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
@@ -125,7 +125,7 @@
 
     invoke-virtual {v0, v2, v3}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setPubdate(J)V
 
-    .line 125
+    .line 134
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -152,7 +152,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setUri(Ljava/lang/String;)V
 
-    .line 126
+    .line 135
     const-string v1, "duration"
 
     invoke-virtual {p1, v1}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -161,17 +161,17 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setDuration(I)V
 
-    .line 128
+    .line 137
     const-string v1, "owner"
 
     invoke-virtual {p1, v1}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v1
 
-    .line 129
+    .line 138
     if-eqz v1, :cond_6d
 
-    .line 130
+    .line 139
     const-string v2, "name"
 
     invoke-virtual {v1, v2}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -180,7 +180,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setOwnerName(Ljava/lang/String;)V
 
-    .line 133
+    .line 142
     :cond_6d
     const-string v1, "stat"
 
@@ -188,10 +188,10 @@
 
     move-result-object v1
 
-    .line 134
+    .line 143
     if-eqz v1, :cond_87
 
-    .line 135
+    .line 144
     const-string v2, "view"
 
     invoke-virtual {v1, v2}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -200,7 +200,7 @@
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setPlay(I)V
 
-    .line 136
+    .line 145
     const-string v2, "danmaku"
 
     invoke-virtual {v1, v2}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -209,7 +209,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->setDanmaku(I)V
 
-    .line 139
+    .line 148
     :cond_87
     return-object v0
 .end method
@@ -222,25 +222,25 @@
     .prologue
     const/4 v1, 0x1
 
-    .line 71
+    .line 80
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->isLoadingMore:Z
 
     if-eqz v0, :cond_8
 
     if-eqz p1, :cond_8
 
-    .line 86
+    .line 95
     :goto_7
     return-void
 
-    .line 75
+    .line 84
     :cond_8
     if-nez p1, :cond_3d
 
-    .line 76
+    .line 85
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->hasMoreData:Z
 
-    .line 81
+    .line 90
     :goto_c
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
@@ -250,12 +250,12 @@
 
     move-result-object v0
 
-    .line 82
+    .line 91
     invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v2
 
-    .line 83
+    .line 92
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -268,7 +268,7 @@
 
     if-eqz v2, :cond_2a
 
-    .line 84
+    .line 93
     invoke-virtual {v2}, Ljava/lang/String;->isEmpty()Z
 
     move-result v1
@@ -291,18 +291,18 @@
 
     invoke-direct {v1, p0, p1}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;-><init>(Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;Z)V
 
-    .line 85
+    .line 94
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
     goto :goto_7
 
-    .line 78
+    .line 87
     :cond_3d
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->isLoadingMore:Z
 
     goto :goto_c
 
-    .line 84
+    .line 93
     :cond_40
     const/4 v1, 0x0
 
@@ -323,7 +323,7 @@
     .locals 1
 
     .prologue
-    .line 62
+    .line 71
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v0
@@ -359,12 +359,12 @@
     .locals 1
 
     .prologue
-    .line 66
+    .line 75
     const/4 v0, 0x0
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->fetchData(Z)V
 
-    .line 67
+    .line 76
     return-void
 .end method
 
@@ -372,7 +372,7 @@
     .locals 5
 
     .prologue
-    .line 90
+    .line 99
     const-string v0, "bilibili_yst://pgc"
 
     invoke-virtual {p2, v0}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
@@ -381,7 +381,7 @@
 
     if-eqz v0, :cond_40
 
-    .line 91
+    .line 100
     invoke-static {p2}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v0
@@ -390,7 +390,7 @@
 
     move-result-wide v2
 
-    .line 92
+    .line 101
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -399,13 +399,13 @@
 
     move-result-object v4
 
-    .line 93
+    .line 102
     if-eqz v4, :cond_40
 
-    .line 94
+    .line 103
     const/4 v1, 0x0
 
-    .line 95
+    .line 104
     if-ltz p3, :cond_41
 
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->ogvList:Ljava/util/List;
@@ -416,7 +416,7 @@
 
     if-ge p3, v0, :cond_41
 
-    .line 96
+    .line 105
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->ogvList:Ljava/util/List;
 
     invoke-interface {v0, p3}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -425,15 +425,15 @@
 
     check-cast v0, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;
 
-    .line 97
+    .line 106
     if-eqz v0, :cond_41
 
-    .line 98
+    .line 107
     invoke-virtual {v0}, Lcom/bilibili/tv/api/main/MainRecommendEx$Content;->getCover()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 101
+    .line 110
     :goto_33
     sget-object v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
 
@@ -447,7 +447,7 @@
 
     invoke-virtual {v4, v0}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
 
-    .line 104
+    .line 113
     :cond_40
     return-void
 
@@ -457,11 +457,33 @@
     goto :goto_33
 .end method
 
+.method public onDestroy()V
+    .locals 1
+
+    .prologue
+    .line 63
+    sget-object v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->_this:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
+
+    if-ne v0, p0, :cond_7
+
+    .line 64
+    const/4 v0, 0x0
+
+    sput-object v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->_this:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
+
+    .line 66
+    :cond_7
+    invoke-super {p0}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->onDestroy()V
+
+    .line 67
+    return-void
+.end method
+
 .method protected onSmallCardClick(Landroid/view/View;Ljava/lang/String;I)V
     .locals 5
 
     .prologue
-    .line 108
+    .line 117
     const-string v0, "bilibili_yst://video"
 
     invoke-virtual {p2, v0}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
@@ -478,7 +500,7 @@
 
     if-eqz v0, :cond_2f
 
-    .line 109
+    .line 118
     :cond_10
     invoke-static {p2}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
@@ -488,7 +510,7 @@
 
     move-result-wide v0
 
-    .line 110
+    .line 119
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v2
@@ -497,10 +519,10 @@
 
     move-result-object v2
 
-    .line 111
+    .line 120
     if-eqz v2, :cond_2f
 
-    .line 112
+    .line 121
     sget-object v3, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->Companion:Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;
 
     invoke-virtual {p0, p3}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->getCoverUrl(I)Ljava/lang/String;
@@ -513,7 +535,7 @@
 
     invoke-virtual {v2, v0}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
 
-    .line 115
+    .line 124
     :cond_2f
     return-void
 .end method

@@ -34,15 +34,15 @@
     .locals 0
 
     .prologue
-    .line 123
+    .line 132
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
 
-    .line 124
+    .line 133
     iput-boolean p2, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->isAppendMode:Z
 
-    .line 125
+    .line 134
     return-void
 .end method
 
@@ -58,7 +58,7 @@
 
     const/4 v2, 0x0
 
-    .line 129
+    .line 138
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->adapter:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$VideoListAdapter;
@@ -67,17 +67,17 @@
 
     if-nez p1, :cond_10
 
-    .line 130
+    .line 139
     :cond_b
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     iput-boolean v2, v0, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->isLoadingMore:Z
 
-    .line 161
+    .line 170
     :goto_f
     return-void
 
-    .line 134
+    .line 143
     :cond_10
     const-string v0, "list"
 
@@ -85,7 +85,7 @@
 
     move-result-object v3
 
-    .line 135
+    .line 144
     if-eqz v3, :cond_1e
 
     invoke-virtual {v3}, Lcom/alibaba/fastjson/JSONArray;->isEmpty()Z
@@ -94,20 +94,20 @@
 
     if-eqz v0, :cond_27
 
-    .line 136
+    .line 145
     :cond_1e
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     iput-boolean v2, v0, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->hasMoreData:Z
 
-    .line 137
+    .line 146
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     iput-boolean v2, v0, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->isLoadingMore:Z
 
     goto :goto_f
 
-    .line 141
+    .line 150
     :cond_27
     const-string v0, "no_more"
 
@@ -115,7 +115,7 @@
 
     move-result v0
 
-    .line 142
+    .line 151
     iget-object v4, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     if-nez v0, :cond_6b
@@ -125,7 +125,7 @@
     :goto_32
     iput-boolean v0, v4, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->hasMoreData:Z
 
-    .line 144
+    .line 153
     const/4 v0, 0x5
 
     new-array v0, v0, [Lcom/bilibili/tv/api/main/MainRecommendEx$Content;
@@ -146,7 +146,7 @@
 
     aput-object v5, v0, v1
 
-    .line 145
+    .line 154
     new-instance v1, Ljava/util/ArrayList;
 
     invoke-static {v0}, Ljava/util/Arrays;->asList([Ljava/lang/Object;)Ljava/util/List;
@@ -155,7 +155,7 @@
 
     invoke-direct {v1, v0}, Ljava/util/ArrayList;-><init>(Ljava/util/Collection;)V
 
-    .line 146
+    .line 155
     new-instance v4, Ljava/util/ArrayList;
 
     const/16 v0, 0x14
@@ -164,7 +164,7 @@
 
     move v0, v2
 
-    .line 148
+    .line 157
     :goto_55
     invoke-virtual {v3}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
@@ -172,12 +172,12 @@
 
     if-ge v0, v5, :cond_6d
 
-    .line 149
+    .line 158
     invoke-virtual {v3, v0}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v5
 
-    .line 150
+    .line 159
     iget-object v6, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     # invokes: Lcom/bilibili/tv/ui/main/content/MainHotFragment;->parseHotItem(Lcom/alibaba/fastjson/JSONObject;)Lcom/bilibili/tv/api/main/MainRecommendEx$Content;
@@ -185,10 +185,10 @@
 
     move-result-object v5
 
-    .line 151
+    .line 160
     invoke-virtual {v4, v5}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 148
+    .line 157
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_55
@@ -196,23 +196,23 @@
     :cond_6b
     move v0, v2
 
-    .line 142
+    .line 151
     goto :goto_32
 
-    .line 154
+    .line 163
     :cond_6d
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->isAppendMode:Z
 
     if-eqz v0, :cond_7d
 
-    .line 155
+    .line 164
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->adapter:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$VideoListAdapter;
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$VideoListAdapter;->appendData(Ljava/util/List;)V
 
-    .line 160
+    .line 169
     :goto_78
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
@@ -220,7 +220,7 @@
 
     goto :goto_f
 
-    .line 157
+    .line 166
     :cond_7d
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
@@ -235,7 +235,7 @@
     .locals 0
 
     .prologue
-    .line 120
+    .line 129
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->a(Lcom/alibaba/fastjson/JSONObject;)V
@@ -247,12 +247,12 @@
     .locals 2
 
     .prologue
-    .line 165
+    .line 174
     const-string v0, "t"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 166
+    .line 175
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->getLogTag()Ljava/lang/String;
@@ -265,13 +265,13 @@
 
     invoke-static {v0, v1}, Ltv/danmaku/android/log/BLog;->e(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 167
+    .line 176
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainHotFragment$HotResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainHotFragment;
 
     const/4 v1, 0x0
 
     iput-boolean v1, v0, Lcom/bilibili/tv/ui/main/content/MainHotFragment;->isLoadingMore:Z
 
-    .line 168
+    .line 177
     return-void
 .end method

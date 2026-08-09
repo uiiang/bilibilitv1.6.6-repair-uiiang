@@ -1,143 +1,123 @@
-.class synthetic Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$3;
+.class final Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$3;
 .super Ljava/lang/Object;
 .source "VideoDetailDownloadHelper.java"
 
+# interfaces
+.implements Ljava/lang/Runnable;
+
 
 # annotations
-.annotation system Ldalvik/annotation/EnclosingClass;
-    value = Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;
+.annotation system Ldalvik/annotation/EnclosingMethod;
+    value = Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;->showErrorDialog(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
-    accessFlags = 0x1008
+    accessFlags = 0x8
     name = null
 .end annotation
 
 
-# static fields
-.field static final synthetic $SwitchMap$com$bilibili$tv$ui$download$model$DownloadTask$Status:[I
+# instance fields
+.field final synthetic val$activity:Landroid/app/Activity;
+
+.field final synthetic val$message:Ljava/lang/String;
+
+.field final synthetic val$title:Ljava/lang/String;
 
 
 # direct methods
-.method static constructor <clinit>()V
-    .locals 3
+.method constructor <init>(Landroid/app/Activity;Ljava/lang/String;Ljava/lang/String;)V
+    .locals 0
 
     .prologue
-    .line 441
-    invoke-static {}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->values()[Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+    .line 299
+    iput-object p1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$3;->val$activity:Landroid/app/Activity;
+
+    iput-object p2, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$3;->val$title:Ljava/lang/String;
+
+    iput-object p3, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$3;->val$message:Ljava/lang/String;
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public run()V
+    .locals 4
+
+    .prologue
+    .line 303
+    :try_start_0
+    new-instance v0, Landroid/app/AlertDialog$Builder;
+
+    iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$3;->val$activity:Landroid/app/Activity;
+
+    invoke-direct {v0, v1}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
+
+    iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$3;->val$title:Ljava/lang/String;
+
+    .line 304
+    invoke-virtual {v0, v1}, Landroid/app/AlertDialog$Builder;->setTitle(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
 
     move-result-object v0
 
-    array-length v0, v0
+    iget-object v1, p0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$3;->val$message:Ljava/lang/String;
 
-    new-array v0, v0, [I
+    .line 305
+    invoke-virtual {v0, v1}, Landroid/app/AlertDialog$Builder;->setMessage(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
 
-    sput-object v0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$3;->$SwitchMap$com$bilibili$tv$ui$download$model$DownloadTask$Status:[I
+    move-result-object v0
 
-    :try_start_9
-    sget-object v0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$3;->$SwitchMap$com$bilibili$tv$ui$download$model$DownloadTask$Status:[I
+    const-string v1, "\u786e\u5b9a"
 
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->WAITING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+    const/4 v2, 0x0
 
-    invoke-virtual {v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->ordinal()I
+    .line 306
+    invoke-virtual {v0, v1, v2}, Landroid/app/AlertDialog$Builder;->setPositiveButton(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
-    move-result v1
+    move-result-object v0
 
-    const/4 v2, 0x1
+    .line 307
+    invoke-virtual {v0}, Landroid/app/AlertDialog$Builder;->show()Landroid/app/AlertDialog;
+    :try_end_1d
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_1d} :catch_1e
 
-    aput v2, v0, v1
-    :try_end_14
-    .catch Ljava/lang/NoSuchFieldError; {:try_start_9 .. :try_end_14} :catch_49
-
-    :goto_14
-    :try_start_14
-    sget-object v0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$3;->$SwitchMap$com$bilibili$tv$ui$download$model$DownloadTask$Status:[I
-
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->DOWNLOADING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
-
-    invoke-virtual {v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->ordinal()I
-
-    move-result v1
-
-    const/4 v2, 0x2
-
-    aput v2, v0, v1
-    :try_end_1f
-    .catch Ljava/lang/NoSuchFieldError; {:try_start_14 .. :try_end_1f} :catch_47
-
-    :goto_1f
-    :try_start_1f
-    sget-object v0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$3;->$SwitchMap$com$bilibili$tv$ui$download$model$DownloadTask$Status:[I
-
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->PAUSED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
-
-    invoke-virtual {v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->ordinal()I
-
-    move-result v1
-
-    const/4 v2, 0x3
-
-    aput v2, v0, v1
-    :try_end_2a
-    .catch Ljava/lang/NoSuchFieldError; {:try_start_1f .. :try_end_2a} :catch_45
-
-    :goto_2a
-    :try_start_2a
-    sget-object v0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$3;->$SwitchMap$com$bilibili$tv$ui$download$model$DownloadTask$Status:[I
-
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->COMPLETED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
-
-    invoke-virtual {v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->ordinal()I
-
-    move-result v1
-
-    const/4 v2, 0x4
-
-    aput v2, v0, v1
-    :try_end_35
-    .catch Ljava/lang/NoSuchFieldError; {:try_start_2a .. :try_end_35} :catch_43
-
-    :goto_35
-    :try_start_35
-    sget-object v0, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$3;->$SwitchMap$com$bilibili$tv$ui$download$model$DownloadTask$Status:[I
-
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->FAILED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
-
-    invoke-virtual {v1}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->ordinal()I
-
-    move-result v1
-
-    const/4 v2, 0x5
-
-    aput v2, v0, v1
-    :try_end_40
-    .catch Ljava/lang/NoSuchFieldError; {:try_start_35 .. :try_end_40} :catch_41
-
-    :goto_40
+    .line 311
+    :goto_1d
     return-void
 
-    :catch_41
+    .line 308
+    :catch_1e
     move-exception v0
 
-    goto :goto_40
+    .line 309
+    const-string v1, "VideoDetailDownloadHelper"
 
-    :catch_43
-    move-exception v0
+    new-instance v2, Ljava/lang/StringBuilder;
 
-    goto :goto_35
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    :catch_45
-    move-exception v0
+    const-string v3, "\u663e\u793a\u9519\u8bef\u5bf9\u8bdd\u6846\u5931\u8d25: "
 
-    goto :goto_2a
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    :catch_47
-    move-exception v0
+    move-result-object v2
 
-    goto :goto_1f
+    invoke-virtual {v0}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
 
-    :catch_49
-    move-exception v0
+    move-result-object v0
 
-    goto :goto_14
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v1, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_1d
 .end method
