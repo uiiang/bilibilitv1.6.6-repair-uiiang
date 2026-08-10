@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 117
+    .line 116
     iput-object p1, p0, Lbl/BottomEpisodeMenu$2;->this$0:Lbl/BottomEpisodeMenu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 4
 
     .prologue
-    .line 120
+    .line 119
     iget-object v0, p0, Lbl/BottomEpisodeMenu$2;->this$0:Lbl/BottomEpisodeMenu;
 
     # getter for: Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -54,7 +54,7 @@
 
     if-nez v0, :cond_18
 
-    .line 121
+    .line 120
     iget-object v0, p0, Lbl/BottomEpisodeMenu$2;->this$0:Lbl/BottomEpisodeMenu;
 
     # getter for: Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;
@@ -66,11 +66,11 @@
 
     invoke-virtual {v0, p0, v2, v3}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 126
+    .line 125
     :goto_17
     return-void
 
-    .line 124
+    .line 123
     :cond_18
     const-string v0, "ShotMenuBug"
 
@@ -78,7 +78,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 125
+    .line 124
     iget-object v0, p0, Lbl/BottomEpisodeMenu$2;->this$0:Lbl/BottomEpisodeMenu;
 
     # getter for: Lbl/BottomEpisodeMenu;->videoListSection:Lcom/bilibili/tv/ui/video/widget/VideoListSection;

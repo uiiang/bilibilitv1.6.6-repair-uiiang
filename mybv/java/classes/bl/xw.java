@@ -2571,6 +2571,13 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
             
             @Override
             public boolean onTouch(View v, android.view.MotionEvent event) {
+                // 鼠标滚轮滚动：调度保存阅读进度（防抖300ms）
+                // ACTION_SCROLL是鼠标滚轮产生的事件（API 12+），不拦截，让WebView正常滚动
+                if (event.getAction() == android.view.MotionEvent.ACTION_SCROLL) {
+                    scheduleSaveReadingProgress();
+                    return false;
+                }
+
                 // 只处理按下事件
                 if (event.getAction() == android.view.MotionEvent.ACTION_DOWN) {
                     // 防抖：避免短时间内重复触发
@@ -3775,6 +3782,33 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
                 }
             });
         dialogBuilder.a().show();
+    }
+
+    /**
+     * 链销毁回调：PlayerActivity.onStop()时由链头xh.h()沿链调用
+     * 关键修复：控制视频时按返回键退出视频播放（未手动关闭电子书），
+     * 必须回收电子书相关的内存资源（WebView、缓存、Handler、解析线程）
+     */
+    @Override // bl.xh
+    public void h() {
+        Log.i(TAG_EBOOK, "xw.h: 链销毁回调（Activity停止/退出），回收电子书资源");
+
+        if (isEbookPanelShown || isReadingBook || ebookWebView != null || ebookPanel != null) {
+            Log.i(TAG_EBOOK, "xw.h: 电子书资源存在，调用closeEbookPanel完整回收");
+            closeEbookPanel();
+        } else {
+            // 未打开电子书：清理可能的残留资源（解析线程、Handler回调）
+            cancelParsingTask();
+            if (saveProgressHandler != null) {
+                saveProgressHandler.removeCallbacksAndMessages(null);
+                saveProgressHandler = null;
+            }
+            if (saveProgressRunnable != null) {
+                saveProgressRunnable = null;
+            }
+        }
+
+        super.h(); // 传播到链下游
     }
 
     /**

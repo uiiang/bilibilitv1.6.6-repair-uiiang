@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -135,21 +134,14 @@ public class BottomEpisodeMenu extends FrameLayout {
         }
         cancelAutoHideTimer();
         isHiding = true;
-        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.out_to_bottom);
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                setVisibility(View.GONE);
-                isHiding = false;
-            }
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-        });
-        startAnimation(animation);
+        // 统一隐藏逻辑：手动关闭与定时自动关闭走完全相同路径，不区分关闭方式
+        // 立即GONE并停止动画，不再依赖动画回调(onAnimationEnd)
+        // 低端设备上onAnimationEnd可能丢失，导致菜单残留VISIBLE覆盖屏幕底部拦截触摸，
+        // 使电子书阅读页面无法响应鼠标点击
+        clearAnimation();
+        android.util.Log.i(TAG, "EpisodeMenu.hide: 立即GONE（手动/定时统一路径）");
+        setVisibility(View.GONE);
+        isHiding = false;
     }
     
     public boolean isShowing() {

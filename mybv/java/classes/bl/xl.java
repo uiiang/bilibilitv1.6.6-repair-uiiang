@@ -584,6 +584,11 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         }
         if (bottomEpisodeMenu != null) {
             bottomEpisodeMenu.hide();
+            // 关键修复：兜底强制隐藏选集菜单，防止动画回调(onAnimationEnd)丢失导致菜单残留VISIBLE
+            // 残留菜单fillAfter移出屏幕但布局区域仍在屏幕底部，会拦截穿透到电子书WebView的鼠标点击，
+            // 导致阅读页面下半部分无法响应
+            bottomEpisodeMenu.clearAnimation();
+            bottomEpisodeMenu.setVisibility(View.GONE);
         }
         this.g = false;
     }

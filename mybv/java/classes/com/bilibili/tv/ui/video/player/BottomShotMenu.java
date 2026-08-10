@@ -313,6 +313,8 @@ public class BottomShotMenu extends FrameLayout {
         
         isHiding = false;
         clearAnimation();
+        // 关键修复：清除上次隐藏的兜底任务，避免强制隐藏误伤本次显示
+        removeCallbacks(forceHideRunnable);
         setVisibility(View.VISIBLE);
         startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.in_from_bottom));
         
@@ -401,24 +403,36 @@ public class BottomShotMenu extends FrameLayout {
         cancelAutoHideTimer();
         ShotBinder.setDeferLoading(true);
         ShotBinder.clearPendingLoads();
-        isHiding = true;
-        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.out_to_bottom);
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                setVisibility(View.GONE);
-                isHiding = false;
-                ShotBinder.clearAllCache();
-            }
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-        });
-        startAnimation(animation);
+        // 关键修复：立即隐藏并停止动画，不再依赖动画回调(onAnimationEnd)
+        // onAnimationEnd可能丢失（低端设备/动画被中断），导致菜单残留VISIBLE覆盖屏幕底部，
+        // 其内部SeekBar等组件消费触摸事件，拦截穿透到电子书WebView的鼠标点击，
+        // 使阅读页面无法响应点击（手动关闭或定时自动关闭均受影响）
+        // 直接调用finishHide()立即GONE，彻底消除残留窗口
+        finishHide();
     }
+    
+    /**
+     * 统一完成隐藏：无论动画回调是否正常触发，都确保菜单真正GONE
+     */
+    private void finishHide() {
+        removeCallbacks(forceHideRunnable);
+        clearAnimation(); // 停止可能仍在播放的显示动画，避免GONE后动画残留
+        setVisibility(View.GONE);
+        isHiding = false;
+        ShotBinder.clearAllCache();
+        android.util.Log.i("BottomShotMenu", "[finishHide] 菜单已真正隐藏（GONE）");
+    }
+    
+    /**
+     * 动画回调兜底：动画结束后强制隐藏，防止onAnimationEnd丢失导致菜单残留
+     */
+    private Runnable forceHideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            android.util.Log.i("BottomShotMenu", "[forceHideRunnable] 动画回调兜底，强制隐藏菜单");
+            finishHide();
+        }
+    };
     
     public boolean isShowing() {
         return getVisibility() == View.VISIBLE || isHiding;

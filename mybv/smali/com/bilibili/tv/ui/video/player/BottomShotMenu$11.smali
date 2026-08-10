@@ -3,12 +3,12 @@
 .source "BottomShotMenu.java"
 
 # interfaces
-.implements Landroid/view/animation/Animation$AnimationListener;
+.implements Ljava/lang/Runnable;
 
 
 # annotations
-.annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->hide()V
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 406
+    .line 429
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$11;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,44 +36,23 @@
 
 
 # virtual methods
-.method public onAnimationEnd(Landroid/view/animation/Animation;)V
+.method public run()V
     .locals 2
 
     .prologue
-    .line 412
+    .line 432
+    const-string v0, "BottomShotMenu"
+
+    const-string v1, "[forceHideRunnable] \u52a8\u753b\u56de\u8c03\u515c\u5e95\uff0c\u5f3a\u5236\u9690\u85cf\u83dc\u5355"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 433
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$11;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
-    const/16 v1, 0x8
+    # invokes: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->finishHide()V
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->access$700(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)V
 
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->setVisibility(I)V
-
-    .line 413
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$11;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
-
-    const/4 v1, 0x0
-
-    # setter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->isHiding:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->access$702(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;Z)Z
-
-    .line 414
-    invoke-static {}, Lcom/bilibili/tv/ui/video/widget/ShotBinder;->clearAllCache()V
-
-    .line 415
-    return-void
-.end method
-
-.method public onAnimationRepeat(Landroid/view/animation/Animation;)V
-    .locals 0
-
-    .prologue
-    .line 418
-    return-void
-.end method
-
-.method public onAnimationStart(Landroid/view/animation/Animation;)V
-    .locals 0
-
-    .prologue
-    .line 409
+    .line 434
     return-void
 .end method

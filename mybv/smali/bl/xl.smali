@@ -96,7 +96,7 @@
 
     iput-object v0, p0, Lbl/xl;->shotMenuHandler:Landroid/os/Handler;
 
-    .line 723
+    .line 728
     new-instance v0, Lbl/xl$7;
 
     invoke-direct {v0, p0}, Lbl/xl$7;-><init>(Lbl/xl;)V
@@ -350,12 +350,12 @@
     .prologue
     const/4 v0, 0x1
 
-    .line 606
+    .line 611
     invoke-virtual {p0}, Lbl/xl;->c()Lbl/yh;
 
     move-result-object v1
 
-    .line 607
+    .line 612
     if-eqz v1, :cond_1c
 
     iget-object v2, v1, Lbl/yh;->a:Lcom/bilibili/tv/player/basic/context/PlayerParams;
@@ -947,20 +947,20 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 747
+    .line 752
     invoke-virtual {p0}, Lbl/xl;->o()Landroid/app/Activity;
 
     move-result-object v1
 
-    .line 748
+    .line 753
     if-nez v1, :cond_8
 
-    .line 755
+    .line 760
     :cond_7
     :goto_7
     return-object v0
 
-    .line 751
+    .line 756
     :cond_8
     invoke-virtual {v1}, Landroid/app/Activity;->getWindow()Landroid/view/Window;
 
@@ -976,10 +976,10 @@
 
     move-result-object v1
 
-    .line 752
+    .line 757
     if-eqz v1, :cond_7
 
-    .line 755
+    .line 760
     const v0, 0x7f08010a
 
     invoke-virtual {v1, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -999,28 +999,28 @@
 
     const/4 v3, 0x1
 
-    .line 759
+    .line 764
     invoke-virtual {p0}, Lbl/xl;->b()Lcom/bilibili/tv/player/basic/context/PlayerParams;
 
     move-result-object v1
 
-    .line 760
+    .line 765
     if-eqz v1, :cond_c
 
     iget-object v0, v1, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
 
     if-nez v0, :cond_f
 
-    .line 761
+    .line 766
     :cond_c
     const-string v0, ""
 
-    .line 808
+    .line 813
     :cond_e
     :goto_e
     return-object v0
 
-    .line 763
+    .line 768
     :cond_f
     iget-object v0, v1, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
 
@@ -1028,38 +1028,38 @@
 
     move-result-object v5
 
-    .line 764
+    .line 769
     if-nez v5, :cond_1a
 
-    .line 765
+    .line 770
     const-string v0, ""
 
     goto :goto_e
 
-    .line 767
+    .line 772
     :cond_1a
     invoke-static {v1}, Lbl/yr;->a(Lcom/bilibili/tv/player/basic/context/PlayerParams;)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 768
+    .line 773
     iget-object v2, v5, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mPageTitle:Ljava/lang/String;
 
-    .line 770
+    .line 775
     invoke-virtual {v1}, Lcom/bilibili/tv/player/basic/context/PlayerParams;->isBangumi()Z
 
     move-result v6
 
     if-eqz v6, :cond_d7
 
-    .line 771
+    .line 776
     iget-object v1, v5, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mPageIndex:Ljava/lang/String;
 
     invoke-static {v1}, Lcom/bilibili/bangumi/api/BiliBangumiSeason;->getReadableIndexTitle(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 772
+    .line 777
     if-eqz v1, :cond_71
 
     invoke-virtual {v1}, Ljava/lang/String;->isEmpty()Z
@@ -1070,7 +1070,7 @@
 
     move v5, v3
 
-    .line 773
+    .line 778
     :goto_35
     if-eqz v2, :cond_73
 
@@ -1080,7 +1080,7 @@
 
     if-nez v6, :cond_73
 
-    .line 775
+    .line 780
     :goto_3d
     if-eqz v0, :cond_a8
 
@@ -1090,10 +1090,10 @@
 
     if-nez v4, :cond_a8
 
-    .line 776
+    .line 781
     if-eqz v5, :cond_8d
 
-    .line 777
+    .line 782
     if-eqz v3, :cond_75
 
     invoke-virtual {v2, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -1102,7 +1102,7 @@
 
     if-nez v3, :cond_75
 
-    .line 778
+    .line 783
     new-instance v3, Ljava/lang/StringBuilder;
 
     invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
@@ -1140,16 +1140,16 @@
     :cond_71
     move v5, v4
 
-    .line 772
+    .line 777
     goto :goto_35
 
     :cond_73
     move v3, v4
 
-    .line 773
+    .line 778
     goto :goto_3d
 
-    .line 780
+    .line 785
     :cond_75
     new-instance v2, Ljava/lang/StringBuilder;
 
@@ -1175,11 +1175,11 @@
 
     goto :goto_e
 
-    .line 782
+    .line 787
     :cond_8d
     if-eqz v3, :cond_e
 
-    .line 783
+    .line 788
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -1204,11 +1204,11 @@
 
     goto/16 :goto_e
 
-    .line 789
+    .line 794
     :cond_a8
     if-eqz v5, :cond_ce
 
-    .line 790
+    .line 795
     if-eqz v3, :cond_cb
 
     invoke-virtual {v2, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -1217,7 +1217,7 @@
 
     if-nez v0, :cond_cb
 
-    .line 791
+    .line 796
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -1245,25 +1245,25 @@
     :cond_cb
     move-object v0, v1
 
-    .line 793
+    .line 798
     goto/16 :goto_e
 
-    .line 796
+    .line 801
     :cond_ce
     if-eqz v3, :cond_d3
 
     move-object v0, v2
 
-    .line 797
+    .line 802
     goto/16 :goto_e
 
-    .line 799
+    .line 804
     :cond_d3
     const-string v0, ""
 
     goto/16 :goto_e
 
-    .line 800
+    .line 805
     :cond_d7
     if-eqz v5, :cond_112
 
@@ -1283,7 +1283,7 @@
 
     if-le v1, v3, :cond_112
 
-    .line 803
+    .line 808
     if-eqz v0, :cond_10f
 
     invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
@@ -1298,7 +1298,7 @@
 
     if-nez v1, :cond_10f
 
-    .line 804
+    .line 809
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -1326,10 +1326,10 @@
     :cond_10f
     move-object v0, v2
 
-    .line 806
+    .line 811
     goto/16 :goto_e
 
-    .line 808
+    .line 813
     :cond_112
     if-nez v0, :cond_e
 
@@ -1342,20 +1342,20 @@
     .locals 1
 
     .prologue
-    .line 740
+    .line 745
     invoke-direct {p0}, Lbl/xl;->stopShotMenuProgressUpdater()V
 
-    .line 741
+    .line 746
     iget-object v0, p0, Lbl/xl;->bottomShotMenu:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     if-eqz v0, :cond_c
 
-    .line 742
+    .line 747
     iget-object v0, p0, Lbl/xl;->bottomShotMenu:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->hide()V
 
-    .line 744
+    .line 749
     :cond_c
     return-void
 .end method
@@ -1364,12 +1364,12 @@
     .locals 1
 
     .prologue
-    .line 812
+    .line 817
     mul-int/lit16 v0, p1, 0x3e8
 
     invoke-virtual {p0, v0}, Lbl/xl;->c(I)V
 
-    .line 813
+    .line 818
     return-void
 .end method
 
@@ -1450,32 +1450,32 @@
 
     const/4 v2, 0x0
 
-    .line 640
+    .line 645
     invoke-direct {p0}, Lbl/xl;->getPlayerSeekBar()Lcom/bilibili/tv/player/widget/PlayerSeekBar;
 
     move-result-object v4
 
-    .line 641
+    .line 646
     if-nez v4, :cond_10
 
-    .line 642
+    .line 647
     const-string v0, "ShotMenuBug"
 
     const-string v1, "showShotMenu: playerSeekBar is null"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 711
+    .line 716
     :goto_f
     return v2
 
-    .line 646
+    .line 651
     :cond_10
     invoke-virtual {v4}, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->getVideoShot()Lcom/bilibili/tv/api/video/VideoShot;
 
     move-result-object v1
 
-    .line 647
+    .line 652
     const-string v0, "ShotMenuBug"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -1498,10 +1498,10 @@
 
     invoke-static {v0, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 648
+    .line 653
     if-eqz v1, :cond_4a
 
-    .line 649
+    .line 654
     const-string v0, "ShotMenuBug"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -1528,7 +1528,7 @@
 
     invoke-static {v0, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 652
+    .line 657
     :cond_4a
     if-eqz v1, :cond_a0
 
@@ -1550,36 +1550,36 @@
 
     move v0, v6
 
-    .line 654
+    .line 659
     :goto_5d
     const/4 v5, 0x0
 
-    .line 655
+    .line 660
     invoke-virtual {p0}, Lbl/xl;->b()Lcom/bilibili/tv/player/basic/context/PlayerParams;
 
     move-result-object v3
 
-    .line 656
+    .line 661
     if-eqz v3, :cond_72
 
     iget-object v7, v3, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
 
     if-eqz v7, :cond_72
 
-    .line 657
+    .line 662
     iget-object v3, v3, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
 
     invoke-virtual {v3}, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->obtainResolveParams()Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     move-result-object v3
 
-    .line 658
+    .line 663
     if-eqz v3, :cond_72
 
-    .line 659
+    .line 664
     iget-object v5, v3, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->view_points:Lorg/json/JSONArray;
 
-    .line 662
+    .line 667
     :cond_72
     const-string v3, "ShotMenuBug"
 
@@ -1603,7 +1603,7 @@
 
     invoke-static {v3, v7}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 664
+    .line 669
     if-eqz v5, :cond_a2
 
     invoke-virtual {v5}, Lorg/json/JSONArray;->length()I
@@ -1614,13 +1614,13 @@
 
     move v3, v6
 
-    .line 666
+    .line 671
     :goto_93
     if-nez v0, :cond_a4
 
     if-nez v3, :cond_a4
 
-    .line 667
+    .line 672
     const-string v0, "ShotMenuBug"
 
     const-string v1, "showShotMenu: no videoShot and no chapters, returning false"
@@ -1632,57 +1632,57 @@
     :cond_a0
     move v0, v2
 
-    .line 652
+    .line 657
     goto :goto_5d
 
     :cond_a2
     move v3, v2
 
-    .line 664
+    .line 669
     goto :goto_93
 
-    .line 672
+    .line 677
     :cond_a4
     invoke-virtual {p0}, Lbl/xl;->a()Lbl/xh;
 
     move-result-object v0
 
-    .line 673
+    .line 678
     :goto_a8
     if-eqz v0, :cond_b3
 
-    .line 674
+    .line 679
     instance-of v2, v0, Lbl/xi;
 
     if-eqz v2, :cond_115
 
-    .line 675
+    .line 680
     check-cast v0, Lbl/xi;
 
     invoke-virtual {v0}, Lbl/xi;->v()V
 
-    .line 681
+    .line 686
     :cond_b3
     invoke-virtual {v4}, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->getDuration()I
 
     move-result v2
 
-    .line 682
+    .line 687
     invoke-virtual {p0}, Lbl/xl;->x()I
 
     move-result v4
 
-    .line 684
+    .line 689
     invoke-direct {p0}, Lbl/xl;->getVideoTitle()Ljava/lang/String;
 
     move-result-object v3
 
-    .line 686
+    .line 691
     iget-object v0, p0, Lbl/xl;->bottomShotMenu:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     if-nez v0, :cond_108
 
-    .line 687
+    .line 692
     new-instance v0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     invoke-virtual {p0}, Lbl/xl;->p()Landroid/content/Context;
@@ -1693,7 +1693,7 @@
 
     iput-object v0, p0, Lbl/xl;->bottomShotMenu:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
-    .line 688
+    .line 693
     iget-object v0, p0, Lbl/xl;->bottomShotMenu:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     new-instance v7, Lbl/xl$6;
@@ -1702,15 +1702,15 @@
 
     invoke-virtual {v0, v7}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->setOnShotClickListener(Lcom/bilibili/tv/ui/video/player/BottomShotMenu$OnShotClickListener;)V
 
-    .line 694
+    .line 699
     invoke-virtual {p0}, Lbl/xl;->o()Landroid/app/Activity;
 
     move-result-object v0
 
-    .line 695
+    .line 700
     if-eqz v0, :cond_108
 
-    .line 696
+    .line 701
     invoke-virtual {v0}, Landroid/app/Activity;->getWindow()Landroid/view/Window;
 
     move-result-object v0
@@ -1725,12 +1725,12 @@
 
     move-result-object v0
 
-    .line 697
+    .line 702
     instance-of v7, v0, Landroid/view/ViewGroup;
 
     if-eqz v7, :cond_108
 
-    .line 698
+    .line 703
     new-instance v7, Landroid/widget/FrameLayout$LayoutParams;
 
     const/4 v8, -0x1
@@ -1739,24 +1739,24 @@
 
     invoke-direct {v7, v8, v9}, Landroid/widget/FrameLayout$LayoutParams;-><init>(II)V
 
-    .line 702
+    .line 707
     const/16 v8, 0x50
 
     iput v8, v7, Landroid/widget/FrameLayout$LayoutParams;->gravity:I
 
-    .line 703
+    .line 708
     iget-object v8, p0, Lbl/xl;->bottomShotMenu:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     invoke-virtual {v8, v7}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 704
+    .line 709
     check-cast v0, Landroid/view/ViewGroup;
 
     iget-object v7, p0, Lbl/xl;->bottomShotMenu:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     invoke-virtual {v0, v7}, Landroid/view/ViewGroup;->addView(Landroid/view/View;)V
 
-    .line 709
+    .line 714
     :cond_108
     iget-object v0, p0, Lbl/xl;->bottomShotMenu:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
@@ -1764,15 +1764,15 @@
 
     invoke-virtual/range {v0 .. v5}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->show(Lcom/bilibili/tv/api/video/VideoShot;ILjava/lang/String;ILorg/json/JSONArray;)V
 
-    .line 710
+    .line 715
     invoke-direct {p0}, Lbl/xl;->startShotMenuProgressUpdater()V
 
     move v2, v6
 
-    .line 711
+    .line 716
     goto/16 :goto_f
 
-    .line 678
+    .line 683
     :cond_115
     invoke-virtual {v0}, Lbl/xh;->a()Lbl/xh;
 
@@ -1785,28 +1785,6 @@
     .locals 2
 
     .prologue
-    .line 715
-    iget-object v0, p0, Lbl/xl;->shotMenuHandler:Landroid/os/Handler;
-
-    iget-object v1, p0, Lbl/xl;->shotMenuProgressRunnable:Ljava/lang/Runnable;
-
-    invoke-virtual {v0, v1}, Landroid/os/Handler;->removeCallbacks(Ljava/lang/Runnable;)V
-
-    .line 716
-    iget-object v0, p0, Lbl/xl;->shotMenuHandler:Landroid/os/Handler;
-
-    iget-object v1, p0, Lbl/xl;->shotMenuProgressRunnable:Ljava/lang/Runnable;
-
-    invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
-
-    .line 717
-    return-void
-.end method
-
-.method private stopShotMenuProgressUpdater()V
-    .locals 2
-
-    .prologue
     .line 720
     iget-object v0, p0, Lbl/xl;->shotMenuHandler:Landroid/os/Handler;
 
@@ -1815,6 +1793,28 @@
     invoke-virtual {v0, v1}, Landroid/os/Handler;->removeCallbacks(Ljava/lang/Runnable;)V
 
     .line 721
+    iget-object v0, p0, Lbl/xl;->shotMenuHandler:Landroid/os/Handler;
+
+    iget-object v1, p0, Lbl/xl;->shotMenuProgressRunnable:Ljava/lang/Runnable;
+
+    invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
+
+    .line 722
+    return-void
+.end method
+
+.method private stopShotMenuProgressUpdater()V
+    .locals 2
+
+    .prologue
+    .line 725
+    iget-object v0, p0, Lbl/xl;->shotMenuHandler:Landroid/os/Handler;
+
+    iget-object v1, p0, Lbl/xl;->shotMenuProgressRunnable:Ljava/lang/Runnable;
+
+    invoke-virtual {v0, v1}, Landroid/os/Handler;->removeCallbacks(Ljava/lang/Runnable;)V
+
+    .line 726
     return-void
 .end method
 
@@ -1880,7 +1880,7 @@
 .end method
 
 .method public V()V
-    .locals 1
+    .locals 2
 
     .prologue
     .line 579
@@ -1890,7 +1890,7 @@
 
     if-nez v0, :cond_7
 
-    .line 589
+    .line 594
     :goto_6
     return-void
 
@@ -1909,15 +1909,27 @@
     :cond_10
     iget-object v0, p0, Lbl/xl;->bottomEpisodeMenu:Lbl/BottomEpisodeMenu;
 
-    if-eqz v0, :cond_19
+    if-eqz v0, :cond_25
 
     .line 586
     iget-object v0, p0, Lbl/xl;->bottomEpisodeMenu:Lbl/BottomEpisodeMenu;
 
     invoke-virtual {v0}, Lbl/BottomEpisodeMenu;->hide()V
 
-    .line 588
-    :cond_19
+    .line 590
+    iget-object v0, p0, Lbl/xl;->bottomEpisodeMenu:Lbl/BottomEpisodeMenu;
+
+    invoke-virtual {v0}, Lbl/BottomEpisodeMenu;->clearAnimation()V
+
+    .line 591
+    iget-object v0, p0, Lbl/xl;->bottomEpisodeMenu:Lbl/BottomEpisodeMenu;
+
+    const/16 v1, 0x8
+
+    invoke-virtual {v0, v1}, Lbl/BottomEpisodeMenu;->setVisibility(I)V
+
+    .line 593
+    :cond_25
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lbl/xl;->g:Z
@@ -1929,32 +1941,32 @@
     .locals 4
 
     .prologue
-    .line 593
+    .line 598
     iget-object v0, p0, Lbl/xl;->l:Ljava/lang/Runnable;
 
     if-nez v0, :cond_b
 
-    .line 594
+    .line 599
     new-instance v0, Lbl/xl$5;
 
     invoke-direct {v0, p0}, Lbl/xl$5;-><init>(Lbl/xl;)V
 
     iput-object v0, p0, Lbl/xl;->l:Ljava/lang/Runnable;
 
-    .line 601
+    .line 606
     :cond_b
     iget-object v0, p0, Lbl/xl;->l:Ljava/lang/Runnable;
 
     invoke-virtual {p0, v0}, Lbl/xl;->a(Ljava/lang/Runnable;)V
 
-    .line 602
+    .line 607
     iget-object v0, p0, Lbl/xl;->l:Ljava/lang/Runnable;
 
     const-wide/16 v2, 0x1388
 
     invoke-virtual {p0, v0, v2, v3}, Lbl/xl;->a(Ljava/lang/Runnable;J)V
 
-    .line 603
+    .line 608
     return-void
 .end method
 
@@ -2206,22 +2218,22 @@
     .locals 1
 
     .prologue
-    .line 611
+    .line 616
     iget-object v0, p0, Lbl/xl;->bottomEpisodeMenu:Lbl/BottomEpisodeMenu;
 
     if-eqz v0, :cond_c
 
-    .line 612
+    .line 617
     iget-object v0, p0, Lbl/xl;->bottomEpisodeMenu:Lbl/BottomEpisodeMenu;
 
     invoke-virtual {v0}, Lbl/BottomEpisodeMenu;->cleanup()V
 
-    .line 613
+    .line 618
     const/4 v0, 0x0
 
     iput-object v0, p0, Lbl/xl;->bottomEpisodeMenu:Lbl/BottomEpisodeMenu;
 
-    .line 615
+    .line 620
     :cond_c
     return-void
 .end method
@@ -2232,49 +2244,49 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 621
+    .line 626
     invoke-direct {p0}, Lbl/xl;->stopShotMenuProgressUpdater()V
 
-    .line 622
+    .line 627
     iget-object v0, p0, Lbl/xl;->shotMenuHandler:Landroid/os/Handler;
 
     if-eqz v0, :cond_d
 
-    .line 623
+    .line 628
     iget-object v0, p0, Lbl/xl;->shotMenuHandler:Landroid/os/Handler;
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->removeCallbacksAndMessages(Ljava/lang/Object;)V
 
-    .line 625
+    .line 630
     :cond_d
     iget-object v0, p0, Lbl/xl;->bottomShotMenu:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     if-eqz v0, :cond_1d
 
-    .line 626
+    .line 631
     iget-object v0, p0, Lbl/xl;->bottomShotMenu:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->hide()V
 
-    .line 627
+    .line 632
     iget-object v0, p0, Lbl/xl;->bottomShotMenu:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->cleanup()V
 
-    .line 628
+    .line 633
     iput-object v1, p0, Lbl/xl;->bottomShotMenu:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
-    .line 630
+    .line 635
     :cond_1d
     invoke-virtual {p0}, Lbl/xl;->cleanupBottomEpisodeMenu()V
 
-    .line 631
+    .line 636
     invoke-super {p0}, Lbl/xh;->d()V
 
-    .line 632
+    .line 637
     invoke-virtual {p0}, Lbl/xl;->r()V
 
-    .line 633
+    .line 638
     return-void
 .end method
 
@@ -3049,7 +3061,7 @@
     .locals 1
 
     .prologue
-    .line 636
+    .line 641
     iget-object v0, p0, Lbl/xl;->bottomShotMenu:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     if-eqz v0, :cond_e

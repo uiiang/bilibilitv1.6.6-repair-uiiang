@@ -51,19 +51,40 @@
 
     const/4 v0, 0x0
 
-    .line 2575
+    .line 2576
     invoke-virtual {p2}, Landroid/view/MotionEvent;->getAction()I
 
     move-result v2
 
-    if-nez v2, :cond_16
+    const/16 v3, 0x8
+
+    if-ne v2, v3, :cond_10
 
     .line 2577
+    iget-object v1, p0, Lbl/xw$25;->this$0:Lbl/xw;
+
+    # invokes: Lbl/xw;->scheduleSaveReadingProgress()V
+    invoke-static {v1}, Lbl/xw;->access$2300(Lbl/xw;)V
+
+    .line 2612
+    :cond_f
+    :goto_f
+    return v0
+
+    .line 2582
+    :cond_10
+    invoke-virtual {p2}, Landroid/view/MotionEvent;->getAction()I
+
+    move-result v2
+
+    if-nez v2, :cond_f
+
+    .line 2584
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v2
 
-    .line 2578
+    .line 2585
     iget-wide v4, p0, Lbl/xw$25;->lastClickTime:J
 
     sub-long v4, v2, v4
@@ -72,28 +93,22 @@
 
     cmp-long v4, v4, v6
 
-    if-gez v4, :cond_17
+    if-ltz v4, :cond_f
 
-    .line 2605
-    :cond_16
-    :goto_16
-    return v0
-
-    .line 2581
-    :cond_17
+    .line 2588
     iput-wide v2, p0, Lbl/xw$25;->lastClickTime:J
 
-    .line 2584
+    .line 2591
     invoke-virtual {p1}, Landroid/view/View;->getWidth()I
 
     move-result v2
 
-    .line 2586
+    .line 2593
     invoke-virtual {p2}, Landroid/view/MotionEvent;->getX()F
 
     move-result v3
 
-    .line 2588
+    .line 2595
     const-string v4, "EbookReader"
 
     new-instance v5, Ljava/lang/StringBuilder;
@@ -126,49 +141,49 @@
 
     invoke-static {v4, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2591
+    .line 2598
     div-int/lit8 v2, v2, 0x2
 
     int-to-float v2, v2
 
     cmpg-float v2, v3, v2
 
-    if-gez v2, :cond_58
+    if-gez v2, :cond_65
 
-    .line 2593
+    .line 2600
     const-string v0, "EbookReader"
 
     const-string v2, "\u89e6\u6478\u5de6\u534a\u8fb9\uff0c\u5411\u524d\u7ffb\u9875"
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2594
+    .line 2601
     iget-object v0, p0, Lbl/xw$25;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->handlePageTurn(Z)V
-    invoke-static {v0, v1}, Lbl/xw;->access$2300(Lbl/xw;Z)V
+    invoke-static {v0, v1}, Lbl/xw;->access$2400(Lbl/xw;Z)V
 
     move v0, v1
 
-    .line 2595
-    goto :goto_16
+    .line 2602
+    goto :goto_f
 
-    .line 2598
-    :cond_58
+    .line 2605
+    :cond_65
     const-string v2, "EbookReader"
 
     const-string v3, "\u89e6\u6478\u53f3\u534a\u8fb9\uff0c\u5411\u540e\u7ffb\u9875"
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2599
+    .line 2606
     iget-object v2, p0, Lbl/xw$25;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->handlePageTurn(Z)V
-    invoke-static {v2, v0}, Lbl/xw;->access$2300(Lbl/xw;Z)V
+    invoke-static {v2, v0}, Lbl/xw;->access$2400(Lbl/xw;Z)V
 
     move v0, v1
 
-    .line 2600
-    goto :goto_16
+    .line 2607
+    goto :goto_f
 .end method
