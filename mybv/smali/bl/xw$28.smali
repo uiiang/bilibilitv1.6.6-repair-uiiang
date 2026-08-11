@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 2803
+    .line 2808
     iput-object p1, p0, Lbl/xw$28;->this$0:Lbl/xw;
 
     iput-object p2, p0, Lbl/xw$28;->val$chapters:Ljava/util/List;
@@ -50,7 +50,7 @@
 
     const/4 v3, -0x1
 
-    .line 2806
+    .line 2811
     iget-object v0, p0, Lbl/xw$28;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
@@ -60,18 +60,18 @@
 
     if-nez v0, :cond_14
 
-    .line 2807
+    .line 2812
     const-string v0, "EbookReader"
 
     const-string v1, "\u7535\u5b50\u4e66\u9762\u677f\u4e3anull\uff0c\u65e0\u6cd5\u663e\u793a\u7ae0\u8282\u5217\u8868"
 
     invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 3018
+    .line 3023
     :goto_13
     return-void
 
-    .line 2812
+    .line 2817
     :cond_14
     iget-object v0, p0, Lbl/xw$28;->this$0:Lbl/xw;
 
@@ -86,14 +86,14 @@
 
     if-eqz v0, :cond_30
 
-    .line 2813
+    .line 2818
     const-string v0, "EbookReader"
 
     const-string v1, "\u7535\u5b50\u4e66\u9762\u677f\u4e0d\u53ef\u89c1\uff0c\u8bbe\u7f6e\u4e3aVISIBLE"
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2814
+    .line 2819
     iget-object v0, p0, Lbl/xw$28;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
@@ -103,7 +103,7 @@
 
     invoke-virtual {v0, v7}, Landroid/widget/FrameLayout;->setVisibility(I)V
 
-    .line 2818
+    .line 2823
     :cond_30
     iget-object v0, p0, Lbl/xw$28;->this$0:Lbl/xw;
 
@@ -114,7 +114,7 @@
 
     if-eqz v0, :cond_4a
 
-    .line 2819
+    .line 2824
     iget-object v0, p0, Lbl/xw$28;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->ebookWebView:Landroid/webkit/WebView;
@@ -126,14 +126,14 @@
 
     invoke-virtual {v0, v1}, Landroid/webkit/WebView;->setVisibility(I)V
 
-    .line 2820
+    .line 2825
     const-string v0, "EbookReader"
 
     const-string v1, "\u9690\u85cfWebView"
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2824
+    .line 2829
     :cond_4a
     iget-object v0, p0, Lbl/xw$28;->this$0:Lbl/xw;
 
@@ -144,7 +144,7 @@
 
     invoke-virtual {v0}, Landroid/widget/FrameLayout;->removeAllViews()V
 
-    .line 2827
+    .line 2832
     new-instance v6, Landroid/widget/FrameLayout;
 
     iget-object v0, p0, Lbl/xw$28;->this$0:Lbl/xw;
@@ -155,7 +155,7 @@
 
     invoke-direct {v6, v0}, Landroid/widget/FrameLayout;-><init>(Landroid/content/Context;)V
 
-    .line 2828
+    .line 2833
     const-string v0, "#2A2A2A"
 
     invoke-static {v0}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -164,15 +164,15 @@
 
     invoke-virtual {v6, v0}, Landroid/widget/FrameLayout;->setBackgroundColor(I)V
 
-    .line 2829
+    .line 2834
     new-instance v0, Landroid/widget/FrameLayout$LayoutParams;
 
     invoke-direct {v0, v3, v3}, Landroid/widget/FrameLayout$LayoutParams;-><init>(II)V
 
-    .line 2833
+    .line 2838
     invoke-virtual {v6, v0}, Landroid/widget/FrameLayout;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 2836
+    .line 2841
     new-instance v1, Landroid/widget/TextView;
 
     iget-object v0, p0, Lbl/xw$28;->this$0:Lbl/xw;
@@ -183,10 +183,10 @@
 
     invoke-direct {v1, v0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 2837
+    .line 2842
     const-string v0, "\u7ae0\u8282\u5217\u8868"
 
-    .line 2838
+    .line 2843
     iget-object v2, p0, Lbl/xw$28;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->parentChapterTitle:Ljava/lang/String;
@@ -209,7 +209,7 @@
 
     if-nez v2, :cond_96
 
-    .line 2839
+    .line 2844
     iget-object v0, p0, Lbl/xw$28;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->parentChapterTitle:Ljava/lang/String;
@@ -217,27 +217,27 @@
 
     move-result-object v0
 
-    .line 2841
+    .line 2846
     :cond_96
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 2842
+    .line 2847
     invoke-virtual {v1, v3}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 2843
+    .line 2848
     const/high16 v0, 0x41a00000    # 20.0f
 
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setTextSize(F)V
 
-    .line 2844
+    .line 2849
     const/16 v0, 0x11
 
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setGravity(I)V
 
-    .line 2845
+    .line 2850
     invoke-virtual {v1, v4, v4, v4, v4}, Landroid/widget/TextView;->setPadding(IIII)V
 
-    .line 2846
+    .line 2851
     const-string v0, "#333333"
 
     invoke-static {v0}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -246,28 +246,28 @@
 
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setBackgroundColor(I)V
 
-    .line 2847
+    .line 2852
     new-instance v0, Landroid/widget/FrameLayout$LayoutParams;
 
     const/4 v2, -0x2
 
     invoke-direct {v0, v3, v2}, Landroid/widget/FrameLayout$LayoutParams;-><init>(II)V
 
-    .line 2851
+    .line 2856
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 2852
+    .line 2857
     invoke-virtual {v6, v1}, Landroid/widget/FrameLayout;->addView(Landroid/view/View;)V
 
-    .line 2855
+    .line 2860
     new-instance v4, Ljava/util/ArrayList;
 
     invoke-direct {v4}, Ljava/util/ArrayList;-><init>()V
 
-    .line 2856
+    .line 2861
     iget-object v5, p0, Lbl/xw$28;->val$chapters:Ljava/util/List;
 
-    .line 2857
+    .line 2862
     invoke-interface {v5}, Ljava/util/List;->iterator()Ljava/util/Iterator;
 
     move-result-object v1
@@ -285,7 +285,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ebook/model/Chapter;
 
-    .line 2858
+    .line 2863
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/Chapter;->getTitle()Ljava/lang/String;
 
     move-result-object v0
@@ -294,7 +294,7 @@
 
     goto :goto_c9
 
-    .line 2862
+    .line 2867
     :cond_dd
     iget-object v0, p0, Lbl/xw$28;->this$0:Lbl/xw;
 
@@ -311,7 +311,7 @@
     # setter for: Lbl/xw;->chapterListView:Landroid/widget/ListView;
     invoke-static {v0, v1}, Lbl/xw;->access$3102(Lbl/xw;Landroid/widget/ListView;)Landroid/widget/ListView;
 
-    .line 2863
+    .line 2868
     iget-object v0, p0, Lbl/xw$28;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->chapterListView:Landroid/widget/ListView;
@@ -327,17 +327,17 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/ListView;->setBackgroundColor(I)V
 
-    .line 2864
+    .line 2869
     new-instance v0, Landroid/widget/FrameLayout$LayoutParams;
 
     invoke-direct {v0, v3, v3}, Landroid/widget/FrameLayout$LayoutParams;-><init>(II)V
 
-    .line 2868
+    .line 2873
     const/16 v1, 0x50
 
     invoke-virtual {v0, v7, v1, v7, v7}, Landroid/widget/FrameLayout$LayoutParams;->setMargins(IIII)V
 
-    .line 2869
+    .line 2874
     iget-object v1, p0, Lbl/xw$28;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->chapterListView:Landroid/widget/ListView;
@@ -347,7 +347,7 @@
 
     invoke-virtual {v1, v0}, Landroid/widget/ListView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 2872
+    .line 2877
     new-instance v0, Lbl/xw$28$1;
 
     iget-object v1, p0, Lbl/xw$28;->this$0:Lbl/xw;
@@ -362,7 +362,7 @@
 
     invoke-direct/range {v0 .. v5}, Lbl/xw$28$1;-><init>(Lbl/xw$28;Landroid/content/Context;ILjava/util/List;Ljava/util/List;)V
 
-    .line 2940
+    .line 2945
     iget-object v1, p0, Lbl/xw$28;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->chapterListView:Landroid/widget/ListView;
@@ -376,7 +376,7 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/ListView;->setOnItemSelectedListener(Landroid/widget/AdapterView$OnItemSelectedListener;)V
 
-    .line 2957
+    .line 2962
     iget-object v1, p0, Lbl/xw$28;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->chapterListView:Landroid/widget/ListView;
@@ -386,7 +386,7 @@
 
     invoke-virtual {v1, v0}, Landroid/widget/ListView;->setAdapter(Landroid/widget/ListAdapter;)V
 
-    .line 2960
+    .line 2965
     iget-object v0, p0, Lbl/xw$28;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->chapterListView:Landroid/widget/ListView;
@@ -400,7 +400,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/ListView;->post(Ljava/lang/Runnable;)Z
 
-    .line 2986
+    .line 2991
     iget-object v0, p0, Lbl/xw$28;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->chapterListView:Landroid/widget/ListView;
@@ -414,7 +414,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/ListView;->setOnItemClickListener(Landroid/widget/AdapterView$OnItemClickListener;)V
 
-    .line 3010
+    .line 3015
     iget-object v0, p0, Lbl/xw$28;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->chapterListView:Landroid/widget/ListView;
@@ -424,7 +424,7 @@
 
     invoke-virtual {v6, v0}, Landroid/widget/FrameLayout;->addView(Landroid/view/View;)V
 
-    .line 3013
+    .line 3018
     iget-object v0, p0, Lbl/xw$28;->this$0:Lbl/xw;
 
     # getter for: Lbl/xw;->ebookPanel:Landroid/widget/FrameLayout;
@@ -434,7 +434,7 @@
 
     invoke-virtual {v0, v6}, Landroid/widget/FrameLayout;->addView(Landroid/view/View;)V
 
-    .line 3016
+    .line 3021
     const-string v0, "EbookReader"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -468,7 +468,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 3017
+    .line 3022
     const-string v0, "EbookReader"
 
     new-instance v1, Ljava/lang/StringBuilder;

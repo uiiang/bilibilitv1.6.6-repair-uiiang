@@ -89,6 +89,7 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         PlayerMenuRight.speed_id=-1;
         PlayerMenuRight.mode_id=-1;
         PlayerMenuRight.subtitle_id=-1;
+        //Log.i("MenuBug", "xl.i() 重置 speed_id/mode_id/subtitle_id 为 -1");
     }
 
     @Override // bl.xh

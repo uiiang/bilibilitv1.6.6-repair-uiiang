@@ -877,8 +877,13 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a {
         for (float f3 : abd.speeds) {
             arrayList3.add(String.valueOf(f3) + "x");
         }
-        this.c.init_speed(arrayList3, abd.get_speed_id(p()));
-        this.c.init_mode(Arrays.asList(resources.getStringArray(R.array.player_mode)), abd.get_mode_id(p()));
+        // 播放速度/播放模式采用"会话内保持"策略：
+        // 静态字段有效（>=0）时优先使用静态值，保证本次播放内重开菜单圆点保持上次选择；
+        // 静态字段失效（新视频构造PlayerMenuRight或离开播放页xl.i()重置）时回退缓存默认值
+        int speedId = PlayerMenuRight.speed_id >= 0 ? PlayerMenuRight.speed_id : abd.get_speed_id(p());
+        this.c.init_speed(arrayList3, speedId);
+        int modeId = PlayerMenuRight.mode_id >= 0 ? PlayerMenuRight.mode_id : abd.get_mode_id(p());
+        this.c.init_mode(Arrays.asList(resources.getStringArray(R.array.player_mode)), modeId);
 
         ResolveResourceParams resolveParams = c().a.mVideoParams.obtainResolveParams();
         this.c.setResolveParams(resolveParams);

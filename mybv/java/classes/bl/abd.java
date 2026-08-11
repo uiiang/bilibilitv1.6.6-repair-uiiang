@@ -213,12 +213,14 @@ public class abd {
     public static void set_speed_id(Context context, int id) {
         a(context).a().edit().putInt("video_speed_id", id).apply();
         speed_id = id;
+        //Log.i("MenuBug", "set_speed_id(" + id + ") static speed_id=" + speed_id);
     }
 
     public static int get_speed_id(Context context) {
         if (speed_id == -1) {
             speed_id = a(context).a().getInt("video_speed_id", 4);
         }
+        //Log.i("MenuBug", "get_speed_id() -> " + speed_id);
         return speed_id;
     }
 
@@ -229,12 +231,14 @@ public class abd {
     public static void set_mode_id(Context context, int id) {
         a(context).a().edit().putInt("play_mode_id", id).apply();
         mode_id = id;
+        //Log.i("MenuBug", "set_mode_id(" + id + ") static mode_id=" + mode_id);
     }
 
     public static int get_mode_id(Context context) {
         if (mode_id == -1) {
             mode_id = a(context).a().getInt("play_mode_id", 0);
         }
+        //Log.i("MenuBug", "get_mode_id() -> " + mode_id);
         return mode_id;
     }
 

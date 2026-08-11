@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1161
+    .line 1166
     iput-object p1, p0, Lbl/xw$7;->this$0:Lbl/xw;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,12 +40,12 @@
     .locals 1
 
     .prologue
-    .line 1164
+    .line 1169
     iget-object v0, p0, Lbl/xw$7;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->applyVideoPosition()V
     invoke-static {v0}, Lbl/xw;->access$700(Lbl/xw;)V
 
-    .line 1165
+    .line 1170
     return-void
 .end method

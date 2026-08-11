@@ -489,11 +489,13 @@ public class PlayerMenuRight extends aay<String> {
                         if (this.speed_list != null && this.speed_id >= 0 && this.speed_id < this.speed_list.size()) {
                             isCurrentItem = this.speed_list.get(this.speed_id).equals(str);
                         }
+                        //Log.i("MenuBug", "绑定速度项 str=" + str + " speed_id=" + this.speed_id + " isCurrentItem=" + isCurrentItem);
                         break;
                     case 7: // 播放模式
                         if (this.mode_list != null && this.mode_id >= 0 && this.mode_id < this.mode_list.size()) {
                             isCurrentItem = this.mode_list.get(this.mode_id).equals(str);
                         }
+                        //Log.i("MenuBug", "绑定模式项 str=" + str + " mode_id=" + this.mode_id + " isCurrentItem=" + isCurrentItem);
                         break;
                     case 8: // 字幕
                         if (this.subtitle_list != null && this.subtitle_id >= 0 && this.subtitle_id < this.subtitle_list.size()) {
@@ -839,10 +841,16 @@ public class PlayerMenuRight extends aay<String> {
                 this.d.switch_speed(Float.valueOf(this.speed_list.get(i2).replace("x", "")).floatValue());
                 i3 = this.speed_id;
                 this.speed_id = i2;
+                // 会话内保持：speed_id静态字段在本次播放中有效，菜单重开时S()优先使用该值
+                // 不持久化到缓存，新视频播放时恢复默认速度（1.0x）
+                //Log.i("MenuBug", "点击速度项 str=" + str + " i2=" + i2 + " speed_id=" + this.speed_id);
             }
             if (this.mode_list != null && this.mode_list.indexOf(str) != -1) {
                 i3 = this.mode_id;
                 this.mode_id = i2;
+                // 会话内保持：mode_id静态字段在本次播放中有效，菜单重开时S()优先使用该值
+                // 不持久化到缓存，新视频播放时恢复默认播放模式（顺序播放）
+                //Log.i("MenuBug", "点击模式项 str=" + str + " i2=" + i2 + " mode_id=" + this.mode_id);
             }
             if (this.subtitle_list != null && this.subtitle_list.indexOf(str) != -1) {
                 i3 = this.subtitle_id;
@@ -1321,11 +1329,13 @@ public class PlayerMenuRight extends aay<String> {
     public void init_speed(List<String> list, int i) {
         this.speed_list = list;
         this.speed_id = i;
+        //Log.i("MenuBug", "init_speed index=" + i + " list=" + list);
     }
 
     public void init_mode(List<String> list, int i) {
         this.mode_list = list;
         this.mode_id = i;
+        //Log.i("MenuBug", "init_mode index=" + i + " list=" + list);
     }
 
     public void init_subtitle(JSONObject subtitle_info) {

@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 2430
+    .line 2435
     iput-object p1, p0, Lbl/xw$24$2;->this$1:Lbl/xw$24;
 
     iput-object p2, p0, Lbl/xw$24$2;->val$finalFragment:Lbl/xw;
@@ -48,7 +48,7 @@
     .locals 2
 
     .prologue
-    .line 2433
+    .line 2438
     iget-object v0, p0, Lbl/xw$24$2;->val$finalFragment:Lbl/xw;
 
     invoke-virtual {v0}, Lbl/xw;->o()Landroid/app/Activity;
@@ -57,7 +57,7 @@
 
     if-eqz v0, :cond_f
 
-    .line 2434
+    .line 2439
     iget-object v0, p0, Lbl/xw$24$2;->val$finalFragment:Lbl/xw;
 
     iget-object v1, p0, Lbl/xw$24$2;->val$finalBook:Lcom/bilibili/tv/ebook/model/Book;
@@ -65,7 +65,7 @@
     # invokes: Lbl/xw;->restoreReadingProgress(Lcom/bilibili/tv/ebook/model/Book;)V
     invoke-static {v0, v1}, Lbl/xw;->access$2100(Lbl/xw;Lcom/bilibili/tv/ebook/model/Book;)V
 
-    .line 2436
+    .line 2441
     :cond_f
     return-void
 .end method
