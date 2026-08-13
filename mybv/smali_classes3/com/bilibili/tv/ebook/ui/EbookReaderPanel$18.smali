@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 1355
+    .line 1360
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$18;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$18;->val$listView:Landroid/widget/ListView;
@@ -44,18 +44,18 @@
     .locals 2
 
     .prologue
-    .line 1358
+    .line 1363
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$18;->val$listView:Landroid/widget/ListView;
 
     invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
 
-    .line 1359
+    .line 1364
     const-string v0, "EbookReader"
 
     const-string v1, "\u6587\u4ef6\u5217\u8868\u5df2\u8bf7\u6c42\u7126\u70b9"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1360
+    .line 1365
     return-void
 .end method

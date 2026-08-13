@@ -36,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 74
+    .line 70
     iput-object p1, p0, Lcom/bilibili/tv/ebook/util/BookshelfManager$1;->this$0:Lcom/bilibili/tv/ebook/util/BookshelfManager;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -50,7 +50,7 @@
     .locals 4
 
     .prologue
-    .line 77
+    .line 73
     invoke-virtual {p2}, Lcom/bilibili/tv/ebook/model/BookshelfItem;->getLastReadTime()J
 
     move-result-wide v0
@@ -70,7 +70,7 @@
     .locals 1
 
     .prologue
-    .line 74
+    .line 70
     check-cast p1, Lcom/bilibili/tv/ebook/model/BookshelfItem;
 
     check-cast p2, Lcom/bilibili/tv/ebook/model/BookshelfItem;

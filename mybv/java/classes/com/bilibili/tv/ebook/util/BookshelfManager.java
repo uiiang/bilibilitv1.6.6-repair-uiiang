@@ -1,7 +1,6 @@
 package com.bilibili.tv.ebook.util;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.bilibili.tv.ebook.model.Book;
@@ -20,20 +19,17 @@ import java.util.List;
 /**
  * 书架管理器
  * 管理所有打开过的书籍列表
+ *
+ * 存储介质：外部公共目录 /sdcard/Download/ebook_data/bookshelf.json（可跨 APP 共享），
+ * 外部不可写时由 EbookFileStore 自动降级回退 SharedPreferences。
  */
 public class BookshelfManager {
     private static final String TAG = "BookshelfManager";
-    private static final String PREF_NAME = "bookshelf";
-    private static final String KEY_BOOKSHELF = "bookshelf_items";
 
-    private SharedPreferences preferences;
     private Context context;
-    private EbookCacheManager cacheManager;
 
     public BookshelfManager(Context context) {
         this.context = context;
-        this.preferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        this.cacheManager = new EbookCacheManager(context);
     }
 
     /**
@@ -78,7 +74,7 @@ public class BookshelfManager {
             }
         });
 
-        // 保存到SharedPreferences
+        // 保存（EbookFileStore 内部处理 JSON 文件/SharedPreferences 存储）
         saveBookshelfItems(items);
     }
 
@@ -88,7 +84,7 @@ public class BookshelfManager {
     public List<BookshelfItem> getBookshelfItems() {
         List<BookshelfItem> items = new ArrayList<>();
 
-        String json = preferences.getString(KEY_BOOKSHELF, "");
+        String json = EbookFileStore.getInstance(context).getBookshelfJson();
         if (json.isEmpty()) {
             return items;
         }
@@ -118,7 +114,7 @@ public class BookshelfManager {
     }
 
     /**
-     * 保存书架列表到SharedPreferences
+     * 保存书架列表
      */
     private void saveBookshelfItems(List<BookshelfItem> items) {
         try {
@@ -138,7 +134,7 @@ public class BookshelfManager {
                 jsonArray.put(obj);
             }
 
-            preferences.edit().putString(KEY_BOOKSHELF, jsonArray.toString()).apply();
+            EbookFileStore.getInstance(context).saveBookshelfJson(jsonArray.toString());
             Log.i(TAG, "书架已保存，共 " + items.size() + " 本书");
         } catch (JSONException e) {
             Log.e(TAG, "保存书架数据失败: " + e.getMessage());
@@ -166,7 +162,7 @@ public class BookshelfManager {
      * 清空书架
      */
     public void clearBookshelf() {
-        preferences.edit().remove(KEY_BOOKSHELF).apply();
+        EbookFileStore.getInstance(context).saveBookshelfJson("[]");
         Log.i(TAG, "书架已清空");
     }
 }

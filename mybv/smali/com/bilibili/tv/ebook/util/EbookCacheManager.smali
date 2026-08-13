@@ -4,41 +4,25 @@
 
 
 # static fields
-.field private static final KEY_BOOKSHELF:Ljava/lang/String; = "bookshelf"
-
-.field private static final KEY_FONT_SIZE:Ljava/lang/String; = "font_size_default"
-
-.field private static final KEY_READING_PROGRESS:Ljava/lang/String; = "reading_progress"
-
-.field private static final PREF_NAME:Ljava/lang/String; = "ebook_reader_prefs"
-
 .field private static final TAG:Ljava/lang/String; = "EbookCacheManager"
 
 
 # instance fields
-.field private preferences:Landroid/content/SharedPreferences;
+.field private context:Landroid/content/Context;
 
 
 # direct methods
 .method public constructor <init>(Landroid/content/Context;)V
-    .locals 2
+    .locals 0
 
     .prologue
-    .line 32
+    .line 27
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 33
-    const-string v0, "ebook_reader_prefs"
+    .line 28
+    iput-object p1, p0, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->context:Landroid/content/Context;
 
-    const/4 v1, 0x0
-
-    invoke-virtual {p1, v0, v1}, Landroid/content/Context;->getSharedPreferences(Ljava/lang/String;I)Landroid/content/SharedPreferences;
-
-    move-result-object v0
-
-    iput-object v0, p0, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->preferences:Landroid/content/SharedPreferences;
-
-    .line 34
+    .line 29
     return-void
 .end method
 
@@ -56,37 +40,37 @@
     .end annotation
 
     .prologue
-    .line 108
+    .line 101
     new-instance v1, Ljava/util/HashMap;
 
     invoke-direct {v1}, Ljava/util/HashMap;-><init>()V
 
-    .line 111
+    .line 104
     :try_start_5
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->preferences:Landroid/content/SharedPreferences;
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->context:Landroid/content/Context;
 
-    const-string v2, "reading_progress"
-
-    const-string v3, "{}"
-
-    invoke-interface {v0, v2, v3}, Landroid/content/SharedPreferences;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    invoke-static {v0}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->getInstance(Landroid/content/Context;)Lcom/bilibili/tv/ebook/util/EbookFileStore;
 
     move-result-object v0
 
-    .line 112
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->getReadingProgressJson()Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 105
     new-instance v2, Lorg/json/JSONObject;
 
     invoke-direct {v2, v0}, Lorg/json/JSONObject;-><init>(Ljava/lang/String;)V
 
-    .line 114
+    .line 107
     invoke-virtual {v2}, Lorg/json/JSONObject;->names()Lorg/json/JSONArray;
 
     move-result-object v3
 
-    .line 115
+    .line 108
     if-eqz v3, :cond_37
 
-    .line 116
+    .line 109
     const/4 v0, 0x0
 
     :goto_1b
@@ -96,12 +80,12 @@
 
     if-ge v0, v4, :cond_37
 
-    .line 117
+    .line 110
     invoke-virtual {v3, v0}, Lorg/json/JSONArray;->getString(I)Ljava/lang/String;
 
     move-result-object v4
 
-    .line 118
+    .line 111
     invoke-virtual {v2, v4}, Lorg/json/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v5
@@ -110,23 +94,23 @@
     :try_end_2c
     .catch Lorg/json/JSONException; {:try_start_5 .. :try_end_2c} :catch_2f
 
-    .line 116
+    .line 109
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_1b
 
-    .line 122
+    .line 115
     :catch_2f
     move-exception v0
 
-    .line 123
+    .line 116
     const-string v2, "EbookCacheManager"
 
     const-string v3, "\u83b7\u53d6\u6240\u6709\u9605\u8bfb\u8fdb\u5ea6\u5931\u8d25"
 
     invoke-static {v2, v3, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    .line 126
+    .line 119
     :cond_37
     return-object v1
 .end method
@@ -137,137 +121,72 @@
     .locals 2
 
     .prologue
-    .line 150
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->preferences:Landroid/content/SharedPreferences;
+    .line 141
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->context:Landroid/content/Context;
 
-    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
+    invoke-static {v0}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->getInstance(Landroid/content/Context;)Lcom/bilibili/tv/ebook/util/EbookFileStore;
 
     move-result-object v0
 
-    .line 151
-    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->clear()Landroid/content/SharedPreferences$Editor;
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->clearAll()V
 
-    .line 152
-    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
-
-    .line 153
+    .line 142
     const-string v0, "EbookCacheManager"
 
     const-string v1, "\u6240\u6709\u7f13\u5b58\u5df2\u6e05\u9664"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 154
+    .line 143
     return-void
 .end method
 
 .method public clearAllReadingProgress()V
-    .locals 3
+    .locals 2
 
     .prologue
-    .line 188
-    :try_start_0
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->preferences:Landroid/content/SharedPreferences;
+    .line 160
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->context:Landroid/content/Context;
 
-    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
+    invoke-static {v0}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->getInstance(Landroid/content/Context;)Lcom/bilibili/tv/ebook/util/EbookFileStore;
 
     move-result-object v0
 
-    .line 189
-    const-string v1, "reading_progress"
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->clearAllReadingProgress()V
 
-    invoke-interface {v0, v1}, Landroid/content/SharedPreferences$Editor;->remove(Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
-
-    .line 190
-    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
-
-    .line 192
+    .line 161
     const-string v0, "EbookCacheManager"
 
     const-string v1, "\u6240\u6709\u9605\u8bfb\u8fdb\u5ea6\u5df2\u6e05\u9664"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_15
-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_15} :catch_16
 
-    .line 197
-    :goto_15
+    .line 162
     return-void
-
-    .line 194
-    :catch_16
-    move-exception v0
-
-    .line 195
-    const-string v1, "EbookCacheManager"
-
-    const-string v2, "\u6e05\u9664\u6240\u6709\u9605\u8bfb\u8fdb\u5ea6\u5931\u8d25"
-
-    invoke-static {v1, v2, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
-
-    goto :goto_15
 .end method
 
 .method public clearReadingProgress(Ljava/lang/String;)V
     .locals 3
 
     .prologue
-    .line 160
+    .line 149
     if-nez p1, :cond_3
 
-    .line 181
-    :cond_2
+    .line 154
     :goto_2
     return-void
 
-    .line 165
+    .line 152
     :cond_3
-    :try_start_3
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->preferences:Landroid/content/SharedPreferences;
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->context:Landroid/content/Context;
 
-    const-string v1, "reading_progress"
-
-    const-string v2, "{}"
-
-    invoke-interface {v0, v1, v2}, Landroid/content/SharedPreferences;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    invoke-static {v0}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->getInstance(Landroid/content/Context;)Lcom/bilibili/tv/ebook/util/EbookFileStore;
 
     move-result-object v0
 
-    .line 166
-    new-instance v1, Lorg/json/JSONObject;
+    invoke-virtual {v0, p1}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->removeReadingProgress(Ljava/lang/String;)V
 
-    invoke-direct {v1, v0}, Lorg/json/JSONObject;-><init>(Ljava/lang/String;)V
-
-    .line 168
-    invoke-virtual {v1, p1}, Lorg/json/JSONObject;->has(Ljava/lang/String;)Z
-
-    move-result v0
-
-    if-eqz v0, :cond_2
-
-    .line 169
-    invoke-virtual {v1, p1}, Lorg/json/JSONObject;->remove(Ljava/lang/String;)Ljava/lang/Object;
-
-    .line 171
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->preferences:Landroid/content/SharedPreferences;
-
-    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
-
-    move-result-object v0
-
-    .line 172
-    const-string v2, "reading_progress"
-
-    invoke-virtual {v1}, Lorg/json/JSONObject;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-interface {v0, v2, v1}, Landroid/content/SharedPreferences$Editor;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
-
-    .line 173
-    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
-
-    .line 175
+    .line 153
     const-string v0, "EbookCacheManager"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -289,37 +208,22 @@
     move-result-object v1
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_45
-    .catch Lorg/json/JSONException; {:try_start_3 .. :try_end_45} :catch_46
-
-    goto :goto_2
-
-    .line 178
-    :catch_46
-    move-exception v0
-
-    .line 179
-    const-string v1, "EbookCacheManager"
-
-    const-string v2, "\u6e05\u9664\u9605\u8bfb\u8fdb\u5ea6\u5931\u8d25"
-
-    invoke-static {v1, v2, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
     goto :goto_2
 .end method
 
 .method public getDefaultFontSize()I
-    .locals 3
+    .locals 1
 
     .prologue
-    .line 143
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->preferences:Landroid/content/SharedPreferences;
+    .line 134
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->context:Landroid/content/Context;
 
-    const-string v1, "font_size_default"
+    invoke-static {v0}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->getInstance(Landroid/content/Context;)Lcom/bilibili/tv/ebook/util/EbookFileStore;
 
-    const/16 v2, 0x10
+    move-result-object v0
 
-    invoke-interface {v0, v1, v2}, Landroid/content/SharedPreferences;->getInt(Ljava/lang/String;I)I
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->getFontSizeDefault()I
 
     move-result v0
 
@@ -332,55 +236,55 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 74
+    .line 67
     if-nez p1, :cond_4
 
-    .line 101
+    .line 94
     :cond_3
     :goto_3
     return-object v0
 
-    .line 79
+    .line 72
     :cond_4
     :try_start_4
-    iget-object v1, p0, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->preferences:Landroid/content/SharedPreferences;
+    iget-object v1, p0, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->context:Landroid/content/Context;
 
-    const-string v2, "reading_progress"
-
-    const-string v3, "{}"
-
-    invoke-interface {v1, v2, v3}, Landroid/content/SharedPreferences;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    invoke-static {v1}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->getInstance(Landroid/content/Context;)Lcom/bilibili/tv/ebook/util/EbookFileStore;
 
     move-result-object v1
 
-    .line 80
+    invoke-virtual {v1}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->getReadingProgressJson()Ljava/lang/String;
+
+    move-result-object v1
+
+    .line 73
     new-instance v2, Lorg/json/JSONObject;
 
     invoke-direct {v2, v1}, Lorg/json/JSONObject;-><init>(Ljava/lang/String;)V
 
-    .line 82
+    .line 75
     invoke-virtual {v2, p1}, Lorg/json/JSONObject;->has(Ljava/lang/String;)Z
 
     move-result v1
 
     if-eqz v1, :cond_3
 
-    .line 83
+    .line 76
     invoke-virtual {v2, p1}, Lorg/json/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 84
+    .line 77
     new-instance v2, Lorg/json/JSONObject;
 
     invoke-direct {v2, v1}, Lorg/json/JSONObject;-><init>(Ljava/lang/String;)V
 
-    .line 86
+    .line 79
     new-instance v1, Lcom/bilibili/tv/ebook/model/ReadingProgress;
 
     invoke-direct {v1}, Lcom/bilibili/tv/ebook/model/ReadingProgress;-><init>()V
 
-    .line 87
+    .line 80
     const-string v3, "bookId"
 
     invoke-virtual {v2, v3}, Lorg/json/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -389,7 +293,7 @@
 
     invoke-virtual {v1, v3}, Lcom/bilibili/tv/ebook/model/ReadingProgress;->setBookId(Ljava/lang/String;)V
 
-    .line 88
+    .line 81
     const-string v3, "currentChapterIndex"
 
     invoke-virtual {v2, v3}, Lorg/json/JSONObject;->getInt(Ljava/lang/String;)I
@@ -398,7 +302,7 @@
 
     invoke-virtual {v1, v3}, Lcom/bilibili/tv/ebook/model/ReadingProgress;->setCurrentChapterIndex(I)V
 
-    .line 89
+    .line 82
     const-string v3, "currentPage"
 
     invoke-virtual {v2, v3}, Lorg/json/JSONObject;->getInt(Ljava/lang/String;)I
@@ -407,7 +311,7 @@
 
     invoke-virtual {v1, v3}, Lcom/bilibili/tv/ebook/model/ReadingProgress;->setCurrentPage(I)V
 
-    .line 90
+    .line 83
     const-string v3, "progressPercentage"
 
     invoke-virtual {v2, v3}, Lorg/json/JSONObject;->getDouble(Ljava/lang/String;)D
@@ -418,7 +322,7 @@
 
     invoke-virtual {v1, v3}, Lcom/bilibili/tv/ebook/model/ReadingProgress;->setProgressPercentage(F)V
 
-    .line 91
+    .line 84
     const-string v3, "lastReadTimestamp"
 
     invoke-virtual {v2, v3}, Lorg/json/JSONObject;->getLong(Ljava/lang/String;)J
@@ -427,7 +331,7 @@
 
     invoke-virtual {v1, v4, v5}, Lcom/bilibili/tv/ebook/model/ReadingProgress;->setLastReadTimestamp(J)V
 
-    .line 92
+    .line 85
     const-string v3, "fontSize"
 
     invoke-virtual {v2, v3}, Lorg/json/JSONObject;->getInt(Ljava/lang/String;)I
@@ -440,14 +344,14 @@
 
     move-object v0, v1
 
-    .line 94
+    .line 87
     goto :goto_3
 
-    .line 97
+    .line 90
     :catch_60
     move-exception v1
 
-    .line 98
+    .line 91
     const-string v2, "EbookCacheManager"
 
     const-string v3, "\u83b7\u53d6\u9605\u8bfb\u8fdb\u5ea6\u5931\u8d25"
@@ -461,22 +365,16 @@
     .locals 3
 
     .prologue
-    .line 133
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->preferences:Landroid/content/SharedPreferences;
+    .line 126
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->context:Landroid/content/Context;
 
-    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
+    invoke-static {v0}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->getInstance(Landroid/content/Context;)Lcom/bilibili/tv/ebook/util/EbookFileStore;
 
     move-result-object v0
 
-    .line 134
-    const-string v1, "font_size_default"
+    invoke-virtual {v0, p1}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->saveFontSizeDefault(I)V
 
-    invoke-interface {v0, v1, p1}, Landroid/content/SharedPreferences$Editor;->putInt(Ljava/lang/String;I)Landroid/content/SharedPreferences$Editor;
-
-    .line 135
-    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
-
-    .line 136
+    .line 127
     const-string v0, "EbookCacheManager"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -499,7 +397,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 137
+    .line 128
     return-void
 .end method
 
@@ -507,7 +405,7 @@
     .locals 4
 
     .prologue
-    .line 40
+    .line 35
     if-eqz p1, :cond_8
 
     invoke-virtual {p1}, Lcom/bilibili/tv/ebook/model/ReadingProgress;->getBookId()Ljava/lang/String;
@@ -516,19 +414,19 @@
 
     if-nez v0, :cond_9
 
-    .line 68
+    .line 61
     :cond_8
     :goto_8
     return-void
 
-    .line 45
+    .line 40
     :cond_9
     :try_start_9
     new-instance v0, Lorg/json/JSONObject;
 
     invoke-direct {v0}, Lorg/json/JSONObject;-><init>()V
 
-    .line 46
+    .line 41
     const-string v1, "bookId"
 
     invoke-virtual {p1}, Lcom/bilibili/tv/ebook/model/ReadingProgress;->getBookId()Ljava/lang/String;
@@ -537,7 +435,7 @@
 
     invoke-virtual {v0, v1, v2}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
 
-    .line 47
+    .line 42
     const-string v1, "currentChapterIndex"
 
     invoke-virtual {p1}, Lcom/bilibili/tv/ebook/model/ReadingProgress;->getCurrentChapterIndex()I
@@ -546,7 +444,7 @@
 
     invoke-virtual {v0, v1, v2}, Lorg/json/JSONObject;->put(Ljava/lang/String;I)Lorg/json/JSONObject;
 
-    .line 48
+    .line 43
     const-string v1, "currentPage"
 
     invoke-virtual {p1}, Lcom/bilibili/tv/ebook/model/ReadingProgress;->getCurrentPage()I
@@ -555,7 +453,7 @@
 
     invoke-virtual {v0, v1, v2}, Lorg/json/JSONObject;->put(Ljava/lang/String;I)Lorg/json/JSONObject;
 
-    .line 49
+    .line 44
     const-string v1, "progressPercentage"
 
     invoke-virtual {p1}, Lcom/bilibili/tv/ebook/model/ReadingProgress;->getProgressPercentage()F
@@ -566,7 +464,7 @@
 
     invoke-virtual {v0, v1, v2, v3}, Lorg/json/JSONObject;->put(Ljava/lang/String;D)Lorg/json/JSONObject;
 
-    .line 50
+    .line 45
     const-string v1, "lastReadTimestamp"
 
     invoke-virtual {p1}, Lcom/bilibili/tv/ebook/model/ReadingProgress;->getLastReadTimestamp()J
@@ -575,7 +473,7 @@
 
     invoke-virtual {v0, v1, v2, v3}, Lorg/json/JSONObject;->put(Ljava/lang/String;J)Lorg/json/JSONObject;
 
-    .line 51
+    .line 46
     const-string v1, "fontSize"
 
     invoke-virtual {p1}, Lcom/bilibili/tv/ebook/model/ReadingProgress;->getFontSize()I
@@ -584,12 +482,12 @@
 
     invoke-virtual {v0, v1, v2}, Lorg/json/JSONObject;->put(Ljava/lang/String;I)Lorg/json/JSONObject;
 
-    .line 54
+    .line 49
     invoke-direct {p0}, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->getAllReadingProgress()Ljava/util/Map;
 
     move-result-object v1
 
-    .line 55
+    .line 50
     invoke-virtual {p1}, Lcom/bilibili/tv/ebook/model/ReadingProgress;->getBookId()Ljava/lang/String;
 
     move-result-object v2
@@ -600,31 +498,25 @@
 
     invoke-interface {v1, v2, v0}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 58
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->preferences:Landroid/content/SharedPreferences;
+    .line 53
+    new-instance v0, Lorg/json/JSONObject;
 
-    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
+    invoke-direct {v0, v1}, Lorg/json/JSONObject;-><init>(Ljava/util/Map;)V
+
+    .line 54
+    iget-object v1, p0, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->context:Landroid/content/Context;
+
+    invoke-static {v1}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->getInstance(Landroid/content/Context;)Lcom/bilibili/tv/ebook/util/EbookFileStore;
+
+    move-result-object v1
+
+    invoke-virtual {v0}, Lorg/json/JSONObject;->toString()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 59
-    new-instance v2, Lorg/json/JSONObject;
+    invoke-virtual {v1, v0}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->saveReadingProgressJson(Ljava/lang/String;)V
 
-    invoke-direct {v2, v1}, Lorg/json/JSONObject;-><init>(Ljava/util/Map;)V
-
-    .line 60
-    const-string v1, "reading_progress"
-
-    invoke-virtual {v2}, Lorg/json/JSONObject;->toString()Ljava/lang/String;
-
-    move-result-object v2
-
-    invoke-interface {v0, v1, v2}, Landroid/content/SharedPreferences$Editor;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
-
-    .line 61
-    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
-
-    .line 63
+    .line 56
     const-string v0, "EbookCacheManager"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -650,16 +542,16 @@
     move-result-object v1
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_87
-    .catch Lorg/json/JSONException; {:try_start_9 .. :try_end_87} :catch_88
+    :try_end_82
+    .catch Lorg/json/JSONException; {:try_start_9 .. :try_end_82} :catch_83
 
     goto :goto_8
 
-    .line 65
-    :catch_88
+    .line 58
+    :catch_83
     move-exception v0
 
-    .line 66
+    .line 59
     const-string v1, "EbookCacheManager"
 
     const-string v2, "\u4fdd\u5b58\u9605\u8bfb\u8fdb\u5ea6\u5931\u8d25"

@@ -5507,17 +5507,15 @@
     .locals 6
 
     .prologue
-    const/4 v1, 0x1
-
     const/4 v0, 0x0
 
-    const/4 v2, 0x0
+    const/4 v1, 0x0
 
     .line 277
     iput-object p3, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebookActions:Lcom/bilibili/tv/ebook/ui/EbookMenuHelper$EbookActions;
 
     .line 279
-    if-nez p1, :cond_11
+    if-nez p1, :cond_10
 
     .line 281
     iput-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->menuIndexMap:Ljava/util/List;
@@ -5532,11 +5530,11 @@
     iput-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->video_position_list:Ljava/util/List;
 
     .line 359
-    :goto_10
+    :goto_f
     return-void
 
     .line 289
-    :cond_11
+    :cond_10
     invoke-static {p2}, Lcom/bilibili/tv/ebook/ui/EbookMenuHelper;->buildEbookMenus(Z)Ljava/util/List;
 
     move-result-object v0
@@ -5550,15 +5548,12 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->menuIndexMap:Ljava/util/List;
 
-    .line 292
+    .line 293
     invoke-virtual {p0}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    const-string v3, "ebook_settings"
-
-    .line 293
-    invoke-virtual {v0, v3, v2}, Landroid/content/Context;->getSharedPreferences(Ljava/lang/String;I)Landroid/content/SharedPreferences;
+    invoke-static {v0}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->getInstance(Landroid/content/Context;)Lcom/bilibili/tv/ebook/util/EbookFileStore;
 
     move-result-object v4
 
@@ -5572,72 +5567,71 @@
     .line 297
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_percent_list:Ljava/util/List;
 
-    const-string v3, "25%"
+    const-string v2, "25%"
 
-    invoke-interface {v0, v3}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 298
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_percent_list:Ljava/util/List;
 
-    const-string v3, "30%"
+    const-string v2, "30%"
 
-    invoke-interface {v0, v3}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 299
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_percent_list:Ljava/util/List;
 
-    const-string v3, "35%"
+    const-string v2, "35%"
 
-    invoke-interface {v0, v3}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 300
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_percent_list:Ljava/util/List;
 
-    const-string v3, "40%"
+    const-string v2, "40%"
 
-    invoke-interface {v0, v3}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 301
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_percent_list:Ljava/util/List;
 
-    const-string v3, "45%"
+    const-string v2, "45%"
 
-    invoke-interface {v0, v3}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 302
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_percent_list:Ljava/util/List;
 
-    const-string v3, "50%"
+    const-string v2, "50%"
 
-    invoke-interface {v0, v3}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 303
-    const-string v0, "screen_percent"
-
-    invoke-interface {v4, v0, v1}, Landroid/content/SharedPreferences;->getInt(Ljava/lang/String;I)I
+    invoke-virtual {v4}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->getScreenPercent()I
 
     move-result v0
 
     .line 304
-    if-ltz v0, :cond_69
+    if-ltz v0, :cond_64
 
-    iget-object v3, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_percent_list:Ljava/util/List;
+    iget-object v2, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_percent_list:Ljava/util/List;
 
-    invoke-interface {v3}, Ljava/util/List;->size()I
+    invoke-interface {v2}, Ljava/util/List;->size()I
 
-    move-result v3
+    move-result v2
 
-    if-lt v0, v3, :cond_6a
+    if-lt v0, v2, :cond_65
 
-    :cond_69
-    move v0, v1
+    .line 305
+    :cond_64
+    const/4 v0, 0x1
 
     .line 307
-    :cond_6a
+    :cond_65
     sput v0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_percent_id:I
 
     .line 309
-    if-nez p2, :cond_a9
+    if-nez p2, :cond_a2
 
     .line 311
     new-instance v0, Ljava/util/ArrayList;
@@ -5649,63 +5643,61 @@
     .line 312
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->video_position_list:Ljava/util/List;
 
-    const-string v1, "\u5de6\u4e0a"
+    const-string v2, "\u5de6\u4e0a"
 
-    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 313
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->video_position_list:Ljava/util/List;
 
-    const-string v1, "\u5de6\u4e0b"
+    const-string v2, "\u5de6\u4e0b"
 
-    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 314
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->video_position_list:Ljava/util/List;
 
-    const-string v1, "\u53f3\u4e0a"
+    const-string v2, "\u53f3\u4e0a"
 
-    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 315
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->video_position_list:Ljava/util/List;
 
-    const-string v1, "\u53f3\u4e0b"
+    const-string v2, "\u53f3\u4e0b"
 
-    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 316
-    const-string v0, "video_position"
-
-    invoke-interface {v4, v0, v2}, Landroid/content/SharedPreferences;->getInt(Ljava/lang/String;I)I
+    invoke-virtual {v4}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->getVideoPosition()I
 
     move-result v0
 
     .line 317
-    if-ltz v0, :cond_a1
+    if-ltz v0, :cond_9a
 
-    iget-object v1, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->video_position_list:Ljava/util/List;
+    iget-object v2, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->video_position_list:Ljava/util/List;
 
-    invoke-interface {v1}, Ljava/util/List;->size()I
+    invoke-interface {v2}, Ljava/util/List;->size()I
 
-    move-result v1
+    move-result v2
 
-    if-lt v0, v1, :cond_a2
+    if-lt v0, v2, :cond_9b
 
-    :cond_a1
-    move v0, v2
+    :cond_9a
+    move v0, v1
 
     .line 320
-    :cond_a2
+    :cond_9b
     sput v0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->video_position_id:I
 
     .line 321
     invoke-virtual {p0}, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->clearEbookReadingPageLists()V
 
-    goto/16 :goto_10
+    goto/16 :goto_f
 
     .line 324
-    :cond_a9
+    :cond_a2
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
@@ -5715,101 +5707,97 @@
     .line 325
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_font_size_list:Ljava/util/List;
 
-    const-string v1, "20"
+    const-string v2, "20"
 
-    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 326
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_font_size_list:Ljava/util/List;
 
-    const-string v1, "22"
+    const-string v2, "22"
 
-    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 327
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_font_size_list:Ljava/util/List;
 
-    const-string v1, "24"
+    const-string v2, "24"
 
-    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 328
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_font_size_list:Ljava/util/List;
 
-    const-string v1, "26"
+    const-string v2, "26"
 
-    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 329
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_font_size_list:Ljava/util/List;
 
-    const-string v1, "28"
+    const-string v2, "28"
 
-    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 330
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_font_size_list:Ljava/util/List;
 
-    const-string v1, "30"
+    const-string v2, "30"
 
-    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 331
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_font_size_list:Ljava/util/List;
 
-    const-string v1, "32"
+    const-string v2, "32"
 
-    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 332
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_font_size_list:Ljava/util/List;
 
-    const-string v1, "34"
+    const-string v2, "34"
 
-    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 333
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_font_size_list:Ljava/util/List;
 
-    const-string v1, "36"
+    const-string v2, "36"
 
-    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 334
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_font_size_list:Ljava/util/List;
 
-    const-string v1, "38"
+    const-string v2, "38"
 
-    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 335
-    const-string v0, "font_size"
-
-    const/high16 v1, 0x41e00000    # 28.0f
-
-    invoke-interface {v4, v0, v1}, Landroid/content/SharedPreferences;->getFloat(Ljava/lang/String;F)F
+    invoke-virtual {v4}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->getFontSize()F
 
     move-result v5
 
     .line 336
     const/4 v3, 0x4
 
-    move v1, v2
+    move v2, v1
 
     .line 337
-    :goto_100
+    :goto_f5
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_font_size_list:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->size()I
 
     move-result v0
 
-    if-ge v1, v0, :cond_169
+    if-ge v2, v0, :cond_15c
 
     .line 338
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_font_size_list:Ljava/util/List;
 
-    invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
+    invoke-interface {v0, v2}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v0
 
@@ -5825,11 +5813,11 @@
 
     cmpl-float v0, v0, v5
 
-    if-nez v0, :cond_163
+    if-nez v0, :cond_156
 
     .line 343
-    :goto_11c
-    sput v1, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_font_size_id:I
+    :goto_111
+    sput v2, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_font_size_id:I
 
     .line 346
     new-instance v0, Ljava/util/ArrayList;
@@ -5841,87 +5829,85 @@
     .line 347
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_color_theme_list:Ljava/util/List;
 
-    const-string v1, "System"
+    const-string v2, "System"
 
-    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 348
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_color_theme_list:Ljava/util/List;
 
-    const-string v1, "Light"
+    const-string v2, "Light"
 
-    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 349
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_color_theme_list:Ljava/util/List;
 
-    const-string v1, "Dark"
+    const-string v2, "Dark"
 
-    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 350
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_color_theme_list:Ljava/util/List;
 
-    const-string v1, "Sepia"
+    const-string v2, "Sepia"
 
-    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 351
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_color_theme_list:Ljava/util/List;
 
-    const-string v1, "Slate"
+    const-string v2, "Slate"
 
-    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 352
     iget-object v0, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_color_theme_list:Ljava/util/List;
 
-    const-string v1, "OLED"
+    const-string v2, "OLED"
 
-    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 353
-    const-string v0, "color_theme_index"
-
-    invoke-interface {v4, v0, v2}, Landroid/content/SharedPreferences;->getInt(Ljava/lang/String;I)I
+    invoke-virtual {v4}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->getColorThemeIndex()I
 
     move-result v0
 
     .line 354
-    if-ltz v0, :cond_15f
+    if-ltz v0, :cond_152
 
-    iget-object v1, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_color_theme_list:Ljava/util/List;
+    iget-object v2, p0, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_color_theme_list:Ljava/util/List;
 
-    invoke-interface {v1}, Ljava/util/List;->size()I
+    invoke-interface {v2}, Ljava/util/List;->size()I
 
-    move-result v1
+    move-result v2
 
-    if-lt v0, v1, :cond_167
+    if-lt v0, v2, :cond_15a
 
     .line 357
-    :cond_15f
-    :goto_15f
-    sput v2, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_color_theme_id:I
+    :cond_152
+    :goto_152
+    sput v1, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->ebook_color_theme_id:I
 
-    goto/16 :goto_10
+    goto/16 :goto_f
 
     .line 337
-    :cond_163
-    add-int/lit8 v0, v1, 0x1
+    :cond_156
+    add-int/lit8 v0, v2, 0x1
 
-    move v1, v0
-
-    goto :goto_100
-
-    :cond_167
     move v2, v0
 
-    goto :goto_15f
+    goto :goto_f5
 
-    :cond_169
-    move v1, v3
+    :cond_15a
+    move v1, v0
 
-    goto :goto_11c
+    goto :goto_152
+
+    :cond_15c
+    move v2, v3
+
+    goto :goto_111
 .end method
 
 .method public setListener(Lcom/bilibili/tv/player/widget/PlayerMenuRight$a;)V

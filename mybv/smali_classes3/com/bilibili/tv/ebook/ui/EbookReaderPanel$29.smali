@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 3851
+    .line 3855
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$29;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$29;->val$item:Lcom/bilibili/tv/ebook/model/BookshelfItem;
@@ -48,7 +48,7 @@
     .locals 3
 
     .prologue
-    .line 3855
+    .line 3859
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$29;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->ebookCacheManager:Lcom/bilibili/tv/ebook/util/EbookCacheManager;
@@ -66,7 +66,7 @@
 
     if-eqz v0, :cond_3d
 
-    .line 3856
+    .line 3860
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$29;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->ebookCacheManager:Lcom/bilibili/tv/ebook/util/EbookCacheManager;
@@ -82,7 +82,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ebook/util/EbookCacheManager;->clearReadingProgress(Ljava/lang/String;)V
 
-    .line 3857
+    .line 3861
     const-string v0, "EbookReader"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -111,7 +111,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 3861
+    .line 3865
     :cond_3d
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$29;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
@@ -124,7 +124,7 @@
     # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->deleteBookCacheFiles(Ljava/lang/String;)V
     invoke-static {v0, v1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$4000(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Ljava/lang/String;)V
 
-    .line 3864
+    .line 3868
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$29;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->bookshelfManager:Lcom/bilibili/tv/ebook/util/BookshelfManager;
@@ -134,7 +134,7 @@
 
     if-eqz v0, :cond_7d
 
-    .line 3865
+    .line 3869
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$29;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->bookshelfManager:Lcom/bilibili/tv/ebook/util/BookshelfManager;
@@ -150,7 +150,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ebook/util/BookshelfManager;->removeFromBookshelf(Ljava/lang/String;)V
 
-    .line 3866
+    .line 3870
     const-string v0, "EbookReader"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -179,7 +179,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 3870
+    .line 3874
     :cond_7d
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$29;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
@@ -209,7 +209,7 @@
 
     if-ge v0, v1, :cond_a2
 
-    .line 3871
+    .line 3875
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$29;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->bookshelfItems:Ljava/util/List;
@@ -221,14 +221,14 @@
 
     invoke-interface {v0, v1}, Ljava/util/List;->remove(I)Ljava/lang/Object;
 
-    .line 3875
+    .line 3879
     :cond_a2
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$29;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->showBookshelfOrFileChooser()V
     invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$600(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)V
 
-    .line 3878
+    .line 3882
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$29;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->host:Lcom/bilibili/tv/ebook/ui/EbookHost;
@@ -262,9 +262,9 @@
 
     invoke-interface {v0, v1}, Lcom/bilibili/tv/ebook/ui/EbookHost;->showToast(Ljava/lang/String;)V
 
-    .line 3880
+    .line 3884
     invoke-virtual {p1}, Lbl/agb;->dismiss()V
 
-    .line 3881
+    .line 3885
     return-void
 .end method

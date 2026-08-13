@@ -20,6 +20,7 @@ import com.bilibili.tv.ebook.model.ReaderTheme;
 import com.bilibili.tv.ebook.parser.EbookParserFactory;
 import com.bilibili.tv.ebook.util.BookshelfManager;
 import com.bilibili.tv.ebook.util.EbookCacheManager;
+import com.bilibili.tv.ebook.util.EbookFileStore;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -428,9 +429,8 @@ public class EbookReaderPanel {
     public void setEbookFontSize(float fontSize) {
         Log.i(TAG_EBOOK, "setEbookFontSize: fontSize=" + fontSize);
 
-        // 保存字体大小到SharedPreferences
-        android.content.SharedPreferences prefs = host.getContext().getSharedPreferences("ebook_settings", android.content.Context.MODE_PRIVATE);
-        prefs.edit().putFloat("font_size", fontSize).apply();
+        // 保存字体大小（EbookFileStore：JSON 文件优先，SharedPreferences 兜底）
+        EbookFileStore.getInstance(host.getContext()).saveFontSize(fontSize);
         Log.i(TAG_EBOOK, "字体大小已保存: " + fontSize);
 
         // 应用字体大小到WebView（如果正在阅读）
@@ -443,9 +443,8 @@ public class EbookReaderPanel {
     public void setEbookColorTheme(int themeIndex) {
         Log.i(TAG_EBOOK, "setEbookColorTheme: themeIndex=" + themeIndex);
 
-        // 保存配色方案到SharedPreferences
-        android.content.SharedPreferences prefs = host.getContext().getSharedPreferences("ebook_settings", android.content.Context.MODE_PRIVATE);
-        prefs.edit().putInt("color_theme_index", themeIndex).apply();
+        // 保存配色方案（EbookFileStore：JSON 文件优先，SharedPreferences 兜底）
+        EbookFileStore.getInstance(host.getContext()).saveColorThemeIndex(themeIndex);
         Log.i(TAG_EBOOK, "配色方案已保存: " + themeIndex);
 
         // 应用配色方案到WebView（如果正在阅读）
@@ -467,9 +466,8 @@ public class EbookReaderPanel {
         int percent = percentValues[percentIndex];
         ebookPanelPercent = percent;
 
-        // 保存屏幕占比到SharedPreferences
-        android.content.SharedPreferences prefs = host.getContext().getSharedPreferences("ebook_settings", android.content.Context.MODE_PRIVATE);
-        prefs.edit().putInt("screen_percent", percentIndex).apply();
+        // 保存屏幕占比（EbookFileStore：JSON 文件优先，SharedPreferences 兜底）
+        EbookFileStore.getInstance(host.getContext()).saveScreenPercent(percentIndex);
         Log.i(TAG_EBOOK, "屏幕占比已保存: " + percent + "%");
 
         // 应用新的屏幕占比（如果电子书面板正在显示）
@@ -496,9 +494,8 @@ public class EbookReaderPanel {
 
         videoPosition = positionIndex;
 
-        // 保存视频位置到SharedPreferences
-        android.content.SharedPreferences prefs = host.getContext().getSharedPreferences("ebook_settings", android.content.Context.MODE_PRIVATE);
-        prefs.edit().putInt("video_position", positionIndex).apply();
+        // 保存视频位置（EbookFileStore：JSON 文件优先，SharedPreferences 兜底）
+        EbookFileStore.getInstance(host.getContext()).saveVideoPosition(positionIndex);
         String positionName = (videoPositionList != null && positionIndex >= 0 && positionIndex < videoPositionList.size())
                              ? videoPositionList.get(positionIndex) : "左上";
         Log.i(TAG_EBOOK, "视频位置已保存: " + positionName);
@@ -1124,11 +1121,19 @@ public class EbookReaderPanel {
 
         // 检查存储权限（Android 6.0+）
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            if (activity.checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+            if (android.os.Build.VERSION.SDK_INT >= 30) {
+                // Android 11+：外部公共目录需 MANAGE_EXTERNAL_STORAGE（所有文件访问，反射判断）
+                if (!EbookFileStore.hasManageExternalStoragePermission()) {
+                    Log.w(TAG_EBOOK, "未授予所有文件访问权限，电子书数据将保存在应用内部（无法跨APP共享）");
+                }
+            } else if (activity.checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)
                     != android.content.pm.PackageManager.PERMISSION_GRANTED) {
                 Log.w(TAG_EBOOK, "没有存储权限，请求权限");
                 activity.requestPermissions(
-                        new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE},
+                        new String[]{
+                                android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        },
                         REQUEST_CODE_STORAGE_PERMISSION
                 );
                 host.showToast("请授予存储权限后再试");
@@ -1788,8 +1793,7 @@ public class EbookReaderPanel {
         }
 
         // 读取保存的字体大小（如果没有保存则使用默认值28）
-        android.content.SharedPreferences prefs = host.getContext().getSharedPreferences("ebook_settings", android.content.Context.MODE_PRIVATE);
-        float savedFontSize = prefs.getFloat("font_size", 28f);
+        float savedFontSize = EbookFileStore.getInstance(host.getContext()).getFontSize();
         Log.i(TAG_EBOOK, "读取保存的字体大小: " + savedFontSize);
 
         // 构建完整HTML（添加样式）
@@ -1810,12 +1814,12 @@ public class EbookReaderPanel {
                     @Override
                     public void run() {
                         // 应用保存的字体大小和配色方案
-                        android.content.SharedPreferences prefs = host.getContext().getSharedPreferences("ebook_settings", android.content.Context.MODE_PRIVATE);
-                        float savedFontSize = prefs.getFloat("font_size", 28f);
+                        EbookFileStore fileStore = EbookFileStore.getInstance(host.getContext());
+                        float savedFontSize = fileStore.getFontSize();
                         Log.i(TAG_EBOOK, "页面加载完成，应用字体大小: " + savedFontSize);
                         applyFontSizeToWebView(savedFontSize);
 
-                        int savedThemeIndex = prefs.getInt("color_theme_index", 0);
+                        int savedThemeIndex = fileStore.getColorThemeIndex();
                         Log.i(TAG_EBOOK, "页面加载完成，应用配色方案: " + savedThemeIndex);
                         applyColorThemeToWebView(savedThemeIndex);
 
@@ -2268,8 +2272,8 @@ public class EbookReaderPanel {
         int screenHeight = metrics.heightPixels;
 
         // 读取保存的屏幕占比
-        android.content.SharedPreferences prefs = host.getContext().getSharedPreferences("ebook_settings", android.content.Context.MODE_PRIVATE);
-        int savedPercentIndex = prefs.getInt("screen_percent", 1);
+        EbookFileStore fileStore = EbookFileStore.getInstance(host.getContext());
+        int savedPercentIndex = fileStore.getScreenPercent();
         int[] percentValues = {25, 30, 35, 40, 45, 50};
         if (savedPercentIndex >= 0 && savedPercentIndex < percentValues.length) {
             ebookPanelPercent = percentValues[savedPercentIndex];
@@ -2287,7 +2291,7 @@ public class EbookReaderPanel {
             videoPositionList.add("右上");
             videoPositionList.add("右下");
         }
-        int savedPositionIndex = prefs.getInt("video_position", VIDEO_POSITION_TOP_LEFT);
+        int savedPositionIndex = fileStore.getVideoPosition();
         if (savedPositionIndex >= 0 && savedPositionIndex < videoPositionList.size()) {
             videoPosition = savedPositionIndex;
         } else {

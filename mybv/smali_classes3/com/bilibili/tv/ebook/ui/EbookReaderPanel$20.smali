@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1424
+    .line 1429
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$20;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -50,7 +50,7 @@
 
     const/4 v4, -0x2
 
-    .line 1427
+    .line 1432
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$20;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->ebookPanel:Landroid/widget/FrameLayout;
@@ -60,11 +60,11 @@
 
     if-nez v0, :cond_f
 
-    .line 1473
+    .line 1478
     :goto_e
     return-void
 
-    .line 1430
+    .line 1435
     :cond_f
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$20;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
@@ -75,7 +75,7 @@
 
     invoke-virtual {v0}, Landroid/widget/FrameLayout;->removeAllViews()V
 
-    .line 1433
+    .line 1438
     new-instance v0, Landroid/widget/LinearLayout;
 
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$20;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
@@ -91,13 +91,13 @@
 
     invoke-direct {v0, v1}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
 
-    .line 1434
+    .line 1439
     invoke-virtual {v0, v7}, Landroid/widget/LinearLayout;->setOrientation(I)V
 
-    .line 1435
+    .line 1440
     invoke-virtual {v0, v8}, Landroid/widget/LinearLayout;->setGravity(I)V
 
-    .line 1436
+    .line 1441
     const-string v1, "#333333"
 
     invoke-static {v1}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -106,15 +106,15 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->setBackgroundColor(I)V
 
-    .line 1438
+    .line 1443
     new-instance v1, Landroid/widget/FrameLayout$LayoutParams;
 
     invoke-direct {v1, v5, v5}, Landroid/widget/FrameLayout$LayoutParams;-><init>(II)V
 
-    .line 1442
+    .line 1447
     invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 1445
+    .line 1450
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$20;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     new-instance v2, Landroid/widget/ProgressBar;
@@ -135,7 +135,7 @@
     # setter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->loadingProgressBar:Landroid/widget/ProgressBar;
     invoke-static {v1, v2}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$2002(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Landroid/widget/ProgressBar;)Landroid/widget/ProgressBar;
 
-    .line 1446
+    .line 1451
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$20;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->loadingProgressBar:Landroid/widget/ProgressBar;
@@ -145,7 +145,7 @@
 
     invoke-virtual {v1, v7}, Landroid/widget/ProgressBar;->setIndeterminate(Z)V
 
-    .line 1447
+    .line 1452
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$20;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->loadingProgressBar:Landroid/widget/ProgressBar;
@@ -159,7 +159,7 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/ProgressBar;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 1453
+    .line 1458
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$20;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     new-instance v2, Landroid/widget/TextView;
@@ -180,7 +180,7 @@
     # setter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->loadingTextView:Landroid/widget/TextView;
     invoke-static {v1, v2}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$2102(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Landroid/widget/TextView;)Landroid/widget/TextView;
 
-    .line 1454
+    .line 1459
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$20;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->loadingTextView:Landroid/widget/TextView;
@@ -192,7 +192,7 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 1455
+    .line 1460
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$20;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->loadingTextView:Landroid/widget/TextView;
@@ -202,7 +202,7 @@
 
     invoke-virtual {v1, v5}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 1456
+    .line 1461
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$20;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->loadingTextView:Landroid/widget/TextView;
@@ -214,7 +214,7 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setTextSize(F)V
 
-    .line 1457
+    .line 1462
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$20;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->loadingTextView:Landroid/widget/TextView;
@@ -224,17 +224,17 @@
 
     invoke-virtual {v1, v8}, Landroid/widget/TextView;->setGravity(I)V
 
-    .line 1458
+    .line 1463
     new-instance v1, Landroid/widget/LinearLayout$LayoutParams;
 
     invoke-direct {v1, v4, v4}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
 
-    .line 1462
+    .line 1467
     const/16 v2, 0x14
 
     invoke-virtual {v1, v6, v2, v6, v6}, Landroid/widget/LinearLayout$LayoutParams;->setMargins(IIII)V
 
-    .line 1463
+    .line 1468
     iget-object v2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$20;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->loadingTextView:Landroid/widget/TextView;
@@ -244,7 +244,7 @@
 
     invoke-virtual {v2, v1}, Landroid/widget/TextView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 1466
+    .line 1471
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$20;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->loadingProgressBar:Landroid/widget/ProgressBar;
@@ -254,7 +254,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 1467
+    .line 1472
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$20;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->loadingTextView:Landroid/widget/TextView;
@@ -264,7 +264,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 1470
+    .line 1475
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$20;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->ebookPanel:Landroid/widget/FrameLayout;
@@ -274,7 +274,7 @@
 
     invoke-virtual {v1, v0}, Landroid/widget/FrameLayout;->addView(Landroid/view/View;)V
 
-    .line 1472
+    .line 1477
     const-string v0, "EbookReader"
 
     const-string v1, "\u52a0\u8f7d\u8fdb\u5ea6\u63d0\u793a\u5df2\u663e\u793a"

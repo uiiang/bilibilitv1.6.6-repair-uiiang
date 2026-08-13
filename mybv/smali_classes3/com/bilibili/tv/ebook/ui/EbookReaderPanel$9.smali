@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 909
+    .line 906
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$9;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$9;->val$activity:Landroid/app/Activity;
@@ -44,12 +44,12 @@
     .locals 4
 
     .prologue
-    .line 912
+    .line 909
     new-instance v0, Landroid/util/DisplayMetrics;
 
     invoke-direct {v0}, Landroid/util/DisplayMetrics;-><init>()V
 
-    .line 913
+    .line 910
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$9;->val$activity:Landroid/app/Activity;
 
     invoke-virtual {v1}, Landroid/app/Activity;->getWindowManager()Landroid/view/WindowManager;
@@ -62,13 +62,13 @@
 
     invoke-virtual {v1, v0}, Landroid/view/Display;->getMetrics(Landroid/util/DisplayMetrics;)V
 
-    .line 914
+    .line 911
     iget v1, v0, Landroid/util/DisplayMetrics;->widthPixels:I
 
-    .line 915
+    .line 912
     iget v0, v0, Landroid/util/DisplayMetrics;->heightPixels:I
 
-    .line 917
+    .line 914
     iget-object v2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$9;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     iget-object v3, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$9;->val$activity:Landroid/app/Activity;
@@ -76,7 +76,7 @@
     # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->shrinkVideoView(Landroid/app/Activity;II)V
     invoke-static {v2, v3, v1, v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$1300(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Landroid/app/Activity;II)V
 
-    .line 918
+    .line 915
     iget-object v2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$9;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     iget-object v3, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$9;->val$activity:Landroid/app/Activity;
@@ -84,6 +84,6 @@
     # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->shrinkDanmakuView(Landroid/app/Activity;II)V
     invoke-static {v2, v3, v1, v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$1400(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Landroid/app/Activity;II)V
 
-    .line 919
+    .line 916
     return-void
 .end method

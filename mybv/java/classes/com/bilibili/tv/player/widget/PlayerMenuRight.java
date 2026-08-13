@@ -289,8 +289,8 @@ public class PlayerMenuRight extends aay<String> {
         this.main_list = com.bilibili.tv.ebook.ui.EbookMenuHelper.buildEbookMenus(isReadingBook);
         this.menuIndexMap = new ArrayList<>(); // 空列表标记电子书模式
 
-        android.content.SharedPreferences prefs = getContext()
-                .getSharedPreferences("ebook_settings", android.content.Context.MODE_PRIVATE);
+        com.bilibili.tv.ebook.util.EbookFileStore fileStore =
+                com.bilibili.tv.ebook.util.EbookFileStore.getInstance(getContext());
 
         // 屏幕占比列表（书架页和阅读页都需要）
         this.ebook_percent_list = new ArrayList<>();
@@ -300,7 +300,7 @@ public class PlayerMenuRight extends aay<String> {
         this.ebook_percent_list.add("40%");
         this.ebook_percent_list.add("45%");
         this.ebook_percent_list.add("50%");
-        int savedPercent = prefs.getInt("screen_percent", 1);
+        int savedPercent = fileStore.getScreenPercent();
         if (savedPercent < 0 || savedPercent >= this.ebook_percent_list.size()) {
             savedPercent = 1;
         }
@@ -313,7 +313,7 @@ public class PlayerMenuRight extends aay<String> {
             this.video_position_list.add("左下");
             this.video_position_list.add("右上");
             this.video_position_list.add("右下");
-            int savedPos = prefs.getInt("video_position", 0);
+            int savedPos = fileStore.getVideoPosition();
             if (savedPos < 0 || savedPos >= this.video_position_list.size()) {
                 savedPos = 0;
             }
@@ -332,7 +332,7 @@ public class PlayerMenuRight extends aay<String> {
             this.ebook_font_size_list.add("34");
             this.ebook_font_size_list.add("36");
             this.ebook_font_size_list.add("38");
-            float savedFont = prefs.getFloat("font_size", 28f);
+            float savedFont = fileStore.getFontSize();
             int savedFontIndex = 4; // 默认索引（28px）
             for (int i = 0; i < this.ebook_font_size_list.size(); i++) {
                 if (Float.valueOf(this.ebook_font_size_list.get(i)).floatValue() == savedFont) {
@@ -350,7 +350,7 @@ public class PlayerMenuRight extends aay<String> {
             this.ebook_color_theme_list.add("Sepia");
             this.ebook_color_theme_list.add("Slate");
             this.ebook_color_theme_list.add("OLED");
-            int savedTheme = prefs.getInt("color_theme_index", 0);
+            int savedTheme = fileStore.getColorThemeIndex();
             if (savedTheme < 0 || savedTheme >= this.ebook_color_theme_list.size()) {
                 savedTheme = 0;
             }
