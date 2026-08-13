@@ -41,7 +41,6 @@ public class PlayerMenuRight extends aay<String> {
     private boolean c;
     private a d;
     private List<String> main_list;
-    private String f;
     private List<String> quality_list;
     private List<String> danmaku_list;
     private List<String> size_list;
@@ -86,6 +85,8 @@ public class PlayerMenuRight extends aay<String> {
     private static boolean danmaku_last_valid_list[] = {false,true,false,false,true,true,true,true,false,false};
     private List<Integer> menuIndexMap;
     private ResolveResourceParams params;
+    // 电子书菜单动作回调（由 EbookMenuHelper.dispatch 统一分发）
+    private com.bilibili.tv.ebook.ui.EbookMenuHelper.EbookActions ebookActions;
 
     /* compiled from: BL */
     /* loaded from: classes.dex */
@@ -120,24 +121,6 @@ public class PlayerMenuRight extends aay<String> {
         void set_audio_balance_level(int level);
 
         void set_subtitle_size(float f);
-
-        // 新增：打开电子书阅读器
-        void openEbookReader();
-
-        // 新增：打开电子书文件选择器
-        void openEbookFileChooser();
-
-        // 新增：显示章节列表
-        void showChapterList();
-
-        // 新增：清空书架
-        void clearBookshelf();
-
-        // 新增：关闭当前书籍
-        void closeCurrentBook();
-
-        // 新增：切换控制目标
-        void switchControlTarget(String target);
 
         // 新增：设置电子书字体大小
         void set_ebook_font_size(float fontSize);
@@ -278,6 +261,103 @@ public class PlayerMenuRight extends aay<String> {
         this.menuIndexMap = map;
     }
 
+    /** 设置电子书菜单动作回调（电子书菜单项点击时由 EbookMenuHelper.dispatch 调用） */
+    public void setEbookActions(com.bilibili.tv.ebook.ui.EbookMenuHelper.EbookActions actions) {
+        this.ebookActions = actions;
+    }
+
+    /**
+     * 切换电子书模式菜单（与直播 LivePlayerMenuRight.setEbookMode 对称，共用 EbookMenuHelper）
+     *
+     * @param ebookMode     是否电子书模式
+     * @param isReadingBook 是否正在阅读书籍（决定书架页/阅读页菜单）
+     * @param actions       电子书动作回调
+     */
+    public void setEbookMode(boolean ebookMode, boolean isReadingBook, com.bilibili.tv.ebook.ui.EbookMenuHelper.EbookActions actions) {
+        this.ebookActions = actions;
+
+        if (!ebookMode) {
+            // 退出电子书模式：清空电子书列表，主菜单由 xw.S() 正常分支重建
+            this.menuIndexMap = null;
+            clearEbookReadingPageLists();
+            this.ebook_percent_list = null;
+            this.video_position_list = null;
+            return;
+        }
+
+        // 电子书模式主菜单（书架页/阅读页）
+        this.main_list = com.bilibili.tv.ebook.ui.EbookMenuHelper.buildEbookMenus(isReadingBook);
+        this.menuIndexMap = new ArrayList<>(); // 空列表标记电子书模式
+
+        android.content.SharedPreferences prefs = getContext()
+                .getSharedPreferences("ebook_settings", android.content.Context.MODE_PRIVATE);
+
+        // 屏幕占比列表（书架页和阅读页都需要）
+        this.ebook_percent_list = new ArrayList<>();
+        this.ebook_percent_list.add("25%");
+        this.ebook_percent_list.add("30%");
+        this.ebook_percent_list.add("35%");
+        this.ebook_percent_list.add("40%");
+        this.ebook_percent_list.add("45%");
+        this.ebook_percent_list.add("50%");
+        int savedPercent = prefs.getInt("screen_percent", 1);
+        if (savedPercent < 0 || savedPercent >= this.ebook_percent_list.size()) {
+            savedPercent = 1;
+        }
+        this.ebook_percent_id = savedPercent;
+
+        if (!isReadingBook) {
+            // 书架页面：视频位置列表
+            this.video_position_list = new ArrayList<>();
+            this.video_position_list.add("左上");
+            this.video_position_list.add("左下");
+            this.video_position_list.add("右上");
+            this.video_position_list.add("右下");
+            int savedPos = prefs.getInt("video_position", 0);
+            if (savedPos < 0 || savedPos >= this.video_position_list.size()) {
+                savedPos = 0;
+            }
+            this.video_position_id = savedPos;
+            clearEbookReadingPageLists();
+        } else {
+            // 阅读页面：字体大小列表
+            this.ebook_font_size_list = new ArrayList<>();
+            this.ebook_font_size_list.add("20");
+            this.ebook_font_size_list.add("22");
+            this.ebook_font_size_list.add("24");
+            this.ebook_font_size_list.add("26");
+            this.ebook_font_size_list.add("28");
+            this.ebook_font_size_list.add("30");
+            this.ebook_font_size_list.add("32");
+            this.ebook_font_size_list.add("34");
+            this.ebook_font_size_list.add("36");
+            this.ebook_font_size_list.add("38");
+            float savedFont = prefs.getFloat("font_size", 28f);
+            int savedFontIndex = 4; // 默认索引（28px）
+            for (int i = 0; i < this.ebook_font_size_list.size(); i++) {
+                if (Float.valueOf(this.ebook_font_size_list.get(i)).floatValue() == savedFont) {
+                    savedFontIndex = i;
+                    break;
+                }
+            }
+            this.ebook_font_size_id = savedFontIndex;
+
+            // 阅读页面：配色方案列表
+            this.ebook_color_theme_list = new ArrayList<>();
+            this.ebook_color_theme_list.add("System");
+            this.ebook_color_theme_list.add("Light");
+            this.ebook_color_theme_list.add("Dark");
+            this.ebook_color_theme_list.add("Sepia");
+            this.ebook_color_theme_list.add("Slate");
+            this.ebook_color_theme_list.add("OLED");
+            int savedTheme = prefs.getInt("color_theme_index", 0);
+            if (savedTheme < 0 || savedTheme >= this.ebook_color_theme_list.size()) {
+                savedTheme = 0;
+            }
+            this.ebook_color_theme_id = savedTheme;
+        }
+    }
+
     // 缓存弹幕开关状态到SharedPreferences
     private void saveDanmakuValidList() {
         try {
@@ -321,57 +401,19 @@ public class PlayerMenuRight extends aay<String> {
     }
     
     private int getOriginalMenuIndex(int displayIndex) {
-        // 电子书模式特殊处理
-        if (menuIndexMap == null || menuIndexMap.isEmpty()) {
-            // 电子书模式：将索引映射到父类能够识别的索引
-            // 书架页面菜单：[控制视频, 选择文件, 清空书架, 屏幕占比, 视频位置, 退出阅读]
-            // 阅读页面菜单：[控制视频, 章节列表, 字体大小, 配色方案, 屏幕占比, 关闭书籍]
-
-            // 关键修复：判断页面类型应该使用电子书专属的列表
-            // 阅读页面才有ebook_font_size_list和ebook_color_theme_list
+        // 电子书模式特殊处理：统一委托 EbookMenuHelper 索引映射
+        if (com.bilibili.tv.ebook.ui.EbookMenuHelper.isEbookMode(this.menuIndexMap)) {
             boolean isReadingPage = (ebook_font_size_list != null || ebook_color_theme_list != null);
-
-            int result = -1;
-            switch (displayIndex) {
-                case 0: // 控制视频 - 没有二级菜单
-                    result = -1;
-                    break;
-                case 1: // 章节列表/选择文件 - 没有二级菜单
-                    result = -1;
-                    break;
-                case 2:
-                    // 书架页面: 清空书架 → -1
-                    // 阅读页面: 字体大小 → 4 (对应ebook_font_size_list)
-                    result = isReadingPage ? 4 : -1;
-                    break;
-                case 3:
-                    // 书架页面: 屏幕占比 → 10 (ebook_percent_list)
-                    // 阅读页面: 配色方案 → 5 (对应ebook_color_theme_list)
-                    result = isReadingPage ? 5 : 10;
-                    break;
-                case 4:
-                    // 书架页面: 视频位置 → 13 (video_position_list)
-                    // 阅读页面: 屏幕占比 → 10 (ebook_percent_list)
-                    result = isReadingPage ? 10 : 13;
-                    break;
-                case 5:
-                    // 书架页面: 退出阅读 → -1
-                    // 阅读页面: 关闭书籍 → -1
-                    result = -1;
-                    break;
-                default:
-                    result = -1;
-                    break;
-            }
-            return result;
+            return com.bilibili.tv.ebook.ui.EbookMenuHelper.getOriginalMenuIndex(displayIndex, isReadingPage);
         }
 
         // 视频模式：使用正常映射
         if (menuIndexMap != null && displayIndex >= 0 && displayIndex < menuIndexMap.size()) {
-            int result = menuIndexMap.get(displayIndex);
-            return result;
+            return menuIndexMap.get(displayIndex);
         }
-        return displayIndex;
+        // menuIndexMap 为 null 时无隐藏项，显示下标即原始下标；
+        // 越界时返回 -1（不再静默回退 displayIndex，避免隐藏项后错乱）
+        return menuIndexMap == null ? displayIndex : -1;
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
@@ -409,7 +451,7 @@ public class PlayerMenuRight extends aay<String> {
             try {
                 int currentMenuIndex = getOriginalMenuIndex(this.q);
                 boolean isCurrentItem = false;
-                boolean isEbookMode = (menuIndexMap == null || menuIndexMap.isEmpty());
+                boolean isEbookMode = com.bilibili.tv.ebook.ui.EbookMenuHelper.isEbookMode(this.menuIndexMap);
 
                 // 关键重构：统一圆点标注逻辑，避免重复和混乱
                 switch (currentMenuIndex) {
@@ -634,83 +676,14 @@ public class PlayerMenuRight extends aay<String> {
         int i3;
         e();
 
-        // 关键修复: 电子书专用菜单项处理必须在super.a()之前,避免触发二级菜单
-        if (TextUtils.equals(str, "章节列表")) {
-            a(false);  // 关闭菜单
-            android.util.Log.i("EbookReader", "章节列表菜单项被点击");
-            if (this.d != null) {
-                this.d.showChapterList();
+        // 关键修复: 电子书菜单项处理必须在super.a()之前,避免触发二级菜单
+        // 统一委托 EbookMenuHelper 分发（章节列表/选择文件/清空书架/退出阅读/关闭书籍/关闭电子书/控制视频/控制电子书/电子书）
+        // 字体大小/配色方案/屏幕占比/视频位置：dispatch 返回 false，继续走 super.a() 显示二级菜单
+        if (this.ebookActions != null && com.bilibili.tv.ebook.ui.EbookMenuHelper.isEbookMenuItem(str)) {
+            if (com.bilibili.tv.ebook.ui.EbookMenuHelper.dispatch(str, this.ebookActions)) {
+                a(false);  // 动作已处理，关闭菜单
+                return true;
             }
-            return true;
-        }
-
-        if (TextUtils.equals(str, "字体大小")) {
-            android.util.Log.i("EbookReader", "字体大小菜单项被点击");
-            // 关键修复：不要return false，让执行流继续到达super.a()以显示二级菜单
-            // size_list已在xw.S()中通过init_size设置为字体大小列表
-        }
-
-        if (TextUtils.equals(str, "屏幕占比")) {
-            android.util.Log.i("EbookReader", "屏幕占比菜单项被点击");
-            // 关键修复：不要return false，让执行流继续到达super.a()以显示二级菜单
-            // size_list已在xw.S()中通过init_percent设置为占比列表
-        }
-
-        if (TextUtils.equals(str, "选择文件")) {
-            a(false);  // 关闭菜单
-            android.util.Log.i("EbookReader", "选择文件菜单项被点击");
-            if (this.d != null) {
-                this.d.openEbookFileChooser();
-            }
-            return true;
-        }
-
-        if (TextUtils.equals(str, "清空书架")) {
-            a(false);  // 关闭菜单
-            android.util.Log.i("EbookReader", "清空书架菜单项被点击");
-            if (this.d != null) {
-                this.d.clearBookshelf();
-            }
-            return true;
-        }
-
-        if (TextUtils.equals(str, "退出阅读")) {
-            a(false);  // 关闭菜单
-            android.util.Log.i("EbookReader", "退出阅读菜单项被点击");
-            this.d.openEbookReader(); // 再次调用会关闭电子书面板
-            return true;
-        }
-
-        if (TextUtils.equals(str, "关闭书籍")) {
-            a(false);  // 关闭菜单
-            android.util.Log.i("EbookReader", "关闭书籍菜单项被点击");
-            if (this.d != null) {
-                this.d.closeCurrentBook(); // 关闭当前书籍，返回书架页面
-            }
-            return true;
-        }
-
-        if (TextUtils.equals(str, "关闭电子书")) {
-            a(false);  // 关闭菜单
-            android.util.Log.i("EbookReader", "关闭电子书菜单项被点击");
-            this.d.openEbookReader(); // 再次调用会关闭电子书面板
-            return true;
-        }
-
-        // 新增：控制视频菜单项点击处理（必须在super.a()之前，避免触发二级菜单）
-        if (TextUtils.equals(str, "控制视频")) {
-            a(false);
-            this.d.switchControlTarget("video");
-            android.util.Log.i("EbookReader", "控制视频菜单项被点击");
-            return true;
-        }
-
-        // 新增：控制电子书菜单项点击处理（必须在super.a()之前，避免触发二级菜单）
-        if (TextUtils.equals(str, "控制电子书")) {
-            a(false);
-            this.d.switchControlTarget("ebook");
-            android.util.Log.i("EbookReader", "控制电子书菜单项被点击");
-            return true;
         }
 
         if (super.a(i, i2, view, viewGroup, str)) {
@@ -728,27 +701,24 @@ public class PlayerMenuRight extends aay<String> {
         } else if (f()) {
             return false;
         } else {
+            i3 = 0; // 默认：无旧选中项可取消（各匹配分支会覆盖为对应列表的旧选中下标）
             if (TextUtils.equals(str, "分集")) {
                 a(false);
                 this.d.P();
                 return true;
             }
-            // 新增：电子书菜单项点击处理
-            if (TextUtils.equals(str, "电子书")) {
-                a(false);
-                this.d.openEbookReader();
-                android.util.Log.i("PlayerMenuRight", "电子书菜单项被点击");
-                return true;
-            }
-            if (this.quality_list.indexOf(str) == -1 || i2 == this.quality_id) {
+            // 当前主菜单项的原始功能下标（二级菜单项点击时 q 保持打开二级菜单时的主菜单显示下标）
+            int currentMenuIndex = getOriginalMenuIndex(this.q);
+            // 加固：quality/danmaku/ratio 分支补充层级条件，避免二级菜单文本与其它列表重叠时误触发
+            if (currentMenuIndex == 0 && (this.quality_list.indexOf(str) == -1 || i2 == this.quality_id)) {
                 i3 = 0;
-            } else {
+            } else if (currentMenuIndex == 0) {
                 a(false);
                 this.d.e(i2);
                 i3 = this.quality_id;
                 this.quality_id = i2;
             }
-            if (this.danmaku_list.indexOf(str) != -1) {
+            if (currentMenuIndex == 1 && this.danmaku_list.indexOf(str) != -1) {
                 //i3 = this.danmaku_type;
                 //this.danmaku_type = i2;
                 switch(i2){
@@ -807,7 +777,7 @@ public class PlayerMenuRight extends aay<String> {
                 saveDanmakuValidList();
                 return true;
             }
-            if (this.ratio_list.indexOf(str) != -1) {
+            if (currentMenuIndex == 2 && this.ratio_list.indexOf(str) != -1) {
                 this.d.f(i2);
                 i3 = this.ratio_id;
                 this.ratio_id = i2;
@@ -816,26 +786,19 @@ public class PlayerMenuRight extends aay<String> {
                 this.d.adjust_screen(i2);
                 return true;
             }
-            int currentMenuIndex = getOriginalMenuIndex(this.q);
             // 电子书模式下跳过父类的size_list处理（因为电子书有自己的字体大小/屏幕占比处理）
-            boolean isEbookMode = (menuIndexMap == null || menuIndexMap.isEmpty());
+            boolean isEbookMode = com.bilibili.tv.ebook.ui.EbookMenuHelper.isEbookMode(this.menuIndexMap);
             if (!isEbookMode && this.size_list != null && this.size_list.indexOf(str) != -1 && currentMenuIndex == 4) {
                 this.d.a(Float.valueOf(this.size_list.get(i2)).floatValue());
                 i3 = this.size_id;
                 this.size_id = i2;
             }
             if (this.alpha_list != null && this.alpha_list.indexOf(str) != -1) {
-                // 关键修复：电子书模式下跳过alpha_list的视频弹幕透明度处理
-                // 电子书模式下alpha_list用于配色方案，已在前面处理
-                if (menuIndexMap == null || menuIndexMap.isEmpty()) {
-                    // 电子书模式：不处理视频弹幕透明度
-                    // 配色方案的处理在前面的set_ebook_color_theme逻辑中
-                } else {
-                    // 视频模式：正常处理弹幕透明度
-                    this.d.b(Float.valueOf(this.alpha_list.get(i2).replace("f", "")).floatValue());
-                    i3 = this.alpha_id;
-                    this.alpha_id = i2;
-                }
+                // 视频模式：正常处理弹幕透明度
+                // 电子书模式配色方案使用独立列表 ebook_color_theme_list，不会命中 alpha_list
+                this.d.b(Float.valueOf(this.alpha_list.get(i2).replace("f", "")).floatValue());
+                i3 = this.alpha_id;
+                this.alpha_id = i2;
             }
             if (this.speed_list != null && this.speed_list.indexOf(str) != -1) {
                 this.d.switch_speed(Float.valueOf(this.speed_list.get(i2).replace("x", "")).floatValue());
@@ -936,16 +899,17 @@ public class PlayerMenuRight extends aay<String> {
     }
 
     private boolean f() {
-        // 关键修复：电子书模式下不需要quality_list等，直接返回false
-        if (menuIndexMap == null || menuIndexMap.isEmpty()) {
+        // 电子书模式下不需要quality_list等，直接返回false（统一走 EbookMenuHelper.isEbookMode 判断）
+        if (com.bilibili.tv.ebook.ui.EbookMenuHelper.isEbookMode(this.menuIndexMap)) {
             return false;
         }
-        return this.main_list == null || this.quality_list == null || this.danmaku_list == null || this.ratio_list == null;
+        // 仅依赖菜单数据源 main_list（各 init_xxx 在 S() 中无条件初始化对应列表，无需在此耦合）
+        return this.main_list == null || this.main_list.isEmpty();
     }
 
     private void d(int i) {
         // 关键修复：电子书模式特殊处理
-        if (menuIndexMap == null || menuIndexMap.isEmpty()) {
+        if (com.bilibili.tv.ebook.ui.EbookMenuHelper.isEbookMode(this.menuIndexMap)) {
             // 电子书模式
             switch (i) {
                 case 0:
@@ -999,7 +963,7 @@ public class PlayerMenuRight extends aay<String> {
 
         // 电子书模式特殊处理
         // 注意：电子书模式使用menuIndexMap为空列表，所以i2就是菜单项的实际索引
-        if (menuIndexMap == null || menuIndexMap.isEmpty()) {
+        if (com.bilibili.tv.ebook.ui.EbookMenuHelper.isEbookMode(this.menuIndexMap)) {
             // 电子书模式
             // 关键修复：使用电子书专属列表判断页面类型，而不是alpha_list
             boolean isReadingPage = (ebook_font_size_list != null || ebook_color_theme_list != null);
@@ -1093,80 +1057,27 @@ public class PlayerMenuRight extends aay<String> {
             return this.main_list;
         }
         int originalIndex = getOriginalMenuIndex(i2);
-        boolean isEbookMode = (menuIndexMap == null || menuIndexMap.isEmpty());
+        boolean isEbookMode = com.bilibili.tv.ebook.ui.EbookMenuHelper.isEbookMode(this.menuIndexMap);
 
-        if (TextUtils.isEmpty(this.f)) {
-            switch (originalIndex) {
-                case 0:
-                    list = this.quality_list;
-                    break;
-                case 1:
-                    list = this.danmaku_list;
-                    break;
-                case 2:
-                    list = this.ratio_list;
-                    break;
-                case 3:
-                    list = this.adjust_list;
-                    break;
-                case 4:
-                    // 关键修复：电子书模式下返回电子书字体大小列表
-                    list = isEbookMode ? this.ebook_font_size_list : this.size_list;
-                    break;
-                case 5:
-                    // 关键修复：电子书模式下返回电子书配色方案列表
-                    list = isEbookMode ? this.ebook_color_theme_list : this.alpha_list;
-                    break;
-                case 6:
-                    list = this.speed_list;
-                    break;
-                case 7:
-                    list = this.mode_list;
-                    break;
-                case 8:
-                    list = this.subtitle_list;
-                    break;
-                case 9:
-                    list = this.chapter_list;
-                    break;
-                case 10:
-                    list = this.ebook_percent_list;
-                    break;
-                case 11:
-                    list = this.audio_balance_list;
-                    break;
-                case 12:
-                    list = this.subtitle_size_list;
-                    break;
-                case 13:
-                    list = this.video_position_list;
-                    break;
-                default:
-                    return null;
-            }
-            return list;
-        }
-        // 关键修复：this.f 不为空时，也需要返回所有二级菜单列表
-        // 第二个分支应该与第一个分支保持一致，避免焦点和菜单显示异常
         switch (originalIndex) {
             case 0:
-            default:
-                return null;
-            case 1:
                 list = this.quality_list;
                 break;
-            case 2:
+            case 1:
                 list = this.danmaku_list;
                 break;
-            case 3:
+            case 2:
                 list = this.ratio_list;
                 break;
+            case 3:
+                list = this.adjust_list;
+                break;
             case 4:
-                // 关键修复：电子书模式下返回电子书字体大小列表
+                // 电子书模式下返回电子书字体大小列表
                 list = isEbookMode ? this.ebook_font_size_list : this.size_list;
                 break;
             case 5:
-                // 关键修复：电子书模式下返回电子书配色方案列表
+                // 电子书模式下返回电子书配色方案列表
                 list = isEbookMode ? this.ebook_color_theme_list : this.alpha_list;
                 break;
             case 6:
@@ -1193,6 +1104,8 @@ public class PlayerMenuRight extends aay<String> {
             case 13:
                 list = this.video_position_list;
                 break;
+            default:
+                return null;
         }
         return list;
     }
@@ -1267,10 +1180,6 @@ public class PlayerMenuRight extends aay<String> {
     @Override // android.view.View
     public boolean isShown() {
         return this.c;
-    }
-
-    public void setEpisodeMenuString(String str) {
-        this.f = str;
     }
 
     public void init_quality(List<String> list, int i) {

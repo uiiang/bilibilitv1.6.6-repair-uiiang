@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 488
+    .line 703
     iput-object p1, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a$3;->this$1:Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;
 
     iput-object p2, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a$3;->val$biliLiveContent:Lmybl/BiliLiveContent;
@@ -50,7 +50,7 @@
     .prologue
     const/4 v5, 0x1
 
-    .line 491
+    .line 706
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a$3;->this$1:Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;
 
     iget-object v0, v0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
@@ -63,14 +63,14 @@
 
     check-cast v0, Lbl/wn;
 
-    .line 492
+    .line 707
     iget-object v1, v0, Lbl/wn;->b:Ljava/lang/Object;
 
     instance-of v1, v1, Ljava/lang/Integer;
 
     if-eqz v1, :cond_6b
 
-    .line 493
+    .line 708
     iget-object v1, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a$3;->val$biliLiveContent:Lmybl/BiliLiveContent;
 
     iget-object v0, v0, Lbl/wn;->b:Ljava/lang/Object;
@@ -83,7 +83,7 @@
 
     iput v0, v1, Lmybl/BiliLiveContent;->mCurrentQuality:I
 
-    .line 494
+    .line 709
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a$3;->val$biliLiveContent:Lmybl/BiliLiveContent;
 
     invoke-virtual {v0}, Lmybl/BiliLiveContent;->getPlayUrl()I
@@ -102,7 +102,7 @@
 
     invoke-static {v0, v1}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 496
+    .line 711
     :cond_32
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a$3;->this$1:Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;
 
@@ -141,7 +141,7 @@
 
     invoke-virtual {v0, v1, v2}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->a(Ljava/lang/String;[Ljava/lang/Object;)Z
 
-    .line 497
+    .line 712
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a$3;->this$1:Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;
 
     iget-object v0, v0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
@@ -153,7 +153,7 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->m()V
 
-    .line 498
+    .line 713
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a$3;->this$1:Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;
 
     iget-object v0, v0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
@@ -165,10 +165,10 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->requestFocus()Z
 
-    .line 500
+    .line 715
     :cond_6b
     invoke-virtual {p1}, Lbl/xa;->dismiss()V
 
-    .line 501
+    .line 716
     return-void
 .end method

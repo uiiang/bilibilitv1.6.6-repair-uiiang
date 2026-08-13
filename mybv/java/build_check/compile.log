@@ -1,0 +1,12 @@
+﻿javac : ����: [options] δ�� -source 8 һ������������·��
+At line:15 char:9842
++ ...  mybv/java; javac -Xdiags:verbose -encoding UTF-8 -source 1.8 -target ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (����: [options]...������������·��:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+ע: ĳЩ�����ļ�ʹ�û򸲸����ѹ�ʱ�� API��
+ע: �й���ϸ��Ϣ, ��ʹ�� -Xlint:deprecation ���±��롣
+ע: ĳЩ�����ļ�ʹ����δ�����򲻰�ȫ�Ĳ�����
+ע: �й���ϸ��Ϣ, ��ʹ�� -Xlint:unchecked ���±��롣
+1 ������

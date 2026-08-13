@@ -43,7 +43,7 @@ import tv.danmaku.videoplayer.core.media.exo.AudioBalanceLevel;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
-public class LivePlayerController extends FrameLayout implements View.OnClickListener {
+public class LivePlayerController extends FrameLayout implements View.OnClickListener, LivePlayerMenuRight.a {
     private TextView a;
     private TextView b;
     private RecyclerView c;
@@ -241,6 +241,221 @@ public class LivePlayerController extends FrameLayout implements View.OnClickLis
             }
             this.d = new a(arrayList);
             this.c.setAdapter(this.d);
+        }
+    }
+
+    /* 右侧菜单数据填充 */
+    public void initRightMenu(LivePlayerMenuRight menu) {
+        if (menu == null || this.m == null || this.k == null) {
+            return;
+        }
+
+        // 主菜单（与点播页共用 player_menu_config 个性化设置，按配置过滤显示项）
+        // 直播菜单项与点播对应：镜像→画面调节(MENU_ADJUST)、画质→清晰度(MENU_QUALITY)、
+        // 弹幕开关→弹幕(MENU_DANMAKU)、弹幕大小→弹幕大小(MENU_SIZE)、弹幕透明→弹幕透明(MENU_ALPHA)、
+        // 音频平衡→音频平衡(MENU_AUDIO_BALANCE)、电子书→电子书(MENU_EBOOK)
+        int menuConfig = abd.get_player_menu_config(MainApplication.a().getApplicationContext());
+        ArrayList<String> mainMenu = new ArrayList<>();
+        ArrayList<Integer> menuIndexMap = new ArrayList<>();
+
+        // 弹幕开关 -> 原始下标0 (MENU_DANMAKU)
+        if ((menuConfig & abd.MENU_DANMAKU) != 0) {
+            mainMenu.add("弹幕开关");
+            menuIndexMap.add(0);
+        }
+        // 弹幕大小 -> 原始下标1 (MENU_SIZE)
+        if ((menuConfig & abd.MENU_SIZE) != 0) {
+            mainMenu.add("弹幕大小");
+            menuIndexMap.add(1);
+        }
+        // 弹幕透明 -> 原始下标2 (MENU_ALPHA)
+        if ((menuConfig & abd.MENU_ALPHA) != 0) {
+            mainMenu.add("弹幕透明");
+            menuIndexMap.add(2);
+        }
+        // 镜像 -> 原始下标3 (MENU_ADJUST 画面调节)
+        if ((menuConfig & abd.MENU_ADJUST) != 0) {
+            mainMenu.add("镜像");
+            menuIndexMap.add(3);
+        }
+        // 画质 -> 原始下标4 (MENU_QUALITY 清晰度)
+        if ((menuConfig & abd.MENU_QUALITY) != 0) {
+            mainMenu.add("画质");
+            menuIndexMap.add(4);
+        }
+        // 音频平衡项由updateAudioBalanceMenu根据播放器类型+配置动态插入（原始下标5）
+        // 电子书入口（与点播页一致，点击后进入电子书模式菜单）-> 原始下标6 (MENU_EBOOK)
+        if ((menuConfig & abd.MENU_EBOOK) != 0) {
+            mainMenu.add(com.bilibili.tv.ebook.ui.EbookMenuHelper.MENU_OPEN_EBOOK);
+            menuIndexMap.add(6);
+        }
+        menu.init_main(mainMenu);
+        menu.setMenuIndexMap(menuIndexMap);
+
+        // 弹幕开关（开/关）
+        ArrayList<String> danmakuDisplay = new ArrayList<>();
+        danmakuDisplay.add("弹幕开");
+        danmakuDisplay.add("弹幕关");
+        menu.init_danmaku_display(danmakuDisplay, this.k.G ? 0 : 1);
+
+        // 弹幕大小
+        ArrayList<String> sizes = new ArrayList<>();
+        for (float f : abd.a) {
+            sizes.add(String.valueOf(f));
+        }
+        menu.init_size(sizes, findFloatIndex(abd.a, abd.f(MainApplication.a().getApplicationContext())));
+
+        // 弹幕透明
+        ArrayList<String> alphas = new ArrayList<>();
+        for (float f2 : abd.b) {
+            alphas.add(String.valueOf(f2));
+        }
+        menu.init_alpha(alphas, findFloatIndex(abd.b, abd.g(MainApplication.a().getApplicationContext())));
+
+        // 镜像
+        ArrayList<String> mirror = new ArrayList<>();
+        mirror.add("镜像开");
+        mirror.add("镜像关");
+        menu.init_mirror(mirror, this.k.p() ? 0 : 1);
+
+        // 画质
+        ArrayList<String> qualities = new ArrayList<>();
+        for (int q : this.m.mAcceptQuality) {
+            qualities.add(qualityName(q));
+        }
+        menu.init_quality(qualities, findQualityIndex());
+
+        // 音频平衡
+        ArrayList<String> audioBalance = new ArrayList<>();
+        audioBalance.add("关");
+        audioBalance.add("标准");
+        audioBalance.add("高动态");
+        String currentLevel = abd.get_audio_balance_level(MainApplication.a().getApplicationContext());
+        int abIndex = 0;
+        if ("standard".equals(currentLevel)) {
+            abIndex = 1;
+        } else if ("high_dynamic".equals(currentLevel)) {
+            abIndex = 2;
+        }
+        menu.init_audio_balance(audioBalance, abIndex);
+
+        // 根据实际播放器类型决定是否显示音频平衡菜单
+        tv.danmaku.ijk.media.player.IMediaPlayer player = wm.a().i();
+        boolean isExoPlayer = player instanceof tv.danmaku.videoplayer.core.media.exo.ExoPlayerImpl;
+        menu.updateAudioBalanceMenu(isExoPlayer);
+    }
+
+    private int findFloatIndex(float[] arr, float value) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == value) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    private int findQualityIndex() {
+        int position = 0;
+        if (this.m != null && this.m.mAcceptQuality != null) {
+            for (int i = 0; i < this.m.mAcceptQuality.length; i++) {
+                if (this.m.mAcceptQuality[i] == this.m.mCurrentQuality) {
+                    position = i;
+                }
+            }
+        }
+        return position;
+    }
+
+    private String qualityName(int quality) {
+        switch (quality) {
+            case 10000:
+                return "原画";
+            case 400:
+                return "蓝光";
+            case 250:
+                return "超清";
+            case 150:
+                return "高清";
+            default:
+                return String.valueOf(quality);
+        }
+    }
+
+    @Override // com.bilibili.tv.newplayer.widget.LivePlayerMenuRight.a
+    public void setDanmakuDisplay(boolean z) {
+        if (this.k == null) {
+            return;
+        }
+        if (this.k.G != z) {
+            this.k.a(z);
+        }
+    }
+
+    @Override // com.bilibili.tv.newplayer.widget.LivePlayerMenuRight.a
+    public void setDanmakuSize(float f) {
+        if (this.k != null) {
+            this.k.setDanmakuSize(f);
+        }
+        abd.a(MainApplication.a().getApplicationContext(), f);
+    }
+
+    @Override // com.bilibili.tv.newplayer.widget.LivePlayerMenuRight.a
+    public void setDanmakuAlpha(float f) {
+        if (this.k != null) {
+            this.k.setDanmakuAlpha(f);
+        }
+        abd.b(MainApplication.a().getApplicationContext(), f);
+    }
+
+    @Override // com.bilibili.tv.newplayer.widget.LivePlayerMenuRight.a
+    public void toggleMirror() {
+        if (this.k != null) {
+            this.k.o();
+        }
+    }
+
+    @Override // com.bilibili.tv.newplayer.widget.LivePlayerMenuRight.a
+    public void setQuality(int i) {
+        if (this.m == null || this.qualitys == null || i < 0 || i >= this.qualitys.b()) {
+            return;
+        }
+        wn wnVar = this.qualitys.a(i);
+        if (wnVar.b instanceof Integer) {
+            Activity activity = adl.a(getContext());
+            this.m.mCurrentQuality = ((Integer) wnVar.b).intValue();
+            if (this.m.getPlayUrl() == 1 && activity != null) {
+                lr.b(activity.getApplicationContext(), "登录后可获取更高画质");
+            }
+            if (this.k != null) {
+                this.k.a(this.m.mPlayUrl, this.m.mTitle, Integer.valueOf(this.m.mRoomId));
+                this.k.m();
+                this.k.requestFocus();
+            }
+        }
+    }
+
+    @Override // com.bilibili.tv.newplayer.widget.LivePlayerMenuRight.a
+    public void setAudioBalance(int i) {
+        if (this.audioBalanceList == null || i < 0 || i >= this.audioBalanceList.b()) {
+            return;
+        }
+        wn wnVar = this.audioBalanceList.a(i);
+        if (wnVar.b instanceof String) {
+            String level = (String) wnVar.b;
+            abd.set_audio_balance_level(MainApplication.a().getApplicationContext(), level);
+            AudioBalanceLevel audioLevel = AudioBalanceLevel.fromPrefValue(level);
+            wm.a().setAudioBalanceLevel(audioLevel);
+            Activity activity = adl.a(getContext());
+            if (activity != null) {
+                lr.b(activity.getApplicationContext(), "音频平衡：" + wnVar.a);
+            }
+        }
+    }
+
+    @Override // com.bilibili.tv.newplayer.widget.LivePlayerMenuRight.a
+    public void onMenuClosed() {
+        if (this.k != null) {
+            this.k.requestFocus();
         }
     }
 

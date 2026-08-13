@@ -3,12 +3,12 @@
 .source "xw.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Lcom/bilibili/tv/player/widget/SkipSettingDialog$OnPositionProvider;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw;->b(Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;[Ljava/lang/Object;)V
+    value = Lbl/xw;->showSkipSettingDialog()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,18 +20,14 @@
 # instance fields
 .field final synthetic this$0:Lbl/xw;
 
-.field final synthetic val$activity:Landroid/app/Activity;
-
 
 # direct methods
-.method constructor <init>(Lbl/xw;Landroid/app/Activity;)V
+.method constructor <init>(Lbl/xw;)V
     .locals 0
 
     .prologue
-    .line 191
+    .line 518
     iput-object p1, p0, Lbl/xw$2;->this$0:Lbl/xw;
-
-    iput-object p2, p0, Lbl/xw$2;->val$activity:Landroid/app/Activity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -40,50 +36,18 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 4
+.method public getCurrentPosition()J
+    .locals 2
 
     .prologue
-    .line 194
-    new-instance v0, Landroid/util/DisplayMetrics;
+    .line 521
+    iget-object v0, p0, Lbl/xw$2;->this$0:Lbl/xw;
 
-    invoke-direct {v0}, Landroid/util/DisplayMetrics;-><init>()V
+    invoke-virtual {v0}, Lbl/xw;->x()I
 
-    .line 195
-    iget-object v1, p0, Lbl/xw$2;->val$activity:Landroid/app/Activity;
+    move-result v0
 
-    invoke-virtual {v1}, Landroid/app/Activity;->getWindowManager()Landroid/view/WindowManager;
+    int-to-long v0, v0
 
-    move-result-object v1
-
-    invoke-interface {v1}, Landroid/view/WindowManager;->getDefaultDisplay()Landroid/view/Display;
-
-    move-result-object v1
-
-    invoke-virtual {v1, v0}, Landroid/view/Display;->getMetrics(Landroid/util/DisplayMetrics;)V
-
-    .line 196
-    iget v1, v0, Landroid/util/DisplayMetrics;->widthPixels:I
-
-    .line 197
-    iget v0, v0, Landroid/util/DisplayMetrics;->heightPixels:I
-
-    .line 199
-    iget-object v2, p0, Lbl/xw$2;->this$0:Lbl/xw;
-
-    iget-object v3, p0, Lbl/xw$2;->val$activity:Landroid/app/Activity;
-
-    # invokes: Lbl/xw;->shrinkVideoView(Landroid/app/Activity;II)V
-    invoke-static {v2, v3, v1, v0}, Lbl/xw;->access$100(Lbl/xw;Landroid/app/Activity;II)V
-
-    .line 200
-    iget-object v2, p0, Lbl/xw$2;->this$0:Lbl/xw;
-
-    iget-object v3, p0, Lbl/xw$2;->val$activity:Landroid/app/Activity;
-
-    # invokes: Lbl/xw;->shrinkDanmakuView(Landroid/app/Activity;II)V
-    invoke-static {v2, v3, v1, v0}, Lbl/xw;->access$200(Lbl/xw;Landroid/app/Activity;II)V
-
-    .line 201
-    return-void
+    return-wide v0
 .end method

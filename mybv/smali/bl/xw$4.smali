@@ -3,12 +3,12 @@
 .source "xw.java"
 
 # interfaces
-.implements Lcom/bilibili/tv/player/widget/SkipSettingDialog$OnSaveListener;
+.implements Lcom/bilibili/tv/ebook/ui/EbookMenuHelper$EbookActions;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/xw;->showSkipSettingDialog()V
+    value = Lbl/xw;->getEbookMenuActions()Lcom/bilibili/tv/ebook/ui/EbookMenuHelper$EbookActions;
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,18 +20,14 @@
 # instance fields
 .field final synthetic this$0:Lbl/xw;
 
-.field final synthetic val$params:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
-
 
 # direct methods
-.method constructor <init>(Lbl/xw;Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;)V
+.method constructor <init>(Lbl/xw;)V
     .locals 0
 
     .prologue
-    .line 977
+    .line 689
     iput-object p1, p0, Lbl/xw$4;->this$0:Lbl/xw;
-
-    iput-object p2, p0, Lbl/xw$4;->val$params:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -40,79 +36,182 @@
 
 
 # virtual methods
-.method public onSave(JJ)V
-    .locals 5
+.method public clearBookshelf()V
+    .locals 1
 
     .prologue
-    .line 980
-    const-string v0, "SkipSetting"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "onSave: intro="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1, p1, p2}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, ", outro="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1, p3, p4}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 982
+    .line 707
     iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
 
-    iget-object v1, p0, Lbl/xw$4;->val$params:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
-
-    # invokes: Lbl/xw;->getEffectiveSkips(Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;)Lorg/json/JSONArray;
-    invoke-static {v0, v1}, Lbl/xw;->access$300(Lbl/xw;Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;)Lorg/json/JSONArray;
+    # invokes: Lbl/xw;->getEbookReaderPanel()Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    invoke-static {v0}, Lbl/xw;->access$200(Lbl/xw;)Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     move-result-object v0
 
-    .line 983
-    iget-object v1, p0, Lbl/xw$4;->this$0:Lbl/xw;
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->clearBookshelf()V
 
-    # invokes: Lbl/xw;->getSkipHelper()Lbl/xj;
-    invoke-static {v1}, Lbl/xw;->access$400(Lbl/xw;)Lbl/xj;
+    .line 708
+    return-void
+.end method
 
-    move-result-object v1
+.method public closeCurrentBook()V
+    .locals 1
 
-    .line 984
-    if-eqz v1, :cond_3f
-
-    .line 985
-    invoke-virtual {v1, v0}, Lbl/xj;->updateSkips(Lorg/json/JSONArray;)V
-
-    .line 986
+    .prologue
+    .line 712
     iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
 
-    invoke-virtual {v0}, Lbl/xw;->x()I
+    # invokes: Lbl/xw;->getEbookReaderPanel()Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    invoke-static {v0}, Lbl/xw;->access$200(Lbl/xw;)Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-    move-result v0
+    move-result-object v0
 
-    int-to-long v2, v0
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->closeCurrentBook()V
 
-    invoke-virtual {v1, v2, v3}, Lbl/xj;->checkSkip(J)V
+    .line 713
+    return-void
+.end method
 
-    .line 988
-    :cond_3f
+.method public openEbookFileChooser()V
+    .locals 1
+
+    .prologue
+    .line 697
+    iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
+
+    # invokes: Lbl/xw;->getEbookReaderPanel()Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    invoke-static {v0}, Lbl/xw;->access$200(Lbl/xw;)Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->openEbookFileChooser()V
+
+    .line 698
+    return-void
+.end method
+
+.method public openEbookReader()V
+    .locals 1
+
+    .prologue
+    .line 692
+    iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
+
+    # invokes: Lbl/xw;->getEbookReaderPanel()Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    invoke-static {v0}, Lbl/xw;->access$200(Lbl/xw;)Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->openEbookReader()V
+
+    .line 693
+    return-void
+.end method
+
+.method public setEbookColorTheme(I)V
+    .locals 1
+
+    .prologue
+    .line 727
+    iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
+
+    # invokes: Lbl/xw;->getEbookReaderPanel()Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    invoke-static {v0}, Lbl/xw;->access$200(Lbl/xw;)Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->setEbookColorTheme(I)V
+
+    .line 728
+    return-void
+.end method
+
+.method public setEbookFontSize(F)V
+    .locals 1
+
+    .prologue
+    .line 722
+    iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
+
+    # invokes: Lbl/xw;->getEbookReaderPanel()Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    invoke-static {v0}, Lbl/xw;->access$200(Lbl/xw;)Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->setEbookFontSize(F)V
+
+    .line 723
+    return-void
+.end method
+
+.method public setEbookPercent(I)V
+    .locals 1
+
+    .prologue
+    .line 732
+    iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
+
+    # invokes: Lbl/xw;->getEbookReaderPanel()Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    invoke-static {v0}, Lbl/xw;->access$200(Lbl/xw;)Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->setEbookPercent(I)V
+
+    .line 733
+    return-void
+.end method
+
+.method public setVideoPosition(I)V
+    .locals 1
+
+    .prologue
+    .line 737
+    iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
+
+    # invokes: Lbl/xw;->getEbookReaderPanel()Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    invoke-static {v0}, Lbl/xw;->access$200(Lbl/xw;)Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->setVideoPosition(I)V
+
+    .line 738
+    return-void
+.end method
+
+.method public showChapterList()V
+    .locals 1
+
+    .prologue
+    .line 702
+    iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
+
+    # invokes: Lbl/xw;->getEbookReaderPanel()Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    invoke-static {v0}, Lbl/xw;->access$200(Lbl/xw;)Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->showChapterList()V
+
+    .line 703
+    return-void
+.end method
+
+.method public switchControlTarget(Ljava/lang/String;)V
+    .locals 1
+
+    .prologue
+    .line 717
+    iget-object v0, p0, Lbl/xw$4;->this$0:Lbl/xw;
+
+    # invokes: Lbl/xw;->getEbookReaderPanel()Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    invoke-static {v0}, Lbl/xw;->access$200(Lbl/xw;)Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->switchControlTarget(Ljava/lang/String;)V
+
+    .line 718
     return-void
 .end method

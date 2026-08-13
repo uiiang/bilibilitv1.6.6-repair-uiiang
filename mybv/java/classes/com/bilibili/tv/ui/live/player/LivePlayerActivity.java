@@ -11,6 +11,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import bl.abt;
 import bl.adl;
 import bl.agb;
@@ -21,8 +23,12 @@ import bl.wr;
 import com.bilibili.okretro.GeneralResponse;
 import com.bilibili.tv.R;
 import com.bilibili.tv.api.history.BiliPlayerHistoryService;
+import com.bilibili.tv.ebook.ui.EbookHost;
+import com.bilibili.tv.ebook.ui.EbookMenuHelper;
+import com.bilibili.tv.ebook.ui.EbookReaderPanel;
 import com.bilibili.tv.newplayer.video.LiveVideoPlayer;
 import com.bilibili.tv.newplayer.widget.LivePlayerController;
+import com.bilibili.tv.newplayer.widget.LivePlayerMenuRight;
 import com.bilibili.tv.ui.base.BaseActivity;
 import mybl.CookieUtil;
 import mybl.CdnSelector;
@@ -38,7 +44,7 @@ import mybl.BiliLiveContent;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
-public class LivePlayerActivity extends BaseActivity implements View.OnClickListener, wr {
+public class LivePlayerActivity extends BaseActivity implements View.OnClickListener, wr, EbookHost {
     private static final String TAG = "LivePlayerActivity";
     private BiliLiveContent a;
     private String b;
@@ -48,6 +54,9 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
     private boolean f = false;
     private LiveVideoPlayer g;
     private LivePlayerController h;
+    private LivePlayerMenuRight mRightMenu;
+    private EbookReaderPanel ebookReaderPanel; // 电子书阅读器面板（复用点播电子书逻辑）
+    private boolean panelHandledBackKey = false; // 面板在onKeyDown已处理BACK，onKeyUp需消费防止穿透退出直播
     private ExecutorService cdnExecutor;
     private Handler mainHandler;
 
@@ -112,6 +121,22 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
         this.h.setBiliLive(this.a);
         ((View) this.h.getParent()).setOnClickListener(this);
 
+        // 初始化右侧菜单（仿点播页右侧菜单风格）
+        ViewGroup rootView = (ViewGroup) this.g.getParent();
+        this.mRightMenu = new LivePlayerMenuRight(this);
+        RelativeLayout.LayoutParams menuLp = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+        menuLp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        rootView.addView(this.mRightMenu, menuLp);
+        this.mRightMenu.setVisibility(View.INVISIBLE);
+        this.mRightMenu.setListener(this.h);
+        this.h.initRightMenu(this.mRightMenu);
+        Log.i(TAG, "a(Bundle): 右侧菜单已初始化");
+
+        // 初始化电子书阅读器面板（复用点播电子书逻辑，通过 EbookHost 适配直播差异）
+        this.ebookReaderPanel = new EbookReaderPanel(this);
+        Log.i(TAG, "a(Bundle): 电子书阅读器面板已初始化");
+
         this.g.danmakuClient = new DanmakuClient(this.d);
         LivePlayerActivity._this = this;
 
@@ -175,6 +200,7 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
                                 public void run() {
                                     if (h != null) {
                                         h.updateAudioBalanceMenu();
+                                        h.initRightMenu(mRightMenu);
                                         Log.i(TAG, "音频平衡菜单已更新");
                                     }
                                 }
@@ -194,6 +220,7 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
                 public void run() {
                     if (h != null) {
                         h.updateAudioBalanceMenu();
+                        h.initRightMenu(mRightMenu);
                         Log.i(TAG, "音频平衡菜单已更新");
                     }
                 }
@@ -221,40 +248,113 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
     public boolean onKeyUp(int i, KeyEvent keyEvent) {
         boolean show = this.h.getShow();
         boolean e = wm.e();
-        Log.i(TAG, "onKeyUp: keyCode=" + i + ", show=" + show + ", isPlaying=" + e);
-        if (i != KeyEvent.KEYCODE_BACK) {
-            if (i != KeyEvent.KEYCODE_MENU) {
-                switch (i) {
-                }
-            }
-            if ((i==KeyEvent.KEYCODE_MENU||i==KeyEvent.KEYCODE_ENTER||i==KeyEvent.KEYCODE_DPAD_CENTER) && !show) {
-                Log.i(TAG, "onKeyUp: 显示控制器菜单");
-                this.h.a(true);
-            }
-            if(i==KeyEvent.KEYCODE_DPAD_UP && !show){
-                if(LivePlayerActivity.live_index>0){
-                    LivePlayerActivity.live_index-=1;
-                    LivePlayerActivity.this.f = false;
-                    LivePlayerActivity.this.refresh();
-                }
-                else lr.b(this,"已经到顶了");
-            }
-            if(i==KeyEvent.KEYCODE_DPAD_DOWN && !show){
-                if(LivePlayerActivity.live_index<LivePlayerActivity.lives.size()-1){
-                    LivePlayerActivity.live_index+=1;
-                    LivePlayerActivity.this.f = false;
-                    LivePlayerActivity.this.refresh();
-                }
-                else lr.b(this,"已经到底了");
-            }
-            this.h.a(i, keyEvent);
-        } else if (show) {
-            this.h.a();
-        } else {
-            i();
-            this.f = true;
+        boolean menuShown = this.mRightMenu != null && this.mRightMenu.isShown();
+        Log.i(TAG, "onKeyUp: keyCode=" + i + ", show=" + show + ", isPlaying=" + e + ", menuShown=" + menuShown);
+
+        // ===== 电子书模式按键路由（面板显示时优先处理） =====
+        // 面板已在onKeyDown完整处理BACK（双击检测等），keyUp直接消费，防止穿透到Activity退出逻辑
+        if (i == KeyEvent.KEYCODE_BACK && this.panelHandledBackKey) {
+            this.panelHandledBackKey = false;
+            Log.i(TAG, "onKeyUp: BACK已由电子书面板处理，消费keyUp");
+            return true;
         }
+        if (this.ebookReaderPanel != null && this.ebookReaderPanel.isEbookModeActive()) {
+            boolean controlEbook = this.ebookReaderPanel.getControlTarget() != null
+                    && this.ebookReaderPanel.getControlTarget().equals("ebook");
+            if (controlEbook) {
+                // 菜单键：若菜单由本按键（onKeyDown）刚打开，消费 keyUp 保持菜单打开；
+                // 若菜单已在显示中，则放行给下方原有逻辑关闭菜单
+                if (i == KeyEvent.KEYCODE_MENU) {
+                    if (this.ebookReaderPanel.consumeMenuOpenedByKeyDown() || !menuShown) {
+                        return true;
+                    }
+                }
+                if (i == KeyEvent.KEYCODE_BACK && !menuShown) {
+                    return true;
+                }
+            }
+            // 菜单未显示时，将按键交给面板处理（方向键翻页/滚动、三连击确定键隐藏面板等）
+            if (!menuShown && this.ebookReaderPanel.onKeyUp(i, keyEvent)) {
+                return true;
+            }
+        }
+
+        if (i == KeyEvent.KEYCODE_BACK) {
+            if (menuShown) {
+                Log.i(TAG, "onKeyUp: 关闭右侧菜单");
+                this.mRightMenu.a(false);
+                return true;
+            } else if (show) {
+                this.h.a();
+            } else {
+                i();
+                this.f = true;
+            }
+            return h();
+        }
+        if (menuShown) {
+            // 右侧菜单显示时，除菜单键外全部消费，防止误触控制器/切换直播间
+            if (i == KeyEvent.KEYCODE_MENU) {
+                Log.i(TAG, "onKeyUp: 菜单键关闭右侧菜单");
+                this.mRightMenu.a(false);
+            } else {
+                Log.i(TAG, "onKeyUp: 右侧菜单显示中, 消费按键 " + i);
+            }
+            return true;
+        }
+        if (i != KeyEvent.KEYCODE_MENU) {
+            if (i == KeyEvent.KEYCODE_DPAD_UP && !show) {
+                if (LivePlayerActivity.live_index > 0) {
+                    LivePlayerActivity.live_index -= 1;
+                    LivePlayerActivity.this.f = false;
+                    LivePlayerActivity.this.refresh();
+                } else {
+                    lr.b(this, "已经到顶了");
+                }
+            }
+            if (i == KeyEvent.KEYCODE_DPAD_DOWN && !show) {
+                if (LivePlayerActivity.live_index < LivePlayerActivity.lives.size() - 1) {
+                    LivePlayerActivity.live_index += 1;
+                    LivePlayerActivity.this.f = false;
+                    LivePlayerActivity.this.refresh();
+                } else {
+                    lr.b(this, "已经到底了");
+                }
+            }
+        }
+        if (i == KeyEvent.KEYCODE_MENU) {
+            Log.i(TAG, "onKeyUp: 显示右侧菜单");
+            if (show) {
+                this.h.a(false);
+            }
+            // 统一走 showMenu 打开菜单：重建正确的菜单数据（普通/电子书）并设置电子书动作回调，
+            // 确保"电子书"菜单项被 EbookMenuHelper.dispatch 拦截，避免落入索引5（音频平衡）二级菜单
+            this.showMenu(true);
+        } else if ((i == KeyEvent.KEYCODE_ENTER || i == KeyEvent.KEYCODE_DPAD_CENTER) && !show) {
+            Log.i(TAG, "onKeyUp: 显示控制器菜单");
+            this.h.a(true);
+        }
+        this.h.a(i, keyEvent);
         return h();
+    }
+
+    @Override // android.app.Activity, android.view.KeyEvent.Callback
+    public boolean onKeyDown(int i, KeyEvent keyEvent) {
+        // 电子书模式按键路由：控制电子书且菜单未显示时，按键交给面板处理
+        // （面板处理 MENU/BACK/方向键拦截，防止系统焦点移动干扰电子书阅读）
+        if (this.ebookReaderPanel != null && this.ebookReaderPanel.isEbookModeActive()) {
+            boolean controlEbook = this.ebookReaderPanel.getControlTarget() != null
+                    && this.ebookReaderPanel.getControlTarget().equals("ebook");
+            boolean menuShown = this.mRightMenu != null && this.mRightMenu.isShown();
+            if (controlEbook && !menuShown && this.ebookReaderPanel.onKeyDown(i, keyEvent)) {
+                // 记录面板消费的BACK键：onKeyUp需同步消费，防止keyUp穿透到Activity退出逻辑
+                if (i == KeyEvent.KEYCODE_BACK) {
+                    this.panelHandledBackKey = true;
+                }
+                return true;
+            }
+        }
+        return super.onKeyDown(i, keyEvent);
     }
 
     private boolean h() {
@@ -266,6 +366,165 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
         Log.i(TAG, "refresh: 调用堆栈: " + android.util.Log.getStackTraceString(new Throwable()));
         finish();
         startActivity(LivePlayerActivity.a(this, LivePlayerActivity.lives.get(LivePlayerActivity.live_index)));
+    }
+
+    // ==================== EbookHost 适配接口 ====================
+
+    @Override
+    public android.app.Activity getActivity() {
+        return this;
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
+    @Override
+    public View getVideoView() {
+        return this.g; // 直播视频视图（LiveVideoPlayer 整体，视频+弹幕一体）
+    }
+
+    @Override
+    public ViewGroup getVideoContainer() {
+        if (this.g == null) {
+            return null;
+        }
+        return (ViewGroup) this.g.getParent(); // 根 RelativeLayout
+    }
+
+    @Override
+    public View getDanmakuView() {
+        return null; // 直播弹幕在 LiveVideoPlayer 内部随整体缩放
+    }
+
+    @Override
+    public boolean isVideoTextureView() {
+        return true; // 直播渲染视图继承 TextureView，天然满足电子书前置条件
+    }
+
+    @Override // com.bilibili.tv.ebook.ui.EbookHost
+    public boolean isLiveMode() {
+        return true; // 直播：视频视图为 LiveVideoPlayer 整体，缩小视频时需同步缩小高度
+    }
+
+    @Override
+    public boolean isMenuShown() {
+        return this.mRightMenu != null && this.mRightMenu.isShown();
+    }
+
+    @Override
+    public void showMenu(boolean show) {
+        if (this.mRightMenu == null) {
+            return;
+        }
+        if (show) {
+            // 菜单显示前根据电子书状态重建菜单数据
+            boolean controlEbook = this.ebookReaderPanel != null && this.ebookReaderPanel.isControlEbook();
+            if (controlEbook) {
+                // 电子书模式菜单（书架页/阅读页）
+                this.mRightMenu.setEbookMode(true, this.ebookReaderPanel.isReadingBook(), getEbookMenuActions());
+            } else {
+                // 正常直播菜单
+                this.mRightMenu.setEbookMode(false, false, getEbookMenuActions());
+                if (this.h != null) {
+                    this.h.initRightMenu(this.mRightMenu);
+                }
+            }
+        }
+        this.mRightMenu.a(show);
+    }
+
+    @Override
+    public void onEbookDestroy() {
+        // 电子书资源已由 EbookReaderPanel.onDestroy 清理
+    }
+
+    @Override
+    public void showToast(String message) {
+        lr.b(this, message);
+    }
+
+    @Override
+    public void requestVideoFocus() {
+        if (this.g != null) {
+            this.g.requestFocus();
+        }
+    }
+
+    /** 电子书菜单动作回调（桥接到 EbookReaderPanel） */
+    private EbookMenuHelper.EbookActions getEbookMenuActions() {
+        return new EbookMenuHelper.EbookActions() {
+            @Override
+            public void openEbookReader() {
+                if (ebookReaderPanel != null) {
+                    ebookReaderPanel.openEbookReader();
+                }
+            }
+
+            @Override
+            public void openEbookFileChooser() {
+                if (ebookReaderPanel != null) {
+                    ebookReaderPanel.openEbookFileChooser();
+                }
+            }
+
+            @Override
+            public void showChapterList() {
+                if (ebookReaderPanel != null) {
+                    ebookReaderPanel.showChapterList();
+                }
+            }
+
+            @Override
+            public void clearBookshelf() {
+                if (ebookReaderPanel != null) {
+                    ebookReaderPanel.clearBookshelf();
+                }
+            }
+
+            @Override
+            public void closeCurrentBook() {
+                if (ebookReaderPanel != null) {
+                    ebookReaderPanel.closeCurrentBook();
+                }
+            }
+
+            @Override
+            public void switchControlTarget(String target) {
+                if (ebookReaderPanel != null) {
+                    ebookReaderPanel.switchControlTarget(target);
+                }
+            }
+
+            @Override
+            public void setEbookFontSize(float fontSize) {
+                if (ebookReaderPanel != null) {
+                    ebookReaderPanel.setEbookFontSize(fontSize);
+                }
+            }
+
+            @Override
+            public void setEbookColorTheme(int themeIndex) {
+                if (ebookReaderPanel != null) {
+                    ebookReaderPanel.setEbookColorTheme(themeIndex);
+                }
+            }
+
+            @Override
+            public void setEbookPercent(int percentIndex) {
+                if (ebookReaderPanel != null) {
+                    ebookReaderPanel.setEbookPercent(percentIndex);
+                }
+            }
+
+            @Override
+            public void setVideoPosition(int positionIndex) {
+                if (ebookReaderPanel != null) {
+                    ebookReaderPanel.setVideoPosition(positionIndex);
+                }
+            }
+        };
     }
 
     private void i() {
@@ -329,10 +588,21 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
     @Override // com.bilibili.tv.ui.base.BaseActivity, android.support.v7.app.AppCompatActivity, android.support.v4.app.FragmentActivity, android.app.Activity
     public void onDestroy() {
         Log.i(TAG, "onDestroy: 被调用");
+        // 回收电子书资源（面板、WebView、书架/缓存管理器）
+        if (this.ebookReaderPanel != null) {
+            this.ebookReaderPanel.onDestroy();
+            this.ebookReaderPanel = null;
+        }
         if(this.g != null){this.g.i();}
         if(cdnExecutor != null){cdnExecutor.shutdownNow();}
         this.e = null;
         super.onDestroy();
+    }
+
+    /* JADX INFO: Access modifiers changed from: protected */
+    @Override // com.bilibili.tv.ui.base.BaseActivity, android.support.v4.app.FragmentActivity, android.app.Activity
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void reportLiveHistory() {

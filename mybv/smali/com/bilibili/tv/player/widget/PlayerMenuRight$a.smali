@@ -30,12 +30,6 @@
 .method public abstract c(Z)V
 .end method
 
-.method public abstract clearBookshelf()V
-.end method
-
-.method public abstract closeCurrentBook()V
-.end method
-
 .method public abstract e(I)V
 .end method
 
@@ -46,12 +40,6 @@
 .end method
 
 .method public abstract onMenuClosed()V
-.end method
-
-.method public abstract openEbookFileChooser()V
-.end method
-
-.method public abstract openEbookReader()V
 .end method
 
 .method public abstract refresh_subtitle()V
@@ -78,13 +66,7 @@
 .method public abstract set_video_position(I)V
 .end method
 
-.method public abstract showChapterList()V
-.end method
-
 .method public abstract showSkipSettingDialog()V
-.end method
-
-.method public abstract switchControlTarget(Ljava/lang/String;)V
 .end method
 
 .method public abstract switch_speed(F)V
