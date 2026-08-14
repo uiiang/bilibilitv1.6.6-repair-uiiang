@@ -27,7 +27,7 @@
     .locals 0
 
     .prologue
-    .line 1808
+    .line 1874
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$24;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     iput-boolean p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$24;->val$finalScrollToBottom:Z
@@ -45,16 +45,16 @@
     .locals 1
 
     .prologue
-    .line 1811
+    .line 1877
     invoke-super {p0, p1, p2}, Landroid/webkit/WebViewClient;->onPageFinished(Landroid/webkit/WebView;Ljava/lang/String;)V
 
-    .line 1813
+    .line 1879
     new-instance v0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$24$1;
 
     invoke-direct {v0, p0, p1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$24$1;-><init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$24;Landroid/webkit/WebView;)V
 
     invoke-virtual {p1, v0}, Landroid/webkit/WebView;->post(Ljava/lang/Runnable;)Z
 
-    .line 1854
+    .line 1920
     return-void
 .end method

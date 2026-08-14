@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1028
+    .line 1094
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$11;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -49,14 +49,14 @@
     .end annotation
 
     .prologue
-    .line 1032
+    .line 1098
     new-instance v0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$11$1;
 
     invoke-direct {v0, p0, p1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$11$1;-><init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$11;Landroid/widget/AdapterView;)V
 
     invoke-virtual {p1, v0}, Landroid/widget/AdapterView;->post(Ljava/lang/Runnable;)Z
 
-    .line 1038
+    .line 1104
     return-void
 .end method
 
@@ -71,6 +71,6 @@
     .end annotation
 
     .prologue
-    .line 1042
+    .line 1108
     return-void
 .end method

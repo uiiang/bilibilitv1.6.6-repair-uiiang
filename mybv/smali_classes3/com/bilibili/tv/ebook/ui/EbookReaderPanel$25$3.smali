@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 2157
+    .line 2223
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25$3;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25;
 
     iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25$3;->val$chapterList:Ljava/util/List;
@@ -44,10 +44,10 @@
     .locals 4
 
     .prologue
-    .line 2161
+    .line 2227
     const/4 v2, -0x1
 
-    .line 2162
+    .line 2228
     const/4 v0, 0x0
 
     move v1, v0
@@ -61,7 +61,7 @@
 
     if-ge v1, v0, :cond_5d
 
-    .line 2163
+    .line 2229
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25$3;->val$chapterList:Ljava/util/List;
 
     invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -70,7 +70,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ebook/model/Chapter;
 
-    .line 2164
+    .line 2230
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/Chapter;->getChapterIndex()I
 
     move-result v0
@@ -86,11 +86,11 @@
 
     if-ne v0, v3, :cond_59
 
-    .line 2171
+    .line 2237
     :goto_21
     if-ltz v1, :cond_46
 
-    .line 2172
+    .line 2238
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25$3;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25;
 
     iget-object v0, v0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
@@ -102,7 +102,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/ListView;->setSelection(I)V
 
-    .line 2173
+    .line 2239
     const-string v0, "EbookReader"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -125,7 +125,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2177
+    .line 2243
     :cond_46
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25$3;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25;
 
@@ -138,17 +138,17 @@
 
     invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
 
-    .line 2178
+    .line 2244
     const-string v0, "EbookReader"
 
     const-string v1, "\u7ae0\u8282\u5217\u8868\u5df2\u8bf7\u6c42\u7126\u70b9"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2179
+    .line 2245
     return-void
 
-    .line 2162
+    .line 2228
     :cond_59
     add-int/lit8 v0, v1, 0x1
 

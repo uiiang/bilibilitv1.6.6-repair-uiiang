@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 1586
+    .line 1652
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22$2;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22;
 
     iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22$2;->val$finalPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
@@ -48,7 +48,7 @@
     .locals 2
 
     .prologue
-    .line 1589
+    .line 1655
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22$2;->val$finalPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->host:Lcom/bilibili/tv/ebook/ui/EbookHost;
@@ -71,7 +71,7 @@
 
     if-eqz v0, :cond_1b
 
-    .line 1590
+    .line 1656
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22$2;->val$finalPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22$2;->val$finalBook:Lcom/bilibili/tv/ebook/model/Book;
@@ -79,7 +79,7 @@
     # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->restoreReadingProgress(Lcom/bilibili/tv/ebook/model/Book;)V
     invoke-static {v0, v1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$2400(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Lcom/bilibili/tv/ebook/model/Book;)V
 
-    .line 1592
+    .line 1658
     :cond_1b
     return-void
 .end method

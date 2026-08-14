@@ -83,18 +83,24 @@ public class EbookFileStore {
 
     /**
      * 外部公共存储是否可写（决定 JSON 文件是否可用）
-     * - API 30+：需要 MANAGE_EXTERNAL_STORAGE 特殊权限（反射调用 Environment.isExternalStorageManager）
-     * - API 29-：需要 WRITE_EXTERNAL_STORAGE（未授权时目录 canWrite 为 false）
+     * 探测顺序：
+     * 1. 目录 canWrite() 直接探测 —— targetSdk ≤ 29 + requestLegacyExternalStorage 的应用
+     *    在 Android 11 上走 legacy 存储，只要授予 WRITE_EXTERNAL_STORAGE 即可写公共目录，
+     *    不需要 MANAGE_EXTERNAL_STORAGE（与 TvBox 在 TCL Android 11/12 实测一致）
+     * 2. API 30+ 且 legacy 未生效（Android 12+ 强制分区存储）时，需 MANAGE_EXTERNAL_STORAGE
      */
     public static boolean isExternalWritable() {
         if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
             return false;
         }
+        File downloadDir = new File(Environment.getExternalStorageDirectory(), "Download");
+        if (downloadDir.canWrite()) {
+            return true;
+        }
         if (Build.VERSION.SDK_INT >= 30) {
             return hasManageExternalStoragePermission();
         }
-        File downloadDir = new File(Environment.getExternalStorageDirectory(), "Download");
-        return downloadDir.canWrite();
+        return false;
     }
 
     /**
@@ -150,6 +156,36 @@ public class EbookFileStore {
             result = migrateFromPrefs();
         }
         return result;
+    }
+
+    /**
+     * 重新从 JSON 文件加载数据（检测外部 APP 更新）
+     *
+     * 跨 APP 共享书架/进度时，其它 APP 可能修改了 JSON 文件；本类为单例（内存缓存），
+     * 进程常驻时不感知外部变化，打开电子书面板前调用此方法刷新缓存，
+     * 避免用旧缓存覆盖外部 APP 更新的进度。
+     *
+     * 规则：
+     * - JSON 文件存在且可解析 → 以文件为准覆盖内存缓存
+     * - JSON 文件不存在/解析失败 → 保留内存缓存（不丢数据）
+     */
+    public synchronized void reloadFromFile() {
+        try {
+            File file = getDataFile();
+            if (file.exists()) {
+                String jsonStr = readFile(file);
+                if (jsonStr != null && !jsonStr.trim().isEmpty()) {
+                    JSONObject fileData = new JSONObject(jsonStr);
+                    if (fileData.has(KEY_BOOKSHELF) || fileData.has(KEY_PROGRESS) || fileData.has(KEY_SETTINGS)) {
+                        this.data = fileData;
+                        this.loaded = true;
+                        Log.i(TAG, "已重新从 JSON 文件加载电子书数据（检测到外部更新）: " + file.getAbsolutePath());
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.w(TAG, "重新加载 JSON 文件失败，保留内存缓存: " + e.getMessage());
+        }
     }
 
     /**

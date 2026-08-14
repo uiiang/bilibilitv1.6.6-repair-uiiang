@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 1563
+    .line 1629
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22$1;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22;
 
     iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22$1;->val$finalPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
@@ -44,7 +44,7 @@
     .locals 2
 
     .prologue
-    .line 1566
+    .line 1632
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22$1;->val$finalPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->host:Lcom/bilibili/tv/ebook/ui/EbookHost;
@@ -67,7 +67,7 @@
 
     if-eqz v0, :cond_1f
 
-    .line 1567
+    .line 1633
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22$1;->val$finalPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->host:Lcom/bilibili/tv/ebook/ui/EbookHost;
@@ -79,7 +79,7 @@
 
     invoke-interface {v0, v1}, Lcom/bilibili/tv/ebook/ui/EbookHost;->showToast(Ljava/lang/String;)V
 
-    .line 1569
+    .line 1635
     :cond_1f
     return-void
 .end method

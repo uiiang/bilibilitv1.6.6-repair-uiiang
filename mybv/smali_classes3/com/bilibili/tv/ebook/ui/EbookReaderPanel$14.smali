@@ -36,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 1272
+    .line 1338
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$14;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -50,7 +50,7 @@
     .locals 2
 
     .prologue
-    .line 1275
+    .line 1341
     invoke-virtual {p1}, Ljava/io/File;->getName()Ljava/lang/String;
 
     move-result-object v0
@@ -70,7 +70,7 @@
     .locals 1
 
     .prologue
-    .line 1272
+    .line 1338
     check-cast p1, Ljava/io/File;
 
     check-cast p2, Ljava/io/File;

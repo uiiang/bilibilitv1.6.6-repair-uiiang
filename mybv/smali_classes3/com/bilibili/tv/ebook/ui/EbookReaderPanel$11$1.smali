@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 1032
+    .line 1098
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$11$1;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$11;
 
     iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$11$1;->val$parent:Landroid/widget/AdapterView;
@@ -44,13 +44,13 @@
     .locals 1
 
     .prologue
-    .line 1035
+    .line 1101
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$11$1;->val$parent:Landroid/widget/AdapterView;
 
     check-cast v0, Landroid/widget/ListView;
 
     invoke-virtual {v0}, Landroid/widget/ListView;->invalidateViews()V
 
-    .line 1036
+    .line 1102
     return-void
 .end method

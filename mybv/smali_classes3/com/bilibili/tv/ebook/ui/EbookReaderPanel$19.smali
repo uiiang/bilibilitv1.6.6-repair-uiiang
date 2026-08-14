@@ -34,7 +34,7 @@
     .locals 0
 
     .prologue
-    .line 1369
+    .line 1435
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$19;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$19;->val$allFiles:Ljava/util/List;
@@ -65,7 +65,7 @@
     .end annotation
 
     .prologue
-    .line 1372
+    .line 1438
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$19;->val$allFiles:Ljava/util/List;
 
     invoke-interface {v0, p3}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -74,10 +74,10 @@
 
     check-cast v0, Ljava/io/File;
 
-    .line 1374
+    .line 1440
     if-nez v0, :cond_1a
 
-    .line 1376
+    .line 1442
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$19;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$19;->val$listView:Landroid/widget/ListView;
@@ -93,11 +93,11 @@
     # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->loadFileList(Landroid/widget/ListView;Landroid/widget/TextView;Ljava/io/File;)V
     invoke-static {v0, v1, v2, v3}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$1800(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Landroid/widget/ListView;Landroid/widget/TextView;Ljava/io/File;)V
 
-    .line 1384
+    .line 1450
     :goto_19
     return-void
 
-    .line 1377
+    .line 1443
     :cond_1a
     invoke-virtual {v0}, Ljava/io/File;->isDirectory()Z
 
@@ -105,7 +105,7 @@
 
     if-eqz v1, :cond_2a
 
-    .line 1379
+    .line 1445
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$19;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     iget-object v2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$19;->val$listView:Landroid/widget/ListView;
@@ -117,7 +117,7 @@
 
     goto :goto_19
 
-    .line 1382
+    .line 1448
     :cond_2a
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$19;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 

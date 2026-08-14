@@ -70,6 +70,7 @@ public class EbookReaderPanel {
     private android.widget.ListView bookshelfListView = null; // 书架列表View
     private List<BookshelfItem> bookshelfItems = null; // 书架数据
     private String currentBookFilePath = null; // 当前书籍文件路径
+    private android.widget.ListView fileListView = null; // 文件选择器列表View（提升为字段，用于恢复焦点）
 
     // 章节内容LRU缓存管理（避免内存占用随阅读进度增长）
     private static final int MAX_CACHED_CHAPTERS = 5; // 最多缓存5个章节
@@ -186,7 +187,10 @@ public class EbookReaderPanel {
             // 如果已显示,则关闭
             closeEbookPanel();
         } else {
-            // 否则打开
+            // 打开前重新从 JSON 文件加载（跨 APP 共享时检测外部 APP 更新的书架/进度，避免旧缓存覆盖）
+            EbookFileStore.getInstance(host.getContext()).reloadFromFile();
+            // 打开前自动申请存储权限（Android 10+ 写入公共 Download 目录需要，不中断打开流程）
+            ensureStoragePermissionForEbook();
             // 关键修复：先关闭右侧菜单，确保电子书首页能够正确显示
             if (host.isMenuShown()) {
                 Log.i(TAG_EBOOK, "右侧菜单正在显示，先关闭菜单");
@@ -202,6 +206,43 @@ public class EbookReaderPanel {
                 // 菜单未显示，直接打开电子书面板
                 showEbookPanel();
             }
+        }
+    }
+
+    /**
+     * 打开电子书时自动申请存储权限（不中断打开流程）
+     * - 所有版本：先申请 READ+WRITE_EXTERNAL_STORAGE（弹系统对话框）。
+     *   targetSdk ≤ 29 + requestLegacyExternalStorage 的应用在 Android 11 上走 legacy 存储，
+     *   仅需 WRITE 权限即可写公共 Download 目录（与 TvBox 在 TCL Android 11/12 实测一致）
+     * - 申请后仍不可写（Android 12+ 强制分区存储）→ 提示需 MANAGE_EXTERNAL_STORAGE（所有文件访问）
+     * - 权限拒绝不影响功能：EbookFileStore 自动降级 SharedPreferences，数据不丢失
+     */
+    private void ensureStoragePermissionForEbook() {
+        try {
+            Activity activity = host.getActivity();
+            boolean writeGranted = activity != null
+                    && activity.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == android.content.pm.PackageManager.PERMISSION_GRANTED;
+            if (!writeGranted && activity != null && android.os.Build.VERSION.SDK_INT >= 23) {
+                Log.i(TAG_EBOOK, "存储权限未授予，自动申请读写权限");
+                activity.requestPermissions(
+                        new String[]{
+                                android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        },
+                        REQUEST_CODE_STORAGE_PERMISSION
+                );
+                host.showToast("请允许存储权限，书架和阅读进度将保存到 Download 目录");
+            }
+            if (!EbookFileStore.isExternalWritable()) {
+                // 仍不可写：Android 12+ 强制分区存储时需 MANAGE（所有文件访问）
+                if (android.os.Build.VERSION.SDK_INT >= 30) {
+                    Log.w(TAG_EBOOK, "未授予所有文件访问权限，书架/进度将保存在应用内部（无法跨APP共享）");
+                    host.showToast("请授予“所有文件访问”权限（系统设置→应用→权限），书架和进度才能跨APP共享");
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG_EBOOK, "申请存储权限异常", e);
         }
     }
 
@@ -643,6 +684,26 @@ public class EbookReaderPanel {
                 }
             }
 
+            // 关键修复：书架列表显示时，确认键和方向键不拦截（让ListView处理打开书籍）
+            if (bookshelfListView != null && bookshelfListView.isShown()) {
+                if (isConfirmKey(keyCode) ||
+                    keyCode == KeyEvent.KEYCODE_DPAD_UP ||
+                    keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                    Log.i(TAG_EBOOK, "onKeyDown: 书架列表显示，不拦截方向键和确认键");
+                    return false; // 不拦截，让ListView处理
+                }
+            }
+
+            // 关键修复：文件选择器显示时，确认键和方向键不拦截（让ListView处理）
+            if (isFileChooserShown) {
+                if (isConfirmKey(keyCode) ||
+                    keyCode == KeyEvent.KEYCODE_DPAD_UP ||
+                    keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                    Log.i(TAG_EBOOK, "onKeyDown: 文件选择器显示，不拦截方向键和确认键");
+                    return false; // 不拦截，让ListView处理
+                }
+            }
+
             // 关键功能：电子书阅读内容页面的翻页功能
             // 只在阅读内容页面生效（不在章节列表、文件选择器）
             boolean isReadingContent = (chapterListView == null || !chapterListView.isShown()) &&
@@ -925,6 +986,11 @@ public class EbookReaderPanel {
      * 显示书架列表，如果书架为空则显示文件选择器
      */
     private void showBookshelfOrFileChooser() {
+        // 每次显示书架都强制重新读取 json 文件。
+        // 书架/进度文件可被其它应用（如 bilitv）共享写入，单例缓存不会感知外部更新，
+        // 只有重新读取才能保证书架显示最新数据
+        EbookFileStore.getInstance(host.getContext()).reloadFromFile();
+
         if (bookshelfManager == null) {
             bookshelfManager = new BookshelfManager(host.getActivity());
         }
@@ -1177,7 +1243,7 @@ public class EbookReaderPanel {
         layout.addView(pathView);
 
         // 文件列表
-        final android.widget.ListView fileListView = new android.widget.ListView(activity);
+        fileListView = new android.widget.ListView(activity);
         android.widget.LinearLayout.LayoutParams listParams = new android.widget.LinearLayout.LayoutParams(
             android.widget.LinearLayout.LayoutParams.MATCH_PARENT,
             android.widget.LinearLayout.LayoutParams.MATCH_PARENT
@@ -2265,6 +2331,10 @@ public class EbookReaderPanel {
 
         Log.i(TAG_EBOOK, "开始显示电子书面板");
 
+        // 关键修复：每次打开面板强制重新读取 json 文件。
+        // 书架/进度文件可被其它应用（如 bilitv）共享写入，单例缓存不会感知外部更新
+        EbookFileStore.getInstance(host.getContext()).reloadFromFile();
+
         // 获取屏幕尺寸
         android.util.DisplayMetrics metrics = new android.util.DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -3175,7 +3245,15 @@ public class EbookReaderPanel {
             // 检查是否是弹幕相关的容器（通过ID或类名）
             String className = child.getClass().getSimpleName();
             int childId = child.getId();
-            String resourceName = childId > 0 ? child.getResources().getResourceEntryName(childId) : "";
+            // 注意：childId 可能是非资源 ID（如 View.generateViewId() 生成，弹幕容器查找时），查询资源名必须 try-catch
+            String resourceName = "";
+            if (childId > 0) {
+                try {
+                    resourceName = child.getResources().getResourceEntryName(childId);
+                } catch (android.content.res.Resources.NotFoundException e) {
+                    // 非资源 ID，忽略
+                }
+            }
 
             if (className.contains("Danmaku") || className.contains("弹幕") ||
                 resourceName.contains("danmaku") || resourceName.contains("弹幕")) {
@@ -3260,7 +3338,15 @@ public class EbookReaderPanel {
             String className = child.getClass().getSimpleName();
             String fullClassName = child.getClass().getName();
             int childId = child.getId();
-            String resourceName = childId > 0 ? child.getResources().getResourceEntryName(childId) : "";
+            // 注意：childId 可能是非资源 ID（如 View.generateViewId() 生成，字幕容器查找时），查询资源名必须 try-catch
+            String resourceName = "";
+            if (childId > 0) {
+                try {
+                    resourceName = child.getResources().getResourceEntryName(childId);
+                } catch (android.content.res.Resources.NotFoundException e) {
+                    // 非资源 ID，忽略
+                }
+            }
 
             if (className.contains("Subtitle") || className.contains("字幕") ||
                 fullClassName.contains("Subtitle") || fullClassName.contains("subtitle") ||
@@ -3606,6 +3692,19 @@ public class EbookReaderPanel {
 
             // 保存到缓存
             ebookCacheManager.saveReadingProgress(progress);
+
+            // 同步更新书架项（chapterIndex/chapterTitle/progressPercentage/lastReadTime），
+            // 保证书架列表显示的进度与阅读进度一致
+            try {
+                if (currentBookFilePath != null) {
+                    if (bookshelfManager == null) {
+                        bookshelfManager = new BookshelfManager(host.getActivity());
+                    }
+                    bookshelfManager.addToBookshelf(currentBook, progress, currentBookFilePath);
+                }
+            } catch (Throwable th) {
+                Log.e(TAG_EBOOK, "同步更新书架失败: " + th.getMessage());
+            }
 
             Log.i(TAG_EBOOK, "阅读进度已保存: 章节=" + currentChapterIndex +
                   ", 页码=" + page + ", 进度=" + progress.getProgressPercentage() + "%");
