@@ -272,6 +272,14 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
                 if (i == KeyEvent.KEYCODE_BACK && !menuShown) {
                     return true;
                 }
+                // 关键修复：电子书控制模式且菜单未显示时，所有按键一律消费，
+                // 防止方向键穿透到下方切台逻辑（DPAD_UP/DPAD_DOWN 切换直播间）。
+                // 书架/章节列表的方向键焦点移动由 ListView 在 dispatchKeyEvent 阶段完成，
+                // 此处消费 keyUp 不影响列表操作，只阻止直播画面响应。
+                if (!menuShown) {
+                    this.ebookReaderPanel.onKeyUp(i, keyEvent);
+                    return true;
+                }
             }
             // 菜单未显示时，将按键交给面板处理（方向键翻页/滚动、三连击确定键隐藏面板等）
             if (!menuShown && this.ebookReaderPanel.onKeyUp(i, keyEvent)) {
