@@ -36,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 81
+    .line 90
     iput-object p1, p0, Lmybl/DanmakuClient$1;->this$0:Lmybl/DanmakuClient;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -55,7 +55,7 @@
     .end annotation
 
     .prologue
-    .line 81
+    .line 90
     invoke-virtual {p0}, Lmybl/DanmakuClient$1;->call()Lorg/json/JSONObject;
 
     move-result-object v0
@@ -69,7 +69,7 @@
     .prologue
     const/4 v9, 0x1
 
-    .line 84
+    .line 93
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v0
@@ -78,7 +78,7 @@
 
     div-long/2addr v0, v2
 
-    .line 85
+    .line 94
     new-instance v2, Lbl/qa$a;
 
     const-class v3, Lmybl/DanmakuClient$Response;
@@ -87,12 +87,12 @@
 
     const-string v3, "https://api.live.bilibili.com/xlive/web-room/v1/index/getDanmuInfo"
 
-    .line 86
+    .line 95
     invoke-virtual {v2, v3}, Lbl/qa$a;->a(Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v2
 
-    .line 87
+    .line 96
     invoke-virtual {v2, v9}, Lbl/qa$a;->a(Z)Lbl/qa$a;
 
     move-result-object v2
@@ -115,7 +115,7 @@
 
     move-result-object v4
 
-    .line 88
+    .line 97
     invoke-static {}, Ljava/util/UUID;->randomUUID()Ljava/util/UUID;
 
     move-result-object v5
@@ -152,7 +152,7 @@
 
     iget v4, v4, Lmybl/DanmakuClient;->roomId:I
 
-    .line 89
+    .line 98
     invoke-static {v4}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
 
     move-result-object v4
@@ -163,7 +163,7 @@
 
     const-string v3, "ts"
 
-    .line 90
+    .line 99
     invoke-static {v0, v1}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
 
     move-result-object v4
@@ -188,7 +188,7 @@
 
     iget v8, v8, Lmybl/DanmakuClient;->roomId:I
 
-    .line 91
+    .line 100
     invoke-static {v8}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
     move-result-object v8
@@ -217,7 +217,7 @@
 
     invoke-direct {v1}, Lbl/qb;-><init>()V
 
-    .line 92
+    .line 101
     invoke-virtual {v0, v1}, Lbl/qa$a;->a(Lbl/qf;)Lbl/qa$a;
 
     move-result-object v0
@@ -228,14 +228,14 @@
 
     const-string v1, "GET"
 
-    .line 85
+    .line 94
     invoke-static {v0, v1}, Lbl/pz;->a(Lbl/qa;Ljava/lang/String;)Lbl/qe;
 
     move-result-object v0
 
     check-cast v0, Lmybl/DanmakuClient$Response;
 
-    .line 93
+    .line 102
     invoke-virtual {v0}, Lmybl/DanmakuClient$Response;->e()Lorg/json/JSONObject;
 
     move-result-object v0

@@ -32,7 +32,14 @@ import org.java_websocket.handshake.ServerHandshake;
 
 class DanmakuWebSocketClient extends WebSocketClient {
 
-    public DanmakuWebSocketClient(URI serverUri) { super(serverUri); }
+    // 持有所属DanmakuClient，弹幕只写入本实例的player，
+    // 防止切台后旧房间残留数据写入新房间的静态player导致弹幕叠加
+    public DanmakuClient owner;
+
+    public DanmakuWebSocketClient(URI serverUri, DanmakuClient owner) {
+        super(serverUri);
+        this.owner = owner;
+    }
 
     @Override
     public void onOpen(ServerHandshake arg0) {}
@@ -44,7 +51,7 @@ class DanmakuWebSocketClient extends WebSocketClient {
     public void onError(Exception arg0) {}
 
     @Override
-    public void onMessage(ByteBuffer arg0) { if(DanmakuClient.player!=null)DanmakuClient.parse(arg0.array()); }
+    public void onMessage(ByteBuffer arg0) { if(owner != null && owner.player != null) owner.parse(arg0.array()); }
 
     @Override
     public void onMessage(String arg0) {}
@@ -55,7 +62,9 @@ public class DanmakuClient {
     public String token="";
     public Thread client_thread;
     public DanmakuWebSocketClient client;
-    public static IDanmakuPlayer player;
+    // 实例字段而非静态：每个直播间只向自己的player写入弹幕，
+    // 切台后旧房间残留数据不会叠加到新房间
+    public IDanmakuPlayer player;
     public static float baseScreenScale=0, densityScale=0, mScale ;
     public static int mAlpha;
 
@@ -113,7 +122,7 @@ public class DanmakuClient {
                 + ",\"buvid\":\"00000000-0000-0000-0000-00000000000000000infoc\""
                 + ", \"protover\": 2, \"platform\": \"web\", \"type\": 2, \"key\": \"" + token + "\"}";
         try {
-            client = new DanmakuWebSocketClient(new URI(url));
+            client = new DanmakuWebSocketClient(new URI(url), this);
             client.setConnectionLostTimeout(0);
             client.connectBlocking();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -143,7 +152,7 @@ public class DanmakuClient {
         }
     }
 
-    public static void parse(byte[] data) {
+    public void parse(byte[] data) {
         ByteArrayInputStream bis = new ByteArrayInputStream(data);
         DataInputStream dis = new DataInputStream(bis);
         try {

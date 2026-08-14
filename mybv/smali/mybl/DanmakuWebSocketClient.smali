@@ -3,14 +3,22 @@
 .source "DanmakuClient.java"
 
 
+# instance fields
+.field public owner:Lmybl/DanmakuClient;
+
+
 # direct methods
-.method public constructor <init>(Ljava/net/URI;)V
+.method public constructor <init>(Ljava/net/URI;Lmybl/DanmakuClient;)V
     .locals 0
 
     .prologue
-    .line 35
+    .line 40
     invoke-direct {p0, p1}, Lorg/java_websocket/client/WebSocketClient;-><init>(Ljava/net/URI;)V
 
+    .line 41
+    iput-object p2, p0, Lmybl/DanmakuWebSocketClient;->owner:Lmybl/DanmakuClient;
+
+    .line 42
     return-void
 .end method
 
@@ -20,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 41
+    .line 48
     return-void
 .end method
 
@@ -28,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 44
+    .line 51
     return-void
 .end method
 
@@ -36,26 +44,34 @@
     .locals 0
 
     .prologue
-    .line 50
+    .line 57
     return-void
 .end method
 
 .method public onMessage(Ljava/nio/ByteBuffer;)V
-    .locals 1
+    .locals 2
 
     .prologue
-    .line 47
-    sget-object v0, Lmybl/DanmakuClient;->player:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
+    .line 54
+    iget-object v0, p0, Lmybl/DanmakuWebSocketClient;->owner:Lmybl/DanmakuClient;
 
-    if-eqz v0, :cond_b
+    if-eqz v0, :cond_13
+
+    iget-object v0, p0, Lmybl/DanmakuWebSocketClient;->owner:Lmybl/DanmakuClient;
+
+    iget-object v0, v0, Lmybl/DanmakuClient;->player:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer;
+
+    if-eqz v0, :cond_13
+
+    iget-object v0, p0, Lmybl/DanmakuWebSocketClient;->owner:Lmybl/DanmakuClient;
 
     invoke-virtual {p1}, Ljava/nio/ByteBuffer;->array()[B
 
-    move-result-object v0
+    move-result-object v1
 
-    invoke-static {v0}, Lmybl/DanmakuClient;->parse([B)V
+    invoke-virtual {v0, v1}, Lmybl/DanmakuClient;->parse([B)V
 
-    :cond_b
+    :cond_13
     return-void
 .end method
 
@@ -63,6 +79,6 @@
     .locals 0
 
     .prologue
-    .line 38
+    .line 45
     return-void
 .end method

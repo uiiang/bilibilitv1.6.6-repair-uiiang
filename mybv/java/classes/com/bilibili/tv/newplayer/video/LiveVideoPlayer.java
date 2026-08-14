@@ -315,15 +315,16 @@ public class LiveVideoPlayer extends wy {
         if (this.ai != null) {
             this.ai = null;
         }
+        // 先释放弹幕客户端（关闭旧房间websocket），无论F是否已创建都需释放，
+        // 防止切台时旧房间连接泄漏并持续向新房间写入弹幕
+        if (this.danmakuClient != null) {
+            this.danmakuClient.release();
+            this.danmakuClient.player = null;
+            this.danmakuClient = null;
+        }
         if (this.F != null) {
             this.F.release();
             this.F = null;
-
-            if (this.danmakuClient != null) {
-                this.danmakuClient.release();
-                this.danmakuClient.player = null;
-                this.danmakuClient = null;
-            }
         }
         if (this.aj != null) {
             this.aj.a((IDanmakuPlayer) null);
