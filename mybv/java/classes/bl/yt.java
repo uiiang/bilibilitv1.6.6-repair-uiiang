@@ -192,21 +192,19 @@ public final class yt {
             }
             handler.sendEmptyMessage(10203);
             PlayerParams playerParams = yt.this.b.a;
-            IDanmakuDocument a = ym.a(yt.this.c, playerParams);
-            yn.a().a(1);
-            if (a == null) {
-                a = yt.this.j.a(yt.this.c, playerParams, yt.this.b.c);
-            } else {
-                yn.a().b();
-                yn.a().d();
+            // 分段加载模式：跳过整段 XML 缓存/远程加载，创建空文档并记录 aid/cid
+            // （实际弹幕数据由 DanmakuSegmentLoader 按 6 分钟分段请求 seg.so 填充）
+            yl doc = new yl();
+            try {
+                ResolveResourceParams rp = playerParams.mVideoParams.obtainResolveParams();
+                if (rp != null) {
+                    doc.setAidAndCid(String.valueOf(rp.mAvid), String.valueOf(rp.mCid));
+                    android.util.Log.i("DanmakuSegment", "[yt] 初始化分段文档 aid=" + rp.mAvid + " cid=" + rp.mCid);
+                }
+            } catch (Throwable th) {
+                BLog.e("DanmakuSegment", "set aid cid error: " + th.getMessage());
             }
-            if (a == null) {
-                handler.sendEmptyMessage(10205);
-            }
-            yt.this.b.a.mDanmakuParams.setDanmakuDocument(a);
-            if (yt.this.b.a.mDanmakuParams.getDanmakuDocument() == null) {
-                yt.this.b.a.mDanmakuParams.setDanmakuDocument(new yl());
-            }
+            yt.this.b.a.mDanmakuParams.setDanmakuDocument(doc);
         }
     }
 

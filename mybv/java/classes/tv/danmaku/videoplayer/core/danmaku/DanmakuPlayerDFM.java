@@ -3,9 +3,12 @@ package tv.danmaku.videoplayer.core.danmaku;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Layout;
 import android.text.Spanned;
 import android.text.TextPaint;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import bl.bez;
@@ -21,6 +24,7 @@ import bl.bgh;
 import bl.bgy;
 import bl.kt;
 import bl.ls;
+import bl.yl;
 import com.bilibili.tv.R;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -44,6 +48,7 @@ import bl.abd;
 import org.json.*;
 import android.text.*;
 import android.util.*;
+import mybl.DanmakuSegmentLoader;
 import mybl.StrokedSpan;
 import android.graphics.*;
 import android.text.style.*;
@@ -75,6 +80,8 @@ public class DanmakuPlayerDFM implements IDanmakuPlayer {
     private int mInitWidth = 0;
     private boolean mShown = true;
     private long mSeekPosForParser = -1;
+    private Handler mPrefetchHandler;
+    private Runnable mPrefetchRunnable;
     private DanmakuContext mConfig = new DanmakuContext();
     public float mDanmakuStrokenWidth = 3.5f;
     private float mProjectionOffsetX = 1.0f;
@@ -534,6 +541,11 @@ public class DanmakuPlayerDFM implements IDanmakuPlayer {
             @Override // bl.bfa.a
             public void danmakuShown(bfk bfkVar) {
                 DanmakuPlayerDFM.access$208(DanmakuPlayerDFM.this);
+                long tick = DanmakuPlayerDFM.this.mAnimationTicker != null
+                        ? DanmakuPlayerDFM.this.mAnimationTicker.currentOffsetTickMillis() : -1;
+                if (DanmakuPlayerDFM.this.mDanmakuShownCount <= 5 || DanmakuPlayerDFM.this.mDanmakuShownCount % 100 == 0) {
+                    Log.i(TAG, "[danmakuShown] count=" + DanmakuPlayerDFM.this.mDanmakuShownCount + " tick=" + tick);
+                }
                 if (DanmakuPlayerDFM.this.mDanmakuListener != null) {
                     DanmakuPlayerDFM.this.mDanmakuListener.onDanmakuShown(DanmakuPlayerDFM.this.mDanmakuShownCount);
                 }
@@ -627,6 +639,84 @@ DanmakuPlayerDFM.this.send_subtitle(DanmakuPlayerDFM.this.subtitle_data);
         this.mAnimationTicker = danmakuAnimationTicker;
         DanmakuDurationManager.getInstance().clear(i);
         prepareAndStart();
+        // 分段加载：渲染启动后绑定 aid/cid 并加载第 1 段（mContext.t 此时已就绪）
+        startSegmentPrefetch(iDanmakuDocument);
+    }
+
+    /** 分段加载初始化：绑定 aid/cid、注册回调、启动定时预加载并加载第 1 段 */
+    private void startSegmentPrefetch(IDanmakuDocument document) {
+        if (!(document instanceof yl)) {
+            return;
+        }
+        yl ylDoc = (yl) document;
+        final long aid = ylDoc.getAidLong();
+        final long cid = ylDoc.getCidLong();
+        if (cid <= 0) {
+            BLog.w(TAG, "segment prefetch skip, cid invalid");
+            return;
+        }
+        Context context = this.mRootView != null ? this.mRootView.getContext() : null;
+        DanmakuSegmentLoader.getInstance().init(context, aid, cid, new DanmakuSegmentLoader.Callback() {
+            @Override // mybl.DanmakuSegmentLoader.Callback
+            public void onSegmentLoaded(long segmentCid, List<CommentItem> items) {
+                DanmakuPlayerInfo info = DanmakuPlayerDFM.this.mInfo;
+                Log.i(TAG, "[onSegmentLoaded] segmentCid=" + segmentCid + " expectCid=" + cid
+                        + " mInfoCid=" + (info == null ? -1 : info.mCid)
+                        + " parser=" + (DanmakuPlayerDFM.this.mParser != null)
+                        + " view=" + (DanmakuPlayerDFM.this.mDanmakuView != null)
+                        + " items=" + (items == null ? 0 : items.size()));
+                if (segmentCid != cid || info == null
+                        || info.mCid != segmentCid) {
+                    return; // 已切集/释放，丢弃旧数据
+                }
+                final DanmakuParser parser = DanmakuPlayerDFM.this.mParser;
+                if (parser == null || DanmakuPlayerDFM.this.mDanmakuView == null) {
+                    return;
+                }
+                if (!parser.addCommentItems(items)) {
+                    // 渲染上下文未就绪，延迟重试一次
+                    Log.i(TAG, "[onSegmentLoaded] addCommentItems false, retry 300ms");
+                    final Handler h = DanmakuPlayerDFM.this.mPrefetchHandler;
+                    if (h != null) {
+                        h.postDelayed(new Runnable() {
+                            @Override // java.lang.Runnable
+                            public void run() {
+                                boolean ok = parser.addCommentItems(items);
+                                Log.i(TAG, "[onSegmentLoaded] retry result=" + ok);
+                            }
+                        }, 300L);
+                    }
+                } else {
+                    Log.i(TAG, "[onSegmentLoaded] addCommentItems ok");
+                    // 实验：注入后主动触发渲染刷新（与 prepared() 相同操作），唤醒渲染循环消费新弹幕
+                    if (DanmakuPlayerDFM.this.mDanmakuView != null
+                            && DanmakuPlayerDFM.this.mAnimationTicker != null) {
+                        long tick = DanmakuPlayerDFM.this.mAnimationTicker.currentOffsetTickMillis();
+                        Log.i(TAG, "[onSegmentLoaded] notify render, tick=" + tick);
+                        DanmakuPlayerDFM.this.mDanmakuView.a(tick);
+                    }
+                }
+            }
+        });
+        // 定时预加载：播放中每 1s 按播放位置加载当前段+下一段
+        this.mPrefetchHandler = new Handler(Looper.getMainLooper());
+        this.mPrefetchRunnable = new Runnable() {
+            @Override // java.lang.Runnable
+            public void run() {
+                if (!DanmakuPlayerDFM.this.mPaused && DanmakuPlayerDFM.this.mAnimationTicker != null
+                        && DanmakuPlayerDFM.this.mInfo != null && DanmakuPlayerDFM.this.mInfo.mCid > 0) {
+                    long pos = DanmakuPlayerDFM.this.mAnimationTicker.currentOffsetTickMillis();
+                    DanmakuSegmentLoader.getInstance().loadSegmentForPosition(pos);
+                }
+                Handler h = DanmakuPlayerDFM.this.mPrefetchHandler;
+                if (h != null) {
+                    h.postDelayed(DanmakuPlayerDFM.this.mPrefetchRunnable, 1000L);
+                }
+            }
+        };
+        this.mPrefetchHandler.post(this.mPrefetchRunnable);
+        // 初始加载第 1 段
+        DanmakuSegmentLoader.getInstance().loadSegment(1);
     }
 
     @Override // tv.danmaku.videoplayer.core.danmaku.IDanmakuPlayer
@@ -673,6 +763,16 @@ DanmakuPlayerDFM.this.send_subtitle(DanmakuPlayerDFM.this.subtitle_data);
         if (this.mInfo != null) {
             DanmakuDurationManager.getInstance().clear(this.mInfo.mCid);
         }
+        // 分段加载：停止预加载定时器并清理 loader
+        if (this.mPrefetchHandler != null) {
+            if (this.mPrefetchRunnable != null) {
+                this.mPrefetchHandler.removeCallbacks(this.mPrefetchRunnable);
+            }
+            this.mPrefetchHandler.removeCallbacksAndMessages(null);
+            this.mPrefetchHandler = null;
+            this.mPrefetchRunnable = null;
+        }
+        DanmakuSegmentLoader.getInstance().clear();
         ViewGroup viewGroup = this.mRootView;
         if (this.mDanmakuView != null) {
             bfd bfdVar = this.mDanmakuView;
@@ -750,6 +850,8 @@ DanmakuPlayerDFM.this.send_subtitle(DanmakuPlayerDFM.this.subtitle_data);
                 this.mSeekPosForParser = -1L;
             }
         }
+        // 分段加载：seek 到目标段（未加载则加载）
+        DanmakuSegmentLoader.getInstance().loadSegmentForPosition(j2);
     }
 
     /* JADX INFO: Access modifiers changed from: private */

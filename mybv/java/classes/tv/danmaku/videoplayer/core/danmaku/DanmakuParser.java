@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import bl.bfk;
 import bl.bfn;
 import bl.bft;
@@ -16,6 +17,7 @@ import bl.bgu;
 import bl.bgv;
 import bl.bgw;
 import bl.cc;
+import bl.yl;
 import com.bilibili.tv.player.basic.context.PlayerParams;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -201,6 +203,52 @@ public class DanmakuParser extends BiliDanmukuParser {
             }
         }
         return this.mDanmakus;
+    }
+
+    /**
+     * 分段加载：将 protobuf 解析出的 CommentItem 列表写入渲染容器。
+     * 复用 parseItem()（与 parseDanmakusCompat 同逻辑），过滤与 XML 链路一致（blockThis）。
+     * 返回 false 表示渲染上下文（mContext.t）未就绪，调用方可延迟重试。
+     */
+    public synchronized boolean addCommentItems(List<CommentItem> list) {
+        if (list == null || list.isEmpty()) {
+            return true;
+        }
+        if (this.mIsReleased || this.mContext == null || this.mContext.t == null) {
+            Log.i(TAG, "addCommentItems skip, not ready released=" + this.mIsReleased
+                    + " context=" + (this.mContext != null)
+                    + " t=" + (this.mContext != null && this.mContext.t != null)
+                    + " items=" + list.size());
+            return false;
+        }
+        int i = -1;
+        int injected = 0;
+        for (CommentItem commentItem : list) {
+            if (commentItem == null) {
+                continue;
+            }
+            if (this.mDanmakuDocument != null && this.mDanmakuDocument.getFilter() != null
+                    && this.mDanmakuDocument.getFilter().blockThis(commentItem)) {
+                continue;
+            }
+            // 去重：同一文档存储中已存在相同 dmid 的弹幕（播放器重建重复注入），跳过避免重复渲染
+            if (this.mDanmakuDocument instanceof yl
+                    && ((yl) this.mDanmakuDocument).hasDanmaku(commentItem.mTimeMilli, commentItem.mRemoteDmId)) {
+                continue;
+            }
+            i++;
+            bfk bfkVar = parseItem(commentItem, i);
+            if (bfkVar != null) {
+                bfkVar.G = this.mContext.r;
+                if (this.mDanmakuDocument != null) {
+                    this.mDanmakuDocument.appendDanmaku(commentItem);
+                }
+                this.mDanmakus.a(bfkVar);
+                injected++;
+            }
+        }
+        Log.i(TAG, "addCommentItems ok, injected=" + injected + "/" + list.size());
+        return true;
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */

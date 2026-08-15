@@ -260,7 +260,7 @@
     .locals 1
 
     .prologue
-    .line 337
+    .line 358
     iget-object v0, p0, Lbl/yl;->l:Ljava/lang/String;
 
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
@@ -269,14 +269,14 @@
 
     if-eqz v0, :cond_f
 
-    .line 338
+    .line 359
     invoke-static {}, Lbl/yn;->a()Lbl/yn;
 
     move-result-object v0
 
     invoke-virtual {v0}, Lbl/yn;->d()V
 
-    .line 340
+    .line 361
     :cond_f
     return-void
 .end method
@@ -285,12 +285,12 @@
     .locals 2
 
     .prologue
-    .line 344
+    .line 365
     iget-object v0, p0, Lbl/yl;->c:Ljava/util/Map;
 
     if-nez v0, :cond_f
 
-    .line 345
+    .line 366
     new-instance v0, Ljava/util/HashMap;
 
     invoke-direct {v0}, Ljava/util/HashMap;-><init>()V
@@ -301,7 +301,7 @@
 
     iput-object v0, p0, Lbl/yl;->c:Ljava/util/Map;
 
-    .line 347
+    .line 368
     :cond_f
     const-string v0, "realname"
 
@@ -311,19 +311,19 @@
 
     if-eqz v0, :cond_1f
 
-    .line 348
+    .line 369
     iget-object v0, p0, Lbl/yl;->c:Ljava/util/Map;
 
     const-string v1, "realname"
 
     invoke-interface {v0, v1, p2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 356
+    .line 377
     :cond_1e
     :goto_1e
     return-void
 
-    .line 351
+    .line 372
     :cond_1f
     const-string v0, "rec_flag"
 
@@ -341,7 +341,7 @@
 
     if-eqz v0, :cond_35
 
-    .line 352
+    .line 373
     :cond_2f
     iget-object v0, p0, Lbl/yl;->c:Ljava/util/Map;
 
@@ -349,7 +349,7 @@
 
     goto :goto_1e
 
-    .line 353
+    .line 374
     :cond_35
     const-string v0, "new_danmaku"
 
@@ -359,7 +359,7 @@
 
     if-eqz v0, :cond_1e
 
-    .line 354
+    .line 375
     iget-object v0, p0, Lbl/yl;->c:Ljava/util/Map;
 
     const-string v1, "new_danmaku"
@@ -404,54 +404,54 @@
     .end annotation
 
     .prologue
-    .line 141
+    .line 158
     if-nez p1, :cond_3
 
-    .line 162
+    .line 179
     :goto_2
     return-void
 
-    .line 144
+    .line 161
     :cond_3
     iget v0, p1, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;->mDanmakuId:I
 
     if-gtz v0, :cond_18
 
-    .line 145
+    .line 162
     iget v0, p0, Lbl/yl;->k:I
 
     if-gtz v0, :cond_10
 
-    .line 146
+    .line 163
     const v0, 0x7fffffff
 
     iput v0, p0, Lbl/yl;->k:I
 
-    .line 148
+    .line 165
     :cond_10
     iget v0, p0, Lbl/yl;->k:I
 
-    .line 149
+    .line 166
     add-int/lit8 v1, v0, -0x1
 
     iput v1, p0, Lbl/yl;->k:I
 
-    .line 150
+    .line 167
     iput v0, p1, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;->mDanmakuId:I
 
-    .line 152
+    .line 169
     :cond_18
     iget-object v1, p0, Lbl/yl;->h:Ljava/util/List;
 
     monitor-enter v1
 
-    .line 153
+    .line 170
     :try_start_1b
     iget-object v0, p0, Lbl/yl;->h:Ljava/util/List;
 
     invoke-interface {v0, p1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 154
+    .line 171
     :goto_20
     iget-object v0, p0, Lbl/yl;->h:Ljava/util/List;
 
@@ -463,7 +463,7 @@
 
     if-le v0, v2, :cond_34
 
-    .line 155
+    .line 172
     iget-object v0, p0, Lbl/yl;->h:Ljava/util/List;
 
     const/4 v2, 0x0
@@ -472,7 +472,7 @@
 
     goto :goto_20
 
-    .line 161
+    .line 178
     :catchall_31
     move-exception v0
 
@@ -482,14 +482,14 @@
 
     throw v0
 
-    .line 157
+    .line 174
     :cond_34
     :try_start_34
     iget-object v0, p0, Lbl/yl;->i:Ljava/util/List;
 
     invoke-interface {v0, p1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 158
+    .line 175
     iget-object v0, p0, Lbl/yl;->i:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->size()I
@@ -500,14 +500,14 @@
 
     if-le v0, v2, :cond_49
 
-    .line 159
+    .line 176
     iget-object v0, p0, Lbl/yl;->i:Ljava/util/List;
 
     const/4 v2, 0x0
 
     invoke-interface {v0, v2}, Ljava/util/List;->remove(I)Ljava/lang/Object;
 
-    .line 161
+    .line 178
     :cond_49
     monitor-exit v1
     :try_end_4a
@@ -575,24 +575,24 @@
     .end annotation
 
     .prologue
-    .line 174
+    .line 191
     iget-object v1, p0, Lbl/yl;->i:Ljava/util/List;
 
     monitor-enter v1
 
-    .line 175
+    .line 192
     :try_start_3
     iget-object v0, p0, Lbl/yl;->i:Ljava/util/List;
 
     invoke-virtual {p1, v0}, Ljava/util/ArrayList;->addAll(Ljava/util/Collection;)Z
 
-    .line 176
+    .line 193
     monitor-exit v1
 
-    .line 177
+    .line 194
     return-void
 
-    .line 176
+    .line 193
     :catchall_a
     move-exception v0
 
@@ -603,19 +603,58 @@
     throw v0
 .end method
 
+.method public getAidLong()J
+    .locals 3
+
+    .prologue
+    const-wide/16 v0, 0x0
+
+    .line 395
+    iget-object v2, p0, Lbl/yl;->l:Ljava/lang/String;
+
+    invoke-static {v2}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_b
+
+    .line 401
+    :goto_a
+    return-wide v0
+
+    .line 399
+    :cond_b
+    :try_start_b
+    iget-object v2, p0, Lbl/yl;->l:Ljava/lang/String;
+
+    invoke-static {v2}, Ljava/lang/Long;->parseLong(Ljava/lang/String;)J
+    :try_end_10
+    .catch Ljava/lang/NumberFormatException; {:try_start_b .. :try_end_10} :catch_12
+
+    move-result-wide v0
+
+    goto :goto_a
+
+    .line 400
+    :catch_12
+    move-exception v2
+
+    goto :goto_a
+.end method
+
 .method public getAttribute(Ljava/lang/String;)Ljava/lang/Object;
     .locals 1
 
     .prologue
-    .line 360
+    .line 381
     iget-object v0, p0, Lbl/yl;->c:Ljava/util/Map;
 
     if-nez v0, :cond_6
 
-    .line 361
+    .line 382
     const/4 v0, 0x0
 
-    .line 363
+    .line 384
     :goto_5
     return-object v0
 
@@ -627,6 +666,45 @@
     move-result-object v0
 
     goto :goto_5
+.end method
+
+.method public getCidLong()J
+    .locals 3
+
+    .prologue
+    const-wide/16 v0, 0x0
+
+    .line 406
+    iget-object v2, p0, Lbl/yl;->m:Ljava/lang/String;
+
+    invoke-static {v2}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_b
+
+    .line 412
+    :goto_a
+    return-wide v0
+
+    .line 410
+    :cond_b
+    :try_start_b
+    iget-object v2, p0, Lbl/yl;->m:Ljava/lang/String;
+
+    invoke-static {v2}, Ljava/lang/Long;->parseLong(Ljava/lang/String;)J
+    :try_end_10
+    .catch Ljava/lang/NumberFormatException; {:try_start_b .. :try_end_10} :catch_12
+
+    move-result-wide v0
+
+    goto :goto_a
+
+    .line 411
+    :catch_12
+    move-exception v2
+
+    goto :goto_a
 .end method
 
 .method public getCommentStorage()Ljava/util/SortedMap;
@@ -645,10 +723,10 @@
     .end annotation
 
     .prologue
-    .line 186
+    .line 203
     iget-object v0, p0, Lbl/yl;->mCommentStorage:Ljava/util/SortedMap;
 
-    .line 187
+    .line 204
     new-instance v1, Ljava/util/TreeMap;
 
     invoke-direct {v1}, Ljava/util/TreeMap;-><init>()V
@@ -657,7 +735,7 @@
 
     move-result-object v2
 
-    .line 188
+    .line 205
     invoke-interface {v0}, Ljava/util/SortedMap;->entrySet()Ljava/util/Set;
 
     move-result-object v0
@@ -679,26 +757,26 @@
 
     check-cast v0, Ljava/util/Map$Entry;
 
-    .line 189
+    .line 206
     invoke-interface {v0}, Ljava/util/Map$Entry;->getKey()Ljava/lang/Object;
 
     move-result-object v1
 
     check-cast v1, Ljava/lang/Long;
 
-    .line 190
+    .line 207
     invoke-interface {v0}, Ljava/util/Map$Entry;->getValue()Ljava/lang/Object;
 
     move-result-object v0
 
     check-cast v0, Ljava/util/Collection;
 
-    .line 191
+    .line 208
     new-instance v4, Ljava/util/ArrayList;
 
     invoke-direct {v4}, Ljava/util/ArrayList;-><init>()V
 
-    .line 192
+    .line 209
     invoke-interface {v0}, Ljava/util/Collection;->iterator()Ljava/util/Iterator;
 
     move-result-object v5
@@ -717,7 +795,7 @@
 
     check-cast v0, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;
 
-    .line 193
+    .line 210
     sget-object v6, Lcom/bilibili/tv/player/widget/PlayerMenuRight;->danmaku_valid_list:[Z
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;->getCommentType()I
@@ -728,18 +806,18 @@
 
     if-eqz v6, :cond_34
 
-    .line 194
+    .line 211
     invoke-interface {v4, v0}, Ljava/util/Collection;->add(Ljava/lang/Object;)Z
 
     goto :goto_34
 
-    .line 197
+    .line 214
     :cond_4e
     invoke-interface {v2, v1, v4}, Ljava/util/SortedMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
     goto :goto_13
 
-    .line 199
+    .line 216
     :cond_52
     return-object v2
 .end method
@@ -748,19 +826,19 @@
     .locals 1
 
     .prologue
-    .line 231
+    .line 252
     iget-object v0, p0, Lbl/yl;->f:Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$Tracer;
 
     if-nez v0, :cond_b
 
-    .line 232
+    .line 253
     new-instance v0, Lbl/yl$2;
 
     invoke-direct {v0, p0}, Lbl/yl$2;-><init>(Lbl/yl;)V
 
     iput-object v0, p0, Lbl/yl;->f:Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$Tracer;
 
-    .line 332
+    .line 353
     :cond_b
     iget-object v0, p0, Lbl/yl;->f:Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$Tracer;
 
@@ -771,7 +849,7 @@
     .locals 1
 
     .prologue
-    .line 226
+    .line 247
     iget-object v0, p0, Lbl/yl;->filter:Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$Filter;
 
     return-object v0
@@ -781,41 +859,54 @@
     .locals 4
 
     .prologue
-    .line 207
-    :try_start_0
+    .line 224
+    iget-object v0, p0, Lbl/yl;->e:Ljava/io/InputStream;
+
+    if-nez v0, :cond_6
+
+    .line 225
+    const/4 v0, 0x0
+
+    .line 242
+    :goto_5
+    return-object v0
+
+    .line 228
+    :cond_6
+    :try_start_6
     iget-object v0, p0, Lbl/yl;->e:Ljava/io/InputStream;
 
     instance-of v0, v0, Ljava/io/ByteArrayInputStream;
 
-    if-eqz v0, :cond_e
+    if-eqz v0, :cond_14
 
-    .line 208
+    .line 229
     iget-object v0, p0, Lbl/yl;->e:Ljava/io/InputStream;
 
     invoke-virtual {v0}, Ljava/io/InputStream;->reset()V
-    :try_end_b
-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_b} :catch_25
+    :try_end_11
+    .catch Ljava/lang/Exception; {:try_start_6 .. :try_end_11} :catch_2b
 
-    .line 221
-    :goto_b
+    .line 242
+    :goto_11
     iget-object v0, p0, Lbl/yl;->e:Ljava/io/InputStream;
 
-    return-object v0
+    goto :goto_5
 
-    .line 211
-    :cond_e
-    :try_start_e
+    .line 231
+    :cond_14
+    :try_start_14
     new-instance v0, Ljava/io/ByteArrayOutputStream;
 
     invoke-direct {v0}, Ljava/io/ByteArrayOutputStream;-><init>()V
 
-    .line 212
+    .line 232
     const/16 v1, 0x400
 
     new-array v1, v1, [B
 
-    .line 214
-    :goto_17
+    .line 234
+    :goto_1d
     iget-object v2, p0, Lbl/yl;->e:Ljava/io/InputStream;
 
     invoke-virtual {v2, v1}, Ljava/io/InputStream;->read([B)I
@@ -824,28 +915,29 @@
 
     const/4 v3, -0x1
 
-    if-eq v2, v3, :cond_2a
+    if-eq v2, v3, :cond_30
 
-    .line 215
+    .line 235
     const/4 v3, 0x0
 
     invoke-virtual {v0, v1, v3, v2}, Ljava/io/ByteArrayOutputStream;->write([BII)V
-    :try_end_24
-    .catch Ljava/lang/Exception; {:try_start_e .. :try_end_24} :catch_25
+    :try_end_2a
+    .catch Ljava/lang/Exception; {:try_start_14 .. :try_end_2a} :catch_2b
 
-    goto :goto_17
+    goto :goto_1d
 
-    .line 219
-    :catch_25
+    .line 239
+    :catch_2b
     move-exception v0
 
+    .line 240
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
-    goto :goto_b
+    goto :goto_11
 
-    .line 217
-    :cond_2a
-    :try_start_2a
+    .line 237
+    :cond_30
+    :try_start_30
     new-instance v1, Ljava/io/ByteArrayInputStream;
 
     invoke-virtual {v0}, Ljava/io/ByteArrayOutputStream;->toByteArray()[B
@@ -855,10 +947,10 @@
     invoke-direct {v1, v0}, Ljava/io/ByteArrayInputStream;-><init>([B)V
 
     iput-object v1, p0, Lbl/yl;->e:Ljava/io/InputStream;
-    :try_end_35
-    .catch Ljava/lang/Exception; {:try_start_2a .. :try_end_35} :catch_25
+    :try_end_3b
+    .catch Ljava/lang/Exception; {:try_start_30 .. :try_end_3b} :catch_2b
 
-    goto :goto_b
+    goto :goto_11
 .end method
 
 .method public getInputStreams(Landroid/content/Context;Ltv/danmaku/videoplayer/core/danmaku/IDanmakuParams;J)Ljava/util/List;
@@ -987,10 +1079,98 @@
     .end annotation
 
     .prologue
-    .line 181
+    .line 198
     iget-object v0, p0, Lbl/yl;->g:Ljava/util/List;
 
     return-object v0
+.end method
+
+.method public hasDanmaku(JLjava/lang/String;)Z
+    .locals 3
+
+    .prologue
+    const/4 v1, 0x0
+
+    .line 141
+    invoke-static {p3}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_9
+
+    move v0, v1
+
+    .line 153
+    :goto_8
+    return v0
+
+    .line 144
+    :cond_9
+    iget-object v0, p0, Lbl/yl;->mCommentStorage:Ljava/util/SortedMap;
+
+    invoke-static {p1, p2}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;
+
+    move-result-object v2
+
+    invoke-interface {v0, v2}, Ljava/util/SortedMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/util/Collection;
+
+    .line 145
+    if-eqz v0, :cond_1d
+
+    invoke-interface {v0}, Ljava/util/Collection;->isEmpty()Z
+
+    move-result v2
+
+    if-eqz v2, :cond_1f
+
+    :cond_1d
+    move v0, v1
+
+    .line 146
+    goto :goto_8
+
+    .line 148
+    :cond_1f
+    invoke-interface {v0}, Ljava/util/Collection;->iterator()Ljava/util/Iterator;
+
+    move-result-object v2
+
+    :cond_23
+    invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_39
+
+    invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;
+
+    .line 149
+    iget-object v0, v0, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;->mRemoteDmId:Ljava/lang/String;
+
+    invoke-virtual {p3, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_23
+
+    .line 150
+    const/4 v0, 0x1
+
+    goto :goto_8
+
+    :cond_39
+    move v0, v1
+
+    .line 153
+    goto :goto_8
 .end method
 
 .method public hasPlayerSeekScript()Z
@@ -1090,29 +1270,29 @@
     .locals 2
 
     .prologue
-    .line 166
+    .line 183
     iget-object v1, p0, Lbl/yl;->h:Ljava/util/List;
 
     monitor-enter v1
 
-    .line 167
+    .line 184
     :try_start_3
     iget-object v0, p0, Lbl/yl;->h:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->clear()V
 
-    .line 168
+    .line 185
     iget-object v0, p0, Lbl/yl;->i:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->clear()V
 
-    .line 169
+    .line 186
     monitor-exit v1
 
-    .line 170
+    .line 187
     return-void
 
-    .line 169
+    .line 186
     :catchall_f
     move-exception v0
 
@@ -1150,13 +1330,13 @@
     .locals 0
 
     .prologue
-    .line 368
+    .line 389
     iput-object p1, p0, Lbl/yl;->l:Ljava/lang/String;
 
-    .line 369
+    .line 390
     iput-object p2, p0, Lbl/yl;->m:Ljava/lang/String;
 
-    .line 370
+    .line 391
     return-void
 .end method
 
@@ -1164,9 +1344,9 @@
     .locals 0
 
     .prologue
-    .line 374
+    .line 418
     iput-object p1, p0, Lbl/yl;->n:[Ljava/lang/String;
 
-    .line 375
+    .line 419
     return-void
 .end method

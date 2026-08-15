@@ -1481,7 +1481,7 @@
     move-result-object v2
 
     .line 62
-    const-string v3, "http://api.bilibili.com/x/v2/dm/list.so"
+    const-string v3, "http://api.bilibili.com/x/v1/dm/list.so"
 
     invoke-static {v3}, Lokhttp3/HttpUrl;->parse(Ljava/lang/String;)Lokhttp3/HttpUrl;
 

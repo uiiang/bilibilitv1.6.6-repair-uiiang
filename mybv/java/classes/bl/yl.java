@@ -136,6 +136,23 @@ public class yl implements IDanmakuDocument, IDanmakuRecommendable {
         collection.add(commentItem);
     }
 
+    /** 判断存储中是否已存在相同时间点且相同 dmid 的弹幕（防止播放器重建时重复注入导致重复渲染） */
+    public boolean hasDanmaku(long timeMs, String dmId) {
+        if (TextUtils.isEmpty(dmId)) {
+            return false;
+        }
+        Collection<CommentItem> collection = this.mCommentStorage.get(Long.valueOf(timeMs));
+        if (collection == null || collection.isEmpty()) {
+            return false;
+        }
+        for (CommentItem item : collection) {
+            if (dmId.equals(item.mRemoteDmId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override // tv.danmaku.videoplayer.core.danmaku.IDanmakuDocument
     public void addLiveRawJsonDanmaku(CommentItem commentItem) throws JSONException {
         if (commentItem == null) {
@@ -202,22 +219,26 @@ public class yl implements IDanmakuDocument, IDanmakuRecommendable {
 
     @Override // tv.danmaku.videoplayer.core.danmaku.IDanmakuDocument
     public InputStream getInputStream() {
-
-try{
-        if(this.e instanceof ByteArrayInputStream){
-            this.e.reset();
+        // 分段加载模式下 e 恒为 null，直接返回 null（由 DanmakuParser.parse() 走空容器路径），
+        // 避免下方 e.read() 触发 NPE 日志噪音
+        if (this.e == null) {
+            return null;
         }
-        else{
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = this.e.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, length);
+        try {
+            if (this.e instanceof ByteArrayInputStream) {
+                this.e.reset();
+            } else {
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = this.e.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, length);
+                }
+                this.e = new ByteArrayInputStream(outputStream.toByteArray());
             }
-            this.e = new ByteArrayInputStream(outputStream.toByteArray());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-}catch(Exception e){e.printStackTrace();}
-
         return this.e;
     }
 
@@ -367,6 +388,29 @@ try{
     public void setAidAndCid(String str, String str2) {
         this.l = str;
         this.m = str2;
+    }
+
+    // 分段加载：读取 aid/cid（由 yt 初始化时 setAidAndCid 写入）
+    public long getAidLong() {
+        if (TextUtils.isEmpty(this.l)) {
+            return 0L;
+        }
+        try {
+            return Long.parseLong(this.l);
+        } catch (NumberFormatException unused) {
+            return 0L;
+        }
+    }
+
+    public long getCidLong() {
+        if (TextUtils.isEmpty(this.m)) {
+            return 0L;
+        }
+        try {
+            return Long.parseLong(this.m);
+        } catch (NumberFormatException unused) {
+            return 0L;
+        }
     }
 
     @Override // tv.danmaku.videoplayer.core.danmaku.IDanmakuRecommendable

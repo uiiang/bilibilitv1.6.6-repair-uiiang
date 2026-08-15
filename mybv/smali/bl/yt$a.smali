@@ -48,7 +48,7 @@
 
 # virtual methods
 .method public run()V
-    .locals 5
+    .locals 6
 
     .prologue
     .line 189
@@ -65,8 +65,7 @@
     .line 190
     if-nez v0, :cond_d
 
-    .line 210
-    :cond_c
+    .line 208
     :goto_c
     return-void
 
@@ -77,128 +76,127 @@
     invoke-virtual {v0, v1}, Landroid/os/Handler;->sendEmptyMessage(I)Z
 
     .line 194
-    iget-object v1, p0, Lbl/yt$a;->this$0:Lbl/yt;
+    iget-object v0, p0, Lbl/yt$a;->this$0:Lbl/yt;
 
-    iget-object v1, v1, Lbl/yt;->b:Lbl/yh;
+    iget-object v0, v0, Lbl/yt;->b:Lbl/yh;
 
-    iget-object v2, v1, Lbl/yh;->a:Lcom/bilibili/tv/player/basic/context/PlayerParams;
-
-    .line 195
-    iget-object v1, p0, Lbl/yt$a;->this$0:Lbl/yt;
-
-    # getter for: Lbl/yt;->c:Landroid/content/Context;
-    invoke-static {v1}, Lbl/yt;->access$100(Lbl/yt;)Landroid/content/Context;
-
-    move-result-object v1
-
-    invoke-static {v1, v2}, Lbl/ym;->a(Landroid/content/Context;Lcom/bilibili/tv/player/basic/context/PlayerParams;)Lbl/yl;
-
-    move-result-object v1
-
-    .line 196
-    invoke-static {}, Lbl/yn;->a()Lbl/yn;
-
-    move-result-object v3
-
-    const/4 v4, 0x1
-
-    invoke-virtual {v3, v4}, Lbl/yn;->a(I)V
+    iget-object v0, v0, Lbl/yh;->a:Lcom/bilibili/tv/player/basic/context/PlayerParams;
 
     .line 197
-    if-nez v1, :cond_73
-
-    .line 198
-    iget-object v1, p0, Lbl/yt$a;->this$0:Lbl/yt;
-
-    # getter for: Lbl/yt;->j:Lbl/yu;
-    invoke-static {v1}, Lbl/yt;->access$200(Lbl/yt;)Lbl/yu;
-
-    move-result-object v1
-
-    iget-object v3, p0, Lbl/yt$a;->this$0:Lbl/yt;
-
-    # getter for: Lbl/yt;->c:Landroid/content/Context;
-    invoke-static {v3}, Lbl/yt;->access$100(Lbl/yt;)Landroid/content/Context;
-
-    move-result-object v3
-
-    iget-object v4, p0, Lbl/yt$a;->this$0:Lbl/yt;
-
-    iget-object v4, v4, Lbl/yt;->b:Lbl/yh;
-
-    iget-boolean v4, v4, Lbl/yh;->c:Z
-
-    invoke-virtual {v1, v3, v2, v4}, Lbl/yu;->a(Landroid/content/Context;Lcom/bilibili/tv/player/basic/context/PlayerParams;Z)Ltv/danmaku/videoplayer/core/danmaku/IDanmakuDocument;
-
-    move-result-object v1
-
-    .line 203
-    :goto_42
-    if-nez v1, :cond_49
-
-    .line 204
-    const/16 v2, 0x27dd
-
-    invoke-virtual {v0, v2}, Landroid/os/Handler;->sendEmptyMessage(I)Z
-
-    .line 206
-    :cond_49
-    iget-object v0, p0, Lbl/yt$a;->this$0:Lbl/yt;
-
-    iget-object v0, v0, Lbl/yt;->b:Lbl/yh;
-
-    iget-object v0, v0, Lbl/yh;->a:Lcom/bilibili/tv/player/basic/context/PlayerParams;
-
-    iget-object v0, v0, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mDanmakuParams:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuParams;
-
-    invoke-interface {v0, v1}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuParams;->setDanmakuDocument(Ltv/danmaku/videoplayer/core/danmaku/IDanmakuDocument;)V
-
-    .line 207
-    iget-object v0, p0, Lbl/yt$a;->this$0:Lbl/yt;
-
-    iget-object v0, v0, Lbl/yt;->b:Lbl/yh;
-
-    iget-object v0, v0, Lbl/yh;->a:Lcom/bilibili/tv/player/basic/context/PlayerParams;
-
-    iget-object v0, v0, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mDanmakuParams:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuParams;
-
-    invoke-interface {v0}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuParams;->getDanmakuDocument()Ltv/danmaku/videoplayer/core/danmaku/IDanmakuDocument;
-
-    move-result-object v0
-
-    if-nez v0, :cond_c
-
-    .line 208
-    iget-object v0, p0, Lbl/yt$a;->this$0:Lbl/yt;
-
-    iget-object v0, v0, Lbl/yt;->b:Lbl/yh;
-
-    iget-object v0, v0, Lbl/yh;->a:Lcom/bilibili/tv/player/basic/context/PlayerParams;
-
-    iget-object v0, v0, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mDanmakuParams:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuParams;
-
     new-instance v1, Lbl/yl;
 
     invoke-direct {v1}, Lbl/yl;-><init>()V
+
+    .line 199
+    :try_start_1d
+    iget-object v0, v0, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mVideoParams:Lcom/bilibili/tv/player/basic/context/VideoViewParams;
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->obtainResolveParams()Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
+
+    move-result-object v0
+
+    .line 200
+    if-eqz v0, :cond_5a
+
+    .line 201
+    iget-wide v2, v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAvid:J
+
+    invoke-static {v2, v3}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
+
+    move-result-object v2
+
+    iget-wide v4, v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mCid:J
+
+    invoke-static {v4, v5}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v1, v2, v3}, Lbl/yl;->setAidAndCid(Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 202
+    const-string v2, "DanmakuSegment"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "[yt] \u521d\u59cb\u5316\u5206\u6bb5\u6587\u6863 aid="
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    iget-wide v4, v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAvid:J
+
+    invoke-virtual {v3, v4, v5}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    const-string v4, " cid="
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    iget-wide v4, v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mCid:J
+
+    invoke-virtual {v3, v4, v5}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v2, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    :try_end_5a
+    .catch Ljava/lang/Throwable; {:try_start_1d .. :try_end_5a} :catch_66
+
+    .line 207
+    :cond_5a
+    :goto_5a
+    iget-object v0, p0, Lbl/yt$a;->this$0:Lbl/yt;
+
+    iget-object v0, v0, Lbl/yt;->b:Lbl/yh;
+
+    iget-object v0, v0, Lbl/yh;->a:Lcom/bilibili/tv/player/basic/context/PlayerParams;
+
+    iget-object v0, v0, Lcom/bilibili/tv/player/basic/context/PlayerParams;->mDanmakuParams:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuParams;
 
     invoke-interface {v0, v1}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuParams;->setDanmakuDocument(Ltv/danmaku/videoplayer/core/danmaku/IDanmakuDocument;)V
 
     goto :goto_c
 
-    .line 200
-    :cond_73
-    invoke-static {}, Lbl/yn;->a()Lbl/yn;
+    .line 204
+    :catch_66
+    move-exception v0
 
-    move-result-object v2
+    .line 205
+    const-string v2, "DanmakuSegment"
 
-    invoke-virtual {v2}, Lbl/yn;->b()V
+    new-instance v3, Ljava/lang/StringBuilder;
 
-    .line 201
-    invoke-static {}, Lbl/yn;->a()Lbl/yn;
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    move-result-object v2
+    const-string v4, "set aid cid error: "
 
-    invoke-virtual {v2}, Lbl/yn;->d()V
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    goto :goto_42
+    move-result-object v3
+
+    invoke-virtual {v0}, Ljava/lang/Throwable;->getMessage()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v2, v0}, Ltv/danmaku/android/log/BLog;->e(Ljava/lang/String;Ljava/lang/String;)V
+
+    goto :goto_5a
 .end method
