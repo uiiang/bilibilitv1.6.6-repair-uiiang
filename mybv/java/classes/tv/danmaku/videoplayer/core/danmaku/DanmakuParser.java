@@ -214,6 +214,10 @@ public class DanmakuParser extends BiliDanmukuParser {
         if (list == null || list.isEmpty()) {
             return true;
         }
+        // 重复弹幕合并（右侧菜单"合并重复"开启时）：注入前按时间窗口+内容分组合并
+        if (DanmakuMergeHelper.isMergeEnabled()) {
+            list = DanmakuMergeHelper.merge(list);
+        }
         if (this.mIsReleased || this.mContext == null || this.mContext.t == null) {
             Log.i(TAG, "addCommentItems skip, not ready released=" + this.mIsReleased
                     + " context=" + (this.mContext != null)

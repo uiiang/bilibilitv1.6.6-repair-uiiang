@@ -8,6 +8,7 @@
         <item>顶部弹幕</item>
         <item>反向弹幕</item>
         <item>高级弹幕</item>
+        <item>合并重复</item>
     </string-array>
     <string-array name="player_quality">
         <item>@string/quality_shd</item>

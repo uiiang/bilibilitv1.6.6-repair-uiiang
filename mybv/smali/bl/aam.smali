@@ -18,7 +18,7 @@
 
 .field public static g:I = 0x40
 
-.field public static h:Z = true
+.field public static h:Z = false
 
 .field public static i:I
 

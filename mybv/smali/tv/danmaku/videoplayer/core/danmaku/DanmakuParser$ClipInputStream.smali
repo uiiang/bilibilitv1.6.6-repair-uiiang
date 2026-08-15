@@ -27,22 +27,22 @@
     .locals 1
 
     .prologue
-    .line 475
+    .line 479
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$ClipInputStream;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;
 
     invoke-direct {p0}, Ljava/io/InputStream;-><init>()V
 
-    .line 476
+    .line 480
     iput-object p3, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$ClipInputStream;->mSourceInputStream:Ljava/io/InputStream;
 
-    .line 477
+    .line 481
     new-instance v0, Ljava/util/concurrent/atomic/AtomicInteger;
 
     invoke-direct {v0, p2}, Ljava/util/concurrent/atomic/AtomicInteger;-><init>(I)V
 
     iput-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$ClipInputStream;->mAvailableLength:Ljava/util/concurrent/atomic/AtomicInteger;
 
-    .line 478
+    .line 482
     return-void
 .end method
 
@@ -57,7 +57,7 @@
     .end annotation
 
     .prologue
-    .line 482
+    .line 486
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$ClipInputStream;->mAvailableLength:Ljava/util/concurrent/atomic/AtomicInteger;
 
     invoke-virtual {v0}, Ljava/util/concurrent/atomic/AtomicInteger;->get()I
@@ -76,14 +76,14 @@
     .end annotation
 
     .prologue
-    .line 496
+    .line 500
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$ClipInputStream;->mAvailableLength:Ljava/util/concurrent/atomic/AtomicInteger;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Ljava/util/concurrent/atomic/AtomicInteger;->set(I)V
 
-    .line 497
+    .line 501
     return-void
 .end method
 
@@ -96,7 +96,7 @@
     .end annotation
 
     .prologue
-    .line 487
+    .line 491
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$ClipInputStream;->mAvailableLength:Ljava/util/concurrent/atomic/AtomicInteger;
 
     invoke-virtual {v0}, Ljava/util/concurrent/atomic/AtomicInteger;->get()I
@@ -105,20 +105,20 @@
 
     if-nez v0, :cond_a
 
-    .line 488
+    .line 492
     const/4 v0, -0x1
 
-    .line 491
+    .line 495
     :goto_9
     return v0
 
-    .line 490
+    .line 494
     :cond_a
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$ClipInputStream;->mAvailableLength:Ljava/util/concurrent/atomic/AtomicInteger;
 
     invoke-virtual {v0}, Ljava/util/concurrent/atomic/AtomicInteger;->decrementAndGet()I
 
-    .line 491
+    .line 495
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$ClipInputStream;->mSourceInputStream:Ljava/io/InputStream;
 
     invoke-virtual {v0}, Ljava/io/InputStream;->read()I

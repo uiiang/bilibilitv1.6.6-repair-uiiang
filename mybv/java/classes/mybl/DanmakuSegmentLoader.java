@@ -76,6 +76,16 @@ public class DanmakuSegmentLoader {
         this.mCallback = callback;
         this.mFullListLoaded = false;
         this.mLoadedSegments.clear();
+        // 关键：在弹幕注入前从 SharedPreferences 同步"合并重复"开关（状态单一来源：
+        // DanmakuMergeHelper）。PlayerMenuRight 的 loadDanmakuMergeDuplicate() 只在菜单
+        // 视图构造时执行，而菜单可能懒加载/晚于弹幕注入创建（实测重启进视频时弹幕注入
+        // 后 5 秒才同步），导致 isMergeEnabled() 仍为默认 false，重启后"已开启合并"
+        // 进入视频却完全不合并（重复弹幕全部显示）。
+        try {
+            tv.danmaku.videoplayer.core.danmaku.DanmakuMergeHelper.loadFromPrefs(this.mContext);
+        } catch (Throwable t) {
+            Log.w(TAG, "[init] 同步合并开关失败: " + t.getMessage());
+        }
         Log.i(TAG, "[init] aid=" + aid + " cid=" + cid);
     }
 

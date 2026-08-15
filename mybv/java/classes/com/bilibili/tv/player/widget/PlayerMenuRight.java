@@ -215,6 +215,9 @@ public class PlayerMenuRight extends aay<String> {
 
         // 读取缓存的弹幕开关状态
         loadDanmakuValidList();
+
+        // 读取缓存的重复弹幕合并开关状态
+        loadDanmakuMergeDuplicate();
     }
 
     public PlayerMenuRight(Context context, AttributeSet attributeSet) {
@@ -233,6 +236,9 @@ public class PlayerMenuRight extends aay<String> {
 
         // 读取缓存的弹幕开关状态
         loadDanmakuValidList();
+
+        // 读取缓存的重复弹幕合并开关状态
+        loadDanmakuMergeDuplicate();
     }
 
     public PlayerMenuRight(Context context, AttributeSet attributeSet, int i) {
@@ -251,6 +257,9 @@ public class PlayerMenuRight extends aay<String> {
 
         // 读取缓存的弹幕开关状态
         loadDanmakuValidList();
+
+        // 读取缓存的重复弹幕合并开关状态
+        loadDanmakuMergeDuplicate();
     }
 
     public void setListener(a aVar) {
@@ -395,6 +404,16 @@ public class PlayerMenuRight extends aay<String> {
             e.printStackTrace();
         }
     }
+
+    // 从SharedPreferences读取重复弹幕合并开关状态（状态单一来源：DanmakuMergeHelper）
+    public static void loadDanmakuMergeDuplicate() {
+        try {
+            tv.danmaku.videoplayer.core.danmaku.DanmakuMergeHelper.loadFromPrefs(MainApplication.a());
+        } catch (Exception e) {
+            Log.i("PlayerMenuRight", "读取合并重复状态失败: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
     
     public void setResolveParams(ResolveResourceParams params) {
         this.params = params;
@@ -483,6 +502,10 @@ public class PlayerMenuRight extends aay<String> {
                                     case 2:
                                         boolean valid2 = danmaku_valid_list[1];
                                         textView.getCompoundDrawables()[0].setAlpha(valid2 ? DanmakuConfig.ALPHA_VALUE_MAX : 0);
+                                        textView.setText(str);
+                                        return;
+                                    case 7: // 合并重复（独立开关，不映射 danmaku_valid_list）
+                                        textView.getCompoundDrawables()[0].setAlpha(tv.danmaku.videoplayer.core.danmaku.DanmakuMergeHelper.isMergeEnabled() ? DanmakuConfig.ALPHA_VALUE_MAX : 0);
                                         textView.setText(str);
                                         return;
                                     default:
@@ -756,6 +779,12 @@ public class PlayerMenuRight extends aay<String> {
                     case 2:
                         danmaku_valid_list[1]=!danmaku_valid_list[1];
                         break;
+                    case 7: // 合并重复（独立开关：切换状态并持久化，不影响弹幕开关类型；状态单一来源：DanmakuMergeHelper）
+                        boolean mergeEnabled = !tv.danmaku.videoplayer.core.danmaku.DanmakuMergeHelper.isMergeEnabled();
+                        tv.danmaku.videoplayer.core.danmaku.DanmakuMergeHelper.setMergeEnabled(mergeEnabled);
+                        tv.danmaku.videoplayer.core.danmaku.DanmakuMergeHelper.saveToPrefs(MainApplication.a());
+                        Log.i("PlayerMenuRight", "合并重复切换: " + mergeEnabled);
+                        break;
                     default:
                         danmaku_valid_list[i2+1]=!danmaku_valid_list[i2+1];
                         ((TextView) view).getCompoundDrawables()[0].setAlpha(danmaku_valid_list[i2+1]?DanmakuConfig.ALPHA_VALUE_MAX:0);
@@ -770,6 +799,7 @@ public class PlayerMenuRight extends aay<String> {
                 ((TextView) viewGroup.getChildAt(0)).setText(f?"弹幕开":"弹幕关");
                 ((TextView) viewGroup.getChildAt(2)).getCompoundDrawables()[0].setAlpha(danmaku_valid_list[1]?DanmakuConfig.ALPHA_VALUE_MAX:0);
                 for(int ii=4;ii<8;ii++)((TextView) viewGroup.getChildAt(ii-1)).getCompoundDrawables()[0].setAlpha(danmaku_valid_list[ii]?DanmakuConfig.ALPHA_VALUE_MAX:0);
+                ((TextView) viewGroup.getChildAt(7)).getCompoundDrawables()[0].setAlpha(tv.danmaku.videoplayer.core.danmaku.DanmakuMergeHelper.isMergeEnabled()?DanmakuConfig.ALPHA_VALUE_MAX:0);
                 this.d.refresh_subtitle();
                 this.d.set_danmaku_type(this.danmaku_type);
 
