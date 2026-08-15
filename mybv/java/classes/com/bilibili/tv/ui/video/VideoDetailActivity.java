@@ -1474,7 +1474,15 @@ public final class VideoDetailActivity extends BaseActivity
     }
     
     private void requestHistoryForUgc(final BiliVideoDetail biliVideoDetail, final Runnable callback) {
-        if (biliVideoDetail.mHistory != null) {
+        requestHistoryForUgc(biliVideoDetail, callback, false);
+    }
+
+    /**
+     * 拉取UGC播放历史。
+     * @param force true时即使mHistory已有值也强制从后端重新拉取（用于播放页返回后的校准）
+     */
+    private void requestHistoryForUgc(final BiliVideoDetail biliVideoDetail, final Runnable callback, boolean force) {
+        if (biliVideoDetail.mHistory != null && !force) {
             if (callback != null) {
                 callback.run();
             }
@@ -3635,6 +3643,17 @@ public final class VideoDetailActivity extends BaseActivity
                 this.u.mHistory.mCid = lastCid;
                 this.u.mHistory.mProgress = lastProgress/1000;
                 updateHistoryDisplay(this.u);
+                // 混合方案：先用播放页回传值即时更新，再强制从后端拉取校准（以后端为准覆盖）
+                final BiliVideoDetail detail = this.u;
+                requestHistoryForUgc(detail, new Runnable() {
+                    @Override
+                    public void run() {
+                        if (VideoDetailActivity.this.isFinishing()) {
+                            return;
+                        }
+                        updateHistoryDisplay(detail);
+                    }
+                }, true);
             }
         }
         super.onActivityResult(i2, i3, intent);
