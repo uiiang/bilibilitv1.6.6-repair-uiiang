@@ -29,7 +29,7 @@
     .locals 0
 
     .prologue
-    .line 28
+    .line 32
     invoke-direct {p0, p1}, Landroid/util/LruCache;-><init>(I)V
 
     return-void
@@ -41,7 +41,7 @@
     .locals 1
 
     .prologue
-    .line 28
+    .line 32
     check-cast p1, Ljava/lang/String;
 
     check-cast p2, Landroid/graphics/Bitmap;
@@ -57,7 +57,7 @@
     .locals 1
 
     .prologue
-    .line 31
+    .line 35
     invoke-virtual {p2}, Landroid/graphics/Bitmap;->getByteCount()I
 
     move-result v0

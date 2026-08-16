@@ -35,6 +35,8 @@ public class VideoCardAdapter extends RecyclerView.a<RecyclerView.v> {
     private int nextFocusDownId = View.NO_ID;
     private boolean useCompactLayout = false;
     private boolean showIndexBadge = false;
+    // indexBadge 由 binder 管理（如截图菜单的片头/片尾/广告badge），adapter 不覆盖其可见性
+    private boolean indexBadgeManagedByBinder = false;
     private long currentPlayingCid = -1;
     private long currentVideoId = -1;
     private long currentCid = -1;
@@ -60,6 +62,10 @@ public class VideoCardAdapter extends RecyclerView.a<RecyclerView.v> {
 
     public boolean isShowIndexBadge() {
         return this.showIndexBadge;
+    }
+
+    public void setIndexBadgeManagedByBinder(boolean managed) {
+        this.indexBadgeManagedByBinder = managed;
     }
 
     public void setCurrentPlayingCid(long cid) {
@@ -169,7 +175,7 @@ public class VideoCardAdapter extends RecyclerView.a<RecyclerView.v> {
             binder.bindCompact(compactHolder, item, position);
         }
         TextView indexBadge = compactHolder.getIndexBadgeView();
-        if (indexBadge != null) {
+        if (indexBadge != null && !indexBadgeManagedByBinder) {
             if (showIndexBadge) {
                 String badgeText = getIndexBadgeText(item, position);
                 indexBadge.setText(badgeText);

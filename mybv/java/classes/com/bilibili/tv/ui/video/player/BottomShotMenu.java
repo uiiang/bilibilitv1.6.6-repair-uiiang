@@ -47,6 +47,8 @@ public class BottomShotMenu extends FrameLayout {
     private JSONArray viewPoints;
     private int lastNavTagFocusPosition = -1;
     private int currentPlayTimeMsOnShow = 0;
+    // 跳过段数据（片头/片尾/硬广，本地优先 + 服务器补充），毫秒单位
+    private JSONArray skipSegments;
     
     public interface OnShotClickListener {
         void onShotClicked(int timeSeconds);
@@ -154,6 +156,14 @@ public class BottomShotMenu extends FrameLayout {
         this.shotClickListener = listener;
     }
     
+    /**
+     * 设置跳过段数据（片头/片尾/硬广），用于截图卡片左上角badge显示
+     */
+    public void setSkipSegments(JSONArray segments) {
+        this.skipSegments = segments;
+        android.util.Log.i("BottomShotMenu", "[setSkipSegments] count=" + (segments != null ? segments.length() : "null"));
+    }
+    
     private void setupTimeBasedNavigationTags(java.util.List<VideoShotItem> shots, int totalDuration) {
         if (shots == null || shots.isEmpty()) {
             return;
@@ -253,6 +263,9 @@ public class BottomShotMenu extends FrameLayout {
             ShotBinder.setDeferLoading(true);
             
             ShotBinder shotBinder = new ShotBinder(shot, totalDuration);
+            shotBinder.setSkipSegments(skipSegments);
+            // indexBadge 由 binder 管理（片头/片尾/广告badge），adapter 不再覆盖其可见性
+            videoListSection.setIndexBadgeManagedByBinder(true);
             videoListSection.setData(allShots, shotBinder);
             
             videoListSection.setupBottomMenuFocusBoundary();

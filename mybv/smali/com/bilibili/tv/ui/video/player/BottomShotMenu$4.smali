@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 235
+    .line 245
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     iput p2, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4;->val$currentPlayTimeSec:I
@@ -50,15 +50,15 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 238
+    .line 248
     instance-of v0, p1, Lcom/bilibili/tv/api/video/VideoShotItem;
 
     if-eqz v0, :cond_5d
 
-    .line 239
+    .line 249
     check-cast p1, Lcom/bilibili/tv/api/video/VideoShotItem;
 
-    .line 240
+    .line 250
     iget v0, p1, Lcom/bilibili/tv/api/video/VideoShotItem;->time:I
 
     iget v2, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4;->val$currentPlayTimeSec:I
@@ -69,7 +69,7 @@
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$4;->val$shots:Ljava/util/List;
 
-    .line 241
+    .line 251
     invoke-interface {v2}, Ljava/util/List;->size()I
 
     move-result v2
@@ -95,11 +95,11 @@
     :cond_27
     const/4 v0, 0x1
 
-    .line 242
+    .line 252
     :goto_28
     if-eqz v0, :cond_5a
 
-    .line 243
+    .line 253
     const-string v1, "NavTagFocusBug"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -146,7 +146,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 247
+    .line 257
     :cond_5a
     :goto_5a
     return v0
@@ -154,12 +154,12 @@
     :cond_5b
     move v0, v1
 
-    .line 241
+    .line 251
     goto :goto_28
 
     :cond_5d
     move v0, v1
 
-    .line 247
+    .line 257
     goto :goto_5a
 .end method

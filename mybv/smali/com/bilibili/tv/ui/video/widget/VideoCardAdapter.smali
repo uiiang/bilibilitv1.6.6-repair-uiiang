@@ -56,6 +56,8 @@
 
 .field private focusListener:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemFocusListener;
 
+.field private indexBadgeManagedByBinder:Z
+
 .field private nextFocusDownId:I
 
 .field private showIndexBadge:Z
@@ -68,13 +70,13 @@
     .locals 5
 
     .prologue
-    const/4 v4, 0x0
-
-    const/4 v1, -0x1
+    const/4 v4, -0x1
 
     const-wide/16 v2, -0x1
 
-    .line 43
+    const/4 v1, 0x0
+
+    .line 45
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$a;-><init>()V
 
     .line 30
@@ -85,27 +87,30 @@
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->dataList:Ljava/util/List;
 
     .line 35
-    iput v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->nextFocusDownId:I
+    iput v4, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->nextFocusDownId:I
 
     .line 36
-    iput-boolean v4, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->useCompactLayout:Z
+    iput-boolean v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->useCompactLayout:Z
 
     .line 37
-    iput-boolean v4, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->showIndexBadge:Z
-
-    .line 38
-    iput-wide v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentPlayingCid:J
+    iput-boolean v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->showIndexBadge:Z
 
     .line 39
-    iput-wide v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentVideoId:J
+    iput-boolean v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->indexBadgeManagedByBinder:Z
 
     .line 40
-    iput-wide v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentCid:J
+    iput-wide v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentPlayingCid:J
 
     .line 41
-    iput v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentSeasonId:I
+    iput-wide v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentVideoId:J
+
+    .line 42
+    iput-wide v2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentCid:J
 
     .line 43
+    iput v4, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentSeasonId:I
+
+    .line 45
     return-void
 .end method
 
@@ -121,7 +126,7 @@
 
     const/4 v1, 0x0
 
-    .line 45
+    .line 47
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$a;-><init>()V
 
     .line 30
@@ -140,36 +145,39 @@
     .line 37
     iput-boolean v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->showIndexBadge:Z
 
-    .line 38
-    iput-wide v4, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentPlayingCid:J
-
     .line 39
-    iput-wide v4, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentVideoId:J
+    iput-boolean v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->indexBadgeManagedByBinder:Z
 
     .line 40
-    iput-wide v4, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentCid:J
+    iput-wide v4, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentPlayingCid:J
 
     .line 41
+    iput-wide v4, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentVideoId:J
+
+    .line 42
+    iput-wide v4, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentCid:J
+
+    .line 43
     iput v3, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentSeasonId:I
 
-    .line 46
+    .line 48
     invoke-static {p1}, Lbl/abd;->get_other_column(Landroid/content/Context;)I
 
     move-result v2
 
-    if-ne v2, v0, :cond_26
+    if-ne v2, v0, :cond_28
 
-    :goto_23
+    :goto_25
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->useCompactLayout:Z
 
-    .line 47
+    .line 49
     return-void
 
-    :cond_26
+    :cond_28
     move v0, v1
 
-    .line 46
-    goto :goto_23
+    .line 48
+    goto :goto_25
 .end method
 
 .method static synthetic access$000(Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;)Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemClickListener;
@@ -196,78 +204,82 @@
     .locals 3
 
     .prologue
-    .line 168
+    .line 174
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->binder:Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;
 
     if-eqz v0, :cond_9
 
-    .line 169
+    .line 175
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->binder:Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;
 
     invoke-interface {v0, p1, p2, p3}, Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;->bindCompact(Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;Ljava/lang/Object;I)V
 
-    .line 171
+    .line 177
     :cond_9
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getIndexBadgeView()Landroid/widget/TextView;
 
     move-result-object v0
 
-    .line 172
-    if-eqz v0, :cond_1e
+    .line 178
+    if-eqz v0, :cond_22
 
-    .line 173
+    iget-boolean v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->indexBadgeManagedByBinder:Z
+
+    if-nez v1, :cond_22
+
+    .line 179
     iget-boolean v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->showIndexBadge:Z
 
-    if-eqz v1, :cond_4d
+    if-eqz v1, :cond_51
 
-    .line 174
+    .line 180
     invoke-direct {p0, p2, p3}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->getIndexBadgeText(Ljava/lang/Object;I)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 175
+    .line 181
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 176
+    .line 182
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 181
-    :cond_1e
-    :goto_1e
+    .line 187
+    :cond_22
+    :goto_22
     iget-object v0, p1, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->a:Landroid/view/View;
 
-    .line 182
-    if-eqz v0, :cond_2f
+    .line 188
+    if-eqz v0, :cond_33
 
-    .line 183
+    .line 189
     invoke-direct {p0, v0, p3, p4}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->setupFocusBoundary(Landroid/view/View;II)V
 
-    .line 184
+    .line 190
     iget v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->nextFocusDownId:I
 
     const/4 v2, -0x1
 
-    if-eq v1, v2, :cond_2f
+    if-eq v1, v2, :cond_33
 
-    .line 185
+    .line 191
     iget v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->nextFocusDownId:I
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setNextFocusDownId(I)V
 
-    .line 188
-    :cond_2f
+    .line 194
+    :cond_33
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->clickListener:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemClickListener;
 
-    if-eqz v0, :cond_42
+    if-eqz v0, :cond_46
 
-    .line 189
+    .line 195
     iget-object v0, p1, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->a:Landroid/view/View;
 
     invoke-virtual {v0, p2}, Landroid/view/View;->setTag(Ljava/lang/Object;)V
 
-    .line 190
+    .line 196
     iget-object v0, p1, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->a:Landroid/view/View;
 
     new-instance v1, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$3;
@@ -276,8 +288,8 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 197
-    :cond_42
+    .line 203
+    :cond_46
     iget-object v0, p1, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->a:Landroid/view/View;
 
     new-instance v1, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$4;
@@ -286,94 +298,94 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 208
+    .line 214
     return-void
 
-    .line 178
-    :cond_4d
+    .line 184
+    :cond_51
     const/16 v1, 0x8
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
 
-    goto :goto_1e
+    goto :goto_22
 .end method
 
 .method private bindNormalHolder(Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;Ljava/lang/Object;II)V
     .locals 3
 
     .prologue
-    .line 125
+    .line 131
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->binder:Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;
 
     if-eqz v0, :cond_9
 
-    .line 126
+    .line 132
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->binder:Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;
 
     invoke-interface {v0, p1, p2, p3}, Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;->bind(Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;Ljava/lang/Object;I)V
 
-    .line 128
+    .line 134
     :cond_9
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;->getIndexBadgeView()Landroid/widget/TextView;
 
     move-result-object v0
 
-    .line 129
+    .line 135
     if-eqz v0, :cond_1e
 
-    .line 130
+    .line 136
     iget-boolean v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->showIndexBadge:Z
 
     if-eqz v1, :cond_4d
 
-    .line 131
+    .line 137
     invoke-direct {p0, p2, p3}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->getIndexBadgeText(Ljava/lang/Object;I)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 132
+    .line 138
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 133
+    .line 139
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 138
+    .line 144
     :cond_1e
     :goto_1e
     iget-object v0, p1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;->a:Landroid/view/View;
 
-    .line 139
+    .line 145
     if-eqz v0, :cond_2f
 
-    .line 140
+    .line 146
     invoke-direct {p0, v0, p3, p4}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->setupFocusBoundary(Landroid/view/View;II)V
 
-    .line 141
+    .line 147
     iget v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->nextFocusDownId:I
 
     const/4 v2, -0x1
 
     if-eq v1, v2, :cond_2f
 
-    .line 142
+    .line 148
     iget v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->nextFocusDownId:I
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setNextFocusDownId(I)V
 
-    .line 145
+    .line 151
     :cond_2f
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->clickListener:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemClickListener;
 
     if-eqz v0, :cond_42
 
-    .line 146
+    .line 152
     iget-object v0, p1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;->a:Landroid/view/View;
 
     invoke-virtual {v0, p2}, Landroid/view/View;->setTag(Ljava/lang/Object;)V
 
-    .line 147
+    .line 153
     iget-object v0, p1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;->a:Landroid/view/View;
 
     new-instance v1, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$1;
@@ -382,7 +394,7 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 154
+    .line 160
     :cond_42
     iget-object v0, p1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;->a:Landroid/view/View;
 
@@ -392,10 +404,10 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 165
+    .line 171
     return-void
 
-    .line 135
+    .line 141
     :cond_4d
     const/16 v1, 0x8
 
@@ -410,23 +422,23 @@
     .prologue
     const-wide/16 v4, 0x0
 
-    .line 211
+    .line 217
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->binder:Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;
 
     if-nez v0, :cond_d
 
-    .line 212
+    .line 218
     add-int/lit8 v0, p2, 0x1
 
     invoke-static {v0}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 227
+    .line 233
     :goto_c
     return-object v0
 
-    .line 215
+    .line 221
     :cond_d
     iget-wide v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentPlayingCid:J
 
@@ -444,12 +456,12 @@
 
     if-eqz v0, :cond_20
 
-    .line 216
+    .line 222
     const-string v0, "\u5f53\u524d\u64ad\u653e"
 
     goto :goto_c
 
-    .line 219
+    .line 225
     :cond_20
     iget-wide v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentVideoId:J
 
@@ -467,12 +479,12 @@
 
     if-eqz v0, :cond_33
 
-    .line 220
+    .line 226
     const-string v0, "\u5f53\u524d\u89c6\u9891"
 
     goto :goto_c
 
-    .line 223
+    .line 229
     :cond_33
     iget v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentSeasonId:I
 
@@ -488,12 +500,12 @@
 
     if-eqz v0, :cond_44
 
-    .line 224
+    .line 230
     const-string v0, "\u5f53\u524d\u89c6\u9891"
 
     goto :goto_c
 
-    .line 227
+    .line 233
     :cond_44
     add-int/lit8 v0, p2, 0x1
 
@@ -510,31 +522,31 @@
     .prologue
     const/4 v1, -0x1
 
-    .line 231
+    .line 237
     if-nez p1, :cond_4
 
-    .line 242
+    .line 248
     :goto_3
     return-void
 
-    .line 232
+    .line 238
     :cond_4
     if-nez p2, :cond_19
 
-    .line 233
+    .line 239
     invoke-virtual {p1}, Landroid/view/View;->getId()I
 
     move-result v0
 
     invoke-virtual {p1, v0}, Landroid/view/View;->setNextFocusLeftId(I)V
 
-    .line 237
+    .line 243
     :goto_d
     add-int/lit8 v0, p3, -0x1
 
     if-ne p2, v0, :cond_1d
 
-    .line 238
+    .line 244
     invoke-virtual {p1}, Landroid/view/View;->getId()I
 
     move-result v0
@@ -543,13 +555,13 @@
 
     goto :goto_3
 
-    .line 235
+    .line 241
     :cond_19
     invoke-virtual {p1, v1}, Landroid/view/View;->setNextFocusLeftId(I)V
 
     goto :goto_d
 
-    .line 240
+    .line 246
     :cond_1d
     invoke-virtual {p1, v1}, Landroid/view/View;->setNextFocusRightId(I)V
 
@@ -562,7 +574,7 @@
     .locals 1
 
     .prologue
-    .line 246
+    .line 252
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->dataList:Ljava/util/List;
 
     if-nez v0, :cond_6
@@ -586,7 +598,7 @@
     .locals 1
 
     .prologue
-    .line 99
+    .line 105
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->useCompactLayout:Z
 
     if-eqz v0, :cond_6
@@ -606,19 +618,19 @@
     .locals 1
 
     .prologue
-    .line 104
+    .line 110
     const/4 v0, 0x1
 
     if-ne p2, v0, :cond_a
 
-    .line 105
+    .line 111
     sget-object v0, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->Companion:Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder$Companion;
 
     invoke-virtual {v0, p1}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder$Companion;->create(Landroid/view/ViewGroup;)Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;
 
     move-result-object v0
 
-    .line 107
+    .line 113
     :goto_9
     return-object v0
 
@@ -636,45 +648,45 @@
     .locals 3
 
     .prologue
-    .line 113
+    .line 119
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->dataList:Ljava/util/List;
 
     invoke-interface {v0, p2}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 114
+    .line 120
     iget-object v1, p1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
 
-    .line 115
+    .line 121
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->dataList:Ljava/util/List;
 
     invoke-interface {v1}, Ljava/util/List;->size()I
 
     move-result v1
 
-    .line 117
+    .line 123
     instance-of v2, p1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;
 
     if-eqz v2, :cond_18
 
-    .line 118
+    .line 124
     check-cast p1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;
 
     invoke-direct {p0, p1, v0, p2, v1}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->bindNormalHolder(Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;Ljava/lang/Object;II)V
 
-    .line 122
+    .line 128
     :cond_17
     :goto_17
     return-void
 
-    .line 119
+    .line 125
     :cond_18
     instance-of v2, p1, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;
 
     if-eqz v2, :cond_17
 
-    .line 120
+    .line 126
     check-cast p1, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;
 
     invoke-direct {p0, p1, v0, p2, v1}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->bindCompactHolder(Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;Ljava/lang/Object;II)V
@@ -686,7 +698,7 @@
     .locals 1
 
     .prologue
-    .line 279
+    .line 285
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->binder:Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;
 
     return-object v0
@@ -696,7 +708,7 @@
     .locals 2
 
     .prologue
-    .line 86
+    .line 92
     iget-wide v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentCid:J
 
     return-wide v0
@@ -706,7 +718,7 @@
     .locals 2
 
     .prologue
-    .line 70
+    .line 76
     iget-wide v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentPlayingCid:J
 
     return-wide v0
@@ -716,7 +728,7 @@
     .locals 1
 
     .prologue
-    .line 94
+    .line 100
     iget v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentSeasonId:I
 
     return v0
@@ -726,7 +738,7 @@
     .locals 2
 
     .prologue
-    .line 78
+    .line 84
     iget-wide v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentVideoId:J
 
     return-wide v0
@@ -736,7 +748,7 @@
     .locals 1
 
     .prologue
-    .line 272
+    .line 278
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->dataList:Ljava/util/List;
 
     if-eqz v0, :cond_e
@@ -751,11 +763,11 @@
 
     if-lt p1, v0, :cond_10
 
-    .line 273
+    .line 279
     :cond_e
     const/4 v0, 0x0
 
-    .line 275
+    .line 281
     :goto_f
     return-object v0
 
@@ -773,7 +785,7 @@
     .locals 1
 
     .prologue
-    .line 62
+    .line 64
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->showIndexBadge:Z
 
     return v0
@@ -783,7 +795,7 @@
     .locals 1
 
     .prologue
-    .line 54
+    .line 56
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->useCompactLayout:Z
 
     return v0
@@ -793,10 +805,10 @@
     .locals 1
 
     .prologue
-    .line 82
+    .line 88
     iput-wide p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentCid:J
 
-    .line 83
+    .line 89
     return-void
 .end method
 
@@ -804,10 +816,10 @@
     .locals 1
 
     .prologue
-    .line 66
+    .line 72
     iput-wide p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentPlayingCid:J
 
-    .line 67
+    .line 73
     return-void
 .end method
 
@@ -815,10 +827,10 @@
     .locals 0
 
     .prologue
-    .line 90
+    .line 96
     iput p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentSeasonId:I
 
-    .line 91
+    .line 97
     return-void
 .end method
 
@@ -826,10 +838,10 @@
     .locals 1
 
     .prologue
-    .line 74
+    .line 80
     iput-wide p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->currentVideoId:J
 
-    .line 75
+    .line 81
     return-void
 .end method
 
@@ -846,16 +858,16 @@
     .end annotation
 
     .prologue
-    .line 250
+    .line 256
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->dataList:Ljava/util/List;
 
-    .line 251
+    .line 257
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->binder:Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;
 
-    .line 252
+    .line 258
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->d()V
 
-    .line 253
+    .line 259
     return-void
 .end method
 
@@ -863,10 +875,21 @@
     .locals 0
 
     .prologue
-    .line 256
+    .line 262
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->focusBoundaryHandler:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$FocusBoundaryHandler;
 
-    .line 257
+    .line 263
+    return-void
+.end method
+
+.method public setIndexBadgeManagedByBinder(Z)V
+    .locals 0
+
+    .prologue
+    .line 68
+    iput-boolean p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->indexBadgeManagedByBinder:Z
+
+    .line 69
     return-void
 .end method
 
@@ -874,10 +897,10 @@
     .locals 0
 
     .prologue
-    .line 268
+    .line 274
     iput p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->nextFocusDownId:I
 
-    .line 269
+    .line 275
     return-void
 .end method
 
@@ -885,10 +908,10 @@
     .locals 0
 
     .prologue
-    .line 260
+    .line 266
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->clickListener:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemClickListener;
 
-    .line 261
+    .line 267
     return-void
 .end method
 
@@ -896,10 +919,10 @@
     .locals 0
 
     .prologue
-    .line 264
+    .line 270
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->focusListener:Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter$OnItemFocusListener;
 
-    .line 265
+    .line 271
     return-void
 .end method
 
@@ -907,10 +930,10 @@
     .locals 0
 
     .prologue
-    .line 58
+    .line 60
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->showIndexBadge:Z
 
-    .line 59
+    .line 61
     return-void
 .end method
 
@@ -918,9 +941,9 @@
     .locals 0
 
     .prologue
-    .line 50
+    .line 52
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/video/widget/VideoCardAdapter;->useCompactLayout:Z
 
-    .line 51
+    .line 53
     return-void
 .end method

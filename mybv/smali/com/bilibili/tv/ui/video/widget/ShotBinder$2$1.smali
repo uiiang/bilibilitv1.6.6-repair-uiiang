@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 257
+    .line 317
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$2$1;->this$1:Lcom/bilibili/tv/ui/video/widget/ShotBinder$2;
 
     iput-wide p2, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$2$1;->val$versionAtStart:J
@@ -52,7 +52,7 @@
     .locals 4
 
     .prologue
-    .line 260
+    .line 320
     iget-wide v0, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$2$1;->val$versionAtStart:J
 
     # getter for: Lcom/bilibili/tv/ui/video/widget/ShotBinder;->loadVersion:Ljava/util/concurrent/atomic/AtomicLong;
@@ -68,7 +68,7 @@
 
     if-eqz v0, :cond_2b
 
-    .line 261
+    .line 321
     const-string v0, "ShotBinder"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -95,11 +95,11 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 266
+    .line 326
     :goto_2a
     return-void
 
-    .line 264
+    .line 324
     :cond_2b
     const-string v0, "ShotBinder"
 
@@ -148,7 +148,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 265
+    .line 325
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/widget/ShotBinder$2$1;->val$liveHolder:Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/CompactVideoHolder;->getCoverImageView()Lcom/bilibili/tv/widget/ScalableImageView;

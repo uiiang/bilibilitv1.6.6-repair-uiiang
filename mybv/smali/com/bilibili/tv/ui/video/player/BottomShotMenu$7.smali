@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 295
+    .line 308
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$7;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 3
 
     .prologue
-    .line 302
+    .line 315
     const-string v1, "BottomShotMenu"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -98,13 +98,13 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 303
+    .line 316
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$7;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     # setter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->lastNavTagFocusPosition:I
     invoke-static {v0, p2}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->access$102(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;I)I
 
-    .line 305
+    .line 318
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$7;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     # getter for: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->chapterSection:Landroid/widget/LinearLayout;
@@ -127,30 +127,30 @@
 
     if-nez v0, :cond_61
 
-    .line 306
+    .line 319
     const-string v0, "BottomShotMenu"
 
     const-string v1, "[onFocusExitDown] calling focusOnCurrentChapter"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 307
+    .line 320
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$7;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     # invokes: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->focusOnCurrentChapter()V
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->access$400(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)V
 
-    .line 311
+    .line 324
     :goto_5d
     return-void
 
-    .line 302
+    .line 315
     :cond_5e
     const-string v0, "null"
 
     goto :goto_2d
 
-    .line 309
+    .line 322
     :cond_61
     const-string v0, "BottomShotMenu"
 
@@ -165,6 +165,6 @@
     .locals 0
 
     .prologue
-    .line 298
+    .line 311
     return-void
 .end method

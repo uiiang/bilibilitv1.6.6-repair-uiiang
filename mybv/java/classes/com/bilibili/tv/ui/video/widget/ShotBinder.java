@@ -17,6 +17,8 @@ import java.util.Set;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicLong;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class ShotBinder implements VideoCardBinder {
     private static final String TAG = "ShotBinder";
@@ -25,6 +27,8 @@ public class ShotBinder implements VideoCardBinder {
     private static Runnable onDeferClearedCallback = null;
     private VideoShot videoShot;
     private int totalDuration;
+    // 跳过段数据（片头/片尾/硬广，本地优先 + 服务器补充的合并结果），毫秒单位
+    private JSONArray skipSegments;
     private static final LruCache<String, Bitmap> snapshotCache = new LruCache<String, Bitmap>(50 * 1024 * 1024) {
         @Override
         protected int sizeOf(String key, Bitmap value) {
@@ -45,6 +49,11 @@ public class ShotBinder implements VideoCardBinder {
     public ShotBinder(VideoShot videoShot, int totalDuration) {
         this.videoShot = videoShot;
         this.totalDuration = totalDuration;
+    }
+    
+    public void setSkipSegments(JSONArray segments) {
+        this.skipSegments = segments;
+        android.util.Log.i(TAG, "setSkipSegments | count=" + (segments != null ? segments.length() : "null"));
     }
     
     public static void clearPendingLoads() {
@@ -118,12 +127,63 @@ public class ShotBinder implements VideoCardBinder {
         holder.getPlayCountView().setVisibility(View.GONE);
         holder.getDanmakuView().setVisibility(View.GONE);
         holder.getBadgeView().setVisibility(View.GONE);
-        holder.getIndexBadgeView().setVisibility(View.GONE);
+        
+        // 左上角"片头/片尾/广告"badge（复用"当前播放"badge样式）
+        TextView indexBadge = holder.getIndexBadgeView();
+        if (indexBadge != null) {
+            String badgeText = getSkipBadgeText(shot.time);
+            if (badgeText != null) {
+                indexBadge.setText(badgeText);
+                indexBadge.setVisibility(View.VISIBLE);
+            } else {
+                indexBadge.setVisibility(View.GONE);
+            }
+        }
         
         View parent = (View) holder.getTitleView().getParent();
         if (parent != null) {
             parent.setVisibility(View.GONE);
         }
+    }
+    
+    /**
+     * 根据截图时间点匹配跳过段，返回需要显示的badge文字
+     * 类型映射：片头→片头，片尾→片尾，硬广→广告
+     */
+    private String getSkipBadgeText(int timeSeconds) {
+        if (skipSegments == null || skipSegments.length() == 0) {
+            return null;
+        }
+        long timeMs = (long) timeSeconds * 1000L;
+        for (int i = 0; i < skipSegments.length(); i++) {
+            try {
+                JSONObject seg = skipSegments.optJSONObject(i);
+                if (seg == null) {
+                    continue;
+                }
+                long start = seg.optLong("start", -1);
+                long end = seg.optLong("end", -1);
+                if (start < 0 || end <= start) {
+                    continue;
+                }
+                if (timeMs >= start && timeMs < end) {
+                    String type = seg.optString("type");
+                    String badgeText = null;
+                    if ("片头".equals(type)) {
+                        badgeText = "片头";
+                    } else if ("片尾".equals(type)) {
+                        badgeText = "片尾";
+                    } else if ("硬广".equals(type)) {
+                        badgeText = "广告";
+                    }
+                    android.util.Log.i(TAG, "getSkipBadgeText: MATCH time=" + timeSeconds + "s(" + timeMs + "ms) -> " + badgeText);
+                    return badgeText;
+                }
+            } catch (Exception e) {
+                android.util.Log.i(TAG, "getSkipBadgeText error: " + e.getMessage());
+            }
+        }
+        return null;
     }
     
     private void loadShotImage(VideoShotItem shot, final CompactVideoHolder holder) {

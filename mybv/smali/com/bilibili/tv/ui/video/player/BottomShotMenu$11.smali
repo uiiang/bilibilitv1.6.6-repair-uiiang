@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 429
+    .line 442
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$11;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,19 +40,19 @@
     .locals 2
 
     .prologue
-    .line 432
+    .line 445
     const-string v0, "BottomShotMenu"
 
     const-string v1, "[forceHideRunnable] \u52a8\u753b\u56de\u8c03\u515c\u5e95\uff0c\u5f3a\u5236\u9690\u85cf\u83dc\u5355"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 433
+    .line 446
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/player/BottomShotMenu$11;->this$0:Lcom/bilibili/tv/ui/video/player/BottomShotMenu;
 
     # invokes: Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->finishHide()V
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/player/BottomShotMenu;->access$700(Lcom/bilibili/tv/ui/video/player/BottomShotMenu;)V
 
-    .line 434
+    .line 447
     return-void
 .end method

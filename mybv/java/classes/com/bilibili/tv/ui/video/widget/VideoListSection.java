@@ -727,6 +727,16 @@ public class VideoListSection extends LinearLayout {
         }
     }
 
+    /**
+     * indexBadge 由 binder 管理时（如截图菜单的片头/片尾/广告badge），
+     * adapter 不覆盖其可见性，避免 binder 设置的badge被隐藏
+     */
+    public void setIndexBadgeManagedByBinder(boolean managed) {
+        if (adapter != null) {
+            adapter.setIndexBadgeManagedByBinder(managed);
+        }
+    }
+
     public void setCurrentPlayingCid(long cid) {
         this.currentPlayingCid = cid;
         if (adapter != null) {

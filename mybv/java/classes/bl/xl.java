@@ -642,6 +642,31 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         return bottomShotMenu != null && bottomShotMenu.isShowing();
     }
     
+    /**
+     * 获取有效的跳过段数据（片头/片尾/硬广）：
+     * 优先取 xj.skips（本地设置优先 + 服务器补充的合并结果，播放器实际使用），
+     * 为 null/空时回退到 resolveParams.skips（B站官方 + bsbsb.top 服务器数据）
+     */
+    private org.json.JSONArray getEffectiveSkipSegments(ResolveResourceParams resolveParams) {
+        xh current = this;
+        while (current != null) {
+            if (current instanceof xj) {
+                org.json.JSONArray skips = ((xj) current).skips;
+                if (skips != null && skips.length() > 0) {
+                    android.util.Log.i("ShotMenuBug", "getEffectiveSkipSegments: use xj.skips count=" + skips.length());
+                    return skips;
+                }
+                break;
+            }
+            current = current.next();
+        }
+        if (resolveParams != null && resolveParams.skips != null && resolveParams.skips.length() > 0) {
+            android.util.Log.i("ShotMenuBug", "getEffectiveSkipSegments: use resolveParams.skips count=" + resolveParams.skips.length());
+            return resolveParams.skips;
+        }
+        return null;
+    }
+    
     private boolean showShotMenu() {
         PlayerSeekBar playerSeekBar = getPlayerSeekBar();
         if (playerSeekBar == null) {
@@ -658,9 +683,10 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         boolean hasVideoShot = videoShot != null && videoShot.getIndex() != null && !videoShot.getIndex().isEmpty();
         
         org.json.JSONArray viewPoints = null;
+        ResolveResourceParams resolveParams = null;
         PlayerParams playerParams = b();
         if (playerParams != null && playerParams.mVideoParams != null) {
-            ResolveResourceParams resolveParams = playerParams.mVideoParams.obtainResolveParams();
+            resolveParams = playerParams.mVideoParams.obtainResolveParams();
             if (resolveParams != null) {
                 viewPoints = resolveParams.view_points;
             }
@@ -711,6 +737,9 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
                 }
             }
         }
+        
+        // 传入有效的跳过段数据（本地优先 + 服务器补充），用于截图卡片badge显示
+        bottomShotMenu.setSkipSegments(getEffectiveSkipSegments(resolveParams));
         
         bottomShotMenu.show(videoShot, durationSec * 1000, videoTitle, currentPlayTimeMs, viewPoints);
         startShotMenuProgressUpdater();
