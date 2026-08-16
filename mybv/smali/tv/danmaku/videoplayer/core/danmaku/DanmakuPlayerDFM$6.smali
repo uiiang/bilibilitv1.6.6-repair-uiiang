@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 659
+    .line 661
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     iput-wide p2, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6;->val$cid:J
@@ -57,7 +57,7 @@
 
     const/4 v3, 0x0
 
-    .line 662
+    .line 664
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     # getter for: Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mInfo:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerInfo;
@@ -65,7 +65,7 @@
 
     move-result-object v4
 
-    .line 663
+    .line 665
     const-string v5, "DanmakuPlayerDFM"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -117,7 +117,7 @@
 
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
-    .line 665
+    .line 667
     # getter for: Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mParser:Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;
     invoke-static {v0}, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->access$700(Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;)Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;
 
@@ -157,7 +157,7 @@
 
     if-nez p3, :cond_7f
 
-    .line 667
+    .line 669
     :goto_5e
     invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
@@ -167,10 +167,10 @@
 
     move-result-object v0
 
-    .line 663
+    .line 665
     invoke-static {v5, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 668
+    .line 670
     iget-wide v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6;->val$cid:J
 
     cmp-long v0, p1, v0
@@ -185,12 +185,12 @@
 
     if-eqz v0, :cond_84
 
-    .line 699
+    .line 701
     :cond_77
     :goto_77
     return-void
 
-    .line 663
+    .line 665
     :cond_78
     iget-wide v0, v4, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerInfo;->mCid:J
 
@@ -199,7 +199,7 @@
     :cond_7b
     move v0, v3
 
-    .line 665
+    .line 667
     goto :goto_42
 
     :cond_7d
@@ -207,7 +207,7 @@
 
     goto :goto_52
 
-    .line 667
+    .line 669
     :cond_7f
     invoke-interface {p3}, Ljava/util/List;->size()I
 
@@ -215,7 +215,7 @@
 
     goto :goto_5e
 
-    .line 672
+    .line 674
     :cond_84
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
@@ -224,7 +224,7 @@
 
     move-result-object v0
 
-    .line 673
+    .line 675
     if-eqz v0, :cond_77
 
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
@@ -233,21 +233,21 @@
 
     if-eqz v1, :cond_77
 
-    .line 676
+    .line 678
     invoke-virtual {v0, p3}, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;->addCommentItems(Ljava/util/List;)Z
 
     move-result v1
 
     if-nez v1, :cond_b2
 
-    .line 678
+    .line 680
     const-string v1, "DanmakuPlayerDFM"
 
     const-string v2, "[onSegmentLoaded] addCommentItems false, retry 300ms"
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 679
+    .line 681
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     # getter for: Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mPrefetchHandler:Landroid/os/Handler;
@@ -255,10 +255,10 @@
 
     move-result-object v1
 
-    .line 680
+    .line 682
     if-eqz v1, :cond_77
 
-    .line 681
+    .line 683
     new-instance v2, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6$1;
 
     invoke-direct {v2, p0, v0, p3}, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6$1;-><init>(Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6;Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;Ljava/util/List;)V
@@ -269,7 +269,7 @@
 
     goto :goto_77
 
-    .line 690
+    .line 692
     :cond_b2
     const-string v0, "DanmakuPlayerDFM"
 
@@ -277,7 +277,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 692
+    .line 694
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     iget-object v0, v0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mDanmakuView:Lbl/bfd;
@@ -286,7 +286,7 @@
 
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
-    .line 693
+    .line 695
     # getter for: Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mAnimationTicker:Ltv/danmaku/videoplayer/core/danmaku/DanmakuAnimationTicker;
     invoke-static {v0}, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->access$100(Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;)Ltv/danmaku/videoplayer/core/danmaku/DanmakuAnimationTicker;
 
@@ -294,7 +294,7 @@
 
     if-eqz v0, :cond_77
 
-    .line 694
+    .line 696
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     # getter for: Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mAnimationTicker:Ltv/danmaku/videoplayer/core/danmaku/DanmakuAnimationTicker;
@@ -306,7 +306,7 @@
 
     move-result-wide v0
 
-    .line 695
+    .line 697
     const-string v2, "DanmakuPlayerDFM"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -329,7 +329,7 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 696
+    .line 698
     iget-object v2, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     iget-object v2, v2, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mDanmakuView:Lbl/bfd;

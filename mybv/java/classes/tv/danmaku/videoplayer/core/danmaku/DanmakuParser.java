@@ -11,6 +11,7 @@ import bl.bfn;
 import bl.bft;
 import bl.bgb;
 import bl.bgc;
+import bl.bfs;
 import bl.bgn;
 import bl.bgp;
 import bl.bgu;
@@ -253,6 +254,30 @@ public class DanmakuParser extends BiliDanmukuParser {
         }
         Log.i(TAG, "addCommentItems ok, injected=" + injected + "/" + list.size());
         return true;
+    }
+
+    /**
+     * 播放中释放：删除渲染容器 mDanmakus 中时间早于 thresholdMs 的弹幕对象（与文档存储同步）。
+     * 已删除的 bfk 不再参与渲染；若用户 seek 回退，对应段重新加载时会重新 parseItem 创建。
+     * 返回删除数量。
+     */
+    public synchronized int removeDanmakusBefore(final long thresholdMs) {
+        if (this.mDanmakus == null || thresholdMs <= 0) {
+            return 0;
+        }
+        final int[] removed = new int[]{0};
+        this.mDanmakus.b(new bfs.c<bfk>() { // from class: tv.danmaku.videoplayer.core.danmaku.DanmakuParser.2
+            @Override
+            public int accept(bfk bfkVar) {
+                if (bfkVar != null && bfkVar.r() < thresholdMs) {
+                    removed[0]++;
+                    return bfs.b.ACTION_REMOVE;
+                }
+                return bfs.b.ACTION_CONTINUE;
+            }
+        });
+        Log.i(TAG, "removeDanmakusBefore threshold=" + thresholdMs + " removed=" + removed[0]);
+        return removed[0];
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */

@@ -90,7 +90,7 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 160
+    .line 192
     :try_start_1
     new-instance v1, Ljava/lang/StringBuilder;
 
@@ -134,15 +134,15 @@
 
     move-result-object v1
 
-    .line 162
+    .line 194
     if-nez v1, :cond_2f
 
-    .line 169
+    .line 201
     :cond_2e
     :goto_2e
     return-object v0
 
-    .line 165
+    .line 197
     :cond_2f
     new-instance v2, Lbl/wa;
 
@@ -164,7 +164,7 @@
 
     move-result-object v1
 
-    .line 166
+    .line 198
     invoke-virtual {v1}, Lokhttp3/Request;->url()Lokhttp3/HttpUrl;
 
     move-result-object v2
@@ -183,11 +183,11 @@
 
     goto :goto_2e
 
-    .line 167
+    .line 199
     :catch_54
     move-exception v1
 
-    .line 168
+    .line 200
     const-string v2, "DanmakuSegment"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -272,17 +272,17 @@
     .locals 10
 
     .prologue
-    .line 290
+    .line 322
     if-nez p0, :cond_4
 
-    .line 291
+    .line 323
     const/4 v0, 0x0
 
-    .line 334
+    .line 366
     :goto_3
     return-object v0
 
-    .line 293
+    .line 325
     :cond_4
     const-string v0, ","
 
@@ -290,19 +290,19 @@
 
     move-result-object v1
 
-    .line 294
+    .line 326
     array-length v0, v1
 
     const/4 v2, 0x4
 
     if-ge v0, v2, :cond_10
 
-    .line 295
+    .line 327
     const/4 v0, 0x0
 
     goto :goto_3
 
-    .line 301
+    .line 333
     :cond_10
     const/4 v0, 0x0
 
@@ -317,14 +317,14 @@
 
     move-result v0
 
-    .line 302
+    .line 334
     const/high16 v2, 0x447a0000    # 1000.0f
 
     mul-float/2addr v0, v2
 
     float-to-long v4, v0
 
-    .line 303
+    .line 335
     const/4 v0, 0x1
 
     aget-object v0, v1, v0
@@ -337,7 +337,7 @@
 
     move-result v6
 
-    .line 304
+    .line 336
     const/4 v0, 0x2
 
     aget-object v0, v1, v0
@@ -350,7 +350,7 @@
 
     move-result v7
 
-    .line 305
+    .line 337
     const/4 v0, 0x3
 
     aget-object v0, v1, v0
@@ -365,7 +365,7 @@
 
     long-to-int v8, v2
 
-    .line 306
+    .line 338
     array-length v0, v1
 
     const/16 v2, 0x8
@@ -386,7 +386,7 @@
 
     move v3, v0
 
-    .line 307
+    .line 339
     :goto_53
     array-length v0, v1
 
@@ -404,7 +404,7 @@
 
     move-object v2, v0
 
-    .line 308
+    .line 340
     :goto_5f
     array-length v0, v1
 
@@ -422,7 +422,7 @@
 
     move-object v1, v0
 
-    .line 310
+    .line 342
     :goto_6b
     const/4 v0, 0x1
 
@@ -432,13 +432,13 @@
 
     if-le v6, v0, :cond_7e
 
-    .line 311
+    .line 343
     :cond_71
     const/4 v0, 0x0
 
     goto :goto_3
 
-    .line 306
+    .line 338
     :cond_73
     const/4 v0, 0x0
 
@@ -446,7 +446,7 @@
 
     goto :goto_53
 
-    .line 307
+    .line 339
     :cond_76
     const-string v0, ""
 
@@ -454,7 +454,7 @@
 
     goto :goto_5f
 
-    .line 308
+    .line 340
     :cond_7a
     const-string v0, ""
 
@@ -462,7 +462,7 @@
 
     goto :goto_6b
 
-    .line 313
+    .line 345
     :cond_7e
     if-eqz p1, :cond_86
 
@@ -472,71 +472,71 @@
 
     if-nez v0, :cond_89
 
-    .line 314
+    .line 346
     :cond_86
     const/4 v0, 0x0
 
     goto/16 :goto_3
 
-    .line 316
+    .line 348
     :cond_89
     invoke-static {v6}, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItemFactory;->createComment(I)Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;
 
     move-result-object v0
 
-    .line 317
+    .line 349
     if-nez v0, :cond_92
 
-    .line 318
+    .line 350
     const/4 v0, 0x0
 
     goto/16 :goto_3
 
-    .line 320
+    .line 352
     :cond_92
     invoke-virtual {v0, v4, v5}, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;->setTimeInMilliSeconds(J)V
     :try_end_95
     .catch Ljava/lang/NumberFormatException; {:try_start_11 .. :try_end_95} :catch_a8
 
-    .line 322
+    .line 354
     :try_start_95
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;->setBody(Ljava/lang/String;)V
     :try_end_98
     .catch Ltv/danmaku/videoplayer/core/danmaku/comment/CommentParseException; {:try_start_95 .. :try_end_98} :catch_ac
     .catch Ljava/lang/NumberFormatException; {:try_start_95 .. :try_end_98} :catch_a8
 
-    .line 327
+    .line 359
     :try_start_98
     invoke-virtual {v0, v7}, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;->setSize(I)V
 
-    .line 328
+    .line 360
     invoke-virtual {v0, v8}, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;->setTextColor(I)V
 
-    .line 329
+    .line 361
     invoke-virtual {v0, v2}, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;->setPublisherId(Ljava/lang/String;)V
 
-    .line 330
+    .line 362
     iput v3, v0, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;->mPublisherLevel:I
 
-    .line 331
+    .line 363
     invoke-virtual {v0, v1}, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;->setDmId(Ljava/lang/String;)V
 
     goto/16 :goto_3
 
-    .line 333
+    .line 365
     :catch_a8
     move-exception v0
 
-    .line 334
+    .line 366
     const/4 v0, 0x0
 
     goto/16 :goto_3
 
-    .line 323
+    .line 355
     :catch_ac
     move-exception v0
 
-    .line 324
+    .line 356
     const-string v1, "DanmakuSegment"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -565,7 +565,7 @@
     :try_end_c9
     .catch Ljava/lang/NumberFormatException; {:try_start_98 .. :try_end_c9} :catch_a8
 
-    .line 325
+    .line 357
     const/4 v0, 0x0
 
     goto/16 :goto_3
@@ -590,31 +590,31 @@
     .end annotation
 
     .prologue
-    .line 427
+    .line 459
     const-wide/16 v10, 0x0
 
-    .line 428
+    .line 460
     const-wide/16 v8, 0x0
 
-    .line 429
+    .line 461
     const/4 v7, 0x0
 
-    .line 430
+    .line 462
     const/4 v6, 0x0
 
-    .line 431
+    .line 463
     const/4 v5, 0x0
 
-    .line 432
+    .line 464
     const-string v3, ""
 
-    .line 433
+    .line 465
     const-string v2, ""
 
-    .line 434
+    .line 466
     const/4 v4, 0x0
 
-    .line 436
+    .line 468
     :cond_c
     :goto_c
     const/4 v12, 0x0
@@ -625,38 +625,38 @@
 
     if-ge v12, v0, :cond_90
 
-    .line 437
+    .line 469
     invoke-static/range {p0 .. p1}, Lmybl/DanmakuSegmentLoader;->readVarint([B[I)J
 
     move-result-wide v12
 
     long-to-int v12, v12
 
-    .line 438
+    .line 470
     ushr-int/lit8 v14, v12, 0x3
 
-    .line 439
+    .line 471
     and-int/lit8 v12, v12, 0x7
 
-    .line 440
+    .line 472
     if-nez v12, :cond_47
 
-    .line 441
+    .line 473
     invoke-static/range {p0 .. p1}, Lmybl/DanmakuSegmentLoader;->readVarint([B[I)J
 
     move-result-wide v12
 
-    .line 442
+    .line 474
     const/4 v15, 0x1
 
     if-ne v14, v15, :cond_27
 
     move-wide v10, v12
 
-    .line 443
+    .line 475
     goto :goto_c
 
-    .line 444
+    .line 476
     :cond_27
     const/4 v15, 0x2
 
@@ -664,78 +664,78 @@
 
     move-wide v8, v12
 
-    .line 445
+    .line 477
     goto :goto_c
 
-    .line 446
+    .line 478
     :cond_2c
     const/4 v15, 0x3
 
     if-ne v14, v15, :cond_31
 
-    .line 447
+    .line 479
     long-to-int v7, v12
 
     goto :goto_c
 
-    .line 448
+    .line 480
     :cond_31
     const/4 v15, 0x4
 
     if-ne v14, v15, :cond_36
 
-    .line 449
+    .line 481
     long-to-int v6, v12
 
     goto :goto_c
 
-    .line 450
+    .line 482
     :cond_36
     const/4 v15, 0x5
 
     if-ne v14, v15, :cond_3b
 
-    .line 451
+    .line 483
     long-to-int v5, v12
 
     goto :goto_c
 
-    .line 452
+    .line 484
     :cond_3b
     const/16 v15, 0x9
 
     if-ne v14, v15, :cond_41
 
-    .line 453
+    .line 485
     long-to-int v4, v12
 
     goto :goto_c
 
-    .line 454
+    .line 486
     :cond_41
     const/16 v15, 0xb
 
     if-ne v14, v15, :cond_c
 
-    .line 455
+    .line 487
     long-to-int v12, v12
 
     goto :goto_c
 
-    .line 457
+    .line 489
     :cond_47
     const/4 v13, 0x2
 
     if-ne v12, v13, :cond_87
 
-    .line 458
+    .line 490
     invoke-static/range {p0 .. p1}, Lmybl/DanmakuSegmentLoader;->readVarint([B[I)J
 
     move-result-wide v12
 
     long-to-int v12, v12
 
-    .line 459
+    .line 491
     if-ltz v12, :cond_59
 
     const/4 v13, 0x0
@@ -748,7 +748,7 @@
 
     if-le v13, v0, :cond_61
 
-    .line 460
+    .line 492
     :cond_59
     new-instance v2, Ljava/io/IOException;
 
@@ -758,13 +758,13 @@
 
     throw v2
 
-    .line 462
+    .line 494
     :cond_61
     const/4 v13, 0x6
 
     if-ne v14, v13, :cond_77
 
-    .line 463
+    .line 495
     new-instance v3, Ljava/lang/String;
 
     const/4 v13, 0x0
@@ -777,7 +777,7 @@
 
     invoke-direct {v3, v0, v13, v12, v14}, Ljava/lang/String;-><init>([BIILjava/lang/String;)V
 
-    .line 467
+    .line 499
     :cond_70
     :goto_70
     const/4 v13, 0x0
@@ -790,13 +790,13 @@
 
     goto :goto_c
 
-    .line 464
+    .line 496
     :cond_77
     const/4 v13, 0x7
 
     if-ne v14, v13, :cond_70
 
-    .line 465
+    .line 497
     new-instance v2, Ljava/lang/String;
 
     const/4 v13, 0x0
@@ -811,7 +811,7 @@
 
     goto :goto_70
 
-    .line 469
+    .line 501
     :cond_87
     move-object/from16 v0, p0
 
@@ -821,7 +821,7 @@
 
     goto/16 :goto_c
 
-    .line 473
+    .line 505
     :cond_90
     const/4 v12, 0x1
 
@@ -831,12 +831,12 @@
 
     if-le v7, v12, :cond_97
 
-    .line 496
+    .line 528
     :cond_96
     :goto_96
     return-void
 
-    .line 476
+    .line 508
     :cond_97
     if-eqz v2, :cond_96
 
@@ -846,54 +846,54 @@
 
     if-eqz v12, :cond_96
 
-    .line 479
+    .line 511
     invoke-static {v7}, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItemFactory;->createComment(I)Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;
 
     move-result-object v7
 
-    .line 480
+    .line 512
     if-eqz v7, :cond_96
 
-    .line 483
+    .line 515
     invoke-virtual {v7, v8, v9}, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;->setTimeInMilliSeconds(J)V
 
-    .line 485
+    .line 517
     :try_start_a8
     invoke-virtual {v7, v2}, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;->setBody(Ljava/lang/String;)V
     :try_end_ab
     .catch Ltv/danmaku/videoplayer/core/danmaku/comment/CommentParseException; {:try_start_a8 .. :try_end_ab} :catch_c3
 
-    .line 490
+    .line 522
     invoke-virtual {v7, v6}, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;->setSize(I)V
 
-    .line 491
+    .line 523
     invoke-virtual {v7, v5}, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;->setTextColor(I)V
 
-    .line 492
+    .line 524
     invoke-virtual {v7, v3}, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;->setPublisherId(Ljava/lang/String;)V
 
-    .line 493
+    .line 525
     iput v4, v7, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;->mPublisherLevel:I
 
-    .line 494
+    .line 526
     invoke-static {v10, v11}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
 
     move-result-object v2
 
     invoke-virtual {v7, v2}, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;->setDmId(Ljava/lang/String;)V
 
-    .line 495
+    .line 527
     move-object/from16 v0, p3
 
     invoke-interface {v0, v7}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     goto :goto_96
 
-    .line 486
+    .line 518
     :catch_c3
     move-exception v2
 
-    .line 487
+    .line 519
     const-string v3, "DanmakuSegment"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -946,22 +946,22 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 257
+    .line 289
     new-instance v4, Ljava/util/ArrayList;
 
     invoke-direct {v4}, Ljava/util/ArrayList;-><init>()V
 
-    .line 258
+    .line 290
     invoke-static {}, Landroid/util/Xml;->newPullParser()Lorg/xmlpull/v1/XmlPullParser;
 
     move-result-object v5
 
-    .line 259
+    .line 291
     const-string v0, "UTF-8"
 
     invoke-interface {v5, p0, v0}, Lorg/xmlpull/v1/XmlPullParser;->setInput(Ljava/io/InputStream;Ljava/lang/String;)V
 
-    .line 260
+    .line 292
     invoke-interface {v5}, Lorg/xmlpull/v1/XmlPullParser;->getEventType()I
 
     move-result v3
@@ -970,18 +970,18 @@
 
     move-object v2, v1
 
-    .line 263
+    .line 295
     :goto_15
     const/4 v6, 0x1
 
     if-eq v3, v6, :cond_71
 
-    .line 264
+    .line 296
     const/4 v6, 0x2
 
     if-ne v3, v6, :cond_35
 
-    .line 265
+    .line 297
     const-string v2, "d"
 
     invoke-interface {v5}, Lorg/xmlpull/v1/XmlPullParser;->getName()Ljava/lang/String;
@@ -994,7 +994,7 @@
 
     if-eqz v2, :cond_33
 
-    .line 266
+    .line 298
     const-string v0, "p"
 
     invoke-interface {v5, v1, v0}, Lorg/xmlpull/v1/XmlPullParser;->getAttributeValue(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
@@ -1003,7 +1003,7 @@
 
     move-object v0, v1
 
-    .line 284
+    .line 316
     :cond_2e
     :goto_2e
     invoke-interface {v5}, Lorg/xmlpull/v1/XmlPullParser;->next()I
@@ -1015,10 +1015,10 @@
     :cond_33
     move-object v2, v1
 
-    .line 269
+    .line 301
     goto :goto_2e
 
-    .line 271
+    .line 303
     :cond_35
     const/4 v6, 0x4
 
@@ -1026,12 +1026,12 @@
 
     if-eqz v2, :cond_54
 
-    .line 272
+    .line 304
     invoke-interface {v5}, Lorg/xmlpull/v1/XmlPullParser;->getText()Ljava/lang/String;
 
     move-result-object v3
 
-    .line 273
+    .line 305
     if-nez v0, :cond_42
 
     move-object v0, v3
@@ -1057,7 +1057,7 @@
 
     goto :goto_2e
 
-    .line 274
+    .line 306
     :cond_54
     const/4 v6, 0x3
 
@@ -1075,18 +1075,18 @@
 
     if-eqz v3, :cond_2e
 
-    .line 275
+    .line 307
     if-eqz v2, :cond_6e
 
-    .line 276
+    .line 308
     invoke-static {v2, v0}, Lmybl/DanmakuSegmentLoader;->parseDItem(Ljava/lang/String;Ljava/lang/String;)Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;
 
     move-result-object v0
 
-    .line 277
+    .line 309
     if-eqz v0, :cond_6e
 
-    .line 278
+    .line 310
     invoke-interface {v4, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     :cond_6e
@@ -1094,10 +1094,10 @@
 
     move-object v2, v1
 
-    .line 282
+    .line 314
     goto :goto_2e
 
-    .line 286
+    .line 318
     :cond_71
     return-object v4
 .end method
@@ -1125,17 +1125,17 @@
 
     const/4 v4, 0x0
 
-    .line 405
+    .line 437
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
 
-    .line 406
+    .line 438
     new-array v1, v5, [I
 
     aput v4, v1, v4
 
-    .line 407
+    .line 439
     :goto_b
     aget v2, v1, v4
 
@@ -1143,44 +1143,44 @@
 
     if-ge v2, v3, :cond_3b
 
-    .line 408
+    .line 440
     invoke-static {p0, v1}, Lmybl/DanmakuSegmentLoader;->readVarint([B[I)J
 
     move-result-wide v2
 
     long-to-int v2, v2
 
-    .line 409
+    .line 441
     ushr-int/lit8 v3, v2, 0x3
 
-    .line 410
+    .line 442
     and-int/lit8 v2, v2, 0x7
 
-    .line 411
+    .line 443
     if-ne v3, v5, :cond_37
 
     const/4 v3, 0x2
 
     if-ne v2, v3, :cond_37
 
-    .line 412
+    .line 444
     invoke-static {p0, v1}, Lmybl/DanmakuSegmentLoader;->readVarint([B[I)J
 
     move-result-wide v2
 
     long-to-int v2, v2
 
-    .line 413
+    .line 445
     aget v3, v1, v4
 
     add-int/2addr v2, v3
 
-    .line 414
+    .line 446
     array-length v3, p0
 
     if-le v2, v3, :cond_31
 
-    .line 415
+    .line 447
     new-instance v0, Ljava/io/IOException;
 
     const-string v1, "elem out of range"
@@ -1189,22 +1189,22 @@
 
     throw v0
 
-    .line 417
+    .line 449
     :cond_31
     invoke-static {p0, v1, v2, v0}, Lmybl/DanmakuSegmentLoader;->parseElem([B[IILjava/util/List;)V
 
-    .line 418
+    .line 450
     aput v2, v1, v4
 
     goto :goto_b
 
-    .line 420
+    .line 452
     :cond_37
     invoke-static {p0, v1, v2}, Lmybl/DanmakuSegmentLoader;->skipField([B[II)V
 
     goto :goto_b
 
-    .line 423
+    .line 455
     :cond_3b
     return-object v0
 .end method
@@ -1218,17 +1218,17 @@
     .end annotation
 
     .prologue
-    .line 339
+    .line 371
     new-instance v0, Ljava/io/ByteArrayOutputStream;
 
     invoke-direct {v0}, Ljava/io/ByteArrayOutputStream;-><init>()V
 
-    .line 340
+    .line 372
     const/16 v1, 0x2000
 
     new-array v1, v1, [B
 
-    .line 342
+    .line 374
     :goto_9
     invoke-virtual {p0, v1}, Ljava/io/InputStream;->read([B)I
 
@@ -1236,14 +1236,14 @@
 
     if-lez v2, :cond_14
 
-    .line 343
+    .line 375
     const/4 v3, 0x0
 
     invoke-virtual {v0, v1, v3, v2}, Ljava/io/ByteArrayOutputStream;->write([BII)V
 
     goto :goto_9
 
-    .line 345
+    .line 377
     :cond_14
     invoke-virtual {v0}, Ljava/io/ByteArrayOutputStream;->toByteArray()[B
 
@@ -1263,14 +1263,14 @@
     .prologue
     const/4 v4, 0x0
 
-    .line 375
+    .line 407
     invoke-static {p0, p1}, Lmybl/DanmakuSegmentLoader;->readVarint([B[I)J
 
     move-result-wide v0
 
     long-to-int v0, v0
 
-    .line 376
+    .line 408
     if-ltz v0, :cond_e
 
     aget v1, p1, v4
@@ -1281,7 +1281,7 @@
 
     if-le v1, v2, :cond_16
 
-    .line 377
+    .line 409
     :cond_e
     new-instance v0, Ljava/io/IOException;
 
@@ -1291,7 +1291,7 @@
 
     throw v0
 
-    .line 379
+    .line 411
     :cond_16
     new-instance v1, Ljava/lang/String;
 
@@ -1301,14 +1301,14 @@
 
     invoke-direct {v1, p0, v2, v0, v3}, Ljava/lang/String;-><init>([BIILjava/lang/String;)V
 
-    .line 380
+    .line 412
     aget v2, p1, v4
 
     add-int/2addr v0, v2
 
     aput v0, p1, v4
 
-    .line 381
+    .line 413
     return-object v1
 .end method
 
@@ -1323,12 +1323,12 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 354
+    .line 386
     const-wide/16 v2, 0x0
 
     move v0, v1
 
-    .line 357
+    .line 389
     :cond_4
     aget v4, p1, v1
 
@@ -1336,7 +1336,7 @@
 
     if-lt v4, v5, :cond_11
 
-    .line 358
+    .line 390
     new-instance v0, Ljava/io/IOException;
 
     const-string v1, "protobuf eof at varint"
@@ -1345,20 +1345,20 @@
 
     throw v0
 
-    .line 360
+    .line 392
     :cond_11
     aget v4, p1, v1
 
     aget-byte v4, p0, v4
 
-    .line 361
+    .line 393
     aget v5, p1, v1
 
     add-int/lit8 v5, v5, 0x1
 
     aput v5, p1, v1
 
-    .line 362
+    .line 394
     and-int/lit8 v5, v4, 0x7f
 
     int-to-long v6, v5
@@ -1367,24 +1367,24 @@
 
     or-long/2addr v2, v6
 
-    .line 363
+    .line 395
     and-int/lit16 v4, v4, 0x80
 
     if-nez v4, :cond_25
 
-    .line 371
+    .line 403
     return-wide v2
 
-    .line 366
+    .line 398
     :cond_25
     add-int/lit8 v0, v0, 0x7
 
-    .line 367
+    .line 399
     const/16 v4, 0x40
 
     if-lt v0, v4, :cond_4
 
-    .line 368
+    .line 400
     new-instance v0, Ljava/io/IOException;
 
     const-string v1, "varint too long"
@@ -1411,7 +1411,7 @@
 
     const/4 v2, 0x0
 
-    .line 228
+    .line 260
     :try_start_2
     iget-object v1, p0, Lmybl/DanmakuSegmentLoader;->mContext:Landroid/content/Context;
 
@@ -1429,7 +1429,7 @@
 
     move-result-object v1
 
-    .line 229
+    .line 261
     if-eqz v1, :cond_3a
 
     const-string v3, "http://"
@@ -1440,7 +1440,7 @@
 
     if-eqz v3, :cond_3a
 
-    .line 230
+    .line 262
     new-instance v3, Ljava/lang/StringBuilder;
 
     invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
@@ -1469,7 +1469,7 @@
 
     move-result-object v1
 
-    .line 232
+    .line 264
     :cond_3a
     const-string v3, "DanmakuSegment"
 
@@ -1503,7 +1503,7 @@
 
     invoke-static {v3, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 233
+    .line 265
     iget-object v3, p0, Lmybl/DanmakuSegmentLoader;->mContext:Landroid/content/Context;
 
     const/4 v4, 0x0
@@ -1512,10 +1512,10 @@
 
     move-result-object v3
 
-    .line 234
+    .line 266
     if-nez v3, :cond_84
 
-    .line 235
+    .line 267
     const-string v1, "DanmakuSegment"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -1546,18 +1546,18 @@
     :try_end_83
     .catch Ljava/lang/Throwable; {:try_start_2 .. :try_end_83} :catch_bb
 
-    .line 247
+    .line 279
     :goto_83
     return-object v0
 
-    .line 239
+    .line 271
     :cond_84
     :try_start_84
     invoke-static {v3}, Lmybl/DanmakuSegmentLoader;->parseListXml(Ljava/io/InputStream;)Ljava/util/List;
 
     move-result-object v1
 
-    .line 240
+    .line 272
     const-string v4, "DanmakuSegment"
 
     new-instance v5, Ljava/lang/StringBuilder;
@@ -1595,7 +1595,7 @@
     :try_end_ac
     .catchall {:try_start_84 .. :try_end_ac} :catchall_b6
 
-    .line 243
+    .line 275
     :try_start_ac
     invoke-virtual {v3}, Ljava/io/InputStream;->close()V
     :try_end_af
@@ -1603,10 +1603,10 @@
 
     move-object v0, v1
 
-    .line 241
+    .line 273
     goto :goto_83
 
-    .line 240
+    .line 272
     :cond_b1
     :try_start_b1
     invoke-interface {v1}, Ljava/util/List;->size()I
@@ -1617,23 +1617,23 @@
 
     goto :goto_a1
 
-    .line 243
+    .line 275
     :catchall_b6
     move-exception v1
 
     :try_start_b7
     invoke-virtual {v3}, Ljava/io/InputStream;->close()V
 
-    .line 244
+    .line 276
     throw v1
     :try_end_bb
     .catch Ljava/lang/Throwable; {:try_start_b7 .. :try_end_bb} :catch_bb
 
-    .line 245
+    .line 277
     :catch_bb
     move-exception v1
 
-    .line 246
+    .line 278
     const-string v2, "DanmakuSegment"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -1683,7 +1683,7 @@
 
     const/4 v8, 0x0
 
-    .line 174
+    .line 206
     move-object v1, p0
 
     move-wide v2, p3
@@ -1692,16 +1692,16 @@
 
     move v6, p5
 
-    .line 180
+    .line 212
     :try_start_7
     invoke-direct/range {v1 .. v6}, Lmybl/DanmakuSegmentLoader;->buildSignedSegUrl(JJI)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 181
+    .line 213
     if-nez v1, :cond_cc
 
-    .line 182
+    .line 214
     const-string v1, "DanmakuSegment"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -1736,7 +1736,7 @@
     :try_end_2f
     .catch Ljava/lang/Throwable; {:try_start_7 .. :try_end_2f} :catch_12b
 
-    .line 204
+    .line 236
     :goto_2f
     if-eqz v0, :cond_37
 
@@ -1746,7 +1746,7 @@
 
     if-eqz v1, :cond_1b1
 
-    .line 205
+    .line 237
     :cond_37
     const-string v0, "DanmakuSegment"
 
@@ -1780,15 +1780,15 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 206
+    .line 238
     invoke-direct {p0, p1, p2, p3, p4}, Lmybl/DanmakuSegmentLoader;->requestListFull(JJ)Ljava/util/List;
 
     move-result-object v0
 
-    .line 207
+    .line 239
     monitor-enter p0
 
-    .line 208
+    .line 240
     if-eqz v0, :cond_1a5
 
     :try_start_60
@@ -1803,14 +1803,14 @@
     :goto_67
     iput-boolean v1, p0, Lmybl/DanmakuSegmentLoader;->mFullListLoaded:Z
 
-    .line 209
+    .line 241
     monitor-exit p0
     :try_end_6a
     .catchall {:try_start_60 .. :try_end_6a} :catchall_1a8
 
     move-object v1, v0
 
-    .line 211
+    .line 243
     :goto_6b
     if-eqz v1, :cond_cb
 
@@ -1820,19 +1820,19 @@
 
     if-nez v0, :cond_cb
 
-    .line 213
+    .line 245
     monitor-enter p0
 
-    .line 214
+    .line 246
     :try_start_74
     iget-object v2, p0, Lmybl/DanmakuSegmentLoader;->mCallback:Lmybl/DanmakuSegmentLoader$Callback;
 
-    .line 215
+    .line 247
     monitor-exit p0
     :try_end_77
     .catchall {:try_start_74 .. :try_end_77} :catchall_1ab
 
-    .line 216
+    .line 248
     const-string v3, "DanmakuSegment"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -1883,7 +1883,7 @@
 
     move-result-object v0
 
-    .line 218
+    .line 250
     invoke-interface {v1}, Ljava/util/List;->size()I
 
     move-result v4
@@ -1911,20 +1911,20 @@
 
     move-result-object v0
 
-    .line 216
+    .line 248
     invoke-static {v3, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 219
+    .line 251
     if-eqz v2, :cond_cb
 
-    .line 220
+    .line 252
     invoke-interface {v2, p3, p4, v1}, Lmybl/DanmakuSegmentLoader$Callback;->onSegmentLoaded(JLjava/util/List;)V
 
-    .line 223
+    .line 255
     :cond_cb
     return-void
 
-    .line 184
+    .line 216
     :cond_cc
     :try_start_cc
     const-string v2, "DanmakuSegment"
@@ -1969,7 +1969,7 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 185
+    .line 217
     iget-object v2, p0, Lmybl/DanmakuSegmentLoader;->mContext:Landroid/content/Context;
 
     const/4 v3, 0x0
@@ -1978,10 +1978,10 @@
 
     move-result-object v3
 
-    .line 186
+    .line 218
     if-nez v3, :cond_15e
 
-    .line 187
+    .line 219
     const-string v1, "DanmakuSegment"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -2024,11 +2024,11 @@
 
     goto/16 :goto_2f
 
-    .line 199
+    .line 231
     :catch_12b
     move-exception v1
 
-    .line 200
+    .line 232
     const-string v2, "DanmakuSegment"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -2077,19 +2077,19 @@
 
     goto/16 :goto_2f
 
-    .line 190
+    .line 222
     :cond_15e
     :try_start_15e
     invoke-static {v3}, Lmybl/DanmakuSegmentLoader;->readAll(Ljava/io/InputStream;)[B
 
     move-result-object v1
 
-    .line 191
+    .line 223
     invoke-static {v1}, Lmybl/DanmakuSegmentLoader;->parseSegProto([B)Ljava/util/List;
 
     move-result-object v1
 
-    .line 192
+    .line 224
     const-string v4, "DanmakuSegment"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -2126,7 +2126,7 @@
 
     move v2, v8
 
-    .line 193
+    .line 225
     :goto_18a
     invoke-virtual {v5, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
@@ -2136,12 +2136,12 @@
 
     move-result-object v2
 
-    .line 192
+    .line 224
     invoke-static {v4, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
     :try_end_195
     .catchall {:try_start_15e .. :try_end_195} :catchall_1a0
 
-    .line 195
+    .line 227
     :try_start_195
     invoke-virtual {v3}, Ljava/io/InputStream;->close()V
     :try_end_198
@@ -2149,10 +2149,10 @@
 
     move-object v0, v1
 
-    .line 196
+    .line 228
     goto/16 :goto_2f
 
-    .line 193
+    .line 225
     :cond_19b
     :try_start_19b
     invoke-interface {v1}, Ljava/util/List;->size()I
@@ -2163,14 +2163,14 @@
 
     goto :goto_18a
 
-    .line 195
+    .line 227
     :catchall_1a0
     move-exception v1
 
     :try_start_1a1
     invoke-virtual {v3}, Ljava/io/InputStream;->close()V
 
-    .line 196
+    .line 228
     throw v1
     :try_end_1a5
     .catch Ljava/lang/Throwable; {:try_start_1a1 .. :try_end_1a5} :catch_12b
@@ -2178,10 +2178,10 @@
     :cond_1a5
     move v1, v8
 
-    .line 208
+    .line 240
     goto/16 :goto_67
 
-    .line 209
+    .line 241
     :catchall_1a8
     move-exception v0
 
@@ -2192,7 +2192,7 @@
 
     throw v0
 
-    .line 215
+    .line 247
     :catchall_1ab
     move-exception v0
 
@@ -2206,7 +2206,7 @@
     :cond_1ae
     move v0, v8
 
-    .line 218
+    .line 250
     goto/16 :goto_bb
 
     :cond_1b1
@@ -2226,10 +2226,10 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 385
+    .line 417
     packed-switch p2, :pswitch_data_3a
 
-    .line 400
+    .line 432
     :pswitch_4
     new-instance v0, Ljava/io/IOException;
 
@@ -2255,15 +2255,15 @@
 
     throw v0
 
-    .line 387
+    .line 419
     :pswitch_1d
     invoke-static {p0, p1}, Lmybl/DanmakuSegmentLoader;->readVarint([B[I)J
 
-    .line 398
+    .line 430
     :goto_20
     return-void
 
-    .line 390
+    .line 422
     :pswitch_21
     aget v0, p1, v2
 
@@ -2273,7 +2273,7 @@
 
     goto :goto_20
 
-    .line 393
+    .line 425
     :pswitch_28
     invoke-static {p0, p1}, Lmybl/DanmakuSegmentLoader;->readVarint([B[I)J
 
@@ -2281,7 +2281,7 @@
 
     long-to-int v0, v0
 
-    .line 394
+    .line 426
     aget v1, p1, v2
 
     add-int/2addr v0, v1
@@ -2290,7 +2290,7 @@
 
     goto :goto_20
 
-    .line 397
+    .line 429
     :pswitch_33
     aget v0, p1, v2
 
@@ -2300,7 +2300,7 @@
 
     goto :goto_20
 
-    .line 385
+    .line 417
     :pswitch_data_3a
     .packed-switch 0x0
         :pswitch_1d
@@ -2520,7 +2520,7 @@
     .locals 4
 
     .prologue
-    .line 148
+    .line 180
     monitor-enter p0
 
     :try_start_1
@@ -2547,6 +2547,30 @@
     goto :goto_a
 
     :catchall_e
+    move-exception v0
+
+    monitor-exit p0
+
+    throw v0
+.end method
+
+.method public declared-synchronized isFullListLoaded()Z
+    .locals 1
+
+    .prologue
+    .line 175
+    monitor-enter p0
+
+    :try_start_1
+    iget-boolean v0, p0, Lmybl/DanmakuSegmentLoader;->mFullListLoaded:Z
+    :try_end_3
+    .catchall {:try_start_1 .. :try_end_3} :catchall_5
+
+    monitor-exit p0
+
+    return v0
+
+    :catchall_5
     move-exception v0
 
     monitor-exit p0
@@ -2758,4 +2782,159 @@
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_14
+.end method
+
+.method public declared-synchronized releaseSegmentsBefore(J)I
+    .locals 5
+
+    .prologue
+    const/4 v1, 0x0
+
+    .line 152
+    monitor-enter p0
+
+    const-wide/16 v2, 0x0
+
+    cmp-long v0, p1, v2
+
+    if-lez v0, :cond_c
+
+    :try_start_8
+    iget-boolean v0, p0, Lmybl/DanmakuSegmentLoader;->mFullListLoaded:Z
+    :try_end_a
+    .catchall {:try_start_8 .. :try_end_a} :catchall_6b
+
+    if-eqz v0, :cond_e
+
+    .line 170
+    :cond_c
+    :goto_c
+    monitor-exit p0
+
+    return v1
+
+    .line 155
+    :cond_e
+    const-wide/32 v2, 0x57e40
+
+    :try_start_11
+    div-long v2, p1, v2
+
+    long-to-int v0, v2
+
+    add-int/lit8 v0, v0, 0x1
+
+    .line 156
+    const/4 v2, 0x1
+
+    add-int/lit8 v0, v0, -0x1
+
+    invoke-static {v2, v0}, Ljava/lang/Math;->max(II)I
+
+    move-result v2
+
+    .line 158
+    iget-object v0, p0, Lmybl/DanmakuSegmentLoader;->mLoadedSegments:Ljava/util/Set;
+
+    invoke-interface {v0}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
+
+    move-result-object v3
+
+    .line 159
+    :goto_23
+    invoke-interface {v3}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_3c
+
+    .line 160
+    invoke-interface {v3}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/lang/Integer;
+
+    invoke-virtual {v0}, Ljava/lang/Integer;->intValue()I
+
+    move-result v0
+
+    .line 161
+    if-ge v0, v2, :cond_6e
+
+    .line 162
+    invoke-interface {v3}, Ljava/util/Iterator;->remove()V
+
+    .line 163
+    add-int/lit8 v0, v1, 0x1
+
+    :goto_3a
+    move v1, v0
+
+    .line 165
+    goto :goto_23
+
+    .line 166
+    :cond_3c
+    if-lez v1, :cond_c
+
+    .line 167
+    const-string v0, "DanmakuSegment"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "[releaseSegmentsBefore] pos="
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3, p1, p2}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    const-string v4, " minKeep="
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, " released="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    :try_end_6a
+    .catchall {:try_start_11 .. :try_end_6a} :catchall_6b
+
+    goto :goto_c
+
+    .line 152
+    :catchall_6b
+    move-exception v0
+
+    monitor-exit p0
+
+    throw v0
+
+    :cond_6e
+    move v0, v1
+
+    goto :goto_3a
 .end method

@@ -153,6 +153,27 @@ public class yl implements IDanmakuDocument, IDanmakuRecommendable {
         return false;
     }
 
+    /**
+     * 播放中释放：删除文档存储中时间早于 thresholdMs 的归档弹幕（分段加载内存控制）。
+     * mCommentStorage 是 TreeMap（按时间升序），headMap 范围删除效率高；
+     * 被删弹幕若用户 seek 回退，由 DanmakuSegmentLoader 重新加载对应段重建。
+     * 返回被清理的时间点数量。
+     */
+    public int removeArchiveDanmakusBefore(long thresholdMs) {
+        if (thresholdMs <= 0) {
+            return 0;
+        }
+        int removed = 0;
+        synchronized (this.mCommentStorage) {
+            SortedMap<Long, Collection<CommentItem>> head = this.mCommentStorage.headMap(Long.valueOf(thresholdMs));
+            if (!head.isEmpty()) {
+                removed = head.size();
+                head.clear();
+            }
+        }
+        return removed;
+    }
+
     @Override // tv.danmaku.videoplayer.core.danmaku.IDanmakuDocument
     public void addLiveRawJsonDanmaku(CommentItem commentItem) throws JSONException {
         if (commentItem == null) {

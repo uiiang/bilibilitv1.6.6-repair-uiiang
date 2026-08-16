@@ -38,12 +38,12 @@
     .locals 1
 
     .prologue
-    .line 93
+    .line 95
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$1;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     invoke-direct {p0}, Lbl/bez$a;-><init>()V
 
-    .line 95
+    .line 97
     const/4 v0, 0x0
 
     invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
@@ -63,15 +63,15 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 103
+    .line 105
     if-nez p1, :cond_4
 
-    .line 119
+    .line 121
     :cond_3
     :goto_3
     return v1
 
-    .line 106
+    .line 108
     :cond_4
     const/16 v0, 0x438
 
@@ -79,12 +79,12 @@
 
     move-result-object v0
 
-    .line 107
+    .line 109
     instance-of v2, v0, Ljava/lang/String;
 
     if-eqz v2, :cond_3
 
-    .line 111
+    .line 113
     :try_start_e
     check-cast v0, Ljava/lang/String;
 
@@ -94,7 +94,7 @@
 
     move-result v0
 
-    .line 115
+    .line 117
     :goto_14
     iget-object v2, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$1;->mFlag:Ljava/lang/Integer;
 
@@ -106,11 +106,11 @@
 
     const/4 v1, 0x1
 
-    .line 116
+    .line 118
     :cond_1d
     if-eqz v1, :cond_3
 
-    .line 117
+    .line 119
     iget v0, p1, Lbl/bfk;->E:I
 
     const/high16 v2, 0x10000
@@ -121,13 +121,13 @@
 
     goto :goto_3
 
-    .line 112
+    .line 114
     :catch_27
     move-exception v0
 
     move v0, v1
 
-    .line 113
+    .line 115
     goto :goto_14
 .end method
 
@@ -135,7 +135,7 @@
     .locals 0
 
     .prologue
-    .line 98
+    .line 100
     return-void
 .end method
 
@@ -143,10 +143,10 @@
     .locals 0
 
     .prologue
-    .line 124
+    .line 126
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$1;->mFlag:Ljava/lang/Integer;
 
-    .line 125
+    .line 127
     return-void
 .end method
 
@@ -154,7 +154,7 @@
     .locals 0
 
     .prologue
-    .line 93
+    .line 95
     check-cast p1, Ljava/lang/Integer;
 
     invoke-virtual {p0, p1}, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$1;->setData(Ljava/lang/Integer;)V

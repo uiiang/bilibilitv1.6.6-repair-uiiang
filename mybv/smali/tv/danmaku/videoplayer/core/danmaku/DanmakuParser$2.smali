@@ -1,11 +1,11 @@
 .class Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$2;
-.super Ljava/lang/Thread;
+.super Lbl/bfs$c;
 .source "DanmakuParser.java"
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;->parseFromStream(Ljava/io/InputStream;)Lbl/bgc;
+    value = Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;->removeDanmakusBefore(J)I
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -13,81 +13,89 @@
     name = null
 .end annotation
 
+.annotation system Ldalvik/annotation/Signature;
+    value = {
+        "Lbl/bfs$c",
+        "<",
+        "Lbl/bfk;",
+        ">;"
+    }
+.end annotation
+
 
 # instance fields
 .field final synthetic this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;
 
-.field final synthetic val$inputStream:Ljava/io/InputStream;
+.field final synthetic val$removed:[I
+
+.field final synthetic val$thresholdMs:J
 
 
 # direct methods
-.method constructor <init>(Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;Ljava/lang/String;Ljava/io/InputStream;)V
+.method constructor <init>(Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;J[I)V
     .locals 0
 
     .prologue
-    .line 336
+    .line 269
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$2;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;
 
-    iput-object p3, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$2;->val$inputStream:Ljava/io/InputStream;
+    iput-wide p2, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$2;->val$thresholdMs:J
 
-    invoke-direct {p0, p2}, Ljava/lang/Thread;-><init>(Ljava/lang/String;)V
+    iput-object p4, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$2;->val$removed:[I
+
+    invoke-direct {p0}, Lbl/bfs$c;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public run()V
-    .locals 3
+.method public accept(Lbl/bfk;)I
+    .locals 6
 
     .prologue
-    .line 339
-    iget-object v1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$2;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;
+    const/4 v0, 0x0
 
-    monitor-enter v1
+    .line 272
+    if-eqz p1, :cond_16
 
-    .line 340
-    :try_start_3
-    iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$2;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;
+    invoke-virtual {p1}, Lbl/bfk;->r()J
 
-    iget-object v2, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$2;->val$inputStream:Ljava/io/InputStream;
+    move-result-wide v2
 
-    invoke-virtual {v0, v2}, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;->parseXmlSync(Ljava/io/InputStream;)V
+    iget-wide v4, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$2;->val$thresholdMs:J
 
-    .line 341
-    iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$2;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;
+    cmp-long v1, v2, v4
 
-    iget-object v0, v0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;->mDanmakuDocument:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuDocument;
+    if-gez v1, :cond_16
 
-    instance-of v0, v0, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuRecommendable;
+    .line 273
+    iget-object v1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$2;->val$removed:[I
 
-    if-eqz v0, :cond_1d
+    aget v2, v1, v0
 
-    .line 342
-    iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$2;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;
+    add-int/lit8 v2, v2, 0x1
 
-    iget-object v0, v0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;->mDanmakuDocument:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuDocument;
+    aput v2, v1, v0
 
-    check-cast v0, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuRecommendable;
+    .line 274
+    const/4 v0, 0x2
 
-    iget-object v2, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$2;->val$inputStream:Ljava/io/InputStream;
+    .line 276
+    :cond_16
+    return v0
+.end method
 
-    invoke-interface {v0, v2}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuRecommendable;->removeInputStream(Ljava/io/InputStream;)V
+.method public bridge synthetic accept(Ljava/lang/Object;)I
+    .locals 1
 
-    .line 344
-    :cond_1d
-    monitor-exit v1
+    .prologue
+    .line 269
+    check-cast p1, Lbl/bfk;
 
-    .line 345
-    return-void
+    invoke-virtual {p0, p1}, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$2;->accept(Lbl/bfk;)I
 
-    .line 344
-    :catchall_1f
-    move-exception v0
+    move-result v0
 
-    monitor-exit v1
-    :try_end_21
-    .catchall {:try_start_3 .. :try_end_21} :catchall_1f
-
-    throw v0
+    return v0
 .end method

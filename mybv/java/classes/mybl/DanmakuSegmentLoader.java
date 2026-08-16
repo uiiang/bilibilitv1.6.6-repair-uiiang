@@ -143,6 +143,38 @@ public class DanmakuSegmentLoader {
         }
     }
 
+    /**
+     * 播放中释放：按播放位置计算保留窗口（当前段 + 前 1 段，6 分钟/段），
+     * 从已加载集合中移除更早的段索引，允许用户 seek 回退时重新加载该段。
+     * 返回被移除（即允许重新加载）的段数。全量回退模式下无意义，直接跳过。
+     */
+    public synchronized int releaseSegmentsBefore(long positionMs) {
+        if (positionMs <= 0 || this.mFullListLoaded) {
+            return 0;
+        }
+        int curSeg = (int) (positionMs / SEGMENT_SIZE_MS) + 1; // 当前段索引（1 基）
+        int minKeep = Math.max(1, curSeg - 1); // 保留窗口最前段：当前段 - 1
+        int released = 0;
+        java.util.Iterator<Integer> it = this.mLoadedSegments.iterator();
+        while (it.hasNext()) {
+            int idx = it.next().intValue();
+            if (idx < minKeep) {
+                it.remove();
+                released++;
+            }
+        }
+        if (released > 0) {
+            Log.i(TAG, "[releaseSegmentsBefore] pos=" + positionMs + " minKeep=" + minKeep
+                    + " released=" + released);
+        }
+        return released;
+    }
+
+    /** 是否已回退 list.so 全量（该模式下所有段已一次性加载，播放中释放会破坏缓存） */
+    public synchronized boolean isFullListLoaded() {
+        return this.mFullListLoaded;
+    }
+
     /** 是否为分段加载模式（aid/cid 已初始化） */
     public synchronized boolean isActive() {
         return this.mCid > 0;

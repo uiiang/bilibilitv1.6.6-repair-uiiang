@@ -34,7 +34,7 @@
     .locals 1
 
     .prologue
-    .line 154
+    .line 155
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$1;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;
 
     iput p2, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$1;->val$i:I
@@ -56,7 +56,7 @@
     .locals 6
 
     .prologue
-    .line 157
+    .line 158
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$1;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;
 
     iget v1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$1;->val$i:I
@@ -69,6 +69,6 @@
 
     invoke-virtual/range {v0 .. v5}, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;->lambda$parseInputStreamsAsync$0$DanmakuParser(IJLandroid/content/Context;Ltv/danmaku/videoplayer/core/danmaku/IDanmakuParams;)V
 
-    .line 158
+    .line 159
     return-void
 .end method
