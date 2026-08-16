@@ -30,12 +30,12 @@
     .locals 0
 
     .prologue
-    .line 1134
+    .line 1140
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$OnParseFinishListener;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 1135
+    .line 1141
     return-void
 .end method
 
@@ -43,7 +43,7 @@
     .locals 0
 
     .prologue
-    .line 1131
+    .line 1137
     invoke-direct {p0, p1}, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$OnParseFinishListener;-><init>(Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;)V
 
     return-void
@@ -59,7 +59,7 @@
 
     const/4 v2, 0x5
 
-    .line 1166
+    .line 1172
     const-string v0, "1"
 
     const/4 v1, 0x6
@@ -70,7 +70,7 @@
 
     move-result v0
 
-    .line 1167
+    .line 1173
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$OnParseFinishListener;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     # getter for: Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mFlagFilter:Lbl/bez$a;
@@ -82,12 +82,12 @@
 
     if-nez v0, :cond_17
 
-    .line 1185
+    .line 1191
     :cond_16
     :goto_16
     return-void
 
-    .line 1170
+    .line 1176
     :cond_17
     array-length v0, p1
 
@@ -127,7 +127,7 @@
 
     if-nez v0, :cond_48
 
-    .line 1171
+    .line 1177
     :cond_3a
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$OnParseFinishListener;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
@@ -144,7 +144,7 @@
 
     goto :goto_16
 
-    .line 1175
+    .line 1181
     :cond_48
     const/4 v0, 0x2
 
@@ -157,7 +157,7 @@
 
     move-result v1
 
-    .line 1176
+    .line 1182
     invoke-static {}, Ltv/danmaku/videoplayer/core/danmaku/DanmakuDurationManager;->getInstance()Ltv/danmaku/videoplayer/core/danmaku/DanmakuDurationManager;
 
     move-result-object v2
@@ -178,7 +178,7 @@
 
     move-result-object v0
 
-    .line 1177
+    .line 1183
     if-eqz v0, :cond_90
 
     invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/danmaku/DanmakuDurationManager$DanmakuRecommend;->isFirstDuration()Z
@@ -187,7 +187,7 @@
 
     if-eqz v0, :cond_90
 
-    .line 1178
+    .line 1184
     const-string v0, "DanmakuPlayerDFM"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -210,7 +210,7 @@
 
     invoke-static {v0, v2}, Ltv/danmaku/android/log/BLog;->d(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 1179
+    .line 1185
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$OnParseFinishListener;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     # getter for: Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mFlagFilter:Lbl/bez$a;
@@ -226,7 +226,7 @@
     :try_end_90
     .catch Ljava/lang/NumberFormatException; {:try_start_49 .. :try_end_90} :catch_a1
 
-    .line 1184
+    .line 1190
     :cond_90
     :goto_90
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$OnParseFinishListener;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
@@ -247,11 +247,11 @@
 
     goto/16 :goto_16
 
-    .line 1181
+    .line 1187
     :catch_a1
     move-exception v0
 
-    .line 1182
+    .line 1188
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$OnParseFinishListener;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     # getter for: Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mFlagFilter:Lbl/bez$a;
@@ -278,7 +278,7 @@
 
     const/4 v4, 0x0
 
-    .line 1189
+    .line 1195
     if-eqz p1, :cond_1d
 
     array-length v0, p1
@@ -309,12 +309,12 @@
 
     if-gtz v0, :cond_1e
 
-    .line 1205
+    .line 1211
     :cond_1d
     :goto_1d
     return-void
 
-    .line 1192
+    .line 1198
     :cond_1e
     invoke-static {}, Ltv/danmaku/videoplayer/core/danmaku/DanmakuDurationManager;->getInstance()Ltv/danmaku/videoplayer/core/danmaku/DanmakuDurationManager;
 
@@ -333,7 +333,7 @@
 
     move-result-object v0
 
-    .line 1193
+    .line 1199
     aget-object v1, p1, v4
 
     instance-of v1, v1, Ljava/lang/String;
@@ -354,17 +354,17 @@
 
     if-eqz v0, :cond_1d
 
-    .line 1194
+    .line 1200
     aget-object v0, p1, v4
 
     check-cast v0, Ljava/lang/String;
 
-    .line 1195
+    .line 1201
     aget-object v1, p1, v5
 
     check-cast v1, Ljava/lang/String;
 
-    .line 1196
+    .line 1202
     iget-object v2, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$OnParseFinishListener;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     # getter for: Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mFlagFilter:Lbl/bez$a;
@@ -382,7 +382,7 @@
 
     if-eqz v0, :cond_1d
 
-    .line 1200
+    .line 1206
     :try_start_5a
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$OnParseFinishListener;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
@@ -405,11 +405,11 @@
 
     goto :goto_1d
 
-    .line 1201
+    .line 1207
     :catch_6c
     move-exception v0
 
-    .line 1202
+    .line 1208
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$OnParseFinishListener;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     # getter for: Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mFlagFilter:Lbl/bez$a;
@@ -434,7 +434,7 @@
 
     const/4 v3, 0x1
 
-    .line 1140
+    .line 1146
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$OnParseFinishListener;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     # getter for: Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mDanmakuParams:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuParams;
@@ -464,16 +464,16 @@
 
     if-nez v0, :cond_1f
 
-    .line 1163
+    .line 1169
     :cond_1e
     :goto_1e
     return-void
 
-    .line 1143
+    .line 1149
     :cond_1f
     invoke-direct {p0, p1}, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$OnParseFinishListener;->setFlagFilter([Ljava/lang/Object;)V
 
-    .line 1144
+    .line 1150
     iget-object v2, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$OnParseFinishListener;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$OnParseFinishListener;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
@@ -501,7 +501,7 @@
 
     if-nez v0, :cond_1e
 
-    .line 1147
+    .line 1153
     aget-object v0, p1, v3
 
     check-cast v0, Ljava/lang/Integer;
@@ -510,7 +510,7 @@
 
     move-result v2
 
-    .line 1148
+    .line 1154
     const/4 v0, 0x0
 
     aget-object v0, p1, v0
@@ -521,7 +521,7 @@
 
     move-result v0
 
-    .line 1149
+    .line 1155
     iget-object v3, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$OnParseFinishListener;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     # getter for: Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mSeekPosForParser:J
@@ -535,7 +535,7 @@
 
     if-lez v3, :cond_9e
 
-    .line 1150
+    .line 1156
     int-to-long v4, v2
 
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$OnParseFinishListener;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
@@ -553,7 +553,7 @@
 
     long-to-int v0, v4
 
-    .line 1151
+    .line 1157
     iget-object v3, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$OnParseFinishListener;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     const-wide/16 v4, -0x1
@@ -561,7 +561,7 @@
     # setter for: Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mSeekPosForParser:J
     invoke-static {v3, v4, v5}, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->access$1302(Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;J)J
 
-    .line 1155
+    .line 1161
     :goto_6b
     int-to-float v0, v0
 
@@ -571,13 +571,13 @@
 
     float-to-int v0, v0
 
-    .line 1156
+    .line 1162
     if-gtz v0, :cond_a3
 
-    .line 1157
+    .line 1163
     const/16 v0, 0xa
 
-    .line 1161
+    .line 1167
     :cond_74
     :goto_74
     const-string v1, "DanmakuPlayerDFM"
@@ -612,7 +612,7 @@
 
     invoke-static {v1, v3}, Ltv/danmaku/android/log/BLog;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 1162
+    .line 1168
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$OnParseFinishListener;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     int-to-long v2, v2
@@ -623,7 +623,7 @@
 
     goto :goto_1e
 
-    .line 1153
+    .line 1159
     :cond_9e
     sub-int v0, v2, v0
 
@@ -631,12 +631,12 @@
 
     goto :goto_6b
 
-    .line 1158
+    .line 1164
     :cond_a3
     if-le v0, v1, :cond_74
 
     move v0, v1
 
-    .line 1159
+    .line 1165
     goto :goto_74
 .end method

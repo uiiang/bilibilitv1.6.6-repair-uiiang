@@ -581,6 +581,9 @@ DanmakuPlayerDFM.this.send_subtitle(DanmakuPlayerDFM.this.subtitle_data);
         if (this.mDanmakuView != null) {
             this.mDanmakuView.a(Long.valueOf(j));
         }
+        // 弹幕缓存按生命周期释放后，seek（回退或快进）到已释放时间段的弹幕已被删除，
+        // 强制重载目标段恢复弹幕（注入侧按 hasDanmaku 去重，未删弹幕不会重复）
+        DanmakuSegmentLoader.getInstance().forceLoadSegmentForPosition(j);
     }
 
     @Override // tv.danmaku.videoplayer.core.danmaku.IDanmakuPlayer
@@ -724,28 +727,31 @@ DanmakuPlayerDFM.this.send_subtitle(DanmakuPlayerDFM.this.subtitle_data);
     }
 
     /**
-     * 播放中释放弹幕缓存（保留当前段 + 前 1 段窗口，6 分钟/段）：
+     * 播放中释放弹幕缓存（按弹幕生命周期窗口，引擎级清理）：
+     * 保留窗口 = 当前位置 - 弹幕显示时长 - 2 秒余量（与渲染查询窗口起点一致），
+     * 窗口之前（弹幕已飞过屏幕）的弹幕全部释放：
      * 1) yl.mCommentStorage 删除窗口前弹幕（CommentItem，主内存大头）
-     * 2) parser.mDanmakus 删除对应渲染对象（bfk）
-     * 3) loader.mLoadedSegments 放行窗口前段索引，seek 回退可重新加载
-     * 按段节流：跨越段边界才触发（实际约每 6 分钟释放一次），避免每秒重复执行。
+     * 2) parser.mDanmakus 删除对应渲染对象（bfk）—— 渲染按窗口查询该集合，删除点恒早于
+     *    下一帧查询窗口起点，不影响绘制（正在屏幕上的弹幕不会被删）
+     * 3) loader.mLoadedSegments 放行"段起点早于窗口"的段索引，seek 回退该段可重新加载
+     * 节流：每 5 秒最多释放一次（生命周期窗口随播放位置持续前进，无需按段边界节流）。
      * list.so 全量回退模式下跳过（内存恒定，释放反而破坏缓存）。
      */
     private void releaseDanmakusBefore(long positionMs) {
-        if (this.mDanmakuDocument == null || this.mParser == null) {
+        if (this.mDanmakuDocument == null || this.mParser == null || this.mConfig == null) {
             return;
         }
         if (DanmakuSegmentLoader.getInstance().isFullListLoaded()) {
             return; // 已回退 list.so 全量：一次性加载、内存恒定，不释放
         }
-        final long segMs = 6 * 60 * 1000L; // 与 DanmakuSegmentLoader.SEGMENT_SIZE_MS 一致
-        // 保留窗口起点 = 当前段起点 - 1 段；窗口起点以下（更早）全部释放
-        long keepFrom = (positionMs / segMs) * segMs - segMs;
+        // 保留窗口起点 = 当前播放位置 - 弹幕显示时长 - 2 秒余量（与 getCurrentActivedItems 查询窗口一致）
+        long keepFrom = positionMs - this.mConfig.t.d - 2000L;
         if (keepFrom <= 0) {
-            return; // 播放尚未越过前 2 段（0~12 分钟），无需释放
+            return; // 播放初期（当前窗口尚未越过起点），无需释放
         }
-        if (positionMs - this.mLastReleaseMs < segMs) {
-            return; // 每段只释放一次（节流）
+        final long releaseIntervalMs = 5000L; // 生命周期释放节流：每 5 秒一次
+        if (positionMs - this.mLastReleaseMs < releaseIntervalMs) {
+            return;
         }
         this.mLastReleaseMs = positionMs;
         int removedStorage = 0;
@@ -753,7 +759,7 @@ DanmakuPlayerDFM.this.send_subtitle(DanmakuPlayerDFM.this.subtitle_data);
             removedStorage = ((yl) this.mDanmakuDocument).removeArchiveDanmakusBefore(keepFrom);
         }
         int removedRender = this.mParser.removeDanmakusBefore(keepFrom);
-        int releasedSeg = DanmakuSegmentLoader.getInstance().releaseSegmentsBefore(positionMs);
+        int releasedSeg = DanmakuSegmentLoader.getInstance().releaseSegmentsBefore(keepFrom);
         Log.i(TAG, "[releaseDanmaku] keepFrom=" + keepFrom + " storage=" + removedStorage
                 + " render=" + removedRender + " seg=" + releasedSeg);
     }

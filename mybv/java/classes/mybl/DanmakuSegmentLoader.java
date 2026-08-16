@@ -37,6 +37,8 @@ public class DanmakuSegmentLoader {
     private static final long LIST_PS_MS = 43200000L;
     private static final int SEGMENT_SIZE_MS = 6 * 60 * 1000; // 6分钟/段
     private static final int PREFETCH_SEGMENTS = 1; // 预加载当前段+1段
+    /** 同一段被生命周期释放后，普通预加载路径的重载节流间隔（毫秒），避免每秒被重复请求 */
+    private static final long RELOAD_INTERVAL_MS = 60 * 1000L;
 
     private static volatile DanmakuSegmentLoader sInstance;
 
@@ -51,6 +53,10 @@ public class DanmakuSegmentLoader {
     private Callback mCallback;
     /** 已加载的段索引集合（防定时预加载/seek 重复请求同一段） */
     private final java.util.Set<Integer> mLoadedSegments = new java.util.HashSet<Integer>();
+    /** 各段最近一次请求时间（配合 RELOAD_INTERVAL_MS 节流，防生命周期释放后每秒重载） */
+    private final java.util.Map<Integer, Long> mLastRequestTimes = new java.util.HashMap<Integer, Long>();
+    /** 已被生命周期释放过弹幕的段集合：普通预加载路径直接静默跳过（不请求），仅 seek force 重载恢复 */
+    private final java.util.Set<Integer> mReleasedSegments = new java.util.HashSet<Integer>();
     /** 是否已回退 list.so 完整列表（一次性加载后短路所有后续分段请求） */
     private boolean mFullListLoaded;
 
@@ -76,6 +82,8 @@ public class DanmakuSegmentLoader {
         this.mCallback = callback;
         this.mFullListLoaded = false;
         this.mLoadedSegments.clear();
+        this.mLastRequestTimes.clear();
+        this.mReleasedSegments.clear();
         // 关键：在弹幕注入前从 SharedPreferences 同步"合并重复"开关（状态单一来源：
         // DanmakuMergeHelper）。PlayerMenuRight 的 loadDanmakuMergeDuplicate() 只在菜单
         // 视图构造时执行，而菜单可能懒加载/晚于弹幕注入创建（实测重启进视频时弹幕注入
@@ -93,6 +101,8 @@ public class DanmakuSegmentLoader {
     public synchronized void clear() {
         this.mFullListLoaded = false;
         this.mLoadedSegments.clear();
+        this.mLastRequestTimes.clear();
+        this.mReleasedSegments.clear();
         this.mCallback = null;
         this.mAid = 0;
         this.mCid = 0;
@@ -102,6 +112,17 @@ public class DanmakuSegmentLoader {
 
     /** 加载第 index 段弹幕（seg.so 登录态，6 分钟/段；已加载段跳过；串行在单线程 Executor 上请求+解析） */
     public void loadSegment(int index) {
+        loadSegment(index, false);
+    }
+
+    /**
+     * 加载指定段。force=true 时绕过"已加载标记"与"重载节流"，用于 seek 回退时强制重载
+     * 被生命周期释放过弹幕的段（注入侧按 hasDanmaku 去重，未删弹幕不会重复）。
+     * force=false 时：
+     *   1) 已加载段跳过（防预加载/seek 重复请求）
+     *   2) 同段 RELOAD_INTERVAL_MS 内不重复请求（段被释放后，每秒预加载路径不会刷屏）
+     */
+    public void loadSegment(int index, boolean force) {
         if (index <= 0) {
             return;
         }
@@ -114,15 +135,31 @@ public class DanmakuSegmentLoader {
             if (this.mFullListLoaded) {
                 return; // 已回退 list.so 全量，后续段无需再请求
             }
-            if (this.mLoadedSegments.contains(Integer.valueOf(index))) {
-                Log.i(TAG, "[loadSegment] skip already loaded, segment=" + index);
+            long now = System.currentTimeMillis();
+            // 先判"已加载"：每秒预加载路径都会命中当前段，属正常高频路径，静默跳过（Log.d）
+            if (!force && this.mLoadedSegments.contains(Integer.valueOf(index))) {
+                Log.d(TAG, "[loadSegment] skip already loaded, segment=" + index);
+                return;
+            }
+            // 再判"已释放"：生命周期释放过的段，普通路径直接静默跳过，防止节流到期后
+            // 每 60 秒死循环重载；seek 回退走 forceLoadSegmentForPosition 强制重载恢复
+            if (!force && this.mReleasedSegments.contains(Integer.valueOf(index))) {
+                return;
+            }
+            // 最后判"重载节流"：防御性保留，常规路径已不会对已释放段发起请求
+            Long last = this.mLastRequestTimes.get(Integer.valueOf(index));
+            if (!force && last != null && now - last.longValue() < RELOAD_INTERVAL_MS) {
+                Log.i(TAG, "[loadSegment] throttle reload, segment=" + index);
                 return;
             }
             this.mLoadedSegments.add(Integer.valueOf(index));
+            this.mLastRequestTimes.put(Integer.valueOf(index), Long.valueOf(now));
+            // force 重载成功后弹幕恢复，不再按"已释放"处理
+            this.mReleasedSegments.remove(Integer.valueOf(index));
             cid = this.mCid;
             aid = this.mAid;
         }
-        Log.i(TAG, "[loadSegment] request segment=" + index);
+        Log.i(TAG, "[loadSegment] request segment=" + index + (force ? " (force)" : ""));
         this.mExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -144,28 +181,56 @@ public class DanmakuSegmentLoader {
     }
 
     /**
-     * 播放中释放：按播放位置计算保留窗口（当前段 + 前 1 段，6 分钟/段），
-     * 从已加载集合中移除更早的段索引，允许用户 seek 回退时重新加载该段。
-     * 返回被移除（即允许重新加载）的段数。全量回退模式下无意义，直接跳过。
+     * seek 时重载目标段弹幕：
+     * - 目标段曾被生命周期释放（mReleasedSegments 含该段）→ 强制重载恢复已删弹幕（绕过已加载标记与节流）
+     * - 目标段弹幕完整（未释放）→ 走常规路径：已加载则跳过，避免 seek 到正常段时多余的网络请求
+     * 依据：生命周期释放"段内已播放部分" ⇔ 段起点早于 keepFrom ⇔ 该段必已加入 mReleasedSegments，
+     * 因此 mReleasedSegments 是"该段有弹幕被释放"的充分条件。
      */
-    public synchronized int releaseSegmentsBefore(long positionMs) {
-        if (positionMs <= 0 || this.mFullListLoaded) {
+    public void forceLoadSegmentForPosition(long positionMs) {
+        if (positionMs < 0) {
+            return;
+        }
+        int seg = (int) (positionMs / SEGMENT_SIZE_MS) + 1;
+        boolean released;
+        synchronized (this) {
+            released = this.mReleasedSegments.contains(Integer.valueOf(seg));
+        }
+        if (released) {
+            loadSegment(seg, true); // 该段弹幕曾被释放：强制重载恢复
+        } else {
+            loadSegment(seg, false); // 弹幕完整或未加载：常规路径
+        }
+        for (int i = 1; i <= PREFETCH_SEGMENTS; i++) {
+            loadSegment(seg + i, false); // 预加载段走常规检查（已有则跳过）
+        }
+    }
+
+    /**
+     * 播放中释放弹幕缓存时同步放行段索引（生命周期模式）：
+     * 放行"段起点早于 keepFromMs"的段（含当前段内已被生命周期释放弹幕的部分），
+     * seek 回退到这些段时重新请求加载（forceLoadSegmentForPosition 强制重载）。
+     * 被放行的段加入 mReleasedSegments：普通预加载路径直接静默跳过（不请求、不打日志），
+     * 从根源消除"节流到期后每 60 秒重复重载已释放段"的死循环。
+     */
+    public synchronized int releaseSegmentsBefore(long keepFromMs) {
+        if (keepFromMs <= 0 || this.mFullListLoaded) {
             return 0;
         }
-        int curSeg = (int) (positionMs / SEGMENT_SIZE_MS) + 1; // 当前段索引（1 基）
-        int minKeep = Math.max(1, curSeg - 1); // 保留窗口最前段：当前段 - 1
         int released = 0;
+        // 段索引为 1 基：段 n 覆盖 [(n-1)*SEG, n*SEG)，段起点 < keepFromMs 的段全部放行
+        // （含当前段内已被生命周期释放弹幕的部分）。用乘法直接判定，避免整除边界偏差。
         java.util.Iterator<Integer> it = this.mLoadedSegments.iterator();
         while (it.hasNext()) {
             int idx = it.next().intValue();
-            if (idx < minKeep) {
+            if ((long) (idx - 1) * SEGMENT_SIZE_MS < keepFromMs) {
                 it.remove();
+                this.mReleasedSegments.add(Integer.valueOf(idx));
                 released++;
             }
         }
         if (released > 0) {
-            Log.i(TAG, "[releaseSegmentsBefore] pos=" + positionMs + " minKeep=" + minKeep
-                    + " released=" + released);
+            Log.i(TAG, "[releaseSegmentsBefore] keepFrom=" + keepFromMs + " released=" + released);
         }
         return released;
     }

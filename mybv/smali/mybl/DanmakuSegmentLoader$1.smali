@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lmybl/DanmakuSegmentLoader;->loadSegment(I)V
+    value = Lmybl/DanmakuSegmentLoader;->loadSegment(IZ)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 126
+    .line 163
     iput-object p1, p0, Lmybl/DanmakuSegmentLoader$1;->this$0:Lmybl/DanmakuSegmentLoader;
 
     iput-wide p2, p0, Lmybl/DanmakuSegmentLoader$1;->val$aid:J
@@ -52,7 +52,7 @@
     .locals 7
 
     .prologue
-    .line 129
+    .line 166
     iget-object v1, p0, Lmybl/DanmakuSegmentLoader$1;->this$0:Lmybl/DanmakuSegmentLoader;
 
     iget-wide v2, p0, Lmybl/DanmakuSegmentLoader$1;->val$aid:J
@@ -64,6 +64,6 @@
     # invokes: Lmybl/DanmakuSegmentLoader;->requestSegment(JJI)V
     invoke-static/range {v1 .. v6}, Lmybl/DanmakuSegmentLoader;->access$000(Lmybl/DanmakuSegmentLoader;JJI)V
 
-    .line 130
+    .line 167
     return-void
 .end method

@@ -30,7 +30,7 @@
     .locals 0
 
     .prologue
-    .line 683
+    .line 686
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6$1;->this$1:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6;
 
     iput-object p2, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6$1;->val$parser:Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;
@@ -48,7 +48,7 @@
     .locals 4
 
     .prologue
-    .line 686
+    .line 689
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6$1;->val$parser:Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;
 
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6$1;->val$items:Ljava/util/List;
@@ -57,7 +57,7 @@
 
     move-result v0
 
-    .line 687
+    .line 690
     const-string v1, "DanmakuPlayerDFM"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -80,6 +80,6 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 688
+    .line 691
     return-void
 .end method

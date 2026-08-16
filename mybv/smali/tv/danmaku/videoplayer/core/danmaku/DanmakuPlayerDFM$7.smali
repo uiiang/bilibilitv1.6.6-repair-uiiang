@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 705
+    .line 708
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$7;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 4
 
     .prologue
-    .line 708
+    .line 711
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$7;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     # getter for: Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mPaused:Z
@@ -61,7 +61,7 @@
 
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$7;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
-    .line 709
+    .line 712
     # getter for: Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mInfo:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerInfo;
     invoke-static {v0}, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->access$600(Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;)Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerInfo;
 
@@ -84,7 +84,7 @@
 
     if-lez v0, :cond_3c
 
-    .line 710
+    .line 713
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$7;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     # getter for: Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mAnimationTicker:Ltv/danmaku/videoplayer/core/danmaku/DanmakuAnimationTicker;
@@ -96,20 +96,20 @@
 
     move-result-wide v0
 
-    .line 711
+    .line 714
     invoke-static {}, Lmybl/DanmakuSegmentLoader;->getInstance()Lmybl/DanmakuSegmentLoader;
 
     move-result-object v2
 
     invoke-virtual {v2, v0, v1}, Lmybl/DanmakuSegmentLoader;->loadSegmentForPosition(J)V
 
-    .line 713
+    .line 716
     iget-object v2, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$7;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     # invokes: Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->releaseDanmakusBefore(J)V
     invoke-static {v2, v0, v1}, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->access$1000(Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;J)V
 
-    .line 715
+    .line 718
     :cond_3c
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$7;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
@@ -118,10 +118,10 @@
 
     move-result-object v0
 
-    .line 716
+    .line 719
     if-eqz v0, :cond_4f
 
-    .line 717
+    .line 720
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$7;->this$0:Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;
 
     # getter for: Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mPrefetchRunnable:Ljava/lang/Runnable;
@@ -133,7 +133,7 @@
 
     invoke-virtual {v0, v1, v2, v3}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 719
+    .line 722
     :cond_4f
     return-void
 .end method
