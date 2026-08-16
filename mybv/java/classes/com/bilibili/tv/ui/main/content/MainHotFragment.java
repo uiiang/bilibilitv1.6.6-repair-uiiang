@@ -91,6 +91,18 @@ public final class MainHotFragment extends BaseVideoListFragment {
     }
     
     @Override
+    protected void fetchDataForPrefetch() {
+        if (this.adapter == null) {
+            this.prefetching = false;
+            return;
+        }
+        // 预取下一页：请求 popularPage+1，成功缓存时才递增页码（避免预取失败跳页）
+        ((MyBiliApiService) vo.a(MyBiliApiService.class))
+            .getPopular(this.popularPage + 1, 20)
+            .a(new HotResponse(true, true));
+    }
+    
+    @Override
     protected void onSmallCardClick(View view, String uri, int position) {
         if (uri.startsWith("bilibili_yst://video") || uri.startsWith("bilibili://video")) {
             long avid = ContentUris.parseId(Uri.parse(uri));
@@ -128,22 +140,37 @@ public final class MainHotFragment extends BaseVideoListFragment {
     
     private class HotResponse extends vn<JSONObject> {
         private boolean isAppendMode;
+        private boolean isPrefetch;
         
         HotResponse(boolean isAppendMode) {
             this.isAppendMode = isAppendMode;
+            this.isPrefetch = false;
+        }
+        
+        HotResponse(boolean isAppendMode, boolean isPrefetch) {
+            this.isAppendMode = isAppendMode;
+            this.isPrefetch = isPrefetch;
         }
         
         @Override
         public void a(JSONObject data) {
             if (MainHotFragment.this.adapter == null || data == null) {
-                MainHotFragment.this.isLoadingMore = false;
+                if (this.isPrefetch) {
+                    MainHotFragment.this.onPrefetchError();
+                } else {
+                    MainHotFragment.this.isLoadingMore = false;
+                }
                 return;
             }
             
             JSONArray list = data.getJSONArray("list");
             if (list == null || list.isEmpty()) {
                 MainHotFragment.this.hasMoreData = false;
-                MainHotFragment.this.isLoadingMore = false;
+                if (this.isPrefetch) {
+                    MainHotFragment.this.onPrefetchError();
+                } else {
+                    MainHotFragment.this.isLoadingMore = false;
+                }
                 return;
             }
             
@@ -160,6 +187,13 @@ public final class MainHotFragment extends BaseVideoListFragment {
                 ugcList.add(content);
             }
             
+            if (this.isPrefetch) {
+                // 预取模式：页码递增到已预取页，结果缓存不直接展示
+                MainHotFragment.this.popularPage++;
+                MainHotFragment.this.onPrefetchSuccess(ugcList);
+                return;
+            }
+            
             if (this.isAppendMode) {
                 MainHotFragment.this.adapter.appendData(ugcList);
             } else {
@@ -173,7 +207,11 @@ public final class MainHotFragment extends BaseVideoListFragment {
         public void onError(Throwable t) {
             bbi.b(t, "t");
             BLog.e(getLogTag(), t.getMessage());
-            MainHotFragment.this.isLoadingMore = false;
+            if (this.isPrefetch) {
+                MainHotFragment.this.onPrefetchError();
+            } else {
+                MainHotFragment.this.isLoadingMore = false;
+            }
         }
     }
 }

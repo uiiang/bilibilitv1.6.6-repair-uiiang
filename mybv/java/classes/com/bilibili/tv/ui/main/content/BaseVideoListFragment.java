@@ -41,6 +41,13 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
     protected int currentPosition = 0;
     protected boolean isLoadingMore = false;
     protected boolean hasMoreData = true;
+
+    // 列表性能优化：共享复用池（参考MyTVB VideoRecyclerViewTuning）
+    protected RecyclerView.n recycledViewPool;
+
+    // 下一页数据预取状态（参考MyTVB OwnerDetailDialog.schedulePrefetch）
+    protected boolean prefetching = false;                 // 预取请求进行中
+    protected List<MainRecommendEx.Content> prefetchedList = null;  // 预取结果缓存
     
     protected List<MainRecommendEx.Content> ugcList = new ArrayList<>();
     protected List<MainRecommendEx.Content> ogvList = new ArrayList<>();
@@ -159,6 +166,21 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
         this.layoutManager.a(new SpanSizeLookupImpl());
         recyclerView.a(new ItemDecorationImpl(spacing, columnCount));
         recyclerView.setFocusable(false);
+        
+        // ===== 列表性能优化（参考MyTVB VideoRecyclerViewTuning）=====
+        // 关闭item变化动画，翻页更流畅
+        recyclerView.setItemAnimator((RecyclerView.e) null);
+        // 列表大小固定，减少测量开销
+        recyclerView.setHasFixedSize(true);
+        // 增大itemView缓存数量，ViewHolder复用更高效
+        recyclerView.setItemViewCacheSize(8);
+        // 共享复用池，供本Fragment的RecyclerView复用ViewHolder
+        if (this.recycledViewPool == null) {
+            this.recycledViewPool = new RecyclerView.n();
+        }
+        recyclerView.setRecycledViewPool(this.recycledViewPool);
+        // ===== 列表性能优化 END =====
+        
         recyclerView.setAdapter(this.adapter);
         
         if (this.ugcList.isEmpty()) {
@@ -183,6 +205,8 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
     public void onDestroyView() {
         super.onDestroyView();
         this.adapter = null;
+        // 释放共享复用池引用，避免Fragment销毁后持有ViewHolder/View
+        this.recycledViewPool = null;
     }
     
     @Override
@@ -213,6 +237,53 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
     
     public boolean isLoading() {
         return this.isLoadingMore;
+    }
+    
+    /**
+     * 预取下一页数据：首次加载成功后立即发起下一页请求（不直接展示），
+     * 用户触底时若预取已就绪则直接消费，省掉网络往返（参考MyTVB schedulePrefetch）。
+     */
+    protected void prefetchNextPage() {
+        if (this.prefetching || this.prefetchedList != null || !this.hasMoreData || this.adapter == null) {
+            return;
+        }
+        this.prefetching = true;
+        fetchDataForPrefetch();
+    }
+    
+    /**
+     * 子类覆写：发起下一页预取请求（响应走预取模式，成功后调用 onPrefetchSuccess）。
+     * 默认不预取（无分页的列表不覆写）。
+     */
+    protected void fetchDataForPrefetch() {
+    }
+    
+    /** 预取成功回调：缓存结果，不直接展示 */
+    protected void onPrefetchSuccess(List<MainRecommendEx.Content> list) {
+        this.prefetching = false;
+        if (list != null && !list.isEmpty()) {
+            this.prefetchedList = list;
+        }
+    }
+    
+    /** 预取失败回调 */
+    protected void onPrefetchError() {
+        this.prefetching = false;
+    }
+    
+    /**
+     * 触底时消费预取结果。返回是否已消费（已消费则无需再走 fetchData(true)）。
+     * 消费后立即预取下一页，形成"预取-消费-再预取"流水线。
+     */
+    protected boolean consumePrefetchedData() {
+        if (this.prefetchedList == null || this.prefetchedList.isEmpty() || this.adapter == null) {
+            return false;
+        }
+        List<MainRecommendEx.Content> list = this.prefetchedList;
+        this.prefetchedList = null;
+        this.adapter.appendData(list);
+        prefetchNextPage();
+        return true;
     }
     
     @Override
@@ -292,6 +363,14 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
                 if (threshold >= lm.H() - 1) {
                     int totalCount = lm.H();
                     if (totalCount > lm.x()) {
+                        // 优先消费预取结果
+                        if (BaseVideoListFragment.this.consumePrefetchedData()) {
+                            return;
+                        }
+                        // 预取请求进行中则等待其完成，避免重复请求下一页
+                        if (BaseVideoListFragment.this.prefetching) {
+                            return;
+                        }
                         BaseVideoListFragment.this.fetchData(true);
                     }
                 }
@@ -464,6 +543,9 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
             BaseVideoListFragment.this.ugcList = allList;
             BaseVideoListFragment.this.ogvList = ogv;
             
+            // 首屏封面预取（参考MyTVB loadFastVideoCover：数据返回后立即预取前N张封面）
+            prefetchCovers(allList);
+            
             BaseVideoListFragment fragment = this.fragmentRef.get();
             if (fragment != null) {
                 fragment.currentPosition = 0;
@@ -474,6 +556,37 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
             }
             
             d();
+            
+            // 首次加载数据成功后，预取下一页数据（参考MyTVB schedulePrefetch）
+            BaseVideoListFragment fragment2 = this.fragmentRef.get();
+            if (fragment2 != null) {
+                fragment2.prefetchNextPage();
+            }
+        }
+        
+        /**
+         * 首屏封面预取：数据返回后立即将前N张封面预取到Fresco内存缓存，
+         * 用户翻页/滚动到对应位置时图片已就绪，显示更快。
+         * 仅首次加载（setData）时执行，加载更多（appendData）不重复预取。
+         */
+        private void prefetchCovers(List<MainRecommendEx.Content> list) {
+            try {
+                if (list == null || list.isEmpty()) {
+                    return;
+                }
+                int count = Math.min(12, list.size());
+                Context context = MainApplication.a().getApplicationContext();
+                for (int i = 0; i < count; i++) {
+                    MainRecommendEx.Content content = list.get(i);
+                    if (content != null && !TextUtils.isEmpty(content.getCover())) {
+                        // 与bind时相同的尺寸URL，确保Fresco缓存key一致，能命中同一缓存
+                        String url = abd.get_thumb_url_with_size(context, content.getCover(), this.thumbWidth, this.thumbHeight);
+                        abd.prefetchCoverToMemoryCache(context, url);
+                    }
+                }
+                // android.util.Log.i("BaseVideoListFragment", "prefetchCovers count=" + count);
+            } catch (Exception e) {
+            }
         }
         
         public void appendData(List<MainRecommendEx.Content> ugc) {

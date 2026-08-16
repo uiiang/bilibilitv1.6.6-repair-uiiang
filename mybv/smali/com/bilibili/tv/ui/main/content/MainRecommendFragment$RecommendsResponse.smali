@@ -26,23 +26,49 @@
 # instance fields
 .field private isAppendMode:Z
 
+.field private isPrefetch:Z
+
 .field final synthetic this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
 
 # direct methods
 .method constructor <init>(Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;Z)V
-    .locals 0
+    .locals 1
 
     .prologue
-    .line 154
+    .line 169
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
 
-    .line 155
+    .line 170
     iput-boolean p2, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->isAppendMode:Z
 
-    .line 156
+    .line 171
+    const/4 v0, 0x0
+
+    iput-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->isPrefetch:Z
+
+    .line 172
+    return-void
+.end method
+
+.method constructor <init>(Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;ZZ)V
+    .locals 0
+
+    .prologue
+    .line 174
+    iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
+
+    invoke-direct {p0}, Lbl/vn;-><init>()V
+
+    .line 175
+    iput-boolean p2, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->isAppendMode:Z
+
+    .line 176
+    iput-boolean p3, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->isPrefetch:Z
+
+    .line 177
     return-void
 .end method
 
@@ -58,7 +84,7 @@
 
     const/4 v1, 0x0
 
-    .line 160
+    .line 181
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->adapter:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$VideoListAdapter;
@@ -73,40 +99,53 @@
 
     move-result-object v0
 
-    if-nez v0, :cond_19
+    if-nez v0, :cond_23
 
-    .line 161
+    .line 182
     :cond_14
+    iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->isPrefetch:Z
+
+    if-eqz v0, :cond_1e
+
+    .line 183
+    iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->onPrefetchError()V
+
+    .line 220
+    :goto_1d
+    return-void
+
+    .line 185
+    :cond_1e
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     iput-boolean v1, v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->isLoadingMore:Z
 
-    .line 188
-    :goto_18
-    return-void
+    goto :goto_1d
 
-    .line 165
-    :cond_19
+    .line 190
+    :cond_23
     const-string v0, "item"
 
     invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
 
     move-result-object v2
 
-    .line 167
+    .line 192
     invoke-virtual {v2}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
     move-result v0
 
-    if-ge v0, v5, :cond_29
+    if-ge v0, v5, :cond_33
 
-    .line 168
+    .line 193
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     iput-boolean v1, v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->hasMoreData:Z
 
-    .line 171
-    :cond_29
+    .line 196
+    :cond_33
     const/4 v0, 0x5
 
     new-array v0, v0, [Lcom/bilibili/tv/api/main/MainRecommendEx$Content;
@@ -129,7 +168,7 @@
 
     aput-object v4, v0, v3
 
-    .line 172
+    .line 197
     new-instance v3, Ljava/util/ArrayList;
 
     invoke-static {v0}, Ljava/util/Arrays;->asList([Ljava/lang/Object;)Ljava/util/List;
@@ -138,27 +177,27 @@
 
     invoke-direct {v3, v0}, Ljava/util/ArrayList;-><init>(Ljava/util/Collection;)V
 
-    .line 173
+    .line 198
     new-instance v4, Ljava/util/ArrayList;
 
     invoke-direct {v4, v5}, Ljava/util/ArrayList;-><init>(I)V
 
     move v0, v1
 
-    .line 175
-    :goto_49
+    .line 200
+    :goto_53
     invoke-virtual {v2}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
     move-result v5
 
-    if-ge v0, v5, :cond_5f
+    if-ge v0, v5, :cond_69
 
-    .line 176
+    .line 201
     invoke-virtual {v2, v0}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v5
 
-    .line 177
+    .line 202
     iget-object v6, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     # invokes: Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->parseRecommendItem(Lcom/alibaba/fastjson/JSONObject;)Lcom/bilibili/tv/api/main/MainRecommendEx$Content;
@@ -166,51 +205,73 @@
 
     move-result-object v5
 
-    .line 178
+    .line 203
     invoke-virtual {v4, v5}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 175
+    .line 200
     add-int/lit8 v0, v0, 0x1
 
-    goto :goto_49
+    goto :goto_53
 
-    .line 181
-    :cond_5f
+    .line 206
+    :cond_69
+    iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->isPrefetch:Z
+
+    if-eqz v0, :cond_7b
+
+    .line 208
+    iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
+
+    sget v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->fresh_idx:I
+
+    add-int/lit8 v0, v0, 0x1
+
+    sput v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->fresh_idx:I
+
+    .line 209
+    iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
+
+    invoke-virtual {v0, v4}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->onPrefetchSuccess(Ljava/util/List;)V
+
+    goto :goto_1d
+
+    .line 213
+    :cond_7b
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->isAppendMode:Z
 
-    if-eqz v0, :cond_6f
+    if-eqz v0, :cond_8b
 
-    .line 182
+    .line 214
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->adapter:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$VideoListAdapter;
 
     invoke-virtual {v0, v4}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$VideoListAdapter;->appendData(Ljava/util/List;)V
 
-    .line 187
-    :goto_6a
+    .line 219
+    :goto_86
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     iput-boolean v1, v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->isLoadingMore:Z
 
-    goto :goto_18
+    goto :goto_1d
 
-    .line 184
-    :cond_6f
+    .line 216
+    :cond_8b
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->adapter:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$VideoListAdapter;
 
     invoke-virtual {v0, v3, v4}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$VideoListAdapter;->setData(Ljava/util/List;Ljava/util/List;)V
 
-    goto :goto_6a
+    goto :goto_86
 .end method
 
 .method public bridge synthetic a(Ljava/lang/Object;)V
     .locals 0
 
     .prologue
-    .line 151
+    .line 165
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->a(Lcom/alibaba/fastjson/JSONObject;)V
@@ -222,12 +283,12 @@
     .locals 2
 
     .prologue
-    .line 192
+    .line 224
     const-string v0, "t"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 193
+    .line 225
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->getLogTag()Ljava/lang/String;
@@ -240,13 +301,27 @@
 
     invoke-static {v0, v1}, Ltv/danmaku/android/log/BLog;->e(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 194
+    .line 226
+    iget-boolean v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->isPrefetch:Z
+
+    if-eqz v0, :cond_1c
+
+    .line 227
+    iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->onPrefetchError()V
+
+    .line 231
+    :goto_1b
+    return-void
+
+    .line 229
+    :cond_1c
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;->this$0:Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;
 
     const/4 v1, 0x0
 
     iput-boolean v1, v0, Lcom/bilibili/tv/ui/main/content/MainRecommendFragment;->isLoadingMore:Z
 
-    .line 195
-    return-void
+    goto :goto_1b
 .end method

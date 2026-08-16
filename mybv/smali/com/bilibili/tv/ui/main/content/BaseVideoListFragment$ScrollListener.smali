@@ -23,7 +23,7 @@
     .locals 0
 
     .prologue
-    .line 278
+    .line 349
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$ScrollListener;->this$0:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;
 
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$m;-><init>()V
@@ -37,10 +37,10 @@
     .locals 3
 
     .prologue
-    .line 281
+    .line 352
     invoke-super {p0, p1, p2}, Landroid/support/v7/widget/RecyclerView$m;->a(Landroid/support/v7/widget/RecyclerView;I)V
 
-    .line 282
+    .line 353
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$ScrollListener;->this$0:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;
 
     iget-boolean v0, v0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->isLoadingMore:Z
@@ -59,36 +59,36 @@
 
     if-nez v0, :cond_16
 
-    .line 299
+    .line 378
     :cond_15
     :goto_15
     return-void
 
-    .line 285
+    .line 356
     :cond_16
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$ScrollListener;->this$0:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->layoutManager:Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;
 
-    .line 286
+    .line 357
     if-eqz v0, :cond_15
 
-    .line 289
+    .line 360
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->p()I
 
     move-result v1
 
-    .line 290
+    .line 361
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->x()I
 
     move-result v2
 
     if-lez v2, :cond_15
 
-    .line 291
+    .line 362
     add-int/lit8 v1, v1, 0x14
 
-    .line 292
+    .line 363
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->H()I
 
     move-result v2
@@ -97,19 +97,35 @@
 
     if-lt v1, v2, :cond_15
 
-    .line 293
+    .line 364
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->H()I
 
     move-result v1
 
-    .line 294
+    .line 365
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/border/BorderGridLayoutManager;->x()I
 
     move-result v0
 
     if-le v1, v0, :cond_15
 
-    .line 295
+    .line 367
+    iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$ScrollListener;->this$0:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->consumePrefetchedData()Z
+
+    move-result v0
+
+    if-nez v0, :cond_15
+
+    .line 371
+    iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$ScrollListener;->this$0:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;
+
+    iget-boolean v0, v0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;->prefetching:Z
+
+    if-nez v0, :cond_15
+
+    .line 374
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$ScrollListener;->this$0:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment;
 
     const/4 v1, 0x1

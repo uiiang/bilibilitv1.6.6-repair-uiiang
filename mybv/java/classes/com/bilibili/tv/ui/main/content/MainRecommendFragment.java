@@ -95,6 +95,20 @@ public final class MainRecommendFragment extends BaseVideoListFragment {
     }
     
     @Override
+    protected void fetchDataForPrefetch() {
+        if (this.adapter == null) {
+            this.prefetching = false;
+            return;
+        }
+        // 预取下一页：请求当前 fresh_idx，成功缓存时才递增页码（避免预取失败跳页）
+        mg biliAccount = mg.a(MainApplication.a());
+        String cookie = CookieUtil.getFullCookieWithDevice(biliAccount);
+        ((MyBiliApiService) vo.a(MyBiliApiService.class))
+            .recommendVideos(20, (cookie == null || cookie.isEmpty()) ? this.fresh_idx : 0, cookie)
+            .a(new RecommendsResponse(true, true));
+    }
+    
+    @Override
     protected void onBigCardClick(View view, String uri, int position) {
         if (uri.startsWith("bilibili_yst://pgc")) {
             long seasonId = ContentUris.parseId(Uri.parse(uri));
@@ -150,15 +164,26 @@ public final class MainRecommendFragment extends BaseVideoListFragment {
     
     private class RecommendsResponse extends vn<JSONObject> {
         private boolean isAppendMode;
+        private boolean isPrefetch;
         
         RecommendsResponse(boolean isAppendMode) {
             this.isAppendMode = isAppendMode;
+            this.isPrefetch = false;
+        }
+        
+        RecommendsResponse(boolean isAppendMode, boolean isPrefetch) {
+            this.isAppendMode = isAppendMode;
+            this.isPrefetch = isPrefetch;
         }
         
         @Override
         public void a(JSONObject data) {
             if (MainRecommendFragment.this.adapter == null || data == null || data.getJSONArray("item") == null) {
-                MainRecommendFragment.this.isLoadingMore = false;
+                if (this.isPrefetch) {
+                    MainRecommendFragment.this.onPrefetchError();
+                } else {
+                    MainRecommendFragment.this.isLoadingMore = false;
+                }
                 return;
             }
             
@@ -178,6 +203,13 @@ public final class MainRecommendFragment extends BaseVideoListFragment {
                 ugcList.add(content);
             }
             
+            if (this.isPrefetch) {
+                // 预取模式：页码递增到已预取页，结果缓存不直接展示
+                MainRecommendFragment.this.fresh_idx++;
+                MainRecommendFragment.this.onPrefetchSuccess(ugcList);
+                return;
+            }
+            
             if (this.isAppendMode) {
                 MainRecommendFragment.this.adapter.appendData(ugcList);
             } else {
@@ -191,7 +223,11 @@ public final class MainRecommendFragment extends BaseVideoListFragment {
         public void onError(Throwable t) {
             bbi.b(t, "t");
             BLog.e(getLogTag(), t.getMessage());
-            MainRecommendFragment.this.isLoadingMore = false;
+            if (this.isPrefetch) {
+                MainRecommendFragment.this.onPrefetchError();
+            } else {
+                MainRecommendFragment.this.isLoadingMore = false;
+            }
         }
     }
     
