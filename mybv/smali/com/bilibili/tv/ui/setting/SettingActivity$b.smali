@@ -155,18 +155,18 @@
     .locals 1
 
     .prologue
-    .line 378
+    .line 387
     iget-object v0, p0, Lcom/bilibili/tv/ui/setting/SettingActivity$b;->c:Lbl/cj;
 
-    .line 379
+    .line 388
     if-eqz v0, :cond_9
 
-    .line 380
+    .line 389
     invoke-virtual {v0}, Lbl/cj;->b()I
 
     move-result v0
 
-    .line 382
+    .line 391
     :goto_8
     return v0
 
@@ -285,10 +285,10 @@
     .locals 0
 
     .prologue
-    .line 386
+    .line 395
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/setting/SettingActivity$b;->d:Z
 
-    .line 387
+    .line 396
     return-void
 .end method
 

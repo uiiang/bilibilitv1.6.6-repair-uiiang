@@ -22,8 +22,9 @@ public class CookieUtil {
         String deviceCookie = DeviceIdentityManager.getInstance().getDeviceCookie();
         
         Log.d(TAG, "getFullCookieWithDevice - biliAccount: " + (biliAccount != null ? "not null" : "null"));
-        Log.d(TAG, "getFullCookieWithDevice - authCookie: " + authCookie);
-        Log.d(TAG, "getFullCookieWithDevice - deviceCookie: " + deviceCookie);
+        // BUG修复：完整Cookie含超长SESSDATA/bili_ticket，主线程打印易造成logd写阻塞卡顿，改为只打印长度
+        Log.d(TAG, "getFullCookieWithDevice - authCookie length: " + (authCookie == null ? 0 : authCookie.length()));
+        Log.d(TAG, "getFullCookieWithDevice - deviceCookie length: " + (deviceCookie == null ? 0 : deviceCookie.length()));
         
         String result;
         if (authCookie == null || authCookie.isEmpty()) {
@@ -34,7 +35,7 @@ public class CookieUtil {
             result = authCookie + "; " + deviceCookie;
         }
         
-        Log.d(TAG, "getFullCookieWithDevice - result: " + result);
+        Log.d(TAG, "getFullCookieWithDevice - result length: " + (result == null ? 0 : result.length()));
         return result;
     }
 
@@ -78,7 +79,8 @@ public class CookieUtil {
             Log.d(TAG, "getEssentialCookie - cookies count: " + cookies.size());
             for (String name : ESSENTIAL_COOKIES) {
                 String value = findCookieValue(cookies, name);
-                Log.d(TAG, "getEssentialCookie - " + name + " = " + value);
+                // BUG修复：超长值（SESSDATA等）只打印长度，避免主线程打印超长日志造成logd写阻塞卡顿
+                Log.d(TAG, "getEssentialCookie - " + name + " = " + (value != null && value.length() > 50 ? ("len=" + value.length()) : value));
                 if (value != null && !value.isEmpty()) {
                     if (sb.length() > 0) {
                         sb.append("; ");

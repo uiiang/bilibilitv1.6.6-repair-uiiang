@@ -175,10 +175,9 @@ public class ExoPlayerImpl implements IMediaPlayer {
                     //    + bufferedPercent + "% (" + bufferedPosition + "ms), playing=" + isPlaying 
                     //    + ", state=" + stateStr);
                     
-                    if (isLiveStream && position < -2000 && playbackState == Player.STATE_READY) {
-                        Log.w(TAG, "[MONITOR] Live position too far behind (" + position + "ms), seeking to live edge");
-                        exoPlayer.seekToDefaultPosition();
-                    }
+                    // 移除硬 seek 追帧逻辑：直播位置落后时交给 ExoPlayer 自带的
+                    // LivePlaybackSpeedControl 平滑追赶，避免 seek 打断播放造成卡顿/loading。
+                    // 原逻辑：position < -2000ms 时 seekToDefaultPosition()。
                     
                     if (isLiveStream && playbackState == Player.STATE_BUFFERING && position == 0) {
                         if (bufferingStartTime == 0) {
@@ -272,8 +271,17 @@ public class ExoPlayerImpl implements IMediaPlayer {
             
             customRenderersFactory = new CustomRenderersFactory(appContext);
             
-            com.google.android.exoplayer2.LoadControl loadControl = 
-                new com.google.android.exoplayer2.DefaultLoadControl.Builder()
+            com.google.android.exoplayer2.LoadControl loadControl;
+            if (isLiveStream) {
+                // 直播专用缓冲配置（参考 MyTVB）：min=8s, max=30s, 起播=1s, 重缓冲=2s
+                // 小缓冲让播放贴近 live edge，减少落后幅度，避免追帧卡顿
+                loadControl = new com.google.android.exoplayer2.DefaultLoadControl.Builder()
+                    .setBufferDurationsMs(8000, 30000, 1000, 2000)
+                    .build();
+                Log.i(TAG, "ensurePlayer: Live LoadControl configured (8s/30s/1s/2s)");
+            } else {
+                // 点播保持原有翻倍缓冲配置
+                loadControl = new com.google.android.exoplayer2.DefaultLoadControl.Builder()
                     .setBufferDurationsMs(
                         com.google.android.exoplayer2.DefaultLoadControl.DEFAULT_MIN_BUFFER_MS * 2,
                         com.google.android.exoplayer2.DefaultLoadControl.DEFAULT_MAX_BUFFER_MS * 2,
@@ -281,7 +289,8 @@ public class ExoPlayerImpl implements IMediaPlayer {
                         com.google.android.exoplayer2.DefaultLoadControl.DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS
                     )
                     .build();
-            Log.i(TAG, "ensurePlayer: LoadControl configured with doubled buffer sizes for live streaming");
+                Log.i(TAG, "ensurePlayer: VOD LoadControl configured with doubled buffer sizes");
+            }
             
             com.google.android.exoplayer2.LivePlaybackSpeedControl livePlaybackSpeedControl =
                 new DefaultLivePlaybackSpeedControl.Builder()

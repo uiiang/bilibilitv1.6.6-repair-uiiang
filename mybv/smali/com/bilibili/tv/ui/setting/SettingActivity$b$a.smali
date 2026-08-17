@@ -43,7 +43,7 @@
 
 # virtual methods
 .method public final onFocusChange(Landroid/view/View;Z)V
-    .locals 3
+    .locals 4
 
     .prologue
     .line 342
@@ -73,7 +73,7 @@
 
     if-eqz v0, :cond_17
 
-    .line 373
+    .line 382
     :cond_16
     :goto_16
     return-void
@@ -139,39 +139,43 @@
     .line 359
     invoke-static {}, Lbl/bbi;->a()V
 
-    .line 361
+    .line 365
     :cond_48
-    invoke-virtual {v2, v1}, Lbl/afp;->c(I)V
+    new-instance v3, Lcom/bilibili/tv/ui/setting/SettingActivity$b$a$1;
 
-    .line 362
+    invoke-direct {v3, p0, v2, v1}, Lcom/bilibili/tv/ui/setting/SettingActivity$b$a$1;-><init>(Lcom/bilibili/tv/ui/setting/SettingActivity$b$a;Lbl/afp;I)V
+
+    invoke-virtual {p1, v3}, Landroid/view/View;->post(Ljava/lang/Runnable;)Z
+
+    .line 371
     iget-object v2, p0, Lcom/bilibili/tv/ui/setting/SettingActivity$b$a;->this$1:Lcom/bilibili/tv/ui/setting/SettingActivity$b;
 
     invoke-virtual {v2, v1}, Lcom/bilibili/tv/ui/setting/SettingActivity$b;->e(I)V
 
-    .line 363
+    .line 372
     iget-object v1, p0, Lcom/bilibili/tv/ui/setting/SettingActivity$b$a;->b:Landroid/support/v7/widget/RecyclerView$v;
 
     iget-object v1, v1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
 
-    .line 364
+    .line 373
     const-string v2, "holder.itemView"
 
     invoke-static {v1, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 365
+    .line 374
     const/4 v2, 0x1
 
     invoke-virtual {v1, v2}, Landroid/view/View;->setSelected(Z)V
 
-    .line 366
+    .line 375
     iget-object v1, p0, Lcom/bilibili/tv/ui/setting/SettingActivity$b$a;->b:Landroid/support/v7/widget/RecyclerView$v;
 
     iget-object v1, v1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
 
-    .line 367
-    if-nez v1, :cond_6b
+    .line 376
+    if-nez v1, :cond_70
 
-    .line 368
+    .line 377
     new-instance v0, Lkotlin/TypeCastException;
 
     const-string v1, "null cannot be cast to non-null type com.bilibili.tv.widget.side.SideLeftSelectLinearLayout"
@@ -180,13 +184,13 @@
 
     throw v0
 
-    .line 371
-    :cond_6b
+    .line 380
+    :cond_70
     check-cast v1, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;
 
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->a()V
 
-    .line 372
+    .line 381
     const/4 v1, 0x4
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/setting/SettingActivity;->b(I)V

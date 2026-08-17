@@ -353,12 +353,21 @@ public final class SettingActivity extends BaseUpViewActivity {
                         || settingActivity.getSupportFragmentManager() == null) {
                     return;
                 }
-                int f = this.b.f();
-                afp afpVar = settingActivity.d;
+                final int f = this.b.f();
+                final afp afpVar = settingActivity.d;
                 if (afpVar == null) {
                     bbi.a();
                 }
-                afpVar.c(f);
+                // BUG修复：fragment切换改为post异步执行，避免在焦点回调栈内同步执行
+                // executePendingTransactions()导致重入崩溃
+                // （IllegalStateException: FragmentManager is already executing transactions，
+                //   关闭文件夹选择对话框后焦点级联触发）
+                view.post(new Runnable() {
+                    @Override // java.lang.Runnable
+                    public void run() {
+                        afpVar.c(f);
+                    }
+                });
                 b.this.e(f);
                 View view3 = this.b.a;
                 bbi.a((Object) view3, "holder.itemView");

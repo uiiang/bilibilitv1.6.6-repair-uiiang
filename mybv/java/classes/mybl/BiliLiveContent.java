@@ -163,7 +163,13 @@ public class BiliLiveContent implements Parcelable {
                         return -1;
                     }
                     
-                    boolean useExoPlayer = PlayerSelector.shouldUseExoPlayer(MainApplication.a());
+                    // 流格式选择必须与实际直播播放器一致：
+                    // 之前误用点播播放器判断(shouldUseExoPlayer)，当"点播=ExoPlayer、直播=IjkPlayer"时
+                    // 会选中 fmp4 HLS，而 IjkPlayer 对 fmp4-in-HLS 兼容性差导致直播卡顿。
+                    // 改用直播播放器判断：直播=ExoPlayer 选 fmp4 HLS；直播=IjkPlayer 选 FLV(http_stream)。
+                    // 注：format 传 null 不影响判断（仅 "ts" 会被拦截），此处与 wm.a() 的
+                    // PlayerSelector.shouldUseExoPlayerForLive 保持一致。
+                    boolean useExoPlayer = PlayerSelector.shouldUseExoPlayerForLive(MainApplication.a(), null);
                     String[] protocolOrder = useExoPlayer
                         ? new String[]{"http_hls", "http_stream"}
                         : new String[]{"http_stream", "http_hls"};

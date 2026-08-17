@@ -2804,7 +2804,7 @@
     move-result-wide v2
 
     .line 140
-    if-nez p2, :cond_47
+    if-nez p2, :cond_2f
 
     iget-object v0, p0, Lmybl/DanmakuSegmentLoader;->mLoadedSegments:Ljava/util/Set;
 
@@ -2816,30 +2816,7 @@
 
     move-result v0
 
-    if-eqz v0, :cond_47
-
-    .line 141
-    const-string v0, "DanmakuSegment"
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "[loadSegment] skip already loaded, segment="
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    if-eqz v0, :cond_2f
 
     .line 142
     monitor-exit p0
@@ -2847,8 +2824,8 @@
     goto :goto_2
 
     .line 146
-    :cond_47
-    if-nez p2, :cond_57
+    :cond_2f
+    if-nez p2, :cond_3f
 
     iget-object v0, p0, Lmybl/DanmakuSegmentLoader;->mReleasedSegments:Ljava/util/Set;
 
@@ -2860,7 +2837,7 @@
 
     move-result v0
 
-    if-eqz v0, :cond_57
+    if-eqz v0, :cond_3f
 
     .line 147
     monitor-exit p0
@@ -2868,7 +2845,7 @@
     goto :goto_2
 
     .line 150
-    :cond_57
+    :cond_3f
     iget-object v0, p0, Lmybl/DanmakuSegmentLoader;->mLastRequestTimes:Ljava/util/Map;
 
     invoke-static {p1}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
@@ -2882,9 +2859,9 @@
     check-cast v0, Ljava/lang/Long;
 
     .line 151
-    if-nez p2, :cond_8f
+    if-nez p2, :cond_76
 
-    if-eqz v0, :cond_8f
+    if-eqz v0, :cond_76
 
     invoke-virtual {v0}, Ljava/lang/Long;->longValue()J
 
@@ -2896,7 +2873,7 @@
 
     cmp-long v0, v0, v4
 
-    if-gez v0, :cond_8f
+    if-gez v0, :cond_76
 
     .line 152
     const-string v0, "DanmakuSegment"
@@ -2924,10 +2901,10 @@
     .line 153
     monitor-exit p0
 
-    goto/16 :goto_2
+    goto :goto_2
 
     .line 155
-    :cond_8f
+    :cond_76
     iget-object v0, p0, Lmybl/DanmakuSegmentLoader;->mLoadedSegments:Ljava/util/Set;
 
     invoke-static {p1}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
@@ -2966,8 +2943,8 @@
 
     .line 161
     monitor-exit p0
-    :try_end_b3
-    .catchall {:try_start_15 .. :try_end_b3} :catchall_12
+    :try_end_9a
+    .catchall {:try_start_15 .. :try_end_9a} :catchall_12
 
     .line 162
     const-string v1, "DanmakuSegment"
@@ -2986,11 +2963,11 @@
 
     move-result-object v6
 
-    if-eqz p2, :cond_e1
+    if-eqz p2, :cond_c8
 
     const-string v0, " (force)"
 
-    :goto_c8
+    :goto_af
     invoke-virtual {v6, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
@@ -3017,10 +2994,10 @@
     goto/16 :goto_2
 
     .line 162
-    :cond_e1
+    :cond_c8
     const-string v0, ""
 
-    goto :goto_c8
+    goto :goto_af
 .end method
 
 .method public loadSegmentForPosition(J)V

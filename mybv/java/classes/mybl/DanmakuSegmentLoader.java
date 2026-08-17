@@ -138,7 +138,7 @@ public class DanmakuSegmentLoader {
             long now = System.currentTimeMillis();
             // 先判"已加载"：每秒预加载路径都会命中当前段，属正常高频路径，静默跳过（Log.d）
             if (!force && this.mLoadedSegments.contains(Integer.valueOf(index))) {
-                Log.d(TAG, "[loadSegment] skip already loaded, segment=" + index);
+                // 每秒预加载路径命中当前段属正常高频路径，注释日志避免主线程每秒刷屏（logd写阻塞）
                 return;
             }
             // 再判"已释放"：生命周期释放过的段，普通路径直接静默跳过，防止节流到期后
