@@ -26,6 +26,11 @@
 # direct methods
 .method constructor <init>(Lbl/xj$1$1;Lorg/json/JSONArray;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 97

@@ -6,12 +6,12 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$TaskHolder;,
-        Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$GroupHolder;,
         Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$OnTaskClickListener;,
         Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$OnGroupClickListener;,
+        Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$Item;,
         Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$VideoGroup;,
-        Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$Item;
+        Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$TaskHolder;,
+        Lcom/bilibili/tv/ui/download/adapter/GroupedTaskAdapter$GroupHolder;
     }
 .end annotation
 

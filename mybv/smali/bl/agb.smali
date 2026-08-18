@@ -13,9 +13,9 @@
         Lbl/agb$a;,
         Lbl/agb$GroupData;,
         Lbl/agb$TagData;,
+        Lbl/agb$b;,
         Lbl/agb$GroupClickListener;,
-        Lbl/agb$c;,
-        Lbl/agb$b;
+        Lbl/agb$c;
     }
 .end annotation
 

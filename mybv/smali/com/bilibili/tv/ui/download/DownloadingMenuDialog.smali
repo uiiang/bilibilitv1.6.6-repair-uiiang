@@ -6,8 +6,8 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/download/DownloadingMenuDialog$MenuAdapter;,
-        Lcom/bilibili/tv/ui/download/DownloadingMenuDialog$OnMenuItemClickListener;
+        Lcom/bilibili/tv/ui/download/DownloadingMenuDialog$OnMenuItemClickListener;,
+        Lcom/bilibili/tv/ui/download/DownloadingMenuDialog$MenuAdapter;
     }
 .end annotation
 

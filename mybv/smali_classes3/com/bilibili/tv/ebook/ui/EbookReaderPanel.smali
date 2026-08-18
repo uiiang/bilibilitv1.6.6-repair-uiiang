@@ -1248,11 +1248,11 @@
 
     if-ge v0, v3, :cond_7d
 
+    .line 3101
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->videoPositionList:Ljava/util/List;
 
     iget v3, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->videoPosition:I
 
-    .line 3101
     invoke-interface {v0, v3}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v0
@@ -4796,7 +4796,7 @@
 
     goto/16 :goto_f
 
-    .line 3498
+    .line 3499
     :cond_129
     const/high16 v2, 0x3f800000    # 1.0f
 
@@ -9062,11 +9062,11 @@
 
     if-ge v0, v1, :cond_132
 
+    .line 2890
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->videoPositionList:Ljava/util/List;
 
     iget v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->videoPosition:I
 
-    .line 2890
     invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v0
@@ -9576,11 +9576,11 @@
 
     if-ge v0, v1, :cond_1dc
 
+    .line 2531
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->videoPositionList:Ljava/util/List;
 
     iget v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->videoPosition:I
 
-    .line 2531
     invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v0
@@ -9887,6 +9887,7 @@
 
     move-result-object v3
 
+    .line 3442
     if-eqz v1, :cond_75
 
     const-string v0, "\u53f3\u4fa7"
@@ -9900,6 +9901,7 @@
 
     move-result-object v0
 
+    .line 3441
     invoke-static {v2, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     goto :goto_6
@@ -9953,7 +9955,7 @@
 
     goto :goto_28
 
-    .line 3441
+    .line 3442
     :cond_75
     const-string v0, "\u5de6\u4fa7"
 
@@ -10132,11 +10134,11 @@
 
     if-ge v0, v1, :cond_cf
 
+    .line 3219
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->videoPositionList:Ljava/util/List;
 
     iget v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->videoPosition:I
 
-    .line 3219
     invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v0
@@ -11119,6 +11121,7 @@
 
     move-result-object v5
 
+    .line 715
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->ebookWebView:Landroid/webkit/WebView;
 
     if-eqz v1, :cond_13b
@@ -11134,6 +11137,7 @@
 
     move-result-object v1
 
+    .line 713
     invoke-static {v4, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 717
@@ -11175,7 +11179,7 @@
     .line 709
     goto :goto_e7
 
-    .line 713
+    .line 715
     :cond_13b
     const-string v1, "null"
 
@@ -12799,9 +12803,9 @@
 
     if-ge p1, v0, :cond_9b
 
+    .line 541
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->videoPositionList:Ljava/util/List;
 
-    .line 541
     invoke-interface {v0, p1}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v0
@@ -12864,9 +12868,9 @@
 
     if-ge p1, v0, :cond_9e
 
+    .line 556
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->videoPositionList:Ljava/util/List;
 
-    .line 556
     invoke-interface {v0, p1}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v0

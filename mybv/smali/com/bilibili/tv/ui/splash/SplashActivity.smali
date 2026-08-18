@@ -6,10 +6,10 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/splash/SplashActivity$a;,
-        Lcom/bilibili/tv/ui/splash/SplashActivity$c;,
+        Lcom/bilibili/tv/ui/splash/SplashActivity$b;,
         Lcom/bilibili/tv/ui/splash/SplashActivity$d;,
-        Lcom/bilibili/tv/ui/splash/SplashActivity$b;
+        Lcom/bilibili/tv/ui/splash/SplashActivity$c;,
+        Lcom/bilibili/tv/ui/splash/SplashActivity$a;
     }
 .end annotation
 

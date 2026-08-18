@@ -6,10 +6,10 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$LegacyFallbackResponse;,
-        Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$LegacyRecommendResponse;,
         Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$RecommendsResponse;,
-        Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$Companion;
+        Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$Companion;,
+        Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$LegacyFallbackResponse;,
+        Lcom/bilibili/tv/ui/main/content/MainRecommendFragment$LegacyRecommendResponse;
     }
 .end annotation
 
@@ -266,9 +266,9 @@
 
     const/16 v3, 0x14
 
+    .line 93
     if-eqz v2, :cond_2a
 
-    .line 93
     invoke-virtual {v2}, Ljava/lang/String;->isEmpty()Z
 
     move-result v1
@@ -355,9 +355,9 @@
 
     const/16 v3, 0x14
 
+    .line 107
     if-eqz v2, :cond_27
 
-    .line 107
     invoke-virtual {v2}, Ljava/lang/String;->isEmpty()Z
 
     move-result v4

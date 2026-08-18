@@ -1,4 +1,4 @@
-.class final Lcom/bilibili/bangumi/api/uniform/BangumiUniformEpisode$1;
+.class Lcom/bilibili/bangumi/api/uniform/BangumiUniformEpisode$1;
 .super Ljava/lang/Object;
 .source "BangumiUniformEpisode.java"
 
@@ -12,7 +12,7 @@
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
-    accessFlags = 0x8
+    accessFlags = 0x0
     name = null
 .end annotation
 

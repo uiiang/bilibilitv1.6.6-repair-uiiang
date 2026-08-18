@@ -1,4 +1,4 @@
-.class final Lbl/zq$1;
+.class Lbl/zq$1;
 .super Lbl/vm;
 .source "zq.java"
 
@@ -9,7 +9,7 @@
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
-    accessFlags = 0x8
+    accessFlags = 0x0
     name = null
 .end annotation
 

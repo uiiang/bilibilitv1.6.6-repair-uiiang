@@ -6,8 +6,8 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/attention/TagFilterAdapter$TagFilterViewHolder;,
-        Lcom/bilibili/tv/ui/attention/TagFilterAdapter$OnItemClickListener;
+        Lcom/bilibili/tv/ui/attention/TagFilterAdapter$OnItemClickListener;,
+        Lcom/bilibili/tv/ui/attention/TagFilterAdapter$TagFilterViewHolder;
     }
 .end annotation
 

@@ -6,8 +6,8 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/download/adapter/EpisodeSelectAdapter$EpisodeViewHolder;,
-        Lcom/bilibili/tv/ui/download/adapter/EpisodeSelectAdapter$OnEpisodeClickListener;
+        Lcom/bilibili/tv/ui/download/adapter/EpisodeSelectAdapter$OnEpisodeClickListener;,
+        Lcom/bilibili/tv/ui/download/adapter/EpisodeSelectAdapter$EpisodeViewHolder;
     }
 .end annotation
 

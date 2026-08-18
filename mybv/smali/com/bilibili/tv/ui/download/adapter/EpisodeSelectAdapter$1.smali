@@ -28,6 +28,11 @@
 # direct methods
 .method constructor <init>(Lcom/bilibili/tv/ui/download/adapter/EpisodeSelectAdapter;Lcom/bilibili/tv/ui/download/adapter/EpisodeSelectAdapter$EpisodeViewHolder;Z)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 89

@@ -27,22 +27,52 @@
 
 
 # direct methods
-.method static constructor <clinit>()V
-    .locals 6
+.method private static synthetic $values()[Lorg/java_websocket/enums/ReadyState;
+    .locals 3
 
     .prologue
-    const/4 v5, 0x3
+    .line 6
+    const/4 v0, 0x4
 
-    const/4 v4, 0x2
+    new-array v0, v0, [Lorg/java_websocket/enums/ReadyState;
 
-    const/4 v3, 0x1
+    const/4 v1, 0x0
 
-    const/4 v2, 0x0
+    sget-object v2, Lorg/java_websocket/enums/ReadyState;->NOT_YET_CONNECTED:Lorg/java_websocket/enums/ReadyState;
 
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x1
+
+    sget-object v2, Lorg/java_websocket/enums/ReadyState;->OPEN:Lorg/java_websocket/enums/ReadyState;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x2
+
+    sget-object v2, Lorg/java_websocket/enums/ReadyState;->CLOSING:Lorg/java_websocket/enums/ReadyState;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x3
+
+    sget-object v2, Lorg/java_websocket/enums/ReadyState;->CLOSED:Lorg/java_websocket/enums/ReadyState;
+
+    aput-object v2, v0, v1
+
+    return-object v0
+.end method
+
+.method static constructor <clinit>()V
+    .locals 3
+
+    .prologue
     .line 7
     new-instance v0, Lorg/java_websocket/enums/ReadyState;
 
     const-string v1, "NOT_YET_CONNECTED"
+
+    const/4 v2, 0x0
 
     invoke-direct {v0, v1, v2}, Lorg/java_websocket/enums/ReadyState;-><init>(Ljava/lang/String;I)V
 
@@ -52,7 +82,9 @@
 
     const-string v1, "OPEN"
 
-    invoke-direct {v0, v1, v3}, Lorg/java_websocket/enums/ReadyState;-><init>(Ljava/lang/String;I)V
+    const/4 v2, 0x1
+
+    invoke-direct {v0, v1, v2}, Lorg/java_websocket/enums/ReadyState;-><init>(Ljava/lang/String;I)V
 
     sput-object v0, Lorg/java_websocket/enums/ReadyState;->OPEN:Lorg/java_websocket/enums/ReadyState;
 
@@ -60,7 +92,9 @@
 
     const-string v1, "CLOSING"
 
-    invoke-direct {v0, v1, v4}, Lorg/java_websocket/enums/ReadyState;-><init>(Ljava/lang/String;I)V
+    const/4 v2, 0x2
+
+    invoke-direct {v0, v1, v2}, Lorg/java_websocket/enums/ReadyState;-><init>(Ljava/lang/String;I)V
 
     sput-object v0, Lorg/java_websocket/enums/ReadyState;->CLOSING:Lorg/java_websocket/enums/ReadyState;
 
@@ -68,30 +102,16 @@
 
     const-string v1, "CLOSED"
 
-    invoke-direct {v0, v1, v5}, Lorg/java_websocket/enums/ReadyState;-><init>(Ljava/lang/String;I)V
+    const/4 v2, 0x3
+
+    invoke-direct {v0, v1, v2}, Lorg/java_websocket/enums/ReadyState;-><init>(Ljava/lang/String;I)V
 
     sput-object v0, Lorg/java_websocket/enums/ReadyState;->CLOSED:Lorg/java_websocket/enums/ReadyState;
 
     .line 6
-    const/4 v0, 0x4
+    invoke-static {}, Lorg/java_websocket/enums/ReadyState;->$values()[Lorg/java_websocket/enums/ReadyState;
 
-    new-array v0, v0, [Lorg/java_websocket/enums/ReadyState;
-
-    sget-object v1, Lorg/java_websocket/enums/ReadyState;->NOT_YET_CONNECTED:Lorg/java_websocket/enums/ReadyState;
-
-    aput-object v1, v0, v2
-
-    sget-object v1, Lorg/java_websocket/enums/ReadyState;->OPEN:Lorg/java_websocket/enums/ReadyState;
-
-    aput-object v1, v0, v3
-
-    sget-object v1, Lorg/java_websocket/enums/ReadyState;->CLOSING:Lorg/java_websocket/enums/ReadyState;
-
-    aput-object v1, v0, v4
-
-    sget-object v1, Lorg/java_websocket/enums/ReadyState;->CLOSED:Lorg/java_websocket/enums/ReadyState;
-
-    aput-object v1, v0, v5
+    move-result-object v0
 
     sput-object v0, Lorg/java_websocket/enums/ReadyState;->$VALUES:[Lorg/java_websocket/enums/ReadyState;
 

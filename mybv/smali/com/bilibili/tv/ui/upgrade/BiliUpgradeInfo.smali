@@ -12,8 +12,8 @@
 
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/upgrade/BiliUpgradeInfo$b;,
-        Lcom/bilibili/tv/ui/upgrade/BiliUpgradeInfo$a;
+        Lcom/bilibili/tv/ui/upgrade/BiliUpgradeInfo$a;,
+        Lcom/bilibili/tv/ui/upgrade/BiliUpgradeInfo$b;
     }
 .end annotation
 

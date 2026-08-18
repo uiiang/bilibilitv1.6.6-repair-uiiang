@@ -6,12 +6,12 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;,
         Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;,
-        Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$g;,
-        Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$f;,
         Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$e;,
-        Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$b;
+        Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$f;,
+        Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$g;,
+        Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$b;,
+        Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;
     }
 .end annotation
 

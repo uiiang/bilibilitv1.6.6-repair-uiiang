@@ -28,6 +28,11 @@
 # direct methods
 .method constructor <init>(Lmybl/DeviceIdentityManager;Landroid/content/Context;Lmybl/DeviceIdentityManager$InitCallback;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 90

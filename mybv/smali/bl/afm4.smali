@@ -1194,6 +1194,7 @@
 
     invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
 
+    .line 381
     if-ne v5, v6, :cond_fa
 
     const-string v3, "\u226a "
@@ -1219,7 +1220,6 @@
 
     move-result-object v3
 
-    .line 381
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/ShadowTextView;->setText(Ljava/lang/CharSequence;)V
 
     .line 379
@@ -1229,7 +1229,7 @@
 
     goto :goto_ca
 
-    .line 380
+    .line 381
     :cond_fa
     const-string v3, ""
 
@@ -3723,6 +3723,7 @@
 
     invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
 
+    .line 527
     if-eqz p2, :cond_54
 
     const-string v1, "\u226a "
@@ -3748,7 +3749,6 @@
 
     move-result-object v1
 
-    .line 527
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/ShadowTextView;->setText(Ljava/lang/CharSequence;)V
 
     .line 524
@@ -3769,7 +3769,7 @@
 
     goto :goto_a
 
-    .line 526
+    .line 527
     :cond_54
     const-string v1, ""
 

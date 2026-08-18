@@ -36,6 +36,11 @@
 # direct methods
 .method constructor <init>(Lbl/yo;Lcom/bilibili/tv/api/danmaku/DanmakuSendData;Ljava/lang/String;ILjava/lang/String;Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;Landroid/content/Context;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 67

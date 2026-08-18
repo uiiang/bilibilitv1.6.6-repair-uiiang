@@ -1,4 +1,4 @@
-.class final Lmybl/VideoViewParams$2;
+.class Lmybl/VideoViewParams$2;
 .super Ljava/lang/Object;
 .source "VideoViewParams.java"
 
@@ -12,7 +12,7 @@
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
-    accessFlags = 0x8
+    accessFlags = 0x0
     name = null
 .end annotation
 
@@ -34,6 +34,11 @@
 # direct methods
 .method constructor <init>(I)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 455

@@ -75,9 +75,9 @@
 
     if-lez v0, :cond_4a
 
+    .line 255
     const/4 v0, 0x0
 
-    .line 255
     invoke-virtual {v1, v0}, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
 
     move-result-object v0
@@ -2569,6 +2569,7 @@
 
     if-eqz v1, :cond_118
 
+    .line 104
     iget-object v0, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mResolveParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     iget v0, v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mProgress:I
@@ -2750,6 +2751,7 @@
 
     if-eqz v1, :cond_1bc
 
+    .line 131
     iget-object v0, p2, Lcom/bilibili/tv/player/basic/context/VideoViewParams;->mResolveParams:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     iget v0, v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mProgress:I

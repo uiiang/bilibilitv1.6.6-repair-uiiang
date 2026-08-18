@@ -6,11 +6,11 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;,
         Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$c;,
-        Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$g;,
+        Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$e;,
         Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$f;,
-        Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$e;
+        Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$g;,
+        Lcom/bilibili/tv/ui/weekly/WeeklyVideoFragment$d;
     }
 .end annotation
 

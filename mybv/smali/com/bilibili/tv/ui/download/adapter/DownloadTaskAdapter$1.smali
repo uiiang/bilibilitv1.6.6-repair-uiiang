@@ -28,6 +28,11 @@
 # direct methods
 .method constructor <init>(Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter;Lcom/bilibili/tv/ui/download/model/DownloadTask;I)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 223

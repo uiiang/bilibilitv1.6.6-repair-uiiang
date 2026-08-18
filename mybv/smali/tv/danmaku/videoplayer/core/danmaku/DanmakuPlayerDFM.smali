@@ -848,7 +848,7 @@
 
     move-result v4
 
-    if-eqz v4, :cond_172
+    if-eqz v4, :cond_170
 
     .line 457
     new-instance v3, Ltv/danmaku/videoplayer/core/danmaku/LiveDanmakuParser;
@@ -883,7 +883,7 @@
 
     move-result v4
 
-    if-nez v4, :cond_19f
+    if-nez v4, :cond_19d
 
     .line 468
     const-string v3, "DanmakuPlayerDFM"
@@ -930,7 +930,7 @@
 
     move-result v0
 
-    if-nez v0, :cond_1b9
+    if-nez v0, :cond_1b7
 
     move v0, v1
 
@@ -945,7 +945,7 @@
 
     move-result v0
 
-    if-nez v0, :cond_1bc
+    if-nez v0, :cond_1ba
 
     move v0, v1
 
@@ -960,7 +960,7 @@
 
     move-result v0
 
-    if-nez v0, :cond_1bf
+    if-nez v0, :cond_1bd
 
     move v0, v1
 
@@ -975,7 +975,7 @@
 
     move-result v0
 
-    if-nez v0, :cond_1c2
+    if-nez v0, :cond_1c0
 
     move v0, v1
 
@@ -1043,7 +1043,7 @@
 
     move-result v0
 
-    if-eqz v0, :cond_1c5
+    if-eqz v0, :cond_1c3
 
     .line 483
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mConfig:Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
@@ -1060,7 +1060,7 @@
 
     move-result v0
 
-    if-eqz v0, :cond_1ce
+    if-eqz v0, :cond_1cc
 
     .line 488
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mConfig:Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
@@ -1100,7 +1100,7 @@
 
     move-result v0
 
-    if-ne v8, v0, :cond_1da
+    if-ne v8, v0, :cond_1d8
 
     .line 518
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mConfig:Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
@@ -1137,7 +1137,7 @@
 
     move-result v0
 
-    if-nez v0, :cond_1f4
+    if-nez v0, :cond_1f2
 
     .line 523
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mConfig:Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
@@ -1166,19 +1166,17 @@
 
     check-cast v0, [Ljava/lang/String;
 
-    check-cast v0, [Ljava/lang/String;
-
     invoke-virtual {v1, v0}, Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;->a([Ljava/lang/String;)Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
 
     .line 529
-    :goto_14f
+    :goto_14d
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mDanmakuParams:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuParams;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuParams;->isDanmakuBlockColorful()Z
 
     move-result v0
 
-    if-eqz v0, :cond_20a
+    if-eqz v0, :cond_208
 
     .line 530
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mConfig:Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
@@ -1188,7 +1186,7 @@
     invoke-virtual {v0, v1}, Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;->a(I)Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
 
     .line 534
-    :goto_15d
+    :goto_15b
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mDanmakuView:Lbl/bfd;
 
     new-instance v1, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$4;
@@ -1209,7 +1207,7 @@
     goto/16 :goto_8
 
     .line 459
-    :cond_172
+    :cond_170
     new-instance v4, Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;
 
     iget-object v5, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mDanmakuDocument:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuDocument;
@@ -1255,7 +1253,7 @@
     goto/16 :goto_37
 
     .line 470
-    :cond_19f
+    :cond_19d
     const-string v0, "fonts/danmaku.ttf"
 
     invoke-static {v3, v0}, Lbl/ls;->a(Landroid/content/Context;Ljava/lang/String;)Landroid/graphics/Typeface;
@@ -1263,7 +1261,7 @@
     move-result-object v0
 
     .line 471
-    if-eqz v0, :cond_1b0
+    if-eqz v0, :cond_1ae
 
     .line 472
     const-string v3, "DanmakuPlayerDFM"
@@ -1275,7 +1273,7 @@
     goto/16 :goto_51
 
     .line 474
-    :cond_1b0
+    :cond_1ae
     const-string v3, "DanmakuPlayerDFM"
 
     const-string v4, "failed to load font danmaku.ttf"
@@ -1284,29 +1282,29 @@
 
     goto/16 :goto_51
 
-    :cond_1b9
+    :cond_1b7
     move v0, v2
 
     .line 481
     goto/16 :goto_74
 
-    :cond_1bc
+    :cond_1ba
     move v0, v2
 
     goto/16 :goto_81
 
-    :cond_1bf
+    :cond_1bd
     move v0, v2
 
     goto/16 :goto_8e
 
-    :cond_1c2
+    :cond_1c0
     move v0, v2
 
     goto/16 :goto_9b
 
     .line 485
-    :cond_1c5
+    :cond_1c3
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mConfig:Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
 
     iget-object v3, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mFlagFilter:Lbl/bez$a;
@@ -1316,7 +1314,7 @@
     goto/16 :goto_e3
 
     .line 490
-    :cond_1ce
+    :cond_1cc
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mConfig:Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
 
     new-instance v3, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$3;
@@ -1328,7 +1326,7 @@
     goto/16 :goto_f7
 
     .line 520
-    :cond_1da
+    :cond_1d8
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mConfig:Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
 
     iget-object v3, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mDanmakuParams:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuParams;
@@ -1356,39 +1354,39 @@
     goto/16 :goto_124
 
     .line 524
-    :cond_1f4
+    :cond_1f2
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mDanmakuParams:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuParams;
 
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuParams;->isDanmakuBlockGuest()Z
 
     move-result v0
 
-    if-eqz v0, :cond_203
+    if-eqz v0, :cond_201
 
     .line 525
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mConfig:Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
 
     invoke-virtual {v0, v1}, Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;->f(Z)Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
 
-    goto/16 :goto_14f
+    goto/16 :goto_14d
 
     .line 527
-    :cond_203
+    :cond_201
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mConfig:Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
 
     invoke-virtual {v0, v2}, Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;->f(Z)Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
 
-    goto/16 :goto_14f
+    goto/16 :goto_14d
 
     .line 532
-    :cond_20a
+    :cond_208
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mConfig:Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
 
     new-array v1, v2, [Ljava/lang/Integer;
 
     invoke-virtual {v0, v1}, Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;->a([Ljava/lang/Integer;)Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
 
-    goto/16 :goto_15d
+    goto/16 :goto_15b
 .end method
 
 .method private releaseDanmakusBefore(J)V
@@ -4277,12 +4275,10 @@
 
     move-result v0
 
-    if-eqz v0, :cond_82
+    if-eqz v0, :cond_80
 
     .line 948
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mConfig:Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
-
-    check-cast p2, [Ljava/lang/String;
 
     check-cast p2, [Ljava/lang/String;
 
@@ -4291,14 +4287,14 @@
     goto :goto_1a
 
     .line 951
-    :cond_82
+    :cond_80
     sget-object v0, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;->BLOCK_COLORFUL:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;
 
     invoke-virtual {p1, v0}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;->equals(Ljava/lang/Object;)Z
 
     move-result v0
 
-    if-eqz v0, :cond_a4
+    if-eqz v0, :cond_a2
 
     .line 952
     aget-object v0, p2, v2
@@ -4309,7 +4305,7 @@
 
     move-result v0
 
-    if-eqz v0, :cond_9b
+    if-eqz v0, :cond_99
 
     .line 953
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mConfig:Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
@@ -4321,7 +4317,7 @@
     goto :goto_1a
 
     .line 956
-    :cond_9b
+    :cond_99
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mConfig:Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
 
     new-array v1, v2, [Ljava/lang/Integer;
@@ -4331,14 +4327,14 @@
     goto/16 :goto_1a
 
     .line 960
-    :cond_a4
+    :cond_a2
     sget-object v0, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;->DUPLICATE_MERGING:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;
 
     invoke-virtual {p1, v0}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;->equals(Ljava/lang/Object;)Z
 
     move-result v0
 
-    if-eqz v0, :cond_bb
+    if-eqz v0, :cond_b9
 
     .line 961
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mConfig:Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
@@ -4356,14 +4352,14 @@
     goto/16 :goto_1a
 
     .line 964
-    :cond_bb
+    :cond_b9
     sget-object v0, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;->MAX_ON_SCREEN:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;
 
     invoke-virtual {p1, v0}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;->equals(Ljava/lang/Object;)Z
 
     move-result v0
 
-    if-eqz v0, :cond_dc
+    if-eqz v0, :cond_da
 
     .line 965
     aget-object v0, p2, v2
@@ -4394,14 +4390,14 @@
     goto/16 :goto_1a
 
     .line 971
-    :cond_dc
+    :cond_da
     sget-object v0, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;->SCROLL_SPPED_FACTOR:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;
 
     invoke-virtual {p1, v0}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;->equals(Ljava/lang/Object;)Z
 
     move-result v0
 
-    if-eqz v0, :cond_f3
+    if-eqz v0, :cond_f1
 
     .line 972
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mConfig:Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
@@ -4419,14 +4415,14 @@
     goto/16 :goto_1a
 
     .line 975
-    :cond_f3
+    :cond_f1
     sget-object v0, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;->TRANSPARENCY:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;
 
     invoke-virtual {p1, v0}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;->equals(Ljava/lang/Object;)Z
 
     move-result v0
 
-    if-eqz v0, :cond_10a
+    if-eqz v0, :cond_108
 
     .line 976
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mConfig:Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
@@ -4444,14 +4440,14 @@
     goto/16 :goto_1a
 
     .line 979
-    :cond_10a
+    :cond_108
     sget-object v0, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;->TEXTSIZE_SCALE:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;
 
     invoke-virtual {p1, v0}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;->equals(Ljava/lang/Object;)Z
 
     move-result v0
 
-    if-eqz v0, :cond_124
+    if-eqz v0, :cond_122
 
     .line 980
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mConfig:Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
@@ -4472,14 +4468,14 @@
     goto/16 :goto_1a
 
     .line 984
-    :cond_124
+    :cond_122
     sget-object v0, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;->STROKEWIDTH_SCALING:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;
 
     invoke-virtual {p1, v0}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;->equals(Ljava/lang/Object;)Z
 
     move-result v0
 
-    if-eqz v0, :cond_15c
+    if-eqz v0, :cond_15a
 
     .line 985
     aget-object v0, p2, v2
@@ -4499,7 +4495,7 @@
 
     const/4 v4, 0x3
 
-    if-eq v3, v4, :cond_14f
+    if-eq v3, v4, :cond_14d
 
     .line 987
     iget-object v3, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mConfig:Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
@@ -4521,7 +4517,7 @@
     invoke-virtual {v3, v4, v1}, Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;->a(I[F)Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
 
     .line 989
-    :cond_14f
+    :cond_14d
     sget v0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuConfig;->sDanmakuStrokenWidth:F
 
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mDanmakuParams:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuParams;
@@ -4537,14 +4533,14 @@
     goto/16 :goto_1a
 
     .line 992
-    :cond_15c
+    :cond_15a
     sget-object v0, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;->BLOCK_DANMAKU_ON_SCREEN:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;
 
     invoke-virtual {p1, v0}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;->equals(Ljava/lang/Object;)Z
 
     move-result v0
 
-    if-eqz v0, :cond_176
+    if-eqz v0, :cond_174
 
     .line 993
     array-length v0, p2
@@ -4567,7 +4563,7 @@
     goto/16 :goto_1a
 
     .line 999
-    :cond_176
+    :cond_174
     sget-object v0, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;->DANMAKU_RECOMMAND:Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;
 
     invoke-virtual {p1, v0}, Ltv/danmaku/videoplayer/core/danmaku/IDanmakuPlayer$DanmakuOptionName;->equals(Ljava/lang/Object;)Z
@@ -4609,11 +4605,11 @@
     invoke-static {v1, v2}, Ltv/danmaku/android/log/BLog;->d(Ljava/lang/String;Ljava/lang/String;)V
 
     .line 1002
-    if-ltz v0, :cond_1b6
+    if-ltz v0, :cond_1b4
 
     const/16 v1, 0xa
 
-    if-gt v0, v1, :cond_1b6
+    if-gt v0, v1, :cond_1b4
 
     .line 1003
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mFlagFilter:Lbl/bez$a;
@@ -4634,7 +4630,7 @@
     goto/16 :goto_1a
 
     .line 1006
-    :cond_1b6
+    :cond_1b4
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mConfig:Lmaster/flame/danmaku/danmaku/model/android/DanmakuContext;
 
     iget-object v1, p0, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;->mFlagFilter:Lbl/bez$a;

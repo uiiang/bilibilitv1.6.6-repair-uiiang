@@ -6,11 +6,11 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$FocusBoundaryHandler;,
-        Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$OnTagClickListener;,
         Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$OnTagFocusListener;,
-        Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$TagViewHolder;,
-        Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$TagItem;
+        Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$TagItem;,
+        Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$OnTagClickListener;,
+        Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$FocusBoundaryHandler;,
+        Lcom/bilibili/tv/ui/video/widget/NavigationTagAdapter$TagViewHolder;
     }
 .end annotation
 

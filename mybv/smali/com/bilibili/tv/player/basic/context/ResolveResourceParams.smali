@@ -13,9 +13,9 @@
 
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
+        Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$PlayInfoCallback;,
         Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$ExtraParams;,
-        Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;,
-        Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$PlayInfoCallback;
+        Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;
     }
 .end annotation
 

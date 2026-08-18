@@ -6,11 +6,11 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;,
         Lcom/bilibili/tv/ui/history/HistoryVideoFragment$c;,
-        Lcom/bilibili/tv/ui/history/HistoryVideoFragment$g;,
+        Lcom/bilibili/tv/ui/history/HistoryVideoFragment$e;,
         Lcom/bilibili/tv/ui/history/HistoryVideoFragment$f;,
-        Lcom/bilibili/tv/ui/history/HistoryVideoFragment$e;
+        Lcom/bilibili/tv/ui/history/HistoryVideoFragment$g;,
+        Lcom/bilibili/tv/ui/history/HistoryVideoFragment$h;
     }
 .end annotation
 

@@ -26,6 +26,11 @@
 # direct methods
 .method constructor <init>(Lcom/bilibili/tv/player/PlayerActivityUrlRefreshHelper;Ljava/lang/Runnable;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 276

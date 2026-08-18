@@ -34,6 +34,11 @@
 # direct methods
 .method constructor <init>(Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;Landroid/content/Context;Landroid/app/Activity;Ljava/io/File;Ljava/lang/String;Ljava/lang/String;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 565

@@ -26,6 +26,11 @@
 # direct methods
 .method constructor <init>(Lbl/aef2;Lcom/bilibili/tv/ui/ranking/ElseActivity;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 55

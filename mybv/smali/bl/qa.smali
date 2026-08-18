@@ -156,39 +156,41 @@
     .line 40
     invoke-interface {v0}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
 
-    move-result-object v1
+    move-result-object v2
 
     :goto_46
-    invoke-interface {v1}, Ljava/util/Iterator;->hasNext()Z
+    invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
 
     move-result v0
 
-    if-eqz v0, :cond_60
+    if-eqz v0, :cond_62
 
-    invoke-interface {v1}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+    invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
     move-result-object v0
 
     check-cast v0, Ljava/lang/String;
 
     .line 41
-    iget-object v2, p0, Lbl/qa;->d:Ljava/util/Map;
+    iget-object v3, p0, Lbl/qa;->d:Ljava/util/Map;
 
     # getter for: Lbl/qa$a;->f:Ljava/util/Map;
     invoke-static {p1}, Lbl/qa$a;->access$800(Lbl/qa$a;)Ljava/util/Map;
 
-    move-result-object v3
+    move-result-object v1
 
-    invoke-interface {v3, v0}, Ljava/util/Map;->get(Ljava/lang/Object;)Ljava/lang/Object;
+    invoke-interface {v1, v0}, Ljava/util/Map;->get(Ljava/lang/Object;)Ljava/lang/Object;
 
-    move-result-object v3
+    move-result-object v1
 
-    invoke-interface {v2, v0, v3}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    check-cast v1, Ljava/lang/String;
+
+    invoke-interface {v3, v0, v1}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
     goto :goto_46
 
     .line 43
-    :cond_60
+    :cond_62
     # getter for: Lbl/qa$a;->e:Ljava/util/Map;
     invoke-static {p1}, Lbl/qa$a;->access$900(Lbl/qa$a;)Ljava/util/Map;
 
@@ -208,39 +210,41 @@
     .line 45
     invoke-interface {v0}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
 
-    move-result-object v1
+    move-result-object v2
 
-    :goto_73
-    invoke-interface {v1}, Ljava/util/Iterator;->hasNext()Z
+    :goto_75
+    invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
 
     move-result v0
 
-    if-eqz v0, :cond_8d
+    if-eqz v0, :cond_91
 
-    invoke-interface {v1}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+    invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
     move-result-object v0
 
     check-cast v0, Ljava/lang/String;
 
     .line 46
-    iget-object v2, p0, Lbl/qa;->e:Ljava/util/Map;
+    iget-object v3, p0, Lbl/qa;->e:Ljava/util/Map;
 
     # getter for: Lbl/qa$a;->e:Ljava/util/Map;
     invoke-static {p1}, Lbl/qa$a;->access$900(Lbl/qa$a;)Ljava/util/Map;
 
-    move-result-object v3
+    move-result-object v1
 
-    invoke-interface {v3, v0}, Ljava/util/Map;->get(Ljava/lang/Object;)Ljava/lang/Object;
+    invoke-interface {v1, v0}, Ljava/util/Map;->get(Ljava/lang/Object;)Ljava/lang/Object;
 
-    move-result-object v3
+    move-result-object v1
 
-    invoke-interface {v2, v0, v3}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    check-cast v1, Ljava/lang/String;
 
-    goto :goto_73
+    invoke-interface {v3, v0, v1}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    goto :goto_75
 
     .line 48
-    :cond_8d
+    :cond_91
     return-void
 .end method
 
@@ -261,53 +265,53 @@
 
     .prologue
     .line 51
-    new-instance v1, Lbl/qa$a;
+    new-instance v2, Lbl/qa$a;
 
     iget-object v0, p0, Lbl/qa;->c:Ljava/lang/Class;
 
-    invoke-direct {v1, v0}, Lbl/qa$a;-><init>(Ljava/lang/Class;)V
+    invoke-direct {v2, v0}, Lbl/qa$a;-><init>(Ljava/lang/Class;)V
 
     .line 52
     iget-object v0, p0, Lbl/qa;->a:Ljava/lang/String;
 
     # setter for: Lbl/qa$a;->a:Ljava/lang/String;
-    invoke-static {v1, v0}, Lbl/qa$a;->access$002(Lbl/qa$a;Ljava/lang/String;)Ljava/lang/String;
+    invoke-static {v2, v0}, Lbl/qa$a;->access$002(Lbl/qa$a;Ljava/lang/String;)Ljava/lang/String;
 
     .line 53
     iget-boolean v0, p0, Lbl/qa;->f:Z
 
     # setter for: Lbl/qa$a;->c:Z
-    invoke-static {v1, v0}, Lbl/qa$a;->access$502(Lbl/qa$a;Z)Z
+    invoke-static {v2, v0}, Lbl/qa$a;->access$502(Lbl/qa$a;Z)Z
 
     .line 54
     iget-boolean v0, p0, Lbl/qa;->g:Z
 
     # setter for: Lbl/qa$a;->d:Z
-    invoke-static {v1, v0}, Lbl/qa$a;->access$602(Lbl/qa$a;Z)Z
+    invoke-static {v2, v0}, Lbl/qa$a;->access$602(Lbl/qa$a;Z)Z
 
     .line 55
     iget-boolean v0, p0, Lbl/qa;->h:Z
 
     # setter for: Lbl/qa$a;->i:Z
-    invoke-static {v1, v0}, Lbl/qa$a;->access$202(Lbl/qa$a;Z)Z
+    invoke-static {v2, v0}, Lbl/qa$a;->access$202(Lbl/qa$a;Z)Z
 
     .line 56
     iget v0, p0, Lbl/qa;->i:I
 
     # setter for: Lbl/qa$a;->g:I
-    invoke-static {v1, v0}, Lbl/qa$a;->access$302(Lbl/qa$a;I)I
+    invoke-static {v2, v0}, Lbl/qa$a;->access$302(Lbl/qa$a;I)I
 
     .line 57
     iget v0, p0, Lbl/qa;->j:I
 
     # setter for: Lbl/qa$a;->h:I
-    invoke-static {v1, v0}, Lbl/qa$a;->access$402(Lbl/qa$a;I)I
+    invoke-static {v2, v0}, Lbl/qa$a;->access$402(Lbl/qa$a;I)I
 
     .line 58
     iget-object v0, p0, Lbl/qa;->k:Lbl/qf;
 
     # setter for: Lbl/qa$a;->j:Lbl/qf;
-    invoke-static {v1, v0}, Lbl/qa$a;->access$702(Lbl/qa$a;Lbl/qf;)Lbl/qf;
+    invoke-static {v2, v0}, Lbl/qa$a;->access$702(Lbl/qa$a;Lbl/qf;)Lbl/qf;
 
     .line 59
     new-instance v0, Ljava/util/HashMap;
@@ -315,12 +319,12 @@
     invoke-direct {v0}, Ljava/util/HashMap;-><init>()V
 
     # setter for: Lbl/qa$a;->f:Ljava/util/Map;
-    invoke-static {v1, v0}, Lbl/qa$a;->access$802(Lbl/qa$a;Ljava/util/Map;)Ljava/util/Map;
+    invoke-static {v2, v0}, Lbl/qa$a;->access$802(Lbl/qa$a;Ljava/util/Map;)Ljava/util/Map;
 
     .line 60
     iget-object v0, p0, Lbl/qa;->d:Ljava/util/Map;
 
-    if-eqz v0, :cond_62
+    if-eqz v0, :cond_64
 
     iget-object v0, p0, Lbl/qa;->d:Ljava/util/Map;
 
@@ -328,7 +332,7 @@
 
     move-result v0
 
-    if-lez v0, :cond_62
+    if-lez v0, :cond_64
 
     .line 61
     iget-object v0, p0, Lbl/qa;->d:Ljava/util/Map;
@@ -339,16 +343,16 @@
 
     invoke-interface {v0}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
 
-    move-result-object v2
+    move-result-object v3
 
     :goto_48
-    invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
+    invoke-interface {v3}, Ljava/util/Iterator;->hasNext()Z
 
     move-result v0
 
-    if-eqz v0, :cond_62
+    if-eqz v0, :cond_64
 
-    invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+    invoke-interface {v3}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
     move-result-object v0
 
@@ -356,33 +360,35 @@
 
     .line 62
     # getter for: Lbl/qa$a;->f:Ljava/util/Map;
-    invoke-static {v1}, Lbl/qa$a;->access$800(Lbl/qa$a;)Ljava/util/Map;
-
-    move-result-object v3
-
-    iget-object v4, p0, Lbl/qa;->d:Ljava/util/Map;
-
-    invoke-interface {v4, v0}, Ljava/util/Map;->get(Ljava/lang/Object;)Ljava/lang/Object;
+    invoke-static {v2}, Lbl/qa$a;->access$800(Lbl/qa$a;)Ljava/util/Map;
 
     move-result-object v4
 
-    invoke-interface {v3, v0, v4}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    iget-object v1, p0, Lbl/qa;->d:Ljava/util/Map;
+
+    invoke-interface {v1, v0}, Ljava/util/Map;->get(Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object v1
+
+    check-cast v1, Ljava/lang/String;
+
+    invoke-interface {v4, v0, v1}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
     goto :goto_48
 
     .line 65
-    :cond_62
+    :cond_64
     new-instance v0, Ljava/util/HashMap;
 
     invoke-direct {v0}, Ljava/util/HashMap;-><init>()V
 
     # setter for: Lbl/qa$a;->e:Ljava/util/Map;
-    invoke-static {v1, v0}, Lbl/qa$a;->access$902(Lbl/qa$a;Ljava/util/Map;)Ljava/util/Map;
+    invoke-static {v2, v0}, Lbl/qa$a;->access$902(Lbl/qa$a;Ljava/util/Map;)Ljava/util/Map;
 
     .line 66
     iget-object v0, p0, Lbl/qa;->e:Ljava/util/Map;
 
-    if-eqz v0, :cond_9a
+    if-eqz v0, :cond_9e
 
     iget-object v0, p0, Lbl/qa;->e:Ljava/util/Map;
 
@@ -390,7 +396,7 @@
 
     move-result v0
 
-    if-lez v0, :cond_9a
+    if-lez v0, :cond_9e
 
     .line 67
     iget-object v0, p0, Lbl/qa;->e:Ljava/util/Map;
@@ -401,16 +407,16 @@
 
     invoke-interface {v0}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
 
-    move-result-object v2
+    move-result-object v3
 
-    :goto_80
-    invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
+    :goto_82
+    invoke-interface {v3}, Ljava/util/Iterator;->hasNext()Z
 
     move-result v0
 
-    if-eqz v0, :cond_9a
+    if-eqz v0, :cond_9e
 
-    invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+    invoke-interface {v3}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
     move-result-object v0
 
@@ -418,23 +424,25 @@
 
     .line 68
     # getter for: Lbl/qa$a;->e:Ljava/util/Map;
-    invoke-static {v1}, Lbl/qa$a;->access$900(Lbl/qa$a;)Ljava/util/Map;
-
-    move-result-object v3
-
-    iget-object v4, p0, Lbl/qa;->e:Ljava/util/Map;
-
-    invoke-interface {v4, v0}, Ljava/util/Map;->get(Ljava/lang/Object;)Ljava/lang/Object;
+    invoke-static {v2}, Lbl/qa$a;->access$900(Lbl/qa$a;)Ljava/util/Map;
 
     move-result-object v4
 
-    invoke-interface {v3, v0, v4}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    iget-object v1, p0, Lbl/qa;->e:Ljava/util/Map;
 
-    goto :goto_80
+    invoke-interface {v1, v0}, Ljava/util/Map;->get(Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object v1
+
+    check-cast v1, Ljava/lang/String;
+
+    invoke-interface {v4, v0, v1}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    goto :goto_82
 
     .line 71
-    :cond_9a
-    return-object v1
+    :cond_9e
+    return-object v2
 .end method
 
 .method public b()Ljava/lang/Class;

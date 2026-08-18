@@ -44,6 +44,48 @@
 
 
 # direct methods
+.method private static synthetic $values()[Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+    .locals 3
+
+    .prologue
+    .line 60
+    const/4 v0, 0x5
+
+    new-array v0, v0, [Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+
+    const/4 v1, 0x0
+
+    sget-object v2, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->WAITING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x1
+
+    sget-object v2, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->DOWNLOADING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x2
+
+    sget-object v2, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->PAUSED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x3
+
+    sget-object v2, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->COMPLETED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x4
+
+    sget-object v2, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->FAILED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+
+    aput-object v2, v0, v1
+
+    return-object v0
+.end method
+
 .method static constructor <clinit>()V
     .locals 8
 
@@ -114,29 +156,9 @@
     sput-object v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->FAILED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
     .line 60
-    const/4 v0, 0x5
+    invoke-static {}, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->$values()[Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 
-    new-array v0, v0, [Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
-
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->WAITING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
-
-    aput-object v1, v0, v3
-
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->DOWNLOADING:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
-
-    aput-object v1, v0, v4
-
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->PAUSED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
-
-    aput-object v1, v0, v5
-
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->COMPLETED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
-
-    aput-object v1, v0, v6
-
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->FAILED:Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
-
-    aput-object v1, v0, v7
+    move-result-object v0
 
     sput-object v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;->$VALUES:[Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
 

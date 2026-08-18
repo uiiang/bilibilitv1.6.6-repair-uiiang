@@ -1994,6 +1994,7 @@
 
     move-result-object v8
 
+    .line 189
     if-eqz v6, :cond_118
 
     iget-wide v0, v6, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mCid:J
@@ -2009,6 +2010,7 @@
 
     move-result-object v0
 
+    .line 190
     if-eqz v6, :cond_6d
 
     iget-wide v2, v6, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAvid:J
@@ -2022,6 +2024,7 @@
 
     move-result-object v0
 
+    .line 188
     invoke-static {v7, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 192
@@ -2212,6 +2215,7 @@
     :cond_118
     move-wide v0, v2
 
+    .line 189
     goto/16 :goto_5f
 
     .line 201

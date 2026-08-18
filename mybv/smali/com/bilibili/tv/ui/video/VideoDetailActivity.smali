@@ -11,28 +11,28 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;,
+        Lcom/bilibili/tv/ui/video/VideoDetailActivity$g;,
+        Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;,
         Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;,
+        Lcom/bilibili/tv/ui/video/VideoDetailActivity$d;,
+        Lcom/bilibili/tv/ui/video/VideoDetailActivity$b;,
+        Lcom/bilibili/tv/ui/video/VideoDetailActivity$j;,
+        Lcom/bilibili/tv/ui/video/VideoDetailActivity$e;,
+        Lcom/bilibili/tv/ui/video/VideoDetailActivity$EpisodesVideoAdapter;,
+        Lcom/bilibili/tv/ui/video/VideoDetailActivity$k;,
+        Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonSectionView;,
+        Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcLoadCallback;,
+        Lcom/bilibili/tv/ui/video/VideoDetailActivity$a;,
+        Lcom/bilibili/tv/ui/video/VideoDetailActivity$AddToViewResponse;,
+        Lcom/bilibili/tv/ui/video/VideoDetailActivity$l;,
+        Lcom/bilibili/tv/ui/video/VideoDetailActivity$m;,
+        Lcom/bilibili/tv/ui/video/VideoDetailActivity$LikeResponse;,
+        Lcom/bilibili/tv/ui/video/VideoDetailActivity$CoinResponse;,
+        Lcom/bilibili/tv/ui/video/VideoDetailActivity$TripleResponse;,
         Lcom/bilibili/tv/ui/video/VideoDetailActivity$h;,
         Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;,
         Lcom/bilibili/tv/ui/video/VideoDetailActivity$f;,
-        Lcom/bilibili/tv/ui/video/VideoDetailActivity$g;,
-        Lcom/bilibili/tv/ui/video/VideoDetailActivity$EpisodesVideoAdapter;,
-        Lcom/bilibili/tv/ui/video/VideoDetailActivity$e;,
-        Lcom/bilibili/tv/ui/video/VideoDetailActivity$b;,
-        Lcom/bilibili/tv/ui/video/VideoDetailActivity$d;,
-        Lcom/bilibili/tv/ui/video/VideoDetailActivity$AddToViewResponse;,
-        Lcom/bilibili/tv/ui/video/VideoDetailActivity$TripleResponse;,
-        Lcom/bilibili/tv/ui/video/VideoDetailActivity$CoinResponse;,
-        Lcom/bilibili/tv/ui/video/VideoDetailActivity$LikeResponse;,
-        Lcom/bilibili/tv/ui/video/VideoDetailActivity$m;,
-        Lcom/bilibili/tv/ui/video/VideoDetailActivity$l;,
-        Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcLoadCallback;,
-        Lcom/bilibili/tv/ui/video/VideoDetailActivity$BiliFavoriteBoxResponse;,
-        Lcom/bilibili/tv/ui/video/VideoDetailActivity$k;,
-        Lcom/bilibili/tv/ui/video/VideoDetailActivity$j;,
-        Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonSectionView;,
-        Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
+        Lcom/bilibili/tv/ui/video/VideoDetailActivity$BiliFavoriteBoxResponse;
     }
 .end annotation
 
@@ -2279,11 +2279,10 @@
     .line 2967
     return-object v2
 
-    .line 2924
+    .line 2925
     :cond_a9
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->longTitle:Ljava/lang/String;
 
-    .line 2925
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v0

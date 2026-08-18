@@ -6,12 +6,12 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
+        Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$OnParseListener;,
+        Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$Filter;,
         Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$DemandXmlHandler;,
         Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$ClipInputStream;,
-        Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$Tracer2;,
         Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$Tracer;,
-        Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$OnParseListener;,
-        Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$Filter;
+        Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser$Tracer2;
     }
 .end annotation
 

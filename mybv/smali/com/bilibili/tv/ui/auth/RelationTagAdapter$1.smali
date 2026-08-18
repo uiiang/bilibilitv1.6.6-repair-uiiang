@@ -28,6 +28,11 @@
 # direct methods
 .method constructor <init>(Lcom/bilibili/tv/ui/auth/RelationTagAdapter;Lmybl/RelationTagItem;Lcom/bilibili/tv/ui/auth/RelationTagAdapter$ViewHolder;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 49

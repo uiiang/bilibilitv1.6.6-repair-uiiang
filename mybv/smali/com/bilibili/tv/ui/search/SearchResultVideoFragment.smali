@@ -6,20 +6,20 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
+        Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;,
+        Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BorderListener;,
+        Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$ItemDecoration;,
+        Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$ScrollListener;,
+        Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchVideoResponse;,
+        Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchBangumiResponse;,
+        Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchLiveRoomResponse;,
+        Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchUserResponse;,
+        Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoItem;,
+        Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiItem;,
         Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$LiveRoomViewHolder;,
         Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$UserViewHolder;,
         Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiViewHolder;,
-        Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoViewHolder;,
-        Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoAdapter;,
-        Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BangumiItem;,
-        Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoItem;,
-        Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchUserResponse;,
-        Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchLiveRoomResponse;,
-        Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchBangumiResponse;,
-        Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$SearchVideoResponse;,
-        Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$ScrollListener;,
-        Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$ItemDecoration;,
-        Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$BorderListener;
+        Lcom/bilibili/tv/ui/search/SearchResultVideoFragment$VideoViewHolder;
     }
 .end annotation
 

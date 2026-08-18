@@ -6,8 +6,8 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ebook/parser/EpubParser$ManifestItem;,
-        Lcom/bilibili/tv/ebook/parser/EpubParser$NcxParseResult;
+        Lcom/bilibili/tv/ebook/parser/EpubParser$NcxParseResult;,
+        Lcom/bilibili/tv/ebook/parser/EpubParser$ManifestItem;
     }
 .end annotation
 

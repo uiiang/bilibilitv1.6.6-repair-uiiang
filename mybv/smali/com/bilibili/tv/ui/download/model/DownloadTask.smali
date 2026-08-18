@@ -9,8 +9,8 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;,
-        Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;
+        Lcom/bilibili/tv/ui/download/model/DownloadTask$Status;,
+        Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
     }
 .end annotation
 

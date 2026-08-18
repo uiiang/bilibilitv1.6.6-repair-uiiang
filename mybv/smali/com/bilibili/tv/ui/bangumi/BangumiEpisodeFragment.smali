@@ -6,10 +6,10 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/bangumi/BangumiEpisodeFragment$c;,
         Lcom/bilibili/tv/ui/bangumi/BangumiEpisodeFragment$EpisodeGridLayoutManager;,
         Lcom/bilibili/tv/ui/bangumi/BangumiEpisodeFragment$b;,
-        Lcom/bilibili/tv/ui/bangumi/BangumiEpisodeFragment$a;
+        Lcom/bilibili/tv/ui/bangumi/BangumiEpisodeFragment$a;,
+        Lcom/bilibili/tv/ui/bangumi/BangumiEpisodeFragment$c;
     }
 .end annotation
 

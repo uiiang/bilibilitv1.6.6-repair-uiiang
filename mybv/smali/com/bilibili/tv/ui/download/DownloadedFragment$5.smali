@@ -30,6 +30,11 @@
 # direct methods
 .method constructor <init>(Lcom/bilibili/tv/ui/download/DownloadedFragment;Landroid/widget/EditText;Lcom/bilibili/tv/ui/download/model/DownloadTask;Ljava/lang/String;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 248

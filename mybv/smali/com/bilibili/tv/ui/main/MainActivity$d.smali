@@ -18,8 +18,8 @@
 
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/main/MainActivity$d$a;,
-        Lcom/bilibili/tv/ui/main/MainActivity$d$b;
+        Lcom/bilibili/tv/ui/main/MainActivity$d$b;,
+        Lcom/bilibili/tv/ui/main/MainActivity$d$a;
     }
 .end annotation
 
@@ -475,43 +475,41 @@
     .line 684
     instance-of v1, p1, Lcom/bilibili/tv/ui/main/MainActivity$e;
 
-    if-nez v1, :cond_56
+    if-nez v1, :cond_54
 
     move-object v1, v2
 
     :goto_13
     check-cast v1, Lcom/bilibili/tv/ui/main/MainActivity$e;
 
-    check-cast v1, Lcom/bilibili/tv/ui/main/MainActivity$e;
-
     .line 685
-    if-eqz v1, :cond_1f
+    if-eqz v1, :cond_1d
 
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/main/MainActivity$e;->z()Landroid/widget/TextView;
 
     move-result-object v1
 
-    if-nez v1, :cond_5a
+    if-nez v1, :cond_58
 
     .line 686
-    :cond_1f
+    :cond_1d
     instance-of v1, p1, Lcom/bilibili/tv/ui/main/MainActivity$c;
 
-    if-eqz v1, :cond_58
+    if-eqz v1, :cond_56
 
     move-object v1, p1
 
     check-cast v1, Lcom/bilibili/tv/ui/main/MainActivity$c;
 
     .line 687
-    :goto_26
-    if-eqz v1, :cond_35
+    :goto_24
+    if-eqz v1, :cond_33
 
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/main/MainActivity$c;->z()Landroid/widget/ImageView;
 
     move-result-object v1
 
-    if-eqz v1, :cond_35
+    if-eqz v1, :cond_33
 
     .line 688
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;->getResId()I
@@ -521,8 +519,8 @@
     invoke-virtual {v1, v0}, Landroid/widget/ImageView;->setBackgroundResource(I)V
 
     .line 693
-    :cond_35
-    :goto_35
+    :cond_33
+    :goto_33
     iget-object v0, p1, Lbl/adv;->a:Landroid/view/View;
 
     const v1, 0x7f0800bd
@@ -556,27 +554,27 @@
     .line 698
     return-void
 
-    :cond_56
+    :cond_54
     move-object v1, p1
 
     .line 684
     goto :goto_13
 
-    :cond_58
+    :cond_56
     move-object v1, v2
 
     .line 686
-    goto :goto_26
+    goto :goto_24
 
     .line 691
-    :cond_5a
+    :cond_58
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;->getResId()I
 
     move-result v0
 
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setText(I)V
 
-    goto :goto_35
+    goto :goto_33
 .end method
 
 .method public final b(Z)V

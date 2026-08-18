@@ -28,6 +28,11 @@
 # direct methods
 .method constructor <init>(Lbl/afm5;Landroid/widget/ListView;Lcom/bilibili/tv/widget/DrawFrameLayout;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 553

@@ -26,6 +26,11 @@
 # direct methods
 .method constructor <init>(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;Lcom/alibaba/fastjson/JSONObject;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 225

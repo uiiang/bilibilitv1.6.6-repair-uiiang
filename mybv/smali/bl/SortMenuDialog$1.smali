@@ -26,6 +26,11 @@
 # direct methods
 .method constructor <init>(Lbl/SortMenuDialog;Lbl/SortMenuDialog$OnSortSelectedListener;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 104

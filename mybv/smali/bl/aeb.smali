@@ -9,8 +9,8 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lbl/aeb$b;,
-        Lbl/aeb$a;
+        Lbl/aeb$a;,
+        Lbl/aeb$b;
     }
 .end annotation
 

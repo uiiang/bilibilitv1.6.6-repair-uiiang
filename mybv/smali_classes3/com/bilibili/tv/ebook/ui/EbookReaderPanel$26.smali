@@ -163,9 +163,9 @@
 
     move-result-object v2
 
+    .line 2315
     iget-object v3, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$26;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-    .line 2315
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->ebookPanel:Landroid/widget/FrameLayout;
     invoke-static {v3}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$1900(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Landroid/widget/FrameLayout;
 

@@ -12,23 +12,23 @@
 
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/api/video/PgcInfo$Section;,
+        Lcom/bilibili/tv/api/video/PgcInfo$Area;,
+        Lcom/bilibili/tv/api/video/PgcInfo$Rating;,
+        Lcom/bilibili/tv/api/video/PgcInfo$NewEp;,
+        Lcom/bilibili/tv/api/video/PgcInfo$Stat;,
         Lcom/bilibili/tv/api/video/PgcInfo$Episode;,
+        Lcom/bilibili/tv/api/video/PgcInfo$Section;,
+        Lcom/bilibili/tv/api/video/PgcInfo$UpInfo;,
+        Lcom/bilibili/tv/api/video/PgcInfo$Producer;,
+        Lcom/bilibili/tv/api/video/PgcInfo$Season;,
+        Lcom/bilibili/tv/api/video/PgcInfo$UserStatus;,
         Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;,
         Lcom/bilibili/tv/api/video/PgcInfo$EpisodeStat;,
-        Lcom/bilibili/tv/api/video/PgcInfo$Stat;,
-        Lcom/bilibili/tv/api/video/PgcInfo$NewEp;,
-        Lcom/bilibili/tv/api/video/PgcInfo$Rating;,
-        Lcom/bilibili/tv/api/video/PgcInfo$Area;,
         Lcom/bilibili/tv/api/video/PgcInfo$ProducerInfo;,
-        Lcom/bilibili/tv/api/video/PgcInfo$Producer;,
-        Lcom/bilibili/tv/api/video/PgcInfo$UpInfo;,
         Lcom/bilibili/tv/api/video/PgcInfo$IconFont;,
         Lcom/bilibili/tv/api/video/PgcInfo$SeasonStat;,
         Lcom/bilibili/tv/api/video/PgcInfo$SeasonNewEp;,
-        Lcom/bilibili/tv/api/video/PgcInfo$Season;,
-        Lcom/bilibili/tv/api/video/PgcInfo$Progress;,
-        Lcom/bilibili/tv/api/video/PgcInfo$UserStatus;
+        Lcom/bilibili/tv/api/video/PgcInfo$Progress;
     }
 .end annotation
 

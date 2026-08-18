@@ -6,10 +6,10 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter$FocusBoundaryHandler;,
         Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter$OnChapterClickListener;,
-        Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter$ChapterViewHolder;,
-        Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter$ChapterItem;
+        Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter$FocusBoundaryHandler;,
+        Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter$ChapterItem;,
+        Lcom/bilibili/tv/ui/video/widget/ChapterListAdapter$ChapterViewHolder;
     }
 .end annotation
 

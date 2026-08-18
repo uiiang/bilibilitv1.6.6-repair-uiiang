@@ -66,26 +66,144 @@
 
 
 # direct methods
-.method static constructor <clinit>()V
-    .locals 8
+.method private static synthetic $values()[Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+    .locals 3
 
     .prologue
-    const/4 v7, 0x4
+    .line 9
+    const/16 v0, 0x13
 
-    const/4 v6, 0x3
+    new-array v0, v0, [Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
-    const/4 v5, 0x2
+    const/4 v1, 0x0
 
-    const/4 v4, 0x1
+    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->NEW_RESOLVE_TASK:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
-    const/4 v3, 0x0
+    aput-object v2, v0, v1
 
+    const/4 v1, 0x1
+
+    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->RESOLVE_SUCCESS:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x2
+
+    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->SWITCH_QUALITY:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x3
+
+    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->QUALITY_SWITCH_SUCCESS:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x4
+
+    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->SWITCH_EPISODE:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x5
+
+    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->EPISODE_SWITCH_SUCCESS:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x6
+
+    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->CODEC_CONFIG_CHANGED:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x7
+
+    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->SEEK:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
+    aput-object v2, v0, v1
+
+    const/16 v1, 0x8
+
+    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->MENU_QUICK_SHOW:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
+    aput-object v2, v0, v1
+
+    const/16 v1, 0x9
+
+    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->DANMAKU_SIZE:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
+    aput-object v2, v0, v1
+
+    const/16 v1, 0xa
+
+    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->DANMAKU_ALPHA:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
+    aput-object v2, v0, v1
+
+    const/16 v1, 0xb
+
+    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->POST_DANMAKU:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
+    aput-object v2, v0, v1
+
+    const/16 v1, 0xc
+
+    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->SWITCH_EPISODE_REMOTE:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
+    aput-object v2, v0, v1
+
+    const/16 v1, 0xd
+
+    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->SWITCH_QUALITY_REMOTE:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
+    aput-object v2, v0, v1
+
+    const/16 v1, 0xe
+
+    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->DANMAKU_TOGGLE_REMOTE:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
+    aput-object v2, v0, v1
+
+    const/16 v1, 0xf
+
+    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->SWITCH_SPEED:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
+    aput-object v2, v0, v1
+
+    const/16 v1, 0x10
+
+    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->SCREEN_ADJUST:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
+    aput-object v2, v0, v1
+
+    const/16 v1, 0x11
+
+    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->AUDIO_BALANCE:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
+    aput-object v2, v0, v1
+
+    const/16 v1, 0x12
+
+    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->OPEN_EBOOK_READER:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
+
+    aput-object v2, v0, v1
+
+    return-object v0
+.end method
+
+.method static constructor <clinit>()V
+    .locals 3
+
+    .prologue
     .line 10
     new-instance v0, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
     const-string v1, "NEW_RESOLVE_TASK"
 
-    invoke-direct {v0, v1, v3}, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;-><init>(Ljava/lang/String;I)V
+    const/4 v2, 0x0
+
+    invoke-direct {v0, v1, v2}, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;-><init>(Ljava/lang/String;I)V
 
     sput-object v0, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->NEW_RESOLVE_TASK:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
@@ -94,7 +212,9 @@
 
     const-string v1, "RESOLVE_SUCCESS"
 
-    invoke-direct {v0, v1, v4}, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;-><init>(Ljava/lang/String;I)V
+    const/4 v2, 0x1
+
+    invoke-direct {v0, v1, v2}, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;-><init>(Ljava/lang/String;I)V
 
     sput-object v0, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->RESOLVE_SUCCESS:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
@@ -103,7 +223,9 @@
 
     const-string v1, "SWITCH_QUALITY"
 
-    invoke-direct {v0, v1, v5}, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;-><init>(Ljava/lang/String;I)V
+    const/4 v2, 0x2
+
+    invoke-direct {v0, v1, v2}, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;-><init>(Ljava/lang/String;I)V
 
     sput-object v0, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->SWITCH_QUALITY:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
@@ -112,7 +234,9 @@
 
     const-string v1, "QUALITY_SWITCH_SUCCESS"
 
-    invoke-direct {v0, v1, v6}, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;-><init>(Ljava/lang/String;I)V
+    const/4 v2, 0x3
+
+    invoke-direct {v0, v1, v2}, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;-><init>(Ljava/lang/String;I)V
 
     sput-object v0, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->QUALITY_SWITCH_SUCCESS:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
@@ -121,7 +245,9 @@
 
     const-string v1, "SWITCH_EPISODE"
 
-    invoke-direct {v0, v1, v7}, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;-><init>(Ljava/lang/String;I)V
+    const/4 v2, 0x4
+
+    invoke-direct {v0, v1, v2}, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;-><init>(Ljava/lang/String;I)V
 
     sput-object v0, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->SWITCH_EPISODE:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
@@ -280,113 +406,9 @@
     sput-object v0, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->OPEN_EBOOK_READER:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
     .line 9
-    const/16 v0, 0x13
+    invoke-static {}, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->$values()[Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
-    new-array v0, v0, [Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
-
-    sget-object v1, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->NEW_RESOLVE_TASK:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
-
-    aput-object v1, v0, v3
-
-    sget-object v1, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->RESOLVE_SUCCESS:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
-
-    aput-object v1, v0, v4
-
-    sget-object v1, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->SWITCH_QUALITY:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
-
-    aput-object v1, v0, v5
-
-    sget-object v1, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->QUALITY_SWITCH_SUCCESS:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
-
-    aput-object v1, v0, v6
-
-    sget-object v1, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->SWITCH_EPISODE:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
-
-    aput-object v1, v0, v7
-
-    const/4 v1, 0x5
-
-    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->EPISODE_SWITCH_SUCCESS:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
-
-    aput-object v2, v0, v1
-
-    const/4 v1, 0x6
-
-    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->CODEC_CONFIG_CHANGED:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
-
-    aput-object v2, v0, v1
-
-    const/4 v1, 0x7
-
-    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->SEEK:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
-
-    aput-object v2, v0, v1
-
-    const/16 v1, 0x8
-
-    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->MENU_QUICK_SHOW:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
-
-    aput-object v2, v0, v1
-
-    const/16 v1, 0x9
-
-    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->DANMAKU_SIZE:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
-
-    aput-object v2, v0, v1
-
-    const/16 v1, 0xa
-
-    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->DANMAKU_ALPHA:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
-
-    aput-object v2, v0, v1
-
-    const/16 v1, 0xb
-
-    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->POST_DANMAKU:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
-
-    aput-object v2, v0, v1
-
-    const/16 v1, 0xc
-
-    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->SWITCH_EPISODE_REMOTE:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
-
-    aput-object v2, v0, v1
-
-    const/16 v1, 0xd
-
-    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->SWITCH_QUALITY_REMOTE:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
-
-    aput-object v2, v0, v1
-
-    const/16 v1, 0xe
-
-    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->DANMAKU_TOGGLE_REMOTE:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
-
-    aput-object v2, v0, v1
-
-    const/16 v1, 0xf
-
-    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->SWITCH_SPEED:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
-
-    aput-object v2, v0, v1
-
-    const/16 v1, 0x10
-
-    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->SCREEN_ADJUST:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
-
-    aput-object v2, v0, v1
-
-    const/16 v1, 0x11
-
-    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->AUDIO_BALANCE:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
-
-    aput-object v2, v0, v1
-
-    const/16 v1, 0x12
-
-    sget-object v2, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->OPEN_EBOOK_READER:Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
-
-    aput-object v2, v0, v1
+    move-result-object v0
 
     sput-object v0, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->$VALUES:[Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 

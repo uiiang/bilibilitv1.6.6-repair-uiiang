@@ -26,6 +26,11 @@
 # direct methods
 .method constructor <init>(Lmybl/WbiSigner;Lmybl/WbiSigner$WbiKeyCallback;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 53

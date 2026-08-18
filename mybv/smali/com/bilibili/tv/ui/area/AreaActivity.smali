@@ -11,9 +11,9 @@
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
         Lcom/bilibili/tv/ui/area/AreaActivity$Adapter;,
-        Lcom/bilibili/tv/ui/area/AreaActivity$TouchModeChangeListener;,
-        Lcom/bilibili/tv/ui/area/AreaActivity$GlobalFocusChangeListener;,
         Lcom/bilibili/tv/ui/area/AreaActivity$LeftLayoutManager;,
+        Lcom/bilibili/tv/ui/area/AreaActivity$GlobalFocusChangeListener;,
+        Lcom/bilibili/tv/ui/area/AreaActivity$TouchModeChangeListener;,
         Lcom/bilibili/tv/ui/area/AreaActivity$Companion;
     }
 .end annotation

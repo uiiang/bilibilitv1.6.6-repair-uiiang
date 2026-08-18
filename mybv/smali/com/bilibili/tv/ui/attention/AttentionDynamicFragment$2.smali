@@ -86,11 +86,11 @@
 
     move-result-wide v2
 
+    .line 184
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$2;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
 
-    .line 184
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawTextView;->getText()Ljava/lang/CharSequence;
 
     move-result-object v0

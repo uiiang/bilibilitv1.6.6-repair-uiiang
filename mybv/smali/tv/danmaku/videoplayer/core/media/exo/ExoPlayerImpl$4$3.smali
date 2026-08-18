@@ -26,6 +26,11 @@
 # direct methods
 .method constructor <init>(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;I)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 586

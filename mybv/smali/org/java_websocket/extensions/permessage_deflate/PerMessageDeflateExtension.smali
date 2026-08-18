@@ -765,6 +765,7 @@
 
     move-result-object v1
 
+    .line 328
     iget-boolean v0, p0, Lorg/java_websocket/extensions/permessage_deflate/PerMessageDeflateExtension;->clientNoContextTakeover:Z
 
     if-eqz v0, :cond_1a
@@ -780,8 +781,10 @@
 
     move-result-object v0
 
+    .line 326
     return-object v0
 
+    .line 328
     :cond_1a
     const-string v0, ""
 

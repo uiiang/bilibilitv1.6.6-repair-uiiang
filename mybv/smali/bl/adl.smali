@@ -6,9 +6,9 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lbl/adl$c;,
+        Lbl/adl$b;,
         Lbl/adl$a;,
-        Lbl/adl$b;
+        Lbl/adl$c;
     }
 .end annotation
 
@@ -463,7 +463,7 @@
 
     move-result v0
 
-    if-nez v0, :cond_79
+    if-nez v0, :cond_77
 
     .line 100
     new-instance v0, Lkotlin/text/Regex;
@@ -481,7 +481,7 @@
 
     move-result v0
 
-    if-nez v0, :cond_7b
+    if-nez v0, :cond_79
 
     .line 102
     invoke-interface {v2}, Ljava/util/List;->size()I
@@ -498,7 +498,7 @@
 
     move-result v0
 
-    if-eqz v0, :cond_7b
+    if-eqz v0, :cond_79
 
     .line 104
     invoke-interface {v3}, Ljava/util/ListIterator;->previous()Ljava/lang/Object;
@@ -569,15 +569,13 @@
     :cond_62
     check-cast v0, [Ljava/lang/String;
 
-    check-cast v0, [Ljava/lang/String;
-
     .line 119
     array-length v1, v0
 
-    if-eqz v1, :cond_79
+    if-eqz v1, :cond_77
 
     .line 121
-    :try_start_69
+    :try_start_67
     array-length v1, v0
 
     add-int/lit8 v1, v1, -0x1
@@ -585,17 +583,17 @@
     aget-object v0, v0, v1
 
     invoke-static {v0}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
-    :try_end_71
-    .catch Ljava/lang/NumberFormatException; {:try_start_69 .. :try_end_71} :catch_73
+    :try_end_6f
+    .catch Ljava/lang/NumberFormatException; {:try_start_67 .. :try_end_6f} :catch_71
 
     move-result v0
 
     .line 127
-    :goto_72
+    :goto_70
     return v0
 
     .line 122
-    :catch_73
+    :catch_71
     move-exception v0
 
     .line 123
@@ -604,12 +602,12 @@
     invoke-static {v0}, Ltv/danmaku/android/log/BLog;->w(Ljava/lang/String;)V
 
     .line 127
-    :cond_79
+    :cond_77
     const/4 v0, -0x1
 
-    goto :goto_72
+    goto :goto_70
 
-    :cond_7b
+    :cond_79
     move-object v0, v1
 
     goto :goto_42

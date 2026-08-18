@@ -419,6 +419,7 @@
     :goto_69
     if-eqz v0, :cond_137
 
+    .line 367
     new-instance v0, Lcom/bilibili/lib/okhttp/huc/StreamedRequestBody;
 
     invoke-direct {v0, v2, v3}, Lcom/bilibili/lib/okhttp/huc/StreamedRequestBody;-><init>(J)V
@@ -642,7 +643,7 @@
 
     goto/16 :goto_69
 
-    .line 366
+    .line 368
     :cond_137
     new-instance v0, Lcom/bilibili/lib/okhttp/huc/BufferedRequestBody;
 
@@ -1615,9 +1616,9 @@
     .line 209
     if-nez p1, :cond_10
 
+    .line 210
     const/4 v0, 0x1
 
-    .line 210
     :try_start_3
     invoke-direct {p0, v0}, Lcom/bilibili/lib/okhttp/huc/OkHttpURLConnection;->getResponse(Z)Lokhttp3/Response;
 

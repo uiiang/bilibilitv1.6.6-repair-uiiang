@@ -26,6 +26,11 @@
 # direct methods
 .method constructor <init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$17;Landroid/widget/AdapterView;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 1410

@@ -30,6 +30,11 @@
 # direct methods
 .method constructor <init>(Lmybl/DanmakuSegmentLoader;JJI)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 163

@@ -28,6 +28,11 @@
 # direct methods
 .method constructor <init>(Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM$6;Ltv/danmaku/videoplayer/core/danmaku/DanmakuParser;Ljava/util/List;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 686

@@ -39,6 +39,11 @@
 # direct methods
 .method constructor <init>(Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a;Lbl/mg;Lbl/agb;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 842

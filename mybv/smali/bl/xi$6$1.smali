@@ -26,6 +26,11 @@
 # direct methods
 .method constructor <init>(Lbl/xi$6;Lcom/bilibili/tv/api/video/VideoShot;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 1164

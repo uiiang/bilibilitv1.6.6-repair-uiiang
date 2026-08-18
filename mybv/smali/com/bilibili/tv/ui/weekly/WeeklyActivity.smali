@@ -6,8 +6,8 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;,
-        Lcom/bilibili/tv/ui/weekly/WeeklyActivity$WeeklyItem;
+        Lcom/bilibili/tv/ui/weekly/WeeklyActivity$WeeklyItem;,
+        Lcom/bilibili/tv/ui/weekly/WeeklyActivity$a;
     }
 .end annotation
 

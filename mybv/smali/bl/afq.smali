@@ -11,8 +11,8 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lbl/afq$a;,
-        Lbl/afq$UpdateResponse;
+        Lbl/afq$UpdateResponse;,
+        Lbl/afq$a;
     }
 .end annotation
 

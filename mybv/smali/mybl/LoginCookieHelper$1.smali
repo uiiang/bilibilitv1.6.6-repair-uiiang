@@ -1,4 +1,4 @@
-.class final Lmybl/LoginCookieHelper$1;
+.class Lmybl/LoginCookieHelper$1;
 .super Ljava/lang/Object;
 .source "LoginCookieHelper.java"
 
@@ -12,7 +12,7 @@
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
-    accessFlags = 0x8
+    accessFlags = 0x0
     name = null
 .end annotation
 

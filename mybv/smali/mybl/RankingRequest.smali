@@ -104,7 +104,7 @@
 .end method
 
 .method public static getRanking(I)Ljava/util/List;
-    .locals 11
+    .locals 10
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(I)",
@@ -116,7 +116,7 @@
     .end annotation
 
     .prologue
-    const/16 v10, 0x3e8
+    const/16 v9, 0x3e8
 
     const/4 v2, 0x0
 
@@ -246,7 +246,7 @@
 
     move-result-object v6
 
-    if-eqz v4, :cond_104
+    if-eqz v4, :cond_101
 
     const-string v0, "exists"
 
@@ -344,19 +344,17 @@
 
     invoke-interface {v0}, Lokhttp3/Call;->execute()Lokhttp3/Response;
     :try_end_d7
-    .catch Ljava/lang/Exception; {:try_start_cc .. :try_end_d7} :catch_10d
+    .catch Ljava/lang/Exception; {:try_start_cc .. :try_end_d7} :catch_1a8
 
     move-result-object v4
 
-    const/4 v5, 0x0
-
     .line 79
-    :try_start_d9
+    :try_start_d8
     invoke-virtual {v4}, Lokhttp3/Response;->isSuccessful()Z
 
     move-result v0
 
-    if-nez v0, :cond_130
+    if-nez v0, :cond_104
 
     .line 80
     const-string v0, "RankingRequest"
@@ -384,48 +382,230 @@
     move-result-object v2
 
     invoke-static {v0, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_fb
-    .catch Ljava/lang/Throwable; {:try_start_d9 .. :try_end_fb} :catch_1d8
-    .catchall {:try_start_d9 .. :try_end_fb} :catchall_3bd
+    :try_end_fa
+    .catch Ljava/lang/Throwable; {:try_start_d8 .. :try_end_fa} :catch_1a1
+    .catch Ljava/lang/Exception; {:try_start_d8 .. :try_end_fa} :catch_1a8
 
     .line 168
-    if-eqz v4, :cond_102
+    if-eqz v4, :cond_ff
 
-    if-eqz v1, :cond_12c
-
-    :try_start_ff
+    :try_start_fc
     invoke-virtual {v4}, Lokhttp3/Response;->close()V
-    :try_end_102
-    .catch Ljava/lang/Throwable; {:try_start_ff .. :try_end_102} :catch_108
-    .catch Ljava/lang/Exception; {:try_start_ff .. :try_end_102} :catch_10d
+    :try_end_ff
+    .catch Ljava/lang/Exception; {:try_start_fc .. :try_end_ff} :catch_1a8
 
-    :cond_102
-    :goto_102
+    :cond_ff
     move-object v0, v1
 
     .line 170
-    :cond_103
-    :goto_103
+    :cond_100
+    :goto_100
     return-object v0
 
     .line 61
-    :cond_104
+    :cond_101
     const-string v0, "null"
 
-    goto/16 :goto_83
+    goto :goto_83
+
+    .line 84
+    :cond_104
+    :try_start_104
+    invoke-virtual {v4}, Lokhttp3/Response;->body()Lokhttp3/ResponseBody;
+
+    move-result-object v0
+
+    .line 85
+    if-nez v0, :cond_118
+
+    .line 86
+    const-string v0, "RankingRequest"
+
+    const-string v2, "Response body is null"
+
+    invoke-static {v0, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+    :try_end_111
+    .catch Ljava/lang/Throwable; {:try_start_104 .. :try_end_111} :catch_1a1
+    .catch Ljava/lang/Exception; {:try_start_104 .. :try_end_111} :catch_1a8
 
     .line 168
-    :catch_108
+    if-eqz v4, :cond_116
+
+    :try_start_113
+    invoke-virtual {v4}, Lokhttp3/Response;->close()V
+    :try_end_116
+    .catch Ljava/lang/Exception; {:try_start_113 .. :try_end_116} :catch_1a8
+
+    :cond_116
+    move-object v0, v1
+
+    .line 87
+    goto :goto_100
+
+    .line 90
+    :cond_118
+    :try_start_118
+    invoke-virtual {v0}, Lokhttp3/ResponseBody;->string()Ljava/lang/String;
+
+    move-result-object v3
+
+    .line 91
+    const-string v0, "RankingRequest"
+
+    const-string v5, "========== Response Details =========="
+
+    invoke-static {v0, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 92
+    const-string v0, "RankingRequest"
+
+    new-instance v5, Ljava/lang/StringBuilder;
+
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v6, "Response Code: "
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    invoke-virtual {v4}, Lokhttp3/Response;->code()I
+
+    move-result v6
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-static {v0, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 93
+    const-string v0, "RankingRequest"
+
+    new-instance v5, Ljava/lang/StringBuilder;
+
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v6, "Response Message: "
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    invoke-virtual {v4}, Lokhttp3/Response;->message()Ljava/lang/String;
+
+    move-result-object v6
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-static {v0, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 94
+    const-string v0, "RankingRequest"
+
+    const-string v5, "Response Headers:"
+
+    invoke-static {v0, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 95
+    invoke-virtual {v4}, Lokhttp3/Response;->headers()Lokhttp3/Headers;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lokhttp3/Headers;->names()Ljava/util/Set;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
+
+    move-result-object v5
+
+    :goto_16e
+    invoke-interface {v5}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_1c8
+
+    invoke-interface {v5}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/lang/String;
+
+    .line 96
+    const-string v6, "RankingRequest"
+
+    new-instance v7, Ljava/lang/StringBuilder;
+
+    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v8, "  "
+
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-virtual {v7, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    const-string v8, ": "
+
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-virtual {v4, v0}, Lokhttp3/Response;->header(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {v7, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v6, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    :try_end_1a0
+    .catch Ljava/lang/Throwable; {:try_start_118 .. :try_end_1a0} :catch_1a1
+    .catch Ljava/lang/Exception; {:try_start_118 .. :try_end_1a0} :catch_1a8
+
+    goto :goto_16e
+
+    .line 78
+    :catch_1a1
     move-exception v0
 
-    :try_start_109
-    invoke-virtual {v5, v0}, Ljava/lang/Throwable;->addSuppressed(Ljava/lang/Throwable;)V
-    :try_end_10c
-    .catch Ljava/lang/Exception; {:try_start_109 .. :try_end_10c} :catch_10d
+    if-eqz v4, :cond_1a7
 
-    goto :goto_102
+    :try_start_1a4
+    invoke-virtual {v4}, Lokhttp3/Response;->close()V
+    :try_end_1a7
+    .catch Ljava/lang/Throwable; {:try_start_1a4 .. :try_end_1a7} :catch_3a5
+    .catch Ljava/lang/Exception; {:try_start_1a4 .. :try_end_1a7} :catch_1a8
 
-    :catch_10d
+    :cond_1a7
+    :goto_1a7
+    :try_start_1a7
+    throw v0
+    :try_end_1a8
+    .catch Ljava/lang/Exception; {:try_start_1a7 .. :try_end_1a8} :catch_1a8
+
+    .line 168
+    :catch_1a8
     move-exception v0
 
     .line 169
@@ -458,314 +638,75 @@
     move-object v0, v1
 
     .line 170
-    goto :goto_103
-
-    .line 168
-    :cond_12c
-    :try_start_12c
-    invoke-virtual {v4}, Lokhttp3/Response;->close()V
-    :try_end_12f
-    .catch Ljava/lang/Exception; {:try_start_12c .. :try_end_12f} :catch_10d
-
-    goto :goto_102
-
-    .line 84
-    :cond_130
-    :try_start_130
-    invoke-virtual {v4}, Lokhttp3/Response;->body()Lokhttp3/ResponseBody;
-
-    move-result-object v0
-
-    .line 85
-    if-nez v0, :cond_14f
-
-    .line 86
-    const-string v0, "RankingRequest"
-
-    const-string v2, "Response body is null"
-
-    invoke-static {v0, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_13d
-    .catch Ljava/lang/Throwable; {:try_start_130 .. :try_end_13d} :catch_1d8
-    .catchall {:try_start_130 .. :try_end_13d} :catchall_3bd
-
-    .line 168
-    if-eqz v4, :cond_144
-
-    if-eqz v1, :cond_14b
-
-    :try_start_141
-    invoke-virtual {v4}, Lokhttp3/Response;->close()V
-    :try_end_144
-    .catch Ljava/lang/Throwable; {:try_start_141 .. :try_end_144} :catch_146
-    .catch Ljava/lang/Exception; {:try_start_141 .. :try_end_144} :catch_10d
-
-    :cond_144
-    :goto_144
-    move-object v0, v1
-
-    .line 87
-    goto :goto_103
-
-    .line 168
-    :catch_146
-    move-exception v0
-
-    :try_start_147
-    invoke-virtual {v5, v0}, Ljava/lang/Throwable;->addSuppressed(Ljava/lang/Throwable;)V
-
-    goto :goto_144
-
-    :cond_14b
-    invoke-virtual {v4}, Lokhttp3/Response;->close()V
-    :try_end_14e
-    .catch Ljava/lang/Exception; {:try_start_147 .. :try_end_14e} :catch_10d
-
-    goto :goto_144
-
-    .line 90
-    :cond_14f
-    :try_start_14f
-    invoke-virtual {v0}, Lokhttp3/ResponseBody;->string()Ljava/lang/String;
-
-    move-result-object v3
-
-    .line 91
-    const-string v0, "RankingRequest"
-
-    const-string v6, "========== Response Details =========="
-
-    invoke-static {v0, v6}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 92
-    const-string v0, "RankingRequest"
-
-    new-instance v6, Ljava/lang/StringBuilder;
-
-    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v7, "Response Code: "
-
-    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v6
-
-    invoke-virtual {v4}, Lokhttp3/Response;->code()I
-
-    move-result v7
-
-    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v6
-
-    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v6
-
-    invoke-static {v0, v6}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 93
-    const-string v0, "RankingRequest"
-
-    new-instance v6, Ljava/lang/StringBuilder;
-
-    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v7, "Response Message: "
-
-    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v6
-
-    invoke-virtual {v4}, Lokhttp3/Response;->message()Ljava/lang/String;
-
-    move-result-object v7
-
-    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v6
-
-    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v6
-
-    invoke-static {v0, v6}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 94
-    const-string v0, "RankingRequest"
-
-    const-string v6, "Response Headers:"
-
-    invoke-static {v0, v6}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 95
-    invoke-virtual {v4}, Lokhttp3/Response;->headers()Lokhttp3/Headers;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Lokhttp3/Headers;->names()Ljava/util/Set;
-
-    move-result-object v0
-
-    invoke-interface {v0}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
-
-    move-result-object v6
-
-    :goto_1a5
-    invoke-interface {v6}, Ljava/util/Iterator;->hasNext()Z
-
-    move-result v0
-
-    if-eqz v0, :cond_1e4
-
-    invoke-interface {v6}, Ljava/util/Iterator;->next()Ljava/lang/Object;
-
-    move-result-object v0
-
-    check-cast v0, Ljava/lang/String;
-
-    .line 96
-    const-string v7, "RankingRequest"
-
-    new-instance v8, Ljava/lang/StringBuilder;
-
-    invoke-direct {v8}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v9, "  "
-
-    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v8
-
-    invoke-virtual {v8, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v8
-
-    const-string v9, ": "
-
-    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v8
-
-    invoke-virtual {v4, v0}, Lokhttp3/Response;->header(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {v8, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {v7, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_1d7
-    .catch Ljava/lang/Throwable; {:try_start_14f .. :try_end_1d7} :catch_1d8
-    .catchall {:try_start_14f .. :try_end_1d7} :catchall_3bd
-
-    goto :goto_1a5
-
-    .line 78
-    :catch_1d8
-    move-exception v0
-
-    :try_start_1d9
-    throw v0
-    :try_end_1da
-    .catchall {:try_start_1d9 .. :try_end_1da} :catchall_1da
-
-    .line 168
-    :catchall_1da
-    move-exception v2
-
-    move-object v3, v0
-
-    :goto_1dc
-    if-eqz v4, :cond_1e3
-
-    if-eqz v3, :cond_3fe
-
-    :try_start_1e0
-    invoke-virtual {v4}, Lokhttp3/Response;->close()V
-    :try_end_1e3
-    .catch Ljava/lang/Throwable; {:try_start_1e0 .. :try_end_1e3} :catch_3f8
-    .catch Ljava/lang/Exception; {:try_start_1e0 .. :try_end_1e3} :catch_10d
-
-    :cond_1e3
-    :goto_1e3
-    :try_start_1e3
-    throw v2
-    :try_end_1e4
-    .catch Ljava/lang/Exception; {:try_start_1e3 .. :try_end_1e4} :catch_10d
+    goto/16 :goto_100
 
     .line 98
-    :cond_1e4
-    :try_start_1e4
+    :cond_1c8
+    :try_start_1c8
     const-string v0, "RankingRequest"
 
-    new-instance v6, Ljava/lang/StringBuilder;
+    new-instance v5, Ljava/lang/StringBuilder;
 
-    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v7, "Response Body Length: "
+    const-string v6, "Response Body Length: "
 
-    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v6
+    move-result-object v5
 
     invoke-virtual {v3}, Ljava/lang/String;->length()I
 
-    move-result v7
+    move-result v6
 
-    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    move-result-object v6
+    move-result-object v5
 
-    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v6
+    move-result-object v5
 
-    invoke-static {v0, v6}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v0, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 99
-    const-string v6, "RankingRequest"
+    const-string v5, "RankingRequest"
 
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v7, "Response Body (first 1000 chars): "
+    const-string v6, "Response Body (first 1000 chars): "
+
+    invoke-virtual {v0, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v6
+
+    invoke-virtual {v3}, Ljava/lang/String;->length()I
+
+    move-result v0
+
+    if-le v0, v9, :cond_27a
+
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const/4 v7, 0x0
+
+    const/16 v8, 0x3e8
+
+    invoke-virtual {v3, v7, v8}, Ljava/lang/String;->substring(II)Ljava/lang/String;
+
+    move-result-object v7
 
     invoke-virtual {v0, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v7
-
-    invoke-virtual {v3}, Ljava/lang/String;->length()I
-
-    move-result v0
-
-    if-le v0, v10, :cond_298
-
-    new-instance v0, Ljava/lang/StringBuilder;
-
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
-
-    const/4 v8, 0x0
-
-    const/16 v9, 0x3e8
-
-    invoke-virtual {v3, v8, v9}, Ljava/lang/String;->substring(II)Ljava/lang/String;
-
-    move-result-object v8
-
-    invoke-virtual {v0, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
     move-result-object v0
 
-    const-string v8, "..."
+    const-string v7, "..."
 
-    invoke-virtual {v0, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
@@ -773,8 +714,8 @@
 
     move-result-object v0
 
-    :goto_22d
-    invoke-virtual {v7, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    :goto_211
+    invoke-virtual {v6, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
@@ -782,7 +723,7 @@
 
     move-result-object v0
 
-    invoke-static {v6, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v5, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 101
     invoke-static {v3}, Lcom/alibaba/fastjson/JSON;->parseObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
@@ -797,47 +738,47 @@
     move-result v3
 
     .line 103
-    const-string v6, "message"
+    const-string v5, "message"
 
-    invoke-virtual {v0, v6}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {v0, v5}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
-    move-result-object v6
+    move-result-object v5
 
     .line 105
-    const-string v7, "RankingRequest"
+    const-string v6, "RankingRequest"
 
-    new-instance v8, Ljava/lang/StringBuilder;
+    new-instance v7, Ljava/lang/StringBuilder;
 
-    invoke-direct {v8}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v9, "API Response: code="
+    const-string v8, "API Response: code="
 
-    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v8
+    move-result-object v7
 
-    invoke-virtual {v8, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v7, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    move-result-object v8
+    move-result-object v7
 
-    const-string v9, ", message="
+    const-string v8, ", message="
 
-    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v8
+    move-result-object v7
 
-    invoke-virtual {v8, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v7, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v8
+    move-result-object v7
 
-    invoke-virtual {v8}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v8
+    move-result-object v7
 
-    invoke-static {v7, v8}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v6, v7}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 107
-    if-eqz v3, :cond_2a3
+    if-eqz v3, :cond_27c
 
     .line 108
     const-string v0, "RankingRequest"
@@ -846,9 +787,9 @@
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v7, "API error: code="
+    const-string v6, "API error: code="
 
-    invoke-virtual {v2, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v2
 
@@ -862,7 +803,7 @@
 
     move-result-object v2
 
-    invoke-virtual {v2, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v2
 
@@ -871,53 +812,33 @@
     move-result-object v2
 
     invoke-static {v0, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_28e
-    .catch Ljava/lang/Throwable; {:try_start_1e4 .. :try_end_28e} :catch_1d8
-    .catchall {:try_start_1e4 .. :try_end_28e} :catchall_3bd
+    :try_end_272
+    .catch Ljava/lang/Throwable; {:try_start_1c8 .. :try_end_272} :catch_1a1
+    .catch Ljava/lang/Exception; {:try_start_1c8 .. :try_end_272} :catch_1a8
 
     .line 168
-    if-eqz v4, :cond_295
+    if-eqz v4, :cond_277
 
-    if-eqz v1, :cond_29f
-
-    :try_start_292
+    :try_start_274
     invoke-virtual {v4}, Lokhttp3/Response;->close()V
-    :try_end_295
-    .catch Ljava/lang/Throwable; {:try_start_292 .. :try_end_295} :catch_29a
-    .catch Ljava/lang/Exception; {:try_start_292 .. :try_end_295} :catch_10d
+    :try_end_277
+    .catch Ljava/lang/Exception; {:try_start_274 .. :try_end_277} :catch_1a8
 
-    :cond_295
-    :goto_295
+    :cond_277
     move-object v0, v1
 
     .line 109
-    goto/16 :goto_103
+    goto/16 :goto_100
 
-    :cond_298
+    :cond_27a
     move-object v0, v3
 
     .line 99
-    goto :goto_22d
-
-    .line 168
-    :catch_29a
-    move-exception v0
-
-    :try_start_29b
-    invoke-virtual {v5, v0}, Ljava/lang/Throwable;->addSuppressed(Ljava/lang/Throwable;)V
-
-    goto :goto_295
-
-    :cond_29f
-    invoke-virtual {v4}, Lokhttp3/Response;->close()V
-    :try_end_2a2
-    .catch Ljava/lang/Exception; {:try_start_29b .. :try_end_2a2} :catch_10d
-
-    goto :goto_295
+    goto :goto_211
 
     .line 113
-    :cond_2a3
-    :try_start_2a3
+    :cond_27c
+    :try_start_27c
     const-string v3, "data"
 
     invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
@@ -925,7 +846,7 @@
     move-result-object v0
 
     .line 114
-    if-nez v0, :cond_2cb
+    if-nez v0, :cond_297
 
     .line 115
     const-string v0, "RankingRequest"
@@ -938,58 +859,40 @@
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
-    :try_end_2b7
-    .catch Ljava/lang/Throwable; {:try_start_2a3 .. :try_end_2b7} :catch_1d8
-    .catchall {:try_start_2a3 .. :try_end_2b7} :catchall_3bd
+    :try_end_290
+    .catch Ljava/lang/Throwable; {:try_start_27c .. :try_end_290} :catch_1a1
+    .catch Ljava/lang/Exception; {:try_start_27c .. :try_end_290} :catch_1a8
 
     .line 168
-    if-eqz v4, :cond_103
+    if-eqz v4, :cond_100
 
-    if-eqz v1, :cond_2c6
-
-    :try_start_2bb
+    :try_start_292
     invoke-virtual {v4}, Lokhttp3/Response;->close()V
-    :try_end_2be
-    .catch Ljava/lang/Throwable; {:try_start_2bb .. :try_end_2be} :catch_2c0
-    .catch Ljava/lang/Exception; {:try_start_2bb .. :try_end_2be} :catch_10d
+    :try_end_295
+    .catch Ljava/lang/Exception; {:try_start_292 .. :try_end_295} :catch_1a8
 
-    goto/16 :goto_103
-
-    :catch_2c0
-    move-exception v2
-
-    :try_start_2c1
-    invoke-virtual {v5, v2}, Ljava/lang/Throwable;->addSuppressed(Ljava/lang/Throwable;)V
-
-    goto/16 :goto_103
-
-    :cond_2c6
-    invoke-virtual {v4}, Lokhttp3/Response;->close()V
-    :try_end_2c9
-    .catch Ljava/lang/Exception; {:try_start_2c1 .. :try_end_2c9} :catch_10d
-
-    goto/16 :goto_103
+    goto/16 :goto_100
 
     .line 120
-    :cond_2cb
-    :try_start_2cb
+    :cond_297
+    :try_start_297
     const-string v3, "list"
 
     invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
 
-    move-result-object v6
+    move-result-object v5
 
     .line 121
-    if-eqz v6, :cond_2d9
+    if-eqz v5, :cond_2a5
 
-    invoke-virtual {v6}, Lcom/alibaba/fastjson/JSONArray;->isEmpty()Z
+    invoke-virtual {v5}, Lcom/alibaba/fastjson/JSONArray;->isEmpty()Z
 
     move-result v0
 
-    if-eqz v0, :cond_2f9
+    if-eqz v0, :cond_2b8
 
     .line 122
-    :cond_2d9
+    :cond_2a5
     const-string v0, "RankingRequest"
 
     const-string v2, "List is empty"
@@ -1000,41 +903,23 @@
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
-    :try_end_2e5
-    .catch Ljava/lang/Throwable; {:try_start_2cb .. :try_end_2e5} :catch_1d8
-    .catchall {:try_start_2cb .. :try_end_2e5} :catchall_3bd
+    :try_end_2b1
+    .catch Ljava/lang/Throwable; {:try_start_297 .. :try_end_2b1} :catch_1a1
+    .catch Ljava/lang/Exception; {:try_start_297 .. :try_end_2b1} :catch_1a8
 
     .line 168
-    if-eqz v4, :cond_103
+    if-eqz v4, :cond_100
 
-    if-eqz v1, :cond_2f4
-
-    :try_start_2e9
+    :try_start_2b3
     invoke-virtual {v4}, Lokhttp3/Response;->close()V
-    :try_end_2ec
-    .catch Ljava/lang/Throwable; {:try_start_2e9 .. :try_end_2ec} :catch_2ee
-    .catch Ljava/lang/Exception; {:try_start_2e9 .. :try_end_2ec} :catch_10d
+    :try_end_2b6
+    .catch Ljava/lang/Exception; {:try_start_2b3 .. :try_end_2b6} :catch_1a8
 
-    goto/16 :goto_103
-
-    :catch_2ee
-    move-exception v2
-
-    :try_start_2ef
-    invoke-virtual {v5, v2}, Ljava/lang/Throwable;->addSuppressed(Ljava/lang/Throwable;)V
-
-    goto/16 :goto_103
-
-    :cond_2f4
-    invoke-virtual {v4}, Lokhttp3/Response;->close()V
-    :try_end_2f7
-    .catch Ljava/lang/Exception; {:try_start_2ef .. :try_end_2f7} :catch_10d
-
-    goto/16 :goto_103
+    goto/16 :goto_100
 
     .line 126
-    :cond_2f9
-    :try_start_2f9
+    :cond_2b8
+    :try_start_2b8
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
@@ -1042,157 +927,157 @@
     move v3, v2
 
     .line 127
-    :goto_2ff
-    invoke-virtual {v6}, Lcom/alibaba/fastjson/JSONArray;->size()I
-    :try_end_302
-    .catch Ljava/lang/Throwable; {:try_start_2f9 .. :try_end_302} :catch_1d8
-    .catchall {:try_start_2f9 .. :try_end_302} :catchall_3bd
+    :goto_2be
+    invoke-virtual {v5}, Lcom/alibaba/fastjson/JSONArray;->size()I
+    :try_end_2c1
+    .catch Ljava/lang/Throwable; {:try_start_2b8 .. :try_end_2c1} :catch_1a1
+    .catch Ljava/lang/Exception; {:try_start_2b8 .. :try_end_2c1} :catch_1a8
 
     move-result v2
 
-    if-ge v3, v2, :cond_3c2
+    if-ge v3, v2, :cond_37c
 
     .line 129
-    :try_start_305
-    invoke-virtual {v6, v3}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
+    :try_start_2c4
+    invoke-virtual {v5, v3}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v2
 
     .line 130
-    new-instance v7, Lcom/bilibili/tv/api/area/BiliVideoV2;
+    new-instance v6, Lcom/bilibili/tv/api/area/BiliVideoV2;
 
-    invoke-direct {v7}, Lcom/bilibili/tv/api/area/BiliVideoV2;-><init>()V
+    invoke-direct {v6}, Lcom/bilibili/tv/api/area/BiliVideoV2;-><init>()V
 
     .line 133
-    const-string v8, "title"
+    const-string v7, "title"
 
-    invoke-virtual {v2, v8}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {v2, v7}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
-    move-result-object v8
+    move-result-object v7
 
-    iput-object v8, v7, Lcom/bilibili/tv/api/area/BiliVideoV2;->title:Ljava/lang/String;
+    iput-object v7, v6, Lcom/bilibili/tv/api/area/BiliVideoV2;->title:Ljava/lang/String;
 
     .line 134
-    const-string v8, "pic"
+    const-string v7, "pic"
 
-    invoke-virtual {v2, v8}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {v2, v7}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
-    move-result-object v8
+    move-result-object v7
 
-    iput-object v8, v7, Lcom/bilibili/tv/api/area/BiliVideoV2;->cover:Ljava/lang/String;
+    iput-object v7, v6, Lcom/bilibili/tv/api/area/BiliVideoV2;->cover:Ljava/lang/String;
 
     .line 135
-    const-string v8, "aid"
+    const-string v7, "aid"
 
-    invoke-virtual {v2, v8}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
+    invoke-virtual {v2, v7}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
 
     move-result-wide v8
 
     invoke-static {v8, v9}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
 
-    move-result-object v8
+    move-result-object v7
 
-    iput-object v8, v7, Lcom/bilibili/tv/api/area/BiliVideoV2;->param:Ljava/lang/String;
+    iput-object v7, v6, Lcom/bilibili/tv/api/area/BiliVideoV2;->param:Ljava/lang/String;
 
     .line 138
-    const-string v8, "owner"
+    const-string v7, "owner"
 
-    invoke-virtual {v2, v8}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
+    invoke-virtual {v2, v7}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
-    move-result-object v8
+    move-result-object v7
 
     .line 139
-    if-eqz v8, :cond_33a
+    if-eqz v7, :cond_2f9
 
     .line 140
-    const-string v9, "name"
+    const-string v8, "name"
 
-    invoke-virtual {v8, v9}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {v7, v8}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
-    move-result-object v8
+    move-result-object v7
 
-    iput-object v8, v7, Lcom/bilibili/tv/api/area/BiliVideoV2;->name:Ljava/lang/String;
+    iput-object v7, v6, Lcom/bilibili/tv/api/area/BiliVideoV2;->name:Ljava/lang/String;
 
     .line 144
-    :cond_33a
-    const-string v8, "stat"
+    :cond_2f9
+    const-string v7, "stat"
 
-    invoke-virtual {v2, v8}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
+    invoke-virtual {v2, v7}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
-    move-result-object v8
+    move-result-object v7
 
     .line 145
-    if-eqz v8, :cond_362
+    if-eqz v7, :cond_321
 
     .line 146
-    const-string v9, "view"
+    const-string v8, "view"
 
-    invoke-virtual {v8, v9}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
+    invoke-virtual {v7, v8}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
-    move-result v9
+    move-result v8
 
-    iput v9, v7, Lcom/bilibili/tv/api/area/BiliVideoV2;->play:I
+    iput v8, v6, Lcom/bilibili/tv/api/area/BiliVideoV2;->play:I
 
     .line 147
-    const-string v9, "danmaku"
+    const-string v8, "danmaku"
 
-    invoke-virtual {v8, v9}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
+    invoke-virtual {v7, v8}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
-    move-result v9
+    move-result v8
 
-    iput v9, v7, Lcom/bilibili/tv/api/area/BiliVideoV2;->danmaku:I
+    iput v8, v6, Lcom/bilibili/tv/api/area/BiliVideoV2;->danmaku:I
 
     .line 148
-    const-string v9, "reply"
+    const-string v8, "reply"
 
-    invoke-virtual {v8, v9}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
+    invoke-virtual {v7, v8}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
-    move-result v9
+    move-result v8
 
-    iput v9, v7, Lcom/bilibili/tv/api/area/BiliVideoV2;->reply:I
+    iput v8, v6, Lcom/bilibili/tv/api/area/BiliVideoV2;->reply:I
 
     .line 149
-    const-string v9, "favorite"
+    const-string v8, "favorite"
 
-    invoke-virtual {v8, v9}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
+    invoke-virtual {v7, v8}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
-    move-result v8
+    move-result v7
 
-    iput v8, v7, Lcom/bilibili/tv/api/area/BiliVideoV2;->favourite:I
+    iput v7, v6, Lcom/bilibili/tv/api/area/BiliVideoV2;->favourite:I
 
     .line 153
-    :cond_362
-    const-string v8, "duration"
+    :cond_321
+    const-string v7, "duration"
 
-    invoke-virtual {v2, v8}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
+    invoke-virtual {v2, v7}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
-    move-result v8
+    move-result v7
 
-    iput v8, v7, Lcom/bilibili/tv/api/area/BiliVideoV2;->duration:I
+    iput v7, v6, Lcom/bilibili/tv/api/area/BiliVideoV2;->duration:I
 
     .line 154
-    const-string v8, "pubdate"
+    const-string v7, "pubdate"
 
-    invoke-virtual {v2, v8}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
+    invoke-virtual {v2, v7}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
 
     move-result-wide v8
 
-    iput-wide v8, v7, Lcom/bilibili/tv/api/area/BiliVideoV2;->pubdate:J
+    iput-wide v8, v6, Lcom/bilibili/tv/api/area/BiliVideoV2;->pubdate:J
 
     .line 155
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v8, "bilibili://video/"
+    const-string v7, "bilibili://video/"
 
-    invoke-virtual {v2, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v2
 
-    iget-object v8, v7, Lcom/bilibili/tv/api/area/BiliVideoV2;->param:Ljava/lang/String;
+    iget-object v7, v6, Lcom/bilibili/tv/api/area/BiliVideoV2;->param:Ljava/lang/String;
 
-    invoke-virtual {v2, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v2
 
@@ -1200,61 +1085,60 @@
 
     move-result-object v2
 
-    iput-object v2, v7, Lcom/bilibili/tv/api/area/BiliVideoV2;->uri:Ljava/lang/String;
+    iput-object v2, v6, Lcom/bilibili/tv/api/area/BiliVideoV2;->uri:Ljava/lang/String;
 
     .line 156
     const-string v2, "av"
 
-    iput-object v2, v7, Lcom/bilibili/tv/api/area/BiliVideoV2;->jumpTo:Ljava/lang/String;
+    iput-object v2, v6, Lcom/bilibili/tv/api/area/BiliVideoV2;->jumpTo:Ljava/lang/String;
 
     .line 158
-    invoke-interface {v0, v7}, Ljava/util/List;->add(Ljava/lang/Object;)Z
-    :try_end_390
-    .catch Ljava/lang/Exception; {:try_start_305 .. :try_end_390} :catch_395
-    .catch Ljava/lang/Throwable; {:try_start_305 .. :try_end_390} :catch_1d8
-    .catchall {:try_start_305 .. :try_end_390} :catchall_3bd
+    invoke-interface {v0, v6}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+    :try_end_34f
+    .catch Ljava/lang/Exception; {:try_start_2c4 .. :try_end_34f} :catch_354
+    .catch Ljava/lang/Throwable; {:try_start_2c4 .. :try_end_34f} :catch_1a1
 
     .line 127
-    :goto_390
+    :goto_34f
     add-int/lit8 v2, v3, 0x1
 
     move v3, v2
 
-    goto/16 :goto_2ff
+    goto/16 :goto_2be
 
     .line 159
-    :catch_395
+    :catch_354
     move-exception v2
 
     .line 160
-    :try_start_396
-    const-string v7, "RankingRequest"
+    :try_start_355
+    const-string v6, "RankingRequest"
 
-    new-instance v8, Ljava/lang/StringBuilder;
+    new-instance v7, Ljava/lang/StringBuilder;
 
-    invoke-direct {v8}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v9, "Error parsing video "
+    const-string v8, "Error parsing video "
 
-    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v8
+    move-result-object v7
 
-    invoke-virtual {v8, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v7, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    move-result-object v8
+    move-result-object v7
 
-    const-string v9, ": "
+    const-string v8, ": "
 
-    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v8
+    move-result-object v7
 
     invoke-virtual {v2}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
 
     move-result-object v2
 
-    invoke-virtual {v8, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v7, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v2
 
@@ -1262,45 +1146,35 @@
 
     move-result-object v2
 
-    invoke-static {v7, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v6, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto :goto_390
-
-    .line 168
-    :catchall_3bd
-    move-exception v0
-
-    move-object v2, v0
-
-    move-object v3, v1
-
-    goto/16 :goto_1dc
+    goto :goto_34f
 
     .line 164
-    :cond_3c2
+    :cond_37c
     const-string v2, "RankingRequest"
 
     new-instance v3, Ljava/lang/StringBuilder;
 
     invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v6, "Parsed "
+    const-string v5, "Parsed "
 
-    invoke-virtual {v3, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v3
 
     invoke-interface {v0}, Ljava/util/List;->size()I
 
-    move-result v6
+    move-result v5
 
-    invoke-virtual {v3, v6}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v5}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
     move-result-object v3
 
-    const-string v6, " videos"
+    const-string v5, " videos"
 
-    invoke-virtual {v3, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v3
 
@@ -1309,47 +1183,25 @@
     move-result-object v3
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_3e4
-    .catch Ljava/lang/Throwable; {:try_start_396 .. :try_end_3e4} :catch_1d8
-    .catchall {:try_start_396 .. :try_end_3e4} :catchall_3bd
+    :try_end_39e
+    .catch Ljava/lang/Throwable; {:try_start_355 .. :try_end_39e} :catch_1a1
+    .catch Ljava/lang/Exception; {:try_start_355 .. :try_end_39e} :catch_1a8
 
     .line 168
-    if-eqz v4, :cond_103
+    if-eqz v4, :cond_100
 
-    if-eqz v1, :cond_3f3
-
-    :try_start_3e8
+    :try_start_3a0
     invoke-virtual {v4}, Lokhttp3/Response;->close()V
-    :try_end_3eb
-    .catch Ljava/lang/Throwable; {:try_start_3e8 .. :try_end_3eb} :catch_3ed
-    .catch Ljava/lang/Exception; {:try_start_3e8 .. :try_end_3eb} :catch_10d
 
-    goto/16 :goto_103
+    goto/16 :goto_100
 
-    :catch_3ed
+    .line 78
+    :catch_3a5
     move-exception v2
 
-    :try_start_3ee
-    invoke-virtual {v5, v2}, Ljava/lang/Throwable;->addSuppressed(Ljava/lang/Throwable;)V
+    invoke-virtual {v0, v2}, Ljava/lang/Throwable;->addSuppressed(Ljava/lang/Throwable;)V
+    :try_end_3a9
+    .catch Ljava/lang/Exception; {:try_start_3a0 .. :try_end_3a9} :catch_1a8
 
-    goto/16 :goto_103
-
-    :cond_3f3
-    invoke-virtual {v4}, Lokhttp3/Response;->close()V
-
-    goto/16 :goto_103
-
-    :catch_3f8
-    move-exception v0
-
-    invoke-virtual {v3, v0}, Ljava/lang/Throwable;->addSuppressed(Ljava/lang/Throwable;)V
-
-    goto/16 :goto_1e3
-
-    :cond_3fe
-    invoke-virtual {v4}, Lokhttp3/Response;->close()V
-    :try_end_401
-    .catch Ljava/lang/Exception; {:try_start_3ee .. :try_end_401} :catch_10d
-
-    goto/16 :goto_1e3
+    goto/16 :goto_1a7
 .end method

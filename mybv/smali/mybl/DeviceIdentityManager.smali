@@ -1385,6 +1385,7 @@
 
     move-result-object v3
 
+    .line 313
     iget-object v0, p0, Lmybl/DeviceIdentityManager;->buvid4:Ljava/lang/String;
 
     if-eqz v0, :cond_fe
@@ -1402,11 +1403,11 @@
 
     move-result-object v3
 
+    .line 314
     iget-object v0, p0, Lmybl/DeviceIdentityManager;->biliTicket:Ljava/lang/String;
 
     if-eqz v0, :cond_101
 
-    .line 314
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v4
@@ -1440,6 +1441,7 @@
 
     goto :goto_c5
 
+    .line 313
     :cond_fe
     const-string v0, "\u65e0"
 

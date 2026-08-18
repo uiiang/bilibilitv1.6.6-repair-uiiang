@@ -560,9 +560,9 @@
 
     if-ge v1, v10, :cond_179
 
+    .line 776
     add-int/lit8 v1, v1, 0x1
 
-    .line 776
     invoke-virtual {v3, v1}, Ljava/lang/String;->substring(I)Ljava/lang/String;
 
     move-result-object v1

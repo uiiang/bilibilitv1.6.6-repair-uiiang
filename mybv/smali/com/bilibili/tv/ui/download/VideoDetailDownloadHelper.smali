@@ -1609,13 +1609,14 @@
 
     move-result-object v18
 
-    .line 140
+    .line 141
     move-object/from16 v0, p0
 
     instance-of v2, v0, Landroid/app/Activity;
 
     if-eqz v2, :cond_138
 
+    .line 142
     new-instance v19, Ljava/lang/ref/WeakReference;
 
     check-cast p0, Landroid/app/Activity;
@@ -1683,7 +1684,7 @@
 
     goto/16 :goto_69
 
-    .line 140
+    .line 143
     :cond_138
     const/16 v19, 0x0
 

@@ -6,13 +6,13 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;,
         Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$c;,
-        Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$b;,
-        Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$g;,
-        Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$f;,
         Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$e;,
-        Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$a;
+        Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$f;,
+        Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$g;,
+        Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$b;,
+        Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$a;,
+        Lcom/bilibili/tv/ui/favorite/FavoriteVideoFragment$d;
     }
 .end annotation
 

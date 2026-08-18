@@ -368,13 +368,13 @@
 
     move-result-object v1
 
+    .line 110
     iget-object v0, p0, Lcom/bilibili/tv/ebook/model/Book;->chapters:Ljava/util/List;
 
     if-eqz v0, :cond_56
 
     iget-object v0, p0, Lcom/bilibili/tv/ebook/model/Book;->chapters:Ljava/util/List;
 
-    .line 110
     invoke-interface {v0}, Ljava/util/List;->size()I
 
     move-result v0

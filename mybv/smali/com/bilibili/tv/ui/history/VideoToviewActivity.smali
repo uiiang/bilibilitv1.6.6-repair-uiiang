@@ -10,16 +10,16 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/history/VideoToviewActivity$c;,
-        Lcom/bilibili/tv/ui/history/VideoToviewActivity$b;,
-        Lcom/bilibili/tv/ui/history/VideoToviewActivity$f;,
         Lcom/bilibili/tv/ui/history/VideoToviewActivity$g;,
-        Lcom/bilibili/tv/ui/history/VideoToviewActivity$ToviewResponse;,
-        Lcom/bilibili/tv/ui/history/VideoToviewActivity$CancelButton;,
-        Lcom/bilibili/tv/ui/history/VideoToviewActivity$ClearConfirmButton;,
-        Lcom/bilibili/tv/ui/history/VideoToviewActivity$DeleteConfirmButton;,
+        Lcom/bilibili/tv/ui/history/VideoToviewActivity$h;,
         Lcom/bilibili/tv/ui/history/VideoToviewActivity$k;,
-        Lcom/bilibili/tv/ui/history/VideoToviewActivity$h;
+        Lcom/bilibili/tv/ui/history/VideoToviewActivity$ToviewResponse;,
+        Lcom/bilibili/tv/ui/history/VideoToviewActivity$ClearConfirmButton;,
+        Lcom/bilibili/tv/ui/history/VideoToviewActivity$CancelButton;,
+        Lcom/bilibili/tv/ui/history/VideoToviewActivity$DeleteConfirmButton;,
+        Lcom/bilibili/tv/ui/history/VideoToviewActivity$b;,
+        Lcom/bilibili/tv/ui/history/VideoToviewActivity$c;,
+        Lcom/bilibili/tv/ui/history/VideoToviewActivity$f;
     }
 .end annotation
 

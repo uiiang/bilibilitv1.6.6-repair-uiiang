@@ -26,6 +26,11 @@
 # direct methods
 .method constructor <init>(Lbl/afm5;Landroid/app/Activity;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 482

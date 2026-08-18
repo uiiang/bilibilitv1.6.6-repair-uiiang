@@ -6,11 +6,11 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lbl/aed$c;,
         Lbl/aed$b;,
         Lbl/aed$a;,
+        Lbl/aed$e;,
         Lbl/aed$d;,
-        Lbl/aed$e;
+        Lbl/aed$c;
     }
 .end annotation
 

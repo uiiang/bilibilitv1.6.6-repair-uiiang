@@ -9,13 +9,13 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity$d;,
         Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity$c;,
-        Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity$FollowBangumiResponse;,
-        Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity$b;,
-        Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity$f;,
         Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity$e;,
-        Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity$a;
+        Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity$f;,
+        Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity$b;,
+        Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity$FollowBangumiResponse;,
+        Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity$a;,
+        Lcom/bilibili/tv/ui/bangumi/follow/FollowBangumiActivity$d;
     }
 .end annotation
 

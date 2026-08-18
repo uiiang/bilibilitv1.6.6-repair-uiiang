@@ -6,8 +6,8 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$ViewHolder;,
-        Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$OnTaskClickListener;
+        Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$OnTaskClickListener;,
+        Lcom/bilibili/tv/ui/download/adapter/DownloadTaskAdapter$ViewHolder;
     }
 .end annotation
 

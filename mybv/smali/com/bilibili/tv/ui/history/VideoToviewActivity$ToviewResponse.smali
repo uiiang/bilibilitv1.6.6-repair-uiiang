@@ -76,66 +76,72 @@
     invoke-static {v0, p1}, Lmybl/LogUtil;->json(Ljava/lang/String;Ljava/lang/Object;)V
 
     .line 341
-    new-instance v1, Ljava/util/ArrayList;
+    new-instance v2, Ljava/util/ArrayList;
 
-    invoke-direct {v1}, Ljava/util/ArrayList;-><init>()V
+    invoke-direct {v2}, Ljava/util/ArrayList;-><init>()V
 
     .line 342
     const/4 v0, 0x0
 
-    :goto_1c
-    const-string v2, "list"
+    move v1, v0
 
-    invoke-virtual {p1, v2}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
+    :goto_1d
+    const-string v0, "list"
 
-    move-result-object v2
+    invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
 
-    invoke-virtual {v2}, Lcom/alibaba/fastjson/JSONArray;->size()I
+    move-result-object v0
 
-    move-result v2
-
-    if-ge v0, v2, :cond_42
-
-    const-string v2, "list"
-
-    invoke-virtual {p1, v2}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
-
-    move-result-object v2
-
-    invoke-virtual {v2, v0}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Lcom/alibaba/fastjson/JSONObject;->toString()Ljava/lang/String;
-
-    move-result-object v2
-
-    const-class v3, Lcom/bilibili/tv/api/video/BiliVideoDetail;
-
-    invoke-static {v2, v3}, Lcom/alibaba/fastjson/JSON;->parseObject(Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/Object;
-
-    move-result-object v2
-
-    invoke-interface {v1, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
-
-    add-int/lit8 v0, v0, 0x1
-
-    goto :goto_1c
-
-    .line 343
-    :cond_42
-    if-eqz v1, :cond_53
-
-    invoke-interface {v1}, Ljava/util/List;->isEmpty()Z
+    invoke-virtual {v0}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
     move-result v0
 
-    if-nez v0, :cond_53
+    if-ge v1, v0, :cond_46
+
+    const-string v0, "list"
+
+    invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
+
+    move-result-object v0
+
+    invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/alibaba/fastjson/JSONObject;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    const-class v3, Lcom/bilibili/tv/api/video/BiliVideoDetail;
+
+    invoke-static {v0, v3}, Lcom/alibaba/fastjson/JSON;->parseObject(Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;
+
+    invoke-interface {v2, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    add-int/lit8 v0, v1, 0x1
+
+    move v1, v0
+
+    goto :goto_1d
+
+    .line 343
+    :cond_46
+    if-eqz v2, :cond_57
+
+    invoke-interface {v2}, Ljava/util/List;->isEmpty()Z
+
+    move-result v0
+
+    if-nez v0, :cond_57
 
     .line 344
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$ToviewResponse;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
-    invoke-static {v1}, Lbl/baf;->b(Ljava/util/Collection;)Ljava/util/List;
+    invoke-static {v2}, Lbl/baf;->b(Ljava/util/Collection;)Ljava/util/List;
 
     move-result-object v1
 
@@ -143,7 +149,7 @@
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/history/VideoToviewActivity;->access$202(Lcom/bilibili/tv/ui/history/VideoToviewActivity;Ljava/util/List;)Ljava/util/List;
 
     .line 346
-    :cond_53
+    :cond_57
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$ToviewResponse;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
     invoke-static {v0}, Lcom/bilibili/tv/ui/history/VideoToviewActivity;->c(Lcom/bilibili/tv/ui/history/VideoToviewActivity;)Lcom/bilibili/tv/ui/base/LoadingImageView;
@@ -164,7 +170,7 @@
 
     move-result v0
 
-    if-eqz v0, :cond_7d
+    if-eqz v0, :cond_81
 
     .line 348
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$ToviewResponse;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
@@ -187,7 +193,7 @@
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/base/LoadingImageView;->a(I)V
 
     .line 351
-    :cond_7d
+    :cond_81
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$ToviewResponse;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
     # getter for: Lcom/bilibili/tv/ui/history/VideoToviewActivity;->a:Lcom/bilibili/tv/ui/history/VideoToviewActivity$g;

@@ -254,8 +254,6 @@
 
     check-cast v0, [I
 
-    check-cast v0, [I
-
     iput-object v0, p0, Lmybl/BiliLiveContent;->mAcceptQuality:[I
 
     .line 148

@@ -7,8 +7,8 @@
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
         Lcom/bilibili/tv/ui/history/HistorySideActivity$a;,
-        Lcom/bilibili/tv/ui/history/HistorySideActivity$DismissListener;,
-        Lcom/bilibili/tv/ui/history/HistorySideActivity$DeleteConfirmClickListener;
+        Lcom/bilibili/tv/ui/history/HistorySideActivity$DeleteConfirmClickListener;,
+        Lcom/bilibili/tv/ui/history/HistorySideActivity$DismissListener;
     }
 .end annotation
 

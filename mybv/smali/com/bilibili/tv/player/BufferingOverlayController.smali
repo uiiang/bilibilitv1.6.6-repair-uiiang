@@ -376,6 +376,7 @@
     :cond_75
     iget-wide v6, p0, Lcom/bilibili/tv/player/BufferingOverlayController;->bufferingStartedAtMs:J
 
+    .line 121
     iget-wide v0, p0, Lcom/bilibili/tv/player/BufferingOverlayController;->overlayEligibleAtMs:J
 
     cmp-long v0, v0, v2
@@ -384,6 +385,7 @@
 
     iget-wide v0, p0, Lcom/bilibili/tv/player/BufferingOverlayController;->overlayEligibleAtMs:J
 
+    .line 119
     :goto_7f
     invoke-static {v6, v7, v0, v1}, Ljava/lang/Math;->max(JJ)J
 
@@ -451,7 +453,7 @@
     :cond_bc
     move-wide v0, v2
 
-    .line 119
+    .line 121
     goto :goto_7f
 
     .line 134

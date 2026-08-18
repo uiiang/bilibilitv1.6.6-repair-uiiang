@@ -6,9 +6,9 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$TagItem;,
         Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$UperItem;,
-        Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;
+        Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;,
+        Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$TagItem;
     }
 .end annotation
 

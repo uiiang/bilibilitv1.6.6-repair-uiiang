@@ -44,6 +44,48 @@
 
 
 # direct methods
+.method private static synthetic $values()[Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
+    .locals 3
+
+    .prologue
+    .line 96
+    const/4 v0, 0x5
+
+    new-array v0, v0, [Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
+
+    const/4 v1, 0x0
+
+    sget-object v2, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->NONE:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x1
+
+    sget-object v2, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->MANUAL:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x2
+
+    sget-object v2, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->NETWORK_ERROR:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x3
+
+    sget-object v2, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->STORAGE_ERROR:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x4
+
+    sget-object v2, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->APP_EXIT:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
+
+    aput-object v2, v0, v1
+
+    return-object v0
+.end method
+
 .method static constructor <clinit>()V
     .locals 8
 
@@ -114,29 +156,9 @@
     sput-object v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->APP_EXIT:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
 
     .line 96
-    const/4 v0, 0x5
+    invoke-static {}, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->$values()[Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
 
-    new-array v0, v0, [Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
-
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->NONE:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
-
-    aput-object v1, v0, v3
-
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->MANUAL:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
-
-    aput-object v1, v0, v4
-
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->NETWORK_ERROR:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
-
-    aput-object v1, v0, v5
-
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->STORAGE_ERROR:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
-
-    aput-object v1, v0, v6
-
-    sget-object v1, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->APP_EXIT:Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
-
-    aput-object v1, v0, v7
+    move-result-object v0
 
     sput-object v0, Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;->$VALUES:[Lcom/bilibili/tv/ui/download/model/DownloadTask$PauseType;
 

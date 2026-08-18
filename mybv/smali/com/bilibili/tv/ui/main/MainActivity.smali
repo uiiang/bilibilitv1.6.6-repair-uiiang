@@ -6,20 +6,20 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/main/MainActivity$b;,
-        Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;,
-        Lcom/bilibili/tv/ui/main/MainActivity$m;,
-        Lcom/bilibili/tv/ui/main/MainActivity$l;,
-        Lcom/bilibili/tv/ui/main/MainActivity$c;,
-        Lcom/bilibili/tv/ui/main/MainActivity$e;,
         Lcom/bilibili/tv/ui/main/MainActivity$d;,
-        Lcom/bilibili/tv/ui/main/MainActivity$j;,
-        Lcom/bilibili/tv/ui/main/MainActivity$k;,
-        Lcom/bilibili/tv/ui/main/MainActivity$i;,
-        Lcom/bilibili/tv/ui/main/MainActivity$h;,
-        Lcom/bilibili/tv/ui/main/MainActivity$g;,
         Lcom/bilibili/tv/ui/main/MainActivity$f;,
-        Lcom/bilibili/tv/ui/main/MainActivity$a;
+        Lcom/bilibili/tv/ui/main/MainActivity$g;,
+        Lcom/bilibili/tv/ui/main/MainActivity$h;,
+        Lcom/bilibili/tv/ui/main/MainActivity$i;,
+        Lcom/bilibili/tv/ui/main/MainActivity$k;,
+        Lcom/bilibili/tv/ui/main/MainActivity$b;,
+        Lcom/bilibili/tv/ui/main/MainActivity$j;,
+        Lcom/bilibili/tv/ui/main/MainActivity$l;,
+        Lcom/bilibili/tv/ui/main/MainActivity$m;,
+        Lcom/bilibili/tv/ui/main/MainActivity$a;,
+        Lcom/bilibili/tv/ui/main/MainActivity$MainTitle;,
+        Lcom/bilibili/tv/ui/main/MainActivity$c;,
+        Lcom/bilibili/tv/ui/main/MainActivity$e;
     }
 .end annotation
 

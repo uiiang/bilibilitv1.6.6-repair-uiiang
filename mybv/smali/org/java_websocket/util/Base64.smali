@@ -1488,6 +1488,7 @@
 
     move v2, v1
 
+    .line 534
     :goto_10
     const/4 v1, 0x1
 
@@ -1504,6 +1505,7 @@
     :goto_1b
     or-int/2addr v1, v2
 
+    .line 535
     const/4 v2, 0x2
 
     if-le p2, v2, :cond_27
@@ -1535,6 +1537,7 @@
     :cond_2e
     move v1, v0
 
+    .line 534
     goto :goto_1b
 
     .line 539

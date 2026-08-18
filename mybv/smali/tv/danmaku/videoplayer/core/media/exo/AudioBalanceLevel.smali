@@ -33,12 +33,40 @@
 
 
 # direct methods
-.method static constructor <clinit>()V
-    .locals 8
+.method private static synthetic $values()[Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+    .locals 3
 
     .prologue
-    const/4 v7, 0x3
+    .line 3
+    const/4 v0, 0x3
 
+    new-array v0, v0, [Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+
+    const/4 v1, 0x0
+
+    sget-object v2, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->OFF:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x1
+
+    sget-object v2, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->STANDARD:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x2
+
+    sget-object v2, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->HIGH_DYNAMIC:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+
+    aput-object v2, v0, v1
+
+    return-object v0
+.end method
+
+.method static constructor <clinit>()V
+    .locals 7
+
+    .prologue
     const/4 v6, 0x2
 
     const/4 v5, 0x1
@@ -85,24 +113,16 @@
     sput-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->HIGH_DYNAMIC:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
     .line 3
-    new-array v0, v7, [Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+    invoke-static {}, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->$values()[Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
-    sget-object v1, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->OFF:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
-
-    aput-object v1, v0, v4
-
-    sget-object v1, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->STANDARD:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
-
-    aput-object v1, v0, v5
-
-    sget-object v1, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->HIGH_DYNAMIC:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
-
-    aput-object v1, v0, v6
+    move-result-object v0
 
     sput-object v0, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->$VALUES:[Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
     .line 60
-    new-array v0, v7, [Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
+    const/4 v0, 0x3
+
+    new-array v0, v0, [Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
     sget-object v1, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->OFF:Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 

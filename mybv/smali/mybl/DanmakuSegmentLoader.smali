@@ -2161,11 +2161,11 @@
 
     move-result-object v5
 
+    .line 290
     if-nez v1, :cond_19b
 
     move v2, v8
 
-    .line 290
     :goto_18a
     invoke-virtual {v5, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 

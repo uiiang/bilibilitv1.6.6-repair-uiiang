@@ -26,6 +26,11 @@
 # direct methods
 .method constructor <init>(Lbl/yd;Lbl/yt;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 133

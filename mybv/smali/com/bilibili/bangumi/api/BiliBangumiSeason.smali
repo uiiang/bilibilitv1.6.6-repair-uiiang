@@ -12,12 +12,12 @@
 
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/bangumi/api/BiliBangumiSeason$PayPack;,
-        Lcom/bilibili/bangumi/api/BiliBangumiSeason$PayUser;,
         Lcom/bilibili/bangumi/api/BiliBangumiSeason$Payment;,
         Lcom/bilibili/bangumi/api/BiliBangumiSeason$UserSeason;,
         Lcom/bilibili/bangumi/api/BiliBangumiSeason$Episode;,
-        Lcom/bilibili/bangumi/api/BiliBangumiSeason$Actor;
+        Lcom/bilibili/bangumi/api/BiliBangumiSeason$PayPack;,
+        Lcom/bilibili/bangumi/api/BiliBangumiSeason$Actor;,
+        Lcom/bilibili/bangumi/api/BiliBangumiSeason$PayUser;
     }
 .end annotation
 

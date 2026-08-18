@@ -36,6 +36,11 @@
 # direct methods
 .method constructor <init>(Lcom/bilibili/tv/ui/video/widget/ShotBinder;JLjava/lang/String;Ljava/lang/ref/WeakReference;Ljava/lang/String;II)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 232

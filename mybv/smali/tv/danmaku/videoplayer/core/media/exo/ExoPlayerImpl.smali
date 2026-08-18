@@ -2373,16 +2373,16 @@
     .line 871
     invoke-virtual {v0, v3}, Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;->setReadTimeoutMs(I)Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;
 
-    move-result-object v1
+    move-result-object v2
 
     .line 873
-    if-eqz p3, :cond_5c
+    if-eqz p3, :cond_60
 
     invoke-interface {p3}, Ljava/util/Map;->isEmpty()Z
 
     move-result v0
 
-    if-nez v0, :cond_5c
+    if-nez v0, :cond_60
 
     .line 874
     invoke-interface {p3}, Ljava/util/Map;->entrySet()Ljava/util/Set;
@@ -2391,16 +2391,16 @@
 
     invoke-interface {v0}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
 
-    move-result-object v2
+    move-result-object v3
 
     :goto_40
-    invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
+    invoke-interface {v3}, Ljava/util/Iterator;->hasNext()Z
 
     move-result v0
 
-    if-eqz v0, :cond_5c
+    if-eqz v0, :cond_60
 
-    invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+    invoke-interface {v3}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
     move-result-object v0
 
@@ -2409,26 +2409,30 @@
     .line 876
     invoke-interface {v0}, Ljava/util/Map$Entry;->getKey()Ljava/lang/Object;
 
-    move-result-object v3
+    move-result-object v1
+
+    check-cast v1, Ljava/lang/String;
 
     invoke-interface {v0}, Ljava/util/Map$Entry;->getValue()Ljava/lang/Object;
 
     move-result-object v0
 
-    invoke-static {v3, v0}, Ljava/util/Collections;->singletonMap(Ljava/lang/Object;Ljava/lang/Object;)Ljava/util/Map;
+    check-cast v0, Ljava/lang/String;
+
+    invoke-static {v1, v0}, Ljava/util/Collections;->singletonMap(Ljava/lang/Object;Ljava/lang/Object;)Ljava/util/Map;
 
     move-result-object v0
 
     .line 875
-    invoke-virtual {v1, v0}, Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;->setDefaultRequestProperties(Ljava/util/Map;)Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;
+    invoke-virtual {v2, v0}, Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;->setDefaultRequestProperties(Ljava/util/Map;)Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;
 
     goto :goto_40
 
     .line 881
-    :cond_5c
+    :cond_60
     new-instance v0, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;
 
-    invoke-direct {v0, v1}, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;-><init>(Lcom/google/android/exoplayer2/upstream/DataSource$Factory;)V
+    invoke-direct {v0, v2}, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;-><init>(Lcom/google/android/exoplayer2/upstream/DataSource$Factory;)V
 
     .line 882
     invoke-static {p2}, Lcom/google/android/exoplayer2/MediaItem;->fromUri(Landroid/net/Uri;)Lcom/google/android/exoplayer2/MediaItem;
@@ -2872,13 +2876,16 @@
 
     if-eqz p1, :cond_2a
 
+    .line 1256
     const/4 v0, 0x2
 
+    .line 1255
     :goto_26
     invoke-interface {v1, v0}, Lcom/google/android/exoplayer2/ExoPlayer;->setRepeatMode(I)V
 
     goto :goto_1c
 
+    .line 1256
     :cond_2a
     const/4 v0, 0x0
 

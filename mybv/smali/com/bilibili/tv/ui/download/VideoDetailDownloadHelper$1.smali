@@ -1,4 +1,4 @@
-.class final Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;
+.class Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper$1;
 .super Ljava/lang/Object;
 .source "VideoDetailDownloadHelper.java"
 
@@ -12,7 +12,7 @@
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
-    accessFlags = 0x8
+    accessFlags = 0x0
     name = null
 .end annotation
 
@@ -48,6 +48,11 @@
 # direct methods
 .method constructor <init>(Ljava/lang/String;Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;IILjava/lang/String;Ljava/lang/String;JLandroid/content/Context;Ljava/lang/ref/WeakReference;)V
     .locals 1
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 149

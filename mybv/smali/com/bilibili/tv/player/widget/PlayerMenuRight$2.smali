@@ -30,6 +30,11 @@
 # direct methods
 .method constructor <init>(Lcom/bilibili/tv/player/widget/PlayerMenuRight;IILjava/lang/String;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 460

@@ -32,6 +32,11 @@
 # direct methods
 .method constructor <init>(Lcom/bilibili/tv/player/widget/PlayerSeekBar;Ljava/lang/String;Lcom/bilibili/tv/player/widget/PlayerSeekBar$SnapshotLoadCallback;ILjava/lang/String;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 252

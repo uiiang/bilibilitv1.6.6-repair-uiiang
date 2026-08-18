@@ -12,12 +12,12 @@
 
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/api/video/PgcRelatedSeason$Style;,
-        Lcom/bilibili/tv/api/video/PgcRelatedSeason$IconFont;,
-        Lcom/bilibili/tv/api/video/PgcRelatedSeason$Rating;,
-        Lcom/bilibili/tv/api/video/PgcRelatedSeason$Stat;,
+        Lcom/bilibili/tv/api/video/PgcRelatedSeason$BadgeInfo;,
         Lcom/bilibili/tv/api/video/PgcRelatedSeason$NewEp;,
-        Lcom/bilibili/tv/api/video/PgcRelatedSeason$BadgeInfo;
+        Lcom/bilibili/tv/api/video/PgcRelatedSeason$Stat;,
+        Lcom/bilibili/tv/api/video/PgcRelatedSeason$Rating;,
+        Lcom/bilibili/tv/api/video/PgcRelatedSeason$IconFont;,
+        Lcom/bilibili/tv/api/video/PgcRelatedSeason$Style;
     }
 .end annotation
 

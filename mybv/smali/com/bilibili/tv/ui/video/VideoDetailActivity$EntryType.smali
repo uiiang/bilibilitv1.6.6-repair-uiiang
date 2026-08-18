@@ -32,18 +32,40 @@
 
 
 # direct methods
-.method static constructor <clinit>()V
-    .locals 4
+.method private static synthetic $values()[Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
+    .locals 3
 
     .prologue
-    const/4 v3, 0x1
+    .line 121
+    const/4 v0, 0x2
 
-    const/4 v2, 0x0
+    new-array v0, v0, [Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
 
+    const/4 v1, 0x0
+
+    sget-object v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;->UGC_BY_AVID:Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x1
+
+    sget-object v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;->PGC_BY_SEASON_ID:Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
+
+    aput-object v2, v0, v1
+
+    return-object v0
+.end method
+
+.method static constructor <clinit>()V
+    .locals 3
+
+    .prologue
     .line 122
     new-instance v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
 
     const-string v1, "UGC_BY_AVID"
+
+    const/4 v2, 0x0
 
     invoke-direct {v0, v1, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;-><init>(Ljava/lang/String;I)V
 
@@ -54,22 +76,16 @@
 
     const-string v1, "PGC_BY_SEASON_ID"
 
-    invoke-direct {v0, v1, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;-><init>(Ljava/lang/String;I)V
+    const/4 v2, 0x1
+
+    invoke-direct {v0, v1, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;-><init>(Ljava/lang/String;I)V
 
     sput-object v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;->PGC_BY_SEASON_ID:Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
 
     .line 121
-    const/4 v0, 0x2
+    invoke-static {}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;->$values()[Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
 
-    new-array v0, v0, [Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
-
-    sget-object v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;->UGC_BY_AVID:Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
-
-    aput-object v1, v0, v2
-
-    sget-object v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;->PGC_BY_SEASON_ID:Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
-
-    aput-object v1, v0, v3
+    move-result-object v0
 
     sput-object v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;->$VALUES:[Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
 

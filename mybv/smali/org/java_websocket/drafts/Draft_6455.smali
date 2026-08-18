@@ -581,7 +581,7 @@
 
     move-result v5
 
-    .line 482
+    .line 483
     if-le v5, v1, :cond_79
 
     add-int/lit8 v3, v5, 0x1
@@ -596,7 +596,6 @@
     :goto_1c
     add-int/2addr v3, v7
 
-    .line 483
     invoke-virtual {v6}, Ljava/nio/ByteBuffer;->remaining()I
 
     move-result v7
@@ -725,7 +724,7 @@
     :cond_79
     move v3, v5
 
-    .line 482
+    .line 483
     goto :goto_17
 
     :cond_7b

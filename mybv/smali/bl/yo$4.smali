@@ -1,4 +1,4 @@
-.class final Lbl/yo$4;
+.class Lbl/yo$4;
 .super Ljava/lang/Object;
 .source "yo.java"
 
@@ -12,7 +12,7 @@
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
-    accessFlags = 0x8
+    accessFlags = 0x0
     name = null
 .end annotation
 
@@ -34,6 +34,11 @@
 # direct methods
 .method constructor <init>(Landroid/content/Context;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 212

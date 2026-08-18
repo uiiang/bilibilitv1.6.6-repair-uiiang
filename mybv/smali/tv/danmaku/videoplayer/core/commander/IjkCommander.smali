@@ -26,7 +26,7 @@
     .line 38
     instance-of v0, p1, Ltv/danmaku/ijk/media/player/MediaPlayerProxy;
 
-    if-eqz v0, :cond_1b
+    if-eqz v0, :cond_19
 
     check-cast p1, Ltv/danmaku/ijk/media/player/MediaPlayerProxy;
 
@@ -35,8 +35,6 @@
     move-result-object v0
 
     :goto_d
-    check-cast v0, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
-
     check-cast v0, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
     iput-object v0, p0, Ltv/danmaku/videoplayer/core/commander/IjkCommander;->mIjkMediaPlayer:Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
@@ -51,7 +49,7 @@
     .line 40
     return-void
 
-    :cond_1b
+    :cond_19
     move-object v0, p1
 
     .line 38

@@ -401,6 +401,7 @@
 
     goto :goto_5
 
+    .line 280
     :cond_46
     iget-object v2, p1, Lorg/java_websocket/framing/FramedataImpl1;->unmaskedpayload:Ljava/nio/ByteBuffer;
 
@@ -803,9 +804,9 @@
 
     move-result-object v1
 
+    .line 164
     iget-object v0, p0, Lorg/java_websocket/framing/FramedataImpl1;->unmaskedpayload:Ljava/nio/ByteBuffer;
 
-    .line 164
     invoke-virtual {v0}, Ljava/nio/ByteBuffer;->remaining()I
 
     move-result v0
@@ -835,13 +836,12 @@
     .line 161
     return-object v0
 
-    .line 164
+    .line 165
     :cond_8c
     new-instance v0, Ljava/lang/String;
 
     iget-object v2, p0, Lorg/java_websocket/framing/FramedataImpl1;->unmaskedpayload:Ljava/nio/ByteBuffer;
 
-    .line 165
     invoke-virtual {v2}, Ljava/nio/ByteBuffer;->array()[B
 
     move-result-object v2

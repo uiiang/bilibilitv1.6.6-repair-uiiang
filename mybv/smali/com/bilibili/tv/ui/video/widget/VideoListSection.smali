@@ -6,12 +6,12 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagScrollListener;,
-        Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnFocusExitListener;,
-        Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoCardClickListener;,
         Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagClickListener;,
         Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagFocusListener;,
-        Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoClickListener;
+        Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoClickListener;,
+        Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagScrollListener;,
+        Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnFocusExitListener;,
+        Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoCardClickListener;
     }
 .end annotation
 
@@ -1432,6 +1432,7 @@
 
     if-gt v4, v0, :cond_6d
 
+    .line 1097
     iget v1, p0, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->focusPosition:I
 
     .line 1099

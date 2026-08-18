@@ -6,20 +6,20 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
+        Lbl/adq$j;,
+        Lbl/adq$i;,
+        Lbl/adq$k;,
+        Lbl/adq$l;,
+        Lbl/adq$m;,
+        Lbl/adq$n;,
+        Lbl/adq$b;,
         Lbl/adq$f;,
         Lbl/adq$a;,
         Lbl/adq$h;,
         Lbl/adq$e;,
         Lbl/adq$d;,
-        Lbl/adq$j;,
-        Lbl/adq$i;,
         Lbl/adq$RegionHotVideoResponse;,
-        Lbl/adq$DynamicVideoResponse;,
-        Lbl/adq$n;,
-        Lbl/adq$m;,
-        Lbl/adq$l;,
-        Lbl/adq$k;,
-        Lbl/adq$b;
+        Lbl/adq$DynamicVideoResponse;
     }
 .end annotation
 

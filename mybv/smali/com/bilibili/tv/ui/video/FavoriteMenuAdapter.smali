@@ -6,8 +6,8 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$ViewHolder;,
-        Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$OnItemCheckedChangeListener;
+        Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$OnItemCheckedChangeListener;,
+        Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$ViewHolder;
     }
 .end annotation
 

@@ -26,6 +26,11 @@
 # direct methods
 .method constructor <init>(Lmybl/DanmakuClient;Lorg/json/JSONObject;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 108

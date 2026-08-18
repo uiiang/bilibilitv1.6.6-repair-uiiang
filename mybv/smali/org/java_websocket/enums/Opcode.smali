@@ -31,26 +31,66 @@
 
 
 # direct methods
-.method static constructor <clinit>()V
-    .locals 8
+.method private static synthetic $values()[Lorg/java_websocket/enums/Opcode;
+    .locals 3
 
     .prologue
-    const/4 v7, 0x4
+    .line 6
+    const/4 v0, 0x6
 
-    const/4 v6, 0x3
+    new-array v0, v0, [Lorg/java_websocket/enums/Opcode;
 
-    const/4 v5, 0x2
+    const/4 v1, 0x0
 
-    const/4 v4, 0x1
+    sget-object v2, Lorg/java_websocket/enums/Opcode;->CONTINUOUS:Lorg/java_websocket/enums/Opcode;
 
-    const/4 v3, 0x0
+    aput-object v2, v0, v1
 
+    const/4 v1, 0x1
+
+    sget-object v2, Lorg/java_websocket/enums/Opcode;->TEXT:Lorg/java_websocket/enums/Opcode;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x2
+
+    sget-object v2, Lorg/java_websocket/enums/Opcode;->BINARY:Lorg/java_websocket/enums/Opcode;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x3
+
+    sget-object v2, Lorg/java_websocket/enums/Opcode;->PING:Lorg/java_websocket/enums/Opcode;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x4
+
+    sget-object v2, Lorg/java_websocket/enums/Opcode;->PONG:Lorg/java_websocket/enums/Opcode;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x5
+
+    sget-object v2, Lorg/java_websocket/enums/Opcode;->CLOSING:Lorg/java_websocket/enums/Opcode;
+
+    aput-object v2, v0, v1
+
+    return-object v0
+.end method
+
+.method static constructor <clinit>()V
+    .locals 3
+
+    .prologue
     .line 7
     new-instance v0, Lorg/java_websocket/enums/Opcode;
 
     const-string v1, "CONTINUOUS"
 
-    invoke-direct {v0, v1, v3}, Lorg/java_websocket/enums/Opcode;-><init>(Ljava/lang/String;I)V
+    const/4 v2, 0x0
+
+    invoke-direct {v0, v1, v2}, Lorg/java_websocket/enums/Opcode;-><init>(Ljava/lang/String;I)V
 
     sput-object v0, Lorg/java_websocket/enums/Opcode;->CONTINUOUS:Lorg/java_websocket/enums/Opcode;
 
@@ -58,7 +98,9 @@
 
     const-string v1, "TEXT"
 
-    invoke-direct {v0, v1, v4}, Lorg/java_websocket/enums/Opcode;-><init>(Ljava/lang/String;I)V
+    const/4 v2, 0x1
+
+    invoke-direct {v0, v1, v2}, Lorg/java_websocket/enums/Opcode;-><init>(Ljava/lang/String;I)V
 
     sput-object v0, Lorg/java_websocket/enums/Opcode;->TEXT:Lorg/java_websocket/enums/Opcode;
 
@@ -66,7 +108,9 @@
 
     const-string v1, "BINARY"
 
-    invoke-direct {v0, v1, v5}, Lorg/java_websocket/enums/Opcode;-><init>(Ljava/lang/String;I)V
+    const/4 v2, 0x2
+
+    invoke-direct {v0, v1, v2}, Lorg/java_websocket/enums/Opcode;-><init>(Ljava/lang/String;I)V
 
     sput-object v0, Lorg/java_websocket/enums/Opcode;->BINARY:Lorg/java_websocket/enums/Opcode;
 
@@ -74,7 +118,9 @@
 
     const-string v1, "PING"
 
-    invoke-direct {v0, v1, v6}, Lorg/java_websocket/enums/Opcode;-><init>(Ljava/lang/String;I)V
+    const/4 v2, 0x3
+
+    invoke-direct {v0, v1, v2}, Lorg/java_websocket/enums/Opcode;-><init>(Ljava/lang/String;I)V
 
     sput-object v0, Lorg/java_websocket/enums/Opcode;->PING:Lorg/java_websocket/enums/Opcode;
 
@@ -82,7 +128,9 @@
 
     const-string v1, "PONG"
 
-    invoke-direct {v0, v1, v7}, Lorg/java_websocket/enums/Opcode;-><init>(Ljava/lang/String;I)V
+    const/4 v2, 0x4
+
+    invoke-direct {v0, v1, v2}, Lorg/java_websocket/enums/Opcode;-><init>(Ljava/lang/String;I)V
 
     sput-object v0, Lorg/java_websocket/enums/Opcode;->PONG:Lorg/java_websocket/enums/Opcode;
 
@@ -97,35 +145,9 @@
     sput-object v0, Lorg/java_websocket/enums/Opcode;->CLOSING:Lorg/java_websocket/enums/Opcode;
 
     .line 6
-    const/4 v0, 0x6
+    invoke-static {}, Lorg/java_websocket/enums/Opcode;->$values()[Lorg/java_websocket/enums/Opcode;
 
-    new-array v0, v0, [Lorg/java_websocket/enums/Opcode;
-
-    sget-object v1, Lorg/java_websocket/enums/Opcode;->CONTINUOUS:Lorg/java_websocket/enums/Opcode;
-
-    aput-object v1, v0, v3
-
-    sget-object v1, Lorg/java_websocket/enums/Opcode;->TEXT:Lorg/java_websocket/enums/Opcode;
-
-    aput-object v1, v0, v4
-
-    sget-object v1, Lorg/java_websocket/enums/Opcode;->BINARY:Lorg/java_websocket/enums/Opcode;
-
-    aput-object v1, v0, v5
-
-    sget-object v1, Lorg/java_websocket/enums/Opcode;->PING:Lorg/java_websocket/enums/Opcode;
-
-    aput-object v1, v0, v6
-
-    sget-object v1, Lorg/java_websocket/enums/Opcode;->PONG:Lorg/java_websocket/enums/Opcode;
-
-    aput-object v1, v0, v7
-
-    const/4 v1, 0x5
-
-    sget-object v2, Lorg/java_websocket/enums/Opcode;->CLOSING:Lorg/java_websocket/enums/Opcode;
-
-    aput-object v2, v0, v1
+    move-result-object v0
 
     sput-object v0, Lorg/java_websocket/enums/Opcode;->$VALUES:[Lorg/java_websocket/enums/Opcode;
 

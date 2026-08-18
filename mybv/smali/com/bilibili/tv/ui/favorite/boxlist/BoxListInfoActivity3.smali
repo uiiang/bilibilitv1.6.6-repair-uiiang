@@ -10,10 +10,10 @@
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
         Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$b;,
-        Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$PugvSeasonResponse;,
-        Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$f;,
-        Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$e;,
         Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$d;,
+        Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$e;,
+        Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$f;,
+        Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$PugvSeasonResponse;,
         Lcom/bilibili/tv/ui/favorite/boxlist/BoxListInfoActivity3$c;
     }
 .end annotation

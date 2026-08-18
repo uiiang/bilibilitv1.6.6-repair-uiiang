@@ -26,6 +26,11 @@
 # direct methods
 .method constructor <init>(Lmybl/DeviceIdentityManager$2;Ljava/lang/Exception;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 117

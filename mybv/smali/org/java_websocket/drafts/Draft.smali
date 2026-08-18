@@ -1065,7 +1065,7 @@
 
     move-object v1, v0
 
-    .line 288
+    .line 289
     :goto_7c
     if-nez v1, :cond_98
 
@@ -1076,7 +1076,6 @@
 
     add-int/2addr v0, v3
 
-    .line 289
     invoke-static {v0}, Ljava/nio/ByteBuffer;->allocate(I)Ljava/nio/ByteBuffer;
 
     move-result-object v0
@@ -1109,7 +1108,7 @@
 
     goto :goto_7c
 
-    .line 288
+    .line 289
     :cond_98
     array-length v0, v1
 

@@ -190,8 +190,6 @@
 
     check-cast v0, [Ljava/lang/String;
 
-    check-cast v0, [Ljava/lang/String;
-
     # invokes: Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2;->putParams([Ljava/lang/String;)V
     invoke-static {v1, v0}, Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2;->access$100(Lcom/bilibili/tv/api/video/VideoApiService$VideoParamsMapV2;[Ljava/lang/String;)V
 

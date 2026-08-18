@@ -1,12 +1,12 @@
 {
-    "apkMd5":"f3382af52c60f12bf1ea62c7b5583065",
-    "apkUrl":"https://github.com/uiiang/bilibilitv1.6.6-repair-uiiang/raw/refs/heads/main/mybv.apk",
-    "fileSize":14489524,
-    "id":"",
-    "newFeature":"",
-    "publishTime":0,
-    "title":"New",
-    "upgradeType":1,
-    "versionCode":20260817,
-    "versionName":"1.6.6.20260817"
+    "upgradeType":  1,
+    "id":  "",
+    "publishTime":  0,
+    "apkUrl":  "https://github.com/uiiang/bilibilitv1.6.6-repair-uiiang/raw/refs/heads/main/mybv.apk",
+    "newFeature":  "",
+    "versionName":  "1.6.6.20260818",
+    "versionCode":  20260818,
+    "title":  "New",
+    "apkMd5":  "96ae09869a333710ac1cf71eb084d049",
+    "fileSize":  14489524
 }

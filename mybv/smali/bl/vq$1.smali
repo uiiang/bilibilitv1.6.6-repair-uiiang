@@ -39,6 +39,11 @@
 # direct methods
 .method constructor <init>(Lbl/vq;[Ljava/lang/annotation/Annotation;Ljava/lang/reflect/Type;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 28

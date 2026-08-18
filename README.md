@@ -283,3 +283,10 @@ sudo update-alternatives --set javac /usr/lib/jvm/java-8-openjdk-amd64/bin/javac
 - 普通编译：`./build.sh`
 - 特殊编译：`./build.sh -s 包名`
 > PS: 修改包名可能导致程序运行时出现部分错误。
+
+windows powershell 编译命令
+powershell -ExecutionPolicy Bypass -File build.ps1              # 默认包名 uii.ang.bilitv
+powershell -ExecutionPolicy Bypass -File build.ps1 -PackageId xxx  # 自定义包名 xxx
+
+日志命令
+adb -s ML5RRAUCUF logcat -c ; adb -s ML5RRAUCUF logcat | Where-Object { $_ -notmatch "bt_upio|bluetooth|AudioFlinger|SurfaceFlinger|SurfaceView" } | Out-File -FilePath monitor/logcat/log1.txt -Encoding utf8

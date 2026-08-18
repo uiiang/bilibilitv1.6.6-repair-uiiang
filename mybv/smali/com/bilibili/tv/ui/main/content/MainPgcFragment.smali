@@ -10,13 +10,13 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/main/content/MainPgcFragment$e;,
-        Lcom/bilibili/tv/ui/main/content/MainPgcFragment$d;,
         Lcom/bilibili/tv/ui/main/content/MainPgcFragment$b;,
-        Lcom/bilibili/tv/ui/main/content/MainPgcFragment$a;,
-        Lcom/bilibili/tv/ui/main/content/MainPgcFragment$g;,
         Lcom/bilibili/tv/ui/main/content/MainPgcFragment$f;,
-        Lcom/bilibili/tv/ui/main/content/MainPgcFragment$c;
+        Lcom/bilibili/tv/ui/main/content/MainPgcFragment$g;,
+        Lcom/bilibili/tv/ui/main/content/MainPgcFragment$a;,
+        Lcom/bilibili/tv/ui/main/content/MainPgcFragment$c;,
+        Lcom/bilibili/tv/ui/main/content/MainPgcFragment$e;,
+        Lcom/bilibili/tv/ui/main/content/MainPgcFragment$d;
     }
 .end annotation
 

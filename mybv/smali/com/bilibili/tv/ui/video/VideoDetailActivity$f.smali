@@ -18,8 +18,8 @@
 
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/video/VideoDetailActivity$f$a;,
-        Lcom/bilibili/tv/ui/video/VideoDetailActivity$f$b;
+        Lcom/bilibili/tv/ui/video/VideoDetailActivity$f$b;,
+        Lcom/bilibili/tv/ui/video/VideoDetailActivity$f$a;
     }
 .end annotation
 

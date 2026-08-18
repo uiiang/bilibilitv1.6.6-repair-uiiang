@@ -10,12 +10,12 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$BigCardViewHolder;,
-        Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;,
         Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$VideoListAdapter;,
-        Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$ScrollListener;,
+        Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SpanSizeLookupImpl;,
         Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$ItemDecorationImpl;,
-        Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SpanSizeLookupImpl;
+        Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$ScrollListener;,
+        Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$BigCardViewHolder;,
+        Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;
     }
 .end annotation
 

@@ -6,8 +6,8 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Ltv/danmaku/videoplayer/core/danmaku/DanmakuDurationManager$DanmakuTimeDuration;,
-        Ltv/danmaku/videoplayer/core/danmaku/DanmakuDurationManager$DanmakuRecommend;
+        Ltv/danmaku/videoplayer/core/danmaku/DanmakuDurationManager$DanmakuRecommend;,
+        Ltv/danmaku/videoplayer/core/danmaku/DanmakuDurationManager$DanmakuTimeDuration;
     }
 .end annotation
 

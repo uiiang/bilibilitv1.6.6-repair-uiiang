@@ -12,17 +12,17 @@
 
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/api/video/BiliVideoDetail$History;,
+        Lcom/bilibili/tv/api/video/BiliVideoDetail$BangumiInfo;,
+        Lcom/bilibili/tv/api/video/BiliVideoDetail$SectionInfo;,
+        Lcom/bilibili/tv/api/video/BiliVideoDetail$Rights;,
+        Lcom/bilibili/tv/api/video/BiliVideoDetail$Stat;,
+        Lcom/bilibili/tv/api/video/BiliVideoDetail$Special;,
+        Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;,
+        Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;,
         Lcom/bilibili/tv/api/video/BiliVideoDetail$Tag;,
         Lcom/bilibili/tv/api/video/BiliVideoDetail$MovieRecommend;,
-        Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;,
-        Lcom/bilibili/tv/api/video/BiliVideoDetail$Special;,
-        Lcom/bilibili/tv/api/video/BiliVideoDetail$BangumiInfo;,
-        Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;,
-        Lcom/bilibili/tv/api/video/BiliVideoDetail$Stat;,
-        Lcom/bilibili/tv/api/video/BiliVideoDetail$Rights;,
+        Lcom/bilibili/tv/api/video/BiliVideoDetail$History;,
         Lcom/bilibili/tv/api/video/BiliVideoDetail$JsonResponse;,
-        Lcom/bilibili/tv/api/video/BiliVideoDetail$SectionInfo;,
         Lcom/bilibili/tv/api/video/BiliVideoDetail$Staff;
     }
 .end annotation

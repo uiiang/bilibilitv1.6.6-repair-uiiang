@@ -26,6 +26,11 @@
 # direct methods
 .method constructor <init>(Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerDFM;J)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 664
@@ -100,6 +105,7 @@
 
     move-result-object v6
 
+    .line 669
     if-nez v4, :cond_78
 
     const-wide/16 v0, -0x1
@@ -155,9 +161,9 @@
 
     move-result-object v0
 
+    .line 672
     if-nez p3, :cond_7f
 
-    .line 672
     :goto_5e
     invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
@@ -190,7 +196,7 @@
     :goto_77
     return-void
 
-    .line 668
+    .line 669
     :cond_78
     iget-wide v0, v4, Ltv/danmaku/videoplayer/core/danmaku/DanmakuPlayerInfo;->mCid:J
 

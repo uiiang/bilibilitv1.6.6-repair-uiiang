@@ -6,10 +6,10 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lbl/SortMenuDialog$OnSortSelectedListener;,
-        Lbl/SortMenuDialog$SortItem;,
+        Lbl/SortMenuDialog$OnConfirmListener;,
         Lbl/SortMenuDialog$SortGroup;,
-        Lbl/SortMenuDialog$OnConfirmListener;
+        Lbl/SortMenuDialog$OnSortSelectedListener;,
+        Lbl/SortMenuDialog$SortItem;
     }
 .end annotation
 

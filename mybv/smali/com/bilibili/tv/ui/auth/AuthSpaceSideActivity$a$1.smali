@@ -30,6 +30,11 @@
 # direct methods
 .method constructor <init>(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;Lbl/agf;Landroid/support/v7/widget/RecyclerView$v;Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$MenuItem;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 541

@@ -6,8 +6,8 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/auth/RelationTagAdapter$ViewHolder;,
-        Lcom/bilibili/tv/ui/auth/RelationTagAdapter$OnItemToggleListener;
+        Lcom/bilibili/tv/ui/auth/RelationTagAdapter$OnItemToggleListener;,
+        Lcom/bilibili/tv/ui/auth/RelationTagAdapter$ViewHolder;
     }
 .end annotation
 

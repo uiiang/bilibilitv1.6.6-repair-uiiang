@@ -16,8 +16,8 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lbl/wm$b;,
-        Lbl/wm$aa;
+        Lbl/wm$aa;,
+        Lbl/wm$b;
     }
 .end annotation
 

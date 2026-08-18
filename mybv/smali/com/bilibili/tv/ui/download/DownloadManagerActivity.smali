@@ -6,9 +6,9 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/download/DownloadManagerActivity$c;,
         Lcom/bilibili/tv/ui/download/DownloadManagerActivity$b;,
-        Lcom/bilibili/tv/ui/download/DownloadManagerActivity$a;
+        Lcom/bilibili/tv/ui/download/DownloadManagerActivity$a;,
+        Lcom/bilibili/tv/ui/download/DownloadManagerActivity$c;
     }
 .end annotation
 
@@ -718,8 +718,10 @@
 
     if-ne v0, v7, :cond_ba
 
+    .line 232
     const/16 v0, 0x82
 
+    .line 231
     :goto_80
     invoke-virtual {v1, v0}, Landroid/view/View;->focusSearch(I)Landroid/view/View;
 
@@ -795,7 +797,7 @@
     .line 245
     goto/16 :goto_11
 
-    .line 231
+    .line 232
     :cond_ba
     const/16 v0, 0x21
 

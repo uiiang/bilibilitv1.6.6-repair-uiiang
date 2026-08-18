@@ -178,7 +178,7 @@
 
     const/16 v3, 0x13
 
-    if-lt v0, v3, :cond_8c
+    if-lt v0, v3, :cond_8a
 
     .line 77
     :try_start_c
@@ -189,7 +189,7 @@
     move-result-object v0
 
     .line 78
-    if-eqz v0, :cond_b3
+    if-eqz v0, :cond_b1
 
     .line 79
     invoke-virtual {v0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
@@ -218,37 +218,35 @@
 
     check-cast v0, [Ljava/lang/Object;
 
-    check-cast v0, [Ljava/lang/Object;
-
     .line 82
-    if-eqz v0, :cond_b3
+    if-eqz v0, :cond_b1
 
     .line 83
     array-length v4, v0
 
     move v3, v2
 
-    :goto_30
-    if-ge v3, v4, :cond_b3
+    :goto_2e
+    if-ge v3, v4, :cond_b1
 
     aget-object v2, v0, v3
-    :try_end_34
-    .catch Ljava/lang/Exception; {:try_start_c .. :try_end_34} :catch_6f
+    :try_end_32
+    .catch Ljava/lang/Exception; {:try_start_c .. :try_end_32} :catch_6d
 
     .line 85
-    :try_start_34
+    :try_start_32
     invoke-static {v2, p0}, Lcom/bilibili/tv/ui/download/StorageManagerHelper;->parseStorageVolume(Ljava/lang/Object;Landroid/content/Context;)Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;
 
     move-result-object v2
 
     .line 86
-    if-eqz v2, :cond_4d
+    if-eqz v2, :cond_4b
 
     invoke-virtual {v2}, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->getPath()Ljava/lang/String;
 
     move-result-object v5
 
-    if-eqz v5, :cond_4d
+    if-eqz v5, :cond_4b
 
     .line 87
     invoke-virtual {v2}, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->getPath()Ljava/lang/String;
@@ -259,28 +257,28 @@
 
     move-result v5
 
-    if-nez v5, :cond_4d
+    if-nez v5, :cond_4b
 
     .line 88
     invoke-interface {v1, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
-    :try_end_4d
-    .catch Ljava/lang/Exception; {:try_start_34 .. :try_end_4d} :catch_51
+    :try_end_4b
+    .catch Ljava/lang/Exception; {:try_start_32 .. :try_end_4b} :catch_4f
 
     .line 83
-    :cond_4d
-    :goto_4d
+    :cond_4b
+    :goto_4b
     add-int/lit8 v2, v3, 0x1
 
     move v3, v2
 
-    goto :goto_30
+    goto :goto_2e
 
     .line 90
-    :catch_51
+    :catch_4f
     move-exception v2
 
     .line 91
-    :try_start_52
+    :try_start_50
     const-string v5, "StorageManagerHelper"
 
     new-instance v6, Ljava/lang/StringBuilder;
@@ -306,13 +304,13 @@
     move-result-object v2
 
     invoke-static {v5, v2}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_6e
-    .catch Ljava/lang/Exception; {:try_start_52 .. :try_end_6e} :catch_6f
+    :try_end_6c
+    .catch Ljava/lang/Exception; {:try_start_50 .. :try_end_6c} :catch_6d
 
-    goto :goto_4d
+    goto :goto_4b
 
     .line 100
-    :catch_6f
+    :catch_6d
     move-exception v0
 
     .line 101
@@ -343,13 +341,13 @@
     invoke-static {v2, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 106
-    :cond_8c
+    :cond_8a
     invoke-static {p0}, Lcom/bilibili/tv/ui/download/StorageManagerHelper;->getPrimaryExternalStorage(Landroid/content/Context;)Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;
 
     move-result-object v0
 
     .line 107
-    if-eqz v0, :cond_b1
+    if-eqz v0, :cond_af
 
     .line 108
     invoke-interface {v1, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
@@ -381,21 +379,21 @@
 
     invoke-static {v2, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    :cond_b1
+    :cond_af
     move-object v0, v1
 
     .line 111
-    :goto_b2
+    :goto_b0
     return-object v0
 
     .line 96
-    :cond_b3
-    :try_start_b3
+    :cond_b1
+    :try_start_b1
     invoke-interface {v1}, Ljava/util/List;->isEmpty()Z
 
     move-result v0
 
-    if-nez v0, :cond_8c
+    if-nez v0, :cond_8a
 
     .line 97
     const-string v0, "StorageManagerHelper"
@@ -429,13 +427,13 @@
     move-result-object v2
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_db
-    .catch Ljava/lang/Exception; {:try_start_b3 .. :try_end_db} :catch_6f
+    :try_end_d9
+    .catch Ljava/lang/Exception; {:try_start_b1 .. :try_end_d9} :catch_6d
 
     move-object v0, v1
 
     .line 98
-    goto :goto_b2
+    goto :goto_b0
 .end method
 
 .method public static getAvailableSpace(Ljava/lang/String;)J
@@ -799,63 +797,61 @@
 
     check-cast v0, [Ljava/lang/Object;
 
-    check-cast v0, [Ljava/lang/Object;
-
     .line 130
-    if-eqz v0, :cond_2b
+    if-eqz v0, :cond_29
 
     array-length v3, v0
 
-    if-nez v3, :cond_2d
+    if-nez v3, :cond_2b
 
-    :cond_2b
+    :cond_29
     move-object v0, v1
 
     .line 131
     goto :goto_f
 
     .line 135
-    :cond_2d
+    :cond_2b
     array-length v4, v0
 
     move v3, v2
 
-    :goto_2f
-    if-ge v3, v4, :cond_64
+    :goto_2d
+    if-ge v3, v4, :cond_62
 
     aget-object v2, v0, v3
 
     .line 137
-    :try_start_33
+    :try_start_31
     invoke-static {v2, p0}, Lcom/bilibili/tv/ui/download/StorageManagerHelper;->parseStorageVolume(Ljava/lang/Object;Landroid/content/Context;)Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;
 
     move-result-object v2
 
     .line 138
-    if-eqz v2, :cond_42
+    if-eqz v2, :cond_40
 
     invoke-virtual {v2}, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->isRemovable()Z
 
     move-result v5
 
-    if-eqz v5, :cond_42
+    if-eqz v5, :cond_40
 
     .line 139
     invoke-interface {v1, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
-    :try_end_42
-    .catch Ljava/lang/Exception; {:try_start_33 .. :try_end_42} :catch_46
+    :try_end_40
+    .catch Ljava/lang/Exception; {:try_start_31 .. :try_end_40} :catch_44
 
     .line 135
-    :cond_42
-    :goto_42
+    :cond_40
+    :goto_40
     add-int/lit8 v2, v3, 0x1
 
     move v3, v2
 
-    goto :goto_2f
+    goto :goto_2d
 
     .line 141
-    :catch_46
+    :catch_44
     move-exception v2
 
     .line 142
@@ -885,9 +881,9 @@
 
     invoke-static {v5, v2}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto :goto_42
+    goto :goto_40
 
-    :cond_64
+    :cond_62
     move-object v0, v1
 
     .line 146

@@ -10,11 +10,11 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;,
         Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;,
-        Lcom/bilibili/tv/ui/main/content/MainMyFragment$e;,
         Lcom/bilibili/tv/ui/main/content/MainMyFragment$ItemDecoration;,
-        Lcom/bilibili/tv/ui/main/content/MainMyFragment$a;
+        Lcom/bilibili/tv/ui/main/content/MainMyFragment$e;,
+        Lcom/bilibili/tv/ui/main/content/MainMyFragment$a;,
+        Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;
     }
 .end annotation
 

@@ -26,6 +26,11 @@
 # direct methods
 .method constructor <init>(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;I)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 541
@@ -183,11 +188,11 @@
 
     move-result-object v2
 
+    .line 552
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4$2;->this$1:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;
 
     iget-object v0, v0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
-    .line 552
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->savedMediaSource:Lcom/google/android/exoplayer2/source/MediaSource;
     invoke-static {v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$2300(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;)Lcom/google/android/exoplayer2/source/MediaSource;
 

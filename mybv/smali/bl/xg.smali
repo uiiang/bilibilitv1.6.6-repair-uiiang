@@ -2268,6 +2268,7 @@
 
     iget-object v6, v4, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->firstFrame:Ljava/lang/String;
 
+    .line 441
     :goto_3c6
     move-object/from16 v0, v17
 
@@ -2505,7 +2506,7 @@
 
     goto/16 :goto_315
 
-    .line 439
+    .line 440
     :cond_484
     iget-object v6, v4, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->cover:Ljava/lang/String;
 
@@ -2515,6 +2516,7 @@
 
     goto/16 :goto_3c6
 
+    .line 441
     :cond_48c
     iget-object v6, v4, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->mEpCover:Ljava/lang/String;
 
@@ -4160,7 +4162,7 @@
 
     goto/16 :goto_15d
 
-    .line 211
+    .line 212
     :cond_2a4
     iget-object v4, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->cover:Ljava/lang/String;
 
@@ -4170,6 +4172,7 @@
 
     goto/16 :goto_1f4
 
+    .line 213
     :cond_2ac
     iget-object v4, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->mEpCover:Ljava/lang/String;
 

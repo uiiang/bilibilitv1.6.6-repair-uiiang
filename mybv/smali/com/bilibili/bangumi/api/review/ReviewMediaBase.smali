@@ -12,9 +12,9 @@
 
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/bangumi/api/review/ReviewMediaBase$ReviewPublish;,
-        Lcom/bilibili/bangumi/api/review/ReviewMediaBase$ReviewArea;,
         Lcom/bilibili/bangumi/api/review/ReviewMediaBase$ReviewTag;,
+        Lcom/bilibili/bangumi/api/review/ReviewMediaBase$ReviewArea;,
+        Lcom/bilibili/bangumi/api/review/ReviewMediaBase$ReviewPublish;,
         Lcom/bilibili/bangumi/api/review/ReviewMediaBase$ReviewParam;
     }
 .end annotation

@@ -19,8 +19,8 @@
 
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$bb;,
-        Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a;
+        Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$a;,
+        Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$bb;
     }
 .end annotation
 
@@ -957,7 +957,7 @@
 
     move-result v0
 
-    if-eqz v0, :cond_47
+    if-eqz v0, :cond_49
 
     invoke-interface {v1}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
@@ -970,14 +970,16 @@
 
     move-result-object v0
 
+    check-cast v0, Ljava/lang/String;
+
     invoke-interface {v5, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
-    :try_end_25
-    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_25} :catch_26
+    :try_end_27
+    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_27} :catch_28
 
     goto :goto_12
 
     .line 680
-    :catch_26
+    :catch_28
     move-exception v0
 
     .line 681
@@ -1011,14 +1013,14 @@
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
     .line 684
-    :goto_46
+    :goto_48
     return-void
 
     .line 631
-    :cond_47
+    :cond_49
     const/4 v0, 0x1
 
-    :try_start_48
+    :try_start_4a
     new-array v9, v0, [Landroid/app/AlertDialog;
 
     .line 632
@@ -1099,12 +1101,12 @@
     move v6, v10
 
     .line 641
-    :goto_8f
+    :goto_91
     invoke-interface {v5}, Ljava/util/List;->size()I
 
     move-result v0
 
-    if-ge v6, v0, :cond_b3
+    if-ge v6, v0, :cond_b5
 
     .line 642
     invoke-interface {v5, v6}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -1141,10 +1143,10 @@
     .line 641
     add-int/lit8 v6, v6, 0x1
 
-    goto :goto_8f
+    goto :goto_91
 
     .line 647
-    :cond_b3
+    :cond_b5
     new-instance v0, Landroid/widget/HorizontalScrollView;
 
     invoke-direct {v0, p1}, Landroid/widget/HorizontalScrollView;-><init>(Landroid/content/Context;)V
@@ -1203,7 +1205,7 @@
 
     move-result-object v2
 
-    if-eqz v2, :cond_f2
+    if-eqz v2, :cond_f4
 
     .line 660
     invoke-virtual {v0}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
@@ -1213,7 +1215,7 @@
     invoke-virtual {v2, v1}, Landroid/view/Window;->setBackgroundDrawable(Landroid/graphics/drawable/Drawable;)V
 
     .line 662
-    :cond_f2
+    :cond_f4
     const/4 v1, 0x0
 
     aput-object v0, v9, v1
@@ -1226,7 +1228,7 @@
 
     move-result-object v1
 
-    if-eqz v1, :cond_119
+    if-eqz v1, :cond_11b
 
     .line 666
     invoke-virtual {p1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
@@ -1248,7 +1250,7 @@
     sub-int/2addr v1, v2
 
     .line 667
-    if-lez v1, :cond_119
+    if-lez v1, :cond_11b
 
     .line 668
     invoke-virtual {v0}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
@@ -1260,16 +1262,16 @@
     invoke-virtual {v0, v1, v2}, Landroid/view/Window;->setLayout(II)V
 
     .line 672
-    :cond_119
+    :cond_11b
     new-instance v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$2;
 
     invoke-direct {v0, p0, v11}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$2;-><init>(Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;Landroid/widget/LinearLayout;)V
 
     invoke-virtual {v11, v0}, Landroid/widget/LinearLayout;->post(Ljava/lang/Runnable;)Z
-    :try_end_121
-    .catch Ljava/lang/Exception; {:try_start_48 .. :try_end_121} :catch_26
+    :try_end_123
+    .catch Ljava/lang/Exception; {:try_start_4a .. :try_end_123} :catch_28
 
-    goto/16 :goto_46
+    goto/16 :goto_48
 .end method
 
 

@@ -6,9 +6,9 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity$d;,
-        Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity$c;,
         Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity$b;,
+        Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity$c;,
+        Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity$d;,
         Lcom/bilibili/tv/ui/video/VideoDetailInfoActivity$a;
     }
 .end annotation

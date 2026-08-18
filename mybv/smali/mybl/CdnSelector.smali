@@ -6,8 +6,8 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lmybl/CdnSelector$RaceResult;,
-        Lmybl/CdnSelector$CdnUrlInfo;
+        Lmybl/CdnSelector$CdnUrlInfo;,
+        Lmybl/CdnSelector$RaceResult;
     }
 .end annotation
 

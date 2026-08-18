@@ -6,9 +6,9 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lbl/SortMenuAdapter$ViewHolder;,
+        Lbl/SortMenuAdapter$OnItemClickListener;,
         Lbl/SortMenuAdapter$FlatItem;,
-        Lbl/SortMenuAdapter$OnItemClickListener;
+        Lbl/SortMenuAdapter$ViewHolder;
     }
 .end annotation
 

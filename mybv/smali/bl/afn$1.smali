@@ -28,6 +28,11 @@
 # direct methods
 .method constructor <init>(Lbl/afn;Ljava/util/List;Ljava/util/List;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 311

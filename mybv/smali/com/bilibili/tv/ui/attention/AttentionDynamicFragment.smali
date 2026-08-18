@@ -6,13 +6,13 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$d;,
         Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$c;,
-        Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$b;,
-        Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$g;,
-        Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$f;,
         Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$e;,
-        Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$a;
+        Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$f;,
+        Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$g;,
+        Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$b;,
+        Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$a;,
+        Lcom/bilibili/tv/ui/attention/AttentionDynamicFragment$d;
     }
 .end annotation
 

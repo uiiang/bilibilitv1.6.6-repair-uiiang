@@ -7,8 +7,8 @@
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
         Lcom/aryan/reader/epub/MobiParser$ParsedMobiData;,
-        Lcom/aryan/reader/epub/MobiParser$ParsedMobiResource;,
-        Lcom/aryan/reader/epub/MobiParser$ParsedMobiTocEntry;
+        Lcom/aryan/reader/epub/MobiParser$ParsedMobiTocEntry;,
+        Lcom/aryan/reader/epub/MobiParser$ParsedMobiResource;
     }
 .end annotation
 

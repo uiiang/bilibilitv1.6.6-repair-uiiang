@@ -32,6 +32,11 @@
 # direct methods
 .method constructor <init>(Lbl/xl;IIFF)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
     .line 403

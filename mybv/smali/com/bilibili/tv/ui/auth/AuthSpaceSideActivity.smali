@@ -6,8 +6,8 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;,
-        Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$MenuItem;
+        Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$MenuItem;,
+        Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;
     }
 .end annotation
 

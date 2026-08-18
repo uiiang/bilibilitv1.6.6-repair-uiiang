@@ -33,26 +33,72 @@
 
 
 # direct methods
-.method static constructor <clinit>()V
-    .locals 8
+.method private static synthetic $values()[Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
+    .locals 3
 
     .prologue
-    const/4 v7, 0x4
+    .line 5
+    const/4 v0, 0x7
 
-    const/4 v6, 0x3
+    new-array v0, v0, [Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
 
-    const/4 v5, 0x2
+    const/4 v1, 0x0
 
-    const/4 v4, 0x1
+    sget-object v2, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->AVATAR:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
 
-    const/4 v3, 0x0
+    aput-object v2, v0, v1
 
+    const/4 v1, 0x1
+
+    sget-object v2, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->DANMAKU_DISPLAY:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x2
+
+    sget-object v2, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->DANMAKU_SIZE:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x3
+
+    sget-object v2, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->DANMAKU_ALPHA:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x4
+
+    sget-object v2, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->MIRROR_REVERSAL:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x5
+
+    sget-object v2, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->VIDEO_QUALITY:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x6
+
+    sget-object v2, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->AUDIO_BALANCE:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
+
+    aput-object v2, v0, v1
+
+    return-object v0
+.end method
+
+.method static constructor <clinit>()V
+    .locals 3
+
+    .prologue
     .line 6
     new-instance v0, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
 
     const-string v1, "AVATAR"
 
-    invoke-direct {v0, v1, v3}, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;-><init>(Ljava/lang/String;I)V
+    const/4 v2, 0x0
+
+    invoke-direct {v0, v1, v2}, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;-><init>(Ljava/lang/String;I)V
 
     sput-object v0, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->AVATAR:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
 
@@ -61,7 +107,9 @@
 
     const-string v1, "DANMAKU_DISPLAY"
 
-    invoke-direct {v0, v1, v4}, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;-><init>(Ljava/lang/String;I)V
+    const/4 v2, 0x1
+
+    invoke-direct {v0, v1, v2}, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;-><init>(Ljava/lang/String;I)V
 
     sput-object v0, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->DANMAKU_DISPLAY:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
 
@@ -70,7 +118,9 @@
 
     const-string v1, "DANMAKU_SIZE"
 
-    invoke-direct {v0, v1, v5}, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;-><init>(Ljava/lang/String;I)V
+    const/4 v2, 0x2
+
+    invoke-direct {v0, v1, v2}, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;-><init>(Ljava/lang/String;I)V
 
     sput-object v0, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->DANMAKU_SIZE:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
 
@@ -79,7 +129,9 @@
 
     const-string v1, "DANMAKU_ALPHA"
 
-    invoke-direct {v0, v1, v6}, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;-><init>(Ljava/lang/String;I)V
+    const/4 v2, 0x3
+
+    invoke-direct {v0, v1, v2}, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;-><init>(Ljava/lang/String;I)V
 
     sput-object v0, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->DANMAKU_ALPHA:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
 
@@ -88,7 +140,9 @@
 
     const-string v1, "MIRROR_REVERSAL"
 
-    invoke-direct {v0, v1, v7}, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;-><init>(Ljava/lang/String;I)V
+    const/4 v2, 0x4
+
+    invoke-direct {v0, v1, v2}, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;-><init>(Ljava/lang/String;I)V
 
     sput-object v0, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->MIRROR_REVERSAL:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
 
@@ -115,41 +169,9 @@
     sput-object v0, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->AUDIO_BALANCE:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
 
     .line 5
-    const/4 v0, 0x7
+    invoke-static {}, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->$values()[Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
 
-    new-array v0, v0, [Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
-
-    sget-object v1, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->AVATAR:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
-
-    aput-object v1, v0, v3
-
-    sget-object v1, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->DANMAKU_DISPLAY:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
-
-    aput-object v1, v0, v4
-
-    sget-object v1, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->DANMAKU_SIZE:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
-
-    aput-object v1, v0, v5
-
-    sget-object v1, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->DANMAKU_ALPHA:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
-
-    aput-object v1, v0, v6
-
-    sget-object v1, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->MIRROR_REVERSAL:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
-
-    aput-object v1, v0, v7
-
-    const/4 v1, 0x5
-
-    sget-object v2, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->VIDEO_QUALITY:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
-
-    aput-object v2, v0, v1
-
-    const/4 v1, 0x6
-
-    sget-object v2, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->AUDIO_BALANCE:Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
-
-    aput-object v2, v0, v1
+    move-result-object v0
 
     sput-object v0, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->$VALUES:[Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
 

@@ -12,11 +12,11 @@
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
         Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$b;,
+        Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$e;,
+        Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$f;,
+        Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$c;,
         Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$g;,
         Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$d;,
-        Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$c;,
-        Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$f;,
-        Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$e;,
         Lcom/bilibili/tv/ui/bangumi/BangumiDetailActivity$a;
     }
 .end annotation

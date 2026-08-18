@@ -4004,12 +4004,14 @@
 
     iget v3, p1, Lcom/google/android/exoplayer2/video/VideoSize;->height:I
 
+    .line 633
     iget v4, p1, Lcom/google/android/exoplayer2/video/VideoSize;->pixelWidthHeightRatio:F
 
     cmpl-float v4, v4, v5
 
     if-lez v4, :cond_7b
 
+    .line 634
     iget v4, p1, Lcom/google/android/exoplayer2/video/VideoSize;->pixelWidthHeightRatio:F
 
     const/high16 v5, 0x447a0000    # 1000.0f
@@ -4021,6 +4023,7 @@
     :goto_72
     const/16 v5, 0x3e8
 
+    .line 629
     invoke-interface/range {v0 .. v5}, Ltv/danmaku/ijk/media/player/IMediaPlayer$OnVideoSizeChangedListener;->onVideoSizeChanged(Ltv/danmaku/ijk/media/player/IMediaPlayer;IIII)V
 
     .line 638
@@ -4033,7 +4036,7 @@
 
     goto :goto_19
 
-    .line 629
+    .line 634
     :cond_7b
     const/4 v4, 0x1
 

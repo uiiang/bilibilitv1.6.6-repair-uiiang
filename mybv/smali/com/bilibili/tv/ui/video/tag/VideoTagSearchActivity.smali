@@ -6,15 +6,15 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$c;,
         Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$b;,
-        Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$e;,
         Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$d;,
-        Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$i;,
-        Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$h;,
-        Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$g;,
+        Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$e;,
         Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$f;,
-        Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$a;
+        Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$g;,
+        Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$h;,
+        Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$i;,
+        Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$a;,
+        Lcom/bilibili/tv/ui/video/tag/VideoTagSearchActivity$c;
     }
 .end annotation
 

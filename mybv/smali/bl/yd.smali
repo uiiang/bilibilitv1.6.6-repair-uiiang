@@ -12,10 +12,10 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lbl/yd$d;,
-        Lbl/yd$c;,
         Lbl/yd$b;,
-        Lbl/yd$a;
+        Lbl/yd$c;,
+        Lbl/yd$a;,
+        Lbl/yd$d;
     }
 .end annotation
 
