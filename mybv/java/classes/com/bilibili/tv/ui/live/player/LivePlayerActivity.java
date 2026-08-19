@@ -101,6 +101,7 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
                 this.d = this.a.mRoomId;
             }
         }
+        Log.i(TAG, "[LIVE_STARTUP_TRACE] onCreate room=" + this.d + " hasPlayUrl=" + (this.a != null && this.a.hasPlayUrl()));
         if (this.a == null || TextUtils.isEmpty(this.b)) {
             lr.b(this, "播放地址为空！！！");
             finish();
@@ -146,6 +147,7 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
     
     private void startPlaybackWithCdnRace() {
         Log.i(TAG, "startPlaybackWithCdnRace: 开始播放流程");
+        Log.i(TAG, "[LIVE_STARTUP_TRACE] race_start urlCount=" + (this.a.mPlayUrls != null ? this.a.mPlayUrls.size() : 0) + " room=" + this.d);
         
         // 设置直播格式，让播放器选择正确的播放引擎
         if (this.a.mPlayFormat != null) {
@@ -175,6 +177,7 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
                         true
                     );
                     Log.i(TAG, "CDN竞速完成, 耗时=" + (System.currentTimeMillis() - cdnStart) + "ms");
+                    Log.i(TAG, "[LIVE_STARTUP_TRACE] race_done cost=" + (System.currentTimeMillis() - cdnStart) + "ms room=" + LivePlayerActivity.this.d);
                     
                     final String playUrl;
                     if (result != null && result.winningUrl != null) {
@@ -189,6 +192,7 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
                         @Override
                         public void run() {
                             Log.i(TAG, "开始播放: url=" + playUrl.substring(0, Math.min(80, playUrl.length())));
+                            Log.i(TAG, "[LIVE_STARTUP_TRACE] start_play room=" + LivePlayerActivity.this.d);
                             b = playUrl;
                             g.a(b, c, Integer.valueOf(d));
                             g.m();
@@ -211,6 +215,7 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
             });
         } else {
             Log.i(TAG, "startPlaybackWithCdnRace: 只有1个URL, 直接播放");
+            Log.i(TAG, "[LIVE_STARTUP_TRACE] start_play room=" + this.d + " (direct)");
             this.g.a(this.b, this.c, Integer.valueOf(this.d));
             this.g.m();
             
@@ -403,7 +408,10 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public View getDanmakuView() {
-        return null; // 直播弹幕在 LiveVideoPlayer 内部随整体缩放
+        // 返回直播弹幕容器（LiveVideoPlayer 内部 @id/danmaku_view），与点播 xw.getDanmakuView() 一致：
+        // 使 shrinkDanmakuView/restoreDanmakuView 能保存并恢复弹幕宽度，
+        // 修复关闭电子书后弹幕仍停留在电子书区域边缘（缩窄宽度）的问题
+        return findViewById(R.id.danmaku_view);
     }
 
     @Override
@@ -433,9 +441,10 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
                 // 电子书模式菜单（书架页/阅读页）
                 this.mRightMenu.setEbookMode(true, this.ebookReaderPanel.isReadingBook(), getEbookMenuActions());
             } else {
-                // 正常直播菜单
+                // 正常直播菜单（电子书面板激活时显示"控制电子书"，点击切换控制焦点而非关闭面板）
                 this.mRightMenu.setEbookMode(false, false, getEbookMenuActions());
                 if (this.h != null) {
+                    this.h.setEbookModeActive(this.ebookReaderPanel != null && this.ebookReaderPanel.isEbookModeActive());
                     this.h.initRightMenu(this.mRightMenu);
                 }
             }

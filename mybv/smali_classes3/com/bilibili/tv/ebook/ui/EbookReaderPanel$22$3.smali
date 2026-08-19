@@ -35,7 +35,7 @@
     .end annotation
 
     .prologue
-    .line 1671
+    .line 1673
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22$3;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22;
 
     iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22$3;->val$finalPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
@@ -53,7 +53,7 @@
     .locals 3
 
     .prologue
-    .line 1674
+    .line 1676
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22$3;->val$finalPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->host:Lcom/bilibili/tv/ebook/ui/EbookHost;
@@ -76,7 +76,7 @@
 
     if-eqz v0, :cond_36
 
-    .line 1675
+    .line 1677
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22$3;->val$finalPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->host:Lcom/bilibili/tv/ebook/ui/EbookHost;
@@ -110,7 +110,7 @@
 
     invoke-interface {v0, v1}, Lcom/bilibili/tv/ebook/ui/EbookHost;->showToast(Ljava/lang/String;)V
 
-    .line 1677
+    .line 1679
     :cond_36
     return-void
 .end method

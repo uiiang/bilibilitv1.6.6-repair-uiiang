@@ -15,10 +15,12 @@ import bl.aaw;
 import bl.aax;
 import bl.aay;
 import bl.aaz;
+import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.ebook.ui.EbookMenuHelper;
 import java.util.List;
 import tv.danmaku.videoplayer.core.danmaku.DanmakuConfig;
+import tv.danmaku.videoplayer.core.danmaku.DanmakuMergeHelper;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
@@ -309,8 +311,14 @@ public class LivePlayerMenuRight extends aay<String> {
                 } else {
                     switch (getOriginalMenuIndex(this.q)) {
                         case 0:
-                            if (this.danmaku_display_list != null && this.danmaku_display_id >= 0 && this.danmaku_display_id < this.danmaku_display_list.size()) {
-                                isCurrentItem = this.danmaku_display_list.get(this.danmaku_display_id).equals(str);
+                            // 弹幕开关二级列表：弹幕开/关为单选（danmaku_display_id），
+                            // "合并重复"为独立开关（与点播一致，圆点显示 DanmakuMergeHelper.isMergeEnabled）
+                            if (this.danmaku_display_list != null && str != null) {
+                                if ("合并重复".equals(str)) {
+                                    isCurrentItem = DanmakuMergeHelper.isMergeEnabled();
+                                } else if (this.danmaku_display_id >= 0 && this.danmaku_display_id < this.danmaku_display_list.size()) {
+                                    isCurrentItem = this.danmaku_display_list.get(this.danmaku_display_id).equals(str);
+                                }
                             }
                             break;
                         case 1:
@@ -524,7 +532,15 @@ public class LivePlayerMenuRight extends aay<String> {
         // 避免隐藏菜单项后显示下标串位导致弹幕大小/透明度等二级菜单误触发其它分支（与点播页加固一致）
         int currentMenuIndex = getOriginalMenuIndex(this.q);
         if (currentMenuIndex == 0 && this.danmaku_display_list != null && this.danmaku_display_list.indexOf(str) != -1) {
-            if (i2 != this.danmaku_display_id) {
+            if ("合并重复".equals(str)) {
+                // 合并重复：独立开关，切换并持久化（与点播 PlayerMenuRight case 7 一致，
+                // 状态单一来源 DanmakuMergeHelper，直播/点播共用同一份 prefs）
+                boolean mergeEnabled = !DanmakuMergeHelper.isMergeEnabled();
+                DanmakuMergeHelper.setMergeEnabled(mergeEnabled);
+                DanmakuMergeHelper.saveToPrefs(MainApplication.a());
+                Log.i("LivePlayerMenuRight", "合并重复切换: " + mergeEnabled);
+                refreshDanmakuDisplayDots(viewGroup);
+            } else if (i2 != this.danmaku_display_id) {
                 this.danmaku_display_id = i2;
                 this.d.setDanmakuDisplay(i2 == 0);
                 refreshDots(view, viewGroup);
@@ -585,6 +601,35 @@ public class LivePlayerMenuRight extends aay<String> {
             if (viewDrawables != null && viewDrawables[0] != null) {
                 viewDrawables[0].setAlpha(DanmakuConfig.ALPHA_VALUE_MAX);
             }
+        }
+    }
+
+    /**
+     * 弹幕开关二级列表圆点刷新：
+     * 弹幕开/关为单选（按 danmaku_display_id 标注），"合并重复"为独立开关
+     * （按 DanmakuMergeHelper.isMergeEnabled 标注），可同时点亮
+     */
+    private void refreshDanmakuDisplayDots(ViewGroup viewGroup) {
+        if (viewGroup == null || this.danmaku_display_list == null) {
+            return;
+        }
+        for (int i = 0; i < viewGroup.getChildCount() && i < this.danmaku_display_list.size(); i++) {
+            View child = viewGroup.getChildAt(i);
+            if (!(child instanceof TextView)) {
+                continue;
+            }
+            android.graphics.drawable.Drawable[] drawables = ((TextView) child).getCompoundDrawables();
+            if (drawables == null || drawables[0] == null) {
+                continue;
+            }
+            String item = this.danmaku_display_list.get(i);
+            boolean showDot;
+            if ("合并重复".equals(item)) {
+                showDot = DanmakuMergeHelper.isMergeEnabled();
+            } else {
+                showDot = (i == this.danmaku_display_id);
+            }
+            drawables[0].setAlpha(showDot ? DanmakuConfig.ALPHA_VALUE_MAX : 0);
         }
     }
 

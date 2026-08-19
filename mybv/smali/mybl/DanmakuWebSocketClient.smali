@@ -12,13 +12,13 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 43
     invoke-direct {p0, p1}, Lorg/java_websocket/client/WebSocketClient;-><init>(Ljava/net/URI;)V
 
-    .line 41
+    .line 44
     iput-object p2, p0, Lmybl/DanmakuWebSocketClient;->owner:Lmybl/DanmakuClient;
 
-    .line 42
+    .line 45
     return-void
 .end method
 
@@ -28,7 +28,7 @@
     .locals 0
 
     .prologue
-    .line 48
+    .line 51
     return-void
 .end method
 
@@ -36,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 51
+    .line 54
     return-void
 .end method
 
@@ -44,7 +44,7 @@
     .locals 0
 
     .prologue
-    .line 57
+    .line 60
     return-void
 .end method
 
@@ -52,7 +52,7 @@
     .locals 2
 
     .prologue
-    .line 54
+    .line 57
     iget-object v0, p0, Lmybl/DanmakuWebSocketClient;->owner:Lmybl/DanmakuClient;
 
     if-eqz v0, :cond_13
@@ -79,6 +79,6 @@
     .locals 0
 
     .prologue
-    .line 45
+    .line 48
     return-void
 .end method

@@ -12,6 +12,7 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.zip.InflaterOutputStream;
 import tv.danmaku.videoplayer.core.danmaku.DanmakuConfig;
+import tv.danmaku.videoplayer.core.danmaku.DanmakuMergeHelper;
 import tv.danmaku.videoplayer.core.danmaku.IDanmakuPlayer;
 import tv.danmaku.videoplayer.core.danmaku.comment.CommentItem;
 import tv.danmaku.videoplayer.core.danmaku.comment.DrawableItem;
@@ -19,6 +20,8 @@ import tv.danmaku.videoplayer.core.danmaku.comment.DrawableItem;
 import bl.abd;
 import org.json.*;
 import okio.ByteString;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.*;
 import android.util.*;
 import android.graphics.*;
@@ -68,6 +71,121 @@ public class DanmakuClient {
     public static float baseScreenScale=0, densityScale=0, mScale ;
     public static int mAlpha;
 
+    // ==================== 直播弹幕合并重复 ====================
+    // 与点播 DanmakuMergeHelper 同语义：按"内容+颜色+模式"分组，2秒窗口内相同弹幕合并为一条，
+    // 文本后追加 " (N)"。开关变量复用点播的 DanmakuMergeHelper.isMergeEnabled()（同一份 prefs 持久化），
+    // 直播/点播共用同一开关状态。直播弹幕为实时流，采用"单个活动组"缓冲：
+    // 连续同内容弹幕合并，出现不同内容或窗口过期时立即注入合并结果，减少实时延迟
+    private static final long LIVE_MERGE_WINDOW_MS = 2000L;
+    private final Object mMergeLock = new Object();
+    private LiveMergeGroup mActiveMergeGroup; // 当前待合并组（未注入，等待窗口关闭后统一注入）
+    private final Handler mMergeFlushHandler = new Handler(Looper.getMainLooper());
+    private boolean mMergeFlushScheduled = false;
+
+    private static class LiveMergeGroup {
+        String key;               // 合并分组键：内容小写+颜色+模式
+        DrawableItem representative; // 组内第一条弹幕（代表），合并后 mSpannableString 追加 " (N)"
+        int count;                // 合并数量
+        long lastTimeMs;          // 组内最后一条到达时间
+        long groupStartMs;        // 组开始时间（总持有上限用）
+        int fontSize;             // 追加 "(N)" 的样式参数（与组内弹幕一致）
+        int color;
+        int alpha;
+    }
+
+    private final Runnable mMergeFlushRunnable = new Runnable() {
+        @Override
+        public void run() {
+            synchronized (mMergeLock) {
+                mMergeFlushScheduled = false;
+                LiveMergeGroup g = mActiveMergeGroup;
+                if (g == null) {
+                    return;
+                }
+                long now = System.currentTimeMillis();
+                // 窗口过期（2秒无同类弹幕）或总持有超时（2倍窗口，防止连续弹幕永不注入）
+                if (now - g.lastTimeMs > LIVE_MERGE_WINDOW_MS
+                        || now - g.groupStartMs >= LIVE_MERGE_WINDOW_MS * 2L) {
+                    flushActiveMergeGroupLocked();
+                    return;
+                }
+                scheduleMergeFlushLocked();
+            }
+        }
+    };
+
+    /**
+     * 直播弹幕合并入口：与点播合并语义一致（内容+颜色+模式，2秒窗口）。
+     * 合并时仅更新代表弹幕文本为 "内容 (N)"，窗口关闭/出现不同内容时统一注入代表弹幕。
+     */
+    private void processDanmakuWithMerge(DrawableItem item, String content, int color, int mode, int fontSize, int alpha) {
+        if (item == null || player == null) {
+            return;
+        }
+        if (mode < 1 || mode > 6 || content == null || content.length() == 0) {
+            // 高级弹幕/空弹幕不参与合并，直接注入
+            player.onDanmakuAppended(item);
+            return;
+        }
+        long now = System.currentTimeMillis();
+        String key = content.trim().toLowerCase() + "|" + color + "|" + mode;
+        synchronized (mMergeLock) {
+            LiveMergeGroup g = mActiveMergeGroup;
+            if (g != null && g.key.equals(key) && now - g.lastTimeMs <= LIVE_MERGE_WINDOW_MS) {
+                // 窗口内重复：合并计数，更新代表弹幕文本为 "内容 (N)"
+                g.count++;
+                g.lastTimeMs = now;
+                CharSequence cs = g.representative.mSpannableString;
+                if (cs instanceof SpannableStringBuilder) {
+                    SpannableStringBuilder sb = (SpannableStringBuilder) cs;
+                    // 去掉原文本末尾的空格（构造时为 content+" "），再追加 " (N)"
+                    if (sb.length() > 0 && sb.charAt(sb.length() - 1) == ' ') {
+                        sb.delete(sb.length() - 1, sb.length());
+                    }
+                    int start = sb.length();
+                    sb.append(" (" + g.count + ")");
+                    sb.setSpan(new AbsoluteSizeSpan((int) (g.fontSize * baseScreenScale * mScale)), start, sb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    sb.setSpan(new StrokedSpan(g.alpha, (g.color & 0xffffff) | 0xff000000, Color.BLACK), start, sb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+            } else {
+                // 不同内容或窗口过期：先注入旧组代表，再开启新组
+                flushActiveMergeGroupLocked();
+                LiveMergeGroup ng = new LiveMergeGroup();
+                ng.key = key;
+                ng.representative = item;
+                ng.count = 1;
+                ng.lastTimeMs = now;
+                ng.groupStartMs = now;
+                ng.fontSize = fontSize;
+                ng.color = color;
+                ng.alpha = alpha;
+                mActiveMergeGroup = ng;
+            }
+            scheduleMergeFlushLocked();
+        }
+    }
+
+    /** 注入当前组的代表弹幕（合并结果），调用方需持有 mMergeLock */
+    private void flushActiveMergeGroupLocked() {
+        if (mActiveMergeGroup != null && player != null) {
+            player.onDanmakuAppended(mActiveMergeGroup.representative);
+            Log.i("DanmakuClient", "合并弹幕注入: text=(" + mActiveMergeGroup.count + ")");
+        }
+        mActiveMergeGroup = null;
+    }
+
+    /** 调度合并组刷新定时器（窗口到期注入），调用方需持有 mMergeLock */
+    private void scheduleMergeFlushLocked() {
+        if (mMergeFlushScheduled || mActiveMergeGroup == null) {
+            return;
+        }
+        LiveMergeGroup g = mActiveMergeGroup;
+        long due = Math.min(g.lastTimeMs + LIVE_MERGE_WINDOW_MS, g.groupStartMs + LIVE_MERGE_WINDOW_MS * 2L);
+        long delay = Math.max(due - System.currentTimeMillis(), 0L);
+        mMergeFlushScheduled = true;
+        mMergeFlushHandler.postDelayed(mMergeFlushRunnable, delay);
+    }
+
     public String sign(String msg){
         //String img_url="7cd084941338484aae1ad9425b84077c";
         //String sub_url="4932caff0ff746eab6f01bf08b70ac45";
@@ -77,6 +195,8 @@ public class DanmakuClient {
     }
 
     public DanmakuClient(int rid) {
+        // 同步点播弹幕的"合并重复"开关（同一份 prefs 持久化），保证进入直播时状态一致
+        DanmakuMergeHelper.loadFromPrefs(MainApplication.a().getApplicationContext());
         if(baseScreenScale==0){
             Context c = MainApplication.a().getApplicationContext();
             DisplayMetrics dm = c.getResources().getDisplayMetrics();
@@ -206,7 +326,13 @@ public class DanmakuClient {
                     }
                     drawableItem.mSpannableString=spannableStringBuilder;
                     if(player != null){
-                        player.onDanmakuAppended(drawableItem);
+                        // 复用点播"合并重复"开关（DanmakuMergeHelper.isMergeEnabled，同一份 prefs）：
+                        // 开启时直播弹幕走合并缓冲（内容+颜色+模式，2秒窗口，追加 " (N)"），否则直接注入
+                        if (DanmakuMergeHelper.isMergeEnabled()) {
+                            processDanmakuWithMerge(drawableItem, content, color, mode, font_size, mAlpha);
+                        } else {
+                            player.onDanmakuAppended(drawableItem);
+                        }
                     }
                     Thread.sleep(100);
 
@@ -239,6 +365,12 @@ public class DanmakuClient {
             catch(Exception e){
                 e.printStackTrace();
             }
+        }
+        // 清理合并缓冲：移除定时器、丢弃未注入的合并组，防止切台后旧房间残留弹幕注入新房间
+        synchronized (mMergeLock) {
+            mMergeFlushHandler.removeCallbacks(mMergeFlushRunnable);
+            mMergeFlushScheduled = false;
+            mActiveMergeGroup = null;
         }
         player = null;
     }

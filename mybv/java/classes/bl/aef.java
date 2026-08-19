@@ -1,6 +1,7 @@
 package bl;
 
 import android.app.Activity;
+import android.util.Log;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -306,6 +307,7 @@ public class aef extends ady {
             }
             Object tag = view.getTag();
             if (tag instanceof BiliLiveContent) {
+                Log.i("LiveStartupTrace", "[LIVE_STARTUP_TRACE] click_item room=" + ((BiliLiveContent) tag).mRoomId);
                 LivePlayerActivity.lives = this.a;
                 LivePlayerActivity.live_index = this.a.indexOf((BiliLiveContent) tag);
                 a.startActivity(LivePlayerActivity.a(a, (BiliLiveContent) tag));

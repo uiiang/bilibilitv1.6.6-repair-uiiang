@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 218
+    .line 223
     iput-object p1, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$2;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 221
+    .line 226
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$2;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     # getter for: Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->h:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
@@ -50,7 +50,7 @@
 
     if-eqz v0, :cond_27
 
-    .line 222
+    .line 227
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$2;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     # getter for: Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->h:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
@@ -60,7 +60,7 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->updateAudioBalanceMenu()V
 
-    .line 223
+    .line 228
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$2;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     # getter for: Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->h:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
@@ -77,14 +77,14 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->initRightMenu(Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight;)V
 
-    .line 224
+    .line 229
     const-string v0, "LivePlayerActivity"
 
     const-string v1, "\u97f3\u9891\u5e73\u8861\u83dc\u5355\u5df2\u66f4\u65b0"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 226
+    .line 231
     :cond_27
     return-void
 .end method

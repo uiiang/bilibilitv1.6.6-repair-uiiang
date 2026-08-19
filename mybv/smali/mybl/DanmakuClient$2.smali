@@ -3,7 +3,7 @@
 .source "DanmakuClient.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Ljava/util/concurrent/Callable;
 
 
 # annotations
@@ -16,27 +16,28 @@
     name = null
 .end annotation
 
+.annotation system Ldalvik/annotation/Signature;
+    value = {
+        "Ljava/lang/Object;",
+        "Ljava/util/concurrent/Callable",
+        "<",
+        "Lorg/json/JSONObject;",
+        ">;"
+    }
+.end annotation
+
 
 # instance fields
 .field final synthetic this$0:Lmybl/DanmakuClient;
 
-.field final synthetic val$data:Lorg/json/JSONObject;
-
 
 # direct methods
-.method constructor <init>(Lmybl/DanmakuClient;Lorg/json/JSONObject;)V
+.method constructor <init>(Lmybl/DanmakuClient;)V
     .locals 0
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "()V"
-        }
-    .end annotation
 
     .prologue
-    .line 108
+    .line 210
     iput-object p1, p0, Lmybl/DanmakuClient$2;->this$0:Lmybl/DanmakuClient;
-
-    iput-object p2, p0, Lmybl/DanmakuClient$2;->val$data:Lorg/json/JSONObject;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -45,87 +46,199 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 5
+.method public bridge synthetic call()Ljava/lang/Object;
+    .locals 1
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/lang/Exception;
+        }
+    .end annotation
 
     .prologue
-    const/4 v4, 0x0
+    .line 210
+    invoke-virtual {p0}, Lmybl/DanmakuClient$2;->call()Lorg/json/JSONObject;
 
-    .line 111
-    iget-object v0, p0, Lmybl/DanmakuClient$2;->this$0:Lmybl/DanmakuClient;
+    move-result-object v0
 
-    new-instance v1, Ljava/lang/StringBuilder;
+    return-object v0
+.end method
 
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+.method public call()Lorg/json/JSONObject;
+    .locals 10
 
-    const-string v2, "ws://"
+    .prologue
+    const/4 v9, 0x1
 
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    .line 213
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
-    move-result-object v1
+    move-result-wide v0
 
-    iget-object v2, p0, Lmybl/DanmakuClient$2;->val$data:Lorg/json/JSONObject;
+    const-wide/16 v2, 0x3e8
 
-    const-string v3, "host_list"
+    div-long/2addr v0, v2
 
-    invoke-virtual {v2, v3}, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
+    .line 214
+    new-instance v2, Lbl/qa$a;
 
-    move-result-object v2
+    const-class v3, Lmybl/DanmakuClient$Response;
 
-    invoke-virtual {v2, v4}, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
+    invoke-direct {v2, v3}, Lbl/qa$a;-><init>(Ljava/lang/Class;)V
 
-    move-result-object v2
+    const-string v3, "https://api.live.bilibili.com/xlive/web-room/v1/index/getDanmuInfo"
 
-    const-string v3, "host"
-
-    invoke-virtual {v2, v3}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v2
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, ":"
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lmybl/DanmakuClient$2;->val$data:Lorg/json/JSONObject;
-
-    const-string v3, "host_list"
-
-    invoke-virtual {v2, v3}, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
+    .line 215
+    invoke-virtual {v2, v3}, Lbl/qa$a;->a(Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v2
 
-    invoke-virtual {v2, v4}, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
+    .line 216
+    invoke-virtual {v2, v9}, Lbl/qa$a;->a(Z)Lbl/qa$a;
 
     move-result-object v2
 
-    const-string v3, "ws_port"
+    const-string v3, "Bilibili Freedoooooom/MarkII"
 
-    invoke-virtual {v2, v3}, Lorg/json/JSONObject;->optInt(Ljava/lang/String;)I
+    invoke-virtual {v2, v3}, Lbl/qa$a;->b(Ljava/lang/String;)Lbl/qa$a;
 
-    move-result v2
+    move-result-object v2
 
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    const-string v3, "Cookie"
 
-    move-result-object v1
+    new-instance v4, Ljava/lang/StringBuilder;
 
-    const-string v2, "/sub"
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    const-string v5, "buvid3="
 
-    move-result-object v1
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object v4
 
-    move-result-object v1
+    .line 217
+    invoke-static {}, Ljava/util/UUID;->randomUUID()Ljava/util/UUID;
 
-    invoke-virtual {v0, v1}, Lmybl/DanmakuClient;->startClient(Ljava/lang/String;)V
+    move-result-object v5
 
-    .line 112
-    return-void
+    invoke-virtual {v5}, Ljava/util/UUID;->toString()Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-virtual {v5}, Ljava/lang/String;->toUpperCase()Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    const-string v5, "00000infoc"
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-virtual {v2, v3, v4}, Lbl/qa$a;->a(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
+
+    move-result-object v2
+
+    const-string v3, "id"
+
+    iget-object v4, p0, Lmybl/DanmakuClient$2;->this$0:Lmybl/DanmakuClient;
+
+    iget v4, v4, Lmybl/DanmakuClient;->roomId:I
+
+    .line 218
+    invoke-static {v4}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-virtual {v2, v3, v4}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
+
+    move-result-object v2
+
+    const-string v3, "ts"
+
+    .line 219
+    invoke-static {v0, v1}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-virtual {v2, v3, v4}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
+
+    move-result-object v2
+
+    const-string v3, "w_rid"
+
+    iget-object v4, p0, Lmybl/DanmakuClient$2;->this$0:Lmybl/DanmakuClient;
+
+    const-string v5, "id=%d&ts=%d"
+
+    const/4 v6, 0x2
+
+    new-array v6, v6, [Ljava/lang/Object;
+
+    const/4 v7, 0x0
+
+    iget-object v8, p0, Lmybl/DanmakuClient$2;->this$0:Lmybl/DanmakuClient;
+
+    iget v8, v8, Lmybl/DanmakuClient;->roomId:I
+
+    .line 220
+    invoke-static {v8}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object v8
+
+    aput-object v8, v6, v7
+
+    invoke-static {v0, v1}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;
+
+    move-result-object v0
+
+    aput-object v0, v6, v9
+
+    invoke-static {v5, v6}, Ljava/lang/String;->format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {v4, v0}, Lmybl/DanmakuClient;->sign(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {v2, v3, v0}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
+
+    move-result-object v0
+
+    new-instance v1, Lbl/qb;
+
+    invoke-direct {v1}, Lbl/qb;-><init>()V
+
+    .line 221
+    invoke-virtual {v0, v1}, Lbl/qa$a;->a(Lbl/qf;)Lbl/qa$a;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/qa$a;->a()Lbl/qa;
+
+    move-result-object v0
+
+    const-string v1, "GET"
+
+    .line 214
+    invoke-static {v0, v1}, Lbl/pz;->a(Lbl/qa;Ljava/lang/String;)Lbl/qe;
+
+    move-result-object v0
+
+    check-cast v0, Lmybl/DanmakuClient$Response;
+
+    .line 222
+    invoke-virtual {v0}, Lmybl/DanmakuClient$Response;->e()Lorg/json/JSONObject;
+
+    move-result-object v0
+
+    return-object v0
 .end method

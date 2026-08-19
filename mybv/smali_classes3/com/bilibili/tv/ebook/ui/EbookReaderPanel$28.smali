@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 3986
+    .line 4018
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$28;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,9 +40,9 @@
     .locals 0
 
     .prologue
-    .line 3989
+    .line 4021
     invoke-virtual {p1}, Lbl/agb;->dismiss()V
 
-    .line 3990
+    .line 4022
     return-void
 .end method

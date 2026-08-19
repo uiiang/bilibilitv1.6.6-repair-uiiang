@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 559
+    .line 568
     iput-object p1, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$6;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 562
+    .line 571
     invoke-static {}, Lbl/wm;->e()Z
 
     move-result v0
@@ -56,16 +56,16 @@
 
     if-nez v0, :cond_f
 
-    .line 567
+    .line 576
     :cond_e
     :goto_e
     return-void
 
-    .line 565
+    .line 574
     :cond_f
     invoke-static {}, Lbl/wm;->g()V
 
-    .line 566
+    .line 575
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$6;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     const/4 v1, 0x0

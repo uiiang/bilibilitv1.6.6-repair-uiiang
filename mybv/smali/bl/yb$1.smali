@@ -23,7 +23,7 @@
     .locals 3
 
     .prologue
-    .line 43
+    .line 44
     invoke-static {}, Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;->values()[Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;
 
     move-result-object v0

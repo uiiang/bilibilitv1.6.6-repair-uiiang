@@ -51,6 +51,8 @@ public class EbookReaderPanel {
     private boolean isEbookPanelShown = false;
     private ViewGroup.LayoutParams originalVideoParams = null;
     private ViewGroup.LayoutParams originalDanmakuParams = null;
+    private ViewGroup originalDanmakuParent = null; // 直播：弹幕容器原父容器（LiveVideoPlayer 内部 FrameLayout）
+    private int originalDanmakuIndex = -1;          // 直播：弹幕容器在原父容器中的索引
     private boolean isFileChooserShown = false; // 文件选择器是否显示
     private long lastBackPressTime = 0; // 记录上次按返回键的时间
     private static final long DOUBLE_PRESS_INTERVAL = 2000; // 双击时间间隔（2秒）
@@ -2809,13 +2811,15 @@ public class EbookReaderPanel {
 
     /**
      * 缩小弹幕视图到(100%-ebookPanelPercent)%宽度,与视频同步对齐
-     * 直播：弹幕在LiveVideoPlayer内部随整体缩放，host.getDanmakuView()返回null时跳过
+     * 直播：弹幕容器原嵌套在 LiveVideoPlayer 内部，若随视频整体缩小会跟随到四角；
+     *       这里先把弹幕容器移到 Activity 根布局（与视频平级），模拟点播的独立弹幕层，
+     *       再设置宽度=视频宽、高度=MATCH_PARENT(全屏)、按视频位置对齐，使弹幕保持在屏幕顶端
      */
     private void shrinkDanmakuView(Activity activity, int screenWidth, int screenHeight) {
-        // 查找弹幕视图（直播返回null，直接跳过）
+        // 查找弹幕视图
         View danmakuView = host.getDanmakuView();
         if (danmakuView == null) {
-            Log.i(TAG_EBOOK, "无独立弹幕视图（直播弹幕随视频整体缩放），跳过弹幕缩放");
+            Log.i(TAG_EBOOK, "无独立弹幕视图，跳过弹幕缩放");
             return;
         }
 
@@ -2825,6 +2829,22 @@ public class EbookReaderPanel {
         ViewGroup.MarginLayoutParams currentParams = (ViewGroup.MarginLayoutParams) danmakuView.getLayoutParams();
         originalDanmakuParams = new ViewGroup.LayoutParams(currentParams.width, currentParams.height);
         Log.i(TAG_EBOOK, "原始弹幕布局参数已保存: width=" + currentParams.width + ", height=" + currentParams.height);
+
+        // 直播：首次缩小时把弹幕容器从 LiveVideoPlayer 内部移到 Activity 根布局（与视频平级），
+        // 使弹幕高度不受视频缩小高度限制，达到与点播一致的"弹幕在屏幕顶端"效果
+        if (host.isLiveMode() && originalDanmakuParent == null) {
+            ViewGroup curParent = (ViewGroup) danmakuView.getParent();
+            ViewGroup root = host.getVideoContainer();
+            if (curParent != null && root != null && curParent != root) {
+                originalDanmakuParent = curParent;
+                originalDanmakuIndex = curParent.indexOfChild(danmakuView);
+                curParent.removeView(danmakuView);
+                // 插入到视频视图之后（索引1），保证层级：视频(0) < 弹幕(1) < 控制器(2)
+                root.addView(danmakuView, 1, new RelativeLayout.LayoutParams(0, 0));
+                Log.i(TAG_EBOOK, "直播弹幕容器已移到根布局(与视频平级), 原父容器=" +
+                        curParent.getClass().getSimpleName() + " 原索引=" + originalDanmakuIndex);
+            }
+        }
 
         // 获取父容器
         ViewGroup parent = (ViewGroup) danmakuView.getParent();
@@ -2995,14 +3015,26 @@ public class EbookReaderPanel {
             return;
         }
 
-        // 查找弹幕视图（直播返回null，直接跳过）
+        // 查找弹幕视图
         View danmakuView = host.getDanmakuView();
         if (danmakuView == null) {
-            Log.i(TAG_EBOOK, "无独立弹幕视图（直播弹幕随视频整体缩放），跳过弹幕恢复");
+            Log.i(TAG_EBOOK, "无独立弹幕视图，跳过弹幕恢复");
             return;
         }
 
         Log.i(TAG_EBOOK, "开始恢复弹幕视图布局");
+
+        // 直播：把弹幕容器移回 LiveVideoPlayer 内部（原父容器、原索引），恢复原始层级
+        if (host.isLiveMode() && originalDanmakuParent != null) {
+            ViewGroup curParent = (ViewGroup) danmakuView.getParent();
+            if (curParent != null) {
+                curParent.removeView(danmakuView);
+            }
+            originalDanmakuParent.addView(danmakuView, originalDanmakuIndex, new FrameLayout.LayoutParams(0, 0));
+            originalDanmakuParent = null;
+            originalDanmakuIndex = -1;
+            Log.i(TAG_EBOOK, "直播弹幕容器已移回原父容器");
+        }
 
         // 获取父容器
         ViewGroup parent = (ViewGroup) danmakuView.getParent();

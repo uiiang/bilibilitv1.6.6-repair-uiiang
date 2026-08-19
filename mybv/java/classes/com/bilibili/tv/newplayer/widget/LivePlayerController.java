@@ -61,6 +61,7 @@ public class LivePlayerController extends FrameLayout implements View.OnClickLis
     private cj<wn> o;
     private cj<wn> p;
     private Runnable q;
+    private boolean ebookModeActive; // 电子书模式激活标记（showMenu 时设置，initRightMenu 据此显示"控制电子书"/"电子书"）
 
     public cj<wn> qualitys;
     public cj<wn> audioBalanceList;
@@ -193,6 +194,10 @@ public class LivePlayerController extends FrameLayout implements View.OnClickLis
         this.k = liveVideoPlayer;
     }
 
+    public void setEbookModeActive(boolean ebookModeActive) {
+        this.ebookModeActive = ebookModeActive;
+    }
+
     public void setBiliLive(BiliLiveContent biliLive) {
         this.m = biliLive;
         this.qualitys = new cj<>(biliLive.mAcceptQuality.length);
@@ -285,17 +290,21 @@ public class LivePlayerController extends FrameLayout implements View.OnClickLis
         }
         // 音频平衡项由updateAudioBalanceMenu根据播放器类型+配置动态插入（原始下标5）
         // 电子书入口（与点播页一致，点击后进入电子书模式菜单）-> 原始下标6 (MENU_EBOOK)
+        // 电子书面板激活时显示"控制电子书"（切换控制焦点到电子书），否则显示"电子书"（打开电子书）
         if ((menuConfig & abd.MENU_EBOOK) != 0) {
-            mainMenu.add(com.bilibili.tv.ebook.ui.EbookMenuHelper.MENU_OPEN_EBOOK);
+            mainMenu.add(ebookModeActive
+                    ? com.bilibili.tv.ebook.ui.EbookMenuHelper.MENU_CONTROL_EBOOK
+                    : com.bilibili.tv.ebook.ui.EbookMenuHelper.MENU_OPEN_EBOOK);
             menuIndexMap.add(6);
         }
         menu.init_main(mainMenu);
         menu.setMenuIndexMap(menuIndexMap);
 
-        // 弹幕开关（开/关）
+        // 弹幕开关（开/关/合并重复）——与点播一致，"合并重复"为独立开关（DanmakuMergeHelper 持久化）
         ArrayList<String> danmakuDisplay = new ArrayList<>();
         danmakuDisplay.add("弹幕开");
         danmakuDisplay.add("弹幕关");
+        danmakuDisplay.add("合并重复");
         menu.init_danmaku_display(danmakuDisplay, this.k.G ? 0 : 1);
 
         // 弹幕大小

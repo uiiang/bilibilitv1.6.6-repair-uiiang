@@ -213,6 +213,7 @@ public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.
             this.h.setOnErrorListener(this);
             this.h.setOnInfoListener(this);
             this.h.setOnVideoSizeChangedListener(this);
+            android.util.Log.i("LiveStartupTrace", "[LIVE_STARTUP_TRACE] prepareAsync");
             this.h.prepareAsync();
         } catch (Exception e) {
             att.a(e);
@@ -543,6 +544,9 @@ public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.
 
     @Override // tv.danmaku.ijk.media.player.IMediaPlayer.OnInfoListener
     public boolean onInfo(IMediaPlayer iMediaPlayer, final int i, final int i2) {
+        if (i == IMediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START) {
+            android.util.Log.i("LiveStartupTrace", "[LIVE_STARTUP_TRACE] first_frame");
+        }
         this.k.post(new Runnable() { // from class: bl.wm.6
             @Override // java.lang.Runnable
             public void run() {

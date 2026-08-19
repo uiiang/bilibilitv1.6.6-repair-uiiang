@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 516
+    .line 518
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$6;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,12 +40,12 @@
     .locals 1
 
     .prologue
-    .line 519
+    .line 521
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$6;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->applyEbookPanelPercent()V
     invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$1000(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)V
 
-    .line 520
+    .line 522
     return-void
 .end method

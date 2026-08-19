@@ -2,6 +2,7 @@ package bl;
 
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.text.TextUtils;
 import com.bilibili.lib.media.resource.PlayerCodecConfig;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.player.basic.context.PlayerParams;
@@ -240,7 +241,60 @@ public class yb extends xh {
     public void onCompletion(IMediaPlayer iMediaPlayer) {
         super.onCompletion(iMediaPlayer);
         this.i = true;
-        S();
+        // 播放完成：用API元数据的完整时长上报进度
+        // （ExoPlayer DASH 的时长可能比元数据少几百毫秒，导致 played_time 截断后少1秒，
+        //   后端按元数据时长判断是否看完，因此必须上报元数据完整时长）
+        int apiDurationMs = 0;
+        PlayerParams b = b();
+        if (b != null) {
+            long d = b.getDuration();
+            if (d > 0L) {
+                apiDurationMs = (int) Math.min(d, Integer.MAX_VALUE);
+            }
+        }
+        int reportDurationMs = apiDurationMs > 0 ? apiDurationMs : I();
+        Log.i("yb", "[onCompletion] report full duration, apiDuration=" + apiDurationMs + "ms, playerDuration=" + I() + "ms, cachedPos=" + x() + "ms");
+        c(false, reportDurationMs, reportDurationMs);
+        // 播放完成后立即补发 progress=-1（已看完标记）。
+        // 完成后会自动连播下一集，30s历史上报定时器的下一次上报已是新视频（progress=0），
+        // 旧视频的 -1 永远不会由定时器发出，导致历史记录只显示完整时长而非"已看完"。
+        reportCompleted();
+    }
+
+    // 上报当前视频"已看完"（progress=-1），供历史记录/详情页显示"已看完"
+    private void reportCompleted() {
+        try {
+            PlayerParams b = b();
+            if (b == null) {
+                return;
+            }
+            ResolveResourceParams resolveParams = b.mVideoParams.obtainResolveParams();
+            if (resolveParams == null || resolveParams.mNoHistoryPlay) {
+                return;
+            }
+            long seasonId = 0;
+            long episodeId = 0;
+            if (resolveParams.isBangumi()) {
+                try {
+                    seasonId = Long.parseLong(resolveParams.mSeasonId);
+                } catch (NumberFormatException e) {
+                    seasonId = 0;
+                }
+                episodeId = resolveParams.mEpisodeId;
+            }
+            int playMethod;
+            if (TextUtils.isEmpty(resolveParams.mSeasonId)) {
+                playMethod = "movie".equalsIgnoreCase(resolveParams.mFrom) ? 2 : 3;
+            } else if ("cheese".equals(resolveParams.mFrom)) {
+                playMethod = 10;
+            } else {
+                playMethod = 1;
+            }
+            Log.i("yb", "[onCompletion] report history completed(progress=-1), avid=" + resolveParams.mAvid + ", cid=" + resolveParams.mCid);
+            zq.a(p(), resolveParams.mAvid, resolveParams.mCid, seasonId, episodeId, playMethod, -1L, 1L, resolveParams.mNoHistoryPlay);
+        } catch (Exception e) {
+            Log.e("yb", "[onCompletion] report completed failed: " + e.getMessage());
+        }
     }
 
     private void P() {
@@ -293,7 +347,15 @@ public class yb extends xh {
     }
 
     private void c(boolean z) {
-        zn.a(z, MainApplication.a(), this.h, b(), c(), I(), x(), this.g);
+        c(z, I(), x());
+    }
+
+    private void c(boolean z, int i2) {
+        c(z, I(), i2);
+    }
+
+    private void c(boolean z, int i, int i2) {
+        zn.a(z, MainApplication.a(), this.h, b(), c(), i, i2, this.g);
     }
 
     private void T() {

@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 2249
+    .line 2251
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25$4;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25;
 
     iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25$4;->val$chapterList:Ljava/util/List;
@@ -58,7 +58,7 @@
     .end annotation
 
     .prologue
-    .line 2252
+    .line 2254
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25$4;->val$chapterList:Ljava/util/List;
 
     invoke-interface {v0, p3}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -67,7 +67,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ebook/model/Chapter;
 
-    .line 2253
+    .line 2255
     const-string v1, "EbookReader"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -108,7 +108,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2256
+    .line 2258
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25$4;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25;
 
     iget-object v1, v1, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
@@ -118,21 +118,21 @@
 
     move-result-object v1
 
-    .line 2257
+    .line 2259
     invoke-interface {v1}, Ljava/util/List;->isEmpty()Z
 
     move-result v2
 
     if-nez v2, :cond_74
 
-    .line 2259
+    .line 2261
     const-string v2, "EbookReader"
 
     const-string v3, "\u7ae0\u8282\u6709\u5b50\u7ae0\u8282\uff0c\u663e\u793a\u5b50\u7ae0\u8282\u5217\u8868"
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2260
+    .line 2262
     iget-object v2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25$4;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25;
 
     iget-object v2, v2, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
@@ -153,7 +153,7 @@
 
     invoke-virtual {v2, v3}, Ljava/util/Stack;->push(Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 2261
+    .line 2263
     iget-object v2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25$4;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25;
 
     iget-object v2, v2, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
@@ -161,7 +161,7 @@
     # setter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->currentChapterList:Ljava/util/List;
     invoke-static {v2, v1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$802(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Ljava/util/List;)Ljava/util/List;
 
-    .line 2262
+    .line 2264
     iget-object v2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25$4;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25;
 
     iget-object v2, v2, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
@@ -173,7 +173,7 @@
     # setter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->parentChapterTitle:Ljava/lang/String;
     invoke-static {v2, v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$3102(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Ljava/lang/String;)Ljava/lang/String;
 
-    .line 2263
+    .line 2265
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25$4;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25;
 
     iget-object v0, v0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
@@ -181,11 +181,11 @@
     # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->createChapterListView(Ljava/util/List;)V
     invoke-static {v0, v1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$900(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Ljava/util/List;)V
 
-    .line 2270
+    .line 2272
     :goto_73
     return-void
 
-    .line 2266
+    .line 2268
     :cond_74
     const-string v1, "EbookReader"
 
@@ -213,7 +213,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2267
+    .line 2269
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25$4;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25;
 
     iget-object v1, v1, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
@@ -234,7 +234,7 @@
     # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->displayBookContent(Lcom/bilibili/tv/ebook/model/Book;I)V
     invoke-static {v1, v2, v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$3700(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Lcom/bilibili/tv/ebook/model/Book;I)V
 
-    .line 2268
+    .line 2270
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25$4;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25;
 
     iget-object v0, v0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;

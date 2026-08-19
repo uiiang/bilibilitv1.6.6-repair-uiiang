@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 2297
+    .line 2299
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$26;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -42,7 +42,7 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 2301
+    .line 2303
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$26;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->ebookPanel:Landroid/widget/FrameLayout;
@@ -52,7 +52,7 @@
 
     if-eqz v1, :cond_3a
 
-    .line 2302
+    .line 2304
     const-string v1, "EbookReader"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -86,7 +86,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2303
+    .line 2305
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$26;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->ebookPanel:Landroid/widget/FrameLayout;
@@ -96,7 +96,7 @@
 
     invoke-virtual {v1}, Landroid/widget/FrameLayout;->removeAllViews()V
 
-    .line 2304
+    .line 2306
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$26;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     const/4 v2, 0x0
@@ -104,7 +104,7 @@
     # setter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->chapterListView:Landroid/widget/ListView;
     invoke-static {v1, v2}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$3202(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Landroid/widget/ListView;)Landroid/widget/ListView;
 
-    .line 2308
+    .line 2310
     :cond_3a
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$26;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
@@ -115,14 +115,14 @@
 
     if-eqz v1, :cond_61
 
-    .line 2309
+    .line 2311
     const-string v1, "EbookReader"
 
     const-string v2, "\u6062\u590dWebView\u663e\u793a"
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2310
+    .line 2312
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$26;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->ebookPanel:Landroid/widget/FrameLayout;
@@ -139,7 +139,7 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/FrameLayout;->addView(Landroid/view/View;)V
 
-    .line 2311
+    .line 2313
     iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$26;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->ebookWebView:Landroid/webkit/WebView;
@@ -149,7 +149,7 @@
 
     invoke-virtual {v1, v0}, Landroid/webkit/WebView;->setVisibility(I)V
 
-    .line 2314
+    .line 2316
     :cond_61
     const-string v1, "EbookReader"
 
@@ -163,7 +163,7 @@
 
     move-result-object v2
 
-    .line 2315
+    .line 2317
     iget-object v3, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$26;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->ebookPanel:Landroid/widget/FrameLayout;
@@ -193,9 +193,9 @@
 
     move-result-object v0
 
-    .line 2314
+    .line 2316
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2316
+    .line 2318
     return-void
 .end method

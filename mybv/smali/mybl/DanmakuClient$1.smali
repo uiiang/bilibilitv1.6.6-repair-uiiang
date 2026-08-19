@@ -3,27 +3,17 @@
 .source "DanmakuClient.java"
 
 # interfaces
-.implements Ljava/util/concurrent/Callable;
+.implements Ljava/lang/Runnable;
 
 
 # annotations
-.annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lmybl/DanmakuClient;-><init>(I)V
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lmybl/DanmakuClient;
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
     accessFlags = 0x0
     name = null
-.end annotation
-
-.annotation system Ldalvik/annotation/Signature;
-    value = {
-        "Ljava/lang/Object;",
-        "Ljava/util/concurrent/Callable",
-        "<",
-        "Lorg/json/JSONObject;",
-        ">;"
-    }
 .end annotation
 
 
@@ -36,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 90
+    .line 96
     iput-object p1, p0, Lmybl/DanmakuClient$1;->this$0:Lmybl/DanmakuClient;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -46,199 +36,108 @@
 
 
 # virtual methods
-.method public bridge synthetic call()Ljava/lang/Object;
-    .locals 1
-    .annotation system Ldalvik/annotation/Throws;
-        value = {
-            Ljava/lang/Exception;
-        }
-    .end annotation
+.method public run()V
+    .locals 8
 
     .prologue
-    .line 90
-    invoke-virtual {p0}, Lmybl/DanmakuClient$1;->call()Lorg/json/JSONObject;
-
-    move-result-object v0
-
-    return-object v0
-.end method
-
-.method public call()Lorg/json/JSONObject;
-    .locals 10
-
-    .prologue
-    const/4 v9, 0x1
-
-    .line 93
-    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
-
-    move-result-wide v0
-
-    const-wide/16 v2, 0x3e8
-
-    div-long/2addr v0, v2
-
-    .line 94
-    new-instance v2, Lbl/qa$a;
-
-    const-class v3, Lmybl/DanmakuClient$Response;
-
-    invoke-direct {v2, v3}, Lbl/qa$a;-><init>(Ljava/lang/Class;)V
-
-    const-string v3, "https://api.live.bilibili.com/xlive/web-room/v1/index/getDanmuInfo"
-
-    .line 95
-    invoke-virtual {v2, v3}, Lbl/qa$a;->a(Ljava/lang/String;)Lbl/qa$a;
-
-    move-result-object v2
-
-    .line 96
-    invoke-virtual {v2, v9}, Lbl/qa$a;->a(Z)Lbl/qa$a;
-
-    move-result-object v2
-
-    const-string v3, "Bilibili Freedoooooom/MarkII"
-
-    invoke-virtual {v2, v3}, Lbl/qa$a;->b(Ljava/lang/String;)Lbl/qa$a;
-
-    move-result-object v2
-
-    const-string v3, "Cookie"
-
-    new-instance v4, Ljava/lang/StringBuilder;
-
-    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v5, "buvid3="
-
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    .line 97
-    invoke-static {}, Ljava/util/UUID;->randomUUID()Ljava/util/UUID;
-
-    move-result-object v5
-
-    invoke-virtual {v5}, Ljava/util/UUID;->toString()Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-virtual {v5}, Ljava/lang/String;->toUpperCase()Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    const-string v5, "00000infoc"
-
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v4
-
-    invoke-virtual {v2, v3, v4}, Lbl/qa$a;->a(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
-
-    move-result-object v2
-
-    const-string v3, "id"
-
-    iget-object v4, p0, Lmybl/DanmakuClient$1;->this$0:Lmybl/DanmakuClient;
-
-    iget v4, v4, Lmybl/DanmakuClient;->roomId:I
-
-    .line 98
-    invoke-static {v4}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
-
-    move-result-object v4
-
-    invoke-virtual {v2, v3, v4}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
-
-    move-result-object v2
-
-    const-string v3, "ts"
-
     .line 99
-    invoke-static {v0, v1}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
+    iget-object v0, p0, Lmybl/DanmakuClient$1;->this$0:Lmybl/DanmakuClient;
 
-    move-result-object v4
+    # getter for: Lmybl/DanmakuClient;->mMergeLock:Ljava/lang/Object;
+    invoke-static {v0}, Lmybl/DanmakuClient;->access$000(Lmybl/DanmakuClient;)Ljava/lang/Object;
 
-    invoke-virtual {v2, v3, v4}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
+    move-result-object v1
 
-    move-result-object v2
-
-    const-string v3, "w_rid"
-
-    iget-object v4, p0, Lmybl/DanmakuClient$1;->this$0:Lmybl/DanmakuClient;
-
-    const-string v5, "id=%d&ts=%d"
-
-    const/4 v6, 0x2
-
-    new-array v6, v6, [Ljava/lang/Object;
-
-    const/4 v7, 0x0
-
-    iget-object v8, p0, Lmybl/DanmakuClient$1;->this$0:Lmybl/DanmakuClient;
-
-    iget v8, v8, Lmybl/DanmakuClient;->roomId:I
+    monitor-enter v1
 
     .line 100
-    invoke-static {v8}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+    :try_start_7
+    iget-object v0, p0, Lmybl/DanmakuClient$1;->this$0:Lmybl/DanmakuClient;
 
-    move-result-object v8
+    const/4 v2, 0x0
 
-    aput-object v8, v6, v7
-
-    invoke-static {v0, v1}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;
-
-    move-result-object v0
-
-    aput-object v0, v6, v9
-
-    invoke-static {v5, v6}, Ljava/lang/String;->format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {v4, v0}, Lmybl/DanmakuClient;->sign(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {v2, v3, v0}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
-
-    move-result-object v0
-
-    new-instance v1, Lbl/qb;
-
-    invoke-direct {v1}, Lbl/qb;-><init>()V
+    # setter for: Lmybl/DanmakuClient;->mMergeFlushScheduled:Z
+    invoke-static {v0, v2}, Lmybl/DanmakuClient;->access$102(Lmybl/DanmakuClient;Z)Z
 
     .line 101
-    invoke-virtual {v0, v1}, Lbl/qa$a;->a(Lbl/qf;)Lbl/qa$a;
+    iget-object v0, p0, Lmybl/DanmakuClient$1;->this$0:Lmybl/DanmakuClient;
+
+    # getter for: Lmybl/DanmakuClient;->mActiveMergeGroup:Lmybl/DanmakuClient$LiveMergeGroup;
+    invoke-static {v0}, Lmybl/DanmakuClient;->access$200(Lmybl/DanmakuClient;)Lmybl/DanmakuClient$LiveMergeGroup;
 
     move-result-object v0
-
-    invoke-virtual {v0}, Lbl/qa$a;->a()Lbl/qa;
-
-    move-result-object v0
-
-    const-string v1, "GET"
-
-    .line 94
-    invoke-static {v0, v1}, Lbl/pz;->a(Lbl/qa;Ljava/lang/String;)Lbl/qe;
-
-    move-result-object v0
-
-    check-cast v0, Lmybl/DanmakuClient$Response;
 
     .line 102
-    invoke-virtual {v0}, Lmybl/DanmakuClient$Response;->e()Lorg/json/JSONObject;
+    if-nez v0, :cond_17
 
-    move-result-object v0
+    .line 103
+    monitor-exit v1
 
-    return-object v0
+    .line 114
+    :goto_16
+    return-void
+
+    .line 105
+    :cond_17
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+
+    move-result-wide v2
+
+    .line 107
+    iget-wide v4, v0, Lmybl/DanmakuClient$LiveMergeGroup;->lastTimeMs:J
+
+    sub-long v4, v2, v4
+
+    const-wide/16 v6, 0x7d0
+
+    cmp-long v4, v4, v6
+
+    if-gtz v4, :cond_2e
+
+    iget-wide v4, v0, Lmybl/DanmakuClient$LiveMergeGroup;->groupStartMs:J
+
+    sub-long/2addr v2, v4
+
+    const-wide/16 v4, 0xfa0
+
+    cmp-long v0, v2, v4
+
+    if-ltz v0, :cond_38
+
+    .line 109
+    :cond_2e
+    iget-object v0, p0, Lmybl/DanmakuClient$1;->this$0:Lmybl/DanmakuClient;
+
+    # invokes: Lmybl/DanmakuClient;->flushActiveMergeGroupLocked()V
+    invoke-static {v0}, Lmybl/DanmakuClient;->access$300(Lmybl/DanmakuClient;)V
+
+    .line 110
+    monitor-exit v1
+
+    goto :goto_16
+
+    .line 113
+    :catchall_35
+    move-exception v0
+
+    monitor-exit v1
+    :try_end_37
+    .catchall {:try_start_7 .. :try_end_37} :catchall_35
+
+    throw v0
+
+    .line 112
+    :cond_38
+    :try_start_38
+    iget-object v0, p0, Lmybl/DanmakuClient$1;->this$0:Lmybl/DanmakuClient;
+
+    # invokes: Lmybl/DanmakuClient;->scheduleMergeFlushLocked()V
+    invoke-static {v0}, Lmybl/DanmakuClient;->access$400(Lmybl/DanmakuClient;)V
+
+    .line 113
+    monitor-exit v1
+    :try_end_3e
+    .catchall {:try_start_38 .. :try_end_3e} :catchall_35
+
+    goto :goto_16
 .end method
