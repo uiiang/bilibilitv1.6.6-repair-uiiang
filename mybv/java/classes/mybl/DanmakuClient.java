@@ -91,6 +91,7 @@ public class DanmakuClient {
         int fontSize;             // 追加 "(N)" 的样式参数（与组内弹幕一致）
         int color;
         int alpha;
+        int suffixStart;          // 已追加 " (N)" 的起始位置；-1=尚未追加（首次合并时定位）
     }
 
     private final Runnable mMergeFlushRunnable = new Runnable() {
@@ -138,11 +139,17 @@ public class DanmakuClient {
                 CharSequence cs = g.representative.mSpannableString;
                 if (cs instanceof SpannableStringBuilder) {
                     SpannableStringBuilder sb = (SpannableStringBuilder) cs;
-                    // 去掉原文本末尾的空格（构造时为 content+" "），再追加 " (N)"
-                    if (sb.length() > 0 && sb.charAt(sb.length() - 1) == ' ') {
-                        sb.delete(sb.length() - 1, sb.length());
+                    if (g.suffixStart < 0) {
+                        // 首次合并：去掉构造时追加的末尾空格（content+" "），并记录追加起点
+                        if (sb.length() > 0 && sb.charAt(sb.length() - 1) == ' ') {
+                            sb.delete(sb.length() - 1, sb.length());
+                        }
+                        g.suffixStart = sb.length();
+                    } else {
+                        // 后续合并：先删除上一次追加的 " (N)"，防止后缀叠加成 "内容 (2) (3) (4)"
+                        sb.delete(g.suffixStart, sb.length());
                     }
-                    int start = sb.length();
+                    int start = g.suffixStart;
                     sb.append(" (" + g.count + ")");
                     sb.setSpan(new AbsoluteSizeSpan((int) (g.fontSize * baseScreenScale * mScale)), start, sb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     sb.setSpan(new StrokedSpan(g.alpha, (g.color & 0xffffff) | 0xff000000, Color.BLACK), start, sb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -159,6 +166,7 @@ public class DanmakuClient {
                 ng.fontSize = fontSize;
                 ng.color = color;
                 ng.alpha = alpha;
+                ng.suffixStart = -1;
                 mActiveMergeGroup = ng;
             }
             scheduleMergeFlushLocked();

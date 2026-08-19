@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 96
+    .line 97
     iput-object p1, p0, Lmybl/DanmakuClient$1;->this$0:Lmybl/DanmakuClient;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 8
 
     .prologue
-    .line 99
+    .line 100
     iget-object v0, p0, Lmybl/DanmakuClient$1;->this$0:Lmybl/DanmakuClient;
 
     # getter for: Lmybl/DanmakuClient;->mMergeLock:Ljava/lang/Object;
@@ -50,7 +50,7 @@
 
     monitor-enter v1
 
-    .line 100
+    .line 101
     :try_start_7
     iget-object v0, p0, Lmybl/DanmakuClient$1;->this$0:Lmybl/DanmakuClient;
 
@@ -59,7 +59,7 @@
     # setter for: Lmybl/DanmakuClient;->mMergeFlushScheduled:Z
     invoke-static {v0, v2}, Lmybl/DanmakuClient;->access$102(Lmybl/DanmakuClient;Z)Z
 
-    .line 101
+    .line 102
     iget-object v0, p0, Lmybl/DanmakuClient$1;->this$0:Lmybl/DanmakuClient;
 
     # getter for: Lmybl/DanmakuClient;->mActiveMergeGroup:Lmybl/DanmakuClient$LiveMergeGroup;
@@ -67,23 +67,23 @@
 
     move-result-object v0
 
-    .line 102
+    .line 103
     if-nez v0, :cond_17
 
-    .line 103
+    .line 104
     monitor-exit v1
 
-    .line 114
+    .line 115
     :goto_16
     return-void
 
-    .line 105
+    .line 106
     :cond_17
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v2
 
-    .line 107
+    .line 108
     iget-wide v4, v0, Lmybl/DanmakuClient$LiveMergeGroup;->lastTimeMs:J
 
     sub-long v4, v2, v4
@@ -104,19 +104,19 @@
 
     if-ltz v0, :cond_38
 
-    .line 109
+    .line 110
     :cond_2e
     iget-object v0, p0, Lmybl/DanmakuClient$1;->this$0:Lmybl/DanmakuClient;
 
     # invokes: Lmybl/DanmakuClient;->flushActiveMergeGroupLocked()V
     invoke-static {v0}, Lmybl/DanmakuClient;->access$300(Lmybl/DanmakuClient;)V
 
-    .line 110
+    .line 111
     monitor-exit v1
 
     goto :goto_16
 
-    .line 113
+    .line 114
     :catchall_35
     move-exception v0
 
@@ -126,7 +126,7 @@
 
     throw v0
 
-    .line 112
+    .line 113
     :cond_38
     :try_start_38
     iget-object v0, p0, Lmybl/DanmakuClient$1;->this$0:Lmybl/DanmakuClient;
@@ -134,7 +134,7 @@
     # invokes: Lmybl/DanmakuClient;->scheduleMergeFlushLocked()V
     invoke-static {v0}, Lmybl/DanmakuClient;->access$400(Lmybl/DanmakuClient;)V
 
-    .line 113
+    .line 114
     monitor-exit v1
     :try_end_3e
     .catchall {:try_start_38 .. :try_end_3e} :catchall_35

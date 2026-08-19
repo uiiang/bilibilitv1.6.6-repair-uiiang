@@ -31,6 +31,8 @@
 
 .field representative:Ltv/danmaku/videoplayer/core/danmaku/comment/DrawableItem;
 
+.field suffixStart:I
+
 
 # direct methods
 .method private constructor <init>()V

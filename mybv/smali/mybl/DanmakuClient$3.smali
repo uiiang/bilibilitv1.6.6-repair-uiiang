@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 228
+    .line 236
     iput-object p1, p0, Lmybl/DanmakuClient$3;->this$0:Lmybl/DanmakuClient;
 
     iput-object p2, p0, Lmybl/DanmakuClient$3;->val$data:Lorg/json/JSONObject;
@@ -51,7 +51,7 @@
     .prologue
     const/4 v4, 0x0
 
-    .line 231
+    .line 239
     iget-object v0, p0, Lmybl/DanmakuClient$3;->this$0:Lmybl/DanmakuClient;
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -126,6 +126,6 @@
 
     invoke-virtual {v0, v1}, Lmybl/DanmakuClient;->startClient(Ljava/lang/String;)V
 
-    .line 232
+    .line 240
     return-void
 .end method
