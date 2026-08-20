@@ -3,12 +3,12 @@
 .source "EbookReaderPanel.java"
 
 # interfaces
-.implements Landroid/widget/AdapterView$OnItemSelectedListener;
+.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->loadFileList(Landroid/widget/ListView;Landroid/widget/TextView;Ljava/io/File;)V
+    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->showChapterList()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1408
+    .line 945
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$17;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,41 +36,23 @@
 
 
 # virtual methods
-.method public onItemSelected(Landroid/widget/AdapterView;Landroid/view/View;IJ)V
-    .locals 1
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "(",
-            "Landroid/widget/AdapterView",
-            "<*>;",
-            "Landroid/view/View;",
-            "IJ)V"
-        }
-    .end annotation
+.method public run()V
+    .locals 2
 
     .prologue
-    .line 1412
-    new-instance v0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$17$1;
+    .line 948
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$17;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-    invoke-direct {v0, p0, p1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$17$1;-><init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$17;Landroid/widget/AdapterView;)V
+    iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$17;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-    invoke-virtual {p1, v0}, Landroid/widget/AdapterView;->post(Ljava/lang/Runnable;)Z
+    # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->currentChapterList:Ljava/util/List;
+    invoke-static {v1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$1700(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Ljava/util/List;
 
-    .line 1418
-    return-void
-.end method
+    move-result-object v1
 
-.method public onNothingSelected(Landroid/widget/AdapterView;)V
-    .locals 0
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "(",
-            "Landroid/widget/AdapterView",
-            "<*>;)V"
-        }
-    .end annotation
+    # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->createChapterListView(Ljava/util/List;)V
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$1800(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Ljava/util/List;)V
 
-    .prologue
-    .line 1422
+    .line 949
     return-void
 .end method

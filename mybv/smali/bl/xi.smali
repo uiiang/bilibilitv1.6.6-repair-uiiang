@@ -3352,12 +3352,12 @@
 
     .line 271
     :goto_2f
-    if-eqz v0, :cond_121
+    if-eqz v0, :cond_127
 
     .line 272
     instance-of v3, v0, Lbl/xw;
 
-    if-eqz v3, :cond_11b
+    if-eqz v3, :cond_121
 
     .line 273
     check-cast v0, Lbl/xw;
@@ -3422,13 +3422,13 @@
 
     move-result v3
 
-    if-eqz v3, :cond_121
+    if-eqz v3, :cond_127
 
     invoke-virtual {v0}, Lbl/xw;->isMenuShown()Z
 
     move-result v3
 
-    if-nez v3, :cond_121
+    if-nez v3, :cond_127
 
     .line 278
     const-string v3, "EbookReader"
@@ -3460,18 +3460,25 @@
     .line 281
     invoke-virtual {v0}, Lbl/xw;->isEbookReadingContent()Z
 
+    move-result v3
+
+    if-nez v3, :cond_a3
+
+    invoke-virtual {v0}, Lbl/xw;->isOrganizingShelf()Z
+
     move-result v0
 
-    if-eqz v0, :cond_e9
+    if-eqz v0, :cond_ef
 
     .line 282
+    :cond_a3
     const-string v0, "EbookReader"
 
     new-instance v3, Ljava/lang/StringBuilder;
 
     invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v4, "xi.f: \u7535\u5b50\u4e66\u9605\u8bfb\u5185\u5bb9\u9875\u9762\uff0c\u68c0\u67e5\u65b9\u5411\u952e "
+    const-string v4, "xi.f: \u7535\u5b50\u4e66\u9605\u8bfb/\u6574\u7406\u4e66\u67b6\u9875\u9762\uff0c\u68c0\u67e5\u65b9\u5411\u952e "
 
     invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -3488,18 +3495,18 @@
     invoke-static {v0, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 284
-    if-eq p1, v7, :cond_bf
+    if-eq p1, v7, :cond_c5
 
-    if-eq p1, v8, :cond_bf
+    if-eq p1, v8, :cond_c5
 
     const/16 v0, 0x15
 
-    if-eq p1, v0, :cond_bf
+    if-eq p1, v0, :cond_c5
 
-    if-ne p1, v6, :cond_e9
+    if-ne p1, v6, :cond_ef
 
     .line 288
-    :cond_bf
+    :cond_c5
     const-string v0, "EbookReader"
 
     const-string v3, "xi.f: \u65b9\u5411\u952e\u4e0d\u62e6\u622a\uff0c\u4f20\u9012\u5230\u4e0b\u4e00\u5c42"
@@ -3512,7 +3519,7 @@
     move-result-object v0
 
     .line 291
-    if-eqz v0, :cond_e9
+    if-eqz v0, :cond_ef
 
     .line 292
     invoke-virtual {v0, p1, p2}, Lbl/xh;->f(ILandroid/view/KeyEvent;)Z
@@ -3543,11 +3550,11 @@
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 356
-    :goto_e8
+    :goto_ee
     return v1
 
     .line 299
-    :cond_e9
+    :cond_ef
     const-string v0, "EbookReader"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -3573,34 +3580,34 @@
     .line 301
     const/16 v0, 0x17
 
-    if-eq p1, v0, :cond_113
+    if-eq p1, v0, :cond_119
 
     const/16 v0, 0x42
 
-    if-eq p1, v0, :cond_113
+    if-eq p1, v0, :cond_119
 
-    if-eq p1, v7, :cond_113
+    if-eq p1, v7, :cond_119
 
-    if-eq p1, v8, :cond_113
+    if-eq p1, v8, :cond_119
 
     const/16 v0, 0x15
 
-    if-eq p1, v0, :cond_113
+    if-eq p1, v0, :cond_119
 
-    if-ne p1, v6, :cond_121
+    if-ne p1, v6, :cond_127
 
     .line 307
-    :cond_113
+    :cond_119
     const-string v0, "EbookReader"
 
     const-string v2, "xi.f: \u62e6\u622a\u65b9\u5411\u952e/\u786e\u8ba4\u952e\uff0c\u907f\u514d\u89e6\u53d1\u89c6\u9891\u903b\u8f91"
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto :goto_e8
+    goto :goto_ee
 
     .line 313
-    :cond_11b
+    :cond_121
     invoke-virtual {v0}, Lbl/xh;->next()Lbl/xh;
 
     move-result-object v0
@@ -3608,20 +3615,20 @@
     goto/16 :goto_2f
 
     .line 316
-    :cond_121
-    packed-switch p1, :pswitch_data_25a
+    :cond_127
+    packed-switch p1, :pswitch_data_260
 
     move v1, v2
 
     .line 356
-    goto :goto_e8
+    goto :goto_ee
 
-    :pswitch_126
+    :pswitch_12c
     move-object v0, p0
 
     .line 320
-    :cond_127
-    if-eqz v0, :cond_15a
+    :cond_12d
+    if-eqz v0, :cond_160
 
     .line 321
     invoke-virtual {v0}, Lbl/xh;->next()Lbl/xh;
@@ -3631,7 +3638,7 @@
     .line 322
     instance-of v3, v0, Lbl/xl;
 
-    if-eqz v3, :cond_127
+    if-eqz v3, :cond_12d
 
     .line 323
     check-cast v0, Lbl/xl;
@@ -3665,7 +3672,7 @@
     invoke-static {v3, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 326
-    if-eqz v0, :cond_15a
+    if-eqz v0, :cond_160
 
     .line 327
     const-string v0, "ShotMenuBug"
@@ -3677,13 +3684,13 @@
     move v1, v2
 
     .line 328
-    goto :goto_e8
+    goto :goto_ee
 
     .line 334
-    :cond_15a
+    :cond_160
     iget-boolean v0, p0, Lbl/xi;->isSliding:Z
 
-    if-nez v0, :cond_16b
+    if-nez v0, :cond_171
 
     .line 335
     invoke-virtual {p0}, Lbl/xi;->x()I
@@ -3701,23 +3708,23 @@
     iput-boolean v2, p0, Lbl/xi;->isLongPress:Z
 
     .line 339
-    :cond_16b
+    :cond_171
     invoke-virtual {p2}, Landroid/view/KeyEvent;->getRepeatCount()I
 
     move-result v0
 
-    if-lez v0, :cond_173
+    if-lez v0, :cond_179
 
     .line 340
     iput-boolean v1, p0, Lbl/xi;->isLongPress:Z
 
     .line 342
-    :cond_173
-    if-ne p1, v6, :cond_251
+    :cond_179
+    if-ne p1, v6, :cond_257
 
     move v0, v1
 
-    :goto_176
+    :goto_17c
     invoke-static {v0}, Lbl/aal;->a(Z)I
 
     move-result v0
@@ -3745,7 +3752,7 @@
     .line 345
     iget-object v0, p0, Lbl/xi;->l:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
 
-    if-eqz v0, :cond_254
+    if-eqz v0, :cond_25a
 
     iget-object v0, p0, Lbl/xi;->l:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
 
@@ -3754,7 +3761,7 @@
     move-result v0
 
     .line 346
-    :goto_196
+    :goto_19c
     const-string v5, "SeekPreview"
 
     const-string v6, "=== f() called ==="
@@ -3895,7 +3902,7 @@
 
     iget-object v0, p0, Lbl/xi;->l:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
 
-    if-eqz v0, :cond_257
+    if-eqz v0, :cond_25d
 
     iget-object v0, p0, Lbl/xi;->l:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
 
@@ -3907,7 +3914,7 @@
 
     move-result-object v0
 
-    :goto_230
+    :goto_236
     invoke-virtual {v5, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
 
     move-result-object v0
@@ -3933,38 +3940,38 @@
 
     iget-boolean v4, p0, Lbl/xi;->isLongPress:Z
 
-    if-nez v4, :cond_24c
+    if-nez v4, :cond_252
 
     move v2, v1
 
-    :cond_24c
+    :cond_252
     invoke-direct {p0, v3, v0, v2}, Lbl/xi;->updateSeekPreview(IIZ)V
 
-    goto/16 :goto_e8
+    goto/16 :goto_ee
 
-    :cond_251
+    :cond_257
     move v0, v2
 
     .line 342
-    goto/16 :goto_176
+    goto/16 :goto_17c
 
-    :cond_254
+    :cond_25a
     move v0, v2
 
     .line 345
-    goto/16 :goto_196
+    goto/16 :goto_19c
 
     .line 350
-    :cond_257
+    :cond_25d
     const-string v0, "null"
 
-    goto :goto_230
+    goto :goto_236
 
     .line 316
-    :pswitch_data_25a
+    :pswitch_data_260
     .packed-switch 0x15
-        :pswitch_126
-        :pswitch_126
+        :pswitch_12c
+        :pswitch_12c
     .end packed-switch
 .end method
 
@@ -4007,12 +4014,12 @@
 
     .line 368
     :goto_1d
-    if-eqz v0, :cond_104
+    if-eqz v0, :cond_10a
 
     .line 369
     instance-of v3, v0, Lbl/xw;
 
-    if-eqz v3, :cond_fe
+    if-eqz v3, :cond_104
 
     .line 370
     check-cast v0, Lbl/xw;
@@ -4077,13 +4084,13 @@
 
     move-result v3
 
-    if-eqz v3, :cond_104
+    if-eqz v3, :cond_10a
 
     invoke-virtual {v0}, Lbl/xw;->isMenuShown()Z
 
     move-result v3
 
-    if-nez v3, :cond_104
+    if-nez v3, :cond_10a
 
     .line 375
     const-string v3, "EbookReader"
@@ -4115,18 +4122,25 @@
     .line 378
     invoke-virtual {v0}, Lbl/xw;->isEbookReadingContent()Z
 
+    move-result v3
+
+    if-nez v3, :cond_91
+
+    invoke-virtual {v0}, Lbl/xw;->isOrganizingShelf()Z
+
     move-result v0
 
-    if-eqz v0, :cond_dd
+    if-eqz v0, :cond_e3
 
     .line 379
+    :cond_91
     const-string v0, "EbookReader"
 
     new-instance v3, Ljava/lang/StringBuilder;
 
     invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v4, "xi.g: \u7535\u5b50\u4e66\u9605\u8bfb\u5185\u5bb9\u9875\u9762\uff0c\u68c0\u67e5\u65b9\u5411\u952e "
+    const-string v4, "xi.g: \u7535\u5b50\u4e66\u9605\u8bfb/\u6574\u7406\u4e66\u67b6\u9875\u9762\uff0c\u68c0\u67e5\u65b9\u5411\u952e "
 
     invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -4145,22 +4159,22 @@
     .line 381
     const/16 v0, 0x13
 
-    if-eq p1, v0, :cond_b3
+    if-eq p1, v0, :cond_b9
 
     const/16 v0, 0x14
 
-    if-eq p1, v0, :cond_b3
+    if-eq p1, v0, :cond_b9
 
     const/16 v0, 0x15
 
-    if-eq p1, v0, :cond_b3
+    if-eq p1, v0, :cond_b9
 
     const/16 v0, 0x16
 
-    if-ne p1, v0, :cond_dd
+    if-ne p1, v0, :cond_e3
 
     .line 385
-    :cond_b3
+    :cond_b9
     const-string v0, "EbookReader"
 
     const-string v3, "xi.g: \u65b9\u5411\u952e\u4e0d\u62e6\u622a\uff0c\u4f20\u9012\u5230\u4e0b\u4e00\u5c42"
@@ -4173,7 +4187,7 @@
     move-result-object v0
 
     .line 388
-    if-eqz v0, :cond_dd
+    if-eqz v0, :cond_e3
 
     .line 389
     invoke-virtual {v0, p1, p2}, Lbl/xh;->g(ILandroid/view/KeyEvent;)Z
@@ -4204,11 +4218,11 @@
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 447
-    :goto_dc
+    :goto_e2
     return v0
 
     .line 396
-    :cond_dd
+    :cond_e3
     const-string v0, "EbookReader"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -4234,19 +4248,19 @@
     .line 398
     const/16 v0, 0x52
 
-    if-eq p1, v0, :cond_104
+    if-eq p1, v0, :cond_10a
 
     const/4 v0, 0x4
 
-    if-eq p1, v0, :cond_104
+    if-eq p1, v0, :cond_10a
 
     move v0, v1
 
     .line 399
-    goto :goto_dc
+    goto :goto_e2
 
     .line 404
-    :cond_fe
+    :cond_104
     invoke-virtual {v0}, Lbl/xh;->next()Lbl/xh;
 
     move-result-object v0
@@ -4254,21 +4268,21 @@
     goto/16 :goto_1d
 
     .line 407
-    :cond_104
-    sparse-switch p1, :sswitch_data_1b4
+    :cond_10a
+    sparse-switch p1, :sswitch_data_1ba
 
     move v0, v2
 
     .line 447
-    goto :goto_dc
+    goto :goto_e2
 
     .line 409
-    :sswitch_109
+    :sswitch_10f
     invoke-virtual {p0}, Lbl/xi;->s()Z
 
     move-result v0
 
-    if-eqz v0, :cond_114
+    if-eqz v0, :cond_11a
 
     .line 410
     invoke-virtual {p0}, Lbl/xi;->v()V
@@ -4276,34 +4290,34 @@
     move v0, v1
 
     .line 411
-    goto :goto_dc
+    goto :goto_e2
 
-    :cond_114
+    :cond_11a
     move v0, v2
 
     .line 413
-    goto :goto_dc
+    goto :goto_e2
 
     .line 415
-    :sswitch_116
+    :sswitch_11c
     invoke-virtual {p0}, Lbl/xi;->tt()V
 
     move v0, v1
 
     .line 416
-    goto :goto_dc
+    goto :goto_e2
 
-    :sswitch_11b
+    :sswitch_121
     move v0, v2
 
     .line 418
-    goto :goto_dc
+    goto :goto_e2
 
     .line 420
-    :sswitch_11d
+    :sswitch_123
     iget-boolean v0, p0, Lbl/xi;->isSliding:Z
 
-    if-eqz v0, :cond_164
+    if-eqz v0, :cond_16a
 
     .line 421
     invoke-static {v2}, Lbl/aal;->a(Z)I
@@ -4378,17 +4392,17 @@
 
     invoke-virtual {p0, v3, v6}, Lbl/xi;->a(Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;[Ljava/lang/Object;)V
 
-    :cond_164
+    :cond_16a
     move v0, v2
 
     .line 429
-    goto/16 :goto_dc
+    goto/16 :goto_e2
 
     .line 431
-    :sswitch_167
+    :sswitch_16d
     iget-boolean v0, p0, Lbl/xi;->isSliding:Z
 
-    if-eqz v0, :cond_1aa
+    if-eqz v0, :cond_1b0
 
     .line 432
     invoke-static {v1}, Lbl/aal;->a(Z)I
@@ -4459,34 +4473,34 @@
 
     invoke-virtual {p0, v3, v6}, Lbl/xi;->a(Lcom/bilibili/tv/player/interfaces/IEventCenter$EventType;[Ljava/lang/Object;)V
 
-    :cond_1aa
+    :cond_1b0
     move v0, v2
 
     .line 440
-    goto/16 :goto_dc
+    goto/16 :goto_e2
 
     .line 444
-    :sswitch_1ad
+    :sswitch_1b3
     invoke-direct {p0}, Lbl/xi;->T()V
 
     move v0, v1
 
     .line 445
-    goto/16 :goto_dc
+    goto/16 :goto_e2
 
     .line 407
     nop
 
-    :sswitch_data_1b4
+    :sswitch_data_1ba
     .sparse-switch
-        0x4 -> :sswitch_109
-        0x13 -> :sswitch_116
-        0x14 -> :sswitch_11b
-        0x15 -> :sswitch_11d
-        0x16 -> :sswitch_167
-        0x17 -> :sswitch_1ad
-        0x42 -> :sswitch_1ad
-        0xa0 -> :sswitch_1ad
+        0x4 -> :sswitch_10f
+        0x13 -> :sswitch_11c
+        0x14 -> :sswitch_121
+        0x15 -> :sswitch_123
+        0x16 -> :sswitch_16d
+        0x17 -> :sswitch_1b3
+        0x42 -> :sswitch_1b3
+        0xa0 -> :sswitch_1b3
     .end sparse-switch
 .end method
 

@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->loadFileList(Landroid/widget/ListView;Landroid/widget/TextView;Ljava/io/File;)V
+    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->setEbookPercent(I)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,23 +20,14 @@
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-.field final synthetic val$listView:Landroid/widget/ListView;
-
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Landroid/widget/ListView;)V
+.method constructor <init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)V
     .locals 0
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "()V"
-        }
-    .end annotation
 
     .prologue
-    .line 1428
+    .line 1000
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$18;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
-
-    iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$18;->val$listView:Landroid/widget/ListView;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -46,21 +37,15 @@
 
 # virtual methods
 .method public run()V
-    .locals 2
+    .locals 1
 
     .prologue
-    .line 1431
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$18;->val$listView:Landroid/widget/ListView;
+    .line 1003
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$18;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-    invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
+    # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->applyEbookPanelPercent()V
+    invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$1900(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)V
 
-    .line 1432
-    const-string v0, "EbookReader"
-
-    const-string v1, "\u6587\u4ef6\u5217\u8868\u5df2\u8bf7\u6c42\u7126\u70b9"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 1433
+    .line 1004
     return-void
 .end method

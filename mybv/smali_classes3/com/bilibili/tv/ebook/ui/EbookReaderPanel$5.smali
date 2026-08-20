@@ -3,12 +3,12 @@
 .source "EbookReaderPanel.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Landroid/view/View$OnFocusChangeListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->showChapterList()V
+    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->showOrganizeShelfPage()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 463
+    .line 616
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$5;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,23 +36,17 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 2
+.method public onFocusChange(Landroid/view/View;Z)V
+    .locals 1
 
     .prologue
-    .line 466
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$5;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    .line 619
+    new-instance v0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$5$1;
 
-    iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$5;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    invoke-direct {v0, p0, p1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$5$1;-><init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$5;Landroid/view/View;)V
 
-    # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->currentChapterList:Ljava/util/List;
-    invoke-static {v1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$800(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Ljava/util/List;
+    invoke-virtual {p1, v0}, Landroid/view/View;->post(Ljava/lang/Runnable;)Z
 
-    move-result-object v1
-
-    # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->createChapterListView(Ljava/util/List;)V
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$900(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Ljava/util/List;)V
-
-    .line 467
+    .line 625
     return-void
 .end method

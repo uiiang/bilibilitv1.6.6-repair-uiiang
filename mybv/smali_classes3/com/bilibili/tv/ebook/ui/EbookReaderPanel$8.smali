@@ -3,12 +3,12 @@
 .source "EbookReaderPanel.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Landroid/view/View$OnKeyListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->onMenuClosed()V
+    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->showOrganizeShelfPage()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 883
+    .line 659
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$8;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,27 +36,169 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 2
+.method public onKey(Landroid/view/View;ILandroid/view/KeyEvent;)Z
+    .locals 4
 
     .prologue
-    .line 886
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$8;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    const/4 v0, 0x1
 
-    # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->bookshelfListView:Landroid/widget/ListView;
-    invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$1200(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Landroid/widget/ListView;
+    .line 662
+    const-string v1, "EbookReader"
 
-    move-result-object v0
+    new-instance v2, Ljava/lang/StringBuilder;
 
-    invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 887
-    const-string v0, "EbookReader"
+    const-string v3, "\u6574\u7406\u4e66\u67b6\u5217\u8868OnKey: keyCode="
 
-    const-string v1, "onMenuClosed: \u7126\u70b9\u5df2\u6062\u590d\u5230\u4e66\u67b6\u5217\u8868"
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    move-result-object v2
 
-    .line 888
-    return-void
+    invoke-virtual {v2, p2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, ", action="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {p3}, Landroid/view/KeyEvent;->getAction()I
+
+    move-result v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, ", list.hasFocus="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    .line 663
+    invoke-virtual {p1}, Landroid/view/View;->hasFocus()Z
+
+    move-result v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    .line 662
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 664
+    invoke-virtual {p3}, Landroid/view/KeyEvent;->getAction()I
+
+    move-result v1
+
+    if-nez v1, :cond_85
+
+    .line 665
+    const/16 v1, 0x15
+
+    if-ne p2, v1, :cond_51
+
+    .line 666
+    iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$8;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+
+    # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->organizeSelectAllButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+    invoke-static {v1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$800(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    move-result-object v1
+
+    if-eqz v1, :cond_51
+
+    .line 667
+    iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$8;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+
+    # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->organizeSelectAllButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+    invoke-static {v1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$800(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->requestFocus()Z
+
+    .line 681
+    :cond_50
+    :goto_50
+    return v0
+
+    .line 671
+    :cond_51
+    const/16 v1, 0x16
+
+    if-ne p2, v1, :cond_85
+
+    .line 673
+    iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$8;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+
+    # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->organizeDeleteButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+    invoke-static {v1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$900(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    move-result-object v1
+
+    if-eqz v1, :cond_73
+
+    iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$8;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+
+    # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->organizeDeleteButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+    invoke-static {v1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$900(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->isFocusable()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_73
+
+    .line 674
+    iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$8;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+
+    # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->organizeDeleteButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+    invoke-static {v1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$900(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->requestFocus()Z
+
+    goto :goto_50
+
+    .line 675
+    :cond_73
+    iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$8;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+
+    # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->organizeSelectAllButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+    invoke-static {v1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$800(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    move-result-object v1
+
+    if-eqz v1, :cond_50
+
+    .line 676
+    iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$8;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+
+    # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->organizeSelectAllButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
+    invoke-static {v1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$800(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Lcom/bilibili/tv/widget/DrawFrameLayout;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->requestFocus()Z
+
+    goto :goto_50
+
+    .line 681
+    :cond_85
+    const/4 v0, 0x0
+
+    goto :goto_50
 .end method

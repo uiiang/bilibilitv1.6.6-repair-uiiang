@@ -2519,7 +2519,7 @@
     .line 101
     instance-of v1, v0, Lbl/xw;
 
-    if-eqz v1, :cond_db
+    if-eqz v1, :cond_e1
 
     .line 102
     check-cast v0, Lbl/xw;
@@ -2584,13 +2584,13 @@
 
     move-result v1
 
-    if-eqz v1, :cond_db
+    if-eqz v1, :cond_e1
 
     invoke-virtual {v0}, Lbl/xw;->isMenuShown()Z
 
     move-result v1
 
-    if-nez v1, :cond_db
+    if-nez v1, :cond_e1
 
     .line 107
     const-string v1, "EbookReader"
@@ -2624,16 +2624,23 @@
 
     move-result v1
 
-    if-eqz v1, :cond_d4
+    if-nez v1, :cond_8e
+
+    invoke-virtual {v0}, Lbl/xw;->isOrganizingShelf()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_da
 
     .line 111
+    :cond_8e
     const-string v1, "EbookReader"
 
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v3, "xl.f: \u7535\u5b50\u4e66\u9605\u8bfb\u5185\u5bb9\u9875\u9762\uff0c\u68c0\u67e5\u65b9\u5411\u952e "
+    const-string v3, "xl.f: \u7535\u5b50\u4e66\u9605\u8bfb/\u6574\u7406\u4e66\u67b6\u9875\u9762\uff0c\u68c0\u67e5\u65b9\u5411\u952e "
 
     invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -2652,22 +2659,22 @@
     .line 112
     const/16 v1, 0x13
 
-    if-eq p1, v1, :cond_b0
+    if-eq p1, v1, :cond_b6
 
     const/16 v1, 0x14
 
-    if-eq p1, v1, :cond_b0
+    if-eq p1, v1, :cond_b6
 
     const/16 v1, 0x15
 
-    if-eq p1, v1, :cond_b0
+    if-eq p1, v1, :cond_b6
 
     const/16 v1, 0x16
 
-    if-ne p1, v1, :cond_d4
+    if-ne p1, v1, :cond_da
 
     .line 116
-    :cond_b0
+    :cond_b6
     const-string v1, "EbookReader"
 
     const-string v2, "xl.f: \u65b9\u5411\u952e\u4f20\u9012\u5230xw.f()"
@@ -2703,11 +2710,11 @@
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 128
-    :goto_d3
+    :goto_d9
     return v0
 
     .line 124
-    :cond_d4
+    :cond_da
     const-string v0, "EbookReader"
 
     const-string v1, "xl.f: \u7535\u5b50\u4e66\u6a21\u5f0f\uff0c\u975e\u9605\u8bfb\u9875\u9762"
@@ -2715,12 +2722,12 @@
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 128
-    :cond_db
+    :cond_e1
     invoke-virtual {p0}, Lbl/xl;->P()Z
 
     move-result v0
 
-    goto :goto_d3
+    goto :goto_d9
 .end method
 
 .method public g(ILandroid/view/KeyEvent;)Z
@@ -2765,7 +2772,7 @@
 
     move-result-object v5
 
-    if-eqz v1, :cond_ec
+    if-eqz v1, :cond_f2
 
     invoke-virtual {v1}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
@@ -2789,7 +2796,7 @@
     .line 137
     instance-of v0, v1, Lbl/xw;
 
-    if-eqz v0, :cond_10e
+    if-eqz v0, :cond_114
 
     move-object v0, v1
 
@@ -2856,13 +2863,13 @@
 
     move-result v4
 
-    if-eqz v4, :cond_10e
+    if-eqz v4, :cond_114
 
     invoke-virtual {v0}, Lbl/xw;->isMenuShown()Z
 
     move-result v4
 
-    if-nez v4, :cond_10e
+    if-nez v4, :cond_114
 
     .line 143
     const-string v4, "EbookReader"
@@ -2896,16 +2903,23 @@
 
     move-result v4
 
-    if-eqz v4, :cond_f0
+    if-nez v4, :cond_aa
+
+    invoke-virtual {v0}, Lbl/xw;->isOrganizingShelf()Z
+
+    move-result v4
+
+    if-eqz v4, :cond_f6
 
     .line 147
+    :cond_aa
     const-string v4, "EbookReader"
 
     new-instance v5, Ljava/lang/StringBuilder;
 
     invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v6, "xl.g: \u7535\u5b50\u4e66\u9605\u8bfb\u5185\u5bb9\u9875\u9762\uff0c\u68c0\u67e5\u65b9\u5411\u952e "
+    const-string v6, "xl.g: \u7535\u5b50\u4e66\u9605\u8bfb/\u6574\u7406\u4e66\u67b6\u9875\u9762\uff0c\u68c0\u67e5\u65b9\u5411\u952e "
 
     invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -2922,20 +2936,20 @@
     invoke-static {v4, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 149
-    if-eq p1, v7, :cond_c8
+    if-eq p1, v7, :cond_ce
 
-    if-eq p1, v8, :cond_c8
+    if-eq p1, v8, :cond_ce
 
     const/16 v4, 0x15
 
-    if-eq p1, v4, :cond_c8
+    if-eq p1, v4, :cond_ce
 
     const/16 v4, 0x16
 
-    if-ne p1, v4, :cond_f0
+    if-ne p1, v4, :cond_f6
 
     .line 153
-    :cond_c8
+    :cond_ce
     const-string v1, "EbookReader"
 
     const-string v2, "xl.g: \u8c03\u7528 xw.g() \u5904\u7406\u65b9\u5411\u952e"
@@ -2971,18 +2985,18 @@
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 228
-    :cond_eb
-    :goto_eb
+    :cond_f1
+    :goto_f1
     return v2
 
     .line 135
-    :cond_ec
+    :cond_f2
     const-string v0, "null"
 
     goto/16 :goto_2c
 
     .line 161
-    :cond_f0
+    :cond_f6
     const-string v0, "EbookReader"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -3008,26 +3022,26 @@
     .line 163
     const/16 v0, 0x52
 
-    if-eq p1, v0, :cond_10e
+    if-eq p1, v0, :cond_114
 
-    if-ne p1, v9, :cond_eb
+    if-ne p1, v9, :cond_f1
 
     .line 169
-    :cond_10e
+    :cond_114
     instance-of v0, v1, Lbl/xw;
 
-    if-eqz v0, :cond_130
+    if-eqz v0, :cond_136
 
     invoke-virtual {v1, p1, p2}, Lbl/xh;->e(ILandroid/view/KeyEvent;)Z
 
     move-result v0
 
-    if-eqz v0, :cond_130
+    if-eqz v0, :cond_136
 
     move v0, v2
 
     .line 170
-    :goto_119
+    :goto_11f
     invoke-virtual {p0}, Lbl/xl;->isShotMenuShowing()Z
 
     move-result v1
@@ -3038,85 +3052,85 @@
     move-result v4
 
     .line 172
-    if-nez v0, :cond_127
+    if-nez v0, :cond_12d
 
-    if-nez v1, :cond_127
+    if-nez v1, :cond_12d
 
-    if-eqz v4, :cond_132
+    if-eqz v4, :cond_138
 
-    :cond_127
+    :cond_12d
     move v0, v2
 
     .line 174
-    :goto_128
-    if-ne p1, v9, :cond_13c
+    :goto_12e
+    if-ne p1, v9, :cond_142
 
     .line 175
-    if-eqz v1, :cond_134
+    if-eqz v1, :cond_13a
 
     .line 176
     invoke-direct {p0}, Lbl/xl;->hideShotMenu()V
 
-    goto :goto_eb
+    goto :goto_f1
 
-    :cond_130
+    :cond_136
     move v0, v3
 
     .line 169
-    goto :goto_119
+    goto :goto_11f
 
-    :cond_132
+    :cond_138
     move v0, v3
 
     .line 172
-    goto :goto_128
+    goto :goto_12e
 
     .line 179
-    :cond_134
-    if-eqz v4, :cond_13a
+    :cond_13a
+    if-eqz v4, :cond_140
 
     .line 180
     invoke-virtual {p0}, Lbl/xl;->V()V
 
-    goto :goto_eb
+    goto :goto_f1
 
-    :cond_13a
+    :cond_140
     move v2, v3
 
     .line 183
-    goto :goto_eb
+    goto :goto_f1
 
     .line 186
-    :cond_13c
-    if-eqz v0, :cond_149
+    :cond_142
+    if-eqz v0, :cond_14f
 
     .line 187
-    if-ne p1, v7, :cond_142
+    if-ne p1, v7, :cond_148
 
     .line 188
-    if-nez v1, :cond_eb
+    if-nez v1, :cond_f1
 
     .line 192
-    :cond_142
-    if-ne p1, v8, :cond_eb
+    :cond_148
+    if-ne p1, v8, :cond_f1
 
     .line 193
-    if-nez v1, :cond_eb
+    if-nez v1, :cond_f1
 
-    if-eqz v4, :cond_eb
+    if-eqz v4, :cond_f1
 
-    goto :goto_eb
+    goto :goto_f1
 
     .line 200
-    :cond_149
-    if-ne p1, v8, :cond_166
+    :cond_14f
+    if-ne p1, v8, :cond_16c
 
     .line 201
     invoke-direct {p0}, Lbl/xl;->showShotMenu()Z
 
     move-result v0
 
-    if-nez v0, :cond_eb
+    if-nez v0, :cond_f1
 
     .line 204
     invoke-virtual {p0}, Lbl/xl;->a()Lbl/xh;
@@ -3124,70 +3138,70 @@
     move-result-object v0
 
     .line 205
-    :goto_155
-    if-eqz v0, :cond_eb
+    :goto_15b
+    if-eqz v0, :cond_f1
 
     .line 206
     instance-of v1, v0, Lbl/xi;
 
-    if-eqz v1, :cond_161
+    if-eqz v1, :cond_167
 
     .line 207
     check-cast v0, Lbl/xi;
 
     invoke-virtual {v0}, Lbl/xi;->tt()V
 
-    goto :goto_eb
+    goto :goto_f1
 
     .line 210
-    :cond_161
+    :cond_167
     invoke-virtual {v0}, Lbl/xh;->a()Lbl/xh;
 
     move-result-object v0
 
-    goto :goto_155
+    goto :goto_15b
 
     .line 215
-    :cond_166
+    :cond_16c
     invoke-direct {p0}, Lbl/xl;->X()Z
 
     move-result v0
 
-    if-nez v0, :cond_16f
+    if-nez v0, :cond_175
 
     move v2, v3
 
     .line 216
-    goto/16 :goto_eb
+    goto/16 :goto_f1
 
     .line 219
-    :cond_16f
-    if-ne p1, v7, :cond_182
+    :cond_175
+    if-ne p1, v7, :cond_188
 
     .line 220
     invoke-direct {p0}, Lbl/xl;->S()Z
 
     move-result v0
 
-    if-nez v0, :cond_17a
+    if-nez v0, :cond_180
 
     .line 221
     invoke-direct {p0}, Lbl/xl;->R()V
 
     .line 223
-    :cond_17a
+    :cond_180
     invoke-virtual {p0}, Lbl/xl;->v()V
 
     .line 224
     invoke-direct {p0}, Lbl/xl;->U()V
 
-    goto/16 :goto_eb
+    goto/16 :goto_f1
 
-    :cond_182
+    :cond_188
     move v2, v3
 
     .line 228
-    goto/16 :goto_eb
+    goto/16 :goto_f1
 .end method
 
 .method public i()V

@@ -15,9 +15,6 @@
 
 
 # virtual methods
-.method public abstract clearBookshelf()V
-.end method
-
 .method public abstract closeCurrentBook()V
 .end method
 
@@ -25,6 +22,9 @@
 .end method
 
 .method public abstract openEbookReader()V
+.end method
+
+.method public abstract organizeBookshelf()V
 .end method
 
 .method public abstract setEbookColorTheme(I)V

@@ -278,9 +278,9 @@ public class PlayerMenuRight extends aay<String> {
     /**
      * 切换电子书模式菜单（与直播 LivePlayerMenuRight.setEbookMode 对称，共用 EbookMenuHelper）
      *
-     * @param ebookMode     是否电子书模式
-     * @param isReadingBook 是否正在阅读书籍（决定书架页/阅读页菜单）
-     * @param actions       电子书动作回调
+     * @param ebookMode      是否电子书模式
+     * @param isReadingBook  是否正在阅读书籍（决定书架页/阅读页菜单）
+     * @param actions        电子书动作回调
      */
     public void setEbookMode(boolean ebookMode, boolean isReadingBook, com.bilibili.tv.ebook.ui.EbookMenuHelper.EbookActions actions) {
         this.ebookActions = actions;
@@ -420,10 +420,9 @@ public class PlayerMenuRight extends aay<String> {
     }
     
     private int getOriginalMenuIndex(int displayIndex) {
-        // 电子书模式特殊处理：统一委托 EbookMenuHelper 索引映射
+        // 电子书模式特殊处理：统一委托 EbookMenuHelper 索引映射（基于 main_list 数据驱动）
         if (com.bilibili.tv.ebook.ui.EbookMenuHelper.isEbookMode(this.menuIndexMap)) {
-            boolean isReadingPage = (ebook_font_size_list != null || ebook_color_theme_list != null);
-            return com.bilibili.tv.ebook.ui.EbookMenuHelper.getOriginalMenuIndex(displayIndex, isReadingPage);
+            return com.bilibili.tv.ebook.ui.EbookMenuHelper.getOriginalMenuIndex(this.main_list, displayIndex);
         }
 
         // 视频模式：使用正常映射
@@ -700,7 +699,7 @@ public class PlayerMenuRight extends aay<String> {
         e();
 
         // 关键修复: 电子书菜单项处理必须在super.a()之前,避免触发二级菜单
-        // 统一委托 EbookMenuHelper 分发（章节列表/选择文件/清空书架/退出阅读/关闭书籍/关闭电子书/控制视频/控制电子书/电子书）
+        // 统一委托 EbookMenuHelper 分发（章节列表/选择文件/整理书架/退出阅读/关闭书籍/关闭电子书/控制视频/控制电子书/电子书）
         // 字体大小/配色方案/屏幕占比/视频位置：dispatch 返回 false，继续走 super.a() 显示二级菜单
         if (this.ebookActions != null && com.bilibili.tv.ebook.ui.EbookMenuHelper.isEbookMenuItem(str)) {
             if (com.bilibili.tv.ebook.ui.EbookMenuHelper.dispatch(str, this.ebookActions)) {
@@ -994,33 +993,23 @@ public class PlayerMenuRight extends aay<String> {
         // 电子书模式特殊处理
         // 注意：电子书模式使用menuIndexMap为空列表，所以i2就是菜单项的实际索引
         if (com.bilibili.tv.ebook.ui.EbookMenuHelper.isEbookMode(this.menuIndexMap)) {
-            // 电子书模式
-            // 关键修复：使用电子书专属列表判断页面类型，而不是alpha_list
-            boolean isReadingPage = (ebook_font_size_list != null || ebook_color_theme_list != null);
-
-            switch (i2) {
-                case 0: // 控制视频
+            // 电子书模式：经 main_list 数据驱动映射二级菜单索引
+            // （自动适配"删除书籍"等条件菜单项引起的显示索引偏移）
+            int ebookOriginalIndex = getOriginalMenuIndex(i2);
+            switch (ebookOriginalIndex) {
+                case 4: // 字体大小（阅读页）
+                    i3 = this.ebook_font_size_id;
+                    break;
+                case 5: // 配色方案（阅读页）
+                    i3 = this.ebook_color_theme_id;
+                    break;
+                case 10: // 屏幕占比（书架页/阅读页）
+                    i3 = this.ebook_percent_id;
+                    break;
+                case 13: // 视频位置（书架页）
                     i3 = 0;
                     break;
-                case 1: // 章节列表/选择文件
-                    i3 = 0;
-                    break;
-                case 2:
-                    // 书架页面: 清空书架 → 0
-                    // 阅读页面: 字体大小 → ebook_font_size_id
-                    i3 = isReadingPage ? this.ebook_font_size_id : 0;
-                    break;
-                case 3:
-                    // 书架页面: 屏幕占比 → ebook_percent_id
-                    // 阅读页面: 配色方案 → ebook_color_theme_id
-                    i3 = isReadingPage ? this.ebook_color_theme_id : this.ebook_percent_id;
-                    break;
-                case 4:
-                    // 书架页面: 退出阅读 → 0
-                    // 阅读页面: 屏幕占比 → ebook_percent_id
-                    i3 = isReadingPage ? this.ebook_percent_id : 0;
-                    break;
-                default:
+                default: // 控制视频/选择文件/删除书籍/整理书架/退出阅读/关闭书籍
                     i3 = 0;
                     break;
             }

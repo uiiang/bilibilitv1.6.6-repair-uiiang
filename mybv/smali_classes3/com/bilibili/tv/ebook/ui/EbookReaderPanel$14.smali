@@ -3,12 +3,12 @@
 .source "EbookReaderPanel.java"
 
 # interfaces
-.implements Ljava/util/Comparator;
+.implements Landroid/view/View$OnFocusChangeListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->loadFileList(Landroid/widget/ListView;Landroid/widget/TextView;Ljava/io/File;)V
+    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->createOrganizeButton(Landroid/app/Activity;Ljava/lang/String;)Lcom/bilibili/tv/widget/DrawFrameLayout;
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -16,28 +16,27 @@
     name = null
 .end annotation
 
-.annotation system Ldalvik/annotation/Signature;
-    value = {
-        "Ljava/lang/Object;",
-        "Ljava/util/Comparator",
-        "<",
-        "Ljava/io/File;",
-        ">;"
-    }
-.end annotation
-
 
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
+.field final synthetic val$button:Lcom/bilibili/tv/widget/DrawFrameLayout;
+
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)V
+.method constructor <init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Lcom/bilibili/tv/widget/DrawFrameLayout;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
-    .line 1340
+    .line 777
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$14;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+
+    iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$14;->val$button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -46,38 +45,36 @@
 
 
 # virtual methods
-.method public compare(Ljava/io/File;Ljava/io/File;)I
+.method public onFocusChange(Landroid/view/View;Z)V
     .locals 2
 
     .prologue
-    .line 1343
-    invoke-virtual {p1}, Ljava/io/File;->getName()Ljava/lang/String;
+    .line 780
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$14;->val$button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    move-result-object v0
+    invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpEnabled(Z)V
 
-    invoke-virtual {p2}, Ljava/io/File;->getName()Ljava/lang/String;
+    .line 781
+    if-eqz p2, :cond_10
 
-    move-result-object v1
+    .line 782
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$14;->val$button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    invoke-virtual {v0, v1}, Ljava/lang/String;->compareToIgnoreCase(Ljava/lang/String;)I
+    const v1, 0x7f070113
 
-    move-result v0
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    return v0
-.end method
+    .line 786
+    :goto_f
+    return-void
 
-.method public bridge synthetic compare(Ljava/lang/Object;Ljava/lang/Object;)I
-    .locals 1
+    .line 784
+    :cond_10
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$14;->val$button:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
-    .prologue
-    .line 1340
-    check-cast p1, Ljava/io/File;
+    const v1, 0x7f0700f0
 
-    check-cast p2, Ljava/io/File;
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    invoke-virtual {p0, p1, p2}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$14;->compare(Ljava/io/File;Ljava/io/File;)I
-
-    move-result v0
-
-    return v0
+    goto :goto_f
 .end method

@@ -383,7 +383,7 @@
 .end method
 
 .method public static getEssentialCookie(Lbl/mg;)Ljava/lang/String;
-    .locals 11
+    .locals 8
 
     .prologue
     .line 66
@@ -408,45 +408,17 @@
     :try_start_c
     invoke-virtual {p0}, Lbl/mg;->h()Lbl/ml;
 
-    move-result-object v1
-
-    .line 72
-    const-string v2, "CookieUtil"
-
-    new-instance v0, Ljava/lang/StringBuilder;
-
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "getEssentialCookie - cookiesData: "
-
-    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    if-eqz v1, :cond_3c
-
-    const-string v0, "not null"
-
-    :goto_21
-    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
     move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {v2, v0}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 73
-    if-eqz v1, :cond_32
+    if-eqz v0, :cond_16
 
-    iget-object v0, v1, Lbl/ml;->a:Ljava/util/List;
+    iget-object v1, v0, Lbl/ml;->a:Ljava/util/List;
 
-    if-nez v0, :cond_3f
+    if-nez v1, :cond_20
 
     .line 74
-    :cond_32
+    :cond_16
     const-string v0, "CookieUtil"
 
     const-string v1, "getEssentialCookie - cookiesData.a is null"
@@ -458,194 +430,85 @@
 
     goto :goto_b
 
-    .line 72
-    :cond_3c
-    const-string v0, "null"
-
-    goto :goto_21
-
     .line 77
-    :cond_3f
-    new-instance v3, Ljava/lang/StringBuilder;
-
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
-
-    .line 78
-    iget-object v4, v1, Lbl/ml;->a:Ljava/util/List;
-
-    .line 79
-    const-string v0, "CookieUtil"
-
+    :cond_20
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v2, "getEssentialCookie - cookies count: "
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-interface {v4}, Ljava/util/List;->size()I
-
-    move-result v2
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    .line 78
+    iget-object v2, v0, Lbl/ml;->a:Ljava/util/List;
 
     .line 80
-    sget-object v5, Lmybl/CookieUtil;->ESSENTIAL_COOKIES:[Ljava/lang/String;
+    sget-object v3, Lmybl/CookieUtil;->ESSENTIAL_COOKIES:[Ljava/lang/String;
 
-    array-length v6, v5
+    array-length v4, v3
 
     const/4 v0, 0x0
 
-    move v2, v0
+    :goto_2b
+    if-ge v0, v4, :cond_56
 
-    :goto_67
-    if-ge v2, v6, :cond_d8
-
-    aget-object v7, v5, v2
+    aget-object v5, v3, v0
 
     .line 81
-    invoke-static {v4, v7}, Lmybl/CookieUtil;->findCookieValue(Ljava/util/List;Ljava/lang/String;)Ljava/lang/String;
+    invoke-static {v2, v5}, Lmybl/CookieUtil;->findCookieValue(Ljava/util/List;Ljava/lang/String;)Ljava/lang/String;
 
-    move-result-object v1
-
-    .line 83
-    const-string v8, "CookieUtil"
-
-    new-instance v0, Ljava/lang/StringBuilder;
-
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v9, "getEssentialCookie - "
-
-    invoke-virtual {v0, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    const-string v9, " = "
-
-    invoke-virtual {v0, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v9
-
-    if-eqz v1, :cond_d6
-
-    invoke-virtual {v1}, Ljava/lang/String;->length()I
-
-    move-result v0
-
-    const/16 v10, 0x32
-
-    if-le v0, v10, :cond_d6
-
-    new-instance v0, Ljava/lang/StringBuilder;
-
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v10, "len="
-
-    invoke-virtual {v0, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v1}, Ljava/lang/String;->length()I
-
-    move-result v10
-
-    invoke-virtual {v0, v10}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    :goto_a7
-    invoke-virtual {v9, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {v8, v0}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    move-result-object v6
 
     .line 84
-    if-eqz v1, :cond_d2
+    if-eqz v6, :cond_53
 
-    invoke-virtual {v1}, Ljava/lang/String;->isEmpty()Z
+    invoke-virtual {v6}, Ljava/lang/String;->isEmpty()Z
 
-    move-result v0
+    move-result v7
 
-    if-nez v0, :cond_d2
+    if-nez v7, :cond_53
 
     .line 85
-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->length()I
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->length()I
 
-    move-result v0
+    move-result v7
 
-    if-lez v0, :cond_c5
+    if-lez v7, :cond_46
 
     .line 86
-    const-string v0, "; "
+    const-string v7, "; "
 
-    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     .line 88
-    :cond_c5
-    invoke-virtual {v3, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    :cond_46
+    invoke-virtual {v1, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v0
+    move-result-object v5
 
     const-string v7, "="
 
-    invoke-virtual {v0, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v0
+    move-result-object v5
 
-    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     .line 80
-    :cond_d2
-    add-int/lit8 v0, v2, 0x1
+    :cond_53
+    add-int/lit8 v0, v0, 0x1
 
-    move v2, v0
-
-    goto :goto_67
-
-    :cond_d6
-    move-object v0, v1
-
-    .line 83
-    goto :goto_a7
+    goto :goto_2b
 
     .line 91
-    :cond_d8
-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-    :try_end_db
-    .catch Ljava/lang/Exception; {:try_start_c .. :try_end_db} :catch_de
+    :cond_56
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    :try_end_59
+    .catch Ljava/lang/Exception; {:try_start_c .. :try_end_59} :catch_5b
 
     move-result-object v0
 
-    goto/16 :goto_b
+    goto :goto_b
 
     .line 92
-    :catch_de
+    :catch_5b
     move-exception v0
 
     .line 93
@@ -678,7 +541,7 @@
     .line 94
     const-string v0, ""
 
-    goto/16 :goto_b
+    goto :goto_b
 .end method
 
 .method public static getFullCookie(Lbl/mg;)Ljava/lang/String;
@@ -798,196 +661,56 @@
 .end method
 
 .method public static getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
-    .locals 6
+    .locals 3
 
     .prologue
-    const/4 v1, 0x0
-
     .line 21
     invoke-static {p0}, Lmybl/CookieUtil;->getEssentialCookie(Lbl/mg;)Ljava/lang/String;
 
-    move-result-object v2
+    move-result-object v0
 
     .line 22
     invoke-static {}, Lmybl/DeviceIdentityManager;->getInstance()Lmybl/DeviceIdentityManager;
 
-    move-result-object v0
+    move-result-object v1
 
-    invoke-virtual {v0}, Lmybl/DeviceIdentityManager;->getDeviceCookie()Ljava/lang/String;
+    invoke-virtual {v1}, Lmybl/DeviceIdentityManager;->getDeviceCookie()Ljava/lang/String;
 
-    move-result-object v3
-
-    .line 24
-    const-string v4, "CookieUtil"
-
-    new-instance v0, Ljava/lang/StringBuilder;
-
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v5, "getFullCookieWithDevice - biliAccount: "
-
-    invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    if-eqz p0, :cond_83
-
-    const-string v0, "not null"
-
-    :goto_1e
-    invoke-virtual {v5, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {v4, v0}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 26
-    const-string v4, "CookieUtil"
-
-    new-instance v0, Ljava/lang/StringBuilder;
-
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v5, "getFullCookieWithDevice - authCookie length: "
-
-    invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    if-nez v2, :cond_86
-
-    move v0, v1
-
-    :goto_39
-    invoke-virtual {v5, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {v4, v0}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 27
-    const-string v4, "CookieUtil"
-
-    new-instance v0, Ljava/lang/StringBuilder;
-
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v5, "getFullCookieWithDevice - deviceCookie length: "
-
-    invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    if-nez v3, :cond_8b
-
-    move v0, v1
-
-    :goto_54
-    invoke-virtual {v5, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {v4, v0}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    move-result-object v1
 
     .line 30
-    if-eqz v2, :cond_67
+    if-eqz v0, :cond_14
 
-    invoke-virtual {v2}, Ljava/lang/String;->isEmpty()Z
+    invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
 
-    move-result v0
+    move-result v2
 
-    if-eqz v0, :cond_90
+    if-eqz v2, :cond_16
 
-    :cond_67
-    move-object v0, v3
-
-    .line 38
-    :goto_68
-    const-string v2, "CookieUtil"
-
-    new-instance v3, Ljava/lang/StringBuilder;
-
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v4, "getFullCookieWithDevice - result length: "
-
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    if-nez v0, :cond_b2
-
-    :goto_77
-    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v2, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    :cond_14
+    move-object v0, v1
 
     .line 39
+    :cond_15
+    :goto_15
     return-object v0
 
-    .line 24
-    :cond_83
-    const-string v0, "null"
-
-    goto :goto_1e
-
-    .line 26
-    :cond_86
-    invoke-virtual {v2}, Ljava/lang/String;->length()I
-
-    move-result v0
-
-    goto :goto_39
-
-    .line 27
-    :cond_8b
-    invoke-virtual {v3}, Ljava/lang/String;->length()I
-
-    move-result v0
-
-    goto :goto_54
-
     .line 32
-    :cond_90
-    if-eqz v3, :cond_98
+    :cond_16
+    if-eqz v1, :cond_15
 
-    invoke-virtual {v3}, Ljava/lang/String;->isEmpty()Z
+    invoke-virtual {v1}, Ljava/lang/String;->isEmpty()Z
 
-    move-result v0
+    move-result v2
 
-    if-eqz v0, :cond_9a
-
-    :cond_98
-    move-object v0, v2
-
-    .line 33
-    goto :goto_68
+    if-nez v2, :cond_15
 
     .line 35
-    :cond_9a
-    new-instance v0, Ljava/lang/StringBuilder;
+    new-instance v2, Ljava/lang/StringBuilder;
 
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
@@ -997,7 +720,7 @@
 
     move-result-object v0
 
-    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
@@ -1005,15 +728,7 @@
 
     move-result-object v0
 
-    goto :goto_68
-
-    .line 38
-    :cond_b2
-    invoke-virtual {v0}, Ljava/lang/String;->length()I
-
-    move-result v1
-
-    goto :goto_77
+    goto :goto_15
 .end method
 
 .method public static getSESSDATA(Lbl/mg;)Ljava/lang/String;

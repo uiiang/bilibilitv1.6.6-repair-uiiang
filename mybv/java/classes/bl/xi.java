@@ -277,9 +277,9 @@ public class xi extends xh implements bbb<Message, Boolean> {
                 if (xwInstance.isControlEbook() && !xwInstance.isMenuShown()) {
                     android.util.Log.i("EbookReader", "xi.f: isEbookReadingContent=" + xwInstance.isEbookReadingContent());
 
-                    // 关键修改：如果在电子书阅读内容页面，让方向键传递到下一层处理
-                    if (xwInstance.isEbookReadingContent()) {
-                        android.util.Log.i("EbookReader", "xi.f: 电子书阅读内容页面，检查方向键 " + keyCode);
+                    // 关键修改：如果在电子书阅读内容页面或整理书架页面，让方向键传递到下一层处理
+                    if (xwInstance.isEbookReadingContent() || xwInstance.isOrganizingShelf()) {
+                        android.util.Log.i("EbookReader", "xi.f: 电子书阅读/整理书架页面，检查方向键 " + keyCode);
                         // 方向键不拦截，传递到xl.g()和xw.g()处理
                         if (keyCode == KeyEvent.KEYCODE_DPAD_UP ||
                             keyCode == KeyEvent.KEYCODE_DPAD_DOWN ||
@@ -374,9 +374,9 @@ public class xi extends xh implements bbb<Message, Boolean> {
                 if (xwInstance.isControlEbook() && !xwInstance.isMenuShown()) {
                     android.util.Log.i("EbookReader", "xi.g: isEbookReadingContent=" + xwInstance.isEbookReadingContent());
 
-                    // 关键修改：如果在电子书阅读内容页面，让方向键传递到下一层处理
-                    if (xwInstance.isEbookReadingContent()) {
-                        android.util.Log.i("EbookReader", "xi.g: 电子书阅读内容页面，检查方向键 " + keyCode);
+                    // 关键修改：如果在电子书阅读内容页面或整理书架页面，让方向键传递到下一层处理
+                    if (xwInstance.isEbookReadingContent() || xwInstance.isOrganizingShelf()) {
+                        android.util.Log.i("EbookReader", "xi.g: 电子书阅读/整理书架页面，检查方向键 " + keyCode);
                         // 方向键不拦截，传递到xl.g()和xw.g()处理
                         if (keyCode == KeyEvent.KEYCODE_DPAD_UP ||
                             keyCode == KeyEvent.KEYCODE_DPAD_DOWN ||

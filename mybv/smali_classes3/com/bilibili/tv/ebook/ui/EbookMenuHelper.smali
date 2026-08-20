@@ -14,8 +14,6 @@
 # static fields
 .field public static final MENU_CHAPTER_LIST:Ljava/lang/String; = "\u7ae0\u8282\u5217\u8868"
 
-.field public static final MENU_CLEAR_SHELF:Ljava/lang/String; = "\u6e05\u7a7a\u4e66\u67b6"
-
 .field public static final MENU_CLOSE_BOOK:Ljava/lang/String; = "\u5173\u95ed\u4e66\u7c4d"
 
 .field public static final MENU_CLOSE_EBOOK:Ljava/lang/String; = "\u5173\u95ed\u7535\u5b50\u4e66"
@@ -31,6 +29,8 @@
 .field public static final MENU_FONT_SIZE:Ljava/lang/String; = "\u5b57\u4f53\u5927\u5c0f"
 
 .field public static final MENU_OPEN_EBOOK:Ljava/lang/String; = "\u7535\u5b50\u4e66"
+
+.field public static final MENU_ORGANIZE_SHELF:Ljava/lang/String; = "\u6574\u7406\u4e66\u67b6"
 
 .field public static final MENU_SCREEN_PERCENT:Ljava/lang/String; = "\u5c4f\u5e55\u5360\u6bd4"
 
@@ -82,7 +82,7 @@
     invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .line 93
-    const-string v1, "\u6e05\u7a7a\u4e66\u67b6"
+    const-string v1, "\u6574\u7406\u4e66\u67b6"
 
     invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
@@ -147,7 +147,7 @@
 
     const/4 v0, 0x1
 
-    .line 208
+    .line 201
     if-eqz p1, :cond_a
 
     invoke-static {p0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
@@ -159,11 +159,11 @@
     :cond_a
     move v0, v1
 
-    .line 253
+    .line 246
     :goto_b
     return v0
 
-    .line 212
+    .line 205
     :cond_c
     const-string v2, "\u7ae0\u8282\u5217\u8868"
 
@@ -173,12 +173,12 @@
 
     if-eqz v2, :cond_18
 
-    .line 213
+    .line 206
     invoke-interface {p1}, Lcom/bilibili/tv/ebook/ui/EbookMenuHelper$EbookActions;->showChapterList()V
 
     goto :goto_b
 
-    .line 217
+    .line 210
     :cond_18
     const-string v2, "\u9009\u62e9\u6587\u4ef6"
 
@@ -188,14 +188,14 @@
 
     if-eqz v2, :cond_24
 
-    .line 218
+    .line 211
     invoke-interface {p1}, Lcom/bilibili/tv/ebook/ui/EbookMenuHelper$EbookActions;->openEbookFileChooser()V
 
     goto :goto_b
 
-    .line 222
+    .line 215
     :cond_24
-    const-string v2, "\u6e05\u7a7a\u4e66\u67b6"
+    const-string v2, "\u6574\u7406\u4e66\u67b6"
 
     invoke-static {p0, v2}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
 
@@ -203,12 +203,12 @@
 
     if-eqz v2, :cond_30
 
-    .line 223
-    invoke-interface {p1}, Lcom/bilibili/tv/ebook/ui/EbookMenuHelper$EbookActions;->clearBookshelf()V
+    .line 216
+    invoke-interface {p1}, Lcom/bilibili/tv/ebook/ui/EbookMenuHelper$EbookActions;->organizeBookshelf()V
 
     goto :goto_b
 
-    .line 227
+    .line 220
     :cond_30
     const-string v2, "\u9000\u51fa\u9605\u8bfb"
 
@@ -226,13 +226,13 @@
 
     if-eqz v2, :cond_44
 
-    .line 228
+    .line 221
     :cond_40
     invoke-interface {p1}, Lcom/bilibili/tv/ebook/ui/EbookMenuHelper$EbookActions;->openEbookReader()V
 
     goto :goto_b
 
-    .line 232
+    .line 225
     :cond_44
     const-string v2, "\u5173\u95ed\u4e66\u7c4d"
 
@@ -242,12 +242,12 @@
 
     if-eqz v2, :cond_50
 
-    .line 233
+    .line 226
     invoke-interface {p1}, Lcom/bilibili/tv/ebook/ui/EbookMenuHelper$EbookActions;->closeCurrentBook()V
 
     goto :goto_b
 
-    .line 237
+    .line 230
     :cond_50
     const-string v2, "\u63a7\u5236\u89c6\u9891"
 
@@ -257,14 +257,14 @@
 
     if-eqz v2, :cond_5e
 
-    .line 238
+    .line 231
     const-string v1, "video"
 
     invoke-interface {p1, v1}, Lcom/bilibili/tv/ebook/ui/EbookMenuHelper$EbookActions;->switchControlTarget(Ljava/lang/String;)V
 
     goto :goto_b
 
-    .line 242
+    .line 235
     :cond_5e
     const-string v2, "\u63a7\u5236\u7535\u5b50\u4e66"
 
@@ -274,14 +274,14 @@
 
     if-eqz v2, :cond_6c
 
-    .line 243
+    .line 236
     const-string v1, "ebook"
 
     invoke-interface {p1, v1}, Lcom/bilibili/tv/ebook/ui/EbookMenuHelper$EbookActions;->switchControlTarget(Ljava/lang/String;)V
 
     goto :goto_b
 
-    .line 247
+    .line 240
     :cond_6c
     const-string v2, "\u7535\u5b50\u4e66"
 
@@ -291,7 +291,7 @@
 
     if-eqz v2, :cond_78
 
-    .line 248
+    .line 241
     invoke-interface {p1}, Lcom/bilibili/tv/ebook/ui/EbookMenuHelper$EbookActions;->openEbookReader()V
 
     goto :goto_b
@@ -299,72 +299,115 @@
     :cond_78
     move v0, v1
 
-    .line 253
+    .line 246
     goto :goto_b
 .end method
 
-.method public static getOriginalMenuIndex(IZ)I
-    .locals 2
+.method public static getOriginalMenuIndex(Ljava/util/List;I)I
+    .locals 3
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/util/List",
+            "<",
+            "Ljava/lang/String;",
+            ">;I)I"
+        }
+    .end annotation
 
     .prologue
-    const/16 v1, 0xa
-
-    const/4 v0, -0x1
+    const/4 v1, -0x1
 
     .line 119
-    packed-switch p0, :pswitch_data_18
+    if-eqz p0, :cond_b
 
-    .line 141
-    :cond_6
-    :goto_6
-    :pswitch_6
-    return v0
+    if-ltz p1, :cond_b
 
-    .line 127
-    :pswitch_7
-    if-eqz p1, :cond_6
+    invoke-interface {p0}, Ljava/util/List;->size()I
 
-    const/4 v0, 0x4
+    move-result v0
 
-    goto :goto_6
+    if-lt p1, v0, :cond_d
 
-    .line 131
-    :pswitch_b
-    if-eqz p1, :cond_f
-
-    const/4 v0, 0x5
-
-    goto :goto_6
-
-    :cond_f
+    :cond_b
     move v0, v1
-
-    goto :goto_6
 
     .line 135
-    :pswitch_11
-    if-eqz p1, :cond_15
+    :goto_c
+    return v0
 
-    :goto_13
+    .line 122
+    :cond_d
+    invoke-interface {p0, p1}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/lang/String;
+
+    .line 123
+    const-string v2, "\u5b57\u4f53\u5927\u5c0f"
+
+    invoke-static {v0, v2}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_1d
+
+    .line 124
+    const/4 v0, 0x4
+
+    goto :goto_c
+
+    .line 126
+    :cond_1d
+    const-string v2, "\u914d\u8272\u65b9\u6848"
+
+    invoke-static {v0, v2}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_27
+
+    .line 127
+    const/4 v0, 0x5
+
+    goto :goto_c
+
+    .line 129
+    :cond_27
+    const-string v2, "\u5c4f\u5e55\u5360\u6bd4"
+
+    invoke-static {v0, v2}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_32
+
+    .line 130
+    const/16 v0, 0xa
+
+    goto :goto_c
+
+    .line 132
+    :cond_32
+    const-string v2, "\u89c6\u9891\u4f4d\u7f6e"
+
+    invoke-static {v0, v2}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_3d
+
+    .line 133
+    const/16 v0, 0xd
+
+    goto :goto_c
+
+    :cond_3d
     move v0, v1
 
-    goto :goto_6
-
-    :cond_15
-    const/16 v1, 0xd
-
-    goto :goto_13
-
-    .line 119
-    :pswitch_data_18
-    .packed-switch 0x0
-        :pswitch_6
-        :pswitch_6
-        :pswitch_7
-        :pswitch_b
-        :pswitch_11
-        :pswitch_6
-    .end packed-switch
+    .line 135
+    goto :goto_c
 .end method
 
 .method public static getSelection(IZIII)I
@@ -373,15 +416,15 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 157
+    .line 150
     packed-switch p0, :pswitch_data_18
 
-    .line 174
+    .line 167
     :goto_4
     :pswitch_4
     return v0
 
-    .line 164
+    .line 157
     :pswitch_5
     if-eqz p1, :cond_9
 
@@ -395,7 +438,7 @@
 
     goto :goto_7
 
-    .line 168
+    .line 161
     :pswitch_b
     if-eqz p1, :cond_f
 
@@ -409,7 +452,7 @@
 
     goto :goto_d
 
-    .line 172
+    .line 165
     :pswitch_11
     if-eqz p1, :cond_15
 
@@ -423,7 +466,7 @@
 
     goto :goto_13
 
-    .line 157
+    .line 150
     nop
 
     :pswitch_data_18
@@ -442,14 +485,14 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 182
+    .line 175
     invoke-static {p0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v1
 
     if-eqz v1, :cond_8
 
-    .line 185
+    .line 178
     :cond_7
     :goto_7
     return v0
@@ -465,16 +508,16 @@
 
     const-string v1, "\u9009\u62e9\u6587\u4ef6"
 
-    .line 186
+    .line 179
     invoke-static {p0, v1}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
 
     move-result v1
 
     if-nez v1, :cond_70
 
-    const-string v1, "\u6e05\u7a7a\u4e66\u67b6"
+    const-string v1, "\u6574\u7406\u4e66\u67b6"
 
-    .line 187
+    .line 180
     invoke-static {p0, v1}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
 
     move-result v1
@@ -483,7 +526,7 @@
 
     const-string v1, "\u5c4f\u5e55\u5360\u6bd4"
 
-    .line 188
+    .line 181
     invoke-static {p0, v1}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
 
     move-result v1
@@ -492,7 +535,7 @@
 
     const-string v1, "\u89c6\u9891\u4f4d\u7f6e"
 
-    .line 189
+    .line 182
     invoke-static {p0, v1}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
 
     move-result v1
@@ -501,7 +544,7 @@
 
     const-string v1, "\u9000\u51fa\u9605\u8bfb"
 
-    .line 190
+    .line 183
     invoke-static {p0, v1}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
 
     move-result v1
@@ -510,7 +553,7 @@
 
     const-string v1, "\u7ae0\u8282\u5217\u8868"
 
-    .line 191
+    .line 184
     invoke-static {p0, v1}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
 
     move-result v1
@@ -519,7 +562,7 @@
 
     const-string v1, "\u5b57\u4f53\u5927\u5c0f"
 
-    .line 192
+    .line 185
     invoke-static {p0, v1}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
 
     move-result v1
@@ -528,7 +571,7 @@
 
     const-string v1, "\u914d\u8272\u65b9\u6848"
 
-    .line 193
+    .line 186
     invoke-static {p0, v1}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
 
     move-result v1
@@ -537,7 +580,7 @@
 
     const-string v1, "\u5173\u95ed\u4e66\u7c4d"
 
-    .line 194
+    .line 187
     invoke-static {p0, v1}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
 
     move-result v1
@@ -546,7 +589,7 @@
 
     const-string v1, "\u7535\u5b50\u4e66"
 
-    .line 195
+    .line 188
     invoke-static {p0, v1}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
 
     move-result v1
@@ -555,7 +598,7 @@
 
     const-string v1, "\u63a7\u5236\u7535\u5b50\u4e66"
 
-    .line 196
+    .line 189
     invoke-static {p0, v1}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
 
     move-result v1
@@ -564,7 +607,7 @@
 
     const-string v1, "\u5173\u95ed\u7535\u5b50\u4e66"
 
-    .line 197
+    .line 190
     invoke-static {p0, v1}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
 
     move-result v1

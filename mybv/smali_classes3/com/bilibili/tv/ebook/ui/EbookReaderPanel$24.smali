@@ -1,11 +1,14 @@
 .class Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$24;
-.super Landroid/webkit/WebViewClient;
+.super Ljava/lang/Object;
 .source "EbookReaderPanel.java"
+
+# interfaces
+.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->displayBookContent(Lcom/bilibili/tv/ebook/model/Book;IZI)V
+    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->showBookshelfInPanel()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -17,44 +20,43 @@
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-.field final synthetic val$finalRestorePage:I
-
-.field final synthetic val$finalScrollToBottom:Z
-
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;ZI)V
+.method constructor <init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)V
     .locals 0
 
     .prologue
-    .line 1876
+    .line 1621
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$24;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-    iput-boolean p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$24;->val$finalScrollToBottom:Z
-
-    iput p3, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$24;->val$finalRestorePage:I
-
-    invoke-direct {p0}, Landroid/webkit/WebViewClient;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public onPageFinished(Landroid/webkit/WebView;Ljava/lang/String;)V
-    .locals 1
+.method public run()V
+    .locals 2
 
     .prologue
-    .line 1879
-    invoke-super {p0, p1, p2}, Landroid/webkit/WebViewClient;->onPageFinished(Landroid/webkit/WebView;Ljava/lang/String;)V
+    .line 1624
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$24;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-    .line 1881
-    new-instance v0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$24$1;
+    # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->bookshelfListView:Landroid/widget/ListView;
+    invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$2100(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Landroid/widget/ListView;
 
-    invoke-direct {v0, p0, p1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$24$1;-><init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$24;Landroid/webkit/WebView;)V
+    move-result-object v0
 
-    invoke-virtual {p1, v0}, Landroid/webkit/WebView;->post(Ljava/lang/Runnable;)Z
+    invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
 
-    .line 1922
+    .line 1625
+    const-string v0, "EbookReader"
+
+    const-string v1, "\u4e66\u67b6\u5217\u8868\u5df2\u8bf7\u6c42\u7126\u70b9"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 1626
     return-void
 .end method

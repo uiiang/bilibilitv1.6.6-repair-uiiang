@@ -74,6 +74,15 @@ public class EbookReaderPanel {
     private String currentBookFilePath = null; // 当前书籍文件路径
     private android.widget.ListView fileListView = null; // 文件选择器列表View（提升为字段，用于恢复焦点）
 
+    // 整理书架页面
+    private boolean isOrganizingShelf = false; // 是否正在整理书架
+    private android.widget.ListView organizeListView = null; // 整理书架列表View
+    private boolean[] organizeSelectedFlags = null; // 各书籍是否选中（与 bookshelfItems 下标对应）
+    private com.bilibili.tv.widget.DrawFrameLayout organizeSelectAllButton = null; // 全选/全不选按钮
+    private com.bilibili.tv.widget.DrawFrameLayout organizeDeleteButton = null; // 删除按钮
+    private android.widget.TextView organizeSelectAllText = null; // 全选/全不选按钮文案
+    private android.widget.TextView organizeDeleteText = null; // 删除按钮文案
+
     // 章节内容LRU缓存管理（避免内存占用随阅读进度增长）
     private static final int MAX_CACHED_CHAPTERS = 5; // 最多缓存5个章节
     private LinkedList<Chapter> cachedChapters = new LinkedList<>();
@@ -178,6 +187,11 @@ public class EbookReaderPanel {
         return (chapterListView == null || !chapterListView.isShown()) &&
                !isFileChooserShown &&
                ebookWebView != null;
+    }
+
+    /** 是否正在整理书架页面 */
+    public boolean isOrganizingShelf() {
+        return isOrganizingShelf;
     }
 
     // ==================== 打开/关闭电子书 ====================
@@ -327,6 +341,12 @@ public class EbookReaderPanel {
                 bookshelfListView.clearFocus();
                 Log.i(TAG_EBOOK, "禁用书架列表所有交互");
             }
+            if (organizeListView != null) {
+                organizeListView.setFocusable(false);
+                organizeListView.setFocusableInTouchMode(false);
+                organizeListView.clearFocus();
+                Log.i(TAG_EBOOK, "禁用整理书架列表所有交互");
+            }
             if (chapterListView != null) {
                 chapterListView.setFocusable(false);
                 chapterListView.setFocusableInTouchMode(false);
@@ -362,6 +382,14 @@ public class EbookReaderPanel {
                 bookshelfListView.requestFocus();
                 Log.i(TAG_EBOOK, "启用书架列表所有交互");
             }
+            if (organizeListView != null) {
+                organizeListView.setFocusable(true);
+                organizeListView.setFocusableInTouchMode(true);
+                organizeListView.setClickable(true);
+                organizeListView.setEnabled(true);
+                organizeListView.requestFocus();
+                Log.i(TAG_EBOOK, "启用整理书架列表所有交互");
+            }
             if (chapterListView != null) {
                 chapterListView.setFocusable(true);
                 chapterListView.setFocusableInTouchMode(true);
@@ -389,45 +417,483 @@ public class EbookReaderPanel {
         Log.i(TAG_EBOOK, "控制目标已切换为: " + target);
     }
 
-    /** 清空书架 */
-    public void clearBookshelf() {
-        Log.i(TAG_EBOOK, "清空书架菜单项被点击");
+    // ==================== 整理书架 ====================
 
-        Activity activity = host.getActivity();
-        if (activity == null) {
-            Log.e(TAG_EBOOK, "Activity is null");
+    /**
+     * 整理书架（书架页面菜单 整理书架 项）
+     * 进入整理书架页面：title + 全选/全不选/删除按钮 + 复选列表
+     */
+    public void organizeBookshelf() {
+        Log.i(TAG_EBOOK, "整理书架菜单项被点击");
+
+        // 关键修复：先关闭右侧菜单，确保整理书架页面能够正确显示（与 openEbookFileChooser 一致）
+        if (host.isMenuShown()) {
+            Log.i(TAG_EBOOK, "右侧菜单正在显示，先关闭菜单");
+            host.showMenu(false);
+            new android.os.Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    showOrganizeShelfPage();
+                }
+            }, 200);
+        } else {
+            showOrganizeShelfPage();
+        }
+    }
+
+    /** 显示整理书架页面（title + 按钮 + 复选列表） */
+    private void showOrganizeShelfPage() {
+        final Activity activity = host.getActivity();
+        if (activity == null || ebookPanel == null) {
+            Log.e(TAG_EBOOK, "Activity or ebookPanel is null");
             return;
         }
 
-        // 显示确认对话框
+        Log.i(TAG_EBOOK, "显示整理书架页面");
+
+        // 确保电子书面板可见
+        if (ebookPanel.getVisibility() != View.VISIBLE) {
+            ebookPanel.setVisibility(View.VISIBLE);
+        }
+
+        // 清空面板
+        ebookPanel.removeAllViews();
+
+        // 加载书架数据并初始化选中状态（默认全部未选中）
+        if (bookshelfItems == null) {
+            bookshelfItems = bookshelfManager != null
+                    ? bookshelfManager.getBookshelfItems() : new ArrayList<BookshelfItem>();
+        }
+        organizeSelectedFlags = new boolean[bookshelfItems.size()];
+
+        // 整体布局（垂直）
+        android.widget.LinearLayout layout = new android.widget.LinearLayout(activity);
+        layout.setOrientation(android.widget.LinearLayout.VERTICAL);
+        layout.setBackgroundColor(Color.parseColor("#333333"));
+        layout.setLayoutParams(new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+        ));
+
+        // 标题
+        android.widget.TextView titleView = new android.widget.TextView(activity);
+        titleView.setText("整理书架");
+        titleView.setTextColor(Color.WHITE);
+        titleView.setTextSize(20);
+        titleView.setPadding(24, 20, 24, 20);
+        titleView.setGravity(android.view.Gravity.CENTER);
+        layout.addView(titleView, new android.widget.LinearLayout.LayoutParams(
+                android.widget.LinearLayout.LayoutParams.MATCH_PARENT,
+                android.widget.LinearLayout.LayoutParams.WRAP_CONTENT
+        ));
+
+        // 按钮行（全选/全不选 + 删除，焦点样式参考设置页-下载设置-选择路径 确定按钮）
+        android.widget.LinearLayout buttonRow = new android.widget.LinearLayout(activity);
+        buttonRow.setOrientation(android.widget.LinearLayout.HORIZONTAL);
+        buttonRow.setPadding(12, 4, 12, 12);
+        layout.addView(buttonRow, new android.widget.LinearLayout.LayoutParams(
+                android.widget.LinearLayout.LayoutParams.MATCH_PARENT,
+                android.widget.LinearLayout.LayoutParams.WRAP_CONTENT
+        ));
+
+        organizeSelectAllButton = createOrganizeButton(activity, "全选");
+        organizeSelectAllText = (android.widget.TextView) organizeSelectAllButton.getChildAt(0);
+        organizeDeleteButton = createOrganizeButton(activity, "删除");
+        organizeDeleteText = (android.widget.TextView) organizeDeleteButton.getChildAt(0);
+
+        int buttonHeight = (int) android.util.TypedValue.applyDimension(
+                android.util.TypedValue.COMPLEX_UNIT_DIP, 56,
+                activity.getResources().getDisplayMetrics());
+        android.widget.LinearLayout.LayoutParams selectAllLp = new android.widget.LinearLayout.LayoutParams(
+                0, buttonHeight, 1f);
+        selectAllLp.setMargins(12, 0, 6, 0);
+        buttonRow.addView(organizeSelectAllButton, selectAllLp);
+        android.widget.LinearLayout.LayoutParams deleteLp = new android.widget.LinearLayout.LayoutParams(
+                0, buttonHeight, 1f);
+        deleteLp.setMargins(6, 0, 12, 0);
+        buttonRow.addView(organizeDeleteButton, deleteLp);
+
+        // 整理列表
+        organizeListView = new android.widget.ListView(activity);
+        organizeListView.setDivider(new android.graphics.drawable.ColorDrawable(Color.DKGRAY));
+        organizeListView.setDividerHeight(1);
+        organizeListView.setFocusable(true);
+        organizeListView.setFocusableInTouchMode(true);
+        organizeListView.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
+        organizeListView.setCacheColorHint(Color.TRANSPARENT);
+        layout.addView(organizeListView, new android.widget.LinearLayout.LayoutParams(
+                android.widget.LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f
+        ));
+
+        ebookPanel.addView(layout);
+
+        // 适配器（复选框 + 两行文本，焦点背景与"我的书架"列表一致）
+        final android.widget.BaseAdapter adapter = new android.widget.BaseAdapter() {
+            @Override
+            public int getCount() {
+                return bookshelfItems.size();
+            }
+
+            @Override
+            public Object getItem(int position) {
+                return bookshelfItems.get(position);
+            }
+
+            @Override
+            public long getItemId(int position) {
+                return position;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                final BookshelfItem item = bookshelfItems.get(position);
+
+                android.widget.LinearLayout row;
+                android.widget.CheckBox checkBox;
+                android.widget.TextView textView;
+                if (convertView instanceof android.widget.LinearLayout) {
+                    row = (android.widget.LinearLayout) convertView;
+                    checkBox = (android.widget.CheckBox) row.getChildAt(0);
+                    textView = (android.widget.TextView) row.getChildAt(1);
+                } else {
+                    row = new android.widget.LinearLayout(activity);
+                    row.setOrientation(android.widget.LinearLayout.HORIZONTAL);
+                    row.setGravity(android.view.Gravity.CENTER_VERTICAL);
+                    row.setPadding(20, 20, 20, 20);
+                    checkBox = new android.widget.CheckBox(activity);
+                    checkBox.setFocusable(false);
+                    checkBox.setFocusableInTouchMode(false);
+                    checkBox.setClickable(false); // 复选状态由 item 点击切换
+                    row.addView(checkBox, new android.widget.LinearLayout.LayoutParams(
+                            android.widget.LinearLayout.LayoutParams.WRAP_CONTENT,
+                            android.widget.LinearLayout.LayoutParams.WRAP_CONTENT
+                    ));
+                    textView = new android.widget.TextView(activity);
+                    textView.setTextColor(Color.WHITE);
+                    textView.setTextSize(16);
+                    row.addView(textView, new android.widget.LinearLayout.LayoutParams(
+                            0, android.widget.LinearLayout.LayoutParams.WRAP_CONTENT, 1f
+                    ));
+                }
+
+                // 复选状态
+                checkBox.setChecked(organizeSelectedFlags != null
+                        && position < organizeSelectedFlags.length
+                        && organizeSelectedFlags[position]);
+
+                // 两行显示：书名 + 进度信息（与"我的书架"一致）
+                StringBuilder sb = new StringBuilder();
+                sb.append(item.getTitle());
+                if (item.getAuthor() != null && !item.getAuthor().isEmpty()) {
+                    sb.append("  ·  ").append(item.getAuthor());
+                }
+                sb.append("\n");
+                if (item.getProgressPercentage() > 0) {
+                    sb.append("已读 ").append(String.format("%.1f", item.getProgressPercentage())).append("%");
+                } else {
+                    sb.append("未读");
+                }
+                if (item.getChapterTitle() != null && !item.getChapterTitle().isEmpty()) {
+                    sb.append("  ·  ").append(item.getChapterTitle());
+                }
+                textView.setText(sb.toString());
+
+                // 焦点背景（与"我的书架"列表一致：选中蓝色）——仅列表持有焦点时显示蓝底，失焦后清除
+                if (parent instanceof android.widget.ListView) {
+                    android.widget.ListView listView = (android.widget.ListView) parent;
+                    if (listView.hasFocus() && position == listView.getSelectedItemPosition()) {
+                        row.setBackgroundColor(Color.parseColor("#1E90FF"));
+                    } else {
+                        row.setBackgroundColor(Color.TRANSPARENT);
+                    }
+                }
+                return row;
+            }
+        };
+        organizeListView.setAdapter(adapter);
+
+        // 焦点变化监听：焦点离开列表时清除选中蓝底，回到列表时恢复
+        organizeListView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                v.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((android.widget.ListView) v).invalidateViews();
+                    }
+                });
+            }
+        });
+
+        // 选中项监听：动态更新焦点背景
+        organizeListView.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
+                parent.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((android.widget.ListView) parent).invalidateViews();
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(android.widget.AdapterView<?> parent) {
+            }
+        });
+
+        // 点击 item：切换选中/不选中状态
+        organizeListView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(android.widget.AdapterView<?> parent, View view, int position, long id) {
+                Log.i(TAG_EBOOK, "整理书架: 切换选中状态 position=" + position);
+                if (organizeSelectedFlags != null && position >= 0 && position < organizeSelectedFlags.length) {
+                    organizeSelectedFlags[position] = !organizeSelectedFlags[position];
+                    organizeListView.invalidateViews();
+                    updateOrganizeButtonsState();
+                }
+            }
+        });
+
+        // 列表按左键：焦点跳到 全选/全不选 按钮；按右键：焦点跳到 删除 按钮
+        organizeListView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, android.view.KeyEvent event) {
+                Log.i(TAG_EBOOK, "整理书架列表OnKey: keyCode=" + keyCode + ", action=" + event.getAction()
+                        + ", list.hasFocus=" + v.hasFocus());
+                if (event.getAction() == android.view.KeyEvent.ACTION_DOWN) {
+                    if (keyCode == android.view.KeyEvent.KEYCODE_DPAD_LEFT) {
+                        if (organizeSelectAllButton != null) {
+                            organizeSelectAllButton.requestFocus();
+                            return true;
+                        }
+                    }
+                    if (keyCode == android.view.KeyEvent.KEYCODE_DPAD_RIGHT) {
+                        // 删除按钮不可用时（无可选中项），焦点跳到全选按钮
+                        if (organizeDeleteButton != null && organizeDeleteButton.isFocusable()) {
+                            organizeDeleteButton.requestFocus();
+                        } else if (organizeSelectAllButton != null) {
+                            organizeSelectAllButton.requestFocus();
+                        }
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+        // 全选/全不选按钮：点击切换全选状态
+        organizeSelectAllButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleSelectAll();
+            }
+        });
+        // 全选/全不选按钮按键：右键到删除按钮，左/下/上键回到列表
+        organizeSelectAllButton.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, android.view.KeyEvent event) {
+                if (event.getAction() == android.view.KeyEvent.ACTION_DOWN) {
+                    if (keyCode == android.view.KeyEvent.KEYCODE_DPAD_RIGHT) {
+                        if (organizeDeleteButton != null && organizeDeleteButton.isFocusable()) {
+                            organizeDeleteButton.requestFocus();
+                            return true;
+                        }
+                        return false; // 删除按钮不可用，不消费（回到列表由系统处理）
+                    }
+                    if (keyCode == android.view.KeyEvent.KEYCODE_DPAD_LEFT
+                            || keyCode == android.view.KeyEvent.KEYCODE_DPAD_UP
+                            || keyCode == android.view.KeyEvent.KEYCODE_DPAD_DOWN) {
+                        if (organizeListView != null) {
+                            organizeListView.requestFocus();
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+        });
+
+        // 删除按钮：点击弹出确认对话框
+        organizeDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showOrganizeDeleteDialog();
+            }
+        });
+        // 删除按钮按键：左键到全选按钮，右/下/上键回到列表
+        organizeDeleteButton.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, android.view.KeyEvent event) {
+                if (event.getAction() == android.view.KeyEvent.ACTION_DOWN) {
+                    if (keyCode == android.view.KeyEvent.KEYCODE_DPAD_LEFT) {
+                        if (organizeSelectAllButton != null) {
+                            organizeSelectAllButton.requestFocus();
+                            return true;
+                        }
+                    }
+                    if (keyCode == android.view.KeyEvent.KEYCODE_DPAD_RIGHT
+                            || keyCode == android.view.KeyEvent.KEYCODE_DPAD_UP
+                            || keyCode == android.view.KeyEvent.KEYCODE_DPAD_DOWN) {
+                        if (organizeListView != null) {
+                            organizeListView.requestFocus();
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+        });
+
+        // 初始按钮状态（全选/删除不可用）
+        updateOrganizeButtonsState();
+
+        isOrganizingShelf = true;
+
+        // 自动请求焦点到整理列表
+        organizeListView.post(new Runnable() {
+            @Override
+            public void run() {
+                boolean granted = organizeListView.requestFocus();
+                View current = activity.getCurrentFocus();
+                Log.i(TAG_EBOOK, "整理书架列表已请求焦点: granted=" + granted
+                        + ", list.hasFocus=" + organizeListView.hasFocus()
+                        + ", currentFocus=" + (current != null ? current.getClass().getSimpleName() : "null")
+                        + ", listShown=" + organizeListView.isShown()
+                        + ", listAttached=" + organizeListView.isAttachedToWindow());
+            }
+        });
+    }
+
+    /** 创建整理书架按钮（DrawFrameLayout，焦点高亮与设置页确定按钮一致） */
+    private com.bilibili.tv.widget.DrawFrameLayout createOrganizeButton(Activity activity, String text) {
+        final com.bilibili.tv.widget.DrawFrameLayout button = new com.bilibili.tv.widget.DrawFrameLayout(activity);
+        button.setFocusable(true);
+        button.setFocusableInTouchMode(true);
+        button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+        button.setUpDrawable(R.drawable.shadow_white_rect);
+        button.setUpEnabled(false); // 初始不显示焦点高亮框
+        // 焦点变化时切换背景色与高亮（焦点：蓝色背景；失焦：白色半透明背景）
+        button.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                button.setUpEnabled(hasFocus);
+                if (hasFocus) {
+                    button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_blue);
+                } else {
+                    button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+                }
+            }
+        });
+        final android.widget.TextView buttonText = new android.widget.TextView(activity);
+        buttonText.setText(text);
+        buttonText.setTextColor(Color.WHITE);
+        buttonText.setTextSize(18);
+        buttonText.setGravity(android.view.Gravity.CENTER);
+        button.addView(buttonText, new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+        ));
+        return button;
+    }
+
+    /** 更新按钮状态：全选/全不选文案切换、删除按钮可用性 */
+    private void updateOrganizeButtonsState() {
+        if (organizeSelectedFlags == null
+                || organizeSelectAllText == null
+                || organizeDeleteButton == null
+                || organizeDeleteText == null) {
+            return;
+        }
+        int selectedCount = 0;
+        for (boolean b : organizeSelectedFlags) {
+            if (b) {
+                selectedCount++;
+            }
+        }
+        boolean allSelected = selectedCount == organizeSelectedFlags.length && selectedCount > 0;
+
+        // 全选/全不选文案
+        organizeSelectAllText.setText(allSelected ? "全不选" : "全选");
+
+        // 删除按钮：无选中项时不可点击（不可聚焦 + 置灰）
+        boolean hasSelected = selectedCount > 0;
+        organizeDeleteButton.setFocusable(hasSelected);
+        organizeDeleteButton.setFocusableInTouchMode(hasSelected);
+        if (hasSelected) {
+            organizeDeleteText.setTextColor(Color.WHITE);
+            organizeDeleteButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+        } else {
+            organizeDeleteText.setTextColor(Color.parseColor("#888888"));
+            organizeDeleteButton.setBackgroundColor(Color.parseColor("#26FFFFFF"));
+        }
+        Log.i(TAG_EBOOK, "整理书架按钮状态: 选中=" + selectedCount
+                + ", 全选按钮=" + organizeSelectAllText.getText() + ", 删除可用=" + hasSelected);
+    }
+
+    /** 全选/全不选：切换所有书籍的选中状态 */
+    private void toggleSelectAll() {
+        if (organizeSelectedFlags == null) {
+            return;
+        }
+        boolean allSelected = true;
+        for (boolean b : organizeSelectedFlags) {
+            if (!b) {
+                allSelected = false;
+                break;
+            }
+        }
+        // 当前全部选中 → 全不选；否则 → 全选
+        for (int i = 0; i < organizeSelectedFlags.length; i++) {
+            organizeSelectedFlags[i] = !allSelected;
+        }
+        if (organizeListView != null) {
+            organizeListView.invalidateViews();
+        }
+        updateOrganizeButtonsState();
+    }
+
+    /** 显示删除选中书籍的确认对话框：确定后移除书架并清除阅读进度 */
+    private void showOrganizeDeleteDialog() {
+        final Activity activity = host.getActivity();
+        if (activity == null || organizeSelectedFlags == null) {
+            return;
+        }
+
+        // 收集所有选中项
+        final java.util.List<BookshelfItem> selectedItems = new ArrayList<>();
+        for (int i = 0; i < organizeSelectedFlags.length; i++) {
+            if (organizeSelectedFlags[i] && i < bookshelfItems.size()) {
+                selectedItems.add(bookshelfItems.get(i));
+            }
+        }
+        if (selectedItems.isEmpty()) {
+            return;
+        }
+
+        // 显示确认对话框（样式与删除单本书一致）
         agb.a dialogBuilder = new agb.a(activity);
-        dialogBuilder.a(1).a("确认清空书架？")
+        dialogBuilder.a(1).a("确认删除选中的 " + selectedItems.size() + " 本书？")
             .a(activity.getString(R.string.confirm), new agb.b() {
                 @Override
                 public void a(agb dialog, View view) {
-                    // 清空所有阅读进度记录（保留设置类缓存）
-                    if (ebookCacheManager != null) {
-                        ebookCacheManager.clearAllReadingProgress();
-                        Log.i(TAG_EBOOK, "所有阅读进度已清除");
+                    for (BookshelfItem item : selectedItems) {
+                        // 清除该书籍的阅读进度
+                        if (ebookCacheManager != null && item.getBookId() != null) {
+                            ebookCacheManager.clearReadingProgress(item.getBookId());
+                            Log.i(TAG_EBOOK, "已清除阅读进度: " + item.getBookId());
+                        }
+                        // 删除本地缓存文件
+                        deleteBookCacheFiles(item.getBookId());
+                        // 从书架中移除
+                        if (bookshelfManager != null) {
+                            bookshelfManager.removeFromBookshelf(item.getBookId());
+                        }
+                        Log.i(TAG_EBOOK, "已从书架移除: " + item.getTitle());
                     }
-
-                    // 清空书架列表
-                    if (bookshelfManager != null) {
-                        bookshelfManager.clearBookshelf();
-                        Log.i(TAG_EBOOK, "书架已清空");
-                    }
-
-                    // 清空书架数据
-                    if (bookshelfItems != null) {
-                        bookshelfItems.clear();
-                    }
-
-                    // 刷新书架显示
-                    showBookshelfOrFileChooser();
-
-                    // 显示提示
-                    host.showToast("书架已清空");
-
+                    // 提示并退出整理书架（重新加载书架列表）
+                    host.showToast("已删除 " + selectedItems.size() + " 本书");
+                    hideOrganizeShelf();
                     dialog.dismiss();
                 }
             })
@@ -438,6 +904,22 @@ public class EbookReaderPanel {
                 }
             });
         dialogBuilder.a().show();
+    }
+
+    /** 退出整理书架页面，回到书架列表 */
+    private void hideOrganizeShelf() {
+        Log.i(TAG_EBOOK, "退出整理书架页面，回到书架");
+        isOrganizingShelf = false;
+        organizeSelectedFlags = null;
+        organizeListView = null;
+        organizeSelectAllButton = null;
+        organizeDeleteButton = null;
+        organizeSelectAllText = null;
+        organizeDeleteText = null;
+        if (ebookPanel != null) {
+            ebookPanel.removeAllViews();
+        }
+        showBookshelfOrFileChooser();
     }
 
     /** 显示章节列表 */
@@ -576,7 +1058,8 @@ public class EbookReaderPanel {
                 + ", controlTarget=" + controlTarget + ", menuShown=" + host.isMenuShown());
 
         // 连击三次确定键关闭电子书区域（不论焦点在视频还是电子书区域）
-        if (isEbookPanelShown && isConfirmKey(keyCode)) {
+        // 整理书架页面不启用：连续勾选书籍时避免误触隐藏面板
+        if (isEbookPanelShown && isConfirmKey(keyCode) && !isOrganizingShelf) {
             long currentTime = System.currentTimeMillis();
             long timeSinceLastPress = currentTime - lastConfirmKeyPressTime;
 
@@ -657,7 +1140,7 @@ public class EbookReaderPanel {
             // 只有在书架页面才响应长按确认键
             if (isBookshelfPage) {
                 confirmKeyLongPressHandled = true;
-                host.showMenu(true); // 打开电子书菜单（清空书架等入口）
+                host.showMenu(true); // 打开电子书菜单（整理书架等入口）
             }
         }
         return host.isMenuShown();
@@ -674,6 +1157,21 @@ public class EbookReaderPanel {
         // 电子书模式：只在控制电子书时拦截按键（除了菜单键、返回键、确认键）
         if (isEbookPanelShown && controlTarget.equals("ebook") && !host.isMenuShown()) {
             Log.i(TAG_EBOOK, "onKeyDown: 电子书模式拦截按键: " + keyCode);
+
+            // 整理书架页面：返回键退出整理，菜单键不响应，方向键/确认键不拦截（由列表和按钮处理）
+            if (isOrganizingShelf && organizeListView != null && organizeListView.isShown()) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    Log.i(TAG_EBOOK, "整理书架页面按返回键，退出整理书架");
+                    hideOrganizeShelf();
+                    return true;
+                }
+                if (keyCode == KeyEvent.KEYCODE_MENU) {
+                    Log.i(TAG_EBOOK, "整理书架页面显示中，不响应菜单键");
+                    return true;
+                }
+                Log.i(TAG_EBOOK, "onKeyDown: 整理书架页面，不拦截方向键和确认键");
+                return false; // 不拦截，让整理列表/按钮处理
+            }
 
             // 关键修复：章节列表显示时，确认键和方向键不拦截（让ListView处理）
             if (chapterListView != null && chapterListView.isShown()) {
@@ -936,6 +1434,13 @@ public class EbookReaderPanel {
         isEbookPanelShown = false;
         isChapterListShown = false;
         isFileChooserShown = false;
+        isOrganizingShelf = false;
+        organizeSelectedFlags = null;
+        organizeListView = null;
+        organizeSelectAllButton = null;
+        organizeDeleteButton = null;
+        organizeSelectAllText = null;
+        organizeDeleteText = null;
         isLoadingEbook = false;
         isReadingBook = false;
         currentBook = null;
@@ -1864,10 +2369,22 @@ public class EbookReaderPanel {
         float savedFontSize = EbookFileStore.getInstance(host.getContext()).getFontSize();
         Log.i(TAG_EBOOK, "读取保存的字体大小: " + savedFontSize);
 
-        // 构建完整HTML（添加样式）
+        // 读取保存的配色方案，直接内嵌到HTML——避免章节加载期间先显示白色背景，等JS应用才变色
+        int savedThemeIndex = EbookFileStore.getInstance(host.getContext()).getColorThemeIndex();
+        com.bilibili.tv.ebook.model.ReaderTheme[] themes = com.bilibili.tv.ebook.model.ReaderTheme.getBuiltInThemes();
+        if (savedThemeIndex < 0 || savedThemeIndex >= themes.length) {
+            savedThemeIndex = 0; // 边界保护，默认System
+        }
+        final com.bilibili.tv.ebook.model.ReaderTheme theme = themes[savedThemeIndex];
+        String bgColor = String.format("#%06X", (0xFFFFFF & theme.getBackgroundColor()));
+        String textColor = String.format("#%06X", (0xFFFFFF & theme.getTextColor()));
+        Log.i(TAG_EBOOK, "加载章节时内嵌配色方案: " + theme.getName() + ", bg=" + bgColor + ", text=" + textColor);
+
+        // 构建完整HTML（添加样式，内嵌配色方案的背景色与文字色）
         String styledHtml = "<html><head>" +
             "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">" +
-            "<style>body { font-size: " + (int)savedFontSize + "px; line-height: 1.6; padding: 20px; }</style>" +
+            "<style>body { font-size: " + (int)savedFontSize + "px; line-height: 1.6; padding: 20px;" +
+            " background-color: " + bgColor + "; color: " + textColor + "; }</style>" +
             "</head><body>" + htmlContent + "</body></html>";
 
         // 设置WebViewClient，用于监听页面加载完成（应用字体大小、滚动到底部或恢复页码）
@@ -1933,6 +2450,9 @@ public class EbookReaderPanel {
         } else {
             Log.i(TAG_EBOOK, "使用baseUrl: " + baseUrl);
         }
+
+        // 设置WebView底层背景色为配色方案背景色，加载期间不显示白色
+        ebookWebView.setBackgroundColor(theme.getBackgroundColor());
 
         ebookWebView.loadDataWithBaseURL(baseUrl, styledHtml, "text/html", "UTF-8", null);
 
@@ -2674,6 +3194,15 @@ public class EbookReaderPanel {
         isEbookPanelShown = false;
         controlTarget = "video"; // 隐藏电子书时，重置为控制视频
 
+        // 整理书架页面与面板共存亡：隐藏面板时重置整理状态
+        isOrganizingShelf = false;
+        organizeSelectedFlags = null;
+        organizeListView = null;
+        organizeSelectAllButton = null;
+        organizeDeleteButton = null;
+        organizeSelectAllText = null;
+        organizeDeleteText = null;
+
         // 不清空书籍数据：currentBook、currentChapterIndex、currentBookFilePath等保持不变
         // 这样再次打开时可以直接显示正在阅读的书籍
 
@@ -2737,6 +3266,13 @@ public class EbookReaderPanel {
         isEbookPanelShown = false;
         isChapterListShown = false;
         isFileChooserShown = false;
+        isOrganizingShelf = false;
+        organizeSelectedFlags = null;
+        organizeListView = null;
+        organizeSelectAllButton = null;
+        organizeDeleteButton = null;
+        organizeSelectAllText = null;
+        organizeDeleteText = null;
         isLoadingEbook = false;
         isReadingBook = false; // 清除阅读状态
         currentBook = null;
@@ -3968,59 +4504,5 @@ public class EbookReaderPanel {
         } else {
             return String.format("%.2f GB", size / (1024.0 * 1024 * 1024));
         }
-    }
-
-    /**
-     * 显示删除单本书籍的确认对话框
-     */
-    private void showRemoveBookDialog(final BookshelfItem item, final int position) {
-        Activity activity = host.getActivity();
-        if (activity == null) {
-            Log.e(TAG_EBOOK, "Activity is null");
-            return;
-        }
-
-        // 显示确认对话框（样式与清空书架一致）
-        agb.a dialogBuilder = new agb.a(activity);
-        dialogBuilder.a(1).a("确认删除此书？")
-            .a(activity.getString(R.string.confirm), new agb.b() {
-                @Override
-                public void a(agb dialog, View view) {
-                    // 清除该书籍的阅读进度
-                    if (ebookCacheManager != null && item.getBookId() != null) {
-                        ebookCacheManager.clearReadingProgress(item.getBookId());
-                        Log.i(TAG_EBOOK, "已清除阅读进度: " + item.getBookId());
-                    }
-
-                    // 删除本地缓存文件
-                    deleteBookCacheFiles(item.getBookId());
-
-                    // 从书架中移除
-                    if (bookshelfManager != null) {
-                        bookshelfManager.removeFromBookshelf(item.getBookId());
-                        Log.i(TAG_EBOOK, "已从书架移除: " + item.getTitle());
-                    }
-
-                    // 从列表中移除
-                    if (bookshelfItems != null && position >= 0 && position < bookshelfItems.size()) {
-                        bookshelfItems.remove(position);
-                    }
-
-                    // 刷新书架显示
-                    showBookshelfOrFileChooser();
-
-                    // 显示提示
-                    host.showToast("已删除: " + item.getTitle());
-
-                    dialog.dismiss();
-                }
-            })
-            .b(activity.getString(R.string.cancel), new agb.b() {
-                @Override
-                public void a(agb dialog, View view) {
-                    dialog.dismiss();
-                }
-            });
-        dialogBuilder.a().show();
     }
 }

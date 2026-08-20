@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 525
+    .line 532
     iput-object p1, p0, Lbl/xw$3;->this$0:Lbl/xw;
 
     iput-object p2, p0, Lbl/xw$3;->val$params:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
@@ -49,7 +49,7 @@
     .locals 5
 
     .prologue
-    .line 528
+    .line 535
     const-string v0, "SkipSetting"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -82,7 +82,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 530
+    .line 537
     iget-object v0, p0, Lbl/xw$3;->this$0:Lbl/xw;
 
     iget-object v1, p0, Lbl/xw$3;->val$params:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
@@ -92,7 +92,7 @@
 
     move-result-object v0
 
-    .line 531
+    .line 538
     iget-object v1, p0, Lbl/xw$3;->this$0:Lbl/xw;
 
     # invokes: Lbl/xw;->getSkipHelper()Lbl/xj;
@@ -100,13 +100,13 @@
 
     move-result-object v1
 
-    .line 532
+    .line 539
     if-eqz v1, :cond_3f
 
-    .line 533
+    .line 540
     invoke-virtual {v1, v0}, Lbl/xj;->updateSkips(Lorg/json/JSONArray;)V
 
-    .line 534
+    .line 541
     iget-object v0, p0, Lbl/xw$3;->this$0:Lbl/xw;
 
     invoke-virtual {v0}, Lbl/xw;->x()I
@@ -117,7 +117,7 @@
 
     invoke-virtual {v1, v2, v3}, Lbl/xj;->checkSkip(J)V
 
-    .line 536
+    .line 543
     :cond_3f
     return-void
 .end method

@@ -157,12 +157,4 @@ public class BookshelfManager {
 
         saveBookshelfItems(items);
     }
-
-    /**
-     * 清空书架
-     */
-    public void clearBookshelf() {
-        EbookFileStore.getInstance(context).saveBookshelfJson("[]");
-        Log.i(TAG, "书架已清空");
-    }
 }

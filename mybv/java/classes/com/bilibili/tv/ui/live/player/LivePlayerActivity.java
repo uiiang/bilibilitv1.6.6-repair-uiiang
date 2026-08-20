@@ -494,9 +494,9 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
             }
 
             @Override
-            public void clearBookshelf() {
+            public void organizeBookshelf() {
                 if (ebookReaderPanel != null) {
-                    ebookReaderPanel.clearBookshelf();
+                    ebookReaderPanel.organizeBookshelf();
                 }
             }
 

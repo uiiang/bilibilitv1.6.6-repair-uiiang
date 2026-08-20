@@ -106,9 +106,9 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
             if (xwInstance.isControlEbook() && !xwInstance.isMenuShown()) {
                 android.util.Log.i("EbookReader", "xl.f: isEbookReadingContent=" + xwInstance.isEbookReadingContent());
 
-                // 如果在电子书阅读内容页面，传递方向键到xw.f()
-                if (xwInstance.isEbookReadingContent()) {
-                    android.util.Log.i("EbookReader", "xl.f: 电子书阅读内容页面，检查方向键 " + i);
+                // 如果在电子书阅读内容页面或整理书架页面，传递方向键到xw.f()
+                if (xwInstance.isEbookReadingContent() || xwInstance.isOrganizingShelf()) {
+                    android.util.Log.i("EbookReader", "xl.f: 电子书阅读/整理书架页面，检查方向键 " + i);
                     if (i == KeyEvent.KEYCODE_DPAD_UP ||
                         i == KeyEvent.KEYCODE_DPAD_DOWN ||
                         i == KeyEvent.KEYCODE_DPAD_LEFT ||
@@ -142,9 +142,9 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
             if (xwInstance.isControlEbook() && !xwInstance.isMenuShown()) {
                 android.util.Log.i("EbookReader", "xl.g: isEbookReadingContent=" + xwInstance.isEbookReadingContent());
 
-                // 关键修改：如果在电子书阅读内容页面，让方向键传递到xw.g()处理
-                if (xwInstance.isEbookReadingContent()) {
-                    android.util.Log.i("EbookReader", "xl.g: 电子书阅读内容页面，检查方向键 " + i);
+                // 关键修改：如果在电子书阅读内容页面或整理书架页面，让方向键传递到xw.g()处理
+                if (xwInstance.isEbookReadingContent() || xwInstance.isOrganizingShelf()) {
+                    android.util.Log.i("EbookReader", "xl.g: 电子书阅读/整理书架页面，检查方向键 " + i);
                     // 方向键不拦截，传递到xw.g()处理
                     if (i == KeyEvent.KEYCODE_DPAD_UP ||
                         i == KeyEvent.KEYCODE_DPAD_DOWN ||

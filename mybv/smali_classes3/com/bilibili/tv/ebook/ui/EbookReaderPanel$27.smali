@@ -3,17 +3,27 @@
 .source "EbookReaderPanel.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Ljava/util/Comparator;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->scheduleSaveReadingProgress()V
+    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->loadFileList(Landroid/widget/ListView;Landroid/widget/TextView;Ljava/io/File;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
     accessFlags = 0x0
     name = null
+.end annotation
+
+.annotation system Ldalvik/annotation/Signature;
+    value = {
+        "Ljava/lang/Object;",
+        "Ljava/util/Comparator",
+        "<",
+        "Ljava/io/File;",
+        ">;"
+    }
 .end annotation
 
 
@@ -26,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 3764
+    .line 1851
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$27;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,24 +46,38 @@
 
 
 # virtual methods
-.method public run()V
+.method public compare(Ljava/io/File;Ljava/io/File;)I
     .locals 2
 
     .prologue
-    .line 3767
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$27;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    .line 1854
+    invoke-virtual {p1}, Ljava/io/File;->getName()Ljava/lang/String;
 
-    # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->saveReadingProgress()V
-    invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$000(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)V
+    move-result-object v0
 
-    .line 3768
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$27;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    invoke-virtual {p2}, Ljava/io/File;->getName()Ljava/lang/String;
 
-    const/4 v1, 0x0
+    move-result-object v1
 
-    # setter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->saveProgressRunnable:Ljava/lang/Runnable;
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$3902(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Ljava/lang/Runnable;)Ljava/lang/Runnable;
+    invoke-virtual {v0, v1}, Ljava/lang/String;->compareToIgnoreCase(Ljava/lang/String;)I
 
-    .line 3769
-    return-void
+    move-result v0
+
+    return v0
+.end method
+
+.method public bridge synthetic compare(Ljava/lang/Object;Ljava/lang/Object;)I
+    .locals 1
+
+    .prologue
+    .line 1851
+    check-cast p1, Ljava/io/File;
+
+    check-cast p2, Ljava/io/File;
+
+    invoke-virtual {p0, p1, p2}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$27;->compare(Ljava/io/File;Ljava/io/File;)I
+
+    move-result v0
+
+    return v0
 .end method

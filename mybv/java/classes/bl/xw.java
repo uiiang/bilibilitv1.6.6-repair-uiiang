@@ -274,6 +274,13 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a, 
         return ebookReaderPanel != null && ebookReaderPanel.isControlEbook();
     }
 
+    /**
+     * 检查是否正在整理书架页面（桥接到 EbookReaderPanel）
+     */
+    public boolean isOrganizingShelf() {
+        return ebookReaderPanel != null && ebookReaderPanel.isOrganizingShelf();
+    }
+
     /* JADX INFO: Access modifiers changed from: private */
     public void d(boolean z) {
         v();
@@ -703,8 +710,8 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a, 
             }
 
             @Override
-            public void clearBookshelf() {
-                getEbookReaderPanel().clearBookshelf();
+            public void organizeBookshelf() {
+                getEbookReaderPanel().organizeBookshelf();
             }
 
             @Override

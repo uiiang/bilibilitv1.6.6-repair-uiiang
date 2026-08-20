@@ -19,7 +19,7 @@ public class EbookMenuHelper {
     // 电子书菜单项文本（书架页/阅读页/普通菜单）
     public static final String MENU_CONTROL_VIDEO = "控制视频";
     public static final String MENU_SELECT_FILE = "选择文件";
-    public static final String MENU_CLEAR_SHELF = "清空书架";
+    public static final String MENU_ORGANIZE_SHELF = "整理书架";
     public static final String MENU_SCREEN_PERCENT = "屏幕占比";
     public static final String MENU_VIDEO_POSITION = "视频位置";
     public static final String MENU_EXIT_READING = "退出阅读";
@@ -34,7 +34,7 @@ public class EbookMenuHelper {
     /**
      * 电子书菜单动作回调（由点播 xw / 直播 Activity 实现）
      *
-     * 动作型菜单项（章节列表/选择文件/清空书架/退出阅读/关闭书籍/控制视频/控制电子书）
+     * 动作型菜单项（章节列表/选择文件/整理书架/退出阅读/关闭书籍/控制视频/控制电子书）
      * 由 dispatch() 分发；设置型二级菜单项（字体大小/配色方案/屏幕占比/视频位置）
      * 由 LivePlayerMenuRight 点击处理时调用 set 系列方法。
      */
@@ -45,7 +45,7 @@ public class EbookMenuHelper {
 
         void showChapterList();
 
-        void clearBookshelf();
+        void organizeBookshelf();
 
         void closeCurrentBook();
 
@@ -82,7 +82,7 @@ public class EbookMenuHelper {
      * 构建电子书模式菜单
      *
      * @param isReadingBook 是否阅读页面
-     * @return 书架页 [控制视频,选择文件,清空书架,屏幕占比,视频位置,退出阅读]
+     * @return 书架页 [控制视频,选择文件,整理书架,屏幕占比,视频位置,退出阅读]
      *         阅读页 [控制视频,章节列表,字体大小,配色方案,屏幕占比,关闭书籍]
      */
     public static List<String> buildEbookMenus(boolean isReadingBook) {
@@ -90,7 +90,7 @@ public class EbookMenuHelper {
         if (!isReadingBook) {
             menus.add(MENU_CONTROL_VIDEO);
             menus.add(MENU_SELECT_FILE);
-            menus.add(MENU_CLEAR_SHELF);
+            menus.add(MENU_ORGANIZE_SHELF);
             menus.add(MENU_SCREEN_PERCENT);
             menus.add(MENU_VIDEO_POSITION);
             menus.add(MENU_EXIT_READING);
@@ -108,38 +108,31 @@ public class EbookMenuHelper {
     /**
      * 电子书模式下，将显示索引映射到父类能够识别的二级菜单索引
      *
-     * 书架页面菜单：[控制视频, 选择文件, 清空书架, 屏幕占比, 视频位置, 退出阅读]
-     * 阅读页面菜单：[控制视频, 章节列表, 字体大小, 配色方案, 屏幕占比, 关闭书籍]
+     * 映射基于当前菜单列表的项内容（数据驱动），自动适配"删除书籍"等条件菜单项
+     * 引起的显示索引偏移，构建方与映射方无需同步索引约定。
      *
-     * @param displayIndex   菜单显示索引（0-5）
-     * @param isReadingPage  是否阅读页面
+     * @param menuList     当前电子书菜单列表（main_list）
+     * @param displayIndex 菜单显示索引
      * @return 二级菜单索引：字体大小→4、配色方案→5、屏幕占比→10、视频位置→13，无二级菜单→-1
      */
-    public static int getOriginalMenuIndex(int displayIndex, boolean isReadingPage) {
-        switch (displayIndex) {
-            case 0: // 控制视频 - 没有二级菜单
-                return -1;
-            case 1: // 章节列表/选择文件 - 没有二级菜单
-                return -1;
-            case 2:
-                // 书架页面: 清空书架 → -1
-                // 阅读页面: 字体大小 → 4
-                return isReadingPage ? 4 : -1;
-            case 3:
-                // 书架页面: 屏幕占比 → 10
-                // 阅读页面: 配色方案 → 5
-                return isReadingPage ? 5 : 10;
-            case 4:
-                // 书架页面: 视频位置 → 13
-                // 阅读页面: 屏幕占比 → 10
-                return isReadingPage ? 10 : 13;
-            case 5:
-                // 书架页面: 退出阅读 → -1
-                // 阅读页面: 关闭书籍 → -1
-                return -1;
-            default:
-                return -1;
+    public static int getOriginalMenuIndex(List<String> menuList, int displayIndex) {
+        if (menuList == null || displayIndex < 0 || displayIndex >= menuList.size()) {
+            return -1;
         }
+        String item = menuList.get(displayIndex);
+        if (TextUtils.equals(item, MENU_FONT_SIZE)) {
+            return 4;
+        }
+        if (TextUtils.equals(item, MENU_COLOR_THEME)) {
+            return 5;
+        }
+        if (TextUtils.equals(item, MENU_SCREEN_PERCENT)) {
+            return 10;
+        }
+        if (TextUtils.equals(item, MENU_VIDEO_POSITION)) {
+            return 13;
+        }
+        return -1;
     }
 
     /**
@@ -159,7 +152,7 @@ public class EbookMenuHelper {
             case 1: // 章节列表/选择文件
                 return 0;
             case 2:
-                // 书架页面: 清空书架 → 0
+                // 书架页面: 整理书架 → 0
                 // 阅读页面: 字体大小 → fontId
                 return isReadingPage ? fontId : 0;
             case 3:
@@ -184,7 +177,7 @@ public class EbookMenuHelper {
         }
         return TextUtils.equals(str, MENU_CONTROL_VIDEO)
                 || TextUtils.equals(str, MENU_SELECT_FILE)
-                || TextUtils.equals(str, MENU_CLEAR_SHELF)
+                || TextUtils.equals(str, MENU_ORGANIZE_SHELF)
                 || TextUtils.equals(str, MENU_SCREEN_PERCENT)
                 || TextUtils.equals(str, MENU_VIDEO_POSITION)
                 || TextUtils.equals(str, MENU_EXIT_READING)
@@ -219,8 +212,8 @@ public class EbookMenuHelper {
             return true;
         }
 
-        if (TextUtils.equals(str, MENU_CLEAR_SHELF)) {
-            actions.clearBookshelf();
+        if (TextUtils.equals(str, MENU_ORGANIZE_SHELF)) {
+            actions.organizeBookshelf();
             return true;
         }
 

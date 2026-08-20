@@ -21,10 +21,10 @@ public class CookieUtil {
         String authCookie = getEssentialCookie(biliAccount);
         String deviceCookie = DeviceIdentityManager.getInstance().getDeviceCookie();
         
-        Log.d(TAG, "getFullCookieWithDevice - biliAccount: " + (biliAccount != null ? "not null" : "null"));
-        // BUG修复：完整Cookie含超长SESSDATA/bili_ticket，主线程打印易造成logd写阻塞卡顿，改为只打印长度
-        Log.d(TAG, "getFullCookieWithDevice - authCookie length: " + (authCookie == null ? 0 : authCookie.length()));
-        Log.d(TAG, "getFullCookieWithDevice - deviceCookie length: " + (deviceCookie == null ? 0 : deviceCookie.length()));
+        // Log.d(TAG, "getFullCookieWithDevice - biliAccount: " + (biliAccount != null ? "not null" : "null"));
+        // // BUG修复：完整Cookie含超长SESSDATA/bili_ticket，主线程打印易造成logd写阻塞卡顿，改为只打印长度
+        // Log.d(TAG, "getFullCookieWithDevice - authCookie length: " + (authCookie == null ? 0 : authCookie.length()));
+        // Log.d(TAG, "getFullCookieWithDevice - deviceCookie length: " + (deviceCookie == null ? 0 : deviceCookie.length()));
         
         String result;
         if (authCookie == null || authCookie.isEmpty()) {
@@ -35,7 +35,7 @@ public class CookieUtil {
             result = authCookie + "; " + deviceCookie;
         }
         
-        Log.d(TAG, "getFullCookieWithDevice - result length: " + (result == null ? 0 : result.length()));
+        // Log.d(TAG, "getFullCookieWithDevice - result length: " + (result == null ? 0 : result.length()));
         return result;
     }
 
@@ -69,18 +69,18 @@ public class CookieUtil {
         }
         try {
             ml cookiesData = biliAccount.h();
-            Log.d(TAG, "getEssentialCookie - cookiesData: " + (cookiesData != null ? "not null" : "null"));
+            // Log.d(TAG, "getEssentialCookie - cookiesData: " + (cookiesData != null ? "not null" : "null"));
             if (cookiesData == null || cookiesData.a == null) {
                 Log.d(TAG, "getEssentialCookie - cookiesData.a is null");
                 return "";
             }
             StringBuilder sb = new StringBuilder();
             List<ml.a> cookies = cookiesData.a;
-            Log.d(TAG, "getEssentialCookie - cookies count: " + cookies.size());
+            // Log.d(TAG, "getEssentialCookie - cookies count: " + cookies.size());
             for (String name : ESSENTIAL_COOKIES) {
                 String value = findCookieValue(cookies, name);
                 // BUG修复：超长值（SESSDATA等）只打印长度，避免主线程打印超长日志造成logd写阻塞卡顿
-                Log.d(TAG, "getEssentialCookie - " + name + " = " + (value != null && value.length() > 50 ? ("len=" + value.length()) : value));
+                // Log.d(TAG, "getEssentialCookie - " + name + " = " + (value != null && value.length() > 50 ? ("len=" + value.length()) : value));
                 if (value != null && !value.isEmpty()) {
                     if (sb.length() > 0) {
                         sb.append("; ");

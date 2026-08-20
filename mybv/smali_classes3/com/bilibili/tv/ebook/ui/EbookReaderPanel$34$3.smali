@@ -1,4 +1,4 @@
-.class Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22$3;
+.class Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$34$3;
 .super Ljava/lang/Object;
 .source "EbookReaderPanel.java"
 
@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22;->run()V
+    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$34;->run()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -18,7 +18,7 @@
 
 
 # instance fields
-.field final synthetic this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22;
+.field final synthetic this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$34;
 
 .field final synthetic val$finalException:Ljava/lang/Exception;
 
@@ -26,7 +26,7 @@
 
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22;Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Ljava/lang/Exception;)V
+.method constructor <init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$34;Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Ljava/lang/Exception;)V
     .locals 0
     .annotation system Ldalvik/annotation/Signature;
         value = {
@@ -35,12 +35,12 @@
     .end annotation
 
     .prologue
-    .line 1673
-    iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22$3;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22;
+    .line 2178
+    iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$34$3;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$34;
 
-    iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22$3;->val$finalPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$34$3;->val$finalPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-    iput-object p3, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22$3;->val$finalException:Ljava/lang/Exception;
+    iput-object p3, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$34$3;->val$finalException:Ljava/lang/Exception;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -53,20 +53,20 @@
     .locals 3
 
     .prologue
-    .line 1676
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22$3;->val$finalPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    .line 2181
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$34$3;->val$finalPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->host:Lcom/bilibili/tv/ebook/ui/EbookHost;
-    invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$700(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Lcom/bilibili/tv/ebook/ui/EbookHost;
+    invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$1500(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Lcom/bilibili/tv/ebook/ui/EbookHost;
 
     move-result-object v0
 
     if-eqz v0, :cond_36
 
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22$3;->val$finalPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$34$3;->val$finalPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->host:Lcom/bilibili/tv/ebook/ui/EbookHost;
-    invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$700(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Lcom/bilibili/tv/ebook/ui/EbookHost;
+    invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$1500(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Lcom/bilibili/tv/ebook/ui/EbookHost;
 
     move-result-object v0
 
@@ -76,11 +76,11 @@
 
     if-eqz v0, :cond_36
 
-    .line 1677
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22$3;->val$finalPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    .line 2182
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$34$3;->val$finalPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->host:Lcom/bilibili/tv/ebook/ui/EbookHost;
-    invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$700(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Lcom/bilibili/tv/ebook/ui/EbookHost;
+    invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$1500(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Lcom/bilibili/tv/ebook/ui/EbookHost;
 
     move-result-object v0
 
@@ -94,7 +94,7 @@
 
     move-result-object v1
 
-    iget-object v2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$22$3;->val$finalException:Ljava/lang/Exception;
+    iget-object v2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$34$3;->val$finalException:Ljava/lang/Exception;
 
     invoke-virtual {v2}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
 
@@ -110,7 +110,7 @@
 
     invoke-interface {v0, v1}, Lcom/bilibili/tv/ebook/ui/EbookHost;->showToast(Ljava/lang/String;)V
 
-    .line 1679
+    .line 2184
     :cond_36
     return-void
 .end method

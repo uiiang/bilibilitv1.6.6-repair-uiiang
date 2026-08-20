@@ -1,4 +1,4 @@
-.class Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$11$1;
+.class Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$29$1;
 .super Ljava/lang/Object;
 .source "EbookReaderPanel.java"
 
@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$11;->onItemSelected(Landroid/widget/AdapterView;Landroid/view/View;IJ)V
+    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$29;->onItemSelected(Landroid/widget/AdapterView;Landroid/view/View;IJ)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -18,13 +18,13 @@
 
 
 # instance fields
-.field final synthetic this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$11;
+.field final synthetic this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$29;
 
 .field final synthetic val$parent:Landroid/widget/AdapterView;
 
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$11;Landroid/widget/AdapterView;)V
+.method constructor <init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$29;Landroid/widget/AdapterView;)V
     .locals 0
     .annotation system Ldalvik/annotation/Signature;
         value = {
@@ -33,10 +33,10 @@
     .end annotation
 
     .prologue
-    .line 1100
-    iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$11$1;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$11;
+    .line 1917
+    iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$29$1;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$29;
 
-    iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$11$1;->val$parent:Landroid/widget/AdapterView;
+    iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$29$1;->val$parent:Landroid/widget/AdapterView;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -49,13 +49,13 @@
     .locals 1
 
     .prologue
-    .line 1103
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$11$1;->val$parent:Landroid/widget/AdapterView;
+    .line 1920
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$29$1;->val$parent:Landroid/widget/AdapterView;
 
     check-cast v0, Landroid/widget/ListView;
 
     invoke-virtual {v0}, Landroid/widget/ListView;->invalidateViews()V
 
-    .line 1104
+    .line 1921
     return-void
 .end method

@@ -1,4 +1,4 @@
-.class Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25$2;
+.class Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37$2;
 .super Ljava/lang/Object;
 .source "EbookReaderPanel.java"
 
@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25;->run()V
+    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37;->run()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -18,16 +18,16 @@
 
 
 # instance fields
-.field final synthetic this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25;
+.field final synthetic this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37;
 
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25;)V
+.method constructor <init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37;)V
     .locals 0
 
     .prologue
-    .line 2205
-    iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25$2;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25;
+    .line 2725
+    iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37$2;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -49,14 +49,14 @@
     .end annotation
 
     .prologue
-    .line 2209
-    new-instance v0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25$2$1;
+    .line 2729
+    new-instance v0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37$2$1;
 
-    invoke-direct {v0, p0, p1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25$2$1;-><init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$25$2;Landroid/widget/AdapterView;)V
+    invoke-direct {v0, p0, p1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37$2$1;-><init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37$2;Landroid/widget/AdapterView;)V
 
     invoke-virtual {p1, v0}, Landroid/widget/AdapterView;->post(Ljava/lang/Runnable;)Z
 
-    .line 2215
+    .line 2735
     return-void
 .end method
 
@@ -71,6 +71,6 @@
     .end annotation
 
     .prologue
-    .line 2219
+    .line 2739
     return-void
 .end method

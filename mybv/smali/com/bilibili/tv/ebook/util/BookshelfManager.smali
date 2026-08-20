@@ -398,32 +398,6 @@
     goto :goto_28
 .end method
 
-.method public clearBookshelf()V
-    .locals 2
-
-    .prologue
-    .line 165
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/util/BookshelfManager;->context:Landroid/content/Context;
-
-    invoke-static {v0}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->getInstance(Landroid/content/Context;)Lcom/bilibili/tv/ebook/util/EbookFileStore;
-
-    move-result-object v0
-
-    const-string v1, "[]"
-
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ebook/util/EbookFileStore;->saveBookshelfJson(Ljava/lang/String;)V
-
-    .line 166
-    const-string v0, "BookshelfManager"
-
-    const-string v1, "\u4e66\u67b6\u5df2\u6e05\u7a7a"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 167
-    return-void
-.end method
-
 .method public getBookshelfItems()Ljava/util/List;
     .locals 8
     .annotation system Ldalvik/annotation/Signature;

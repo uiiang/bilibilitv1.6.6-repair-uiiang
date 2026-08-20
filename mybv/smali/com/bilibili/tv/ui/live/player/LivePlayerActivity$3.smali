@@ -36,35 +36,6 @@
 
 
 # virtual methods
-.method public clearBookshelf()V
-    .locals 1
-
-    .prologue
-    .line 498
-    iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->ebookReaderPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->access$800(Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;)Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
-
-    move-result-object v0
-
-    if-eqz v0, :cond_11
-
-    .line 499
-    iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->ebookReaderPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->access$800(Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;)Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->clearBookshelf()V
-
-    .line 501
-    :cond_11
-    return-void
-.end method
-
 .method public closeCurrentBook()V
     .locals 1
 
@@ -148,6 +119,35 @@
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->openEbookReader()V
 
     .line 480
+    :cond_11
+    return-void
+.end method
+
+.method public organizeBookshelf()V
+    .locals 1
+
+    .prologue
+    .line 498
+    iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
+
+    # getter for: Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->ebookReaderPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->access$800(Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;)Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_11
+
+    .line 499
+    iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$3;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
+
+    # getter for: Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->ebookReaderPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->access$800(Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;)Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->organizeBookshelf()V
+
+    .line 501
     :cond_11
     return-void
 .end method

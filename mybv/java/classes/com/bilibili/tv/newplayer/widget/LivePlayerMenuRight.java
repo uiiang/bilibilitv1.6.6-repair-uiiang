@@ -162,17 +162,12 @@ public class LivePlayerMenuRight extends aay<String> {
 
     // ===== 电子书模式菜单 =====
 
-    /** 是否阅读页面（有字体/配色列表即为阅读页） */
-    private boolean isEbookReadingPage() {
-        return this.ebook_font_size_list != null || this.ebook_color_theme_list != null;
-    }
-
     /**
      * 切换电子书模式菜单
      *
-     * @param ebookMode    是否电子书模式
-     * @param isReadingBook 是否正在阅读书籍（决定书架页/阅读页菜单）
-     * @param actions      电子书动作回调（可复用同一个实例）
+     * @param ebookMode      是否电子书模式
+     * @param isReadingBook  是否正在阅读书籍（决定书架页/阅读页菜单）
+     * @param actions        电子书动作回调（可复用同一个实例）
      */
     public void setEbookMode(boolean ebookMode, boolean isReadingBook, EbookMenuHelper.EbookActions actions) {
         this.isEbookMode = ebookMode;
@@ -282,8 +277,7 @@ public class LivePlayerMenuRight extends aay<String> {
                 boolean isCurrentItem = false;
                 if (this.isEbookMode) {
                     // 电子书模式：根据显示索引映射到电子书二级列表，判断当前选中项
-                    boolean isReadingPage = isEbookReadingPage();
-                    int currentMenuIndex = EbookMenuHelper.getOriginalMenuIndex(this.q, isReadingPage);
+                    int currentMenuIndex = EbookMenuHelper.getOriginalMenuIndex(this.main_list, this.q);
                     switch (currentMenuIndex) {
                         case 4: // 字体大小
                             if (this.ebook_font_size_list != null && this.ebook_font_size_id >= 0 && this.ebook_font_size_id < this.ebook_font_size_list.size()) {
@@ -466,7 +460,7 @@ public class LivePlayerMenuRight extends aay<String> {
         e();
 
         // 电子书菜单项分发（必须在super.a()之前，避免触发二级菜单）
-        // 动作型菜单项（章节列表/选择文件/清空书架/退出阅读/关闭书籍/控制视频/控制电子书/电子书）
+        // 动作型菜单项（章节列表/选择文件/整理书架/退出阅读/关闭书籍/控制视频/控制电子书/电子书）
         if (this.ebookActions != null && EbookMenuHelper.isEbookMenuItem(str)) {
             if (EbookMenuHelper.dispatch(str, this.ebookActions)) {
                 a(false); // 关闭菜单
@@ -491,8 +485,7 @@ public class LivePlayerMenuRight extends aay<String> {
         }
         // 电子书模式：二级列表项处理（字体大小/配色方案/屏幕占比/视频位置）
         if (this.isEbookMode) {
-            boolean isReadingPage = isEbookReadingPage();
-            int currentMenuIndex = EbookMenuHelper.getOriginalMenuIndex(this.q, isReadingPage);
+            int currentMenuIndex = EbookMenuHelper.getOriginalMenuIndex(this.main_list, this.q);
             if (this.ebook_font_size_list != null && this.ebook_font_size_list.indexOf(str) != -1 && currentMenuIndex == 4) {
                 this.ebook_font_size_id = i2;
                 if (this.ebookActions != null) {
@@ -644,8 +637,7 @@ public class LivePlayerMenuRight extends aay<String> {
         int i3;
         if (this.isEbookMode) {
             // 电子书模式：根据显示索引映射到电子书二级列表的选中索引
-            boolean isReadingPage = isEbookReadingPage();
-            int originalIndex = EbookMenuHelper.getOriginalMenuIndex(i2, isReadingPage);
+            int originalIndex = EbookMenuHelper.getOriginalMenuIndex(this.main_list, i2);
             switch (originalIndex) {
                 case 4:
                     i3 = this.ebook_font_size_id;
@@ -703,8 +695,7 @@ public class LivePlayerMenuRight extends aay<String> {
         }
         if (this.isEbookMode) {
             // 电子书模式：根据显示索引映射到电子书二级列表
-            boolean isReadingPage = isEbookReadingPage();
-            int originalIndex = EbookMenuHelper.getOriginalMenuIndex(i2, isReadingPage);
+            int originalIndex = EbookMenuHelper.getOriginalMenuIndex(this.main_list, i2);
             switch (originalIndex) {
                 case 4: // 字体大小
                     return this.ebook_font_size_list;
