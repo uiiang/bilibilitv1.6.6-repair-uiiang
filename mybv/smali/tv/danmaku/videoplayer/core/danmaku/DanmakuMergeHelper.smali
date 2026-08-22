@@ -199,7 +199,7 @@
 
     move-result v0
 
-    if-eqz v0, :cond_ff
+    if-eqz v0, :cond_f9
 
     invoke-interface {v4}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
@@ -299,7 +299,7 @@
     check-cast v1, Ltv/danmaku/videoplayer/core/danmaku/DanmakuMergeHelper$MergeGroup;
 
     .line 111
-    if-eqz v1, :cond_e5
+    if-eqz v1, :cond_df
 
     iget-wide v6, v0, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;->mTimeMilli:J
 
@@ -307,7 +307,7 @@
 
     cmp-long v6, v6, v8
 
-    if-ltz v6, :cond_e5
+    if-ltz v6, :cond_df
 
     iget-wide v6, v0, Ltv/danmaku/videoplayer/core/danmaku/comment/CommentItem;->mTimeMilli:J
 
@@ -319,7 +319,7 @@
 
     cmp-long v6, v6, v8
 
-    if-gtz v6, :cond_e5
+    if-gtz v6, :cond_df
 
     .line 113
     iget v5, v1, Ltv/danmaku/videoplayer/core/danmaku/DanmakuMergeHelper$MergeGroup;->count:I
@@ -364,7 +364,7 @@
 
     move-result-object v5
 
-    const-string v6, " ("
+    const-string v6, " x"
 
     invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -373,12 +373,6 @@
     iget v6, v1, Ltv/danmaku/videoplayer/core/danmaku/DanmakuMergeHelper$MergeGroup;->count:I
 
     invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    const-string v6, ")"
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v5
 
@@ -403,7 +397,7 @@
     goto/16 :goto_2a
 
     .line 126
-    :cond_e5
+    :cond_df
     new-instance v1, Ltv/danmaku/videoplayer/core/danmaku/DanmakuMergeHelper$MergeGroup;
 
     const/4 v6, 0x0
@@ -435,7 +429,7 @@
     goto/16 :goto_2a
 
     .line 135
-    :cond_ff
+    :cond_f9
     const-string v0, "DanmakuMergeHelper"
 
     new-instance v1, Ljava/lang/StringBuilder;

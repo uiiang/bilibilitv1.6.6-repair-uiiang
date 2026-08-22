@@ -15,7 +15,7 @@ import tv.danmaku.videoplayer.core.danmaku.comment.CommentItem;
 /**
  * 重复弹幕合并工具：
  * 开启后，注入前按"内容+模式+颜色"分组，2秒时间窗口内的重复弹幕合并为一条，
- * 并在文本后追加 " (N)" 显示合并数量（保留组内第一条弹幕作为代表，保留其 dmid 供去重）。
+ * 并在文本后直接拼接 "xN" 显示合并数量（保留组内第一条弹幕作为代表，保留其 dmid 供去重）。
  */
 public class DanmakuMergeHelper {
     private static final String TAG = "DanmakuMergeHelper";
@@ -115,11 +115,11 @@ public class DanmakuMergeHelper {
                 group.rep.mTimeMilli = item.mTimeMilli;
                 // 关键：代表弹幕时间已更新为组内最后一条，dmid 必须同步更新，
                 // 否则 yl.hasDanmaku(time,dmid) 去重因时间失配而失效，list.so 回退
-                // 等二次注入会把合并代表重复注入（实测出现原始"11"与"11 (3)"同屏）
+                // 等二次注入会把合并代表重复注入（实测出现原始"11"与"11x3"同屏）
                 group.rep.mRemoteDmId = item.mRemoteDmId;
-                // 关键：rawText 末尾可能带 "\n"（setBody 添加），直接拼接会产生 "内容\n (N)"
-                // 被渲染引擎按多行弹幕处理导致内容行丢失（只显示 "(N"），必须先去尾随换行
-                group.rep.mText = stripTrailingNewlines(group.rawText) + " (" + group.count + ")";
+                // 关键：rawText 末尾可能带 "\n"（setBody 添加），直接拼接会产生 "内容\nx3"
+                // 被渲染引擎按多行弹幕处理导致内容行丢失（只显示 "x3"），必须先去尾随换行
+                group.rep.mText = stripTrailingNewlines(group.rawText) + " x" + group.count;
                 group.rep.mAppendLineFeedChar = false;
                 group.rep.mLineCount = 1;
             } else {

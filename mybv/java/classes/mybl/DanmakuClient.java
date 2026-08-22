@@ -73,7 +73,7 @@ public class DanmakuClient {
 
     // ==================== 直播弹幕合并重复 ====================
     // 与点播 DanmakuMergeHelper 同语义：按"内容+颜色+模式"分组，2秒窗口内相同弹幕合并为一条，
-    // 文本后追加 " (N)"。开关变量复用点播的 DanmakuMergeHelper.isMergeEnabled()（同一份 prefs 持久化），
+    // 文本后追加 "xN"。开关变量复用点播的 DanmakuMergeHelper.isMergeEnabled()（同一份 prefs 持久化），
     // 直播/点播共用同一开关状态。直播弹幕为实时流，采用"单个活动组"缓冲：
     // 连续同内容弹幕合并，出现不同内容或窗口过期时立即注入合并结果，减少实时延迟
     private static final long LIVE_MERGE_WINDOW_MS = 2000L;
@@ -84,14 +84,14 @@ public class DanmakuClient {
 
     private static class LiveMergeGroup {
         String key;               // 合并分组键：内容小写+颜色+模式
-        DrawableItem representative; // 组内第一条弹幕（代表），合并后 mSpannableString 追加 " (N)"
+        DrawableItem representative; // 组内第一条弹幕（代表），合并后 mSpannableString 追加 "xN"
         int count;                // 合并数量
         long lastTimeMs;          // 组内最后一条到达时间
         long groupStartMs;        // 组开始时间（总持有上限用）
-        int fontSize;             // 追加 "(N)" 的样式参数（与组内弹幕一致）
+        int fontSize;             // 追加 "xN" 的样式参数（与组内弹幕一致）
         int color;
         int alpha;
-        int suffixStart;          // 已追加 " (N)" 的起始位置；-1=尚未追加（首次合并时定位）
+        int suffixStart;          // 已追加 "xN" 的起始位置；-1=尚未追加（首次合并时定位）
     }
 
     private final Runnable mMergeFlushRunnable = new Runnable() {
@@ -146,11 +146,11 @@ public class DanmakuClient {
                         }
                         g.suffixStart = sb.length();
                     } else {
-                        // 后续合并：先删除上一次追加的 " (N)"，防止后缀叠加成 "内容 (2) (3) (4)"
+                        // 后续合并：先删除上一次追加的 "xN"，防止后缀叠加成 "内容x2x3x4"
                         sb.delete(g.suffixStart, sb.length());
                     }
                     int start = g.suffixStart;
-                    sb.append(" (" + g.count + ")");
+                    sb.append(" x" + g.count);
                     sb.setSpan(new AbsoluteSizeSpan((int) (g.fontSize * baseScreenScale * mScale)), start, sb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     sb.setSpan(new StrokedSpan(g.alpha, (g.color & 0xffffff) | 0xff000000, Color.BLACK), start, sb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
@@ -335,7 +335,7 @@ public class DanmakuClient {
                     drawableItem.mSpannableString=spannableStringBuilder;
                     if(player != null){
                         // 复用点播"合并重复"开关（DanmakuMergeHelper.isMergeEnabled，同一份 prefs）：
-                        // 开启时直播弹幕走合并缓冲（内容+颜色+模式，2秒窗口，追加 " (N)"），否则直接注入
+                        // 开启时直播弹幕走合并缓冲（内容+颜色+模式，2秒窗口，追加 "xN"），否则直接注入
                         if (DanmakuMergeHelper.isMergeEnabled()) {
                             processDanmakuWithMerge(drawableItem, content, color, mode, font_size, mAlpha);
                         } else {

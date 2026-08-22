@@ -639,6 +639,8 @@ public class ExoPlayerImpl implements IMediaPlayer {
 
                 @Override
                 public void onIsPlayingChanged(boolean isPlaying) {
+                    // 实时更新播放状态缓存（ExoPlayer 应用线程内回调，volatile 线程安全）
+                    cachedIsPlaying = isPlaying;
                     //Log.i(TAG, "[PLAY] isPlaying=" + isPlaying + ", position=" + exoPlayer.getCurrentPosition() + "ms");
                     if (isPlaying && onInfoListener != null) {
                         onInfoListener.onInfo(ExoPlayerImpl.this,
@@ -1121,6 +1123,9 @@ public class ExoPlayerImpl implements IMediaPlayer {
 
     @Override
     public boolean isPlaying() {
+        // cachedIsPlaying 由 onIsPlayingChanged 回调实时更新（ExoPlayer 应用线程内回调，volatile 线程安全）。
+        // 注意：不能直接调用 exoPlayer.isPlaying()——ExoPlayer 绑定在 VideoManager 线程，
+        // 主线程（如 onPause）调用会抛 IllegalStateException: Player is accessed on the wrong thread
         return cachedIsPlaying;
     }
 

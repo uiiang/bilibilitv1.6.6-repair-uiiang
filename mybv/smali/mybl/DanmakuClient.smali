@@ -509,7 +509,7 @@
     iget-object v6, p0, Lmybl/DanmakuClient;->mActiveMergeGroup:Lmybl/DanmakuClient$LiveMergeGroup;
 
     .line 135
-    if-eqz v6, :cond_10a
+    if-eqz v6, :cond_104
 
     iget-object v7, v6, Lmybl/DanmakuClient$LiveMergeGroup;->key:Ljava/lang/String;
 
@@ -517,7 +517,7 @@
 
     move-result v7
 
-    if-eqz v7, :cond_10a
+    if-eqz v7, :cond_104
 
     iget-wide v8, v6, Lmybl/DanmakuClient$LiveMergeGroup;->lastTimeMs:J
 
@@ -527,7 +527,7 @@
 
     cmp-long v7, v8, v10
 
-    if-gtz v7, :cond_10a
+    if-gtz v7, :cond_104
 
     .line 137
     iget v4, v6, Lmybl/DanmakuClient$LiveMergeGroup;->count:I
@@ -547,7 +547,7 @@
     .line 140
     instance-of v3, v2, Landroid/text/SpannableStringBuilder;
 
-    if-eqz v3, :cond_f7
+    if-eqz v3, :cond_f1
 
     .line 141
     check-cast v2, Landroid/text/SpannableStringBuilder;
@@ -555,7 +555,7 @@
     .line 142
     iget v3, v6, Lmybl/DanmakuClient$LiveMergeGroup;->suffixStart:I
 
-    if-gez v3, :cond_100
+    if-gez v3, :cond_fa
 
     .line 144
     invoke-virtual {v2}, Landroid/text/SpannableStringBuilder;->length()I
@@ -608,7 +608,7 @@
 
     invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v7, " ("
+    const-string v7, " x"
 
     invoke-virtual {v4, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -617,12 +617,6 @@
     iget v7, v6, Lmybl/DanmakuClient$LiveMergeGroup;->count:I
 
     invoke-virtual {v4, v7}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    const-string v7, ")"
-
-    invoke-virtual {v4, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v4
 
@@ -687,8 +681,8 @@
     invoke-virtual {v2, v4, v3, v6, v7}, Landroid/text/SpannableStringBuilder;->setSpan(Ljava/lang/Object;III)V
 
     .line 172
-    :cond_f7
-    :goto_f7
+    :cond_f1
+    :goto_f1
     invoke-direct {p0}, Lmybl/DanmakuClient;->scheduleMergeFlushLocked()V
 
     .line 173
@@ -696,18 +690,18 @@
 
     goto/16 :goto_6
 
-    :catchall_fd
+    :catchall_f7
     move-exception v2
 
     monitor-exit v5
-    :try_end_ff
-    .catchall {:try_start_51 .. :try_end_ff} :catchall_fd
+    :try_end_f9
+    .catchall {:try_start_51 .. :try_end_f9} :catchall_f7
 
     throw v2
 
     .line 150
-    :cond_100
-    :try_start_100
+    :cond_fa
+    :try_start_fa
     iget v3, v6, Lmybl/DanmakuClient$LiveMergeGroup;->suffixStart:I
 
     invoke-virtual {v2}, Landroid/text/SpannableStringBuilder;->length()I
@@ -719,7 +713,7 @@
     goto :goto_a4
 
     .line 159
-    :cond_10a
+    :cond_104
     invoke-direct {p0}, Lmybl/DanmakuClient;->flushActiveMergeGroupLocked()V
 
     .line 160
@@ -766,10 +760,10 @@
 
     .line 170
     iput-object v6, p0, Lmybl/DanmakuClient;->mActiveMergeGroup:Lmybl/DanmakuClient$LiveMergeGroup;
-    :try_end_12d
-    .catchall {:try_start_100 .. :try_end_12d} :catchall_fd
+    :try_end_127
+    .catchall {:try_start_fa .. :try_end_127} :catchall_f7
 
-    goto :goto_f7
+    goto :goto_f1
 .end method
 
 .method private scheduleMergeFlushLocked()V

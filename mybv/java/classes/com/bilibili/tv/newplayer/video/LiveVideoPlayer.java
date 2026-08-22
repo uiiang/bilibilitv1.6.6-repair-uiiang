@@ -177,13 +177,8 @@ public class LiveVideoPlayer extends wy {
             // ExoPlayerImpl 或其他IMediaPlayer实现
             android.util.Log.i("LiveVideoPlayer", "[LIVE_EXO] LiveVideoPlayer.f() - ExoPlayerImpl resume");
             try {
-                // 对于直播流，恢复时跳到最新位置
-                if (i instanceof tv.danmaku.videoplayer.core.media.exo.ExoPlayerImpl) {
-                    tv.danmaku.videoplayer.core.media.exo.ExoPlayerImpl exoImpl = 
-                        (tv.danmaku.videoplayer.core.media.exo.ExoPlayerImpl) i;
-                    exoImpl.seekToLivePosition();
-                    android.util.Log.i("LiveVideoPlayer", "[LIVE_EXO] seekToLivePosition called");
-                }
+                // 直播恢复直接 start：由 ExoPlayer 内置 LivePlaybackSpeedControl(0.95~1.5x) 平滑追赶直播边缘，
+                // 避免无条件 seekToDefaultPosition() 触发 HLS 重缓冲导致画面卡住
                 i.start();
             } catch (Exception e) {
                 att.a(e);

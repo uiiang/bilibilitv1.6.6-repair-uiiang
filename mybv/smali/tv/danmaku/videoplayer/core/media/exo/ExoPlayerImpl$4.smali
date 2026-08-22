@@ -40,14 +40,14 @@
     .locals 2
 
     .prologue
-    .line 679
+    .line 681
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[AUDIO] attributes changed"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 680
+    .line 682
     return-void
 .end method
 
@@ -55,7 +55,7 @@
     .locals 3
 
     .prologue
-    .line 684
+    .line 686
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -78,7 +78,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 685
+    .line 687
     return-void
 .end method
 
@@ -86,14 +86,14 @@
     .locals 2
 
     .prologue
-    .line 689
+    .line 691
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[COMMANDS] available commands changed"
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 690
+    .line 692
     return-void
 .end method
 
@@ -101,7 +101,7 @@
     .locals 0
 
     .prologue
-    .line 694
+    .line 696
     return-void
 .end method
 
@@ -118,7 +118,7 @@
     .end annotation
 
     .prologue
-    .line 698
+    .line 700
     return-void
 .end method
 
@@ -126,14 +126,14 @@
     .locals 2
 
     .prologue
-    .line 702
+    .line 704
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[DEVICE] info changed"
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 703
+    .line 705
     return-void
 .end method
 
@@ -141,7 +141,7 @@
     .locals 3
 
     .prologue
-    .line 707
+    .line 709
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -174,7 +174,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 708
+    .line 710
     return-void
 .end method
 
@@ -182,7 +182,7 @@
     .locals 0
 
     .prologue
-    .line 712
+    .line 714
     return-void
 .end method
 
@@ -190,7 +190,7 @@
     .locals 4
 
     .prologue
-    .line 716
+    .line 718
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -240,7 +240,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 717
+    .line 719
     return-void
 .end method
 
@@ -253,7 +253,13 @@
     const/4 v3, 0x0
 
     .line 643
-    if-eqz p1, :cond_24
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
+
+    # setter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->cachedIsPlaying:Z
+    invoke-static {v0, p1}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$502(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;Z)Z
+
+    .line 645
+    if-eqz p1, :cond_29
 
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
@@ -262,9 +268,9 @@
 
     move-result-object v0
 
-    if-eqz v0, :cond_24
+    if-eqz v0, :cond_29
 
-    .line 644
+    .line 646
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onInfoListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;
@@ -276,7 +282,7 @@
 
     invoke-interface {v0, v1, v2, v3}, Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;->onInfo(Ltv/danmaku/ijk/media/player/IMediaPlayer;II)Z
 
-    .line 646
+    .line 648
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onInfoListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;
@@ -290,8 +296,8 @@
 
     invoke-interface/range {v0 .. v5}, Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;->onInfo2(Ltv/danmaku/ijk/media/player/IMediaPlayer;IIJ)Z
 
-    .line 649
-    :cond_24
+    .line 651
+    :cond_29
     return-void
 .end method
 
@@ -299,7 +305,7 @@
     .locals 3
 
     .prologue
-    .line 721
+    .line 723
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -322,7 +328,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 722
+    .line 724
     return-void
 .end method
 
@@ -330,7 +336,7 @@
     .locals 0
 
     .prologue
-    .line 726
+    .line 728
     return-void
 .end method
 
@@ -338,7 +344,7 @@
     .locals 3
 
     .prologue
-    .line 730
+    .line 732
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -361,14 +367,14 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 731
+    .line 733
     if-eqz p1, :cond_3a
 
     iget-object v0, p1, Lcom/google/android/exoplayer2/MediaItem;->localConfiguration:Lcom/google/android/exoplayer2/MediaItem$LocalConfiguration;
 
     if-eqz v0, :cond_3a
 
-    .line 732
+    .line 734
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -395,7 +401,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 734
+    .line 736
     :cond_3a
     return-void
 .end method
@@ -404,14 +410,14 @@
     .locals 2
 
     .prologue
-    .line 738
+    .line 740
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[METADATA] changed"
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 739
+    .line 741
     return-void
 .end method
 
@@ -419,14 +425,14 @@
     .locals 2
 
     .prologue
-    .line 743
+    .line 745
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[METADATA] received"
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 744
+    .line 746
     return-void
 .end method
 
@@ -434,13 +440,13 @@
     .locals 4
 
     .prologue
-    .line 748
+    .line 750
     const-string v0, ""
 
-    .line 749
+    .line 751
     packed-switch p2, :pswitch_data_50
 
-    .line 755
+    .line 757
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -465,7 +471,7 @@
 
     move-result-object v0
 
-    .line 757
+    .line 759
     :goto_1e
     const-string v1, "ExoPlayerImpl"
 
@@ -499,40 +505,40 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 758
+    .line 760
     return-void
 
-    .line 750
+    .line 752
     :pswitch_41
     const-string v0, "USER_REQUEST"
 
     goto :goto_1e
 
-    .line 751
+    .line 753
     :pswitch_44
     const-string v0, "AUDIO_NOISY"
 
     goto :goto_1e
 
-    .line 752
+    .line 754
     :pswitch_47
     const-string v0, "AUDIO_FOCUS_LOSS"
 
     goto :goto_1e
 
-    .line 753
+    .line 755
     :pswitch_4a
     const-string v0, "REMOTE"
 
     goto :goto_1e
 
-    .line 754
+    .line 756
     :pswitch_4d
     const-string v0, "END_OF_MEDIA"
 
     goto :goto_1e
 
-    .line 749
+    .line 751
     :pswitch_data_50
     .packed-switch 0x1
         :pswitch_41
@@ -547,7 +553,7 @@
     .locals 3
 
     .prologue
-    .line 762
+    .line 764
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -584,7 +590,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 763
+    .line 765
     return-void
 .end method
 
@@ -1106,7 +1112,7 @@
     .locals 3
 
     .prologue
-    .line 767
+    .line 769
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1129,7 +1135,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 768
+    .line 770
     return-void
 .end method
 
@@ -3431,10 +3437,10 @@
     .locals 0
 
     .prologue
-    .line 772
+    .line 774
     if-eqz p1, :cond_2
 
-    .line 775
+    .line 777
     :cond_2
     return-void
 .end method
@@ -3443,13 +3449,13 @@
     .locals 4
 
     .prologue
-    .line 779
+    .line 781
     const-string v0, ""
 
-    .line 780
+    .line 782
     packed-switch p2, :pswitch_data_34
 
-    .line 786
+    .line 788
     :goto_5
     const-string v1, "ExoPlayerImpl"
 
@@ -3483,34 +3489,34 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 787
+    .line 789
     return-void
 
-    .line 781
+    .line 783
     :pswitch_28
     const-string v0, "IDLE"
 
     goto :goto_5
 
-    .line 782
+    .line 784
     :pswitch_2b
     const-string v0, "BUFFERING"
 
     goto :goto_5
 
-    .line 783
+    .line 785
     :pswitch_2e
     const-string v0, "READY"
 
     goto :goto_5
 
-    .line 784
+    .line 786
     :pswitch_31
     const-string v0, "ENDED"
 
     goto :goto_5
 
-    .line 780
+    .line 782
     :pswitch_data_34
     .packed-switch 0x1
         :pswitch_28
@@ -3524,14 +3530,14 @@
     .locals 2
 
     .prologue
-    .line 791
+    .line 793
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[PLAYLIST] metadata changed"
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 792
+    .line 794
     return-void
 .end method
 
@@ -3539,7 +3545,7 @@
     .locals 0
 
     .prologue
-    .line 797
+    .line 799
     return-void
 .end method
 
@@ -3547,13 +3553,13 @@
     .locals 2
 
     .prologue
-    .line 653
+    .line 655
     const-string v0, ""
 
-    .line 654
+    .line 656
     packed-switch p3, :pswitch_data_46
 
-    .line 661
+    .line 663
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -3576,13 +3582,13 @@
 
     invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    .line 665
+    .line 667
     :goto_1d
     const/4 v0, 0x1
 
     if-ne p3, v0, :cond_33
 
-    .line 666
+    .line 668
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onSeekCompleteListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnSeekCompleteListener;
@@ -3592,7 +3598,7 @@
 
     if-eqz v0, :cond_33
 
-    .line 667
+    .line 669
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     # getter for: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->onSeekCompleteListener:Ltv/danmaku/ijk/media/player/IMediaPlayer$OnSeekCompleteListener;
@@ -3604,47 +3610,47 @@
 
     invoke-interface {v0, v1}, Ltv/danmaku/ijk/media/player/IMediaPlayer$OnSeekCompleteListener;->onSeekComplete(Ltv/danmaku/ijk/media/player/IMediaPlayer;)V
 
-    .line 670
+    .line 672
     :cond_33
     return-void
 
-    .line 655
+    .line 657
     :pswitch_34
     const-string v0, "SEEK"
 
     goto :goto_1d
 
-    .line 656
+    .line 658
     :pswitch_37
     const-string v0, "SEEK_ADJUSTMENT"
 
     goto :goto_1d
 
-    .line 657
+    .line 659
     :pswitch_3a
     const-string v0, "AUTO_TRANSITION"
 
     goto :goto_1d
 
-    .line 658
+    .line 660
     :pswitch_3d
     const-string v0, "REMOVE"
 
     goto :goto_1d
 
-    .line 659
+    .line 661
     :pswitch_40
     const-string v0, "SKIP"
 
     goto :goto_1d
 
-    .line 660
+    .line 662
     :pswitch_43
     const-string v0, "INTERNAL"
 
     goto :goto_1d
 
-    .line 654
+    .line 656
     :pswitch_data_46
     .packed-switch 0x0
         :pswitch_3a
@@ -3660,7 +3666,7 @@
     .locals 0
 
     .prologue
-    .line 802
+    .line 804
     return-void
 .end method
 
@@ -3668,7 +3674,7 @@
     .locals 3
 
     .prologue
-    .line 806
+    .line 808
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -3691,7 +3697,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 807
+    .line 809
     return-void
 .end method
 
@@ -3699,7 +3705,7 @@
     .locals 0
 
     .prologue
-    .line 811
+    .line 813
     return-void
 .end method
 
@@ -3707,7 +3713,7 @@
     .locals 0
 
     .prologue
-    .line 815
+    .line 817
     return-void
 .end method
 
@@ -3715,7 +3721,7 @@
     .locals 3
 
     .prologue
-    .line 819
+    .line 821
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -3738,7 +3744,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 820
+    .line 822
     return-void
 .end method
 
@@ -3746,7 +3752,7 @@
     .locals 3
 
     .prologue
-    .line 824
+    .line 826
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -3769,7 +3775,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 825
+    .line 827
     return-void
 .end method
 
@@ -3777,7 +3783,7 @@
     .locals 3
 
     .prologue
-    .line 829
+    .line 831
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -3810,7 +3816,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 830
+    .line 832
     return-void
 .end method
 
@@ -3818,7 +3824,7 @@
     .locals 3
 
     .prologue
-    .line 674
+    .line 676
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -3855,7 +3861,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 675
+    .line 677
     return-void
 .end method
 
@@ -3863,14 +3869,14 @@
     .locals 2
 
     .prologue
-    .line 834
+    .line 836
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[TRACK_SELECTION] parameters changed"
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 835
+    .line 837
     return-void
 .end method
 
@@ -3878,14 +3884,14 @@
     .locals 2
 
     .prologue
-    .line 839
+    .line 841
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[TRACKS] changed"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 840
+    .line 842
     return-void
 .end method
 
@@ -4047,7 +4053,7 @@
     .locals 3
 
     .prologue
-    .line 844
+    .line 846
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -4070,6 +4076,6 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 845
+    .line 847
     return-void
 .end method
