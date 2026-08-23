@@ -588,6 +588,7 @@ classes\tv\danmaku\videoplayer\core\media\exo\AudioBalanceLevel.java
 classes\tv\danmaku\videoplayer\core\media\exo\CustomRenderersFactory.java
 classes\tv\danmaku\videoplayer\core\media\exo\ExoMediaPlayerAdapter.java
 classes\tv\danmaku\videoplayer\core\media\exo\ExoPlayerImpl.java
+classes\tv\danmaku\videoplayer\core\media\exo\FlvHevcExtractor.java
 classes\tv\danmaku\videoplayer\core\media\exo\VolumeBalanceAudioProcessor.java
 classes\tv\danmaku\videoplayer\core\media\ijk\IjkMediaCodecInfo.java
 classes\tv\danmaku\videoplayer\core\media\ijk\IjkMediaCodecSelector.java

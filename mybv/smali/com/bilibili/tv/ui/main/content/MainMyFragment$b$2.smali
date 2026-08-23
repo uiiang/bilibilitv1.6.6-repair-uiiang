@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 672
+    .line 673
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$2;->this$0:Lcom/bilibili/tv/ui/main/content/MainMyFragment$b;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$2;->val$container:Landroid/widget/LinearLayout;
@@ -49,7 +49,7 @@
     .locals 2
 
     .prologue
-    .line 675
+    .line 676
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$2;->val$container:Landroid/widget/LinearLayout;
 
     invoke-virtual {v0}, Landroid/widget/LinearLayout;->getChildCount()I
@@ -58,7 +58,7 @@
 
     if-lez v0, :cond_12
 
-    .line 676
+    .line 677
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$b$2;->val$container:Landroid/widget/LinearLayout;
 
     const/4 v1, 0x0
@@ -69,7 +69,7 @@
 
     invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 678
+    .line 679
     :cond_12
     return-void
 .end method

@@ -1,6 +1,7 @@
 package mybl;
 
 import android.net.Uri;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
@@ -166,18 +167,15 @@ public class BiliLiveContent implements Parcelable {
                     // 流格式选择必须与实际直播播放器一致：
                     // 之前误用点播播放器判断(shouldUseExoPlayer)，当"点播=ExoPlayer、直播=IjkPlayer"时
                     // 会选中 fmp4 HLS，而 IjkPlayer 对 fmp4-in-HLS 兼容性差导致直播卡顿。
-                    // 改用直播播放器判断：直播=ExoPlayer 选 fmp4 HLS；直播=IjkPlayer 选 FLV(http_stream)。
-                    // 注：format 传 null 不影响判断（仅 "ts" 会被拦截），此处与 wm.a() 的
-                    // PlayerSelector.shouldUseExoPlayerForLive 保持一致。
+                    // 阶段2：ExoPlayer 已通过 FlvHevcExtractor 支持 FLV 直播（含 HEVC），
+                    // 统一优先 http_stream+flv（与参考项目 MyTVB 一致），彻底消除 IjkPlayer 播 FLV 断流卡死问题。
                     boolean useExoPlayer = PlayerSelector.shouldUseExoPlayerForLive(MainApplication.a(), null);
-                    String[] protocolOrder = useExoPlayer
-                        ? new String[]{"http_hls", "http_stream"}
-                        : new String[]{"http_stream", "http_hls"};
-                    String[] formatOrderForStream = useExoPlayer
-                        ? new String[]{"fmp4", "ts", "flv"}
-                        : new String[]{"flv", "fmp4", "ts"};
+                    String[] protocolOrder = new String[]{"http_stream", "http_hls"};
+                    String[] formatOrderForStream = new String[]{"flv", "fmp4", "ts"};
                     String[] formatOrderForHls = {"fmp4", "ts", "flv"};
-                    String[] codecOrder = {"avc", "hevc"};
+                    // HEVC 兼容：ExoPlayer 播 HEVC FLV 需要 API>=21 硬解，Android 4.x 仅选 AVC（避免无解码器卡死）
+                    String[] codecOrder = (useExoPlayer && Build.VERSION.SDK_INT < 21)
+                        ? new String[]{"avc"} : new String[]{"avc", "hevc"};
 
                     Log.i("BiliLiveContent", "playUrlResponse.e: useExoPlayer=" + useExoPlayer
                         + ", formatOrderForStream[0]=" + formatOrderForStream[0]);
@@ -187,6 +185,35 @@ public class BiliLiveContent implements Parcelable {
                     String foundProtocol = "";
                     String foundFormat = "";
                     String foundCodecName = "";
+                    
+                    // 调试：打印 API 返回的所有 stream/format/codec 组合，确认是否有 hls/fmp4 可用
+                    for (int si = 0; si < streamArr.length(); si++) {
+                        JSONObject st = streamArr.optJSONObject(si);
+                        if (st == null) continue;
+                        String pn = st.optString("protocol_name", "unknown");
+                        JSONArray fa = st.optJSONArray("format");
+                        StringBuilder fmtSb = new StringBuilder();
+                        if (fa != null) {
+                            for (int fi = 0; fi < fa.length(); fi++) {
+                                JSONObject fo = fa.optJSONObject(fi);
+                                if (fo == null) continue;
+                                String fn = fo.optString("format_name", "unknown");
+                                JSONArray ca = fo.optJSONArray("codec");
+                                StringBuilder codecSb = new StringBuilder();
+                                if (ca != null) {
+                                    for (int ci = 0; ci < ca.length(); ci++) {
+                                        JSONObject co = ca.optJSONObject(ci);
+                                        if (co == null) continue;
+                                        if (codecSb.length() > 0) codecSb.append(",");
+                                        codecSb.append(co.optString("codec_name", "unknown"));
+                                    }
+                                }
+                                if (fmtSb.length() > 0) fmtSb.append(" | ");
+                                fmtSb.append(fn).append("(").append(codecSb).append(")");
+                            }
+                        }
+                        Log.i("BiliLiveContent", "playUrlResponse.e: stream[" + si + "] protocol=" + pn + " -> " + fmtSb.toString());
+                    }
                     
                     for (String protocol : protocolOrder) {
                         for (int i = 0; i < streamArr.length(); i++) {

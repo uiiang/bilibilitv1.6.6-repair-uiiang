@@ -101,11 +101,39 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
             ((ShadowTextView) this.tab_buttons[i].getChildAt(0)).setText(afm4.tab_names[MainMyFragment.MyMap[i]]);
         }
 
-        // 未启用隐藏功能时，隐藏"下载"排序按钮
+        // 未启用隐藏功能时，隐藏"下载"排序按钮（按 MyMap 中"下载"值所在位置定位，而非固定最后一个按钮）
         if (!abd.b(getActivity())) {
-            this.tab_buttons[7].setVisibility(View.GONE);
-            // 将下载按钮的左邻居"追剧"按钮的右键焦点指向自身，避免焦点跳到页面顶部
-            this.tab_buttons[6].setNextFocusRightId(R.id.tab_button6);
+            for (int i = 0; i < 8; i++) {
+                if (MainMyFragment.MyMap[i] == 7) {
+                    this.tab_buttons[i].setVisibility(View.GONE);
+                    // 找到前后相邻的可见按钮，处理焦点导航，避免焦点跳跃到页面顶部
+                    DrawFrameLayout prev = null;
+                    for (int j = i - 1; j >= 0; j--) {
+                        if (this.tab_buttons[j].getVisibility() == View.VISIBLE) {
+                            prev = this.tab_buttons[j];
+                            break;
+                        }
+                    }
+                    DrawFrameLayout next = null;
+                    for (int k = i + 1; k < 8; k++) {
+                        if (this.tab_buttons[k].getVisibility() == View.VISIBLE) {
+                            next = this.tab_buttons[k];
+                            break;
+                        }
+                    }
+                    if (prev != null) {
+                        if (next != null) {
+                            // 隐藏按钮在中间：前一可见按钮右键指向后一可见按钮，后一按钮左键指回
+                            prev.setNextFocusRightId(next.getId());
+                            next.setNextFocusLeftId(prev.getId());
+                        } else {
+                            // 隐藏按钮在末尾：前一可见按钮右键指向自身
+                            prev.setNextFocusRightId(prev.getId());
+                        }
+                    }
+                    break;
+                }
+            }
         }
 
         this.column2Button = (DrawFrameLayout) inflate.findViewById(R.id.column_2_button);

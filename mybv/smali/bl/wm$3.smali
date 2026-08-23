@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/wm;->onCompletion(Ltv/danmaku/ijk/media/player/IMediaPlayer;)V
+    value = Lbl/wm;->onPrepared(Ltv/danmaku/ijk/media/player/IMediaPlayer;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -57,7 +57,7 @@
 
     move-result-object v0
 
-    invoke-interface {v0}, Lbl/ws;->b()V
+    invoke-interface {v0}, Lbl/ws;->a()V
 
     .line 502
     :cond_11

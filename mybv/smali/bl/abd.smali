@@ -1877,7 +1877,7 @@
 
     const-string v1, "home_column_type"
 
-    const/4 v2, 0x2
+    const/4 v2, 0x4
 
     invoke-interface {v0, v1, v2}, Landroid/content/SharedPreferences;->getInt(Ljava/lang/String;I)I
 
@@ -2085,7 +2085,7 @@
     const/4 v0, 0x0
 
     .line 297
-    const-string v1, "{\"filter_on\":false,\"progressbar_on\":false,\"fastquit_on\":false,\"auto_update\":false}"
+    const-string v1, "{\"filter_on\":false,\"progressbar_on\":false,\"fastquit_on\":true,\"auto_update\":false}"
 
     .line 299
     :try_start_3

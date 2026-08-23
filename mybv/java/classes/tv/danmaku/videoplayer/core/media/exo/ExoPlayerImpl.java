@@ -17,6 +17,8 @@ import com.google.android.exoplayer2.video.VideoSize;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.MergingMediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
+import com.google.android.exoplayer2.extractor.Extractor;
+import com.google.android.exoplayer2.extractor.ExtractorsFactory;
 import com.google.android.exoplayer2.source.hls.HlsMediaSource;
 import com.google.android.exoplayer2.source.BehindLiveWindowException;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
@@ -880,8 +882,21 @@ public class ExoPlayerImpl implements IMediaPlayer {
         }
 
         DataSource.Factory dataSourceFactory = httpFactory;
-        MediaSource mediaSource = new ProgressiveMediaSource.Factory(dataSourceFactory)
-            .createMediaSource(MediaItem.fromUri(uri));
+        // 注入 FlvHevcExtractor：ExoPlayer 原生 FlvExtractor 仅支持 AVC，此提取器同时支持 AVC/HEVC（移植自参考项目 MyTVB）。
+        // 注意：必须同时实现 createExtractors() 与 createExtractors(Uri, Map) 两个方法——BundledExtractorsAdapter
+        // 调用的是带参版本，若只实现无参版本，经 dx/baksmali 重编译后接口 default 方法跨 dex 解析失败会抛
+        // AbstractMethodError 崩溃（见 wm.java 直播注入同款注释）。
+        MediaSource mediaSource = new ProgressiveMediaSource.Factory(dataSourceFactory, new ExtractorsFactory() {
+            @Override
+            public Extractor[] createExtractors() {
+                return new Extractor[]{ new FlvHevcExtractor() };
+            }
+
+            @Override
+            public Extractor[] createExtractors(Uri uri, java.util.Map<String, java.util.List<String>> responseHeaders) {
+                return createExtractors();
+            }
+        }).createMediaSource(MediaItem.fromUri(uri));
 
         exoPlayer.setMediaSource(mediaSource);
     }

@@ -294,7 +294,7 @@ public class abd {
 
     public static JSONObject get_personal_config(Context context) {
         JSONObject config = null;
-        String default_config = "{\"filter_on\":false,\"progressbar_on\":false,\"fastquit_on\":false,\"auto_update\":false}";
+        String default_config = "{\"filter_on\":false,\"progressbar_on\":false,\"fastquit_on\":true,\"auto_update\":false}";
         try{
             config = JSON.parseObject(a(context).a().getString("personal_config", default_config));
         }
@@ -327,7 +327,7 @@ public class abd {
 
     public static int get_home_column(Context context) {
         if (homeColumnType == -1) {
-            homeColumnType = a(context).a().getInt("home_column_type", 2);
+            homeColumnType = a(context).a().getInt("home_column_type", 4);
         }
         return homeColumnType;
     }

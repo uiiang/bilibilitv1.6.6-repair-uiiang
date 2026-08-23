@@ -30,9 +30,11 @@
 
 # direct methods
 .method static constructor <clinit>()V
-    .locals 2
+    .locals 3
 
     .prologue
+    const/4 v2, 0x1
+
     const/4 v1, 0x0
 
     .line 21
@@ -49,12 +51,10 @@
     sput-boolean v1, Lmybl/BiliFilter;->progressbar_on:Z
 
     .line 26
-    sput-boolean v1, Lmybl/BiliFilter;->fastquit_on:Z
+    sput-boolean v2, Lmybl/BiliFilter;->fastquit_on:Z
 
     .line 27
-    const/4 v0, 0x1
-
-    sput v0, Lmybl/BiliFilter;->prefer_videoview:I
+    sput v2, Lmybl/BiliFilter;->prefer_videoview:I
 
     return-void
 .end method

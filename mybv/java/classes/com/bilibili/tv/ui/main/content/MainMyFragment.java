@@ -60,7 +60,8 @@ public final class MainMyFragment extends adu implements aez, wf {
     private b b;
     private boolean c;
 
-    public static int[] MyMap={0,1,2,3,4,5,6,7};
+    // 我的页面默认排序：历史、动态、收藏、待看、下载、追剧、追番、登录
+    public static int[] MyMap={4,1,3,2,7,6,5,0};
 
     @Override // bl.wf
     public String a() {

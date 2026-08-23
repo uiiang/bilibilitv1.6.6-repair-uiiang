@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 586
+    .line 588
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4$3;->this$1:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;
 
     iput p2, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4$3;->val$retryNum:I
@@ -49,7 +49,7 @@
     .locals 4
 
     .prologue
-    .line 589
+    .line 591
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -80,7 +80,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 590
+    .line 592
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4$3;->this$1:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;
 
     iget-object v0, v0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
@@ -92,14 +92,14 @@
 
     if-eqz v0, :cond_7e
 
-    .line 591
+    .line 593
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[ERROR] Retrying playback after network error, calling prepare()"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 592
+    .line 594
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -158,7 +158,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 593
+    .line 595
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4$3;->this$1:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;
 
     iget-object v0, v0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
@@ -170,18 +170,18 @@
 
     invoke-interface {v0}, Lcom/google/android/exoplayer2/ExoPlayer;->prepare()V
 
-    .line 594
+    .line 596
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[ERROR] prepare() called, waiting for state change..."
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 598
+    .line 600
     :goto_7d
     return-void
 
-    .line 596
+    .line 598
     :cond_7e
     const-string v0, "ExoPlayerImpl"
 

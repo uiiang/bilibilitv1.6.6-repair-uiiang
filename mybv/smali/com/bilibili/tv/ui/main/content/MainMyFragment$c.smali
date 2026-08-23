@@ -47,7 +47,7 @@
     .locals 2
 
     .prologue
-    .line 876
+    .line 877
     new-instance v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c$a;
 
     const/4 v1, 0x0
@@ -63,15 +63,15 @@
     .locals 2
 
     .prologue
-    .line 889
+    .line 890
     invoke-direct {p0, p1}, Lbl/adv;-><init>(Landroid/view/View;)V
 
-    .line 890
+    .line 891
     const-string v0, "itemView"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 891
+    .line 892
     const v0, 0x7f0800c3
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->a(Landroid/view/View;I)Landroid/view/View;
@@ -82,7 +82,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->n:Landroid/widget/TextView;
 
-    .line 892
+    .line 893
     const v0, 0x7f0800a3
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->a(Landroid/view/View;I)Landroid/view/View;
@@ -93,7 +93,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->o:Lcom/bilibili/tv/widget/CircleImageView;
 
-    .line 893
+    .line 894
     const v0, 0x7f08010e
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->a(Landroid/view/View;I)Landroid/view/View;
@@ -104,7 +104,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->q:Landroid/widget/ImageView;
 
-    .line 894
+    .line 895
     const v0, 0x7f0800af
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->a(Landroid/view/View;I)Landroid/view/View;
@@ -115,7 +115,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->r:Landroid/widget/ImageView;
 
-    .line 895
+    .line 896
     const v0, 0x7f0800bf
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->a(Landroid/view/View;I)Landroid/view/View;
@@ -126,7 +126,7 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->s:Landroid/widget/TextView;
 
-    .line 896
+    .line 897
     const v0, 0x7f08005f
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->a(Landroid/view/View;I)Landroid/view/View;
@@ -139,12 +139,12 @@
 
     move-object v0, p1
 
-    .line 897
+    .line 898
     check-cast v0, Lcom/bilibili/tv/widget/DrawLinearLayout;
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->u:Lcom/bilibili/tv/widget/DrawLinearLayout;
 
-    .line 898
+    .line 899
     const v0, 0x7f080093
 
     invoke-virtual {p0, p1, v0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->a(Landroid/view/View;I)Landroid/view/View;
@@ -155,21 +155,21 @@
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->v:Landroid/widget/LinearLayout;
 
-    .line 899
+    .line 900
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->u:Lcom/bilibili/tv/widget/DrawLinearLayout;
 
     const v1, 0x7f0700e6
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawLinearLayout;->setUpDrawable(I)V
 
-    .line 900
+    .line 901
     new-instance v0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c$1;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c$1;-><init>(Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;)V
 
     invoke-virtual {p1, v0}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 907
+    .line 908
     return-void
 .end method
 
@@ -179,7 +179,7 @@
     .locals 1
 
     .prologue
-    .line 914
+    .line 915
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->o:Lcom/bilibili/tv/widget/CircleImageView;
 
     return-object v0
@@ -189,7 +189,7 @@
     .locals 1
 
     .prologue
-    .line 918
+    .line 919
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->q:Landroid/widget/ImageView;
 
     return-object v0
@@ -199,7 +199,7 @@
     .locals 1
 
     .prologue
-    .line 922
+    .line 923
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->r:Landroid/widget/ImageView;
 
     return-object v0
@@ -209,7 +209,7 @@
     .locals 1
 
     .prologue
-    .line 926
+    .line 927
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->s:Landroid/widget/TextView;
 
     return-object v0
@@ -219,7 +219,7 @@
     .locals 1
 
     .prologue
-    .line 930
+    .line 931
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->t:Landroid/widget/TextView;
 
     return-object v0
@@ -229,7 +229,7 @@
     .locals 1
 
     .prologue
-    .line 934
+    .line 935
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->u:Lcom/bilibili/tv/widget/DrawLinearLayout;
 
     return-object v0
@@ -239,7 +239,7 @@
     .locals 1
 
     .prologue
-    .line 938
+    .line 939
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->v:Landroid/widget/LinearLayout;
 
     return-object v0
@@ -249,7 +249,7 @@
     .locals 1
 
     .prologue
-    .line 910
+    .line 911
     iget-object v0, p0, Lcom/bilibili/tv/ui/main/content/MainMyFragment$c;->n:Landroid/widget/TextView;
 
     return-object v0

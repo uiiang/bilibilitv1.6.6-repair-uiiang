@@ -3,12 +3,12 @@
 .source "wm.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$PlayerErrorListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/wm;->onPrepared(Ltv/danmaku/ijk/media/player/IMediaPlayer;)V
+    value = Lbl/wm;->a(Landroid/os/Message;Z)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 484
+    .line 365
     iput-object p1, p0, Lbl/wm$2;->this$0:Lbl/wm;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,30 +36,131 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 1
+.method public onPlayerError(ILjava/lang/String;Ljava/lang/Integer;)V
+    .locals 3
 
     .prologue
-    .line 487
-    iget-object v0, p0, Lbl/wm$2;->this$0:Lbl/wm;
+    .line 368
+    const-string v0, "wm"
 
-    # getter for: Lbl/wm;->p:Ljava/lang/ref/WeakReference;
-    invoke-static {v0}, Lbl/wm;->access$400(Lbl/wm;)Ljava/lang/ref/WeakReference;
+    new-instance v1, Ljava/lang/StringBuilder;
 
-    move-result-object v0
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    if-eqz v0, :cond_11
+    const-string v2, "[LIVE_EXO_ERROR] errorCode="
 
-    .line 488
-    iget-object v0, p0, Lbl/wm$2;->this$0:Lbl/wm;
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v0}, Lbl/wm;->b()Lbl/ws;
+    move-result-object v1
 
-    move-result-object v0
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    invoke-interface {v0}, Lbl/ws;->a()V
+    move-result-object v1
 
-    .line 490
-    :cond_11
+    const-string v2, ", message="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, p2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, ", httpCode="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, p3}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 369
+    const-string v0, "LIVE_STREAM_NEED_REFRESH"
+
+    invoke-virtual {v0, p2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_3c
+
+    const-string v0, "LIVE_BUFFERING_TIMEOUT"
+
+    invoke-virtual {v0, p2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_4d
+
+    .line 370
+    :cond_3c
+    const-string v0, "wm"
+
+    const-string v1, "[LIVE_EXO_ERROR] Live stream needs refresh, calling LivePlayerActivity.refresh()"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 371
+    sget-object v0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->_this:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
+
+    if-eqz v0, :cond_4c
+
+    .line 372
+    sget-object v0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->_this:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->refresh()V
+
+    .line 382
+    :cond_4c
+    :goto_4c
     return-void
+
+    .line 374
+    :cond_4d
+    const-string v0, "EXO_PLAYER_FORMAT_INCOMPATIBLE"
+
+    invoke-virtual {v0, p2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_4c
+
+    .line 375
+    const-string v0, "wm"
+
+    const-string v1, "[LIVE_EXO_ERROR] ExoPlayer format incompatible, switching to IjkPlayer"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 376
+    const/4 v0, 0x1
+
+    invoke-static {v0}, Ltv/danmaku/videoplayer/core/media/PlayerSelector;->setForceUseIjkPlayer(Z)V
+
+    .line 377
+    sget-object v0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->_this:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
+
+    if-eqz v0, :cond_4c
+
+    .line 378
+    const-string v0, "wm"
+
+    const-string v1, "[LIVE_EXO_ERROR] Calling LivePlayerActivity.refresh() to switch player"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 379
+    sget-object v0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->_this:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->refresh()V
+
+    goto :goto_4c
 .end method

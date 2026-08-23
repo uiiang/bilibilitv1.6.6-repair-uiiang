@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 541
+    .line 543
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4$2;->this$1:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;
 
     iput p2, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4$2;->val$retryNum:I
@@ -49,7 +49,7 @@
     .locals 3
 
     .prologue
-    .line 544
+    .line 546
     const-string v0, "ExoPlayerImpl"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -74,7 +74,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 545
+    .line 547
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4$2;->this$1:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;
 
     iget-object v0, v0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
@@ -97,14 +97,14 @@
 
     if-eqz v0, :cond_5c
 
-    .line 546
+    .line 548
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[ERROR] Reloading live stream after BehindLiveWindowException"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 547
+    .line 549
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4$2;->this$1:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;
 
     iget-object v0, v0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
@@ -127,7 +127,7 @@
 
     invoke-interface {v0, v1, v2}, Lcom/google/android/exoplayer2/ExoPlayer;->setMediaSource(Lcom/google/android/exoplayer2/source/MediaSource;Z)V
 
-    .line 548
+    .line 550
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4$2;->this$1:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;
 
     iget-object v0, v0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
@@ -139,18 +139,18 @@
 
     invoke-interface {v0}, Lcom/google/android/exoplayer2/ExoPlayer;->prepare()V
 
-    .line 549
+    .line 551
     const-string v0, "ExoPlayerImpl"
 
     const-string v1, "[ERROR] Live stream reload: prepare() called"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 554
+    .line 556
     :goto_5b
     return-void
 
-    .line 551
+    .line 553
     :cond_5c
     const-string v1, "ExoPlayerImpl"
 
@@ -188,7 +188,7 @@
 
     move-result-object v2
 
-    .line 552
+    .line 554
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4$2;->this$1:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;
 
     iget-object v0, v0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
@@ -211,7 +211,7 @@
 
     move-result-object v0
 
-    .line 551
+    .line 553
     invoke-static {v1, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
     goto :goto_5b
@@ -221,7 +221,7 @@
 
     goto :goto_75
 
-    .line 552
+    .line 554
     :cond_9a
     const-string v0, "null"
 

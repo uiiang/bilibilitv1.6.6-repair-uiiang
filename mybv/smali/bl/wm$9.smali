@@ -1,4 +1,4 @@
-.class Lbl/wm$8;
+.class Lbl/wm$9;
 .super Ljava/lang/Object;
 .source "wm.java"
 
@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/wm;->onInfo(Ltv/danmaku/ijk/media/player/IMediaPlayer;II)Z
+    value = Lbl/wm;->onVideoSizeChanged(Ltv/danmaku/ijk/media/player/IMediaPlayer;IIII)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -24,9 +24,13 @@
 
 .field final synthetic val$i2:I
 
+.field final synthetic val$i3:I
+
+.field final synthetic val$i4:I
+
 
 # direct methods
-.method constructor <init>(Lbl/wm;II)V
+.method constructor <init>(Lbl/wm;IIII)V
     .locals 0
     .annotation system Ldalvik/annotation/Signature;
         value = {
@@ -35,12 +39,16 @@
     .end annotation
 
     .prologue
-    .line 588
-    iput-object p1, p0, Lbl/wm$8;->this$0:Lbl/wm;
+    .line 603
+    iput-object p1, p0, Lbl/wm$9;->this$0:Lbl/wm;
 
-    iput p2, p0, Lbl/wm$8;->val$i:I
+    iput p2, p0, Lbl/wm$9;->val$i:I
 
-    iput p3, p0, Lbl/wm$8;->val$i2:I
+    iput p3, p0, Lbl/wm$9;->val$i2:I
+
+    iput p4, p0, Lbl/wm$9;->val$i3:I
+
+    iput p5, p0, Lbl/wm$9;->val$i4:I
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -50,33 +58,37 @@
 
 # virtual methods
 .method public run()V
-    .locals 3
+    .locals 5
 
     .prologue
-    .line 591
-    iget-object v0, p0, Lbl/wm$8;->this$0:Lbl/wm;
+    .line 606
+    iget-object v0, p0, Lbl/wm$9;->this$0:Lbl/wm;
 
     # getter for: Lbl/wm;->p:Ljava/lang/ref/WeakReference;
     invoke-static {v0}, Lbl/wm;->access$400(Lbl/wm;)Ljava/lang/ref/WeakReference;
 
     move-result-object v0
 
-    if-eqz v0, :cond_15
+    if-eqz v0, :cond_19
 
-    .line 592
-    iget-object v0, p0, Lbl/wm$8;->this$0:Lbl/wm;
+    .line 607
+    iget-object v0, p0, Lbl/wm$9;->this$0:Lbl/wm;
 
     invoke-virtual {v0}, Lbl/wm;->b()Lbl/ws;
 
     move-result-object v0
 
-    iget v1, p0, Lbl/wm$8;->val$i:I
+    iget v1, p0, Lbl/wm$9;->val$i:I
 
-    iget v2, p0, Lbl/wm$8;->val$i2:I
+    iget v2, p0, Lbl/wm$9;->val$i2:I
 
-    invoke-interface {v0, v1, v2}, Lbl/ws;->b(II)V
+    iget v3, p0, Lbl/wm$9;->val$i3:I
 
-    .line 594
-    :cond_15
+    iget v4, p0, Lbl/wm$9;->val$i4:I
+
+    invoke-interface {v0, v1, v2, v3, v4}, Lbl/ws;->a(IIII)V
+
+    .line 609
+    :cond_19
     return-void
 .end method

@@ -22,6 +22,7 @@ import android.os.Bundle;
 import tv.danmaku.android.log.BLog;
 import tv.danmaku.videoplayer.core.media.PlayerSelector;
 import tv.danmaku.videoplayer.core.media.exo.ExoPlayerImpl;
+import tv.danmaku.videoplayer.core.media.exo.FlvHevcExtractor;
 import tv.danmaku.videoplayer.core.media.exo.AudioBalanceLevel;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
 import tv.danmaku.videoplayer.core.videoview.IVideoView;
@@ -279,16 +280,14 @@ public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.
         if (useExoForLive) {
             android.util.Log.i("wm", "[LIVE_EXO] Checking format compatibility");
 
-            // FLV格式回退到IjkPlayer
-            boolean isFlv = url.toLowerCase().contains(".flv");
-            android.util.Log.i("wm", "[LIVE_EXO] URL FLV check: isFlv=" + isFlv + ", url=" + url);
+            // FLV格式：阶段2起 ExoPlayer 通过 FlvHevcExtractor 直接播放（含 HEVC），不再回退 IjkPlayer
 
             // TS格式回退到IjkPlayer (ExoPlayer对TS格式的HLS兼容性不好)
             boolean isTsFormat = "ts".equalsIgnoreCase(sLiveFormat);
             android.util.Log.i("wm", "[LIVE_EXO] TS format check: isTsFormat=" + isTsFormat + ", sLiveFormat=" + sLiveFormat);
 
-            if (isFlv || isTsFormat) {
-                android.util.Log.i("wm", "[LIVE_EXO] FLV or TS format detected, falling back to IjkPlayer");
+            if (isTsFormat) {
+                android.util.Log.i("wm", "[LIVE_EXO] TS format detected, falling back to IjkPlayer");
             } else {
                 android.util.Log.i("wm", "[LIVE_EXO] Creating ExoPlayerImpl for live streaming");
                 try {
@@ -341,9 +340,22 @@ public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.
                                 .createMediaSource(mediaItem);
                         } else {
                             mediaItem = com.google.android.exoplayer2.MediaItem.fromUri(Uri.parse(url));
-                            android.util.Log.i("wm", "[LIVE_EXO] Creating ProgressiveMediaSource");
-                            mediaSource = new com.google.android.exoplayer2.source.ProgressiveMediaSource.Factory(httpFactory)
-                                .createMediaSource(mediaItem);
+                            android.util.Log.i("wm", "[LIVE_EXO] Creating ProgressiveMediaSource with FlvHevcExtractor");
+                            // 注入 FlvHevcExtractor：支持 FLV + HEVC（原生 FlvExtractor 仅 AVC）。
+                            // 注意：必须同时实现 createExtractors() 与 createExtractors(Uri, Map) 两个方法——
+                            // BundledExtractorsAdapter 调用的是带参版本，若只实现无参版本，经 dx/baksmali
+                            // 重编译后接口 default 方法跨 dex 解析失败，会抛 AbstractMethodError 崩溃。
+                            mediaSource = new com.google.android.exoplayer2.source.ProgressiveMediaSource.Factory(httpFactory, new com.google.android.exoplayer2.extractor.ExtractorsFactory() {
+                                @Override
+                                public com.google.android.exoplayer2.extractor.Extractor[] createExtractors() {
+                                    return new com.google.android.exoplayer2.extractor.Extractor[]{ new FlvHevcExtractor() };
+                                }
+
+                                @Override
+                                public com.google.android.exoplayer2.extractor.Extractor[] createExtractors(android.net.Uri uri, java.util.Map<String, java.util.List<String>> responseHeaders) {
+                                    return createExtractors();
+                                }
+                            }).createMediaSource(mediaItem);
                         }
 
                         android.util.Log.i("wm", "[LIVE_EXO] Calling exoImpl.setDataSource(mediaSource)");

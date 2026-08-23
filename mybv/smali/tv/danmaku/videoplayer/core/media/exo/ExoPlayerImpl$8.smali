@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->seekTo(J)V
+    value = Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->stop()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,23 +20,14 @@
 # instance fields
 .field final synthetic this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
-.field final synthetic val$pos:J
-
 
 # direct methods
-.method constructor <init>(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;J)V
+.method constructor <init>(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;)V
     .locals 0
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "()V"
-        }
-    .end annotation
 
     .prologue
-    .line 1046
+    .line 995
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$8;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
-
-    iput-wide p2, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$8;->val$pos:J
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -46,16 +37,14 @@
 
 # virtual methods
 .method public run()V
-    .locals 4
+    .locals 1
 
     .prologue
-    .line 1050
+    .line 998
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$8;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
-    iget-wide v2, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$8;->val$pos:J
+    invoke-virtual {v0}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->stop()V
 
-    invoke-virtual {v0, v2, v3}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->seekTo(J)V
-
-    .line 1051
+    .line 999
     return-void
 .end method

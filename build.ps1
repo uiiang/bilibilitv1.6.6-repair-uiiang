@@ -153,6 +153,16 @@ Step "Compile Java code (javac + dx + baksmali)" {
                 Move-Item $ebookUi (Join-Path $smali3 "com/bilibili/tv/ebook/ui")
             }
         }
+
+        # move FlvHevcExtractor to smali_classes2 (classes.dex method count limit)
+        $smali2 = Join-Path $javaDir "../smali_classes2"
+        $flvExtractor = Join-Path $javaDir "../smali/tv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor.smali"
+        if (Test-Path $flvExtractor) {
+            $exoDest = Join-Path $smali2 "tv/danmaku/videoplayer/core/media/exo"
+            New-Item -ItemType Directory -Force -Path $exoDest | Out-Null
+            Move-Item $flvExtractor (Join-Path $exoDest "FlvHevcExtractor.smali") -Force
+            Write-Host "  moved FlvHevcExtractor.smali to smali_classes2 (method count limit)"
+        }
     } finally {
         Pop-Location
     }

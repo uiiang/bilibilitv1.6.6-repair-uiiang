@@ -20,7 +20,7 @@
 # instance fields
 .field final synthetic this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
-.field final synthetic val$finalMsec:J
+.field final synthetic val$pos:J
 
 
 # direct methods
@@ -33,10 +33,10 @@
     .end annotation
 
     .prologue
-    .line 1073
+    .line 1061
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$9;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
-    iput-wide p2, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$9;->val$finalMsec:J
+    iput-wide p2, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$9;->val$pos:J
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -49,14 +49,13 @@
     .locals 4
 
     .prologue
-    .line 1077
+    .line 1065
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$9;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
-    iget-wide v2, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$9;->val$finalMsec:J
+    iget-wide v2, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$9;->val$pos:J
 
-    # invokes: Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->performSeek(J)V
-    invoke-static {v0, v2, v3}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->access$3300(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;J)V
+    invoke-virtual {v0, v2, v3}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->seekTo(J)V
 
-    .line 1078
+    .line 1066
     return-void
 .end method

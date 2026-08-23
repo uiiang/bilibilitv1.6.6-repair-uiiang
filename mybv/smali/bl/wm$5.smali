@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/wm;->onSeekComplete(Ltv/danmaku/ijk/media/player/IMediaPlayer;)V
+    value = Lbl/wm;->onBufferingUpdate(Ltv/danmaku/ijk/media/player/IMediaPlayer;I)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,14 +20,23 @@
 # instance fields
 .field final synthetic this$0:Lbl/wm;
 
+.field final synthetic val$i:I
+
 
 # direct methods
-.method constructor <init>(Lbl/wm;)V
+.method constructor <init>(Lbl/wm;I)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
-    .line 524
+    .line 520
     iput-object p1, p0, Lbl/wm$5;->this$0:Lbl/wm;
+
+    iput p2, p0, Lbl/wm$5;->val$i:I
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -37,10 +46,10 @@
 
 # virtual methods
 .method public run()V
-    .locals 1
+    .locals 2
 
     .prologue
-    .line 527
+    .line 523
     iget-object v0, p0, Lbl/wm$5;->this$0:Lbl/wm;
 
     # getter for: Lbl/wm;->p:Ljava/lang/ref/WeakReference;
@@ -48,18 +57,52 @@
 
     move-result-object v0
 
-    if-eqz v0, :cond_11
+    if-eqz v0, :cond_21
 
-    .line 528
+    .line 524
+    iget v0, p0, Lbl/wm$5;->val$i:I
+
+    iget-object v1, p0, Lbl/wm$5;->this$0:Lbl/wm;
+
+    # getter for: Lbl/wm;->v:I
+    invoke-static {v1}, Lbl/wm;->access$300(Lbl/wm;)I
+
+    move-result v1
+
+    if-gt v0, v1, :cond_22
+
+    .line 525
     iget-object v0, p0, Lbl/wm$5;->this$0:Lbl/wm;
 
     invoke-virtual {v0}, Lbl/wm;->b()Lbl/ws;
 
     move-result-object v0
 
-    invoke-interface {v0}, Lbl/ws;->d()V
+    iget-object v1, p0, Lbl/wm$5;->this$0:Lbl/wm;
+
+    # getter for: Lbl/wm;->v:I
+    invoke-static {v1}, Lbl/wm;->access$300(Lbl/wm;)I
+
+    move-result v1
+
+    invoke-interface {v0, v1}, Lbl/ws;->a(I)V
 
     .line 530
-    :cond_11
+    :cond_21
+    :goto_21
     return-void
+
+    .line 527
+    :cond_22
+    iget-object v0, p0, Lbl/wm$5;->this$0:Lbl/wm;
+
+    invoke-virtual {v0}, Lbl/wm;->b()Lbl/ws;
+
+    move-result-object v0
+
+    iget v1, p0, Lbl/wm$5;->val$i:I
+
+    invoke-interface {v0, v1}, Lbl/ws;->a(I)V
+
+    goto :goto_21
 .end method
