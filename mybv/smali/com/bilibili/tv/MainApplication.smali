@@ -57,7 +57,7 @@
     .locals 2
 
     .prologue
-    .line 163
+    .line 199
     new-instance v0, Lcom/bilibili/lib/media/ResolveConfig$a;
 
     invoke-direct {v0}, Lcom/bilibili/lib/media/ResolveConfig$a;-><init>()V
@@ -100,7 +100,7 @@
 
     invoke-static {p0, v0}, Lcom/bilibili/lib/media/resolver/resolve/MediaResolveProvider;->a(Landroid/content/Context;Lcom/bilibili/lib/media/ResolveConfig;)V
 
-    .line 164
+    .line 200
     return-void
 .end method
 
@@ -108,38 +108,48 @@
     .locals 1
 
     .prologue
-    .line 167
+    .line 203
     invoke-static {p1}, Lcom/umeng/analytics/BiliUmeng;->a(Ljava/lang/String;)V
 
-    .line 168
+    .line 204
     const/4 v0, 0x0
 
     sput-boolean v0, Lcom/umeng/analytics/BiliUmeng;->a:Z
 
-    .line 169
+    .line 205
     invoke-static {p0}, Lcom/umeng/analytics/BiliUmeng;->a(Landroid/content/Context;)V
 
-    .line 170
+    .line 206
     return-void
+.end method
+
+.method static synthetic access$000()Lcom/bilibili/tv/MainApplication;
+    .locals 1
+
+    .prologue
+    .line 54
+    sget-object v0, Lcom/bilibili/tv/MainApplication;->b:Lcom/bilibili/tv/MainApplication;
+
+    return-object v0
 .end method
 
 .method private b()V
     .locals 2
 
     .prologue
-    .line 228
+    .line 264
     sget v0, Landroid/os/Build$VERSION;->SDK_INT:I
 
     const/16 v1, 0x11
 
     if-lt v0, v1, :cond_b
 
-    .line 229
+    .line 265
     const-string v0, "user"
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/MainApplication;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
 
-    .line 231
+    .line 267
     :cond_b
     return-void
 .end method
@@ -150,48 +160,48 @@
     .prologue
     const/4 v5, 0x0
 
-    .line 212
+    .line 248
     sput-boolean v5, Lcom/tencent/bugly/beta/Beta;->E:Z
 
-    .line 213
+    .line 249
     sget-object v0, Lbl/afr;->a:Lcom/tencent/bugly/beta/upgrade/UpgradeListener;
 
     sput-object v0, Lcom/tencent/bugly/beta/Beta;->L:Lcom/tencent/bugly/beta/upgrade/UpgradeListener;
 
-    .line 214
+    .line 250
     new-instance v0, Lcom/tencent/bugly/crashreport/CrashReport$UserStrategy;
 
     const/4 v1, 0x0
 
     invoke-direct {v0, v1}, Lcom/tencent/bugly/crashreport/CrashReport$UserStrategy;-><init>(Landroid/content/Context;)V
 
-    .line 215
+    .line 251
     const-string v1, "com.bilibili.tv"
 
     invoke-virtual {v0, v1}, Lcom/tencent/bugly/crashreport/CrashReport$UserStrategy;->c(Ljava/lang/String;)Lcom/tencent/bugly/BuglyStrategy;
 
-    .line 216
+    .line 252
     invoke-virtual {v0, p1}, Lcom/tencent/bugly/crashreport/CrashReport$UserStrategy;->b(Ljava/lang/String;)Lcom/tencent/bugly/BuglyStrategy;
 
-    .line 217
+    .line 253
     invoke-virtual {v0, v5}, Lcom/tencent/bugly/crashreport/CrashReport$UserStrategy;->b(Z)Lcom/tencent/bugly/BuglyStrategy;
 
-    .line 218
+    .line 254
     const-string v1, "1.6.6"
 
     invoke-virtual {v0, v1}, Lcom/tencent/bugly/crashreport/CrashReport$UserStrategy;->a(Ljava/lang/String;)Lcom/tencent/bugly/BuglyStrategy;
 
-    .line 219
+    .line 255
     const-wide/16 v2, 0x4e20
 
     invoke-virtual {v0, v2, v3}, Lcom/tencent/bugly/crashreport/CrashReport$UserStrategy;->a(J)Lcom/tencent/bugly/BuglyStrategy;
 
-    .line 220
+    .line 256
     sget-boolean v1, Lcom/bilibili/tv/MainApplication;->c:Z
 
     invoke-virtual {v0, v1}, Lcom/tencent/bugly/crashreport/CrashReport$UserStrategy;->a(Z)Lcom/tencent/bugly/BuglyStrategy;
 
-    .line 221
+    .line 257
     invoke-virtual {p0}, Lcom/bilibili/tv/MainApplication;->getResources()Landroid/content/res/Resources;
 
     move-result-object v1
@@ -200,7 +210,7 @@
 
     move-result-object v1
 
-    .line 222
+    .line 258
     const-string v2, "resolution"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -231,12 +241,12 @@
 
     invoke-static {p0, v2, v1}, Lcom/tencent/bugly/crashreport/CrashReport;->a(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 223
+    .line 259
     const-string v1, "900033619"
 
     invoke-static {p0, v1, v5, v0}, Lcom/tencent/bugly/Bugly;->a(Landroid/content/Context;Ljava/lang/String;ZLcom/tencent/bugly/BuglyStrategy;)V
 
-    .line 224
+    .line 260
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
@@ -251,7 +261,27 @@
 
     invoke-static {v0}, Lcom/tencent/bugly/crashreport/CrashReport;->a(Ljava/lang/String;)V
 
-    .line 225
+    .line 261
+    return-void
+.end method
+
+.method private static initCrashHandler()V
+    .locals 2
+
+    .prologue
+    .line 108
+    invoke-static {}, Ljava/lang/Thread;->getDefaultUncaughtExceptionHandler()Ljava/lang/Thread$UncaughtExceptionHandler;
+
+    move-result-object v0
+
+    .line 109
+    new-instance v1, Lcom/bilibili/tv/MainApplication$2;
+
+    invoke-direct {v1, v0}, Lcom/bilibili/tv/MainApplication$2;-><init>(Ljava/lang/Thread$UncaughtExceptionHandler;)V
+
+    invoke-static {v1}, Ljava/lang/Thread;->setDefaultUncaughtExceptionHandler(Ljava/lang/Thread$UncaughtExceptionHandler;)V
+
+    .line 139
     return-void
 .end method
 
@@ -261,23 +291,23 @@
     .locals 1
 
     .prologue
-    .line 174
+    .line 210
     invoke-super {p0, p1}, Landroid/app/Application;->attachBaseContext(Landroid/content/Context;)V
 
-    .line 175
+    .line 211
     sput-object p0, Lcom/bilibili/tv/MainApplication;->b:Lcom/bilibili/tv/MainApplication;
 
-    .line 176
+    .line 212
     invoke-static {p0}, Lbl/p;->a(Landroid/content/Context;)V
 
-    .line 177
-    new-instance v0, Lcom/bilibili/tv/MainApplication$2;
+    .line 213
+    new-instance v0, Lcom/bilibili/tv/MainApplication$3;
 
-    invoke-direct {v0, p0}, Lcom/bilibili/tv/MainApplication$2;-><init>(Lcom/bilibili/tv/MainApplication;)V
+    invoke-direct {v0, p0}, Lcom/bilibili/tv/MainApplication$3;-><init>(Lcom/bilibili/tv/MainApplication;)V
 
     invoke-static {v0}, Lcom/bilibili/api/BiliConfig;->a(Lcom/bilibili/api/BiliConfig$Delegate;)V
 
-    .line 209
+    .line 245
     return-void
 .end method
 
@@ -289,24 +319,24 @@
 
     const/4 v2, 0x0
 
-    .line 106
+    .line 142
     invoke-static {p0}, Lmybl/VideoViewParams;->init(Landroid/content/Context;)V
 
-    .line 107
+    .line 143
     invoke-static {}, Lmybl/DeviceIdentityManager;->getInstance()Lmybl/DeviceIdentityManager;
 
     move-result-object v0
 
     invoke-virtual {v0, p0}, Lmybl/DeviceIdentityManager;->init(Landroid/content/Context;)V
 
-    .line 108
+    .line 144
     invoke-static {p0}, Lbl/abd;->get_danmaku_type(Landroid/content/Context;)I
 
     move-result v4
 
     move v3, v2
 
-    .line 109
+    .line 145
     :goto_11
     const/16 v0, 0xa
 
@@ -336,7 +366,7 @@
 
     goto :goto_1e
 
-    .line 110
+    .line 146
     :cond_26
     invoke-static {p0}, Lbl/abd;->get_skip_categories(Landroid/content/Context;)Ljava/util/Set;
 
@@ -344,12 +374,12 @@
 
     sput-object v0, Lmybl/BiliFilter;->skip_categories:Ljava/util/Set;
 
-    .line 111
+    .line 147
     invoke-static {p0}, Lbl/abd;->get_personal_config(Landroid/content/Context;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 112
+    .line 148
     const-string v3, "filter_on"
 
     invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->getBooleanValue(Ljava/lang/String;)Z
@@ -358,7 +388,7 @@
 
     sput-boolean v3, Lmybl/BiliFilter;->filter_on:Z
 
-    .line 113
+    .line 149
     const-string v3, "progressbar_on"
 
     invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->getBooleanValue(Ljava/lang/String;)Z
@@ -367,7 +397,7 @@
 
     sput-boolean v3, Lmybl/BiliFilter;->progressbar_on:Z
 
-    .line 114
+    .line 150
     const-string v3, "fastquit_on"
 
     invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->getBooleanValue(Ljava/lang/String;)Z
@@ -376,7 +406,7 @@
 
     sput-boolean v3, Lmybl/BiliFilter;->fastquit_on:Z
 
-    .line 115
+    .line 151
     const-string v3, "prefer_videoview"
 
     invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->containsKey(Ljava/lang/Object;)Z
@@ -393,7 +423,7 @@
 
     sput v3, Lmybl/BiliFilter;->prefer_videoview:I
 
-    .line 116
+    .line 152
     :cond_58
     const-string v3, "prefect_cdn"
 
@@ -403,7 +433,7 @@
 
     sput-object v3, Lmybl/VideoViewParams;->prefect_cdn:Ljava/lang/String;
 
-    .line 117
+    .line 153
     const-string v3, "prefect_codec"
 
     invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -412,7 +442,7 @@
 
     sput-object v3, Lbl/afo;->prefect_codec:Ljava/lang/String;
 
-    .line 118
+    .line 154
     const-string v3, "prefect_decoder"
 
     invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -421,7 +451,7 @@
 
     sput-object v3, Lbl/afo;->prefect_decoder:Ljava/lang/String;
 
-    .line 119
+    .line 155
     sget-object v3, Lbl/afo;->prefect_decoder:Ljava/lang/String;
 
     if-eqz v3, :cond_83
@@ -440,7 +470,7 @@
 
     invoke-interface {v3, v4, v5}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 120
+    .line 156
     :cond_83
     const-string v3, "auto_update"
 
@@ -450,13 +480,13 @@
 
     sput-boolean v3, Lbl/afq;->auto_update:Z
 
-    .line 121
+    .line 157
     :try_start_8b
     invoke-static {}, Lmybl/BiliFilter;->updateConfig()V
     :try_end_8e
     .catch Ljava/lang/Exception; {:try_start_8b .. :try_end_8e} :catch_e1
 
-    .line 122
+    .line 158
     :goto_8e
     const-string v3, "myarea_map"
 
@@ -464,7 +494,7 @@
 
     move-result-object v0
 
-    .line 123
+    .line 159
     if-eqz v0, :cond_9f
 
     invoke-virtual {v0}, Lcom/alibaba/fastjson/JSONArray;->size()I
@@ -488,11 +518,11 @@
 
     invoke-static {p0, v0, v2}, Lbl/abd;->set_personal_config(Landroid/content/Context;Ljava/lang/String;Ljava/lang/Object;)V
 
-    .line 127
+    .line 163
     :cond_aa
     invoke-static {}, Lbl/afq;->AutoCheckUpdate()V
 
-    .line 131
+    .line 167
     :try_start_ad
     invoke-virtual {p0}, Lcom/bilibili/tv/MainApplication;->getAssets()Landroid/content/res/AssetManager;
 
@@ -508,7 +538,7 @@
 
     move-result-object v1
 
-    .line 140
+    .line 176
     :goto_b7
     :try_start_b7
     invoke-static {v1}, Lbl/kz;->c(Ljava/io/InputStream;)Ljava/lang/String;
@@ -519,7 +549,7 @@
 
     move-result-object v0
 
-    .line 141
+    .line 177
     const-string v2, "uids"
 
     invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
@@ -528,7 +558,7 @@
 
     sput-object v2, Lcom/bilibili/tv/MainApplication;->blacklist_uids:Lcom/alibaba/fastjson/JSONArray;
 
-    .line 142
+    .line 178
     const-string v2, "warning_uids"
 
     invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
@@ -537,12 +567,12 @@
 
     sput-object v0, Lcom/bilibili/tv/MainApplication;->graylist_uids:Lcom/alibaba/fastjson/JSONArray;
 
-    .line 143
+    .line 179
     invoke-static {v1}, Lbl/kz;->a(Ljava/io/InputStream;)V
     :try_end_d2
     .catch Ljava/lang/Exception; {:try_start_b7 .. :try_end_d2} :catch_108
 
-    .line 148
+    .line 184
     :goto_d2
     const-string v0, "java.net.preferIPv6Addresses"
 
@@ -550,17 +580,17 @@
 
     invoke-static {v0, v1}, Ljava/lang/System;->setProperty(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
-    .line 149
+    .line 185
     const-string v0, "java.net.preferIPv4Stack"
 
     const-string v1, "true"
 
     invoke-static {v0, v1}, Ljava/lang/System;->setProperty(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
-    .line 150
+    .line 186
     return-void
 
-    .line 121
+    .line 157
     :catch_e1
     move-exception v3
 
@@ -568,7 +598,7 @@
 
     goto :goto_8e
 
-    .line 125
+    .line 161
     :cond_e6
     :goto_e6
     invoke-virtual {v0}, Lcom/alibaba/fastjson/JSONArray;->size()I
@@ -589,17 +619,17 @@
 
     goto :goto_e6
 
-    .line 132
+    .line 168
     :catch_f7
     move-exception v0
 
-    .line 134
+    .line 170
     :goto_f8
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
     goto :goto_b7
 
-    .line 135
+    .line 171
     :catch_fc
     move-exception v0
 
@@ -607,29 +637,29 @@
 
     move-object v0, v1
 
-    .line 136
+    .line 172
     check-cast v0, Ljava/io/InputStream;
 
     invoke-static {v0}, Lbl/kz;->a(Ljava/io/InputStream;)V
 
-    .line 137
+    .line 173
     invoke-virtual {v2}, Ljava/lang/Exception;->printStackTrace()V
 
     goto :goto_b7
 
-    .line 144
+    .line 180
     :catch_108
     move-exception v0
 
-    .line 145
+    .line 181
     invoke-static {v1}, Lbl/kz;->a(Ljava/io/InputStream;)V
 
-    .line 146
+    .line 182
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
     goto :goto_d2
 
-    .line 132
+    .line 168
     :catch_110
     move-exception v0
 
@@ -656,7 +686,7 @@
 
     move-result v0
 
-    if-nez v0, :cond_81
+    if-nez v0, :cond_84
 
     const/4 v0, 0x1
 
@@ -772,12 +802,15 @@
     invoke-virtual {v0, p0}, Lbl/wh;->a(Landroid/app/Application;)V
 
     .line 102
-    invoke-virtual {p0}, Lcom/bilibili/tv/MainApplication;->init_globals()V
+    invoke-static {}, Lcom/bilibili/tv/MainApplication;->initCrashHandler()V
 
     .line 103
+    invoke-virtual {p0}, Lcom/bilibili/tv/MainApplication;->init_globals()V
+
+    .line 104
     return-void
 
-    :cond_81
+    :cond_84
     move v0, v1
 
     .line 69
@@ -788,10 +821,10 @@
     .locals 0
 
     .prologue
-    .line 154
+    .line 190
     invoke-super {p0}, Landroid/app/Application;->onLowMemory()V
 
-    .line 155
+    .line 191
     return-void
 .end method
 
@@ -799,9 +832,9 @@
     .locals 0
 
     .prologue
-    .line 159
+    .line 195
     invoke-super {p0, p1}, Landroid/app/Application;->onTrimMemory(I)V
 
-    .line 160
+    .line 196
     return-void
 .end method

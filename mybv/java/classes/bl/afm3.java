@@ -311,16 +311,65 @@ public final class afm3 extends adw implements View.OnFocusChangeListener, View.
         if(view == this.export_button){
             InputStream inputStream = null;
             OutputStream outputStream = null;
+            InputStream crashStream = null;
             try {
-                inputStream = Runtime.getRuntime().exec("logcat -t 10000").getInputStream();
-                File logFile = new File(MainApplication.a().getExternalFilesDir(null), "bilibilitv.log");
+                int myUid = android.os.Process.myUid();
+                // Android 10+ (API29)：logd 权限模型已强制 app 只能读取本 app 的日志，无需 --uid
+                // Android 4.2~9：用 --uid 过滤同 UID 的所有进程（主进程 + :ijkservice 等），只导出本 app
+                // Android 4.0/4.1：logcat 不支持 --uid，退回全量
+                String cmd;
+                if (android.os.Build.VERSION.SDK_INT >= 29) {
+                    cmd = "logcat -v threadtime -t 10000";
+                } else if (android.os.Build.VERSION.SDK_INT >= 17) {
+                    cmd = "logcat -v threadtime --uid=" + myUid + " -t 10000";
+                } else {
+                    cmd = "logcat -v threadtime -t 10000";
+                }
+                android.util.Log.i("afm3", "[EXPORT_LOG] cmd=" + cmd);
+                java.lang.Process process = Runtime.getRuntime().exec(cmd);
+                inputStream = process.getInputStream();
+                String fileName = "bilibilitv_log_" + new java.text.SimpleDateFormat("yyyyMMdd_HHmmss", java.util.Locale.getDefault()).format(new java.util.Date()) + ".log";
+                File logFile = new File(MainApplication.a().getExternalFilesDir(null), fileName);
                 outputStream = new FileOutputStream(logFile);
+                // UTF-8 BOM，避免 Windows 记事本无 BOM 时误判为 GBK 导致中文乱码
+                outputStream.write(new byte[]{(byte) 0xEF, (byte) 0xBB, (byte) 0xBF});
                 kz.a(inputStream, outputStream);
                 kz.a(inputStream);
+                // 诊断：记录退出码和 stderr，便于排查 logcat 命令失败原因
+                try {
+                    int exitCode = process.waitFor();
+                    java.io.ByteArrayOutputStream errBuf = new java.io.ByteArrayOutputStream();
+                    kz.a(process.getErrorStream(), errBuf);
+                    android.util.Log.i("afm3", "[EXPORT_LOG] exitCode=" + exitCode + ", stderr=" + new String(errBuf.toByteArray(), "UTF-8").trim() + ", size=" + logFile.length());
+                } catch (Exception e) {
+                    android.util.Log.w("afm3", "[EXPORT_LOG] waitFor error: " + e.getMessage());
+                }
+                // 若输出为空（个别 ROM 的 logcat 不支持 --uid 导致报错），降级为不带 --uid 重试
+                if (logFile.length() <= 3) {
+                    android.util.Log.w("afm3", "[EXPORT_LOG] 输出为空, 降级为 logcat -v threadtime -t 10000 重试");
+                    kz.a(outputStream);
+                    outputStream = null;
+                    logFile.delete();
+                    inputStream = Runtime.getRuntime().exec("logcat -v threadtime -t 10000").getInputStream();
+                    outputStream = new FileOutputStream(logFile);
+                    outputStream.write(new byte[]{(byte) 0xEF, (byte) 0xBB, (byte) 0xBF});
+                    kz.a(inputStream, outputStream);
+                    kz.a(inputStream);
+                }
+                // 追加完整 crash 信息（MainApplication 的 UncaughtExceptionHandler 写入的私有 crash.log）
+                File crashFile = new File(MainApplication.a().getFilesDir(), "crash.log");
+                if (crashFile.exists() && crashFile.length() > 0) {
+                    outputStream.write(("\n\n========== CRASH LOG ==========\n").getBytes("UTF-8"));
+                    crashStream = new FileInputStream(crashFile);
+                    kz.a(crashStream, outputStream);
+                    kz.a(crashStream);
+                }
                 kz.a(outputStream);
+                outputStream = null;
                 lr.a(afm3.this.getActivity(), "日志导出至：" + logFile.getAbsolutePath());
             } catch (Exception e) {
                 kz.a(inputStream);
+                kz.a(crashStream);
                 kz.a(outputStream);
                 lr.a(afm3.this.getActivity(), "日志导出失败！");
                 e.printStackTrace();

@@ -99,7 +99,43 @@ public class MainApplication extends Application {
         sx.a(this, new abm());
         wh.a().a(this);
 
+        initCrashHandler();
         init_globals();
+    }
+
+    /* 崩溃日志捕获：未捕获异常追加写入私有目录 crash.log（UTF-8），供"设置-实验室-导出近期日志"使用 */
+    private static void initCrashHandler() {
+        final Thread.UncaughtExceptionHandler defaultHandler = Thread.getDefaultUncaughtExceptionHandler();
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread thread, Throwable throwable) {
+                try {
+                    String time = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", java.util.Locale.getDefault())
+                            .format(new java.util.Date(System.currentTimeMillis()));
+                    String stackTrace = android.util.Log.getStackTraceString(throwable);
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("=== CRASH ===\n");
+                    sb.append("Time: ").append(time).append("\n");
+                    sb.append("Thread: ").append(thread.getName()).append("\n");
+                    sb.append("Exception: ").append(throwable.getClass().getName()).append(": ").append(throwable.getMessage()).append("\n");
+                    sb.append("Stack:\n").append(stackTrace).append("\n\n");
+                    File crashFile = new File(b.getFilesDir(), "crash.log");
+                    FileOutputStream fos = new FileOutputStream(crashFile, true);
+                    if (crashFile.length() == 0) {
+                        // UTF-8 BOM，避免 Windows 记事本无 BOM 时误判为 GBK 导致中文乱码
+                        fos.write(new byte[]{(byte) 0xEF, (byte) 0xBB, (byte) 0xBF});
+                    }
+                    fos.write(sb.toString().getBytes("UTF-8"));
+                    fos.close();
+                    android.util.Log.i("MainApplication", "[CRASH_HANDLER] crash written to " + crashFile.getAbsolutePath());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if (defaultHandler != null) {
+                    defaultHandler.uncaughtException(thread, throwable);
+                }
+            }
+        });
     }
 
     public void init_globals() {
