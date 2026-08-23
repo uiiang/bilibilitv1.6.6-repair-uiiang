@@ -36,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 402
+    .line 396
     iput-object p1, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$4;->this$0:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -50,7 +50,7 @@
     .locals 1
 
     .prologue
-    .line 402
+    .line 396
     check-cast p1, Lorg/json/JSONObject;
 
     check-cast p2, Lorg/json/JSONObject;
@@ -68,21 +68,21 @@
     .prologue
     const-wide/16 v4, 0x0
 
-    .line 405
+    .line 399
     const-string v0, "start"
 
     invoke-virtual {p1, v0, v4, v5}, Lorg/json/JSONObject;->optLong(Ljava/lang/String;J)J
 
     move-result-wide v0
 
-    .line 406
+    .line 400
     const-string v2, "start"
 
     invoke-virtual {p2, v2, v4, v5}, Lorg/json/JSONObject;->optLong(Ljava/lang/String;J)J
 
     move-result-wide v2
 
-    .line 407
+    .line 401
     invoke-static {v0, v1, v2, v3}, Ljava/lang/Long;->compare(JJ)I
 
     move-result v0

@@ -114,7 +114,18 @@ Step "Compile Java code (javac + dx + baksmali)" {
         $listFile = Join-Path $javaDir "sources_win.txt"
         $lines = $srcs | ForEach-Object { $_.FullName.Substring($javaDir.Length + 1) }
         [System.IO.File]::WriteAllLines($listFile, $lines, $utf8NoBom)
+        # Force javac diagnostics (deprecation/unchecked notes) to English via JVM locale.
+        # Without this they are emitted in the system locale (GBK on zh-CN Windows) and
+        # show as garbled text. -J-Dfile.encoding cannot be used: PowerShell 5 splits the
+        # "-J..." token, and -nowarn does NOT suppress javac "Note:" lines.
+        $prevJavaToolOptions = $env:JAVA_TOOL_OPTIONS
+        $env:JAVA_TOOL_OPTIONS = "-Duser.language=en -Duser.country=US"
         & $javac -Xdiags:verbose -encoding UTF-8 --release 8 -classpath "lib/*" "@$listFile"
+        if ($null -eq $prevJavaToolOptions) {
+            Remove-Item Env:JAVA_TOOL_OPTIONS -ErrorAction SilentlyContinue
+        } else {
+            $env:JAVA_TOOL_OPTIONS = $prevJavaToolOptions
+        }
         if ($LASTEXITCODE -ne 0) { throw "javac failed (exit $LASTEXITCODE)" }
 
         # remove R classes and special files (keep in sync with build.sh)

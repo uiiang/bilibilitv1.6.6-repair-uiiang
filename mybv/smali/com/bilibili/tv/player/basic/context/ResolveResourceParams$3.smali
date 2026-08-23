@@ -36,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 295
+    .line 288
     iput-object p1, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$3;->this$0:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -55,7 +55,7 @@
     .end annotation
 
     .prologue
-    .line 295
+    .line 288
     invoke-virtual {p0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$3;->call()Lorg/json/JSONArray;
 
     move-result-object v0
@@ -67,13 +67,13 @@
     .locals 6
 
     .prologue
-    .line 298
+    .line 291
     const-string v0, "https://bsbsb.top/api/skipSegments"
 
-    .line 299
+    .line 292
     const-string v1, "http://bsbsb.top/api/skipSegments"
 
-    .line 300
+    .line 293
     iget-object v2, p0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$3;->this$0:Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;
 
     iget-object v2, v2, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mBvid:Ljava/lang/String;
@@ -82,26 +82,18 @@
 
     move-result-object v2
 
-    .line 301
-    new-instance v3, Lorg/json/JSONArray;
+    .line 295
+    const-string v3, "[\"intro\",\"outro\",\"sponsor\"]"
 
-    sget-object v4, Lmybl/BiliFilter;->skip_categories:Ljava/util/Set;
-
-    invoke-direct {v3, v4}, Lorg/json/JSONArray;-><init>(Ljava/util/Collection;)V
-
-    invoke-virtual {v3}, Lorg/json/JSONArray;->toString()Ljava/lang/String;
-
-    move-result-object v3
-
-    .line 304
-    :try_start_17
+    .line 298
+    :try_start_e
     new-instance v4, Lbl/qa$a;
 
     const-class v5, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;
 
     invoke-direct {v4, v5}, Lbl/qa$a;-><init>(Ljava/lang/Class;)V
 
-    .line 305
+    .line 299
     invoke-virtual {v4, v0}, Lbl/qa$a;->a(Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
@@ -114,14 +106,14 @@
 
     const-string v4, "videoID"
 
-    .line 306
+    .line 300
     invoke-virtual {v0, v4, v2}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
 
     const-string v4, "categories"
 
-    .line 307
+    .line 301
     invoke-virtual {v0, v4, v3}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
@@ -130,16 +122,16 @@
 
     const-string v5, "skip"
 
-    .line 308
+    .line 302
     invoke-virtual {v0, v4, v5}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
 
-    new-instance v4, Lbl/qb;
+    new-instance v4, Lbl/QfNoTs;
 
-    invoke-direct {v4}, Lbl/qb;-><init>()V
+    invoke-direct {v4}, Lbl/QfNoTs;-><init>()V
 
-    .line 309
+    .line 303
     invoke-virtual {v0, v4}, Lbl/qa$a;->a(Lbl/qf;)Lbl/qa$a;
 
     move-result-object v0
@@ -150,47 +142,47 @@
 
     const-string v4, "GET"
 
-    .line 304
+    .line 298
     invoke-static {v0, v4}, Lbl/pz;->a(Lbl/qa;Ljava/lang/String;)Lbl/qe;
 
     move-result-object v0
 
     check-cast v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;
 
-    .line 309
+    .line 303
     invoke-virtual {v0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;->result2()Lorg/json/JSONArray;
 
     move-result-object v0
 
-    .line 310
-    if-eqz v0, :cond_5e
+    .line 304
+    if-eqz v0, :cond_55
 
     invoke-virtual {v0}, Lorg/json/JSONArray;->length()I
-    :try_end_59
-    .catch Ljava/lang/Exception; {:try_start_17 .. :try_end_59} :catch_5d
+    :try_end_50
+    .catch Ljava/lang/Exception; {:try_start_e .. :try_end_50} :catch_54
 
     move-result v4
 
-    if-lez v4, :cond_5e
+    if-lez v4, :cond_55
 
-    .line 324
-    :goto_5c
+    .line 318
+    :goto_53
     return-object v0
 
-    .line 313
-    :catch_5d
+    .line 307
+    :catch_54
     move-exception v0
 
-    .line 317
-    :cond_5e
-    :try_start_5e
+    .line 311
+    :cond_55
+    :try_start_55
     new-instance v0, Lbl/qa$a;
 
     const-class v4, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;
 
     invoke-direct {v0, v4}, Lbl/qa$a;-><init>(Ljava/lang/Class;)V
 
-    .line 318
+    .line 312
     invoke-virtual {v0, v1}, Lbl/qa$a;->a(Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
@@ -203,14 +195,14 @@
 
     const-string v1, "videoID"
 
-    .line 319
+    .line 313
     invoke-virtual {v0, v1, v2}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
 
     const-string v1, "categories"
 
-    .line 320
+    .line 314
     invoke-virtual {v0, v1, v3}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
@@ -219,16 +211,16 @@
 
     const-string v2, "skip"
 
-    .line 321
+    .line 315
     invoke-virtual {v0, v1, v2}, Lbl/qa$a;->b(Ljava/lang/String;Ljava/lang/String;)Lbl/qa$a;
 
     move-result-object v0
 
-    new-instance v1, Lbl/qb;
+    new-instance v1, Lbl/QfNoTs;
 
-    invoke-direct {v1}, Lbl/qb;-><init>()V
+    invoke-direct {v1}, Lbl/QfNoTs;-><init>()V
 
-    .line 322
+    .line 316
     invoke-virtual {v0, v1}, Lbl/qa$a;->a(Lbl/qf;)Lbl/qa$a;
 
     move-result-object v0
@@ -239,28 +231,28 @@
 
     const-string v1, "GET"
 
-    .line 317
+    .line 311
     invoke-static {v0, v1}, Lbl/pz;->a(Lbl/qa;Ljava/lang/String;)Lbl/qe;
 
     move-result-object v0
 
     check-cast v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;
 
-    .line 322
+    .line 316
     invoke-virtual {v0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;->result2()Lorg/json/JSONArray;
-    :try_end_9a
-    .catch Ljava/lang/Exception; {:try_start_5e .. :try_end_9a} :catch_9c
+    :try_end_91
+    .catch Ljava/lang/Exception; {:try_start_55 .. :try_end_91} :catch_93
 
     move-result-object v0
 
-    goto :goto_5c
+    goto :goto_53
 
-    .line 323
-    :catch_9c
+    .line 317
+    :catch_93
     move-exception v0
 
-    .line 324
+    .line 318
     const/4 v0, 0x0
 
-    goto :goto_5c
+    goto :goto_53
 .end method

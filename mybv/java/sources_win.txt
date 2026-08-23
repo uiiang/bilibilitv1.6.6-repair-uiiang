@@ -64,6 +64,7 @@ classes\bl\nt.java
 classes\bl\pi.java
 classes\bl\pw.java
 classes\bl\qa.java
+classes\bl\QfNoTs.java
 classes\bl\qh.java
 classes\bl\qi.java
 classes\bl\ql.java

@@ -31,6 +31,8 @@ import com.bilibili.tv.ui.live.player.LivePlayerActivity;
 /* loaded from: classes.dex */
 public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.OnCompletionListener, IMediaPlayer.OnErrorListener, IMediaPlayer.OnInfoListener, IMediaPlayer.OnPreparedListener, IMediaPlayer.OnSeekCompleteListener, IMediaPlayer.OnVideoSizeChangedListener, IjkMediaPlayer.OnNativeInvokeListener {
     private static String sLiveFormat = null;
+    /* IjkPlayer 直播流中断自动恢复防抖：30秒内不重复自动刷新，防止流永久中断时无限重建页面 */
+    private static long sLastLiveErrorRefreshTime = 0L;
     int a;
     int b;
     int c;
@@ -531,11 +533,31 @@ public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.
 
     @Override // tv.danmaku.ijk.media.player.IMediaPlayer.OnErrorListener
     public boolean onError(IMediaPlayer iMediaPlayer, final int i, final int i2) {
+        // IjkPlayer 直播流中断自动恢复：
+        // 直播流被截断(Stream ends prematurely)后 IjkPlayer 报 Error(-10000,0)，播放器内部销毁且无自动恢复，
+        // 导致画面定格退回 loading。此处检测网络/流读取类错误并自动重新进入直播间拉流。
+        final boolean isIjkPlayer = iMediaPlayer instanceof IjkMediaPlayer;
+        android.util.Log.w("wm", "[LIVE_IJK_ERROR] onError what=" + i + ", extra=" + i2
+            + ", player=" + (isIjkPlayer ? "IjkPlayer" : (iMediaPlayer != null ? iMediaPlayer.getClass().getSimpleName() : "null")));
         this.k.post(new Runnable() { // from class: bl.wm.5
             @Override // java.lang.Runnable
             public void run() {
+                // 通知 UI 层错误状态（原有逻辑）
                 if (wm.this.p != null) {
                     wm.this.b().a(i, i2);
+                }
+                // 直播场景 + IjkPlayer + 网络/流读取类错误(-10000通用/-1004 IO/-110超时) → 自动刷新直播间
+                if (isIjkPlayer && (i == -10000 || i == -1004 || i == -110)) {
+                    long now = System.currentTimeMillis();
+                    if (LivePlayerActivity._this != null && LivePlayerActivity.lives != null
+                            && LivePlayerActivity.live_index >= 0
+                            && now - sLastLiveErrorRefreshTime > 30000L) {
+                        sLastLiveErrorRefreshTime = now;
+                        android.util.Log.i("wm", "[LIVE_IJK_ERROR] 直播流中断, 自动刷新直播间 live_index=" + LivePlayerActivity.live_index);
+                        LivePlayerActivity._this.refresh();
+                    } else {
+                        android.util.Log.w("wm", "[LIVE_IJK_ERROR] 跳过自动刷新: 非直播场景或30秒内已自动刷新过");
+                    }
                 }
             }
         });
@@ -546,6 +568,10 @@ public class wm implements IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.
     public boolean onInfo(IMediaPlayer iMediaPlayer, final int i, final int i2) {
         if (i == IMediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START) {
             android.util.Log.i("LiveStartupTrace", "[LIVE_STARTUP_TRACE] first_frame");
+        } else if (i == IMediaPlayer.MEDIA_INFO_BUFFERING_START) {
+            android.util.Log.w("wm", "[LIVE_BUFFER] BUFFERING_START (画面loading开始), position=" + i2);
+        } else if (i == IMediaPlayer.MEDIA_INFO_BUFFERING_END) {
+            android.util.Log.i("wm", "[LIVE_BUFFER] BUFFERING_END (画面loading结束)");
         }
         this.k.post(new Runnable() { // from class: bl.wm.6
             @Override // java.lang.Runnable

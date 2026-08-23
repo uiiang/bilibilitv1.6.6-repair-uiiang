@@ -591,6 +591,7 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
     @Override // com.bilibili.tv.ui.base.BaseActivity, android.support.v4.app.FragmentActivity, android.app.Activity
     public void onResume() {
         super.onResume();
+        android.util.Log.i(TAG, "[LIVE_LIFECYCLE] onResume, calling g.f() to resume player");
         this.g.f();
     }
 
@@ -598,6 +599,7 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
     @Override // android.support.v4.app.FragmentActivity, android.app.Activity
     public void onPause() {
         super.onPause();
+        android.util.Log.i(TAG, "[LIVE_LIFECYCLE] onPause, calling g.e() to pause player");
         this.g.e();
     }
 

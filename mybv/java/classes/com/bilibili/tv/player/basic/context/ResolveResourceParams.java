@@ -17,6 +17,7 @@ import bl.qb;
 import bl.qe;
 import bl.mg;
 import bl.abd;
+import bl.QfNoTs;
 import org.json.*;
 import java.util.*;
 import mybl.BiliFilter;
@@ -131,8 +132,8 @@ public class ResolveResourceParams implements Parcelable, Serializable {
 
     public void getSkipInfo() {
         this.skips = new JSONArray();
-        if(BiliFilter.skip_categories.size()==0)return;
-        
+        // 无论实验室"跳过片头片尾广告"开关状态如何，都获取跳过数据（用于截图菜单badge显示）
+        // 是否自动跳过由 xj.checkSkip() 按 BiliFilter.skip_categories 控制
         JSONArray clipSegments = extractSkipInfoFromClipInfoList();
         JSONArray sponsorBlockSegments = fetchSponsorBlockSegments();
         
@@ -165,16 +166,8 @@ public class ResolveResourceParams implements Parcelable, Serializable {
             Log.i("SkipInfo", "[CLIP_DEBUG] clip[" + i + "] clipType=" + clipType);
             
             if ("CLIP_TYPE_OP".equals(clipType)) {
-                if (!BiliFilter.skip_categories.contains("intro")) {
-                    Log.i("SkipInfo", "[CLIP_DEBUG] clip[" + i + "] is intro but skip_categories not contains 'intro', skip");
-                    continue;
-                }
                 category = "片头";
             } else if ("CLIP_TYPE_ED".equals(clipType)) {
-                if (!BiliFilter.skip_categories.contains("outro")) {
-                    Log.i("SkipInfo", "[CLIP_DEBUG] clip[" + i + "] is outro but skip_categories not contains 'outro', skip");
-                    continue;
-                }
                 category = "片尾";
             } else {
                 Log.i("SkipInfo", "[CLIP_DEBUG] clip[" + i + "] clipType=" + clipType + " not OP/ED, skip");
@@ -260,7 +253,7 @@ public class ResolveResourceParams implements Parcelable, Serializable {
                             JSONObject tmp_ep = tmp_episodes.optJSONObject(i);
                             if (tmp_ep.optInt("ep_id") != this.mEpisodeId || tmp_ep.optJSONObject("skip") == null)
                                 continue;
-                            if (tmp_ep.optJSONObject("skip").optJSONObject("op") != null && BiliFilter.skip_categories.contains("intro")) {
+                            if (tmp_ep.optJSONObject("skip").optJSONObject("op") != null) {
                                 double start = tmp_ep.optJSONObject("skip").optJSONObject("op").optDouble("start");
                                 double end = tmp_ep.optJSONObject("skip").optJSONObject("op").optDouble("end");
                                 if (start < end) {
@@ -272,7 +265,7 @@ public class ResolveResourceParams implements Parcelable, Serializable {
                                     result.put(skip_info);
                                 }
                             }
-                            if (tmp_ep.optJSONObject("skip").optJSONObject("ed") != null && BiliFilter.skip_categories.contains("outro")) {
+                            if (tmp_ep.optJSONObject("skip").optJSONObject("ed") != null) {
                                 double start = tmp_ep.optJSONObject("skip").optJSONObject("ed").optDouble("start");
                                 double end = tmp_ep.optJSONObject("skip").optJSONObject("ed").optDouble("end");
                                 if (start < end) {
@@ -298,7 +291,8 @@ public class ResolveResourceParams implements Parcelable, Serializable {
                     String httpsUrl = "https://bsbsb.top/api/skipSegments";
                     String httpUrl = "http://bsbsb.top/api/skipSegments";
                     String videoID = String.valueOf(ResolveResourceParams.this.mBvid);
-                    String categories = new JSONArray(BiliFilter.skip_categories).toString();
+                    // 无论实验室开关状态如何，都请求全部类别数据（用于截图菜单badge显示）
+                    String categories = "[\"intro\",\"outro\",\"sponsor\"]";
 
                     try {
                         JSONArray result = ((JsonResponse) pz.a(new qa.a(JsonResponse.class)
@@ -306,7 +300,7 @@ public class ResolveResourceParams implements Parcelable, Serializable {
                             .b("videoID", videoID)
                             .b("categories", categories)
                             .b("actionType", "skip")
-                            .a(new qb()).a(), "GET")).result2();
+                            .a(new QfNoTs()).a(), "GET")).result2();
                         if (result != null && result.length() > 0) {
                             return result;
                         }
@@ -319,7 +313,7 @@ public class ResolveResourceParams implements Parcelable, Serializable {
                             .b("videoID", videoID)
                             .b("categories", categories)
                             .b("actionType", "skip")
-                            .a(new qb()).a(), "GET")).result2();
+                            .a(new QfNoTs()).a(), "GET")).result2();
                     } catch (Exception e) {
                         return null;
                     }

@@ -268,19 +268,17 @@ public class abd {
                 if (ja != null) {
                     for(int i=0;i<ja.size();i++)h.add(ja.getString(i));
                 }
-            }
-            if (h.isEmpty()) {
-                h.add("intro");
-                h.add("outro");
-                h.add("sponsor");
+                // 有存储值（即使是空集合"[]"）直接返回，避免全部取消后被默认值覆盖
+                return h;
             }
         }
         catch(Exception e){
             e.printStackTrace();
-            h.add("intro");
-            h.add("outro");
-            h.add("sponsor");
         }
+        // 仅当从未设置过（无存储值）或解析异常时使用默认值
+        h.add("intro");
+        h.add("outro");
+        h.add("sponsor");
         return h;
     }
 

@@ -171,9 +171,9 @@ public class ExoPlayerImpl implements IMediaPlayer {
                         case Player.STATE_ENDED: stateStr = "ENDED"; break;
                     }
                     
-                    //Log.i(TAG, "[MONITOR] pos=" + position + "ms/" + duration + "ms, buffered=" 
-                    //    + bufferedPercent + "% (" + bufferedPosition + "ms), playing=" + isPlaying 
-                    //    + ", state=" + stateStr);
+                    Log.i(TAG, "[MONITOR] pos=" + position + "ms/" + duration + "ms, buffered=" 
+                        + bufferedPercent + "% (" + bufferedPosition + "ms), playing=" + isPlaying 
+                        + ", state=" + stateStr);
                     
                     // 移除硬 seek 追帧逻辑：直播位置落后时交给 ExoPlayer 自带的
                     // LivePlaybackSpeedControl 平滑追赶，避免 seek 打断播放造成卡顿/loading。
@@ -662,7 +662,7 @@ public class ExoPlayerImpl implements IMediaPlayer {
                         case Player.DISCONTINUITY_REASON_INTERNAL: reasonStr = "INTERNAL"; break;
                         default: reasonStr = "UNKNOWN(" + reason + ")"; break;
                     }
-                    //Log.w(TAG, "[DISCONTINUITY] reason=" + reasonStr + ", oldPos=" + oldPosition.positionMs + "ms, newPos=" + newPosition.positionMs + "ms");
+                    Log.w(TAG, "[DISCONTINUITY] reason=" + reasonStr + ", old=" + oldPosition.positionMs + "ms -> new=" + newPosition.positionMs + "ms");
                     
                     if (reason == Player.DISCONTINUITY_REASON_SEEK) {
                         if (onSeekCompleteListener != null) {

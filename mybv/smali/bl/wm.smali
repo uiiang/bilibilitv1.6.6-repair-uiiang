@@ -23,6 +23,8 @@
 
 
 # static fields
+.field private static sLastLiveErrorRefreshTime:J
+
 .field private static sLiveFormat:Ljava/lang/String;
 
 
@@ -101,13 +103,18 @@
 
 # direct methods
 .method static constructor <clinit>()V
-    .locals 1
+    .locals 2
 
     .prologue
     .line 33
     const/4 v0, 0x0
 
     sput-object v0, Lbl/wm;->sLiveFormat:Ljava/lang/String;
+
+    .line 35
+    const-wide/16 v0, 0x0
+
+    sput-wide v0, Lbl/wm;->sLastLiveErrorRefreshTime:J
 
     return-void
 .end method
@@ -118,10 +125,10 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 98
+    .line 100
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 99
+    .line 101
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v0
@@ -132,61 +139,61 @@
 
     iput v0, p0, Lbl/wm;->m:I
 
-    .line 100
+    .line 102
     iput-boolean v1, p0, Lbl/wm;->o:Z
 
-    .line 101
+    .line 103
     iput v1, p0, Lbl/wm;->r:I
 
-    .line 102
+    .line 104
     iput v1, p0, Lbl/wm;->s:I
 
-    .line 103
+    .line 105
     const-string v0, ""
 
     iput-object v0, p0, Lbl/wm;->t:Ljava/lang/String;
 
-    .line 104
+    .line 106
     const/16 v0, -0x16
 
     iput v0, p0, Lbl/wm;->f57u:I
 
-    .line 105
+    .line 107
     const/4 v0, 0x3
 
     iput v0, p0, Lbl/wm;->a:I
 
-    .line 106
+    .line 108
     const/16 v0, 0x2bd
 
     iput v0, p0, Lbl/wm;->b:I
 
-    .line 107
+    .line 109
     const/16 v0, 0x2be
 
     iput v0, p0, Lbl/wm;->c:I
 
-    .line 108
+    .line 110
     const/16 v0, 0x2711
 
     iput v0, p0, Lbl/wm;->d:I
 
-    .line 109
+    .line 111
     const/16 v0, 0x64
 
     iput v0, p0, Lbl/wm;->e:I
 
-    .line 110
+    .line 112
     const/16 v0, -0x2710
 
     iput v0, p0, Lbl/wm;->f:I
 
-    .line 111
+    .line 113
     const/16 v0, 0xc8
 
     iput v0, p0, Lbl/wm;->g:I
 
-    .line 112
+    .line 114
     new-instance v0, Landroid/os/HandlerThread;
 
     const-string v1, "VideoManager"
@@ -195,12 +202,12 @@
 
     iput-object v0, p0, Lbl/wm;->i:Landroid/os/HandlerThread;
 
-    .line 113
+    .line 115
     iget-object v0, p0, Lbl/wm;->i:Landroid/os/HandlerThread;
 
     invoke-virtual {v0}, Landroid/os/HandlerThread;->start()V
 
-    .line 114
+    .line 116
     new-instance v0, Lbl/wm$b;
 
     iget-object v1, p0, Lbl/wm;->i:Landroid/os/HandlerThread;
@@ -213,14 +220,14 @@
 
     iput-object v0, p0, Lbl/wm;->j:Lbl/wm$b;
 
-    .line 115
+    .line 117
     new-instance v0, Landroid/os/Handler;
 
     invoke-direct {v0}, Landroid/os/Handler;-><init>()V
 
     iput-object v0, p0, Lbl/wm;->k:Landroid/os/Handler;
 
-    .line 116
+    .line 118
     return-void
 .end method
 
@@ -238,7 +245,7 @@
     .locals 1
 
     .prologue
-    .line 65
+    .line 67
     # getter for: Lbl/wm$aa;->a:Lbl/wm;
     invoke-static {}, Lbl/wm$aa;->access$000()Lbl/wm;
 
@@ -251,10 +258,10 @@
     .locals 2
 
     .prologue
-    .line 92
+    .line 94
     if-nez p0, :cond_a
 
-    .line 93
+    .line 95
     new-instance v0, Ljava/lang/NullPointerException;
 
     const-string v1, "video manager init error!!!"
@@ -263,7 +270,7 @@
 
     throw v0
 
-    .line 95
+    .line 97
     :cond_a
     invoke-static {}, Lbl/wm;->a()Lbl/wm;
 
@@ -271,7 +278,7 @@
 
     invoke-direct {v0, p0}, Lbl/wm;->b(Landroid/content/Context;)V
 
-    .line 96
+    .line 98
     return-void
 .end method
 
@@ -287,7 +294,7 @@
 
     const-wide/16 v6, 0x1
 
-    .line 269
+    .line 271
     iget-object v0, p1, Landroid/os/Message;->obj:Ljava/lang/Object;
 
     check-cast v0, Lbl/wo;
@@ -296,7 +303,7 @@
 
     move-result-object v1
 
-    .line 270
+    .line 272
     const-string v0, "wm"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -341,7 +348,7 @@
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 274
+    .line 276
     iget-object v0, p0, Lbl/wm;->l:Landroid/content/Context;
 
     sget-object v2, Lbl/wm;->sLiveFormat:Ljava/lang/String;
@@ -350,7 +357,7 @@
 
     move-result v0
 
-    .line 275
+    .line 277
     const-string v2, "wm"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -385,17 +392,17 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 277
+    .line 279
     if-eqz v0, :cond_36b
 
-    .line 278
+    .line 280
     const-string v0, "wm"
 
     const-string v2, "[LIVE_EXO] Checking format compatibility"
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 281
+    .line 283
     invoke-virtual {v1}, Ljava/lang/String;->toLowerCase()Ljava/lang/String;
 
     move-result-object v0
@@ -406,7 +413,7 @@
 
     move-result v0
 
-    .line 282
+    .line 284
     const-string v2, "wm"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -439,7 +446,7 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 285
+    .line 287
     const-string v2, "ts"
 
     sget-object v3, Lbl/wm;->sLiveFormat:Ljava/lang/String;
@@ -448,7 +455,7 @@
 
     move-result v2
 
-    .line 286
+    .line 288
     const-string v3, "wm"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -483,12 +490,12 @@
 
     invoke-static {v3, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 288
+    .line 290
     if-nez v0, :cond_cd
 
     if-eqz v2, :cond_1a4
 
-    .line 289
+    .line 291
     :cond_cd
     const-string v0, "wm"
 
@@ -496,7 +503,7 @@
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 394
+    .line 396
     :cond_d4
     :goto_d4
     const-string v0, "wm"
@@ -505,7 +512,7 @@
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 395
+    .line 397
     new-instance v0, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
     iget-object v2, p0, Lbl/wm;->l:Landroid/content/Context;
@@ -514,23 +521,23 @@
 
     iput-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
-    .line 396
+    .line 398
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     const/4 v2, 0x3
 
     invoke-interface {v0, v2}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->setAudioStreamType(I)V
 
-    .line 397
+    .line 399
     if-eqz p2, :cond_11c
 
-    .line 399
+    .line 401
     :try_start_ec
     const-string v0, "enable mediaCodec"
 
     invoke-static {v0}, Lbl/ww;->a(Ljava/lang/String;)V
 
-    .line 400
+    .line 402
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     check-cast v0, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
@@ -543,7 +550,7 @@
 
     invoke-virtual {v0, v2, v3, v4, v5}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
 
-    .line 401
+    .line 403
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     check-cast v0, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
@@ -556,7 +563,7 @@
 
     invoke-virtual {v0, v2, v3, v4, v5}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
 
-    .line 402
+    .line 404
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     check-cast v0, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
@@ -569,7 +576,7 @@
 
     invoke-virtual {v0, v2, v3, v4, v5}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
 
-    .line 403
+    .line 405
     const-string v0, "wm"
 
     const-string v2, "[LIVE_IJK] mediaCodec enabled"
@@ -578,7 +585,7 @@
     :try_end_11c
     .catch Ljava/lang/Exception; {:try_start_ec .. :try_end_11c} :catch_374
 
-    .line 410
+    .line 412
     :cond_11c
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
@@ -588,14 +595,14 @@
 
     invoke-virtual {v0, v8, v2, v6, v7}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;J)V
 
-    .line 411
+    .line 413
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     check-cast v0, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
     invoke-virtual {v0, p0}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOnNativeInvokeListener(Ltv/danmaku/ijk/media/player/IjkMediaPlayer$OnNativeInvokeListener;)V
 
-    .line 414
+    .line 416
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     check-cast v0, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
@@ -606,7 +613,7 @@
 
     invoke-virtual {v0, v8, v2, v3}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;Ljava/lang/String;)V
 
-    .line 415
+    .line 417
     const-string v0, "platform=web"
 
     invoke-virtual {v1, v0}, Ljava/lang/String;->indexOf(Ljava/lang/String;)I
@@ -615,7 +622,7 @@
 
     if-ltz v0, :cond_14a
 
-    .line 416
+    .line 418
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     check-cast v0, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
@@ -626,7 +633,7 @@
 
     invoke-virtual {v0, v8, v1, v2}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setOption(ILjava/lang/String;Ljava/lang/String;)V
 
-    .line 419
+    .line 421
     :cond_14a
     :try_start_14a
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
@@ -653,7 +660,7 @@
     :try_end_161
     .catch Ljava/lang/Exception; {:try_start_14a .. :try_end_161} :catch_37a
 
-    .line 421
+    .line 423
     :goto_161
     iget-object v1, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
@@ -667,7 +674,7 @@
 
     invoke-interface {v1, v0}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->setLooping(Z)V
 
-    .line 422
+    .line 424
     iget-object v0, p1, Landroid/os/Message;->obj:Ljava/lang/Object;
 
     check-cast v0, Lbl/wo;
@@ -692,7 +699,7 @@
 
     if-lez v0, :cond_195
 
-    .line 423
+    .line 425
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     check-cast v0, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
@@ -707,7 +714,7 @@
 
     invoke-virtual {v0, v1}, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;->setSpeed(F)V
 
-    .line 425
+    .line 427
     :cond_195
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
@@ -715,18 +722,18 @@
 
     invoke-direct {p0, v0}, Lbl/wm;->a(Ltv/danmaku/ijk/media/player/IjkMediaPlayer;)V
 
-    .line 426
+    .line 428
     const-string v0, "wm"
 
     const-string v1, "[LIVE_IJK] IjkMediaPlayer setup complete"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 427
+    .line 429
     :goto_1a3
     return-void
 
-    .line 291
+    .line 293
     :cond_1a4
     const-string v0, "wm"
 
@@ -734,7 +741,7 @@
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 293
+    .line 295
     :try_start_1ab
     new-instance v0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
@@ -742,10 +749,10 @@
 
     invoke-direct {v0, v2}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;-><init>(Landroid/content/Context;)V
 
-    .line 294
+    .line 296
     iput-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
-    .line 295
+    .line 297
     const-string v0, "wm"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -780,7 +787,7 @@
     :try_end_1d6
     .catch Ljava/lang/Exception; {:try_start_1ab .. :try_end_1d6} :catch_305
 
-    .line 303
+    .line 305
     :goto_1d6
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
@@ -788,14 +795,14 @@
 
     if-eqz v0, :cond_d4
 
-    .line 304
+    .line 306
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     const/4 v2, 0x3
 
     invoke-interface {v0, v2}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->setAudioStreamType(I)V
 
-    .line 308
+    .line 310
     :try_start_1e2
     new-instance v0, Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;
 
@@ -803,33 +810,33 @@
 
     const-string v2, "Bilibili Freedoooooom/MarkII"
 
-    .line 309
+    .line 311
     invoke-virtual {v0, v2}, Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;->setUserAgent(Ljava/lang/String;)Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;
 
     move-result-object v0
 
     const/16 v2, 0x1f40
 
-    .line 310
+    .line 312
     invoke-virtual {v0, v2}, Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;->setConnectTimeoutMs(I)Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;
 
     move-result-object v0
 
     const/16 v2, 0x1f40
 
-    .line 311
+    .line 313
     invoke-virtual {v0, v2}, Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;->setReadTimeoutMs(I)Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;
 
     move-result-object v0
 
-    .line 313
+    .line 315
     const-string v2, "platform=web"
 
     invoke-virtual {v1, v2}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
 
     move-result v2
 
-    .line 314
+    .line 316
     const-string v3, "wm"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -852,30 +859,30 @@
 
     invoke-static {v3, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 315
+    .line 317
     if-eqz v2, :cond_22b
 
-    .line 316
+    .line 318
     const-string v2, "Referer"
 
     const-string v3, "https://www.bilibili.com"
 
-    .line 317
+    .line 319
     invoke-static {v2, v3}, Ljava/util/Collections;->singletonMap(Ljava/lang/Object;Ljava/lang/Object;)Ljava/util/Map;
 
     move-result-object v2
 
-    .line 316
+    .line 318
     invoke-virtual {v0, v2}, Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;->setDefaultRequestProperties(Ljava/util/Map;)Lcom/google/android/exoplayer2/upstream/DefaultHttpDataSource$Factory;
 
-    .line 318
+    .line 320
     const-string v2, "wm"
 
     const-string v3, "[LIVE_EXO] Referer header injected"
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 322
+    .line 324
     :cond_22b
     invoke-virtual {v1}, Ljava/lang/String;->toLowerCase()Ljava/lang/String;
 
@@ -887,7 +894,7 @@
 
     move-result v2
 
-    .line 323
+    .line 325
     const-string v3, "wm"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -910,15 +917,15 @@
 
     invoke-static {v3, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 328
+    .line 330
     if-eqz v2, :cond_32e
 
-    .line 329
+    .line 331
     new-instance v2, Lcom/google/android/exoplayer2/MediaItem$Builder;
 
     invoke-direct {v2}, Lcom/google/android/exoplayer2/MediaItem$Builder;-><init>()V
 
-    .line 330
+    .line 332
     invoke-static {v1}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v1
@@ -929,64 +936,64 @@
 
     const-wide/16 v2, 0x3e8
 
-    .line 331
+    .line 333
     invoke-virtual {v1, v2, v3}, Lcom/google/android/exoplayer2/MediaItem$Builder;->setLiveTargetOffsetMs(J)Lcom/google/android/exoplayer2/MediaItem$Builder;
 
     move-result-object v1
 
     const-wide/16 v2, 0x1f4
 
-    .line 332
+    .line 334
     invoke-virtual {v1, v2, v3}, Lcom/google/android/exoplayer2/MediaItem$Builder;->setLiveMinOffsetMs(J)Lcom/google/android/exoplayer2/MediaItem$Builder;
 
     move-result-object v1
 
     const-wide/16 v2, 0x1388
 
-    .line 333
+    .line 335
     invoke-virtual {v1, v2, v3}, Lcom/google/android/exoplayer2/MediaItem$Builder;->setLiveMaxOffsetMs(J)Lcom/google/android/exoplayer2/MediaItem$Builder;
 
     move-result-object v1
 
     const v2, 0x3f733333    # 0.95f
 
-    .line 334
+    .line 336
     invoke-virtual {v1, v2}, Lcom/google/android/exoplayer2/MediaItem$Builder;->setLiveMinPlaybackSpeed(F)Lcom/google/android/exoplayer2/MediaItem$Builder;
 
     move-result-object v1
 
     const/high16 v2, 0x3fc00000    # 1.5f
 
-    .line 335
+    .line 337
     invoke-virtual {v1, v2}, Lcom/google/android/exoplayer2/MediaItem$Builder;->setLiveMaxPlaybackSpeed(F)Lcom/google/android/exoplayer2/MediaItem$Builder;
 
     move-result-object v1
 
-    .line 336
+    .line 338
     invoke-virtual {v1}, Lcom/google/android/exoplayer2/MediaItem$Builder;->build()Lcom/google/android/exoplayer2/MediaItem;
 
     move-result-object v1
 
-    .line 337
+    .line 339
     const-string v2, "wm"
 
     const-string v3, "[LIVE_EXO] Creating HlsMediaSource with live config: targetOffset=1000ms, minOffset=500ms, maxOffset=5000ms"
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 338
+    .line 340
     new-instance v2, Lcom/google/android/exoplayer2/source/hls/HlsMediaSource$Factory;
 
     invoke-direct {v2, v0}, Lcom/google/android/exoplayer2/source/hls/HlsMediaSource$Factory;-><init>(Lcom/google/android/exoplayer2/upstream/DataSource$Factory;)V
 
-    .line 339
+    .line 341
     invoke-virtual {v2, v1}, Lcom/google/android/exoplayer2/source/hls/HlsMediaSource$Factory;->createMediaSource(Lcom/google/android/exoplayer2/MediaItem;)Lcom/google/android/exoplayer2/source/hls/HlsMediaSource;
 
     move-result-object v0
 
     move-object v1, v0
 
-    .line 347
+    .line 349
     :goto_290
     const-string v0, "wm"
 
@@ -994,21 +1001,21 @@
 
     invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 348
+    .line 350
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     check-cast v0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     invoke-virtual {v0, v1}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->setDataSource(Lcom/google/android/exoplayer2/source/MediaSource;)V
 
-    .line 349
+    .line 351
     const-string v0, "wm"
 
     const-string v1, "[LIVE_EXO] setDataSource completed"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 351
+    .line 353
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     check-cast v0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
@@ -1019,7 +1026,7 @@
 
     invoke-virtual {v0, v1}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->setErrorListener(Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$PlayerErrorListener;)V
 
-    .line 370
+    .line 372
     const-string v0, "wm"
 
     const-string v1, "[LIVE_EXO] Error listener set"
@@ -1028,7 +1035,7 @@
     :try_end_2b8
     .catch Ljava/lang/Exception; {:try_start_1e2 .. :try_end_2b8} :catch_349
 
-    .line 377
+    .line 379
     :goto_2b8
     iget-object v0, p1, Landroid/os/Message;->obj:Ljava/lang/Object;
 
@@ -1038,7 +1045,7 @@
 
     move-result v1
 
-    .line 378
+    .line 380
     iget-object v0, p1, Landroid/os/Message;->obj:Ljava/lang/Object;
 
     check-cast v0, Lbl/wo;
@@ -1047,7 +1054,7 @@
 
     move-result v0
 
-    .line 379
+    .line 381
     const-string v2, "wm"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -1080,12 +1087,12 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 380
+    .line 382
     iget-object v2, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     invoke-interface {v2, v1}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->setLooping(Z)V
 
-    .line 381
+    .line 383
     cmpl-float v1, v0, v10
 
     if-eqz v1, :cond_2fc
@@ -1094,12 +1101,12 @@
 
     if-lez v1, :cond_2fc
 
-    .line 382
+    .line 384
     iget-object v1, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     invoke-interface {v1, v0}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->setSpeed(F)V
 
-    .line 384
+    .line 386
     :cond_2fc
     const-string v0, "wm"
 
@@ -1109,11 +1116,11 @@
 
     goto/16 :goto_1a3
 
-    .line 296
+    .line 298
     :catch_305
     move-exception v0
 
-    .line 297
+    .line 299
     const-string v2, "wm"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -1140,10 +1147,10 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 298
+    .line 300
     invoke-static {v0}, Lbl/att;->a(Ljava/lang/Throwable;)V
 
-    .line 300
+    .line 302
     const-string v0, "wm"
 
     const-string v2, "[LIVE_EXO] ExoPlayerImpl creation failed, falling back to IjkPlayer"
@@ -1152,7 +1159,7 @@
 
     goto/16 :goto_1d6
 
-    .line 341
+    .line 343
     :cond_32e
     :try_start_32e
     invoke-static {v1}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
@@ -1163,19 +1170,19 @@
 
     move-result-object v1
 
-    .line 342
+    .line 344
     const-string v2, "wm"
 
     const-string v3, "[LIVE_EXO] Creating ProgressiveMediaSource"
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 343
+    .line 345
     new-instance v2, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;
 
     invoke-direct {v2, v0}, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;-><init>(Lcom/google/android/exoplayer2/upstream/DataSource$Factory;)V
 
-    .line 344
+    .line 346
     invoke-virtual {v2, v1}, Lcom/google/android/exoplayer2/source/ProgressiveMediaSource$Factory;->createMediaSource(Lcom/google/android/exoplayer2/MediaItem;)Lcom/google/android/exoplayer2/source/ProgressiveMediaSource;
     :try_end_345
     .catch Ljava/lang/Exception; {:try_start_32e .. :try_end_345} :catch_349
@@ -1186,11 +1193,11 @@
 
     goto/16 :goto_290
 
-    .line 371
+    .line 373
     :catch_349
     move-exception v0
 
-    .line 372
+    .line 374
     const-string v1, "wm"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -1217,12 +1224,12 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 373
+    .line 375
     invoke-static {v0}, Lbl/att;->a(Ljava/lang/Throwable;)V
 
     goto/16 :goto_2b8
 
-    .line 390
+    .line 392
     :cond_36b
     const-string v0, "wm"
 
@@ -1232,16 +1239,16 @@
 
     goto/16 :goto_d4
 
-    .line 404
+    .line 406
     :catch_374
     move-exception v0
 
-    .line 405
+    .line 407
     invoke-static {v0}, Lbl/att;->a(Ljava/lang/Throwable;)V
 
     goto/16 :goto_1a3
 
-    .line 420
+    .line 422
     :catch_37a
     move-exception v0
 
@@ -1252,7 +1259,7 @@
     .locals 6
 
     .prologue
-    .line 430
+    .line 432
     iget-object v0, p0, Lbl/wm;->n:Ljava/util/List;
 
     if-eqz v0, :cond_c
@@ -1265,11 +1272,11 @@
 
     if-gtz v0, :cond_d
 
-    .line 440
+    .line 442
     :cond_c
     return-void
 
-    .line 433
+    .line 435
     :cond_d
     iget-object v0, p0, Lbl/wm;->n:Ljava/util/List;
 
@@ -1290,12 +1297,12 @@
 
     check-cast v0, Lbl/wp;
 
-    .line 434
+    .line 436
     iget v2, v0, Lbl/wp;->a:I
 
     if-nez v2, :cond_2e
 
-    .line 435
+    .line 437
     iget v2, v0, Lbl/wp;->b:I
 
     iget-object v3, v0, Lbl/wp;->d:Ljava/lang/String;
@@ -1308,7 +1315,7 @@
 
     goto :goto_13
 
-    .line 437
+    .line 439
     :cond_2e
     iget v2, v0, Lbl/wp;->b:I
 
@@ -1373,18 +1380,38 @@
     return-object v0
 .end method
 
+.method static synthetic access$500()J
+    .locals 2
+
+    .prologue
+    .line 32
+    sget-wide v0, Lbl/wm;->sLastLiveErrorRefreshTime:J
+
+    return-wide v0
+.end method
+
+.method static synthetic access$502(J)J
+    .locals 0
+
+    .prologue
+    .line 32
+    sput-wide p0, Lbl/wm;->sLastLiveErrorRefreshTime:J
+
+    return-wide p0
+.end method
+
 .method private b(Landroid/content/Context;)V
     .locals 1
 
     .prologue
-    .line 119
+    .line 121
     invoke-virtual {p1}, Landroid/content/Context;->getApplicationContext()Landroid/content/Context;
 
     move-result-object v0
 
     iput-object v0, p0, Lbl/wm;->l:Landroid/content/Context;
 
-    .line 120
+    .line 122
     return-void
 .end method
 
@@ -1392,21 +1419,21 @@
     .locals 4
 
     .prologue
-    .line 224
+    .line 226
     new-instance v0, Ltv/danmaku/ijk/media/player/AndroidMediaPlayer;
 
     invoke-direct {v0}, Ltv/danmaku/ijk/media/player/AndroidMediaPlayer;-><init>()V
 
     iput-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
-    .line 225
+    .line 227
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     const/4 v1, 0x3
 
     invoke-interface {v0, v1}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->setAudioStreamType(I)V
 
-    .line 227
+    .line 229
     :try_start_d
     iget-object v1, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
@@ -1436,15 +1463,15 @@
     :try_end_28
     .catch Ljava/lang/Exception; {:try_start_d .. :try_end_28} :catch_29
 
-    .line 231
+    .line 233
     :goto_28
     return-void
 
-    .line 228
+    .line 230
     :catch_29
     move-exception v0
 
-    .line 229
+    .line 231
     invoke-static {v0}, Lbl/att;->a(Ljava/lang/Throwable;)V
 
     goto :goto_28
@@ -1454,7 +1481,7 @@
     .locals 1
 
     .prologue
-    .line 576
+    .line 602
     invoke-static {}, Lbl/wm;->a()Lbl/wm;
 
     move-result-object v0
@@ -1463,7 +1490,7 @@
 
     move-result-object v0
 
-    .line 577
+    .line 603
     if-eqz v0, :cond_12
 
     invoke-interface {v0}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->isPlaying()Z
@@ -1487,7 +1514,7 @@
     .locals 1
 
     .prologue
-    .line 581
+    .line 607
     invoke-static {}, Lbl/wm;->a()Lbl/wm;
 
     move-result-object v0
@@ -1496,13 +1523,13 @@
 
     move-result-object v0
 
-    .line 582
+    .line 608
     if-eqz v0, :cond_d
 
-    .line 583
+    .line 609
     invoke-interface {v0}, Lbl/ws;->e()V
 
-    .line 585
+    .line 611
     :cond_d
     return-void
 .end method
@@ -1511,7 +1538,7 @@
     .locals 1
 
     .prologue
-    .line 588
+    .line 614
     invoke-static {}, Lbl/wm;->a()Lbl/wm;
 
     move-result-object v0
@@ -1520,13 +1547,13 @@
 
     move-result-object v0
 
-    .line 589
+    .line 615
     if-eqz v0, :cond_d
 
-    .line 590
+    .line 616
     invoke-interface {v0}, Lbl/ws;->f()V
 
-    .line 592
+    .line 618
     :cond_d
     return-void
 .end method
@@ -1535,7 +1562,7 @@
     .locals 1
 
     .prologue
-    .line 74
+    .line 76
     sget-object v0, Lbl/wm;->sLiveFormat:Ljava/lang/String;
 
     return-object v0
@@ -1545,7 +1572,7 @@
     .locals 1
 
     .prologue
-    .line 595
+    .line 621
     invoke-static {}, Lbl/wm;->a()Lbl/wm;
 
     move-result-object v0
@@ -1554,13 +1581,13 @@
 
     move-result-object v0
 
-    .line 596
+    .line 622
     if-eqz v0, :cond_d
 
-    .line 597
+    .line 623
     invoke-interface {v0}, Lbl/ws;->g()V
 
-    .line 599
+    .line 625
     :cond_d
     return-void
 .end method
@@ -1569,10 +1596,10 @@
     .locals 3
 
     .prologue
-    .line 69
+    .line 71
     sput-object p0, Lbl/wm;->sLiveFormat:Ljava/lang/String;
 
-    .line 70
+    .line 72
     const-string v0, "wm"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1595,7 +1622,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 71
+    .line 73
     return-void
 .end method
 
@@ -1605,10 +1632,10 @@
     .locals 0
 
     .prologue
-    .line 614
+    .line 640
     iput p1, p0, Lbl/wm;->s:I
 
-    .line 615
+    .line 641
     return-void
 .end method
 
@@ -1620,99 +1647,99 @@
 
     const/4 v1, 0x0
 
-    .line 190
     .line 192
+    .line 194
     const/4 v2, 0x0
 
     :try_start_3
     iput v2, p0, Lbl/wm;->r:I
 
-    .line 193
+    .line 195
     const/4 v2, 0x0
 
     iput v2, p0, Lbl/wm;->s:I
 
-    .line 194
+    .line 196
     iget-object v2, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     if-eqz v2, :cond_11
 
-    .line 195
+    .line 197
     iget-object v2, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     invoke-interface {v2}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->release()V
 
-    .line 197
+    .line 199
     :cond_11
     iget v2, p0, Lbl/wm;->m:I
 
     packed-switch v2, :pswitch_data_60
 
-    .line 207
+    .line 209
     :goto_16
     iget-boolean v0, p0, Lbl/wm;->o:Z
 
     invoke-virtual {p0, v0}, Lbl/wm;->a(Z)V
 
-    .line 208
+    .line 210
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     invoke-interface {v0, p0}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->setOnCompletionListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnCompletionListener;)V
 
-    .line 209
+    .line 211
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     invoke-interface {v0, p0}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->setOnBufferingUpdateListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnBufferingUpdateListener;)V
 
-    .line 210
+    .line 212
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     const/4 v1, 0x1
 
     invoke-interface {v0, v1}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->setScreenOnWhilePlaying(Z)V
 
-    .line 211
+    .line 213
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     invoke-interface {v0, p0}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->setOnPreparedListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnPreparedListener;)V
 
-    .line 212
+    .line 214
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     invoke-interface {v0, p0}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->setOnSeekCompleteListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnSeekCompleteListener;)V
 
-    .line 213
+    .line 215
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     invoke-interface {v0, p0}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->setOnErrorListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnErrorListener;)V
 
-    .line 214
+    .line 216
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     invoke-interface {v0, p0}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->setOnInfoListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnInfoListener;)V
 
-    .line 215
+    .line 217
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     invoke-interface {v0, p0}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->setOnVideoSizeChangedListener(Ltv/danmaku/ijk/media/player/IMediaPlayer$OnVideoSizeChangedListener;)V
 
-    .line 216
+    .line 218
     const-string v0, "LiveStartupTrace"
 
     const-string v1, "[LIVE_STARTUP_TRACE] prepareAsync"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 217
+    .line 219
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     invoke-interface {v0}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->prepareAsync()V
 
-    .line 221
+    .line 223
     :goto_50
     return-void
 
-    .line 199
+    .line 201
     :pswitch_51
     invoke-direct {p0, p1}, Lbl/wm;->b(Landroid/os/Message;)V
     :try_end_54
@@ -1720,11 +1747,11 @@
 
     goto :goto_16
 
-    .line 218
+    .line 220
     :catch_55
     move-exception v0
 
-    .line 219
+    .line 221
     invoke-static {v0}, Lbl/att;->a(Ljava/lang/Throwable;)V
 
     goto :goto_50
@@ -1732,7 +1759,7 @@
     :pswitch_5a
     move v0, v1
 
-    .line 204
+    .line 206
     :pswitch_5b
     :try_start_5b
     invoke-direct {p0, p1, v0}, Lbl/wm;->a(Landroid/os/Message;Z)V
@@ -1741,7 +1768,7 @@
 
     goto :goto_16
 
-    .line 197
+    .line 199
     nop
 
     :pswitch_data_60
@@ -1756,25 +1783,25 @@
     .locals 2
 
     .prologue
-    .line 474
+    .line 476
     new-instance v0, Landroid/os/Message;
 
     invoke-direct {v0}, Landroid/os/Message;-><init>()V
 
-    .line 475
+    .line 477
     const/4 v1, 0x1
 
     iput v1, v0, Landroid/os/Message;->what:I
 
-    .line 476
+    .line 478
     iput-object p1, v0, Landroid/os/Message;->obj:Ljava/lang/Object;
 
-    .line 477
+    .line 479
     iget-object v1, p0, Lbl/wm;->j:Lbl/wm$b;
 
     invoke-virtual {v1, v0}, Lbl/wm$b;->sendMessage(Landroid/os/Message;)Z
 
-    .line 478
+    .line 480
     return-void
 .end method
 
@@ -1782,19 +1809,19 @@
     .locals 1
 
     .prologue
-    .line 137
+    .line 139
     if-nez p1, :cond_6
 
-    .line 138
+    .line 140
     const/4 v0, 0x0
 
     iput-object v0, p0, Lbl/wm;->p:Ljava/lang/ref/WeakReference;
 
-    .line 142
+    .line 144
     :goto_5
     return-void
 
-    .line 140
+    .line 142
     :cond_6
     new-instance v0, Ljava/lang/ref/WeakReference;
 
@@ -1809,10 +1836,10 @@
     .locals 0
 
     .prologue
-    .line 622
+    .line 648
     iput-object p1, p0, Lbl/wm;->t:Ljava/lang/String;
 
-    .line 623
+    .line 649
     return-void
 .end method
 
@@ -1831,36 +1858,36 @@
     .end annotation
 
     .prologue
-    .line 456
+    .line 458
     invoke-static {p1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v0
 
     if-eqz v0, :cond_7
 
-    .line 463
+    .line 465
     :goto_6
     return-void
 
-    .line 459
+    .line 461
     :cond_7
     new-instance v0, Landroid/os/Message;
 
     invoke-direct {v0}, Landroid/os/Message;-><init>()V
 
-    .line 460
+    .line 462
     const/4 v1, 0x0
 
     iput v1, v0, Landroid/os/Message;->what:I
 
-    .line 461
+    .line 463
     new-instance v1, Lbl/wo;
 
     invoke-direct {v1, p1, p2, p3, p4}, Lbl/wo;-><init>(Ljava/lang/String;Ljava/util/Map;ZF)V
 
     iput-object v1, v0, Landroid/os/Message;->obj:Ljava/lang/Object;
 
-    .line 462
+    .line 464
     iget-object v1, p0, Lbl/wm;->j:Lbl/wm$b;
 
     invoke-virtual {v1, v0}, Lbl/wm$b;->sendMessage(Landroid/os/Message;)Z
@@ -1872,29 +1899,29 @@
     .locals 3
 
     .prologue
-    .line 634
+    .line 660
     iget-boolean v0, p0, Lbl/wm;->o:Z
 
     if-ne v0, p1, :cond_5
 
-    .line 649
+    .line 675
     :cond_4
     :goto_4
     return-void
 
-    .line 637
+    .line 663
     :cond_5
     iput-boolean p1, p0, Lbl/wm;->o:Z
 
-    .line 638
+    .line 664
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     if-eqz v0, :cond_4
 
-    .line 640
+    .line 666
     if-eqz p1, :cond_1a
 
-    .line 641
+    .line 667
     :try_start_d
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
@@ -1908,16 +1935,16 @@
 
     goto :goto_4
 
-    .line 645
+    .line 671
     :catch_15
     move-exception v0
 
-    .line 646
+    .line 672
     invoke-static {v0}, Lbl/att;->a(Ljava/lang/Throwable;)V
 
     goto :goto_4
 
-    .line 643
+    .line 669
     :cond_1a
     :try_start_1a
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
@@ -1937,15 +1964,15 @@
     .locals 1
 
     .prologue
-    .line 123
+    .line 125
     iget-object v0, p0, Lbl/wm;->p:Ljava/lang/ref/WeakReference;
 
     if-nez v0, :cond_6
 
-    .line 124
+    .line 126
     const/4 v0, 0x0
 
-    .line 126
+    .line 128
     :goto_5
     return-object v0
 
@@ -1965,10 +1992,10 @@
     .locals 0
 
     .prologue
-    .line 618
+    .line 644
     iput p1, p0, Lbl/wm;->r:I
 
-    .line 619
+    .line 645
     return-void
 .end method
 
@@ -1976,19 +2003,19 @@
     .locals 1
 
     .prologue
-    .line 145
+    .line 147
     if-nez p1, :cond_6
 
-    .line 146
+    .line 148
     const/4 v0, 0x0
 
     iput-object v0, p0, Lbl/wm;->q:Ljava/lang/ref/WeakReference;
 
-    .line 150
+    .line 152
     :goto_5
     return-void
 
-    .line 148
+    .line 150
     :cond_6
     new-instance v0, Ljava/lang/ref/WeakReference;
 
@@ -2003,15 +2030,15 @@
     .locals 1
 
     .prologue
-    .line 130
+    .line 132
     iget-object v0, p0, Lbl/wm;->q:Ljava/lang/ref/WeakReference;
 
     if-nez v0, :cond_6
 
-    .line 131
+    .line 133
     const/4 v0, 0x0
 
-    .line 133
+    .line 135
     :goto_5
     return-object v0
 
@@ -2031,10 +2058,10 @@
     .locals 0
 
     .prologue
-    .line 626
+    .line 652
     iput p1, p0, Lbl/wm;->f57u:I
 
-    .line 627
+    .line 653
     return-void
 .end method
 
@@ -2042,7 +2069,7 @@
     .locals 2
 
     .prologue
-    .line 444
+    .line 446
     iget-object v0, p1, Landroid/os/Message;->obj:Ljava/lang/Object;
 
     if-nez v0, :cond_f
@@ -2051,25 +2078,25 @@
 
     if-eqz v0, :cond_f
 
-    .line 445
+    .line 447
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     const/4 v1, 0x0
 
     invoke-interface {v0, v1}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->setSurface(Landroid/view/Surface;)V
 
-    .line 453
+    .line 455
     :cond_e
     :goto_e
     return-void
 
-    .line 448
+    .line 450
     :cond_f
     iget-object v0, p1, Landroid/os/Message;->obj:Ljava/lang/Object;
 
     check-cast v0, Landroid/view/Surface;
 
-    .line 449
+    .line 451
     iget-object v1, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     if-eqz v1, :cond_e
@@ -2080,7 +2107,7 @@
 
     if-eqz v1, :cond_e
 
-    .line 452
+    .line 454
     iget-object v1, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     invoke-interface {v1, v0}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->setSurface(Landroid/view/Surface;)V
@@ -2092,32 +2119,32 @@
     .locals 2
 
     .prologue
-    .line 466
+    .line 468
     new-instance v0, Landroid/os/Message;
 
     invoke-direct {v0}, Landroid/os/Message;-><init>()V
 
-    .line 467
+    .line 469
     const/4 v1, 0x2
 
     iput v1, v0, Landroid/os/Message;->what:I
 
-    .line 468
+    .line 470
     iget-object v1, p0, Lbl/wm;->j:Lbl/wm$b;
 
     invoke-virtual {v1, v0}, Lbl/wm$b;->sendMessage(Landroid/os/Message;)Z
 
-    .line 469
+    .line 471
     const-string v0, ""
 
     iput-object v0, p0, Lbl/wm;->t:Ljava/lang/String;
 
-    .line 470
+    .line 472
     const/16 v0, -0x16
 
     iput v0, p0, Lbl/wm;->f57u:I
 
-    .line 471
+    .line 473
     return-void
 .end method
 
@@ -2125,10 +2152,10 @@
     .locals 0
 
     .prologue
-    .line 630
+    .line 656
     iput p1, p0, Lbl/wm;->m:I
 
-    .line 631
+    .line 657
     return-void
 .end method
 
@@ -2136,7 +2163,7 @@
     .locals 1
 
     .prologue
-    .line 602
+    .line 628
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     return-object v0
@@ -2146,7 +2173,7 @@
     .locals 1
 
     .prologue
-    .line 606
+    .line 632
     iget v0, p0, Lbl/wm;->r:I
 
     return v0
@@ -2156,7 +2183,7 @@
     .locals 1
 
     .prologue
-    .line 610
+    .line 636
     iget v0, p0, Lbl/wm;->s:I
 
     return v0
@@ -2166,7 +2193,7 @@
     .locals 2
 
     .prologue
-    .line 506
+    .line 508
     iget-object v0, p0, Lbl/wm;->k:Landroid/os/Handler;
 
     new-instance v1, Lbl/wm$4;
@@ -2175,7 +2202,7 @@
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
 
-    .line 518
+    .line 520
     return-void
 .end method
 
@@ -2183,7 +2210,7 @@
     .locals 2
 
     .prologue
-    .line 494
+    .line 496
     iget-object v0, p0, Lbl/wm;->k:Landroid/os/Handler;
 
     new-instance v1, Lbl/wm$3;
@@ -2192,47 +2219,120 @@
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
 
-    .line 502
+    .line 504
     return-void
 .end method
 
 .method public onError(Ltv/danmaku/ijk/media/player/IMediaPlayer;II)Z
-    .locals 2
+    .locals 4
 
     .prologue
-    .line 534
-    iget-object v0, p0, Lbl/wm;->k:Landroid/os/Handler;
+    .line 539
+    instance-of v1, p1, Ltv/danmaku/ijk/media/player/IjkMediaPlayer;
 
-    new-instance v1, Lbl/wm$6;
+    .line 540
+    const-string v2, "wm"
 
-    invoke-direct {v1, p0, p2, p3}, Lbl/wm$6;-><init>(Lbl/wm;II)V
+    new-instance v0, Ljava/lang/StringBuilder;
 
-    invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "[LIVE_IJK_ERROR] onError what="
+
+    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    const-string v3, ", extra="
+
+    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    const-string v3, ", player="
+
+    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    .line 541
+    if-eqz v1, :cond_3e
+
+    const-string v0, "IjkPlayer"
+
+    :goto_27
+    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 540
+    invoke-static {v2, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 542
+    iget-object v0, p0, Lbl/wm;->k:Landroid/os/Handler;
+
+    new-instance v2, Lbl/wm$6;
+
+    invoke-direct {v2, p0, p2, p3, v1}, Lbl/wm$6;-><init>(Lbl/wm;IIZ)V
+
+    invoke-virtual {v0, v2}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
+
+    .line 564
     const/4 v0, 0x1
 
     return v0
+
+    .line 541
+    :cond_3e
+    if-eqz p1, :cond_49
+
+    invoke-virtual {p1}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/Class;->getSimpleName()Ljava/lang/String;
+
+    move-result-object v0
+
+    goto :goto_27
+
+    :cond_49
+    const-string v0, "null"
+
+    goto :goto_27
 .end method
 
 .method public onInfo(Ltv/danmaku/ijk/media/player/IMediaPlayer;II)Z
-    .locals 2
+    .locals 3
 
     .prologue
-    .line 547
+    .line 569
     const/4 v0, 0x3
 
-    if-ne p2, v0, :cond_a
+    if-ne p2, v0, :cond_16
 
-    .line 548
+    .line 570
     const-string v0, "LiveStartupTrace"
 
     const-string v1, "[LIVE_STARTUP_TRACE] first_frame"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 550
+    .line 576
     :cond_a
+    :goto_a
     iget-object v0, p0, Lbl/wm;->k:Landroid/os/Handler;
 
     new-instance v1, Lbl/wm$7;
@@ -2241,17 +2341,63 @@
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
 
-    .line 558
+    .line 584
     const/4 v0, 0x0
 
     return v0
+
+    .line 571
+    :cond_16
+    const/16 v0, 0x2bd
+
+    if-ne p2, v0, :cond_33
+
+    .line 572
+    const-string v0, "wm"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "[LIVE_BUFFER] BUFFERING_START (\u753b\u9762loading\u5f00\u59cb), position="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, p3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_a
+
+    .line 573
+    :cond_33
+    const/16 v0, 0x2be
+
+    if-ne p2, v0, :cond_a
+
+    .line 574
+    const-string v0, "wm"
+
+    const-string v1, "[LIVE_BUFFER] BUFFERING_END (\u753b\u9762loading\u7ed3\u675f)"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_a
 .end method
 
 .method public onInfo2(Ltv/danmaku/ijk/media/player/IMediaPlayer;IIJ)Z
     .locals 1
 
     .prologue
-    .line 61
+    .line 63
     const/4 v0, 0x0
 
     return v0
@@ -2261,7 +2407,7 @@
     .locals 8
 
     .prologue
-    .line 235
+    .line 237
     const-string v0, "IjkCommander"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -2298,7 +2444,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 245
+    .line 247
     :try_start_26
     const-string v0, "url"
 
@@ -2308,7 +2454,7 @@
 
     move-result-object v0
 
-    .line 246
+    .line 248
     invoke-static {v0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v1
@@ -2319,7 +2465,7 @@
 
     move-result-object v1
 
-    .line 247
+    .line 249
     const-string v2, "IjkCommander"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -2352,7 +2498,7 @@
 
     invoke-static {v2, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 248
+    .line 250
     if-eqz v1, :cond_b4
 
     invoke-virtual {v1}, Ljava/lang/String;->isEmpty()Z
@@ -2361,12 +2507,12 @@
 
     if-nez v0, :cond_b4
 
-    .line 249
+    .line 251
     invoke-static {v1}, Ljava/lang/Long;->parseLong(Ljava/lang/String;)J
 
     move-result-wide v0
 
-    .line 250
+    .line 252
     const-string v2, "http_code"
 
     const/4 v3, 0x0
@@ -2375,7 +2521,7 @@
 
     move-result v2
 
-    .line 251
+    .line 253
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v4
@@ -2384,7 +2530,7 @@
 
     div-long/2addr v4, v6
 
-    .line 252
+    .line 254
     const-string v3, "IjkCommander"
 
     new-instance v6, Ljava/lang/StringBuilder;
@@ -2427,7 +2573,7 @@
 
     invoke-static {v3, v6}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 253
+    .line 255
     const/16 v3, 0x193
 
     if-ne v2, v3, :cond_b4
@@ -2436,32 +2582,32 @@
 
     if-lez v0, :cond_b4
 
-    .line 254
+    .line 256
     const-string v0, "IjkCommander"
 
     const-string v1, "\u89e6\u53d1refresh"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 255
+    .line 257
     sget-object v0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->_this:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->refresh()V
     :try_end_b4
     .catch Ljava/lang/Exception; {:try_start_26 .. :try_end_b4} :catch_b6
 
-    .line 263
+    .line 265
     :cond_b4
     :goto_b4
     const/4 v0, 0x1
 
     return v0
 
-    .line 259
+    .line 261
     :catch_b6
     move-exception v0
 
-    .line 260
+    .line 262
     const-string v1, "IjkCommander"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -2488,7 +2634,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 261
+    .line 263
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
     goto :goto_b4
@@ -2498,7 +2644,7 @@
     .locals 2
 
     .prologue
-    .line 482
+    .line 484
     iget-object v0, p0, Lbl/wm;->k:Landroid/os/Handler;
 
     new-instance v1, Lbl/wm$2;
@@ -2507,7 +2653,7 @@
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
 
-    .line 490
+    .line 492
     return-void
 .end method
 
@@ -2515,7 +2661,7 @@
     .locals 2
 
     .prologue
-    .line 522
+    .line 524
     iget-object v0, p0, Lbl/wm;->k:Landroid/os/Handler;
 
     new-instance v1, Lbl/wm$5;
@@ -2524,7 +2670,7 @@
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
 
-    .line 530
+    .line 532
     return-void
 .end method
 
@@ -2532,21 +2678,21 @@
     .locals 7
 
     .prologue
-    .line 563
+    .line 589
     invoke-interface {p1}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->getVideoWidth()I
 
     move-result v0
 
     iput v0, p0, Lbl/wm;->r:I
 
-    .line 564
+    .line 590
     invoke-interface {p1}, Ltv/danmaku/ijk/media/player/IMediaPlayer;->getVideoHeight()I
 
     move-result v0
 
     iput v0, p0, Lbl/wm;->s:I
 
-    .line 565
+    .line 591
     iget-object v6, p0, Lbl/wm;->k:Landroid/os/Handler;
 
     new-instance v0, Lbl/wm$8;
@@ -2565,7 +2711,7 @@
 
     invoke-virtual {v6, v0}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
 
-    .line 573
+    .line 599
     return-void
 .end method
 
@@ -2573,21 +2719,21 @@
     .locals 3
 
     .prologue
-    .line 78
+    .line 80
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     instance-of v0, v0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     if-eqz v0, :cond_25
 
-    .line 79
+    .line 81
     iget-object v0, p0, Lbl/wm;->h:Ltv/danmaku/ijk/media/player/IMediaPlayer;
 
     check-cast v0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
 
     invoke-virtual {v0, p1}, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;->setAudioBalanceLevel(Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;)V
 
-    .line 80
+    .line 82
     const-string v0, "wm"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -2610,7 +2756,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 82
+    .line 84
     :cond_25
     return-void
 .end method

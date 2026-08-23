@@ -23,6 +23,7 @@ import tv.danmaku.videoplayer.core.media.PlayerSelector;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import mybl.BiliFilter;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
@@ -150,7 +151,8 @@ public class xj extends xh {
             String type = skip_info.optString("type");
 
             if ("片头".equals(type)) {
-                if (!introSkipped && !userSeekedToIntro && actualTime >= start && actualTime < end) {
+                // 数据始终获取（badge显示用），但自动跳过以实验室开关为准
+                if (BiliFilter.skip_categories.contains("intro") && !introSkipped && !userSeekedToIntro && actualTime >= start && actualTime < end) {
                     Log.i("SkipInfo", "EXEC INTRO: actualTime=" + actualTime + "ms, start=" + start + "ms, end=" + end + "ms, will seek to " + end + "ms");
                     if(this.c==null)Q();
                     if(this.c==null)return;
@@ -165,7 +167,7 @@ public class xj extends xh {
                     return;
                 }
             } else if ("片尾".equals(type)) {
-                if (!outroPromptShown && actualTime >= start && actualTime < end) {
+                if (BiliFilter.skip_categories.contains("outro") && !outroPromptShown && actualTime >= start && actualTime < end) {
                     Log.i("SkipInfo", "EXEC OUTRO: actualTime=" + actualTime + "ms, start=" + start + "ms, end=" + end + "ms");
                     int duration = I();
                     
@@ -203,7 +205,7 @@ public class xj extends xh {
                 }
             } else {
                 String segmentKey = type + "_" + start + "_" + end;
-                if (!skippedSegments.contains(segmentKey) && actualTime >= start && actualTime < end) {
+                if (BiliFilter.skip_categories.contains("sponsor") && !skippedSegments.contains(segmentKey) && actualTime >= start && actualTime < end) {
                     Log.i("SkipInfo", "EXEC " + type + ": actualTime=" + actualTime + "ms, start=" + start + "ms, end=" + end + "ms, will seek to " + end + "ms");
                     if(this.c==null)Q();
                     if(this.c==null)return;

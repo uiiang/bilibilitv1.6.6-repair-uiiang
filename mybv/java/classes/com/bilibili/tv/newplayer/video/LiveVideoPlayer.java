@@ -159,9 +159,13 @@ public class LiveVideoPlayer extends wy {
 
     @Override // bl.wy, bl.ws
     public void f() {
-        IMediaPlayer i;
+        IMediaPlayer i = null;
         this.aa = 0L;
+        android.util.Log.i("LiveVideoPlayer", "[LIVE_RESUME] f() called, g=" + this.g);
         if (this.g != 5 || (i = wm.a().i()) == null || i.isPlaying()) {
+            android.util.Log.w("LiveVideoPlayer", "[LIVE_RESUME] f() skipped: g=" + this.g
+                + ", i=" + (i != null ? i.getClass().getSimpleName() : "null")
+                + ", isPlaying=" + (i != null ? i.isPlaying() : false));
             return;
         }
         setStateAndUi(2);

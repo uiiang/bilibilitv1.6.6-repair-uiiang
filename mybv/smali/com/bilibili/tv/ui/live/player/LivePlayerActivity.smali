@@ -414,12 +414,12 @@
     .locals 7
 
     .prologue
-    .line 626
+    .line 628
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
 
-    .line 627
+    .line 629
     if-eqz v0, :cond_46
 
     invoke-virtual {v0}, Lbl/mg;->a()Z
@@ -428,17 +428,17 @@
 
     if-eqz v1, :cond_46
 
-    .line 628
+    .line 630
     invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v6
 
-    .line 629
+    .line 631
     invoke-static {v0}, Lmybl/CookieUtil;->getBiliJct(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v4
 
-    .line 630
+    .line 632
     const-string v0, "LivePlayerActivity"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -463,7 +463,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 631
+    .line 633
     const-class v0, Lcom/bilibili/tv/api/history/BiliPlayerHistoryService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -478,7 +478,7 @@
 
     move-object v5, v4
 
-    .line 632
+    .line 634
     invoke-interface/range {v1 .. v6}, Lcom/bilibili/tv/api/history/BiliPlayerHistoryService;->reportLiveEntry(JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lbl/vp;
 
     move-result-object v0
@@ -487,10 +487,10 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$7;-><init>(Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;)V
 
-    .line 633
+    .line 635
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 645
+    .line 647
     :cond_46
     return-void
 .end method
@@ -1426,10 +1426,10 @@
     .locals 0
 
     .prologue
-    .line 622
+    .line 624
     invoke-super {p0, p1, p2, p3}, Lcom/bilibili/tv/ui/base/BaseActivity;->onActivityResult(IILandroid/content/Intent;)V
 
-    .line 623
+    .line 625
     return-void
 .end method
 
@@ -1486,27 +1486,27 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 607
+    .line 609
     const-string v0, "LivePlayerActivity"
 
     const-string v1, "onDestroy: \u88ab\u8c03\u7528"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 609
+    .line 611
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->ebookReaderPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     if-eqz v0, :cond_13
 
-    .line 610
+    .line 612
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->ebookReaderPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->onDestroy()V
 
-    .line 611
+    .line 613
     iput-object v2, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->ebookReaderPanel:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-    .line 613
+    .line 615
     :cond_13
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->g:Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;
 
@@ -1516,7 +1516,7 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->i()V
 
-    .line 614
+    .line 616
     :cond_1c
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->cdnExecutor:Ljava/util/concurrent/ExecutorService;
 
@@ -1526,14 +1526,14 @@
 
     invoke-interface {v0}, Ljava/util/concurrent/ExecutorService;->shutdownNow()Ljava/util/List;
 
-    .line 615
+    .line 617
     :cond_25
     iput-object v2, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->e:Lbl/agb;
 
-    .line 616
+    .line 618
     invoke-super {p0}, Lcom/bilibili/tv/ui/base/BaseActivity;->onDestroy()V
 
-    .line 617
+    .line 619
     return-void
 .end method
 
@@ -2105,34 +2105,48 @@
 .end method
 
 .method public onPause()V
-    .locals 1
+    .locals 2
 
     .prologue
-    .line 600
+    .line 601
     invoke-super {p0}, Lcom/bilibili/tv/ui/base/BaseActivity;->onPause()V
 
-    .line 601
+    .line 602
+    const-string v0, "LivePlayerActivity"
+
+    const-string v1, "[LIVE_LIFECYCLE] onPause, calling g.e() to pause player"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 603
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->g:Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->e()V
 
-    .line 602
+    .line 604
     return-void
 .end method
 
 .method public onResume()V
-    .locals 1
+    .locals 2
 
     .prologue
     .line 593
     invoke-super {p0}, Lcom/bilibili/tv/ui/base/BaseActivity;->onResume()V
 
     .line 594
+    const-string v0, "LivePlayerActivity"
+
+    const-string v1, "[LIVE_LIFECYCLE] onResume, calling g.f() to resume player"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 595
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->g:Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/newplayer/video/LiveVideoPlayer;->f()V
 
-    .line 595
+    .line 596
     return-void
 .end method
 

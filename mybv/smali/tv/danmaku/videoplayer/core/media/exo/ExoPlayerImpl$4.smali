@@ -3550,14 +3550,14 @@
 .end method
 
 .method public onPositionDiscontinuity(Lcom/google/android/exoplayer2/Player$PositionInfo;Lcom/google/android/exoplayer2/Player$PositionInfo;I)V
-    .locals 2
+    .locals 4
 
     .prologue
     .line 655
     const-string v0, ""
 
     .line 656
-    packed-switch p3, :pswitch_data_46
+    packed-switch p3, :pswitch_data_7e
 
     .line 663
     new-instance v0, Ljava/lang/StringBuilder;
@@ -3582,11 +3582,66 @@
 
     invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
+    move-result-object v0
+
+    .line 665
+    :goto_1e
+    const-string v1, "ExoPlayerImpl"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "[DISCONTINUITY] reason="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    const-string v2, ", old="
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    iget-wide v2, p1, Lcom/google/android/exoplayer2/Player$PositionInfo;->positionMs:J
+
+    invoke-virtual {v0, v2, v3}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    const-string v2, "ms -> new="
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    iget-wide v2, p2, Lcom/google/android/exoplayer2/Player$PositionInfo;->positionMs:J
+
+    invoke-virtual {v0, v2, v3}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    const-string v2, "ms"
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v1, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
     .line 667
-    :goto_1d
     const/4 v0, 0x1
 
-    if-ne p3, v0, :cond_33
+    if-ne p3, v0, :cond_6a
 
     .line 668
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
@@ -3596,7 +3651,7 @@
 
     move-result-object v0
 
-    if-eqz v0, :cond_33
+    if-eqz v0, :cond_6a
 
     .line 669
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl$4;->this$0:Ltv/danmaku/videoplayer/core/media/exo/ExoPlayerImpl;
@@ -3611,54 +3666,56 @@
     invoke-interface {v0, v1}, Ltv/danmaku/ijk/media/player/IMediaPlayer$OnSeekCompleteListener;->onSeekComplete(Ltv/danmaku/ijk/media/player/IMediaPlayer;)V
 
     .line 672
-    :cond_33
+    :cond_6a
     return-void
 
     .line 657
-    :pswitch_34
+    :pswitch_6b
     const-string v0, "SEEK"
 
-    goto :goto_1d
+    goto :goto_1e
 
     .line 658
-    :pswitch_37
+    :pswitch_6e
     const-string v0, "SEEK_ADJUSTMENT"
 
-    goto :goto_1d
+    goto :goto_1e
 
     .line 659
-    :pswitch_3a
+    :pswitch_71
     const-string v0, "AUTO_TRANSITION"
 
-    goto :goto_1d
+    goto :goto_1e
 
     .line 660
-    :pswitch_3d
+    :pswitch_74
     const-string v0, "REMOVE"
 
-    goto :goto_1d
+    goto :goto_1e
 
     .line 661
-    :pswitch_40
+    :pswitch_77
     const-string v0, "SKIP"
 
-    goto :goto_1d
+    goto :goto_1e
 
     .line 662
-    :pswitch_43
+    :pswitch_7a
     const-string v0, "INTERNAL"
 
-    goto :goto_1d
+    goto :goto_1e
 
     .line 656
-    :pswitch_data_46
+    nop
+
+    :pswitch_data_7e
     .packed-switch 0x0
-        :pswitch_3a
-        :pswitch_34
-        :pswitch_37
-        :pswitch_40
-        :pswitch_3d
-        :pswitch_43
+        :pswitch_71
+        :pswitch_6b
+        :pswitch_6e
+        :pswitch_77
+        :pswitch_74
+        :pswitch_7a
     .end packed-switch
 .end method
 
