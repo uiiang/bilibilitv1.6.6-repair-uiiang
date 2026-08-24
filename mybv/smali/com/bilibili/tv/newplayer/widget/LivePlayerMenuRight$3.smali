@@ -39,7 +39,7 @@
     .end annotation
 
     .prologue
-    .line 378
+    .line 398
     iput-object p1, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight$3;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight;
 
     iput p2, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight$3;->val$dimension2:F
@@ -61,7 +61,7 @@
     .locals 8
 
     .prologue
-    .line 381
+    .line 401
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight$3;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight;
 
     iget v1, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight$3;->val$dimension2:F
@@ -80,6 +80,6 @@
 
     invoke-virtual/range {v0 .. v7}, Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight;->a(FIIFLandroid/view/View;IZ)V
 
-    .line 382
+    .line 402
     return-void
 .end method

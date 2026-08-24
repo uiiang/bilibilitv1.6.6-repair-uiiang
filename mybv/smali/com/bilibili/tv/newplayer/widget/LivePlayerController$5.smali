@@ -23,7 +23,7 @@
     .locals 3
 
     .prologue
-    .line 636
+    .line 645
     invoke-static {}, Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;->values()[Lcom/bilibili/tv/newplayer/bean/PlayControllerOptionType;
 
     move-result-object v0

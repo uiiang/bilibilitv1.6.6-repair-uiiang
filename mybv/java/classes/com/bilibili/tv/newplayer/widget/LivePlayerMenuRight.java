@@ -1,5 +1,6 @@
 package com.bilibili.tv.newplayer.widget;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -15,9 +16,11 @@ import bl.aaw;
 import bl.aax;
 import bl.aay;
 import bl.aaz;
+import bl.adl;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
 import com.bilibili.tv.ebook.ui.EbookMenuHelper;
+import com.bilibili.tv.ui.auth.AuthSpaceSideActivity;
 import java.util.List;
 import tv.danmaku.videoplayer.core.danmaku.DanmakuConfig;
 import tv.danmaku.videoplayer.core.danmaku.DanmakuMergeHelper;
@@ -50,6 +53,8 @@ public class LivePlayerMenuRight extends aay<String> {
     // 0=弹幕开关 1=弹幕大小 2=弹幕透明 3=镜像 4=画质 5=音频平衡 6=电子书
     // 镜像 对应点播"画面调节"(MENU_ADJUST)，画质 对应点播"清晰度"(MENU_QUALITY)，
     // 其余项与点播同名菜单项对应
+    // 一级菜单最上方为UP主名字（特殊项，原始下标 -1），点击跳转UP主空间页
+    public static final int MENU_ORIGINAL_UP_NAME = -1;
     private static final int MENU_ORIGINAL_DANMAKU_DISPLAY = 0;
     private static final int MENU_ORIGINAL_SIZE = 1;
     private static final int MENU_ORIGINAL_ALPHA = 2;
@@ -58,6 +63,10 @@ public class LivePlayerMenuRight extends aay<String> {
     private static final int MENU_ORIGINAL_AUDIO_BALANCE = 5;
     private static final int MENU_ORIGINAL_EBOOK = 6;
     private List<Integer> menuIndexMap; // 显示下标 -> 原始下标 映射（隐藏菜单项后保持功能不串位）
+
+    // ===== UP主空间入口：一级菜单最上方显示UP主名字，点击跳转UP主空间页 =====
+    private String mUpName; // UP主名字
+    private long mUpUid; // UP主uid
 
     // ===== 电子书模式支持（复用 EbookMenuHelper 统一菜单逻辑） =====
     private boolean isEbookMode = false; // 是否电子书模式
@@ -141,6 +150,12 @@ public class LivePlayerMenuRight extends aay<String> {
 
     public void setMenuIndexMap(List<Integer> map) {
         this.menuIndexMap = map;
+    }
+
+    /** 设置UP主信息（一级菜单最上方显示UP主名字，点击跳转UP主空间页） */
+    public void setUpInfo(String uname, long uid) {
+        this.mUpName = uname;
+        this.mUpUid = uid;
     }
 
     /**
@@ -305,13 +320,18 @@ public class LivePlayerMenuRight extends aay<String> {
                 } else {
                     switch (getOriginalMenuIndex(this.q)) {
                         case 0:
-                            // 弹幕开关二级列表：弹幕开/关为单选（danmaku_display_id），
-                            // "合并重复"为独立开关（与点播一致，圆点显示 DanmakuMergeHelper.isMergeEnabled）
+                            // 弹幕开关二级列表：弹幕开关为单一 toggle 项（文字"弹幕开/弹幕关"随状态变化，
+                            // 圆点表示弹幕开，与点播页一致），"合并重复"为独立开关（圆点显示 DanmakuMergeHelper.isMergeEnabled）
                             if (this.danmaku_display_list != null && str != null) {
                                 if ("合并重复".equals(str)) {
                                     isCurrentItem = DanmakuMergeHelper.isMergeEnabled();
-                                } else if (this.danmaku_display_id >= 0 && this.danmaku_display_id < this.danmaku_display_list.size()) {
-                                    isCurrentItem = this.danmaku_display_list.get(this.danmaku_display_id).equals(str);
+                                } else {
+                                    // 弹幕开关 toggle：提前返回设置动态文字，避免下方 textView.setText(str) 覆盖
+                                    boolean isOpen = (this.danmaku_display_id == 0);
+                                    textView.getCompoundDrawables()[0].setAlpha(isOpen ? DanmakuConfig.ALPHA_VALUE_MAX : 0);
+                                    textView.setText(isOpen ? "弹幕开" : "弹幕关");
+                                    e(i, i2);
+                                    return;
                                 }
                             }
                             break;
@@ -459,6 +479,16 @@ public class LivePlayerMenuRight extends aay<String> {
     public boolean a(int i, int i2, View view, ViewGroup viewGroup, String str) {
         e();
 
+        // UP主空间入口：点击一级菜单最上方（UP主名字）跳转UP主空间页
+        if (!this.isEbookMode && this.mUpName != null && i == 1 && i2 == 0 && this.mUpName.equals(str)) {
+            Activity activity = adl.a(getContext());
+            if (activity != null) {
+                AuthSpaceSideActivity.start(activity, this.mUpUid, this.mUpName);
+            }
+            a(false); // 关闭菜单
+            return true;
+        }
+
         // 电子书菜单项分发（必须在super.a()之前，避免触发二级菜单）
         // 动作型菜单项（章节列表/选择文件/整理书架/退出阅读/关闭书籍/控制视频/控制电子书/电子书）
         if (this.ebookActions != null && EbookMenuHelper.isEbookMenuItem(str)) {
@@ -533,10 +563,12 @@ public class LivePlayerMenuRight extends aay<String> {
                 DanmakuMergeHelper.saveToPrefs(MainApplication.a());
                 Log.i("LivePlayerMenuRight", "合并重复切换: " + mergeEnabled);
                 refreshDanmakuDisplayDots(viewGroup);
-            } else if (i2 != this.danmaku_display_id) {
-                this.danmaku_display_id = i2;
-                this.d.setDanmakuDisplay(i2 == 0);
-                refreshDots(view, viewGroup);
+            } else {
+                // 弹幕开关 toggle：点击切换弹幕开/关（与点播页"弹幕开/关"一致）
+                boolean newOpen = (this.danmaku_display_id != 0); // 当前关 -> 开，当前开 -> 关
+                this.danmaku_display_id = newOpen ? 0 : 1;
+                this.d.setDanmakuDisplay(newOpen);
+                refreshDanmakuDisplayDots(viewGroup);
             }
             return true;
         }
@@ -599,8 +631,8 @@ public class LivePlayerMenuRight extends aay<String> {
 
     /**
      * 弹幕开关二级列表圆点刷新：
-     * 弹幕开/关为单选（按 danmaku_display_id 标注），"合并重复"为独立开关
-     * （按 DanmakuMergeHelper.isMergeEnabled 标注），可同时点亮
+     * 弹幕开关为单一 toggle 项（圆点与文字跟随弹幕状态，与点播页"弹幕开/关"一致），
+     * "合并重复"为独立开关（按 DanmakuMergeHelper.isMergeEnabled 标注），可同时点亮
      */
     private void refreshDanmakuDisplayDots(ViewGroup viewGroup) {
         if (viewGroup == null || this.danmaku_display_list == null) {
@@ -611,7 +643,8 @@ public class LivePlayerMenuRight extends aay<String> {
             if (!(child instanceof TextView)) {
                 continue;
             }
-            android.graphics.drawable.Drawable[] drawables = ((TextView) child).getCompoundDrawables();
+            TextView textView = (TextView) child;
+            android.graphics.drawable.Drawable[] drawables = textView.getCompoundDrawables();
             if (drawables == null || drawables[0] == null) {
                 continue;
             }
@@ -620,7 +653,9 @@ public class LivePlayerMenuRight extends aay<String> {
             if ("合并重复".equals(item)) {
                 showDot = DanmakuMergeHelper.isMergeEnabled();
             } else {
-                showDot = (i == this.danmaku_display_id);
+                // 弹幕开关 toggle：圆点与文字跟随弹幕状态
+                showDot = (this.danmaku_display_id == 0);
+                textView.setText(this.danmaku_display_id == 0 ? "弹幕开" : "弹幕关");
             }
             drawables[0].setAlpha(showDot ? DanmakuConfig.ALPHA_VALUE_MAX : 0);
         }
@@ -658,7 +693,7 @@ public class LivePlayerMenuRight extends aay<String> {
         } else {
             switch (getOriginalMenuIndex(i2)) {
                 case 0:
-                    i3 = this.danmaku_display_id;
+                    i3 = 0; // 弹幕开关 toggle 固定在下标0（"合并重复"独立开关在下标1）
                     break;
                 case 1:
                     i3 = this.size_id;

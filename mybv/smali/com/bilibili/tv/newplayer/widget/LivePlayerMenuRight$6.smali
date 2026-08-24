@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 773
+    .line 808
     iput-object p1, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight$6;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,19 +40,19 @@
     .locals 2
 
     .prologue
-    .line 784
+    .line 819
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight$6;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight;->a()V
 
-    .line 785
+    .line 820
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight$6;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight;
 
     const/4 v1, 0x4
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight;->setVisibility(I)V
 
-    .line 786
+    .line 821
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight$6;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight;
 
     const/4 v1, 0x0
@@ -60,7 +60,7 @@
     # setter for: Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight;->c:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight;->access$002(Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight;Z)Z
 
-    .line 787
+    .line 822
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight$6;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight;
 
     # getter for: Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight;->d:Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight$a;
@@ -70,7 +70,7 @@
 
     if-eqz v0, :cond_22
 
-    .line 788
+    .line 823
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight$6;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight;
 
     # getter for: Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight;->d:Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight$a;
@@ -80,7 +80,7 @@
 
     invoke-interface {v0}, Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight$a;->onMenuClosed()V
 
-    .line 790
+    .line 825
     :cond_22
     return-void
 .end method
@@ -89,7 +89,7 @@
     .locals 0
 
     .prologue
-    .line 776
+    .line 811
     return-void
 .end method
 
@@ -97,6 +97,6 @@
     .locals 0
 
     .prologue
-    .line 780
+    .line 815
     return-void
 .end method

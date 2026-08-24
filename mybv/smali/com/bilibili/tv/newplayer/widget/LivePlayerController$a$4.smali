@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 739
+    .line 748
     iput-object p1, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a$4;->this$1:Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;
 
     iput-object p2, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a$4;->val$activity:Landroid/app/Activity;
@@ -49,7 +49,7 @@
     .locals 4
 
     .prologue
-    .line 742
+    .line 751
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a$4;->this$1:Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;
 
     iget-object v0, v0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
@@ -62,19 +62,19 @@
 
     check-cast v0, Lbl/wn;
 
-    .line 743
+    .line 752
     iget-object v1, v0, Lbl/wn;->b:Ljava/lang/Object;
 
     instance-of v1, v1, Ljava/lang/String;
 
     if-eqz v1, :cond_4a
 
-    .line 744
+    .line 753
     iget-object v1, v0, Lbl/wn;->b:Ljava/lang/Object;
 
     check-cast v1, Ljava/lang/String;
 
-    .line 745
+    .line 754
     invoke-static {}, Lcom/bilibili/tv/MainApplication;->a()Lcom/bilibili/tv/MainApplication;
 
     move-result-object v2
@@ -85,19 +85,19 @@
 
     invoke-static {v2, v1}, Lbl/abd;->set_audio_balance_level(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 746
+    .line 755
     invoke-static {v1}, Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;->fromPrefValue(Ljava/lang/String;)Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;
 
     move-result-object v1
 
-    .line 747
+    .line 756
     invoke-static {}, Lbl/wm;->a()Lbl/wm;
 
     move-result-object v2
 
     invoke-virtual {v2, v1}, Lbl/wm;->setAudioBalanceLevel(Ltv/danmaku/videoplayer/core/media/exo/AudioBalanceLevel;)V
 
-    .line 748
+    .line 757
     iget-object v1, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerController$a$4;->val$activity:Landroid/app/Activity;
 
     invoke-virtual {v1}, Landroid/app/Activity;->getApplicationContext()Landroid/content/Context;
@@ -126,10 +126,10 @@
 
     invoke-static {v1, v0}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 750
+    .line 759
     :cond_4a
     invoke-virtual {p1}, Lbl/xa;->dismiss()V
 
-    .line 751
+    .line 760
     return-void
 .end method

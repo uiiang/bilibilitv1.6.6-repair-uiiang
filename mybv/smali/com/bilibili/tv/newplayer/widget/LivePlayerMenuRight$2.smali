@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 372
+    .line 392
     iput-object p1, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight$2;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight;
 
     iput-object p2, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight$2;->val$aaxVar:Lbl/aax;
@@ -49,7 +49,7 @@
     .locals 7
 
     .prologue
-    .line 375
+    .line 395
     iget-object v0, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight$2;->this$0:Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight;
 
     iget-object v1, p0, Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight$2;->val$aaxVar:Lbl/aax;

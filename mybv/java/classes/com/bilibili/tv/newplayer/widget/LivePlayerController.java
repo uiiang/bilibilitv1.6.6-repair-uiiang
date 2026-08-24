@@ -263,6 +263,15 @@ public class LivePlayerController extends FrameLayout implements View.OnClickLis
         ArrayList<String> mainMenu = new ArrayList<>();
         ArrayList<Integer> menuIndexMap = new ArrayList<>();
 
+        // UP主名字（一级菜单最上方）：显示直播间UP主名，点击跳转UP主空间页
+        if (this.m != null) {
+            menu.setUpInfo(this.m.mUname, this.m.mUid);
+            if (!TextUtils.isEmpty(this.m.mUname)) {
+                mainMenu.add(this.m.mUname);
+                menuIndexMap.add(LivePlayerMenuRight.MENU_ORIGINAL_UP_NAME);
+            }
+        }
+
         // 弹幕开关 -> 原始下标0 (MENU_DANMAKU)
         if ((menuConfig & abd.MENU_DANMAKU) != 0) {
             mainMenu.add("弹幕开关");
@@ -300,10 +309,10 @@ public class LivePlayerController extends FrameLayout implements View.OnClickLis
         menu.init_main(mainMenu);
         menu.setMenuIndexMap(menuIndexMap);
 
-        // 弹幕开关（开/关/合并重复）——与点播一致，"合并重复"为独立开关（DanmakuMergeHelper 持久化）
+        // 弹幕开关二级列表：弹幕开/弹幕关合并为单一 toggle 项（文字随状态变化，与点播页一致），
+        // "合并重复"为独立开关（DanmakuMergeHelper 持久化）
         ArrayList<String> danmakuDisplay = new ArrayList<>();
-        danmakuDisplay.add("弹幕开");
-        danmakuDisplay.add("弹幕关");
+        danmakuDisplay.add("弹幕开"); // 下标0：弹幕开关 toggle（点击切换弹幕开/关）
         danmakuDisplay.add("合并重复");
         menu.init_danmaku_display(danmakuDisplay, this.k.G ? 0 : 1);
 

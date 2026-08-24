@@ -156,6 +156,16 @@ public class BiliLiveContent implements Parcelable {
             try {
                 if (a() && (optJSONObject = new JSONObject(new String(this.b)).optJSONObject("data")) != null) {
                     Log.i("BiliLiveContent", "playUrlResponse.e: data解析成功");
+
+                    // getRoomPlayInfo 响应 data 携带主播mid（uid）。
+                    // 部分入口（如历史记录页）的直播数据不含uid，导致播放页菜单跳转UP主空间页时 mid=0 页面空白，
+                    // 此处从房间信息统一补充主播uid（getPlayUrl 在 onCreate 中同步完成，晚于菜单初始化）。
+                    long roomOwnerUid = optJSONObject.optLong("uid", 0L);
+                    if (roomOwnerUid > 0) {
+                        biliLiveContent.mUid = roomOwnerUid;
+                        Log.i("BiliLiveContent", "playUrlResponse.e: 补充主播uid=" + roomOwnerUid);
+                    }
+
                     int code=0;
                     
                     JSONArray streamArr = optJSONObject.optJSONObject("playurl_info").optJSONObject("playurl").optJSONArray("stream");
