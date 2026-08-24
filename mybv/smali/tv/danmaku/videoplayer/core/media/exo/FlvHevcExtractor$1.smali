@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 681
+    .line 723
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$1;->this$0:Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 689
+    .line 731
     const-wide v0, -0x7fffffffffffffffL    # -4.9E-324
 
     return-wide v0
@@ -52,7 +52,7 @@
     .prologue
     const-wide/16 v2, 0x0
 
-    .line 694
+    .line 736
     new-instance v0, Lcom/google/android/exoplayer2/extractor/SeekMap$SeekPoints;
 
     new-instance v1, Lcom/google/android/exoplayer2/extractor/SeekPoint;
@@ -68,7 +68,7 @@
     .locals 1
 
     .prologue
-    .line 684
+    .line 726
     const/4 v0, 0x0
 
     return v0

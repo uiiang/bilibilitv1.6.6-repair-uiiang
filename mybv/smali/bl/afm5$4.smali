@@ -35,7 +35,7 @@
     .end annotation
 
     .prologue
-    .line 570
+    .line 588
     iput-object p1, p0, Lbl/afm5$4;->this$0:Lbl/afm5;
 
     iput-object p2, p0, Lbl/afm5$4;->val$folderListView:Landroid/widget/ListView;
@@ -55,28 +55,28 @@
     .prologue
     const/4 v0, 0x1
 
-    .line 573
+    .line 591
     invoke-virtual {p3}, Landroid/view/KeyEvent;->getAction()I
 
     move-result v1
 
     if-nez v1, :cond_1f
 
-    .line 574
+    .line 592
     const/16 v1, 0x13
 
     if-ne p2, v1, :cond_11
 
-    .line 575
+    .line 593
     iget-object v1, p0, Lbl/afm5$4;->val$folderListView:Landroid/widget/ListView;
 
     invoke-virtual {v1}, Landroid/widget/ListView;->requestFocus()Z
 
-    .line 583
+    .line 601
     :goto_10
     return v0
 
-    .line 578
+    .line 596
     :cond_11
     const/16 v1, 0x14
 
@@ -86,14 +86,14 @@
 
     if-eqz v1, :cond_1f
 
-    .line 579
+    .line 597
     iget-object v1, p0, Lbl/afm5$4;->val$safButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->requestFocus()Z
 
     goto :goto_10
 
-    .line 583
+    .line 601
     :cond_1f
     const/4 v0, 0x0
 

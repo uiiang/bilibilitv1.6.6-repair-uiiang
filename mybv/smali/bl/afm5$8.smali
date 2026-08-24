@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 635
+    .line 653
     iput-object p1, p0, Lbl/afm5$8;->this$0:Lbl/afm5;
 
     iput-object p2, p0, Lbl/afm5$8;->val$folderListView:Landroid/widget/ListView;
@@ -49,11 +49,11 @@
     .locals 1
 
     .prologue
-    .line 638
+    .line 656
     iget-object v0, p0, Lbl/afm5$8;->val$folderListView:Landroid/widget/ListView;
 
     invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
 
-    .line 639
+    .line 657
     return-void
 .end method

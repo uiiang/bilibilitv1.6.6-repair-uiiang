@@ -170,27 +170,10 @@
 .end method
 
 .method private audioTrack()Lcom/google/android/exoplayer2/extractor/TrackOutput;
-    .locals 2
+    .locals 1
 
     .prologue
-    const/4 v1, 0x1
-
-    .line 670
-    iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->audioTrack:Lcom/google/android/exoplayer2/extractor/TrackOutput;
-
-    if-nez v0, :cond_d
-
-    .line 671
-    iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->output:Lcom/google/android/exoplayer2/extractor/ExtractorOutput;
-
-    invoke-interface {v0, v1, v1}, Lcom/google/android/exoplayer2/extractor/ExtractorOutput;->track(II)Lcom/google/android/exoplayer2/extractor/TrackOutput;
-
-    move-result-object v0
-
-    iput-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->audioTrack:Lcom/google/android/exoplayer2/extractor/TrackOutput;
-
-    .line 673
-    :cond_d
+    .line 710
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->audioTrack:Lcom/google/android/exoplayer2/extractor/TrackOutput;
 
     return-object v0
@@ -202,12 +185,12 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 570
+    .line 601
     move v0, v1
 
     move v2, v1
 
-    .line 572
+    .line 603
     :goto_3
     iget v3, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->nalLengthSize:I
 
@@ -219,13 +202,13 @@
 
     move v4, v1
 
-    .line 574
+    .line 605
     :goto_a
     iget v5, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->nalLengthSize:I
 
     if-ge v3, v5, :cond_1a
 
-    .line 575
+    .line 606
     shl-int/lit8 v4, v4, 0x8
 
     add-int v5, v2, v3
@@ -236,48 +219,48 @@
 
     or-int/2addr v4, v5
 
-    .line 574
+    .line 605
     add-int/lit8 v3, v3, 0x1
 
     goto :goto_a
 
-    .line 577
+    .line 608
     :cond_1a
     iget v3, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->nalLengthSize:I
 
     add-int/2addr v2, v3
 
-    .line 578
+    .line 609
     if-lez v4, :cond_23
 
     add-int v3, v2, v4
 
     if-le v3, p2, :cond_28
 
-    .line 584
+    .line 615
     :cond_23
     if-nez v0, :cond_2d
 
-    .line 585
+    .line 616
     new-array v0, v1, [B
 
-    .line 605
+    .line 636
     :goto_27
     return-object v0
 
-    .line 581
+    .line 612
     :cond_28
     add-int/lit8 v3, v4, 0x4
 
     add-int/2addr v0, v3
 
-    .line 582
+    .line 613
     add-int/2addr v2, v4
 
-    .line 583
+    .line 614
     goto :goto_3
 
-    .line 587
+    .line 618
     :cond_2d
     new-array v5, v0, [B
 
@@ -285,7 +268,7 @@
 
     move v2, v1
 
-    .line 590
+    .line 621
     :goto_31
     iget v3, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->nalLengthSize:I
 
@@ -297,13 +280,13 @@
 
     move v4, v1
 
-    .line 592
+    .line 623
     :goto_38
     iget v6, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->nalLengthSize:I
 
     if-ge v3, v6, :cond_48
 
-    .line 593
+    .line 624
     shl-int/lit8 v4, v4, 0x8
 
     add-int v6, v2, v3
@@ -314,18 +297,18 @@
 
     or-int/2addr v4, v6
 
-    .line 592
+    .line 623
     add-int/lit8 v3, v3, 0x1
 
     goto :goto_38
 
-    .line 595
+    .line 626
     :cond_48
     iget v3, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->nalLengthSize:I
 
     add-int/2addr v2, v3
 
-    .line 596
+    .line 627
     if-lez v4, :cond_51
 
     add-int v3, v2, v4
@@ -335,10 +318,10 @@
     :cond_51
     move-object v0, v5
 
-    .line 605
+    .line 636
     goto :goto_27
 
-    .line 599
+    .line 630
     :cond_53
     sget-object v3, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->NAL_START_CODE:[B
 
@@ -346,19 +329,19 @@
 
     invoke-static {v3, v1, v5, v0, v6}, Ljava/lang/System;->arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V
 
-    .line 600
+    .line 631
     add-int/lit8 v0, v0, 0x4
 
-    .line 601
+    .line 632
     invoke-static {p1, v2, v5, v0, v4}, Ljava/lang/System;->arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V
 
-    .line 602
+    .line 633
     add-int/2addr v0, v4
 
-    .line 603
+    .line 634
     add-int/2addr v2, v4
 
-    .line 604
+    .line 635
     goto :goto_31
 .end method
 
@@ -371,26 +354,26 @@
     .end annotation
 
     .prologue
-    .line 177
+    .line 198
     if-gtz p5, :cond_3
 
-    .line 208
+    .line 233
     :cond_2
     :goto_2
     return-void
 
-    .line 181
+    .line 202
     :cond_3
-    packed-switch p3, :pswitch_data_64
+    packed-switch p3, :pswitch_data_68
 
-    .line 205
+    .line 230
     move/from16 v0, p5
 
     invoke-interface {p1, v0}, Lcom/google/android/exoplayer2/extractor/ExtractorInput;->skipFully(I)V
 
     goto :goto_2
 
-    .line 183
+    .line 204
     :pswitch_c
     new-instance v2, Lcom/google/android/exoplayer2/util/ParsableByteArray;
 
@@ -398,7 +381,7 @@
 
     invoke-direct {v2, v0}, Lcom/google/android/exoplayer2/util/ParsableByteArray;-><init>(I)V
 
-    .line 184
+    .line 205
     invoke-virtual {v2}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->getData()[B
 
     move-result-object v3
@@ -409,56 +392,64 @@
 
     invoke-interface {p1, v3, v4, v0}, Lcom/google/android/exoplayer2/extractor/ExtractorInput;->readFully([BII)V
 
-    .line 185
+    .line 206
     const/4 v3, 0x7
 
     if-ne p2, v3, :cond_24
 
-    .line 186
+    .line 207
     invoke-direct {p0, v2}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->parseAvcConfig(Lcom/google/android/exoplayer2/util/ParsableByteArray;)V
 
     goto :goto_2
 
-    .line 188
+    .line 209
     :cond_24
     invoke-direct {p0, v2}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->parseHevcConfig(Lcom/google/android/exoplayer2/util/ParsableByteArray;)V
 
     goto :goto_2
 
-    .line 192
+    .line 213
     :pswitch_28
-    invoke-direct {p0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->maybeEndTracks()V
-
-    .line 193
     invoke-direct {p0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->videoTrack()Lcom/google/android/exoplayer2/extractor/TrackOutput;
 
     move-result-object v3
 
-    .line 194
+    .line 214
+    if-nez v3, :cond_34
+
+    .line 216
+    move/from16 v0, p5
+
+    invoke-interface {p1, v0}, Lcom/google/android/exoplayer2/extractor/ExtractorInput;->skipFully(I)V
+
+    goto :goto_2
+
+    .line 219
+    :cond_34
     move/from16 v0, p5
 
     new-array v2, v0, [B
 
-    .line 195
+    .line 220
     const/4 v4, 0x0
 
     move/from16 v0, p5
 
     invoke-interface {p1, v2, v4, v0}, Lcom/google/android/exoplayer2/extractor/ExtractorInput;->readFully([BII)V
 
-    .line 196
+    .line 221
     move/from16 v0, p5
 
     invoke-direct {p0, v2, v0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->convertToAnnexB([BI)[B
 
     move-result-object v2
 
-    .line 197
+    .line 222
     array-length v4, v2
 
     if-lez v4, :cond_2
 
-    .line 198
+    .line 223
     new-instance v4, Lcom/google/android/exoplayer2/util/ParsableByteArray;
 
     invoke-direct {v4, v2}, Lcom/google/android/exoplayer2/util/ParsableByteArray;-><init>([B)V
@@ -467,17 +458,17 @@
 
     invoke-interface {v3, v4, v5}, Lcom/google/android/exoplayer2/extractor/TrackOutput;->sampleData(Lcom/google/android/exoplayer2/util/ParsableByteArray;I)V
 
-    .line 199
+    .line 224
     const/4 v4, 0x1
 
     move/from16 v0, p4
 
-    if-ne v0, v4, :cond_61
+    if-ne v0, v4, :cond_66
 
     const/4 v6, 0x1
 
-    .line 200
-    :goto_51
+    .line 225
+    :goto_56
     iget-wide v4, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagTimestampUs:J
 
     move/from16 v0, p6
@@ -490,7 +481,7 @@
 
     add-long/2addr v4, v8
 
-    .line 201
+    .line 226
     array-length v7, v2
 
     const/4 v8, 0x0
@@ -501,16 +492,14 @@
 
     goto :goto_2
 
-    .line 199
-    :cond_61
+    .line 224
+    :cond_66
     const/4 v6, 0x0
 
-    goto :goto_51
+    goto :goto_56
 
-    .line 181
-    nop
-
-    :pswitch_data_64
+    .line 202
+    :pswitch_data_68
     .packed-switch 0x0
         :pswitch_c
         :pswitch_28
@@ -521,22 +510,22 @@
     .locals 2
 
     .prologue
-    .line 677
+    .line 719
     iget-boolean v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tracksEnded:Z
 
     if-eqz v0, :cond_5
 
-    .line 698
+    .line 740
     :goto_4
     return-void
 
-    .line 680
+    .line 722
     :cond_5
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->output:Lcom/google/android/exoplayer2/extractor/ExtractorOutput;
 
     invoke-interface {v0}, Lcom/google/android/exoplayer2/extractor/ExtractorOutput;->endTracks()V
 
-    .line 681
+    .line 723
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->output:Lcom/google/android/exoplayer2/extractor/ExtractorOutput;
 
     new-instance v1, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$1;
@@ -545,7 +534,7 @@
 
     invoke-interface {v0, v1}, Lcom/google/android/exoplayer2/extractor/ExtractorOutput;->seekMap(Lcom/google/android/exoplayer2/extractor/SeekMap;)V
 
-    .line 697
+    .line 739
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tracksEnded:Z
@@ -561,20 +550,20 @@
 
     const/4 v7, 0x0
 
-    .line 646
+    .line 681
     invoke-virtual {p1, v7}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->setPosition(I)V
 
-    .line 647
+    .line 682
     invoke-virtual {p1}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->readUnsignedByte()I
 
     move-result v1
 
-    .line 648
+    .line 683
     invoke-virtual {p1}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->readUnsignedByte()I
 
     move-result v2
 
-    .line 649
+    .line 684
     and-int/lit8 v0, v1, 0x7
 
     shl-int/lit8 v0, v0, 0x1
@@ -585,47 +574,51 @@
 
     or-int/2addr v0, v3
 
-    .line 650
+    .line 685
     shr-int/lit8 v3, v2, 0x3
 
     and-int/lit8 v3, v3, 0xf
 
-    .line 651
-    if-ltz v0, :cond_59
+    .line 686
+    if-ltz v0, :cond_5b
 
     sget-object v4, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->AAC_SAMPLE_RATES:[I
 
     array-length v4, v4
 
-    if-ge v0, v4, :cond_59
+    if-ge v0, v4, :cond_5b
 
     sget-object v4, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->AAC_SAMPLE_RATES:[I
 
     aget v0, v4, v0
 
-    .line 652
+    .line 687
     :goto_25
     invoke-direct {p0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->audioTrack()Lcom/google/android/exoplayer2/extractor/TrackOutput;
 
     move-result-object v4
 
+    .line 688
+    if-eqz v4, :cond_5a
+
+    .line 689
     new-instance v5, Lcom/google/android/exoplayer2/Format$Builder;
 
     invoke-direct {v5}, Lcom/google/android/exoplayer2/Format$Builder;-><init>()V
 
     const-string v6, "audio/mp4a-latm"
 
-    .line 653
+    .line 690
     invoke-virtual {v5, v6}, Lcom/google/android/exoplayer2/Format$Builder;->setSampleMimeType(Ljava/lang/String;)Lcom/google/android/exoplayer2/Format$Builder;
 
     move-result-object v5
 
-    .line 654
+    .line 691
     invoke-virtual {v5, v0}, Lcom/google/android/exoplayer2/Format$Builder;->setSampleRate(I)Lcom/google/android/exoplayer2/Format$Builder;
 
     move-result-object v0
 
-    .line 655
+    .line 692
     invoke-static {v3, v8}, Ljava/lang/Math;->max(II)I
 
     move-result v3
@@ -646,7 +639,7 @@
 
     aput-byte v1, v3, v8
 
-    .line 656
+    .line 693
     invoke-static {v3}, Ljava/util/Collections;->singletonList(Ljava/lang/Object;)Ljava/util/List;
 
     move-result-object v1
@@ -655,19 +648,20 @@
 
     move-result-object v0
 
-    .line 657
+    .line 694
     invoke-virtual {v0}, Lcom/google/android/exoplayer2/Format$Builder;->build()Lcom/google/android/exoplayer2/Format;
 
     move-result-object v0
 
-    .line 652
+    .line 689
     invoke-interface {v4, v0}, Lcom/google/android/exoplayer2/extractor/TrackOutput;->format(Lcom/google/android/exoplayer2/Format;)V
 
-    .line 658
+    .line 696
+    :cond_5a
     return-void
 
-    .line 651
-    :cond_59
+    .line 686
+    :cond_5b
     const v0, 0xac44
 
     goto :goto_25
@@ -685,18 +679,18 @@
 
     const/4 v2, 0x0
 
-    .line 219
+    .line 244
     const/4 v0, 0x0
 
     :try_start_5
     invoke-virtual {p1, v0}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->setPosition(I)V
 
-    .line 221
+    .line 246
     const/4 v0, 0x4
 
     invoke-virtual {p1, v0}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->skipBytes(I)V
 
-    .line 222
+    .line 247
     invoke-virtual {p1}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->readUnsignedByte()I
 
     move-result v0
@@ -705,7 +699,7 @@
 
     add-int/lit8 v0, v0, 0x1
 
-    .line 223
+    .line 248
     if-lt v0, v3, :cond_18
 
     if-le v0, v1, :cond_19
@@ -713,23 +707,23 @@
     :cond_18
     move v0, v1
 
-    .line 226
+    .line 251
     :cond_19
     iput v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->nalLengthSize:I
 
-    .line 228
+    .line 253
     invoke-virtual {p1}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->readUnsignedByte()I
 
     move-result v1
 
     and-int/lit8 v5, v1, 0x1f
 
-    .line 229
+    .line 254
     new-instance v6, Ljava/util/ArrayList;
 
     invoke-direct {v6}, Ljava/util/ArrayList;-><init>()V
 
-    .line 232
+    .line 257
     const-string v1, "FlvHevcExtractor"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -784,7 +778,7 @@
 
     move v1, v4
 
-    .line 234
+    .line 259
     :goto_5a
     if-ge v3, v5, :cond_af
 
@@ -802,12 +796,12 @@
 
     if-gt v4, v7, :cond_af
 
-    .line 235
+    .line 260
     invoke-virtual {p1}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->readUnsignedShort()I
 
     move-result v4
 
-    .line 236
+    .line 261
     invoke-virtual {p1}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->getPosition()I
 
     move-result v7
@@ -820,9 +814,9 @@
 
     array-length v8, v8
 
-    if-le v7, v8, :cond_14c
+    if-le v7, v8, :cond_14e
 
-    .line 237
+    .line 262
     const-string v5, "FlvHevcExtractor"
 
     new-instance v7, Ljava/lang/StringBuilder;
@@ -855,7 +849,7 @@
 
     move-result-object v3
 
-    .line 238
+    .line 263
     invoke-virtual {p1}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->getData()[B
 
     move-result-object v4
@@ -876,16 +870,16 @@
 
     move-result-object v3
 
-    .line 237
+    .line 262
     invoke-static {v5, v3}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 253
+    .line 278
     :cond_af
     invoke-virtual {p1}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->readUnsignedByte()I
 
     move-result v3
 
-    .line 254
+    .line 279
     const-string v4, "FlvHevcExtractor"
 
     new-instance v5, Ljava/lang/StringBuilder;
@@ -908,7 +902,7 @@
 
     invoke-static {v4, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 255
+    .line 280
     :goto_cb
     if-ge v2, v3, :cond_ea
 
@@ -926,12 +920,12 @@
 
     if-gt v4, v5, :cond_ea
 
-    .line 256
+    .line 281
     invoke-virtual {p1}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->readUnsignedShort()I
 
     move-result v4
 
-    .line 257
+    .line 282
     invoke-virtual {p1}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->getPosition()I
 
     move-result v5
@@ -944,15 +938,15 @@
 
     array-length v7, v7
 
-    if-le v5, v7, :cond_1b0
+    if-le v5, v7, :cond_1b2
 
-    .line 272
+    .line 297
     :cond_ea
     if-lez v1, :cond_ee
 
     if-gtz v0, :cond_f9
 
-    .line 273
+    .line 298
     :cond_ee
     const-string v0, "FlvHevcExtractor"
 
@@ -960,13 +954,13 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 274
+    .line 299
     const/16 v1, 0x780
 
-    .line 275
+    .line 300
     const/16 v0, 0x438
 
-    .line 277
+    .line 302
     :cond_f9
     const-string v2, "FlvHevcExtractor"
 
@@ -1014,54 +1008,59 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 280
+    .line 305
     invoke-direct {p0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->videoTrack()Lcom/google/android/exoplayer2/extractor/TrackOutput;
 
     move-result-object v2
 
+    .line 306
+    if-eqz v2, :cond_14d
+
+    .line 307
     new-instance v3, Lcom/google/android/exoplayer2/Format$Builder;
 
     invoke-direct {v3}, Lcom/google/android/exoplayer2/Format$Builder;-><init>()V
 
     const-string v4, "video/avc"
 
-    .line 281
+    .line 308
     invoke-virtual {v3, v4}, Lcom/google/android/exoplayer2/Format$Builder;->setSampleMimeType(Ljava/lang/String;)Lcom/google/android/exoplayer2/Format$Builder;
 
     move-result-object v3
 
-    .line 282
+    .line 309
     invoke-virtual {v3, v6}, Lcom/google/android/exoplayer2/Format$Builder;->setInitializationData(Ljava/util/List;)Lcom/google/android/exoplayer2/Format$Builder;
 
     move-result-object v3
 
-    .line 283
+    .line 310
     invoke-virtual {v3, v1}, Lcom/google/android/exoplayer2/Format$Builder;->setWidth(I)Lcom/google/android/exoplayer2/Format$Builder;
 
     move-result-object v1
 
-    .line 284
+    .line 311
     invoke-virtual {v1, v0}, Lcom/google/android/exoplayer2/Format$Builder;->setHeight(I)Lcom/google/android/exoplayer2/Format$Builder;
 
     move-result-object v0
 
-    .line 285
+    .line 312
     invoke-virtual {v0}, Lcom/google/android/exoplayer2/Format$Builder;->build()Lcom/google/android/exoplayer2/Format;
 
     move-result-object v0
 
-    .line 280
+    .line 307
     invoke-interface {v2, v0}, Lcom/google/android/exoplayer2/extractor/TrackOutput;->format(Lcom/google/android/exoplayer2/Format;)V
 
-    .line 289
-    :goto_14b
+    .line 317
+    :cond_14d
+    :goto_14d
     return-void
 
-    .line 241
-    :cond_14c
+    .line 266
+    :cond_14e
     new-array v7, v4, [B
 
-    .line 242
+    .line 267
     invoke-virtual {p1}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->getData()[B
 
     move-result-object v8
@@ -1074,31 +1073,31 @@
 
     invoke-static {v8, v9, v7, v10, v4}, Ljava/lang/System;->arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V
 
-    .line 243
+    .line 268
     invoke-virtual {p1, v4}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->skipBytes(I)V
 
-    .line 244
+    .line 269
     invoke-interface {v6, v7}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 245
-    if-nez v3, :cond_1ac
+    .line 270
+    if-nez v3, :cond_1ae
 
-    .line 246
+    .line 271
     invoke-direct {p0, v7, v4}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->parseAvcSpsSize([BI)[I
 
     move-result-object v0
 
-    .line 247
+    .line 272
     const/4 v1, 0x0
 
     aget v1, v0, v1
 
-    .line 248
+    .line 273
     const/4 v8, 0x1
 
     aget v0, v0, v8
 
-    .line 249
+    .line 274
     const-string v8, "FlvHevcExtractor"
 
     new-instance v9, Ljava/lang/StringBuilder;
@@ -1123,7 +1122,7 @@
 
     const/16 v10, 0x10
 
-    .line 250
+    .line 275
     invoke-static {v4, v10}, Ljava/lang/Math;->min(II)I
 
     move-result v4
@@ -1160,20 +1159,20 @@
 
     move-result-object v4
 
-    .line 249
+    .line 274
     invoke-static {v8, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 234
-    :cond_1ac
+    .line 259
+    :cond_1ae
     add-int/lit8 v3, v3, 0x1
 
     goto/16 :goto_5a
 
-    .line 260
-    :cond_1b0
+    .line 285
+    :cond_1b2
     new-array v5, v4, [B
 
-    .line 261
+    .line 286
     invoke-virtual {p1}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->getData()[B
 
     move-result-object v7
@@ -1186,16 +1185,16 @@
 
     invoke-static {v7, v8, v5, v9, v4}, Ljava/lang/System;->arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V
 
-    .line 262
+    .line 287
     invoke-virtual {p1, v4}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->skipBytes(I)V
 
-    .line 263
+    .line 288
     invoke-interface {v6, v5}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 264
-    if-nez v2, :cond_1f2
+    .line 289
+    if-nez v2, :cond_1f4
 
-    .line 265
+    .line 290
     const-string v7, "FlvHevcExtractor"
 
     new-instance v8, Ljava/lang/StringBuilder;
@@ -1220,7 +1219,7 @@
 
     const/16 v9, 0x8
 
-    .line 266
+    .line 291
     invoke-static {v4, v9}, Ljava/lang/Math;->min(II)I
 
     move-result v4
@@ -1237,22 +1236,22 @@
 
     move-result-object v4
 
-    .line 265
+    .line 290
     invoke-static {v7, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_1f2
-    .catch Ljava/lang/Exception; {:try_start_5 .. :try_end_1f2} :catch_1f6
+    :try_end_1f4
+    .catch Ljava/lang/Exception; {:try_start_5 .. :try_end_1f4} :catch_1f8
 
-    .line 255
-    :cond_1f2
+    .line 280
+    :cond_1f4
     add-int/lit8 v2, v2, 0x1
 
     goto/16 :goto_cb
 
-    .line 286
-    :catch_1f6
+    .line 314
+    :catch_1f8
     move-exception v0
 
-    .line 287
+    .line 315
     const-string v1, "FlvHevcExtractor"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -1279,7 +1278,7 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto/16 :goto_14b
+    goto/16 :goto_14d
 .end method
 
 .method private parseAvcSpsSize([BI)[I
@@ -1296,39 +1295,39 @@
 
     const/4 v8, 0x1
 
-    .line 374
-    .line 377
+    .line 405
+    .line 408
     :try_start_6
     new-instance v10, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;
 
     invoke-direct {v10, p1, p2}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;-><init>([BI)V
 
-    .line 378
+    .line 409
     const/16 v0, 0x8
 
     invoke-virtual {v10, v0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
 
-    .line 379
+    .line 410
     const/16 v0, 0x8
 
     invoke-virtual {v10, v0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
 
     move-result v0
 
-    .line 380
+    .line 411
     const/16 v2, 0x8
 
     invoke-virtual {v10, v2}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
 
-    .line 381
+    .line 412
     const/16 v2, 0x8
 
     invoke-virtual {v10, v2}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
 
-    .line 382
+    .line 413
     invoke-virtual {v10}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readUe()I
 
-    .line 383
+    .line 414
     const/16 v2, 0x64
 
     if-eq v0, v2, :cond_53
@@ -1377,33 +1376,33 @@
 
     if-ne v0, v2, :cond_a9
 
-    .line 386
+    .line 417
     :cond_53
     invoke-virtual {v10}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readUe()I
 
     move-result v2
 
-    .line 387
+    .line 418
     if-ne v2, v3, :cond_5d
 
-    .line 388
+    .line 419
     const/4 v0, 0x1
 
     invoke-virtual {v10, v0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
 
-    .line 390
+    .line 421
     :cond_5d
     invoke-virtual {v10}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readUe()I
 
-    .line 391
+    .line 422
     invoke-virtual {v10}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readUe()I
 
-    .line 392
+    .line 423
     const/4 v0, 0x1
 
     invoke-virtual {v10, v0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
 
-    .line 393
+    .line 424
     const/4 v0, 0x1
 
     invoke-virtual {v10, v0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
@@ -1414,11 +1413,11 @@
 
     move v0, v8
 
-    .line 394
+    .line 425
     :goto_6f
     if-eqz v0, :cond_a9
 
-    .line 395
+    .line 426
     if-ne v2, v3, :cond_9e
 
     move v0, v1
@@ -1426,11 +1425,11 @@
     :goto_74
     move v9, v6
 
-    .line 396
+    .line 427
     :goto_75
     if-ge v9, v0, :cond_a9
 
-    .line 397
+    .line 428
     const/4 v2, 0x1
 
     invoke-virtual {v10, v2}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
@@ -1441,11 +1440,11 @@
 
     move v2, v8
 
-    .line 398
+    .line 429
     :goto_7f
     if-eqz v2, :cond_a5
 
-    .line 399
+    .line 430
     const/4 v2, 0x6
 
     if-ge v9, v2, :cond_a2
@@ -1459,32 +1458,32 @@
 
     move v3, v1
 
-    .line 402
+    .line 433
     :goto_89
     if-ge v7, v2, :cond_a5
 
-    .line 403
+    .line 434
     if-eqz v4, :cond_96
 
-    .line 404
+    .line 435
     invoke-virtual {v10}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readSe()I
 
     move-result v4
 
-    .line 405
+    .line 436
     add-int/2addr v4, v3
 
     add-int/lit16 v4, v4, 0x100
 
     rem-int/lit16 v4, v4, 0x100
 
-    .line 407
+    .line 438
     :cond_96
     if-eqz v4, :cond_99
 
     move v3, v4
 
-    .line 402
+    .line 433
     :cond_99
     add-int/lit8 v7, v7, 0x1
 
@@ -1493,10 +1492,10 @@
     :cond_9c
     move v0, v6
 
-    .line 393
+    .line 424
     goto :goto_6f
 
-    .line 395
+    .line 426
     :cond_9e
     const/4 v0, 0x4
 
@@ -1505,16 +1504,16 @@
     :cond_a0
     move v2, v6
 
-    .line 397
+    .line 428
     goto :goto_7f
 
-    .line 399
+    .line 430
     :cond_a2
     const/16 v2, 0x40
 
     goto :goto_86
 
-    .line 396
+    .line 427
     :cond_a5
     add-int/lit8 v2, v9, 0x1
 
@@ -1522,41 +1521,41 @@
 
     goto :goto_75
 
-    .line 415
+    .line 446
     :cond_a9
     invoke-virtual {v10}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readUe()I
 
-    .line 416
+    .line 447
     invoke-virtual {v10}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readUe()I
 
     move-result v0
 
-    .line 417
+    .line 448
     if-nez v0, :cond_dd
 
-    .line 418
+    .line 449
     invoke-virtual {v10}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readUe()I
 
-    .line 428
+    .line 459
     :cond_b5
     invoke-virtual {v10}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readUe()I
 
-    .line 429
+    .line 460
     const/4 v0, 0x1
 
     invoke-virtual {v10, v0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
 
-    .line 430
+    .line 461
     invoke-virtual {v10}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readUe()I
 
     move-result v0
 
-    .line 431
+    .line 462
     invoke-virtual {v10}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readUe()I
 
     move-result v1
 
-    .line 432
+    .line 463
     const/4 v2, 0x1
 
     invoke-virtual {v10, v2}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
@@ -1565,12 +1564,12 @@
 
     move-result v2
 
-    .line 433
+    .line 464
     add-int/lit8 v0, v0, 0x1
 
     mul-int/lit8 v5, v0, 0x10
 
-    .line 434
+    .line 465
     add-int/lit8 v0, v1, 0x1
 
     mul-int/lit8 v0, v0, 0x10
@@ -1581,7 +1580,7 @@
 
     move v1, v5
 
-    .line 440
+    .line 471
     :goto_d5
     const/4 v2, 0x2
 
@@ -1593,44 +1592,44 @@
 
     return-object v2
 
-    .line 419
+    .line 450
     :cond_dd
     if-ne v0, v8, :cond_b5
 
-    .line 420
+    .line 451
     const/4 v0, 0x1
 
     :try_start_e0
     invoke-virtual {v10, v0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
 
-    .line 421
+    .line 452
     invoke-virtual {v10}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readSe()I
 
-    .line 422
+    .line 453
     invoke-virtual {v10}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readSe()I
 
-    .line 423
+    .line 454
     invoke-virtual {v10}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readUe()I
 
     move-result v1
 
     move v0, v6
 
-    .line 424
+    .line 455
     :goto_ee
     if-ge v0, v1, :cond_b5
 
-    .line 425
+    .line 456
     invoke-virtual {v10}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readSe()I
     :try_end_f3
     .catch Ljava/lang/Exception; {:try_start_e0 .. :try_end_f3} :catch_f6
 
-    .line 424
+    .line 455
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_ee
 
-    .line 435
+    .line 466
     :catch_f6
     move-exception v0
 
@@ -1638,7 +1637,7 @@
 
     move v1, v5
 
-    .line 438
+    .line 469
     goto :goto_d5
 .end method
 
@@ -1654,18 +1653,18 @@
 
     const/4 v3, 0x0
 
-    .line 296
+    .line 324
     const/4 v0, 0x0
 
     :try_start_5
     invoke-virtual {p1, v0}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->setPosition(I)V
 
-    .line 300
+    .line 328
     const/16 v0, 0x15
 
     invoke-virtual {p1, v0}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->skipBytes(I)V
 
-    .line 301
+    .line 329
     invoke-virtual {p1}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->readUnsignedByte()I
 
     move-result v0
@@ -1674,7 +1673,7 @@
 
     add-int/lit8 v0, v0, 0x1
 
-    .line 302
+    .line 330
     if-lt v0, v4, :cond_19
 
     if-le v0, v1, :cond_1a
@@ -1682,21 +1681,21 @@
     :cond_19
     move v0, v1
 
-    .line 305
+    .line 333
     :cond_1a
     iput v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->nalLengthSize:I
 
-    .line 307
+    .line 335
     invoke-virtual {p1}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->readUnsignedByte()I
 
     move-result v5
 
-    .line 308
+    .line 336
     new-instance v6, Ljava/util/ArrayList;
 
     invoke-direct {v6}, Ljava/util/ArrayList;-><init>()V
 
-    .line 311
+    .line 339
     const-string v1, "FlvHevcExtractor"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -1751,7 +1750,7 @@
 
     move v1, v2
 
-    .line 313
+    .line 341
     :goto_59
     if-ge v4, v5, :cond_fe
 
@@ -1769,21 +1768,21 @@
 
     if-gt v2, v7, :cond_fe
 
-    .line 314
+    .line 342
     invoke-virtual {p1}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->readUnsignedByte()I
 
     move-result v2
 
     and-int/lit8 v7, v2, 0x3f
 
-    .line 315
+    .line 343
     invoke-virtual {p1}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->readUnsignedShort()I
 
     move-result v8
 
     move v2, v3
 
-    .line 316
+    .line 344
     :goto_73
     if-ge v2, v8, :cond_92
 
@@ -1801,12 +1800,12 @@
 
     if-gt v9, v10, :cond_92
 
-    .line 317
+    .line 345
     invoke-virtual {p1}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->readUnsignedShort()I
 
     move-result v9
 
-    .line 318
+    .line 346
     invoke-virtual {p1}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->getPosition()I
 
     move-result v10
@@ -1821,7 +1820,7 @@
 
     if-le v10, v11, :cond_96
 
-    .line 313
+    .line 341
     :cond_92
     add-int/lit8 v2, v4, 0x1
 
@@ -1829,11 +1828,11 @@
 
     goto :goto_59
 
-    .line 321
+    .line 349
     :cond_96
     new-array v10, v9, [B
 
-    .line 322
+    .line 350
     invoke-virtual {p1}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->getData()[B
 
     move-result-object v11
@@ -1846,35 +1845,35 @@
 
     invoke-static {v11, v12, v10, v13, v9}, Ljava/lang/System;->arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V
 
-    .line 323
+    .line 351
     invoke-virtual {p1, v9}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->skipBytes(I)V
 
-    .line 324
+    .line 352
     invoke-interface {v6, v10}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 326
+    .line 354
     const/16 v11, 0x21
 
     if-ne v7, v11, :cond_fa
 
     if-nez v2, :cond_fa
 
-    .line 327
+    .line 355
     invoke-direct {p0, v10, v9}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->parseHevcSpsSize([BI)[I
 
     move-result-object v0
 
-    .line 328
+    .line 356
     const/4 v1, 0x0
 
     aget v1, v0, v1
 
-    .line 329
+    .line 357
     const/4 v11, 0x1
 
     aget v0, v0, v11
 
-    .line 330
+    .line 358
     const-string v11, "FlvHevcExtractor"
 
     new-instance v12, Ljava/lang/StringBuilder;
@@ -1899,7 +1898,7 @@
 
     const/16 v13, 0x10
 
-    .line 331
+    .line 359
     invoke-static {v9, v13}, Ljava/lang/Math;->min(II)I
 
     move-result v9
@@ -1936,22 +1935,22 @@
 
     move-result-object v9
 
-    .line 330
+    .line 358
     invoke-static {v11, v9}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 316
+    .line 344
     :cond_fa
     add-int/lit8 v2, v2, 0x1
 
     goto/16 :goto_73
 
-    .line 337
+    .line 365
     :cond_fe
     if-lez v1, :cond_102
 
     if-gtz v0, :cond_10d
 
-    .line 338
+    .line 366
     :cond_102
     const-string v0, "FlvHevcExtractor"
 
@@ -1959,13 +1958,13 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 339
+    .line 367
     const/16 v1, 0x780
 
-    .line 340
+    .line 368
     const/16 v0, 0x438
 
-    .line 342
+    .line 370
     :cond_10d
     const-string v2, "FlvHevcExtractor"
 
@@ -2013,56 +2012,61 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 345
+    .line 373
     invoke-direct {p0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->videoTrack()Lcom/google/android/exoplayer2/extractor/TrackOutput;
 
     move-result-object v2
 
+    .line 374
+    if-eqz v2, :cond_161
+
+    .line 375
     new-instance v3, Lcom/google/android/exoplayer2/Format$Builder;
 
     invoke-direct {v3}, Lcom/google/android/exoplayer2/Format$Builder;-><init>()V
 
     const-string v4, "video/hevc"
 
-    .line 346
+    .line 376
     invoke-virtual {v3, v4}, Lcom/google/android/exoplayer2/Format$Builder;->setSampleMimeType(Ljava/lang/String;)Lcom/google/android/exoplayer2/Format$Builder;
 
     move-result-object v3
 
-    .line 347
+    .line 377
     invoke-virtual {v3, v6}, Lcom/google/android/exoplayer2/Format$Builder;->setInitializationData(Ljava/util/List;)Lcom/google/android/exoplayer2/Format$Builder;
 
     move-result-object v3
 
-    .line 348
+    .line 378
     invoke-virtual {v3, v1}, Lcom/google/android/exoplayer2/Format$Builder;->setWidth(I)Lcom/google/android/exoplayer2/Format$Builder;
 
     move-result-object v1
 
-    .line 349
+    .line 379
     invoke-virtual {v1, v0}, Lcom/google/android/exoplayer2/Format$Builder;->setHeight(I)Lcom/google/android/exoplayer2/Format$Builder;
 
     move-result-object v0
 
-    .line 350
+    .line 380
     invoke-virtual {v0}, Lcom/google/android/exoplayer2/Format$Builder;->build()Lcom/google/android/exoplayer2/Format;
 
     move-result-object v0
 
-    .line 345
+    .line 375
     invoke-interface {v2, v0}, Lcom/google/android/exoplayer2/extractor/TrackOutput;->format(Lcom/google/android/exoplayer2/Format;)V
-    :try_end_15f
-    .catch Ljava/lang/Exception; {:try_start_5 .. :try_end_15f} :catch_160
+    :try_end_161
+    .catch Ljava/lang/Exception; {:try_start_5 .. :try_end_161} :catch_162
 
-    .line 354
-    :goto_15f
+    .line 385
+    :cond_161
+    :goto_161
     return-void
 
-    .line 351
-    :catch_160
+    .line 382
+    :catch_162
     move-exception v0
 
-    .line 352
+    .line 383
     const-string v1, "FlvHevcExtractor"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -2089,7 +2093,7 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto :goto_15f
+    goto :goto_161
 .end method
 
 .method private parseHevcSpsSize([BI)[I
@@ -2106,85 +2110,85 @@
 
     const/4 v4, 0x1
 
-    .line 444
-    .line 447
+    .line 475
+    .line 478
     :try_start_6
     new-instance v7, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;
 
     invoke-direct {v7, p1, p2}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;-><init>([BI)V
 
-    .line 448
+    .line 479
     const/16 v0, 0x10
 
     invoke-virtual {v7, v0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
 
-    .line 449
+    .line 480
     const/4 v0, 0x4
 
     invoke-virtual {v7, v0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
 
-    .line 450
+    .line 481
     const/4 v0, 0x3
 
     invoke-virtual {v7, v0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
 
     move-result v2
 
-    .line 451
+    .line 482
     const/4 v0, 0x1
 
     invoke-virtual {v7, v0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
 
-    .line 454
+    .line 485
     const/4 v0, 0x2
 
     invoke-virtual {v7, v0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
 
-    .line 455
+    .line 486
     const/4 v0, 0x1
 
     invoke-virtual {v7, v0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
 
-    .line 456
+    .line 487
     const/4 v0, 0x5
 
     invoke-virtual {v7, v0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
 
-    .line 457
+    .line 488
     const/16 v0, 0x20
 
     invoke-virtual {v7, v0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
 
-    .line 458
+    .line 489
     const/16 v0, 0x30
 
     invoke-virtual {v7, v0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
 
-    .line 459
+    .line 490
     const/16 v0, 0x8
 
     invoke-virtual {v7, v0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
 
-    .line 460
+    .line 491
     const/16 v0, 0x8
 
     new-array v8, v0, [Z
 
-    .line 461
+    .line 492
     const/16 v0, 0x8
 
     new-array v9, v0, [Z
 
     move v5, v6
 
-    .line 462
+    .line 493
     :goto_41
     if-gt v5, v2, :cond_61
 
-    .line 463
+    .line 494
     if-lez v5, :cond_59
 
-    .line 464
+    .line 495
     const/4 v0, 0x1
 
     invoke-virtual {v7, v0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
@@ -2198,7 +2202,7 @@
     :goto_4d
     aput-boolean v0, v8, v5
 
-    .line 465
+    .line 496
     const/4 v0, 0x1
 
     invoke-virtual {v7, v0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
@@ -2212,7 +2216,7 @@
     :goto_57
     aput-boolean v0, v9, v5
 
-    .line 462
+    .line 493
     :cond_59
     add-int/lit8 v0, v5, 0x1
 
@@ -2223,31 +2227,31 @@
     :cond_5d
     move v0, v6
 
-    .line 464
+    .line 495
     goto :goto_4d
 
     :cond_5f
     move v0, v6
 
-    .line 465
+    .line 496
     goto :goto_57
 
-    .line 468
+    .line 499
     :cond_61
     if-lez v2, :cond_6d
 
     move v0, v2
 
-    .line 469
+    .line 500
     :goto_64
     if-ge v0, v10, :cond_6d
 
-    .line 470
+    .line 501
     const/4 v5, 0x2
 
     invoke-virtual {v7, v5}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
 
-    .line 469
+    .line 500
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_64
@@ -2255,23 +2259,23 @@
     :cond_6d
     move v0, v6
 
-    .line 473
+    .line 504
     :goto_6e
     if-gt v0, v2, :cond_89
 
-    .line 474
+    .line 505
     if-lez v0, :cond_7b
 
     aget-boolean v5, v8, v0
 
     if-eqz v5, :cond_7b
 
-    .line 475
+    .line 506
     const/16 v5, 0x2c
 
     invoke-virtual {v7, v5}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
 
-    .line 477
+    .line 508
     :cond_7b
     if-lez v0, :cond_86
 
@@ -2279,37 +2283,37 @@
 
     if-eqz v5, :cond_86
 
-    .line 478
+    .line 509
     const/16 v5, 0x8
 
     invoke-virtual {v7, v5}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
 
-    .line 473
+    .line 504
     :cond_86
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_6e
 
-    .line 482
+    .line 513
     :cond_89
     invoke-virtual {v7}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readUe()I
 
-    .line 483
+    .line 514
     invoke-virtual {v7}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readUe()I
 
     move-result v10
 
-    .line 484
+    .line 515
     invoke-virtual {v7}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readUe()I
 
     move-result v11
 
-    .line 485
+    .line 516
     invoke-virtual {v7}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readUe()I
 
     move-result v12
 
-    .line 486
+    .line 517
     const/4 v0, 0x1
 
     invoke-virtual {v7, v0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBits(I)I
@@ -2320,26 +2324,26 @@
 
     move v0, v4
 
-    .line 491
+    .line 522
     :goto_a0
     if-eqz v0, :cond_db
 
-    .line 492
+    .line 523
     invoke-virtual {v7}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readUe()I
 
     move-result v9
 
-    .line 493
+    .line 524
     invoke-virtual {v7}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readUe()I
 
     move-result v8
 
-    .line 494
+    .line 525
     invoke-virtual {v7}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readUe()I
 
     move-result v2
 
-    .line 495
+    .line 526
     invoke-virtual {v7}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readUe()I
     :try_end_b1
     .catch Ljava/lang/Exception; {:try_start_6 .. :try_end_b1} :catch_d7
@@ -2350,7 +2354,7 @@
 
     move v7, v2
 
-    .line 497
+    .line 528
     :goto_b4
     if-eq v10, v4, :cond_b8
 
@@ -2359,13 +2363,13 @@
     :cond_b8
     move v2, v3
 
-    .line 498
+    .line 529
     :goto_b9
     if-ne v10, v4, :cond_d5
 
     move v0, v3
 
-    .line 499
+    .line 530
     :goto_bc
     add-int/2addr v8, v9
 
@@ -2373,14 +2377,14 @@
 
     sub-int v2, v11, v2
 
-    .line 500
+    .line 531
     add-int/2addr v5, v7
 
     mul-int/2addr v0, v5
 
     sub-int v0, v12, v0
 
-    .line 501
+    .line 532
     if-lez v2, :cond_c8
 
     if-gtz v0, :cond_ca
@@ -2390,7 +2394,7 @@
 
     move v2, v1
 
-    .line 509
+    .line 540
     :cond_ca
     :goto_ca
     new-array v1, v3, [I
@@ -2404,22 +2408,22 @@
     :cond_d1
     move v0, v6
 
-    .line 486
+    .line 517
     goto :goto_a0
 
     :cond_d3
     move v2, v4
 
-    .line 497
+    .line 528
     goto :goto_b9
 
     :cond_d5
     move v0, v4
 
-    .line 498
+    .line 529
     goto :goto_bc
 
-    .line 505
+    .line 536
     :catch_d7
     move-exception v0
 
@@ -2427,7 +2431,7 @@
 
     move v2, v1
 
-    .line 507
+    .line 538
     goto :goto_ca
 
     :cond_db
@@ -2457,118 +2461,124 @@
 
     const/4 v6, 0x0
 
-    .line 611
+    .line 642
     iget v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagDataSize:I
 
     if-ge v0, v2, :cond_d
 
-    .line 612
+    .line 643
     iget v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagDataSize:I
 
     invoke-interface {p1, v0}, Lcom/google/android/exoplayer2/extractor/ExtractorInput;->skipFully(I)V
 
-    .line 643
+    .line 678
     :goto_c
     return-void
 
-    .line 615
+    .line 646
     :cond_d
     new-instance v0, Lcom/google/android/exoplayer2/util/ParsableByteArray;
 
     invoke-direct {v0, v2}, Lcom/google/android/exoplayer2/util/ParsableByteArray;-><init>(I)V
 
-    .line 616
+    .line 647
     invoke-virtual {v0}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->getData()[B
 
     move-result-object v1
 
     invoke-interface {p1, v1, v6, v2}, Lcom/google/android/exoplayer2/extractor/ExtractorInput;->readFully([BII)V
 
-    .line 617
+    .line 648
     invoke-virtual {v0, v6}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->setPosition(I)V
 
-    .line 619
+    .line 650
     invoke-virtual {v0}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->readUnsignedByte()I
 
     move-result v1
 
-    .line 620
+    .line 651
     shr-int/lit8 v1, v1, 0x4
 
     and-int/lit8 v1, v1, 0xf
 
-    .line 621
+    .line 652
     iget v2, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagDataSize:I
 
     add-int/lit8 v2, v2, -0x1
 
-    .line 623
+    .line 654
     const/16 v3, 0xa
 
-    if-ne v1, v3, :cond_6d
+    if-ne v1, v3, :cond_70
 
-    .line 624
+    .line 655
     invoke-virtual {v0}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->readUnsignedByte()I
 
     move-result v0
 
-    .line 625
+    .line 656
     iget v1, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagDataSize:I
 
     add-int/lit8 v5, v1, -0x2
 
-    .line 626
+    .line 657
     if-nez v0, :cond_48
 
     if-lez v5, :cond_48
 
-    .line 627
+    .line 658
     new-instance v0, Lcom/google/android/exoplayer2/util/ParsableByteArray;
 
     invoke-direct {v0, v5}, Lcom/google/android/exoplayer2/util/ParsableByteArray;-><init>(I)V
 
-    .line 628
+    .line 659
     invoke-virtual {v0}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->getData()[B
 
     move-result-object v1
 
     invoke-interface {p1, v1, v6, v5}, Lcom/google/android/exoplayer2/extractor/ExtractorInput;->readFully([BII)V
 
-    .line 629
+    .line 660
     invoke-direct {p0, v0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->parseAacConfig(Lcom/google/android/exoplayer2/util/ParsableByteArray;)V
 
     goto :goto_c
 
-    .line 630
+    .line 661
     :cond_48
-    if-ne v0, v4, :cond_69
+    if-ne v0, v4, :cond_6c
 
-    if-lez v5, :cond_69
+    if-lez v5, :cond_6c
 
-    .line 631
-    invoke-direct {p0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->maybeEndTracks()V
-
-    .line 632
+    .line 662
     invoke-direct {p0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->audioTrack()Lcom/google/android/exoplayer2/extractor/TrackOutput;
 
     move-result-object v1
 
-    .line 633
+    .line 663
+    if-nez v1, :cond_56
+
+    .line 665
+    invoke-interface {p1, v5}, Lcom/google/android/exoplayer2/extractor/ExtractorInput;->skipFully(I)V
+
+    goto :goto_c
+
+    .line 667
+    :cond_56
     new-instance v0, Lcom/google/android/exoplayer2/util/ParsableByteArray;
 
     invoke-direct {v0, v5}, Lcom/google/android/exoplayer2/util/ParsableByteArray;-><init>(I)V
 
-    .line 634
+    .line 668
     invoke-virtual {v0}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->getData()[B
 
     move-result-object v2
 
     invoke-interface {p1, v2, v6, v5}, Lcom/google/android/exoplayer2/extractor/ExtractorInput;->readFully([BII)V
 
-    .line 635
+    .line 669
     invoke-interface {v1, v0, v5}, Lcom/google/android/exoplayer2/extractor/TrackOutput;->sampleData(Lcom/google/android/exoplayer2/util/ParsableByteArray;I)V
 
-    .line 636
+    .line 670
     iget-wide v2, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagTimestampUs:J
 
     const/4 v7, 0x0
@@ -2577,14 +2587,14 @@
 
     goto :goto_c
 
-    .line 638
-    :cond_69
+    .line 673
+    :cond_6c
     invoke-interface {p1, v5}, Lcom/google/android/exoplayer2/extractor/ExtractorInput;->skipFully(I)V
 
     goto :goto_c
 
-    .line 641
-    :cond_6d
+    .line 676
+    :cond_70
     invoke-interface {p1, v2}, Lcom/google/android/exoplayer2/extractor/ExtractorInput;->skipFully(I)V
 
     goto :goto_c
@@ -2605,60 +2615,60 @@
 
     const/4 v0, 0x0
 
-    .line 145
+    .line 166
     iget v1, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagDataSize:I
 
     invoke-static {v8, v1}, Ljava/lang/Math;->min(II)I
 
     move-result v1
 
-    .line 146
+    .line 167
     new-instance v6, Lcom/google/android/exoplayer2/util/ParsableByteArray;
 
     invoke-direct {v6, v1}, Lcom/google/android/exoplayer2/util/ParsableByteArray;-><init>(I)V
 
-    .line 147
+    .line 168
     invoke-virtual {v6}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->getData()[B
 
     move-result-object v2
 
     invoke-interface {p1, v2, v0, v1}, Lcom/google/android/exoplayer2/extractor/ExtractorInput;->readFully([BII)V
 
-    .line 148
+    .line 169
     invoke-virtual {v6, v0}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->setPosition(I)V
 
-    .line 150
+    .line 171
     invoke-virtual {v6}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->readUnsignedByte()I
 
     move-result v3
 
-    .line 151
+    .line 172
     and-int/lit8 v2, v3, 0xf
 
-    .line 152
+    .line 173
     shr-int/lit8 v3, v3, 0x4
 
     and-int/lit8 v4, v3, 0xf
 
-    .line 153
+    .line 174
     if-le v1, v7, :cond_66
 
     invoke-virtual {v6}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->readUnsignedByte()I
 
     move-result v3
 
-    .line 154
+    .line 175
     :goto_28
     iget v5, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagDataSize:I
 
     sub-int/2addr v5, v1
 
-    .line 159
+    .line 180
     if-lt v1, v8, :cond_6c
 
     if-ne v3, v7, :cond_6c
 
-    .line 160
+    .line 181
     invoke-virtual {v6}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->getData()[B
 
     move-result-object v0
@@ -2671,7 +2681,7 @@
 
     shl-int/lit8 v0, v0, 0x10
 
-    .line 161
+    .line 182
     invoke-virtual {v6}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->getData()[B
 
     move-result-object v1
@@ -2686,7 +2696,7 @@
 
     or-int/2addr v0, v1
 
-    .line 162
+    .line 183
     invoke-virtual {v6}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->getData()[B
 
     move-result-object v1
@@ -2699,14 +2709,14 @@
 
     or-int/2addr v0, v1
 
-    .line 163
+    .line 184
     const/high16 v1, 0x800000
 
     and-int/2addr v1, v0
 
     if-eqz v1, :cond_58
 
-    .line 164
+    .line 185
     const/high16 v1, -0x1000000
 
     or-int/2addr v0, v1
@@ -2714,7 +2724,7 @@
     :cond_58
     move v6, v0
 
-    .line 169
+    .line 190
     :goto_59
     const/4 v0, 0x7
 
@@ -2729,20 +2739,20 @@
 
     move-object v1, p1
 
-    .line 170
+    .line 191
     invoke-direct/range {v0 .. v6}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->handleVideoPacket(Lcom/google/android/exoplayer2/extractor/ExtractorInput;IIIII)V
 
-    .line 174
+    .line 195
     :goto_65
     return-void
 
     :cond_66
     move v3, v0
 
-    .line 153
+    .line 174
     goto :goto_28
 
-    .line 172
+    .line 193
     :cond_68
     invoke-interface {p1, v5}, Lcom/google/android/exoplayer2/extractor/ExtractorInput;->skipFully(I)V
 
@@ -2758,40 +2768,40 @@
     .locals 5
 
     .prologue
-    .line 358
+    .line 389
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 359
+    .line 390
     array-length v0, p0
 
     invoke-static {v0, p1}, Ljava/lang/Math;->min(II)I
 
     move-result v2
 
-    .line 360
+    .line 391
     const/4 v0, 0x0
 
     :goto_b
     if-ge v0, v2, :cond_29
 
-    .line 361
+    .line 392
     aget-byte v3, p0, v0
 
     and-int/lit16 v3, v3, 0xff
 
-    .line 362
+    .line 393
     const/16 v4, 0x10
 
     if-ge v3, v4, :cond_1a
 
-    .line 363
+    .line 394
     const/16 v4, 0x30
 
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
 
-    .line 365
+    .line 396
     :cond_1a
     invoke-static {v3}, Ljava/lang/Integer;->toHexString(I)Ljava/lang/String;
 
@@ -2799,17 +2809,17 @@
 
     invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 366
+    .line 397
     const/16 v3, 0x20
 
     invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
 
-    .line 360
+    .line 391
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_b
 
-    .line 368
+    .line 399
     :cond_29
     invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
@@ -2823,29 +2833,10 @@
 .end method
 
 .method private videoTrack()Lcom/google/android/exoplayer2/extractor/TrackOutput;
-    .locals 3
+    .locals 1
 
     .prologue
-    .line 663
-    iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->videoTrack:Lcom/google/android/exoplayer2/extractor/TrackOutput;
-
-    if-nez v0, :cond_e
-
-    .line 664
-    iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->output:Lcom/google/android/exoplayer2/extractor/ExtractorOutput;
-
-    const/4 v1, 0x0
-
-    const/4 v2, 0x2
-
-    invoke-interface {v0, v1, v2}, Lcom/google/android/exoplayer2/extractor/ExtractorOutput;->track(II)Lcom/google/android/exoplayer2/extractor/TrackOutput;
-
-    move-result-object v0
-
-    iput-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->videoTrack:Lcom/google/android/exoplayer2/extractor/TrackOutput;
-
-    .line 666
-    :cond_e
+    .line 706
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->videoTrack:Lcom/google/android/exoplayer2/extractor/TrackOutput;
 
     return-object v0
@@ -2854,23 +2845,34 @@
 
 # virtual methods
 .method public init(Lcom/google/android/exoplayer2/extractor/ExtractorOutput;)V
-    .locals 1
+    .locals 2
 
     .prologue
+    const/4 v1, 0x0
+
+    const/4 v0, 0x0
+
     .line 80
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->output:Lcom/google/android/exoplayer2/extractor/ExtractorOutput;
 
     .line 81
-    const/4 v0, 0x0
-
     iput v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->state:I
 
-    .line 82
+    .line 83
+    iput-boolean v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tracksEnded:Z
+
+    .line 84
+    iput-object v1, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->videoTrack:Lcom/google/android/exoplayer2/extractor/TrackOutput;
+
+    .line 85
+    iput-object v1, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->audioTrack:Lcom/google/android/exoplayer2/extractor/TrackOutput;
+
+    .line 86
     return-void
 .end method
 
 .method public read(Lcom/google/android/exoplayer2/extractor/ExtractorInput;Lcom/google/android/exoplayer2/extractor/PositionHolder;)I
-    .locals 8
+    .locals 11
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/io/IOException;
@@ -2878,24 +2880,26 @@
     .end annotation
 
     .prologue
-    const/16 v7, 0x9
+    const/4 v10, 0x2
 
-    const/4 v6, 0x4
+    const/4 v9, 0x4
 
-    const/4 v5, 0x3
+    const/4 v8, 0x3
 
-    const/4 v4, 0x0
+    const/4 v1, 0x1
 
-    .line 87
+    const/4 v2, 0x0
+
+    .line 91
     :goto_5
     iget v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->state:I
 
-    packed-switch v0, :pswitch_data_9a
+    packed-switch v0, :pswitch_data_fe
 
-    .line 128
-    return v4
+    .line 149
+    return v2
 
-    .line 89
+    .line 93
     :pswitch_b
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->headerBuf:Lcom/google/android/exoplayer2/util/ParsableByteArray;
 
@@ -2903,68 +2907,178 @@
 
     move-result-object v0
 
-    invoke-interface {p1, v0, v4, v7}, Lcom/google/android/exoplayer2/extractor/ExtractorInput;->readFully([BII)V
+    const/16 v3, 0x9
 
-    .line 90
+    invoke-interface {p1, v0, v2, v3}, Lcom/google/android/exoplayer2/extractor/ExtractorInput;->readFully([BII)V
+
+    .line 94
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->headerBuf:Lcom/google/android/exoplayer2/util/ParsableByteArray;
 
-    const/4 v1, 0x5
+    invoke-virtual {v0, v9}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->setPosition(I)V
 
-    invoke-virtual {v0, v1}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->setPosition(I)V
+    .line 96
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->headerBuf:Lcom/google/android/exoplayer2/util/ParsableByteArray;
 
-    .line 91
+    invoke-virtual {v0}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->readUnsignedByte()I
+
+    move-result v3
+
+    .line 97
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->headerBuf:Lcom/google/android/exoplayer2/util/ParsableByteArray;
 
     invoke-virtual {v0}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->readUnsignedIntToInt()I
 
     move-result v0
 
-    .line 92
+    .line 98
     add-int/lit8 v0, v0, -0x9
 
     add-int/lit8 v0, v0, 0x4
 
     iput v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->skipBytes:I
 
-    .line 93
-    iput v5, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->state:I
+    .line 99
+    const-string v4, "FlvHevcExtractor"
+
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v5, "read: FLV header flags=0x"
+
+    invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-static {v3}, Ljava/lang/Integer;->toHexString(I)Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    const-string v5, " hasVideo="
+
+    invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    and-int/lit8 v0, v3, 0x1
+
+    if-eqz v0, :cond_85
+
+    move v0, v1
+
+    :goto_4d
+    invoke-virtual {v5, v0}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    const-string v5, " hasAudio="
+
+    invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    and-int/lit8 v0, v3, 0x4
+
+    if-eqz v0, :cond_87
+
+    move v0, v1
+
+    :goto_5c
+    invoke-virtual {v5, v0}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v4, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 107
+    and-int/lit8 v0, v3, 0x1
+
+    if-eqz v0, :cond_73
+
+    .line 108
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->output:Lcom/google/android/exoplayer2/extractor/ExtractorOutput;
+
+    invoke-interface {v0, v2, v10}, Lcom/google/android/exoplayer2/extractor/ExtractorOutput;->track(II)Lcom/google/android/exoplayer2/extractor/TrackOutput;
+
+    move-result-object v0
+
+    iput-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->videoTrack:Lcom/google/android/exoplayer2/extractor/TrackOutput;
+
+    .line 110
+    :cond_73
+    and-int/lit8 v0, v3, 0x4
+
+    if-eqz v0, :cond_7f
+
+    .line 111
+    iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->output:Lcom/google/android/exoplayer2/extractor/ExtractorOutput;
+
+    invoke-interface {v0, v1, v1}, Lcom/google/android/exoplayer2/extractor/ExtractorOutput;->track(II)Lcom/google/android/exoplayer2/extractor/TrackOutput;
+
+    move-result-object v0
+
+    iput-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->audioTrack:Lcom/google/android/exoplayer2/extractor/TrackOutput;
+
+    .line 113
+    :cond_7f
+    invoke-direct {p0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->maybeEndTracks()V
+
+    .line 114
+    iput v8, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->state:I
 
     goto :goto_5
 
-    .line 96
-    :pswitch_29
+    :cond_85
+    move v0, v2
+
+    .line 99
+    goto :goto_4d
+
+    :cond_87
+    move v0, v2
+
+    goto :goto_5c
+
+    .line 117
+    :pswitch_89
     iget v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->skipBytes:I
 
     invoke-interface {p1, v0}, Lcom/google/android/exoplayer2/extractor/ExtractorInput;->skipFully(I)V
 
-    .line 97
-    iput v4, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->skipBytes:I
+    .line 118
+    iput v2, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->skipBytes:I
 
-    .line 98
-    const/4 v0, 0x1
+    .line 119
+    iput v1, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->state:I
 
-    iput v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->state:I
+    goto/16 :goto_5
 
-    goto :goto_5
-
-    .line 101
-    :pswitch_34
+    .line 122
+    :pswitch_94
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagHeaderBuf:Lcom/google/android/exoplayer2/util/ParsableByteArray;
 
     invoke-virtual {v0}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->getData()[B
 
     move-result-object v0
 
-    const/16 v1, 0xb
+    const/16 v3, 0xb
 
-    invoke-interface {p1, v0, v4, v1}, Lcom/google/android/exoplayer2/extractor/ExtractorInput;->readFully([BII)V
+    invoke-interface {p1, v0, v2, v3}, Lcom/google/android/exoplayer2/extractor/ExtractorInput;->readFully([BII)V
 
-    .line 102
+    .line 123
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagHeaderBuf:Lcom/google/android/exoplayer2/util/ParsableByteArray;
 
-    invoke-virtual {v0, v4}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->setPosition(I)V
+    invoke-virtual {v0, v2}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->setPosition(I)V
 
-    .line 103
+    .line 124
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagHeaderBuf:Lcom/google/android/exoplayer2/util/ParsableByteArray;
 
     invoke-virtual {v0}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->readUnsignedByte()I
@@ -2973,7 +3087,7 @@
 
     iput v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagType:I
 
-    .line 104
+    .line 125
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagHeaderBuf:Lcom/google/android/exoplayer2/util/ParsableByteArray;
 
     invoke-virtual {v0}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->readUnsignedInt24()I
@@ -2982,109 +3096,111 @@
 
     iput v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagDataSize:I
 
-    .line 105
+    .line 126
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagHeaderBuf:Lcom/google/android/exoplayer2/util/ParsableByteArray;
 
     invoke-virtual {v0}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->readUnsignedInt24()I
 
     move-result v0
 
-    .line 106
-    iget-object v1, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagHeaderBuf:Lcom/google/android/exoplayer2/util/ParsableByteArray;
+    .line 127
+    iget-object v3, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagHeaderBuf:Lcom/google/android/exoplayer2/util/ParsableByteArray;
 
-    invoke-virtual {v1}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->readUnsignedByte()I
+    invoke-virtual {v3}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->readUnsignedByte()I
 
-    move-result v1
+    move-result v3
 
-    .line 107
-    iget-object v2, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagHeaderBuf:Lcom/google/android/exoplayer2/util/ParsableByteArray;
+    .line 128
+    iget-object v4, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagHeaderBuf:Lcom/google/android/exoplayer2/util/ParsableByteArray;
 
-    invoke-virtual {v2, v5}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->skipBytes(I)V
+    invoke-virtual {v4, v8}, Lcom/google/android/exoplayer2/util/ParsableByteArray;->skipBytes(I)V
 
-    .line 108
-    int-to-long v2, v1
+    .line 129
+    int-to-long v4, v3
 
-    const/16 v1, 0x18
+    const/16 v3, 0x18
 
-    shl-long/2addr v2, v1
+    shl-long/2addr v4, v3
 
-    int-to-long v0, v0
+    int-to-long v6, v0
 
-    or-long/2addr v0, v2
+    or-long/2addr v4, v6
 
-    const-wide/16 v2, 0x3e8
+    const-wide/16 v6, 0x3e8
 
-    mul-long/2addr v0, v2
+    mul-long/2addr v4, v6
 
-    iput-wide v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagTimestampUs:J
+    iput-wide v4, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagTimestampUs:J
 
-    .line 109
+    .line 130
     iget v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagDataSize:I
 
-    if-lez v0, :cond_78
+    if-lez v0, :cond_d8
 
-    .line 110
-    const/4 v0, 0x2
-
-    iput v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->state:I
-
-    goto :goto_5
-
-    .line 112
-    :cond_78
-    iput v6, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->skipBytes:I
-
-    .line 113
-    iput v5, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->state:I
-
-    goto :goto_5
-
-    .line 117
-    :pswitch_7d
-    iget v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagType:I
-
-    if-ne v0, v7, :cond_8a
-
-    .line 118
-    invoke-direct {p0, p1}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->readVideoTag(Lcom/google/android/exoplayer2/extractor/ExtractorInput;)V
-
-    .line 124
-    :goto_84
-    iput v6, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->skipBytes:I
-
-    .line 125
-    iput v5, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->state:I
+    .line 131
+    iput v10, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->state:I
 
     goto/16 :goto_5
 
-    .line 119
-    :cond_8a
+    .line 133
+    :cond_d8
+    iput v9, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->skipBytes:I
+
+    .line 134
+    iput v8, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->state:I
+
+    goto/16 :goto_5
+
+    .line 138
+    :pswitch_de
     iget v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagType:I
 
-    const/16 v1, 0x8
+    const/16 v3, 0x9
 
-    if-ne v0, v1, :cond_94
+    if-ne v0, v3, :cond_ed
 
-    .line 120
+    .line 139
+    invoke-direct {p0, p1}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->readVideoTag(Lcom/google/android/exoplayer2/extractor/ExtractorInput;)V
+
+    .line 145
+    :goto_e7
+    iput v9, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->skipBytes:I
+
+    .line 146
+    iput v8, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->state:I
+
+    goto/16 :goto_5
+
+    .line 140
+    :cond_ed
+    iget v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagType:I
+
+    const/16 v3, 0x8
+
+    if-ne v0, v3, :cond_f7
+
+    .line 141
     invoke-direct {p0, p1}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->readAudioTag(Lcom/google/android/exoplayer2/extractor/ExtractorInput;)V
 
-    goto :goto_84
+    goto :goto_e7
 
-    .line 122
-    :cond_94
+    .line 143
+    :cond_f7
     iget v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->tagDataSize:I
 
     invoke-interface {p1, v0}, Lcom/google/android/exoplayer2/extractor/ExtractorInput;->skipFully(I)V
 
-    goto :goto_84
+    goto :goto_e7
 
-    .line 87
-    :pswitch_data_9a
+    .line 91
+    nop
+
+    :pswitch_data_fe
     .packed-switch 0x0
         :pswitch_b
-        :pswitch_34
-        :pswitch_7d
-        :pswitch_29
+        :pswitch_94
+        :pswitch_de
+        :pswitch_89
     .end packed-switch
 .end method
 
@@ -3092,7 +3208,7 @@
     .locals 0
 
     .prologue
-    .line 140
+    .line 161
     return-void
 .end method
 
@@ -3100,12 +3216,12 @@
     .locals 1
 
     .prologue
-    .line 135
+    .line 156
     const/4 v0, 0x0
 
     iput v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor;->state:I
 
-    .line 136
+    .line 157
     return-void
 .end method
 

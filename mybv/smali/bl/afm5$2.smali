@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 520
+    .line 538
     iput-object p1, p0, Lbl/afm5$2;->this$0:Lbl/afm5;
 
     iput-object p2, p0, Lbl/afm5$2;->val$activity:Landroid/app/Activity;
@@ -51,7 +51,7 @@
     .prologue
     const/4 v3, 0x1
 
-    .line 523
+    .line 541
     iget-object v0, p0, Lbl/afm5$2;->this$0:Lbl/afm5;
 
     # getter for: Lbl/afm5;->folderPickerCurrentDir:Ljava/io/File;
@@ -61,11 +61,11 @@
 
     if-nez v0, :cond_a
 
-    .line 549
+    .line 567
     :goto_9
     return-void
 
-    .line 526
+    .line 544
     :cond_a
     iget-object v0, p0, Lbl/afm5$2;->this$0:Lbl/afm5;
 
@@ -83,7 +83,7 @@
     # setter for: Lbl/afm5;->downloadPath:Ljava/lang/String;
     invoke-static {v0, v1}, Lbl/afm5;->access$102(Lbl/afm5;Ljava/lang/String;)Ljava/lang/String;
 
-    .line 531
+    .line 549
     sget v0, Landroid/os/Build$VERSION;->SDK_INT:I
 
     const/16 v1, 0x1a
@@ -104,7 +104,7 @@
 
     if-eqz v0, :cond_b2
 
-    .line 532
+    .line 550
     iget-object v0, p0, Lbl/afm5$2;->this$0:Lbl/afm5;
 
     # getter for: Lbl/afm5;->safAvailable:Z
@@ -114,7 +114,7 @@
 
     if-eqz v0, :cond_5d
 
-    .line 533
+    .line 551
     const-string v0, "afm5"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -144,7 +144,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 534
+    .line 552
     iget-object v0, p0, Lbl/afm5$2;->val$activity:Landroid/app/Activity;
 
     const-string v1, "\u5916\u63a5U\u76d8/\u79fb\u52a8\u786c\u76d8\u8bf7\u70b9\u51fb\u4e0b\u65b9\u300c\u4f7f\u7528\u7cfb\u7edf\u6587\u4ef6\u9009\u62e9\u5668\u300d\u6388\u6743"
@@ -157,7 +157,7 @@
 
     goto :goto_9
 
-    .line 538
+    .line 556
     :cond_5d
     iget-object v0, p0, Lbl/afm5$2;->this$0:Lbl/afm5;
 
@@ -172,7 +172,7 @@
 
     if-nez v0, :cond_94
 
-    .line 539
+    .line 557
     const-string v0, "afm5"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -202,7 +202,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 540
+    .line 558
     iget-object v0, p0, Lbl/afm5$2;->val$activity:Landroid/app/Activity;
 
     const-string v1, "U\u76d8\u4e3a\u53ea\u8bfb\u6302\u8f7d\uff0c\u65e0\u6cd5\u5199\u5165\uff08\u5e38\u89c1\u539f\u56e0\uff1aNTFS\u683c\u5f0f\u6216\u7535\u89c6\u53ea\u8bfb\u7b56\u7565\uff09\u3002\u8bf7\u6539\u7528FAT32/exFAT\u683c\u5f0f\u7684U\u76d8"
@@ -215,7 +215,7 @@
 
     goto/16 :goto_9
 
-    .line 543
+    .line 561
     :cond_94
     const-string v0, "afm5"
 
@@ -246,7 +246,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 545
+    .line 563
     :cond_b2
     const-string v0, "afm5"
 
@@ -277,19 +277,19 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 546
+    .line 564
     iget-object v0, p0, Lbl/afm5$2;->this$0:Lbl/afm5;
 
     # invokes: Lbl/afm5;->updateUI()V
     invoke-static {v0}, Lbl/afm5;->access$400(Lbl/afm5;)V
 
-    .line 547
+    .line 565
     iget-object v0, p0, Lbl/afm5$2;->this$0:Lbl/afm5;
 
     # invokes: Lbl/afm5;->saveSettings()V
     invoke-static {v0}, Lbl/afm5;->access$500(Lbl/afm5;)V
 
-    .line 548
+    .line 566
     iget-object v0, p0, Lbl/afm5$2;->this$0:Lbl/afm5;
 
     # invokes: Lbl/afm5;->hideFolderPicker()V

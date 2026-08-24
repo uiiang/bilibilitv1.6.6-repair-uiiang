@@ -323,18 +323,36 @@ public final class afm5 extends adw implements View.OnFocusChangeListener, View.
         }
 
         // 检查存储权限（Android 6.0+）
-        // 注意：外接U盘/移动硬盘除了读权限还需要写权限，两者必须同时申请，否则外部卷 listFiles() 受限
+        // 注意1：WRITE_EXTERNAL_STORAGE 在 Manifest 中声明为 maxSdkVersion=29，
+        //        Android 11+(API 30) 上该权限已不存在、无法授予，若强制检查会永远失败
+        // 注意2：外接U盘/移动硬盘除了读权限还需要写权限，两者必须同时申请，否则外部卷 listFiles() 受限
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            if (activity.checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-                    != android.content.pm.PackageManager.PERMISSION_GRANTED
-                    || activity.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    != android.content.pm.PackageManager.PERMISSION_GRANTED) {
-                Log.w("afm5", "没有存储权限，请求读写权限");
-                activity.requestPermissions(
-                        new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        1002
-                );
+            int sdk = android.os.Build.VERSION.SDK_INT;
+            java.util.List<String> needPerms = new java.util.ArrayList<>();
+            if (sdk >= 33) {
+                // Android 13+：READ/WRITE_EXTERNAL_STORAGE 均已失效（maxSdkVersion 32/29），
+                // 通过 SAF（ACTION_OPEN_DOCUMENT_TREE）或文件路径访问，无需运行时权限，直接放行
+                Log.i("afm5", "Android 13+ 无需存储权限，直接打开文件夹选择器");
+            } else if (sdk >= 30) {
+                // Android 11-12：WRITE_EXTERNAL_STORAGE 已失效，只检查 READ
+                if (activity.checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                        != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                    needPerms.add(android.Manifest.permission.READ_EXTERNAL_STORAGE);
+                }
+            } else {
+                // Android 6-10：检查 READ + WRITE
+                if (activity.checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                        != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                    needPerms.add(android.Manifest.permission.READ_EXTERNAL_STORAGE);
+                }
+                if (activity.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                    needPerms.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                }
+            }
+            if (!needPerms.isEmpty()) {
+                Log.w("afm5", "没有存储权限，请求权限: " + needPerms);
+                activity.requestPermissions(needPerms.toArray(new String[0]), 1002);
                 Toast.makeText(activity, "请授予存储权限后再试", Toast.LENGTH_SHORT).show();
                 return;
             }

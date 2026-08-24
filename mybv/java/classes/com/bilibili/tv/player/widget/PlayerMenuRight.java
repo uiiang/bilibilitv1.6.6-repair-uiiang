@@ -562,8 +562,10 @@ public class PlayerMenuRight extends aay<String> {
                         //Log.i("MenuBug", "绑定模式项 str=" + str + " mode_id=" + this.mode_id + " isCurrentItem=" + isCurrentItem);
                         break;
                     case 8: // 字幕
-                        if (this.subtitle_list != null && this.subtitle_id >= 0 && this.subtitle_id < this.subtitle_list.size()) {
-                            isCurrentItem = this.subtitle_list.get(this.subtitle_id).equals(str);
+                        // 用下标判断选中项：多个字幕的lan_doc可能相同（如UP主字幕与AI字幕同为"中文（简体）"），
+                        // 文本比较会导致重复文本的多个项同时显示圆点
+                        if (this.subtitle_id >= 0 && this.subtitle_id < this.subtitle_list.size()) {
+                            isCurrentItem = (i2 == this.subtitle_id);
                         }
                         break;
                     case 9: // 章节列表
@@ -1280,8 +1282,9 @@ public class PlayerMenuRight extends aay<String> {
         if (cachedId >= 0 && cachedId < this.subtitle_list.size()) {
             this.subtitle_id = cachedId;
         } else {
-            if(subtitles.length()>0 && !subtitles.optJSONObject(0).optString("lan").startsWith("ai-"))this.subtitle_id = 1;
-            else this.subtitle_id = 0;
+            // 缓存中没有选中过字幕时，默认选中"关闭字幕"
+            // （与ResolveResourceParams.initPlayInfo无缓存时subtitle_data=null不加载字幕保持一致）
+            this.subtitle_id = 0;
         }
     }
 

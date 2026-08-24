@@ -35,7 +35,7 @@
     .end annotation
 
     .prologue
-    .line 601
+    .line 619
     iput-object p1, p0, Lbl/afm5$6;->this$0:Lbl/afm5;
 
     iput-object p2, p0, Lbl/afm5$6;->val$safButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
@@ -53,22 +53,22 @@
     .locals 2
 
     .prologue
-    .line 604
+    .line 622
     iget-object v0, p0, Lbl/afm5$6;->val$safButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpEnabled(Z)V
 
-    .line 605
+    .line 623
     if-eqz p2, :cond_1b
 
-    .line 606
+    .line 624
     iget-object v0, p0, Lbl/afm5$6;->val$safButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     const v1, 0x7f0700ee
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 607
+    .line 625
     iget-object v0, p0, Lbl/afm5$6;->val$safText:Landroid/widget/TextView;
 
     const-string v1, "#FB7299"
@@ -79,11 +79,11 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 612
+    .line 630
     :goto_1a
     return-void
 
-    .line 609
+    .line 627
     :cond_1b
     iget-object v0, p0, Lbl/afm5$6;->val$safButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
@@ -91,7 +91,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 610
+    .line 628
     iget-object v0, p0, Lbl/afm5$6;->val$safText:Landroid/widget/TextView;
 
     const/4 v1, -0x1

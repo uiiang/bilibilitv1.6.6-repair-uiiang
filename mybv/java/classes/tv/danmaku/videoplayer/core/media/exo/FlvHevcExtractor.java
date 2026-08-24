@@ -79,6 +79,10 @@ public class FlvHevcExtractor implements Extractor {
     public void init(ExtractorOutput output) {
         this.output = output;
         this.state = STATE_HEADER;
+        // 重置状态：track 声明、endTracks 标志都要随新的 output 重新初始化
+        this.tracksEnded = false;
+        this.videoTrack = null;
+        this.audioTrack = null;
     }
 
     @Override
@@ -87,9 +91,26 @@ public class FlvHevcExtractor implements Extractor {
             switch (state) {
                 case STATE_HEADER:
                     input.readFully(headerBuf.getData(), 0, FLV_HEADER_SIZE);
-                    headerBuf.setPosition(5);
+                    headerBuf.setPosition(4);
+                    // offset 4 为 flags 字节：bit0=hasVideo，bit2=hasAudio
+                    int flags = headerBuf.readUnsignedByte();
                     int dataOffset = headerBuf.readUnsignedIntToInt();
                     skipBytes = dataOffset - FLV_HEADER_SIZE + PREV_TAG_SIZE;
+                    Log.i("FlvHevcExtractor", "read: FLV header flags=0x" + Integer.toHexString(flags)
+                            + " hasVideo=" + ((flags & 0x01) != 0)
+                            + " hasAudio=" + ((flags & 0x04) != 0));
+                    // 关键修复：在读取任何 tag 之前，根据 header flags 一次性声明 track 并 endTracks，
+                    // 与 ExoPlayer 原生 FlvExtractor 完全一致。之前是在第一个视频 NAL 时才 endTracks，
+                    // 若音频 tag 在其后才到达，会在 endTracks 后创建 audio track，导致
+                    // ProgressiveMediaPeriod.getBufferedPositionUs 数组越界
+                    // （ArrayIndexOutOfBoundsException: length=1; index=1），表现为进入直播间卡 loading
+                    if ((flags & 0x01) != 0) {
+                        videoTrack = output.track(0, C.TRACK_TYPE_VIDEO);
+                    }
+                    if ((flags & 0x04) != 0) {
+                        audioTrack = output.track(1, C.TRACK_TYPE_AUDIO);
+                    }
+                    maybeEndTracks();
                     state = STATE_SKIP;
                     break;
                 case STATE_SKIP:
@@ -189,8 +210,12 @@ public class FlvHevcExtractor implements Extractor {
                 }
                 break;
             case PACKET_NAL_UNIT:
-                maybeEndTracks();
                 TrackOutput track = videoTrack();
+                if (track == null) {
+                    // header flags 未声明视频流（纯音频直播），跳过视频 tag 数据
+                    input.skipFully(payloadSize);
+                    break;
+                }
                 byte[] rawBuf = new byte[payloadSize];
                 input.readFully(rawBuf, 0, payloadSize);
                 byte[] annexB = convertToAnnexB(rawBuf, payloadSize);
@@ -277,12 +302,15 @@ public class FlvHevcExtractor implements Extractor {
             Log.i("FlvHevcExtractor", "parseAvcConfig: initData size=" + initializationData.size()
                     + ", format=" + width + "x" + height);
 
-            videoTrack().format(new Format.Builder()
-                    .setSampleMimeType(MimeTypes.VIDEO_H264)
-                    .setInitializationData(initializationData)
-                    .setWidth(width)
-                    .setHeight(height)
-                    .build());
+            TrackOutput vt = videoTrack();
+            if (vt != null) {
+                vt.format(new Format.Builder()
+                        .setSampleMimeType(MimeTypes.VIDEO_H264)
+                        .setInitializationData(initializationData)
+                        .setWidth(width)
+                        .setHeight(height)
+                        .build());
+            }
         } catch (Exception e) {
             Log.w("FlvHevcExtractor", "parseAvcConfig failed: " + e.getMessage());
         }
@@ -342,12 +370,15 @@ public class FlvHevcExtractor implements Extractor {
             Log.i("FlvHevcExtractor", "parseHevcConfig: initData size=" + initializationData.size()
                     + ", format=" + width + "x" + height);
 
-            videoTrack().format(new Format.Builder()
-                    .setSampleMimeType(MimeTypes.VIDEO_H265)
-                    .setInitializationData(initializationData)
-                    .setWidth(width)
-                    .setHeight(height)
-                    .build());
+            TrackOutput vt = videoTrack();
+            if (vt != null) {
+                vt.format(new Format.Builder()
+                        .setSampleMimeType(MimeTypes.VIDEO_H265)
+                        .setInitializationData(initializationData)
+                        .setWidth(width)
+                        .setHeight(height)
+                        .build());
+            }
         } catch (Exception e) {
             Log.w("FlvHevcExtractor", "parseHevcConfig failed: " + e.getMessage());
         }
@@ -628,12 +659,16 @@ public class FlvHevcExtractor implements Extractor {
                 input.readFully(data.getData(), 0, aacPayload);
                 parseAacConfig(data);
             } else if (aacPacketType == AAC_PACKET_RAW && aacPayload > 0) {
-                maybeEndTracks();
                 TrackOutput track = audioTrack();
-                ParsableByteArray audioBuf = new ParsableByteArray(aacPayload);
-                input.readFully(audioBuf.getData(), 0, aacPayload);
-                track.sampleData(audioBuf, aacPayload);
-                track.sampleMetadata(tagTimestampUs, C.BUFFER_FLAG_KEY_FRAME, aacPayload, 0, null);
+                if (track == null) {
+                    // header flags 未声明音频流（纯视频直播），跳过音频 tag 数据
+                    input.skipFully(aacPayload);
+                } else {
+                    ParsableByteArray audioBuf = new ParsableByteArray(aacPayload);
+                    input.readFully(audioBuf.getData(), 0, aacPayload);
+                    track.sampleData(audioBuf, aacPayload);
+                    track.sampleMetadata(tagTimestampUs, C.BUFFER_FLAG_KEY_FRAME, aacPayload, 0, null);
+                }
             } else {
                 input.skipFully(aacPayload);
             }
@@ -649,30 +684,37 @@ public class FlvHevcExtractor implements Extractor {
         int freqIndex = ((b0 & 0x07) << 1) | ((b1 >> 7) & 0x01);
         int channelConfig = (b1 >> 3) & 0x0F;
         int sampleRate = freqIndex >= 0 && freqIndex < AAC_SAMPLE_RATES.length ? AAC_SAMPLE_RATES[freqIndex] : 44100;
-        audioTrack().format(new Format.Builder()
-                .setSampleMimeType(MimeTypes.AUDIO_AAC)
-                .setSampleRate(sampleRate)
-                .setChannelCount(Math.max(channelConfig, 1))
-                .setInitializationData(java.util.Collections.singletonList(new byte[]{(byte) b0, (byte) b1}))
-                .build());
+        TrackOutput at = audioTrack();
+        if (at != null) {
+            at.format(new Format.Builder()
+                    .setSampleMimeType(MimeTypes.AUDIO_AAC)
+                    .setSampleRate(sampleRate)
+                    .setChannelCount(Math.max(channelConfig, 1))
+                    .setInitializationData(java.util.Collections.singletonList(new byte[]{(byte) b0, (byte) b1}))
+                    .build());
+        }
     }
 
     // ---- Track helpers ----
 
+    /**
+     * 返回视频 track。track 已在读取 FLV header 时按 flags 声明，这里只做取值。
+     * 禁止在 endTracks 之后再调用 output.track() 创建新 track，否则 ProgressiveMediaPeriod
+     * 会在 endTracks 后扩展 sampleQueues，导致 getBufferedPositionUs 数组越界。
+     */
     private TrackOutput videoTrack() {
-        if (videoTrack == null) {
-            videoTrack = output.track(0, C.TRACK_TYPE_VIDEO);
-        }
         return videoTrack;
     }
 
     private TrackOutput audioTrack() {
-        if (audioTrack == null) {
-            audioTrack = output.track(1, C.TRACK_TYPE_AUDIO);
-        }
         return audioTrack;
     }
 
+    /**
+     * 结束 track 声明并输出 SeekMap（直播流不可 seek）。
+     * 现在仅在读取 FLV header 后调用一次：此时所有可能出现的 track（视频+音频）
+     * 都已按 header flags 声明完毕，之后不会再创建新 track。
+     */
     private void maybeEndTracks() {
         if (tracksEnded) {
             return;

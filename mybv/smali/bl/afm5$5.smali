@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 589
+    .line 607
     iput-object p1, p0, Lbl/afm5$5;->this$0:Lbl/afm5;
 
     iput-object p2, p0, Lbl/afm5$5;->val$confirmButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
@@ -49,7 +49,7 @@
     .locals 1
 
     .prologue
-    .line 592
+    .line 610
     invoke-virtual {p3}, Landroid/view/KeyEvent;->getAction()I
 
     move-result v0
@@ -60,15 +60,15 @@
 
     if-ne p2, v0, :cond_11
 
-    .line 594
+    .line 612
     iget-object v0, p0, Lbl/afm5$5;->val$confirmButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->requestFocus()Z
 
-    .line 595
+    .line 613
     const/4 v0, 0x1
 
-    .line 597
+    .line 615
     :goto_10
     return v0
 

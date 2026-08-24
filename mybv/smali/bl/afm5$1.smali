@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 482
+    .line 500
     iput-object p1, p0, Lbl/afm5$1;->this$0:Lbl/afm5;
 
     iput-object p2, p0, Lbl/afm5$1;->val$activity:Landroid/app/Activity;
@@ -49,7 +49,7 @@
     .locals 4
 
     .prologue
-    .line 486
+    .line 504
     :try_start_0
     new-instance v0, Landroid/content/Intent;
 
@@ -57,7 +57,7 @@
 
     invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
 
-    .line 487
+    .line 505
     iget-object v1, p0, Lbl/afm5$1;->this$0:Lbl/afm5;
 
     const/16 v2, 0x3eb
@@ -66,15 +66,15 @@
     :try_end_e
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_e} :catch_f
 
-    .line 492
+    .line 510
     :goto_e
     return-void
 
-    .line 488
+    .line 506
     :catch_f
     move-exception v0
 
-    .line 489
+    .line 507
     const-string v1, "afm5"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -101,7 +101,7 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 490
+    .line 508
     iget-object v0, p0, Lbl/afm5$1;->val$activity:Landroid/app/Activity;
 
     const-string v1, "\u65e0\u6cd5\u6253\u5f00\u7cfb\u7edf\u6587\u4ef6\u9009\u62e9\u5668\uff0c\u8bf7\u5728\u5217\u8868\u4e2d\u9009\u62e9\u5916\u63a5U\u76d8\u6587\u4ef6\u5939"

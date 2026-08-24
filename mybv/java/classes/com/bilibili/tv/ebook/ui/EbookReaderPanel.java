@@ -1396,6 +1396,11 @@ public class EbookReaderPanel {
         // 取消解析任务，避免后台线程持有Activity引用
         cancelParsingTask();
 
+        // 关键修复：销毁WebView前立即保存当前阅读进度（取消防抖等待）。
+        // 无论当前处于控制电子书还是控制视频，无论用什么方式移动了阅读进度（方向键/鼠标滚轮/翻页），
+        // 退出视频/Activity时都能保存最后进度；否则未执行的防抖保存任务会被下方 removeCallbacks 取消导致进度丢失
+        saveReadingProgressImmediately();
+
         // 销毁WebView，释放native内存
         destroyEbookWebView();
 

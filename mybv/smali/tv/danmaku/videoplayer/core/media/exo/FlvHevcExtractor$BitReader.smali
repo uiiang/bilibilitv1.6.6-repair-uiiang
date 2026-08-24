@@ -29,16 +29,16 @@
     .locals 0
 
     .prologue
-    .line 519
+    .line 550
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 520
+    .line 551
     iput-object p1, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->data:[B
 
-    .line 521
+    .line 552
     iput p2, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->limit:I
 
-    .line 522
+    .line 553
     return-void
 .end method
 
@@ -48,14 +48,14 @@
     .locals 3
 
     .prologue
-    .line 533
+    .line 564
     iget v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->bytePos:I
 
     iget v1, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->limit:I
 
     if-lt v0, v1, :cond_e
 
-    .line 534
+    .line 565
     new-instance v0, Ljava/lang/ArrayIndexOutOfBoundsException;
 
     const-string v1, "SPS bitstream overrun"
@@ -64,7 +64,7 @@
 
     throw v0
 
-    .line 536
+    .line 567
     :cond_e
     iget-object v0, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->data:[B
 
@@ -80,33 +80,33 @@
 
     and-int/lit8 v0, v0, 0x1
 
-    .line 537
+    .line 568
     iget v1, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->bitPos:I
 
     add-int/lit8 v1, v1, 0x1
 
     iput v1, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->bitPos:I
 
-    .line 538
+    .line 569
     iget v1, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->bitPos:I
 
     const/16 v2, 0x8
 
     if-ne v1, v2, :cond_30
 
-    .line 539
+    .line 570
     const/4 v1, 0x0
 
     iput v1, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->bitPos:I
 
-    .line 540
+    .line 571
     iget v1, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->bytePos:I
 
     add-int/lit8 v1, v1, 0x1
 
     iput v1, p0, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->bytePos:I
 
-    .line 542
+    .line 573
     :cond_30
     return v0
 .end method
@@ -117,16 +117,16 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 525
+    .line 556
     move v0, v1
 
     move v2, v1
 
-    .line 526
+    .line 557
     :goto_3
     if-ge v0, p1, :cond_10
 
-    .line 527
+    .line 558
     shl-int/lit8 v1, v2, 0x1
 
     invoke-virtual {p0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBit()I
@@ -135,14 +135,14 @@
 
     or-int/2addr v1, v2
 
-    .line 526
+    .line 557
     add-int/lit8 v0, v0, 0x1
 
     move v2, v1
 
     goto :goto_3
 
-    .line 529
+    .line 560
     :cond_10
     return v2
 .end method
@@ -153,12 +153,12 @@
     .prologue
     const/4 v0, 0x1
 
-    .line 564
+    .line 595
     invoke-virtual {p0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readUe()I
 
     move-result v1
 
-    .line 565
+    .line 596
     add-int/lit8 v2, v1, 0x1
 
     shr-int/lit8 v2, v2, 0x1
@@ -184,10 +184,10 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 546
+    .line 577
     move v0, v1
 
-    .line 547
+    .line 578
     :cond_2
     invoke-virtual {p0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBit()I
 
@@ -195,15 +195,15 @@
 
     if-nez v2, :cond_16
 
-    .line 548
+    .line 579
     add-int/lit8 v0, v0, 0x1
 
-    .line 549
+    .line 580
     const/16 v2, 0x20
 
     if-le v0, v2, :cond_2
 
-    .line 550
+    .line 581
     new-instance v0, Ljava/lang/ArrayIndexOutOfBoundsException;
 
     const-string v1, "ue(v) too long"
@@ -212,15 +212,15 @@
 
     throw v0
 
-    .line 553
+    .line 584
     :cond_16
     if-nez v0, :cond_19
 
-    .line 560
+    .line 591
     :goto_18
     return v1
 
-    .line 556
+    .line 587
     :cond_19
     const/4 v2, 0x1
 
@@ -228,11 +228,11 @@
 
     add-int/lit8 v2, v2, -0x1
 
-    .line 557
+    .line 588
     :goto_1d
     if-ge v1, v0, :cond_2b
 
-    .line 558
+    .line 589
     invoke-virtual {p0}, Ltv/danmaku/videoplayer/core/media/exo/FlvHevcExtractor$BitReader;->readBit()I
 
     move-result v3
@@ -245,7 +245,7 @@
 
     add-int/2addr v2, v3
 
-    .line 557
+    .line 588
     add-int/lit8 v1, v1, 0x1
 
     goto :goto_1d
@@ -253,6 +253,6 @@
     :cond_2b
     move v1, v2
 
-    .line 560
+    .line 591
     goto :goto_18
 .end method

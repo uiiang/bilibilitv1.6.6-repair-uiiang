@@ -218,12 +218,12 @@
     .prologue
     const/4 v4, 0x0
 
-    .line 921
+    .line 939
     iget-object v0, p0, Lbl/afm5;->folderPickerDialog:Landroid/app/Dialog;
 
     if-eqz v0, :cond_c
 
-    .line 923
+    .line 941
     :try_start_5
     iget-object v0, p0, Lbl/afm5;->folderPickerDialog:Landroid/app/Dialog;
 
@@ -231,40 +231,40 @@
     :try_end_a
     .catch Ljava/lang/Exception; {:try_start_5 .. :try_end_a} :catch_1f
 
-    .line 927
+    .line 945
     :goto_a
     iput-object v4, p0, Lbl/afm5;->folderPickerDialog:Landroid/app/Dialog;
 
-    .line 929
+    .line 947
     :cond_c
     iput-object v4, p0, Lbl/afm5;->folderPickerCurrentDir:Ljava/io/File;
 
-    .line 930
+    .line 948
     const-string v0, "afm5"
 
     const-string v1, "\u6587\u4ef6\u5939\u9009\u62e9\u5bf9\u8bdd\u6846\u5df2\u5173\u95ed"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 933
+    .line 951
     iget-object v0, p0, Lbl/afm5;->downloadPathButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     if-eqz v0, :cond_1e
 
-    .line 934
+    .line 952
     iget-object v0, p0, Lbl/afm5;->downloadPathButton:Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->requestFocus()Z
 
-    .line 936
+    .line 954
     :cond_1e
     return-void
 
-    .line 924
+    .line 942
     :catch_1f
     move-exception v0
 
-    .line 925
+    .line 943
     const-string v1, "afm5"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -300,10 +300,10 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 717
+    .line 735
     if-nez p0, :cond_4
 
-    .line 720
+    .line 738
     :cond_3
     :goto_3
     return v0
@@ -328,7 +328,7 @@
     :cond_14
     const-string v1, "/storage/emulated"
 
-    .line 721
+    .line 739
     invoke-virtual {p0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
 
     move-result v1
@@ -346,23 +346,23 @@
     .prologue
     const/4 v4, 0x0
 
-    .line 729
+    .line 747
     invoke-virtual {p0}, Lbl/afm5;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
     move-result-object v5
 
-    .line 730
+    .line 748
     if-nez v5, :cond_8
 
-    .line 915
+    .line 933
     :goto_7
     return-void
 
-    .line 733
+    .line 751
     :cond_8
     iput-object p3, p0, Lbl/afm5;->folderPickerCurrentDir:Ljava/io/File;
 
-    .line 736
+    .line 754
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -387,22 +387,22 @@
 
     invoke-virtual {p2, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 739
+    .line 757
     new-instance v6, Ljava/util/ArrayList;
 
     invoke-direct {v6}, Ljava/util/ArrayList;-><init>()V
 
-    .line 740
+    .line 758
     new-instance v2, Ljava/util/ArrayList;
 
     invoke-direct {v2}, Ljava/util/ArrayList;-><init>()V
 
-    .line 742
+    .line 760
     invoke-virtual {p3}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 743
+    .line 761
     const-string v1, "/storage"
 
     invoke-virtual {v1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -411,17 +411,17 @@
 
     if-eqz v1, :cond_1e0
 
-    .line 749
+    .line 767
     new-instance v7, Ljava/util/HashSet;
 
     invoke-direct {v7}, Ljava/util/HashSet;-><init>()V
 
-    .line 750
+    .line 768
     invoke-static {}, Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
 
     move-result-object v0
 
-    .line 751
+    .line 769
     if-eqz v0, :cond_5a
 
     invoke-virtual {v0}, Ljava/io/File;->exists()Z
@@ -430,29 +430,29 @@
 
     if-eqz v1, :cond_5a
 
-    .line 752
+    .line 770
     const-string v1, "\ud83d\udcc1 \u5185\u90e8\u5b58\u50a8"
 
     invoke-interface {v6, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 753
+    .line 771
     invoke-interface {v2, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 754
+    .line 772
     invoke-virtual {v0}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
 
     move-result-object v0
 
     invoke-interface {v7, v0}, Ljava/util/Set;->add(Ljava/lang/Object;)Z
 
-    .line 758
+    .line 776
     :cond_5a
     :try_start_5a
     invoke-static {v5}, Lcom/bilibili/tv/ui/download/StorageManagerHelper;->getAllMountedVolumes(Landroid/content/Context;)Ljava/util/List;
 
     move-result-object v0
 
-    .line 759
+    .line 777
     invoke-interface {v0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
 
     move-result-object v8
@@ -471,7 +471,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;
 
-    .line 760
+    .line 778
     if-eqz v0, :cond_62
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->getPath()Ljava/lang/String;
@@ -480,12 +480,12 @@
 
     if-eqz v1, :cond_62
 
-    .line 763
+    .line 781
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->getPath()Ljava/lang/String;
 
     move-result-object v3
 
-    .line 765
+    .line 783
     invoke-interface {v7, v3}, Ljava/util/Set;->contains(Ljava/lang/Object;)Z
 
     move-result v1
@@ -500,12 +500,12 @@
 
     if-nez v1, :cond_62
 
-    .line 768
+    .line 786
     new-instance v9, Ljava/io/File;
 
     invoke-direct {v9, v3}, Ljava/io/File;-><init>(Ljava/lang/String;)V
 
-    .line 769
+    .line 787
     invoke-virtual {v9}, Ljava/io/File;->exists()Z
 
     move-result v1
@@ -518,13 +518,13 @@
 
     if-eqz v1, :cond_62
 
-    .line 772
+    .line 790
     :cond_99
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/download/StorageManagerHelper$StorageDevice;->getName()Ljava/lang/String;
 
     move-result-object v1
 
-    .line 773
+    .line 791
     if-eqz v1, :cond_ad
 
     invoke-virtual {v1}, Ljava/lang/String;->isEmpty()Z
@@ -541,7 +541,7 @@
 
     if-eqz v10, :cond_c3
 
-    .line 774
+    .line 792
     :cond_ad
     const/16 v1, 0x2f
 
@@ -549,7 +549,7 @@
 
     move-result v1
 
-    .line 775
+    .line 793
     if-ltz v1, :cond_179
 
     invoke-virtual {v3}, Ljava/lang/String;->length()I
@@ -560,14 +560,14 @@
 
     if-ge v1, v10, :cond_179
 
-    .line 776
+    .line 794
     add-int/lit8 v1, v1, 0x1
 
     invoke-virtual {v3, v1}, Ljava/lang/String;->substring(I)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 778
+    .line 796
     :cond_c3
     :goto_c3
     new-instance v10, Ljava/lang/StringBuilder;
@@ -590,13 +590,13 @@
 
     invoke-interface {v6, v10}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 779
+    .line 797
     invoke-interface {v2, v9}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 780
+    .line 798
     invoke-interface {v7, v3}, Ljava/util/Set;->add(Ljava/lang/Object;)Z
 
-    .line 781
+    .line 799
     const-string v9, "afm5"
 
     new-instance v10, Ljava/lang/StringBuilder;
@@ -647,11 +647,11 @@
 
     goto/16 :goto_62
 
-    .line 783
+    .line 801
     :catch_111
     move-exception v0
 
-    .line 784
+    .line 802
     const-string v1, "afm5"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -678,16 +678,16 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 787
+    .line 805
     :cond_12e
     invoke-virtual {p3}, Ljava/io/File;->listFiles()[Ljava/io/File;
 
     move-result-object v0
 
-    .line 788
+    .line 806
     if-eqz v0, :cond_17c
 
-    .line 789
+    .line 807
     array-length v1, v0
 
     :goto_135
@@ -695,12 +695,12 @@
 
     aget-object v3, v0, v4
 
-    .line 790
+    .line 808
     invoke-virtual {v3}, Ljava/io/File;->getName()Ljava/lang/String;
 
     move-result-object v8
 
-    .line 791
+    .line 809
     invoke-virtual {v3}, Ljava/io/File;->isDirectory()Z
 
     move-result v9
@@ -723,7 +723,7 @@
 
     if-nez v9, :cond_176
 
-    .line 792
+    .line 810
     invoke-virtual {v3}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
 
     move-result-object v9
@@ -734,7 +734,7 @@
 
     if-nez v9, :cond_176
 
-    .line 793
+    .line 811
     new-instance v9, Ljava/lang/StringBuilder;
 
     invoke-direct {v9}, Ljava/lang/StringBuilder;-><init>()V
@@ -755,10 +755,10 @@
 
     invoke-interface {v6, v8}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 794
+    .line 812
     invoke-interface {v2, v3}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 789
+    .line 807
     :cond_176
     add-int/lit8 v4, v4, 0x1
 
@@ -767,10 +767,10 @@
     :cond_179
     move-object v1, v3
 
-    .line 776
+    .line 794
     goto/16 :goto_c3
 
-    .line 798
+    .line 816
     :cond_17c
     invoke-interface {v6}, Ljava/util/List;->isEmpty()Z
 
@@ -778,12 +778,12 @@
 
     if-eqz v0, :cond_187
 
-    .line 799
+    .line 817
     const-string v0, "\uff08\u65e0\u53ef\u8bbf\u95ee\u7684\u5b58\u50a8\u8bbe\u5907\uff09"
 
     invoke-interface {v6, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 840
+    .line 858
     :cond_187
     const-string v0, "afm5"
 
@@ -831,31 +831,31 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 843
+    .line 861
     new-instance v0, Lbl/afm5$10;
 
     const v1, 0x1090003
 
     invoke-direct {v0, p0, v5, v1, v6}, Lbl/afm5$10;-><init>(Lbl/afm5;Landroid/content/Context;ILjava/util/List;)V
 
-    .line 869
+    .line 887
     new-instance v1, Lbl/afm5$11;
 
     invoke-direct {v1, p0}, Lbl/afm5$11;-><init>(Lbl/afm5;)V
 
     invoke-virtual {p1, v1}, Landroid/widget/ListView;->setOnItemSelectedListener(Landroid/widget/AdapterView$OnItemSelectedListener;)V
 
-    .line 885
+    .line 903
     invoke-virtual {p1, v0}, Landroid/widget/ListView;->setAdapter(Landroid/widget/ListAdapter;)V
 
-    .line 888
+    .line 906
     new-instance v0, Lbl/afm5$12;
 
     invoke-direct {v0, p0}, Lbl/afm5$12;-><init>(Lbl/afm5;)V
 
     invoke-virtual {p1, v0}, Landroid/widget/ListView;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 896
+    .line 914
     new-instance v0, Lbl/afm5$13;
 
     move-object v1, p0
@@ -872,16 +872,16 @@
 
     goto/16 :goto_7
 
-    .line 804
+    .line 822
     :cond_1e0
     invoke-virtual {p3}, Ljava/io/File;->listFiles()[Ljava/io/File;
 
     move-result-object v1
 
-    .line 805
+    .line 823
     if-nez v1, :cond_209
 
-    .line 806
+    .line 824
     const-string v1, "afm5"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -904,7 +904,7 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 807
+    .line 825
     const-string v0, "\u65e0\u6cd5\u8bbf\u95ee\u8be5\u76ee\u5f55\uff0c\u8bf7\u68c0\u67e5\u5b58\u50a8\u6743\u9650"
 
     invoke-static {v5, v0, v4}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
@@ -915,13 +915,13 @@
 
     goto/16 :goto_7
 
-    .line 812
+    .line 830
     :cond_209
     new-instance v3, Ljava/util/ArrayList;
 
     invoke-direct {v3}, Ljava/util/ArrayList;-><init>()V
 
-    .line 813
+    .line 831
     array-length v7, v1
 
     move v0, v4
@@ -931,7 +931,7 @@
 
     aget-object v4, v1, v0
 
-    .line 814
+    .line 832
     invoke-virtual {v4}, Ljava/io/File;->isDirectory()Z
 
     move-result v8
@@ -950,16 +950,16 @@
 
     if-nez v8, :cond_229
 
-    .line 815
+    .line 833
     invoke-interface {v3, v4}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 813
+    .line 831
     :cond_229
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_210
 
-    .line 818
+    .line 836
     :cond_22c
     new-instance v0, Lbl/afm5$9;
 
@@ -967,12 +967,12 @@
 
     invoke-static {v3, v0}, Ljava/util/Collections;->sort(Ljava/util/List;Ljava/util/Comparator;)V
 
-    .line 826
+    .line 844
     invoke-virtual {p3}, Ljava/io/File;->getParentFile()Ljava/io/File;
 
     move-result-object v0
 
-    .line 827
+    .line 845
     if-eqz v0, :cond_24a
 
     const-string v1, "/storage/emulated"
@@ -987,26 +987,26 @@
 
     if-eqz v1, :cond_24a
 
-    .line 828
+    .line 846
     invoke-virtual {v0}, Ljava/io/File;->getParentFile()Ljava/io/File;
 
     move-result-object v0
 
-    .line 830
+    .line 848
     :cond_24a
     if-eqz v0, :cond_255
 
-    .line 831
+    .line 849
     const-string v0, "\u2191 \u4e0a\u7ea7"
 
     invoke-interface {v6, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 832
+    .line 850
     const/4 v0, 0x0
 
     invoke-interface {v2, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 834
+    .line 852
     :cond_255
     invoke-interface {v3}, Ljava/util/List;->iterator()Ljava/util/Iterator;
 
@@ -1025,7 +1025,7 @@
 
     check-cast v0, Ljava/io/File;
 
-    .line 835
+    .line 853
     new-instance v3, Ljava/lang/StringBuilder;
 
     invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
@@ -1050,7 +1050,7 @@
 
     invoke-interface {v6, v3}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 836
+    .line 854
     invoke-interface {v2, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     goto :goto_259
@@ -1370,66 +1370,86 @@
     .line 321
     if-nez v3, :cond_7
 
-    .line 641
+    .line 659
     :goto_6
     return-void
 
-    .line 327
+    .line 329
     :cond_7
     sget v0, Landroid/os/Build$VERSION;->SDK_INT:I
 
     const/16 v1, 0x17
 
-    if-lt v0, v1, :cond_41
-
-    .line 328
-    const-string v0, "android.permission.READ_EXTERNAL_STORAGE"
-
-    invoke-virtual {v3, v0}, Landroid/app/Activity;->checkSelfPermission(Ljava/lang/String;)I
-
-    move-result v0
-
-    if-nez v0, :cond_1d
-
-    const-string v0, "android.permission.WRITE_EXTERNAL_STORAGE"
+    if-lt v0, v1, :cond_83
 
     .line 330
-    invoke-virtual {v3, v0}, Landroid/app/Activity;->checkSelfPermission(Ljava/lang/String;)I
+    sget v0, Landroid/os/Build$VERSION;->SDK_INT:I
+
+    .line 331
+    new-instance v1, Ljava/util/ArrayList;
+
+    invoke-direct {v1}, Ljava/util/ArrayList;-><init>()V
+
+    .line 332
+    const/16 v2, 0x21
+
+    if-lt v0, v2, :cond_56
+
+    .line 335
+    const-string v0, "afm5"
+
+    const-string v2, "Android 13+ \u65e0\u9700\u5b58\u50a8\u6743\u9650\uff0c\u76f4\u63a5\u6253\u5f00\u6587\u4ef6\u5939\u9009\u62e9\u5668"
+
+    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 353
+    :cond_1f
+    :goto_1f
+    invoke-interface {v1}, Ljava/util/List;->isEmpty()Z
 
     move-result v0
 
-    if-eqz v0, :cond_41
+    if-nez v0, :cond_83
 
-    .line 332
-    :cond_1d
+    .line 354
     const-string v0, "afm5"
 
-    const-string v1, "\u6ca1\u6709\u5b58\u50a8\u6743\u9650\uff0c\u8bf7\u6c42\u8bfb\u5199\u6743\u9650"
+    new-instance v2, Ljava/lang/StringBuilder;
 
-    invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 333
-    const/4 v0, 0x2
+    const-string v4, "\u6ca1\u6709\u5b58\u50a8\u6743\u9650\uff0c\u8bf7\u6c42\u6743\u9650: "
+
+    invoke-virtual {v2, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v0, v2}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 355
+    const/4 v0, 0x0
 
     new-array v0, v0, [Ljava/lang/String;
 
-    const/4 v1, 0x0
+    invoke-interface {v1, v0}, Ljava/util/List;->toArray([Ljava/lang/Object;)[Ljava/lang/Object;
 
-    const-string v2, "android.permission.READ_EXTERNAL_STORAGE"
+    move-result-object v0
 
-    aput-object v2, v0, v1
-
-    const/4 v1, 0x1
-
-    const-string v2, "android.permission.WRITE_EXTERNAL_STORAGE"
-
-    aput-object v2, v0, v1
+    check-cast v0, [Ljava/lang/String;
 
     const/16 v1, 0x3ea
 
     invoke-virtual {v3, v0, v1}, Landroid/app/Activity;->requestPermissions([Ljava/lang/String;I)V
 
-    .line 338
+    .line 356
     const-string v0, "\u8bf7\u6388\u4e88\u5b58\u50a8\u6743\u9650\u540e\u518d\u8bd5"
 
     const/4 v1, 0x0
@@ -1442,24 +1462,78 @@
 
     goto :goto_6
 
+    .line 336
+    :cond_56
+    const/16 v2, 0x1e
+
+    if-lt v0, v2, :cond_68
+
+    .line 338
+    const-string v0, "android.permission.READ_EXTERNAL_STORAGE"
+
+    invoke-virtual {v3, v0}, Landroid/app/Activity;->checkSelfPermission(Ljava/lang/String;)I
+
+    move-result v0
+
+    if-eqz v0, :cond_1f
+
+    .line 340
+    const-string v0, "android.permission.READ_EXTERNAL_STORAGE"
+
+    invoke-interface {v1, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    goto :goto_1f
+
     .line 344
-    :cond_41
+    :cond_68
+    const-string v0, "android.permission.READ_EXTERNAL_STORAGE"
+
+    invoke-virtual {v3, v0}, Landroid/app/Activity;->checkSelfPermission(Ljava/lang/String;)I
+
+    move-result v0
+
+    if-eqz v0, :cond_75
+
+    .line 346
+    const-string v0, "android.permission.READ_EXTERNAL_STORAGE"
+
+    invoke-interface {v1, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    .line 348
+    :cond_75
+    const-string v0, "android.permission.WRITE_EXTERNAL_STORAGE"
+
+    invoke-virtual {v3, v0}, Landroid/app/Activity;->checkSelfPermission(Ljava/lang/String;)I
+
+    move-result v0
+
+    if-eqz v0, :cond_1f
+
+    .line 350
+    const-string v0, "android.permission.WRITE_EXTERNAL_STORAGE"
+
+    invoke-interface {v1, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    goto :goto_1f
+
+    .line 362
+    :cond_83
     invoke-direct {p0}, Lbl/afm5;->hideFolderPicker()V
 
-    .line 349
+    .line 367
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lbl/afm5;->safAvailable:Z
 
-    .line 351
-    :try_start_47
+    .line 369
+    :try_start_89
     new-instance v0, Landroid/content/Intent;
 
     const-string v1, "android.intent.action.OPEN_DOCUMENT_TREE"
 
     invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
 
-    .line 353
+    .line 371
     invoke-virtual {v3}, Landroid/app/Activity;->getPackageManager()Landroid/content/pm/PackageManager;
 
     move-result-object v1
@@ -1470,24 +1544,24 @@
 
     move-result-object v0
 
-    .line 354
-    if-eqz v0, :cond_2d7
+    .line 372
+    if-eqz v0, :cond_319
 
     invoke-interface {v0}, Ljava/util/List;->isEmpty()Z
 
     move-result v0
 
-    if-nez v0, :cond_2d7
+    if-nez v0, :cond_319
 
     const/4 v0, 0x1
 
-    :goto_60
+    :goto_a2
     iput-boolean v0, p0, Lbl/afm5;->safAvailable:Z
-    :try_end_62
-    .catch Ljava/lang/Throwable; {:try_start_47 .. :try_end_62} :catch_2da
+    :try_end_a4
+    .catch Ljava/lang/Throwable; {:try_start_89 .. :try_end_a4} :catch_31c
 
-    .line 359
-    :goto_62
+    .line 377
+    :goto_a4
     const-string v0, "afm5"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1512,24 +1586,24 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 362
+    .line 380
     sget-object v0, Landroid/os/Environment;->DIRECTORY_DOWNLOADS:Ljava/lang/String;
 
     invoke-static {v0}, Landroid/os/Environment;->getExternalStoragePublicDirectory(Ljava/lang/String;)Ljava/io/File;
 
     move-result-object v0
 
-    .line 364
-    if-eqz v0, :cond_8a
+    .line 382
+    if-eqz v0, :cond_cc
 
     invoke-virtual {v0}, Ljava/io/File;->exists()Z
 
     move-result v1
 
-    if-nez v1, :cond_95
+    if-nez v1, :cond_d7
 
-    .line 365
-    :cond_8a
+    .line 383
+    :cond_cc
     new-instance v0, Ljava/io/File;
 
     invoke-static {}, Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
@@ -1540,39 +1614,39 @@
 
     invoke-direct {v0, v1, v2}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 367
-    :cond_95
+    .line 385
+    :cond_d7
     invoke-virtual {v0}, Ljava/io/File;->exists()Z
 
     move-result v1
 
-    if-nez v1, :cond_9f
+    if-nez v1, :cond_e1
 
-    .line 368
+    .line 386
     invoke-static {}, Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
 
     move-result-object v0
 
-    .line 370
-    :cond_9f
+    .line 388
+    :cond_e1
     iput-object v0, p0, Lbl/afm5;->folderPickerCurrentDir:Ljava/io/File;
 
-    .line 373
+    .line 391
     new-instance v4, Landroid/widget/FrameLayout;
 
     invoke-direct {v4, v3}, Landroid/widget/FrameLayout;-><init>(Landroid/content/Context;)V
 
-    .line 376
+    .line 394
     new-instance v1, Landroid/view/View;
 
     invoke-direct {v1, v3}, Landroid/view/View;-><init>(Landroid/content/Context;)V
 
-    .line 377
+    .line 395
     const/4 v2, 0x0
 
     invoke-virtual {v1, v2}, Landroid/view/View;->setBackgroundColor(I)V
 
-    .line 378
+    .line 396
     new-instance v2, Landroid/widget/FrameLayout$LayoutParams;
 
     const/4 v5, -0x1
@@ -1583,17 +1657,17 @@
 
     invoke-virtual {v4, v1, v2}, Landroid/widget/FrameLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 384
+    .line 402
     new-instance v5, Landroid/widget/LinearLayout;
 
     invoke-direct {v5, v3}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
 
-    .line 385
+    .line 403
     const/4 v1, 0x1
 
     invoke-virtual {v5, v1}, Landroid/widget/LinearLayout;->setOrientation(I)V
 
-    .line 386
+    .line 404
     const-string v1, "#CC000000"
 
     invoke-static {v1}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -1602,14 +1676,14 @@
 
     invoke-virtual {v5, v1}, Landroid/widget/LinearLayout;->setBackgroundColor(I)V
 
-    .line 387
+    .line 405
     new-instance v1, Landroid/widget/FrameLayout$LayoutParams;
 
     const/4 v2, 0x1
 
     const/high16 v6, 0x43960000    # 300.0f
 
-    .line 390
+    .line 408
     invoke-virtual {v3}, Landroid/app/Activity;->getResources()Landroid/content/res/Resources;
 
     move-result-object v7
@@ -1618,7 +1692,7 @@
 
     move-result-object v7
 
-    .line 388
+    .line 406
     invoke-static {v2, v6, v7}, Landroid/util/TypedValue;->applyDimension(IFLandroid/util/DisplayMetrics;)F
 
     move-result v2
@@ -1629,37 +1703,37 @@
 
     invoke-direct {v1, v2, v6}, Landroid/widget/FrameLayout$LayoutParams;-><init>(II)V
 
-    .line 393
+    .line 411
     const/4 v2, 0x5
 
     iput v2, v1, Landroid/widget/FrameLayout$LayoutParams;->gravity:I
 
-    .line 394
+    .line 412
     invoke-virtual {v4, v5, v1}, Landroid/widget/FrameLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 397
+    .line 415
     new-instance v1, Landroid/widget/TextView;
 
     invoke-direct {v1, v3}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 398
+    .line 416
     const-string v2, "\u9009\u62e9\u4e0b\u8f7d\u6587\u4ef6\u5939"
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 399
+    .line 417
     const/4 v2, -0x1
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 400
+    .line 418
     const/4 v2, 0x2
 
     const/high16 v6, 0x41900000    # 18.0f
 
     invoke-virtual {v1, v2, v6}, Landroid/widget/TextView;->setTextSize(IF)V
 
-    .line 401
+    .line 419
     const/16 v2, 0x18
 
     const/16 v6, 0x18
@@ -1670,12 +1744,12 @@
 
     invoke-virtual {v1, v2, v6, v7, v8}, Landroid/widget/TextView;->setPadding(IIII)V
 
-    .line 402
+    .line 420
     const/16 v2, 0x11
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setGravity(I)V
 
-    .line 403
+    .line 421
     new-instance v2, Landroid/widget/LinearLayout$LayoutParams;
 
     const/4 v6, -0x1
@@ -1686,24 +1760,24 @@
 
     invoke-virtual {v5, v1, v2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 409
+    .line 427
     new-instance v6, Landroid/widget/TextView;
 
     invoke-direct {v6, v3}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 410
+    .line 428
     const v1, -0x333334
 
     invoke-virtual {v6, v1}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 411
+    .line 429
     const/4 v1, 0x2
 
     const/high16 v2, 0x41600000    # 14.0f
 
     invoke-virtual {v6, v1, v2}, Landroid/widget/TextView;->setTextSize(IF)V
 
-    .line 412
+    .line 430
     const/16 v1, 0x18
 
     const/16 v2, 0x8
@@ -1714,7 +1788,7 @@
 
     invoke-virtual {v6, v1, v2, v7, v8}, Landroid/widget/TextView;->setPadding(IIII)V
 
-    .line 413
+    .line 431
     new-instance v1, Landroid/widget/LinearLayout$LayoutParams;
 
     const/4 v2, -0x1
@@ -1725,12 +1799,12 @@
 
     invoke-virtual {v5, v6, v1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 419
+    .line 437
     new-instance v7, Landroid/widget/ListView;
 
     invoke-direct {v7, v3}, Landroid/widget/ListView;-><init>(Landroid/content/Context;)V
 
-    .line 420
+    .line 438
     new-instance v1, Landroid/graphics/drawable/ColorDrawable;
 
     const v2, -0xbbbbbc
@@ -1739,32 +1813,32 @@
 
     invoke-virtual {v7, v1}, Landroid/widget/ListView;->setDivider(Landroid/graphics/drawable/Drawable;)V
 
-    .line 421
+    .line 439
     const/4 v1, 0x1
 
     invoke-virtual {v7, v1}, Landroid/widget/ListView;->setDividerHeight(I)V
 
-    .line 422
+    .line 440
     const/4 v1, 0x1
 
     invoke-virtual {v7, v1}, Landroid/widget/ListView;->setFocusable(Z)V
 
-    .line 423
+    .line 441
     const/4 v1, 0x1
 
     invoke-virtual {v7, v1}, Landroid/widget/ListView;->setFocusableInTouchMode(Z)V
 
-    .line 424
+    .line 442
     const/high16 v1, 0x20000
 
     invoke-virtual {v7, v1}, Landroid/widget/ListView;->setDescendantFocusability(I)V
 
-    .line 425
+    .line 443
     const/4 v1, 0x0
 
     invoke-virtual {v7, v1}, Landroid/widget/ListView;->setCacheColorHint(I)V
 
-    .line 426
+    .line 444
     new-instance v1, Landroid/widget/LinearLayout$LayoutParams;
 
     const/4 v2, -0x1
@@ -1777,59 +1851,59 @@
 
     invoke-virtual {v5, v7, v1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 431
+    .line 449
     new-instance v8, Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-direct {v8, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;-><init>(Landroid/content/Context;)V
 
-    .line 432
+    .line 450
     const/4 v1, 0x1
 
     invoke-virtual {v8, v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setFocusable(Z)V
 
-    .line 433
+    .line 451
     const/4 v1, 0x1
 
     invoke-virtual {v8, v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setFocusableInTouchMode(Z)V
 
-    .line 434
+    .line 452
     const v1, 0x7f0700f0
 
     invoke-virtual {v8, v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 435
+    .line 453
     const v1, 0x7f0700e8
 
     invoke-virtual {v8, v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
 
-    .line 436
+    .line 454
     new-instance v9, Landroid/widget/TextView;
 
     invoke-direct {v9, v3}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 437
+    .line 455
     const-string v1, "\u786e\u5b9a"
 
     invoke-virtual {v9, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 438
+    .line 456
     const/4 v1, -0x1
 
     invoke-virtual {v9, v1}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 439
+    .line 457
     const/4 v1, 0x2
 
     const/high16 v2, 0x41900000    # 18.0f
 
     invoke-virtual {v9, v1, v2}, Landroid/widget/TextView;->setTextSize(IF)V
 
-    .line 440
+    .line 458
     const/16 v1, 0x11
 
     invoke-virtual {v9, v1}, Landroid/widget/TextView;->setGravity(I)V
 
-    .line 441
+    .line 459
     new-instance v1, Landroid/widget/FrameLayout$LayoutParams;
 
     const/4 v2, -0x1
@@ -1840,12 +1914,12 @@
 
     invoke-virtual {v8, v9, v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 445
+    .line 463
     const/4 v1, 0x1
 
     const/high16 v2, 0x42600000    # 56.0f
 
-    .line 447
+    .line 465
     invoke-virtual {v3}, Landroid/app/Activity;->getResources()Landroid/content/res/Resources;
 
     move-result-object v10
@@ -1854,21 +1928,21 @@
 
     move-result-object v10
 
-    .line 445
+    .line 463
     invoke-static {v1, v2, v10}, Landroid/util/TypedValue;->applyDimension(IFLandroid/util/DisplayMetrics;)F
 
     move-result v1
 
     float-to-int v1, v1
 
-    .line 448
+    .line 466
     new-instance v2, Landroid/widget/LinearLayout$LayoutParams;
 
     const/4 v10, -0x1
 
     invoke-direct {v2, v10, v1}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
 
-    .line 450
+    .line 468
     const/16 v1, 0x18
 
     const/16 v10, 0x10
@@ -1879,67 +1953,67 @@
 
     invoke-virtual {v2, v1, v10, v11, v12}, Landroid/widget/LinearLayout$LayoutParams;->setMargins(IIII)V
 
-    .line 451
+    .line 469
     invoke-virtual {v5, v8, v2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 458
+    .line 476
     iget-boolean v1, p0, Lbl/afm5;->safAvailable:Z
 
-    if-eqz v1, :cond_2fc
+    if-eqz v1, :cond_33e
 
-    .line 459
+    .line 477
     new-instance v2, Lcom/bilibili/tv/widget/DrawFrameLayout;
 
     invoke-direct {v2, v3}, Lcom/bilibili/tv/widget/DrawFrameLayout;-><init>(Landroid/content/Context;)V
 
-    .line 460
+    .line 478
     const/4 v1, 0x1
 
     invoke-virtual {v2, v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setFocusable(Z)V
 
-    .line 461
+    .line 479
     const/4 v1, 0x1
 
     invoke-virtual {v2, v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setFocusableInTouchMode(Z)V
 
-    .line 462
+    .line 480
     const v1, 0x7f0700f0
 
     invoke-virtual {v2, v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setBackgroundResource(I)V
 
-    .line 463
+    .line 481
     const v1, 0x7f0700e8
 
     invoke-virtual {v2, v1}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setUpDrawable(I)V
 
-    .line 464
+    .line 482
     new-instance v1, Landroid/widget/TextView;
 
     invoke-direct {v1, v3}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 465
+    .line 483
     const-string v10, "\u4f7f\u7528\u7cfb\u7edf\u6587\u4ef6\u9009\u62e9\u5668\uff08U\u76d8/\u79fb\u52a8\u786c\u76d8\uff09"
 
     invoke-virtual {v1, v10}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 466
+    .line 484
     const/4 v10, -0x1
 
     invoke-virtual {v1, v10}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 467
+    .line 485
     const/4 v10, 0x2
 
     const/high16 v11, 0x41600000    # 14.0f
 
     invoke-virtual {v1, v10, v11}, Landroid/widget/TextView;->setTextSize(IF)V
 
-    .line 468
+    .line 486
     const/16 v10, 0x11
 
     invoke-virtual {v1, v10}, Landroid/widget/TextView;->setGravity(I)V
 
-    .line 469
+    .line 487
     new-instance v10, Landroid/widget/FrameLayout$LayoutParams;
 
     const/4 v11, -0x1
@@ -1950,12 +2024,12 @@
 
     invoke-virtual {v2, v1, v10}, Lcom/bilibili/tv/widget/DrawFrameLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 473
+    .line 491
     const/4 v10, 0x1
 
     const/high16 v11, 0x42400000    # 48.0f
 
-    .line 475
+    .line 493
     invoke-virtual {v3}, Landroid/app/Activity;->getResources()Landroid/content/res/Resources;
 
     move-result-object v12
@@ -1964,21 +2038,21 @@
 
     move-result-object v12
 
-    .line 473
+    .line 491
     invoke-static {v10, v11, v12}, Landroid/util/TypedValue;->applyDimension(IFLandroid/util/DisplayMetrics;)F
 
     move-result v10
 
     float-to-int v10, v10
 
-    .line 476
+    .line 494
     new-instance v11, Landroid/widget/LinearLayout$LayoutParams;
 
     const/4 v12, -0x1
 
     invoke-direct {v11, v12, v10}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
 
-    .line 478
+    .line 496
     const/16 v10, 0x18
 
     const/16 v12, 0x8
@@ -1989,31 +2063,31 @@
 
     invoke-virtual {v11, v10, v12, v13, v14}, Landroid/widget/LinearLayout$LayoutParams;->setMargins(IIII)V
 
-    .line 479
+    .line 497
     invoke-virtual {v5, v2, v11}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 482
+    .line 500
     new-instance v5, Lbl/afm5$1;
 
     invoke-direct {v5, p0, v3}, Lbl/afm5$1;-><init>(Lbl/afm5;Landroid/app/Activity;)V
 
     invoke-virtual {v2, v5}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 502
-    :goto_238
+    .line 520
+    :goto_27a
     new-instance v5, Landroid/app/Dialog;
 
     invoke-direct {v5, v3}, Landroid/app/Dialog;-><init>(Landroid/content/Context;)V
 
-    .line 503
+    .line 521
     const/4 v10, 0x1
 
     invoke-virtual {v5, v10}, Landroid/app/Dialog;->requestWindowFeature(I)Z
 
-    .line 504
+    .line 522
     invoke-virtual {v5, v4}, Landroid/app/Dialog;->setContentView(Landroid/view/View;)V
 
-    .line 505
+    .line 523
     invoke-virtual {v5}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object v4
@@ -2026,7 +2100,7 @@
 
     invoke-virtual {v4, v10}, Landroid/view/Window;->setBackgroundDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 506
+    .line 524
     invoke-virtual {v5}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object v4
@@ -2037,7 +2111,7 @@
 
     invoke-virtual {v4, v10, v11}, Landroid/view/Window;->setFlags(II)V
 
-    .line 507
+    .line 525
     invoke-virtual {v5}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object v4
@@ -2046,32 +2120,32 @@
 
     move-result-object v4
 
-    .line 508
+    .line 526
     const/4 v10, -0x1
 
     iput v10, v4, Landroid/view/WindowManager$LayoutParams;->width:I
 
-    .line 509
+    .line 527
     const/4 v10, -0x1
 
     iput v10, v4, Landroid/view/WindowManager$LayoutParams;->height:I
 
-    .line 510
+    .line 528
     invoke-virtual {v5}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object v10
 
     invoke-virtual {v10, v4}, Landroid/view/Window;->setAttributes(Landroid/view/WindowManager$LayoutParams;)V
 
-    .line 511
+    .line 529
     const/4 v4, 0x0
 
     invoke-virtual {v5, v4}, Landroid/app/Dialog;->setCanceledOnTouchOutside(Z)V
 
-    .line 512
+    .line 530
     iput-object v5, p0, Lbl/afm5;->folderPickerDialog:Landroid/app/Dialog;
 
-    .line 514
+    .line 532
     const-string v4, "afm5"
 
     new-instance v10, Ljava/lang/StringBuilder;
@@ -2098,61 +2172,61 @@
 
     invoke-static {v4, v10}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 517
+    .line 535
     invoke-direct {p0, v7, v6, v0}, Lbl/afm5;->loadFolderList(Landroid/widget/ListView;Landroid/widget/TextView;Ljava/io/File;)V
 
-    .line 520
+    .line 538
     new-instance v0, Lbl/afm5$2;
 
     invoke-direct {v0, p0, v3}, Lbl/afm5$2;-><init>(Lbl/afm5;Landroid/app/Activity;)V
 
     invoke-virtual {v8, v0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 553
+    .line 571
     new-instance v0, Lbl/afm5$3;
 
     invoke-direct {v0, p0, v7, v8}, Lbl/afm5$3;-><init>(Lbl/afm5;Landroid/widget/ListView;Lcom/bilibili/tv/widget/DrawFrameLayout;)V
 
     invoke-virtual {v7, v0}, Landroid/widget/ListView;->setOnKeyListener(Landroid/view/View$OnKeyListener;)V
 
-    .line 570
+    .line 588
     new-instance v0, Lbl/afm5$4;
 
     invoke-direct {v0, p0, v7, v2}, Lbl/afm5$4;-><init>(Lbl/afm5;Landroid/widget/ListView;Lcom/bilibili/tv/widget/DrawFrameLayout;)V
 
     invoke-virtual {v8, v0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnKeyListener(Landroid/view/View$OnKeyListener;)V
 
-    .line 588
+    .line 606
     iget-boolean v0, p0, Lbl/afm5;->safAvailable:Z
 
-    if-eqz v0, :cond_2c2
+    if-eqz v0, :cond_304
 
-    .line 589
+    .line 607
     new-instance v0, Lbl/afm5$5;
 
     invoke-direct {v0, p0, v8}, Lbl/afm5$5;-><init>(Lbl/afm5;Lcom/bilibili/tv/widget/DrawFrameLayout;)V
 
     invoke-virtual {v2, v0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnKeyListener(Landroid/view/View$OnKeyListener;)V
 
-    .line 601
+    .line 619
     new-instance v0, Lbl/afm5$6;
 
     invoke-direct {v0, p0, v2, v1}, Lbl/afm5$6;-><init>(Lbl/afm5;Lcom/bilibili/tv/widget/DrawFrameLayout;Landroid/widget/TextView;)V
 
     invoke-virtual {v2, v0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 617
-    :cond_2c2
+    .line 635
+    :cond_304
     new-instance v0, Lbl/afm5$7;
 
     invoke-direct {v0, p0, v8, v9}, Lbl/afm5$7;-><init>(Lbl/afm5;Lcom/bilibili/tv/widget/DrawFrameLayout;Landroid/widget/TextView;)V
 
     invoke-virtual {v8, v0}, Lcom/bilibili/tv/widget/DrawFrameLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 632
+    .line 650
     invoke-virtual {v5}, Landroid/app/Dialog;->show()V
 
-    .line 635
+    .line 653
     new-instance v0, Lbl/afm5$8;
 
     invoke-direct {v0, p0, v7}, Lbl/afm5$8;-><init>(Lbl/afm5;Landroid/widget/ListView;)V
@@ -2161,17 +2235,17 @@
 
     goto/16 :goto_6
 
-    .line 354
-    :cond_2d7
+    .line 372
+    :cond_319
     const/4 v0, 0x0
 
-    goto/16 :goto_60
+    goto/16 :goto_a2
 
-    .line 355
-    :catch_2da
+    .line 373
+    :catch_31c
     move-exception v0
 
-    .line 356
+    .line 374
     const-string v1, "afm5"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -2198,28 +2272,28 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 357
+    .line 375
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lbl/afm5;->safAvailable:Z
 
-    goto/16 :goto_62
+    goto/16 :goto_a4
 
-    .line 495
-    :cond_2fc
+    .line 513
+    :cond_33e
     const/4 v2, 0x0
 
-    .line 496
+    .line 514
     const/4 v1, 0x0
 
-    .line 497
+    .line 515
     const-string v5, "afm5"
 
     const-string v10, "\u7cfb\u7edf\u6587\u4ef6\u7ba1\u7406\u5668\u4e0d\u53ef\u7528\uff0c\u9690\u85cf\u7cfb\u7edf\u6587\u4ef6\u9009\u62e9\u5668\u6309\u94ae"
 
     invoke-static {v5, v10}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto/16 :goto_238
+    goto/16 :goto_27a
 .end method
 
 .method private updateButtonState(Lcom/bilibili/tv/widget/DrawFrameLayout;Z)V
@@ -2674,19 +2748,19 @@
     .locals 6
 
     .prologue
-    .line 673
+    .line 691
     invoke-super {p0, p1, p2, p3}, Lbl/adw;->onActivityResult(IILandroid/content/Intent;)V
 
-    .line 674
+    .line 692
     const/16 v0, 0x3eb
 
     if-eq p1, v0, :cond_8
 
-    .line 711
+    .line 729
     :goto_7
     return-void
 
-    .line 677
+    .line 695
     :cond_8
     const/4 v0, -0x1
 
@@ -2700,7 +2774,7 @@
 
     if-nez v0, :cond_1b
 
-    .line 678
+    .line 696
     :cond_13
     const-string v0, "afm5"
 
@@ -2710,13 +2784,13 @@
 
     goto :goto_7
 
-    .line 681
+    .line 699
     :cond_1b
     invoke-virtual {p3}, Landroid/content/Intent;->getData()Landroid/net/Uri;
 
     move-result-object v2
 
-    .line 682
+    .line 700
     const-string v0, "afm5"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -2743,10 +2817,10 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 686
+    .line 704
     const/4 v0, 0x3
 
-    .line 688
+    .line 706
     :try_start_3c
     invoke-virtual {p0}, Lbl/afm5;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
@@ -2758,7 +2832,7 @@
 
     invoke-virtual {v1, v2, v0}, Landroid/content/ContentResolver;->takePersistableUriPermission(Landroid/net/Uri;I)V
 
-    .line 689
+    .line 707
     const-string v0, "afm5"
 
     const-string v1, "\u6301\u4e45\u5316SAF\u6388\u6743\u6210\u529f"
@@ -2767,11 +2841,11 @@
     :try_end_4e
     .catch Ljava/lang/Exception; {:try_start_3c .. :try_end_4e} :catch_b4
 
-    .line 695
+    .line 713
     :goto_4e
     const-string v1, ""
 
-    .line 697
+    .line 715
     :try_start_50
     invoke-virtual {p0}, Lbl/afm5;->getActivity()Landroid/support/v4/app/FragmentActivity;
 
@@ -2787,7 +2861,7 @@
 
     move-result-object v0
 
-    .line 701
+    .line 719
     :goto_5c
     if-eqz v0, :cond_64
 
@@ -2797,13 +2871,13 @@
 
     if-eqz v1, :cond_68
 
-    .line 702
+    .line 720
     :cond_64
     invoke-virtual {v2}, Landroid/net/Uri;->getLastPathSegment()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 705
+    .line 723
     :cond_68
     invoke-virtual {v2}, Landroid/net/Uri;->toString()Ljava/lang/String;
 
@@ -2811,7 +2885,7 @@
 
     iput-object v1, p0, Lbl/afm5;->downloadUri:Ljava/lang/String;
 
-    .line 706
+    .line 724
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -2832,7 +2906,7 @@
 
     iput-object v0, p0, Lbl/afm5;->downloadPath:Ljava/lang/String;
 
-    .line 707
+    .line 725
     const-string v0, "afm5"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -2869,22 +2943,22 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 708
+    .line 726
     invoke-direct {p0}, Lbl/afm5;->updateUI()V
 
-    .line 709
+    .line 727
     invoke-direct {p0}, Lbl/afm5;->saveSettings()V
 
-    .line 710
+    .line 728
     invoke-direct {p0}, Lbl/afm5;->hideFolderPicker()V
 
     goto/16 :goto_7
 
-    .line 690
+    .line 708
     :catch_b4
     move-exception v0
 
-    .line 691
+    .line 709
     const-string v1, "afm5"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -2913,11 +2987,11 @@
 
     goto/16 :goto_4e
 
-    .line 698
+    .line 716
     :catch_d3
     move-exception v0
 
-    .line 699
+    .line 717
     const-string v3, "afm5"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -3500,21 +3574,21 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 648
+    .line 666
     invoke-super {p0, p1, p2, p3}, Lbl/adw;->onRequestPermissionsResult(I[Ljava/lang/String;[I)V
 
-    .line 649
+    .line 667
     const/16 v1, 0x3ea
 
     if-ne p1, v1, :cond_1f
 
-    .line 650
+    .line 668
     const/4 v1, 0x1
 
-    .line 651
+    .line 669
     if-eqz p3, :cond_13
 
-    .line 652
+    .line 670
     array-length v3, p3
 
     move v2, v0
@@ -3524,29 +3598,29 @@
 
     aget v4, p3, v2
 
-    .line 653
+    .line 671
     if-eqz v4, :cond_20
 
-    .line 661
+    .line 679
     :cond_13
     :goto_13
     if-eqz v0, :cond_1f
 
-    .line 662
+    .line 680
     const-string v0, "afm5"
 
     const-string v1, "\u5b58\u50a8\u6743\u9650\u5df2\u6388\u4e88\uff0c\u91cd\u65b0\u6253\u5f00\u6587\u4ef6\u5939\u9009\u62e9\u5668"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 663
+    .line 681
     invoke-direct {p0}, Lbl/afm5;->showFolderPicker()V
 
-    .line 666
+    .line 684
     :cond_1f
     return-void
 
-    .line 652
+    .line 670
     :cond_20
     add-int/lit8 v2, v2, 0x1
 
