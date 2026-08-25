@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->setVideoPosition(I)V
+    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->setEbookPercent(I)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1030
+    .line 1008
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$19;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,12 +40,12 @@
     .locals 1
 
     .prologue
-    .line 1033
+    .line 1011
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$19;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-    # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->applyVideoPosition()V
-    invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$2000(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)V
+    # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->applyEbookPanelPercent()V
+    invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$1900(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)V
 
-    .line 1034
+    .line 1012
     return-void
 .end method

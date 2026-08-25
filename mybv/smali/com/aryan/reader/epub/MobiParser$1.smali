@@ -36,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 271
+    .line 284
     iput-object p1, p0, Lcom/aryan/reader/epub/MobiParser$1;->this$0:Lcom/aryan/reader/epub/MobiParser;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -50,7 +50,7 @@
     .locals 2
 
     .prologue
-    .line 274
+    .line 287
     invoke-virtual {p1}, Lcom/aryan/reader/epub/MobiParser$ParsedMobiResource;->getUid()I
 
     move-result v0
@@ -70,7 +70,7 @@
     .locals 1
 
     .prologue
-    .line 271
+    .line 284
     check-cast p1, Lcom/aryan/reader/epub/MobiParser$ParsedMobiResource;
 
     check-cast p2, Lcom/aryan/reader/epub/MobiParser$ParsedMobiResource;

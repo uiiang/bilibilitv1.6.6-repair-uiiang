@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->setEbookPercent(I)V
+    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->showChapterList()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1000
+    .line 953
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$18;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -37,15 +37,22 @@
 
 # virtual methods
 .method public run()V
-    .locals 1
+    .locals 2
 
     .prologue
-    .line 1003
+    .line 956
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$18;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-    # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->applyEbookPanelPercent()V
-    invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$1900(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)V
+    iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$18;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-    .line 1004
+    # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->currentChapterList:Ljava/util/List;
+    invoke-static {v1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$1700(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Ljava/util/List;
+
+    move-result-object v1
+
+    # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->createChapterListView(Ljava/util/List;)V
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$1800(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Ljava/util/List;)V
+
+    .line 957
     return-void
 .end method

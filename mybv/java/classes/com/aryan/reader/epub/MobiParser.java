@@ -230,6 +230,19 @@ public class MobiParser {
 
             List<Chapter> chapters = splitIntoChapters(parsedData.getRawHtmlContent(), parsedData.getToc(), imageMap, cssFlowMap);
 
+            // 关键修复：设置章节baseUrl，用于WebView解析章节HTML中相对路径的图片资源
+            // MOBI资源以文件形式保存在extractionDir下（如images/xxx.jpeg），baseUrl指向该目录后，
+            // 显示层cleanChapterHtml能把本地图片转base64内嵌显示，WebView也能正确解析相对路径
+            String chapterBaseUrl = "file://" + extractionDir.getAbsolutePath() + "/";
+            for (Chapter chapter : chapters) {
+                chapter.setBaseUrl(chapterBaseUrl);
+            }
+
+            // 关键修复：章节HTML落盘为独立文件。MOBI章节内容仅存于内存/metadata.json缓存，
+            // 章节缓存（上限5章）释放htmlContent后无法从磁盘恢复，往回翻会显示"章节内容为空"。
+            // 落盘后显示层loadChapterContentFromFile可按htmlFilePath从磁盘恢复章节内容。
+            saveChapterHtmlFiles(chapters, extractionDir);
+
             Book book = new Book();
             book.setBookId(bookId);
             book.setTitle(parsedData.getTitle() != null ? parsedData.getTitle() : "Unknown Title");
@@ -334,6 +347,37 @@ public class MobiParser {
         }
     }
     
+    /**
+     * 将章节HTML内容落盘为独立文件
+     * 关键修复：MOBI章节内容仅存于内存/metadata.json缓存，没有独立HTML文件。
+     * 章节缓存（上限5章）释放htmlContent后无法从磁盘恢复，往回翻会显示"章节内容为空"。
+     * 落盘后显示层loadChapterContentFromFile可按htmlFilePath从磁盘恢复章节内容，形成完整闭环。
+     */
+    private void saveChapterHtmlFiles(List<Chapter> chapters, File extractionDir) {
+        if (chapters == null || extractionDir == null) {
+            return;
+        }
+        for (Chapter chapter : chapters) {
+            String htmlContent = chapter.getHtmlContent();
+            String filePath = chapter.getHtmlFilePath();
+            if (htmlContent == null || htmlContent.isEmpty() || filePath == null || filePath.isEmpty()) {
+                continue;
+            }
+            try {
+                File chapterFile = new File(extractionDir, filePath);
+                if (chapterFile.exists()) {
+                    continue; // 已落盘，跳过
+                }
+                FileOutputStream fos = new FileOutputStream(chapterFile);
+                fos.write(htmlContent.getBytes("UTF-8"));
+                fos.close();
+                Log.i(TAG, "章节HTML已落盘: " + filePath + ", 大小: " + htmlContent.length());
+            } catch (Exception e) {
+                Log.e(TAG, "章节HTML落盘失败: " + filePath, e);
+            }
+        }
+    }
+
     private String processChapterHtml(String chapterHtml, Map<Integer, String> imageMap, Map<String, String> cssFlowMap) {
         if (chapterHtml == null) return "";
         
@@ -519,6 +563,12 @@ public class MobiParser {
             // 解析章节列表
             org.json.JSONArray chaptersArray = jsonObj.optJSONArray("chapters");
             if (chaptersArray != null) {
+                // 关键修复：缓存未保存baseUrl字段，从extractionPath推导并恢复到每个章节，
+                // 否则从缓存打开的书图片相对路径无法解析（与parse()首次解析时一致）
+                String restoredBaseUrl = null;
+                if (book.getExtractionPath() != null && !book.getExtractionPath().isEmpty()) {
+                    restoredBaseUrl = "file://" + book.getExtractionPath() + "/";
+                }
                 java.util.List<com.bilibili.tv.ebook.model.Chapter> chapters = new java.util.ArrayList<>();
                 for (int i = 0; i < chaptersArray.length(); i++) {
                     org.json.JSONObject chapterObj = chaptersArray.getJSONObject(i);
@@ -528,6 +578,9 @@ public class MobiParser {
                     chapter.setTitle(chapterObj.optString("title"));
                     chapter.setHtmlFilePath(chapterObj.optString("htmlFilePath"));
                     chapter.setDepth(chapterObj.optInt("depth"));
+                    if (restoredBaseUrl != null) {
+                        chapter.setBaseUrl(restoredBaseUrl);
+                    }
 
                     // 关键修复：MOBI章节内容保存在JSON中
                     String htmlContent = chapterObj.optString("htmlContent");
@@ -540,6 +593,8 @@ public class MobiParser {
                     chapters.add(chapter);
                 }
                 book.setChapters(chapters);
+                // 关键修复：旧缓存章节可能未落盘，恢复时补齐落盘，保证缓存释放后可回退
+                saveChapterHtmlFiles(chapters, extractionDir);
             }
 
             Log.i(TAG, "缓存元数据加载成功: " + book.getTitle() + ", 章节数: " + book.getChapters().size());

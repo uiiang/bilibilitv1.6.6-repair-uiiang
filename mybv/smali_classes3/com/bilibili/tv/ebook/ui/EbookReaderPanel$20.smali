@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->onMenuClosed()V
+    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->setVideoPosition(I)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1381
+    .line 1038
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$20;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -37,26 +37,15 @@
 
 # virtual methods
 .method public run()V
-    .locals 2
+    .locals 1
 
     .prologue
-    .line 1384
+    .line 1041
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$20;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-    # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->bookshelfListView:Landroid/widget/ListView;
-    invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$2100(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Landroid/widget/ListView;
+    # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->applyVideoPosition()V
+    invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$2000(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)V
 
-    move-result-object v0
-
-    invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
-
-    .line 1385
-    const-string v0, "EbookReader"
-
-    const-string v1, "onMenuClosed: \u7126\u70b9\u5df2\u6062\u590d\u5230\u4e66\u67b6\u5217\u8868"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 1386
+    .line 1042
     return-void
 .end method

@@ -1,4 +1,4 @@
-.class Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37$3;
+.class Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$38$3;
 .super Ljava/lang/Object;
 .source "EbookReaderPanel.java"
 
@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37;->run()V
+    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$38;->run()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -18,13 +18,13 @@
 
 
 # instance fields
-.field final synthetic this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37;
+.field final synthetic this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$38;
 
 .field final synthetic val$chapterList:Ljava/util/List;
 
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37;Ljava/util/List;)V
+.method constructor <init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$38;Ljava/util/List;)V
     .locals 0
     .annotation system Ldalvik/annotation/Signature;
         value = {
@@ -33,10 +33,10 @@
     .end annotation
 
     .prologue
-    .line 2750
-    iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37$3;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37;
+    .line 2795
+    iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$38$3;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$38;
 
-    iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37$3;->val$chapterList:Ljava/util/List;
+    iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$38$3;->val$chapterList:Ljava/util/List;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -49,16 +49,16 @@
     .locals 4
 
     .prologue
-    .line 2754
+    .line 2799
     const/4 v2, -0x1
 
-    .line 2755
+    .line 2800
     const/4 v0, 0x0
 
     move v1, v0
 
     :goto_3
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37$3;->val$chapterList:Ljava/util/List;
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$38$3;->val$chapterList:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->size()I
 
@@ -66,8 +66,8 @@
 
     if-ge v1, v0, :cond_5d
 
-    .line 2756
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37$3;->val$chapterList:Ljava/util/List;
+    .line 2801
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$38$3;->val$chapterList:Ljava/util/List;
 
     invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
@@ -75,39 +75,39 @@
 
     check-cast v0, Lcom/bilibili/tv/ebook/model/Chapter;
 
-    .line 2757
+    .line 2802
     invoke-virtual {v0}, Lcom/bilibili/tv/ebook/model/Chapter;->getChapterIndex()I
 
     move-result v0
 
-    iget-object v3, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37$3;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37;
+    iget-object v3, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$38$3;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$38;
 
-    iget-object v3, v3, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    iget-object v3, v3, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$38;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->currentChapterIndex:I
-    invoke-static {v3}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$4300(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)I
+    invoke-static {v3}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$4400(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)I
 
     move-result v3
 
     if-ne v0, v3, :cond_59
 
-    .line 2764
+    .line 2809
     :goto_21
     if-ltz v1, :cond_46
 
-    .line 2765
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37$3;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37;
+    .line 2810
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$38$3;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$38;
 
-    iget-object v0, v0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    iget-object v0, v0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$38;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->chapterListView:Landroid/widget/ListView;
-    invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$4100(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Landroid/widget/ListView;
+    invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$4200(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Landroid/widget/ListView;
 
     move-result-object v0
 
     invoke-virtual {v0, v1}, Landroid/widget/ListView;->setSelection(I)V
 
-    .line 2766
+    .line 2811
     const-string v0, "EbookReader"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -130,30 +130,30 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2770
+    .line 2815
     :cond_46
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37$3;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37;
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$38$3;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$38;
 
-    iget-object v0, v0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$37;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    iget-object v0, v0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$38;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->chapterListView:Landroid/widget/ListView;
-    invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$4100(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Landroid/widget/ListView;
+    invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$4200(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Landroid/widget/ListView;
 
     move-result-object v0
 
     invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
 
-    .line 2771
+    .line 2816
     const-string v0, "EbookReader"
 
     const-string v1, "\u7ae0\u8282\u5217\u8868\u5df2\u8bf7\u6c42\u7126\u70b9"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2772
+    .line 2817
     return-void
 
-    .line 2755
+    .line 2800
     :cond_59
     add-int/lit8 v0, v1, 0x1
 

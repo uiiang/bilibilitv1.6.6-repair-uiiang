@@ -3,7 +3,7 @@
 .source "EbookReaderPanel.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Landroid/widget/AdapterView$OnItemSelectedListener;
 
 
 # annotations
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1626
+    .line 1614
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$24;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,27 +36,41 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 2
+.method public onItemSelected(Landroid/widget/AdapterView;Landroid/view/View;IJ)V
+    .locals 1
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Landroid/widget/AdapterView",
+            "<*>;",
+            "Landroid/view/View;",
+            "IJ)V"
+        }
+    .end annotation
 
     .prologue
-    .line 1629
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$24;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
+    .line 1618
+    new-instance v0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$24$1;
 
-    # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->bookshelfListView:Landroid/widget/ListView;
-    invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$2100(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Landroid/widget/ListView;
+    invoke-direct {v0, p0, p1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$24$1;-><init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$24;Landroid/widget/AdapterView;)V
 
-    move-result-object v0
+    invoke-virtual {p1, v0}, Landroid/widget/AdapterView;->post(Ljava/lang/Runnable;)Z
 
-    invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
+    .line 1624
+    return-void
+.end method
 
-    .line 1630
-    const-string v0, "EbookReader"
+.method public onNothingSelected(Landroid/widget/AdapterView;)V
+    .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Landroid/widget/AdapterView",
+            "<*>;)V"
+        }
+    .end annotation
 
-    const-string v1, "\u4e66\u67b6\u5217\u8868\u5df2\u8bf7\u6c42\u7126\u70b9"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 1631
+    .prologue
+    .line 1628
     return-void
 .end method

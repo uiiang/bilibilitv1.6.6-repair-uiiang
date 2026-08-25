@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->onVideoSwitch()V
+    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->onMenuClosed()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,23 +20,14 @@
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-.field final synthetic val$activity:Landroid/app/Activity;
-
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Landroid/app/Activity;)V
+.method constructor <init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)V
     .locals 0
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "()V"
-        }
-    .end annotation
 
     .prologue
-    .line 1479
+    .line 1389
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$21;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
-
-    iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$21;->val$activity:Landroid/app/Activity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -46,49 +37,26 @@
 
 # virtual methods
 .method public run()V
-    .locals 4
+    .locals 2
 
     .prologue
-    .line 1482
-    new-instance v0, Landroid/util/DisplayMetrics;
+    .line 1392
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$21;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-    invoke-direct {v0}, Landroid/util/DisplayMetrics;-><init>()V
+    # getter for: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->bookshelfListView:Landroid/widget/ListView;
+    invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$2100(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)Landroid/widget/ListView;
 
-    .line 1483
-    iget-object v1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$21;->val$activity:Landroid/app/Activity;
+    move-result-object v0
 
-    invoke-virtual {v1}, Landroid/app/Activity;->getWindowManager()Landroid/view/WindowManager;
+    invoke-virtual {v0}, Landroid/widget/ListView;->requestFocus()Z
 
-    move-result-object v1
+    .line 1393
+    const-string v0, "EbookReader"
 
-    invoke-interface {v1}, Landroid/view/WindowManager;->getDefaultDisplay()Landroid/view/Display;
+    const-string v1, "onMenuClosed: \u7126\u70b9\u5df2\u6062\u590d\u5230\u4e66\u67b6\u5217\u8868"
 
-    move-result-object v1
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    invoke-virtual {v1, v0}, Landroid/view/Display;->getMetrics(Landroid/util/DisplayMetrics;)V
-
-    .line 1484
-    iget v1, v0, Landroid/util/DisplayMetrics;->widthPixels:I
-
-    .line 1485
-    iget v0, v0, Landroid/util/DisplayMetrics;->heightPixels:I
-
-    .line 1487
-    iget-object v2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$21;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
-
-    iget-object v3, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$21;->val$activity:Landroid/app/Activity;
-
-    # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->shrinkVideoView(Landroid/app/Activity;II)V
-    invoke-static {v2, v3, v1, v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$2200(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Landroid/app/Activity;II)V
-
-    .line 1488
-    iget-object v2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$21;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
-
-    iget-object v3, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$21;->val$activity:Landroid/app/Activity;
-
-    # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->shrinkDanmakuView(Landroid/app/Activity;II)V
-    invoke-static {v2, v3, v1, v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$2300(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;Landroid/app/Activity;II)V
-
-    .line 1489
+    .line 1394
     return-void
 .end method

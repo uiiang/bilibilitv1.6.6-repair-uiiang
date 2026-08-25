@@ -3,7 +3,7 @@
 .source "EbookReaderPanel.java"
 
 # interfaces
-.implements Landroid/widget/AdapterView$OnItemSelectedListener;
+.implements Landroid/view/View$OnFocusChangeListener;
 
 
 # annotations
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 629
+    .line 624
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$6;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,41 +36,17 @@
 
 
 # virtual methods
-.method public onItemSelected(Landroid/widget/AdapterView;Landroid/view/View;IJ)V
+.method public onFocusChange(Landroid/view/View;Z)V
     .locals 1
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "(",
-            "Landroid/widget/AdapterView",
-            "<*>;",
-            "Landroid/view/View;",
-            "IJ)V"
-        }
-    .end annotation
 
     .prologue
-    .line 632
+    .line 627
     new-instance v0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$6$1;
 
-    invoke-direct {v0, p0, p1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$6$1;-><init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$6;Landroid/widget/AdapterView;)V
+    invoke-direct {v0, p0, p1}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$6$1;-><init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$6;Landroid/view/View;)V
 
-    invoke-virtual {p1, v0}, Landroid/widget/AdapterView;->post(Ljava/lang/Runnable;)Z
+    invoke-virtual {p1, v0}, Landroid/view/View;->post(Ljava/lang/Runnable;)Z
 
-    .line 638
-    return-void
-.end method
-
-.method public onNothingSelected(Landroid/widget/AdapterView;)V
-    .locals 0
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "(",
-            "Landroid/widget/AdapterView",
-            "<*>;)V"
-        }
-    .end annotation
-
-    .prologue
-    .line 642
+    .line 633
     return-void
 .end method

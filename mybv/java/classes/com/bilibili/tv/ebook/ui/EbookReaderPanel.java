@@ -65,6 +65,14 @@ public class EbookReaderPanel {
     private Book currentBook = null; // 当前书籍
     private int currentChapterIndex = 0; // 当前章节索引
     private android.webkit.WebView ebookWebView = null; // 电子书WebView
+    private int chapterLoadId = 0; // 章节加载计数器，用于忽略过期的onPageFinished回调
+    private final java.util.LinkedHashMap<String, String> imageBase64Cache = new java.util.LinkedHashMap<String, String>(16, 0.75f, true) {
+        // 限制base64图片缓存条目数（最多5张），防止图片较多的书籍导致内存持续增长
+        @Override
+        protected boolean removeEldestEntry(java.util.Map.Entry<String, String> eldest) {
+            return size() > 5;
+        }
+    };
     private android.widget.ListView chapterListView = null; // 章节列表View（使用ListView替代RecyclerView）
     private boolean isChapterListShown = false; // 章节列表是否显示
     private EbookCacheManager ebookCacheManager = null; // 电子书缓存管理器
@@ -2269,88 +2277,94 @@ public class EbookReaderPanel {
             Log.i(TAG_EBOOK, "已清空电子书面板");
         }
 
-        // 关键修复：销毁旧的WebView，避免内存泄漏
-        // 每次显示新章节时，都需要销毁旧的WebView，因为WebView不能复用
-        destroyEbookWebView();
-
-        // 创建新的WebView
+        // 性能优化：复用WebView实例，避免每次切换章节都销毁重建
+        // 销毁+重建会杀掉渲染进程，新WebView需要冷启动渲染进程（日志实测约2秒延迟）
+        // WebView只需创建一次，切换章节时直接重新加载内容，渲染进程保持存活
         final Activity activity = host.getActivity();
         if (activity == null) {
             Log.e(TAG_EBOOK, "Activity is null, cannot display book content");
             return;
         }
-        ebookWebView = new android.webkit.WebView(activity);
-        android.widget.FrameLayout.LayoutParams params = new android.widget.FrameLayout.LayoutParams(
-            android.widget.FrameLayout.LayoutParams.MATCH_PARENT,
-            android.widget.FrameLayout.LayoutParams.MATCH_PARENT
-        );
-        ebookWebView.setLayoutParams(params);
+        if (ebookWebView == null) {
+            // 首次显示时创建WebView
+            ebookWebView = new android.webkit.WebView(activity);
+            android.widget.FrameLayout.LayoutParams params = new android.widget.FrameLayout.LayoutParams(
+                android.widget.FrameLayout.LayoutParams.MATCH_PARENT,
+                android.widget.FrameLayout.LayoutParams.MATCH_PARENT
+            );
+            ebookWebView.setLayoutParams(params);
 
-        // 配置WebView
-        android.webkit.WebSettings settings = ebookWebView.getSettings();
-        settings.setJavaScriptEnabled(true);
-        settings.setDomStorageEnabled(true);
-        settings.setSupportZoom(true);
-        settings.setBuiltInZoomControls(true);
-        // 关键修复：禁用缩放控制条显示，否则鼠标滚轮滚动时右下角出现放大缩小按钮，
-        // 且按钮出现后 WebView 进入缩放控制状态，导致阅读页面不再响应鼠标左键点击
-        settings.setDisplayZoomControls(false);
-        settings.setTextSize(android.webkit.WebSettings.TextSize.NORMAL);
+            // 配置WebView
+            android.webkit.WebSettings settings = ebookWebView.getSettings();
+            settings.setJavaScriptEnabled(true);
+            settings.setDomStorageEnabled(true);
+            settings.setSupportZoom(true);
+            settings.setBuiltInZoomControls(true);
+            // 关键修复：禁用缩放控制条显示，否则鼠标滚轮滚动时右下角出现放大缩小按钮，
+            // 且按钮出现后 WebView 进入缩放控制状态，导致阅读页面不再响应鼠标左键点击
+            settings.setDisplayZoomControls(false);
+            settings.setTextSize(android.webkit.WebSettings.TextSize.NORMAL);
 
-        // 关键修复：设置为不可聚焦，避免Android焦点系统拦截方向键
-        ebookWebView.setFocusable(false);
-        ebookWebView.setFocusableInTouchMode(false);
+            // 关键修复：设置为不可聚焦，避免Android焦点系统拦截方向键
+            ebookWebView.setFocusable(false);
+            ebookWebView.setFocusableInTouchMode(false);
 
-        // 使用OnTouchListener处理触摸和鼠标点击事件
-        // 直接监听ACTION_DOWN事件，不做事件源区分
-        ebookWebView.setOnTouchListener(new android.view.View.OnTouchListener() {
-            private long lastClickTime = 0;
+            // 使用OnTouchListener处理触摸和鼠标点击事件
+            // 直接监听ACTION_DOWN事件，不做事件源区分
+            ebookWebView.setOnTouchListener(new android.view.View.OnTouchListener() {
+                private long lastClickTime = 0;
 
-            @Override
-            public boolean onTouch(View v, android.view.MotionEvent event) {
-                // 鼠标滚轮滚动：调度保存阅读进度（防抖300ms）
-                // ACTION_SCROLL是鼠标滚轮产生的事件（API 12+），不拦截，让WebView正常滚动
-                if (event.getAction() == android.view.MotionEvent.ACTION_SCROLL) {
-                    scheduleSaveReadingProgress();
-                    return false;
-                }
-
-                // 只处理按下事件
-                if (event.getAction() == android.view.MotionEvent.ACTION_DOWN) {
-                    // 防抖：避免短时间内重复触发
-                    long currentTime = System.currentTimeMillis();
-                    if (currentTime - lastClickTime < 300) {
+                @Override
+                public boolean onTouch(View v, android.view.MotionEvent event) {
+                    // 鼠标滚轮滚动：调度保存阅读进度（防抖300ms）
+                    // ACTION_SCROLL是鼠标滚轮产生的事件（API 12+），不拦截，让WebView正常滚动
+                    if (event.getAction() == android.view.MotionEvent.ACTION_SCROLL) {
+                        scheduleSaveReadingProgress();
                         return false;
                     }
-                    lastClickTime = currentTime;
 
-                    // 获取WebView的宽度
-                    int webViewWidth = v.getWidth();
-                    // 获取触摸点的X坐标
-                    float x = event.getX();
+                    // 只处理按下事件
+                    if (event.getAction() == android.view.MotionEvent.ACTION_DOWN) {
+                        // 防抖：避免短时间内重复触发
+                        long currentTime = System.currentTimeMillis();
+                        if (currentTime - lastClickTime < 300) {
+                            return false;
+                        }
+                        lastClickTime = currentTime;
 
-                    Log.i(TAG_EBOOK, "触摸事件: x=" + x + ", webViewWidth=" + webViewWidth);
+                        // 获取WebView的宽度
+                        int webViewWidth = v.getWidth();
+                        // 获取触摸点的X坐标
+                        float x = event.getX();
 
-                    // 判断触摸位置是在左半边还是右半边
-                    if (x < webViewWidth / 2) {
-                        // 左半边：向前翻页（左键逻辑）
-                        Log.i(TAG_EBOOK, "触摸左半边，向前翻页");
-                        handlePageTurn(true); // true = 向前翻页
-                        return true;
-                    } else {
-                        // 右半边：向后翻页（右键逻辑）
-                        Log.i(TAG_EBOOK, "触摸右半边，向后翻页");
-                        handlePageTurn(false); // false = 向后翻页
-                        return true;
+                        Log.i(TAG_EBOOK, "触摸事件: x=" + x + ", webViewWidth=" + webViewWidth);
+
+                        // 判断触摸位置是在左半边还是右半边
+                        if (x < webViewWidth / 2) {
+                            // 左半边：向前翻页（左键逻辑）
+                            Log.i(TAG_EBOOK, "触摸左半边，向前翻页");
+                            handlePageTurn(true); // true = 向前翻页
+                            return true;
+                        } else {
+                            // 右半边：向后翻页（右键逻辑）
+                            Log.i(TAG_EBOOK, "触摸右半边，向后翻页");
+                            handlePageTurn(false); // false = 向后翻页
+                            return true;
+                        }
                     }
+
+                    // 对于其他事件（包括滚轮事件），返回false让WebView正常处理
+                    return false;
                 }
+            });
+        } else {
+            Log.i(TAG_EBOOK, "复用已存在的WebView，跳过销毁重建");
+        }
 
-                // 对于其他事件（包括滚轮事件），返回false让WebView正常处理
-                return false;
-            }
-        });
+        // 切换章节前重置滚动位置，避免残留上一章节的滚动偏移
+        ebookWebView.scrollTo(0, 0);
 
-        // 添加到面板
+        // 添加到面板（复用时面板可能已被removeAllViews清空，需重新添加）
         if (ebookPanel != null) {
             ebookPanel.addView(ebookWebView);
         }
@@ -2369,6 +2383,12 @@ public class EbookReaderPanel {
         if (htmlContent == null || htmlContent.isEmpty()) {
             htmlContent = "<html><body><h1>" + chapter.getTitle() + "</h1><p>章节内容为空</p></body></html>";
         }
+
+        // 关键性能优化：清理章节HTML中的子资源引用（渲染阻塞CSS、慢速图片读取）
+        // 书籍章节HTML包含<link>CSS引用和<img>图片（如站点水印logo），渲染进程从file://
+        // 逐个读取较慢，onPageFinished等待全部子资源加载完，导致章节显示延迟约2秒。
+        // 移除渲染阻塞CSS；本地图片转base64内嵌，随页面即时渲染。
+        htmlContent = cleanChapterHtml(htmlContent, chapter.getBaseUrl());
 
         // 读取保存的字体大小（如果没有保存则使用默认值28）
         float savedFontSize = EbookFileStore.getInstance(host.getContext()).getFontSize();
@@ -2389,13 +2409,26 @@ public class EbookReaderPanel {
         String styledHtml = "<html><head>" +
             "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">" +
             "<style>body { font-size: " + (int)savedFontSize + "px; line-height: 1.6; padding: 20px;" +
-            " background-color: " + bgColor + "; color: " + textColor + "; }</style>" +
+            " background-color: " + bgColor + "; color: " + textColor + "; }" +
+            " img { max-width: 100%; height: auto; }" +
+            // 标题字号修正：性能优化移除了head里的CSS link后，h1-h6回落到浏览器默认1.5em导致标题巨大。
+            // 强制标题继承body字号（与原书CSS h2.head{font-size:1em}一致），并跟随阅读器字体缩放。
+            " h1, h2, h3, h4, h5, h6 { font-size: inherit; }</style>" +
             "</head><body>" + htmlContent + "</body></html>";
 
         // 设置WebViewClient，用于监听页面加载完成（应用字体大小、滚动到底部或恢复页码）
         final boolean finalScrollToBottom = scrollToBottom;
         final int finalRestorePage = restorePage;
+        // 记录本次加载的ID，用于快速切换章节时忽略上一章节残留的onPageFinished延迟回调
+        final int loadId = ++chapterLoadId;
         ebookWebView.setWebViewClient(new android.webkit.WebViewClient() {
+            @Override
+            public void onPageStarted(android.webkit.WebView view, String url, android.graphics.Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                // 诊断日志：定位加载耗时发生在导航启动前（渲染进程唤醒）还是渲染期间
+                Log.i(TAG_EBOOK, "页面开始加载: " + chapter.getTitle() + ", loadId=" + loadId);
+            }
+
             @Override
             public void onPageFinished(android.webkit.WebView view, String url) {
                 super.onPageFinished(view, url);
@@ -2403,6 +2436,18 @@ public class EbookReaderPanel {
                 view.post(new Runnable() {
                     @Override
                     public void run() {
+                        // 快速切换章节时，忽略上一章节残留的onPageFinished延迟回调
+                        if (loadId != chapterLoadId) {
+                            Log.i(TAG_EBOOK, "忽略过期的章节加载回调: loadId=" + loadId + ", current=" + chapterLoadId);
+                            return;
+                        }
+                        // 关键优化：loadDataWithBaseURL每次加载章节都会在WebView历史中新增记录，
+                        // 章节切换越多历史累积越长，持续占用内存。页面加载完成后清空历史记录。
+                        try {
+                            view.clearHistory();
+                        } catch (Exception e) {
+                            // 忽略，清理失败不影响阅读
+                        }
                         // 应用保存的字体大小和配色方案
                         EbookFileStore fileStore = EbookFileStore.getInstance(host.getContext());
                         float savedFontSize = fileStore.getFontSize();
@@ -3311,10 +3356,6 @@ public class EbookReaderPanel {
         Log.i(TAG_EBOOK, "电子书面板已关闭，所有状态已清除，controlTarget重置为video");
     }
 
-    /**
-     * 销毁WebView，释放内存
-     * WebView是Android中著名的内存泄漏源，必须显式销毁
-     */
     private void destroyEbookWebView() {
         if (ebookWebView != null) {
             Log.i(TAG_EBOOK, "开始销毁WebView，释放内存");
@@ -3347,6 +3388,10 @@ public class EbookReaderPanel {
 
             ebookWebView = null;
             Log.i(TAG_EBOOK, "WebView引用已清除");
+            // 清空图片base64缓存，释放内存（换书或关闭面板后旧书的图片不再需要）
+            imageBase64Cache.clear();
+            // 使之前章节残留的onPageFinished延迟回调失效，防止回调继续操作已销毁的WebView
+            chapterLoadId++;
         }
     }
 
@@ -4138,6 +4183,110 @@ public class EbookReaderPanel {
         }
         cachedChapters.clear();
         Log.i(TAG_EBOOK, "所有章节缓存已清空");
+    }
+
+    /**
+     * 清理章节HTML中的子资源引用（性能优化）
+     * 书籍章节HTML包含渲染阻塞的CSS链接(&lt;link&gt;)和图片(&lt;img&gt;，如站点水印logo)。
+     * 渲染进程从file://路径逐个读取子资源较慢，onPageFinished等待全部加载完，导致章节显示延迟约2秒。
+     * 处理方式：移除渲染阻塞的CSS；本地图片转base64内嵌到HTML（data URI），随页面即时渲染无需读文件。
+     */
+    private String cleanChapterHtml(String htmlContent, String baseUrl) {
+        try {
+            org.jsoup.nodes.Document doc = org.jsoup.Jsoup.parse(htmlContent);
+            doc.select("head").remove();   // 移除head（含渲染阻塞的CSS link）
+            doc.select("script").remove(); // 移除脚本
+
+            // 章节目录（baseUrl形如 file:///.../OEBPS/Text/），用于解析相对路径图片
+            String baseDir = null;
+            if (baseUrl != null && baseUrl.startsWith("file://")) {
+                baseDir = baseUrl.substring("file://".length());
+            }
+
+            // 本地图片转base64内嵌，远程图片（网络请求慢）直接移除
+            for (org.jsoup.nodes.Element img : doc.select("img")) {
+                String src = img.attr("src");
+                if (src == null || src.isEmpty() || src.startsWith("data:")) {
+                    continue;
+                }
+                if (src.startsWith("http://") || src.startsWith("https://")) {
+                    img.remove();
+                    continue;
+                }
+                java.io.File imgFile = new java.io.File(src);
+                if (!imgFile.isAbsolute() && baseDir != null) {
+                    imgFile = new java.io.File(baseDir, src);
+                }
+                try {
+                    imgFile = imgFile.getCanonicalFile();
+                } catch (Exception e) {
+                    // 保留原路径
+                }
+                String base64 = loadImageAsBase64(imgFile.getAbsolutePath());
+                if (base64 != null) {
+                    img.attr("src", base64);
+                } else {
+                    img.remove();
+                }
+            }
+            return doc.outerHtml();
+        } catch (Exception e) {
+            Log.w(TAG_EBOOK, "清理章节HTML失败，使用原始内容: " + e.getMessage());
+            return htmlContent;
+        }
+    }
+
+    /**
+     * 将本地图片文件读取并转换为base64 data URI
+     * 转换结果按文件路径缓存，同一图片（如章节水印logo）只编码一次
+     */
+    private String loadImageAsBase64(String imagePath) {
+        String cached = imageBase64Cache.get(imagePath);
+        if (cached != null) {
+            return cached;
+        }
+        try {
+            java.io.File imgFile = new java.io.File(imagePath);
+            if (!imgFile.exists() || !imgFile.isFile()) {
+                return null;
+            }
+            java.io.ByteArrayOutputStream bos = new java.io.ByteArrayOutputStream();
+            java.io.FileInputStream fis = new java.io.FileInputStream(imgFile);
+            try {
+                byte[] buf = new byte[8192];
+                int n;
+                while ((n = fis.read(buf)) != -1) {
+                    bos.write(buf, 0, n);
+                }
+            } finally {
+                fis.close();
+            }
+            byte[] bytes = bos.toByteArray();
+            if (bytes.length == 0) {
+                return null;
+            }
+            // 根据扩展名判断MIME类型
+            String lower = imagePath.toLowerCase();
+            String mime = "image/png";
+            if (lower.endsWith(".jpg") || lower.endsWith(".jpeg")) {
+                mime = "image/jpeg";
+            } else if (lower.endsWith(".gif")) {
+                mime = "image/gif";
+            } else if (lower.endsWith(".webp")) {
+                mime = "image/webp";
+            } else if (lower.endsWith(".bmp")) {
+                mime = "image/bmp";
+            } else if (lower.endsWith(".svg")) {
+                mime = "image/svg+xml";
+            }
+            String base64 = "data:" + mime + ";base64," +
+                android.util.Base64.encodeToString(bytes, android.util.Base64.NO_WRAP);
+            imageBase64Cache.put(imagePath, base64);
+            return base64;
+        } catch (Exception e) {
+            Log.w(TAG_EBOOK, "图片转base64失败: " + imagePath + ", " + e.getMessage());
+            return null;
+        }
     }
 
     /**

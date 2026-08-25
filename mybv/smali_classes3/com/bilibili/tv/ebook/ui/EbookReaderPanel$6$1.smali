@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$6;->onItemSelected(Landroid/widget/AdapterView;Landroid/view/View;IJ)V
+    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$6;->onFocusChange(Landroid/view/View;Z)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,11 +20,11 @@
 # instance fields
 .field final synthetic this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$6;
 
-.field final synthetic val$parent:Landroid/widget/AdapterView;
+.field final synthetic val$v:Landroid/view/View;
 
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$6;Landroid/widget/AdapterView;)V
+.method constructor <init>(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$6;Landroid/view/View;)V
     .locals 0
     .annotation system Ldalvik/annotation/Signature;
         value = {
@@ -33,10 +33,10 @@
     .end annotation
 
     .prologue
-    .line 632
+    .line 627
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$6$1;->this$1:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$6;
 
-    iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$6$1;->val$parent:Landroid/widget/AdapterView;
+    iput-object p2, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$6$1;->val$v:Landroid/view/View;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -49,13 +49,13 @@
     .locals 1
 
     .prologue
-    .line 635
-    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$6$1;->val$parent:Landroid/widget/AdapterView;
+    .line 630
+    iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$6$1;->val$v:Landroid/view/View;
 
     check-cast v0, Landroid/widget/ListView;
 
     invoke-virtual {v0}, Landroid/widget/ListView;->invalidateViews()V
 
-    .line 636
+    .line 631
     return-void
 .end method

@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->openEbookFileChooser()V
+    value = Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->openEbookReader()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 280
+    .line 223
     iput-object p1, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$2;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,12 +40,12 @@
     .locals 1
 
     .prologue
-    .line 283
+    .line 226
     iget-object v0, p0, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel$2;->this$0:Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;
 
-    # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->showFileChooserInPanel()V
-    invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$200(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)V
+    # invokes: Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->showEbookPanel()V
+    invoke-static {v0}, Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;->access$100(Lcom/bilibili/tv/ebook/ui/EbookReaderPanel;)V
 
-    .line 284
+    .line 227
     return-void
 .end method
