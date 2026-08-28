@@ -47,7 +47,6 @@
         <activity android:launchMode="singleTask" android:name="com.bilibili.tv.ui.bangumi.BangumiDetailActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.video.VideoDetailActivity" android:screenOrientation="landscape"/>
         <activity android:exported="true" android:name="com.bilibili.tv.player.PlayerActivity" android:screenOrientation="landscape"/>
-        <activity android:name="com.bilibili.tv.ui.video.VideoDetailInfoActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.video.VideoMoreEpisodeActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.ranking.RankingActivity" android:screenOrientation="landscape"/>
         <activity android:name="com.bilibili.tv.ui.ranking.ElseActivity" android:screenOrientation="landscape"/>

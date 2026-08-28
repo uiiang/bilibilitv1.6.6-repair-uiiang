@@ -2709,6 +2709,11 @@ public final class R {
         public static final int group_status_text = 0x7f08025f;
         public static final int task_group_title = 0x7f080260;
         public static final int tab_button7 = 0x7f080261;
+        public static final int panel_container = 0x7f080262;
+        public static final int panel_content = 0x7f080263;
+        public static final int intro_bvid = 0x7f080264;
+        public static final int intro_desc = 0x7f080265;
+        public static final int intro_scroll = 0x7f080266;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;
@@ -2766,7 +2771,6 @@ public final class R {
         public static final int activity_user_center = 0x7f0a0029;
         public static final int activity_vertical_title_with_recycler_view = 0x7f0a002a;
         public static final int activity_video_detail = 0x7f0a002b;
-        public static final int activity_video_info_detail = 0x7f0a002c;
         public static final int activity_video_more_episode = 0x7f0a002d;
         public static final int activity_video_tag_search = 0x7f0a002e;
         public static final int activity_vip = 0x7f0a002f;
@@ -2904,6 +2908,8 @@ public final class R {
         public static final int item_video_group = 0x7f0a00b4;
         public static final int activity_task_group_detail = 0x7f0a00b5;
         public static final int dialog_downloading_menu = 0x7f0a00b6;
+        public static final int dialog_right_slide_panel = 0x7f0a00b7;
+        public static final int panel_video_intro = 0x7f0a00b8;
     }
 
     public static final class mipmap {
@@ -3701,6 +3707,7 @@ public final class R {
         public static final int Widget_Compat_NotificationActionContainer = 0x7f0d0176;
         public static final int Widget_Compat_NotificationActionText = 0x7f0d0177;
         public static final int splashTheme = 0x7f0d0178;
+        public static final int RightSlidePanelAnimation = 0x7f0d0179;
     }
 
     public static final class xml {

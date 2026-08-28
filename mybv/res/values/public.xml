@@ -2648,7 +2648,6 @@
     <public type="layout" name="activity_user_center" id="0x7f0a0029" />
     <public type="layout" name="activity_vertical_title_with_recycler_view" id="0x7f0a002a" />
     <public type="layout" name="activity_video_detail" id="0x7f0a002b" />
-    <public type="layout" name="activity_video_info_detail" id="0x7f0a002c" />
     <public type="layout" name="activity_video_more_episode" id="0x7f0a002d" />
     <public type="layout" name="activity_video_tag_search" id="0x7f0a002e" />
     <public type="layout" name="activity_vip" id="0x7f0a002f" />
@@ -3670,4 +3669,12 @@
     <public type="drawable" name="ic_unchecked" id="0x7f070112" />
     <public type="id" name="tab_button7" id="0x7f080261" />
     <public type="layout" name="dialog_downloading_menu" id="0x7f0a00b6" />
+    <public type="id" name="panel_container" id="0x7f080262" />
+    <public type="id" name="panel_content" id="0x7f080263" />
+    <public type="id" name="intro_bvid" id="0x7f080264" />
+    <public type="id" name="intro_desc" id="0x7f080265" />
+    <public type="id" name="intro_scroll" id="0x7f080266" />
+    <public type="layout" name="dialog_right_slide_panel" id="0x7f0a00b7" />
+    <public type="layout" name="panel_video_intro" id="0x7f0a00b8" />
+    <public type="style" name="RightSlidePanelAnimation" id="0x7f0d0179" />
 </resources>

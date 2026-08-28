@@ -271,8 +271,8 @@ classes\com\bilibili\tv\ui\splash\SplashActivity.java
 classes\com\bilibili\tv\ui\upgrade\BiliUpgradeInfo.java
 classes\com\bilibili\tv\ui\video\FavoriteMenuAdapter.java
 classes\com\bilibili\tv\ui\video\FavoriteMenuDialog.java
+classes\com\bilibili\tv\ui\video\RightSlidePanelDialog.java
 classes\com\bilibili\tv\ui\video\VideoDetailActivity.java
-classes\com\bilibili\tv\ui\video\VideoDetailInfoActivity.java
 classes\com\bilibili\tv\ui\video\player\BottomShotMenu.java
 classes\com\bilibili\tv\ui\video\tag\VideoTagSearchActivity.java
 classes\com\bilibili\tv\ui\video\widget\BiliVideoDetailBinder.java

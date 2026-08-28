@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 通用右侧滑出半透明面板布局：蒙层 + 右侧面板（宽度由代码按屏幕比例设置），内容区由外部注入 -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 蒙层：透明拦截，点击关闭 -->
+    <View
+        android:id="@id/dim_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent" />
+
+    <!-- 右侧半透明面板 -->
+    <LinearLayout
+        android:id="@id/panel_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:background="#CC000000"
+        android:orientation="vertical">
+
+        <!-- 内容容器：外部注入具体内容 -->
+        <FrameLayout
+            android:id="@id/panel_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</FrameLayout>

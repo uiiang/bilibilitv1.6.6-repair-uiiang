@@ -3581,30 +3581,7 @@ public final class VideoDetailActivity extends BaseActivity
                         .a(new AddToViewResponse());
             }
         } else if (id == R.id.video_detail_info) {
-            BiliVideoDetail biliVideoDetail3 = this.u;
-            if (biliVideoDetail3 != null) {
-                long i2 = this.s;
-                String str = biliVideoDetail3.mDescription;
-                bbi.a((Object) str, "it.mDescription");
-                String str2 = biliVideoDetail3.mCover;
-                bbi.a((Object) str2, "it.mCover");
-                startActivity(VideoDetailInfoActivity.Companion.a(this, i2, str, str2,
-                        "http://www.bilibili.com/video/av" + biliVideoDetail3.mAvid));
-                ok.a("tv_video_view_click_infomore", new String[0]);
-            }
-        } else if (id != R.id.video_detail_more_btn) {
-        } else {
-            BiliVideoDetail biliVideoDetail3 = this.u;
-            if (biliVideoDetail3 != null) {
-                long i2 = this.s;
-                String str = biliVideoDetail3.mDescription;
-                bbi.a((Object) str, "it.mDescription");
-                String str2 = biliVideoDetail3.mCover;
-                bbi.a((Object) str2, "it.mCover");
-                startActivity(VideoDetailInfoActivity.Companion.a(this, i2, str, str2,
-                        "http://www.bilibili.com/video/av" + biliVideoDetail3.mAvid));
-                ok.a("tv_video_view_click_infomore", new String[0]);
-            }
+            showVideoIntroPanel();
         }
     }
 
@@ -3709,6 +3686,49 @@ public final class VideoDetailActivity extends BaseActivity
             }
         });
         dialog.show();
+    }
+
+    /**
+     * 点击简介按钮：右侧弹出半透明面板，第一行显示BV号，第二行显示简介内容（遥控器上下键滚动）
+     * 不论是否有简介内容都显示BV号；简介为空时隐藏简介文本
+     */
+    private void showVideoIntroPanel() {
+        BiliVideoDetail biliVideoDetail = this.u;
+        if (biliVideoDetail == null) {
+            return;
+        }
+        RightSlidePanelDialog panel = new RightSlidePanelDialog(this, 0.4f);
+        View content = getLayoutInflater().inflate(R.layout.panel_video_intro, null);
+        TextView bvidText = (TextView) content.findViewById(R.id.intro_bvid);
+        if (bvidText != null) {
+            if (!TextUtils.isEmpty(biliVideoDetail.mBvid)) {
+                bvidText.setText(biliVideoDetail.mBvid);
+            } else {
+                bvidText.setText("av" + biliVideoDetail.mAvid);
+            }
+        }
+        TextView descText = (TextView) content.findViewById(R.id.intro_desc);
+        if (descText != null) {
+            if (TextUtils.isEmpty(biliVideoDetail.mDescription)) {
+                descText.setVisibility(View.GONE);
+            } else {
+                descText.setText(biliVideoDetail.mDescription);
+            }
+        }
+        panel.setContent(content);
+        panel.show();
+        // 将焦点交给简介滚动区域，便于遥控器上下键滚动简介内容
+        View scrollView = content.findViewById(R.id.intro_scroll);
+        if (scrollView != null) {
+            scrollView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (!isFinishing()) {
+                        scrollView.requestFocus();
+                    }
+                }
+            }, 150);
+        }
     }
 
     /**

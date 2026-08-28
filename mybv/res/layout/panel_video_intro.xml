@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 视频简介面板内容：第一行BV号 + 第二行简介（遥控器上下键滚动），文字样式与原简介展示样式一致 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/px_28"
+    android:paddingRight="@dimen/px_28"
+    android:paddingTop="@dimen/px_60">
+
+    <!-- 第一行：BV号 -->
+    <TextView
+        android:id="@id/intro_bvid"
+        android:textAppearance="@style/TextAppearance.App.Small"
+        android:textColor="@color/white"
+        android:focusable="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- 第二行：简介内容，遥控器上下键滚动 -->
+    <ScrollView
+        android:id="@id/intro_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/px_18"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:scrollbars="vertical">
+
+        <TextView
+            android:id="@id/intro_desc"
+            android:textAppearance="@style/TextAppearance.App.Small"
+            android:textColor="@color/white"
+            android:lineSpacingMultiplier="1.2"
+            android:focusable="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+</LinearLayout>

@@ -1352,4 +1352,9 @@
     <style name="splashTheme" parent="@style/BaseTheme">
         <item name="android:windowBackground">@drawable/background_splash_default</item>
     </style>
+    <!-- 右侧滑出半透明面板进出动画 -->
+    <style name="RightSlidePanelAnimation" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_right</item>
+    </style>
 </resources>

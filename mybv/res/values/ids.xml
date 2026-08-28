@@ -469,4 +469,9 @@
     <item type="id" name="episode_cover" />
     <item type="id" name="episode_title" />
     <item type="id" name="episode_size" />
+    <item type="id" name="panel_container" />
+    <item type="id" name="panel_content" />
+    <item type="id" name="intro_bvid" />
+    <item type="id" name="intro_desc" />
+    <item type="id" name="intro_scroll" />
 </resources>
