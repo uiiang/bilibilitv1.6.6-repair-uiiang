@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 76
+    .line 97
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/RightSlidePanelDialog$1;->this$0:Lcom/bilibili/tv/ui/video/RightSlidePanelDialog;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,11 +40,11 @@
     .locals 1
 
     .prologue
-    .line 79
+    .line 100
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/RightSlidePanelDialog$1;->this$0:Lcom/bilibili/tv/ui/video/RightSlidePanelDialog;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/RightSlidePanelDialog;->dismiss()V
 
-    .line 80
+    .line 101
     return-void
 .end method

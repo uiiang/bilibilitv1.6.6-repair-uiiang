@@ -2755,23 +2755,23 @@
     <public type="layout" name="fragment_weekly_video" id="0x7f0a0094" />
     <public type="layout" name="fragment_attention_dynamic_video" id="0x7f0a0095" />
     <public type="layout" name="recycler_view_item_main_recommend_compact" id="0x7f0a0096" />
-    <public type="layout" name="dialog_favorite_menu" id="0x7f0a0099" />
+    <public type="layout" name="dialog_favorite_menu_content" id="0x7f0a00b9" />
     <public type="layout" name="item_favorite_menu" id="0x7f0a009a" />
     <public type="layout" name="dialog_sort_menu" id="0x7f0a009b" />
     <public type="layout" name="item_sort_menu" id="0x7f0a009c" />
-    <public type="layout" name="dialog_sort_menu_multi" id="0x7f0a009d" />
+    <public type="layout" name="dialog_sort_menu_content" id="0x7f0a00ba" />
     <public type="layout" name="item_sort_menu_multi" id="0x7f0a009e" />
     <public type="layout" name="item_nav_tag" id="0x7f0a009f" />
     <public type="layout" name="recycler_view_item_video_info_compact" id="0x7f0a00a0" />
     <public type="layout" name="player_episode_menu" id="0x7f0a00a1" />
-    <public type="layout" name="dialog_tag_filter_menu" id="0x7f0a00a2" />
+    <public type="layout" name="dialog_tag_filter_menu_content" id="0x7f0a00bb" />
     <public type="layout" name="item_tag_filter" id="0x7f0a00a3" />
     <public type="layout" name="dialog_skip_setting" id="0x7f0a00a4" />
     <public type="layout" name="item_skip_time_picker" id="0x7f0a00a5" />
     <public type="layout" name="player_shot_menu" id="0x7f0a00a6" />
     <public type="layout" name="player_seek_bar_simple" id="0x7f0a00a7" />
     <public type="layout" name="item_chapter" id="0x7f0a00a8" />
-    <public type="layout" name="dialog_relation_tag_menu" id="0x7f0a00a9" />
+    <public type="layout" name="dialog_relation_tag_menu_content" id="0x7f0a00bc" />
     <public type="layout" name="item_relation_tag_menu" id="0x7f0a00aa" />
 
 

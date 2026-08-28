@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;->onSuccess(Lcom/alibaba/fastjson/JSONObject;)V
+    value = Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;->onError(Ljava/lang/Throwable;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 199
+    .line 247
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$2;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 202
+    .line 250
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$2;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
@@ -67,46 +67,25 @@
 
     if-eqz v0, :cond_19
 
-    .line 220
+    .line 252
     :cond_18
     :goto_18
     return-void
 
-    .line 204
+    .line 251
     :cond_19
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$2;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
 
-    # getter for: Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->adapter:Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->access$400(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;)Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;
+    # getter for: Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->activity:Landroid/app/Activity;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->access$200(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;)Landroid/app/Activity;
 
     move-result-object v0
 
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;->notifyDataSetChanged()V
+    const-string v1, "\u6dfb\u52a0\u6536\u85cf\u5931\u8d25"
 
-    .line 205
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$2;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
-
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
-
-    const v1, 0x7f0801c5
-
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->findViewById(I)Landroid/view/View;
-
-    move-result-object v0
-
-    check-cast v0, Landroid/support/v7/widget/RecyclerView;
-
-    .line 206
-    if-eqz v0, :cond_18
-
-    .line 207
-    new-instance v1, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$2$1;
-
-    invoke-direct {v1, p0, v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$2$1;-><init>(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$2;Landroid/support/v7/widget/RecyclerView;)V
-
-    invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->post(Ljava/lang/Runnable;)Z
+    invoke-static {v0, v1}, Lbl/lr;->a(Landroid/content/Context;Ljava/lang/String;)V
 
     goto :goto_18
 .end method

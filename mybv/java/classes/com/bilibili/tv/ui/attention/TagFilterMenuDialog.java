@@ -1,19 +1,13 @@
 package com.bilibili.tv.ui.attention;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.bilibili.tv.R;
+import com.bilibili.tv.ui.video.RightSlidePanelDialog;
 import com.bilibili.tv.widget.border.BorderGridLayoutManager;
 import com.bilibili.tv.widget.side.SideRightGridLayoutManger;
 
@@ -23,7 +17,7 @@ import java.util.List;
 import bl.adl;
 import bl.aj;
 
-public class TagFilterMenuDialog extends Dialog {
+public class TagFilterMenuDialog extends RightSlidePanelDialog {
     
     private Activity activity;
     private List<TagItem> tagItems = new ArrayList<>();
@@ -57,7 +51,7 @@ public class TagFilterMenuDialog extends Dialog {
     }
 
     public TagFilterMenuDialog(Activity activity, List<AttentionDynamicSideActivity.TagItem> items, long currentTagid) {
-        super(activity);
+        super(activity, 300, true);
         this.activity = activity;
         this.currentTagid = currentTagid;
         
@@ -79,35 +73,9 @@ public class TagFilterMenuDialog extends Dialog {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // 先注入内容布局（父类 onCreate 中会加入 panel_content 容器）
+        setContent(LayoutInflater.from(activity).inflate(R.layout.dialog_tag_filter_menu_content, null));
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.dialog_tag_filter_menu);
-
-        Window dialogWindow = getWindow();
-        dialogWindow.setBackgroundDrawable(new ColorDrawable(0));
-        dialogWindow.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS | WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS | WindowManager.LayoutParams.FLAG_FULLSCREEN
-        );
-        WindowManager.LayoutParams params = dialogWindow.getAttributes();
-        params.width = WindowManager.LayoutParams.MATCH_PARENT;
-        params.height = WindowManager.LayoutParams.MATCH_PARENT;
-        dialogWindow.setAttributes(params);
-
-        View decorView = dialogWindow.getDecorView();
-        decorView.setPadding(0, 0, 0, 0);
-
-        LinearLayout menuContainer = (LinearLayout) findViewById(R.id.menu_container);
-        menuContainer.setFocusable(true);
-        menuContainer.setFocusableInTouchMode(true);
-
-        View dimBackground = findViewById(R.id.dim_background);
-        dimBackground.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
 
         android.support.v7.widget.RecyclerView recyclerView = 
             (android.support.v7.widget.RecyclerView) findViewById(R.id.tag_filter_list);

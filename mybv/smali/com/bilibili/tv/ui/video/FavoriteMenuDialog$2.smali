@@ -3,12 +3,12 @@
 .source "FavoriteMenuDialog.java"
 
 # interfaces
-.implements Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$OnItemCheckedChangeListener;
+.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->onCreate(Landroid/os/Bundle;)V
+    value = Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->show()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,14 +20,23 @@
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
 
+.field final synthetic val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;Landroid/support/v7/widget/RecyclerView;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
-    .line 96
+    .line 79
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$2;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
+
+    iput-object p2, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$2;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -36,27 +45,26 @@
 
 
 # virtual methods
-.method public onItemCheckedChange(Lmybl/FavoriteFolder;ZI)V
-    .locals 1
+.method public run()V
+    .locals 2
 
     .prologue
-    .line 99
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$2;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
+    .line 82
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$2;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
-    # getter for: Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->isOperating:Z
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->access$000(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;)Z
+    const/4 v1, 0x0
 
-    move-result v0
+    invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
 
-    if-nez v0, :cond_d
+    move-result-object v0
 
-    .line 100
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$2;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
+    .line 83
+    if-eqz v0, :cond_c
 
-    # invokes: Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->toggleFavorite(Lmybl/FavoriteFolder;ZI)V
-    invoke-static {v0, p1, p2, p3}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->access$100(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;Lmybl/FavoriteFolder;ZI)V
+    .line 84
+    invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    .line 102
-    :cond_d
+    .line 86
+    :cond_c
     return-void
 .end method

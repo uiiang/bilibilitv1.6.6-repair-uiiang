@@ -21,16 +21,31 @@ public class RightSlidePanelDialog extends Dialog {
 
     private Activity activity;
     private float widthRatio;
+    private int widthDp;
+    private boolean useDp;
     private View content;
 
     public RightSlidePanelDialog(Activity activity) {
         this(activity, 0.4f);
     }
 
+    /**
+     * 宽度按屏幕宽度比例（如 0.4f 表示 40%）
+     */
     public RightSlidePanelDialog(Activity activity, float widthRatio) {
         super(activity);
         this.activity = activity;
         this.widthRatio = widthRatio;
+    }
+
+    /**
+     * 宽度为固定 dp 值（dpMode 传 true 区分重载）
+     */
+    public RightSlidePanelDialog(Activity activity, int widthDp, boolean dpMode) {
+        super(activity);
+        this.activity = activity;
+        this.widthDp = widthDp;
+        this.useDp = true;
     }
 
     @Override
@@ -63,11 +78,17 @@ public class RightSlidePanelDialog extends Dialog {
         View decorView = dialogWindow.getDecorView();
         decorView.setPadding(0, 0, 0, 0);
 
-        // 面板宽度按屏幕宽度比例设置
+        // 面板宽度：固定 dp 或屏幕宽度比例
         View panelContainer = findViewById(R.id.panel_container);
         if (panelContainer != null) {
-            int screenWidth = getContext().getResources().getDisplayMetrics().widthPixels;
-            panelContainer.getLayoutParams().width = (int) (screenWidth * widthRatio);
+            android.util.DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
+            int width;
+            if (useDp) {
+                width = (int) (widthDp * dm.density);
+            } else {
+                width = (int) (dm.widthPixels * widthRatio);
+            }
+            panelContainer.getLayoutParams().width = width;
         }
 
         // 点击蒙层关闭

@@ -1,5 +1,5 @@
 .class public Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
-.super Landroid/app/Dialog;
+.super Lcom/bilibili/tv/ui/video/RightSlidePanelDialog;
 .source "FavoriteMenuDialog.java"
 
 
@@ -45,31 +45,35 @@
     .locals 2
 
     .prologue
-    .line 56
-    invoke-direct {p0, p1}, Landroid/app/Dialog;-><init>(Landroid/content/Context;)V
+    .line 47
+    const/16 v0, 0x12c
 
-    .line 46
+    const/4 v1, 0x1
+
+    invoke-direct {p0, p1, v0, v1}, Lcom/bilibili/tv/ui/video/RightSlidePanelDialog;-><init>(Landroid/app/Activity;IZ)V
+
+    .line 37
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->favoriteFolders:Ljava/util/List;
 
-    .line 48
+    .line 39
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->isOperating:Z
 
-    .line 57
+    .line 48
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->activity:Landroid/app/Activity;
 
-    .line 58
+    .line 49
     iput-wide p2, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->avid:J
 
-    .line 59
+    .line 50
     iput-object p4, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->videoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
-    .line 60
+    .line 51
     return-void
 .end method
 
@@ -77,7 +81,7 @@
     .locals 1
 
     .prologue
-    .line 40
+    .line 31
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->isOperating:Z
 
     return v0
@@ -87,7 +91,7 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 31
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->isOperating:Z
 
     return p1
@@ -97,7 +101,7 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 31
     invoke-direct {p0, p1, p2, p3}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->toggleFavorite(Lmybl/FavoriteFolder;ZI)V
 
     return-void
@@ -107,7 +111,7 @@
     .locals 1
 
     .prologue
-    .line 40
+    .line 31
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->activity:Landroid/app/Activity;
 
     return-object v0
@@ -117,7 +121,7 @@
     .locals 1
 
     .prologue
-    .line 40
+    .line 31
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->favoriteFolders:Ljava/util/List;
 
     return-object v0
@@ -127,7 +131,7 @@
     .locals 1
 
     .prologue
-    .line 40
+    .line 31
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->adapter:Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;
 
     return-object v0
@@ -137,7 +141,7 @@
     .locals 0
 
     .prologue
-    .line 40
+    .line 31
     invoke-direct {p0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->updateMainFavoriteStatus()V
 
     return-void
@@ -147,7 +151,7 @@
     .locals 10
 
     .prologue
-    .line 136
+    .line 92
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->activity:Landroid/app/Activity;
 
     if-eqz v0, :cond_c
@@ -160,7 +164,7 @@
 
     if-eqz v0, :cond_14
 
-    .line 137
+    .line 93
     :cond_c
     const-string v0, "FavoriteMenuDialog"
 
@@ -168,11 +172,11 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 255
+    .line 211
     :goto_13
     return-void
 
-    .line 141
+    .line 97
     :cond_14
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->activity:Landroid/app/Activity;
 
@@ -180,17 +184,17 @@
 
     move-result-object v0
 
-    .line 142
+    .line 98
     if-nez v0, :cond_2b
 
-    .line 143
+    .line 99
     const-string v0, "FavoriteMenuDialog"
 
     const-string v1, "BiliAccount is null"
 
     invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 144
+    .line 100
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->activity:Landroid/app/Activity;
 
     const-string v1, "\u83b7\u53d6\u8d26\u53f7\u4fe1\u606f\u5931\u8d25"
@@ -199,32 +203,32 @@
 
     goto :goto_13
 
-    .line 148
+    .line 104
     :cond_2b
     invoke-virtual {v0}, Lbl/mg;->d()J
 
     move-result-wide v2
 
-    .line 149
+    .line 105
     invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v9
 
-    .line 151
+    .line 107
     const-wide/16 v0, 0x0
 
     cmp-long v0, v2, v0
 
     if-gtz v0, :cond_48
 
-    .line 152
+    .line 108
     const-string v0, "FavoriteMenuDialog"
 
     const-string v1, "User not logged in"
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 153
+    .line 109
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->activity:Landroid/app/Activity;
 
     const-string v1, "\u8d26\u53f7\u672a\u767b\u5f55"
@@ -233,7 +237,7 @@
 
     goto :goto_13
 
-    .line 157
+    .line 113
     :cond_48
     const-class v0, Lmybl/MyBiliApiService;
 
@@ -243,7 +247,7 @@
 
     check-cast v1, Lmybl/MyBiliApiService;
 
-    .line 158
+    .line 114
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -264,7 +268,7 @@
 
     move-result-object v8
 
-    .line 159
+    .line 115
     iget-wide v4, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->avid:J
 
     const/4 v6, 0x2
@@ -275,7 +279,7 @@
 
     move-result-object v0
 
-    .line 161
+    .line 117
     const-string v1, "FavoriteMenuDialog"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -310,10 +314,10 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 163
-    new-instance v1, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
+    .line 119
+    new-instance v1, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$3;
 
-    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;-><init>(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;)V
+    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$3;-><init>(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;)V
 
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
@@ -324,12 +328,12 @@
     .locals 8
 
     .prologue
-    .line 258
+    .line 214
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->isOperating:Z
 
-    .line 260
+    .line 216
     const-class v0, Lcom/bilibili/tv/api/favorite/BiliFavoriteVideoApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -338,19 +342,19 @@
 
     check-cast v1, Lcom/bilibili/tv/api/favorite/BiliFavoriteVideoApiService;
 
-    .line 261
+    .line 217
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->activity:Landroid/app/Activity;
 
     invoke-static {v0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
 
-    .line 262
+    .line 218
     invoke-virtual {v0}, Lbl/mg;->e()Ljava/lang/String;
 
     move-result-object v2
 
-    .line 263
+    .line 219
     invoke-virtual {p1}, Lmybl/FavoriteFolder;->getFid()J
 
     move-result-wide v4
@@ -359,10 +363,10 @@
 
     move-result-object v3
 
-    .line 265
+    .line 221
     if-eqz p2, :cond_68
 
-    .line 266
+    .line 222
     const-string v0, "FavoriteMenuDialog"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -417,7 +421,7 @@
 
     invoke-static {v0, v4}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 267
+    .line 223
     iget-wide v4, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->avid:J
 
     const-string v6, "0"
@@ -426,17 +430,17 @@
 
     move-result-object v0
 
-    new-instance v1, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$5;
+    new-instance v1, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
 
-    invoke-direct {v1, p0, p1, p3}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$5;-><init>(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;Lmybl/FavoriteFolder;I)V
+    invoke-direct {v1, p0, p1, p3}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;-><init>(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;Lmybl/FavoriteFolder;I)V
 
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
-    .line 338
+    .line 294
     :goto_67
     return-void
 
-    .line 302
+    .line 258
     :cond_68
     const-string v0, "FavoriteMenuDialog"
 
@@ -492,16 +496,16 @@
 
     invoke-static {v0, v4}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 303
+    .line 259
     iget-wide v4, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->avid:J
 
     invoke-interface {v1, v2, v3, v4, v5}, Lcom/bilibili/tv/api/favorite/BiliFavoriteVideoApiService;->deleteVideoFromList(Ljava/lang/String;Ljava/lang/String;J)Lbl/vp;
 
     move-result-object v0
 
-    new-instance v1, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$6;
+    new-instance v1, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$5;
 
-    invoke-direct {v1, p0, p1, p3}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$6;-><init>(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;Lmybl/FavoriteFolder;I)V
+    invoke-direct {v1, p0, p1, p3}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$5;-><init>(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;Lmybl/FavoriteFolder;I)V
 
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
@@ -512,10 +516,10 @@
     .locals 3
 
     .prologue
-    .line 341
+    .line 297
     const/4 v1, 0x0
 
-    .line 342
+    .line 298
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->favoriteFolders:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
@@ -535,28 +539,28 @@
 
     check-cast v0, Lmybl/FavoriteFolder;
 
-    .line 343
+    .line 299
     invoke-virtual {v0}, Lmybl/FavoriteFolder;->isFavored()Z
 
     move-result v0
 
     if-eqz v0, :cond_7
 
-    .line 344
+    .line 300
     const/4 v0, 0x1
 
-    .line 349
+    .line 305
     :goto_1a
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->listener:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$OnFavoriteStatusChangedListener;
 
     if-eqz v1, :cond_23
 
-    .line 350
+    .line 306
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->listener:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$OnFavoriteStatusChangedListener;
 
     invoke-interface {v1, v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$OnFavoriteStatusChangedListener;->onFavoriteStatusChanged(Z)V
 
-    .line 352
+    .line 308
     :cond_23
     return-void
 
@@ -569,95 +573,30 @@
 
 # virtual methods
 .method protected onCreate(Landroid/os/Bundle;)V
-    .locals 6
+    .locals 4
 
     .prologue
-    const/16 v5, 0x600
+    .line 56
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->activity:Landroid/app/Activity;
 
-    const/4 v4, -0x1
+    invoke-static {v0}, Landroid/view/LayoutInflater;->from(Landroid/content/Context;)Landroid/view/LayoutInflater;
 
-    const/4 v3, 0x1
+    move-result-object v0
+
+    const v1, 0x7f0a00b9
 
     const/4 v2, 0x0
 
-    .line 64
-    invoke-super {p0, p1}, Landroid/app/Dialog;->onCreate(Landroid/os/Bundle;)V
-
-    .line 65
-    invoke-virtual {p0, v3}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->requestWindowFeature(I)Z
-
-    .line 66
-    const v0, 0x7f0a0099
-
-    invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->setContentView(I)V
-
-    .line 68
-    invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->getWindow()Landroid/view/Window;
+    invoke-virtual {v0, v1, v2}, Landroid/view/LayoutInflater;->inflate(ILandroid/view/ViewGroup;)Landroid/view/View;
 
     move-result-object v0
 
-    .line 69
-    new-instance v1, Landroid/graphics/drawable/ColorDrawable;
+    invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->setContent(Landroid/view/View;)V
 
-    invoke-direct {v1, v2}, Landroid/graphics/drawable/ColorDrawable;-><init>(I)V
+    .line 57
+    invoke-super {p0, p1}, Lcom/bilibili/tv/ui/video/RightSlidePanelDialog;->onCreate(Landroid/os/Bundle;)V
 
-    invoke-virtual {v0, v1}, Landroid/view/Window;->setBackgroundDrawable(Landroid/graphics/drawable/Drawable;)V
-
-    .line 70
-    invoke-virtual {v0, v5, v5}, Landroid/view/Window;->setFlags(II)V
-
-    .line 74
-    invoke-virtual {v0}, Landroid/view/Window;->getAttributes()Landroid/view/WindowManager$LayoutParams;
-
-    move-result-object v1
-
-    .line 75
-    iput v4, v1, Landroid/view/WindowManager$LayoutParams;->width:I
-
-    .line 76
-    iput v4, v1, Landroid/view/WindowManager$LayoutParams;->height:I
-
-    .line 77
-    invoke-virtual {v0, v1}, Landroid/view/Window;->setAttributes(Landroid/view/WindowManager$LayoutParams;)V
-
-    .line 79
-    invoke-virtual {v0}, Landroid/view/Window;->getDecorView()Landroid/view/View;
-
-    move-result-object v0
-
-    .line 80
-    invoke-virtual {v0, v2, v2, v2, v2}, Landroid/view/View;->setPadding(IIII)V
-
-    .line 82
-    const v0, 0x7f0801c4
-
-    invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->findViewById(I)Landroid/view/View;
-
-    move-result-object v0
-
-    check-cast v0, Landroid/widget/LinearLayout;
-
-    .line 83
-    invoke-virtual {v0, v3}, Landroid/widget/LinearLayout;->setFocusable(Z)V
-
-    .line 84
-    invoke-virtual {v0, v3}, Landroid/widget/LinearLayout;->setFocusableInTouchMode(Z)V
-
-    .line 86
-    const v0, 0x7f0801c3
-
-    invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->findViewById(I)Landroid/view/View;
-
-    move-result-object v0
-
-    .line 87
-    new-instance v1, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$1;
-
-    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$1;-><init>(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;)V
-
-    invoke-virtual {v0, v1}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
-
-    .line 94
+    .line 59
     const v0, 0x7f0801c5
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->findViewById(I)Landroid/view/View;
@@ -666,7 +605,7 @@
 
     check-cast v0, Landroid/support/v7/widget/RecyclerView;
 
-    .line 95
+    .line 60
     new-instance v1, Landroid/support/v7/widget/LinearLayoutManager;
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->activity:Landroid/app/Activity;
@@ -675,66 +614,39 @@
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setLayoutManager(Landroid/support/v7/widget/RecyclerView$h;)V
 
-    .line 96
+    .line 61
     new-instance v1, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;
 
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->favoriteFolders:Ljava/util/List;
 
-    new-instance v3, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$2;
+    new-instance v3, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$1;
 
-    invoke-direct {v3, p0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$2;-><init>(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;)V
+    invoke-direct {v3, p0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$1;-><init>(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;)V
 
     invoke-direct {v1, v2, v3}, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;-><init>(Ljava/util/List;Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$OnItemCheckedChangeListener;)V
 
     iput-object v1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->adapter:Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;
 
-    .line 104
+    .line 69
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->adapter:Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setAdapter(Landroid/support/v7/widget/RecyclerView$a;)V
 
-    .line 106
+    .line 71
     invoke-direct {p0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->loadFavoriteFolders()V
 
-    .line 107
+    .line 72
     return-void
-.end method
-
-.method public onKeyDown(ILandroid/view/KeyEvent;)Z
-    .locals 1
-
-    .prologue
-    .line 111
-    const/4 v0, 0x4
-
-    if-ne p1, v0, :cond_8
-
-    .line 112
-    invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->dismiss()V
-
-    .line 113
-    const/4 v0, 0x1
-
-    .line 115
-    :goto_7
-    return v0
-
-    :cond_8
-    invoke-super {p0, p1, p2}, Landroid/app/Dialog;->onKeyDown(ILandroid/view/KeyEvent;)Z
-
-    move-result v0
-
-    goto :goto_7
 .end method
 
 .method public setOnFavoriteStatusChangedListener(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$OnFavoriteStatusChangedListener;)V
     .locals 0
 
     .prologue
-    .line 355
+    .line 311
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->listener:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$OnFavoriteStatusChangedListener;
 
-    .line 356
+    .line 312
     return-void
 .end method
 
@@ -742,10 +654,10 @@
     .locals 4
 
     .prologue
-    .line 120
-    invoke-super {p0}, Landroid/app/Dialog;->show()V
+    .line 76
+    invoke-super {p0}, Lcom/bilibili/tv/ui/video/RightSlidePanelDialog;->show()V
 
-    .line 121
+    .line 77
     const v0, 0x7f0801c5
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->findViewById(I)Landroid/view/View;
@@ -754,7 +666,7 @@
 
     check-cast v0, Landroid/support/v7/widget/RecyclerView;
 
-    .line 122
+    .line 78
     if-eqz v0, :cond_24
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->adapter:Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;
@@ -769,16 +681,16 @@
 
     if-lez v1, :cond_24
 
-    .line 123
-    new-instance v1, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$3;
+    .line 79
+    new-instance v1, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$2;
 
-    invoke-direct {v1, p0, v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$3;-><init>(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;Landroid/support/v7/widget/RecyclerView;)V
+    invoke-direct {v1, p0, v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$2;-><init>(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;Landroid/support/v7/widget/RecyclerView;)V
 
     const-wide/16 v2, 0x64
 
     invoke-virtual {v0, v1, v2, v3}, Landroid/support/v7/widget/RecyclerView;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 133
+    .line 89
     :cond_24
     return-void
 .end method

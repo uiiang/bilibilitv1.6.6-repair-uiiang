@@ -29,24 +29,24 @@
     .locals 1
 
     .prologue
-    .line 44
+    .line 38
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 45
+    .line 39
     iput-wide p1, p0, Lcom/bilibili/tv/ui/attention/TagFilterMenuDialog$TagItem;->tagid:J
 
-    .line 46
+    .line 40
     iput-object p3, p0, Lcom/bilibili/tv/ui/attention/TagFilterMenuDialog$TagItem;->name:Ljava/lang/String;
 
-    .line 47
+    .line 41
     iput p4, p0, Lcom/bilibili/tv/ui/attention/TagFilterMenuDialog$TagItem;->count:I
 
-    .line 48
+    .line 42
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/attention/TagFilterMenuDialog$TagItem;->isSelected:Z
 
-    .line 49
+    .line 43
     return-void
 .end method
 
@@ -56,7 +56,7 @@
     .locals 4
 
     .prologue
-    .line 52
+    .line 46
     iget-wide v0, p0, Lcom/bilibili/tv/ui/attention/TagFilterMenuDialog$TagItem;->tagid:J
 
     const-wide/16 v2, -0x1
@@ -65,10 +65,10 @@
 
     if-nez v0, :cond_b
 
-    .line 53
+    .line 47
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/TagFilterMenuDialog$TagItem;->name:Ljava/lang/String;
 
-    .line 55
+    .line 49
     :goto_a
     return-object v0
 

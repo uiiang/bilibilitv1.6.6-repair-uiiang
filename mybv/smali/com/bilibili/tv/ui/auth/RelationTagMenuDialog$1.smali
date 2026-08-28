@@ -3,7 +3,7 @@
 .source "RelationTagMenuDialog.java"
 
 # interfaces
-.implements Landroid/view/View$OnClickListener;
+.implements Lcom/bilibili/tv/ui/auth/RelationTagAdapter$OnItemToggleListener;
 
 
 # annotations
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 81
+    .line 61
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$1;->this$0:Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,15 +36,27 @@
 
 
 # virtual methods
-.method public onClick(Landroid/view/View;)V
+.method public onItemToggle(Lmybl/RelationTagItem;ZI)V
     .locals 1
 
     .prologue
-    .line 84
+    .line 64
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$1;->this$0:Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;
 
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;->dismiss()V
+    # getter for: Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;->isOperating:Z
+    invoke-static {v0}, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;->access$000(Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;)Z
 
-    .line 85
+    move-result v0
+
+    if-nez v0, :cond_d
+
+    .line 65
+    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$1;->this$0:Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;
+
+    # invokes: Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;->toggleTag(Lmybl/RelationTagItem;ZI)V
+    invoke-static {v0, p1, p2, p3}, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;->access$100(Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;Lmybl/RelationTagItem;ZI)V
+
+    .line 67
+    :cond_d
     return-void
 .end method

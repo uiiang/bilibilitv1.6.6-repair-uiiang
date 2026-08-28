@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;->onSuccess(Lcom/alibaba/fastjson/JSONObject;)V
+    value = Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;->a(Ljava/lang/Void;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 177
+    .line 228
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$1;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,81 +40,30 @@
     .locals 2
 
     .prologue
-    .line 180
+    .line 231
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$1;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
 
-    # getter for: Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->activity:Landroid/app/Activity;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->access$200(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;)Landroid/app/Activity;
+    # getter for: Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->adapter:Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->access$400(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;)Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;
 
     move-result-object v0
 
-    if-eqz v0, :cond_18
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$1;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
 
+    iget v1, v1, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;->val$position:I
+
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter;->notifyItemChanged(I)V
+
+    .line 232
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$1;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
 
-    # getter for: Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->activity:Landroid/app/Activity;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->access$200(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;)Landroid/app/Activity;
+    # invokes: Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->updateMainFavoriteStatus()V
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->access$500(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;)V
 
-    move-result-object v0
-
-    invoke-virtual {v0}, Landroid/app/Activity;->isFinishing()Z
-
-    move-result v0
-
-    if-eqz v0, :cond_19
-
-    .line 191
-    :cond_18
-    :goto_18
+    .line 233
     return-void
-
-    .line 182
-    :cond_19
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$1;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
-
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
-
-    const v1, 0x7f080234
-
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->findViewById(I)Landroid/view/View;
-
-    move-result-object v0
-
-    check-cast v0, Landroid/widget/TextView;
-
-    .line 183
-    if-eqz v0, :cond_2c
-
-    .line 184
-    const/4 v1, 0x0
-
-    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
-
-    .line 187
-    :cond_2c
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4$1;->this$1:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;
-
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$4;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
-
-    const v1, 0x7f0801c5
-
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->findViewById(I)Landroid/view/View;
-
-    move-result-object v0
-
-    check-cast v0, Landroid/support/v7/widget/RecyclerView;
-
-    .line 188
-    if-eqz v0, :cond_18
-
-    .line 189
-    const/16 v1, 0x8
-
-    invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
-
-    goto :goto_18
 .end method

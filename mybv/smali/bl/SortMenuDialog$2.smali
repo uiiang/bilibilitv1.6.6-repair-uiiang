@@ -3,7 +3,7 @@
 .source "SortMenuDialog.java"
 
 # interfaces
-.implements Landroid/view/View$OnClickListener;
+.implements Lbl/SortMenuAdapter$OnItemClickListener;
 
 
 # annotations
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 144
+    .line 124
     iput-object p1, p0, Lbl/SortMenuDialog$2;->this$0:Lbl/SortMenuDialog;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,15 +36,103 @@
 
 
 # virtual methods
-.method public onClick(Landroid/view/View;)V
-    .locals 1
+.method public onItemClick(II)V
+    .locals 2
 
     .prologue
-    .line 147
+    .line 127
+    if-ltz p1, :cond_4e
+
+    iget-object v0, p0, Lbl/SortMenuDialog$2;->this$0:Lbl/SortMenuDialog;
+
+    # getter for: Lbl/SortMenuDialog;->groups:Ljava/util/List;
+    invoke-static {v0}, Lbl/SortMenuDialog;->access$000(Lbl/SortMenuDialog;)Ljava/util/List;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Ljava/util/List;->size()I
+
+    move-result v0
+
+    if-ge p1, v0, :cond_4e
+
+    .line 128
+    iget-object v0, p0, Lbl/SortMenuDialog$2;->this$0:Lbl/SortMenuDialog;
+
+    # getter for: Lbl/SortMenuDialog;->groups:Ljava/util/List;
+    invoke-static {v0}, Lbl/SortMenuDialog;->access$000(Lbl/SortMenuDialog;)Ljava/util/List;
+
+    move-result-object v0
+
+    invoke-interface {v0, p1}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lbl/SortMenuDialog$SortGroup;
+
+    .line 129
+    iput p2, v0, Lbl/SortMenuDialog$SortGroup;->selectedIndex:I
+
+    .line 130
+    iget-object v0, p0, Lbl/SortMenuDialog$2;->this$0:Lbl/SortMenuDialog;
+
+    # getter for: Lbl/SortMenuDialog;->adapter:Lbl/SortMenuAdapter;
+    invoke-static {v0}, Lbl/SortMenuDialog;->access$100(Lbl/SortMenuDialog;)Lbl/SortMenuAdapter;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/SortMenuAdapter;->notifyDataSetChanged()V
+
+    .line 132
+    iget-object v0, p0, Lbl/SortMenuDialog$2;->this$0:Lbl/SortMenuDialog;
+
+    # getter for: Lbl/SortMenuDialog;->groups:Ljava/util/List;
+    invoke-static {v0}, Lbl/SortMenuDialog;->access$000(Lbl/SortMenuDialog;)Ljava/util/List;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Ljava/util/List;->size()I
+
+    move-result v0
+
+    const/4 v1, 0x1
+
+    if-ne v0, v1, :cond_4e
+
+    .line 133
+    iget-object v0, p0, Lbl/SortMenuDialog$2;->this$0:Lbl/SortMenuDialog;
+
+    # getter for: Lbl/SortMenuDialog;->listener:Lbl/SortMenuDialog$OnConfirmListener;
+    invoke-static {v0}, Lbl/SortMenuDialog;->access$200(Lbl/SortMenuDialog;)Lbl/SortMenuDialog$OnConfirmListener;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_49
+
+    .line 134
+    iget-object v0, p0, Lbl/SortMenuDialog$2;->this$0:Lbl/SortMenuDialog;
+
+    # getter for: Lbl/SortMenuDialog;->listener:Lbl/SortMenuDialog$OnConfirmListener;
+    invoke-static {v0}, Lbl/SortMenuDialog;->access$200(Lbl/SortMenuDialog;)Lbl/SortMenuDialog$OnConfirmListener;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lbl/SortMenuDialog$2;->this$0:Lbl/SortMenuDialog;
+
+    # getter for: Lbl/SortMenuDialog;->groups:Ljava/util/List;
+    invoke-static {v1}, Lbl/SortMenuDialog;->access$000(Lbl/SortMenuDialog;)Ljava/util/List;
+
+    move-result-object v1
+
+    invoke-interface {v0, v1}, Lbl/SortMenuDialog$OnConfirmListener;->onConfirm(Ljava/util/List;)V
+
+    .line 136
+    :cond_49
     iget-object v0, p0, Lbl/SortMenuDialog$2;->this$0:Lbl/SortMenuDialog;
 
     invoke-virtual {v0}, Lbl/SortMenuDialog;->dismiss()V
 
-    .line 148
+    .line 139
+    :cond_4e
     return-void
 .end method

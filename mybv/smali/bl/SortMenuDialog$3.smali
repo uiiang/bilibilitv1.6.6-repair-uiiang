@@ -3,12 +3,12 @@
 .source "SortMenuDialog.java"
 
 # interfaces
-.implements Lbl/SortMenuAdapter$OnItemClickListener;
+.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lbl/SortMenuDialog;->onCreate(Landroid/os/Bundle;)V
+    value = Lbl/SortMenuDialog;->show()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,14 +20,23 @@
 # instance fields
 .field final synthetic this$0:Lbl/SortMenuDialog;
 
+.field final synthetic val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+
 
 # direct methods
-.method constructor <init>(Lbl/SortMenuDialog;)V
+.method constructor <init>(Lbl/SortMenuDialog;Landroid/support/v7/widget/RecyclerView;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
-    .line 153
+    .line 162
     iput-object p1, p0, Lbl/SortMenuDialog$3;->this$0:Lbl/SortMenuDialog;
+
+    iput-object p2, p0, Lbl/SortMenuDialog$3;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -36,103 +45,61 @@
 
 
 # virtual methods
-.method public onItemClick(II)V
-    .locals 2
+.method public run()V
+    .locals 3
 
     .prologue
-    .line 156
-    if-ltz p1, :cond_4e
-
-    iget-object v0, p0, Lbl/SortMenuDialog$3;->this$0:Lbl/SortMenuDialog;
-
-    # getter for: Lbl/SortMenuDialog;->groups:Ljava/util/List;
-    invoke-static {v0}, Lbl/SortMenuDialog;->access$000(Lbl/SortMenuDialog;)Ljava/util/List;
-
-    move-result-object v0
-
-    invoke-interface {v0}, Ljava/util/List;->size()I
-
-    move-result v0
-
-    if-ge p1, v0, :cond_4e
-
-    .line 157
-    iget-object v0, p0, Lbl/SortMenuDialog$3;->this$0:Lbl/SortMenuDialog;
-
-    # getter for: Lbl/SortMenuDialog;->groups:Ljava/util/List;
-    invoke-static {v0}, Lbl/SortMenuDialog;->access$000(Lbl/SortMenuDialog;)Ljava/util/List;
-
-    move-result-object v0
-
-    invoke-interface {v0, p1}, Ljava/util/List;->get(I)Ljava/lang/Object;
-
-    move-result-object v0
-
-    check-cast v0, Lbl/SortMenuDialog$SortGroup;
-
-    .line 158
-    iput p2, v0, Lbl/SortMenuDialog$SortGroup;->selectedIndex:I
-
-    .line 159
-    iget-object v0, p0, Lbl/SortMenuDialog$3;->this$0:Lbl/SortMenuDialog;
-
-    # getter for: Lbl/SortMenuDialog;->adapter:Lbl/SortMenuAdapter;
-    invoke-static {v0}, Lbl/SortMenuDialog;->access$100(Lbl/SortMenuDialog;)Lbl/SortMenuAdapter;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Lbl/SortMenuAdapter;->notifyDataSetChanged()V
-
-    .line 161
-    iget-object v0, p0, Lbl/SortMenuDialog$3;->this$0:Lbl/SortMenuDialog;
-
-    # getter for: Lbl/SortMenuDialog;->groups:Ljava/util/List;
-    invoke-static {v0}, Lbl/SortMenuDialog;->access$000(Lbl/SortMenuDialog;)Ljava/util/List;
-
-    move-result-object v0
-
-    invoke-interface {v0}, Ljava/util/List;->size()I
-
-    move-result v0
-
-    const/4 v1, 0x1
-
-    if-ne v0, v1, :cond_4e
-
-    .line 162
-    iget-object v0, p0, Lbl/SortMenuDialog$3;->this$0:Lbl/SortMenuDialog;
-
-    # getter for: Lbl/SortMenuDialog;->listener:Lbl/SortMenuDialog$OnConfirmListener;
-    invoke-static {v0}, Lbl/SortMenuDialog;->access$200(Lbl/SortMenuDialog;)Lbl/SortMenuDialog$OnConfirmListener;
-
-    move-result-object v0
-
-    if-eqz v0, :cond_49
-
-    .line 163
-    iget-object v0, p0, Lbl/SortMenuDialog$3;->this$0:Lbl/SortMenuDialog;
-
-    # getter for: Lbl/SortMenuDialog;->listener:Lbl/SortMenuDialog$OnConfirmListener;
-    invoke-static {v0}, Lbl/SortMenuDialog;->access$200(Lbl/SortMenuDialog;)Lbl/SortMenuDialog$OnConfirmListener;
-
-    move-result-object v0
-
-    iget-object v1, p0, Lbl/SortMenuDialog$3;->this$0:Lbl/SortMenuDialog;
-
-    # getter for: Lbl/SortMenuDialog;->groups:Ljava/util/List;
-    invoke-static {v1}, Lbl/SortMenuDialog;->access$000(Lbl/SortMenuDialog;)Ljava/util/List;
-
-    move-result-object v1
-
-    invoke-interface {v0, v1}, Lbl/SortMenuDialog$OnConfirmListener;->onConfirm(Ljava/util/List;)V
-
     .line 165
-    :cond_49
-    iget-object v0, p0, Lbl/SortMenuDialog$3;->this$0:Lbl/SortMenuDialog;
+    const/4 v0, 0x0
 
-    invoke-virtual {v0}, Lbl/SortMenuDialog;->dismiss()V
+    move v1, v0
+
+    :goto_2
+    iget-object v0, p0, Lbl/SortMenuDialog$3;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+
+    invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
+
+    move-result v0
+
+    if-ge v1, v0, :cond_24
+
+    .line 166
+    iget-object v0, p0, Lbl/SortMenuDialog$3;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+
+    invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
+
+    move-result-object v0
+
+    .line 167
+    const v2, 0x7f0801cd
+
+    invoke-virtual {v0, v2}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+
+    move-result-object v0
+
+    check-cast v0, Landroid/widget/LinearLayout;
 
     .line 168
-    :cond_4e
+    if-eqz v0, :cond_25
+
+    invoke-virtual {v0}, Landroid/widget/LinearLayout;->getVisibility()I
+
+    move-result v2
+
+    if-nez v2, :cond_25
+
+    .line 169
+    invoke-virtual {v0}, Landroid/widget/LinearLayout;->requestFocus()Z
+
+    .line 173
+    :cond_24
     return-void
+
+    .line 165
+    :cond_25
+    add-int/lit8 v0, v1, 0x1
+
+    move v1, v0
+
+    goto :goto_2
 .end method

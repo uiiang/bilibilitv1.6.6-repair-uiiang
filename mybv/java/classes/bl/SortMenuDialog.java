@@ -1,22 +1,19 @@
 package bl;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.bilibili.tv.R;
+import com.bilibili.tv.ui.video.RightSlidePanelDialog;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SortMenuDialog extends Dialog {
+public class SortMenuDialog extends RightSlidePanelDialog {
     
     private Activity activity;
     private List<SortGroup> groups = new ArrayList<>();
@@ -68,7 +65,7 @@ public class SortMenuDialog extends Dialog {
     }
 
     public SortMenuDialog(Activity activity) {
-        super(activity);
+        super(activity, 300, true);
         this.activity = activity;
     }
 
@@ -118,36 +115,10 @@ public class SortMenuDialog extends Dialog {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // 先注入内容布局（父类 onCreate 中会加入 panel_content 容器）
+        setContent(LayoutInflater.from(activity).inflate(R.layout.dialog_sort_menu_content, null));
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.dialog_sort_menu_multi);
 
-        Window dialogWindow = getWindow();
-        dialogWindow.setBackgroundDrawable(new ColorDrawable(0));
-        dialogWindow.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS | WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS | WindowManager.LayoutParams.FLAG_FULLSCREEN
-        );
-        WindowManager.LayoutParams windowParams = dialogWindow.getAttributes();
-        windowParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-        windowParams.height = WindowManager.LayoutParams.MATCH_PARENT;
-        dialogWindow.setAttributes(windowParams);
-
-        View decorView = dialogWindow.getDecorView();
-        decorView.setPadding(0, 0, 0, 0);
-
-        LinearLayout menuContainer = (LinearLayout) findViewById(R.id.menu_container);
-        menuContainer.setFocusable(true);
-        menuContainer.setFocusableInTouchMode(true);
-
-        View dimBackground = findViewById(R.id.dim_background);
-        dimBackground.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
-        
         android.support.v7.widget.RecyclerView recyclerView = (android.support.v7.widget.RecyclerView) findViewById(R.id.sort_list);
         recyclerView.setLayoutManager(new android.support.v7.widget.LinearLayoutManager(activity));
         adapter = new SortMenuAdapter(groups, new SortMenuAdapter.OnItemClickListener() {

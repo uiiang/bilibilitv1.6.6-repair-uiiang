@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 295
+    .line 291
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$7$1;->this$1:Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$7;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,13 +40,13 @@
     .locals 3
 
     .prologue
-    .line 298
+    .line 294
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$7$1;->this$1:Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$7;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$7;->this$0:Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;
 
     # getter for: Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;->listener:Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$OnTagsChangedListener;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;->access$700(Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;)Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$OnTagsChangedListener;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;->access$900(Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;)Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$OnTagsChangedListener;
 
     move-result-object v0
 
@@ -58,6 +58,6 @@
 
     invoke-interface {v0, v1, v2}, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$OnTagsChangedListener;->onTagsChanged(Ljava/util/List;Z)V
 
-    .line 299
+    .line 295
     return-void
 .end method

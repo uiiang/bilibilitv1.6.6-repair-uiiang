@@ -3,7 +3,7 @@
 .source "FavoriteMenuDialog.java"
 
 # interfaces
-.implements Landroid/view/View$OnClickListener;
+.implements Lcom/bilibili/tv/ui/video/FavoriteMenuAdapter$OnItemCheckedChangeListener;
 
 
 # annotations
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 87
+    .line 61
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$1;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,15 +36,27 @@
 
 
 # virtual methods
-.method public onClick(Landroid/view/View;)V
+.method public onItemCheckedChange(Lmybl/FavoriteFolder;ZI)V
     .locals 1
 
     .prologue
-    .line 90
+    .line 64
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$1;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
 
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->dismiss()V
+    # getter for: Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->isOperating:Z
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->access$000(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;)Z
 
-    .line 91
+    move-result v0
+
+    if-nez v0, :cond_d
+
+    .line 65
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$1;->this$0:Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
+
+    # invokes: Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->toggleFavorite(Lmybl/FavoriteFolder;ZI)V
+    invoke-static {v0, p1, p2, p3}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->access$100(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;Lmybl/FavoriteFolder;ZI)V
+
+    .line 67
+    :cond_d
     return-void
 .end method

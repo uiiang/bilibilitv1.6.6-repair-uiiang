@@ -34,7 +34,7 @@
     .locals 0
 
     .prologue
-    .line 325
+    .line 326
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$8;->this$0:Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$8;->val$selectedTagIds:Ljava/util/List;
@@ -50,14 +50,14 @@
     .locals 2
 
     .prologue
-    .line 328
+    .line 329
     const-string v0, "RelationTagMenuDialog"
 
-    const-string v1, "Unfollow success"
+    const-string v1, "Set tags success"
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 329
+    .line 330
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$8;->this$0:Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;
 
     # getter for: Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;->listener:Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$OnTagsChangedListener;
@@ -67,7 +67,7 @@
 
     if-eqz v0, :cond_1d
 
-    .line 330
+    .line 331
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$8;->this$0:Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;
 
     # getter for: Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;->activity:Landroid/app/Activity;
@@ -81,7 +81,7 @@
 
     invoke-virtual {v0, v1}, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
 
-    .line 337
+    .line 338
     :cond_1d
     return-void
 .end method
@@ -90,7 +90,7 @@
     .locals 0
 
     .prologue
-    .line 325
+    .line 326
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$8;->a(Lcom/alibaba/fastjson/JSONObject;)V
@@ -102,7 +102,7 @@
     .locals 1
 
     .prologue
-    .line 341
+    .line 342
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$8;->this$0:Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;
 
     # getter for: Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;->activity:Landroid/app/Activity;
@@ -141,14 +141,14 @@
     .locals 2
 
     .prologue
-    .line 346
+    .line 347
     const-string v0, "RelationTagMenuDialog"
 
-    const-string v1, "Unfollow failed"
+    const-string v1, "Set tags failed"
 
     invoke-static {v0, v1, p1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    .line 347
+    .line 348
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$8;->this$0:Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;
 
     # getter for: Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;->activity:Landroid/app/Activity;
@@ -162,6 +162,6 @@
 
     invoke-virtual {v0, v1}, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
 
-    .line 353
+    .line 354
     return-void
 .end method

@@ -1,19 +1,10 @@
 package com.bilibili.tv.ui.video;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import bl.lr;
@@ -37,7 +28,7 @@ import mybl.FavoriteFolder;
 import mybl.LogUtil;
 import mybl.MyBiliApiService;
 
-public class FavoriteMenuDialog extends Dialog {
+public class FavoriteMenuDialog extends RightSlidePanelDialog {
     private static final String TAG = "FavoriteMenuDialog";
     
     private Activity activity;
@@ -53,7 +44,7 @@ public class FavoriteMenuDialog extends Dialog {
     }
 
     public FavoriteMenuDialog(Activity activity, long avid, BiliVideoDetail videoDetail) {
-        super(activity);
+        super(activity, 300, true);
         this.activity = activity;
         this.avid = avid;
         this.videoDetail = videoDetail;
@@ -61,36 +52,10 @@ public class FavoriteMenuDialog extends Dialog {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // 先注入内容布局（父类 onCreate 中会加入 panel_content 容器）
+        setContent(LayoutInflater.from(activity).inflate(R.layout.dialog_favorite_menu_content, null));
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.dialog_favorite_menu);
 
-        Window dialogWindow = getWindow();
-        dialogWindow.setBackgroundDrawable(new ColorDrawable(0));
-        dialogWindow.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS | WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS | WindowManager.LayoutParams.FLAG_FULLSCREEN
-        );
-        WindowManager.LayoutParams params = dialogWindow.getAttributes();
-        params.width = WindowManager.LayoutParams.MATCH_PARENT;
-        params.height = WindowManager.LayoutParams.MATCH_PARENT;
-        dialogWindow.setAttributes(params);
-
-        View decorView = dialogWindow.getDecorView();
-        decorView.setPadding(0, 0, 0, 0);
-
-        LinearLayout menuContainer = (LinearLayout) findViewById(R.id.menu_container);
-        menuContainer.setFocusable(true);
-        menuContainer.setFocusableInTouchMode(true);
-        
-        View dimBackground = findViewById(R.id.dim_background);
-        dimBackground.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
-        
         android.support.v7.widget.RecyclerView recyclerView = (android.support.v7.widget.RecyclerView) findViewById(R.id.favorite_list);
         recyclerView.setLayoutManager(new android.support.v7.widget.LinearLayoutManager(activity));
         adapter = new FavoriteMenuAdapter(favoriteFolders, new FavoriteMenuAdapter.OnItemCheckedChangeListener() {
@@ -104,15 +69,6 @@ public class FavoriteMenuDialog extends Dialog {
         recyclerView.setAdapter(adapter);
         
         loadFavoriteFolders();
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            dismiss();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
     }
 
     @Override

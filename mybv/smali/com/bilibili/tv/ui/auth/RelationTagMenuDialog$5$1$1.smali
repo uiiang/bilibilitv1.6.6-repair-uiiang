@@ -26,9 +26,14 @@
 # direct methods
 .method constructor <init>(Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$5$1;Landroid/support/v7/widget/RecyclerView;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
-    .line 216
+    .line 212
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$5$1$1;->this$2:Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$5$1;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$5$1$1;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
@@ -44,7 +49,7 @@
     .locals 2
 
     .prologue
-    .line 219
+    .line 215
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$5$1$1;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
 
     const/4 v1, 0x0
@@ -53,13 +58,13 @@
 
     move-result-object v0
 
-    .line 220
+    .line 216
     if-eqz v0, :cond_c
 
-    .line 221
+    .line 217
     invoke-virtual {v0}, Landroid/view/View;->requestFocusFromTouch()Z
 
-    .line 223
+    .line 219
     :cond_c
     return-void
 .end method

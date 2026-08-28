@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 347
+    .line 348
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$8$2;->this$1:Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$8;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 350
+    .line 351
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$8$2;->this$1:Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$8;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog$8;->this$0:Lcom/bilibili/tv/ui/auth/RelationTagMenuDialog;
@@ -50,10 +50,10 @@
 
     move-result-object v0
 
-    const-string v1, "\u53d6\u6d88\u5173\u6ce8\u5931\u8d25"
+    const-string v1, "\u8bbe\u7f6e\u5206\u7ec4\u5931\u8d25"
 
     invoke-static {v0, v1}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 351
+    .line 352
     return-void
 .end method
