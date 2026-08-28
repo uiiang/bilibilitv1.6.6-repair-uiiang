@@ -2755,6 +2755,8 @@
     <public type="layout" name="fragment_weekly_video" id="0x7f0a0094" />
     <public type="layout" name="fragment_attention_dynamic_video" id="0x7f0a0095" />
     <public type="layout" name="recycler_view_item_main_recommend_compact" id="0x7f0a0096" />
+    <public type="layout" name="activity_search_result_side" id="0x7f0a0097" />
+    <public type="layout" name="fragment_search_result_video" id="0x7f0a0098" />
     <public type="layout" name="dialog_favorite_menu_content" id="0x7f0a00b9" />
     <public type="layout" name="item_favorite_menu" id="0x7f0a009a" />
     <public type="layout" name="dialog_sort_menu" id="0x7f0a009b" />
