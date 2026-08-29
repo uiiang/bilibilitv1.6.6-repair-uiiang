@@ -3,10 +3,10 @@
     "id":  "",
     "publishTime":  0,
     "apkUrl":  "https://github.com/uiiang/bilibilitv1.6.6-repair-uiiang/raw/refs/heads/main/mybv.apk",
-    "newFeature":  "1. 支持账号切换 2. 优化直播加载速度 3. 弹幕改为分段加载 4. 修复一些bug",
-    "versionName":  "1.6.6.20260828",
-    "versionCode":  20260828,
+    "newFeature":  "",
+    "versionName":  "1.6.6.20260829",
+    "versionCode":  20260829,
     "title":  "New",
-    "apkMd5":  "0db90b99f1a68893e386ee3c58841d7d",
-    "fileSize":  14506113
+    "apkMd5":  "cfefef3d82c40a2bdb4e83456f5f4881",
+    "fileSize":  14510209
 }

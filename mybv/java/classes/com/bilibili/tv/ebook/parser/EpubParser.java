@@ -101,37 +101,47 @@ public class EpubParser {
      */
     private File unzipEpub(String filePath, String bookId) throws IOException {
         File extractionDir = new File(cacheDir, bookId);
-        
-        // 如果已存在，直接返回
+
+        // 如果已存在，校验缓存完整性；不完整则删除后重新解压
         if (extractionDir.exists()) {
-            Log.i(TAG, "使用已缓存的解压目录: " + extractionDir.getAbsolutePath());
-            return extractionDir;
+            if (isExtractionValid(extractionDir)) {
+                Log.i(TAG, "使用已缓存的解压目录: " + extractionDir.getAbsolutePath());
+                return extractionDir;
+            }
+            Log.w(TAG, "缓存目录不完整，删除后重新解压: " + extractionDir.getAbsolutePath());
+            deleteRecursively(extractionDir);
         }
-        
-        extractionDir.mkdirs();
-        
+
+        // 先解压到临时目录，解压成功后再重命名为正式目录
+        // 避免解压中途失败时留下不完整的缓存目录，导致后续一直解析失败
+        File tempDir = new File(cacheDir, bookId + ".tmp");
+        if (tempDir.exists()) {
+            deleteRecursively(tempDir);
+        }
+        tempDir.mkdirs();
+
         ZipFile zipFile = null;
         try {
             zipFile = new ZipFile(filePath);
             Enumeration<? extends ZipEntry> entries = zipFile.entries();
-            
+
             while (entries.hasMoreElements()) {
                 ZipEntry entry = entries.nextElement();
-                File file = new File(extractionDir, entry.getName());
-                
+                File file = new File(tempDir, entry.getName());
+
                 if (entry.isDirectory()) {
                     file.mkdirs();
                 } else {
                     // 确保父目录存在
                     file.getParentFile().mkdirs();
-                    
+
                     // 写入文件内容（使用try-finally确保异常时流也关闭，避免FD泄漏）
                     InputStream is = null;
                     FileOutputStream fos = null;
                     try {
                         is = zipFile.getInputStream(entry);
                         fos = new FileOutputStream(file);
-                        
+
                         byte[] buffer = new byte[8192];
                         int len;
                         while ((len = is.read(buffer)) > 0) {
@@ -155,10 +165,10 @@ public class EpubParser {
                     }
                 }
             }
-            
-            Log.i(TAG, "EPUB解压完成: " + extractionDir.getAbsolutePath());
-            return extractionDir;
-            
+        } catch (IOException e) {
+            // 解压失败，清理临时目录，避免留下不完整的缓存
+            deleteRecursively(tempDir);
+            throw e;
         } finally {
             if (zipFile != null) {
                 try {
@@ -167,6 +177,55 @@ public class EpubParser {
                     Log.e(TAG, "关闭ZipFile失败: " + e.getMessage());
                 }
             }
+        }
+
+        // 解压成功，重命名为正式目录
+        if (tempDir.renameTo(extractionDir)) {
+            Log.i(TAG, "EPUB解压完成: " + extractionDir.getAbsolutePath());
+            return extractionDir;
+        }
+
+        // 重命名失败（目标目录可能已被并发创建），清理临时目录后返回已有目录
+        deleteRecursively(tempDir);
+        if (extractionDir.exists()) {
+            return extractionDir;
+        }
+        throw new IOException("重命名解压目录失败: " + extractionDir.getAbsolutePath());
+    }
+
+    /**
+     * 校验解压目录是否完整
+     */
+    private boolean isExtractionValid(File extractionDir) {
+        // 有元数据缓存则视为完整
+        if (new File(extractionDir, "metadata.json").exists()) {
+            return true;
+        }
+        // 否则必须能定位到OPF文件才算完整
+        try {
+            return findOpfFile(extractionDir) != null;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * 递归删除文件或目录
+     */
+    private void deleteRecursively(File file) {
+        if (file == null || !file.exists()) {
+            return;
+        }
+        if (file.isDirectory()) {
+            File[] children = file.listFiles();
+            if (children != null) {
+                for (File child : children) {
+                    deleteRecursively(child);
+                }
+            }
+        }
+        if (!file.delete()) {
+            Log.w(TAG, "删除文件失败: " + file.getAbsolutePath());
         }
     }
     
