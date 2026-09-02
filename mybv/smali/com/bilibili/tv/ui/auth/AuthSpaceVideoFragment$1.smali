@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->setupAttentionButton()V
+    value = Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->setupSubscribeButton()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 229
+    .line 236
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$1;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,11 +40,11 @@
     .locals 0
 
     .prologue
-    .line 232
+    .line 239
     check-cast p1, Lcom/bilibili/tv/widget/DrawTextView;
 
     invoke-virtual {p1, p2}, Lcom/bilibili/tv/widget/DrawTextView;->setUpEnabled(Z)V
 
-    .line 233
+    .line 240
     return-void
 .end method

@@ -32,12 +32,12 @@
     .locals 0
 
     .prologue
-    .line 4069
+    .line 4149
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$AddToViewResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Lbl/vm;-><init>()V
 
-    .line 4070
+    .line 4150
     return-void
 .end method
 
@@ -47,11 +47,11 @@
     .locals 1
 
     .prologue
-    .line 4093
+    .line 4173
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$AddToViewResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->o:Landroid/support/v7/widget/RecyclerView;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/support/v7/widget/RecyclerView;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
 
@@ -72,14 +72,14 @@
     .locals 2
 
     .prologue
-    .line 4088
+    .line 4168
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$AddToViewResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     const-string v1, "\u6dfb\u52a0\u7a0d\u540e\u518d\u770b\u5931\u8d25"
 
     invoke-static {v0, v1}, Lbl/lr;->a(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 4089
+    .line 4169
     return-void
 .end method
 
@@ -87,17 +87,17 @@
     .locals 2
 
     .prologue
-    .line 4074
+    .line 4154
     if-eqz p1, :cond_20
 
-    .line 4075
+    .line 4155
     const-string v0, "message"
 
     invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 4076
+    .line 4156
     const-string v1, "OK"
 
     invoke-virtual {v1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -106,18 +106,18 @@
 
     if-eqz v0, :cond_18
 
-    .line 4077
+    .line 4157
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$AddToViewResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     const-string v1, "\u5df2\u5c06\u89c6\u9891\u6dfb\u52a0\u5230\u7a0d\u540e\u518d\u770b"
 
     invoke-static {v0, v1}, Lbl/lr;->a(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 4084
+    .line 4164
     :goto_17
     return-void
 
-    .line 4079
+    .line 4159
     :cond_18
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$AddToViewResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
@@ -127,7 +127,7 @@
 
     goto :goto_17
 
-    .line 4082
+    .line 4162
     :cond_20
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$AddToViewResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
@@ -142,7 +142,7 @@
     .locals 0
 
     .prologue
-    .line 4068
+    .line 4148
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$AddToViewResponse;->onSuccess(Lcom/alibaba/fastjson/JSONObject;)V

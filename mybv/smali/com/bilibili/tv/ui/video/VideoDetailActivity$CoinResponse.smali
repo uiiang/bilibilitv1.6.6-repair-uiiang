@@ -32,12 +32,12 @@
     .locals 0
 
     .prologue
-    .line 3982
+    .line 4062
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$CoinResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
 
-    .line 3983
+    .line 4063
     return-void
 .end method
 
@@ -51,21 +51,21 @@
 
     const/4 v1, 0x1
 
-    .line 3987
+    .line 4067
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$CoinResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->B:Z
-    invoke-static {v2, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$4802(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Z)Z
+    invoke-static {v2, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$5102(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Z)Z
 
-    .line 3988
+    .line 4068
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$CoinResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
-    invoke-static {v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/api/video/BiliVideoDetail;
+    invoke-static {v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     move-result-object v3
 
-    .line 3989
+    .line 4069
     if-eqz p1, :cond_43
 
     const-string v2, "data"
@@ -74,7 +74,7 @@
 
     move-result-object v2
 
-    .line 3990
+    .line 4070
     :goto_15
     if-eqz v2, :cond_20
 
@@ -88,35 +88,35 @@
 
     move v0, v1
 
-    .line 3991
+    .line 4071
     :cond_20
     if-eqz v3, :cond_30
 
-    .line 3992
+    .line 4072
     invoke-virtual {v3, v1}, Lcom/bilibili/tv/api/video/BiliVideoDetail;->setCoinStatus(Z)V
 
-    .line 3993
+    .line 4073
     invoke-virtual {v3, v1}, Lcom/bilibili/tv/api/video/BiliVideoDetail;->increaseCoins(I)V
 
-    .line 3994
+    .line 4074
     if-eqz v0, :cond_30
 
-    .line 3995
+    .line 4075
     invoke-virtual {v3, v1}, Lcom/bilibili/tv/api/video/BiliVideoDetail;->setLikeStatus(Z)V
 
-    .line 3996
+    .line 4076
     invoke-virtual {v3, v1}, Lcom/bilibili/tv/api/video/BiliVideoDetail;->increaseCoins(I)V
 
-    .line 3999
+    .line 4079
     :cond_30
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$CoinResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->o()V
 
-    .line 4000
+    .line 4080
     if-eqz v0, :cond_45
 
-    .line 4001
+    .line 4081
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$CoinResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->getApplicationContext()Landroid/content/Context;
@@ -127,17 +127,17 @@
 
     invoke-static {v0, v1}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 4005
+    .line 4085
     :goto_42
     return-void
 
-    .line 3989
+    .line 4069
     :cond_43
     const/4 v2, 0x0
 
     goto :goto_15
 
-    .line 4003
+    .line 4083
     :cond_45
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$CoinResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
@@ -156,7 +156,7 @@
     .locals 0
 
     .prologue
-    .line 3981
+    .line 4061
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$CoinResponse;->a(Lcom/alibaba/fastjson/JSONObject;)V
@@ -168,11 +168,11 @@
     .locals 1
 
     .prologue
-    .line 4017
+    .line 4097
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$CoinResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->o:Landroid/support/v7/widget/RecyclerView;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/support/v7/widget/RecyclerView;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
 
@@ -193,27 +193,27 @@
     .locals 2
 
     .prologue
-    .line 4009
+    .line 4089
     const-string v0, "t"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 4010
+    .line 4090
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$CoinResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v0, p1, v1}, Lbl/adl;->a(Ljava/lang/Throwable;Landroid/app/Activity;)V
 
-    .line 4011
+    .line 4091
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$CoinResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     const/4 v1, 0x0
 
     # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->B:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$4802(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Z)Z
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$5102(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Z)Z
 
-    .line 4012
+    .line 4092
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$CoinResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->getApplicationContext()Landroid/content/Context;
@@ -226,6 +226,6 @@
 
     invoke-static {v0, v1}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 4013
+    .line 4093
     return-void
 .end method

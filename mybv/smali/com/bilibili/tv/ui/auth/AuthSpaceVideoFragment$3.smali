@@ -5,7 +5,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->setupAttentionButton()V
+    value = Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->querySeasonFavStatus(Ljava/lang/String;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 246
+    .line 264
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
@@ -46,42 +46,46 @@
     .locals 2
 
     .prologue
-    .line 249
-    const-string v0, "attribute"
+    .line 273
+    iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
-    invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
+    if-eqz p1, :cond_16
+
+    const-string v0, "season_fav"
+
+    invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getBooleanValue(Ljava/lang/String;)Z
 
     move-result v0
 
-    .line 250
-    const/4 v1, 0x2
+    if-eqz v0, :cond_16
 
-    if-eq v0, v1, :cond_c
+    const/4 v0, 0x1
 
-    const/4 v1, 0x6
+    :goto_d
+    # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->isSeasonFav:Z
+    invoke-static {v1, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$102(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)Z
 
-    if-ne v0, v1, :cond_15
-
-    .line 251
-    :cond_c
+    .line 274
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
-    iget-object v0, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->attentionButton:Lcom/bilibili/tv/widget/DrawTextView;
+    # invokes: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->updateSubscribeButtonUI()V
+    invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$200(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)V
 
-    const-string v1, "\u5df2\u5173\u6ce8"
-
-    invoke-virtual {v0, v1}, Lcom/bilibili/tv/widget/DrawTextView;->setText(Ljava/lang/CharSequence;)V
-
-    .line 253
-    :cond_15
+    .line 275
     return-void
+
+    .line 273
+    :cond_16
+    const/4 v0, 0x0
+
+    goto :goto_d
 .end method
 
 .method public bridge synthetic a(Ljava/lang/Object;)V
     .locals 0
 
     .prologue
-    .line 246
+    .line 264
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$3;->a(Lcom/alibaba/fastjson/JSONObject;)V
@@ -93,7 +97,7 @@
     .locals 1
 
     .prologue
-    .line 260
+    .line 267
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$3;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -130,6 +134,6 @@
     .locals 0
 
     .prologue
-    .line 256
+    .line 278
     return-void
 .end method

@@ -3,12 +3,12 @@
 .source "VideoDetailActivity.java"
 
 # interfaces
-.implements Landroid/view/ViewTreeObserver$OnGlobalFocusChangeListener;
+.implements Landroid/view/View$OnFocusChangeListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->setupGlobalFocusChangeListener()V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->k()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 596
+    .line 569
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,136 +36,41 @@
 
 
 # virtual methods
-.method public onGlobalFocusChanged(Landroid/view/View;Landroid/view/View;)V
-    .locals 5
+.method public onFocusChange(Landroid/view/View;Z)V
+    .locals 3
 
     .prologue
-    const/4 v4, 0x1
+    .line 572
+    if-eqz p2, :cond_17
 
-    const/4 v1, 0x0
-
-    .line 599
-    if-eqz p2, :cond_11
-
+    .line 573
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->scrollView:Landroid/widget/ScrollView;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1100(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/ScrollView;
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    iget-object v1, v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->episodes_video:Landroid/support/v7/widget/RecyclerView;
+
+    iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    .line 574
+    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->episodesVideoFocusPosition:I
+    invoke-static {v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1100(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)I
+
+    move-result v2
+
+    .line 573
+    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->restoreFocusPosition(Landroid/support/v7/widget/RecyclerView;I)Landroid/view/View;
+    invoke-static {v0, v1, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Landroid/support/v7/widget/RecyclerView;I)Landroid/view/View;
 
     move-result-object v0
 
-    if-eqz v0, :cond_11
+    .line 575
+    if-eqz v0, :cond_17
 
-    .line 600
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+    .line 576
+    invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->scrollToViewIfNeeded(Landroid/view/View;)V
-    invoke-static {v0, p2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1200(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Landroid/view/View;)V
-
-    .line 602
-    :cond_11
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->staffContainer:Landroid/widget/LinearLayout;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1300(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/LinearLayout;
-
-    move-result-object v0
-
-    if-eqz v0, :cond_5b
-
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->staffContainer:Landroid/widget/LinearLayout;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1300(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/LinearLayout;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Landroid/widget/LinearLayout;->getChildCount()I
-
-    move-result v0
-
-    if-le v0, v4, :cond_5b
-
-    move v0, v1
-
-    move v2, v1
-
-    move v3, v1
-
-    .line 605
-    :goto_28
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->staffContainer:Landroid/widget/LinearLayout;
-    invoke-static {v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1300(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/LinearLayout;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Landroid/widget/LinearLayout;->getChildCount()I
-
-    move-result v1
-
-    if-ge v0, v1, :cond_52
-
-    .line 606
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->staffContainer:Landroid/widget/LinearLayout;
-    invoke-static {v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1300(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/LinearLayout;
-
-    move-result-object v1
-
-    invoke-virtual {v1, v0}, Landroid/widget/LinearLayout;->getChildAt(I)Landroid/view/View;
-
-    move-result-object v1
-
-    if-ne v1, p1, :cond_41
-
-    move v3, v4
-
-    .line 609
-    :cond_41
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->staffContainer:Landroid/widget/LinearLayout;
-    invoke-static {v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1300(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/widget/LinearLayout;
-
-    move-result-object v1
-
-    invoke-virtual {v1, v0}, Landroid/widget/LinearLayout;->getChildAt(I)Landroid/view/View;
-
-    move-result-object v1
-
-    if-ne v1, p2, :cond_5c
-
-    move v1, v4
-
-    .line 605
-    :goto_4e
-    add-int/lit8 v0, v0, 0x1
-
-    move v2, v1
-
-    goto :goto_28
-
-    .line 613
-    :cond_52
-    if-eqz v3, :cond_5b
-
-    if-nez v2, :cond_5b
-
-    .line 614
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$11;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->resetStaffNameVisibility()V
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1400(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
-
-    .line 617
-    :cond_5b
+    .line 579
+    :cond_17
     return-void
-
-    :cond_5c
-    move v1, v2
-
-    goto :goto_4e
 .end method

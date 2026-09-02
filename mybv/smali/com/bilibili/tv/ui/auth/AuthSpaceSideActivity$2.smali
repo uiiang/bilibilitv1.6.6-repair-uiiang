@@ -34,7 +34,7 @@
     .locals 0
 
     .prologue
-    .line 344
+    .line 366
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     iput p2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$2;->val$pageNum:I
@@ -54,7 +54,7 @@
 
     const/4 v2, 0x0
 
-    .line 347
+    .line 369
     const-string v3, "AuthSpaceSide"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -84,7 +84,7 @@
 
     invoke-static {v3, v0}, Lmybl/LogUtil;->i(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 348
+    .line 370
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->c:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;
@@ -94,24 +94,24 @@
 
     if-nez v0, :cond_2c
 
-    .line 396
+    .line 418
     :goto_28
     return-void
 
-    .line 347
+    .line 369
     :cond_29
     const-string v0, "null"
 
     goto :goto_15
 
-    .line 351
+    .line 373
     :cond_2c
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->h:Z
     invoke-static {v0, v2}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->access$002(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;Z)Z
 
-    .line 353
+    .line 375
     if-eqz p1, :cond_3b
 
     :try_start_33
@@ -123,7 +123,7 @@
 
     if-nez v0, :cond_6f
 
-    .line 354
+    .line 376
     :cond_3b
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
@@ -132,7 +132,7 @@
     # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->g:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->access$102(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;Z)Z
 
-    .line 355
+    .line 377
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     # invokes: Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->updateMenu()V
@@ -142,11 +142,11 @@
 
     goto :goto_28
 
-    .line 391
+    .line 413
     :catch_47
     move-exception v0
 
-    .line 392
+    .line 414
     const-string v1, "AuthSpaceSide"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -173,13 +173,13 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 393
+    .line 415
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->g:Z
     invoke-static {v0, v2}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->access$102(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;Z)Z
 
-    .line 394
+    .line 416
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     # invokes: Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->updateMenu()V
@@ -187,7 +187,7 @@
 
     goto :goto_28
 
-    .line 358
+    .line 380
     :cond_6f
     :try_start_6f
     const-string v0, "items_lists"
@@ -196,26 +196,26 @@
 
     move-result-object v3
 
-    .line 359
+    .line 381
     const-string v0, "seasons_list"
 
     invoke-virtual {v3, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
 
     move-result-object v4
 
-    .line 360
+    .line 382
     const-string v0, "series_list"
 
     invoke-virtual {v3, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
 
     move-result-object v5
 
-    .line 362
+    .line 384
     if-eqz v4, :cond_b4
 
     move v0, v2
 
-    .line 363
+    .line 385
     :goto_84
     invoke-virtual {v4}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
@@ -223,36 +223,36 @@
 
     if-ge v0, v6, :cond_b4
 
-    .line 364
+    .line 386
     invoke-virtual {v4, v0}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v6
 
-    .line 365
+    .line 387
     const-string v7, "meta"
 
     invoke-virtual {v6, v7}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v6
 
-    .line 366
+    .line 388
     if-eqz v6, :cond_b1
 
-    .line 367
+    .line 389
     const-string v7, "name"
 
     invoke-virtual {v6, v7}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v7
 
-    .line 368
+    .line 390
     const-string v8, "season_id"
 
     invoke-virtual {v6, v8}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
 
     move-result-wide v8
 
-    .line 369
+    .line 391
     iget-object v6, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->menuItems:Ljava/util/List;
@@ -268,19 +268,19 @@
 
     invoke-interface {v6, v10}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 363
+    .line 385
     :cond_b1
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_84
 
-    .line 373
+    .line 395
     :cond_b4
     if-eqz v5, :cond_e7
 
     move v0, v2
 
-    .line 374
+    .line 396
     :goto_b7
     invoke-virtual {v5}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
@@ -288,36 +288,36 @@
 
     if-ge v0, v4, :cond_e7
 
-    .line 375
+    .line 397
     invoke-virtual {v5, v0}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v4
 
-    .line 376
+    .line 398
     const-string v6, "meta"
 
     invoke-virtual {v4, v6}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v4
 
-    .line 377
+    .line 399
     if-eqz v4, :cond_e4
 
-    .line 378
+    .line 400
     const-string v6, "name"
 
     invoke-virtual {v4, v6}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v6
 
-    .line 379
+    .line 401
     const-string v7, "series_id"
 
     invoke-virtual {v4, v7}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
 
     move-result-wide v8
 
-    .line 380
+    .line 402
     iget-object v4, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->menuItems:Ljava/util/List;
@@ -333,13 +333,13 @@
 
     invoke-interface {v4, v7}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 374
+    .line 396
     :cond_e4
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_b7
 
-    .line 385
+    .line 407
     :cond_e7
     const-string v0, "page"
 
@@ -347,7 +347,7 @@
 
     move-result-object v5
 
-    .line 386
+    .line 408
     if-eqz v5, :cond_117
 
     const-string v0, "total"
@@ -358,7 +358,7 @@
 
     move v4, v0
 
-    .line 387
+    .line 409
     :goto_f6
     if-eqz v5, :cond_119
 
@@ -370,7 +370,7 @@
 
     move v3, v0
 
-    .line 388
+    .line 410
     :goto_ff
     if-eqz v5, :cond_11d
 
@@ -380,7 +380,7 @@
 
     move-result v0
 
-    .line 389
+    .line 411
     :goto_107
     iget-object v5, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
@@ -394,7 +394,7 @@
     # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->g:Z
     invoke-static {v5, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->access$102(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;Z)Z
 
-    .line 390
+    .line 412
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     # invokes: Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->updateMenu()V
@@ -405,10 +405,10 @@
     :cond_117
     move v4, v2
 
-    .line 386
+    .line 408
     goto :goto_f6
 
-    .line 387
+    .line 409
     :cond_119
     const/16 v0, 0x14
 
@@ -416,7 +416,7 @@
 
     goto :goto_ff
 
-    .line 388
+    .line 410
     :cond_11d
     iget v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$2;->val$pageNum:I
     :try_end_11f
@@ -427,7 +427,7 @@
     :cond_120
     move v0, v2
 
-    .line 389
+    .line 411
     goto :goto_10d
 .end method
 
@@ -435,7 +435,7 @@
     .locals 0
 
     .prologue
-    .line 344
+    .line 366
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$2;->a(Lcom/alibaba/fastjson/JSONObject;)V
@@ -447,7 +447,7 @@
     .locals 1
 
     .prologue
-    .line 400
+    .line 422
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->isFinishing()Z
@@ -463,7 +463,7 @@
     .prologue
     const/4 v3, 0x0
 
-    .line 405
+    .line 427
     const-string v0, "AuthSpaceSide"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -490,14 +490,14 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 406
+    .line 428
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     invoke-virtual {v0, p1, v1}, Lbl/adl;->a(Ljava/lang/Throwable;Landroid/app/Activity;)V
 
-    .line 407
+    .line 429
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->c:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;
@@ -507,24 +507,24 @@
 
     if-nez v0, :cond_2d
 
-    .line 413
+    .line 435
     :goto_2c
     return-void
 
-    .line 410
+    .line 432
     :cond_2d
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->h:Z
     invoke-static {v0, v3}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->access$002(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;Z)Z
 
-    .line 411
+    .line 433
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->g:Z
     invoke-static {v0, v3}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->access$102(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;Z)Z
 
-    .line 412
+    .line 434
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$2;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     # invokes: Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->updateMenu()V

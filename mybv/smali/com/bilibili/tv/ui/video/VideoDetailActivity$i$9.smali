@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 5576
+    .line 5702
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$9;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,23 +40,23 @@
     .locals 6
 
     .prologue
-    .line 5579
+    .line 5705
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$9;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->relateVideoFocusPosition:I
-    invoke-static {v0, p2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$802(Lcom/bilibili/tv/ui/video/VideoDetailActivity;I)I
+    invoke-static {v0, p2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$902(Lcom/bilibili/tv/ui/video/VideoDetailActivity;I)I
 
-    .line 5580
+    .line 5706
     instance-of v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     if-eqz v0, :cond_2a
 
-    .line 5581
+    .line 5707
     check-cast p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
-    .line 5582
+    .line 5708
     iget-wide v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mAvid:J
 
     const-wide/16 v2, 0x0
@@ -65,7 +65,7 @@
 
     if-lez v0, :cond_2b
 
-    .line 5583
+    .line 5709
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$9;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -86,18 +86,18 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->startActivity(Landroid/content/Intent;)V
 
-    .line 5588
+    .line 5714
     :cond_2a
     :goto_2a
     return-void
 
-    .line 5584
+    .line 5710
     :cond_2b
     iget v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mSeasonOId:I
 
     if-lez v0, :cond_2a
 
-    .line 5585
+    .line 5711
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$9;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;

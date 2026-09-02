@@ -2715,6 +2715,10 @@ public final class R {
         public static final int intro_desc = 0x7f080265;
         public static final int intro_scroll = 0x7f080266;
         public static final int locate_current = 0x7f080267;
+        public static final int video_detail_subscribe = 0x7f080268;
+        public static final int video_detail_subscribe_img = 0x7f080269;
+        public static final int video_detail_subscribe_text = 0x7f08026a;
+        public static final int space_subscribe_btn = 0x7f08026b;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;

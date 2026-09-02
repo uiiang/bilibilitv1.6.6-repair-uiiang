@@ -141,6 +141,11 @@ public final class VideoDetailActivity extends BaseActivity
     private DrawLinearLayout watchLaterBtn;
     private DrawLinearLayout infoBtn;
     private DrawLinearLayout expandBtn;
+    private DrawLinearLayout subscribeBtn;
+    private ImageView subscribeImg;
+    private TextView subscribeText;
+    private boolean isSeasonFav;
+    private long currentSeasonId;
     private View m;
     private RecyclerView n;
     private RecyclerView o;
@@ -326,6 +331,21 @@ public final class VideoDetailActivity extends BaseActivity
                 @Override
                 public void onClick(View v) {
                     onDownloadButtonClick();
+                }
+            });
+        }
+
+        // 订阅合集按钮初始化（仅UGC合集视频显示）
+        subscribeBtn = (DrawLinearLayout) d(R.id.video_detail_subscribe);
+        subscribeImg = (ImageView) d(R.id.video_detail_subscribe_img);
+        subscribeText = (TextView) d(R.id.video_detail_subscribe_text);
+        if (subscribeBtn != null) {
+            subscribeBtn.setOnFocusChangeListener(dVar);
+            subscribeBtn.setUpDrawable(R.drawable.shadow_red_rect);
+            subscribeBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onSubscribeButtonClick();
                 }
             });
         }
@@ -675,12 +695,13 @@ public final class VideoDetailActivity extends BaseActivity
             return;
         }
         int viewId = view.getId();
-        boolean isPlayButtonArea = viewId == R.id.video_history_play_btn_layout 
-                || viewId == R.id.video_re_play_btn_layout 
+        boolean isPlayButtonArea = viewId == R.id.video_history_play_btn_layout
+                || viewId == R.id.video_re_play_btn_layout
                 || viewId == R.id.video_no_history_play_btn_layout
-                || viewId == R.id.video_detail_like 
+                || viewId == R.id.video_detail_like
                 || viewId == R.id.video_detail_coin
-                || viewId == R.id.video_detail_favorite 
+                || viewId == R.id.video_detail_favorite
+                || viewId == R.id.video_detail_subscribe
                 || viewId == R.id.video_detail_watch_later;
         boolean isStaffArea = false;
         if (staffContainer != null) {
@@ -1872,6 +1893,61 @@ public final class VideoDetailActivity extends BaseActivity
         }
     }
 
+    private final void updateSubscribeButtonUI() {
+        if (subscribeText != null) {
+            subscribeText.setText(isSeasonFav ? "已订阅合集" : "订阅合集");
+        }
+    }
+
+    private final void onSubscribeButtonClick() {
+        if (currentSeasonId <= 0) {
+            lr.b(getApplicationContext(), "当前视频不属于任何合集");
+            return;
+        }
+        mg account = mg.a(this);
+        if (!account.a()) {
+            lr.a(this, "账号未登录，无法订阅");
+            return;
+        }
+        String cookie = CookieUtil.getFullCookieWithDevice(account);
+        String csrf = CookieUtil.getBiliJct(account);
+        if (isSeasonFav) {
+            ((MyBiliApiService) vo.a(MyBiliApiService.class)).unfavSeason(currentSeasonId, csrf, cookie)
+                    .a(new SeasonFavResponse(false));
+        } else {
+            ((MyBiliApiService) vo.a(MyBiliApiService.class)).favSeason(currentSeasonId, csrf, cookie)
+                    .a(new SeasonFavResponse(true));
+        }
+    }
+
+    public final class SeasonFavResponse extends vn<String> {
+        private final boolean subscribe;
+
+        SeasonFavResponse(boolean subscribe) {
+            this.subscribe = subscribe;
+        }
+
+        @Override // bl.vn
+        public void a(String response) {
+            VideoDetailActivity.this.isSeasonFav = subscribe;
+            VideoDetailActivity.this.updateSubscribeButtonUI();
+            lr.b(VideoDetailActivity.this.getApplicationContext(),
+                    subscribe ? "订阅合集成功" : "已取消订阅合集");
+        }
+
+        @Override // bl.vm
+        public void onError(Throwable th) {
+            bbi.b(th, "t");
+            lr.b(VideoDetailActivity.this.getApplicationContext(),
+                    subscribe ? "订阅合集失败" : "取消订阅失败");
+        }
+
+        @Override // bl.vm
+        public boolean isCancel() {
+            return VideoDetailActivity.this.isFinishing();
+        }
+    }
+
     private final void loadArchiveRelation(final BiliVideoDetail biliVideoDetail) {
         if (biliVideoDetail == null || biliVideoDetail.mBvid == null) {
             return;
@@ -1897,7 +1973,9 @@ public final class VideoDetailActivity extends BaseActivity
                 boolean like = jsonObject.getBooleanValue("like");
                 boolean favorite = jsonObject.getBooleanValue("favorite");
                 int coin = jsonObject.getIntValue("coin");
-                
+                // season_fav字段可能为boolean或int，getBooleanValue兼容两种类型（getIntValue遇false会crash）
+                boolean seasonFav = jsonObject.getBooleanValue("season_fav");
+
                 BiliVideoDetail.RequestUser requestUser = finalDetail.mRequestUser;
                 if (requestUser == null) {
                     requestUser = new BiliVideoDetail.RequestUser();
@@ -1906,7 +1984,8 @@ public final class VideoDetailActivity extends BaseActivity
                 requestUser.mLike = like;
                 requestUser.mFavorite = favorite;
                 requestUser.mCoin = coin > 0;
-                
+                VideoDetailActivity.this.isSeasonFav = seasonFav;
+
                 VideoDetailActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -1914,6 +1993,7 @@ public final class VideoDetailActivity extends BaseActivity
                             return;
                         }
                         VideoDetailActivity.this.o();
+                        VideoDetailActivity.this.updateSubscribeButtonUI();
                     }
                 });
             }
@@ -4106,22 +4186,55 @@ public final class VideoDetailActivity extends BaseActivity
         View likeBtn = findViewById(R.id.video_detail_like);
         View coinBtn = findViewById(R.id.video_detail_coin);
         View favoriteBtn = findViewById(R.id.video_detail_favorite);
+        View subscribeView = findViewById(R.id.video_detail_subscribe);
         View downloadBtn = findViewById(R.id.video_detail_download);
         View watchLaterBtn = findViewById(R.id.video_detail_watch_later);
         View infoBtn = findViewById(R.id.video_detail_info);
         // 未启用隐藏功能时隐藏"下载"按钮
         boolean downloadHidden = !abd.b(this);
+        // 订阅按钮仅在UGC合集视频时显示
+        boolean subscribeVisible = currentSeasonId > 0;
         if (likeBtn != null) likeBtn.setVisibility(View.VISIBLE);
         if (coinBtn != null) coinBtn.setVisibility(View.VISIBLE);
         if (favoriteBtn != null) favoriteBtn.setVisibility(View.VISIBLE);
+        if (subscribeView != null) {
+            subscribeView.setVisibility(subscribeVisible ? View.VISIBLE : View.GONE);
+        }
         if (downloadBtn != null) {
             downloadBtn.setVisibility(downloadHidden ? View.GONE : View.VISIBLE);
         }
         if (watchLaterBtn != null) watchLaterBtn.setVisibility(View.VISIBLE);
         if (infoBtn != null) infoBtn.setVisibility(View.VISIBLE);
-        // 下载按钮隐藏时，收藏按钮的右键焦点指向稍后再看，避免焦点断裂
-        if (downloadHidden && favoriteBtn != null && watchLaterBtn != null) {
-            favoriteBtn.setNextFocusRightId(R.id.video_detail_watch_later);
+        // 重建按钮横向焦点链（收藏→订阅→下载→稍后再看）。
+        // 订阅(非合集)/下载(未启用)可能为GONE，若nextFocus仍指向GONE视图则焦点卡死无法移动，
+        // 因此按可见性动态设置每个按钮的左右焦点，隐藏的按钮跳过并衔接下一个可见按钮。
+        boolean downloadVisible = !downloadHidden;
+        if (favoriteBtn != null) {
+            if (subscribeVisible && subscribeView != null) {
+                favoriteBtn.setNextFocusRightId(R.id.video_detail_subscribe);
+            } else if (downloadVisible) {
+                favoriteBtn.setNextFocusRightId(R.id.video_detail_download);
+            } else {
+                favoriteBtn.setNextFocusRightId(R.id.video_detail_watch_later);
+            }
+        }
+        if (subscribeView != null && subscribeVisible) {
+            subscribeView.setNextFocusRightId(downloadVisible ? R.id.video_detail_download : R.id.video_detail_watch_later);
+            subscribeView.setNextFocusLeftId(R.id.video_detail_favorite);
+        }
+        if (downloadBtn != null && downloadVisible) {
+            downloadBtn.setNextFocusLeftId((subscribeVisible && subscribeView != null)
+                    ? R.id.video_detail_subscribe : R.id.video_detail_favorite);
+            downloadBtn.setNextFocusRightId(R.id.video_detail_watch_later);
+        }
+        if (watchLaterBtn != null) {
+            if (subscribeVisible && subscribeView != null) {
+                watchLaterBtn.setNextFocusLeftId(R.id.video_detail_subscribe);
+            } else if (downloadVisible) {
+                watchLaterBtn.setNextFocusLeftId(R.id.video_detail_download);
+            } else {
+                watchLaterBtn.setNextFocusLeftId(R.id.video_detail_favorite);
+            }
         }
         // 展开互动按钮后，expandBtn为GONE，点赞按钮左键需要指向当前可见的左边按钮(重播/无痕)
         if (likeBtn != null) {
@@ -4139,12 +4252,14 @@ public final class VideoDetailActivity extends BaseActivity
         View likeBtn = findViewById(R.id.video_detail_like);
         View coinBtn = findViewById(R.id.video_detail_coin);
         View favoriteBtn = findViewById(R.id.video_detail_favorite);
+        View subscribeView = findViewById(R.id.video_detail_subscribe);
         View downloadBtn = findViewById(R.id.video_detail_download);
         View watchLaterBtn = findViewById(R.id.video_detail_watch_later);
         View infoBtn = findViewById(R.id.video_detail_info);
         if (likeBtn != null) likeBtn.setVisibility(View.GONE);
         if (coinBtn != null) coinBtn.setVisibility(View.GONE);
         if (favoriteBtn != null) favoriteBtn.setVisibility(View.GONE);
+        if (subscribeView != null) subscribeView.setVisibility(View.GONE);
         if (downloadBtn != null) downloadBtn.setVisibility(View.GONE);
         if (watchLaterBtn != null) watchLaterBtn.setVisibility(View.GONE);
         if (infoBtn != null) infoBtn.setVisibility(View.GONE);
@@ -4161,12 +4276,14 @@ public final class VideoDetailActivity extends BaseActivity
         View likeBtn = findViewById(R.id.video_detail_like);
         View coinBtn = findViewById(R.id.video_detail_coin);
         View favoriteBtn = findViewById(R.id.video_detail_favorite);
+        View subscribeView = findViewById(R.id.video_detail_subscribe);
         View downloadBtn = findViewById(R.id.video_detail_download);
         View watchLaterBtn = findViewById(R.id.video_detail_watch_later);
         View infoBtn = findViewById(R.id.video_detail_info);
         return (likeBtn != null && likeBtn.hasFocus())
                 || (coinBtn != null && coinBtn.hasFocus())
                 || (favoriteBtn != null && favoriteBtn.hasFocus())
+                || (subscribeView != null && subscribeView.hasFocus())
                 || (downloadBtn != null && downloadBtn.hasFocus())
                 || (watchLaterBtn != null && watchLaterBtn.hasFocus())
                 || (infoBtn != null && infoBtn.hasFocus());
@@ -4189,8 +4306,9 @@ public final class VideoDetailActivity extends BaseActivity
                 drawTextView.setUpEnabled(z);
             }
             int viewId = view.getId();
-            if (viewId == R.id.video_detail_like || viewId == R.id.video_detail_coin 
-                    || viewId == R.id.video_detail_favorite || viewId == R.id.video_detail_download
+            if (viewId == R.id.video_detail_like || viewId == R.id.video_detail_coin
+                    || viewId == R.id.video_detail_favorite || viewId == R.id.video_detail_subscribe
+                    || viewId == R.id.video_detail_download
                     || viewId == R.id.video_detail_watch_later
                     || viewId == R.id.video_re_play_btn_layout
                     || viewId == R.id.video_detail_info) {
@@ -4201,6 +4319,8 @@ public final class VideoDetailActivity extends BaseActivity
                     textView = (TextView) view.findViewById(R.id.video_detail_coin_text);
                 } else if (viewId == R.id.video_detail_favorite) {
                     textView = (TextView) view.findViewById(R.id.video_detail_favorite_text);
+                } else if (viewId == R.id.video_detail_subscribe) {
+                    textView = (TextView) view.findViewById(R.id.video_detail_subscribe_text);
                 } else if (viewId == R.id.video_detail_download) {
                     textView = (TextView) view.findViewById(R.id.video_detail_download_text);
                 } else if (viewId == R.id.video_detail_watch_later) {
@@ -5048,6 +5168,12 @@ public final class VideoDetailActivity extends BaseActivity
             }
             VideoDetailActivity.this.a(biliVideoDetail.mCover);
             VideoDetailActivity.this.o();
+            // 订阅合集按钮：仅UGC合集视频时showInteractionButtons()会显示，默认保持XML中的隐藏状态
+            if (VideoDetailActivity.this.subscribeBtn != null) {
+                VideoDetailActivity.this.currentSeasonId = biliVideoDetail.ugcSeason != null
+                        ? biliVideoDetail.ugcSeason.getLongValue("id") : 0;
+                VideoDetailActivity.this.updateSubscribeButtonUI();
+            }
                 TextView textView = VideoDetailActivity.this.cc;
                 if (textView != null) {
                     textView.setText(biliVideoDetail.mTitle);

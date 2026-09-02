@@ -209,6 +209,23 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
           }
         }
 
+        // 处理"订阅合集"按钮的焦点逻辑（合集模式header中，与关注按钮同排）
+        if (avf.subscribeBtn != null && avf.subscribeBtn.isFocused()) {
+          if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+            // 下键进入视频列表第一行
+            if (avf.mRecyclerView != null && avf.mRecyclerView.getChildCount() > 0) {
+              View firstChild = avf.mRecyclerView.getChildAt(0);
+              if (firstChild != null) {
+                firstChild.requestFocus();
+              }
+            }
+            return true;
+          } else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+            // 左右键焦点保持在订阅按钮（左侧视频总数非可聚焦控件）
+            return true;
+          }
+        }
+
         // 处理视频列表第一行的上键焦点切换
         if (keyCode == KeyEvent.KEYCODE_DPAD_UP && avf.mRecyclerView != null) {
           View focusedView = avf.mRecyclerView.getFocusedChild();
@@ -228,6 +245,11 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
               // 关注按钮不可见时回定位按钮
               if (avf.locateButton != null && avf.locateButton.getVisibility() == View.VISIBLE) {
                 avf.locateButton.requestFocus();
+                return true;
+              }
+              // 合集模式：关注/定位按钮均不可见时，焦点移到订阅合集按钮
+              if (avf.subscribeBtn != null && avf.subscribeBtn.getVisibility() == View.VISIBLE) {
+                avf.subscribeBtn.requestFocus();
                 return true;
               }
             }

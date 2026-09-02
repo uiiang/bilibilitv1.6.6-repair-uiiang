@@ -475,4 +475,8 @@
     <item type="id" name="intro_desc" />
     <item type="id" name="intro_scroll" />
     <item type="id" name="locate_current" />
+    <item type="id" name="video_detail_subscribe" />
+    <item type="id" name="video_detail_subscribe_img" />
+    <item type="id" name="video_detail_subscribe_text" />
+    <item type="id" name="space_subscribe_btn" />
 </resources>

@@ -3680,4 +3680,8 @@
     <public type="layout" name="panel_video_intro" id="0x7f0a00b8" />
     <public type="style" name="RightSlidePanelAnimation" id="0x7f0d0179" />
     <public type="id" name="locate_current" id="0x7f080267" />
+    <public type="id" name="video_detail_subscribe" id="0x7f080268" />
+    <public type="id" name="video_detail_subscribe_img" id="0x7f080269" />
+    <public type="id" name="video_detail_subscribe_text" id="0x7f08026a" />
+    <public type="id" name="space_subscribe_btn" id="0x7f08026b" />
 </resources>

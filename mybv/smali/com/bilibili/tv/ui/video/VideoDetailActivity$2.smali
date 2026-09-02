@@ -3,7 +3,7 @@
 .source "VideoDetailActivity.java"
 
 # interfaces
-.implements Landroid/view/View$OnFocusChangeListener;
+.implements Landroid/view/View$OnClickListener;
 
 
 # annotations
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 336
+    .line 345
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$2;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,27 +36,16 @@
 
 
 # virtual methods
-.method public onFocusChange(Landroid/view/View;Z)V
+.method public onClick(Landroid/view/View;)V
     .locals 1
 
     .prologue
-    .line 339
-    if-eqz p2, :cond_f
-
-    .line 340
+    .line 348
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$2;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->showInteractionButtons()V
+    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->onSubscribeButtonClick()V
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$100(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
 
-    .line 341
-    new-instance v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$2$1;
-
-    invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$2$1;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$2;)V
-
-    invoke-virtual {p1, v0}, Landroid/view/View;->post(Ljava/lang/Runnable;)Z
-
-    .line 351
-    :cond_f
+    .line 349
     return-void
 .end method

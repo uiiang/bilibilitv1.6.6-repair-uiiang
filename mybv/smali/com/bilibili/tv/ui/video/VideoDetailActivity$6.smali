@@ -1,6 +1,9 @@
 .class Lcom/bilibili/tv/ui/video/VideoDetailActivity$6;
-.super Lcom/bilibili/tv/widget/FixLinearLayoutManager;
+.super Ljava/lang/Object;
 .source "VideoDetailActivity.java"
+
+# interfaces
+.implements Landroid/view/View$OnFocusChangeListener;
 
 
 # annotations
@@ -19,63 +22,56 @@
 
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Landroid/content/Context;IZ)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
     .locals 0
 
     .prologue
-    .line 480
+    .line 479
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$6;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    invoke-direct {p0, p2, p3, p4}, Lcom/bilibili/tv/widget/FixLinearLayoutManager;-><init>(Landroid/content/Context;IZ)V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public d(Landroid/view/View;I)Landroid/view/View;
-    .locals 2
+.method public onFocusChange(Landroid/view/View;Z)V
+    .locals 3
 
     .prologue
+    .line 482
+    if-eqz p2, :cond_19
+
     .line 483
-    if-eqz p1, :cond_1a
-
-    const/16 v0, 0x82
-
-    if-ne p2, v0, :cond_1a
-
-    .line 484
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$6;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->n:Landroid/support/v7/widget/RecyclerView;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$300(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/support/v7/widget/RecyclerView;
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$6;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->o:Landroid/support/v7/widget/RecyclerView;
+    invoke-static {v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Landroid/support/v7/widget/RecyclerView;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$6;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->epLayoutFocusPosition:I
+    invoke-static {v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$800(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)I
+
+    move-result v2
+
+    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->restoreFocusPosition(Landroid/support/v7/widget/RecyclerView;I)Landroid/view/View;
+    invoke-static {v0, v1, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Landroid/support/v7/widget/RecyclerView;I)Landroid/view/View;
 
     move-result-object v0
+
+    .line 484
+    if-eqz v0, :cond_19
 
     .line 485
-    if-eqz v0, :cond_1a
+    invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
 
-    invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
-
-    move-result v1
-
-    if-lez v1, :cond_1a
-
-    .line 486
-    const/4 v1, 0x0
-
-    invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
-
-    move-result-object v0
-
-    .line 489
-    :goto_19
-    return-object v0
-
-    :cond_1a
-    invoke-super {p0, p1, p2}, Lcom/bilibili/tv/widget/FixLinearLayoutManager;->d(Landroid/view/View;I)Landroid/view/View;
-
-    move-result-object v0
-
-    goto :goto_19
+    .line 488
+    :cond_19
+    return-void
 .end method

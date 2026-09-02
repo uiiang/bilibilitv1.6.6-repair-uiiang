@@ -3,12 +3,12 @@
 .source "VideoDetailActivity.java"
 
 # interfaces
-.implements Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$OnFavoriteStatusChangedListener;
+.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->showFavoriteMenu()V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->onActivityResult(IILandroid/content/Intent;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,14 +20,23 @@
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
+.field final synthetic val$detail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
-    .line 3689
+    .line 3715
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$35;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$35;->val$detail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -36,36 +45,31 @@
 
 
 # virtual methods
-.method public onFavoriteStatusChanged(Z)V
-    .locals 1
+.method public run()V
+    .locals 2
 
     .prologue
-    .line 3692
+    .line 3718
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$35;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/api/video/BiliVideoDetail;
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isFinishing()Z
 
-    move-result-object v0
+    move-result v0
 
-    if-eqz v0, :cond_11
+    if-eqz v0, :cond_9
 
-    .line 3693
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$35;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/api/video/BiliVideoDetail;
-
-    move-result-object v0
-
-    invoke-virtual {v0, p1}, Lcom/bilibili/tv/api/video/BiliVideoDetail;->setFavoriteStatus(Z)V
-
-    .line 3695
-    :cond_11
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$35;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->o()V
-
-    .line 3696
+    .line 3722
+    :goto_8
     return-void
+
+    .line 3721
+    :cond_9
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$35;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$35;->val$detail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+
+    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateHistoryDisplay(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2900(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
+
+    goto :goto_8
 .end method

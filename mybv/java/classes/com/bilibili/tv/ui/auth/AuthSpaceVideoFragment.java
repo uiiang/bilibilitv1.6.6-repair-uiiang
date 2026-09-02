@@ -69,6 +69,8 @@ public final class AuthSpaceVideoFragment extends ady {
   private TextView headerCount;
   public DrawTextView attentionButton;
   public DrawTextView locateButton;
+  public DrawTextView subscribeBtn;
+  private boolean isSeasonFav = false;
   private TextView hintSort;
   
   // ===== 定位模式状态（参考BT UpSpaceActivity J/K/L/M/N/O/P/Q/R）=====
@@ -135,6 +137,7 @@ public final class AuthSpaceVideoFragment extends ady {
     this.headerCount = (TextView) rootView.findViewById(R.id.header_count);
     this.attentionButton = (DrawTextView) rootView.findViewById(R.id.attention);
     this.locateButton = (DrawTextView) rootView.findViewById(R.id.locate_current);
+    this.subscribeBtn = (DrawTextView) rootView.findViewById(R.id.space_subscribe_btn);
     this.hintSort = (TextView) rootView.findViewById(R.id.hint_sort);
     return rootView;
   }
@@ -219,6 +222,117 @@ public final class AuthSpaceVideoFragment extends ady {
       if (hintSort != null) {
         hintSort.setVisibility(View.VISIBLE);
       }
+      setupSubscribeButton();
+    }
+  }
+
+  /** 订阅合集按钮初始化：仅合集模式显示（系列暂不支持订阅API） */
+  private void setupSubscribeButton() {
+    if (subscribeBtn == null) return;
+    boolean show = "season".equals(mode);
+    subscribeBtn.setVisibility(show ? View.VISIBLE : View.GONE);
+    if (!show) return;
+    subscribeBtn.setUpDrawable(R.drawable.shadow_red_rect);
+    subscribeBtn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+      @Override
+      public void onFocusChange(View view, boolean z) {
+        ((DrawTextView) view).setUpEnabled(z);
+      }
+    });
+    subscribeBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        toggleSeasonSubscribe();
+      }
+    });
+  }
+
+  private void updateSubscribeButtonUI() {
+    if (subscribeBtn != null) {
+      subscribeBtn.setText(isSeasonFav ? "已订阅合集" : "订阅合集");
+    }
+  }
+
+  /** 查询订阅状态：取合集内第一个视频的bvid调archive/relation的season_fav字段 */
+  private void querySeasonFavStatus(String bvid) {
+    Activity activity = getActivity();
+    if (activity == null || bvid == null || bvid.isEmpty()) return;
+    mg account = mg.a(activity);
+    if (account == null || !account.a()) return;
+    String cookie = "SESSDATA=" + account.getSESSDATA();
+    ((MyBiliApiService) vo.a(MyBiliApiService.class)).getArchiveRelation(bvid, cookie)
+      .a(new vn<JSONObject>() {
+        @Override
+        public boolean isCancel() {
+          return getActivity() == null || getActivity().isFinishing();
+        }
+
+        @Override
+        public void a(JSONObject response) {
+          // season_fav字段可能为boolean或int，getBooleanValue兼容两种类型（getIntValue遇false会crash）
+          isSeasonFav = response != null && response.getBooleanValue("season_fav");
+          updateSubscribeButtonUI();
+        }
+
+        @Override
+        public void onError(Throwable th) {}
+      });
+  }
+
+  /** 点击订阅/取消订阅合集 */
+  private void toggleSeasonSubscribe() {
+    final Activity activity = getActivity();
+    if (activity == null) return;
+    mg account = mg.a(activity);
+    if (account == null || !account.a()) {
+      lr.b(getContext(), "账号未登录");
+      return;
+    }
+    final String cookie = CookieUtil.getFullCookieWithDevice(account);
+    final String csrf = CookieUtil.getBiliJct(account);
+    final boolean subscribe = !isSeasonFav;
+    if (subscribe) {
+      ((MyBiliApiService) vo.a(MyBiliApiService.class)).favSeason(targetId, csrf, cookie)
+        .a(new vn<String>() {
+          @Override
+          public boolean isCancel() {
+            return activity.isFinishing();
+          }
+
+          @Override
+          public void a(String response) {
+            isSeasonFav = true;
+            updateSubscribeButtonUI();
+            lr.b(activity.getApplicationContext(), "订阅合集成功");
+          }
+
+          @Override
+          public void onError(Throwable th) {
+            Log.i(TAG, "favSeason error: " + th.getMessage());
+            lr.b(activity.getApplicationContext(), "订阅合集失败");
+          }
+        });
+    } else {
+      ((MyBiliApiService) vo.a(MyBiliApiService.class)).unfavSeason(targetId, csrf, cookie)
+        .a(new vn<String>() {
+          @Override
+          public boolean isCancel() {
+            return activity.isFinishing();
+          }
+
+          @Override
+          public void a(String response) {
+            isSeasonFav = false;
+            updateSubscribeButtonUI();
+            lr.b(activity.getApplicationContext(), "已取消订阅合集");
+          }
+
+          @Override
+          public void onError(Throwable th) {
+            Log.i(TAG, "unfavSeason error: " + th.getMessage());
+            lr.b(activity.getApplicationContext(), "取消订阅失败");
+          }
+        });
     }
   }
   
@@ -988,6 +1102,10 @@ public final class AuthSpaceVideoFragment extends ady {
                   if (page == 1) {
                     adapter.setVideos(videos);
                     updateHeaderInfo(seasonTitle, totalCount);
+                    // 首屏加载完成后查询订阅状态（用合集内第一个视频的bvid）
+                    if (!videos.isEmpty() && videos.get(0).bvid != null) {
+                      querySeasonFavStatus(videos.get(0).bvid);
+                    }
                   } else {
                     adapter.addVideos(videos);
                   }

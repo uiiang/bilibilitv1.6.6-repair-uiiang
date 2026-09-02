@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 4821
+    .line 4941
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c$1;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,20 +40,20 @@
     .locals 2
 
     .prologue
-    .line 4824
+    .line 4944
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c$1;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;->n:Lcom/bilibili/tv/widget/DrawTextView;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;->access$5200(Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;)Lcom/bilibili/tv/widget/DrawTextView;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;->access$5500(Lcom/bilibili/tv/ui/video/VideoDetailActivity$c;)Lcom/bilibili/tv/widget/DrawTextView;
 
     move-result-object v0
 
     invoke-virtual {v0, p2}, Lcom/bilibili/tv/widget/DrawTextView;->setUpEnabled(Z)V
 
-    .line 4825
+    .line 4945
     if-eqz p2, :cond_36
 
-    .line 4826
+    .line 4946
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -62,33 +62,33 @@
 
     move-result-object v0
 
-    .line 4827
+    .line 4947
     instance-of v1, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     if-eqz v1, :cond_36
 
-    .line 4828
+    .line 4948
     check-cast v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    .line 4829
+    .line 4949
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->blockEpisodeAutoFocus:Z
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$5300(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Z
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$5600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Z
 
     move-result v1
 
     if-eqz v1, :cond_36
 
-    .line 4830
+    .line 4950
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/ProgressPlayButton;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/ProgressPlayButton;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3000(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/ProgressPlayButton;
 
     move-result-object v1
 
     if-eqz v1, :cond_36
 
-    .line 4831
+    .line 4951
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/ProgressPlayButton;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/ProgressPlayButton;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3000(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/ProgressPlayButton;
 
     move-result-object v1
 
@@ -98,15 +98,15 @@
 
     if-nez v1, :cond_36
 
-    .line 4832
+    .line 4952
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/ProgressPlayButton;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/ProgressPlayButton;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3000(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/ProgressPlayButton;
 
     move-result-object v0
 
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/ProgressPlayButton;->requestFocus()Z
 
-    .line 4837
+    .line 4957
     :cond_36
     return-void
 .end method

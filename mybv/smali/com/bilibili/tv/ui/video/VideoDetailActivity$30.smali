@@ -3,7 +3,7 @@
 .source "VideoDetailActivity.java"
 
 # interfaces
-.implements Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagClickListener;
+.implements Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagFocusListener;
 
 
 # annotations
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 3234
+    .line 3303
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$30;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,15 +36,23 @@
 
 
 # virtual methods
-.method public onNavTagClick(III)V
+.method public onNavTagFocus(III)V
     .locals 3
 
     .prologue
-    .line 3237
+    .line 3306
+    if-gez p2, :cond_3
+
+    .line 3311
+    :goto_2
+    return-void
+
+    .line 3310
+    :cond_3
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$30;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonSectionNavTagFocusPositions:Ljava/util/Map;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$4700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Ljava/util/Map;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$5000(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Ljava/util/Map;
 
     move-result-object v0
 
@@ -58,6 +66,5 @@
 
     invoke-interface {v0, v1, v2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 3238
-    return-void
+    goto :goto_2
 .end method

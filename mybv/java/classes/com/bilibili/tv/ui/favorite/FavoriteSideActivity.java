@@ -277,9 +277,17 @@ public class FavoriteSideActivity extends BaseSideActivity {
                                 collectionFolders.clear();
                                 if (result != null && result.getJSONArray("list") != null) {
                                     JSONArray list = result.getJSONArray("list");
+                                    Log.i("FavoriteSideActivity", "loadCollectionFolders count=" + list.size());
                                     for (int i = 0; i < list.size(); i++) {
-                                        collectionFolders.add(new CollectionFavoriteFolder(list.getJSONObject(i)));
+                                        JSONObject folder = list.getJSONObject(i);
+                                        Log.i("FavoriteSideActivity", "loadCollectionFolders folder[" + i + "]: id="
+                                                + folder.getLong("id") + ", mid=" + folder.getLong("mid")
+                                                + ", fid=" + folder.getLong("fid") + ", title=" + folder.getString("title"));
+                                        collectionFolders.add(new CollectionFavoriteFolder(folder));
                                     }
+                                } else {
+                                    Log.i("FavoriteSideActivity", "loadCollectionFolders result empty: "
+                                            + (result != null ? result.toJSONString() : "null"));
                                 }
                                 collectionLoaded = true;
                                 checkAllLoaded();
@@ -292,6 +300,7 @@ public class FavoriteSideActivity extends BaseSideActivity {
 
                             @Override
                             public void onError(Throwable t) {
+                                Log.i("FavoriteSideActivity", "loadCollectionFolders error: " + t.getMessage());
                                 collectionLoaded = true;
                                 checkAllLoaded();
                             }
@@ -363,12 +372,11 @@ public class FavoriteSideActivity extends BaseSideActivity {
 
         FavoriteVideoFragment fragment;
         if (folder instanceof CollectionFavoriteFolder) {
-            // 对于合集类型，传递 fid 和 mid 参数
+            // 对于合集类型，传递 mid 参数（用于拼请求referer）
             CollectionFavoriteFolder collectionFolder = (CollectionFavoriteFolder) folder;
             fragment = FavoriteVideoFragment.newInstance(
                     folder.getId(),
                     folder.getType(),
-                    collectionFolder.getFid(),
                     collectionFolder.getMid());
         } else {
             // 对于其他类型，使用默认构造函数

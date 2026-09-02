@@ -165,6 +165,45 @@
     .end annotation
 .end method
 
+.method public abstract favSeason(JLjava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # J
+        .annotation runtime Lretrofit2/http/Field;
+            value = "season_id"
+        .end annotation
+    .end param
+    .param p3    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Field;
+            value = "csrf"
+        .end annotation
+    .end param
+    .param p4    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(J",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            ")",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Ljava/lang/String;",
+            ">;>;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/FormUrlEncoded;
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/POST;
+        value = "/x/v3/fav/season/fav"
+    .end annotation
+.end method
+
 .method public abstract getArchiveRelation(Ljava/lang/String;Ljava/lang/String;)Lbl/vp;
     .param p1    # Ljava/lang/String;
         .annotation runtime Lretrofit2/http/Query;
@@ -950,7 +989,7 @@
     .end annotation
 .end method
 
-.method public abstract getSeasonsArchivesList(JJZIILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lbl/vp;
+.method public abstract getSeasonsArchivesList(JJLjava/lang/Boolean;IILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lbl/vp;
     .param p1    # J
         .annotation runtime Lretrofit2/http/Query;
             value = "mid"
@@ -961,7 +1000,7 @@
             value = "season_id"
         .end annotation
     .end param
-    .param p5    # Z
+    .param p5    # Ljava/lang/Boolean;
         .annotation runtime Lretrofit2/http/Query;
             value = "sort_reverse"
         .end annotation
@@ -993,7 +1032,9 @@
     .end param
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "(JJZII",
+            "(JJ",
+            "Ljava/lang/Boolean;",
+            "II",
             "Ljava/lang/String;",
             "Ljava/lang/String;",
             "Ljava/lang/String;",
@@ -1929,5 +1970,44 @@
 
     .annotation runtime Lretrofit2/http/POST;
         value = "/x/web-interface/archive/like/triple"
+    .end annotation
+.end method
+
+.method public abstract unfavSeason(JLjava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # J
+        .annotation runtime Lretrofit2/http/Field;
+            value = "season_id"
+        .end annotation
+    .end param
+    .param p3    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Field;
+            value = "csrf"
+        .end annotation
+    .end param
+    .param p4    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(J",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            ")",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Ljava/lang/String;",
+            ">;>;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/FormUrlEncoded;
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/POST;
+        value = "/x/v3/fav/season/unfav"
     .end annotation
 .end method

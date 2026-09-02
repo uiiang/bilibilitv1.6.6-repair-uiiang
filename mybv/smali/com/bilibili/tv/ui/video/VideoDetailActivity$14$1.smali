@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;->a(Lcom/alibaba/fastjson/JSONObject;)V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;->onSuccess(Lcom/bilibili/tv/api/video/PgcInfo;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1514
+    .line 1611
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$14$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -37,16 +37,40 @@
 
 # virtual methods
 .method public run()V
-    .locals 1
+    .locals 2
 
     .prologue
-    .line 1517
+    .line 1614
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$14$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->o()V
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isFinishing()Z
 
-    .line 1518
+    move-result v0
+
+    if-eqz v0, :cond_b
+
+    .line 1619
+    :goto_a
     return-void
+
+    .line 1617
+    :cond_b
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$14$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;
+
+    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    const v1, 0x7f0c0170
+
+    invoke-static {v0, v1}, Lbl/lr;->a(Landroid/content/Context;I)V
+
+    .line 1618
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$14$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;
+
+    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$14;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->finish()V
+
+    goto :goto_a
 .end method

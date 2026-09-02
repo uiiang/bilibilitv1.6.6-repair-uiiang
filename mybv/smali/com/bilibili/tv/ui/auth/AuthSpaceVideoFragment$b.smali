@@ -32,12 +32,12 @@
     .locals 0
 
     .prologue
-    .line 1193
+    .line 1311
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
 
-    .line 1194
+    .line 1312
     return-void
 .end method
 
@@ -47,7 +47,7 @@
     .locals 0
 
     .prologue
-    .line 1211
+    .line 1329
     return-void
 .end method
 
@@ -55,7 +55,7 @@
     .locals 1
 
     .prologue
-    .line 1198
+    .line 1316
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
@@ -67,7 +67,7 @@
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->adapter:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$700(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$1000(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$c;
 
     move-result-object v0
 
@@ -89,7 +89,7 @@
     .locals 2
 
     .prologue
-    .line 1203
+    .line 1321
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
@@ -100,19 +100,19 @@
 
     invoke-virtual {v0, p1, v1}, Lbl/adl;->a(Ljava/lang/Throwable;Landroid/app/Activity;)V
 
-    .line 1204
+    .line 1322
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     const/4 v1, 0x0
 
     # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->loading:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$1802(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)Z
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$2102(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)Z
 
-    .line 1205
+    .line 1323
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->page:I
-    invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$2000(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)I
+    invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$2300(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)I
 
     move-result v0
 
@@ -120,12 +120,12 @@
 
     if-ne v0, v1, :cond_1f
 
-    .line 1206
+    .line 1324
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$b;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->k()V
 
-    .line 1207
+    .line 1325
     :cond_1f
     return-void
 .end method

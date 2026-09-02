@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->run()V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->a(Lcom/alibaba/fastjson/JSONObject;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,23 +20,14 @@
 # instance fields
 .field final synthetic this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;
 
-.field final synthetic val$history:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
-
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;Lcom/bilibili/tv/api/video/BiliVideoDetail$History;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;)V
     .locals 0
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "()V"
-        }
-    .end annotation
 
     .prologue
-    .line 2002
+    .line 1989
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;
-
-    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20$1;->val$history:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -46,10 +37,10 @@
 
 # virtual methods
 .method public run()V
-    .locals 2
+    .locals 1
 
     .prologue
-    .line 2005
+    .line 1992
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -60,72 +51,25 @@
 
     if-eqz v0, :cond_b
 
-    .line 2014
-    :cond_a
+    .line 1997
     :goto_a
     return-void
 
-    .line 2008
+    .line 1995
     :cond_b
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;
 
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->val$finalBiliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20$1;->val$history:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->o()V
 
-    iput-object v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mHistory:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
-
-    .line 2009
+    .line 1996
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;
-
-    iget-object v1, v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->val$finalBiliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
-
-    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateHistoryDisplay(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
-
-    .line 2010
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;
-
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/ProgressPlayButton;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/ProgressPlayButton;
-
-    move-result-object v0
-
-    if-eqz v0, :cond_a
-
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;
-
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    .line 2011
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/ProgressPlayButton;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/ProgressPlayButton;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/widget/ProgressPlayButton;->getVisibility()I
-
-    move-result v0
-
-    if-nez v0, :cond_a
-
-    .line 2012
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;
-
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/ProgressPlayButton;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/ProgressPlayButton;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Lcom/bilibili/tv/widget/ProgressPlayButton;->requestFocus()Z
+    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateSubscribeButtonUI()V
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2800(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
 
     goto :goto_a
 .end method

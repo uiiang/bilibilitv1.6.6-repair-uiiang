@@ -3,12 +3,12 @@
 .source "VideoDetailActivity.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Ljava/util/concurrent/Callable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->onActivityResult(IILandroid/content/Intent;)V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->fetchSeasonIdFromEpId(Ljava/lang/String;)Ljava/lang/String;
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -16,15 +16,25 @@
     name = null
 .end annotation
 
+.annotation system Ldalvik/annotation/Signature;
+    value = {
+        "Ljava/lang/Object;",
+        "Ljava/util/concurrent/Callable",
+        "<",
+        "Lorg/json/JSONObject;",
+        ">;"
+    }
+.end annotation
+
 
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-.field final synthetic val$detail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+.field final synthetic val$apiUrl:Ljava/lang/String;
 
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Ljava/lang/String;)V
     .locals 0
     .annotation system Ldalvik/annotation/Signature;
         value = {
@@ -33,10 +43,10 @@
     .end annotation
 
     .prologue
-    .line 3635
+    .line 3585
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$34;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$34;->val$detail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$34;->val$apiUrl:Ljava/lang/String;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -45,31 +55,116 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 2
+.method public bridge synthetic call()Ljava/lang/Object;
+    .locals 1
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/lang/Exception;
+        }
+    .end annotation
 
     .prologue
-    .line 3638
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$34;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+    .line 3585
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$34;->call()Lorg/json/JSONObject;
 
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isFinishing()Z
+    move-result-object v0
 
-    move-result v0
+    return-object v0
+.end method
 
-    if-eqz v0, :cond_9
+.method public call()Lorg/json/JSONObject;
+    .locals 4
 
-    .line 3642
-    :goto_8
-    return-void
+    .prologue
+    .line 3589
+    :try_start_0
+    new-instance v0, Lbl/qa$a;
 
-    .line 3641
-    :cond_9
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$34;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+    const-class v1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;
 
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$34;->val$detail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+    invoke-direct {v0, v1}, Lbl/qa$a;-><init>(Ljava/lang/Class;)V
 
-    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateHistoryDisplay(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$34;->val$apiUrl:Ljava/lang/String;
 
-    goto :goto_8
+    .line 3591
+    invoke-virtual {v0, v1}, Lbl/qa$a;->a(Ljava/lang/String;)Lbl/qa$a;
+
+    move-result-object v0
+
+    const/4 v1, 0x1
+
+    .line 3592
+    invoke-virtual {v0, v1}, Lbl/qa$a;->a(Z)Lbl/qa$a;
+
+    move-result-object v0
+
+    new-instance v1, Lbl/qb;
+
+    invoke-direct {v1}, Lbl/qb;-><init>()V
+
+    .line 3593
+    invoke-virtual {v0, v1}, Lbl/qa$a;->a(Lbl/qf;)Lbl/qa$a;
+
+    move-result-object v0
+
+    .line 3594
+    invoke-virtual {v0}, Lbl/qa$a;->a()Lbl/qa;
+
+    move-result-object v0
+
+    const-string v1, "GET"
+
+    .line 3589
+    invoke-static {v0, v1}, Lbl/pz;->a(Lbl/qa;Ljava/lang/String;)Lbl/qe;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;
+
+    .line 3594
+    invoke-virtual {v0}, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams$JsonResponse;->result()Lorg/json/JSONObject;
+    :try_end_2a
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_2a} :catch_2c
+
+    move-result-object v0
+
+    .line 3597
+    :goto_2b
+    return-object v0
+
+    .line 3595
+    :catch_2c
+    move-exception v0
+
+    .line 3596
+    const-string v1, "BangumiJump"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "API call error: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v0}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v1, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 3597
+    const/4 v0, 0x0
+
+    goto :goto_2b
 .end method

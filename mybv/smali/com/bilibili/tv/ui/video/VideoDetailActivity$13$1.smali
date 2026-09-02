@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity$13;->onSuccess(Lcom/bilibili/tv/api/video/PgcInfo;)V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity$13;->run()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 1590
+    .line 1582
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$13$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$13;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -37,10 +37,10 @@
 
 # virtual methods
 .method public run()V
-    .locals 2
+    .locals 1
 
     .prologue
-    .line 1593
+    .line 1585
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$13$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$13;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$13;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -51,26 +51,25 @@
 
     if-eqz v0, :cond_b
 
-    .line 1598
+    .line 1591
+    :cond_a
     :goto_a
     return-void
 
-    .line 1596
+    .line 1588
     :cond_b
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$13$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$13;
 
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$13;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$13;->val$callback:Ljava/lang/Runnable;
 
-    const v1, 0x7f0c0170
+    if-eqz v0, :cond_a
 
-    invoke-static {v0, v1}, Lbl/lr;->a(Landroid/content/Context;I)V
-
-    .line 1597
+    .line 1589
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$13$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$13;
 
-    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$13;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+    iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$13;->val$callback:Ljava/lang/Runnable;
 
-    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->finish()V
+    invoke-interface {v0}, Ljava/lang/Runnable;->run()V
 
     goto :goto_a
 .end method

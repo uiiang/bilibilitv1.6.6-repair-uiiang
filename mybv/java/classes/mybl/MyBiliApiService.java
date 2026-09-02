@@ -71,6 +71,17 @@ public interface MyBiliApiService {
     @GET("/x/web-interface/archive/relation")
     vp<GeneralResponse<JSONObject>> getArchiveRelation(@Query("bvid") String bvid, @Header("Cookie") String cookie);
 
+    @FormUrlEncoded
+    @POST("/x/v3/fav/season/fav")
+    // data为字符串"SUCCESS"而非对象，须用String避免fastjson解析失败
+    vp<GeneralResponse<String>> favSeason(@Field("season_id") long seasonId,
+            @Field("csrf") String csrf, @Header("Cookie") String cookie);
+
+    @FormUrlEncoded
+    @POST("/x/v3/fav/season/unfav")
+    vp<GeneralResponse<String>> unfavSeason(@Field("season_id") long seasonId,
+            @Field("csrf") String csrf, @Header("Cookie") String cookie);
+
     @GET("/x/web-interface/dynamic/region")
     vp<GeneralResponse<JSONObject>> getRegionHotVideo(@Query("rid") int rid, @Query("ps") int page_size);
 
@@ -149,8 +160,9 @@ public interface MyBiliApiService {
             @Query("web_location") String webLocation, @Header("Cookie") String cookie);
 
     // Auth space - season archives list
+    // sort_reverse=true=倒序（最新在前），不传/false=UP自定义顺序；archives无owner字段（无UP主名）
     @GET("/x/polymer/web-space/seasons_archives_list")
-    vp<GeneralResponse<JSONObject>> getSeasonsArchivesList(@Query("mid") long mid, @Query("season_id") long seasonId, @Query("sort_reverse") boolean sortReverse,
+    vp<GeneralResponse<JSONObject>> getSeasonsArchivesList(@Query("mid") long mid, @Query("season_id") long seasonId, @Query("sort_reverse") Boolean sortReverse,
             @Query("page_size") int pageSize, @Query("page_num") int pageNum,
             @Query("web_location") String webLocation, @Header("Referer") String referer, @Header("Cookie") String cookie);
 

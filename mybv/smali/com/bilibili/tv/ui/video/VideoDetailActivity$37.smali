@@ -1,80 +1,69 @@
-.class synthetic Lcom/bilibili/tv/ui/video/VideoDetailActivity$37;
+.class Lcom/bilibili/tv/ui/video/VideoDetailActivity$37;
 .super Ljava/lang/Object;
 .source "VideoDetailActivity.java"
 
+# interfaces
+.implements Ljava/lang/Runnable;
+
 
 # annotations
-.annotation system Ldalvik/annotation/EnclosingClass;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+.annotation system Ldalvik/annotation/EnclosingMethod;
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->showVideoIntroPanel()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
-    accessFlags = 0x1008
+    accessFlags = 0x0
     name = null
 .end annotation
 
 
-# static fields
-.field static final synthetic $SwitchMap$com$bilibili$tv$ui$video$VideoDetailActivity$EntryType:[I
+# instance fields
+.field final synthetic this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+.field final synthetic val$scrollView:Landroid/view/View;
 
 
 # direct methods
-.method static constructor <clinit>()V
-    .locals 3
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Landroid/view/View;)V
+    .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
-    .line 1454
-    invoke-static {}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;->values()[Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
+    .line 3813
+    iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$37;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    move-result-object v0
+    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$37;->val$scrollView:Landroid/view/View;
 
-    array-length v0, v0
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    new-array v0, v0, [I
-
-    sput-object v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$37;->$SwitchMap$com$bilibili$tv$ui$video$VideoDetailActivity$EntryType:[I
-
-    :try_start_9
-    sget-object v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$37;->$SwitchMap$com$bilibili$tv$ui$video$VideoDetailActivity$EntryType:[I
-
-    sget-object v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;->PGC_BY_SEASON_ID:Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
-
-    invoke-virtual {v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;->ordinal()I
-
-    move-result v1
-
-    const/4 v2, 0x1
-
-    aput v2, v0, v1
-    :try_end_14
-    .catch Ljava/lang/NoSuchFieldError; {:try_start_9 .. :try_end_14} :catch_22
-
-    :goto_14
-    :try_start_14
-    sget-object v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$37;->$SwitchMap$com$bilibili$tv$ui$video$VideoDetailActivity$EntryType:[I
-
-    sget-object v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;->UGC_BY_AVID:Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;
-
-    invoke-virtual {v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$EntryType;->ordinal()I
-
-    move-result v1
-
-    const/4 v2, 0x2
-
-    aput v2, v0, v1
-    :try_end_1f
-    .catch Ljava/lang/NoSuchFieldError; {:try_start_14 .. :try_end_1f} :catch_20
-
-    :goto_1f
     return-void
+.end method
 
-    :catch_20
-    move-exception v0
 
-    goto :goto_1f
+# virtual methods
+.method public run()V
+    .locals 1
 
-    :catch_22
-    move-exception v0
+    .prologue
+    .line 3816
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$37;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    goto :goto_14
+    invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isFinishing()Z
+
+    move-result v0
+
+    if-nez v0, :cond_d
+
+    .line 3817
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$37;->val$scrollView:Landroid/view/View;
+
+    invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
+
+    .line 3819
+    :cond_d
+    return-void
 .end method

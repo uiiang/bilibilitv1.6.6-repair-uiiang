@@ -33,8 +33,6 @@ import bl.ok;
 import bl.xg;
 import com.bilibili.tv.MainApplication;
 import com.bilibili.tv.R;
-import com.bilibili.tv.api.favorite.BiliFavVideoDetailList;
-import com.bilibili.tv.api.favorite.BiliFavoriteVideoApiService;
 import com.bilibili.tv.api.video.BiliVideoDetail;
 import com.bilibili.tv.ui.video.VideoDetailActivity;
 import com.bilibili.tv.ui.bangumi.BangumiDetailActivity;
@@ -57,14 +55,12 @@ public final class FavoriteVideoFragment extends ady {
     private static final String i = "FavoriteVideoFragment";
     private static final int j = 2;
     private c c;
-    private b d;
     private boolean e;
     private int f = 1;
     private boolean g = true;
     private boolean h;
     private long folderId;
     private int folderType;
-    private long fid;
     private long mid;
     
     private LinearLayout headerLayout;
@@ -72,6 +68,12 @@ public final class FavoriteVideoFragment extends ady {
     private TextView headerCount;
     private TextView hintSort;
     private String sortOrder = "mtime";
+    // 合集全量medias缓存（已客户端倒序），fav/season/list一次返回全部数据，本地分页
+    private JSONArray collectionMediasCache;
+    private String collectionTitle;
+    // 合集数据源标记：true=fav/season/list失败已回退到fav/resource/list（订阅的收藏夹型条目），
+    // 翻页时直接走回退接口，避免重新请求fav/season/list再次失败
+    private boolean collectionUseResourceList;
 
     /* compiled from: BL */
     public static final class a {
@@ -94,11 +96,10 @@ public final class FavoriteVideoFragment extends ady {
         return fragment;
     }
 
-    public static FavoriteVideoFragment newInstance(long folderId, int folderType, long fid, long mid) {
+    public static FavoriteVideoFragment newInstance(long folderId, int folderType, long mid) {
         FavoriteVideoFragment fragment = new FavoriteVideoFragment();
         fragment.folderId = folderId;
         fragment.folderType = folderType;
-        fragment.fid = fid;
         fragment.mid = mid;
         return fragment;
     }
@@ -153,6 +154,8 @@ public final class FavoriteVideoFragment extends ady {
     public void clearData() {
         this.f = 1;
         this.g = true;
+        this.collectionMediasCache = null;
+        this.collectionUseResourceList = false;
     }
 
     @Override // bl.ady
@@ -178,7 +181,6 @@ public final class FavoriteVideoFragment extends ady {
         this.c = new c();
         recyclerView.setAdapter(this.c);
         i();
-        this.d = new b();
         b();
     }
 
@@ -272,7 +274,8 @@ public final class FavoriteVideoFragment extends ady {
     @Override // android.support.v4.app.Fragment
     public void onDestroyView() {
         this.c = (c) null;
-        this.d = (b) null;
+        // 重置加载状态：避免视图重建后b()的加载守卫因残留的h=true而跳过加载
+        this.h = false;
         super.onDestroyView();
     }
 
@@ -285,6 +288,10 @@ public final class FavoriteVideoFragment extends ady {
 
     /* JADX INFO: Access modifiers changed from: private */
     public final void b() {
+        // 防止重复加载：onCreateView(a)与d_()会接连触发b()，导致同一合集请求两次
+        if (this.h) {
+            return;
+        }
         this.h = true;
         switch (folderType) {
             case 1:
@@ -369,123 +376,176 @@ public final class FavoriteVideoFragment extends ady {
     }
 
     private void loadCollectionVideos() {
-        if (fid != 0 && mid != 0) {
-            ((BiliFavoriteVideoApiService) vo.a(BiliFavoriteVideoApiService.class))
-                    .getFavoriteSearchedVideoList(mg.a(getActivity()).e(),
-                            new BiliFavoriteVideoApiService.FavParamsMap(mid, fid, 0L, null, null, f))
-                    .a(new vn<com.bilibili.tv.api.favorite.BiliSearchFavoriteBox>() {
-                        @Override
-                        public void a(com.bilibili.tv.api.favorite.BiliSearchFavoriteBox result) {
-                            if (c == null) {
-                                return;
+        // 改用 /x/space/fav/season/list（与BT参考项目一致）：
+        // 1. medias自带upper(UP主名)/cnt_info.danmaku/pubtime，修复seasons_archives_list的archives
+        //    无owner字段导致卡片UP主名字不显示的问题
+        // 2. 该接口一次返回全量数据，客户端倒序（最新在前）后本地分页
+        // 3. 部分条目实为"订阅的收藏夹"型（该接口返回-404"啥都木有"），失败时回退/x/v3/fav/resource/list
+        if (collectionUseResourceList) {
+            loadCollectionVideosFromResource();
+            return;
+        }
+        if (collectionMediasCache != null) {
+            applyCollectionMediasPage();
+            return;
+        }
+        Activity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+        Log.i("FavoriteVideoFragment", "loadCollectionVideos fav/season/list: season_id=" + folderId + ", page=" + f);
+        ((MyBiliApiService) vo.a(MyBiliApiService.class))
+                .getFavoriteUserSeason(folderId, 1, 30)
+                .a(new vn<JSONObject>() {
+                    @Override
+                    public boolean isCancel() {
+                        return getActivity() == null || c == null;
+                    }
+
+                    @Override
+                    public void onError(Throwable th) {
+                        Log.i("FavoriteVideoFragment", "loadCollectionVideos fav/season/list error: " + th.getMessage()
+                                + ", fallback to resource/list");
+                        if (c == null) {
+                            return;
+                        }
+                        h = false;
+                        if (f == 1) {
+                            loadCollectionVideosFromResource();
+                        } else {
+                            k();
+                        }
+                    }
+
+                    @Override
+                    public void a(JSONObject resp) {
+                        if (c == null) {
+                            return;
+                        }
+                        j();
+                        h = false;
+                        JSONArray medias = resp != null ? resp.getJSONArray("medias") : null;
+                        if (medias == null || medias.isEmpty()) {
+                            if (f == 1) {
+                                loadCollectionVideosFromResource();
+                            } else {
+                                g = false;
                             }
-                            j();
-                            h = false;
-                            if (result != null && result.videos != null && !result.videos.isEmpty()) {
+                            return;
+                        }
+                        JSONObject info = resp.getJSONObject("info");
+                        collectionTitle = info != null ? info.getString("title") : null;
+                        // 客户端倒序：接口按UP自定义顺序返回，倒序后最新视频在前
+                        JSONArray reversed = new JSONArray();
+                        for (int i = medias.size() - 1; i >= 0; i--) {
+                            reversed.add(medias.getJSONObject(i));
+                        }
+                        collectionMediasCache = reversed;
+                        applyCollectionMediasPage();
+                    }
+                });
+    }
+
+    private void loadCollectionVideosFromResource() {
+        // 回退接口：/x/v3/fav/resource/list，用于加载"订阅的收藏夹"型条目
+        // medias同样自带upper/cnt_info/pubtime；order=mtime按收藏时间倒序（最新在前），服务端分页
+        Activity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+        collectionUseResourceList = true;
+        h = true;
+        mg account = mg.a(activity);
+        String cookie = account != null ? mybl.CookieUtil.getFullCookieWithDevice(account) : "";
+        String referer = "https://space.bilibili.com/" + mid + "/favlist?fid=" + folderId;
+        Log.i("FavoriteVideoFragment", "loadCollectionVideosFromResource: media_id=" + folderId + ", page=" + f);
+        ((MyBiliApiService) vo.a(MyBiliApiService.class))
+                .getFavoriteResourceList(folderId, f, 30, "", "mtime", 0, 0, "web", "333.1387", referer, cookie)
+                .a(new vn<JSONObject>() {
+                    @Override
+                    public boolean isCancel() {
+                        return getActivity() == null || c == null;
+                    }
+
+                    @Override
+                    public void onError(Throwable th) {
+                        Log.i("FavoriteVideoFragment", "loadCollectionVideosFromResource error: " + th.getMessage());
+                        adl.a.a(th, getActivity());
+                        if (c == null) {
+                            return;
+                        }
+                        h = false;
+                        if (f == 1) {
+                            k();
+                        }
+                    }
+
+                    @Override
+                    public void a(JSONObject data) {
+                        if (c == null) {
+                            return;
+                        }
+                        j();
+                        h = false;
+                        if (data != null) {
+                            JSONArray medias = data.getJSONArray("medias");
+                            JSONObject info = data.getJSONObject("info");
+                            boolean hasMore = data.getBooleanValue("has_more");
+                            if (medias != null && !medias.isEmpty()) {
+                                // 回退路径为服务端分页，标题仅本页使用，无需写入字段
+                                String title = info != null ? info.getString("title") : null;
                                 if (f == 1) {
-                                    c.a(result.videos);
-                                    updateHeaderInfo(result.mName, result.videos.size());
+                                    int mediaCount = info != null ? info.getIntValue("media_count") : 0;
+                                    c.a(medias, title);
+                                    updateHeaderInfo(title, mediaCount);
                                 } else {
-                                    c.b(result.videos);
+                                    c.c(medias);
                                 }
-                                if (f >= result.mPageCount) {
+                                if (!hasMore) {
                                     g = false;
                                 }
                                 return;
                             }
-                            g = false;
-                            if (f == 1) {
-                                l();
-                                FavoriteVideoFragment.this.a(R.string.nothing_show);
-                            }
                         }
+                        g = false;
+                        if (f == 1) {
+                            l();
+                            FavoriteVideoFragment.this.a(R.string.nothing_show);
+                        }
+                    }
+                });
+    }
 
-                        @Override
-                        public boolean isCancel() {
-                            return getActivity() == null || c == null;
-                        }
-
-                        @Override
-                        public void onError(Throwable th) {
-                            adl.a.a(th, getActivity());
-                            if (c == null) {
-                                return;
-                            }
-                            h = false;
-                            if (f == 1) {
-                                k();
-                            }
-                        }
-                    });
+    private void applyCollectionMediasPage() {
+        // 从全量缓存中切出当前页展示（页大小30，与原分页逻辑一致）
+        if (c == null) {
+            return;
+        }
+        j();
+        h = false;
+        int pageSize = 30;
+        int total = collectionMediasCache.size();
+        int start = (f - 1) * pageSize;
+        JSONArray pageMedias = new JSONArray();
+        for (int i = start; i < total && i < start + pageSize; i++) {
+            pageMedias.add(collectionMediasCache.getJSONObject(i));
+        }
+        if (pageMedias.isEmpty()) {
+            g = false;
+            if (f == 1) {
+                l();
+                FavoriteVideoFragment.this.a(R.string.nothing_show);
+            }
+            return;
+        }
+        if (f == 1) {
+            c.a(pageMedias, collectionTitle);
+            updateHeaderInfo(collectionTitle, total);
         } else {
-            ((MyBiliApiService) vo.a(MyBiliApiService.class))
-                    .getFavoriteUserSeason(folderId, f, 20)
-                    .a(new vn<JSONObject>() {
-                        @Override
-                        public void a(JSONObject result) {
-                            if (c == null) {
-                                return;
-                            }
-                            j();
-                            h = false;
-                            if (result != null) {
-                                JSONArray medias = result.getJSONArray("medias");
-                                JSONObject info = result.getJSONObject("info");
-                                if (medias != null && !medias.isEmpty()) {
-                                    List<BiliVideoDetail> videos = new ArrayList<>();
-                                    for (int i = 0; i < medias.size(); i++) {
-                                        JSONObject item = medias.getJSONObject(i);
-                                        BiliVideoDetail video = new BiliVideoDetail();
-                                        video.mAvid = item.getLong("id");
-                                        video.mCover = item.getString("cover");
-                                        video.mTitle = item.getString("title");
-                                        video.mTypeName = "番剧";
-                                        videos.add(video);
-                                    }
-                                    if (f == 1) {
-                                        c.a(videos);
-                                        if (info != null) {
-                                            String title = info.getString("title");
-                                            int mediaCount = info.getIntValue("media_count");
-                                            updateHeaderInfo(title, mediaCount);
-                                        }
-                                    } else {
-                                        c.b(videos);
-                                    }
-                                    // 检查是否还有更多数据
-                                    if (info != null) {
-                                        int totalCount = info.getIntValue("media_count");
-                                        if (c.a() >= totalCount) {
-                                            g = false;
-                                        }
-                                    }
-                                    return;
-                                }
-                            }
-                            g = false;
-                            if (f == 1) {
-                                l();
-                                FavoriteVideoFragment.this.a(R.string.nothing_show);
-                            }
-                        }
-
-                        @Override
-                        public boolean isCancel() {
-                            return getActivity() == null || c == null;
-                        }
-
-                        @Override
-                        public void onError(Throwable th) {
-                            adl.a.a(th, getActivity());
-                            if (c == null) {
-                                return;
-                            }
-                            h = false;
-                            if (f == 1) {
-                                k();
-                            }
-                        }
-                    });
+            c.c(pageMedias);
+        }
+        if (start + pageSize >= total) {
+            g = false;
         }
     }
 
@@ -545,77 +605,6 @@ public final class FavoriteVideoFragment extends ady {
     }
 
     /* compiled from: BL */
-    final class b extends vn<BiliFavVideoDetailList> {
-        public b() {
-        }
-
-        @Override // bl.vm
-        public boolean isCancel() {
-            return FavoriteVideoFragment.this.getActivity() == null || FavoriteVideoFragment.this.c == null;
-        }
-
-        @Override // bl.vm
-        public void onError(Throwable th) {
-            bbi.b(th, "error");
-            adl.a.a(th, FavoriteVideoFragment.this.getActivity());
-            if (FavoriteVideoFragment.this.c == null) {
-                return;
-            }
-            FavoriteVideoFragment.this.h = false;
-            if (FavoriteVideoFragment.this.f == 1) {
-                FavoriteVideoFragment.this.k();
-            }
-        }
-
-        @Override // bl.vn
-        public void a(BiliFavVideoDetailList biliFavVideoDetailList) {
-            if (FavoriteVideoFragment.this.c == null) {
-                return;
-            }
-            FavoriteVideoFragment.this.j();
-            FavoriteVideoFragment.this.h = false;
-            if (biliFavVideoDetailList == null) {
-                bbi.a();
-            }
-            List<BiliVideoDetail> favVideos = biliFavVideoDetailList.getFavVideos();
-            int pages = biliFavVideoDetailList.getPages();
-            c cVar = FavoriteVideoFragment.this.c;
-            if (cVar == null) {
-                bbi.a();
-            }
-            if (cVar.a() != 0 || (favVideos != null && favVideos.size() != 0)) {
-                if (FavoriteVideoFragment.this.f >= pages) {
-                    FavoriteVideoFragment.this.g = false;
-                }
-                if (FavoriteVideoFragment.this.f == 1) {
-                    c cVar2 = FavoriteVideoFragment.this.c;
-                    if (cVar2 == null) {
-                        bbi.a();
-                    }
-                    if (favVideos == null) {
-                        bbi.a();
-                    }
-                    cVar2.a(favVideos);
-                    return;
-                }
-                c cVar3 = FavoriteVideoFragment.this.c;
-                if (cVar3 == null) {
-                    bbi.a();
-                }
-                if (favVideos == null) {
-                    bbi.a();
-                }
-                cVar3.b(favVideos);
-                return;
-            }
-            if (FavoriteVideoFragment.this.f == 1) {
-                FavoriteVideoFragment.this.l();
-                FavoriteVideoFragment.this.a(R.string.nothing_show);
-            }
-        }
-    }
-
-    /* compiled from: BL */
     static final class c extends RecyclerView.a<adv> implements View.OnClickListener {
         private List<BiliVideoDetail> a = new ArrayList();
         private JSONArray b = new JSONArray();
@@ -667,7 +656,11 @@ public final class FavoriteVideoFragment extends ady {
                             ((d) advVar).danmakuInImage.setVisibility(View.GONE);
                         }
                     }
-                    long pubdate = item.getLongValue("fav_time");
+                    // 合集模式medias含pubtime（发布时间），收藏夹模式用fav_time（收藏时间）
+                    long pubdate = item.getLongValue("pubtime");
+                    if (pubdate <= 0) {
+                        pubdate = item.getLongValue("fav_time");
+                    }
                     if (pubdate > 0) {
                         ((d) advVar).D().setText(DateHelper.formatDate(pubdate));
                         ((d) advVar).D().setVisibility(View.VISIBLE);
