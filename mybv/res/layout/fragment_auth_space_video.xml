@@ -64,6 +64,32 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/px_24" />
 
+        <!-- 定位至当前视频按钮：从视频详情页带定位参数进入时显示（外层FrameLayout与attention按钮一致，保证焦点边框完整显示） -->
+        <FrameLayout
+            android:padding="@dimen/px_16"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_24">
+
+            <com.bilibili.tv.widget.DrawTextView
+                android:id="@id/locate_current"
+                android:textSize="@dimen/px_32"
+                android:textColor="@color/white"
+                android:ellipsize="end"
+                android:background="@drawable/background_white_rect"
+                android:paddingLeft="@dimen/px_18"
+                android:paddingTop="@dimen/px_5"
+                android:paddingRight="@dimen/px_18"
+                android:paddingBottom="@dimen/px_5"
+                android:focusable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="跳转" />
+        </FrameLayout>
+
         <Space
             android:focusable="false"
             android:layout_width="0dp"

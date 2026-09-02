@@ -23,7 +23,7 @@
     .locals 0
 
     .prologue
-    .line 86
+    .line 100
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$1;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$m;-><init>()V
@@ -37,10 +37,10 @@
     .locals 3
 
     .prologue
-    .line 89
+    .line 103
     invoke-super {p0, p1, p2}, Landroid/support/v7/widget/RecyclerView$m;->a(Landroid/support/v7/widget/RecyclerView;I)V
 
-    .line 90
+    .line 104
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$1;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->h:Z
@@ -68,12 +68,12 @@
 
     if-nez v0, :cond_1c
 
-    .line 108
+    .line 122
     :cond_1b
     :goto_1b
     return-void
 
-    .line 93
+    .line 107
     :cond_1c
     invoke-virtual {p1}, Landroid/support/v7/widget/RecyclerView;->getLayoutManager()Landroid/support/v7/widget/RecyclerView$h;
 
@@ -81,25 +81,25 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/live/LiveLeftLinearLayoutManger;
 
-    .line 94
+    .line 108
     if-eqz v0, :cond_1b
 
-    .line 97
+    .line 111
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/live/LiveLeftLinearLayoutManger;->p()I
 
     move-result v1
 
-    .line 98
+    .line 112
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/live/LiveLeftLinearLayoutManger;->x()I
 
     move-result v2
 
     if-lez v2, :cond_1b
 
-    .line 99
+    .line 113
     add-int/lit8 v1, v1, 0xa
 
-    .line 100
+    .line 114
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/live/LiveLeftLinearLayoutManger;->H()I
 
     move-result v2
@@ -108,25 +108,25 @@
 
     if-lt v1, v2, :cond_1b
 
-    .line 101
+    .line 115
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/live/LiveLeftLinearLayoutManger;->H()I
 
     move-result v1
 
-    .line 102
+    .line 116
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/live/LiveLeftLinearLayoutManger;->x()I
 
     move-result v0
 
     if-le v1, v0, :cond_1b
 
-    .line 103
+    .line 117
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$1;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     # operator++ for: Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->f:I
     invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->access$308(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;)I
 
-    .line 104
+    .line 118
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$1;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$1;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;

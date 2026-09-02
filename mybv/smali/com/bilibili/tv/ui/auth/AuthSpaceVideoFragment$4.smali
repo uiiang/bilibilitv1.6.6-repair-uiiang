@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 233
+    .line 275
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -49,7 +49,7 @@
     .end annotation
 
     .prologue
-    .line 236
+    .line 278
     const-string v0, "AuthSpaceVideo"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -82,12 +82,12 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 237
+    .line 279
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     # invokes: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->updateAttentionButton(Z)V
     invoke-static {v0, p2}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$100(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)V
 
-    .line 238
+    .line 280
     return-void
 .end method

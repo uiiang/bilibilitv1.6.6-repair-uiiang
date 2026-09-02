@@ -474,4 +474,5 @@
     <item type="id" name="intro_bvid" />
     <item type="id" name="intro_desc" />
     <item type="id" name="intro_scroll" />
+    <item type="id" name="locate_current" />
 </resources>

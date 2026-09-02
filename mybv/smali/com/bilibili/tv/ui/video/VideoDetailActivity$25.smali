@@ -50,10 +50,91 @@
 
 # virtual methods
 .method public onClick(Landroid/view/View;)V
-    .locals 4
+    .locals 10
 
     .prologue
-    .line 2764
+    const/4 v7, 0x0
+
+    const-wide/16 v2, 0x0
+
+    .line 2765
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/api/video/BiliVideoDetail;
+
+    move-result-object v4
+
+    .line 2766
+    if-eqz v4, :cond_35
+
+    invoke-virtual {v4}, Lcom/bilibili/tv/api/video/BiliVideoDetail;->getMid()J
+
+    move-result-wide v0
+
+    .line 2767
+    :goto_f
+    if-eqz v4, :cond_37
+
+    iget-object v6, v4, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mBvid:Ljava/lang/String;
+
+    .line 2768
+    :goto_13
+    if-eqz v4, :cond_17
+
+    iget-object v7, v4, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mTitle:Ljava/lang/String;
+
+    .line 2769
+    :cond_17
+    iget-object v4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->s:J
+    invoke-static {v4}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2000(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)J
+
+    move-result-wide v4
+
+    .line 2770
+    cmp-long v8, v0, v2
+
+    if-lez v8, :cond_39
+
+    iget-wide v8, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->val$staffMid:J
+
+    cmp-long v0, v8, v0
+
+    if-nez v0, :cond_39
+
+    cmp-long v0, v4, v2
+
+    if-lez v0, :cond_39
+
+    .line 2771
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    iget-wide v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->val$staffMid:J
+
+    iget-object v3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->val$staffName:Ljava/lang/String;
+
+    invoke-static/range {v0 .. v7}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->start(Landroid/content/Context;JLjava/lang/String;JLjava/lang/String;Ljava/lang/String;)V
+
+    .line 2775
+    :goto_34
+    return-void
+
+    :cond_35
+    move-wide v0, v2
+
+    .line 2766
+    goto :goto_f
+
+    :cond_37
+    move-object v6, v7
+
+    .line 2767
+    goto :goto_13
+
+    .line 2773
+    :cond_39
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iget-wide v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->val$staffMid:J
@@ -62,6 +143,5 @@
 
     invoke-static {v0, v2, v3, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->start(Landroid/content/Context;JLjava/lang/String;)V
 
-    .line 2765
-    return-void
+    goto :goto_34
 .end method

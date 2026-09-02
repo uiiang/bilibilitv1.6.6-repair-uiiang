@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 4908
+    .line 4918
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 4909
+    .line 4919
     return-void
 .end method
 
@@ -30,10 +30,10 @@
     .locals 0
 
     .prologue
-    .line 4912
+    .line 4922
     invoke-direct {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$h$a;-><init>()V
 
-    .line 4913
+    .line 4923
     return-void
 .end method
 
@@ -43,12 +43,12 @@
     .locals 3
 
     .prologue
-    .line 4916
+    .line 4926
     const-string v0, "parent"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 4917
+    .line 4927
     invoke-virtual {p1}, Landroid/view/ViewGroup;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -61,17 +61,17 @@
 
     const/4 v2, 0x0
 
-    .line 4918
+    .line 4928
     invoke-virtual {v0, v1, p1, v2}, Landroid/view/LayoutInflater;->inflate(ILandroid/view/ViewGroup;Z)Landroid/view/View;
 
     move-result-object v0
 
-    .line 4919
+    .line 4929
     const-string v1, "view"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 4920
+    .line 4930
     new-instance v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$h;
 
     invoke-direct {v1, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$h;-><init>(Landroid/view/View;)V

@@ -25,16 +25,16 @@
     .locals 0
 
     .prologue
-    .line 736
+    .line 1236
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$g;-><init>()V
 
-    .line 737
+    .line 1237
     iput p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$f;->a:I
 
-    .line 738
+    .line 1238
     iput p2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$f;->b:I
 
-    .line 739
+    .line 1239
     return-void
 .end method
 
@@ -46,49 +46,49 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 743
+    .line 1243
     const-string v0, "outRect"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 744
+    .line 1244
     const-string v0, "view"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 745
+    .line 1245
     const-string v0, "parent"
 
     invoke-static {p3, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 746
+    .line 1246
     invoke-virtual {p3, p2}, Landroid/support/v7/widget/RecyclerView;->g(Landroid/view/View;)I
 
     move-result v0
 
-    .line 747
+    .line 1247
     const/4 v1, 0x1
 
     if-le v0, v1, :cond_19
 
     iget v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$f;->a:I
 
-    .line 748
+    .line 1248
     :cond_19
     rem-int/lit8 v0, v0, 0x2
 
     if-nez v0, :cond_23
 
-    .line 749
+    .line 1249
     iget v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$f;->b:I
 
     invoke-virtual {p1, v2, v2, v0, v2}, Landroid/graphics/Rect;->set(IIII)V
 
-    .line 753
+    .line 1253
     :goto_22
     return-void
 
-    .line 751
+    .line 1251
     :cond_23
     iget v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$f;->b:I
 

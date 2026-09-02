@@ -403,14 +403,14 @@
     .locals 2
 
     .prologue
-    .line 3416
+    .line 3426
     const-string v0, "BangumiJump"
 
     const-string v1, "ENABLE_BANGUMI_JUMP is false, skip jump"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 3417
+    .line 3427
     const/4 v0, 0x0
 
     return v0
@@ -1455,7 +1455,7 @@
 
     invoke-virtual {v2, v0}, Lcom/bilibili/tv/widget/DrawLinearLayout;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 2767
+    .line 2777
     new-instance v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$26;
 
     move-object v1, p0
@@ -1464,7 +1464,7 @@
 
     invoke-virtual {v2, v0}, Lcom/bilibili/tv/widget/DrawLinearLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 2776
+    .line 2786
     new-instance v0, Landroid/widget/LinearLayout$LayoutParams;
 
     const/4 v1, -0x2
@@ -1473,7 +1473,7 @@
 
     invoke-direct {v0, v1, v3}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
 
-    .line 2779
+    .line 2789
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->getResources()Landroid/content/res/Resources;
 
     move-result-object v1
@@ -1484,34 +1484,34 @@
 
     move-result v1
 
-    .line 2780
+    .line 2790
     iput v1, v0, Landroid/widget/LinearLayout$LayoutParams;->leftMargin:I
 
-    .line 2781
+    .line 2791
     iput v1, v0, Landroid/widget/LinearLayout$LayoutParams;->rightMargin:I
 
-    .line 2782
+    .line 2792
     iput v1, v0, Landroid/widget/LinearLayout$LayoutParams;->topMargin:I
 
-    .line 2783
+    .line 2793
     iput v1, v0, Landroid/widget/LinearLayout$LayoutParams;->bottomMargin:I
 
-    .line 2784
+    .line 2794
     invoke-static {}, Landroid/view/View;->generateViewId()I
 
     move-result v1
 
     invoke-virtual {v2, v1}, Lcom/bilibili/tv/widget/DrawLinearLayout;->setId(I)V
 
-    .line 2785
+    .line 2795
     invoke-virtual {p1, v2, v0}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 2786
+    .line 2796
     invoke-virtual {p1}, Landroid/widget/LinearLayout;->getChildCount()I
 
     move-result v2
 
-    .line 2787
+    .line 2797
     const/4 v0, 0x0
 
     move v1, v0
@@ -1519,37 +1519,37 @@
     :goto_100
     if-ge v1, v2, :cond_140
 
-    .line 2788
+    .line 2798
     invoke-virtual {p1, v1}, Landroid/widget/LinearLayout;->getChildAt(I)Landroid/view/View;
 
     move-result-object v0
 
     check-cast v0, Lcom/bilibili/tv/widget/DrawLinearLayout;
 
-    .line 2789
+    .line 2799
     if-nez v1, :cond_124
 
-    .line 2790
+    .line 2800
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawLinearLayout;->getId()I
 
     move-result v3
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawLinearLayout;->setNextFocusLeftId(I)V
 
-    .line 2794
+    .line 2804
     :goto_111
     add-int/lit8 v3, v2, -0x1
 
     if-ne v1, v3, :cond_132
 
-    .line 2795
+    .line 2805
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/DrawLinearLayout;->getId()I
 
     move-result v3
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/widget/DrawLinearLayout;->setNextFocusRightId(I)V
 
-    .line 2787
+    .line 2797
     :goto_11c
     add-int/lit8 v0, v1, 0x1
 
@@ -1569,7 +1569,7 @@
 
     goto :goto_b2
 
-    .line 2792
+    .line 2802
     :cond_124
     add-int/lit8 v3, v1, -0x1
 
@@ -1585,7 +1585,7 @@
 
     goto :goto_111
 
-    .line 2797
+    .line 2807
     :cond_132
     add-int/lit8 v3, v1, 0x1
 
@@ -1601,7 +1601,7 @@
 
     goto :goto_11c
 
-    .line 2800
+    .line 2810
     :cond_140
     return-void
 .end method
@@ -1612,7 +1612,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 3436
+    .line 3446
     iget-object v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mRedirectUrl:Ljava/lang/String;
 
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
@@ -1621,14 +1621,14 @@
 
     if-nez v0, :cond_104
 
-    .line 3437
+    .line 3447
     iget-object v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mRedirectUrl:Ljava/lang/String;
 
     invoke-virtual {v0}, Ljava/lang/String;->trim()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 3438
+    .line 3448
     const-string v2, ","
 
     invoke-virtual {v0, v2}, Ljava/lang/String;->endsWith(Ljava/lang/String;)Z
@@ -1637,7 +1637,7 @@
 
     if-eqz v2, :cond_21
 
-    .line 3439
+    .line 3449
     invoke-virtual {v0}, Ljava/lang/String;->length()I
 
     move-result v2
@@ -1648,7 +1648,7 @@
 
     move-result-object v0
 
-    .line 3441
+    .line 3451
     :cond_21
     const-string v2, "BangumiJump"
 
@@ -1672,7 +1672,7 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 3442
+    .line 3452
     const-string v2, "/ss"
 
     invoke-virtual {v0, v2}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
@@ -1681,28 +1681,28 @@
 
     if-eqz v2, :cond_90
 
-    .line 3443
+    .line 3453
     const-string v2, "/ss"
 
     invoke-virtual {v0, v2}, Ljava/lang/String;->indexOf(Ljava/lang/String;)I
 
     move-result v2
 
-    .line 3444
+    .line 3454
     add-int/lit8 v2, v2, 0x3
 
     invoke-virtual {v0, v2}, Ljava/lang/String;->substring(I)Ljava/lang/String;
 
     move-result-object v2
 
-    .line 3445
+    .line 3455
     new-instance v3, Ljava/lang/StringBuilder;
 
     invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
     move v0, v1
 
-    .line 3446
+    .line 3456
     :goto_53
     invoke-virtual {v2}, Ljava/lang/String;->length()I
 
@@ -1710,27 +1710,27 @@
 
     if-ge v0, v1, :cond_69
 
-    .line 3447
+    .line 3457
     invoke-virtual {v2, v0}, Ljava/lang/String;->charAt(I)C
 
     move-result v1
 
-    .line 3448
+    .line 3458
     invoke-static {v1}, Ljava/lang/Character;->isDigit(C)Z
 
     move-result v4
 
     if-eqz v4, :cond_69
 
-    .line 3449
+    .line 3459
     invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
 
-    .line 3446
+    .line 3456
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_53
 
-    .line 3454
+    .line 3464
     :cond_69
     invoke-virtual {v3}, Ljava/lang/StringBuilder;->length()I
 
@@ -1738,7 +1738,7 @@
 
     if-lez v0, :cond_104
 
-    .line 3455
+    .line 3465
     const-string v0, "BangumiJump"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1765,16 +1765,16 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 3456
+    .line 3466
     invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 3486
+    .line 3496
     :goto_8f
     return-object v0
 
-    .line 3458
+    .line 3468
     :cond_90
     const-string v2, "/ep"
 
@@ -1784,26 +1784,26 @@
 
     if-eqz v2, :cond_104
 
-    .line 3459
+    .line 3469
     const-string v2, "/ep"
 
     invoke-virtual {v0, v2}, Ljava/lang/String;->indexOf(Ljava/lang/String;)I
 
     move-result v2
 
-    .line 3460
+    .line 3470
     add-int/lit8 v2, v2, 0x3
 
     invoke-virtual {v0, v2}, Ljava/lang/String;->substring(I)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 3461
+    .line 3471
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 3462
+    .line 3472
     :goto_a9
     invoke-virtual {v0}, Ljava/lang/String;->length()I
 
@@ -1811,27 +1811,27 @@
 
     if-ge v1, v3, :cond_bf
 
-    .line 3463
+    .line 3473
     invoke-virtual {v0, v1}, Ljava/lang/String;->charAt(I)C
 
     move-result v3
 
-    .line 3464
+    .line 3474
     invoke-static {v3}, Ljava/lang/Character;->isDigit(C)Z
 
     move-result v4
 
     if-eqz v4, :cond_bf
 
-    .line 3465
+    .line 3475
     invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
 
-    .line 3462
+    .line 3472
     add-int/lit8 v1, v1, 0x1
 
     goto :goto_a9
 
-    .line 3470
+    .line 3480
     :cond_bf
     invoke-virtual {v2}, Ljava/lang/StringBuilder;->length()I
 
@@ -1839,12 +1839,12 @@
 
     if-lez v0, :cond_104
 
-    .line 3471
+    .line 3481
     invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 3472
+    .line 3482
     const-string v1, "BangumiJump"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -1873,12 +1873,12 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 3473
+    .line 3483
     invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->fetchSeasonIdFromEpId(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 3474
+    .line 3484
     const-string v1, "BangumiJump"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -1903,7 +1903,7 @@
 
     goto :goto_8f
 
-    .line 3479
+    .line 3489
     :cond_104
     if-eqz p1, :cond_12d
 
@@ -1912,17 +1912,17 @@
     :goto_108
     if-eqz v0, :cond_12f
 
-    .line 3480
+    .line 3490
     iget-object v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mBangumiInfo:Lcom/bilibili/tv/api/video/BiliVideoDetail$BangumiInfo;
 
     iget-object v0, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$BangumiInfo;->mSeasonId:Ljava/lang/String;
 
-    .line 3481
+    .line 3491
     const-string v1, "video.mBangumiInfo.mSeasonId"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 3482
+    .line 3492
     const-string v1, "BangumiJump"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -1947,13 +1947,13 @@
 
     goto/16 :goto_8f
 
-    .line 3479
+    .line 3489
     :cond_12d
     const/4 v0, 0x0
 
     goto :goto_108
 
-    .line 3485
+    .line 3495
     :cond_12f
     const-string v0, "BangumiJump"
 
@@ -1961,7 +1961,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 3486
+    .line 3496
     const-string v0, ""
 
     goto/16 :goto_8f
@@ -2005,42 +2005,42 @@
     .locals 8
 
     .prologue
-    .line 3959
+    .line 3969
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->B:Z
 
     if-eqz v0, :cond_5
 
-    .line 3969
+    .line 3979
     :goto_4
     return-void
 
-    .line 3962
+    .line 3972
     :cond_5
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->B:Z
 
-    .line 3963
+    .line 3973
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
 
-    .line 3964
+    .line 3974
     const-string v1, "BiliAccount.get(this)"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 3965
+    .line 3975
     invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v7
 
-    .line 3966
+    .line 3976
     invoke-static {v0}, Lmybl/CookieUtil;->getBiliJct(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v6
 
-    .line 3967
+    .line 3977
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -2063,7 +2063,7 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$CoinResponse;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
 
-    .line 3968
+    .line 3978
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
     goto :goto_4
@@ -2073,27 +2073,27 @@
     .locals 6
 
     .prologue
-    .line 2920
+    .line 2930
     new-instance v2, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     invoke-direct {v2}, Lcom/bilibili/tv/api/video/BiliVideoDetail;-><init>()V
 
-    .line 2921
+    .line 2931
     iget-wide v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->aid:J
 
     iput-wide v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mAvid:J
 
-    .line 2922
+    .line 2932
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->bvid:Ljava/lang/String;
 
     iput-object v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mBvid:Ljava/lang/String;
 
-    .line 2923
+    .line 2933
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->cover:Ljava/lang/String;
 
     iput-object v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mCover:Ljava/lang/String;
 
-    .line 2924
+    .line 2934
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->showTitle:Ljava/lang/String;
 
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
@@ -2104,11 +2104,11 @@
 
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->showTitle:Ljava/lang/String;
 
-    .line 2925
+    .line 2935
     :goto_1b
     iput-object v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mTitle:Ljava/lang/String;
 
-    .line 2926
+    .line 2936
     iget-wide v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->duration:J
 
     const-wide/16 v4, 0x3e8
@@ -2119,20 +2119,20 @@
 
     iput v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mDuration:I
 
-    .line 2927
+    .line 2937
     iget-wide v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->pubTime:J
 
     iput-wide v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mCreatedTimestamp:J
 
-    .line 2928
+    .line 2938
     iput-object p1, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->sourceEpisode:Ljava/lang/Object;
 
-    .line 2929
+    .line 2939
     iget-wide v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->cid:J
 
     iput-wide v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mCid:J
 
-    .line 2931
+    .line 2941
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->badgeInfo:Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
 
     if-eqz v0, :cond_4f
@@ -2153,32 +2153,32 @@
 
     if-nez v0, :cond_4f
 
-    .line 2932
+    .line 2942
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->badgeInfo:Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
 
     iget-object v0, v0, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;->text:Ljava/lang/String;
 
     iput-object v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->badgeText:Ljava/lang/String;
 
-    .line 2933
+    .line 2943
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->badgeInfo:Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
 
     iget-object v0, v0, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;->bgColor:Ljava/lang/String;
 
     iput-object v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->badgeBgColor:Ljava/lang/String;
 
-    .line 2936
+    .line 2946
     :cond_4f
     new-instance v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Stat;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/video/BiliVideoDetail$Stat;-><init>()V
 
-    .line 2937
+    .line 2947
     iget-object v1, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->stat:Lcom/bilibili/tv/api/video/PgcInfo$EpisodeStat;
 
     if-eqz v1, :cond_b9
 
-    .line 2938
+    .line 2948
     iget-object v1, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->stat:Lcom/bilibili/tv/api/video/PgcInfo$EpisodeStat;
 
     iget-wide v4, v1, Lcom/bilibili/tv/api/video/PgcInfo$EpisodeStat;->play:J
@@ -2189,7 +2189,7 @@
 
     iput-object v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Stat;->mPlays:Ljava/lang/String;
 
-    .line 2939
+    .line 2949
     iget-object v1, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->stat:Lcom/bilibili/tv/api/video/PgcInfo$EpisodeStat;
 
     iget-wide v4, v1, Lcom/bilibili/tv/api/video/PgcInfo$EpisodeStat;->danmakus:J
@@ -2200,19 +2200,19 @@
 
     iput-object v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Stat;->mDanmakus:Ljava/lang/String;
 
-    .line 2944
+    .line 2954
     :goto_6c
     iput-object v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mStat:Lcom/bilibili/tv/api/video/BiliVideoDetail$Stat;
 
-    .line 2946
+    .line 2956
     new-instance v3, Lcom/bilibili/tv/api/video/BiliUser;
 
     invoke-direct {v3}, Lcom/bilibili/tv/api/video/BiliUser;-><init>()V
 
-    .line 2947
+    .line 2957
     const-string v1, ""
 
-    .line 2948
+    .line 2958
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->statForUnity:Lcom/alibaba/fastjson/JSONObject;
 
     if-eqz v0, :cond_ce
@@ -2227,7 +2227,7 @@
 
     if-eqz v0, :cond_ce
 
-    .line 2949
+    .line 2959
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->statForUnity:Lcom/alibaba/fastjson/JSONObject;
 
     const-string v4, "vt"
@@ -2236,32 +2236,32 @@
 
     move-result-object v4
 
-    .line 2950
+    .line 2960
     if-eqz v4, :cond_ce
 
-    .line 2951
+    .line 2961
     const-string v0, "pure_text"
 
     invoke-virtual {v4, v0}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 2952
+    .line 2962
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v5
 
     if-nez v5, :cond_c2
 
-    .line 2962
+    .line 2972
     :cond_99
     :goto_99
     iput-object v0, v3, Lcom/bilibili/tv/api/video/BiliUser;->name:Ljava/lang/String;
 
-    .line 2963
+    .line 2973
     iput-object v3, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mOwner:Lcom/bilibili/tv/api/video/BiliUser;
 
-    .line 2964
+    .line 2974
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v1
@@ -2273,13 +2273,13 @@
     :goto_a4
     iput-boolean v1, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->hideUpIcon:Z
 
-    .line 2965
+    .line 2975
     iput-object v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->vtText:Ljava/lang/String;
 
-    .line 2967
+    .line 2977
     return-object v2
 
-    .line 2925
+    .line 2935
     :cond_a9
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->longTitle:Ljava/lang/String;
 
@@ -2298,20 +2298,20 @@
 
     goto/16 :goto_1b
 
-    .line 2941
+    .line 2951
     :cond_b9
     const-string v1, "0"
 
     iput-object v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Stat;->mPlays:Ljava/lang/String;
 
-    .line 2942
+    .line 2952
     const-string v1, "0"
 
     iput-object v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$Stat;->mDanmakus:Ljava/lang/String;
 
     goto :goto_6c
 
-    .line 2955
+    .line 2965
     :cond_c2
     const-string v0, "text"
 
@@ -2319,7 +2319,7 @@
 
     move-result-object v0
 
-    .line 2956
+    .line 2966
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v4
@@ -2331,7 +2331,7 @@
 
     goto :goto_99
 
-    .line 2964
+    .line 2974
     :cond_d0
     const/4 v1, 0x0
 
@@ -2342,20 +2342,20 @@
     .locals 6
 
     .prologue
-    .line 2868
+    .line 2878
     new-instance v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;
 
     invoke-direct {v2}, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;-><init>()V
 
-    .line 2869
+    .line 2879
     iget-wide v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->cid:J
 
     iput-wide v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->mCid:J
 
-    .line 2870
+    .line 2880
     iput p2, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->mPage:I
 
-    .line 2871
+    .line 2881
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->longTitle:Ljava/lang/String;
 
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
@@ -2369,19 +2369,19 @@
     :goto_15
     iput-object v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->mTitle:Ljava/lang/String;
 
-    .line 2872
+    .line 2882
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->link:Ljava/lang/String;
 
     iput-object v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->mLink:Ljava/lang/String;
 
-    .line 2873
+    .line 2883
     iget v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->id:I
 
     int-to-long v0, v0
 
     iput-wide v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->mEpisodeId:J
 
-    .line 2874
+    .line 2884
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->mPgcInfo:Lcom/bilibili/tv/api/video/PgcInfo;
 
     if-eqz v0, :cond_ae
@@ -2397,17 +2397,17 @@
 
     iput-object v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->mSeasonId:Ljava/lang/String;
 
-    .line 2875
+    .line 2885
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->cover:Ljava/lang/String;
 
     iput-object v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->mEpCover:Ljava/lang/String;
 
-    .line 2876
+    .line 2886
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->bvid:Ljava/lang/String;
 
     iput-object v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->mBvid:Ljava/lang/String;
 
-    .line 2877
+    .line 2887
     iget-wide v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->duration:J
 
     const-wide/16 v4, 0x3e8
@@ -2418,15 +2418,15 @@
 
     iput v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->duration:I
 
-    .line 2878
+    .line 2888
     iget-wide v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->pubTime:J
 
     iput-wide v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->pubTime:J
 
-    .line 2880
+    .line 2890
     const-string v1, ""
 
-    .line 2881
+    .line 2891
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->statForUnity:Lcom/alibaba/fastjson/JSONObject;
 
     if-eqz v0, :cond_bd
@@ -2441,7 +2441,7 @@
 
     if-eqz v0, :cond_bd
 
-    .line 2882
+    .line 2892
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->statForUnity:Lcom/alibaba/fastjson/JSONObject;
 
     const-string v3, "vt"
@@ -2450,48 +2450,48 @@
 
     move-result-object v3
 
-    .line 2883
+    .line 2893
     if-eqz v3, :cond_bd
 
-    .line 2884
+    .line 2894
     const-string v0, "pure_text"
 
     invoke-virtual {v3, v0}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 2885
+    .line 2895
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v4
 
     if-nez v4, :cond_b1
 
-    .line 2895
+    .line 2905
     :cond_68
     :goto_68
     iput-object v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->subtitle:Ljava/lang/String;
 
-    .line 2897
+    .line 2907
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->stat:Lcom/bilibili/tv/api/video/PgcInfo$EpisodeStat;
 
     if-eqz v0, :cond_7a
 
-    .line 2898
+    .line 2908
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->stat:Lcom/bilibili/tv/api/video/PgcInfo$EpisodeStat;
 
     iget-wide v0, v0, Lcom/bilibili/tv/api/video/PgcInfo$EpisodeStat;->play:J
 
     iput-wide v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->plays:J
 
-    .line 2899
+    .line 2909
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->stat:Lcom/bilibili/tv/api/video/PgcInfo$EpisodeStat;
 
     iget-wide v0, v0, Lcom/bilibili/tv/api/video/PgcInfo$EpisodeStat;->danmakus:J
 
     iput-wide v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->danmakus:J
 
-    .line 2902
+    .line 2912
     :cond_7a
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->badgeInfo:Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
 
@@ -2513,59 +2513,59 @@
 
     if-nez v0, :cond_9a
 
-    .line 2903
+    .line 2913
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->badgeInfo:Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
 
     iget-object v0, v0, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;->text:Ljava/lang/String;
 
     iput-object v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->badgeText:Ljava/lang/String;
 
-    .line 2904
+    .line 2914
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->badgeInfo:Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
 
     iget-object v0, v0, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;->bgColor:Ljava/lang/String;
 
     iput-object v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->badgeBgColor:Ljava/lang/String;
 
-    .line 2907
+    .line 2917
     :cond_9a
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->mPgcInfo:Lcom/bilibili/tv/api/video/PgcInfo;
 
     if-eqz v0, :cond_a9
 
-    .line 2908
+    .line 2918
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->mPgcInfo:Lcom/bilibili/tv/api/video/PgcInfo;
 
     iget v0, v0, Lcom/bilibili/tv/api/video/PgcInfo;->type:I
 
-    .line 2909
+    .line 2919
     const/4 v1, 0x2
 
     if-ne v0, v1, :cond_bf
 
-    .line 2910
+    .line 2920
     const-string v0, "movie"
 
     iput-object v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->mFrom:Ljava/lang/String;
 
-    .line 2916
+    .line 2926
     :cond_a9
     :goto_a9
     return-object v2
 
-    .line 2871
+    .line 2881
     :cond_aa
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Episode;->title:Ljava/lang/String;
 
     goto/16 :goto_15
 
-    .line 2874
+    .line 2884
     :cond_ae
     const/4 v0, 0x0
 
     goto/16 :goto_28
 
-    .line 2888
+    .line 2898
     :cond_b1
     const-string v0, "text"
 
@@ -2573,7 +2573,7 @@
 
     move-result-object v0
 
-    .line 2889
+    .line 2899
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v3
@@ -2585,7 +2585,7 @@
 
     goto :goto_68
 
-    .line 2912
+    .line 2922
     :cond_bf
     const-string v0, "bangumi"
 
@@ -3132,7 +3132,7 @@
 
     const/4 v2, 0x0
 
-    .line 2995
+    .line 3005
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonsContainer:Landroid/widget/LinearLayout;
 
     if-eqz v0, :cond_12
@@ -3143,12 +3143,12 @@
 
     if-nez v0, :cond_13
 
-    .line 3077
+    .line 3087
     :cond_12
     :goto_12
     return-void
 
-    .line 2999
+    .line 3009
     :cond_13
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonsContainer:Landroid/widget/LinearLayout;
 
@@ -3158,43 +3158,43 @@
 
     if-eqz v0, :cond_20
 
-    .line 3000
+    .line 3010
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonsContainer:Landroid/widget/LinearLayout;
 
     invoke-virtual {v0, v2}, Landroid/widget/LinearLayout;->setVisibility(I)V
 
-    .line 3003
+    .line 3013
     :cond_20
     new-instance v3, Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     invoke-direct {v3, p0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;-><init>(Landroid/content/Context;)V
 
-    .line 3005
+    .line 3015
     invoke-virtual {v3, v10}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setSectionId(I)V
 
-    .line 3006
+    .line 3016
     invoke-virtual {v3, v8}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setShowIndexBadge(Z)V
 
-    .line 3008
+    .line 3018
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo;->episodes:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->size()I
 
     move-result v6
 
-    .line 3009
+    .line 3019
     const-string v0, "\u9009\u96c6"
 
     invoke-virtual {v3, v0, v6}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setTitle(Ljava/lang/String;I)V
 
-    .line 3011
+    .line 3021
     new-instance v7, Ljava/util/ArrayList;
 
     invoke-direct {v7}, Ljava/util/ArrayList;-><init>()V
 
     move v1, v2
 
-    .line 3012
+    .line 3022
     :goto_3c
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo;->episodes:Ljava/util/List;
 
@@ -3204,7 +3204,7 @@
 
     if-ge v1, v0, :cond_57
 
-    .line 3013
+    .line 3023
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo;->episodes:Ljava/util/List;
 
     invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -3213,31 +3213,31 @@
 
     check-cast v0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;
 
-    .line 3014
+    .line 3024
     invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->convertEpisodeToBiliVideoDetail(Lcom/bilibili/tv/api/video/PgcInfo$Episode;)Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     move-result-object v0
 
-    .line 3016
+    .line 3026
     invoke-interface {v7, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 3012
+    .line 3022
     add-int/lit8 v0, v1, 0x1
 
     move v1, v0
 
     goto :goto_3c
 
-    .line 3019
+    .line 3029
     :cond_57
     new-instance v0, Lcom/bilibili/tv/ui/video/widget/UnifiedVideoCardBinder;
 
     invoke-direct {v0, v8}, Lcom/bilibili/tv/ui/video/widget/UnifiedVideoCardBinder;-><init>(I)V
 
-    .line 3020
+    .line 3030
     invoke-virtual {v3, v7, v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setData(Ljava/util/List;Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;)V
 
-    .line 3023
+    .line 3033
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     if-eqz v0, :cond_d8
@@ -3258,53 +3258,53 @@
 
     if-lez v0, :cond_d8
 
-    .line 3024
+    .line 3034
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     iget-object v0, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mHistory:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
 
     iget-wide v0, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mCid:J
 
-    .line 3026
+    .line 3036
     :goto_79
     cmp-long v4, v0, v4
 
     if-lez v4, :cond_83
 
-    .line 3027
+    .line 3037
     invoke-virtual {v3, v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setCurrentCid(J)V
 
-    .line 3028
+    .line 3038
     invoke-virtual {v3, v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setCurrentPlayingCid(J)V
 
-    .line 3030
+    .line 3040
     :cond_83
     invoke-virtual {v3}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->syncAdapterCurrentState()V
 
-    .line 3031
+    .line 3041
     invoke-virtual {v3, v2}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setInterceptCurrentVideoClick(Z)V
 
-    .line 3033
+    .line 3043
     new-instance v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$27;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$27;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
 
     invoke-virtual {v3, v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setOnVideoClickListener(Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoClickListener;)V
 
-    .line 3053
+    .line 3063
     invoke-virtual {v3}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->getRecyclerView()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
 
-    .line 3054
+    .line 3064
     if-eqz v0, :cond_9d
 
-    .line 3055
+    .line 3065
     const v1, 0x7f08016a
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setNextFocusUpId(I)V
 
-    .line 3058
+    .line 3068
     :cond_9d
     new-instance v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonSectionView;
 
@@ -3314,55 +3314,55 @@
 
     invoke-direct {v1, v4, v0, v10}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonSectionView;-><init>(Landroid/widget/TextView;Landroid/support/v7/widget/RecyclerView;I)V
 
-    .line 3059
+    .line 3069
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonSectionViews:Ljava/util/List;
 
     invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 3060
+    .line 3070
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->ugcSeasonSections:Ljava/util/List;
 
     invoke-interface {v0, v3}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 3061
+    .line 3071
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->videoListNavigator:Lcom/bilibili/tv/ui/video/widget/VideoListNavigator;
 
     if-eqz v0, :cond_b9
 
-    .line 3062
+    .line 3072
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->videoListNavigator:Lcom/bilibili/tv/ui/video/widget/VideoListNavigator;
 
     invoke-virtual {v0, v3}, Lcom/bilibili/tv/ui/video/widget/VideoListNavigator;->registerSection(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)V
 
-    .line 3065
+    .line 3075
     :cond_b9
     invoke-virtual {v3}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->scrollToCurrentVideo()V
 
-    .line 3067
+    .line 3077
     invoke-direct {p0, v3, v6}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->setupNavigationTagsForSection(Lcom/bilibili/tv/ui/video/widget/VideoListSection;I)V
 
-    .line 3069
+    .line 3079
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonsContainer:Landroid/widget/LinearLayout;
 
     invoke-virtual {v0, v3, v2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;I)V
 
-    .line 3071
+    .line 3081
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->hh:Landroid/widget/TextView;
 
     if-eqz v0, :cond_cd
 
-    .line 3072
+    .line 3082
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->hh:Landroid/widget/TextView;
 
     invoke-virtual {v0, v9}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 3074
+    .line 3084
     :cond_cd
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->o:Landroid/support/v7/widget/RecyclerView;
 
     if-eqz v0, :cond_12
 
-    .line 3075
+    .line 3085
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->o:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v0, v9}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
@@ -3381,7 +3381,7 @@
     .prologue
     const/4 v5, 0x1
 
-    .line 3357
+    .line 3367
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonsContainer:Landroid/widget/LinearLayout;
 
     if-eqz v0, :cond_11
@@ -3398,41 +3398,41 @@
 
     if-eqz v0, :cond_12
 
-    .line 3412
+    .line 3422
     :cond_11
     :goto_11
     return-void
 
-    .line 3361
+    .line 3371
     :cond_12
     new-instance v2, Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     invoke-direct {v2, p0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;-><init>(Landroid/content/Context;)V
 
-    .line 3363
+    .line 3373
     invoke-virtual {v2, p2}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setSectionId(I)V
 
-    .line 3364
+    .line 3374
     invoke-virtual {v2, v5}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setShowIndexBadge(Z)V
 
-    .line 3366
+    .line 3376
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Section;->episodes:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->size()I
 
     move-result v3
 
-    .line 3367
+    .line 3377
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Section;->title:Ljava/lang/String;
 
     invoke-virtual {v2, v0, v3}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setTitle(Ljava/lang/String;I)V
 
-    .line 3369
+    .line 3379
     new-instance v4, Ljava/util/ArrayList;
 
     invoke-direct {v4}, Ljava/util/ArrayList;-><init>()V
 
-    .line 3370
+    .line 3380
     const/4 v0, 0x0
 
     move v1, v0
@@ -3446,7 +3446,7 @@
 
     if-ge v1, v0, :cond_4a
 
-    .line 3371
+    .line 3381
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo$Section;->episodes:Ljava/util/List;
 
     invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -3455,31 +3455,31 @@
 
     check-cast v0, Lcom/bilibili/tv/api/video/PgcInfo$Episode;
 
-    .line 3372
+    .line 3382
     invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->convertEpisodeToBiliVideoDetail(Lcom/bilibili/tv/api/video/PgcInfo$Episode;)Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     move-result-object v0
 
-    .line 3373
+    .line 3383
     invoke-interface {v4, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 3370
+    .line 3380
     add-int/lit8 v0, v1, 0x1
 
     move v1, v0
 
     goto :goto_2f
 
-    .line 3376
+    .line 3386
     :cond_4a
     new-instance v0, Lcom/bilibili/tv/ui/video/widget/UnifiedVideoCardBinder;
 
     invoke-direct {v0, v5}, Lcom/bilibili/tv/ui/video/widget/UnifiedVideoCardBinder;-><init>(I)V
 
-    .line 3377
+    .line 3387
     invoke-virtual {v2, v4, v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setData(Ljava/util/List;Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;)V
 
-    .line 3379
+    .line 3389
     iget-wide v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->s:J
 
     const-wide/16 v4, 0x0
@@ -3488,36 +3488,36 @@
 
     if-lez v0, :cond_5f
 
-    .line 3380
+    .line 3390
     iget-wide v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->s:J
 
     invoke-virtual {v2, v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setCurrentVideoId(J)V
 
-    .line 3382
+    .line 3392
     :cond_5f
     invoke-virtual {v2}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->syncAdapterCurrentState()V
 
-    .line 3384
+    .line 3394
     new-instance v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$32;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$32;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
 
     invoke-virtual {v2, v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setOnVideoClickListener(Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoClickListener;)V
 
-    .line 3394
+    .line 3404
     invoke-virtual {v2}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->getRecyclerView()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
 
-    .line 3395
+    .line 3405
     if-eqz v0, :cond_76
 
-    .line 3396
+    .line 3406
     const v1, 0x7f08016a
 
     invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->setNextFocusUpId(I)V
 
-    .line 3399
+    .line 3409
     :cond_76
     new-instance v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonSectionView;
 
@@ -3527,34 +3527,34 @@
 
     invoke-direct {v1, v4, v0, p2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonSectionView;-><init>(Landroid/widget/TextView;Landroid/support/v7/widget/RecyclerView;I)V
 
-    .line 3400
+    .line 3410
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonSectionViews:Ljava/util/List;
 
     invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 3402
+    .line 3412
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->ugcSeasonSections:Ljava/util/List;
 
     invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 3403
+    .line 3413
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->videoListNavigator:Lcom/bilibili/tv/ui/video/widget/VideoListNavigator;
 
     if-eqz v0, :cond_92
 
-    .line 3404
+    .line 3414
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->videoListNavigator:Lcom/bilibili/tv/ui/video/widget/VideoListNavigator;
 
     invoke-virtual {v0, v2}, Lcom/bilibili/tv/ui/video/widget/VideoListNavigator;->registerSection(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)V
 
-    .line 3407
+    .line 3417
     :cond_92
     invoke-virtual {v2}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->scrollToCurrentVideo()V
 
-    .line 3409
+    .line 3419
     invoke-direct {p0, v2, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->setupNavigationTagsForSection(Lcom/bilibili/tv/ui/video/widget/VideoListSection;I)V
 
-    .line 3411
+    .line 3421
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonsContainer:Landroid/widget/LinearLayout;
 
     invoke-virtual {v0, v2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
@@ -3575,7 +3575,7 @@
     .end annotation
 
     .prologue
-    .line 3297
+    .line 3307
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonsContainer:Landroid/widget/LinearLayout;
 
     if-eqz v0, :cond_c
@@ -3588,41 +3588,41 @@
 
     if-eqz v0, :cond_d
 
-    .line 3354
+    .line 3364
     :cond_c
     :goto_c
     return-void
 
-    .line 3301
+    .line 3311
     :cond_d
     new-instance v1, Lcom/bilibili/tv/ui/video/widget/VideoListSection;
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;-><init>(Landroid/content/Context;)V
 
-    .line 3303
+    .line 3313
     invoke-virtual {v1, p2}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setSectionId(I)V
 
-    .line 3304
+    .line 3314
     const/4 v0, 0x1
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setShowIndexBadge(Z)V
 
-    .line 3306
+    .line 3316
     invoke-interface {p1}, Ljava/util/List;->size()I
 
     move-result v2
 
-    .line 3307
+    .line 3317
     const-string v0, "\u591a\u5b63\u5217\u8868"
 
     invoke-virtual {v1, v0, v2}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setTitle(Ljava/lang/String;I)V
 
-    .line 3309
+    .line 3319
     new-instance v3, Ljava/util/ArrayList;
 
     invoke-direct {v3}, Ljava/util/ArrayList;-><init>()V
 
-    .line 3310
+    .line 3320
     const/4 v0, 0x0
 
     :goto_28
@@ -3632,28 +3632,28 @@
 
     if-ge v0, v4, :cond_38
 
-    .line 3311
+    .line 3321
     invoke-interface {p1, v0}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v4
 
     invoke-interface {v3, v4}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 3310
+    .line 3320
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_28
 
-    .line 3314
+    .line 3324
     :cond_38
     new-instance v0, Lcom/bilibili/tv/ui/video/widget/PgcSeasonBinder;
 
     invoke-direct {v0}, Lcom/bilibili/tv/ui/video/widget/PgcSeasonBinder;-><init>()V
 
-    .line 3315
+    .line 3325
     invoke-virtual {v1, v3, v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setData(Ljava/util/List;Lcom/bilibili/tv/ui/video/widget/VideoCardBinder;)V
 
-    .line 3317
+    .line 3327
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->mSeasonId:Ljava/lang/String;
 
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
@@ -3662,7 +3662,7 @@
 
     if-nez v0, :cond_51
 
-    .line 3319
+    .line 3329
     :try_start_48
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->mSeasonId:Ljava/lang/String;
 
@@ -3670,37 +3670,37 @@
 
     move-result v0
 
-    .line 3320
+    .line 3330
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setCurrentSeasonId(I)V
     :try_end_51
     .catch Ljava/lang/NumberFormatException; {:try_start_48 .. :try_end_51} :catch_91
 
-    .line 3324
+    .line 3334
     :cond_51
     :goto_51
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->syncAdapterCurrentState()V
 
-    .line 3326
+    .line 3336
     new-instance v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$31;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$31;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setOnVideoClickListener(Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnVideoClickListener;)V
 
-    .line 3336
+    .line 3346
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->getRecyclerView()Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v0
 
-    .line 3337
+    .line 3347
     if-eqz v0, :cond_68
 
-    .line 3338
+    .line 3348
     const v3, 0x7f08016a
 
     invoke-virtual {v0, v3}, Landroid/support/v7/widget/RecyclerView;->setNextFocusUpId(I)V
 
-    .line 3341
+    .line 3351
     :cond_68
     new-instance v3, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonSectionView;
 
@@ -3710,41 +3710,41 @@
 
     invoke-direct {v3, v4, v0, p2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonSectionView;-><init>(Landroid/widget/TextView;Landroid/support/v7/widget/RecyclerView;I)V
 
-    .line 3342
+    .line 3352
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonSectionViews:Ljava/util/List;
 
     invoke-interface {v0, v3}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 3344
+    .line 3354
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->ugcSeasonSections:Ljava/util/List;
 
     invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 3345
+    .line 3355
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->videoListNavigator:Lcom/bilibili/tv/ui/video/widget/VideoListNavigator;
 
     if-eqz v0, :cond_84
 
-    .line 3346
+    .line 3356
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->videoListNavigator:Lcom/bilibili/tv/ui/video/widget/VideoListNavigator;
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/widget/VideoListNavigator;->registerSection(Lcom/bilibili/tv/ui/video/widget/VideoListSection;)V
 
-    .line 3349
+    .line 3359
     :cond_84
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->scrollToCurrentVideo()V
 
-    .line 3351
+    .line 3361
     invoke-direct {p0, v1, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->setupNavigationTagsForSection(Lcom/bilibili/tv/ui/video/widget/VideoListSection;I)V
 
-    .line 3353
+    .line 3363
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonsContainer:Landroid/widget/LinearLayout;
 
     invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
     goto/16 :goto_c
 
-    .line 3321
+    .line 3331
     :catch_91
     move-exception v0
 
@@ -4076,10 +4076,10 @@
     .locals 5
 
     .prologue
-    .line 3490
+    .line 3500
     const/4 v1, 0x0
 
-    .line 3492
+    .line 3502
     :try_start_1
     new-instance v0, Ljava/lang/StringBuilder;
 
@@ -4099,7 +4099,7 @@
 
     move-result-object v0
 
-    .line 3493
+    .line 3503
     const-string v2, "BangumiJump"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -4122,12 +4122,12 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 3494
+    .line 3504
     invoke-static {}, Ljava/util/concurrent/Executors;->newSingleThreadExecutor()Ljava/util/concurrent/ExecutorService;
 
     move-result-object v1
 
-    .line 3495
+    .line 3505
     new-instance v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity$33;
 
     invoke-direct {v2, p0, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$33;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Ljava/lang/String;)V
@@ -4136,7 +4136,7 @@
 
     move-result-object v0
 
-    .line 3511
+    .line 3521
     const-wide/16 v2, 0x5
 
     sget-object v4, Ljava/util/concurrent/TimeUnit;->SECONDS:Ljava/util/concurrent/TimeUnit;
@@ -4147,7 +4147,7 @@
 
     check-cast v0, Lorg/json/JSONObject;
 
-    .line 3512
+    .line 3522
     const-string v3, "BangumiJump"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -4177,7 +4177,7 @@
 
     invoke-static {v3, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 3513
+    .line 3523
     if-eqz v0, :cond_a4
 
     const-string v2, "result"
@@ -4188,14 +4188,14 @@
 
     if-eqz v2, :cond_a4
 
-    .line 3514
+    .line 3524
     const-string v2, "result"
 
     invoke-virtual {v0, v2}, Lorg/json/JSONObject;->getJSONObject(Ljava/lang/String;)Lorg/json/JSONObject;
 
     move-result-object v0
 
-    .line 3515
+    .line 3525
     const-string v2, "season_id"
 
     invoke-virtual {v0, v2}, Lorg/json/JSONObject;->has(Ljava/lang/String;)Z
@@ -4204,7 +4204,7 @@
 
     if-eqz v2, :cond_a4
 
-    .line 3516
+    .line 3526
     const-string v2, "season_id"
 
     invoke-virtual {v0, v2}, Lorg/json/JSONObject;->getInt(Ljava/lang/String;)I
@@ -4215,7 +4215,7 @@
 
     move-result-object v0
 
-    .line 3517
+    .line 3527
     const-string v2, "BangumiJump"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -4241,18 +4241,18 @@
     .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_9b} :catch_ac
     .catchall {:try_start_1 .. :try_end_9b} :catchall_d2
 
-    .line 3526
+    .line 3536
     if-eqz v1, :cond_a0
 
-    .line 3527
+    .line 3537
     invoke-interface {v1}, Ljava/util/concurrent/ExecutorService;->shutdown()V
 
-    .line 3530
+    .line 3540
     :cond_a0
     :goto_a0
     return-object v0
 
-    .line 3512
+    .line 3522
     :cond_a1
     :try_start_a1
     const-string v2, "null"
@@ -4262,25 +4262,25 @@
 
     goto :goto_56
 
-    .line 3526
+    .line 3536
     :cond_a4
     if-eqz v1, :cond_a9
 
-    .line 3527
+    .line 3537
     invoke-interface {v1}, Ljava/util/concurrent/ExecutorService;->shutdown()V
 
-    .line 3530
+    .line 3540
     :cond_a9
     :goto_a9
     const-string v0, ""
 
     goto :goto_a0
 
-    .line 3521
+    .line 3531
     :catch_ac
     move-exception v0
 
-    .line 3522
+    .line 3532
     :try_start_ad
     const-string v2, "BangumiJump"
 
@@ -4308,29 +4308,29 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 3523
+    .line 3533
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
     :try_end_cc
     .catchall {:try_start_ad .. :try_end_cc} :catchall_d2
 
-    .line 3526
+    .line 3536
     if-eqz v1, :cond_a9
 
-    .line 3527
+    .line 3537
     invoke-interface {v1}, Ljava/util/concurrent/ExecutorService;->shutdown()V
 
     goto :goto_a9
 
-    .line 3526
+    .line 3536
     :catchall_d2
     move-exception v0
 
     if-eqz v1, :cond_d8
 
-    .line 3527
+    .line 3537
     invoke-interface {v1}, Ljava/util/concurrent/ExecutorService;->shutdown()V
 
-    .line 3529
+    .line 3539
     :cond_d8
     throw v0
 .end method
@@ -5854,106 +5854,106 @@
     .prologue
     const/16 v6, 0x8
 
-    .line 4129
+    .line 4139
     const v0, 0x7f080167
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 4130
+    .line 4140
     const v1, 0x7f08016a
 
     invoke-virtual {p0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v1
 
-    .line 4131
+    .line 4141
     const v2, 0x7f08014d
 
     invoke-virtual {p0, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v2
 
-    .line 4132
+    .line 4142
     const v3, 0x7f080241
 
     invoke-virtual {p0, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v3
 
-    .line 4133
+    .line 4143
     const v4, 0x7f0801a1
 
     invoke-virtual {p0, v4}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v4
 
-    .line 4134
+    .line 4144
     const v5, 0x7f0801dc
 
     invoke-virtual {p0, v5}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v5
 
-    .line 4135
+    .line 4145
     if-eqz v0, :cond_31
 
     invoke-virtual {v0, v6}, Landroid/view/View;->setVisibility(I)V
 
-    .line 4136
+    .line 4146
     :cond_31
     if-eqz v1, :cond_36
 
     invoke-virtual {v1, v6}, Landroid/view/View;->setVisibility(I)V
 
-    .line 4137
+    .line 4147
     :cond_36
     if-eqz v2, :cond_3b
 
     invoke-virtual {v2, v6}, Landroid/view/View;->setVisibility(I)V
 
-    .line 4138
+    .line 4148
     :cond_3b
     if-eqz v3, :cond_40
 
     invoke-virtual {v3, v6}, Landroid/view/View;->setVisibility(I)V
 
-    .line 4139
+    .line 4149
     :cond_40
     if-eqz v4, :cond_45
 
     invoke-virtual {v4, v6}, Landroid/view/View;->setVisibility(I)V
 
-    .line 4140
+    .line 4150
     :cond_45
     if-eqz v5, :cond_4a
 
     invoke-virtual {v5, v6}, Landroid/view/View;->setVisibility(I)V
 
-    .line 4141
+    .line 4151
     :cond_4a
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->expandBtn:Lcom/bilibili/tv/widget/DrawLinearLayout;
 
     if-eqz v1, :cond_54
 
-    .line 4142
+    .line 4152
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->expandBtn:Lcom/bilibili/tv/widget/DrawLinearLayout;
 
     const/4 v2, 0x0
 
     invoke-virtual {v1, v2}, Lcom/bilibili/tv/widget/DrawLinearLayout;->setVisibility(I)V
 
-    .line 4145
+    .line 4155
     :cond_54
     if-eqz v0, :cond_5c
 
-    .line 4146
+    .line 4156
     const v1, 0x7f0801df
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setNextFocusLeftId(I)V
 
-    .line 4148
+    .line 4158
     :cond_5c
     return-void
 .end method
@@ -6127,49 +6127,49 @@
     .locals 6
 
     .prologue
-    .line 4151
+    .line 4161
     const v0, 0x7f080167
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 4152
+    .line 4162
     const v1, 0x7f08016a
 
     invoke-virtual {p0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v1
 
-    .line 4153
+    .line 4163
     const v2, 0x7f08014d
 
     invoke-virtual {p0, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v2
 
-    .line 4154
+    .line 4164
     const v3, 0x7f080241
 
     invoke-virtual {p0, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v3
 
-    .line 4155
+    .line 4165
     const v4, 0x7f0801a1
 
     invoke-virtual {p0, v4}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v4
 
-    .line 4156
+    .line 4166
     const v5, 0x7f0801dc
 
     invoke-virtual {p0, v5}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v5
 
-    .line 4157
+    .line 4167
     if-eqz v0, :cond_32
 
     invoke-virtual {v0}, Landroid/view/View;->hasFocus()Z
@@ -6181,7 +6181,7 @@
     :cond_32
     if-eqz v1, :cond_3a
 
-    .line 4158
+    .line 4168
     invoke-virtual {v1}, Landroid/view/View;->hasFocus()Z
 
     move-result v0
@@ -6191,7 +6191,7 @@
     :cond_3a
     if-eqz v2, :cond_42
 
-    .line 4159
+    .line 4169
     invoke-virtual {v2}, Landroid/view/View;->hasFocus()Z
 
     move-result v0
@@ -6201,7 +6201,7 @@
     :cond_42
     if-eqz v3, :cond_4a
 
-    .line 4160
+    .line 4170
     invoke-virtual {v3}, Landroid/view/View;->hasFocus()Z
 
     move-result v0
@@ -6211,7 +6211,7 @@
     :cond_4a
     if-eqz v4, :cond_52
 
-    .line 4161
+    .line 4171
     invoke-virtual {v4}, Landroid/view/View;->hasFocus()Z
 
     move-result v0
@@ -6221,7 +6221,7 @@
     :cond_52
     if-eqz v5, :cond_5c
 
-    .line 4162
+    .line 4172
     invoke-virtual {v5}, Landroid/view/View;->hasFocus()Z
 
     move-result v0
@@ -6231,11 +6231,11 @@
     :cond_5a
     const/4 v0, 0x1
 
-    .line 4157
+    .line 4167
     :goto_5b
     return v0
 
-    .line 4162
+    .line 4172
     :cond_5c
     const/4 v0, 0x0
 
@@ -7326,45 +7326,45 @@
     .locals 7
 
     .prologue
-    .line 3909
+    .line 3919
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->B:Z
 
     if-eqz v0, :cond_5
 
-    .line 3919
+    .line 3929
     :goto_4
     return-void
 
-    .line 3912
+    .line 3922
     :cond_5
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->B:Z
 
-    .line 3913
+    .line 3923
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
 
-    .line 3914
+    .line 3924
     const-string v1, "BiliAccount.get(this)"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 3915
+    .line 3925
     invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v6
 
-    .line 3916
+    .line 3926
     invoke-static {v0}, Lmybl/CookieUtil;->getBiliJct(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v5
 
-    .line 3917
+    .line 3927
     add-int/lit8 v4, p1, 0x1
 
-    .line 3918
+    .line 3928
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -8020,14 +8020,14 @@
     .locals 25
 
     .prologue
-    .line 3739
+    .line 3749
     move-object/from16 v0, p0
 
     iget-object v2, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     if-nez v2, :cond_13
 
-    .line 3740
+    .line 3750
     const-string v2, "\u89c6\u9891\u4fe1\u606f\u52a0\u8f7d\u4e2d..."
 
     const/4 v3, 0x0
@@ -8040,11 +8040,11 @@
 
     invoke-virtual {v2}, Landroid/widget/Toast;->show()V
 
-    .line 3817
+    .line 3827
     :goto_12
     return-void
 
-    .line 3745
+    .line 3755
     :cond_13
     move-object/from16 v0, p0
 
@@ -8052,28 +8052,28 @@
 
     iget-wide v4, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mAvid:J
 
-    .line 3746
+    .line 3756
     move-object/from16 v0, p0
 
     iget-object v2, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     iget-object v6, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mBvid:Ljava/lang/String;
 
-    .line 3747
+    .line 3757
     move-object/from16 v0, p0
 
     iget-object v2, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     iget-object v7, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mTitle:Ljava/lang/String;
 
-    .line 3748
+    .line 3758
     move-object/from16 v0, p0
 
     iget-object v2, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     iget-object v8, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mCover:Ljava/lang/String;
 
-    .line 3749
+    .line 3759
     move-object/from16 v0, p0
 
     iget-object v2, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -8090,7 +8090,7 @@
 
     iget-object v9, v2, Lcom/bilibili/tv/api/video/BiliUser;->name:Ljava/lang/String;
 
-    .line 3752
+    .line 3762
     :goto_3b
     move-object/from16 v0, p0
 
@@ -8114,7 +8114,7 @@
 
     if-le v2, v3, :cond_81
 
-    .line 3754
+    .line 3764
     const-string v2, "VideoDetail"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -8147,7 +8147,7 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 3755
+    .line 3765
     move-object/from16 v0, p0
 
     iget-object v2, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -8160,17 +8160,17 @@
 
     goto :goto_12
 
-    .line 3749
+    .line 3759
     :cond_7e
     const-string v9, "\u672a\u77e5"
 
     goto :goto_3b
 
-    .line 3768
+    .line 3778
     :cond_81
     const-wide/16 v14, 0x0
 
-    .line 3769
+    .line 3779
     move-object/from16 v0, p0
 
     iget-object v2, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -8191,7 +8191,7 @@
 
     if-nez v2, :cond_a6
 
-    .line 3770
+    .line 3780
     move-object/from16 v0, p0
 
     iget-object v2, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -8208,7 +8208,7 @@
 
     iget-wide v14, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->mCid:J
 
-    .line 3772
+    .line 3782
     :cond_a6
     const-wide/16 v2, 0x0
 
@@ -8224,7 +8224,7 @@
 
     if-eqz v2, :cond_bc
 
-    .line 3773
+    .line 3783
     move-object/from16 v0, p0
 
     iget-object v2, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -8233,7 +8233,7 @@
 
     iget-wide v14, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->mCid:J
 
-    .line 3775
+    .line 3785
     :cond_bc
     const-wide/16 v2, 0x0
 
@@ -8249,7 +8249,7 @@
 
     if-eqz v2, :cond_d2
 
-    .line 3776
+    .line 3786
     move-object/from16 v0, p0
 
     iget-object v2, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -8258,7 +8258,7 @@
 
     iget-wide v14, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mCid:J
 
-    .line 3778
+    .line 3788
     :cond_d2
     move-object/from16 v0, p0
 
@@ -8270,10 +8270,10 @@
 
     move-wide/from16 v20, v0
 
-    .line 3781
+    .line 3791
     const/16 v17, 0x0
 
-    .line 3782
+    .line 3792
     move-object/from16 v0, p0
 
     iget-object v2, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -8296,7 +8296,7 @@
 
     if-le v2, v3, :cond_10d
 
-    .line 3783
+    .line 3793
     move-object/from16 v0, p0
 
     iget-object v2, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -8311,7 +8311,7 @@
 
     check-cast v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;
 
-    .line 3784
+    .line 3794
     if-eqz v2, :cond_10d
 
     iget-object v3, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->mTitle:Ljava/lang/String;
@@ -8322,12 +8322,12 @@
 
     if-nez v3, :cond_10d
 
-    .line 3785
+    .line 3795
     iget-object v0, v2, Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;->mTitle:Ljava/lang/String;
 
     move-object/from16 v17, v0
 
-    .line 3790
+    .line 3800
     :cond_10d
     move-object/from16 v0, p0
 
@@ -8337,14 +8337,14 @@
 
     if-eqz v2, :cond_13a
 
-    .line 3791
+    .line 3801
     move-object/from16 v0, p0
 
     invoke-static {v0, v6, v14, v15}, Lcom/bilibili/tv/ui/download/VideoDetailDownloadHelper;->getTaskStatus(Landroid/content/Context;Ljava/lang/String;J)Ljava/lang/String;
 
     move-result-object v2
 
-    .line 3792
+    .line 3802
     new-instance v3, Ljava/lang/StringBuilder;
 
     invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
@@ -8375,34 +8375,34 @@
 
     goto/16 :goto_12
 
-    .line 3797
+    .line 3807
     :cond_13a
     new-instance v24, Ljava/util/ArrayList;
 
     invoke-direct/range {v24 .. v24}, Ljava/util/ArrayList;-><init>()V
 
-    .line 3798
+    .line 3808
     const-string v2, "1080P \u9ad8\u6e05"
 
     move-object/from16 v0, v24
 
     invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 3799
+    .line 3809
     const-string v2, "720P \u9ad8\u6e05"
 
     move-object/from16 v0, v24
 
     invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 3800
+    .line 3810
     const-string v2, "480P \u6e05\u6670"
 
     move-object/from16 v0, v24
 
     invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 3803
+    .line 3813
     const/16 v22, 0x0
 
     const/16 v23, 0x1
@@ -8428,42 +8428,42 @@
     .locals 7
 
     .prologue
-    .line 3820
+    .line 3830
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->B:Z
 
     if-eqz v0, :cond_5
 
-    .line 3829
+    .line 3839
     :goto_4
     return-void
 
-    .line 3823
+    .line 3833
     :cond_5
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->B:Z
 
-    .line 3824
+    .line 3834
     const-class v0, Lcom/bilibili/tv/api/favorite/BiliFavoriteVideoApiService;
 
-    .line 3825
+    .line 3835
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
 
     move-result-object v1
 
     check-cast v1, Lcom/bilibili/tv/api/favorite/BiliFavoriteVideoApiService;
 
-    .line 3826
+    .line 3836
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
 
-    .line 3827
+    .line 3837
     const-string v2, "BiliAccount.get(this)"
 
     invoke-static {v0, v2}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 3828
+    .line 3838
     invoke-virtual {v0}, Lbl/mg;->e()Ljava/lang/String;
 
     move-result-object v2
@@ -8603,32 +8603,32 @@
     .locals 4
 
     .prologue
-    .line 3865
+    .line 3875
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->B:Z
 
     if-eqz v0, :cond_5
 
-    .line 3873
+    .line 3883
     :goto_4
     return-void
 
-    .line 3868
+    .line 3878
     :cond_5
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->B:Z
 
-    .line 3869
+    .line 3879
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v1
 
-    .line 3870
+    .line 3880
     const-string v0, "BiliAccount.get(this)"
 
     invoke-static {v1, v0}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 3871
+    .line 3881
     const-class v0, Lcom/bilibili/tv/api/favorite/BiliFavoriteVideoApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -8651,7 +8651,7 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$m;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
 
-    .line 3872
+    .line 3882
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
     goto :goto_4
@@ -9562,18 +9562,18 @@
     .locals 4
 
     .prologue
-    .line 3250
+    .line 3260
     invoke-static {p1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v0
 
     if-eqz v0, :cond_7
 
-    .line 3263
+    .line 3273
     :goto_6
     return-void
 
-    .line 3254
+    .line 3264
     :cond_7
     const-string v0, "VideoDetailActivity"
 
@@ -9597,7 +9597,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 3256
+    .line 3266
     :try_start_1f
     new-instance v0, Landroid/provider/SearchRecentSuggestions;
 
@@ -9609,15 +9609,15 @@
 
     const/4 v1, 0x0
 
-    .line 3257
+    .line 3267
     invoke-virtual {v0, p1, v1}, Landroid/provider/SearchRecentSuggestions;->saveRecentQuery(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 3258
+    .line 3268
     const/16 v0, 0x32
 
     invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->truncateSearchHistory(I)V
 
-    .line 3259
+    .line 3269
     const-string v0, "VideoDetailActivity"
 
     const-string v1, "\u4fdd\u5b58\u641c\u7d22\u5386\u53f2\u6210\u529f"
@@ -9628,11 +9628,11 @@
 
     goto :goto_6
 
-    .line 3260
+    .line 3270
     :catch_38
     move-exception v0
 
-    .line 3261
+    .line 3271
     const-string v1, "VideoDetailActivity"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -9953,51 +9953,51 @@
     .locals 1
 
     .prologue
-    .line 3115
+    .line 3125
     if-nez p1, :cond_3
 
-    .line 3235
+    .line 3245
     :cond_2
     :goto_2
     return-void
 
-    .line 3119
+    .line 3129
     :cond_3
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->getSectionId()I
 
-    .line 3121
+    .line 3131
     invoke-virtual {p1, p2}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setupNavigationTags(I)V
 
-    .line 3124
+    .line 3134
     new-instance v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$28;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$28;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
 
     invoke-virtual {p1, v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setOnFocusExitListener(Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnFocusExitListener;)V
 
-    .line 3213
+    .line 3223
     new-instance v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$29;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
 
     invoke-virtual {p1, v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setOnNavTagFocusListener(Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagFocusListener;)V
 
-    .line 3224
+    .line 3234
     new-instance v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$30;
 
     invoke-direct {v0, p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$30;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
 
     invoke-virtual {p1, v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->setOnNavTagClickListener(Lcom/bilibili/tv/ui/video/widget/VideoListSection$OnNavTagClickListener;)V
 
-    .line 3231
+    .line 3241
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->getFocusPosition()I
 
     move-result v0
 
-    .line 3232
+    .line 3242
     if-ltz v0, :cond_2
 
-    .line 3233
+    .line 3243
     invoke-virtual {p1, v0}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->updateNavTagSelection(I)V
 
     goto :goto_2
@@ -10007,16 +10007,16 @@
     .locals 4
 
     .prologue
-    .line 3675
+    .line 3685
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     if-nez v0, :cond_5
 
-    .line 3689
+    .line 3699
     :goto_4
     return-void
 
-    .line 3678
+    .line 3688
     :cond_5
     new-instance v0, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;
 
@@ -10026,14 +10026,14 @@
 
     invoke-direct {v0, p0, v2, v3, v1}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;-><init>(Landroid/app/Activity;JLcom/bilibili/tv/api/video/BiliVideoDetail;)V
 
-    .line 3679
+    .line 3689
     new-instance v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$35;
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$35;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->setOnFavoriteStatusChangedListener(Lcom/bilibili/tv/ui/video/FavoriteMenuDialog$OnFavoriteStatusChangedListener;)V
 
-    .line 3688
+    .line 3698
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/FavoriteMenuDialog;->show()V
 
     goto :goto_4
@@ -10049,17 +10049,17 @@
 
     const/4 v1, 0x0
 
-    .line 4093
+    .line 4103
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->expandBtn:Lcom/bilibili/tv/widget/DrawLinearLayout;
 
     if-eqz v2, :cond_f
 
-    .line 4094
+    .line 4104
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->expandBtn:Lcom/bilibili/tv/widget/DrawLinearLayout;
 
     invoke-virtual {v2, v0}, Lcom/bilibili/tv/widget/DrawLinearLayout;->setVisibility(I)V
 
-    .line 4096
+    .line 4106
     :cond_f
     const v2, 0x7f080167
 
@@ -10067,40 +10067,40 @@
 
     move-result-object v3
 
-    .line 4097
+    .line 4107
     const v2, 0x7f08016a
 
     invoke-virtual {p0, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v4
 
-    .line 4098
+    .line 4108
     const v2, 0x7f08014d
 
     invoke-virtual {p0, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v5
 
-    .line 4099
+    .line 4109
     const v2, 0x7f080241
 
     invoke-virtual {p0, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v6
 
-    .line 4100
+    .line 4110
     invoke-virtual {p0, v9}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v7
 
-    .line 4101
+    .line 4111
     const v2, 0x7f0801dc
 
     invoke-virtual {p0, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->findViewById(I)Landroid/view/View;
 
     move-result-object v8
 
-    .line 4103
+    .line 4113
     invoke-static {p0}, Lbl/abd;->b(Landroid/content/Context;)Z
 
     move-result v2
@@ -10109,47 +10109,47 @@
 
     const/4 v2, 0x1
 
-    .line 4104
+    .line 4114
     :goto_3d
     if-eqz v3, :cond_42
 
     invoke-virtual {v3, v1}, Landroid/view/View;->setVisibility(I)V
 
-    .line 4105
+    .line 4115
     :cond_42
     if-eqz v4, :cond_47
 
     invoke-virtual {v4, v1}, Landroid/view/View;->setVisibility(I)V
 
-    .line 4106
+    .line 4116
     :cond_47
     if-eqz v5, :cond_4c
 
     invoke-virtual {v5, v1}, Landroid/view/View;->setVisibility(I)V
 
-    .line 4107
+    .line 4117
     :cond_4c
     if-eqz v6, :cond_53
 
-    .line 4108
+    .line 4118
     if-eqz v2, :cond_7d
 
     :goto_50
     invoke-virtual {v6, v0}, Landroid/view/View;->setVisibility(I)V
 
-    .line 4110
+    .line 4120
     :cond_53
     if-eqz v7, :cond_58
 
     invoke-virtual {v7, v1}, Landroid/view/View;->setVisibility(I)V
 
-    .line 4111
+    .line 4121
     :cond_58
     if-eqz v8, :cond_5d
 
     invoke-virtual {v8, v1}, Landroid/view/View;->setVisibility(I)V
 
-    .line 4113
+    .line 4123
     :cond_5d
     if-eqz v2, :cond_66
 
@@ -10157,14 +10157,14 @@
 
     if-eqz v7, :cond_66
 
-    .line 4114
+    .line 4124
     invoke-virtual {v5, v9}, Landroid/view/View;->setNextFocusRightId(I)V
 
-    .line 4117
+    .line 4127
     :cond_66
     if-eqz v3, :cond_7a
 
-    .line 4118
+    .line 4128
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->rePlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
 
     if-eqz v0, :cond_7f
@@ -10177,12 +10177,12 @@
 
     if-nez v0, :cond_7f
 
-    .line 4119
+    .line 4129
     const v0, 0x7f080195
 
     invoke-virtual {v3, v0}, Landroid/view/View;->setNextFocusLeftId(I)V
 
-    .line 4126
+    .line 4136
     :cond_7a
     :goto_7a
     return-void
@@ -10190,16 +10190,16 @@
     :cond_7b
     move v2, v1
 
-    .line 4103
+    .line 4113
     goto :goto_3d
 
     :cond_7d
     move v0, v1
 
-    .line 4108
+    .line 4118
     goto :goto_50
 
-    .line 4120
+    .line 4130
     :cond_7f
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->noHistoryPlayBtnLayout:Lcom/bilibili/tv/widget/DrawLinearLayout;
 
@@ -10213,14 +10213,14 @@
 
     if-nez v0, :cond_92
 
-    .line 4121
+    .line 4131
     const v0, 0x7f080196
 
     invoke-virtual {v3, v0}, Landroid/view/View;->setNextFocusLeftId(I)V
 
     goto :goto_7a
 
-    .line 4123
+    .line 4133
     :cond_92
     const v0, 0x7f080192
 
@@ -10235,7 +10235,7 @@
     .prologue
     const/16 v2, 0x8
 
-    .line 2971
+    .line 2981
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo;->episodes:Ljava/util/List;
 
     if-eqz v0, :cond_e
@@ -10248,34 +10248,34 @@
 
     if-eqz v0, :cond_21
 
-    .line 2972
+    .line 2982
     :cond_e
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->hh:Landroid/widget/TextView;
 
     if-eqz v0, :cond_17
 
-    .line 2973
+    .line 2983
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->hh:Landroid/widget/TextView;
 
     invoke-virtual {v0, v2}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 2975
+    .line 2985
     :cond_17
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->o:Landroid/support/v7/widget/RecyclerView;
 
     if-eqz v0, :cond_20
 
-    .line 2976
+    .line 2986
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->o:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v0, v2}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
 
-    .line 2992
+    .line 3002
     :cond_20
     :goto_20
     return-void
 
-    .line 2981
+    .line 2991
     :cond_21
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo;->episodes:Ljava/util/List;
 
@@ -10287,30 +10287,30 @@
 
     if-gt v0, v1, :cond_3d
 
-    .line 2982
+    .line 2992
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->hh:Landroid/widget/TextView;
 
     if-eqz v0, :cond_33
 
-    .line 2983
+    .line 2993
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->hh:Landroid/widget/TextView;
 
     invoke-virtual {v0, v2}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 2985
+    .line 2995
     :cond_33
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->o:Landroid/support/v7/widget/RecyclerView;
 
     if-eqz v0, :cond_20
 
-    .line 2986
+    .line 2996
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->o:Landroid/support/v7/widget/RecyclerView;
 
     invoke-virtual {v0, v2}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
 
     goto :goto_20
 
-    .line 2991
+    .line 3001
     :cond_3d
     invoke-direct {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->createPgcEpisodesSectionView(Lcom/bilibili/tv/api/video/PgcInfo;)V
 
@@ -10329,22 +10329,22 @@
 
     const/4 v5, 0x0
 
-    .line 2803
+    .line 2813
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->pgcInfoContainer:Landroid/widget/LinearLayout;
 
     if-nez v0, :cond_d
 
-    .line 2865
+    .line 2875
     :goto_c
     return-void
 
-    .line 2806
+    .line 2816
     :cond_d
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->pgcInfoContainer:Landroid/widget/LinearLayout;
 
     invoke-virtual {v0, v5}, Landroid/widget/LinearLayout;->setVisibility(I)V
 
-    .line 2808
+    .line 2818
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->pgcRating:Landroid/widget/TextView;
 
     if-eqz v0, :cond_f1
@@ -10353,7 +10353,7 @@
 
     if-eqz v0, :cond_f1
 
-    .line 2809
+    .line 2819
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->pgcRating:Landroid/widget/TextView;
 
     invoke-virtual {p1}, Lcom/bilibili/tv/api/video/PgcInfo;->getRatingString()Ljava/lang/String;
@@ -10362,19 +10362,19 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 2810
+    .line 2820
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->pgcRating:Landroid/widget/TextView;
 
     invoke-virtual {v0, v5}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 2815
+    .line 2825
     :cond_28
     :goto_28
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->pgcType:Landroid/widget/TextView;
 
     if-eqz v0, :cond_35
 
-    .line 2816
+    .line 2826
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->pgcType:Landroid/widget/TextView;
 
     invoke-virtual {p1}, Lcom/bilibili/tv/api/video/PgcInfo;->getTypeName()Ljava/lang/String;
@@ -10383,13 +10383,13 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 2819
+    .line 2829
     :cond_35
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->pgcArea:Landroid/widget/TextView;
 
     if-eqz v0, :cond_42
 
-    .line 2820
+    .line 2830
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->pgcArea:Landroid/widget/TextView;
 
     invoke-virtual {p1}, Lcom/bilibili/tv/api/video/PgcInfo;->getAreaString()Ljava/lang/String;
@@ -10398,7 +10398,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 2823
+    .line 2833
     :cond_42
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->pgcNewEp:Landroid/widget/TextView;
 
@@ -10408,7 +10408,7 @@
 
     if-eqz v0, :cond_fe
 
-    .line 2824
+    .line 2834
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->pgcNewEp:Landroid/widget/TextView;
 
     iget-object v1, p1, Lcom/bilibili/tv/api/video/PgcInfo;->newEp:Lcom/bilibili/tv/api/video/PgcInfo$NewEp;
@@ -10417,7 +10417,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 2829
+    .line 2839
     :cond_53
     :goto_53
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo;->badgeInfo:Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
@@ -10440,17 +10440,17 @@
 
     if-nez v0, :cond_e6
 
-    .line 2830
+    .line 2840
     new-instance v0, Landroid/widget/TextView;
 
     invoke-direct {v0, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 2831
+    .line 2841
     new-instance v1, Landroid/widget/LinearLayout$LayoutParams;
 
     invoke-direct {v1, v2, v2}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
 
-    .line 2835
+    .line 2845
     const v2, 0x7f06014d
 
     invoke-static {v2}, Lbl/adl;->b(I)I
@@ -10459,15 +10459,15 @@
 
     invoke-virtual {v1, v2, v5, v5, v5}, Landroid/widget/LinearLayout$LayoutParams;->setMargins(IIII)V
 
-    .line 2836
+    .line 2846
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 2837
+    .line 2847
     const/high16 v1, 0x41600000    # 14.0f
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setTextSize(F)V
 
-    .line 2838
+    .line 2848
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->getResources()Landroid/content/res/Resources;
 
     move-result-object v1
@@ -10480,14 +10480,14 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 2839
+    .line 2849
     iget-object v1, p1, Lcom/bilibili/tv/api/video/PgcInfo;->badgeInfo:Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
 
     iget-object v1, v1, Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;->text:Ljava/lang/String;
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 2840
+    .line 2850
     invoke-static {v3}, Lbl/adl;->b(I)I
 
     move-result v1
@@ -10506,15 +10506,15 @@
 
     invoke-virtual {v0, v1, v2, v3, v4}, Landroid/widget/TextView;->setPadding(IIII)V
 
-    .line 2841
+    .line 2851
     const/16 v1, 0x11
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setGravity(I)V
 
-    .line 2842
+    .line 2852
     invoke-virtual {v0, v5}, Landroid/widget/TextView;->setFocusable(Z)V
 
-    .line 2843
+    .line 2853
     const/high16 v1, 0x40800000    # 4.0f
 
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->getResources()Landroid/content/res/Resources;
@@ -10529,7 +10529,7 @@
 
     mul-float/2addr v1, v2
 
-    .line 2845
+    .line 2855
     :try_start_c0
     iget-object v2, p1, Lcom/bilibili/tv/api/video/PgcInfo;->badgeInfo:Lcom/bilibili/tv/api/video/PgcInfo$BadgeInfo;
 
@@ -10539,7 +10539,7 @@
 
     move-result v2
 
-    .line 2846
+    .line 2856
     const v3, 0xffffff
 
     and-int/2addr v2, v3
@@ -10548,52 +10548,52 @@
 
     or-int/2addr v2, v3
 
-    .line 2847
+    .line 2857
     new-instance v3, Landroid/graphics/drawable/GradientDrawable;
 
     invoke-direct {v3}, Landroid/graphics/drawable/GradientDrawable;-><init>()V
 
-    .line 2848
+    .line 2858
     const/4 v4, 0x0
 
     invoke-virtual {v3, v4}, Landroid/graphics/drawable/GradientDrawable;->setShape(I)V
 
-    .line 2849
+    .line 2859
     invoke-virtual {v3, v1}, Landroid/graphics/drawable/GradientDrawable;->setCornerRadius(F)V
 
-    .line 2850
+    .line 2860
     invoke-virtual {v3, v2}, Landroid/graphics/drawable/GradientDrawable;->setColor(I)V
 
-    .line 2851
+    .line 2861
     invoke-virtual {v0, v3}, Landroid/widget/TextView;->setBackground(Landroid/graphics/drawable/Drawable;)V
     :try_end_e1
     .catch Ljava/lang/Exception; {:try_start_c0 .. :try_end_e1} :catch_10b
 
-    .line 2859
+    .line 2869
     :goto_e1
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->pgcInfoContainer:Landroid/widget/LinearLayout;
 
     invoke-virtual {v1, v0}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 2862
+    .line 2872
     :cond_e6
     invoke-direct {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->showPgcSections(Lcom/bilibili/tv/api/video/PgcInfo;)V
 
-    .line 2863
+    .line 2873
     invoke-direct {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->showPgcEpisodes(Lcom/bilibili/tv/api/video/PgcInfo;)V
 
-    .line 2864
+    .line 2874
     invoke-direct {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->refreshVisualOrder()V
 
     goto/16 :goto_c
 
-    .line 2811
+    .line 2821
     :cond_f1
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->pgcRating:Landroid/widget/TextView;
 
     if-eqz v0, :cond_28
 
-    .line 2812
+    .line 2822
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->pgcRating:Landroid/widget/TextView;
 
     const/16 v1, 0x8
@@ -10602,13 +10602,13 @@
 
     goto/16 :goto_28
 
-    .line 2825
+    .line 2835
     :cond_fe
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->pgcNewEp:Landroid/widget/TextView;
 
     if-eqz v0, :cond_53
 
-    .line 2826
+    .line 2836
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->pgcNewEp:Landroid/widget/TextView;
 
     const-string v1, ""
@@ -10617,27 +10617,27 @@
 
     goto/16 :goto_53
 
-    .line 2852
+    .line 2862
     :catch_10b
     move-exception v2
 
-    .line 2853
+    .line 2863
     new-instance v2, Landroid/graphics/drawable/GradientDrawable;
 
     invoke-direct {v2}, Landroid/graphics/drawable/GradientDrawable;-><init>()V
 
-    .line 2854
+    .line 2864
     invoke-virtual {v2, v5}, Landroid/graphics/drawable/GradientDrawable;->setShape(I)V
 
-    .line 2855
+    .line 2865
     invoke-virtual {v2, v1}, Landroid/graphics/drawable/GradientDrawable;->setCornerRadius(F)V
 
-    .line 2856
+    .line 2866
     const v1, -0x66048d67    # -2.5999077E-23f
 
     invoke-virtual {v2, v1}, Landroid/graphics/drawable/GradientDrawable;->setColor(I)V
 
-    .line 2857
+    .line 2867
     invoke-virtual {v0, v2}, Landroid/widget/TextView;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
     goto :goto_e1
@@ -10651,42 +10651,42 @@
 
     const/4 v2, 0x0
 
-    .line 3080
+    .line 3090
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonsContainer:Landroid/widget/LinearLayout;
 
     if-nez v0, :cond_7
 
-    .line 3112
+    .line 3122
     :cond_6
     return-void
 
-    .line 3084
+    .line 3094
     :cond_7
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonsContainer:Landroid/widget/LinearLayout;
 
     invoke-virtual {v0, v2}, Landroid/widget/LinearLayout;->setVisibility(I)V
 
-    .line 3085
+    .line 3095
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonsContainer:Landroid/widget/LinearLayout;
 
     invoke-virtual {v0}, Landroid/widget/LinearLayout;->removeAllViews()V
 
-    .line 3086
+    .line 3096
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonSectionViews:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->clear()V
 
-    .line 3087
+    .line 3097
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->videoListNavigator:Lcom/bilibili/tv/ui/video/widget/VideoListNavigator;
 
     if-eqz v0, :cond_1f
 
-    .line 3088
+    .line 3098
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->videoListNavigator:Lcom/bilibili/tv/ui/video/widget/VideoListNavigator;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/widget/VideoListNavigator;->clearSections()V
 
-    .line 3091
+    .line 3101
     :cond_1f
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo;->seasons:Ljava/util/List;
 
@@ -10702,7 +10702,7 @@
 
     move v0, v1
 
-    .line 3092
+    .line 3102
     :goto_2c
     iget-object v3, p1, Lcom/bilibili/tv/api/video/PgcInfo;->sections:Ljava/util/List;
 
@@ -10718,30 +10718,30 @@
 
     move v3, v1
 
-    .line 3094
+    .line 3104
     :goto_39
     if-nez v0, :cond_3d
 
     if-eqz v3, :cond_6
 
-    .line 3100
+    .line 3110
     :cond_3d
     if-eqz v0, :cond_65
 
-    .line 3101
+    .line 3111
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo;->seasons:Ljava/util/List;
 
     invoke-direct {p0, v0, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->createSeasonsSectionView(Ljava/util/List;I)V
 
     move v0, v1
 
-    .line 3105
+    .line 3115
     :goto_45
     if-eqz v3, :cond_6
 
     move v1, v0
 
-    .line 3106
+    .line 3116
     :goto_48
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo;->sections:Ljava/util/List;
 
@@ -10751,7 +10751,7 @@
 
     if-ge v2, v0, :cond_6
 
-    .line 3107
+    .line 3117
     iget-object v0, p1, Lcom/bilibili/tv/api/video/PgcInfo;->sections:Ljava/util/List;
 
     invoke-interface {v0, v2}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -10760,13 +10760,13 @@
 
     check-cast v0, Lcom/bilibili/tv/api/video/PgcInfo$Section;
 
-    .line 3108
+    .line 3118
     invoke-direct {p0, v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->createPgcSectionView(Lcom/bilibili/tv/api/video/PgcInfo$Section;I)V
 
-    .line 3109
+    .line 3119
     add-int/lit8 v0, v1, 0x1
 
-    .line 3106
+    .line 3116
     add-int/lit8 v2, v2, 0x1
 
     move v1, v0
@@ -10776,13 +10776,13 @@
     :cond_61
     move v0, v2
 
-    .line 3091
+    .line 3101
     goto :goto_2c
 
     :cond_63
     move v3, v2
 
-    .line 3092
+    .line 3102
     goto :goto_39
 
     :cond_65
@@ -10795,18 +10795,18 @@
     .locals 8
 
     .prologue
-    .line 3696
+    .line 3706
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
-    .line 3697
+    .line 3707
     if-nez v1, :cond_5
 
-    .line 3732
+    .line 3742
     :cond_4
     :goto_4
     return-void
 
-    .line 3700
+    .line 3710
     :cond_5
     new-instance v2, Lcom/bilibili/tv/ui/video/RightSlidePanelDialog;
 
@@ -10814,7 +10814,7 @@
 
     invoke-direct {v2, p0, v0}, Lcom/bilibili/tv/ui/video/RightSlidePanelDialog;-><init>(Landroid/app/Activity;F)V
 
-    .line 3701
+    .line 3711
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->getLayoutInflater()Landroid/view/LayoutInflater;
 
     move-result-object v0
@@ -10827,7 +10827,7 @@
 
     move-result-object v3
 
-    .line 3702
+    .line 3712
     const v0, 0x7f080264
 
     invoke-virtual {v3, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -10836,10 +10836,10 @@
 
     check-cast v0, Landroid/widget/TextView;
 
-    .line 3703
+    .line 3713
     if-eqz v0, :cond_31
 
-    .line 3704
+    .line 3714
     iget-object v4, v1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mBvid:Ljava/lang/String;
 
     invoke-static {v4}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
@@ -10848,12 +10848,12 @@
 
     if-nez v4, :cond_63
 
-    .line 3705
+    .line 3715
     iget-object v4, v1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mBvid:Ljava/lang/String;
 
     invoke-virtual {v0, v4}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 3710
+    .line 3720
     :cond_31
     :goto_31
     const v0, 0x7f080265
@@ -10864,10 +10864,10 @@
 
     check-cast v0, Landroid/widget/TextView;
 
-    .line 3711
+    .line 3721
     if-eqz v0, :cond_49
 
-    .line 3712
+    .line 3722
     iget-object v4, v1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mDescription:Ljava/lang/String;
 
     invoke-static {v4}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
@@ -10876,30 +10876,30 @@
 
     if-eqz v4, :cond_7c
 
-    .line 3713
+    .line 3723
     const/16 v1, 0x8
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 3718
+    .line 3728
     :cond_49
     :goto_49
     invoke-virtual {v2, v3}, Lcom/bilibili/tv/ui/video/RightSlidePanelDialog;->setContent(Landroid/view/View;)V
 
-    .line 3719
+    .line 3729
     invoke-virtual {v2}, Lcom/bilibili/tv/ui/video/RightSlidePanelDialog;->show()V
 
-    .line 3721
+    .line 3731
     const v0, 0x7f080266
 
     invoke-virtual {v3, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 3722
+    .line 3732
     if-eqz v0, :cond_4
 
-    .line 3723
+    .line 3733
     new-instance v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$36;
 
     invoke-direct {v1, p0, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$36;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Landroid/view/View;)V
@@ -10910,7 +10910,7 @@
 
     goto :goto_4
 
-    .line 3707
+    .line 3717
     :cond_63
     new-instance v4, Ljava/lang/StringBuilder;
 
@@ -10936,7 +10936,7 @@
 
     goto :goto_31
 
-    .line 3715
+    .line 3725
     :cond_7c
     iget-object v1, v1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mDescription:Ljava/lang/String;
 
@@ -11059,42 +11059,42 @@
     .locals 6
 
     .prologue
-    .line 4012
+    .line 4022
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->B:Z
 
     if-eqz v0, :cond_5
 
-    .line 4021
+    .line 4031
     :goto_4
     return-void
 
-    .line 4015
+    .line 4025
     :cond_5
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->B:Z
 
-    .line 4016
+    .line 4026
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
 
-    .line 4017
+    .line 4027
     const-string v1, "BiliAccount.get(this)"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 4018
+    .line 4028
     invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 4019
+    .line 4029
     invoke-static {v0}, Lmybl/CookieUtil;->getBiliJct(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v2
 
-    .line 4020
+    .line 4030
     const-class v0, Lmybl/MyBiliApiService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -11124,14 +11124,14 @@
     .prologue
     const/4 v6, 0x0
 
-    .line 3270
+    .line 3280
     const-string v0, "content://uii.ang.bilitv.provider.TvSearchSuggestionProvider/suggestions"
 
     invoke-static {v0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v1
 
-    .line 3273
+    .line 3283
     :try_start_7
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -11152,31 +11152,31 @@
 
     move-result-object v2
 
-    .line 3274
+    .line 3284
     if-eqz v2, :cond_41
 
-    .line 3275
+    .line 3285
     :try_start_16
     invoke-interface {v2}, Landroid/database/Cursor;->getCount()I
 
     move-result v0
 
-    .line 3276
+    .line 3286
     if-le v0, p1, :cond_41
 
-    .line 3277
+    .line 3287
     sub-int v3, v0, p1
 
-    .line 3278
+    .line 3288
     invoke-interface {v2}, Landroid/database/Cursor;->moveToFirst()Z
 
-    .line 3279
+    .line 3289
     const/4 v0, 0x0
 
     :goto_22
     if-ge v0, v3, :cond_41
 
-    .line 3280
+    .line 3290
     const-string v4, "_id"
 
     invoke-interface {v2, v4}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
@@ -11187,12 +11187,12 @@
 
     move-result-object v4
 
-    .line 3281
+    .line 3291
     invoke-static {v1, v4}, Landroid/net/Uri;->withAppendedPath(Landroid/net/Uri;Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v4
 
-    .line 3282
+    .line 3292
     invoke-virtual {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->getContentResolver()Landroid/content/ContentResolver;
 
     move-result-object v5
@@ -11203,36 +11203,36 @@
 
     invoke-virtual {v5, v4, v6, v7}, Landroid/content/ContentResolver;->delete(Landroid/net/Uri;Ljava/lang/String;[Ljava/lang/String;)I
 
-    .line 3283
+    .line 3293
     invoke-interface {v2}, Landroid/database/Cursor;->moveToNext()Z
     :try_end_3e
     .catch Ljava/lang/Exception; {:try_start_16 .. :try_end_3e} :catch_78
     .catchall {:try_start_16 .. :try_end_3e} :catchall_73
 
-    .line 3279
+    .line 3289
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_22
 
-    .line 3290
+    .line 3300
     :cond_41
     if-eqz v2, :cond_46
 
-    .line 3291
+    .line 3301
     invoke-interface {v2}, Landroid/database/Cursor;->close()V
 
-    .line 3294
+    .line 3304
     :cond_46
     :goto_46
     return-void
 
-    .line 3287
+    .line 3297
     :catch_47
     move-exception v0
 
     move-object v1, v6
 
-    .line 3288
+    .line 3298
     :goto_49
     :try_start_49
     const-string v2, "VideoDetailActivity"
@@ -11263,15 +11263,15 @@
     :try_end_65
     .catchall {:try_start_49 .. :try_end_65} :catchall_75
 
-    .line 3290
+    .line 3300
     if-eqz v1, :cond_46
 
-    .line 3291
+    .line 3301
     invoke-interface {v1}, Landroid/database/Cursor;->close()V
 
     goto :goto_46
 
-    .line 3290
+    .line 3300
     :catchall_6b
     move-exception v0
 
@@ -11280,14 +11280,14 @@
     :goto_6d
     if-eqz v2, :cond_72
 
-    .line 3291
+    .line 3301
     invoke-interface {v2}, Landroid/database/Cursor;->close()V
 
-    .line 3293
+    .line 3303
     :cond_72
     throw v0
 
-    .line 3290
+    .line 3300
     :catchall_73
     move-exception v0
 
@@ -11300,7 +11300,7 @@
 
     goto :goto_6d
 
-    .line 3287
+    .line 3297
     :catch_78
     move-exception v0
 
@@ -12620,7 +12620,7 @@
     .locals 1
 
     .prologue
-    .line 3238
+    .line 3248
     if-eqz p1, :cond_8
 
     invoke-virtual {p1}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->hasNavigationTags()Z
@@ -12629,12 +12629,12 @@
 
     if-nez v0, :cond_9
 
-    .line 3243
+    .line 3253
     :cond_8
     :goto_8
     return-void
 
-    .line 3242
+    .line 3252
     :cond_9
     invoke-virtual {p1, p2}, Lcom/bilibili/tv/ui/video/widget/VideoListSection;->updateNavTagSelection(I)V
 
@@ -12921,14 +12921,14 @@
     .locals 2
 
     .prologue
-    .line 4089
+    .line 4099
     sget-object v0, Lbl/aft;->a:Lbl/aft;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     invoke-virtual {v0, p0, v1, p1}, Lbl/aft;->a(Landroid/app/Activity;Lcom/bilibili/tv/api/video/BiliVideoDetail;Lcom/bilibili/tv/api/video/BiliVideoDetail$Page;)V
 
-    .line 4090
+    .line 4100
     return-void
 .end method
 
@@ -13866,13 +13866,13 @@
     .locals 3
 
     .prologue
-    .line 3641
+    .line 3651
     iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
-    .line 3642
+    .line 3652
     if-eqz v2, :cond_7e
 
-    .line 3643
+    .line 3653
     const v0, 0x7f080168
 
     invoke-virtual {p0, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->d(I)Landroid/view/View;
@@ -13881,10 +13881,10 @@
 
     check-cast v0, Landroid/widget/ImageView;
 
-    .line 3644
+    .line 3654
     if-eqz v0, :cond_1b
 
-    .line 3646
+    .line 3656
     invoke-virtual {v2}, Lcom/bilibili/tv/api/video/BiliVideoDetail;->isLikeVideo()Z
 
     move-result v1
@@ -13893,11 +13893,11 @@
 
     const v1, 0x7f0700fb
 
-    .line 3645
+    .line 3655
     :goto_18
     invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setBackgroundResource(I)V
 
-    .line 3648
+    .line 3658
     :cond_1b
     const v0, 0x7f080169
 
@@ -13907,10 +13907,10 @@
 
     check-cast v0, Landroid/widget/TextView;
 
-    .line 3649
+    .line 3659
     if-eqz v0, :cond_31
 
-    .line 3650
+    .line 3660
     invoke-virtual {v2}, Lcom/bilibili/tv/api/video/BiliVideoDetail;->isLikeVideo()Z
 
     move-result v1
@@ -13922,7 +13922,7 @@
     :goto_2e
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 3652
+    .line 3662
     :cond_31
     const v0, 0x7f08016b
 
@@ -13932,10 +13932,10 @@
 
     check-cast v0, Landroid/widget/ImageView;
 
-    .line 3653
+    .line 3663
     if-eqz v0, :cond_48
 
-    .line 3655
+    .line 3665
     invoke-virtual {v2}, Lcom/bilibili/tv/api/video/BiliVideoDetail;->isCoinVideo()Z
 
     move-result v1
@@ -13944,11 +13944,11 @@
 
     const v1, 0x7f0700f9
 
-    .line 3654
+    .line 3664
     :goto_45
     invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setBackgroundResource(I)V
 
-    .line 3657
+    .line 3667
     :cond_48
     const v0, 0x7f08016c
 
@@ -13958,10 +13958,10 @@
 
     check-cast v0, Landroid/widget/TextView;
 
-    .line 3658
+    .line 3668
     if-eqz v0, :cond_5e
 
-    .line 3659
+    .line 3669
     invoke-virtual {v2}, Lcom/bilibili/tv/api/video/BiliVideoDetail;->isCoinVideo()Z
 
     move-result v1
@@ -13973,14 +13973,14 @@
     :goto_5b
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 3661
+    .line 3671
     :cond_5e
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->k:Landroid/widget/ImageView;
 
-    .line 3662
+    .line 3672
     if-eqz v1, :cond_6e
 
-    .line 3664
+    .line 3674
     invoke-virtual {v2}, Lcom/bilibili/tv/api/video/BiliVideoDetail;->isFavoriteVideo()Z
 
     move-result v0
@@ -13989,18 +13989,18 @@
 
     const v0, 0x7f07006a
 
-    .line 3663
+    .line 3673
     :goto_6b
     invoke-virtual {v1, v0}, Landroid/widget/ImageView;->setBackgroundResource(I)V
 
-    .line 3666
+    .line 3676
     :cond_6e
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->l:Landroid/widget/TextView;
 
-    .line 3667
+    .line 3677
     if-eqz v1, :cond_7e
 
-    .line 3669
+    .line 3679
     invoke-virtual {v2}, Lcom/bilibili/tv/api/video/BiliVideoDetail;->isFavoriteVideo()Z
 
     move-result v0
@@ -14009,45 +14009,45 @@
 
     const v0, 0x7f0c0167
 
-    .line 3668
+    .line 3678
     :goto_7b
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setText(I)V
 
-    .line 3672
+    .line 3682
     :cond_7e
     return-void
 
-    .line 3646
+    .line 3656
     :cond_7f
     const v1, 0x7f0700fa
 
     goto :goto_18
 
-    .line 3650
+    .line 3660
     :cond_83
     const-string v1, "\u70b9\u8d5e"
 
     goto :goto_2e
 
-    .line 3655
+    .line 3665
     :cond_86
     const v1, 0x7f0700f8
 
     goto :goto_45
 
-    .line 3659
+    .line 3669
     :cond_8a
     const-string v1, "\u6295\u5e01"
 
     goto :goto_5b
 
-    .line 3664
+    .line 3674
     :cond_8d
     const v0, 0x7f070069
 
     goto :goto_6b
 
-    .line 3669
+    .line 3679
     :cond_91
     const v0, 0x7f0c0166
 
@@ -14062,7 +14062,7 @@
 
     const/4 v1, -0x1
 
-    .line 3610
+    .line 3620
     if-ne p2, v1, :cond_10
 
     const/16 v0, 0x2752
@@ -14073,11 +14073,11 @@
 
     if-ne p1, v0, :cond_10
 
-    .line 3611
+    .line 3621
     :cond_d
     invoke-direct {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->n()V
 
-    .line 3613
+    .line 3623
     :cond_10
     if-ne p2, v1, :cond_5a
 
@@ -14087,14 +14087,14 @@
 
     if-eqz p3, :cond_5a
 
-    .line 3614
+    .line 3624
     const-string v0, "last_cid"
 
     invoke-virtual {p3, v0, v4, v5}, Landroid/content/Intent;->getLongExtra(Ljava/lang/String;J)J
 
     move-result-wide v0
 
-    .line 3615
+    .line 3625
     const-string v2, "last_progress"
 
     const/4 v3, 0x0
@@ -14103,7 +14103,7 @@
 
     move-result v2
 
-    .line 3616
+    .line 3626
     iget-object v3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     if-eqz v3, :cond_5a
@@ -14112,14 +14112,14 @@
 
     if-lez v3, :cond_5a
 
-    .line 3617
+    .line 3627
     iget-object v3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     iget-object v3, v3, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mHistory:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
 
     if-nez v3, :cond_3c
 
-    .line 3618
+    .line 3628
     iget-object v3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     new-instance v4, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
@@ -14128,7 +14128,7 @@
 
     iput-object v4, v3, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mHistory:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
 
-    .line 3620
+    .line 3630
     :cond_3c
     iget-object v3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
@@ -14136,7 +14136,7 @@
 
     iput-wide v0, v3, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mCid:J
 
-    .line 3621
+    .line 3631
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     iget-object v0, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mHistory:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
@@ -14145,15 +14145,15 @@
 
     iput v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mProgress:I
 
-    .line 3622
+    .line 3632
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     invoke-direct {p0, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateHistoryDisplay(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
 
-    .line 3624
+    .line 3634
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
-    .line 3625
+    .line 3635
     new-instance v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$34;
 
     invoke-direct {v1, p0, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$34;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
@@ -14162,11 +14162,11 @@
 
     invoke-direct {p0, v0, v1, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->requestHistoryForUgc(Lcom/bilibili/tv/api/video/BiliVideoDetail;Ljava/lang/Runnable;Z)V
 
-    .line 3636
+    .line 3646
     :cond_5a
     invoke-super {p0, p1, p2, p3}, Lcom/bilibili/tv/ui/base/BaseActivity;->onActivityResult(IILandroid/content/Intent;)V
 
-    .line 3637
+    .line 3647
     return-void
 .end method
 
@@ -14178,49 +14178,49 @@
 
     const/4 v2, 0x0
 
-    .line 3536
+    .line 3546
     const-string v0, "v"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 3537
+    .line 3547
     invoke-virtual {p1}, Landroid/view/View;->getId()I
 
     move-result v0
 
-    .line 3538
+    .line 3548
     const v1, 0x7f080167
 
     if-ne v0, v1, :cond_39
 
-    .line 3539
+    .line 3549
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
 
-    .line 3540
+    .line 3550
     const-string v1, "BiliAccount.get(this)"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 3541
+    .line 3551
     invoke-virtual {v0}, Lbl/mg;->a()Z
 
     move-result v0
 
     if-nez v0, :cond_25
 
-    .line 3542
+    .line 3552
     const-string v0, "\u8d26\u53f7\u672a\u767b\u5f55\uff0c\u65e0\u6cd5\u70b9\u51fb"
 
     invoke-static {p0, v0}, Lbl/lr;->a(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 3586
+    .line 3596
     :cond_24
     :goto_24
     return-void
 
-    .line 3545
+    .line 3555
     :cond_25
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
@@ -14234,137 +14234,137 @@
 
     if-eqz v0, :cond_35
 
-    .line 3546
+    .line 3556
     invoke-direct {p0, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->likeVideo(I)V
 
     goto :goto_24
 
-    .line 3549
+    .line 3559
     :cond_35
     invoke-direct {p0, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->likeVideo(I)V
 
     goto :goto_24
 
-    .line 3551
+    .line 3561
     :cond_39
     const v1, 0x7f08016a
 
     if-ne v0, v1, :cond_57
 
-    .line 3552
+    .line 3562
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
 
-    .line 3553
+    .line 3563
     const-string v1, "BiliAccount.get(this)"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 3554
+    .line 3564
     invoke-virtual {v0}, Lbl/mg;->a()Z
 
     move-result v0
 
     if-nez v0, :cond_53
 
-    .line 3555
+    .line 3565
     const-string v0, "\u8d26\u53f7\u672a\u767b\u5f55\uff0c\u65e0\u6cd5\u70b9\u51fb"
 
     invoke-static {p0, v0}, Lbl/lr;->a(Landroid/content/Context;Ljava/lang/String;)V
 
     goto :goto_24
 
-    .line 3558
+    .line 3568
     :cond_53
     invoke-direct {p0, v3, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->coinVideo(II)V
 
     goto :goto_24
 
-    .line 3560
+    .line 3570
     :cond_57
     const v1, 0x7f08014d
 
     if-ne v0, v1, :cond_75
 
-    .line 3561
+    .line 3571
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
 
-    .line 3562
+    .line 3572
     const-string v1, "BiliAccount.get(this)"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 3563
+    .line 3573
     invoke-virtual {v0}, Lbl/mg;->a()Z
 
     move-result v0
 
     if-nez v0, :cond_71
 
-    .line 3564
+    .line 3574
     const-string v0, "\u8d26\u53f7\u672a\u767b\u5f55\uff0c\u65e0\u6cd5\u70b9\u51fb"
 
     invoke-static {p0, v0}, Lbl/lr;->a(Landroid/content/Context;Ljava/lang/String;)V
 
     goto :goto_24
 
-    .line 3567
+    .line 3577
     :cond_71
     invoke-direct {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->showFavoriteMenu()V
 
     goto :goto_24
 
-    .line 3568
+    .line 3578
     :cond_75
     const v1, 0x7f0801a1
 
     if-ne v0, v1, :cond_b3
 
-    .line 3569
+    .line 3579
     invoke-static {p0}, Lbl/mg;->a(Landroid/content/Context;)Lbl/mg;
 
     move-result-object v0
 
-    .line 3570
+    .line 3580
     const-string v1, "BiliAccount.get(this)"
 
     invoke-static {v0, v1}, Lbl/bbi;->a(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 3571
+    .line 3581
     invoke-virtual {v0}, Lbl/mg;->a()Z
 
     move-result v1
 
     if-nez v1, :cond_8f
 
-    .line 3572
+    .line 3582
     const-string v0, "\u8d26\u53f7\u672a\u767b\u5f55\uff0c\u65e0\u6cd5\u70b9\u51fb"
 
     invoke-static {p0, v0}, Lbl/lr;->a(Landroid/content/Context;Ljava/lang/String;)V
 
     goto :goto_24
 
-    .line 3575
+    .line 3585
     :cond_8f
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
-    .line 3576
+    .line 3586
     if-eqz v1, :cond_24
 
-    .line 3577
+    .line 3587
     invoke-static {v0}, Lmybl/CookieUtil;->getFullCookieWithDevice(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v2
 
-    .line 3578
+    .line 3588
     invoke-static {v0}, Lmybl/CookieUtil;->getBiliJct(Lbl/mg;)Ljava/lang/String;
 
     move-result-object v3
 
-    .line 3579
+    .line 3589
     const-class v0, Lcom/bilibili/tv/api/history/BiliPlayerHistoryService;
 
     invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
@@ -14375,7 +14375,7 @@
 
     iget-wide v4, v1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mAvid:J
 
-    .line 3580
+    .line 3590
     invoke-interface {v0, v4, v5, v3, v2}, Lcom/bilibili/tv/api/history/BiliPlayerHistoryService;->addVideoToviews(JLjava/lang/String;Ljava/lang/String;)Lbl/vp;
 
     move-result-object v0
@@ -14384,18 +14384,18 @@
 
     invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$AddToViewResponse;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
 
-    .line 3581
+    .line 3591
     invoke-virtual {v0, v1}, Lbl/vp;->a(Lretrofit2/Callback;)V
 
     goto/16 :goto_24
 
-    .line 3583
+    .line 3593
     :cond_b3
     const v1, 0x7f0801dc
 
     if-ne v0, v1, :cond_24
 
-    .line 3584
+    .line 3594
     invoke-direct {p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->showVideoIntroPanel()V
 
     goto/16 :goto_24
@@ -14426,12 +14426,12 @@
     .locals 2
 
     .prologue
-    .line 3601
+    .line 3611
     const-string v0, "event"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 3602
+    .line 3612
     const/16 v0, 0x17
 
     if-eq p1, v0, :cond_d
@@ -14445,14 +14445,14 @@
 
     if-eqz v0, :cond_18
 
-    .line 3603
+    .line 3613
     sget-object v0, Lcom/bilibili/tv/ui/account/LoginActivity;->Companion:Lcom/bilibili/tv/ui/account/LoginActivity$a;
 
     const/16 v1, 0x2752
 
     invoke-virtual {v0, p0, v1}, Lcom/bilibili/tv/ui/account/LoginActivity$a;->a(Landroid/app/Activity;I)V
 
-    .line 3605
+    .line 3615
     :cond_18
     invoke-super {p0, p1, p2}, Lcom/bilibili/tv/ui/base/BaseActivity;->onKeyDown(ILandroid/view/KeyEvent;)Z
 
@@ -14543,10 +14543,10 @@
     .locals 0
 
     .prologue
-    .line 3590
+    .line 3600
     invoke-super {p0}, Lcom/bilibili/tv/ui/base/BaseActivity;->onPause()V
 
-    .line 3591
+    .line 3601
     return-void
 .end method
 
@@ -14568,9 +14568,9 @@
     .locals 0
 
     .prologue
-    .line 3595
+    .line 3605
     invoke-super {p0}, Lcom/bilibili/tv/ui/base/BaseActivity;->onStop()V
 
-    .line 3596
+    .line 3606
     return-void
 .end method

@@ -27,18 +27,18 @@
     .locals 1
 
     .prologue
-    .line 502
+    .line 576
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 503
+    .line 577
     iput-wide p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$MenuItem;->id:J
 
-    .line 504
+    .line 578
     iput-object p3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$MenuItem;->name:Ljava/lang/String;
 
-    .line 505
+    .line 579
     iput p4, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$MenuItem;->type:I
 
-    .line 506
+    .line 580
     return-void
 .end method

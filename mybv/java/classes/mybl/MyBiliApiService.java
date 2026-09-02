@@ -246,6 +246,24 @@ public interface MyBiliApiService {
             @Query("cid") long cid,
             @Query("index") int index,
             @Header("Cookie") String cookie);
+
+    // UP空间定位：medialist 双向分页（Web API，需登录Cookie，无需WBI签名）
+    // direction=true 取比 oid 更新的视频，false 取比 oid 更旧的；with_current=true 时结果包含 oid 本身
+    @GET("/x/v2/medialist/resource/list")
+    vp<GeneralResponse<JSONObject>> getSpaceMedialist(
+            @Query("mobi_app") String mobiApp,
+            @Query("type") int type,
+            @Query("biz_id") long mid,
+            @Query("oid") long oid,
+            @Query("otype") int otype,
+            @Query("ps") int ps,
+            @Query("direction") boolean direction,
+            @Query("desc") boolean desc,
+            @Query("sort_field") String sortField,
+            @Query("tid") int tid,
+            @Query("with_current") boolean withCurrent,
+            @Header("Referer") String referer,
+            @Header("Cookie") String cookie);
     
     @Headers("Referer: https://live.bilibili.com/")
     @GET("https://api.live.bilibili.com/xlive/web-interface/v1/index/getList")

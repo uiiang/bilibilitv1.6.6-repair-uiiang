@@ -2761,7 +2761,17 @@ public final class VideoDetailActivity extends BaseActivity
         wrapper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AuthSpaceSideActivity.start(VideoDetailActivity.this, staffMid, staffName);
+                // 定位参数仅在点击的是视频owner时传入（合作UP的空间不含当前视频，medialist会返回空）
+                BiliVideoDetail curDetail = VideoDetailActivity.this.u;
+                long ownerMid = curDetail != null ? curDetail.getMid() : 0L;
+                String curBvid = curDetail != null ? curDetail.mBvid : null;
+                String curTitle = curDetail != null ? curDetail.mTitle : null;
+                long curAid = VideoDetailActivity.this.s;
+                if (ownerMid > 0 && staffMid == ownerMid && curAid > 0) {
+                    AuthSpaceSideActivity.start(VideoDetailActivity.this, staffMid, staffName, curAid, curBvid, curTitle);
+                } else {
+                    AuthSpaceSideActivity.start(VideoDetailActivity.this, staffMid, staffName);
+                }
             }
         });
         wrapper.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -5233,7 +5243,17 @@ public final class VideoDetailActivity extends BaseActivity
             wrapper.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AuthSpaceSideActivity.start(VideoDetailActivity.this, staffMid, staffName);
+                    // 定位参数仅在点击的是视频owner时传入（合作UP的空间不含当前视频，medialist会返回空）
+                    BiliVideoDetail curDetail = VideoDetailActivity.this.u;
+                    long ownerMid = curDetail != null ? curDetail.getMid() : 0L;
+                    String curBvid = curDetail != null ? curDetail.mBvid : null;
+                    String curTitle = curDetail != null ? curDetail.mTitle : null;
+                    long curAid = VideoDetailActivity.this.s;
+                    if (ownerMid > 0 && staffMid == ownerMid && curAid > 0) {
+                        AuthSpaceSideActivity.start(VideoDetailActivity.this, staffMid, staffName, curAid, curBvid, curTitle);
+                    } else {
+                        AuthSpaceSideActivity.start(VideoDetailActivity.this, staffMid, staffName);
+                    }
                 }
             });
             wrapper.setOnFocusChangeListener(new View.OnFocusChangeListener() {

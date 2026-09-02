@@ -1273,6 +1273,96 @@
     .end annotation
 .end method
 
+.method public abstract getSpaceMedialist(Ljava/lang/String;IJJIIZZLjava/lang/String;IZLjava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "mobi_app"
+        .end annotation
+    .end param
+    .param p2    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "type"
+        .end annotation
+    .end param
+    .param p3    # J
+        .annotation runtime Lretrofit2/http/Query;
+            value = "biz_id"
+        .end annotation
+    .end param
+    .param p5    # J
+        .annotation runtime Lretrofit2/http/Query;
+            value = "oid"
+        .end annotation
+    .end param
+    .param p7    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "otype"
+        .end annotation
+    .end param
+    .param p8    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "ps"
+        .end annotation
+    .end param
+    .param p9    # Z
+        .annotation runtime Lretrofit2/http/Query;
+            value = "direction"
+        .end annotation
+    .end param
+    .param p10    # Z
+        .annotation runtime Lretrofit2/http/Query;
+            value = "desc"
+        .end annotation
+    .end param
+    .param p11    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Query;
+            value = "sort_field"
+        .end annotation
+    .end param
+    .param p12    # I
+        .annotation runtime Lretrofit2/http/Query;
+            value = "tid"
+        .end annotation
+    .end param
+    .param p13    # Z
+        .annotation runtime Lretrofit2/http/Query;
+            value = "with_current"
+        .end annotation
+    .end param
+    .param p14    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Referer"
+        .end annotation
+    .end param
+    .param p15    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            "IJJIIZZ",
+            "Ljava/lang/String;",
+            "IZ",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            ")",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Lcom/alibaba/fastjson/JSONObject;",
+            ">;>;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/GET;
+        value = "/x/v2/medialist/resource/list"
+    .end annotation
+.end method
+
 .method public abstract getThirdUpdateInfo()Lbl/vp;
     .annotation system Ldalvik/annotation/Signature;
         value = {

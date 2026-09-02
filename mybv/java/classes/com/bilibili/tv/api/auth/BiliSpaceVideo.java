@@ -187,6 +187,59 @@ public class BiliSpaceVideo {
         return v;
     }
 
+    /**
+     * 解析 medialist/resource/list 接口的 media_list[] 原始item（UP空间定位功能专用）
+     * 字段：id(=aid,兜底aid)、bvid(兜底bv_id)、title、cover、cnt_info(stat){play/view,danmaku}、
+     *       pubtime(兜底ctime)、duration、badges[]（等价BT X5.c1() 的字段转换）
+     */
+    public static BiliSpaceVideo fromMedialistItem(JSONObject item) {
+        BiliSpaceVideo v = new BiliSpaceVideo();
+        v.aid = item.getLongValue("id");
+        if (v.aid <= 0) {
+            v.aid = item.getLongValue("aid");
+        }
+        v.param = String.valueOf(v.aid);
+        v.bvid = item.getString("bvid");
+        if (v.bvid == null || v.bvid.isEmpty()) {
+            v.bvid = item.getString("bv_id");
+        }
+        v.title = item.getString("title");
+        v.cover = item.getString("cover");
+        if (v.cover != null && v.cover.startsWith("//")) {
+            v.cover = "https:" + v.cover;
+        }
+        JSONObject stat = item.getJSONObject("cnt_info");
+        if (stat == null) {
+            stat = item.getJSONObject("stat");
+        }
+        long playVal = stat != null ? stat.getLongValue("play") : 0L;
+        if (playVal <= 0 && stat != null) {
+            playVal = stat.getLongValue("view");
+        }
+        v.play = (int) playVal;
+        v.playStr = bl.adh.a(v.play);
+        long danmakuVal = stat != null ? stat.getLongValue("danmaku") : 0L;
+        v.danmaku = String.valueOf(danmakuVal);
+        v.danmakuStr = bl.adh.a((int) danmakuVal);
+        v.ctime = item.getLong("pubtime");
+        if (v.ctime == null || v.ctime == 0) {
+            v.ctime = item.getLong("ctime");
+        }
+        v.duration = item.getIntValue("duration");
+        v.resolveDurationStr();
+        com.alibaba.fastjson.JSONArray badges = item.getJSONArray("badges");
+        if (badges != null && badges.size() > 0) {
+            JSONObject b0 = badges.getJSONObject(0);
+            if (b0 != null) {
+                v.badgeText = b0.getString("text");
+                v.badgeBgColor = b0.getString("bg_color");
+            }
+        }
+        v.resolvePubTimeStr();
+        v.resolveBadge();
+        return v;
+    }
+
     public static BiliSpaceVideo fromFeedDynamic(JSONObject modules) {
         BiliSpaceVideo v = new BiliSpaceVideo();
         JSONObject moduleDynamic = modules.getJSONObject("module_dynamic");

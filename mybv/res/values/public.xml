@@ -3679,4 +3679,5 @@
     <public type="layout" name="dialog_right_slide_panel" id="0x7f0a00b7" />
     <public type="layout" name="panel_video_intro" id="0x7f0a00b8" />
     <public type="style" name="RightSlidePanelAnimation" id="0x7f0d0179" />
+    <public type="id" name="locate_current" id="0x7f080267" />
 </resources>

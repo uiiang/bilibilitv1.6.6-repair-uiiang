@@ -46,11 +46,22 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
   private int f = 1;
   private long targetMid = 0L;
   private String targetUname = "";
+  // 定位参数：从视频详情页/播放页带当前视频信息进入时启用"定位至当前视频"功能
+  private long locateAid = 0L;
+  private String locateBvid = null;
+  private String locateTitle = null;
 
   public static void start(Context ctx, long mid, String uname) {
+    start(ctx, mid, uname, 0L, null, null);
+  }
+
+  public static void start(Context ctx, long mid, String uname, long locateAid, String locateBvid, String locateTitle) {
     Intent it = new Intent(ctx, AuthSpaceSideActivity.class);
     it.putExtra("mid", mid);
     it.putExtra("uname", uname);
+    it.putExtra("locate_aid", locateAid);
+    it.putExtra("locate_bvid", locateBvid);
+    it.putExtra("locate_title", locateTitle);
     ctx.startActivity(it);
   }
 
@@ -69,6 +80,9 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
     targetUname = getIntent().getStringExtra("uname");
     if (targetUname == null)
       targetUname = "";
+    locateAid = getIntent().getLongExtra("locate_aid", 0L);
+    locateBvid = getIntent().getStringExtra("locate_bvid");
+    locateTitle = getIntent().getStringExtra("locate_title");
     String title = TextUtils.isEmpty(targetUname) ? "全部视频" : targetUname;
     ((TextView) d(R.id.content_name)).setText(title);
     b((RecyclerView) d(R.id.recycler_view));
@@ -139,6 +153,17 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
       if (fragment instanceof AuthSpaceVideoFragment) {
         AuthSpaceVideoFragment avf = (AuthSpaceVideoFragment) fragment;
 
+        // 定位模式：用户按键导航过（等价BT的K标志，开启双向翻页触发）
+        boolean focusInFragment = fragment.getView() != null
+            && isDescendantOfView(currentFocus, fragment.getView());
+        if (focusInFragment) {
+          int kc = keyCode;
+          if (kc == KeyEvent.KEYCODE_DPAD_UP || kc == KeyEvent.KEYCODE_DPAD_DOWN
+              || kc == KeyEvent.KEYCODE_DPAD_LEFT || kc == KeyEvent.KEYCODE_DPAD_RIGHT) {
+            avf.onUserNavigate();
+          }
+        }
+
         // 处理关注按钮的焦点逻辑
         if (avf.attentionButton != null && avf.attentionButton.isFocused()) {
           if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
@@ -151,7 +176,35 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
               }
             }
           } else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
-            // 在关注按钮上按左右键，焦点保持在关注按钮上
+            // 在关注按钮上按右键：定位按钮可见时移到定位按钮；否则焦点保持
+            if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT
+                && avf.locateButton != null && avf.locateButton.getVisibility() == View.VISIBLE) {
+              avf.locateButton.requestFocus();
+            }
+            return true;
+          }
+        }
+
+        // 处理"定位至当前视频"按钮的焦点逻辑（与关注按钮同排）
+        if (avf.locateButton != null && avf.locateButton.isFocused()) {
+          if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
+            // 左键回到关注按钮
+            if (avf.attentionButton != null && avf.attentionButton.getVisibility() == View.VISIBLE) {
+              avf.attentionButton.requestFocus();
+            }
+            return true;
+          } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+            // 下键进入视频列表第一行
+            if (avf.mRecyclerView != null && avf.mRecyclerView.getChildCount() > 0) {
+              View firstChild = avf.mRecyclerView.getChildAt(0);
+              if (firstChild != null) {
+                firstChild.requestFocus();
+                return true;
+              }
+            }
+            return true;
+          } else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+            // 右键焦点保持在定位按钮
             return true;
           }
         }
@@ -163,12 +216,28 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
             int focusedPosition = avf.mRecyclerView.g(focusedView);
             // 判断是否是第一行（前两个位置，因为是 2 列布局）
             if (focusedPosition >= 0 && focusedPosition < COLUMNS) {
+              // 定位模式且向上还有更多：按上键触发向上加载（头部插入），不切换到header
+              if (avf.locateLoadByKeyEvent(true)) {
+                return true;
+              }
               // 将焦点切换到关注按钮
               if (avf.attentionButton != null && avf.attentionButton.getVisibility() == View.VISIBLE) {
                 avf.attentionButton.requestFocus();
                 return true;
               }
+              // 关注按钮不可见时回定位按钮
+              if (avf.locateButton != null && avf.locateButton.getVisibility() == View.VISIBLE) {
+                avf.locateButton.requestFocus();
+                return true;
+              }
             }
+          }
+        }
+
+        // 定位模式：最后一行按下键触发向下加载（等价向上加载的镜像场景）
+        if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN && avf.mRecyclerView != null) {
+          if (avf.locateLoadByKeyEvent(false)) {
+            return true;
           }
         }
       }
@@ -395,7 +464,12 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
       mg account = mg.a(this);
       int spaceMode = bl.abd.get_space_dynamic_mode(AuthSpaceSideActivity.this);
       String mode = (account != null && account.a() && spaceMode == bl.abd.SPACE_MODE_DYNAMIC) ? "dynamic" : "all";
-      frag = AuthSpaceVideoFragment.newInstance(mode, targetMid, -1, targetUname);
+      // 仅"全部视频"模式且带定位参数时启用定位功能（medialist 接口仅对时间序投稿列表有意义）
+      if ("all".equals(mode) && locateAid > 0) {
+        frag = AuthSpaceVideoFragment.newInstance(mode, targetMid, -1, targetUname, locateAid, locateBvid, locateTitle);
+      } else {
+        frag = AuthSpaceVideoFragment.newInstance(mode, targetMid, -1, targetUname);
+      }
     } else if (item.type == 1) {
       frag = AuthSpaceVideoFragment.newInstance("season", targetMid, item.id, item.name);
     } else {

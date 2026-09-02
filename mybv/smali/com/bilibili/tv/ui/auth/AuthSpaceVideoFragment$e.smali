@@ -28,15 +28,15 @@
     .locals 0
 
     .prologue
-    .line 717
+    .line 1217
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$e;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 718
+    .line 1218
     iput-object p2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$e;->host:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
-    .line 719
+    .line 1219
     return-void
 .end method
 
@@ -46,24 +46,24 @@
     .locals 3
 
     .prologue
-    .line 723
+    .line 1223
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$e;->host:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->m()Lbl/agd;
 
     move-result-object v0
 
-    .line 724
+    .line 1224
     if-eqz v0, :cond_a
 
     if-nez p1, :cond_b
 
-    .line 729
+    .line 1229
     :cond_a
     :goto_a
     return-void
 
-    .line 726
+    .line 1226
     :cond_b
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$e;->host:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
@@ -75,23 +75,23 @@
 
     invoke-virtual {v0, v1}, Lbl/agd;->setUpRectDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 727
+    .line 1227
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$e;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->firstLoad:Z
-    invoke-static {v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$800(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Z
+    invoke-static {v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$2700(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;)Z
 
     move-result v1
 
     invoke-virtual {v0, p1, p4, p5, v1}, Lbl/agd;->a(Landroid/view/View;IIZ)V
 
-    .line 728
+    .line 1228
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$e;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     const/4 v1, 0x0
 
     # setter for: Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->firstLoad:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$802(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)Z
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->access$2702(Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;Z)Z
 
     goto :goto_a
 .end method

@@ -177,7 +177,8 @@ Step "Organize MultiDex structure" {
         (Join-Path $mybv "smali\okhttp3"),
         (Join-Path $mybv "smali\okio"),
         (Join-Path $mybv "smali\retrofit2"),
-        (Join-Path $mybv "smali\com\google\android\exoplayer2")
+        (Join-Path $mybv "smali\com\google\android\exoplayer2"),
+        (Join-Path $mybv "smali\com\alibaba")
     )
     foreach ($d in $removeDirs) {
         if (Test-Path $d) { Remove-Item -Recurse -Force $d; Write-Host "  removed $d" }

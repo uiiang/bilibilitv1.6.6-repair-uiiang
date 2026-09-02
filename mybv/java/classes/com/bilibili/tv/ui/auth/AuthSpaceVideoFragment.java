@@ -7,10 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import tv.danmaku.ijk.media.player.IjkMediaCodecInfo;
@@ -38,6 +40,7 @@ import mybl.MyBiliApiService;
 import com.bilibili.tv.api.auth.BiliSpaceVideo;
 import com.bilibili.tv.util.DateHelper;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONArray;
@@ -65,7 +68,26 @@ public final class AuthSpaceVideoFragment extends ady {
   private TextView headerTitle;
   private TextView headerCount;
   public DrawTextView attentionButton;
+  public DrawTextView locateButton;
   private TextView hintSort;
+  
+  // ===== 定位模式状态（参考BT UpSpaceActivity J/K/L/M/N/O/P/Q/R）=====
+  private long locateAid = 0L;             // 目标视频aid（详情页传入）
+  private String locateBvid = null;        // 目标视频bvid（aid为0时兜底匹配）
+  private String locateTitle = null;       // 目标视频标题（跳转按钮焦点浮动提示用）
+  private PopupWindow locateTipWindow; // 跳转按钮焦点浮动提示
+  private boolean locateMode = false;      // J：定位模式激活
+  private boolean locateNavigated = false; // K：用户已按键导航过（开启双向翻页触发）
+  private boolean locateHasMoreUp = false; // L：向上（更新方向）还有更多
+  private boolean locateHasMoreDown = false; // M：向下（更旧方向）还有更多
+  private boolean locatingUp = false;      // N：向上加载中
+  private boolean locatingDown = false;    // O：向下加载中
+  private boolean locatingRemote = false;  // 远程定位在途（屏蔽正常分页响应）
+  private long locateNewestAid = 0L;       // P：列表头部（最新）aid游标，向上加载时作oid
+  private long locateOldestAid = 0L;       // Q：列表尾部（最旧）aid游标，向下加载时作oid
+  private int locateGeneration = 0;        // R：定位请求代次号（切排序/复位时++作废在途请求）
+  private boolean pendingLocate = false;   // 切换排序后首屏加载完成自动执行定位
+  private static final int LOCATE_PS = 15;
   
   // 视频总数（用于 header 显示）
   private int totalCount = 0;
@@ -95,6 +117,16 @@ public final class AuthSpaceVideoFragment extends ady {
     return f;
   }
 
+  /** 带定位参数的实例：从视频详情页进入UP空间时启用"定位至当前视频" */
+  public static AuthSpaceVideoFragment newInstance(String mode, long mid, long id, String upName,
+      long locateAid, String locateBvid, String locateTitle) {
+    AuthSpaceVideoFragment f = newInstance(mode, mid, id, upName);
+    f.locateAid = locateAid;
+    f.locateBvid = locateBvid;
+    f.locateTitle = locateTitle;
+    return f;
+  }
+
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
     View rootView = inflater.inflate(R.layout.fragment_auth_space_video, container, false);
@@ -102,8 +134,15 @@ public final class AuthSpaceVideoFragment extends ady {
     this.headerTitle = (TextView) rootView.findViewById(R.id.header_title);
     this.headerCount = (TextView) rootView.findViewById(R.id.header_count);
     this.attentionButton = (DrawTextView) rootView.findViewById(R.id.attention);
+    this.locateButton = (DrawTextView) rootView.findViewById(R.id.locate_current);
     this.hintSort = (TextView) rootView.findViewById(R.id.hint_sort);
     return rootView;
+  }
+
+  @Override
+  public void onDestroyView() {
+    hideLocateTip();
+    super.onDestroyView();
   }
 
   @Override
@@ -129,6 +168,7 @@ public final class AuthSpaceVideoFragment extends ady {
     recyclerView.a(new f(margin, gap));
     recyclerView.a(new g(lm));
     this.adapter = new c();
+    this.adapter.setOuter(this);
     recyclerView.setAdapter(this.adapter);
     this.callback = new b();
     
@@ -158,6 +198,8 @@ public final class AuthSpaceVideoFragment extends ady {
         }
       }
       setupAttentionButton();
+      // 定位按钮：仅"全部视频"模式且带定位参数、已登录时显示
+      setupLocateButton();
       if (headerCount != null) {
         headerCount.setText(totalCount > 0 ? totalCount + "条" : "");
       }
@@ -246,7 +288,448 @@ public final class AuthSpaceVideoFragment extends ady {
       attentionButton.setUpDrawable(R.drawable.shadow_red_rect);
     }
   }
-  
+
+  // ==================== 定位至当前视频（移植自BT UpSpaceActivity） ====================
+
+  /** 定位按钮初始化：仅"全部视频"模式 + 带定位参数 + 已登录时显示 */
+  private void setupLocateButton() {
+    if (locateButton == null) return;
+    boolean show = locateAid > 0 && "all".equals(mode) && mg.a(getActivity()) != null;
+    locateButton.setVisibility(show ? View.VISIBLE : View.GONE);
+    if (!show) return;
+    locateButton.setUpDrawable(R.drawable.shadow_red_rect);
+    locateButton.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+      @Override
+      public void onFocusChange(View view, boolean z) {
+        ((DrawTextView) view).setUpEnabled(z);
+        if (z) showLocateTip(); else hideLocateTip();
+      }
+    });
+    locateButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        locateToCurrent();
+      }
+    });
+  }
+
+  /** 跳转按钮焦点浮动提示：按钮下方显示"跳转到+视频标题" */
+  private void showLocateTip() {
+    hideLocateTip();
+    if (locateTitle == null || locateTitle.isEmpty() || locateButton.getWidth() <= 0) return;
+    TextView tip = new TextView(getActivity());
+    tip.setText("跳转到" + locateTitle);
+    tip.setTextSize(TypedValue.COMPLEX_UNIT_PX, adl.b(R.dimen.px_28));
+    tip.setTextColor(adl.d(R.color.white));
+    tip.setBackgroundResource(R.drawable.shape_rectangle_with_8corner_black_90);
+    int padX = adl.b(R.dimen.px_18);
+    int padY = adl.b(R.dimen.px_10);
+    tip.setPadding(padX, padY, padX, padY);
+    // 超长标题自动换行完整显示：限制最大宽度为屏幕宽度的30%
+    tip.setMaxWidth((int) (getResources().getDisplayMetrics().widthPixels * 0.3f));
+    locateTipWindow = new PopupWindow(tip, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    locateTipWindow.setOutsideTouchable(false);
+    locateTipWindow.showAsDropDown(locateButton, 0, adl.b(R.dimen.px_4));
+  }
+
+  private void hideLocateTip() {
+    if (locateTipWindow != null) {
+      try { locateTipWindow.dismiss(); } catch (Exception ignored) {}
+      locateTipWindow = null;
+    }
+  }
+
+  /** 定位模式中用户按键导航过（等价BT的K标志置位，由 Activity.dispatchKeyEvent 调用） */
+  public void onUserNavigate() {
+    if (locateMode) {
+      locateNavigated = true;
+    }
+  }
+
+  /** 定位入口：优先本地已加载列表查找，未找到再远程定位 */
+  private void locateToCurrent() {
+    if (locateAid <= 0 || loading) return;
+    // 定位仅在"最新发布(pubdate)"时间序下有意义；非 pubdate 先切排序，首屏完成后自动定位
+    if (!"pubdate".equals(allVideoOrder)) {
+      if (pendingLocate) return;
+      pendingLocate = true;
+      setSortOrder("pubdate");
+      return;
+    }
+    int idx = findLocateIndex();
+    if (idx >= 0) {
+      enterLocateMode();
+      scrollToLocate(idx);
+      return;
+    }
+    remoteLocate();
+  }
+
+  /** 在已加载列表中查找目标视频位置 */
+  private int findLocateIndex() {
+    if (adapter == null) return -1;
+    List<BiliSpaceVideo> data = adapter.getData();
+    for (int i = 0; i < data.size(); i++) {
+      if (isLocateTarget(data.get(i))) return i;
+    }
+    return -1;
+  }
+
+  private boolean isLocateTarget(BiliSpaceVideo v) {
+    if (v == null) return false;
+    if (locateAid > 0) return v.aid == locateAid;
+    return locateBvid != null && locateBvid.equals(v.bvid);
+  }
+
+  /** medailist 去重key：优先aid，兜底bvid（等价BT "a"+aid / "b"+bvid） */
+  private static String locateKey(BiliSpaceVideo v) {
+    if (v == null) return "bnull";
+    if (v.aid > 0) return "a" + v.aid;
+    return "b" + (v.bvid != null ? v.bvid : "");
+  }
+
+  private void enterLocateMode() {
+    locateMode = true;
+    locateNavigated = false;
+    updateLocateCursors();
+  }
+
+  /** 退出定位模式并作废所有在途定位请求（等价BT的e()，切排序/复位/定位失败时调用） */
+  private void exitLocateMode() {
+    locateMode = false;
+    locateNavigated = false;
+    locateHasMoreUp = false;
+    locateHasMoreDown = false;
+    locatingUp = false;
+    locatingDown = false;
+    locatingRemote = false;
+    locateNewestAid = 0L;
+    locateOldestAid = 0L;
+    locateGeneration++;
+  }
+
+  /** 刷新双向翻页游标：medialist结果为pubdate倒序（最新在前），头部最新、尾部最旧 */
+  private void updateLocateCursors() {
+    if (adapter == null) return;
+    List<BiliSpaceVideo> data = adapter.getData();
+    locateNewestAid = data.isEmpty() ? 0L : data.get(0).aid;
+    locateOldestAid = data.isEmpty() ? 0L : data.get(data.size() - 1).aid;
+  }
+
+  /** 远程定位：两路并发请求目标视频邻近分页（direction=true/false，均 with_current=true，等价BT H0 flags=24） */
+  private void remoteLocate() {
+    Activity activity = getActivity();
+    if (activity == null) return;
+    mg account = mg.a(activity);
+    if (account == null) {
+      lr.b(getContext(), "账号未登录，无法定位");
+      return;
+    }
+    exitLocateMode(); // 作废旧在途请求
+    locatingRemote = true;
+    loading = true;   // 定位期间阻止正常分页
+    final int gen = ++locateGeneration;
+    final String cookie = CookieUtil.getFullCookieWithDevice(account);
+    final String referer = "https://space.bilibili.com/" + mid + "/video";
+    LogUtil.i(TAG, "remoteLocate mid=" + mid + " aid=" + locateAid + " gen=" + gen);
+    MyBiliApiService api = (MyBiliApiService) vo.a(MyBiliApiService.class);
+    final JSONObject[] results = new JSONObject[2]; // 0=更新的方向, 1=更旧的方向
+    final int[] pending = {2};
+    api.getSpaceMedialist("web", 1, mid, locateAid, 2, LOCATE_PS, true, true, "1", 0, true, referer, cookie)
+        .a(createLocateCallback(0, gen, pending, results));
+    api.getSpaceMedialist("web", 1, mid, locateAid, 2, LOCATE_PS, false, true, "1", 0, true, referer, cookie)
+        .a(createLocateCallback(1, gen, pending, results));
+  }
+
+  private vn<JSONObject> createLocateCallback(final int slot, final int gen, final int[] pending,
+      final JSONObject[] results) {
+    return new vn<JSONObject>() {
+      @Override
+      public boolean isCancel() {
+        return getActivity() == null;
+      }
+
+      @Override
+      public void onError(Throwable th) {
+        LogUtil.i(TAG, "remoteLocate slot=" + slot + " error: " + th.getMessage());
+        adl.a.a(th, getActivity());
+        results[slot] = null;
+        onLocateResponse(gen, pending, results);
+      }
+
+      @Override
+      public void a(JSONObject data) {
+        results[slot] = data;
+        onLocateResponse(gen, pending, results);
+      }
+    };
+  }
+
+  /** 两路定位请求全部返回后合并处理（等价BT RunnableC1274n4 case 11） */
+  private void onLocateResponse(int gen, int[] pending, JSONObject[] results) {
+    pending[0]--;
+    if (pending[0] > 0) return;
+    if (getActivity() == null) return;
+    if (gen != locateGeneration) {
+      LogUtil.i(TAG, "remoteLocate stale gen=" + gen + ", drop");
+      return;
+    }
+    locatingRemote = false;
+    loading = false;
+    List<BiliSpaceVideo> newer = parseMedialist(results[0]); // 比目标更新的
+    List<BiliSpaceVideo> older = parseMedialist(results[1]); // 比目标更旧的
+    // 合并（更新的在前、更旧的在后，与pubdate顺序一致）+ 去重
+    LinkedHashSet<String> seen = new LinkedHashSet<>();
+    List<BiliSpaceVideo> merged = new ArrayList<>();
+    for (BiliSpaceVideo v : newer) {
+      if (seen.add(locateKey(v))) merged.add(v);
+    }
+    for (BiliSpaceVideo v : older) {
+      if (seen.add(locateKey(v))) merged.add(v);
+    }
+    // 在合并结果中查找目标视频
+    int idx = -1;
+    for (int i = 0; i < merged.size(); i++) {
+      if (isLocateTarget(merged.get(i))) {
+        idx = i;
+        break;
+      }
+    }
+    if (idx < 0) {
+      LogUtil.i(TAG, "remoteLocate target not found");
+      lr.b(getContext(), "定位失败：未在UP主投稿中找到该视频");
+      exitLocateMode();
+      page = 1;
+      b(); // 回退正常分页加载
+      return;
+    }
+    adapter.setVideos(merged);
+    locateHasMoreUp = results[0] != null && results[0].getBooleanValue("has_more");
+    locateHasMoreDown = results[1] != null && results[1].getBooleanValue("has_more");
+    enterLocateMode();
+    View view = getView();
+    if (view != null) view.requestLayout();
+    scrollToLocate(idx);
+  }
+
+  /** 解析 medialist 响应 data 节点（media_list[] + BiliFilter 过滤；原始数组字段是 media_list，非转换后的 item） */
+  private List<BiliSpaceVideo> parseMedialist(JSONObject data) {
+    List<BiliSpaceVideo> out = new ArrayList<>();
+    if (data == null) return out;
+    try {
+      JSONArray items = data.getJSONArray("media_list");
+      if (items != null) {
+        List<BiliSpaceVideo> videos = new ArrayList<>();
+        // StringBuilder sb = new StringBuilder("medialist raw:");
+        for (int i = 0; i < items.size(); i++) {
+          JSONObject it = items.getJSONObject(i);
+          // sb.append(" ").append(it.getLongValue("id")).append("@").append(it.getLongValue("pubtime"));
+          videos.add(BiliSpaceVideo.fromMedialistItem(it));
+        }
+        out = mybl.BiliFilter.filterBiliSpaceVideo(videos, "个人投稿");
+        // LogUtil.i(TAG, sb.toString()); // 调试用：打印接口返回的原始 aid@pubtime 序列（验证direction/游标语义）
+        LogUtil.i(TAG, "parseMedialist size=" + out.size() + " has_more=" + data.getBooleanValue("has_more"));
+      }
+    } catch (Exception e) {
+      LogUtil.i(TAG, "parseMedialist error: " + e.getMessage());
+    }
+    return out;
+  }
+
+  /** 滚动到指定位置并聚焦目标item（混淆库无LayoutManager符号，复用VideoListSection的反射模式） */
+  private void scrollToLocate(final int idx) {
+    if (mRecyclerView == null) return;
+    try {
+      java.lang.reflect.Method scrollToWithOffset = mRecyclerView.getLayoutManager().getClass().getMethod("b", int.class, int.class);
+      scrollToWithOffset.invoke(mRecyclerView.getLayoutManager(), idx, 0);
+    } catch (Exception e) {
+      try {
+        java.lang.reflect.Method scrollToMethod = mRecyclerView.getClass().getMethod("a", int.class);
+        scrollToMethod.invoke(mRecyclerView, idx);
+      } catch (Exception e2) {
+        LogUtil.i(TAG, "scrollToLocate error: " + e2.getMessage());
+      }
+    }
+    mRecyclerView.post(new Runnable() {
+      private int retry = 0;
+
+      @Override
+      public void run() {
+        View target = findChildByPosition(idx);
+        if (target != null) {
+          target.requestFocus();
+        } else if (retry++ < 3 && mRecyclerView != null && getActivity() != null) {
+          mRecyclerView.postDelayed(this, 100L);
+        }
+      }
+    });
+  }
+
+  /** 遍历可见子View按position查找（避免依赖新版LayoutManager API） */
+  private View findChildByPosition(int pos) {
+    if (mRecyclerView == null) return null;
+    for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
+      View child = mRecyclerView.getChildAt(i);
+      if (child != null && mRecyclerView.g(child) == pos) return child;
+    }
+    return null;
+  }
+
+  /**
+   * 定位模式双向加载（等价BT的p()）
+   * up=true：以列表头部（最新）aid为游标加载更新的，结果插入头部
+   * up=false：以列表尾部（最旧）aid为游标加载更旧的，结果追加尾部
+   */
+  private void loadLocate(final boolean up) {
+    if (up) {
+      if (!locateHasMoreUp || locatingUp || locateNewestAid <= 0) return;
+      locatingUp = true;
+    } else {
+      if (!locateHasMoreDown || locatingDown || locateOldestAid <= 0) return;
+      locatingDown = true;
+    }
+    Activity activity = getActivity();
+    mg account = activity != null ? mg.a(activity) : null;
+    if (account == null) {
+      if (up) locatingUp = false; else locatingDown = false;
+      return;
+    }
+    final int gen = locateGeneration;
+    long cursorAid = up ? locateNewestAid : locateOldestAid;
+    final String cookie = CookieUtil.getFullCookieWithDevice(account);
+    final String referer = "https://space.bilibili.com/" + mid + "/video";
+    LogUtil.i(TAG, "loadLocate up=" + up + " cursor=" + cursorAid + " gen=" + gen);
+    ((MyBiliApiService) vo.a(MyBiliApiService.class))
+        .getSpaceMedialist("web", 1, mid, cursorAid, 2, LOCATE_PS, up, true, "1", 0, false, referer, cookie)
+        .a(new vn<JSONObject>() {
+          @Override
+          public boolean isCancel() {
+            return getActivity() == null || adapter == null;
+          }
+
+          @Override
+          public void onError(Throwable th) {
+            LogUtil.i(TAG, "loadLocate error: " + th.getMessage());
+            if (up) locatingUp = false; else locatingDown = false;
+          }
+
+          @Override
+          public void a(JSONObject data) {
+            // 先复位加载标志（无论代次号是否有效）
+            if (up) locatingUp = false; else locatingDown = false;
+            if (adapter == null || getActivity() == null) return;
+            if (gen != locateGeneration || !locateMode) return; // 代次号校验，防串页
+            List<BiliSpaceVideo> fresh = parseMedialist(data);
+            boolean hasMore = data != null && data.getBooleanValue("has_more");
+            // 去重：过滤已加载条目（等价BT的setZ1检查）
+            LinkedHashSet<String> seen = new LinkedHashSet<>();
+            for (BiliSpaceVideo v : adapter.getData()) {
+              seen.add(locateKey(v));
+            }
+            List<BiliSpaceVideo> newList = new ArrayList<>();
+            for (BiliSpaceVideo v : fresh) {
+              if (seen.add(locateKey(v))) newList.add(v);
+            }
+            LogUtil.i(TAG, "loadLocate fresh=" + fresh.size() + " dedup=" + newList.size()
+                + " listHead=" + adapter.getData().get(0).aid + " listTail=" + adapter.getData().get(adapter.getData().size() - 1).aid);
+            if (newList.isEmpty()) {
+              // 该方向无新数据 → 停止该方向（等价BT的L/M置false）
+              if (up) locateHasMoreUp = false; else locateHasMoreDown = false;
+              return;
+            }
+            if (up) {
+              locateHasMoreUp = hasMore;
+              // 记录插入前焦点item的position与像素偏移（焦点必在视口内）
+              View focused = mRecyclerView != null ? mRecyclerView.getFocusedChild() : null;
+              final int focusPos = focused != null ? mRecyclerView.g(focused) : -1;
+              final int focusTop = focused != null ? focused.getTop() : 0;
+              final int insertCount = newList.size();
+              adapter.insertVideosAtHead(newList);
+              updateLocateCursors();
+              // 焦点补偿：视口与焦点保持不动（头部插入后焦点item的position偏移insertCount，滚回原像素位置并重新聚焦，等价BT的RunnableC0483Ye）
+              if (focusPos >= 0 && mRecyclerView != null) {
+                scrollToAnchor(focusPos + insertCount, focusTop, focusPos + insertCount);
+              }
+            } else {
+              locateHasMoreDown = hasMore;
+              adapter.addVideos(newList);
+              updateLocateCursors();
+            }
+          }
+        });
+  }
+
+  /**
+   * 头部插入后的视口/焦点补偿：把原焦点item滚回原像素位置并重新聚焦（带重试，适配notifyDataSetChanged重布局）。
+   * anchorPos=插入后该item的position，offset=该item原top像素偏移。
+   */
+  private void scrollToAnchor(final int anchorPos, final int offset, final int focusPos) {
+    if (mRecyclerView == null) return;
+    try {
+      java.lang.reflect.Method m = mRecyclerView.getLayoutManager().getClass().getMethod("b", int.class, int.class);
+      m.invoke(mRecyclerView.getLayoutManager(), anchorPos, offset);
+    } catch (Exception e) {
+      LogUtil.i(TAG, "scrollToAnchor error: " + e.getMessage());
+    }
+    mRecyclerView.post(new Runnable() {
+      private int retry = 0;
+      @Override
+      public void run() {
+        if (mRecyclerView == null || getActivity() == null) return;
+        View target = findChildByPosition(focusPos);
+        if (target != null) {
+          target.requestFocus();
+        } else if (retry++ < 3) {
+          mRecyclerView.postDelayed(this, 100L);
+        }
+      }
+    });
+  }
+
+  /**
+   * 定位模式焦点自动加载（adapter.onFocusChange 回调）：
+   * 焦点进入顶部两行 → 向上加载更新视频；进入底部两行 → 向下加载更旧视频。
+   * 覆盖 onScrollStateChanged 覆盖不到的场景：视口顶/底边与列表头/尾重合时，焦点在视口内移动不产生滚动。
+   */
+  public void onLocateFocusPosition(int pos) {
+    if (!locateMode || adapter == null) return;
+    int count = adapter.getData().size();
+    if (pos < COLUMNS && locateHasMoreUp && !locatingUp) {
+      LogUtil.i(TAG, "focus auto load up pos=" + pos);
+      loadLocate(true);
+    } else if (pos >= count - COLUMNS && locateHasMoreDown && !locatingDown) {
+      LogUtil.i(TAG, "focus auto load down pos=" + pos);
+      loadLocate(false);
+    }
+  }
+
+  /**
+   * 定位模式按键触发双向加载（供 Activity.dispatchKeyEvent 调用）：
+   * up=true 要求焦点在第一行（按上键），up=false 要求焦点在最后一行（按下键）。
+   * TV 焦点网格视口内移动不产生滚动，onScrollStateChanged 无法覆盖顶部/底部按键场景。
+   * 返回是否已触发加载；返回 false 时 Activity 走原有焦点处理。
+   */
+  public boolean locateLoadByKeyEvent(boolean up) {
+    if (!locateMode || mRecyclerView == null || adapter == null) return false;
+    View focused = mRecyclerView.getFocusedChild();
+    if (focused == null) return false;
+    int pos = mRecyclerView.g(focused);
+    if (pos < 0) return false;
+    if (up) {
+      if (!locateHasMoreUp || pos >= COLUMNS) return false;
+      if (locatingUp) return true; // 加载中消费按键，避免连按时焦点跳到header
+      LogUtil.i(TAG, "locateLoadByKeyEvent up pos=" + pos);
+      loadLocate(true);
+      return true;
+    } else {
+      if (!locateHasMoreDown || pos < adapter.getData().size() - COLUMNS) return false;
+      if (locatingDown) return true;
+      LogUtil.i(TAG, "locateLoadByKeyEvent down pos=" + pos);
+      loadLocate(false);
+      return true;
+    }
+  }
+
   // 更新 header 显示
   public void updateHeaderInfo(String title, int count) {
     this.totalCount = count;
@@ -295,6 +778,10 @@ public final class AuthSpaceVideoFragment extends ady {
     }
     if ("all".equals(mode)) {
       allVideoOrder = order;
+      // 用户切到非pubdate排序时取消待执行的自动定位
+      if (!"pubdate".equals(order)) {
+        pendingLocate = false;
+      }
     } else if ("season".equals(mode)) {
       sortReverse = "default".equals(order);
     } else if ("series".equals(mode)) {
@@ -316,6 +803,7 @@ public final class AuthSpaceVideoFragment extends ady {
   @Override
   public void d_() {
     super.d_();
+    exitLocateMode(); // 复位时退出定位模式并作废在途定位请求
     this.cursor = null;
     this.page = 1;
     this.dynamicOffset = null;
@@ -362,6 +850,7 @@ public final class AuthSpaceVideoFragment extends ady {
         Log.i(TAG, "loadAllVideos error: " + th.getMessage());
         adl.a.a(th, getActivity());
         loading = false;
+        pendingLocate = false; // 加载失败取消待执行定位
         if (page == 1)
           k();
       }
@@ -370,6 +859,11 @@ public final class AuthSpaceVideoFragment extends ady {
       public void a(JSONObject data) {
         if (adapter == null)
           return;
+        // 远程定位在途时丢弃正常分页响应，防止定位成功前列表被追加脏数据
+        if (locatingRemote) {
+          LogUtil.i(TAG, "loadAllVideos response during locate, drop");
+          return;
+        }
         j();
         loading = false;
         try {
@@ -412,6 +906,12 @@ public final class AuthSpaceVideoFragment extends ady {
                 e.printStackTrace();
               }
               b();
+            } else {
+              // 首屏（含补加载链）完成后自动执行待处理的定位（点击定位按钮时切排序的后续流程）
+              if (pendingLocate && "pubdate".equals(allVideoOrder) && locateAid > 0) {
+                pendingLocate = false;
+                locateToCurrent();
+              }
             }
             return;
           }
@@ -763,7 +1263,13 @@ public final class AuthSpaceVideoFragment extends ady {
     @Override
     public void a(RecyclerView recyclerView, int i) {
       super.a(recyclerView, i);
-      if (AuthSpaceVideoFragment.this.loading || AuthSpaceVideoFragment.this.adapter == null || !AuthSpaceVideoFragment.this.hasMore)
+      if (AuthSpaceVideoFragment.this.loading || AuthSpaceVideoFragment.this.adapter == null)
+        return;
+
+      // 定位模式的双向加载由焦点路径(onLocateFocusPosition)与按键路径(locateLoadByKeyEvent)触发：
+      // TV上滚动仅由焦点移动驱动，焦点回调必然先于/覆盖滚动回调，此处无需重复触发（loadLocate内部有防抖）。
+
+      if (!AuthSpaceVideoFragment.this.hasMore)
         return;
       int last = this.lm.p();
       if (this.lm.x() <= 0 || last + 10 < this.lm.H() - 1 || this.lm.H() <= this.lm.x())
@@ -778,6 +1284,11 @@ public final class AuthSpaceVideoFragment extends ady {
   /* adapter */
   static final class c extends RecyclerView.a<adv> implements View.OnClickListener, View.OnFocusChangeListener {
     private List<BiliSpaceVideo> data = new ArrayList<>();
+    private AuthSpaceVideoFragment outer; // 外部引用：定位模式焦点自动加载用
+
+    public void setOuter(AuthSpaceVideoFragment f) {
+      this.outer = f;
+    }
 
     @Override
     public adv a(ViewGroup parent, int viewType) {
@@ -868,6 +1379,16 @@ public final class AuthSpaceVideoFragment extends ady {
       d(s);
     }
 
+    public List<BiliSpaceVideo> getData() {
+      return this.data;
+    }
+
+    /** 头部插入并全量刷新（定位模式向上加载用；d(I)=notifyItemInserted(p,1)只通知1条会造成position错位，多条插入必须notifyDataSetChanged） */
+    public void insertVideosAtHead(List<BiliSpaceVideo> list) {
+      this.data.addAll(0, list);
+      d();
+    }
+
     @Override
     public void onClick(View v) {
       Object tag = v.getTag();
@@ -884,6 +1405,15 @@ public final class AuthSpaceVideoFragment extends ady {
     public void onFocusChange(View v, boolean has) {
       if (v instanceof com.bilibili.tv.widget.DrawRelativeLayout)
         ((com.bilibili.tv.widget.DrawRelativeLayout) v).setUpEnabled(has);
+      // 定位模式：焦点移动到顶部/底部两行时自动双向加载（覆盖"视口顶边=列表头，焦点在视口内移动无滚动、
+      // onScrollStateChanged 不触发"的死区，使行为与向下翻页一致）
+      if (has && outer != null) {
+        RecyclerView rv = v.getParent() instanceof RecyclerView ? (RecyclerView) v.getParent() : null;
+        if (rv != null) {
+          int pos = rv.g(v);
+          if (pos >= 0) outer.onLocateFocusPosition(pos);
+        }
+      }
     }
   }
 
