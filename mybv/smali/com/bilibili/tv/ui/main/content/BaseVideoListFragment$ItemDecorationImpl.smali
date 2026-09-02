@@ -25,16 +25,16 @@
     .locals 0
 
     .prologue
-    .line 326
+    .line 332
     invoke-direct {p0}, Landroid/support/v7/widget/RecyclerView$g;-><init>()V
 
-    .line 327
+    .line 333
     iput p1, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$ItemDecorationImpl;->space:I
 
-    .line 328
+    .line 334
     iput p2, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$ItemDecorationImpl;->columnCount:I
 
-    .line 329
+    .line 335
     return-void
 .end method
 
@@ -44,25 +44,25 @@
     .locals 3
 
     .prologue
-    .line 333
+    .line 339
     const-string v0, "outRect"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 334
+    .line 340
     const-string v0, "view"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 335
+    .line 341
     const-string v0, "parent"
 
     invoke-static {p3, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 337
+    .line 343
     iget v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$ItemDecorationImpl;->space:I
 
-    .line 338
+    .line 344
     iget v1, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$ItemDecorationImpl;->columnCount:I
 
     const/4 v2, 0x3
@@ -75,25 +75,25 @@
 
     if-ne v1, v2, :cond_1f
 
-    .line 339
+    .line 345
     :cond_1b
     iget v0, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$ItemDecorationImpl;->space:I
 
     mul-int/lit8 v0, v0, 0x2
 
-    .line 342
+    .line 348
     :cond_1f
     iput v0, p1, Landroid/graphics/Rect;->left:I
 
-    .line 343
+    .line 349
     iput v0, p1, Landroid/graphics/Rect;->right:I
 
-    .line 344
+    .line 350
     iput v0, p1, Landroid/graphics/Rect;->top:I
 
-    .line 345
+    .line 351
     iput v0, p1, Landroid/graphics/Rect;->bottom:I
 
-    .line 346
+    .line 352
     return-void
 .end method

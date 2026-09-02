@@ -48,6 +48,8 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
     // 下一页数据预取状态（参考MyTVB OwnerDetailDialog.schedulePrefetch）
     protected boolean prefetching = false;                 // 预取请求进行中
     protected List<MainRecommendEx.Content> prefetchedList = null;  // 预取结果缓存
+    protected int prefetchGeneration = 0;                  // 预取代次号：刷新数据时递增，作废在途/遗留预取结果
+    protected int pendingPrefetchGen = 0;                  // 发起预取时的代次号快照
     
     protected List<MainRecommendEx.Content> ugcList = new ArrayList<>();
     protected List<MainRecommendEx.Content> ogvList = new ArrayList<>();
@@ -248,6 +250,7 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
             return;
         }
         this.prefetching = true;
+        this.pendingPrefetchGen = this.prefetchGeneration;
         fetchDataForPrefetch();
     }
     
@@ -261,6 +264,9 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
     /** 预取成功回调：缓存结果，不直接展示 */
     protected void onPrefetchSuccess(List<MainRecommendEx.Content> list) {
         this.prefetching = false;
+        if (this.pendingPrefetchGen != this.prefetchGeneration) {
+            return; // 预取发起后数据已刷新，结果作废，防止旧页/旧接口数据混入新列表
+        }
         if (list != null && !list.isEmpty()) {
             this.prefetchedList = list;
         }
@@ -527,7 +533,11 @@ public abstract class BaseVideoListFragment extends adu implements aez, wf {
         public void setData(List<MainRecommendEx.Content> ogv, List<MainRecommendEx.Content> ugc) {
             bbi.b(ogv, "ogvList");
             bbi.b(ugc, "ugcList");
-            
+
+            // 刷新数据时递增预取代次号并作废旧缓存，防止旧页/旧接口的预取结果被追加进新列表
+            BaseVideoListFragment.this.prefetchGeneration++;
+            BaseVideoListFragment.this.prefetchedList = null;
+
             ArrayList<MainRecommendEx.Content> allList = new ArrayList<>();
             for (MainRecommendEx.Content content : ogv) {
                 if (content != null) {

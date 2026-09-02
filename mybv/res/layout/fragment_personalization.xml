@@ -141,6 +141,7 @@
             android:focusableInTouchMode="true"
             android:nextFocusLeft="@id/column_3_button"
             android:nextFocusRight="@id/column_4_button"
+            android:nextFocusDown="@id/recommend_api_web_button"
             android:paddingLeft="@dimen/px_30"
             android:paddingRight="@dimen/px_30"
             android:layout_width="wrap_content"
@@ -229,8 +230,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/px_44"
             android:layout_marginLeft="@dimen/px_30"
-            android:layout_marginRight="@dimen/px_30" 
-        android:visibility="gone"/>
+            android:layout_marginRight="@dimen/px_30" />
         <com.bilibili.tv.widget.DrawFrameLayout
             android:id="@id/recommend_api_web_button"
             android:background="@drawable/shape_rectangle_trans_with_12corner_white_10"
@@ -238,11 +238,12 @@
             android:focusableInTouchMode="true"
             android:nextFocusLeft="@id/space_all_button"
             android:nextFocusRight="@id/recommend_api_app_button"
+            android:nextFocusUp="@id/column_4_button"
+            android:nextFocusDown="@id/tab_pgc"
             android:paddingLeft="@dimen/px_30"
             android:paddingRight="@dimen/px_30"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/px_96"
-        android:visibility="gone">
+            android:layout_height="@dimen/px_96">
             <com.bilibili.tv.widget.ShadowTextView
                 android:gravity="center"
                 android:layout_gravity="center"
@@ -260,12 +261,13 @@
             android:focusableInTouchMode="true"
             android:nextFocusLeft="@id/recommend_api_web_button"
             android:nextFocusRight="@id/recommend_api_app_button"
+            android:nextFocusUp="@id/column_4_button"
+            android:nextFocusDown="@id/tab_pgc"
             android:paddingLeft="@dimen/px_30"
             android:paddingRight="@dimen/px_30"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/px_96"
-            android:layout_marginLeft="@dimen/px_40"
-        android:visibility="gone">
+            android:layout_marginLeft="@dimen/px_40">
             <com.bilibili.tv.widget.ShadowTextView
                 android:gravity="center"
                 android:layout_gravity="center"
@@ -471,6 +473,7 @@
             android:focusableInTouchMode="true"
             android:nextFocusLeft="@id/tab_bangumi"
             android:nextFocusRight="@id/tab_pgc"
+            android:nextFocusUp="@id/recommend_api_app_button"
             android:paddingLeft="@dimen/px_20"
             android:paddingRight="@dimen/px_20"
             android:layout_width="wrap_content"

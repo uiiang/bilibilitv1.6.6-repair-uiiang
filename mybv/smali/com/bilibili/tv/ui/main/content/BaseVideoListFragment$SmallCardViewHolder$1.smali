@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 670
+    .line 680
     iput-object p1, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder$1;->this$0:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -42,7 +42,7 @@
     .prologue
     const/4 v0, 0x1
 
-    .line 673
+    .line 683
     const/16 v1, 0x17
 
     if-ne p2, v1, :cond_11
@@ -53,12 +53,12 @@
 
     if-ne v1, v0, :cond_11
 
-    .line 677
+    .line 687
     iget-object v1, p0, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder$1;->this$0:Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;
 
     invoke-virtual {v1, p1}, Lcom/bilibili/tv/ui/main/content/BaseVideoListFragment$SmallCardViewHolder;->onClick(Landroid/view/View;)V
 
-    .line 680
+    .line 690
     :goto_10
     return v0
 
