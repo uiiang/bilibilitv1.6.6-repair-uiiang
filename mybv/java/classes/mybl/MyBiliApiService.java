@@ -82,6 +82,28 @@ public interface MyBiliApiService {
     vp<GeneralResponse<String>> unfavSeason(@Field("season_id") long seasonId,
             @Field("csrf") String csrf, @Header("Cookie") String cookie);
 
+    @FormUrlEncoded
+    // pgc/web/follow/* 为网页端接口，缺浏览器UA/Referer/Origin会被B站WAF拦截(-403 访问权限不足)
+    @Headers({
+            "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36",
+            "Referer: https://www.bilibili.com",
+            "Origin: https://www.bilibili.com"
+    })
+    @POST("/pgc/web/follow/add")
+    vp<GeneralResponse<String>> pgcFollowAdd(@Field("season_id") long seasonId,
+            @Field("csrf") String csrf, @Header("Cookie") String cookie);
+
+    @FormUrlEncoded
+    // pgc/web/follow/* 为网页端接口，缺浏览器UA/Referer/Origin会被B站WAF拦截(-403 访问权限不足)
+    @Headers({
+            "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36",
+            "Referer: https://www.bilibili.com",
+            "Origin: https://www.bilibili.com"
+    })
+    @POST("/pgc/web/follow/del")
+    vp<GeneralResponse<String>> pgcFollowDel(@Field("season_id") long seasonId,
+            @Field("csrf") String csrf, @Header("Cookie") String cookie);
+
     @GET("/x/web-interface/dynamic/region")
     vp<GeneralResponse<JSONObject>> getRegionHotVideo(@Query("rid") int rid, @Query("ps") int page_size);
 

@@ -2097,6 +2097,8 @@ public final class R {
         public static final int ic_checked = 0x7f070111;
         public static final int ic_unchecked = 0x7f070112;
         public static final int shape_rectangle_trans_with_12corner_blue = 0x7f070113;
+        public static final int ic_subscribe = 0x7f070114;
+        public static final int ic_subscribed = 0x7f070115;
     }
 
     public static final class id {

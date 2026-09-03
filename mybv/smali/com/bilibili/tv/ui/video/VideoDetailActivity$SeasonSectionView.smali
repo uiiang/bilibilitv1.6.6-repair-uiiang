@@ -29,19 +29,19 @@
     .locals 0
 
     .prologue
-    .line 237
+    .line 239
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 238
+    .line 240
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonSectionView;->titleView:Landroid/widget/TextView;
 
-    .line 239
+    .line 241
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonSectionView;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
-    .line 240
+    .line 242
     iput p3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonSectionView;->sectionId:I
 
-    .line 241
+    .line 243
     return-void
 .end method
 
@@ -49,21 +49,21 @@
     .locals 0
 
     .prologue
-    .line 230
+    .line 232
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 231
+    .line 233
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonSectionView;->titleView:Landroid/widget/TextView;
 
-    .line 232
+    .line 234
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonSectionView;->recyclerView:Landroid/support/v7/widget/RecyclerView;
 
-    .line 233
+    .line 235
     iput-object p3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonSectionView;->adapter:Lcom/bilibili/tv/ui/video/VideoDetailActivity$EpisodesVideoAdapter;
 
-    .line 234
+    .line 236
     iput p4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonSectionView;->sectionId:I
 
-    .line 235
+    .line 237
     return-void
 .end method

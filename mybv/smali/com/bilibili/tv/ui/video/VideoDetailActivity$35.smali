@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 3715
+    .line 3786
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$35;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$35;->val$detail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -49,7 +49,7 @@
     .locals 2
 
     .prologue
-    .line 3718
+    .line 3789
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$35;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isFinishing()Z
@@ -58,18 +58,18 @@
 
     if-eqz v0, :cond_9
 
-    .line 3722
+    .line 3793
     :goto_8
     return-void
 
-    .line 3721
+    .line 3792
     :cond_9
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$35;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$35;->val$detail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateHistoryDisplay(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2900(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3000(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
 
     goto :goto_8
 .end method

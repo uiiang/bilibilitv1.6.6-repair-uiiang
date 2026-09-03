@@ -1717,6 +1717,100 @@
     .end annotation
 .end method
 
+.method public abstract pgcFollowAdd(JLjava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # J
+        .annotation runtime Lretrofit2/http/Field;
+            value = "season_id"
+        .end annotation
+    .end param
+    .param p3    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Field;
+            value = "csrf"
+        .end annotation
+    .end param
+    .param p4    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(J",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            ")",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Ljava/lang/String;",
+            ">;>;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/FormUrlEncoded;
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/Headers;
+        value = {
+            "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36",
+            "Referer: https://www.bilibili.com",
+            "Origin: https://www.bilibili.com"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/POST;
+        value = "/pgc/web/follow/add"
+    .end annotation
+.end method
+
+.method public abstract pgcFollowDel(JLjava/lang/String;Ljava/lang/String;)Lbl/vp;
+    .param p1    # J
+        .annotation runtime Lretrofit2/http/Field;
+            value = "season_id"
+        .end annotation
+    .end param
+    .param p3    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Field;
+            value = "csrf"
+        .end annotation
+    .end param
+    .param p4    # Ljava/lang/String;
+        .annotation runtime Lretrofit2/http/Header;
+            value = "Cookie"
+        .end annotation
+    .end param
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(J",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            ")",
+            "Lbl/vp",
+            "<",
+            "Lcom/bilibili/okretro/GeneralResponse",
+            "<",
+            "Ljava/lang/String;",
+            ">;>;"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/FormUrlEncoded;
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/Headers;
+        value = {
+            "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36",
+            "Referer: https://www.bilibili.com",
+            "Origin: https://www.bilibili.com"
+        }
+    .end annotation
+
+    .annotation runtime Lretrofit2/http/POST;
+        value = "/pgc/web/follow/del"
+    .end annotation
+.end method
+
 .method public abstract recommendVideos(IILjava/lang/String;)Lbl/vp;
     .param p1    # I
         .annotation runtime Lretrofit2/http/Query;

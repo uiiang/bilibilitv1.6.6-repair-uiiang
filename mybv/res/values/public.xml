@@ -3684,4 +3684,6 @@
     <public type="id" name="video_detail_subscribe_img" id="0x7f080269" />
     <public type="id" name="video_detail_subscribe_text" id="0x7f08026a" />
     <public type="id" name="space_subscribe_btn" id="0x7f08026b" />
+    <public type="drawable" name="ic_subscribe" id="0x7f070114" />
+    <public type="drawable" name="ic_subscribed" id="0x7f070115" />
 </resources>

@@ -146,6 +146,8 @@ public final class VideoDetailActivity extends BaseActivity
     private TextView subscribeText;
     private boolean isSeasonFav;
     private long currentSeasonId;
+    // PGC剧集追番/追剧状态：mPgcInfo非空(即PGC页面)时表示当前是否已追
+    private boolean isPgcFollowed;
     private View m;
     private RecyclerView n;
     private RecyclerView o;
@@ -1621,6 +1623,7 @@ public final class VideoDetailActivity extends BaseActivity
                 return;
             }
             mPgcInfo = pgcInfo;
+            isPgcFollowed = pgcInfo.userStatus != null && pgcInfo.userStatus.follow == 1;
             BiliVideoDetail detail = convertPgcToBiliVideoDetail(pgcInfo);
             // android.util.Log.i("PgcLoad", "detail.hasStaff=" + detail.hasStaff() + ", detail.getAuthor=" + detail.getAuthor());
             s = detail.mAvid;
@@ -1635,6 +1638,7 @@ public final class VideoDetailActivity extends BaseActivity
                         A.a(detail);
                     }
                     showPgcInfo(pgcInfo);
+                    VideoDetailActivity.this.updateSubscribeButtonUI();
                     loadPgcRelatedVideos(pgcInfo.seasonId);
                 }
             });
@@ -1894,19 +1898,47 @@ public final class VideoDetailActivity extends BaseActivity
     }
 
     private final void updateSubscribeButtonUI() {
-        if (subscribeText != null) {
+        if (subscribeText == null || subscribeImg == null) {
+            return;
+        }
+        if (mPgcInfo != null) {
+            // PGC剧集：番剧(1)/国创(4)显示"追番"，电影/电视剧/纪录片/综艺等显示"追剧"
+            boolean isBangumi = mPgcInfo.type == 1 || mPgcInfo.type == 4;
+            if (isPgcFollowed) {
+                subscribeText.setText(isBangumi ? "已追番" : "已追剧");
+                subscribeImg.setBackgroundResource(R.drawable.ic_subscribed);
+            } else {
+                subscribeText.setText(isBangumi ? "追番" : "追剧");
+                subscribeImg.setBackgroundResource(R.drawable.ic_subscribe);
+            }
+        } else {
             subscribeText.setText(isSeasonFav ? "已订阅合集" : "订阅合集");
+            subscribeImg.setBackgroundResource(isSeasonFav ? R.drawable.ic_subscribed : R.drawable.ic_subscribe);
         }
     }
 
     private final void onSubscribeButtonClick() {
-        if (currentSeasonId <= 0) {
-            lr.b(getApplicationContext(), "当前视频不属于任何合集");
-            return;
-        }
         mg account = mg.a(this);
         if (!account.a()) {
             lr.a(this, "账号未登录，无法订阅");
+            return;
+        }
+        // PGC剧集：追番/追剧，统一走 pgc/web/follow/add 或 pgc/web/follow/del（只传 season_id + csrf）
+        if (mPgcInfo != null && mPgcInfo.seasonId > 0) {
+            String cookie = CookieUtil.getFullCookieWithDevice(account);
+            String csrf = CookieUtil.getBiliJct(account);
+            if (isPgcFollowed) {
+                ((MyBiliApiService) vo.a(MyBiliApiService.class)).pgcFollowDel(mPgcInfo.seasonId, csrf, cookie)
+                        .a(new PgcFollowResponse(false));
+            } else {
+                ((MyBiliApiService) vo.a(MyBiliApiService.class)).pgcFollowAdd(mPgcInfo.seasonId, csrf, cookie)
+                        .a(new PgcFollowResponse(true));
+            }
+            return;
+        }
+        // UGC合集：订阅/取消订阅合集
+        if (currentSeasonId <= 0) {
+            lr.b(getApplicationContext(), "当前视频不属于任何合集");
             return;
         }
         String cookie = CookieUtil.getFullCookieWithDevice(account);
@@ -1940,6 +1972,43 @@ public final class VideoDetailActivity extends BaseActivity
             bbi.b(th, "t");
             lr.b(VideoDetailActivity.this.getApplicationContext(),
                     subscribe ? "订阅合集失败" : "取消订阅失败");
+        }
+
+        @Override // bl.vm
+        public boolean isCancel() {
+            return VideoDetailActivity.this.isFinishing();
+        }
+    }
+
+    public final class PgcFollowResponse extends vn<String> {
+        private final boolean follow;
+
+        PgcFollowResponse(boolean follow) {
+            this.follow = follow;
+        }
+
+        // 追番/追剧文案：番剧(1)/国创(4)用"追番"，其余影视类型用"追剧"
+        private String getFollowAction() {
+            return VideoDetailActivity.this.mPgcInfo != null
+                    && (VideoDetailActivity.this.mPgcInfo.type == 1
+                    || VideoDetailActivity.this.mPgcInfo.type == 4) ? "追番" : "追剧";
+        }
+
+        @Override // bl.vn
+        public void a(String response) {
+            VideoDetailActivity.this.isPgcFollowed = follow;
+            VideoDetailActivity.this.updateSubscribeButtonUI();
+            String action = getFollowAction();
+            lr.b(VideoDetailActivity.this.getApplicationContext(),
+                    follow ? (action + "成功") : ("已取消" + action));
+        }
+
+        @Override // bl.vm
+        public void onError(Throwable th) {
+            bbi.b(th, "t");
+            String action = getFollowAction();
+            lr.b(VideoDetailActivity.this.getApplicationContext(),
+                    follow ? (action + "失败") : ("取消" + action + "失败"));
         }
 
         @Override // bl.vm
@@ -2524,6 +2593,7 @@ public final class VideoDetailActivity extends BaseActivity
                     return;
                 }
                 mPgcInfo = pgcInfo;
+                isPgcFollowed = pgcInfo.userStatus != null && pgcInfo.userStatus.follow == 1;
                 updateBiliVideoDetailWithPgcInfo(biliVideoDetail, pgcInfo);
                 VideoDetailActivity.this.runOnUiThread(new Runnable() {
                     @Override
@@ -2561,6 +2631,7 @@ public final class VideoDetailActivity extends BaseActivity
                         }
                         
                         showPgcInfo(pgcInfo);
+                        VideoDetailActivity.this.updateSubscribeButtonUI();
                         // android.util.Log.i("PgcInfo", "showPgcInfo done");
                         
                         updateStaffDisplay(biliVideoDetail);
@@ -4192,8 +4263,10 @@ public final class VideoDetailActivity extends BaseActivity
         View infoBtn = findViewById(R.id.video_detail_info);
         // 未启用隐藏功能时隐藏"下载"按钮
         boolean downloadHidden = !abd.b(this);
-        // 订阅按钮仅在UGC合集视频时显示
-        boolean subscribeVisible = currentSeasonId > 0;
+        // 订阅按钮可见性：未登录时隐藏；PGC剧集显示"追番/追剧"，UGC合集显示"订阅合集"
+        updateSubscribeButtonUI();
+        boolean subscribeVisible = mg.a(this).a()
+                && ((mPgcInfo != null && mPgcInfo.seasonId > 0) || currentSeasonId > 0);
         if (likeBtn != null) likeBtn.setVisibility(View.VISIBLE);
         if (coinBtn != null) coinBtn.setVisibility(View.VISIBLE);
         if (favoriteBtn != null) favoriteBtn.setVisibility(View.VISIBLE);
