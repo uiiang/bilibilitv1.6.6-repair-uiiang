@@ -3,7 +3,7 @@
     "id":  "",
     "publishTime":  0,
     "apkUrl":  "https://github.com/uiiang/bilibilitv1.6.6-repair-uiiang/raw/refs/heads/main/mybv.apk",
-    "newFeature":  "",
+    "newFeature":  "1. 支持添加追番追剧订阅合集\n2. 首页推荐支持app接口\n3. 减少apk大小\n4. 修复了一些bug",
     "versionName":  "1.6.6.20260903",
     "versionCode":  20260903,
     "title":  "New",

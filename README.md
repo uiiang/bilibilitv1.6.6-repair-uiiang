@@ -3,6 +3,12 @@
 - fork于bilibilitv1.6.6-repair 感谢大佬的付出 [https://github.com/qidian55/bilibilitv1.6.6-repair]
 - 根据自己使用习惯做了一些修改
 
+v260903
+- 支持添加追番追剧订阅合集
+- 首页推荐支持app接口
+- 减少apk大小
+- 修复了一些bug
+
 v260828
 - 支持账号切换
 - 优化直播加载速度
