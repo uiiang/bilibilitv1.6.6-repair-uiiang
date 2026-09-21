@@ -836,7 +836,8 @@ public class PlayerMenuRight extends aay<String> {
                 i3 = this.speed_id;
                 this.speed_id = i2;
                 // 会话内保持：speed_id静态字段在本次播放中有效，菜单重开时S()优先使用该值
-                // 不持久化到缓存，新视频播放时恢复默认速度（1.0x）
+                // 同时按视频/列表记忆：再次进入同一视频或同列表任意视频时自动加载该速度
+                saveSpeedSettings();
                 //Log.i("MenuBug", "点击速度项 str=" + str + " i2=" + i2 + " speed_id=" + this.speed_id);
             }
             if (this.mode_list != null && this.mode_list.indexOf(str) != -1) {
@@ -1360,6 +1361,15 @@ public class PlayerMenuRight extends aay<String> {
             String videoKey = abd.getVideoSubtitleKey(params.mAvid);
             abd.setSubtitleSettings(getContext(), videoKey, this.subtitle_id, subtitleSize);
         }
+    }
+
+    private void saveSpeedSettings() {
+        if (params == null || this.speed_id < 0) {
+            return;
+        }
+        abd.saveSpeedSettingByParams(getContext(), params, this.speed_id);
+        //Log.i("PlaySpeedCache", "saveSpeedSettings: speed_id=" + this.speed_id
+        //    + ", mListKey=" + params.mListKey + ", mAvid=" + params.mAvid);
     }
 
     public void a(int i, int i2, long j) {

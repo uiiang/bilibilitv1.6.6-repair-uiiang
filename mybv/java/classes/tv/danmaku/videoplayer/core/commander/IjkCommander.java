@@ -146,7 +146,16 @@ class IjkCommander extends AbsPlayerCommander {
             }
         }
         
-        int speed_id = PlayerMenuRight.speed_id>=0?PlayerMenuRight.speed_id:abd.get_speed_id(MainApplication.a().getApplicationContext());
+        // 播放速度优先级：本地记忆（列表 > 视频） > 会话内保持的静态值 > 全局默认
+        com.bilibili.tv.player.basic.context.ResolveResourceParams resolveParams = null;
+        if (iVideoParams instanceof com.bilibili.tv.player.basic.context.VideoViewParams) {
+            resolveParams = ((com.bilibili.tv.player.basic.context.VideoViewParams) iVideoParams).mResolveParams;
+        }
+        int speed_id = abd.getSpeedSettingByParams(MainApplication.a().getApplicationContext(), resolveParams);
+        if (speed_id < 0) {
+            speed_id = PlayerMenuRight.speed_id>=0?PlayerMenuRight.speed_id:abd.get_speed_id(MainApplication.a().getApplicationContext());
+        }
+        Log.i(TAG, "[PLAY_SPEED] speed_id=" + speed_id + " (" + abd.get_speed(speed_id) + "x), mListKey=" + (resolveParams != null ? resolveParams.mListKey : null) + ", mAvid=" + (resolveParams != null ? resolveParams.mAvid : 0));
         this.mIjkMediaPlayer.setSpeed(abd.get_speed(speed_id));
         
         this.mMediaPlayer.prepareAsync();

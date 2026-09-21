@@ -708,6 +708,77 @@ public class abd {
             .apply();
     }
 
+    // ============ 播放速度按视频/列表记忆 ============
+    // 与字幕设置同样的存储模式：列表键（mListKey）优先，其次视频键（mAvid）
+    // 存的是 abd.speeds 数组的下标，未记忆过时返回 -1（由调用方回退全局默认速度）
+
+    private static final String SPEED_PREFIX = "speed_";
+
+    public static String getVideoSpeedKey(long avid) {
+        return SPEED_PREFIX + "video_" + avid;
+    }
+
+    public static String getListSpeedKey(String listKey) {
+        return SPEED_PREFIX + "list_" + listKey;
+    }
+
+    public static void setSpeedSetting(Context context, String key, int speedId) {
+        a(context).a().edit().putInt(key + "_id", speedId).apply();
+    }
+
+    public static int getSpeedSetting(Context context, String key) {
+        int id = a(context).a().getInt(key + "_id", -1);
+        // 下标越界（历史数据/数组变更）视为未记忆，避免调用方 get_speed() 越界崩溃
+        if (id < 0 || id >= speeds.length) {
+            return -1;
+        }
+        return id;
+    }
+
+    public static void clearSpeedSetting(Context context, String key) {
+        a(context).a().edit().remove(key + "_id").apply();
+    }
+
+    /**
+     * 读取本地记忆的播放速度下标
+     * 优先级：列表（mListKey） > 视频（mAvid）；未记忆过返回 -1
+     */
+    public static int getSpeedSettingByParams(Context context, com.bilibili.tv.player.basic.context.ResolveResourceParams params) {
+        if (params == null) {
+            return -1;
+        }
+        if (!android.text.TextUtils.isEmpty(params.mListKey)) {
+            int id = getSpeedSetting(context, getListSpeedKey(params.mListKey));
+            if (id >= 0) {
+                return id;
+            }
+        }
+        if (params.mAvid > 0) {
+            int id = getSpeedSetting(context, getVideoSpeedKey(params.mAvid));
+            if (id >= 0) {
+                return id;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 保存本地记忆的播放速度下标：有 mListKey 存列表级并清除视频级，否则存视频级
+     */
+    public static void saveSpeedSettingByParams(Context context, com.bilibili.tv.player.basic.context.ResolveResourceParams params, int speedId) {
+        if (params == null || speedId < 0) {
+            return;
+        }
+        if (!android.text.TextUtils.isEmpty(params.mListKey)) {
+            setSpeedSetting(context, getListSpeedKey(params.mListKey), speedId);
+            if (params.mAvid > 0) {
+                clearSpeedSetting(context, getVideoSpeedKey(params.mAvid));
+            }
+        } else if (params.mAvid > 0) {
+            setSpeedSetting(context, getVideoSpeedKey(params.mAvid), speedId);
+        }
+    }
+
     // ============ 多账号切换 ============
     // accounts_info 存储格式: {mid: {username, account_info, passport_info}}
     // account_info/passport_info 分别为 bili.account.storage / bili.passport.storage 文件的原文

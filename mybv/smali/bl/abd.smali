@@ -64,6 +64,8 @@
 
 .field public static final SPACE_MODE_DYNAMIC:I = 0x0
 
+.field private static final SPEED_PREFIX:Ljava/lang/String; = "speed_"
+
 .field private static final SUBTITLE_PREFIX:Ljava/lang/String; = "subtitle_"
 
 .field public static final TAB_ALL:I = 0x3f
@@ -473,45 +475,45 @@
     .locals 3
 
     .prologue
-    .line 726
+    .line 797
     :try_start_0
     invoke-static {p0}, Lbl/abd;->get_accounts(Landroid/content/Context;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 727
+    .line 798
     new-instance v1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-direct {v1}, Lcom/alibaba/fastjson/JSONObject;-><init>()V
 
-    .line 728
+    .line 799
     const-string v2, "username"
 
     invoke-virtual {v1, v2, p2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 729
+    .line 800
     if-eqz p3, :cond_15
 
-    .line 730
+    .line 801
     const-string v2, "avatar"
 
     invoke-virtual {v1, v2, p3}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 732
+    .line 803
     :cond_15
     const-string v2, "account_info"
 
     invoke-virtual {v1, v2, p4}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 733
+    .line 804
     const-string v2, "passport_info"
 
     invoke-virtual {v1, v2, p5}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 734
+    .line 805
     invoke-virtual {v0, p1, v1}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 735
+    .line 806
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v1
@@ -538,15 +540,15 @@
     :try_end_3b
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_3b} :catch_3c
 
-    .line 739
+    .line 810
     :goto_3b
     return-void
 
-    .line 736
+    .line 807
     :catch_3c
     move-exception v0
 
-    .line 737
+    .line 808
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
     goto :goto_3b
@@ -957,6 +959,51 @@
     return-void
 .end method
 
+.method public static clearSpeedSetting(Landroid/content/Context;Ljava/lang/String;)V
+    .locals 3
+
+    .prologue
+    .line 739
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, "_id"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-interface {v0, v1}, Landroid/content/SharedPreferences$Editor;->remove(Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
+
+    .line 740
+    return-void
+.end method
+
 .method public static clearSubtitleSettings(Landroid/content/Context;Ljava/lang/String;)V
     .locals 3
 
@@ -1070,16 +1117,16 @@
     .locals 3
 
     .prologue
-    .line 743
+    .line 814
     :try_start_0
     invoke-static {p0}, Lbl/abd;->get_accounts(Landroid/content/Context;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 744
+    .line 815
     invoke-virtual {v0, p1}, Lcom/alibaba/fastjson/JSONObject;->remove(Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 745
+    .line 816
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v1
@@ -1106,15 +1153,15 @@
     :try_end_20
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_20} :catch_21
 
-    .line 749
+    .line 820
     :goto_20
     return-void
 
-    .line 746
+    .line 817
     :catch_21
     move-exception v0
 
-    .line 747
+    .line 818
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
     goto :goto_20
@@ -1279,6 +1326,32 @@
     return-object v0
 .end method
 
+.method public static getListSpeedKey(Ljava/lang/String;)Ljava/lang/String;
+    .locals 2
+
+    .prologue
+    .line 722
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v1, "speed_list_"
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
 .method public static getListSubtitleKey(Ljava/lang/String;)Ljava/lang/String;
     .locals 2
 
@@ -1403,6 +1476,133 @@
     aput-wide v4, v0, v1
 
     goto :goto_49
+.end method
+
+.method public static getSpeedSetting(Landroid/content/Context;Ljava/lang/String;)I
+    .locals 4
+
+    .prologue
+    const/4 v1, -0x1
+
+    .line 730
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v2, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, "_id"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-interface {v0, v2, v1}, Landroid/content/SharedPreferences;->getInt(Ljava/lang/String;I)I
+
+    move-result v0
+
+    .line 732
+    if-ltz v0, :cond_27
+
+    sget-object v2, Lbl/abd;->speeds:[F
+
+    array-length v2, v2
+
+    if-lt v0, v2, :cond_28
+
+    :cond_27
+    move v0, v1
+
+    .line 735
+    :cond_28
+    return v0
+.end method
+
+.method public static getSpeedSettingByParams(Landroid/content/Context;Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;)I
+    .locals 6
+
+    .prologue
+    const/4 v0, -0x1
+
+    .line 747
+    if-nez p1, :cond_4
+
+    .line 762
+    :cond_3
+    :goto_3
+    return v0
+
+    .line 750
+    :cond_4
+    iget-object v1, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mListKey:Ljava/lang/String;
+
+    invoke-static {v1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v1
+
+    if-nez v1, :cond_1a
+
+    .line 751
+    iget-object v1, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mListKey:Ljava/lang/String;
+
+    invoke-static {v1}, Lbl/abd;->getListSpeedKey(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {p0, v1}, Lbl/abd;->getSpeedSetting(Landroid/content/Context;Ljava/lang/String;)I
+
+    move-result v1
+
+    .line 752
+    if-ltz v1, :cond_1a
+
+    move v0, v1
+
+    .line 753
+    goto :goto_3
+
+    .line 756
+    :cond_1a
+    iget-wide v2, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAvid:J
+
+    const-wide/16 v4, 0x0
+
+    cmp-long v1, v2, v4
+
+    if-lez v1, :cond_3
+
+    .line 757
+    iget-wide v2, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAvid:J
+
+    invoke-static {v2, v3}, Lbl/abd;->getVideoSpeedKey(J)Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {p0, v1}, Lbl/abd;->getSpeedSetting(Landroid/content/Context;Ljava/lang/String;)I
+
+    move-result v1
+
+    .line 758
+    if-ltz v1, :cond_3
+
+    move v0, v1
+
+    .line 759
+    goto :goto_3
 .end method
 
 .method public static getSubtitleSettings(Landroid/content/Context;Ljava/lang/String;)[I
@@ -1563,6 +1763,32 @@
     return-object v0
 .end method
 
+.method public static getVideoSpeedKey(J)Ljava/lang/String;
+    .locals 2
+
+    .prologue
+    .line 718
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v1, "speed_video_"
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p0, p1}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
 .method public static getVideoSubtitleKey(J)Ljava/lang/String;
     .locals 2
 
@@ -1593,7 +1819,7 @@
     .locals 3
 
     .prologue
-    .line 717
+    .line 788
     :try_start_0
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
@@ -1617,18 +1843,18 @@
 
     move-result-object v0
 
-    .line 720
+    .line 791
     :goto_14
     return-object v0
 
-    .line 718
+    .line 789
     :catch_15
     move-exception v0
 
-    .line 719
+    .line 790
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
-    .line 720
+    .line 791
     new-instance v0, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-direct {v0}, Lcom/alibaba/fastjson/JSONObject;-><init>()V
@@ -3082,6 +3308,79 @@
     goto :goto_8
 .end method
 
+.method public static saveSpeedSettingByParams(Landroid/content/Context;Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;I)V
+    .locals 4
+
+    .prologue
+    const-wide/16 v2, 0x0
+
+    .line 769
+    if-eqz p1, :cond_6
+
+    if-gez p2, :cond_7
+
+    .line 780
+    :cond_6
+    :goto_6
+    return-void
+
+    .line 772
+    :cond_7
+    iget-object v0, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mListKey:Ljava/lang/String;
+
+    invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_28
+
+    .line 773
+    iget-object v0, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mListKey:Ljava/lang/String;
+
+    invoke-static {v0}, Lbl/abd;->getListSpeedKey(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {p0, v0, p2}, Lbl/abd;->setSpeedSetting(Landroid/content/Context;Ljava/lang/String;I)V
+
+    .line 774
+    iget-wide v0, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAvid:J
+
+    cmp-long v0, v0, v2
+
+    if-lez v0, :cond_6
+
+    .line 775
+    iget-wide v0, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAvid:J
+
+    invoke-static {v0, v1}, Lbl/abd;->getVideoSpeedKey(J)Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {p0, v0}, Lbl/abd;->clearSpeedSetting(Landroid/content/Context;Ljava/lang/String;)V
+
+    goto :goto_6
+
+    .line 777
+    :cond_28
+    iget-wide v0, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAvid:J
+
+    cmp-long v0, v0, v2
+
+    if-lez v0, :cond_6
+
+    .line 778
+    iget-wide v0, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAvid:J
+
+    invoke-static {v0, v1}, Lbl/abd;->getVideoSpeedKey(J)Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {p0, v0, p2}, Lbl/abd;->setSpeedSetting(Landroid/content/Context;Ljava/lang/String;I)V
+
+    goto :goto_6
+.end method
+
 .method public static setSkipTime(Landroid/content/Context;Ljava/lang/String;JJ)V
     .locals 4
 
@@ -3146,6 +3445,51 @@
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
     .line 582
+    return-void
+.end method
+
+.method public static setSpeedSetting(Landroid/content/Context;Ljava/lang/String;I)V
+    .locals 3
+
+    .prologue
+    .line 726
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, "_id"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-interface {v0, v1, p2}, Landroid/content/SharedPreferences$Editor;->putInt(Ljava/lang/String;I)Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
+
+    .line 727
     return-void
 .end method
 
