@@ -28,13 +28,15 @@
 
 
 # instance fields
+.field final synthetic val$failedResults:Ljava/util/List;
+
 .field final synthetic val$info:Lmybl/CdnSelector$CdnUrlInfo;
 
 .field final synthetic val$isLive:Z
 
 
 # direct methods
-.method constructor <init>(ZLmybl/CdnSelector$CdnUrlInfo;)V
+.method constructor <init>(ZLmybl/CdnSelector$CdnUrlInfo;Ljava/util/List;)V
     .locals 0
     .annotation system Ldalvik/annotation/Signature;
         value = {
@@ -43,10 +45,12 @@
     .end annotation
 
     .prologue
-    .line 110
+    .line 134
     iput-boolean p1, p0, Lmybl/CdnSelector$2;->val$isLive:Z
 
     iput-object p2, p0, Lmybl/CdnSelector$2;->val$info:Lmybl/CdnSelector$CdnUrlInfo;
+
+    iput-object p3, p0, Lmybl/CdnSelector$2;->val$failedResults:Ljava/util/List;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -64,7 +68,7 @@
     .end annotation
 
     .prologue
-    .line 110
+    .line 134
     invoke-virtual {p0}, Lmybl/CdnSelector$2;->call()Lmybl/CdnSelector$RaceResult;
 
     move-result-object v0
@@ -73,7 +77,7 @@
 .end method
 
 .method public call()Lmybl/CdnSelector$RaceResult;
-    .locals 1
+    .locals 2
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/lang/Exception;
@@ -81,30 +85,34 @@
     .end annotation
 
     .prologue
-    .line 113
+    .line 137
     iget-boolean v0, p0, Lmybl/CdnSelector$2;->val$isLive:Z
 
-    if-eqz v0, :cond_b
+    if-eqz v0, :cond_d
 
-    .line 114
+    .line 138
     iget-object v0, p0, Lmybl/CdnSelector$2;->val$info:Lmybl/CdnSelector$CdnUrlInfo;
 
-    # invokes: Lmybl/CdnSelector;->testLiveUrl(Lmybl/CdnSelector$CdnUrlInfo;)Lmybl/CdnSelector$RaceResult;
-    invoke-static {v0}, Lmybl/CdnSelector;->access$000(Lmybl/CdnSelector$CdnUrlInfo;)Lmybl/CdnSelector$RaceResult;
+    iget-object v1, p0, Lmybl/CdnSelector$2;->val$failedResults:Ljava/util/List;
+
+    # invokes: Lmybl/CdnSelector;->testLiveUrl(Lmybl/CdnSelector$CdnUrlInfo;Ljava/util/List;)Lmybl/CdnSelector$RaceResult;
+    invoke-static {v0, v1}, Lmybl/CdnSelector;->access$000(Lmybl/CdnSelector$CdnUrlInfo;Ljava/util/List;)Lmybl/CdnSelector$RaceResult;
 
     move-result-object v0
 
-    .line 116
-    :goto_a
+    .line 140
+    :goto_c
     return-object v0
 
-    :cond_b
+    :cond_d
     iget-object v0, p0, Lmybl/CdnSelector$2;->val$info:Lmybl/CdnSelector$CdnUrlInfo;
 
-    # invokes: Lmybl/CdnSelector;->testUrl(Lmybl/CdnSelector$CdnUrlInfo;)Lmybl/CdnSelector$RaceResult;
-    invoke-static {v0}, Lmybl/CdnSelector;->access$100(Lmybl/CdnSelector$CdnUrlInfo;)Lmybl/CdnSelector$RaceResult;
+    iget-object v1, p0, Lmybl/CdnSelector$2;->val$failedResults:Ljava/util/List;
+
+    # invokes: Lmybl/CdnSelector;->testUrl(Lmybl/CdnSelector$CdnUrlInfo;Ljava/util/List;)Lmybl/CdnSelector$RaceResult;
+    invoke-static {v0, v1}, Lmybl/CdnSelector;->access$100(Lmybl/CdnSelector$CdnUrlInfo;Ljava/util/List;)Lmybl/CdnSelector$RaceResult;
 
     move-result-object v0
 
-    goto :goto_a
+    goto :goto_c
 .end method

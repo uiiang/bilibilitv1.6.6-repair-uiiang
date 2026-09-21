@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 223
+    .line 239
     iput-object p1, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$2;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,51 +40,51 @@
     .locals 2
 
     .prologue
-    .line 226
+    .line 242
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$2;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     # getter for: Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->h:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->access$500(Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;)Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->access$600(Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;)Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
 
     move-result-object v0
 
     if-eqz v0, :cond_27
 
-    .line 227
+    .line 243
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$2;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     # getter for: Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->h:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->access$500(Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;)Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->access$600(Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;)Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
 
     move-result-object v0
 
     invoke-virtual {v0}, Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->updateAudioBalanceMenu()V
 
-    .line 228
+    .line 244
     iget-object v0, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$2;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     # getter for: Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->h:Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->access$500(Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;)Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->access$600(Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;)Lcom/bilibili/tv/newplayer/widget/LivePlayerController;
 
     move-result-object v0
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity$2;->this$0:Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;
 
     # getter for: Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->mRightMenu:Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight;
-    invoke-static {v1}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->access$600(Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;)Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight;
+    invoke-static {v1}, Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;->access$700(Lcom/bilibili/tv/ui/live/player/LivePlayerActivity;)Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight;
 
     move-result-object v1
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/newplayer/widget/LivePlayerController;->initRightMenu(Lcom/bilibili/tv/newplayer/widget/LivePlayerMenuRight;)V
 
-    .line 229
+    .line 245
     const-string v0, "LivePlayerActivity"
 
     const-string v1, "\u97f3\u9891\u5e73\u8861\u83dc\u5355\u5df2\u66f4\u65b0"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 231
+    .line 247
     :cond_27
     return-void
 .end method

@@ -15,9 +15,15 @@
 
 
 # instance fields
+.field public failed:Z
+
 .field public fromCache:Z
 
+.field public httpCode:I
+
 .field public raceTime:J
+
+.field public timeout:Z
 
 .field public winningCdn:Ljava/lang/String;
 
@@ -29,21 +35,21 @@
     .locals 1
 
     .prologue
-    .line 68
+    .line 74
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 69
+    .line 75
     iput-object p1, p0, Lmybl/CdnSelector$RaceResult;->winningUrl:Ljava/lang/String;
 
-    .line 70
+    .line 76
     iput-object p2, p0, Lmybl/CdnSelector$RaceResult;->winningCdn:Ljava/lang/String;
 
-    .line 71
+    .line 77
     iput-wide p3, p0, Lmybl/CdnSelector$RaceResult;->raceTime:J
 
-    .line 72
+    .line 78
     iput-boolean p5, p0, Lmybl/CdnSelector$RaceResult;->fromCache:Z
 
-    .line 73
+    .line 79
     return-void
 .end method

@@ -187,7 +187,14 @@ public class xg {
         if (biliVideoDetail.mPageList != null && biliVideoDetail.mPageList.size() > 1) {
             boolean isPgc = "bangumi".equals(page.mFrom) || "movie".equals(page.mFrom);
             int pageListType = isPgc ? 1 : 2;
-            Log.i("xg", "mPageList分支 | isPgc=" + isPgc + " | page.mFrom=" + page.mFrom + " | pageListType=" + pageListType);
+            // 当前播放项(mResolveParams)也必须带上列表键：首次进入播放页用的就是它，
+            // 否则按列表维度保存的跳过片头片尾/字幕设置读取不到（切换分P后用的是数组项，才带 mListKey）
+            if (pageListType == 1 && obtainResolveParams.mSeasonId != null) {
+                obtainResolveParams.mListKey = "season_" + obtainResolveParams.mSeasonId;
+            } else if (pageListType == 2) {
+                obtainResolveParams.mListKey = "avid_" + biliVideoDetail.mAvid;
+            }
+            Log.i("xg", "mPageList分支 | isPgc=" + isPgc + " | page.mFrom=" + page.mFrom + " | pageListType=" + pageListType + " | mListKey=" + obtainResolveParams.mListKey);
             int size = biliVideoDetail.mPageList.size();
             ResolveResourceParams[] obtainResolveParamsArray = a.mVideoParams.obtainResolveParamsArray(size);
             String videoCover = biliVideoDetail.mCover;
@@ -415,7 +422,13 @@ public class xg {
         if (biliVideoDetail.mPageList != null && biliVideoDetail.mPageList.size() > 1) {
             boolean isPgc = "bangumi".equals(page.mFrom) || "movie".equals(page.mFrom);
             int pageListType = isPgc ? 1 : 2;
-            Log.i("xg", "b(Activity) mPageList分支 | isPgc=" + isPgc + " | page.mFrom=" + page.mFrom + " | pageListType=" + pageListType);
+            // 同 b(Context,...)：当前播放项(mResolveParams)也要设置列表键，保证首次进入即生效
+            if (pageListType == 1 && obtainResolveParams.mSeasonId != null) {
+                obtainResolveParams.mListKey = "season_" + obtainResolveParams.mSeasonId;
+            } else if (pageListType == 2) {
+                obtainResolveParams.mListKey = "avid_" + biliVideoDetail.mAvid;
+            }
+            Log.i("xg", "b(Activity) mPageList分支 | isPgc=" + isPgc + " | page.mFrom=" + page.mFrom + " | pageListType=" + pageListType + " | mListKey=" + obtainResolveParams.mListKey);
             int size = biliVideoDetail.mPageList.size();
             ResolveResourceParams[] obtainResolveParamsArray = a.mVideoParams.obtainResolveParamsArray(size);
             String videoCover = biliVideoDetail.mCover;

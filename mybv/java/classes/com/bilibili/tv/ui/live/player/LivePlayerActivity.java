@@ -59,6 +59,10 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
     private boolean panelHandledBackKey = false; // 面板在onKeyDown已处理BACK，onKeyUp需消费防止穿透退出直播
     private ExecutorService cdnExecutor;
     private Handler mainHandler;
+    private static final int MAX_PLAY_URL_RETRY = 3; // 播放地址获取失败后的最大重试次数
+    private int playUrlRetryCount = 0;
+    private boolean playUrlRetryRunning = false;
+    private volatile boolean activityDestroyed = false;
 
     public static LivePlayerActivity _this = null;
     public static List<BiliLiveContent> lives = null;
@@ -181,11 +185,19 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
                     
                     final String playUrl;
                     if (result != null && result.winningUrl != null) {
+                        playUrlRetryCount = 0;
                         playUrl = result.winningUrl;
                         Log.i(TAG, "CDN竞速胜出: cdn=" + result.winningCdn + ", raceTime=" + result.raceTime + "ms");
                     } else {
-                        playUrl = a.mPlayUrls.get(0);
-                        Log.w(TAG, "CDN竞速无结果, 使用第一个URL");
+                        // 所有候选都被测出不可用（404/超时）：不能沿用这些已知失败的 URL 硬播，
+                        // 否则必然 404 报错并卡在 loading。改为重新请求 playUrl 拿新的 CDN 节点。
+                        playUrl = null;
+                        Log.w(TAG, "CDN竞速无可用URL: 所有候选CDN均不可用, 重新请求播放地址");
+                    }
+                    
+                    if (playUrl == null) {
+                        retryPlayUrl();
+                        return;
                     }
                     
                     mainHandler.post(new Runnable() {
@@ -216,6 +228,10 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
         } else {
             Log.i(TAG, "startPlaybackWithCdnRace: 只有1个URL, 直接播放");
             Log.i(TAG, "[LIVE_STARTUP_TRACE] start_play room=" + this.d + " (direct)");
+            // 重试路径下播放地址刚被刷新，优先使用最新的地址，避免用旧 URL 重播
+            if (this.a.mPlayUrl != null && !this.a.mPlayUrl.isEmpty()) {
+                this.b = this.a.mPlayUrl;
+            }
             this.g.a(this.b, this.c, Integer.valueOf(this.d));
             this.g.m();
             
@@ -372,6 +388,57 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
 
     private boolean h() {
         return this.e != null && this.e.isShowing();
+    }
+
+    /**
+     * 重新请求播放地址并重新竞速播放（可在任意线程调用）。
+     * 触发场景：
+     * 1) CDN 竞速中所有候选都不可用（404/连接超时）；
+     * 2) 播放过程中 ExoPlayer 报 HTTP 403/404（CDN 节点失效或 URL 过期）。
+     * 连续失败最多重试 MAX_PLAY_URL_RETRY 次，超过后提示用户，避免无限重试。
+     */
+    public void retryPlayUrl() {
+        mainHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (activityDestroyed) {
+                    Log.w(TAG, "retryPlayUrl: Activity 已销毁, 忽略本次请求");
+                    return;
+                }
+                if (playUrlRetryRunning) {
+                    Log.w(TAG, "retryPlayUrl: 上一次重试仍在进行中, 忽略本次请求");
+                    return;
+                }
+                if (playUrlRetryCount >= MAX_PLAY_URL_RETRY) {
+                    Log.w(TAG, "retryPlayUrl: 重试次数已达上限(" + playUrlRetryCount + "/" + MAX_PLAY_URL_RETRY + ")");
+                    lr.b(LivePlayerActivity.this, "直播流获取失败，请稍后重试");
+                    return;
+                }
+                playUrlRetryCount++;
+                playUrlRetryRunning = true;
+                Log.i(TAG, "retryPlayUrl: 第" + playUrlRetryCount + "/" + MAX_PLAY_URL_RETRY + "次重新获取播放地址, room=" + d);
+                cdnExecutor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        final int result = a != null ? a.getPlayUrl() : -1;
+                        final int urlCount = (a != null && a.mPlayUrls != null) ? a.mPlayUrls.size() : 0;
+                        Log.i(TAG, "retryPlayUrl: getPlayUrl result=" + result + ", urlCount=" + urlCount);
+                        mainHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                playUrlRetryRunning = false;
+                                if (result == 0 && urlCount > 0) {
+                                    startPlaybackWithCdnRace();
+                                } else {
+                                    // 本次没拿到可用地址，继续重试直到上限
+                                    retryPlayUrl();
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        });
     }
 
     public void refresh() {
@@ -607,6 +674,7 @@ public class LivePlayerActivity extends BaseActivity implements View.OnClickList
     @Override // com.bilibili.tv.ui.base.BaseActivity, android.support.v7.app.AppCompatActivity, android.support.v4.app.FragmentActivity, android.app.Activity
     public void onDestroy() {
         Log.i(TAG, "onDestroy: 被调用");
+        this.activityDestroyed = true; // 阻止销毁后的延迟重试继续执行
         // 回收电子书资源（面板、WebView、书架/缓存管理器）
         if (this.ebookReaderPanel != null) {
             this.ebookReaderPanel.onDestroy();

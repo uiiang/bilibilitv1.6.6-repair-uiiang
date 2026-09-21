@@ -64,6 +64,12 @@ public class CdnSelector {
         public String winningCdn;
         public long raceTime;
         public boolean fromCache;
+        /** 该候选是否测试失败（不可用），failed=true 时 winningUrl 为 null */
+        public boolean failed;
+        /** 失败原因是否为连接/读取超时 */
+        public boolean timeout;
+        /** 失败时的 HTTP 响应码，0 表示非 HTTP 状态码错误 */
+        public int httpCode;
         
         public RaceResult(String url, String cdn, long time, boolean cached) {
             this.winningUrl = url;
@@ -71,6 +77,22 @@ public class CdnSelector {
             this.raceTime = time;
             this.fromCache = cached;
         }
+    }
+    
+    /** 构造候选测试失败的记录，用于竞速结束后扣分 */
+    private static RaceResult failedResult(CdnUrlInfo info, int httpCode, boolean timeout) {
+        RaceResult result = new RaceResult(null, info.cdnHost, 0, false);
+        result.failed = true;
+        result.httpCode = httpCode;
+        result.timeout = timeout;
+        return result;
+    }
+    
+    private static boolean isTimeoutException(Exception e) {
+        String message = e.getMessage();
+        if (message == null) return false;
+        String lower = message.toLowerCase();
+        return lower.contains("timed out") || lower.contains("timeout");
     }
     
     public static RaceResult selectBestUrl(Context context, String videoId, List<CdnUrlInfo> urlInfos) {
@@ -105,15 +127,17 @@ public class CdnSelector {
         long raceStart = System.currentTimeMillis();
         raceCancelled = false;
         
+        final List<RaceResult> failedResults = Collections.synchronizedList(new ArrayList<RaceResult>());
+        
         List<Callable<RaceResult>> tasks = new ArrayList<>();
         for (CdnUrlInfo info : urlInfos) {
             tasks.add(new Callable<RaceResult>() {
                 @Override
                 public RaceResult call() throws Exception {
                     if (isLive) {
-                        return testLiveUrl(info);
+                        return testLiveUrl(info, failedResults);
                     } else {
-                        return testUrl(info);
+                        return testUrl(info, failedResults);
                     }
                 }
             });
@@ -145,12 +169,20 @@ public class CdnSelector {
             Log.e(TAG, "竞速异常: " + e.getMessage());
         }
         
-        CdnUrlInfo best = urlInfos.get(0);
-        Log.w(TAG, "竞速失败，使用最高分CDN: " + best.cdnHost);
-        return new RaceResult(best.url, best.cdnHost, 0, false);
+        // 所有候选都不可用：对失败的候选扣分（此前只记成功，坏 CDN 分数永远不掉、下次仍被优先选中），
+        // 并返回 null。调用方收到 null 会重新请求 playUrl 拿新的 CDN 列表，
+        // 而不是沿用竞速里已经测出 404/超时的 URL 硬播（会必然失败并卡在 loading）。
+        synchronized (failedResults) {
+            for (RaceResult failed : failedResults) {
+                updateCdnScore(failed.winningCdn, false, failed.timeout);
+                Log.w(TAG, "竞速候选不可用: cdn=" + failed.winningCdn + ", httpCode=" + failed.httpCode + ", timeout=" + failed.timeout);
+            }
+        }
+        Log.w(TAG, "竞速失败: " + urlInfos.size() + " 个候选CDN均不可用, 返回null");
+        return null;
     }
     
-    private static RaceResult testUrl(CdnUrlInfo info) {
+    private static RaceResult testUrl(CdnUrlInfo info, List<RaceResult> failedResults) {
         long testStart = System.currentTimeMillis();
         HttpURLConnection conn = null;
         InputStream is = null;
@@ -179,10 +211,15 @@ public class CdnSelector {
                 if (totalRead > 0 && !raceCancelled) {
                     return new RaceResult(info.url, info.cdnHost, 0, false);
                 }
+                // 状态码正常但读不到数据，同样视为该候选不可用
+                failedResults.add(failedResult(info, responseCode, false));
+            } else {
+                failedResults.add(failedResult(info, responseCode, false));
             }
         } catch (Exception e) {
             long failTime = System.currentTimeMillis() - testStart;
             Log.i(TAG, "testUrl: cdn=" + info.cdnHost + ", FAILED in " + failTime + "ms, error=" + e.getMessage());
+            failedResults.add(failedResult(info, 0, isTimeoutException(e)));
         } finally {
             if (is != null) try { is.close(); } catch (Exception e) {}
             if (conn != null) try { conn.disconnect(); } catch (Exception e) {}
@@ -190,7 +227,7 @@ public class CdnSelector {
         return null;
     }
     
-    private static RaceResult testLiveUrl(CdnUrlInfo info) {
+    private static RaceResult testLiveUrl(CdnUrlInfo info, List<RaceResult> failedResults) {
         long testStart = System.currentTimeMillis();
         HttpURLConnection conn = null;
         InputStream is = null;
@@ -217,12 +254,16 @@ public class CdnSelector {
                 if (read > 0 && !raceCancelled) {
                     return new RaceResult(info.url, info.cdnHost, 0, false);
                 }
+                // 状态码正常但读不到数据，同样视为该候选不可用
+                failedResults.add(failedResult(info, responseCode, false));
             } else {
                 Log.w(TAG, "testLiveUrl: cdn=" + info.cdnHost + ", 非200响应: " + responseCode);
+                failedResults.add(failedResult(info, responseCode, false));
             }
         } catch (Exception e) {
             long failTime = System.currentTimeMillis() - testStart;
             Log.w(TAG, "testLiveUrl: cdn=" + info.cdnHost + ", FAILED in " + failTime + "ms, error=" + e.getMessage());
+            failedResults.add(failedResult(info, 0, isTimeoutException(e)));
         } finally {
             if (is != null) try { is.close(); } catch (Exception e) {}
             if (conn != null) try { conn.disconnect(); } catch (Exception e) {}
