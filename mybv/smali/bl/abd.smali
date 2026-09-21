@@ -475,45 +475,45 @@
     .locals 3
 
     .prologue
-    .line 797
+    .line 790
     :try_start_0
     invoke-static {p0}, Lbl/abd;->get_accounts(Landroid/content/Context;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 798
+    .line 791
     new-instance v1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-direct {v1}, Lcom/alibaba/fastjson/JSONObject;-><init>()V
 
-    .line 799
+    .line 792
     const-string v2, "username"
 
     invoke-virtual {v1, v2, p2}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 800
+    .line 793
     if-eqz p3, :cond_15
 
-    .line 801
+    .line 794
     const-string v2, "avatar"
 
     invoke-virtual {v1, v2, p3}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 803
+    .line 796
     :cond_15
     const-string v2, "account_info"
 
     invoke-virtual {v1, v2, p4}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 804
+    .line 797
     const-string v2, "passport_info"
 
     invoke-virtual {v1, v2, p5}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 805
+    .line 798
     invoke-virtual {v0, p1, v1}, Lcom/alibaba/fastjson/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 806
+    .line 799
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v1
@@ -540,15 +540,15 @@
     :try_end_3b
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_3b} :catch_3c
 
-    .line 810
+    .line 803
     :goto_3b
     return-void
 
-    .line 807
+    .line 800
     :catch_3c
     move-exception v0
 
-    .line 808
+    .line 801
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
     goto :goto_3b
@@ -959,51 +959,6 @@
     return-void
 .end method
 
-.method public static clearSpeedSetting(Landroid/content/Context;Ljava/lang/String;)V
-    .locals 3
-
-    .prologue
-    .line 739
-    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
-
-    move-result-object v0
-
-    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
-
-    move-result-object v0
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    const-string v2, "_id"
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-interface {v0, v1}, Landroid/content/SharedPreferences$Editor;->remove(Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
-
-    move-result-object v0
-
-    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
-
-    .line 740
-    return-void
-.end method
-
 .method public static clearSubtitleSettings(Landroid/content/Context;Ljava/lang/String;)V
     .locals 3
 
@@ -1117,16 +1072,16 @@
     .locals 3
 
     .prologue
-    .line 814
+    .line 807
     :try_start_0
     invoke-static {p0}, Lbl/abd;->get_accounts(Landroid/content/Context;)Lcom/alibaba/fastjson/JSONObject;
 
     move-result-object v0
 
-    .line 815
+    .line 808
     invoke-virtual {v0, p1}, Lcom/alibaba/fastjson/JSONObject;->remove(Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 816
+    .line 809
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
     move-result-object v1
@@ -1153,15 +1108,15 @@
     :try_end_20
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_20} :catch_21
 
-    .line 820
+    .line 813
     :goto_20
     return-void
 
-    .line 817
+    .line 810
     :catch_21
     move-exception v0
 
-    .line 818
+    .line 811
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
     goto :goto_20
@@ -1538,15 +1493,15 @@
     .prologue
     const/4 v0, -0x1
 
-    .line 747
+    .line 743
     if-nez p1, :cond_4
 
-    .line 762
+    .line 758
     :cond_3
     :goto_3
     return v0
 
-    .line 750
+    .line 746
     :cond_4
     iget-object v1, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mListKey:Ljava/lang/String;
 
@@ -1556,7 +1511,7 @@
 
     if-nez v1, :cond_1a
 
-    .line 751
+    .line 747
     iget-object v1, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mListKey:Ljava/lang/String;
 
     invoke-static {v1}, Lbl/abd;->getListSpeedKey(Ljava/lang/String;)Ljava/lang/String;
@@ -1567,15 +1522,15 @@
 
     move-result v1
 
-    .line 752
+    .line 748
     if-ltz v1, :cond_1a
 
     move v0, v1
 
-    .line 753
+    .line 749
     goto :goto_3
 
-    .line 756
+    .line 752
     :cond_1a
     iget-wide v2, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAvid:J
 
@@ -1585,7 +1540,7 @@
 
     if-lez v1, :cond_3
 
-    .line 757
+    .line 753
     iget-wide v2, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAvid:J
 
     invoke-static {v2, v3}, Lbl/abd;->getVideoSpeedKey(J)Ljava/lang/String;
@@ -1596,12 +1551,12 @@
 
     move-result v1
 
-    .line 758
+    .line 754
     if-ltz v1, :cond_3
 
     move v0, v1
 
-    .line 759
+    .line 755
     goto :goto_3
 .end method
 
@@ -1819,7 +1774,7 @@
     .locals 3
 
     .prologue
-    .line 788
+    .line 781
     :try_start_0
     invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
 
@@ -1843,18 +1798,18 @@
 
     move-result-object v0
 
-    .line 791
+    .line 784
     :goto_14
     return-object v0
 
-    .line 789
+    .line 782
     :catch_15
     move-exception v0
 
-    .line 790
+    .line 783
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
-    .line 791
+    .line 784
     new-instance v0, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-direct {v0}, Lcom/alibaba/fastjson/JSONObject;-><init>()V
@@ -3312,29 +3267,27 @@
     .locals 4
 
     .prologue
-    const-wide/16 v2, 0x0
+    .line 765
+    if-eqz p1, :cond_4
 
-    .line 769
-    if-eqz p1, :cond_6
+    if-gez p2, :cond_5
 
-    if-gez p2, :cond_7
-
-    .line 780
-    :cond_6
-    :goto_6
+    .line 773
+    :cond_4
+    :goto_4
     return-void
 
-    .line 772
-    :cond_7
+    .line 768
+    :cond_5
     iget-object v0, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mListKey:Ljava/lang/String;
 
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v0
 
-    if-nez v0, :cond_28
+    if-nez v0, :cond_17
 
-    .line 773
+    .line 769
     iget-object v0, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mListKey:Ljava/lang/String;
 
     invoke-static {v0}, Lbl/abd;->getListSpeedKey(Ljava/lang/String;)Ljava/lang/String;
@@ -3343,33 +3296,19 @@
 
     invoke-static {p0, v0, p2}, Lbl/abd;->setSpeedSetting(Landroid/content/Context;Ljava/lang/String;I)V
 
-    .line 774
+    goto :goto_4
+
+    .line 770
+    :cond_17
     iget-wide v0, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAvid:J
+
+    const-wide/16 v2, 0x0
 
     cmp-long v0, v0, v2
 
-    if-lez v0, :cond_6
+    if-lez v0, :cond_4
 
-    .line 775
-    iget-wide v0, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAvid:J
-
-    invoke-static {v0, v1}, Lbl/abd;->getVideoSpeedKey(J)Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {p0, v0}, Lbl/abd;->clearSpeedSetting(Landroid/content/Context;Ljava/lang/String;)V
-
-    goto :goto_6
-
-    .line 777
-    :cond_28
-    iget-wide v0, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAvid:J
-
-    cmp-long v0, v0, v2
-
-    if-lez v0, :cond_6
-
-    .line 778
+    .line 771
     iget-wide v0, p1, Lcom/bilibili/tv/player/basic/context/ResolveResourceParams;->mAvid:J
 
     invoke-static {v0, v1}, Lbl/abd;->getVideoSpeedKey(J)Ljava/lang/String;
@@ -3378,7 +3317,7 @@
 
     invoke-static {p0, v0, p2}, Lbl/abd;->setSpeedSetting(Landroid/content/Context;Ljava/lang/String;I)V
 
-    goto :goto_6
+    goto :goto_4
 .end method
 
 .method public static setSkipTime(Landroid/content/Context;Ljava/lang/String;JJ)V

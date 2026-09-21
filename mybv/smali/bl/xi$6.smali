@@ -80,7 +80,7 @@
 
     move-result-object v1
 
-    if-eqz v1, :cond_a1
+    if-eqz v1, :cond_89
 
     iget-object v1, p0, Lbl/xi$6;->this$0:Lbl/xi;
 
@@ -93,7 +93,7 @@
 
     move-result v1
 
-    if-nez v1, :cond_a1
+    if-nez v1, :cond_89
 
     .line 1083
     const-string v1, "VideoShot"
@@ -181,31 +181,8 @@
 
     check-cast v0, Lcom/alibaba/fastjson/JSONObject;
 
-    .line 1091
-    const-string v1, "VideoShot"
-
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "loadVideoShot: jsonResponse="
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v2
-
-    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
     .line 1093
-    if-nez v0, :cond_e9
+    if-nez v0, :cond_d1
 
     .line 1094
     const-string v0, "VideoShot"
@@ -214,12 +191,12 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1191
-    :goto_a0
+    .line 1207
+    :goto_88
     return-void
 
     .line 1086
-    :cond_a1
+    :cond_89
     const-string v1, "VideoShot"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -299,27 +276,8 @@
 
     goto :goto_75
 
-    .line 1098
-    :cond_e9
-    const-string v1, "VideoShot_JSON"
-
-    const-string v2, "========== Full JSON Response =========="
-
-    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 1099
-    const-string v1, "VideoShot_JSON"
-
-    invoke-static {v1, v0}, Lmybl/LogUtil;->json(Ljava/lang/String;Ljava/lang/Object;)V
-
-    .line 1100
-    const-string v1, "VideoShot_JSON"
-
-    const-string v2, "========== End JSON Response =========="
-
-    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
     .line 1102
+    :cond_d1
     const-string v1, "code"
 
     invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
@@ -350,7 +308,7 @@
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 1104
-    if-eqz v1, :cond_147
+    if-eqz v1, :cond_11b
 
     .line 1105
     const-string v0, "VideoShot"
@@ -358,16 +316,16 @@
     const-string v1, "loadVideoShot: code != 0, return"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_123
-    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_123} :catch_125
+    :try_end_f8
+    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_f8} :catch_f9
 
-    goto/16 :goto_a0
+    goto :goto_88
 
-    .line 1187
-    :catch_125
+    .line 1203
+    :catch_f9
     move-exception v0
 
-    .line 1188
+    .line 1204
     const-string v1, "VideoShot"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -394,14 +352,14 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1189
+    .line 1205
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
-    goto/16 :goto_a0
+    goto/16 :goto_88
 
     .line 1109
-    :cond_147
-    :try_start_147
+    :cond_11b
+    :try_start_11b
     const-string v1, "data"
 
     invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
@@ -409,7 +367,7 @@
     move-result-object v1
 
     .line 1110
-    if-nez v1, :cond_158
+    if-nez v1, :cond_12c
 
     .line 1111
     const-string v0, "VideoShot"
@@ -418,29 +376,10 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto/16 :goto_a0
-
-    .line 1115
-    :cond_158
-    const-string v0, "VideoShot_DATA"
-
-    const-string v2, "========== Data Object =========="
-
-    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 1116
-    const-string v0, "VideoShot_DATA"
-
-    invoke-static {v0, v1}, Lmybl/LogUtil;->json(Ljava/lang/String;Ljava/lang/Object;)V
-
-    .line 1117
-    const-string v0, "VideoShot_DATA"
-
-    const-string v2, "========== End Data Object =========="
-
-    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    goto/16 :goto_88
 
     .line 1119
+    :cond_12c
     new-instance v2, Lcom/bilibili/tv/api/video/VideoShot;
 
     invoke-direct {v2}, Lcom/bilibili/tv/api/video/VideoShot;-><init>()V
@@ -497,7 +436,7 @@
 
     move-result v0
 
-    if-eqz v0, :cond_1c6
+    if-eqz v0, :cond_187
 
     .line 1127
     const-string v0, "image"
@@ -507,7 +446,7 @@
     move-result-object v3
 
     .line 1128
-    if-eqz v3, :cond_1c6
+    if-eqz v3, :cond_187
 
     .line 1129
     new-instance v4, Ljava/util/ArrayList;
@@ -517,12 +456,12 @@
     move v0, v6
 
     .line 1130
-    :goto_1b3
+    :goto_174
     invoke-virtual {v3}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
     move-result v5
 
-    if-ge v0, v5, :cond_1c3
+    if-ge v0, v5, :cond_184
 
     .line 1131
     invoke-virtual {v3, v0}, Lcom/alibaba/fastjson/JSONArray;->getString(I)Ljava/lang/String;
@@ -534,21 +473,21 @@
     .line 1130
     add-int/lit8 v0, v0, 0x1
 
-    goto :goto_1b3
+    goto :goto_174
 
     .line 1133
-    :cond_1c3
+    :cond_184
     invoke-virtual {v2, v4}, Lcom/bilibili/tv/api/video/VideoShot;->setImage(Ljava/util/List;)V
 
     .line 1137
-    :cond_1c6
+    :cond_187
     const-string v0, "index"
 
     invoke-virtual {v1, v0}, Lcom/alibaba/fastjson/JSONObject;->containsKey(Ljava/lang/Object;)Z
 
     move-result v0
 
-    if-eqz v0, :cond_1ef
+    if-eqz v0, :cond_1b0
 
     .line 1138
     const-string v0, "index"
@@ -558,7 +497,7 @@
     move-result-object v1
 
     .line 1139
-    if-eqz v1, :cond_1ef
+    if-eqz v1, :cond_1b0
 
     .line 1140
     new-instance v3, Ljava/util/ArrayList;
@@ -568,12 +507,12 @@
     move v0, v6
 
     .line 1141
-    :goto_1dc
+    :goto_19d
     invoke-virtual {v1}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
     move-result v4
 
-    if-ge v0, v4, :cond_1ec
+    if-ge v0, v4, :cond_1ad
 
     .line 1142
     invoke-virtual {v1, v0}, Lcom/alibaba/fastjson/JSONArray;->getInteger(I)Ljava/lang/Integer;
@@ -585,14 +524,127 @@
     .line 1141
     add-int/lit8 v0, v0, 0x1
 
-    goto :goto_1dc
+    goto :goto_19d
 
     .line 1144
-    :cond_1ec
+    :cond_1ad
     invoke-virtual {v2, v3}, Lcom/bilibili/tv/api/video/VideoShot;->setIndex(Ljava/util/List;)V
 
-    .line 1148
-    :cond_1ef
+    .line 1152
+    :cond_1b0
+    invoke-virtual {v2}, Lcom/bilibili/tv/api/video/VideoShot;->getIndex()Ljava/util/List;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_1c0
+
+    invoke-virtual {v2}, Lcom/bilibili/tv/api/video/VideoShot;->getIndex()Ljava/util/List;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Ljava/util/List;->isEmpty()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_21b
+
+    .line 1153
+    :cond_1c0
+    invoke-virtual {v2}, Lcom/bilibili/tv/api/video/VideoShot;->getPvdata()Ljava/lang/String;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_21b
+
+    invoke-virtual {v2}, Lcom/bilibili/tv/api/video/VideoShot;->getPvdata()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
+
+    move-result v0
+
+    if-nez v0, :cond_21b
+
+    .line 1154
+    const-string v0, "VideoShot"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "loadVideoShot: index empty, fallback to pvdata="
+
+    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v2}, Lcom/bilibili/tv/api/video/VideoShot;->getPvdata()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 1155
+    invoke-virtual {v2}, Lcom/bilibili/tv/api/video/VideoShot;->getPvdata()Ljava/lang/String;
+
+    move-result-object v0
+
+    # invokes: Lbl/xi;->loadIndexFromPvdata(Ljava/lang/String;)Ljava/util/List;
+    invoke-static {v0}, Lbl/xi;->access$600(Ljava/lang/String;)Ljava/util/List;
+
+    move-result-object v0
+
+    .line 1156
+    if-eqz v0, :cond_2ca
+
+    invoke-interface {v0}, Ljava/util/List;->isEmpty()Z
+
+    move-result v1
+
+    if-nez v1, :cond_2ca
+
+    .line 1157
+    invoke-virtual {v2, v0}, Lcom/bilibili/tv/api/video/VideoShot;->setIndex(Ljava/util/List;)V
+
+    .line 1158
+    const-string v1, "VideoShot"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "loadVideoShot: pvdata fallback ok, indexSize="
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-interface {v0}, Ljava/util/List;->size()I
+
+    move-result v0
+
+    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 1164
+    :cond_21b
+    :goto_21b
     const-string v0, "VideoShot"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -643,7 +695,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1149
+    .line 1165
     const-string v0, "VideoShot"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -712,7 +764,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1150
+    .line 1166
     const-string v0, "VideoShot"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -739,12 +791,12 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1152
+    .line 1168
     invoke-virtual {v2}, Lcom/bilibili/tv/api/video/VideoShot;->getImage()Ljava/util/List;
 
     move-result-object v0
 
-    if-eqz v0, :cond_295
+    if-eqz v0, :cond_2c1
 
     invoke-virtual {v2}, Lcom/bilibili/tv/api/video/VideoShot;->getImage()Ljava/util/List;
 
@@ -754,25 +806,35 @@
 
     move-result v0
 
-    if-eqz v0, :cond_29e
+    if-eqz v0, :cond_2d3
 
-    .line 1153
-    :cond_295
+    .line 1169
+    :cond_2c1
     const-string v0, "VideoShot"
 
     const-string v1, "loadVideoShot: shot.getImage() is null or empty"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto/16 :goto_a0
+    goto/16 :goto_88
 
-    .line 1157
-    :cond_29e
+    .line 1160
+    :cond_2ca
+    const-string v0, "VideoShot"
+
+    const-string v1, "loadVideoShot: pvdata fallback failed"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto/16 :goto_21b
+
+    .line 1173
+    :cond_2d3
     invoke-virtual {v2}, Lcom/bilibili/tv/api/video/VideoShot;->getIndex()Ljava/util/List;
 
     move-result-object v0
 
-    if-eqz v0, :cond_2ae
+    if-eqz v0, :cond_2e3
 
     invoke-virtual {v2}, Lcom/bilibili/tv/api/video/VideoShot;->getIndex()Ljava/util/List;
 
@@ -782,41 +844,41 @@
 
     move-result v0
 
-    if-eqz v0, :cond_2b7
+    if-eqz v0, :cond_2ec
 
-    .line 1158
-    :cond_2ae
+    .line 1174
+    :cond_2e3
     const-string v0, "VideoShot"
 
     const-string v1, "loadVideoShot: shot.getIndex() is null or empty"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto/16 :goto_a0
+    goto/16 :goto_88
 
-    .line 1162
-    :cond_2b7
+    .line 1178
+    :cond_2ec
     const-string v0, "VideoShot"
 
     const-string v1, "loadVideoShot: data valid, setting to PlayerSeekBar"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1163
+    .line 1179
     iget-object v0, p0, Lbl/xi$6;->this$0:Lbl/xi;
 
     # getter for: Lbl/xi;->l:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
-    invoke-static {v0}, Lbl/xi;->access$600(Lbl/xi;)Lcom/bilibili/tv/player/widget/PlayerSeekBar;
+    invoke-static {v0}, Lbl/xi;->access$700(Lbl/xi;)Lcom/bilibili/tv/player/widget/PlayerSeekBar;
 
     move-result-object v0
 
-    if-eqz v0, :cond_2d6
+    if-eqz v0, :cond_30b
 
-    .line 1164
+    .line 1180
     iget-object v0, p0, Lbl/xi$6;->this$0:Lbl/xi;
 
     # getter for: Lbl/xi;->l:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
-    invoke-static {v0}, Lbl/xi;->access$600(Lbl/xi;)Lcom/bilibili/tv/player/widget/PlayerSeekBar;
+    invoke-static {v0}, Lbl/xi;->access$700(Lbl/xi;)Lcom/bilibili/tv/player/widget/PlayerSeekBar;
 
     move-result-object v0
 
@@ -826,17 +888,17 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->post(Ljava/lang/Runnable;)Z
 
-    goto/16 :goto_a0
+    goto/16 :goto_88
 
-    .line 1185
-    :cond_2d6
+    .line 1201
+    :cond_30b
     const-string v0, "VideoShot"
 
     const-string v1, "loadVideoShot: l is null"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_2dd
-    .catch Ljava/lang/Exception; {:try_start_147 .. :try_end_2dd} :catch_125
+    :try_end_312
+    .catch Ljava/lang/Exception; {:try_start_11b .. :try_end_312} :catch_f9
 
-    goto/16 :goto_a0
+    goto/16 :goto_88
 .end method

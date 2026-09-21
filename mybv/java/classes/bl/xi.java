@@ -1088,16 +1088,16 @@ public class xi extends xh implements bbb<Message, Boolean> {
                     }
                     
                     JSONObject jsonResponse = (JSONObject) we.a(call.d());
-                    Log.i("VideoShot", "loadVideoShot: jsonResponse=" + jsonResponse);
+                    //Log.i("VideoShot", "loadVideoShot: jsonResponse=" + jsonResponse);
                     
                     if (jsonResponse == null) {
                         Log.i("VideoShot", "loadVideoShot: jsonResponse is null");
                         return;
                     }
                     
-                    Log.i("VideoShot_JSON", "========== Full JSON Response ==========");
-                    LogUtil.json("VideoShot_JSON", jsonResponse);
-                    Log.i("VideoShot_JSON", "========== End JSON Response ==========");
+                    //Log.i("VideoShot_JSON", "========== Full JSON Response ==========");
+                    //LogUtil.json("VideoShot_JSON", jsonResponse);
+                    //Log.i("VideoShot_JSON", "========== End JSON Response ==========");
                     
                     int code = jsonResponse.getIntValue("code");
                     Log.i("VideoShot", "loadVideoShot: code=" + code);
@@ -1112,9 +1112,9 @@ public class xi extends xh implements bbb<Message, Boolean> {
                         return;
                     }
                     
-                    Log.i("VideoShot_DATA", "========== Data Object ==========");
-                    LogUtil.json("VideoShot_DATA", data);
-                    Log.i("VideoShot_DATA", "========== End Data Object ==========");
+                    //Log.i("VideoShot_DATA", "========== Data Object ==========");
+                    //LogUtil.json("VideoShot_DATA", data);
+                    //Log.i("VideoShot_DATA", "========== End Data Object ==========");
                     
                     VideoShot shot = new VideoShot();
                     shot.setImgXLen(data.getIntValue("img_x_len"));
@@ -1142,6 +1142,22 @@ public class xi extends xh implements bbb<Message, Boolean> {
                                 indexList.add(indexArray.getInteger(i));
                             }
                             shot.setIndex(indexList);
+                        }
+                    }
+                    
+                    // 兜底：/x/player/videoshot 接口虽然带了 index=1，但服务端不稳定，约 1/4 概率仍返回空 index
+                    // （bvid/aid、UA、Cookie 均无关，实测同一 URL 多次请求结果随机为空）。而 pvdata(.bin) 一定返回，
+                    // 其内容为大端 uint16 时间点数组，与 index 完全一致（已对比多个视频验证）。故 index 为空时
+                    // 下载 pvdata 在本地解析，彻底消除服务端不稳定导致的截图列表加载失败。
+                    if ((shot.getIndex() == null || shot.getIndex().isEmpty())
+                            && shot.getPvdata() != null && !shot.getPvdata().isEmpty()) {
+                        Log.i("VideoShot", "loadVideoShot: index empty, fallback to pvdata=" + shot.getPvdata());
+                        java.util.List<Integer> indexFromPvdata = loadIndexFromPvdata(shot.getPvdata());
+                        if (indexFromPvdata != null && !indexFromPvdata.isEmpty()) {
+                            shot.setIndex(indexFromPvdata);
+                            Log.i("VideoShot", "loadVideoShot: pvdata fallback ok, indexSize=" + indexFromPvdata.size());
+                        } else {
+                            Log.i("VideoShot", "loadVideoShot: pvdata fallback failed");
                         }
                     }
                     
@@ -1190,6 +1206,62 @@ public class xi extends xh implements bbb<Message, Boolean> {
                 }
             }
         }).start();
+    }
+    
+    /**
+     * 下载 pvdata(.bin) 并解析出截图时间点。
+     * pvdata 内容为大端 uint16 时间点数组（单位秒），与接口 index 字段完全等价。
+     */
+    private static java.util.List<Integer> loadIndexFromPvdata(String pvdata) {
+        try {
+            String url = pvdata;
+            if (url.startsWith("//")) {
+                url = "https:" + url;
+            } else if (!url.startsWith("http")) {
+                Log.i("VideoShot", "loadIndexFromPvdata: invalid url=" + pvdata);
+                return null;
+            }
+            
+            okhttp3.Request request = new okhttp3.Request.Builder()
+                    .url(url)
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36")
+                    .header("Referer", "https://www.bilibili.com")
+                    .build();
+            okhttp3.Response response = vo.getOkHttpClient().newCall(request).execute();
+            try {
+                if (!response.isSuccessful() || response.body() == null) {
+                    Log.i("VideoShot", "loadIndexFromPvdata: http failed, code=" + response.code());
+                    return null;
+                }
+                byte[] bytes = response.body().bytes();
+                if (bytes == null || bytes.length < 2) {
+                    Log.i("VideoShot", "loadIndexFromPvdata: empty body");
+                    return null;
+                }
+                java.util.List<Integer> indexList = new java.util.ArrayList<>();
+                for (int i = 0; i + 1 < bytes.length; i += 2) {
+                    indexList.add(((bytes[i] & 0xFF) << 8) | (bytes[i + 1] & 0xFF));
+                }
+                // 最小校验：时间点至少 2 个且单调不减，避免服务端以后改变 bin 格式时把脏数据当成时间点
+                if (indexList.size() < 2) {
+                    Log.i("VideoShot", "loadIndexFromPvdata: too few points, size=" + indexList.size());
+                    return null;
+                }
+                for (int i = 1; i < indexList.size(); i++) {
+                    if (indexList.get(i) < indexList.get(i - 1)) {
+                        Log.i("VideoShot", "loadIndexFromPvdata: not ascending at " + i + ": " + indexList.get(i - 1) + " -> " + indexList.get(i));
+                        return null;
+                    }
+                }
+                Log.i("VideoShot", "loadIndexFromPvdata: bytes=" + bytes.length + ", indexSize=" + indexList.size());
+                return indexList;
+            } finally {
+                response.close();
+            }
+        } catch (Exception e) {
+            Log.i("VideoShot", "loadIndexFromPvdata error: " + e.getMessage());
+            return null;
+        }
     }
 
     /* JADX INFO: Access modifiers changed from: protected */

@@ -735,10 +735,6 @@ public class abd {
         return id;
     }
 
-    public static void clearSpeedSetting(Context context, String key) {
-        a(context).a().edit().remove(key + "_id").apply();
-    }
-
     /**
      * 读取本地记忆的播放速度下标
      * 优先级：列表（mListKey） > 视频（mAvid）；未记忆过返回 -1
@@ -763,7 +759,7 @@ public class abd {
     }
 
     /**
-     * 保存本地记忆的播放速度下标：有 mListKey 存列表级并清除视频级，否则存视频级
+     * 保存本地记忆的播放速度下标：有 mListKey 存列表级，否则存视频级
      */
     public static void saveSpeedSettingByParams(Context context, com.bilibili.tv.player.basic.context.ResolveResourceParams params, int speedId) {
         if (params == null || speedId < 0) {
@@ -771,9 +767,6 @@ public class abd {
         }
         if (!android.text.TextUtils.isEmpty(params.mListKey)) {
             setSpeedSetting(context, getListSpeedKey(params.mListKey), speedId);
-            if (params.mAvid > 0) {
-                clearSpeedSetting(context, getVideoSpeedKey(params.mAvid));
-            }
         } else if (params.mAvid > 0) {
             setSpeedSetting(context, getVideoSpeedKey(params.mAvid), speedId);
         }
