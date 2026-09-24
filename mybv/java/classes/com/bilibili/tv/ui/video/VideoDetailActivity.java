@@ -1563,13 +1563,27 @@ public final class VideoDetailActivity extends BaseActivity
                     com.alibaba.fastjson.JSONObject playerData = ((BiliVideoDetail.JsonResponse) bl.pz.a(
                         request, "GET")).result();
                     
+                    android.util.Log.i("HistoryDebug", "[FETCH_FORCE] resp code="
+                        + (playerData == null ? -999 : playerData.getIntValue("code"))
+                        + ", msg=" + (playerData == null ? "null" : playerData.getString("message")));
                     if (playerData != null && playerData.getIntValue("code") == 0) {
                         com.alibaba.fastjson.JSONObject data = playerData.getJSONObject("data");
                         if (data != null) {
                             long lastPlayCid = data.getLongValue("last_play_cid");
-                            int lastPlayTime = data.getIntValue("last_play_time") / 1000;
+                            int rawLastPlayTime = data.getIntValue("last_play_time");
+                            int lastPlayTime = rawLastPlayTime / 1000;
+                            android.util.Log.i("HistoryDebug", "[FETCH_FORCE] reqCid=" + finalCid
+                                + ", last_play_cid=" + lastPlayCid + ", last_play_time_raw=" + rawLastPlayTime
+                                + ", progressSec=" + lastPlayTime);
                             
-                            if (lastPlayCid > 0) {
+                            // 后端 /x/player/wbi/v2 的 last_play_time 存在同步延迟，实测会返回 0（raw=0）；
+                            // 播放页刚回传的有效进度不能被这个空值覆盖，否则详情页会显示 00:00。
+                            // 只有当后端给出有效进度，或本地本来就没有有效进度时，才采纳后端值。
+                            if (lastPlayTime <= 0 && biliVideoDetail.mHistory != null
+                                    && biliVideoDetail.mHistory.mProgress > 0) {
+                                android.util.Log.i("HistoryDebug", "[FETCH_FORCE] backend progress invalid (raw="
+                                    + rawLastPlayTime + "), keep local progressSec=" + biliVideoDetail.mHistory.mProgress);
+                            } else if (lastPlayCid > 0) {
                                 final BiliVideoDetail.History history = new BiliVideoDetail.History();
                                 history.mCid = lastPlayCid;
                                 history.mProgress = lastPlayTime;
@@ -1578,7 +1592,7 @@ public final class VideoDetailActivity extends BaseActivity
                         }
                     }
                 } catch (Exception e) {
-                    // requestHistoryForUgc error
+                    android.util.Log.e("HistoryDebug", "[FETCH_FORCE] error: " + e, e);
                 }
                 
                 runOnUiThread(new Runnable() {
@@ -2136,11 +2150,18 @@ public final class VideoDetailActivity extends BaseActivity
                     com.alibaba.fastjson.JSONObject playerData = ((BiliVideoDetail.JsonResponse) bl.pz.a(
                         request, "GET")).result();
                     
+                    android.util.Log.i("HistoryDebug", "[FETCH_LOAD] resp code="
+                        + (playerData == null ? -999 : playerData.getIntValue("code"))
+                        + ", msg=" + (playerData == null ? "null" : playerData.getString("message")));
                     if (playerData != null && playerData.getIntValue("code") == 0) {
                         com.alibaba.fastjson.JSONObject data = playerData.getJSONObject("data");
                         if (data != null) {
                             long lastPlayCid = data.getLongValue("last_play_cid");
-                            int lastPlayTime = data.getIntValue("last_play_time") / 1000;
+                            int rawLastPlayTime = data.getIntValue("last_play_time");
+                            int lastPlayTime = rawLastPlayTime / 1000;
+                            android.util.Log.i("HistoryDebug", "[FETCH_LOAD] reqCid=" + finalCid
+                                + ", last_play_cid=" + lastPlayCid + ", last_play_time_raw=" + rawLastPlayTime
+                                + ", progressSec=" + lastPlayTime);
                             
                             if (lastPlayCid > 0) {
                                 playurlSuccess = true;
@@ -2166,7 +2187,7 @@ public final class VideoDetailActivity extends BaseActivity
                         }
                     }
                 } catch (Exception e) {
-                    // loadHistory error
+                    android.util.Log.e("HistoryDebug", "[FETCH_LOAD] error: " + e, e);
                 }
                 
                 if (!playurlSuccess) {
@@ -2231,6 +2252,8 @@ public final class VideoDetailActivity extends BaseActivity
                             history.mCid = historyObj.getLongValue("cid");
                             history.mProgress = historyObj.getIntValue("progress");
                             biliVideoDetail.mHistory = history;
+                            android.util.Log.i("HistoryDebug", "[FETCH_FALLBACK] history cid=" + history.mCid
+                                + ", progressSec=" + history.mProgress);
                         }
                     }
                 }
@@ -2397,6 +2420,9 @@ public final class VideoDetailActivity extends BaseActivity
         
         historyPlayBtn.setText("继续播放");
         rePlayBtn.setText("重播");
+        android.util.Log.i("HistoryDebug", "[UPDATE_DISPLAY] cid=" + cid + ", progressSec=" + progress
+            + ", totalDuration=" + totalDuration + ", pageIndex=" + pageIndex
+            + ", episodeCount=" + episodeCount + ", multi=" + hasMultipleEpisodes);
         
         if (noHistoryPlayBtnLayout != null) {
             noHistoryPlayBtnLayout.setVisibility(View.GONE);
@@ -2478,6 +2504,7 @@ public final class VideoDetailActivity extends BaseActivity
         if (biliVideoDetail == null) {
             return;
         }
+        android.util.Log.i("HistoryDebug", "[CLICK_PLAY] clickCid=" + cid + ", clickProgressSec=" + progress);
         BiliVideoDetail.Page targetPage = null;
         if (cid > 0 && biliVideoDetail.mPageList != null) {
             for (BiliVideoDetail.Page page : biliVideoDetail.mPageList) {
@@ -3774,12 +3801,17 @@ public final class VideoDetailActivity extends BaseActivity
         if (i3 == -1 && i2 == REQUEST_CODE_PLAY_VIDEO && intent != null) {
             long lastCid = intent.getLongExtra("last_cid", 0);
             int lastProgress = intent.getIntExtra("last_progress", 0);
+            android.util.Log.i("HistoryDebug", "[ON_RESULT] requestCode=" + i2 + ", resultCode=" + i3
+                + ", lastCid=" + lastCid + ", lastProgressMs=" + lastProgress
+                + ", progressSec=" + (lastProgress / 1000));
             if (this.u != null && lastCid > 0) {
                 if (this.u.mHistory == null) {
                     this.u.mHistory = new BiliVideoDetail.History();
                 }
                 this.u.mHistory.mCid = lastCid;
                 this.u.mHistory.mProgress = lastProgress/1000;
+                android.util.Log.i("HistoryDebug", "[ON_RESULT] apply local history: cid=" + lastCid
+                    + ", progressSec=" + (lastProgress / 1000));
                 updateHistoryDisplay(this.u);
                 // 混合方案：先用播放页回传值即时更新，再强制从后端拉取校准（以后端为准覆盖）
                 final BiliVideoDetail detail = this.u;

@@ -171,6 +171,8 @@ public class qm extends py {
                         jSONObject2.put("vod_index", jSONObject7);
                         jSONObject2.put("resolved_index", i3);
 
+                        // 应用 CDN 路线偏好：ExoPlayer 只读 base_url，必须在这里重排候选，否则偏好不生效
+                        mybl.VideoViewParams.applyCdnPreferenceToDash(context, jSONObject3.optJSONObject("dash"));
                         jSONObject2.put("dash", jSONObject3.optJSONObject("dash"));
                         jSONObject2.put("quality", optInt4);
 

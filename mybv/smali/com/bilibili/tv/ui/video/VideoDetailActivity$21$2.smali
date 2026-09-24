@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 2173
+    .line 2194
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$21$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$21;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 3
 
     .prologue
-    .line 2176
+    .line 2197
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$21$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$21;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$21;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -51,11 +51,11 @@
 
     if-eqz v0, :cond_b
 
-    .line 2180
+    .line 2201
     :goto_a
     return-void
 
-    .line 2179
+    .line 2200
     :cond_b
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$21$2;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$21;
 

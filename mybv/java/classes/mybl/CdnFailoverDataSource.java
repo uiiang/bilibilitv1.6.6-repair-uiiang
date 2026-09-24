@@ -27,6 +27,11 @@ public class CdnFailoverDataSource implements DataSource {
     private int totalOpenAttempts = 0;
     private int successfulOpens = 0;
     private int failedOpens = 0;
+    // 诊断用：记录本次实际生效的候选 CDN 及其读取耗时，用于定位起播慢
+    private String activeHost = null;
+    private long openedAt = 0;
+    private long firstByteMs = -1;
+    private long totalBytes = 0;
 
     public CdnFailoverDataSource(DataSource.Factory upstreamFactory, List<Uri> candidates, String kind) {
         this.upstreamFactory = upstreamFactory;
@@ -93,6 +98,12 @@ public class CdnFailoverDataSource implements DataSource {
                 upstream = ds;
                 preferredIndex = idx;
                 successfulOpens++;
+                activeHost = uri.getHost();
+                openedAt = System.currentTimeMillis();
+                firstByteMs = -1;
+                totalBytes = 0;
+                Log.i(TAG, "[OPEN_OK] kind=" + kind + ", attempt=" + (attempt + 1) + "/" + candidates.size()
+                    + ", host=" + activeHost + ", openMs=" + openDuration);
                 
                 //Log.i(TAG, "[OPEN] SUCCESS! candidate " + idx + " opened in " + openDuration + "ms");
                 //Log.i(TAG, "[OPEN] openedLength=" + openedLength + ", new preferredIndex=" + preferredIndex);
@@ -145,14 +156,14 @@ public class CdnFailoverDataSource implements DataSource {
         
         try {
             int bytesRead = upstream.read(buffer, offset, length);
-            //long readDuration = System.currentTimeMillis() - readStartTime;
-            //if (bytesRead == -1) {
-            //    Log.i(TAG, "[READ] End of stream reached (bytesRead=-1), duration=" + readDuration + "ms");
-            //} else if (bytesRead == 0) {
-            //    Log.w(TAG, "[READ] No data read (bytesRead=0), duration=" + readDuration + "ms");
-            //} else {
-            //    Log.i(TAG, "[READ] Read " + bytesRead + " bytes in " + readDuration + "ms");
-            //}
+            // 诊断用：记录首字节耗时（TTFB），用于区分"连接慢"还是"传输慢"
+            if (firstByteMs < 0 && bytesRead > 0 && openedAt > 0) {
+                firstByteMs = System.currentTimeMillis() - openedAt;
+                Log.i(TAG, "[FIRST_BYTE] kind=" + kind + ", host=" + activeHost + ", ttfbMs=" + firstByteMs);
+            }
+            if (bytesRead > 0) {
+                totalBytes += bytesRead;
+            }
             return bytesRead;
         } catch (IOException e) {
             Log.e(TAG, "[READ] ERROR during read: " + e.getClass().getName() + " - " + e.getMessage());
@@ -189,6 +200,13 @@ public class CdnFailoverDataSource implements DataSource {
 
     private void closeQuietly() {
         if (upstream != null) {
+            // 诊断用：汇总本段连接的实际命中 CDN、读取字节数与耗时，用于定位起播慢
+            if (openedAt > 0) {
+                Log.i(TAG, "[SESSION_END] kind=" + kind + ", host=" + activeHost
+                    + ", bytes=" + totalBytes + ", elapsedMs=" + (System.currentTimeMillis() - openedAt)
+                    + ", ttfbMs=" + firstByteMs);
+            }
+            openedAt = 0;
             //Log.i(TAG, "[CLOSE] Closing upstream data source: " + upstream.getClass().getSimpleName());
             closeQuietly(upstream);
             upstream = null;

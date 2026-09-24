@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 5775
+    .line 5807
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$9;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 6
 
     .prologue
-    .line 5778
+    .line 5810
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$9;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -48,15 +48,15 @@
     # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->relateVideoFocusPosition:I
     invoke-static {v0, p2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$902(Lcom/bilibili/tv/ui/video/VideoDetailActivity;I)I
 
-    .line 5779
+    .line 5811
     instance-of v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     if-eqz v0, :cond_2a
 
-    .line 5780
+    .line 5812
     check-cast p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
-    .line 5781
+    .line 5813
     iget-wide v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mAvid:J
 
     const-wide/16 v2, 0x0
@@ -65,7 +65,7 @@
 
     if-lez v0, :cond_2b
 
-    .line 5782
+    .line 5814
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$9;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -86,18 +86,18 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->startActivity(Landroid/content/Intent;)V
 
-    .line 5787
+    .line 5819
     :cond_2a
     :goto_2a
     return-void
 
-    .line 5783
+    .line 5815
     :cond_2b
     iget v0, p1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mSeasonOId:I
 
     if-lez v0, :cond_2a
 
-    .line 5784
+    .line 5816
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i$9;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$i;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;

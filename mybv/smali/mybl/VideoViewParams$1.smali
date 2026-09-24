@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 423
+    .line 424
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -44,7 +44,7 @@
     .locals 1
 
     .prologue
-    .line 423
+    .line 424
     check-cast p1, Ljava/lang/String;
 
     check-cast p2, Ljava/lang/String;
@@ -57,10 +57,10 @@
 .end method
 
 .method public compare(Ljava/lang/String;Ljava/lang/String;)I
-    .locals 2
+    .locals 4
 
     .prologue
-    .line 426
+    .line 427
     invoke-static {p1}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v0
@@ -69,7 +69,7 @@
 
     move-result-object v0
 
-    .line 427
+    .line 428
     invoke-static {p2}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v1
@@ -78,20 +78,49 @@
 
     move-result-object v1
 
-    .line 428
+    .line 431
+    invoke-static {v0}, Lmybl/CdnSelector;->isMcdn(Ljava/lang/String;)Z
+
+    move-result v2
+
+    .line 432
+    invoke-static {v1}, Lmybl/CdnSelector;->isMcdn(Ljava/lang/String;)Z
+
+    move-result v3
+
+    .line 433
+    if-eq v2, v3, :cond_20
+
+    .line 434
+    if-eqz v2, :cond_1e
+
+    const/4 v0, 0x1
+
+    .line 438
+    :goto_1d
+    return v0
+
+    .line 434
+    :cond_1e
+    const/4 v0, -0x1
+
+    goto :goto_1d
+
+    .line 436
+    :cond_20
     invoke-static {v0}, Lmybl/CdnSelector;->getCdnScore(Ljava/lang/String;)I
 
     move-result v0
 
-    .line 429
+    .line 437
     invoke-static {v1}, Lmybl/CdnSelector;->getCdnScore(Ljava/lang/String;)I
 
     move-result v1
 
-    .line 430
+    .line 438
     invoke-static {v1, v0}, Ljava/lang/Integer;->compare(II)I
 
     move-result v0
 
-    return v0
+    goto :goto_1d
 .end method

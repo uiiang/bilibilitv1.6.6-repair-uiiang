@@ -41,7 +41,7 @@
     .end annotation
 
     .prologue
-    .line 455
+    .line 545
     iput p1, p0, Lmybl/VideoViewParams$2;->val$targetType:I
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -55,7 +55,7 @@
     .locals 1
 
     .prologue
-    .line 455
+    .line 545
     check-cast p1, Ljava/lang/String;
 
     check-cast p2, Ljava/lang/String;
@@ -75,7 +75,7 @@
 
     const/4 v1, 0x1
 
-    .line 458
+    .line 548
     invoke-static {p1}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v0
@@ -84,7 +84,7 @@
 
     move-result-object v3
 
-    .line 459
+    .line 549
     invoke-static {p2}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v0
@@ -93,24 +93,24 @@
 
     move-result-object v4
 
-    .line 460
+    .line 550
     invoke-static {v3}, Lmybl/CdnSelector;->getCdnType(Ljava/lang/String;)I
 
     move-result v0
 
-    .line 461
+    .line 551
     invoke-static {v4}, Lmybl/CdnSelector;->getCdnType(Ljava/lang/String;)I
 
     move-result v5
 
-    .line 464
+    .line 554
     iget v6, p0, Lmybl/VideoViewParams$2;->val$targetType:I
 
     if-ne v0, v6, :cond_2a
 
     move v0, v1
 
-    .line 465
+    .line 555
     :goto_1f
     iget v6, p0, Lmybl/VideoViewParams$2;->val$targetType:I
 
@@ -118,7 +118,7 @@
 
     move v2, v1
 
-    .line 466
+    .line 556
     :cond_24
     if-eqz v0, :cond_2c
 
@@ -126,7 +126,7 @@
 
     const/4 v1, -0x1
 
-    .line 472
+    .line 562
     :cond_29
     :goto_29
     return v1
@@ -134,27 +134,27 @@
     :cond_2a
     move v0, v2
 
-    .line 464
+    .line 554
     goto :goto_1f
 
-    .line 467
+    .line 557
     :cond_2c
     if-nez v0, :cond_30
 
     if-nez v2, :cond_29
 
-    .line 470
+    .line 560
     :cond_30
     invoke-static {v3}, Lmybl/CdnSelector;->getCdnScore(Ljava/lang/String;)I
 
     move-result v0
 
-    .line 471
+    .line 561
     invoke-static {v4}, Lmybl/CdnSelector;->getCdnScore(Ljava/lang/String;)I
 
     move-result v1
 
-    .line 472
+    .line 562
     invoke-static {v1, v0}, Ljava/lang/Integer;->compare(II)I
 
     move-result v1

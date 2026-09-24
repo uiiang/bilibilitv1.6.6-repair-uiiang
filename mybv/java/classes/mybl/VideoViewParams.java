@@ -2,6 +2,7 @@ package mybl;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.*;
@@ -425,12 +426,101 @@ public class VideoViewParams {
             public int compare(String url1, String url2) {
                 String cdn1 = Uri.parse(url1).getHost();
                 String cdn2 = Uri.parse(url2).getHost();
+                // mcdn 是 P2P 节点（如 xy115x231x41x14xy.mcdn.bilivideo.cn），本客户端没有 P2P SDK，
+                // 起播要等对端设备响应，非常慢且不稳定，AUTO/MANUAL 下统一排到最后
+                boolean mcdn1 = CdnSelector.isMcdn(cdn1);
+                boolean mcdn2 = CdnSelector.isMcdn(cdn2);
+                if (mcdn1 != mcdn2) {
+                    return mcdn1 ? 1 : -1;
+                }
                 int score1 = CdnSelector.getCdnScore(cdn1);
                 int score2 = CdnSelector.getCdnScore(cdn2);
                 return Integer.compare(score2, score1);
             }
         });
         return urls;
+    }
+
+    /**
+     * 把 CDN 路线偏好应用到 DASH 的 video/audio 轨道。
+     * ExoPlayer 只读取每个轨道的 base_url 作为首选地址，所以必须在解析出 dash JSON 后重排候选，
+     * 否则“CDN路线偏好”对 DASH 完全不生效（base_url 由服务端下发，通常是 mcdn P2P 节点）。
+     */
+    public static void applyCdnPreferenceToDash(Context context, JSONObject dash) {
+        if (dash == null) {
+            return;
+        }
+        int cdnPref = abd.CDN_PREF_AUTO;
+        if (context != null) {
+            cdnPref = abd.get_cdn_preference(context);
+        }
+        reorderDashTrackArray(dash.optJSONArray("video"), cdnPref, "video");
+        reorderDashTrackArray(dash.optJSONArray("audio"), cdnPref, "audio");
+    }
+
+    private static void reorderDashTrackArray(JSONArray tracks, int cdnPref, String kind) {
+        if (tracks == null) {
+            return;
+        }
+        for (int i = 0; i < tracks.length(); i++) {
+            JSONObject track = tracks.optJSONObject(i);
+            if (track == null) {
+                continue;
+            }
+            String baseUrl = track.optString("base_url");
+            if (TextUtils.isEmpty(baseUrl)) {
+                continue;
+            }
+
+            List<String> allUrls = new ArrayList<String>();
+            allUrls.add(baseUrl);
+            JSONArray backupUrls = track.optJSONArray("backup_url");
+            if (backupUrls != null) {
+                for (int j = 0; j < backupUrls.length(); j++) {
+                    String backupUrl = backupUrls.optString(j);
+                    if (!TextUtils.isEmpty(backupUrl) && !allUrls.contains(backupUrl)) {
+                        allUrls.add(backupUrl);
+                    }
+                }
+            }
+            if (allUrls.size() < 2) {
+                continue;
+            }
+
+            String selectedUrl = null;
+            if (cdnPref == abd.CDN_PREF_MANUAL) {
+                // 手动模式：优先使用配置里指定的 CDN
+                selectedUrl = findUrlByCdn(allUrls, prefect_cdn);
+            }
+            if (selectedUrl == null) {
+                // AUTO 模式下使用竞速结果（Ijk 路径已设置，DASH 路径一般为 null）
+                selectedUrl = findUrlByCdn(allUrls, selectedBestCdn);
+            }
+            if (selectedUrl == null) {
+                // 复用 Ijk 路径的排序规则：显式偏好优先对应类型，其余按 CDN 分数排
+                selectedUrl = sortUrlsByPreference(new ArrayList<String>(allUrls), cdnPref).get(0);
+            }
+
+            if (!selectedUrl.equals(baseUrl)) {
+                try {
+                    track.put("base_url", selectedUrl);
+                    JSONArray newBackupUrls = new JSONArray();
+                    for (String url : allUrls) {
+                        if (!url.equals(selectedUrl)) {
+                            newBackupUrls.put(url);
+                        }
+                    }
+                    track.put("backup_url", newBackupUrls);
+                } catch (JSONException e) {
+                    Log.w("PlaySpeed", "[DASH_CDN_REORDER] rewrite failed, kind=" + kind + ", err=" + e.getMessage());
+                    continue;
+                }
+            }
+
+            Log.i("PlaySpeed", "[DASH_CDN_REORDER] kind=" + kind + ", id=" + track.optInt("id")
+                + ", selected=" + Uri.parse(selectedUrl).getHost()
+                + ", candidates=" + allUrls.size() + ", mode=" + cdnPref);
+        }
     }
     
     /**
