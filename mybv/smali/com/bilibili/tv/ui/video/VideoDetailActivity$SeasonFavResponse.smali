@@ -34,15 +34,15 @@
     .locals 0
 
     .prologue
-    .line 1974
+    .line 1979
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
 
-    .line 1975
+    .line 1980
     iput-boolean p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->subscribe:Z
 
-    .line 1976
+    .line 1981
     return-void
 .end method
 
@@ -52,7 +52,7 @@
     .locals 0
 
     .prologue
-    .line 1971
+    .line 1976
     check-cast p1, Ljava/lang/String;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->a(Ljava/lang/String;)V
@@ -64,7 +64,7 @@
     .locals 2
 
     .prologue
-    .line 1980
+    .line 1985
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iget-boolean v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->subscribe:Z
@@ -72,34 +72,34 @@
     # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isSeasonFav:Z
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2902(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Z)Z
 
-    .line 1981
+    .line 1986
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateSubscribeButtonUI()V
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
 
-    .line 1982
+    .line 1987
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->getApplicationContext()Landroid/content/Context;
 
     move-result-object v1
 
-    .line 1983
+    .line 1988
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->subscribe:Z
 
     if-eqz v0, :cond_1c
 
     const-string v0, "\u8ba2\u9605\u5408\u96c6\u6210\u529f"
 
-    .line 1982
+    .line 1987
     :goto_18
     invoke-static {v1, v0}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 1984
+    .line 1989
     return-void
 
-    .line 1983
+    .line 1988
     :cond_1c
     const-string v0, "\u5df2\u53d6\u6d88\u8ba2\u9605\u5408\u96c6"
 
@@ -110,7 +110,7 @@
     .locals 1
 
     .prologue
-    .line 1995
+    .line 2000
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isFinishing()Z
@@ -124,33 +124,33 @@
     .locals 2
 
     .prologue
-    .line 1988
+    .line 1993
     const-string v0, "t"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 1989
+    .line 1994
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->getApplicationContext()Landroid/content/Context;
 
     move-result-object v1
 
-    .line 1990
+    .line 1995
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->subscribe:Z
 
     if-eqz v0, :cond_15
 
     const-string v0, "\u8ba2\u9605\u5408\u96c6\u5931\u8d25"
 
-    .line 1989
+    .line 1994
     :goto_11
     invoke-static {v1, v0}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 1991
+    .line 1996
     return-void
 
-    .line 1990
+    .line 1995
     :cond_15
     const-string v0, "\u53d6\u6d88\u8ba2\u9605\u5931\u8d25"
 

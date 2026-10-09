@@ -1867,7 +1867,12 @@ public final class VideoDetailActivity extends BaseActivity
                     if (finalBiliVideoDetail != null && finalBiliVideoDetail.mHistory != null) {
                         long historyCid = finalBiliVideoDetail.mHistory.mCid;
                         int historyProgressVal = finalBiliVideoDetail.mHistory.mProgress;
-                        playVideo(finalBiliVideoDetail, historyCid, historyProgressVal);
+                        // 已看完（progress==-1）时从头播放，而不是带着 -1 去续播
+                        if (historyProgressVal == -1) {
+                            playVideo(finalBiliVideoDetail, historyCid, 0);
+                        } else {
+                            playVideo(finalBiliVideoDetail, historyCid, historyProgressVal);
+                        }
                     } else {
                         playVideo(finalBiliVideoDetail, 0, 0);
                     }
@@ -2420,7 +2425,8 @@ public final class VideoDetailActivity extends BaseActivity
             totalDuration = biliVideoDetail.mPageList.get(0).duration;
         }
         
-        historyPlayBtn.setText("继续播放");
+        // 已看完（progress==-1）时，主播放按钮文案改为“重新播放”，点击后从头播放
+        historyPlayBtn.setText(progress == -1 ? "重新播放" : "继续播放");
         rePlayBtn.setText("重播");
         android.util.Log.i("HistoryDebug", "[UPDATE_DISPLAY] cid=" + cid + ", progressSec=" + progress
             + ", totalDuration=" + totalDuration + ", pageIndex=" + pageIndex
@@ -2429,8 +2435,10 @@ public final class VideoDetailActivity extends BaseActivity
         if (noHistoryPlayBtnLayout != null) {
             noHistoryPlayBtnLayout.setVisibility(View.GONE);
         }
+        // 已看完（progress==-1）时隐藏"重播"按钮：主播放按钮已显示"重新播放"，
+        // 再保留"重播"属功能重复；下方焦点链会据此跳过该按钮，避免光标卡死。
         if (rePlayBtnLayout != null) {
-            rePlayBtnLayout.setVisibility(View.VISIBLE);
+            rePlayBtnLayout.setVisibility(progress == -1 ? View.GONE : View.VISIBLE);
         }
         
         boolean hasHistory = cid > 0;
@@ -2481,14 +2489,19 @@ public final class VideoDetailActivity extends BaseActivity
             }
         }
         
+        // 重建控制条横向焦点链：已看完时"重播"按钮被隐藏(GONE)，
+        // 必须跳过它，让主播放按钮直接与展开按钮衔接，否则焦点指向 GONE 视图会导致左右键卡死。
+        boolean replayVisible = rePlayBtnLayout != null && rePlayBtnLayout.getVisibility() == View.VISIBLE;
         if (historyPlayBtnLayout != null) {
-            historyPlayBtnLayout.setNextFocusRightId(R.id.video_re_play_btn_layout);
+            historyPlayBtnLayout.setNextFocusRightId(replayVisible
+                    ? R.id.video_re_play_btn_layout : R.id.video_detail_expand_btn);
         }
         if (rePlayBtnLayout != null) {
             rePlayBtnLayout.setNextFocusRightId(R.id.video_detail_expand_btn);
         }
         if (expandBtn != null) {
-            expandBtn.setNextFocusLeftId(R.id.video_re_play_btn_layout);
+            expandBtn.setNextFocusLeftId(replayVisible
+                    ? R.id.video_re_play_btn_layout : R.id.video_history_play_btn_layout);
         }
     }
 
