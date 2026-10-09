@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 3412
+    .line 3414
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$31;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,7 +40,7 @@
     .locals 3
 
     .prologue
-    .line 3415
+    .line 3417
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$31;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->seasonSectionNavTagFocusPositions:Ljava/util/Map;
@@ -58,6 +58,6 @@
 
     invoke-interface {v0, v1, v2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 3416
+    .line 3418
     return-void
 .end method

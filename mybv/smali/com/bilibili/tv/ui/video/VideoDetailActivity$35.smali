@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 3818
+    .line 3828
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$35;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$35;->val$detail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -49,7 +49,7 @@
     .locals 2
 
     .prologue
-    .line 3821
+    .line 3831
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$35;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isFinishing()Z
@@ -58,11 +58,11 @@
 
     if-eqz v0, :cond_9
 
-    .line 3825
+    .line 3835
     :goto_8
     return-void
 
-    .line 3824
+    .line 3834
     :cond_9
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$35;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 

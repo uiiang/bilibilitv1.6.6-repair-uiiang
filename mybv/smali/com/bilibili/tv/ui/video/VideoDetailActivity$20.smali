@@ -34,7 +34,7 @@
     .locals 0
 
     .prologue
-    .line 2049
+    .line 2051
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->val$finalDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -50,14 +50,14 @@
     .locals 6
 
     .prologue
-    .line 2052
+    .line 2054
     if-nez p1, :cond_3
 
-    .line 2082
+    .line 2084
     :goto_2
     return-void
 
-    .line 2056
+    .line 2058
     :cond_3
     const-string v0, "like"
 
@@ -65,53 +65,53 @@
 
     move-result v1
 
-    .line 2057
+    .line 2059
     const-string v0, "favorite"
 
     invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getBooleanValue(Ljava/lang/String;)Z
 
     move-result v2
 
-    .line 2058
+    .line 2060
     const-string v0, "coin"
 
     invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
 
     move-result v3
 
-    .line 2060
+    .line 2062
     const-string v0, "season_fav"
 
     invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getBooleanValue(Ljava/lang/String;)Z
 
     move-result v4
 
-    .line 2062
+    .line 2064
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->val$finalDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     iget-object v0, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mRequestUser:Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;
 
-    .line 2063
+    .line 2065
     if-nez v0, :cond_2a
 
-    .line 2064
+    .line 2066
     new-instance v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;-><init>()V
 
-    .line 2065
+    .line 2067
     iget-object v5, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->val$finalDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     iput-object v0, v5, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mRequestUser:Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;
 
-    .line 2067
+    .line 2069
     :cond_2a
     iput-boolean v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;->mLike:Z
 
-    .line 2068
+    .line 2070
     iput-boolean v2, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;->mFavorite:Z
 
-    .line 2069
+    .line 2071
     if-lez v3, :cond_43
 
     const/4 v1, 0x1
@@ -119,13 +119,13 @@
     :goto_31
     iput-boolean v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$RequestUser;->mCoin:Z
 
-    .line 2070
+    .line 2072
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isSeasonFav:Z
     invoke-static {v0, v4}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2902(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Z)Z
 
-    .line 2072
+    .line 2074
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     new-instance v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20$1;
@@ -136,7 +136,7 @@
 
     goto :goto_2
 
-    .line 2069
+    .line 2071
     :cond_43
     const/4 v1, 0x0
 
@@ -147,7 +147,7 @@
     .locals 0
 
     .prologue
-    .line 2049
+    .line 2051
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$20;->a(Lcom/alibaba/fastjson/JSONObject;)V
@@ -159,6 +159,6 @@
     .locals 0
 
     .prologue
-    .line 2086
+    .line 2088
     return-void
 .end method

@@ -1583,7 +1583,9 @@ public final class VideoDetailActivity extends BaseActivity
                                     && biliVideoDetail.mHistory.mProgress > 0) {
                                 android.util.Log.i("HistoryDebug", "[FETCH_FORCE] backend progress invalid (raw="
                                     + rawLastPlayTime + "), keep local progressSec=" + biliVideoDetail.mHistory.mProgress);
-                            } else if (lastPlayCid > 0) {
+                            } else if (lastPlayCid > 0 && lastPlayCid == finalCid) {
+                                // 只采纳与本详情页所请求视频一致的进度；
+                                // 后端 last_play_cid 偶会滞后为跳转后的其他视频，避免把别的视频进度写回本页。
                                 final BiliVideoDetail.History history = new BiliVideoDetail.History();
                                 history.mCid = lastPlayCid;
                                 history.mProgress = lastPlayTime;
@@ -3805,13 +3807,21 @@ public final class VideoDetailActivity extends BaseActivity
                 + ", lastCid=" + lastCid + ", lastProgressMs=" + lastProgress
                 + ", progressSec=" + (lastProgress / 1000));
             if (this.u != null && lastCid > 0) {
-                if (this.u.mHistory == null) {
-                    this.u.mHistory = new BiliVideoDetail.History();
+                // 只有回传的是本详情页自身视频的进度，才覆盖到 mHistory。
+                // 否则（如播放中跳转到其他视频 B 后返回）会把 B 的进度错误套到 A 的播放按钮上。
+                boolean isOwnVideo = (lastCid == this.u.mCid);
+                if (isOwnVideo) {
+                    if (this.u.mHistory == null) {
+                        this.u.mHistory = new BiliVideoDetail.History();
+                    }
+                    this.u.mHistory.mCid = lastCid;
+                    this.u.mHistory.mProgress = lastProgress/1000;
+                    android.util.Log.i("HistoryDebug", "[ON_RESULT] apply local history: cid=" + lastCid
+                        + ", progressSec=" + (lastProgress / 1000));
+                } else {
+                    android.util.Log.i("HistoryDebug", "[ON_RESULT] ignore foreign video progress: lastCid="
+                        + lastCid + " != ownCid=" + this.u.mCid + ", keep own history");
                 }
-                this.u.mHistory.mCid = lastCid;
-                this.u.mHistory.mProgress = lastProgress/1000;
-                android.util.Log.i("HistoryDebug", "[ON_RESULT] apply local history: cid=" + lastCid
-                    + ", progressSec=" + (lastProgress / 1000));
                 updateHistoryDisplay(this.u);
                 // 混合方案：先用播放页回传值即时更新，再强制从后端拉取校准（以后端为准覆盖）
                 final BiliVideoDetail detail = this.u;

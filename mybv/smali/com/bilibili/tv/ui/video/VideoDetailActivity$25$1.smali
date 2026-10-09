@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 2625
+    .line 2627
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->val$pgcInfo:Lcom/bilibili/tv/api/video/PgcInfo;
@@ -53,7 +53,7 @@
 
     const/4 v1, 0x0
 
-    .line 2628
+    .line 2630
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -64,11 +64,11 @@
 
     if-eqz v0, :cond_e
 
-    .line 2689
+    .line 2691
     :goto_d
     return-void
 
-    .line 2632
+    .line 2634
     :cond_e
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;
 
@@ -79,13 +79,13 @@
 
     move-result-object v0
 
-    .line 2633
+    .line 2635
     if-eqz v0, :cond_1b
 
-    .line 2634
+    .line 2636
     invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
 
-    .line 2636
+    .line 2638
     :cond_1b
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;
 
@@ -96,13 +96,13 @@
 
     move-result-object v0
 
-    .line 2637
+    .line 2639
     if-eqz v0, :cond_28
 
-    .line 2638
+    .line 2640
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->b()V
 
-    .line 2641
+    .line 2643
     :cond_28
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;
 
@@ -115,7 +115,7 @@
 
     if-eqz v0, :cond_3d
 
-    .line 2642
+    .line 2644
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -127,7 +127,7 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
 
-    .line 2645
+    .line 2647
     :cond_3d
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;
 
@@ -141,7 +141,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->a(Ljava/lang/String;)V
 
-    .line 2646
+    .line 2648
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -151,10 +151,10 @@
 
     move-result-object v0
 
-    .line 2647
+    .line 2649
     if-eqz v0, :cond_5d
 
-    .line 2648
+    .line 2650
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;
 
     iget-object v1, v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->val$biliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -163,7 +163,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 2651
+    .line 2653
     :cond_5d
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;
 
@@ -174,13 +174,13 @@
 
     move-result-object v0
 
-    .line 2652
+    .line 2654
     if-eqz v0, :cond_6a
 
-    .line 2653
+    .line 2655
     invoke-virtual {v0, v2}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 2655
+    .line 2657
     :cond_6a
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;
 
@@ -191,13 +191,13 @@
 
     move-result-object v0
 
-    .line 2656
+    .line 2658
     if-eqz v0, :cond_77
 
-    .line 2657
+    .line 2659
     invoke-virtual {v0, v2}, Landroid/support/v7/widget/RecyclerView;->setVisibility(I)V
 
-    .line 2660
+    .line 2662
     :cond_77
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;
 
@@ -208,7 +208,7 @@
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->showPgcInfo(Lcom/bilibili/tv/api/video/PgcInfo;)V
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2400(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/PgcInfo;)V
 
-    .line 2661
+    .line 2663
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -216,7 +216,7 @@
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateSubscribeButtonUI()V
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
 
-    .line 2664
+    .line 2666
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -228,7 +228,7 @@
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateStaffDisplay(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3900(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
 
-    .line 2667
+    .line 2669
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -240,7 +240,7 @@
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateBasicVideoInfo(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$4000(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
 
-    .line 2670
+    .line 2672
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -252,7 +252,7 @@
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->initDefaultPlayButtons(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$4100(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
 
-    .line 2673
+    .line 2675
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -264,7 +264,7 @@
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->loadArchiveRelation(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$4200(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
 
-    .line 2676
+    .line 2678
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->val$biliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
@@ -273,7 +273,7 @@
 
     if-eqz v0, :cond_f6
 
-    .line 2678
+    .line 2680
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -285,7 +285,7 @@
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateHistoryDisplay(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3000(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
 
-    .line 2679
+    .line 2681
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -301,7 +301,7 @@
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    .line 2680
+    .line 2682
     # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->historyPlayBtnLayout:Lcom/bilibili/tv/widget/ProgressPlayButton;
     invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3100(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/widget/ProgressPlayButton;
 
@@ -313,7 +313,7 @@
 
     if-nez v0, :cond_e9
 
-    .line 2681
+    .line 2683
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;
 
     iget-object v0, v0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -325,7 +325,7 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/widget/ProgressPlayButton;->requestFocus()Z
 
-    .line 2688
+    .line 2690
     :cond_e9
     :goto_e9
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;
@@ -341,7 +341,7 @@
 
     goto/16 :goto_d
 
-    .line 2685
+    .line 2687
     :cond_f6
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$25$1;->this$1:Lcom/bilibili/tv/ui/video/VideoDetailActivity$25;
 

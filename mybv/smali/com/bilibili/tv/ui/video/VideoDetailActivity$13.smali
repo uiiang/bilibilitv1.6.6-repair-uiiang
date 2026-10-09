@@ -418,9 +418,9 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
     :try_end_149
-    .catch Ljava/lang/Exception; {:try_start_2 .. :try_end_149} :catch_176
+    .catch Ljava/lang/Exception; {:try_start_2 .. :try_end_149} :catch_17c
 
-    .line 1598
+    .line 1600
     :cond_149
     :goto_149
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$13;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
@@ -431,7 +431,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->runOnUiThread(Ljava/lang/Runnable;)V
 
-    .line 1609
+    .line 1611
     return-void
 
     .line 1567
@@ -461,31 +461,37 @@
 
     if-lez v0, :cond_149
 
-    .line 1587
+    iget-wide v4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$13;->val$finalCid:J
+
+    cmp-long v0, v2, v4
+
+    if-nez v0, :cond_149
+
+    .line 1589
     new-instance v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
 
     invoke-direct {v0}, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;-><init>()V
 
-    .line 1588
+    .line 1590
     iput-wide v2, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mCid:J
 
-    .line 1589
+    .line 1591
     iput v1, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail$History;->mProgress:I
 
-    .line 1590
+    .line 1592
     iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$13;->val$biliVideoDetail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     iput-object v0, v1, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mHistory:Lcom/bilibili/tv/api/video/BiliVideoDetail$History;
-    :try_end_175
-    .catch Ljava/lang/Exception; {:try_start_154 .. :try_end_175} :catch_176
+    :try_end_17b
+    .catch Ljava/lang/Exception; {:try_start_154 .. :try_end_17b} :catch_17c
 
     goto :goto_149
 
-    .line 1594
-    :catch_176
+    .line 1596
+    :catch_17c
     move-exception v0
 
-    .line 1595
+    .line 1597
     const-string v1, "HistoryDebug"
 
     new-instance v2, Ljava/lang/StringBuilder;
