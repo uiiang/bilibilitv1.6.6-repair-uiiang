@@ -499,7 +499,7 @@
         android:layout_height="wrap_content">
         <com.bilibili.tv.widget.ShadowTextView
             android:gravity="center"
-            android:layout_gravity="center"
+            android:layout_gravity="top"
             android:focusable="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
