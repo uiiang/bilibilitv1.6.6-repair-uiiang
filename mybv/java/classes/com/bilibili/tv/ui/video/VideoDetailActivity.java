@@ -1579,16 +1579,36 @@ public final class VideoDetailActivity extends BaseActivity
                             // 后端 /x/player/wbi/v2 的 last_play_time 存在同步延迟，实测会返回 0（raw=0）；
                             // 播放页刚回传的有效进度不能被这个空值覆盖，否则详情页会显示 00:00。
                             // 只有当后端给出有效进度，或本地本来就没有有效进度时，才采纳后端值。
-                            if (lastPlayTime <= 0 && biliVideoDetail.mHistory != null
+                            int totalDuration = getDurationForCid(biliVideoDetail, finalCid);
+                            if (lastPlayCid > 0 && lastPlayCid != finalCid) {
+                                // 自动连播/跳集场景：账号级 last_play_cid 已变为下一个视频(B)，
+                                // 不等于本详情页视频(A)。此时既不能采纳 B 的进度，也不该停在 A 的旧值，
+                                // 必须按 A 的 cid 回查后端(/x/v2/view 的 data.history)——
+                                // 播放器 onCompletion 已把 A 的"已看完"(progress=-1)上报到 /x/v2/history/report，
+                                // 回查即可得到 A 的真实进度，避免返回后还显示进播放器前的旧进度(如00:39)。
+                                android.util.Log.i("HistoryDebug", "[FETCH_FORCE] auto-switch: last_play_cid(B)="
+                                    + lastPlayCid + " != reqCid(A)=" + finalCid
+                                    + "; fall back to per-cid history (/x/v2/view) for A");
+                                fallbackLoadHistory(biliVideoDetail, a2.e());
+                            } else if (lastPlayTime == -1) {
+                                // 后端用 last_play_time=-1(秒，即 -1000ms) 表示已看完。
+                                // 之前的实现把它当 <=0 当成"无效"丢弃，导致已看完的视频停在旧进度/显示成视频时长。
+                                android.util.Log.i("HistoryDebug", "[FETCH_FORCE] backend marks finished (last_play_time=-1/-1000), set progress=-1, reqCid=" + finalCid);
+                                final BiliVideoDetail.History history = new BiliVideoDetail.History();
+                                history.mCid = finalCid;
+                                history.mProgress = -1;
+                                biliVideoDetail.mHistory = history;
+                            } else if (lastPlayTime <= 0 && biliVideoDetail.mHistory != null
                                     && biliVideoDetail.mHistory.mProgress > 0) {
                                 android.util.Log.i("HistoryDebug", "[FETCH_FORCE] backend progress invalid (raw="
                                     + rawLastPlayTime + "), keep local progressSec=" + biliVideoDetail.mHistory.mProgress);
                             } else if (lastPlayCid > 0 && lastPlayCid == finalCid) {
                                 // 只采纳与本详情页所请求视频一致的进度；
                                 // 后端 last_play_cid 偶会滞后为跳转后的其他视频，避免把别的视频进度写回本页。
+                                // 进度达到视频时长视为已看完（onCompletion 上报完整时长竞态胜出时 last_play_time=时长秒）。
                                 final BiliVideoDetail.History history = new BiliVideoDetail.History();
                                 history.mCid = lastPlayCid;
-                                history.mProgress = lastPlayTime;
+                                history.mProgress = normalizeFinishedProgress(lastPlayCid, lastPlayTime, totalDuration);
                                 biliVideoDetail.mHistory = history;
                             }
                         }
@@ -2174,7 +2194,8 @@ public final class VideoDetailActivity extends BaseActivity
                                 playurlSuccess = true;
                                 final BiliVideoDetail.History history = new BiliVideoDetail.History();
                                 history.mCid = lastPlayCid > 0 ? lastPlayCid : finalCid;
-                                history.mProgress = lastPlayTime;
+                                history.mProgress = normalizeFinishedProgress(history.mCid, lastPlayTime,
+                                    getDurationForCid(finalBiliVideoDetail, history.mCid));
                                 
                                 runOnUiThread(new Runnable() {
                                     @Override
@@ -2257,7 +2278,9 @@ public final class VideoDetailActivity extends BaseActivity
                         if (historyObj != null) {
                             BiliVideoDetail.History history = new BiliVideoDetail.History();
                             history.mCid = historyObj.getLongValue("cid");
-                            history.mProgress = historyObj.getIntValue("progress");
+                            history.mProgress = normalizeFinishedProgress(history.mCid,
+                                historyObj.getIntValue("progress"),
+                                getDurationForCid(biliVideoDetail, history.mCid));
                             biliVideoDetail.mHistory = history;
                             android.util.Log.i("HistoryDebug", "[FETCH_FALLBACK] history cid=" + history.mCid
                                 + ", progressSec=" + history.mProgress);
@@ -2387,6 +2410,42 @@ public final class VideoDetailActivity extends BaseActivity
         return null;
     }
 
+    // 取得某 cid 对应分P/视频的时长（秒），用于"已看完"判定。
+    private int getDurationForCid(BiliVideoDetail v, long cid) {
+        if (v == null) {
+            return 0;
+        }
+        if (v.mPageList != null && v.mPageList.size() > 1) {
+            for (int i = 0; i < v.mPageList.size(); i++) {
+                BiliVideoDetail.Page page = v.mPageList.get(i);
+                if (page.mCid == cid) {
+                    return page.duration;
+                }
+            }
+        }
+        if (v.mDuration > 0) {
+            return v.mDuration;
+        }
+        if (v.mPageList != null && !v.mPageList.isEmpty()) {
+            return v.mPageList.get(0).duration;
+        }
+        return 0;
+    }
+
+    // 后端对"已看完"的两种表达统一归一化为 -1：
+    //  1) progress == -1（/x/player/wbi/v2 的 last_play_time=-1000ms，即 -1s）
+    //  2) progress 达到视频时长（onCompletion 上报完整时长竞态胜出时 last_play_time=时长秒）
+    // 归一化后 updateHistoryDisplay 显示"已看完/重新播放"，点击从头播。
+    private int normalizeFinishedProgress(long cid, int progressSec, int totalDurationSec) {
+        if (progressSec == -1) {
+            return -1;
+        }
+        if (totalDurationSec > 0 && progressSec >= totalDurationSec - 2) {
+            return -1;
+        }
+        return progressSec;
+    }
+
     private final void updateHistoryDisplay(BiliVideoDetail biliVideoDetail) {
         if (historyPlayBtn == null) {
             return;
@@ -2442,7 +2501,8 @@ public final class VideoDetailActivity extends BaseActivity
         }
         
         boolean hasHistory = cid > 0;
-        boolean isFinished = progress == -1;
+        // 已看完：progress==-1，或进度达到视频时长（后端 onCompletion 上报完整时长竞态胜出时 progress=时长秒）
+        boolean isFinished = progress == -1 || (totalDuration > 0 && progress >= totalDuration - 2);
         boolean hasProgress = progress > 0;
         
         if (!hasHistory) {
@@ -3820,6 +3880,9 @@ public final class VideoDetailActivity extends BaseActivity
                 + ", lastCid=" + lastCid + ", lastProgressMs=" + lastProgress
                 + ", progressSec=" + (lastProgress / 1000));
             if (this.u != null && lastCid > 0) {
+                android.util.Log.i("HistoryDebug", "[ON_RESULT] ownCid=" + this.u.mCid
+                    + ", localProgressSec=" + (this.u.mHistory != null ? this.u.mHistory.mProgress : -999)
+                    + ", lastCid(fromPlayer)=" + lastCid);
                 // 只有回传的是本详情页自身视频的进度，才覆盖到 mHistory。
                 // 否则（如播放中跳转到其他视频 B 后返回）会把 B 的进度错误套到 A 的播放按钮上。
                 boolean isOwnVideo = (lastCid == this.u.mCid);
