@@ -46,6 +46,7 @@ import java.util.List;
 /* loaded from: classes.dex */
 public class AttentionDynamicSideActivity extends BaseSideActivity {
     private a c;
+    private bl.MoreActionKeyHandler moreActionKeyHandler;
     private List<UperItem> uperItems = new ArrayList<>();
     private UperItem selectedItem;
     private boolean h = false; // 是否正在加载
@@ -127,6 +128,22 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
         }
         int action = keyEvent.getAction();
         int keyCode = keyEvent.getKeyCode();
+
+        // 「更多操作=确定键」模式：长按[确定]键触发筛选分组（与菜单键模式互斥）
+        if (bl.abd.get_more_action_key(this) == bl.abd.MORE_ACTION_OK
+                && (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER)) {
+            if (this.moreActionKeyHandler == null) {
+                this.moreActionKeyHandler = new bl.MoreActionKeyHandler(500L);
+            }
+            if (this.moreActionKeyHandler.handle(keyEvent, new bl.MoreActionKeyHandler.Trigger() {
+                @Override
+                public void run() {
+                    showTagFilterMenu();
+                }
+            })) {
+                return true;
+            }
+        }
         if (action == 0) {
             View currentFocus = getCurrentFocus();
             if (currentFocus == null) {
@@ -186,8 +203,11 @@ public class AttentionDynamicSideActivity extends BaseSideActivity {
                     }
                     break;
                 case KeyEvent.KEYCODE_MENU:
-                    showTagFilterMenu();
-                    return true;
+                    if (bl.abd.get_more_action_key(this) != bl.abd.MORE_ACTION_OK) {
+                        showTagFilterMenu();
+                        return true;
+                    }
+                    break;
             }
 
             // 预测 focusSearch 的目标：若系统会把焦点移到左侧而右侧仍在加载，则吞掉按键

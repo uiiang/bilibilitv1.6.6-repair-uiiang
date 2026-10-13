@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 186
+    .line 213
     iput-object p1, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity$DeleteConfirmClickListener;->this$0:Lcom/bilibili/tv/ui/history/HistorySideActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -38,7 +38,7 @@
     .locals 0
 
     .prologue
-    .line 186
+    .line 213
     invoke-direct {p0, p1}, Lcom/bilibili/tv/ui/history/HistorySideActivity$DeleteConfirmClickListener;-><init>(Lcom/bilibili/tv/ui/history/HistorySideActivity;)V
 
     return-void
@@ -50,27 +50,27 @@
     .locals 2
 
     .prologue
-    .line 189
+    .line 216
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity$DeleteConfirmClickListener;->this$0:Lcom/bilibili/tv/ui/history/HistorySideActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/history/HistorySideActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v0
 
-    .line 190
+    .line 217
     instance-of v1, v0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
     if-eqz v1, :cond_f
 
-    .line 191
+    .line 218
     check-cast v0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->deleteCurrentHistory()V
 
-    .line 193
+    .line 220
     :cond_f
     invoke-virtual {p1}, Lbl/agb;->dismiss()V
 
-    .line 194
+    .line 221
     return-void
 .end method

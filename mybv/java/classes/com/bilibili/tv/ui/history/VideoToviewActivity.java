@@ -82,6 +82,7 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements wf 
     private g a;
     private BorderGridLayoutManager b;
     private LoadingImageView c;
+    private bl.MoreActionKeyHandler moreActionKeyHandler;
     private List<BiliVideoDetail> d = new ArrayList();
     public static final b Companion = new b(null);
     private static final Comparator<BiliVideoDetail> i = ((c)null).a;
@@ -243,10 +244,37 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements wf 
         }
     }
 
+    @Override // android.support.v7.app.AppCompatActivity, android.app.Activity, android.view.Window.Callback
+    public boolean dispatchKeyEvent(KeyEvent keyEvent) {
+        int action = keyEvent.getAction();
+        int keyCode = keyEvent.getKeyCode();
+        if (bl.abd.get_more_action_key(this) == bl.abd.MORE_ACTION_OK
+                && (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER)) {
+            if (VideoToviewActivity.current_avid >= 0 && VideoToviewActivity.current_pos >= 0) {
+                if (this.moreActionKeyHandler == null) {
+                    this.moreActionKeyHandler = new bl.MoreActionKeyHandler(500L);
+                }
+                if (this.moreActionKeyHandler.handle(keyEvent, new bl.MoreActionKeyHandler.Trigger() {
+                    @Override
+                    public void run() {
+                        if (VideoToviewActivity.current_avid >= 0 && VideoToviewActivity.current_pos >= 0) {
+                            agb.a aVar = new agb.a(VideoToviewActivity.this);
+                            aVar.a(1).a("确认删除该条记录？").b(getString(R.string.confirm), new DeleteConfirmButton()).a(getString(R.string.cancel), CancelButton.a);
+                            aVar.a().show();
+                        }
+                    }
+                })) {
+                    return true;
+                }
+            }
+        }
+        return super.dispatchKeyEvent(keyEvent);
+    }
+
     @Override // android.support.v7.app.AppCompatActivity, android.app.Activity, android.view.KeyEvent.Callback
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         bbi.b(event, "event");
-        if(keyCode==KeyEvent.KEYCODE_MENU && VideoToviewActivity.current_avid>=0 && VideoToviewActivity.current_pos>=0){
+        if(keyCode==KeyEvent.KEYCODE_MENU && bl.abd.get_more_action_key(this) != bl.abd.MORE_ACTION_OK && VideoToviewActivity.current_avid>=0 && VideoToviewActivity.current_pos>=0){
             agb.a aVar = new agb.a(this);
             aVar.a(1).a("确认删除该条记录？").b(getString(R.string.confirm), new DeleteConfirmButton()).a(getString(R.string.cancel), CancelButton.a);
             aVar.a().show();

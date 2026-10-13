@@ -60,6 +60,7 @@ classes\bl\kg.java
 classes\bl\kh.java
 classes\bl\me.java
 classes\bl\mg.java
+classes\bl\MoreActionKeyHandler.java
 classes\bl\nt.java
 classes\bl\pi.java
 classes\bl\pw.java

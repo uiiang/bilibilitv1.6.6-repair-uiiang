@@ -37,7 +37,7 @@
     .end annotation
 
     .prologue
-    .line 268
+    .line 295
     iput-object p1, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity$a$1;->this$0:Lcom/bilibili/tv/ui/history/HistorySideActivity$a;
 
     iput-object p2, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
@@ -63,11 +63,11 @@
 
     const/4 v6, 0x0
 
-    .line 271
+    .line 298
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity$a$1;->this$0:Lcom/bilibili/tv/ui/history/HistorySideActivity$a;
 
     # getter for: Lcom/bilibili/tv/ui/history/HistorySideActivity$a;->a:Ljava/lang/ref/WeakReference;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/history/HistorySideActivity$a;->access$100(Lcom/bilibili/tv/ui/history/HistorySideActivity$a;)Ljava/lang/ref/WeakReference;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/history/HistorySideActivity$a;->access$200(Lcom/bilibili/tv/ui/history/HistorySideActivity$a;)Ljava/lang/ref/WeakReference;
 
     move-result-object v0
 
@@ -77,30 +77,30 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/history/HistorySideActivity;
 
-    .line 272
+    .line 299
     if-nez p2, :cond_2f
 
-    .line 273
+    .line 300
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity$a$1;->this$0:Lcom/bilibili/tv/ui/history/HistorySideActivity$a;
 
     invoke-virtual {p1, v0}, Landroid/view/View;->removeCallbacks(Ljava/lang/Runnable;)Z
 
-    .line 274
+    .line 301
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity$a$1;->this$0:Lcom/bilibili/tv/ui/history/HistorySideActivity$a;
 
     # getter for: Lcom/bilibili/tv/ui/history/HistorySideActivity$a;->e:Z
-    invoke-static {v0}, Lcom/bilibili/tv/ui/history/HistorySideActivity$a;->access$200(Lcom/bilibili/tv/ui/history/HistorySideActivity$a;)Z
+    invoke-static {v0}, Lcom/bilibili/tv/ui/history/HistorySideActivity$a;->access$300(Lcom/bilibili/tv/ui/history/HistorySideActivity$a;)Z
 
     move-result v0
 
     if-eqz v0, :cond_20
 
-    .line 310
+    .line 337
     :cond_1f
     :goto_1f
     return-void
 
-    .line 277
+    .line 304
     :cond_20
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
@@ -108,17 +108,17 @@
 
     invoke-virtual {v0, v6}, Landroid/view/View;->setSelected(Z)V
 
-    .line 278
+    .line 305
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity$a$1;->val$holder:Lbl/agf;
 
     iget-object v0, v0, Lbl/agf;->n:Landroid/widget/TextView;
 
-    .line 279
+    .line 306
     invoke-virtual {v0, v7}, Landroid/widget/TextView;->setMaxLines(I)V
 
     goto :goto_1f
 
-    .line 282
+    .line 309
     :cond_2f
     if-eqz v0, :cond_1f
 
@@ -128,14 +128,14 @@
 
     if-nez v1, :cond_1f
 
-    .line 285
+    .line 312
     iget-object v1, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     invoke-virtual {v1}, Landroid/support/v7/widget/RecyclerView$v;->f()I
 
     move-result v1
 
-    .line 286
+    .line 313
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v2
@@ -143,7 +143,7 @@
     iget-object v4, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity$a$1;->this$0:Lcom/bilibili/tv/ui/history/HistorySideActivity$a;
 
     # getter for: Lcom/bilibili/tv/ui/history/HistorySideActivity$a;->d:J
-    invoke-static {v4}, Lcom/bilibili/tv/ui/history/HistorySideActivity$a;->access$300(Lcom/bilibili/tv/ui/history/HistorySideActivity$a;)J
+    invoke-static {v4}, Lcom/bilibili/tv/ui/history/HistorySideActivity$a;->access$400(Lcom/bilibili/tv/ui/history/HistorySideActivity$a;)J
 
     move-result-wide v4
 
@@ -153,19 +153,19 @@
 
     if-gez v2, :cond_51
 
-    .line 287
+    .line 314
     iget-object v2, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity$a$1;->this$0:Lcom/bilibili/tv/ui/history/HistorySideActivity$a;
 
     invoke-virtual {p1, v2}, Landroid/view/View;->removeCallbacks(Ljava/lang/Runnable;)Z
 
-    .line 289
+    .line 316
     :cond_51
     iget-object v2, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity$a$1;->this$0:Lcom/bilibili/tv/ui/history/HistorySideActivity$a;
 
     # setter for: Lcom/bilibili/tv/ui/history/HistorySideActivity$a;->c:I
-    invoke-static {v2, v1}, Lcom/bilibili/tv/ui/history/HistorySideActivity$a;->access$402(Lcom/bilibili/tv/ui/history/HistorySideActivity$a;I)I
+    invoke-static {v2, v1}, Lcom/bilibili/tv/ui/history/HistorySideActivity$a;->access$502(Lcom/bilibili/tv/ui/history/HistorySideActivity$a;I)I
 
-    .line 290
+    .line 317
     iget-object v1, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity$a$1;->this$0:Lcom/bilibili/tv/ui/history/HistorySideActivity$a;
 
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
@@ -173,22 +173,22 @@
     move-result-wide v2
 
     # setter for: Lcom/bilibili/tv/ui/history/HistorySideActivity$a;->d:J
-    invoke-static {v1, v2, v3}, Lcom/bilibili/tv/ui/history/HistorySideActivity$a;->access$302(Lcom/bilibili/tv/ui/history/HistorySideActivity$a;J)J
+    invoke-static {v1, v2, v3}, Lcom/bilibili/tv/ui/history/HistorySideActivity$a;->access$402(Lcom/bilibili/tv/ui/history/HistorySideActivity$a;J)J
 
-    .line 291
+    .line 318
     iget-object v1, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity$a$1;->this$0:Lcom/bilibili/tv/ui/history/HistorySideActivity$a;
 
     # setter for: Lcom/bilibili/tv/ui/history/HistorySideActivity$a;->e:Z
-    invoke-static {v1, v6}, Lcom/bilibili/tv/ui/history/HistorySideActivity$a;->access$202(Lcom/bilibili/tv/ui/history/HistorySideActivity$a;Z)Z
+    invoke-static {v1, v6}, Lcom/bilibili/tv/ui/history/HistorySideActivity$a;->access$302(Lcom/bilibili/tv/ui/history/HistorySideActivity$a;Z)Z
 
-    .line 292
+    .line 319
     iget-object v1, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     iget-object v1, v1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
 
     invoke-virtual {v1, v7}, Landroid/view/View;->setSelected(Z)V
 
-    .line 293
+    .line 320
     iget-object v1, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     iget-object v1, v1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
@@ -197,7 +197,7 @@
 
     if-eqz v1, :cond_7c
 
-    .line 294
+    .line 321
     iget-object v1, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     iget-object v1, v1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
@@ -206,28 +206,28 @@
 
     invoke-virtual {v1}, Lcom/bilibili/tv/widget/side/SideLeftSelectLinearLayout;->a()V
 
-    .line 296
+    .line 323
     :cond_7c
     iget-object v1, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity$a$1;->val$holder:Lbl/agf;
 
     iget-object v1, v1, Lbl/agf;->n:Landroid/widget/TextView;
 
-    .line 297
+    .line 324
     const/4 v2, 0x3
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setMaxLines(I)V
 
-    .line 298
+    .line 325
     const/4 v1, 0x4
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/history/HistorySideActivity;->b(I)V
 
-    .line 299
+    .line 326
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity$a$1;->this$0:Lcom/bilibili/tv/ui/history/HistorySideActivity$a;
 
     invoke-virtual {p1, v0, v8, v9}, Landroid/view/View;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 300
+    .line 327
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistorySideActivity$a$1;->val$vVar:Landroid/support/v7/widget/RecyclerView$v;
 
     iget-object v0, v0, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;

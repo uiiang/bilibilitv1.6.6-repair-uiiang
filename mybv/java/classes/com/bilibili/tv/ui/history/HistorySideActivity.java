@@ -38,6 +38,7 @@ import com.alibaba.fastjson.JSONObject;
 
 public class HistorySideActivity extends BaseSideActivity {
     private a c;
+    private bl.MoreActionKeyHandler moreActionKeyHandler;
     private List<HistoryFolder> folders = new ArrayList<>();
     private HistoryFolder selectedFolder;
 
@@ -84,6 +85,30 @@ public class HistorySideActivity extends BaseSideActivity {
         }
         int action = keyEvent.getAction();
         int keyCode = keyEvent.getKeyCode();
+
+        // 「更多操作=确定键」模式：长按[确定]键删除当前历史（与菜单键模式互斥）
+        if (bl.abd.get_more_action_key(this) == bl.abd.MORE_ACTION_OK
+                && (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER)) {
+            View currentFocus = getCurrentFocus();
+            Fragment f = h();
+            if (currentFocus != null && f != null && f.getView() != null
+                    && isDescendantOf(f.getView(), currentFocus)) {
+                if (this.moreActionKeyHandler == null) {
+                    this.moreActionKeyHandler = new bl.MoreActionKeyHandler(500L);
+                }
+                if (this.moreActionKeyHandler.handle(keyEvent, new bl.MoreActionKeyHandler.Trigger() {
+                    @Override
+                    public void run() {
+                        if (HistoryVideoFragment.currentAvid >= 0 && HistoryVideoFragment.currentPos >= 0) {
+                            showDeleteConfirmDialog();
+                        }
+                    }
+                })) {
+                    return true;
+                }
+            }
+        }
+
         if (action == 0) {
             View currentFocus = getCurrentFocus();
             if (currentFocus == null) {
@@ -136,13 +161,15 @@ public class HistorySideActivity extends BaseSideActivity {
                     }
                     break;
                 case 82:
-                    Fragment fragment = h();
-                    if (fragment instanceof HistoryVideoFragment) {
-                        View fragmentView = fragment.getView();
-                        if (fragmentView != null && isDescendantOf(fragmentView, currentFocus)) {
-                            if (HistoryVideoFragment.currentAvid >= 0 && HistoryVideoFragment.currentPos >= 0) {
-                                showDeleteConfirmDialog();
-                                return true;
+                    if (bl.abd.get_more_action_key(this) != bl.abd.MORE_ACTION_OK) {
+                        Fragment fragment = h();
+                        if (fragment instanceof HistoryVideoFragment) {
+                            View fragmentView = fragment.getView();
+                            if (fragmentView != null && isDescendantOf(fragmentView, currentFocus)) {
+                                if (HistoryVideoFragment.currentAvid >= 0 && HistoryVideoFragment.currentPos >= 0) {
+                                    showDeleteConfirmDialog();
+                                    return true;
+                                }
                             }
                         }
                     }

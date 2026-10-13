@@ -72,69 +72,69 @@
     .end annotation
 
     .prologue
-    .line 612
+    .line 636
     invoke-direct {p0}, Lbl/adz;-><init>()V
 
-    .line 613
+    .line 637
     new-instance v0, Ljava/lang/ref/WeakReference;
 
     invoke-direct {v0, p1}, Ljava/lang/ref/WeakReference;-><init>(Ljava/lang/Object;)V
 
     iput-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;->a:Ljava/lang/ref/WeakReference;
 
-    .line 614
+    .line 638
     iput-object p2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;->menuItems:Ljava/util/List;
 
-    .line 615
+    .line 639
     return-void
 .end method
 
-.method static synthetic access$1002(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;J)J
+.method static synthetic access$1002(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;I)I
+    .locals 0
+
+    .prologue
+    .line 629
+    iput p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;->c:I
+
+    return p1
+.end method
+
+.method static synthetic access$1102(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;J)J
     .locals 1
 
     .prologue
-    .line 605
+    .line 629
     iput-wide p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;->d:J
 
     return-wide p1
 .end method
 
-.method static synthetic access$700(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;)Ljava/lang/ref/WeakReference;
+.method static synthetic access$800(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;)Ljava/lang/ref/WeakReference;
     .locals 1
 
     .prologue
-    .line 605
+    .line 629
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;->a:Ljava/lang/ref/WeakReference;
 
     return-object v0
 .end method
 
-.method static synthetic access$800(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;)Z
+.method static synthetic access$900(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;)Z
     .locals 1
 
     .prologue
-    .line 605
+    .line 629
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;->e:Z
 
     return v0
 .end method
 
-.method static synthetic access$802(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;Z)Z
+.method static synthetic access$902(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;Z)Z
     .locals 0
 
     .prologue
-    .line 605
+    .line 629
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;->e:Z
-
-    return p1
-.end method
-
-.method static synthetic access$902(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;I)I
-    .locals 0
-
-    .prologue
-    .line 605
-    iput p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;->c:I
 
     return p1
 .end method
@@ -145,7 +145,7 @@
     .locals 1
 
     .prologue
-    .line 676
+    .line 700
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;->menuItems:Ljava/util/List;
 
     invoke-interface {v0}, Ljava/util/List;->size()I
@@ -159,7 +159,7 @@
     .locals 1
 
     .prologue
-    .line 624
+    .line 648
     invoke-static {p1}, Lbl/agf;->a(Landroid/view/ViewGroup;)Lbl/agf;
 
     move-result-object v0
@@ -171,12 +171,12 @@
     .locals 5
 
     .prologue
-    .line 629
+    .line 653
     instance-of v0, p1, Lbl/agf;
 
     if-eqz v0, :cond_3b
 
-    .line 630
+    .line 654
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;->menuItems:Ljava/util/List;
 
     invoke-interface {v0, p2}, Ljava/util/List;->get(I)Ljava/lang/Object;
@@ -187,22 +187,22 @@
 
     move-object v1, p1
 
-    .line 631
+    .line 655
     check-cast v1, Lbl/agf;
 
-    .line 632
+    .line 656
     iget-object v2, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$MenuItem;->name:Ljava/lang/String;
 
     if-eqz v2, :cond_1a
 
-    .line 633
+    .line 657
     iget-object v2, v1, Lbl/agf;->n:Landroid/widget/TextView;
 
     iget-object v3, v0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$MenuItem;->name:Ljava/lang/String;
 
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 634
+    .line 658
     :cond_1a
     iget-object v2, v1, Lbl/agf;->n:Landroid/widget/TextView;
 
@@ -210,12 +210,12 @@
 
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setMaxLines(I)V
 
-    .line 635
+    .line 659
     iget-object v2, p1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
 
     invoke-virtual {v2, v0}, Landroid/view/View;->setTag(Ljava/lang/Object;)V
 
-    .line 636
+    .line 660
     iget-object v2, p1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
 
     const v3, 0x7f0800d8
@@ -226,7 +226,7 @@
 
     invoke-virtual {v2, v3, v4}, Landroid/view/View;->setTag(ILjava/lang/Object;)V
 
-    .line 637
+    .line 661
     iget-object v2, p1, Landroid/support/v7/widget/RecyclerView$v;->a:Landroid/view/View;
 
     new-instance v3, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a$1;
@@ -235,7 +235,7 @@
 
     invoke-virtual {v2, v3}, Landroid/view/View;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 672
+    .line 696
     :cond_3b
     return-void
 .end method
@@ -244,10 +244,10 @@
     .locals 0
 
     .prologue
-    .line 680
+    .line 704
     iput-boolean p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;->e:Z
 
-    .line 681
+    .line 705
     return-void
 .end method
 
@@ -255,7 +255,7 @@
     .locals 1
 
     .prologue
-    .line 619
+    .line 643
     const/4 v0, 0x0
 
     return v0
@@ -265,7 +265,7 @@
     .locals 1
 
     .prologue
-    .line 684
+    .line 708
     iget v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;->c:I
 
     return v0
@@ -277,7 +277,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 689
+    .line 713
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;->a:Ljava/lang/ref/WeakReference;
 
     invoke-virtual {v0}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
@@ -286,7 +286,7 @@
 
     check-cast v0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
-    .line 690
+    .line 714
     if-eqz v0, :cond_11
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->isFinishing()Z
@@ -295,12 +295,12 @@
 
     if-eqz v2, :cond_12
 
-    .line 727
+    .line 751
     :cond_11
     :goto_11
     return-void
 
-    .line 692
+    .line 716
     :cond_12
     iget-object v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;->menuItems:Ljava/util/List;
 
@@ -316,27 +316,27 @@
 
     if-ge v2, v3, :cond_11
 
-    .line 695
+    .line 719
     :try_start_20
     iget-boolean v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;->e:Z
 
     if-nez v2, :cond_11
 
-    .line 697
+    .line 721
     # invokes: Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->j()Landroid/support/v7/widget/RecyclerView;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->access$1200(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;)Landroid/support/v7/widget/RecyclerView;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->access$1300(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;)Landroid/support/v7/widget/RecyclerView;
 
     move-result-object v5
 
-    .line 698
+    .line 722
     const/4 v3, 0x0
 
-    .line 699
+    .line 723
     if-eqz v5, :cond_80
 
     move v4, v1
 
-    .line 700
+    .line 724
     :goto_2c
     invoke-virtual {v5}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
 
@@ -344,12 +344,12 @@
 
     if-ge v4, v2, :cond_80
 
-    .line 701
+    .line 725
     invoke-virtual {v5, v4}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
 
     move-result-object v2
 
-    .line 702
+    .line 726
     invoke-virtual {v5, v2}, Landroid/support/v7/widget/RecyclerView;->g(Landroid/view/View;)I
 
     move-result v6
@@ -358,23 +358,23 @@
 
     if-ne v6, v7, :cond_74
 
-    .line 709
+    .line 733
     :goto_3e
     if-eqz v2, :cond_4a
 
-    .line 710
+    .line 734
     sget v3, Landroid/os/Build$VERSION;->SDK_INT:I
 
     const/16 v4, 0x15
 
     if-lt v3, v4, :cond_78
 
-    .line 711
+    .line 735
     invoke-virtual {v2}, Landroid/view/View;->isAttachedToWindow()Z
 
     move-result v1
 
-    .line 716
+    .line 740
     :cond_4a
     :goto_4a
     if-eqz v2, :cond_11
@@ -387,27 +387,27 @@
 
     if-eqz v1, :cond_11
 
-    .line 718
+    .line 742
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->h()Landroid/support/v4/app/Fragment;
 
     move-result-object v1
 
-    .line 719
+    .line 743
     instance-of v2, v1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
     if-eqz v2, :cond_64
 
-    .line 720
+    .line 744
     check-cast v1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;
 
-    .line 721
+    .line 745
     invoke-virtual {v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment;->isLoading()Z
 
     move-result v1
 
     if-nez v1, :cond_11
 
-    .line 724
+    .line 748
     :cond_64
     iget-object v1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;->menuItems:Ljava/util/List;
 
@@ -420,17 +420,17 @@
     check-cast v1, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$MenuItem;
 
     # invokes: Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->showVideoList(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$MenuItem;)V
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->access$1100(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$MenuItem;)V
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->access$1200(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$MenuItem;)V
 
     goto :goto_11
 
-    .line 725
+    .line 749
     :catch_72
     move-exception v0
 
     goto :goto_11
 
-    .line 700
+    .line 724
     :cond_74
     add-int/lit8 v2, v4, 0x1
 
@@ -438,7 +438,7 @@
 
     goto :goto_2c
 
-    .line 713
+    .line 737
     :cond_78
     invoke-virtual {v2}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
     :try_end_7b

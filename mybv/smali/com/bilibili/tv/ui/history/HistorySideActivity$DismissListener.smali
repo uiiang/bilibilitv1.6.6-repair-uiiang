@@ -26,7 +26,7 @@
     .locals 1
 
     .prologue
-    .line 198
+    .line 225
     new-instance v0, Lcom/bilibili/tv/ui/history/HistorySideActivity$DismissListener;
 
     invoke-direct {v0}, Lcom/bilibili/tv/ui/history/HistorySideActivity$DismissListener;-><init>()V
@@ -40,7 +40,7 @@
     .locals 0
 
     .prologue
-    .line 197
+    .line 224
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -52,9 +52,9 @@
     .locals 0
 
     .prologue
-    .line 202
+    .line 229
     invoke-virtual {p1}, Lbl/agb;->dismiss()V
 
-    .line 203
+    .line 230
     return-void
 .end method

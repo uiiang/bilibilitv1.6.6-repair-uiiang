@@ -39,6 +39,7 @@ import android.util.Log;
 public class AuthSpaceSideActivity extends BaseSideActivity {
   private static final int COLUMNS = 2;
   private a c;
+  private bl.MoreActionKeyHandler moreActionKeyHandler;
   private List<MenuItem> menuItems = new ArrayList<>();
   private MenuItem selectedItem;
   private boolean h = false;
@@ -131,13 +132,36 @@ public class AuthSpaceSideActivity extends BaseSideActivity {
     int action = keyEvent.getAction();
     int keyCode = keyEvent.getKeyCode();
 
-    if (action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_MENU) {
+    // 「更多操作=确定键」模式：长按[确定]键触发排序（与菜单键模式互斥）
+    if (bl.abd.get_more_action_key(this) == bl.abd.MORE_ACTION_OK
+            && (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER)) {
       View currentFocus = getCurrentFocus();
       Fragment frag = h();
-      if (currentFocus != null && frag != null && frag.getView() != null) {
-        if (isDescendantOfView(currentFocus, frag.getView())) {
-          showSortMenu();
+      if (currentFocus != null && frag != null && frag.getView() != null
+              && isDescendantOfView(currentFocus, frag.getView())) {
+        if (this.moreActionKeyHandler == null) {
+          this.moreActionKeyHandler = new bl.MoreActionKeyHandler(500L);
+        }
+        if (this.moreActionKeyHandler.handle(keyEvent, new bl.MoreActionKeyHandler.Trigger() {
+          @Override
+          public void run() {
+            showSortMenu();
+          }
+        })) {
           return true;
+        }
+      }
+    }
+
+    if (action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_MENU) {
+      if (bl.abd.get_more_action_key(this) != bl.abd.MORE_ACTION_OK) {
+        View currentFocus = getCurrentFocus();
+        Fragment frag = h();
+        if (currentFocus != null && frag != null && frag.getView() != null) {
+          if (isDescendantOfView(currentFocus, frag.getView())) {
+            showSortMenu();
+            return true;
+          }
         }
       }
     }

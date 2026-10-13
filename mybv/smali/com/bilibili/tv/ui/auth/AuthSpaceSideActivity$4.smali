@@ -3,12 +3,12 @@
 .source "AuthSpaceSideActivity.java"
 
 # interfaces
-.implements Lbl/SortMenuDialog$OnSortSelectedListener;
+.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->showSortMenu()V
+    value = Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->updateMenu()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,14 +20,27 @@
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
+.field final synthetic val$focusedPosition:I
+
+.field final synthetic val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;Landroid/support/v7/widget/RecyclerView;I)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
-    .line 584
+    .line 476
     iput-object p1, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
+
+    iput-object p2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+
+    iput p3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;->val$focusedPosition:I
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -36,15 +49,95 @@
 
 
 # virtual methods
-.method public onSortSelected(Ljava/lang/String;Ljava/lang/String;)V
-    .locals 1
+.method public run()V
+    .locals 5
 
     .prologue
-    .line 587
+    const/4 v1, 0x0
+
+    .line 479
+    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+
+    invoke-virtual {v0}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
+
+    move-result v0
+
+    if-lez v0, :cond_3b
+
+    move v0, v1
+
+    .line 480
+    :goto_a
+    iget-object v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+
+    invoke-virtual {v2}, Landroid/support/v7/widget/RecyclerView;->getChildCount()I
+
+    move-result v2
+
+    if-ge v0, v2, :cond_32
+
+    .line 481
+    iget-object v2, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+
+    invoke-virtual {v2, v0}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
+
+    move-result-object v2
+
+    .line 482
+    iget-object v3, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+
+    invoke-virtual {v3, v2}, Landroid/support/v7/widget/RecyclerView;->g(Landroid/view/View;)I
+
+    move-result v3
+
+    .line 483
+    iget v4, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;->val$focusedPosition:I
+
+    if-ne v3, v4, :cond_2f
+
+    .line 484
+    invoke-virtual {v2}, Landroid/view/View;->requestFocus()Z
+
+    .line 485
     iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
 
-    invoke-virtual {v0, p1}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->setSortOrder(Ljava/lang/String;)V
+    # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->c:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->access$200(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;)Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;
 
-    .line 588
+    move-result-object v0
+
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;->b(Z)V
+
+    .line 492
+    :goto_2e
     return-void
+
+    .line 480
+    :cond_2f
+    add-int/lit8 v0, v0, 0x1
+
+    goto :goto_a
+
+    .line 489
+    :cond_32
+    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;->val$recyclerView:Landroid/support/v7/widget/RecyclerView;
+
+    invoke-virtual {v0, v1}, Landroid/support/v7/widget/RecyclerView;->getChildAt(I)Landroid/view/View;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
+
+    .line 491
+    :cond_3b
+    iget-object v0, p0, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$4;->this$0:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;
+
+    # getter for: Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->c:Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;->access$200(Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity;)Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;
+
+    move-result-object v0
+
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/auth/AuthSpaceSideActivity$a;->b(Z)V
+
+    goto :goto_2e
 .end method

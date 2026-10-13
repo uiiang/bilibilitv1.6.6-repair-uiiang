@@ -3,12 +3,12 @@
 .source "FavoriteSideActivity.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Lbl/SortMenuDialog$OnSortSelectedListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->loadCourseFolders(I)V
+    value = Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->showSortMenu()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,18 +20,14 @@
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
-.field final synthetic val$retryCount:I
-
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;I)V
+.method constructor <init>(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;)V
     .locals 0
 
     .prologue
-    .line 284
+    .line 483
     iput-object p1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$5;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
-
-    iput p2, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$5;->val$retryCount:I
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -40,20 +36,15 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 2
+.method public onSortSelected(Ljava/lang/String;Ljava/lang/String;)V
+    .locals 1
 
     .prologue
-    .line 287
+    .line 486
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$5;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
-    iget v1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$5;->val$retryCount:I
+    invoke-virtual {v0, p1}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->setSortOrder(Ljava/lang/String;)V
 
-    add-int/lit8 v1, v1, 0x1
-
-    # invokes: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->loadCourseFolders(I)V
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->access$600(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;I)V
-
-    .line 288
+    .line 487
     return-void
 .end method

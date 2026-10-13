@@ -1,11 +1,11 @@
 .class Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$2;
-.super Lbl/vn;
+.super Lbl/vm;
 .source "FavoriteSideActivity.java"
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->loadCollectionFolders()V
+    value = Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->loadVideoFolders()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -15,7 +15,7 @@
 
 .annotation system Ldalvik/annotation/Signature;
     value = {
-        "Lbl/vn",
+        "Lbl/vm",
         "<",
         "Lcom/alibaba/fastjson/JSONObject;",
         ">;"
@@ -32,274 +32,21 @@
     .locals 0
 
     .prologue
-    .line 274
+    .line 241
     iput-object p1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$2;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
-    invoke-direct {p0}, Lbl/vn;-><init>()V
+    invoke-direct {p0}, Lbl/vm;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public a(Lcom/alibaba/fastjson/JSONObject;)V
-    .locals 6
-
-    .prologue
-    .line 277
-    iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$2;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->collectionFolders:Ljava/util/List;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->access$300(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;)Ljava/util/List;
-
-    move-result-object v0
-
-    invoke-interface {v0}, Ljava/util/List;->clear()V
-
-    .line 278
-    if-eqz p1, :cond_a9
-
-    const-string v0, "list"
-
-    invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
-
-    move-result-object v0
-
-    if-eqz v0, :cond_a9
-
-    .line 279
-    const-string v0, "list"
-
-    invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
-
-    move-result-object v1
-
-    .line 280
-    const-string v0, "FavoriteSideActivity"
-
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "loadCollectionFolders count="
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v1}, Lcom/alibaba/fastjson/JSONArray;->size()I
-
-    move-result v3
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v2
-
-    invoke-static {v0, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 281
-    const/4 v0, 0x0
-
-    :goto_36
-    invoke-virtual {v1}, Lcom/alibaba/fastjson/JSONArray;->size()I
-
-    move-result v2
-
-    if-ge v0, v2, :cond_c7
-
-    .line 282
-    invoke-virtual {v1, v0}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
-
-    move-result-object v2
-
-    .line 283
-    const-string v3, "FavoriteSideActivity"
-
-    new-instance v4, Ljava/lang/StringBuilder;
-
-    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v5, "loadCollectionFolders folder["
-
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    invoke-virtual {v4, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    const-string v5, "]: id="
-
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    const-string v5, "id"
-
-    .line 284
-    invoke-virtual {v2, v5}, Lcom/alibaba/fastjson/JSONObject;->getLong(Ljava/lang/String;)Ljava/lang/Long;
-
-    move-result-object v5
-
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    const-string v5, ", mid="
-
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    const-string v5, "mid"
-
-    invoke-virtual {v2, v5}, Lcom/alibaba/fastjson/JSONObject;->getLong(Ljava/lang/String;)Ljava/lang/Long;
-
-    move-result-object v5
-
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    const-string v5, ", fid="
-
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    const-string v5, "fid"
-
-    .line 285
-    invoke-virtual {v2, v5}, Lcom/alibaba/fastjson/JSONObject;->getLong(Ljava/lang/String;)Ljava/lang/Long;
-
-    move-result-object v5
-
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    const-string v5, ", title="
-
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    const-string v5, "title"
-
-    invoke-virtual {v2, v5}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v4
-
-    .line 283
-    invoke-static {v3, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 286
-    iget-object v3, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$2;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->collectionFolders:Ljava/util/List;
-    invoke-static {v3}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->access$300(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;)Ljava/util/List;
-
-    move-result-object v3
-
-    new-instance v4, Lbl/CollectionFavoriteFolder;
-
-    invoke-direct {v4, v2}, Lbl/CollectionFavoriteFolder;-><init>(Lcom/alibaba/fastjson/JSONObject;)V
-
-    invoke-interface {v3, v4}, Ljava/util/List;->add(Ljava/lang/Object;)Z
-
-    .line 281
-    add-int/lit8 v0, v0, 0x1
-
-    goto :goto_36
-
-    .line 289
-    :cond_a9
-    const-string v1, "FavoriteSideActivity"
-
-    new-instance v0, Ljava/lang/StringBuilder;
-
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "loadCollectionFolders result empty: "
-
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    .line 290
-    if-eqz p1, :cond_d3
-
-    invoke-virtual {p1}, Lcom/alibaba/fastjson/JSONObject;->toJSONString()Ljava/lang/String;
-
-    move-result-object v0
-
-    :goto_bc
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    .line 289
-    invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 292
-    :cond_c7
-    iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$2;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
-
-    const/4 v1, 0x1
-
-    # setter for: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->collectionLoaded:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->access$402(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;Z)Z
-
-    .line 293
-    iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$2;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
-
-    # invokes: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->checkAllLoaded()V
-    invoke-static {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->access$200(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;)V
-
-    .line 294
-    return-void
-
-    .line 290
-    :cond_d3
-    const-string v0, "null"
-
-    goto :goto_bc
-.end method
-
-.method public bridge synthetic a(Ljava/lang/Object;)V
-    .locals 0
-
-    .prologue
-    .line 274
-    check-cast p1, Lcom/alibaba/fastjson/JSONObject;
-
-    invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$2;->a(Lcom/alibaba/fastjson/JSONObject;)V
-
-    return-void
-.end method
-
 .method public isCancel()Z
     .locals 1
 
     .prologue
-    .line 298
+    .line 268
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$2;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->isFinishing()Z
@@ -310,27 +57,61 @@
 .end method
 
 .method public onError(Ljava/lang/Throwable;)V
-    .locals 3
+    .locals 2
 
     .prologue
-    .line 303
+    .line 273
+    const-string v0, "FavoriteSideActivity"
+
+    const-string v1, "loadVideoFolders error"
+
+    invoke-static {v0, v1, p1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+
+    .line 274
+    sget-object v0, Lbl/adl;->a:Lbl/adl;
+
+    iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$2;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
+
+    invoke-virtual {v0, p1, v1}, Lbl/adl;->a(Ljava/lang/Throwable;Landroid/app/Activity;)V
+
+    .line 275
+    iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$2;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
+
+    const/4 v1, 0x1
+
+    # setter for: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->videoLoaded:Z
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->access$202(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;Z)Z
+
+    .line 276
+    iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$2;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
+
+    # invokes: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->checkAllLoaded()V
+    invoke-static {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->access$300(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;)V
+
+    .line 277
+    return-void
+.end method
+
+.method public onSuccess(Lcom/alibaba/fastjson/JSONObject;)V
+    .locals 6
+
+    .prologue
+    const/4 v2, 0x0
+
+    .line 244
     const-string v0, "FavoriteSideActivity"
 
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v2, "loadCollectionFolders error: "
+    const-string v3, "loadVideoFolders result: "
 
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
-    invoke-virtual {p1}, Ljava/lang/Throwable;->getMessage()Ljava/lang/String;
-
-    move-result-object v2
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
 
     move-result-object v1
 
@@ -338,22 +119,199 @@
 
     move-result-object v1
 
-    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 304
+    .line 245
+    iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$2;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
+
+    # getter for: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->videoFolders:Ljava/util/List;
+    invoke-static {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->access$100(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;)Ljava/util/List;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Ljava/util/List;->clear()V
+
+    .line 246
+    if-eqz p1, :cond_aa
+
+    .line 247
+    const-string v0, "data"
+
+    invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
+
+    move-result-object v0
+
+    .line 248
+    if-eqz v0, :cond_a6
+
+    const-string v1, "list"
+
+    invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getJSONArray(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONArray;
+
+    move-result-object v0
+
+    .line 249
+    :goto_32
+    const-string v3, "FavoriteSideActivity"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "list: "
+
+    invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v4, ", size: "
+
+    invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    if-eqz v0, :cond_a8
+
+    invoke-virtual {v0}, Lcom/alibaba/fastjson/JSONArray;->size()I
+
+    move-result v1
+
+    :goto_4f
+    invoke-virtual {v4, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v3, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 250
+    if-eqz v0, :cond_aa
+
+    invoke-virtual {v0}, Lcom/alibaba/fastjson/JSONArray;->isEmpty()Z
+
+    move-result v1
+
+    if-nez v1, :cond_aa
+
+    .line 251
+    :goto_62
+    invoke-virtual {v0}, Lcom/alibaba/fastjson/JSONArray;->size()I
+
+    move-result v1
+
+    if-ge v2, v1, :cond_aa
+
+    .line 252
+    invoke-virtual {v0, v2}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
+
+    move-result-object v1
+
+    .line 253
+    new-instance v3, Lcom/bilibili/tv/api/favorite/BiliFavoriteBox;
+
+    invoke-direct {v3}, Lcom/bilibili/tv/api/favorite/BiliFavoriteBox;-><init>()V
+
+    .line 254
+    const-string v4, "id"
+
+    invoke-virtual {v1, v4}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
+
+    move-result-wide v4
+
+    invoke-virtual {v3, v4, v5}, Lcom/bilibili/tv/api/favorite/BiliFavoriteBox;->setMId(J)V
+
+    .line 255
+    const-string v4, "title"
+
+    invoke-virtual {v1, v4}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-virtual {v3, v4}, Lcom/bilibili/tv/api/favorite/BiliFavoriteBox;->setMName(Ljava/lang/String;)V
+
+    .line 256
+    const-string v4, "media_count"
+
+    invoke-virtual {v1, v4}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
+
+    move-result v4
+
+    invoke-virtual {v3, v4}, Lcom/bilibili/tv/api/favorite/BiliFavoriteBox;->setMCount(I)V
+
+    .line 257
+    const-string v4, "mid"
+
+    invoke-virtual {v1, v4}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
+
+    move-result-wide v4
+
+    invoke-virtual {v3, v4, v5}, Lcom/bilibili/tv/api/favorite/BiliFavoriteBox;->setMMid(J)V
+
+    .line 258
+    iget-object v1, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$2;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
+
+    # getter for: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->videoFolders:Ljava/util/List;
+    invoke-static {v1}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->access$100(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;)Ljava/util/List;
+
+    move-result-object v1
+
+    new-instance v4, Lbl/VideoFavoriteFolder;
+
+    invoke-direct {v4, v3}, Lbl/VideoFavoriteFolder;-><init>(Lcom/bilibili/tv/api/favorite/BiliFavoriteBox;)V
+
+    invoke-interface {v1, v4}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    .line 251
+    add-int/lit8 v2, v2, 0x1
+
+    goto :goto_62
+
+    .line 248
+    :cond_a6
+    const/4 v0, 0x0
+
+    goto :goto_32
+
+    :cond_a8
+    move v1, v2
+
+    .line 249
+    goto :goto_4f
+
+    .line 262
+    :cond_aa
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$2;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
     const/4 v1, 0x1
 
-    # setter for: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->collectionLoaded:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->access$402(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;Z)Z
+    # setter for: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->videoLoaded:Z
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->access$202(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;Z)Z
 
-    .line 305
+    .line 263
     iget-object v0, p0, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$2;->this$0:Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;
 
     # invokes: Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->checkAllLoaded()V
-    invoke-static {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->access$200(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;)V
+    invoke-static {v0}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;->access$300(Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity;)V
 
-    .line 306
+    .line 264
+    return-void
+.end method
+
+.method public bridge synthetic onSuccess(Ljava/lang/Object;)V
+    .locals 0
+
+    .prologue
+    .line 241
+    check-cast p1, Lcom/alibaba/fastjson/JSONObject;
+
+    invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/favorite/FavoriteSideActivity$2;->onSuccess(Lcom/alibaba/fastjson/JSONObject;)V
+
     return-void
 .end method

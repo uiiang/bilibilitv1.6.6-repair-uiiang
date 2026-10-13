@@ -5,7 +5,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->loadFollowingsByTag()V
+    value = Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->loadTagList()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 397
+    .line 372
     iput-object p1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$4;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
@@ -43,158 +43,122 @@
 
 # virtual methods
 .method public a(Lcom/alibaba/fastjson/JSONArray;)V
-    .locals 10
+    .locals 8
 
     .prologue
-    const/4 v7, 0x1
+    const/4 v0, 0x0
 
-    const/4 v6, 0x0
-
-    .line 400
-    iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$4;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->c:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$200(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;)Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;
-
-    move-result-object v0
-
-    if-nez v0, :cond_b
-
-    .line 426
-    :goto_a
-    return-void
-
-    .line 404
-    :cond_b
-    iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$4;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
-
-    # setter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->h:Z
-    invoke-static {v0, v6}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$002(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;Z)Z
-
-    .line 406
-    if-eqz p1, :cond_18
-
-    invoke-virtual {p1}, Lcom/alibaba/fastjson/JSONArray;->size()I
-
-    move-result v0
-
-    if-nez v0, :cond_2b
-
-    .line 407
-    :cond_18
-    iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$4;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->f:I
-    invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$300(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;)I
-
-    move-result v0
-
-    if-ne v0, v7, :cond_20
-
-    .line 409
-    :cond_20
-    iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$4;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
-
-    # setter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->g:Z
-    invoke-static {v0, v6}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$102(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;Z)Z
-
-    .line 410
-    iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$4;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
-
-    # invokes: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->updateUperList()V
-    invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$500(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;)V
-
-    goto :goto_a
-
-    :cond_2b
-    move v0, v6
-
-    .line 414
-    :goto_2c
-    invoke-virtual {p1}, Lcom/alibaba/fastjson/JSONArray;->size()I
-
-    move-result v1
-
-    if-ge v0, v1, :cond_59
-
-    .line 415
-    invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
-
-    move-result-object v5
-
-    .line 416
+    .line 375
     iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$4;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
 
-    # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->uperItems:Ljava/util/List;
-    invoke-static {v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$600(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;)Ljava/util/List;
+    # setter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->isLoadingTags:Z
+    invoke-static {v1, v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$802(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;Z)Z
 
-    move-result-object v8
-
-    new-instance v1, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$UperItem;
-
-    const-string v2, "mid"
-
-    .line 417
-    invoke-virtual {v5, v2}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
-
-    move-result-wide v2
-
-    const-string v4, "uname"
-
-    .line 418
-    invoke-virtual {v5, v4}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v4
-
-    const-string v9, "face"
-
-    .line 419
-    invoke-virtual {v5, v9}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-direct/range {v1 .. v6}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$UperItem;-><init>(JLjava/lang/String;Ljava/lang/String;Z)V
-
-    .line 416
-    invoke-interface {v8, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
-
-    .line 414
-    add-int/lit8 v0, v0, 0x1
-
-    goto :goto_2c
-
-    .line 424
-    :cond_59
-    iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$4;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
+    .line 377
+    if-eqz p1, :cond_58
 
     invoke-virtual {p1}, Lcom/alibaba/fastjson/JSONArray;->size()I
 
     move-result v1
 
-    const/16 v2, 0x1e
+    if-lez v1, :cond_58
 
-    if-ne v1, v2, :cond_64
+    .line 378
+    iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$4;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
 
-    move v6, v7
+    # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->tagItems:Ljava/util/List;
+    invoke-static {v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$900(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;)Ljava/util/List;
 
-    :cond_64
-    # setter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->g:Z
-    invoke-static {v0, v6}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$102(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;Z)Z
+    move-result-object v1
 
-    .line 425
-    iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$4;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
+    invoke-interface {v1}, Ljava/util/List;->clear()V
 
-    # invokes: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->updateUperList()V
-    invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$500(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;)V
+    .line 379
+    iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$4;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
 
-    goto :goto_a
+    # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->tagItems:Ljava/util/List;
+    invoke-static {v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$900(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;)Ljava/util/List;
+
+    move-result-object v1
+
+    new-instance v2, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$TagItem;
+
+    const-wide/16 v4, -0x1
+
+    const-string v3, "\u5168\u90e8\u5173\u6ce8"
+
+    invoke-direct {v2, v4, v5, v3, v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$TagItem;-><init>(JLjava/lang/String;I)V
+
+    invoke-interface {v1, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    .line 381
+    :goto_29
+    invoke-virtual {p1}, Lcom/alibaba/fastjson/JSONArray;->size()I
+
+    move-result v1
+
+    if-ge v0, v1, :cond_58
+
+    .line 382
+    invoke-virtual {p1, v0}, Lcom/alibaba/fastjson/JSONArray;->getJSONObject(I)Lcom/alibaba/fastjson/JSONObject;
+
+    move-result-object v1
+
+    .line 383
+    const-string v2, "count"
+
+    invoke-virtual {v1, v2}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
+
+    move-result v2
+
+    .line 384
+    if-lez v2, :cond_55
+
+    .line 385
+    iget-object v3, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$4;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
+
+    # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->tagItems:Ljava/util/List;
+    invoke-static {v3}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$900(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;)Ljava/util/List;
+
+    move-result-object v3
+
+    new-instance v4, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$TagItem;
+
+    const-string v5, "tagid"
+
+    .line 386
+    invoke-virtual {v1, v5}, Lcom/alibaba/fastjson/JSONObject;->getLongValue(Ljava/lang/String;)J
+
+    move-result-wide v6
+
+    const-string v5, "name"
+
+    .line 387
+    invoke-virtual {v1, v5}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-direct {v4, v6, v7, v1, v2}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$TagItem;-><init>(JLjava/lang/String;I)V
+
+    .line 385
+    invoke-interface {v3, v4}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    .line 381
+    :cond_55
+    add-int/lit8 v0, v0, 0x1
+
+    goto :goto_29
+
+    .line 393
+    :cond_58
+    return-void
 .end method
 
 .method public bridge synthetic a(Ljava/lang/Object;)V
     .locals 0
 
     .prologue
-    .line 397
+    .line 372
     check-cast p1, Lcom/alibaba/fastjson/JSONArray;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$4;->a(Lcom/alibaba/fastjson/JSONArray;)V
@@ -206,7 +170,7 @@
     .locals 1
 
     .prologue
-    .line 430
+    .line 397
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$4;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->isFinishing()Z
@@ -220,41 +184,21 @@
     .locals 2
 
     .prologue
-    .line 435
+    .line 402
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$4;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
 
     invoke-virtual {v0, p1, v1}, Lbl/adl;->a(Ljava/lang/Throwable;Landroid/app/Activity;)V
 
-    .line 436
-    iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$4;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
-
-    # getter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->c:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;
-    invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$200(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;)Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$a;
-
-    move-result-object v0
-
-    if-nez v0, :cond_10
-
-    .line 441
-    :goto_f
-    return-void
-
-    .line 439
-    :cond_10
+    .line 403
     iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$4;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
 
     const/4 v1, 0x0
 
-    # setter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->h:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$002(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;Z)Z
+    # setter for: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->isLoadingTags:Z
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$802(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;Z)Z
 
-    .line 440
-    iget-object v0, p0, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity$4;->this$0:Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;
-
-    # invokes: Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->updateUperList()V
-    invoke-static {v0}, Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;->access$500(Lcom/bilibili/tv/ui/attention/AttentionDynamicSideActivity;)V
-
-    goto :goto_f
+    .line 404
+    return-void
 .end method
