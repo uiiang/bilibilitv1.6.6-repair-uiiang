@@ -111,6 +111,9 @@ public final class FavoriteVideoFragment extends ady {
         this.headerTitle = (TextView) rootView.findViewById(R.id.header_title);
         this.headerCount = (TextView) rootView.findViewById(R.id.header_count);
         this.hintSort = (TextView) rootView.findViewById(R.id.hint_sort);
+        if (this.hintSort != null) {
+            this.hintSort.setText(bl.abd.get_more_action_hint(getActivity(), "排序"));
+        }
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         a(recyclerView, savedInstanceState);
         return rootView;

@@ -292,7 +292,7 @@
 
     move-result v0
 
-    if-eqz v0, :cond_c5
+    if-eqz v0, :cond_c9
 
     .line 125
     const-string v0, "tv_my_history_click"
@@ -326,7 +326,7 @@
     move-result v0
 
     .line 132
-    if-ne v0, v4, :cond_d6
+    if-ne v0, v4, :cond_da
 
     .line 133
     const-string v0, "tv_history_pageview"
@@ -372,7 +372,11 @@
     check-cast v0, Landroid/widget/TextView;
 
     .line 140
-    const-string v1, "\u70b9\u51fb[\u83dc\u5355]\u952e\u5220\u9664"
+    const-string v1, "\u5220\u9664"
+
+    invoke-static {p0, v1}, Lbl/abd;->get_more_action_hint(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v1
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
@@ -469,7 +473,7 @@
     move-result-object v1
 
     .line 155
-    if-nez v1, :cond_e9
+    if-nez v1, :cond_ed
 
     .line 156
     new-instance v0, Lkotlin/TypeCastException;
@@ -481,7 +485,7 @@
     throw v0
 
     .line 127
-    :cond_c5
+    :cond_c9
     const-string v0, "tv_my_history_click"
 
     new-array v1, v3, [Ljava/lang/String;
@@ -499,7 +503,7 @@
     goto/16 :goto_21
 
     .line 134
-    :cond_d6
+    :cond_da
     if-ne v0, v3, :cond_3e
 
     .line 135
@@ -520,7 +524,7 @@
     goto/16 :goto_3e
 
     .line 158
-    :cond_e9
+    :cond_ed
     check-cast v1, Landroid/widget/LinearLayout$LayoutParams;
 
     iput v5, v1, Landroid/widget/LinearLayout$LayoutParams;->topMargin:I
@@ -541,7 +545,7 @@
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity;->c:Lcom/bilibili/tv/ui/base/LoadingImageView;
 
     .line 162
-    if-nez v0, :cond_103
+    if-nez v0, :cond_107
 
     .line 163
     const-string v1, "mLoadingImageView"
@@ -549,7 +553,7 @@
     invoke-static {v1}, Lbl/bbi;->b(Ljava/lang/String;)V
 
     .line 165
-    :cond_103
+    :cond_107
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->a()V
 
     .line 166

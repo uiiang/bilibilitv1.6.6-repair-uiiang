@@ -137,7 +137,7 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements wf 
         }
         ((TextView) d(R.id.title)).setText(getString(R.string.my_toview));
         TextView textView = (TextView) d(R.id.hint_sort);
-        textView.setText("点击[菜单]键删除");
+        textView.setText(bl.abd.get_more_action_hint(this, "删除"));
         textView.setVisibility(0);
         RecyclerView recyclerView = (RecyclerView) d(R.id.recycler_view);
         this.c = LoadingImageView.Companion.a((FrameLayout) d(R.id.loading_view_content));

@@ -350,6 +350,16 @@ public class abd {
         }
         return moreActionKey;
     }
+
+    /** 根据"更多操作"设置，拼接视频列表 header 提示文案：
+     *  菜单键(默认)→"点击[菜单]键"+动作；确定键→"长按[确定]键"+动作 */
+    public static String get_more_action_hint(Context context, String actionVerb) {
+        if (get_more_action_key(context) == MORE_ACTION_OK) {
+            return "长按[确定]键" + actionVerb;
+        }
+        return "点击[菜单]键" + actionVerb;
+    }
+
     public static final int RECOMMEND_API_APP = 1;
 
     public static void set_recommend_api_type(Context context, int type) {

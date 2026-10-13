@@ -335,7 +335,7 @@ public final class HistoryVideoFragment extends ady {
             headerCount.setText(adapter.a() + "条记录");
         }
         if (hintSort != null) {
-            hintSort.setText("按[菜单键]删除历史记录");
+            hintSort.setText(bl.abd.get_more_action_hint(getActivity(), "删除历史记录"));
             hintSort.setVisibility(View.VISIBLE);
         }
     }

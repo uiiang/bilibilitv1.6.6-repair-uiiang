@@ -125,6 +125,9 @@ public final class AttentionDynamicFragment extends ady {
         this.attentionButton = (DrawTextView) this.rootView.findViewById(R.id.dynamic_header_attention);
         this.headerCount = (TextView) this.rootView.findViewById(R.id.dynamic_header_count);
         this.headerHint = (TextView) this.rootView.findViewById(R.id.dynamic_header_hint);
+        if (this.headerHint != null) {
+            this.headerHint.setText(bl.abd.get_more_action_hint(getActivity(), "筛选分组"));
+        }
         initHeader();
         RecyclerView recyclerView = (RecyclerView) this.rootView.findViewById(R.id.recycler_view);
         a(recyclerView, bundle);

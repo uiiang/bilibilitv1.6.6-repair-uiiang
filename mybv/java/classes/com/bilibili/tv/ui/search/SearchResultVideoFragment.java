@@ -291,7 +291,7 @@ public final class SearchResultVideoFragment extends ady {
             if (tid == 1 || tid == 2) {
                 hintSort.setVisibility(View.GONE);
             } else {
-                hintSort.setText("点击[菜单]键排序");
+                hintSort.setText(bl.abd.get_more_action_hint(getActivity(), "排序"));
                 hintSort.setVisibility(View.VISIBLE);
             }
         }

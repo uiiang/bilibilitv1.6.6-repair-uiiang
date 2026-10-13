@@ -139,6 +139,9 @@ public final class AuthSpaceVideoFragment extends ady {
     this.locateButton = (DrawTextView) rootView.findViewById(R.id.locate_current);
     this.subscribeBtn = (DrawTextView) rootView.findViewById(R.id.space_subscribe_btn);
     this.hintSort = (TextView) rootView.findViewById(R.id.hint_sort);
+    if (this.hintSort != null) {
+      this.hintSort.setText(bl.abd.get_more_action_hint(getActivity(), "排序"));
+    }
     return rootView;
   }
 

@@ -395,7 +395,7 @@
 
     move-result v0
 
-    if-eqz v0, :cond_4d
+    if-eqz v0, :cond_55
 
     .line 329
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->headerTitle:Landroid/widget/TextView;
@@ -448,12 +448,20 @@
     :cond_3b
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->hintSort:Landroid/widget/TextView;
 
-    if-eqz v0, :cond_4c
+    if-eqz v0, :cond_54
 
     .line 338
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->hintSort:Landroid/widget/TextView;
 
-    const-string v1, "\u6309[\u83dc\u5355\u952e]\u5220\u9664\u5386\u53f2\u8bb0\u5f55"
+    invoke-virtual {p0}, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->getActivity()Landroid/support/v4/app/FragmentActivity;
+
+    move-result-object v1
+
+    const-string v2, "\u5220\u9664\u5386\u53f2\u8bb0\u5f55"
+
+    invoke-static {v1, v2}, Lbl/abd;->get_more_action_hint(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v1
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
@@ -465,11 +473,11 @@
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
 
     .line 341
-    :cond_4c
+    :cond_54
     return-void
 
     .line 331
-    :cond_4d
+    :cond_55
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/HistoryVideoFragment;->headerTitle:Landroid/widget/TextView;
 
     const-string v1, "\u89c6\u9891"

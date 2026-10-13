@@ -86,7 +86,7 @@
             android:focusable="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="按[菜单]键筛选分组" />
+            android:text="点击[菜单]键筛选分组" />
 
     </LinearLayout>
 

@@ -19,10 +19,10 @@
     .locals 0
 
     .prologue
-    .line 1590
+    .line 1593
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 1591
+    .line 1594
     return-void
 .end method
 
@@ -32,7 +32,7 @@
     .locals 3
 
     .prologue
-    .line 1594
+    .line 1597
     invoke-virtual {p1}, Landroid/view/ViewGroup;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -49,7 +49,7 @@
 
     move-result-object v0
 
-    .line 1596
+    .line 1599
     new-instance v1, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;
 
     invoke-direct {v1, v0}, Lcom/bilibili/tv/ui/auth/AuthSpaceVideoFragment$d;-><init>(Landroid/view/View;)V
