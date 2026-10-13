@@ -26,9 +26,14 @@
 # direct methods
 .method constructor <init>(Lbl/xi$7;Lcom/bilibili/tv/api/video/VideoShot;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
     .prologue
-    .line 1038
+    .line 1227
     iput-object p1, p0, Lbl/xi$7$1;->this$1:Lbl/xi$7;
 
     iput-object p2, p0, Lbl/xi$7$1;->val$shot:Lcom/bilibili/tv/api/video/VideoShot;
@@ -44,32 +49,32 @@
     .locals 4
 
     .prologue
-    .line 1041
+    .line 1230
     const-string v0, "VideoShot"
 
     const-string v1, "loadVideoShot: posting to main thread"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1042
+    .line 1231
     iget-object v0, p0, Lbl/xi$7$1;->this$1:Lbl/xi$7;
 
     iget-object v0, v0, Lbl/xi$7;->this$0:Lbl/xi;
 
     # getter for: Lbl/xi;->l:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
-    invoke-static {v0}, Lbl/xi;->access$700(Lbl/xi;)Lcom/bilibili/tv/player/widget/PlayerSeekBar;
+    invoke-static {v0}, Lbl/xi;->access$900(Lbl/xi;)Lcom/bilibili/tv/player/widget/PlayerSeekBar;
 
     move-result-object v0
 
     if-eqz v0, :cond_61
 
-    .line 1043
+    .line 1232
     iget-object v0, p0, Lbl/xi$7$1;->this$1:Lbl/xi$7;
 
     iget-object v0, v0, Lbl/xi$7;->this$0:Lbl/xi;
 
     # getter for: Lbl/xi;->l:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
-    invoke-static {v0}, Lbl/xi;->access$700(Lbl/xi;)Lcom/bilibili/tv/player/widget/PlayerSeekBar;
+    invoke-static {v0}, Lbl/xi;->access$900(Lbl/xi;)Lcom/bilibili/tv/player/widget/PlayerSeekBar;
 
     move-result-object v0
 
@@ -77,14 +82,14 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->setVideoShot(Lcom/bilibili/tv/api/video/VideoShot;)V
 
-    .line 1044
+    .line 1233
     const-string v0, "VideoShot"
 
     const-string v1, "loadVideoShot: setVideoShot called"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1045
+    .line 1234
     iget-object v0, p0, Lbl/xi$7$1;->this$1:Lbl/xi$7;
 
     iget-object v0, v0, Lbl/xi$7;->this$0:Lbl/xi;
@@ -93,29 +98,29 @@
 
     move-result-object v0
 
-    .line 1046
+    .line 1235
     if-eqz v0, :cond_59
 
-    .line 1047
+    .line 1236
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/context/IPlayerContext;->getDuration()I
 
     move-result v0
 
     div-int/lit16 v0, v0, 0x3e8
 
-    .line 1048
+    .line 1237
     iget-object v1, p0, Lbl/xi$7$1;->this$1:Lbl/xi$7;
 
     iget-object v1, v1, Lbl/xi$7;->this$0:Lbl/xi;
 
     # getter for: Lbl/xi;->l:Lcom/bilibili/tv/player/widget/PlayerSeekBar;
-    invoke-static {v1}, Lbl/xi;->access$700(Lbl/xi;)Lcom/bilibili/tv/player/widget/PlayerSeekBar;
+    invoke-static {v1}, Lbl/xi;->access$900(Lbl/xi;)Lcom/bilibili/tv/player/widget/PlayerSeekBar;
 
     move-result-object v1
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->setDuration(I)V
 
-    .line 1049
+    .line 1238
     const-string v1, "VideoShot"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -138,11 +143,11 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1056
+    .line 1245
     :goto_58
     return-void
 
-    .line 1051
+    .line 1240
     :cond_59
     const-string v0, "VideoShot"
 
@@ -152,7 +157,7 @@
 
     goto :goto_58
 
-    .line 1054
+    .line 1243
     :cond_61
     const-string v0, "VideoShot"
 

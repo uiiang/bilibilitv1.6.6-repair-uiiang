@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 1180
+    .line 1215
     iput-object p1, p0, Lbl/xi$6$1;->this$1:Lbl/xi$6;
 
     iput-object p2, p0, Lbl/xi$6$1;->val$shot:Lcom/bilibili/tv/api/video/VideoShot;
@@ -49,14 +49,14 @@
     .locals 4
 
     .prologue
-    .line 1183
+    .line 1218
     const-string v0, "VideoShot"
 
     const-string v1, "loadVideoShot: posting to main thread"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1184
+    .line 1219
     iget-object v0, p0, Lbl/xi$6$1;->this$1:Lbl/xi$6;
 
     iget-object v0, v0, Lbl/xi$6;->this$0:Lbl/xi;
@@ -68,7 +68,7 @@
 
     if-eqz v0, :cond_61
 
-    .line 1185
+    .line 1220
     iget-object v0, p0, Lbl/xi$6$1;->this$1:Lbl/xi$6;
 
     iget-object v0, v0, Lbl/xi$6;->this$0:Lbl/xi;
@@ -82,14 +82,14 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->setVideoShot(Lcom/bilibili/tv/api/video/VideoShot;)V
 
-    .line 1186
+    .line 1221
     const-string v0, "VideoShot"
 
     const-string v1, "loadVideoShot: setVideoShot called"
 
     invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1187
+    .line 1222
     iget-object v0, p0, Lbl/xi$6$1;->this$1:Lbl/xi$6;
 
     iget-object v0, v0, Lbl/xi$6;->this$0:Lbl/xi;
@@ -98,17 +98,17 @@
 
     move-result-object v0
 
-    .line 1188
+    .line 1223
     if-eqz v0, :cond_59
 
-    .line 1189
+    .line 1224
     invoke-interface {v0}, Ltv/danmaku/videoplayer/core/context/IPlayerContext;->getDuration()I
 
     move-result v0
 
     div-int/lit16 v0, v0, 0x3e8
 
-    .line 1190
+    .line 1225
     iget-object v1, p0, Lbl/xi$6$1;->this$1:Lbl/xi$6;
 
     iget-object v1, v1, Lbl/xi$6;->this$0:Lbl/xi;
@@ -120,7 +120,7 @@
 
     invoke-virtual {v1, v0}, Lcom/bilibili/tv/player/widget/PlayerSeekBar;->setDuration(I)V
 
-    .line 1191
+    .line 1226
     const-string v1, "VideoShot"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -143,11 +143,11 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1198
+    .line 1233
     :goto_58
     return-void
 
-    .line 1193
+    .line 1228
     :cond_59
     const-string v0, "VideoShot"
 
@@ -157,7 +157,7 @@
 
     goto :goto_58
 
-    .line 1196
+    .line 1231
     :cond_61
     const-string v0, "VideoShot"
 

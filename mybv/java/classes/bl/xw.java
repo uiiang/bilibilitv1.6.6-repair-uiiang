@@ -160,7 +160,9 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a, 
                 }
                 return false;
             case KeyEvent.KEYCODE_MENU:
-                d(!R());
+                if (abd.get_more_action_key(p()) != abd.MORE_ACTION_OK) {
+                    d(!R());
+                }
                 return true;
             case KeyEvent.KEYCODE_DPAD_UP:
             case KeyEvent.KEYCODE_DPAD_DOWN:

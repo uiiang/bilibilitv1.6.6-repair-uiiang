@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 88
+    .line 85
     iput-object p1, p0, Lbl/xi$1;->this$0:Lbl/xi;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -37,15 +37,23 @@
 
 # virtual methods
 .method public run()V
-    .locals 1
+    .locals 2
 
     .prologue
-    .line 91
+    .line 88
     iget-object v0, p0, Lbl/xi$1;->this$0:Lbl/xi;
 
-    # invokes: Lbl/xi;->hideSeekPreview()V
-    invoke-static {v0}, Lbl/xi;->access$000(Lbl/xi;)V
+    const/4 v1, 0x1
 
-    .line 92
+    # setter for: Lbl/xi;->moreActionOkLongFired:Z
+    invoke-static {v0, v1}, Lbl/xi;->access$002(Lbl/xi;Z)Z
+
+    .line 89
+    iget-object v0, p0, Lbl/xi$1;->this$0:Lbl/xi;
+
+    # invokes: Lbl/xi;->showPlayerRightMenu()V
+    invoke-static {v0}, Lbl/xi;->access$100(Lbl/xi;)V
+
+    .line 90
     return-void
 .end method

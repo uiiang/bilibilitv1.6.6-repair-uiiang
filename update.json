@@ -3,10 +3,10 @@
     "id":  "",
     "publishTime":  0,
     "apkUrl":  "https://github.com/uiiang/bilibilitv1.6.6-repair-uiiang/raw/refs/heads/main/mybv.apk",
-    "newFeature":  "",
+    "newFeature":  "1. 个性化设置支持选择更多操作按键 2. 修复了一些bug",
     "versionName":  "1.6.6.20261013",
     "versionCode":  20261013,
     "title":  "New",
-    "apkMd5":  "7d9b2447a04e5ec32e450fe0d46be46e",
-    "fileSize":  11339682
+    "apkMd5":  "165a161eeaae9655540387d2073871eb",
+    "fileSize":  11343778
 }

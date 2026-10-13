@@ -3,6 +3,8 @@ package bl;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -15,6 +17,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.graphics.Bitmap;
 import bl.xh;
+import bl.abd;
 import com.bilibili.bangumi.api.BiliBangumiSeason;
 import com.bilibili.lib.media.resource.MediaResource;
 import com.bilibili.lib.media.resource.PlayerCodecConfig;
@@ -76,6 +79,16 @@ public class xi extends xh implements bbb<Message, Boolean> {
     private VideoShot videoShot;
     private long currentAid;
     private long currentCid;
+    // 更多操作：确定键模式长按[确定]键（按住过程中即呼出右侧菜单）所需
+    private final Handler moreActionHandler = new Handler(Looper.getMainLooper());
+    private boolean moreActionOkLongFired = false;
+    private final Runnable moreActionOkLongRunnable = new Runnable() {
+        @Override
+        public void run() {
+            moreActionOkLongFired = true;
+            showPlayerRightMenu();
+        }
+    };
     private String currentBvid;
     private int currentPage;
     private ViewGroup seekPreviewGroup;
@@ -265,6 +278,17 @@ public class xi extends xh implements bbb<Message, Boolean> {
     public boolean f(int keyCode, KeyEvent event) {
         android.util.Log.i("EbookReader", "xi.f: keyCode=" + keyCode + ", action=" + event.getAction());
 
+        // 更多操作：确定键模式——首次按下[确定]键时登记长按定时器，
+        // 按住满 500ms 即在按住过程中呼出右侧菜单（不等松手）
+        if ((keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER)
+                && abd.get_more_action_key(p()) == abd.MORE_ACTION_OK) {
+            if (event.getRepeatCount() == 0) {
+                this.moreActionHandler.removeCallbacks(this.moreActionOkLongRunnable);
+                this.moreActionOkLongFired = false;
+                this.moreActionHandler.postDelayed(this.moreActionOkLongRunnable, 500L);
+            }
+        }
+
         // 电子书模式：拦截按键（除了菜单键、返回键、方向键）
         // 查找xw handler，检查是否处于电子书模式
         xh handler = this;
@@ -404,6 +428,18 @@ public class xi extends xh implements bbb<Message, Boolean> {
             handler = handler.next();
         }
 
+        // 更多操作：确定键模式——松手时取消长按定时器；
+        // 若按住过程中已呼出右侧菜单（moreActionOkLongFired），则吞掉本次松手事件，避免触发播放/暂停
+        if ((keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER)
+                && abd.get_more_action_key(p()) == abd.MORE_ACTION_OK) {
+            this.moreActionHandler.removeCallbacks(this.moreActionOkLongRunnable);
+            if (this.moreActionOkLongFired) {
+                this.moreActionOkLongFired = false;
+                return true;
+            }
+            // 短按：保持默认播放/暂停（落入下方 case 处理）
+        }
+
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK:
                 if (s()) {
@@ -445,6 +481,17 @@ public class xi extends xh implements bbb<Message, Boolean> {
                 return true;
             default:
                 return false;
+        }
+    }
+
+    private void showPlayerRightMenu() {
+        xh h = this;
+        while (h != null) {
+            if (h instanceof xw) {
+                ((xw) h).d(true);
+                return;
+            }
+            h = h.next();
         }
     }
 
