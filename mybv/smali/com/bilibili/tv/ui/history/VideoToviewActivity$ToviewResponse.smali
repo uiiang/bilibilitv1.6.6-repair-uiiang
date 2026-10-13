@@ -32,7 +32,7 @@
     .locals 0
 
     .prologue
-    .line 321
+    .line 295
     iput-object p1, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$ToviewResponse;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
@@ -46,7 +46,7 @@
     .locals 4
 
     .prologue
-    .line 337
+    .line 311
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$ToviewResponse;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
     # getter for: Lcom/bilibili/tv/ui/history/VideoToviewActivity;->a:Lcom/bilibili/tv/ui/history/VideoToviewActivity$g;
@@ -64,23 +64,23 @@
 
     if-eqz v0, :cond_11
 
-    .line 352
+    .line 326
     :cond_10
     :goto_10
     return-void
 
-    .line 340
+    .line 314
     :cond_11
     const-string v0, "ToviewResponse"
 
     invoke-static {v0, p1}, Lmybl/LogUtil;->json(Ljava/lang/String;Ljava/lang/Object;)V
 
-    .line 341
+    .line 315
     new-instance v2, Ljava/util/ArrayList;
 
     invoke-direct {v2}, Ljava/util/ArrayList;-><init>()V
 
-    .line 342
+    .line 316
     const/4 v0, 0x0
 
     move v1, v0
@@ -128,7 +128,7 @@
 
     goto :goto_1d
 
-    .line 343
+    .line 317
     :cond_46
     if-eqz v2, :cond_57
 
@@ -138,7 +138,7 @@
 
     if-nez v0, :cond_57
 
-    .line 344
+    .line 318
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$ToviewResponse;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
     invoke-static {v2}, Lbl/baf;->b(Ljava/util/Collection;)Ljava/util/List;
@@ -148,7 +148,7 @@
     # setter for: Lcom/bilibili/tv/ui/history/VideoToviewActivity;->d:Ljava/util/List;
     invoke-static {v0, v1}, Lcom/bilibili/tv/ui/history/VideoToviewActivity;->access$202(Lcom/bilibili/tv/ui/history/VideoToviewActivity;Ljava/util/List;)Ljava/util/List;
 
-    .line 346
+    .line 320
     :cond_57
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$ToviewResponse;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
@@ -158,7 +158,7 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->b()V
 
-    .line 347
+    .line 321
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$ToviewResponse;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
     # getter for: Lcom/bilibili/tv/ui/history/VideoToviewActivity;->d:Ljava/util/List;
@@ -172,7 +172,7 @@
 
     if-eqz v0, :cond_81
 
-    .line 348
+    .line 322
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$ToviewResponse;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
     invoke-static {v0}, Lcom/bilibili/tv/ui/history/VideoToviewActivity;->c(Lcom/bilibili/tv/ui/history/VideoToviewActivity;)Lcom/bilibili/tv/ui/base/LoadingImageView;
@@ -181,7 +181,7 @@
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/base/LoadingImageView;->c()V
 
-    .line 349
+    .line 323
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$ToviewResponse;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
     invoke-static {v0}, Lcom/bilibili/tv/ui/history/VideoToviewActivity;->c(Lcom/bilibili/tv/ui/history/VideoToviewActivity;)Lcom/bilibili/tv/ui/base/LoadingImageView;
@@ -192,7 +192,7 @@
 
     invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/base/LoadingImageView;->a(I)V
 
-    .line 351
+    .line 325
     :cond_81
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$ToviewResponse;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
@@ -217,7 +217,7 @@
     .locals 0
 
     .prologue
-    .line 321
+    .line 295
     check-cast p1, Lcom/alibaba/fastjson/JSONObject;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/history/VideoToviewActivity$ToviewResponse;->a(Lcom/alibaba/fastjson/JSONObject;)V
@@ -229,7 +229,7 @@
     .locals 1
 
     .prologue
-    .line 324
+    .line 298
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$ToviewResponse;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/history/VideoToviewActivity;->isFinishing()Z
@@ -243,14 +243,14 @@
     .locals 2
 
     .prologue
-    .line 329
+    .line 303
     sget-object v0, Lbl/adl;->a:Lbl/adl;
 
     iget-object v1, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$ToviewResponse;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
     invoke-virtual {v0, p1, v1}, Lbl/adl;->a(Ljava/lang/Throwable;Landroid/app/Activity;)V
 
-    .line 330
+    .line 304
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity$ToviewResponse;->this$0:Lcom/bilibili/tv/ui/history/VideoToviewActivity;
 
     # getter for: Lcom/bilibili/tv/ui/history/VideoToviewActivity;->a:Lcom/bilibili/tv/ui/history/VideoToviewActivity$g;
@@ -268,7 +268,7 @@
 
     if-nez v0, :cond_17
 
-    .line 333
+    .line 307
     :cond_17
     return-void
 .end method

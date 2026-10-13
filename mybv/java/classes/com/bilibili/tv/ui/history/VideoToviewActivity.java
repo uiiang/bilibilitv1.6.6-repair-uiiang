@@ -74,7 +74,7 @@ import com.bilibili.tv.ui.bangumi.BangumiDetailActivity;
 
 /* compiled from: BL */
 /* loaded from: classes.dex */
-public final class VideoToviewActivity extends BaseUpViewActivity implements View.OnLongClickListener, wf {
+public final class VideoToviewActivity extends BaseUpViewActivity implements wf {
     private static final String e = "fromType";
     private static final int f = 1;
     private static final int g = 2;
@@ -137,7 +137,7 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements Vie
         }
         ((TextView) d(R.id.title)).setText(getString(R.string.my_toview));
         TextView textView = (TextView) d(R.id.hint_sort);
-        textView.setText("菜单键删除，长按[OK]键清空已观看");
+        textView.setText("点击[菜单]键删除");
         textView.setVisibility(0);
         RecyclerView recyclerView = (RecyclerView) d(R.id.recycler_view);
         this.c = LoadingImageView.Companion.a((FrameLayout) d(R.id.loading_view_content));
@@ -243,15 +243,6 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements Vie
         }
     }
 
-    @Override // android.view.View.OnLongClickListener
-    public boolean onLongClick(View v) {
-        bbi.b(v, "v");
-        agb.a aVar = new agb.a(this);
-        aVar.a(1).a("确认删除已观看视频？").b(getString(R.string.confirm), new ClearConfirmButton()).a(getString(R.string.cancel), CancelButton.a);
-        aVar.a().show();
-        return true;
-    }
-
     @Override // android.support.v7.app.AppCompatActivity, android.app.Activity, android.view.KeyEvent.Callback
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         bbi.b(event, "event");
@@ -283,23 +274,6 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements Vie
                 VideoToviewActivity.this.c(VideoToviewActivity.this).c();
             }
             agbVar.dismiss();
-        }
-    }
-
-    /* compiled from: BL */
-    /* loaded from: classes.dex */
-    final class ClearConfirmButton implements agb.b {
-        @Override // bl.agb.b
-        public final void a(agb agbVar, View view) {
-            VideoToviewActivity.c(VideoToviewActivity.this).b();
-            VideoToviewActivity.c(VideoToviewActivity.this).a();
-            mg biliAccount = mg.a(MainApplication.a());
-            String cookie = CookieUtil.getFullCookieWithDevice(biliAccount);
-            String csrf = CookieUtil.getBiliJct(biliAccount);
-            ((BiliPlayerHistoryService) vo.a(BiliPlayerHistoryService.class)).clearVideoToviews(csrf, cookie).a();
-            agbVar.dismiss();
-            try{Thread.sleep(1000);}catch(Exception e){}
-            VideoToviewActivity.this.o();
         }
     }
 
@@ -555,10 +529,6 @@ public final class VideoToviewActivity extends BaseUpViewActivity implements Vie
             this.p.setCompoundDrawables(c, null, null, null);
             this.q.setCompoundDrawables(c2, null, null, null);
             this.danmakuInImage.setCompoundDrawables(c3, null, null, null);
-            Context context = view.getContext();
-            if (context instanceof View.OnLongClickListener) {
-                view.setOnLongClickListener((View.OnLongClickListener) context);
-            }
         }
 
         public final ScalableImageView z() {

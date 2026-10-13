@@ -3,7 +3,6 @@
 .source "VideoToviewActivity.java"
 
 # interfaces
-.implements Landroid/view/View$OnLongClickListener;
 .implements Lbl/wf;
 
 
@@ -14,9 +13,8 @@
         Lcom/bilibili/tv/ui/history/VideoToviewActivity$h;,
         Lcom/bilibili/tv/ui/history/VideoToviewActivity$k;,
         Lcom/bilibili/tv/ui/history/VideoToviewActivity$ToviewResponse;,
-        Lcom/bilibili/tv/ui/history/VideoToviewActivity$ClearConfirmButton;,
-        Lcom/bilibili/tv/ui/history/VideoToviewActivity$CancelButton;,
         Lcom/bilibili/tv/ui/history/VideoToviewActivity$DeleteConfirmButton;,
+        Lcom/bilibili/tv/ui/history/VideoToviewActivity$CancelButton;,
         Lcom/bilibili/tv/ui/history/VideoToviewActivity$b;,
         Lcom/bilibili/tv/ui/history/VideoToviewActivity$c;,
         Lcom/bilibili/tv/ui/history/VideoToviewActivity$f;
@@ -171,16 +169,6 @@
     iget-object v0, p0, Lcom/bilibili/tv/ui/history/VideoToviewActivity;->a:Lcom/bilibili/tv/ui/history/VideoToviewActivity$g;
 
     return-object v0
-.end method
-
-.method static synthetic access$400(Lcom/bilibili/tv/ui/history/VideoToviewActivity;)V
-    .locals 0
-
-    .prologue
-    .line 77
-    invoke-direct {p0}, Lcom/bilibili/tv/ui/history/VideoToviewActivity;->o()V
-
-    return-void
 .end method
 
 .method public static final c(Lcom/bilibili/tv/ui/history/VideoToviewActivity;)Lcom/bilibili/tv/ui/base/LoadingImageView;
@@ -384,7 +372,7 @@
     check-cast v0, Landroid/widget/TextView;
 
     .line 140
-    const-string v1, "\u83dc\u5355\u952e\u5220\u9664\uff0c\u957f\u6309[OK]\u952e\u6e05\u7a7a\u5df2\u89c2\u770b"
+    const-string v1, "\u83dc\u5355\u952e\u5220\u9664"
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
@@ -645,12 +633,12 @@
     .locals 4
 
     .prologue
-    .line 257
+    .line 248
     const-string v0, "event"
 
     invoke-static {p2, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 258
+    .line 249
     const/16 v0, 0x52
 
     if-ne p1, v0, :cond_48
@@ -667,12 +655,12 @@
 
     if-ltz v0, :cond_48
 
-    .line 259
+    .line 250
     new-instance v0, Lbl/agb$a;
 
     invoke-direct {v0, p0}, Lbl/agb$a;-><init>(Landroid/app/Activity;)V
 
-    .line 260
+    .line 251
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Lbl/agb$a;->a(I)Lbl/agb$a;
@@ -709,80 +697,18 @@
 
     invoke-virtual {v1, v2, v3}, Lbl/agb$a;->a(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
 
-    .line 261
+    .line 252
     invoke-virtual {v0}, Lbl/agb$a;->a()Lbl/agb;
 
     move-result-object v0
 
     invoke-virtual {v0}, Lbl/agb;->show()V
 
-    .line 264
+    .line 255
     :cond_48
     invoke-super {p0, p1, p2}, Lcom/bilibili/tv/ui/base/BaseUpViewActivity;->onKeyUp(ILandroid/view/KeyEvent;)Z
 
     move-result v0
 
     return v0
-.end method
-
-.method public onLongClick(Landroid/view/View;)Z
-    .locals 5
-
-    .prologue
-    const/4 v4, 0x1
-
-    .line 248
-    const-string v0, "v"
-
-    invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
-
-    .line 249
-    new-instance v0, Lbl/agb$a;
-
-    invoke-direct {v0, p0}, Lbl/agb$a;-><init>(Landroid/app/Activity;)V
-
-    .line 250
-    invoke-virtual {v0, v4}, Lbl/agb$a;->a(I)Lbl/agb$a;
-
-    move-result-object v1
-
-    const-string v2, "\u786e\u8ba4\u5220\u9664\u5df2\u89c2\u770b\u89c6\u9891\uff1f"
-
-    invoke-virtual {v1, v2}, Lbl/agb$a;->a(Ljava/lang/String;)Lbl/agb$a;
-
-    move-result-object v1
-
-    const v2, 0x7f0c0079
-
-    invoke-virtual {p0, v2}, Lcom/bilibili/tv/ui/history/VideoToviewActivity;->getString(I)Ljava/lang/String;
-
-    move-result-object v2
-
-    new-instance v3, Lcom/bilibili/tv/ui/history/VideoToviewActivity$ClearConfirmButton;
-
-    invoke-direct {v3, p0}, Lcom/bilibili/tv/ui/history/VideoToviewActivity$ClearConfirmButton;-><init>(Lcom/bilibili/tv/ui/history/VideoToviewActivity;)V
-
-    invoke-virtual {v1, v2, v3}, Lbl/agb$a;->b(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
-
-    move-result-object v1
-
-    const v2, 0x7f0c0076
-
-    invoke-virtual {p0, v2}, Lcom/bilibili/tv/ui/history/VideoToviewActivity;->getString(I)Ljava/lang/String;
-
-    move-result-object v2
-
-    sget-object v3, Lcom/bilibili/tv/ui/history/VideoToviewActivity$CancelButton;->a:Lcom/bilibili/tv/ui/history/VideoToviewActivity$CancelButton;
-
-    invoke-virtual {v1, v2, v3}, Lbl/agb$a;->a(Ljava/lang/String;Lbl/agb$b;)Lbl/agb$a;
-
-    .line 251
-    invoke-virtual {v0}, Lbl/agb$a;->a()Lbl/agb;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Lbl/agb;->show()V
-
-    .line 252
-    return v4
 .end method
