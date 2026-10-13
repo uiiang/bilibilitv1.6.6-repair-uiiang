@@ -504,7 +504,7 @@
             android:focusable="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="更多操作："
+            android:text="更多操作按键："
             android:textColor="@color/white"
             android:textSize="@dimen/px_44"
             android:layout_marginLeft="@dimen/px_30"
