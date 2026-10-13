@@ -527,7 +527,7 @@
                 android:focusable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="[菜单]键"
+                android:text="点击[菜单]键"
                 android:textColor="@color/white"
                 android:textSize="@dimen/px_44" />
         </com.bilibili.tv.widget.DrawFrameLayout>
@@ -550,7 +550,7 @@
                 android:focusable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="[确定]键"
+                android:text="长按[确定]键"
                 android:textColor="@color/white"
                 android:textSize="@dimen/px_44" />
         </com.bilibili.tv.widget.DrawFrameLayout>
