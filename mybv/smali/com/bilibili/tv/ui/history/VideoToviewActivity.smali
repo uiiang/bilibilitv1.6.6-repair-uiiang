@@ -372,7 +372,7 @@
     check-cast v0, Landroid/widget/TextView;
 
     .line 140
-    const-string v1, "\u83dc\u5355\u952e\u5220\u9664"
+    const-string v1, "\u70b9\u51fb[\u83dc\u5355]\u952e\u5220\u9664"
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 

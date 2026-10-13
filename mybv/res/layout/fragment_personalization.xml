@@ -474,6 +474,7 @@
             android:nextFocusLeft="@id/tab_bangumi"
             android:nextFocusRight="@id/tab_pgc"
             android:nextFocusUp="@id/recommend_api_app_button"
+            android:nextFocusDown="@id/more_action_ok_btn"
             android:paddingLeft="@dimen/px_20"
             android:paddingRight="@dimen/px_20"
             android:layout_width="wrap_content"
@@ -488,6 +489,70 @@
                 android:text="影视"
                 android:textColor="@color/white"
                 android:textSize="@dimen/px_36" />
+        </com.bilibili.tv.widget.DrawFrameLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="left|center_vertical"
+        android:orientation="horizontal"
+        android:focusable="false"
+        android:clipChildren="false"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_150">
+        <com.bilibili.tv.widget.ShadowTextView
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:focusable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="更多操作："
+            android:textColor="@color/white"
+            android:textSize="@dimen/px_44"
+            android:layout_marginLeft="@dimen/px_30"
+            android:layout_marginRight="@dimen/px_30" />
+        <com.bilibili.tv.widget.DrawFrameLayout
+            android:id="@id/more_action_menu_btn"
+            android:background="@drawable/shape_rectangle_trans_with_12corner_white_10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:nextFocusRight="@id/more_action_ok_btn"
+            android:nextFocusUp="@id/tab_personal_recommend"
+            android:nextFocusDown="@id/menu_quality_btn"
+            android:paddingLeft="@dimen/px_30"
+            android:paddingRight="@dimen/px_30"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/px_96">
+            <com.bilibili.tv.widget.ShadowTextView
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:focusable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="[菜单]键"
+                android:textColor="@color/white"
+                android:textSize="@dimen/px_44" />
+        </com.bilibili.tv.widget.DrawFrameLayout>
+        <com.bilibili.tv.widget.DrawFrameLayout
+            android:id="@id/more_action_ok_btn"
+            android:background="@drawable/shape_rectangle_trans_with_12corner_white_10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:nextFocusLeft="@id/more_action_menu_btn"
+            android:nextFocusUp="@id/tab_pgc"
+            android:nextFocusDown="@id/menu_danmaku_btn"
+            android:paddingLeft="@dimen/px_30"
+            android:paddingRight="@dimen/px_30"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/px_96"
+            android:layout_marginLeft="@dimen/px_40">
+            <com.bilibili.tv.widget.ShadowTextView
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:focusable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="[确定]键"
+                android:textColor="@color/white"
+                android:textSize="@dimen/px_44" />
         </com.bilibili.tv.widget.DrawFrameLayout>
     </LinearLayout>
     <LinearLayout
@@ -521,14 +586,15 @@
                 android:clipChildren="false"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/px_96">
-                <com.bilibili.tv.widget.DrawFrameLayout
-                    android:id="@id/menu_quality_btn"
-                    android:background="@drawable/shape_rectangle_trans_with_12corner_white_10"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:nextFocusRight="@id/menu_danmaku_btn"
-                    android:nextFocusDown="@id/menu_speed_btn"
-                    android:paddingLeft="@dimen/px_20"
+        <com.bilibili.tv.widget.DrawFrameLayout
+            android:id="@id/menu_quality_btn"
+            android:background="@drawable/shape_rectangle_trans_with_12corner_white_10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:nextFocusRight="@id/menu_danmaku_btn"
+            android:nextFocusDown="@id/menu_speed_btn"
+            android:nextFocusUp="@id/more_action_menu_btn"
+            android:paddingLeft="@dimen/px_20"
                     android:paddingRight="@dimen/px_20"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/px_96">
@@ -542,15 +608,16 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/px_36" />
                 </com.bilibili.tv.widget.DrawFrameLayout>
-                <com.bilibili.tv.widget.DrawFrameLayout
-                    android:id="@id/menu_danmaku_btn"
-                    android:background="@drawable/shape_rectangle_trans_with_12corner_white_10"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:nextFocusLeft="@id/menu_quality_btn"
-                    android:nextFocusRight="@id/menu_ratio_btn"
-                    android:nextFocusDown="@id/menu_speed_btn"
-                    android:paddingLeft="@dimen/px_20"
+        <com.bilibili.tv.widget.DrawFrameLayout
+            android:id="@id/menu_danmaku_btn"
+            android:background="@drawable/shape_rectangle_trans_with_12corner_white_10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:nextFocusLeft="@id/menu_quality_btn"
+            android:nextFocusRight="@id/menu_ratio_btn"
+            android:nextFocusDown="@id/menu_speed_btn"
+            android:nextFocusUp="@id/more_action_ok_btn"
+            android:paddingLeft="@dimen/px_20"
                     android:paddingRight="@dimen/px_20"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/px_96"

@@ -479,4 +479,6 @@
     <item type="id" name="video_detail_subscribe_img" />
     <item type="id" name="video_detail_subscribe_text" />
     <item type="id" name="space_subscribe_btn" />
+    <item type="id" name="more_action_menu_btn" />
+    <item type="id" name="more_action_ok_btn" />
 </resources>

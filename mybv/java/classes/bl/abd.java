@@ -334,6 +334,22 @@ public class abd {
 
     private static int recommendApiType = -1;
     public static final int RECOMMEND_API_WEB = 0;
+
+    private static int moreActionKey = -1;
+    public static final int MORE_ACTION_MENU = 0;
+    public static final int MORE_ACTION_OK = 1;
+
+    public static void set_more_action_key(Context context, int key) {
+        a(context).a().edit().putInt("more_action_key", key).apply();
+        moreActionKey = key;
+    }
+
+    public static int get_more_action_key(Context context) {
+        if (moreActionKey == -1) {
+            moreActionKey = a(context).a().getInt("more_action_key", MORE_ACTION_MENU);
+        }
+        return moreActionKey;
+    }
     public static final int RECOMMEND_API_APP = 1;
 
     public static void set_recommend_api_type(Context context, int type) {

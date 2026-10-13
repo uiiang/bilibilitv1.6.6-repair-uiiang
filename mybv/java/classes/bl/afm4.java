@@ -56,6 +56,9 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
     private DrawFrameLayout menuAudioBalanceBtn;
     private DrawFrameLayout menuEbookBtn;
 
+    private DrawFrameLayout moreActionMenuButton;
+    private DrawFrameLayout moreActionOkButton;
+
     @Override // bl.adw
     public boolean c() {
         return true;
@@ -230,6 +233,23 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         this.tabArea.setOnClickListener(this);
         this.tabBangumi.setOnClickListener(this);
         this.tabPgc.setOnClickListener(this);
+
+        this.moreActionMenuButton = (DrawFrameLayout) inflate.findViewById(R.id.more_action_menu_btn);
+        this.moreActionOkButton = (DrawFrameLayout) inflate.findViewById(R.id.more_action_ok_btn);
+        this.moreActionMenuButton.setUpDrawable(R.drawable.shadow_white_rect);
+        this.moreActionOkButton.setUpDrawable(R.drawable.shadow_white_rect);
+        this.moreActionMenuButton.setOnFocusChangeListener(this);
+        this.moreActionOkButton.setOnFocusChangeListener(this);
+        this.moreActionMenuButton.setOnClickListener(this);
+        this.moreActionOkButton.setOnClickListener(this);
+        int moreActionKey = abd.get_more_action_key(getActivity());
+        if (moreActionKey == abd.MORE_ACTION_OK) {
+            this.moreActionMenuButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+            this.moreActionOkButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+        } else {
+            this.moreActionMenuButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+            this.moreActionOkButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+        }
 
         int topTabConfig = abd.get_top_tab_config(getActivity());
         updateTopTabButtonState(this.tabPersonalRecommend, (topTabConfig & abd.TAB_PERSONAL_RECOMMEND) != 0);
@@ -489,6 +509,16 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
             this.spaceAllButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
         }
 
+        if (view == this.moreActionMenuButton) {
+            abd.set_more_action_key(getActivity(), abd.MORE_ACTION_MENU);
+            this.moreActionMenuButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+            this.moreActionOkButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+        } else if (view == this.moreActionOkButton) {
+            abd.set_more_action_key(getActivity(), abd.MORE_ACTION_OK);
+            this.moreActionOkButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+            this.moreActionMenuButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+        }
+
         if (view == this.menuQualityBtn || view == this.menuDanmakuBtn ||
                 view == this.menuRatioBtn || view == this.menuAdjustBtn ||
                 view == this.menuSizeBtn || view == this.menuAlphaBtn ||
@@ -581,6 +611,12 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         if (this.spaceDynamicButton != null && this.spaceDynamicButton.hasFocus()) {
             return false;
         }
+        if (this.moreActionMenuButton != null && this.moreActionMenuButton.hasFocus()) {
+            return false;
+        }
+        if (this.moreActionOkButton != null && this.moreActionOkButton.hasFocus()) {
+            return false;
+        }
         if (this.tab_buttons[0] != null && this.tab_buttons[0].hasFocus()) {
             return false;
         }
@@ -661,6 +697,12 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
                 allTabsNoFocus = false;
             }
             if (allTabsNoFocus && this.menuAudioBalanceBtn != null && this.menuAudioBalanceBtn.hasFocus()) {
+                allTabsNoFocus = false;
+            }
+            if (allTabsNoFocus && this.moreActionMenuButton != null && this.moreActionMenuButton.hasFocus()) {
+                allTabsNoFocus = false;
+            }
+            if (allTabsNoFocus && this.moreActionOkButton != null && this.moreActionOkButton.hasFocus()) {
                 allTabsNoFocus = false;
             }
             if (allTabsNoFocus && this.menuEbookBtn != null && this.menuEbookBtn.hasFocus()) {
