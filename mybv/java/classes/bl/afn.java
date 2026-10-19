@@ -26,6 +26,8 @@ import java.util.Map;
 import tv.danmaku.videoplayer.core.media.PlayerSelector;
 import tv.danmaku.videoplayer.core.media.ijk.IjkMediaCodecInfo;
 
+import mybl.BiliFilter;
+
 public final class afn extends adw implements View.OnFocusChangeListener, View.OnClickListener {
     public static final a Companion = new a(null);
     public static String prefect_codec = null;
@@ -48,6 +50,21 @@ public final class afn extends adw implements View.OnFocusChangeListener, View.O
 
     private ViewGroup decodeSettingsLayout;
     private ViewGroup codecSettingsLayout;
+
+    private DrawFrameLayout menuQualityBtn;
+    private DrawFrameLayout menuDanmakuBtn;
+    private DrawFrameLayout menuRatioBtn;
+    private DrawFrameLayout menuAdjustBtn;
+    private DrawFrameLayout menuSizeBtn;
+    private DrawFrameLayout menuAlphaBtn;
+    private DrawFrameLayout menuSpeedBtn;
+    private DrawFrameLayout menuModeBtn;
+    private DrawFrameLayout menuSubtitleBtn;
+    private DrawFrameLayout menuChapterBtn;
+    private DrawFrameLayout menuSkipBtn;
+    private DrawFrameLayout menuSubtitleSizeBtn;
+    private DrawFrameLayout menuAudioBalanceBtn;
+    private DrawFrameLayout menuEbookBtn;
 
     @Override
     public boolean c() {
@@ -193,6 +210,100 @@ public final class afn extends adw implements View.OnFocusChangeListener, View.O
         }
 
         updateLivePlayerSelection();
+
+        // ===== 以下为从"个性化"页迁移来的"右侧菜单"设置项（置于默认清晰度上方）=====
+        this.menuQualityBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_quality_btn);
+        this.menuDanmakuBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_danmaku_btn);
+        this.menuRatioBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_ratio_btn);
+        this.menuAdjustBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_adjust_btn);
+        this.menuSizeBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_size_btn);
+        this.menuAlphaBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_alpha_btn);
+        this.menuSpeedBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_speed_btn);
+        this.menuModeBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_mode_btn);
+        this.menuSubtitleBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_subtitle_btn);
+        this.menuChapterBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_chapter_btn);
+        this.menuSkipBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_skip_btn);
+        this.menuSubtitleSizeBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_subtitle_size_btn);
+        this.menuAudioBalanceBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_audio_balance_btn);
+        this.menuEbookBtn = (DrawFrameLayout) inflate.findViewById(R.id.menu_ebook_btn);
+
+        // 根据隐藏功能开关和渲染视图类型决定是否显示电子书选项
+        boolean ebookEnabled = abd.b(getActivity()) && (mybl.BiliFilter.prefer_videoview == abd.RENDER_VIEW_TEXTURE);
+        if (!ebookEnabled) {
+            this.menuEbookBtn.setVisibility(View.GONE);
+            // 设置音频平衡按钮的右键焦点为自身，避免焦点跳到页面顶部
+            this.menuAudioBalanceBtn.setNextFocusRightId(R.id.menu_audio_balance_btn);
+        }
+
+        this.menuQualityBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        this.menuDanmakuBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        this.menuRatioBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        this.menuAdjustBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        this.menuSizeBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        this.menuAlphaBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        this.menuSpeedBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        this.menuModeBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        this.menuSubtitleBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        this.menuChapterBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        this.menuSkipBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        this.menuSubtitleSizeBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        this.menuAudioBalanceBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        if (ebookEnabled) {
+            this.menuEbookBtn.setUpDrawable(R.drawable.shadow_white_rect);
+        }
+
+        this.menuQualityBtn.setOnFocusChangeListener(this);
+        this.menuDanmakuBtn.setOnFocusChangeListener(this);
+        this.menuRatioBtn.setOnFocusChangeListener(this);
+        this.menuAdjustBtn.setOnFocusChangeListener(this);
+        this.menuSizeBtn.setOnFocusChangeListener(this);
+        this.menuAlphaBtn.setOnFocusChangeListener(this);
+        this.menuSpeedBtn.setOnFocusChangeListener(this);
+        this.menuModeBtn.setOnFocusChangeListener(this);
+        this.menuSubtitleBtn.setOnFocusChangeListener(this);
+        this.menuChapterBtn.setOnFocusChangeListener(this);
+        this.menuSkipBtn.setOnFocusChangeListener(this);
+        this.menuSubtitleSizeBtn.setOnFocusChangeListener(this);
+        this.menuAudioBalanceBtn.setOnFocusChangeListener(this);
+        if (ebookEnabled) {
+            this.menuEbookBtn.setOnFocusChangeListener(this);
+        }
+
+        this.menuQualityBtn.setOnClickListener(this);
+        this.menuDanmakuBtn.setOnClickListener(this);
+        this.menuRatioBtn.setOnClickListener(this);
+        this.menuAdjustBtn.setOnClickListener(this);
+        this.menuSizeBtn.setOnClickListener(this);
+        this.menuAlphaBtn.setOnClickListener(this);
+        this.menuSpeedBtn.setOnClickListener(this);
+        this.menuModeBtn.setOnClickListener(this);
+        this.menuSubtitleBtn.setOnClickListener(this);
+        this.menuChapterBtn.setOnClickListener(this);
+        this.menuSkipBtn.setOnClickListener(this);
+        this.menuSubtitleSizeBtn.setOnClickListener(this);
+        this.menuAudioBalanceBtn.setOnClickListener(this);
+        if (ebookEnabled) {
+            this.menuEbookBtn.setOnClickListener(this);
+        }
+
+        int menuConfig = abd.get_player_menu_config(getActivity());
+        updateMenuButtonState(this.menuQualityBtn, (menuConfig & abd.MENU_QUALITY) != 0);
+        updateMenuButtonState(this.menuDanmakuBtn, (menuConfig & abd.MENU_DANMAKU) != 0);
+        updateMenuButtonState(this.menuRatioBtn, (menuConfig & abd.MENU_RATIO) != 0);
+        updateMenuButtonState(this.menuAdjustBtn, (menuConfig & abd.MENU_ADJUST) != 0);
+        updateMenuButtonState(this.menuSizeBtn, (menuConfig & abd.MENU_SIZE) != 0);
+        updateMenuButtonState(this.menuAlphaBtn, (menuConfig & abd.MENU_ALPHA) != 0);
+        updateMenuButtonState(this.menuSpeedBtn, (menuConfig & abd.MENU_SPEED) != 0);
+        updateMenuButtonState(this.menuModeBtn, (menuConfig & abd.MENU_MODE) != 0);
+        updateMenuButtonState(this.menuSubtitleBtn, (menuConfig & abd.MENU_SUBTITLE) != 0);
+        updateMenuButtonState(this.menuChapterBtn, (menuConfig & abd.MENU_CHAPTER) != 0);
+        updateMenuButtonState(this.menuSkipBtn, (menuConfig & abd.MENU_SKIP) != 0);
+        updateMenuButtonState(this.menuSubtitleSizeBtn, (menuConfig & abd.MENU_SUBTITLE_SIZE) != 0);
+        updateMenuButtonState(this.menuAudioBalanceBtn, (menuConfig & abd.MENU_AUDIO_BALANCE) != 0);
+        if (ebookEnabled) {
+            updateMenuButtonState(this.menuEbookBtn, (menuConfig & abd.MENU_EBOOK) != 0);
+        }
+        // ===== 右侧菜单设置项迁移结束 =====
 
         return inflate;
     }
@@ -349,6 +460,58 @@ public final class afn extends adw implements View.OnFocusChangeListener, View.O
             abd.set_live_player_type((Context) afn.this.getActivity(), PlayerSelector.PLAYER_EXO);
             afn.this.updateLivePlayerSelection();
         }
+
+        if (view == this.menuQualityBtn || view == this.menuDanmakuBtn ||
+                view == this.menuRatioBtn || view == this.menuAdjustBtn ||
+                view == this.menuSizeBtn || view == this.menuAlphaBtn ||
+                view == this.menuSpeedBtn || view == this.menuModeBtn ||
+                view == this.menuSubtitleBtn || view == this.menuChapterBtn ||
+                view == this.menuSkipBtn || view == this.menuSubtitleSizeBtn ||
+                view == this.menuAudioBalanceBtn || view == this.menuEbookBtn) {
+            int config = abd.get_player_menu_config(getActivity());
+            int flag = 0;
+            if (view == this.menuQualityBtn)
+                flag = abd.MENU_QUALITY;
+            else if (view == this.menuDanmakuBtn)
+                flag = abd.MENU_DANMAKU;
+            else if (view == this.menuRatioBtn)
+                flag = abd.MENU_RATIO;
+            else if (view == this.menuAdjustBtn)
+                flag = abd.MENU_ADJUST;
+            else if (view == this.menuSizeBtn)
+                flag = abd.MENU_SIZE;
+            else if (view == this.menuAlphaBtn)
+                flag = abd.MENU_ALPHA;
+            else if (view == this.menuSpeedBtn)
+                flag = abd.MENU_SPEED;
+            else if (view == this.menuModeBtn)
+                flag = abd.MENU_MODE;
+            else if (view == this.menuSubtitleBtn)
+                flag = abd.MENU_SUBTITLE;
+            else if (view == this.menuChapterBtn)
+                flag = abd.MENU_CHAPTER;
+            else if (view == this.menuSkipBtn)
+                flag = abd.MENU_SKIP;
+            else if (view == this.menuSubtitleSizeBtn)
+                flag = abd.MENU_SUBTITLE_SIZE;
+            else if (view == this.menuAudioBalanceBtn)
+                flag = abd.MENU_AUDIO_BALANCE;
+            else if (view == this.menuEbookBtn)
+                flag = abd.MENU_EBOOK;
+
+            boolean wasEnabled = (config & flag) != 0;
+            int newConfig;
+            if (wasEnabled) {
+                newConfig = config & ~flag;
+                if (newConfig == 0) {
+                    newConfig = flag;
+                }
+            } else {
+                newConfig = config | flag;
+            }
+            abd.set_player_menu_config(getActivity(), newConfig);
+            updateMenuButtonState((DrawFrameLayout) view, !wasEnabled);
+        }
     }
 
     public final boolean a() {
@@ -382,7 +545,49 @@ public final class afn extends adw implements View.OnFocusChangeListener, View.O
         if (this.liveExoPlayerBtn != null && this.liveExoPlayerBtn.hasFocus()) {
             return false;
         }
-        this.b.requestFocus();
+        if (this.menuQualityBtn != null && this.menuQualityBtn.hasFocus()) {
+            return false;
+        }
+        if (this.menuDanmakuBtn != null && this.menuDanmakuBtn.hasFocus()) {
+            return false;
+        }
+        if (this.menuRatioBtn != null && this.menuRatioBtn.hasFocus()) {
+            return false;
+        }
+        if (this.menuAdjustBtn != null && this.menuAdjustBtn.hasFocus()) {
+            return false;
+        }
+        if (this.menuSizeBtn != null && this.menuSizeBtn.hasFocus()) {
+            return false;
+        }
+        if (this.menuAlphaBtn != null && this.menuAlphaBtn.hasFocus()) {
+            return false;
+        }
+        if (this.menuSpeedBtn != null && this.menuSpeedBtn.hasFocus()) {
+            return false;
+        }
+        if (this.menuModeBtn != null && this.menuModeBtn.hasFocus()) {
+            return false;
+        }
+        if (this.menuSubtitleBtn != null && this.menuSubtitleBtn.hasFocus()) {
+            return false;
+        }
+        if (this.menuChapterBtn != null && this.menuChapterBtn.hasFocus()) {
+            return false;
+        }
+        if (this.menuSkipBtn != null && this.menuSkipBtn.hasFocus()) {
+            return false;
+        }
+        if (this.menuSubtitleSizeBtn != null && this.menuSubtitleSizeBtn.hasFocus()) {
+            return false;
+        }
+        if (this.menuAudioBalanceBtn != null && this.menuAudioBalanceBtn.hasFocus()) {
+            return false;
+        }
+        if (this.menuEbookBtn != null && this.menuEbookBtn.hasFocus()) {
+            return false;
+        }
+        this.menuQualityBtn.requestFocus();
         return true;
     }
 
@@ -417,6 +622,48 @@ public final class afn extends adw implements View.OnFocusChangeListener, View.O
         if (this.liveExoPlayerBtn != null && this.liveExoPlayerBtn.hasFocus()) {
             return true;
         }
+        if (this.menuQualityBtn != null && this.menuQualityBtn.hasFocus()) {
+            return true;
+        }
+        if (this.menuDanmakuBtn != null && this.menuDanmakuBtn.hasFocus()) {
+            return true;
+        }
+        if (this.menuRatioBtn != null && this.menuRatioBtn.hasFocus()) {
+            return true;
+        }
+        if (this.menuAdjustBtn != null && this.menuAdjustBtn.hasFocus()) {
+            return true;
+        }
+        if (this.menuSizeBtn != null && this.menuSizeBtn.hasFocus()) {
+            return true;
+        }
+        if (this.menuAlphaBtn != null && this.menuAlphaBtn.hasFocus()) {
+            return true;
+        }
+        if (this.menuSpeedBtn != null && this.menuSpeedBtn.hasFocus()) {
+            return true;
+        }
+        if (this.menuModeBtn != null && this.menuModeBtn.hasFocus()) {
+            return true;
+        }
+        if (this.menuSubtitleBtn != null && this.menuSubtitleBtn.hasFocus()) {
+            return true;
+        }
+        if (this.menuChapterBtn != null && this.menuChapterBtn.hasFocus()) {
+            return true;
+        }
+        if (this.menuSkipBtn != null && this.menuSkipBtn.hasFocus()) {
+            return true;
+        }
+        if (this.menuSubtitleSizeBtn != null && this.menuSubtitleSizeBtn.hasFocus()) {
+            return true;
+        }
+        if (this.menuAudioBalanceBtn != null && this.menuAudioBalanceBtn.hasFocus()) {
+            return true;
+        }
+        if (this.menuEbookBtn != null && this.menuEbookBtn.hasFocus()) {
+            return true;
+        }
         return false;
     }
 
@@ -426,6 +673,14 @@ public final class afn extends adw implements View.OnFocusChangeListener, View.O
         Log.i("afn", "onFocusChange: view=" + view + ", hasFocus=" + z);
         if (view instanceof DrawFrameLayout) {
             ((DrawFrameLayout) view).setUpEnabled(z);
+        }
+    }
+
+    private void updateMenuButtonState(DrawFrameLayout button, boolean enabled) {
+        if (enabled) {
+            button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+        } else {
+            button.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
         }
     }
 
