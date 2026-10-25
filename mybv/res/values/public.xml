@@ -2455,6 +2455,7 @@
     <public type="id" name="skip_checkbox2" id="0x7f080178" />
     <public type="id" name="splash_button" id="0x7f080179" />
     <public type="id" name="progressbar_button" id="0x7f08017a" />
+    <public type="id" name="default_no_history_button" id="0x7f08027a" />
     <public type="id" name="fastquit_button" id="0x7f08017b" />
     <public type="id" name="experiment_folder_open" id="0x7f08017c" />
     <public type="id" name="check_thirdparty_update" id="0x7f08017d" />

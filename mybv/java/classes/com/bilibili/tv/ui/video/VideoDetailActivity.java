@@ -601,12 +601,26 @@ public final class VideoDetailActivity extends BaseActivity
         this.noHistoryPlayBtnLayout = (DrawLinearLayout) d(R.id.video_no_history_play_btn_layout);
         this.noHistoryPlayCheckBox = (CheckBox) d(R.id.video_no_history_play_checkbox);
         this.noHistoryPlayBtn = (DrawTextView) d(R.id.video_no_history_play_btn);
+        if (this.noHistoryPlayCheckBox != null) {
+            // 默认模式：若全局设置开启"无痕模式"，则详情页无痕复选框默认选中
+            boolean defNoHistory = bl.abd.get_default_no_history(this);
+            this.noHistoryPlayCheckBox.setChecked(defNoHistory);
+            sNoHistoryPlayMode = defNoHistory;
+        }
         if (this.noHistoryPlayBtnLayout != null) {
-            this.noHistoryPlayBtnLayout.setOnFocusChangeListener(new d());
+            // 焦点变化：先走通用焦点高亮(d)，再按"选中或获焦"规则刷新"无痕"文字
+            this.noHistoryPlayBtnLayout.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean z) {
+                    new d().onFocusChange(view, z);
+                    refreshNoHistoryLabel();
+                }
+            });
             this.noHistoryPlayBtnLayout.setUpDrawable(R.drawable.shadow_red_rect);
         }
         if (this.noHistoryPlayBtn != null) {
-            this.noHistoryPlayBtn.setText("无痕");
+            // 初始按规则决定文字显隐：默认未选中且未获焦 -> 不显示"无痕"
+            refreshNoHistoryLabel();
         }
         this.scrollView = (ScrollView) d(R.id.scrollView);
         setupGlobalFocusChangeListener();
@@ -1869,6 +1883,7 @@ public final class VideoDetailActivity extends BaseActivity
                 historyPlayBtnLayout.setNextFocusRightId(R.id.video_no_history_play_btn_layout);
             }
             noHistoryPlayBtnLayout.setNextFocusRightId(R.id.video_detail_expand_btn);
+            refreshNoHistoryLabel();
         }
         if (expandBtn != null) {
             expandBtn.setNextFocusLeftId(R.id.video_no_history_play_btn_layout);
@@ -1922,6 +1937,7 @@ public final class VideoDetailActivity extends BaseActivity
                         noHistoryPlayCheckBox.setChecked(newState);
                         sNoHistoryPlayMode = newState;
                     }
+                    refreshNoHistoryLabel();
                 }
             });
         }
@@ -1936,6 +1952,26 @@ public final class VideoDetailActivity extends BaseActivity
                 }
             });
         }
+    }
+
+    /**
+     * 无痕按钮文字显隐规则：复选框"选中" 或 按钮"获焦" 时显示"无痕"文字，否则隐藏。
+     * 即：未选中且未获焦 -> 不显示；获焦 或 选中 -> 显示（含"选中后失焦仍显示"）。
+     */
+    private final void refreshNoHistoryLabel() {
+        if (noHistoryPlayBtn == null) {
+            return;
+        }
+        boolean show = false;
+        if (noHistoryPlayCheckBox != null && noHistoryPlayCheckBox.isChecked()) {
+            show = true;
+        }
+        if (noHistoryPlayBtnLayout != null && noHistoryPlayBtnLayout.isFocused()) {
+            show = true;
+        }
+        // 参考重播按钮实现：用 VISIBLE/GONE 切换文字，GONE 会连同 margin 脱离布局流，避免隐藏后复选框偏移
+        noHistoryPlayBtn.setText("无痕");
+        noHistoryPlayBtn.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     private final void updateSubscribeButtonUI() {
@@ -3873,12 +3909,13 @@ public final class VideoDetailActivity extends BaseActivity
         if (i3 == -1 && (i2 == G || i2 == H)) {
             n();
         }
-        if (i3 == -1 && i2 == REQUEST_CODE_PLAY_VIDEO && intent != null) {
-            long lastCid = intent.getLongExtra("last_cid", 0);
-            int lastProgress = intent.getIntExtra("last_progress", 0);
+        if (i3 == -1 && i2 == REQUEST_CODE_PLAY_VIDEO) {
+            long lastCid = intent != null ? intent.getLongExtra("last_cid", 0) : 0;
+            int lastProgress = intent != null ? intent.getIntExtra("last_progress", 0) : 0;
             android.util.Log.i("HistoryDebug", "[ON_RESULT] requestCode=" + i2 + ", resultCode=" + i3
                 + ", lastCid=" + lastCid + ", lastProgressMs=" + lastProgress
-                + ", progressSec=" + (lastProgress / 1000));
+                + ", progressSec=" + (lastProgress / 1000)
+                + ", sNoHistoryPlayMode=" + sNoHistoryPlayMode);
             if (this.u != null && lastCid > 0) {
                 android.util.Log.i("HistoryDebug", "[ON_RESULT] ownCid=" + this.u.mCid
                     + ", localProgressSec=" + (this.u.mHistory != null ? this.u.mHistory.mProgress : -999)
@@ -3900,6 +3937,22 @@ public final class VideoDetailActivity extends BaseActivity
                 }
                 updateHistoryDisplay(this.u);
                 // 混合方案：先用播放页回传值即时更新，再强制从后端拉取校准（以后端为准覆盖）
+                final BiliVideoDetail detail = this.u;
+                requestHistoryForUgc(detail, new Runnable() {
+                    @Override
+                    public void run() {
+                        if (VideoDetailActivity.this.isFinishing()) {
+                            return;
+                        }
+                        updateHistoryDisplay(detail);
+                    }
+                }, true);
+            } else if (this.u != null && !sNoHistoryPlayMode) {
+                // 取消无痕后从播放器返回：即便播放器未回传进度（如进程被系统回收、intent 为空），
+                // 也按"正常播放模式"刷新控制区——隐藏"无痕"复选、显示"开始播放"进度与"重播"按钮；
+                // 并强制从后端拉取历史做校准（取消无痕后后端已记录播放进度）。
+                android.util.Log.i("HistoryDebug", "[ON_RESULT] incognito cancelled, force normal-mode refresh");
+                updateHistoryDisplay(this.u);
                 final BiliVideoDetail detail = this.u;
                 requestHistoryForUgc(detail, new Runnable() {
                     @Override

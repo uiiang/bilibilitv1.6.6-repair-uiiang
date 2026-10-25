@@ -2485,6 +2485,7 @@ public final class R {
                 public static final int skip_checkbox2 = 0x7f080178;
                 public static final int splash_button = 0x7f080179;
                 public static final int progressbar_button = 0x7f08017a;
+                public static final int default_no_history_button = 0x7f08027a;
                 public static final int fastquit_button = 0x7f08017b;
                 public static final int experiment_folder_open = 0x7f08017c;
                 public static final int check_thirdparty_update = 0x7f08017d;

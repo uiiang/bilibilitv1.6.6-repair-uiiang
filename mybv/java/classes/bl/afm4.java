@@ -43,6 +43,7 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
 
     private DrawFrameLayout moreActionMenuButton;
     private DrawFrameLayout moreActionOkButton;
+    private DrawFrameLayout defaultNoHistoryButton;
 
     @Override // bl.adw
     public boolean c() {
@@ -227,6 +228,17 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
         this.moreActionOkButton.setOnFocusChangeListener(this);
         this.moreActionMenuButton.setOnClickListener(this);
         this.moreActionOkButton.setOnClickListener(this);
+
+        this.defaultNoHistoryButton = (DrawFrameLayout) inflate.findViewById(R.id.default_no_history_button);
+        this.defaultNoHistoryButton.setUpDrawable(R.drawable.shadow_white_rect);
+        this.defaultNoHistoryButton.setOnFocusChangeListener(this);
+        this.defaultNoHistoryButton.setOnClickListener(this);
+        if (abd.get_default_no_history(getActivity())) {
+            this.defaultNoHistoryButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+        } else {
+            this.defaultNoHistoryButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+        }
+
         int moreActionKey = abd.get_more_action_key(getActivity());
         if (moreActionKey == abd.MORE_ACTION_OK) {
             this.moreActionMenuButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
@@ -400,6 +412,16 @@ public final class afm4 extends adw implements View.OnFocusChangeListener, View.
             abd.set_more_action_key(getActivity(), abd.MORE_ACTION_OK);
             this.moreActionOkButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
             this.moreActionMenuButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+        }
+
+        if (view == this.defaultNoHistoryButton) {
+            boolean newState = !abd.get_default_no_history(getActivity());
+            abd.set_default_no_history(getActivity(), newState);
+            if (newState) {
+                this.defaultNoHistoryButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_50);
+            } else {
+                this.defaultNoHistoryButton.setBackgroundResource(R.drawable.shape_rectangle_trans_with_12corner_white_10);
+            }
         }
 
     }

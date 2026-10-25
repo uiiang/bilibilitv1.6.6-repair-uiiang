@@ -408,6 +408,14 @@ public class xw extends xh implements bbb<Message, Boolean>, PlayerMenuRight.a, 
             Log.i(TAG_EBOOK, "视频右侧菜单项已添加: " + (ebookModeActive ? "控制电子书" : "电子书"));
         }
 
+        // 无痕播放模式：在右侧菜单最前端插入"取消无痕"项。
+        // 原始下标用哨兵 999，不与 0~13（常规项）及 allMenus.length（电子书项）冲突；
+        // 同时把哨兵插入 menuIndexMap 头部，使其余项的"显示下标→原始下标"映射整体后移一位仍正确。
+        if (com.bilibili.tv.ui.video.VideoDetailActivity.sNoHistoryPlayMode) {
+            filteredMenus.add(0, "取消无痕");
+            menuIndexMap.add(0, 999);
+        }
+
         this.c.b(filteredMenus, 0);
         this.c.setMenuIndexMap(menuIndexMap);
 

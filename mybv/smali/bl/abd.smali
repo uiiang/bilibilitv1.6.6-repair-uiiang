@@ -100,6 +100,8 @@
 
 .field private static danmaku_type:I
 
+.field private static defaultNoHistoryMode:I
+
 .field private static f:I
 
 .field private static g:I
@@ -163,14 +165,14 @@
     .line 17
     new-array v0, v2, [F
 
-    fill-array-data v0, :array_42
+    fill-array-data v0, :array_44
 
     sput-object v0, Lbl/abd;->a:[F
 
     .line 18
     new-array v0, v2, [F
 
-    fill-array-data v0, :array_56
+    fill-array-data v0, :array_58
 
     sput-object v0, Lbl/abd;->b:[F
 
@@ -182,7 +184,7 @@
 
     new-array v0, v0, [F
 
-    fill-array-data v0, :array_6a
+    fill-array-data v0, :array_6c
 
     sput-object v0, Lbl/abd;->speeds:[F
 
@@ -244,10 +246,13 @@
     .line 681
     sput v1, Lbl/abd;->renderViewType:I
 
+    .line 843
+    sput v1, Lbl/abd;->defaultNoHistoryMode:I
+
     return-void
 
     .line 17
-    :array_42
+    :array_44
     .array-data 4
         0x3f000000    # 0.5f
         0x3f19999a    # 0.6f
@@ -260,7 +265,7 @@
     .end array-data
 
     .line 18
-    :array_56
+    :array_58
     .array-data 4
         0x3e99999a    # 0.3f
         0x3ecccccd    # 0.4f
@@ -273,7 +278,7 @@
     .end array-data
 
     .line 30
-    :array_6a
+    :array_6c
     .array-data 4
         0x40000000    # 2.0f
         0x3fe00000    # 1.75f
@@ -2021,6 +2026,66 @@
     return v0
 .end method
 
+.method public static get_default_no_history(Landroid/content/Context;)Z
+    .locals 4
+
+    .prologue
+    const/4 v2, 0x0
+
+    const/4 v1, 0x1
+
+    .line 851
+    sget v0, Lbl/abd;->defaultNoHistoryMode:I
+
+    const/4 v3, -0x1
+
+    if-ne v0, v3, :cond_1a
+
+    .line 852
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    const-string v3, "default_no_history_mode"
+
+    invoke-interface {v0, v3, v2}, Landroid/content/SharedPreferences;->getBoolean(Ljava/lang/String;Z)Z
+
+    move-result v0
+
+    .line 853
+    if-eqz v0, :cond_1f
+
+    move v0, v1
+
+    :goto_18
+    sput v0, Lbl/abd;->defaultNoHistoryMode:I
+
+    .line 855
+    :cond_1a
+    sget v0, Lbl/abd;->defaultNoHistoryMode:I
+
+    if-ne v0, v1, :cond_21
+
+    :goto_1e
+    return v1
+
+    .line 853
+    :cond_1f
+    const/4 v0, 0x2
+
+    goto :goto_18
+
+    :cond_21
+    move v1, v2
+
+    .line 855
+    goto :goto_1e
+.end method
+
 .method public static get_filter_path(Landroid/content/Context;)Ljava/lang/String;
     .locals 3
 
@@ -3732,6 +3797,49 @@
 
     .line 140
     return-void
+.end method
+
+.method public static set_default_no_history(Landroid/content/Context;Z)V
+    .locals 2
+
+    .prologue
+    .line 846
+    invoke-static {p0}, Lbl/abd;->a(Landroid/content/Context;)Lbl/abd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbl/abd;->a()Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    const-string v1, "default_no_history_mode"
+
+    invoke-interface {v0, v1, p1}, Landroid/content/SharedPreferences$Editor;->putBoolean(Ljava/lang/String;Z)Landroid/content/SharedPreferences$Editor;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
+
+    .line 847
+    if-eqz p1, :cond_1b
+
+    const/4 v0, 0x1
+
+    :goto_18
+    sput v0, Lbl/abd;->defaultNoHistoryMode:I
+
+    .line 848
+    return-void
+
+    .line 847
+    :cond_1b
+    const/4 v0, 0x2
+
+    goto :goto_18
 .end method
 
 .method public static set_filter_path(Landroid/content/Context;Ljava/lang/String;)V

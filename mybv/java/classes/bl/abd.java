@@ -837,4 +837,21 @@ public class abd {
             e.printStackTrace();
         }
     }
+
+    // 默认播放模式：设置-个性化 页面的"默认模式 > 无痕模式"开关
+    // true=进入视频详情页时"无痕"复选框默认选中（即以无痕模式播放）
+    private static int defaultNoHistoryMode = -1;
+
+    public static void set_default_no_history(Context context, boolean z) {
+        a(context).a().edit().putBoolean("default_no_history_mode", z).apply();
+        defaultNoHistoryMode = z ? 1 : 2;
+    }
+
+    public static boolean get_default_no_history(Context context) {
+        if (defaultNoHistoryMode == -1) {
+            boolean z = a(context).a().getBoolean("default_no_history_mode", false);
+            defaultNoHistoryMode = z ? 1 : 2;
+        }
+        return defaultNoHistoryMode == 1;
+    }
 }

@@ -694,11 +694,33 @@ public class PlayerMenuRight extends aay<String> {
         a(false);
     }
 
+    /**
+     * 取消当前无痕播放模式。
+     * 1) 关闭全局无痕开关，使后续打开菜单不再显示"取消无痕"，且下次播放按正常模式构建参数；
+     * 2) 清除当前播放参数中的无痕标记，使本视频的进度上报与心跳包立即恢复正常。
+     * this.params 即播放器实时 PlayerParams 内的同一个 ResolveResourceParams 实例，
+     * 因此置 false 后 zn.a / zq.a / xj 等上报逻辑将不再被拦截。
+     */
+    private void cancelIncognitoMode() {
+        com.bilibili.tv.ui.video.VideoDetailActivity.sNoHistoryPlayMode = false;
+        if (this.params != null) {
+            this.params.mNoHistoryPlay = false;
+        }
+    }
+
     /* JADX INFO: Access modifiers changed from: protected */
     @Override // bl.aay
     public boolean a(int i, int i2, View view, ViewGroup viewGroup, String str) {
         int i3;
         e();
+
+        // 无痕模式：点击"取消无痕"→取消当前无痕模式并关闭菜单。
+        // 必须在 super.a() 之前拦截，避免基类把它当作普通项去打开二级菜单。
+        if (TextUtils.equals(str, "取消无痕")) {
+            cancelIncognitoMode();
+            a(false);
+            return true;
+        }
 
         // 关键修复: 电子书菜单项处理必须在super.a()之前,避免触发二级菜单
         // 统一委托 EbookMenuHelper 分发（章节列表/选择文件/整理书架/退出阅读/关闭书籍/关闭电子书/控制视频/控制电子书/电子书）
