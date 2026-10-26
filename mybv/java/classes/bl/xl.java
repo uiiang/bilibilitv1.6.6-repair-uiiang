@@ -695,9 +695,10 @@ public class xl extends xh implements aaw.a, View.OnFocusChangeListener {
         
         boolean hasChapters = viewPoints != null && viewPoints.length() > 0;
         
+        // 统一底部进度条：无论有没有截图/章节，一律使用 BottomShotMenu。
+        // 无截图 → videoListSection GONE；无章节 → chapterSection GONE（均在 BottomShotMenu.show 内部处理）。
         if (!hasVideoShot && !hasChapters) {
-            android.util.Log.i("ShotMenuBug", "showShotMenu: no videoShot and no chapters, returning false");
-            return false;
+            android.util.Log.i("ShotMenuBug", "showShotMenu: no videoShot and no chapters, showing plain seekbar only");
         }
         
         // 先隐藏普通进度条，避免覆盖截图进度条

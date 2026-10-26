@@ -219,9 +219,9 @@ public class BottomShotMenu extends FrameLayout {
         boolean hasVideoShot = shot != null && shot.getIndex() != null && !shot.getIndex().isEmpty();
         boolean hasChapters = chapters != null && chapters.length() > 0;
         
-        if (!hasVideoShot && !hasChapters) {
-            return;
-        }
+        // 统一底部进度条：无截图/无章节时不再整体隐藏，只隐藏对应区块，
+        // 保留 shot_seekbar + 标题 + 时间，作为「普通进度条」形态。
+        android.util.Log.i("BottomShotMenu", "[show] hasVideoShot=" + hasVideoShot + ", hasChapters=" + hasChapters);
         
         if (seekbarTitle != null && videoTitle != null) {
             seekbarTitle.setText(videoTitle);
@@ -463,6 +463,11 @@ public class BottomShotMenu extends FrameLayout {
     public void resetAutoHideTimer() {
         if (autoHideRunnable != null) {
             removeCallbacks(autoHideRunnable);
+            // 兼容「进度条常驻」设置（BiliFilter.progressbar_on）：开启时不自动隐藏。
+            // 统一到 BottomShotMenu 后，该设置原本由 xi.tt() 控制，需要在这里继续生效。
+            if (mybl.BiliFilter.progressbar_on) {
+                return;
+            }
             postDelayed(autoHideRunnable, AUTO_HIDE_DELAY);
         }
     }
