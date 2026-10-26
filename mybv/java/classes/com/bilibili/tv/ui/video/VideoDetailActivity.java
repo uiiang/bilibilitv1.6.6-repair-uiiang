@@ -7,6 +7,7 @@ import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.provider.SearchRecentSuggestions;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -88,8 +89,10 @@ import com.bilibili.tv.widget.ProgressPlayButton;
 import com.bilibili.tv.widget.ScalableImageView;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import kotlin.TypeCastException;
 import retrofit2.HttpException;
@@ -164,6 +167,31 @@ public final class VideoDetailActivity extends BaseActivity
     private DrawTextView noHistoryPlayBtn;
     private TextView historyBtnProgress;
     public static boolean sNoHistoryPlayMode = false;
+
+    /**
+     * 本次运行期内"用户已对该视频显式取消无痕"的 avid 集合。
+     * 作用域仅限当前视频（进程内有效，重启恢复默认），绝不回写设置中的「默认模式>无痕模式」。
+     */
+    private static final Set<Long> sNoHistoryCancelledAvids = new HashSet<Long>();
+
+    /** 记录：用户对该视频取消了无痕（只影响该视频，不动全局默认） */
+    public static synchronized void markNoHistoryCancelled(long avid) {
+        if (avid > 0) {
+            sNoHistoryCancelledAvids.add(Long.valueOf(avid));
+        }
+    }
+
+    /** 记录：用户对该视频重新勾选了无痕（回到"跟随默认"） */
+    public static synchronized void clearNoHistoryCancelled(long avid) {
+        if (avid > 0) {
+            sNoHistoryCancelledAvids.remove(Long.valueOf(avid));
+        }
+    }
+
+    /** 该视频是否被用户显式取消过无痕 */
+    public static synchronized boolean isNoHistoryCancelled(long avid) {
+        return avid > 0 && sNoHistoryCancelledAvids.contains(Long.valueOf(avid));
+    }
     private long s;
     private String mSeasonId;
     private String preloadCoverUrl;
@@ -211,6 +239,15 @@ public final class VideoDetailActivity extends BaseActivity
     private static final int G = 10066;
     private static final int H = G + 1;
     private static final int REQUEST_CODE_PLAY_VIDEO = 10068;
+
+    /**
+     * 播放页回传进度的保护窗口（毫秒）。
+     * 播放页 finish 回传的 last_progress 是播放器当前真实位置，是权威值；
+     * 后端 /x/player/wbi/v2 的 last_play_time 存在同步延迟（刚返回时可能还是上一次的旧值甚至 0），
+     * 因此在该窗口内不允许后端值覆盖播放器回传值（"已看完(-1)"除外）。
+     */
+    private static final long LOCAL_PROGRESS_PROTECT_MS = 15000L;
+    private long localProgressProtectedUntilMs = 0L;
 
     public TextView episodes_title;
     public RecyclerView episodes_video;
@@ -602,10 +639,27 @@ public final class VideoDetailActivity extends BaseActivity
         this.noHistoryPlayCheckBox = (CheckBox) d(R.id.video_no_history_play_checkbox);
         this.noHistoryPlayBtn = (DrawTextView) d(R.id.video_no_history_play_btn);
         if (this.noHistoryPlayCheckBox != null) {
-            // 默认模式：若全局设置开启"无痕模式"，则详情页无痕复选框默认选中
-            boolean defNoHistory = bl.abd.get_default_no_history(this);
+            // 默认值只在此处决定：设置里的「默认模式 > 无痕模式」；
+            // 但本次运行期内用户若对该视频显式取消过无痕，则不再默认勾选（取消只作用于当前视频，不回写设置）。
+            boolean globalDefault = bl.abd.get_default_no_history(this);
+            boolean cancelledForVideo = isNoHistoryCancelled(this.s);
+            boolean defNoHistory = globalDefault && !cancelledForVideo;
             this.noHistoryPlayCheckBox.setChecked(defNoHistory);
             sNoHistoryPlayMode = defNoHistory;
+            // 复选框是唯一权威：任何 setChecked 都同步到静态开关，
+            // 保证从详情页进入播放页时"只看复选框"，不再二次读取设置
+            this.noHistoryPlayCheckBox.setOnCheckedChangeListener(
+                    new android.widget.CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(android.widget.CompoundButton buttonView, boolean isChecked) {
+                    sNoHistoryPlayMode = isChecked;
+                }
+            });
+            android.util.Log.i("HistoryDebug", "[INIT_NO_HISTORY] globalDefault=" + globalDefault
+                    + ", cancelledForVideo=" + cancelledForVideo
+                    + ", checked=" + defNoHistory
+                    + ", sNoHistoryPlayMode=" + sNoHistoryPlayMode
+                    + ", avid=" + this.s);
         }
         if (this.noHistoryPlayBtnLayout != null) {
             // 焦点变化：先走通用焦点高亮(d)，再按"选中或获焦"规则刷新"无痕"文字
@@ -1594,7 +1648,15 @@ public final class VideoDetailActivity extends BaseActivity
                             // 播放页刚回传的有效进度不能被这个空值覆盖，否则详情页会显示 00:00。
                             // 只有当后端给出有效进度，或本地本来就没有有效进度时，才采纳后端值。
                             int totalDuration = getDurationForCid(biliVideoDetail, finalCid);
-                            if (lastPlayCid > 0 && lastPlayCid != finalCid) {
+                            // 播放页刚回传的进度处于保护窗口内：后端 last_play_time 存在同步延迟，
+                            // 可能是进入播放页前的旧值或 0，不得覆盖权威回传值；
+                            // 只有"已看完"(-1) 这种终态信息仍允许采纳。
+                            if (isLocalProgressProtected() && lastPlayTime != -1) {
+                                android.util.Log.i("HistoryDebug", "[FETCH_FORCE] stale backend ignored (protect "
+                                    + LOCAL_PROGRESS_PROTECT_MS + "ms), keep player progressSec="
+                                    + (biliVideoDetail.mHistory != null ? biliVideoDetail.mHistory.mProgress : -999)
+                                    + ", backendSec=" + lastPlayTime + ", backendCid=" + lastPlayCid);
+                            } else if (lastPlayCid > 0 && lastPlayCid != finalCid) {
                                 // 自动连播/跳集场景：账号级 last_play_cid 已变为下一个视频(B)，
                                 // 不等于本详情页视频(A)。此时既不能采纳 B 的进度，也不该停在 A 的旧值，
                                 // 必须按 A 的 cid 回查后端(/x/v2/view 的 data.history)——
@@ -1936,6 +1998,16 @@ public final class VideoDetailActivity extends BaseActivity
                         boolean newState = !noHistoryPlayCheckBox.isChecked();
                         noHistoryPlayCheckBox.setChecked(newState);
                         sNoHistoryPlayMode = newState;
+                        // 取消/恢复无痕只作用于"当前这一个视频"：记在进程内集合里，
+                        // 不回写设置中的默认模式；同一视频再次进入详情页时按此恢复选择。
+                        if (newState) {
+                            clearNoHistoryCancelled(VideoDetailActivity.this.s);
+                        } else {
+                            markNoHistoryCancelled(VideoDetailActivity.this.s);
+                        }
+                        android.util.Log.i("HistoryDebug", "[NO_HISTORY_TOGGLE] checked=" + newState
+                                + ", avid=" + VideoDetailActivity.this.s
+                                + ", globalDefault=" + bl.abd.get_default_no_history(VideoDetailActivity.this));
                     }
                     refreshNoHistoryLabel();
                 }
@@ -2312,14 +2384,23 @@ public final class VideoDetailActivity extends BaseActivity
                     if (data.containsKey("history")) {
                         com.alibaba.fastjson.JSONObject historyObj = data.getJSONObject("history");
                         if (historyObj != null) {
-                            BiliVideoDetail.History history = new BiliVideoDetail.History();
-                            history.mCid = historyObj.getLongValue("cid");
-                            history.mProgress = normalizeFinishedProgress(history.mCid,
-                                historyObj.getIntValue("progress"),
-                                getDurationForCid(biliVideoDetail, history.mCid));
-                            biliVideoDetail.mHistory = history;
-                            android.util.Log.i("HistoryDebug", "[FETCH_FALLBACK] history cid=" + history.mCid
-                                + ", progressSec=" + history.mProgress);
+                            int rawProgress = historyObj.getIntValue("progress");
+                            // 与 /x/player/wbi/v2 同理：保护窗口内不采纳后端陈旧进度（-1=已看完 除外）
+                            if (isLocalProgressProtected() && rawProgress != -1) {
+                                android.util.Log.i("HistoryDebug", "[FETCH_FALLBACK] stale backend ignored "
+                                    + "(protect), keep player progressSec="
+                                    + (biliVideoDetail.mHistory != null ? biliVideoDetail.mHistory.mProgress : -999)
+                                    + ", backendSec=" + rawProgress);
+                            } else {
+                                BiliVideoDetail.History history = new BiliVideoDetail.History();
+                                history.mCid = historyObj.getLongValue("cid");
+                                history.mProgress = normalizeFinishedProgress(history.mCid,
+                                    rawProgress,
+                                    getDurationForCid(biliVideoDetail, history.mCid));
+                                biliVideoDetail.mHistory = history;
+                                android.util.Log.i("HistoryDebug", "[FETCH_FALLBACK] history cid=" + history.mCid
+                                    + ", progressSec=" + history.mProgress);
+                            }
                         }
                     }
                 }
@@ -2615,7 +2696,13 @@ public final class VideoDetailActivity extends BaseActivity
         if (biliVideoDetail == null) {
             return;
         }
-        android.util.Log.i("HistoryDebug", "[CLICK_PLAY] clickCid=" + cid + ", clickProgressSec=" + progress);
+        // 进入播放页前以详情页"无痕"复选框为唯一权威（不读设置里的默认模式）：
+        // 已取消无痕 + 有进度 => 一律按有痕播放，进度才能正常回传与更新。
+        if (this.noHistoryPlayCheckBox != null) {
+            sNoHistoryPlayMode = this.noHistoryPlayCheckBox.isChecked();
+        }
+        android.util.Log.i("HistoryDebug", "[CLICK_PLAY] clickCid=" + cid + ", clickProgressSec=" + progress
+                + ", noHistory=" + sNoHistoryPlayMode);
         BiliVideoDetail.Page targetPage = null;
         if (cid > 0 && biliVideoDetail.mPageList != null) {
             for (BiliVideoDetail.Page page : biliVideoDetail.mPageList) {
@@ -3909,63 +3996,124 @@ public final class VideoDetailActivity extends BaseActivity
         if (i3 == -1 && (i2 == G || i2 == H)) {
             n();
         }
-        if (i3 == -1 && i2 == REQUEST_CODE_PLAY_VIDEO) {
-            long lastCid = intent != null ? intent.getLongExtra("last_cid", 0) : 0;
-            int lastProgress = intent != null ? intent.getIntExtra("last_progress", 0) : 0;
-            android.util.Log.i("HistoryDebug", "[ON_RESULT] requestCode=" + i2 + ", resultCode=" + i3
-                + ", lastCid=" + lastCid + ", lastProgressMs=" + lastProgress
-                + ", progressSec=" + (lastProgress / 1000)
-                + ", sNoHistoryPlayMode=" + sNoHistoryPlayMode);
-            if (this.u != null && lastCid > 0) {
-                android.util.Log.i("HistoryDebug", "[ON_RESULT] ownCid=" + this.u.mCid
-                    + ", localProgressSec=" + (this.u.mHistory != null ? this.u.mHistory.mProgress : -999)
-                    + ", lastCid(fromPlayer)=" + lastCid);
-                // 只有回传的是本详情页自身视频的进度，才覆盖到 mHistory。
-                // 否则（如播放中跳转到其他视频 B 后返回）会把 B 的进度错误套到 A 的播放按钮上。
-                boolean isOwnVideo = (lastCid == this.u.mCid);
-                if (isOwnVideo) {
-                    if (this.u.mHistory == null) {
-                        this.u.mHistory = new BiliVideoDetail.History();
-                    }
-                    this.u.mHistory.mCid = lastCid;
-                    this.u.mHistory.mProgress = lastProgress/1000;
-                    android.util.Log.i("HistoryDebug", "[ON_RESULT] apply local history: cid=" + lastCid
-                        + ", progressSec=" + (lastProgress / 1000));
-                } else {
-                    android.util.Log.i("HistoryDebug", "[ON_RESULT] ignore foreign video progress: lastCid="
-                        + lastCid + " != ownCid=" + this.u.mCid + ", keep own history");
-                }
-                updateHistoryDisplay(this.u);
-                // 混合方案：先用播放页回传值即时更新，再强制从后端拉取校准（以后端为准覆盖）
-                final BiliVideoDetail detail = this.u;
-                requestHistoryForUgc(detail, new Runnable() {
-                    @Override
-                    public void run() {
-                        if (VideoDetailActivity.this.isFinishing()) {
-                            return;
-                        }
-                        updateHistoryDisplay(detail);
-                    }
-                }, true);
-            } else if (this.u != null && !sNoHistoryPlayMode) {
-                // 取消无痕后从播放器返回：即便播放器未回传进度（如进程被系统回收、intent 为空），
-                // 也按"正常播放模式"刷新控制区——隐藏"无痕"复选、显示"开始播放"进度与"重播"按钮；
-                // 并强制从后端拉取历史做校准（取消无痕后后端已记录播放进度）。
-                android.util.Log.i("HistoryDebug", "[ON_RESULT] incognito cancelled, force normal-mode refresh");
-                updateHistoryDisplay(this.u);
-                final BiliVideoDetail detail = this.u;
-                requestHistoryForUgc(detail, new Runnable() {
-                    @Override
-                    public void run() {
-                        if (VideoDetailActivity.this.isFinishing()) {
-                            return;
-                        }
-                        updateHistoryDisplay(detail);
-                    }
-                }, true);
-            }
+        if (i2 == REQUEST_CODE_PLAY_VIDEO) {
+            onPlayerReturned(i3, intent);
         }
         super.onActivityResult(i2, i3, intent);
+    }
+
+    /**
+     * 播放页返回后的统一处理入口（正常播放 / 无痕播放后取消无痕 共用同一条路径）。
+     *
+     * 判定不再依赖 this.u.mCid：
+     * UGC 详情页的 BiliVideoDetail.mCid 没有 @JSONField("cid") 注解，解析 /x/web-interface/view 时
+     * 不会被填充（恒为 0），用它做 "lastCid == this.u.mCid" 判定会把播放器回传的权威进度当外片丢弃，
+     * 导致只能吃后端带延迟的 last_play_time，进度停在旧值。这里改为比对"本页全部 cid"。
+     *
+     * @param resultCode 播放器 finish 时的 resultCode（无痕播放不回传，为 RESULT_CANCELED）
+     * @param intent     携带 last_progress(ms) 与 last_cid
+     */
+    private final void onPlayerReturned(int resultCode, Intent intent) {
+        if (this.u == null) {
+            return;
+        }
+        long lastCid = intent != null ? intent.getLongExtra("last_cid", 0) : 0;
+        int lastProgressMs = intent != null ? intent.getIntExtra("last_progress", 0) : 0;
+        // 播放页只有在 mNoHistoryPlay==false（非无痕）时才会 setResult 回传 last_cid，
+        // 因此"收到回传"本身就证明本次播放是非无痕：把详情页开关与复选框同步过来，
+        // 避免"播放页已取消无痕、详情页复选框仍勾选"的状态不一致
+        // （不一致时再点播放，initDefaultPlayButtons 的点击逻辑会从复选框读回 true，重新变回无痕）。
+        if (lastCid > 0) {
+            sNoHistoryPlayMode = false;
+            if (this.noHistoryPlayCheckBox != null && this.noHistoryPlayCheckBox.isChecked()) {
+                this.noHistoryPlayCheckBox.setChecked(false);
+            }
+            refreshNoHistoryLabel();
+        }
+        boolean ownVideo = lastCid > 0 && lastProgressMs > 0 && isCidOfCurrentDetail(this.u, lastCid);
+        android.util.Log.i("HistoryDebug", "[ON_RESULT] resultCode=" + resultCode
+                + ", lastCid=" + lastCid + ", lastProgressSec=" + (lastProgressMs / 1000)
+                + ", ownVideo=" + ownVideo
+                + ", localProgressSec=" + (this.u.mHistory != null ? this.u.mHistory.mProgress : -999)
+                + ", sNoHistoryPlayMode=" + sNoHistoryPlayMode);
+
+        if (ownVideo) {
+            // 场景 1（正常播放）与场景 3（无痕播放后取消无痕）在此合流：
+            // 播放页 finish 时 mNoHistoryPlay 已为 false 才回传，回传值即播放器当前真实位置。
+            if (this.u.mHistory == null) {
+                this.u.mHistory = new BiliVideoDetail.History();
+            }
+            this.u.mHistory.mCid = lastCid;
+            this.u.mHistory.mProgress = lastProgressMs / 1000;
+            // 开启保护窗口：随后触发的后端校准不得用陈旧 last_play_time 覆盖该值
+            localProgressProtectedUntilMs = SystemClock.elapsedRealtime() + LOCAL_PROGRESS_PROTECT_MS;
+            android.util.Log.i("HistoryDebug", "[ON_RESULT] apply player progress: cid=" + lastCid
+                    + ", progressSec=" + (lastProgressMs / 1000)
+                    + ", protectMs=" + LOCAL_PROGRESS_PROTECT_MS);
+            updateHistoryDisplay(this.u);
+            requestHistoryForUgc(this.u, new Runnable() {
+                @Override
+                public void run() {
+                    if (VideoDetailActivity.this.isFinishing()) {
+                        return;
+                    }
+                    updateHistoryDisplay(VideoDetailActivity.this.u);
+                }
+            }, true);
+            return;
+        }
+
+        if (!sNoHistoryPlayMode) {
+            // 非无痕却没拿到回传（播放位置为 0 / 进程被回收 / 后端未回写）：
+            // 走同一套 UI 刷新 + 后端校准，不做第二套进度计算。
+            android.util.Log.i("HistoryDebug", "[ON_RESULT] no player progress, fallback refresh (normal mode)");
+            updateHistoryDisplay(this.u);
+            requestHistoryForUgc(this.u, new Runnable() {
+                @Override
+                public void run() {
+                    if (VideoDetailActivity.this.isFinishing()) {
+                        return;
+                    }
+                    updateHistoryDisplay(VideoDetailActivity.this.u);
+                }
+            }, true);
+            return;
+        }
+        // 仍处于无痕模式：播放页本就不回传、后端也未写入，保持详情页原 UI 不动
+        android.util.Log.i("HistoryDebug", "[ON_RESULT] incognito mode, keep detail UI unchanged");
+    }
+
+    /**
+     * 判断播放器回传的 cid 是否属于当前详情页。
+     * 依次比对：顶层 mCid（PGC 有值、UGC 为 0）、当前历史 cid、来源分P、分P列表。
+     */
+    private final boolean isCidOfCurrentDetail(BiliVideoDetail detail, long cid) {
+        if (detail == null || cid <= 0) {
+            return false;
+        }
+        if (detail.mCid == cid) {
+            return true;
+        }
+        if (detail.mHistory != null && detail.mHistory.mCid == cid) {
+            return true;
+        }
+        if (detail.sourcePage != null && detail.sourcePage.mCid == cid) {
+            return true;
+        }
+        if (detail.mPageList != null) {
+            for (BiliVideoDetail.Page page : detail.mPageList) {
+                if (page != null && page.mCid == cid) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /** 播放页回传的进度是否仍处于保护窗口内 */
+    private final boolean isLocalProgressProtected() {
+        return localProgressProtectedUntilMs > 0L
+                && SystemClock.elapsedRealtime() < localProgressProtectedUntilMs;
     }
 
     /* JADX INFO: Access modifiers changed from: private */

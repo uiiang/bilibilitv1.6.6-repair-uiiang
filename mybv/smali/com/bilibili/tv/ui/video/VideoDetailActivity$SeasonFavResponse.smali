@@ -34,15 +34,15 @@
     .locals 0
 
     .prologue
-    .line 2035
+    .line 2107
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-direct {p0}, Lbl/vn;-><init>()V
 
-    .line 2036
+    .line 2108
     iput-boolean p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->subscribe:Z
 
-    .line 2037
+    .line 2109
     return-void
 .end method
 
@@ -52,7 +52,7 @@
     .locals 0
 
     .prologue
-    .line 2032
+    .line 2104
     check-cast p1, Ljava/lang/String;
 
     invoke-virtual {p0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->a(Ljava/lang/String;)V
@@ -64,42 +64,42 @@
     .locals 2
 
     .prologue
-    .line 2041
+    .line 2113
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     iget-boolean v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->subscribe:Z
 
     # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isSeasonFav:Z
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3302(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Z)Z
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3402(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Z)Z
 
-    .line 2042
+    .line 2114
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateSubscribeButtonUI()V
-    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2900(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
+    invoke-static {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3000(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
 
-    .line 2043
+    .line 2115
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->getApplicationContext()Landroid/content/Context;
 
     move-result-object v1
 
-    .line 2044
+    .line 2116
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->subscribe:Z
 
     if-eqz v0, :cond_1c
 
     const-string v0, "\u8ba2\u9605\u5408\u96c6\u6210\u529f"
 
-    .line 2043
+    .line 2115
     :goto_18
     invoke-static {v1, v0}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 2045
+    .line 2117
     return-void
 
-    .line 2044
+    .line 2116
     :cond_1c
     const-string v0, "\u5df2\u53d6\u6d88\u8ba2\u9605\u5408\u96c6"
 
@@ -110,7 +110,7 @@
     .locals 1
 
     .prologue
-    .line 2056
+    .line 2128
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isFinishing()Z
@@ -124,33 +124,33 @@
     .locals 2
 
     .prologue
-    .line 2049
+    .line 2121
     const-string v0, "t"
 
     invoke-static {p1, v0}, Lbl/bbi;->b(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 2050
+    .line 2122
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->getApplicationContext()Landroid/content/Context;
 
     move-result-object v1
 
-    .line 2051
+    .line 2123
     iget-boolean v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$SeasonFavResponse;->subscribe:Z
 
     if-eqz v0, :cond_15
 
     const-string v0, "\u8ba2\u9605\u5408\u96c6\u5931\u8d25"
 
-    .line 2050
+    .line 2122
     :goto_11
     invoke-static {v1, v0}, Lbl/lr;->b(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 2052
+    .line 2124
     return-void
 
-    .line 2051
+    .line 2123
     :cond_15
     const-string v0, "\u53d6\u6d88\u8ba2\u9605\u5931\u8d25"
 

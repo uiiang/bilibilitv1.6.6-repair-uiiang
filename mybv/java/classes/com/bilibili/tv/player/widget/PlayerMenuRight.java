@@ -705,7 +705,15 @@ public class PlayerMenuRight extends aay<String> {
         com.bilibili.tv.ui.video.VideoDetailActivity.sNoHistoryPlayMode = false;
         if (this.params != null) {
             this.params.mNoHistoryPlay = false;
+            // 只作用于"当前这一个视频"：记入进程内集合，不改设置里的默认模式。
+            // 这样同一视频再进详情页时保持非无痕，而其它视频仍按设置默认。
+            com.bilibili.tv.ui.video.VideoDetailActivity.markNoHistoryCancelled(this.params.mAvid);
         }
+        android.util.Log.i("HistoryDebug", "[CANCEL_INCOGNITO] sNoHistoryPlayMode=false, paramsBound="
+                + (this.params != null)
+                + (this.params != null ? (", params.mNoHistoryPlay=" + this.params.mNoHistoryPlay
+                + ", cid=" + this.params.mCid + ", avid=" + this.params.mAvid) : "")
+                + ", globalDefaultUnchanged=" + bl.abd.get_default_no_history(getContext()));
     }
 
     /* JADX INFO: Access modifiers changed from: protected */

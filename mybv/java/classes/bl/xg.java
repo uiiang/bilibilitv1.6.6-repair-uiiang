@@ -608,6 +608,12 @@ public class xg {
             playerParams.mVideoParams.mResolveParamsArray[0] = playerParams.mVideoParams.obtainResolveParams();
         }
         playerParams.mVideoParams.mResolveParamsArray[0].mNoHistoryPlay = VideoDetailActivity.sNoHistoryPlayMode;
+        ResolveResourceParams liveParams = playerParams.mVideoParams.obtainResolveParams();
+        Log.i("HistoryDebug", "[PLAY_START] sNoHistoryPlayMode=" + VideoDetailActivity.sNoHistoryPlayMode
+                + ", arrayParams.mNoHistoryPlay=" + playerParams.mVideoParams.mResolveParamsArray[0].mNoHistoryPlay
+                + ", liveParams.mNoHistoryPlay=" + liveParams.mNoHistoryPlay
+                + ", sameInstance=" + (playerParams.mVideoParams.mResolveParamsArray[0] == liveParams)
+                + ", cid=" + liveParams.mCid);
         Log.d("UI_TRANSITION", "[8_BEFORE_INTENT] creating PlayerActivity intent, elapsed=" + (System.currentTimeMillis() - startTime) + "ms");
         Intent intent = PlayerActivity.a(activity, playerParams);
         Log.d("UI_TRANSITION", "[9_AFTER_INTENT] intent created, elapsed=" + (System.currentTimeMillis() - startTime) + "ms");

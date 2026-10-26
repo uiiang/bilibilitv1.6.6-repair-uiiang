@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->onActivityResult(IILandroid/content/Intent;)V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->onPlayerReturned(ILandroid/content/Intent;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,23 +20,14 @@
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-.field final synthetic val$detail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
-
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
     .locals 0
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "()V"
-        }
-    .end annotation
 
     .prologue
-    .line 3957
+    .line 4054
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$37;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$37;->val$detail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -49,7 +40,7 @@
     .locals 2
 
     .prologue
-    .line 3960
+    .line 4057
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$37;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
     invoke-virtual {v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isFinishing()Z
@@ -58,18 +49,23 @@
 
     if-eqz v0, :cond_9
 
-    .line 3964
+    .line 4061
     :goto_8
     return-void
 
-    .line 3963
+    .line 4060
     :cond_9
     iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$37;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$37;->val$detail:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$37;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    # getter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->u:Lcom/bilibili/tv/api/video/BiliVideoDetail;
+    invoke-static {v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$1700(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)Lcom/bilibili/tv/api/video/BiliVideoDetail;
+
+    move-result-object v1
 
     # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->updateHistoryDisplay(Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
-    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3400(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
+    invoke-static {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$3500(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/BiliVideoDetail;)V
 
     goto :goto_8
 .end method

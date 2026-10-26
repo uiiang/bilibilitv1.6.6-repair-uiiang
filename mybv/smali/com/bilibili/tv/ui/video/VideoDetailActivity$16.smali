@@ -3,12 +3,12 @@
 .source "VideoDetailActivity.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcLoadCallback;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->loadPgcSeasonInfo(Ljava/lang/String;Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcLoadCallback;)V
+    value = Lcom/bilibili/tv/ui/video/VideoDetailActivity;->loadPgcBySeasonId()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,31 +20,14 @@
 # instance fields
 .field final synthetic this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-.field final synthetic val$accessKey:Ljava/lang/String;
-
-.field final synthetic val$callback:Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcLoadCallback;
-
-.field final synthetic val$seasonId:Ljava/lang/String;
-
 
 # direct methods
-.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Ljava/lang/String;Ljava/lang/String;Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcLoadCallback;)V
+.method constructor <init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity;)V
     .locals 0
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "()V"
-        }
-    .end annotation
 
     .prologue
-    .line 1721
+    .line 1720
     iput-object p1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
-
-    iput-object p2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->val$accessKey:Ljava/lang/String;
-
-    iput-object p3, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->val$seasonId:Ljava/lang/String;
-
-    iput-object p4, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->val$callback:Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcLoadCallback;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -53,286 +36,112 @@
 
 
 # virtual methods
-.method public run()V
+.method public onError(Ljava/lang/String;)V
+    .locals 2
+
+    .prologue
+    .line 1761
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    new-instance v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16$3;
+
+    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16$3;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;)V
+
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->runOnUiThread(Ljava/lang/Runnable;)V
+
+    .line 1771
+    return-void
+.end method
+
+.method public onSuccess(Lcom/bilibili/tv/api/video/PgcInfo;)V
     .locals 4
 
     .prologue
+    const/4 v0, 0x1
+
+    .line 1724
+    if-eqz p1, :cond_f
+
+    iget-object v1, p1, Lcom/bilibili/tv/api/video/PgcInfo;->episodes:Ljava/util/List;
+
+    if-eqz v1, :cond_f
+
+    iget-object v1, p1, Lcom/bilibili/tv/api/video/PgcInfo;->episodes:Ljava/util/List;
+
+    invoke-interface {v1}, Ljava/util/List;->isEmpty()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_1a
+
     .line 1725
-    :try_start_0
-    new-instance v0, Ljava/util/HashMap;
+    :cond_f
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    invoke-direct {v0}, Ljava/util/HashMap;-><init>()V
+    new-instance v1, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16$1;
 
-    .line 1726
-    const-string v1, "access_key"
+    invoke-direct {v1, p0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16$1;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;)V
 
-    iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->val$accessKey:Ljava/lang/String;
+    invoke-virtual {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->runOnUiThread(Ljava/lang/Runnable;)V
 
-    invoke-interface {v0, v1, v2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    .line 1757
+    :goto_19
+    return-void
 
-    .line 1727
-    const-string v1, "season_id"
+    .line 1737
+    :cond_1a
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    iget-object v2, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->val$seasonId:Ljava/lang/String;
-
-    invoke-interface {v0, v1, v2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-
-    .line 1728
-    const-string v1, "season_type"
-
-    const-string v2, "1"
-
-    invoke-interface {v0, v1, v2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-
-    .line 1729
-    const-string v1, "track_path"
-
-    const-string v2, "0"
-
-    invoke-interface {v0, v1, v2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-
-    .line 1730
-    const-string v1, "platform"
-
-    const-string v2, "android"
-
-    invoke-interface {v0, v1, v2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-
-    .line 1731
-    const-string v1, "mobi_app"
-
-    invoke-static {}, Lcom/bilibili/api/BiliConfig;->e()Ljava/lang/String;
-
-    move-result-object v2
-
-    invoke-interface {v0, v1, v2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-
-    .line 1732
-    const-string v1, "appkey"
-
-    invoke-static {}, Lcom/bilibili/api/BiliConfig;->a()Ljava/lang/String;
-
-    move-result-object v2
-
-    invoke-interface {v0, v1, v2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-
-    .line 1733
-    const-string v1, "build"
-
-    invoke-static {}, Lcom/bilibili/api/BiliConfig;->c()I
-
-    move-result v2
-
-    invoke-static {v2}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
-
-    move-result-object v2
-
-    invoke-interface {v0, v1, v2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-
-    .line 1735
-    invoke-static {v0}, Lcom/bilibili/nativelibrary/LibBili;->a(Ljava/util/Map;)Lcom/bilibili/nativelibrary/SignedQuery;
-
-    move-result-object v0
-
-    .line 1736
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "http://api.bilibili.com/pgc/view/app/season?"
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v0}, Lcom/bilibili/nativelibrary/SignedQuery;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
+    # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->mPgcInfo:Lcom/bilibili/tv/api/video/PgcInfo;
+    invoke-static {v1, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2402(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/PgcInfo;)Lcom/bilibili/tv/api/video/PgcInfo;
 
     .line 1738
-    const-class v0, Lmybl/MyBiliApiService;
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    invoke-static {v0}, Lbl/vo;->a(Ljava/lang/Class;)Ljava/lang/Object;
+    iget-object v2, p1, Lcom/bilibili/tv/api/video/PgcInfo;->userStatus:Lcom/bilibili/tv/api/video/PgcInfo$UserStatus;
 
-    move-result-object v0
+    if-eqz v2, :cond_46
 
-    check-cast v0, Lmybl/MyBiliApiService;
+    iget-object v2, p1, Lcom/bilibili/tv/api/video/PgcInfo;->userStatus:Lcom/bilibili/tv/api/video/PgcInfo$UserStatus;
 
-    invoke-interface {v0, v1}, Lmybl/MyBiliApiService;->getPgcSeasonInfo(Ljava/lang/String;)Lretrofit2/Call;
+    iget v2, v2, Lcom/bilibili/tv/api/video/PgcInfo$UserStatus;->follow:I
 
-    move-result-object v0
+    if-ne v2, v0, :cond_46
+
+    :goto_2b
+    # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->isPgcFollowed:Z
+    invoke-static {v1, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2502(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Z)Z
 
     .line 1739
-    invoke-interface {v0}, Lretrofit2/Call;->execute()Lretrofit2/Response;
+    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
+
+    # invokes: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->convertPgcToBiliVideoDetail(Lcom/bilibili/tv/api/video/PgcInfo;)Lcom/bilibili/tv/api/video/BiliVideoDetail;
+    invoke-static {v0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2600(Lcom/bilibili/tv/ui/video/VideoDetailActivity;Lcom/bilibili/tv/api/video/PgcInfo;)Lcom/bilibili/tv/api/video/BiliVideoDetail;
 
     move-result-object v0
 
     .line 1741
-    invoke-virtual {v0}, Lretrofit2/Response;->isSuccessful()Z
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    move-result v1
+    iget-wide v2, v0, Lcom/bilibili/tv/api/video/BiliVideoDetail;->mAvid:J
 
-    if-nez v1, :cond_95
+    # setter for: Lcom/bilibili/tv/ui/video/VideoDetailActivity;->s:J
+    invoke-static {v1, v2, v3}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->access$2702(Lcom/bilibili/tv/ui/video/VideoDetailActivity;J)J
 
     .line 1742
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->val$callback:Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcLoadCallback;
+    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->this$0:Lcom/bilibili/tv/ui/video/VideoDetailActivity;
 
-    new-instance v2, Ljava/lang/StringBuilder;
+    new-instance v2, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16$2;
 
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v2, p0, v0, p1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16$2;-><init>(Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;Lcom/bilibili/tv/api/video/BiliVideoDetail;Lcom/bilibili/tv/api/video/PgcInfo;)V
 
-    const-string v3, "HTTP error: "
+    invoke-virtual {v1, v2}, Lcom/bilibili/tv/ui/video/VideoDetailActivity;->runOnUiThread(Ljava/lang/Runnable;)V
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    goto :goto_19
 
-    move-result-object v2
+    .line 1738
+    :cond_46
+    const/4 v0, 0x0
 
-    invoke-virtual {v0}, Lretrofit2/Response;->code()I
-
-    move-result v0
-
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-interface {v1, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcLoadCallback;->onError(Ljava/lang/String;)V
-
-    .line 1770
-    :goto_94
-    return-void
-
-    .line 1746
-    :cond_95
-    invoke-virtual {v0}, Lretrofit2/Response;->body()Ljava/lang/Object;
-
-    move-result-object v0
-
-    check-cast v0, Lcom/alibaba/fastjson/JSONObject;
-
-    .line 1747
-    if-nez v0, :cond_b0
-
-    .line 1748
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->val$callback:Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcLoadCallback;
-
-    const-string v1, "Response body is null"
-
-    invoke-interface {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcLoadCallback;->onError(Ljava/lang/String;)V
-    :try_end_a4
-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_a4} :catch_a5
-
-    goto :goto_94
-
-    .line 1767
-    :catch_a5
-    move-exception v0
-
-    .line 1768
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->val$callback:Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcLoadCallback;
-
-    invoke-virtual {v0}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-interface {v1, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcLoadCallback;->onError(Ljava/lang/String;)V
-
-    goto :goto_94
-
-    .line 1752
-    :cond_b0
-    :try_start_b0
-    const-string v1, "code"
-
-    invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getIntValue(Ljava/lang/String;)I
-
-    move-result v1
-
-    .line 1753
-    if-eqz v1, :cond_d7
-
-    .line 1754
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->val$callback:Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcLoadCallback;
-
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "API error: "
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    const-string v3, "message"
-
-    invoke-virtual {v0, v3}, Lcom/alibaba/fastjson/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-interface {v1, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcLoadCallback;->onError(Ljava/lang/String;)V
-
-    goto :goto_94
-
-    .line 1758
-    :cond_d7
-    const-string v1, "result"
-
-    invoke-virtual {v0, v1}, Lcom/alibaba/fastjson/JSONObject;->getJSONObject(Ljava/lang/String;)Lcom/alibaba/fastjson/JSONObject;
-
-    move-result-object v0
-
-    .line 1759
-    if-nez v0, :cond_e7
-
-    .line 1760
-    iget-object v0, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->val$callback:Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcLoadCallback;
-
-    const-string v1, "Result is null"
-
-    invoke-interface {v0, v1}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcLoadCallback;->onError(Ljava/lang/String;)V
-
-    goto :goto_94
-
-    .line 1764
-    :cond_e7
-    invoke-virtual {v0}, Lcom/alibaba/fastjson/JSONObject;->toJSONString()Ljava/lang/String;
-
-    move-result-object v0
-
-    const-class v1, Lcom/bilibili/tv/api/video/PgcInfo;
-
-    invoke-static {v0, v1}, Lcom/alibaba/fastjson/JSON;->parseObject(Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/Object;
-
-    move-result-object v0
-
-    check-cast v0, Lcom/bilibili/tv/api/video/PgcInfo;
-
-    .line 1765
-    iget-object v1, p0, Lcom/bilibili/tv/ui/video/VideoDetailActivity$16;->val$callback:Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcLoadCallback;
-
-    invoke-interface {v1, v0}, Lcom/bilibili/tv/ui/video/VideoDetailActivity$PgcLoadCallback;->onSuccess(Lcom/bilibili/tv/api/video/PgcInfo;)V
-    :try_end_f8
-    .catch Ljava/lang/Exception; {:try_start_b0 .. :try_end_f8} :catch_a5
-
-    goto :goto_94
+    goto :goto_2b
 .end method
